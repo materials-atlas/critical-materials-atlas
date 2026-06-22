@@ -1,1 +1,42 @@
-<!doctype html><html><head><meta charset='utf-8'><title>EU rare-earth magnet dependence</title><style>body{font-family:-apple-system,Segoe UI,Arial,sans-serif;max-width:980px;margin:40px auto;color:#222;line-height:1.5;padding:0 16px}h1{font-size:26px}h2{font-size:19px;margin-top:34px;border-bottom:2px solid #b22222;padding-bottom:4px}.kpi{display:inline-block;background:#faf3f3;border:1px solid #e3c9c9;border-radius:8px;padding:14px 20px;margin:6px 10px 6px 0}.kpi b{font-size:28px;color:#b22222;display:block}.kpi span{font-size:13px;color:#666}img{max-width:100%;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid #ddd;padding:6px 10px}th{text-align:left;background:#f6f6f6}.note{background:#f7f7f7;border-left:4px solid #999;padding:12px 16px;font-size:14px;color:#444;margin-top:14px}footer{margin-top:40px;font-size:12px;color:#888}</style></head><body><h1>Who does the EU really depend on for rare-earth magnets?</h1><p>Extra-EU imports of rare-earth permanent magnets (CN 8505 11 10), 2023–2024. Public Eurostat Comext data.</p><div class='kpi'><b>92.16%</b><span>China share, by value (2024)</span></div><div class='kpi'><b>90.36%</b><span>China share, by tonnage</span></div><div class='kpi'><b>0.851</b><span>Supplier HHI (&gt;0.25 = highly concentrated)</span></div><div class='kpi'><b>€NA</b><span>Extra-EU imports, 2024</span></div><h2>The trap, and the truth</h2><p>Ranking EU <b>member states</b> by their magnet imports (left) spreads the picture across Germany, Poland, the Netherlands and others — and the Dutch figure is largely <b>Rotterdam quasi-transit</b>, goods cleared in NL but bound elsewhere, not Dutch demand. Stepping back to the EU as a single entity and ranking by <b>country of origin</b> (right) reveals the real dependency.</p><img src='headline.png'><h2>The dependence holds by value and by tonnage</h2><img src='value_vs_qty.png'><h2>Trend</h2><img src='trend.png'><h2>Top origins, 2024</h2><table><tr><th>Origin</th><th>Value (€)</th><th>Value share</th><th>Qty share</th></tr><tr><td>CN</td><td style='text-align:right'>NA</td><td style='text-align:right'>92.16%</td><td style='text-align:right'>90.36%</td></tr><tr><td>PH</td><td style='text-align:right'>101 904 052</td><td style='text-align:right'>2.85%</td><td style='text-align:right'>3.7%</td></tr><tr><td>VN</td><td style='text-align:right'>59 032 733</td><td style='text-align:right'>1.65%</td><td style='text-align:right'>1.2%</td></tr><tr><td>JP</td><td style='text-align:right'>33 473 649</td><td style='text-align:right'>0.94%</td><td style='text-align:right'>1.25%</td></tr><tr><td>GB</td><td style='text-align:right'>22 211 006</td><td style='text-align:right'>0.62%</td><td style='text-align:right'>1.39%</td></tr><tr><td>US</td><td style='text-align:right'>19 136 385</td><td style='text-align:right'>0.53%</td><td style='text-align:right'>0.14%</td></tr><tr><td>CH</td><td style='text-align:right'>14 187 463</td><td style='text-align:right'>0.4%</td><td style='text-align:right'>0.59%</td></tr><tr><td>MY</td><td style='text-align:right'>8 090 193</td><td style='text-align:right'>0.23%</td><td style='text-align:right'>0.09%</td></tr></table><div class='note'><b>Method.</b> Extra-EU imports only; for extra-EU imports the Comext partner field is the country of origin. Bloc/aggregate codes (EU, EA, EXT_*, INT_*, WORLD) are excluded so shares are not double-counted. CN 8505 11 10 (the rare-earth-specific line) exists from 2023. Note: magnets finished in third countries from Chinese material may understate true China dependence, so these figures are a floor.</div><footer>Generated from Eurostat Comext (DS-045409). Public data. Prepared as an independent analytical demonstration.</footer></body></html>
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>EU import dependency - rare-earth magnets (Comext)</title>
+<style>
+ body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:980px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
+ h1{font-size:1.5rem} h2{font-size:1.1rem;margin-top:2rem;border-top:1px solid #eee;padding-top:1rem}
+ .kpis{display:flex;gap:.75rem;flex-wrap:wrap;margin:1rem 0}
+ .kpi{flex:1;min-width:150px;border:1px solid #ddd;border-radius:8px;padding:.7rem;text-align:center}
+ .kpi .v{font-size:1.5rem;font-weight:700;color:firebrick} .kpi .l{font-size:.75rem;color:#555}
+ img{max-width:100%;height:auto;border:1px solid #eee;border-radius:6px}
+ table{border-collapse:collapse;width:100%;font-size:.9rem} th,td{padding:.35rem .6rem;border-bottom:1px solid #eee;text-align:left}
+ td.n,th.n{text-align:right} .note{font-size:.85rem;color:#555} footer{margin-top:2rem;font-size:.8rem;color:#777}
+</style></head><body>
+<h1>Who does the EU really depend on for rare-earth magnets?</h1>
+<p>Extra-EU imports of CN <b>8505 11 10</b> (rare-earth permanent magnets), corrected for the
+Rotterdam/Antwerp transit effect. The <b>naive</b> view ranks by importing member state and is
+distorted by goods cleared in NL/BE but bound elsewhere; the <b>corrected</b> view ranks by country
+of origin. Source: Eurostat Comext, public data. Latest year: 2024.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">92.7%</div><div class="l">China share (value)</div></div>
+ <div class="kpi"><div class="v">91.1%</div><div class="l">China share (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.86</div><div class="l">Concentration (HHI value)</div></div>
+ <div class="kpi"><div class="v">EUR 0.78B</div><div class="l">Total extra-EU imports</div></div>
+</div>
+<h2>Naive vs corrected</h2>
+<p class="note">The naive panel spreads dependence across member states; the corrected panel reveals a single origin.</p>
+<img src="headline.png" alt="Naive vs corrected">
+<h2>China share over time</h2><img src="trend.png" alt="Trend">
+<h2>Value vs tonnage by origin (2024)</h2><img src="value_vs_qty.png" alt="Value vs tonnage">
+<h2>Top origins, 2024</h2>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>727 661 958</td><td class='n'>18 246.4</td><td class='n'>92.7%</td><td class='n'>91.1%</td></tr>
+<tr><td>PH</td><td class='n'>20 596 736</td><td class='n'>681.0</td><td class='n'>2.6%</td><td class='n'>3.4%</td></tr>
+<tr><td>VN</td><td class='n'>11 867 653</td><td class='n'>221.4</td><td class='n'>1.5%</td><td class='n'>1.1%</td></tr>
+<tr><td>JP</td><td class='n'>6 968 642</td><td class='n'>229.7</td><td class='n'>0.9%</td><td class='n'>1.1%</td></tr>
+<tr><td>GB</td><td class='n'>4 658 800</td><td class='n'>256.1</td><td class='n'>0.6%</td><td class='n'>1.3%</td></tr>
+<tr><td>US</td><td class='n'>3 924 858</td><td class='n'>29.7</td><td class='n'>0.5%</td><td class='n'>0.1%</td></tr></tbody></table>
+<p class="note">Method: for extra-EU imports the Comext partner field is the country of origin. Bloc
+aggregates (EU, EA, EA21, EU27_2020, EXT_*, INT_*, WORLD, *_2020) are dropped on both reporter and
+partner, or origin totals double-count (~4.6x inflation while shares stay ~92%). CN 8505 11 10
+exists only from 2023.</p>
+<footer>Generated by build_static.R from public Eurostat Comext data. Independent demo - not affiliated with any institution.</footer>
+</body></html>
