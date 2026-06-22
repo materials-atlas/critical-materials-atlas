@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<title>EU import dependency - corrected for the Rotterdam effect (Comext)</title>
+<style>
+ body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
+ h1{font-size:1.6rem;margin-bottom:.2rem} .sub{color:#555;margin-top:0}
+ h2{font-size:1.15rem;margin-top:.4rem} section{border-top:2px solid #eee;padding-top:1.2rem;margin-top:2rem}
+ .kpis{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
+ .kpi{flex:1;min-width:130px;border:1px solid #ddd;border-radius:8px;padding:.6rem;text-align:center}
+ .kpi .v{font-size:1.4rem;font-weight:700;color:firebrick} .kpi .l{font-size:.72rem;color:#555}
+ img{max-width:100%;height:auto;border:1px solid #eee;border-radius:6px;margin:.3rem 0}
+ .two{display:flex;gap:.6rem;flex-wrap:wrap} .two img{flex:1;min-width:320px}
+ table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5rem 0} th,td{padding:.3rem .55rem;border-bottom:1px solid #eee;text-align:left}
+ td.n,th.n{text-align:right} .note{color:#444} .intro{background:#faf6f6;border-left:3px solid firebrick;padding:.7rem 1rem;border-radius:0 6px 6px 0}
+ footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
+</style></head><body>
+<h1>Who does the EU really depend on?</h1>
+<p class="sub">Extra-EU import dependency for critical products, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). The gap between the two panels below is the whole point.</p>
+<section><h2>Rare-earth permanent magnets (CN 8505 11 10)</h2>
+<p class="note">Near-total concentration: one origin at ~93% of value, HHI ~0.86. The next origins (Philippines, Vietnam, Japan) are each under 3%.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">92.7%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">91.1%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.86</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 784.8M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="magnets_headline.png" alt="naive vs corrected">
+<div class="two"><img src="magnets_trend.png" alt="trend"><img src="magnets_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>727 661 958</td><td class='n'>18 246.4</td><td class='n'>92.7%</td><td class='n'>91.1%</td></tr>
+<tr><td>PH</td><td class='n'>20 596 736</td><td class='n'>681.0</td><td class='n'>2.6%</td><td class='n'>3.4%</td></tr>
+<tr><td>VN</td><td class='n'>11 867 653</td><td class='n'>221.4</td><td class='n'>1.5%</td><td class='n'>1.1%</td></tr>
+<tr><td>JP</td><td class='n'>6 968 642</td><td class='n'>229.7</td><td class='n'>0.9%</td><td class='n'>1.1%</td></tr>
+<tr><td>GB</td><td class='n'>4 658 800</td><td class='n'>256.1</td><td class='n'>0.6%</td><td class='n'>1.3%</td></tr>
+<tr><td>US</td><td class='n'>3 924 858</td><td class='n'>29.7</td><td class='n'>0.5%</td><td class='n'>0.1%</td></tr></tbody></table></section>
+<section><h2>Germanium (CN 8112 92 95)</h2>
+<p class="note">The cleanest member-state trap: the naive view points at Belgium (Umicore's Antwerp refining hub - a processing/transit artefact), while the corrected view shows China at ~83%.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">83.4%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">89.2%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.71</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 29.3M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="germanium_headline.png" alt="naive vs corrected">
+<div class="two"><img src="germanium_trend.png" alt="trend"><img src="germanium_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>24 449 022</td><td class='n'>18.1</td><td class='n'>83.4%</td><td class='n'>89.2%</td></tr>
+<tr><td>US</td><td class='n'>3 521 164</td><td class='n'>1.3</td><td class='n'>12.0%</td><td class='n'>6.4%</td></tr>
+<tr><td>KR</td><td class='n'>1 089 363</td><td class='n'>0.8</td><td class='n'>3.7%</td><td class='n'>3.7%</td></tr>
+<tr><td>TW</td><td class='n'>122 370</td><td class='n'>0.0</td><td class='n'>0.4%</td><td class='n'>0.2%</td></tr>
+<tr><td>JP</td><td class='n'>55 289</td><td class='n'>0.0</td><td class='n'>0.2%</td><td class='n'>0.1%</td></tr>
+<tr><td>CH</td><td class='n'>34 862</td><td class='n'>0.0</td><td class='n'>0.1%</td><td class='n'>0.1%</td></tr></tbody></table></section>
+<section><h2>Gallium (CN 8112 92 89)</h2>
+<p class="note">Watch the export controls: China's origin share fell 96.8% (2022) -> 85% (2023) -> 68% (2024) as Canada and Russia stepped in - the July-2023 controls visible directly in the customs record.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">67.9%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">77.5%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.50</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 11.3M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="gallium_headline.png" alt="naive vs corrected">
+<div class="two"><img src="gallium_trend.png" alt="trend"><img src="gallium_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>7 646 901</td><td class='n'>24.5</td><td class='n'>67.9%</td><td class='n'>77.5%</td></tr>
+<tr><td>CA</td><td class='n'>1 738 796</td><td class='n'>3.5</td><td class='n'>15.4%</td><td class='n'>11.2%</td></tr>
+<tr><td>RU</td><td class='n'>1 483 901</td><td class='n'>2.9</td><td class='n'>13.2%</td><td class='n'>9.2%</td></tr>
+<tr><td>US</td><td class='n'>267 502</td><td class='n'>0.2</td><td class='n'>2.4%</td><td class='n'>0.7%</td></tr>
+<tr><td>JP</td><td class='n'>66 698</td><td class='n'>0.3</td><td class='n'>0.6%</td><td class='n'>0.9%</td></tr>
+<tr><td>TW</td><td class='n'>41 118</td><td class='n'>0.1</td><td class='n'>0.4%</td><td class='n'>0.3%</td></tr></tbody></table></section>
+<footer>Generated by build_static.R from public Eurostat Comext data (DS-045409). Method note: <a href="../methodology.html">methodology.html</a>. Independent demo - not affiliated with any institution.</footer>
+</body></html>
