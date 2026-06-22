@@ -4,7 +4,9 @@
 # here in PowerShell, with the Accept-Encoding: identity header that prevents the
 # gzip-as-text corruption. Run from anywhere; paths are derived from your profile.
 
-$repoDir = Join-Path (Join-Path (Join-Path $env:USERPROFILE 'Documents') 'projects') 'eu-trade-dependency'
+# Write raw/ next to this script, which is where the R pipeline (run from the repo
+# root) looks for it. $PSScriptRoot keeps the two halves in sync wherever the repo lives.
+$repoDir = $PSScriptRoot
 $raw = Join-Path $repoDir 'raw'
 New-Item -ItemType Directory -Path $raw -Force | Out-Null
 
