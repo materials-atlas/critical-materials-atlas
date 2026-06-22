@@ -14,10 +14,10 @@
  footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
 </style></head><body>
 <h1>Who does the EU really depend on?</h1>
-<p class="sub">Extra-EU import dependency for critical products, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
-<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). The gap between the two panels below is the whole point.</p>
+<p class="sub">Extra-EU import dependency across eight critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all eight materials the constant is that the naive view is wrong</b> - China is the true origin for six of them, while antimony traces to Tajikistan and silicon to Norway. The gap between the two panels is the whole point.</p>
 <section><h2>Rare-earth permanent magnets (CN 8505 11 10)</h2>
-<p class="note">Near-total concentration: one origin at ~93% of value, HHI ~0.86. The next origins (Philippines, Vietnam, Japan) are each under 3%.</p>
+<p class="note">Near-total concentration: China at ~93% of value, HHI ~0.86. The next origins (Philippines, Vietnam, Japan) are each under 3%.</p>
 <div class="kpis">
  <div class="kpi"><div class="v">92.7%</div><div class="l">China (value)</div></div>
  <div class="kpi"><div class="v">91.1%</div><div class="l">China (tonnage)</div></div>
@@ -33,6 +33,23 @@
 <tr><td>JP</td><td class='n'>6 968 642</td><td class='n'>229.7</td><td class='n'>0.9%</td><td class='n'>1.1%</td></tr>
 <tr><td>GB</td><td class='n'>4 658 800</td><td class='n'>256.1</td><td class='n'>0.6%</td><td class='n'>1.3%</td></tr>
 <tr><td>US</td><td class='n'>3 924 858</td><td class='n'>29.7</td><td class='n'>0.5%</td><td class='n'>0.1%</td></tr></tbody></table></section>
+<section><h2>Magnesium, unwrought (CN 8104 11 00)</h2>
+<p class="note">China ~92% by value, ~95% by tonnage. The naive view blames the Netherlands (44%) - a Rotterdam clearing artefact; the true origin is China.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">91.9%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">95.3%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.85</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 194.0M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="magnesium_headline.png" alt="naive vs corrected">
+<div class="two"><img src="magnesium_trend.png" alt="trend"><img src="magnesium_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>178 285 851</td><td class='n'>66 928.7</td><td class='n'>91.9%</td><td class='n'>95.3%</td></tr>
+<tr><td>IL</td><td class='n'>13 797 068</td><td class='n'>2 773.8</td><td class='n'>7.1%</td><td class='n'>4.0%</td></tr>
+<tr><td>RU</td><td class='n'>606 706</td><td class='n'>98.2</td><td class='n'>0.3%</td><td class='n'>0.1%</td></tr>
+<tr><td>JP</td><td class='n'>409 294</td><td class='n'>144.0</td><td class='n'>0.2%</td><td class='n'>0.2%</td></tr>
+<tr><td>BR</td><td class='n'>325 694</td><td class='n'>95.0</td><td class='n'>0.2%</td><td class='n'>0.1%</td></tr>
+<tr><td>HK</td><td class='n'>312 434</td><td class='n'>127.2</td><td class='n'>0.2%</td><td class='n'>0.2%</td></tr></tbody></table></section>
 <section><h2>Germanium (CN 8112 92 95)</h2>
 <p class="note">The cleanest member-state trap: the naive view points at Belgium (Umicore's Antwerp refining hub - a processing/transit artefact), while the corrected view shows China at ~83%.</p>
 <div class="kpis">
@@ -50,6 +67,23 @@
 <tr><td>TW</td><td class='n'>122 370</td><td class='n'>0.0</td><td class='n'>0.4%</td><td class='n'>0.2%</td></tr>
 <tr><td>JP</td><td class='n'>55 289</td><td class='n'>0.0</td><td class='n'>0.2%</td><td class='n'>0.1%</td></tr>
 <tr><td>CH</td><td class='n'>34 862</td><td class='n'>0.0</td><td class='n'>0.1%</td><td class='n'>0.1%</td></tr></tbody></table></section>
+<section><h2>Natural graphite (CN 2504 90 00)</h2>
+<p class="note">China ~82%. Topical: graphite is the EV-battery anode, and China imposed export licensing in December 2023. The naive view points at Germany; Madagascar and Brazil supply more tonnage than value.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">82.5%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">61.6%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.69</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 18.3M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="graphite_headline.png" alt="naive vs corrected">
+<div class="two"><img src="graphite_trend.png" alt="trend"><img src="graphite_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>15 061 868</td><td class='n'>3 832.1</td><td class='n'>82.5%</td><td class='n'>61.6%</td></tr>
+<tr><td>MG</td><td class='n'>1 711 438</td><td class='n'>1 998.0</td><td class='n'>9.4%</td><td class='n'>32.1%</td></tr>
+<tr><td>BR</td><td class='n'>882 274</td><td class='n'>334.6</td><td class='n'>4.8%</td><td class='n'>5.4%</td></tr>
+<tr><td>US</td><td class='n'>388 929</td><td class='n'>9.7</td><td class='n'>2.1%</td><td class='n'>0.2%</td></tr>
+<tr><td>GB</td><td class='n'>129 724</td><td class='n'>25.6</td><td class='n'>0.7%</td><td class='n'>0.4%</td></tr>
+<tr><td>IN</td><td class='n'>69 390</td><td class='n'>13.0</td><td class='n'>0.4%</td><td class='n'>0.2%</td></tr></tbody></table></section>
 <section><h2>Gallium (CN 8112 92 89)</h2>
 <p class="note">Watch the export controls: China's origin share fell 96.8% (2022) -> 85% (2023) -> 68% (2024) as Canada and Russia stepped in - the July-2023 controls visible directly in the customs record.</p>
 <div class="kpis">
@@ -67,5 +101,56 @@
 <tr><td>US</td><td class='n'>267 502</td><td class='n'>0.2</td><td class='n'>2.4%</td><td class='n'>0.7%</td></tr>
 <tr><td>JP</td><td class='n'>66 698</td><td class='n'>0.3</td><td class='n'>0.6%</td><td class='n'>0.9%</td></tr>
 <tr><td>TW</td><td class='n'>41 118</td><td class='n'>0.1</td><td class='n'>0.4%</td><td class='n'>0.3%</td></tr></tbody></table></section>
+<section><h2>Tungsten, unwrought (CN 8101 94 00)</h2>
+<p class="note">China is the largest origin (~58% value, ~73% tonnage) but not alone - Britain supplies ~22%. Even here the naive view (Germany 55%) misstates who the EU relies on.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">58.0%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">73.1%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.40</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 7.4M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="tungsten_headline.png" alt="naive vs corrected">
+<div class="two"><img src="tungsten_trend.png" alt="trend"><img src="tungsten_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>CN</td><td class='n'>4 291 521</td><td class='n'>68.8</td><td class='n'>58.0%</td><td class='n'>73.1%</td></tr>
+<tr><td>GB</td><td class='n'>1 625 958</td><td class='n'>15.9</td><td class='n'>22.0%</td><td class='n'>16.9%</td></tr>
+<tr><td>CH</td><td class='n'>609 122</td><td class='n'>1.7</td><td class='n'>8.2%</td><td class='n'>1.8%</td></tr>
+<tr><td>JP</td><td class='n'>472 542</td><td class='n'>1.7</td><td class='n'>6.4%</td><td class='n'>1.8%</td></tr>
+<tr><td>HK</td><td class='n'>162 158</td><td class='n'>1.7</td><td class='n'>2.2%</td><td class='n'>1.8%</td></tr>
+<tr><td>US</td><td class='n'>161 729</td><td class='n'>3.4</td><td class='n'>2.2%</td><td class='n'>3.6%</td></tr></tbody></table></section>
+<section><h2>Antimony, unwrought (CN 8110 10 00)</h2>
+<p class="note">The method's acid test: the naive view says France and Belgium (~37% each); the corrected view reveals Tajikistan at ~69%, with China barely present. Proof this is not a China-finding machine - it surfaces whatever origin the transit data hides.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">5.8%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">5.9%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.49</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 316.9M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="antimony_headline.png" alt="naive vs corrected">
+<div class="two"><img src="antimony_trend.png" alt="trend"><img src="antimony_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>TJ</td><td class='n'>218 406 067</td><td class='n'>12 631.3</td><td class='n'>68.9%</td><td class='n'>66.2%</td></tr>
+<tr><td>VN</td><td class='n'>31 181 407</td><td class='n'>2 128.3</td><td class='n'>9.8%</td><td class='n'>11.2%</td></tr>
+<tr><td>TH</td><td class='n'>21 515 599</td><td class='n'>1 501.4</td><td class='n'>6.8%</td><td class='n'>7.9%</td></tr>
+<tr><td>CN</td><td class='n'>18 266 502</td><td class='n'>1 127.2</td><td class='n'>5.8%</td><td class='n'>5.9%</td></tr>
+<tr><td>TR</td><td class='n'>7 982 269</td><td class='n'>498.1</td><td class='n'>2.5%</td><td class='n'>2.6%</td></tr>
+<tr><td>KR</td><td class='n'>7 463 159</td><td class='n'>403.7</td><td class='n'>2.4%</td><td class='n'>2.1%</td></tr></tbody></table></section>
+<section><h2>Silicon, < 99.99% (CN 2804 69 00)</h2>
+<p class="note">A critical material where the EU is genuinely diversified: origin is Norway (~47%), Brazil and Iceland - not a dependency risk. The naive view still misleads (Germany 44%), but the honest finding here is 'no concentration'. Included to show the method measures rather than confirms.</p>
+<div class="kpis">
+ <div class="kpi"><div class="v">8.0%</div><div class="l">China (value)</div></div>
+ <div class="kpi"><div class="v">10.3%</div><div class="l">China (tonnage)</div></div>
+ <div class="kpi"><div class="v">0.26</div><div class="l">HHI (value)</div></div>
+ <div class="kpi"><div class="v">EUR 779.4M</div><div class="l">Total extra-EU (2024)</div></div>
+</div>
+<img src="silicon_headline.png" alt="naive vs corrected">
+<div class="two"><img src="silicon_trend.png" alt="trend"><img src="silicon_vq.png" alt="value vs tonnage"></div>
+<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
+<tbody><tr><td>NO</td><td class='n'>366 927 148</td><td class='n'>147 476.6</td><td class='n'>47.1%</td><td class='n'>44.0%</td></tr>
+<tr><td>BR</td><td class='n'>117 731 904</td><td class='n'>50 729.2</td><td class='n'>15.1%</td><td class='n'>15.2%</td></tr>
+<tr><td>IS</td><td class='n'>69 318 546</td><td class='n'>29 520.8</td><td class='n'>8.9%</td><td class='n'>8.8%</td></tr>
+<tr><td>CN</td><td class='n'>62 694 163</td><td class='n'>34 564.8</td><td class='n'>8.0%</td><td class='n'>10.3%</td></tr>
+<tr><td>BA</td><td class='n'>33 498 083</td><td class='n'>14 102.3</td><td class='n'>4.3%</td><td class='n'>4.2%</td></tr>
+<tr><td>AU</td><td class='n'>32 605 066</td><td class='n'>14 455.5</td><td class='n'>4.2%</td><td class='n'>4.3%</td></tr></tbody></table></section>
 <footer>Generated by build_static.R from public Eurostat Comext data (DS-045409). Method note: <a href="../methodology.html">methodology.html</a>. Independent demo - not affiliated with any institution.</footer>
 </body></html>
