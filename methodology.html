@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<title>Methodology — EU import-dependency from Comext</title>
+<style>
+ body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:820px;margin:2rem auto;
+      padding:0 1.2rem;color:#1a1a1a;line-height:1.5}
+ h1{font-size:1.5rem;margin-bottom:.2rem}
+ .sub{color:#555;margin-top:0;font-size:1.02rem}
+ h2{font-size:1.05rem;margin-top:1.6rem;border-top:1px solid #eee;padding-top:.9rem}
+ table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+ th,td{padding:.35rem .55rem;border-bottom:1px solid #eee;text-align:left}
+ td.n,th.n{text-align:right}
+ .lead{color:firebrick;font-weight:700}
+ .pitfall{margin:.55rem 0}
+ .pitfall b{color:#1a1a1a}
+ code{background:#f4f4f4;padding:.05rem .3rem;border-radius:3px;font-size:.88em}
+ footer{margin-top:1.8rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem}
+ .q{background:#faf6f6;border-left:3px solid firebrick;padding:.6rem .9rem;border-radius:0 6px 6px 0}
+</style></head><body>
+
+<h1>Who does the EU <em>really</em> depend on?</h1>
+<p class="sub">Correcting EU import statistics for the transit-port distortion — a method note.</p>
+
+<p class="q">The headline question — "which countries is the EU import-dependent on for a
+critical product?" — has an obvious answer in the public data that is <b>wrong</b>, and a
+correct answer that takes domain knowledge to extract. This note documents the difference.</p>
+
+<h2>The correction in one identity</h2>
+<p>For <b>extra-EU imports</b>, the Eurostat Comext <code>partner</code> field <span class="lead">is
+the country of origin</span>. That single fact separates two views of the same data:</p>
+<ul>
+<li><b>Naive — by importing member state.</b> Ranks dependence by which EU country clears the
+goods. Distorted by the <b>Rotterdam/Antwerp effect</b>: imports are customs-cleared in NL/BE
+ports (or refined in hubs such as Umicore in Belgium) but bound elsewhere. This measures
+<em>logistics geography</em>, not dependence. It is the trap.</li>
+<li><b>Corrected — EU as one entity, by country of origin.</b> Aggregates the 27 member states
+into a single importer and ranks by true origin. This is the answer.</li>
+</ul>
+
+<h2>Evidence — three critical products (2024)</h2>
+<table>
+<thead><tr><th>Product (CN8)</th><th>Naive top — member state</th><th>Corrected top — origin</th><th class="n">HHI</th></tr></thead>
+<tbody>
+<tr><td>Rare-earth magnets (8505 11 10)</td><td>Germany / Poland / NL spread</td><td><b>China 93%</b>, PH 3%, VN 2%</td><td class="n">0.86</td></tr>
+<tr><td>Germanium (8112 92 95)</td><td><b>Belgium 63%</b>, DE 20%</td><td><b>China 83%</b>, US 12%, KR 4%</td><td class="n">0.71</td></tr>
+<tr><td>Gallium (8112 92 89)</td><td><b>Germany 78%</b>, NL 15%</td><td><b>China 68%</b>, CA 15%, RU 13%</td><td class="n">0.50</td></tr>
+</tbody>
+</table>
+<p>For germanium the naive view points squarely at <b>Belgium</b> — Umicore's Antwerp refining
+hub, a processing/transit artefact — while the corrected view shows China at 83%. The two
+panels disagree on the single most important fact, and only one of them is true.</p>
+
+<h2>Why it can't be faked from the raw download</h2>
+
+<div class="pitfall"><b>Bloc aggregates double-count.</b> The extract carries bloc reporters and
+partners (<code>EU</code>, <code>EA</code>, <code>EA21</code>, <code>EU27_2020</code>,
+<code>EXT_*</code>, <code>WORLD</code>) alongside the 27 member states. Summing without dropping
+them inflates origin totals <b>~4.6×</b> — yet leaves the <em>shares</em> unchanged, so the error
+is invisible to anyone who validates on percentages alone.</div>
+
+<div class="pitfall"><b>The Rotterdam/Antwerp transit effect.</b> Member-state import figures
+attribute goods to the point of customs clearance, not consumption. Without the origin correction
+the largest "dependency" is a port.</div>
+
+<div class="pitfall"><b>Confidential & suppressed flows.</b> For low-volume strategic materials,
+sensitive trade lines are withheld or masked in Comext; they must be detected and handled, not
+silently summed as zero.</div>
+
+<div class="pitfall"><b>CN8 code vintages.</b> Eight-digit codes split and are reclassified over
+time (rare-earth magnets <code>8505 11 10</code> exists only from 2023; gallium and germanium run
+2010–2024). Series breaks must be respected, not stitched blindly.</div>
+
+<div class="pitfall"><b>Origin ≠ consignment, and units.</b> The partner-as-origin identity holds
+only for extra-EU flows; quantities arrive as <code>QUANTITY_IN_100KG</code> and need conversion.
+Small choices that quietly corrupt a ranking if missed.</div>
+
+<h2>Why the time series matters</h2>
+<p>Because gallium and germanium carry 15 years of data, the dependency is not a snapshot but a
+trajectory. Gallium's China-origin share runs <b>96.8% (2022) → 85% (2023) → 68% (2024)</b> as
+Canada and Russia step in — China's July-2023 export controls visible directly in the customs
+record. Dependency that <em>moves</em> under geopolitical pressure is the analytically interesting
+object, and it only appears once the origin correction is applied.</p>
+
+<h2>Data & reproducibility</h2>
+<p>Source: <b>Eurostat Comext</b>, dataset <code>DS-045409</code>, extra-EU imports, annual, public
+data only. The pipeline is base R (no package installs), parameterised by CN code, and refreshes
+from the live API — so any product, and any later year, is one command away.</p>
+
+<footer>Independent demonstration built from public Eurostat data. Not affiliated with, nor
+representing, any institution. Figures rounded; full datasets and an interactive dashboard
+accompany this note.</footer>
+
+</body></html>

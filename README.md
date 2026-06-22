@@ -97,6 +97,7 @@ value-vs-tonnage, a sortable origin table, and CSV downloads — all computed li
 - `dependency_core.R` — shared base-R method (naive/corrected aggregation); sourced by
   both the pipeline and the app, so there is a single source of truth
 - `app.R` — Shiny dashboard (reads `raw/` via the core)
+- `methodology.html` — self-contained one-page method note (the leave-behind)
 - `download_data.ps1` — fetches Comext value + quantity for one product into `raw/`
 - `raw/` — downloaded Comext data (gitignored)
 - `out/` — generated datasets + charts; the `dashboard.html` + headline PNGs are
