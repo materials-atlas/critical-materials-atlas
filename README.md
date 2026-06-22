@@ -1,7 +1,9 @@
 # EU trade-dependency pipeline (Comext)
 
 Public-data demo: **who does the EU *really* depend on for a critical product?**
-First instance — rare-earth permanent magnets (CN `8505 11 10`).
+Three critical products so far — rare-earth permanent magnets (CN `8505 11 10`),
+gallium (`8112 92 89`) and germanium (`8112 92 95`) — and the pipeline is parameterised
+by CN code, so it generalises to any.
 
 The point is methodological. The obvious way to read the data is the wrong one:
 
@@ -27,6 +29,25 @@ Extra-EU imports of CN 8505 11 10, corrected to origin:
 A single supplier at ~93 % of value with an HHI of ~0.86 is near-total concentration.
 The next origins (Philippines, Vietnam, Japan) are each under 3 %.
 
+## More cases: gallium and germanium
+
+The same correction, two more critical raw materials hit by China's 2023 export
+controls — and the member-state trap is even starker.
+
+| Product (2024) | Naive top (member state) | Corrected top (origin) |
+|----------------|--------------------------|------------------------|
+| Germanium (`8112 92 95`) | **Belgium 63 %**, DE 20 % | **China 83 %**, US 12 %, KR 4 % |
+| Gallium (`8112 92 89`)   | **Germany 78 %**, NL 15 % | **China 68 %**, CA 15 %, RU 13 % |
+
+Germanium is the cleanest trap in the set: the naive view points at Belgium (Umicore's
+Antwerp refining hub — a transit/processing artefact), while the corrected view shows
+China at 83 %.
+
+These two carry **15 years of data (2010–2024)**, so the trend panel becomes a
+geopolitical-shock story rather than a snapshot. Gallium's China origin share runs
+2022 **96.8 %** → 2023 85 % → 2024 **68 %** as Canada and Russia step in — China's
+July-2023 export controls visible directly in the customs data.
+
 ## Method notes (the hard-to-fake bits)
 
 - **Aggregate codes double-count.** The extract carries bloc reporters/partners
@@ -44,11 +65,16 @@ The next origins (Philippines, Vietnam, Japan) are each under 3 %.
 Self-contained, base R only — no package installs.
 
 ```sh
-# 1. fetch raw value + quantity CSVs into raw/  (PowerShell on Windows)
+# 1. fetch raw value + quantity CSVs into raw/  (PowerShell on Windows).
+#    The downloader is parameterised by CN code; default is magnets:
 powershell -File download_data.ps1
-# 2. build datasets + headline chart
+powershell -File download_data.ps1 -Product 81129289 -Label gallium
+powershell -File download_data.ps1 -Product 81129295 -Label germanium
+# 2. build the magnets datasets + headline chart (base R)
 Rscript comext-magnet-dependency-demo.R
 ```
+
+The Shiny app picks up every product fetched into `raw/` automatically — no code change.
 
 `download_data.ps1` sends `Accept-Encoding: identity` to avoid gzip-as-text corruption
 behind some proxies. Where R can reach Eurostat directly, the download can also be done
