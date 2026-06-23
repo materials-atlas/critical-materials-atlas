@@ -52,6 +52,13 @@
   #sankey{height:640px;border:1px solid var(--line);border-radius:8px;padding:4px}
   .panel-info{font-size:.88rem;color:#333;margin-top:.6rem;min-height:1.4rem}
   .loading{color:var(--mut);padding:2rem;text-align:center}
+  table.dt{border-collapse:collapse;width:100%;font-size:.86rem}
+  table.dt th,table.dt td{padding:.42rem .55rem;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+  table.dt th{cursor:pointer;user-select:none;color:#222;border-bottom:2px solid #bbb;position:sticky;top:0;background:#fff}
+  table.dt th:hover{color:var(--red)}
+  table.dt td.n,table.dt th.n{text-align:right;font-variant-numeric:tabular-nums}
+  table.dt tbody tr{cursor:pointer}
+  table.dt tbody tr:hover{background:#fafafa}
   /* detail modal */
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:3vh 1rem;overflow:auto;z-index:50}
   .modal.hidden{display:none}
@@ -85,7 +92,8 @@
 </header>
 
 <nav class="tabs">
-  <button data-view="table" class="active">▤ Table</button>
+  <button data-view="table" class="active">▤ Bars</button>
+  <button data-view="grid">⊞ Table</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
   <button data-view="sankey">⤳ Flow</button>
@@ -103,6 +111,9 @@
   <div id="view-table" class="view">
     <div class="legend"><b>each row, two bars:</b> <span class="sw" style="background:var(--red)"></span>China <span class="sw" style="background:var(--blue)"></span>other · top = where the EU buys it · bottom = where it's mined · ⚠ = different country</div>
     <div id="rows"></div>
+  </div>
+  <div id="view-grid" class="view hidden">
+    <div id="grid"></div>
   </div>
   <div id="view-map" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
@@ -206,8 +217,30 @@ function renderTable(){
     </div>`; }).join('')||'<p class="loading">no match</p>';
   document.querySelectorAll('.row').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
 }
-$('#search').addEventListener('input',renderTable);
+$('#search').addEventListener('input',()=>{ renderTable(); if(VIEW==='grid') renderGrid(); });
 $('#sort').addEventListener('change',renderTable);
+
+/* ---------- real sortable table ---------- */
+let gridSort={col:'ref',dir:-1};
+function gval(m,c){ const r=refTop(m), mi=mineTop(m);
+  return ({mat:strip(m.title), buy:cname(r.c), ref:r.v, cn:m.china_val, hhi:m.hhi, mine:mi?cname(mi.c):'~', minev:mi?mi.v:-1})[c]; }
+function renderGrid(){
+  const q=($('#search').value||'').trim().toLowerCase();
+  let list=MATS.slice();
+  if(q) list=list.filter(m=>{ const r=refTop(m),mi=mineTop(m); return m.title.toLowerCase().includes(q)||cname(r.c).toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q)); });
+  list.sort((a,b)=>{ const x=gval(a,gridSort.col),y=gval(b,gridSort.col); return (typeof x==='string')?gridSort.dir*String(x).localeCompare(String(y)):gridSort.dir*(x-y); });
+  const ar=c=>gridSort.col===c?(gridSort.dir<0?' ▾':' ▴'):'';
+  const th=(c,lab,cls)=>`<th class="${cls||''}" data-c="${c}">${lab}${ar(c)}</th>`;
+  const rows=list.map(m=>{ const r=refTop(m),mi=mineTop(m),mism=mi&&mi.c!==r.c;
+    return `<tr data-k="${m.label}"><td>${strip(m.title)}</td>`+
+      `<td>${flag(r.c)} ${cname(r.c)}</td><td class="n">${r.v.toFixed(0)}%</td>`+
+      `<td class="n">${m.china_val.toFixed(0)}%</td><td class="n">${m.hhi.toFixed(2)}</td>`+
+      `<td>${mi?flag(mi.c)+' '+cname(mi.c):'—'}${mism?' <span style="color:var(--ore)">⚠</span>':''}</td>`+
+      `<td class="n">${mi?mi.v.toFixed(0)+'%':'—'}</td></tr>`; }).join('');
+  $('#grid').innerHTML=`<table class="dt"><thead><tr>${th('mat','Material')}${th('buy','Buy from')}${th('ref','Refined %','n')}${th('cn','China %','n')}${th('hhi','HHI','n')}${th('mine','Mined in')}${th('minev','Mine %','n')}</tr></thead><tbody>${rows}</tbody></table>`;
+  $('#grid').querySelectorAll('th').forEach(h=>h.onclick=()=>{ const c=h.dataset.c; if(gridSort.col===c) gridSort.dir*=-1; else { gridSort.col=c; gridSort.dir=(c==='mat'||c==='buy'||c==='mine')?1:-1; } renderGrid(); });
+  $('#grid').querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>showDetail(tr.dataset.k));
+}
 
 /* ---------- detail (both layers + contrast) ---------- */
 function bars(list){ return (list||[]).map(o=>
@@ -247,8 +280,9 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#detail').class
 document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
   VIEW=b.dataset.view;
-  ['table','map','globe','sankey'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
+  ['table','grid','map','globe','sankey'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});
+  if(VIEW==='grid') renderGrid();
   if(VIEW==='map') initMap();
   if(VIEW==='globe') initGlobe();
   if(VIEW==='sankey') initSankey();
@@ -340,7 +374,7 @@ function buildGlobe(){
           globeInstance.polygonsData(feats).polygonCapColor(()=>'rgba(120,150,180,0.10)').polygonSideColor(()=>'rgba(0,0,0,0)').polygonStrokeColor(()=>'#9fc0dd').polygonAltitude(0.004); })
         .catch(()=>{});
     }
-    globeInstance.arcsData(arcs).labelsData(labels);
+    globeInstance.arcsData(arcs);
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
 }
