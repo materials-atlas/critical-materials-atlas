@@ -97,12 +97,13 @@ value-vs-tonnage, a sortable origin table, and CSV downloads — all computed li
 - `dependency_core.R` — shared base-R method (naive/corrected aggregation); sourced by
   both the pipeline and the app, so there is a single source of truth
 - `app.R` — Shiny dashboard (reads `raw/` via the core)
-- `build_static.R` — regenerates the no-install static deliverable from current code
+- `index.html` — the multi-product atlas (repo root, so it is the **GitHub Pages** site);
+  regenerate with `build_static.R`
+- `build_static.R` — regenerates `index.html` + the per-product PNGs in `out/`
 - `methodology.html` — self-contained one-page method note (the leave-behind)
 - `download_data.ps1` — fetches Comext value + quantity for one product into `raw/`
 - `raw/` — downloaded Comext data (gitignored)
-- `out/` — generated datasets + charts; the multi-product `index.html` + its PNGs are
-  committed as a no-install deliverable (regenerate with `build_static.R`), the CSVs are
-  gitignored
+- `out/` — generated PNGs (committed as the no-install deliverable) + datasets (CSVs
+  gitignored)
 
 Public Eurostat (Comext) data only.
