@@ -1,9 +1,9 @@
 # EU trade-dependency pipeline (Comext)
 
 Public-data demo: **who does the EU *really* depend on for critical raw materials?**
-An atlas of **eight** critical materials — rare-earth magnets, magnesium, germanium,
-graphite, gallium, tungsten, antimony and silicon — corrected for the transit-port
-distortion. The pipeline is parameterised by CN code, so it generalises to any.
+An atlas of **ten** critical materials — rare-earth magnets, magnesium, germanium,
+graphite, gallium, tungsten, lithium, antimony, titanium and silicon — corrected for the
+transit-port distortion. The pipeline is parameterised by CN code, so it generalises to any.
 
 The point is methodological. The obvious way to read the data is the wrong one:
 
@@ -17,11 +17,12 @@ The point is methodological. The obvious way to read the data is the wrong one:
 
 The headline chart puts the two side by side — that visible gap is the whole pitch.
 
-## The atlas: eight critical materials (2024, corrected to origin)
+## The atlas: ten critical materials (2024, corrected to origin)
 
 The constant across every material is that **the naive member-state view is wrong**.
-China is the true origin for six of the eight; antimony traces to Tajikistan and silicon
-to Norway — the cases that show the method *measures* rather than confirms.
+China is the true origin for six of the ten; the rest reveal dependencies the naive view
+hides — lithium on Chile, antimony on Tajikistan, titanium on Kazakhstan, silicon on
+Norway — the cases that show the method *measures* rather than confirms.
 
 | Material | Naive top (member state) | Corrected top (origin) | HHI |
 |----------|--------------------------|------------------------|----:|
@@ -31,15 +32,18 @@ to Norway — the cases that show the method *measures* rather than confirms.
 | Graphite | **Germany 58 %** | **China 82 %** | 0.69 |
 | Gallium | **Germany 78 %** | **China 68 %** | 0.50 |
 | Tungsten | **Germany 55 %** | **China 58 %**, GB 22 % | 0.40 |
+| Lithium carbonate | **Netherlands 39 %**, DE 34 % | **Chile 75 %**, US 13 % | 0.58 |
 | Antimony | France / Belgium 37 % each | **Tajikistan 69 %**, China 6 % | 0.49 |
+| Titanium | **France 40 %** | **Kazakhstan 33 %**, US 25 % | 0.21 |
 | Silicon | **Germany 44 %** | **Norway 47 %**, BR 15 % | 0.26 |
 
 Highlights: **germanium** is the cleanest trap (Belgium = Umicore's Antwerp hub, not an
 origin). **Gallium** carries the geopolitics — China's origin share runs 96.8 % (2022) →
 85 % (2023) → 68 % (2024) as Canada and Russia step in, China's July-2023 export controls
-visible directly in customs data. **Antimony** is the credibility case: the naive view
-says France/Belgium, the truth is Tajikistan. Most series run 2010–2024 (magnets only from
-2023, when its CN8 code was created).
+visible directly in customs data. **Lithium** is the cleanest non-China dependency (Chile
+75 %), and **antimony** the biggest surprise (Tajikistan, where the naive view says
+France/Belgium). Most series run 2010–2024 (magnets only from 2023, when its CN8 code was
+created).
 
 ## Method notes (the hard-to-fake bits)
 
@@ -62,7 +66,8 @@ Self-contained, base R only — no package installs.
 #    code; fetch the whole atlas at once (PowerShell):
 $atlas = @{ magnets='85051110'; magnesium='81041100'; germanium='81129295';
             graphite='25049000'; gallium='81129289'; tungsten='81019400';
-            antimony='81101000'; silicon='28046900' }
+            lithium='28369100'; antimony='81101000'; titanium='81082000';
+            silicon='28046900' }
 $atlas.GetEnumerator() | ForEach-Object { .\download_data.ps1 -Product $_.Value -Label $_.Key }
 # 2. build the magnets datasets + headline chart, then the static atlas (base R)
 Rscript comext-magnet-dependency-demo.R
