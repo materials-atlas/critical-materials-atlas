@@ -165,7 +165,7 @@ function populateMatSelectors(){
 function setMat(label){ SELMAT=label;
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
   if(VIEW==='map'&&window.jsVectorMap) buildMap();
-  else if(VIEW==='globe'&&window.Globe) buildGlobe();
+  else if(VIEW==='globe'&&window.Globe&&window.topojson) buildGlobe();
   else if(VIEW==='sankey'&&window.echarts) buildSankey();
 }
 
@@ -176,7 +176,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   populateMatSelectors();
   renderTable();
   if(VIEW==='map' && window.jsVectorMap) buildMap();
-  if(VIEW==='globe' && window.Globe) buildGlobe();
+  if(VIEW==='globe' && window.Globe && window.topojson) buildGlobe();
   if(VIEW==='sankey' && window.echarts) buildSankey();
 }).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
 
@@ -297,8 +297,11 @@ function showCountry(code){
 }
 
 /* ---------- globe: implied chain mine → refiner → EU ---------- */
-function initGlobe(){ if(window.Globe){ buildGlobe(); return; }
-  loadScript('https://cdn.jsdelivr.net/npm/globe.gl').then(buildGlobe)
+function initGlobe(){ if(window.Globe && window.topojson){ buildGlobe(); return; }
+  Promise.all([
+    window.Globe?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/globe.gl'),
+    window.topojson?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js')
+  ]).then(()=>{ if(VIEW==='globe') buildGlobe(); })
    .catch(err=>{ $('#globe').innerHTML='<p class="loading" style="color:#aaa">Globe library failed to load.<br>'+err+'</p>'; });
 }
 let globeInstance=null;
@@ -317,17 +320,27 @@ function buildGlobe(){
         stroke:Math.max(.4,r.v/24),label:`${strip(m.title)}: ${cname(r.c)} ${r.v.toFixed(0)}%`,key:m.label});
     }
   });
+  const refiners=new Set(); mats.forEach(m=>{ const r=refTop(m); if(COUNTRY[r.c]) refiners.add(r.c); });
+  const inv=new Set(['EU']); mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) inv.add(r.c); if(mi&&COUNTRY[mi.c]) inv.add(mi.c); });
+  const labels=[...inv].map(c=>({ lat:COUNTRY[c].lat, lng:COUNTRY[c].lng, name:cname(c),
+    color: c==='EU'?'#e6e6e6' : refiners.has(c)?(c==='CN'?'#ff6b6b':'#86b7ff'):'#ffcf8a', size: c==='EU'?1.5:1.05 }));
   requestAnimationFrame(()=>{
     if(!globeInstance){
       $('#globe').innerHTML='';
       globeInstance=Globe()(document.getElementById('globe'))
-        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg').backgroundColor('#000010')
+        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg').backgroundColor('#0a0f1e')
+        .showAtmosphere(true).atmosphereColor('#5b8fc7').atmosphereAltitude(0.16)
         .arcColor('color').arcStroke('stroke').arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
         .arcDashLength(.5).arcDashGap(.2).arcDashAnimateTime(2200).arcLabel('label').onArcClick(a=>showDetail(a.key))
+        .labelLat('lat').labelLng('lng').labelText('name').labelColor('color').labelSize('size').labelDotRadius(0.5).labelResolution(2)
         .width($('#globe').clientWidth||900).height(560);
-      globeInstance.pointOfView({lat:30,lng:20,altitude:2.2});
+      globeInstance.pointOfView({lat:25,lng:15,altitude:2.2});
+      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json())
+        .then(topo=>{ const feats=(window.topojson&&topo.objects)?topojson.feature(topo,topo.objects.countries).features:[];
+          globeInstance.polygonsData(feats).polygonCapColor(()=>'rgba(120,150,180,0.10)').polygonSideColor(()=>'rgba(0,0,0,0)').polygonStrokeColor(()=>'#9fc0dd').polygonAltitude(0.004); })
+        .catch(()=>{});
     }
-    globeInstance.arcsData(arcs);
+    globeInstance.arcsData(arcs).labelsData(labels);
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
 }
