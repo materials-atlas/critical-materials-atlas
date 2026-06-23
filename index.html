@@ -104,10 +104,10 @@
 </header>
 
 <nav class="tabs">
-  <button data-view="table" class="active">▤ Table</button>
+  <button data-view="sankey" class="active">⤳ Flow</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
-  <button data-view="sankey">⤳ Flow</button>
+  <button data-view="table">▤ Table</button>
   <span class="grow"></span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
@@ -119,7 +119,7 @@
 </nav>
 
 <main>
-  <div id="view-table" class="view">
+  <div id="view-table" class="view hidden">
     <div class="legend">Each material's journey: <b>mined</b> ▸ <b>refined</b> ▸ <b>bought by the EU</b> from. <b>⚠</b> = mined and bought from different countries. <b>—</b> = no distinct refining stage / no data. Refining shares are approximate (IEA). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
@@ -133,7 +133,7 @@
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">The implied supply chain: <span style="color:#e8a33d">mine</span> → <span style="color:#e23b3b">refiner</span> → EU. Click an arc for detail.</p>
   </div>
-  <div id="view-sankey" class="view hidden">
+  <div id="view-sankey" class="view">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined → refined → EU.</p>
@@ -175,7 +175,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', SELMAT='';
+let DATA=null, MATS=[], VIEW='sankey', SELMAT='';
 const $ = s => document.querySelector(s);
 function populateMatSelectors(){
   const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join('');
@@ -194,9 +194,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
   populateMatSelectors();
   renderTable();
-  if(VIEW==='map' && window.jsVectorMap) buildMap();
-  if(VIEW==='globe' && window.Globe && window.topojson) buildGlobe();
-  if(VIEW==='sankey' && window.echarts) buildSankey();
+  if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey();
 }).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
 
 /* ---------- table: both layers per row ---------- */
