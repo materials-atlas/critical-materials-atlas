@@ -435,14 +435,14 @@ function buildSankey(){
   if(!el.clientWidth){ if(VIEW==='sankey') requestAnimationFrame(buildSankey); return; }
   if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
   sankeyChart.setOption({
-    tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`:p.name},
+    tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`.replace(/ \(refines\)/g,''):p.name.replace(/ \(refines\)$/,'')},
     graphic:[
       {type:'text',left:'4%',top:4,style:{text:'⛏ MINED IN',fill:'#cc8a3a',font:'bold 12px system-ui'}},
       {type:'text',left:'center',top:4,style:{text:'🏭 REFINED IN',fill:'#b22222',font:'bold 12px system-ui'}},
       {type:'text',right:'3%',top:4,style:{text:'EU',fill:'#555',font:'bold 12px system-ui'}}
     ],
     series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,
-      data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222'},
+      data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222',formatter:p=>p.name.replace(/ \(refines\)$/,'')},
       lineStyle:{color:'source',opacity:.42,curveness:.5}}]
   }, true);
   requestAnimationFrame(()=>sankeyChart.resize());
