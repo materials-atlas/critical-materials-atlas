@@ -45,8 +45,9 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:8.5rem 1fr .8rem 1fr .8rem 1fr 1.3rem;gap:.45rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.85rem}
+  .crow{display:grid;grid-template-columns:7.2rem 1fr .7rem 1fr .7rem 1fr 1fr 1.2rem;gap:.4rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
   .dim{color:#bbb}
+  .cnaive{color:#9a9a9a;font-style:italic}
   .crow:hover{background:#fafafa}
   .crow.head{cursor:default;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em;color:#888;border-bottom:2px solid #ccc}
   .crow.head:hover{background:none}
@@ -120,7 +121,7 @@
 
 <main>
   <div id="view-table" class="view hidden">
-    <div class="legend">Each material's journey: <b>mined</b> ▸ <b>refined</b> ▸ <b>bought by the EU</b> from. <b>⚠</b> = mined and bought from different countries. <b>—</b> = no distinct refining stage / no data. Refining shares are approximate (IEA). Click a row for detail.</div>
+    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>bought by the EU</b> from (corrected origin). <b>EU importer*</b> = the member state that clears it — <i>gross/transit, distorted by Rotterdam/Antwerp hubs; shown for contrast, not a true origin</i>. <b>⚠</b> = mined ≠ bought. Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -231,14 +232,16 @@ function renderTable(){
   else if(sort==='diff') list.sort((a,b)=>diff(b)-diff(a));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>b.top_share-a.top_share);
-  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Bought by EU from</span><span></span></div>`;
-  const body=list.map(m=>{ const r=refTop(m),mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, mism=mi&&mi.c!==r.c, rc=r.china?'cn':'';
+  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Bought by EU from</span><span>EU importer*</span><span></span></div>`;
+  const body=list.map(m=>{ const r=refTop(m),mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, nv=(m.naive&&m.naive[0])?m.naive[0]:null, mism=mi&&mi.c!==r.c, rc=r.china?'cn':'';
     const mineCell=mi?`<span class="cc cmine">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     const refCell=re?`<span class="cc cref ${re.c==='CN'?'cn':''}">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
+    const naiveCell=nv?`<span class="cc cnaive" title="gross imports cleared here — distorted by Rotterdam/Antwerp transit, not a true origin">${fname(nv.c)} <small>${nv.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `<span class="cc cref ${rc}">${cname(r.c)} <small>${r.v.toFixed(0)}%</small></span>`+
+      `${naiveCell}`+
       `<span class="warn" title="${mism?'mined and bought from different countries':''}">${mism?'⚠':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
