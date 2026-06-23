@@ -3,10 +3,10 @@
 **Live atlas → https://materials-atlas.github.io/eu_trade_dependency/**
 
 Public-data demo: **who does the EU *really* depend on for critical raw materials?**
-An atlas of **twelve** critical materials — rare-earth magnets, magnesium, germanium,
-graphite, gallium, tungsten, cobalt, lithium, antimony, platinum, titanium and silicon —
-corrected for the transit-port distortion. The pipeline is parameterised by CN code, so it
-generalises to any.
+An atlas of **sixteen** critical materials — rare-earth magnets, magnesium, germanium,
+graphite, gallium, tungsten, cobalt, niobium, boron, lithium, antimony, platinum, palladium,
+fluorspar, titanium and silicon — corrected for the transit-port distortion. The pipeline is
+parameterised by CN code, so it generalises to any.
 
 The point is methodological. The obvious way to read the data is the wrong one:
 
@@ -20,37 +20,41 @@ The point is methodological. The obvious way to read the data is the wrong one:
 
 The headline chart puts the two side by side — that visible gap is the whole pitch.
 
-## The atlas: twelve critical materials (2024, corrected to origin)
+## The atlas: sixteen critical materials (2024, corrected to origin)
 
-The constant across every material is that **the naive member-state view is wrong**.
-China is the true origin for seven of the twelve; the rest reveal dependencies the naive
-view hides — lithium on Chile, antimony on Tajikistan, platinum on South Africa, titanium
-on Kazakhstan, silicon on Norway — the cases that show the method *measures* rather than
-confirms.
+The constant across every material is that **the naive member-state view is wrong** — and
+the dependency map is strikingly diverse. China is the single largest source (the true
+origin for seven of the sixteen), but it is *not* a majority: the EU also leans on Turkey,
+Brazil, Chile, South Africa, Russia, Mexico, Kazakhstan, Tajikistan and Norway — none of
+them visible in the member-state view.
 
 | Material | Naive top (member state) | Corrected top (origin) | HHI |
 |----------|--------------------------|------------------------|----:|
+| Boron (natural borates) | scattered (none > 20 %) | **Turkey 98 %** | 0.96 |
 | Rare-earth magnets | DE / PL / NL spread | **China 93 %** | 0.86 |
 | Magnesium | **Netherlands 44 %** | **China 92 %** | 0.85 |
+| Niobium (ferro-Nb) | **Netherlands 49 %** | **Brazil 84 %**, CA 16 % | 0.73 |
 | Germanium | **Belgium 63 %** | **China 83 %** | 0.71 |
 | Graphite | **Germany 58 %** | **China 82 %** | 0.69 |
+| Lithium carbonate | **Netherlands 39 %**, DE 34 % | **Chile 75 %**, US 13 % | 0.58 |
+| Antimony | France / Belgium 37 % each | **Tajikistan 69 %**, China 6 % | 0.49 |
 | Gallium | **Germany 78 %** | **China 68 %** | 0.50 |
 | Cobalt (oxides) | **Belgium 43 %** | **China 62 %**, GB 28 % | 0.47 |
 | Tungsten | **Germany 55 %** | **China 58 %**, GB 22 % | 0.40 |
-| Lithium carbonate | **Netherlands 39 %**, DE 34 % | **Chile 75 %**, US 13 % | 0.58 |
-| Antimony | France / Belgium 37 % each | **Tajikistan 69 %**, China 6 % | 0.49 |
 | Platinum | **Germany 43 %** | **South Africa 57 %**, GB 18 % | 0.37 |
-| Titanium | **France 40 %** | **Kazakhstan 33 %**, US 25 % | 0.21 |
+| Fluorspar (>97 % CaF2) | **Italy 51 %** | **Mexico 42 %**, ZA 36 % | 0.32 |
 | Silicon | **Germany 44 %** | **Norway 47 %**, BR 15 % | 0.26 |
+| Palladium | **Germany 60 %** | **South Africa 40 %**, RU 20 % | 0.25 |
+| Titanium | **France 40 %** | **Kazakhstan 33 %**, US 25 % | 0.21 |
 
-Highlights: **germanium** is the cleanest trap (Belgium = Umicore's Antwerp hub, not an
-origin). **Gallium** carries the geopolitics — China's origin share runs 96.8 % (2022) →
-85 % (2023) → 68 % (2024) as Canada and Russia step in, China's July-2023 export controls
-visible directly in customs data. **Lithium** is the cleanest non-China dependency (Chile
-75 %), **antimony** the biggest surprise (Tajikistan, where the naive view says
-France/Belgium), and **cobalt** and **platinum** extend the pattern — China 62 % of refined
-cobalt (Belgium the decoy), South Africa 57 % of platinum. Most series run 2010–2024
-(magnets only from 2023, when its CN8 code was created).
+Highlights: **boron** is the most concentrated dependency of all — a ~98 % Turkey monopoly
+the naive view scatters across member states. **Niobium** is a ~84 % Brazil monopoly behind
+a Rotterdam (NL 49 %) façade. **Germanium** is the cleanest China trap (Belgium = Umicore's
+Antwerp hub). **Gallium** carries the geopolitics — China's origin share runs 96.8 % (2022)
+→ 68 % (2024) as Canada and Russia step in (its July-2023 export controls, visible in the
+data). **Palladium** is the sharpest naive trap (Germany 60 % → South Africa + Russia), and
+**antimony** the biggest surprise (Tajikistan). Most series run 2010–2024 (magnets only from
+2023, when its CN8 code was created).
 
 ## Method notes (the hard-to-fake bits)
 
