@@ -325,7 +325,7 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
    .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
 }
-let mapInstance=null, FLOWS=null;
+let mapInstance=null, FLOWS=null, redrawArrows=null;
 function ensureFlows(cb){ if(FLOWS){cb();return;}
   fetch('out/flows.json').then(r=>r.json()).then(d=>{FLOWS=d;cb();}).catch(()=>{FLOWS={year:'',centroids:{},names:{},materials:{}};cb();}); }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
@@ -360,27 +360,42 @@ function renderMap(){
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  const roleCol=iso=> refV[iso]!=null ? 'rgb(142,68,173)' : mineV[iso]!=null ? 'rgb(222,140,40)' : '#8a8a8a';
+  const roleArr=iso=> refV[iso]!=null ? 'url(#arrV)' : mineV[iso]!=null ? 'url(#arrA)' : 'url(#arrG)';
+  flows.forEach(fl=>{ fl.color=roleCol(fl.from); fl.arrow=roleArr(fl.from); });
   const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
   const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
     style:{fill:'#42566b', r:3.5, stroke:'#fff', strokeWidth:1} }));
-  const lines=flows.map(fl=>({from:fname(fl.from), to:fname(fl.to)}));
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
   mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
     regionStyle:{ initial:{fill:'#eceff2', stroke:'#fbfcfd', strokeWidth:.4} },
     series:{ regions:[{ attribute:'fill', scale:cscale, values:cvalues }] },
-    markers, lines,
-    lineStyle:{ stroke:'#7d6450', strokeWidth:1, strokeOpacity:.4 },
+    markers,
+    onViewportChange(){ if(redrawArrows) redrawArrows(); },
     onMarkerClick(e,index){ showCountry(markers[index]._iso); } });
-  requestAnimationFrame(()=>{ const svg=document.querySelector('#map svg'); if(!svg) return;
-    let defs=svg.querySelector('defs'); if(!defs){ defs=document.createElementNS('http://www.w3.org/2000/svg','defs'); svg.insertBefore(defs, svg.firstChild); }
+  requestAnimationFrame(()=>{ const NS='http://www.w3.org/2000/svg'; const svg=document.querySelector('#map svg'); if(!svg) return;
+    let defs=svg.querySelector('defs'); if(!defs){ defs=document.createElementNS(NS,'defs'); svg.insertBefore(defs, svg.firstChild); }
     if(!defs.querySelector('#bothStripes')) defs.insertAdjacentHTML('beforeend','<pattern id="bothStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="rgb(222,140,40)"/><rect width="4" height="8" fill="rgb(142,68,173)"/></pattern>');
-    if(!defs.querySelector('#arrowhead')) defs.insertAdjacentHTML('beforeend','<marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7d6450"/></marker>');
-    svg.querySelectorAll('line').forEach(el=>el.setAttribute('marker-end','url(#arrowhead)')); });
+    const mk=(id,c)=>`<marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`;
+    if(!defs.querySelector('#arrA')) defs.insertAdjacentHTML('beforeend', mk('arrA','rgb(222,140,40)')+mk('arrV','rgb(142,68,173)')+mk('arrG','#8a8a8a'));
+    redrawArrows=()=>{ try{ let g=svg.querySelector('#flowArrows'); if(!g){ g=document.createElementNS(NS,'g'); g.setAttribute('id','flowArrows'); svg.appendChild(g); }
+      g.textContent='';
+      flows.forEach(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to); if(!a||!b) return;
+        const p1=mapInstance.coordsToPoint(a[0],a[1]), p2=mapInstance.coordsToPoint(b[0],b[1]); if(!p1||!p2) return;
+        const dx=p2.x-p1.x, dy=p2.y-p1.y, len=Math.hypot(dx,dy)||1, off=Math.min(70,len*0.22);
+        const cx=(p1.x+p2.x)/2 - dy/len*off, cy=(p1.y+p2.y)/2 + dx/len*off;
+        const path=document.createElementNS(NS,'path');
+        path.setAttribute('d',`M${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`);
+        path.setAttribute('fill','none'); path.setAttribute('stroke',fl.color); path.setAttribute('stroke-width','1.3'); path.setAttribute('stroke-opacity','0.6'); path.setAttribute('marker-end',fl.arrow);
+        g.appendChild(path); }); }catch(e){} };
+    redrawArrows();
+    if(typeof mapInstance._applyTransform==='function'){ const o=mapInstance._applyTransform.bind(mapInstance); mapInstance._applyTransform=function(){ o(); if(redrawArrows) redrawArrows(); }; }
+  });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both (striped). <span style="color:#7d6450">Arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
-    : `<span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both (striped). <span style="color:#7d6450">Arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material to focus one chain.`;
+    ? `<b>${strip(mats[0].title)}</b> — fill: <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both. Arrows = real exports (Comtrade ${FLOWS.year}) coloured by exporter: <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> a miner shipping raw, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> a refiner shipping refined. Click a country.`
+    : `Fill: <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both. Arrows = top real exports (Comtrade ${FLOWS.year}); <span style="color:rgb(222,140,40)"><b>amber</b></span> from miners (raw), <span style="color:rgb(142,68,173)"><b>violet</b></span> from refiners. Pick a material to focus one chain.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
