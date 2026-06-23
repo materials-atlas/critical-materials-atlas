@@ -45,13 +45,15 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .chain{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap}
-  .node{padding:.2rem .55rem;border-radius:13px;white-space:nowrap;font-size:.8rem;border:1px solid}
-  .node.mine{background:#fbe7d4;color:#8a5212;border-color:#e6c195}
-  .node.ref{background:#e9f0f7;color:#2b4d6f;border-color:#bcd0e4}
-  .node.ref.cn{background:#fbe0e0;color:#8e1b1b;border-color:#e6a3a3}
-  .node.eu{background:#eee;color:#555;border-color:#ccc}
-  .arr{color:#aaa;font-size:.67rem;letter-spacing:.02em}
+  .crow{display:grid;grid-template-columns:9.5rem 1fr 1rem 1fr 1.3rem;gap:.5rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.88rem}
+  .crow:hover{background:#fafafa}
+  .crow.head{cursor:default;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em;color:#888;border-bottom:2px solid #ccc}
+  .crow.head:hover{background:none}
+  .cc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .cc small{color:#999;font-weight:400}
+  .cmine{color:#9a5b14}
+  .cref{color:#2b4d6f} .cref.cn{color:var(--red);font-weight:600}
+  .carr{color:#ccc;text-align:center}
   /* map / globe */
   .maptog{font-size:.82rem;color:var(--mut);margin-bottom:.5rem}
   .maptog button{font:inherit;font-size:.8rem;padding:.3rem .6rem;border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer}
@@ -118,7 +120,7 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend"><b>Read each row as a journey:</b> where it's <b>mined</b> ▸ who the <b>EU buys</b> it from ▸ the EU. <span class="sw" style="background:#fbe7d4"></span>mine · <span class="sw" style="background:#fbe0e0"></span>China supplier · <span class="sw" style="background:#e9f0f7"></span>other supplier. A single node = the seller also mines it (direct source); <b>⚠</b> = mined and sold by different countries — a refining detour (e.g. cobalt: Congo → China → EU).</div>
+    <div class="legend">Where each material is <b>mined</b> ▸ who the <b>EU buys</b> it from. <b>⚠</b> = different countries, a refining detour (e.g. cobalt is mined in DR Congo but bought from China). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-grid" class="view hidden">
@@ -234,17 +236,17 @@ function renderTable(){
   else if(sort==='diff') list.sort((a,b)=>diff(b)-diff(a));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>b.top_share-a.top_share);
-  $('#rows').innerHTML=list.map(m=>{ const r=refTop(m),mi=mineTop(m),code=(m.title.match(/\((.*)\)/)||[])[1]||'';
-    const mism = mi && mi.c!==r.c, rc = r.china?'cn':'';
-    const chain = mism
-      ? `<span class="node mine" title="top world producer">${flag(mi.c)} ${cname(mi.c)} ${mi.v.toFixed(0)}%</span><span class="arr">mined ▸</span><span class="node ref ${rc}" title="EU's top supplier">${flag(r.c)} ${cname(r.c)} ${r.v.toFixed(0)}%</span><span class="arr">sold ▸</span><span class="node eu">🇪🇺 EU</span>`
-      : `<span class="node ref ${rc}" title="mines and sells it">${flag(r.c)} ${cname(r.c)} ${r.v.toFixed(0)}%</span><span class="arr">mined + sold ▸</span><span class="node eu">🇪🇺 EU</span>`;
-    return `<div class="row" data-k="${m.label}">
-      <div class="name">${strip(m.title)}<small>${code}</small></div>
-      <div class="chain">${chain}</div>
-      <div class="warn" title="${mism?'mined and sold by different countries':''}">${mism?'⚠':''}</div>
-    </div>`; }).join('')||'<p class="loading">no match</p>';
-  document.querySelectorAll('.row').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
+  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Bought by EU from</span><span></span></div>`;
+  const body=list.map(m=>{ const r=refTop(m),mi=mineTop(m), mism=mi&&mi.c!==r.c, rc=r.china?'cn':'';
+    const mineCell=mi?`<span class="cc cmine">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc" style="color:#aaa">—</span>`;
+    return `<div class="crow" data-k="${m.label}">`+
+      `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
+      `${mineCell}<span class="carr">▸</span>`+
+      `<span class="cc cref ${rc}">${cname(r.c)} <small>${r.v.toFixed(0)}%</small></span>`+
+      `<span class="warn" title="${mism?'mined and sold by different countries':''}">${mism?'⚠':''}</span></div>`;
+  }).join('');
+  $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
+  document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
 }
 $('#search').addEventListener('input',()=>{ renderTable(); if(VIEW==='grid') renderGrid(); });
 $('#sort').addEventListener('change',renderTable);
