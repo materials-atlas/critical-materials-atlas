@@ -109,10 +109,14 @@ render_product <- function(p) {
 <tbody>', rows, '</tbody></table></section>')
 
   top <- oc[1, ]
+  ud <- val[["LAST.UPDATE"]]   # Comext SDMX-CSV carries a "LAST UPDATE" dd/mm/yy column
+  updated <- if (is.null(ud)) as.Date(NA) else
+    suppressWarnings(max(as.Date(substr(ud, 1, 8), "%d/%m/%y"), na.rm = TRUE))
   ov <- data.frame(
     mat = paste0(toupper(substr(p$label, 1, 1)), substr(p$label, 2, nchar(p$label))),
     partner = top$partner, share = top$value_share,
-    china = identical(top$partner, "CN"), stringsAsFactors = FALSE)
+    china = identical(top$partner, "CN"),
+    dyear = yL, updated = updated, stringsAsFactors = FALSE)
   list(section = sec, ov = ov)
 }
 
@@ -132,6 +136,10 @@ text(ovs$share, bp, labels = sprintf(" %.0f%%", ovs$share), pos = 4, xpd = TRUE,
 legend("bottomright", c("China", "other origin"), fill = c("firebrick", "steelblue"), bty = "n")
 dev.off()
 
+maxYear     <- max(ovs$dyear)
+dataUpdated <- format(suppressWarnings(max(ovs$updated, na.rm = TRUE)), "%d %b %Y")
+genDate     <- format(Sys.Date(), "%d %b %Y")
+
 sections <- paste(vapply(results, `[[`, character(1), "section"), collapse = "\n")
 
 html <- paste0(
@@ -139,7 +147,8 @@ html <- paste0(
 <title>EU import dependency - corrected for the Rotterdam effect (Comext)</title>
 <style>
  body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
- h1{font-size:1.6rem;margin-bottom:.2rem} .sub{color:#555;margin-top:0}
+ h1{font-size:1.6rem;margin-bottom:.2rem} .sub{color:#555;margin-top:0;margin-bottom:.1rem}
+ .stamp{font-size:.8rem;color:#888;margin:.1rem 0 .7rem}
  h2{font-size:1.15rem;margin-top:.4rem} section{border-top:2px solid #eee;padding-top:1.2rem;margin-top:2rem}
  .kpis{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
  .kpi{flex:1;min-width:130px;border:1px solid #ddd;border-radius:8px;padding:.6rem;text-align:center}
@@ -152,6 +161,7 @@ html <- paste0(
 </style></head><body>
 <h1>Who does the EU really depend on?</h1>
 <p class="sub">Extra-EU import dependency across twelve critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="stamp">Data through ', maxYear, ' &middot; Eurostat Comext (DS-045409) dataset updated ', dataUpdated, ' &middot; page generated ', genDate, '</p>
 <p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all twelve materials the constant is that the naive view is wrong</b> - China is the true origin for seven; the rest reveal dependencies the naive view hides (lithium on Chile, antimony on Tajikistan, platinum on South Africa, titanium on Kazakhstan), and silicon on Norway where the EU is genuinely fine. The gap between the two panels is the whole point.</p>
 <h2>The landscape at a glance</h2>
 <img src="out/overview.png" alt="dependency overview - each material by its single largest true origin">
