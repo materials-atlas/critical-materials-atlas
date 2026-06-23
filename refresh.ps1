@@ -23,7 +23,10 @@ $atlas = [ordered]@{
   '25280000' = 'boron';     '72029300' = 'niobium';   '71102100' = 'palladium'
   '25292200' = 'fluorspar'; '72029200' = 'vanadium';  '26020000' = 'manganese'
   '26060000' = 'bauxite';   '25101000' = 'phosphate'; '25111000' = 'baryte'
-  '25291000' = 'feldspar'
+  '25291000' = 'feldspar';  '28048000' = 'arsenic';   '81121200' = 'beryllium'
+  '81123100' = 'hafnium';   '28369200' = 'strontium'; '28047010' = 'phosphorus'
+  '81032000' = 'tantalum';  '27011210' = 'cokingcoal';'28042910' = 'helium'
+  '74031100' = 'copper';    '75021000' = 'nickel'
 }
 
 Write-Output ("Refreshing {0} materials, periods {1}-{2} ..." -f $atlas.Count, $StartPeriod, $EndPeriod)

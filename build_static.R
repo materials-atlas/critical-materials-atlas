@@ -76,7 +76,37 @@ products <- list(
        note  = "Fertiliser feedstock: Russia ~41% and Morocco ~27%, with the naive view split across the Netherlands and Belgium (~33%/31%, the Antwerp/Rotterdam fertiliser hubs). The Russia share is a live sanctions exposure."),
   list(label = "baryte",    code = "25111000",
        title = "Baryte (CN 2511 10 00)",
-       note  = "Drilling-fluid weighting agent: China ~53% and Morocco ~30%. The naive view is scattered across the Netherlands and Italy (~25%/24%); the origin is China.")
+       note  = "Drilling-fluid weighting agent: China ~53% and Morocco ~30%. The naive view is scattered across the Netherlands and Italy (~25%/24%); the origin is China."),
+  list(label = "arsenic",   code = "28048000",
+       title = "Arsenic (CN 2804 80 00)",
+       note  = "A concentrated China dependency (~86%), used in semiconductors and alloys. The naive view scatters it across the Netherlands and Germany; the origin is overwhelmingly China."),
+  list(label = "beryllium", code = "81121200",
+       title = "Beryllium, unwrought (CN 8112 12 00)",
+       note  = "The atlas's one perfect monopoly - and it is the US, not China: ~100% of EU beryllium imports originate in the United States. The naive view points at Spain and France (refining/clearing); the origin is singular."),
+  list(label = "hafnium",   code = "81123100",
+       title = "Hafnium, unwrought (CN 8112 31 00)",
+       note  = "The sharpest naive trap in the atlas: the member-state view says Germany ~88%, while the true origin is the US (~60%) and China (~21%). A nuclear- and superalloy-grade metal almost entirely hidden behind one clearing country."),
+  list(label = "strontium", code = "28369200",
+       title = "Strontium carbonate (CN 2836 92 00)",
+       note  = "A Japan-led dependency: ~75% of EU strontium-carbonate imports are Japanese, China ~14%. The naive view is scattered across Italy and Austria; the origin is Japan."),
+  list(label = "phosphorus",code = "28047010",
+       title = "Phosphorus (CN 2804 70 10)",
+       note  = "Elemental phosphorus comes mainly from Vietnam (~64%) and China (~25%). The naive view blames Germany and Italy (~49%/40%); the origin is South-East Asian."),
+  list(label = "tantalum",  code = "81032000",
+       title = "Tantalum, unwrought (CN 8103 20 00)",
+       note  = "Processed tantalum is diversified across China (~37%), Japan and the US - the naive view blames Germany (~42%). Unlike the mined ore (DRC/Rwanda), the refined metal comes from the processors."),
+  list(label = "cokingcoal",code = "27011210",
+       title = "Coking coal (CN 2701 12 10)",
+       note  = "An allied dependency: the US and Australia supply ~44% each, Canada behind. The naive view blames Germany and the Netherlands (the coal ports); the origins are friendly."),
+  list(label = "helium",    code = "28042910",
+       title = "Helium (CN 2804 29 10)",
+       note  = "A diversified gas dependency: Algeria ~37%, Qatar ~31% and the US ~21%. The naive view splits across Germany and France; the origins are North African, Gulf and American."),
+  list(label = "copper",    code = "74031100",
+       title = "Refined copper cathodes (CN 7403 11 00)",
+       note  = "Chile ~39%, then the DRC and Congo. The naive view says Italy (~31%); the true origins are South American and Central African mines - diversified, with a notable DRC share."),
+  list(label = "nickel",    code = "75021000",
+       title = "Nickel, unwrought (CN 7502 10 00)",
+       note  = "A diversified, lower-risk dependency: Norway ~33%, Canada and Russia behind. The naive view points at the Netherlands (~39%); origin is spread across friendly producers - no single chokepoint.")
 )
 
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
@@ -119,7 +149,7 @@ render_product <- function(p) {
   dev.off()
 
   rows <- paste0("<tr><td>", oc$partner, "</td><td class='n'>",
-    formatC(oc$value_eur, format = "d", big.mark = " "), "</td><td class='n'>",
+    formatC(oc$value_eur, format = "f", digits = 0, big.mark = " "), "</td><td class='n'>",
     formatC(round(oc$tonnes, 1), format = "f", digits = 1, big.mark = " "), "</td><td class='n'>",
     sprintf("%.1f%%", oc$value_share), "</td><td class='n'>",
     sprintf("%.1f%%", oc$qty_share), "</td></tr>", collapse = "\n")
@@ -166,7 +196,7 @@ results <- Filter(Negate(is.null), lapply(products, render_product))
 
 ovs <- do.call(rbind, lapply(results, `[[`, "ov"))
 ovs <- ovs[order(ovs$share), ]
-png(file.path(out_dir, "overview.png"), width = 1000, height = 470)
+png(file.path(out_dir, "overview.png"), width = 1000, height = 120 + 24 * nrow(ovs))
 par(mar = c(4, 9.5, 3, 1))
 bp <- barplot(ovs$share, horiz = TRUE, las = 1, xlim = c(0, 105),
         names.arg = paste0(ovs$mat, "  (", ovs$partner, ")"),
@@ -201,9 +231,9 @@ html <- paste0(
  footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
 </style></head><body>
 <h1>Who does the EU really depend on?</h1>
-<p class="sub">Extra-EU import dependency across twenty-two critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="sub">Extra-EU import dependency across thirty-two critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
 <p class="stamp">Data through ', maxYear, ' &middot; Eurostat Comext (DS-045409) dataset updated ', dataUpdated, ' &middot; page generated ', genDate, '</p>
-<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all twenty-two materials the constant is that the naive view is wrong</b> - and the dependency map is strikingly diverse. China is the single largest source, but the true origin of only eight of the twenty-two - far from a majority. The EU also leans on Turkey (boron, feldspar), South Africa (PGMs, vanadium), Gabon and Guinea (manganese, bauxite), Brazil (niobium), Russia (phosphate), Chile, Mexico, Kazakhstan, Tajikistan and Norway - none of them visible in the member-state view. The gap between the two panels is the whole point.</p>
+<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all thirty-two materials the constant is that the naive view is wrong</b> - and the dependency map is global. China is the single largest source but the true origin of only ten of the thirty-two - under a third. The EU also leans on the US (beryllium, hafnium, coking coal), Turkey (boron, feldspar), South Africa (PGMs, vanadium), Gabon and Guinea (manganese, bauxite), Brazil, Japan, Vietnam, Russia, Chile, Algeria, Qatar, Norway, Mexico, Kazakhstan, Tajikistan and Australia - almost none of them visible in the member-state view. The gap between the two panels is the whole point.</p>
 <h2>The landscape at a glance</h2>
 <img src="out/overview.png" alt="dependency overview - each material by its single largest true origin">
 <p class="note">Each bar is one material&#39;s single largest true origin and its share of 2024 extra-EU imports. Red = China; blue = another country. The naive member-state view hides every one of these.</p>
