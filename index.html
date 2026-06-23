@@ -38,6 +38,7 @@
   .maptog button.active{background:var(--red);color:#fff;border-color:var(--red)}
   #map{height:520px;border:1px solid var(--line);border-radius:8px}
   #globe{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
+  #sankey{height:640px;border:1px solid var(--line);border-radius:8px;padding:4px}
   .panel-info{font-size:.88rem;color:#333;margin-top:.6rem;min-height:1.4rem}
   .loading{color:var(--mut);padding:2rem;text-align:center}
   /* detail modal */
@@ -76,6 +77,7 @@
   <button data-view="table" class="active">▤ Table</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
+  <button data-view="sankey">⤳ Flow</button>
   <span class="grow"></span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
@@ -99,6 +101,10 @@
   <div id="view-globe" class="view hidden">
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">The implied supply chain: <span style="color:#e8a33d">mine</span> → <span style="color:#e23b3b">refiner</span> → EU. Click an arc for detail.</p>
+  </div>
+  <div id="view-sankey" class="view hidden">
+    <div id="sankey"><div class="loading">loading flow chart…</div></div>
+    <p class="panel-info" id="sankey-info">raw source → refiner → EU.</p>
   </div>
 </main>
 
@@ -147,6 +153,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   renderTable();
   if(VIEW==='map' && window.jsVectorMap) buildMap();
   if(VIEW==='globe' && window.Globe) buildGlobe();
+  if(VIEW==='sankey' && window.echarts) buildSankey();
 }).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
 
 /* ---------- table: both layers per row ---------- */
@@ -216,12 +223,15 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#detail').class
 document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
   VIEW=b.dataset.view;
-  ['table','map','globe'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
+  ['table','map','globe','sankey'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});
   if(VIEW==='map') initMap();
   if(VIEW==='globe') initGlobe();
+  if(VIEW==='sankey') initSankey();
 });
-function loadScript(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>rej(src); document.head.appendChild(s); }); }
+const _scripts={};
+function loadScript(src){ if(_scripts[src]) return _scripts[src];
+  return _scripts[src]=new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>{ delete _scripts[src]; rej(src); }; document.head.appendChild(s); }); }
 function loadCss(href){ if(document.querySelector('link[data-x="'+href+'"]'))return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; l.dataset.x=href; document.head.appendChild(l); }
 
 /* ---------- map (local shade toggle; click shows both) ---------- */
@@ -291,6 +301,40 @@ function buildGlobe(){
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
 }
+
+/* ---------- sankey: raw source → refiner → EU ---------- */
+let sankeyChart=null;
+function initSankey(){ if(window.echarts){ buildSankey(); return; }
+  loadScript('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js').then(()=>{ if(VIEW==='sankey') buildSankey(); })
+   .catch(err=>{ $('#sankey').innerHTML='<p class="loading">Chart library failed to load.<br>'+err+'</p>'; });
+}
+function buildSankey(){
+  const EU="EU imports", linkMap={}, nodeSet=new Set([EU]);
+  const add=(s,t,v)=>{ if(v<=0||s===t) return; const k=s+''+t; linkMap[k]=(linkMap[k]||0)+v; nodeSet.add(s); nodeSet.add(t); };
+  MATS.forEach(m=>{
+    const origins=(m.origins||[]).slice(0,3), mines=(m.mined||[]).slice(0,3);
+    const sumW=mines.reduce((a,o)=>a+o.v,0)||1;
+    origins.forEach(o=>{ const refN=cname(o.c)+" (refines)"; add(refN, EU, o.v);
+      mines.forEach(w=>{ add(cname(w.c), refN, o.v*w.v/sumW); }); });
+  });
+  const nodes=[...nodeSet].map(n=>{ const ref=n.endsWith(" (refines)"), eu=n===EU;
+    return { name:n, itemStyle:{ color: eu?'#555' : ref?(n.startsWith('China')?'#b22222':'#3a6ea5'):'#cc8a3a' } }; });
+  const links=Object.entries(linkMap).map(([k,v])=>{ const [s,t]=k.split(''); return {source:s,target:t,value:Math.round(v*10)/10}; }).filter(l=>l.value>=1);
+  const used=new Set(); links.forEach(l=>{ used.add(l.source); used.add(l.target); });
+  const nodes2=nodes.filter(n=>used.has(n.name));
+  const el=document.getElementById('sankey');
+  if(!el.clientWidth){ if(VIEW==='sankey') requestAnimationFrame(buildSankey); return; }
+  if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
+  sankeyChart.setOption({
+    tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`:p.name},
+    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,
+      data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222'},
+      lineStyle:{color:'source',opacity:.42,curveness:.5}}]
+  }, true);
+  requestAnimationFrame(()=>sankeyChart.resize());
+  $('#sankey-info').innerHTML="<span style='color:#cc8a3a'>● raw source</span> → <span style='color:var(--red)'>● refiner</span> → EU. Each material contributes its origin shares (structure, not € size); the mine→refiner split is an illustrative allocation.";
+}
+window.addEventListener('resize',()=>{ if(VIEW==='sankey'&&sankeyChart) sankeyChart.resize(); });
 </script>
 </body>
 </html>
