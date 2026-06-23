@@ -240,6 +240,19 @@ text(ovs$share, bp, labels = sprintf(" %.0f%%", ovs$share), pos = 4, xpd = TRUE,
 legend("bottomright", c("China", "other origin"), fill = c("firebrick", "steelblue"), bty = "n")
 dev.off()
 
+# Social-share card (1200x630) for link previews (og:image) — top 12 by concentration.
+sc <- head(ovs[order(-ovs$share), ], 12); sc <- sc[order(sc$share), ]
+png(file.path(out_dir, "share.png"), width = 1200, height = 630)
+par(mar = c(3.5, 11, 5.5, 2))
+barplot(sc$share, horiz = TRUE, las = 1, xlim = c(0, 100), border = NA,
+        names.arg = paste0(sc$mat, " (", sc$partner, ")"),
+        col = ifelse(sc$china, "firebrick", "steelblue"), cex.names = 1.15)
+title(main = "Who does the EU really depend on?", line = 2.8, cex.main = 2.5, adj = 0)
+mtext("Critical raw materials by TRUE origin, corrected for the transit-port effect    |    red = China, blue = other",
+      side = 3, line = 0.5, adj = 0, cex = 1.2, col = "#555555")
+mtext("materials-atlas.github.io/eu_trade_dependency", side = 1, line = 1.6, adj = 1, cex = 1.05, col = "#888888")
+dev.off()
+
 # Machine-readable data for the interactive front-end (index.html fetches out/data.json).
 upds <- Filter(Negate(is.null), lapply(results, function(r) r$updated))
 dataUpdated <- if (length(upds)) format(max(as.Date(unlist(upds))), "%d %b %Y") else format(Sys.Date(), "%d %b %Y")
