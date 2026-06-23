@@ -60,6 +60,19 @@ build_tables <- function(val, qty) {
   list(origin = oa, ms = ma, summary = su)
 }
 
+# Drop the most recent year from a build_tables() result. Comext's latest annual year is
+# provisional (recent figures are revised upward over months), so analyses should headline
+# the latest COMPLETE year, not the partial one.
+drop_provisional <- function(tabs) {
+  yrs <- sort(unique(tabs$summary$year))
+  if (length(yrs) < 2) return(tabs)
+  keep <- yrs[-length(yrs)]
+  tabs$summary <- tabs$summary[tabs$summary$year %in% keep, ]
+  tabs$origin  <- tabs$origin[tabs$origin$year %in% keep, ]
+  tabs$ms      <- tabs$ms[tabs$ms$year %in% keep, ]
+  tabs
+}
+
 # Discover downloaded products in a raw/ dir from "<label>_<code>_value.csv" filenames.
 # Returns a data.frame(label, code, value_file, qty_file) for pairs that have both.
 discover_products <- function(raw_dir = "raw") {

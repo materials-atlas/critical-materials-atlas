@@ -100,7 +100,7 @@ server <- function(input, output, session) {
     qty <- read_comext(file.path(RAW_DIR, row$qty_file))
     validate(need(!is.null(val) && nrow(val) > 0, "Value file empty or missing."),
              need(!is.null(qty) && nrow(qty) > 0, "Quantity file empty or missing."))
-    build_tables(val, qty)
+    drop_provisional(build_tables(val, qty))  # exclude the provisional latest Comext year
   })
 
   output$year_ui <- renderUI({
