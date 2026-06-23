@@ -105,9 +105,8 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
-    <div class="maptog">shade by: <button id="mt-refined" class="active">buy from</button> <button id="mt-mined">mined in</button></div>
     <div id="map"><div class="loading">loading map…</div></div>
-    <p class="panel-info" id="map-info">Countries shaded by how many materials they lead. Click a country to see what it supplies and what it mines.</p>
+    <p class="panel-info" id="map-info">Supply chains: mine → refiner → EU. Click a marker for detail.</p>
   </div>
   <div id="view-globe" class="view hidden">
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
@@ -154,7 +153,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', mapMode='refined';
+let DATA=null, MATS=[], VIEW='table';
 const $ = s => document.querySelector(s);
 
 fetch('out/data.json').then(r=>r.json()).then(d=>{
@@ -245,10 +244,7 @@ function loadScript(src){ if(_scripts[src]) return _scripts[src];
   return _scripts[src]=new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>{ delete _scripts[src]; rej(src); }; document.head.appendChild(s); }); }
 function loadCss(href){ if(document.querySelector('link[data-x="'+href+'"]'))return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; l.dataset.x=href; document.head.appendChild(l); }
 
-/* ---------- map (local shade toggle; click shows both) ---------- */
-$('#mt-refined').onclick=()=>{ mapMode='refined'; $('#mt-refined').classList.add('active'); $('#mt-mined').classList.remove('active'); if(window.jsVectorMap) buildMap(); };
-$('#mt-mined').onclick  =()=>{ mapMode='mined';   $('#mt-mined').classList.add('active'); $('#mt-refined').classList.remove('active'); if(window.jsVectorMap) buildMap(); };
-function topByMode(m){ return mapMode==='mined' ? mineTop(m) : refTop(m); }
+/* ---------- map: flow map (mine → refiner → EU) ---------- */
 function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
   loadCss('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css');
   loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js')
@@ -257,18 +253,25 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
 }
 let mapInstance=null;
 function buildMap(){
-  const counts={}; MATS.forEach(m=>{ const t=topByMode(m); if(t&&t.c) counts[t.c]=(counts[t.c]||0)+1; });
-  const maxN=Math.max(1,...Object.values(counts));
-  const ramp=['#dbe7f3','#a9c6e3','#6f9fcb','#3a6ea5','#1f4e79','#0f2c46'];
-  const scale={}; for(let i=1;i<=maxN;i++) scale[i]=ramp[Math.min(ramp.length-1,Math.floor((i-1)/maxN*ramp.length))];
+  const refiners=new Set(), mines=new Set();
+  MATS.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) refiners.add(r.c); if(mi&&COUNTRY[mi.c]) mines.add(mi.c); });
+  const codes=[...new Set([...refiners,...mines,'EU'])];
+  const markers=codes.map(c=>{ const isEU=c==='EU', isRef=refiners.has(c);
+    const fill=isEU?'#555':isRef?(c==='CN'?'#b22222':'#3a6ea5'):'#e8a33d';
+    return {name:cname(c), coords:[COUNTRY[c].lat,COUNTRY[c].lng], style:{fill, r:isEU?7:isRef?6:4, stroke:'#fff', strokeWidth:1}}; });
+  const lset={};
+  MATS.forEach(m=>{ const r=refTop(m), mi=mineTop(m);
+    if(COUNTRY[r.c]){ lset[r.c+'_EU']={from:cname(r.c), to:cname('EU')};
+      if(mi&&mi.c!==r.c&&COUNTRY[mi.c]) lset[mi.c+'_'+r.c]={from:cname(mi.c), to:cname(r.c)}; } });
+  const lines=Object.values(lset);
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
   mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
-    regionStyle:{ initial:{fill:'#dfe6ee'} },
-    series:{ regions:[{ attribute:'fill', scale:scale, values:counts }] },
-    onRegionTooltipShow(e,t,code){ const n=counts[code]||0; t.text(cname(code)+(n?` — ${mapMode==='mined'?'mines':'EU buys'} ${n} material${n>1?'s':''}`:'')); },
-    onRegionClick(e,code){ showCountry(code); } });
-  $('#map-info').textContent=(mapMode==='mined'?'Shaded by where materials are MINED (USGS). ':'Shaded by where the EU BUYS from (refined). ')+'Click a country for both.';
+    regionStyle:{ initial:{fill:'#e8edf2'} },
+    markers, lines,
+    lineStyle:{ stroke:'#7a93ad', strokeWidth:1, strokeOpacity:.45 },
+    onMarkerClick(e,index){ showCountry(codes[index]); } });
+  $('#map-info').innerHTML="Each line is a supply chain: <span style='color:#e8a33d'>● mine</span> → <span style='color:var(--red)'>● refiner</span> → <span style='color:#555'>● EU</span>. Click a marker for detail.";
 }
 function showCountry(code){
   const buys=MATS.filter(m=>refTop(m).c===code), mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
@@ -289,8 +292,8 @@ function buildGlobe(){
   MATS.forEach(m=>{
     const r=refTop(m), mi=mineTop(m), RC=COUNTRY[r.c], MC=mi?COUNTRY[mi.c]:null;
     if(mi && mi.c!==r.c && MC){
-      if(RC){ arcs.push({startLat:MC.lat,startLng:MC.lng,endLat:RC.lat,endLng:RC.lng,color:'#e8a33d',
-        stroke:Math.max(.4,mi.v/24),label:`${strip(m.title)} — mined in ${cname(mi.c)} (${mi.v}%)`,key:m.label}); }
+      if(RC){ arcs.push({startLat:MC.lat,startLng:MC.lng,endLat:RC.lat,endLng:RC.lng,color:'#ffb74d',
+        stroke:Math.max(.8,mi.v/18),label:`${strip(m.title)} — mined in ${cname(mi.c)} (${mi.v}%)`,key:m.label}); }
       const a=RC||MC; arcs.push({startLat:a.lat,startLng:a.lng,endLat:EU.lat,endLng:EU.lng,color:r.china?'#e23b3b':'#4d9fe6',
         stroke:Math.max(.4,r.v/24),label:`${strip(m.title)} — refined via ${cname(r.c)} → EU (${r.v.toFixed(0)}%)`,key:m.label});
     } else if(RC){
@@ -338,7 +341,12 @@ function buildSankey(){
   if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
   sankeyChart.setOption({
     tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`:p.name},
-    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,
+    graphic:[
+      {type:'text',left:'4%',top:4,style:{text:'⛏ MINED IN',fill:'#cc8a3a',font:'bold 12px system-ui'}},
+      {type:'text',left:'center',top:4,style:{text:'🏭 REFINED IN',fill:'#b22222',font:'bold 12px system-ui'}},
+      {type:'text',right:'3%',top:4,style:{text:'EU',fill:'#555',font:'bold 12px system-ui'}}
+    ],
+    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,
       data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222'},
       lineStyle:{color:'source',opacity:.42,curveness:.5}}]
   }, true);
