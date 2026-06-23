@@ -136,7 +136,7 @@
   <div id="view-sankey" class="view">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
-    <p class="panel-info" id="sankey-info">mined → refined → EU.</p>
+    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → EU (right).</p>
   </div>
 </main>
 
@@ -424,8 +424,10 @@ function buildSankey(){
       mines.forEach(x=> add(cname(x.c), refN, w*x.v/sumW)); }
     else { mines.forEach(x=> add(cname(x.c), EU, w*x.v/sumW)); }
   });
-  const nodes=[...nodeSet].map(n=>{ const ref=n.endsWith(" (refines)"), eu=n===EU;
-    return { name:n, itemStyle:{ color: eu?'#555' : ref?(n.startsWith('China')?'#b22222':'#3a6ea5'):'#cc8a3a' } }; });
+  const PAL=['#4e79a7','#f28e2b','#e15759','#76b7b2','#59a14f','#edc948','#b07aa1','#ff9da7','#9c755f','#bab0ac','#1f77b4','#2ca02c','#d62728','#9467bd','#8c564b','#e377c2','#bcbd22','#17becf','#aec7e8','#ffbb78','#98df8a','#c5b0d5'];
+  const ctrys=[...new Set([...nodeSet].filter(n=>n!==EU).map(n=>n.replace(/ \(refines\)$/,'')))].sort();
+  const colOf={}; ctrys.forEach((c,i)=>colOf[c]=PAL[i%PAL.length]);
+  const nodes=[...nodeSet].map(n=>({ name:n, itemStyle:{ color: n===EU?'#555':colOf[n.replace(/ \(refines\)$/,'')] } }));
   const links=Object.entries(linkMap).map(([k,v])=>{ const [s,t]=k.split(''); return {source:s,target:t,value:Math.round(v*10)/10}; }).filter(l=>l.value>=1);
   const used=new Set(); links.forEach(l=>{ used.add(l.source); used.add(l.target); });
   const nodes2=nodes.filter(n=>used.has(n.name));
@@ -435,9 +437,9 @@ function buildSankey(){
   sankeyChart.setOption({
     tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`.replace(/ \(refines\)/g,''):p.name.replace(/ \(refines\)$/,'')},
     graphic:[
-      {type:'text',left:'4%',top:4,style:{text:'⛏ MINED IN',fill:'#cc8a3a',font:'bold 12px system-ui'}},
-      {type:'text',left:'center',top:4,style:{text:'🏭 REFINED IN',fill:'#b22222',font:'bold 12px system-ui'}},
-      {type:'text',right:'3%',top:4,style:{text:'EU',fill:'#555',font:'bold 12px system-ui'}}
+      {type:'text',left:'4%',top:4,style:{text:'⛏ MINED IN',fill:'#666',font:'bold 12px system-ui'}},
+      {type:'text',left:'center',top:4,style:{text:'🏭 REFINED IN',fill:'#666',font:'bold 12px system-ui'}},
+      {type:'text',right:'3%',top:4,style:{text:'EU',fill:'#666',font:'bold 12px system-ui'}}
     ],
     series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,
       data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222',formatter:p=>p.name.replace(/ \(refines\)$/,'')},
@@ -446,8 +448,8 @@ function buildSankey(){
   requestAnimationFrame(()=>sankeyChart.resize());
   const selM=sel?MATS.find(m=>m.label===sel):null;
   $('#sankey-info').innerHTML = selM
-    ? `<b>${strip(selM.title)}</b>: <span style='color:#cc8a3a'>● mined</span> → <span style='color:var(--red)'>● refined</span> → EU — the same chain as the table.  <a href="#" id="sk-detail">full detail →</a>`
-    : "<span style='color:#cc8a3a'>● mined</span> → <span style='color:var(--red)'>● refined</span> → EU across all materials — China's refining node is the chokepoint. Each material weighted equally; the mine→refiner split is structural. Pick a material above to isolate its chain.";
+    ? `<b>${strip(selM.title)}</b>: <b>mined</b> (left) → <b>refined</b> (middle) → <b>EU</b> (right) — same chain as the table; each country has its own colour.  <a href="#" id="sk-detail">full detail →</a>`
+    : "<b>mined</b> (left) → <b>refined</b> (middle) → <b>EU</b> (right) across all materials — each country has its own colour; the biggest middle node is the dominant refiner. Each material weighted equally; the mine→refiner split is structural. Pick a material above to isolate its chain.";
   if(selM){ const a=$('#sk-detail'); if(a) a.onclick=e=>{e.preventDefault(); showDetail(selM.label);}; }
 }
 window.addEventListener('resize',()=>{ if(VIEW==='sankey'&&sankeyChart) sankeyChart.resize(); });
