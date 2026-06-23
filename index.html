@@ -37,8 +37,8 @@
   .row .name{font-weight:600;font-size:.92rem;line-height:1.2}
   .row .name small{font-weight:400;color:var(--mut);display:block;font-size:.7rem}
   .duo{display:flex;flex-direction:column;gap:.25rem}
-  .dbar{display:grid;grid-template-columns:2.6rem 1fr;gap:.4rem;align-items:center}
-  .dlbl{font-size:.66rem;color:var(--mut);text-transform:uppercase;letter-spacing:.03em;text-align:right}
+  .dbar{display:grid;grid-template-columns:4.4rem 1fr;gap:.4rem;align-items:center}
+  .dlbl{font-size:.66rem;color:var(--mut);text-transform:uppercase;letter-spacing:.02em;text-align:right;white-space:nowrap}
   .bw{position:relative;background:#f0f0f0;border-radius:4px;height:19px;overflow:hidden}
   .bf{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
   .bl{position:absolute;left:7px;top:0;line-height:19px;font-size:.74rem;color:#fff;text-shadow:0 0 2px rgba(0,0,0,.55);white-space:nowrap}
@@ -111,7 +111,7 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend"><b>top bar = where the EU buys it</b>: <span class="sw" style="background:#3f9b46"></span>seller also mines it (real producer) · <span class="sw" style="background:#e07b39"></span>refines/resells, raw mined elsewhere. <b>bottom bar = where it's mined</b> by country (<span class="sw" style="background:var(--red)"></span>China red). ⚠ = top seller ≠ top miner. Hover a segment.</div>
+    <div class="legend"><b>Two bars per material.</b> <b>EU buys</b> = the country the EU imports the refined material from (top supplier). <b>mined in</b> = the country where it's actually dug from the ground (top world producer). <span class="sw" style="background:var(--red)"></span>China · <span class="sw" style="background:var(--blue)"></span>other. <b>⚠</b> = the EU's supplier isn't the miner — e.g. cobalt is <i>bought from China</i> but <i>mined in the Congo</i>.</div>
     <div id="rows"></div>
   </div>
   <div id="view-grid" class="view hidden">
@@ -232,8 +232,8 @@ function renderTable(){
     return `<div class="row" data-k="${m.label}">
       <div class="name">${strip(m.title)}<small>${code}</small></div>
       <div class="duo">
-        <div class="dbar"><span class="dlbl">buy</span>${buyBar(m)}</div>
-        <div class="dbar"><span class="dlbl">mine</span>${stackBar(m.mined)}</div>
+        <div class="dbar"><span class="dlbl">EU buys</span>${miniBar(r)}</div>
+        <div class="dbar"><span class="dlbl">mined in</span>${miniBar(mi)}</div>
       </div>
       <div class="warn" title="${mism?'bought and mined in different countries':''}">${mism?'⚠':''}</div>
     </div>`; }).join('')||'<p class="loading">no match</p>';
