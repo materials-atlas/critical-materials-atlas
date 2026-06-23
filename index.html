@@ -125,17 +125,17 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;into: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
     <p class="panel-info" id="map-info">Loading real trade flows…</p>
   </div>
   <div id="view-globe" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;into: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
   <div id="view-sankey" class="view">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;into: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → EU (right).</p>
   </div>
@@ -176,7 +176,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='sankey', SELMAT='';
+let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
 const $ = s => document.querySelector(s);
 function populateMatSelectors(){
   const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join('');
@@ -184,9 +184,22 @@ function populateMatSelectors(){
 }
 function setMat(label){ SELMAT=label;
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
+  rebuildActive();
+}
+function rebuildActive(){
   if(VIEW==='map'&&window.jsVectorMap) buildMap();
   else if(VIEW==='globe'&&window.Globe&&window.topojson) buildGlobe();
   else if(VIEW==='sankey'&&window.echarts) buildSankey();
+}
+function destList(){ const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
+  return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
+function populateDestSelectors(){ if(!FLOWS) return;
+  const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${fname(c)}</option>`).join('');
+  ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELDEST; s.onchange=()=>setDest(s.value); } });
+}
+function setDest(c){ SELDEST=c;
+  ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s) s.value=c; });
+  rebuildActive();
 }
 
 fetch('out/data.json').then(r=>r.json()).then(d=>{
@@ -330,7 +343,7 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
 }
 let mapInstance=null, FLOWS=null, redrawArrows=null;
 function ensureFlows(cb){ if(FLOWS){cb();return;}
-  fetch('out/flows.json').then(r=>r.json()).then(d=>{FLOWS=d;cb();}).catch(()=>{FLOWS={year:'',centroids:{},names:{},materials:{}};cb();}); }
+  fetch('out/flows.json').then(r=>r.json()).then(d=>{FLOWS=d;populateDestSelectors();cb();}).catch(()=>{FLOWS={year:'',centroids:{},names:{},iso:{},materials:{}};cb();}); }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
@@ -363,12 +376,13 @@ function renderMap(){
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
   const roleCol=iso=> refV[iso]!=null ? 'rgb(142,68,173)' : mineV[iso]!=null ? 'rgb(222,140,40)' : '#8a8a8a';
   const roleArr=iso=> refV[iso]!=null ? 'url(#arrV)' : mineV[iso]!=null ? 'url(#arrA)' : 'url(#arrG)';
   flows.forEach(fl=>{ fl.color=roleCol(fl.from); fl.arrow=roleArr(fl.from); });
   const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
   const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
-    style:{fill:'#42566b', r:3.5, stroke:'#fff', strokeWidth:1} }));
+    style:{fill: iso===SELDEST?'#2e8b57':'#42566b', r: iso===SELDEST?6.5:3.5, stroke:'#fff', strokeWidth: iso===SELDEST?2:1} }));
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
   mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
@@ -430,6 +444,7 @@ function renderGlobe(){
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
   const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)', GREY='#8a8a8a';
   const roleCol=iso=> refV[iso]!=null?VIOLET:mineV[iso]!=null?AMBER:GREY;
   const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
@@ -483,12 +498,15 @@ function buildSankey(){
     const mineSet=new Set(mines.map(x=>x.c));
     const sumW=mines.reduce((a,o)=>a+o.v,0)||1, w=100;
     const fl=(FLOWS.materials[m.label]||[]);
-    if(re){ const refN=cname(re)+" (refines)"; refNodes.add(refN);
+    if(re){ const refN=cname(re)+" (refines)";
+      const dests = SELDEST ? fl.filter(f=>f.from===re && f.to===SELDEST) : fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,6);
+      if(SELDEST && !dests.length) return;
+      refNodes.add(refN);
       mines.forEach(x=>{ add(cname(x.c), refN, w*x.v/sumW); mineNodes.add(cname(x.c)); });
-      const dests=fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,6);
       const dTot=dests.reduce((a,f)=>a+f.value,0)||1;
       dests.forEach(f=> add(refN, cname(f.to), w*f.value/dTot)); }
-    else { const ms=fl.filter(f=>mineSet.has(f.from)).slice(0,8);
+    else { let ms=fl.filter(f=>mineSet.has(f.from)); if(SELDEST) ms=ms.filter(f=>f.to===SELDEST); ms=ms.slice(0,8);
+      if(SELDEST && !ms.length) return;
       const tot=ms.reduce((a,f)=>a+f.value,0)||1;
       if(ms.length) ms.forEach(f=>{ add(cname(f.from), cname(f.to), w*f.value/tot); mineNodes.add(cname(f.from)); });
       else mines.forEach(x=> mineNodes.add(cname(x.c))); }
