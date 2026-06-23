@@ -126,7 +126,7 @@
   <div id="view-map" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
-    <p class="panel-info" id="map-info">Supply chains: mine → refiner → EU. Click a marker for detail.</p>
+    <p class="panel-info" id="map-info">Loading real trade flows…</p>
   </div>
   <div id="view-globe" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
@@ -325,34 +325,52 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
    .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
 }
-let mapInstance=null;
-function buildMap(){
-  const mats=SELMAT?MATS.filter(m=>m.label===SELMAT):MATS;
-  const refiners=new Set(), mines=new Set();
-  mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) refiners.add(r.c); if(mi&&COUNTRY[mi.c]) mines.add(mi.c); });
-  const codes=[...new Set([...refiners,...mines,'EU'])];
-  const markers=codes.map(c=>{ const isEU=c==='EU', isRef=refiners.has(c);
-    const fill=isEU?'#555':isRef?(c==='CN'?'#b22222':'#3a6ea5'):'#e8a33d';
-    return {name:cname(c), coords:[COUNTRY[c].lat,COUNTRY[c].lng], style:{fill, r:isEU?7:isRef?6:4, stroke:'#fff', strokeWidth:1}}; });
-  const lset={};
-  mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m);
-    if(COUNTRY[r.c]){ lset[r.c+'_EU']={from:cname(r.c), to:cname('EU')};
-      if(mi&&mi.c!==r.c&&COUNTRY[mi.c]) lset[mi.c+'_'+r.c]={from:cname(mi.c), to:cname(r.c)}; } });
-  const lines=Object.values(lset);
+let mapInstance=null, FLOWS=null;
+function ensureFlows(cb){ if(FLOWS){cb();return;}
+  fetch('out/flows.json').then(r=>r.json()).then(d=>{FLOWS=d;cb();}).catch(()=>{FLOWS={year:'',centroids:{},names:{},materials:{}};cb();}); }
+function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
+function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
+  if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
+function buildMap(){ ensureFlows(renderMap); }
+function renderMap(){
+  const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
+  // choropleth fill: mine share (single material) or #materials mined (all)
+  const mineV={};
+  if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>{ mineV[x.c]=x.v; }); }
+  else { mats.forEach(m=>(m.mined||[]).forEach(x=>{ mineV[x.c]=(mineV[x.c]||0)+1; })); }
+  const PAL=['#f6e2b8','#edbb6b','#df8f37','#b35e16'];
+  const bk=v=> single ? (v>=50?4:v>=20?3:v>=5?2:1) : (v>=5?4:v>=3?3:v>=2?2:1);
+  const cvalues={}, cscale={}; PAL.forEach((c,i)=>cscale[i+1]=c);
+  Object.entries(mineV).forEach(([iso,v])=>{ cvalues[iso]=bk(v); });
+  // real export flows (Comtrade)
+  let flows;
+  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
+  else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
+  flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
+  const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
+    style:{fill: mineV[iso]!==undefined?'#b35e16':'#36699e', r:4, stroke:'#fff', strokeWidth:1} }));
+  const lines=flows.map(fl=>({from:fname(fl.from), to:fname(fl.to)}));
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
   mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
-    regionStyle:{ initial:{fill:'#e8edf2'} },
+    regionStyle:{ initial:{fill:'#eceff2', stroke:'#fbfcfd', strokeWidth:.4} },
+    series:{ regions:[{ attribute:'fill', scale:cscale, values:cvalues }] },
     markers, lines,
-    lineStyle:{ stroke:'#7a93ad', strokeWidth:1, strokeOpacity:.45 },
-    onMarkerClick(e,index){ showCountry(codes[index]); } });
-  $('#map-info').innerHTML="Each line is a supply chain: <span style='color:#e8a33d'>● mine</span> → <span style='color:var(--red)'>● refiner</span> → <span style='color:#555'>● EU</span>. Click a marker for detail.";
+    lineStyle:{ stroke:'#7d6450', strokeWidth:1, strokeOpacity:.4 },
+    onMarkerClick(e,index){ showCountry(markers[index]._iso); } });
+  $('#map-info').innerHTML= single
+    ? `<b>${strip(mats[0].title)}</b> — <span style="color:#b35e16">amber</span> = share <b>mined</b> (darker = more); <span style="color:#7d6450">arrows</span> = real <b>exports</b> of the traded product (Comtrade ${FLOWS.year}). Click a country.`
+    : `<span style="color:#b35e16">Amber</span> = how many of the ${MATS.length} materials a country mines; <span style="color:#7d6450">arrows</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material above to focus one chain.`;
 }
 function showCountry(code){
-  const buys=MATS.filter(m=>refTop(m).c===code), mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
-  if(!buys.length&&!mines.length){ $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b> — not a top source here.`; return; }
+  const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
+  const refines=MATS.filter(m=>(m.refined&&m.refined[0]&&m.refined[0].c===code));
+  const buys=MATS.filter(m=>refTop(m).c===code);
+  if(!mines.length&&!refines.length&&!buys.length){ $('#map-info').innerHTML=`<b>${fname(code)}</b> — a trade destination here, not a top source.`; return; }
   const lk=arr=>arr.map(m=>`<a href="#" data-k="${m.label}">${strip(m.title)}</a>`).join(', ')||'—';
-  $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b><br><span style="color:var(--red)">EU buys (refined):</span> ${lk(buys)}<br><span style="color:var(--blue)">Mines:</span> ${lk(mines)}`;
+  $('#map-info').innerHTML=`<b>${fname(code)}</b><br><span style="color:#b35e16">mines:</span> ${lk(mines)}<br><span style="color:#2b4d6f">refines:</span> ${lk(refines)}<br><span style="color:#555">EU buys from here:</span> ${lk(buys)}`;
   $('#map-info').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();showDetail(a.dataset.k);});
 }
 
