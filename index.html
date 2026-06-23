@@ -131,7 +131,7 @@
   <div id="view-globe" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
-    <p class="panel-info" id="globe-info">The implied supply chain: <span style="color:#e8a33d">mine</span> → <span style="color:#e23b3b">refiner</span> → EU. Click an arc for detail.</p>
+    <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
   <div id="view-sankey" class="view">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
@@ -407,7 +407,7 @@ function showCountry(code){
   $('#map-info').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();showDetail(a.dataset.k);});
 }
 
-/* ---------- globe: implied chain mine → refiner → EU ---------- */
+/* ---------- globe: real Comtrade flows, role-coloured (matches the map) ---------- */
 function initGlobe(){ if(window.Globe && window.topojson){ buildGlobe(); return; }
   Promise.all([
     window.Globe?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/globe.gl'),
@@ -416,44 +416,50 @@ function initGlobe(){ if(window.Globe && window.topojson){ buildGlobe(); return;
    .catch(err=>{ $('#globe').innerHTML='<p class="loading" style="color:#aaa">Globe library failed to load.<br>'+err+'</p>'; });
 }
 let globeInstance=null;
-function buildGlobe(){
-  const mats=SELMAT?MATS.filter(m=>m.label===SELMAT):MATS;
-  const EU=COUNTRY.EU, arcs=[];
-  mats.forEach(m=>{
-    const r=refTop(m), mi=mineTop(m), RC=COUNTRY[r.c], MC=mi?COUNTRY[mi.c]:null;
-    if(mi && mi.c!==r.c && MC){
-      if(RC){ arcs.push({startLat:MC.lat,startLng:MC.lng,endLat:RC.lat,endLng:RC.lng,color:'#ffb74d',
-        stroke:Math.max(.8,mi.v/18),label:`${strip(m.title)} — mined in ${cname(mi.c)} (${mi.v}%)`,key:m.label}); }
-      const a=RC||MC; arcs.push({startLat:a.lat,startLng:a.lng,endLat:EU.lat,endLng:EU.lng,color:r.china?'#e23b3b':'#4d9fe6',
-        stroke:Math.max(.4,r.v/24),label:`${strip(m.title)} — refined via ${cname(r.c)} → EU (${r.v.toFixed(0)}%)`,key:m.label});
-    } else if(RC){
-      arcs.push({startLat:RC.lat,startLng:RC.lng,endLat:EU.lat,endLng:EU.lng,color:r.china?'#e23b3b':'#4d9fe6',
-        stroke:Math.max(.4,r.v/24),label:`${strip(m.title)}: ${cname(r.c)} ${r.v.toFixed(0)}%`,key:m.label});
-    }
-  });
-  const refiners=new Set(); mats.forEach(m=>{ const r=refTop(m); if(COUNTRY[r.c]) refiners.add(r.c); });
-  const inv=new Set(['EU']); mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) inv.add(r.c); if(mi&&COUNTRY[mi.c]) inv.add(mi.c); });
-  const labels=[...inv].map(c=>({ lat:COUNTRY[c].lat, lng:COUNTRY[c].lng, name:cname(c),
-    color: c==='EU'?'#e6e6e6' : refiners.has(c)?(c==='CN'?'#ff6b6b':'#86b7ff'):'#ffcf8a', size: c==='EU'?1.5:1.05 }));
+function buildGlobe(){ ensureFlows(renderGlobe); }
+function renderGlobe(){
+  const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
+  const mineV={}, refV={};
+  if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>mineV[x.c]=x.v); if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
+  else { mats.forEach(m=>{ (m.mined||[]).forEach(x=>mineV[x.c]=(mineV[x.c]||0)+1); if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
+  let flows;
+  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
+  else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
+  flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)', GREY='#8a8a8a';
+  const roleCol=iso=> refV[iso]!=null?VIOLET:mineV[iso]!=null?AMBER:GREY;
+  const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
+    return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color:roleCol(fl.from),
+      label:`${fname(fl.from)} → ${fname(fl.to)}`, key:single?SELMAT:'' }; });
+  const Argb=[222,140,40], Vrgb=[142,68,173], mixc=(p,q,t)=>[0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*t));
+  const polyColor=feat=>{ const iso=(FLOWS.iso&&FLOWS.iso[String(parseInt(feat.id,10))])||null;
+    if(!iso) return 'rgba(120,150,180,0.07)';
+    const isM=mineV[iso]!=null, isR=refV[iso]!=null;
+    if(isM&&isR){ const c=mixc(Argb,Vrgb,.5); return `rgba(${c[0]},${c[1]},${c[2]},0.88)`; }
+    if(isM) return 'rgba(222,140,40,0.82)'; if(isR) return 'rgba(142,68,173,0.82)';
+    return 'rgba(120,150,180,0.07)'; };
   requestAnimationFrame(()=>{
     if(!globeInstance){
       $('#globe').innerHTML='';
       globeInstance=Globe()(document.getElementById('globe'))
         .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg').backgroundColor('#0a0f1e')
         .showAtmosphere(true).atmosphereColor('#5b8fc7').atmosphereAltitude(0.16)
-        .arcColor('color').arcStroke('stroke').arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
-        .arcDashLength(.5).arcDashGap(.2).arcDashAnimateTime(2200).arcLabel('label').onArcClick(a=>showDetail(a.key))
-        .labelLat('lat').labelLng('lng').labelText('name').labelColor('color').labelSize('size').labelDotRadius(0.5).labelResolution(2)
+        .arcColor('color').arcStroke(()=>0.7).arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
+        .arcDashLength(.4).arcDashGap(.18).arcDashAnimateTime(2200).arcLabel('label').onArcClick(a=>{ if(a.key) showDetail(a.key); })
         .width($('#globe').clientWidth||900).height(560);
       globeInstance.pointOfView({lat:25,lng:15,altitude:2.2});
       fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json())
         .then(topo=>{ const feats=(window.topojson&&topo.objects)?topojson.feature(topo,topo.objects.countries).features:[];
-          globeInstance.polygonsData(feats).polygonCapColor(()=>'rgba(120,150,180,0.10)').polygonSideColor(()=>'rgba(0,0,0,0)').polygonStrokeColor(()=>'#9fc0dd').polygonAltitude(0.004); })
+          globeInstance.polygonsData(feats).polygonCapColor(polyColor).polygonSideColor(()=>'rgba(0,0,0,0.05)').polygonStrokeColor(()=>'#5e7488').polygonAltitude(0.006); })
         .catch(()=>{});
-    }
+    } else { globeInstance.polygonCapColor(polyColor); }
     globeInstance.arcsData(arcs);
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
+  $('#globe-info').innerHTML = single
+    ? `<b>${strip(mats[0].title)}</b> — fill: <span style="color:rgb(222,140,40)">mined</span> / <span style="color:rgb(142,68,173)">refined</span> / mauve = both. Arcs (Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> from miners (raw), <span style="color:rgb(142,68,173)">violet</span> from refiners. Click an arc.`
+    : `Fill: <span style="color:rgb(222,140,40)">mined</span> / <span style="color:rgb(142,68,173)">refined</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> from miners, <span style="color:rgb(142,68,173)">violet</span> from refiners. Pick a material to focus.`;
 }
 
 /* ---------- sankey: raw source → refiner → EU ---------- */

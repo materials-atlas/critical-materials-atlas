@@ -83,6 +83,6 @@ foreach($m in $mats){
 
 $cenUsed=[ordered]@{}; $nameUsed=[ordered]@{}
 foreach($iso in ($usedIso | Sort-Object)){ if($centroid.ContainsKey($iso)){ $cenUsed[$iso]=$centroid[$iso]; $nameUsed[$iso]=$cName[$iso] } }
-$result=[ordered]@{ year=$Year; centroids=$cenUsed; names=$nameUsed; materials=$out }
+$result=[ordered]@{ year=$Year; centroids=$cenUsed; names=$nameUsed; iso=$m49toIso; materials=$out }
 $result | ConvertTo-Json -Depth 8 -Compress | Out-File "$root\out\flows.json" -Encoding utf8
 "`nAPI calls: $calls. Wrote out/flows.json ($([math]::Round((Get-Item "$root\out\flows.json").Length/1KB)) KB, $($cenUsed.Count) centroids)."
