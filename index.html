@@ -105,10 +105,12 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
     <p class="panel-info" id="map-info">Supply chains: mine → refiner → EU. Click a marker for detail.</p>
   </div>
   <div id="view-globe" class="view hidden">
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">The implied supply chain: <span style="color:#e8a33d">mine</span> → <span style="color:#e23b3b">refiner</span> → EU. Click an arc for detail.</p>
   </div>
@@ -154,14 +156,24 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table';
+let DATA=null, MATS=[], VIEW='table', SELMAT='';
 const $ = s => document.querySelector(s);
+function populateMatSelectors(){
+  const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join('');
+  ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELMAT; s.onchange=()=>setMat(s.value); } });
+}
+function setMat(label){ SELMAT=label;
+  ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
+  if(VIEW==='map'&&window.jsVectorMap) buildMap();
+  else if(VIEW==='globe'&&window.Globe) buildGlobe();
+  else if(VIEW==='sankey'&&window.echarts) buildSankey();
+}
 
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
   $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
-  const sm=$('#sankey-mat'); if(sm){ sm.innerHTML='<option value="">All materials (aggregate)</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join(''); sm.onchange=()=>{ if(window.echarts) buildSankey(); }; }
+  populateMatSelectors();
   renderTable();
   if(VIEW==='map' && window.jsVectorMap) buildMap();
   if(VIEW==='globe' && window.Globe) buildGlobe();
@@ -255,14 +267,15 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
 }
 let mapInstance=null;
 function buildMap(){
+  const mats=SELMAT?MATS.filter(m=>m.label===SELMAT):MATS;
   const refiners=new Set(), mines=new Set();
-  MATS.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) refiners.add(r.c); if(mi&&COUNTRY[mi.c]) mines.add(mi.c); });
+  mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m); if(COUNTRY[r.c]) refiners.add(r.c); if(mi&&COUNTRY[mi.c]) mines.add(mi.c); });
   const codes=[...new Set([...refiners,...mines,'EU'])];
   const markers=codes.map(c=>{ const isEU=c==='EU', isRef=refiners.has(c);
     const fill=isEU?'#555':isRef?(c==='CN'?'#b22222':'#3a6ea5'):'#e8a33d';
     return {name:cname(c), coords:[COUNTRY[c].lat,COUNTRY[c].lng], style:{fill, r:isEU?7:isRef?6:4, stroke:'#fff', strokeWidth:1}}; });
   const lset={};
-  MATS.forEach(m=>{ const r=refTop(m), mi=mineTop(m);
+  mats.forEach(m=>{ const r=refTop(m), mi=mineTop(m);
     if(COUNTRY[r.c]){ lset[r.c+'_EU']={from:cname(r.c), to:cname('EU')};
       if(mi&&mi.c!==r.c&&COUNTRY[mi.c]) lset[mi.c+'_'+r.c]={from:cname(mi.c), to:cname(r.c)}; } });
   const lines=Object.values(lset);
@@ -290,8 +303,9 @@ function initGlobe(){ if(window.Globe){ buildGlobe(); return; }
 }
 let globeInstance=null;
 function buildGlobe(){
+  const mats=SELMAT?MATS.filter(m=>m.label===SELMAT):MATS;
   const EU=COUNTRY.EU, arcs=[];
-  MATS.forEach(m=>{
+  mats.forEach(m=>{
     const r=refTop(m), mi=mineTop(m), RC=COUNTRY[r.c], MC=mi?COUNTRY[mi.c]:null;
     if(mi && mi.c!==r.c && MC){
       if(RC){ arcs.push({startLat:MC.lat,startLng:MC.lng,endLat:RC.lat,endLng:RC.lng,color:'#ffb74d',
@@ -325,7 +339,7 @@ function initSankey(){ if(window.echarts){ buildSankey(); return; }
    .catch(err=>{ $('#sankey').innerHTML='<p class="loading">Chart library failed to load.<br>'+err+'</p>'; });
 }
 function buildSankey(){
-  const sel=$('#sankey-mat')?$('#sankey-mat').value:'';
+  const sel=SELMAT;
   const mats=sel?MATS.filter(m=>m.label===sel):MATS;
   const EU="EU imports", linkMap={}, nodeSet=new Set([EU]);
   const add=(s,t,v)=>{ if(v<=0||s===t) return; const k=s+''+t; linkMap[k]=(linkMap[k]||0)+v; nodeSet.add(s); nodeSet.add(t); };
