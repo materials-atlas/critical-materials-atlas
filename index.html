@@ -42,6 +42,8 @@
   .bw{position:relative;background:#f0f0f0;border-radius:4px;height:19px;overflow:hidden}
   .bf{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
   .bl{position:absolute;left:7px;top:0;line-height:19px;font-size:.74rem;color:#fff;text-shadow:0 0 2px rgba(0,0,0,.55);white-space:nowrap}
+  .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
+  .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
   /* map / globe */
   .maptog{font-size:.82rem;color:var(--mut);margin-bottom:.5rem}
@@ -109,7 +111,7 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend"><b>each row, two bars:</b> <span class="sw" style="background:var(--red)"></span>China <span class="sw" style="background:var(--blue)"></span>other · top = where the EU buys it · bottom = where it's mined · ⚠ = different country</div>
+    <div class="legend"><b>each row = two stacked bars</b> — top = where the EU buys it (refined), bottom = where it's mined; each segment is a producing country (<span class="sw" style="background:var(--red)"></span>China red), grey = others. ⚠ = top buyer ≠ top miner. Hover a segment.</div>
     <div id="rows"></div>
   </div>
   <div id="view-grid" class="view hidden">
@@ -194,6 +196,18 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
 /* ---------- table: both layers per row ---------- */
 function miniBar(x){ if(!x) return `<div class="bw"><div class="bf" style="width:2%;background:#ccc"></div><span class="bl" style="color:#888;text-shadow:none">n/a</span></div>`;
   return `<div class="bw"><div class="bf" style="width:${Math.max(2,x.v)}%;background:${x.china?'var(--red)':'var(--blue)'}"></div><span class="bl">${flag(x.c)} ${cname(x.c)} ${x.v.toFixed(0)}%</span></div>`; }
+const PALETTE=['#3a6ea5','#5b9bd5','#48b5c4','#7ab648','#e8a33d','#c77dbb','#8a8d93','#d98a00','#4d9fe6'];
+function ccolor(c){ if(c==='CN') return 'var(--red)'; if(!c) return '#d8d8d8';
+  let h=0; for(const ch of c) h=(h*31+ch.charCodeAt(0))>>>0; return PALETTE[h%PALETTE.length]; }
+function stackBar(list){
+  const segs=(list||[]).map(o=>({c:o.c,v:o.v}));
+  const sum=segs.reduce((a,o)=>a+o.v,0);
+  if(sum<99) segs.push({c:'',v:Math.max(0,100-sum)});
+  return '<div class="sbar">'+segs.map(o=>{
+    const lab=(o.c&&o.v>=11)?`${o.c} ${o.v.toFixed(0)}`:'';
+    return `<span class="seg" style="width:${o.v}%;background:${ccolor(o.c)}" title="${o.c?cname(o.c)+' '+o.v.toFixed(0)+'%':'other producers'}">${lab}</span>`;
+  }).join('')+'</div>';
+}
 function renderTable(){
   const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
   let list=MATS.slice();
@@ -210,8 +224,8 @@ function renderTable(){
     return `<div class="row" data-k="${m.label}">
       <div class="name">${strip(m.title)}<small>${code}</small></div>
       <div class="duo">
-        <div class="dbar"><span class="dlbl">buy</span>${miniBar(r)}</div>
-        <div class="dbar"><span class="dlbl">mine</span>${miniBar(mi)}</div>
+        <div class="dbar"><span class="dlbl">buy</span>${stackBar(m.origins)}</div>
+        <div class="dbar"><span class="dlbl">mine</span>${stackBar(m.mined)}</div>
       </div>
       <div class="warn" title="${mism?'bought and mined in different countries':''}">${mism?'⚠':''}</div>
     </div>`; }).join('')||'<p class="loading">no match</p>';
