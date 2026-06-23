@@ -148,6 +148,20 @@ mine <- list(
   nickel    = list(o("ID",60),o("PH",11),o("RU",6),o("NC",4))
 )
 
+# Where each material is REFINED / processed (vs mined). Approximate global processing
+# shares, IEA Global Critical Minerals Outlook + USGS. Only materials with a distinct,
+# concentrated refining stage; the rest are left out (shown as "-" in the tool).
+refined <- list(
+  magnets   = list(o("CN",90)), magnesium = list(o("CN",90)), germanium = list(o("CN",60)),
+  graphite  = list(o("CN",95)), gallium   = list(o("CN",98)), tungsten  = list(o("CN",83)),
+  cobalt    = list(o("CN",76)), niobium   = list(o("BR",88)), lithium   = list(o("CN",65)),
+  antimony  = list(o("CN",75)), platinum  = list(o("ZA",70)), fluorspar = list(o("CN",60)),
+  titanium  = list(o("CN",50)), silicon   = list(o("CN",79)), vanadium  = list(o("CN",70)),
+  manganese = list(o("CN",95)), bauxite   = list(o("CN",58)), arsenic   = list(o("CN",70)),
+  phosphorus= list(o("CN",70)), tantalum  = list(o("CN",40)), copper    = list(o("CN",45)),
+  nickel    = list(o("CN",40)), beryllium = list(o("US",65)), palladium = list(o("RU",40))
+)
+
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
                    ifelse(x >= 1e6, sprintf("EUR %.1fM", x/1e6), sprintf("EUR %.0f", x)))
 
@@ -198,7 +212,7 @@ render_product <- function(p) {
     china_qty = if (is.na(sL$china_qty)) NULL else sL$china_qty,
     top_partner = oc$partner[1], top_share = oc$value_share[1],
     china = identical(oc$partner[1], "CN"), updated = updated,
-    mined = mine[[p$label]],
+    mined = mine[[p$label]], refined = refined[[p$label]],
     origins = lapply(seq_len(nrow(oc)), function(i)
       list(c = oc$partner[i], v = oc$value_share[i], q = oc$qty_share[i], eur = round(oc$value_eur[i]))),
     naive = lapply(seq_len(nrow(mc)), function(i)
