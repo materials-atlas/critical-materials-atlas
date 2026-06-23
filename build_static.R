@@ -29,12 +29,18 @@ products <- list(
   list(label = "tungsten",  code = "81019400",
        title = "Tungsten, unwrought (CN 8101 94 00)",
        note  = "China is the largest origin (~58% value, ~73% tonnage) but not alone - Britain supplies ~22%. Even here the naive view (Germany 55%) misstates who the EU relies on."),
+  list(label = "cobalt",    code = "28220000",
+       title = "Cobalt oxides & hydroxides (CN 2822 00 00)",
+       note  = "The refined-cobalt dependency (the metal alone is diversified): China supplies ~62% of EU cobalt-oxide imports - the battery-cathode precursor. The naive view blames Belgium (~43%, Umicore's refining/clearing hub again); the origin is China, with the UK behind."),
   list(label = "lithium",   code = "28369100",
        title = "Lithium carbonate (CN 2836 91 00)",
        note  = "The battery metal - a concentrated dependency, but NOT on China: Chile supplies ~75% (the South American 'lithium triangle'), with the US and Argentina behind. The naive view blames the Netherlands and Germany (clearing hubs); the origin is South America."),
   list(label = "antimony",  code = "81101000",
        title = "Antimony, unwrought (CN 8110 10 00)",
        note  = "The method's acid test: the naive view says France and Belgium (~37% each); the corrected view reveals Tajikistan at ~69%, with China barely present. Proof this is not a China-finding machine - it surfaces whatever origin the transit data hides."),
+  list(label = "platinum",  code = "71101100",
+       title = "Platinum, unwrought (CN 7110 11 00)",
+       note  = "Platinum-group metals - autocatalysts and the hydrogen economy. A concentrated non-China dependency: South Africa ~57%, with the UK and US behind. The naive view points at Germany (~43%); the origin is South Africa."),
   list(label = "titanium",  code = "81082000",
        title = "Titanium, unwrought (CN 8108 20 00)",
        note  = "Aerospace-grade titanium, post-Russia. The naive view says France (~40%); the corrected view shows Kazakhstan (~33%) and the US (~25%) - the sponge supply that replaced Russia after 2022. A recognised strategic metal sourced from Central Asia, invisible in the member-state view."),
@@ -145,8 +151,8 @@ html <- paste0(
  footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
 </style></head><body>
 <h1>Who does the EU really depend on?</h1>
-<p class="sub">Extra-EU import dependency across ten critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
-<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all ten materials the constant is that the naive view is wrong</b> - China is the true origin for six; the rest reveal dependencies the naive view hides (lithium on Chile, antimony on Tajikistan, titanium on Kazakhstan), and silicon on Norway where the EU is genuinely fine. The gap between the two panels is the whole point.</p>
+<p class="sub">Extra-EU import dependency across twelve critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all twelve materials the constant is that the naive view is wrong</b> - China is the true origin for seven; the rest reveal dependencies the naive view hides (lithium on Chile, antimony on Tajikistan, platinum on South Africa, titanium on Kazakhstan), and silicon on Norway where the EU is genuinely fine. The gap between the two panels is the whole point.</p>
 <h2>The landscape at a glance</h2>
 <img src="out/overview.png" alt="dependency overview - each material by its single largest true origin">
 <p class="note">Each bar is one material&#39;s single largest true origin and its share of 2024 extra-EU imports. Red = China; blue = another country. The naive member-state view hides every one of these.</p>
