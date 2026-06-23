@@ -58,7 +58,25 @@ products <- list(
        note  = "Aerospace-grade titanium, post-Russia. The naive view says France (~40%); the corrected view shows Kazakhstan (~33%) and the US (~25%) - the sponge supply that replaced Russia after 2022. A recognised strategic metal sourced from Central Asia, invisible in the member-state view."),
   list(label = "silicon",   code = "28046900",
        title = "Silicon, < 99.99% (CN 2804 69 00)",
-       note  = "A critical material where the EU is genuinely diversified: origin is Norway (~47%), Brazil and Iceland - not a dependency risk. The naive view still misleads (Germany 44%), but the honest finding here is 'no concentration'. Included to show the method measures rather than confirms.")
+       note  = "A critical material where the EU is genuinely diversified: origin is Norway (~47%), Brazil and Iceland - not a dependency risk. The naive view still misleads (Germany 44%), but the honest finding here is 'no concentration'. Included to show the method measures rather than confirms."),
+  list(label = "feldspar",  code = "25291000",
+       title = "Feldspar (CN 2529 10 00)",
+       note  = "The atlas's second near-monopoly on Turkey: ~84% of EU feldspar (ceramics and glass) is Turkish. The naive view blames Spain and Italy (~45%/34%); the origin is overwhelmingly Turkey."),
+  list(label = "vanadium",  code = "72029200",
+       title = "Ferro-vanadium (CN 7202 92 00)",
+       note  = "A steel- and battery-metal dependency on South Africa (~53%) and South Korea (~32%), China a distant third (~15%). The naive view points at the Netherlands (~35%); the origin is South Africa."),
+  list(label = "manganese", code = "26020000",
+       title = "Manganese ore (CN 2602 00 00)",
+       note  = "An African dependency the member-state view erases: Gabon ~51% and South Africa ~41%, while the naive view blames France (~42%). Gabon appears nowhere in the importing-country picture."),
+  list(label = "bauxite",   code = "26060000",
+       title = "Aluminium ores / bauxite (CN 2606 00 00)",
+       note  = "The feedstock for aluminium: Guinea ~59%, then Brazil. The naive view points at Ireland (~35%, the Aughinish alumina refinery) - a processing artefact, not the origin, which is Guinea."),
+  list(label = "phosphate", code = "25101000",
+       title = "Phosphate rock (CN 2510 10 00)",
+       note  = "Fertiliser feedstock: Russia ~41% and Morocco ~27%, with the naive view split across the Netherlands and Belgium (~33%/31%, the Antwerp/Rotterdam fertiliser hubs). The Russia share is a live sanctions exposure."),
+  list(label = "baryte",    code = "25111000",
+       title = "Baryte (CN 2511 10 00)",
+       note  = "Drilling-fluid weighting agent: China ~53% and Morocco ~30%. The naive view is scattered across the Netherlands and Italy (~25%/24%); the origin is China.")
 )
 
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
@@ -183,9 +201,9 @@ html <- paste0(
  footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
 </style></head><body>
 <h1>Who does the EU really depend on?</h1>
-<p class="sub">Extra-EU import dependency across sixteen critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
+<p class="sub">Extra-EU import dependency across twenty-two critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
 <p class="stamp">Data through ', maxYear, ' &middot; Eurostat Comext (DS-045409) dataset updated ', dataUpdated, ' &middot; page generated ', genDate, '</p>
-<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all sixteen materials the constant is that the naive view is wrong</b> - and the dependency map is strikingly diverse. China is the single largest source (the true origin for seven), but the EU also leans on Turkey (boron), Brazil (niobium), Chile (lithium), South Africa (PGMs), Russia, Mexico, Kazakhstan, Tajikistan and Norway - none of them visible in the member-state view. The gap between the two panels is the whole point.</p>
+<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all twenty-two materials the constant is that the naive view is wrong</b> - and the dependency map is strikingly diverse. China is the single largest source, but the true origin of only eight of the twenty-two - far from a majority. The EU also leans on Turkey (boron, feldspar), South Africa (PGMs, vanadium), Gabon and Guinea (manganese, bauxite), Brazil (niobium), Russia (phosphate), Chile, Mexico, Kazakhstan, Tajikistan and Norway - none of them visible in the member-state view. The gap between the two panels is the whole point.</p>
 <h2>The landscape at a glance</h2>
 <img src="out/overview.png" alt="dependency overview - each material by its single largest true origin">
 <p class="note">Each bar is one material&#39;s single largest true origin and its share of 2024 extra-EU imports. Red = China; blue = another country. The naive member-state view hides every one of these.</p>
