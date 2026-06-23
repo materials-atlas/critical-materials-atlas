@@ -148,37 +148,24 @@ render_product <- function(p) {
   legend("bottomright", c("value", "tonnage"), fill = c("firebrick", "grey60"), bty = "n")
   dev.off()
 
-  rows <- paste0("<tr><td>", oc$partner, "</td><td class='n'>",
-    formatC(oc$value_eur, format = "f", digits = 0, big.mark = " "), "</td><td class='n'>",
-    formatC(round(oc$tonnes, 1), format = "f", digits = 1, big.mark = " "), "</td><td class='n'>",
-    sprintf("%.1f%%", oc$value_share), "</td><td class='n'>",
-    sprintf("%.1f%%", oc$qty_share), "</td></tr>", collapse = "\n")
-  cq <- if (is.na(sL$china_qty)) "-" else sprintf("%.1f%%", sL$china_qty)
-
-  sec <- paste0(
-'<section><h2>', p$title, '</h2>
-<p class="note">', p$note, '</p>
-<div class="kpis">
- <div class="kpi"><div class="v">', sprintf("%.1f%%", sL$china_val), '</div><div class="l">China (value)</div></div>
- <div class="kpi"><div class="v">', cq, '</div><div class="l">China (tonnage)</div></div>
- <div class="kpi"><div class="v">', sprintf("%.2f", sL$hhi_val), '</div><div class="l">HHI (value)</div></div>
- <div class="kpi"><div class="v">', eur(sL$total_eur), '</div><div class="l">Total extra-EU (', yL, ')</div></div>
-</div>
-<img src="out/', p$label, '_headline.png" alt="naive vs corrected">
-<div class="two"><img src="out/', p$label, '_trend.png" alt="trend"><img src="out/', p$label, '_vq.png" alt="value vs tonnage"></div>
-<table><thead><tr><th>Origin</th><th class="n">Value (EUR)</th><th class="n">Tonnes</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead>
-<tbody>', rows, '</tbody></table></section>')
-
-  top <- oc[1, ]
   ud <- val[["LAST.UPDATE"]]   # Comext SDMX-CSV carries a "LAST UPDATE" dd/mm/yy column
-  updated <- if (is.null(ud)) as.Date(NA) else
-    suppressWarnings(max(as.Date(substr(ud, 1, 8), "%d/%m/%y"), na.rm = TRUE))
-  ov <- data.frame(
-    mat = paste0(toupper(substr(p$label, 1, 1)), substr(p$label, 2, nchar(p$label))),
-    partner = top$partner, share = top$value_share,
-    china = identical(top$partner, "CN"),
-    dyear = yL, updated = updated, stringsAsFactors = FALSE)
-  list(section = sec, ov = ov)
+  updated <- if (is.null(ud)) NULL else
+    format(suppressWarnings(max(as.Date(substr(ud, 1, 8), "%d/%m/%y"), na.rm = TRUE)), "%Y-%m-%d")
+
+  # Rich per-material record consumed by the interactive front-end (out/data.json).
+  list(
+    label = p$label, title = p$title, note = p$note, year = yL,
+    hhi = sL$hhi_val, total_eur = round(sL$total_eur), china_val = sL$china_val,
+    china_qty = if (is.na(sL$china_qty)) NULL else sL$china_qty,
+    top_partner = oc$partner[1], top_share = oc$value_share[1],
+    china = identical(oc$partner[1], "CN"), updated = updated,
+    origins = lapply(seq_len(nrow(oc)), function(i)
+      list(c = oc$partner[i], v = oc$value_share[i], q = oc$qty_share[i], eur = round(oc$value_eur[i]))),
+    naive = lapply(seq_len(nrow(mc)), function(i)
+      list(c = mc$reporter[i], v = mc$value_share[i])),
+    trend = lapply(seq_len(nrow(su)), function(i)
+      list(y = su$year[i], cn = su$china_val[i]))
+  )
 }
 
 # The latest Comext annual year is provisional - recent figures are revised upward for
@@ -194,7 +181,13 @@ cat("Headline year:", HEADLINE_YEAR, "(latest", max(.all_years), "dropped as pro
 # Render each product, then build the one-glance overview from their top origins.
 results <- Filter(Negate(is.null), lapply(products, render_product))
 
-ovs <- do.call(rbind, lapply(results, `[[`, "ov"))
+short <- function(s) paste0(toupper(substr(s, 1, 1)), substr(s, 2, nchar(s)))
+ovs <- data.frame(
+  mat     = vapply(results, function(r) short(r$label), character(1)),
+  partner = vapply(results, function(r) r$top_partner, character(1)),
+  share   = vapply(results, function(r) r$top_share, numeric(1)),
+  china   = vapply(results, function(r) isTRUE(r$china), logical(1)),
+  stringsAsFactors = FALSE)
 ovs <- ovs[order(ovs$share), ]
 png(file.path(out_dir, "overview.png"), width = 1000, height = 120 + 24 * nrow(ovs))
 par(mar = c(4, 9.5, 3, 1))
@@ -207,39 +200,15 @@ text(ovs$share, bp, labels = sprintf(" %.0f%%", ovs$share), pos = 4, xpd = TRUE,
 legend("bottomright", c("China", "other origin"), fill = c("firebrick", "steelblue"), bty = "n")
 dev.off()
 
-maxYear     <- max(ovs$dyear)
-dataUpdated <- format(suppressWarnings(max(ovs$updated, na.rm = TRUE)), "%d %b %Y")
-genDate     <- format(Sys.Date(), "%d %b %Y")
-
-sections <- paste(vapply(results, `[[`, character(1), "section"), collapse = "\n")
-
-html <- paste0(
-'<!doctype html><html lang="en"><head><meta charset="utf-8">
-<title>EU import dependency - corrected for the Rotterdam effect (Comext)</title>
-<style>
- body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1000px;margin:2rem auto;padding:0 1rem;color:#1a1a1a;line-height:1.5}
- h1{font-size:1.6rem;margin-bottom:.2rem} .sub{color:#555;margin-top:0;margin-bottom:.1rem}
- .stamp{font-size:.8rem;color:#888;margin:.1rem 0 .7rem}
- h2{font-size:1.15rem;margin-top:.4rem} section{border-top:2px solid #eee;padding-top:1.2rem;margin-top:2rem}
- .kpis{display:flex;gap:.6rem;flex-wrap:wrap;margin:.8rem 0}
- .kpi{flex:1;min-width:130px;border:1px solid #ddd;border-radius:8px;padding:.6rem;text-align:center}
- .kpi .v{font-size:1.4rem;font-weight:700;color:firebrick} .kpi .l{font-size:.72rem;color:#555}
- img{max-width:100%;height:auto;border:1px solid #eee;border-radius:6px;margin:.3rem 0}
- .two{display:flex;gap:.6rem;flex-wrap:wrap} .two img{flex:1;min-width:320px}
- table{border-collapse:collapse;width:100%;font-size:.88rem;margin:.5rem 0} th,td{padding:.3rem .55rem;border-bottom:1px solid #eee;text-align:left}
- td.n,th.n{text-align:right} .note{color:#444} .intro{background:#faf6f6;border-left:3px solid firebrick;padding:.7rem 1rem;border-radius:0 6px 6px 0}
- footer{margin-top:2rem;font-size:.8rem;color:#777;border-top:1px solid #eee;padding-top:.8rem} a{color:firebrick}
-</style></head><body>
-<h1>Who does the EU really depend on?</h1>
-<p class="sub">Extra-EU import dependency across thirty-two critical raw materials, corrected for the Rotterdam/Antwerp transit effect. Source: Eurostat Comext (public).</p>
-<p class="stamp">Data through ', maxYear, ' &middot; Eurostat Comext (DS-045409) dataset updated ', dataUpdated, ' &middot; page generated ', genDate, '</p>
-<p class="intro"><b>Naive</b> rankings by importing member state measure where goods are customs-cleared, not where they come from - distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by country of origin (for extra-EU flows the Comext partner field is the origin). <b>Across all thirty-two materials the constant is that the naive view is wrong</b> - and the dependency map is global. China is the single largest source but the true origin of only ten of the thirty-two - under a third. The EU also leans on the US (beryllium, hafnium, coking coal), Turkey (boron, feldspar), South Africa (PGMs, vanadium), Gabon and Guinea (manganese, bauxite), Brazil, Japan, Vietnam, Russia, Chile, Algeria, Qatar, Norway, Mexico, Kazakhstan, Tajikistan and Australia - almost none of them visible in the member-state view. The gap between the two panels is the whole point.</p>
-<h2>The landscape at a glance</h2>
-<img src="out/overview.png" alt="dependency overview - each material by its single largest true origin">
-<p class="note">Each bar is one material&#39;s single largest true origin and its share of 2024 extra-EU imports. Red = China; blue = another country. The naive member-state view hides every one of these.</p>
-', sections, '
-<footer>Generated by build_static.R from public Eurostat Comext data (DS-045409). Method note: <a href="methodology.html">methodology.html</a>. Independent demo - not affiliated with any institution.</footer>
-</body></html>')
-writeLines(html, "index.html")  # repo root, so GitHub Pages serves it at the site URL
-cat("Wrote index.html (root) + out/overview.png +", length(results) * 3, "per-product PNGs for:",
-    paste(vapply(results, function(x) tolower(x$ov$mat), character(1)), collapse = ", "), "\n")
+# Machine-readable data for the interactive front-end (index.html fetches out/data.json).
+upds <- Filter(Negate(is.null), lapply(results, function(r) r$updated))
+dataUpdated <- if (length(upds)) format(max(as.Date(unlist(upds))), "%d %b %Y") else format(Sys.Date(), "%d %b %Y")
+payload <- list(
+  generated    = format(Sys.Date(), "%d %b %Y"),
+  dataUpdated  = dataUpdated,
+  headlineYear = HEADLINE_YEAR,
+  materials    = results)
+writeLines(jsonlite::toJSON(payload, auto_unbox = TRUE, null = "null", digits = 4),
+           file.path(out_dir, "data.json"))
+cat("Wrote out/data.json + out/overview.png +", length(results) * 3, "per-product PNGs for",
+    length(results), "materials.\n")
