@@ -113,6 +113,7 @@
     <p class="panel-info" id="globe-info">The implied supply chain: <span style="color:#e8a33d">mine</span> → <span style="color:#e23b3b">refiner</span> → EU. Click an arc for detail.</p>
   </div>
   <div id="view-sankey" class="view hidden">
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">raw source → refiner → EU.</p>
   </div>
@@ -160,6 +161,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
   $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
+  const sm=$('#sankey-mat'); if(sm){ sm.innerHTML='<option value="">All materials (aggregate)</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join(''); sm.onchange=()=>{ if(window.echarts) buildSankey(); }; }
   renderTable();
   if(VIEW==='map' && window.jsVectorMap) buildMap();
   if(VIEW==='globe' && window.Globe) buildGlobe();
@@ -323,9 +325,11 @@ function initSankey(){ if(window.echarts){ buildSankey(); return; }
    .catch(err=>{ $('#sankey').innerHTML='<p class="loading">Chart library failed to load.<br>'+err+'</p>'; });
 }
 function buildSankey(){
+  const sel=$('#sankey-mat')?$('#sankey-mat').value:'';
+  const mats=sel?MATS.filter(m=>m.label===sel):MATS;
   const EU="EU imports", linkMap={}, nodeSet=new Set([EU]);
   const add=(s,t,v)=>{ if(v<=0||s===t) return; const k=s+''+t; linkMap[k]=(linkMap[k]||0)+v; nodeSet.add(s); nodeSet.add(t); };
-  MATS.forEach(m=>{
+  mats.forEach(m=>{
     const origins=(m.origins||[]).slice(0,3), mines=(m.mined||[]).slice(0,3);
     const sumW=mines.reduce((a,o)=>a+o.v,0)||1;
     origins.forEach(o=>{ const refN=cname(o.c)+" (refines)"; add(refN, EU, o.v);
@@ -351,7 +355,11 @@ function buildSankey(){
       lineStyle:{color:'source',opacity:.42,curveness:.5}}]
   }, true);
   requestAnimationFrame(()=>sankeyChart.resize());
-  $('#sankey-info').innerHTML="<span style='color:#cc8a3a'>● raw source</span> → <span style='color:var(--red)'>● refiner</span> → EU. Each material contributes its origin shares (structure, not € size); the mine→refiner split is an illustrative allocation.";
+  const selM=sel?MATS.find(m=>m.label===sel):null;
+  $('#sankey-info').innerHTML = selM
+    ? `<b>${strip(selM.title)}</b>: <span style='color:#cc8a3a'>● mine</span> → <span style='color:var(--red)'>● refiner</span> → EU.  <a href="#" id="sk-detail">full detail →</a>`
+    : "<span style='color:#cc8a3a'>● raw source</span> → <span style='color:var(--red)'>● refiner</span> → EU across all materials (structural weighting; mine→refiner split illustrative). Pick a material above to isolate its chain.";
+  if(selM){ const a=$('#sk-detail'); if(a) a.onclick=e=>{e.preventDefault(); showDetail(selM.label);}; }
 }
 window.addEventListener('resize',()=>{ if(VIEW==='sankey'&&sankeyChart) sankeyChart.resize(); });
 </script>
