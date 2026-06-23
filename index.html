@@ -45,6 +45,13 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
+  .chain{display:flex;align-items:center;gap:.3rem;flex-wrap:wrap}
+  .node{padding:.2rem .55rem;border-radius:13px;white-space:nowrap;font-size:.8rem;border:1px solid}
+  .node.mine{background:#fbe7d4;color:#8a5212;border-color:#e6c195}
+  .node.ref{background:#e9f0f7;color:#2b4d6f;border-color:#bcd0e4}
+  .node.ref.cn{background:#fbe0e0;color:#8e1b1b;border-color:#e6a3a3}
+  .node.eu{background:#eee;color:#555;border-color:#ccc}
+  .arr{color:#aaa;font-size:.67rem;letter-spacing:.02em}
   /* map / globe */
   .maptog{font-size:.82rem;color:var(--mut);margin-bottom:.5rem}
   .maptog button{font:inherit;font-size:.8rem;padding:.3rem .6rem;border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer}
@@ -94,7 +101,7 @@
 </header>
 
 <nav class="tabs">
-  <button data-view="table" class="active">▤ Bars</button>
+  <button data-view="table" class="active">⛓ Chain</button>
   <button data-view="grid">⊞ Table</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
@@ -111,7 +118,7 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend"><b>Two bars per material.</b> <b>EU buys</b> = the country the EU imports the refined material from (top supplier). <b>mined in</b> = the country where it's actually dug from the ground (top world producer). <span class="sw" style="background:var(--red)"></span>China · <span class="sw" style="background:var(--blue)"></span>other. <b>⚠</b> = the EU's supplier isn't the miner — e.g. cobalt is <i>bought from China</i> but <i>mined in the Congo</i>.</div>
+    <div class="legend"><b>Read each row as a journey:</b> where it's <b>mined</b> ▸ who the <b>EU buys</b> it from ▸ the EU. <span class="sw" style="background:#fbe7d4"></span>mine · <span class="sw" style="background:#fbe0e0"></span>China supplier · <span class="sw" style="background:#e9f0f7"></span>other supplier. A single node = the seller also mines it (direct source); <b>⚠</b> = mined and sold by different countries — a refining detour (e.g. cobalt: Congo → China → EU).</div>
     <div id="rows"></div>
   </div>
   <div id="view-grid" class="view hidden">
@@ -228,14 +235,14 @@ function renderTable(){
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>b.top_share-a.top_share);
   $('#rows').innerHTML=list.map(m=>{ const r=refTop(m),mi=mineTop(m),code=(m.title.match(/\((.*)\)/)||[])[1]||'';
-    const mism = mi && mi.c!==r.c;
+    const mism = mi && mi.c!==r.c, rc = r.china?'cn':'';
+    const chain = mism
+      ? `<span class="node mine" title="top world producer">${flag(mi.c)} ${cname(mi.c)} ${mi.v.toFixed(0)}%</span><span class="arr">mined ▸</span><span class="node ref ${rc}" title="EU's top supplier">${flag(r.c)} ${cname(r.c)} ${r.v.toFixed(0)}%</span><span class="arr">sold ▸</span><span class="node eu">🇪🇺 EU</span>`
+      : `<span class="node ref ${rc}" title="mines and sells it">${flag(r.c)} ${cname(r.c)} ${r.v.toFixed(0)}%</span><span class="arr">mined + sold ▸</span><span class="node eu">🇪🇺 EU</span>`;
     return `<div class="row" data-k="${m.label}">
       <div class="name">${strip(m.title)}<small>${code}</small></div>
-      <div class="duo">
-        <div class="dbar"><span class="dlbl">EU buys</span>${miniBar(r)}</div>
-        <div class="dbar"><span class="dlbl">mined in</span>${miniBar(mi)}</div>
-      </div>
-      <div class="warn" title="${mism?'bought and mined in different countries':''}">${mism?'⚠':''}</div>
+      <div class="chain">${chain}</div>
+      <div class="warn" title="${mism?'mined and sold by different countries':''}">${mism?'⚠':''}</div>
     </div>`; }).join('')||'<p class="loading">no match</p>';
   document.querySelectorAll('.row').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
 }
