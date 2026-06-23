@@ -348,9 +348,14 @@ function renderMap(){
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
+  const refSet=new Set();
+  if(single){ const mm=mats[0]; if(mm&&mm.refined&&mm.refined[0]) refSet.add(mm.refined[0].c); }
+  else { mats.forEach(m=>{ if(m.refined&&m.refined[0]) refSet.add(m.refined[0].c); }); }
   const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
-  const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
-    style:{fill: mineV[iso]!==undefined?'#b35e16':'#36699e', r:4, stroke:'#fff', strokeWidth:1} }));
+  refSet.forEach(c=>{ if(fcoord(c) && !eps.includes(c)) eps.push(c); });
+  const markers=eps.map(iso=>{ const isRef=refSet.has(iso), isMine=mineV[iso]!==undefined;
+    return { name:fname(iso), coords:fcoord(iso), _iso:iso,
+      style:{fill: isRef?'#c0392b':isMine?'#b35e16':'#36699e', r:isRef?6:4, stroke:'#fff', strokeWidth:isRef?2:1} }; });
   const lines=flows.map(fl=>({from:fname(fl.from), to:fname(fl.to)}));
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
@@ -360,9 +365,13 @@ function renderMap(){
     markers, lines,
     lineStyle:{ stroke:'#7d6450', strokeWidth:1, strokeOpacity:.4 },
     onMarkerClick(e,index){ showCountry(markers[index]._iso); } });
+  requestAnimationFrame(()=>{ const svg=document.querySelector('#map svg'); if(!svg) return;
+    let defs=svg.querySelector('defs'); if(!defs){ defs=document.createElementNS('http://www.w3.org/2000/svg','defs'); svg.insertBefore(defs, svg.firstChild); }
+    if(!defs.querySelector('#arrowhead')) defs.insertAdjacentHTML('beforeend','<marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7d6450"/></marker>');
+    svg.querySelectorAll('line').forEach(el=>el.setAttribute('marker-end','url(#arrowhead)')); });
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — <span style="color:#b35e16">amber</span> = share <b>mined</b> (darker = more); <span style="color:#7d6450">arrows</span> = real <b>exports</b> of the traded product (Comtrade ${FLOWS.year}). Click a country.`
-    : `<span style="color:#b35e16">Amber</span> = how many of the ${MATS.length} materials a country mines; <span style="color:#7d6450">arrows</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material above to focus one chain.`;
+    ? `<b>${strip(mats[0].title)}</b> — <span style="color:#b35e16">amber</span> = share <b>mined</b> (darker = more); <span style="color:#c0392b">● red dot</span> = main <b>refiner</b>; <span style="color:#7d6450">arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
+    : `<span style="color:#b35e16">Amber</span> = how many of the ${MATS.length} materials a country mines; <span style="color:#c0392b">● red dots</span> = main refiners; <span style="color:#7d6450">arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material above to focus one chain.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
