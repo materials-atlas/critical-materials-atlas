@@ -346,9 +346,9 @@ function renderMap(){
   const AMBER=[222,140,40], VIOLET=[142,68,173], WHITE=[255,255,255];
   const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
   const maxMine=single?60:Math.max(1,...Object.values(mineV)), maxRef=single?80:Math.max(1,...Object.values(refV));
-  const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null; let base,inten;
-    if(mw&&rw){ base=mix(AMBER,VIOLET,rw/(mw+rw)); inten=Math.max(mw,rw); }
-    else if(mw){ base=AMBER; inten=mw; } else { base=VIOLET; inten=rw; }
+  const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null;
+    if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
+    const base=mw?AMBER:VIOLET, inten=mw||rw;
     const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
   const cscale={}, cvalues={}; let _ci=0;
   new Set([...Object.keys(mineV),...Object.keys(refV)]).forEach(iso=>{
@@ -374,11 +374,13 @@ function renderMap(){
     onMarkerClick(e,index){ showCountry(markers[index]._iso); } });
   requestAnimationFrame(()=>{ const svg=document.querySelector('#map svg'); if(!svg) return;
     let defs=svg.querySelector('defs'); if(!defs){ defs=document.createElementNS('http://www.w3.org/2000/svg','defs'); svg.insertBefore(defs, svg.firstChild); }
+    if(!defs.querySelector('#bothStripes')) defs.insertAdjacentHTML('beforeend','<pattern id="bothStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="rgb(222,140,40)"/><rect width="4" height="8" fill="rgb(142,68,173)"/></pattern>');
     if(!defs.querySelector('#arrowhead')) defs.insertAdjacentHTML('beforeend','<marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7d6450"/></marker>');
     svg.querySelectorAll('line').forEach(el=>el.setAttribute('marker-end','url(#arrowhead)')); });
+  const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="background:rgb(196,127,121)"></span>both (darker = bigger share). <span style="color:#7d6450">Arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
-    : `<span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="background:rgb(196,127,121)"></span>both (darker = more of the ${MATS.length} materials). <span style="color:#7d6450">Arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material to focus one chain.`;
+    ? `<b>${strip(mats[0].title)}</b> — <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both (striped). <span style="color:#7d6450">Arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
+    : `<span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both (striped). <span style="color:#7d6450">Arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material to focus one chain.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
