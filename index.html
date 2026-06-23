@@ -338,24 +338,31 @@ function renderMap(){
   const mineV={};
   if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>{ mineV[x.c]=x.v; }); }
   else { mats.forEach(m=>(m.mined||[]).forEach(x=>{ mineV[x.c]=(mineV[x.c]||0)+1; })); }
-  const PAL=['#f6e2b8','#edbb6b','#df8f37','#b35e16'];
-  const bk=v=> single ? (v>=50?4:v>=20?3:v>=5?2:1) : (v>=5?4:v>=3?3:v>=2?2:1);
-  const cvalues={}, cscale={}; PAL.forEach((c,i)=>cscale[i+1]=c);
-  Object.entries(mineV).forEach(([iso,v])=>{ cvalues[iso]=bk(v); });
+  // refiner share per country (single: refine %, all: # materials refined)
+  const refV={};
+  if(single){ const mm=mats[0]; if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
+  else { mats.forEach(m=>{ if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
+  // per-country region fill: amber = mined, violet = refined, blend = both (shaded by share/count)
+  const AMBER=[222,140,40], VIOLET=[142,68,173], WHITE=[255,255,255];
+  const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
+  const maxMine=single?60:Math.max(1,...Object.values(mineV)), maxRef=single?80:Math.max(1,...Object.values(refV));
+  const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null; let base,inten;
+    if(mw&&rw){ base=mix(AMBER,VIOLET,rw/(mw+rw)); inten=Math.max(mw,rw); }
+    else if(mw){ base=AMBER; inten=mw; } else { base=VIOLET; inten=rw; }
+    const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
+  const cscale={}, cvalues={}; let _ci=0;
+  new Set([...Object.keys(mineV),...Object.keys(refV)]).forEach(iso=>{
+    const mw=mineV[iso]!=null?Math.min(1,mineV[iso]/maxMine):0, rw=refV[iso]!=null?Math.min(1,refV[iso]/maxRef):0;
+    const col=fillFor(mw,rw); if(col){ const k='k'+(_ci++); cscale[k]=col; cvalues[iso]=k; } });
   // real export flows (Comtrade)
   let flows;
   if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
-  const refSet=new Set();
-  if(single){ const mm=mats[0]; if(mm&&mm.refined&&mm.refined[0]) refSet.add(mm.refined[0].c); }
-  else { mats.forEach(m=>{ if(m.refined&&m.refined[0]) refSet.add(m.refined[0].c); }); }
   const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
-  refSet.forEach(c=>{ if(fcoord(c) && !eps.includes(c)) eps.push(c); });
-  const markers=eps.map(iso=>{ const isRef=refSet.has(iso), isMine=mineV[iso]!==undefined;
-    return { name:fname(iso), coords:fcoord(iso), _iso:iso,
-      style:{fill: isRef?'#c0392b':isMine?'#b35e16':'#36699e', r:isRef?6:4, stroke:'#fff', strokeWidth:isRef?2:1} }; });
+  const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
+    style:{fill:'#42566b', r:3.5, stroke:'#fff', strokeWidth:1} }));
   const lines=flows.map(fl=>({from:fname(fl.from), to:fname(fl.to)}));
   if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
   $('#map').innerHTML='';
@@ -370,8 +377,8 @@ function renderMap(){
     if(!defs.querySelector('#arrowhead')) defs.insertAdjacentHTML('beforeend','<marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#7d6450"/></marker>');
     svg.querySelectorAll('line').forEach(el=>el.setAttribute('marker-end','url(#arrowhead)')); });
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — <span style="color:#b35e16">amber</span> = share <b>mined</b> (darker = more); <span style="color:#c0392b">● red dot</span> = main <b>refiner</b>; <span style="color:#7d6450">arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
-    : `<span style="color:#b35e16">Amber</span> = how many of the ${MATS.length} materials a country mines; <span style="color:#c0392b">● red dots</span> = main refiners; <span style="color:#7d6450">arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material above to focus one chain.`;
+    ? `<b>${strip(mats[0].title)}</b> — <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="background:rgb(196,127,121)"></span>both (darker = bigger share). <span style="color:#7d6450">Arrows →</span> = real <b>exports</b> to the buyer (Comtrade ${FLOWS.year}). Click a country.`
+    : `<span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="background:rgb(196,127,121)"></span>both (darker = more of the ${MATS.length} materials). <span style="color:#7d6450">Arrows →</span> = top real export flows (Comtrade ${FLOWS.year}). Pick a material to focus one chain.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
