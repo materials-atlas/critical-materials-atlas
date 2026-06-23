@@ -1,5 +1,7 @@
 # EU trade-dependency pipeline (Comext)
 
+**Live atlas → https://materials-atlas.github.io/eu_trade_dependency/**
+
 Public-data demo: **who does the EU *really* depend on for critical raw materials?**
 An atlas of **ten** critical materials — rare-earth magnets, magnesium, germanium,
 graphite, gallium, tungsten, lithium, antimony, titanium and silicon — corrected for the
