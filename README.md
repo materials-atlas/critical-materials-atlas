@@ -69,15 +69,13 @@ cobalt (Belgium the decoy), South Africa 57 % of platinum. Most series run 2010�
 Self-contained, base R only — no package installs.
 
 ```powershell
-# 1. fetch raw value + quantity CSVs into raw/. The downloader is parameterised by CN
-#    code; fetch the whole atlas at once (PowerShell):
-$atlas = @{ magnets='85051110'; magnesium='81041100'; germanium='81129295';
-            graphite='25049000'; gallium='81129289'; tungsten='81019400';
-            cobalt='28220000'; lithium='28369100'; antimony='81101000';
-            platinum='71101100'; titanium='81082000'; silicon='28046900' }
-$atlas.GetEnumerator() | ForEach-Object { .\download_data.ps1 -Product $_.Value -Label $_.Key }
-# 2. build the magnets datasets + headline chart, then the static atlas (base R)
-Rscript comext-magnet-dependency-demo.R
+# Rebuild the whole atlas from the live Comext API — downloads every material (value +
+# quantity) into raw/, then regenerates index.html and all charts. -EndPeriod defaults to
+# the current year, so a new Comext release is picked up automatically:
+powershell -File refresh.ps1
+
+# To add one material: fetch it, then rebuild.
+powershell -File download_data.ps1 -Product <CN8> -Label <name>
 Rscript build_static.R
 ```
 
@@ -107,6 +105,8 @@ value-vs-tonnage, a sortable origin table, and CSV downloads — all computed li
 - `index.html` — the multi-product atlas (repo root, so it is the **GitHub Pages** site);
   regenerate with `build_static.R`
 - `build_static.R` — regenerates `index.html` + the per-product PNGs in `out/`
+- `refresh.ps1` — one command: re-fetch every material + rebuild the atlas (canonical
+  product list lives here; `-EndPeriod` tracks the current year)
 - `methodology.html` — self-contained one-page method note (the leave-behind)
 - `download_data.ps1` — fetches Comext value + quantity for one product into `raw/`
 - `raw/` — downloaded Comext data (gitignored)
