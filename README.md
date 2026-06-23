@@ -124,9 +124,11 @@ value-vs-tonnage, a sortable origin table, and CSV downloads — all computed li
 - `dependency_core.R` — shared base-R method (naive/corrected aggregation); sourced by
   both the pipeline and the app, so there is a single source of truth
 - `app.R` — Shiny dashboard (reads `raw/` via the core)
-- `index.html` — the **interactive tool** (Table / Map / Globe views + click-through detail),
-  repo root = the **GitHub Pages** site; reads `out/data.json`
-- `build_static.R` — regenerates `out/data.json` + the per-product PNGs in `out/`
+- `index.html` — the **interactive tool** (Table / Map / Globe + a **buy-from ↔ mined-in**
+  toggle that flips trade-origin to USGS mine-production), repo root = the **GitHub Pages**
+  site; reads `out/data.json`
+- `build_static.R` — regenerates `out/data.json` (trade origins + a USGS mine-production
+  layer) + the per-product PNGs in `out/`
 - `refresh.ps1` — one command: re-fetch every material + rebuild the atlas (canonical
   product list lives here; `-EndPeriod` tracks the current year)
 - `methodology.html` — self-contained one-page method note (the leave-behind)

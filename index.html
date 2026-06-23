@@ -17,6 +17,9 @@
   .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
   .tabs .grow{flex:1}
   .tabs input,.tabs select{font:inherit;font-size:.85rem;padding:.38rem .5rem;border:1px solid var(--line);border-radius:6px}
+  .modetog{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+  .modetog button{border:none;border-radius:0;font-size:.82rem;padding:.4rem .75rem}
+  .modetog button.active{background:var(--red);color:#fff}
   .view.hidden{display:none}
   /* table view */
   .row{display:grid;grid-template-columns:1.6fr 2.4fr auto;gap:.6rem;align-items:center;padding:.45rem .3rem;border-bottom:1px solid var(--line);cursor:pointer}
@@ -39,14 +42,21 @@
   .modal.hidden{display:none}
   .modal-box{background:#fff;max-width:980px;width:100%;border-radius:10px;padding:1.2rem 1.4rem 1.8rem;position:relative}
   #detail-close{position:absolute;top:.5rem;right:.7rem;border:none;background:none;font-size:1.7rem;cursor:pointer;color:var(--mut);line-height:1}
+  .contrast{background:#fff7e6;border-left:3px solid #d98a00;padding:.5rem .85rem;border-radius:0 6px 6px 0;font-size:.92rem;margin:.5rem 0}
+  .contrast.ok{background:#eef7ee;border-left-color:#3a8a3a}
+  .layers{display:flex;gap:1.2rem;flex-wrap:wrap;margin:.7rem 0}
+  .layer{flex:1;min-width:260px}
+  .layer h3{font-size:.82rem;margin:.2rem 0 .4rem;color:#333;text-transform:uppercase;letter-spacing:.03em}
+  .mrow{display:grid;grid-template-columns:8.5rem 1fr 2.4rem;gap:.4rem;align-items:center;font-size:.82rem;padding:.13rem 0}
+  .mc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mbar-wrap{background:#f0f0f0;border-radius:3px;height:13px;overflow:hidden}
+  .mbar{display:block;height:100%;border-radius:3px}
+  .mv{text-align:right;color:#555;font-variant-numeric:tabular-nums}
   .kpis{display:flex;gap:.6rem;flex-wrap:wrap;margin:.7rem 0}
   .kpi{flex:1;min-width:120px;border:1px solid var(--line);border-radius:8px;padding:.55rem;text-align:center}
   .kpi .v{font-size:1.35rem;font-weight:700;color:var(--red)} .kpi .l{font-size:.7rem;color:var(--mut)}
   .modal img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px;margin:.3rem 0}
   .two{display:flex;gap:.6rem;flex-wrap:wrap}.two img{flex:1;min-width:300px}
-  table.det{border-collapse:collapse;width:100%;font-size:.85rem;margin:.5rem 0}
-  table.det th,table.det td{padding:.3rem .5rem;border-bottom:1px solid var(--line);text-align:left}
-  table.det td.n,table.det th.n{text-align:right}
   footer{margin-top:2.4rem;font-size:.8rem;color:#888;border-top:1px solid var(--line);padding-top:.8rem}
   a{color:var(--red)}
 </style>
@@ -54,9 +64,9 @@
 <body>
 <header>
   <h1>Who does the EU really depend on?</h1>
-  <p class="sub">Extra-EU import dependency across the critical raw materials, <b>corrected for the Rotterdam/Antwerp transit effect</b>. Public Eurostat Comext data.</p>
+  <p class="sub">Critical-raw-material dependency, <b>corrected for the transit-port effect</b> — and traced one layer deeper, to where each material is actually <b>mined</b>. Public Eurostat &amp; USGS data.</p>
   <p class="stamp" id="stamp">loading…</p>
-  <div class="intro"><b>Naive</b> rankings by importing member state show where goods are <i>customs-cleared</i>, not where they come from — distorted by the NL/BE port effect. <b>Corrected</b> rankings treat the EU as one entity and rank by true <b>country of origin</b>. The gap is the whole point: China is the single largest source but the true origin of under a third of these materials — the two most concentrated dependencies are the <b>US</b> (beryllium) and <b>Turkey</b> (boron). Click any material for the detail.</div>
+  <div class="intro"><b>Two corrections in one tool.</b> First: trade stats credit the EU port where goods clear (the NL/BE "Rotterdam effect"), so we rank by true <b>country of origin</b> instead. Second — and deeper: that origin is often just the <b>refinery</b>. The EU buys refined cobalt from China, but it's <b>mined in the Congo</b>. Flip the <b>buy from / mined in</b> switch to see China shrink and the real mines appear. Click any material for both layers.</div>
 </header>
 
 <nav class="tabs">
@@ -64,6 +74,9 @@
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
   <span class="grow"></span>
+  <span class="modetog" title="switch between where the EU buys it (refined) and where it is mined">
+    <button id="m-refined" class="active">buy from</button><button id="m-mined">mined in</button>
+  </span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
     <option value="share">sort: concentration ↓</option>
@@ -74,23 +87,23 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend"><span class="sw" style="background:var(--red)"></span>China origin<span class="sw" style="background:var(--blue)"></span>other origin · bar = share of extra-EU imports from the single largest origin</div>
+    <div class="legend"><span class="sw" style="background:var(--red)"></span>China<span class="sw" style="background:var(--blue)"></span>other · bar = share from the single largest origin (current mode)</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
     <div id="map"><div class="loading">click to load map…</div></div>
-    <p class="panel-info" id="map-info">Countries shaded by how many materials they are the EU's top origin for. Click a country.</p>
+    <p class="panel-info" id="map-info">Countries shaded by how many materials they lead. Click a country.</p>
   </div>
   <div id="view-globe" class="view hidden">
     <div id="globe"><div class="loading" style="color:#aaa">click to load globe…</div></div>
-    <p class="panel-info" id="globe-info">Each arc is one material flowing from its true origin to the EU; thickness = dependency share. Red = China.</p>
+    <p class="panel-info" id="globe-info">Each arc flows from a material's top source to the EU; thickness = share. Red = China.</p>
   </div>
 </main>
 
 <div id="detail" class="modal hidden"><div class="modal-box"><button id="detail-close" aria-label="close">×</button><div id="detail-body"></div></div></div>
 
 <footer>
-  Independent demonstration built from public Eurostat Comext data (DS-045409) — not affiliated with any institution.
+  Independent demo. Trade: Eurostat Comext (DS-045409). Mine production: USGS Mineral Commodity Summaries (approximate). Not affiliated with any institution.
   Method note: <a href="methodology.html">methodology.html</a>. <span id="foot-stamp"></span>
 </footer>
 
@@ -110,136 +123,169 @@ const COUNTRY = {
   CH:{n:"Switzerland",lat:47,lng:8}, GY:{n:"Guyana",lat:5,lng:-58}, IL:{n:"Israel",lat:31,lng:35},
   AR:{n:"Argentina",lat:-34,lng:-64}, PH:{n:"Philippines",lat:13,lng:122}, TW:{n:"Taiwan",lat:23.7,lng:121},
   LB:{n:"Lebanon",lat:33.9,lng:35.5}, BO:{n:"Bolivia",lat:-17,lng:-65}, IS:{n:"Iceland",lat:65,lng:-18},
-  IN:{n:"India",lat:22,lng:79}, AE:{n:"UAE",lat:24,lng:54}, EU:{n:"European Union",lat:50.85,lng:4.35}
+  IN:{n:"India",lat:22,lng:79}, AE:{n:"UAE",lat:24,lng:54}, MM:{n:"Myanmar",lat:21,lng:96},
+  MZ:{n:"Mozambique",lat:-18,lng:35}, MG:{n:"Madagascar",lat:-19,lng:46.7}, ZW:{n:"Zimbabwe",lat:-19,lng:29.8},
+  MN:{n:"Mongolia",lat:46.9,lng:103}, RW:{n:"Rwanda",lat:-1.9,lng:29.9}, NG:{n:"Nigeria",lat:9,lng:8},
+  IR:{n:"Iran",lat:32,lng:53}, ES:{n:"Spain",lat:40,lng:-4}, IT:{n:"Italy",lat:42.8,lng:12.6}, PE:{n:"Peru",lat:-9.2,lng:-75},
+  NC:{n:"New Caledonia",lat:-21,lng:165}, ID:{n:"Indonesia",lat:-2,lng:118}, EU:{n:"European Union",lat:50.85,lng:4.35}
 };
 const cname = c => (COUNTRY[c] && COUNTRY[c].n) || c;
 const flag  = c => /^[A-Z]{2}$/.test(c) ? String.fromCodePoint(...[...c].map(x=>0x1F1E6+x.charCodeAt(0)-65)) : "";
-const col   = m => m.china ? "var(--red)" : "var(--blue)";
 const strip = t => t.replace(/\s*\(.*\)/,'');
 
-let DATA = null, MATS = [];
+let DATA=null, MATS=[], MODE='refined', VIEW='table';
 const $ = s => document.querySelector(s);
 
-fetch('out/data.json').then(r=>r.json()).then(d=>{
-  DATA = d; MATS = d.materials;
-  $('#stamp').textContent = "Data through "+d.headlineYear+" · Comext updated "+d.dataUpdated+" · "+MATS.length+" materials · page "+d.generated;
-  $('#foot-stamp').textContent = "Data through "+d.headlineYear+".";
-  renderTable();
-}).catch(e=>{ $('#rows').innerHTML = '<p class="loading">Could not load data.json ('+e+')</p>'; });
+// Top source for the current mode: refined trade origin, or mined production.
+function topOf(m){
+  if(MODE==='mined' && m.mined && m.mined.length){
+    const t=m.mined[0]; return {c:t.c, v:t.v, china:t.c==='CN', list:m.mined};
+  }
+  return {c:m.top_partner, v:m.top_share, china:m.china, list:(m.origins||[]).map(o=>({c:o.c,v:o.v}))};
+}
 
-/* ---------- table view ---------- */
+fetch('out/data.json').then(r=>r.json()).then(d=>{
+  DATA=d; MATS=d.materials;
+  $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
+  $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
+  renderTable();
+}).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
+
+/* ---------- table ---------- */
 function renderTable(){
-  const q = ($('#search').value||"").trim().toLowerCase();
-  const sort = $('#sort').value;
-  let list = MATS.slice();
-  if(q) list = list.filter(m => m.label.toLowerCase().includes(q) || m.title.toLowerCase().includes(q)
-        || cname(m.top_partner).toLowerCase().includes(q) || m.top_partner.toLowerCase()===q);
-  if(sort==='share') list.sort((a,b)=>b.top_share-a.top_share);
-  else if(sort==='hhi') list.sort((a,b)=>b.hhi-a.hhi);
-  else list.sort((a,b)=>a.title.localeCompare(b.title));
-  $('#rows').innerHTML = list.map(m=>{
-    const w = Math.max(2, m.top_share), code = (m.title.match(/\((.*)\)/)||[])[1] || '';
+  const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
+  let list=MATS.slice();
+  if(q) list=list.filter(m=>m.label.toLowerCase().includes(q)||m.title.toLowerCase().includes(q)
+        ||cname(topOf(m).c).toLowerCase().includes(q)||topOf(m).c.toLowerCase()===q);
+  if(sort==='hhi') list.sort((a,b)=>b.hhi-a.hhi);
+  else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
+  else list.sort((a,b)=>topOf(b).v-topOf(a).v);
+  $('#rows').innerHTML=list.map(m=>{ const t=topOf(m), w=Math.max(2,t.v), code=(m.title.match(/\((.*)\)/)||[])[1]||'';
     return `<div class="row" data-k="${m.label}">
       <div class="name">${strip(m.title)}<small>${code}</small></div>
-      <div class="bar-wrap"><div class="bar" style="width:${w}%;background:${col(m)}"></div>
-        <div class="bar-lab">${flag(m.top_partner)} ${cname(m.top_partner)} ${m.top_share.toFixed(0)}%</div></div>
-      <div class="hhi">HHI ${m.hhi.toFixed(2)}</div>
-    </div>`;
-  }).join('') || '<p class="loading">no match</p>';
+      <div class="bar-wrap"><div class="bar" style="width:${w}%;background:${t.china?'var(--red)':'var(--blue)'}"></div>
+        <div class="bar-lab">${flag(t.c)} ${cname(t.c)} ${t.v.toFixed(0)}%</div></div>
+      <div class="hhi">HHI ${m.hhi.toFixed(2)}</div></div>`; }).join('')||'<p class="loading">no match</p>';
   document.querySelectorAll('.row').forEach(r=>r.onclick=()=>showDetail(r.dataset.k));
 }
-$('#search').addEventListener('input', renderTable);
-$('#sort').addEventListener('change', renderTable);
+$('#search').addEventListener('input',renderTable);
+$('#sort').addEventListener('change',renderTable);
 
-/* ---------- detail panel ---------- */
+/* ---------- detail (always shows BOTH layers) ---------- */
+function bars(list){ return (list||[]).map(o=>
+  `<div class="mrow"><span class="mc">${flag(o.c)} ${cname(o.c)}</span>
+    <span class="mbar-wrap"><span class="mbar" style="width:${Math.max(2,o.v)}%;background:${o.c==='CN'?'var(--red)':'var(--blue)'}"></span></span>
+    <span class="mv">${o.v.toFixed(0)}%</span></div>`).join(''); }
 function showDetail(key){
-  const m = MATS.find(x=>x.label===key); if(!m) return;
-  if(window.goatcounter && goatcounter.count) goatcounter.count({path:'material/'+key, event:true});
-  const eur = v => v>=1e9 ? "€"+(v/1e9).toFixed(2)+"B" : v>=1e6 ? "€"+(v/1e6).toFixed(0)+"M" : "€"+v;
-  const orows = m.origins.map(o=>`<tr><td>${flag(o.c)} ${cname(o.c)}</td><td class="n">${eur(o.eur)}</td><td class="n">${o.v.toFixed(1)}%</td><td class="n">${o.q!=null?o.q.toFixed(1)+'%':'–'}</td></tr>`).join('');
-  $('#detail-body').innerHTML = `
+  const m=MATS.find(x=>x.label===key); if(!m) return;
+  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'material/'+key,event:true});
+  const eur=v=>v>=1e9?"€"+(v/1e9).toFixed(2)+"B":v>=1e6?"€"+(v/1e6).toFixed(0)+"M":"€"+v;
+  const refTop=m.top_partner, mineTop=(m.mined&&m.mined[0])?m.mined[0].c:null;
+  let contrast='';
+  if(mineTop && mineTop!==refTop)
+    contrast=`<p class="contrast">⚠ The EU buys refined ${strip(m.title).toLowerCase()} mainly from <b>${cname(refTop)}</b> — but it is mined mainly in <b>${cname(mineTop)}</b>.${cname(refTop)==='China'?' China is the refinery, not the mine.':''}</p>`;
+  else if(mineTop)
+    contrast=`<p class="contrast ok">✓ ${cname(refTop)} is both the EU's supplier and a leading producer of the raw material.</p>`;
+  const orig=(m.origins||[]).map(o=>({c:o.c,v:o.v}));
+  $('#detail-body').innerHTML=`
     <h2 style="margin:.2rem 2rem .2rem 0">${m.title}</h2>
     <p style="color:#444;font-size:.95rem">${m.note}</p>
+    ${contrast}
+    <div class="layers">
+      <div class="layer"><h3>Refined — who the EU buys from</h3>${bars(orig)}</div>
+      <div class="layer"><h3>Mined — where it's dug · USGS (approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
+    </div>
     <div class="kpis">
-      <div class="kpi"><div class="v">${flag(m.top_partner)} ${m.top_share.toFixed(0)}%</div><div class="l">top origin: ${cname(m.top_partner)}</div></div>
-      <div class="kpi"><div class="v">${m.china_val.toFixed(0)}%</div><div class="l">China (value)</div></div>
-      <div class="kpi"><div class="v">${m.hhi.toFixed(2)}</div><div class="l">HHI (concentration)</div></div>
-      <div class="kpi"><div class="v">${eur(m.total_eur)}</div><div class="l">total extra-EU (${m.year})</div></div>
+      <div class="kpi"><div class="v">${m.china_val.toFixed(0)}%</div><div class="l">China (refined, value)</div></div>
+      <div class="kpi"><div class="v">${m.hhi.toFixed(2)}</div><div class="l">HHI (refined)</div></div>
+      <div class="kpi"><div class="v">${eur(m.total_eur)}</div><div class="l">EU imports (${m.year})</div></div>
     </div>
     <img src="out/${m.label}_headline.png" alt="naive vs corrected" loading="lazy">
-    <div class="two"><img src="out/${m.label}_trend.png" alt="trend" loading="lazy"><img src="out/${m.label}_vq.png" alt="value vs tonnage" loading="lazy"></div>
-    <table class="det"><thead><tr><th>True origin</th><th class="n">Value</th><th class="n">Value %</th><th class="n">Tonnage %</th></tr></thead><tbody>${orows}</tbody></table>`;
+    <div class="two"><img src="out/${m.label}_trend.png" alt="trend" loading="lazy"><img src="out/${m.label}_vq.png" alt="value vs tonnage" loading="lazy"></div>`;
   $('#detail').classList.remove('hidden');
 }
-$('#detail-close').onclick = ()=>$('#detail').classList.add('hidden');
-$('#detail').onclick = e=>{ if(e.target.id==='detail') $('#detail').classList.add('hidden'); };
-document.addEventListener('keydown', e=>{ if(e.key==='Escape') $('#detail').classList.add('hidden'); });
+$('#detail-close').onclick=()=>$('#detail').classList.add('hidden');
+$('#detail').onclick=e=>{ if(e.target.id==='detail') $('#detail').classList.add('hidden'); };
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#detail').classList.add('hidden'); });
+
+/* ---------- mode toggle ---------- */
+function setMode(mode){ if(mode===MODE) return; MODE=mode;
+  $('#m-refined').classList.toggle('active',mode==='refined');
+  $('#m-mined').classList.toggle('active',mode==='mined');
+  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'mode/'+mode,event:true});
+  renderTable();
+  if(VIEW==='map'&&window.jsVectorMap) buildMap();
+  if(VIEW==='globe'&&window.Globe) buildGlobe();
+}
+$('#m-refined').onclick=()=>setMode('refined');
+$('#m-mined').onclick=()=>setMode('mined');
 
 /* ---------- view switching ---------- */
-let mapDone=false, globeDone=false;
-document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('active',x===b));
-  const v=b.dataset.view;
-  ['table','map','globe'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==v));
-  if(window.goatcounter && goatcounter.count) goatcounter.count({path:'view/'+v, event:true});
-  if(v==='map'&&!mapDone) initMap();
-  if(v==='globe'&&!globeDone) initGlobe();
+document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
+  VIEW=b.dataset.view;
+  ['table','map','globe'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
+  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});
+  if(VIEW==='map') initMap();
+  if(VIEW==='globe') initGlobe();
 });
 function loadScript(src){ return new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>rej(src); document.head.appendChild(s); }); }
-function loadCss(href){ const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; document.head.appendChild(l); }
+function loadCss(href){ if(document.querySelector('link[data-x="'+href+'"]'))return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; l.dataset.x=href; document.head.appendChild(l); }
 
-/* ---------- map view (jsVectorMap) ---------- */
-function initMap(){
-  mapDone=true;
-  const counts={}; MATS.forEach(m=>{ counts[m.top_partner]=(counts[m.top_partner]||0)+1; });
+/* ---------- map ---------- */
+function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
   loadCss('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css');
   loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js')
    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
-   .then(()=>{
-     $('#map').innerHTML='';
-     const maxN = Math.max(1, ...Object.values(counts));
-     const ramp = ['#dbe7f3','#a9c6e3','#6f9fcb','#3a6ea5','#1f4e79','#0f2c46'];
-     const scale = {}; for(let i=1;i<=maxN;i++) scale[i] = ramp[Math.min(ramp.length-1, Math.floor((i-1)/maxN*ramp.length))];
-     new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
-       regionStyle:{ initial:{fill:'#dfe6ee'} },
-       series:{ regions:[{ attribute:'fill', scale:scale, values:counts }] },
-       onRegionTooltipShow(e,t,code){ const n=counts[code]||0; t.text(cname(code)+(n?` — top origin for ${n} material${n>1?'s':''}`:' — not a top origin')); },
-       onRegionClick(e,code){ showCountry(code); }
-     });
-     $('#map-info').textContent="Darker = the EU's top origin for more materials. Click a country.";
-   }).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
+   .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
+}
+let mapInstance=null;
+function buildMap(){
+  const counts={}; MATS.forEach(m=>{ const c=topOf(m).c; if(c) counts[c]=(counts[c]||0)+1; });
+  const maxN=Math.max(1,...Object.values(counts));
+  const ramp=['#dbe7f3','#a9c6e3','#6f9fcb','#3a6ea5','#1f4e79','#0f2c46'];
+  const scale={}; for(let i=1;i<=maxN;i++) scale[i]=ramp[Math.min(ramp.length-1,Math.floor((i-1)/maxN*ramp.length))];
+  if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
+  $('#map').innerHTML='';
+  mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
+    regionStyle:{ initial:{fill:'#dfe6ee'} },
+    series:{ regions:[{ attribute:'fill', scale:scale, values:counts }] },
+    onRegionTooltipShow(e,t,code){ const n=counts[code]||0; t.text(cname(code)+(n?` — ${MODE==='mined'?'mines':'EU top origin for'} ${n} material${n>1?'s':''}`:'')); },
+    onRegionClick(e,code){ showCountry(code); } });
+  $('#map-info').textContent=(MODE==='mined'?'Where materials are MINED (USGS). ':'Where the EU BUYS from (refined). ')+'Darker = more materials · click a country.';
 }
 function showCountry(code){
-  const mats=MATS.filter(m=>m.top_partner===code);
-  if(!mats.length){ $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b> is not the top origin for any material here.`; return; }
-  $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b> is the EU's top origin for: `+
-    mats.map(m=>`<a href="#" data-k="${m.label}">${strip(m.title)} (${m.top_share.toFixed(0)}%)</a>`).join(', ');
+  const mats=MATS.filter(m=>topOf(m).c===code);
+  if(!mats.length){ $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b> — not a top ${MODE==='mined'?'producer':'origin'} here.`; return; }
+  $('#map-info').innerHTML=`<b>${flag(code)} ${cname(code)}</b> ${MODE==='mined'?'mines':'supplies'}: `+
+    mats.map(m=>`<a href="#" data-k="${m.label}">${strip(m.title)} (${topOf(m).v.toFixed(0)}%)</a>`).join(', ');
   $('#map-info').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();showDetail(a.dataset.k);});
 }
 
-/* ---------- globe view (globe.gl) ---------- */
-function initGlobe(){
-  globeDone=true;
-  loadScript('https://cdn.jsdelivr.net/npm/globe.gl').then(()=>{
-    const EU=COUNTRY.EU;
-    const arcs=MATS.filter(m=>COUNTRY[m.top_partner]).map(m=>({
-      startLat:COUNTRY[m.top_partner].lat, startLng:COUNTRY[m.top_partner].lng, endLat:EU.lat, endLng:EU.lng,
-      label:`${strip(m.title)}: ${cname(m.top_partner)} ${m.top_share.toFixed(0)}%`,
-      color:m.china?'#e23b3b':'#4d9fe6', stroke:Math.max(.4,m.top_share/22), key:m.label }));
-    requestAnimationFrame(()=>{
+/* ---------- globe ---------- */
+function initGlobe(){ if(window.Globe){ buildGlobe(); return; }
+  loadScript('https://cdn.jsdelivr.net/npm/globe.gl').then(buildGlobe)
+   .catch(err=>{ $('#globe').innerHTML='<p class="loading" style="color:#aaa">Globe library failed to load.<br>'+err+'</p>'; });
+}
+let globeInstance=null;
+function buildGlobe(){
+  const EU=COUNTRY.EU;
+  const arcs=MATS.map(m=>{ const t=topOf(m), co=COUNTRY[t.c]; if(!co) return null;
+    return { startLat:co.lat,startLng:co.lng,endLat:EU.lat,endLng:EU.lng,
+      label:`${strip(m.title)}: ${cname(t.c)} ${t.v.toFixed(0)}%`, color:t.china?'#e23b3b':'#4d9fe6', stroke:Math.max(.4,t.v/22), key:m.label }; }).filter(Boolean);
+  requestAnimationFrame(()=>{
+    if(!globeInstance){
       $('#globe').innerHTML='';
-      const G=Globe()(document.getElementById('globe'))
-        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg')
-        .backgroundColor('#000010')
-        .arcsData(arcs).arcColor('color').arcStroke('stroke')
-        .arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
-        .arcDashLength(.5).arcDashGap(.2).arcDashAnimateTime(2200)
-        .arcLabel('label').onArcClick(a=>showDetail(a.key))
-        .width($('#globe').clientWidth||$('#globe').offsetWidth||900).height(560);
-      G.pointOfView({lat:30,lng:20,altitude:2.2});
-      $('#globe-info').textContent='Arc thickness = dependency share · red = China · click an arc for detail.';
-    });
-  }).catch(err=>{ $('#globe').innerHTML='<p class="loading" style="color:#aaa">Globe library failed to load.<br>'+err+'</p>'; });
+      globeInstance=Globe()(document.getElementById('globe'))
+        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg').backgroundColor('#000010')
+        .arcColor('color').arcStroke('stroke').arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
+        .arcDashLength(.5).arcDashGap(.2).arcDashAnimateTime(2200).arcLabel('label').onArcClick(a=>showDetail(a.key))
+        .width($('#globe').clientWidth||900).height(560);
+      globeInstance.pointOfView({lat:30,lng:20,altitude:2.2});
+    }
+    globeInstance.arcsData(arcs);
+    $('#globe-info').textContent=(MODE==='mined'?'MINING source':'EU supplier')+' → EU · thickness = share · red = China · click an arc.';
+  });
 }
 </script>
 </body>

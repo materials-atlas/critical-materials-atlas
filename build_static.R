@@ -109,6 +109,45 @@ products <- list(
        note  = "A diversified, lower-risk dependency: Norway ~33%, Canada and Russia behind. The naive view points at the Netherlands (~39%); origin is spread across friendly producers - no single chokepoint.")
 )
 
+# Where each material is actually MINED (vs where the EU buys the refined product).
+# Approximate world mine-production shares, USGS Mineral Commodity Summaries 2024/2025.
+# ISO2 codes so the front-end can reuse its flag/map/globe lookups.
+o <- function(c, v) list(c = c, v = v)
+mine <- list(
+  magnets   = list(o("CN",69),o("US",12),o("MM",11),o("AU",5)),  # rare earths
+  magnesium = list(o("CN",90),o("RU",3),o("KZ",2)),
+  germanium = list(o("CN",68),o("RU",5),o("US",3)),
+  graphite  = list(o("CN",78),o("MG",6),o("MZ",5)),
+  gallium   = list(o("CN",98),o("JP",1),o("KR",1)),
+  tungsten  = list(o("CN",80),o("VN",4),o("RU",3)),
+  cobalt    = list(o("CD",76),o("ID",10),o("RU",3)),
+  niobium   = list(o("BR",88),o("CA",10)),
+  boron     = list(o("TR",47),o("US",24),o("AR",5),o("CL",5)),
+  lithium   = list(o("AU",52),o("CL",22),o("CN",18),o("AR",5)),
+  antimony  = list(o("CN",48),o("TJ",16),o("RU",6),o("MM",5)),
+  platinum  = list(o("ZA",70),o("RU",11),o("ZW",8)),
+  palladium = list(o("RU",40),o("ZA",37),o("ZW",6),o("CA",5)),
+  fluorspar = list(o("CN",60),o("MX",15),o("MN",6),o("ZA",4)),
+  titanium  = list(o("CN",32),o("MZ",11),o("ZA",11),o("AU",10)),  # ilmenite/concentrates
+  silicon   = list(o("CN",70),o("RU",6),o("BR",5),o("NO",4)),
+  feldspar  = list(o("TR",28),o("IT",12),o("IN",10),o("CN",9)),
+  vanadium  = list(o("CN",68),o("RU",13),o("ZA",8),o("BR",6)),
+  manganese = list(o("ZA",36),o("GA",22),o("AU",13),o("CN",7)),
+  bauxite   = list(o("AU",27),o("GN",25),o("CN",21),o("BR",9)),
+  baryte    = list(o("CN",30),o("IN",14),o("MA",9),o("KZ",8)),
+  phosphate = list(o("CN",44),o("MA",17),o("US",9),o("RU",5)),
+  arsenic   = list(o("PE",28),o("CN",25),o("MA",9),o("RU",8)),   # trioxide
+  beryllium = list(o("US",65),o("CN",28)),
+  hafnium   = list(o("AU",40),o("ZA",30),o("CN",10)),            # via zircon
+  strontium = list(o("ES",30),o("IR",25),o("CN",20),o("MX",15)),# celestite
+  phosphorus= list(o("CN",70),o("VN",12),o("KZ",8),o("US",5)),  # elemental P
+  tantalum  = list(o("CD",40),o("RW",30),o("BR",9),o("NG",7)),
+  cokingcoal= list(o("AU",30),o("CN",25),o("RU",12),o("US",10)),# metallurgical coal
+  helium    = list(o("US",46),o("QA",38),o("DZ",8),o("RU",5)),
+  copper    = list(o("CL",23),o("CD",13),o("PE",10),o("CN",8)),
+  nickel    = list(o("ID",60),o("PH",11),o("RU",6),o("NC",4))
+)
+
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
                    ifelse(x >= 1e6, sprintf("EUR %.1fM", x/1e6), sprintf("EUR %.0f", x)))
 
@@ -159,6 +198,7 @@ render_product <- function(p) {
     china_qty = if (is.na(sL$china_qty)) NULL else sL$china_qty,
     top_partner = oc$partner[1], top_share = oc$value_share[1],
     china = identical(oc$partner[1], "CN"), updated = updated,
+    mined = mine[[p$label]],
     origins = lapply(seq_len(nrow(oc)), function(i)
       list(c = oc$partner[i], v = oc$value_share[i], q = oc$qty_share[i], eur = round(oc$value_eur[i]))),
     naive = lapply(seq_len(nrow(mc)), function(i)
