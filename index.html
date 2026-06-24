@@ -178,12 +178,15 @@ const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0]
 
 let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
 const $ = s => document.querySelector(s);
+function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest); }
 function populateMatSelectors(){
-  const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${strip(m.title)}</option>`).join('');
+  const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '● ' : '')+strip(m.title);
+  const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${mk(m)}</option>`).join('');
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELMAT; s.onchange=()=>setMat(s.value); } });
 }
 function setMat(label){ SELMAT=label;
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
+  populateDestSelectors();
   rebuildActive();
 }
 function rebuildActive(){
@@ -196,11 +199,13 @@ function destList(){
   const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
   return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
 function populateDestSelectors(){ if(!FLOWS) return;
-  const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${fname(c)}</option>`).join('');
+  const mk = c => (SELMAT && matHasDest(SELMAT,c) ? '● ' : '')+fname(c);
+  const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${mk(c)}</option>`).join('');
   ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELDEST; s.onchange=()=>setDest(s.value); } });
 }
 function setDest(c){ SELDEST=c;
   ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s) s.value=c; });
+  populateMatSelectors();
   rebuildActive();
 }
 
