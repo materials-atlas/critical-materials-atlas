@@ -45,8 +45,9 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:8.5rem 1fr .8rem 1fr .8rem 1fr 1.3rem;gap:.45rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.85rem}
+  .crow{display:grid;grid-template-columns:7.2rem 1fr .7rem 1fr .7rem 1fr 1fr 1.2rem;gap:.4rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
   .dim{color:#bbb}
+  .cimp{color:#8a5a9e}
   .cnaive{color:#9a9a9a;font-style:italic}
   .crow:hover{background:#fafafa}
   .crow.head{cursor:default;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em;color:#888;border-bottom:2px solid #ccc}
@@ -120,7 +121,7 @@
 
 <main>
   <div id="view-table" class="view hidden">
-    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> in world trade (BACI). <b>⚠</b> = mined in one country but exported mainly by another — a refining/trading chokepoint (e.g. cobalt mined in DR Congo, exported by China). Click a row for detail.</div>
+    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -248,6 +249,8 @@ function buyBar(m){ const ms=new Set((m.mined||[]).map(x=>x.c));
     o=> o.c?(ms.has(o.c)?' · also mines it':' · refines/resells (raw mined elsewhere)'):''); }
 function topExporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
   const o={}; a.forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
+function topImporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
+  const o={}; a.forEach(f=>{ o[f.to]=(o[f.to]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
 function renderTable(){
   if(!FLOWS && MATS.length){ ensureFlows(renderTable); }   // exporter column needs the trade data
   const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
@@ -258,15 +261,16 @@ function renderTable(){
   if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));   // default: mine share
-  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter (world)</span><span></span></div>`;
-  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), warn=mi&&te&&mi.c!==te;
+  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
+  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te;
     const mineCell=mi?`<span class="cc cmine">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     const refCell=re?`<span class="cc cref">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     const expCell=te?`<span class="cc cref">${fname(te)}</span>`:`<span class="cc dim">—</span>`;
+    const impCell=ti?`<span class="cc cimp">${fname(ti)}</span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
-      `${expCell}`+
+      `${expCell}${impCell}`+
       `<span class="warn" title="${warn?'mined in one country, exported mainly by another':''}">${warn?'⚠':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
