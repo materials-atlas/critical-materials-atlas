@@ -191,7 +191,9 @@ function rebuildActive(){
   else if(VIEW==='globe'&&window.Globe&&window.topojson) buildGlobe();
   else if(VIEW==='sankey'&&window.echarts) buildSankey();
 }
-function destList(){ const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
+function destList(){
+  if(FLOWS&&FLOWS.importers&&FLOWS.importers.length) return FLOWS.importers.slice().filter(c=>fcoord(c)).sort((a,b)=>fname(a).localeCompare(fname(b)));
+  const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
   return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
 function populateDestSelectors(){ if(!FLOWS) return;
   const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${fname(c)}</option>`).join('');
