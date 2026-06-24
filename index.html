@@ -45,7 +45,7 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:7.2rem 1fr .7rem 1fr .7rem 1fr 1fr 1.2rem;gap:.4rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
+  .crow{display:grid;grid-template-columns:8.5rem 1fr .8rem 1fr .8rem 1fr 1.3rem;gap:.45rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.85rem}
   .dim{color:#bbb}
   .cnaive{color:#9a9a9a;font-style:italic}
   .crow:hover{background:#fafafa}
@@ -112,16 +112,15 @@
   <span class="grow"></span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
-    <option value="share">sort: buy-from share ↓</option>
     <option value="mine">sort: mine share ↓</option>
-    <option value="diff">sort: biggest mismatch ↓</option>
+    <option value="diff">sort: mined ≠ exporter ↓</option>
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
 
 <main>
   <div id="view-table" class="view hidden">
-    <div class="legend"><b>EU import lens</b> — one optional view (the global trade is in Flow / Map / Globe). Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>bought by the EU</b> from (corrected origin). <b>EU importer*</b> = the member state that clears it — <i>gross/transit, distorted by Rotterdam/Antwerp hubs; shown for contrast, not a true origin</i>. <b>⚠</b> = mined ≠ bought. Click a row for detail.</div>
+    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> in world trade (BACI). <b>⚠</b> = mined in one country but exported mainly by another — a refining/trading chokepoint (e.g. cobalt mined in DR Congo, exported by China). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -247,28 +246,28 @@ function buyBar(m){ const ms=new Set((m.mined||[]).map(x=>x.c));
   return stackBarC(m.origins,
     o=> !o.c?'#d8d8d8' : ms.has(o.c)?'#3f9b46':'#e07b39',
     o=> o.c?(ms.has(o.c)?' · also mines it':' · refines/resells (raw mined elsewhere)'):''); }
+function topExporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
+  const o={}; a.forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
 function renderTable(){
+  if(!FLOWS && MATS.length){ ensureFlows(renderTable); }   // exporter column needs the trade data
   const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
   let list=MATS.slice();
-  if(q) list=list.filter(m=>{ const r=refTop(m),mi=mineTop(m);
-    return m.title.toLowerCase().includes(q)||cname(r.c).toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))
-      ||r.c.toLowerCase()===q||(mi&&mi.c.toLowerCase()===q); });
-  const diff=m=>{ const r=refTop(m),mi=mineTop(m); return mi&&mi.c!==r.c ? Math.abs(mi.v-r.v)+50 : 0; };
-  if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
-  else if(sort==='diff') list.sort((a,b)=>diff(b)-diff(a));
+  if(q) list=list.filter(m=>{ const mi=mineTop(m), te=topExporter(m.label), re=(m.refined&&m.refined[0])?m.refined[0].c:null;
+    return m.title.toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))||(te&&fname(te).toLowerCase().includes(q))||(re&&cname(re).toLowerCase().includes(q)); });
+  const mism=m=>{ const mi=mineTop(m), te=topExporter(m.label); return !!(mi&&te&&mi.c!==te); };
+  if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
-  else list.sort((a,b)=>b.top_share-a.top_share);
-  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Bought by EU from</span><span>EU importer*</span><span></span></div>`;
-  const body=list.map(m=>{ const r=refTop(m),mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, nv=(m.naive&&m.naive[0])?m.naive[0]:null, mism=mi&&mi.c!==r.c, rc=r.china?'cn':'';
+  else list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));   // default: mine share
+  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter (world)</span><span></span></div>`;
+  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), warn=mi&&te&&mi.c!==te;
     const mineCell=mi?`<span class="cc cmine">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     const refCell=re?`<span class="cc cref">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
-    const naiveCell=nv?`<span class="cc cnaive" title="gross imports cleared here — distorted by Rotterdam/Antwerp transit, not a true origin">${fname(nv.c)} <small>${nv.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
+    const expCell=te?`<span class="cc cref">${fname(te)}</span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
-      `<span class="cc cref">${cname(r.c)} <small>${r.v.toFixed(0)}%</small></span>`+
-      `${naiveCell}`+
-      `<span class="warn" title="${mism?'mined and bought from different countries':''}">${mism?'⚠':''}</span></div>`;
+      `${expCell}`+
+      `<span class="warn" title="${warn?'mined in one country, exported mainly by another':''}">${warn?'⚠':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
