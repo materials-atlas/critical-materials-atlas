@@ -121,7 +121,7 @@
 
 <main>
   <div id="view-table" class="view hidden">
-    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
+    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -251,6 +251,8 @@ function topExporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[la
   const o={}; a.forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
 function topImporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
   const o={}; a.forEach(f=>{ o[f.to]=(o[f.to]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
+const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
+function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
 function renderTable(){
   if(!FLOWS && MATS.length){ ensureFlows(renderTable); }   // exporter column needs the trade data
   const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
@@ -263,10 +265,10 @@ function renderTable(){
   else list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));   // default: mine share
   const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
   const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te;
-    const mineCell=mi?`<span class="cc cmine">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
-    const refCell=re?`<span class="cc cref">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
-    const expCell=te?`<span class="cc cref">${fname(te)}</span>`:`<span class="cc dim">—</span>`;
-    const impCell=ti?`<span class="cc cimp">${fname(ti)}</span>`:`<span class="cc dim">—</span>`;
+    const mineCell=mi?`<span class="cc" style="color:${ctyColor(mi.c)}">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
+    const refCell=re?`<span class="cc" style="color:${ctyColor(re.c)}">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
+    const expCell=te?`<span class="cc" style="color:${ctyColor(te)}">${fname(te)}</span>`:`<span class="cc dim">—</span>`;
+    const impCell=ti?`<span class="cc" style="color:${ctyColor(ti)}">${fname(ti)}</span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
