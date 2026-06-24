@@ -159,7 +159,9 @@ refined <- list(
   titanium  = list(o("CN",50)), silicon   = list(o("CN",79)), vanadium  = list(o("CN",70)),
   manganese = list(o("CN",95)), bauxite   = list(o("CN",58)), arsenic   = list(o("CN",70)),
   phosphorus= list(o("CN",70)), tantalum  = list(o("CN",40)), copper    = list(o("CN",45)),
-  nickel    = list(o("CN",40)), beryllium = list(o("US",65)), palladium = list(o("RU",40))
+  nickel    = list(o("CN",40)), beryllium = list(o("US",65)), palladium = list(o("RU",40)),
+  boron     = list(o("TR",60)), feldspar  = list(o("TR",30)), phosphate = list(o("CN",40)),
+  strontium = list(o("CN",60)), hafnium   = list(o("FR",40))
 )
 
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
