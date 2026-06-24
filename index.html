@@ -405,7 +405,7 @@ function renderMap(){
   const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null;
     if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
     const base=mw?AMBER:VIOLET, inten=Math.sqrt(mw||rw);   // sqrt so small but real miners stay visible
-    const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
+    const c=mix(WHITE,base,0.14+0.86*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
   // real flows (Comtrade); arrow colour = PRODUCT stage (raw ore = amber, refined = violet)
   let flows;
   if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
