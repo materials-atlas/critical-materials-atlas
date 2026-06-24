@@ -98,10 +98,10 @@
 </head>
 <body>
 <header>
-  <h1>Who does the EU really depend on?</h1>
-  <p class="sub">Critical-raw-material dependency — <b>corrected for the transit-port effect</b>, and traced one layer deeper to where each material is actually <b>mined</b>. Public Eurostat &amp; USGS data.</p>
+  <h1>Where do critical raw materials really come from?</h1>
+  <p class="sub">For any material — or any country — see where it's <b>mined</b>, where it's <b>refined</b>, and the <b>real global trade flows</b>, with the EU's transit-port distortion corrected. Public Eurostat, USGS, IEA &amp; UN Comtrade data.</p>
   <p class="stamp" id="stamp">loading…</p>
-  <div class="intro"><b>Two layers, shown together.</b> <span style="color:var(--red)">●</span> <b>Buy from</b> = the true country of origin of the refined import (correcting the NL/BE "Rotterdam" port effect). <span style="color:var(--blue)">●</span> <b>Mined in</b> = where the raw material is actually dug (USGS). Often they differ: the EU buys refined cobalt from China, but it's <b>mined in the Congo</b> — China is the refinery, not the mine. Each row shows both; ⚠ marks a mismatch. Click any material for the full picture.</div>
+  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by exporter (<span style="color:rgb(222,140,40)">amber</span> = a miner shipping raw, <span style="color:rgb(142,68,173)">violet</span> = a refiner shipping refined). Use the <b>material</b> and <b>into:</b> country selectors to focus — a <b>●</b> marks options that have data. Click any material for the full picture.</div>
 </header>
 
 <nav class="tabs">
@@ -198,8 +198,13 @@ function destList(){
   if(FLOWS&&FLOWS.importers&&FLOWS.importers.length) return FLOWS.importers.slice().filter(c=>fcoord(c)).sort((a,b)=>fname(a).localeCompare(fname(b)));
   const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
   return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
+function activeSet(){ const s=new Set();
+  MATS.forEach(m=>{ (m.mined||[]).forEach(x=>s.add(x.c)); if(m.refined) m.refined.forEach(x=>s.add(x.c)); });
+  if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.from)));
+  return s; }
 function populateDestSelectors(){ if(!FLOWS) return;
-  const mk = c => (SELMAT && matHasDest(SELMAT,c) ? '● ' : '')+fname(c);
+  const act=activeSet();
+  const mk = c => ((SELMAT ? matHasDest(SELMAT,c) : act.has(c)) ? '● ' : '')+fname(c);
   const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${mk(c)}</option>`).join('');
   ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELDEST; s.onchange=()=>setDest(s.value); } });
 }
