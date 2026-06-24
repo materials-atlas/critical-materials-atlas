@@ -263,18 +263,19 @@ function renderTable(){
   if(q) list=list.filter(m=>{ const mi=mineTop(m), te=topExporter(m.label), re=(m.refined&&m.refined[0])?m.refined[0].c:null;
     return m.title.toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))||(te&&fname(te.c).toLowerCase().includes(q))||(re&&cname(re).toLowerCase().includes(q)); });
   const mism=m=>{ const mi=mineTop(m), te=topExporter(m.label); return !!(mi&&te&&mi.c!==te.c); };
-  const domInfo=m=>{ const cs=[]; const mi=mineTop(m); if(mi)cs.push(mi.c); const re=(m.refined&&m.refined[0])?m.refined[0].c:null; if(re)cs.push(re);
-    const te=topExporter(m.label); if(te)cs.push(te.c); const ti=topImporter(m.label); if(ti)cs.push(ti.c);
-    const cnt={}; cs.forEach(c=>cnt[c]=(cnt[c]||0)+1); const cn=cnt['CN']||0;
-    let maxOther=0,domOther=''; for(const c in cnt){ if(c!=='CN'&&cnt[c]>maxOther){ maxOther=cnt[c]; domOther=c; } }
-    return {chinaDom: cn>0&&cn>=maxOther, cn, maxOther, domOther}; };
+  const domInfo=m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0].c:null, te=topExporter(m.label), ti=topImporter(m.label);
+    const cs=[mi?mi.c:null, re, te?te.c:null, ti?ti.c:null];
+    const pat=country=>{ let p=0; for(let i=0;i<4;i++) if(cs[i]===country) p+=(8>>i); return p; };   // mined col weighted most -> column-position triangle
+    const cn=pat('CN'); const cnt={}; cs.forEach(c=>{ if(c&&c!=='CN') cnt[c]=(cnt[c]||0)+1; });
+    let mo=0,dom=''; for(const c in cnt) if(cnt[c]>mo){mo=cnt[c];dom=c;}
+    return {cn, domOther:dom, domPat: dom?pat(dom):0}; };
   if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
   else if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
-  else list.sort((a,b)=>{ const A=domInfo(a),B=domInfo(b);   // China block first (4→3→2→1 China), then the rest by their own domination
-    if(A.chinaDom!==B.chinaDom) return A.chinaDom?-1:1;
-    if(A.chinaDom) return B.cn-A.cn || a.title.localeCompare(b.title);
-    return B.maxOther-A.maxOther || (A.domOther||'').localeCompare(B.domOther) || a.title.localeCompare(b.title); });
+  else list.sort((a,b)=>{ const A=domInfo(a),B=domInfo(b);   // triangle: China by column position (mined-China first, then refined, exporter, importer), then others grouped
+    if(A.cn!==B.cn) return B.cn-A.cn;
+    if(A.cn>0) return a.title.localeCompare(b.title);
+    return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
   const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const mineCell=mi?`<span class="cc" style="color:${ctyColor(mi.c)}">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
