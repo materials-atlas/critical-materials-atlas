@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Methodology — EU import-dependency from Comext</title>
+<title>Methodology — global critical-material trade, mine to market</title>
 <style>
  body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:820px;margin:2rem auto;
       padding:0 1.2rem;color:#1a1a1a;line-height:1.5}
@@ -18,79 +18,30 @@
  .q{background:#faf6f6;border-left:3px solid firebrick;padding:.6rem .9rem;border-radius:0 6px 6px 0}
 </style></head><body>
 
-<h1>Who does the EU <em>really</em> depend on?</h1>
-<p class="sub">Correcting EU import statistics for the transit-port distortion — a method note.</p>
+<h1>Where do critical raw materials <em>really</em> come from?</h1>
+<p class="sub">Tracing 32 critical materials from mine to refinery to real trade — for any country. A method note. Public data only.</p>
 
-<p class="q">The headline question — "which countries is the EU import-dependent on for a
-critical product?" — has an obvious answer in the public data that is <b>wrong</b>, and a
-correct answer that takes domain knowledge to extract. This note documents the difference.</p>
+<p class="q">For each material the tool answers three questions with real data: <b>where is it mined</b>,
+<b>where is it refined</b>, and <b>who actually trades it with whom</b> — globally, in both directions.
+Pick any material and any country. The European Union is available as one option among others — an
+aggregation you can look at, with a dedicated correction built for it (below) — but the tool is not
+EU-specific.</p>
 
-<h2>The correction in one identity</h2>
-<p>For <b>extra-EU imports</b>, the Eurostat Comext <code>partner</code> field <span class="lead">is
-the country of origin</span>. That single fact separates two views of the same data:</p>
+<h2>The three layers</h2>
 <ul>
-<li><b>Naive — by importing member state.</b> Ranks dependence by which EU country clears the
-goods. Distorted by the <b>Rotterdam/Antwerp effect</b>: imports are customs-cleared in NL/BE
-ports (or refined in hubs such as Umicore in Belgium) but bound elsewhere. This measures
-<em>logistics geography</em>, not dependence. It is the trap.</li>
-<li><b>Corrected — EU as one entity, by country of origin.</b> Aggregates the 27 member states
-into a single importer and ranks by true origin. This is the answer.</li>
+<li><b>Mined</b> — world mine-production shares by country, from <b>USGS</b> Mineral Commodity Summaries (approximate).</li>
+<li><b>Refined / processed</b> — where the raw material is turned into the traded product, from the <b>IEA</b> Critical Minerals Outlook (approximate).</li>
+<li><b>Traded</b> — complete bilateral trade between every country pair, both directions: primary source
+<b>UN Comtrade</b>, in its reconciled, mirror-harmonised form <b>CEPII BACI</b>. The map, globe and flow
+view draw this directly; arrows are coloured by what is shipped — raw ore vs refined product.</li>
 </ul>
 
-<h2>Evidence — thirty-two critical materials (2024)</h2>
+<h2>Why the refiner is not the source</h2>
+<p>Under customs rules, <b>refining counts as "origin"</b>: when a country imports an ore, refines it and
+re-exports, the metal takes the refiner's nationality and the trade record stops there. One layer deeper,
+the picture changes — the apparent origin is often just the chokepoint, not the mine:</p>
 <table>
-<thead><tr><th>Material (CN8)</th><th>Naive top — member state</th><th>Corrected top — origin</th><th class="n">HHI</th></tr></thead>
-<tbody>
-<tr><td>Rare-earth magnets (8505 11 10)</td><td>Germany / Poland / NL spread</td><td><b>China 93%</b>, PH 3%, VN 2%</td><td class="n">0.86</td></tr>
-<tr><td>Magnesium (8104 11 00)</td><td><b>Netherlands 44%</b>, DE 18%</td><td><b>China 92%</b>, IL 7%</td><td class="n">0.85</td></tr>
-<tr><td>Beryllium, unwrought (8112 12 00)</td><td><b>Spain 63%</b>, FR 28%</td><td><b>United States 100%</b></td><td class="n">1.00</td></tr>
-<tr><td>Arsenic (2804 80 00)</td><td><b>Netherlands 31%</b>, DE 16%</td><td><b>China 86%</b>, JP 12%</td><td class="n">0.75</td></tr>
-<tr><td>Boron, natural borates (2528 00 00)</td><td>scattered (none &gt; 20%)</td><td><b>Turkey 98%</b>, BO 1%</td><td class="n">0.96</td></tr>
-<tr><td>Ferro-niobium (7202 93 00)</td><td><b>Netherlands 49%</b>, DE 15%</td><td><b>Brazil 84%</b>, CA 16%</td><td class="n">0.73</td></tr>
-<tr><td>Feldspar (2529 10 00)</td><td><b>Spain 45%</b>, IT 34%</td><td><b>Turkey 84%</b>, MA 12%</td><td class="n">0.71</td></tr>
-<tr><td>Germanium (8112 92 95)</td><td><b>Belgium 63%</b>, DE 20%</td><td><b>China 83%</b>, US 12%, KR 4%</td><td class="n">0.71</td></tr>
-<tr><td>Graphite (2504 90 00)</td><td><b>Germany 58%</b>, SE 15%</td><td><b>China 82%</b>, MG 9%, BR 5%</td><td class="n">0.69</td></tr>
-<tr><td>Gallium (8112 92 89)</td><td><b>Germany 78%</b>, NL 15%</td><td><b>China 68%</b>, CA 15%, RU 13%</td><td class="n">0.50</td></tr>
-<tr><td>Tungsten (8101 94 00)</td><td><b>Germany 55%</b>, FR 13%</td><td><b>China 58%</b>, GB 22%, CH 8%</td><td class="n">0.40</td></tr>
-<tr><td>Cobalt oxides (2822 00 00)</td><td><b>Belgium 43%</b>, DE 18%</td><td><b>China 62%</b>, GB 28%, BR 8%</td><td class="n">0.47</td></tr>
-<tr><td>Lithium carbonate (2836 91 00)</td><td><b>Netherlands 39%</b>, DE 34%</td><td><b>Chile 75%</b>, US 13%, AR 6%</td><td class="n">0.58</td></tr>
-<tr><td>Antimony (8110 10 00)</td><td>France 37%, Belgium 37%</td><td><b>Tajikistan 69%</b>, VN 10%, CN 6%</td><td class="n">0.49</td></tr>
-<tr><td>Platinum (7110 11 00)</td><td><b>Germany 43%</b>, IT 21%</td><td><b>South Africa 57%</b>, GB 18%, US 12%</td><td class="n">0.37</td></tr>
-<tr><td>Strontium carbonate (2836 92 00)</td><td><b>Italy 21%</b>, AT 17%</td><td><b>Japan 75%</b>, CN 14%</td><td class="n">0.58</td></tr>
-<tr><td>Phosphorus (2804 70 10)</td><td><b>Germany 49%</b>, IT 40%</td><td><b>Vietnam 64%</b>, CN 25%</td><td class="n">0.48</td></tr>
-<tr><td>Hafnium, unwrought (8112 31 00)</td><td><b>Germany 88%</b>, FR 5%</td><td><b>United States 60%</b>, CN 21%</td><td class="n">0.41</td></tr>
-<tr><td>Coking coal (2701 12 10)</td><td><b>Germany 28%</b>, NL 26%</td><td><b>US 44%</b>, Australia 44%</td><td class="n">0.39</td></tr>
-<tr><td>Helium (2804 29 10)</td><td><b>Germany 24%</b>, FR 22%</td><td><b>Algeria 37%</b>, Qatar 31%, US 21%</td><td class="n">0.28</td></tr>
-<tr><td>Tantalum, unwrought (8103 20 00)</td><td><b>Germany 42%</b>, CZ 25%</td><td><b>China 37%</b>, JP 26%, US 24%</td><td class="n">0.26</td></tr>
-<tr><td>Refined copper (7403 11 00)</td><td><b>Italy 31%</b>, DE 24%</td><td><b>Chile 39%</b>, DRC 26%</td><td class="n">0.24</td></tr>
-<tr><td>Nickel, unwrought (7502 10 00)</td><td><b>Netherlands 39%</b>, DE 16%</td><td><b>Norway 33%</b>, CA 18%, RU 13%</td><td class="n">0.18</td></tr>
-<tr><td>Manganese ore (2602 00 00)</td><td><b>France 42%</b>, ES 26%</td><td><b>Gabon 51%</b>, ZA 41%</td><td class="n">0.43</td></tr>
-<tr><td>Ferro-vanadium (7202 92 00)</td><td><b>Netherlands 35%</b>, DE 22%</td><td><b>South Africa 53%</b>, KR 32%, CN 15%</td><td class="n">0.40</td></tr>
-<tr><td>Bauxite (2606 00 00)</td><td><b>Ireland 35%</b>, DE 18%</td><td><b>Guinea 59%</b>, BR 18%</td><td class="n">0.39</td></tr>
-<tr><td>Baryte (2511 10 00)</td><td><b>Netherlands 25%</b>, IT 24%</td><td><b>China 53%</b>, MA 30%, TR 10%</td><td class="n">0.39</td></tr>
-<tr><td>Phosphate rock (2510 10 00)</td><td><b>Netherlands 33%</b>, BE 31%</td><td><b>Russia 41%</b>, MA 27%, LB 10%</td><td class="n">0.26</td></tr>
-<tr><td>Palladium (7110 21 00)</td><td><b>Germany 60%</b>, IT 24%</td><td><b>South Africa 40%</b>, RU 20%, US 17%</td><td class="n">0.25</td></tr>
-<tr><td>Fluorspar &gt;97% CaF2 (2529 22 00)</td><td><b>Italy 51%</b>, DE 27%</td><td><b>Mexico 42%</b>, ZA 36%, VN 10%</td><td class="n">0.32</td></tr>
-<tr><td>Titanium (8108 20 00)</td><td><b>France 40%</b>, IT 22%</td><td><b>Kazakhstan 33%</b>, US 25%, CA 12%</td><td class="n">0.21</td></tr>
-<tr><td>Silicon &lt;99.99% (2804 69 00)</td><td><b>Germany 44%</b>, NL 23%</td><td><b>Norway 47%</b>, BR 15%, IS 9%</td><td class="n">0.26</td></tr>
-</tbody>
-</table>
-<p>Across all thirty-two the naive and corrected panels disagree on the single most important fact —
-who the EU depends on — and only the corrected one is true. China is the real origin for ten, but
-far from a majority — and the two sharpest dependencies are not China at all: <b>beryllium</b> is
-100% <b>United States</b> and <b>boron</b> 98% <b>Turkey</b>. The rest span <b>South Africa</b>,
-<b>Brazil</b>, <b>Japan</b>, <b>Vietnam</b>, <b>Guinea</b>, <b>Gabon</b>, <b>Russia</b>,
-<b>Chile</b>, <b>Algeria</b>/<b>Qatar</b>, <b>Norway</b>, <b>Mexico</b>, <b>Kazakhstan</b> and
-<b>Tajikistan</b> — almost none visible in the member-state view. The method surfaces whatever the
-transit data hides; it is not a China-finding machine.</p>
-
-<h2>A second correction: refined origin vs. the mine</h2>
-<p>Even the corrected origin is often just the <b>refinery</b>, not the source. Under customs
-rules refining counts as "origin": when China imports cobalt ore, refines it and re-exports, the
-metal becomes <em>Chinese-origin</em> and the trade record stops there. One layer deeper, the
-picture changes again:</p>
-<table>
-<thead><tr><th>Material</th><th>EU buys — refined origin</th><th>Actually mined — USGS</th></tr></thead>
+<thead><tr><th>Material</th><th>Refined origin (traded)</th><th>Actually mined — USGS</th></tr></thead>
 <tbody>
 <tr><td>Cobalt</td><td><b>China 62%</b></td><td><b>DR Congo 76%</b>, Indonesia 10%</td></tr>
 <tr><td>Nickel</td><td><b>Norway 33%</b></td><td><b>Indonesia 60%</b>, Philippines 11%</td></tr>
@@ -98,56 +49,75 @@ picture changes again:</p>
 <tr><td>Lithium</td><td><b>Chile 75%</b></td><td><b>Australia 52%</b>, Chile 22%</td></tr>
 </tbody>
 </table>
-<p>So the EU's apparent <b>China</b> dependence on cobalt is, upstream, a <b>Congo mining</b>
-dependence funnelled through a Chinese refinery — China is the chokepoint, not the source. Trade
-data alone cannot show this; it needs an overlay of <b>USGS mine-production</b> statistics. No
-existing trade-flow tool (OEC, Resource Trade Earth, Comtrade dashboards) does it — they stop at
-the refiner. The interactive tool shows both layers together and draws the implied mine → refiner
-→ EU chain.</p>
+<p>So an apparent <b>China</b> dependence on cobalt is, upstream, a <b>Congo mining</b> dependence
+funnelled through a Chinese refinery — China is the chokepoint, not the source. No mainstream trade-flow
+tool (OEC, Resource Trade Earth, Comtrade dashboards) shows this; they stop at the refiner. This tool
+overlays USGS mine production on the real trade and draws the implied mine → refiner → buyer chain.</p>
 
-<h2>Why it can't be faked from the raw download</h2>
+<h2>One built-in lens: correcting the EU's import statistics</h2>
+<p>The same materials power a classic correction specific to the <b>European Union</b> — offered as one
+lens (the <em>Table</em> view), not the frame of the tool. For <b>extra-EU imports</b>, the Eurostat
+Comext <code>partner</code> field <span class="lead">is the country of origin</span>. That single fact
+separates two views of the same data:</p>
+<ul>
+<li><b>Naive — by importing member state.</b> Ranks dependence by which EU country clears the goods.
+Distorted by the <b>Rotterdam/Antwerp effect</b>: imports are customs-cleared in NL/BE ports (or refined
+in hubs such as Umicore in Belgium) but bound elsewhere. This measures <em>logistics geography</em>, not
+dependence. It is the trap.</li>
+<li><b>Corrected — EU as one entity, by country of origin.</b> Aggregates the 27 member states into a
+single importer and ranks by true origin. This is the answer.</li>
+</ul>
 
-<div class="pitfall"><b>Bloc aggregates double-count.</b> The extract carries bloc reporters and
-partners (<code>EU</code>, <code>EA</code>, <code>EA21</code>, <code>EU27_2020</code>,
-<code>EXT_*</code>, <code>WORLD</code>) alongside the 27 member states. Summing without dropping
-them inflates origin totals <b>~4.6×</b> — yet leaves the <em>shares</em> unchanged, so the error
-is invisible to anyone who validates on percentages alone.</div>
+<p>Across the thirty-two materials the naive and corrected panels disagree on the single most important
+fact — who the bloc depends on — and only the corrected one is true. China is the real origin for ten,
+far from a majority; the two sharpest dependencies are not China at all (<b>beryllium</b> is 100%
+<b>United States</b>, <b>boron</b> 98% <b>Turkey</b>), and the rest span South Africa, Brazil, Japan,
+Vietnam, Guinea, Gabon, Russia, Chile, Algeria/Qatar, Norway, Mexico, Kazakhstan and Tajikistan — almost
+none visible in the member-state view. A sample:</p>
+<table>
+<thead><tr><th>Material (CN8)</th><th>Naive top — member state</th><th>Corrected top — origin</th><th class="n">HHI</th></tr></thead>
+<tbody>
+<tr><td>Rare-earth magnets (8505 11 10)</td><td>Germany / Poland / NL spread</td><td><b>China 93%</b>, PH 3%, VN 2%</td><td class="n">0.86</td></tr>
+<tr><td>Magnesium (8104 11 00)</td><td><b>Netherlands 44%</b>, DE 18%</td><td><b>China 92%</b>, IL 7%</td><td class="n">0.85</td></tr>
+<tr><td>Beryllium, unwrought (8112 12 00)</td><td><b>Spain 63%</b>, FR 28%</td><td><b>United States 100%</b></td><td class="n">1.00</td></tr>
+<tr><td>Boron, natural borates (2528 00 00)</td><td>scattered (none &gt; 20%)</td><td><b>Turkey 98%</b>, BO 1%</td><td class="n">0.96</td></tr>
+<tr><td>Ferro-niobium (7202 93 00)</td><td><b>Netherlands 49%</b>, DE 15%</td><td><b>Brazil 84%</b>, CA 16%</td><td class="n">0.73</td></tr>
+<tr><td>Cobalt oxides (2822 00 00)</td><td><b>Belgium 43%</b>, DE 18%</td><td><b>China 62%</b>, GB 28%, BR 8%</td><td class="n">0.47</td></tr>
+<tr><td>Lithium carbonate (2836 91 00)</td><td><b>Netherlands 39%</b>, DE 34%</td><td><b>Chile 75%</b>, US 13%, AR 6%</td><td class="n">0.58</td></tr>
+<tr><td>Antimony (8110 10 00)</td><td>France 37%, Belgium 37%</td><td><b>Tajikistan 69%</b>, VN 10%, CN 6%</td><td class="n">0.49</td></tr>
+<tr><td>Manganese ore (2602 00 00)</td><td><b>France 42%</b>, ES 26%</td><td><b>Gabon 51%</b>, ZA 41%</td><td class="n">0.43</td></tr>
+<tr><td>Bauxite (2606 00 00)</td><td><b>Ireland 35%</b>, DE 18%</td><td><b>Guinea 59%</b>, BR 18%</td><td class="n">0.39</td></tr>
+</tbody>
+</table>
 
-<div class="pitfall"><b>The Rotterdam/Antwerp transit effect.</b> Member-state import figures
-attribute goods to the point of customs clearance, not consumption. Without the origin correction
-the largest "dependency" is a port.</div>
+<h3 style="font-size:.98rem;margin-top:1rem">Why the EU correction can't be faked from the raw download</h3>
+<div class="pitfall"><b>Bloc aggregates double-count.</b> The extract carries bloc reporters/partners
+(<code>EU</code>, <code>EA</code>, <code>EU27_2020</code>, <code>WORLD</code>) alongside the 27 member
+states. Summing without dropping them inflates origin totals <b>~4.6×</b> — yet leaves the <em>shares</em>
+unchanged, so the error is invisible to anyone who validates on percentages alone.</div>
+<div class="pitfall"><b>The Rotterdam/Antwerp transit effect.</b> Member-state figures attribute goods to
+the point of customs clearance, not consumption. Without the origin correction the largest "dependency" is a port.</div>
+<div class="pitfall"><b>Confidential &amp; suppressed flows.</b> For low-volume strategic materials, sensitive
+trade lines are withheld or masked in Comext; they must be detected and handled, not silently summed as zero.</div>
+<div class="pitfall"><b>CN8 code vintages.</b> Eight-digit codes split and are reclassified over time
+(rare-earth magnets <code>8505 11 10</code> exists only from 2023). Series breaks must be respected, not stitched blindly.</div>
+<div class="pitfall"><b>Origin ≠ consignment, and units.</b> The partner-as-origin identity holds only for
+extra-EU flows; quantities arrive as <code>QUANTITY_IN_100KG</code> and need conversion.</div>
 
-<div class="pitfall"><b>Confidential & suppressed flows.</b> For low-volume strategic materials,
-sensitive trade lines are withheld or masked in Comext; they must be detected and handled, not
-silently summed as zero.</div>
+<p>Because some codes (gallium, germanium) carry 15 years of data, dependency is a trajectory, not a
+snapshot: gallium's China-origin share runs <b>96.8% (2022) → 85% (2023) → 68% (2024)</b> as Canada and
+Russia step in — China's July-2023 export controls visible directly in the customs record.</p>
 
-<div class="pitfall"><b>CN8 code vintages.</b> Eight-digit codes split and are reclassified over
-time (rare-earth magnets <code>8505 11 10</code> exists only from 2023; gallium and germanium run
-2010–2024). Series breaks must be respected, not stitched blindly.</div>
+<h2>Data &amp; reproducibility</h2>
+<p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
+reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
+International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — release HS22 V202501, year 2023.</p>
+<p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
+imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.
+<b>Mine production:</b> USGS Mineral Commodity Summaries (approximate). <b>Refining shares:</b> IEA
+Critical Minerals Outlook (approximate). All sources are public; figures are rounded.</p>
 
-<div class="pitfall"><b>Origin ≠ consignment, and units.</b> The partner-as-origin identity holds
-only for extra-EU flows; quantities arrive as <code>QUANTITY_IN_100KG</code> and need conversion.
-Small choices that quietly corrupt a ranking if missed.</div>
-
-<h2>Why the time series matters</h2>
-<p>Because gallium and germanium carry 15 years of data, the dependency is not a snapshot but a
-trajectory. Gallium's China-origin share runs <b>96.8% (2022) → 85% (2023) → 68% (2024)</b> as
-Canada and Russia step in — China's July-2023 export controls visible directly in the customs
-record. Dependency that <em>moves</em> under geopolitical pressure is the analytically interesting
-object, and it only appears once the origin correction is applied.</p>
-
-<h2>Data & reproducibility</h2>
-<p><b>EU import origin:</b> Eurostat Comext, dataset <code>DS-045409</code>, extra-EU imports, annual.
-The pipeline is base R (no package installs), parameterised by CN code, and refreshes from the live
-API — so any product, and any later year, is one command away.</p>
-<p><b>Global bilateral trade</b> (the interactive map / globe / flow): primary source <b>UN Comtrade</b>,
-used in its reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010,
-<i>BACI: International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — release HS22 V202501,
-year 2023. <b>Mine production:</b> USGS Mineral Commodity Summaries (approximate). <b>Refining shares:</b>
-IEA Critical Minerals Outlook (approximate). All sources are public; figures are rounded.</p>
-
-<footer>Independent demonstration built from public Eurostat data. Not affiliated with, nor
-representing, any institution. Figures rounded; full datasets and an interactive dashboard
-accompany this note.</footer>
+<footer>Independent demonstration built from public data. Not affiliated with, nor representing, any
+institution. Figures rounded; full datasets and an interactive tool accompany this note.</footer>
 
 </body></html>
