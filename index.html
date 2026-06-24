@@ -101,7 +101,7 @@
   <h1>Where do critical raw materials really come from?</h1>
   <p class="sub">For any material — or any country — see where it's <b>mined</b>, where it's <b>refined</b>, and the <b>real global trade flows</b>, with the EU's transit-port distortion corrected. Public Eurostat, USGS, IEA &amp; UN Comtrade data.</p>
   <p class="stamp" id="stamp">loading…</p>
-  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by exporter (<span style="color:rgb(222,140,40)">amber</span> = a miner shipping raw, <span style="color:rgb(142,68,173)">violet</span> = a refiner shipping refined). Use the <b>material</b> and <b>into:</b> country selectors to focus — a <b>●</b> marks options that have data. Click any material for the full picture.</div>
+  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by exporter (<span style="color:rgb(222,140,40)">amber</span> = a miner shipping raw, <span style="color:rgb(142,68,173)">violet</span> = a refiner shipping refined). Use the <b>material</b> and <b>into:</b> country selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
 </header>
 
 <nav class="tabs">
@@ -180,7 +180,7 @@ let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest); }
 function populateMatSelectors(){
-  const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '● ' : '')+strip(m.title);
+  const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '✓ ' : '')+strip(m.title);
   const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${mk(m)}</option>`).join('');
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELMAT; s.onchange=()=>setMat(s.value); } });
 }
@@ -198,13 +198,12 @@ function destList(){
   if(FLOWS&&FLOWS.importers&&FLOWS.importers.length) return FLOWS.importers.slice().filter(c=>fcoord(c)).sort((a,b)=>fname(a).localeCompare(fname(b)));
   const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
   return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
-function activeSet(){ const s=new Set();
-  MATS.forEach(m=>{ (m.mined||[]).forEach(x=>s.add(x.c)); if(m.refined) m.refined.forEach(x=>s.add(x.c)); });
-  if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.from)));
-  return s; }
+function minerSet(){ const s=new Set(); MATS.forEach(m=>(m.mined||[]).forEach(x=>s.add(x.c))); return s; }
+function refinerSet(){ const s=new Set(); MATS.forEach(m=>{ if(m.refined) m.refined.forEach(x=>s.add(x.c)); }); return s; }
 function populateDestSelectors(){ if(!FLOWS) return;
-  const act=activeSet();
-  const mk = c => ((SELMAT ? matHasDest(SELMAT,c) : act.has(c)) ? '● ' : '')+fname(c);
+  const mineS=minerSet(), refS=refinerSet();
+  const mk = c => { if(SELMAT) return (matHasDest(SELMAT,c)?'✓ ':'')+fname(c);
+    let b=''; if(mineS.has(c)) b+='⛏'; if(refS.has(c)) b+='🏭'; return (b?b+' ':'')+fname(c); };
   const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${mk(c)}</option>`).join('');
   ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELDEST; s.onchange=()=>setDest(s.value); } });
 }
