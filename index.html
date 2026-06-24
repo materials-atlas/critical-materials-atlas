@@ -280,7 +280,7 @@ function renderTable(){
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
   const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
-    const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.18)}">${inner}</span>`;
+    const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const refCell=re?htc(re.c,`${cname(re.c)} <small>${re.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
