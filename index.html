@@ -377,10 +377,6 @@ function renderMap(){
     if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
     const base=mw?AMBER:VIOLET, inten=mw||rw;
     const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
-  const cscale={}, cvalues={}; let _ci=0;
-  new Set([...Object.keys(mineV),...Object.keys(refV)]).forEach(iso=>{
-    const mw=mineV[iso]!=null?Math.min(1,mineV[iso]/maxMine):0, rw=refV[iso]!=null?Math.min(1,refV[iso]/maxRef):0;
-    const col=fillFor(mw,rw); if(col){ const k='k'+(_ci++); cscale[k]=col; cvalues[iso]=k; } });
   // real export flows (Comtrade)
   let flows;
   if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
@@ -388,9 +384,21 @@ function renderMap(){
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
+  // when a destination is chosen, colour only its ACTUAL sources (not every global producer)
+  const traderV={};
+  if(SELDEST){ const srcs=new Set(flows.map(f=>f.from));
+    Object.keys(mineV).forEach(c=>{ if(!srcs.has(c)) delete mineV[c]; });
+    Object.keys(refV).forEach(c=>{ if(!srcs.has(c)) delete refV[c]; });
+    srcs.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
   const roleCol=iso=> refV[iso]!=null ? 'rgb(142,68,173)' : mineV[iso]!=null ? 'rgb(222,140,40)' : '#8a8a8a';
   const roleArr=iso=> refV[iso]!=null ? 'url(#arrV)' : mineV[iso]!=null ? 'url(#arrA)' : 'url(#arrG)';
   flows.forEach(fl=>{ fl.color=roleCol(fl.from); fl.arrow=roleArr(fl.from); });
+  // per-country choropleth fills (sources only when a destination is selected)
+  const cscale={}, cvalues={}; let _ci=0;
+  new Set([...Object.keys(mineV),...Object.keys(refV),...Object.keys(traderV)]).forEach(iso=>{
+    const mw=mineV[iso]!=null?Math.min(1,mineV[iso]/maxMine):0, rw=refV[iso]!=null?Math.min(1,refV[iso]/maxRef):0;
+    let col=fillFor(mw,rw); if(!col && traderV[iso]) col='#b9c2cc';
+    if(col){ const k='k'+(_ci++); cscale[k]=col; cvalues[iso]=k; } });
   const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
   const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
     style:{fill: iso===SELDEST?'#2e8b57':'#42566b', r: iso===SELDEST?6.5:3.5, stroke:'#fff', strokeWidth: iso===SELDEST?2:1} }));
@@ -456,6 +464,11 @@ function renderGlobe(){
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
+  const traderV={};
+  if(SELDEST){ const srcs=new Set(flows.map(f=>f.from));
+    Object.keys(mineV).forEach(c=>{ if(!srcs.has(c)) delete mineV[c]; });
+    Object.keys(refV).forEach(c=>{ if(!srcs.has(c)) delete refV[c]; });
+    srcs.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
   const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)', GREY='#8a8a8a';
   const roleCol=iso=> refV[iso]!=null?VIOLET:mineV[iso]!=null?AMBER:GREY;
   const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
@@ -467,6 +480,7 @@ function renderGlobe(){
     const isM=mineV[iso]!=null, isR=refV[iso]!=null;
     if(isM&&isR){ const c=mixc(Argb,Vrgb,.5); return `rgba(${c[0]},${c[1]},${c[2]},0.88)`; }
     if(isM) return 'rgba(222,140,40,0.82)'; if(isR) return 'rgba(142,68,173,0.82)';
+    if(traderV[iso]) return 'rgba(150,165,180,0.6)';
     return 'rgba(120,150,180,0.07)'; };
   requestAnimationFrame(()=>{
     if(!globeInstance){
