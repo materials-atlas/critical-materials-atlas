@@ -101,7 +101,7 @@
   <h1>Where do critical raw materials really come from?</h1>
   <p class="sub">For any material — or any country — see where it's <b>mined</b>, where it's <b>refined</b>, and the <b>real global trade flows</b>, with the EU's transit-port distortion corrected. Public Eurostat, USGS, IEA &amp; UN Comtrade data.</p>
   <p class="stamp" id="stamp">loading…</p>
-  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by exporter (<span style="color:rgb(222,140,40)">amber</span> = a miner shipping raw, <span style="color:rgb(142,68,173)">violet</span> = a refiner shipping refined). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
+  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by product (<span style="color:rgb(222,140,40)">amber</span> = raw material / ore, <span style="color:rgb(142,68,173)">violet</span> = refined product). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
 </header>
 
 <nav class="tabs">
@@ -179,6 +179,8 @@ const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0]
 let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
+function isRawMat(label){ const m=MATS.find(x=>x.label===label); if(!m) return false;   // HS chapter 25/26/27 = mined raw mineral/ore
+  const d=((m.title.match(/\(([^)]*)\)/)||[])[1]||'').replace(/\D/g,''), ch=d.slice(0,2); return ch==='25'||ch==='26'||ch==='27'; }
 function populateMatSelectors(){
   const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '✓ ' : '')+strip(m.title);
   const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${mk(m)}</option>`).join('');
@@ -377,24 +379,21 @@ function renderMap(){
     if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
     const base=mw?AMBER:VIOLET, inten=mw||rw;
     const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
-  // real export flows (Comtrade)
+  // real flows (Comtrade); arrow colour = PRODUCT stage (raw ore = amber, refined = violet)
   let flows;
-  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(); }
-  else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}); }
+  if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
+  else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);   // all trade touching the country (in + out)
   flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));
   // a country is chosen: colour its trade PARTNERS (suppliers + customers)
-  const mineV0=Object.assign({},mineV), refV0=Object.assign({},refV);   // roles before pruning (arrow colours incl. the focus country)
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
     Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
     partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
-  const roleCol=iso=> refV0[iso]!=null ? 'rgb(142,68,173)' : mineV0[iso]!=null ? 'rgb(222,140,40)' : '#8a8a8a';
-  const roleArr=iso=> refV0[iso]!=null ? 'url(#arrV)' : mineV0[iso]!=null ? 'url(#arrA)' : 'url(#arrG)';
-  flows.forEach(fl=>{ fl.color=roleCol(fl.from); fl.arrow=roleArr(fl.from); });
+  flows.forEach(fl=>{ fl.color = fl.raw?'rgb(222,140,40)':'rgb(142,68,173)'; fl.arrow = fl.raw?'url(#arrA)':'url(#arrV)'; });
   // per-country choropleth fills (sources only when a destination is selected)
   const cscale={}, cvalues={}; let _ci=0;
   new Set([...Object.keys(mineV),...Object.keys(refV),...Object.keys(traderV)]).forEach(iso=>{
@@ -432,8 +431,8 @@ function renderMap(){
   });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — fill: <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both. Arrows = real exports (Comtrade ${FLOWS.year}) coloured by exporter: <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> a miner shipping raw, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> a refiner shipping refined. Click a country.`
-    : `Fill: <span class="sw" style="background:rgb(222,140,40)"></span>mined · <span class="sw" style="background:rgb(142,68,173)"></span>refined · <span class="sw" style="${bothSw}"></span>both. Arrows = top real exports (Comtrade ${FLOWS.year}); <span style="color:rgb(222,140,40)"><b>amber</b></span> from miners (raw), <span style="color:rgb(142,68,173)"><b>violet</b></span> from refiners. Pick a material to focus one chain.`;
+    ? `<b>${strip(mats[0].title)}</b> — country fill: <span class="sw" style="background:rgb(222,140,40)"></span>mines · <span class="sw" style="background:rgb(142,68,173)"></span>refines · <span class="sw" style="${bothSw}"></span>both. Arrows = real trade (Comtrade ${FLOWS.year}) by product: <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw material (ore), <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. Click a country.`
+    : `Country fill: <span class="sw" style="background:rgb(222,140,40)"></span>mines · <span class="sw" style="background:rgb(142,68,173)"></span>refines · <span class="sw" style="${bothSw}"></span>both. Arrows (Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw material, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. Pick a material or country to focus.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
@@ -461,22 +460,20 @@ function renderGlobe(){
   if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>mineV[x.c]=x.v); if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
   else { mats.forEach(m=>{ (m.mined||[]).forEach(x=>mineV[x.c]=(mineV[x.c]||0)+1); if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
   let flows;
-  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(); }
-  else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}); }
+  if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
+  else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);
   flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));
-  const mineV0=Object.assign({},mineV), refV0=Object.assign({},refV);
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
     Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
     partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
-  const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)', GREY='#8a8a8a';
-  const roleCol=iso=> refV0[iso]!=null?VIOLET:mineV0[iso]!=null?AMBER:GREY;
+  const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)';
   const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
-    return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color:roleCol(fl.from),
+    return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color: fl.raw?AMBER:VIOLET,
       label:`${fname(fl.from)} → ${fname(fl.to)}`, key:single?SELMAT:'' }; });
   const Argb=[222,140,40], Vrgb=[142,68,173], mixc=(p,q,t)=>[0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*t));
   const polyColor=feat=>{ const iso=(FLOWS.iso&&FLOWS.iso[String(parseInt(feat.id,10))])||null;
@@ -505,8 +502,8 @@ function renderGlobe(){
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
   $('#globe-info').innerHTML = single
-    ? `<b>${strip(mats[0].title)}</b> — fill: <span style="color:rgb(222,140,40)">mined</span> / <span style="color:rgb(142,68,173)">refined</span> / mauve = both. Arcs (Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> from miners (raw), <span style="color:rgb(142,68,173)">violet</span> from refiners. Click an arc.`
-    : `Fill: <span style="color:rgb(222,140,40)">mined</span> / <span style="color:rgb(142,68,173)">refined</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> from miners, <span style="color:rgb(142,68,173)">violet</span> from refiners. Pick a material to focus.`;
+    ? `<b>${strip(mats[0].title)}</b> — fill: <span style="color:rgb(222,140,40)">mines</span> / <span style="color:rgb(142,68,173)">refines</span> / mauve = both. Arcs (Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw material, <span style="color:rgb(142,68,173)">violet</span> = refined product. Click an arc.`
+    : `Fill: <span style="color:rgb(222,140,40)">mines</span> / <span style="color:rgb(142,68,173)">refines</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw material, <span style="color:rgb(142,68,173)">violet</span> = refined product. Pick a material or country to focus.`;
 }
 
 /* ---------- sankey: raw source → refiner → EU ---------- */
