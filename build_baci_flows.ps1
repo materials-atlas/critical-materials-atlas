@@ -65,6 +65,6 @@ foreach($iso in ($used | Sort-Object)){ if($cen.ContainsKey($iso)){ $centroids[$
 $isoMap=[ordered]@{}; foreach($r in $cc){ if($r.country_iso2 -and $r.country_iso2 -ne 'NA'){ $isoMap[$r.country_code]=$r.country_iso2 } }
 
 $out=[ordered]@{ year=$Year; source="UN Comtrade (primary) via CEPII BACI HS22 $Ver"; centroids=$centroids; names=$names; iso=$isoMap; materials=$materials }
-$out | ConvertTo-Json -Depth 8 -Compress | Out-File "$root\out\flows.json" -Encoding utf8
+[System.IO.File]::WriteAllText("$root\out\flows.json", ($out | ConvertTo-Json -Depth 8 -Compress), (New-Object System.Text.UTF8Encoding $false))   # UTF-8 without BOM
 $tot=0; $materials.Values | ForEach-Object { $tot+=$_.Count }
 Write-Host ("DONE. materials=$($materials.Count) flows=$tot countries=$($centroids.Count) size=" + [math]::Round((Get-Item "$root\out\flows.json").Length/1KB) + "KB")
