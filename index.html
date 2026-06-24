@@ -503,21 +503,28 @@ function buildSankey(){
   const mats=sel?MATS.filter(m=>m.label===sel):MATS;
   const linkMap={}, nodeSet=new Set(), mineNodes=new Set(), refNodes=new Set();
   const add=(s,t,v)=>{ if(v<=0||s===t) return; const k=s+''+t; linkMap[k]=(linkMap[k]||0)+v; nodeSet.add(s); nodeSet.add(t); };
+  const MINERS=new Set(), REFINERS=new Set();
+  mats.forEach(m=>{ (m.mined||[]).forEach(x=>MINERS.add(x.c)); if(m.refined) m.refined.forEach(x=>REFINERS.add(x.c)); });
   mats.forEach(m=>{
     const mines=(m.mined||[]).slice(0,3);
     const re=(m.refined&&m.refined[0])?m.refined[0].c:null;
     const mineSet=new Set(mines.map(x=>x.c));
     const sumW=mines.reduce((a,o)=>a+o.v,0)||1, w=100;
     const fl=(FLOWS.materials[m.label]||[]);
+    if(SELDEST){   // a country is chosen: show its REAL import sources -> the country
+      const ins=fl.filter(f=>f.to===SELDEST && f.from!==SELDEST).sort((a,b)=>b.value-a.value).slice(0,8);
+      if(!ins.length) return;
+      const tot=ins.reduce((a,f)=>a+f.value,0)||1;
+      ins.forEach(f=>{ add(cname(f.from), cname(SELDEST), w*f.value/tot);
+        if(REFINERS.has(f.from)) refNodes.add(cname(f.from)); else if(MINERS.has(f.from)) mineNodes.add(cname(f.from)); });
+      return; }
     if(re){ const refN=cname(re)+" (refines)";
-      const dests = SELDEST ? fl.filter(f=>f.from===re && f.to===SELDEST) : fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,6);
-      if(SELDEST && !dests.length) return;
+      const dests = fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,6);
       refNodes.add(refN);
       mines.forEach(x=>{ add(cname(x.c), refN, w*x.v/sumW); mineNodes.add(cname(x.c)); });
       const dTot=dests.reduce((a,f)=>a+f.value,0)||1;
       dests.forEach(f=> add(refN, cname(f.to), w*f.value/dTot)); }
-    else { let ms=fl.filter(f=>mineSet.has(f.from)); if(SELDEST) ms=ms.filter(f=>f.to===SELDEST); ms=ms.slice(0,8);
-      if(SELDEST && !ms.length) return;
+    else { const ms=fl.filter(f=>mineSet.has(f.from)).slice(0,8);
       const tot=ms.reduce((a,f)=>a+f.value,0)||1;
       if(ms.length) ms.forEach(f=>{ add(cname(f.from), cname(f.to), w*f.value/tot); mineNodes.add(cname(f.from)); });
       else mines.forEach(x=> mineNodes.add(cname(x.c))); }
@@ -535,7 +542,10 @@ function buildSankey(){
   if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
   sankeyChart.setOption({
     tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`.replace(/ \(refines\)/g,''):p.name.replace(/ \(refines\)$/,'')},
-    graphic:[
+    graphic: SELDEST ? [
+      {type:'text',left:'4%',top:4,style:{text:'SOURCES',fill:'#666',font:'bold 12px system-ui'}},
+      {type:'text',right:'3%',top:4,style:{text:'➜ '+fname(SELDEST).toUpperCase(),fill:'#666',font:'bold 12px system-ui'}}
+    ] : [
       {type:'text',left:'4%',top:4,style:{text:'⛏ MINED',fill:'#666',font:'bold 12px system-ui'}},
       {type:'text',left:'center',top:4,style:{text:'🏭 REFINED',fill:'#666',font:'bold 12px system-ui'}},
       {type:'text',right:'3%',top:4,style:{text:'➜ IMPORTED BY',fill:'#666',font:'bold 12px system-ui'}}
@@ -546,7 +556,9 @@ function buildSankey(){
   }, true);
   requestAnimationFrame(()=>sankeyChart.resize());
   const selM=sel?MATS.find(m=>m.label===sel):null;
-  $('#sankey-info').innerHTML = selM
+  $('#sankey-info').innerHTML = SELDEST
+    ? `Real sources <b>${fname(SELDEST)}</b> imports ${selM?'<b>'+strip(selM.title)+'</b>':'these materials'} from (UN Comtrade ${FLOWS.year}) — <span style="color:rgb(222,140,40)">amber</span> = a miner, <span style="color:rgb(142,68,173)">violet</span> = a refiner.`+(selM?'  <a href="#" id="sk-detail">full detail →</a>':'')
+    : selM
     ? `<b>${strip(selM.title)}</b>: <span style="color:rgb(222,140,40)"><b>mined</b></span> → <span style="color:rgb(142,68,173)"><b>refined</b></span> → the <b>real importing countries</b> (Comtrade ${FLOWS.year}). Refiner→buyer split is real trade; mine→refiner is structural.  <a href="#" id="sk-detail">full detail →</a>`
     : `<span style="color:rgb(222,140,40)"><b>mined</b></span> → <span style="color:rgb(142,68,173)"><b>refined</b></span> → <b>real importing countries</b> across all materials (Comtrade ${FLOWS.year}); each material weighted equally. Pick a material to isolate its chain.`;
   if(selM){ const a=$('#sk-detail'); if(a) a.onclick=e=>{e.preventDefault(); showDetail(selM.label);}; }
