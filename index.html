@@ -379,11 +379,12 @@ function renderMap(){
     const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
   // real export flows (Comtrade)
   let flows;
-  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
+  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(); }
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
+  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));   // top-N AFTER the destination filter
   // when a destination is chosen, colour only its ACTUAL sources (not every global producer)
   const traderV={};
   if(SELDEST){ const srcs=new Set(flows.map(f=>f.from));
@@ -459,11 +460,12 @@ function renderGlobe(){
   if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>mineV[x.c]=x.v); if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
   else { mats.forEach(m=>{ (m.mined||[]).forEach(x=>mineV[x.c]=(mineV[x.c]||0)+1); if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
   let flows;
-  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(0,18); }
+  if(single){ flows=(FLOWS.materials[SELMAT]||[]).slice(); }
   else { const agg={}; MATS.forEach(m=>((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to;agg[k]=(agg[k]||0)+fl.value;}));
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}).sort((x,y)=>y.value-x.value).slice(0,45); }
+    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.to===SELDEST);
+  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));
   const traderV={};
   if(SELDEST){ const srcs=new Set(flows.map(f=>f.from));
     Object.keys(mineV).forEach(c=>{ if(!srcs.has(c)) delete mineV[c]; });
