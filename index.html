@@ -391,7 +391,7 @@ function renderMap(){
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);   // all trade touching the country (in + out)
-  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));
+  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
   // a country is chosen: colour its trade PARTNERS (suppliers + customers)
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
@@ -470,7 +470,7 @@ function renderGlobe(){
     flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);
-  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?18:45));
+  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
