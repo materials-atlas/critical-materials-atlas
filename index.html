@@ -381,13 +381,19 @@ function ensureFlows(cb){ if(FLOWS){cb();return;}
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
+// A country is a MINER of a material if it actually EXPORTS the raw ore (raw materials) — derived
+// from trade, so every real exporter counts, not just a hardcoded top-N. For refined products the
+// ore isn't traded, so fall back to the USGS upstream source (otherwise the mine would be invisible).
+function minersOf(m){ if(!m) return {};
+  if(isRawMat(m.label)){ const o={}; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); return o; }
+  const o={}; (m.mined||[]).forEach(x=>{ o[x.c]=x.v; }); return o; }
 function buildMap(){ ensureFlows(renderMap); }
 function renderMap(){
   const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
-  // choropleth fill: mine share (single material) or #materials mined (all)
+  // choropleth fill: who mines it (single: all real ore exporters) or #materials mined (all)
   const mineV={};
-  if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>{ mineV[x.c]=x.v; }); }
-  else { mats.forEach(m=>(m.mined||[]).forEach(x=>{ mineV[x.c]=(mineV[x.c]||0)+1; })); }
+  if(single){ const mo=minersOf(mats[0]); for(const c in mo) mineV[c]=mo[c]; }
+  else { mats.forEach(m=>{ const mo=minersOf(m); Object.entries(mo).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>mineV[c]=(mineV[c]||0)+1); }); }
   // refiner share per country (single: refine %, all: # materials refined)
   const refV={};
   if(single){ const mm=mats[0]; if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
@@ -395,10 +401,10 @@ function renderMap(){
   // per-country region fill: amber = mined, violet = refined, blend = both (shaded by share/count)
   const AMBER=[222,140,40], VIOLET=[142,68,173], WHITE=[255,255,255];
   const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
-  const maxMine=single?60:Math.max(1,...Object.values(mineV)), maxRef=single?80:Math.max(1,...Object.values(refV));
+  const maxMine=Math.max(1,...Object.values(mineV)), maxRef=single?80:Math.max(1,...Object.values(refV));
   const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null;
     if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
-    const base=mw?AMBER:VIOLET, inten=mw||rw;
+    const base=mw?AMBER:VIOLET, inten=Math.sqrt(mw||rw);   // sqrt so small but real miners stay visible
     const c=mix(WHITE,base,0.28+0.72*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
   // real flows (Comtrade); arrow colour = PRODUCT stage (raw ore = amber, refined = violet)
   let flows;
@@ -456,7 +462,7 @@ function renderMap(){
     : `Country fill: <span class="sw" style="background:rgb(222,140,40)"></span>mines · <span class="sw" style="background:rgb(142,68,173)"></span>refines · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI/Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw material, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. Pick a material or country to focus.`;
 }
 function showCountry(code){
-  const mines=MATS.filter(m=>{const x=mineTop(m);return x&&x.c===code;});
+  const mines=MATS.filter(m=>minersOf(m)[code]!=null);
   const refines=MATS.filter(m=>(m.refined&&m.refined[0]&&m.refined[0].c===code));
   const buys=MATS.filter(m=>refTop(m).c===code);
   if(!mines.length&&!refines.length&&!buys.length){ $('#map-info').innerHTML=`<b>${fname(code)}</b> — a trade destination here, not a top source.`; return; }
@@ -478,8 +484,8 @@ function buildGlobe(){ ensureFlows(renderGlobe); }
 function renderGlobe(){
   const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
   const mineV={}, refV={};
-  if(single){ const mm=mats[0]; ((mm&&mm.mined)||[]).forEach(x=>mineV[x.c]=x.v); if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
-  else { mats.forEach(m=>{ (m.mined||[]).forEach(x=>mineV[x.c]=(mineV[x.c]||0)+1); if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
+  if(single){ const mo=minersOf(mats[0]); for(const c in mo) mineV[c]=mo[c]; const mm=mats[0]; if(mm&&mm.refined&&mm.refined[0]) refV[mm.refined[0].c]=mm.refined[0].v; }
+  else { mats.forEach(m=>{ const mo=minersOf(m); Object.entries(mo).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>mineV[c]=(mineV[c]||0)+1); if(m.refined&&m.refined[0]) refV[m.refined[0].c]=(refV[m.refined[0].c]||0)+1; }); }
   let flows;
   if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
   else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
