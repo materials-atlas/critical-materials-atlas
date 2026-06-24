@@ -45,7 +45,7 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:7.2rem 1fr .7rem 1fr .7rem 1fr 1fr 1.2rem;gap:.4rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.82rem}
+  .crow{display:grid;grid-template-columns:7rem 1fr .6rem 1fr .6rem 1.45fr 1.45fr 1.1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
   .dim{color:#bbb}
   .cimp{color:#8a5a9e}
   .cnaive{color:#9a9a9a;font-style:italic}
@@ -247,10 +247,12 @@ function buyBar(m){ const ms=new Set((m.mined||[]).map(x=>x.c));
   return stackBarC(m.origins,
     o=> !o.c?'#d8d8d8' : ms.has(o.c)?'#3f9b46':'#e07b39',
     o=> o.c?(ms.has(o.c)?' · also mines it':' · refines/resells (raw mined elsewhere)'):''); }
-function topExporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
-  const o={}; a.forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
-function topImporter(label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
-  const o={}; a.forEach(f=>{ o[f.to]=(o[f.to]||0)+f.value; }); let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return b; }
+function fmtV(v){ return v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+(v/1e6).toFixed(0)+'M':'$'+Math.max(1,Math.round(v/1e3))+'k'; }
+function topTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
+  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
+  let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return {c:b, v:bv, share: tot?bv/tot*100:0}; }
+function topExporter(label){ return topTrade(label,'from'); }
+function topImporter(label){ return topTrade(label,'to'); }
 const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
 function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
 function renderTable(){
@@ -258,17 +260,17 @@ function renderTable(){
   const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
   let list=MATS.slice();
   if(q) list=list.filter(m=>{ const mi=mineTop(m), te=topExporter(m.label), re=(m.refined&&m.refined[0])?m.refined[0].c:null;
-    return m.title.toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))||(te&&fname(te).toLowerCase().includes(q))||(re&&cname(re).toLowerCase().includes(q)); });
-  const mism=m=>{ const mi=mineTop(m), te=topExporter(m.label); return !!(mi&&te&&mi.c!==te); };
+    return m.title.toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))||(te&&fname(te.c).toLowerCase().includes(q))||(re&&cname(re).toLowerCase().includes(q)); });
+  const mism=m=>{ const mi=mineTop(m), te=topExporter(m.label); return !!(mi&&te&&mi.c!==te.c); };
   if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));   // default: mine share
   const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
-  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te;
+  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const mineCell=mi?`<span class="cc" style="color:${ctyColor(mi.c)}">${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
     const refCell=re?`<span class="cc" style="color:${ctyColor(re.c)}">${cname(re.c)} <small>${re.v.toFixed(0)}%</small></span>`:`<span class="cc dim">—</span>`;
-    const expCell=te?`<span class="cc" style="color:${ctyColor(te)}">${fname(te)}</span>`:`<span class="cc dim">—</span>`;
-    const impCell=ti?`<span class="cc" style="color:${ctyColor(ti)}">${fname(ti)}</span>`:`<span class="cc dim">—</span>`;
+    const expCell=te?`<span class="cc" style="color:${ctyColor(te.c)}">${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small></span>`:`<span class="cc dim">—</span>`;
+    const impCell=ti?`<span class="cc" style="color:${ctyColor(ti.c)}">${fname(ti.c)} <small>${ti.share.toFixed(0)}% · ${fmtV(ti.v)}</small></span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
