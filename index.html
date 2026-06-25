@@ -440,6 +440,12 @@ function renderMap(){
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
     Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
     partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
+  // re-export hub: a country importing ~as much of the SAME product as it exports is a transit hub,
+  // not a producer/refiner — grey it (unless it's a USGS/IEA reference producer for this material).
+  if(single){ const imp={}, exp={}; (FLOWS.materials[SELMAT]||[]).forEach(f=>{ exp[f.from]=(exp[f.from]||0)+f.value; imp[f.to]=(imp[f.to]||0)+f.value; });
+    const ref=new Set([...((mats[0].mined||[]).map(x=>x.c)), ...((mats[0].refined||[]).map(x=>x.c))]);
+    const hub=c=> !ref.has(c) && exp[c]>0 && (imp[c]||0)>=0.7*exp[c];
+    [mineV,refV].forEach(V=>Object.keys(V).forEach(c=>{ if(hub(c)){ delete V[c]; traderV[c]=1; } })); }
   flows.forEach(fl=>{ fl.color = fl.raw?'rgb(222,140,40)':'rgb(142,68,173)'; fl.arrow = fl.raw?'url(#arrA)':'url(#arrV)'; });
   // per-country choropleth fills (sources only when a destination is selected)
   const cscale={}, cvalues={}; let _ci=0;
@@ -478,7 +484,7 @@ function renderMap(){
   });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows = real trade (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Trade can't separate a true refiner from a re-export hub (HK/SG/NL).</span> Click a country.`
+    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = imports ≈ exports of the same product (a trans-shipper like HK/SG/NL, not a producer).</span> Click a country.`
     : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
 }
 function showCountry(code){
@@ -517,6 +523,11 @@ function renderGlobe(){
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
     Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
     partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
+  // re-export hub (same rule as the map): import ≈ export of the same product → transit hub, greyed.
+  if(single){ const imp={}, exp={}; (FLOWS.materials[SELMAT]||[]).forEach(f=>{ exp[f.from]=(exp[f.from]||0)+f.value; imp[f.to]=(imp[f.to]||0)+f.value; });
+    const ref=new Set([...((mats[0].mined||[]).map(x=>x.c)), ...((mats[0].refined||[]).map(x=>x.c))]);
+    const hub=c=> !ref.has(c) && exp[c]>0 && (imp[c]||0)>=0.7*exp[c];
+    [mineV,refV].forEach(V=>Object.keys(V).forEach(c=>{ if(hub(c)){ delete V[c]; traderV[c]=1; } })); }
   const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)';
   const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
     return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color: fl.raw?AMBER:VIOLET,
@@ -548,7 +559,7 @@ function renderGlobe(){
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
   $('#globe-info').innerHTML = single
-    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both. Arcs (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Trade can't separate a refiner from a re-export hub.</span> Click an arc.`
+    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = imports ≈ exports of the same product (a trans-shipper, not a producer).</span> Click an arc.`
     : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners).</span> Pick a material or country.`;
 }
 
