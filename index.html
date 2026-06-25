@@ -8,12 +8,12 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E🌍%3C/text%3E%3C/svg%3E">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://materials-atlas.github.io/eu_trade_dependency/">
-<meta property="og:title" content="Who does the EU really depend on?">
-<meta property="og:description" content="32 critical materials by true origin — corrected for the transit-port effect, and traced to where they're actually mined.">
+<meta property="og:title" content="Critical raw materials — where do they really come from?">
+<meta property="og:description" content="32 critical materials mined ▸ refined ▸ traded — complete global bilateral trade, for any country. Public USGS · IEA · UN Comtrade (CEPII BACI) data.">
 <meta property="og:image" content="https://materials-atlas.github.io/eu_trade_dependency/out/share.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Who does the EU really depend on?">
-<meta name="twitter:description" content="32 critical materials by true origin — and where they're actually mined.">
+<meta name="twitter:title" content="Critical raw materials — where do they really come from?">
+<meta name="twitter:description" content="32 critical materials mined ▸ refined ▸ traded worldwide — a public-data atlas of mine, refinery and trade.">
 <meta name="twitter:image" content="https://materials-atlas.github.io/eu_trade_dependency/out/share.png">
 <style>
   :root{ --red:#b22222; --blue:#3a6ea5; --ore:#d98a00; --ink:#1a1a1a; --mut:#666; --line:#e6e6e6; }
@@ -139,7 +139,7 @@
   <div id="view-sankey" class="view">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
-    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → EU (right).</p>
+    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
   </div>
 </main>
 
@@ -150,8 +150,6 @@
   Method note: <a href="methodology.html">methodology.html</a>. <span id="foot-stamp"></span>
 </footer>
 
-<!-- Privacy-friendly analytics (no cookies). Replace YOURCODE after a free goatcounter.com signup. -->
-<script data-goatcounter="https://YOURCODE.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 
 <script>
 const COUNTRY = {
@@ -181,7 +179,10 @@ const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0]
 let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
-function isRawMat(label){ const m=MATS.find(x=>x.label===label); if(!m) return false;   // HS chapter 25/26/27 = mined raw mineral/ore
+// Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
+// auditability; the chapter heuristic stays as a fallback for any future material.
+const RAW_MATS=new Set(['graphite','boron','fluorspar','feldspar','manganese','bauxite','phosphate','baryte','cokingcoal']);
+function isRawMat(label){ if(RAW_MATS.has(label)) return true; const m=MATS.find(x=>x.label===label); if(!m) return false;
   const d=((m.title.match(/\(([^)]*)\)/)||[])[1]||'').replace(/\D/g,''), ch=d.slice(0,2); return ch==='25'||ch==='26'||ch==='27'; }
 function populateMatSelectors(){
   const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '✓ ' : '')+strip(m.title);
@@ -278,7 +279,8 @@ function renderTable(){
     if(A.cn!==B.cn) return B.cn-A.cn;
     if(A.cn>0) return a.title.localeCompare(b.title);
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
-  const head=`<div class="crow head"><span>Material</span><span>Mined in</span><span></span><span>Refined in</span><span></span><span>Top exporter</span><span>Top importer</span><span></span></div>`;
+  const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
+  const head=`<div class="crow head"><span>Material</span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '23</small></span><span>Top importer${sb}BACI '23</small></span><span></span></div>`;
   const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -328,25 +330,37 @@ function showDetail(key){
   const m=MATS.find(x=>x.label===key); if(!m) return;
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'material/'+key,event:true});
   const eur=v=>v>=1e9?"€"+(v/1e9).toFixed(2)+"B":v>=1e6?"€"+(v/1e6).toFixed(0)+"M":"€"+v;
-  const rt=m.top_partner, mt=(m.mined&&m.mined[0])?m.mined[0].c:null;
+  const te=topExporter(m.label), ti=topImporter(m.label), mt=(m.mined&&m.mined[0])?m.mined[0].c:null;
+  // world export concentration (HHI) from real BACI bilateral trade
+  const ex={}; let tot=0; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ ex[f.from]=(ex[f.from]||0)+f.value; tot+=f.value; });
+  let ghhi=0; if(tot) for(const c in ex){ const s=ex[c]/tot; ghhi+=s*s; }
   let contrast='';
-  if(mt && mt!==rt) contrast=`<p class="contrast">⚠ The EU buys refined ${strip(m.title).toLowerCase()} mainly from <b>${cname(rt)}</b> — but it is mined mainly in <b>${cname(mt)}</b>.${cname(rt)==='China'?' China is the refinery, not the mine.':''}</p>`;
-  else if(mt) contrast=`<p class="contrast ok">✓ ${cname(rt)} is both the EU's supplier and a leading producer of the raw material.</p>`;
+  if(mt && te && mt!==te.c) contrast=`<p class="contrast">⚠ ${strip(m.title)} is exported mainly by <b>${fname(te.c)}</b> (${te.share.toFixed(0)}% of world trade) — but mined mainly in <b>${cname(mt)}</b>.${te.c==='CN'?' China is the refinery / chokepoint, not the mine.':''}</p>`;
+  else if(mt && te) contrast=`<p class="contrast ok">✓ ${fname(te.c)} is both the top exporter and a leading producer of the raw material.</p>`;
   $('#detail-body').innerHTML=`
     <h2 style="margin:.2rem 2rem .2rem 0">${m.title}</h2>
     <p style="color:#444;font-size:.95rem">${m.note}</p>
     ${contrast}
     <div class="layers">
-      <div class="layer"><h3>● Buy from — refined origin (Comext)</h3>${bars((m.origins||[]).map(o=>({c:o.c,v:o.v})))}</div>
       <div class="layer"><h3>● Mined in — true source (USGS, approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
+      <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
     </div>
     <div class="kpis">
-      <div class="kpi"><div class="v">${m.china_val.toFixed(0)}%</div><div class="l">China (refined, value)</div></div>
-      <div class="kpi"><div class="v">${m.hhi.toFixed(2)}</div><div class="l">HHI (refined)</div></div>
-      <div class="kpi"><div class="v">${eur(m.total_eur)}</div><div class="l">EU imports (${m.year})</div></div>
+      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (BACI '23)</div></div>
+      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (BACI '23)</div></div>
+      <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
     </div>
-    <img src="out/${m.label}_headline.png" alt="naive vs corrected" loading="lazy">
-    <div class="two"><img src="out/${m.label}_trend.png" alt="trend" loading="lazy"><img src="out/${m.label}_vq.png" alt="value vs tonnage" loading="lazy"></div>`;
+    <details style="margin-top:1.1rem;border-top:1px solid var(--line);padding-top:.7rem">
+      <summary style="cursor:pointer;color:#555;font-size:.9rem;font-weight:600">EU import-origin lens — one option (Eurostat Comext, ${m.year})</summary>
+      <div class="layers" style="margin-top:.7rem"><div class="layer"><h3>● EU buys from — refined origin (Comext)</h3>${bars((m.origins||[]).map(o=>({c:o.c,v:o.v})))}</div></div>
+      <div class="kpis">
+        <div class="kpi"><div class="v">${m.china_val.toFixed(0)}%</div><div class="l">China (EU refined imports)</div></div>
+        <div class="kpi"><div class="v">${m.hhi.toFixed(2)}</div><div class="l">HHI (EU refined origin)</div></div>
+        <div class="kpi"><div class="v">${eur(m.total_eur)}</div><div class="l">EU imports (${m.year})</div></div>
+      </div>
+      <img src="out/${m.label}_headline.png" alt="naive vs corrected" loading="lazy">
+      <div class="two"><img src="out/${m.label}_trend.png" alt="trend" loading="lazy"><img src="out/${m.label}_vq.png" alt="value vs tonnage" loading="lazy"></div>
+    </details>`;
   $('#detail').classList.remove('hidden');
 }
 $('#detail-close').onclick=()=>$('#detail').classList.add('hidden');
@@ -464,16 +478,15 @@ function renderMap(){
   });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= single
-    ? `<b>${strip(mats[0].title)}</b> — country fill: <span class="sw" style="background:rgb(222,140,40)"></span>mines · <span class="sw" style="background:rgb(142,68,173)"></span>refines · <span class="sw" style="${bothSw}"></span>both. Arrows = real trade (BACI/Comtrade ${FLOWS.year}) by product: <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw material (ore), <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. Click a country.`
-    : `Country fill: <span class="sw" style="background:rgb(222,140,40)"></span>mines · <span class="sw" style="background:rgb(142,68,173)"></span>refines · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI/Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw material, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. Pick a material or country to focus.`;
+    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows = real trade (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Trade can't separate a true refiner from a re-export hub (HK/SG/NL).</span> Click a country.`
+    : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>minersOf(m)[code]!=null);
   const refines=MATS.filter(m=>refinersOf(m)[code]!=null);
-  const buys=MATS.filter(m=>refTop(m).c===code);
-  if(!mines.length&&!refines.length&&!buys.length){ $('#map-info').innerHTML=`<b>${fname(code)}</b> — a trade destination here, not a top source.`; return; }
+  if(!mines.length&&!refines.length){ $('#map-info').innerHTML=`<b>${fname(code)}</b> — a trade destination here, not a top source.`; return; }
   const lk=arr=>arr.map(m=>`<a href="#" data-k="${m.label}">${strip(m.title)}</a>`).join(', ')||'—';
-  $('#map-info').innerHTML=`<b>${fname(code)}</b><br><span style="color:#b35e16">mines:</span> ${lk(mines)}<br><span style="color:#2b4d6f">refines:</span> ${lk(refines)}<br><span style="color:#555">EU buys from here:</span> ${lk(buys)}`;
+  $('#map-info').innerHTML=`<b>${fname(code)}</b><br><span style="color:#b35e16">raw stage (mines / exports ore):</span> ${lk(mines)}<br><span style="color:#2b4d6f">refined stage (refines / exports refined):</span> ${lk(refines)}`;
   $('#map-info').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();showDetail(a.dataset.k);});
 }
 
@@ -535,8 +548,8 @@ function renderGlobe(){
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
   $('#globe-info').innerHTML = single
-    ? `<b>${strip(mats[0].title)}</b> — fill: <span style="color:rgb(222,140,40)">mines</span> / <span style="color:rgb(142,68,173)">refines</span> / mauve = both. Arcs (BACI/Comtrade ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw material, <span style="color:rgb(142,68,173)">violet</span> = refined product. Click an arc.`
-    : `Fill: <span style="color:rgb(222,140,40)">mines</span> / <span style="color:rgb(142,68,173)">refines</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw material, <span style="color:rgb(142,68,173)">violet</span> = refined product. Pick a material or country to focus.`;
+    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both. Arcs (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Trade can't separate a refiner from a re-export hub.</span> Click an arc.`
+    : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners).</span> Pick a material or country.`;
 }
 
 /* ---------- sankey: raw source → refiner → EU ---------- */
