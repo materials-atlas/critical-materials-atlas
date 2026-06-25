@@ -266,7 +266,7 @@ barplot(sc$share, horiz = TRUE, las = 1, xlim = c(0, 100), border = NA,
 title(main = "Who does the EU really depend on?", line = 2.8, cex.main = 2.5, adj = 0)
 mtext("Critical raw materials by TRUE origin, corrected for the transit-port effect    |    red = China, blue = other",
       side = 3, line = 0.5, adj = 0, cex = 1.2, col = "#555555")
-mtext("materials-atlas.github.io/eu_trade_dependency", side = 1, line = 1.6, adj = 1, cex = 1.05, col = "#888888")
+mtext("criticalmaterialsatlas.org", side = 1, line = 1.6, adj = 1, cex = 1.05, col = "#888888")
 dev.off()
 
 # Machine-readable data for the interactive front-end (index.html fetches out/data.json).

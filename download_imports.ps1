@@ -10,7 +10,7 @@
 #>
 param([Parameter(Mandatory=$true)][string]$Key,[int]$Year=2023,[int]$TopPartner=8,[double]$Throttle=5,[int]$ChunkSize=40)
 $ProgressPreference='SilentlyContinue'
-$root='eu_trade_dependency'
+$root=$PSScriptRoot
 $f = Get-Content "$root\out\flows.json" -Raw | ConvertFrom-Json
 $num2iso=@{}; foreach($p in $f.iso.PSObject.Properties){ $num2iso[$p.Name]=$p.Value }
 

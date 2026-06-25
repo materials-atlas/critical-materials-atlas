@@ -15,7 +15,7 @@ param(
   [double]$Throttle = 1.4  # seconds between API calls
 )
 $ProgressPreference='SilentlyContinue'
-$root = 'eu_trade_dependency'
+$root = $PSScriptRoot
 $data = Get-Content "$root\out\data.json" -Raw | ConvertFrom-Json
 
 Write-Host "Loading Comtrade code reference..."
