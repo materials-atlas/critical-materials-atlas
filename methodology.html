@@ -50,9 +50,12 @@ the picture changes — the apparent origin is often just the chokepoint, not th
 </tbody>
 </table>
 <p>So an apparent <b>China</b> dependence on cobalt is, upstream, a <b>Congo mining</b> dependence
-funnelled through a Chinese refinery — China is the chokepoint, not the source. No mainstream trade-flow
-tool (OEC, Resource Trade Earth, Comtrade dashboards) shows this; they stop at the refiner. This tool
-overlays USGS mine production on the real trade and draws the implied mine → refiner → buyer chain.</p>
+funnelled through a Chinese refinery — China is the chokepoint, not the source. This mine-vs-refiner gap
+is well established in IEA and USGS supply-chain work; what this tool adds is to <b>overlay all three
+layers — mine, refinery and customs trade — in one material-level interface</b>, where mainstream
+dashboards (OEC, Resource Trade Earth, Comtrade) typically expose just one. It draws the implied
+mine → refiner → buyer chain, while being explicit (see Limitations) about what is <em>measured</em>
+versus <em>referenced</em>.</p>
 
 <h2>A method note: correcting the EU's import statistics</h2>
 <p>The same materials drive a classic correction specific to the <b>European Union</b> — the analysis this
@@ -108,6 +111,27 @@ extra-EU flows; quantities arrive as <code>QUANTITY_IN_100KG</code> and need con
 <p>Because some codes (gallium, germanium) carry 15 years of data, dependency is a trajectory, not a
 snapshot: gallium's China-origin share runs <b>96.8% (2022) → 85% (2023) → 68% (2024)</b> as Canada and
 Russia step in — China's July-2023 export controls visible directly in the customs record.</p>
+
+<h2>Limitations — what is measured vs referenced</h2>
+<p>This is an <b>overlay of three different measures</b>, not one observed supply chain. Read each row
+as three lenses laid over each other, not a single flow:</p>
+<ul>
+<li><b>Three concepts, three vintages.</b> Mine production (USGS, physical, approximate), refining
+(IEA, processing, approximate) and trade (BACI, customs value, 2023) measure different things; the EU
+lens uses Comext 2024. A row juxtaposes them — it does not reconcile them into one measured chain.</li>
+<li><b>Re-exports.</b> Customs trade cannot separate a true refiner from a re-export hub. Hong Kong,
+Singapore, the Netherlands and Switzerland can surface as top "exporters/refiners" of a material they
+merely trans-ship. The map's role colours are <em>trade exposure</em>, not proof of physical processing.</li>
+<li><b>Raw vs refined HS codes.</b> A material's ore and its refined form sit under different HS codes.
+The map derives miners from the ore code where it is traded, and falls back to USGS/IEA reference shares
+where it is not — so the data source behind a role can change from one material to the next.</li>
+<li><b>The flow chart's upstream links are structural.</b> mine → refiner links are drawn from reference
+shares, not observed flows; only refiner → buyer links are real trade.</li>
+<li><b>Value, not tonnage.</b> BACI is in US dollars; the top exporter by value can differ from the top
+by quantity (price and grade effects). Value-vs-tonnage divergences are shown per material in the detail panel.</li>
+<li><b>Colour intensity is sqrt(volume)</b> for visibility, so a dominant supplier reads as strong but
+not overwhelmingly so; treat the choropleth as ordinal, not a precise linear scale.</li>
+</ul>
 
 <h2>Data &amp; reproducibility</h2>
 <p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
