@@ -70,6 +70,7 @@ no code change to add a material once its data is present.
 - `methodology.html` — one-page method note: the three layers, the refiner-vs-source correction,
   the EU Comext origin correction, and the Limitations
 - `MATERIALS.md` — material → HS6 → stage crosswalk with headline figures per layer
+- `VALIDATION.md` — spot-checks of each layer against published USGS/IEA figures
 - `raw/` — downloaded source data (BACI zip/CSV, Comext), gitignored
 
 ## Provenance & scope
