@@ -65,6 +65,10 @@
   #map{height:520px;border:1px solid var(--line);border-radius:8px}
   #globe{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
   #sankey{height:700px;border:1px solid var(--line);border-radius:8px;padding:4px}
+  #yearbar{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:#444;margin:.1rem 0 1rem;padding:.5rem .8rem;background:#f7f7f9;border:1px solid var(--line);border-radius:8px;flex-wrap:wrap}
+  #yearbar input[type=range]{flex:0 0 220px;accent-color:rgb(142,68,173);cursor:pointer}
+  #yearbar b{color:rgb(142,68,173);font-size:1.05rem;min-width:2.7rem;text-align:center}
+  #yearbar .ymut{color:#999;font-size:.8rem}
   .panel-info{font-size:.88rem;color:#333;margin-top:.6rem;min-height:1.4rem}
   .loading{color:var(--mut);padding:2rem;text-align:center}
   table.dt{border-collapse:collapse;width:100%;font-size:.86rem}
@@ -120,6 +124,7 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2023" step="1" value="2023" title="Trade year" aria-label="Trade year"><b id="yr-val">2023</b><span class="ymut">— global bilateral trade (BACI). Mine/refine layers are undated reference. 2023 is the newest complete year (BACI lags ~1.5y).</span></div>
 
 <main>
   <div id="view-table" class="view hidden">
@@ -393,9 +398,14 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
    .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
 }
-let mapInstance=null, FLOWS=null, redrawArrows=null;
-function ensureFlows(cb){ if(FLOWS){cb();return;}
-  fetch('out/flows.json').then(r=>r.json()).then(d=>{FLOWS=d;populateDestSelectors();cb();}).catch(()=>{FLOWS={year:'',centroids:{},names:{},iso:{},materials:{}};cb();}); }
+let mapInstance=null, FLOWS=null, redrawArrows=null, FLOWS_YEAR='2023', FLOWS_CACHE={};
+function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
+  if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
+  fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
+    .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
+function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=y;
+  ensureFlows(()=>{ renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
+{ const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
