@@ -132,12 +132,12 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
     <p class="panel-info" id="map-info">Loading real trade flows…</p>
   </div>
   <div id="view-globe" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
@@ -181,7 +181,8 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='';
+let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='', FILL_MODE='prod';
+function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); }
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
 // Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
@@ -409,6 +410,7 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
 function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=y;
   ensureFlows(()=>{ renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
+{ ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
@@ -436,9 +438,12 @@ function renderMap(){
   if(single){ const ro=refinersOf(mats[0]); for(const c in ro) refV[c]=ro[c]; }
   else { mats.forEach(m=>{ const ro=refinersOf(m); Object.entries(ro).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>refV[c]=(refV[c]||0)+1); }); }
   // per-country region fill: amber = mined, violet = refined, blend = both (shaded by share/count)
-  const AMBER=[222,140,40], VIOLET=[142,68,173], WHITE=[255,255,255];
+  const AMBER=[222,140,40], VIOLET=[142,68,173], GREEN=[34,139,87], WHITE=[255,255,255];
   const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
   const maxMine=Math.max(1,...Object.values(mineV)), maxRef=Math.max(1,...Object.values(refV));
+  // reserves ("potential") fill mode: colour by share of world reserves, green; no trade arrows
+  const resMode=(FILL_MODE==='reserves'); const resV={};
+  if(resMode){ if(single){ ((mats[0].reserves)||[]).forEach(x=>resV[x.c]=x.v); } else { mats.forEach(m=>(m.reserves||[]).forEach(x=>resV[x.c]=(resV[x.c]||0)+1)); } }
   const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null;
     if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
     const base=mw?AMBER:VIOLET, inten=Math.sqrt(mw||rw);   // sqrt so small but real miners stay visible
@@ -451,6 +456,7 @@ function renderMap(){
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);   // all trade touching the country (in + out)
   flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
+  if(resMode) flows=[];   // reserves view is static (where it's in the ground) — no trade arrows
   // a country is chosen: colour its trade PARTNERS (suppliers + customers)
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
@@ -464,7 +470,10 @@ function renderMap(){
   flows.forEach(fl=>{ fl.color = fl.raw?'rgb(222,140,40)':'rgb(142,68,173)'; fl.arrow = fl.raw?'url(#arrA)':'url(#arrV)'; });
   // per-country choropleth fills (sources only when a destination is selected)
   const cscale={}, cvalues={}; let _ci=0;
-  new Set([...Object.keys(mineV),...Object.keys(refV),...Object.keys(traderV)]).forEach(iso=>{
+  if(resMode){ const maxR=Math.max(1,...Object.values(resV));
+    Object.keys(resV).forEach(iso=>{ const w=Math.sqrt(Math.min(1,resV[iso]/maxR)); const c=mix(WHITE,GREEN,0.14+0.86*w);
+      const k='k'+(_ci++); cscale[k]=`rgb(${c[0]},${c[1]},${c[2]})`; cvalues[iso]=k; }); }
+  else new Set([...Object.keys(mineV),...Object.keys(refV),...Object.keys(traderV)]).forEach(iso=>{
     const mw=mineV[iso]!=null?Math.min(1,mineV[iso]/maxMine):0, rw=refV[iso]!=null?Math.min(1,refV[iso]/maxRef):0;
     let col=fillFor(mw,rw); if(!col && traderV[iso]) col='#b9c2cc';
     if(col){ const k='k'+(_ci++); cscale[k]=col; cvalues[iso]=k; } });
@@ -498,7 +507,9 @@ function renderMap(){
     if(typeof mapInstance._applyTransform==='function'){ const o=mapInstance._applyTransform.bind(mapInstance); mapInstance._applyTransform=function(){ o(); if(redrawArrows) redrawArrows(); }; }
   });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
-  $('#map-info').innerHTML= single
+  $('#map-info').innerHTML= resMode
+    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(34,139,87)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no trade arrows in this view. <span style="color:#999">Reserves are conservative (proven, economic) — frontier deposits still classed as "resources" (e.g. Greenland) can stay dim, and byproduct metals carry no figure.</span>`
+    : single
     ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = a known re-export hub (Hong Kong, Singapore, UAE…) — trans-ships, doesn't produce.</span> Click a country.`
     : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
 }
@@ -526,6 +537,8 @@ function renderGlobe(){
   const mineV={}, refV={};
   if(single){ const mo=minersOf(mats[0]); for(const c in mo) mineV[c]=mo[c]; const ro=refinersOf(mats[0]); for(const c in ro) refV[c]=ro[c]; }
   else { mats.forEach(m=>{ const mo=minersOf(m); Object.entries(mo).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>mineV[c]=(mineV[c]||0)+1); const ro=refinersOf(m); Object.entries(ro).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>refV[c]=(refV[c]||0)+1); }); }
+  const resMode=(FILL_MODE==='reserves'); const resV={};
+  if(resMode){ if(single){ ((mats[0].reserves)||[]).forEach(x=>resV[x.c]=x.v); } else { mats.forEach(m=>(m.reserves||[]).forEach(x=>resV[x.c]=(resV[x.c]||0)+1)); } }
   let flows;
   if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
   else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
@@ -533,6 +546,7 @@ function renderGlobe(){
   flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
   if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);
   flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
+  if(resMode) flows=[];   // reserves view is static — no arcs
   const traderV={};
   if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
     Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
@@ -546,8 +560,10 @@ function renderGlobe(){
     return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color: fl.raw?AMBER:VIOLET,
       label:`${fname(fl.from)} → ${fname(fl.to)}`, key:single?SELMAT:'' }; });
   const Argb=[222,140,40], Vrgb=[142,68,173], mixc=(p,q,t)=>[0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*t));
+  const maxR=resMode?Math.max(1,...Object.values(resV)):1;
   const polyColor=feat=>{ const iso=(FLOWS.iso&&FLOWS.iso[String(parseInt(feat.id,10))])||null;
     if(!iso) return 'rgba(120,150,180,0.07)';
+    if(resMode){ if(resV[iso]==null) return 'rgba(120,150,180,0.07)'; const w=Math.sqrt(Math.min(1,resV[iso]/maxR)); const c=mixc([255,255,255],[34,139,87],0.14+0.86*w); return `rgba(${c[0]},${c[1]},${c[2]},0.9)`; }
     const isM=mineV[iso]!=null, isR=refV[iso]!=null;
     if(isM&&isR){ const c=mixc(Argb,Vrgb,.5); return `rgba(${c[0]},${c[1]},${c[2]},0.88)`; }
     if(isM) return 'rgba(222,140,40,0.82)'; if(isR) return 'rgba(142,68,173,0.82)';
@@ -571,7 +587,9 @@ function renderGlobe(){
     globeInstance.arcsData(arcs);
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
-  $('#globe-info').innerHTML = single
+  $('#globe-info').innerHTML = resMode
+    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
+    : single
     ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce.</span> Click an arc.`
     : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners).</span> Pick a material or country.`;
 }
