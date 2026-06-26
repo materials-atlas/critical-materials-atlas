@@ -66,6 +66,11 @@
   #globe{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
   #sankey{height:700px;border:1px solid var(--line);border-radius:8px;padding:4px}
   #yearbar{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:#444;margin:.1rem 0 1rem;padding:.5rem .8rem;background:#f7f7f9;border:1px solid var(--line);border-radius:8px;flex-wrap:wrap}
+  #yr-tiers{flex-basis:100%;display:flex;gap:3px;margin-top:.15rem;font-size:.66rem;line-height:1.6}
+  #yr-tiers span{padding:1px 6px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+  #yr-tiers .t-meas{flex:7;background:#e7eef6;color:#34618a}
+  #yr-tiers .t-prov{flex:1.6;background:#fff1df;color:#b35e16;text-align:center}
+  #yr-tiers .t-dir{flex:1.6;background:#fde9e9;color:#c0392b;text-align:center}
   #yearbar input[type=range]{flex:0 0 220px;accent-color:rgb(142,68,173);cursor:pointer}
   #yearbar b{color:rgb(142,68,173);font-size:1.05rem;min-width:2.7rem;text-align:center}
   #yearbar .ymut{color:#999;font-size:.8rem}
@@ -111,10 +116,10 @@
 </header>
 
 <nav class="tabs">
-  <button data-view="sankey" class="active">⤳ Flow</button>
+  <button data-view="table" class="active">▤ Table</button>
+  <button data-view="sankey">⤳ Flow</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
-  <button data-view="table">▤ Table</button>
   <span class="grow"></span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
@@ -124,11 +129,11 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2026" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast · <b>2026**</b> = directional nowcast (Q1 trade + prices). Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2026" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast · <b>2026**</b> = directional nowcast (Q1 trade + prices). Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><span class="t-dir">2026** directional ▶</span></div></div>
 
 <main>
-  <div id="view-table" class="view hidden">
-    <div class="legend">Each material: <b>reserves</b> (where it <i>could</i> come from) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
+  <div id="view-table" class="view">
+    <div class="legend">Each material: <b>reserves</b> (USGS — economically recoverable) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). <b>⛓</b> = trade shared at one HS6 code (gallium/germanium/hafnium can't be separated). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -141,7 +146,7 @@
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
-  <div id="view-sankey" class="view">
+  <div id="view-sankey" class="view hidden">
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
@@ -181,13 +186,16 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='sankey', SELMAT='', SELDEST='', FILL_MODE='prod';
+let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod';
 function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); }
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
 // Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
 // auditability; the chapter heuristic stays as a fallback for any future material.
 const RAW_MATS=new Set(['graphite','boron','fluorspar','feldspar','manganese','bauxite','phosphate','baryte','cokingcoal']);
+// gallium, germanium & hafnium share one HS6 code (811292) — their TRADE columns are identical and
+// cannot be separated (their mined/refined/reserves layers still differ). Flagged with ⛓ in the table.
+const SHARED_HS6=new Set(['gallium','germanium','hafnium']);
 // Pure re-export entrepôts: negligible domestic mining/refining of these materials, so when they appear
 // as exporters it's trans-shipment, not production. Curated (a re-export RATIO mislabels real refiners
 // like Belgium/Germany and misses hubs like HK) — these are unambiguous logistics hubs.
@@ -293,7 +301,7 @@ function renderTable(){
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
   const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span>Top importer${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span></span></div>`;
-  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
+  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -304,7 +312,7 @@ function renderTable(){
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}`+
-      `<span class="warn" title="${warn?'mined in one country, exported mainly by another':''}">${warn?'⚠':''}</span></div>`;
+      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with the other two — gallium, germanium &amp; hafnium can\\'t be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
@@ -355,7 +363,7 @@ function showDetail(key){
     <p style="color:#444;font-size:.95rem">${m.note}</p>
     ${contrast}
     <div class="layers">
-      <div class="layer"><h3>● Reserves — potential, where it could come from (USGS, approx.)</h3>${m.reserves&&m.reserves.length?bars(m.reserves):'<i style="color:#888">no reserves figure (byproduct / abundant)</i>'}</div>
+      <div class="layer"><h3>● Reserves — USGS, economically recoverable (not full geological resources)</h3>${m.reserves&&m.reserves.length?bars(m.reserves):'<i style="color:#888">no reserves figure (byproduct / abundant)</i>'}</div>
       <div class="layer"><h3>● Mined in — actual production today (USGS, approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
       <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
     </div>
@@ -515,7 +523,7 @@ function renderMap(){
   });
   const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
   $('#map-info').innerHTML= resMode
-    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(34,139,87)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no trade arrows in this view. <span style="color:#999">Reserves are conservative (proven, economic) — frontier deposits still classed as "resources" (e.g. Greenland) can stay dim, and byproduct metals carry no figure.</span>`
+    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(34,139,87)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): economically recoverable (USGS), exploited or not. Darker = larger reserves; no trade arrows in this view. <span style="color:#999">Reserves are conservative (proven, economic) — frontier deposits still classed as "resources" (e.g. Greenland) can stay dim, and byproduct metals carry no figure.</span>`
     : single
     ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = a known re-export hub (Hong Kong, Singapore, UAE…) — trans-ships, doesn't produce.</span> Click a country.`
     : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
@@ -595,7 +603,7 @@ function renderGlobe(){
     globeInstance.width($('#globe').clientWidth||900).height(560);
   });
   $('#globe-info').innerHTML = resMode
-    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
+    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): economically recoverable (USGS), exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
     : single
     ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce.</span> Click an arc.`
     : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners).</span> Pick a material or country.`;
