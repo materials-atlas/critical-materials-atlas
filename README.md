@@ -20,7 +20,7 @@ Four layers per material, from public sources:
 | **Reserves / potential** | USGS Mineral Commodity Summaries (approx.) | world reserve shares — where it *could* come from, exploited or not |
 | **Mined** | USGS Mineral Commodity Summaries (approx.) | world mine-production shares |
 | **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
-| **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202501, **2018–2023** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
+| **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202601, **2018–2024** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
 
 Four views over the same data: **Flow** (Sankey), **Map** (choropleth + curved trade arrows), **Globe**
 (animated arcs), **Table** (each material `mined ▸ refined ▸ top exporter · top importer`, with a
@@ -49,7 +49,7 @@ reference shares, value-vs-tonnage, structural Sankey links, sqrt colouring) is 
 ## Build pipeline
 
 ```powershell
-# 1. Global bilateral trade → out/flows_2018.json … flows_2023.json
+# 1. Global bilateral trade → out/flows_2018.json … flows_2024.json
 #    Streams the CEPII BACI HS17 yearly CSVs (downloaded into raw/baci/, gitignored), filters to the 32
 #    HS6 codes, maps BACI country codes → ISO2, keeps top suppliers/customers per country. BOM-free JSON.
 powershell -File build_flows_years.ps1
@@ -65,7 +65,7 @@ trade, picked by the year slider) — no code change to add a material once its 
 
 - `index.html` — the interactive tool (Flow / Map / Globe / Table); repo root = the GitHub Pages site
 - `out/data.json` — mine (USGS) + refine (IEA) shares + EU Comext import-origin lens
-- `out/flows_2018.json … flows_2023.json` — complete BACI bilateral trade, one file per year (committed)
+- `out/flows_2018.json … flows_2024.json` — complete BACI bilateral trade, one file per year (committed)
 - `build_flows_years.ps1` — BACI HS17 yearly CSVs → `out/flows_<year>.json` (multi-year, one nomenclature)
 - `build_baci_flows.ps1` — single-year HS22 builder (legacy; superseded by the multi-year script)
 - `build_static.R` — regenerates `out/data.json` + the per-material PNGs in `out/`

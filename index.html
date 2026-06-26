@@ -124,7 +124,7 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2023" step="1" value="2023" title="Trade year" aria-label="Trade year"><b id="yr-val">2023</b><span class="ymut">— global bilateral trade (BACI). Mine/refine layers are undated reference. 2023 is the newest complete year (BACI lags ~1.5y).</span></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2024" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— global bilateral trade (BACI V202601). Mine/refine layers are undated reference. 2024 is the newest complete year; 2025 not until BACI's ~2027 release.</span></div>
 
 <main>
   <div id="view-table" class="view hidden">
@@ -291,7 +291,7 @@ function renderTable(){
     if(A.cn>0) return a.title.localeCompare(b.title);
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
-  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '23</small></span><span>Top importer${sb}BACI '23</small></span><span></span></div>`;
+  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '${String(FLOWS_YEAR).slice(2)}</small></span><span>Top importer${sb}BACI '${String(FLOWS_YEAR).slice(2)}</small></span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -359,8 +359,8 @@ function showDetail(key){
       <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
     </div>
     <div class="kpis">
-      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (BACI '23)</div></div>
-      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (BACI '23)</div></div>
+      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (BACI '${String(FLOWS_YEAR).slice(2)})</div></div>
+      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (BACI '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
     </div>
     <details style="margin-top:1.1rem;border-top:1px solid var(--line);padding-top:.7rem">
@@ -402,7 +402,7 @@ function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
    .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
    .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
 }
-let mapInstance=null, FLOWS=null, redrawArrows=null, FLOWS_YEAR='2023', FLOWS_CACHE={};
+let mapInstance=null, FLOWS=null, redrawArrows=null, FLOWS_YEAR='2024', FLOWS_CACHE={};
 function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })

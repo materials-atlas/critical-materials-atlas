@@ -38,10 +38,11 @@ others USGS leaves blank) carry no figure.</li>
 <li><b>Mined</b> — world mine-production shares by country, from <b>USGS</b> Mineral Commodity Summaries (approximate).</li>
 <li><b>Refined / processed</b> — where the raw material is turned into the traded product, from the <b>IEA</b> Critical Minerals Outlook (approximate).</li>
 <li><b>Traded</b> — complete bilateral trade between every country pair, both directions, for each year
-<b>2018–2023</b> (selectable with the year slider): primary source <b>UN Comtrade</b>, in its reconciled,
+<b>2018–2024</b> (selectable with the year slider): primary source <b>UN Comtrade</b>, in its reconciled,
 mirror-harmonised form <b>CEPII BACI</b>. The map, globe and flow view draw this directly; arrows are
-coloured by what is shipped — raw ore vs refined product. 2023 is the newest complete year; BACI lags
-~1.5 years, so 2024 is not yet available. The mine and refine layers are undated reference, not yearly.</li>
+coloured by what is shipped — raw ore vs refined product. 2024 is the newest complete year (BACI release
+V202601, Jan 2026); BACI lags ~1.5 years, so 2025 is not yet available. The mine and refine layers are
+undated reference, not yearly.</li>
 </ul>
 
 <h2>Why the refiner is not the source</h2>
@@ -125,7 +126,7 @@ Russia step in — China's July-2023 export controls visible directly in the cus
 as three lenses laid over each other, not a single flow:</p>
 <ul>
 <li><b>Three concepts, three vintages.</b> Mine production (USGS, physical, approximate), refining
-(IEA, processing, approximate) and trade (BACI, customs value, 2018–2023) measure different things; the EU
+(IEA, processing, approximate) and trade (BACI, customs value, 2018–2024) measure different things; the EU
 lens uses Comext 2024. A row juxtaposes them — it does not reconcile them into one measured chain.</li>
 <li><b>HS6 resolution.</b> A few materials share a six-digit code: gallium, germanium and hafnium all fall
 under <code>811292</code>, so their flows are identical (hafnium got its own HS2022 code, but the time
@@ -148,8 +149,8 @@ not overwhelmingly so; treat the choropleth as ordinal, not a precise linear sca
 <h2>Data &amp; reproducibility</h2>
 <p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
 reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
-International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — release HS17 V202501, years
-<b>2018–2023</b> (one nomenclature across the whole series so it is internally consistent). The year is
+International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — release HS17 V202601, years
+<b>2018–2024</b> (one nomenclature across the whole series so it is internally consistent). The year is
 selectable in the tool.</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.

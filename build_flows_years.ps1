@@ -5,7 +5,7 @@
     exist before HS2022, so it folds into the broad 811292 group (gallium/germanium/hafnium/indium/
     niobium/rhenium/vanadium) — which gallium/germanium already are, so the effect on them is negligible.
 #>
-param([int[]]$Years=@(2018,2019,2020,2021,2022,2023),[int]$TopPerSide=6,[string]$Ver='V202501',[string]$Hs='HS17')
+param([int[]]$Years=@(2018,2019,2020,2021,2022,2023,2024),[int]$TopPerSide=6,[string]$Ver='V202601',[string]$Hs='HS17')
 $ProgressPreference='SilentlyContinue'
 $root=$PSScriptRoot
 $ccCsv="$root\raw\baci\country_codes_${Ver}.csv"
