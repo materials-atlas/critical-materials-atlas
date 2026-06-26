@@ -124,7 +124,7 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601); 2024 is the newest complete year. <b>2025*</b> = our own provisional nowcast. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2026" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast · <b>2026**</b> = directional nowcast (Q1 trade + prices). Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span></div>
 
 <main>
   <div id="view-table" class="view hidden">
@@ -408,8 +408,11 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
     .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
-function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2025'?'2025*':y);
-  ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=(FLOWS&&FLOWS.provisional)
+function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y);
+  ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
+      (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
+      ?'⚠⚠ <b>2026 is a directional nowcast</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
+      :(FLOWS&&FLOWS.provisional)
       ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only.'
       :'';
     renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
