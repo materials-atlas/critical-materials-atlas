@@ -18,7 +18,7 @@
 <style>
   :root{ --red:#b22222; --blue:#3a6ea5; --ore:#d98a00; --ink:#1a1a1a; --mut:#666; --line:#e6e6e6; }
   *{box-sizing:border-box}
-  body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1080px;margin:0 auto;padding:1.4rem 1rem 3rem;color:var(--ink);line-height:1.5}
+  body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1180px;margin:0 auto;padding:1.4rem 1rem 3rem;color:var(--ink);line-height:1.5}
   h1{font-size:1.6rem;margin:0 0 .15rem}
   .sub{color:var(--mut);margin:0}
   .stamp{font-size:.78rem;color:#999;margin:.25rem 0 .8rem}
@@ -45,7 +45,7 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:12rem 1fr .5rem 1fr .5rem 1.4fr 1.4fr 1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
+  .crow{display:grid;grid-template-columns:11.5rem 1fr .5rem 1fr .5rem 1fr .5rem 1.35fr 1.35fr 1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
   .dim{color:#bbb}
   .cimp{color:#8a5a9e}
   .cnaive{color:#9a9a9a;font-style:italic}
@@ -128,7 +128,7 @@
 
 <main>
   <div id="view-table" class="view hidden">
-    <div class="legend">Each material: <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
+    <div class="legend">Each material: <b>reserves</b> (where it <i>could</i> come from) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). Click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -264,6 +264,7 @@ function topTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[l
   const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
   let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return {c:b, v:bv, share: tot?bv/tot*100:0}; }
 function topExporter(label){ return topTrade(label,'from'); }
+function reserveTop(m){ return (m.reserves&&m.reserves[0])?m.reserves[0]:null; }   // USGS reserves = potential
 function topImporter(label){ return topTrade(label,'to'); }
 const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
 function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
@@ -289,16 +290,17 @@ function renderTable(){
     if(A.cn>0) return a.title.localeCompare(b.title);
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
-  const head=`<div class="crow head"><span>Material</span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '23</small></span><span>Top importer${sb}BACI '23</small></span><span></span></div>`;
-  const body=list.map(m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
+  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '23</small></span><span>Top importer${sb}BACI '23</small></span><span></span></div>`;
+  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
+    const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const refCell=re?htc(re.c,`${cname(re.c)} <small>${re.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
     const impCell=ti?htc(ti.c,`${fname(ti.c)} <small>${ti.share.toFixed(0)}% · ${fmtV(ti.v)}</small>`):`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
-      `${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
+      `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}`+
       `<span class="warn" title="${warn?'mined in one country, exported mainly by another':''}">${warn?'⚠':''}</span></div>`;
   }).join('');
@@ -351,7 +353,8 @@ function showDetail(key){
     <p style="color:#444;font-size:.95rem">${m.note}</p>
     ${contrast}
     <div class="layers">
-      <div class="layer"><h3>● Mined in — true source (USGS, approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
+      <div class="layer"><h3>● Reserves — potential, where it could come from (USGS, approx.)</h3>${m.reserves&&m.reserves.length?bars(m.reserves):'<i style="color:#888">no reserves figure (byproduct / abundant)</i>'}</div>
+      <div class="layer"><h3>● Mined in — actual production today (USGS, approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
       <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
     </div>
     <div class="kpis">
