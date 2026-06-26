@@ -30,6 +30,8 @@
   .tabs input,.tabs select{font:inherit;font-size:.85rem;padding:.38rem .5rem;border:1px solid var(--line);border-radius:6px}
   .tabs button.toolbtn{font-size:.8rem;padding:.34rem .6rem;color:#555;background:#f7f8fa}
   .tabs button.toolbtn:hover{background:#eef1f5}
+  .depbtn{font:inherit;font-size:.8rem;padding:.28rem .55rem;border:1px solid var(--line);background:#f7f8fa;border-radius:6px;cursor:pointer;color:#555}
+  .depbtn:hover{background:#eef1f5}
   .view.hidden{display:none}
   .legend{font-size:.8rem;color:var(--mut);margin:.2rem 0 .7rem}
   .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin:0 .2rem 0 .7rem}
@@ -155,17 +157,17 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
     <p class="panel-info" id="map-info">Loading real trade flows…</p>
   </div>
   <div id="view-globe" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
   <div id="view-sankey" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
   </div>
@@ -482,6 +484,34 @@ function showDetail(key){
 $('#detail-close').onclick=()=>$('#detail').classList.add('hidden');
 $('#detail').onclick=e=>{ if(e.target.id==='detail') $('#detail').classList.add('hidden'); };
 document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#detail').classList.add('hidden'); });
+
+/* ---------- generalised import-dependency lens (any country, from BACI) ---------- */
+function countryImportProfile(iso,label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]; const o={}; let tot=0;
+  a.forEach(f=>{ if(f.to===iso&&f.from!==iso){ o[f.from]=(o[f.from]||0)+f.value; tot+=f.value; } });
+  if(!tot) return null; let top=null,tv=-1,h=0; for(const c in o){ if(o[c]>tv){tv=o[c];top=c;} const s=o[c]/tot; h+=s*s; }
+  return {top,topShare:tv/tot*100,hhi:h,cn:(o['CN']||0)/tot*100,total:tot,n:Object.keys(o).length}; }
+function showCountryReport(iso){ if(!iso) return;
+  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'report/'+iso,event:true});
+  const rows=MATS.map(m=>{ const p=countryImportProfile(iso,m.label); return p?{m,p}:null; }).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare);
+  const hcol=h=>h>0.45?'#c0392b':h>0.25?'#b35e16':'#3f9b46';
+  const tr=rows.map(({m,p})=>{ const lead=(m.mined&&m.mined[0])?m.mined[0].c:''; const isMine=p.top===lead;
+    return `<tr style="border-bottom:1px solid var(--line)"><td style="padding:.3rem .5rem">${strip(m.title)}</td>`+
+    `<td style="padding:.3rem .5rem">${flag(p.top)} ${fname(p.top)}${isMine?' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>':''}</td>`+
+    `<td style="padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums">${p.topShare.toFixed(0)}%</td>`+
+    `<td style="padding:.3rem .5rem;text-align:right;color:${hcol(p.hhi)};font-weight:600;font-variant-numeric:tabular-nums">${p.hhi.toFixed(2)}</td>`+
+    `<td style="padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums">${p.cn.toFixed(0)}%</td>`+
+    `<td style="padding:.3rem .5rem;text-align:right;color:#888">${p.n}</td>`+
+    `<td style="padding:.3rem .5rem;text-align:right;color:#888">${fmtV(p.total)}</td></tr>`; }).join('');
+  $('#detail-body').innerHTML=`
+    <h2 style="margin:.2rem 2rem .3rem 0">${fname(iso)} — import-dependency profile</h2>
+    <p style="color:#444;font-size:.92rem">Where <b>${fname(iso)}</b> sources each critical material, from the reconciled bilateral trade (${srcN()} ${FLOWS_YEAR}). This generalises the EU import-origin lens to <b>any country</b>; rows are sorted by single-supplier dependence (most concentrated first).</p>
+    <div style="overflow:auto;max-height:60vh"><table style="width:100%;border-collapse:collapse;font-size:.82rem">
+      <thead><tr style="text-align:left;border-bottom:2px solid var(--ink)"><th style="padding:.35rem .5rem">Material</th><th style="padding:.35rem .5rem">Top source</th><th style="padding:.35rem .5rem;text-align:right">its share</th><th style="padding:.35rem .5rem;text-align:right" title="Herfindahl index of import sources (0–1)">import HHI</th><th style="padding:.35rem .5rem;text-align:right">China</th><th style="padding:.35rem .5rem;text-align:right"># sources</th><th style="padding:.35rem .5rem;text-align:right">imports</th></tr></thead>
+      <tbody>${tr||'<tr><td colspan="7" style="padding:1rem;color:#888">no import data for this country in this year</td></tr>'}</tbody></table></div>
+    <p style="color:#888;font-size:.8rem;margin-top:.7rem">⛏ = the top source is also the lead miner (a genuine origin). Customs imports record the immediate shipping origin — for refined goods that is the refiner/hub, not the mine (the atlas's core caveat).</p>`;
+  $('#detail').classList.remove('hidden');
+}
+{ document.querySelectorAll('.depbtn').forEach(b=>b.onclick=()=>{ if(SELDEST) showCountryReport(SELDEST); else { const o=b.textContent; b.textContent='↑ pick a country first'; setTimeout(()=>b.textContent=o,1600); } }); }
 
 /* ---------- view switching ---------- */
 document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
