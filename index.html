@@ -64,7 +64,7 @@
   .maptog button.active{background:var(--red);color:#fff;border-color:var(--red)}
   #map{height:520px;border:1px solid var(--line);border-radius:8px}
   #globe{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
-  #sankey{height:640px;border:1px solid var(--line);border-radius:8px;padding:4px}
+  #sankey{height:700px;border:1px solid var(--line);border-radius:8px;padding:4px}
   .panel-info{font-size:.88rem;color:#333;margin-top:.6rem;min-height:1.4rem}
   .loading{color:var(--mut);padding:2rem;text-align:center}
   table.dt{border-collapse:collapse;width:100%;font-size:.86rem}
@@ -591,7 +591,7 @@ function buildSankey(){
         [f.from,f.to].forEach(c=>{ if(c!==SELDEST){ if(REFINERS.has(c)) refNodes.add(cname(c)); else if(MINERS.has(c)) mineNodes.add(cname(c)); } }); });
       return; }
     if(re){ const refN=cname(re)+" (refines)";
-      const dests = fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,6);
+      const dests = fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,8);
       refNodes.add(refN);
       mines.forEach(x=>{ add(cname(x.c), refN, w*x.v/sumW); mineNodes.add(cname(x.c)); });
       const dTot=dests.reduce((a,f)=>a+f.value,0)||1;
@@ -608,7 +608,8 @@ function buildSankey(){
   links.forEach(l=>{ if(reaches(l.target,l.source,new Set())) return; (adj[l.source]=adj[l.source]||[]).push(l.target); kept.push(l); });
   links.length=0; kept.forEach(l=>links.push(l));
   const used=new Set(); links.forEach(l=>{ used.add(l.source); used.add(l.target); });
-  const nodes2=[...nodeSet].filter(n=>used.has(n)).map(n=>({ name:n, itemStyle:{color:colFor(n)} }));
+  const srcSet=new Set(links.map(l=>l.source));   // terminal (pure-importer) nodes: label inside so it doesn't clip at the right edge
+  const nodes2=[...nodeSet].filter(n=>used.has(n)).map(n=>{ const o={ name:n, itemStyle:{color:colFor(n)} }; if(!srcSet.has(n)) o.label={position:'left'}; return o; });
   const el=document.getElementById('sankey');
   if(!el.clientWidth){ if(VIEW==='sankey') requestAnimationFrame(buildSankey); return; }
   if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
@@ -621,7 +622,7 @@ function buildSankey(){
       {type:'text',left:'center',top:4,style:{text:'🏭 REFINED',fill:'#666',font:'bold 12px system-ui'}},
       {type:'text',right:'3%',top:4,style:{text:'➜ IMPORTED BY',fill:'#666',font:'bold 12px system-ui'}}
     ],
-    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,
+    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,left:'1%',right:'6%',bottom:'1%',
       data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222',formatter:p=>p.name.replace(/ \(refines\)$/,'')},
       lineStyle:{color:'source',opacity:.42,curveness:.5}}]
   }, true);
