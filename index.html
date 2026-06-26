@@ -136,10 +136,18 @@
     <option value="diff">sort: mined ≠ exporter ↓</option>
     <option value="name">sort: name A–Z</option>
   </select>
+  <select id="cmpyr" title="Compare the current year against an earlier year — shows each top exporter's share change (Δpp)">
+    <option value="">Δ compare: off</option>
+    <option value="2018">Δ vs 2018</option>
+    <option value="2020">Δ vs 2020</option>
+    <option value="2022">Δ vs 2022</option>
+    <option value="2023">Δ vs 2023</option>
+    <option value="2024">Δ vs 2024</option>
+  </select>
   <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
   <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional nowcast (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional nowcast (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
 <main>
   <div id="view-table" class="view">
@@ -196,7 +204,22 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1;
+let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null;
+// Export-control / policy timeline — surfaced under the year slider so structural breaks in the trade have a cause.
+const POLICY_EVENTS={
+ '2018':'US–China tariff escalation begins; supply-security of critical minerals returns to the policy agenda.',
+ '2020':'Indonesia bans nickel-ore exports to force domestic smelting — reshapes nickel/stainless supply chains.',
+ '2022':'Russia’s invasion of Ukraine → sanctions reshuffle palladium, nickel and noble-gas (neon) trade.',
+ '2023':'China introduces export licensing on gallium &amp; germanium (Aug) and graphite (Oct) — this atlas’s headline episode.',
+ '2024':'EU Critical Raw Materials Act enters into force (May); China bans antimony, gallium &amp; germanium exports to the US (Dec).',
+ '2025':'China extends export controls to rare-earth magnets and related technology (Apr) — provisional-year signal.',
+ '2026':'Directional scenario only — no settled policy record yet.'
+};
+// world share of one country on one side of trade, from an arbitrary flows object (for year-vs-year diff)
+function shareOfIn(data,label,key,iso){ const a=(data&&data.materials&&data.materials[label]); if(!a||!a.length) return null; let o=0,tot=0; a.forEach(f=>{ if(f[key]===iso)o+=f.value; tot+=f.value; }); return tot?o/tot*100:null; }
+function setCmp(y){ CMP_YEAR=String(y||''); if(!CMP_YEAR){ CMP_DATA=null; renderTable(); return; }
+  if(typeof FLOWS_CACHE!=='undefined'&&FLOWS_CACHE[CMP_YEAR]){ CMP_DATA=FLOWS_CACHE[CMP_YEAR]; renderTable(); return; }
+  fetch('out/flows_'+CMP_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=CMP_YEAR; if(typeof FLOWS_CACHE!=='undefined') FLOWS_CACHE[CMP_YEAR]=d; CMP_DATA=d; renderTable(); }).catch(()=>{ CMP_DATA=null; renderTable(); }); }
 function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); if(typeof syncURL==='function') syncURL(); }
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
@@ -368,7 +391,10 @@ function renderTable(){
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const refCell=re?htc(re.c,`${cname(re.c)} <small>${re.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
-    const expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
+    let expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
+    if(CMP_DATA&&te&&String(CMP_YEAR)!==String(FLOWS_YEAR)){ const prev=shareOfIn(CMP_DATA,m.label,'from',te.c);
+      if(prev!=null){ const d=te.share-prev, col=d>1?'#c0392b':d<-1?'#2e7d32':'#999', arr=d>1?'▲':d<-1?'▼':'▬';
+        expCell=expCell.replace('</span>',` <small style="color:${col};font-weight:600" title="${fname(te.c)}'s world export share: ${prev.toFixed(0)}% in ${CMP_YEAR} → ${te.share.toFixed(0)}% in ${FLOWS_YEAR}">${arr}${d>=0?'+':''}${d.toFixed(0)}pp</small></span>`); } }
     const impCell=ti?htc(ti.c,`${fname(ti.c)} <small>${ti.share.toFixed(0)}% · ${fmtV(ti.v)}</small>`):`<span class="cc dim">—</span>`;
     const hv=hhiTrade(m.label,'from'), t3=topNshare(m.label,'from',3);
     const hhiCell=hv!=null?`<span class="cc" style="color:${hv>0.45?'#c0392b':hv>0.25?'#b35e16':'#7c8590'};font-variant-numeric:tabular-nums" title="${(hv>0.45?'highly':hv>0.25?'moderately':'less')} concentrated — top-3 exporters ≈ ${(t3||0).toFixed(0)}% of world trade">${hv.toFixed(2)}</span>`:`<span class="cc dim">—</span>`;
@@ -384,6 +410,7 @@ function renderTable(){
 }
 $('#search').addEventListener('input',renderTable);
 $('#sort').addEventListener('change',()=>{ colSort=null; renderTable(); });   // dropdown overrides column-click sort
+{ const cy=$('#cmpyr'); if(cy) cy.addEventListener('change',()=>setCmp(cy.value)); }
 
 /* ---------- real sortable table ---------- */
 let gridSort={col:'ref',dir:-1};
@@ -485,6 +512,7 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
     .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
 function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y); if(typeof syncURL==='function') syncURL();
+  const ev=$('#yr-event'); if(ev) ev.innerHTML=POLICY_EVENTS[String(y)]?('▸ <b>'+y+'</b> — '+POLICY_EVENTS[String(y)]):'';
   ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
       (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
       ?'⚠⚠ <b>2026 is a directional nowcast</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
