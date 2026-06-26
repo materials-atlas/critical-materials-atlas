@@ -124,7 +124,7 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2024" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— global bilateral trade (BACI V202601). Mine/refine layers are undated reference. 2024 is the newest complete year; 2025 not until BACI's ~2027 release.</span></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601); 2024 is the newest complete year. <b>2025*</b> = our own provisional nowcast. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span></div>
 
 <main>
   <div id="view-table" class="view hidden">
@@ -266,6 +266,7 @@ function topTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[l
   let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return {c:b, v:bv, share: tot?bv/tot*100:0}; }
 function topExporter(label){ return topTrade(label,'from'); }
 function reserveTop(m){ return (m.reserves&&m.reserves[0])?m.reserves[0]:null; }   // USGS reserves = potential
+function srcN(){ return (FLOWS&&FLOWS.provisional)?'nowcast':'BACI'; }   // trade-source label (provisional 2025 vs reconciled BACI)
 function topImporter(label){ return topTrade(label,'to'); }
 const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
 function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
@@ -291,7 +292,7 @@ function renderTable(){
     if(A.cn>0) return a.title.localeCompare(b.title);
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
-  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}BACI '${String(FLOWS_YEAR).slice(2)}</small></span><span>Top importer${sb}BACI '${String(FLOWS_YEAR).slice(2)}</small></span><span></span></div>`;
+  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span>Top importer${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -359,8 +360,8 @@ function showDetail(key){
       <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
     </div>
     <div class="kpis">
-      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (BACI '${String(FLOWS_YEAR).slice(2)})</div></div>
-      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (BACI '${String(FLOWS_YEAR).slice(2)})</div></div>
+      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
+      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
     </div>
     <details style="margin-top:1.1rem;border-top:1px solid var(--line);padding-top:.7rem">
@@ -407,8 +408,11 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
     .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
-function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=y;
-  ensureFlows(()=>{ renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
+function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2025'?'2025*':y);
+  ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=(FLOWS&&FLOWS.provisional)
+      ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only.'
+      :'';
+    renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
 { ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
@@ -510,8 +514,8 @@ function renderMap(){
   $('#map-info').innerHTML= resMode
     ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(34,139,87)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no trade arrows in this view. <span style="color:#999">Reserves are conservative (proven, economic) — frontier deposits still classed as "resources" (e.g. Greenland) can stay dim, and byproduct metals carry no figure.</span>`
     : single
-    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = a known re-export hub (Hong Kong, Singapore, UAE…) — trans-ships, doesn't produce.</span> Click a country.`
-    : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
+    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = a known re-export hub (Hong Kong, Singapore, UAE…) — trans-ships, doesn't produce.</span> Click a country.`
+    : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
 }
 function showCountry(code){
   const mines=MATS.filter(m=>minersOf(m)[code]!=null);
@@ -590,7 +594,7 @@ function renderGlobe(){
   $('#globe-info').innerHTML = resMode
     ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): where it <i>could</i> come from, exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
     : single
-    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (BACI ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce.</span> Click an arc.`
+    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce.</span> Click an arc.`
     : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners).</span> Pick a material or country.`;
 }
 
