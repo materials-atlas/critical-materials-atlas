@@ -28,6 +28,8 @@
   .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
   .tabs .grow{flex:1}
   .tabs input,.tabs select{font:inherit;font-size:.85rem;padding:.38rem .5rem;border:1px solid var(--line);border-radius:6px}
+  .tabs button.toolbtn{font-size:.8rem;padding:.34rem .6rem;color:#555;background:#f7f8fa}
+  .tabs button.toolbtn:hover{background:#eef1f5}
   .view.hidden{display:none}
   .legend{font-size:.8rem;color:var(--mut);margin:.2rem 0 .7rem}
   .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin:0 .2rem 0 .7rem}
@@ -45,7 +47,7 @@
   .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
   .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
   .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:11.5rem 1fr .5rem 1fr .5rem 1fr .5rem 1.35fr 1.35fr 1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
+  .crow{display:grid;grid-template-columns:11.5rem 1fr .5rem 1fr .5rem 1fr .5rem 1.3fr 1.3fr 2.5rem 1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
   .dim{color:#bbb}
   .cimp{color:#8a5a9e}
   .cnaive{color:#9a9a9a;font-style:italic}
@@ -134,6 +136,8 @@
     <option value="diff">sort: mined ≠ exporter ↓</option>
     <option value="name">sort: name A–Z</option>
   </select>
+  <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
+  <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
 <div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional nowcast (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
@@ -193,7 +197,7 @@ const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
 let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1;
-function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); }
+function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); if(typeof syncURL==='function') syncURL(); }
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
 // Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
@@ -217,6 +221,7 @@ function setMat(label){ SELMAT=label;
   ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
   populateDestSelectors();
   rebuildActive();
+  syncURL();
 }
 function rebuildActive(){
   if(VIEW==='map'&&window.jsVectorMap) buildMap();
@@ -240,15 +245,52 @@ function setDest(c){ SELDEST=c;
   ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s) s.value=c; });
   populateMatSelectors();
   rebuildActive();
+  syncURL();
 }
+
+/* ---------- permalinks (URL state) + CSV export ---------- */
+function syncURL(){ try{ const p=new URLSearchParams();
+  if(VIEW&&VIEW!=='table') p.set('view',VIEW);
+  if(SELMAT) p.set('mat',SELMAT);
+  if(SELDEST) p.set('dest',SELDEST);
+  if(typeof FLOWS_YEAR!=='undefined'&&String(FLOWS_YEAR)!=='2024') p.set('year',String(FLOWS_YEAR));
+  if(FILL_MODE&&FILL_MODE!=='prod') p.set('fill',FILL_MODE);
+  const s=p.toString(); history.replaceState(null,'', s?('#'+s):(location.pathname+location.search)); }catch(e){} }
+function restoreURL(){ try{ const h=location.hash.replace(/^#/,''); if(!h) return; const p=new URLSearchParams(h);
+  const v=p.get('view'); if(v&&['table','map','globe','sankey'].includes(v)) VIEW=v;
+  if(p.get('mat')) SELMAT=p.get('mat');
+  if(p.get('dest')) SELDEST=p.get('dest');
+  const y=p.get('year'); if(y&&/^20\d\d$/.test(y)) FLOWS_YEAR=String(y);
+  const f=p.get('fill'); if(f==='reserves'||f==='prod') FILL_MODE=f; }catch(e){} }
+function flashBtn(sel,txt){ const b=$(sel); if(!b) return; const o=b.dataset.lbl||b.textContent; b.dataset.lbl=o; b.textContent=txt; setTimeout(()=>{ b.textContent=b.dataset.lbl; },1400); }
+function copyPermalink(){ syncURL(); const u=location.href;
+  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(()=>flashBtn('#permalink','✓ copied')).catch(()=>flashBtn('#permalink','✓'));
+  else flashBtn('#permalink','✓ copied'); }
+function csvCell(s){ s=(s==null?'':String(s)); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
+function exportCSV(){
+  const head=['material','reserves_top','reserves_pct','mined_top','mined_pct','refined_top','refined_pct','top_exporter','exporter_share_pct','exporter_value_usd','top_importer','importer_share_pct','importer_value_usd','export_hhi','top3_exporter_share_pct','origin_gap_pp'];
+  const rows=[head];
+  MATS.slice().forEach(m=>{ const rv=reserveTop(m),mi=mineTop(m),re=(m.refined&&m.refined[0])?m.refined[0]:null,te=topExporter(m.label),ti=topImporter(m.label),hv=hhiTrade(m.label,'from'),t3=topNshare(m.label,'from',3),g=originGap(m);
+    rows.push([strip(m.title), rv?cname(rv.c):'', rv?rv.v.toFixed(1):'', mi?cname(mi.c):'', mi?mi.v.toFixed(1):'', re?cname(re.c):'', re?re.v.toFixed(1):'', te?fname(te.c):'', te?te.share.toFixed(1):'', te?Math.round(te.v):'', ti?fname(ti.c):'', ti?ti.share.toFixed(1):'', ti?Math.round(ti.v):'', hv!=null?hv.toFixed(3):'', t3!=null?t3.toFixed(1):'', g!=null?g.toFixed(1):'']); });
+  const csv=rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}), url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='critical-materials-atlas_'+FLOWS_YEAR+'.csv'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500); }
+{ const c=$('#csv'); if(c) c.onclick=exportCSV; const pl=$('#permalink'); if(pl) pl.onclick=copyPermalink; }
 
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
   $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
+  restoreURL();
+  // reflect any restored deep-link state in the chrome before first paint
+  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===VIEW));
+  ['table','map','globe','sankey'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
+  ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=FILL_MODE; });
+  if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026** added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
   populateMatSelectors();
   renderTable();
   if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey();
+  if(String(FLOWS_YEAR)!=='2024') setYear(FLOWS_YEAR);   // load restored year + set the provisional banner
 }).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
 
 /* ---------- table: both layers per row ---------- */
@@ -282,6 +324,15 @@ function topExporter(label){ return topTrade(label,'from'); }
 function reserveTop(m){ return (m.reserves&&m.reserves[0])?m.reserves[0]:null; }   // USGS reserves = potential
 function srcN(){ return (FLOWS&&FLOWS.provisional)?'nowcast':'BACI'; }   // trade-source label (provisional 2025 vs reconciled BACI)
 function topImporter(label){ return topTrade(label,'to'); }
+// Exposure metrics from the reconciled bilateral trade: HHI (Herfindahl, 0–1) and top-N share, either side.
+function hhiTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
+  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
+  if(!tot) return null; let h=0; for(const c in o){ const s=o[c]/tot; h+=s*s; } return h; }
+function topNshare(label,key,n){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
+  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
+  if(!tot) return null; const vs=Object.values(o).sort((x,y)=>y-x).slice(0,n); return vs.reduce((s,v)=>s+v,0)/tot*100; }
+// Origin gap = how much the top exporter's trade share exceeds its own mine share (pp). High = refiner/reseller, not the source.
+function originGap(m){ const te=topExporter(m.label); if(!te) return null; const ms=(m.mined||[]).find(x=>x.c===te.c); return te.share-(ms?ms.v:0); }
 const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
 function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
 function hexA(hex,a){ const h=hex.replace('#',''); return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${a})`; }
@@ -298,7 +349,7 @@ function renderTable(){
     const cn=pat('CN'); const cnt={}; cs.forEach(c=>{ if(c&&c!=='CN') cnt[c]=(cnt[c]||0)+1; });
     let mo=0,dom=''; for(const c in cnt) if(cnt[c]>mo){mo=cnt[c];dom=c;}
     return {cn, domOther:dom, domPat: dom?pat(dom):0}; };
-  if(colSort){ const cv=m=>{ switch(colSort){ case 'res': return reserveTop(m)?.v ?? -1; case 'mine': return mineTop(m)?.v ?? -1; case 'ref': return (m.refined&&m.refined[0])?m.refined[0].v:-1; case 'exp': return topExporter(m.label)?.share ?? -1; case 'imp': return topImporter(m.label)?.share ?? -1; default: return 0; } };
+  if(colSort){ const cv=m=>{ switch(colSort){ case 'res': return reserveTop(m)?.v ?? -1; case 'mine': return mineTop(m)?.v ?? -1; case 'ref': return (m.refined&&m.refined[0])?m.refined[0].v:-1; case 'exp': return topExporter(m.label)?.share ?? -1; case 'imp': return topImporter(m.label)?.share ?? -1; case 'hhi': return hhiTrade(m.label,'from') ?? -1; default: return 0; } };
     if(colSort==='name') list.sort((a,b)=>colDir*a.title.localeCompare(b.title));
     else list.sort((a,b)=>colDir*(cv(a)-cv(b))); }
   else if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
@@ -311,7 +362,7 @@ function renderTable(){
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
   const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
   const yy=String(FLOWS_YEAR).slice(2);
-  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span></span><span data-s="mine">Mined in${sb}USGS</small>${ar('mine')}</span><span></span><span data-s="ref">Refined in${sb}IEA</small>${ar('ref')}</span><span></span><span data-s="exp">Top exporter${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp">Top importer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span></span></div>`;
+  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span></span><span data-s="mine">Mined in${sb}USGS</small>${ar('mine')}</span><span></span><span data-s="ref">Refined in${sb}IEA</small>${ar('ref')}</span><span></span><span data-s="exp">Top exporter${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp">Top importer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -319,10 +370,12 @@ function renderTable(){
     const refCell=re?htc(re.c,`${cname(re.c)} <small>${re.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
     const impCell=ti?htc(ti.c,`${fname(ti.c)} <small>${ti.share.toFixed(0)}% · ${fmtV(ti.v)}</small>`):`<span class="cc dim">—</span>`;
+    const hv=hhiTrade(m.label,'from'), t3=topNshare(m.label,'from',3);
+    const hhiCell=hv!=null?`<span class="cc" style="color:${hv>0.45?'#c0392b':hv>0.25?'#b35e16':'#7c8590'};font-variant-numeric:tabular-nums" title="${(hv>0.45?'highly':hv>0.25?'moderately':'less')} concentrated — top-3 exporters ≈ ${(t3||0).toFixed(0)}% of world trade">${hv.toFixed(2)}</span>`:`<span class="cc dim">—</span>`;
     return `<div class="crow" data-k="${m.label}">`+
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
-      `${expCell}${impCell}`+
+      `${expCell}${impCell}${hhiCell}`+
       `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with the other two — gallium, germanium &amp; hafnium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
@@ -383,6 +436,8 @@ function showDetail(key){
       <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
+      <div class="kpi"><div class="v">${(topNshare(m.label,'from',3)||0).toFixed(0)}%</div><div class="l">top-3 exporters' share</div></div>
+      ${(()=>{ const g=originGap(m); return g!=null?`<div class="kpi"><div class="v" style="color:${g>40?'#c0392b':g>15?'#b35e16':'#3f9b46'}">${(g>=0?'+':'')+g.toFixed(0)}pp</div><div class="l">origin gap — top exporter's trade share minus its <i>mine</i> share</div></div>`:''; })()}
     </div>
     <details style="margin-top:1.1rem;border-top:1px solid var(--line);padding-top:.7rem">
       <summary style="cursor:pointer;color:#555;font-size:.9rem;font-weight:600">EU import-origin lens — one option (Eurostat Comext, ${m.year})</summary>
@@ -410,6 +465,7 @@ document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
   if(VIEW==='map') initMap();
   if(VIEW==='globe') initGlobe();
   if(VIEW==='sankey') initSankey();
+  syncURL();
 });
 const _scripts={};
 function loadScript(src){ if(_scripts[src]) return _scripts[src];
@@ -428,7 +484,7 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
     .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
-function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y);
+function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y); if(typeof syncURL==='function') syncURL();
   ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
       (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
       ?'⚠⚠ <b>2026 is a directional nowcast</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
