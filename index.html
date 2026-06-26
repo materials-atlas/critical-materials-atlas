@@ -71,6 +71,9 @@
   #yr-tiers .t-meas{flex:7;background:#e7eef6;color:#34618a}
   #yr-tiers .t-prov{flex:1.6;background:#fff1df;color:#b35e16;text-align:center}
   #yr-tiers .t-dir{flex:1.6;background:#fde9e9;color:#c0392b;text-align:center}
+  #yr-tiers button.t-dir{border:1px dashed #c0392b;cursor:pointer;font:inherit;font-weight:600;font-size:.66rem;padding:1px 6px}
+  #yr-tiers button.t-dir:hover{background:#fbd5d5}
+  #yr-tiers button.t-dir:disabled{cursor:default;opacity:.65;border-style:solid}
   #yearbar input[type=range]{flex:0 0 220px;accent-color:rgb(142,68,173);cursor:pointer}
   #yearbar b{color:rgb(142,68,173);font-size:1.05rem;min-width:2.7rem;text-align:center}
   #yearbar .ymut{color:#999;font-size:.8rem}
@@ -111,6 +114,7 @@
 <header>
   <h1>Where do critical raw materials really come from?</h1>
   <p class="sub">For any material — or any country — see where it's <b>mined</b>, where it's <b>refined</b>, and the <b>real global trade</b>, both directions. Public USGS, IEA &amp; UN Comtrade (via CEPII BACI) data — with a built-in EU import-origin lens (Eurostat).</p>
+  <p class="sub" style="font-size:.92rem"><a href="methodology.html"><b>Methods &amp; validation</b></a> (incl. failure cases) · trade-reconciliation engine: <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
   <p class="stamp" id="stamp">loading…</p>
   <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by product (<span style="color:rgb(222,140,40)">amber</span> = raw material / ore, <span style="color:rgb(142,68,173)">violet</span> = refined product). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
 </header>
@@ -129,7 +133,7 @@
     <option value="name">sort: name A–Z</option>
   </select>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2026" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast · <b>2026**</b> = directional nowcast (Q1 trade + prices). Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><span class="t-dir">2026** directional ▶</span></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional nowcast (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
 <main>
   <div id="view-table" class="view">
@@ -426,6 +430,7 @@ function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textCon
     renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
 { ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
+{ const b=$('#show2026'); if(b) b.onclick=()=>{ const yr=$('#yr'); yr.max='2026'; yr.value='2026'; setYear('2026'); b.textContent='2026** added — slide to compare'; b.disabled=true; }; }
 function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
