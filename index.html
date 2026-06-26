@@ -312,7 +312,7 @@ function renderTable(){
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}`+
-      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with the other two — gallium, germanium &amp; hafnium can\\'t be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
+      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with the other two — gallium, germanium &amp; hafnium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
