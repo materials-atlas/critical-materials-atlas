@@ -152,10 +152,12 @@ for CEPII — it uses a nowcast built here from raw UN Comtrade. A small Python 
 (<code>reconcile/</code>) replicates BACI's method: it pulls both mirror reports of every flow (exporter
 FOB, importer CIF), estimates CIF/FOB markups, weights each reporter by a <b>variance-components
 reliability model</b> (E[discrepancy²] = var<sub>i</sub> + var<sub>j</sub>), and reconciles by
-<b>inverse-variance averaging</b> on logs. Validated against CEPII's official 2024, it reproduces the
-structure closely — <b>0.975</b> log-value correlation across 21.7k flows, and the same top exporter for
-<b>23 of 30</b> materials, with the biggest flows matching within a couple of percent. Absolute levels
-run higher (current Comtrade has absorbed revisions and late filers since BACI's early-2025 snapshot), so
+<b>inverse-variance averaging</b> on logs. Validated against CEPII's official 2024
+<b>on what this atlas shows</b> — exporter shares and concentration, not just a global correlation: the
+top exporter matches for <b>25 of 30</b> materials, exporter <b>shares are within ~3.5%</b> on average
+(median 3.2%), and the concentration ranking (HHI) correlates <b>0.92</b> (underlying flow structure:
+0.975 log-value correlation across 21.7k flows). Absolute levels
+run ~1.8× higher (current Comtrade has absorbed revisions and late filers since BACI's early-2025 snapshot), so
 2025 is calibrated to BACI's 2024 scale per material. A by-product finding: CIF/FOB rates are
 <em>not</em> identifiable on a 31-product slice (R²≈0.01) — BACI's gravity estimation needs the full
 ~5,000-product universe — so we fall back to a robust per-product median markup.</p>
