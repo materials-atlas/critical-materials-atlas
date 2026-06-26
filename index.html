@@ -51,6 +51,8 @@
   .cnaive{color:#9a9a9a;font-style:italic}
   .crow:hover{background:#fafafa}
   .crow.head{cursor:default;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em;color:#888;border-bottom:2px solid #ccc}
+  .crow.head [data-s]{cursor:pointer;user-select:none}
+  .crow.head [data-s]:hover{color:#333}
   .crow.head:hover{background:none}
   .cc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .cc small{color:#999;font-weight:400}
@@ -137,7 +139,7 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend">Each material: <b>reserves</b> (USGS — economically recoverable) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). <b>⛓</b> = trade shared at one HS6 code (gallium/germanium/hafnium can't be separated). Click a row for detail.</div>
+    <div class="legend">Each material: <b>reserves</b> (USGS — economically recoverable) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). <b>⛓</b> = trade shared at one HS6 code (gallium/germanium/hafnium can't be separated). <b>Click a column header to sort</b> by it; click a row for detail.</div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
@@ -190,7 +192,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod';
+let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1;
 function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); }
 const $ = s => document.querySelector(s);
 function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
@@ -296,7 +298,10 @@ function renderTable(){
     const cn=pat('CN'); const cnt={}; cs.forEach(c=>{ if(c&&c!=='CN') cnt[c]=(cnt[c]||0)+1; });
     let mo=0,dom=''; for(const c in cnt) if(cnt[c]>mo){mo=cnt[c];dom=c;}
     return {cn, domOther:dom, domPat: dom?pat(dom):0}; };
-  if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
+  if(colSort){ const cv=m=>{ switch(colSort){ case 'res': return reserveTop(m)?.v ?? -1; case 'mine': return mineTop(m)?.v ?? -1; case 'ref': return (m.refined&&m.refined[0])?m.refined[0].v:-1; case 'exp': return topExporter(m.label)?.share ?? -1; case 'imp': return topImporter(m.label)?.share ?? -1; default: return 0; } };
+    if(colSort==='name') list.sort((a,b)=>colDir*a.title.localeCompare(b.title));
+    else list.sort((a,b)=>colDir*(cv(a)-cv(b))); }
+  else if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
   else if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>{ const A=domInfo(a),B=domInfo(b);   // triangle: China by column position (mined-China first, then refined, exporter, importer), then others grouped
@@ -304,7 +309,9 @@ function renderTable(){
     if(A.cn>0) return a.title.localeCompare(b.title);
     return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
-  const head=`<div class="crow head"><span>Material</span><span>Reserves${sb}USGS</small></span><span></span><span>Mined in${sb}USGS</small></span><span></span><span>Refined in${sb}IEA</small></span><span></span><span>Top exporter${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span>Top importer${sb}${srcN()} '${String(FLOWS_YEAR).slice(2)}</small></span><span></span></div>`;
+  const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
+  const yy=String(FLOWS_YEAR).slice(2);
+  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span></span><span data-s="mine">Mined in${sb}USGS</small>${ar('mine')}</span><span></span><span data-s="ref">Refined in${sb}IEA</small>${ar('ref')}</span><span></span><span data-s="exp">Top exporter${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp">Top importer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -320,9 +327,10 @@ function renderTable(){
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
+  document.querySelectorAll('#rows .crow.head [data-s]').forEach(h=>h.onclick=()=>{ if(colSort===h.dataset.s) colDir*=-1; else { colSort=h.dataset.s; colDir = h.dataset.s==='name'?1:-1; } renderTable(); });
 }
 $('#search').addEventListener('input',renderTable);
-$('#sort').addEventListener('change',renderTable);
+$('#sort').addEventListener('change',()=>{ colSort=null; renderTable(); });   // dropdown overrides column-click sort
 
 /* ---------- real sortable table ---------- */
 let gridSort={col:'ref',dir:-1};
