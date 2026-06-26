@@ -609,7 +609,7 @@ function renderGlobe(){
         .showAtmosphere(true).atmosphereColor('#5b8fc7').atmosphereAltitude(0.16)
         .arcColor('color').arcStroke('stroke').arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
         .arcDashLength(.4).arcDashGap(.18).arcDashAnimateTime(4200).arcLabel('label').onArcClick(a=>{ if(a.key) showDetail(a.key); })
-        .labelLat('lat').labelLng('lng').labelText('text').labelSize(()=>0.62).labelColor(()=>'rgba(255,255,255,0.92)').labelDotRadius(()=>0.32).labelDotColor(()=>'rgba(120,180,255,0.75)').labelAltitude(0.012).labelResolution(2)
+        .labelLat('lat').labelLng('lng').labelText('text').labelSize(()=>0.62).labelColor(()=>'rgba(255,255,255,0.92)').labelDotRadius(()=>0.32).labelAltitude(0.012).labelResolution(2)
         .width($('#globe').clientWidth||900).height(560);
       globeInstance.pointOfView({lat:25,lng:15,altitude:2.2});
       try{ const ct=globeInstance.controls(); ct.autoRotate=true; ct.autoRotateSpeed=0.42; }catch(e){}   // gentle spin = first impression of the trade web
