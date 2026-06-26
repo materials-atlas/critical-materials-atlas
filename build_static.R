@@ -164,6 +164,36 @@ refined <- list(
   strontium = list(o("CN",60)), hafnium   = list(o("FR",40))
 )
 
+# world RESERVES shares (USGS Mineral Commodity Summaries, approx.) -- the "potential" layer: where a
+# material COULD come from, exploited or not. Omitted materials (germanium, gallium, silicon, feldspar,
+# arsenic, hafnium, tantalum, strontium) have no USGS country reserves figure -> no reserves bar.
+reserves <- list(
+  magnets   = list(o("CN",40), o("BR",20), o("IN",7),  o("AU",6)),
+  magnesium = list(o("RU",30), o("SK",16), o("CN",9),  o("AU",4)),
+  graphite  = list(o("CN",28), o("BR",26), o("MG",9),  o("MZ",9)),
+  tungsten  = list(o("CN",52), o("AU",12), o("RU",9),  o("VN",3)),
+  cobalt    = list(o("CD",55), o("AU",15), o("ID",6),  o("CU",5)),
+  niobium   = list(o("BR",90), o("CA",9),  o("US",1)),
+  boron     = list(o("TR",87), o("US",4),  o("RU",4),  o("CL",3)),
+  lithium   = list(o("CL",31), o("AU",23), o("AR",13), o("CN",10)),
+  antimony  = list(o("CN",34), o("RU",18), o("BO",16), o("KG",13)),
+  platinum  = list(o("ZA",78), o("RU",20), o("ZW",1),  o("US",1)),
+  palladium = list(o("ZA",78), o("RU",20), o("ZW",1),  o("US",1)),
+  fluorspar = list(o("CN",27), o("MX",21), o("ZA",13), o("MN",11)),
+  titanium  = list(o("AU",38), o("CN",20), o("CA",9),  o("NO",7)),
+  vanadium  = list(o("AU",47), o("RU",28), o("CN",23), o("ZA",2)),
+  manganese = list(o("ZA",33), o("AU",29), o("CN",16), o("BR",16)),
+  bauxite   = list(o("GN",26), o("AU",12), o("VN",11), o("ID",10)),
+  phosphate = list(o("MA",68), o("CN",5),  o("EG",4),  o("TN",3)),
+  phosphorus= list(o("MA",68), o("CN",5),  o("EG",4),  o("TN",3)),
+  baryte    = list(o("CN",28), o("IR",26), o("KZ",22), o("IN",13)),
+  beryllium = list(o("US",60)),
+  cokingcoal= list(o("US",22), o("RU",15), o("AU",14), o("CN",13)),
+  helium    = list(o("QA",25), o("US",21), o("DZ",21), o("RU",17)),
+  copper    = list(o("CL",19), o("AU",10), o("PE",10), o("CD",8)),
+  nickel    = list(o("ID",42), o("AU",18), o("BR",12), o("RU",6))
+)
+
 eur <- function(x) ifelse(x >= 1e9, sprintf("EUR %.2fB", x/1e9),
                    ifelse(x >= 1e6, sprintf("EUR %.1fM", x/1e6), sprintf("EUR %.0f", x)))
 
@@ -214,7 +244,7 @@ render_product <- function(p) {
     china_qty = if (is.na(sL$china_qty)) NULL else sL$china_qty,
     top_partner = oc$partner[1], top_share = oc$value_share[1],
     china = identical(oc$partner[1], "CN"), updated = updated,
-    mined = mine[[p$label]], refined = refined[[p$label]],
+    mined = mine[[p$label]], refined = refined[[p$label]], reserves = reserves[[p$label]],
     origins = lapply(seq_len(nrow(oc)), function(i)
       list(c = oc$partner[i], v = oc$value_share[i], q = oc$qty_share[i], eur = round(oc$value_eur[i]))),
     naive = lapply(seq_len(nrow(mc)), function(i)

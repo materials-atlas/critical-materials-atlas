@@ -13,10 +13,11 @@ pipeline. No backend.
 
 ## What it shows
 
-Three layers per material, from three public sources:
+Four layers per material, from public sources:
 
 | Layer | Source | What it is |
 |---|---|---|
+| **Reserves / potential** | USGS Mineral Commodity Summaries (approx.) | world reserve shares — where it *could* come from, exploited or not |
 | **Mined** | USGS Mineral Commodity Summaries (approx.) | world mine-production shares |
 | **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
 | **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202501, **2018–2023** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
