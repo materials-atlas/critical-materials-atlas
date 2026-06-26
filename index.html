@@ -547,7 +547,7 @@ function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textCon
       (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
       ?'⚠⚠ <b>2026 is a directional nowcast</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
       :(FLOWS&&FLOWS.provisional)
-      ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only.'
+      ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only. <i>Out-of-sample (2018–2024), a lead exporter\'s world share moves ±3.5pp (median) to ±8.7pp (P90) per year — the nowcast\'s empirical error band.</i>'
       :'';
     renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
