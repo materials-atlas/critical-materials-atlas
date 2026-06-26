@@ -19,7 +19,7 @@ Three layers per material, from three public sources:
 |---|---|---|
 | **Mined** | USGS Mineral Commodity Summaries (approx.) | world mine-production shares |
 | **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
-| **Traded** | **UN Comtrade**, via **CEPII BACI** HS22 V202501, 2023 | complete reconciled bilateral trade — ~15.5k flows, 207 countries |
+| **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202501, **2018–2023** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
 
 Four views over the same data: **Flow** (Sankey), **Map** (choropleth + curved trade arrows), **Globe**
 (animated arcs), **Table** (each material `mined ▸ refined ▸ top exporter · top importer`, with a
@@ -41,31 +41,32 @@ Country fills on the map/globe are **derived from the trade data**, not a hardco
 
 **Caveat:** customs trade can't separate a true refiner from a re-export hub — Hong Kong, Singapore, the
 Netherlands can surface as "refiners" of material they merely trans-ship. The role colours are *trade
-exposure*, not proof of physical processing. The full set of caveats (mixing 2023 trade with approximate
+exposure*, not proof of physical processing. The full set of caveats (mixing trade with approximate
 reference shares, value-vs-tonnage, structural Sankey links, sqrt colouring) is in
 [`methodology.html`](methodology.html) → **Limitations**.
 
 ## Build pipeline
 
 ```powershell
-# 1. Global bilateral trade → out/flows.json
-#    Streams the CEPII BACI yearly CSV (downloaded into raw/baci/, gitignored), filters to the 32 HS6
-#    codes, maps BACI country codes → ISO2, keeps top suppliers/customers per country. BOM-free JSON.
-powershell -File build_baci_flows.ps1
+# 1. Global bilateral trade → out/flows_2018.json … flows_2023.json
+#    Streams the CEPII BACI HS17 yearly CSVs (downloaded into raw/baci/, gitignored), filters to the 32
+#    HS6 codes, maps BACI country codes → ISO2, keeps top suppliers/customers per country. BOM-free JSON.
+powershell -File build_flows_years.ps1
 
 # 2. Mine/refine reference layers + the EU Comext lens → out/data.json + per-material PNGs
 Rscript build_static.R
 ```
 
-`index.html` reads `out/data.json` (mine/refine shares + EU lens) and `out/flows.json` (global trade) —
-no code change to add a material once its data is present.
+`index.html` reads `out/data.json` (mine/refine shares + EU lens) and `out/flows_<year>.json` (global
+trade, picked by the year slider) — no code change to add a material once its data is present.
 
 ## Layout
 
 - `index.html` — the interactive tool (Flow / Map / Globe / Table); repo root = the GitHub Pages site
 - `out/data.json` — mine (USGS) + refine (IEA) shares + EU Comext import-origin lens
-- `out/flows.json` — complete BACI bilateral trade, 2023 (committed deliverable)
-- `build_baci_flows.ps1` — BACI yearly CSV → `out/flows.json`
+- `out/flows_2018.json … flows_2023.json` — complete BACI bilateral trade, one file per year (committed)
+- `build_flows_years.ps1` — BACI HS17 yearly CSVs → `out/flows_<year>.json` (multi-year, one nomenclature)
+- `build_baci_flows.ps1` — single-year HS22 builder (legacy; superseded by the multi-year script)
 - `build_static.R` — regenerates `out/data.json` + the per-material PNGs in `out/`
 - `methodology.html` — one-page method note: the three layers, the refiner-vs-source correction,
   the EU Comext origin correction, and the Limitations
