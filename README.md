@@ -21,6 +21,7 @@ Four layers per material, from public sources:
 | **Mined** | USGS Mineral Commodity Summaries (approx.) | world mine-production shares |
 | **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
 | **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202601, **2018–2024** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
+| **Traded — 2025\*** | raw UN Comtrade, **self-reconciled** (`reconcile/`), provisional | a nowcast: our BACI-validated reconciliation of partial 2025 data — indicative only |
 
 Four views over the same data: **Flow** (Sankey), **Map** (choropleth + curved trade arrows), **Globe**
 (animated arcs), **Table** (each material `mined ▸ refined ▸ top exporter · top importer`, with a
@@ -67,6 +68,10 @@ trade, picked by the year slider) — no code change to add a material once its 
 - `out/data.json` — mine (USGS) + refine (IEA) shares + EU Comext import-origin lens
 - `out/flows_2018.json … flows_2024.json` — complete BACI bilateral trade, one file per year (committed)
 - `build_flows_years.ps1` — BACI HS17 yearly CSVs → `out/flows_<year>.json` (multi-year, one nomenclature)
+- `reconcile/` — Python nowcast engine (BACI-style reconciliation of raw Comtrade for years BACI lacks):
+  `pull_comtrade.py` (raw bilateral pull) → `reconcile.py` (CIF/FOB + reliability weights + mirror
+  averaging) → `validate.py` (vs official BACI 2024: 0.975 log-corr) → `build_recon_flows.py`
+  (→ `out/flows_2025.json`, provisional)
 - `build_baci_flows.ps1` — single-year HS22 builder (legacy; superseded by the multi-year script)
 - `build_static.R` — regenerates `out/data.json` + the per-material PNGs in `out/`
 - `methodology.html` — one-page method note: the three layers, the refiner-vs-source correction,

@@ -146,6 +146,25 @@ by quantity (price and grade effects). Value-vs-tonnage divergences are shown pe
 not overwhelmingly so; treat the choropleth as ordinal, not a precise linear scale.</li>
 </ul>
 
+<h2>Provisional 2025 — a self-built nowcast</h2>
+<p>BACI lags ~1.5 years, so for <b>2025</b> (flagged <b>2025*</b> on the slider) the atlas does not wait
+for CEPII — it uses a nowcast built here from raw UN Comtrade. A small Python pipeline
+(<code>reconcile/</code>) replicates BACI's method: it pulls both mirror reports of every flow (exporter
+FOB, importer CIF), estimates CIF/FOB markups, weights each reporter by a <b>variance-components
+reliability model</b> (E[discrepancy²] = var<sub>i</sub> + var<sub>j</sub>), and reconciles by
+<b>inverse-variance averaging</b> on logs. Validated against CEPII's official 2024, it reproduces the
+structure closely — <b>0.975</b> log-value correlation across 21.7k flows, and the same top exporter for
+<b>23 of 30</b> materials, with the biggest flows matching within a couple of percent. Absolute levels
+run higher (current Comtrade has absorbed revisions and late filers since BACI's early-2025 snapshot), so
+2025 is calibrated to BACI's 2024 scale per material. A by-product finding: CIF/FOB rates are
+<em>not</em> identifiable on a 31-product slice (R²≈0.01) — BACI's gravity estimation needs the full
+~5,000-product universe — so we fall back to a robust per-product median markup.</p>
+<p><b>Caveat — partial coverage.</b> Only about half of countries have filed 2025 annual data so far, so
+2025 is genuinely provisional: stable monopolies (niobium, gallium) hold, but a material that leans on a
+country which has not yet reported (e.g. bauxite, whose dominant Guinea→China flow China has not filed)
+is distorted. Treat 2025 as indicative, not measured. Every earlier year (2018–2024) is reconciled CEPII
+BACI, untouched by this.</p>
+
 <h2>Data &amp; reproducibility</h2>
 <p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
 reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
