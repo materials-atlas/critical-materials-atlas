@@ -69,10 +69,12 @@ trade, picked by the year slider) — no code change to add a material once its 
 - `out/data.json` — mine (USGS) + refine (IEA) shares + EU Comext import-origin lens
 - `out/flows_2018.json … flows_2024.json` — complete BACI bilateral trade, one file per year (committed)
 - `build_flows_years.ps1` — BACI HS17 yearly CSVs → `out/flows_<year>.json` (multi-year, one nomenclature)
-- `reconcile/` — Python nowcast engine (BACI-style reconciliation of raw Comtrade for years BACI lacks):
+- `reconcile/` — **Python nowcast engine** (BACI-style reconciliation of raw Comtrade for years BACI
+  lacks) — see **[reconcile/METHODS.md](reconcile/METHODS.md)** for the full method note + validation:
   `pull_comtrade.py` (raw bilateral pull) → `reconcile.py` (CIF/FOB + reliability weights + mirror
-  averaging) → `validate.py` (vs official BACI 2024: 0.975 log-corr) → `build_recon_flows.py`
-  (→ `out/flows_2025.json`, provisional)
+  averaging) → `validate.py` (vs official BACI 2024: top-1 exporter **25/30**, share MAE **3.5%**, HHI
+  corr **0.92**) → `build_recon_flows.py` (→ `out/flows_2025.json`) → `build_2026_nowcast.py`
+  (→ `out/flows_2026.json`, directional)
 - `build_baci_flows.ps1` — single-year HS22 builder (legacy; superseded by the multi-year script)
 - `build_static.R` — regenerates `out/data.json` + the per-material PNGs in `out/`
 - `methodology.html` — one-page method note: the three layers, the refiner-vs-source correction,
