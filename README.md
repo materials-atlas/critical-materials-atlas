@@ -22,6 +22,7 @@ Four layers per material, from public sources:
 | **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
 | **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202601, **2018–2024** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
 | **Traded — 2025\*** | raw UN Comtrade, **self-reconciled** (`reconcile/`), provisional | a nowcast: our BACI-validated reconciliation of partial 2025 data — indicative only |
+| **Traded — 2026\*\*** | Q1 monthly Comtrade momentum + Pink Sheet prices, directional | 2025 structure scaled by per-material momentum — shares = 2025, only levels tilt; a trend signal |
 
 Four views over the same data: **Flow** (Sankey), **Map** (choropleth + curved trade arrows), **Globe**
 (animated arcs), **Table** (each material `mined ▸ refined ▸ top exporter · top importer`, with a
