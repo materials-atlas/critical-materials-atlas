@@ -11,6 +11,10 @@ through a Chinese refinery — China is the chokepoint, not the mine.
 It's a single static HTML file (vanilla JS, no build step) served from GitHub Pages, plus a small data
 pipeline. No backend.
 
+**Headline finding → [`FINDINGS.md`](FINDINGS.md):** across 32 critical materials, the top *exporter* is
+not the top *miner* in **19 of 32** of them — import-origin statistics systematically overstate how
+diversified supply really is. Reproduce with [`reconcile/findings.py`](reconcile/findings.py).
+
 ## What it shows
 
 Four layers per material, from public sources:
