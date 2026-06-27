@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Updates — Critical Materials Atlas</title>
+<meta name="description" content="A dated log of changes to the Critical Materials Atlas: data refreshes, new features, and the pre-registered nowcast checks.">
+<meta property="og:title" content="Critical Materials Atlas — updates">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+ .entry{border-left:2px solid var(--line);padding:.1rem 0 1.1rem 1.2rem;margin-left:.3rem;position:relative}
+ .entry::before{content:'';position:absolute;left:-6px;top:.5rem;width:10px;height:10px;border-radius:50%;background:var(--accent)}
+ .entry .date{font-size:.74rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .entry h3{margin:.2rem 0 .35rem}
+ .entry ul{margin:.3rem 0}
+ .tag{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:.1rem .45rem;border-radius:4px;background:var(--bg-soft);color:var(--navy);border:1px solid var(--line);margin-left:.4rem}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav">
+    <a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
+    <a href="profiles.html" class="hideable">Profiles</a><a href="technical-note.html" class="hideable">Note</a>
+    <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
+  </nav>
+</div></header>
+
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
+  <div class="eyebrow">Changelog</div>
+  <h1>Updates</h1>
+  <p class="deck">What changed and when — data refreshes, new features, and the pre-registered nowcast checks. The dated trail is the freshness promise; see <a href="CADENCE.md" style="color:#fff">CADENCE.md</a> for the refresh cadence.</p>
+</div></section>
+
+<article>
+  <div class="entry">
+    <div class="date">26 June 2026 <span class="tag">feature</span></div>
+    <h3>Material profiles, open data page, and a cadence</h3>
+    <ul>
+      <li>Added a <a href="profiles.html">profile page for every material</a> (32) — five layers, trade, and a data-derived origin-gap hook, generated deterministically from the public data.</li>
+      <li>Documented the <a href="data.html">open data layer / static API</a>: stable JSON endpoints, schema, example fetch.</li>
+      <li>Set the refresh <a href="CADENCE.md">runbook</a> and scheduled the reproduction CI to run monthly.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="date">26 June 2026 <span class="tag">method</span></div>
+    <h3>End-to-end reproducible engine + technical note</h3>
+    <ul>
+      <li>Committed the raw Comtrade fixture so CI now <em>regenerates</em> the reconciliation from raw and validates it against BACI (top-1 25/30, share MAE 3.5%, HHI 0.92) — no key.</li>
+      <li>Published the <a href="technical-note.html">technical note</a> (HTML + PDF): method, validation, the out-of-sample backtest (85% persistence; P50 3.5 / P90 8.7pp bands), and the pre-registration.</li>
+      <li>Pre-registered how the 2025 nowcast will be scored when BACI 2025 releases.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="date">26 June 2026 <span class="tag">design</span></div>
+    <h3>Redesign into a research publication</h3>
+    <ul>
+      <li>New teal-charcoal identity, masthead, hero, key-figures strip, and a structured footer across all pages; a styled <a href="findings.html">findings report</a>, methodology, share card, and 404.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="date">Earlier · 2026 <span class="tag">data</span></div>
+    <h3>Foundations</h3>
+    <ul>
+      <li>32 critical materials; five layers (reserves, mined, refined, traded, EU lens); 2018–2024 reconciled trade with a provisional 2025 and directional 2026; exposure metrics, year-vs-year compare, per-country dependency reports, permalinks, CSV.</li>
+    </ul>
+  </div>
+  <p class="note">For the full commit-level history, see the <a href="https://github.com/materials-atlas/critical-materials-atlas/commits/main">repository</a>.</p>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the real source. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles.html">Material profiles</a><br><a href="findings.html">The origin gap</a><br><a href="data.html">Data &amp; API</a></div>
+  <div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>
+  <div class="fineprint">Public data only · independent research under the materials-atlas handle.</div>
+</div></footer>
+</body></html>
