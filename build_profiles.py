@@ -269,6 +269,7 @@ def page(m):
 </div></section>
 <section class="stats"><div class="wrap">{stat_html}</div></section>
 <article>
+  {('<p style="font-size:.96rem;color:var(--ink-soft)"><b>Primary uses.</b> ' + e(m.get("uses")) + '.</p>') if m.get('uses') else ''}
   {gap_callout}
   {trend_block}
   <h2>The five layers</h2>
