@@ -21,7 +21,11 @@
  .topnav a:hover{color:var(--navy);text-decoration:none}
  .topnav a.active{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:2px}
  @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable{display:none} }
- .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:2.8rem 0 2.2rem;border-bottom:3px solid var(--accent)}
+ .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:2.8rem 0 2.2rem;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+ .hero .wrap{position:relative;z-index:1}
+ .hero-motif{position:absolute;top:50%;right:-60px;transform:translateY(-50%);width:480px;height:480px;pointer-events:none}
+ @media(max-width:900px){ .hero-motif{right:-200px;opacity:.6} }
+ @media(max-width:760px){ .hero-motif{display:none} }
  .hero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:.7rem}
  .hero h1{font-size:2.2rem;line-height:1.08;letter-spacing:-.022em;font-weight:800;color:#fff;margin:0;max-width:24ch}
  .hero .sub{font-size:1.04rem;color:#bdd1cf;max-width:70ch;margin:.85rem 0 0}
@@ -55,7 +59,7 @@
   </nav>
 </div></header>
 
-<section class="hero"><div class="wrap">
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Methodology &amp; validation</div>
   <h1>Where do critical raw materials really come from?</h1>
   <p class="sub">Tracing 32 critical materials from mine to refinery to real trade — for any country. A method note, public data only.</p>

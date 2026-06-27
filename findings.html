@@ -25,7 +25,11 @@
  .topnav a:hover{color:var(--navy);text-decoration:none}
  .topnav a.active{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:2px}
  @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable{display:none} }
- .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:3rem 0 2.4rem;border-bottom:3px solid var(--accent)}
+ .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:3rem 0 2.4rem;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+ .hero .wrap{position:relative;z-index:1}
+ .hero-motif{position:absolute;top:50%;right:-60px;transform:translateY(-50%);width:500px;height:500px;pointer-events:none}
+ @media(max-width:900px){ .hero-motif{right:-200px;opacity:.6} }
+ @media(max-width:760px){ .hero-motif{display:none} }
  .hero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:.75rem}
  .hero h1{font-size:2.45rem;line-height:1.06;letter-spacing:-.024em;font-weight:800;color:#fff;margin:0;max-width:20ch}
  .hero .deck{font-size:1.1rem;line-height:1.5;color:#bdd1cf;max-width:66ch;margin:1rem 0 0}
@@ -65,7 +69,7 @@
   </nav>
 </div></header>
 
-<section class="hero"><div class="wrap">
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Finding · The origin gap</div>
   <h1>The country that exports it usually isn't the one that mines it.</h1>
   <p class="deck">Across 32 critical raw materials, import-origin statistics systematically overstate how diversified supply really is. The source a customs ledger records is, more often than not, a refinery or a hub standing in front of the mine.</p>
