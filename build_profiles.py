@@ -7,7 +7,7 @@ no hand-entered figures, no model-written prose — so the pages regenerate exac
 Output: profile-<label>.html (x32) + profiles.html (the index). Styling via assets/site.css.
 Run:  python build_profiles.py        (reads ./out, writes ./)
 """
-import json, os, html
+import json, os, html, glob
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
@@ -18,6 +18,45 @@ flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding
 NAMES = flows.get('names', {})
 MATS = data['materials']
 STAMP = data.get('dataUpdated', '')
+
+# all MEASURED years (skip provisional/nowcast) for the time-series sparklines
+FLOW_BY_YEAR = {}
+for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
+    _y = int(os.path.basename(_p)[6:10])
+    _d = json.load(open(_p, encoding='utf8'))
+    if not (_d.get('provisional') or _d.get('nowcast_kind')):
+        FLOW_BY_YEAR[_y] = _d
+MEAS_YEARS = sorted(FLOW_BY_YEAR)
+
+def shareOfIn(d, label, key, iso):
+    a = (d.get('materials', {}).get(label)) or []
+    o = tot = 0.0
+    for f in a:
+        if f[key] == iso:
+            o += f['value']
+        tot += f['value']
+    return (o / tot * 100) if tot else None
+
+def sparkline(vals, w=160, h=34, pad=3):
+    vs = [v for v in vals if v is not None]
+    if len(vs) < 3:
+        return ''
+    mx = max(vs + [1]) * 1.18
+    n = len(vals)
+    pts = []
+    for i, v in enumerate(vals):
+        if v is None:
+            continue
+        x = pad + (w - 2 * pad) * i / (n - 1)
+        y = h - pad - (h - 2 * pad) * (v / mx)
+        pts.append((x, y))
+    line = ' '.join(f'{x:.1f},{y:.1f}' for x, y in pts)
+    area = f'M{pts[0][0]:.1f},{h-pad} L' + ' L'.join(f'{x:.1f},{y:.1f}' for x, y in pts) + f' L{pts[-1][0]:.1f},{h-pad} Z'
+    ex, ey = pts[-1]
+    return (f'<svg width="{w}" height="{h}" viewBox="0 0 {w} {h}" style="vertical-align:middle;margin-left:.5rem" aria-hidden="true">'
+            f'<path d="{area}" fill="#0e7c74" fill-opacity=".12"/>'
+            f'<polyline points="{line}" fill="none" stroke="#0e7c74" stroke-width="1.7"/>'
+            f'<circle cx="{ex:.1f}" cy="{ey:.1f}" r="2.5" fill="#0e7c74"/></svg>')
 
 def cname(iso):
     return NAMES.get(iso) or iso or '—'
@@ -181,6 +220,15 @@ def page(m):
                 f'The largest miner, <b>{flag(mi["c"])} {e(cname(mi["c"]))}</b> ({mi["v"]:.0f}%), exports far less — so the trade '
                 f'ledger still overstates {e(cname(te))}\'s share of the underlying <i>source</i>. Gap: <b>+{gap:.0f} points</b>.</div>')
 
+    trend_block = ''
+    te_t = og[0] if og else None
+    if te_t and len(MEAS_YEARS) >= 3:
+        series = [shareOfIn(FLOW_BY_YEAR[y], label, 'from', te_t) for y in MEAS_YEARS]
+        if all(v is not None for v in series):
+            arrow = '↑' if series[-1] - series[0] > 2 else '↓' if series[0] - series[-1] > 2 else '→'
+            trend_block = (f'<div class="callout"><b>{e(cname(te_t))}</b>’s share of world {e(title.lower())} exports, '
+                f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{series[0]:.0f}% {arrow} {series[-1]:.0f}%</b>{sparkline(series)}</div>')
+
     shared_note = ('<p class="note">⛓ Gallium, germanium and hafnium share one HS6 code (811292); their trade columns '
                    'are identical and cannot be separated. The mine/refine/reserve layers still differ.</p>') if shared else ''
 
@@ -215,6 +263,7 @@ def page(m):
 <section class="stats"><div class="wrap">{stat_html}</div></section>
 <article>
   {gap_callout}
+  {trend_block}
   <h2>The five layers</h2>
   <h3>● Reserves — where it could come from (USGS, economically recoverable)</h3>{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is produced today (USGS)</h3>{bars(m.get('mined'), 'ore')}
@@ -299,6 +348,20 @@ def country_imports(iso):
     rows.sort(key=lambda r: r['topshare'], reverse=True)
     return rows
 
+def country_china_series(iso):
+    out = []
+    for y in MEAS_YEARS:
+        d = FLOW_BY_YEAR[y]
+        cn = tot = 0.0
+        for m in MATS:
+            for f in (d.get('materials', {}).get(m['label']) or []):
+                if f['to'] == iso and f['from'] != iso:
+                    tot += f['value']
+                    if f['from'] == 'CN':
+                        cn += f['value']
+        out.append(cn / tot * 100 if tot else None)
+    return out
+
 def country_page(iso, rows):
     name = cname(iso)
     total = sum(r['tot'] for r in rows)
@@ -331,6 +394,13 @@ def country_page(iso, rows):
             f'<td class="n" style="color:{hcol};font-weight:600">{r["hhi"]:.2f}</td>'
             f'<td class="n">{r["cn"]:.0f}%</td><td class="n">{r["n"]}</td>'
             f'<td class="n">{fmtV(r["tot"])}</td></tr>')
+    ctrend = ''
+    if len(MEAS_YEARS) >= 3:
+        cs = country_china_series(iso)
+        if all(v is not None for v in cs):
+            arrow = '↑' if cs[-1] - cs[0] > 2 else '↓' if cs[0] - cs[-1] > 2 else '→'
+            ctrend = (f'<div class="callout"><b>China</b>’s share of {e(name)}’s critical-material imports, '
+                f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{cs[0]:.0f}% {arrow} {cs[-1]:.0f}%</b>{sparkline(cs)}</div>')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -355,6 +425,7 @@ def country_page(iso, rows):
   immediate customs origin, sorted by single-supplier concentration. <b>⛏</b> marks a top source that is also
   the material's lead miner (a genuine origin); without it, the supplier is a refiner or hub and the real
   mine sits further upstream (open the material's profile to see where).</p></div>
+  {ctrend}
   <table>
     <caption>{e(name)} — import sources by material ({YEAR})</caption>
     <thead><tr><th>Material</th><th>Top source</th><th class="n">share</th><th class="n" title="Herfindahl of import sources">import HHI</th><th class="n">China</th><th class="n"># sources</th><th class="n">imports</th></tr></thead>
