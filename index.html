@@ -273,6 +273,7 @@
   <button data-view="sankey">⤳ Flow</button>
   <button data-view="map">🗺 Map</button>
   <button data-view="globe">🌍 Globe</button>
+  <button data-view="ask">🔎 Ask</button>
   <span class="grow"></span>
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
@@ -313,6 +314,17 @@
     <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
+  </div>
+  <div id="view-ask" class="view hidden">
+    <div style="max-width:760px">
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <input id="ask-q" placeholder="e.g. Where does Germany get its lithium?" style="flex:1;min-width:280px;font:inherit;font-size:.95rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px">
+        <button id="ask-go" type="button" style="font:inherit;font-weight:600;font-size:.9rem;padding:.55rem 1.1rem;border:none;border-radius:8px;background:#15323a;color:#fff;cursor:pointer">Ask</button>
+      </div>
+      <div id="ask-chips" style="margin:.6rem 0 .2rem;font-size:.82rem;color:#667179"></div>
+      <p style="font-size:.78rem;color:#9aa6ad;margin:.3rem 0 0">Answers are computed live from the reconciled trade + USGS/IEA layers — every figure is real, nothing is generated. Name a material and/or a country.</p>
+      <div id="ask-out" style="margin-top:1.1rem"></div>
+    </div>
   </div>
 </main>
 
@@ -444,7 +456,7 @@ function syncURL(){ try{ const p=new URLSearchParams();
   if(FILL_MODE&&FILL_MODE!=='prod') p.set('fill',FILL_MODE);
   const s=p.toString(); history.replaceState(null,'', s?('#'+s):(location.pathname+location.search)); }catch(e){} }
 function restoreURL(){ try{ const h=location.hash.replace(/^#/,''); if(!h) return; const p=new URLSearchParams(h);
-  const v=p.get('view'); if(v&&['table','map','globe','sankey'].includes(v)) VIEW=v;
+  const v=p.get('view'); if(v&&['table','map','globe','sankey','ask'].includes(v)) VIEW=v;
   if(p.get('mat')) SELMAT=p.get('mat');
   if(p.get('dest')) SELDEST=p.get('dest');
   const y=p.get('year'); if(y&&/^20\d\d$/.test(y)) FLOWS_YEAR=String(y);
@@ -471,12 +483,12 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   restoreURL();
   // reflect any restored deep-link state in the chrome before first paint
   document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===VIEW));
-  ['table','map','globe','sankey'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
+  ['table','map','globe','sankey','ask'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
   ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=FILL_MODE; });
   if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026** added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
   populateMatSelectors();
   renderTable();
-  if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey();
+  if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey(); else if(VIEW==='ask') initAsk();
   if(String(FLOWS_YEAR)!=='2024') setYear(FLOWS_YEAR);   // load restored year + set the provisional banner
 }).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
 
@@ -676,15 +688,84 @@ function showCountryReport(iso){ if(!iso) return;
 }
 { document.querySelectorAll('.depbtn').forEach(b=>b.onclick=()=>{ if(SELDEST) showCountryReport(SELDEST); else { const o=b.textContent; b.textContent='↑ pick a country first'; setTimeout(()=>b.textContent=o,1600); } }); }
 
+/* ---------- Ask the data — deterministic, grounded queries (no model, no invented numbers) ---------- */
+const ASK_ALIASES={'usa':'US','united states':'US','america':'US','uk':'GB','britain':'GB','united kingdom':'GB','drc':'CD','dr congo':'CD','congo':'CD','south korea':'KR','korea':'KR','uae':'AE','emirates':'AE','russia':'RU','china':'CN'};
+function askResolve(q){
+  q=' '+(q||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ';
+  let mat=null, matlen=0;
+  for(const m of MATS){ const kw=m.label.toLowerCase(); if(q.includes(' '+kw)&&kw.length>matlen){ mat=m; matlen=kw.length; } }
+  if(!mat){ outer: for(const m of MATS){ for(const w of strip(m.title).toLowerCase().split(/[^a-z]+/)){ if(w.length>4 && q.includes(' '+w+' ')){ mat=m; break outer; } } } }
+  const n2i={}; if(FLOWS&&FLOWS.names) for(const iso in FLOWS.names){ const nm=FLOWS.names[iso].toLowerCase(); if(nm.length>=4) n2i[nm]=iso; }
+  Object.keys(ASK_ALIASES).forEach(k=>n2i[k]=ASK_ALIASES[k]);
+  let iso=null, isolen=0; for(const name in n2i){ if(q.includes(' '+name+' ')&&name.length>isolen){ iso=n2i[name]; isolen=name.length; } }
+  let intent='overview';
+  if(/( import| imports| get | gets | buy | buys | source| depend| relies| rely| reliant| from )/.test(q) && iso) intent='import';
+  else if(/( export| exports| exporter| sell | sells | ships )/.test(q)) intent='export';
+  else if(/( mine | mined | mines | produce| producer| dug | extract)/.test(q)) intent='mine';
+  else if(/(concentrat|hhi| risk| exposed| exposure| diversif)/.test(q)) intent='conc';
+  else if(iso && mat) intent='import';
+  else if(iso && !mat) intent='country';
+  return {mat,iso,intent};
+}
+function askShow(view,label){ if(label) setMat(label); const b=document.querySelector('.tabs button[data-view="'+view+'"]'); if(b) b.click(); }
+function askCard(inner){ return '<div style="border:1px solid var(--line,#e6e9e8);border-radius:12px;padding:1rem 1.2rem;background:#fff;font-size:.95rem;line-height:1.55">'+inner+'</div>'; }
+function askLinks(mat,iso){ const l=[]; if(mat){ l.push('<a href="profile-'+mat.label+'.html">full '+strip(mat.title)+' profile →</a>'); l.push('<a href="#" onclick="askShow(\'map\',\''+mat.label+'\');return false">see it on the map</a>'); } if(iso) l.push('<a href="#" onclick="showCountryReport(\''+iso+'\');return false">'+fname(iso)+' dependency report</a>'); return l.length?'<p style="margin:.65rem 0 0;font-size:.82rem">'+l.join(' &nbsp;·&nbsp; ')+'</p>':''; }
+function askCompose(r){
+  const yr=FLOWS_YEAR, src=srcN(), {mat,iso,intent}=r;
+  if(!mat && !iso) return askCard('<b>Name a material and/or a country.</b> e.g. <i>“who exports cobalt?”</i>, <i>“where does Japan get its titanium?”</i>, <i>“how concentrated is gallium?”</i>');
+  if(intent==='country' && iso){
+    const rows=MATS.map(m=>{const p=countryImportProfile(iso,m.label); return p?{m,p}:null;}).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare).slice(0,6);
+    if(!rows.length) return askCard('No recorded imports for <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
+    const li=rows.map(({m,p})=>'<li><b>'+strip(m.title)+'</b>: '+Math.round(p.topShare)+'% from '+fname(p.top)+(p.cn>15&&p.top!=='CN'?' · China '+Math.round(p.cn)+'%':'')+' (HHI '+p.hhi.toFixed(2)+')</li>').join('');
+    return askCard('<b>'+fname(iso)+'</b> — its most single-supplier-concentrated critical-material imports ('+src+' '+yr+'):<ul style="margin:.5rem 0 0;padding-left:1.1rem">'+li+'</ul>'+askLinks(null,iso));
+  }
+  if(!mat) return askCard('Add a material — e.g. “'+(intent==='export'?'who exports lithium?':'where is cobalt mined?')+'”');
+  const te=topExporter(mat.label), ti=topImporter(mat.label), mi=mineTop(mat), hh=hhiTrade(mat.label,'from'), t3=topNshare(mat.label,'from',3), g=originGap(mat), title=strip(mat.title);
+  if(intent==='import' && iso){
+    const p=countryImportProfile(iso,mat.label);
+    if(!p) return askCard('No recorded <b>'+title+'</b> imports into <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
+    const ml=(mat.mined&&mat.mined[0])?mat.mined[0]:null;
+    const up=(ml&&p.top!==ml.c)?(' The immediate origin is '+fname(p.top)+', but '+title.toLowerCase()+' is mined mainly in '+cname(ml.c)+' ('+ml.v.toFixed(0)+'%) — customs records the shipper, not the mine.'):'';
+    return askCard('<b>'+fname(iso)+'</b> sources its <b>'+title+'</b> mainly from <b>'+fname(p.top)+'</b> ('+Math.round(p.topShare)+'% of its imports'+(p.cn>10?'; China '+Math.round(p.cn)+'%':'')+'), across '+p.n+' suppliers — import HHI '+p.hhi.toFixed(2)+' ('+src+' '+yr+').'+up+askLinks(mat,iso));
+  }
+  if(intent==='mine'){
+    const gp=(g!=null&&te)?(' Its top exporter is '+fname(te.c)+' ('+te.share.toFixed(0)+'% of trade) — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
+    return askCard('<b>'+title+'</b> is mined mainly in <b>'+(mi?cname(mi.c)+' ('+mi.v.toFixed(0)+'% of world output)':'— (no USGS figure)')+'</b>.'+gp+askLinks(mat,iso));
+  }
+  if(intent==='conc'){
+    const lvl=hh>0.45?'highly concentrated':hh>0.25?'moderately concentrated':'relatively diversified';
+    return askCard('<b>'+title+'</b> exports are <b>'+lvl+'</b> — Herfindahl '+(hh!=null?hh.toFixed(2):'—')+', top-3 exporters ≈ '+(t3||0).toFixed(0)+'% of world trade'+(te?'; led by '+fname(te.c)+' ('+te.share.toFixed(0)+'%)':'')+'.'+askLinks(mat,iso));
+  }
+  if(intent==='export'){
+    return askCard('<b>'+title+'</b> is exported mainly by <b>'+(te?fname(te.c)+' ('+te.share.toFixed(0)+'% of world trade, '+fmtV(te.v)+')':'—')+'</b>; top-3 ≈ '+(t3||0).toFixed(0)+'%, export HHI '+(hh!=null?hh.toFixed(2):'—')+' ('+src+' '+yr+').'+askLinks(mat,iso));
+  }
+  const gt=(g!=null&&mi&&te&&mi.c!==te.c)?(' Exported by '+fname(te.c)+' but mined in '+cname(mi.c)+' — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
+  return askCard('<b>'+title+'</b> ('+src+' '+yr+'): mined mainly in <b>'+(mi?cname(mi.c)+' '+mi.v.toFixed(0)+'%':'—')+'</b>, top exporter <b>'+(te?fname(te.c)+' '+te.share.toFixed(0)+'%':'—')+'</b>, top importer <b>'+(ti?fname(ti.c)+' '+ti.share.toFixed(0)+'%':'—')+'</b>; export HHI '+(hh!=null?hh.toFixed(2):'—')+'.'+gt+askLinks(mat,iso));
+}
+function askRun(){ const q=($('#ask-q')&&$('#ask-q').value)||''; ensureFlows(()=>{ $('#ask-out').innerHTML=askCompose(askResolve(q)); if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'ask',event:true}); }); }
+let askInit=false;
+function initAsk(){
+  if(!askInit){
+    const chips=['Who exports cobalt?','Where does Germany get its lithium?','How concentrated is gallium?','Where is nickel mined?','China critical-material exports'];
+    $('#ask-go').onclick=askRun;
+    $('#ask-q').addEventListener('keydown',e=>{ if(e.key==='Enter') askRun(); });
+    $('#ask-chips').innerHTML='Try: '+chips.map(c=>'<a href="#" data-q="'+c.replace(/"/g,'&quot;')+'">'+c+'</a>').join(' &nbsp; ');
+    document.querySelectorAll('#ask-chips a').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); $('#ask-q').value=a.dataset.q; askRun(); });
+    askInit=true;
+  }
+  ensureFlows(()=>{ if(!($('#ask-out').innerHTML||'').trim()) $('#ask-out').innerHTML=askCompose(askResolve('overview cobalt')); });
+}
+
 /* ---------- view switching ---------- */
 document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
   document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
   VIEW=b.dataset.view;
-  ['table','map','globe','sankey'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
+  ['table','map','globe','sankey','ask'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});
   if(VIEW==='map') initMap();
   if(VIEW==='globe') initGlobe();
   if(VIEW==='sankey') initSankey();
+  if(VIEW==='ask') initAsk();
   syncURL();
 });
 const _scripts={};
