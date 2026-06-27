@@ -23,6 +23,7 @@ Rscript build_static.R                         # -> out/data.json
 python build_risk.py                           # -> out/risk.json + risk.html (supply-risk index)
 python build_scenarios.py                      # -> scenarios.html (supply-shock stress tests)
 python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
+python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)
 
 # 4. sanity-check, then commit + push (Pages redeploys automatically)
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)
