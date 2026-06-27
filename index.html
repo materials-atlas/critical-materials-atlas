@@ -243,6 +243,7 @@
     <a href="./">Atlas</a>
     <a href="methodology.html">Methodology</a>
     <a href="findings.html" class="hideable">Findings</a>
+    <a href="profiles.html" class="hideable">Profiles</a>
     <a href="technical-note.html" class="hideable">Note</a>
     <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
     <a href="#" id="nav-csv" class="cta">Download data</a>
@@ -612,6 +613,7 @@ function showDetail(key){
   $('#detail-body').innerHTML=`
     <h2 style="margin:.2rem 2rem .2rem 0">${m.title}</h2>
     <p style="color:#444;font-size:.95rem">${m.note}</p>
+    <p style="margin:.1rem 0 .5rem"><a href="profile-${m.label}.html" style="font-weight:600">Open the full ${strip(m.title)} profile →</a></p>
     ${contrast}
     <div class="layers">
       <div class="layer"><h3>● Reserves — USGS, economically recoverable (not full geological resources)</h3>${m.reserves&&m.reserves.length?bars(m.reserves):'<i style="color:#888">no reserves figure (byproduct / abundant)</i>'}</div>
