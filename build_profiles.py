@@ -132,18 +132,22 @@ def page(m):
     (timp, timp_ranked, ihhi, itot) = (side(label, 'to')[0], side(label, 'to')[1], side(label, 'to')[2], side(label, 'to')[3])
     og = origin_gap(m, label)
 
-    # data-derived hook (the deck) — wording gated on the exporter's OWN mine share, to avoid overclaiming
-    if og and mi and og[0] != mi['c'] and og[2] > 8:
+    # data-derived hook (the deck) — gated FIRST on whether the top exporter is also the top miner,
+    # then on its own mine share, so we never claim "leads both" for a country that isn't the lead miner.
+    if og:
         te, tes, gap, mined = og
         te_mine = mined.get(te, 0.0)
-        if te_mine < 8:   # genuine refiner/hub: exports a lot, mines ~none
+        tm = mi['c'] if mi else None
+        if tm and te == tm:                       # exporter IS the lead miner — genuine concentration
+            deck = f'{e(cname(te))} leads both the mining and the export of {e(title.lower())} — a genuine, not an accounting, concentration.'
+        elif tm and te_mine < 8:                   # refiner/hub: exports a lot, mines ~none
             deck = (f'Exported mainly by {e(cname(te))} ({tes:.0f}% of world trade), which mines almost none of it — '
-                    f'the source is {e(cname(mi["c"]))} ({mi["v"]:.0f}% of mine output). The origin gap: +{gap:.0f} points.')
-        else:             # the exporter is itself a real producer, just not the largest miner
+                    f'the source is {e(cname(tm))} ({mi["v"]:.0f}% of mine output). The origin gap: +{gap:.0f} points.')
+        elif tm:                                   # exporter is a real producer, just not the largest miner
             deck = (f'{e(cname(te))} leads exports of {e(title.lower())} ({tes:.0f}% of trade) and is itself a major miner '
-                    f'({te_mine:.0f}% of output); the largest miner, {e(cname(mi["c"]))} ({mi["v"]:.0f}%), exports far less.')
-    elif texp and mi:
-        deck = f'{e(cname(texp[0]))} leads both the mining and the export of {e(title.lower())} — a genuine, not an accounting, concentration.'
+                    f'({te_mine:.0f}% of output); the largest miner, {e(cname(tm))} ({mi["v"]:.0f}%), exports far less.')
+        else:
+            deck = f'Exported mainly by {e(cname(te))} ({tes:.0f}% of world trade).'
     else:
         deck = f'Where {e(title.lower())} is mined, refined, and traded — from public data.'
 
