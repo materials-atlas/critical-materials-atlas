@@ -343,6 +343,7 @@
     <a href="findings.html">Headline finding — the origin gap</a><br>
     <a href="technical-note.html">Technical note</a><br>
     <a href="profiles.html">Material profiles</a><br>
+    <a href="countries.html">Dependency by country</a><br>
     <a href="data.html">Data &amp; API</a><br>
     <a href="updates.html">Updates</a><br>
     <a href="https://github.com/materials-atlas/comtrade-reconcile">Reconciliation engine</a>
@@ -380,7 +381,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null;
+let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null, COUNTRY_PAGES=new Set();
 // Export-control / policy timeline — surfaced under the year slider so structural breaks in the trade have a cause.
 const POLICY_EVENTS={
  '2018':'US–China tariff escalation begins; supply-security of critical minerals returns to the policy agenda.',
@@ -476,6 +477,7 @@ function exportCSV(){
   const a=document.createElement('a'); a.href=url; a.download='critical-materials-atlas_'+FLOWS_YEAR+'.csv'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500); }
 { const c=$('#csv'); if(c) c.onclick=exportCSV; const pl=$('#permalink'); if(pl) pl.onclick=copyPermalink; const nc=$('#nav-csv'); if(nc) nc.onclick=e=>{ e.preventDefault(); exportCSV(); }; }
 
+fetch('out/country_pages.json').then(r=>r.json()).then(a=>{ COUNTRY_PAGES=new Set(a); }).catch(()=>{});
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
   $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
@@ -680,6 +682,7 @@ function showCountryReport(iso){ if(!iso) return;
   $('#detail-body').innerHTML=`
     <h2 style="margin:.2rem 2rem .3rem 0">${fname(iso)} — import-dependency profile</h2>
     <p style="color:#444;font-size:.92rem">Where <b>${fname(iso)}</b> sources each critical material, from the reconciled bilateral trade (${srcN()} ${FLOWS_YEAR}). This generalises the EU import-origin lens to <b>any country</b>; rows are sorted by single-supplier dependence (most concentrated first).</p>
+    ${COUNTRY_PAGES.has(iso)?`<p style="margin:-.2rem 0 .5rem"><a href="profile-country-${iso}.html" style="font-weight:600">Open the full ${fname(iso)} dependency page →</a></p>`:''}
     <div style="overflow:auto;max-height:60vh"><table style="width:100%;border-collapse:collapse;font-size:.82rem">
       <thead><tr style="text-align:left;border-bottom:2px solid var(--ink)"><th style="padding:.35rem .5rem">Material</th><th style="padding:.35rem .5rem">Top source</th><th style="padding:.35rem .5rem;text-align:right">its share</th><th style="padding:.35rem .5rem;text-align:right" title="Herfindahl index of import sources (0–1)">import HHI</th><th style="padding:.35rem .5rem;text-align:right">China</th><th style="padding:.35rem .5rem;text-align:right"># sources</th><th style="padding:.35rem .5rem;text-align:right">imports</th></tr></thead>
       <tbody>${tr||'<tr><td colspan="7" style="padding:1rem;color:#888">no import data for this country in this year</td></tr>'}</tbody></table></div>

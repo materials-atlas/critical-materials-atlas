@@ -36,6 +36,9 @@ def fmtV(v):
 def e(s):
     return html.escape(str(s), quote=True)
 
+def strip(t):
+    return str(t).split(' (')[0]   # drop the "(HS code)" suffix
+
 def side(label, key):
     a = (flows.get('materials', {}).get(label)) or []
     o, tot = {}, 0.0
@@ -83,9 +86,10 @@ FOOTER = ('<footer class="siteftr"><div class="wrap">'
  '<div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw '
  'materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the '
  'real source. Not affiliated with, nor representing, any institution.</div>'
- '<div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings.html">The origin gap</a><br>'
- '<a href="methodology.html">Methodology</a><br><a href="technical-note.html">Technical note</a><br>'
- '<a href="data.html">Data &amp; API</a><br><a href="updates.html">Updates</a></div>'
+ '<div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles.html">Material profiles</a><br>'
+ '<a href="countries.html">By country</a><br><a href="findings.html">The origin gap</a><br>'
+ '<a href="methodology.html">Methodology</a><br><a href="data.html">Data &amp; API</a><br>'
+ '<a href="updates.html">Updates</a></div>'
  '<div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>'
  'UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>'
  f'<div class="fineprint">Figures computed from public data (trade year {YEAR}, reconciled CEPII BACI; '
@@ -268,6 +272,130 @@ def index_page():
   <p class="deck">One page per material — where it is mined, refined, traded and held in reserve, and how far its trade origin sits from its mine. Sorted by origin gap.</p>
 </div></section>
 <article style="max-width:1100px">
+  <p style="color:#667179"><a href="countries.html">Browse by country →</a></p>
+  <div class="cards">{''.join(cards)}</div>
+</article>
+{FOOTER}
+</body></html>'''
+
+HUBS = {'HK', 'SG', 'AE', 'PA', 'MO', 'GI'}   # re-export entrepots — exclude (import = trans-shipment)
+
+def country_imports(iso):
+    rows = []
+    for m in MATS:
+        a = (flows.get('materials', {}).get(m['label'])) or []
+        o, tot = {}, 0.0
+        for fl in a:
+            if fl['to'] == iso and fl['from'] != iso:
+                o[fl['from']] = o.get(fl['from'], 0.0) + fl['value']
+                tot += fl['value']
+        if not tot:
+            continue
+        top = max(o, key=o.get)
+        ml = (m.get('mined') or [None])[0]
+        rows.append({'m': m, 'top': top, 'topshare': o[top] / tot * 100,
+                     'hhi': sum((v / tot) ** 2 for v in o.values()),
+                     'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': ml})
+    rows.sort(key=lambda r: r['topshare'], reverse=True)
+    return rows
+
+def country_page(iso, rows):
+    name = cname(iso)
+    total = sum(r['tot'] for r in rows)
+    china_dom = sum(1 for r in rows if r['top'] == 'CN' or r['cn'] > 45)
+    gap_exposed = sum(1 for r in rows if r['ml'] and r['top'] != r['ml']['c'])
+    mean_hhi = sum(r['hhi'] for r in rows) / len(rows) if rows else 0
+    worst = rows[0] if rows else None
+    deck = (f'{e(name)} imports {len(rows)} of the {len(MATS)} critical materials this atlas tracks '
+            f'({fmtV(total)}). Its most supplier-concentrated dependence is {e(strip(worst["m"]["title"]).lower())} '
+            f'({worst["topshare"]:.0f}% from {e(cname(worst["top"]))})' if worst else f'{e(name)} import profile')
+    if china_dom:
+        deck += f'; {china_dom} of those imports come mainly from China.'
+    stats = [
+        (str(len(rows)), 'critical materials imported'),
+        (fmtV(total), f'total imports ({YEAR})'),
+        (f'{china_dom}', 'mainly-from-China dependencies'),
+        (f'{gap_exposed}', 'where the supplier ≠ the lead miner'),
+        (f'{mean_hhi:.2f}', 'mean import concentration (HHI)'),
+    ]
+    stat_html = ''.join(f'<div class="stat"><div class="n">{e(s[0])}</div><div class="l">{e(s[1])}</div></div>' for s in stats)
+    body = []
+    for r in rows:
+        m = r['m']; ismine = r['ml'] and r['top'] == r['ml']['c']
+        hcol = '#c0392b' if r['hhi'] > 0.45 else '#b35e16' if r['hhi'] > 0.25 else '#3f9b46'
+        body.append(
+            f'<tr><td><a href="profile-{e(m["label"])}.html">{e(strip(m["title"]))}</a></td>'
+            f'<td>{flag(r["top"])} {e(cname(r["top"]))}'
+            + (' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>' if ismine else '')
+            + f'</td><td class="n">{r["topshare"]:.0f}%</td>'
+            f'<td class="n" style="color:{hcol};font-weight:600">{r["hhi"]:.2f}</td>'
+            f'<td class="n">{r["cn"]:.0f}%</td><td class="n">{r["n"]}</td>'
+            f'<td class="n">{fmtV(r["tot"])}</td></tr>')
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(name)} — critical-material dependency · Critical Materials Atlas</title>
+<meta name="description" content="{e(name)}'s import dependency across {len(rows)} critical raw materials: top source, concentration, China exposure, and where the supplier is not the mine.">
+<meta property="og:title" content="{e(name)} — critical-material dependency">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+{topbar()}
+<section class="hero">{MOTIF}<div class="wrap">
+  <div class="eyebrow">Country profile · import dependency</div>
+  <h1>{e(name)} — critical-material dependency</h1>
+  <p class="deck">{deck}</p>
+  <p class="byline">Reconciled bilateral trade, {YEAR} (CEPII BACI) · mine layer USGS (approx.)</p>
+</div></section>
+<section class="stats"><div class="wrap">{stat_html}</div></section>
+<article style="max-width:960px">
+  <div class="callout"><b>How to read this.</b> Each row is where {e(name)} <i>imports</i> a material from — the
+  immediate customs origin, sorted by single-supplier concentration. <b>⛏</b> marks a top source that is also
+  the material's lead miner (a genuine origin); without it, the supplier is a refiner or hub and the real
+  mine sits further upstream (open the material's profile to see where).</p></div>
+  <table>
+    <caption>{e(name)} — import sources by material ({YEAR})</caption>
+    <thead><tr><th>Material</th><th>Top source</th><th class="n">share</th><th class="n" title="Herfindahl of import sources">import HHI</th><th class="n">China</th><th class="n"># sources</th><th class="n">imports</th></tr></thead>
+    <tbody>{''.join(body)}</tbody>
+  </table>
+  <div class="btnrow">
+    <a class="btn primary" href="./#view=map&amp;dest={e(iso)}">See {e(name)}'s trade on the map →</a>
+    <a class="btn ghost" href="countries.html">All countries</a>
+    <a class="btn ghost" href="findings.html">The origin gap</a>
+  </div>
+  <p class="note">Computed from <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> + <a href="out/data.json">out/data.json</a> by build_profiles.py. Customs records the immediate shipper, not the mine — see <a href="methodology.html">methodology</a>.</p>
+</article>
+{FOOTER}
+</body></html>'''
+
+def countries_index(items):
+    items.sort(key=lambda t: t[2], reverse=True)
+    cards = []
+    for iso, rows, total in items:
+        cd = sum(1 for r in rows if r['top'] == 'CN' or r['cn'] > 45)
+        cards.append(f'<a class="card" href="profile-country-{e(iso)}.html"><div class="ct">{flag(iso)} {e(cname(iso))}</div>'
+                     f'<div class="cg">{len(rows)} materials · {fmtV(total)}' + (f' · <b>China-led {cd}</b>' if cd else '') + '</div></a>')
+    return f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Country dependency profiles — Critical Materials Atlas</title>
+<meta name="description" content="Critical-material import-dependency profiles for the major importing economies.">
+<meta property="og:title" content="Critical-material dependency by country">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+{topbar()}
+<section class="hero">{MOTIF}<div class="wrap">
+  <div class="eyebrow">Reference · by country</div>
+  <h1>Dependency by country</h1>
+  <p class="deck">Where each major economy sources its critical materials — top supplier, concentration, and China exposure across the 32 materials. Sorted by import value.</p>
+</div></section>
+<article style="max-width:1100px">
+  <p style="color:#667179"><a href="profiles.html">← Browse by material instead</a></p>
   <div class="cards">{''.join(cards)}</div>
 </article>
 {FOOTER}
@@ -279,7 +407,24 @@ def main():
         open(os.path.join(ROOT, f'profile-{m["label"]}.html'), 'w', encoding='utf8', newline='\n').write(page(m))
         n += 1
     open(os.path.join(ROOT, 'profiles.html'), 'w', encoding='utf8', newline='\n').write(index_page())
-    print(f'wrote {n} profile pages + profiles.html  (trade year {YEAR})')
+    # country pages — real consuming economies only (>= $1B imports, excluding re-export hubs)
+    isos = set()
+    for mm in MATS:
+        for fl in (flows.get('materials', {}).get(mm['label']) or []):
+            isos.add(fl['to'])
+    citems = []
+    for iso in isos:
+        if iso in HUBS:
+            continue
+        rows = country_imports(iso)
+        total = sum(r['tot'] for r in rows)
+        if total >= 1e9 and len(rows) >= 8:
+            open(os.path.join(ROOT, f'profile-country-{iso}.html'), 'w', encoding='utf8', newline='\n').write(country_page(iso, rows))
+            citems.append((iso, rows, total))
+    open(os.path.join(ROOT, 'countries.html'), 'w', encoding='utf8', newline='\n').write(countries_index(citems))
+    json.dump(sorted(t[0] for t in citems),
+              open(os.path.join(ROOT, 'out', 'country_pages.json'), 'w', encoding='utf8'))   # manifest for the atlas
+    print(f'wrote {n} material profiles + profiles.html + {len(citems)} country profiles + countries.html  (year {YEAR})')
 
 if __name__ == '__main__':
     main()
