@@ -15,6 +15,9 @@
 <meta name="twitter:title" content="Critical raw materials — where do they really come from?">
 <meta name="twitter:description" content="32 critical materials mined ▸ refined ▸ traded worldwide — a public-data atlas of mine, refinery and trade.">
 <meta name="twitter:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{ --red:#b22222; --blue:#3a6ea5; --ore:#d98a00; --ink:#1a1a1a; --mut:#666; --line:#e6e6e6; }
   *{box-sizing:border-box}
@@ -114,16 +117,87 @@
   .two{display:flex;gap:.6rem;flex-wrap:wrap}.two img{flex:1;min-width:300px}
   footer{margin-top:2.4rem;font-size:.8rem;color:#888;border-top:1px solid var(--line);padding-top:.8rem}
   a{color:var(--red)}
+
+  /* ===================== professional reskin — consulting / corporate ===================== */
+  :root{
+    --ink:#111827; --ink-soft:#374151; --mut:#6b7280; --faint:#98a2b3;
+    --line:#e7e9ee; --line-strong:#cdd3dd; --navy:#0b2545; --navy2:#16365f;
+    --bg:#ffffff; --bg-soft:#f6f8fb; --accent:#1d4ed8;
+  }
+  body{font-family:'Inter',system-ui,Segoe UI,Arial,sans-serif;max-width:1220px;padding:0 1.6rem 4rem;line-height:1.55;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* masthead */
+  .masthead{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0 .95rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .wordmark{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.15em;font-size:.82rem;text-transform:uppercase;color:var(--navy)}
+  .wordmark .mark{width:15px;height:15px;background:var(--navy);transform:rotate(45deg);border-radius:2px;flex:none}
+  .mast-meta{font-size:.72rem;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
+
+  /* hero */
+  header.hero{padding:2.3rem 0 1.5rem}
+  header.hero h1{font-size:2.35rem;line-height:1.07;letter-spacing:-.022em;font-weight:800;color:var(--navy);margin:0;max-width:22ch}
+  header.hero .sub{font-size:1.03rem;color:var(--mut);max-width:74ch;margin:.75rem 0 0}
+  header.hero .meta-links{font-size:.86rem;color:var(--mut);margin-top:.65rem}
+  header.hero .stamp{margin:.55rem 0 0;color:var(--faint)}
+
+  /* intro -> clean kicker panel */
+  .intro{background:var(--bg-soft);border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:8px;padding:.9rem 1.15rem;font-size:.9rem;color:var(--ink-soft);margin-top:.2rem}
+
+  /* nav tabs -> underline indicator */
+  .tabs{gap:.15rem;align-items:flex-end;margin:1.7rem 0 1.1rem;padding-bottom:0;border-bottom:1px solid var(--line);row-gap:.55rem}
+  .tabs button[data-view]{border:none;background:none;border-radius:0;padding:.55rem 1rem;color:var(--mut);font-weight:600;font-size:.93rem;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tabs button[data-view]:hover{color:var(--ink);background:none}
+  .tabs button[data-view].active{color:var(--navy);background:none;border-color:var(--navy)}
+  .tabs input,.tabs select{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:.42rem .6rem}
+  .tabs input:focus,.tabs select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,37,69,.09)}
+  .tabs button.toolbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;font-weight:600}
+  .tabs button.toolbtn:hover{background:var(--bg-soft)}
+  .depbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;font-weight:600}
+  .depbtn:hover{background:var(--bg-soft)}
+  .maptog button.active{background:var(--navy);border-color:var(--navy)}
+
+  /* year bar */
+  #yearbar{background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:.65rem .95rem}
+  #yearbar b{color:var(--navy)}
+  #yearbar input[type=range]{accent-color:var(--navy)}
+
+  /* tables */
+  .crow.head{color:var(--navy);border-bottom:1px solid var(--line-strong);font-size:.68rem;letter-spacing:.05em}
+  .crow{border-bottom:1px solid var(--line)}
+  .crow:hover{background:var(--bg-soft)}
+  .row:hover{background:var(--bg-soft)}
+  table.dt th{color:var(--navy);border-bottom:2px solid var(--line-strong)}
+  table.dt th:hover{color:var(--accent)}
+  table.dt tbody tr:hover{background:var(--bg-soft)}
+
+  /* detail / kpis / panels */
+  .kpi{border:1px solid var(--line);border-radius:10px;background:var(--bg-soft)}
+  .kpi .v{color:var(--navy)}
+  .layer h3{color:var(--navy)}
+  .legend{color:var(--mut)}
+  .panel-info{color:var(--ink-soft)}
+  .modal-box{border-radius:14px;box-shadow:0 24px 64px rgba(16,24,40,.24);padding:1.4rem 1.6rem 2rem}
+  .modal-box h2{color:var(--navy);letter-spacing:-.01em}
+  #map,#globe,#sankey{border:1px solid var(--line);border-radius:10px}
+
+  /* footer */
+  footer{margin-top:3.2rem;border-top:1px solid var(--line);padding-top:1.3rem;color:var(--mut);font-size:.82rem;line-height:1.65}
+  @media (max-width:640px){ header.hero h1{font-size:1.85rem} body{padding:0 1rem 3rem} }
 </style>
 </head>
 <body>
-<header>
+<div class="masthead">
+  <div class="wordmark"><span class="mark"></span>Critical Materials Atlas</div>
+  <div class="mast-meta">Public-data research · USGS · IEA · UN Comtrade / CEPII BACI</div>
+</div>
+<header class="hero">
   <h1>Where do critical raw materials really come from?</h1>
   <p class="sub">For any material — or any country — see where it's <b>mined</b>, where it's <b>refined</b>, and the <b>real global trade</b>, both directions. Public USGS, IEA &amp; UN Comtrade (via CEPII BACI) data — with a built-in EU import-origin lens (Eurostat).</p>
-  <p class="sub" style="font-size:.92rem"><a href="methodology.html"><b>Methods &amp; validation</b></a> (incl. failure cases) · trade-reconciliation engine: <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
+  <p class="sub meta-links"><a href="methodology.html"><b>Methods &amp; validation</b></a> (incl. failure cases) · trade-reconciliation engine: <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
   <p class="stamp" id="stamp">loading…</p>
-  <div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by product (<span style="color:rgb(222,140,40)">amber</span> = raw material / ore, <span style="color:rgb(142,68,173)">violet</span> = refined product). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
 </header>
+<div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by product (<span style="color:rgb(222,140,40)">amber</span> = raw material / ore, <span style="color:rgb(142,68,173)">violet</span> = refined product). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
 
 <nav class="tabs">
   <button data-view="table" class="active">▤ Table</button>
