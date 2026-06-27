@@ -350,9 +350,17 @@ def country_imports(iso):
         ml = (m.get('mined') or [None])[0]
         rows.append({'m': m, 'top': top, 'topshare': o[top] / tot * 100,
                      'hhi': sum((v / tot) ** 2 for v in o.values()),
-                     'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': ml})
+                     'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': ml,
+                     'risk': RISK.get(m['label'], {}).get('score', 0)})
     rows.sort(key=lambda r: r['topshare'], reverse=True)
     return rows
+
+def country_vuln(rows):
+    # value-weighted average of (material supply-risk x this country's single-supplier reliance), 0-100
+    den = sum(r['tot'] for r in rows)
+    if not den:
+        return 0
+    return round(sum(r['tot'] * (r['risk'] / 100) * (r['topshare'] / 100) for r in rows) / den * 100)
 
 def country_china_series(iso):
     out = []
@@ -380,12 +388,13 @@ def country_page(iso, rows):
             f'({worst["topshare"]:.0f}% from {e(cname(worst["top"]))})' if worst else f'{e(name)} import profile')
     if china_dom:
         deck += f'; {china_dom} of those imports come mainly from China.'
+    vuln = country_vuln(rows)
     stats = [
+        (f'{vuln}/100', 'import-vulnerability index'),
         (str(len(rows)), 'critical materials imported'),
         (fmtV(total), f'total imports ({YEAR})'),
         (f'{china_dom}', 'mainly-from-China dependencies'),
-        (f'{gap_exposed}', 'where the supplier ≠ the lead miner'),
-        (f'{mean_hhi:.2f}', 'mean import concentration (HHI)'),
+        (f'{gap_exposed}', 'supplier ≠ the lead miner'),
     ]
     stat_html = ''.join(f'<div class="stat"><div class="n">{e(s[0])}</div><div class="l">{e(s[1])}</div></div>' for s in stats)
     body = []
@@ -398,7 +407,8 @@ def country_page(iso, rows):
             + (' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>' if ismine else '')
             + f'</td><td class="n">{r["topshare"]:.0f}%</td>'
             f'<td class="n" style="color:{hcol};font-weight:600">{r["hhi"]:.2f}</td>'
-            f'<td class="n">{r["cn"]:.0f}%</td><td class="n">{r["n"]}</td>'
+            + f'<td class="n" style="color:{"#c0392b" if r["risk"]>=60 else "#b35e16" if r["risk"]>=40 else "#888"};font-weight:600">{r["risk"]}</td>'
+            + f'<td class="n">{r["cn"]:.0f}%</td><td class="n">{r["n"]}</td>'
             f'<td class="n">{fmtV(r["tot"])}</td></tr>')
     ctrend = ''
     if len(MEAS_YEARS) >= 3:
@@ -431,10 +441,15 @@ def country_page(iso, rows):
   immediate customs origin, sorted by single-supplier concentration. <b>⛏</b> marks a top source that is also
   the material's lead miner (a genuine origin); without it, the supplier is a refiner or hub and the real
   mine sits further upstream (open the material's profile to see where).</p></div>
+  <div class="callout"><b>Import-vulnerability index ({vuln}/100).</b> A value-weighted average, across {e(name)}’s
+  imports, of each material’s <a href="risk.html">supply-risk index</a> &times; how concentrated {e(name)}’s
+  own sourcing of it is. High when it buys intrinsically risky materials from a single supplier; lower when
+  it diversifies. The <b>risk</b> column below is the material’s own score — multiply it by the country’s
+  share to see where {e(name)} is most exposed.</div>
   {ctrend}
   <table>
     <caption>{e(name)} — import sources by material ({YEAR})</caption>
-    <thead><tr><th>Material</th><th>Top source</th><th class="n">share</th><th class="n" title="Herfindahl of import sources">import HHI</th><th class="n">China</th><th class="n"># sources</th><th class="n">imports</th></tr></thead>
+    <thead><tr><th>Material</th><th>Top source</th><th class="n">share</th><th class="n" title="Herfindahl of import sources">import HHI</th><th class="n" title="the material's supply-risk index (0-100)">risk</th><th class="n">China</th><th class="n"># sources</th><th class="n">imports</th></tr></thead>
     <tbody>{''.join(body)}</tbody>
   </table>
   <div class="btnrow">
@@ -448,12 +463,14 @@ def country_page(iso, rows):
 </body></html>'''
 
 def countries_index(items):
-    items.sort(key=lambda t: t[2], reverse=True)
+    items.sort(key=lambda t: t[3], reverse=True)   # by import-vulnerability index
     cards = []
-    for iso, rows, total in items:
+    for iso, rows, total, score in items:
         cd = sum(1 for r in rows if r['top'] == 'CN' or r['cn'] > 45)
-        cards.append(f'<a class="card" href="profile-country-{e(iso)}.html"><div class="ct">{flag(iso)} {e(cname(iso))}</div>'
-                     f'<div class="cg">{len(rows)} materials · {fmtV(total)}' + (f' · <b>China-led {cd}</b>' if cd else '') + '</div></a>')
+        scol = '#c0392b' if score >= 35 else '#b35e16' if score >= 25 else '#3f9b46'
+        cards.append(f'<a class="card" href="profile-country-{e(iso)}.html"><div class="ct">{flag(iso)} {e(cname(iso))} '
+                     f'<span style="float:right;color:{scol};font-weight:800">{score}</span></div>'
+                     f'<div class="cg">vulnerability {score}/100 · {len(rows)} materials · {fmtV(total)}' + (f' · <b>China-led {cd}</b>' if cd else '') + '</div></a>')
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -469,7 +486,7 @@ def countries_index(items):
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Reference · by country</div>
   <h1>Dependency by country</h1>
-  <p class="deck">Where each major economy sources its critical materials — top supplier, concentration, and China exposure across the 32 materials. Sorted by import value.</p>
+  <p class="deck">Where each major economy sources its critical materials — and how exposed it is. The <b>import-vulnerability index</b> (0–100) value-weights each material’s supply-risk by how concentrated the country’s sourcing of it is. Ranked most-exposed first.</p>
 </div></section>
 <article style="max-width:1100px">
   <p style="color:#667179"><a href="profiles.html">← Browse by material instead</a></p>
@@ -497,7 +514,7 @@ def main():
         total = sum(r['tot'] for r in rows)
         if total >= 1e9 and len(rows) >= 8:
             open(os.path.join(ROOT, f'profile-country-{iso}.html'), 'w', encoding='utf8', newline='\n').write(country_page(iso, rows))
-            citems.append((iso, rows, total))
+            citems.append((iso, rows, total, country_vuln(rows)))
     open(os.path.join(ROOT, 'countries.html'), 'w', encoding='utf8', newline='\n').write(countries_index(citems))
     json.dump(sorted(t[0] for t in citems),
               open(os.path.join(ROOT, 'out', 'country_pages.json'), 'w', encoding='utf8'))   # manifest for the atlas
