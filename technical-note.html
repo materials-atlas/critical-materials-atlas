@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical note — Critical Materials Atlas</title>
+<meta name="description" content="Share-faithful reconstruction of bilateral trade from raw UN Comtrade, validated against CEPII BACI, with a pre-registered nowcast and the origin-gap finding for 32 critical materials.">
+<meta property="og:title" content="Technical note — share-faithful trade reconstruction & the origin gap">
+<meta property="og:description" content="A Gaulier–Zignago-style reconciliation of raw UN Comtrade, validated vs BACI, with a pre-registered nowcast and the origin-gap finding.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/technical-note.html">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+ :root{ --ink:#1a1f24; --ink-soft:#33404a; --mut:#667179; --faint:#9aa6ad; --line:#e6e9e8; --line-strong:#ccd5d3; --navy:#15323a; --navy2:#1d4a52; --bg:#fff; --bg-soft:#f4f7f6; --accent:#0e7c74; }
+ *{box-sizing:border-box}
+ body{font-family:'Inter',system-ui,Segoe UI,Arial,sans-serif;margin:0;color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+ .wrap{max-width:1220px;margin:0 auto;padding:0 1.6rem}
+ a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+ .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(140%) blur(8px);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+ .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:58px}
+ .wordmark{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.15em;font-size:.82rem;text-transform:uppercase;color:var(--navy);text-decoration:none}
+ .wordmark:hover{text-decoration:none}
+ .wordmark .mark{width:15px;height:15px;background:var(--navy);transform:rotate(45deg);border-radius:2px}
+ .topnav{display:flex;align-items:center;gap:1.5rem}
+ .topnav a{color:var(--ink-soft);font-size:.86rem;font-weight:600}
+ .topnav a:hover{color:var(--navy);text-decoration:none}
+ .topnav a.active{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:2px}
+ @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable{display:none} }
+ .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:2.6rem 0 2rem;border-bottom:3px solid var(--accent)}
+ .hero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:.7rem}
+ .hero h1{font-size:2rem;line-height:1.12;letter-spacing:-.02em;font-weight:800;color:#fff;margin:0;max-width:30ch}
+ .hero .authors{font-size:.92rem;color:#bdd1cf;margin-top:1rem}
+ .hero .authors b{color:#fff}
+ article{max-width:780px;margin:0 auto;padding:2.2rem 1.6rem 1rem;font-size:1rem}
+ article>p,article>ul,article>ol,article>.abstract{color:var(--ink-soft)}
+ .abstract{background:var(--bg-soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:1rem 1.25rem;font-size:.97rem;margin:.4rem 0 1.4rem}
+ .abstract b{color:var(--navy)}
+ h2{font-size:1.18rem;margin-top:2rem;padding-top:1.1rem;border-top:1px solid var(--line);color:var(--navy);letter-spacing:-.01em}
+ h2 .s{color:var(--faint);font-weight:700;margin-right:.5rem}
+ h3{font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem}
+ .eq{font-family:'Source Serif 4',Georgia,serif;font-style:italic;background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:.8rem 1.1rem;margin:.8rem 0;font-size:1.02rem;color:var(--ink);overflow-x:auto}
+ .eq .sub{font-size:.72em;vertical-align:sub;font-style:normal}
+ table{border-collapse:collapse;width:100%;font-size:.88rem;margin:1rem 0}
+ caption{caption-side:top;text-align:left;font-size:.82rem;color:var(--mut);margin-bottom:.4rem}
+ th,td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left}
+ th{color:var(--navy);border-bottom:2px solid var(--line-strong);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em}
+ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+ tbody tr:hover{background:var(--bg-soft)}
+ code{background:var(--bg-soft);padding:.07rem .35rem;border-radius:4px;font-size:.86em;border:1px solid var(--line)}
+ .refs{font-size:.86rem;color:var(--ink-soft)} .refs li{margin:.3rem 0}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:.2rem 0 1.2rem}
+ .btn{display:inline-block;font-weight:600;font-size:.88rem;padding:.5rem 1rem;border-radius:8px;text-decoration:none}
+ .btn.primary{background:var(--navy);color:#fff} .btn.primary:hover{background:var(--navy2);text-decoration:none}
+ .btn.ghost{border:1px solid var(--line);color:var(--navy);background:#fff} .btn.ghost:hover{background:var(--bg-soft);text-decoration:none}
+ footer.siteftr{background:#12272c;color:#a4b9b6;margin-top:2.8rem;padding:2.4rem 0 2rem;font-size:.84rem;line-height:1.6}
+ footer.siteftr .wrap{display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:2.2rem}
+ footer.siteftr h4{color:#fff;font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 .65rem;font-weight:700}
+ footer.siteftr a{color:#c1d6d2} footer.siteftr a:hover{color:#fff}
+ footer.siteftr .fineprint{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.13);margin-top:1.1rem;padding-top:1.1rem;color:#7c918d;font-size:.78rem}
+ @media(max-width:760px){ footer.siteftr .wrap{grid-template-columns:1fr;gap:1.4rem} }
+ /* print → clean citable PDF */
+ @media print{
+   .topbar,footer.siteftr,.toolbar,.no-print{display:none!important}
+   .hero{background:none!important;color:#000!important;border-bottom:2px solid #15323a;padding:0 0 1rem}
+   .hero .eyebrow{color:#0e7c74!important} .hero h1{color:#15323a!important;font-size:1.6rem} .hero .authors{color:#444!important} .hero .authors b{color:#000!important}
+   article{max-width:none;padding:1rem 0;font-size:10.5pt}
+   body{color:#111} h2{break-after:avoid} table{break-inside:avoid}
+   .abstract,.eq{background:#f6f7f7!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+   a{color:#0e7c74}
+   @page{margin:1.6cm}
+ }
+</style></head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav">
+    <a href="./">Atlas</a>
+    <a href="methodology.html">Methodology</a>
+    <a href="findings.html">Findings</a>
+    <a href="technical-note.html" class="active">Note</a>
+    <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
+  </nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Working note · June 2026</div>
+  <h1>Share-faithful reconstruction of bilateral trade from raw UN Comtrade — and a pre-registered nowcast for critical materials</h1>
+  <p class="authors"><b>materials-atlas</b> · independent research · public data only · <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · <a href="https://criticalmaterialsatlas.org/">interactive atlas</a></p>
+</div></section>
+
+<article>
+
+<div class="toolbar no-print">
+  <a class="btn primary" href="technical-note.pdf">⬇ Download PDF</a>
+  <a class="btn ghost" href="findings.html">The finding, interactive →</a>
+</div>
+
+<div class="abstract"><b>Abstract.</b> I reconstruct bilateral trade in 32 critical raw materials from raw UN Comtrade using a Gaulier–Zignago-style mirror reconciliation (reliability-weighted inverse-variance averaging of exporter and importer reports), and validate it against the official CEPII&nbsp;BACI dataset on the statistics that matter for supply-concentration analysis: top exporters, trade shares, and Herfindahl concentration. On 2024 the reconstruction recovers the top exporter in <b>25 of 30</b> materials with a share mean-absolute-error of <b>3.5pp</b> and an HHI correlation of <b>0.92</b> (importer side: 22/30, 4.2pp, 0.97). I then (i) document an <b>origin gap</b> — in <b>19 of 32</b> materials the top <em>exporter</em> is not the top <em>miner</em>, so import-origin statistics systematically overstate the geographic diversification of supply — and (ii) build a provisional 2025 and a directional 2026 nowcast whose central assumption (share persistence) I test out-of-sample (<b>85%</b> year-over-year top-exporter persistence; a leader's annual share move has P50&nbsp;3.5pp / P90&nbsp;8.7pp) and whose accuracy I <b>pre-register</b> against the next BACI release. All inputs are public; all code and committed fixtures reproduce the validation with no API key.</div>
+
+<h2><span class="s">1.</span>The question</h2>
+<p>Under customs rules, refining and substantial transformation confer "origin": when a country imports an ore, processes it and re-exports, the traded good takes the processor's nationality and the customs record stops there. Trade statistics therefore measure <em>where a material was last shipped from</em>, not <em>where it came out of the ground</em>. For critical-material supply-risk analysis — where the policy question is genuine geographic concentration of the upstream — this is a systematic blind spot. This note builds the data to measure it and quantifies how large the gap is.</p>
+
+<h2><span class="s">2.</span>Data and vintages</h2>
+<table>
+<caption>Table 1 — sources and exact vintages. All public.</caption>
+<thead><tr><th>Layer</th><th>Source</th><th>Vintage / coverage</th></tr></thead>
+<tbody>
+<tr><td>Reconciled bilateral trade (reference)</td><td>CEPII BACI</td><td>HS17 release <b>V202601</b> (Jan 2026), years 2018–2024</td></tr>
+<tr><td>Raw bilateral trade (reconstruction input)</td><td>UN Comtrade API</td><td>annual + monthly, reporter×partner, pulled 2025–26</td></tr>
+<tr><td>Mine production shares</td><td>USGS Mineral Commodity Summaries</td><td>latest published (approx.)</td></tr>
+<tr><td>Refining / processing shares</td><td>IEA Critical Minerals Outlook</td><td>latest published (approx.)</td></tr>
+<tr><td>Reserves</td><td>USGS Mineral Commodity Summaries</td><td>economically recoverable (approx.)</td></tr>
+<tr><td>Gravity covariates (CIF/FOB)</td><td>CEPII <code>dist_cepii</code></td><td>distance, contiguity</td></tr>
+<tr><td>Commodity prices (2026 tilt)</td><td>World Bank Pink Sheet</td><td>monthly, Q1-2026 vs Q1-2025</td></tr>
+</tbody>
+</table>
+<p>The 32 materials are mapped to HS6 product codes; three of them — gallium, germanium and hafnium — share a single HS6 code (811292) and so carry <em>identical</em> trade columns that cannot be separated. This is flagged wherever those materials appear.</p>
+
+<h2><span class="s">3.</span>Reconciliation method</h2>
+<p>For each product and country pair <i>(i,&nbsp;j)</i> two reports exist: the exporter's free-on-board value <i>x</i><span class="sub">ij</span> and the importer's cost-insurance-freight value <i>m</i><span class="sub">ji</span>. Following Gaulier &amp; Zignago (2010), I (a) strip an estimated CIF/FOB markup from import values, (b) weight each reporter by an estimate of its reliability, and (c) average the two reports as an inverse-variance weighted mean in logs.</p>
+<h3>CIF/FOB markup</h3>
+<p>The markup is recovered from the within-product mirror ratio. On the 32-material slice a gravity regression of log(<i>m</i>/<i>x</i>) on distance and contiguity is not identified (R²&nbsp;≈&nbsp;0.01) — BACI estimates this on the full ~5,000-product universe — so I fall back to a robust per-product median markup, the same quantity in reduced form.</p>
+<h3>Reliability weights (variance components)</h3>
+<p>Let <i>d</i><span class="sub">ij</span> = log&nbsp;<i>x</i><span class="sub">ij</span> − log&nbsp;<i>m</i><span class="sub">ji</span> be the mirror discrepancy. Modelling it as the sum of a reporter-<i>i</i> and reporter-<i>j</i> error, an OLS regression of <i>d</i>² on reporter dummies yields each reporter's error variance <i>v</i><span class="sub">i</span> (a variance-components estimator). The reconciled value averages the two reports with weights inversely proportional to those variances:</p>
+<div class="eq">log&nbsp;t<span class="sub">ij</span> &nbsp;=&nbsp; ( w<span class="sub">i</span>·log&nbsp;x<span class="sub">ij</span> &nbsp;+&nbsp; w<span class="sub">j</span>·log&nbsp;m̃<span class="sub">ji</span> ) / ( w<span class="sub">i</span> + w<span class="sub">j</span> ),&nbsp;&nbsp;&nbsp; w<span class="sub">i</span> = 1 / v<span class="sub">i</span></div>
+<p>where <i>m̃</i> is the import value after removing the CIF/FOB markup. The result is a single reconciled bilateral matrix per product per year — the same object BACI produces, built here from the raw reports.</p>
+
+<h2><span class="s">4.</span>Validation against BACI</h2>
+<p>The reconstruction is validated on the statistics the atlas actually uses — shares, ranks, concentration — not on absolute levels.</p>
+<table>
+<caption>Table 2 — reconstruction vs official BACI, both sides of the market.</caption>
+<thead><tr><th>Year · side</th><th class="n">Top-1 exporter/importer correct</th><th class="n">Share MAE</th><th class="n">HHI correlation</th></tr></thead>
+<tbody>
+<tr><td>2024 · exporter</td><td class="n">25 / 30</td><td class="n">3.5 pp</td><td class="n">0.92</td></tr>
+<tr><td>2024 · importer</td><td class="n">22 / 30</td><td class="n">4.2 pp</td><td class="n">0.97</td></tr>
+<tr><td>2022 · exporter</td><td class="n">22 / 30</td><td class="n">3.9 pp</td><td class="n">0.89</td></tr>
+</tbody>
+</table>
+<p><b>On levels.</b> Reconstructed totals run ~1.5–1.8× BACI. This is <em>not</em> a reconciliation artefact: current raw Comtrade already sits ~1.8–1.9× above BACI's published snapshot before any reconciliation (Comtrade absorbs continuous revisions; BACI applies additional outlier/quality filtering this note does not replicate), and the reconstruction sits <em>between</em> the two raw mirror reports. A settled year (2022) still shows ~1.5×, so the offset is partly persistent filtering, not only vintage. The claim is therefore explicitly <b>share-faithful</b>, not level-faithful — which is the relevant property for concentration analysis.</p>
+
+<h2><span class="s">5.</span>Nowcast and pre-registration</h2>
+<p>BACI lags ~18 months. For the years it has not released I extend the series:</p>
+<ul>
+<li><b>2025 (provisional).</b> The full reconciliation applied to the partial 2025 Comtrade that has been filed (~half of reporters by mid-2026), with levels calibrated per material to BACI 2024.</li>
+<li><b>2026 (directional).</b> Only ~Q1 monthly Comtrade exists, so 2025's reconciled structure is carried forward and only <em>levels</em> are tilted, per material, by reporter-matched Q1 export momentum blended with the World Bank Pink Sheet price change. Shares are held at 2025: this is a directional scenario, not a bilateral measurement.</li>
+</ul>
+<p>Both rest on one assumption — that last year's trade structure predicts this year's. I test it directly on the measured 2018–2024 series, scoring year <i>T</i>−1's shares as a nowcast for year <i>T</i>:</p>
+<table>
+<caption>Table 3 — out-of-sample persistence (192 material-years, 2018–2024).</caption>
+<thead><tr><th>Metric</th><th class="n">Value</th></tr></thead>
+<tbody>
+<tr><td>Top-exporter unchanged year-over-year</td><td class="n">85%</td></tr>
+<tr><td>Mean share MAE across exporters</td><td class="n">0.37 pp</td></tr>
+<tr><td>Leader's annual share move — median (P50)</td><td class="n">3.5 pp</td></tr>
+<tr><td>Leader's annual share move — P90</td><td class="n">8.7 pp</td></tr>
+</tbody>
+</table>
+<p>The P50/P90 are the nowcast's empirical uncertainty band, shown on the interactive year slider. Most-predictable materials: magnets, coking coal, manganese, niobium; least: arsenic, beryllium, hafnium, gallium, germanium, fluorspar (thin or non-reporting-producer markets).</p>
+<p><b>Pre-registration.</b> Before BACI 2025 exists, I have committed (<code>PREREGISTRATION.md</code>, in git history at the relevant commit) to how the frozen <code>flows_2025.json</code> will be scored when it releases — <code>validate.py 2025</code>, same metrics — with numeric thresholds (≥&nbsp;24/32 top-1, ≤&nbsp;5pp share MAE, ≥&nbsp;0.88 HHI correlation) and a commitment to publish the result pass or fail. The bet is written down first; the test is falsifiable on a fixed date by one command.</p>
+
+<h2><span class="s">6.</span>Finding: the origin gap</h2>
+<p>With reconciled trade and the mine-production layer side by side, define, per material in a given year:</p>
+<div class="eq">origin&nbsp;gap &nbsp;=&nbsp; (top exporter's share of world trade) &nbsp;−&nbsp; (that same country's share of world mine output)</div>
+<p>A large positive gap means a country sells far more than it mines — it processes or trans-ships someone else's ore. The headline result, on 2024: in <b>19 of 32</b> materials the top exporter is not the top miner; in <b>4 of 32</b> a country mining under 5% of world supply exports more than a quarter of it.</p>
+<table>
+<caption>Table 4 — largest origin gaps, 2024 (where exporter ≠ miner).</caption>
+<thead><tr><th>Material</th><th>Top exporter</th><th class="n">exports</th><th class="n">it mines</th><th class="n">gap</th><th>Lead miner</th></tr></thead>
+<tbody>
+<tr><td>Beryllium, unwrought</td><td>Kazakhstan</td><td class="n">89%</td><td class="n">0%</td><td class="n">+89</td><td>United States (65%)</td></tr>
+<tr><td>Strontium carbonate</td><td>Germany</td><td class="n">60%</td><td class="n">0%</td><td class="n">+60</td><td>Spain (30%)</td></tr>
+<tr><td>Lithium carbonate</td><td>Chile</td><td class="n">75%</td><td class="n">22%</td><td class="n">+53</td><td>Australia (52%)</td></tr>
+<tr><td>Bauxite / aluminium ore</td><td>Guinea</td><td class="n">72%</td><td class="n">25%</td><td class="n">+47</td><td>Australia (27%)</td></tr>
+<tr><td>Cobalt oxides &amp; hydroxides</td><td>Finland</td><td class="n">29%</td><td class="n">0%</td><td class="n">+29</td><td>DR Congo (76%)</td></tr>
+<tr><td>Tantalum, unwrought</td><td>United States</td><td class="n">22%</td><td class="n">0%</td><td class="n">+22</td><td>DR Congo (40%)</td></tr>
+<tr><td>Nickel, unwrought</td><td>Norway</td><td class="n">18%</td><td class="n">0%</td><td class="n">+18</td><td>Indonesia (60%)</td></tr>
+</tbody>
+</table>
+<p><b>The twist.</b> The intuitive story is "China hides behind refineries." The data only half-supports it: for many materials China is <em>both</em> the lead miner and the lead exporter — its position is largely genuine, not an artefact. The materials where exporter and miner diverge are instead fronted by industrial refiners and entrepôts — Finland for Congolese cobalt, Japan for largely Chinese-mined titanium, Germany for Spanish strontium, Norway for Indonesian nickel. The corrective therefore cuts both ways: it deflates apparent dependence on refiner countries, and it reveals that genuinely concentrated upstreams (Congo cobalt, Indonesian nickel) are <em>more</em> concentrated than the diversified-looking trade ledger suggests.</p>
+
+<h2><span class="s">7.</span>Limitations and non-claims</h2>
+<ul>
+<li>The origin gap is a <b>measurement gap</b> between two public datasets (reconciled trade shares vs USGS mine shares), <em>not</em> a fully traced physical supply chain. Some gap is legitimate — a refiner genuinely exports a <em>different product</em> than the mined ore (cobalt chemicals vs cobalt ore), which sits under a different code.</li>
+<li>Customs data cannot separate a true refiner from a re-export hub; trade-derived country roles are <em>trade exposure</em>, not proof of physical processing. Entrepôts are flagged.</li>
+<li>gallium / germanium / hafnium share one HS6 code and cannot be separated in trade.</li>
+<li>Figures are share-faithful, not level-faithful; absolute values are not claimed. Mine and refine layers are approximate USGS/IEA reference shares, undated. 2025 is provisional; 2026 is directional.</li>
+</ul>
+
+<h2><span class="s">8.</span>Reproducibility</h2>
+<p>Two public repositories, no API key required to reproduce the validation: the interactive atlas (<a href="https://github.com/materials-atlas/critical-materials-atlas">materials-atlas/critical-materials-atlas</a>) and the reconciliation engine (<a href="https://github.com/materials-atlas/comtrade-reconcile">materials-atlas/comtrade-reconcile</a>, CI green). On a fresh clone of the engine: <code>pip install -r requirements.txt</code>, then <code>ATLAS_ROOT=fixtures python validate.py 2024</code> (Table&nbsp;2), <code>python backtest.py</code> (Table&nbsp;3), <code>python findings.py</code> (Tables&nbsp;4). The Comtrade key is read from the environment and never committed.</p>
+
+<h2><span class="s"></span>References</h2>
+<ul class="refs">
+<li>Gaulier, G. &amp; Zignago, S. (2010). <i>BACI: International Trade Database at the Product-Level</i>. CEPII Working Paper 2010-23.</li>
+<li>UN Comtrade Database. United Nations Statistics Division.</li>
+<li>U.S. Geological Survey. <i>Mineral Commodity Summaries</i>.</li>
+<li>International Energy Agency. <i>Global Critical Minerals Outlook</i>.</li>
+<li>World Bank. <i>Commodity Markets ("Pink Sheet")</i>.</li>
+</ul>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div>
+    <h4>Critical Materials Atlas</h4>
+    An independent demonstration from public data: where 32 critical raw materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the real source. Not affiliated with, nor representing, any institution.
+  </div>
+  <div>
+    <h4>Navigate</h4>
+    <a href="./">Interactive atlas</a><br>
+    <a href="findings.html">The origin gap</a><br>
+    <a href="methodology.html">Methodology</a><br>
+    <a href="https://github.com/materials-atlas/comtrade-reconcile">Reconciliation engine</a>
+  </div>
+  <div>
+    <h4>Sources</h4>
+    USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank
+  </div>
+  <div class="fineprint">Working note, June 2026 · materials-atlas · public data only · validated vs official BACI (top-1 25/30, share MAE 3.5%). Figures share-faithful, not level-faithful.</div>
+</div></footer>
+
+</body></html>

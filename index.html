@@ -243,6 +243,7 @@
     <a href="./">Atlas</a>
     <a href="methodology.html">Methodology</a>
     <a href="findings.html" class="hideable">Findings</a>
+    <a href="technical-note.html" class="hideable">Note</a>
     <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
     <a href="#" id="nav-csv" class="cta">Download data</a>
   </nav>
@@ -290,7 +291,7 @@
   <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
   <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional nowcast (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
 <main>
   <div id="view-table" class="view">
@@ -701,7 +702,7 @@ function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textCon
   const ev=$('#yr-event'); if(ev) ev.innerHTML=POLICY_EVENTS[String(y)]?('▸ <b>'+y+'</b> — '+POLICY_EVENTS[String(y)]):'';
   ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
       (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
-      ?'⚠⚠ <b>2026 is a directional nowcast</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
+      ?'⚠⚠ <b>2026 is a directional scenario</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
       :(FLOWS&&FLOWS.provisional)
       ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only. <i>Out-of-sample (2018–2024), a lead exporter\'s world share moves ±3.5pp (median) to ±8.7pp (P90) per year — the nowcast\'s empirical error band.</i>'
       :'';
@@ -894,8 +895,8 @@ function renderGlobe(){
   $('#globe-info').innerHTML = resMode
     ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): economically recoverable (USGS), exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
     : single
-    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce. Arc thickness ∝ trade value; labels = top hubs; drag to spin.</span> Click an arc.`
-    : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners). Arc thickness ∝ trade value; labels = top hubs; drag to spin.</span> Pick a material or country.`;
+    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce. Arc thickness ∝ trade value; labels = top hubs; drag to spin. An illustrative overview — for precise shares use the <b>Table</b> or <b>Map</b>.</span> Click an arc.`
+    : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners). Arc thickness ∝ trade value; labels = top hubs; drag to spin. An illustrative overview — for precise shares use the <b>Table</b> or <b>Map</b>.</span> Pick a material or country.`;
 }
 
 /* ---------- sankey: raw source → refiner → EU ---------- */
