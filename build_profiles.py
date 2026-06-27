@@ -28,6 +28,11 @@ for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
         FLOW_BY_YEAR[_y] = _d
 MEAS_YEARS = sorted(FLOW_BY_YEAR)
 
+try:   # supply-risk scores (build_risk.py must run first)
+    RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
+except Exception:
+    RISK = {}
+
 def shareOfIn(d, label, key, iso):
     a = (d.get('materials', {}).get(label)) or []
     o = tot = 0.0
@@ -127,8 +132,8 @@ FOOTER = ('<footer class="siteftr"><div class="wrap">'
  'real source. Not affiliated with, nor representing, any institution.</div>'
  '<div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles.html">Material profiles</a><br>'
  '<a href="countries.html">By country</a><br><a href="findings.html">The origin gap</a><br>'
- '<a href="methodology.html">Methodology</a><br><a href="data.html">Data &amp; API</a><br>'
- '<a href="updates.html">Updates</a></div>'
+ '<a href="risk.html">Supply-risk index</a><br><a href="scenarios.html">Supply-shock scenarios</a><br>'
+ '<a href="methodology.html">Methodology</a><br><a href="data.html">Data &amp; API</a></div>'
  '<div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>'
  'UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>'
  f'<div class="fineprint">Figures computed from public data (trade year {YEAR}, reconciled CEPII BACI; '
@@ -197,6 +202,7 @@ def page(m):
 
     # at-a-glance stats
     stats = []
+    if RISK.get(label): stats.append((f'{RISK[label]["score"]}<span style="color:var(--faint);font-weight:600">/100</span>', 'supply-risk index'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))
     if mi: stats.append((f'{flag(mi["c"])} {cname(mi["c"])}', f'lead miner · {mi["v"]:.0f}%'))
     if re: stats.append((f'{flag(re["c"])} {cname(re["c"])}', f'lead refiner · {re["v"]:.0f}%'))

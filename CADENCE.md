@@ -19,8 +19,10 @@ python reconcile\build_2026_nowcast.py         # -> out/flows_2026.json  (direct
 # 2. reference layers (mine / refine / reserves / EU lens) when USGS/IEA update
 Rscript build_static.R                         # -> out/data.json
 
-# 3. regenerate the derived site artefacts
-python build_profiles.py                       # -> profile-*.html + profiles.html (deterministic)
+# 3. regenerate the derived site artefacts (order matters: risk before profiles)
+python build_risk.py                           # -> out/risk.json + risk.html (supply-risk index)
+python build_scenarios.py                      # -> scenarios.html (supply-shock stress tests)
+python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
 
 # 4. sanity-check, then commit + push (Pages redeploys automatically)
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)

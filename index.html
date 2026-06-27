@@ -278,6 +278,7 @@
   <input id="search" placeholder="filter: material or country…">
   <select id="sort">
     <option value="dom">sort: country domination ↓</option>
+    <option value="risk">sort: supply-risk index ↓</option>
     <option value="mine">sort: mine share ↓</option>
     <option value="diff">sort: mined ≠ exporter ↓</option>
     <option value="name">sort: name A–Z</option>
@@ -341,6 +342,7 @@
     <h4>Data &amp; methods</h4>
     <a href="methodology.html">Methodology &amp; validation</a><br>
     <a href="findings.html">Headline finding — the origin gap</a><br>
+    <a href="risk.html">Supply-risk index</a><br>
     <a href="scenarios.html">Supply-shock scenarios</a><br>
     <a href="technical-note.html">Technical note</a><br>
     <a href="profiles.html">Material profiles</a><br>
@@ -382,7 +384,7 @@ const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
 const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
 
-let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null, COUNTRY_PAGES=new Set();
+let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null, COUNTRY_PAGES=new Set(), RISK={};
 // Export-control / policy timeline — surfaced under the year slider so structural breaks in the trade have a cause.
 const POLICY_EVENTS={
  '2018':'US–China tariff escalation begins; supply-security of critical minerals returns to the policy agenda.',
@@ -479,6 +481,7 @@ function exportCSV(){
 { const c=$('#csv'); if(c) c.onclick=exportCSV; const pl=$('#permalink'); if(pl) pl.onclick=copyPermalink; const nc=$('#nav-csv'); if(nc) nc.onclick=e=>{ e.preventDefault(); exportCSV(); }; }
 
 fetch('out/country_pages.json').then(r=>r.json()).then(a=>{ COUNTRY_PAGES=new Set(a); }).catch(()=>{});
+fetch('out/risk.json').then(r=>r.json()).then(d=>{ (d.materials||[]).forEach(m=>RISK[m.label]=m); if(VIEW==='table'&&MATS.length) renderTable(); }).catch(()=>{});
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
   $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
@@ -555,6 +558,7 @@ function renderTable(){
     if(colSort==='name') list.sort((a,b)=>colDir*a.title.localeCompare(b.title));
     else list.sort((a,b)=>colDir*(cv(a)-cv(b))); }
   else if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
+  else if(sort==='risk') list.sort((a,b)=>((RISK[b.label]?.score||0)-(RISK[a.label]?.score||0)));
   else if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
   else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
   else list.sort((a,b)=>{ const A=domInfo(a),B=domInfo(b);   // triangle: China by column position (mined-China first, then refined, exporter, importer), then others grouped
@@ -643,6 +647,7 @@ function showDetail(key){
       <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
       <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
+      ${RISK[m.label]?`<div class="kpi"><div class="v">${RISK[m.label].score}<small style="font-size:.6em;color:#aaa">/100</small></div><div class="l"><a href="risk.html">supply-risk index</a></div></div>`:''}
       <div class="kpi"><div class="v">${(topNshare(m.label,'from',3)||0).toFixed(0)}%</div><div class="l">top-3 exporters' share</div></div>
       ${(()=>{ const g=originGap(m); return g!=null?`<div class="kpi"><div class="v" style="color:${g>40?'#c0392b':g>15?'#b35e16':'#3f9b46'}">${(g>=0?'+':'')+g.toFixed(0)}pp</div><div class="l">origin gap — top exporter's trade share minus its <i>mine</i> share</div></div>`:''; })()}
     </div>

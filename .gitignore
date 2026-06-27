@@ -2,6 +2,7 @@ raw/
 out/*
 !out/data.json
 !out/country_pages.json
+!out/risk.json
 !out/flows.json
 !out/flows_*.json
 !out/share.png
@@ -15,3 +16,6 @@ out/*
 .RData
 .Rproj.user/
 reconcile/*.csv
+
+# Claude Code local settings (machine-specific, do not commit)
+.claude/settings.local.json

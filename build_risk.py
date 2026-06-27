@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""
+A TRANSPARENT supply-risk index per material. Not a black-box "criticality" verdict — an explicit weighted
+blend of four named, visible components, each 0-100, computed from the public data. The components are
+always shown next to the score so a reader can audit (or reweight) it.
+
+  production  (30%)  top miner's share of world output            — USGS
+  refining    (25%)  top refiner's share (else export HHI proxy)  — IEA / trade
+  trade       (25%)  export Herfindahl (chokepoint in the flow)   — reconciled trade
+  opacity     (20%)  origin gap = exporter share - its mine share — how misleading the trade ledger is
+
+Writes out/risk.json (consumed by the atlas + profiles) and risk.html (the league table).
+"""
+import json, os, html
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+YEAR = os.environ.get('PROFILE_YEAR', '2024')
+data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
+flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
+NAMES = flows.get('names', {})
+SHARED = {'gallium', 'germanium', 'hafnium'}
+W = {'production': 0.30, 'refining': 0.25, 'trade': 0.25, 'opacity': 0.20}
+
+def cname(i): return NAMES.get(i, i)
+def e(s): return html.escape(str(s), quote=True)
+def flag(iso):
+    if not iso or len(iso) != 2 or not iso.isalpha(): return ''
+    return ''.join(chr(0x1F1E6 + ord(c.upper()) - 65) for c in iso)
+
+def exporters(label):
+    a = (flows.get('materials', {}).get(label)) or []
+    o, tot = {}, 0.0
+    for f in a:
+        o[f['from']] = o.get(f['from'], 0.0) + f['value']; tot += f['value']
+    return o, tot
+
+def components(m):
+    label = m['label']
+    o, tot = exporters(label)
+    mined = m.get('mined') or []
+    refined = m.get('refined') or []
+    prod = mined[0]['v'] if mined else 0.0
+    ehhi = (sum((v / tot) ** 2 for v in o.values()) * 100) if tot else 0.0
+    ref = (refined[0]['v'] if refined else ehhi)
+    # origin gap
+    gap = 0.0
+    if tot:
+        te = max(o, key=o.get); te_sh = o[te] / tot * 100
+        te_mine = next((x['v'] for x in mined if x['c'] == te), 0.0)
+        gap = max(0.0, te_sh - te_mine)
+    opacity = min(gap, 60.0) / 60.0 * 100
+    c = {'production': round(prod, 1), 'refining': round(ref, 1),
+         'trade': round(ehhi, 1), 'opacity': round(opacity, 1)}
+    score = sum(W[k] * c[k] for k in W)
+    return c, round(score)
+
+COLORS = {'production': '#c77f0a', 'refining': '#6d5fb0', 'trade': '#0e7c74', 'opacity': '#b4532b'}
+
+def main():
+    rows = []
+    for m in data['materials']:
+        c, score = components(m)
+        rows.append({'label': m['label'], 'title': m['title'].split(' (')[0],
+                     'score': score, 'components': c, 'shared': m['label'] in SHARED})
+    rows.sort(key=lambda r: r['score'], reverse=True)
+    json.dump({'weights': W, 'year': YEAR, 'materials': rows},
+              open(os.path.join(ROOT, 'out', 'risk.json'), 'w', encoding='utf8'), indent=1)
+
+    # league-table page
+    body = []
+    for i, r in enumerate(rows, 1):
+        segs = ''.join(
+            f'<span title="{e(k)} {r["components"][k]:.0f}/100 (weight {int(W[k]*100)}%)" '
+            f'style="display:inline-block;height:14px;width:{W[k]*r["components"][k]*0.9:.1f}%;background:{COLORS[k]}"></span>'
+            for k in ['production', 'refining', 'trade', 'opacity'])
+        sc = r['score']; scol = '#c0392b' if sc >= 60 else '#b35e16' if sc >= 40 else '#3f9b46'
+        body.append(
+            f'<tr><td class="n" style="color:#9aa6ad">{i}</td>'
+            f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
+            f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc}</td>'
+            f'<td style="width:42%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
+    legend = ' &nbsp; '.join(f'<span style="color:{COLORS[k]}">■</span> {k} <span style="color:#9aa6ad">({int(W[k]*100)}%)</span>'
+                             for k in ['production', 'refining', 'trade', 'opacity'])
+    motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg>')
+    out = f'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Supply-risk index — Critical Materials Atlas</title>
+<meta name="description" content="A transparent 0-100 supply-risk score for 32 critical materials, built from visible components: production, refining and trade concentration, and origin opacity.">
+<meta property="og:title" content="Critical-material supply-risk index">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
+  <a href="profiles.html" class="hideable">Profiles</a><a href="scenarios.html" class="hideable">Scenarios</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero">{motif}<div class="wrap">
+  <div class="eyebrow">Index · supply risk</div>
+  <h1>Supply-risk index</h1>
+  <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>
+</div></section>
+<article style="max-width:960px">
+  <div class="callout"><b>How the score is built.</b> {legend}. Each component is 0–100, from public data
+  (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin
+  gap). The score is their weighted sum. It is a transparent heuristic for comparison — <i>not</i> an
+  official criticality assessment, and it deliberately ignores price, substitutability and stockpiles.</div>
+  <table>
+    <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th>components (width = weighted contribution)</th></tr></thead>
+    <tbody>{''.join(body)}</tbody>
+  </table>
+  <p class="note">⛓ gallium/germanium/hafnium share one HS6 code (identical trade). Computed by build_risk.py from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/risk.json">risk.json</a>.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings.html">The origin gap</a><br><a href="scenarios.html">Supply-shock scenarios</a><br><a href="countries.html">Dependency by country</a></div>
+  <div><h4>Sources</h4>UN Comtrade · CEPII BACI<br>USGS · IEA · World Bank</div>
+  <div class="fineprint">A transparent heuristic, components visible. Not an official criticality score.</div>
+</div></footer>
+</body></html>'''
+    open(os.path.join(ROOT, 'risk.html'), 'w', encoding='utf8', newline='\n').write(out)
+    print(f'wrote risk.html + out/risk.json  (top: {rows[0]["title"]} {rows[0]["score"]}, '
+          f'{rows[1]["title"]} {rows[1]["score"]}, {rows[2]["title"]} {rows[2]["score"]})')
+
+if __name__ == '__main__':
+    main()
