@@ -490,6 +490,7 @@ def countries_index(items):
 </div></section>
 <article style="max-width:1100px">
   <p style="color:#667179"><a href="profiles.html">← Browse by material instead</a></p>
+  <p class="note">The index measures the <i>vulnerability of a country's sourcing</i> — risky materials bought from few suppliers — not its economic size or systemic importance. A small economy buying from single suppliers can therefore rank above a large, diversified one.</p>
   <div class="cards">{''.join(cards)}</div>
 </article>
 {FOOTER}
