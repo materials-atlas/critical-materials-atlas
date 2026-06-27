@@ -59,6 +59,18 @@ ranked = sorted(MATS, key=lambda m: risk.get(m['label'], {}).get('score', 0), re
 no_cushion = [m for m in MATS if risk.get(m['label'], {}).get('score', 0) >= 45 and (m.get('recycling') or 0) < 5]
 no_cushion.sort(key=lambda m: risk.get(m['label'], {}).get('score', 0), reverse=True)
 
+# --- second finding: "no way out" = hard-to-substitute + ~0% recycled + supply-concentrated ---
+nwo = []
+for m in MATS:
+    te, tes = top_exporter(m['label'])
+    reftop = (m.get('refined') or [{}])[0]
+    concentrated = tes >= 40 or reftop.get('v', 0) >= 50
+    if m.get('substitutability') == 'high' and (m.get('recycling') or 0) < 5 and concentrated:
+        nwo.append((risk.get(m['label'], {}).get('score', 0), strip(m['title']), te, round(tes),
+                    reftop.get('c'), reftop.get('v'), m['label']))
+nwo.sort(reverse=True)
+nwo_china = sum(1 for x in nwo if x[4] == 'CN')
+
 # --- country vulnerability (inline) ---
 def country_rows(iso):
     rows = []
@@ -116,6 +128,12 @@ def main():
         f'<b>{vuln}</b><span style="color:#9aa6ad">/100 · {fmtV(total)}</span></li>'
         for vuln, total, iso, n in countries[:6])
     chain = (', '.join(e(c) for c in full_chain) or '—')
+    nwo_rows = ''.join(
+        f'<tr><td><a href="profile-{e(lab)}.html">{e(t)}</a></td>'
+        f'<td class="n" style="font-weight:700;color:#c0392b">{sc}</td>'
+        f'<td>{flag(te)} {e(cname(te))} {tes}%</td>'
+        f'<td>{(flag(rc)+" "+e(cname(rc))+" "+str(int(rv))+"%") if rc else "—"}</td></tr>'
+        for sc, t, te, tes, rc, rv, lab in nwo)
 
     out = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -147,6 +165,17 @@ def main():
   <div class="stat"><div class="n">{len(full_chain)}</div><div class="l">China leads mine + refine + export</div></div>
 </div></section>
 <article style="max-width:1000px">
+  <div class="callout hot" style="padding:1.2rem 1.4rem">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#b4532b">Second finding</div>
+    <h2 style="margin:.25rem 0 .5rem;border:none;padding:0">The materials with no way out</h2>
+    <p style="margin:.2rem 0 .7rem"><b>{len(nwo)}</b> of the {len(MATS)} materials are at once <b>hard to substitute</b>,
+    <b>essentially un-recycled</b> (&lt;5% end-of-life), and <b>supply-concentrated</b> — so a disruption bites
+    (no substitute), has no secondary supply to fall back on (no recycling), and one country controls the flow.
+    For <b>{nwo_china} of the {len(nwo)}</b>, that chokepoint is China's refining. These — not the loudest headlines — are the
+    materials where a shock is both most damaging and least mitigable.</p>
+    <table style="margin:.3rem 0 0"><thead><tr><th>Material</th><th class="n">risk</th><th>top exporter</th><th>refined in</th></tr></thead>
+    <tbody>{nwo_rows}</tbody></table>
+  </div>
   <div class="grid2">
     {card('Highest supply risk', f'<ul>{hr}</ul><p class="note"><a href="risk.html">full index →</a></p>')}
     {card('The refiner illusion — biggest origin gaps', f'<ul>{og}</ul><p class="note"><a href="findings.html">the finding →</a></p>')}

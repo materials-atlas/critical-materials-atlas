@@ -64,6 +64,7 @@ def main():
         c, gross, score, recyc = components(m)
         rows.append({'label': m['label'], 'title': m['title'].split(' (')[0],
                      'score': score, 'gross': gross, 'recycling': recyc,
+                     'substitutability': m.get('substitutability'),
                      'components': c, 'shared': m['label'] in SHARED})
     rows.sort(key=lambda r: r['score'], reverse=True)
     json.dump({'weights': W, 'year': YEAR, 'materials': rows},
@@ -80,12 +81,15 @@ def main():
         rec = r['recycling']
         rcell = (f'<td class="n" style="color:#3f9b46" title="end-of-life recycling input rate (EU CRM 2023); '
                  f'discounts the gross score of {r["gross"]}">{rec}%</td>') if rec else '<td class="n" style="color:#c9d2d0">—</td>'
+        sub = r.get('substitutability') or '—'
+        subcol = {'high': '#c0392b', 'medium': '#b35e16', 'low': '#3f9b46'}.get(sub, '#c9d2d0')
+        scell = f'<td style="color:{subcol};font-weight:600;font-size:.8rem;text-transform:uppercase">{e(sub)}</td>'
         body.append(
             f'<tr><td class="n" style="color:#9aa6ad">{i}</td>'
             f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
             f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc}</td>'
-            f'{rcell}'
-            f'<td style="width:38%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
+            f'{rcell}{scell}'
+            f'<td style="width:34%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
     legend = ' &nbsp; '.join(f'<span style="color:{COLORS[k]}">■</span> {k} <span style="color:#9aa6ad">({int(W[k]*100)}%)</span>'
                              for k in ['production', 'refining', 'trade', 'opacity'])
     motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg>')
@@ -117,10 +121,12 @@ def main():
   gap). Their weighted sum is the <i>gross</i> score; it is then <b>discounted for recyclability</b> — a
   material's gross risk is cut by 0.4 &times; its end-of-life recycling input rate (EU CRM 2023), so a highly
   recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw
-  concentration implies. A transparent heuristic for comparison — <i>not</i> an official criticality assessment; it still
-  ignores price and substitutability.</div>
+  concentration implies. <b>Substitutability</b> (how hard the material is to replace, EU CRM) is shown
+  alongside but <i>not</i> folded into the score — read it as a second axis: a high-risk material that is also
+  hard to substitute is the more strategic. A transparent heuristic — <i>not</i> an official criticality
+  assessment; it ignores price and stockpiles.</div>
   <table>
-    <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th>gross components (width = weighted contribution)</th></tr></thead>
+    <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th title="how hard to substitute (EU CRM) — shown, not scored">subst.</th><th>gross components (width = weighted contribution)</th></tr></thead>
     <tbody>{''.join(body)}</tbody>
   </table>
   <p class="note">⛓ gallium/germanium/hafnium share one HS6 code (identical trade). Computed by build_risk.py from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/risk.json">risk.json</a>.</p>
