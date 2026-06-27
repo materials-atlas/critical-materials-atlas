@@ -274,6 +274,8 @@ def page(m):
   <h3>● Reserves — where it could come from (USGS, economically recoverable)</h3>{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is produced today (USGS)</h3>{bars(m.get('mined'), 'ore')}
   <h3>● Refined / processed (IEA)</h3>{bars(m.get('refined'), 'ref')}
+  <h3>● Recycling — end-of-life input rate (EU CRM 2023)</h3>
+  <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'no reliable figure.'}</p>
   <h2>Who trades it ({YEAR})</h2>
   {trade_block}
   {shared_note}

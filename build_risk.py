@@ -51,17 +51,20 @@ def components(m):
     opacity = min(gap, 60.0) / 60.0 * 100
     c = {'production': round(prod, 1), 'refining': round(ref, 1),
          'trade': round(ehhi, 1), 'opacity': round(opacity, 1)}
-    score = sum(W[k] * c[k] for k in W)
-    return c, round(score)
+    gross = sum(W[k] * c[k] for k in W)
+    recyc = m.get('recycling') or 0
+    net = gross * (1 - 0.4 * recyc / 100)   # recyclability discount: up to 40% off at 100% EOL recycling
+    return c, round(gross), round(net), recyc
 
 COLORS = {'production': '#c77f0a', 'refining': '#6d5fb0', 'trade': '#0e7c74', 'opacity': '#b4532b'}
 
 def main():
     rows = []
     for m in data['materials']:
-        c, score = components(m)
+        c, gross, score, recyc = components(m)
         rows.append({'label': m['label'], 'title': m['title'].split(' (')[0],
-                     'score': score, 'components': c, 'shared': m['label'] in SHARED})
+                     'score': score, 'gross': gross, 'recycling': recyc,
+                     'components': c, 'shared': m['label'] in SHARED})
     rows.sort(key=lambda r: r['score'], reverse=True)
     json.dump({'weights': W, 'year': YEAR, 'materials': rows},
               open(os.path.join(ROOT, 'out', 'risk.json'), 'w', encoding='utf8'), indent=1)
@@ -74,11 +77,15 @@ def main():
             f'style="display:inline-block;height:14px;width:{W[k]*r["components"][k]*0.9:.1f}%;background:{COLORS[k]}"></span>'
             for k in ['production', 'refining', 'trade', 'opacity'])
         sc = r['score']; scol = '#c0392b' if sc >= 60 else '#b35e16' if sc >= 40 else '#3f9b46'
+        rec = r['recycling']
+        rcell = (f'<td class="n" style="color:#3f9b46" title="end-of-life recycling input rate (EU CRM 2023); '
+                 f'discounts the gross score of {r["gross"]}">{rec}%</td>') if rec else '<td class="n" style="color:#c9d2d0">—</td>'
         body.append(
             f'<tr><td class="n" style="color:#9aa6ad">{i}</td>'
             f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
             f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc}</td>'
-            f'<td style="width:42%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
+            f'{rcell}'
+            f'<td style="width:38%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
     legend = ' &nbsp; '.join(f'<span style="color:{COLORS[k]}">■</span> {k} <span style="color:#9aa6ad">({int(W[k]*100)}%)</span>'
                              for k in ['production', 'refining', 'trade', 'opacity'])
     motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg>')
@@ -107,10 +114,13 @@ def main():
 <article style="max-width:960px">
   <div class="callout"><b>How the score is built.</b> {legend}. Each component is 0–100, from public data
   (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin
-  gap). The score is their weighted sum. It is a transparent heuristic for comparison — <i>not</i> an
-  official criticality assessment, and it deliberately ignores price, substitutability and stockpiles.</div>
+  gap). Their weighted sum is the <i>gross</i> score; it is then <b>discounted for recyclability</b> — a
+  material's gross risk is cut by 0.4 &times; its end-of-life recycling input rate (EU CRM 2023), so a highly
+  recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw
+  concentration implies. A transparent heuristic for comparison — <i>not</i> an official criticality assessment; it still
+  ignores price and substitutability.</div>
   <table>
-    <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th>components (width = weighted contribution)</th></tr></thead>
+    <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th>gross components (width = weighted contribution)</th></tr></thead>
     <tbody>{''.join(body)}</tbody>
   </table>
   <p class="note">⛓ gallium/germanium/hafnium share one HS6 code (identical trade). Computed by build_risk.py from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/risk.json">risk.json</a>.</p>

@@ -11,6 +11,8 @@
    "label": "beryllium",
    "title": "Beryllium, unwrought",
    "score": 76,
+   "gross": 76,
+   "recycling": 0,
    "components": {
     "production": 65,
     "refining": 65,
@@ -23,6 +25,8 @@
    "label": "lithium",
    "title": "Lithium carbonate",
    "score": 64,
+   "gross": 64,
+   "recycling": 0,
    "components": {
     "production": 52,
     "refining": 65,
@@ -32,21 +36,11 @@
    "shared": false
   },
   {
-   "label": "magnesium",
-   "title": "Magnesium, unwrought",
-   "score": 63,
-   "components": {
-    "production": 90,
-    "refining": 90,
-    "trade": 53.5,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
    "label": "niobium",
    "title": "Ferro-niobium",
    "score": 63,
+   "gross": 63,
+   "recycling": 0,
    "components": {
     "production": 88,
     "refining": 88,
@@ -56,13 +50,15 @@
    "shared": false
   },
   {
-   "label": "tungsten",
-   "title": "Tungsten, unwrought",
-   "score": 59,
+   "label": "magnesium",
+   "title": "Magnesium, unwrought",
+   "score": 60,
+   "gross": 63,
+   "recycling": 13,
    "components": {
-    "production": 80,
-    "refining": 83,
-    "trade": 56.4,
+    "production": 90,
+    "refining": 90,
+    "trade": 53.5,
     "opacity": 0.0
    },
    "shared": false
@@ -71,6 +67,8 @@
    "label": "phosphorus",
    "title": "Phosphorus",
    "score": 59,
+   "gross": 59,
+   "recycling": 0,
    "components": {
     "production": 70,
     "refining": 70,
@@ -83,6 +81,8 @@
    "label": "gallium",
    "title": "Gallium",
    "score": 58,
+   "gross": 58,
+   "recycling": 0,
    "components": {
     "production": 98,
     "refining": 98,
@@ -92,21 +92,11 @@
    "shared": true
   },
   {
-   "label": "cobalt",
-   "title": "Cobalt oxides & hydroxides",
-   "score": 56,
-   "components": {
-    "production": 76,
-    "refining": 76,
-    "trade": 18.2,
-    "opacity": 47.9
-   },
-   "shared": false
-  },
-  {
    "label": "magnets",
    "title": "Rare-earth permanent magnets",
    "score": 54,
+   "gross": 54,
+   "recycling": 1,
    "components": {
     "production": 69,
     "refining": 90,
@@ -119,6 +109,8 @@
    "label": "strontium",
    "title": "Strontium carbonate",
    "score": 54,
+   "gross": 54,
+   "recycling": 0,
    "components": {
     "production": 30,
     "refining": 60,
@@ -130,7 +122,9 @@
   {
    "label": "graphite",
    "title": "Natural graphite",
-   "score": 53,
+   "score": 52,
+   "gross": 53,
+   "recycling": 3,
    "components": {
     "production": 78,
     "refining": 95,
@@ -140,14 +134,30 @@
    "shared": false
   },
   {
-   "label": "bauxite",
-   "title": "Aluminium ores / bauxite",
-   "score": 52,
+   "label": "cobalt",
+   "title": "Cobalt oxides & hydroxides",
+   "score": 51,
+   "gross": 56,
+   "recycling": 22,
    "components": {
-    "production": 27,
-    "refining": 58,
-    "trade": 54.9,
-    "opacity": 78.6
+    "production": 76,
+    "refining": 76,
+    "trade": 18.2,
+    "opacity": 47.9
+   },
+   "shared": false
+  },
+  {
+   "label": "tungsten",
+   "title": "Tungsten, unwrought",
+   "score": 49,
+   "gross": 59,
+   "recycling": 42,
+   "components": {
+    "production": 80,
+    "refining": 83,
+    "trade": 56.4,
+    "opacity": 0.0
    },
    "shared": false
   },
@@ -155,6 +165,8 @@
    "label": "vanadium",
    "title": "Ferro-vanadium",
    "score": 48,
+   "gross": 48,
+   "recycling": 2,
    "components": {
     "production": 68,
     "refining": 70,
@@ -167,6 +179,8 @@
    "label": "fluorspar",
    "title": "Fluorspar, >97% CaF2",
    "score": 47,
+   "gross": 47,
+   "recycling": 1,
    "components": {
     "production": 60,
     "refining": 60,
@@ -176,21 +190,11 @@
    "shared": false
   },
   {
-   "label": "manganese",
-   "title": "Manganese ore",
-   "score": 47,
-   "components": {
-    "production": 36,
-    "refining": 95,
-    "trade": 33.2,
-    "opacity": 22.7
-   },
-   "shared": false
-  },
-  {
    "label": "silicon",
    "title": "Silicon, < 99.99%",
    "score": 46,
+   "gross": 46,
+   "recycling": 0,
    "components": {
     "production": 70,
     "refining": 79,
@@ -200,33 +204,39 @@
    "shared": false
   },
   {
-   "label": "antimony",
-   "title": "Antimony, unwrought",
-   "score": 43,
+   "label": "manganese",
+   "title": "Manganese ore",
+   "score": 46,
+   "gross": 47,
+   "recycling": 9,
    "components": {
-    "production": 48,
-    "refining": 75,
-    "trade": 17.1,
-    "opacity": 25.7
+    "production": 36,
+    "refining": 95,
+    "trade": 33.2,
+    "opacity": 22.7
    },
    "shared": false
   },
   {
-   "label": "platinum",
-   "title": "Platinum, unwrought",
-   "score": 43,
+   "label": "bauxite",
+   "title": "Aluminium ores / bauxite",
+   "score": 45,
+   "gross": 52,
+   "recycling": 32,
    "components": {
-    "production": 70,
-    "refining": 70,
-    "trade": 16.7,
-    "opacity": 0.0
+    "production": 27,
+    "refining": 58,
+    "trade": 54.9,
+    "opacity": 78.6
    },
    "shared": false
   },
   {
    "label": "boron",
    "title": "Natural borates",
-   "score": 42,
+   "score": 41,
+   "gross": 42,
+   "recycling": 1,
    "components": {
     "production": 47,
     "refining": 60,
@@ -236,9 +246,25 @@
    "shared": false
   },
   {
+   "label": "platinum",
+   "title": "Platinum, unwrought",
+   "score": 40,
+   "gross": 43,
+   "recycling": 14,
+   "components": {
+    "production": 70,
+    "refining": 70,
+    "trade": 16.7,
+    "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
    "label": "germanium",
    "title": "Germanium",
    "score": 39,
+   "gross": 39,
+   "recycling": 2,
    "components": {
     "production": 68,
     "refining": 60,
@@ -248,9 +274,25 @@
    "shared": true
   },
   {
+   "label": "antimony",
+   "title": "Antimony, unwrought",
+   "score": 38,
+   "gross": 43,
+   "recycling": 28,
+   "components": {
+    "production": 48,
+    "refining": 75,
+    "trade": 17.1,
+    "opacity": 25.7
+   },
+   "shared": false
+  },
+  {
    "label": "titanium",
    "title": "Titanium, unwrought",
-   "score": 38,
+   "score": 35,
+   "gross": 38,
+   "recycling": 19,
    "components": {
     "production": 32,
     "refining": 50,
@@ -260,9 +302,25 @@
    "shared": false
   },
   {
+   "label": "arsenic",
+   "title": "Arsenic",
+   "score": 34,
+   "gross": 34,
+   "recycling": 0,
+   "components": {
+    "production": 28,
+    "refining": 70,
+    "trade": 18.3,
+    "opacity": 15.4
+   },
+   "shared": false
+  },
+  {
    "label": "nickel",
    "title": "Nickel, unwrought",
-   "score": 36,
+   "score": 34,
+   "gross": 36,
+   "recycling": 16,
    "components": {
     "production": 60,
     "refining": 40,
@@ -274,7 +332,9 @@
   {
    "label": "phosphate",
    "title": "Phosphate rock",
-   "score": 35,
+   "score": 33,
+   "gross": 35,
+   "recycling": 17,
    "components": {
     "production": 44,
     "refining": 40,
@@ -284,21 +344,11 @@
    "shared": false
   },
   {
-   "label": "arsenic",
-   "title": "Arsenic",
-   "score": 34,
-   "components": {
-    "production": 28,
-    "refining": 70,
-    "trade": 18.3,
-    "opacity": 15.4
-   },
-   "shared": false
-  },
-  {
    "label": "hafnium",
    "title": "Hafnium, unwrought",
    "score": 33,
+   "gross": 33,
+   "recycling": 0,
    "components": {
     "production": 40,
     "refining": 40,
@@ -311,6 +361,8 @@
    "label": "tantalum",
    "title": "Tantalum, unwrought",
    "score": 33,
+   "gross": 33,
+   "recycling": 1,
    "components": {
     "production": 40,
     "refining": 40,
@@ -323,6 +375,8 @@
    "label": "feldspar",
    "title": "Feldspar",
    "score": 27,
+   "gross": 27,
+   "recycling": 0,
    "components": {
     "production": 28,
     "refining": 30,
@@ -334,7 +388,9 @@
   {
    "label": "palladium",
    "title": "Palladium, unwrought",
-   "score": 26,
+   "score": 24,
+   "gross": 26,
+   "recycling": 14,
    "components": {
     "production": 40,
     "refining": 40,
@@ -346,7 +402,9 @@
   {
    "label": "copper",
    "title": "Refined copper cathodes",
-   "score": 25,
+   "score": 23,
+   "gross": 25,
+   "recycling": 17,
    "components": {
     "production": 23,
     "refining": 45,
@@ -359,6 +417,8 @@
    "label": "cokingcoal",
    "title": "Coking coal",
    "score": 22,
+   "gross": 22,
+   "recycling": 0,
    "components": {
     "production": 30,
     "refining": 20.7,
@@ -370,7 +430,9 @@
   {
    "label": "helium",
    "title": "Helium",
-   "score": 22,
+   "score": 21,
+   "gross": 22,
+   "recycling": 1,
    "components": {
     "production": 46,
     "refining": 15.4,
@@ -383,6 +445,8 @@
    "label": "baryte",
    "title": "Baryte",
    "score": 16,
+   "gross": 16,
+   "recycling": 1,
    "components": {
     "production": 30,
     "refining": 11.1,
