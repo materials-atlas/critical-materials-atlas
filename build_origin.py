@@ -146,25 +146,26 @@ out = f'''<!doctype html>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · origin tracing</div>
   <h1>What's hidden behind the refiner</h1>
-  <p class="deck">The origin gap, traced. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to the likely true mine origin — revealing how much of a nation's critical-material supply really traces to a producer its customs data never names.</p>
+  <p class="deck">The origin gap, traced — as a first-order estimate. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to a likely mine origin, showing how much of a nation's critical-material supply is sourced <i>via a refiner</i> rather than the producer its customs data names.</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><b>The rule.</b> For every import flow, if the supplier genuinely mines the material (world mine
   share &ge; {MINER_MIN:.0f}%) the origin is the supplier; otherwise the supplier is a refiner or hub and the value is
   re-attributed to the material's <b>dominant mine</b>. A country's <b>hidden dependence</b> is the share of its
-  imports re-attributed away from the apparent supplier. <b>First-order trace</b> — we don't observe each refiner's
-  ore sourcing, so refiners are assigned to the leading producer; read it as the scale of the refiner illusion, not
-  a customs-grade origin. Computed by <code>build_origin.py</code> from public data.</div>
+  imports re-attributed away from the apparent supplier. <b>First-order trace — an upper bound.</b> We don't observe
+  each refiner's ore sourcing, so all refiner-fronted flow is assigned to the single leading producer; that is an
+  <i>upper bound</i> on single-origin concentration (real refiners blend ores, scrap and contracts). Read it as the
+  <i>scale</i> of the refiner illusion, not a customs-grade origin. Computed by <code>build_origin.py</code> from public data.</div>
 
   <h2 style="margin:1.6rem 0 .5rem">Hidden dependence by importer</h2>
-  <p class="note" style="margin-top:0">Apparent #1 supplier vs the #1 traced origin, and the share of imports whose true origin differs from the customs supplier. Re-export hubs excluded.</p>
+  <p class="note" style="margin-top:0">Apparent #1 supplier vs the likely #1 origin (upper-bound attribution), and the share of imports that are <i>refiner-fronted</i> (sourced via a non-producer). Re-export hubs excluded; ranked by import value.</p>
   <table>
-    <thead><tr><th class="n">#</th><th>Importer</th><th>Apparent #1 supplier</th><th>Traced #1 origin</th><th class="n" title="share of imports re-attributed from the apparent supplier to a mine origin">hidden</th></tr></thead>
+    <thead><tr><th class="n">#</th><th>Importer</th><th>Apparent #1 supplier</th><th>Likely #1 origin</th><th class="n" title="share of imports sourced via a refiner/non-producer rather than a genuine mine">refiner-fronted</th></tr></thead>
     <tbody>{''.join(irows)}</tbody>
   </table>
 
-  <h2 style="margin:2rem 0 .5rem">Where the refiner layer disguises concentration</h2>
-  <p class="note" style="margin-top:0">{n_disguised} of {len(mat_rows)} materials are <i>more</i> concentrated at the mine than the trade ledger shows: apparent-supplier diversity overstates true origin diversification.</p>
+  <h2 style="margin:2rem 0 .5rem">Where the mine stage is more concentrated than the trade stage</h2>
+  <p class="note" style="margin-top:0">{n_disguised} of {len(mat_rows)} materials are <i>more</i> concentrated at the mine (production) than in trade — apparent-supplier diversity can overstate how diversified the underlying production is. Trade and mine concentration are different objects (multi-stage chains naturally disperse trade), so read this as a flag, not proof of disguise.</p>
   <table>
     <thead><tr><th>Material</th><th>Apparent #1 supplier (trade HHI)</th><th>Traced #1 origin (mine HHI)</th><th class="n" title="how much more concentrated the true origin is">HHI gap</th></tr></thead>
     <tbody>{''.join(drows)}</tbody>

@@ -85,6 +85,10 @@ for m in data['materials']:
     prod_hhi_wgi = sum((x['v'] / 100.0) ** 2 * grisk(x['c']) for x in mined)
     gov_exposure = sum((x['v'] / 100.0) * grisk(x['c']) for x in mined)   # production-weighted governance risk
     top_mine = mined[0]['c'] if mined else None
+    msum = sum(x['v'] for x in mined) or 1
+    gov_wavg = sum(x['v'] * grisk(x['c']) for x in mined) / msum if mined else None   # production-weighted producer risk
+    sig = [x for x in mined if x['v'] >= 10]                               # the worst-governance SIGNIFICANT producer
+    worst = max(sig, key=lambda x: grisk(x['c'])) if sig else (mined[0] if mined else None)
     # trade stage
     sh, _ = export_shares(label)
     trade_hhi = sum(s ** 2 for s in sh.values())
@@ -95,6 +99,9 @@ for m in data['materials']:
     graedel = (100 * prod_hhi + 100 * gov_exposure + 100 * (1 - eol) + 100 * si) / 4
     rows.append({'label': label, 'title': TITLES[label], 'shared': label in SHARED,
                  'top_mine': top_mine, 'gov_top': round(grisk(top_mine), 2) if top_mine else None,
+                 'gov_wavg': round(gov_wavg, 2) if gov_wavg is not None else None,
+                 'worst_c': worst['c'] if worst else None,
+                 'worst_g': round(grisk(worst['c']), 2) if worst else None,
                  'sr_eu_raw': sr_eu_raw, 'sr_plain_raw': sr_plain_raw,
                  'graedel': round(graedel, 1), 'ours': RISK.get(label)})
 
@@ -140,7 +147,7 @@ def gdelta(d):
 
 mr = []
 for i, r in enumerate(rows, 1):
-    gc = r['gov_top']
+    gc = r['gov_wavg'] if r['gov_wavg'] is not None else r['gov_top']
     gcol = '#c0392b' if gc and gc >= 0.7 else '#b35e16' if gc and gc >= 0.5 else '#3f9b46'
     ours = f'{r["ours"]}' if r['ours'] is not None else '—'
     mr.append(
@@ -152,8 +159,13 @@ for i, r in enumerate(rows, 1):
         f'<td>{flag(r["top_mine"])} <span style="color:{gcol}">{gc:.2f}</span></td>'
         f'<td class="n">{gdelta(r["gov_delta"])}</td></tr>')
 
-def namelist(rs):
-    return ', '.join(f'{e(r["title"])} <span style="color:#9aa6ad">({flag(r["top_mine"])}{e(cname(r["top_mine"]))})</span>' for r in rs)
+def namelist(rs, key='top'):
+    out = []
+    for r in rs:
+        c, g = (r['worst_c'], r['worst_g']) if key == 'worst' and r.get('worst_c') else (r['top_mine'], r['gov_top'])
+        gtxt = f' g{g}' if g is not None else ''
+        out.append(f'{e(r["title"])} <span style="color:#9aa6ad">({flag(c)}{e(cname(c))}{gtxt})</span>')
+    return ', '.join(out)
 
 def corrtxt(v): return f'{v:+.2f}' if v is not None else 'n/a'
 
@@ -182,25 +194,27 @@ out = f'''<!doctype html>
 <article style="max-width:1000px">
   <div class="callout"><b>What this adds.</b> We form a governance-risk weight <code>g = (2.5 − WGI)/5</code> from the
   World Bank Worldwide Governance Indicators and a governance-weighted Herfindahl <code>Σ shareᵢ²·gᵢ</code>, then
-  replicate the <b>EU/SCRREEN supply-risk</b> shape — bottleneck-stage governance-weighted concentration,
-  discounted by recycling, scaled by substitutability — and a <b>Graedel/Yale-style supply-risk axis</b> from the
-  components we hold. Both are compared to our own transparent index. <b>Honest limits:</b> depletion-time and
-  environmental implications (Graedel's third axis) are omitted — no tonnage or LCA data — and production HHI uses
-  top-N shares. Computed by <code>build_criticality.py</code> from public data.</div>
+  build an <b>EU/SCRREEN-shaped</b> supply-risk proxy — bottleneck-stage governance-weighted concentration,
+  discounted by recycling, scaled by substitutability — and a <b>Graedel-style supply-risk axis</b> from the
+  components we hold, both compared to our own index. <b>These are proxies on public approximations, not the official
+  EU or Yale scores</b> (which use CRM-specific, stage-granular, expert-weighted inputs) — read this as a governance
+  <i>lens</i>. Further limits: depletion-time and environmental implications (Graedel's third axis) are omitted — no
+  tonnage or LCA data — and production HHI uses top-N mine shares, truncating tail concentration. Computed by
+  <code>build_criticality.py</code> from public data.</div>
 
-  <div class="callout" style="background:#f3f7f6">The three rankings broadly agree — Spearman ρ
-  <b>{corrtxt(corr['eu_vs_ours'])}</b> (EU vs our index), <b>{corrtxt(corr['graedel_vs_ours'])}</b> (Graedel vs ours),
-  <b>{corrtxt(corr['eu_vs_graedel'])}</b> (EU vs Graedel) — which is the point: a fully transparent, reproducible
-  index lands close to the established methods. The <b>governance weighting is where they diverge</b>: it pushes
-  <b>up</b> materials mined in fragile states — {namelist(promoted)} — and <b>down</b> those mined in well-governed
-  ones — {namelist(demoted)}.</div>
+  <div class="callout" style="background:#f3f7f6">The rankings sit in the same family — Spearman ρ
+  <b>{corrtxt(corr['eu_vs_ours'])}</b> (EU-shaped vs our index), <b>{corrtxt(corr['graedel_vs_ours'])}</b> (Graedel-shaped vs ours),
+  <b>{corrtxt(corr['eu_vs_graedel'])}</b> (the two proxies) — but this is partly <i>mechanical</i>: all three share inputs
+  (concentration, recycling, substitutability), so read it as "same family", not independent validation. What the
+  <b>governance weighting changes</b>: it pushes <b>up</b> materials with a high-governance-risk producer in the mix —
+  {namelist(promoted, 'worst')} — and <b>down</b> those mined in well-governed countries — {namelist(demoted, 'top')}.</div>
 
   <table>
     <thead><tr><th class="n">#</th><th>Material</th>
       <th class="n" title="EU/SCRREEN-style governance-weighted supply risk, scaled 0-100">EU-SR</th>
       <th class="n" title="Graedel/Yale-style supply-risk axis (no depletion/environmental)">Graedel</th>
       <th class="n" title="our transparent index, for comparison">ours</th>
-      <th title="governance risk of the lead miner: 0 best, 1 worst">lead-miner g</th>
+      <th title="production-weighted governance risk of the producers: 0 best, 1 worst">producer risk</th>
       <th class="n" title="rank change from governance weighting (vs the same index un-weighted)">gov. effect</th></tr></thead>
     <tbody>{''.join(mr)}</tbody>
   </table>

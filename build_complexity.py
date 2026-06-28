@@ -72,6 +72,7 @@ phi = np.zeros((Mn, Mn))
 for a in range(Mn):
     for b in range(Mn):
         if a == b or km[a] == 0 or km[b] == 0: continue
+        if MATS[a] in SHARED and MATS[b] in SHARED: continue   # identical HS6 -> tautological relatedness, exclude
         phi[a, b] = min(co[a, b] / km[a], co[a, b] / km[b])
 
 # ---- assemble ----
@@ -142,9 +143,11 @@ out = f'''<!doctype html>
   Balassa <b>RCA</b> (a country is a competitive exporter of a material when its export share of that material exceeds
   its overall export share), a robust <b>capability</b> score, and <b>relatedness</b> (do the same countries
   export both?). <b>Ubiquity</b> = how many countries clear RCA&ge;1: a low number means only a handful of countries can
-  competitively supply it — a market signal of strategic scarcity that sits beside the mine-concentration story. Trade
-  stage only (mine/refine data are top-N, too sparse for full RCA); mine leader shown for contrast. Computed by
-  <code>build_complexity.py</code> from public data.</div>
+  competitively supply it — a market signal of relative scarcity beside the mine-concentration story. <b>Caveat:</b> RCA
+  here is computed over the 32-material matrix only, so it is specialization <i>within</i> critical materials, not
+  economy-wide Balassa RCA — small and re-export economies can surface as "competitive", and the RCA&ge;1 threshold makes
+  ubiquity sensitive to thin flows and HS6 pooling. Mine/refine data are top-N (too sparse for full RCA); mine leader
+  shown for contrast. Computed by <code>build_complexity.py</code> from public data.</div>
 
   <h2 style="margin:1.6rem 0 .5rem">Materials by ubiquity — the rarest are the most strategic</h2>
   <table>
@@ -153,7 +156,7 @@ out = f'''<!doctype html>
   </table>
 
   <h2 style="margin:2rem 0 .5rem">The most capable exporters</h2>
-  <p class="note" style="margin-top:0">Capability = the sum of 1/ubiquity over the materials a country competitively exports (RCA&ge;1) — it rewards commanding many materials that <i>few others can</i>. The leaders are diversified industrial economies, not single-resource miners.</p>
+  <p class="note" style="margin-top:0">Capability = the sum of 1/ubiquity over the materials a country competitively exports (RCA&ge;1) — it rewards commanding many materials that <i>few others can</i>. Leaders mix large industrial economies with smaller open / re-export economies — read this as export specialization, not industrial capability per se.</p>
   <table style="max-width:560px">
     <thead><tr><th class="n">#</th><th>Country</th><th class="n" title="sum of 1/ubiquity over the materials it competitively exports (rewards rare baskets)">capability</th><th class="n" title="materials it competitively exports (RCA>=1)">diversity</th></tr></thead>
     <tbody>{''.join(cr)}</tbody>

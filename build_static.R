@@ -31,7 +31,7 @@ products <- list(
        note  = "China is the largest origin (~58% value, ~73% tonnage) but not alone - Britain supplies ~22%. Even here the naive view (Germany 55%) misstates who the EU relies on."),
   list(label = "cobalt",    code = "28220000",
        title = "Cobalt oxides & hydroxides (CN 2822 00 00)",
-       note  = "The refined-cobalt dependency (the metal alone is diversified): China supplies ~62% of EU cobalt-oxide imports - the battery-cathode precursor. The naive view blames Belgium (~43%, Umicore's refining/clearing hub again); the origin is China, with the UK behind."),
+       note  = "The refined-cobalt dependency (the metal alone is diversified): China refines ~62% of the EU's cobalt-oxide imports - the battery-cathode precursor. The naive view blames Belgium (~43%, Umicore's refining/clearing hub); the refined-product origin is China, while the MINE origin is DR Congo (~76% of world cobalt mining) - the trade ledger shows the refiner, not the mine."),
   list(label = "niobium",   code = "72029300",
        title = "Ferro-niobium (CN 7202 93 00)",
        note  = "A near-monopoly, but on Brazil, not China: Brazil supplies ~84% of EU ferro-niobium (the additive for high-strength steel), with Canada the rest. The naive view points at the Netherlands (~49%, a Rotterdam clearing artefact); the origin is Brazil."),
