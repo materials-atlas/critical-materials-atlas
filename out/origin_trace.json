@@ -1,0 +1,585 @@
+{
+ "year": "2024",
+ "rule": "refiner/hub imports re-attributed to dominant mine (first-order trace)",
+ "materials": [
+  {
+   "label": "magnets",
+   "title": "Rare-earth permanent magnets",
+   "top_apparent": "CN",
+   "app_hhi": 0.424,
+   "top_origin": "CN",
+   "emb_hhi": 0.537,
+   "disguised": true
+  },
+  {
+   "label": "magnesium",
+   "title": "Magnesium, unwrought",
+   "top_apparent": "CN",
+   "app_hhi": 0.535,
+   "top_origin": "CN",
+   "emb_hhi": 0.899,
+   "disguised": true
+  },
+  {
+   "label": "germanium",
+   "title": "Germanium",
+   "top_apparent": "CN",
+   "app_hhi": 0.158,
+   "top_origin": "CN",
+   "emb_hhi": 0.806,
+   "disguised": true
+  },
+  {
+   "label": "graphite",
+   "title": "Natural graphite",
+   "top_apparent": "CN",
+   "app_hhi": 0.216,
+   "top_origin": "CN",
+   "emb_hhi": 0.776,
+   "disguised": true
+  },
+  {
+   "label": "gallium",
+   "title": "Gallium",
+   "top_apparent": "CN",
+   "app_hhi": 0.158,
+   "top_origin": "CN",
+   "emb_hhi": 0.961,
+   "disguised": true
+  },
+  {
+   "label": "tungsten",
+   "title": "Tungsten, unwrought",
+   "top_apparent": "CN",
+   "app_hhi": 0.564,
+   "top_origin": "CN",
+   "emb_hhi": 0.849,
+   "disguised": true
+  },
+  {
+   "label": "cobalt",
+   "title": "Cobalt oxides & hydroxides",
+   "top_apparent": "FI",
+   "app_hhi": 0.182,
+   "top_origin": "CD",
+   "emb_hhi": 0.743,
+   "disguised": true
+  },
+  {
+   "label": "niobium",
+   "title": "Ferro-niobium",
+   "top_apparent": "BR",
+   "app_hhi": 0.597,
+   "top_origin": "BR",
+   "emb_hhi": 0.817,
+   "disguised": true
+  },
+  {
+   "label": "boron",
+   "title": "Natural borates",
+   "top_apparent": "TR",
+   "app_hhi": 0.377,
+   "top_origin": "TR",
+   "emb_hhi": 0.432,
+   "disguised": true
+  },
+  {
+   "label": "lithium",
+   "title": "Lithium carbonate",
+   "top_apparent": "CL",
+   "app_hhi": 0.589,
+   "top_origin": "AU",
+   "emb_hhi": 0.376,
+   "disguised": false
+  },
+  {
+   "label": "antimony",
+   "title": "Antimony, unwrought",
+   "top_apparent": "TJ",
+   "app_hhi": 0.171,
+   "top_origin": "CN",
+   "emb_hhi": 0.466,
+   "disguised": true
+  },
+  {
+   "label": "platinum",
+   "title": "Platinum, unwrought",
+   "top_apparent": "ZA",
+   "app_hhi": 0.167,
+   "top_origin": "ZA",
+   "emb_hhi": 0.642,
+   "disguised": true
+  },
+  {
+   "label": "palladium",
+   "title": "Palladium, unwrought",
+   "top_apparent": "ZA",
+   "app_hhi": 0.143,
+   "top_origin": "RU",
+   "emb_hhi": 0.391,
+   "disguised": true
+  },
+  {
+   "label": "fluorspar",
+   "title": "Fluorspar, >97% CaF2",
+   "top_apparent": "MX",
+   "app_hhi": 0.253,
+   "top_origin": "CN",
+   "emb_hhi": 0.537,
+   "disguised": true
+  },
+  {
+   "label": "titanium",
+   "title": "Titanium, unwrought",
+   "top_apparent": "JP",
+   "app_hhi": 0.186,
+   "top_origin": "CN",
+   "emb_hhi": 0.333,
+   "disguised": true
+  },
+  {
+   "label": "silicon",
+   "title": "Silicon, < 99.99%",
+   "top_apparent": "CN",
+   "app_hhi": 0.202,
+   "top_origin": "CN",
+   "emb_hhi": 0.689,
+   "disguised": true
+  },
+  {
+   "label": "feldspar",
+   "title": "Feldspar",
+   "top_apparent": "TR",
+   "app_hhi": 0.225,
+   "top_origin": "TR",
+   "emb_hhi": 0.319,
+   "disguised": true
+  },
+  {
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
+   "top_apparent": "AT",
+   "app_hhi": 0.127,
+   "top_origin": "CN",
+   "emb_hhi": 0.542,
+   "disguised": true
+  },
+  {
+   "label": "manganese",
+   "title": "Manganese ore",
+   "top_apparent": "ZA",
+   "app_hhi": 0.332,
+   "top_origin": "ZA",
+   "emb_hhi": 0.328,
+   "disguised": false
+  },
+  {
+   "label": "bauxite",
+   "title": "Aluminium ores / bauxite",
+   "top_apparent": "GN",
+   "app_hhi": 0.549,
+   "top_origin": "AU",
+   "emb_hhi": 0.279,
+   "disguised": false
+  },
+  {
+   "label": "phosphate",
+   "title": "Phosphate rock",
+   "top_apparent": "JO",
+   "app_hhi": 0.154,
+   "top_origin": "CN",
+   "emb_hhi": 0.414,
+   "disguised": true
+  },
+  {
+   "label": "baryte",
+   "title": "Baryte",
+   "top_apparent": "IN",
+   "app_hhi": 0.111,
+   "top_origin": "CN",
+   "emb_hhi": 0.334,
+   "disguised": true
+  },
+  {
+   "label": "arsenic",
+   "title": "Arsenic",
+   "top_apparent": "CN",
+   "app_hhi": 0.183,
+   "top_origin": "PE",
+   "emb_hhi": 0.317,
+   "disguised": true
+  },
+  {
+   "label": "beryllium",
+   "title": "Beryllium, unwrought",
+   "top_apparent": "KZ",
+   "app_hhi": 0.799,
+   "top_origin": "US",
+   "emb_hhi": 0.579,
+   "disguised": false
+  },
+  {
+   "label": "hafnium",
+   "title": "Hafnium, unwrought",
+   "top_apparent": "CN",
+   "app_hhi": 0.158,
+   "top_origin": "AU",
+   "emb_hhi": 0.406,
+   "disguised": true
+  },
+  {
+   "label": "strontium",
+   "title": "Strontium carbonate",
+   "top_apparent": "DE",
+   "app_hhi": 0.408,
+   "top_origin": "ES",
+   "emb_hhi": 0.265,
+   "disguised": false
+  },
+  {
+   "label": "phosphorus",
+   "title": "Phosphorus",
+   "top_apparent": "VN",
+   "app_hhi": 0.343,
+   "top_origin": "CN",
+   "emb_hhi": 0.569,
+   "disguised": true
+  },
+  {
+   "label": "tantalum",
+   "title": "Tantalum, unwrought",
+   "top_apparent": "US",
+   "app_hhi": 0.161,
+   "top_origin": "CD",
+   "emb_hhi": 0.356,
+   "disguised": true
+  },
+  {
+   "label": "cokingcoal",
+   "title": "Coking coal",
+   "top_apparent": "AU",
+   "app_hhi": 0.207,
+   "top_origin": "AU",
+   "emb_hhi": 0.298,
+   "disguised": true
+  },
+  {
+   "label": "helium",
+   "title": "Helium",
+   "top_apparent": "QA",
+   "app_hhi": 0.154,
+   "top_origin": "US",
+   "emb_hhi": 0.388,
+   "disguised": true
+  },
+  {
+   "label": "copper",
+   "title": "Refined copper cathodes",
+   "top_apparent": "CD",
+   "app_hhi": 0.113,
+   "top_origin": "CL",
+   "emb_hhi": 0.296,
+   "disguised": true
+  },
+  {
+   "label": "nickel",
+   "title": "Nickel, unwrought",
+   "top_apparent": "NO",
+   "app_hhi": 0.096,
+   "top_origin": "ID",
+   "emb_hhi": 0.575,
+   "disguised": true
+  }
+ ],
+ "importers": [
+  {
+   "c": "CN",
+   "name": "China",
+   "total": 90545953472.0,
+   "n_mats": 32,
+   "top_supplier": "CD",
+   "supplier_share": 15.1,
+   "top_origin": "AU",
+   "origin_share": 28.5,
+   "hidden": 35.2,
+   "shifts": true
+  },
+  {
+   "c": "JP",
+   "name": "Japan",
+   "total": 30723278304.0,
+   "n_mats": 32,
+   "top_supplier": "AU",
+   "supplier_share": 55.8,
+   "top_origin": "AU",
+   "origin_share": 74.1,
+   "hidden": 27.6,
+   "shifts": false
+  },
+  {
+   "c": "KR",
+   "name": "South Korea",
+   "total": 19741665690.0,
+   "n_mats": 32,
+   "top_supplier": "AU",
+   "supplier_share": 26.4,
+   "top_origin": "AU",
+   "origin_share": 55.2,
+   "hidden": 38.1,
+   "shifts": false
+  },
+  {
+   "c": "US",
+   "name": "United States",
+   "total": 17880444463.0,
+   "n_mats": 32,
+   "top_supplier": "CL",
+   "supplier_share": 33.4,
+   "top_origin": "CL",
+   "origin_share": 41.4,
+   "hidden": 39.4,
+   "shifts": false
+  },
+  {
+   "c": "IN",
+   "name": "India",
+   "total": 14195810048.0,
+   "n_mats": 32,
+   "top_supplier": "ZA",
+   "supplier_share": 23.5,
+   "top_origin": "AU",
+   "origin_share": 35.0,
+   "hidden": 63.1,
+   "shifts": true
+  },
+  {
+   "c": "DE",
+   "name": "Germany",
+   "total": 12466886915.0,
+   "n_mats": 32,
+   "top_supplier": "US",
+   "supplier_share": 11.0,
+   "top_origin": "CL",
+   "origin_share": 26.8,
+   "hidden": 63.2,
+   "shifts": true
+  },
+  {
+   "c": "TR",
+   "name": "Turkey",
+   "total": 8265955297.0,
+   "n_mats": 31,
+   "top_supplier": "RU",
+   "supplier_share": 36.3,
+   "top_origin": "CL",
+   "origin_share": 37.6,
+   "hidden": 51.2,
+   "shifts": true
+  },
+  {
+   "c": "IT",
+   "name": "Italy",
+   "total": 7818206021.0,
+   "n_mats": 32,
+   "top_supplier": "BG",
+   "supplier_share": 11.3,
+   "top_origin": "CL",
+   "origin_share": 48.9,
+   "hidden": 68.2,
+   "shifts": true
+  },
+  {
+   "c": "BR",
+   "name": "Brazil",
+   "total": 6556766937.0,
+   "n_mats": 32,
+   "top_supplier": "CL",
+   "supplier_share": 32.1,
+   "top_origin": "CL",
+   "origin_share": 32.3,
+   "hidden": 16.7,
+   "shifts": false
+  },
+  {
+   "c": "VN",
+   "name": "Vietnam",
+   "total": 5633887063.0,
+   "n_mats": 30,
+   "top_supplier": "AU",
+   "supplier_share": 50.3,
+   "top_origin": "AU",
+   "origin_share": 57.1,
+   "hidden": 38.2,
+   "shifts": false
+  },
+  {
+   "c": "MY",
+   "name": "Malaysia",
+   "total": 4620111313.0,
+   "n_mats": 31,
+   "top_supplier": "AU",
+   "supplier_share": 40.2,
+   "top_origin": "CL",
+   "origin_share": 39.6,
+   "hidden": 60.5,
+   "shifts": true
+  },
+  {
+   "c": "TH",
+   "name": "Thailand",
+   "total": 4362071911.0,
+   "n_mats": 32,
+   "top_supplier": "CN",
+   "supplier_share": 19.8,
+   "top_origin": "CL",
+   "origin_share": 48.2,
+   "hidden": 53.0,
+   "shifts": true
+  },
+  {
+   "c": "FR",
+   "name": "France",
+   "total": 4317486781.0,
+   "n_mats": 32,
+   "top_supplier": "CL",
+   "supplier_share": 19.7,
+   "top_origin": "CL",
+   "origin_share": 31.9,
+   "hidden": 39.0,
+   "shifts": false
+  },
+  {
+   "c": "ID",
+   "name": "Indonesia",
+   "total": 3778802360.0,
+   "n_mats": 32,
+   "top_supplier": "AU",
+   "supplier_share": 48.2,
+   "top_origin": "AU",
+   "origin_share": 44.5,
+   "hidden": 22.6,
+   "shifts": false
+  },
+  {
+   "c": "CH",
+   "name": "Switzerland",
+   "total": 3466835685.0,
+   "n_mats": 32,
+   "top_supplier": "ZM",
+   "supplier_share": 25.4,
+   "top_origin": "RU",
+   "origin_share": 45.2,
+   "hidden": 93.6,
+   "shifts": true
+  },
+  {
+   "c": "GB",
+   "name": "United Kingdom",
+   "total": 3224419031.0,
+   "n_mats": 32,
+   "top_supplier": "ZA",
+   "supplier_share": 27.2,
+   "top_origin": "ZA",
+   "origin_share": 47.3,
+   "hidden": 61.1,
+   "shifts": false
+  },
+  {
+   "c": "ES",
+   "name": "Spain",
+   "total": 2756060157.0,
+   "n_mats": 32,
+   "top_supplier": "CD",
+   "supplier_share": 23.5,
+   "top_origin": "CD",
+   "origin_share": 24.1,
+   "hidden": 32.5,
+   "shifts": false
+  },
+  {
+   "c": "MX",
+   "name": "Mexico",
+   "total": 2649932414.0,
+   "n_mats": 31,
+   "top_supplier": "US",
+   "supplier_share": 56.3,
+   "top_origin": "CL",
+   "origin_share": 53.6,
+   "hidden": 74.1,
+   "shifts": true
+  },
+  {
+   "c": "CA",
+   "name": "Canada",
+   "total": 2045242180.0,
+   "n_mats": 32,
+   "top_supplier": "US",
+   "supplier_share": 44.1,
+   "top_origin": "US",
+   "origin_share": 26.7,
+   "hidden": 32.7,
+   "shifts": false
+  },
+  {
+   "c": "SE",
+   "name": "Sweden",
+   "total": 1973857496.0,
+   "n_mats": 32,
+   "top_supplier": "AU",
+   "supplier_share": 16.5,
+   "top_origin": "CL",
+   "origin_share": 52.8,
+   "hidden": 65.9,
+   "shifts": true
+  },
+  {
+   "c": "PL",
+   "name": "Poland",
+   "total": 1932950048.0,
+   "n_mats": 32,
+   "top_supplier": "KZ",
+   "supplier_share": 18.9,
+   "top_origin": "AU",
+   "origin_share": 47.0,
+   "hidden": 81.7,
+   "shifts": true
+  },
+  {
+   "c": "EG",
+   "name": "Egypt",
+   "total": 1775298404.0,
+   "n_mats": 30,
+   "top_supplier": "CD",
+   "supplier_share": 36.8,
+   "top_origin": "CD",
+   "origin_share": 36.8,
+   "hidden": 36.2,
+   "shifts": false
+  },
+  {
+   "c": "SA",
+   "name": "Saudi Arabia",
+   "total": 1707915000.0,
+   "n_mats": 28,
+   "top_supplier": "CD",
+   "supplier_share": 50.2,
+   "top_origin": "CD",
+   "origin_share": 50.3,
+   "hidden": 39.6,
+   "shifts": false
+  },
+  {
+   "c": "MK",
+   "name": "Macedonia [FYROM]",
+   "total": 1070133440.0,
+   "n_mats": 23,
+   "top_supplier": "GB",
+   "supplier_share": 97.1,
+   "top_origin": "RU",
+   "origin_share": 53.2,
+   "hidden": 99.7,
+   "shifts": true
+  }
+ ],
+ "n_disguised": 27
+}

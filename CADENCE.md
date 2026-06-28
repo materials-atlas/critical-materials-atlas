@@ -19,8 +19,13 @@ python reconcile\build_2026_nowcast.py         # -> out/flows_2026.json  (direct
 # 2. reference layers (mine / refine / reserves / EU lens) when USGS/IEA update
 Rscript build_static.R                         # -> out/data.json
 
-# 3. regenerate the derived site artefacts (order matters: risk before profiles)
+# 3. regenerate the derived site artefacts (order matters: risk + wgi before criticality; insights last)
+python fetch_wgi.py                            # -> out/wgi.json (World Bank governance; only when WGI updates ~yearly)
 python build_risk.py                           # -> out/risk.json + risk.html (supply-risk index)
+python build_network.py                        # -> out/network.json + network.html (trade-network chokepoints)
+python build_complexity.py                     # -> out/complexity.json + complexity.html (RCA / economic complexity)
+python build_criticality.py                    # -> out/criticality.json + criticality.html (governance-weighted; reads risk.json + wgi.json)
+python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
 python build_scenarios.py                      # -> scenarios.html (supply-shock stress tests)
 python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
 python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)

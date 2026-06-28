@@ -1,0 +1,1885 @@
+{
+ "year": "2024",
+ "method": "directed weighted trade network; pagerank(value), betweenness(1/value), node-removal fragmentation",
+ "materials": [
+  {
+   "label": "magnets",
+   "title": "Rare-earth permanent magnets",
+   "shared": false,
+   "nodes": 209,
+   "edges": 1488,
+   "top_exporter": {
+    "c": "CN",
+    "share": 63.8
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.532,
+    "through": 33.2,
+    "exp_share": 63.8,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 4.1
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.101
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.532,
+     "through": 33.2,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.381,
+     "through": 8.7,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.202,
+     "through": 5.9,
+     "is_hub": false
+    },
+    {
+     "c": "FR",
+     "bet": 0.075,
+     "through": 1.7,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.07,
+     "through": 1.1,
+     "is_hub": true
+    }
+   ]
+  },
+  {
+   "label": "palladium",
+   "title": "Palladium, unwrought",
+   "shared": false,
+   "nodes": 73,
+   "edges": 406,
+   "top_exporter": {
+    "c": "ZA",
+    "share": 24.9
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.482,
+    "through": 11.3,
+    "exp_share": 6.4,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 13.0
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.152
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.482,
+     "through": 11.3,
+     "is_hub": false
+    },
+    {
+     "c": "IT",
+     "bet": 0.256,
+     "through": 6.0,
+     "is_hub": false
+    },
+    {
+     "c": "CH",
+     "bet": 0.238,
+     "through": 7.0,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.173,
+     "through": 8.0,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.172,
+     "through": 12.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "germanium",
+   "title": "Germanium",
+   "shared": true,
+   "nodes": 89,
+   "edges": 454,
+   "top_exporter": {
+    "c": "CN",
+    "share": 31.6
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.411,
+    "through": 14.7,
+    "exp_share": 18.9,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 10.0
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.245
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.411,
+     "through": 14.7,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.346,
+     "through": 19.3,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.233,
+     "through": 22.2,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.106,
+     "through": 5.1,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.088,
+     "through": 1.6,
+     "is_hub": true
+    }
+   ]
+  },
+  {
+   "label": "gallium",
+   "title": "Gallium",
+   "shared": true,
+   "nodes": 89,
+   "edges": 454,
+   "top_exporter": {
+    "c": "CN",
+    "share": 31.6
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.411,
+    "through": 14.7,
+    "exp_share": 18.9,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 10.0
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.245
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.411,
+     "through": 14.7,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.346,
+     "through": 19.3,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.233,
+     "through": 22.2,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.106,
+     "through": 5.1,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.088,
+     "through": 1.6,
+     "is_hub": true
+    }
+   ]
+  },
+  {
+   "label": "hafnium",
+   "title": "Hafnium, unwrought",
+   "shared": true,
+   "nodes": 89,
+   "edges": 454,
+   "top_exporter": {
+    "c": "CN",
+    "share": 31.6
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.411,
+    "through": 14.7,
+    "exp_share": 18.9,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 10.0
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.245
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.411,
+     "through": 14.7,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.346,
+     "through": 19.3,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.233,
+     "through": 22.2,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.106,
+     "through": 5.1,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.088,
+     "through": 1.6,
+     "is_hub": true
+    }
+   ]
+  },
+  {
+   "label": "feldspar",
+   "title": "Feldspar",
+   "shared": false,
+   "nodes": 135,
+   "edges": 619,
+   "top_exporter": {
+    "c": "TR",
+    "share": 43.2
+   },
+   "chokepoint": {
+    "c": "TR",
+    "bet": 0.389,
+    "through": 22.1,
+    "exp_share": 43.2,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 6.8
+   },
+   "top_flow": {
+    "c": "ES",
+    "pr": 0.067
+   },
+   "brokers": [
+    {
+     "c": "TR",
+     "bet": 0.389,
+     "through": 22.1,
+     "is_hub": false
+    },
+    {
+     "c": "ES",
+     "bet": 0.311,
+     "through": 10.3,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.225,
+     "through": 3.3,
+     "is_hub": false
+    },
+    {
+     "c": "IT",
+     "bet": 0.203,
+     "through": 10.8,
+     "is_hub": false
+    },
+    {
+     "c": "IN",
+     "bet": 0.18,
+     "through": 12.6,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "bauxite",
+   "title": "Aluminium ores / bauxite",
+   "shared": false,
+   "nodes": 120,
+   "edges": 517,
+   "top_exporter": {
+    "c": "GN",
+    "share": 72.2
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.388,
+    "through": 43.9,
+    "exp_share": 1.9,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 19.0
+   },
+   "top_flow": {
+    "c": "CN",
+    "pr": 0.058
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.388,
+     "through": 43.9,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.172,
+     "through": 0.2,
+     "is_hub": true
+    },
+    {
+     "c": "IN",
+     "bet": 0.163,
+     "through": 1.6,
+     "is_hub": false
+    },
+    {
+     "c": "TR",
+     "bet": 0.144,
+     "through": 0.9,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.122,
+     "through": 0.7,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "copper",
+   "title": "Refined copper cathodes",
+   "shared": false,
+   "nodes": 126,
+   "edges": 605,
+   "top_exporter": {
+    "c": "CD",
+    "share": 23.7
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.38,
+    "through": 2.7,
+    "exp_share": 1.1,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 4.6
+   },
+   "top_flow": {
+    "c": "CN",
+    "pr": 0.104
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.38,
+     "through": 2.7,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.355,
+     "through": 21.1,
+     "is_hub": false
+    },
+    {
+     "c": "SG",
+     "bet": 0.165,
+     "through": 0.3,
+     "is_hub": true
+    },
+    {
+     "c": "PL",
+     "bet": 0.141,
+     "through": 1.6,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.136,
+     "through": 5.9,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "tantalum",
+   "title": "Tantalum, unwrought",
+   "shared": false,
+   "nodes": 60,
+   "edges": 217,
+   "top_exporter": {
+    "c": "US",
+    "share": 21.5
+   },
+   "chokepoint": {
+    "c": "US",
+    "bet": 0.376,
+    "through": 25.1,
+    "exp_share": 21.5,
+    "kind": "exporter chokepoint",
+    "is_hub": false,
+    "frag": 16.4
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.221
+   },
+   "brokers": [
+    {
+     "c": "US",
+     "bet": 0.376,
+     "through": 25.1,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.314,
+     "through": 8.1,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.211,
+     "through": 9.5,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.123,
+     "through": 2.7,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.056,
+     "through": 0.5,
+     "is_hub": true
+    }
+   ]
+  },
+  {
+   "label": "manganese",
+   "title": "Manganese ore",
+   "shared": false,
+   "nodes": 128,
+   "edges": 527,
+   "top_exporter": {
+    "c": "ZA",
+    "share": 49.6
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.363,
+    "through": 30.6,
+    "exp_share": 0.7,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 24.7
+   },
+   "top_flow": {
+    "c": "CN",
+    "pr": 0.117
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.363,
+     "through": 30.6,
+     "is_hub": false
+    },
+    {
+     "c": "BR",
+     "bet": 0.195,
+     "through": 0.7,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.117,
+     "through": 0.2,
+     "is_hub": true
+    },
+    {
+     "c": "US",
+     "bet": 0.115,
+     "through": 0.7,
+     "is_hub": false
+    },
+    {
+     "c": "TR",
+     "bet": 0.111,
+     "through": 0.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "silicon",
+   "title": "Silicon, < 99.99%",
+   "shared": false,
+   "nodes": 161,
+   "edges": 738,
+   "top_exporter": {
+    "c": "CN",
+    "share": 40.1
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.352,
+    "through": 22.2,
+    "exp_share": 40.1,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 10.6
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.075
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.352,
+     "through": 22.2,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.237,
+     "through": 3.4,
+     "is_hub": true
+    },
+    {
+     "c": "MY",
+     "bet": 0.134,
+     "through": 3.7,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.115,
+     "through": 8.3,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.087,
+     "through": 7.3,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "nickel",
+   "title": "Nickel, unwrought",
+   "shared": false,
+   "nodes": 107,
+   "edges": 594,
+   "top_exporter": {
+    "c": "NO",
+    "share": 17.9
+   },
+   "chokepoint": {
+    "c": "NL",
+    "bet": 0.332,
+    "through": 11.8,
+    "exp_share": 6.6,
+    "kind": "transit hub",
+    "is_hub": true,
+    "frag": 9.7
+   },
+   "top_flow": {
+    "c": "IT",
+    "pr": 0.078
+   },
+   "brokers": [
+    {
+     "c": "NL",
+     "bet": 0.332,
+     "through": 11.8,
+     "is_hub": true
+    },
+    {
+     "c": "FI",
+     "bet": 0.252,
+     "through": 3.3,
+     "is_hub": false
+    },
+    {
+     "c": "FR",
+     "bet": 0.21,
+     "through": 2.9,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.163,
+     "through": 9.4,
+     "is_hub": false
+    },
+    {
+     "c": "JP",
+     "bet": 0.134,
+     "through": 5.4,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "titanium",
+   "title": "Titanium, unwrought",
+   "shared": false,
+   "nodes": 113,
+   "edges": 575,
+   "top_exporter": {
+    "c": "JP",
+    "share": 34.3
+   },
+   "chokepoint": {
+    "c": "US",
+    "bet": 0.307,
+    "through": 24.5,
+    "exp_share": 11.9,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 6.1
+   },
+   "top_flow": {
+    "c": "IT",
+    "pr": 0.171
+   },
+   "brokers": [
+    {
+     "c": "US",
+     "bet": 0.307,
+     "through": 24.5,
+     "is_hub": false
+    },
+    {
+     "c": "FR",
+     "bet": 0.181,
+     "through": 6.9,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.174,
+     "through": 3.4,
+     "is_hub": false
+    },
+    {
+     "c": "JP",
+     "bet": 0.152,
+     "through": 19.8,
+     "is_hub": false
+    },
+    {
+     "c": "ES",
+     "bet": 0.132,
+     "through": 0.7,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "platinum",
+   "title": "Platinum, unwrought",
+   "shared": false,
+   "nodes": 89,
+   "edges": 456,
+   "top_exporter": {
+    "c": "ZA",
+    "share": 36.9
+   },
+   "chokepoint": {
+    "c": "GB",
+    "bet": 0.296,
+    "through": 8.4,
+    "exp_share": 9.0,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 2.8
+   },
+   "top_flow": {
+    "c": "HK",
+    "pr": 0.135
+   },
+   "brokers": [
+    {
+     "c": "GB",
+     "bet": 0.296,
+     "through": 8.4,
+     "is_hub": false
+    },
+    {
+     "c": "HK",
+     "bet": 0.232,
+     "through": 7.2,
+     "is_hub": true
+    },
+    {
+     "c": "US",
+     "bet": 0.213,
+     "through": 6.3,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.197,
+     "through": 5.3,
+     "is_hub": false
+    },
+    {
+     "c": "IT",
+     "bet": 0.193,
+     "through": 4.6,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "cobalt",
+   "title": "Cobalt oxides & hydroxides",
+   "shared": false,
+   "nodes": 108,
+   "edges": 467,
+   "top_exporter": {
+    "c": "FI",
+    "share": 28.8
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.287,
+    "through": 10.2,
+    "exp_share": 19.0,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 5.7
+   },
+   "top_flow": {
+    "c": "TR",
+    "pr": 0.064
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.287,
+     "through": 10.2,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.146,
+     "through": 4.3,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.141,
+     "through": 12.4,
+     "is_hub": true
+    },
+    {
+     "c": "NL",
+     "bet": 0.14,
+     "through": 1.3,
+     "is_hub": true
+    },
+    {
+     "c": "IT",
+     "bet": 0.108,
+     "through": 1.4,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "graphite",
+   "title": "Natural graphite",
+   "shared": false,
+   "nodes": 138,
+   "edges": 499,
+   "top_exporter": {
+    "c": "CN",
+    "share": 36.2
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.277,
+    "through": 30.0,
+    "exp_share": 36.2,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 13.9
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.064
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.277,
+     "through": 30.0,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.207,
+     "through": 2.7,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.173,
+     "through": 4.0,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.154,
+     "through": 8.0,
+     "is_hub": false
+    },
+    {
+     "c": "IN",
+     "bet": 0.096,
+     "through": 3.6,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "phosphate",
+   "title": "Phosphate rock",
+   "shared": false,
+   "nodes": 115,
+   "edges": 351,
+   "top_exporter": {
+    "c": "JO",
+    "share": 24.2
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.265,
+    "through": 2.7,
+    "exp_share": 0.6,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 19.4
+   },
+   "top_flow": {
+    "c": "NL",
+    "pr": 0.147
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.265,
+     "through": 2.7,
+     "is_hub": false
+    },
+    {
+     "c": "FR",
+     "bet": 0.244,
+     "through": 0.2,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.159,
+     "through": 4.9,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.151,
+     "through": 5.7,
+     "is_hub": true
+    },
+    {
+     "c": "DE",
+     "bet": 0.141,
+     "through": 0.5,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "phosphorus",
+   "title": "Phosphorus",
+   "shared": false,
+   "nodes": 89,
+   "edges": 310,
+   "top_exporter": {
+    "c": "VN",
+    "share": 46.7
+   },
+   "chokepoint": {
+    "c": "JP",
+    "bet": 0.265,
+    "through": 6.7,
+    "exp_share": 0.8,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 3.8
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.088
+   },
+   "brokers": [
+    {
+     "c": "JP",
+     "bet": 0.265,
+     "through": 6.7,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.213,
+     "through": 0.7,
+     "is_hub": true
+    },
+    {
+     "c": "DE",
+     "bet": 0.144,
+     "through": 8.2,
+     "is_hub": false
+    },
+    {
+     "c": "VN",
+     "bet": 0.137,
+     "through": 23.4,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.106,
+     "through": 1.4,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "niobium",
+   "title": "Ferro-niobium",
+   "shared": false,
+   "nodes": 80,
+   "edges": 315,
+   "top_exporter": {
+    "c": "BR",
+    "share": 76.3
+   },
+   "chokepoint": {
+    "c": "NL",
+    "bet": 0.261,
+    "through": 11.6,
+    "exp_share": 7.8,
+    "kind": "transit hub",
+    "is_hub": true,
+    "frag": 12.2
+   },
+   "top_flow": {
+    "c": "RS",
+    "pr": 0.063
+   },
+   "brokers": [
+    {
+     "c": "NL",
+     "bet": 0.261,
+     "through": 11.6,
+     "is_hub": true
+    },
+    {
+     "c": "DE",
+     "bet": 0.202,
+     "through": 1.6,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.194,
+     "through": 0.8,
+     "is_hub": true
+    },
+    {
+     "c": "CN",
+     "bet": 0.178,
+     "through": 17.0,
+     "is_hub": false
+    },
+    {
+     "c": "PL",
+     "bet": 0.176,
+     "through": 0.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "helium",
+   "title": "Helium",
+   "shared": false,
+   "nodes": 189,
+   "edges": 1009,
+   "top_exporter": {
+    "c": "QA",
+    "share": 28.5
+   },
+   "chokepoint": {
+    "c": "US",
+    "bet": 0.257,
+    "through": 10.4,
+    "exp_share": 15.5,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 15.2
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.048
+   },
+   "brokers": [
+    {
+     "c": "US",
+     "bet": 0.257,
+     "through": 10.4,
+     "is_hub": false
+    },
+    {
+     "c": "FR",
+     "bet": 0.243,
+     "through": 11.4,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.218,
+     "through": 7.1,
+     "is_hub": false
+    },
+    {
+     "c": "KR",
+     "bet": 0.132,
+     "through": 6.2,
+     "is_hub": false
+    },
+    {
+     "c": "QA",
+     "bet": 0.11,
+     "through": 14.3,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "cokingcoal",
+   "title": "Coking coal",
+   "shared": false,
+   "nodes": 127,
+   "edges": 572,
+   "top_exporter": {
+    "c": "AU",
+    "share": 39.4
+   },
+   "chokepoint": {
+    "c": "GB",
+    "bet": 0.253,
+    "through": 0.2,
+    "exp_share": 0.1,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 7.9
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.063
+   },
+   "brokers": [
+    {
+     "c": "GB",
+     "bet": 0.253,
+     "through": 0.2,
+     "is_hub": false
+    },
+    {
+     "c": "AU",
+     "bet": 0.167,
+     "through": 19.7,
+     "is_hub": false
+    },
+    {
+     "c": "ID",
+     "bet": 0.159,
+     "through": 5.8,
+     "is_hub": false
+    },
+    {
+     "c": "ZA",
+     "bet": 0.153,
+     "through": 2.6,
+     "is_hub": false
+    },
+    {
+     "c": "ES",
+     "bet": 0.135,
+     "through": 0.3,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "baryte",
+   "title": "Baryte",
+   "shared": false,
+   "nodes": 153,
+   "edges": 697,
+   "top_exporter": {
+    "c": "IN",
+    "share": 18.0
+   },
+   "chokepoint": {
+    "c": "NL",
+    "bet": 0.241,
+    "through": 4.4,
+    "exp_share": 4.5,
+    "kind": "transit hub",
+    "is_hub": true,
+    "frag": 2.7
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.055
+   },
+   "brokers": [
+    {
+     "c": "NL",
+     "bet": 0.241,
+     "through": 4.4,
+     "is_hub": true
+    },
+    {
+     "c": "CN",
+     "bet": 0.188,
+     "through": 9.0,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.143,
+     "through": 2.4,
+     "is_hub": false
+    },
+    {
+     "c": "ES",
+     "bet": 0.124,
+     "through": 2.2,
+     "is_hub": false
+    },
+    {
+     "c": "TR",
+     "bet": 0.122,
+     "through": 4.7,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
+   "shared": false,
+   "nodes": 86,
+   "edges": 387,
+   "top_exporter": {
+    "c": "AT",
+    "share": 21.1
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.232,
+    "through": 5.9,
+    "exp_share": 1.3,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 3.4
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.085
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.232,
+     "through": 5.9,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.218,
+     "through": 10.1,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.186,
+     "through": 9.3,
+     "is_hub": true
+    },
+    {
+     "c": "AT",
+     "bet": 0.118,
+     "through": 11.1,
+     "is_hub": false
+    },
+    {
+     "c": "KR",
+     "bet": 0.115,
+     "through": 9.1,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "lithium",
+   "title": "Lithium carbonate",
+   "shared": false,
+   "nodes": 118,
+   "edges": 507,
+   "top_exporter": {
+    "c": "CL",
+    "share": 74.6
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.227,
+    "through": 34.4,
+    "exp_share": 1.6,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 18.0
+   },
+   "top_flow": {
+    "c": "CN",
+    "pr": 0.076
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.227,
+     "through": 34.4,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.197,
+     "through": 1.2,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.153,
+     "through": 1.8,
+     "is_hub": true
+    },
+    {
+     "c": "GB",
+     "bet": 0.079,
+     "through": 0.8,
+     "is_hub": false
+    },
+    {
+     "c": "IN",
+     "bet": 0.063,
+     "through": 0.3,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "tungsten",
+   "title": "Tungsten, unwrought",
+   "shared": false,
+   "nodes": 106,
+   "edges": 355,
+   "top_exporter": {
+    "c": "CN",
+    "share": 74.5
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.219,
+    "through": 5.4,
+    "exp_share": 1.4,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 11.4
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.104
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.219,
+     "through": 5.4,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.189,
+     "through": 6.2,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.136,
+     "through": 9.7,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.093,
+     "through": 37.5,
+     "is_hub": false
+    },
+    {
+     "c": "BR",
+     "bet": 0.047,
+     "through": 0.5,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "magnesium",
+   "title": "Magnesium, unwrought",
+   "shared": false,
+   "nodes": 114,
+   "edges": 415,
+   "top_exporter": {
+    "c": "CN",
+    "share": 71.3
+   },
+   "chokepoint": {
+    "c": "US",
+    "bet": 0.205,
+    "through": 8.1,
+    "exp_share": 0.3,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 11.0
+   },
+   "top_flow": {
+    "c": "KR",
+    "pr": 0.053
+   },
+   "brokers": [
+    {
+     "c": "US",
+     "bet": 0.205,
+     "through": 8.1,
+     "is_hub": false
+    },
+    {
+     "c": "TR",
+     "bet": 0.161,
+     "through": 3.7,
+     "is_hub": false
+    },
+    {
+     "c": "RO",
+     "bet": 0.143,
+     "through": 0.5,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.136,
+     "through": 3.6,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.135,
+     "through": 35.7,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "fluorspar",
+   "title": "Fluorspar, >97% CaF2",
+   "shared": false,
+   "nodes": 83,
+   "edges": 263,
+   "top_exporter": {
+    "c": "MX",
+    "share": 38.0
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.201,
+    "through": 5.2,
+    "exp_share": 8.4,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 22.9
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.088
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.201,
+     "through": 5.2,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.159,
+     "through": 5.9,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.156,
+     "through": 14.6,
+     "is_hub": false
+    },
+    {
+     "c": "MX",
+     "bet": 0.132,
+     "through": 19.0,
+     "is_hub": false
+    },
+    {
+     "c": "SE",
+     "bet": 0.069,
+     "through": 0.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "antimony",
+   "title": "Antimony, unwrought",
+   "shared": false,
+   "nodes": 98,
+   "edges": 404,
+   "top_exporter": {
+    "c": "TJ",
+    "share": 31.4
+   },
+   "chokepoint": {
+    "c": "JP",
+    "bet": 0.174,
+    "through": 6.0,
+    "exp_share": 0.3,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 3.0
+   },
+   "top_flow": {
+    "c": "US",
+    "pr": 0.127
+   },
+   "brokers": [
+    {
+     "c": "JP",
+     "bet": 0.174,
+     "through": 6.0,
+     "is_hub": false
+    },
+    {
+     "c": "BE",
+     "bet": 0.154,
+     "through": 8.8,
+     "is_hub": true
+    },
+    {
+     "c": "CN",
+     "bet": 0.146,
+     "through": 6.2,
+     "is_hub": false
+    },
+    {
+     "c": "TH",
+     "bet": 0.143,
+     "through": 14.5,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.12,
+     "through": 6.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "strontium",
+   "title": "Strontium carbonate",
+   "shared": false,
+   "nodes": 85,
+   "edges": 253,
+   "top_exporter": {
+    "c": "DE",
+    "share": 60.1
+   },
+   "chokepoint": {
+    "c": "CN",
+    "bet": 0.164,
+    "through": 17.3,
+    "exp_share": 10.7,
+    "kind": "processing chokepoint",
+    "is_hub": false,
+    "frag": 37.6
+   },
+   "top_flow": {
+    "c": "VN",
+    "pr": 0.048
+   },
+   "brokers": [
+    {
+     "c": "CN",
+     "bet": 0.164,
+     "through": 17.3,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.16,
+     "through": 30.4,
+     "is_hub": false
+    },
+    {
+     "c": "MX",
+     "bet": 0.067,
+     "through": 8.6,
+     "is_hub": false
+    },
+    {
+     "c": "IT",
+     "bet": 0.05,
+     "through": 2.5,
+     "is_hub": false
+    },
+    {
+     "c": "KR",
+     "bet": 0.046,
+     "through": 10.2,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "boron",
+   "title": "Natural borates",
+   "shared": false,
+   "nodes": 125,
+   "edges": 423,
+   "top_exporter": {
+    "c": "TR",
+    "share": 56.2
+   },
+   "chokepoint": {
+    "c": "US",
+    "bet": 0.162,
+    "through": 3.4,
+    "exp_share": 0.7,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 15.6
+   },
+   "top_flow": {
+    "c": "RU",
+    "pr": 0.084
+   },
+   "brokers": [
+    {
+     "c": "US",
+     "bet": 0.162,
+     "through": 3.4,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.136,
+     "through": 0.3,
+     "is_hub": false
+    },
+    {
+     "c": "MY",
+     "bet": 0.123,
+     "through": 1.1,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.12,
+     "through": 12.8,
+     "is_hub": false
+    },
+    {
+     "c": "PE",
+     "bet": 0.118,
+     "through": 2.1,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "arsenic",
+   "title": "Arsenic",
+   "shared": false,
+   "nodes": 85,
+   "edges": 212,
+   "top_exporter": {
+    "c": "CN",
+    "share": 34.2
+   },
+   "chokepoint": {
+    "c": "DE",
+    "bet": 0.153,
+    "through": 13.8,
+    "exp_share": 12.7,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 18.0
+   },
+   "top_flow": {
+    "c": "DE",
+    "pr": 0.051
+   },
+   "brokers": [
+    {
+     "c": "DE",
+     "bet": 0.153,
+     "through": 13.8,
+     "is_hub": false
+    },
+    {
+     "c": "NL",
+     "bet": 0.117,
+     "through": 6.3,
+     "is_hub": true
+    },
+    {
+     "c": "CN",
+     "bet": 0.117,
+     "through": 21.0,
+     "is_hub": false
+    },
+    {
+     "c": "JP",
+     "bet": 0.114,
+     "through": 9.5,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.071,
+     "through": 9.3,
+     "is_hub": false
+    }
+   ]
+  },
+  {
+   "label": "beryllium",
+   "title": "Beryllium, unwrought",
+   "shared": false,
+   "nodes": 39,
+   "edges": 52,
+   "top_exporter": {
+    "c": "KZ",
+    "share": 89.2
+   },
+   "chokepoint": {
+    "c": "FR",
+    "bet": 0.021,
+    "through": 3.2,
+    "exp_share": 5.9,
+    "kind": "redistribution hub",
+    "is_hub": false,
+    "frag": 32.1
+   },
+   "top_flow": {
+    "c": "CN",
+    "pr": 0.065
+   },
+   "brokers": [
+    {
+     "c": "FR",
+     "bet": 0.021,
+     "through": 3.2,
+     "is_hub": false
+    },
+    {
+     "c": "US",
+     "bet": 0.014,
+     "through": 3.7,
+     "is_hub": false
+    },
+    {
+     "c": "CN",
+     "bet": 0.011,
+     "through": 42.9,
+     "is_hub": false
+    },
+    {
+     "c": "DE",
+     "bet": 0.005,
+     "through": 2.7,
+     "is_hub": false
+    },
+    {
+     "c": "GB",
+     "bet": 0.004,
+     "through": 0.1,
+     "is_hub": false
+    }
+   ]
+  }
+ ],
+ "systemic": [
+  {
+   "c": "CN",
+   "name": "China",
+   "broker_score": 45,
+   "export_lead": 9,
+   "is_hub": false
+  },
+  {
+   "c": "DE",
+   "name": "Germany",
+   "broker_score": 40,
+   "export_lead": 1,
+   "is_hub": false
+  },
+  {
+   "c": "US",
+   "name": "United States",
+   "broker_score": 30,
+   "export_lead": 1,
+   "is_hub": false
+  },
+  {
+   "c": "NL",
+   "name": "Netherlands",
+   "broker_score": 20,
+   "export_lead": 0,
+   "is_hub": true
+  },
+  {
+   "c": "GB",
+   "name": "United Kingdom",
+   "broker_score": 12,
+   "export_lead": 0,
+   "is_hub": false
+  },
+  {
+   "c": "FR",
+   "name": "France",
+   "broker_score": 10,
+   "export_lead": 0,
+   "is_hub": false
+  },
+  {
+   "c": "JP",
+   "name": "Japan",
+   "broker_score": 6,
+   "export_lead": 1,
+   "is_hub": false
+  },
+  {
+   "c": "TR",
+   "name": "Turkey",
+   "broker_score": 5,
+   "export_lead": 2,
+   "is_hub": false
+  },
+  {
+   "c": "BE",
+   "name": "Belgium",
+   "broker_score": 4,
+   "export_lead": 0,
+   "is_hub": true
+  },
+  {
+   "c": "IT",
+   "name": "Italy",
+   "broker_score": 2,
+   "export_lead": 0,
+   "is_hub": false
+  },
+  {
+   "c": "ES",
+   "name": "Spain",
+   "broker_score": 2,
+   "export_lead": 0,
+   "is_hub": false
+  },
+  {
+   "c": "BR",
+   "name": "Brazil",
+   "broker_score": 2,
+   "export_lead": 1,
+   "is_hub": false
+  }
+ ],
+ "n_processing": 11
+}
