@@ -102,8 +102,13 @@ for lab in LABELS:
         stats['dhhi'] = {'c': topc, 'pct': (round(contrib[topc] / dh * 100) if dh else None), 'dhhi': round(dh, 3)}
     else:
         stats['dhhi'] = None
+    # full country decomposition of the 2002->2024 HHI change (top contributors by |contribution|, x100)
+    decomp = sorted(({'c': c, 'v': round(contrib[c] * 100, 1)} for c in contrib),
+                    key=lambda x: abs(x['v']), reverse=True)[:6]
+    used_iso.update(d['c'] for d in decomp)
     used_iso.update(top)
-    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china, 'gap': gap, 'stats': stats}
+    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china,
+                 'gap': gap, 'stats': stats, 'decomp': decomp}
 # Benjamini-Hochberg FDR correction across the 32 materials, per indicator
 labs = list(mats)
 for ind in ('hhi', 'china', 'gap'):
@@ -172,6 +177,12 @@ HTML = r'''<!doctype html>
     <p id="stat1" class="muted" style="margin:.5rem 0 0"></p>
   </div>
 
+  <div class="chartwrap">
+    <div style="font-weight:600;font-size:.92rem;margin-bottom:.2rem">What drove the 2002&ndash;2024 concentration change <span id="declabel" class="muted" style="font-weight:400"></span></div>
+    <div id="chart4" class="chart" style="height:300px"></div>
+    <p class="muted" style="margin:.3rem 0 0">Each country's contribution to the change in export-HHI (share&sup2;<sub>2024</sub> &minus; share&sup2;<sub>2002</sub>, &times;100). <span style="color:#c0392b">Red</span> = pushed concentration up (gained share); <span style="color:#3f9b46">green</span> = pushed it down. This is the Family-5 decomposition: it names <i>who</i> concentrated a market.</p>
+  </div>
+
   <h2 style="margin:1.8rem 0 .4rem">The rise of China, in one picture</h2>
   <p class="muted" style="margin-top:0">China&rsquo;s share of world exports, marquee materials, 2002&ndash;2024.</p>
   <div class="chartwrap"><div id="chart2" class="chart"></div></div>
@@ -199,6 +210,7 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
   const sel=$('#mat');
   Object.keys(T.materials).forEach(lab=>{const o=document.createElement('option');o.value=lab;o.textContent=T.materials[lab].title;sel.appendChild(o);});
   const c1=echarts.init($('#chart1'));
+  const c4=echarts.init($('#chart4'));
   function draw(lab){
     const m=T.materials[lab];
     const series=m.top.map((cc,i)=>({name:nm(cc),type:'line',smooth:true,showSymbol:false,lineWidth:2.6,data:m.lines[cc],itemStyle:{color:COL[i%6]}}));
@@ -214,6 +226,9 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     },true);
     const st=m.stats&&m.stats.hhi;
     if(st){const sig=st.mk_p_fdr<0.05; document.getElementById('stat1').innerHTML='<b>HHI trend:</b> Theil&ndash;Sen '+(st.sen>=0?'+':'')+st.sen.toFixed(3)+'/yr · Mann&ndash;Kendall p='+st.mk_p_fdr+' (FDR) '+(sig?'<span style="color:#c0392b;font-weight:600">significant</span>':'<span style="color:#9aa6ad">not significant</span>')+(st.brk_year?(' · structural break ~'+st.brk_year):'')+((m.stats.dhhi&&m.stats.dhhi.c)?(' · ΔHHI 2002–24 mostly driven by '+nm(m.stats.dhhi.c)):'');}
+    const dec=(m.decomp||[]).slice().reverse();
+    c4.setOption({tooltip:{trigger:'axis',valueFormatter:v=>v==null?'':(v>=0?'+':'')+(+v).toFixed(1)},grid:{left:100,right:24,top:8,bottom:30},xAxis:{type:'value',name:'ΔHHI ×100',nameLocation:'middle',nameGap:24},yAxis:{type:'category',data:dec.map(d=>nm(d.c))},series:[{type:'bar',data:dec.map(d=>({value:d.v,itemStyle:{color:d.v>=0?'#c0392b':'#3f9b46'}}))}]},true);
+    const dh=(m.stats&&m.stats.dhhi)?m.stats.dhhi.dhhi:null; const dl=document.getElementById('declabel'); if(dl) dl.textContent = dh!=null?('· total ΔHHI '+(dh>=0?'+':'')+(dh*100).toFixed(1)):'';
   }
   sel.onchange=()=>draw(sel.value);
   draw(T.materials.magnets?'magnets':Object.keys(T.materials)[0]);
@@ -250,7 +265,7 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
         '<td class="n">'+(s.brk_year||'—')+'</td>'+
         '<td>'+((d&&d.c)?(nm(d.c)+(d.pct!=null?(' <span style="color:#9aa6ad">'+d.pct+'%</span>'):'')):'—')+'</td>';
       tb.appendChild(tr);});
-  window.addEventListener('resize',()=>{c1.resize();c2.resize();c3.resize();});
+  window.addEventListener('resize',()=>{c1.resize();c2.resize();c3.resize();c4.resize();});
 });
 </script>
 </body></html>'''
