@@ -1,0 +1,77 @@
+{
+ "year": "2024",
+ "n_agree": 4,
+ "n_total": 5,
+ "cases": [
+  {
+   "label": "bauxite",
+   "name": "Bauxite / alumina / aluminium",
+   "verdict": "agree",
+   "ext_mine": "Guinea ~29%, Australia ~22%, China ~21%, Brazil ~7% (USGS 2024)",
+   "ext_refine": "Alumina: China ~59%, Australia ~13% (IEA); smelting China-dominant",
+   "choke": "Alumina refining and energy-intensive smelting \u2014 China",
+   "misread": "\"Australia controls bauxite\" \u2014 but China refines ~59% of alumina; mine tonnage \u2260 value-added control",
+   "note": "Atlas refined share (China 58%) matches IEA (59%); mine shares align (Australia and Guinea are neck-and-neck \u2014 the atlas lists Australia first, USGS 2024 Guinea first). The network layer correctly identifies China as the processing chokepoint despite its small export share.",
+   "atlas_mine": "\ud83c\udde6\ud83c\uddfaAustralia 27%, \ud83c\uddec\ud83c\uddf3Guinea 25%, \ud83c\udde8\ud83c\uddf3China 21%, \ud83c\udde7\ud83c\uddf7Brazil 9%",
+   "atlas_refine": "\ud83c\udde8\ud83c\uddf3China 58%",
+   "atlas_export": "\ud83c\uddec\ud83c\uddf3Guinea 72%, \ud83c\udde6\ud83c\uddfaAustralia 16%, \ud83c\udde7\ud83c\uddf7Brazil 2%",
+   "atlas_choke": "\ud83c\udde8\ud83c\uddf3China (processing chokepoint)"
+  },
+  {
+   "label": "cobalt",
+   "name": "Cobalt",
+   "verdict": "agree",
+   "ext_mine": "DR Congo ~76%, Indonesia ~10% (USGS 2024)",
+   "ext_refine": "China ~70\u201380% of refined (IEA)",
+   "choke": "DRC mine concentration + Chinese refining/chemical processing",
+   "misread": "\"DRC produces most cobalt\" \u2014 true at the mine, but DRC refines almost none; usable cobalt is Chinese-processed",
+   "note": "Atlas has mine DR Congo 76%, refine China 76%, yet the top customs exporter is Finland (29%) \u2014 and the origin trace re-attributes it to DR Congo. The refiner illusion is captured exactly.",
+   "atlas_mine": "\ud83c\udde8\ud83c\udde9Congo [DRC] 76%, \ud83c\uddee\ud83c\udde9Indonesia 10%, \ud83c\uddf7\ud83c\uddfaRussia 3%",
+   "atlas_refine": "\ud83c\udde8\ud83c\uddf3China 76%",
+   "atlas_export": "\ud83c\uddeb\ud83c\uddeeFinland 29%, \ud83c\udde8\ud83c\uddf3China 19%, \ud83c\uddff\ud83c\uddf2Zambia 17%",
+   "atlas_choke": "\ud83c\udde8\ud83c\uddf3China (processing chokepoint)"
+  },
+  {
+   "label": "graphite",
+   "name": "Natural graphite",
+   "verdict": "agree",
+   "ext_mine": "China ~79% (USGS 2024; ~82% in 2025)",
+   "ext_refine": "China ~90%+ of battery-grade / spherical (IEA)",
+   "choke": "Mining of usable grades + battery-grade processing \u2014 China",
+   "misread": "Assuming synthetic graphite fully substitutes \u2014 it competes only partly, and China leads that too",
+   "note": "Atlas: mine 78% / refine 95% / export 36%, all China-led, chokepoint China. Matches the authoritative picture closely.",
+   "atlas_mine": "\ud83c\udde8\ud83c\uddf3China 78%, \ud83c\uddf2\ud83c\uddecMadagascar 6%, \ud83c\uddf2\ud83c\uddffMozambique 5%",
+   "atlas_refine": "\ud83c\udde8\ud83c\uddf3China 95%",
+   "atlas_export": "\ud83c\udde8\ud83c\uddf3China 36%, \ud83c\uddf9\ud83c\uddffTanzania 27%, \ud83c\udde9\ud83c\uddeaGermany 7%",
+   "atlas_choke": "\ud83c\udde8\ud83c\uddf3China (processing chokepoint)"
+  },
+  {
+   "label": "lithium",
+   "name": "Lithium",
+   "verdict": "nuance",
+   "ext_mine": "Australia ~37%, Chile ~20%, China ~17%, Zimbabwe ~9%, Argentina ~8% (USGS 2024, Li content)",
+   "ext_refine": "China ~60\u201380% of battery-grade conversion (IEA)",
+   "choke": "Chemical conversion capacity \u2014 China-heavy",
+   "misread": "Australia is top miner, but spodumene is not battery-ready until converted (mostly in China); a mine-vs-export comparison ignores the product/conversion step",
+   "note": "Two findings, both now handled. (1) The traded HS code is lithium <i>carbonate</i> \u2014 Chile\u2019s product (75% of trade) \u2014 so the mine-vs-export gap is a PRODUCT difference (spodumene vs carbonate), not a refiner illusion; the atlas now states this. (2) This audit caught a stale mine-share vintage (the atlas had Australia 52%); it is corrected here to USGS 2024 (Australia 37%, with Zimbabwe ~9% added).",
+   "atlas_mine": "\ud83c\udde6\ud83c\uddfaAustralia 37%, \ud83c\udde8\ud83c\uddf1Chile 20%, \ud83c\udde8\ud83c\uddf3China 17%, \ud83c\uddff\ud83c\uddfcZimbabwe 9%",
+   "atlas_refine": "\ud83c\udde8\ud83c\uddf3China 65%",
+   "atlas_export": "\ud83c\udde8\ud83c\uddf1Chile 75%, \ud83c\udde6\ud83c\uddf7Argentina 18%, \ud83c\uddf0\ud83c\uddf7South Korea 2%",
+   "atlas_choke": "\ud83c\udde8\ud83c\uddf3China (processing chokepoint)"
+  },
+  {
+   "label": "magnets",
+   "name": "Rare-earth permanent magnets (NdFeB)",
+   "verdict": "agree",
+   "ext_mine": "China ~60\u201370% REO, US ~12%, Myanmar significant (USGS 2024)",
+   "ext_refine": "China ~85\u201392% separation, ~90\u201395% of NdFeB magnets (IEA/industry)",
+   "choke": "Midstream separation + magnet fabrication \u2014 China; heavy REE (Dy, Tb) tighter still",
+   "misread": "Mine shares look diversified; separated and magnet-grade material is far more concentrated",
+   "note": "Atlas: mine China 69% / refine 90% / export 64%, all China-led; Myanmar (11%) is included and flagged as the worst-governance producer (g 0.84). Captured well.",
+   "atlas_mine": "\ud83c\udde8\ud83c\uddf3China 69%, \ud83c\uddfa\ud83c\uddf8United States 12%, \ud83c\uddf2\ud83c\uddf2Myanmar [Burma] 11%, \ud83c\udde6\ud83c\uddfaAustralia 5%",
+   "atlas_refine": "\ud83c\udde8\ud83c\uddf3China 90%",
+   "atlas_export": "\ud83c\udde8\ud83c\uddf3China 64%, \ud83c\uddef\ud83c\uddf5Japan 9%, \ud83c\uddfb\ud83c\uddf3Vietnam 6%",
+   "atlas_choke": "\ud83c\udde8\ud83c\uddf3China (processing chokepoint)"
+  }
+ ]
+}

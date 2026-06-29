@@ -26,6 +26,7 @@ python build_network.py                        # -> out/network.json + network.h
 python build_complexity.py                     # -> out/complexity.json + complexity.html (RCA / economic complexity)
 python build_criticality.py                    # -> out/criticality.json + criticality.html (governance-weighted; reads risk.json + wgi.json)
 python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
+python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_scenarios.py                      # -> scenarios.html (supply-shock stress tests)
 python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
 python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)

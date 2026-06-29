@@ -123,7 +123,7 @@ mine <- list(
   cobalt    = list(o("CD",76),o("ID",10),o("RU",3)),
   niobium   = list(o("BR",88),o("CA",10)),
   boron     = list(o("TR",47),o("US",24),o("AR",5),o("CL",5)),
-  lithium   = list(o("AU",52),o("CL",22),o("CN",18),o("AR",5)),
+  lithium   = list(o("AU",37),o("CL",20),o("CN",17),o("ZW",9),o("AR",8)),
   antimony  = list(o("CN",48),o("TJ",16),o("RU",6),o("MM",5)),
   platinum  = list(o("ZA",70),o("RU",11),o("ZW",8)),
   palladium = list(o("RU",40),o("ZA",37),o("ZW",6),o("CA",5)),

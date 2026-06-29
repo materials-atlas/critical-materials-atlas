@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case studies — does it survive known chains? — Critical Materials Atlas</title>
+<meta name="description" content="An audit of the atlas against five supply chains experts know cold (bauxite, cobalt, graphite, lithium, rare-earth magnets): atlas figures vs USGS/IEA, agreements and the one corrected divergence.">
+<meta property="og:title" content="Case studies — auditing the atlas against known chains">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
+  <a href="network.html" class="hideable">Network</a><a href="risk.html" class="hideable">Risk</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
+  <div class="eyebrow">Validation · known chains</div>
+  <h1>Does it survive chains experts know cold?</h1>
+  <p class="deck">A method is only as trustworthy as its behaviour on cases people already understand. Here the atlas's own live figures are put beside the authoritative USGS/IEA picture for five chains — and the one place they diverged is shown openly, not hidden.</p>
+</div></section>
+<article style="max-width:1000px">
+  <div class="callout"><b>Result: agreement on 4 of 5.</b> On bauxite, cobalt, graphite and rare-earth
+  magnets the atlas matches USGS/IEA on mine and refining shares, and its refiner-illusion / processing-chokepoint
+  signals hold. On <b>lithium</b> the audit did its job — it surfaced a stale mine-share vintage (now corrected to
+  USGS 2024) and a product-definition nuance (the traded code is carbonate, not spodumene). External figures: USGS
+  Mineral Commodity Summaries 2025 and IEA Critical Minerals Outlook 2025, reconciled with the engine council.
+  Atlas figures are pulled live by <code>build_casestudies.py</code>, so this page cannot drift from the data.</div>
+  <div class="card" style="border-left:4px solid #3f9b46;margin:1.1rem 0">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
+    <h3 style="margin:0">Bauxite / alumina / aluminium</h3>
+    <span style="color:#3f9b46;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em">Strong agreement</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0">
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#0e7c74;font-weight:700;margin-bottom:.3rem">Atlas shows</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> 🇦🇺Australia 27%, 🇬🇳Guinea 25%, 🇨🇳China 21%, 🇧🇷Brazil 9%<br><b>Refine</b> 🇨🇳China 58%<br><b>Top exporters</b> 🇬🇳Guinea 72%, 🇦🇺Australia 16%, 🇧🇷Brazil 2%<br><b>Network chokepoint</b> 🇨🇳China (processing chokepoint)</div></div>
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#9aa6ad;font-weight:700;margin-bottom:.3rem">Authoritative (USGS 2024 / IEA)</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> Guinea ~29%, Australia ~22%, China ~21%, Brazil ~7% (USGS 2024)<br><b>Refine</b> Alumina: China ~59%, Australia ~13% (IEA); smelting China-dominant<br><b>Chokepoint</b> Alumina refining and energy-intensive smelting — China</div></div>
+  </div>
+  <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
+    <b>Commonly misread as:</b> &quot;Australia controls bauxite&quot; — but China refines ~59% of alumina; mine tonnage ≠ value-added control<br>
+    <b>Verdict:</b> Atlas refined share (China 58%) matches IEA (59%); mine shares align (Australia and Guinea are neck-and-neck — the atlas lists Australia first, USGS 2024 Guinea first). The network layer correctly identifies China as the processing chokepoint despite its small export share.</div>
+</div><div class="card" style="border-left:4px solid #3f9b46;margin:1.1rem 0">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
+    <h3 style="margin:0">Cobalt</h3>
+    <span style="color:#3f9b46;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em">Strong agreement</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0">
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#0e7c74;font-weight:700;margin-bottom:.3rem">Atlas shows</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> 🇨🇩Congo [DRC] 76%, 🇮🇩Indonesia 10%, 🇷🇺Russia 3%<br><b>Refine</b> 🇨🇳China 76%<br><b>Top exporters</b> 🇫🇮Finland 29%, 🇨🇳China 19%, 🇿🇲Zambia 17%<br><b>Network chokepoint</b> 🇨🇳China (processing chokepoint)</div></div>
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#9aa6ad;font-weight:700;margin-bottom:.3rem">Authoritative (USGS 2024 / IEA)</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> DR Congo ~76%, Indonesia ~10% (USGS 2024)<br><b>Refine</b> China ~70–80% of refined (IEA)<br><b>Chokepoint</b> DRC mine concentration + Chinese refining/chemical processing</div></div>
+  </div>
+  <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
+    <b>Commonly misread as:</b> &quot;DRC produces most cobalt&quot; — true at the mine, but DRC refines almost none; usable cobalt is Chinese-processed<br>
+    <b>Verdict:</b> Atlas has mine DR Congo 76%, refine China 76%, yet the top customs exporter is Finland (29%) — and the origin trace re-attributes it to DR Congo. The refiner illusion is captured exactly.</div>
+</div><div class="card" style="border-left:4px solid #3f9b46;margin:1.1rem 0">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
+    <h3 style="margin:0">Natural graphite</h3>
+    <span style="color:#3f9b46;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em">Strong agreement</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0">
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#0e7c74;font-weight:700;margin-bottom:.3rem">Atlas shows</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> 🇨🇳China 78%, 🇲🇬Madagascar 6%, 🇲🇿Mozambique 5%<br><b>Refine</b> 🇨🇳China 95%<br><b>Top exporters</b> 🇨🇳China 36%, 🇹🇿Tanzania 27%, 🇩🇪Germany 7%<br><b>Network chokepoint</b> 🇨🇳China (processing chokepoint)</div></div>
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#9aa6ad;font-weight:700;margin-bottom:.3rem">Authoritative (USGS 2024 / IEA)</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> China ~79% (USGS 2024; ~82% in 2025)<br><b>Refine</b> China ~90%+ of battery-grade / spherical (IEA)<br><b>Chokepoint</b> Mining of usable grades + battery-grade processing — China</div></div>
+  </div>
+  <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
+    <b>Commonly misread as:</b> Assuming synthetic graphite fully substitutes — it competes only partly, and China leads that too<br>
+    <b>Verdict:</b> Atlas: mine 78% / refine 95% / export 36%, all China-led, chokepoint China. Matches the authoritative picture closely.</div>
+</div><div class="card" style="border-left:4px solid #b35e16;margin:1.1rem 0">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
+    <h3 style="margin:0">Lithium</h3>
+    <span style="color:#b35e16;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em">Nuance + corrected</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0">
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#0e7c74;font-weight:700;margin-bottom:.3rem">Atlas shows</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> 🇦🇺Australia 37%, 🇨🇱Chile 20%, 🇨🇳China 17%, 🇿🇼Zimbabwe 9%<br><b>Refine</b> 🇨🇳China 65%<br><b>Top exporters</b> 🇨🇱Chile 75%, 🇦🇷Argentina 18%, 🇰🇷South Korea 2%<br><b>Network chokepoint</b> 🇨🇳China (processing chokepoint)</div></div>
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#9aa6ad;font-weight:700;margin-bottom:.3rem">Authoritative (USGS 2024 / IEA)</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> Australia ~37%, Chile ~20%, China ~17%, Zimbabwe ~9%, Argentina ~8% (USGS 2024, Li content)<br><b>Refine</b> China ~60–80% of battery-grade conversion (IEA)<br><b>Chokepoint</b> Chemical conversion capacity — China-heavy</div></div>
+  </div>
+  <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
+    <b>Commonly misread as:</b> Australia is top miner, but spodumene is not battery-ready until converted (mostly in China); a mine-vs-export comparison ignores the product/conversion step<br>
+    <b>Verdict:</b> Two findings, both now handled. (1) The traded HS code is lithium <i>carbonate</i> — Chile’s product (75% of trade) — so the mine-vs-export gap is a PRODUCT difference (spodumene vs carbonate), not a refiner illusion; the atlas now states this. (2) This audit caught a stale mine-share vintage (the atlas had Australia 52%); it is corrected here to USGS 2024 (Australia 37%, with Zimbabwe ~9% added).</div>
+</div><div class="card" style="border-left:4px solid #3f9b46;margin:1.1rem 0">
+  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:1rem;flex-wrap:wrap">
+    <h3 style="margin:0">Rare-earth permanent magnets (NdFeB)</h3>
+    <span style="color:#3f9b46;font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em">Strong agreement</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.8rem 0">
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#0e7c74;font-weight:700;margin-bottom:.3rem">Atlas shows</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> 🇨🇳China 69%, 🇺🇸United States 12%, 🇲🇲Myanmar [Burma] 11%, 🇦🇺Australia 5%<br><b>Refine</b> 🇨🇳China 90%<br><b>Top exporters</b> 🇨🇳China 64%, 🇯🇵Japan 9%, 🇻🇳Vietnam 6%<br><b>Network chokepoint</b> 🇨🇳China (processing chokepoint)</div></div>
+    <div><div style="font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#9aa6ad;font-weight:700;margin-bottom:.3rem">Authoritative (USGS 2024 / IEA)</div>
+      <div style="font-size:.86rem;line-height:1.7"><b>Mine</b> China ~60–70% REO, US ~12%, Myanmar significant (USGS 2024)<br><b>Refine</b> China ~85–92% separation, ~90–95% of NdFeB magnets (IEA/industry)<br><b>Chokepoint</b> Midstream separation + magnet fabrication — China; heavy REE (Dy, Tb) tighter still</div></div>
+  </div>
+  <div style="font-size:.84rem;color:#5a6b68;border-top:1px solid #eef2f1;padding-top:.6rem">
+    <b>Commonly misread as:</b> Mine shares look diversified; separated and magnet-grade material is far more concentrated<br>
+    <b>Verdict:</b> Atlas: mine China 69% / refine 90% / export 64%, all China-led; Myanmar (11%) is included and flagged as the worst-governance producer (g 0.84). Captured well.</div>
+</div>
+  <p class="note">Computed from <a href="out/data.json">data.json</a> + <a href="out/flows_2024.json">flows_2024.json</a> + the layer outputs → <a href="out/casestudies.json">casestudies.json</a>. External shares are rounded public figures; mine production ≠ exports ≠ refined output — that distinction is the atlas's whole point.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings.html">The origin gap</a><br><a href="network.html">Network chokepoints</a><br><a href="methodology.html">Methodology &amp; validation</a></div>
+  <div><h4>Sources</h4>USGS MCS 2025 · IEA 2025<br>UN Comtrade · CEPII BACI</div>
+  <div class="fineprint">Audit against expert-known chains; external figures are rounded public data.</div>
+</div></footer>
+</body></html>
