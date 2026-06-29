@@ -98,6 +98,22 @@ for iso in isos:
     countries.append((vuln, total, iso, len(rows)))
 countries.sort(reverse=True)
 
+# --- time dimension (2002-2024): tested trends + China's rising centrality ---
+try:
+    TR = json.load(open(os.path.join(ROOT, 'out', 'trends.json'), encoding='utf8'))
+    NET = json.load(open(os.path.join(ROOT, 'out', 'network.json'), encoding='utf8')).get('temporal', {})
+except Exception:
+    TR, NET = {'materials': {}, 'years': [], 'gap_index': []}, {}
+tmat = TR.get('materials', {})
+def _hhi(v): return v.get('stats', {}).get('hhi', {})
+sig_rising = [k for k, v in tmat.items() if _hhi(v).get('mk_p_fdr', 1) < 0.05 and _hhi(v).get('sen', 0) > 0]
+brk_1216 = sum(1 for v in tmat.values() if (_hhi(v).get('brk_year') or 0) and 2012 <= _hhi(v)['brk_year'] <= 2016)
+gi = TR.get('gap_index', []); gap0, gap1 = (gi[0], gi[-1]) if gi else (0, 0)
+cni = NET.get('cn_through_index', []); cn0, cn1 = (cni[0], cni[-1]) if cni else (0, 0)
+def cn_rise(lab):
+    s = tmat.get(lab, {}).get('china', []); return (s[0], s[-1]) if s else (0, 0)
+magn0, magn1 = cn_rise('magnets'); tun0, tun1 = cn_rise('tungsten')
+
 def li_rows(items):
     return ''.join(items)
 
@@ -156,7 +172,7 @@ def main():
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Synthesis · {YEAR}</div>
   <h1>The state of critical-materials supply</h1>
-  <p class="deck">The whole atlas in one screen — the highest-risk materials, the biggest origin gaps, China's footprint across the chain, the materials with no recycling cushion, and the most-exposed economies. Every figure links to its detail.</p>
+  <p class="deck">The whole atlas in one screen — the highest-risk materials, the biggest origin gaps, China's footprint across the chain, the materials with no recycling cushion, the most-exposed economies, and — with the series now reaching back to 2002 — how that concentration has intensified over two decades. Every figure links to its detail.</p>
 </div></section>
 <section class="stats"><div class="wrap">
   <div class="stat"><div class="n">{len(MATS)}</div><div class="l">critical materials</div></div>
@@ -175,6 +191,11 @@ def main():
     materials where a shock is both most damaging and least mitigable.</p>
     <table style="margin:.3rem 0 0"><thead><tr><th>Material</th><th class="n">risk</th><th>top exporter</th><th>refined in</th></tr></thead>
     <tbody>{nwo_rows}</tbody></table>
+  </div>
+  <div class="callout" style="padding:1.2rem 1.4rem;background:#f3f7f6">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0e7c74">A third cut · two decades</div>
+    <h2 style="margin:.25rem 0 .5rem;border:none;padding:0">Concentration is intensifying</h2>
+    <p style="margin:.2rem 0 0">With the reconciled trade series now reaching back to <b>2002</b>, the concentration story is <i>testable</i>, not just visible. <b>{len(sig_rising)}</b> of the {len(MATS)} materials show a <b>statistically significant rising</b> export-concentration trend (Mann–Kendall, FDR-corrected), and their structural breaks <b>cluster in 2012–2016</b> ({brk_1216} of them) — the China-export-control era. The average <b>origin gap</b> widened from {gap0:.0f} to {gap1:.0f}pp, and China's average <b>network throughput</b> — its centrality as importer-and-hub, not just exporter — rose from {cn0:.0f}% to {cn1:.0f}%. China's export share of rare-earth magnets climbed {magn0:.0f}→{magn1:.0f}%, of tungsten {tun0:.0f}→{tun1:.0f}%. <a href="trends.html"><b>See it move →</b></a></p>
   </div>
   <div class="grid2">
     {card('Highest supply risk', f'<ul>{hr}</ul><p class="note"><a href="risk.html">full index →</a></p>')}
