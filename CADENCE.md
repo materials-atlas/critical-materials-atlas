@@ -29,6 +29,7 @@ python build_criticality.py                    # -> out/criticality.json + criti
 python build_riskmethods.py                    # -> out/riskmethods.json + riskmethods.html (entropy-TOPSIS, GeoPolRisk, MC VaR/CVaR; reads wgi.json + risk.json)
 python build_vq.py                             # -> out/volume.json + volume.html (value vs volume concentration; streams BACI HS02+HS17 zips for quantity; slow)
 python build_satellite.py                      # -> out/satellite.json + satellite.html (Maus 2022 mine-footprint cross-check + flagship sites; needs raw/maus/maus_v2.gpkg from PANGAEA 942325)
+python build_mining_expansion.py               # -> out/mining_expansion.json + mining-expansion.html (Sepin 2025 tropical mine-area growth 2016-2024; needs raw/sepin/sepin_precise.gpkg from Zenodo 17034288)
 python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
 python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_trends.py                         # -> out/trends.json + trends.html (22-year evolution charts)
