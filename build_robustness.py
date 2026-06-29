@@ -121,7 +121,7 @@ HTML = r'''<!doctype html>
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>.muted{color:#5a6b68;font-size:.86rem}.yes{color:#2f8f46;font-weight:700}.no{color:#b07a18;font-weight:700}.tag{display:inline-block;font-size:.74rem;padding:.05rem .4rem;border-radius:5px;background:#eef3f2;color:#41524f}</style>
 </head><body>
 <header class="topbar"><div class="wrap">
