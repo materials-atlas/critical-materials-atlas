@@ -24,7 +24,7 @@ and we report how far the network fragments when that one node is removed.
 
 Writes out/network.json + network.html.  Public data only; deterministic; reproducible.
 """
-import json, os, html
+import json, os, html, glob
 import networkx as nx
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -56,6 +56,31 @@ def build_graph(label):
     for _, _, d in G.edges(data=True):
         d['dist'] = 1.0 / d['value']
     return G
+
+def china_centrality(flowsdict, label):
+    """China's PageRank, betweenness and throughput-share in one material-year network."""
+    G = nx.DiGraph()
+    for f in flowsdict.get('materials', {}).get(label) or []:
+        u, v, w = f['from'], f['to'], float(f['value'])
+        if w <= 0 or u == v:
+            continue
+        if G.has_edge(u, v):
+            G[u][v]['value'] += w
+        else:
+            G.add_edge(u, v, value=w)
+    if G.number_of_edges() < 3 or 'CN' not in G:
+        return {'pr': 0.0, 'bet': 0.0, 'through': 0.0}
+    for _, _, d in G.edges(data=True):
+        d['dist'] = 1.0 / d['value']
+    pr = nx.pagerank(G, weight='value')
+    bet = nx.betweenness_centrality(G, weight='dist', normalized=True)
+    ins = outs = tot = 0.0
+    for u, v, d in G.edges(data=True):
+        if u == 'CN': outs += d['value']
+        if v == 'CN': ins += d['value']
+        tot += d['value']
+    return {'pr': round(pr.get('CN', 0.0), 3), 'bet': round(bet.get('CN', 0.0), 3),
+            'through': round((ins + outs) / (2 * tot) * 100, 1) if tot else 0.0}
 
 def reach_pairs(G):
     """ordered (u,v) pairs with a directed path — a supply-can-reach-demand count."""
@@ -126,10 +151,30 @@ def main():
         key=lambda x: x['broker_score'], reverse=True)[:12]
 
     n_proc = sum(1 for r in rows if r['chokepoint']['kind'] == 'processing chokepoint')
+
+    # temporal: China's network centrality across the measured 2002-2024 series
+    tflows = {}
+    for p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
+        fd = json.load(open(p, encoding='utf8'))
+        if fd.get('provisional') or fd.get('nowcast_kind'):
+            continue
+        tflows[int(os.path.basename(p)[6:10])] = fd
+    tyears = sorted(tflows)
+    tmats = {}
+    for m in data['materials']:
+        lab = m['label']
+        cc = [china_centrality(tflows[y], lab) for y in tyears]
+        tmats[lab] = {'pr': [c['pr'] for c in cc], 'bet': [c['bet'] for c in cc], 'through': [c['through'] for c in cc]}
+    nm = len(tmats) or 1
+    cn_through = [round(sum(tmats[l]['through'][i] for l in tmats) / nm, 1) for i in range(len(tyears))]
+    cn_pr = [round(sum(tmats[l]['pr'][i] for l in tmats) / nm, 3) for i in range(len(tyears))]
+    temporal = {'years': tyears, 'cn_through_index': cn_through, 'cn_pr_index': cn_pr, 'materials': tmats}
+
     json.dump({'year': YEAR,
                'method': 'directed weighted trade network; pagerank(value), betweenness(1/value), node-removal fragmentation',
-               'materials': rows, 'systemic': systemic, 'n_processing': n_proc},
+               'materials': rows, 'systemic': systemic, 'n_processing': n_proc, 'temporal': temporal},
               open(os.path.join(ROOT, 'out', 'network.json'), 'w', encoding='utf8'), indent=1)
+    print(f"China network-throughput index: {cn_through[0]:.0f}% ({tyears[0]}) -> {cn_through[-1]:.0f}% ({tyears[-1]})")
 
     # ---- page ----
     motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg>')
@@ -169,6 +214,7 @@ def main():
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
@@ -207,6 +253,10 @@ def main():
     <tbody>{''.join(matrows)}</tbody>
   </table>
   <p class="note">{n_proc} of {len(rows)} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. ⛓ gallium/germanium/hafnium share one HS6 code. Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
+
+  <h2 style="margin:2rem 0 .5rem">China's network centrality over time</h2>
+  <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all 32 materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
+  <div style="background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem .8rem .4rem;margin:.6rem 0"><div id="cnchart" style="width:100%;height:400px"></div></div>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -215,6 +265,27 @@ def main():
   <div class="fineprint">Network position is one lens; betweenness on a trade network also reflects import size. Method documented.</div>
 </div></footer>
 </body></html>'''
+    _netjs = """<script>
+fetch('out/network.json').then(r=>r.json()).then(N=>{
+  const T=N.temporal; if(!T||!T.years) return;
+  const COL=['#15323a','#c77f0a','#6d5fb0','#b4532b','#3f9b46','#0e7c74'];
+  const NM={bauxite:'Bauxite',lithium:'Lithium carbonate',graphite:'Natural graphite',manganese:'Manganese ore',cobalt:'Cobalt'};
+  const KEY=Object.keys(NM).filter(k=>T.materials[k]);
+  const c=echarts.init(document.getElementById('cnchart'));
+  c.setOption({
+    tooltip:{trigger:'axis',valueFormatter:v=>v==null?'':v.toFixed(0)+'%'},
+    legend:{top:0,type:'scroll'},
+    grid:{left:48,right:20,top:34,bottom:30},
+    xAxis:{type:'category',data:T.years,boundaryGap:false},
+    yAxis:{type:'value',name:'China throughput %',min:0,axisLabel:{formatter:'{value}%'}},
+    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.cn_through_index,itemStyle:{color:'#15323a'}}].concat(
+      KEY.map((k,i)=>({name:NM[k],type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].through,itemStyle:{color:COL[(i+1)%6]}})))
+  });
+  window.addEventListener('resize',()=>c.resize());
+});
+</script>
+"""
+    out = out.replace('</body></html>', _netjs + '</body></html>')
     open(os.path.join(ROOT, 'network.html'), 'w', encoding='utf8', newline='\n').write(out)
 
     print(f'wrote network.html + out/network.json — {len(rows)} materials, {n_proc} processing chokepoints')
