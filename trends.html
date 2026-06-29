@@ -44,7 +44,11 @@
   <h2 style="margin:1.8rem 0 .4rem">The rise of China, in one picture</h2>
   <p class="muted" style="margin-top:0">China&rsquo;s share of world exports, marquee materials, 2002&ndash;2024.</p>
   <div class="chartwrap"><div id="chart2" class="chart"></div></div>
-  <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series.</p>
+
+  <h2 style="margin:1.8rem 0 .4rem">The origin gap over time</h2>
+  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all 32 materials; thin lines = the materials with the widest gap today.</p>
+  <div class="chartwrap"><div id="chart3" class="chart"></div></div>
+  <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series. Origin gap uses current USGS mine shares as a fixed reference.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -87,7 +91,18 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     yAxis:{type:'value',name:"China export share %",min:0,max:100,axisLabel:{formatter:'{value}%'}},
     series:KEY.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:2.4,data:T.materials[k].china,itemStyle:{color:COL[i%6]}}))
   });
-  window.addEventListener('resize',()=>{c1.resize();c2.resize();});
+  const c3=echarts.init($('#chart3'));
+  const gapmats=Object.keys(T.materials).map(k=>[k,T.materials[k].gap[T.materials[k].gap.length-1]]).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]);
+  c3.setOption({
+    tooltip:{trigger:'axis',valueFormatter:v=>v==null?'':v.toFixed(0)+'pp'},
+    legend:{top:0,type:'scroll'},
+    grid:{left:48,right:20,top:34,bottom:30},
+    xAxis:{type:'category',data:T.years,boundaryGap:false},
+    yAxis:{type:'value',name:'origin gap (pp)',axisLabel:{formatter:'{value}'}},
+    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.gap_index,itemStyle:{color:'#15323a'}}].concat(
+      gapmats.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].gap,itemStyle:{color:COL[i%6]}})))
+  },true);
+  window.addEventListener('resize',()=>{c1.resize();c2.resize();c3.resize();});
 });
 </script>
 </body></html>

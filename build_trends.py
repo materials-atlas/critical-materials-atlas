@@ -41,8 +41,10 @@ def shares(year, label):
         o[e['from']] = o.get(e['from'], 0.0) + e['value']; tot += e['value']
     return ({c: v / tot * 100 for c, v in o.items()}, tot) if tot else ({}, 0.0)
 
+MINE = {m['label']: {x['c']: x['v'] for x in (m.get('mined') or [])} for m in data['materials']}
 mats = {}
 used_iso = set()
+gacc = {y: [] for y in YEARS}   # per-year positive origin gaps, for the aggregate index
 for lab in LABELS:
     yr_sh = {y: shares(y, lab)[0] for y in YEARS}
     # pick the lines to draw: countries by their MAX share across the span (captures early leaders too)
@@ -54,16 +56,26 @@ for lab in LABELS:
     lines = {c: [round(yr_sh[y].get(c, 0.0), 1) for y in YEARS] for c in top}
     hhi = [round(sum((s / 100.0) ** 2 for s in yr_sh[y].values()), 3) for y in YEARS]
     china = [round(yr_sh[y].get('CN', 0.0), 1) for y in YEARS]
+    # origin gap: the year's top exporter's world share minus that country's own (current) mine share
+    gap = []
+    for y in YEARS:
+        s = yr_sh[y]
+        g = (s[max(s, key=s.get)] - MINE[lab].get(max(s, key=s.get), 0.0)) if s else 0.0
+        gap.append(round(g, 1))
+    for i, y in enumerate(YEARS):
+        gacc[y].append(max(0.0, gap[i]))
     used_iso.update(top)
-    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china}
+    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china, 'gap': gap}
+gap_index = [round(sum(gacc[y]) / len(gacc[y]), 1) if gacc[y] else 0.0 for y in YEARS]
 
 names = {c: NAMES.get(c, c) for c in used_iso}
-json.dump({'years': YEARS, 'names': names, 'materials': mats},
+json.dump({'years': YEARS, 'names': names, 'gap_index': gap_index, 'materials': mats},
           open(os.path.join(ROOT, 'out', 'trends.json'), 'w', encoding='utf8'), indent=1)
 print(f'wrote out/trends.json — {len(YEARS)} years ({YEARS[0]}-{YEARS[-1]}), {len(mats)} materials')
 for lab in ['magnets', 'tungsten', 'bauxite']:
     c = mats[lab]['china']
     print(f"  {lab:<10} China export share {c[0]:.0f}% ({YEARS[0]}) -> {c[-1]:.0f}% ({YEARS[-1]})")
+print(f"  origin-gap index: {gap_index[0]:.0f}pp ({YEARS[0]}) -> {gap_index[-1]:.0f}pp ({YEARS[-1]})")
 
 # ---- static page (no Python interpolation; data fetched at runtime) ----
 HTML = r'''<!doctype html>
@@ -112,7 +124,11 @@ HTML = r'''<!doctype html>
   <h2 style="margin:1.8rem 0 .4rem">The rise of China, in one picture</h2>
   <p class="muted" style="margin-top:0">China&rsquo;s share of world exports, marquee materials, 2002&ndash;2024.</p>
   <div class="chartwrap"><div id="chart2" class="chart"></div></div>
-  <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series.</p>
+
+  <h2 style="margin:1.8rem 0 .4rem">The origin gap over time</h2>
+  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all 32 materials; thin lines = the materials with the widest gap today.</p>
+  <div class="chartwrap"><div id="chart3" class="chart"></div></div>
+  <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series. Origin gap uses current USGS mine shares as a fixed reference.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -155,7 +171,18 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     yAxis:{type:'value',name:"China export share %",min:0,max:100,axisLabel:{formatter:'{value}%'}},
     series:KEY.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:2.4,data:T.materials[k].china,itemStyle:{color:COL[i%6]}}))
   });
-  window.addEventListener('resize',()=>{c1.resize();c2.resize();});
+  const c3=echarts.init($('#chart3'));
+  const gapmats=Object.keys(T.materials).map(k=>[k,T.materials[k].gap[T.materials[k].gap.length-1]]).sort((a,b)=>b[1]-a[1]).slice(0,5).map(x=>x[0]);
+  c3.setOption({
+    tooltip:{trigger:'axis',valueFormatter:v=>v==null?'':v.toFixed(0)+'pp'},
+    legend:{top:0,type:'scroll'},
+    grid:{left:48,right:20,top:34,bottom:30},
+    xAxis:{type:'category',data:T.years,boundaryGap:false},
+    yAxis:{type:'value',name:'origin gap (pp)',axisLabel:{formatter:'{value}'}},
+    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.gap_index,itemStyle:{color:'#15323a'}}].concat(
+      gapmats.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].gap,itemStyle:{color:COL[i%6]}})))
+  },true);
+  window.addEventListener('resize',()=>{c1.resize();c2.resize();c3.resize();});
 });
 </script>
 </body></html>'''
