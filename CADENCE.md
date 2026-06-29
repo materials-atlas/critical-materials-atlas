@@ -23,6 +23,7 @@ Rscript build_static.R                         # -> out/data.json
 python fetch_wgi.py                            # -> out/wgi.json (World Bank governance; only when WGI updates ~yearly)
 python build_risk.py                           # -> out/risk.json + risk.html (supply-risk index)
 python build_network.py                        # -> out/network.json + network.html (trade-network chokepoints)
+python build_network_sensitivity.py            # -> out/network_sensitivity.json + network-sensitivity.html (top-6/10/20/full truncation check; streams BACI HS17 2024)
 python build_complexity.py                     # -> out/complexity.json + complexity.html (RCA / economic complexity)
 python build_criticality.py                    # -> out/criticality.json + criticality.html (governance-weighted; reads risk.json + wgi.json)
 python build_riskmethods.py                    # -> out/riskmethods.json + riskmethods.html (entropy-TOPSIS, GeoPolRisk, MC VaR/CVaR; reads wgi.json + risk.json)
