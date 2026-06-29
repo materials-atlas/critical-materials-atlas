@@ -250,11 +250,22 @@ Sankey widths are <em>relative</em>, not dollar-precise. <b>2025*</b> is provisi
 level-calibrated to BACI; not independently validated until BACI 2025 is released). <b>2026**</b> is a
 directional scenario (Q1 momentum, shares held at 2025) — a trend signal, not a measurement.</p>
 
+<h2>Analytical layers &amp; trend analysis</h2>
+<p>On top of the mine&rarr;refine&rarr;trade&rarr;reserves core, the atlas adds several screening lenses — each documented and caveated on its own page, and, with full citations, in the <a href="technical-note.html">technical note</a>:</p>
+<ul>
+<li><a href="network.html"><b>Trade-network chokepoints</b></a> — directed-network betweenness / PageRank plus a node-removal fragility test (read as <i>trade-routing centrality</i>, since betweenness also reflects import size).</li>
+<li><a href="criticality.html"><b>Governance-weighted criticality</b></a> — an EU/SCRREEN-shaped supply-risk proxy weighting concentration by World Bank governance scores, plus a Graedel-style axis; a proxy on public approximations, not the official scores.</li>
+<li><a href="complexity.html"><b>Economic complexity</b></a> — Balassa revealed comparative advantage over the 32-material export matrix (specialization <i>within</i> critical materials), with ubiquity and relatedness.</li>
+<li><a href="origin.html"><b>Origin trace</b></a> — a first-order re-attribution of refiner-fronted imports to the dominant mine (an upper bound on single-origin concentration).</li>
+<li><a href="casestudies.html"><b>Case studies</b></a> — the atlas audited against five chains experts know cold (USGS / IEA).</li>
+</ul>
+<p>The reconciled trade series runs <b>2002&ndash;2024</b>, and the <a href="trends.html"><b>Trends</b></a> view does not merely plot it: each material's export-concentration, China-share and origin-gap series is <em>tested</em> with the <b>Mann&ndash;Kendall</b> trend test, the <b>Theil&ndash;Sen</b> slope and the <b>Pettitt</b> structural-break test, Benjamini&ndash;Hochberg-corrected across the 32 materials. <b>9 of 32</b> materials show a statistically significant rising export-concentration trend, with structural breaks clustering in <b>2012&ndash;2016</b>. The critical-minerals literature typically plots concentration; testing and dating it is the contribution. Full methods and references: <a href="technical-note.html">technical note</a>.</p>
+
 <h2>Data &amp; reproducibility</h2>
 <p><b>Global bilateral trade</b> (map / globe / flow): primary source <b>UN Comtrade</b>, used in its
 reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
-International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — release HS17 V202601, years
-<b>2018–2024</b> (one nomenclature across the whole series so it is internally consistent). The year is
+International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — releases HS02 + HS17 V202601, years
+<b>2002–2024</b> (HS02 vintage through 2016, HS17 from 2017). The year is
 selectable in the tool.</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.

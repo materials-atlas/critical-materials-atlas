@@ -87,7 +87,7 @@
   <div class="eyebrow">Working note · June 2026</div>
   <h1>Share-faithful reconstruction of bilateral trade from raw UN Comtrade — and a pre-registered nowcast for critical materials</h1>
   <p class="authors"><b>materials-atlas</b> · independent research · public data only · <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · <a href="https://criticalmaterialsatlas.org/">interactive atlas</a></p>
-  <p class="authors" style="margin-top:.3rem;font-size:.82rem;color:#9fbab6">Version 2026-06-26 · cite the dated revision in the <a href="https://github.com/materials-atlas/critical-materials-atlas/commits/main/technical-note.html">commit history</a> · trade year 2024 (BACI V202601)</p>
+  <p class="authors" style="margin-top:.3rem;font-size:.82rem;color:#9fbab6">Version 2026-06-29 · cite the dated revision in the <a href="https://github.com/materials-atlas/critical-materials-atlas/commits/main/technical-note.html">commit history</a> · trade years 2002–2024 (BACI HS02 + HS17, V202601)</p>
 </div></section>
 
 <article>
@@ -97,7 +97,7 @@
   <a class="btn ghost" href="findings.html">The finding, interactive →</a>
 </div>
 
-<div class="abstract"><b>Abstract.</b> I reconstruct bilateral trade in 32 critical raw materials from raw UN Comtrade using a Gaulier–Zignago-style mirror reconciliation (reliability-weighted inverse-variance averaging of exporter and importer reports), and validate it against the official CEPII&nbsp;BACI dataset on the statistics that matter for supply-concentration analysis: top exporters, trade shares, and Herfindahl concentration. On 2024 the reconstruction recovers the top exporter in <b>25 of 30</b> materials with a share mean-absolute-error of <b>3.5pp</b> and an HHI correlation of <b>0.92</b> (importer side: 22/30, 4.2pp, 0.97). I then (i) document an <b>origin gap</b> — in <b>19 of 32</b> materials the top <em>exporter</em> is not the top <em>miner</em>, so import-origin statistics systematically overstate the geographic diversification of supply — and (ii) build a provisional 2025 nowcast and a directional 2026 scenario whose shared assumption (share persistence) I test out-of-sample (<b>85%</b> year-over-year top-exporter persistence; a leader's annual share move has P50&nbsp;3.5pp / P90&nbsp;8.7pp) and whose accuracy I <b>pre-register</b> against the next BACI release. All inputs are public; the raw Comtrade is committed, so all code and fixtures reproduce the reconciliation and validation end-to-end with no API key.</div>
+<div class="abstract"><b>Abstract.</b> I reconstruct bilateral trade in 32 critical raw materials from raw UN Comtrade using a Gaulier–Zignago-style mirror reconciliation (reliability-weighted inverse-variance averaging of exporter and importer reports), and validate it against the official CEPII&nbsp;BACI dataset on the statistics that matter for supply-concentration analysis: top exporters, trade shares, and Herfindahl concentration. On 2024 the reconstruction recovers the top exporter in <b>25 of 30</b> materials with a share mean-absolute-error of <b>3.5pp</b> and an HHI correlation of <b>0.92</b> (importer side: 22/30, 4.2pp, 0.97). I then (i) document an <b>origin gap</b> — in <b>19 of 32</b> materials the top <em>exporter</em> is not the top <em>miner</em>, so import-origin statistics systematically overstate the geographic diversification of supply — and (ii) build a provisional 2025 nowcast and a directional 2026 scenario whose shared assumption (share persistence) I test out-of-sample (<b>85%</b> year-over-year top-exporter persistence; a leader's annual share move has P50&nbsp;3.5pp / P90&nbsp;8.7pp) and whose accuracy I <b>pre-register</b> against the next BACI release. All inputs are public; the raw Comtrade is committed, so all code and fixtures reproduce the reconciliation and validation end-to-end with no API key. Finally I extend the reconciled series back to <b>2002</b> and, rather than merely plotting concentration as the literature does, <b>test</b> it: <b>9 of 32</b> materials show a statistically significant rising export-concentration trend (Mann–Kendall, FDR-corrected), with structural breaks clustering in <b>2012–2016</b>.</div>
 
 <h2><span class="s">1.</span>The question</h2>
 <p>Under customs rules, refining and substantial transformation confer "origin": when a country imports an ore, processes it and re-exports, the traded good takes the processor's nationality and the customs record stops there. Trade statistics therefore measure <em>where a material was last shipped from</em>, not <em>where it came out of the ground</em>. For critical-material supply-risk analysis — where the policy question is genuine geographic concentration of the upstream — this is a systematic blind spot. This note builds the data to measure it and quantifies how large the gap is.</p>
@@ -179,7 +179,25 @@
 </table>
 <p><b>The twist.</b> The intuitive story is "China hides behind refineries." The data only half-supports it: for many materials China is <em>both</em> the lead miner and the lead exporter — its position is largely genuine, not an artefact. The materials where exporter and miner diverge are instead fronted by industrial refiners and entrepôts — Finland for Congolese cobalt, Japan for largely Chinese-mined titanium, Germany for Spanish strontium, Norway for Indonesian nickel. The corrective therefore cuts both ways: it deflates apparent dependence on refiner countries, and it reveals that genuinely concentrated upstreams (Congo cobalt, Indonesian nickel) are <em>more</em> concentrated than the diversified-looking trade ledger suggests.</p>
 
-<h2><span class="s">7.</span>Limitations and non-claims</h2>
+<h2><span class="s">7.</span>Trends, breaks and tested concentration (2002–2024)</h2>
+<p>The reconciled series is extended back to <b>2002</b> using CEPII BACI's HS2002 release, spliced to HS17 from 2017. The 32 materials' HS6 codes are stable across that window with two documented exceptions: boron, whose code was merged in HS2012 (recovered by summing its two predecessor codes), and hafnium, pooled inside 811292 before HS2022 (as gallium and germanium remain). This yields a continuous 22-year, share-faithful panel — long enough to <em>test</em>, not merely plot, how concentration evolved. Most critical-minerals work stops at plotting Herfindahl trajectories; here each material's export-HHI, China-share and origin-gap series is put through standard trend statistics:</p>
+<ul>
+<li><b>Monotonic trend.</b> The Mann–Kendall rank test (Mann 1945; Kendall 1975) for significance and the Theil–Sen estimator (Sen 1968) for a robust slope, with Benjamini–Hochberg (1995) false-discovery-rate correction across the 32 materials.</li>
+<li><b>Structural breaks.</b> The Pettitt (1979) non-parametric change-point test dates the year a series shifts regime (cf. Bai &amp; Perron 1998 for multiple breaks).</li>
+<li><b>Decomposition.</b> The 2002→2024 change in export-HHI is attributed by country (contribution = share²<sub>2024</sub> − share²<sub>2002</sub>), identifying which exporter drove each material's concentration.</li>
+</ul>
+<p>The result: <b>9 of 32</b> materials show a statistically significant rising export-concentration trend (FDR&lt;0.05); their structural breaks <b>cluster in 2012–2016</b>, the period in which export-control measures and critical-minerals-security policy intensified. The steepest are beryllium, tungsten, bauxite and rare-earth magnets. The aggregate <b>origin gap</b> — averaged across materials — widened from ~15 to ~18 percentage points, the rise concentrated after 2018. Because USGS mine shares enter as a current fixed reference, this isolates how the <em>trade</em> map drifted from today's mining geography; it is a trade-side, not a geological, trend. To my knowledge no peer-reviewed study applies this trend-test-plus-change-point toolkit to critical-material export-concentration series — the contribution is the testing, not the plotting.</p>
+
+<h2><span class="s">8.</span>Further analytical layers</h2>
+<p>Four additional lenses are built on the same reconciled trade, each deliberately framed as a <em>screening indicator</em>, not a structural claim:</p>
+<ul>
+<li><b>Trade-routing centrality.</b> Treating each material's bilateral flows as a directed network, betweenness and PageRank (Freeman 1977) plus a node-removal fragility test surface the brokers and processing hubs that share-concentration misses. Read as routing centrality — betweenness on a trade network also reflects import size, so a large buyer scores high without "controlling" anything.</li>
+<li><b>Governance-weighted criticality.</b> An EU/SCRREEN-shaped supply-risk proxy (Blengini et al. 2017) weighting concentration by World Bank Worldwide Governance Indicators, plus a Graedel-style supply-risk axis (Graedel et al. 2012). These are proxies on public approximations, not the official EU or Yale scores; they correlate with the project's transparent index at ρ≈0.79 — partly mechanically, since they share inputs.</li>
+<li><b>Economic complexity.</b> Balassa (1965) revealed comparative advantage over the 32-material export matrix — specialization <em>within</em> critical materials, not economy-wide RCA — with material ubiquity and relatedness (Hidalgo &amp; Hausmann 2009).</li>
+<li><b>Origin trace.</b> A first-order re-attribution of refiner-fronted imports to the dominant mine, reported explicitly as an <em>upper bound</em> on single-origin concentration.</li>
+</ul>
+
+<h2><span class="s">9.</span>Limitations and non-claims</h2>
 <ul>
 <li>The origin gap is a <b>measurement gap</b> between two public datasets (reconciled trade shares vs USGS mine shares), <em>not</em> a fully traced physical supply chain. Some gap is legitimate — a refiner genuinely exports a <em>different product</em> than the mined ore (cobalt chemicals vs cobalt ore), which sits under a different code.</li>
 <li>Customs data cannot separate a true refiner from a re-export hub; trade-derived country roles are <em>trade exposure</em>, not proof of physical processing. Entrepôts are flagged.</li>
@@ -187,16 +205,39 @@
 <li>Figures are share-faithful, not level-faithful; absolute values are not claimed. Mine and refine layers are approximate USGS/IEA reference shares, undated. 2025 is provisional; 2026 is directional.</li>
 </ul>
 
-<h2><span class="s">8.</span>Reproducibility</h2>
+<h2><span class="s">10.</span>Reproducibility</h2>
 <p>Two public repositories, <b>no API key required to reproduce the pipeline end-to-end</b>: the interactive atlas (<a href="https://github.com/materials-atlas/critical-materials-atlas">materials-atlas/critical-materials-atlas</a>) and the reconciliation engine (<a href="https://github.com/materials-atlas/comtrade-reconcile">materials-atlas/comtrade-reconcile</a>, CI green). The raw 2024 Comtrade is committed (gzipped) under <code>fixtures/raw/</code>, so the reconciliation regenerates from raw rather than from a pre-computed file. On a fresh clone of the engine: <code>pip install -r requirements.txt</code>, then <code>ATLAS_ROOT=fixtures python reconcile.py 2024</code> (regenerates the reconciliation), <code>… validate.py 2024</code> (Table&nbsp;2), <code>python backtest.py</code> (Table&nbsp;3), <code>python findings.py</code> (Table&nbsp;4). CI runs the <code>reconcile → validate</code> chain on every push. The Comtrade key is needed only for the initial network pull and is read from the environment, never committed.</p>
 
 <h2><span class="s"></span>References</h2>
+<p style="font-size:.84rem;color:var(--mut);margin:.2rem 0 .6rem"><b>Data.</b></p>
 <ul class="refs">
 <li>Gaulier, G. &amp; Zignago, S. (2010). <i>BACI: International Trade Database at the Product-Level</i>. CEPII Working Paper 2010-23.</li>
 <li>UN Comtrade Database. United Nations Statistics Division.</li>
-<li>U.S. Geological Survey. <i>Mineral Commodity Summaries</i>.</li>
-<li>International Energy Agency. <i>Global Critical Minerals Outlook</i>.</li>
-<li>World Bank. <i>Commodity Markets ("Pink Sheet")</i>.</li>
+<li>U.S. Geological Survey. <i>Mineral Commodity Summaries</i> (annual).</li>
+<li>International Energy Agency. <i>Global Critical Minerals Outlook</i> (2025).</li>
+<li>World Bank. <i>Worldwide Governance Indicators</i>; <i>Commodity Markets ("Pink Sheet")</i>.</li>
+</ul>
+<p style="font-size:.84rem;color:var(--mut);margin:.6rem 0 .6rem"><b>Methods.</b></p>
+<ul class="refs">
+<li>Mann, H.B. (1945). Nonparametric tests against trend. <i>Econometrica</i> 13(3).</li>
+<li>Kendall, M.G. (1975). <i>Rank Correlation Methods</i>. Griffin.</li>
+<li>Sen, P.K. (1968). Estimates of the regression coefficient based on Kendall's tau. <i>JASA</i> 63(324).</li>
+<li>Pettitt, A.N. (1979). A non-parametric approach to the change-point problem. <i>Applied Statistics</i> 28(2).</li>
+<li>Bai, J. &amp; Perron, P. (1998). Estimating and testing linear models with multiple structural changes. <i>Econometrica</i> 66(1).</li>
+<li>Benjamini, Y. &amp; Hochberg, Y. (1995). Controlling the false discovery rate. <i>J. Royal Stat. Soc. B</i> 57(1).</li>
+<li>Balassa, B. (1965). Trade liberalisation and "revealed" comparative advantage. <i>Manchester School</i> 33.</li>
+<li>Hidalgo, C.A. &amp; Hausmann, R. (2009). The building blocks of economic complexity. <i>PNAS</i> 106(26).</li>
+<li>Freeman, L.C. (1977). A set of measures of centrality based on betweenness. <i>Sociometry</i> 40(1).</li>
+<li>Graedel, T.E. et al. (2012). Methodology of metal criticality determination. <i>Environ. Sci. Technol.</i> 46(2).</li>
+<li>Blengini, G.A. et al. (2017). EU methodology for establishing the list of critical raw materials. <i>Resources Policy</i> 53.</li>
+</ul>
+<p style="font-size:.84rem;color:var(--mut);margin:.6rem 0 .6rem"><b>Recent critical-mineral trade-network &amp; criticality (context).</b></p>
+<ul class="refs">
+<li>Nassar, N.T., Brainard, J. &amp; Gulley, A. et al. (2020). Evaluating the mineral commodity supply risk of the U.S. manufacturing sector. <i>Science Advances</i> 6(8).</li>
+<li>Schrijvers, D. et al. (2020). A review of methods and data to determine raw material criticality. <i>Resources, Conservation &amp; Recycling</i> 155.</li>
+<li>Liu, Y., Ouyang, X., Gao, J. et al. (2024). Multilayer material-flow and trade network of cobalt. <i>Environ. Sci. Technol.</i> 58.</li>
+<li>Guo, Q. &amp; Wang, C. (2024). Evolution of the rare-earth trade-dependence network. <i>Resources Policy</i> 91.</li>
+<li>Wang, X. et al. (2019). The graphite trade network. <i>Resources Policy</i> 60.</li>
 </ul>
 
 </article>
