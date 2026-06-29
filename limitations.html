@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What this is not — limitations &amp; falsification · Critical Materials Atlas</title>
+<meta name="description" content="An honest accounting of what the Critical Materials Atlas is not: every known limitation with its direction of bias, and the concrete conditions that would prove each headline finding wrong.">
+<meta property="og:title" content="What this is not — the limitations, and what would change my mind">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.muted{color:#5a6b68;font-size:.86rem}
+.lim{border:1px solid #e3e9e8;border-radius:10px;padding:1rem 1.1rem;margin:.8rem 0;background:#fff}
+.lim h3{margin:0 0 .3rem;font-size:1.02rem}
+.bias{display:inline-block;font-size:.74rem;font-weight:700;padding:.08rem .5rem;border-radius:6px;margin-left:.4rem;vertical-align:middle}
+.bias.over{background:#fbe9e7;color:#b0392b}.bias.under{background:#e7f1ec;color:#2f7d46}.bias.neutral{background:#eef1f0;color:#52605d}
+.lim p{margin:.35rem 0}
+.fix{font-size:.9rem;color:#2f7d46}
+.kill{background:#f0f7f5;border-left:4px solid #0e7c74;padding:.5rem .8rem;border-radius:0 8px 8px 0;font-size:.92rem;margin:.4rem 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}@media(max-width:720px){.two{grid-template-columns:1fr}}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="robustness.html">Robustness</a>
+  <a href="technical-note.html" class="hideable">Technical note</a><a href="findings.html" class="hideable">Findings</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · honesty</div>
+  <h1>What this is not &mdash; and what would change my mind</h1>
+  <p class="deck">Every analysis is a set of choices, and choices can be wrong. This page states plainly what the atlas is <i>not</i>, lists each known limitation with the <b>direction</b> it biases the result, and &mdash; for the headline findings &mdash; the concrete condition that would prove each one wrong. A claim you can&rsquo;t falsify isn&rsquo;t worth much; here are the falsifiers.</p>
+</div></section>
+<article style="max-width:1040px">
+
+  <div class="callout"><b>What it is.</b> A <b>screening tool</b> built entirely from public data &mdash; UN Comtrade / CEPII BACI trade, USGS &amp; IEA production/refining shares, World Bank governance, peer-reviewed satellite mine polygons. It maps <i>where</i> concentration sits across mine&rarr;refine&rarr;trade and flags where the trade picture hides the production picture.
+  <b>What it is not:</b> it is <b>not causal</b> (it describes structure, it doesn&rsquo;t prove why), <b>not a forecast</b> (the 2025/26 figures are explicitly directional), <b>not firm- or contract-level</b> (it sees countries and HS codes, not companies or stockpiles), and <b>not a substitute for proprietary mine-level intelligence</b>. Read it to know <i>where to look</i>, not as the last word.</div>
+
+  <h2 style="margin:1.6rem 0 .5rem">Known limitations, by layer &mdash; with direction of bias</h2>
+  <p class="muted" style="margin-top:0">Tag shows which way each limitation pushes the headline: <span class="bias over">overstates</span> makes concentration/risk look worse than reality, <span class="bias under">understates</span> the reverse, <span class="bias neutral">uncertain</span> either way. Where I&rsquo;ve already mitigated it, the green line says how.</p>
+
+  <div class="lim">
+    <h3>Trade reconciliation is share-faithful, not level-faithful <span class="bias neutral">uncertain</span></h3>
+    <p>BACI reconciles the two sides of every trade (exporter vs importer report) into one figure; the method is tuned to get <i>shares</i> right, not absolute dollar levels. Concentration metrics (HHI, top-partner share) are the right use; absolute values are indicative.</p>
+    <p class="fix">&#10003; The whole atlas is built on shares and ranks, not levels &mdash; the reconciliation engine is <a href="https://github.com/materials-atlas/comtrade-reconcile">open and CI-tested</a> against BACI.</p>
+  </div>
+
+  <div class="lim">
+    <h3>The 2017 HS-vintage splice <span class="bias over">overstates</span></h3>
+    <p>The long series joins HS-2002 codes (2002&ndash;2016) to HS-2017 codes (2017&ndash;2024). The origin-gap index <i>steps</i> at that join, so part of the &ldquo;gap widened 15&rarr;18pp&rdquo; is a splice artifact, not real drift.</p>
+    <p class="fix">&#10003; The step is caveated everywhere and marked on the Trends chart; the <a href="robustness.html">robustness page</a> re-tests each trend separately on the two windows &mdash; <span class="dyn" data-k="splice">6 of 9</span> rising-concentration findings keep their sign in both halves.</p>
+  </div>
+
+  <div class="lim">
+    <h3>Mine and refining shares are static, hand-entered approximations <span class="bias neutral">uncertain</span></h3>
+    <p>The USGS/IEA production and refining shares are fixed values entered per material on mixed vintages &mdash; they don&rsquo;t move year-to-year, and one can go stale (a case-study audit caught a lithium mine share two years out of date).</p>
+    <p class="fix">&#10003; Caught and corrected via the <a href="casestudies.html">case-study audit</a>; a periodic USGS-refresh sweep is in the runbook. This is the atlas&rsquo;s softest data and the first place to check a surprising number.</p>
+  </div>
+
+  <div class="lim">
+    <h3>The network fragility figures are an upper bound <span class="bias over">overstates</span></h3>
+    <p>The trade-network graphs are drawn from the top-6 partners per side for legibility. A truncated graph hides real alternative routes, so &ldquo;removing China breaks X% of routes&rdquo; is too high.</p>
+    <p class="fix">&#10003; Quantified on the <a href="network-sensitivity.html">truncation-sensitivity page</a>: rebuilt fully uncapped, average fragility falls from <span class="dyn" data-k="frag6">34%</span> to <span class="dyn" data-k="fragfull">12%</span>. China&rsquo;s <i>centrality</i>, however, barely moves &mdash; that finding survives.</p>
+  </div>
+
+  <div class="lim">
+    <h3>Trend significance rests on 23 annual points <span class="bias over">overstates</span></h3>
+    <p>Mann-Kendall on a short, serially-correlated annual series overstates significance. &ldquo;9 of 32 materials are significantly concentrating&rdquo; is an exploratory screen, not a confirmatory test.</p>
+    <p class="fix">&#10003; Re-run with an autocorrelation-robust correction on the <a href="robustness.html">robustness page</a>: <span class="dyn" data-k="surv">7 of 9</span> survive. The rest are labelled exploratory.</p>
+  </div>
+
+  <div class="lim">
+    <h3>The satellite footprint is all-commodity, not critical-material-specific <span class="bias neutral">uncertain</span></h3>
+    <p>The Maus et al. mine polygons (Sentinel-2, ~2019) carry no reliable per-mineral label, so the country map is <i>total</i> mining intensity (coal, iron, gold included), not critical-material footprint.</p>
+    <p class="fix">&#10003; Stated loudly on the <a href="satellite.html">satellite page</a>; the curated flagship mines carry the material-specific view. Used only as a cross-check, never as a production measure.</p>
+  </div>
+
+  <div class="two">
+    <div class="lim">
+      <h3>Implied unit values are noisy <span class="bias neutral">uncertain</span></h3>
+      <p>Price = value &divide; tonnage from trade data mixes product grades and qualities. Read the price charts as trends and cross-country contrasts, not exact $/tonne.</p>
+    </div>
+    <div class="lim">
+      <h3>Risk weights and disruption odds are assumptions <span class="bias neutral">uncertain</span></h3>
+      <p>The fixed-weight index, the entropy weights (which reward dispersion, not importance), and the Monte-Carlo failure probabilities are transparent <i>assumptions</i>, not estimated parameters. They&rsquo;re a panel of lenses, not a verdict.</p>
+    </div>
+    <div class="lim">
+      <h3>The origin trace is a first-order upper bound <span class="bias over">overstates</span></h3>
+      <p>Re-attributing refiner imports to the dominant mine is a single-step approximation that flags likely refiner-fronting &mdash; not proof of disguised true origin.</p>
+    </div>
+    <div class="lim">
+      <h3>Complexity is within 32 materials, not the economy <span class="bias neutral">uncertain</span></h3>
+      <p>The RCA/relatedness layer measures specialization <i>within</i> this critical-material slice, not economy-wide economic complexity. The eigenvector ECI was dropped as degenerate on so few products.</p>
+    </div>
+  </div>
+
+  <h2 style="margin:1.8rem 0 .5rem">What would change my mind</h2>
+  <p class="muted" style="margin-top:0">Concrete falsifiers for the headline claims. If these came back the other way, the finding is wrong.</p>
+
+  <div class="kill"><b>&ldquo;The origin gap is real, not a measurement quirk.&rdquo;</b> &mdash; Wrong if, when 2025 BACI lands, the reconciled bilateral flows no longer reproduce the top-partner shares within the <a href="reconcile/PREREGISTRATION.md">pre-registered</a> thresholds. That test is locked in advance, pass or fail.</div>
+  <div class="kill"><b>&ldquo;Concentration is intensifying.&rdquo;</b> &mdash; Wrong if the rising-HHI trends vanish under the autocorrelation-robust test (they don&rsquo;t &mdash; <span class="dyn" data-k="surv">7 of 9</span> survive) or flip sign across the vintage splice (most don&rsquo;t). A material whose trend fails both is explicitly <i>not</i> claimed.</div>
+  <div class="kill"><b>&ldquo;China is the trade-network broker.&rdquo;</b> &mdash; Wrong if its centrality were an artifact of the top-6 cap. Uncapped, its throughput share moves only <span class="dyn" data-k="share6">21%</span>&rarr;<span class="dyn" data-k="sharefull">18%</span> and it stays the top broker in <span class="dyn" data-k="brokerfull">9</span>/32 materials &mdash; so this holds.</div>
+  <div class="kill"><b>&ldquo;China&rsquo;s dominance is partly processing, not tonnage.&rdquo;</b> &mdash; Wrong if its export <i>unit values</i> sat at or below the rest of the world&rsquo;s for the materials where its value-share exceeds its volume-share. They sit well above (tungsten +107%), so the processing-premium reading holds.</div>
+  <div class="kill"><b>&ldquo;The reconciliation engine reproduces.&rdquo;</b> &mdash; Wrong if the CI run stops matching BACI on the committed fixture. It runs on every push and monthly; the badge is the live proof.</div>
+
+  <p class="note" style="margin-top:1.4rem">This page is the project&rsquo;s standing invitation to be checked. The code and data are <a href="https://github.com/materials-atlas/comtrade-reconcile">public</a>; the pre-registration is <a href="reconcile/PREREGISTRATION.md">timestamped</a>. If something here is wrong, it can be shown to be wrong &mdash; which is the point.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="robustness.html">Robustness</a><br><a href="network-sensitivity.html">Network sensitivity</a><br><a href="technical-note.html">Technical note</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Stance</h4>Screening tool, not peer-review or forecast. Public data only. Falsifiable by design.</div>
+  <div class="fineprint">Limitations stated with direction of bias; headline findings stated with their falsifiers.</div>
+</div></footer>
+<script>
+Promise.all([
+  fetch('out/robustness.json').then(r=>r.json()).catch(()=>null),
+  fetch('out/network_sensitivity.json').then(r=>r.json()).catch(()=>null)
+]).then(([R,N])=>{
+  const set=(k,v)=>document.querySelectorAll('.dyn[data-k="'+k+'"]').forEach(e=>e.textContent=v);
+  if(R){ set('surv', R.n_hr_of_std+' of '+R.n_std); set('splice', R.n_splice_ok+' of '+R.n_std); }
+  if(N){ const a=N.agg; set('frag6', a.top6.frag+'%'); set('fragfull', a.full.frag+'%');
+         set('share6', a.top6.cn_share+'%'); set('sharefull', a.full.cn_share+'%'); set('brokerfull', a.full.cn_top_broker); }
+});
+</script>
+</body></html>
