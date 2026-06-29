@@ -199,7 +199,17 @@
   .topnav a:hover{color:var(--navy);text-decoration:none}
   .topnav a.cta{color:#fff;background:var(--navy);padding:.42rem .85rem;border-radius:7px}
   .topnav a.cta:hover{background:var(--navy2)}
-  @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable{display:none} }
+  .topnav .grp{position:relative}
+  .topnav .grp>button{font:inherit;color:var(--ink-soft);font-size:.86rem;font-weight:600;letter-spacing:.005em;background:none;border:0;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:.22rem}
+  .topnav .grp>button::after{content:'▾';font-size:.72em;opacity:.65}
+  .topnav .grp:hover>button,.topnav .grp.open>button{color:var(--navy)}
+  .topnav .menu{position:absolute;top:100%;left:0;margin-top:.4rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(20,50,58,.14);padding:.4rem;min-width:14.5rem;display:none;flex-direction:column;gap:.05rem;z-index:60}
+  .topnav .menu::before{content:'';position:absolute;top:-.4rem;left:0;right:0;height:.4rem}
+  .topnav .grp:hover .menu,.topnav .grp.open .menu{display:flex}
+  .topnav .menu a{display:block;padding:.42rem .6rem;border-radius:7px;font-size:.84rem;font-weight:500;color:var(--ink)}
+  .topnav .menu a:hover{background:var(--bg-soft);color:var(--navy);text-decoration:none}
+  .topnav .menu .lbl{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:#9aa6ad;font-weight:700;padding:.5rem .6rem .2rem;border-top:1px solid var(--line);margin-top:.25rem}
+  @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable,.topnav .grp.hideable{display:none} }
 
   /* hero band */
   .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:3.4rem 0 2.8rem;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
@@ -242,17 +252,51 @@
   <nav class="topnav">
     <a href="./">Atlas</a>
     <a href="insights.html">Insights</a>
-    <a href="methodology.html" class="hideable">Methodology</a>
     <a href="findings.html" class="hideable">Findings</a>
-    <a href="trends.html" class="hideable">Trends</a>
-    <a href="network.html" class="hideable">Network</a>
-    <a href="satellite.html" class="hideable">Satellite</a>
-    <a href="casestudies.html" class="hideable">Cases</a>
-    <a href="profiles.html" class="hideable">Profiles</a>
-    <a href="technical-note.html" class="hideable">Note</a>
-    <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
+    <div class="grp hideable"><button type="button">Analysis</button><div class="menu">
+      <a href="trends.html">Trends — 22-year evolution</a>
+      <a href="volume.html">Value vs volume (price effects)</a>
+      <a href="network.html">Trade-network chokepoints</a>
+      <a href="complexity.html">Economic complexity</a>
+      <a href="origin.html">Origin trace</a>
+      <a href="criticality.html">Governance-weighted criticality</a>
+    </div></div>
+    <div class="grp hideable"><button type="button">Risk</button><div class="menu">
+      <a href="risk.html">Supply-risk index</a>
+      <a href="riskmethods.html">Risk methods — TOPSIS · GeoPolRisk · tail</a>
+      <a href="scenarios.html">Shock scenarios</a>
+      <span class="lbl">Interactive</span>
+      <a href="index-builder.html">Build your own risk index</a>
+      <a href="shock-builder.html">Build your own supply shock</a>
+    </div></div>
+    <div class="grp hideable"><button type="button">Satellite</button><div class="menu">
+      <a href="satellite.html">Mine footprint (from orbit)</a>
+      <a href="mining-expansion.html">Mining expansion — new supply</a>
+    </div></div>
+    <div class="grp hideable"><button type="button">Rigor</button><div class="menu">
+      <a href="robustness.html">Robustness — do findings survive?</a>
+      <a href="network-sensitivity.html">Network truncation sensitivity</a>
+      <a href="limitations.html">Limitations &amp; falsification</a>
+    </div></div>
+    <div class="grp hideable"><button type="button">Reference</button><div class="menu">
+      <a href="methodology.html">Methodology &amp; validation</a>
+      <a href="technical-note.html">Technical note (PDF)</a>
+      <a href="brief.html">One-page findings brief</a>
+      <a href="casestudies.html">Case studies — known-chain audit</a>
+      <a href="profiles.html">Material &amp; country profiles</a>
+      <a href="data.html">Open data / API</a>
+      <a href="https://github.com/materials-atlas/comtrade-reconcile">Reconciliation engine</a>
+    </div></div>
     <a href="#" id="nav-csv" class="cta">Download data</a>
   </nav>
+  <script>
+   document.querySelectorAll('.topnav .grp>button').forEach(function(b){
+     b.addEventListener('click',function(e){e.stopPropagation();var g=b.parentElement,open=g.classList.contains('open');
+       document.querySelectorAll('.topnav .grp.open').forEach(function(x){x.classList.remove('open');});
+       if(!open)g.classList.add('open');});
+   });
+   document.addEventListener('click',function(){document.querySelectorAll('.topnav .grp.open').forEach(function(x){x.classList.remove('open');});});
+  </script>
 </div></header>
 
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
