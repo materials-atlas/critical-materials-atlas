@@ -27,6 +27,7 @@ python build_complexity.py                     # -> out/complexity.json + comple
 python build_criticality.py                    # -> out/criticality.json + criticality.html (governance-weighted; reads risk.json + wgi.json)
 python build_riskmethods.py                    # -> out/riskmethods.json + riskmethods.html (entropy-TOPSIS, GeoPolRisk, MC VaR/CVaR; reads wgi.json + risk.json)
 python build_vq.py                             # -> out/volume.json + volume.html (value vs volume concentration; streams BACI HS02+HS17 zips for quantity; slow)
+python build_satellite.py                      # -> out/satellite.json + satellite.html (Maus 2022 mine-footprint cross-check + flagship sites; needs raw/maus/maus_v2.gpkg from PANGAEA 942325)
 python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
 python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_trends.py                         # -> out/trends.json + trends.html (22-year evolution charts)
