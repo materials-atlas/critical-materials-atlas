@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build your own supply shock · Critical Materials Atlas</title>
+<meta name="description" content="An interactive supply-shock tool: pick one or more producer countries to disrupt, set a severity, and see which of the 32 critical materials lose the most supply — computed live in your browser on public mine-production data.">
+<meta property="og:title" content="Build your own critical-materials supply shock">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>
+.muted{color:#5a6b68;font-size:.86rem}
+.chartwrap{background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem;margin:1rem 0}
+.ctries{display:flex;flex-wrap:wrap;gap:.3rem .5rem;margin:.5rem 0}
+.ctries label{font-size:.83rem;display:inline-flex;align-items:center;gap:.3rem;border:1px solid #dfe7e5;border-radius:6px;padding:.2rem .5rem;cursor:pointer}
+.ctries label:hover{border-color:#0e7c74}
+.ctries input{accent-color:#c0392b}
+.ctrl{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin:.5rem 0}
+.ctrl input[type=range]{flex:1;min-width:160px;accent-color:#c0392b}
+#c1{width:100%;height:440px}
+.big{font-size:1.05rem;font-weight:700;color:#c0392b}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="scenarios.html">Scenarios</a><a href="risk.html">Risk index</a>
+  <a href="index-builder.html" class="hideable">Index builder</a><a href="methodology.html" class="hideable">Methodology</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Interactive · your shock</div>
+  <h1>Build your own supply shock</h1>
+  <p class="deck">Pick one or more producer countries to knock out, set how hard, and see which critical materials bleed the most supply &mdash; ranked live. It&rsquo;s the stress test from the <a href="scenarios.html" style="color:#fff;text-decoration:underline">scenarios page</a>, but the scenario is yours to write. All in your browser, on public mine-production data.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><b>How it works.</b> For each material, the supply at risk is the share of world <b>mine production</b> held by the countries you disrupt, times your severity. Optionally it&rsquo;s cushioned by the material&rsquo;s recycling rate and how substitutable it is &mdash; a material you can recycle or swap loses less <i>effective</i> supply. This is a transparent what-if on production shares, not a market model or a forecast.</div>
+
+  <div class="chartwrap">
+    <div style="font-weight:600;font-size:.9rem">Disrupt these producers <span class="muted" style="font-weight:400">(click to toggle; sorted by total mine-production weight)</span></div>
+    <div class="ctries" id="ctries"></div>
+    <div class="ctrl"><b style="font-size:.85rem;flex:0 0 5.5rem">Severity</b><input type="range" id="sev" min="10" max="100" step="5" value="100"><span class="v" style="font-weight:700;color:#c0392b;flex:0 0 3rem" id="sevv">100%</span></div>
+    <div class="ctrl"><label style="font-size:.85rem"><input type="checkbox" id="cushion" checked> Cushion by recycling &amp; substitutability</label>
+      <span class="muted" id="summary" style="margin-left:auto"></span></div>
+  </div>
+
+  <div class="chartwrap">
+    <div style="font-weight:600;font-size:.92rem;margin-bottom:.3rem">Most-exposed materials under your shock <span class="muted" style="font-weight:400">— % of world mine supply at risk</span></div>
+    <div id="c1"></div>
+  </div>
+
+  <h2 style="margin:1.4rem 0 .4rem">Full exposure ranking</h2>
+  <table id="tab"><thead><tr><th class="n">#</th><th>Material</th><th class="n">supply at risk</th><th class="n">raw share hit</th><th>from</th></tr></thead><tbody></tbody></table>
+  <p class="note">Computed in-browser from <a href="out/data.json">data.json</a> mine-production shares. &ldquo;Raw share hit&rdquo; = disrupted share × severity before the recycling/substitution cushion. Mine shares are static USGS-based approximations (see <a href="limitations.html">limitations</a>); this is a what-if, not a prediction.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="scenarios.html">Shock scenarios</a><br><a href="index-builder.html">Index builder</a><br><a href="risk.html">Supply-risk index</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Method</h4>Disrupted mine share × severity, optionally cushioned by recycling &amp; substitutability</div>
+  <div class="fineprint">Client-side what-if on public mine-production shares. Not a market model or forecast.</div>
+</div></footer>
+<script>
+const SI={high:1.0,medium:0.8,med:0.8,low:0.6};
+Promise.all([
+  fetch('out/data.json').then(r=>r.json()),
+  fetch('out/flows_2024.json').then(r=>r.json()).catch(()=>({names:{}}))
+]).then(([D,F])=>{
+  const NM=F.names||{}, MATS=D.materials;
+  const name=c=>NM[c]||c;
+  // aggregate producer weight across materials
+  const weight={};
+  MATS.forEach(m=>(m.mined||[]).forEach(e=>{weight[e.c]=(weight[e.c]||0)+(e.v||0);}));
+  const order=Object.keys(weight).sort((a,b)=>weight[b]-weight[a]).slice(0,22);
+  const sel=new Set(['CN']);
+  const cont=document.getElementById('ctries');
+  order.forEach(c=>{const l=document.createElement('label');
+    l.innerHTML='<input type="checkbox" value="'+c+'"'+(sel.has(c)?' checked':'')+'>'+name(c);
+    cont.appendChild(l);});
+  cont.addEventListener('change',e=>{const c=e.target.value; e.target.checked?sel.add(c):sel.delete(c); render();});
+  const sev=document.getElementById('sev'), cushion=document.getElementById('cushion');
+  sev.addEventListener('input',()=>{document.getElementById('sevv').textContent=sev.value+'%'; render();});
+  cushion.addEventListener('change',render);
+  const c=echarts.init(document.getElementById('c1'));
+  function render(){
+    const s=+sev.value/100, cush=cushion.checked;
+    const rows=MATS.map(m=>{
+      const mined=m.mined||[];
+      let hit=0, froms=[];
+      mined.forEach(e=>{ if(sel.has(e.c)){ hit+=(e.v||0); froms.push(name(e.c)+' '+e.v+'%'); }});
+      const raw=hit*s;
+      const si=SI[(m.substitutability||'').toLowerCase()]??0.8;
+      const eff= cush ? raw*(1-(m.recycling||0)/100)*si : raw;
+      return {title:m.title.split(' (')[0], label:m.label, eff:Math.round(eff*10)/10, raw:Math.round(raw), froms};
+    }).filter(r=>r.raw>0).sort((a,b)=>b.eff-a.eff);
+    const names=[...sel].map(name).join(', ')||'—';
+    document.getElementById('summary').innerHTML='<b class="big">'+rows.length+'</b> materials exposed to '+(names.length>40?[...sel].length+' producers':names);
+    const top=rows.slice(0,16);
+    c.setOption({grid:{left:150,right:40,top:10,bottom:28},tooltip:{trigger:'axis',axisPointer:{type:'shadow'},valueFormatter:v=>v+'%'},
+      xAxis:{type:'value',name:'% supply at risk',max:Math.max(20,Math.ceil((top[0]?.eff||10)/10)*10)},
+      yAxis:{type:'category',data:top.map(r=>r.title).reverse(),axisLabel:{fontSize:11}},
+      series:[{type:'bar',data:top.map(r=>r.eff).reverse(),
+        itemStyle:{color:p=>p.value>=50?'#c0392b':p.value>=25?'#e08a3c':'#7d9b97',borderRadius:[0,3,3,0]},
+        label:{show:true,position:'right',formatter:'{c}%',fontSize:11}}]},true);
+    const tb=document.querySelector('#tab tbody'); tb.innerHTML='';
+    rows.forEach((r,i)=>{const tr=document.createElement('tr');
+      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+r.label+'.html">'+r.title+'</a></td>'+
+        '<td class="n" style="font-weight:700;color:'+(r.eff>=50?'#c0392b':r.eff>=25?'#b07a18':'#52605d')+'">'+r.eff+'%</td>'+
+        '<td class="n muted">'+r.raw+'%</td><td class="muted" style="font-size:.82rem">'+r.froms.join(' · ')+'</td>';
+      tb.appendChild(tr);});
+  }
+  render();
+  window.addEventListener('resize',()=>c.resize());
+});
+</script>
+</body></html>

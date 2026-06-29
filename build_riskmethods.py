@@ -131,9 +131,10 @@ for i, lab in enumerate(labels):
                  'fixed': RISK.get(lab), 'gpr_mine': round(geopol[lab][0] / gmax * 100, 1),
                  'gpr_trade': round(geopol[lab][1] / gmax * 100, 1),
                  'esar': mc[lab][0], 'var95': mc[lab][1], 'cvar95': mc[lab][2],
-                 'top_mine': meta[lab]['top_mine'], 'top_exp': meta[lab]['top_exp']})
+                 'top_mine': meta[lab]['top_mine'], 'top_exp': meta[lab]['top_exp'],
+                 'crit': [round(float(v), 3) for v in Nz[i]]})   # min-max criteria (0-1, higher=riskier) for the index builder
 weights = [{'crit': CRIT[j], 'w': round(float(W[j]), 3)} for j in range(k)]
-json.dump({'year': YEAR, 'weights': weights, 'spearman_vs_fixed': rho_fixed, 'materials': rows},
+json.dump({'year': YEAR, 'weights': weights, 'criteria': CRIT, 'spearman_vs_fixed': rho_fixed, 'materials': rows},
           open(os.path.join(ROOT, 'out', 'riskmethods.json'), 'w', encoding='utf8'), indent=1)
 
 print(f'wrote out/riskmethods.json — TOPSIS vs fixed-index Spearman {rho_fixed}')
