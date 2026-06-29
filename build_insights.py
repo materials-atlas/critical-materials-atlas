@@ -107,7 +107,7 @@ except Exception:
 tmat = TR.get('materials', {})
 def _hhi(v): return v.get('stats', {}).get('hhi', {})
 sig_rising = [k for k, v in tmat.items() if _hhi(v).get('mk_p_fdr', 1) < 0.05 and _hhi(v).get('sen', 0) > 0]
-brk_1216 = sum(1 for v in tmat.values() if (_hhi(v).get('brk_year') or 0) and 2012 <= _hhi(v)['brk_year'] <= 2016)
+brk_1216 = sum(1 for k in sig_rising if (_hhi(tmat[k]).get('brk_year') or 0) and 2012 <= _hhi(tmat[k])['brk_year'] <= 2016)
 gi = TR.get('gap_index', []); gap0, gap1 = (gi[0], gi[-1]) if gi else (0, 0)
 cni = NET.get('cn_through_index', []); cn0, cn1 = (cni[0], cni[-1]) if cni else (0, 0)
 def cn_rise(lab):
