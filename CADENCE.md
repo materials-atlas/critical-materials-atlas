@@ -25,6 +25,7 @@ python build_risk.py                           # -> out/risk.json + risk.html (s
 python build_network.py                        # -> out/network.json + network.html (trade-network chokepoints)
 python build_complexity.py                     # -> out/complexity.json + complexity.html (RCA / economic complexity)
 python build_criticality.py                    # -> out/criticality.json + criticality.html (governance-weighted; reads risk.json + wgi.json)
+python build_riskmethods.py                    # -> out/riskmethods.json + riskmethods.html (entropy-TOPSIS, GeoPolRisk, MC VaR/CVaR; reads wgi.json + risk.json)
 python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
 python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_trends.py                         # -> out/trends.json + trends.html (22-year evolution charts)
