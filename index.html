@@ -265,7 +265,7 @@
   <div class="stat"><div class="n">32</div><div class="l">critical raw materials tracked</div></div>
   <div class="stat"><div class="n">19<span style="color:var(--faint);font-weight:600">/32</span></div><div class="l">where the top exporter is <i>not</i> the top miner</div></div>
   <div class="stat"><div class="n">85%</div><div class="l">year-over-year nowcast persistence, out-of-sample</div></div>
-  <div class="stat"><div class="n">2018–26</div><div class="l">reconciled trade, measured to nowcast</div></div>
+  <div class="stat"><div class="n">2002–26</div><div class="l">reconciled trade, measured to nowcast</div></div>
 </div></section>
 
 <div class="wrap" id="app">
@@ -288,6 +288,8 @@
   </select>
   <select id="cmpyr" title="Compare the current year against an earlier year — shows each top exporter's share change (Δpp)">
     <option value="">Δ compare: off</option>
+    <option value="2002">Δ vs 2002</option>
+    <option value="2010">Δ vs 2010</option>
     <option value="2018">Δ vs 2018</option>
     <option value="2020">Δ vs 2020</option>
     <option value="2022">Δ vs 2022</option>
@@ -297,7 +299,7 @@
   <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
   <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2018" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2018–2024 = reconciled CEPII BACI (V202601), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2018–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024), 2024 newest complete. <b>2025*</b> = provisional nowcast. <b>2026**</b> = an opt-in directional scenario. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
 <main>
   <div id="view-table" class="view">

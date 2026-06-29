@@ -14,9 +14,12 @@ $ccCsv="$root\raw\baci\country_codes_${Ver}.csv"
 $data = Get-Content "$root\out\data.json" -Raw | ConvertFrom-Json
 $code2labels=@{}
 foreach($m in $data.materials){ $c=(([regex]::Match($m.title,'\(([^)]*)\)')).Groups[1].Value -replace '\D',''); if($c.Length -ge 6){ $h=$c.Substring(0,6); if(-not $code2labels.ContainsKey($h)){ $code2labels[$h]=@() }; $code2labels[$h]+=$m.label } }
-if($Hs -eq 'HS17' -and $code2labels.ContainsKey('811231')){           # hafnium: no distinct pre-HS2022 code -> broad 811292 group
+if($Hs -ne 'HS22' -and $code2labels.ContainsKey('811231')){           # hafnium: no distinct pre-HS2022 code -> broad 811292 group
   if(-not $code2labels.ContainsKey('811292')){ $code2labels['811292']=@() }
   $code2labels['811292']+=$code2labels['811231']; $code2labels.Remove('811231') }
+if(($Hs -eq 'HS02' -or $Hs -eq 'HS07') -and $code2labels.ContainsKey('252800')){   # boron: pre-HS2012 was split 252810/252890
+  foreach($pc in '252810','252890'){ if(-not $code2labels.ContainsKey($pc)){ $code2labels[$pc]=@() }; $code2labels[$pc]+=$code2labels['252800'] }
+  $code2labels.Remove('252800') }
 $codes=New-Object 'System.Collections.Generic.HashSet[string]'; $code2labels.Keys | ForEach-Object { [void]$codes.Add($_) }
 
 # country code -> ISO2 (load once)
