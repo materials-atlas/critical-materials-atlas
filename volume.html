@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Value vs volume — Critical Materials Atlas</title>
+<meta name="description" content="Separating real concentration from price effects: export concentration and China share computed in both trade value and physical volume (tonnes) for 32 critical materials, 2002-2024.">
+<meta property="og:title" content="Value vs volume — is the concentration real or a price effect?">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<style>.chartwrap{background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem 1rem .5rem;margin:1rem 0}.chart{width:100%;height:380px}select#mat{font:inherit;padding:.4rem .6rem;border:1px solid #cdd6d4;border-radius:7px;font-weight:600}.muted{color:#5a6b68;font-size:.86rem}</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="trends.html">Trends</a>
+  <a href="risk.html" class="hideable">Risk</a><a href="findings.html" class="hideable">Findings</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · value vs volume</div>
+  <h1>Real concentration, or just a price effect?</h1>
+  <p class="deck">Trade value is price times quantity — so a rising value-concentration can be a price story, not a who-ships-the-tonnes story. Here every concentration is computed in both <i>value</i> and physical <i>volume</i> (tonnes). Where the two diverge, the value figure is partly price.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><b>What this adds.</b> For each material and year we compute the export Herfindahl and China's
+  export share in <b>value</b> (USD) and in <b>volume</b> (metric tons, BACI quantity, ~94% coverage), 2002&ndash;2024.
+  When value-HHI sits above volume-HHI &mdash; or value-China-share above volume-China-share &mdash; the apparent
+  concentration is inflated by <b>price</b> (a high-priced producer/material weighs more in value than in tonnage).
+  Lithium is the textbook case: its value exploded on the 2021&ndash;22 price spike while tonnage barely moved.
+  <b>Caveat:</b> ~6% of flows lack reported quantity (volume series computed over reported-tonnage flows); BACI
+  quantities are partly estimated. Computed by <code>build_vq.py</code>.</div>
+  <div class="chartwrap">
+    <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem">
+      <b>Material:</b> <select id="mat" aria-label="Material"></select>
+      <span class="muted">export concentration (HHI) &amp; China share — value vs volume</span></div>
+    <div id="c1" class="chart"></div>
+    <p id="lab" class="muted" style="margin:.4rem 0 0"></p>
+  </div>
+  <h2 style="margin:1.6rem 0 .4rem">Where value overstates concentration (the price effect)</h2>
+  <p class="muted" style="margin-top:0">Materials ranked by how much more concentrated they look in <i>value</i> than in <i>volume</i> in the latest year (HHI gap, &times;100, and China-share gap). A large positive gap means the value figure is partly price.</p>
+  <table id="tab"><thead><tr><th>Material</th><th class="n">value HHI</th><th class="n">volume HHI</th><th class="n">price gap (×100)</th><th class="n">China value%</th><th class="n">China volume%</th></tr></thead><tbody></tbody></table>
+  <p class="note">Computed from BACI HS02 + HS17 (value &amp; quantity) &rarr; <a href="out/volume.json">volume.json</a>. Volume = metric tons; value = USD. The dotted line in the chart marks the 2017 HS-vintage join.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="trends.html">Trends</a><br><a href="findings.html">The origin gap</a><br><a href="risk.html">Supply-risk index</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>UN Comtrade · CEPII BACI (value &amp; quantity)</div>
+  <div class="fineprint">Volume from BACI quantity (~94% coverage, partly estimated). Value = price × quantity.</div>
+</div></footer>
+<script>
+const $=s=>document.querySelector(s);
+fetch('out/volume.json').then(r=>r.json()).then(V=>{
+  const ys=V.years, sel=$('#mat');
+  Object.keys(V.materials).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=V.materials[k].title;sel.appendChild(o);});
+  const c=echarts.init($('#c1'));
+  const mk={symbol:'none',silent:true,lineStyle:{type:'dotted',color:'#cbd5d3'},data:[{xAxis:'2017'}]};
+  function draw(k){
+    const m=V.materials[k];
+    c.setOption({tooltip:{trigger:'axis'},legend:{top:0},grid:{left:48,right:54,top:30,bottom:28},
+      xAxis:{type:'category',data:ys,boundaryGap:false},
+      yAxis:[{type:'value',name:'HHI',min:0,max:1},{type:'value',name:'China %',min:0,max:100,position:'right',splitLine:{show:false},axisLabel:{formatter:'{value}%'}}],
+      series:[
+        {name:'HHI — value',type:'line',smooth:true,showSymbol:false,lineWidth:2.6,data:m.val_hhi,itemStyle:{color:'#c0392b'},markLine:mk},
+        {name:'HHI — volume',type:'line',smooth:true,showSymbol:false,lineWidth:2.6,lineStyle:{type:'dashed'},data:m.qty_hhi,itemStyle:{color:'#0e7c74'}},
+        {name:'China — value',type:'line',smooth:true,showSymbol:false,yAxisIndex:1,lineWidth:1.6,data:m.val_cn,itemStyle:{color:'#e08a3c'}},
+        {name:'China — volume',type:'line',smooth:true,showSymbol:false,yAxisIndex:1,lineWidth:1.6,lineStyle:{type:'dashed'},data:m.qty_cn,itemStyle:{color:'#6d5fb0'}}
+      ]},true);
+    const pg=m.price_gap, cg=m.china_gap;
+    $('#lab').innerHTML = (pg!=null? '<b>Price effect:</b> value-HHI is '+(pg>=0?'+':'')+(pg*100).toFixed(0)+' (×100) vs volume-HHI'+(cg!=null?(' · China is '+(cg>=0?'+':'')+cg.toFixed(0)+'pp higher by value than by volume'):'')+'. Solid = value, dashed = volume.' : 'volume data limited for this material.');
+  }
+  sel.onchange=()=>draw(sel.value);
+  draw(V.materials.lithium?'lithium':Object.keys(V.materials)[0]);
+  const tb=document.querySelector('#tab tbody');
+  Object.keys(V.materials).map(k=>[k,V.materials[k]]).filter(e=>e[1].price_gap!=null)
+    .sort((a,b)=>b[1].price_gap-a[1].price_gap)
+    .forEach(e=>{const k=e[0],m=e[1];const tr=document.createElement('tr');
+      tr.innerHTML='<td><a href="profile-'+k+'.html">'+m.title+'</a></td>'+
+        '<td class="n">'+(m.val_hhi.at(-1)??'—')+'</td><td class="n">'+(m.qty_hhi.at(-1)??'—')+'</td>'+
+        '<td class="n" style="font-weight:700;color:'+(m.price_gap>0.05?'#c0392b':m.price_gap<-0.05?'#3f9b46':'#9aa6ad')+'">'+(m.price_gap>=0?'+':'')+(m.price_gap*100).toFixed(0)+'</td>'+
+        '<td class="n">'+(m.val_cn.at(-1)??'—')+'%</td><td class="n">'+(m.qty_cn.at(-1)??'—')+'%</td>';
+      tb.appendChild(tr);});
+  window.addEventListener('resize',()=>c.resize());
+});
+</script>
+</body></html>
