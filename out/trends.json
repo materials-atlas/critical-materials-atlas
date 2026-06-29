@@ -25,64 +25,64 @@
   2024
  ],
  "names": {
-  "RU": "Russia",
-  "ES": "Spain",
-  "IT": "Italy",
-  "IN": "India",
-  "CN": "China",
-  "TJ": "Tajikistan",
-  "KE": "Kenya",
-  "GN": "Guinea",
-  "UA": "Ukraine",
-  "NL": "Netherlands",
-  "JP": "Japan",
-  "AE": "United Arab Emirates",
-  "GB": "United Kingdom",
   "KZ": "Kazakhstan",
-  "CZ": "Czech Republic",
-  "EG": "Egypt",
-  "IL": "Israel",
-  "SA": "Saudi Arabia",
-  "MN": "Mongolia",
-  "US": "United States",
-  "MA": "Morocco",
-  "CH": "Switzerland",
-  "CA": "Canada",
-  "PH": "Philippines",
-  "ZM": "Zambia",
-  "AR": "Argentina",
-  "FR": "France",
   "TZ": "Tanzania",
-  "DE": "Germany",
-  "BE": "Belgium",
-  "MM": "Myanmar [Burma]",
-  "MY": "Malaysia",
-  "VN": "Vietnam",
-  "HK": "Hong Kong",
-  "GA": "Gabon",
-  "LA": "Laos",
   "PE": "Peru",
-  "GH": "Ghana",
-  "CL": "Chile",
-  "JO": "Jordan",
-  "FI": "Finland",
-  "SE": "Sweden",
-  "BO": "Bolivia",
-  "BR": "Brazil",
-  "ID": "Indonesia",
-  "DZ": "Algeria",
-  "QA": "Qatar",
-  "CD": "Congo [DRC]",
-  "KP": "North Korea",
-  "AT": "Austria",
-  "TR": "Turkey",
-  "MX": "Mexico",
+  "CA": "Canada",
   "SG": "Singapore",
-  "TH": "Thailand",
+  "CL": "Chile",
+  "AT": "Austria",
+  "RU": "Russia",
+  "CD": "Congo [DRC]",
+  "CH": "Switzerland",
+  "CZ": "Czech Republic",
+  "AU": "Australia",
+  "MA": "Morocco",
+  "LA": "Laos",
+  "ES": "Spain",
+  "IN": "India",
+  "KP": "North Korea",
+  "PH": "Philippines",
+  "SE": "Sweden",
+  "AR": "Argentina",
+  "GB": "United Kingdom",
+  "JO": "Jordan",
+  "IL": "Israel",
+  "AE": "United Arab Emirates",
+  "BE": "Belgium",
   "NO": "Norway",
+  "JP": "Japan",
+  "BR": "Brazil",
+  "TJ": "Tajikistan",
+  "MM": "Myanmar [Burma]",
+  "US": "United States",
+  "QA": "Qatar",
+  "GA": "Gabon",
+  "HK": "Hong Kong",
+  "CN": "China",
+  "MY": "Malaysia",
+  "DE": "Germany",
+  "MX": "Mexico",
+  "TH": "Thailand",
+  "IT": "Italy",
+  "DZ": "Algeria",
   "ZA": "South Africa",
+  "UA": "Ukraine",
   "KR": "South Korea",
-  "AU": "Australia"
+  "FI": "Finland",
+  "TR": "Turkey",
+  "VN": "Vietnam",
+  "SA": "Saudi Arabia",
+  "GH": "Ghana",
+  "GN": "Guinea",
+  "NL": "Netherlands",
+  "ZM": "Zambia",
+  "KE": "Kenya",
+  "BO": "Bolivia",
+  "FR": "France",
+  "EG": "Egypt",
+  "MN": "Mongolia",
+  "ID": "Indonesia"
  },
  "gap_index": [
   14.8,
@@ -346,7 +346,38 @@
     -7.0,
     -6.7,
     -5.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.011,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 1.725,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 1.37,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.083,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 143,
+     "dhhi": 0.258
+    }
+   }
   },
   "magnesium": {
    "title": "Magnesium, unwrought",
@@ -584,7 +615,38 @@
     -18.2,
     -25.5,
     -18.7
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.01,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.783,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 0.783,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 113,
+     "dhhi": 0.314
+    }
+   }
   },
   "germanium": {
    "title": "Germanium",
@@ -822,7 +884,38 @@
     -37.2,
     -41.5,
     -36.4
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.0,
+     "mk_p": 0.916,
+     "brk_year": 2008,
+     "brk_p": 0.504,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.946
+    },
+    "china": {
+     "sen": -0.2,
+     "mk_p": 0.835,
+     "brk_year": 2007,
+     "brk_p": 0.614,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.891
+    },
+    "gap": {
+     "sen": 0.367,
+     "mk_p": 0.497,
+     "brk_year": 2012,
+     "brk_p": 0.255,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.636
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 137,
+     "dhhi": 0.058
+    }
+   }
   },
   "graphite": {
    "title": "Natural graphite",
@@ -1060,7 +1153,38 @@
     -34.6,
     -41.5,
     -41.8
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.492,
+     "brk_year": 2014,
+     "brk_p": 0.365,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.562
+    },
+    "china": {
+     "sen": -0.568,
+     "mk_p": 0.195,
+     "brk_year": 2014,
+     "brk_p": 0.225,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.25
+    },
+    "gap": {
+     "sen": -0.2,
+     "mk_p": 0.653,
+     "brk_year": 2005,
+     "brk_p": 0.673,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.721
+    },
+    "dhhi": {
+     "c": "TZ",
+     "pct": 110,
+     "dhhi": 0.065
+    }
+   }
   },
   "gallium": {
    "title": "Gallium",
@@ -1298,7 +1422,38 @@
     -67.2,
     -71.5,
     -66.4
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.0,
+     "mk_p": 0.916,
+     "brk_year": 2008,
+     "brk_p": 0.504,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.946
+    },
+    "china": {
+     "sen": -0.2,
+     "mk_p": 0.835,
+     "brk_year": 2007,
+     "brk_p": 0.614,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.891
+    },
+    "gap": {
+     "sen": 0.25,
+     "mk_p": 0.565,
+     "brk_year": 2012,
+     "brk_p": 0.325,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.695
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 137,
+     "dhhi": 0.058
+    }
+   }
   },
   "tungsten": {
    "title": "Tungsten, unwrought",
@@ -1536,7 +1691,38 @@
     -11.1,
     -7.3,
     -5.5
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.021,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 2.483,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 1.986,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.071,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 117,
+     "dhhi": 0.467
+    }
+   }
   },
   "cobalt": {
    "title": "Cobalt oxides & hydroxides",
@@ -1774,7 +1960,38 @@
     21.7,
     27.1,
     28.8
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.038,
+     "brk_year": 2009,
+     "brk_p": 0.097,
+     "dir": "falling",
+     "mk_p_fdr": 0.062
+    },
+    "china": {
+     "sen": 1.143,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": -0.856,
+     "mk_p": 0.017,
+     "brk_year": 2010,
+     "brk_p": 0.004,
+     "dir": "falling",
+     "mk_p_fdr": 0.036
+    },
+    "dhhi": {
+     "c": "BE",
+     "pct": 289,
+     "dhhi": -0.043
+    }
+   }
   },
   "niobium": {
    "title": "Ferro-niobium",
@@ -2012,7 +2229,38 @@
     -17.1,
     -11.4,
     -11.7
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.315,
+     "brk_year": 2013,
+     "brk_p": 0.161,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.373
+    },
+    "china": {
+     "sen": 0.007,
+     "mk_p": 0.142,
+     "brk_year": 2006,
+     "brk_p": 0.289,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.198
+    },
+    "gap": {
+     "sen": -0.167,
+     "mk_p": 0.328,
+     "brk_year": 2013,
+     "brk_p": 0.161,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.437
+    },
+    "dhhi": {
+     "c": "BR",
+     "pct": 136,
+     "dhhi": 0.018
+    }
+   }
   },
   "boron": {
    "title": "Natural borates",
@@ -2250,7 +2498,38 @@
     15.3,
     6.5,
     9.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.008,
+     "mk_p": 0.013,
+     "brk_year": 2013,
+     "brk_p": 0.013,
+     "dir": "rising",
+     "mk_p_fdr": 0.023
+    },
+    "china": {
+     "sen": -0.014,
+     "mk_p": 0.015,
+     "brk_year": 2012,
+     "brk_p": 0.002,
+     "dir": "falling",
+     "mk_p_fdr": 0.027
+    },
+    "gap": {
+     "sen": 0.6,
+     "mk_p": 0.064,
+     "brk_year": 2013,
+     "brk_p": 0.071,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.128
+    },
+    "dhhi": {
+     "c": "TR",
+     "pct": 75,
+     "dhhi": 0.105
+    }
+   }
   },
   "lithium": {
    "title": "Lithium carbonate",
@@ -2488,7 +2767,38 @@
     59.9,
     56.2,
     54.6
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.005,
+     "mk_p": 0.039,
+     "brk_year": 2012,
+     "brk_p": 0.14,
+     "dir": "rising",
+     "mk_p_fdr": 0.062
+    },
+    "china": {
+     "sen": 0.033,
+     "mk_p": 0.428,
+     "brk_year": 2006,
+     "brk_p": 0.454,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.507
+    },
+    "gap": {
+     "sen": 0.32,
+     "mk_p": 0.091,
+     "brk_year": 2020,
+     "brk_p": 0.255,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.146
+    },
+    "dhhi": {
+     "c": "CL",
+     "pct": 95,
+     "dhhi": 0.151
+    }
+   }
   },
   "antimony": {
    "title": "Antimony, unwrought",
@@ -2726,7 +3036,38 @@
     -21.9,
     7.2,
     15.4
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.024,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": -2.742,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": -1.733,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.003,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 134,
+     "dhhi": -0.443
+    }
+   }
   },
   "platinum": {
    "title": "Platinum, unwrought",
@@ -2964,7 +3305,38 @@
     -30.0,
     -35.3,
     -33.1
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.091,
+     "brk_year": 2019,
+     "brk_p": 0.097,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.127
+    },
+    "china": {
+     "sen": 0.036,
+     "mk_p": 0.006,
+     "brk_year": 2010,
+     "brk_p": 0.011,
+     "dir": "rising",
+     "mk_p_fdr": 0.011
+    },
+    "gap": {
+     "sen": -0.333,
+     "mk_p": 0.279,
+     "brk_year": 2019,
+     "brk_p": 0.345,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.388
+    },
+    "dhhi": {
+     "c": "CH",
+     "pct": 72,
+     "dhhi": -0.048
+    }
+   }
   },
   "palladium": {
    "title": "Palladium, unwrought",
@@ -3202,7 +3574,38 @@
     -19.6,
     -14.9,
     -12.1
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.002,
+     "mk_p": 0.005,
+     "brk_year": 2012,
+     "brk_p": 0.005,
+     "dir": "falling",
+     "mk_p_fdr": 0.01
+    },
+    "china": {
+     "sen": -0.006,
+     "mk_p": 0.116,
+     "brk_year": 2011,
+     "brk_p": 0.24,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.169
+    },
+    "gap": {
+     "sen": -0.263,
+     "mk_p": 0.081,
+     "brk_year": 2009,
+     "brk_p": 0.173,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.136
+    },
+    "dhhi": {
+     "c": "ZA",
+     "pct": -1231,
+     "dhhi": -0.003
+    }
+   }
   },
   "fluorspar": {
    "title": "Fluorspar, >97% CaF2",
@@ -3440,7 +3843,38 @@
     25.8,
     14.3,
     23.0
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.01,
+     "mk_p": 0.001,
+     "brk_year": 2013,
+     "brk_p": 0.002,
+     "dir": "falling",
+     "mk_p_fdr": 0.002
+    },
+    "china": {
+     "sen": -2.68,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 1.383,
+     "mk_p": 0.001,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.002
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 255,
+     "dhhi": -0.143
+    }
+   }
   },
   "titanium": {
    "title": "Titanium, unwrought",
@@ -3678,7 +4112,38 @@
     39.7,
     35.0,
     34.3
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.002,
+     "mk_p": 0.006,
+     "brk_year": 2018,
+     "brk_p": 0.097,
+     "dir": "rising",
+     "mk_p_fdr": 0.011
+    },
+    "china": {
+     "sen": 0.1,
+     "mk_p": 0.34,
+     "brk_year": 2006,
+     "brk_p": 0.225,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.418
+    },
+    "gap": {
+     "sen": 0.509,
+     "mk_p": 0.001,
+     "brk_year": 2010,
+     "brk_p": 0.044,
+     "dir": "rising",
+     "mk_p_fdr": 0.002
+    },
+    "dhhi": {
+     "c": "JP",
+     "pct": 211,
+     "dhhi": 0.04
+    }
+   }
   },
   "silicon": {
    "title": "Silicon, < 99.99%",
@@ -3916,7 +4381,38 @@
     -32.9,
     -36.1,
     -29.9
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.001,
+     "mk_p": 0.125,
+     "brk_year": 2014,
+     "brk_p": 0.121,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.16
+    },
+    "china": {
+     "sen": 0.3,
+     "mk_p": 0.072,
+     "brk_year": 2013,
+     "brk_p": 0.185,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.115
+    },
+    "gap": {
+     "sen": 0.3,
+     "mk_p": 0.072,
+     "brk_year": 2013,
+     "brk_p": 0.185,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.136
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 174,
+     "dhhi": 0.048
+    }
+   }
   },
   "feldspar": {
    "title": "Feldspar",
@@ -4154,7 +4650,38 @@
     22.6,
     15.2,
     15.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.0,
+     "mk_p": 1.0,
+     "brk_year": 2009,
+     "brk_p": 0.939,
+     "dir": "flat/ns",
+     "mk_p_fdr": 1.0
+    },
+    "china": {
+     "sen": -0.082,
+     "mk_p": 0.09,
+     "brk_year": 2016,
+     "brk_p": 0.01,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.137
+    },
+    "gap": {
+     "sen": -0.046,
+     "mk_p": 0.597,
+     "brk_year": 2010,
+     "brk_p": 0.643,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.708
+    },
+    "dhhi": {
+     "c": "ZA",
+     "pct": 74,
+     "dhhi": 0.028
+    }
+   }
   },
   "vanadium": {
    "title": "Ferro-vanadium",
@@ -4392,7 +4919,38 @@
     21.5,
     23.6,
     21.1
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.002,
+     "mk_p": 0.0,
+     "brk_year": 2015,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.613,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.003,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 0.018,
+     "mk_p": 0.958,
+     "brk_year": 2017,
+     "brk_p": 0.225,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.958
+    },
+    "dhhi": {
+     "c": "ZA",
+     "pct": 377,
+     "dhhi": -0.018
+    }
+   }
   },
   "manganese": {
    "title": "Manganese ore",
@@ -4630,7 +5188,38 @@
     6.3,
     3.6,
     13.6
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.006,
+     "mk_p": 0.0,
+     "brk_year": 2014,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.0,
+     "mk_p": 0.913,
+     "brk_year": 2019,
+     "brk_p": 1.0,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.937
+    },
+    "gap": {
+     "sen": -0.02,
+     "mk_p": 0.958,
+     "brk_year": 2013,
+     "brk_p": 0.386,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.958
+    },
+    "dhhi": {
+     "c": "ZA",
+     "pct": 110,
+     "dhhi": 0.184
+    }
+   }
   },
   "bauxite": {
    "title": "Aluminium ores / bauxite",
@@ -4868,7 +5457,38 @@
     40.4,
     50.7,
     47.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.014,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": -0.42,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 1.6,
+     "mk_p": 0.002,
+     "brk_year": 2018,
+     "brk_p": 0.051,
+     "dir": "rising",
+     "mk_p_fdr": 0.005
+    },
+    "dhhi": {
+     "c": "GN",
+     "pct": 106,
+     "dhhi": 0.361
+    }
+   }
   },
   "phosphate": {
    "title": "Phosphate rock",
@@ -5106,7 +5726,38 @@
     11.6,
     24.8,
     24.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.002,
+     "mk_p": 0.214,
+     "brk_year": 2020,
+     "brk_p": 0.161,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.263
+    },
+    "china": {
+     "sen": -0.44,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": -0.143,
+     "mk_p": 0.234,
+     "brk_year": 2011,
+     "brk_p": 0.585,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.34
+    },
+    "dhhi": {
+     "c": "MA",
+     "pct": 192,
+     "dhhi": -0.044
+    }
+   }
   },
   "baryte": {
    "title": "Baryte",
@@ -5344,7 +5995,38 @@
     12.3,
     11.6,
     4.0
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.008,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": -1.8,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": -1.0,
+     "mk_p": 0.001,
+     "brk_year": 2013,
+     "brk_p": 0.003,
+     "dir": "falling",
+     "mk_p_fdr": 0.002
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 138,
+     "dhhi": -0.144
+    }
+   }
   },
   "arsenic": {
    "title": "Arsenic",
@@ -5582,7 +6264,38 @@
     32.0,
     14.8,
     9.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.096,
+     "brk_year": 2018,
+     "brk_p": 0.24,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.128
+    },
+    "china": {
+     "sen": 0.455,
+     "mk_p": 0.017,
+     "brk_year": 2012,
+     "brk_p": 0.019,
+     "dir": "rising",
+     "mk_p_fdr": 0.029
+    },
+    "gap": {
+     "sen": -0.84,
+     "mk_p": 0.081,
+     "brk_year": 2012,
+     "brk_p": 0.173,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.136
+    },
+    "dhhi": {
+     "c": "US",
+     "pct": 198,
+     "dhhi": -0.096
+    }
+   }
   },
   "beryllium": {
    "title": "Beryllium, unwrought",
@@ -5820,7 +6533,38 @@
     85.4,
     81.0,
     89.2
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.024,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.003,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": -0.182,
+     "mk_p": 0.0,
+     "brk_year": 2016,
+     "brk_p": 0.018,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 2.317,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.002,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "KZ",
+     "pct": 139,
+     "dhhi": 0.572
+    }
+   }
   },
   "hafnium": {
    "title": "Hafnium, unwrought",
@@ -6058,7 +6802,38 @@
     20.8,
     16.5,
     21.6
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.0,
+     "mk_p": 0.916,
+     "brk_year": 2008,
+     "brk_p": 0.504,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.946
+    },
+    "china": {
+     "sen": -0.2,
+     "mk_p": 0.835,
+     "brk_year": 2007,
+     "brk_p": 0.614,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.891
+    },
+    "gap": {
+     "sen": 0.117,
+     "mk_p": 0.638,
+     "brk_year": 2007,
+     "brk_p": 0.454,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.721
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": 137,
+     "dhhi": 0.058
+    }
+   }
   },
   "strontium": {
    "title": "Strontium carbonate",
@@ -6296,7 +7071,38 @@
     57.4,
     52.6,
     60.1
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.01,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": -1.267,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 2.04,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "DE",
+     "pct": 250,
+     "dhhi": 0.119
+    }
+   }
   },
   "phosphorus": {
    "title": "Phosphorus",
@@ -6534,7 +7340,38 @@
     45.6,
     31.0,
     34.7
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.003,
+     "mk_p": 0.064,
+     "brk_year": 2018,
+     "brk_p": 0.04,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.093
+    },
+    "china": {
+     "sen": -2.625,
+     "mk_p": 0.0,
+     "brk_year": 2014,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 2.828,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": -220642,
+     "dhhi": 0.0
+    }
+   }
   },
   "tantalum": {
    "title": "Tantalum, unwrought",
@@ -6772,7 +7609,38 @@
     23.5,
     29.1,
     21.5
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.003,
+     "mk_p": 0.001,
+     "brk_year": 2015,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.002
+    },
+    "china": {
+     "sen": 0.55,
+     "mk_p": 0.169,
+     "brk_year": 2008,
+     "brk_p": 0.018,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.225
+    },
+    "gap": {
+     "sen": -0.671,
+     "mk_p": 0.001,
+     "brk_year": 2015,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.002
+    },
+    "dhhi": {
+     "c": "US",
+     "pct": 182,
+     "dhhi": -0.037
+    }
+   }
   },
   "cokingcoal": {
    "title": "Coking coal",
@@ -7010,7 +7878,38 @@
     8.9,
     8.7,
     9.4
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": 0.001,
+     "mk_p": 0.06,
+     "brk_year": 2014,
+     "brk_p": 0.077,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.091
+    },
+    "china": {
+     "sen": -0.353,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": 0.044,
+     "mk_p": 0.731,
+     "brk_year": 2015,
+     "brk_p": 0.975,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.78
+    },
+    "dhhi": {
+     "c": "CN",
+     "pct": -156,
+     "dhhi": 0.009
+    }
+   }
   },
   "helium": {
    "title": "Helium",
@@ -7248,7 +8147,38 @@
     -14.0,
     -7.2,
     -9.5
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.004,
+     "mk_p": 0.0,
+     "brk_year": 2017,
+     "brk_p": 0.034,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.133,
+     "mk_p": 0.0,
+     "brk_year": 2015,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.0
+    },
+    "gap": {
+     "sen": -0.268,
+     "mk_p": 0.113,
+     "brk_year": 2007,
+     "brk_p": 0.14,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.172
+    },
+    "dhhi": {
+     "c": "US",
+     "pct": 189,
+     "dhhi": -0.085
+    }
+   }
   },
   "copper": {
    "title": "Refined copper cathodes",
@@ -7486,7 +8416,38 @@
     -1.6,
     -2.1,
     10.7
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.005,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.057,
+     "mk_p": 0.006,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "rising",
+     "mk_p_fdr": 0.011
+    },
+    "gap": {
+     "sen": -0.99,
+     "mk_p": 0.0,
+     "brk_year": 2012,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "CL",
+     "pct": 171,
+     "dhhi": -0.062
+    }
+   }
   },
   "nickel": {
    "title": "Nickel, unwrought",
@@ -7724,7 +8685,38 @@
     17.4,
     17.7,
     17.9
-   ]
+   ],
+   "stats": {
+    "hhi": {
+     "sen": -0.004,
+     "mk_p": 0.0,
+     "brk_year": 2013,
+     "brk_p": 0.001,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "china": {
+     "sen": 0.0,
+     "mk_p": 0.937,
+     "brk_year": 2016,
+     "brk_p": 0.614,
+     "dir": "flat/ns",
+     "mk_p_fdr": 0.937
+    },
+    "gap": {
+     "sen": -0.625,
+     "mk_p": 0.0,
+     "brk_year": 2011,
+     "brk_p": 0.002,
+     "dir": "falling",
+     "mk_p_fdr": 0.0
+    },
+    "dhhi": {
+     "c": "RU",
+     "pct": 129,
+     "dhhi": -0.139
+    }
+   }
   }
  }
 }

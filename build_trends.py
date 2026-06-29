@@ -17,8 +17,34 @@ captured bilateral flows, consistent with the rest of the atlas. Public data; de
 Writes out/trends.json + trends.html.  Run:  python build_trends.py
 """
 import json, os, glob, re
+import numpy as np
+from scipy.stats import kendalltau, theilslopes
+from statsmodels.stats.multitest import multipletests
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
+
+def pettitt(x):
+    """Non-parametric single change-point (Pettitt 1979): break index + approx p-value."""
+    x = np.asarray(x, float); n = len(x)
+    if n < 6 or np.allclose(x, x[0]):
+        return None, None
+    U = [sum(np.sign(x[i] - x[j]) for i in range(t + 1) for j in range(t + 1, n)) for t in range(n - 1)]
+    U = np.asarray(U); k = int(np.argmax(np.abs(U))); K = abs(U[k])
+    p = 2.0 * np.exp(-6.0 * K * K / (n ** 3 + n ** 2))
+    return k, float(min(1.0, p))
+
+def trendstat(series, years):
+    """Mann-Kendall (via kendalltau) + Theil-Sen slope + Pettitt break, on one annual series."""
+    x = np.asarray(series, float); t = np.asarray(years, float)
+    if np.allclose(x, x[0]):
+        return {'sen': 0.0, 'mk_p': 1.0, 'brk_year': None, 'brk_p': None, 'dir': 'flat'}
+    tau, mkp = kendalltau(t, x)
+    sen = float(theilslopes(x, t)[0])
+    ki, pp = pettitt(x)
+    brk = int(years[ki + 1]) if ki is not None else None
+    d = 'rising' if (sen > 0 and mkp < 0.05) else 'falling' if (sen < 0 and mkp < 0.05) else 'flat/ns'
+    return {'sen': round(sen, 3), 'mk_p': round(float(mkp), 3),
+            'brk_year': brk, 'brk_p': (round(pp, 3) if pp is not None else None), 'dir': d}
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
 LABELS = [m['label'] for m in data['materials']]
@@ -64,8 +90,27 @@ for lab in LABELS:
         gap.append(round(g, 1))
     for i, y in enumerate(YEARS):
         gacc[y].append(max(0.0, gap[i]))
+    # statistical trend tests + change-point on each indicator (no new deps)
+    stats = {'hhi': trendstat(hhi, YEARS), 'china': trendstat(china, YEARS), 'gap': trendstat(gap, YEARS)}
+    # who drove the 2002->2024 HHI change (contribution = s_2024^2 - s_2002^2 by country)
+    s0, s1 = shares(YEARS[0], lab)[0], shares(YEARS[-1], lab)[0]
+    cs = set(s0) | set(s1)
+    contrib = {c: ((s1.get(c, 0) / 100.0) ** 2 - (s0.get(c, 0) / 100.0) ** 2) for c in cs}
+    dh = sum(contrib.values())
+    if contrib:
+        topc = max(contrib, key=lambda c: abs(contrib[c]))
+        stats['dhhi'] = {'c': topc, 'pct': (round(contrib[topc] / dh * 100) if dh else None), 'dhhi': round(dh, 3)}
+    else:
+        stats['dhhi'] = None
     used_iso.update(top)
-    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china, 'gap': gap}
+    mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china, 'gap': gap, 'stats': stats}
+# Benjamini-Hochberg FDR correction across the 32 materials, per indicator
+labs = list(mats)
+for ind in ('hhi', 'china', 'gap'):
+    ps = [mats[l]['stats'][ind]['mk_p'] for l in labs]
+    adj = multipletests(ps, method='fdr_bh')[1]
+    for l, a in zip(labs, adj):
+        mats[l]['stats'][ind]['mk_p_fdr'] = round(float(a), 3)
 gap_index = [round(sum(gacc[y]) / len(gacc[y]), 1) if gacc[y] else 0.0 for y in YEARS]
 
 names = {c: NAMES.get(c, c) for c in used_iso}
@@ -76,6 +121,11 @@ for lab in ['magnets', 'tungsten', 'bauxite']:
     c = mats[lab]['china']
     print(f"  {lab:<10} China export share {c[0]:.0f}% ({YEARS[0]}) -> {c[-1]:.0f}% ({YEARS[-1]})")
 print(f"  origin-gap index: {gap_index[0]:.0f}pp ({YEARS[0]}) -> {gap_index[-1]:.0f}pp ({YEARS[-1]})")
+_sig = [l for l in labs if mats[l]['stats']['hhi']['mk_p_fdr'] < 0.05 and mats[l]['stats']['hhi']['sen'] > 0]
+print(f"  significant rising export-HHI (Mann-Kendall FDR<0.05): {len(_sig)}/{len(labs)} materials")
+for l in sorted(_sig, key=lambda l: mats[l]['stats']['hhi']['sen'], reverse=True)[:6]:
+    s = mats[l]['stats']['hhi']
+    print(f"    {TITLES[l]:<22} Sen {s['sen']:+.3f}/yr  MK-FDR p={s['mk_p_fdr']}  break {s['brk_year']}")
 
 # ---- static page (no Python interpolation; data fetched at runtime) ----
 HTML = r'''<!doctype html>
@@ -119,6 +169,7 @@ HTML = r'''<!doctype html>
       <span class="muted">export shares + concentration over time</span>
     </div>
     <div id="chart1" class="chart"></div>
+    <p id="stat1" class="muted" style="margin:.5rem 0 0"></p>
   </div>
 
   <h2 style="margin:1.8rem 0 .4rem">The rise of China, in one picture</h2>
@@ -129,6 +180,10 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all 32 materials; thin lines = the materials with the widest gap today.</p>
   <div class="chartwrap"><div id="chart3" class="chart"></div></div>
   <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series. Origin gap uses current USGS mine shares as a fixed reference.</p>
+
+  <h2 style="margin:1.8rem 0 .4rem">Which trends are statistically real</h2>
+  <p class="muted" style="margin-top:0">The export-concentration (HHI) trend per material, <b>tested</b> rather than eyeballed: Mann&ndash;Kendall significance (Benjamini&ndash;Hochberg FDR-corrected across the 32 materials), Theil&ndash;Sen slope, the Pettitt structural-break year, and the country that drove the 2002&ndash;2024 HHI change. Sorted by slope. The standard critical-minerals literature plots concentration but rarely tests it &mdash; with T=23, read p-values as screening evidence. Computed by <code>build_trends.py</code> (scipy + statsmodels).</p>
+  <table id="ttab"><thead><tr><th>Material</th><th class="n" title="Theil-Sen robust slope, HHI points per year">Sen slope /yr</th><th class="n" title="Mann-Kendall p-value, Benjamini-Hochberg FDR-corrected across 32 materials">MK p (FDR)</th><th class="n" title="Pettitt structural-break year">break</th><th title="country contributing most to the 2002-2024 HHI change">&Delta;HHI driver</th></tr></thead><tbody></tbody></table>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -157,6 +212,8 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
              {type:'value',name:'HHI',min:0,max:1,splitLine:{show:false}}],
       series
     },true);
+    const st=m.stats&&m.stats.hhi;
+    if(st){const sig=st.mk_p_fdr<0.05; document.getElementById('stat1').innerHTML='<b>HHI trend:</b> Theil&ndash;Sen '+(st.sen>=0?'+':'')+st.sen.toFixed(3)+'/yr · Mann&ndash;Kendall p='+st.mk_p_fdr+' (FDR) '+(sig?'<span style="color:#c0392b;font-weight:600">significant</span>':'<span style="color:#9aa6ad">not significant</span>')+(st.brk_year?(' · structural break ~'+st.brk_year):'')+((m.stats.dhhi&&m.stats.dhhi.c)?(' · ΔHHI 2002–24 mostly driven by '+nm(m.stats.dhhi.c)):'');}
   }
   sel.onchange=()=>draw(sel.value);
   draw(T.materials.magnets?'magnets':Object.keys(T.materials)[0]);
@@ -182,6 +239,17 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.gap_index,itemStyle:{color:'#15323a'}}].concat(
       gapmats.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].gap,itemStyle:{color:COL[i%6]}})))
   },true);
+  const tb=document.querySelector('#ttab tbody');
+  Object.keys(T.materials).map(k=>[k,T.materials[k]]).filter(e=>e[1].stats&&e[1].stats.hhi)
+    .sort((a,b)=>b[1].stats.hhi.sen-a[1].stats.hhi.sen)
+    .forEach(e=>{const k=e[0],m=e[1],s=m.stats.hhi,d=m.stats.dhhi,sig=s.mk_p_fdr<0.05&&s.sen>0;
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><a href="profile-'+k+'.html">'+m.title+'</a></td>'+
+        '<td class="n" style="font-weight:600;color:'+(s.sen>0?'#c0392b':s.sen<0?'#3f9b46':'#9aa6ad')+'">'+(s.sen>=0?'+':'')+s.sen.toFixed(3)+'</td>'+
+        '<td class="n"'+(sig?' style="font-weight:700"':'')+'>'+s.mk_p_fdr+'</td>'+
+        '<td class="n">'+(s.brk_year||'—')+'</td>'+
+        '<td>'+((d&&d.c)?(nm(d.c)+(d.pct!=null?(' <span style="color:#9aa6ad">'+d.pct+'%</span>'):'')):'—')+'</td>';
+      tb.appendChild(tr);});
   window.addEventListener('resize',()=>{c1.resize();c2.resize();c3.resize();});
 });
 </script>
