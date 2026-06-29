@@ -25,7 +25,7 @@ refiner is not the source.**
 |---|---|--:|--:|--:|---|
 | Beryllium, unwrought | Kazakhstan | 89% | 0% | **+89pp** | United States (65%) |
 | Strontium carbonate | Germany | 60% | 0% | **+60pp** | Spain (30%) |
-| Lithium carbonate | Chile | 75% | 22% | **+53pp** | Australia (52%) |
+| Lithium carbonate | Chile | 75% | 20% | **+55pp** | Australia (37%) |
 | Bauxite / aluminium ore | Guinea | 72% | 25% | **+47pp** | Australia (27%) |
 | Phosphorus | Vietnam | 47% | 12% | **+35pp** | China (70%) |
 | Titanium, unwrought | Japan | 34% | 0% | **+34pp** | China (32%) |

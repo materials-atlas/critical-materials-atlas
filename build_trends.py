@@ -188,7 +188,7 @@ HTML = r'''<!doctype html>
   <div class="chartwrap"><div id="chart2" class="chart"></div></div>
 
   <h2 style="margin:1.8rem 0 .4rem">The origin gap over time</h2>
-  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all 32 materials; thin lines = the materials with the widest gap today.</p>
+  <p class="muted" style="margin-top:0">Origin gap = the top exporter&rsquo;s world export share minus that country&rsquo;s own mine share. Mine share is the current USGS snapshot held fixed, so this isolates how the <i>trade</i> map drifted from today&rsquo;s mining reality &mdash; a rising line means the refiner/hub illusion widened. Bold = average across all 32 materials; thin lines = the materials with the widest gap today. The dotted vertical marks the <b>2017 HS-vintage join</b>, where the level steps for nomenclature/coverage reasons, not signal — so read the level cautiously (an HS17-only run is the clean confirmation).</p>
   <div class="chartwrap"><div id="chart3" class="chart"></div></div>
   <p class="note">Computed from the per-year reconciled flows &rarr; <a href="out/trends.json">trends.json</a>. A broad code (e.g. magnets = all metal permanent magnets) carries that breadth across the series. Origin gap uses current USGS mine shares as a fixed reference.</p>
 
@@ -251,7 +251,7 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     grid:{left:48,right:20,top:34,bottom:30},
     xAxis:{type:'category',data:T.years,boundaryGap:false},
     yAxis:{type:'value',name:'origin gap (pp)',axisLabel:{formatter:'{value}'}},
-    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.gap_index,itemStyle:{color:'#15323a'}}].concat(
+    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.gap_index,itemStyle:{color:'#15323a'},markLine:{symbol:'none',silent:true,lineStyle:{type:'dotted',color:'#9aa6ad'},data:[{xAxis:'2017'}],label:{formatter:'HS-vintage join',fontSize:9,color:'#9aa6ad'}}}].concat(
       gapmats.map((k,i)=>({name:T.materials[k].title.replace(/,.*/,'').replace(/ \(.*/,''),type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].gap,itemStyle:{color:COL[i%6]}})))
   },true);
   const tb=document.querySelector('#ttab tbody');
