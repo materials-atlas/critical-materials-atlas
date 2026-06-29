@@ -88,6 +88,11 @@ def process(hs, year):
             rec['qty_cn'] = round(qsh.get('CN', 0.0) * 100, 1)
         else:
             rec['qty_hhi'] = None; rec['qty_cn'] = None
+        # implied unit value (USD/tonne) — world, China, and rest-of-world
+        cv, cq = exps.get('CN', [0.0, 0.0])
+        rec['uv'] = round(vtot / qtot, 1) if qtot > 0 else None
+        rec['china_uv'] = round(cv / cq, 1) if cq > 0 else None
+        rec['row_uv'] = round((vtot - cv) / (qtot - cq), 1) if (qtot - cq) > 0 else None
         out[lab] = rec
     return out
 
@@ -100,13 +105,17 @@ for y in YEARS:
 mats = {}
 for m in data['materials']:
     lab = m['label']
-    s = {'title': TITLES[lab], 'val_hhi': [], 'qty_hhi': [], 'val_cn': [], 'qty_cn': []}
+    s = {'title': TITLES[lab], 'val_hhi': [], 'qty_hhi': [], 'val_cn': [], 'qty_cn': [],
+         'uv': [], 'china_uv': [], 'row_uv': []}
     for y in YEARS:
         r = vq[y].get(lab, {})
         s['val_hhi'].append(r.get('val_hhi'))
         s['qty_hhi'].append(r.get('qty_hhi'))
         s['val_cn'].append(r.get('val_cn'))
         s['qty_cn'].append(r.get('qty_cn'))
+        s['uv'].append(r.get('uv'))
+        s['china_uv'].append(r.get('china_uv'))
+        s['row_uv'].append(r.get('row_uv'))
     # price-effect score (latest year): value-HHI minus volume-HHI (positive = value more concentrated than volume)
     vh, qh = s['val_hhi'][-1], s['qty_hhi'][-1]
     s['price_gap'] = round((vh - qh), 3) if (vh is not None and qh is not None) else None
@@ -163,6 +172,11 @@ HTML = r'''<!doctype html>
     <div id="c1" class="chart"></div>
     <p id="lab" class="muted" style="margin:.4rem 0 0"></p>
   </div>
+  <div class="chartwrap">
+    <div style="font-weight:600;font-size:.92rem;margin-bottom:.2rem">Implied unit value (price) <span id="uvlab" class="muted" style="font-weight:400"></span></div>
+    <div id="c2" class="chart" style="height:300px"></div>
+    <p class="muted" style="margin:.3rem 0 0">Implied price = export value &divide; tonnage (USD/tonne), derived from the trade data itself. <span style="color:#c0392b">China</span> vs the <span style="color:#0e7c74">rest of the world</span>: where China's $/tonne sits <i>above</i> the rest, it is exporting the higher-value <b>processed</b> form rather than ore &mdash; which is precisely why its value-share can exceed its volume-share. (Unit values from trade data are noisy &mdash; quality/product mix varies &mdash; so read trends, not the exact level.)</p>
+  </div>
   <h2 style="margin:1.6rem 0 .4rem">Where value overstates concentration (the price effect)</h2>
   <p class="muted" style="margin-top:0">Materials ranked by how much more concentrated they look in <i>value</i> than in <i>volume</i> in the latest year (HHI gap, &times;100, and China-share gap). A large positive gap means the value figure is partly price.</p>
   <table id="tab"><thead><tr><th>Material</th><th class="n">value HHI</th><th class="n">volume HHI</th><th class="n">price gap (×100)</th><th class="n">China value%</th><th class="n">China volume%</th></tr></thead><tbody></tbody></table>
@@ -180,6 +194,7 @@ fetch('out/volume.json').then(r=>r.json()).then(V=>{
   const ys=V.years, sel=$('#mat');
   Object.keys(V.materials).forEach(k=>{const o=document.createElement('option');o.value=k;o.textContent=V.materials[k].title;sel.appendChild(o);});
   const c=echarts.init($('#c1'));
+  const c2=echarts.init($('#c2'));
   const mk={symbol:'none',silent:true,lineStyle:{type:'dotted',color:'#cbd5d3'},data:[{xAxis:'2017'}]};
   function draw(k){
     const m=V.materials[k];
@@ -194,6 +209,8 @@ fetch('out/volume.json').then(r=>r.json()).then(V=>{
       ]},true);
     const pg=m.price_gap, cg=m.china_gap;
     $('#lab').innerHTML = (pg!=null? '<b>Price effect:</b> value-HHI is '+(pg>=0?'+':'')+(pg*100).toFixed(0)+' (×100) vs volume-HHI'+(cg!=null?(' · China is '+(cg>=0?'+':'')+cg.toFixed(0)+'pp higher by value than by volume'):'')+'. Solid = value, dashed = volume.' : 'volume data limited for this material.');
+    c2.setOption({tooltip:{trigger:'axis',valueFormatter:v=>v==null?'':('$'+Math.round(v).toLocaleString()+'/t')},legend:{top:0},grid:{left:66,right:20,top:30,bottom:28},xAxis:{type:'category',data:ys,boundaryGap:false},yAxis:{type:'value',name:'$/tonne',scale:true},series:[{name:'world',type:'line',smooth:true,showSymbol:false,lineWidth:2.4,data:m.uv,itemStyle:{color:'#15323a'},markLine:mk},{name:'China',type:'line',smooth:true,showSymbol:false,lineWidth:2,data:m.china_uv,itemStyle:{color:'#c0392b'}},{name:'rest of world',type:'line',smooth:true,showSymbol:false,lineWidth:2,data:m.row_uv,itemStyle:{color:'#0e7c74'}}]},true);
+    const cu=m.china_uv.at(-1), ru=m.row_uv.at(-1); const ul=document.getElementById('uvlab'); if(ul) ul.textContent=(cu!=null&&ru!=null&&ru>0)?('· China $'+Math.round(cu).toLocaleString()+'/t vs RoW $'+Math.round(ru).toLocaleString()+'/t ('+(cu>=ru?'+':'')+Math.round((cu/ru-1)*100)+'%'+(cu>ru*1.1?' — China exports the higher-value form':'')+')'):'';
   }
   sel.onchange=()=>draw(sel.value);
   draw(V.materials.lithium?'lithium':Object.keys(V.materials)[0]);
@@ -206,7 +223,7 @@ fetch('out/volume.json').then(r=>r.json()).then(V=>{
         '<td class="n" style="font-weight:700;color:'+(m.price_gap>0.05?'#c0392b':m.price_gap<-0.05?'#3f9b46':'#9aa6ad')+'">'+(m.price_gap>=0?'+':'')+(m.price_gap*100).toFixed(0)+'</td>'+
         '<td class="n">'+(m.val_cn.at(-1)??'—')+'%</td><td class="n">'+(m.qty_cn.at(-1)??'—')+'%</td>';
       tb.appendChild(tr);});
-  window.addEventListener('resize',()=>c.resize());
+  window.addEventListener('resize',()=>{c.resize();c2.resize();});
 });
 </script>
 </body></html>'''
