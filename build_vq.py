@@ -158,13 +158,11 @@ HTML = r'''<!doctype html>
   <p class="deck">Trade value is price times quantity — so a rising value-concentration can be a price story, not a who-ships-the-tonnes story. Here every concentration is computed in both <i>value</i> and physical <i>volume</i> (tonnes). Where the two diverge, the value figure is partly price.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>What this adds.</b> For each material and year we compute the export Herfindahl and China's
-  export share in <b>value</b> (USD) and in <b>volume</b> (metric tons, BACI quantity, ~94% coverage), 2002&ndash;2024.
-  When value-HHI sits above volume-HHI &mdash; or value-China-share above volume-China-share &mdash; the apparent
-  concentration is inflated by <b>price</b> (a high-priced producer/material weighs more in value than in tonnage).
-  Lithium is the textbook case: its value exploded on the 2021&ndash;22 price spike while tonnage barely moved.
-  <b>Caveat:</b> ~6% of flows lack reported quantity (volume series computed over reported-tonnage flows); BACI
-  quantities are partly estimated. Computed by <code>build_vq.py</code>.</div>
+  <div class="callout">Where a material&rsquo;s value-share sits above its volume-share, the apparent concentration is partly <b>price</b>, not tonnage &mdash; lithium is the textbook case: its value exploded in the 2021&ndash;22 price spike while tonnage barely moved.
+  <details class="howto"><summary>How it&rsquo;s computed</summary>
+  <p>For each material and year I compute the export Herfindahl and China&rsquo;s export share in <b>value</b> (USD) and in <b>volume</b> (metric tons, from BACI quantity, ~94% coverage), 2002&ndash;2024. When value-HHI sits above volume-HHI &mdash; or value-China-share above volume-China-share &mdash; a high-priced producer or material is weighing more in dollars than in tonnes.</p>
+  <p class="howto-src"><b>Caveat:</b> ~6% of flows lack reported quantity (the volume series is computed over reported-tonnage flows); BACI quantities are partly estimated. Computed by <code>build_vq.py</code>.</p>
+  </details></div>
   <div class="chartwrap">
     <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem">
       <b>Material:</b> <select id="mat" aria-label="Material"></select>
