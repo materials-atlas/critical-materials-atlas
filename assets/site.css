@@ -48,6 +48,12 @@ article>p,article>ul,article>ol{color:var(--ink-soft)}
 h2{font-size:1.18rem;margin-top:1.9rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--navy);letter-spacing:-.01em}
 h3{font-size:1rem;color:var(--navy);margin:1.2rem 0 .4rem}
 .callout{background:var(--bg-soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:.9rem 1.15rem;margin:.9rem 0;color:var(--ink)}
+.howto{margin-top:.45rem}
+.howto summary{cursor:pointer;color:var(--accent);font-weight:600;display:inline-block;padding:.1rem 0}
+.howto summary:hover{text-decoration:underline}
+.howto[open] summary{margin-bottom:.2rem}
+.howto p,.howto li{color:var(--mut);line-height:1.55}
+.howto-src{font-size:.74rem;color:var(--mut);opacity:.85;border-top:1px solid var(--line);padding-top:.4rem;margin-top:.5rem}
 .callout.hot{border-left-color:var(--hot)}
 .callout b{color:var(--navy)}
 
