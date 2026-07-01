@@ -42,6 +42,7 @@
   .legend .howto summary:hover{text-decoration:underline}
   .legend .howto[open] summary{margin-bottom:.15rem}
   .legend .howto p,.legend .howto li{color:var(--mut);line-height:1.55}
+  .legend .howto-src{font-size:.74rem;color:var(--mut);opacity:.85;border-top:1px solid var(--line);padding-top:.4rem;margin-top:.5rem}
   .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin:0 .2rem 0 .7rem}
   /* dual-bar table */
   .row{display:grid;grid-template-columns:11rem 1fr 1.4rem;gap:.7rem;align-items:center;padding:.5rem .3rem;border-bottom:1px solid var(--line);cursor:pointer}
@@ -320,7 +321,7 @@
 </div></section>
 
 <div class="wrap" id="app">
-<div class="intro"><b>Each material's journey:</b> <span style="color:rgb(222,140,40)">●</span> <b>mined</b> → <span style="color:rgb(142,68,173)">●</span> <b>refined</b> → imported. On the map &amp; globe the arrows are real trade, coloured by product (<span style="color:rgb(222,140,40)">amber</span> = raw material / ore, <span style="color:rgb(142,68,173)">violet</span> = refined product). Use the <b>material</b> and <b>country</b> selectors to focus (⛏ mines · 🏭 refines · ✓ has data for your selection). Click any material for the full picture.</div>
+<div class="intro">Follow each material from where it&rsquo;s <b>mined</b> <span style="color:rgb(222,140,40)">●</span> to where it&rsquo;s <b>refined</b> <span style="color:rgb(142,68,173)">●</span> to who imports it. On the map and globe, the arrows are real trade — <span style="color:rgb(222,140,40)">amber</span> for raw ore, <span style="color:rgb(142,68,173)">violet</span> for refined product.<details class="howto"><summary>How to use this</summary><p>Pick a <b>material</b> and a <b>country</b> to narrow the view, then switch between Table, Flow, Map and Globe. In the selectors, <b>⛏</b> marks a country that mines your material, <b>🏭</b> that it refines it, and <b>✓</b> that trade data exists for your selection. Open any material for its full profile.</p></details></div>
 
 <nav class="tabs">
   <button data-view="table" class="active">▤ Table</button>
@@ -354,15 +355,16 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend">Read each row left to right — from where a material comes out of the ground to who ends up buying it. <b>Click any row</b> for the full picture, or a column header to sort.
+    <div class="legend">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile.
       <details class="howto"><summary>How to read this table</summary>
         <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most — the last being the most exposed. Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
         <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
-          <li><b>⚠</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader sits in between (a chokepoint).</li>
-          <li><b>⛓</b> — gallium, germanium and hafnium share one trade code and can&rsquo;t be told apart.</li>
-          <li><b>—</b> — no separate refining stage, or no data.</li>
+          <li><b>⚠ processing chokepoint</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader stands in between.</li>
+          <li><b>⛓ shared trade code</b> — gallium, germanium and hafnium report under one code and can&rsquo;t be separated.</li>
+          <li><b>—</b> no distinct refining stage, or no data.</li>
         </ul>
+        <p class="howto-src">Sources: USGS · IEA · UN Comtrade / CEPII&nbsp;BACI (reconciled). Sort by any column; open a row for the full profile.</p>
       </details>
     </div>
     <div id="rows"></div>
