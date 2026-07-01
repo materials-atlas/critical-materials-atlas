@@ -37,6 +37,11 @@
   .depbtn:hover{background:#eef1f5}
   .view.hidden{display:none}
   .legend{font-size:.8rem;color:var(--mut);margin:.2rem 0 .7rem}
+  .legend .howto{margin-top:.35rem}
+  .legend .howto summary{cursor:pointer;color:var(--accent);font-weight:600;display:inline-block;padding:.1rem 0;list-style-position:inside}
+  .legend .howto summary:hover{text-decoration:underline}
+  .legend .howto[open] summary{margin-bottom:.15rem}
+  .legend .howto p,.legend .howto li{color:var(--mut);line-height:1.55}
   .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin:0 .2rem 0 .7rem}
   /* dual-bar table */
   .row{display:grid;grid-template-columns:11rem 1fr 1.4rem;gap:.7rem;align-items:center;padding:.5rem .3rem;border-bottom:1px solid var(--line);cursor:pointer}
@@ -349,7 +354,17 @@
 
 <main>
   <div id="view-table" class="view">
-    <div class="legend">Each material: <b>reserves</b> (USGS — economically recoverable) ▸ <b>mined</b> ▸ <b>refined</b> ▸ <b>top exporter</b> (sells the most) · <b>top importer</b> (buys the most — the most exposed). World trade from BACI. Each country has its <b>own colour</b> — the colours that recur are the chain's main actors. <b>—</b> = no distinct refining stage / no data. <b>⚠</b> = mined ≠ top exporter (a refining/trading chokepoint). <b>⛓</b> = trade shared at one HS6 code (gallium/germanium/hafnium can't be separated). <b>Click a column header to sort</b> by it; click a row for detail.</div>
+    <div class="legend">Read each row left to right — from where a material comes out of the ground to who ends up buying it. <b>Click any row</b> for the full picture, or a column header to sort.
+      <details class="howto"><summary>How to read this table</summary>
+        <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most — the last being the most exposed. Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
+        <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
+        <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
+          <li><b>⚠</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader sits in between (a chokepoint).</li>
+          <li><b>⛓</b> — gallium, germanium and hafnium share one trade code and can&rsquo;t be told apart.</li>
+          <li><b>—</b> — no separate refining stage, or no data.</li>
+        </ul>
+      </details>
+    </div>
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
