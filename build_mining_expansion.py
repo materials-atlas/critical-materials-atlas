@@ -105,14 +105,11 @@ HTML = r'''<!doctype html>
   <p class="deck">The trade and production layers tell you where supply <i>is</i>. This one points to where it&rsquo;s <i>going</i> &mdash; satellite-mapped mine footprint expanding across the tropics, 2016&ndash;2024. The growth lands squarely on the critical-material frontier: Indonesia&rsquo;s nickel, the lithium triangle, the Copperbelt.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>What this is.</b> Source: <b>Sepin, Vashold &amp; Kuschnig (2025, <i>Nature Sustainability</i>)</b> &mdash;
-  an annual panel of machine-learning-segmented mine polygons (Sentinel-2, 87.7% validation accuracy) with a year and
-  country on every polygon, so mapped mine area per country per year falls straight out. It is a <b>forward-looking
-  new-supply signal</b> the trade and USGS layers can&rsquo;t see. <b>Hard limits:</b> <b>tropics only</b> &mdash; no China,
-  Australia, Canada or any temperate belt, so this is <i>not</i> a global total; <b>all-commodity</b> (no per-mineral label,
-  so expansion in single-commodity regions is indicative, not attributed); area is mapped <i>surface footprint</i>, not
-  production tonnage; and <b>2024 appears under-mapped</b> (it dips below 2023), so 2023 is the robust recent endpoint.
-  Computed by <code>build_mining_expansion.py</code>.</div>
+  <div class="callout">Where mining is physically <i>growing</i>, 2016&ndash;2024 &mdash; a forward-looking new-supply signal the trade and USGS layers can&rsquo;t see.
+  <details class="howto"><summary>Source, and its hard limits</summary>
+  <p>Source: <b>Sepin, Vashold &amp; Kuschnig (2025, <i>Nature Sustainability</i>)</b> &mdash; an annual panel of machine-learning-segmented mine polygons (Sentinel-2, 87.7% validation accuracy) with a year and country on every polygon, so mapped mine area per country per year falls straight out.</p>
+  <p class="howto-src"><b>Hard limits:</b> <b>tropics only</b> (no China, Australia, Canada or temperate belt &mdash; <i>not</i> a global total); <b>all-commodity</b> (no per-mineral label, so expansion in single-commodity regions is indicative, not attributed); area is mapped surface footprint, not tonnage; and <b>2024 is under-mapped</b> (it dips below 2023), so 2023 is the robust recent endpoint. Computed by <code>build_mining_expansion.py</code>.</p>
+  </details></div>
   <div id="head" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <div class="chartwrap">
     <div style="font-weight:600;font-size:.92rem;margin-bottom:.2rem">Total tropical mapped mine area, 2016&ndash;2024</div>

@@ -7,14 +7,13 @@
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/site.css">
-<script src="assets/nav.js" defer></script>
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>#map{width:100%;height:460px;background:#eef3f2;border:1px solid #e3e9e8;border-radius:10px}.jvm-tooltip{font:inherit!important}.muted{color:#5a6b68;font-size:.86rem}.flegend{display:flex;gap:1rem;flex-wrap:wrap;font-size:.82rem;color:#5a6b68;margin:.5rem 0}.flegend b{color:#15323a}</style>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="trends.html">Trends</a>
-  <a href="mining-expansion.html" class="hideable">Expansion</a><a href="volume.html" class="hideable">Value vs volume</a><a href="findings.html" class="hideable">Findings</a>
+  <a href="volume.html" class="hideable">Value vs volume</a><a href="findings.html" class="hideable">Findings</a>
   <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -23,12 +22,11 @@
   <p class="deck">Every other page measures concentration from <i>trade</i> and <i>production statistics</i>. This one adds an independent physical lens: where mining actually scars the ground, seen from space &mdash; 44,929 mapped mine polygons across 145 countries &mdash; set beside the atlas&rsquo;s critical-material producers, with flagship mines snapped to their real satellite footprints. A companion page maps <a href="mining-expansion.html" style="color:#fff;text-decoration:underline">where mining is physically expanding &rarr;</a>.</p>
 </div></section>
 <article style="max-width:1060px">
-  <div class="callout"><b>The cross-check.</b> Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed
-  dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and
-  site count) per country and lay it beside the production geography the atlas already shows. <b>Caveat:</b> these polygons
-  are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total
-  mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view.
-  <span id="head"></span></div>
+  <div class="callout">An independent physical check on the supply map: how much mine footprint each country actually shows from orbit, set beside the producers the atlas already names. <span id="head"></span>
+  <details class="howto"><summary>Source, and the all-commodity caveat</summary>
+  <p>Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and site count) per country and lay it beside the production geography the atlas already shows.</p>
+  <p class="howto-src"><b>Caveat:</b> these polygons are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view.</p>
+  </details></div>
   <h2 style="margin:1.4rem 0 .4rem">Mine footprint from space &mdash; and flagship critical-material mines</h2>
   <p class="muted" style="margin-top:0">Shading = total mapped mine area per country (darker = more). Dots = curated flagship mines, sized by their nearest mapped footprint. Hover for detail.</p>
   <div id="map"></div>

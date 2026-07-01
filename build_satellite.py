@@ -159,15 +159,14 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · from orbit</div>
   <h1>Do the satellites corroborate the supply map?</h1>
-  <p class="deck">Every other page measures concentration from <i>trade</i> and <i>production statistics</i>. This one adds an independent physical lens: where mining actually scars the ground, seen from space &mdash; 44,929 mapped mine polygons across 145 countries &mdash; set beside the atlas&rsquo;s critical-material producers, with flagship mines snapped to their real satellite footprints.</p>
+  <p class="deck">Every other page measures concentration from <i>trade</i> and <i>production statistics</i>. This one adds an independent physical lens: where mining actually scars the ground, seen from space &mdash; 44,929 mapped mine polygons across 145 countries &mdash; set beside the atlas&rsquo;s critical-material producers, with flagship mines snapped to their real satellite footprints. A companion page maps <a href="mining-expansion.html" style="color:#fff;text-decoration:underline">where mining is physically expanding &rarr;</a>.</p>
 </div></section>
 <article style="max-width:1060px">
-  <div class="callout"><b>The cross-check.</b> Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed
-  dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and
-  site count) per country and lay it beside the production geography the atlas already shows. <b>Caveat:</b> these polygons
-  are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total
-  mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view.
-  <span id="head"></span></div>
+  <div class="callout">An independent physical check on the supply map: how much mine footprint each country actually shows from orbit, set beside the producers the atlas already names. <span id="head"></span>
+  <details class="howto"><summary>Source, and the all-commodity caveat</summary>
+  <p>Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and site count) per country and lay it beside the production geography the atlas already shows.</p>
+  <p class="howto-src"><b>Caveat:</b> these polygons are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view.</p>
+  </details></div>
   <h2 style="margin:1.4rem 0 .4rem">Mine footprint from space &mdash; and flagship critical-material mines</h2>
   <p class="muted" style="margin-top:0">Shading = total mapped mine area per country (darker = more). Dots = curated flagship mines, sized by their nearest mapped footprint. Hover for detail.</p>
   <div id="map"></div>
@@ -181,7 +180,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="volume.html">Value vs volume</a><br><a href="trends.html">Trends</a><br><a href="risk.html">Supply-risk index</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="mining-expansion.html">Mining expansion</a><br><a href="volume.html">Value vs volume</a><br><a href="trends.html">Trends</a><br><a href="methodology.html">Methodology</a></div>
   <div><h4>Sources</h4>Maus et al. 2022 (mine polygons) · UN Comtrade · CEPII BACI · USGS</div>
   <div class="fineprint">Satellite footprint is all-commodity (Maus et al., Sentinel-2 ~2019); a physical cross-check, not a per-mineral measure.</div>
 </div></footer>
