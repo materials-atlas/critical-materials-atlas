@@ -22,13 +22,12 @@
   <p class="deck">The Trends page says concentration is rising for a set of materials. That rests on a Mann-Kendall test which assumes each year is independent &mdash; but concentration series are serially correlated, which <i>overstates</i> significance. Here the same claims are re-run under an autocorrelation-robust test and split across the 2017 data-vintage join. What survives, we can stand behind; what doesn&rsquo;t, we say so.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>Two adversarial checks on the rising-concentration claim.</b>
-  <b>(1) Hamed-Rao (1998)</b> &mdash; the standard fix for trend tests on autocorrelated data: it inflates the
-  Mann-Kendall variance by the significant rank-autocorrelations, so a serially-correlated series needs a
-  <i>stronger</i> signal to count as significant. <b>(2) Splice sub-period</b> &mdash; each trend re-estimated
-  separately on the HS02 window (2002&ndash;2016) and the HS17 window (2017&ndash;2024); a trend that keeps its
-  sign in both halves is not an artifact of the 2017 vintage join. Both significance screens use
-  Benjamini-Hochberg FDR across all 32 materials. Computed by <code>build_robustness.py</code>.</div>
+  <div class="callout">Does &ldquo;concentration is rising&rdquo; survive a tougher test? I re-run every trend two harder ways and keep only what passes both.
+  <details class="howto"><summary>The two harder tests</summary>
+  <p><b>1 &middot; Autocorrelation-robust (Hamed-Rao, 1998).</b> A plain trend test assumes each year is independent; concentration series aren&rsquo;t, which flatters significance. This correction demands a <i>stronger</i> signal before a trend counts.</p>
+  <p><b>2 &middot; Across the data-vintage splice.</b> Each trend is re-estimated separately on 2002&ndash;2016 and on 2017&ndash;2024; one that keeps the same sign in both halves isn&rsquo;t an artifact of the 2017 join.</p>
+  <p class="howto-src">Both screens control the false-discovery rate (Benjamini-Hochberg) across all 32 materials. Computed by <code>build_robustness.py</code>.</p>
+  </details></div>
   <div id="verdict" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <h2 style="margin:1.4rem 0 .4rem">The rising-concentration materials, under the harder tests</h2>
   <p class="muted" style="margin-top:0">Materials flagged with a significant rising export-HHI by the standard test, then re-checked. &ldquo;Var ×&rdquo; is the Hamed-Rao variance inflation from positive autocorrelation (&ge;1; this is a deliberately conservative <i>one-sided</i> correction &mdash; serial correlation may only make the test <i>harder</i>, never easier). A value of 1.00 means the series had no significant positive autocorrelation to penalise.</p>

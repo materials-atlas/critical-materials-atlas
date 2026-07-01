@@ -182,20 +182,13 @@ out = f'''<!doctype html>
   <p class="deck">The transparent supply-risk index uses weights I chose. Here are three established alternatives from the criticality literature, each computed on the same public data: a data-driven composite (entropy-TOPSIS), a governance-weighted geopolitical indicator (GeoPolRisk), and a probabilistic supply-at-risk with tail metrics.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>1 · Entropy-weighted TOPSIS (data-driven weights).</b> Instead of weights I pick, Shannon-entropy
-  weighting assigns each criterion a weight by its <i>information content</i> across the 32 materials, then TOPSIS
-  ranks each material by its closeness to the worst case (Hwang &amp; Yoon 1981; Achzet &amp; Helbig 2013). The
-  entropy weights this produces: {wbar}. The ranking <b>diverges moderately</b> from my fixed-weight index (Spearman
-  <b>ρ {rho_fixed}</b>): the data load most weight on <b>China-share</b> and <b>origin-gap</b> (the most dispersed,
-  highest-information criteria), pushing tungsten, magnesium and magnets up. <b>Caveat:</b> entropy weighting rewards
-  high-<i>dispersion</i> criteria — it measures information content, not substantive importance, so it nearly zeroes
-  near-uniform criteria like recycling. Read it as a data-driven <i>complement</i> to the fixed index, not a verdict.
-  <b>2 · GeoPolRisk</b> (Gemechu et al. 2016) = stage concentration &times; the governance risk of the producers,
-  shown for the mine and trade stages. <b>3 · Monte-Carlo supply-at-risk</b>: each producer fails with a
-  governance-derived probability and a random severity; over 20,000 draws we report the mean loss
-  (<b>ESaR</b>) and the 95% tail (<b>VaR/CVaR</b>) — the deterministic shock scenarios, made probabilistic.
-  All on public data; deterministic (fixed seed). Disruption probabilities are governance-derived assumptions, not
-  forecasts.</div>
+  <div class="callout">Three established ways to score supply risk &mdash; each letting the data or the criticality literature, not the weights I chose, decide.
+  <details class="howto"><summary>The three methods</summary>
+  <p><b>1 &middot; Entropy-weighted TOPSIS (data-driven weights).</b> Shannon entropy gives each criterion a weight by how much it varies across the 32 materials, then TOPSIS ranks each by closeness to the worst case (Hwang &amp; Yoon 1981; Achzet &amp; Helbig 2013). The weights it produces: {wbar}. The ranking <b>diverges moderately</b> from my fixed-weight index (Spearman <b>ρ {rho_fixed}</b>) &mdash; the data load most weight on <b>China-share</b> and <b>origin-gap</b>, pushing tungsten, magnesium and magnets up.</p>
+  <p><b>2 &middot; GeoPolRisk</b> (Gemechu et al. 2016) &mdash; stage concentration &times; the governance risk of the producers, for the mine and trade stages.</p>
+  <p><b>3 &middot; Monte-Carlo supply-at-risk</b> &mdash; each producer fails with a governance-derived probability and a random severity; over 20,000 draws I report the mean loss (<b>ESaR</b>) and the 95% tail (<b>VaR/CVaR</b>) &mdash; the shock scenarios made probabilistic.</p>
+  <p class="howto-src"><b>Caveat:</b> entropy rewards <i>dispersion</i>, not importance, so it nearly zeroes near-uniform criteria like recycling &mdash; read TOPSIS as a data-driven <i>complement</i> to the fixed index, not a verdict. All on public data, deterministic (fixed seed); disruption probabilities are governance-derived assumptions, not forecasts.</p>
+  </details></div>
   <table>
     <thead><tr><th>Material</th>
       <th class="n" title="entropy-weighted TOPSIS risk, 0-100 (data-driven weights)">TOPSIS</th>
