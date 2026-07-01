@@ -48,6 +48,7 @@
       ['casestudies.html', 'Case studies — known-chain audit'],
       ['profiles.html', 'Material & country profiles'],
       ['data.html', 'Open data / API'],
+      ['map.html', 'Project map — how it\'s built'],
       ['https://github.com/materials-atlas/comtrade-reconcile', 'Reconciliation engine'] ] }
   ];
 

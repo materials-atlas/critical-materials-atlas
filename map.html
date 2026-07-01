@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project map — how the atlas is built · Critical Materials Atlas</title>
+<meta name="description" content="The whole Critical Materials Atlas in one view: every public data source, the reconciliation engine, the data layers, the deterministic generators, and all the pages — and how they connect.">
+<meta property="og:title" content="How the Critical Materials Atlas is built — the full pipeline">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<script src="assets/nav.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<style>
+ .flowbox{background:#fff;border:1px solid #e3e9e8;border-radius:12px;padding:1.2rem;overflow-x:auto;margin:1rem 0}
+ .mermaid{min-width:720px}
+ .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:.8rem;margin:1rem 0}
+ .card{border:1px solid #e3e9e8;border-radius:10px;background:#fff;padding:.85rem 1rem;border-left:4px solid #0e7c74}
+ .card h3{margin:0 0 .5rem;font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;color:#15323a}
+ .card ul{margin:0;padding:0;list-style:none;font-size:.86rem}
+ .card li{padding:.16rem 0}
+ .card li span{color:#5a6b68;font-size:.82rem}
+ .g-core{border-left-color:#15323a}.g-analysis{border-left-color:#0e7c74}.g-risk{border-left-color:#b07a18}
+ .g-sat{border-left-color:#3f6fb0}.g-rigor{border-left-color:#c0392b}.g-ref{border-left-color:#7d5fb0}
+ .panel{background:#f4f7f6;border:1px solid #e3e9e8;border-radius:12px;padding:1.1rem 1.3rem}
+ .panel h3{margin:.1rem 0 .6rem;font-size:.95rem;color:#15323a}
+ .two{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}@media(max-width:800px){.two{grid-template-columns:1fr}}
+ .maptab{width:100%;border-collapse:collapse;font-size:.86rem}
+ .maptab td{padding:.3rem .5rem;border-bottom:1px solid #e3e9e8;vertical-align:top}
+ .muted{color:#5a6b68}
+</style></head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="data.html">Data</a>
+  <a href="technical-note.html" class="hideable">Technical note</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Transparency · project map</div>
+  <h1>How this atlas is built</h1>
+  <p class="deck">Every figure here traces back to a public source through code you can run. This is the whole machine in one view &mdash; the sources, the reconciliation engine, the data layers, the deterministic generators, and all the pages &mdash; and how they connect. Nothing is hand-typed into a page; rebuild it and it regenerates.</p>
+</div></section>
+
+<article style="max-width:1160px">
+  <h2>The pipeline &mdash; from public data to the page you&rsquo;re reading</h2>
+  <p class="muted" style="margin-top:0">It flows one way: public sources &rarr; a reconciliation engine &rarr; JSON data layers &rarr; deterministic generators &rarr; this static site.</p>
+  <div class="flowbox">
+    <pre class="mermaid">
+flowchart LR
+  subgraph SRC[" Public data sources "]
+    direction TB
+    S1["UN Comtrade<br/>raw bilateral trade"]
+    S2["CEPII BACI<br/>HS02+HS17 · 2002-2024"]
+    S3["USGS · IEA<br/>mine / refine shares"]
+    S5["World Bank WGI<br/>governance"]
+    S6["Maus 2022 · Sepin 2025<br/>satellite mine polygons"]
+  end
+  ENG["Reconciliation engine<br/>comtrade-reconcile<br/>CI green · pre-registered"]
+  J[("out/*.json<br/>data + 25 flow-years<br/>+ 15 analytical layers")]
+  GEN["~20 generators<br/>deterministic · reproducible"]
+  SITE["This static site<br/>28 pages + material &amp; country profiles"]
+  S1 --> ENG
+  S2 --> ENG
+  ENG --> J
+  S3 --> J
+  S5 --> J
+  S6 --> J
+  J --> GEN
+  GEN --> SITE
+  classDef src fill:#eaf3f1,stroke:#0e7c74,color:#15323a;
+  classDef eng fill:#15323a,stroke:#0e7c74,color:#ffffff;
+  classDef data fill:#ffffff,stroke:#b8c6c3,color:#15323a;
+  classDef gen fill:#f4f7f6,stroke:#7d9b97,color:#15323a;
+  classDef site fill:#0e7c74,stroke:#0a3b39,color:#ffffff;
+  class S1,S2,S3,S5,S6 src; class ENG eng; class J data; class GEN gen; class SITE site;
+    </pre>
+  </div>
+
+  <h2>Every page, grouped</h2>
+  <p class="muted" style="margin-top:0">The same groups you see in the navigation. Click any to jump there.</p>
+  <div class="grid">
+    <div class="card g-core"><h3>Core</h3><ul>
+      <li><a href="./">Atlas</a> · <span>interactive table / flow / map / globe</span></li>
+      <li><a href="insights.html">Insights</a> · <span>state of supply</span></li>
+      <li><a href="findings.html">Findings</a> · <span>the origin gap (headline)</span></li>
+    </ul></div>
+    <div class="card g-analysis"><h3>Analysis</h3><ul>
+      <li><a href="trends.html">Trends</a> · <span>22-year evolution</span></li>
+      <li><a href="volume.html">Value vs volume</a> · <span>price effects</span></li>
+      <li><a href="network.html">Network</a> · <span>trade chokepoints</span></li>
+      <li><a href="complexity.html">Complexity</a> · <span>who can export it</span></li>
+      <li><a href="origin.html">Origin trace</a> · <span>refiner illusion</span></li>
+      <li><a href="criticality.html">Criticality</a> · <span>governance-weighted</span></li>
+    </ul></div>
+    <div class="card g-risk"><h3>Risk</h3><ul>
+      <li><a href="risk.html">Supply-risk index</a></li>
+      <li><a href="riskmethods.html">Risk methods</a> · <span>TOPSIS · GeoPolRisk · tail</span></li>
+      <li><a href="scenarios.html">Shock scenarios</a></li>
+      <li><a href="index-builder.html">Build your own index</a> · <span>interactive</span></li>
+      <li><a href="shock-builder.html">Build your own shock</a> · <span>interactive</span></li>
+    </ul></div>
+    <div class="card g-sat"><h3>Satellite</h3><ul>
+      <li><a href="satellite.html">Mine footprint from orbit</a> · <span>Maus 2022</span></li>
+      <li><a href="mining-expansion.html">Mining expansion</a> · <span>Sepin 2025</span></li>
+    </ul></div>
+    <div class="card g-rigor"><h3>Rigor &amp; honesty</h3><ul>
+      <li><a href="robustness.html">Robustness</a> · <span>do findings survive?</span></li>
+      <li><a href="network-sensitivity.html">Network sensitivity</a> · <span>truncation test</span></li>
+      <li><a href="limitations.html">Limitations</a> · <span>what this is not + falsifiers</span></li>
+      <li><a href="casestudies.html">Case studies</a> · <span>known-chain audit</span></li>
+    </ul></div>
+    <div class="card g-ref"><h3>Reference</h3><ul>
+      <li><a href="methodology.html">Methodology</a> · <span>methods &amp; validation</span></li>
+      <li><a href="technical-note.html">Technical note</a> · <span>citable + PDF</span></li>
+      <li><a href="brief.html">One-page brief</a> · <span>+ PDF</span></li>
+      <li><a href="data.html">Open data / API</a></li>
+      <li><a href="profiles.html">Material profiles</a> · <a href="countries.html">Countries</a></li>
+      <li><a href="updates.html">Updates</a> · <span>changelog</span></li>
+    </ul></div>
+  </div>
+
+  <h2>Sources &amp; reproducibility</h2>
+  <div class="two">
+    <div class="panel">
+      <h3>Data sources — all public</h3>
+      <table class="maptab">
+        <tr><td><b>UN Comtrade</b></td><td>raw bilateral trade (reconciled)</td></tr>
+        <tr><td><b>CEPII BACI</b></td><td>HS02 + HS17, 2002&ndash;2024</td></tr>
+        <tr><td><b>USGS</b></td><td>mine-production shares</td></tr>
+        <tr><td><b>IEA</b></td><td>refining shares</td></tr>
+        <tr><td><b>World Bank WGI</b></td><td>governance</td></tr>
+        <tr><td><b>Maus et al. 2022</b></td><td>satellite mine polygons</td></tr>
+        <tr><td><b>Sepin et al. 2025</b></td><td>tropical mining expansion</td></tr>
+        <tr><td><b>Eurostat Comext</b></td><td>EU import-origin lens</td></tr>
+      </table>
+    </div>
+    <div class="panel">
+      <h3>How it reproduces</h3>
+      <table class="maptab">
+        <tr><td><b>Engine</b></td><td>the <a href="https://github.com/materials-atlas/comtrade-reconcile">reconciliation engine</a> is open-source with CI that regenerates the numbers from raw Comtrade &mdash; no API key needed.</td></tr>
+        <tr><td><b>Data layers</b></td><td>41 plain <a href="data.html">JSON files</a> (the material data, 25 flow-years, and 15 analytical layers), fetched straight from GitHub Pages.</td></tr>
+        <tr><td><b>Generators</b></td><td>~20 deterministic builders turn the JSON into every page &mdash; the same input always gives the same site.</td></tr>
+        <tr><td><b>The bet</b></td><td>the 2025 nowcast&rsquo;s accuracy is <a href="technical-note.html">pre-registered</a> &mdash; scored against the next data release, pass or fail.</td></tr>
+        <tr><td><b>What could be wrong</b></td><td>every known limitation, with its direction of bias and a falsifier, is on the <a href="limitations.html">limitations page</a>.</td></tr>
+      </table>
+    </div>
+  </div>
+  <p class="note">The point of all this: you shouldn&rsquo;t have to trust the author. The code checks itself, and every claim is one click from how it was derived.</p>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="methodology.html">Methodology</a><br><a href="data.html">Open data</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Built from</h4>UN Comtrade · CEPII BACI · USGS · IEA · World Bank · Maus 2022 · Sepin 2025</div>
+  <div class="fineprint">Every figure traces to a public source through code you can run. Diagram rendered with Mermaid.</div>
+</div></footer>
+<script>mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:{fontFamily:'Inter,sans-serif',fontSize:'13px'},flowchart:{curve:'basis',nodeSpacing:40,rankSpacing:70}});</script>
+</body></html>
