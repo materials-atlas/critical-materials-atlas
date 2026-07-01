@@ -154,11 +154,11 @@ HTML = r'''<!doctype html>
   <p class="deck">The Network page draws each material&rsquo;s trade graph from the top-6 partners per side. A smaller graph mechanically concentrates centrality &mdash; so does the &ldquo;China is the broker&rdquo; finding hold once we stop truncating? Here every 2024 graph is rebuilt at top-6, top-10, top-20, and <i>full</i> (every reporting country), and China&rsquo;s centrality re-measured at each.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>The test.</b> For all 32 materials I rebuild the 2024 directed trade graph straight from BACI
-  at four cuts &mdash; top-6, top-10, top-20 nodes and the <b>full uncapped graph</b> &mdash; and recompute (i) China&rsquo;s
-  share of total trade throughput, (ii) its rank by betweenness (is it the single top broker?), and (iii) node-removal
-  fragility. Stable centrality from top-6 to full means the finding is real, not a product of the cap. Computed by
-  <code>build_network_sensitivity.py</code>.</div>
+  <div class="callout">The Network page draws each graph from only the top-6 trade partners per side. Does China&rsquo;s central position hold when I stop cropping the network? I rebuild every 2024 graph with more and more of it and re-measure.
+  <details class="howto"><summary>How it&rsquo;s tested</summary>
+  <p>For all 32 materials I rebuild the 2024 trade graph at four cuts &mdash; top-6, top-10, top-20, and the <b>full uncapped graph</b> (every reporting country) &mdash; and recompute China&rsquo;s share of total trade flow, its rank as a broker (betweenness), and how much of the network fragments if it is removed. If China&rsquo;s centrality barely moves from top-6 to full, the finding is real, not an artifact of the crop.</p>
+  <p class="howto-src">Computed by <code>build_network_sensitivity.py</code>.</p>
+  </details></div>
   <div id="verdict" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <h2 style="margin:1.4rem 0 .4rem">China&rsquo;s throughput share as the graph stops being truncated</h2>
   <p class="muted" style="margin-top:0">Average across 32 materials. If the line is roughly flat, truncation isn&rsquo;t manufacturing China&rsquo;s centrality.</p>
