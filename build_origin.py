@@ -149,13 +149,11 @@ out = f'''<!doctype html>
   <p class="deck">The origin gap, traced — as a first-order estimate. Each country's imports are re-attributed from the apparent supplier (often a refiner or hub) to a likely mine origin, showing how much of a nation's critical-material supply is sourced <i>via a refiner</i> rather than the producer its customs data names.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout"><b>The rule.</b> For every import flow, if the supplier genuinely mines the material (world mine
-  share &ge; {MINER_MIN:.0f}%) the origin is the supplier; otherwise the supplier is a refiner or hub and the value is
-  re-attributed to the material's <b>dominant mine</b>. A country's <b>hidden dependence</b> is the share of its
-  imports re-attributed away from the apparent supplier. <b>First-order trace — an upper bound.</b> We don't observe
-  each refiner's ore sourcing, so all refiner-fronted flow is assigned to the single leading producer; that is an
-  <i>upper bound</i> on single-origin concentration (real refiners blend ores, scrap and contracts). Read it as the
-  <i>scale</i> of the refiner illusion, not a customs-grade origin. Computed by <code>build_origin.py</code> from public data.</div>
+  <div class="callout">Each country&rsquo;s imports are re-attributed from the refiner or hub that shipped them back to the mine that likely produced the ore &mdash; showing how much of its supply really comes via a middleman.
+  <details class="howto"><summary>The rule, and why it&rsquo;s an upper bound</summary>
+  <p>For every import flow: if the supplier genuinely mines the material (world mine share &ge; {MINER_MIN:.0f}%) the origin stays the supplier; otherwise the supplier is treated as a refiner or hub, and the value is re-attributed to the material&rsquo;s <b>dominant mine</b>. A country&rsquo;s <b>hidden dependence</b> is the share of its imports re-attributed away from the apparent supplier.</p>
+  <p class="howto-src"><b>First-order trace — an upper bound.</b> We don&rsquo;t observe each refiner&rsquo;s ore sourcing, so all refiner-fronted flow is assigned to the single leading producer; real refiners blend ores, scrap and contracts. Read it as the <i>scale</i> of the refiner illusion, not a customs-grade origin. Computed by <code>build_origin.py</code>.</p>
+  </details></div>
 
   <h2 style="margin:1.6rem 0 .5rem">Hidden dependence by importer</h2>
   <p class="note" style="margin-top:0">Apparent #1 supplier vs the likely #1 origin (upper-bound attribution), and the share of imports that are <i>refiner-fronted</i> (sourced via a non-producer). Re-export hubs excluded; ranked by import value.</p>

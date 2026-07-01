@@ -228,17 +228,11 @@ def main():
   <p class="deck">Top-exporter share tells you how <i>concentrated</i> a material's trade is. It says nothing about who sits <i>on the routes</i>. Treating each material's bilateral flows as a directed network surfaces the brokers and processing hubs that the customs ledger hides — and a node-removal test shows how far the network fragments without them.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout"><b>What this adds.</b> A country can hold a small export share yet be the node everything
-  routes through. We build each material's directed, value-weighted trade network and rank countries by
-  <b>betweenness</b> (brokerage) and <b>PageRank</b> (recursive flow importance), then classify the top broker
-  by corroborating it against the refining stage: a <span style="color:{KINDCOL['processing chokepoint']}">processing chokepoint</span>
-  is also the top refiner (network centrality coincides with refining dominance), a <span style="color:{KINDCOL['redistribution hub']}">redistribution hub</span>
-  is a big importer that re-distributes, a <span style="color:{KINDCOL['transit hub']}">transit hub</span> is a
-  curated entrepot (re-export, not control). The last column is a resilience test: the share of supply→demand
-  routes that break when that single node is removed. <b>Read with care:</b> betweenness on a trade network also
-  reflects import <i>size</i> — a big buyer scores high without "controlling" anything — so treat this as
-  <b>trade-routing centrality</b> (exploratory, hypothesis-generating), and "processing chokepoint" as "most-central
-  <i>and</i> the top refiner", not proof of control. Public data, computed by <code>build_network.py</code>.</div>
+  <div class="callout">A country can hold a small export share yet be the node everything routes through. This finds those brokers and processing hubs &mdash; and tests how much of the trade breaks without them.
+  <details class="howto"><summary>How it&rsquo;s built, and how to read it</summary>
+  <p>I build each material&rsquo;s directed, value-weighted trade network and rank countries by <b>betweenness</b> (brokerage) and <b>PageRank</b> (recursive flow importance), then classify the top broker against the refining stage: a <span style="color:{KINDCOL['processing chokepoint']}">processing chokepoint</span> is also the top refiner (centrality coincides with refining dominance), a <span style="color:{KINDCOL['redistribution hub']}">redistribution hub</span> is a big importer that re-distributes, a <span style="color:{KINDCOL['transit hub']}">transit hub</span> is a curated entrepot (re-export, not control). The last column is a resilience test: the share of supply→demand routes that break when that single node is removed.</p>
+  <p class="howto-src"><b>Read with care:</b> betweenness on a trade network also reflects import <i>size</i> — a big buyer scores high without &ldquo;controlling&rdquo; anything — so treat this as <b>trade-routing centrality</b> (exploratory), and &ldquo;processing chokepoint&rdquo; as &ldquo;most-central <i>and</i> the top refiner&rdquo;, not proof of control. Computed by <code>build_network.py</code>.</p>
+  </details></div>
 
   <h2 style="margin:1.6rem 0 .5rem">Who sits on the trade routes</h2>
   <p class="note" style="margin-top:0">Weighted tally of top-3 brokerage appearances across all {len(rows)} materials, beside how many each <i>leads as exporter</i>. The gap is the point: the most-central nodes are processing and redistribution hubs, not the resource-rich exporters.</p>

@@ -163,10 +163,10 @@ HTML = r'''<!doctype html>
   <p class="deck">A continuous measured trade series back to 2002 means the concentration story is no longer a snapshot. Pick a material and watch its exporters &mdash; and its concentration &mdash; evolve. Then see China&rsquo;s export share climb across the marquee chains in one picture.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>What you are seeing.</b> Solid lines are each country&rsquo;s share of world exports of the
-  material (left axis, %); the dashed line is the export-concentration Herfindahl (right axis, 0&ndash;1 &mdash; higher
-  = more concentrated). Measured CEPII BACI, 2002&ndash;2024 (HS02 vintage through 2016, HS17 from 2017); nowcast
-  years excluded. Shares are over the captured bilateral flows, as elsewhere in the atlas.</div>
+  <div class="callout">Each line is a country&rsquo;s share of world exports over 2002&ndash;2024; the dashed line tracks how concentrated the trade is overall.
+  <details class="howto"><summary>Reading the chart</summary>
+  <p>Solid lines are each country&rsquo;s share of world exports of the material (left axis, %); the dashed line is the export-concentration Herfindahl (right axis, 0&ndash;1 &mdash; higher = more concentrated). Measured CEPII BACI, 2002&ndash;2024 (HS02 vintage through 2016, HS17 from 2017); nowcast years excluded. Shares are over the captured bilateral flows, as elsewhere in the atlas.</p>
+  </details></div>
 
   <div class="chartwrap">
     <div style="display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem">

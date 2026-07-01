@@ -139,15 +139,11 @@ out = f'''<!doctype html>
   <p class="deck">Revealed comparative advantage (Balassa) asks who is a genuinely competitive exporter of each material. <i>Ubiquity</i> — how few countries clear that bar — is a market-revealed strategic signal, and <i>relatedness</i> shows which materials the same countries tend to command together.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout"><b>What this adds.</b> Using the one complete country&times;material matrix we have — exports — we compute
-  Balassa <b>RCA</b> (a country is a competitive exporter of a material when its export share of that material exceeds
-  its overall export share), a robust <b>capability</b> score, and <b>relatedness</b> (do the same countries
-  export both?). <b>Ubiquity</b> = how many countries clear RCA&ge;1: a low number means only a handful of countries can
-  competitively supply it — a market signal of relative scarcity beside the mine-concentration story. <b>Caveat:</b> RCA
-  here is computed over the 32-material matrix only, so it is specialization <i>within</i> critical materials, not
-  economy-wide Balassa RCA — small and re-export economies can surface as "competitive", and the RCA&ge;1 threshold makes
-  ubiquity sensitive to thin flows and HS6 pooling. Mine/refine data are top-N (too sparse for full RCA); mine leader
-  shown for contrast. Computed by <code>build_complexity.py</code> from public data.</div>
+  <div class="callout">Some materials have many competitive exporters; a few have almost none. This measures how many countries can genuinely compete in each &mdash; a market-revealed signal of scarcity, beside the mine-concentration story.
+  <details class="howto"><summary>How it&rsquo;s measured</summary>
+  <p>From the one complete country&times;material matrix we have (exports), I compute Balassa <b>RCA</b> (a country is a competitive exporter when its share of that material exceeds its overall export share), a robust <b>capability</b> score, and <b>relatedness</b> (do the same countries export both?). <b>Ubiquity</b> = how many countries clear RCA&ge;1: a low number means only a handful can competitively supply it.</p>
+  <p class="howto-src"><b>Caveat:</b> RCA here is over the 32-material matrix only &mdash; specialization <i>within</i> critical materials, not economy-wide, so small and re-export economies can surface as &ldquo;competitive&rdquo;, and the threshold makes ubiquity sensitive to thin flows and HS6 pooling. Mine/refine data are top-N; mine leader shown for contrast. Computed by <code>build_complexity.py</code>.</p>
+  </details></div>
 
   <h2 style="margin:1.6rem 0 .5rem">Materials by ubiquity — the rarest are the most strategic</h2>
   <table>

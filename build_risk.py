@@ -116,15 +116,11 @@ def main():
   <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>
 </div></section>
 <article style="max-width:960px">
-  <div class="callout"><b>How the score is built.</b> {legend}. Each component is 0–100, from public data
-  (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin
-  gap). Their weighted sum is the <i>gross</i> score; it is then <b>discounted for recyclability</b> — a
-  material's gross risk is cut by 0.4 &times; its end-of-life recycling input rate (EU CRM 2023), so a highly
-  recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw
-  concentration implies. <b>Substitutability</b> (how hard the material is to replace, EU CRM) is shown
-  alongside but <i>not</i> folded into the score — read it as a second axis: a high-risk material that is also
-  hard to substitute is the more strategic. A transparent heuristic — <i>not</i> an official criticality
-  assessment; it ignores price and stockpiles.</div>
+  <div class="callout">One 0&ndash;100 score per material, built from four visible components &mdash; never a black box.
+  <details class="howto"><summary>How the score is built</summary>
+  <p>{legend}. Each component is 0–100, from public data (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin gap). Their weighted sum is the <i>gross</i> score, then <b>discounted for recyclability</b> — gross risk is cut by 0.4 &times; the end-of-life recycling rate (EU CRM 2023), so a highly recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw concentration implies. <b>Substitutability</b> is shown alongside but <i>not</i> folded into the score &mdash; a high-risk material that is also hard to substitute is the more strategic.</p>
+  <p class="howto-src">A transparent heuristic, <i>not</i> an official criticality assessment; it ignores price and stockpiles.</p>
+  </details></div>
   <table>
     <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th title="how hard to substitute (EU CRM) — shown, not scored">subst.</th><th>gross components (width = weighted contribution)</th></tr></thead>
     <tbody>{''.join(body)}</tbody>

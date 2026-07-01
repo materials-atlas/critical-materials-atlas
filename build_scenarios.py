@@ -106,11 +106,10 @@ def main():
   <p class="deck">For each canonical disruption, the materials whose traded supply is most exposed — and where it would have to re-source. {nav}</p>
 </div></section>
 <article style="max-width:900px">
-  <div class="callout hot"><b>Read this as a stress test, not a forecast.</b> "Supply at risk" is the share of world
-  trade the exporter currently supplies — the volume that would need re-sourcing if it stopped. The
-  before→after HHI assumes the remaining exporters keep their current relative shares (first-order
-  reallocation); it is <i>not</i> a price, substitution, or capacity model. ⚠ marks a material with no other
-  exporter of size — where re-sourcing has nowhere obvious to go.</div>
+  <div class="callout hot"><b>Read this as a stress test, not a forecast.</b>
+  <details class="howto"><summary>What the numbers mean</summary>
+  <p>&ldquo;Supply at risk&rdquo; is the share of world trade the exporter currently supplies — the volume that would need re-sourcing if it stopped. The before→after HHI assumes the remaining exporters keep their current relative shares (first-order reallocation); it is <i>not</i> a price, substitution, or capacity model. <b>⚠</b> marks a material with no other exporter of size — where re-sourcing has nowhere obvious to go.</p>
+  </details></div>
   {secs}
   <p class="note" style="margin-top:1.4rem">Computed from <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> by build_scenarios.py.</p>
 </article>
