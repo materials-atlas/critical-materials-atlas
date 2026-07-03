@@ -62,7 +62,7 @@
       html += '<div class="grp hideable"><button type="button">' + g.label + '</button><div class="menu">';
       g.items.forEach(function (it) {
         if (it[0] === '__lbl__') html += '<span class="lbl">' + esc(it[1]) + '</span>';
-        else html += '<a href="' + it[0] + '">' + esc(it[1]) + '</a>';
+        else html += '<a href="' + it[0] + '"' + (/^https?:/.test(it[0]) ? ' target="_blank" rel="noopener"' : '') + '>' + esc(it[1]) + '</a>';
       });
       html += '</div></div>';
     });
