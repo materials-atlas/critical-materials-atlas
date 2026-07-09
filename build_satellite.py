@@ -101,6 +101,20 @@ FLAG = [
  ('Richards Bay','Titanium / zircon','ZAF',-28.80,32.05,'Major mineral-sands (titanium, zircon) operation.'),
  ('Spor Mountain','Beryllium','USA',39.73,-113.20,'The leading global source of beryllium.'),
  ('Bisie','Tin','COD',-1.00,27.90,'A major artisanal-to-industrial tin district.'),
+ ('Spruce Pine','Silicon (high-purity quartz)','USA',35.92,-82.06,"The world's main source of ultra-pure quartz for chips and solar."),
+ ('Stillwater','Palladium / PGM','USA',45.40,-109.88,"The only significant US source of palladium and platinum."),
+ ('Bushveld (Brits)','Vanadium','ZAF',-25.64,27.77,"Vanadium from the Bushveld magnetite complex — a leading source."),
+ ('Kırka','Borates','TUR',39.28,30.50,"Eti Maden's Kırka — the world's largest borate deposit."),
+ ('Boron','Borates','USA',35.05,-117.68,"Rio Tinto's U.S. Borax mine, California — a top borate source."),
+ ('Bou Craa','Phosphate','ESH',26.10,-12.85,"One of the world's largest phosphate operations (Western Sahara)."),
+ ('Khibiny (Kola)','Phosphate','RUS',67.70,33.70,"Apatite from the Kola Peninsula — Russia's main phosphate source."),
+ ('Kwale','Titanium / zircon','KEN',-4.28,39.40,"Base Titanium's mineral-sands mine — a major titanium source."),
+ ('Kolwezi','Cobalt / copper','COD',-10.72,25.47,"Heart of the DRC Copperbelt — among the largest cobalt sources."),
+ ('Rubaya','Tantalum','COD',-1.55,28.90,"A major coltan (tantalum) district in eastern DR Congo."),
+ ('Fugu (Shaanxi)','Magnesium','CHN',39.03,111.07,"Centre of China's Pidgeon-process magnesium belt."),
+ ('Milas','Feldspar','TUR',37.32,27.78,"Muğla/Milas — Turkey leads the world in feldspar."),
+ ('Mangampeta','Baryte','IND',14.43,79.30,"Andhra Pradesh — India is a leading baryte producer."),
+ ('Anzob','Antimony','TJK',39.15,68.35,"Tajikistan's antimony district — a top global exporter."),
 ]
 flagship = []
 RAD = 25.0                                            # km: sum all mapped mine area within this radius (district footprint)
