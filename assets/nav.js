@@ -44,7 +44,8 @@
       ['companionality.html', 'Hostage metals — by-product dependency'],
       ['risk-adjusted.html', 'Risk when supply can’t respond'],
       ['host-shock.html', 'Host shock — the commodities that gate criticals'],
-      ['recycling.html', 'Secondary supply — recycling & the trapped metals'] ] },
+      ['recycling.html', 'Secondary supply — recycling & the trapped metals'],
+      ['gallium.html', 'Gallium end-to-end — a deep-dive proof'] ] },
     { label: 'Satellite', items: [
       ['satellite.html', 'Mine footprint (from orbit)'],
       ['mining-expansion.html', 'Mining expansion — new supply'],
