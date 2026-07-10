@@ -149,7 +149,7 @@ for iso3, c in top15:
 print(f'\nFlagship sites — mapped mine area within {int(RAD)} km (district footprint):')
 for s in flagship:
     fp = f"{s['foot_km2']} km2 ({s['n_poly']} polys)" if s['foot_km2'] else 'no mapped footprint within radius'
-    print(f"  {s['name'][:24]:<24} {s['mat'][:22]:<22} {fp}")
+    print(f"  {s['name'][:24]:<24} {s['mat'][:22]:<22} {fp}".encode('ascii', 'replace').decode())
 
 # ---------------- page ----------------
 HTML = r'''<!doctype html>
@@ -179,7 +179,7 @@ HTML = r'''<!doctype html>
   <div class="callout">An independent physical check on the supply map: how much mine footprint each country actually shows from orbit, set beside the producers the atlas already names. <span id="head"></span>
   <details class="howto"><summary>Source, and the all-commodity caveat</summary>
   <p>Source: <b>Maus et al. (2022, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed dataset of mine-area polygons from Sentinel-2 imagery (~2019). I aggregate <b>physical mine footprint</b> (km&sup2; and site count) per country and lay it beside the production geography the atlas already shows.</p>
-  <p class="howto-src"><b>Caveat:</b> these polygons are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view.</p>
+  <p class="howto-src"><b>Caveat:</b> these polygons are <b>all-commodity</b> (coal, iron, gold and more) with no reliable per-mineral label, so the country map is <i>total mining intensity</i>, not critical-material-specific &mdash; the flagship sites below carry the material-specific view. We <a href="commodity-attribution.html">quantified exactly how far commodity labelling gets &rarr;</a>: even with the best open mine database bolted on, only ~4% of the mapped footprint can be tied to a tracked critical material.</p>
   </details></div>
   <h2 style="margin:1.4rem 0 .4rem">Mine footprint from space &mdash; and flagship critical-material mines</h2>
   <p class="muted" style="margin-top:0">Shading = total mapped mine area per country (darker = more). Dots = curated flagship mines, sized by their nearest mapped footprint. Hover for detail.</p>

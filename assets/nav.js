@@ -36,7 +36,8 @@
       ['shock-builder.html', 'Build your own supply shock'] ] },
     { label: 'Satellite', items: [
       ['satellite.html', 'Mine footprint (from orbit)'],
-      ['mining-expansion.html', 'Mining expansion — new supply'] ] },
+      ['mining-expansion.html', 'Mining expansion — new supply'],
+      ['commodity-attribution.html', 'Which mineral? (attribution limit)'] ] },
     { label: 'Rigor', items: [
       ['robustness.html', 'Robustness — do findings survive?'],
       ['network-sensitivity.html', 'Network truncation sensitivity'],
