@@ -54,7 +54,8 @@
       ['robustness.html', 'Robustness — do findings survive?'],
       ['network-sensitivity.html', 'Network truncation sensitivity'],
       ['uncertainty.html', 'Scorecard uncertainty (Monte-Carlo)'],
-      ['limitations.html', 'Limitations & falsification'] ] },
+      ['limitations.html', 'Limitations & falsification'],
+      ['challenge.html', 'Break this atlas — open challenge'] ] },
     { label: 'Reference', items: [
       ['synthesis.html', 'Synthesis — the hardest cases'],
       ['methodology.html', 'Methodology & validation'],

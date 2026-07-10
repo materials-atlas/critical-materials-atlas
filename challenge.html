@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Break this atlas — an open challenge · Critical Materials Atlas</title>
+<meta name="description" content="A public-data demonstration should be attackable. Here are the atlas's load-bearing claims, its self-identified soft spots, and an open invitation to disprove any of them — with issues logged and fixed in the public repo.">
+<meta property="og:title" content="Break this atlas — an open challenge to disprove it">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .claim{border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;background:#fff;padding:.9rem 1.1rem;margin:.7rem 0}
+ .claim h3{margin:.1rem 0 .3rem;font-size:.98rem;color:#15323a}
+ .claim .brk{font-size:.85rem;color:#5a6b68;margin:.3rem 0 0}
+ .claim .brk b{color:#c0392b}
+ .soft{border-left-color:#b07a18}
+ .grid2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+ @media(max-width:800px){.grid2{grid-template-columns:1fr}}
+ .card{border:1px solid #e3e9e8;border-radius:10px;background:#fbfcfc;padding:.9rem 1.1rem}
+ .card h4{margin:.1rem 0 .4rem;font-size:.9rem;color:#15323a}
+ .card ul{margin:.2rem 0 0;padding-left:1.1rem;font-size:.86rem;color:#5a6b68}
+ .card li{margin:.2rem 0}
+ pre.tmpl{background:#f4f7f6;border:1px solid #e3e9e8;border-radius:8px;padding:.8rem 1rem;font-size:.8rem;overflow-x:auto;color:#1a1f24}
+ .cta{display:inline-block;background:#0e7c74;color:#fff;padding:.5rem 1rem;border-radius:8px;font-weight:600;text-decoration:none;margin:.3rem .4rem .3rem 0}
+ .cta.alt{background:#15323a}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="limitations.html">Limitations</a><a href="uncertainty.html">Uncertainty</a>
+  <a href="methodology.html" class="hideable">Methodology</a><a href="robustness.html" class="hideable">Robustness</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Open challenge · adversarial review</div>
+  <h1>Break this atlas</h1>
+  <p class="deck">A demonstration built on public data has no business hiding behind its own polish. Everything here is reproducible from committed code, so everything here is <b>checkable</b> &mdash; and this page is an open invitation to check it. Below are the claims the atlas actually rests on, exactly how each could be wrong, and the soft spots it already knows about. Find a real error and it gets logged, fixed, and credited in the public record.</p>
+</div></section>
+<article style="max-width:1000px">
+  <div class="callout">This atlas cross-checks itself hard &mdash; <a href="robustness.html">robustness re-tests</a>, an <a href="uncertainty.html">uncertainty Monte-Carlo</a>, an independent <a href="production.html">second-source production check</a>, a falsifier for every headline. But self-review has a ceiling: the author cannot referee his own work, and cross-checking against other AI models is <i>consistency</i>, not independent evidence. So the honest next step is <b>adversarial human review</b>. If you know this domain &mdash; a trade economist, a minerals analyst, a supply-chain engineer &mdash; the fastest way to help is to try to break it.</div>
+
+  <h2 style="margin:1.4rem 0 .4rem">The load-bearing claims &mdash; and how to disprove each</h2>
+  <p class="muted" style="margin-top:0">If any of these is wrong, a chunk of the atlas is wrong. Each names the concrete test that would falsify it.</p>
+
+  <div class="claim"><h3>1. The &ldquo;refiner illusion&rdquo;: trade attributes supply to processors, not mines.</h3>
+    <p class="brk"><b>Break it:</b> show a material where the reconciled trade-derived top exporter is <i>also</i> the genuine mine origin (so the origin gap is spurious), or show the mirror-reconciliation systematically mis-assigns direction. Test against a chain with a known mass balance.</p></div>
+
+  <div class="claim"><h3>2. By-product metals can&rsquo;t scale supply to their own price (companionality).</h3>
+    <p class="brk"><b>Break it:</b> find a metal we mark ~100% by-product (gallium, germanium, hafnium) that has responded to a price spike with new <i>primary</i> production on a &lt;3-year horizon &mdash; or show the <a href="gallium.html">gallium mass balance</a> (94% discarded, ~5.6% recovery) is off by enough to change the conclusion.</p></div>
+
+  <div class="claim"><h3>3. The producer geography is not a one-source artefact.</h3>
+    <p class="brk"><b>Break it:</b> the atlas&rsquo;s USGS-derived shares and the independent World Mining Data tonnages name the <a href="production.html">same top producer for 26/28 materials</a>. Show that agreement is circular (the two share a common source), or that the 6.4pp mean gap hides a material that actually flips.</p></div>
+
+  <div class="claim"><h3>4. Only gallium and germanium are &ldquo;hardest cases&rdquo; &mdash; and even that is a gradient.</h3>
+    <p class="brk"><b>Break it:</b> the <a href="uncertainty.html">Monte-Carlo</a> gives gallium 99% / germanium 96% and vanadium 23%. Argue the input spreads are mis-specified enough to move a fourth metal into the robust set, or that the five axes double-count one underlying factor.</p></div>
+
+  <div class="claim"><h3>5. Concentration is not the binding constraint &mdash; elasticity and market thinness are.</h3>
+    <p class="brk"><b>Break it:</b> show a material that is geographically concentrated <i>and</i> genuinely stuck despite being primary, recyclable, and large-market &mdash; i.e. a case where single-country dominance alone is the real problem, contra the scorecard.</p></div>
+
+  <h2 style="margin:1.6rem 0 .4rem">Soft spots the atlas already flags</h2>
+  <p class="muted" style="margin-top:0">Not hidden &mdash; stated, and worth pressing on hardest.</p>
+  <div class="grid2">
+    <div class="card soft" style="border-left:4px solid #b07a18"><h4>Data &amp; method</h4><ul>
+      <li><b>Trade value is a noisy proxy</b> &mdash; nominal, re-export-contaminated, HS-misclassified, weak for by-products. The core engine is the most attackable link.</li>
+      <li><b>Companionality &amp; demand are point estimates</b> from literature rounds, dressed in interactive sliders that imply more precision than they have.</li>
+      <li><b>HS-code aliasing</b> &mdash; gallium/germanium/hafnium share one code; other silent bundles may exist.</li>
+    </ul></div>
+    <div class="card soft" style="border-left:4px solid #b07a18"><h4>Epistemics</h4><ul>
+      <li><b>AI cross-checks are consistency, not validation.</b> Two models agreeing proves neither is right. Treat every &ldquo;cross-checked&rdquo; note as such.</li>
+      <li><b>Breadth over depth.</b> Many layers share one spine; some re-test the same story. Press on whether any single result has independent bite.</li>
+      <li><b>No external human review yet.</b> That is what this page is trying to fix.</li>
+    </ul></div>
+  </div>
+
+  <h2 style="margin:1.6rem 0 .4rem">How to challenge it</h2>
+  <p>Open an issue on the public engine repository &mdash; it is anonymous to raise, and everything is versioned, so a fix is visible in the commit history.</p>
+  <p>
+    <a class="cta" href="https://github.com/materials-atlas/comtrade-reconcile/issues/new">Open an issue &rarr;</a>
+    <a class="cta alt" href="limitations.html">Read the full limitations</a>
+  </p>
+  <p class="muted" style="margin-top:.6rem">A useful challenge names the page, the specific number or claim, and the test that would settle it. A template:</p>
+  <pre class="tmpl">Page:        e.g. gallium.html
+Claim:       the specific sentence / number you dispute
+Why wrong:   the mechanism or counter-evidence
+How to test: the check that would settle it (a source, a mass balance, a recompute)
+Source:      any public data that supports your point</pre>
+
+  <h2 style="margin:1.6rem 0 .4rem">The commitment</h2>
+  <p>Every substantive challenge gets one of three honest outcomes, in public: <b>fixed</b> (the code and pages change, logged in <a href="updates.html">updates</a>), <b>bounded</b> (acknowledged as a real limitation and added to <a href="limitations.html">limitations</a>), or <b>rebutted</b> (with the reasoning shown). No silent deletions. The point of building this in the open was never to look finished &mdash; it was to be correctable.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="limitations.html">Limitations</a><br><a href="uncertainty.html">Uncertainty</a><br><a href="robustness.html">Robustness</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>Everything reproducible from the public engine + generators</div>
+  <div class="fineprint">Built in the open to be correctable, not to look finished. Challenges are logged, fixed or bounded in public.</div>
+</div></footer>
+</body></html>
