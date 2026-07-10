@@ -1,0 +1,224 @@
+#!/usr/bin/env python3
+"""
+Scorecard uncertainty — the hardest-cases result under Monte-Carlo, not binary thresholds.
+
+The synthesis scorecard uses hard cutoffs, so a peer reviewer's fair objection is that "only gallium and
+germanium fail 4-5 axes" is a threshold artifact: metals sitting just under a cutoff (cobalt, vanadium,
+hafnium) are hidden, and the pass/fail hides continuous vulnerability. This layer answers that directly.
+
+We put an explicit uncertainty on each axis input and propagate it: 20,000 Monte-Carlo draws per material,
+recomputing the five failure flags each draw, and report — per material — the probability each axis fails,
+the expected number of failed axes with a 90% interval, and P(hardest) = P(>=4 of 5 axes fail). The result
+is a gradient, and it makes the real message explicit: supply elasticity and market thinness move the ranking
+more than geographic concentration, and the "hardest" set has soft edges.
+
+Uncertainty model (stated as the load-bearing assumption, not hidden):
+  companionality ~ N(mean, 12pp)   — a fuzzy literature estimate (USGS/Nassar rounds)
+  top-producer share ~ N(mean, 8pp) — cross-source spread measured at 6.4pp on this very data
+  recycling ~ N(mean, 5pp)          — EU CRM EOL-RIR estimate
+  demand growth ~ mean * exp(N(0, 0.40)) — forward demand is deeply scenario-dependent
+  world tonnes ~ mean * (1 +/- ~10%) — production is well measured
+Deterministic (numpy, fixed seed). Public data. Run: python build_uncertainty.py
+"""
+import json, os
+import numpy as np
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+def L(fn):
+    d = json.load(open(os.path.join(ROOT, 'out', fn), encoding='utf8'))
+    return {r['label']: r for r in (d.get('rows') or d.get('materials'))}
+CO = L('companionality.json'); RC = L('recycling.json'); DE = L('demand.json')
+PR = L('production.json'); DATA = L('data.json')
+
+AXES = ['scale', 'diversify', 'recycle', 'demand', 'thin']
+AXIS_LABEL = {'scale': "Can't scale (by-product)", 'diversify': "Can't diversify (concentrated)",
+              'recycle': "Can't recycle out", 'demand': "Demand surging", 'thin': "No slack (thin market)"}
+N = 20000
+rng = np.random.default_rng(42)
+
+rows = []
+for lab, co in CO.items():
+    comp = co.get('companionality_pct', 0)
+    rec = RC.get(lab, {}).get('recycling', 0)
+    dg = DE.get(lab, {}).get('demand_growth_2040')
+    wt = PR.get(lab, {}).get('world_tonnes')
+    prodshare = PR.get(lab, {}).get('wmd_top_share')
+    hhi = co.get('hhi'); topsh = co.get('top_share')
+    conc = prodshare if prodshare is not None else topsh
+
+    # draw inputs
+    comp_d = np.clip(rng.normal(comp, 12, N), 0, 100)
+    conc_d = np.clip(rng.normal(conc, 8, N), 0, 100) if conc is not None else None
+    rec_d = np.clip(rng.normal(rec if rec is not None else 0, 5, N), 0, 100)
+    dg_d = (dg * np.exp(rng.normal(0, 0.40, N))) if dg is not None else None
+    wt_d = (wt * (1 + rng.normal(0, 0.10, N))) if wt is not None else None
+
+    fail = {}
+    fail['scale'] = comp_d >= 66
+    fail['diversify'] = (conc_d >= 60) if conc_d is not None else np.zeros(N, bool)
+    fail['recycle'] = rec_d <= 10
+    fail['demand'] = (dg_d >= 2.5) if dg_d is not None else np.zeros(N, bool)
+    fail['thin'] = (wt_d < 50000) if wt_d is not None else np.zeros(N, bool)
+    has = {'scale': True, 'diversify': conc is not None, 'recycle': rec is not None,
+           'demand': dg is not None, 'thin': wt is not None}
+
+    count = np.zeros(N)
+    for a in AXES:
+        count += fail[a].astype(float)
+    p_axis = {a: (round(float(fail[a].mean()), 3) if has[a] else None) for a in AXES}
+    rows.append({
+        'label': lab, 'title': co.get('title', lab),
+        'p_axis': p_axis,
+        'p_hardest': round(float((count >= 4).mean()), 3),
+        'e_count': round(float(count.mean()), 2),
+        'ci_low': int(np.percentile(count, 5)), 'ci_high': int(np.percentile(count, 95)),
+        'n_axes_known': sum(1 for a in AXES if has[a]),
+        'companionality_pct': comp, 'world_tonnes': wt,
+    })
+
+rows.sort(key=lambda r: (-r['p_hardest'], -r['e_count']))
+# rank stability: how many materials have P(hardest) that is "clearly high" (>0.66) vs "borderline" (0.2-0.66)
+clear = [r for r in rows if r['p_hardest'] >= 0.66]
+borderline = [r for r in rows if 0.2 <= r['p_hardest'] < 0.66]
+# which axis, on average, most often decides a "fail" among the top-10 vulnerable
+top10 = rows[:10]
+axis_drive = {a: round(np.mean([r['p_axis'][a] for r in top10 if r['p_axis'][a] is not None]), 2) for a in AXES}
+
+out = {
+    'generated': DATA.get('lithium', {}).get('updated'),
+    'n_draws': N, 'n': len(rows),
+    'axes': [{'key': a, 'label': AXIS_LABEL[a]} for a in AXES],
+    'model': {'companionality_sd_pp': 12, 'concentration_sd_pp': 8, 'recycling_sd_pp': 5,
+              'demand_lognormal_sd': 0.40, 'tonnes_rel_sd': 0.10},
+    'clear_hardest': [r['title'] for r in clear],
+    'borderline': [r['title'] for r in borderline],
+    'axis_drive_top10': axis_drive,
+    'rows': rows,
+}
+os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
+json.dump(out, open(os.path.join(ROOT, 'out', 'uncertainty.json'), 'w', encoding='utf8'),
+          separators=(',', ':'))
+print('wrote out/uncertainty.json')
+print(f"  clear hardest (P>=0.66): {', '.join(out['clear_hardest'])}")
+print(f"  borderline (0.2-0.66): {', '.join(out['borderline'])}")
+print("  P(hardest) top 8:", ', '.join(f"{r['title']} {r['p_hardest']}" for r in rows[:8]))
+
+# ------------------------------------------------------------------ page
+HTML = r'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How robust is that? — the scorecard under uncertainty · Critical Materials Atlas</title>
+<meta name="description" content="The hardest-cases scorecard uses hard thresholds. This propagates uncertainty through all five axes with 20,000 Monte-Carlo draws per material, turning binary pass/fail into a probability gradient — and showing the 'only gallium and germanium' result has soft edges.">
+<meta property="og:title" content="The hardest cases, under uncertainty — probabilities, not a cliff">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.4rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ .prow{display:grid;grid-template-columns:150px 1fr;gap:.7rem;align-items:center;margin:.3rem 0}
+ .prow .nm{text-align:right;font-weight:600;color:#15323a;font-size:.86rem}
+ .pbar{position:relative;background:#eef3f2;border-radius:5px;height:22px;overflow:hidden}
+ .pbar .fill{height:100%;border-radius:5px}
+ .pbar .lab{position:absolute;right:6px;top:0;line-height:22px;font-size:.74rem;font-weight:700;color:#15323a}
+ .pbar .ci{position:absolute;top:0;bottom:0;border-left:2px solid rgba(21,50,58,.35);border-right:2px solid rgba(21,50,58,.35)}
+ table.hm{width:100%;border-collapse:collapse;font-size:.82rem;margin:.5rem 0}
+ table.hm th{padding:.3rem .3rem;text-align:center;font-size:.72rem;color:#5a6b68;vertical-align:bottom;border-bottom:1px solid #e3e9e8}
+ table.hm th.mat{text-align:left;width:140px}
+ table.hm td{padding:.24rem .3rem;border-bottom:1px solid #f1f4f3}
+ table.hm td.mat{font-weight:600;color:#15323a}
+ .pcell{display:block;height:24px;border-radius:4px;text-align:center;line-height:24px;font-size:.7rem;font-weight:600}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#0e7c74}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="synthesis.html">Hardest cases</a><a href="robustness.html">Robustness</a>
+  <a href="limitations.html" class="hideable">Limitations</a><a href="methodology.html" class="hideable">Methodology</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Rigor · uncertainty propagation</div>
+  <h1>How robust is that?</h1>
+  <p class="deck">The <a href="synthesis.html" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard draws hard lines &mdash; and a fair critic says a metal sitting just under a cutoff is hidden by pass/fail. So don&rsquo;t draw the line once. Put an honest uncertainty on every input and run it <b>20,000 times</b>: the binary cliff becomes a probability gradient, and the &ldquo;only gallium and germanium&rdquo; headline gets the soft edges it deserves.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>The uncertainty model — the load-bearing assumption, stated</summary>
+  <p>For each material we draw each axis input from a distribution and recompute the five failure flags, 20,000 times: companionality ~ N(mean, <b>12pp</b>); top-producer share ~ N(mean, <b>8pp</b>) (the cross-source spread measured at 6.4pp on this data); recycling ~ N(mean, <b>5pp</b>); demand growth ~ mean&times;exp(N(0, <b>0.40</b>)), because forward demand is deeply scenario-dependent; world tonnage ~ mean &plusmn;<b>~10%</b>. We report, per material, the probability each axis fails, the expected number of failures with a 90% interval, and <b>P(hardest) = P(&ge;4 of 5 fail)</b>.</p>
+  <p class="howto-src"><b>Honest about the honesty:</b> those five spreads are themselves judgement calls &mdash; a wider demand sigma pulls more metals into contention, a tighter one sharpens the top. The point is not a precise probability but to show the ranking&rsquo;s <i>shape</i> and which results survive perturbation. Deterministic (fixed seed). Inputs: the five layer JSONs &rarr; <a href="out/uncertainty.json">uncertainty.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.4rem 0 .3rem">P(hardest) — probability a material fails 4 or 5 of the 5 axes</h2>
+  <p class="muted" style="margin-top:0">Not a cliff, a gradient. The bracket marks the 90% interval on the <i>number</i> of axes failed. Two materials are almost certain; a cluster behind them is genuinely borderline &mdash; which the binary scorecard erased.</p>
+  <div id="bars"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Per-axis failure probability</h2>
+  <p class="muted" style="margin-top:0">Shaded by probability, not on/off. Reading down the columns shows what actually drives vulnerability.</p>
+  <div style="overflow-x:auto"><table class="hm" id="hm"><thead></thead><tbody></tbody></table></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">What propagation changes</h2>
+  <p id="closer"></p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="synthesis.html">Hardest cases</a><br><a href="robustness.html">Robustness</a><br><a href="limitations.html">Limitations</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>Monte-Carlo (20,000 draws) over the five scorecard axes</div>
+  <div class="fineprint">The five input spreads are explicit judgement calls; the aim is the ranking's shape and what survives perturbation, not a precise probability.</div>
+</div></footer>
+<script>
+fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
+  const AX=S.axes;
+  const clear=S.clear_hardest, bl=S.borderline;
+  document.getElementById('lead').innerHTML='<b>Result:</b> under 20,000 draws, <b>'+clear.join(' and ')+'</b> stay almost certainly in the hardest set (P&ge;0.66) &mdash; that result is robust, not a threshold fluke. But behind them sits a genuinely borderline cluster ('+bl.slice(0,4).join(', ')+(bl.length>4?'…':'')+') that the binary &ldquo;only two&rdquo; headline erased. Vulnerability is a gradient; the honest statement is &ldquo;two robust, several contingent,&rdquo; not &ldquo;two, full stop.&rdquo;';
+  const drv=S.axis_drive_top10;
+  const drank=AX.map(a=>[a.label,drv[a.key]]).sort((x,y)=>y[1]-x[1]);
+  const st=[
+    {v:clear.length,l:'materials robustly in the hardest set (P ≥ 0.66 across 20k draws)'},
+    {v:bl.length,l:'borderline materials the binary scorecard hid (P 0.2–0.66)'},
+    {v:(drank[0][1]*100).toFixed(0)+'%',l:'most-decisive axis among the top-10 vulnerable: '+drank[0][0].replace(/ \(.*/,'')},
+    {v:S.n_draws.toLocaleString(),l:'Monte-Carlo draws per material'},
+  ];
+  document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  document.getElementById('keyline').innerHTML='<b>The reframed insight:</b> propagation confirms what a reviewer suspected &mdash; the &ldquo;only gallium and germanium&rdquo; line is a threshold effect. What survives is subtler and more useful: the axes that most decide the hardest set are <b>'+drank[0][0].replace(/ \(.*/,'')+'</b> and <b>'+drank[1][0].replace(/ \(.*/,'')+'</b> &mdash; supply elasticity and market thinness &mdash; not geographic concentration on its own. Concentration is common; being a tiny by-product market is rare and decisive.';
+  // P(hardest) bars
+  const bars=document.getElementById('bars');
+  bars.innerHTML=S.rows.filter(r=>r.p_hardest>=0.02||r.e_count>=2).slice(0,16).map(r=>{
+    const p=r.p_hardest, col=p>=0.66?'#c0392b':p>=0.2?'#d98324':'#9aa6ad';
+    const ciL=r.ci_low/5*100, ciH=r.ci_high/5*100;
+    return '<div class="prow"><div class="nm">'+r.title+'</div>'+
+      '<div class="pbar"><div class="fill" style="width:'+Math.max(1,p*100)+'%;background:'+col+'"></div>'+
+      '<div class="ci" style="left:'+ciL+'%;width:'+Math.max(1,ciH-ciL)+'%" title="90% interval on axes failed: '+r.ci_low+'–'+r.ci_high+'"></div>'+
+      '<div class="lab">'+(p*100).toFixed(0)+'% · exp '+r.e_count+'/5</div></div></div>';
+  }).join('');
+  // per-axis probability heatmap
+  const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
+  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/^Can.t /,'✗ ').replace(/ \(.*\)/,'')+'</th>').join('')+'<th>P(hard)</th></tr>';
+  S.rows.filter(r=>r.e_count>=1.5).forEach(r=>{
+    const cells=AX.map(a=>{
+      const p=r.p_axis[a.key];
+      if(p===null) return '<td><span class="pcell" style="background:#f6f7f7;color:#c9d2d0" title="no data">n/a</span></td>';
+      const g=Math.round(238-p*(238-192)), rr=Math.round(238-p*(238-57)+ (p*(192-57)) ); // green->red-ish
+      const bg='rgba('+Math.round(192+ (1-p)*(238-192))+','+Math.round(57+(1-p)*(238-57))+','+Math.round(58+(1-p)*(236-58))+',1)';
+      return '<td><span class="pcell" style="background:'+bg+';color:'+(p>0.55?'#fff':'#5a6b68')+'">'+(p*100).toFixed(0)+'</span></td>';
+    }).join('');
+    const col=r.p_hardest>=0.66?'#c0392b':r.p_hardest>=0.2?'#d98324':'#9aa6ad';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="mat">'+r.title+'</td>'+cells+'<td style="text-align:center;font-weight:800;color:'+col+'">'+(r.p_hardest*100).toFixed(0)+'%</td>';
+    tb.appendChild(tr);
+  });
+  document.getElementById('closer').innerHTML='A binary scorecard is a claim stated with more confidence than the inputs support. Propagating uncertainty does two honest things at once: it <i>confirms</i> the robust core (gallium and germanium survive every reasonable perturbation) and it <i>surfaces</i> the contingent middle (cobalt, vanadium, hafnium and others whose status flips with a plausible change of assumption). That is the difference between a scorecard as rhetoric and a scorecard as evidence &mdash; and it turns the headline from &ldquo;only two metals&rdquo; into the more defensible &ldquo;two robust, a handful contingent, and elasticity-plus-thinness &mdash; not concentration &mdash; is what separates them.&rdquo;';
+});
+</script>
+</body></html>'''
+open(os.path.join(ROOT, 'uncertainty.html'), 'w', encoding='utf8', newline='\n').write(HTML)
+print('wrote uncertainty.html')

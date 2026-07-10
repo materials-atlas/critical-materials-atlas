@@ -52,6 +52,7 @@
     { label: 'Rigor', items: [
       ['robustness.html', 'Robustness — do findings survive?'],
       ['network-sensitivity.html', 'Network truncation sensitivity'],
+      ['uncertainty.html', 'Scorecard uncertainty (Monte-Carlo)'],
       ['limitations.html', 'Limitations & falsification'] ] },
     { label: 'Reference', items: [
       ['synthesis.html', 'Synthesis — the hardest cases'],
