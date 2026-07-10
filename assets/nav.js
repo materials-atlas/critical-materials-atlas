@@ -30,6 +30,7 @@
     { label: 'Risk', items: [
       ['risk.html', 'Supply-risk index'],
       ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
+      ['companionality.html', 'Hostage metals — by-product dependency'],
       ['scenarios.html', 'Shock scenarios'],
       ['__lbl__', 'Interactive'],
       ['index-builder.html', 'Build your own risk index'],
