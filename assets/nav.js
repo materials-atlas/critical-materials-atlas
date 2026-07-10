@@ -36,6 +36,7 @@
       ['risk.html', 'Supply-risk index'],
       ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
       ['scenarios.html', 'Shock scenarios'],
+      ['cascade.html', 'Supply-shock cascade — the companion echo'],
       ['__lbl__', 'Interactive'],
       ['index-builder.html', 'Build your own risk index'],
       ['shock-builder.html', 'Build your own supply shock'] ] },
