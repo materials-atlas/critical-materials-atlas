@@ -30,11 +30,15 @@
     { label: 'Risk', items: [
       ['risk.html', 'Supply-risk index'],
       ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
-      ['companionality.html', 'Hostage metals — by-product dependency'],
       ['scenarios.html', 'Shock scenarios'],
       ['__lbl__', 'Interactive'],
       ['index-builder.html', 'Build your own risk index'],
       ['shock-builder.html', 'Build your own supply shock'] ] },
+    { label: 'Supply structure', items: [
+      ['companionality.html', 'Hostage metals — by-product dependency'],
+      ['risk-adjusted.html', 'Risk when supply can’t respond'],
+      ['host-shock.html', 'Host shock — the commodities that gate criticals'],
+      ['recycling.html', 'Secondary supply — recycling & the trapped metals'] ] },
     { label: 'Satellite', items: [
       ['satellite.html', 'Mine footprint (from orbit)'],
       ['mining-expansion.html', 'Mining expansion — new supply'],

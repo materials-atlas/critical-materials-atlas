@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secondary supply — recycling, and the metals with no way out · Critical Materials Atlas</title>
+<meta name="description" content="Recycling is the only supply lever for a by-product metal that doesn't depend on its host commodity. This layer crosses end-of-life recycling rates with companionality to find the materials with no primary response and no scrap buffer.">
+<meta property="og:title" content="The metals with no way out: no new mine, no scrap">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ #scatter{width:100%;height:470px}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.5rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ .stat.warn{border-left-color:#c0392b}.stat.warn .v{color:#c0392b}
+ table.tidy{width:100%;border-collapse:collapse;font-size:.88rem;margin:.4rem 0}
+ table.tidy th,table.tidy td{padding:.4rem .5rem;border-bottom:1px solid #eef1f0;text-align:left}
+ table.tidy th.n,table.tidy td.n{text-align:right;font-variant-numeric:tabular-nums}
+ .tag{display:inline-block;font-size:.7rem;font-weight:700;padding:.06rem .45rem;border-radius:20px}
+ .tag.b{background:#fbe9e7;color:#c0392b}.tag.m{background:#fff4e2;color:#b07a18}.tag.p{background:#eaf3f1;color:#0e7c74}
+ .keyline{background:#fbf3f2;border:1px solid #f0d9d5;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#c0392b}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="host-shock.html">Host shock</a>
+  <a href="risk.html" class="hideable">Risk</a><a href="methodology.html" class="hideable">Methodology</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · secondary supply</div>
+  <h1>The metals with no way out</h1>
+  <p class="deck">A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality.html" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock.html" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
+</div></section>
+<article style="max-width:1000px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured</summary>
+  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality.html">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Materials with no listed EOL rate are shown as ~0 (negligible) and flagged.</p>
+  <p class="howto-src"><b>Caveat:</b> EOL-RIR is an EU-centric estimate and doesn&rsquo;t capture in-process/new scrap or future recycling capacity; treat it as today&rsquo;s functional secondary supply, not a ceiling. Inputs: <a href="out/data.json">data.json</a> (EU CRM 2023) &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">The no-way-out map</h2>
+  <p class="muted" style="margin-top:0"><b>Up</b> = more of it is an unavoidable by-product (no new mine). <b>Left</b> = less is recovered from scrap (no secondary buffer). The <span style="color:#c0392b;font-weight:700">top-left</span> is the trap: no primary response and no recycling.</p>
+  <div id="scatter"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Every material, ranked by how trapped it is</h2>
+  <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-prod %</th><th class="n">EOL recycling</th><th>substitutable?</th><th class="n">trapped</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .3rem">What this closes, and what it opens</h2>
+  <p>This completes the supply-structure arc that began with the <a href="commodity-attribution.html">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together they say the same thing three ways &mdash; for a handful of metals, the usual mitigations simply aren&rsquo;t available, and the only real levers are <b>host-side recovery yield, stockpiles, and substitution</b>. The open branch from here is <b>demand</b>: which technologies pull hardest on exactly these trapped metals? That is the next arm of the atlas to grow.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>EU CRM 2023 (EOL-RIR recycling) × companionality (USGS MCS 2024 · Nassar et al. 2015)</div>
+  <div class="fineprint">EOL recycling is an EU-centric end-of-life estimate; a functional secondary-supply proxy, not a ceiling.</div>
+</div></footer>
+<script>
+function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+Promise.all([fetch('out/recycling.json').then(r=>r.json()),
+  ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
+  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals are recycled far less than primary ones ('+S.mean_recycling_byproduct+'% vs '+S.mean_recycling_primary+'% end-of-life) &mdash; exactly the metals that most need a scrap buffer have the least. <b>'+S.n_trapped+'</b> are fully trapped: by-product-locked and barely recycled ('+S.trapped_names.join(', ')+').';
+  const stats=[
+    {v:S.n_trapped,l:'trapped: by-product-locked AND ≤10% recycled — no new mine, no scrap',warn:true},
+    {v:S.mean_recycling_byproduct+'%',l:'mean end-of-life recycling of by-product metals',warn:true},
+    {v:S.mean_recycling_primary+'%',l:'mean recycling of primary metals — the buffer they have'},
+    {v:S.best_recycled[0],l:'best-recycled material (most secondary resilience)'},
+  ];
+  document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  document.getElementById('keyline').innerHTML='<b>The trap, stated plainly:</b> gallium and germanium are 100% by-products with essentially <b>zero</b> end-of-life recycling. You cannot mine them for themselves, you cannot command the aluminium and zinc they ride on, and there is no scrap stream to fall back on. For these metals, resilience is not a mine or a market &mdash; it is recovery yield at the smelter, a national stockpile, or a substitute.';
+  const col={byproduct:'#c0392b',mixed:'#b07a18',primary:'#0e7c74'};
+  const pts=S.rows.map(r=>({value:[r.recycling,r.companionality_pct,r.title,r['class'],r.trapped],
+    itemStyle:{color:col[r['class']]+'cc'},
+    symbolSize:Math.max(9,r.trapped/4.5+9)}));
+  const ch=echarts.init(document.getElementById('scatter'));
+  ch.setOption({
+    grid:{left:52,right:24,top:20,bottom:52},
+    tooltip:{formatter:p=>'<b>'+p.value[2]+'</b><br>by-product share: '+p.value[1]+'%<br>EOL recycling: '+p.value[0]+'%<br>trapped index: '+p.value[4].toFixed(0)},
+    xAxis:{name:'end-of-life recycling (%)',nameLocation:'middle',nameGap:30,min:0,max:45,inverse:true,
+      axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    yAxis:{name:'companionality (by-product share %)',nameLocation:'middle',nameGap:36,min:0,max:105,
+      axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    series:[{type:'scatter',data:pts,
+      markLine:{silent:true,symbol:'none',lineStyle:{color:'#c9b3ad',type:'dashed'},data:[{xAxis:10},{yAxis:66}]},
+      label:{show:true,formatter:p=>p.value[2],position:'right',fontSize:10,color:'#15323a',distance:4}}]
+  });
+  window.addEventListener('resize',()=>ch.resize());
+  const tb=document.querySelector('#tab tbody');
+  const tagc={byproduct:'b',mixed:'m',primary:'p'},tagt={byproduct:'by-product',mixed:'mixed',primary:'primary'};
+  const subcol={high:'#c0392b',medium:'#b07a18',low:'#3f9b46'};
+  S.rows.forEach(r=>{
+    const rec=r.recycling_reported?(r.recycling+'%'):'<span style="color:#c9d2d0" title="no EU EOL-RIR listed — treated as negligible">~0</span>';
+    const sub=r.substitutability?('<span style="color:'+(subcol[r.substitutability]||'#9aa6ad')+';font-weight:600;text-transform:uppercase;font-size:.76rem">'+r.substitutability+'</span>'):'<span style="color:#c9d2d0">—</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+r.title+'</b></td>'+
+      '<td><span class="tag '+tagc[r['class']]+'">'+tagt[r['class']]+'</span></td>'+
+      '<td class="n">'+r.companionality_pct+'</td><td class="n">'+rec+'</td><td>'+sub+'</td>'+
+      '<td class="n" style="font-weight:700;color:'+(r.trapped>=66?'#c0392b':r.trapped>=33?'#b07a18':'#9aa6ad')+'">'+r.trapped.toFixed(0)+'</td>';
+    tb.appendChild(tr);
+  });
+});
+</script>
+</body></html>
