@@ -35,6 +35,15 @@
 
 <article>
   <div class="entry">
+    <div class="date">10 July 2026 <span class="tag">method</span></div>
+    <h3>Which mineral is that mine? — the satellite footprint&rsquo;s hard limit, quantified</h3>
+    <ul>
+      <li>New page: <a href="commodity-attribution.html">commodity attribution of the satellite footprint</a>. It overlays the peer-reviewed Jasansky et&nbsp;al. (2023, <i>Scientific Data</i>; Zenodo, CC-BY) mine-facility database — 2,413 georeferenced mines with a commodity label — onto the all-commodity Maus polygons, and measures how much can actually be named.</li>
+      <li>Result: only <b>~17%</b> of mapped footprint is commodity-labellable, and <b>~4%</b> ties to a tracked critical material (almost all copper) — stable across a 0–25&nbsp;km join buffer. Open mine data resolves ~11 broad classes and never names lithium, cobalt, rare earths or tungsten as a primary product; they surface only as sparse byproducts. The receipt for why the atlas reads material identity from USGS/IEA production + trade, not imagery.</li>
+      <li>Method hardened after an independent peer review (Grok): added a byproduct pass on the richer <code>commodities_products</code> field, a join-buffer sensitivity band, and the shared-authorship / temporal caveats. Reproducible via <code>build_commodity_attribution.py</code> &rarr; <a href="out/commodity_attribution.json">commodity_attribution.json</a>.</li>
+    </ul>
+  </div>
+  <div class="entry">
     <div class="date">29 June 2026 <span class="tag">method</span></div>
     <h3>Robustness &amp; falsification — the project tests its own claims</h3>
     <ul>

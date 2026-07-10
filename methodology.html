@@ -193,6 +193,13 @@ shares, not observed flows; only refiner → buyer links are real trade.</li>
 by quantity (price and grade effects). Value-vs-tonnage divergences are shown per material in the detail panel.</li>
 <li><b>Colour intensity is sqrt(volume)</b> for visibility, so a dominant supplier reads as strong but
 not overwhelmingly so; treat the choropleth as ordinal, not a precise linear scale.</li>
+<li><b>The satellite layer names <em>where</em>, not <em>which</em>.</b> The <a href="satellite.html">Maus mine
+polygons</a> are all-commodity — no per-mineral label — so the footprint is a physical cross-check, never a
+material-level source. We <a href="commodity-attribution.html">quantified how far open data can close that gap</a>:
+overlaying the peer-reviewed Jasansky et&nbsp;al. (2023) mine-facility database labels only ~17% of the footprint,
+and barely 4% ties to a tracked critical material (stable across a 0–25&nbsp;km join buffer) — because open mine
+data resolves ~11 broad commodity classes and never names lithium, cobalt, rare earths or tungsten as a primary
+product. This is why material identity here comes from USGS/IEA production shares and trade, not imagery.</li>
 </ul>
 
 <h2 id="nowcast">Provisional 2025 — a self-built nowcast</h2>
