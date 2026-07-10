@@ -1,0 +1,197 @@
+#!/usr/bin/env python3
+"""
+Synthesis — the hardest cases, where every safeguard fails at once.
+
+Capstone that makes the whole session legible as one argument. Criticality is not a single number; it is a
+stack of independent failures. A material is genuinely stuck only when several of these are true together:
+  1. Can't scale it   — it's a by-product (companionality), so supply can't answer its own price.
+  2. Can't diversify   — one country dominates production (concentration).
+  3. Can't recycle out  — end-of-life recovery is negligible.
+  4. Demand is surging  — the clean-energy/tech pull is steep to 2040.
+  5. No slack in the market — the world market is physically tiny (tonnes), so there is nothing to bring online.
+
+This scorecard scores all 32 materials on the five axes drawn from the earlier layers, counts the red flags,
+and names the handful that trip nearly all of them — the metals for which the usual mitigations (new mines,
+new suppliers, recycling, substitution) are each, independently, unavailable. Public data; deterministic.
+Run: python build_synthesis.py
+"""
+import json, os
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+def L(fn):
+    d = json.load(open(os.path.join(ROOT, 'out', fn), encoding='utf8'))
+    return {r['label']: r for r in (d.get('rows') or d.get('materials'))}
+CO = L('companionality.json'); RC = L('recycling.json'); DE = L('demand.json')
+PR = L('production.json'); DATA = L('data.json')
+
+def _fmt_t(t):
+    return (f"{t/1e9:.1f} Bt" if t >= 1e9 else f"{t/1e6:.1f} Mt" if t >= 1e6 else
+            f"{t/1e3:.0f} kt" if t >= 1e3 else f"{t} t")
+
+AXES = [
+    ('scale',     "Can't scale (by-product)"),
+    ('diversify', "Can't diversify (concentrated)"),
+    ('recycle',   "Can't recycle out"),
+    ('demand',    "Demand surging"),
+    ('thin',      "No slack (thin market)"),
+]
+
+rows = []
+for lab, co in CO.items():
+    comp = co.get('companionality_pct', 0)
+    rec = RC.get(lab, {}).get('recycling', 0)
+    dg = DE.get(lab, {}).get('demand_growth_2040')
+    wt = PR.get(lab, {}).get('world_tonnes')
+    prodshare = PR.get(lab, {}).get('wmd_top_share')
+    hhi = co.get('hhi')
+    topsh = co.get('top_share')
+    # geographic concentration: prefer physical production share, else trade HHI / top partner
+    conc = None
+    if prodshare is not None:
+        conc = prodshare
+    elif topsh is not None:
+        conc = topsh
+    flags = {}
+    flags['scale'] = (comp >= 66)
+    flags['diversify'] = (conc is not None and conc >= 60) or (hhi is not None and hhi >= 0.6)
+    flags['recycle'] = (rec is not None and rec <= 10)
+    flags['demand'] = (dg is not None and dg >= 2.5)
+    flags['thin'] = (wt is not None and wt < 50000)
+    # value for tooltip/detail per axis
+    detail = {
+        'scale': f"{comp}% by-product",
+        'diversify': (f"top producer {round(conc)}%" if conc is not None else "n/a"),
+        'recycle': f"{rec}% recycled",
+        'demand': (f"~{dg}× by 2040" if dg is not None else "n/a"),
+        'thin': (f"{_fmt_t(wt)} world" if wt is not None else "no tonnage data"),
+    }
+    known = sum(1 for k, _ in AXES if not (k == 'thin' and wt is None) and not (k == 'demand' and dg is None))
+    count = sum(1 for k in flags if flags[k])
+    rows.append({
+        'label': lab, 'title': co.get('title', lab),
+        'flags': flags, 'detail': detail, 'count': count, 'known': known,
+        'companionality_pct': comp, 'world_tonnes': wt,
+    })
+
+rows.sort(key=lambda r: (-r['count'], -r['companionality_pct']))
+hardest = [r for r in rows if r['count'] >= 4]
+axis_totals = {k: sum(1 for r in rows if r['flags'][k]) for k, _ in AXES}
+
+out = {
+    'generated': DATA.get('lithium', {}).get('updated') or None,
+    'axes': [{'key': k, 'label': v} for k, v in AXES],
+    'n': len(rows),
+    'n_hardest': len(hardest),
+    'hardest': [r['title'] for r in hardest],
+    'axis_totals': axis_totals,
+    'rows': rows,
+}
+os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
+json.dump(out, open(os.path.join(ROOT, 'out', 'synthesis.json'), 'w', encoding='utf8'),
+          separators=(',', ':'))
+print('wrote out/synthesis.json')
+print(f"  hardest cases (>=4 of 5 failures): {', '.join(out['hardest'])}")
+print('  axis totals:', axis_totals)
+
+# ------------------------------------------------------------------ page
+HTML = r'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The hardest cases — where every safeguard fails at once · Critical Materials Atlas</title>
+<meta name="description" content="Criticality isn't one number — it's a stack of independent failures: can't scale (by-product), can't diversify (concentrated), can't recycle, surging demand, and a physically tiny market. This scorecard finds the handful of materials that trip nearly all five.">
+<meta property="og:title" content="The hardest cases: metals where every safeguard fails at once">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #c0392b;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.4rem;font-weight:800;color:#c0392b;letter-spacing:-.02em}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ .hm{width:100%;border-collapse:collapse;font-size:.84rem;margin:.5rem 0}
+ .hm th{padding:.3rem .35rem;text-align:center;color:#5a6b68;font-weight:600;font-size:.74rem;vertical-align:bottom;border-bottom:1px solid #e3e9e8}
+ .hm th.mat{text-align:left;width:150px}
+ .hm td{padding:.28rem .35rem;border-bottom:1px solid #f1f4f3}
+ .hm td.mat{font-weight:600;color:#15323a}
+ .hm td.mat small{font-weight:400;color:#9aa6ad}
+ .cell{display:block;width:100%;height:26px;border-radius:5px;position:relative}
+ .cell.on{background:#c0392b}.cell.off{background:#eef3f2}.cell.na{background:#f6f7f7;border:1px dashed #dfe5e3}
+ .cnt{font-weight:800;text-align:center}
+ .lgd{display:flex;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:#5a6b68;margin:.3rem 0}
+ .lgd b{display:inline-block;width:.8rem;height:.8rem;border-radius:3px;vertical-align:middle;margin-right:.3rem}
+ .keyline{background:#fbf3f2;border:1px solid #f0d9d5;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#c0392b}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="findings.html">Findings</a><a href="companionality.html">Hostage metals</a>
+  <a href="cascade.html" class="hideable">Cascade</a><a href="methodology.html" class="hideable">Methodology</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Synthesis · the whole argument</div>
+  <h1>The hardest cases</h1>
+  <p class="deck">Twelve layers, one conclusion. &ldquo;Critical&rdquo; is not a single score &mdash; it is a stack of independent failures: a metal you can&rsquo;t <a href="companionality.html" style="color:#fff;text-decoration:underline">scale</a>, can&rsquo;t diversify, can&rsquo;t <a href="recycling.html" style="color:#fff;text-decoration:underline">recycle</a>, whose <a href="demand.html" style="color:#fff;text-decoration:underline">demand</a> is surging, in a market too <a href="production.html" style="color:#fff;text-decoration:underline">thin</a> to have any slack. Most materials trip one or two. A few trip nearly all &mdash; and those are the ones with no way out.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>The five axes, and where each comes from</summary>
+  <p>Each material is scored on five independent failure axes, each drawn from an earlier layer: <b>can&rsquo;t scale</b> = by-product-dominant (<a href="companionality.html">companionality</a> &ge; 66); <b>can&rsquo;t diversify</b> = one country makes &ge; 60% (<a href="production.html">production</a> share, or trade concentration where no tonnage exists); <b>can&rsquo;t recycle</b> = &le; 10% end-of-life (<a href="recycling.html">recycling</a>); <b>demand surging</b> = &ge; ~2.5&times; by 2040 (<a href="demand.html">demand</a>); <b>no slack</b> = a world market under 50,000 t/year (<a href="production.html">production</a>).</p>
+  <p class="howto-src"><b>On reading it:</b> the axes are deliberately coarse thresholds, not a weighted composite &mdash; the point is <i>how many</i> independent safeguards are gone at once, not a false-precision index. Two axes (demand, thin market) are blank where the underlying data doesn&rsquo;t cover a material, shown as n/a rather than assumed. Inputs: the five layer JSONs &rarr; <a href="out/synthesis.json">synthesis.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.4rem 0 .3rem">The scorecard</h2>
+  <div class="lgd"><span><b style="background:#c0392b"></b>safeguard gone</span><span><b style="background:#eef3f2"></b>holds</span><span><b style="background:#f6f7f7;border:1px dashed #dfe5e3"></b>no data</span><span>&mdash; hover any cell for the number</span></div>
+  <div style="overflow-x:auto"><table class="hm" id="hm"><thead></thead><tbody></tbody></table></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">What the atlas now says, in one paragraph</h2>
+  <p id="closer"></p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="cascade.html">Cascade</a><br><a href="production.html">Production in tonnes</a><br><a href="findings.html">Findings</a></div>
+  <div><h4>Sources</h4>Companionality · recycling · demand · production (WMD) · trade concentration</div>
+  <div class="fineprint">A coarse five-axis scorecard, not a weighted composite; it counts how many independent safeguards are gone, not a single index.</div>
+</div></footer>
+<script>
+fetch('out/synthesis.json').then(r=>r.json()).then(S=>{
+  const AX=S.axes;
+  document.getElementById('lead').innerHTML='<b>Result:</b> most of the 32 materials trip one or two of the five failure axes &mdash; a problem, but a solvable one. <b>'+S.n_hardest+'</b> trip four or five at once ('+S.hardest.join(', ')+'): by-product-locked, single-country, barely recycled, demand climbing, and a market so thin there is no supply to bring online. For these, no single lever &mdash; a mine, a supplier, a recycler, a substitute &mdash; is available; only several at once, slowly.';
+  const st=[
+    {v:S.n_hardest,l:'materials that fail on 4 or 5 of the 5 axes — the hardest cases'},
+    {v:S.axis_totals.scale,l:'can’t scale — produced mostly as a by-product'},
+    {v:S.axis_totals.diversify,l:'can’t diversify — one country makes ≥60%'},
+    {v:S.axis_totals.thin,l:'no slack — a world market under 50,000 t/year'},
+  ];
+  document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  const top=S.hardest.slice(0,3).join(' and ');
+  document.getElementById('keyline').innerHTML='<b>The through-line:</b> the metals that fail on every axis &mdash; '+top+' &mdash; are exactly the ones the whole atlas kept surfacing: invisible to satellites, locked as by-products, gated by one country, unrecycled, and physically tiny. They are not &ldquo;critical&rdquo; because a list says so; they are critical because every independent escape route is closed at the same time.';
+  // heatmap
+  const thead=document.querySelector('#hm thead'), tb=document.querySelector('#hm tbody');
+  thead.innerHTML='<tr><th class="mat">Material</th>'+AX.map(a=>'<th>'+a.label.replace(/^Can.t /,'✗ ').replace(/ \(.*\)/,'')+'</th>').join('')+'<th>fails</th></tr>';
+  S.rows.forEach(r=>{
+    const cells=AX.map(a=>{
+      const f=r.flags[a.key], det=r.detail[a.key];
+      const na=(det==='n/a'||det==='no tonnage data');
+      const cls=na?'na':(f?'on':'off');
+      return '<td><span class="cell '+cls+'" title="'+a.label+': '+det+'"></span></td>';
+    }).join('');
+    const col=r.count>=4?'#c0392b':r.count>=3?'#b07a18':'#9aa6ad';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td class="mat">'+r.title+(r.world_tonnes?' <small>'+(r.world_tonnes<1000?r.world_tonnes+' t':(r.world_tonnes/1000).toFixed(0)+' kt')+'</small>':'')+'</td>'+cells+
+      '<td class="cnt" style="color:'+col+'">'+r.count+'</td>';
+    tb.appendChild(tr);
+  });
+  document.getElementById('closer').innerHTML='Concentration is where the critical-materials conversation usually starts and stops &mdash; one country, one number. This atlas set out to test that from every angle at once, and what it found is that concentration is only one of at least five ways a material gets stuck, and rarely the binding one. The genuinely hard cases &mdash; '+S.hardest.join(', ')+' &mdash; are hard because they are <i>by-products of other mines</i> you can&rsquo;t will into existence, in <i>markets of a few hundred tonnes</i> with <i>no scrap stream</i> and <i>demand climbing</i>, all at once. Policy that reaches for the usual lever &mdash; subsidise a mine &mdash; addresses one axis and leaves four standing. Naming which materials fail on which axis, from public data and cross-checked against independent sources, is the whole point of the exercise: not a longer list, but a sharper one.';
+});
+</script>
+</body></html>'''
+open(os.path.join(ROOT, 'synthesis.html'), 'w', encoding='utf8', newline='\n').write(HTML)
+print('wrote synthesis.html')

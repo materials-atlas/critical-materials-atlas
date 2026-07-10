@@ -54,6 +54,7 @@
       ['network-sensitivity.html', 'Network truncation sensitivity'],
       ['limitations.html', 'Limitations & falsification'] ] },
     { label: 'Reference', items: [
+      ['synthesis.html', 'Synthesis — the hardest cases'],
       ['methodology.html', 'Methodology & validation'],
       ['technical-note.html', 'Technical note (PDF)'],
       ['brief.html', 'One-page findings brief'],
