@@ -26,6 +26,7 @@
       ['demand.html', 'Demand & the squeeze (to 2040)'],
       ['price-squeeze.html', 'Does the market show the squeeze? (price test)'],
       ['host-coupling.html', 'Host coupling — does price follow the host?'],
+      ['bloc-demand.html', 'Demand by bloc — whose policy pulls what'],
       ['network.html', 'Trade-network chokepoints'],
       ['complexity.html', 'Economic complexity'],
       ['origin.html', 'Origin trace'],
