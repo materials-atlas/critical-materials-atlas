@@ -21,8 +21,10 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 comp = json.load(open(os.path.join(ROOT, 'out', 'companionality.json'), encoding='utf8'))
 net = json.load(open(os.path.join(ROOT, 'out', 'net_demand.json'), encoding='utf8'))
+prod = json.load(open(os.path.join(ROOT, 'out', 'production.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf8'))
 NAMES = flows.get('names', {})
+WT = {r['label']: r['world_tonnes'] for r in prod['rows']}   # absolute world production, tonnes (WMD 2024)
 CO = {r['label']: r for r in comp['rows']}
 NET = {r['label']: r for r in net['rows']}
 TITLE = {m['label']: CO.get(m['label'], {}).get('title', m['title'].split(' (')[0]) for m in data['materials']}
@@ -57,7 +59,9 @@ for c, prod in country_prod.items():
         direct.append({'label': lab, 'title': TITLE.get(lab, lab), 'share': share,
                        'companionality_pct': co.get('companionality_pct', 0),
                        'rigid': co.get('companionality_pct', 0) >= 66,
-                       'is_host': lab in HOST_COMPANIONS})
+                       'is_host': lab in HOST_COMPANIONS,
+                       'world_tonnes': WT.get(lab),
+                       'tonnes_at_risk': (round(share / 100 * WT[lab]) if WT.get(lab) else None)})
     if not direct:
         continue
     direct_labels = {d['label'] for d in direct}
@@ -77,6 +81,8 @@ for c, prod in country_prod.items():
                 echo_map[comp_lab] = {'label': comp_lab, 'title': TITLE.get(comp_lab, comp_lab),
                                       'via': d['title'], 'hit': hit,
                                       'companionality_pct': co.get('companionality_pct', 0),
+                                      'world_tonnes': WT.get(comp_lab),
+                                      'tonnes_at_risk': (round(hit / 100 * WT[comp_lab]) if WT.get(comp_lab) else None),
                                       'already_direct': comp_lab in direct_labels}
     echo = sorted(echo_map.values(), key=lambda e: -e['hit'])
     # systemic score: direct shares weighted by rigidity + the echo
@@ -134,7 +140,7 @@ HTML = r'''<!doctype html>
  .sim input[type=range]{accent-color:#c0392b}
  .scorebig{font-size:1.8rem;font-weight:800;color:#c0392b;letter-spacing:-.02em}
  h3.sec{margin:1.1rem 0 .3rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:#5a6b68}
- .barrow{display:grid;grid-template-columns:150px 1fr 60px;align-items:center;gap:.6rem;margin:.22rem 0;font-size:.85rem}
+ .barrow{display:grid;grid-template-columns:150px 1fr 96px;align-items:center;gap:.6rem;margin:.22rem 0;font-size:.85rem}
  .barrow .nm{text-align:right;font-weight:600;color:#15323a}
  .barrow .nm small{font-weight:400;color:#9aa6ad}
  .barrow .track{background:#eef3f2;border-radius:5px;height:19px;overflow:hidden}
@@ -164,7 +170,7 @@ HTML = r'''<!doctype html>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the cascade is computed (and where it stops)</summary>
-  <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host) &mdash; a second-order hit the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. The <b>systemic score</b> sums direct hits (weighted up for rigid by-product metals that can&rsquo;t backfill) plus the echo.</p>
+  <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host) &mdash; a second-order hit the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. Each hit is expressed in <b>absolute tonnes at risk</b> = share of world supply lost &times; world production (World Mining Data 2024). The <b>systemic score</b> stays share-and-rigidity based on purpose &mdash; a tonnage sum would be swamped by bulk commodities and drown out the criticals, so tonnes are shown per material, not summed into the rank.</p>
   <p class="howto-src"><b>Limits:</b> the echo only fires through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal) &mdash; zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for want of their host&rsquo;s production geography. Linear, first-and-second-order only; no price feedback or substitution. A structural map of contagion, not a forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
   </details></div>
 
@@ -200,22 +206,26 @@ fetch('out/cascade.json').then(r=>r.json()).then(S=>{
   const COL={CN:'#c0392b',EU:'#2b6fb0',US:'#15323a',JP:'#7d5fb0',KR:'#2f8f6b',IN:'#d98324',Other:'#c2ccca'};
   const NAME={CN:'China',EU:'EU',US:'US',JP:'Japan',KR:'Korea',IN:'India',Other:'Other'};
   const rank=S.ranking, C=S.countries, top=rank[0];
-  document.getElementById('lead').innerHTML='<b>Result:</b> the most systemic single producer is <b>'+top.name+'</b> ('+top.n_direct+' materials directly, plus '+top.n_echo+' companion echoes). The model makes the second-order damage explicit: shock Congo and you don&rsquo;t just lose cobalt and tantalum &mdash; its copper drags still more cobalt down with it; shock Indonesia&rsquo;s nickel and cobalt falls again. Pick a producer below and watch the shock echo.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> the most systemic single producer is <b>'+top.name+'</b> ('+top.n_direct+' materials directly, plus '+top.n_echo+' companion echoes) &mdash; and every hit is now quantified in <b>real tonnes</b> (World Mining Data 2024), not just an index. A full China shock removes almost all of the world&rsquo;s ~987 t of gallium and ~150 t of germanium; shock Congo and its copper drags extra cobalt down on top of the direct cobalt loss; shock Indonesia&rsquo;s nickel and cobalt falls again. Pick a producer and watch the shock echo, in tonnes.';
   const sel=document.getElementById('country');
   rank.forEach(r=>{const o=document.createElement('option');o.value=r.iso;o.textContent=r.name+' — score '+r.score;sel.appendChild(o);});
   const shock=document.getElementById('shock'),shockv=document.getElementById('shockv');
-  function bar(cls,nm,sub,val,mx){return '<div class="barrow '+cls+'"><div class="nm">'+nm+(sub?' <small>'+sub+'</small>':'')+'</div>'+
-    '<div class="track"><div class="fill" style="width:'+Math.max(2,100*val/mx)+'%"></div></div><div class="v">'+val.toFixed(0)+'%</div></div>';}
+  function fmtT(t){return t>=1e9?(t/1e9).toFixed(2)+' Bt':t>=1e6?(t/1e6).toFixed(1)+' Mt':t>=1e3?(t/1e3).toFixed(1)+' kt':Math.round(t)+' t';}
+  function bar(cls,nm,sub,val,mx,wt){
+    const tr=wt?fmtT(val/100*wt):'';
+    return '<div class="barrow '+cls+'"><div class="nm">'+nm+(sub?' <small>'+sub+'</small>':'')+'</div>'+
+    '<div class="track"><div class="fill" style="width:'+Math.max(2,100*val/mx)+'%"></div></div>'+
+    '<div class="v">'+val.toFixed(0)+'%<small style="display:block;color:#9aa6ad;font-weight:400;font-size:.72rem">'+(wt?tr+' at risk':'')+'</small></div></div>';}
   function render(){
     const r=C[sel.value], f=(+shock.value)/100; shockv.textContent=(+shock.value)+'%';
     document.getElementById('score').textContent=(r.score*f).toFixed(2);
     const dmx=Math.max.apply(null,r.direct.map(d=>d.share),1);
     document.getElementById('direct').innerHTML=r.direct.map(d=>
-      bar('dir'+(d.rigid?'':' soft'), d.title, (d.rigid?'rigid by-product':'')+(d.is_host?(d.rigid?' · host':'host'):''), d.share*f, dmx)).join('');
+      bar('dir'+(d.rigid?'':' soft'), d.title, (d.rigid?'rigid by-product':'')+(d.is_host?(d.rigid?' · host':'host'):''), d.share*f, dmx, d.world_tonnes)).join('');
     const eh=document.getElementById('echo'), ehdr=document.getElementById('echohdr');
     if(r.echo.length){ehdr.style.display='';
       const emx=Math.max.apply(null,r.echo.map(e=>e.hit),1);
-      eh.innerHTML=r.echo.map(e=>bar('echo', e.title, 'via '+e.via+(e.already_direct?' (also direct)':''), e.hit*f, emx)).join('');
+      eh.innerHTML=r.echo.map(e=>bar('echo', e.title, 'via '+e.via+(e.already_direct?' (also direct)':''), e.hit*f, emx, e.world_tonnes)).join('');
     } else {ehdr.style.display='none'; eh.innerHTML='';}
     document.getElementById('exposed').innerHTML=r.exposed.length?r.exposed.map(x=>
       '<span class="chip"><b style="color:'+(COL[x[0]]||'#15323a')+'">'+NAME[x[0]]+'</b> exposure '+(x[1]*f).toFixed(1)+'</span>').join(''):'<span class="muted">—</span>';
