@@ -24,6 +24,7 @@
       ['trends.html', 'Trends — 22-year evolution'],
       ['volume.html', 'Value vs volume (price effects)'],
       ['demand.html', 'Demand & the squeeze (to 2040)'],
+      ['price-squeeze.html', 'Does the market show the squeeze? (price test)'],
       ['network.html', 'Trade-network chokepoints'],
       ['complexity.html', 'Economic complexity'],
       ['origin.html', 'Origin trace'],
