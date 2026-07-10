@@ -113,46 +113,71 @@ for i, p in enumerate(polys):
 con = sqlite3.connect(JAS)
 facs = []            # (x,y,primary,iso)
 prim_all = defaultdict(int); prim_coord = defaultdict(int)
-for prim, iso, blob in con.execute('SELECT primary_commodity,GID_0,geom FROM facilities'):
+fac_products = []    # (primary, commodities_products, has_coords) for byproduct analysis
+for prim, prod, iso, blob in con.execute(
+        'SELECT primary_commodity,commodities_products,GID_0,geom FROM facilities'):
     prim_all[prim] += 1
     pt = read_point(blob)
-    if pt and pt[0] == pt[0] and pt[1] == pt[1] and abs(pt[0]) <= 180 and abs(pt[1]) <= 90:
+    ok = bool(pt and pt[0] == pt[0] and pt[1] == pt[1] and abs(pt[0]) <= 180 and abs(pt[1]) <= 90)
+    if ok:
         prim_coord[prim] += 1
         facs.append((pt[0], pt[1], prim, iso))
+    fac_products.append((prim, prod, ok))
 con.close()
 
-# ---------- spatial join: one commodity per polygon ----------
-assign = {}  # poly_idx -> (rank 0=inside/1=near, dist, primary, iso)
-for x, y, prim, iso in facs:
-    gx = math.floor(x / CELL); gy = math.floor(y / CELL)
-    cand = []
-    for dx in (-1, 0, 1):
-        for dy in (-1, 0, 1):
-            cand += grid.get((gx + dx, gy + dy), [])
-    inside = None
-    for idx in cand:
-        p = polys[idx]
-        if p[0] <= x <= p[2] and p[1] <= y <= p[3] and pip(x, y, p[8]):
-            inside = idx; break
-    if inside is not None:
-        cur = assign.get(inside)
-        if cur is None or cur[0] > 0:
-            assign[inside] = (0, 0.0, prim, iso)
-        continue
-    best = None; bd = 1e9
-    for idx in cand:
-        p = polys[idx]; d = km(y - p[5], x - p[4], y)
-        if d < bd: bd = d; best = idx
-    if best is not None and bd <= BUF_KM:
-        cur = assign.get(best)
-        if cur is None or (cur[0] == 1 and cur[1] > bd):
-            assign[best] = (1, bd, prim, iso)
+# ---------- spatial join: one commodity per polygon (parametrised by buffer) ----------
+def run_join(buf_km):
+    """Return assignment {poly_idx: (rank, dist, primary, iso)} for a given tier-2 buffer."""
+    assign = {}
+    for x, y, prim, iso in facs:
+        gx = math.floor(x / CELL); gy = math.floor(y / CELL)
+        cand = []
+        for dx in (-1, 0, 1):
+            for dy in (-1, 0, 1):
+                cand += grid.get((gx + dx, gy + dy), [])
+        inside = None
+        for idx in cand:
+            p = polys[idx]
+            if p[0] <= x <= p[2] and p[1] <= y <= p[3] and pip(x, y, p[8]):
+                inside = idx; break
+        if inside is not None:
+            cur = assign.get(inside)
+            if cur is None or cur[0] > 0:
+                assign[inside] = (0, 0.0, prim, iso)
+            continue
+        if buf_km <= 0:
+            continue
+        best = None; bd = 1e9
+        for idx in cand:
+            p = polys[idx]; d = km(y - p[5], x - p[4], y)
+            if d < bd: bd = d; best = idx
+        if best is not None and bd <= buf_km:
+            cur = assign.get(best)
+            if cur is None or (cur[0] == 1 and cur[1] > bd):
+                assign[best] = (1, bd, prim, iso)
+    return assign
 
-# ---------- aggregate ----------
+def summarise(assign):
+    """Return (attributed_area, critical_area) for an assignment."""
+    ma = ca = 0.0
+    for idx, (rank, d, prim, iso) in assign.items():
+        a = polys[idx][6]; ma += a
+        if CRIT.get(prim): ca += a
+    return ma, ca
+
+# sensitivity across tier-2 buffers (inside-only .. 25 km) — shows the headline is a band, not a bound
+sensitivity = []
+for b in (0, 2, 5, 10, 25):
+    aj = run_join(b); ma, ca = summarise(aj)
+    sensitivity.append({'buffer_km': b, 'attributed_pct': round(100 * ma / tot_area, 1),
+                        'critical_pct': round(100 * ca / tot_area, 2), 'n_poly': len(aj)})
+
+# ---------- headline aggregate (buffer = BUF_KM) ----------
+assign = run_join(BUF_KM)
 area_by_prim = defaultdict(float)
 tier1 = tier2 = 0
 crit_area = defaultdict(float)
-crit_sites = defaultdict(int)
+crit_polys = defaultdict(int)
 crit_country = defaultdict(lambda: defaultdict(float))
 matched_area = 0.0
 for idx, (rank, d, prim, iso) in assign.items():
@@ -161,7 +186,31 @@ for idx, (rank, d, prim, iso) in assign.items():
     tier1 += (rank == 0); tier2 += (rank == 1)
     lab = CRIT.get(prim)
     if lab:
-        crit_area[lab] += a; crit_sites[lab] += 1; crit_country[lab][iso] += a
+        crit_area[lab] += a; crit_polys[lab] += 1; crit_country[lab][iso] += a
+
+# ---------- byproduct analysis: does the richer free-text field name the criticals? ----------
+# Attributing AREA to a byproduct would double-count (a Cu mine's footprint is copper's), so we DON'T —
+# but we report how often each critical appears as a secondary product, for full transparency.
+SECONDARY_KW = {
+    'lithium': ['lithium'], 'cobalt': ['cobalt'], 'magnets': ['rare earth', 'monazite', 'neodym',
+    'praseodym', 'dysprosium', 'cerium', 'lanthan'], 'tantalum': ['tantal', 'coltan'],
+    'niobium': ['niob', 'columb'], 'tungsten': ['tungsten', 'wolfram', 'scheelite'],
+    'antimony': ['antimony', 'stibnite'], 'graphite': ['graphite'], 'vanadium': ['vanadium'],
+    'titanium': ['titanium', 'ilmenite', 'rutile'], 'manganese': ['manganese'],
+    'platinum': ['platinum', 'palladium', 'pgm'], 'boron': ['boron', 'borate'],
+    'baryte': ['baryt', 'barit'], 'fluorspar': ['fluor'], 'beryllium': ['beryl'], 'silicon': ['silic'],
+}
+byproduct = {}
+for lab, kws in SECONDARY_KW.items():
+    n = nc = 0
+    for prim, prod, ok in fac_products:
+        s = ((prod or '') + ' ' + (prim or '')).lower()
+        if any(k in s for k in kws):
+            n += 1
+            if ok: nc += 1
+    if n:
+        byproduct[lab] = {'label': lab, 'title': LABELS.get(lab, lab), 'n_mentions': n, 'n_coords': nc,
+                          'primary': lab in {CRIT.get(p) for p, _, _ in fac_products}}
 
 # per-commodity list (11 Jasansky classes), flag which map to a tracked critical
 by_commodity = []
@@ -173,12 +222,12 @@ for prim, a in sorted(area_by_prim.items(), key=lambda kv: -kv[1]):
         'critical': bool(lab), 'atlas_label': lab,
     })
 
-# critical-material rows: which of the 32 are resolvable here, which are not
+# critical-material rows: which of the 32 are resolvable here (by primary_commodity), which are not
 resolvable = {}
 for lab, a in crit_area.items():
     tops = sorted(crit_country[lab].items(), key=lambda kv: -kv[1])[:4]
     resolvable[lab] = {'label': lab, 'title': LABELS.get(lab, lab),
-                       'area_km2': round(a, 1), 'sites': crit_sites[lab],
+                       'area_km2': round(a, 1), 'n_polygons': crit_polys[lab],
                        'top_countries': [{'iso3': i, 'area_km2': round(v, 1)} for i, v in tops]}
 unresolved = sorted(LABELS[l] for l in LABELS if l not in resolvable)
 
@@ -209,6 +258,9 @@ out = {
     'critical_unresolved': unresolved,
     'n_critical_resolved': len(resolvable),
     'n_critical_total': len(LABELS),
+    'sensitivity': sensitivity,
+    'byproduct': sorted(byproduct.values(), key=lambda d: -d['n_mentions']),
+    'temporal_note': 'Maus imagery ~2019; Jasansky facilities compiled to ~2021-2023.',
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'commodity_attribution.json'), 'w', encoding='utf8'),
@@ -261,16 +313,17 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · satellite &middot; the commodity question</div>
   <h1>Which mineral is that mine?</h1>
-  <p class="deck">The <a href="satellite.html" style="color:#fff;text-decoration:underline">satellite page</a> maps where mining scars the earth &mdash; but the polygons are <b>all-commodity</b>: they can&rsquo;t tell lithium from coal. So we asked the obvious next question and <i>measured the answer</i>: overlay the best open, peer-reviewed, georeferenced mine database onto the footprint and see how much of it can actually be labelled. The result is the honest case for why this atlas reads geography from <i>trade</i>, not <i>imagery</i>.</p>
+  <p class="deck">The <a href="satellite.html" style="color:#fff;text-decoration:underline">satellite page</a> maps where mining scars the earth &mdash; but the polygons are <b>all-commodity</b>: they can&rsquo;t tell lithium from coal. So we asked the obvious next question and <i>measured the answer</i>: overlay the best open, peer-reviewed, georeferenced mine database onto the footprint and see how much of it can actually be labelled. The result is the honest case for why this atlas builds material-level geography from <i>production statistics and trade</i>, using imagery only as a physical cross-check.</p>
 </div></section>
 <article style="max-width:1060px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the attribution works, and every caveat</summary>
   <p>We overlay <b>Jasansky et al. (2023, <i>Scientific Data</i>)</b> &mdash; a peer-reviewed, georeferenced database of <span id="njas"></span> mine facilities, each carrying a <code>primary_commodity</code> &mdash; onto the <b>Maus (2022)</b> all-commodity polygons. For each facility we test <b>point-in-polygon</b>; failing that, we attach the <b>nearest polygon within 5&nbsp;km</b>. Each polygon is assigned to at most one commodity (inside beats near; nearer wins ties). Attributed footprint is then summed by commodity and mapped to the atlas&rsquo;s 32 critical materials.</p>
-  <p class="howto-src"><b>Caveats:</b> Jasansky covers 2,413 large, company-reported mines &mdash; not the artisanal/small sites that make up much of the Maus polygon count, so low coverage is <i>expected and is the finding</i>. <code>primary_commodity</code> is a single label (polymetallic mines simplified). Generic &ldquo;Coal&rdquo; is not split into coking vs thermal, so it is <b>not</b> counted as the atlas&rsquo;s <i>coking coal</i>. Sources: Maus et al. 2022 (<a href="https://doi.org/10.1594/PANGAEA.942325">PANGAEA</a>) &middot; Jasansky et al. 2023 (<a href="https://doi.org/10.5281/zenodo.7369478">Zenodo</a>, CC-BY) &rarr; <a href="out/commodity_attribution.json">commodity_attribution.json</a>.</p>
+  <p class="howto-src"><b>Caveats (stated in full):</b> Jasansky covers 2,413 large, company-reported mines &mdash; not the artisanal/small sites that make up much of the Maus polygon count, so low coverage is <i>expected and is part of the finding</i>. We attribute footprint area by <code>primary_commodity</code>, the mine&rsquo;s main product; the database also carries a free-text <code>commodities_products</code> field naming <i>secondary</i> products &mdash; we report those separately below but do <b>not</b> credit area to them, because a copper mine&rsquo;s footprint is copper&rsquo;s even when it yields trace cobalt. Generic &ldquo;Coal&rdquo; is not split into coking vs thermal, so it is <b>not</b> counted as the atlas&rsquo;s <i>coking coal</i>. The 17% / 4% headline is a tier-2-buffer estimate, not a hard bound &mdash; see the sensitivity band below (inside-only to 25&nbsp;km). Distances use nearest-centroid on WGS84 degrees (screening-grade, not projected). Temporal offset: Maus imagery ~2019, Jasansky compiled ~2021&ndash;23; the two share an author (V. Maus), so this is a consistency overlay, not a fully independent check. Sources: Maus et al. 2022 (<a href="https://doi.org/10.1594/PANGAEA.942325">PANGAEA</a>) &middot; Jasansky et al. 2023 (<a href="https://doi.org/10.5281/zenodo.7369478">Zenodo</a>, CC-BY) &rarr; <a href="out/commodity_attribution.json">commodity_attribution.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
+  <p class="muted" id="sens" style="margin:.2rem 0 0"></p>
 
   <h2 style="margin:1.6rem 0 .3rem">What the labelled footprint actually is</h2>
   <p class="muted" style="margin-top:0">Attributed mine area (km&sup2;) by the facility database&rsquo;s commodity classes. <span style="color:#0e7c74;font-weight:700">Green</span> = maps to one of the atlas&rsquo;s 32 critical materials; grey = not tracked (coal, gold, iron, silver, zinc, &ldquo;other&rdquo;).</p>
@@ -280,12 +333,17 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.6rem 0 .3rem">The 32 critical materials: what open mine data can and can&rsquo;t see</h2>
   <p class="muted" style="margin-top:0">Of the atlas&rsquo;s 32 tracked materials, only these are resolvable as a distinct commodity with mapped footprint in the open database:</p>
-  <table class="tidy" id="restab"><thead><tr><th>Material</th><th class="n">footprint km²</th><th class="n">sites</th><th>where (top countries)</th></tr></thead><tbody></tbody></table>
+  <table class="tidy" id="restab"><thead><tr><th>Material</th><th class="n">footprint km²</th><th class="n">polygons</th><th>where (top countries)</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="unres" style="margin-top:.8rem"></p>
   <div class="chips" id="unreschips"></div>
 
-  <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads trade, not imagery</h2>
-  <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as an independent physical cross-check on the producer story. But this page shows their ceiling: even with the best open commodity-labelled mine database bolted on, <b><span id="p1"></span>%</b> of the mapped footprint stays unlabelled, and the critical materials at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; are not even <i>separable classes</i> in the open data. That is not a flaw we can engineer around with a bigger buffer; it is a property of what imagery and open mine registries contain. Material-level geography has to come from somewhere that <i>does</i> resolve all 32 minerals &mdash; bilateral <a href="methodology.html">trade flows</a> reconciled against <a href="findings.html">USGS/IEA production shares</a>. This page is the receipt for that design choice.</p>
+  <h2 style="margin:1.6rem 0 .3rem">&ldquo;But those mines yield lithium and cobalt too&rdquo; &mdash; as byproducts, yes</h2>
+  <p class="muted" style="margin-top:0">A fair objection: the same database has a free-text <code>commodities_products</code> field that <i>mentions</i> more minerals. It does &mdash; but only as <b>secondary products of a handful of large mines</b>, and crediting a mine&rsquo;s whole footprint to a trace byproduct would double-count. Here is every mention, coordinates or not, so you can judge:</p>
+  <table class="tidy" id="bytab"><thead><tr><th>Critical material</th><th class="n">mines mentioning it</th><th class="n">with coordinates</th><th>as</th></tr></thead><tbody></tbody></table>
+  <p class="muted" style="margin-top:.5rem">Tungsten, graphite, vanadium, beryllium and others don&rsquo;t appear at all &mdash; not even in the free text. So the richer field doesn&rsquo;t rescue a lithium or rare-earth <i>footprint</i>; it confirms these minerals surface, at most, as bylines in copper/nickel/gold operations.</p>
+
+  <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
+  <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the best open commodity-labelled mine database bolted on, most of the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
@@ -307,6 +365,11 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
     {v:S.n_critical_resolved+' / '+S.n_critical_total,l:'critical materials resolvable as a distinct labelled commodity',warn:true},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  // sensitivity band — headline is an estimate, not a hard bound
+  if(S.sensitivity){
+    const band=S.sensitivity.map(s=>(s.buffer_km===0?'inside-only':s.buffer_km+' km')+': '+s.attributed_pct+'% / '+s.critical_pct+'%').join(' &nbsp;·&nbsp; ');
+    document.getElementById('sens').innerHTML='<b>Sensitivity</b> (tier-2 buffer &rarr; attributed% / critical%): '+band+'. The headline uses 5 km; the critical share stays ~3&ndash;5% across the whole range &mdash; widening the buffer never surfaces the missing minerals.';
+  }
   // bars
   const mx=Math.max.apply(null,S.by_commodity.map(d=>d.area_km2));
   document.getElementById('bars').innerHTML=S.by_commodity.map(d=>{
@@ -317,18 +380,25 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
   }).join('');
   function LABEL(lab){const m=(S.critical_resolved.find(x=>x.label===lab));return m?m.title:lab;}
   // keyline
-  document.getElementById('keyline').innerHTML='<b>The tell:</b> the open database resolves commodity to just '+S.jasansky_n_classes+' broad classes &mdash; coal, gold, iron, copper, zinc, aluminium, nickel, silver, and two literal &ldquo;other&rdquo; buckets. Lithium, cobalt, rare earths, tantalum, tungsten, antimony, graphite and the rest of the critical list <b>are not separable categories at all</b> &mdash; they are folded into &ldquo;Other mine&rdquo; and &ldquo;Other (poly)-metallic.&rdquo; You cannot label what the data never distinguished.';
+  document.getElementById('keyline').innerHTML='<b>The tell:</b> the open database&rsquo;s <i>primary</i> label resolves to just '+S.jasansky_n_classes+' broad classes &mdash; coal, gold, iron, copper, zinc, aluminium, nickel, silver, and two literal &ldquo;other&rdquo; buckets. Lithium, cobalt, rare earths, tantalum, tungsten, antimony, graphite and the rest are <b>never a primary class</b> &mdash; they are folded into &ldquo;Other mine&rdquo; and &ldquo;Other (poly)-metallic&rdquo; (and, as the next table shows, surface only as sparse byproduct mentions). You cannot map a footprint the data never attributes.';
   // resolved table
   const tb=document.querySelector('#restab tbody');
   S.critical_resolved.forEach(m=>{
     const where=m.top_countries.map(c=>c.iso3+' ('+f(Math.round(c.area_km2))+')').join(', ');
     const tr=document.createElement('tr');
-    tr.innerHTML='<td><b>'+m.title+'</b></td><td class="n">'+f(Math.round(m.area_km2))+'</td><td class="n">'+m.sites+'</td><td class="muted">'+where+'</td>';
+    tr.innerHTML='<td><b>'+m.title+'</b></td><td class="n">'+f(Math.round(m.area_km2))+'</td><td class="n">'+m.n_polygons+'</td><td class="muted">'+where+'</td>';
     tb.appendChild(tr);
   });
   // unresolved
-  document.getElementById('unres').innerHTML='The other <b>'+(S.n_critical_total-S.n_critical_resolved)+'</b> tracked materials have <b>no distinct footprint</b> in the open mine data &mdash; not because they aren&rsquo;t mined, but because the open database never labels them separately:';
+  document.getElementById('unres').innerHTML='The other <b>'+(S.n_critical_total-S.n_critical_resolved)+'</b> tracked materials have <b>no distinct primary footprint</b> in the open mine data &mdash; not because they aren&rsquo;t mined, but because the open database never labels them as a mine&rsquo;s main product:';
   document.getElementById('unreschips').innerHTML=S.critical_unresolved.map(t=>'<span class="chip">'+t+'</span>').join('');
+  // byproduct table
+  const byb=document.querySelector('#bytab tbody');
+  (S.byproduct||[]).forEach(m=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+m.title+'</b></td><td class="n">'+m.n_mentions+'</td><td class="n">'+m.n_coords+'</td><td class="muted">'+(m.primary?'primary at some sites + byproduct':'byproduct only &mdash; never a primary product')+'</td>';
+    byb.appendChild(tr);
+  });
 });
 </script>
 </body></html>'''
