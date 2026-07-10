@@ -58,6 +58,7 @@
       ['technical-note.html', 'Technical note (PDF)'],
       ['brief.html', 'One-page findings brief'],
       ['casestudies.html', 'Case studies — known-chain audit'],
+      ['production.html', 'Production in tonnes — cross-source check'],
       ['profiles.html', 'Material & country profiles'],
       ['data.html', 'Open data / API'],
       ['map.html', 'Project map — how it\'s built'],

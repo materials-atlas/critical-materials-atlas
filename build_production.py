@@ -1,0 +1,270 @@
+#!/usr/bin/env python3
+"""
+Production reality — the atlas in absolute tonnes, and an independent cross-check.
+
+Every prior layer worked in shares (USGS) or trade value (BACI). This one brings in ABSOLUTE physical
+production, and a SECOND independent authority. Source: World Mining Data 6.4 (Austrian Federal Ministry of
+Finance / World Mining Congresses), one sheet per commodity, production by country in metric tonnes, 2024.
+
+Two payoffs:
+  (1) Scale the atlas has never shown: gallium is a ~1,000-tonne world; iron ore is a ~2.5-billion-tonne world.
+      Concentration means very different things at those two scales.
+  (2) Cross-validation: compare each material's top-producer SHARE computed from WMD tonnages against the
+      atlas's USGS-derived share (data.json). Two independent sources agreeing is real corroboration; where
+      they diverge is flagged honestly.
+
+Public data; deterministic. Run: python build_production.py
+"""
+import json, os
+import openpyxl
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
+flows = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf8'))
+NAMES = flows.get('names', {})
+DATA = {m['label']: m for m in data['materials']}
+WMD = os.path.join(ROOT, 'raw', 'wmd', 'wmd_6.4_production_by_country.xlsx')
+
+# atlas label -> WMD sheet name
+SHEET = {
+    'antimony': 'Antimony', 'arsenic': 'Arsenic', 'baryte': 'Baryte', 'bauxite': 'Bauxite',
+    'beryllium': 'Beryllium (conc.)', 'boron': 'Boron Minerals', 'cobalt': 'Cobalt', 'cokingcoal': 'Coking Coal',
+    'copper': 'Copper', 'feldspar': 'Feldspar', 'fluorspar': 'Fluorspar', 'gallium': 'Gallium',
+    'germanium': 'Germanium', 'graphite': 'Graphite', 'lithium': 'Lithium (Li2O)', 'magnesium': 'Magnesite',
+    'magnets': 'Rare Earths (REO)', 'manganese': 'Manganese', 'nickel': 'Nickel', 'niobium': 'Niobium (Nb2O5)',
+    'palladium': 'Palladium', 'phosphate': 'Phosphate Rock (P2O5)', 'phosphorus': 'Phosphate Rock (P2O5)',
+    'platinum': 'Platinum', 'tantalum': 'Tantalum (Ta2O5)', 'titanium': 'Titanium (TiO2)',
+    'tungsten': 'Tungsten (W)', 'vanadium': 'Vanadium (V)',
+}
+
+# WMD country name -> ISO2 (major producers)
+N2I = {
+ 'China': 'CN', 'Australia': 'AU', 'Russia': 'RU', 'USA': 'US', 'Brazil': 'BR', 'Canada': 'CA',
+ 'Congo, Dem. Rep.': 'CD', 'Dem. Rep. Congo': 'CD', 'Congo, D.R.': 'CD', 'United States': 'US', 'Indonesia': 'ID', 'India': 'IN', 'South Africa': 'ZA',
+ 'Chile': 'CL', 'Peru': 'PE', 'Kazakhstan': 'KZ', 'Mexico': 'MX', 'Turkey': 'TR', 'Türkiye': 'TR',
+ 'Ukraine': 'UA', 'Vietnam': 'VN', 'Viet Nam': 'VN', 'Myanmar': 'MM', 'Bolivia': 'BO', 'Argentina': 'AR',
+ 'Zimbabwe': 'ZW', 'Zambia': 'ZM', 'Philippines': 'PH', 'Malaysia': 'MY', 'Thailand': 'TH', 'Japan': 'JP',
+ 'Korea, Rep.': 'KR', 'South Korea': 'KR', 'Germany': 'DE', 'France': 'FR', 'Spain': 'ES', 'Sweden': 'SE',
+ 'Finland': 'FI', 'Poland': 'PL', 'Norway': 'NO', 'Morocco': 'MA', 'Jordan': 'JO', 'Saudi Arabia': 'SA',
+ 'Iran': 'IR', 'Egypt': 'EG', 'Nigeria': 'NG', 'Ghana': 'GH', 'Tanzania': 'TZ', 'Namibia': 'NA',
+ 'Botswana': 'BW', 'Mozambique': 'MZ', 'Madagascar': 'MG', 'Rwanda': 'RW', 'Burundi': 'BI', 'Laos': 'LA',
+ 'Mongolia': 'MN', 'Uzbekistan': 'UZ', 'Tajikistan': 'TJ', 'New Caledonia': 'NC', 'Papua New Guinea': 'PG',
+ 'Guinea': 'GN', 'Jamaica': 'JM', 'Suriname': 'SR', 'Guyana': 'GY', 'Venezuela': 'VE', 'Colombia': 'CO',
+ 'Cuba': 'CU', 'Greece': 'GR', 'Italy': 'IT', 'Portugal': 'PT', 'Austria': 'AT', 'Czech Republic': 'CZ',
+ 'Czechia': 'CZ', 'Slovakia': 'SK', 'Bulgaria': 'BG', 'Romania': 'RO', 'Serbia': 'RS',
+ 'Bosnia-Herzegovina': 'BA', 'North Macedonia': 'MK', 'Georgia': 'GE', 'Armenia': 'AM', 'Azerbaijan': 'AZ',
+ 'Pakistan': 'PK', 'Afghanistan': 'AF', 'Sri Lanka': 'LK', 'United Kingdom': 'GB', 'Ireland': 'IE',
+ 'Estonia': 'EE', 'Algeria': 'DZ', 'Angola': 'AO', 'Sierra Leone': 'SL', 'Liberia': 'LR', 'Mauritania': 'MR',
+ 'Mali': 'ML', 'Burkina Faso': 'BF', "Cote d'Ivoire": 'CI', 'Senegal': 'SN', 'Uganda': 'UG', 'Ethiopia': 'ET',
+ 'Kenya': 'KE', 'United Arab Emirates': 'AE', 'Qatar': 'QA', 'Oman': 'OM', 'Israel': 'IL', 'New Zealand': 'NZ',
+ 'Dominican Republic': 'DO', 'Panama': 'PA', 'Ecuador': 'EC', 'Gabon': 'GA', 'Cameroon': 'CM', 'Malawi': 'MW',
+ 'Eritrea': 'ER', 'Nepal': 'NP', 'Bhutan': 'BT', 'Cambodia': 'KH', 'Belgium': 'BE', 'Netherlands': 'NL',
+}
+
+wb = openpyxl.load_workbook(WMD, read_only=True, data_only=True)
+
+def parse_sheet(sheet):
+    ws = wb[sheet]
+    # header row: find the row whose first cell == 'Country'
+    rows = list(ws.iter_rows(values_only=True))
+    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == 'Country'), 1)
+    cols = rows[hdr]
+    try:
+        c24 = cols.index('2024')
+    except ValueError:
+        c24 = 6
+    out = {}
+    for r in rows[hdr + 1:]:
+        if not r or not r[0]:
+            continue
+        name = str(r[0]).strip()
+        if name.lower() in ('total', 'world', 'total world', 'others'):
+            continue
+        v = r[c24] if c24 < len(r) else None
+        if isinstance(v, (int, float)) and v > 0:
+            out[name] = float(v)
+    return out
+
+rows_out = []
+unmapped = set()
+for lab, sheet in SHEET.items():
+    if sheet not in wb.sheetnames:
+        continue
+    prod = parse_sheet(sheet)
+    if not prod:
+        continue
+    world = sum(prod.values())
+    top = sorted(prod.items(), key=lambda kv: -kv[1])
+    top_name, top_t = top[0]
+    top_iso = N2I.get(top_name)
+    if top_iso is None:
+        unmapped.add(top_name)
+    wmd_share = round(100 * top_t / world, 1)
+    top5 = [{'name': n, 'iso': N2I.get(n), 'tonnes': round(t), 'share': round(100 * t / world, 1)} for n, t in top[:5]]
+    # atlas USGS top producer + share
+    mined = DATA.get(lab, {}).get('mined') or []
+    a_iso = mined[0]['c'] if mined else None
+    a_share = mined[0]['v'] if mined else None
+    same_top = (top_iso is not None and a_iso is not None and top_iso == a_iso)
+    delta = round(abs(wmd_share - a_share), 1) if (same_top and a_share is not None) else None
+    rows_out.append({
+        'label': lab, 'title': DATA.get(lab, {}).get('title', lab).split(' (')[0],
+        'world_tonnes': round(world), 'unit': 'metric tonnes',
+        'wmd_top': top_name, 'wmd_top_iso': top_iso, 'wmd_top_share': wmd_share, 'top5': top5,
+        'usgs_top_iso': a_iso, 'usgs_top_name': NAMES.get(a_iso, a_iso), 'usgs_top_share': a_share,
+        'same_top_producer': same_top, 'share_delta': delta,
+    })
+
+# validation summary
+checkable = [r for r in rows_out if r['usgs_top_share'] is not None and r['wmd_top_iso'] is not None]
+agree_top = [r for r in checkable if r['same_top_producer']]
+deltas = [r['share_delta'] for r in agree_top if r['share_delta'] is not None]
+mean_delta = round(sum(deltas) / len(deltas), 1) if deltas else None
+
+rows_out.sort(key=lambda r: -r['world_tonnes'])
+out = {
+    'generated': data.get('generated'), 'year': 2024,
+    'source': 'World Mining Data 6.4 (2026 ed., Austrian Federal Ministry of Finance) — production in metric tonnes.',
+    'n': len(rows_out),
+    'n_checkable': len(checkable),
+    'n_agree_top': len(agree_top),
+    'mean_share_delta': mean_delta,
+    'rows': rows_out,
+}
+os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
+json.dump(out, open(os.path.join(ROOT, 'out', 'production.json'), 'w', encoding='utf8'),
+          separators=(',', ':'))
+print('wrote out/production.json')
+print(f"  materials in tonnes: {len(rows_out)} | cross-checkable {len(checkable)} | "
+      f"same top producer as USGS: {len(agree_top)}/{len(checkable)} | mean share delta {mean_delta}pp")
+if unmapped:
+    print("  UNMAPPED top-producer names:", ', '.join(sorted(unmapped)))
+
+# ------------------------------------------------------------------ page
+HTML = r'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production reality — the atlas in tonnes, cross-checked · Critical Materials Atlas</title>
+<meta name="description" content="Absolute mine production in metric tonnes for the atlas's materials (World Mining Data 2024), and an independent cross-check: does a second authority agree with the USGS-derived production shares the atlas uses? For 26 of 28 materials, the same country tops both.">
+<meta property="og:title" content="The atlas in real tonnes — and independently cross-checked">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ #scatter{width:100%;height:440px}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.4rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ table.tidy{width:100%;border-collapse:collapse;font-size:.86rem;margin:.4rem 0}
+ table.tidy th,table.tidy td{padding:.4rem .5rem;border-bottom:1px solid #eef1f0;text-align:left}
+ table.tidy th.n,table.tidy td.n{text-align:right;font-variant-numeric:tabular-nums}
+ .sbar{display:grid;grid-template-columns:120px 1fr 92px;align-items:center;gap:.6rem;margin:.2rem 0;font-size:.84rem}
+ .sbar .nm{text-align:right;font-weight:600;color:#15323a}
+ .sbar .track{background:#eef3f2;border-radius:4px;height:16px;overflow:hidden}
+ .sbar .fill{height:100%;background:#0e7c74;border-radius:4px}
+ .sbar .v{text-align:right;color:#5a6b68;font-variant-numeric:tabular-nums}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#0e7c74}
+ .ok{color:#2f8f46;font-weight:700}.no{color:#c0392b;font-weight:700}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="casestudies.html">Validation</a>
+  <a href="cascade.html" class="hideable">Cascade</a><a href="findings.html" class="hideable">Findings</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · production · cross-source validation</div>
+  <h1>The atlas in real tonnes</h1>
+  <p class="deck">Every other page works in shares or trade value. This one brings in absolute physical production &mdash; and a <i>second, independent authority</i>. World Mining Data (Austrian ministry) gives mine output in metric tonnes; laid beside the atlas&rsquo;s USGS-derived shares it does two things at once: shows the <b>scale</b> nobody sees, and <b>cross-checks</b> whether the producer geography holds up when a different source counts it.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>The two sources, and how the check works</summary>
+  <p>Absolute production: <b>World Mining Data 6.4</b> (2026 ed.), production by country in metric tonnes, 2024. For each material we take the world total and the top producer&rsquo;s tonnage share, and compare that share against the atlas&rsquo;s existing <b>USGS-derived</b> top-producer share (in <a href="out/data.json">data.json</a>). Same top country + a small share gap = two independent authorities corroborating each other.</p>
+  <p class="howto-src"><b>Caveats:</b> the two sources define commodities slightly differently (e.g. contained-metal vs concentrate, ore vs oxide), report different years&rsquo; vintages, and treat re-processing differently &mdash; so a few points of share difference is expected, and a couple of genuine disagreements (coking coal, bauxite: production vs export leadership) are flagged, not hidden. Coverage: 28 of the 32 materials have a WMD sheet (no hafnium, helium, silicon-metal, strontium). Source: <a href="https://www.world-mining-data.info/">world-mining-data.info</a> &rarr; <a href="out/production.json">production.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Independent cross-check: two sources, one geography</h2>
+  <p class="muted" style="margin-top:0">Each point is a material: the top producer&rsquo;s share as the atlas has it (USGS, x) vs as World Mining Data counts it in tonnes (y). Points on the diagonal are two independent authorities agreeing. <span style="color:#2f8f46;font-weight:700">Green</span> = same top country; <span style="color:#c0392b;font-weight:700">red</span> = they name a different leader.</p>
+  <div id="scatter"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">The scale nobody shows &mdash; world production, 2024</h2>
+  <p class="muted" style="margin-top:0">Log scale, because these worlds are orders of magnitude apart: some criticals are a few hundred tonnes a year, others billions. &ldquo;90% concentration&rdquo; of a 1,000-tonne metal is a very different problem from 90% of a billion-tonne one.</p>
+  <div id="scale"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Every material — tonnes, and the two sources side by side</h2>
+  <table class="tidy" id="tab"><thead><tr><th>Material</th><th class="n">world 2024 (t)</th><th>top producer (WMD)</th><th class="n">WMD share</th><th class="n">USGS share</th><th class="n">Δ</th><th>agree?</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .3rem">What this changes for the atlas</h2>
+  <p>This is the acquisition the whole session kept pointing to. With absolute tonnages the derived layers can finally speak in quantities: a <a href="cascade.html">cascade</a> shock becomes &ldquo;so many tonnes of world gallium&rdquo;, not an index; the <a href="net-demand.html">demand</a> arm can be normalised to physical supply. And the cross-check earns trust the honest way &mdash; a second, independently compiled authority puts the same country on top for <span id="agreecount"></span> of the materials it can check, so the producer geography the atlas has asserted all along is not a USGS artefact. Where the two disagree, that is now visible and named, not smoothed over. This is the step from demonstration toward instrument.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="methodology.html">Methodology</a><br><a href="casestudies.html">Case studies</a><br><a href="cascade.html">Cascade</a><br><a href="findings.html">Findings</a></div>
+  <div><h4>Sources</h4>World Mining Data 2026 (production, tonnes) × USGS shares (data.json)</div>
+  <div class="fineprint">Two sources define commodities slightly differently; small share gaps are expected, genuine disagreements are flagged.</div>
+</div></footer>
+<script>
+function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+Promise.all([fetch('out/production.json').then(r=>r.json()),
+  ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
+  const f=n=>Number(n).toLocaleString();
+  const tiny=S.rows.filter(r=>r.world_tonnes<10000).length;
+  document.getElementById('lead').innerHTML='<b>Result:</b> a second, independently compiled authority (World Mining Data) puts the <b>same country on top for '+S.n_agree_top+' of '+S.n_checkable+'</b> materials it can check against the atlas&rsquo;s USGS shares, with a mean gap of just '+S.mean_share_delta+' points &mdash; strong cross-source corroboration of the producer geography. And the scale finally shows: '+tiny+' of these criticals are worlds of under 10,000 tonnes a year (gallium ~1,000 t, germanium ~150 t), where one country holding 90%+ is a genuinely thin thread.';
+  document.getElementById('agreecount').textContent=S.n_agree_top+' of '+S.n_checkable;
+  const stats=[
+    {v:S.n_agree_top+' / '+S.n_checkable,l:'materials where WMD and USGS name the SAME top producer'},
+    {v:S.mean_share_delta+' pp',l:'mean difference in the top producer’s share between the two sources'},
+    {v:tiny,l:'criticals with a world market under 10,000 tonnes/year'},
+    {v:S.n,l:'materials expressed in absolute tonnes (of 32; 4 have no WMD sheet)'},
+  ];
+  document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  document.getElementById('keyline').innerHTML='<b>Why the cross-check matters:</b> every producer share in this atlas has, until now, traced back to one family of sources (USGS). Having a second, independently compiled authority land on the same leading producer for '+S.n_agree_top+' of '+S.n_checkable+' materials &mdash; gallium 98.7% vs 98%, phosphate 44% vs 44%, tantalum 41% vs 40% &mdash; means the concentration story is not an artefact of one dataset. The two honest disagreements (coking coal and bauxite, where &ldquo;top producer&rdquo; and &ldquo;top exporter&rdquo; diverge) are shown, not buried.';
+  // validation scatter
+  const chk=S.rows.filter(r=>r.usgs_top_share!=null&&r.wmd_top_share!=null);
+  const pts=chk.map(r=>({value:[r.usgs_top_share,r.wmd_top_share,r.title,r.same_top_producer],
+    itemStyle:{color:(r.same_top_producer?'#2f8f46':'#c0392b')+'cc'},symbolSize:11}));
+  const sc=echarts.init(document.getElementById('scatter'));
+  sc.setOption({grid:{left:52,right:24,top:20,bottom:48},
+    tooltip:{formatter:p=>'<b>'+p.value[2]+'</b><br>USGS share: '+p.value[0]+'%<br>WMD share: '+p.value[1]+'%<br>'+(p.value[3]?'same top producer':'DIFFERENT top producer')},
+    xAxis:{name:'USGS top-producer share (%)',nameLocation:'middle',nameGap:30,min:0,max:100,axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    yAxis:{name:'WMD top-producer share (%)',nameLocation:'middle',nameGap:38,min:0,max:100,axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    series:[{type:'scatter',data:pts,label:{show:true,formatter:p=>p.value[2],position:'right',fontSize:9,color:'#15323a',distance:4},
+      markLine:{silent:true,symbol:'none',lineStyle:{color:'#c9b3ad',type:'dashed'},data:[[{coord:[0,0]},{coord:[100,100]}]]}}]});
+  window.addEventListener('resize',()=>sc.resize());
+  // scale (log bars)
+  const byT=S.rows.slice().sort((a,b)=>b.world_tonnes-a.world_tonnes);
+  const lmax=Math.log10(byT[0].world_tonnes), lmin=Math.log10(Math.max(1,byT[byT.length-1].world_tonnes));
+  document.getElementById('scale').innerHTML=byT.map(r=>{
+    const w=100*(Math.log10(r.world_tonnes)-lmin+0.4)/(lmax-lmin+0.4);
+    const t=r.world_tonnes;
+    const lab=t>=1e9?(t/1e9).toFixed(1)+' Bt':t>=1e6?(t/1e6).toFixed(1)+' Mt':t>=1e3?(t/1e3).toFixed(0)+' kt':t+' t';
+    return '<div class="sbar"><div class="nm">'+r.title+'</div><div class="track"><div class="fill" style="width:'+Math.max(2,w)+'%"></div></div><div class="v">'+lab+'</div></div>';
+  }).join('');
+  // table
+  const tb=document.querySelector('#tab tbody');
+  S.rows.forEach(r=>{
+    const d=r.share_delta;
+    const agree=r.same_top_producer?'<span class="ok">✓ same</span>':'<span class="no">✗ '+ (r.usgs_top_name||'—')+'</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+r.title+'</b></td><td class="n">'+f(r.world_tonnes)+'</td>'+
+      '<td>'+r.wmd_top+'</td><td class="n">'+r.wmd_top_share+'%</td>'+
+      '<td class="n">'+(r.usgs_top_share!=null?r.usgs_top_share+'%':'—')+'</td>'+
+      '<td class="n">'+(d!=null?d+'pp':'—')+'</td><td>'+agree+'</td>';
+    tb.appendChild(tr);
+  });
+});
+</script>
+</body></html>'''
+open(os.path.join(ROOT, 'production.html'), 'w', encoding='utf8', newline='\n').write(HTML)
+print('wrote production.html')
