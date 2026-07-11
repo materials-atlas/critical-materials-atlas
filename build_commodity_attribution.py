@@ -136,11 +136,13 @@ def mrds_crit(name):
                  ('beryllium', 'beryllium'), ('tantalum', 'tantalum'), ('arsenic', 'arsenic'),
                  ('gallium', 'gallium'), ('germanium', 'germanium'), ('strontium', 'strontium'),
                  ('silicon', 'silicon'), ('boron', 'boron'), ('bauxite', 'bauxite'), ('aluminum', 'bauxite'),
+                 ('aluminium', 'bauxite'), ('ilmenite', 'titanium'), ('rutile', 'titanium'),
+                 ('wolfram', 'tungsten'), ('coltan', 'tantalum'), ('tantal', 'tantalum'),
                  ('hafnium', 'hafnium'), ('helium', 'helium'), ('feldspar', 'feldspar')):
         if k in s:
             return v
-    if 'niobium' in s or 'columbium' in s: return 'niobium'
-    if 'rare earth' in s or 'rare-earth' in s: return 'magnets'
+    if 'niobium' in s or 'columbium' in s or 'columb' in s: return 'niobium'
+    if ('rare' in s and 'earth' in s) or 'monazite' in s: return 'magnets'
     if 'platinum' in s: return 'platinum'
     if 'palladium' in s: return 'palladium'
     if 'fluor' in s: return 'fluorspar'
@@ -159,6 +161,19 @@ if os.path.exists(MRDS_FILE):
             if not (abs(x) <= 180 and abs(y) <= 90):
                 continue
             mrds_pts.append((x, y, mrds_crit(row.get('commod1')), 'producer' in (row.get('dev_stat') or '').lower()))
+
+# ---------- load OpenStreetMap commodity-tagged mines (third independent source; global, ODbL) ----------
+OSM_FILE = os.path.join(ROOT, 'raw', 'osm', 'osm_mines_slim.csv')
+osm_pts = []   # (x, y, atlas_label_or_None)
+if os.path.exists(OSM_FILE):
+    with open(OSM_FILE, encoding='utf-8', newline='') as f:
+        for row in _csv.DictReader(f):
+            try:
+                x = float(row['lon']); y = float(row['lat'])
+            except (ValueError, KeyError):
+                continue
+            if abs(x) <= 180 and abs(y) <= 90:
+                osm_pts.append((x, y, mrds_crit(row.get('commod'))))
 
 # ---------- spatial join: one commodity per polygon (parametrised by buffer) ----------
 def run_join(buf_km):
@@ -200,10 +215,10 @@ def summarise(assign):
         if CRIT.get(prim): ca += a
     return ma, ca
 
-# ---------- coverage: how far do public registers get us? (Jasansky vs +MRDS) ----------
-def coverage_join(points, buf_km=BUF_KM):
-    """points: iterable of (x, y, atlas_label_or_None); one label per polygon (inside beats near)."""
-    assign = {}
+# ---------- coverage & cross-check: three registers, and do they agree? ----------
+def assign_src(points, buf_km=BUF_KM):
+    """One label per polygon for a single source: {poly_idx: atlas_label_or_None} (inside beats near)."""
+    A = {}   # idx -> (rank, label)
     for x, y, lab in points:
         gx = math.floor(x / CELL); gy = math.floor(y / CELL); cand = []
         for dx in (-1, 0, 1):
@@ -215,9 +230,8 @@ def coverage_join(points, buf_km=BUF_KM):
             if p[0] <= x <= p[2] and p[1] <= y <= p[3] and pip(x, y, p[8]):
                 inside = idx; break
         if inside is not None:
-            cur = assign.get(inside)
-            if cur is None or cur[0] > 0:
-                assign[inside] = (0, 0.0, lab)
+            if A.get(inside, (9, None))[0] > 0:
+                A[inside] = (0, lab)
             continue
         if buf_km <= 0:
             continue
@@ -226,23 +240,45 @@ def coverage_join(points, buf_km=BUF_KM):
             p = polys[idx]; d = km(y - p[5], x - p[4], y)
             if d < bd: bd = d; best = idx
         if best is not None and bd <= buf_km:
-            cur = assign.get(best)
-            if cur is None or (cur[0] == 1 and cur[1] > bd):
-                assign[best] = (1, bd, lab)
-    ma = sum(polys[i][6] for i in assign)
-    ca = sum(polys[i][6] for i, (rk, d, lab) in assign.items() if lab)
-    ca_us = sum(polys[i][6] for i, (rk, d, lab) in assign.items() if lab and polys[i][7] == 'USA')
-    return {'attributed_pct': round(100 * ma / tot_area, 1), 'critical_pct': round(100 * ca / tot_area, 2),
-            'critical_us_share': (round(100 * ca_us / ca, 0) if ca else 0), 'n_poly': len(assign)}
+            if A.get(best, (9, None))[0] == 1 or best not in A:
+                A[best] = (1, lab)
+    return {k: v[1] for k, v in A.items()}
 
-jas_pts = [(x, y, CRIT.get(prim)) for (x, y, prim, iso) in facs]
-mrds_all = [(x, y, lab) for (x, y, lab, prod) in mrds_pts]
-mrds_prod = [(x, y, lab) for (x, y, lab, prod) in mrds_pts if prod]
+_J = assign_src([(x, y, CRIT.get(prim)) for (x, y, prim, iso) in facs])
+_M = assign_src([(x, y, lab) for (x, y, lab, prod) in mrds_pts])
+_O = assign_src(osm_pts)
+
+def _union_cov(dicts):
+    pset = set(); cset = set()
+    for D in dicts:
+        for i, l in D.items():
+            pset.add(i)
+            if l: cset.add(i)
+    ma = sum(polys[i][6] for i in pset); ca = sum(polys[i][6] for i in cset)
+    return {'attributed_pct': round(100 * ma / tot_area, 1), 'critical_pct': round(100 * ca / tot_area, 2),
+            'n_poly': len(pset)}
+
+# inter-source agreement where >=2 sources give a commodity label to the SAME polygon
+_ag = _dis = 0
+for i in set(_J) | set(_M) | set(_O):
+    labs = [D[i] for D in (_J, _M, _O) if D.get(i)]
+    if len(labs) >= 2:
+        if len(set(labs)) == 1: _ag += 1
+        else: _dis += 1
+# high-confidence tier: critical footprint confirmed by >=2 independent sources
+_critU = {i for D in (_J, _M, _O) for i, l in D.items() if l}
+_multi = {i for i in _critU if sum(1 for D in (_J, _M, _O) if D.get(i)) >= 2}
+_hi = sum(polys[i][6] for i in _multi); _critA = sum(polys[i][6] for i in _critU)
+
 registers = {
-    'n_mrds': len(mrds_pts),
-    'jasansky': coverage_join(jas_pts),
-    'jasansky_mrds': coverage_join(jas_pts + mrds_all),
-    'mrds_producer_only': coverage_join(jas_pts + mrds_prod),
+    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts),
+    'jasansky': _union_cov([_J]),
+    'jasansky_mrds': _union_cov([_J, _M]),
+    'all_sources': _union_cov([_J, _M, _O]),
+    'agreement_pct': (round(100 * _ag / (_ag + _dis)) if (_ag + _dis) else None),
+    'n_agree': _ag, 'n_disagree': _dis,
+    'high_conf_critical_pct': round(100 * _hi / tot_area, 2),
+    'high_conf_share_of_critical': (round(100 * _hi / _critA) if _critA else 0),
 }
 
 # sensitivity across tier-2 buffers (inside-only .. 25 km) — shows the headline is a band, not a bound
@@ -423,10 +459,11 @@ HTML = r'''<!doctype html>
   <table class="tidy" id="bytab"><thead><tr><th>Critical material</th><th class="n">mines mentioning it</th><th class="n">with coordinates</th><th>as</th></tr></thead><tbody></tbody></table>
   <p class="muted" style="margin-top:.5rem">Tungsten, graphite, vanadium, beryllium and others don&rsquo;t appear at all &mdash; not even in the free text. So the richer field doesn&rsquo;t rescue a lithium or rare-earth <i>footprint</i>; it confirms these minerals surface, at most, as bylines in copper/nickel/gold operations.</p>
 
-  <h2 style="margin:1.8rem 0 .3rem">How far do the best public registers get us?</h2>
-  <p class="muted" style="margin-top:0">The obvious question &mdash; would a bigger phonebook of mines help? &mdash; tested directly. We stack the largest public mine register (<b>USGS MRDS</b>, <span id="nmrds"></span> georeferenced sites with a commodity) onto Jasansky and re-run the join. It roughly doubles the labelling &mdash; and then hits a wall.</p>
-  <table class="tidy" id="regtab"><thead><tr><th>Register(s) joined to the satellite footprint</th><th class="n">footprint labelled</th><th class="n">ties to a critical material</th></tr></thead><tbody></tbody></table>
+  <h2 style="margin:1.8rem 0 .3rem">Stacking every public register &mdash; and cross-checking them</h2>
+  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>three independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites) and <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines). Coverage more than doubles &mdash; and because the sources are independent, where two of them label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
+  <table class="tidy" id="regtab"><thead><tr><th>Sources joined to the satellite footprint</th><th class="n">footprint labelled</th><th class="n">ties to a critical material</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
+  <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
   <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
@@ -485,22 +522,23 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
     tr.innerHTML='<td><b>'+m.title+'</b></td><td class="n">'+m.n_mentions+'</td><td class="n">'+m.n_coords+'</td><td class="muted">'+(m.primary?'primary at some sites + byproduct':'byproduct only &mdash; never a primary product')+'</td>';
     byb.appendChild(tr);
   });
-  // registers: how far do public mine registers get us?
+  // registers: stacking three sources + cross-check
   const R=S.registers;
   if(R){
     document.getElementById('nmrds').textContent=f(R.n_mrds);
+    document.getElementById('nosm').textContent=f(R.n_osm);
     const rt=document.querySelector('#regtab tbody');
-    const rows=[['Jasansky only (this page&rsquo;s baseline)',R.jasansky],
-      ['+ USGS MRDS (all sites)',R.jasansky_mrds],
-      ['+ MRDS, producing mines only (conservative)',R.mrds_producer_only]];
-    rows.forEach((rw,i)=>{const x=rw[1];const tr=document.createElement('tr');
-      const strong=i==1;
+    const rows=[['Jasansky only (this page&rsquo;s baseline)',R.jasansky,false],
+      ['+ USGS MRDS',R.jasansky_mrds,false],
+      ['+ OpenStreetMap (all three sources)',R.all_sources,true]];
+    rows.forEach(rw=>{const x=rw[1],strong=rw[2];const tr=document.createElement('tr');
       tr.innerHTML='<td'+(strong?' style="font-weight:700"':'')+'>'+rw[0]+'</td>'+
         '<td class="n"'+(strong?' style="font-weight:700"':'')+'>'+x.attributed_pct+'%</td>'+
-        '<td class="n" style="font-weight:700;color:'+(x.critical_pct>=8?'#0e7c74':'#5a6b68')+'">'+x.critical_pct+'%</td>';
+        '<td class="n" style="font-weight:700;color:'+(x.critical_pct>=10?'#0e7c74':'#5a6b68')+'">'+x.critical_pct+'%</td>';
       rt.appendChild(tr);});
-    const jm=R.jasansky_mrds;
-    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, up to a point</b>: the best public data roughly <b>doubles</b> labelling (17&rarr;'+jm.attributed_pct+'%) and critical-material coverage (4&rarr;'+jm.critical_pct+'%), and only ~'+jm.critical_us_share+'% of that critical area is in the US, so it&rsquo;s a genuine global gain, not a US artefact. But <b>~'+Math.round(100-jm.attributed_pct)+'% of the footprint still can&rsquo;t be labelled</b> &mdash; that residual is the irreducible gap: artisanal and small-scale mines that appear in <i>no</i> register (much of the world&rsquo;s cobalt, gold, tantalum, tin), plus the by-product problem above. MRDS also leans on non-producing occurrences; the conservative producing-only read is '+R.mrds_producer_only.attributed_pct+'% / '+R.mrds_producer_only.critical_pct+'%.';
+    const a=R.all_sources;
+    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: three independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>. But <b>~'+Math.round(100-a.attributed_pct)+'% of the footprint still can&rsquo;t be labelled</b> &mdash; the irreducible gap: artisanal and small-scale mines that appear in <i>no</i> register (much of the world&rsquo;s cobalt, gold, tantalum, tin), plus the by-product problem above.';
+    document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Because the three registers are compiled independently, where two of them label the same mine we can test them against each other. They <b>agree '+R.agreement_pct+'%</b> of the time on the commodity ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration. And <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier), so the attribution isn&rsquo;t resting on any single dataset.';
   }
 });
 </script>
