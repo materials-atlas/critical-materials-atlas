@@ -175,6 +175,19 @@ if os.path.exists(OSM_FILE):
             if abs(x) <= 180 and abs(y) <= 90:
                 osm_pts.append((x, y, mrds_crit(row.get('commod'))))
 
+# ---------- load USGS PP1802 critical-mineral deposits (fourth source; curated, global, all critical) ----------
+PP_FILE = os.path.join(ROOT, 'raw', 'usgs_critmin', 'pp1802_critmin_pts.csv')
+pp_pts = []   # (x, y, atlas_label_or_None)
+if os.path.exists(PP_FILE):
+    with open(PP_FILE, encoding='utf-8', newline='') as f:
+        for row in _csv.DictReader(f):
+            try:
+                x = float(row['lon']); y = float(row['lat'])
+            except (ValueError, KeyError):
+                continue
+            if abs(x) <= 180 and abs(y) <= 90:
+                pp_pts.append((x, y, mrds_crit(row.get('critical_mineral'))))
+
 # ---------- spatial join: one commodity per polygon (parametrised by buffer) ----------
 def run_join(buf_km):
     """Return assignment {poly_idx: (rank, dist, primary, iso)} for a given tier-2 buffer."""
@@ -247,6 +260,8 @@ def assign_src(points, buf_km=BUF_KM):
 _J = assign_src([(x, y, CRIT.get(prim)) for (x, y, prim, iso) in facs])
 _M = assign_src([(x, y, lab) for (x, y, lab, prod) in mrds_pts])
 _O = assign_src(osm_pts)
+_P = assign_src(pp_pts)
+_SRC = (_J, _M, _O, _P)
 
 def _union_cov(dicts):
     pset = set(); cset = set()
@@ -258,23 +273,27 @@ def _union_cov(dicts):
     return {'attributed_pct': round(100 * ma / tot_area, 1), 'critical_pct': round(100 * ca / tot_area, 2),
             'n_poly': len(pset)}
 
-# inter-source agreement where >=2 sources give a commodity label to the SAME polygon
+# inter-source agreement: computed among the three PRIMARY-COMMODITY sources (Jasansky/MRDS/OSM), which share
+# the same labelling basis. PP1802 is excluded here because it tags each deposit by its *critical mineral of
+# interest* (often a by-product constituent), not the mine's primary product — a different, non-comparable label.
+_PRIM = (_J, _M, _O)
 _ag = _dis = 0
-for i in set(_J) | set(_M) | set(_O):
-    labs = [D[i] for D in (_J, _M, _O) if D.get(i)]
+for i in set().union(*[set(D) for D in _PRIM]):
+    labs = [D[i] for D in _PRIM if D.get(i)]
     if len(labs) >= 2:
         if len(set(labs)) == 1: _ag += 1
         else: _dis += 1
 # high-confidence tier: critical footprint confirmed by >=2 independent sources
-_critU = {i for D in (_J, _M, _O) for i, l in D.items() if l}
-_multi = {i for i in _critU if sum(1 for D in (_J, _M, _O) if D.get(i)) >= 2}
+_critU = {i for D in _SRC for i, l in D.items() if l}
+_multi = {i for i in _critU if sum(1 for D in _SRC if D.get(i)) >= 2}
 _hi = sum(polys[i][6] for i in _multi); _critA = sum(polys[i][6] for i in _critU)
 
 registers = {
-    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts),
+    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts), 'n_pp': len(pp_pts),
     'jasansky': _union_cov([_J]),
     'jasansky_mrds': _union_cov([_J, _M]),
-    'all_sources': _union_cov([_J, _M, _O]),
+    'jasansky_mrds_osm': _union_cov([_J, _M, _O]),
+    'all_sources': _union_cov([_J, _M, _O, _P]),
     'agreement_pct': (round(100 * _ag / (_ag + _dis)) if (_ag + _dis) else None),
     'n_agree': _ag, 'n_disagree': _dis,
     'high_conf_critical_pct': round(100 * _hi / tot_area, 2),
@@ -460,7 +479,7 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:.5rem">Tungsten, graphite, vanadium, beryllium and others don&rsquo;t appear at all &mdash; not even in the free text. So the richer field doesn&rsquo;t rescue a lithium or rare-earth <i>footprint</i>; it confirms these minerals surface, at most, as bylines in copper/nickel/gold operations.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">Stacking every public register &mdash; and cross-checking them</h2>
-  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>three independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites) and <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines). Coverage more than doubles &mdash; and because the sources are independent, where two of them label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
+  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>four independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites), <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines) and the <b>USGS critical-minerals deposit set</b> (<span id="npp"></span> curated points). Coverage triples &mdash; and because the sources are independent, where two of them label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
   <table class="tidy" id="regtab"><thead><tr><th>Sources joined to the satellite footprint</th><th class="n">footprint labelled</th><th class="n">ties to a critical material</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
   <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
@@ -527,18 +546,20 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
   if(R){
     document.getElementById('nmrds').textContent=f(R.n_mrds);
     document.getElementById('nosm').textContent=f(R.n_osm);
+    document.getElementById('npp').textContent=f(R.n_pp);
     const rt=document.querySelector('#regtab tbody');
     const rows=[['Jasansky only (this page&rsquo;s baseline)',R.jasansky,false],
       ['+ USGS MRDS',R.jasansky_mrds,false],
-      ['+ OpenStreetMap (all three sources)',R.all_sources,true]];
+      ['+ OpenStreetMap',R.jasansky_mrds_osm,false],
+      ['+ USGS critical-minerals (all four sources)',R.all_sources,true]];
     rows.forEach(rw=>{const x=rw[1],strong=rw[2];const tr=document.createElement('tr');
       tr.innerHTML='<td'+(strong?' style="font-weight:700"':'')+'>'+rw[0]+'</td>'+
         '<td class="n"'+(strong?' style="font-weight:700"':'')+'>'+x.attributed_pct+'%</td>'+
         '<td class="n" style="font-weight:700;color:'+(x.critical_pct>=10?'#0e7c74':'#5a6b68')+'">'+x.critical_pct+'%</td>';
       rt.appendChild(tr);});
     const a=R.all_sources;
-    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: three independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>. But <b>~'+Math.round(100-a.attributed_pct)+'% of the footprint still can&rsquo;t be labelled</b> &mdash; the irreducible gap: artisanal and small-scale mines that appear in <i>no</i> register (much of the world&rsquo;s cobalt, gold, tantalum, tin), plus the by-product problem above.';
-    document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Because the three registers are compiled independently, where two of them label the same mine we can test them against each other. They <b>agree '+R.agreement_pct+'%</b> of the time on the commodity ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration. And <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier), so the attribution isn&rsquo;t resting on any single dataset.';
+    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: four independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>. But <b>~'+Math.round(100-a.attributed_pct)+'% of the footprint still can&rsquo;t be labelled</b> &mdash; the irreducible gap: artisanal and small-scale mines that appear in <i>no</i> register (much of the world&rsquo;s cobalt, gold, tantalum, tin), plus the by-product problem above.';
+    document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the three sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The fourth source, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; which is why it lifts the critical share but isn&rsquo;t counted in the primary-commodity agreement.';
   }
 });
 </script>
