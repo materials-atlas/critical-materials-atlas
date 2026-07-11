@@ -31,7 +31,8 @@
       ['network.html', 'Trade-network chokepoints'],
       ['complexity.html', 'Economic complexity'],
       ['origin.html', 'Origin trace'],
-      ['criticality.html', 'Governance-weighted criticality'] ] },
+      ['criticality.html', 'Governance-weighted criticality'],
+      ['geopolrisk.html', 'Concentration in tonnes (GeoPolRisk)'] ] },
     { label: 'Risk', items: [
       ['risk.html', 'Supply-risk index'],
       ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
