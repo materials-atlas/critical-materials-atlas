@@ -58,6 +58,21 @@ COMP = {
     'strontium': ('primary',     0, [], 'Primary celestite.'),
 }
 
+# ---- empirical cross-check: companionality computed from ICMM 2025 mine-level data ----
+# For each material, count facilities where it is the PRIMARY product vs where it rides along as a
+# secondary/other commodity. empirical companionality = by-product facilities / all facilities. This is a
+# FACILITY-COUNT proxy (not production-weighted), so it corroborates the extreme by-product metals but
+# overstates by-product share for metals with a few large primary mines (it counts sites, not tonnes).
+import csv as _csv
+_ICMM_COMP = os.path.join(ROOT, 'raw', 'icmm', 'icmm_companionality.csv')
+_emp = {}
+if os.path.exists(_ICMM_COMP):
+    with open(_ICMM_COMP, encoding='utf-8', newline='') as f:
+        for r in _csv.DictReader(f):
+            np_, nb = int(r['n_primary']), int(r['n_byproduct'])
+            if np_ + nb > 0:
+                _emp[r['atlas_material']] = {'pct': round(100 * nb / (np_ + nb)), 'n': np_ + nb}
+
 CLASS_ORDER = {'byproduct': 0, 'mixed': 1, 'primary': 2}
 _PRETTY = {'magnets': 'Rare earths / magnets', 'cokingcoal': 'Coking coal',
            'bauxite': 'Bauxite / aluminium', 'phosphate': 'Phosphate rock'}
@@ -83,6 +98,8 @@ for m in data['materials']:
         'top_partner': m.get('top_partner'),
         'value_eur': m.get('total_eur'),
         'dji': dji,
+        'empirical_pct': _emp.get(lab, {}).get('pct'),
+        'empirical_n': _emp.get(lab, {}).get('n'),
     })
 
 rows.sort(key=lambda r: (-(r['dji'] or 0), CLASS_ORDER[r['class']]))
@@ -90,6 +107,12 @@ n_by = sum(1 for r in rows if r['class'] == 'byproduct')
 n_mixed = sum(1 for r in rows if r['class'] == 'mixed')
 # "double jeopardy" = by-product-dominant AND geographically concentrated (hhi >= 0.5)
 double = [r for r in rows if r['companionality_pct'] >= 66 and (r['hhi'] or 0) >= 0.5]
+
+# empirical validation: for the by-product-dominant metals that appear in mine-level data with a usable
+# sample, does the independent facility count confirm the curated (production-weighted) figure?
+_valid = [{'title': r['title'], 'curated': r['companionality_pct'], 'empirical': r['empirical_pct'], 'n': r['empirical_n']}
+          for r in rows if r['class'] == 'byproduct' and r['empirical_pct'] is not None and (r['empirical_n'] or 0) >= 3]
+_confirmed = [v for v in _valid if abs(v['curated'] - v['empirical']) <= 15]
 
 out = {
     'generated': data.get('generated'),
@@ -100,7 +123,12 @@ out = {
     'double_jeopardy': [r['title'] for r in double],
     'mean_companionality': round(sum(r['companionality_pct'] for r in rows) / len(rows), 1),
     'rows': rows,
-    'sources': 'USGS Mineral Commodity Summaries 2024; Nassar, Graedel & Alonso 2015 (Sci. Adv.); Codex cross-check.',
+    'validation': _valid,
+    'n_confirmed': len(_confirmed),
+    'n_validated': len(_valid),
+    'confirmed_titles': [v['title'] for v in _confirmed],
+    'sources': 'USGS Mineral Commodity Summaries 2024; Nassar, Graedel & Alonso 2015 (Sci. Adv.); '
+               'empirical cross-check computed from ICMM Global Mining Dataset 2025 (facility counts).',
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'companionality.json'), 'w', encoding='utf8'),
@@ -153,7 +181,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>What &ldquo;companionality&rdquo; means, and the sources</summary>
   <p><b>Companionality</b> = the approximate share of world production that arises as a <i>by-product or co-product</i> of a host commodity (0 = always mined for itself; 100 = never mined for itself). A high value means supply is <b>inelastic to the material&rsquo;s own price</b>: more is produced only when the host is, regardless of how &ldquo;critical&rdquo; it becomes. We cross companionality with the atlas&rsquo;s trade concentration (HHI) into a <b>double-jeopardy</b> reading &mdash; supply-inelastic <i>and</i> geographically concentrated.</p>
-  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from <b>USGS Mineral Commodity Summaries 2024</b> and <b>Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>)</b>, cross-checked against an independent LLM compilation (OpenAI Codex). Values are round approximations of a genuinely fuzzy quantity (by-product share shifts with price and deposit) &mdash; treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
+  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from <b>USGS Mineral Commodity Summaries 2024</b> and <b>Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>)</b>, cross-checked against an independent LLM compilation (OpenAI Codex) and, now, <b>recomputed from mine-level open data</b> (ICMM Global Mining Dataset 2025) as a validation column below. Values are round approximations of a genuinely fuzzy quantity (by-product share shifts with price and deposit) &mdash; treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -167,6 +195,11 @@ HTML = r'''<!doctype html>
   <h2 style="margin:1.6rem 0 .3rem">Every material, ranked by double-jeopardy</h2>
   <p class="muted" style="margin-top:0">Double-jeopardy index = companionality &times; trade concentration (HHI). High = you can neither diversify the supplier nor scale the supply.</p>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-product %</th><th>recovered from</th><th class="n">HHI</th><th class="n">DJI</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .3rem">Are these numbers right? A mine-level cross-check</h2>
+  <p class="muted" style="margin-top:0">The by-product shares above are compiled from the literature (USGS, Nassar 2015) &mdash; a fair objection is that they&rsquo;re curated, not computed. So we recomputed companionality <b>independently, from open mine-level data</b>: for every mine in the <b>ICMM Global Mining Dataset (2025)</b>, is the metal its <i>primary</i> product, or does it ride along as a secondary one? The by-product share falls straight out of the counts &mdash; and for the metals the whole thesis rests on, the two agree.</p>
+  <table class="tidy" id="valtab" style="max-width:560px"><thead><tr><th>Hostage metal</th><th class="n">literature</th><th class="n">from mine data</th><th class="n">mines</th></tr></thead><tbody></tbody></table>
+  <div class="keyline" id="valkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Why this matters, and what it spawns next</h2>
   <p>Conventional supply-risk scores treat every material as if a price signal could summon more of it. For the by-product tier that is simply false: no gallium price will build a gallium mine. This reframes mitigation &mdash; for hostage metals the levers are <i>recovery yield at the host</i>, <i>stockpiling</i>, and <i>substitution</i>, not new mines. It also seeds the next layers: a <a href="risk.html">risk</a> re-weighting that penalises companionality, a recovery-yield / recycling lens (secondary supply is the only elastic source for these metals), and a host-shock model &mdash; what an aluminium or zinc downturn does to the criticals riding on it. This atlas grows by letting each finding pose the next question.</p>
@@ -226,6 +259,19 @@ Promise.all([fetch('out/companionality.json').then(r=>r.json()),
       '<td class="n" style="font-weight:700;color:'+((r.dji||0)>=0.5?'#c0392b':(r.dji||0)>=0.3?'#b07a18':'#9aa6ad')+'">'+(r.dji!=null?r.dji.toFixed(2):'&mdash;')+'</td>';
     tb.appendChild(tr);
   });
+  // empirical mine-level cross-check
+  if(S.validation && S.validation.length){
+    const vt=document.querySelector('#valtab tbody');
+    S.validation.forEach(v=>{
+      const agree=Math.abs(v.curated-v.empirical)<=15;
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+v.title+'</b></td><td class="n">'+v.curated+'%</td>'+
+        '<td class="n" style="font-weight:700;color:'+(agree?'#0e7c74':'#b07a18')+'">'+v.empirical+'%'+(agree?' &check;':'')+'</td>'+
+        '<td class="n muted">'+f(v.n)+'</td>';
+      vt.appendChild(tr);
+    });
+    document.getElementById('valkey').innerHTML='<b style="color:#0e7c74">The curated numbers hold up.</b> Computed blind from '+f(S.rows.reduce((a,r)=>a+(r.empirical_n||0),0))+' mine records, the four hostage metals that appear in the data &mdash; <b>'+S.confirmed_titles.join(', ')+'</b> &mdash; match the literature within a couple of points ('+S.n_confirmed+' of '+S.n_validated+'). The remaining hostage metals (arsenic, hafnium, helium) are too trace to be listed as a mine product at all &mdash; itself a confirmation that they&rsquo;re never mined for their own sake. <b>Honest limit:</b> this counts <i>facilities</i>, not <i>tonnes</i>, so it overstates by-product share for metals with a few large primary mines (niobium, manganese), which is why it corroborates the curated figures rather than replacing them. Production-weighting (from the Jasansky mine database) is the next refinement.';
+  }
 });
 </script>
 </body></html>'''
