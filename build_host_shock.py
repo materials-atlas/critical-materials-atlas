@@ -25,15 +25,23 @@ RS = {r['label']: r['score'] for r in risk['materials']}
 HOSTNAME = {'natural gas': 'Natural gas', 'steel slag': 'Steel slag', 'mineral sands': 'Mineral sands'}
 def hn(h): return HOSTNAME.get(h, h[:1].upper() + h[1:])
 
-hosts = defaultdict(list)   # host -> [{companion, title, exposure, comp_pct, risk}]
+# sensitivity band: companionality is a genuinely fuzzy quantity (the companionality page reports it as tiers,
+# not decimals, and the curated vs mine-level-empirical figures differ by a few points). So we carry a +-BAND pp
+# band on companionality through the exposure, giving each loss a low/central/high range instead of a false point.
+BAND = 15
+hosts = defaultdict(list)   # host -> [{companion, title, exposure, exp_lo, exp_hi, comp_pct, risk}]
 for r in comp['rows']:
     cp = r['companionality_pct']
     hs = r['hosts']
     if cp <= 0 or not hs:
         continue
-    exp = (cp / 100.0) / len(hs)
+    nh = len(hs)
+    exp = (cp / 100.0) / nh
+    exp_lo = (max(0, cp - BAND) / 100.0) / nh
+    exp_hi = (min(100, cp + BAND) / 100.0) / nh
     for h in hs:
         hosts[h].append({'label': r['label'], 'title': r['title'], 'exposure': round(exp, 3),
+                         'exp_lo': round(exp_lo, 3), 'exp_hi': round(exp_hi, 3),
                          'comp_pct': cp, 'risk': RS.get(r['label'], 0)})
 
 host_rows = []
@@ -48,9 +56,24 @@ for h, comps in hosts.items():
     })
 host_rows.sort(key=lambda r: -r['payload'])
 
+# shock-stage labels: a host disruption propagates differently depending on WHERE it hits. The companionality
+# link (physical co-production) validly represents mine- and smelter/refinery-stage shocks; a trade embargo is a
+# different mechanism (flow, not production) that the trade-network / cascade layers handle, so we route it there
+# rather than misapply the co-production model.
+STAGES = [
+    {'id': 'mine', 'name': 'Mine / ore', 'passthrough': 1.0, 'applies': True,
+     'note': 'Ore not mined = the by-product embedded in it is never recovered. Full physical pass-through — the companionality link applies directly.'},
+    {'id': 'smelter', 'name': 'Smelter / refinery', 'passthrough': 1.0, 'applies': True,
+     'note': 'Most companions are recovered AT the smelter/refinery (gallium in the Bayer process, germanium from zinc refining). An outage there cuts by-product recovery even if ore keeps flowing — the companionality link still applies.'},
+    {'id': 'trade', 'name': 'Trade embargo', 'passthrough': None, 'applies': False,
+     'note': 'A trade cut-off restricts the FLOW of host or refined material, not its production, so it propagates by trade concentration, not co-production. This model does not represent it — see the cascade and trade-network layers, which do.'},
+]
+
 out = {
     'generated': comp.get('generated'),
     'default_shock_pct': 25,
+    'band_pp': BAND,
+    'stages': STAGES,
     'n_hosts': len(host_rows),
     'top_host': host_rows[0]['name'] if host_rows else None,
     'hosts': host_rows,
@@ -85,11 +108,14 @@ HTML = r'''<!doctype html>
  .sim .ctl{display:flex;gap:1.2rem;align-items:center;flex-wrap:wrap;margin-bottom:.6rem}
  .sim select,.sim input[type=range]{accent-color:#0e7c74}
  .sim select{padding:.3rem .5rem;border:1px solid #cdd8d5;border-radius:6px;font:inherit}
- .barrow{display:grid;grid-template-columns:150px 1fr 66px;align-items:center;gap:.6rem;margin:.25rem 0;font-size:.86rem}
+ .barrow{display:grid;grid-template-columns:150px 1fr 84px;align-items:center;gap:.6rem;margin:.3rem 0;font-size:.86rem}
  .barrow .nm{text-align:right;font-weight:600;color:#15323a}
- .barrow .track{background:#e7ecea;border-radius:5px;height:18px;overflow:hidden}
+ .barrow .track{background:#e7ecea;border-radius:5px;height:18px;overflow:hidden;position:relative}
  .barrow .fill{height:100%;background:#c0392b;border-radius:5px}
- .barrow .v{text-align:right;color:#c0392b;font-weight:700;font-variant-numeric:tabular-nums}
+ .barrow .rng{position:absolute;top:0;height:100%;background:rgba(192,57,43,.16);border-right:2px solid rgba(192,57,43,.5)}
+ .barrow .v{text-align:right;color:#c0392b;font-weight:700;font-variant-numeric:tabular-nums;font-size:.82rem}
+ .stagebox{background:#fbf3f2;border:1px solid #f0d9d5;border-left:3px solid #c0392b;border-radius:8px;padding:.7rem .9rem;font-size:.85rem;color:#5a6b68}
+ .stagebox a{color:#0e7c74}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -116,9 +142,12 @@ HTML = r'''<!doctype html>
     <h3 style="margin:.1rem 0 .5rem;font-size:1rem;color:#15323a">Shock a host, watch the companions bleed</h3>
     <div class="ctl">
       <label>Host commodity &nbsp;<select id="host"></select></label>
+      <label>Shock stage &nbsp;<select id="stage"></select></label>
       <label>Shock &nbsp;<input type="range" id="shock" min="5" max="60" step="5" value="25"> <b id="shockv">25%</b> output cut</label>
     </div>
+    <div id="stagenote" class="muted" style="margin:.1rem 0 .5rem;font-size:.8rem"></div>
     <div id="simout"></div>
+    <p class="muted" style="margin:.5rem 0 0;font-size:.78rem">Bars show the <b>central exposure bound</b>; the faint marker is the low&ndash;high range from a &plusmn;<span id="bandpp">15</span>pp uncertainty on companionality. These are <b>bounds on supply at risk, not forecasts</b> &mdash; recovery lags, stockpiles and spot trade absorb part of any real shock.</p>
   </div>
 
   <h2 style="margin:1.6rem 0 .3rem">The bulk commodities that gate critical supply</h2>
@@ -132,7 +161,7 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="scenarios.html">Shock scenarios</a><br><a href="methodology.html">Methodology</a></div>
   <div><h4>Sources</h4>Companionality (USGS MCS 2024 · Nassar et al. 2015) × supply-risk index</div>
-  <div class="fineprint">A first-order systemic map: host shares are split evenly and pass-through assumed linear.</div>
+  <div class="fineprint">A first-order systemic map (the <a href="shock-methods.html" style="color:#9aa6ad;text-decoration:underline">method study</a>&rsquo;s chosen spine): outputs are exposure bounds with a &plusmn;15pp companionality band, tagged by shock stage; host shares split evenly, pass-through linear.</div>
 </div></footer>
 <script>
 fetch('out/host_shock.json').then(r=>r.json()).then(S=>{
@@ -149,15 +178,23 @@ fetch('out/host_shock.json').then(r=>r.json()).then(S=>{
   // simulator
   const sel=document.getElementById('host');
   H.forEach((h,i)=>{const o=document.createElement('option');o.value=i;o.textContent=h.name+' — '+h.n_companions+' rider'+(h.n_companions>1?'s':'');sel.appendChild(o);});
-  const shock=document.getElementById('shock'),shockv=document.getElementById('shockv'),simout=document.getElementById('simout');
+  const stageSel=document.getElementById('stage'), STAGES=S.stages||[];
+  STAGES.forEach((st,i)=>{const o=document.createElement('option');o.value=i;o.textContent=st.name;stageSel.appendChild(o);});
+  if(document.getElementById('bandpp')) document.getElementById('bandpp').textContent=S.band_pp;
+  const shock=document.getElementById('shock'),shockv=document.getElementById('shockv'),simout=document.getElementById('simout'),stagenote=document.getElementById('stagenote');
   function render(){
-    const h=H[+sel.value], s=+shock.value; shockv.textContent=s+'%';
-    const rows=h.companions.map(c=>({t:c.title,loss:s*c.exposure})).sort((a,b)=>b.loss-a.loss);
-    const mx=Math.max.apply(null,rows.map(r=>r.loss),1);
-    simout.innerHTML='<p class="muted" style="margin:.2rem 0 .5rem">A <b>'+s+'%</b> cut to <b>'+h.name+'</b> output &rarr; estimated by-product supply loss:</p>'+
-      rows.map(r=>'<div class="barrow"><div class="nm">'+r.t+'</div><div class="track"><div class="fill" style="width:'+Math.max(2,100*r.loss/mx)+'%"></div></div><div class="v">−'+r.loss.toFixed(1)+'%</div></div>').join('');
+    const h=H[+sel.value], s=+shock.value, st=STAGES[+stageSel.value]||{applies:true}; shockv.textContent=s+'%';
+    stagenote.innerHTML=st.note?('<b>'+st.name+':</b> '+st.note):'';
+    if(st.applies===false){
+      simout.innerHTML='<div class="stagebox">A <b>'+st.name.toLowerCase()+'</b> doesn&rsquo;t cut <i>production</i>, so the co-production link above doesn&rsquo;t apply &mdash; this shock propagates by trade concentration. See the <a href="cascade.html">supply-shock cascade</a> and <a href="network.html">trade-network</a> layers, which model exactly that.</div>';
+      return;
+    }
+    const rows=h.companions.map(c=>({t:c.title,loss:s*c.exposure,lo:s*c.exp_lo,hi:s*c.exp_hi})).sort((a,b)=>b.loss-a.loss);
+    const mx=Math.max.apply(null,rows.map(r=>r.hi),1);
+    simout.innerHTML='<p class="muted" style="margin:.2rem 0 .5rem">A <b>'+s+'%</b> '+h.name+' <b>'+st.name.toLowerCase()+'</b> cut &rarr; by-product supply at risk (bound):</p>'+
+      rows.map(r=>'<div class="barrow"><div class="nm">'+r.t+'</div><div class="track"><div class="rng" style="left:'+(100*r.lo/mx)+'%;width:'+Math.max(1,100*(r.hi-r.lo)/mx)+'%"></div><div class="fill" style="width:'+Math.max(2,100*r.loss/mx)+'%"></div></div><div class="v">−'+r.loss.toFixed(1)+'%<br><span style="color:#9aa6ad;font-weight:400;font-size:.72rem">'+r.lo.toFixed(1)+'–'+r.hi.toFixed(1)+'</span></div></div>').join('');
   }
-  sel.value=0; sel.onchange=render; shock.oninput=render; render();
+  sel.value=0; stageSel.value=0; sel.onchange=render; stageSel.onchange=render; shock.oninput=render; render();
   // table
   const tb=document.querySelector('#tab tbody');
   H.forEach(h=>{
