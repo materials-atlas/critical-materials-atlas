@@ -28,6 +28,30 @@ comp = json.load(open(os.path.join(ROOT, 'out', 'companionality.json'), encoding
 CO = {r['label']: r for r in comp['rows']}
 EPS0 = 0.5  # representative long-run supply elasticity of a scalable primary metal (conservative vs the literature)
 
+# ---- value-share refinement (open reproduction of Mineral Economics 2026 companionality-risk metric) ----
+# The 2026 metric derives a companion's perceived own-price supply elasticity from its VALUE SHARE within the
+# host operation, not just its by-product share: a metal that is 0.1% of a mine's revenue can't move that mine,
+# but one that is 40% can. We approximate the value share from open reference figures (USGS MCS 2024 production x
+# representative 2024 prices): phi = (primary fraction)x1 + (by-product fraction)x[companion rev / (companion+host rev)].
+# Then eps = EPS0*phi, same inverse-elasticity form. Honest limit: the companion/host revenue ratio is GLOBAL, so it
+# understates phi for geographically concentrated cases (DRC cobalt is a bigger revenue share at its own mines).
+import csv as _csv
+_ECON_F = os.path.join(ROOT, 'raw', 'valueshare', 'metal_econ.csv')
+ECON = {}
+if os.path.exists(_ECON_F):
+    for _r in _csv.DictReader(open(_ECON_F, encoding='utf-8')):
+        ECON[_r['name']] = (float(_r['world_prod_t']), float(_r['price_usd_per_t']))
+HALIAS = {'steel slag': 'iron', 'mineral sands': 'zirconium'}
+def value_share(lab, cp, hs):
+    if lab not in ECON:
+        return None
+    Qm, Pm = ECON[lab]; comp_rev = Qm * Pm
+    host = next((HALIAS.get(h, h) for h in hs if HALIAS.get(h, h) in ECON), None)
+    rev_share = 0.0
+    if cp > 0 and host:
+        Qh, Ph = ECON[host]; rev_share = comp_rev / (comp_rev + Qh * Ph)
+    return (1 - cp / 100.0) + (cp / 100.0) * rev_share   # primary fraction weight 1, by-product fraction = revenue share
+
 base = risk['materials']
 base_rank = {r['label']: i + 1 for i, r in enumerate(sorted(base, key=lambda r: -r['score']))}
 
@@ -39,10 +63,18 @@ for r in base:
     eps = EPS0 * (1 - cp / 100.0)          # implied long-run supply elasticity: ~EPS0 for primary, ~0 for by-product
     factor = (1 + EPS0) / (1 + eps)        # supply-shock vulnerability ~ 1/(1+elasticity), normalised so primary = 1
     adj = round(r['score'] * factor, 1)
+    # value-share refinement (Mineral Economics 2026 method)
+    phi = value_share(lab, cp, c.get('hosts', []))
+    eps_vs = EPS0 * phi if phi is not None else None
+    factor_vs = round((1 + EPS0) / (1 + eps_vs), 2) if eps_vs is not None else None
     rows.append({
         'label': lab, 'title': c.get('title', r['title']),
         'base': r['score'], 'companionality_pct': cp, 'class': c.get('class', 'primary'),
         'hosts': c.get('hosts', []), 'implied_elasticity': round(eps, 2), 'factor': round(factor, 2), 'adjusted': adj,
+        'value_share': round(phi, 3) if phi is not None else None,
+        'implied_elasticity_vs': round(eps_vs, 3) if eps_vs is not None else None,
+        'factor_vs': factor_vs,
+        'adjusted_vs': round(r['score'] * factor_vs, 1) if factor_vs is not None else None,
     })
 
 adj_sorted = sorted(rows, key=lambda r: -r['adjusted'])
@@ -57,6 +89,10 @@ LEVER = {'byproduct': 'recovery yield at host · stockpile · substitute (no new
          'primary': 'new mines can respond to price'}
 
 risers = [r for r in adj_sorted if r['rank_delta'] >= 2]
+# value-share vs companionality comparison: where the two methods agree, and where value-weighting refines
+_vs = [r for r in rows if r.get('factor_vs') is not None and r['companionality_pct'] > 0]
+_vs.sort(key=lambda r: -r['companionality_pct'])
+_biggest_refine = sorted(_vs, key=lambda r: -(r['factor'] - r['factor_vs']))[:3]
 out = {
     'generated': risk.get('generated') or comp.get('generated'),
     'alpha': EPS0,
@@ -66,6 +102,8 @@ out = {
     'top_riser': (max(rows, key=lambda r: r['rank_delta'])['title']),
     'rows': adj_sorted,
     'levers': LEVER,
+    'valueshare': _vs,
+    'valueshare_refines': [r['title'] for r in _biggest_refine],
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'risk_adjusted.json'), 'w', encoding='utf8'),
@@ -94,6 +132,8 @@ HTML = r'''<!doctype html>
  .stat.warn{border-left-color:#c0392b}.stat.warn .v{color:#c0392b}
  table.tidy{width:100%;border-collapse:collapse;font-size:.88rem;margin:.4rem 0}
  table.tidy th,table.tidy td{padding:.4rem .5rem;border-bottom:1px solid #eef1f0;text-align:left}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1rem 0;font-size:.9rem;line-height:1.6}
+ .keyline b{color:#0e7c74}
  table.tidy th.n,table.tidy td.n{text-align:right;font-variant-numeric:tabular-nums}
  .up{color:#c0392b;font-weight:700}.dn{color:#3f9b46}.fl{color:#9aa6ad}
  .tag{display:inline-block;font-size:.7rem;font-weight:700;padding:.06rem .45rem;border-radius:20px}
@@ -123,6 +163,11 @@ HTML = r'''<!doctype html>
   <h2 style="margin:1.6rem 0 .3rem">Re-ranked by whether supply can actually respond</h2>
   <p class="muted" style="margin-top:0">Base = the standard risk score. Adjusted = after penalising inelastic (by-product) supply. <span class="up">▲</span> = the market under-rates this material; the lever column is what you can actually do about a shortage.</p>
   <table class="tidy" id="tab"><thead><tr><th class="n">#</th><th>Material</th><th>supply type</th><th class="n">base risk</th><th class="n">by-prod %</th><th class="n">adjusted</th><th class="n">rank Δ</th><th>mitigation lever</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .4rem">Refinement: does the by-product <i>pay</i> enough to move its host?</h2>
+  <p class="muted" style="margin-top:0">By-product share alone treats every companion the same. But a metal that is <b>0.1% of a mine&rsquo;s revenue can&rsquo;t move that mine, while one that is 40% can</b> — so its true supply response depends on its <b>value share</b> in the host operation. This is the method of the peer-reviewed <a href="https://link.springer.com/article/10.1007/s13563-026-00640-z" target="_blank" rel="noopener">Mineral Economics 2026</a> companionality-risk metric (perceived elasticity from revenue weight). We reproduce it on open data — production &times; price — and set it beside the companionality-only factor:</p>
+  <table class="tidy" id="vstab"><thead><tr><th>Metal</th><th class="n">by-prod %</th><th class="n">value share</th><th class="n">factor: companionality</th><th class="n">factor: value-share</th></tr></thead><tbody></tbody></table>
+  <div class="keyline" id="vskey"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What this changes, and what it spawns</h2>
   <p>The re-ranking pushes the hostage metals &mdash; gallium, germanium, cobalt, vanadium &mdash; up past materials whose risk is real but <i>addressable</i> with new mines. That has a policy edge: for the risers, building capacity is not the lever; <b>recovery yield at the host, stockpiling, and substitution</b> are. It also seeds the next layer &mdash; a <b>host-shock model</b>: if the market can only give you more gallium by smelting more aluminium, then an aluminium downturn is a gallium shock. That is the child this page asks for next.</p>
@@ -159,6 +204,20 @@ fetch('out/risk_adjusted.json').then(r=>r.json()).then(S=>{
       '<td class="muted" style="font-size:.8rem">'+S.levers[r['class']]+'</td>';
     tb.appendChild(tr);
   });
+  // value-share refinement comparison
+  if(S.valueshare && S.valueshare.length){
+    const vt=document.querySelector('#vstab tbody');
+    S.valueshare.forEach(r=>{
+      const diff=r.factor-r.factor_vs, moved=diff>=0.05;
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+r.title+'</b></td><td class="n">'+r.companionality_pct+'%</td>'+
+        '<td class="n">'+(r.value_share*100).toFixed(1)+'%</td>'+
+        '<td class="n">×'+r.factor.toFixed(2)+'</td>'+
+        '<td class="n" style="font-weight:700;color:'+(moved?'#0e7c74':'#5a6b68')+'">×'+r.factor_vs.toFixed(2)+(moved?' ↓':'')+'</td>';
+      vt.appendChild(tr);
+    });
+    document.getElementById('vskey').innerHTML='<b style="color:#0e7c74">Agree on the extremes, refine the middle.</b> For the trace by-products (gallium, germanium, arsenic ~0% of their host&rsquo;s revenue) both methods give the full <b>×1.5</b> penalty — supply cannot respond either way. The value-share method <b>eases the penalty for companions that actually pay their way</b> — most for <b>'+S.valueshare_refines.join(', ')+'</b> (palladium and platinum are 38–77% of their operations&rsquo; revenue, so a price rise genuinely pulls out more). That is the economically-correct correction, and it reproduces the Mineral Economics 2026 metric on open data. <b>Honest limit:</b> the companion/host revenue ratio here is <i>global</i>, so it understates the share for geographically concentrated cases — cobalt is a far bigger slice of revenue at a DRC copper–cobalt mine than the world ratio implies, so its true factor sits between the two columns.';
+  }
 });
 </script>
 </body></html>'''

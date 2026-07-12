@@ -67,6 +67,27 @@ Rscript build_static.R
 `index.html` reads `out/data.json` (mine/refine shares + EU lens) and `out/flows_<year>.json` (global
 trade, picked by the year slider) — no code change to add a material once its data is present.
 
+## Analytical suite
+
+Beyond the interactive map, the repo generates ~40 standalone analysis pages from ~35 `build_*.py`
+scripts — each emits a JSON artifact **and** a self-contained HTML page. Grouped roughly as the site
+nav does:
+
+- **Supply risk & criticality** — `build_risk.py`, `build_criticality.py`, `build_riskmethods.py`,
+  `build_risk_adjusted.py` (transparent multi-component supply-risk index, WGI governance-weighted)
+- **Supply structure** — `build_refining.py` (ore-vs-refined wedge), `build_network.py` /
+  `build_network_sensitivity.py` (chokepoint / PageRank), `build_companionality.py`,
+  `build_complexity.py`, `build_origin.py`
+- **Demand & scenarios** — `build_demand.py`, `build_net_demand.py`, `build_scenarios.py`,
+  `build_mining_expansion.py`, `build_recycling.py`, `build_trends.py`
+- **Rigor & cross-checks** — `build_satellite.py` (mine-footprint), `build_robustness.py`,
+  `build_uncertainty.py`, `build_host_shock.py`, `build_synthesis.py`
+
+The scripts are **order-dependent** (e.g. `fetch_wgi.py` → `build_risk.py` → `build_criticality.py`;
+insights last). **[`CADENCE.md`](CADENCE.md) is the canonical end-to-end runbook**; `refresh.ps1`
+drives only the R / Eurostat-Comext half. A legacy `app.R` Shiny dashboard is an optional interactive
+counterpart, not part of the published static site.
+
 ## Layout
 
 - `index.html` — the interactive tool (Flow / Map / Globe / Table); repo root = the GitHub Pages site
