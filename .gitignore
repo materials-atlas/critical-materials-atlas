@@ -59,3 +59,18 @@ _chk.js
 # local project map (not published)
 project-map.html
 project-formulas.html
+
+# --- standard hygiene (auto-added) ---
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+node_modules/
+.pytest_cache/
+.ipynb_checkpoints/
+.mypy_cache/
+.ruff_cache/
+*.log
+.DS_Store
+Thumbs.db

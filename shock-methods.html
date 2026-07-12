@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to model a supply shock — four methods, one honest choice · Critical Materials Atlas</title>
+<meta name="description" content="Should a critical-materials supply shock be modelled with a static scenario, a network cascade, an input-output model, or a dynamic VAR? A structured comparison of the four families for host-to-by-product propagation on open data — and a reasoned choice.">
+<meta property="og:title" content="How to model a supply shock: four methods, one honest choice">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ table.tidy{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0}
+ table.tidy th,table.tidy td{padding:.5rem .55rem;border-bottom:1px solid #eef1f0;text-align:left;vertical-align:top}
+ table.tidy th{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:#5a6b68}
+ table.tidy td.c{text-align:center;font-weight:700;white-space:nowrap}
+ .verdict-keep{color:#0e7c74}.verdict-supp{color:#b07a18}.verdict-no{color:#c0392b}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#0e7c74}
+ .m{background:#fff;border:1px solid #e3e9e8;border-radius:12px;padding:1rem 1.15rem;margin:.9rem 0;border-left:4px solid var(--ac)}
+ .m h3{margin:.1rem 0 .5rem;font-size:1.05rem;display:flex;align-items:baseline;gap:.5rem;flex-wrap:wrap}
+ .m h3 .tag{font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-radius:5px;padding:.12rem .45rem;color:#fff;background:var(--ac)}
+ .m .q{font-size:.9rem;color:#15323a;font-weight:600;margin:.1rem 0 .5rem}
+ .m dl{display:grid;grid-template-columns:auto 1fr;gap:.15rem .7rem;font-size:.84rem;margin:.3rem 0 0}
+ .m dt{color:#9aa6ad;font-weight:700;font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;padding-top:.15rem;white-space:nowrap}
+ .m dd{margin:0;color:#5a6b68}
+ .m dd b{color:#1a2529}
+ .arch{background:#12272c;color:#dcebe8;border-radius:12px;padding:1.1rem 1.3rem;margin:1.2rem 0;font-size:.9rem;line-height:1.7}
+ .arch b{color:#fff}.arch .op{color:#5cbcb1;font-weight:700}
+ .stars{color:#0e7c74;letter-spacing:1px}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="host-shock.html">Host shock</a><a href="cascade.html">Cascade</a>
+  <a href="limitations.html" class="hideable">Limitations</a><a href="methodology.html" class="hideable">Methodology</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method study · how to model a shock</div>
+  <h1>Four ways to model a supply shock — and the honest choice</h1>
+  <p class="deck">A fair challenge to the <a href="host-shock.html" style="color:#fff;text-decoration:underline">host-shock</a> layer: is a <b>static</b> &ldquo;what if this host drops X%&rdquo; the right tool, or does it need a network-cascade, an input&ndash;output model, or a dynamic VAR? We compared the four families the literature offers &mdash; specifically for propagating a shock from a <b>host commodity to the critical by-products</b> recovered from it, under a hard <b>open-data, reproducible</b> constraint &mdash; and let the choice follow from the evidence, not the fashion.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><b>Verdict:</b> keep the <b>static first-order</b> shock as the <b>spine</b> &mdash; it answers the exact question a public atlas can honestly answer and is the same logic the official USGS and EU criticality methods use &mdash; but <b>supplement</b> it with the trade-network and governance layers the atlas already has, <b>relabel its outputs as exposure bounds, not forecasts</b>, and add sensitivity bands. A <b>VAR is a category error</b> here (it measures price co-movement, not physical propagation); <b>input&ndash;output models can&rsquo;t even see</b> by-product metals; and the structurally-correct supply-curve model needs proprietary cost data. Transparency beats false dynamism.
+  <details class="howto"><summary>How this study was run</summary>
+  <p>The problem: model how a supply cut to a host commodity (zinc, copper, nickel, aluminium) propagates to the critical by-products chained to it (gallium, germanium, cobalt, vanadium, indium), for a fully public, reproducible atlas with <b>no proprietary data</b>. Four candidate model families were each assessed on: the question they answer, open-data feasibility for thin by-product markets, whether their assumptions hold, and what they capture vs miss. Two independent AI engines (xAI Grok, OpenAI Codex) assessed them in parallel from first principles; their conclusions were unanimous and are reconciled here with the primary literature. This page documents the comparison so the method choice is auditable, not asserted.</p>
+  </details></div>
+
+  <h2 style="margin:1.6rem 0 .4rem">The question decides the method</h2>
+  <p class="muted" style="margin-top:0">Every method below is legitimate &mdash; for a <i>different</i> question. The trap is picking the most sophisticated one rather than the one that answers <b>&ldquo;if this host is cut, how much by-product supply is mechanically at risk?&rdquo;</b> on data anyone can re-run. The four, scored for exactly that:</p>
+
+  <table class="tidy">
+    <thead><tr><th>Method family</th><th>Question it answers</th><th class="c">Open-data<br>fit</th><th class="c">By-product<br>fit</th><th class="c">Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>Static first-order</b><br><span class="muted">host cut &rarr; dependency share</span></td><td>Which by-products are mechanically tied to which hosts, and how big is the first-order exposure?</td><td class="c"><span class="stars">★★★★★</span></td><td class="c"><span class="stars">★★★☆☆</span></td><td class="c verdict-keep">SPINE</td></tr>
+      <tr><td><b>Network cascade</b><br><span class="muted">trade / IO graph</span></td><td>How does the shock ripple <i>indirectly</i> — A feeds B feeds C — and which nodes are chokepoints?</td><td class="c"><span class="stars">★★★★☆</span></td><td class="c"><span class="stars">★★★☆☆</span></td><td class="c verdict-supp">SUPPLEMENT</td></tr>
+      <tr><td><b>Input&ndash;output (MRIO)</b><br><span class="muted">EXIOBASE / EORA</span></td><td>How does a sector shock propagate through inter-industry purchases to GDP?</td><td class="c"><span class="stars">★★☆☆☆</span></td><td class="c"><span class="stars">★☆☆☆☆</span></td><td class="c verdict-no">NO (backbone)</td></tr>
+      <tr><td><b>Dynamic VAR / SVAR</b><br><span class="muted">price / volatility</span></td><td>Do host and by-product <i>prices</i> historically co-move and spill over in time?</td><td class="c"><span class="stars">★★☆☆☆</span></td><td class="c"><span class="stars">★☆☆☆☆</span></td><td class="c verdict-no">NO (category error)</td></tr>
+      <tr><td><b>Structural supply-curve PE</b><br><span class="muted">joint-production equilibrium</span></td><td>Given cost curves, what price &amp; quantity clear after a mine/country shock?</td><td class="c"><span class="stars">★☆☆☆☆</span></td><td class="c"><span class="stars">★★★★☆</span></td><td class="c verdict-supp">FUTURE</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin:1.8rem 0 .4rem">The four families, in full</h2>
+
+  <div class="m" style="--ac:#0e7c74">
+    <h3><span class="tag">Spine</span> 1 · Static / first-order disruption scenario</h3>
+    <div class="q">&ldquo;Cut the host by X%; how much by-product supply is mechanically at risk?&rdquo;</div>
+    <dl>
+      <dt>Open data</dt><dd><b>Excellent.</b> Needs only production shares + companionality — all public.</dd>
+      <dt>Holds for by-products?</dt><dd>As a <i>screening bound</i>, yes. Its linearity ignores stockpiles, recycling and substitution — so it&rsquo;s an <b>upper bound on exposure, not a forecast</b>.</dd>
+      <dt>Precedent</dt><dd>The <b>official USGS 2025</b> US Critical Minerals disruption methodology, the <b>EU CRM</b> assessment, and <b>Graedel &amp; Nassar</b> screening are all static scenario methods. This is the mainstream, not a shortcut.</dd>
+      <dt>Verdict</dt><dd><b>Keep as the spine.</b> It is the honest, reproducible answer to the screening question — provided its output is read as a bound.</dd>
+    </dl>
+  </div>
+
+  <div class="m" style="--ac:#b07a18">
+    <h3><span class="tag">Supplement</span> 2 · Network cascade</h3>
+    <div class="q">&ldquo;How does the shock propagate indirectly, and which nodes are single points of failure?&rdquo;</div>
+    <dl>
+      <dt>Open data</dt><dd><b>Good.</b> Built from BACI trade + the by-product graph — which the atlas already has.</dd>
+      <dt>Holds for by-products?</dt><dd>Captures the indirect ripple static misses; but full physics-style cascade rules (&ldquo;30% flow loss = node failure&rdquo;) <b>overstate</b> thin markets that inventories and spot trade buffer.</dd>
+      <dt>Precedent</dt><dd>Buldyrev et&nbsp;al. (cascades on interdependent networks); recent metal trade-network criticality studies; the 2024 iron-ore disruption-propagation model.</dd>
+      <dt>Verdict</dt><dd><b>Already in the atlas</b> — the <a href="cascade.html">supply-shock cascade</a> (step&nbsp;11) is exactly this, in real tonnes. The higher-order piece is covered.</dd>
+    </dl>
+  </div>
+
+  <div class="m" style="--ac:#c0392b">
+    <h3><span class="tag">Not the backbone</span> 3 · Input&ndash;output (MRIO)</h3>
+    <div class="q">&ldquo;How does a sector shock cascade through the whole economy to output and jobs?&rdquo;</div>
+    <dl>
+      <dt>Open data</dt><dd><b>Poor for this problem.</b> EXIOBASE / OECD-ICIO / EORA are open, but <b>by-product metals are not separate sectors</b> — gallium, germanium, indium sit invisibly inside &ldquo;aluminium&rdquo; or &ldquo;other non-ferrous.&rdquo; The model literally can&rsquo;t resolve them.</dd>
+      <dt>Holds for by-products?</dt><dd>No. Fixed Leontief coefficients hide joint production; the real mechanism is <i>mine-level co-production</i>, not &ldquo;buy less from sector 24.&rdquo;</dd>
+      <dt>Verdict</dt><dd><b>Wrong resolution.</b> Valuable for downstream <i>economic</i> damage at sector level — a different question — but a category mismatch for companion-metal supply. (This is why the atlas&rsquo;s GVC-upstreamness attempt was dropped earlier.)</dd>
+    </dl>
+  </div>
+
+  <div class="m" style="--ac:#c0392b">
+    <h3><span class="tag">Category error</span> 4a · Dynamic VAR / SVAR</h3>
+    <div class="q">&ldquo;Do host and by-product prices move together over time?&rdquo; — not &ldquo;how much supply is lost.&rdquo;</div>
+    <dl>
+      <dt>Open data</dt><dd><b>Weak.</b> Host prices are fine; by-product prices are sparse, fragmented, and broken by policy events (China&rsquo;s Ga/Ge export controls) — too few clean observations to identify a stable model.</dd>
+      <dt>Holds for by-products?</dt><dd>No. A VAR estimates <b>historical price co-movement</b>, but the causal mechanism here is <b>physical co-production</b>, not a price relationship. Using it as the propagation engine is statistical sophistication without physical credibility.</dd>
+      <dt>Precedent</dt><dd>Diebold&ndash;Yilmaz spillover index; SVAR commodity studies — mostly on <i>liquid bulk</i> markets.</dd>
+      <dt>Verdict</dt><dd><b>Not the backbone.</b> Legitimate only as a price-side appendix for liquid pairs — which the atlas already does, as correlation, in <a href="host-coupling.html">host-coupling</a> (step&nbsp;8).</dd>
+    </dl>
+  </div>
+
+  <div class="m" style="--ac:#b07a18">
+    <h3><span class="tag">Future work</span> 4b · Structural supply-curve / partial equilibrium</h3>
+    <div class="q">&ldquo;Given real cost curves and joint output, what clears after a shock?&rdquo;</div>
+    <dl>
+      <dt>Open data</dt><dd><b>Low.</b> Needs mine-level costs, capacities and recovery rates — typically <b>proprietary</b> (S&amp;P, Wood Mackenzie, company filings). USGS + spot prices alone under-identify the curves for trace by-products.</dd>
+      <dt>Holds for by-products?</dt><dd>Yes — this is the <i>correct economics</i> of joint production, and models it properly.</dd>
+      <dt>Precedent</dt><dd>The <b>Nature Communications 2025</b> copper&ndash;cobalt&ndash;nickel supply-curve framework; classic joint-product PE (Pindyck; Slade).</dd>
+      <dt>Verdict</dt><dd><b>The right long-run direction, incompatible with &ldquo;open &amp; reproducible&rdquo; today.</b> Reserve as a linked deep-dive for the few metals where open data are strong enough.</dd>
+    </dl>
+  </div>
+
+  <h2 style="margin:1.8rem 0 .4rem">The chosen architecture</h2>
+  <div class="arch">
+    <b>Mechanical host&rarr;by-product bounds</b> <span class="op">(static, the spine)</span><br>
+    &nbsp;&nbsp;<span class="op">&times;</span> <b>geographic &amp; trade chokepoints</b> <span class="op">(network cascade — already built)</span><br>
+    &nbsp;&nbsp;<span class="op">&times;</span> <b>governance &amp; concentration context</b> <span class="op">(risk / GeoPolRisk — already built)</span><br>
+    &nbsp;&nbsp;<span class="op">=</span> a reproducible <b>screening</b> tool — with IO, VAR and structural PE cited as limitations and future work, to be added only when proprietary calibration is available.
+  </div>
+  <p>The refinements this study adopts for the host-shock layer &mdash; the concrete payoff, not just a verdict:</p>
+  <div class="keyline">
+    <b>1 · Bounds, not forecasts.</b> The output is relabelled a <b>companionality-bounded exposure bound</b> &mdash; the maximum first-order supply at risk &mdash; never a predicted production loss. &nbsp; <b>2 · Sensitivity bands.</b> A low / central / high range from varying companionality and recovery efficiency, so the number is honest about its own uncertainty. &nbsp; <b>3 · Shock-stage labels.</b> Every scenario is tagged as a <i>mine</i>, <i>smelter/refinery</i>, or <i>trade</i> disruption, because they propagate differently.
+  </div>
+
+  <h2 style="margin:1.8rem 0 .4rem">Why transparency beats dynamism here</h2>
+  <p>A more elaborate model is not a more truthful one. A VAR or a structural supply curve <i>looks</i> more rigorous, but on this problem each either answers a different question (price co-movement), can&rsquo;t see the objects of interest (by-products inside sector aggregates), or silently imports assumptions that can&rsquo;t be reproduced (proprietary cost curves). For a public atlas whose entire credibility rests on <b>anyone being able to re-run every number</b>, the static first-order shock &mdash; visibly imperfect, but visibly <i>why</i> &mdash; is the correct spine, and the network-cascade and governance layers already supply the higher-order and contextual reads. The honest frontier is a structural joint-production model; the honest present is a transparent bound. This page is the receipt for that choice.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="host-shock.html">Host shock</a><br><a href="cascade.html">Supply-shock cascade</a><br><a href="host-coupling.html">Host coupling</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Method sources</h4>USGS 2025 &amp; EU CRM (static) · Buldyrev et al. (cascade) · EXIOBASE/EORA (MRIO) · Diebold&ndash;Yilmaz (spillover) · Nature Comms 2025 (Cu&ndash;Co&ndash;Ni supply curves). Council: Grok + Codex.</div>
+</div></footer>
+</body></html>
