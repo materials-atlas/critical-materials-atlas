@@ -43,6 +43,7 @@
       ['shock-builder.html', 'Build your own supply shock'] ] },
     { label: 'Supply structure', items: [
       ['companionality.html', 'Hostage metals — by-product dependency'],
+      ['refining.html', 'The refining wedge — mine vs furnace'],
       ['risk-adjusted.html', 'Risk when supply can’t respond'],
       ['host-shock.html', 'Host shock — the commodities that gate criticals'],
       ['recycling.html', 'Secondary supply — recycling & the trapped metals'],
