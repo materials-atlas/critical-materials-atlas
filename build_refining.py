@@ -153,6 +153,20 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">Each bar shows the top exporters&rsquo; value share at that stage (darker = the single leader). A wide <b class="wedge pos">positive</b> wedge means the refined bar is far more concentrated than the ore bar &mdash; a processing chokepoint. A <b class="wedge neg">negative</b> wedge means refining is <i>more</i> spread out than mining (no furnace chokepoint beyond the ore itself).</p>
   <table class="tidy" id="rtab"><thead><tr><th>Material</th><th>ore exporters</th><th>refined exporters <span class="muted" style="font-weight:400">(form)</span></th><th class="n">wedge</th></tr></thead><tbody></tbody></table>
 
+  <h2 style="margin:1.8rem 0 .3rem">The refining you <i>can&rsquo;t</i> see in trade &mdash; a capacity cross-check</h2>
+  <p class="muted" style="margin-top:0">This whole page measures <b>exported</b> refined metal. That misses the refiner who imports concentrate, processes it, and consumes the output <i>at home</i> &mdash; above all China, turning ore into battery cathode, magnets and chips that leave as finished goods, not as refined metal. So for the battery chain the export wedge <b>understates</b> the real chokepoint. The authoritative capacity figures (IEA) make the gap explicit:</p>
+  <table class="tidy" style="max-width:640px">
+    <thead><tr><th>Material</th><th>What our export wedge shows</th><th class="n">China&rsquo;s actual refining capacity</th></tr></thead>
+    <tbody>
+      <tr><td><b>Cobalt</b></td><td>DR Congo leads refined-<i>intermediate</i> exports (64%)</td><td class="n">~60% of refined cobalt</td></tr>
+      <tr><td><b>Lithium</b></td><td>no clean ore&harr;refined HS pair (chemical forms)</td><td class="n">~60% of refined lithium</td></tr>
+      <tr><td><b>Rare earths / magnets</b></td><td>not trade-separable as ore vs metal</td><td class="n">&gt;90% of refining</td></tr>
+      <tr><td><b>Graphite</b></td><td>&mdash;</td><td class="n">&gt;90% of refining</td></tr>
+      <tr><td><b>Nickel</b></td><td>Indonesia 50% of refined exports &mdash; <i>captured</i></td><td class="n">Indonesia-led (pyromet route exported)</td></tr>
+    </tbody>
+  </table>
+  <p class="muted" style="margin-top:.5rem">The contrast is the point: where the refined form is <b>traded</b> (ferronickel, ferro-niobium, refined copper) the export wedge sees the chokepoint clearly &mdash; Indonesia&rsquo;s nickel, Brazil&rsquo;s niobium, China&rsquo;s tungsten. Where it is <b>consumed at home</b> (cobalt, lithium, rare earths, graphite) trade goes quiet and only capacity data reveals it. The two are complements: this page for the tradeable stage, the <a href="geopolrisk.html">production &amp; governance</a> layer and the figures above for capacity. Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary" target="_blank" rel="noopener">IEA, Global Critical Minerals Outlook 2025</a> (top-three refiners&rsquo; average share of key energy minerals rose 82%&rarr;86% between 2020 and 2024).</p>
+
   <h2 style="margin:1.8rem 0 .3rem">What it says</h2>
   <p id="closing"></p>
 </article>
