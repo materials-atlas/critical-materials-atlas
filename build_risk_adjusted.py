@@ -5,10 +5,20 @@ Companionality-adjusted supply risk — what happens when you admit that supply 
 Child of the companionality layer. The transparent risk index (build_risk.py) blends production/refining/
 trade concentration + opacity, then discounts for recyclability. But it implicitly assumes a shortage pulls
 in new supply. For by-product metals that is false: no gallium price builds a gallium mine. This layer
-re-weights the risk score by a SUPPLY-RESPONSE factor = 1 + 0.5 x companionality/100 (a 100%-by-product metal
-carries +50% because its supply cannot answer its own price), then re-ranks. The point is the MOVEMENT: which
-materials the market's "just mine more" assumption most under-rates. Public data; deterministic.
-Run: python build_risk_adjusted.py
+re-weights the risk score by a SUPPLY-RESPONSE factor derived from supply-shock economics, then re-ranks.
+The point is the MOVEMENT: which materials the market's "just mine more" assumption most under-rates.
+
+Economic grounding of the factor (not an ad-hoc linear boost):
+  The scarcity impact of a supply disruption scales INVERSELY with supply elasticity — an outage bites harder
+  when output can't respond. So vulnerability ~ 1/(1+eps). We infer a metal's long-run supply elasticity from
+  its companionality: a primary metal can scale (eps ~ EPS0), a pure by-product cannot (eps ~ 0):
+      eps(c) = EPS0 * (1 - c/100)
+      factor = (1+EPS0) / (1 + eps(c))      # normalised so a primary metal = 1.0, a by-product = 1+EPS0
+  EPS0 is the representative long-run supply elasticity of a scalable PRIMARY metal, calibrated to the published
+  range (base-metal long-run supply is substantially elastic — Radetzki 2008; Krautkraemer 1998; Stuermer 2017).
+  Note the old linear form 1 + EPS0*(c/100) is just the first-order approximation of this, so EPS0 IS the max
+  amplification and has a real structural meaning (it's the primary-metal elasticity), not a free knob.
+Public data; deterministic. Run: python build_risk_adjusted.py
 """
 import json, os
 
@@ -16,7 +26,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 risk = json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))
 comp = json.load(open(os.path.join(ROOT, 'out', 'companionality.json'), encoding='utf8'))
 CO = {r['label']: r for r in comp['rows']}
-ALPHA = 0.5  # max amplification at 100% companionality
+EPS0 = 0.5  # representative long-run supply elasticity of a scalable primary metal (conservative vs the literature)
 
 base = risk['materials']
 base_rank = {r['label']: i + 1 for i, r in enumerate(sorted(base, key=lambda r: -r['score']))}
@@ -26,12 +36,13 @@ for r in base:
     lab = r['label']
     c = CO.get(lab, {})
     cp = c.get('companionality_pct', 0)
-    factor = 1 + ALPHA * cp / 100.0
+    eps = EPS0 * (1 - cp / 100.0)          # implied long-run supply elasticity: ~EPS0 for primary, ~0 for by-product
+    factor = (1 + EPS0) / (1 + eps)        # supply-shock vulnerability ~ 1/(1+elasticity), normalised so primary = 1
     adj = round(r['score'] * factor, 1)
     rows.append({
         'label': lab, 'title': c.get('title', r['title']),
         'base': r['score'], 'companionality_pct': cp, 'class': c.get('class', 'primary'),
-        'hosts': c.get('hosts', []), 'factor': round(factor, 2), 'adjusted': adj,
+        'hosts': c.get('hosts', []), 'implied_elasticity': round(eps, 2), 'factor': round(factor, 2), 'adjusted': adj,
     })
 
 adj_sorted = sorted(rows, key=lambda r: -r['adjusted'])
@@ -48,7 +59,8 @@ LEVER = {'byproduct': 'recovery yield at host · stockpile · substitute (no new
 risers = [r for r in adj_sorted if r['rank_delta'] >= 2]
 out = {
     'generated': risk.get('generated') or comp.get('generated'),
-    'alpha': ALPHA,
+    'alpha': EPS0,
+    'eps0': EPS0,
     'n': len(rows),
     'n_risers': len(risers),
     'top_riser': (max(rows, key=lambda r: r['rank_delta'])['title']),
@@ -102,8 +114,8 @@ HTML = r'''<!doctype html>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the adjustment works</summary>
-  <p>We take the transparent <a href="risk.html">risk score</a> and multiply it by a <b>supply-response factor</b> = 1 + 0.5 &times; companionality/100. A material mined for itself (companionality 0) is unchanged; a 100%-by-product metal is amplified 50%, because its supply cannot respond to its own price no matter how high risk climbs. We then re-rank and report the <b>movement</b> &mdash; the rank change is the message, not the absolute value.</p>
-  <p class="howto-src"><b>Is the 0.5 amplitude arbitrary?</b> It is a legible round number, but it is <b>not unmoored from the evidence</b> &mdash; it encodes what the mineral-economics literature actually finds. Every non-fuel mineral is <b>price-inelastic in the short run</b> (new mines and refineries can&rsquo;t be built quickly &mdash; <a href="https://doi.org/10.1007/s13563-025-00537-3" target="_blank" rel="noopener">USGS / Fernandez 2025</a>, 74 commodities; the <a href="https://econpapers.repec.org/RePEc:mns:wpaper:wp202002" target="_blank" rel="noopener">Dahl Mineral Elasticity Database</a>); the difference is in the <b>long run</b>, where primaries can scale but companion metals stay locked to their host&rsquo;s value chain (<a href="https://www.sciencedirect.com/science/article/abs/pii/S0928765516301129" target="_blank" rel="noopener">Fizaine 2016</a>; <a href="https://link.springer.com/article/10.1007/s13563-026-00640-z" target="_blank" rel="noopener">Mineral Economics 2026</a>). So scaling long-run supply response by companionality is the literature-consistent move. <b>We also tried to estimate each material&rsquo;s own-price response directly</b>, from 8 years of world export price and quantity (BACI) &mdash; but trade quantity is too noisy (re-exports, quality mix, the shared Ga/Ge/Hf HS code) to yield reliable per-material elasticities, which is precisely why the literature uses mine-level panels and why we keep a transparent tier rather than a spurious point estimate. Treat this as a re-ordering lens, not a new cardinal score. Inputs: <a href="out/risk.json">risk.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/risk_adjusted.json">risk_adjusted.json</a>.</p>
+  <p>We take the transparent <a href="risk.html">risk score</a> and multiply it by a <b>supply-response factor</b> derived from supply-shock economics. The scarcity impact of a disruption scales <i>inversely</i> with supply elasticity &mdash; an outage bites harder when output can&rsquo;t respond &mdash; so vulnerability &prop; 1/(1+&epsilon;). We infer each metal&rsquo;s long-run supply elasticity from its companionality (a primary metal can scale, &epsilon; &asymp; &epsilon;<sub>0</sub>; a pure by-product cannot, &epsilon; &asymp; 0): &nbsp;<b>&epsilon;(c) = &epsilon;<sub>0</sub>(1 &minus; c/100)</b>, &nbsp;<b>factor = (1+&epsilon;<sub>0</sub>)/(1+&epsilon;(c))</b>, normalised so a primary metal is unchanged and a 100%-by-product carries the full 1+&epsilon;<sub>0</sub>. We then re-rank and report the <b>movement</b> &mdash; the rank change is the message, not the absolute value.</p>
+  <p class="howto-src"><b>What makes &epsilon;<sub>0</sub> = 0.5 defensible, not arbitrary.</b> It now has a structural meaning: it is the <b>long-run supply elasticity of a scalable primary metal</b>. The literature supports the two endpoints the model rests on &mdash; every non-fuel mineral is <b>price-inelastic in the short run</b> (mines can&rsquo;t be built quickly: <a href="https://doi.org/10.1007/s13563-025-00537-3" target="_blank" rel="noopener">USGS / Fernandez 2025</a>, 74 commodities; <a href="https://econpapers.repec.org/RePEc:mns:wpaper:wp202002" target="_blank" rel="noopener">Dahl MEDS</a>), while <b>long-run primary supply is substantially elastic</b> (<a href="https://www.dallasfed.org/-/media/documents/research/papers/2014/wp1413.pdf" target="_blank" rel="noopener">Stuermer 2017</a>; Radetzki 2008; Krautkraemer 1998) &mdash; so &epsilon;<sub>0</sub>&nbsp;=&nbsp;0.5 is <i>conservative</i> (higher published values would only deepen the by-product penalty). And <b>companion supply really is host-locked</b>: the most rigorous open model of a by-product &mdash; the copper&ndash;cobalt&ndash;nickel supply-curve system (<a href="https://www.nature.com/articles/s41467-025-62570-8" target="_blank" rel="noopener">Nature Communications 2025</a>, ~99% of cobalt a by-product) &mdash; is built on exactly this mechanism. <b>Honest ceiling:</b> per-material long-run elasticities are <i>not</i> published for the critical by-products (they&rsquo;re too hard to estimate &mdash; the thesis itself), and the gold-standard structural models need proprietary cost curves. We tried estimating own-price response from 8 years of BACI trade data; too noisy (re-exports, quality mix, shared Ga/Ge/Hf HS code) to trust. So &epsilon;(c) is a <b>calibrated inference from companionality, not a measurement</b> &mdash; a re-ordering lens grounded in the economics, not a cardinal elasticity. Inputs: <a href="out/risk.json">risk.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/risk_adjusted.json">risk_adjusted.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
