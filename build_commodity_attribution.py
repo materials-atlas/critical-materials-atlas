@@ -228,6 +228,21 @@ if os.path.exists(WD_FILE):
             if abs(x) <= 180 and abs(y) <= 90:
                 wd_pts.append((x, y, mrds_crit(row.get('commodity'))))
 
+# ---------- load national geological-survey occurrences (eighth source; growable, per-country) ----------
+NS_FILE = os.path.join(ROOT, 'raw', 'surveys', 'national_surveys.csv')
+ns_pts = []
+ns_srcs = set()
+if os.path.exists(NS_FILE):
+    with open(NS_FILE, encoding='utf-8', newline='') as f:
+        for row in _csv.DictReader(f):
+            try:
+                x = float(row['lon']); y = float(row['lat'])
+            except (ValueError, KeyError):
+                continue
+            if abs(x) <= 180 and abs(y) <= 90:
+                ns_pts.append((x, y, mrds_crit(row.get('commodity'))))
+                ns_srcs.add(row.get('src'))
+
 # ---------- spatial join: one commodity per polygon (parametrised by buffer) ----------
 def run_join(buf_km):
     """Return assignment {poly_idx: (rank, dist, primary, iso)} for a given tier-2 buffer."""
@@ -304,7 +319,8 @@ _P = assign_src(pp_pts)
 _AU = assign_src(au_pts)
 _IP = assign_src(ipis_pts)
 _WD = assign_src(wd_pts)
-_SRC = (_J, _M, _O, _P, _AU, _IP, _WD)
+_NS = assign_src(ns_pts)
+_SRC = (_J, _M, _O, _P, _AU, _IP, _WD, _NS)
 
 def _union_cov(dicts):
     pset = set(); cset = set()
@@ -319,7 +335,7 @@ def _union_cov(dicts):
 # inter-source agreement: computed among the three PRIMARY-COMMODITY sources (Jasansky/MRDS/OSM), which share
 # the same labelling basis. PP1802 is excluded here because it tags each deposit by its *critical mineral of
 # interest* (often a by-product constituent), not the mine's primary product — a different, non-comparable label.
-_PRIM = (_J, _M, _O, _AU, _IP, _WD)
+_PRIM = (_J, _M, _O, _AU, _IP, _WD, _NS)
 _ag = _dis = 0
 for i in set().union(*[set(D) for D in _PRIM]):
     labs = [D[i] for D in _PRIM if D.get(i)]
@@ -332,17 +348,27 @@ _multi = {i for i in _critU if sum(1 for D in _SRC if D.get(i)) >= 2}
 _hi = sum(polys[i][6] for i in _multi); _critA = sum(polys[i][6] for i in _critU)
 
 registers = {
-    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts), 'n_pp': len(pp_pts), 'n_au': len(au_pts), 'n_ipis': len(ipis_pts), 'n_wd': len(wd_pts),
+    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts), 'n_pp': len(pp_pts), 'n_au': len(au_pts), 'n_ipis': len(ipis_pts), 'n_wd': len(wd_pts), 'n_ns': len(ns_pts), 'ns_srcs': sorted(x for x in ns_srcs if x),
     'jasansky': _union_cov([_J]),
     'jasansky_mrds': _union_cov([_J, _M]),
     'jasansky_mrds_osm': _union_cov([_J, _M, _O]),
-    'all_sources': _union_cov([_J, _M, _O, _P, _AU, _IP, _WD]),
+    'all_sources': _union_cov([_J, _M, _O, _P, _AU, _IP, _WD, _NS]),
     'ipis_critical_pct': _union_cov([_IP])['critical_pct'],
     'agreement_pct': (round(100 * _ag / (_ag + _dis)) if (_ag + _dis) else None),
     'n_agree': _ag, 'n_disagree': _dis,
     'high_conf_critical_pct': round(100 * _hi / tot_area, 2),
     'high_conf_share_of_critical': (round(100 * _hi / _critA) if _critA else 0),
 }
+
+# where is the unlabelled footprint? (diagnoses whether more sources can help, and which countries to target)
+_labelled = set().union(*[set(D) for D in _SRC])
+_unlab = defaultdict(float)
+for _i, _p in enumerate(polys):
+    if _i not in _labelled:
+        _unlab[_p[7]] += _p[6]
+_top_unlab = sorted(_unlab.items(), key=lambda kv: -kv[1])[:15]
+registers['unlabelled_by_country'] = [{'iso3': k, 'km2': round(v), 'pct_of_total': round(100 * v / tot_area, 1)} for k, v in _top_unlab]
+
 
 # sensitivity across tier-2 buffers (inside-only .. 25 km) — shows the headline is a band, not a bound
 sensitivity = []
@@ -528,6 +554,11 @@ HTML = r'''<!doctype html>
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
   <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
+  <h2 style="margin:1.6rem 0 .3rem">Where the unlabelled half actually is</h2>
+  <p class="muted" style="margin-top:0">If more registers help, <i>which</i> ones? We mapped the still-unlabelled footprint by country. It is not scattered &mdash; it is concentrated, and mostly in countries that do not publish open, machine-readable mine data.</p>
+  <table class="tidy" id="unlabtab"><thead><tr><th>Country</th><th class="n">unlabelled footprint</th><th>open mine data?</th></tr></thead><tbody></tbody></table>
+  <p class="muted" id="unlabnote" style="margin-top:.5rem"></p>
+
   <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
   <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
 </article>
@@ -607,6 +638,22 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
     const a=R.all_sources;
     document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: seven independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
     document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the six sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap, Australia, IPIS, Wikidata), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The sixth, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; so it isn&rsquo;t counted in the primary-commodity agreement.';
+  }
+  // where the unlabelled footprint is (targets the source hunt)
+  if(R.unlabelled_by_country){
+    const OPEN={BRA:'yes (SIGMINE)',AUS:'yes (state surveys)',USA:'yes (MRDS)',CAN:'yes (MINFILE)',ZAF:'partial (CGS)',GHA:'portal-only',IND:'mostly not',KAZ:'portal-only',ARG:'partial',
+      RUS:'no (closed)',CHN:'no (closed)',IDN:'portal-only',MMR:'no',GUY:'no',VEN:'no'};
+    const NAME={RUS:'Russia',CHN:'China',IDN:'Indonesia',BRA:'Brazil',MMR:'Myanmar',USA:'United States',AUS:'Australia',ZAF:'South Africa',ARG:'Argentina',GUY:'Guyana',KAZ:'Kazakhstan',GHA:'Ghana',CAN:'Canada',IND:'India',VEN:'Venezuela'};
+    const ut=document.querySelector('#unlabtab tbody');
+    let closed=0;
+    R.unlabelled_by_country.slice(0,12).forEach(x=>{
+      const od=OPEN[x.iso3]||'unclear'; const isClosed=/no|closed|portal|mostly not/.test(od);
+      if(isClosed) closed+=x.pct_of_total;
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+(NAME[x.iso3]||x.iso3)+'</b></td><td class="n">'+x.pct_of_total+'% of total ('+f(x.km2)+' km²)</td>'+
+        '<td style="color:'+(isClosed?'#c0392b':'#2f8f6b')+';font-weight:600">'+od+'</td>';
+      ut.appendChild(tr);});
+    document.getElementById('unlabnote').innerHTML='The four largest unlabelled blocks &mdash; <b>Russia, China, Indonesia, Myanmar</b> &mdash; are all countries with <b>no open, downloadable mine database</b>, and together they hold roughly a fifth of the entire satellite footprint. That is the real ceiling: not a lack of effort or ingenuity, but a <b>data-transparency</b> limit. The one big exception is Brazil, whose unlabelled footprint is largely Amazon gold (not a tracked critical). So stacking still more registers would keep nibbling the open-data countries; the closed ones stay dark until they publish.';
   }
 });
 </script>

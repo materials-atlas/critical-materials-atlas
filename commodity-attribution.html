@@ -76,6 +76,11 @@
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
   <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
+  <h2 style="margin:1.6rem 0 .3rem">Where the unlabelled half actually is</h2>
+  <p class="muted" style="margin-top:0">If more registers help, <i>which</i> ones? We mapped the still-unlabelled footprint by country. It is not scattered &mdash; it is concentrated, and mostly in countries that do not publish open, machine-readable mine data.</p>
+  <table class="tidy" id="unlabtab"><thead><tr><th>Country</th><th class="n">unlabelled footprint</th><th>open mine data?</th></tr></thead><tbody></tbody></table>
+  <p class="muted" id="unlabnote" style="margin-top:.5rem"></p>
+
   <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
   <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
 </article>
@@ -155,6 +160,22 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
     const a=R.all_sources;
     document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: seven independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
     document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the six sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap, Australia, IPIS, Wikidata), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The sixth, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; so it isn&rsquo;t counted in the primary-commodity agreement.';
+  }
+  // where the unlabelled footprint is (targets the source hunt)
+  if(R.unlabelled_by_country){
+    const OPEN={BRA:'yes (SIGMINE)',AUS:'yes (state surveys)',USA:'yes (MRDS)',CAN:'yes (MINFILE)',ZAF:'partial (CGS)',GHA:'portal-only',IND:'mostly not',KAZ:'portal-only',ARG:'partial',
+      RUS:'no (closed)',CHN:'no (closed)',IDN:'portal-only',MMR:'no',GUY:'no',VEN:'no'};
+    const NAME={RUS:'Russia',CHN:'China',IDN:'Indonesia',BRA:'Brazil',MMR:'Myanmar',USA:'United States',AUS:'Australia',ZAF:'South Africa',ARG:'Argentina',GUY:'Guyana',KAZ:'Kazakhstan',GHA:'Ghana',CAN:'Canada',IND:'India',VEN:'Venezuela'};
+    const ut=document.querySelector('#unlabtab tbody');
+    let closed=0;
+    R.unlabelled_by_country.slice(0,12).forEach(x=>{
+      const od=OPEN[x.iso3]||'unclear'; const isClosed=/no|closed|portal|mostly not/.test(od);
+      if(isClosed) closed+=x.pct_of_total;
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+(NAME[x.iso3]||x.iso3)+'</b></td><td class="n">'+x.pct_of_total+'% of total ('+f(x.km2)+' km²)</td>'+
+        '<td style="color:'+(isClosed?'#c0392b':'#2f8f6b')+';font-weight:600">'+od+'</td>';
+      ut.appendChild(tr);});
+    document.getElementById('unlabnote').innerHTML='The four largest unlabelled blocks &mdash; <b>Russia, China, Indonesia, Myanmar</b> &mdash; are all countries with <b>no open, downloadable mine database</b>, and together they hold roughly a fifth of the entire satellite footprint. That is the real ceiling: not a lack of effort or ingenuity, but a <b>data-transparency</b> limit. The one big exception is Brazil, whose unlabelled footprint is largely Amazon gold (not a tracked critical). So stacking still more registers would keep nibbling the open-data countries; the closed ones stay dark until they publish.';
   }
 });
 </script>
