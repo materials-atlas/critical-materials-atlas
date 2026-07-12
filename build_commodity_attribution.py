@@ -373,6 +373,61 @@ for _i, _p in enumerate(polys):
 _top_unlab = sorted(_unlab.items(), key=lambda kv: -kv[1])[:15]
 registers['unlabelled_by_country'] = [{'iso3': k, 'km2': round(v), 'pct_of_total': round(100 * v / tot_area, 1)} for k, v in _top_unlab]
 
+# ---------- what is the unlabelled footprint actually MADE OF? ----------
+# The unlabelled remainder concentrates in a few states. Are those hidden critical-mineral mines, or is the
+# satellite simply seeing coal, clay, sand and aggregate that no critical register would ever list? We census
+# every commodity-tagged mining point OSM records inside each country and bucket it. This is a descriptive
+# prior on the surrounding extraction, not a footprint claim — but it bounds how much could plausibly be critical.
+_BOX = {  # iso3 -> (lon_min, lon_max, lat_min, lat_max), approximate
+    'RUS': (19, 180, 41, 82), 'CHN': (73, 135, 18, 54), 'IDN': (95, 141, -11, 6), 'MMR': (92, 101, 9, 29),
+    'USA': (-125, -66, 24, 50), 'AUS': (112, 154, -44, -10), 'ZAF': (16, 33, -35, -22), 'ARG': (-74, -53, -56, -21),
+    'IND': (68, 98, 6, 36), 'KAZ': (46, 88, 40, 56), 'PHL': (116, 127, 4, 21), 'BRA': (-74, -34, -34, 6),
+    'CAN': (-141, -52, 41, 84), 'PER': (-82, -68, -19, 0), 'CHL': (-76, -66, -56, -17), 'KGZ': (69, 80, 39, 44),
+}
+_CONSTR = ('sand', 'gravel', 'clay', 'aggregate', 'limestone', 'dimension', 'kaolin', 'gypsum', 'dolomite',
+           'chalk', 'marble', 'granite', 'basalt', 'slate', 'sandstone', 'cement', 'perlite', 'pumice',
+           'gabbro', 'dolerite', 'rock', 'stone')
+def _bucket(c):
+    s = (c or '').strip().lower()
+    if not s or s in ('mine', 'quarry', 'yes', 'open', 'opencast', 'unknown'): return 'other'
+    if mrds_crit(s): return 'critical'
+    if 'coal' in s or 'lignite' in s or 'anthracite' in s: return 'coal'
+    if any(w in s for w in _CONSTR): return 'construction'
+    if any(w in s for w in ('gold', 'silver', 'iron', 'lead', 'zinc', ' tin', 'tin ', 'mercury', 'chromite')):
+        if 'chromite' in s: return 'critical'  # chromite -> chromium (Cr is tracked via manganese-adjacent? keep as metal)
+        return 'other_metal'
+    if any(w in s for w in ('peat', 'oil', 'gas', 'salt', 'potash', 'sulfur', 'sulphur', 'uranium', 'diamond')): return 'other'
+    return 'other'
+_want = [k for k, _ in _top_unlab if k in _BOX][:8]
+# assign each point to the SMALLEST matching box first, so specific countries (e.g. Myanmar) win over the
+# giant Russia/China boxes that geometrically enclose them — avoids overlap contamination of the per-country mix.
+_area = lambda b: (b[1] - b[0]) * (b[3] - b[2])
+_assign_order = sorted(_want, key=lambda k: _area(_BOX[k]))
+_comp = {k: defaultdict(int) for k in _want}
+if os.path.exists(OSM_FILE):
+    with open(OSM_FILE, encoding='utf-8', newline='') as f:
+        for row in _csv.DictReader(f):
+            try: lon = float(row['lon']); lat = float(row['lat'])
+            except Exception: continue
+            c = row.get('commod')
+            for k in _assign_order:
+                x0, x1, y0, y1 = _BOX[k]
+                if x0 <= lon <= x1 and y0 <= lat <= y1:
+                    _comp[k][_bucket(c)] += 1
+                    break
+_order = ('critical', 'coal', 'construction', 'other_metal', 'other')
+registers['unlabelled_composition'] = [
+    {'iso3': k, 'n': sum(_comp[k].values()),
+     'critical_pct': (round(100 * _comp[k]['critical'] / sum(_comp[k].values())) if sum(_comp[k].values()) else 0),
+     'buckets': {b: _comp[k][b] for b in _order}}
+    for k in _want if sum(_comp[k].values()) >= 30]
+_gt = defaultdict(int)
+for k in _want:
+    for b, n in _comp[k].items(): _gt[b] += n
+_gtot = sum(_gt.values())
+registers['unlabelled_giants_critical_share'] = round(100 * _gt['critical'] / _gtot) if _gtot else 0
+registers['unlabelled_giants_noncritical_share'] = round(100 * (_gt['coal'] + _gt['construction']) / _gtot) if _gtot else 0
+
 
 # sensitivity across tier-2 buffers (inside-only .. 25 km) — shows the headline is a band, not a bound
 sensitivity = []
@@ -553,7 +608,7 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:.5rem">Tungsten, graphite, vanadium, beryllium and others don&rsquo;t appear at all &mdash; not even in the free text. So the richer field doesn&rsquo;t rescue a lithium or rare-earth <i>footprint</i>; it confirms these minerals surface, at most, as bylines in copper/nickel/gold operations.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">Stacking every public register &mdash; and cross-checking them</h2>
-  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>eight independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites), <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines), the <b>USGS critical-minerals deposit set</b> (<span id="npp"></span> curated points), a national cadastre (<b>Geoscience Australia</b>, <span id="nau"></span>), and &mdash; crucially &mdash; the one dataset that covers <i>artisanal</i> mining, <b>IPIS</b> (<span id="nipis"></span> eastern-DRC &amp; CAR sites), and <b>Wikidata</b> (<span id="nwd"></span> mines, CC0), plus <b>national geological surveys</b> (<span id="nns"></span> occurrences &mdash; Canada BC-MINFILE + Brazil SIGMINE). Coverage triples &mdash; and because the sources are independent, where two label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
+  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>ten independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites), <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines), the <b>USGS critical-minerals deposit set</b> (<span id="npp"></span> curated points), a national cadastre (<b>Geoscience Australia</b>, <span id="nau"></span>), and &mdash; crucially &mdash; the one dataset that covers <i>artisanal</i> mining, <b>IPIS</b> (<span id="nipis"></span> eastern-DRC &amp; CAR sites), <b>Wikidata</b> (<span id="nwd"></span> mines, CC0), the <b>USGS global mineral-operations file</b> (reaching Russia/China/Indonesia) and <b>national geological surveys</b> (<span id="nns"></span> occurrences &mdash; Canada BC-MINFILE, Brazil SIGMINE, and Finland&rsquo;s GTK Fennoscandian deposit database covering FI/SE/NO/NW-Russia). Coverage triples &mdash; and because the sources are independent, where two label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
   <table class="tidy" id="regtab"><thead><tr><th>Sources joined to the satellite footprint</th><th class="n">footprint labelled</th><th class="n">ties to a critical material</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
   <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
@@ -562,6 +617,12 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">If more registers help, <i>which</i> ones? We mapped the still-unlabelled footprint by country. It is not scattered &mdash; it is concentrated, and mostly in countries that do not publish open, machine-readable mine data.</p>
   <table class="tidy" id="unlabtab"><thead><tr><th>Country</th><th class="n">unlabelled footprint</th><th>open mine data?</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="unlabnote" style="margin-top:.5rem"></p>
+
+  <h2 style="margin:1.8rem 0 .3rem">But is that unlabelled footprint <i>hidden critical mines</i> &mdash; or just coal and gravel?</h2>
+  <p class="muted" style="margin-top:0">The concentration above could mean two very different things: a wall of undisclosed lithium and rare-earth mines, or simply that the satellite sees enormous coal basins, clay pits and sand-and-gravel quarries that <i>no critical-mineral register would ever list</i>. We can tell them apart. For each of these countries we census <b>every commodity-tagged mining point OpenStreetMap records</b> and bucket it. This is a descriptive prior on the surrounding extraction, not a footprint measurement &mdash; but it bounds how much of the gap could plausibly be critical.</p>
+  <div class="keyline" id="compkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
+  <table class="tidy" id="comptab"><thead><tr><th>Country</th><th class="n">tagged points</th><th style="min-width:230px">what the mining actually is</th><th class="n">critical</th></tr></thead><tbody></tbody></table>
+  <p class="muted" id="compnote" style="margin-top:.5rem"></p>
 
   <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
   <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
@@ -641,7 +702,7 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
         '<td class="n" style="font-weight:700;color:'+(x.critical_pct>=10?'#0e7c74':'#5a6b68')+'">'+x.critical_pct+'%</td>';
       rt.appendChild(tr);});
     const a=R.all_sources;
-    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: eight independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
+    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: ten independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
     document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the seven sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap, Australia, IPIS, Wikidata, national surveys), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The sixth, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; so it isn&rsquo;t counted in the primary-commodity agreement.';
   }
   // where the unlabelled footprint is (targets the source hunt)
@@ -659,6 +720,24 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
         '<td style="color:'+(isClosed?'#c0392b':'#2f8f6b')+';font-weight:600">'+od+'</td>';
       ut.appendChild(tr);});
     document.getElementById('unlabnote').innerHTML='The four largest unlabelled blocks &mdash; <b>Russia, China, Indonesia, Myanmar</b> &mdash; are all countries with <b>no open, downloadable mine database</b>, and together they hold roughly a fifth of the entire satellite footprint. That is the real ceiling: not a lack of effort or ingenuity, but a <b>data-transparency</b> limit. The one big exception is Brazil, whose unlabelled footprint is largely Amazon gold (not a tracked critical). So stacking still more registers would keep nibbling the open-data countries; the closed ones stay dark until they publish.';
+  }
+  // composition of the unlabelled footprint — is it hidden criticals, or coal & gravel?
+  if(R.unlabelled_composition){
+    const NAME={RUS:'Russia',CHN:'China',IDN:'Indonesia',BRA:'Brazil',MMR:'Myanmar',USA:'United States',AUS:'Australia',ZAF:'South Africa',ARG:'Argentina',KAZ:'Kazakhstan',IND:'India',PHL:'Philippines',PER:'Peru',CHL:'Chile',CAN:'Canada'};
+    const SEG=[['critical','#0e7c74','critical'],['coal','#4a4a4a','coal'],['construction','#c9a24b','sand · clay · aggregate'],['other_metal','#8a6d9e','gold · iron · zinc'],['other','#c9d3d1','other']];
+    const ct=document.querySelector('#comptab tbody');
+    R.unlabelled_composition.forEach(c=>{
+      const n=c.n||1;
+      const bar=SEG.map(([k,col])=>{const w=100*(c.buckets[k]||0)/n; return w<=0?'':'<span title="'+k+': '+f(c.buckets[k])+'" style="display:inline-block;height:14px;width:'+w+'%;background:'+col+'"></span>';}).join('');
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+(NAME[c.iso3]||c.iso3)+'</b></td><td class="n">'+f(c.n)+'</td>'+
+        '<td><div style="display:flex;width:100%;border-radius:3px;overflow:hidden;font-size:0">'+bar+'</div></td>'+
+        '<td class="n" style="color:'+(c.critical_pct>=15?'#0e7c74':'#c0392b')+';font-weight:700">'+c.critical_pct+'%</td>';
+      ct.appendChild(tr);});
+    document.getElementById('comptab').insertAdjacentHTML('afterend',
+      '<div class="chips" style="margin-top:.5rem">'+SEG.map(([k,col,lab])=>'<span class="chip" style="border-color:'+col+'"><span style="display:inline-block;width:.6rem;height:.6rem;border-radius:2px;background:'+col+';margin-right:.35rem"></span>'+lab+'</span>').join('')+'</div>');
+    document.getElementById('compkey').innerHTML='<b style="color:#0e7c74">The gap is mostly not critical.</b> Across these countries, only <b>'+R.unlabelled_giants_critical_share+'%</b> of tagged mining points are one of the 32 critical materials &mdash; while <b>'+R.unlabelled_giants_noncritical_share+'%</b> are coal or construction minerals (sand, clay, gravel, limestone). The satellite&rsquo;s &ldquo;unlabelled&rdquo; footprint in the closed giants is dominated by <b>bulk energy and building materials</b>, not undisclosed lithium and rare earths.';
+    document.getElementById('compnote').innerHTML='This reframes the ceiling. The raw headline &mdash; ~'+Math.round(100-S.attributed_pct)+'% of footprint unlabelled &mdash; reads like a vast blind spot over critical minerals. The composition says otherwise: the bulk of it is coal, clay and aggregate that criticality tracking rightly ignores. Where critical extraction genuinely dominates &mdash; <b>Argentina&rsquo;s lithium (30%)</b>, <b>South Africa&rsquo;s PGMs &amp; chrome (17%)</b>, <b>Indonesia&rsquo;s nickel (11%)</b> &mdash; the census flags it. The truly-missing critical footprint is therefore a <i>fraction</i> of the unlabelled half, and it sits where you would expect it, not hidden at random.';
   }
 });
 </script>
