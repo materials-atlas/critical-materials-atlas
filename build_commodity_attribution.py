@@ -215,6 +215,19 @@ if os.path.exists(IPIS_FILE):
             if abs(x) <= 180 and abs(y) <= 90:
                 ipis_pts.append((x, y, mrds_crit(row.get('mineral1'))))
 
+# ---------- load Wikidata mines (seventh source; global, CC0, coordinates + commodity) ----------
+WD_FILE = os.path.join(ROOT, 'raw', 'wikidata', 'wikidata_mines.csv')
+wd_pts = []
+if os.path.exists(WD_FILE):
+    with open(WD_FILE, encoding='utf-8', newline='') as f:
+        for row in _csv.DictReader(f):
+            try:
+                x = float(row['lon']); y = float(row['lat'])
+            except (ValueError, KeyError):
+                continue
+            if abs(x) <= 180 and abs(y) <= 90:
+                wd_pts.append((x, y, mrds_crit(row.get('commodity'))))
+
 # ---------- spatial join: one commodity per polygon (parametrised by buffer) ----------
 def run_join(buf_km):
     """Return assignment {poly_idx: (rank, dist, primary, iso)} for a given tier-2 buffer."""
@@ -290,7 +303,8 @@ _O = assign_src(osm_pts)
 _P = assign_src(pp_pts)
 _AU = assign_src(au_pts)
 _IP = assign_src(ipis_pts)
-_SRC = (_J, _M, _O, _P, _AU, _IP)
+_WD = assign_src(wd_pts)
+_SRC = (_J, _M, _O, _P, _AU, _IP, _WD)
 
 def _union_cov(dicts):
     pset = set(); cset = set()
@@ -305,7 +319,7 @@ def _union_cov(dicts):
 # inter-source agreement: computed among the three PRIMARY-COMMODITY sources (Jasansky/MRDS/OSM), which share
 # the same labelling basis. PP1802 is excluded here because it tags each deposit by its *critical mineral of
 # interest* (often a by-product constituent), not the mine's primary product — a different, non-comparable label.
-_PRIM = (_J, _M, _O, _AU, _IP)
+_PRIM = (_J, _M, _O, _AU, _IP, _WD)
 _ag = _dis = 0
 for i in set().union(*[set(D) for D in _PRIM]):
     labs = [D[i] for D in _PRIM if D.get(i)]
@@ -318,11 +332,11 @@ _multi = {i for i in _critU if sum(1 for D in _SRC if D.get(i)) >= 2}
 _hi = sum(polys[i][6] for i in _multi); _critA = sum(polys[i][6] for i in _critU)
 
 registers = {
-    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts), 'n_pp': len(pp_pts), 'n_au': len(au_pts), 'n_ipis': len(ipis_pts),
+    'n_mrds': len(mrds_pts), 'n_osm': len(osm_pts), 'n_pp': len(pp_pts), 'n_au': len(au_pts), 'n_ipis': len(ipis_pts), 'n_wd': len(wd_pts),
     'jasansky': _union_cov([_J]),
     'jasansky_mrds': _union_cov([_J, _M]),
     'jasansky_mrds_osm': _union_cov([_J, _M, _O]),
-    'all_sources': _union_cov([_J, _M, _O, _P, _AU, _IP]),
+    'all_sources': _union_cov([_J, _M, _O, _P, _AU, _IP, _WD]),
     'ipis_critical_pct': _union_cov([_IP])['critical_pct'],
     'agreement_pct': (round(100 * _ag / (_ag + _dis)) if (_ag + _dis) else None),
     'n_agree': _ag, 'n_disagree': _dis,
@@ -509,7 +523,7 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:.5rem">Tungsten, graphite, vanadium, beryllium and others don&rsquo;t appear at all &mdash; not even in the free text. So the richer field doesn&rsquo;t rescue a lithium or rare-earth <i>footprint</i>; it confirms these minerals surface, at most, as bylines in copper/nickel/gold operations.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">Stacking every public register &mdash; and cross-checking them</h2>
-  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>six independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites), <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines), the <b>USGS critical-minerals deposit set</b> (<span id="npp"></span> curated points), a national cadastre (<b>Geoscience Australia</b>, <span id="nau"></span>), and &mdash; crucially &mdash; the one dataset that covers <i>artisanal</i> mining, <b>IPIS</b> (<span id="nipis"></span> eastern-DRC &amp; CAR sites). Coverage triples &mdash; and because the sources are independent, where two label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
+  <p class="muted" style="margin-top:0">The obvious question &mdash; would more mine registers help? &mdash; tested directly. We stack <b>seven independent public sources</b> onto Jasansky and re-run the join: <b>USGS MRDS</b> (<span id="nmrds"></span> sites), <b>OpenStreetMap</b> (<span id="nosm"></span> commodity-tagged mines), the <b>USGS critical-minerals deposit set</b> (<span id="npp"></span> curated points), a national cadastre (<b>Geoscience Australia</b>, <span id="nau"></span>), and &mdash; crucially &mdash; the one dataset that covers <i>artisanal</i> mining, <b>IPIS</b> (<span id="nipis"></span> eastern-DRC &amp; CAR sites), and <b>Wikidata</b> (<span id="nwd"></span> mines, CC0). Coverage triples &mdash; and because the sources are independent, where two label the <i>same</i> mine we can check whether they <b>agree</b>.</p>
   <table class="tidy" id="regtab"><thead><tr><th>Sources joined to the satellite footprint</th><th class="n">footprint labelled</th><th class="n">ties to a critical material</th></tr></thead><tbody></tbody></table>
   <p class="muted" id="regnote" style="margin-top:.5rem"></p>
   <div class="keyline" id="xcheck" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
@@ -579,19 +593,20 @@ fetch('out/commodity_attribution.json').then(r=>r.json()).then(S=>{
     document.getElementById('npp').textContent=f(R.n_pp);
     document.getElementById('nau').textContent=f(R.n_au);
     document.getElementById('nipis').textContent=f(R.n_ipis);
+    document.getElementById('nwd').textContent=f(R.n_wd);
     const rt=document.querySelector('#regtab tbody');
     const rows=[['Jasansky only (this page&rsquo;s baseline)',R.jasansky,false],
       ['+ USGS MRDS',R.jasansky_mrds,false],
       ['+ OpenStreetMap',R.jasansky_mrds_osm,false],
-      ['+ USGS critical-minerals + Australia + IPIS (all six)',R.all_sources,true]];
+      ['+ Wikidata + all others (all seven sources)',R.all_sources,true]];
     rows.forEach(rw=>{const x=rw[1],strong=rw[2];const tr=document.createElement('tr');
       tr.innerHTML='<td'+(strong?' style="font-weight:700"':'')+'>'+rw[0]+'</td>'+
         '<td class="n"'+(strong?' style="font-weight:700"':'')+'>'+x.attributed_pct+'%</td>'+
         '<td class="n" style="font-weight:700;color:'+(x.critical_pct>=10?'#0e7c74':'#5a6b68')+'">'+x.critical_pct+'%</td>';
       rt.appendChild(tr);});
     const a=R.all_sources;
-    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: six independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
-    document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the five sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap, Australia, IPIS), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The sixth, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; so it isn&rsquo;t counted in the primary-commodity agreement.';
+    document.getElementById('regnote').innerHTML='So the honest answer to &ldquo;would more registers help?&rdquo; is <b>yes, a lot &mdash; up to a wall</b>: seven independent public sources push labelling from 17% to <b>'+a.attributed_pct+'%</b> and critical-material coverage from 4% to <b>'+a.critical_pct+'%</b>, then flatten. And the last source refines what the wall <i>is</i>: we added the one dataset that covers <b>artisanal</b> mining &mdash; IPIS&rsquo;s '+f(R.n_ipis)+' eastern-DRC &amp; CAR sites &mdash; expecting it to fill the informal-mining gap, and it moved critical coverage by just <b>+'+(R.all_sources.critical_pct-R.jasansky_mrds_osm.critical_pct).toFixed(1)+'pp</b>. The reason is the finding: those artisanal sites <i>barely overlap the satellite footprint at all</i>. So the unlabelled <b>~'+Math.round(100-a.attributed_pct)+'%</b> is not &ldquo;artisanal mines we failed to name&rdquo; &mdash; artisanal mining is largely <b>invisible to the ~2019 satellite dataset itself</b>. The residual is instead non-critical mines (coal, aggregate, iron, gold), register geographic gaps, and the by-product problem &mdash; with the informal sector a separate, mostly-unmapped universe.';
+    document.getElementById('xcheck').innerHTML='<b style="color:#0e7c74">Cross-check &mdash; do the sources agree?</b> Among the six sources that label mines by their <i>primary commodity</i> (Jasansky, MRDS, OpenStreetMap, Australia, IPIS, Wikidata), where two label the same mine they <b>agree '+R.agreement_pct+'%</b> of the time ('+f(R.n_agree)+' agree, '+f(R.n_disagree)+' disagree) &mdash; strong mutual corroboration, and <b>'+R.high_conf_share_of_critical+'% of the critical-labelled footprint is confirmed by two or more sources</b> (a high-confidence tier). The sixth, USGS critical-minerals, adds coverage on a <i>different</i> basis &mdash; it tags each deposit by its critical mineral of interest (often a by-product), not the primary product &mdash; so it isn&rsquo;t counted in the primary-commodity agreement.';
   }
 });
 </script>
