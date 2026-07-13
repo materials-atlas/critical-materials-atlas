@@ -43,6 +43,28 @@ PAIRS = {
 CRITICAL = {'nickel', 'cobalt', 'bauxite', 'chromium', 'tungsten', 'titanium', 'tantalum',
             'niobium', 'antimony', 'manganese', 'copper'}
 
+# Reported refining CAPACITY / production share (top refiner, % of world), curated from published figures —
+# IEA Global Critical Minerals Outlook 2025 + USGS Mineral Commodity Summaries 2024/25. This is the CAPACITY
+# view the trade wedge can't see: it counts refining consumed at home (China's battery chain), so where it
+# diverges from the trade-export leader is exactly the domestic-refining gap. Approximate, cited, not a live feed.
+REPORTED = {  # material: (top_refiner_iso3, share_pct, form)
+    'copper':    ('CHN', 45, 'refined copper'),
+    'nickel':    ('IDN', 43, 'refined + intermediate nickel'),
+    'cobalt':    ('CHN', 76, 'refined cobalt'),
+    'bauxite':   ('CHN', 59, 'primary aluminium'),
+    'chromium':  ('CHN', 38, 'ferrochrome'),
+    'tungsten':  ('CHN', 85, 'APT / processed tungsten'),
+    'titanium':  ('CHN', 57, 'titanium sponge'),
+    'tantalum':  ('CHN', 50, 'tantalum processing'),
+    'niobium':   ('BRA', 88, 'ferro-niobium'),
+    'antimony':  ('CHN', 80, 'refined antimony'),
+    'tin':       ('CHN', 45, 'refined tin'),
+    'molybdenum':('CHN', 40, 'roasted Mo / ferromoly'),
+    'manganese': ('CHN', 90, 'electrolytic Mn / Mn sulfate'),
+    'zinc':      ('CHN', 47, 'refined zinc'),
+    'lead':      ('CHN', 43, 'refined lead'),
+}
+
 # load slim: (hs6, iso3) -> summed value across the 3 years
 val = defaultdict(float)
 with open(SLIM, encoding='utf-8', newline='') as f:
@@ -69,22 +91,33 @@ for m, (ore_codes, ref_codes, ref_label) in PAIRS.items():
     o = concentration(ore_codes); r = concentration(ref_codes)
     if not o or not r:
         continue
+    rep = REPORTED.get(m)
     rows.append({
         'material': m, 'critical': m in CRITICAL, 'refined_form': ref_label,
         'ore': o, 'refined': r,
         'wedge': round(r['hhi'] - o['hhi'], 3),
         'ore_leader': o['top'][0], 'refined_leader': r['top'][0],
         'chn_gain': r['chn'] - o['chn'],
+        'reported': {'iso3': rep[0], 'pct': rep[1], 'form': rep[2]} if rep else None,
+        # the domestic-refining gap: capacity leader hidden from trade (reported leader isn't the trade-refined leader)
+        'hidden_leader': bool(rep and rep[0] != r['top'][0]['iso3']),
     })
 rows.sort(key=lambda d: -d['wedge'])
 
 n_wedge = sum(1 for d in rows if d['wedge'] > 0.03)
 biggest = rows[0]
 chn_ref = sorted(rows, key=lambda d: -d['refined']['chn'])
+# quantify the understatement: China leads reported refining capacity in N metals, but the trade wedge
+# flags it as the refined-EXPORT leader in only M of them — the rest is refining consumed at home.
+n_cap_china = sum(1 for d in rows if d.get('reported') and d['reported']['iso3'] == 'CHN')
+n_trade_china = sum(1 for d in rows if d['refined_leader']['iso3'] == 'CHN')
 out = {
     'source': 'CEPII BACI (HS-2017), 3-year mean 2022-2024, exporter value shares',
+    'reported_source': 'IEA Global Critical Minerals Outlook 2025 + USGS MCS 2024/25 (refining capacity/production share)',
     'n_materials': len(rows),
     'n_positive_wedge': n_wedge,
+    'n_capacity_china_leads': n_cap_china,
+    'n_trade_china_leads': n_trade_china,
     'rows': rows,
     'headline_wedge': {'material': biggest['material'], 'wedge': biggest['wedge'],
                        'refined_leader': biggest['refined_leader']},
@@ -151,21 +184,12 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.6rem 0 .3rem">Ore stage &rarr; refined stage, ranked by the wedge</h2>
   <p class="muted" style="margin-top:0">Each bar shows the top exporters&rsquo; value share at that stage (darker = the single leader). A wide <b class="wedge pos">positive</b> wedge means the refined bar is far more concentrated than the ore bar &mdash; a processing chokepoint. A <b class="wedge neg">negative</b> wedge means refining is <i>more</i> spread out than mining (no furnace chokepoint beyond the ore itself).</p>
-  <table class="tidy" id="rtab"><thead><tr><th>Material</th><th>ore exporters</th><th>refined exporters <span class="muted" style="font-weight:400">(form)</span></th><th class="n">wedge</th></tr></thead><tbody></tbody></table>
+  <table class="tidy" id="rtab"><thead><tr><th>Material</th><th>ore exporters</th><th>refined exporters <span class="muted" style="font-weight:400">(form)</span></th><th class="n">wedge</th><th>refining capacity<br><span class="muted" style="font-weight:400">reported (IEA/USGS)</span></th></tr></thead><tbody></tbody></table>
 
-  <h2 style="margin:1.8rem 0 .3rem">The refining you <i>can&rsquo;t</i> see in trade &mdash; a capacity cross-check</h2>
-  <p class="muted" style="margin-top:0">This whole page measures <b>exported</b> refined metal. That misses the refiner who imports concentrate, processes it, and consumes the output <i>at home</i> &mdash; above all China, turning ore into battery cathode, magnets and chips that leave as finished goods, not as refined metal. So for the battery chain the export wedge <b>understates</b> the real chokepoint. The authoritative capacity figures (IEA) make the gap explicit:</p>
-  <table class="tidy" style="max-width:640px">
-    <thead><tr><th>Material</th><th>What our export wedge shows</th><th class="n">China&rsquo;s actual refining capacity</th></tr></thead>
-    <tbody>
-      <tr><td><b>Cobalt</b></td><td>DR Congo leads refined-<i>intermediate</i> exports (64%)</td><td class="n">~60% of refined cobalt</td></tr>
-      <tr><td><b>Lithium</b></td><td>no clean ore&harr;refined HS pair (chemical forms)</td><td class="n">~60% of refined lithium</td></tr>
-      <tr><td><b>Rare earths / magnets</b></td><td>not trade-separable as ore vs metal</td><td class="n">&gt;90% of refining</td></tr>
-      <tr><td><b>Graphite</b></td><td>&mdash;</td><td class="n">&gt;90% of refining</td></tr>
-      <tr><td><b>Nickel</b></td><td>Indonesia 50% of refined exports &mdash; <i>captured</i></td><td class="n">Indonesia-led (pyromet route exported)</td></tr>
-    </tbody>
-  </table>
-  <p class="muted" style="margin-top:.5rem">The contrast is the point: where the refined form is <b>traded</b> (ferronickel, ferro-niobium, refined copper) the export wedge sees the chokepoint clearly &mdash; Indonesia&rsquo;s nickel, Brazil&rsquo;s niobium, China&rsquo;s tungsten. Where it is <b>consumed at home</b> (cobalt, lithium, rare earths, graphite) trade goes quiet and only capacity data reveals it. The two are complements: this page for the tradeable stage, the <a href="geopolrisk.html">production &amp; governance</a> layer and the figures above for capacity. Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary" target="_blank" rel="noopener">IEA, Global Critical Minerals Outlook 2025</a> (top-three refiners&rsquo; average share of key energy minerals rose 82%&rarr;86% between 2020 and 2024).</p>
+  <h2 style="margin:1.8rem 0 .3rem">The refining you <i>can&rsquo;t</i> see in trade &mdash; capacity vs exports, per metal</h2>
+  <p class="muted" style="margin-top:0">The last column above is the fix for this page&rsquo;s central blind spot. Trade only sees refined metal that <b>crosses a border</b>; a country that refines and then <i>uses</i> the metal at home &mdash; China turning concentrate into battery cathode, magnets, chips &mdash; barely exports refined metal, so it vanishes from the wedge. Setting the <b>reported refining-capacity share</b> (IEA/USGS) beside the trade-export leader makes the gap explicit and per-metal:</p>
+  <div class="keyline" id="capkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
+  <p class="muted" style="margin-top:.6rem">Where the two columns <b>agree</b> (niobium&rarr;Brazil, nickel&rarr;Indonesia, tungsten &amp; tantalum&rarr;China) the refined form is genuinely <b>traded</b>, so the wedge sees the chokepoint. Where they <b>diverge</b> &mdash; manganese, copper, bauxite, cobalt, lead, zinc &mdash; the metal is refined and <b>consumed at home</b>, so trade goes quiet and only capacity data reveals it. This is a curated, cited overlay, not a live feed: reported shares are approximate figures from <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary" target="_blank" rel="noopener">IEA Global Critical Minerals Outlook 2025</a> and <a href="https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries" target="_blank" rel="noopener">USGS MCS 2024/25</a>. There is no clean machine-readable open dataset of refining capacity by country &mdash; the USGS production tables omit China at the refinery stage, and the facility-level capacity databases are proprietary &mdash; which is itself the honest reason this column is curated rather than computed.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">What it says</h2>
   <p id="closing"></p>
@@ -200,12 +224,20 @@ fetch('out/refining.json').then(r=>r.json()).then(S=>{
     const tr=document.createElement('tr');
     const wc=d.wedge>0.03?'pos':(d.wedge<-0.03?'neg':'');
     const sign=d.wedge>0?'+':'';
+    let cap='<span class="muted">&mdash;</span>';
+    if(d.reported){
+      const hid=d.hidden_leader;
+      cap='<b style="color:'+(hid?'#c0392b':'#0e7c74')+'">'+nm(d.reported.iso3)+' '+d.reported.pct+'%</b>'+
+          (hid?'<div class="muted" style="font-size:.7rem">hidden from trade</div>':'<div class="muted" style="font-size:.7rem">trade agrees</div>');
+    }
     tr.innerHTML='<td><b>'+TITLE(d.material)+'</b>'+(d.critical?'<span class="crit">critical</span>':'')+'</td>'+
       '<td>'+bar(d.ore,COL_LEAD,COL_REST)+'</td>'+
       '<td>'+bar(d.refined,COL_LEAD2,COL_REST2)+'<div class="muted" style="font-size:.72rem;margin-top:.1rem">'+d.refined_form+'</div></td>'+
-      '<td class="n"><span class="wedge '+wc+'">'+sign+d.wedge.toFixed(2)+'</span></td>';
+      '<td class="n"><span class="wedge '+wc+'">'+sign+d.wedge.toFixed(2)+'</span></td>'+
+      '<td>'+cap+'</td>';
     tb.appendChild(tr);
   });
+  document.getElementById('capkey').innerHTML='<b style="color:#0e7c74">The gap, quantified.</b> China leads <b>reported refining capacity</b> in <b>'+S.n_capacity_china_leads+' of '+S.n_materials+'</b> metals here &mdash; but the trade-export wedge flags it as the refined leader in only <b>'+S.n_trade_china_leads+'</b>. The other '+(S.n_capacity_china_leads-S.n_trade_china_leads)+' (manganese 90%, bauxite/aluminium 59%, copper 45%, cobalt 76%, zinc, lead, tin, molybdenum, antimony&hellip;) are refined in China and <i>consumed at home</i>, so they never cross a border as refined metal and vanish from the wedge. The red cells above are exactly that hidden dependence &mdash; the honest correction to this page&rsquo;s trade-only view.';
   const chn=S.rows.filter(d=>d.refined.chn>=20).map(d=>TITLE(d.material)+' ('+d.refined.chn+'%)');
   document.getElementById('closing').innerHTML='Read alongside the <a href="geopolrisk.html">production concentration</a> layer, this closes a loop the mine map can&rsquo;t: physical output can be spread across continents while the <i>usable</i> metal funnels through a handful of processors. Where refined exports still lean on China in this trade-visible view &mdash; '+(chn.join(', ')||'a few metals')+' &mdash; the dependence is on processing, not deposits, and no new mine fixes it. And the metals whose wedge is <i>negative</i> are a quiet reassurance: their refining is genuinely global, so an ore shock has somewhere else to go. It is the same discipline as the rest of the atlas &mdash; measure the thing where it actually happens, and let the two stages disagree out loud.';
 });

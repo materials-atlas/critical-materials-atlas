@@ -52,21 +52,12 @@
 
   <h2 style="margin:1.6rem 0 .3rem">Ore stage &rarr; refined stage, ranked by the wedge</h2>
   <p class="muted" style="margin-top:0">Each bar shows the top exporters&rsquo; value share at that stage (darker = the single leader). A wide <b class="wedge pos">positive</b> wedge means the refined bar is far more concentrated than the ore bar &mdash; a processing chokepoint. A <b class="wedge neg">negative</b> wedge means refining is <i>more</i> spread out than mining (no furnace chokepoint beyond the ore itself).</p>
-  <table class="tidy" id="rtab"><thead><tr><th>Material</th><th>ore exporters</th><th>refined exporters <span class="muted" style="font-weight:400">(form)</span></th><th class="n">wedge</th></tr></thead><tbody></tbody></table>
+  <table class="tidy" id="rtab"><thead><tr><th>Material</th><th>ore exporters</th><th>refined exporters <span class="muted" style="font-weight:400">(form)</span></th><th class="n">wedge</th><th>refining capacity<br><span class="muted" style="font-weight:400">reported (IEA/USGS)</span></th></tr></thead><tbody></tbody></table>
 
-  <h2 style="margin:1.8rem 0 .3rem">The refining you <i>can&rsquo;t</i> see in trade &mdash; a capacity cross-check</h2>
-  <p class="muted" style="margin-top:0">This whole page measures <b>exported</b> refined metal. That misses the refiner who imports concentrate, processes it, and consumes the output <i>at home</i> &mdash; above all China, turning ore into battery cathode, magnets and chips that leave as finished goods, not as refined metal. So for the battery chain the export wedge <b>understates</b> the real chokepoint. The authoritative capacity figures (IEA) make the gap explicit:</p>
-  <table class="tidy" style="max-width:640px">
-    <thead><tr><th>Material</th><th>What our export wedge shows</th><th class="n">China&rsquo;s actual refining capacity</th></tr></thead>
-    <tbody>
-      <tr><td><b>Cobalt</b></td><td>DR Congo leads refined-<i>intermediate</i> exports (64%)</td><td class="n">~60% of refined cobalt</td></tr>
-      <tr><td><b>Lithium</b></td><td>no clean ore&harr;refined HS pair (chemical forms)</td><td class="n">~60% of refined lithium</td></tr>
-      <tr><td><b>Rare earths / magnets</b></td><td>not trade-separable as ore vs metal</td><td class="n">&gt;90% of refining</td></tr>
-      <tr><td><b>Graphite</b></td><td>&mdash;</td><td class="n">&gt;90% of refining</td></tr>
-      <tr><td><b>Nickel</b></td><td>Indonesia 50% of refined exports &mdash; <i>captured</i></td><td class="n">Indonesia-led (pyromet route exported)</td></tr>
-    </tbody>
-  </table>
-  <p class="muted" style="margin-top:.5rem">The contrast is the point: where the refined form is <b>traded</b> (ferronickel, ferro-niobium, refined copper) the export wedge sees the chokepoint clearly &mdash; Indonesia&rsquo;s nickel, Brazil&rsquo;s niobium, China&rsquo;s tungsten. Where it is <b>consumed at home</b> (cobalt, lithium, rare earths, graphite) trade goes quiet and only capacity data reveals it. The two are complements: this page for the tradeable stage, the <a href="geopolrisk.html">production &amp; governance</a> layer and the figures above for capacity. Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary" target="_blank" rel="noopener">IEA, Global Critical Minerals Outlook 2025</a> (top-three refiners&rsquo; average share of key energy minerals rose 82%&rarr;86% between 2020 and 2024).</p>
+  <h2 style="margin:1.8rem 0 .3rem">The refining you <i>can&rsquo;t</i> see in trade &mdash; capacity vs exports, per metal</h2>
+  <p class="muted" style="margin-top:0">The last column above is the fix for this page&rsquo;s central blind spot. Trade only sees refined metal that <b>crosses a border</b>; a country that refines and then <i>uses</i> the metal at home &mdash; China turning concentrate into battery cathode, magnets, chips &mdash; barely exports refined metal, so it vanishes from the wedge. Setting the <b>reported refining-capacity share</b> (IEA/USGS) beside the trade-export leader makes the gap explicit and per-metal:</p>
+  <div class="keyline" id="capkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
+  <p class="muted" style="margin-top:.6rem">Where the two columns <b>agree</b> (niobium&rarr;Brazil, nickel&rarr;Indonesia, tungsten &amp; tantalum&rarr;China) the refined form is genuinely <b>traded</b>, so the wedge sees the chokepoint. Where they <b>diverge</b> &mdash; manganese, copper, bauxite, cobalt, lead, zinc &mdash; the metal is refined and <b>consumed at home</b>, so trade goes quiet and only capacity data reveals it. This is a curated, cited overlay, not a live feed: reported shares are approximate figures from <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary" target="_blank" rel="noopener">IEA Global Critical Minerals Outlook 2025</a> and <a href="https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries" target="_blank" rel="noopener">USGS MCS 2024/25</a>. There is no clean machine-readable open dataset of refining capacity by country &mdash; the USGS production tables omit China at the refinery stage, and the facility-level capacity databases are proprietary &mdash; which is itself the honest reason this column is curated rather than computed.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">What it says</h2>
   <p id="closing"></p>
@@ -101,12 +92,20 @@ fetch('out/refining.json').then(r=>r.json()).then(S=>{
     const tr=document.createElement('tr');
     const wc=d.wedge>0.03?'pos':(d.wedge<-0.03?'neg':'');
     const sign=d.wedge>0?'+':'';
+    let cap='<span class="muted">&mdash;</span>';
+    if(d.reported){
+      const hid=d.hidden_leader;
+      cap='<b style="color:'+(hid?'#c0392b':'#0e7c74')+'">'+nm(d.reported.iso3)+' '+d.reported.pct+'%</b>'+
+          (hid?'<div class="muted" style="font-size:.7rem">hidden from trade</div>':'<div class="muted" style="font-size:.7rem">trade agrees</div>');
+    }
     tr.innerHTML='<td><b>'+TITLE(d.material)+'</b>'+(d.critical?'<span class="crit">critical</span>':'')+'</td>'+
       '<td>'+bar(d.ore,COL_LEAD,COL_REST)+'</td>'+
       '<td>'+bar(d.refined,COL_LEAD2,COL_REST2)+'<div class="muted" style="font-size:.72rem;margin-top:.1rem">'+d.refined_form+'</div></td>'+
-      '<td class="n"><span class="wedge '+wc+'">'+sign+d.wedge.toFixed(2)+'</span></td>';
+      '<td class="n"><span class="wedge '+wc+'">'+sign+d.wedge.toFixed(2)+'</span></td>'+
+      '<td>'+cap+'</td>';
     tb.appendChild(tr);
   });
+  document.getElementById('capkey').innerHTML='<b style="color:#0e7c74">The gap, quantified.</b> China leads <b>reported refining capacity</b> in <b>'+S.n_capacity_china_leads+' of '+S.n_materials+'</b> metals here &mdash; but the trade-export wedge flags it as the refined leader in only <b>'+S.n_trade_china_leads+'</b>. The other '+(S.n_capacity_china_leads-S.n_trade_china_leads)+' (manganese 90%, bauxite/aluminium 59%, copper 45%, cobalt 76%, zinc, lead, tin, molybdenum, antimony&hellip;) are refined in China and <i>consumed at home</i>, so they never cross a border as refined metal and vanish from the wedge. The red cells above are exactly that hidden dependence &mdash; the honest correction to this page&rsquo;s trade-only view.';
   const chn=S.rows.filter(d=>d.refined.chn>=20).map(d=>TITLE(d.material)+' ('+d.refined.chn+'%)');
   document.getElementById('closing').innerHTML='Read alongside the <a href="geopolrisk.html">production concentration</a> layer, this closes a loop the mine map can&rsquo;t: physical output can be spread across continents while the <i>usable</i> metal funnels through a handful of processors. Where refined exports still lean on China in this trade-visible view &mdash; '+(chn.join(', ')||'a few metals')+' &mdash; the dependence is on processing, not deposits, and no new mine fixes it. And the metals whose wedge is <i>negative</i> are a quiet reassurance: their refining is genuinely global, so an ore shock has somewhere else to go. It is the same discipline as the rest of the atlas &mdash; measure the thing where it actually happens, and let the two stages disagree out loud.';
 });
