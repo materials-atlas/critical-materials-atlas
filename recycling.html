@@ -24,6 +24,17 @@
  .tag.b{background:#fbe9e7;color:#c0392b}.tag.m{background:#fff4e2;color:#b07a18}.tag.p{background:#eaf3f1;color:#0e7c74}
  .keyline{background:#fbf3f2;border:1px solid #f0d9d5;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
  .keyline b{color:#c0392b}
+ .split2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.6rem 0}
+ @media(max-width:720px){.split2{grid-template-columns:1fr}}
+ .card{border:1px solid #e3e9e8;border-radius:12px;padding:1rem 1.1rem;background:#fff}
+ .card.perm{border-top:4px solid #7a2320}.card.rec{border-top:4px solid #b07a18}
+ .card h4{margin:.1rem 0 .5rem;font-size:.98rem}
+ .card.perm h4{color:#7a2320}.card.rec h4{color:#8a5e12}
+ .card .mm{font-weight:700;color:#15323a}
+ .card .why{font-size:.82rem;color:#5a6b68;margin:.3rem 0 .1rem}
+ .card .fix{font-size:.82rem;margin-top:.6rem;padding-top:.5rem;border-top:1px dashed #e3e9e8}
+ .dbadge{display:inline-block;font-size:.68rem;font-weight:700;padding:.05rem .4rem;border-radius:5px;cursor:help}
+ .dbadge.dissipated{background:#f3e0de;color:#7a2320}.dbadge.recoverable{background:#fbf0d8;color:#8a5e12}.dbadge.mixed{background:#eef1f0;color:#5a6b68}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -39,9 +50,9 @@
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
-  <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured</summary>
-  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality.html">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Materials with no listed EOL rate are shown as ~0 (negligible) and flagged.</p>
-  <p class="howto-src"><b>Caveat:</b> EOL-RIR is an EU-centric estimate and doesn&rsquo;t capture in-process/new scrap or future recycling capacity; treat it as today&rsquo;s functional secondary supply, not a ceiling. Inputs: <a href="out/data.json">data.json</a> (EU CRM 2023) &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
+  <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured &mdash; and <i>why</i> a metal is trapped</summary>
+  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality.html">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Then we split the trapped metals by <b>why</b> they aren&rsquo;t recycled: <b>dissipated</b> (used dispersively or physically lost &mdash; helium vents to air, arsenic and phosphate disperse into chemicals and soil &mdash; so <i>no</i> technology recovers them: trapped <b>forever</b>) vs <b>recoverable-but-uncollected</b> (locked in products that <i>could</i> be recycled but currently aren&rsquo;t &mdash; trapped <b>for now</b>, fixable by collection and policy).</p>
+  <p class="howto-src"><b>Sources &amp; caveats:</b> recycling metric = <b>EU CRM 2023 EOL-RIR</b>, one of several the field uses (the <a href="https://www.resourcepanel.org/reports/recycling-rates-metals" target="_blank" rel="noopener">UNEP / International Resource Panel 2011</a> status report also defines EOL-RR, recycled content and old-scrap ratio; current benchmark is the <a href="https://www.iea.org/reports/recycling-of-critical-minerals" target="_blank" rel="noopener">IEA 2024</a> recycling report). It is EU-centric and omits in-process/new scrap and future capacity &mdash; today&rsquo;s functional secondary supply, not a ceiling. The <b>dissipative vs recoverable</b> split is classified from each metal&rsquo;s dominant end-use per Ciacci, Reck &amp; Graedel, <i>&ldquo;Lost by Design&rdquo;</i> (ES&amp;T 2015) and <i>&ldquo;Losses and lifetimes of metals&rdquo;</i> (Nature Sustainability 2022) &mdash; a literature-based judgement, like companionality. Inputs: <a href="out/data.json">data.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -53,7 +64,11 @@
   <div id="scatter"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Every material, ranked by how trapped it is</h2>
-  <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-prod %</th><th class="n">EOL recycling</th><th>substitutable?</th><th class="n">trapped</th></tr></thead><tbody></tbody></table>
+  <table class="tidy" id="tab"><thead><tr><th>Material</th><th>supply type</th><th class="n">by-prod %</th><th class="n">EOL recycling</th><th>why not recycled</th><th class="n">trapped</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .4rem">Trapped forever, or trapped for now?</h2>
+  <p class="muted" style="margin-top:0">&ldquo;Barely recycled&rdquo; hides two very different fates. Some metals are <b>dissipated</b> &mdash; used dispersively or physically lost, so <i>no</i> collection scheme can recover them. Others are simply <b>uncollected</b> &mdash; sitting in products that could be recycled if anyone bothered. The first is a wall; the second is a to-do list.</p>
+  <div class="split2" id="split"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What this closes, and what it opens</h2>
   <p>This completes the supply-structure arc that began with the <a href="commodity-attribution.html">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together they say the same thing three ways &mdash; for a handful of metals, the usual mitigations simply aren&rsquo;t available, and the only real levers are <b>host-side recovery yield, stockpiles, and substitution</b>. The open branch from here is <b>demand</b>: which technologies pull hardest on exactly these trapped metals? That is the next arm of the atlas to grow.</p>
@@ -61,14 +76,14 @@
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="methodology.html">Methodology</a></div>
-  <div><h4>Sources</h4>EU CRM 2023 (EOL-RIR recycling) × companionality (USGS MCS 2024 · Nassar et al. 2015)</div>
-  <div class="fineprint">EOL recycling is an EU-centric end-of-life estimate; a functional secondary-supply proxy, not a ceiling.</div>
+  <div><h4>Sources</h4>EU CRM 2023 (EOL-RIR) · UNEP/IRP 2011 &amp; IEA 2024 (recycling metrics) · dissipation from Ciacci/Reck/Graedel &ldquo;Lost by Design&rdquo; 2015 &amp; Nature Sustainability 2022 · companionality (USGS · Nassar 2015)</div>
+  <div class="fineprint">EOL recycling is an EU-centric end-of-life estimate; the dissipative/recoverable split is a literature-based classification of dominant end-use.</div>
 </div></footer>
 <script>
 function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
 Promise.all([fetch('out/recycling.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
-  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals are recycled far less than primary ones ('+S.mean_recycling_byproduct+'% vs '+S.mean_recycling_primary+'% end-of-life) &mdash; exactly the metals that most need a scrap buffer have the least. <b>'+S.n_trapped+'</b> are fully trapped: by-product-locked and barely recycled ('+S.trapped_names.join(', ')+').';
+  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals are recycled far less than primary ones ('+S.mean_recycling_byproduct+'% vs '+S.mean_recycling_primary+'% end-of-life) &mdash; exactly the metals that most need a scrap buffer have the least. <b>'+S.n_trapped+'</b> are fully trapped: by-product-locked and barely recycled. But two of those &mdash; <b>'+S.trapped_permanent.join(' and ')+'</b> &mdash; are <b>dissipated</b> (gone for good, no technology recovers them), while the other <b>'+S.trapped_recoverable.length+'</b> ('+S.trapped_recoverable.join(', ')+') are merely <b>uncollected</b> &mdash; trapped for now, not forever.';
   const stats=[
     {v:S.n_trapped,l:'trapped: by-product-locked AND ≤10% recycled — no new mine, no scrap',warn:true},
     {v:S.mean_recycling_byproduct+'%',l:'mean end-of-life recycling of by-product metals',warn:true},
@@ -97,16 +112,25 @@ Promise.all([fetch('out/recycling.json').then(r=>r.json()),
   const tb=document.querySelector('#tab tbody');
   const tagc={byproduct:'b',mixed:'m',primary:'p'},tagt={byproduct:'by-product',mixed:'mixed',primary:'primary'};
   const subcol={high:'#c0392b',medium:'#b07a18',low:'#3f9b46'};
+  const dlabel={dissipated:'dissipated',recoverable:'recoverable',mixed:'mixed'};
   S.rows.forEach(r=>{
     const rec=r.recycling_reported?(r.recycling+'%'):'<span style="color:#c9d2d0" title="no EU EOL-RIR listed — treated as negligible">~0</span>';
-    const sub=r.substitutability?('<span style="color:'+(subcol[r.substitutability]||'#9aa6ad')+';font-weight:600;text-transform:uppercase;font-size:.76rem">'+r.substitutability+'</span>'):'<span style="color:#c9d2d0">—</span>';
+    const dz=r.dissipation?('<span class="dbadge '+r.dissipation+'" title="'+(r.dissipation_note||'').replace(/"/g,'&quot;')+'">'+dlabel[r.dissipation]+'</span>'):'<span style="color:#c9d2d0">—</span>';
     const tr=document.createElement('tr');
     tr.innerHTML='<td><b>'+r.title+'</b></td>'+
       '<td><span class="tag '+tagc[r['class']]+'">'+tagt[r['class']]+'</span></td>'+
-      '<td class="n">'+r.companionality_pct+'</td><td class="n">'+rec+'</td><td>'+sub+'</td>'+
+      '<td class="n">'+r.companionality_pct+'</td><td class="n">'+rec+'</td><td>'+dz+'</td>'+
       '<td class="n" style="font-weight:700;color:'+(r.trapped>=66?'#c0392b':r.trapped>=33?'#b07a18':'#9aa6ad')+'">'+r.trapped.toFixed(0)+'</td>';
     tb.appendChild(tr);
   });
+  // forever vs for now — the two cards
+  const byName={}; S.rows.forEach(r=>byName[r.title]=r);
+  function cardList(names){return names.map(n=>{const r=byName[n]||{};return '<div style="margin:.4rem 0"><span class="mm">'+n+'</span><div class="why">'+(r.dissipation_note||'')+'</div></div>';}).join('');}
+  document.getElementById('split').innerHTML=
+    '<div class="card perm"><h4>⛔ Trapped forever &mdash; dissipated ('+S.trapped_permanent.length+')</h4>'+cardList(S.trapped_permanent)+
+      '<div class="fix"><b>Lever:</b> none on the supply side &mdash; only <i>design out</i> the dissipative use, or substitute. Recycling policy cannot help.</div></div>'+
+    '<div class="card rec"><h4>🔓 Trapped for now &mdash; recoverable ('+S.trapped_recoverable.length+')</h4>'+cardList(S.trapped_recoverable)+
+      '<div class="fix"><b>Lever:</b> collection + recovery from manufacturing scrap and end-products. The metal is there &mdash; the barrier is economics and infrastructure, not physics.</div></div>';
 });
 </script>
 </body></html>
