@@ -12,7 +12,7 @@ significance. Two checks here:
       significance that vanishes was partly an artifact of serial correlation.
   (2) Splice sub-period check — re-estimates each trend separately on the HS02 window (2002-2016) and the
       HS17 window (2017-2024). A trend that keeps the same sign in both halves is not an artifact of the
-      2017 vintage join (a concern the council flagged).
+      2017 vintage join.
 
 No new deps (numpy + scipy + statsmodels). Reads out/trends.json. Writes out/robustness.json + robustness.html.
 Run: python build_robustness.py

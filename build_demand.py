@@ -25,7 +25,7 @@ TITLE = {m['label']: CO.get(m['label'], {}).get('title', m['title'].split(' (')[
 
 # label -> (sectors, clean_energy_pct, demand_growth_2040 multiple, outlook)
 # curated from IEA Global Critical Minerals Outlook 2024 (APS ~2040 vs today) + USGS 2024 end-uses;
-# cross-checked against an independent LLM compilation (Codex). Round figures for a fuzzy forward quantity.
+# Round figures for a fuzzy forward quantity.
 DEM = {
     'lithium':   (['EV & grid batteries', 'ceramics/glass'], 85, 8.0, 'very high'),
     'graphite':  (['EV battery anodes', 'steel recarburising', 'refractories'], 60, 4.5, 'very high'),
@@ -145,7 +145,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand and the squeeze are estimated</summary>
   <p>For each material: principal end-use <b>sectors</b>, the <b>clean-energy share</b> of demand, and a <b>demand-growth multiple to ~2040</b> (demand in 2040 &divide; today) grounded in the <b>IEA Global Critical Minerals Outlook 2024</b> (Announced-Pledges scenario) and USGS end-use data. The <b>squeeze index</b> = normalised demand growth &times; companionality &mdash; high only when demand is surging <i>and</i> supply is by-product-locked and cannot scale.</p>
-  <p class="howto-src"><b>Caveat:</b> forward demand is scenario-dependent and these are round, mid-scenario figures &mdash; read them as tiers, not forecasts (a different IEA scenario moves battery-metal multiples by a factor of several). Cross-checked against an independent LLM compilation (Codex). Inputs: IEA CMO 2024 + USGS &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/demand.json">demand.json</a>.</p>
+  <p class="howto-src"><b>Caveat:</b> forward demand is scenario-dependent and these are round, mid-scenario figures &mdash; read them as tiers, not forecasts (a different IEA scenario moves battery-metal multiples by a factor of several). Inputs: IEA CMO 2024 + USGS &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/demand.json">demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>

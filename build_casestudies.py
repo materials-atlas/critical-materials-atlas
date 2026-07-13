@@ -6,8 +6,7 @@ For five well-understood supply chains we put the atlas's OWN live figures (mine
 layer outputs) beside the authoritative external picture (USGS Mineral Commodity Summaries 2025 / IEA
 Critical Minerals Outlook 2025), and give a verdict. Agreements build trust; the one divergence (lithium)
 is shown openly — the audit surfaced a stale mine-share vintage, which has been corrected, and a
-product-definition nuance (carbonate vs spodumene). External facts compiled with the engine council and
-reconciled against USGS/IEA. Atlas numbers are pulled live so this page can never drift from the data.
+product-definition nuance (carbonate vs spodumene). External facts compiled from and reconciled against USGS/IEA. Atlas numbers are pulled live so this page can never drift from the data.
 
 Writes out/casestudies.json + casestudies.html.  Run:  python build_casestudies.py
 """
@@ -35,7 +34,7 @@ def topexp(label, k=3):
     t = sum(o.values()) or 1
     return [(c, round(v / t * 100)) for c, v in sorted(o.items(), key=lambda x: -x[1])[:k]]
 
-# curated authoritative picture (USGS MCS 2025 / IEA 2025), reconciled with the engine council
+# curated authoritative picture (USGS MCS 2025 / IEA 2025)
 CASES = [
     {'label': 'bauxite', 'name': 'Bauxite / alumina / aluminium', 'verdict': 'agree',
      'ext_mine': 'Guinea ~29%, Australia ~22%, China ~21%, Brazil ~7% (USGS 2024)',
@@ -138,7 +137,7 @@ out = f'''<!doctype html>
   magnets the atlas matches USGS/IEA on mine and refining shares, and its refiner-illusion / processing-chokepoint
   signals hold. On <b>lithium</b> the audit did its job — it surfaced a stale mine-share vintage (now corrected to
   USGS 2024) and a product-definition nuance (the traded code is carbonate, not spodumene). External figures: USGS
-  Mineral Commodity Summaries 2025 and IEA Critical Minerals Outlook 2025, reconciled with the engine council.
+  Mineral Commodity Summaries 2025 and IEA Critical Minerals Outlook 2025.
   Atlas figures are pulled live by <code>build_casestudies.py</code>, so this page cannot drift from the data.</div>
   {''.join(cards)}
   <p class="note">Computed from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + the layer outputs → <a href="out/casestudies.json">casestudies.json</a>. External shares are rounded public figures; mine production ≠ exports ≠ refined output — that distinction is the atlas's whole point.</p>

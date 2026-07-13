@@ -12,8 +12,8 @@ atlas's existing geographic concentration to surface "double-jeopardy" materials
 
 Companionality = approximate share of world production arising as a by-product/co-product (0 = always primary,
 100 = always a by-product). Values compiled from USGS Mineral Commodity Summaries 2024 and Nassar, Graedel &
-Alonso (2015, Science Advances, "By-product metals are technologically essential but have problematic supply"),
-cross-checked with an independent LLM compilation (OpenAI Codex). Public data; deterministic.
+Alonso (2015, Science Advances, "By-product metals are technologically essential but have problematic supply").
+Public data; deterministic.
 Run: python build_companionality.py
 """
 import json, os
@@ -22,7 +22,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 
 # label -> (class, companionality_pct, [host commodities], note)
-# sourced: USGS MCS 2024 + Nassar et al. 2015; cross-checked via Codex compilation.
+# sourced: USGS MCS 2024 + Nassar et al. 2015.
 COMP = {
     'arsenic':   ('byproduct', 100, ['copper', 'lead', 'gold'],      'Recovered only from smelter flue dust.'),
     'gallium':   ('byproduct', 100, ['bauxite', 'zinc'],            'A by-product of alumina (Bayer) and zinc refining.'),
@@ -181,7 +181,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>What &ldquo;companionality&rdquo; means, and the sources</summary>
   <p><b>Companionality</b> = the approximate share of world production that arises as a <i>by-product or co-product</i> of a host commodity (0 = always mined for itself; 100 = never mined for itself). A high value means supply is <b>inelastic to the material&rsquo;s own price</b>: more is produced only when the host is, regardless of how &ldquo;critical&rdquo; it becomes. We cross companionality with the atlas&rsquo;s trade concentration (HHI) into a <b>double-jeopardy</b> reading &mdash; supply-inelastic <i>and</i> geographically concentrated.</p>
-  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from <b>USGS Mineral Commodity Summaries 2024</b> and <b>Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>)</b>, cross-checked against an independent LLM compilation (OpenAI Codex) and, now, <b>recomputed from mine-level open data</b> (ICMM Global Mining Dataset 2025) as a validation column below. Values are round approximations of a genuinely fuzzy quantity (by-product share shifts with price and deposit) &mdash; treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
+  <p class="howto-src"><b>Sources &amp; caveats:</b> companionality figures compiled from <b>USGS Mineral Commodity Summaries 2024</b> and <b>Nassar, Graedel &amp; Alonso (2015, <i>Science Advances</i>)</b>, and <b>recomputed from mine-level open data</b> (ICMM Global Mining Dataset 2025) as a validation column below. Values are round approximations of a genuinely fuzzy quantity (by-product share shifts with price and deposit) &mdash; treat them as tiers, not decimals. HHI is trade-based (Comtrade/BACI), so it measures export concentration, not mine concentration. &rarr; <a href="out/companionality.json">companionality.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>

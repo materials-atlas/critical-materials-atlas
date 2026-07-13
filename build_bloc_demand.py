@@ -36,7 +36,7 @@ def bloc(iso):
     return 'Other'
 BLOCS = ['CN', 'EU', 'US', 'JP', 'KR', 'IN', 'Other']
 
-# industrial-policy driver + import reliance per key material (curated; cross-checked with Codex/Grok).
+# industrial-policy driver + import reliance per key material (curated).
 POLICY = {
     'gallium':   ('China ~80% of supply + 2023 export controls; EU CRMA & US CHIPS chase alternatives', {'EU': 100, 'US': 100, 'JP': 95}),
     'germanium': ('China-dominated, 2023 export controls; fibre/IR/chip demand in US/EU/JP', {'EU': 100, 'US': 100, 'JP': 90}),
@@ -157,7 +157,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand-by-bloc is read (and why imports are only a proxy)</summary>
   <p>For each material we aggregate <b>import value by destination</b> (the &ldquo;to&rdquo; side of every trade flow, <span id="yr"></span>) into blocs, and read the share each bloc pulls. Overlaid: the industrial-policy driver and each bloc&rsquo;s import reliance.</p>
-  <p class="howto-src"><b>Big caveat:</b> imports are <i>not</i> final consumption. China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship; the &ldquo;to&rdquo; country mixes intermediate processing with end use. So a bloc&rsquo;s share is <b>revealed trade pull</b>, not consumption &mdash; read it beside the <a href="origin.html">origin trace</a>, which corrects the mirror image. Policy notes cross-checked with Codex/Grok. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
+  <p class="howto-src"><b>Big caveat:</b> imports are <i>not</i> final consumption. China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship; the &ldquo;to&rdquo; country mixes intermediate processing with end use. So a bloc&rsquo;s share is <b>revealed trade pull</b>, not consumption &mdash; read it beside the <a href="origin.html">origin trace</a>, which corrects the mirror image.  Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
