@@ -13,8 +13,9 @@ Maus footprint. For each facility point we (tier 1) test point-in-polygon agains
 (inside beats near; nearer wins ties). We then aggregate attributed footprint (km2) by commodity, map it to
 the atlas's 32 critical materials, and report how much of the footprint can — and cannot — be labelled.
 
-The honest result is the point of the page: only ~17% of mapped footprint sits at a commodity-labelled
-facility, ~95% of that is coal/copper/gold/iron, and barely 4% of the whole footprint ties to a tracked
+The honest result is the point of the page: one database labels only ~17% of mapped footprint (4% critical),
+but thirteen stacked registers reach 63% and district clustering ~73% — matching the published frontier. What
+does not move is the mineral mix: ~95% of the labelled area is coal/copper/gold/iron, and only ~17% ties to a tracked
 critical material (almost all copper). Lithium, cobalt, rare earths, tantalum, tungsten and the rest are not
 even separable classes in the open data — they are folded into "Other mine" / "Other (poly)-metallic". This
 is precisely why the atlas builds material-level geography from trade + USGS/IEA production shares, not
