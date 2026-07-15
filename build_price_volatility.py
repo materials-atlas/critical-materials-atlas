@@ -131,16 +131,21 @@ for lab, u in MAP.items():
 
 # ---- OLS --------------------------------------------------------------------
 def ols(y, X, names):
-    """OLS with HC0 (heteroskedasticity-robust) standard errors — n is small and volatility is skewed.
-    Reports 95% CIs: with a sample this size the CI, not the p-value, is the informative object."""
+    """OLS with HC3 heteroskedasticity-robust standard errors.
+
+    HC3, not HC0, and that is deliberate: HC0 is biased DOWNWARD in small samples (it under-states SEs and
+    over-states significance), and the standard advice is HC3 whenever n < 250 (MacKinnon & White 1985;
+    Long & Ervin 2000). n=33 here, so HC0 would flatter every result on this page — including the ones we
+    want to be true. Reports 95% CIs: with a sample this size the CI, not the p-value, is the real object."""
     X = np.column_stack([np.ones(len(y))] + list(X))
     y = np.asarray(y, float)
     XtXi = np.linalg.inv(X.T @ X)
     b = XtXi @ X.T @ y
     e = y - X @ b
     n, k = X.shape
-    hc0 = XtXi @ (X.T @ np.diag(e ** 2) @ X) @ XtXi     # robust sandwich
-    se = np.sqrt(np.diag(hc0))
+    h = np.diag(X @ XtXi @ X.T)                          # leverage
+    hc3 = XtXi @ (X.T @ np.diag(e ** 2 / (1 - h) ** 2) @ X) @ XtXi
+    se = np.sqrt(np.diag(hc3))
     t = b / se
     p = 2 * (1 - stats.t.cdf(np.abs(t), n - k))
     crit = stats.t.ppf(0.975, n - k)
@@ -211,6 +216,86 @@ confound = {
     'size_ratio': round(med_pr / med_bp),
 }
 
+# ---- inference that does not lean on n being large ---------------------------
+def permutation_p(y, X, seed=12345, draws=20000):
+    """Shuffle the by-product label. No asymptotics, no normality — with n=33 that matters."""
+    rng = np.random.default_rng(seed)
+    lab, rest = np.asarray(X[0], float), [np.asarray(c, float) for c in X[1:]]
+    def coef(l):
+        M = np.column_stack([np.ones(len(y)), l] + rest)
+        return float(np.linalg.lstsq(M, np.asarray(y, float), rcond=None)[0][1])
+    obs = coef(lab)
+    null = np.array([coef(rng.permutation(lab)) for _ in range(draws)])
+    return obs, float((np.abs(null) >= abs(obs)).mean()), draws
+
+perm_obs, perm_p, perm_n = permutation_p(w_y, [w_b, w_s])
+
+# rank-based: immune to the leverage of bulk commodities (iron ore is 10^9 t, rhenium 10^1.7)
+sp_t = stats.spearmanr(w_y, [math.log10(r['production_t']) for r in WR if r['production_t']]
+                       if all(r['production_t'] for r in WR) else w_s)
+sp_v = stats.spearmanr(w_y, w_s)
+rk_y, rk_s = stats.rankdata(w_y), stats.rankdata(w_s)
+Mr = np.column_stack([np.ones(len(rk_y)), w_b, rk_s])
+br = np.linalg.lstsq(Mr, rk_y, rcond=None)[0]
+er = rk_y - Mr @ br
+ser = np.sqrt(np.diag(np.linalg.inv(Mr.T @ Mr) * (er @ er) / (len(rk_y) - 3)))
+rank_model = {
+    'spearman_r': round(float(sp_v.statistic), 2), 'spearman_p': round(float(sp_v.pvalue), 5),
+    'byproduct_coef': round(float(br[1]), 2),
+    'byproduct_p': round(float(2 * (1 - stats.t.cdf(abs(br[1] / ser[1]), len(rk_y) - 3))), 3),
+    'size_coef': round(float(br[2]), 2),
+    'size_p': round(float(2 * (1 - stats.t.cdf(abs(br[2] / ser[2]), len(rk_y) - 3))), 4),
+}
+
+# drop-one-metal: is the size result carried by a couple of bulk commodities?
+def drop_one():
+    out = []
+    for d in (None, 'iron-ore', 'aluminum', 'rhenium'):
+        S2 = [r for r in WR if r['usgs'] != d]
+        b, p, _ = None, None, None
+        m = ols([r['volatility'] for r in S2], [[r['byproduct'] for r in S2],
+                [math.log10(r['market_value_usd']) for r in S2]], ['bp', 'size'])
+        out.append({'dropped': d or '(none)', 'n': m['n'],
+                    'byproduct': m['terms'][1]['coef'], 'byproduct_p': m['terms'][1]['p'],
+                    'size': m['terms'][2]['coef'], 'size_p': m['terms'][2]['p']})
+    return out
+drop_one_tbl = drop_one()
+
+# ---- HORIZON: the answer depends on how long a window you measure volatility over ----
+# Short windows measure episodic jumpiness; long windows measure persistent variability. These are
+# different questions and — as it turns out — they have different answers. Report both rather than
+# picking the one that suits the headline.
+def horizon(win):
+    rows = []
+    for u in sorted(BYPRODUCT_METALS | PRIMARY_METALS):
+        if u not in P:
+            continue
+        for y0 in range(Y0, Y1 - win + 2, win):                 # NON-overlapping windows
+            ys = sorted(y for y in P[u] if y0 <= y <= y0 + win - 1)
+            rets = [math.log(P[u][b] / P[u][a]) for a, b in zip(ys, ys[1:])
+                    if b == a + 1 and P[u][a] > 0 and P[u][b] > 0]
+            if len(rets) < max(3, win - 2):
+                continue
+            m = sum(rets) / len(rets)
+            v = (sum((x - m) ** 2 for x in rets) / (len(rets) - 1)) ** 0.5 * 100
+            tons = [W[u][t] for t in W[u] if y0 <= t <= y0 + win - 1]
+            prs = [P[u][t] for t in P[u] if y0 <= t <= y0 + win - 1]
+            if len(tons) < 3:
+                continue
+            rows.append({'u': u, 'b': 1 if u in BYPRODUCT_METALS else 0, 'v': v,
+                         's': math.log10(float(np.median(tons)) * float(np.median(prs)))})
+    if len(rows) < 12:
+        return None
+    m = ols([r['v'] for r in rows], [[r['b'] for r in rows], [r['s'] for r in rows]], ['bp', 'size'])
+    return {'window_years': win, 'n_obs': m['n'],
+            'byproduct': m['terms'][1]['coef'], 'byproduct_p': m['terms'][1]['p'],
+            'size': m['terms'][2]['coef'], 'size_p': m['terms'][2]['p']}
+
+horizons = [h for h in (horizon(w) for w in (5, 8, 12)) if h] + [{
+    'window_years': Y1 - Y0 + 1, 'n_obs': m4['n'],
+    'byproduct': m4['terms'][1]['coef'], 'byproduct_p': m4['terms'][1]['p'],
+    'size': m4['terms'][2]['coef'], 'size_p': m4['terms'][2]['p']}]
+
 # express the wide by-product effect as % excess over the primary mean, with its CI
 w_pr = [r['volatility'] for r in WR if not r['byproduct']]
 w_bp = [r['volatility'] for r in WR if r['byproduct']]
@@ -261,12 +346,26 @@ out = {
     'model_bivariate': m1, 'model_controlled': m2,
     'model_wide': m3, 'model_wide_controlled': m4, 'model_wide_robust': m5,
     'model_wide_physical': m6, 'confound': confound,
+    'permutation': {'coef': round(perm_obs, 2), 'p': round(perm_p, 3), 'draws': perm_n},
+    'rank_model': rank_model, 'drop_one': drop_one_tbl, 'horizons': horizons,
+    'se_type': 'HC3 (small-sample robust; HC0 under-states SEs at n<250 — Long & Ervin 2000)',
+    'population_note': 'n=33 is not a small SAMPLE of a large universe — it is most of the population. '
+                       'Only ~40 metals have a published price series at all, so no amount of work gets '
+                       'this to n=300. More metals do not exist. This bound applies equally to the '
+                       'published literature.',
     'wide_excess': wide_excess, 'wide_rows': sorted(WS, key=lambda r: -r['volatility']),
-    'verdict': 'The by-product volatility premium is a market-SIZE effect. Uncontrolled, by-product '
-               'metals are significantly more volatile (replicating the published direction). Controlling '
-               'for market size, the by-product coefficient collapses to statistical noise while size '
-               'itself is strongly significant. By-product metals are not volatile because they are '
-               'stuck; they are volatile because they are small.',
+    'verdict': 'The by-product volatility premium is a market-SIZE effect. Uncontrolled, by-product metals '
+               'are significantly more volatile (replicating the published direction); controlling for '
+               'market size the by-product coefficient collapses to noise while size takes the '
+               'significance and the explanatory power. It holds under HC3, a permutation test, a '
+               'rank-based model, a physical-tonnes control, dropping contested classes, drop-one, and at '
+               'every non-overlapping window from 5 to 24 years. By-product metals are not volatile '
+               'because they are stuck; they are volatile because they are small. NOTE for anyone '
+               'rerunning this: rolling OVERLAPPING windows appear to reverse the result (by-product '
+               '+7.8pp, p=0.07) — that is pseudo-replication, each return reused up to 4x. The same '
+               'window without overlap gives +1.5pp, p=0.70. By-product status is also time-invariant, so '
+               'a panel adds no information about it: naive unclustered panel SEs report p<0.0001 on '
+               'n=614, but clustering by metal returns the effective sample to 33.',
     'mean_vol_byproduct': round(mean_bp, 1) if mean_bp else None,
     'mean_vol_primary': round(mean_pr, 1) if mean_pr else None,
     'excess_vol_pct': excess,
@@ -305,6 +404,16 @@ print(f"    confound: byproduct vs log size r={confound['r']} (p={confound['p']}
       f"({confound['size_ratio']}x)")
 print(f"    excess volatility = {wide_excess['excess_pct']:+.0f}%  95% CI [{wide_excess['excess_lo']:+.0f}%, {wide_excess['excess_hi']:+.0f}%]")
 print(f"    R&E's +50% inside our CI: {wide_excess['re_inside_ci']} | zero inside our CI: {wide_excess['zero_inside_ci']}")
+print(f"\n  small-n inference (HC3 throughout):")
+print(f"    permutation test (n={perm_n}): byproduct coef {perm_obs:+.2f}pp -> p={perm_p:.3f}")
+print(f"    rank-based: spearman(vol, log size) r={rank_model['spearman_r']} (p={rank_model['spearman_p']}) | "
+      f"partial byproduct p={rank_model['byproduct_p']}, size p={rank_model['size_p']}")
+print(f"    drop-one ($ size): " + ' | '.join(f"-{d['dropped']}: bp p={d['byproduct_p']:.2f}, size p={d['size_p']:.3f}"
+      for d in drop_one_tbl))
+print(f"\n  HORIZON (non-overlapping windows, $ size control):")
+for h in horizons:
+    print(f"    {h['window_years']:2d}yr (n={h['n_obs']:3d}): byproduct {h['byproduct']:+6.2f} (p={h['byproduct_p']:.3f})"
+          f" | size {h['size']:+6.2f} (p={h['size_p']:.4f})")
 if baci:
     print(f"\n  BACI unit-value volatility vs USGS real: r={baci['r']} (p={baci['p']}, n={baci['n']})")
 
@@ -353,8 +462,9 @@ HTML = r'''<!doctype html>
   <details class="howto"><summary>How this test is built (and what it fixes)</summary>
   <p><b>Prices.</b> USGS <i>Historical Statistics for Mineral and Material Commodities</i> (Data Series 140) &mdash; real annual unit values in constant 1998 dollars, public domain, <b>one series per commodity</b>. That matters: the atlas&rsquo;s earlier <a href="price-squeeze.html">price test</a> used trade unit values, where gallium, germanium and hafnium share a single HS6 code (811292) and therefore carry <i>identical</i> prices. Here each is priced separately, so the problem dissolves rather than gets patched.</p>
   <p><b>Window: 2000&ndash;2023, and that is a finding.</b> Before ~2000 the USGS nominal series for minor metals are <b>administered list prices</b>, frozen for years at a stretch (germanium 13 years, hafnium 11, helium 9, gallium 8). Deflating a frozen nominal price manufactures smooth fake &ldquo;real&rdquo; volatility out of the CPI &mdash; and it would land on precisely the by-product metals, biasing the coefficient we are trying to measure. After 2000 every series is market-priced. Helium remains partly administered (US Federal Helium Reserve) and is flagged.</p>
-  <p><b>Model.</b> Volatility = standard deviation of year-on-year log returns of the real price. Then OLS with heteroskedasticity-robust (HC0) standard errors: volatility ~ by-product status, then the same plus <b>log market size</b>. Classification is the textbook primary/companion split (USGS Mineral Commodity Summaries; Nassar, Graedel &amp; Alonso 2015) &mdash; a binary class, not an invented fraction; metals whose class is genuinely argued over are flagged and dropped in a robustness model.</p>
-  <p class="howto-src"><b>Limits:</b> n=33 metals is small, so read the confidence interval, not the p-value. USGS unit values are US-market annual averages, not global spot. Excluded: mercury (class disputed), fluorspar and niobium (too few price years), hafnium and titanium (no world-production series, so no size control). Input: USGS DS-140 &rarr; <a href="out/price_volatility.json">price_volatility.json</a>.</p>
+  <p><b>Model.</b> Volatility = standard deviation of year-on-year log returns of the real price. Then OLS with heteroskedasticity-robust standard errors: volatility ~ by-product status, then the same plus <b>log market size</b>. Classification is the textbook primary/companion split (USGS Mineral Commodity Summaries; Nassar, Graedel &amp; Alonso 2015) &mdash; a binary class, not an invented fraction; metals whose class is genuinely argued over are flagged and dropped in a robustness model.</p>
+  <p><b>HC3, not HC0.</b> HC0 is biased <i>downward</i> in small samples &mdash; it under-states standard errors and over-states significance &mdash; and the standard advice is HC3 whenever n&nbsp;&lt;&nbsp;250 (MacKinnon &amp; White 1985; Long &amp; Ervin 2000). At n=33, HC0 would flatter every number on this page, <i>including the ones we would like to be true</i>. Everything here is HC3, which makes our own results less significant, not more.</p>
+  <p class="howto-src"><b>Limits:</b> USGS unit values are US-market annual averages, not global spot. Excluded: mercury (class disputed), fluorspar and niobium (too few price years), hafnium and titanium (no world-production series, so no size control). Input: USGS DS-140 &rarr; <a href="out/price_volatility.json">price_volatility.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -371,6 +481,17 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.8rem 0 .3rem">The confound, measured directly</h2>
   <div id="confound" class="keyline"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">&ldquo;But n=33 is small&rdquo;</h2>
+  <p>It is &mdash; and it cannot be fixed, because <b>n=33 is not a small sample of a large universe. It is most of the universe.</b> Only about forty metals have a published price series at all; we use thirty-three of them. There is no larger dataset to go and find, and no amount of effort produces one, because the additional metals <i>do not exist</i>. This bound applies just as much to the published literature as to us.</p>
+  <p>So the honest response is not to pretend n is bigger, but to <b>stop relying on n being big</b>. Every result here is re-tested three more ways that do not lean on large-sample asymptotics &mdash; a <b>permutation test</b> (shuffle the by-product labels 20,000 times; no normality assumed), a <b>rank-based</b> model (immune to the enormous leverage of bulk commodities &mdash; iron ore is 10<sup>9</sup> tonnes, rhenium 10<sup>1.7</sup>), and <b>drop-one</b>, removing the metals that could carry the result single-handed. They agree.</p>
+  <table class="tidy" id="robust"><thead><tr><th>Test</th><th>what it removes the reliance on</th><th class="n">by-product</th><th class="n">market size</th></tr></thead><tbody></tbody></table>
+
+  <h3 style="margin:1.4rem 0 .3rem">Does the answer depend on the window?</h3>
+  <p class="muted" style="margin-top:0">A fair worry: 24-year volatility might hide episodic spikes. It doesn&rsquo;t change the verdict &mdash; at every window length, with <b>non-overlapping</b> windows, size is significant and by-product status is not.</p>
+  <table class="tidy" id="horiz"><thead><tr><th>volatility window</th><th class="n">observations</th><th class="n">by-product</th><th class="n">p</th><th class="n">market size</th><th class="n">p</th></tr></thead><tbody></tbody></table>
+
+  <div class="keyline"><b>A trap worth naming, since it nearly caught us.</b> The obvious way to manufacture a bigger n is a panel: slice the window into rolling 5-year sub-periods and you have 614 observations instead of 33. Do that and by-product status <i>becomes significant</i> (+7.8pp, p=0.07) while market size goes away. It is an artifact, twice over. First, <b>rolling windows overlap</b>, so each year&rsquo;s return is reused up to four times &mdash; the 2023 gallium/germanium export-control spike gets counted repeatedly, and pseudo-replication is dressed up as evidence. Run the <i>same</i> 5-year window <b>without</b> overlap and the effect vanishes (+1.5pp, p=0.70) while size returns (p=0.003). Second, and more fundamentally, <b>by-product status never varies within a metal</b>, so a panel adds no information about it at all: the naive unclustered panel reports p&lt;0.0001, but cluster the errors by metal &mdash; as you must &mdash; and the effective sample is back to 33. <b>The panel does not give you more evidence. It gives you the same evidence, counted more times.</b></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Every metal in the test</h2>
   <table class="tidy" id="tab"><thead><tr><th>Metal</th><th>class</th><th class="n">volatility %</th><th class="n">median output t</th><th class="n">yrs</th></tr></thead><tbody></tbody></table>
@@ -389,7 +510,7 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="price-squeeze.html">The price test</a><br><a href="companionality.html">Hostage metals</a><br><a href="risk-adjusted.html">Risk re-weighted</a><br><a href="limitations.html">Limitations</a></div>
   <div><h4>Sources</h4>USGS Historical Statistics for Mineral and Material Commodities (Data Series 140), constant 1998 US$ &middot; public domain</div>
-  <div class="fineprint">n=33 metals over 24 years: read the confidence intervals, not the stars. A null on a small sample is not proof of absence &mdash; but here the control does not merely weaken the effect, it replaces it.</div>
+  <div class="fineprint">n=33 metals over 24 years &mdash; roughly the whole population of metals with a published price series, not a sample of a larger one. HC3 errors, plus permutation and rank-based tests that assume neither normality nor large n. A null is not proof of absence &mdash; but here the control does not merely weaken the effect, it replaces it.</div>
 </div></footer>
 <script>
 function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
@@ -410,7 +531,35 @@ Promise.all([fetch('out/price_volatility.json').then(r=>r.json()),
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+s.c+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
 
-  document.getElementById('keyline').innerHTML='<b>Read it honestly:</b> with n='+S.model_wide.n+' metals the confidence interval matters more than the p-value &mdash; and ours puts the by-product excess at <b>'+X.excess_pct+'%</b>, 95% CI ['+X.excess_lo+'%, '+X.excess_hi+'%]. Zero sits inside that interval'+(X.re_inside_ci?'':', and the literature&rsquo;s ~+50% sits <b>outside</b> it')+'. So this is not merely &ldquo;we failed to find an effect on a small sample&rdquo;: the control does not just weaken the by-product term, it <i>replaces</i> it &mdash; size takes the significance and the explanatory power with it. Dropping the metals whose class is contested pushes the coefficient <b>negative</b> ('+f(rob.coef)+'pp), and swapping the dollar control for <b>physical tonnes</b> leaves it at '+f(phy.coef)+'pp (p='+phy.p.toFixed(2)+'). Three ways of asking, one answer.';
+  document.getElementById('keyline').innerHTML='<b>Read it honestly:</b> with n='+S.model_wide.n+' metals the confidence interval matters more than the p-value &mdash; and ours puts the by-product excess at <b>'+X.excess_pct+'%</b>, 95% CI ['+X.excess_lo+'%, '+X.excess_hi+'%]. Zero sits inside that interval'+(X.re_inside_ci?'':', and the literature&rsquo;s ~+50% sits <b>outside</b> it')+'. So this is not merely &ldquo;we failed to find an effect on a small sample&rdquo;: the control does not just weaken the by-product term, it <i>replaces</i> it &mdash; size takes the significance and the explanatory power with it. Dropping the metals whose class is contested pushes the coefficient <b>negative</b> ('+f(rob.coef)+'pp), swapping the dollar control for <b>physical tonnes</b> leaves it at '+f(phy.coef)+'pp (p='+phy.p.toFixed(2)+'), a <b>permutation test</b> that assumes nothing about normality returns p='+S.permutation.p.toFixed(2)+', and a <b>rank-based</b> model immune to outliers returns p='+S.rank_model.byproduct_p.toFixed(2)+' while size holds at p='+S.rank_model.size_p+'. Six ways of asking, one answer.';
+
+  const RB=[
+    ['Main model <span class="muted">(HC3, $ size control)</span>','large-sample SEs (HC3 corrects HC0&rsquo;s small-n bias)',ctl.p,siz.p],
+    ['Permutation test <span class="muted">('+S.permutation.draws.toLocaleString()+' label shuffles)</span>','normality and asymptotics entirely',S.permutation.p,null],
+    ['Rank-based <span class="muted">(Spearman r='+S.rank_model.spearman_r+')</span>','outliers and the leverage of bulk commodities',S.rank_model.byproduct_p,S.rank_model.size_p],
+    ['Physical tonnes <span class="muted">(no price in the control)</span>','any mechanical price-on-both-sides link',phy.p,S.model_wide_physical.terms[2].p],
+    ['Contested classes dropped','the metals whose by-product status is argued over',rob.p,S.model_wide_robust.terms[2].p],
+  ];
+  const tbr=document.querySelector('#robust tbody');
+  RB.forEach(([nm,rem,pb,ps])=>{
+    const cell=v=>v==null?'<span class="nsig">—</span>':'<span class="'+(v<0.05?'sig':'nsig')+'">p='+Number(v).toFixed(3)+(v<0.05?'':' <b>ns</b>')+'</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+nm+'</td><td class="muted" style="font-size:.82rem">'+rem+'</td><td class="n">'+cell(pb)+'</td><td class="n">'+cell(ps)+'</td>';
+    tbr.appendChild(tr);
+  });
+  document.querySelector('#robust').insertAdjacentHTML('afterend',
+    '<p class="muted"><b>ns</b> = not significant. The by-product column is <b>ns everywhere</b>; the market-size column is significant everywhere it can be estimated. Drop-one is not shown as a row because it changes nothing: removing iron ore, aluminium or rhenium individually leaves size at p=0.003–0.007 and by-product at p≈0.82–0.85.</p>');
+
+  const tbh=document.querySelector('#horiz tbody');
+  S.horizons.forEach(h=>{
+    const c=(v,p)=>'<span class="'+(p<0.05?'sig':'nsig')+'">'+f(v)+'</span>';
+    const pc=p=>'<span class="'+(p<0.05?'sig':'nsig')+'">'+p.toFixed(3)+'</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+h.window_years+'-year</b>'+(h.window_years>=24?' <span class="muted">(the headline)</span>':'')+'</td>'+
+      '<td class="n muted">'+h.n_obs+'</td><td class="n">'+c(h.byproduct,h.byproduct_p)+'</td><td class="n">'+pc(h.byproduct_p)+'</td>'+
+      '<td class="n">'+c(h.size,h.size_p)+'</td><td class="n">'+pc(h.size_p)+'</td>';
+    tbh.appendChild(tr);
+  });
 
   document.getElementById('confound').innerHTML='<b>The confound, not assumed but measured:</b> by-product status and market size are correlated at <b>r='+C.r+'</b> (p='+C.p+'). Median annual output of a by-product metal is <b>'+C.median_production_byproduct_t.toLocaleString()+' t</b>; of a primary metal, <b>'+C.median_production_primary_t.toLocaleString()+' t</b> &mdash; a <b>'+C.size_ratio+'×</b> gap. That is why the two explanations were so easy to confuse: almost every by-product metal <i>is</i> a thin market. Separating them needs a regression, which is exactly why the earlier mean-versus-mean comparison could not settle it.';
 
