@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Break this atlas — an open challenge · Critical Materials Atlas</title>
-<meta name="description" content="A public-data demonstration should be attackable. Here are the atlas's load-bearing claims, the four headline claims it has already broken itself, the named failure mode behind all four, and an open invitation to disprove any of the rest.">
-<meta property="og:title" content="Break this atlas — an open challenge to disprove it">
+<title>This atlas has broken four of its own claims — here's how · Critical Materials Atlas</title>
+<meta name="description" content="Zero retractions would not mean zero errors — it would mean nobody checked. Four published headlines of this atlas have been demolished by its own testing: what broke, the single habit behind all four, and the claims still standing with the test that would kill each.">
+<meta property="og:title" content="This atlas has broken four of its own claims — here's how">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -39,14 +39,41 @@
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Open challenge · adversarial review</div>
-  <h1>Break this atlas</h1>
-  <p class="deck">A demonstration built on public data has no business hiding behind its own polish. Everything here is reproducible from committed code, so everything here is <b>checkable</b> &mdash; and this page is an open invitation to check it. Below are the claims the atlas actually rests on, exactly how each could be wrong, and the soft spots it already knows about. Find a real error and it gets logged, fixed, and credited in the public record.</p>
+  <h1>This atlas has broken four of its own claims</h1>
+  <p class="deck">Here is how &mdash; not as an apology, as the evidence. <b>Zero retractions would not mean zero errors. It would mean nobody checked.</b> Everything here is reproducible from committed code, so everything here is checkable, and four times that checking has come back and demolished a published headline of ours. Below: exactly what broke, the habit behind all four, and the claims still standing &mdash; each with the test that would kill it. <b>Now come and break one.</b></p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">This atlas cross-checks itself hard &mdash; <a href="robustness.html">robustness re-tests</a>, an <a href="uncertainty.html">uncertainty Monte-Carlo</a>, an independent <a href="production.html">second-source production check</a>, a falsifier for every headline. But self-review has a ceiling: the author cannot referee his own work, and re-deriving a number a second way tests <i>consistency</i>, not the premise. So the honest next step is <b>adversarial human review</b>. If you know this domain &mdash; a trade economist, a minerals analyst, a supply-chain engineer &mdash; the fastest way to help is to try to break it. The record below is the argument that it is worth your time: this atlas has already broken four of its own claims.</div>
+  <div class="callout">This atlas cross-checks itself hard &mdash; <a href="robustness.html">robustness re-tests</a>, an <a href="uncertainty.html">uncertainty Monte-Carlo</a>, an independent <a href="production.html">second-source production check</a>, a falsifier for every headline. But self-review has a ceiling: the author cannot referee his own work, and re-deriving a number a second way tests <i>consistency</i>, not the premise. So the honest next step is <b>adversarial human review</b>. If you know this domain &mdash; a trade economist, a minerals analyst, a supply-chain engineer &mdash; the fastest way to help is to try to break it. The record below is the argument that it is worth your time: the four claims this atlas has already demolished are its own.</div>
 
-  <h2 style="margin:1.4rem 0 .4rem">The load-bearing claims &mdash; and how to disprove each</h2>
-  <p class="muted" style="margin-top:0">If any of these is wrong, a chunk of the atlas is wrong. Each names the concrete test that would falsify it.</p>
+  <h2 id="record" style="margin:1.8rem 0 .4rem">The four claims this atlas has broken &mdash; and how</h2>
+  <p class="muted" style="margin-top:0">Judge a method by what it does when the answer is <i>inconvenient</i>, not by how many findings it can stack up. Findings are cheap. Every claim below was a <b>published headline on this site</b>; every one is now withdrawn or narrowed <b>in place</b>, original visible and struck, never quietly deleted. Each entry is a receipt: the claim, what actually broke it, and the page where the corrected version now lives.</p>
+
+  <div class="claim err"><h3>1. &ldquo;By-product metals are more volatile&rdquo; &mdash; 37% vs 31%. <span class="tagx">withdrawn</span></h3>
+    <p class="brk">A mean-versus-mean comparison with <b>no control for market size</b> &mdash; so it could not tell &ldquo;supply is stuck&rdquo; from &ldquo;market is small&rdquo;. By-product metals are <b>~174&times; smaller markets</b>. Control for size and the effect dies (p=0.85) while size takes all the significance. Small <i>primary</i> metals &mdash; rare earths, tantalum, beryllium &mdash; are just as volatile, and companionality cannot explain those. <b>The proxy was worse than the model:</b> trade unit-value volatility tracks real price volatility at <b>r=0.13</b>. It was not a noisy measure of volatility; it was not a measure of it. &rarr; <a href="price-volatility.html">the retest</a></p></div>
+
+  <div class="claim err"><h3>2. &ldquo;The host decides the direction&rdquo; &mdash; mean coupling 0.29, five metals beat the control. <span class="tagx">withdrawn</span></h3>
+    <p class="brk">Three broken legs. The <b>control was not a control</b> (subtracting one correlation from another is not residualisation). It was <b>never significant</b> (at n&asymp;21 you need |r|&asymp;0.44; we had 0.29). And it <b>cherry-picked</b> &mdash; reporting the best-matching host out of two or three, then testing at 5%, which manufactures false positives at about the rate we &ldquo;found&rdquo; them. Done properly the coupling is <b>0.03</b>. Antimony went +0.58 &rarr; &minus;0.05: that was the commodity cycle, credited to the host. &rarr; <a href="host-coupling.html">the rewrite</a></p></div>
+
+  <div class="claim err"><h3>3. Demand multiples were curated point estimates. <span class="tagx">corrected</span></h3>
+    <p class="brk">Five of six sat <i>above even the IEA&rsquo;s Net-Zero scenario</i> &mdash; magnets carried at 3.5&times; when the most aggressive published case is 1.9&times;. Recomputed from the IEA Critical Minerals Dataset, <b>cobalt drops out of the structural-squeeze set entirely</b>. The headline survived: gallium and germanium never leaned on the numbers that moved. &rarr; <a href="demand.html">demand</a></p></div>
+
+  <div class="claim err"><h3>4. &ldquo;No clean open dataset of refining capacity by country exists.&rdquo; <span class="tagx">false</span></h3>
+    <p class="brk">It did. The IEA publishes one under CC&nbsp;BY. The claim was an assertion about the world made without checking it, and the dataset that disproved it also <b>improved the page</b>: lithium is mined in Australia (35%) and refined in China (70%). &rarr; <a href="refining.html">refining</a></p></div>
+
+  <div class="card" style="border-left:4px solid #c0392b;margin:1.2rem 0">
+    <h4 style="color:#c0392b">The failure mode, named</h4>
+    <p class="muted" style="margin:.3rem 0 0"><b>All four are the same mistake: we stopped at the first answer that agreed with us.</b> Twice we ran a test, got the number we were hoping for, and did not ask what else could produce it &mdash; a confound we never controlled, a control that was not one. Twice we asserted something (a curated multiple, &ldquo;no such dataset exists&rdquo;) instead of checking whether open data already said otherwise. In every case the error survived precisely <i>because</i> the result was the one we wanted. That is not four unlucky findings. It is one habit, four times, and it is the most reliable way this project produces wrong answers.</p>
+    <p class="muted" style="margin:.5rem 0 0">It is also the most useful thing to attack. <b>If a claim on this site flatters the thesis, that is exactly where to look</b> &mdash; the record says our scrutiny drops when the answer is convenient.</p>
+  </div>
+
+  <div class="card" style="border-left:4px solid #0e7c74;margin:1.2rem 0">
+    <h4>Where else we looked &mdash; the contagion sweep</h4>
+    <p class="muted" style="margin:.3rem 0 0">After two retractions from the same cause, the obvious question is how far it spreads. So we swept every generator. <b>Trade unit values as a price proxy:</b> three builders touch them &mdash; one is the retracted price test, one is the <a href="volume.html">value-vs-volume</a> page where unit values <i>are</i> the subject rather than a proxy, one does not use them as a price. <b>Correlations presented as evidence:</b> two others exist &mdash; the <a href="criticality.html">criticality</a> and <a href="riskmethods.html">risk-methods</a> rank correlations &mdash; and both are method-<i>agreement</i> checks (&ldquo;does our ranking match the EU&rsquo;s?&rdquo;), not causal claims, so there is no confound to control for. Both already say they are &ldquo;same family, not independent validation&rdquo;.</p>
+    <p class="muted" style="margin:.5rem 0 0"><b>Conclusion, offered for attack:</b> the failure is concentrated in the arm that tried to turn correlations into mechanisms. The rest of the atlas is descriptive &mdash; who mines what, who refines it, where it flows &mdash; which fails differently and, we think, less easily. <b>We would like to be wrong about that</b>, and a good way to break this page is to show the sweep missed something.</p>
+  </div>
+
+  <h2 style="margin:1.8rem 0 .4rem">What is still standing &mdash; and how to disprove each</h2>
+  <p class="muted" style="margin-top:0">These are the claims that have survived so far. That is a statement about effort, not about truth: the four above looked exactly this solid until someone checked properly. If any of these is wrong, a chunk of the atlas is wrong &mdash; so each one names the concrete test that would falsify it. <b>The fastest way to help is to run one.</b></p>
 
   <div class="claim"><h3>1. The &ldquo;refiner illusion&rdquo;: trade attributes supply to processors, not mines.</h3>
     <p class="brk"><b>Break it:</b> show a material where the reconciled trade-derived top exporter is <i>also</i> the genuine mine origin (so the origin gap is spurious), or show the mirror-reconciliation systematically mis-assigns direction. Test against a chain with a known mass balance.</p></div>
@@ -77,33 +104,6 @@
       <li><b>Breadth over depth.</b> Many layers share one spine; some re-test the same story. Press on whether any single result has independent bite.</li>
       <li><b>No external human review yet.</b> That is what this page is trying to fix.</li>
     </ul></div>
-  </div>
-
-  <h2 id="record" style="margin:1.8rem 0 .4rem">The error record &mdash; four claims this atlas has broken itself</h2>
-  <p class="muted" style="margin-top:0">Most analyses publish what they found. This one also publishes what it got wrong, because a method is only as good as what it does when the answer comes back inconvenient. Every one of these was a <b>published headline</b> on this site. Every one is now withdrawn or narrowed, in place, with the original visible and struck rather than quietly deleted.</p>
-
-  <div class="claim err"><h3>1. &ldquo;By-product metals are more volatile&rdquo; &mdash; 37% vs 31%. <span class="tagx">withdrawn</span></h3>
-    <p class="brk">A mean-versus-mean comparison with <b>no control for market size</b> &mdash; so it could not tell &ldquo;supply is stuck&rdquo; from &ldquo;market is small&rdquo;. By-product metals are <b>~174&times; smaller markets</b>. Control for size and the effect dies (p=0.85) while size takes all the significance. Small <i>primary</i> metals &mdash; rare earths, tantalum, beryllium &mdash; are just as volatile, and companionality cannot explain those. <b>The proxy was worse than the model:</b> trade unit-value volatility tracks real price volatility at <b>r=0.13</b>. It was not a noisy measure of volatility; it was not a measure of it. &rarr; <a href="price-volatility.html">the retest</a></p></div>
-
-  <div class="claim err"><h3>2. &ldquo;The host decides the direction&rdquo; &mdash; mean coupling 0.29, five metals beat the control. <span class="tagx">withdrawn</span></h3>
-    <p class="brk">Three broken legs. The <b>control was not a control</b> (subtracting one correlation from another is not residualisation). It was <b>never significant</b> (at n&asymp;21 you need |r|&asymp;0.44; we had 0.29). And it <b>cherry-picked</b> &mdash; reporting the best-matching host out of two or three, then testing at 5%, which manufactures false positives at about the rate we &ldquo;found&rdquo; them. Done properly the coupling is <b>0.03</b>. Antimony went +0.58 &rarr; &minus;0.05: that was the commodity cycle, credited to the host. &rarr; <a href="host-coupling.html">the rewrite</a></p></div>
-
-  <div class="claim err"><h3>3. Demand multiples were curated point estimates. <span class="tagx">corrected</span></h3>
-    <p class="brk">Five of six sat <i>above even the IEA&rsquo;s Net-Zero scenario</i> &mdash; magnets carried at 3.5&times; when the most aggressive published case is 1.9&times;. Recomputed from the IEA Critical Minerals Dataset, <b>cobalt drops out of the structural-squeeze set entirely</b>. The headline survived: gallium and germanium never leaned on the numbers that moved. &rarr; <a href="demand.html">demand</a></p></div>
-
-  <div class="claim err"><h3>4. &ldquo;No clean open dataset of refining capacity by country exists.&rdquo; <span class="tagx">false</span></h3>
-    <p class="brk">It did. The IEA publishes one under CC&nbsp;BY. The claim was an assertion about the world made without checking it, and the dataset that disproved it also <b>improved the page</b>: lithium is mined in Australia (35%) and refined in China (70%). &rarr; <a href="refining.html">refining</a></p></div>
-
-  <div class="card" style="border-left:4px solid #c0392b;margin:1.2rem 0">
-    <h4 style="color:#c0392b">The failure mode, named</h4>
-    <p class="muted" style="margin:.3rem 0 0"><b>All four are the same mistake: we stopped at the first answer that agreed with us.</b> Twice we ran a test, got the number we were hoping for, and did not ask what else could produce it &mdash; a confound we never controlled, a control that was not one. Twice we asserted something (a curated multiple, &ldquo;no such dataset exists&rdquo;) instead of checking whether open data already said otherwise. In every case the error survived precisely <i>because</i> the result was the one we wanted. That is not four unlucky findings. It is one habit, four times, and it is the most reliable way this project produces wrong answers.</p>
-    <p class="muted" style="margin:.5rem 0 0">It is also the most useful thing to attack. <b>If a claim on this site flatters the thesis, that is exactly where to look</b> &mdash; the record says our scrutiny drops when the answer is convenient.</p>
-  </div>
-
-  <div class="card" style="border-left:4px solid #0e7c74;margin:1.2rem 0">
-    <h4>Where else we looked &mdash; the contagion sweep</h4>
-    <p class="muted" style="margin:.3rem 0 0">After two retractions from the same cause, the obvious question is how far it spreads. So we swept every generator. <b>Trade unit values as a price proxy:</b> three builders touch them &mdash; one is the retracted price test, one is the <a href="volume.html">value-vs-volume</a> page where unit values <i>are</i> the subject rather than a proxy, one does not use them as a price. <b>Correlations presented as evidence:</b> two others exist &mdash; the <a href="criticality.html">criticality</a> and <a href="riskmethods.html">risk-methods</a> rank correlations &mdash; and both are method-<i>agreement</i> checks (&ldquo;does our ranking match the EU&rsquo;s?&rdquo;), not causal claims, so there is no confound to control for. Both already say they are &ldquo;same family, not independent validation&rdquo;.</p>
-    <p class="muted" style="margin:.5rem 0 0"><b>Conclusion, offered for attack:</b> the failure is concentrated in the arm that tried to turn correlations into mechanisms. The rest of the atlas is descriptive &mdash; who mines what, who refines it, where it flows &mdash; which fails differently and, we think, less easily. <b>We would like to be wrong about that</b>, and a good way to break this page is to show the sweep missed something.</p>
   </div>
 
   <h2 style="margin:1.6rem 0 .4rem">How to challenge it</h2>
