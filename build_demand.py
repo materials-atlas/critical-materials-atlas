@@ -23,9 +23,23 @@ comp = json.load(open(os.path.join(ROOT, 'out', 'companionality.json'), encoding
 CO = {r['label']: r for r in comp['rows']}
 TITLE = {m['label']: CO.get(m['label'], {}).get('title', m['title'].split(' (')[0]) for m in data['materials']}
 
+# ---- IEA scenario bands: real, computed g per scenario where the IEA publishes a TOTAL-demand series ----
+# g is a forward DEMAND MULTIPLE, which is scenario-dependent by construction — quoting one number hides that.
+# The IEA Critical Minerals Dataset (CC BY 4.0) gives total demand by mineral under STEPS / APS / NZE, so for
+# the minerals it covers we COMPUTE g = total demand 2040 / 2024 in each scenario and carry the whole band
+# (STEPS = low, APS = central, NZE = high) instead of a curated point. Only 6 minerals have a total-demand
+# series; sheet 3.2 covers ~37 but clean-tech demand only (a different metric), so it is not used for g.
+import csv as _csv
+IEA_F = os.path.join(ROOT, 'raw', 'iea', 'iea_demand_scenarios.csv')
+IEA_G = {}
+if os.path.exists(IEA_F):
+    for _r in _csv.DictReader(open(IEA_F, encoding='utf-8')):
+        IEA_G[_r['material']] = {'low': float(_r['g_steps']), 'central': float(_r['g_aps']),
+                                 'high': float(_r['g_nze']), 'base_2024': float(_r['base_2024'])}
+
 # label -> (sectors, clean_energy_pct, demand_growth_2040 multiple, outlook)
-# curated from IEA Global Critical Minerals Outlook 2024 (APS ~2040 vs today) + USGS 2024 end-uses;
-# Round figures for a fuzzy forward quantity.
+# g curated from IEA Global Critical Minerals Outlook + USGS 2024 end-uses (round figures for a fuzzy forward
+# quantity) — but OVERRIDDEN by the computed IEA scenario band above wherever available.
 DEM = {
     'lithium':   (['EV & grid batteries', 'ceramics/glass'], 85, 8.0, 'very high'),
     'graphite':  (['EV battery anodes', 'steel recarburising', 'refractories'], 60, 4.5, 'very high'),
@@ -67,15 +81,25 @@ for m in data['materials']:
     lab = m['label']
     if lab not in DEM:
         continue
-    sectors, ce, g, outlook = DEM[lab]
+    sectors, ce, g_curated, outlook = DEM[lab]
     c = CO.get(lab, {})
     cp = c.get('companionality_pct', 0)
-    squeeze = round((min(g, 8.0) / 8.0) * (cp / 100.0) * 100, 1)
+    band = IEA_G.get(lab)
+    # computed IEA scenario band wins over the curated point estimate where it exists
+    g = band['central'] if band else g_curated
+    sq = lambda gg: round((min(gg, 8.0) / 8.0) * (cp / 100.0) * 100, 1)
     rows.append({
         'label': lab, 'title': TITLE.get(lab, lab),
-        'sectors': sectors, 'clean_energy_pct': ce, 'demand_growth_2040': g, 'outlook': outlook,
+        'sectors': sectors, 'clean_energy_pct': ce, 'demand_growth_2040': round(g, 2), 'outlook': outlook,
         'companionality_pct': cp, 'class': c.get('class', 'primary'),
-        'value_eur': m.get('total_eur'), 'squeeze': squeeze,
+        'value_eur': m.get('total_eur'), 'squeeze': sq(g),
+        # scenario band: computed from IEA STEPS/APS/NZE where published, else None (curated point)
+        'g_source': 'IEA computed (STEPS/APS/NZE)' if band else 'curated (literature)',
+        'g_low': round(band['low'], 2) if band else None,
+        'g_high': round(band['high'], 2) if band else None,
+        'g_curated_prev': g_curated if band else None,
+        'squeeze_low': sq(band['low']) if band else None,
+        'squeeze_high': sq(band['high']) if band else None,
     })
 
 rows.sort(key=lambda r: (-r['squeeze'], -r['demand_growth_2040']))
@@ -145,7 +169,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand and the squeeze are estimated</summary>
   <p>For each material: principal end-use <b>sectors</b>, the <b>clean-energy share</b> of demand, and a <b>demand-growth multiple to ~2040</b> (demand in 2040 &divide; today) grounded in the <b>IEA Global Critical Minerals Outlook 2024</b> (Announced-Pledges scenario) and USGS end-use data. The <b>squeeze index</b> = normalised demand growth &times; companionality &mdash; high only when demand is surging <i>and</i> supply is by-product-locked and cannot scale.</p>
-  <p class="howto-src"><b>Caveat:</b> forward demand is scenario-dependent and these are round, mid-scenario figures &mdash; read them as tiers, not forecasts (a different IEA scenario moves battery-metal multiples by a factor of several). Inputs: IEA CMO 2024 + USGS &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/demand.json">demand.json</a>.</p>
+  <p class="howto-src"><b>Scenario-dependence, handled explicitly.</b> A forward demand multiple is scenario-dependent by construction, so quoting one number hides the real uncertainty. For the six minerals where the IEA publishes a <i>total-demand</i> series, we no longer curate a point estimate &mdash; we <b>compute <i>g</i> in all three scenarios</b> from the <a href="https://www.iea.org/data-and-statistics/data-product/critical-minerals-dataset" target="_blank" rel="noopener">IEA Critical Minerals Dataset</a> (CC&nbsp;BY&nbsp;4.0): <b>STEPS</b> (stated policies) &rarr; <b>APS</b> (announced pledges, our central) &rarr; <b>NZE</b> (net zero), and carry the whole band into the squeeze. The remaining materials keep a <b>curated literature estimate</b>, labelled as such in the table &mdash; the IEA&rsquo;s 37-mineral sheet covers <i>clean-tech</i> demand only, which is a different quantity from total demand and would overstate <i>g</i>. Inputs: IEA Critical Minerals Dataset + USGS &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/demand.json">demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -158,6 +182,8 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.6rem 0 .3rem">Every material — demand pull and the squeeze</h2>
   <table class="tidy" id="tab"><thead><tr><th>Material</th><th>pulled by</th><th class="n">clean-energy %</th><th class="n">demand ×2040</th><th>outlook</th><th class="n">by-prod %</th><th class="n">squeeze</th></tr></thead><tbody></tbody></table>
+
+  <div class="keyline" id="iea-note" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What this opens</h2>
   <p>The demand arm turns the atlas from a snapshot of where supply sits into a map of where pressure is heading &mdash; and, joined to the supply-structure work, separates the materials that need <i>capital and time</i> (lithium, graphite: mine more) from those that need <i>a different playbook entirely</i> (gallium, germanium, rare earths: recovery yield, stockpiles, substitution, because more mines aren&rsquo;t on the menu). From here the branches are concrete: demand by <b>technology scenario</b> (what a faster EV path does to each squeeze), demand by <b>country/bloc</b> (whose industrial policy pulls which metal), and coupling demand growth to the <a href="volume.html">price series</a> to test whether the squeeze is already showing up in unit values.</p>
@@ -205,12 +231,21 @@ Promise.all([fetch('out/demand.json').then(r=>r.json()),
     tr.innerHTML='<td><b>'+r.title+'</b></td>'+
       '<td class="muted" style="font-size:.82rem">'+r.sectors.join(', ')+'</td>'+
       '<td class="n">'+r.clean_energy_pct+'</td>'+
-      '<td class="n" style="font-weight:600">'+r.demand_growth_2040+'×</td>'+
+      '<td class="n" style="font-weight:600">'+r.demand_growth_2040+'×'+
+        (r.g_low?'<div class="muted" style="font-weight:400;font-size:.7rem" title="IEA STEPS → NZE scenario band (computed)">'+r.g_low+'–'+r.g_high+'× <span style="color:#0e7c74">IEA</span></div>'
+              :'<div class="muted" style="font-weight:400;font-size:.7rem" title="curated literature estimate — no IEA total-demand series">curated</div>')+'</td>'+
       '<td><span class="tag '+ocls[r.outlook]+'">'+r.outlook+'</span></td>'+
       '<td class="n">'+r.companionality_pct+'</td>'+
-      '<td class="n" style="font-weight:700;color:'+(r.squeeze>=50?'#c0392b':r.squeeze>=25?'#b07a18':'#9aa6ad')+'">'+r.squeeze.toFixed(0)+'</td>';
+      '<td class="n" style="font-weight:700;color:'+(r.squeeze>=50?'#c0392b':r.squeeze>=25?'#b07a18':'#9aa6ad')+'">'+r.squeeze.toFixed(0)+
+        (r.squeeze_low!=null&&r.squeeze_high>0?'<div class="muted" style="font-weight:400;font-size:.7rem">'+r.squeeze_low.toFixed(0)+'–'+r.squeeze_high.toFixed(0)+'</div>':'')+'</td>';
     tb.appendChild(tr);
   });
+  // IEA computed-band note + the correction it forced
+  (function(){
+    const iea=S.rows.filter(r=>r.g_low), cut=iea.filter(r=>r.g_curated_prev && r.g_curated_prev>r.g_high);
+    const el=document.getElementById('iea-note'); if(!el||!iea.length) return;
+    el.innerHTML='<b style="color:#0e7c74">Real scenarios beat a round number &mdash; and they corrected us.</b> For the <b>'+iea.length+'</b> minerals where the IEA publishes a total-demand series, <i>g</i> is now <b>computed in all three scenarios</b> rather than curated, so the table shows a band (e.g. lithium <b>4.5&ndash;7.5&times;</b>, graphite <b>2.3&ndash;3.9&times;</b>) instead of a false decimal. Doing that <b>caught our own numbers running hot</b>: '+cut.length+' of them sat <i>above even the Net-Zero scenario</i> &mdash; magnets were carried at 3.5&times; when the IEA&rsquo;s most aggressive case is 1.9&times;, cobalt at 2.5&times; vs 1.98&times;. Those were 2024-report headlines on a 2023 base; the dataset is the May-2025 update on a 2024 base, and the IEA revised down. <b>The correction bites:</b> cobalt no longer clears the <i>g</i>&nbsp;&ge;&nbsp;2 bar, so it drops out of the structural-squeeze set. <b>The headline survives it:</b> gallium and germanium remain the <a href="synthesis.html">hardest cases</a> (99% / 96% under <a href="uncertainty.html">Monte-Carlo</a>) &mdash; they were never propped up by the numbers that moved. Source: IEA Critical Minerals Dataset, CC BY 4.0.';
+  })();
 });
 </script>
 </body></html>'''
