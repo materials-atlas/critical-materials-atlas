@@ -291,6 +291,45 @@ def horizon(win):
             'byproduct': m['terms'][1]['coef'], 'byproduct_p': m['terms'][1]['p'],
             'size': m['terms'][2]['coef'], 'size_p': m['terms'][2]['p']}
 
+# ---- answering the "bad control" objection ---------------------------------
+# The sharpest attack on this page: if being a by-product CAUSES a market to be small, then market size
+# sits on the causal path and controlling it is a "bad control" — it estimates the effect of companionality
+# net of its own mechanism, and a null then means "no DIRECT effect", not "companionality is irrelevant".
+# The objection is legitimate and cannot be dismissed by more regression. Three responses:
+#   1. Report the TOTAL effect (no controls) prominently, which is what the critique demands. It is real.
+#   2. PREDETERMINED size: measure size in 1985-99, volatility in 2000-23. Volatility in 2000-23 cannot
+#      have caused market size 15-24 years EARLIER, so the reverse-causality half of the objection dies.
+#   3. The MATCHED comparison below, which the mediation critique cannot touch: small PRIMARY metals are
+#      just as volatile as small by-product metals. Their smallness has nothing to do with companionality,
+#      so smallness is SUFFICIENT for volatility on its own.
+def size_pre(u):
+    v = [W[u][y] * P[u][y] for y in sorted(W[u]) if 1985 <= y <= 1999 and y in P[u] and P[u][y] > 0]
+    return float(np.median(v)) if len(v) >= 5 else None
+
+PRE = [r for r in WR if size_pre(r['usgs'])]
+m_pre = ols([r['volatility'] for r in PRE], [[r['byproduct'] for r in PRE],
+            [math.log10(size_pre(r['usgs'])) for r in PRE]],
+            ['by-product (0/1)', 'log10 size 1985-99 (predetermined)'])
+
+# size-matched comparison: split at the median market size, compare like with like
+_sorted = sorted(WR, key=lambda r: r['market_value_usd'])
+_med = float(np.median([math.log10(r['market_value_usd']) for r in WR]))
+def _half(pred):
+    g = [r for r in WR if pred(math.log10(r['market_value_usd']))]
+    b = [r['volatility'] for r in g if r['byproduct']]
+    p = [r['volatility'] for r in g if not r['byproduct']]
+    tt = stats.ttest_ind(b, p, equal_var=False)
+    return {'n_byproduct': len(b), 'n_primary': len(p),
+            'mean_byproduct': round(float(np.mean(b)), 1), 'mean_primary': round(float(np.mean(p)), 1),
+            'diff': round(float(np.mean(b) - np.mean(p)), 1), 'p': round(float(tt.pvalue), 3)}
+matched = {
+    'small': _half(lambda s: s < _med), 'large': _half(lambda s: s >= _med),
+    'small_primaries': [{'usgs': r['usgs'], 'volatility': r['volatility']}
+                        for r in sorted((r for r in WR if not r['byproduct']
+                                         and math.log10(r['market_value_usd']) < _med),
+                                        key=lambda r: -r['volatility'])],
+}
+
 horizons = [h for h in (horizon(w) for w in (5, 8, 12)) if h] + [{
     'window_years': Y1 - Y0 + 1, 'n_obs': m4['n'],
     'byproduct': m4['terms'][1]['coef'], 'byproduct_p': m4['terms'][1]['p'],
@@ -346,6 +385,16 @@ out = {
     'model_bivariate': m1, 'model_controlled': m2,
     'model_wide': m3, 'model_wide_controlled': m4, 'model_wide_robust': m5,
     'model_wide_physical': m6, 'confound': confound,
+    'model_predetermined': m_pre, 'matched': matched,
+    'bad_control_note': 'The strongest objection to this page: if by-product status CAUSES small markets, '
+                        'market size is a mediator, not a confounder, and controlling it estimates the '
+                        'direct effect net of the mechanism — a null then means "no direct effect", not '
+                        '"companionality is irrelevant". We do not dismiss this. We report the TOTAL '
+                        'effect (real: +9.3pp, p=0.017), we show the result holds with size measured '
+                        '1985-99 (predetermined — 2000-23 volatility cannot cause 1985-99 market size), '
+                        'and we show that small PRIMARY metals are just as volatile as small by-product '
+                        'metals, which mediation cannot explain. What we CANNOT settle here is whether '
+                        'companionality contributes to smallness itself. That channel is untested.',
     'permutation': {'coef': round(perm_obs, 2), 'p': round(perm_p, 3), 'draws': perm_n},
     'rank_model': rank_model, 'drop_one': drop_one_tbl, 'horizons': horizons,
     'se_type': 'HC3 (small-sample robust; HC0 under-states SEs at n<250 — Long & Ervin 2000)',
@@ -354,13 +403,18 @@ out = {
                        'this to n=300. More metals do not exist. This bound applies equally to the '
                        'published literature.',
     'wide_excess': wide_excess, 'wide_rows': sorted(WS, key=lambda r: -r['volatility']),
-    'verdict': 'The by-product volatility premium is a market-SIZE effect. Uncontrolled, by-product metals '
-               'are significantly more volatile (replicating the published direction); controlling for '
-               'market size the by-product coefficient collapses to noise while size takes the '
-               'significance and the explanatory power. It holds under HC3, a permutation test, a '
-               'rank-based model, a physical-tonnes control, dropping contested classes, drop-one, and at '
-               'every non-overlapping window from 5 to 24 years. By-product metals are not volatile '
-               'because they are stuck; they are volatile because they are small. NOTE for anyone '
+    'verdict': 'By-product metals ARE more volatile — that total effect is real (+9.3pp, p=0.017). But it '
+               'is fully accounted for by market size: conditional on scale, by-product status adds '
+               'nothing (+0.9pp, p=0.85), and small PRIMARY metals (rare earths 50%, tantalum 45%, '
+               'beryllium 43%) are just as volatile as small by-product metals (+1.7pp, p=0.75). '
+               'Smallness is SUFFICIENT for volatility without companionality. So there is no volatility '
+               'penalty specific to being a by-product. It holds under HC3, a permutation test, a '
+               'rank-based model, a physical-tonnes control, dropping contested classes, drop-one, every '
+               'non-overlapping window from 5 to 24 years, and with size measured 1985-99 (predetermined, '
+               'so 2000-23 volatility cannot have caused it). HONEST LIMIT: if companionality itself makes '
+               'a market small, size is a mediator and this design cannot see that channel — we report the '
+               'total effect for exactly that reason. What dies is the claim that inelasticity shows up as '
+               'turbulence over and above scale. NOTE for anyone '
                'rerunning this: rolling OVERLAPPING windows appear to reverse the result (by-product '
                '+7.8pp, p=0.07) — that is pseudo-replication, each return reused up to 4x. The same '
                'window without overlap gives +1.5pp, p=0.70. By-product status is also time-invariant, so '
@@ -455,7 +509,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; falsification &middot; regression</div>
   <h1>Are by-product metals really more volatile?</h1>
-  <p class="deck">It is one of the best-known regularities in mineral economics &mdash; and this atlas asserted it too. Tested properly, on 24 years of real prices with a control for market size, it does not hold. By-product metals are not volatile because they are <i>stuck</i>. They are volatile because they are <b>small</b>.</p>
+  <p class="deck">Yes &mdash; and the reason is not the one everybody gives. On 24 years of real prices, the volatility of by-product metals is fully accounted for by <b>how small their markets are</b>. Small <i>primary</i> metals &mdash; rare earths, tantalum, beryllium &mdash; swing just as hard, and companionality cannot explain those. Being stuck is not what makes a price jumpy. Being <b>small</b> is.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
@@ -481,6 +535,20 @@ HTML = r'''<!doctype html>
 
   <h2 style="margin:1.8rem 0 .3rem">The confound, measured directly</h2>
   <div id="confound" class="keyline"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">Compare like with like</h2>
+  <p>Regressions are easy to argue with, so here is the same finding without one. Split the metals at the median market size and compare only within each half &mdash; small against small, large against large.</p>
+  <table class="tidy" id="matched"><thead><tr><th>market size</th><th class="n">by-product volatility</th><th class="n">primary volatility</th><th class="n">difference</th><th class="n">p</th></tr></thead><tbody></tbody></table>
+  <div class="keyline" id="matchlead"></div>
+  <p><b>These are the metals that settle it</b> &mdash; small markets that are <i>not</i> by-products, so companionality cannot be why they are jumpy:</p>
+  <table class="tidy" id="smallprim"><thead><tr><th>primary metal</th><th class="n">annual volatility</th></tr></thead><tbody></tbody></table>
+
+  <h2 style="margin:1.8rem 0 .3rem">The strongest objection to this page</h2>
+  <p><b>&ldquo;Market size is a bad control.&rdquo;</b> The objection runs like this: if being a by-product <i>causes</i> a market to be small &mdash; because output is capped by whatever the host mine happens to produce &mdash; then size sits <b>on the causal path</b>, not beside it. Controlling for it would then subtract companionality&rsquo;s own mechanism from companionality&rsquo;s effect, and our null would mean &ldquo;no <i>direct</i> effect&rdquo;, not &ldquo;companionality is irrelevant.&rdquo; This is a real objection and no amount of extra regression answers it. Three responses, in increasing order of force:</p>
+  <p><b>1. We report the total effect.</b> It is <span id="tot"></span> and it is the headline of this page, exactly as the objection demands. By-product metals <i>are</i> more volatile. We are explaining that fact, not denying it.</p>
+  <p><b>2. Size measured before the fact.</b> If volatility somehow keeps markets small (rather than the reverse), our control is contaminated. So we re-ran it with market size measured in <b>1985&ndash;1999</b> and volatility in <b>2000&ndash;2023</b>: volatility in this century cannot have caused market size in the last one. <span id="pre"></span></p>
+  <p><b>3. Small primary metals.</b> This is the one the objection cannot reach. Rare earths, tantalum and beryllium are <i>primary</i> metals &mdash; nobody claims their supply is hostage to a host &mdash; and they are among the most volatile prices in the dataset. Their markets are small for ordinary reasons: not much demand. Mediation cannot explain them, because there is no companionality in the chain to mediate. They demonstrate that <b>smallness is sufficient for volatility all by itself</b>. Once smallness alone produces the swing, by-product status has nothing left to explain.</p>
+  <p class="muted"><b>What we still cannot say.</b> None of this rules out that companionality contributes to a market being small in the first place. That channel is real in principle &mdash; you cannot make more gallium than the alumina industry throws off &mdash; and this design is silent on it. So the honest claim is narrow and we will not stretch it: <b>there is no volatility penalty specific to being a by-product, over and above being small.</b> Whether companionality helps <i>make</i> these markets small is a different question, and a good one.</p>
 
   <h2 style="margin:1.8rem 0 .3rem">&ldquo;But n=33 is small&rdquo;</h2>
   <p>It is &mdash; and it cannot be fixed, because <b>n=33 is not a small sample of a large universe. It is most of the universe.</b> Only about forty metals have a published price series at all; we use thirty-three of them. There is no larger dataset to go and find, and no amount of effort produces one, because the additional metals <i>do not exist</i>. This bound applies just as much to the published literature as to us.</p>
@@ -521,7 +589,8 @@ Promise.all([fetch('out/price_volatility.json').then(r=>r.json()),
         rob=S.model_wide_robust.terms[1], X=S.wide_excess, C=S.confound;
   const f=v=>(v>0?'+':'')+v.toFixed(2);
 
-  document.getElementById('lead').innerHTML='<b>Result:</b> on their own, by-product metals really are more volatile &mdash; <b>'+f(raw.coef)+' percentage points</b> of annual price volatility (p='+raw.p.toFixed(3)+'), which reproduces the published finding. Then add one control &mdash; <b>how big the market is</b> &mdash; and the by-product effect collapses to '+f(ctl.coef)+'pp (p='+ctl.p.toFixed(2)+'), indistinguishable from zero, while market size is strongly significant (p='+siz.p.toFixed(4)+') and the model&rsquo;s R&sup2; more than doubles. The reason is simple and measurable: by-product metals are <b>'+C.size_ratio+'&times; smaller markets</b> than primary ones. Thin markets swing. Being a by-product adds nothing on top.';
+  const M=S.matched;
+  document.getElementById('lead').innerHTML='<b>Result:</b> by-product metals really are more volatile &mdash; <b>'+f(raw.coef)+' percentage points</b> of annual price volatility (p='+raw.p.toFixed(3)+'). That total effect is real and reproduces the published finding; we are not disputing it. The question is <i>why</i>. Add one control &mdash; <b>how big the market is</b> &mdash; and the by-product effect collapses to '+f(ctl.coef)+'pp (p='+ctl.p.toFixed(2)+'), while market size is strongly significant (p='+siz.p.toFixed(4)+') and R&sup2; more than doubles. By-product metals are <b>'+C.size_ratio+'&times; smaller markets</b>. And the clincher, which needs no regression at all: among the <b>smallest half</b> of these markets, by-products average '+M.small.mean_byproduct+'% volatility and <b>primary metals '+M.small.mean_primary+'%</b> &mdash; a gap of '+f(M.small.diff)+'pp (p='+M.small.p.toFixed(2)+'). <b>Smallness alone does it.</b> Companionality is not required.';
 
   const stats=[
     {v:f(raw.coef)+'pp',l:'by-product effect on volatility, <b>uncontrolled</b> — significant (p='+raw.p.toFixed(3)+'), and it replicates the literature',c:''},
@@ -549,6 +618,26 @@ Promise.all([fetch('out/price_volatility.json').then(r=>r.json()),
   });
   document.querySelector('#robust').insertAdjacentHTML('afterend',
     '<p class="muted"><b>ns</b> = not significant. The by-product column is <b>ns everywhere</b>; the market-size column is significant everywhere it can be estimated. Drop-one is not shown as a row because it changes nothing: removing iron ore, aluminium or rhenium individually leaves size at p=0.003–0.007 and by-product at p≈0.82–0.85.</p>');
+
+  const tbm2=document.querySelector('#matched tbody');
+  [['Small half <span class="muted">(below median $ size)</span>',M.small],['Large half',M.large]].forEach(([nm,g])=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+nm+'</td><td class="n">'+g.mean_byproduct+'% <span class="muted">(n='+g.n_byproduct+')</span></td>'+
+      '<td class="n">'+g.mean_primary+'% <span class="muted">(n='+g.n_primary+')</span></td>'+
+      '<td class="n"><span class="'+(g.p<0.05?'sig':'nsig')+'">'+f(g.diff)+'pp</span></td>'+
+      '<td class="n"><span class="'+(g.p<0.05?'sig':'nsig')+'">'+g.p.toFixed(2)+'</span></td>';
+    tbm2.appendChild(tr);
+  });
+  document.getElementById('matchlead').innerHTML='<b>Among small markets the difference all but disappears</b> &mdash; '+M.small.mean_byproduct+'% for by-products versus '+M.small.mean_primary+'% for primary metals, a gap of '+f(M.small.diff)+'pp that a coin flip would produce (p='+M.small.p.toFixed(2)+'). The famous by-product premium is not visible once you stop comparing tiny metals with iron ore. In the large half the by-product group is only '+M.large.n_byproduct+' metals, too few to read into &mdash; we say so rather than quoting the '+f(M.large.diff)+'pp as if it meant something.';
+  const tbs=document.querySelector('#smallprim tbody');
+  M.small_primaries.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+r.usgs+'</b> <span class="muted">— primary, no host to be hostage to</span></td><td class="n" style="font-weight:600">'+r.volatility+'%</td>';
+    tbs.appendChild(tr);
+  });
+  document.getElementById('tot').innerHTML='<b>'+f(raw.coef)+'pp (p='+raw.p.toFixed(3)+')</b>';
+  const pr=S.model_predetermined.terms;
+  document.getElementById('pre').innerHTML='The answer does not move: by-product <b>'+f(pr[1].coef)+'pp (p='+pr[1].p.toFixed(2)+')</b>, while predetermined size stays strong (<b>'+pr[2].coef.toFixed(2)+'</b>, p='+pr[2].p.toFixed(4)+'). Reverse causality is not driving this.';
 
   const tbh=document.querySelector('#horiz tbody');
   S.horizons.forEach(h=>{
