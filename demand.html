@@ -57,6 +57,11 @@
 
   <div class="keyline" id="iea-note" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
+  <h2 style="margin:1.8rem 0 .4rem">What is actually doing the pulling?</h2>
+  <p class="muted" style="margin-top:0">A multiple says <i>how much more</i>; it doesn&rsquo;t say <i>what wants it</i>. The IEA breaks demand down by end-use technology, so we can decompose the growth rather than assert it: the <b>biggest use by 2040</b>, and the technology adding the most <b>absolute</b> demand between 2024 and 2040 &mdash; the growth driver.</p>
+  <table class="tidy" id="techtab" style="max-width:820px"><thead><tr><th>Mineral</th><th>demand mix in 2040</th><th class="n">clean-tech share</th><th>growth driver 2024&rarr;2040</th></tr></thead><tbody></tbody></table>
+  <div class="keyline" id="techkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
+
   <h2 style="margin:1.8rem 0 .3rem">What this opens</h2>
   <p>The demand arm turns the atlas from a snapshot of where supply sits into a map of where pressure is heading &mdash; and, joined to the supply-structure work, separates the materials that need <i>capital and time</i> (lithium, graphite: mine more) from those that need <i>a different playbook entirely</i> (gallium, germanium, rare earths: recovery yield, stockpiles, substitution, because more mines aren&rsquo;t on the menu). From here the branches are concrete: demand by <b>technology scenario</b> (what a faster EV path does to each squeeze), demand by <b>country/bloc</b> (whose industrial policy pulls which metal), and coupling demand growth to the <a href="volume.html">price series</a> to test whether the squeeze is already showing up in unit values.</p>
 </article>
@@ -112,6 +117,27 @@ Promise.all([fetch('out/demand.json').then(r=>r.json()),
         (r.squeeze_low!=null&&r.squeeze_high>0?'<div class="muted" style="font-weight:400;font-size:.7rem">'+r.squeeze_low.toFixed(0)+'–'+r.squeeze_high.toFixed(0)+'</div>':'')+'</td>';
     tb.appendChild(tr);
   });
+  // what pulls each metal: IEA demand-by-technology decomposition
+  (function(){
+    const TB=S.tech_breakdown; if(!TB||!TB.length) return;
+    const COL={'Electric vehicles':'#c0392b','Other uses':'#c9d3d1','Electricity networks':'#3f6fb0',
+      'Solar PV':'#e0a92a','Wind':'#0e7c74','Grid battery storage':'#8a2f3f','Hydrogen technologies':'#7d5fb0',
+      'Other low emissions power generation':'#2f8f6b','Low emissions power generation':'#2f8f6b'};
+    const col=t=>COL[t]||'#9aa6ad';
+    const tt=document.querySelector('#techtab tbody');
+    TB.forEach(d=>{
+      const bars=d.techs.filter(t=>t.pct_2040>0.5).map(t=>'<span title="'+t.tech+': '+t.pct_2040+'% of 2040 demand" style="display:inline-block;height:15px;width:'+t.pct_2040+'%;background:'+col(t.tech)+'"></span>').join('');
+      const tr=document.createElement('tr');
+      tr.innerHTML='<td><b>'+TITLE(d.material)+'</b></td>'+
+        '<td><div style="display:flex;width:100%;border-radius:3px;overflow:hidden;font-size:0">'+bars+'</div>'+
+          '<div class="muted" style="font-size:.7rem;margin-top:.15rem">biggest: '+d.top_use.toLowerCase()+' '+d.top_use_pct+'%</div></td>'+
+        '<td class="n"><b>'+d.cleantech_pct_2040+'%</b></td>'+
+        '<td><b style="color:#c0392b">'+d.driver+'</b><div class="muted" style="font-size:.7rem">'+d.driver_share_of_growth+'% of all growth</div></td>';
+      tt.appendChild(tr);
+    });
+    const evAll=TB.every(d=>/electric vehicle/i.test(d.driver));
+    document.getElementById('techkey').innerHTML='<b style="color:#0e7c74">It is one technology.</b> '+(evAll?'For <b>every one</b> of these six minerals':'For most of these minerals')+' the growth driver 2024&rarr;2040 is the same thing: the <b>electric vehicle</b> &mdash; copper, cobalt, lithium, nickel, magnet rare earths and graphite alike. Note the split it creates: for copper, cobalt, nickel and magnets, clean tech is still a <i>minority</i> of 2040 demand (the bulk is ordinary industrial &ldquo;other uses&rdquo;) &mdash; yet EVs supply essentially <b>all of the growth</b>. Lithium and graphite are the exceptions where EVs dominate the level too. So the whole critical-minerals demand story reduces, to first order, to <b>how many electric cars get built</b> &mdash; which is exactly why the scenario band above is wide, and why a single number would have been a fiction. Source: IEA Critical Minerals Dataset, CC BY 4.0.';
+  })();
   // IEA computed-band note + the correction it forced
   (function(){
     const iea=S.rows.filter(r=>r.g_low), cut=iea.filter(r=>r.g_curated_prev && r.g_curated_prev>r.g_high);
