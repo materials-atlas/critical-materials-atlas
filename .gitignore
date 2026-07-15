@@ -22,6 +22,7 @@ out/*
 !out/recycling.json
 !out/demand.json
 !out/price_squeeze.json
+!out/price_volatility.json
 !out/host_coupling.json
 !out/bloc_demand.json
 !out/net_demand.json
@@ -47,9 +48,6 @@ out/*
 .RData
 .Rproj.user/
 reconcile/*.csv
-
-# Claude Code local settings (machine-specific, do not commit)
-.claude/settings.local.json
 
 # council/web-research scratch (never commit)
 terminals/

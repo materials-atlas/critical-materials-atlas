@@ -56,6 +56,7 @@
       ['robustness.html', 'Robustness — do findings survive?'],
       ['network-sensitivity.html', 'Network truncation sensitivity'],
       ['shock-methods.html', 'How to model a shock — method study'],
+      ['price-volatility.html', 'Volatility — by-product, or just small?'],
       ['uncertainty.html', 'Scorecard uncertainty (Monte-Carlo)'],
       ['limitations.html', 'Limitations & falsification'],
       ['challenge.html', 'Break this atlas — open challenge'] ] },

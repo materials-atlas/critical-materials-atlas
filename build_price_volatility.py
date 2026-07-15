@@ -1,0 +1,478 @@
+#!/usr/bin/env python3
+"""
+Price volatility ~ companionality, controlling for market size — the regression test.
+
+Upgrade of the price test (build_price_squeeze.py). That one compared MEAN volatility of by-product vs
+primary metals (37% vs 31%) using BACI trade unit values, 2018-2024. Two problems with it:
+
+  1. NO CONTROL. By-product metals are also *tiny* markets, and thin markets are volatile for liquidity
+     reasons that have nothing to do with companionality. A raw mean comparison cannot tell "stuck supply"
+     from "small market". Redlinger & Eggert (Resources Policy, 2016) — the direct precedent — use a
+     REGRESSION for exactly this reason, and find by-products ~50% more volatile over ~50 years.
+  2. BAD PRICE PROXY. Trade unit values mix grade, form and contract lag, are nominal, and gallium,
+     germanium and hafnium share one HS6 code (811292) — one price signal masquerading as three.
+
+This builder fixes both. Prices are USGS "Historical Statistics for Mineral and Material Commodities"
+(Data Series 140) — real annual unit values in constant 1998 dollars, public domain, one series per
+commodity, so Ga/Ge/Hf are priced SEPARATELY and the shared-code problem dissolves rather than gets
+patched. Then OLS: volatility ~ companionality (+ log market size), so the by-product coefficient is
+identified holding thinness constant.
+
+WINDOW = 2000-2023, and that is a finding, not a default. Before ~2000 the USGS nominal series for the
+minor metals are ADMINISTERED LIST PRICES, frozen for years at a time (germanium 13-year run, hafnium
+11, helium 9, gallium 8). Deflating a frozen nominal price manufactures smooth fake "real" volatility
+out of the CPI, and it would hit precisely the by-product metals — biasing the very coefficient we want.
+Post-2000 every series is market-priced (0% no-change years). Helium stays partly administered even
+after (US Federal Helium Reserve) and is flagged.
+
+Public data only; deterministic. Run: python build_price_volatility.py
+"""
+import json, os, csv, math, collections
+import numpy as np
+from scipy import stats
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+SRC = os.path.join(ROOT, 'raw', 'usgs_hist', 'usgs_prices_slim.csv')
+Y0, Y1 = 2000, 2023          # market-priced era (see docstring)
+MIN_RET = 10                 # need >=10 log-returns to estimate a volatility
+LOCKED, PRIMARY = 66, 10     # companionality thresholds for the R&E-style binary split
+
+comp = json.load(open(os.path.join(ROOT, 'out', 'companionality.json'), encoding='utf8'))
+CO = {r['label']: r for r in comp['rows']}
+
+# atlas label -> USGS DS-140 commodity. phosphorus & cokingcoal have no DS-140 series (nonfuel minerals only).
+MAP = {
+    'arsenic': 'arsenic', 'germanium': 'germanium', 'gallium': 'gallium', 'hafnium': 'hafnium',
+    'helium': 'helium', 'cobalt': 'cobalt', 'vanadium': 'vanadium', 'antimony': 'antimony',
+    'tantalum': 'tantalum', 'palladium': 'platinum-group-metals', 'magnets': 'rare-earths',
+    'platinum': 'platinum-group-metals', 'titanium': 'titanium-metal', 'tungsten': 'tungsten',
+    'fluorspar': 'fluorspar', 'copper': 'copper', 'nickel': 'nickel', 'magnesium': 'magnesium-metal',
+    'graphite': 'graphite', 'niobium': 'niobium', 'boron': 'boron', 'lithium': 'lithium',
+    'silicon': 'silicon', 'feldspar': 'feldspar', 'manganese': 'manganese',
+    'bauxite': 'bauxite-and-alumina', 'phosphate': 'phosphate-rock', 'baryte': 'barite',
+    'beryllium': 'beryllium', 'strontium': 'strontium',
+}
+# platinum & palladium share ONE PGM unit-value series -> same y, different x. Keep the eponymous metal
+# in the regression sample, flag the other. Same discipline the old test applied to the Ga/Ge/Hf HS6 code.
+SHARED_SERIES = {'platinum', 'palladium'}
+SHARED_KEEP = 'platinum'
+ADMINISTERED = {'helium'}    # US Federal Helium Reserve — partly administered even post-2000
+
+# ---- wide metals sample (Redlinger & Eggert's own design) -------------------
+# The atlas sample is only ~25 materials, which is too thin to detect a ~20% effect. R&E test a BINARY
+# by-product dummy over a broad metals set, so do the same: every DS-140 metal with a usable series.
+# Class is the textbook primary/companion split (USGS Mineral Commodity Summaries; Nassar, Graedel &
+# Alonso 2015) — a binary CLASS, not a fabricated fraction. CONTESTED marks metals whose split is
+# genuinely argued over; a robustness model drops them. Mercury is excluded outright (class disputed).
+BYPRODUCT_METALS = {
+    'arsenic', 'bismuth', 'cadmium', 'cobalt', 'gallium', 'germanium', 'hafnium', 'indium',
+    'molybdenum', 'rhenium', 'selenium', 'silver', 'tellurium', 'vanadium',
+}
+PRIMARY_METALS = {
+    'aluminum', 'antimony', 'beryllium', 'chromium', 'copper', 'gold', 'iron-ore', 'lead',
+    'lithium', 'magnesium-metal', 'manganese', 'nickel', 'niobium', 'platinum-group-metals',
+    'rare-earths', 'silicon', 'tantalum', 'tin', 'titanium-metal', 'tungsten', 'zinc', 'zirconium',
+}
+CONTESTED = {'antimony', 'molybdenum', 'platinum-group-metals', 'rare-earths', 'tantalum', 'vanadium'}
+
+# ---- load USGS series -------------------------------------------------------
+P = collections.defaultdict(dict)   # real unit value, constant 1998 $/t
+W = collections.defaultdict(dict)   # world production, t
+for r in csv.DictReader(open(SRC, encoding='utf8')):
+    y = int(r['year'])
+    if r['uv_98']:
+        P[r['commodity']][y] = float(r['uv_98'])
+    if r['world_production']:
+        W[r['commodity']][y] = float(r['world_production'])
+
+
+def volatility(series):
+    """sd of year-on-year log returns of the REAL price, in % — the standard measure (R&E 2016)."""
+    ys = sorted(y for y in series if Y0 <= y <= Y1)
+    rets = [math.log(series[b] / series[a])
+            for a, b in zip(ys, ys[1:]) if b == a + 1 and series[a] > 0 and series[b] > 0]
+    if len(rets) < MIN_RET:
+        return None, len(rets)
+    m = sum(rets) / len(rets)
+    return (sum((x - m) ** 2 for x in rets) / (len(rets) - 1)) ** 0.5 * 100, len(rets)
+
+
+def market_value(u):
+    """median annual world market value over the window, $ — the thinness control."""
+    vs = [W[u][y] * P[u][y] for y in sorted(W[u]) if Y0 <= y <= Y1 and y in P[u] and P[u][y] > 0]
+    return float(np.median(vs)) if len(vs) >= 5 else None
+
+
+rows, dropped = [], []
+for lab, u in MAP.items():
+    co = CO.get(lab)
+    if not co:
+        continue
+    vol, nret = volatility(P[u])
+    if vol is None:
+        dropped.append({'label': lab, 'title': co['title'], 'reason': f'only {nret} usable price years in {Y0}-{Y1}'})
+        continue
+    mv = market_value(u)
+    ys = sorted(y for y in P[u] if Y0 <= y <= Y1)
+    p0, p1 = P[u][ys[0]], P[u][ys[-1]]
+    rows.append({
+        'label': lab, 'title': co['title'], 'usgs': u, 'class': co['class'],
+        'companionality_pct': co['companionality_pct'],
+        'volatility': round(vol, 1), 'n_returns': nret,
+        'market_value_usd': round(mv) if mv else None,
+        'price_real_2023': round(p1), 'chg_real': round((p1 / p0 - 1) * 100, 1),
+        'yr_first': ys[0], 'yr_last': ys[-1],
+        'shared_series': lab in SHARED_SERIES,
+        'administered': lab in ADMINISTERED,
+        'in_regression': mv is not None and not (lab in SHARED_SERIES and lab != SHARED_KEEP),
+    })
+    if mv is None:
+        dropped.append({'label': lab, 'title': co['title'], 'reason': 'no world-production series -> no market-size control'})
+
+# ---- OLS --------------------------------------------------------------------
+def ols(y, X, names):
+    """OLS with HC0 (heteroskedasticity-robust) standard errors — n is small and volatility is skewed.
+    Reports 95% CIs: with a sample this size the CI, not the p-value, is the informative object."""
+    X = np.column_stack([np.ones(len(y))] + list(X))
+    y = np.asarray(y, float)
+    XtXi = np.linalg.inv(X.T @ X)
+    b = XtXi @ X.T @ y
+    e = y - X @ b
+    n, k = X.shape
+    hc0 = XtXi @ (X.T @ np.diag(e ** 2) @ X) @ XtXi     # robust sandwich
+    se = np.sqrt(np.diag(hc0))
+    t = b / se
+    p = 2 * (1 - stats.t.cdf(np.abs(t), n - k))
+    crit = stats.t.ppf(0.975, n - k)
+    ybar = y.mean()
+    r2 = 1 - (e @ e) / (((y - ybar) ** 2).sum())
+    return {
+        'n': int(n), 'r2': round(float(r2), 3),
+        'adj_r2': round(float(1 - (1 - r2) * (n - 1) / (n - k)), 3),
+        'terms': [{'name': nm, 'coef': round(float(bb), 4), 'se': round(float(ss), 4),
+                   't': round(float(tt), 2), 'p': round(float(pp), 4),
+                   'ci_lo': round(float(bb - crit * ss), 4), 'ci_hi': round(float(bb + crit * ss), 4)}
+                  for nm, bb, ss, tt, pp in zip(['(intercept)'] + names, b, se, t, p)],
+    }
+
+
+def wide_sample():
+    """Every DS-140 metal with a usable real-price series, classed by-product vs primary (R&E design)."""
+    out = []
+    for u in sorted(BYPRODUCT_METALS | PRIMARY_METALS):
+        if u not in P:
+            continue
+        vol, nret = volatility(P[u])
+        if vol is None:
+            continue
+        tons = [W[u][y] for y in W[u] if Y0 <= y <= Y1]
+        out.append({'usgs': u, 'byproduct': 1 if u in BYPRODUCT_METALS else 0,
+                    'volatility': round(vol, 1), 'n_returns': nret,
+                    'market_value_usd': market_value(u),
+                    'production_t': float(np.median(tons)) if len(tons) >= 5 else None,
+                    'contested': u in CONTESTED})
+    return out
+
+
+S = [r for r in rows if r['in_regression']]
+cp = [r['companionality_pct'] for r in S]
+vy = [r['volatility'] for r in S]
+lmv = [math.log10(r['market_value_usd']) for r in S]
+
+m1 = ols(vy, [cp], ['companionality (pp)'])                                  # bivariate — what we did before
+m2 = ols(vy, [cp, lmv], ['companionality (pp)', 'log10 market size ($)'])    # + thinness control
+
+# ---- wide metals sample: R&E's binary design, with the power to actually detect an effect ----
+WS = wide_sample()
+WR = [r for r in WS if r['market_value_usd']]          # need the size control
+w_y = [r['volatility'] for r in WR]
+w_b = [r['byproduct'] for r in WR]
+w_s = [math.log10(r['market_value_usd']) for r in WR]
+m3 = ols(w_y, [w_b], ['by-product (0/1)'])                                       # R&E replication
+m4 = ols(w_y, [w_b, w_s], ['by-product (0/1)', 'log10 market size ($)'])         # + thinness control
+# robustness: drop the metals whose primary/by-product class is genuinely argued over
+RB = [r for r in WR if not r['contested']]
+m5 = ols([r['volatility'] for r in RB], [[r['byproduct'] for r in RB],
+         [math.log10(r['market_value_usd']) for r in RB]],
+         ['by-product (0/1)', 'log10 market size ($)'])
+# The $-size control contains price, and volatility is computed FROM price — so a mechanical link is
+# conceivable. Re-run the control on PHYSICAL TONNES, where no price enters the right-hand side at all.
+PH = [r for r in WR if r['production_t']]
+m6 = ols([r['volatility'] for r in PH], [[r['byproduct'] for r in PH],
+         [math.log10(r['production_t']) for r in PH]],
+         ['by-product (0/1)', 'log10 production (t)'])
+# is the confound actually there? by-product status vs market size, directly
+pb_r, pb_p = stats.pointbiserialr([r['byproduct'] for r in PH], [math.log10(r['production_t']) for r in PH])
+med_bp = float(np.median([r['production_t'] for r in PH if r['byproduct']]))
+med_pr = float(np.median([r['production_t'] for r in PH if not r['byproduct']]))
+confound = {
+    'r': round(float(pb_r), 2), 'p': round(float(pb_p), 5),
+    'median_production_byproduct_t': round(med_bp), 'median_production_primary_t': round(med_pr),
+    'size_ratio': round(med_pr / med_bp),
+}
+
+# express the wide by-product effect as % excess over the primary mean, with its CI
+w_pr = [r['volatility'] for r in WR if not r['byproduct']]
+w_bp = [r['volatility'] for r in WR if r['byproduct']]
+base = sum(w_pr) / len(w_pr)
+bt = m4['terms'][1]
+wide_excess = {
+    'mean_byproduct': round(sum(w_bp) / len(w_bp), 1), 'mean_primary': round(base, 1),
+    'n_byproduct': len(w_bp), 'n_primary': len(w_pr),
+    'excess_pct': round(bt['coef'] / base * 100, 0),
+    'excess_lo': round(bt['ci_lo'] / base * 100, 0), 'excess_hi': round(bt['ci_hi'] / base * 100, 0),
+}
+# the honest question with a small sample: is R&E's ~+50% inside our interval, or ruled out?
+wide_excess['re_inside_ci'] = bool(wide_excess['excess_lo'] <= 50 <= wide_excess['excess_hi'])
+wide_excess['zero_inside_ci'] = bool(wide_excess['excess_lo'] <= 0 <= wide_excess['excess_hi'])
+
+# R&E-style binary comparison, on the SAME sample, for a like-for-like benchmark
+bp = [r['volatility'] for r in S if r['companionality_pct'] >= LOCKED]
+pr = [r['volatility'] for r in S if r['companionality_pct'] <= PRIMARY]
+mean_bp = sum(bp) / len(bp) if bp else None
+mean_pr = sum(pr) / len(pr) if pr else None
+excess = round((mean_bp / mean_pr - 1) * 100, 0) if mean_bp and mean_pr else None
+
+# does companionality survive the control?
+c1 = m1['terms'][1]
+c2 = m2['terms'][1]
+size_t = m2['terms'][2]
+survives = c2['p'] < 0.05
+shrink = round((1 - c2['coef'] / c1['coef']) * 100, 0) if c1['coef'] else None
+
+# cross-check: is the OLD BACI unit-value volatility a decent proxy for the real USGS one?
+baci = {}
+try:
+    ps = json.load(open(os.path.join(ROOT, 'out', 'price_squeeze.json'), encoding='utf8'))
+    B = {r['label']: r['volatility'] for r in ps['rows'] if r.get('volatility') is not None}
+    pairs = [(B[r['label']], r['volatility']) for r in rows if r['label'] in B]
+    if len(pairs) >= 5:
+        rr, pp = stats.pearsonr([a for a, _ in pairs], [b for _, b in pairs])
+        baci = {'n': len(pairs), 'r': round(float(rr), 2), 'p': round(float(pp), 4)}
+except FileNotFoundError:
+    pass
+
+out = {
+    'generated': comp.get('generated'),
+    'window': f'{Y0}-{Y1}',
+    'source': 'USGS Historical Statistics for Mineral and Material Commodities (Data Series 140), '
+              'real unit value in constant 1998 US$/t — public domain',
+    'n_materials': len(rows), 'n_regression': len(S),
+    'model_bivariate': m1, 'model_controlled': m2,
+    'model_wide': m3, 'model_wide_controlled': m4, 'model_wide_robust': m5,
+    'model_wide_physical': m6, 'confound': confound,
+    'wide_excess': wide_excess, 'wide_rows': sorted(WS, key=lambda r: -r['volatility']),
+    'verdict': 'The by-product volatility premium is a market-SIZE effect. Uncontrolled, by-product '
+               'metals are significantly more volatile (replicating the published direction). Controlling '
+               'for market size, the by-product coefficient collapses to statistical noise while size '
+               'itself is strongly significant. By-product metals are not volatile because they are '
+               'stuck; they are volatile because they are small.',
+    'mean_vol_byproduct': round(mean_bp, 1) if mean_bp else None,
+    'mean_vol_primary': round(mean_pr, 1) if mean_pr else None,
+    'excess_vol_pct': excess,
+    'n_byproduct': len(bp), 'n_primary': len(pr),
+    'redlinger_eggert_excess': 50,   # ~50% higher volatility for by-products, ~50yr window (Resources Policy, 2016)
+    'survives_control': bool(survives),
+    'coef_shrink_pct': shrink,
+    'size_significant': bool(size_t['p'] < 0.05),
+    'baci_crosscheck': baci,
+    'admin_note': f'Pre-2000 USGS nominal series for the minor metals are administered list prices (frozen '
+                  f'8-13 years); deflating them manufactures fake real volatility, concentrated in exactly '
+                  f'the by-product metals. Window restricted to {Y0}-{Y1}, where every series is market-priced.',
+    'dropped': dropped,
+    'rows': sorted(rows, key=lambda r: -r['volatility']),
+}
+os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
+json.dump(out, open(os.path.join(ROOT, 'out', 'price_volatility.json'), 'w', encoding='utf8'),
+          separators=(',', ':'))
+print('wrote out/price_volatility.json')
+print(f"  window {Y0}-{Y1} | n={len(rows)} materials, {len(S)} in regression")
+print(f"  bivariate : vol ~ cp           coef={c1['coef']:+.4f} (p={c1['p']:.4f}) R2={m1['r2']}")
+print(f"  controlled: vol ~ cp + logsize coef={c2['coef']:+.4f} (p={c2['p']:.4f}) R2={m2['r2']}")
+print(f"              log10 market size  coef={size_t['coef']:+.4f} (p={size_t['p']:.4f})")
+print(f"  by-product {mean_bp:.1f}% vs primary {mean_pr:.1f}% -> {excess:+.0f}% excess (R&E 2016: ~+50%)")
+print(f"  companionality survives the thinness control: {survives} (coef shrinks {shrink:.0f}%)")
+print(f"\n  WIDE metals sample (R&E binary design), n={m3['n']}:")
+w1, w2 = m3['terms'][1], m4['terms'][1]
+print(f"    vol ~ byproduct            coef={w1['coef']:+.2f}pp (p={w1['p']:.4f}) R2={m3['r2']}")
+print(f"    vol ~ byproduct + logsize  coef={w2['coef']:+.2f}pp (p={w2['p']:.4f}) R2={m4['r2']}")
+print(f"      log10 market size        coef={m4['terms'][2]['coef']:+.2f} (p={m4['terms'][2]['p']:.4f})")
+print(f"    robust (contested dropped) coef={m5['terms'][1]['coef']:+.2f}pp (p={m5['terms'][1]['p']:.4f}) n={m5['n']}")
+print(f"    PHYSICAL tonnes control    coef={m6['terms'][1]['coef']:+.2f}pp (p={m6['terms'][1]['p']:.4f}) "
+      f"| log10 t coef={m6['terms'][2]['coef']:+.2f} (p={m6['terms'][2]['p']:.4f})")
+print(f"    confound: byproduct vs log size r={confound['r']} (p={confound['p']}) | median output "
+      f"{confound['median_production_byproduct_t']:,} t vs {confound['median_production_primary_t']:,} t "
+      f"({confound['size_ratio']}x)")
+print(f"    excess volatility = {wide_excess['excess_pct']:+.0f}%  95% CI [{wide_excess['excess_lo']:+.0f}%, {wide_excess['excess_hi']:+.0f}%]")
+print(f"    R&E's +50% inside our CI: {wide_excess['re_inside_ci']} | zero inside our CI: {wide_excess['zero_inside_ci']}")
+if baci:
+    print(f"\n  BACI unit-value volatility vs USGS real: r={baci['r']} (p={baci['p']}, n={baci['n']})")
+
+HTML = r'''<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Are by-product metals really more volatile? &mdash; a regression test &middot; Critical Materials Atlas</title>
+<meta name="description" content="By-product metals are famously more price-volatile than primary ones. On 24 years of real USGS prices the raw gap replicates — and then vanishes once you control for market size. By-product metals are not volatile because they are stuck; they are volatile because they are small.">
+<meta property="og:title" content="Are by-product metals really more volatile? A regression test">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ #scatter{width:100%;height:500px}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.8rem .9rem}
+ .stat.dead{border-left-color:#c0392b}
+ .stat .v{font-size:1.5rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ table.tidy{width:100%;border-collapse:collapse;font-size:.87rem;margin:.4rem 0}
+ table.tidy th,table.tidy td{padding:.4rem .5rem;border-bottom:1px solid #eef1f0;text-align:left}
+ table.tidy th.n,table.tidy td.n{text-align:right;font-variant-numeric:tabular-nums}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#0e7c74}
+ .correction{background:#fdf4f2;border:1px solid #f0d7d0;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .correction b{color:#c0392b}
+ .sig{font-weight:700;color:#0e7c74}.nsig{color:#a8b5b2}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="demand.html">The squeeze</a><a href="price-squeeze.html">Price test</a>
+  <a href="companionality.html" class="hideable">Hostage metals</a><a href="limitations.html" class="hideable">Limitations</a>
+  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+</div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method &middot; falsification &middot; regression</div>
+  <h1>Are by-product metals really more volatile?</h1>
+  <p class="deck">It is one of the best-known regularities in mineral economics &mdash; and this atlas asserted it too. Tested properly, on 24 years of real prices with a control for market size, it does not hold. By-product metals are not volatile because they are <i>stuck</i>. They are volatile because they are <b>small</b>.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>How this test is built (and what it fixes)</summary>
+  <p><b>Prices.</b> USGS <i>Historical Statistics for Mineral and Material Commodities</i> (Data Series 140) &mdash; real annual unit values in constant 1998 dollars, public domain, <b>one series per commodity</b>. That matters: the atlas&rsquo;s earlier <a href="price-squeeze.html">price test</a> used trade unit values, where gallium, germanium and hafnium share a single HS6 code (811292) and therefore carry <i>identical</i> prices. Here each is priced separately, so the problem dissolves rather than gets patched.</p>
+  <p><b>Window: 2000&ndash;2023, and that is a finding.</b> Before ~2000 the USGS nominal series for minor metals are <b>administered list prices</b>, frozen for years at a stretch (germanium 13 years, hafnium 11, helium 9, gallium 8). Deflating a frozen nominal price manufactures smooth fake &ldquo;real&rdquo; volatility out of the CPI &mdash; and it would land on precisely the by-product metals, biasing the coefficient we are trying to measure. After 2000 every series is market-priced. Helium remains partly administered (US Federal Helium Reserve) and is flagged.</p>
+  <p><b>Model.</b> Volatility = standard deviation of year-on-year log returns of the real price. Then OLS with heteroskedasticity-robust (HC0) standard errors: volatility ~ by-product status, then the same plus <b>log market size</b>. Classification is the textbook primary/companion split (USGS Mineral Commodity Summaries; Nassar, Graedel &amp; Alonso 2015) &mdash; a binary class, not an invented fraction; metals whose class is genuinely argued over are flagged and dropped in a robustness model.</p>
+  <p class="howto-src"><b>Limits:</b> n=33 metals is small, so read the confidence interval, not the p-value. USGS unit values are US-market annual averages, not global spot. Excluded: mercury (class disputed), fluorspar and niobium (too few price years), hafnium and titanium (no world-production series, so no size control). Input: USGS DS-140 &rarr; <a href="out/price_volatility.json">price_volatility.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">The whole finding, in one chart</h2>
+  <p class="muted" style="margin-top:0"><b>Left</b> = a smaller market. <b>Up</b> = a more volatile price. If companionality drove volatility, the red points would sit <i>above</i> the blue ones at the same market size. They don&rsquo;t &mdash; they sit on the <b>same downward line</b>, just further down the small end of it. Size is the axis that matters; by-product status is where those metals happen to live.</p>
+  <div id="scatter"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">What the control does to the effect</h2>
+  <table class="tidy" id="models"><thead><tr><th>Model</th><th class="n">by-product effect</th><th class="n">p</th><th class="n">market size</th><th class="n">p</th><th class="n">R&sup2;</th><th class="n">n</th></tr></thead><tbody></tbody></table>
+  <p class="muted">The by-product coefficient is in percentage points of annual volatility. Add market size and it falls by about 90% and loses all significance, while size itself is strongly significant and the model&rsquo;s explanatory power more than doubles. Because the dollar size control contains price &mdash; and volatility is computed <i>from</i> price &mdash; the third model re-runs the control on <b>physical tonnes</b>, where no price enters the right-hand side at all. Same verdict.</p>
+
+  <h2 style="margin:1.8rem 0 .3rem">The confound, measured directly</h2>
+  <div id="confound" class="keyline"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">Every metal in the test</h2>
+  <table class="tidy" id="tab"><thead><tr><th>Metal</th><th>class</th><th class="n">volatility %</th><th class="n">median output t</th><th class="n">yrs</th></tr></thead><tbody></tbody></table>
+  <p class="muted">&#9888; = primary/by-product class genuinely argued over; dropped in the robustness model. &#9878; = partly administered market.</p>
+
+  <div class="correction" id="corr"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">How this sits with the literature</h2>
+  <p>The direct precedent is <b>Redlinger &amp; Eggert, &ldquo;Volatility of by-product metal and mineral prices&rdquo;</b> (<i>Resources Policy</i> 47, 2016, 69&ndash;77) &mdash; which reports by-products averaging <b>~50% higher volatility</b> across ~50 years of annual prices. Our uncontrolled estimate reproduces that <i>direction</i> and is significant. Our controlled estimate does not.</p>
+  <p>We are careful about what that means. Their variables tested included quantity produced, so this is <b>not</b> a claim that they missed the control &mdash; their full specification is paywalled and we have not read it, and our window (24 years) and sample differ from theirs. What is striking is that <b>they raised both of our findings themselves</b>: they attribute the &ldquo;mixed evidence&rdquo; in their <i>monthly</i> data to &ldquo;the smaller volume of transactions for by-product materials&rdquo; and to prices &ldquo;unchanged for several months at a time&rdquo; &mdash; thinness, and administered prices. And they close by calling for research into &ldquo;the underlying determinants of price volatility.&rdquo; This page is an answer to that call, on fully open data: among the candidate determinants, <b>market size absorbs the by-product effect entirely</b>. Their own suspected explanation appears to be the right one.</p>
+
+  <h2 style="margin:1.8rem 0 .3rem">Why this matters for the rest of the atlas</h2>
+  <p>The <a href="companionality.html">hostage-metals</a> thesis is <i>not</i> damaged by this &mdash; it is sharpened. The claim that by-product supply cannot respond to price is a statement about <b>elasticity</b>, and it stands on its own evidence: no gallium price builds a gallium mine. What falls is the lazy corollary that inelasticity should therefore show up as <i>price turbulence</i>. It doesn&rsquo;t, once you account for the fact that these are tiny markets. Inelasticity and volatility are different claims, and conflating them let a size effect masquerade as a structural one. The <a href="risk-adjusted.html">risk re-weighting</a>, which penalises companionality via elasticity rather than via observed volatility, is unaffected &mdash; and this is a reason to keep it that way.</p>
+</article>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="price-squeeze.html">The price test</a><br><a href="companionality.html">Hostage metals</a><br><a href="risk-adjusted.html">Risk re-weighted</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Sources</h4>USGS Historical Statistics for Mineral and Material Commodities (Data Series 140), constant 1998 US$ &middot; public domain</div>
+  <div class="fineprint">n=33 metals over 24 years: read the confidence intervals, not the stars. A null on a small sample is not proof of absence &mdash; but here the control does not merely weaken the effect, it replaces it.</div>
+</div></footer>
+<script>
+function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
+Promise.all([fetch('out/price_volatility.json').then(r=>r.json()),
+  ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
+  const raw=S.model_wide.terms[1], ctl=S.model_wide_controlled.terms[1],
+        siz=S.model_wide_controlled.terms[2], phy=S.model_wide_physical.terms[1],
+        rob=S.model_wide_robust.terms[1], X=S.wide_excess, C=S.confound;
+  const f=v=>(v>0?'+':'')+v.toFixed(2);
+
+  document.getElementById('lead').innerHTML='<b>Result:</b> on their own, by-product metals really are more volatile &mdash; <b>'+f(raw.coef)+' percentage points</b> of annual price volatility (p='+raw.p.toFixed(3)+'), which reproduces the published finding. Then add one control &mdash; <b>how big the market is</b> &mdash; and the by-product effect collapses to '+f(ctl.coef)+'pp (p='+ctl.p.toFixed(2)+'), indistinguishable from zero, while market size is strongly significant (p='+siz.p.toFixed(4)+') and the model&rsquo;s R&sup2; more than doubles. The reason is simple and measurable: by-product metals are <b>'+C.size_ratio+'&times; smaller markets</b> than primary ones. Thin markets swing. Being a by-product adds nothing on top.';
+
+  const stats=[
+    {v:f(raw.coef)+'pp',l:'by-product effect on volatility, <b>uncontrolled</b> — significant (p='+raw.p.toFixed(3)+'), and it replicates the literature',c:''},
+    {v:f(ctl.coef)+'pp',l:'the same effect once <b>market size</b> is controlled — gone (p='+ctl.p.toFixed(2)+')',c:' dead'},
+    {v:siz.coef.toFixed(1)+'pp',l:'volatility lost per <b>10× larger market</b> — this is the real relationship (p='+siz.p.toFixed(4)+')',c:''},
+    {v:C.size_ratio+'×',l:'how much smaller a typical by-product market is — the confound, measured',c:''},
+  ];
+  document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+s.c+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+
+  document.getElementById('keyline').innerHTML='<b>Read it honestly:</b> with n='+S.model_wide.n+' metals the confidence interval matters more than the p-value &mdash; and ours puts the by-product excess at <b>'+X.excess_pct+'%</b>, 95% CI ['+X.excess_lo+'%, '+X.excess_hi+'%]. Zero sits inside that interval'+(X.re_inside_ci?'':', and the literature&rsquo;s ~+50% sits <b>outside</b> it')+'. So this is not merely &ldquo;we failed to find an effect on a small sample&rdquo;: the control does not just weaken the by-product term, it <i>replaces</i> it &mdash; size takes the significance and the explanatory power with it. Dropping the metals whose class is contested pushes the coefficient <b>negative</b> ('+f(rob.coef)+'pp), and swapping the dollar control for <b>physical tonnes</b> leaves it at '+f(phy.coef)+'pp (p='+phy.p.toFixed(2)+'). Three ways of asking, one answer.';
+
+  document.getElementById('confound').innerHTML='<b>The confound, not assumed but measured:</b> by-product status and market size are correlated at <b>r='+C.r+'</b> (p='+C.p+'). Median annual output of a by-product metal is <b>'+C.median_production_byproduct_t.toLocaleString()+' t</b>; of a primary metal, <b>'+C.median_production_primary_t.toLocaleString()+' t</b> &mdash; a <b>'+C.size_ratio+'×</b> gap. That is why the two explanations were so easy to confuse: almost every by-product metal <i>is</i> a thin market. Separating them needs a regression, which is exactly why the earlier mean-versus-mean comparison could not settle it.';
+
+  const rowsM=[
+    ['1. by-product only <span class="muted">(the classic comparison)</span>',raw,null,S.model_wide],
+    ['2. + market size <span class="muted">($, the control)</span>',ctl,siz,S.model_wide_controlled],
+    ['3. + production <span class="muted">(tonnes — no price in the control)</span>',phy,S.model_wide_physical.terms[2],S.model_wide_physical],
+    ['4. contested classes dropped <span class="muted">(robustness)</span>',rob,S.model_wide_robust.terms[2],S.model_wide_robust],
+  ];
+  const tbm=document.querySelector('#models tbody');
+  rowsM.forEach(([nm,b,s,m])=>{
+    const cell=(t)=>t?'<span class="'+(t.p<0.05?'sig':'nsig')+'">'+f(t.coef)+'</span>':'<span class="nsig">—</span>';
+    const pc=(t)=>t?'<span class="'+(t.p<0.05?'sig':'nsig')+'">'+t.p.toFixed(4)+'</span>':'<span class="nsig">—</span>';
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td>'+nm+'</td><td class="n">'+cell(b)+'</td><td class="n">'+pc(b)+'</td>'+
+      '<td class="n">'+cell(s)+'</td><td class="n">'+pc(s)+'</td>'+
+      '<td class="n">'+m.r2.toFixed(3)+'</td><td class="n">'+m.n+'</td>';
+    tbm.appendChild(tr);
+  });
+
+  const pts=cls=>S.wide_rows.filter(r=>r.production_t&&r.byproduct===cls).map(r=>({
+    value:[Math.log10(r.production_t), r.volatility, r.usgs],
+    itemStyle:{color:(cls?'#c0392b':'#0e7c74')+'cc'}, symbolSize:11}));
+  // regression line on physical size, drawn across the observed range
+  const B=S.model_wide_physical.terms, xs=S.wide_rows.filter(r=>r.production_t).map(r=>Math.log10(r.production_t));
+  const x0=Math.min(...xs), x1=Math.max(...xs);
+  const line=[[x0,B[0].coef+B[2].coef*x0],[x1,B[0].coef+B[2].coef*x1]];
+  const ch=echarts.init(document.getElementById('scatter'));
+  ch.setOption({
+    grid:{left:58,right:26,top:20,bottom:52},
+    legend:{data:['by-product','primary'],top:0,textStyle:{color:'#5a6b68'}},
+    tooltip:{formatter:p=>p.seriesName==='size relationship'?'':'<b>'+p.value[2]+'</b><br>volatility: '+p.value[1]+'%<br>output: '+Math.round(Math.pow(10,p.value[0])).toLocaleString()+' t'},
+    xAxis:{name:'market size — log10 median annual output (tonnes)',nameLocation:'middle',nameGap:30,
+      axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    yAxis:{name:'annual real price volatility (%)',nameLocation:'middle',nameGap:44,
+      axisLabel:{color:'#5a6b68'},nameTextStyle:{color:'#5a6b68'},splitLine:{lineStyle:{color:'#eef1f0'}}},
+    series:[
+      {name:'by-product',type:'scatter',data:pts(1),
+       label:{show:true,formatter:p=>p.value[2],position:'right',fontSize:9,color:'#15323a',distance:4}},
+      {name:'primary',type:'scatter',data:pts(0),
+       label:{show:true,formatter:p=>p.value[2],position:'right',fontSize:9,color:'#15323a',distance:4}},
+      {name:'size relationship',type:'line',data:line,symbol:'none',silent:true,
+       lineStyle:{color:'#c9b3ad',width:2,type:'dashed'},tooltip:{show:false}}
+    ]
+  });
+  window.addEventListener('resize',()=>ch.resize());
+
+  const tb=document.querySelector('#tab tbody');
+  S.wide_rows.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.innerHTML='<td><b>'+r.usgs+'</b>'+(r.contested?' <span title="primary/by-product class genuinely argued over" style="color:#b07a18">⚠</span>':'')+'</td>'+
+      '<td style="color:'+(r.byproduct?'#c0392b':'#0e7c74')+';font-weight:600">'+(r.byproduct?'by-product':'primary')+'</td>'+
+      '<td class="n">'+r.volatility+'</td>'+
+      '<td class="n">'+(r.production_t?Math.round(r.production_t).toLocaleString():'—')+'</td>'+
+      '<td class="n muted">'+r.n_returns+'</td>';
+    tb.appendChild(tr);
+  });
+
+  const bc=S.baci_crosscheck;
+  document.getElementById('corr').innerHTML='<b>This corrects the atlas&rsquo;s own earlier claim.</b> The previous <a href="price-squeeze.html">price test</a> reported that by-product metals run more volatile than primary ones &mdash; 37% versus 31% &mdash; from trade unit values over 2018&ndash;24. That comparison had no control for market size, so it could not tell &ldquo;stuck supply&rdquo; from &ldquo;small market&rdquo;; on the evidence here it was measuring the latter. Worse, the proxy itself does not hold up: across the '+(bc?bc.n:0)+' materials in both tests, volatility from trade unit values correlates with volatility from real prices at just <b>r='+(bc?bc.r:'—')+'</b> (p='+(bc?bc.p:'—')+') &mdash; statistically indistinguishable from no relationship at all. Trade unit values were not a noisy measure of price volatility; for this purpose they were <b>not a measure of it</b>. The earlier page now carries this correction.';
+});
+</script>
+</body></html>'''
+open(os.path.join(ROOT, 'price-volatility.html'), 'w', encoding='utf8', newline='\n').write(HTML)
+print('wrote price-volatility.html')
