@@ -475,7 +475,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Are by-product metals really more volatile? &mdash; a regression test &middot; Critical Materials Atlas</title>
-<meta name="description" content="By-product metals are famously more price-volatile than primary ones. On 24 years of real USGS prices the raw gap replicates — and then vanishes once you control for market size. By-product metals are not volatile because they are stuck; they are volatile because they are small.">
+<meta name="description" content="By-product metals are famously more price-volatile than primary ones — and they are. But on 24 years of real USGS prices the gap is fully accounted for by market size: small PRIMARY metals like rare earths, tantalum and beryllium swing just as hard, and companionality cannot explain those. Smallness alone is sufficient.">
 <meta property="og:title" content="Are by-product metals really more volatile? A regression test">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
