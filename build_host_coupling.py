@@ -330,8 +330,7 @@ HTML = r'''<!doctype html>
  .cbar .meta{color:#5a6b68;font-size:.78rem}
  .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
  .keyline b{color:#0e7c74}
- .retracted{background:#fdf4f2;border:1px solid #f0d7d0;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
- .retracted b{color:#c0392b}
+ .note{background:#f7f9f9;border:1px solid #e3e9e8;border-left:3px solid #b7c4c1;border-radius:8px;padding:.6rem .85rem;margin:1rem 0;font-size:.84rem;color:#5a6b68}
  .sig{font-weight:700;color:#0e7c74}.nsig{color:#a8b5b2}
 </style>
 </head><body>
@@ -347,7 +346,6 @@ HTML = r'''<!doctype html>
   <p class="deck">The <a href="price-squeeze.html" style="color:#fff;text-decoration:underline">price test</a> claimed a by-product metal&rsquo;s direction is set by its host&rsquo;s cycle. That is a mechanism, and mechanisms can be checked. We checked it &mdash; properly this time &mdash; and it is <b>not there</b>. What companions actually track is the commodity cycle in general, not the metal they ride on. One pair survives.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="retracted" id="retr"></div>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the coupling is measured, and what was wrong before</summary>
   <p><b>Prices.</b> Real USGS series (Data Series 140, constant 1998 dollars) for both companion and host. The previous version used the atlas&rsquo;s trade unit values for the companion side &mdash; the same proxy the <a href="price-volatility.html">volatility retest</a> found tracks real price volatility at r=0.13. Coal and natural gas have no USGS series (DS-140 is nonfuel), so those two hosts come from the <b>World Bank Pink Sheet</b>, deflated onto the same 1998 basis using the deflator implied by USGS&rsquo;s own nominal/real pair.</p>
@@ -373,6 +371,8 @@ HTML = r'''<!doctype html>
   <table class="tidy" id="qtab"><thead><tr><th>Companion</th><th>host output</th><th class="n">&beta; host output</th><th class="n">p</th><th class="n">&beta; cycle</th><th class="n">p</th></tr></thead><tbody></tbody></table>
   <div class="keyline" id="qkey"></div>
 
+  <div class="note">An earlier version of this page reported a mean best-host coupling of ~0.29 and named five metals as beating the control. That finding is withdrawn &mdash; the control was not a valid control, the result was never significant, and it tested the host&rsquo;s price where the theory is about the host&rsquo;s output. This page is the corrected version; the full record is on <a href="challenge.html">the error record</a>.</div>
+
   <h2 style="margin:1.8rem 0 .3rem">What this does and does not overturn</h2>
   <p><b>The episodes are real.</b> Gallium and germanium did spike when China restricted exports in 2023. Cobalt did crash while Indonesian nickel flooded the market. Those are documented events, not statistical artifacts, and nothing here touches them.</p>
   <p><b>The general law is not supported.</b> &ldquo;Companion prices systematically track their host&rsquo;s cycle&rdquo; is a much stronger claim than &ldquo;in these episodes, host and policy shocks dominated&rdquo; &mdash; and it is the strong version this page was built to test. It fails: with a valid control the coupling is indistinguishable from zero everywhere but bismuth, and the channel the theory names shows nothing at all. So the <a href="price-squeeze.html">price test&rsquo;s</a> &ldquo;the host decides the direction&rdquo; is narrowed to the episodic claim its evidence supports.</p>
@@ -388,15 +388,13 @@ HTML = r'''<!doctype html>
 <script>
 fetch('out/host_coupling.json').then(r=>r.json()).then(S=>{
   const f=v=>(v>0?'+':'')+v.toFixed(2);
-  document.getElementById('retr').innerHTML='<b>Correction &mdash; this page&rsquo;s original finding is withdrawn.</b> It reported a mean best-host correlation of <b>~0.29</b> and named palladium, gallium, germanium, helium and rare earths as beating the control. Three things were wrong. The <b>control was not a control</b>: it subtracted one correlation from another, which is not residualisation and has no sampling theory. The result was <b>never significant</b>: at n&asymp;'+S.median_n+' the 5% critical correlation is <b>'+S.critical_r+'</b>, and 0.29 is below it. And it tested the <b>wrong channel</b> &mdash; joint production is a claim about the host&rsquo;s output, not its price. Redone properly, the mean coupling falls from <b>'+S.mean_raw_corr+'</b> to <b>'+S.mean_partial_corr+'</b>.';
-
-  document.getElementById('lead').innerHTML='<b>Result:</b> after regressing out the commodity cycle the way it should have been done, the average companion&ndash;host coupling is <b>'+S.mean_partial_corr+'</b> &mdash; nothing. Of '+S.n+' pairs, <b>'+S.n_host_specific+'</b> clears significance: '+(S.host_specific_names.join(', ')||'none')+'. The famous 0.29 was the <b>macro cycle wearing a host costume</b>: everything in commodities rises and falls together, and the old control was too crude to notice. Running the test the theory actually implies &mdash; does the host&rsquo;s <i>output</i> push the companion&rsquo;s price down? &mdash; finds <b>'+S.q_n_significant+' of '+S.q_n_total+'</b> significant, and only '+S.q_n_negative+'/'+S.q_n_total+' even have the right sign.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> after regressing out the commodity cycle the way it should have been done, the average companion&ndash;host coupling is <b>'+S.mean_partial_corr+'</b> &mdash; nothing. Of '+S.n+' pairs, <b>'+S.n_host_specific+'</b> clears significance: '+(S.host_specific_names.join(', ')||'none')+'. A raw coupling is <b>the macro cycle wearing a host costume</b>: everything in commodities rises and falls together, and only a proper partial correlation tells them apart. Running the test the theory actually implies &mdash; does the host&rsquo;s <i>output</i> push the companion&rsquo;s price down? &mdash; finds <b>'+S.q_n_significant+' of '+S.q_n_total+'</b> significant, and only '+S.q_n_negative+'/'+S.q_n_total+' even have the right sign.';
 
   const stats=[
-    {v:S.mean_raw_corr,l:'<s>mean coupling with the best-matching host</s> — <b style="color:#c0392b">withdrawn</b>: this is the common cycle',c:' dead'},
+    {v:S.mean_raw_corr,l:'raw mean coupling with the host — almost all of it is the common commodity cycle',c:''},
     {v:S.mean_partial_corr,l:'the same thing once the cycle is <b>properly</b> removed — the coupling is gone',c:''},
     {v:S.n_host_specific+' / '+S.n,l:'pairs where the host link survives a real control',c:''},
-    {v:'|r| '+S.critical_r,l:'the correlation you would need at n≈'+S.median_n+' to claim anything — the old 0.29 never cleared it',c:' dead'},
+    {v:'|r| '+S.critical_r,l:'the correlation you would need at n≈'+S.median_n+' before claiming anything at all',c:''},
   ];
   document.getElementById('stats').innerHTML=stats.map(s=>'<div class="stat'+s.c+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
 
