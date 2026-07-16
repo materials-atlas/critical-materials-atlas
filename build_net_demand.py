@@ -19,11 +19,19 @@ production page added World Mining Data tonnages this session. But two deeper pr
      metal is recovered at refineries elsewhere at <<100% yield. Adding host-geology tonnage to metal trade
      misattributes supply. It is workable for primary Co/Ni, wrong for classic by-products.
   2. Even CORRECT apparent consumption misses DEMAND EMBODIED IN FINISHED GOODS — cobalt in an imported
-     battery, gallium in an imported chip — which for critical metals is the larger unobserved channel. The
-     method that captures it is Raw Material Equivalents via a multi-region input-output model (EXIOBASE,
-     Eurostat's RME model), and it cannot be done per metal on public MRIO: those tables resolve "basic
-     metals"/"electronics", not gallium vs germanium. So per-metal final consumption is simply not
-     observable in open data, and net trade is the honest ceiling — a re-export correction, not a footprint.
+     battery, gallium in an imported chip — which for critical metals is the larger unobserved channel. Two
+     routes at it, and which applies is METAL-SPECIFIC:
+       - MRIO / Raw Material Equivalents (EXIOBASE, Eurostat RME): captures ALL tiers but is sector-coarse
+         (resolves "electronics", not gallium), so it cannot attribute per metal.
+       - BOTTOM-UP material intensity: trade in the metal's dominant product (HS code) x its published
+         intensity, summed by country. This IS per-metal and public — but only works where the metal has
+         one dominant traded carrier. So: cobalt -> Li-ion batteries (HS 8507) and REE -> magnets (HS 8505)
+         are tractable; gallium/germanium/indium/tantalum are NOT (diffuse end-uses, no single carrier), and
+         for those the ceiling genuinely holds. Two hard caveats even where it works: it captures only the
+         FIRST product tier (cobalt in imported batteries, not cobalt in imported cars), and intensity is
+         chemistry-vintage-dependent (Co per kWh fell 3-5x as NMC gave way to LFP). So a bottom-up estimate
+         for the battery/magnet cluster is the honest NEXT BUILD; net trade is the ceiling only until then,
+         and only for the diffuse metals is it the permanent ceiling.
 Public data; deterministic. Run: python build_net_demand.py
 """
 import json, os
@@ -188,7 +196,7 @@ HTML = r'''<!doctype html>
   <table class="tidy" id="ntab"><thead><tr><th>Bloc</th><th class="n">net import pull, key metals</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">Where the demand arm lands</h2>
-  <p>Netting out re-exports is the correction the whole demand arm was building toward: it separates the countries that <i>use</i> a metal from the ones that merely <i>move</i> it. The result sharpens the strategic picture &mdash; the West and the East-Asian manufacturers are the net pullers of the squeezed metals, while the dominant processor is, in net terms, their supplier. <b>What it is not, stated plainly:</b> this is a re-export correction, not a consumption model. Two things sit beyond it, and neither is closed by more trade data. Full apparent consumption would need <i>refined-form</i> production by country &mdash; mine tonnage misattributes by-products like gallium, whose usable metal is recovered far from where its host is dug. And final consumption proper would need to trace the metal <i>embodied in finished goods</i> (gallium in an imported chip), which for critical metals is the larger unseen channel &mdash; the province of material-footprint accounting (Raw Material Equivalents via a multi-region input-output model), and not resolvable per metal on public MRIO, which sees &ldquo;electronics&rdquo; but not gallium. So the demand arm reads trade pull, names its ceiling, and stops there rather than dressing net trade as consumption.</p>
+  <p>Netting out re-exports is the correction the whole demand arm was building toward: it separates the countries that <i>use</i> a metal from the ones that merely <i>move</i> it. The result sharpens the strategic picture &mdash; the West and the East-Asian manufacturers are the net pullers of the squeezed metals, while the dominant processor is, in net terms, their supplier. <b>What it is not, stated plainly:</b> this is a re-export correction, not a consumption model. Two things sit beyond it, and neither is closed by more trade data. Full apparent consumption would need <i>refined-form</i> production by country &mdash; mine tonnage misattributes by-products like gallium, whose usable metal is recovered far from where its host is dug. And final consumption proper would need to trace the metal <i>embodied in finished goods</i> (cobalt in an imported battery), which for critical metals is the larger unseen channel. Two routes at it, and which one applies depends on the metal. A full <b>material-footprint</b> model (Raw Material Equivalents via a multi-region input-output table) captures every tier but is sector-coarse &mdash; it sees &ldquo;electronics&rdquo;, not gallium &mdash; so it cannot attribute per metal. A <b>bottom-up</b> estimate (trade in the metal&rsquo;s dominant product &times; its published intensity) <i>is</i> per-metal, but only where one traded product dominates: <b>cobalt &rarr; batteries, rare earths &rarr; magnets</b> are tractable; gallium, germanium, indium (diffuse end-uses, no single carrier) are not. So for the battery/magnet cluster a bottom-up demand estimate is the honest <b>next build</b> &mdash; capturing the first product tier, with chemistry-vintage caveats &mdash; while for the diffuse metals net trade is the genuine ceiling. Either way this page reads trade pull and names what sits beyond it, rather than dressing net trade as consumption.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
