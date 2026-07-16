@@ -10,8 +10,19 @@ can't scale supply, demand geography is where the contest actually plays out.
 
 Big caveat, and the reason it's stated loudly: trade IMPORTS are an imperfect demand proxy. China imports ores
 it refines and re-exports; Hong Kong/Netherlands/Singapore are trans-shipment hubs; imports mix intermediate
-processing with final consumption. So bloc import share = revealed trade pull, not final consumption. Public
-data; deterministic. Run: python build_bloc_demand.py
+processing with final consumption. So bloc import share = revealed trade pull, not final consumption.
+
+TWO distinct flaws, and they are NOT the same size (literature: apparent consumption vs Raw Material
+Equivalents / material footprint; UN SEEA, Eurostat RME model, EXIOBASE). (1) RE-EXPORT of the same metal —
+the visible one, which the NET-DEMAND page fixes by subtracting exports. (2) DEMAND EMBODIED IN FINISHED
+GOODS — gallium consumed inside an imported chip inside an imported server never shows up as a gallium
+import at all. For critical metals this second channel is the LARGER of the two (tiny volumes, intermediate-
+heavy trade, end-use buried in electronics/autos), and net trade does NOT touch it. The method that would is
+material-footprint accounting (Raw Material Equivalents via a multi-region input-output model), and it cannot
+be done per metal on public data: EXIOBASE/Eora/OECD-ICIO resolve "basic metals" and "electronics", not
+gallium vs germanium — so embodied demand stays unobserved at this granularity. We therefore report trade
+pull, name the ceiling, and do not dress it up as consumption. Public data; deterministic.
+Run: python build_bloc_demand.py
 """
 import json, os
 from collections import defaultdict
@@ -103,7 +114,10 @@ out = {
     'rows': rows,
     'key_metals': [r['label'] for r in key_metals],
     'bloc_summary': bloc_summary,
-    'caveat': 'Bloc share = revealed import (trade) pull, not final consumption; China imports ores it re-exports, and hubs trans-ship.',
+    'caveat': 'Bloc share = revealed import (trade) pull, not final consumption. Two flaws: re-export of '
+              'the same metal (netted out on the net-demand page) and — larger for critical metals — demand '
+              'embodied in imported finished goods (gallium inside chips), which trade data cannot see per '
+              'metal and only a material-footprint/RME model (sector-coarse) would.',
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'bloc_demand.json'), 'w', encoding='utf8'),
@@ -157,7 +171,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand-by-bloc is read (and why imports are only a proxy)</summary>
   <p>For each material we aggregate <b>import value by destination</b> (the &ldquo;to&rdquo; side of every trade flow, <span id="yr"></span>) into blocs, and read the share each bloc pulls. Overlaid: the industrial-policy driver and each bloc&rsquo;s import reliance.</p>
-  <p class="howto-src"><b>Big caveat:</b> imports are <i>not</i> final consumption. China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship; the &ldquo;to&rdquo; country mixes intermediate processing with end use. So a bloc&rsquo;s share is <b>revealed trade pull</b>, not consumption &mdash; read it beside the <a href="origin.html">origin trace</a>, which corrects the mirror image.  Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
+  <p class="howto-src"><b>Big caveat &mdash; two flaws, not one.</b> Imports are <i>not</i> final consumption. <b>(1) Re-export</b> of the same metal: China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship. The <a href="net-demand.html">net-demand page</a> fixes this by subtracting exports. <b>(2) Demand embodied in finished goods</b> &mdash; gallium consumed inside an imported chip never appears as a gallium import at all &mdash; and for critical metals this is the <i>larger</i> channel. Netting does not touch it. The method that would is material-footprint accounting (<b>Raw Material Equivalents</b> via a multi-region input-output model &mdash; EXIOBASE, Eurostat&rsquo;s RME model), but public MRIO resolves &ldquo;basic metals&rdquo; and &ldquo;electronics&rdquo;, not gallium vs germanium, so embodied demand stays unobserved at this granularity. So a bloc&rsquo;s share is <b>revealed trade pull</b>, not consumption. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -176,7 +190,7 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="demand.html">The squeeze</a><br><a href="origin.html">Origin trace</a><br><a href="countries.html">Dependency by country</a><br><a href="methodology.html">Methodology</a></div>
   <div><h4>Sources</h4>Reconciled import flows (revealed demand) × IEA/USGS/EU CRMA policy framing</div>
-  <div class="fineprint">Bloc share is revealed import pull, not final consumption; China's share is inflated by refining-and-re-export.</div>
+  <div class="fineprint">Bloc share is revealed import pull, not final consumption. Re-export inflates China's share (netted on the net-demand page); demand embodied in imported finished goods is unobserved per metal and would need a material-footprint/RME model.</div>
 </div></footer>
 <script>
 fetch('out/bloc_demand.json').then(r=>r.json()).then(S=>{

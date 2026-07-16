@@ -9,9 +9,21 @@ in equal measure, so its net collapses toward zero; a genuine consumer stays net
 goes net-NEGATIVE (revealed as a supplier, not a demander). We also overlay mine-production presence (USGS
 shares, from data.json) so a bloc that both produces and net-imports reads as a true consumer.
 
-This is not full apparent consumption (the open data gives production as shares, not absolute tonnes, so it
-can't be added to trade value cleanly) — but net trade removes exactly the distortion the previous page leaned
-on, and the gross-vs-net comparison is the payoff: who really pulls each metal once re-exports are netted out.
+This removes the RE-EXPORT distortion. It does NOT reach final consumption, and the honest reason is worth
+stating precisely, because it is not the reason this page used to give. The old text blamed missing
+production tonnes ("open data gives production as shares, not tonnes"); that is now superseded — the
+production page added World Mining Data tonnages this session. But two deeper problems remain:
+
+  1. Apparent consumption (production + imports - exports) using MINE tonnage is systematically WRONG for
+     by-product metals: gallium/germanium mine "production" is host-country (bauxite, zinc), while the usable
+     metal is recovered at refineries elsewhere at <<100% yield. Adding host-geology tonnage to metal trade
+     misattributes supply. It is workable for primary Co/Ni, wrong for classic by-products.
+  2. Even CORRECT apparent consumption misses DEMAND EMBODIED IN FINISHED GOODS — cobalt in an imported
+     battery, gallium in an imported chip — which for critical metals is the larger unobserved channel. The
+     method that captures it is Raw Material Equivalents via a multi-region input-output model (EXIOBASE,
+     Eurostat's RME model), and it cannot be done per metal on public MRIO: those tables resolve "basic
+     metals"/"electronics", not gallium vs germanium. So per-metal final consumption is simply not
+     observable in open data, and net trade is the honest ceiling — a re-export correction, not a footprint.
 Public data; deterministic. Run: python build_net_demand.py
 """
 import json, os
@@ -99,7 +111,11 @@ out = {
     'flipped_names': [r['title'] for r in flips],
     'net_rank': net_rank,
     'cn_net_supplier': cn_net_supplier,
-    'caveat': 'Net trade = imports - exports (value); removes re-export hubs but is not full apparent consumption (production available only as shares, not tonnes).',
+    'caveat': 'Net trade = imports - exports (value); removes re-export hubs but is not consumption. Two '
+              'gaps remain: apparent consumption using mine tonnage misattributes by-products (metal '
+              'recovered far from where the host is mined), and demand embodied in imported finished goods '
+              '(gallium in a chip) is unobservable per metal without a material-footprint/RME model, which '
+              'public MRIO resolves only at sector level (electronics, not gallium).',
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'net_demand.json'), 'w', encoding='utf8'),
@@ -157,7 +173,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>Net trade, and why it still isn't full apparent consumption</summary>
   <p>For each material and bloc: <b>net = imports − exports</b> (value, <span id="yr"></span>). A pure re-export hub imports and exports in equal measure, so its net &rarr; 0; a genuine consumer stays net-positive; a refiner-exporter goes net-<i>negative</i>. We overlay <b>mine-production presence</b> (USGS shares) so a bloc that both produces and net-imports reads as a true consumer.</p>
-  <p class="howto-src"><b>Honest limit:</b> this is net <i>trade</i>, not full apparent consumption &mdash; the open data gives mine production as country <i>shares</i>, not absolute tonnes, so it can&rsquo;t be added to trade value cleanly (true apparent consumption = production + imports − exports would raise producer-consumers like China and the US). But netting removes exactly the re-export distortion the previous page leaned on. Inputs: flows × <a href="out/bloc_demand.json">bloc_demand.json</a> × <a href="out/data.json">data.json</a> (production) &rarr; <a href="out/net_demand.json">net_demand.json</a>.</p>
+  <p class="howto-src"><b>Honest limit &mdash; and it is not the one this page used to claim.</b> Net <i>trade</i> is not final consumption, but the reason is no longer &ldquo;we lack production tonnes&rdquo; (the <a href="production.html">production page</a> added World Mining Data tonnages). Two real reasons remain. <b>Apparent consumption breaks for by-products:</b> gallium/germanium mine tonnage is host-country (bauxite, zinc), while the usable metal is recovered elsewhere &mdash; adding it to trade misattributes supply. And <b>even correct apparent consumption misses demand embodied in finished goods</b> (gallium in an imported chip), which for critical metals is the bigger channel; capturing it needs <b>Raw Material Equivalents</b> via a multi-region input-output model (EXIOBASE, Eurostat RME), and public MRIO resolves &ldquo;electronics&rdquo;, not gallium. So per-metal consumption is not observable in open data; netting is the honest ceiling. Inputs: flows × <a href="out/bloc_demand.json">bloc_demand.json</a> × <a href="out/data.json">data.json</a> &rarr; <a href="out/net_demand.json">net_demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -172,13 +188,13 @@ HTML = r'''<!doctype html>
   <table class="tidy" id="ntab"><thead><tr><th>Bloc</th><th class="n">net import pull, key metals</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">Where the demand arm lands</h2>
-  <p>Netting out re-exports is the correction the whole demand arm was building toward: it separates the countries that <i>use</i> a metal from the ones that merely <i>move</i> it. The result sharpens the strategic picture &mdash; the West and the East-Asian manufacturers are the net pullers of the squeezed metals, while the dominant processor is, in net terms, their supplier. The remaining gap is honest and named: without absolute production tonnes, this stops one step short of true apparent consumption. Closing it needs a physical-production dataset (USGS tonnages) joined to these flows &mdash; the concrete next acquisition, and the point where the demand arm would finally read in real quantities, not trade value.</p>
+  <p>Netting out re-exports is the correction the whole demand arm was building toward: it separates the countries that <i>use</i> a metal from the ones that merely <i>move</i> it. The result sharpens the strategic picture &mdash; the West and the East-Asian manufacturers are the net pullers of the squeezed metals, while the dominant processor is, in net terms, their supplier. <b>What it is not, stated plainly:</b> this is a re-export correction, not a consumption model. Two things sit beyond it, and neither is closed by more trade data. Full apparent consumption would need <i>refined-form</i> production by country &mdash; mine tonnage misattributes by-products like gallium, whose usable metal is recovered far from where its host is dug. And final consumption proper would need to trace the metal <i>embodied in finished goods</i> (gallium in an imported chip), which for critical metals is the larger unseen channel &mdash; the province of material-footprint accounting (Raw Material Equivalents via a multi-region input-output model), and not resolvable per metal on public MRIO, which sees &ldquo;electronics&rdquo; but not gallium. So the demand arm reads trade pull, names its ceiling, and stops there rather than dressing net trade as consumption.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="bloc-demand.html">Demand by bloc</a><br><a href="origin.html">Origin trace</a><br><a href="demand.html">The squeeze</a><br><a href="methodology.html">Methodology</a></div>
   <div><h4>Sources</h4>Reconciled net trade (imports − exports) × USGS mine-production shares</div>
-  <div class="fineprint">Net trade removes re-export hubs but is not full apparent consumption (production available only as shares, not tonnes).</div>
+  <div class="fineprint">Net trade removes re-export hubs but is not consumption: apparent consumption misattributes by-products via mine tonnage, and demand embodied in finished goods needs a material-footprint/RME model that public MRIO resolves only by sector.</div>
 </div></footer>
 <script>
 fetch('out/net_demand.json').then(r=>r.json()).then(S=>{
@@ -188,7 +204,7 @@ fetch('out/net_demand.json').then(r=>r.json()).then(S=>{
   document.getElementById('yr').textContent=S.year;
   const key=S.rows.filter(r=>r.is_key);
   document.getElementById('lead').innerHTML='<b>Result:</b> netting out re-exports splits the picture in two. For <b>'+S.n_flipped+'</b> key metals the biggest <i>net</i> puller differs from the biggest gross importer, and China is a net <b>supplier</b> (net exporter) of <b>'+S.cn_net_supplier.length+'</b> of the squeezed metals it is said to &ldquo;dominate demand&rdquo; for &mdash; it exports the refined output it imported as ore. China still tops the net table only because it net-imports raw <i>ores</i> to process; the <i>finished</i> squeezed metals are pulled by the manufacturers &mdash; the EU, US, Japan and Korea.';
-  document.getElementById('keyline').innerHTML='<b>The correction:</b> a country can top the import table and still be a net exporter &mdash; that is a processor, not a consumer. Netting imports against exports is the cheapest available proxy for &ldquo;who actually uses this,&rdquo; and it flips the reading for the metals where one bloc refines for the world. It is the honest half-step to apparent consumption that trade data alone can give.';
+  document.getElementById('keyline').innerHTML='<b>The correction:</b> a country can top the import table and still be a net exporter &mdash; that is a processor, not a consumer. Netting imports against exports is the cheapest available proxy for &ldquo;who actually uses this,&rdquo; and it flips the reading for the metals where one bloc refines for the world. It is a re-export correction, not a consumption model &mdash; demand embodied in finished goods stays beyond what per-metal trade data can see.';
   const nr=S.net_rank;
   const stats=[
     {v:NAME[nr[0][0]],l:'largest NET importer of the key squeezed metals (true demand pull)'},
