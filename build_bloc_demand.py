@@ -17,14 +17,16 @@ Equivalents / material footprint; UN SEEA, Eurostat RME model, EXIOBASE). (1) RE
 the visible one, which the NET-DEMAND page fixes by subtracting exports. (2) DEMAND EMBODIED IN FINISHED
 GOODS — gallium consumed inside an imported chip inside an imported server never shows up as a gallium
 import at all. For critical metals this second channel is the LARGER of the two (tiny volumes, intermediate-
-heavy trade, end-use buried in electronics/autos), and net trade does NOT touch it. Two routes at it, and
-which applies is METAL-SPECIFIC. A full material-footprint model (Raw Material Equivalents via a multi-region
-input-output table) captures all tiers but is sector-coarse: EXIOBASE/Eora/OECD-ICIO resolve "electronics",
-not gallium, so they can't attribute per metal. A BOTTOM-UP estimate (trade in the metal's dominant product x
-its published intensity) IS per-metal and public — but only where one traded product dominates: cobalt ->
-batteries (HS 8507), REE -> magnets (HS 8505) are tractable; gallium/germanium/indium are not (diffuse
-end-uses, no single carrier). So for the battery/magnet cluster a bottom-up demand estimate is the honest
-NEXT BUILD; for the diffuse metals net trade is the genuine ceiling. We report trade pull and name what's
+heavy trade, end-use buried in electronics/autos), and net trade does NOT touch it. Two routes at it, both
+tested and both limited. A material-footprint model (Raw Material Equivalents via a multi-region input-output
+table) captures all tiers but is sector-coarse (resolves "electronics", not gallium — no per-metal). A
+BOTTOM-UP estimate (product trade x metal intensity) was PROTOTYPED for cobalt on battery trade (HS 8507,
+BACI 2023) and stress-tested: it answers a trade-STAGE question, not a demand one. It cleanly shows
+intermediate cobalt is China-bound while finished cells are net-imported by the US/EU — but calling that
+"cobalt demand by country" is a category error (net-export clamping erases China's own large use, product-
+weight intermediates aren't contained metal, and cobalt also travels in imported cars/electronics outside
+the battery code). So even cobalt, the cleanest carrier, resists a per-country final-demand figure. Bottom-up
+clarifies trade STAGES; it is not a demand measure. We report trade pull as a stage fact and name what's
 beyond it, rather than dress it up as consumption. Public data; deterministic.
 Run: python build_bloc_demand.py
 """
@@ -175,7 +177,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand-by-bloc is read (and why imports are only a proxy)</summary>
   <p>For each material we aggregate <b>import value by destination</b> (the &ldquo;to&rdquo; side of every trade flow, <span id="yr"></span>) into blocs, and read the share each bloc pulls. Overlaid: the industrial-policy driver and each bloc&rsquo;s import reliance.</p>
-  <p class="howto-src"><b>Big caveat &mdash; two flaws, not one.</b> Imports are <i>not</i> final consumption. <b>(1) Re-export</b> of the same metal: China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship. The <a href="net-demand.html">net-demand page</a> fixes this by subtracting exports. <b>(2) Demand embodied in finished goods</b> &mdash; gallium consumed inside an imported chip never appears as a gallium import at all &mdash; and for critical metals this is the <i>larger</i> channel. Netting does not touch it. Two routes at it, and which applies is metal-specific. A full <b>material-footprint</b> model (Raw Material Equivalents via a multi-region input-output table &mdash; EXIOBASE, Eurostat RME) captures all tiers but is sector-coarse: it sees &ldquo;electronics&rdquo;, not gallium. A <b>bottom-up</b> estimate (trade in the metal&rsquo;s dominant product &times; its published intensity) <i>is</i> per-metal &mdash; but only where one product dominates: <b>cobalt&rarr;batteries, rare earths&rarr;magnets</b> are tractable; gallium, germanium, indium (diffuse end-uses) are not. So for the battery/magnet cluster a bottom-up demand estimate is the honest <b>next build</b>; for the diffuse metals net trade is the genuine ceiling. Either way a bloc&rsquo;s share here is <b>revealed trade pull</b>, not consumption. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
+  <p class="howto-src"><b>Big caveat &mdash; two flaws, not one.</b> Imports are <i>not</i> final consumption. <b>(1) Re-export</b> of the same metal: China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship. The <a href="net-demand.html">net-demand page</a> fixes this by subtracting exports. <b>(2) Demand embodied in finished goods</b> &mdash; gallium consumed inside an imported chip never appears as a gallium import at all &mdash; and for critical metals this is the <i>larger</i> channel. Netting does not touch it. Two routes at it, both tested and both limited. A <b>material-footprint</b> model (Raw Material Equivalents via a multi-region input-output table) captures all tiers but is sector-coarse &mdash; it sees &ldquo;electronics&rdquo;, not gallium. A <b>bottom-up</b> estimate (product trade &times; metal intensity) sounds per-metal, and we prototyped it for cobalt on battery trade &mdash; but stress-testing showed it answers a trade-<b>stage</b> question, not a demand one: it reveals that intermediate cobalt is China-bound while finished cells are net-imported by the US/EU, yet calling that &ldquo;cobalt demand&rdquo; is a category error (it erases China&rsquo;s own large use, mixes product-weight with contained metal, and misses cobalt riding in imported cars). So even cobalt resists a per-country final-demand figure. A bloc&rsquo;s share here is <b>revealed trade pull</b> &mdash; a stage fact, not consumption. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
