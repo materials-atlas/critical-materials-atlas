@@ -18,6 +18,31 @@ Uncertainty model (stated as the load-bearing assumption, not hidden):
   recycling ~ N(mean, 5pp)          — EU CRM EOL-RIR estimate
   demand growth ~ mean * exp(N(0, 0.40)) — forward demand is deeply scenario-dependent
   world tonnes ~ mean * (1 +/- ~10%) — production is well measured
+
+*** THE OBJECTION THAT MATTERS, AND WHAT IT DID TO THIS PAGE ***
+An adversarial reviewer put it bluntly: a Monte-Carlo propagates INPUT uncertainty and cannot validate
+the MODEL. This one draws the five inputs but holds the DESIGN sacred — the axes are chosen not derived,
+the thresholds (66, 60, 10, 2.5, 50000) are hard constants never drawn, and ">=4 of 5" is a constant.
+So "gallium 99%" only ever meant "in 99% of draws, UNDER THIS DESIGN". Presenting that as a probability
+that gallium is truly hardest launders a designer's choices into false precision. The charge is fair.
+
+So we perturbed the DESIGN too (SPECS below): jitter the thresholds themselves, move them +/-15%, change
+the rule to 3-of-5 and 5-of-5, and drop each axis in turn (holding the bar at "all but one" so the
+ablation tests the axis, not a smuggled rule change). Two findings, pulling opposite ways:
+
+  1. THE NUMBER IS NOT ROBUST, and we no longer report it as if it were. Across 11 specifications
+     gallium runs 49-100% and germanium 28-100%. "99%" is a property of one design.
+  2. THE FINDING IS ROBUST — more so than the original MC could show. Gallium and germanium are the
+     top two in ALL 11 specifications, including every single-axis ablation. Dropping the axis they
+     supposedly depend on ("can't scale") leaves them at 99%/96%.
+
+  3. THE AXES DOUBLE-COUNT, which challenge.html had already listed as a suspicion: companionality and
+     log(world tonnage) correlate at r=-0.70 (concentration vs tonnage, -0.57). "Can't scale" and "thin
+     market" are substantially ONE factor — exactly what the volatility retest found independently
+     (by-product metals are ~174x smaller markets). So a by-product fails two axes for one underlying
+     reason, inflating the count. It does not change the top two (they survive dropping either), but it
+     does inflate the contingent middle, and the page now says so.
+
 Deterministic (numpy, fixed seed). Public data. Run: python build_uncertainty.py
 """
 import json, os
@@ -77,6 +102,93 @@ for lab, co in CO.items():
     })
 
 rows.sort(key=lambda r: (-r['p_hardest'], -r['e_count']))
+
+# ---------------------------------------------------------------- specification robustness
+# The MC above perturbs the INPUTS. This perturbs the DESIGN — thresholds, rule, and axis set — because
+# a reviewer correctly pointed out that input robustness is not model robustness.
+def _spec(seed=42, thr=None, drop=None, rule=4, jitter=False):
+    T = dict(scale=66, diversify=60, recycle=10, demand=2.5, thin=50000)
+    if thr:
+        T.update(thr)
+    r2 = np.random.default_rng(seed)
+    o = {}
+    for lab2, co2 in CO.items():
+        comp2 = co2.get('companionality_pct', 0)
+        rec2 = RC.get(lab2, {}).get('recycling')
+        dg2 = DE.get(lab2, {}).get('demand_growth_2040')
+        wt2 = PR.get(lab2, {}).get('world_tonnes')
+        ps2 = PR.get(lab2, {}).get('wmd_top_share')
+        conc2 = ps2 if ps2 is not None else co2.get('top_share')
+        cd = np.clip(r2.normal(comp2, 12, N), 0, 100)
+        nd = np.clip(r2.normal(conc2, 8, N), 0, 100) if conc2 is not None else None
+        rd = np.clip(r2.normal(rec2 if rec2 is not None else 0, 5, N), 0, 100)
+        gd = (dg2 * np.exp(r2.normal(0, 0.40, N))) if dg2 is not None else None
+        td = (wt2 * (1 + r2.normal(0, 0.10, N))) if wt2 is not None else None
+        if jitter:   # the thresholds are judgement calls too — draw them
+            ts, tv = r2.normal(T['scale'], 8, N), r2.normal(T['diversify'], 8, N)
+            tr = r2.normal(T['recycle'], 4, N)
+            tm = T['demand'] * np.exp(r2.normal(0, 0.25, N))
+            tt = T['thin'] * np.exp(r2.normal(0, 0.5, N))
+        else:
+            ts, tv, tr, tm, tt = T['scale'], T['diversify'], T['recycle'], T['demand'], T['thin']
+        ff = {'scale': cd >= ts,
+              'diversify': (nd >= tv) if nd is not None else np.zeros(N, bool),
+              'recycle': rd <= tr,
+              'demand': (gd >= tm) if gd is not None else np.zeros(N, bool),
+              'thin': (td < tt) if td is not None else np.zeros(N, bool)}
+        use = [a for a in AXES if a != drop]
+        cnt = sum(ff[a].astype(float) for a in use)
+        # "all but one" keeps the bar comparable when an axis is dropped: >=4 of 5, >=3 of 4. Using
+        # min(4, len) or a 0.8 proportional bar both collapse to "4 of 4" on integer counts — a stricter
+        # rule masquerading as an ablation.
+        k = (len(use) - 1) if drop is not None else rule
+        o[lab2] = float((cnt >= k).mean())
+    return o
+
+SPECS = [
+    ('baseline (published design)', dict()),
+    ('thresholds drawn, not fixed', dict(jitter=True)),
+    ('thresholds 15% looser', dict(thr=dict(scale=56, diversify=51, recycle=12, demand=2.1, thin=60000))),
+    ('thresholds 15% tighter', dict(thr=dict(scale=76, diversify=69, recycle=8, demand=2.9, thin=40000))),
+    ('rule: 3 of 5', dict(rule=3)),
+    ('rule: 5 of 5', dict(rule=5)),
+    ('drop axis: can’t scale', dict(drop='scale')),
+    ('drop axis: thin market', dict(drop='thin')),
+    ('drop axis: demand surging', dict(drop='demand')),
+    ('drop axis: can’t recycle', dict(drop='recycle')),
+    ('drop axis: concentrated', dict(drop='diversify')),
+]
+_sr = {name: _spec(**kw) for name, kw in SPECS}
+_top2_stable = sum(1 for name, _ in SPECS
+                   if set(sorted(_sr[name], key=lambda l: -_sr[name][l])[:2]) == {'gallium', 'germanium'})
+for r in rows:
+    vals = [_sr[name][r['label']] for name, _ in SPECS]
+    r['spec_min'] = round(min(vals), 3)
+    r['spec_max'] = round(max(vals), 3)
+    r['spec_median'] = round(float(np.median(vals)), 3)
+
+# do the axes double-count? correlate the raw axis inputs
+_M, _nm = [], ['companionality', 'concentration', 'recycling', 'demand growth', 'log10 tonnage']
+for lab in CO:
+    co = CO[lab]
+    ps = PR.get(lab, {}).get('wmd_top_share')
+    wt = PR.get(lab, {}).get('world_tonnes')
+    _M.append([co.get('companionality_pct', 0),
+               ps if ps is not None else (co.get('top_share') if co.get('top_share') is not None else np.nan),
+               RC.get(lab, {}).get('recycling', np.nan),
+               DE.get(lab, {}).get('demand_growth_2040', np.nan),
+               np.log10(wt) if wt else np.nan])
+_M = np.array(_M, float)
+_overlap = []
+for i in range(5):
+    for j in range(i + 1, 5):
+        a, b = _M[:, i], _M[:, j]
+        m = ~(np.isnan(a) | np.isnan(b))
+        if m.sum() >= 8:
+            rr = float(np.corrcoef(a[m], b[m])[0, 1])
+            if abs(rr) >= 0.4:
+                _overlap.append({'a': _nm[i], 'b': _nm[j], 'r': round(rr, 2), 'n': int(m.sum())})
+_overlap.sort(key=lambda d: -abs(d['r']))
 # rank stability: how many materials have P(hardest) that is "clearly high" (>0.66) vs "borderline" (0.2-0.66)
 clear = [r for r in rows if r['p_hardest'] >= 0.66]
 borderline = [r for r in rows if 0.2 <= r['p_hardest'] < 0.66]
@@ -93,6 +205,23 @@ out = {
     'clear_hardest': [r['title'] for r in clear],
     'borderline': [r['title'] for r in borderline],
     'axis_drive_top10': axis_drive,
+    'spec_robustness': {
+        'n_specs': len(SPECS),
+        'specs': [{'name': n, 'p': {lab: round(_sr[n][lab], 3) for lab in ('gallium', 'germanium', 'vanadium', 'hafnium')}}
+                  for n, _ in SPECS],
+        'top2_stable': _top2_stable,
+        'note': 'A Monte-Carlo propagates INPUT uncertainty; it cannot validate the MODEL. The design here '
+                '(five chosen axes, hard thresholds, a >=4-of-5 rule) was held fixed, so "gallium 99%" only '
+                'ever meant "99% of draws under this design". These 11 specifications perturb the design '
+                'itself. The number moves a lot; the ranking does not.',
+    },
+    'axis_overlap': _overlap,
+    'axis_overlap_note': 'The five axes are not independent. Companionality and market size correlate at '
+                         'r=-0.70 — "can\'t scale" and "thin market" are substantially one factor, which the '
+                         'volatility retest found independently (by-product metals are ~174x smaller '
+                         'markets). A by-product therefore fails two axes for one underlying reason. It does '
+                         'not move the top two (they survive dropping either), but it inflates the '
+                         'contingent middle, and the expected-count column should be read with that in mind.',
     'rows': rows,
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
@@ -102,6 +231,14 @@ print('wrote out/uncertainty.json')
 print(f"  clear hardest (P>=0.66): {', '.join(out['clear_hardest'])}")
 print(f"  borderline (0.2-0.66): {', '.join(out['borderline'])}")
 print("  P(hardest) top 8:", ', '.join(f"{r['title']} {r['p_hardest']}" for r in rows[:8]))
+print(f"\n  SPECIFICATION robustness across {len(SPECS)} designs (thresholds, rule, axis set):")
+for r in rows[:4]:
+    print(f"    {r['title']:12s} baseline {r['p_hardest']*100:3.0f}%  |  across designs "
+          f"{r['spec_min']*100:3.0f}-{r['spec_max']*100:3.0f}%  (median {r['spec_median']*100:.0f}%)")
+print(f"    gallium+germanium are the top two in {_top2_stable}/{len(SPECS)} specifications")
+print("  axis overlap (the five axes are not independent):")
+for o in _overlap:
+    print(f"    {o['a']:15s} vs {o['b']:15s} r={o['r']:+.2f} (n={o['n']})")
 
 # ------------------------------------------------------------------ page
 HTML = r'''<!doctype html>
@@ -166,6 +303,16 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">Shaded by probability, not on/off. Reading down the columns shows what actually drives vulnerability.</p>
   <div style="overflow-x:auto"><table class="hm" id="hm"><thead></thead><tbody></tbody></table></div>
 
+  <h2 style="margin:1.8rem 0 .3rem">The objection this page could not answer &mdash; so we tested it</h2>
+  <p><b>&ldquo;A Monte-Carlo propagates input uncertainty. It cannot validate the model.&rdquo;</b> That is the sharpest thing anyone has said about this page, and it is correct. Everything above draws the five <i>inputs</i> &mdash; but the <i>design</i> was held sacred: the five axes are chosen rather than derived, the thresholds (66, 60, 10, 2.5, 50 kt) are hard constants that were never drawn, and &ldquo;&ge;4 of 5&rdquo; is a constant too. So &ldquo;gallium 99%&rdquo; only ever meant <b>&ldquo;99% of draws, under this design&rdquo;</b>. Reported as though it were the probability gallium is truly the hardest case, it launders a designer&rsquo;s choices into false precision.</p>
+  <p>So we perturbed the design as well: <b>drew the thresholds</b> instead of fixing them, moved them &plusmn;15%, changed the rule to 3-of-5 and 5-of-5, and <b>dropped each axis in turn</b> &mdash; holding the bar at &ldquo;fails all but one&rdquo; so an ablation tests the axis rather than smuggling in a stricter rule. Eleven specifications. The results pull in opposite directions, and both belong on the page.</p>
+  <table class="tidy" id="spec" style="width:100%;border-collapse:collapse;font-size:.86rem;margin:.6rem 0"><thead></thead><tbody></tbody></table>
+  <div class="keyline" id="speckey"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">The axes are not independent</h2>
+  <p class="muted" style="margin-top:0">The scorecard counts five axes as if each were a separate way to be stuck. They are not.</p>
+  <div id="overlap"></div>
+
   <h2 style="margin:1.8rem 0 .3rem">What propagation changes</h2>
   <p id="closer"></p>
 </article>
@@ -216,6 +363,26 @@ fetch('out/uncertainty.json').then(r=>r.json()).then(S=>{
     tr.innerHTML='<td class="mat">'+r.title+'</td>'+cells+'<td style="text-align:center;font-weight:800;color:'+col+'">'+(r.p_hardest*100).toFixed(0)+'%</td>';
     tb.appendChild(tr);
   });
+  // specification robustness
+  const SR=S.spec_robustness, MATS=['gallium','germanium','vanadium','hafnium'];
+  const NM={gallium:'Gallium',germanium:'Germanium',vanadium:'Vanadium',hafnium:'Hafnium'};
+  document.querySelector('#spec thead').innerHTML='<tr><th style="text-align:left;padding:.4rem .5rem;border-bottom:2px solid #d9e6e3">Specification</th>'+
+    MATS.map(m=>'<th style="text-align:right;padding:.4rem .5rem;border-bottom:2px solid #d9e6e3">'+NM[m]+'</th>').join('')+'</tr>';
+  document.querySelector('#spec tbody').innerHTML=SR.specs.map((sp,i)=>{
+    const base=i===0;
+    return '<tr'+(base?' style="background:#f4f8f7"':'')+'><td style="padding:.32rem .5rem;border-bottom:1px solid #eef1f0'+(base?';font-weight:700':'')+'">'+sp.name+'</td>'+
+      MATS.map(m=>{const p=sp.p[m]; const c=p>=0.66?'#c0392b':p>=0.2?'#d98324':'#9aa6ad';
+        return '<td style="text-align:right;padding:.32rem .5rem;border-bottom:1px solid #eef1f0;font-variant-numeric:tabular-nums;color:'+c+';font-weight:'+(p>=0.66?700:400)+'">'+(p*100).toFixed(0)+'%</td>';}).join('')+'</tr>';
+  }).join('');
+  const g=S.rows.find(r=>r.label==='gallium'), ge=S.rows.find(r=>r.label==='germanium');
+  document.getElementById('speckey').innerHTML='<b>Two findings, and they cut opposite ways.</b> <b>The number is not robust:</b> across '+SR.n_specs+' designs gallium runs <b>'+(g.spec_min*100).toFixed(0)+'&ndash;'+(g.spec_max*100).toFixed(0)+'%</b> and germanium <b>'+(ge.spec_min*100).toFixed(0)+'&ndash;'+(ge.spec_max*100).toFixed(0)+'%</b>. &ldquo;99%&rdquo; is a property of one design, and this page no longer asks you to read it as more than that. <b>The finding is robust &mdash; more than the original could show:</b> gallium and germanium are the top two in <b>'+SR.top2_stable+' of '+SR.n_specs+'</b> specifications, including every single-axis ablation. Drop the axis they supposedly lean on &mdash; &ldquo;can&rsquo;t scale&rdquo; &mdash; and they still come first. The objection kills the decimal place. It does not touch the answer.';
+  // axis overlap
+  document.getElementById('overlap').innerHTML=S.axis_overlap.map(o=>
+    '<div class="prow"><div class="nm" style="width:auto">'+o.a+' vs '+o.b+'</div>'+
+    '<div class="pbar"><div class="fill" style="width:'+Math.abs(o.r)*100+'%;background:'+(Math.abs(o.r)>=0.6?'#c0392b':'#d98324')+'"></div>'+
+    '<div class="lab">r = '+o.r+'</div></div></div>').join('')+
+    '<p class="muted" style="margin-top:.7rem">'+S.axis_overlap_note+'</p>';
+
   document.getElementById('closer').innerHTML='A binary scorecard is a claim stated with more confidence than the inputs support. Propagating uncertainty does two honest things at once: it <i>confirms</i> the robust core (gallium and germanium survive every reasonable perturbation) and it <i>surfaces</i> the contingent middle (cobalt, vanadium, hafnium and others whose status flips with a plausible change of assumption). That is the difference between a scorecard as rhetoric and a scorecard as evidence &mdash; and it turns the headline from &ldquo;only two metals&rdquo; into the more defensible &ldquo;two robust, a handful contingent, and elasticity-plus-thinness &mdash; not concentration &mdash; is what separates them.&rdquo;';
 });
 </script>
