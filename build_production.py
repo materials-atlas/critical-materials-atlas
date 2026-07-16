@@ -1,17 +1,29 @@
 #!/usr/bin/env python3
 """
-Production reality — the atlas in absolute tonnes, and an independent cross-check.
+Production reality — the atlas in absolute tonnes, cross-checked against a second compilation.
 
 Every prior layer worked in shares (USGS) or trade value (BACI). This one brings in ABSOLUTE physical
-production, and a SECOND independent authority. Source: World Mining Data 6.4 (Austrian Federal Ministry of
+production from a SECOND COMPILATION. Source: World Mining Data 6.4 (Austrian Federal Ministry of
 Finance / World Mining Congresses), one sheet per commodity, production by country in metric tonnes, 2024.
 
 Two payoffs:
   (1) Scale the atlas has never shown: gallium is a ~1,000-tonne world; iron ore is a ~2.5-billion-tonne world.
       Concentration means very different things at those two scales.
-  (2) Cross-validation: compare each material's top-producer SHARE computed from WMD tonnages against the
-      atlas's USGS-derived share (data.json). Two independent sources agreeing is real corroboration; where
-      they diverge is flagged honestly.
+  (2) Cross-check: compare each material's top-producer SHARE computed from WMD tonnages against the
+      atlas's USGS-derived share (data.json). Where they diverge is flagged honestly.
+
+HOW INDEPENDENT IS IT, EXACTLY? This page used to call WMD "a second INDEPENDENT authority", which an
+outside reviewer attacked as circular ("both just recompile USGS"). So we counted. WMD tags every figure
+with its source, and across 1,903 tagged figures in the 2024 edition:
+      national statistics 60.0% | company reports 28.5% | questionnaire 6.7%
+      IEA 1.5% | ICG 1.1% | USGS 0.8% (16 figures) | BP 0.7% | Kimberley 0.6% | WNA 0.2%
+So the circularity charge is WRONG as put: USGS supplies 0.8% of WMD, and WMD is not a repackaging of it.
+But the weaker version is RIGHT and we now say so: both compilations rest on the SAME upstream universe --
+national statistical returns and company reports. They are independent COMPILATIONS, not independent
+MEASUREMENTS. If a country misreports its output, both inherit the error identically and agree perfectly.
+So agreement here demonstrates COMPILATION RELIABILITY, not measurement validation. No open source
+independently measures mine output; the closest thing this atlas has is the satellite footprint layer,
+which sees area, not tonnes.
 
 Public data; deterministic. Run: python build_production.py
 """
@@ -145,8 +157,8 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Production reality — the atlas in tonnes, cross-checked · Critical Materials Atlas</title>
-<meta name="description" content="Absolute mine production in metric tonnes for the atlas's materials (World Mining Data 2024), and an independent cross-check: does a second authority agree with the USGS-derived production shares the atlas uses? For 26 of 28 materials, the same country tops both.">
-<meta property="og:title" content="The atlas in real tonnes — and independently cross-checked">
+<meta name="description" content="Absolute mine production in metric tonnes for the atlas's materials (World Mining Data 2024), and a cross-check: does a second authority agree with the USGS-derived production shares the atlas uses? For 26 of 28 materials, the same country tops both.">
+<meta property="og:title" content="The atlas in real tonnes — and cross-checked against a second compilation">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -181,12 +193,14 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · production · cross-source validation</div>
   <h1>The atlas in real tonnes</h1>
-  <p class="deck">Every other page works in shares or trade value. This one brings in absolute physical production &mdash; and a <i>second, independent authority</i>. World Mining Data (Austrian ministry) gives mine output in metric tonnes; laid beside the atlas&rsquo;s USGS-derived shares it does two things at once: shows the <b>scale</b> nobody sees, and <b>cross-checks</b> whether the producer geography holds up when a different source counts it.</p>
+  <p class="deck">Every other page works in shares or trade value. This one brings in absolute physical production &mdash; and a <i>second, independently compiled</i> source. World Mining Data (Austrian ministry) gives mine output in metric tonnes; laid beside the atlas&rsquo;s USGS-derived shares it does two things at once: shows the <b>scale</b> nobody sees, and <b>cross-checks</b> whether the producer geography holds up when a different source counts it.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>The two sources, and how the check works</summary>
-  <p>Absolute production: <b>World Mining Data 6.4</b> (2026 ed.), production by country in metric tonnes, 2024. For each material we take the world total and the top producer&rsquo;s tonnage share, and compare that share against the atlas&rsquo;s existing <b>USGS-derived</b> top-producer share (in <a href="out/data.json">data.json</a>). Same top country + a small share gap = two independent authorities corroborating each other.</p>
+  <p>Absolute production: <b>World Mining Data 6.4</b> (2026 ed.), production by country in metric tonnes, 2024. For each material we take the world total and the top producer&rsquo;s tonnage share, and compare that share against the atlas&rsquo;s existing <b>USGS-derived</b> top-producer share (in <a href="out/data.json">data.json</a>). Same top country + a small share gap = two independently compiled sources agreeing.</p>
+  <p><b>How independent is &ldquo;independent&rdquo;? We counted, because someone attacked this claim.</b> The obvious objection to any second-source check is that the second source is just repackaging the first. World Mining Data tags every figure with where it came from, so the objection is answerable rather than arguable. Across <b>1,903 tagged figures</b> in the 2024 edition: <b>national statistics 60.0%</b>, company reports 28.5%, questionnaire 6.7%, IEA 1.5%, ICG 1.1%, <b>USGS 0.8%</b> (16 figures), BP 0.7%, Kimberley 0.6%, WNA 0.2%. So WMD is <i>not</i> a repackaging of USGS &mdash; the circularity charge fails as usually put.</p>
+  <p><b>But the weaker version of the objection is right, and it bounds what this page can claim.</b> Both compilations ultimately rest on the same upstream: national statistical returns and company reports. They are independent <i>compilations</i>, not independent <i>measurements</i>. If a country misreports its output, both inherit the error identically and agree perfectly &mdash; agreement would then be evidence of nothing. So what 26/28 demonstrates is <b>compilation reliability</b>: two teams, working separately from the same primary returns, made the same call. That is worth something and it is not nothing, but it is not measurement validation, and this page no longer says it is. No open source independently <i>measures</i> mine output. The closest thing the atlas owns is the <a href="satellite.html">satellite footprint</a> layer &mdash; and that sees area, not tonnes.</p>
   <p class="howto-src"><b>Caveats:</b> the two sources define commodities slightly differently (e.g. contained-metal vs concentrate, ore vs oxide), report different years&rsquo; vintages, and treat re-processing differently &mdash; so a few points of share difference is expected, and a couple of genuine disagreements (coking coal, bauxite: production vs export leadership) are flagged, not hidden. Coverage: 28 of the 32 materials have a WMD sheet (no hafnium, helium, silicon-metal, strontium). Source: <a href="https://www.world-mining-data.info/">world-mining-data.info</a> &rarr; <a href="out/production.json">production.json</a>.</p>
   </details></div>
 
