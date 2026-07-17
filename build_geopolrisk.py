@@ -125,6 +125,56 @@ overstated = sorted([r for r in rows if r['value_minus_prod'] is not None], key=
 understated = sorted([r for r in rows if r['value_minus_prod'] is not None], key=lambda r: r['value_minus_prod'])[:5]
 
 geopol_rank = sorted(rows, key=lambda r: -r['geopolrisk'])
+
+# ---- IMPORT-BASED GeoPolRisk per bloc: the real Gemechu 2016 consumer view ----
+# The score above is the producer/global view. This is the consumer one: weight governance by each bloc's
+# ACTUAL bilateral supplier shares (BACI 2023), not global production. Same functional form as the producer
+# version for comparability: GeoPolRisk_import(A,M) = HHI(import shares of A) x sum_i share_i * grisk_i.
+# An entrepot-stripped variant (drop known trade hubs) is the sensitivity check.
+_bi = json.load(open(os.path.join(ROOT, 'raw', 'geopolrisk', 'bilateral_imports_2023.json'), encoding='utf8'))
+IMP_BLOCS = ['China', 'EU', 'US', 'Japan', 'Korea', 'India']
+_ENTRE = {'NL', 'BE', 'SG', 'HK', 'AE', 'GB', 'CH'}
+def _igpr(supp, strip=False):
+    d = {s: q for s, q in supp.items() if not (strip and s in _ENTRE)}
+    tot = sum(d.values())
+    if tot <= 0:
+        return None
+    sh = {s: q / tot for s, q in d.items()}
+    hhi = sum(v * v for v in sh.values())
+    gov = sum(v * grisk(s) for s, v in sh.items())
+    return round(hhi * gov, 3)
+import_rows = []
+for r in rows:
+    hs = _bi['material_hs'].get(r['label'])
+    per = _bi['imports'].get(hs, {}) if hs else {}
+    blocs = {b: _igpr(per[b]) for b in IMP_BLOCS if b in per}
+    strip = {b: _igpr(per[b], strip=True) for b in IMP_BLOCS if b in per}
+    if blocs:
+        vals = [v for v in blocs.values() if v is not None]
+        import_rows.append({
+            'label': r['label'], 'title': r['title'], 'production_gpr': r['geopolrisk'],
+            'blocs': blocs, 'blocs_stripped': strip,
+            'spread_min': min(vals) if vals else None, 'spread_max': max(vals) if vals else None,
+            'shared_hs': len(_bi.get('imports', {}).get(hs, {})) and hs in ('811292',),
+        })
+# validation gate: (b) reorders vs production for the EU; (c) entrepot-stable
+_eu = {r['label']: r['blocs'].get('EU') for r in import_rows if r['blocs'].get('EU') is not None}
+_eu_strip = {r['label']: r['blocs_stripped'].get('EU') for r in import_rows if r['blocs_stripped'].get('EU') is not None}
+_prank = sorted(_eu, key=lambda l: -(next((rr['production_gpr'] for rr in import_rows if rr['label'] == l), 0) or 0))
+_irank = sorted(_eu, key=lambda l: -_eu[l])
+_srank = sorted(_eu_strip, key=lambda l: -_eu_strip[l])
+import_validation = {
+    'eu_reordered': sum(1 for i, l in enumerate(_irank) if _prank.index(l) != i),
+    'eu_n': len(_irank),
+    'eu_top5_entrepot_stable': len(set(_irank[:5]) & set(_srank[:5])),
+    'note': 'Import-based GeoPolRisk (Gemechu 2016 consumer view): governance weighted by each bloc\'s '
+            'actual bilateral suppliers (BACI 2023), per metal. HHI(import) x sum share*grisk. The '
+            'entrepot-stripped variant (drop NL/BE/CH/GB/SG/HK/AE) is the sensitivity check. Same metal '
+            'carries different risk for different blocs - that is the whole point, and the producer view '
+            'hides it. Caveat: gallium/germanium/hafnium share HS 811292, so their import shares are '
+            'bundled; and BACI records the shipping partner, not always the ultimate origin.',
+}
+
 out = {
     'generated': None, 'year': 2024,
     'method': 'HHI on WMD physical production shares x PRODUCTION-weighted governance (WGI). This is a GLOBAL production-concentration supply-risk (the EU-CRM-style producer view). It is NOT the import-based consumer GeoPolRisk of Gemechu 2016, whose innovation is to weight governance by the ACTUAL supplier shares of a specific importer (a distinct, consumer-perspective question).',
@@ -138,10 +188,15 @@ out = {
                           'gap': r['value_minus_prod']} for r in overstated],
     'value_understates': [{'title': r['title'], 'hhi_value': r['hhi_value'], 'hhi_prod': r['hhi_prod'],
                            'gap': r['value_minus_prod']} for r in understated],
+    'import_geopolrisk': sorted(import_rows, key=lambda r: -(r['spread_max'] or 0)),
+    'import_blocs': IMP_BLOCS,
+    'import_validation': import_validation,
     'rows': sorted(rows, key=lambda r: -r['hhi_prod']),
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'geopolrisk.json'), 'w', encoding='utf8'), separators=(',', ':'))
+print(f"  import GeoPolRisk: EU reordered {import_validation['eu_reordered']}/{import_validation['eu_n']} vs "
+      f"production, entrepot top-5 stable {import_validation['eu_top5_entrepot_stable']}/5")
 print('wrote out/geopolrisk.json')
 print('  GeoPolRisk top 5:', ', '.join(f"{r['title']} {r['geopolrisk']}" for r in geopol_rank[:5]))
 print('  biggest value->production rank shifts:', ', '.join(f"{m['title']} {m['rank_shift']:+d}" for m in movers))
@@ -209,6 +264,12 @@ HTML = r'''<!doctype html>
   <h2 style="margin:1.8rem 0 .3rem">Every material — value vs volume vs production</h2>
   <table class="tidy" id="ctab"><thead><tr><th>Material</th><th>concentration (0–1): value · volume · production</th><th class="n">value→prod rank shift</th></tr></thead><tbody></tbody></table>
 
+  <h2 style="margin:1.8rem 0 .3rem">The consumer view: who <i>you</i> buy from (import-based GeoPolRisk)</h2>
+  <p class="muted" style="margin-top:0">Everything above is the <b>producer</b> view — how concentrated and badly-governed is <i>global</i> supply. The real Gemechu-2016 GeoPolRisk asks a different question: weight governance by each bloc&rsquo;s <b>actual bilateral suppliers</b> (who it imports from), not global production. The same metal then carries very different risk for different blocs.</p>
+  <div class="keyline" id="importlead"></div>
+  <div style="overflow-x:auto"><table class="tidy" id="imptab"><thead></thead><tbody></tbody></table></div>
+  <p class="muted" id="impgate" style="margin-top:.5rem"></p>
+
   <h2 style="margin:1.8rem 0 .3rem">Why this matters</h2>
   <p>This puts the atlas on the same footing as the EU&rsquo;s official criticality work and the GeoPolRisk literature: supply concentration measured where it physically happens — the mine — not where the money changes hands. Where the two agree, the trade-value story was safe; where they diverge, the dollar view was quietly reporting a price or a refining hub as if it were a mine. It doesn&rsquo;t replace the trade lens — trade is still how material actually moves and where chokepoints bite — but it anchors the concentration claim in tonnes, and closes the gap the engine&rsquo;s own caveat left open.</p>
 </article>
@@ -224,6 +285,22 @@ Promise.all([fetch('out/geopolrisk.json').then(r=>r.json()),
   ld('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js')]).then(([S])=>{
   const ov=S.value_overstates[0];
   document.getElementById('lead').innerHTML='<b>Result:</b> measured the standard way — physical production tonnes, not trade dollars — the concentration ranking shifts for several materials. Trade value most <i>overstates</i> concentration for <b>'+S.value_overstates.slice(0,2).map(x=>x.title).join(' and ')+'</b> (a price or refining effect), and the highest supply risk once governance is folded in sits with '+S.geopolrisk_top.slice(0,3).map(x=>x.title).join(', ')+'. The physical measure is the one the EU and the GeoPolRisk literature actually use.';
+  // ---- import-based GeoPolRisk (consumer view) ----
+  var IG=S.import_geopolrisk, IB=S.import_blocs, IV=S.import_validation;
+  if(IG && IG.length){
+    var ga=IG.find(function(r){return r.label==='gallium';});
+    document.getElementById('importlead').innerHTML='<b>The producer view can mislead a specific bloc.</b> '+(ga?'Gallium is the scariest metal by global production ('+ga.production_gpr+', 97% China) &mdash; yet on <i>actual imports</i> it is <b>low-risk for the EU</b> ('+(ga.blocs.EU*1000).toFixed(0)+') and <b>high for Korea</b> ('+(ga.blocs.Korea*1000).toFixed(0)+'): they buy from different places. ':'')+'Weighting governance by who each bloc actually buys from reorders <b>'+IV.eu_reordered+' of '+IV.eu_n+'</b> metals for the EU vs the producer ranking, and the top-5 survives stripping trade hubs ('+IV.eu_top5_entrepot_stable+'/5). It is a different, complementary question &mdash; not a replacement.';
+    var th='<tr><th>Metal</th><th class="n">producer</th>'+IB.map(function(b){return '<th class="n">'+b+'</th>';}).join('')+'</tr>';
+    document.querySelector('#imptab thead').innerHTML=th;
+    var body=IG.slice(0,12).map(function(r){
+      var cells=IB.map(function(b){var v=r.blocs[b]; if(v==null) return '<td class="n" style="color:#c9d2d0">–</td>';
+        var col=v>=0.35?'#c0392b':v>=0.15?'#d98324':'#5a6b68';
+        return '<td class="n" style="color:'+col+';font-weight:'+(v>=0.35?700:400)+'">'+(v*1000).toFixed(0)+'</td>';}).join('');
+      return '<tr><td><b>'+r.title+'</b>'+(r.shared_hs?' <span title="shares HS 811292 with Ge/Hf" style="color:#b07a18">⛓</span>':'')+'</td><td class="n" style="color:#5a6b68">'+(r.production_gpr*1000).toFixed(0)+'</td>'+cells+'</tr>';
+    }).join('');
+    document.querySelector('#imptab tbody').innerHTML=body;
+    document.getElementById('impgate').innerHTML='Scores ×1000; red ≥350, amber ≥150. '+IV.note;
+  }
   const stats=[
     {v:S.geopolrisk_top[0].title,l:'highest GeoPolRisk (production concentration × governance)'},
     {v:'±'+Math.max.apply(null,S.movers.map(m=>Math.abs(m.shift))),l:'biggest rank change between the value and production views ('+S.movers[0].title+')'},
