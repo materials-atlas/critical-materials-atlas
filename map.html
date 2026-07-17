@@ -100,6 +100,87 @@ flowchart LR
     <li id="stage-site"><b>This static site.</b> The 28 pages and the material &amp; country profiles you are browsing, served straight from GitHub Pages &mdash; no backend, nothing to trust but the code and the public data. <a href="./">Open the atlas &rarr;</a></li>
   </ol>
 
+  <h2 id="dependency-tree">The analytical dependency tree &mdash; and where the atlas corrects itself</h2>
+  <p class="muted" style="margin-top:0">The diagram above is the plumbing &mdash; how data becomes pages. This one is the <i>reasoning</i>: each analytical layer built on the one before it, from the reconciliation engine out to the final &ldquo;hardest cases&rdquo;. What makes it unusual is the <b style="color:#c0392b">three dashed red loops</b> &mdash; places where a later result reached back and <b>overturned an earlier claim of our own</b>. Every box is clickable and opens its page.</p>
+  <div class="flowbox">
+    <pre class="mermaid">
+flowchart TD
+  classDef spine fill:#eef3f2,stroke:#9db4b0,color:#15323a;
+  classDef sat fill:#eaf0f8,stroke:#3f6fb0,color:#1c3a63,stroke-width:1.5px;
+  classDef supply fill:#e7f4f1,stroke:#0e7c74,color:#0b4a45,stroke-width:1.5px;
+  classDef demand fill:#fbf1dd,stroke:#b07a18,color:#7a5310,stroke-width:1.5px;
+  classDef systemic fill:#fbe9e7,stroke:#c0392b,color:#8f2a20,stroke-width:1.5px;
+  classDef data fill:#e6f4ec,stroke:#2f8f6b,color:#1d5a43,stroke-width:1.5px;
+  classDef rigor fill:#f0eafa,stroke:#7d5fb0,color:#4c3a75,stroke-width:1.5px;
+  classDef synth fill:#f7e6ea,stroke:#8a2f3f,color:#6a2331,stroke-width:2px;
+
+  SRC["Public data<br/><small>Comtrade · BACI · USGS · IEA · WGI</small>"] --> ENG["comtrade-reconcile<br/><small>engine</small>"]
+  ENG --> CORE["Core atlas<br/><small>concentration · origin · risk · trends</small>"]
+
+  CORE --> ATT["1 · Commodity attribution<br/><small>13 registers · 63%→73% via clustering</small>"]
+  ENG --> REF["6 · Refining wedge<br/><small>ore↔refined HHI · BACI</small>"]
+  ATT --> COMP["2 · Companionality<br/><small>hostage metals</small>"]
+  COMP --> ADJ["3 · Adjusted risk"]
+  COMP --> HOST["4 · Host shock"]
+  COMP --> REC["5 · Recycling"]
+  COMP --> DEM["7 · Demand &amp; squeeze"]
+  DEM --> PRICE["8 · Price test<br/><small>falsifier</small>"]
+  PRICE --> VOL["9 · Volatility retest<br/><small>real USGS prices · size control</small>"]
+  VOL -.->|retracts the volatility claim| PRICE
+  PRICE --> COUP["10 · Host coupling"]
+  DEM --> BLOC["11 · Demand by bloc"]
+  BLOC --> NET["12 · Net demand<br/><small>re-exports out</small>"]
+  COMP --> CASC["13 · Supply-shock cascade<br/><small>interactive · tonnes</small>"]
+  HOST --> CASC
+  CASC --> PROD["14 · Production in tonnes<br/><small>WMD cross-check</small>"]
+  PROD -.->|tonnage feedback| CASC
+  PROD --> GEO["15 · Concentration in tonnes<br/><small>GeoPolRisk · production HHI</small>"]
+  GEO -.->|re-bases value-HHI on tonnes| ENG
+
+  COMP --> SYN["16 · Synthesis<br/><small>the hardest cases</small>"]
+  REC --> SYN
+  DEM --> SYN
+  PROD --> SYN
+
+  SYN --> UNC["17 · Uncertainty<br/><small>Monte-Carlo</small>"]
+  SYN --> GA["18 · Gallium deep-dive<br/><small>mass balance</small>"]
+  PROD --> GA
+  SYN --> CHAL["19 · Break this atlas<br/><small>open challenge</small>"]
+
+  class SRC,ENG,CORE spine;
+  class ATT sat;
+  class COMP,ADJ,HOST,REC,REF supply;
+  class DEM,PRICE,COUP,BLOC,NET demand;
+  class VOL rigor;
+  class CASC systemic;
+  class PROD,GEO data;
+  class UNC,GA,CHAL rigor;
+  class SYN synth;
+
+  click ATT "commodity-attribution.html" _blank
+  click COMP "companionality.html" _blank
+  click REF "refining.html" _blank
+  click ADJ "risk-adjusted.html" _blank
+  click HOST "host-shock.html" _blank
+  click REC "recycling.html" _blank
+  click DEM "demand.html" _blank
+  click PRICE "price-squeeze.html" _blank
+  click VOL "price-volatility.html" _blank
+  click COUP "host-coupling.html" _blank
+  click BLOC "bloc-demand.html" _blank
+  click NET "net-demand.html" _blank
+  click CASC "cascade.html" _blank
+  click PROD "production.html" _blank
+  click GEO "geopolrisk.html" _blank
+  click SYN "synthesis.html" _blank
+  click UNC "uncertainty.html" _blank
+  click GA "gallium.html" _blank
+  click CHAL "challenge.html" _blank
+  click ENG "https://github.com/materials-atlas/comtrade-reconcile" _blank
+    </pre>
+  </div>
+  <p class="muted" style="margin:.2rem 0 0">Those red dashed edges are the atlas testing itself: the <a href="price-volatility.html">volatility retest</a> <b>retracted</b> the volatility claim on the <a href="price-squeeze.html">price page</a>; <a href="production.html">real tonnes</a> re-run the <a href="cascade.html">supply-shock cascade</a>; and <a href="geopolrisk.html">concentration in tonnes</a> re-bases the engine&rsquo;s dollar-based concentration. The full record of every headline that broke &mdash; and how &mdash; is the <a href="challenge.html">error log</a>.</p>
+
   <h2>Every page, grouped</h2>
   <p class="muted" style="margin-top:0">The same groups you see in the navigation. Click any to jump there.</p>
   <div class="grid">
