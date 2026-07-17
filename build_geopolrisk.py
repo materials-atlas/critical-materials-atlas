@@ -4,10 +4,13 @@ Concentration done right — physical production, the way the field measures sup
 
 The atlas's headline concentration (HHI) is computed on TRADE VALUE, which the engine itself flags as the
 most attackable choice: value is nominal, re-export-noisy, and mixes price with quantity. The standard
-supply-risk methods — the EU Critical Raw Materials methodology and the GeoPolRisk indicator (Gemechu et al.
-2016; Cimprich, Helbig, Sonnemann et al. 2017–2024) — instead compute the HHI on PHYSICAL PRODUCTION shares,
-weighted by governance (World Bank WGI). This layer does exactly that, from the precise World Mining Data
-tonnages, and lays all three measures side by side so you can see where trade value over- or under-states
+supply-risk methods — notably the EU Critical Raw Materials global supply-risk factor — instead compute the
+HHI on PHYSICAL PRODUCTION shares, weighted by governance (World Bank WGI). This layer does exactly that,
+from the precise World Mining Data tonnages. NOTE ON ATTRIBUTION: this is the PRODUCER / global-concentration
+view. It is NOT the import-based GeoPolRisk of Gemechu et al. 2016 (Cimprich/Helbig/Sonnemann), whose
+defining feature is weighting governance by a specific IMPORTER's actual supplier shares (a consumer-
+perspective question). Both are valid; this page answers the producer one. It lays the three concentration
+measures side by side so you can see where trade value over- or under-states
 real supply concentration.
 
   HHI_prod,m   = Σ_c (production_share_{c,m})^2            physical mine concentration (0–1)
@@ -124,7 +127,7 @@ understated = sorted([r for r in rows if r['value_minus_prod'] is not None], key
 geopol_rank = sorted(rows, key=lambda r: -r['geopolrisk'])
 out = {
     'generated': None, 'year': 2024,
-    'method': 'HHI on WMD physical production shares; WGI-weighted (GeoPolRisk-aligned, Gemechu 2016 / EU-CRM).',
+    'method': 'HHI on WMD physical production shares x PRODUCTION-weighted governance (WGI). This is a GLOBAL production-concentration supply-risk (the EU-CRM-style producer view). It is NOT the import-based consumer GeoPolRisk of Gemechu 2016, whose innovation is to weight governance by the ACTUAL supplier shares of a specific importer (a distinct, consumer-perspective question).',
     'n': len(rows),
     'geopolrisk_top': [{'title': r['title'], 'geopolrisk': r['geopolrisk'], 'hhi_prod': r['hhi_prod'],
                         'gov_risk': r['gov_risk'], 'top': r['top_producer'], 'top_share': r['top_share']}
@@ -189,7 +192,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>The method, and the literature it follows</summary>
   <p>For each material: <b>HHI<sub>prod</sub></b> = sum of squared <i>production</i> shares (World Mining Data 2024 tonnes, all producing countries) — the physical concentration. <b>Governance risk</b> = each producer&rsquo;s share × its World Bank WGI risk (worse-governed producers count more). <b>GeoPolRisk</b> = HHI<sub>prod</sub> × governance risk. We then set HHI<sub>prod</sub> beside the atlas&rsquo;s trade-<b>value</b> HHI and trade-<b>volume</b> HHI.</p>
-  <p class="howto-src"><b>Follows:</b> the GeoPolRisk indicator (<a href="https://www.sciencedirect.com/science/article/pii/S0921344924003951" target="_blank" rel="noopener">Gemechu et al. 2016; Cimprich/Helbig/Sonnemann 2017–2024</a>) and the <a href="https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials" target="_blank" rel="noopener">EU CRM methodology</a>, both of which score supply risk on physical production concentration × governance, not trade value. <b>Caveats:</b> production HHI is a global (not importer-specific) view; a few small producers lack a WGI match (coverage shown); phosphorus shares phosphate&rsquo;s sheet. Inputs: WMD tonnes × <a href="out/wgi.json">wgi.json</a> × <a href="out/data.json">data.json</a> &rarr; <a href="out/geopolrisk.json">geopolrisk.json</a>.</p>
+  <p class="howto-src"><b>What this is, precisely:</b> a <b>global production-concentration</b> supply-risk — physical mine HHI × <i>production-weighted</i> governance — in the spirit of the <a href="https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials" target="_blank" rel="noopener">EU CRM</a> global supply-risk factor. <b>It is not the import-based GeoPolRisk of <a href="https://www.sciencedirect.com/science/article/pii/S0921344924003951" target="_blank" rel="noopener">Gemechu et al. 2016 (Cimprich/Helbig/Sonnemann)</a></b>, whose defining move is to weight governance by a specific importer&rsquo;s <i>actual supplier shares</i> — a consumer-perspective question this page does not answer. Both are legitimate; they are different questions, and this is the producer/global one. <b>Caveats:</b> global, not importer-specific; a few small producers lack a WGI match (coverage shown); phosphorus shares phosphate&rsquo;s sheet. Inputs: WMD tonnes × <a href="out/wgi.json">wgi.json</a> × <a href="out/data.json">data.json</a> &rarr; <a href="out/geopolrisk.json">geopolrisk.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -213,7 +216,7 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="criticality.html">Criticality</a><br><a href="production.html">Production in tonnes</a><br><a href="volume.html">Value vs volume</a><br><a href="methodology.html">Methodology</a></div>
   <div><h4>Sources</h4>World Mining Data 2026 (production tonnes) · World Bank WGI · trade HHI — GeoPolRisk / EU-CRM aligned</div>
-  <div class="fineprint">Production HHI is a global, not importer-specific, supply-risk view; governance from WGI; follows Gemechu 2016 / EU CRM.</div>
+  <div class="fineprint">A global production-concentration supply-risk (EU-CRM-style producer view), not the import-based consumer GeoPolRisk of Gemechu 2016; governance from WGI.</div>
 </div></footer>
 <script>
 function ld(u){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=u;s.onload=res;s.onerror=rej;document.head.appendChild(s);});}
