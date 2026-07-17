@@ -28,6 +28,7 @@
       ['host-coupling.html', 'Host coupling — does price follow the host?'],
       ['bloc-demand.html', 'Demand by bloc — whose policy pulls what'],
       ['net-demand.html', 'Net demand — who really pulls (re-exports out)'],
+      ['apparent-consumption.html', 'Apparent consumption — who actually uses it'],
       ['network.html', 'Trade-network chokepoints'],
       ['complexity.html', 'Economic complexity'],
       ['origin.html', 'Origin trace'],
