@@ -220,8 +220,10 @@ out = {
                          'r=-0.70 — "can\'t scale" and "thin market" are substantially one factor, which the '
                          'volatility retest found independently (by-product metals are ~174x smaller '
                          'markets). A by-product therefore fails two axes for one underlying reason. It does '
-                         'not move the top two (they survive dropping either), but it inflates the '
-                         'contingent middle, and the expected-count column should be read with that in mind.',
+                         'not move the top two — and that is TESTED, not just asserted: the drop-axis '
+                         'robustness removes either half of the collinear pair and gallium/germanium still '
+                         'come first. The overlap inflates the contingent MIDDLE, never the answer; the '
+                         'expected-count column should be read with that in mind.',
     'rows': rows,
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
