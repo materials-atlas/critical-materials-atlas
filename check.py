@@ -94,25 +94,43 @@ def check_js():
 
 
 # ---------------------------------------------------------------- 4. the anonymity scrub
-def check_scrub():
-    """Leaked twice, both times because the pattern was narrowed to product names. Keep it WIDE, and
-    keep it on TRACKED text files only (binaries produce false positives from compressed streams).
-
-    The wordlist is base64 ON PURPOSE. This file is committed to a public, anonymous repo, and a
+def _scrub_pattern():
+    """The wordlist is base64 ON PURPOSE. This file is committed to a public, anonymous repo, and a
     plain-text list of the terms to scrub for IS the leak it exists to prevent. Not hypothetical: the
     first version of this checker spelled them out, was committed and pushed, and then caught its own
     words live on GitHub. The scrubber became the leak. Decode it to read it; never inline it back."""
-    pat = re.compile(base64.b64decode(
+    return re.compile(base64.b64decode(
         'XGIoY2xhdWRlfGFudGhyb3BpY3xncm9rfGNoYXRncHR8b3BlbmFpfGNvcGlsb3R8bGxtfGdwdC0/WzAtOV18YWlbIC1d'
         'KG1vZGVsfGFzc2lzdHxnZW5lcmF0fGNyb3NzfHdyaXQpfGFydGlmaWNpYWwgaW50ZWxsaWdlbmNlfGxhbmd1YWdlIG1v'
         'ZGVsKVxi').decode(), re.I)
-    files = subprocess.run(['git', 'ls-files'], capture_output=True, text=True).stdout.split()
-    for f in files:
-        if f.rsplit('.', 1)[-1].lower() in ('png', 'jpg', 'jpeg', 'pdf', 'gpkg', 'zip', 'xlsx'):
+
+_BINEXT = ('png', 'jpg', 'jpeg', 'pdf', 'gpkg', 'zip', 'xlsx')
+
+def check_scrub(staged=False):
+    """The anonymity scrub. Leaked FOUR times, every time because the guard ran AFTER the commit -- it
+    scans tracked/committed files, so it only catches a term once it is already in history (and, on push,
+    live on GitHub). The fix is `staged=True`: scan the STAGED blob of each file about to be committed,
+    from a pre-commit hook, so the term is blocked BEFORE it can reach history. Keep the pattern WIDE and
+    off binaries (compressed streams false-positive)."""
+    pat = _scrub_pattern()
+    if staged:
+        names = subprocess.run(['git', 'diff', '--cached', '--name-only', '--diff-filter=ACM'],
+                               capture_output=True, text=True).stdout.split()
+        def read(f):  # the STAGED content (index blob), not the working tree
+            r = subprocess.run(['git', 'show', f':{f}'], capture_output=True, text=True, errors='ignore')
+            return r.stdout if r.returncode == 0 else None
+    else:
+        names = subprocess.run(['git', 'ls-files'], capture_output=True, text=True).stdout.split()
+        def read(f):
+            try:
+                return open(f, encoding='utf8', errors='ignore').read()
+            except (OSError, UnicodeDecodeError):
+                return None
+    for f in names:
+        if f.rsplit('.', 1)[-1].lower() in _BINEXT:
             continue
-        try:
-            txt = open(f, encoding='utf8', errors='ignore').read()
-        except (OSError, UnicodeDecodeError):
+        txt = read(f)
+        if txt is None:
             continue
         for m in pat.finditer(txt):
             line = txt[:m.start()].count('\n') + 1
@@ -203,7 +221,33 @@ CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js)
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders)]
 
+HOOK = ('#!/bin/sh\n'
+        '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
+        '# into staged content, BEFORE it can reach history. Reinstall after a fresh clone: python check.py --install-hook\n'
+        'python check.py --staged || { echo "commit blocked: anonymity scrub failed on staged content"; exit 1; }\n')
+
+def install_hook():
+    root = subprocess.run(['git', 'rev-parse', '--git-path', 'hooks'], capture_output=True, text=True).stdout.strip()
+    os.makedirs(root, exist_ok=True)
+    path = os.path.join(root, 'pre-commit')
+    with open(path, 'w', encoding='utf8', newline='\n') as fh:
+        fh.write(HOOK)
+    try:
+        os.chmod(path, 0o755)
+    except OSError:
+        pass
+    print(f'installed pre-commit hook -> {path}')
+    print('It runs `python check.py --staged` and blocks any commit that stages an anonymity term.')
+
 if __name__ == '__main__':
+    if '--install-hook' in sys.argv:
+        install_hook(); sys.exit(0)
+    # --staged: pre-commit mode. Scrub the STAGED blobs only (fast, and the leak-prevention that matters).
+    if '--staged' in sys.argv:
+        check_scrub(staged=True)
+        for f in FAIL:
+            print(f'  FAIL  {f}')
+        sys.exit(1 if FAIL else 0)
     only = sys.argv[1] if len(sys.argv) > 1 else None
     for name, fn in CHECKS:
         if only and only != name:
