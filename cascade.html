@@ -15,6 +15,8 @@
  .sim select{padding:.35rem .6rem;border:1px solid #cdd8d5;border-radius:6px;font:inherit;min-width:12rem}
  .sim input[type=range]{accent-color:#c0392b}
  .scorebig{font-size:1.8rem;font-weight:800;color:#c0392b;letter-spacing:-.02em}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:.6rem 0}
+ .keyline b{color:#0e7c74}
  h3.sec{margin:1.1rem 0 .3rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:#5a6b68}
  .barrow{display:grid;grid-template-columns:150px 1fr 96px;align-items:center;gap:.6rem;margin:.22rem 0;font-size:.85rem}
  .barrow .nm{text-align:right;font-weight:600;color:#15323a}
@@ -47,7 +49,7 @@
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the cascade is computed (and where it stops)</summary>
   <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host) &mdash; a second-order hit the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. Each hit is expressed in <b>absolute tonnes at risk</b> = share of world supply lost &times; world production (World Mining Data 2024). The <b>systemic score</b> stays share-and-rigidity based on purpose &mdash; a tonnage sum would be swamped by bulk commodities and drown out the criticals, so tonnes are shown per material, not summed into the rank.</p>
-  <p class="howto-src"><b>Limits:</b> the echo only fires through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal) &mdash; zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for want of their host&rsquo;s production geography. Linear, first-and-second-order only; no price feedback or substitution. A structural map of contagion, not a forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
+  <p class="howto-src"><b>Limits:</b> the echo only fires through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal) &mdash; zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for want of their host&rsquo;s production geography. First-and-second-order only. Price feedback is no longer just a caveat — it is <a href="#robust">tested below</a> across a demand-elasticity band, and the top single point of failure holds. Still a structural map, not a calibrated forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
   </details></div>
 
   <div class="sim">
@@ -68,6 +70,10 @@
   <p class="muted" style="margin-top:0">Systemic score = direct supply at risk (weighted up where the metal is a rigid by-product) plus the companion echo. High = a shock here reverberates farthest through the critical-materials system.</p>
   <table class="tidy" id="rank"><thead><tr><th class="n">#</th><th>Producer</th><th class="n">score</th><th class="n">direct materials</th><th class="n">companion echoes</th></tr></thead><tbody></tbody></table>
 
+  <h2 style="margin:1.6rem 0 .3rem">Does it survive price feedback?</h2>
+  <p class="muted" style="margin-top:0">The model is linear — a real shortage would lift prices and flex demand (substitution, recycling), dampening the hit. We test that. The physical cascade is left untouched (by-product tonnes die with their host whatever the price); a demand-response damping is applied to the <i>impact score</i> only, scaled by each metal&rsquo;s elasticity (by-products stay inelastic), and swept across a wide band.</p>
+  <div class="keyline" id="robust"></div>
+
   <h2 style="margin:1.8rem 0 .3rem">Where the whole arc lands</h2>
   <p>Ten layers built one truth in steps: satellites can&rsquo;t name a mineral &rarr; many minerals are by-products &rarr; by-products can&rsquo;t scale &rarr; their host&rsquo;s cycle rules them &rarr; demand is surging and nationally concentrated. This capstone puts it in one motion: a shock lands, and it echoes down the companion web into metals the shocked country never even mined, then out to the blocs that buy them. The honest edge remains the same one the atlas has flagged throughout &mdash; it is a structural map from public data, not a calibrated forecast; the missing piece is absolute production tonnages and real prices to turn these shares into quantities. That is the next acquisition, and where this atlas would stop being a demonstration and start being an instrument.</p>
 </article>
@@ -75,7 +81,7 @@
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="net-demand.html">Net demand</a><br><a href="scenarios.html">Scenarios</a></div>
   <div><h4>Sources</h4>USGS production shares × companionality × reconciled net trade</div>
-  <div class="fineprint">Structural first-and-second-order cascade from public data; no price feedback or substitution — a map of contagion, not a forecast.</div>
+  <div class="fineprint">Structural first-and-second-order cascade from public data. Price feedback tested across an elasticity band (China stays the top point of failure) — but still a map of contagion, not a calibrated forecast.</div>
 </div></footer>
 <script>
 fetch('out/cascade.json').then(r=>r.json()).then(S=>{

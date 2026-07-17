@@ -106,6 +106,43 @@ ranking = sorted(countries.values(), key=lambda d: -d['score'])
 for i, r in enumerate(ranking, 1):
     r['rank'] = i
 
+# ---- price-feedback robustness (caveat 2, turned from an unaddressed caveat into a tested one) ----
+# The physical cascade above is LEFT UNCHANGED: by-product tonnes die with their host whatever the price,
+# so no elasticity touches the tonnage or the echo graph. This adds a SEPARATE market-response layer to the
+# IMPACT SCORE only: a supply loss lifts the price, and demand flexes -- but only for metals that CAN flex.
+# A by-product (high companionality) has few substitutes and inelastic demand, so it barely damps; a primary
+# metal damps more. We reuse the atlas's existing elasticity structure (response ~ 1 - companionality/100)
+# and sweep an overall demand-responsiveness eps across a wide band. Metal-specific elasticities do not
+# exist on public data, so this is a SENSITIVITY BAND, not a forecast. The gate: the linear score stays the
+# primary result; the damped layer only asks whether the ranking survives. Ship the conclusion only if the
+# top country is stable across the whole band; otherwise report the instability.
+def damped_score(cty, eps):
+    dd = sum(d['share'] / 100 * (1 + d['companionality_pct'] / 100)
+             / (1 + eps * (1 - d['companionality_pct'] / 100)) for d in cty['direct'])
+    ee = sum(e['hit'] / 100 for e in cty['echo'] if not e['already_direct'])  # echo undamped: inelastic
+    return dd + ee
+
+EPS_BAND = [0.0, 0.2, 0.5, 1.0]   # 0 = the published linear model; 1 = strong demand response
+scen = []
+for eps in EPS_BAND:
+    rk = sorted(countries.values(), key=lambda c: -damped_score(c, eps))
+    top, second = rk[0], (rk[1] if len(rk) > 1 else None)
+    s2 = damped_score(second, eps) if second else 0
+    scen.append({'eps': eps, 'top': top['name'], 'top_iso': top['iso'],
+                 'lead_ratio': round(damped_score(top, eps) / s2, 1) if s2 > 0 else None,
+                 'top5': [r['name'] for r in rk[:5]]})
+_leads = [s['lead_ratio'] for s in scen if s['lead_ratio']]
+robustness = {
+    'eps_band': EPS_BAND, 'scenarios': scen,
+    'top_stable': len({s['top_iso'] for s in scen}) == 1,
+    'top_country': scen[0]['top'],
+    'lead_min': min(_leads) if _leads else None, 'lead_max': max(_leads) if _leads else None,
+    'note': 'Physical cascade unchanged. Demand-response damping applied to the impact score only, scaled '
+            'by each metal\'s elasticity (~1 - companionality); by-products stay inelastic. eps swept 0-1 '
+            'as a sensitivity band (per-metal elasticities do not exist on public data). Ship only if the '
+            'top single point of failure is stable across the band.',
+}
+
 out = {
     'generated': data.get('generated'), 'blocs': BLOCS,
     'n_countries': len(countries),
@@ -113,6 +150,7 @@ out = {
                  'n_direct': len(r['direct']), 'n_echo': len(r['echo'])} for r in ranking],
     'countries': countries,
     'host_companions': HOST_COMPANIONS,
+    'robustness': robustness,
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(ROOT, 'out', 'cascade.json'), 'w', encoding='utf8'),
@@ -139,6 +177,8 @@ HTML = r'''<!doctype html>
  .sim select{padding:.35rem .6rem;border:1px solid #cdd8d5;border-radius:6px;font:inherit;min-width:12rem}
  .sim input[type=range]{accent-color:#c0392b}
  .scorebig{font-size:1.8rem;font-weight:800;color:#c0392b;letter-spacing:-.02em}
+ .keyline{background:#f2f6f5;border:1px solid #d9e6e3;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.1rem;margin:.6rem 0}
+ .keyline b{color:#0e7c74}
  h3.sec{margin:1.1rem 0 .3rem;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:#5a6b68}
  .barrow{display:grid;grid-template-columns:150px 1fr 96px;align-items:center;gap:.6rem;margin:.22rem 0;font-size:.85rem}
  .barrow .nm{text-align:right;font-weight:600;color:#15323a}
@@ -171,7 +211,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the cascade is computed (and where it stops)</summary>
   <p><b>First-order:</b> a shock of S% to a country cuts world supply of each material it mines by S% &times; its production share (USGS). <b>Companion echo:</b> where a hit material is a host, its by-product companions lose S% &times; (their by-product reliance on that host) &mdash; a second-order hit the first-order view misses. <b>Exposure:</b> the fallout is routed to importing blocs by net trade. Each hit is expressed in <b>absolute tonnes at risk</b> = share of world supply lost &times; world production (World Mining Data 2024). The <b>systemic score</b> stays share-and-rigidity based on purpose &mdash; a tonnage sum would be swamped by bulk commodities and drown out the criticals, so tonnes are shown per material, not summed into the rank.</p>
-  <p class="howto-src"><b>Limits:</b> the echo only fires through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal) &mdash; zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for want of their host&rsquo;s production geography. Linear, first-and-second-order only; no price feedback or substitution. A structural map of contagion, not a forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
+  <p class="howto-src"><b>Limits:</b> the echo only fires through hosts the atlas tracks (copper, nickel, bauxite, niobium, platinum, coking coal) &mdash; zinc/tin/zircon-hosted companions (germanium, hafnium) are under-counted for want of their host&rsquo;s production geography. First-and-second-order only. Price feedback is no longer just a caveat — it is <a href="#robust">tested below</a> across a demand-elasticity band, and the top single point of failure holds. Still a structural map, not a calibrated forecast. Inputs: <a href="out/data.json">data.json</a> (production) × <a href="out/companionality.json">companionality.json</a> × <a href="out/net_demand.json">net_demand.json</a> &rarr; <a href="out/cascade.json">cascade.json</a>.</p>
   </details></div>
 
   <div class="sim">
@@ -192,6 +232,10 @@ HTML = r'''<!doctype html>
   <p class="muted" style="margin-top:0">Systemic score = direct supply at risk (weighted up where the metal is a rigid by-product) plus the companion echo. High = a shock here reverberates farthest through the critical-materials system.</p>
   <table class="tidy" id="rank"><thead><tr><th class="n">#</th><th>Producer</th><th class="n">score</th><th class="n">direct materials</th><th class="n">companion echoes</th></tr></thead><tbody></tbody></table>
 
+  <h2 style="margin:1.6rem 0 .3rem">Does it survive price feedback?</h2>
+  <p class="muted" style="margin-top:0">The model is linear — a real shortage would lift prices and flex demand (substitution, recycling), dampening the hit. We test that. The physical cascade is left untouched (by-product tonnes die with their host whatever the price); a demand-response damping is applied to the <i>impact score</i> only, scaled by each metal&rsquo;s elasticity (by-products stay inelastic), and swept across a wide band.</p>
+  <div class="keyline" id="robust"></div>
+
   <h2 style="margin:1.8rem 0 .3rem">Where the whole arc lands</h2>
   <p>Ten layers built one truth in steps: satellites can&rsquo;t name a mineral &rarr; many minerals are by-products &rarr; by-products can&rsquo;t scale &rarr; their host&rsquo;s cycle rules them &rarr; demand is surging and nationally concentrated. This capstone puts it in one motion: a shock lands, and it echoes down the companion web into metals the shocked country never even mined, then out to the blocs that buy them. The honest edge remains the same one the atlas has flagged throughout &mdash; it is a structural map from public data, not a calibrated forecast; the missing piece is absolute production tonnages and real prices to turn these shares into quantities. That is the next acquisition, and where this atlas would stop being a demonstration and start being an instrument.</p>
 </article>
@@ -199,7 +243,7 @@ HTML = r'''<!doctype html>
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="net-demand.html">Net demand</a><br><a href="scenarios.html">Scenarios</a></div>
   <div><h4>Sources</h4>USGS production shares × companionality × reconciled net trade</div>
-  <div class="fineprint">Structural first-and-second-order cascade from public data; no price feedback or substitution — a map of contagion, not a forecast.</div>
+  <div class="fineprint">Structural first-and-second-order cascade from public data. Price feedback tested across an elasticity band (China stays the top point of failure) — but still a map of contagion, not a calibrated forecast.</div>
 </div></footer>
 <script>
 fetch('out/cascade.json').then(r=>r.json()).then(S=>{
