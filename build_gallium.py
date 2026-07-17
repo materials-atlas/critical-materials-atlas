@@ -152,6 +152,8 @@ HTML = r'''<!doctype html>
   <h2 style="margin:1.6rem 0 .3rem">Why price can&rsquo;t fix it</h2>
   <p>The gallium exists &mdash; tens of thousands of tonnes of it flow through alumina refineries every year. What&rsquo;s missing is <i>recovery capacity</i>: the extraction step is built at only a handful of plants, and adding it means retrofitting a refinery, a multi-year capital project. So when gallium&rsquo;s price <a href="price-squeeze.html">quadrupled</a> after China&rsquo;s 2023 export controls, world supply could not follow &mdash; there was no idle capacity to switch on, and the raw material&rsquo;s economics are set by <i>aluminium</i>, not gallium. This is the difference the atlas keeps drawing between a metal you can mine more of and one you can only <i>recover more of, eventually</i>. Gallium is the cleanest proof: a supply chain that is 94% waste by design, capped upstream by a host it cannot command.</p>
 
+  <p class="howto-src"><b>Does published work agree?</b> Yes &mdash; and this is a check, not a citation for its own sake. Peer-reviewed gallium material-flow studies put Bayer-liquor losses at roughly <b>95&ndash;96%</b> and find that <b>~90% of primary gallium</b> comes from that one Bayer route. This atlas built its <b>~94% discarded</b> figure independently, from bauxite tonnage and recovery bounds, and it lands in the same place. When a number assembled from raw trade and mining data matches the specialist literature it never consulted, the mechanism is real, not an artefact of one method. <span class="muted">One caveat worth stating plainly: gallium <i>can</i> be recovered at much higher rates from <b>new manufacturing scrap</b> (offcuts from making GaAs wafers &mdash; recovery near 27%). That looks like an escape valve, but it isn&rsquo;t a second mine: new scrap is a fixed fraction of gallium <i>already produced and sold</i>, so it scales with demand, not against a shortage. It cannot open a new primary fountain &mdash; the recycling story lives on its own <a href="companionality.html">page</a>, not here.</span></p>
+
   <h2 style="margin:1.6rem 0 .3rem">And the trade data lies about it</h2>
   <p class="muted" style="margin-top:0">Who imports gallium (revealed demand, 2024). But note the coding problem this metal exposes:</p>
   <table class="tidy" id="imptab"><thead><tr><th>Importer</th><th class="n">share of gallium imports</th></tr></thead><tbody></tbody></table>
@@ -163,8 +165,8 @@ HTML = r'''<!doctype html>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="synthesis.html">Hardest cases</a><br><a href="production.html">Production in tonnes</a><br><a href="methodology.html">Methodology</a></div>
-  <div><h4>Sources</h4>World Mining Data 2026 · USGS/literature (Ga in bauxite, Bayer recovery) · reconciled trade</div>
-  <div class="fineprint">Gallium production statistics are contested (China unreported); constants (ppm, recovery) are literature ranges, shown with bounds.</div>
+  <div><h4>Sources</h4>World Mining Data 2026 · USGS/literature (Ga in bauxite, Bayer recovery) · reconciled trade · cross-checked against published gallium material-flow studies (Bayer loss ~95%)</div>
+  <div class="fineprint">Gallium production statistics are contested (China unreported); constants (ppm, recovery) are literature ranges, shown with bounds. The ~94%-discarded finding is independently reproduced by peer-reviewed gallium MFA work (~95&ndash;96% Bayer-liquor loss).</div>
 </div></footer>
 <script>
 fetch('out/gallium.json').then(r=>r.json()).then(S=>{
