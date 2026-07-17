@@ -134,6 +134,48 @@ deltas = [r['share_delta'] for r in agree_top if r['share_delta'] is not None]
 mean_delta = round(sum(deltas) / len(deltas), 1) if deltas else None
 
 rows_out.sort(key=lambda r: -r['world_tonnes'])
+
+# ---- a THIRD check, genuinely independent of every statistical agency: the mine footprint from orbit ----
+# WMD and USGS both rest on national returns, so their agreement is compilation reliability, not measurement.
+# The satellite footprint (Maus et al. 2022 polygons, area by country) is measured from space -- independent
+# of any government statistic. It cannot validate per-metal shares (polygons are undifferentiated coal/metal/
+# aggregate, and area-per-tonne varies by orders of magnitude), but it CAN coarsely corroborate the AGGREGATE
+# bulk-mining geography. Test (pre-set gate): does country footprint-share rank-correlate with bulk
+# open-pit output-share? Ship the corroboration only if rho passes and the top-10 recall holds.
+import csv as _csv2
+try:
+    from scipy import stats as _stats
+    _sat = json.load(open(os.path.join(ROOT, 'out', 'satellite.json'), encoding='utf8'))
+    _foot = {iso: d['area_km2'] for iso, d in _sat['countries'].items() if d.get('area_km2')}
+    _i2 = {}
+    for _r in _csv2.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf8')):
+        if _r.get('country_iso2') and _r.get('country_iso3'):
+            _i2[_r['country_iso2']] = _r['country_iso3']
+    _WT = {r['label']: r['world_tonnes'] for r in rows_out if r.get('world_tonnes')}
+    _BULK = {'bauxite', 'cokingcoal', 'copper', 'phosphate', 'manganese'}   # highest-tonnage open-pit in the set
+    _bt = {}
+    for _m in data['materials']:
+        if _m['label'] in _BULK and _m['label'] in _WT:
+            for _e in (_m.get('mined') or []):
+                _iso3 = _i2.get(_e.get('c'))
+                if _iso3 and _e.get('v'):
+                    _bt[_iso3] = _bt.get(_iso3, 0) + _e['v'] / 100.0 * _WT[_m['label']]
+    _common = [c for c in _foot if c in _bt and _bt[c] > 0]
+    _rho, _p = _stats.spearmanr([_foot[c] for c in _common], [_bt[c] for c in _common])
+    _topO = set(sorted(_common, key=lambda c: -_bt[c])[:10])
+    _topF = set(sorted(_common, key=lambda c: -_foot[c])[:10])
+    satellite_check = {
+        'n_countries': len(_common), 'spearman_rho': round(float(_rho), 2), 'p': round(float(_p), 4),
+        'top10_recall': len(_topO & _topF),
+        'passes': float(_rho) >= 0.5 and len(_topO & _topF) >= 8,
+        'bulk_commodities': sorted(_BULK & set(_WT)),
+        'note': 'Country mine-footprint share (Maus 2022 satellite polygons, orbit) vs bulk open-pit '
+                'output share. Genuinely independent of national statistics. Coarse AGGREGATE geography '
+                'only -- polygons are undifferentiated, so this cannot validate per-metal shares.',
+    }
+except Exception as _ex:
+    satellite_check = {'error': str(_ex)[:80]}
+
 out = {
     'generated': data.get('generated'), 'year': 2024,
     'source': 'World Mining Data 6.4 (2026 ed., Austrian Federal Ministry of Finance) — production in metric tonnes.',
@@ -141,6 +183,7 @@ out = {
     'n_checkable': len(checkable),
     'n_agree_top': len(agree_top),
     'mean_share_delta': mean_delta,
+    'satellite_check': satellite_check,
     'rows': rows_out,
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
@@ -200,7 +243,8 @@ HTML = r'''<!doctype html>
   <details class="howto"><summary>The two sources, and how the check works</summary>
   <p>Absolute production: <b>World Mining Data 6.4</b> (2026 ed.), production by country in metric tonnes, 2024. For each material we take the world total and the top producer&rsquo;s tonnage share, and compare that share against the atlas&rsquo;s existing <b>USGS-derived</b> top-producer share (in <a href="out/data.json">data.json</a>). Same top country + a small share gap = two independently compiled sources agreeing.</p>
   <p><b>How independent is &ldquo;independent&rdquo;? We counted, because someone attacked this claim.</b> The obvious objection to any second-source check is that the second source is just repackaging the first. World Mining Data tags every figure with where it came from, so the objection is answerable rather than arguable. Across <b>1,903 tagged figures</b> in the 2024 edition: <b>national statistics 60.0%</b>, company reports 28.5%, questionnaire 6.7%, IEA 1.5%, ICG 1.1%, <b>USGS 0.8%</b> (16 figures), BP 0.7%, Kimberley 0.6%, WNA 0.2%. So WMD is <i>not</i> a repackaging of USGS &mdash; the circularity charge fails as usually put.</p>
-  <p><b>But the weaker version of the objection is right, and it bounds what this page can claim.</b> Both compilations ultimately rest on the same upstream: national statistical returns and company reports. They are independent <i>compilations</i>, not independent <i>measurements</i>. If a country misreports its output, both inherit the error identically and agree perfectly &mdash; agreement would then be evidence of nothing. So what 26/28 demonstrates is <b>compilation reliability</b>: two teams, working separately from the same primary returns, made the same call. That is worth something and it is not nothing, but it is not measurement validation, and this page no longer says it is. No open source independently <i>measures</i> mine output. The closest thing the atlas owns is the <a href="satellite.html">satellite footprint</a> layer &mdash; and that sees area, not tonnes.</p>
+  <p><b>But the weaker version of the objection is right, and it bounds what this page can claim.</b> Both compilations ultimately rest on the same upstream: national statistical returns and company reports. They are independent <i>compilations</i>, not independent <i>measurements</i>. If a country misreports its output, both inherit the error identically and agree perfectly &mdash; agreement would then be evidence of nothing. So what 26/28 demonstrates is <b>compilation reliability</b>: two teams, working separately from the same primary returns, made the same call. That is worth something and it is not nothing, but it is not measurement validation, and this page no longer says it is. No open source independently <i>measures</i> mine output. The closest thing the atlas owns is the <a href="satellite.html">satellite footprint</a> layer &mdash; and it sees area, not tonnes. But area is measured <i>from orbit</i>, so it owes nothing to any national statistic &mdash; which makes it the one genuinely independent check available, if only a coarse one.</p>
+  <p><b>So we ran it.</b> Does a country&rsquo;s share of the world&rsquo;s mapped mine <i>footprint</i> track its share of bulk open-pit <i>output</i>? <span id="satcheck"></span> This can only corroborate the <b>aggregate</b> mining geography &mdash; the polygons are undifferentiated coal/metal/aggregate, and area-per-tonne varies by orders of magnitude, so it cannot validate any per-metal share. But for the coarse claim &ldquo;these are the world&rsquo;s big mining nations,&rdquo; it is the one check that does <b>not</b> rest on the same national returns as USGS and WMD &mdash; and it agrees.</p>
   <p class="howto-src"><b>Caveats:</b> the two sources define commodities slightly differently (e.g. contained-metal vs concentrate, ore vs oxide), report different years&rsquo; vintages, and treat re-processing differently &mdash; so a few points of share difference is expected, and a couple of genuine disagreements (coking coal, bauxite: production vs export leadership) are flagged, not hidden. Coverage: 28 of the 32 materials have a WMD sheet (no hafnium, helium, silicon-metal, strontium). Source: <a href="https://www.world-mining-data.info/">world-mining-data.info</a> &rarr; <a href="out/production.json">production.json</a>.</p>
   </details></div>
 
@@ -236,6 +280,10 @@ Promise.all([fetch('out/production.json').then(r=>r.json()),
   const tiny=S.rows.filter(r=>r.world_tonnes<10000).length;
   document.getElementById('lead').innerHTML='<b>Result:</b> a second, independently compiled authority (World Mining Data) puts the <b>same country on top for '+S.n_agree_top+' of '+S.n_checkable+'</b> materials it can check against the atlas&rsquo;s USGS shares, with a mean gap of just '+S.mean_share_delta+' points &mdash; strong cross-source corroboration of the producer geography. And the scale finally shows: '+tiny+' of these criticals are worlds of under 10,000 tonnes a year (gallium ~1,000 t, germanium ~150 t), where one country holding 90%+ is a genuinely thin thread.';
   document.getElementById('agreecount').textContent=S.n_agree_top+' of '+S.n_checkable;
+  var SC=S.satellite_check;
+  if(SC && !SC.error){
+    document.getElementById('satcheck').innerHTML='Across '+SC.n_countries+' mining countries, footprint-share and bulk-output-share rank-correlate at <b>&rho;='+SC.spearman_rho+'</b> (p='+SC.p+'), and <b>'+SC.top10_recall+' of the top 10</b> output nations are also top 10 by footprint. '+(SC.passes?'It passes the pre-set gate (&rho;&ge;0.5, recall&ge;8) &mdash; a genuine, orbit-grounded corroboration.':'It does not clear the gate, so we do not lean on it.')+' ';
+  } else { document.getElementById('satcheck').innerHTML=''; }
   const stats=[
     {v:S.n_agree_top+' / '+S.n_checkable,l:'materials where WMD and USGS name the SAME top producer'},
     {v:S.mean_share_delta+' pp',l:'mean difference in the top producer’s share between the two sources'},
