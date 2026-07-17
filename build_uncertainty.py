@@ -223,7 +223,13 @@ out = {
                          'not move the top two — and that is TESTED, not just asserted: the drop-axis '
                          'robustness removes either half of the collinear pair and gallium/germanium still '
                          'come first. The overlap inflates the contingent MIDDLE, never the answer; the '
-                         'expected-count column should be read with that in mind.',
+                         'expected-count column should be read with that in mind. One honest footnote on '
+                         'the draw: the Monte-Carlo samples each input INDEPENDENTLY, so it does invent some '
+                         'impossible combos (a high-companionality metal with a huge market). That does not '
+                         'threaten the Ga/Ge claim — they are extreme on every axis, so the tail that crowns '
+                         'them barely uses those combos, and the design robustness stresses the dependence '
+                         'directly. A correlated draw would only tighten the mid-pack cosmetically; a 5x5 '
+                         'covariance on 32 metals is a fragile knob, not a fix.',
     'rows': rows,
 }
 os.makedirs(os.path.join(ROOT, 'out'), exist_ok=True)
