@@ -9,6 +9,10 @@ Reproduce: [`reconcile/findings.py`](reconcile/findings.py) → [`reconcile/resu
 Interactive: the atlas's **Table** view (the **⚠** flag, the **origin gap** in each material's detail) and
 any country's **dependency report**.
 
+**Companion finding → [`FINDINGS-2.md`](FINDINGS-2.md):** *why* raw trade needs reconciling in the first
+place — most flows of many materials are re-export theatre, and half of all two-sided flows disagree with
+their own mirror.
+
 ## The measure
 
 For each material, in the same year:
