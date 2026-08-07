@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Critical-materials trade — ad-hoc query (static, no backend)</title>
+<style>
+ :root{--navy:#15323a;--ink:#1a2529;--mut:#5a6b68;--line:#e3e9e8;--sunk:#f4f7f6;--accent:#0e7c74}
+ *{box-sizing:border-box}
+ body{margin:0;background:#f5f8f7;color:var(--ink);font-family:ui-sans-serif,system-ui,"Segoe UI",Roboto,sans-serif;line-height:1.5}
+ header{background:linear-gradient(160deg,#12272c,#173a42 60%,#1d4751);color:#fff;padding:1.3rem 1.4rem}
+ header .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#5cbcb1}
+ header h1{margin:.3rem 0 .35rem;font-size:1.5rem}
+ header p{margin:0;color:#c6d8d5;max-width:90ch;font-size:.92rem}
+ header code{background:rgba(255,255,255,.12);padding:.05rem .3rem;border-radius:4px}
+ .wrap{max-width:1100px;margin:0 auto;padding:1.1rem 1.4rem 3rem}
+ .presets{display:flex;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 .8rem}
+ .presets button{font:inherit;font-size:.83rem;cursor:pointer;background:#fff;border:1px solid var(--line);border-radius:100px;padding:.32rem .8rem;color:var(--navy)}
+ .presets button:hover{background:var(--sunk);border-color:var(--accent)}
+ textarea{width:100%;min-height:5.5rem;font-family:ui-monospace,"Cascadia Code",Consolas,monospace;font-size:.86rem;
+   border:1px solid var(--line);border-radius:10px;padding:.7rem .8rem;resize:vertical;background:#fff;color:var(--ink)}
+ .run{margin:.6rem 0;display:flex;gap:.7rem;align-items:center}
+ .run button{font:inherit;font-weight:600;cursor:pointer;background:var(--accent);color:#fff;border:0;border-radius:8px;padding:.45rem 1.1rem}
+ .run button:disabled{opacity:.5;cursor:default}
+ #status{font-size:.84rem;color:var(--mut)}
+ .tblwrap{overflow:auto;border:1px solid var(--line);border-radius:10px;background:#fff;max-height:60vh}
+ table{border-collapse:collapse;width:100%;font-size:.85rem}
+ th,td{text-align:left;padding:.4rem .7rem;border-bottom:1px solid var(--line);white-space:nowrap}
+ th{position:sticky;top:0;background:var(--sunk);font-size:.72rem;text-transform:uppercase;letter-spacing:.03em;color:var(--mut)}
+ td.num{text-align:right;font-variant-numeric:tabular-nums}
+ .note{font-size:.82rem;color:var(--mut);margin:.8rem 0 0}
+</style></head>
+<body>
+<header>
+  <div class="eyebrow">Reconciled · harmonized · monthly · public-data only</div>
+  <h1>Critical-materials trade database</h1>
+  <div class="eyebrow" style="margin:6px 0 10px"><a href="dossier.html" style="color:#9fd3ff;font-weight:600;text-decoration:none">▸ Open the corridor validation dossier</a> — the full evidence chain &amp; explicit call for 22 key corridors</div>
+  <p><b>DuckDB-WASM</b> over one Parquet file, SQL <b>client-side</b>, no server, no key. <b>One canonical table</b> — every source normalized into the same shape, so wide, deep and (later) mirror layers coexist:<br>
+  &nbsp;&nbsp;<code>flows(source, freq, period, reporter, partner, flow, hs6, native_code, code_level, material, value_usd, qty_kg, is_mirror)</code><br>
+  Seven sources: <code>baci</code> (world · HS-6 · annual · reconciled) · <code>eurostat</code> (EU · CN-8) · <code>comexstat</code> (Brazil · NCM-8 · <b>Jun 2026</b>) · <code>hmrc</code> (UK · CN-8) · <code>uscensus</code> (US · HS-6) · <code>comtrade</code> (world · HS-6 · rotating) · <code>mirror</code> (China/Russia/DRC via partners). Monthly, USD at <b>real ECB rates</b>. Adding a country = one more adapter.<br>
+  Three views: <code>flows</code> = raw layers · <code>flows_best</code> = each flow <b>once</b> (de-duplicated) · <b><code>flows_reconciled</code></b> = monthly mirror check: where the exporter's FOB and importer's CIF <b>agree</b> we reconcile them; where they <b>conflict</b> we <b>don't fabricate a number</b> — both sides + the range are exposed and flagged. For critical materials those conflicts are mostly HS ambiguity / re-exports / confidentiality, not freight — <b>surfacing them is the point</b>. <span class="muted">(reconciled values use an <b>equal-weight geometric mean</b> of the two customs sides — an ablation vs BACI showed reporter-reliability weighting did <b>not</b> improve accuracy, so the reliability/bias metrics are kept only as exposed diagnostics; every flow carries <code>via_entrepot</code>, <code>confidential</code> and <code>disagree_reason</code> flags; benchmarked against BACI. A single global freight markup remains a known, bounded limitation.)</span></p>
+</header>
+<div class="wrap">
+  <div class="presets" id="presets"></div>
+  <textarea id="sql" spellcheck="false"></textarea>
+  <div class="run"><button id="go" disabled>Run query</button><span id="status">loading DuckDB-WASM…</span></div>
+  <div class="tblwrap"><table id="out"><thead></thead><tbody></tbody></table></div>
+  <p class="note">Loads the same <code>duckdb</code> engine used to build the file. The <b>gallium+germanium</b> bundle under HS-6 <code>811292</code> is visible here as one label — the live demonstration of why the Phase-1 pull goes to 8-digit national lines to split it.</p>
+</div>
+
+<script type="module">
+import * as duckdb from 'https://cdn.jsdelivr.net/npm/@duckdb/duckdb-wasm@1.29.0/+esm';
+
+const PRESETS = [
+  ['★ Coverage & quality scorecard (per material)', "-- honest map: code identity, sources, granularity, freshness, reporters, re-export %, quantity, price, conflict rates\nSELECT material, code_confidence, code_form, n_sources, finest_level, latest_period, value_busd, n_reporters, pct_via_entrepot,\n  n_confidential, pct_with_qty, usd_per_kg, n_reconciled, n_disagreement, avg_agreement\nFROM coverage ORDER BY value_busd DESC"],
+  ['★ Concordance confidence — is the code really the material?', "-- the identity risk a reviewer attacks: exact = code IS the material; dominant = its main traded form but a broader basket;\n-- proxy = a compound/partial code that misses forms or bundles others. READ THE CAVEAT before trusting a material's totals.\nSELECT confidence, material, form, caveat FROM material_confidence ORDER BY CASE confidence WHEN 'exact' THEN 1 WHEN 'dominant' THEN 2 ELSE 3 END, material"],
+  ['★ Unit value ($/kg) — the price of each material', "-- implied price per kilo from value/quantity; a real analytical output AND a misreport smell-test\nSELECT material, ROUND(median(value_usd/qty_kg),2) AS usd_per_kg,\n  ROUND(SUM(qty_kg)/1e9,2) AS billion_kg, ROUND(SUM(value_usd)/1e9,2) AS value_busd, COUNT(*) AS flows\nFROM flows_best WHERE qty_kg>0 AND value_usd>0 GROUP BY 1 ORDER BY usd_per_kg DESC"],
+  ['★ Unit-value outliers ($/kg far from median)', "-- flows whose $/kg is >10x or <0.1x the material's median: misclassification, re-exports, OR ore-vs-refined price spread within a material bucket\nWITH m AS (SELECT material, median(value_usd/qty_kg) AS med FROM flows_best WHERE qty_kg>0 AND value_usd>0 GROUP BY 1)\nSELECT f.exporter_name, f.importer_name, f.material, f.period,\n  ROUND(f.value_usd/f.qty_kg,2) AS usd_per_kg, ROUND(m.med,2) AS material_median,\n  ROUND((f.value_usd/f.qty_kg)/m.med,1) AS x_vs_median, ROUND(f.value_usd/1e6,2) AS musd\nFROM flows_best f JOIN m USING(material)\nWHERE f.qty_kg>0 AND f.value_usd>1e6 AND ((f.value_usd/f.qty_kg)/m.med>10 OR (f.value_usd/f.qty_kg)/m.med<0.1)\nORDER BY musd DESC LIMIT 25"],
+  ['★ Provenance — confidential / suppressed-counterparty flows', "-- customs authorities hide the partner for commercially/strategically sensitive trade; we FLAG it, never guess it\nSELECT reporter_name, material, period, ROUND(value_usd/1e6,2) AS musd, flow\nFROM flows_best WHERE confidential ORDER BY value_usd DESC LIMIT 25"],
+  ['★ Reconciliation — do the two customs sides agree?', "SELECT basis, COUNT(*) AS flows, ROUND(SUM(value_recon_fob)/1e9,2) AS value_busd\nFROM flows_reconciled GROUP BY 1 ORDER BY 3 DESC"],
+  ['★ Why do the two sides disagree? (taxonomy)', "-- honesty with receipts: instead of just refusing a number, name the LIKELY cause of each conflict\nSELECT disagree_reason, COUNT(*) AS flows, ROUND(SUM(greatest(fob,cif))/1e6,1) AS musd\nFROM flows_reconciled WHERE basis='disagreement' GROUP BY 1 ORDER BY 2 DESC"],
+  ['★ Flagged mirror disagreements (with likely cause)', "-- exporter and importer report very different values for the same monthly flow — now with the WHY:\nSELECT exporter, importer, material, period, ROUND(fob/1e6,1) AS exporter_musd, ROUND(cif/1e6,1) AS importer_musd, disagree_reason\nFROM flows_reconciled WHERE basis='disagreement' AND greatest(fob,cif)>1e6\nORDER BY greatest(fob,cif) DESC LIMIT 20"],
+  ['★ Reconciliation confidence (agreement, 0-1)', "-- honest uncertainty: how tightly the two customs sides agree on each reconciled flow (1 = identical)\nSELECT CASE WHEN agreement>=0.9 THEN 'tight (>=0.90)' WHEN agreement>=0.75 THEN 'good (0.75-0.90)' ELSE 'loose (<0.75)' END AS confidence,\n  COUNT(*) AS flows, ROUND(AVG(agreement),3) AS avg_agreement, ROUND(SUM(value_recon_fob)/1e9,2) AS value_busd\nFROM flows_reconciled WHERE basis='reconciled' GROUP BY 1 ORDER BY 3 DESC"],
+  ['★ Re-export risk — flows via entrepôt hubs', "-- flows touching NL/BE/SG/HK/CH/GB/LU/... likely involve trans-shipment, not origin trade:\nSELECT via_entrepot, COUNT(*) AS flows, ROUND(SUM(value_usd)/1e9,1) AS value_busd\nFROM flows GROUP BY 1 ORDER BY 1"],
+  ['★ Reporter quality — systematic bias & reliability', "-- variance-components: exp_bias/imp_bias = systematic over/under-reporting (log); reliability = trust weight\nSELECT reporter, n_flows, ROUND(exp_bias,2) AS exp_bias, ROUND(imp_bias,2) AS imp_bias, ROUND(reliability,2) AS reliability\nFROM reporter_quality ORDER BY n_flows DESC LIMIT 20"],
+  ['★ Wide vs deep in ONE table (HS6 811292)', "-- BACI sees one lump; Eurostat CN8 splits it — same table, one query:\nSELECT source, code_level, material, ROUND(SUM(value_usd)) AS usd\nFROM flows WHERE hs6='811292'\nGROUP BY 1,2,3 ORDER BY source, material"],
+  ['★ Finest granularity available, per material', "SELECT material, MAX(code_level) AS finest_level, COUNT(DISTINCT source) AS sources\nFROM flows GROUP BY 1 ORDER BY finest_level DESC, material"],
+  ['★ Freshness: latest period by source', "SELECT source, freq, MAX(period) AS latest_period FROM flows GROUP BY 1,2"],
+  ['★ Dark country via partner mirror (China)', "-- China's gallium/germanium imports seen through partner eyes — the move when a country goes dark:\nSELECT partner_name, ROUND(SUM(value_usd)/1e6,2) AS value_musd\nFROM flows WHERE source='mirror' AND reporter='CHN' AND hs6='811292' AND flow='import'\nGROUP BY 1 ORDER BY 2 DESC LIMIT 10"],
+  ['★ Niobium — Brazil dominance (fresh Jun 2026)', "SELECT partner_name, ROUND(SUM(value_usd)/1e6,0) AS value_musd\nFROM flows WHERE source='comexstat' AND material='niobium' AND flow='export'\nGROUP BY 1 ORDER BY 2 DESC LIMIT 10"],
+  ['★ Ga/Ge split — national CN8 sources agree', "-- HS6 811292 is one lump in BACI; every national 8-digit source splits it the same way:\nSELECT source, material, ROUND(SUM(value_usd)) AS usd\nFROM flows WHERE hs6='811292' AND code_level=8 AND material IN ('gallium','germanium')\nGROUP BY 1,2 ORDER BY 2,1"],
+  ['★ US lithium imports — the lithium triangle', "SELECT partner_name, ROUND(SUM(value_usd)/1e6,2) AS value_musd\nFROM flows WHERE source='uscensus' AND material='lithium' AND flow='import'\nGROUP BY 1 ORDER BY 2 DESC LIMIT 8"],
+  ['Top cobalt exporters (world · BACI)', "SELECT reporter_name, ROUND(SUM(value_usd)/1e6,1) AS value_musd\nFROM flows WHERE material LIKE 'cobalt%' AND source='baci' AND flow='export'\nGROUP BY 1 ORDER BY 2 DESC LIMIT 10"],
+  ['EU imports by material (deep · CN8)', "SELECT material, ROUND(SUM(value_usd)/1e6,2) AS value_musd, ROUND(SUM(qty_kg)/1000,1) AS tonnes\nFROM flows WHERE source='eurostat' AND flow='import'\nGROUP BY 1 ORDER BY 2 DESC LIMIT 15"],
+  ['★ Biggest flows — de-duplicated (flows_best)', "-- each physical flow once; no mirror/BACI overlap:\nSELECT exporter_name, importer_name, material, code_level AS lvl, ROUND(value_usd/1e6,1) AS value_musd\nFROM flows_best ORDER BY value_usd DESC LIMIT 15"],
+  ['★ flows vs flows_best (overlap removed)', "SELECT 'flows (raw layers)' AS view, COUNT(*) AS rows FROM flows\nUNION ALL SELECT 'flows_best (deduped)', COUNT(*) FROM flows_best"],
+  ['Every material · value, sources, finest level', "SELECT material, ROUND(SUM(value_usd)/1e6,1) AS value_musd,\n  COUNT(DISTINCT source) AS sources, MAX(code_level) AS finest\nFROM flows GROUP BY 1 ORDER BY 2 DESC"]
+];
+
+let conn;
+const $ = id => document.getElementById(id);
+const status = m => $('status').textContent = m;
+
+PRESETS.forEach(([label, sql]) => {
+  const b = document.createElement('button'); b.textContent = label;
+  b.onclick = () => { $('sql').value = sql; run(); };
+  $('presets').appendChild(b);
+});
+$('sql').value = PRESETS[0][1];
+$('go').onclick = run;
+
+async function init(){
+  const bundle = await duckdb.selectBundle(duckdb.getJsDelivrBundles());
+  const wurl = URL.createObjectURL(new Blob([`importScripts("${bundle.mainWorker}");`], {type:'text/javascript'}));
+  const db = new duckdb.AsyncDuckDB(new duckdb.ConsoleLogger(), new Worker(wurl));
+  await db.instantiate(bundle.mainModule, bundle.pthreadWorker);
+  URL.revokeObjectURL(wurl);
+  const bust = '?t=' + Date.now();   // always fetch the current build, never a cached Parquet
+  for (const f of ['flows', 'flows_best', 'flows_reconciled', 'reporter_quality', 'coverage', 'material_confidence']) {
+    await db.registerFileURL(f + '.parquet', new URL('data/' + f + '.parquet', location.href).href + bust, duckdb.DuckDBDataProtocol.HTTP, false);
+  }
+  conn = await db.connect();
+  await conn.query("CREATE VIEW flows AS SELECT * FROM parquet_scan('flows.parquet')");
+  await conn.query("CREATE VIEW flows_best AS SELECT * FROM parquet_scan('flows_best.parquet')");
+  await conn.query("CREATE VIEW flows_reconciled AS SELECT * FROM parquet_scan('flows_reconciled.parquet')");
+  await conn.query("CREATE VIEW reporter_quality AS SELECT * FROM parquet_scan('reporter_quality.parquet')");
+  await conn.query("CREATE VIEW coverage AS SELECT * FROM parquet_scan('coverage.parquet')");
+  await conn.query("CREATE VIEW material_confidence AS SELECT * FROM parquet_scan('material_confidence.parquet')");
+  const n = (await conn.query("SELECT COUNT(*) AS n FROM flows")).toArray()[0].n;
+  const nb = (await conn.query("SELECT COUNT(*) AS n FROM flows_best")).toArray()[0].n;
+  const src = (await conn.query("SELECT COUNT(DISTINCT source) AS s FROM flows")).toArray()[0].s;
+  status(`ready · flows: ${Number(n).toLocaleString()} raw · flows_best: ${Number(nb).toLocaleString()} de-dup · flows_reconciled · ${src} sources · client-side`);
+  $('go').disabled = false;
+  run();
+}
+
+async function run(){
+  if(!conn) return;
+  $('go').disabled = true; status('running…');
+  const t0 = performance.now();
+  try{
+    const res = await conn.query($('sql').value);
+    const rows = res.toArray().map(r => r.toJSON());
+    const cols = res.schema.fields.map(f => f.name);
+    const thead = $('out').querySelector('thead'), tbody = $('out').querySelector('tbody');
+    thead.innerHTML = '<tr>' + cols.map(c=>`<th>${c}</th>`).join('') + '</tr>';
+    tbody.innerHTML = rows.map(r => '<tr>' + cols.map(c=>{
+      const v = r[c]; const num = typeof v === 'number' || typeof v === 'bigint';
+      return `<td class="${num?'num':''}">${v===null||v===undefined?'':num?Number(v).toLocaleString():v}</td>`;
+    }).join('') + '</tr>').join('');
+    status(`${rows.length} rows · ${(performance.now()-t0).toFixed(0)} ms · all in-browser`);
+  }catch(e){ status('SQL error: ' + e.message); }
+  $('go').disabled = false;
+}
+init().catch(e => status('init failed: ' + e.message));
+</script>
+</body></html>

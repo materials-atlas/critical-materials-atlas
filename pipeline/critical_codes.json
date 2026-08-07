@@ -1,0 +1,269 @@
+{
+  "source": "raw/<material>_<code>_value.csv filenames",
+  "n_codes": 32,
+  "n_hs6": 31,
+  "codes": [
+    {
+      "material": "antimony",
+      "code": "81101000",
+      "hs6": "811010",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 811010 antimony unwrought/powder; excludes ores (2617) & oxides (282580)"
+    },
+    {
+      "material": "arsenic",
+      "code": "28048000",
+      "hs6": "280480",
+      "confidence": "exact",
+      "form": "element",
+      "caveat": "HS 280480 elemental arsenic"
+    },
+    {
+      "material": "baryte",
+      "code": "25111000",
+      "hs6": "251110",
+      "confidence": "exact",
+      "form": "mineral",
+      "caveat": "HS 251110 natural barium sulphate (barytes)"
+    },
+    {
+      "material": "bauxite",
+      "code": "26060000",
+      "hs6": "260600",
+      "confidence": "dominant",
+      "form": "ore",
+      "caveat": "HS 260600 aluminium ores & concentrates — generic code; bauxite is the main but not sole aluminium ore"
+    },
+    {
+      "material": "beryllium",
+      "code": "81121200",
+      "hs6": "811212",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 811212 beryllium unwrought/powder"
+    },
+    {
+      "material": "boron",
+      "code": "25280000",
+      "hs6": "252800",
+      "confidence": "proxy",
+      "form": "mineral",
+      "caveat": "HS 252800 natural borates, concentrates & natural boric acid (<=85% H3BO3) — the mineral, a proxy for the element"
+    },
+    {
+      "material": "cobalt",
+      "code": "28220000",
+      "hs6": "282200",
+      "confidence": "proxy",
+      "form": "oxide/compound",
+      "caveat": "HS 282200 cobalt OXIDES/hydroxides only — MISSES cobalt metal & mattes (8105) and ores (2605); a narrow proxy"
+    },
+    {
+      "material": "cokingcoal",
+      "code": "27011210",
+      "hs6": "270112",
+      "confidence": "proxy",
+      "form": "coal (HS-6 broad)",
+      "caveat": "HS-6 270112 is ALL bituminous coal (thermal+coking); only CN-8 27011210 isolates coking — HS-6 sources over-count"
+    },
+    {
+      "material": "copper",
+      "code": "74031100",
+      "hs6": "740311",
+      "confidence": "exact",
+      "form": "refined cathode",
+      "caveat": "HS 740311 refined copper cathode; deliberately refined-only (excludes ore 2603, blister 7402)"
+    },
+    {
+      "material": "feldspar",
+      "code": "25291000",
+      "hs6": "252910",
+      "confidence": "exact",
+      "form": "mineral",
+      "caveat": "HS 252910 feldspar"
+    },
+    {
+      "material": "fluorspar",
+      "code": "25292200",
+      "hs6": "252922",
+      "confidence": "dominant",
+      "form": "mineral (acid grade)",
+      "caveat": "HS 252922 fluorspar >97% CaF2 (acid grade); excludes met-grade 252921"
+    },
+    {
+      "material": "gallium",
+      "code": "81129289",
+      "hs6": "811292",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "CN-8 81129289 gallium — splits the shared HS-6 811292 bundle; only EXACT where 8-digit data exists, ambiguous at HS-6"
+    },
+    {
+      "material": "germanium",
+      "code": "81129295",
+      "hs6": "811292",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "CN-8 81129295 germanium — splits the shared HS-6 811292 bundle; only EXACT where 8-digit data exists, ambiguous at HS-6"
+    },
+    {
+      "material": "graphite",
+      "code": "25049000",
+      "hs6": "250490",
+      "confidence": "proxy",
+      "form": "natural lump",
+      "caveat": "HS 250490 natural graphite (non-powder) — MISSES flake/powder (250410, the battery form) AND synthetic graphite (3801)"
+    },
+    {
+      "material": "hafnium",
+      "code": "81123100",
+      "hs6": "811231",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 811231 hafnium unwrought/powder"
+    },
+    {
+      "material": "helium",
+      "code": "28042910",
+      "hs6": "280429",
+      "confidence": "proxy",
+      "form": "gas (HS-6 broad)",
+      "caveat": "CN-8 28042910 = exact helium; but HS-6 280429 is \"rare gases other than argon\" (neon/krypton/xenon too) — a proxy wherever only HS-6 data exists"
+    },
+    {
+      "material": "lithium",
+      "code": "28369100",
+      "hs6": "283691",
+      "confidence": "proxy",
+      "form": "carbonate",
+      "caveat": "HS 283691 lithium carbonate ONLY — one refined chemical; misses hydroxide (282520) & spodumene ore (2530), both large & growing shares of Li trade"
+    },
+    {
+      "material": "magnesium",
+      "code": "81041100",
+      "hs6": "810411",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 810411 magnesium unwrought >=99.8%"
+    },
+    {
+      "material": "magnets",
+      "code": "85051110",
+      "hs6": "850511",
+      "confidence": "proxy",
+      "form": "metal magnets",
+      "caveat": "HS 850511 permanent magnets of METAL — bundles rare-earth NdFeB/SmCo WITH non-rare-earth alnico; cannot isolate rare-earth magnets (ferrite/ceramic are separate, 850519)"
+    },
+    {
+      "material": "manganese",
+      "code": "26020000",
+      "hs6": "260200",
+      "confidence": "dominant",
+      "form": "ore",
+      "caveat": "HS 260200 manganese ores & concentrates; excludes ferro-manganese (7202) & Mn metal (8111)"
+    },
+    {
+      "material": "nickel",
+      "code": "75021000",
+      "hs6": "750210",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 750210 unwrought unalloyed nickel; excludes ore (2604), matte (7501), NPI"
+    },
+    {
+      "material": "niobium",
+      "code": "72029300",
+      "hs6": "720293",
+      "confidence": "dominant",
+      "form": "ferro-alloy",
+      "caveat": "HS 720293 ferro-niobium — the dominant (~90%) traded form of niobium"
+    },
+    {
+      "material": "palladium",
+      "code": "71102100",
+      "hs6": "711021",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 711021 palladium unwrought/powder"
+    },
+    {
+      "material": "phosphate",
+      "code": "25101000",
+      "hs6": "251010",
+      "confidence": "dominant",
+      "form": "rock",
+      "caveat": "HS 251010 unground phosphate rock; excludes ground 251020 & processed phosphates"
+    },
+    {
+      "material": "phosphorus",
+      "code": "28047010",
+      "hs6": "280470",
+      "confidence": "exact",
+      "form": "element",
+      "caveat": "HS 280470 elemental phosphorus"
+    },
+    {
+      "material": "platinum",
+      "code": "71101100",
+      "hs6": "711011",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 711011 platinum unwrought/powder"
+    },
+    {
+      "material": "silicon",
+      "code": "28046900",
+      "hs6": "280469",
+      "confidence": "dominant",
+      "form": "metallurgical grade",
+      "caveat": "HS 280469 silicon <99.99% (metallurgical) — EXCLUDES electronic/solar-grade high-purity silicon (280461)"
+    },
+    {
+      "material": "strontium",
+      "code": "28369200",
+      "hs6": "283692",
+      "confidence": "proxy",
+      "form": "carbonate",
+      "caveat": "HS 283692 strontium carbonate — a compound proxy for the element"
+    },
+    {
+      "material": "tantalum",
+      "code": "81032000",
+      "hs6": "810320",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 810320 tantalum unwrought/powder"
+    },
+    {
+      "material": "titanium",
+      "code": "81082000",
+      "hs6": "810820",
+      "confidence": "exact",
+      "form": "unwrought metal",
+      "caveat": "HS 810820 unwrought titanium incl. sponge & powder; excludes ore (2614 ilmenite/rutile) & TiO2 pigment (3206/2823)"
+    },
+    {
+      "material": "tungsten",
+      "code": "81019400",
+      "hs6": "810194",
+      "confidence": "dominant",
+      "form": "unwrought metal",
+      "caveat": "HS 810194 unwrought tungsten (incl. sintered bars); excludes tungsten powder (810110), APT (284180) & ore (2611)"
+    },
+    {
+      "material": "vanadium",
+      "code": "72029200",
+      "hs6": "720292",
+      "confidence": "dominant",
+      "form": "ferro-alloy",
+      "caveat": "HS 720292 ferro-vanadium — the dominant traded form of vanadium"
+    }
+  ],
+  "hs6_bundles_needing_8digit": {
+    "811292": [
+      "gallium",
+      "germanium"
+    ]
+  }
+}

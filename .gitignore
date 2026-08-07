@@ -77,10 +77,18 @@ Thumbs.db
 scheme-view-*.html
 mapview-*.html
 DATA_SOURCES.md
-pipeline/
 .census_key
+
+# --- v2 pipeline: PUBLISH the code + built output parquets; keep raw caches, logs, state & key PRIVATE ---
+pipeline/.census_key
+pipeline/data/cache/
+pipeline/data/comtrade_cache.jsonl
+pipeline/data/comtrade_state.json
+pipeline/data/*.log
+pipeline/**/__pycache__/
 
 # engine (reconcile/) ships committed PUBLIC-DATA fixtures for reproducible CI — keep them tracked
 !reconcile/fixtures/
 !reconcile/fixtures/raw/
 !reconcile/fixtures/**
+pipeline/data/comext_tmp/
