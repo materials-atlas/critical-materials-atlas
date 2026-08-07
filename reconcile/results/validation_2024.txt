@@ -1,0 +1,7 @@
+VALIDATION 2024 — reconciliation vs official CEPII BACI
+  flow log-value corr 0.975 (21691 flows) · level ratio ours/BACI 1.79 (disclosed offset)
+
+  EXPORTER : top-1 25/30   top-3 mean 2.57/3   share MAE 3.5% (median 3.2%)   HHI corr 0.920
+  IMPORTER : top-1 22/30   top-3 mean 2.27/3   share MAE 4.2% (median 4.1%)   HHI corr 0.973
+
+  => shares validated on BOTH sides; the level offset is a near-constant multiple and cancels out of shares.

@@ -1,0 +1,126 @@
+{
+  "flows_dir": "reconcile\\fixtures\\out",
+  "measured_years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "method": "persistence: shares_T_hat = shares_{T-1}",
+  "overall": {
+    "pairs_scored": 6,
+    "material_year_obs": 192,
+    "top1_persistence_rate": 0.854,
+    "share_mae_pp_mean": 0.37,
+    "top1_abs_err_pp_mean": 4.47,
+    "hhi_abs_err_mean": 0.031,
+    "bands_top1_abs_err_pp": {
+      "p50": 3.55,
+      "p90": 8.71,
+      "p95": 12.82
+    },
+    "bands_share_mae_pp": {
+      "p50": 0.3,
+      "p90": 0.67
+    },
+    "most_predictable": [
+      {
+        "material": "magnets",
+        "mean_share_mae_pp": 0.05
+      },
+      {
+        "material": "cokingcoal",
+        "mean_share_mae_pp": 0.09
+      },
+      {
+        "material": "bauxite",
+        "mean_share_mae_pp": 0.15
+      },
+      {
+        "material": "manganese",
+        "mean_share_mae_pp": 0.16
+      },
+      {
+        "material": "boron",
+        "mean_share_mae_pp": 0.17
+      },
+      {
+        "material": "niobium",
+        "mean_share_mae_pp": 0.17
+      }
+    ],
+    "least_predictable": [
+      {
+        "material": "arsenic",
+        "mean_share_mae_pp": 1.04
+      },
+      {
+        "material": "beryllium",
+        "mean_share_mae_pp": 0.81
+      },
+      {
+        "material": "hafnium",
+        "mean_share_mae_pp": 0.65
+      },
+      {
+        "material": "germanium",
+        "mean_share_mae_pp": 0.65
+      },
+      {
+        "material": "gallium",
+        "mean_share_mae_pp": 0.65
+      },
+      {
+        "material": "fluorspar",
+        "mean_share_mae_pp": 0.55
+      }
+    ]
+  },
+  "per_pair": {
+    "2018->2019": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.35,
+      "top1_abs_err_pp": 3.93,
+      "hhi_abs_err": 0.03
+    },
+    "2019->2020": {
+      "n": 32,
+      "top1_hit_rate": 0.938,
+      "share_mae_pp": 0.36,
+      "top1_abs_err_pp": 4.16,
+      "hhi_abs_err": 0.035
+    },
+    "2020->2021": {
+      "n": 32,
+      "top1_hit_rate": 0.75,
+      "share_mae_pp": 0.34,
+      "top1_abs_err_pp": 5.07,
+      "hhi_abs_err": 0.027
+    },
+    "2021->2022": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.4,
+      "top1_abs_err_pp": 5.27,
+      "hhi_abs_err": 0.037
+    },
+    "2022->2023": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.38,
+      "top1_abs_err_pp": 4.62,
+      "hhi_abs_err": 0.031
+    },
+    "2023->2024": {
+      "n": 32,
+      "top1_hit_rate": 0.906,
+      "share_mae_pp": 0.38,
+      "top1_abs_err_pp": 3.76,
+      "hhi_abs_err": 0.026
+    }
+  }
+}

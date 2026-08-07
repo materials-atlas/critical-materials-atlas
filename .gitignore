@@ -76,3 +76,11 @@ node_modules/
 Thumbs.db
 scheme-view-*.html
 mapview-*.html
+DATA_SOURCES.md
+pipeline/
+.census_key
+
+# engine (reconcile/) ships committed PUBLIC-DATA fixtures for reproducible CI — keep them tracked
+!reconcile/fixtures/
+!reconcile/fixtures/raw/
+!reconcile/fixtures/**
