@@ -94,11 +94,11 @@ counterpart, not part of the published static site.
 - `out/data.json` — mine (USGS) + refine (IEA) shares + EU Comext import-origin lens
 - `out/flows_2018.json … flows_2024.json` — complete BACI bilateral trade, one file per year (committed)
 - `build_flows_years.ps1` — BACI HS17 yearly CSVs → `out/flows_<year>.json` (multi-year, one nomenclature)
-- `reconcile/` — **Python nowcast engine**, included as a **git submodule** →
-  [`materials-atlas/comtrade-reconcile`](https://github.com/materials-atlas/comtrade-reconcile) (its own repo so it
-  keeps a standalone CI + pre-registration; it is *part of this project*, not a separate one). BACI-style
-  reconciliation of raw Comtrade for years BACI lacks — see **[reconcile/README.md](reconcile/README.md)**
-  for the full method note + validation:
+- `reconcile/` — **Python nowcast engine**, consolidated into this repo from the former standalone
+  `comtrade-reconcile` (now archived; its reproducibility CI runs here via
+  [`.github/workflows/engine-validate.yml`](.github/workflows/engine-validate.yml), and it ships committed
+  public-data fixtures + a pre-registration). BACI-style reconciliation of raw Comtrade for years BACI
+  lacks — see **[reconcile/README.md](reconcile/README.md)** for the full method note + validation:
   `pull_comtrade.py` (raw bilateral pull) → `reconcile.py` (CIF/FOB + reliability weights + mirror
   averaging) → `validate.py` (vs official BACI 2024: top-1 exporter **25/30**, share MAE **3.5%**, HHI
   corr **0.92**) → `build_recon_flows.py` (→ `out/flows_2025.json`) → `build_2026_nowcast.py`
