@@ -148,11 +148,13 @@ def bars(items, cls, n=5):
     shown = 0.0
     for x in items[:n]:
         c, v = x['c'], x['v']
+        if v <= 5:          # only countries ABOVE 5% get their own row; smaller ones fold into "Rest of world"
+            continue
         shown += v
         out.append(f'<div class="barrow"><span class="bc">{flag(c)} {e(cname(c))}</span>'
                    f'<span class="bw"><span class="bf {cls}" style="width:{max(2,min(100,v)):.0f}%"></span></span>'
                    f'<span class="bv">{v:.0f}%</span></div>')
-    rest = round(100 - shown)   # the top countries rarely sum to 100 — show the remainder so it reads clearly
+    rest = round(100 - shown)   # everything not shown (≤5% countries + untracked) — so it reads to 100
     if rest >= 1:
         out.append(f'<div class="barrow"><span class="bc" style="color:var(--faint)">🌍 Rest of world</span>'
                    f'<span class="bw"><span class="bf" style="width:{max(2,min(100,rest)):.0f}%;background:#39414b"></span></span>'
