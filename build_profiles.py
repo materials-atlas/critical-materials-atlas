@@ -141,14 +141,14 @@ FOOTER = ('<footer class="siteftr"><div class="wrap">'
  'mine/refine/reserves USGS &amp; IEA, approximate). An overlay of distinct measures, not one observed pipeline. '
  f'Data updated {e(STAMP)}.</div></div></footer>')
 
-def bars(items, cls, n=5):
+def bars(items, cls, n=12):
     if not items:
         return '<p class="note">not available</p>'
     out = []
     shown = 0.0
     for x in items[:n]:
         c, v = x['c'], x['v']
-        if v <= 5:          # only countries ABOVE 5% get their own row; smaller ones fold into "Rest of world"
+        if v <= 1:          # only countries ABOVE 1% get their own row; smaller ones fold into "Rest of world"
             continue
         shown += v
         out.append(f'<div class="barrow"><span class="bc">{flag(c)} {e(cname(c))}</span>'
