@@ -246,6 +246,7 @@ def page(m):
     if RISK.get(label): stats.append((f'{RISK[label]["score"]}<span style="color:var(--faint);font-weight:600">/100</span>', 'supply-risk index'))
     if m.get('reserve_life'): stats.append((f'{m["reserve_life"]}<span style="color:var(--faint);font-weight:600"> yr</span>', 'reserve life (reserves ÷ mining)'))
     if m.get('export_control'): stats.append(('<span style="color:#e0703c">⚠ controlled</span>', e(m['export_control'])))
+    if m.get('net_import_reliance'): stats.append((e(m['net_import_reliance']), 'US import reliance'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))
     if mi: stats.append((f'{flag(mi["c"])} {cname(mi["c"])}', f'lead miner · {mi["v"]:.0f}%'))
     if re: stats.append((f'{flag(re["c"])} {cname(re["c"])}', f'lead refiner · {re["v"]:.0f}%'))
