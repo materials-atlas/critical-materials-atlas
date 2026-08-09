@@ -156,7 +156,10 @@ def bars(items, cls, n=5):
                    f'<span class="bv">{v:.0f}%</span></div>')
     rest = round(100 - shown)   # everything not shown (≤5% countries + untracked) — so it reads to 100
     if rest >= 1:
-        out.append(f'<div class="barrow"><span class="bc" style="color:var(--faint)">🌍 Rest of world</span>'
+        # if the source only gave the top 1-2 (e.g. IEA lists only the dominant refiner), we do NOT know the
+        # remainder is all small — say so honestly rather than implying "rest of world = all <5%".
+        rlabel = 'Others (not detailed)' if len(items) <= 2 else '🌍 Rest of world'
+        out.append(f'<div class="barrow"><span class="bc" style="color:var(--faint)">{rlabel}</span>'
                    f'<span class="bw"><span class="bf" style="width:{max(2,min(100,rest)):.0f}%;background:#39414b"></span></span>'
                    f'<span class="bv" style="color:var(--faint)">{rest:.0f}%</span></div>')
     return ''.join(out)
