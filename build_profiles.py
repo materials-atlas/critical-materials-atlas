@@ -162,11 +162,13 @@ def bars(items, cls, n=5):
     return ''.join(out)
 
 def qty_by(label, key):
-    """Tonnes per country for a side (from BACI's quantity column; 'where available')."""
+    """Per country: (tonnes, value ON THOSE SAME edges) — so $/t is a price of the tonnage we actually have,
+    not total-value / partial-tonnes. Quantity is 'where BACI reports it' (sparse for high-value metals)."""
     o = {}
     for fl in (flows.get('materials', {}).get(label) or []):
         if fl.get('qty'):
-            o[fl[key]] = o.get(fl[key], 0.0) + fl['qty']
+            t, v = o.get(fl[key], (0.0, 0.0))
+            o[fl[key]] = (t + fl['qty'], v + fl['value'])
     return o
 
 def fmtT(t):
@@ -178,11 +180,17 @@ def fmtT(t):
         return f'{t/1e3:.1f} kt'
     return f'{t:.0f} t'
 
+def fmtUPT(x):
+    """$/tonne, compact: $31.7M/t for precious metals, $9,000/t for base, $100/t for bulk."""
+    if x >= 1e6:
+        return f'${x/1e6:.1f}M/t'
+    return f'${x:,.0f}/t'
+
 def trade_table(ranked, tot, kind, qmap):
     rows = []
     for iso, val in ranked[:6]:
-        t = qmap.get(iso, 0.0)
-        upt = f'${val/t:,.0f}/t' if t else '—'
+        t, vq = qmap.get(iso, (0.0, 0.0))
+        upt = fmtUPT(vq / t) if t else '—'
         rows.append(f'<tr><td>{flag(iso)} {e(cname(iso))}</td><td class="n">{val/tot*100:.0f}%</td>'
                     f'<td class="n">{fmtV(val)}</td><td class="n">{fmtT(t)}</td><td class="n">{upt}</td></tr>')
     return (f'<table><caption>Top {kind} — reconciled trade, {YEAR}</caption>'
