@@ -152,13 +152,33 @@ def bars(items, cls, n=5):
                    f'<span class="bv">{v:.0f}%</span></div>')
     return ''.join(out)
 
-def trade_table(ranked, tot, kind):
+def qty_by(label, key):
+    """Tonnes per country for a side (from BACI's quantity column; 'where available')."""
+    o = {}
+    for fl in (flows.get('materials', {}).get(label) or []):
+        if fl.get('qty'):
+            o[fl[key]] = o.get(fl[key], 0.0) + fl['qty']
+    return o
+
+def fmtT(t):
+    if not t:
+        return '—'
+    if t >= 1e6:
+        return f'{t/1e6:.2f} Mt'
+    if t >= 1e3:
+        return f'{t/1e3:.1f} kt'
+    return f'{t:.0f} t'
+
+def trade_table(ranked, tot, kind, qmap):
     rows = []
     for iso, val in ranked[:6]:
+        t = qmap.get(iso, 0.0)
+        upt = f'${val/t:,.0f}/t' if t else '—'
         rows.append(f'<tr><td>{flag(iso)} {e(cname(iso))}</td><td class="n">{val/tot*100:.0f}%</td>'
-                    f'<td class="n">{fmtV(val)}</td></tr>')
+                    f'<td class="n">{fmtV(val)}</td><td class="n">{fmtT(t)}</td><td class="n">{upt}</td></tr>')
     return (f'<table><caption>Top {kind} — reconciled trade, {YEAR}</caption>'
-            f'<thead><tr><th>Country</th><th class="n">share</th><th class="n">value</th></tr></thead>'
+            f'<thead><tr><th>Country</th><th class="n">share</th><th class="n">value</th>'
+            f'<th class="n">tonnes</th><th class="n">$/t</th></tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>')
 
 def origin_gap(m, label):
@@ -244,9 +264,9 @@ def page(m):
 
     trade_block = ''
     if texp:
-        trade_block += trade_table(texp_ranked, etot, 'exporters')
+        trade_block += trade_table(texp_ranked, etot, 'exporters', qty_by(label, 'from'))
     if timp:
-        trade_block += trade_table(timp_ranked, itot, 'importers')
+        trade_block += trade_table(timp_ranked, itot, 'importers', qty_by(label, 'to'))
 
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
