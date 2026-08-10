@@ -33,11 +33,15 @@ FLOW_ALL = {}
 for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
     FLOW_ALL[int(os.path.basename(_p)[6:10])] = json.load(open(_p, encoding='utf8'))
 
-# historical mine-production series (USGS editions 2020–2024) for the Mined-layer year switcher; optional
+# historical USGS series (editions 2020–2024) for the Mined / Reserves layer year sliders; optional
 MINED_YEARS = {}
 _myp = os.path.join(ROOT, 'out', 'mined_years.json')
 if os.path.exists(_myp):
     MINED_YEARS = json.load(open(_myp, encoding='utf8'))
+RESERVES_YEARS = {}
+_ryp = os.path.join(ROOT, 'out', 'reserves_years.json')
+if os.path.exists(_ryp):
+    RESERVES_YEARS = json.load(open(_ryp, encoding='utf8'))
 
 try:   # supply-risk scores (build_risk.py must run first)
     RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
@@ -262,25 +266,36 @@ def layer_para(m, layer, nm):
     return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
             f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
 
-def mined_switcher(label, default_bars):
-    """If a validated multi-year mine-production series exists (out/mined_years.json), wrap the Mined bars
-    in a year switcher (USGS editions). Otherwise return the single-vintage bars unchanged. Uses its own
-    CSS classes / toggle fn so it never collides with the trade-year switcher."""
-    ser = MINED_YEARS.get(label)
+def year_slider(uid, items, default_i, accent='#2f6f4f'):
+    """A clean year slider: drag the range to scrub years; a bold label shows the current year and the
+    matching panel is shown. `items` = list of (label_str, panel_html). Reused by trade / mined / reserves.
+    Each slider is namespaced by `uid`; one shared `yslide` fn (defined once) toggles panels by index."""
+    n = len(items)
+    labels = [lab for lab, _ in items]
+    panels = ''.join(f'<div data-yc="{uid}" data-yi="{i}"{"" if i == default_i else " hidden"}>{h}</div>'
+                     for i, (lab, h) in enumerate(items))
+    return (
+        f'<div style="display:flex;align-items:center;gap:.7rem;margin:.35rem 0 .55rem">'
+        f'<span style="font-size:.8rem;color:var(--faint);font-weight:600">year</span>'
+        f'<input type="range" min="0" max="{n - 1}" value="{default_i}" step="1" aria-label="year"'
+        f' oninput="yslide(&quot;{uid}&quot;,this.value)"'
+        f' style="flex:1;max-width:300px;accent-color:{accent};cursor:pointer;height:4px">'
+        f'<b id="{uid}-lab" style="font-variant-numeric:tabular-nums;min-width:3.4em;font-size:1.02rem">{labels[default_i]}</b>'
+        f'</div>{panels}'
+        f'<script>window.YL=window.YL||{{}};window.YL["{uid}"]={labels!r}.map(String);'
+        'if(!window.yslide){window.yslide=function(u,i){'
+        'document.querySelectorAll(\'[data-yc="\'+u+\'"]\').forEach(function(p){p.hidden=(+p.dataset.yi!==+i);});'
+        'var l=document.getElementById(u+"-lab");if(l)l.textContent=window.YL[u][i];};}</script>')
+
+def layer_year_slider(label, series_map, cls, default_bars):
+    """Wrap a layer's bars in a year slider if a validated multi-year series exists; else single-vintage bars."""
+    ser = series_map.get(label)
     if not ser:
         return default_bars
     yrs = sorted(int(y) for y in ser)
     dft = 2023 if 2023 in yrs else max(yrs)
-    def bstyle(on): return (f'border:1px solid var(--line);border-radius:6px;padding:.2rem .5rem;margin:0 .28rem .3rem 0;'
-                            f'cursor:pointer;font-size:.82rem;font-weight:{"700" if on else "500"};'
-                            f'background:{"#8a5a1f" if on else "transparent"};color:{"#fff" if on else "inherit"}')
-    btns = ''.join(f'<button class="mnbtn" data-my="{y}" onclick="showMn({y})" style="{bstyle(y==dft)}">{y}</button>' for y in yrs)
-    panels = ''.join(f'<div class="mnpanel" data-my="{y}"{"" if y==dft else " hidden"}>{bars(ser[str(y)], "ore")}</div>' for y in yrs)
-    return (f'<div class="mnbar" style="margin:.1rem 0 .4rem">{btns}</div>{panels}'
-            '<script>function showMn(y){'
-            'document.querySelectorAll(".mnpanel").forEach(function(p){p.hidden=(+p.dataset.my!==y);});'
-            'document.querySelectorAll(".mnbtn").forEach(function(b){var on=(+b.dataset.my===y);'
-            'b.style.background=on?"#8a5a1f":"transparent";b.style.color=on?"#fff":"inherit";b.style.fontWeight=on?"700":"500";});}</script>')
+    items = [(str(y), bars(ser[str(y)], cls)) for y in yrs]
+    return year_slider(f'{cls}-{label}', items, yrs.index(dft))
 
 def qty_by(label, key, _fl=None):
     """Per country: (tonnes, value ON THOSE SAME edges) — so $/t is a price of the tonnage we actually have,
@@ -421,17 +436,9 @@ def page(m):
     flows = _saved_flows
 
     def _ylab(y): return f'{y}*' if y == 2025 else f'{y}**' if y == 2026 else str(y)
-    def _bstyle(on): return (f'border:1px solid var(--line);border-radius:6px;padding:.22rem .55rem;margin:0 .3rem .35rem 0;'
-                             f'cursor:pointer;font-size:.85rem;font-weight:{"700" if on else "500"};'
-                             f'background:{"#2f6f4f" if on else "transparent"};color:{"#fff" if on else "inherit"}')
     if sw_years:
-        btns = ''.join(f'<button class="yrbtn" data-y="{y}" onclick="showYr({y})" style="{_bstyle(y==default_y)}">{_ylab(y)}</button>' for y in sw_years)
-        panels = ''.join(f'<div class="yrpanel" data-y="{y}"{"" if y==default_y else " hidden"}>{year_blocks[y]}</div>' for y in sw_years)
-        trade_block = (f'<div class="yrbar" style="margin:.2rem 0 .6rem">{btns}</div>{panels}'
-                       '<script>function showYr(y){'
-                       'document.querySelectorAll(".yrpanel").forEach(function(p){p.hidden=(+p.dataset.y!==y);});'
-                       'document.querySelectorAll(".yrbtn").forEach(function(b){var on=(+b.dataset.y===y);'
-                       'b.style.background=on?"#2f6f4f":"transparent";b.style.color=on?"#fff":"inherit";b.style.fontWeight=on?"700":"500";});}</script>')
+        items = [(_ylab(y), year_blocks[y]) for y in sw_years]
+        trade_block = year_slider(f'tr-{label}', items, sw_years.index(default_y))
     else:
         trade_block = ''
 
@@ -463,9 +470,9 @@ def page(m):
   <h2>The chain — from the ground to the buyer</h2>
   <p class="note" style="margin-top:-.3rem">A critical material passes through distinct stages, and the country that leads each stage is often <i>different</i> — that gap is what this atlas exists to show. Each layer comes from a different public source with its own vintage, labelled below; shares are % of the world total.</p>
   <h3>● Reserves — where it could come from</h3>
-  {layer_para(m, 'reserves', nm)}{bars(m.get('reserves'), 'res')}
+  {layer_para(m, 'reserves', nm)}{layer_year_slider(m['label'], RESERVES_YEARS, 'res', bars(m.get('reserves'), 'res'))}
   <h3>● Mined — where it is dug up today</h3>
-  {layer_para(m, 'mined', nm)}{mined_switcher(m['label'], bars(m.get('mined'), 'ore'))}
+  {layer_para(m, 'mined', nm)}{layer_year_slider(m['label'], MINED_YEARS, 'ore', bars(m.get('mined'), 'ore'))}
   <h3>● Refined / processed — where it becomes usable metal</h3>
   {layer_para(m, 'refined', nm)}{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
