@@ -326,7 +326,7 @@ def page(m):
   <h2>The five layers</h2>
   <h3>● Reserves — where it could come from (USGS, economically recoverable)</h3>{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is produced today (USGS)</h3>{bars(m.get('mined'), 'ore')}
-  <h3>● Refined / processed (IEA)</h3>{bars(m.get('refined'), 'ref', source='refined')}
+  <h3>● Refined / processed{(' (' + e(m['refined_source']) + ')') if m.get('refined_source') else ''}</h3>{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>Who trades it ({YEAR})</h2>

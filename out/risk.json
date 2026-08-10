@@ -61,7 +61,7 @@
    "substitutability": "medium",
    "components": {
     "production": 88,
-    "refining": 90,
+    "refining": 88,
     "trade": 53.5,
     "opacity": 0.0
    },
@@ -100,13 +100,13 @@
   {
    "label": "phosphorus",
    "title": "Phosphorus",
-   "score": 54,
-   "gross": 54,
+   "score": 56,
+   "gross": 56,
    "recycling": 0,
    "substitutability": "high",
    "components": {
     "production": 41,
-    "refining": 70,
+    "refining": 78,
     "trade": 34.3,
     "opacity": 76.2
    },
@@ -143,6 +143,21 @@
    "shared": false
   },
   {
+   "label": "tungsten",
+   "title": "Tungsten, unwrought",
+   "score": 50,
+   "gross": 60,
+   "recycling": 42,
+   "substitutability": "high",
+   "components": {
+    "production": 81,
+    "refining": 86,
+    "trade": 56.4,
+    "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
    "label": "cobalt",
    "title": "Cobalt oxides & hydroxides",
    "score": 50,
@@ -173,36 +188,6 @@
    "shared": false
   },
   {
-   "label": "tungsten",
-   "title": "Tungsten, unwrought",
-   "score": 49,
-   "gross": 59,
-   "recycling": 42,
-   "substitutability": "high",
-   "components": {
-    "production": 81,
-    "refining": 83,
-    "trade": 56.4,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
-   "label": "vanadium",
-   "title": "Ferro-vanadium",
-   "score": 48,
-   "gross": 48,
-   "recycling": 2,
-   "substitutability": "medium",
-   "components": {
-    "production": 68,
-    "refining": 70,
-    "trade": 12.7,
-    "opacity": 35.1
-   },
-   "shared": false
-  },
-  {
    "label": "silicon",
    "title": "Silicon, < 99.99%",
    "score": 47,
@@ -214,6 +199,21 @@
     "refining": 79,
     "trade": 20.2,
     "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
+   "score": 46,
+   "gross": 46,
+   "recycling": 2,
+   "substitutability": "medium",
+   "components": {
+    "production": 68,
+    "refining": 62,
+    "trade": 12.7,
+    "opacity": 35.1
    },
    "shared": false
   },
@@ -233,6 +233,21 @@
    "shared": false
   },
   {
+   "label": "germanium",
+   "title": "Germanium",
+   "score": 45,
+   "gross": 45,
+   "recycling": 2,
+   "substitutability": "high",
+   "components": {
+    "production": 68,
+    "refining": 83,
+    "trade": 15.8,
+    "opacity": 0.0
+   },
+   "shared": true
+  },
+  {
    "label": "bauxite",
    "title": "Aluminium ores / bauxite",
    "score": 45,
@@ -244,6 +259,21 @@
     "refining": 59,
     "trade": 54.9,
     "opacity": 80.3
+   },
+   "shared": false
+  },
+  {
+   "label": "titanium",
+   "title": "Titanium, unwrought",
+   "score": 43,
+   "gross": 47,
+   "recycling": 19,
+   "substitutability": "medium",
+   "components": {
+    "production": 67,
+    "refining": 67,
+    "trade": 18.6,
+    "opacity": 27.1
    },
    "shared": false
   },
@@ -263,21 +293,6 @@
    "shared": false
   },
   {
-   "label": "germanium",
-   "title": "Germanium",
-   "score": 39,
-   "gross": 39,
-   "recycling": 2,
-   "substitutability": "high",
-   "components": {
-    "production": 68,
-    "refining": 60,
-    "trade": 15.8,
-    "opacity": 0.0
-   },
-   "shared": true
-  },
-  {
    "label": "platinum",
    "title": "Platinum, unwrought",
    "score": 39,
@@ -288,36 +303,6 @@
     "production": 67,
     "refining": 70,
     "trade": 16.7,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
-   "label": "titanium",
-   "title": "Titanium, unwrought",
-   "score": 39,
-   "gross": 43,
-   "recycling": 19,
-   "substitutability": "medium",
-   "components": {
-    "production": 67,
-    "refining": 50,
-    "trade": 18.6,
-    "opacity": 27.1
-   },
-   "shared": false
-  },
-  {
-   "label": "arsenic",
-   "title": "Arsenic",
-   "score": 36,
-   "gross": 36,
-   "recycling": 0,
-   "substitutability": "medium",
-   "components": {
-    "production": 45,
-    "refining": 70,
-    "trade": 18.3,
     "opacity": 0.0
    },
    "shared": false
@@ -336,6 +321,21 @@
     "opacity": 10.7
    },
    "shared": false
+  },
+  {
+   "label": "hafnium",
+   "title": "Hafnium, unwrought",
+   "score": 33,
+   "gross": 33,
+   "recycling": 0,
+   "substitutability": "high",
+   "components": {
+    "production": 31,
+    "refining": 49,
+    "trade": 15.8,
+    "opacity": 37.6
+   },
+   "shared": true
   },
   {
    "label": "tantalum",
@@ -368,21 +368,6 @@
    "shared": false
   },
   {
-   "label": "hafnium",
-   "title": "Hafnium, unwrought",
-   "score": 31,
-   "gross": 31,
-   "recycling": 0,
-   "substitutability": "high",
-   "components": {
-    "production": 31,
-    "refining": 40,
-    "trade": 15.8,
-    "opacity": 37.6
-   },
-   "shared": true
-  },
-  {
    "label": "phosphate",
    "title": "Phosphate rock",
    "score": 30,
@@ -394,6 +379,21 @@
     "refining": 40,
     "trade": 15.4,
     "opacity": 32.0
+   },
+   "shared": false
+  },
+  {
+   "label": "arsenic",
+   "title": "Arsenic",
+   "score": 29,
+   "gross": 29,
+   "recycling": 0,
+   "substitutability": "medium",
+   "components": {
+    "production": 45,
+    "refining": 45,
+    "trade": 18.3,
+    "opacity": 0.0
    },
    "shared": false
   },
@@ -430,13 +430,13 @@
   {
    "label": "copper",
    "title": "Refined copper cathodes",
-   "score": 23,
-   "gross": 25,
+   "score": 24,
+   "gross": 26,
    "recycling": 17,
    "substitutability": "medium",
    "components": {
     "production": 23,
-    "refining": 44,
+    "refining": 47,
     "trade": 11.3,
     "opacity": 21.1
    },
