@@ -42,6 +42,10 @@ RESERVES_YEARS = {}
 _ryp = os.path.join(ROOT, 'out', 'reserves_years.json')
 if os.path.exists(_ryp):
     RESERVES_YEARS = json.load(open(_ryp, encoding='utf8'))
+REFINED_YEARS = {}
+_fyp = os.path.join(ROOT, 'out', 'refined_years.json')
+if os.path.exists(_fyp):
+    REFINED_YEARS = json.load(open(_fyp, encoding='utf8'))
 
 try:   # supply-risk scores (build_risk.py must run first)
     RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
@@ -487,7 +491,7 @@ def page(m):
   <h3>● Mined — where it is dug up today</h3>
   {layer_para(m, 'mined', nm)}{layer_year_slider(m['label'], MINED_YEARS, 'ore', bars(m.get('mined'), 'ore'))}
   <h3>● Refined / processed — where it becomes usable metal</h3>
-  {layer_para(m, 'refined', nm)}{bars(m.get('refined'), 'ref', source='refined')}
+  {layer_para(m, 'refined', nm)}{layer_year_slider(m['label'], REFINED_YEARS, 'ref', bars(m.get('refined'), 'ref', source='refined'))}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>● Traded — who ships it</h2>
