@@ -25,7 +25,7 @@ Four layers per material, from public sources:
 |---|---|---|
 | **Reserves / potential** | USGS Mineral Commodity Summaries (approx.) | world reserve shares — where it *could* come from, exploited or not |
 | **Mined** | USGS Mineral Commodity Summaries (approx.) | world mine-production shares |
-| **Refined** | IEA Critical Minerals Outlook (approx.) | where the raw material is processed |
+| **Refined** | **best per material**: BGS World Mineral Statistics (annual actuals, 7 metals — copper, cobalt, nickel, alumina, magnesium, germanium, arsenic), else IEA 2026 / EU CRM 2023 / USGS | where ore becomes usable metal — usually the real chokepoint |
 | **Traded** | **UN Comtrade**, via **CEPII BACI** HS17 V202601, **2018–2024** (year-selectable) | complete reconciled bilateral trade — ~16k flows/yr, ~210 countries |
 | **Traded — 2025\*** | raw UN Comtrade, **self-reconciled** (`reconcile/`), provisional | a nowcast: our BACI-validated reconciliation of partial 2025 data — indicative only |
 | **Traded — 2026\*\*** | Q1 monthly Comtrade momentum + Pink Sheet prices, directional | 2025 structure scaled by per-material momentum — shares = 2025, only levels tilt; a trend signal |
@@ -115,6 +115,12 @@ counterpart, not part of the published static site.
 
 ## Provenance & scope
 
-Independent demonstration from public data — USGS, IEA, UN Comtrade (CEPII BACI), Eurostat Comext. Not
-affiliated with, nor representing, any institution. Figures are approximate and rounded; read each row as
-an overlay of three different measures, not one observed supply chain.
+Independent demonstration from public data — USGS Mineral Commodity Summaries, **BGS World Mineral
+Statistics** (OGC API), IEA Critical Minerals, EU CRM 2023 (JRC/SCRREEN2), UN Comtrade (CEPII BACI),
+Eurostat Comext. Not affiliated with, nor representing, any institution. Figures are approximate and
+rounded; read each row as an overlay of different measures, not one observed supply chain.
+
+Each **material profile** carries a per-layer **year slider** where the source publishes an annual series:
+Mined 2019–2023 (USGS editions), Reserves 2019–2023 (USGS), Refined 2019–2024 (BGS), and Traded 2018–2026
+(reconciled BACI + nowcast) — so you can watch a stage's country mix shift over time, not just a snapshot.
+`build_bgs_refined.py` pulls the refined series from the free BGS API (no key).

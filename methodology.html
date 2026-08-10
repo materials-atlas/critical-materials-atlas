@@ -84,7 +84,7 @@ are proven and economic, so frontier deposits still classed as "resources" (e.g.
 stay dim, and byproduct or abundant materials (gallium, germanium, hafnium, silicon, arsenic, and a few
 others USGS leaves blank) carry no figure.</li>
 <li><b>Mined</b> — world mine-production shares by country, from <b>USGS</b> Mineral Commodity Summaries (approximate).</li>
-<li><b>Refined / processed</b> — where the raw material is turned into the traded product, from the <b>IEA</b> Critical Minerals Outlook (approximate).</li>
+<li><b>Refined / processed</b> — where the ore is turned into usable metal. Sourced <b>best-per-material</b>: for the metals it reports, <b>BGS</b> World Mineral Statistics gives annual refined/smelter production by country (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic — 2019–2024, with a year slider); otherwise the <b>IEA</b> Critical Minerals Outlook 2026, <b>EU CRM 2023</b> (JRC/SCRREEN2), or <b>USGS</b>, whichever is the strongest published figure. Each profile shows the actual source it used.</li>
 <li><b>Traded</b> — complete bilateral trade between every country pair, both directions, for each year
 <b>2018–2024</b> (selectable with the year slider): primary source <b>UN Comtrade</b>, in its reconciled,
 mirror-harmonised form <b>CEPII BACI</b>. The map, globe and flow view draw this directly; arrows are
@@ -285,8 +285,10 @@ International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — rel
 selectable in the tool.</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.
-<b>Mine production:</b> USGS Mineral Commodity Summaries (approximate). <b>Refining shares:</b> IEA
-Critical Minerals Outlook (approximate). All sources are public; figures are rounded.</p>
+<b>Mine production &amp; reserves:</b> USGS Mineral Commodity Summaries (annual editions 2020–2024, with a
+per-layer year slider). <b>Refining shares:</b> best-per-material — BGS World Mineral Statistics (OGC API,
+annual, for the metals it reports) else IEA Critical Minerals Outlook 2026 / EU CRM 2023 / USGS. All
+sources are public and free (no API key); figures are rounded.</p>
 
 </article>
 
