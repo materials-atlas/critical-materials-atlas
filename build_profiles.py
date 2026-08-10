@@ -28,6 +28,11 @@ for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
         FLOW_BY_YEAR[_y] = _d
 MEAS_YEARS = sorted(FLOW_BY_YEAR)
 
+# ALL years incl. nowcast/scenario (2025*/2026**) — used by the in-page trade year switcher only
+FLOW_ALL = {}
+for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
+    FLOW_ALL[int(os.path.basename(_p)[6:10])] = json.load(open(_p, encoding='utf8'))
+
 try:   # supply-risk scores (build_risk.py must run first)
     RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
 except Exception:
@@ -251,11 +256,11 @@ def layer_para(m, layer, nm):
     return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
             f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
 
-def qty_by(label, key):
+def qty_by(label, key, _fl=None):
     """Per country: (tonnes, value ON THOSE SAME edges) — so $/t is a price of the tonnage we actually have,
     not total-value / partial-tonnes. Quantity is 'where BACI reports it' (sparse for high-value metals)."""
     o = {}
-    for fl in (flows.get('materials', {}).get(label) or []):
+    for fl in ((_fl or flows).get('materials', {}).get(label) or []):
         if fl.get('qty'):
             t, v = o.get(fl[key], (0.0, 0.0))
             o[fl[key]] = (t + fl['qty'], v + fl['value'])
@@ -276,14 +281,14 @@ def fmtUPT(x):
         return f'${x/1e6:.1f}M/t'
     return f'${x:,.0f}/t'
 
-def trade_table(ranked, tot, kind, qmap):
+def trade_table(ranked, tot, kind, qmap, yr=YEAR):
     rows = []
     for iso, val in ranked[:6]:
         t, vq = qmap.get(iso, (0.0, 0.0))
         upt = fmtUPT(vq / t) if t else '—'
         rows.append(f'<tr><td>{flag(iso)} {e(cname(iso))}</td><td class="n">{val/tot*100:.0f}%</td>'
                     f'<td class="n">{fmtV(val)}</td><td class="n">{fmtT(t)}</td><td class="n">{upt}</td></tr>')
-    return (f'<table><caption>Top {kind} — reconciled trade, {YEAR}</caption>'
+    return (f'<table><caption>Top {kind} — reconciled trade, {yr}</caption>'
             f'<thead><tr><th>Country</th><th class="n">share</th><th class="n">value</th>'
             f'<th class="n">tonnes</th><th class="n">$/t</th></tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>')
@@ -372,11 +377,37 @@ def page(m):
     note = e(m.get('note') or '').strip()
     note_block = f'<h2>Context</h2><p>{note}</p>' if note else ''
 
-    trade_block = ''
-    if texp:
-        trade_block += trade_table(texp_ranked, etot, 'exporters', qty_by(label, 'from'))
-    if timp:
-        trade_block += trade_table(timp_ranked, itot, 'importers', qty_by(label, 'to'))
+    # trade tables with an in-page YEAR SWITCHER: render exporters+importers for every year 2018–2026,
+    # embed all, show one; a tiny script toggles panels. Uses each year's own flows (via side/qty_by on
+    # a swapped global) — measured 2018–2024, 2025* nowcast, 2026** scenario.
+    global flows
+    _saved_flows = flows
+    sw_years = [y for y in sorted(FLOW_ALL) if y >= 2018]
+    default_y = int(YEAR) if int(YEAR) in sw_years else (max([y for y in sw_years if y <= 2024]) if sw_years else None)
+    year_blocks = {}
+    for y in sw_years:
+        flows = FLOW_ALL[y]
+        te_y, ti_y = side(label, 'from'), side(label, 'to')
+        tb = ''
+        if te_y[0]: tb += trade_table(te_y[1], te_y[3], 'exporters', qty_by(label, 'from', flows), y)
+        if ti_y[0]: tb += trade_table(ti_y[1], ti_y[3], 'importers', qty_by(label, 'to', flows), y)
+        year_blocks[y] = tb or '<p class="note">No reconciled trade recorded for this year.</p>'
+    flows = _saved_flows
+
+    def _ylab(y): return f'{y}*' if y == 2025 else f'{y}**' if y == 2026 else str(y)
+    def _bstyle(on): return (f'border:1px solid var(--line);border-radius:6px;padding:.22rem .55rem;margin:0 .3rem .35rem 0;'
+                             f'cursor:pointer;font-size:.85rem;font-weight:{"700" if on else "500"};'
+                             f'background:{"#2f6f4f" if on else "transparent"};color:{"#fff" if on else "inherit"}')
+    if sw_years:
+        btns = ''.join(f'<button class="yrbtn" data-y="{y}" onclick="showYr({y})" style="{_bstyle(y==default_y)}">{_ylab(y)}</button>' for y in sw_years)
+        panels = ''.join(f'<div class="yrpanel" data-y="{y}"{"" if y==default_y else " hidden"}>{year_blocks[y]}</div>' for y in sw_years)
+        trade_block = (f'<div class="yrbar" style="margin:.2rem 0 .6rem">{btns}</div>{panels}'
+                       '<script>function showYr(y){'
+                       'document.querySelectorAll(".yrpanel").forEach(function(p){p.hidden=(+p.dataset.y!==y);});'
+                       'document.querySelectorAll(".yrbtn").forEach(function(b){var on=(+b.dataset.y===y);'
+                       'b.style.background=on?"#2f6f4f":"transparent";b.style.color=on?"#fff":"inherit";b.style.fontWeight=on?"700":"500";});}</script>')
+    else:
+        trade_block = ''
 
     nm = e(title.split(",")[0]).lower()
     return f'''<!doctype html>
@@ -413,8 +444,8 @@ def page(m):
   {layer_para(m, 'refined', nm)}{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
-  <h2>● Traded — who ships it ({YEAR})</h2>
-  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. <span style="color:var(--faint);font-weight:600">measured year {YEAR}</span> — for other years (2018–2024 measured, 2025 nowcast, 2026 scenario) use the year slider in the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
+  <h2>● Traded — who ships it</h2>
+  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. Pick a year below — <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025* nowcast, 2026** directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
   {trade_block}
   {shared_note}
   {note_block}
