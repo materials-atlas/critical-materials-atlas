@@ -323,13 +323,18 @@ def page(m):
   {('<p style="font-size:.96rem;color:var(--ink-soft)"><b>Primary uses.</b> ' + e(m.get("uses")) + '.</p>') if m.get('uses') else ''}
   {gap_callout}
   {trend_block}
-  <h2>The five layers</h2>
-  <h3>● Reserves — where it could come from (USGS, economically recoverable)</h3>{bars(m.get('reserves'), 'res')}
-  <h3>● Mined — where it is produced today (USGS)</h3>{bars(m.get('mined'), 'ore')}
-  <h3>● Refined / processed{(' (' + e(m['refined_source']) + ')') if m.get('refined_source') else ''}</h3>{bars(m.get('refined'), 'ref', source='refined')}
+  <h2>The chain — from the ground to the buyer</h2>
+  <p class="note" style="margin-top:-.3rem">A critical material passes through distinct stages, and the country that leads each stage is often <i>different</i> — that gap is what this atlas exists to show. Each layer comes from a different public source with its own vintage, labelled below; shares are % of the world total.</p>
+  <h3>● Reserves — where it could come from</h3>
+  <p class="note" style="margin:.15rem 0 .5rem">What is still in the ground and economically worth mining — the ceiling on <i>future</i> supply, not today's output. <span style="color:var(--faint);font-weight:600">USGS 2024 · reserves as of 2023</span></p>{bars(m.get('reserves'), 'res')}
+  <h3>● Mined — where it is dug up today</h3>
+  <p class="note" style="margin:.15rem 0 .5rem">Where the raw ore actually leaves the ground. <span style="color:var(--faint);font-weight:600">USGS 2024 · 2023 production</span></p>{bars(m.get('mined'), 'ore')}
+  <h3>● Refined / processed — where it becomes usable metal</h3>
+  <p class="note" style="margin:.15rem 0 .5rem">Where ore is turned into the refined metal or compound buyers actually use — often a different country, and usually the real chokepoint. <span style="color:var(--faint);font-weight:600">{e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported'}</span></p>{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
-  <h2>Who trades it ({YEAR})</h2>
+  <h2>● Traded — who ships it ({YEAR})</h2>
+  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. <span style="color:var(--faint);font-weight:600">measured year {YEAR}</span> — for other years (2018–2024 measured, 2025 nowcast, 2026 scenario) use the year slider in the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
   {trade_block}
   {shared_note}
   {note_block}
