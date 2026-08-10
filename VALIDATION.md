@@ -37,8 +37,8 @@ point of the atlas:
 - **Lithium** — mined mostly in **Australia (spodumene, 52%)**, but the top *exporter by value* of the
   carbonate code is **Chile (76%)**: Australia ships lower-value concentrate, Chile ships refined
   carbonate. *Value ≠ tonnage, and the HS code captures the refined chemical.*
-- **Cobalt** — mined in **DR Congo (76%)**, refined in **China (76%)**, yet the top *exporter* of the
-  oxide code is **Finland (26%)** — the classic mine → refiner → exporter split the atlas exists to show.
+- **Cobalt** — mined in **DR Congo (74%)**, refined in **China (76%)**, yet the top *exporter* of the
+  oxide code is **Finland (29%)** — the classic mine → refiner → exporter split the atlas exists to show.
 
 ## Known caveat surfaced by this check
 

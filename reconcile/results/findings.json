@@ -1,7 +1,7 @@
 {
   "year": "2024",
   "n_materials": 32,
-  "n_top_exporter_not_top_miner": 19,
+  "n_top_exporter_not_top_miner": 18,
   "n_refiner_illusion": 4,
   "by_origin_gap": [
     {
@@ -12,7 +12,7 @@
       "exporter_mine_share": 0.0,
       "origin_gap": 89.2,
       "top_miner": "US",
-      "top_mine_share": 65,
+      "top_mine_share": 58,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -23,8 +23,8 @@
       "exporter_share": 60.1,
       "exporter_mine_share": 0.0,
       "origin_gap": 60.1,
-      "top_miner": "ES",
-      "top_mine_share": 30,
+      "top_miner": "IR",
+      "top_mine_share": 38,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -33,10 +33,10 @@
       "title": "Lithium carbonate",
       "top_exporter": "CL",
       "exporter_share": 74.6,
-      "exporter_mine_share": 22,
-      "origin_gap": 52.6,
+      "exporter_mine_share": 24,
+      "origin_gap": 50.6,
       "top_miner": "AU",
-      "top_mine_share": 52,
+      "top_mine_share": 48,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -45,10 +45,10 @@
       "title": "Aluminium ores / bauxite",
       "top_exporter": "GN",
       "exporter_share": 72.2,
-      "exporter_mine_share": 25,
-      "origin_gap": 47.2,
+      "exporter_mine_share": 24,
+      "origin_gap": 48.2,
       "top_miner": "AU",
-      "top_mine_share": 27,
+      "top_mine_share": 24,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -57,22 +57,10 @@
       "title": "Phosphorus",
       "top_exporter": "VN",
       "exporter_share": 46.7,
-      "exporter_mine_share": 12,
-      "origin_gap": 34.7,
+      "exporter_mine_share": 1,
+      "origin_gap": 45.7,
       "top_miner": "CN",
-      "top_mine_share": 70,
-      "mismatch": true,
-      "shared_hs6": false
-    },
-    {
-      "label": "titanium",
-      "title": "Titanium, unwrought",
-      "top_exporter": "JP",
-      "exporter_share": 34.3,
-      "exporter_mine_share": 0.0,
-      "origin_gap": 34.3,
-      "top_miner": "CN",
-      "top_mine_share": 32,
+      "top_mine_share": 41,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -84,19 +72,7 @@
       "exporter_mine_share": 0.0,
       "origin_gap": 28.8,
       "top_miner": "CD",
-      "top_mine_share": 76,
-      "mismatch": true,
-      "shared_hs6": false
-    },
-    {
-      "label": "phosphate",
-      "title": "Phosphate rock",
-      "top_exporter": "JO",
-      "exporter_share": 24.2,
-      "exporter_mine_share": 0.0,
-      "origin_gap": 24.2,
-      "top_miner": "CN",
-      "top_mine_share": 44,
+      "top_mine_share": 74,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -105,10 +81,10 @@
       "title": "Fluorspar, >97% CaF2",
       "top_exporter": "MX",
       "exporter_share": 38.0,
-      "exporter_mine_share": 15,
-      "origin_gap": 23.0,
+      "exporter_mine_share": 11,
+      "origin_gap": 27.0,
       "top_miner": "CN",
-      "top_mine_share": 60,
+      "top_mine_share": 65,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -117,10 +93,10 @@
       "title": "Hafnium, unwrought",
       "top_exporter": "CN",
       "exporter_share": 31.6,
-      "exporter_mine_share": 10,
-      "origin_gap": 21.6,
+      "exporter_mine_share": 9,
+      "origin_gap": 22.6,
       "top_miner": "AU",
-      "top_mine_share": 40,
+      "top_mine_share": 31,
       "mismatch": true,
       "shared_hs6": true
     },
@@ -132,7 +108,7 @@
       "exporter_mine_share": 0.0,
       "origin_gap": 21.5,
       "top_miner": "CD",
-      "top_mine_share": 40,
+      "top_mine_share": 41,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -149,6 +125,30 @@
       "shared_hs6": false
     },
     {
+      "label": "feldspar",
+      "title": "Feldspar",
+      "top_exporter": "TR",
+      "exporter_share": 43.2,
+      "exporter_mine_share": 23,
+      "origin_gap": 20.2,
+      "top_miner": "TR",
+      "top_mine_share": 23,
+      "mismatch": false,
+      "shared_hs6": false
+    },
+    {
+      "label": "phosphate",
+      "title": "Phosphate rock",
+      "top_exporter": "JO",
+      "exporter_share": 24.2,
+      "exporter_mine_share": 5,
+      "origin_gap": 19.2,
+      "top_miner": "CN",
+      "top_mine_share": 41,
+      "mismatch": true,
+      "shared_hs6": false
+    },
+    {
       "label": "nickel",
       "title": "Nickel, unwrought",
       "top_exporter": "NO",
@@ -156,32 +156,20 @@
       "exporter_mine_share": 0.0,
       "origin_gap": 17.9,
       "top_miner": "ID",
-      "top_mine_share": 60,
+      "top_mine_share": 50,
       "mismatch": true,
       "shared_hs6": false
     },
     {
-      "label": "antimony",
-      "title": "Antimony, unwrought",
-      "top_exporter": "TJ",
-      "exporter_share": 31.4,
-      "exporter_mine_share": 16,
-      "origin_gap": 15.4,
+      "label": "titanium",
+      "title": "Titanium, unwrought",
+      "top_exporter": "JP",
+      "exporter_share": 34.3,
+      "exporter_mine_share": 18,
+      "origin_gap": 16.3,
       "top_miner": "CN",
-      "top_mine_share": 48,
+      "top_mine_share": 67,
       "mismatch": true,
-      "shared_hs6": false
-    },
-    {
-      "label": "feldspar",
-      "title": "Feldspar",
-      "top_exporter": "TR",
-      "exporter_share": 43.2,
-      "exporter_mine_share": 28,
-      "origin_gap": 15.2,
-      "top_miner": "TR",
-      "top_mine_share": 28,
-      "mismatch": false,
       "shared_hs6": false
     },
     {
@@ -201,8 +189,8 @@
       "title": "Refined copper cathodes",
       "top_exporter": "CD",
       "exporter_share": 23.7,
-      "exporter_mine_share": 13,
-      "origin_gap": 10.7,
+      "exporter_mine_share": 11,
+      "origin_gap": 12.7,
       "top_miner": "CL",
       "top_mine_share": 23,
       "mismatch": true,
@@ -233,26 +221,14 @@
       "shared_hs6": false
     },
     {
-      "label": "arsenic",
-      "title": "Arsenic",
-      "top_exporter": "CN",
-      "exporter_share": 34.2,
+      "label": "antimony",
+      "title": "Antimony, unwrought",
+      "top_exporter": "TJ",
+      "exporter_share": 31.4,
       "exporter_mine_share": 25,
-      "origin_gap": 9.2,
-      "top_miner": "PE",
-      "top_mine_share": 28,
-      "mismatch": true,
-      "shared_hs6": false
-    },
-    {
-      "label": "baryte",
-      "title": "Baryte",
-      "top_exporter": "IN",
-      "exporter_share": 18.0,
-      "exporter_mine_share": 14,
-      "origin_gap": 4.0,
+      "origin_gap": 6.4,
       "top_miner": "CN",
-      "top_mine_share": 30,
+      "top_mine_share": 48,
       "mismatch": true,
       "shared_hs6": false
     },
@@ -269,15 +245,39 @@
       "shared_hs6": false
     },
     {
+      "label": "arsenic",
+      "title": "Arsenic",
+      "top_exporter": "CN",
+      "exporter_share": 34.2,
+      "exporter_mine_share": 40,
+      "origin_gap": -5.8,
+      "top_miner": "PE",
+      "top_mine_share": 45,
+      "mismatch": true,
+      "shared_hs6": false
+    },
+    {
       "label": "tungsten",
       "title": "Tungsten, unwrought",
       "top_exporter": "CN",
       "exporter_share": 74.5,
-      "exporter_mine_share": 80,
-      "origin_gap": -5.5,
+      "exporter_mine_share": 81,
+      "origin_gap": -6.5,
       "top_miner": "CN",
-      "top_mine_share": 80,
+      "top_mine_share": 81,
       "mismatch": false,
+      "shared_hs6": false
+    },
+    {
+      "label": "palladium",
+      "title": "Palladium, unwrought",
+      "top_exporter": "ZA",
+      "exporter_share": 24.9,
+      "exporter_mine_share": 34,
+      "origin_gap": -9.1,
+      "top_miner": "RU",
+      "top_mine_share": 44,
+      "mismatch": true,
       "shared_hs6": false
     },
     {
@@ -285,8 +285,8 @@
       "title": "Helium",
       "top_exporter": "QA",
       "exporter_share": 28.5,
-      "exporter_mine_share": 38,
-      "origin_gap": -9.5,
+      "exporter_mine_share": 39,
+      "origin_gap": -10.5,
       "top_miner": "US",
       "top_mine_share": 46,
       "mismatch": true,
@@ -297,23 +297,23 @@
       "title": "Ferro-niobium",
       "top_exporter": "BR",
       "exporter_share": 76.3,
-      "exporter_mine_share": 88,
-      "origin_gap": -11.7,
+      "exporter_mine_share": 90,
+      "origin_gap": -13.7,
       "top_miner": "BR",
-      "top_mine_share": 88,
+      "top_mine_share": 90,
       "mismatch": false,
       "shared_hs6": false
     },
     {
-      "label": "palladium",
-      "title": "Palladium, unwrought",
-      "top_exporter": "ZA",
-      "exporter_share": 24.9,
-      "exporter_mine_share": 37,
-      "origin_gap": -12.1,
-      "top_miner": "RU",
-      "top_mine_share": 40,
-      "mismatch": true,
+      "label": "baryte",
+      "title": "Baryte",
+      "top_exporter": "IN",
+      "exporter_share": 18.0,
+      "exporter_mine_share": 32,
+      "origin_gap": -14.0,
+      "top_miner": "IN",
+      "top_mine_share": 32,
+      "mismatch": false,
       "shared_hs6": false
     },
     {
@@ -321,22 +321,10 @@
       "title": "Magnesium, unwrought",
       "top_exporter": "CN",
       "exporter_share": 71.3,
-      "exporter_mine_share": 90,
-      "origin_gap": -18.7,
+      "exporter_mine_share": 88,
+      "origin_gap": -16.7,
       "top_miner": "CN",
-      "top_mine_share": 90,
-      "mismatch": false,
-      "shared_hs6": false
-    },
-    {
-      "label": "silicon",
-      "title": "Silicon, < 99.99%",
-      "top_exporter": "CN",
-      "exporter_share": 40.1,
-      "exporter_mine_share": 70,
-      "origin_gap": -29.9,
-      "top_miner": "CN",
-      "top_mine_share": 70,
+      "top_mine_share": 88,
       "mismatch": false,
       "shared_hs6": false
     },
@@ -345,10 +333,22 @@
       "title": "Platinum, unwrought",
       "top_exporter": "ZA",
       "exporter_share": 36.9,
-      "exporter_mine_share": 70,
-      "origin_gap": -33.1,
+      "exporter_mine_share": 67,
+      "origin_gap": -30.1,
       "top_miner": "ZA",
-      "top_mine_share": 70,
+      "top_mine_share": 67,
+      "mismatch": false,
+      "shared_hs6": false
+    },
+    {
+      "label": "silicon",
+      "title": "Silicon, < 99.99%",
+      "top_exporter": "CN",
+      "exporter_share": 40.1,
+      "exporter_mine_share": 73,
+      "origin_gap": -32.9,
+      "top_miner": "CN",
+      "top_mine_share": 73,
       "mismatch": false,
       "shared_hs6": false
     },
@@ -369,10 +369,10 @@
       "title": "Natural graphite",
       "top_exporter": "CN",
       "exporter_share": 36.2,
-      "exporter_mine_share": 78,
-      "origin_gap": -41.8,
+      "exporter_mine_share": 77,
+      "origin_gap": -40.8,
       "top_miner": "CN",
-      "top_mine_share": 78,
+      "top_mine_share": 77,
       "mismatch": false,
       "shared_hs6": false
     },
@@ -391,32 +391,18 @@
   ],
   "league_table": [
     {
-      "country": "CN",
-      "materials": [
-        "Hafnium, unwrought",
-        "Arsenic"
-      ],
-      "gaps": [
-        21.6,
-        9.2
-      ],
-      "n": 2,
-      "mean_gap": 15.4,
-      "total_gap": 30.8
-    },
-    {
       "country": "TR",
       "materials": [
         "Feldspar",
         "Natural borates"
       ],
       "gaps": [
-        15.2,
+        20.2,
         9.2
       ],
       "n": 2,
-      "mean_gap": 12.2,
-      "total_gap": 24.4
+      "mean_gap": 14.7,
+      "total_gap": 29.4
     },
     {
       "country": "KZ",
@@ -448,11 +434,11 @@
         "Lithium carbonate"
       ],
       "gaps": [
-        52.6
+        50.6
       ],
       "n": 1,
-      "mean_gap": 52.6,
-      "total_gap": 52.6
+      "mean_gap": 50.6,
+      "total_gap": 50.6
     },
     {
       "country": "GN",
@@ -460,11 +446,11 @@
         "Aluminium ores / bauxite"
       ],
       "gaps": [
-        47.2
+        48.2
       ],
       "n": 1,
-      "mean_gap": 47.2,
-      "total_gap": 47.2
+      "mean_gap": 48.2,
+      "total_gap": 48.2
     },
     {
       "country": "VN",
@@ -472,23 +458,11 @@
         "Phosphorus"
       ],
       "gaps": [
-        34.7
+        45.7
       ],
       "n": 1,
-      "mean_gap": 34.7,
-      "total_gap": 34.7
-    },
-    {
-      "country": "JP",
-      "materials": [
-        "Titanium, unwrought"
-      ],
-      "gaps": [
-        34.3
-      ],
-      "n": 1,
-      "mean_gap": 34.3,
-      "total_gap": 34.3
+      "mean_gap": 45.7,
+      "total_gap": 45.7
     },
     {
       "country": "FI",
@@ -503,28 +477,28 @@
       "total_gap": 28.8
     },
     {
-      "country": "JO",
-      "materials": [
-        "Phosphate rock"
-      ],
-      "gaps": [
-        24.2
-      ],
-      "n": 1,
-      "mean_gap": 24.2,
-      "total_gap": 24.2
-    },
-    {
       "country": "MX",
       "materials": [
         "Fluorspar, >97% CaF2"
       ],
       "gaps": [
-        23.0
+        27.0
       ],
       "n": 1,
-      "mean_gap": 23.0,
-      "total_gap": 23.0
+      "mean_gap": 27.0,
+      "total_gap": 27.0
+    },
+    {
+      "country": "CN",
+      "materials": [
+        "Hafnium, unwrought"
+      ],
+      "gaps": [
+        22.6
+      ],
+      "n": 1,
+      "mean_gap": 22.6,
+      "total_gap": 22.6
     },
     {
       "country": "US",
@@ -551,6 +525,18 @@
       "total_gap": 21.1
     },
     {
+      "country": "JO",
+      "materials": [
+        "Phosphate rock"
+      ],
+      "gaps": [
+        19.2
+      ],
+      "n": 1,
+      "mean_gap": 19.2,
+      "total_gap": 19.2
+    },
+    {
       "country": "NO",
       "materials": [
         "Nickel, unwrought"
@@ -563,16 +549,16 @@
       "total_gap": 17.9
     },
     {
-      "country": "TJ",
+      "country": "JP",
       "materials": [
-        "Antimony, unwrought"
+        "Titanium, unwrought"
       ],
       "gaps": [
-        15.4
+        16.3
       ],
       "n": 1,
-      "mean_gap": 15.4,
-      "total_gap": 15.4
+      "mean_gap": 16.3,
+      "total_gap": 16.3
     },
     {
       "country": "ZA",
@@ -592,11 +578,11 @@
         "Refined copper cathodes"
       ],
       "gaps": [
-        10.7
+        12.7
       ],
       "n": 1,
-      "mean_gap": 10.7,
-      "total_gap": 10.7
+      "mean_gap": 12.7,
+      "total_gap": 12.7
     },
     {
       "country": "AU",
@@ -611,16 +597,16 @@
       "total_gap": 9.4
     },
     {
-      "country": "IN",
+      "country": "TJ",
       "materials": [
-        "Baryte"
+        "Antimony, unwrought"
       ],
       "gaps": [
-        4.0
+        6.4
       ],
       "n": 1,
-      "mean_gap": 4.0,
-      "total_gap": 4.0
+      "mean_gap": 6.4,
+      "total_gap": 6.4
     }
   ]
 }

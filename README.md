@@ -12,7 +12,7 @@ It's a single static HTML file (vanilla JS, no build step) served from GitHub Pa
 pipeline. No backend.
 
 **Headline finding → [`FINDINGS.md`](FINDINGS.md):** across 32 critical materials, the top *exporter* is
-not the top *miner* in **19 of 32** of them — import-origin statistics systematically overstate how
+not the top *miner* in **18 of 32** of them — import-origin statistics systematically overstate how
 diversified supply really is. Reproduce with [`reconcile/findings.py`](reconcile/findings.py).
 **Companion → [`FINDINGS-2.md`](FINDINGS-2.md):** re-export theatre (⅔ of platinum/palladium flows route
 through London/Zurich) and mirror gaps (51% of two-sided flows disagree >2×) — why raw trade needs reconciling.

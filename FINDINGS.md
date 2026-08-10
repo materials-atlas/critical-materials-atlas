@@ -1,7 +1,7 @@
 # The origin gap — one finding from the atlas
 
 **Headline:** across 32 critical raw materials, **import-origin statistics systematically overstate the
-geographic diversification of true supply.** In **19 of 32** materials (2024 reconciled BACI trade), the
+geographic diversification of true supply.** In **18 of 32** materials (2024 reconciled BACI trade), the
 top *exporter* is not the top *miner*. The country a customs ledger records as the source is, more often
 than not, a refinery or a hub standing in front of the mine.
 
@@ -27,15 +27,15 @@ refiner is not the source.**
 
 | Material | Top exporter | exports | it mines | **gap** | Actual lead miner |
 |---|---|--:|--:|--:|---|
-| Beryllium, unwrought | Kazakhstan | 89% | 0% | **+89pp** | United States (65%) |
-| Strontium carbonate | Germany | 60% | 0% | **+60pp** | Spain (30%) |
-| Lithium carbonate | Chile | 75% | 20% | **+55pp** | Australia (37%) |
-| Bauxite / aluminium ore | Guinea | 72% | 25% | **+47pp** | Australia (27%) |
-| Phosphorus | Vietnam | 47% | 12% | **+35pp** | China (70%) |
-| Titanium, unwrought | Japan | 34% | 0% | **+34pp** | China (32%) |
-| Cobalt oxides & hydroxides | Finland | 29% | 0% | **+29pp** | DR Congo (76%) |
-| Tantalum, unwrought | United States | 22% | 0% | **+22pp** | DR Congo (40%) |
-| Nickel, unwrought | Norway | 18% | 0% | **+18pp** | Indonesia (60%) |
+| Beryllium, unwrought | Kazakhstan | 89% | 0% | **+89pp** | United States (58%) |
+| Strontium carbonate | Germany | 60% | 0% | **+60pp** | Iran (38%) |
+| Lithium carbonate | Chile | 75% | 24% | **+51pp** | Australia (48%) |
+| Aluminium ores / bauxite | Guinea | 72% | 24% | **+48pp** | Australia (24%) |
+| Phosphorus | Vietnam | 47% | 1% | **+46pp** | China (41%) |
+| Cobalt oxides & hydroxides | Finland | 29% | 0% | **+29pp** | DR Congo (74%) |
+| Fluorspar, >97% CaF₂ | Mexico | 38% | 11% | **+27pp** | China (65%) |
+| Tantalum, unwrought | United States | 22% | 0% | **+22pp** | DR Congo (41%) |
+| Ferro-vanadium | Austria | 21% | 0% | **+21pp** | China (68%) |
 
 In **4 of 32** materials a country that mines **under 5%** of the world supply nonetheless **exports over
 25%** of it — a near-pure refiner/hub effect.
@@ -46,10 +46,10 @@ The intuitive story is "China hides behind refineries." The data only half-suppo
 China is *both* the lead miner and the lead exporter — its chokehold is largely **genuine**, not an
 accounting artefact. The materials where exporter and miner diverge are instead fronted by **industrial
 refiners and entrepôts**: Finland for Congolese cobalt, Japan for (largely Chinese-mined) titanium sponge,
-Germany for Spanish strontium, Norway for Indonesian nickel, the United States for Congolese tantalum.
+Germany for Iranian strontium, Norway for Indonesian nickel, the United States for Congolese tantalum.
 
 So the corrective cuts two ways. It deflates apparent dependence on *refiner* countries (a German strontium
-"supply" is Spanish rock); and it reveals that a genuinely concentrated upstream — DR Congo cobalt,
+"supply" is Iranian rock); and it reveals that a genuinely concentrated upstream — DR Congo cobalt,
 Indonesian nickel, Chinese rare earths — is *more* concentrated than the diversified-looking trade ledger
 suggests, because the ore is laundered through several different refiners before it ships.
 
