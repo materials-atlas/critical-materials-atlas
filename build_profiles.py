@@ -46,6 +46,10 @@ REFINED_YEARS = {}
 _fyp = os.path.join(ROOT, 'out', 'refined_years.json')
 if os.path.exists(_fyp):
     REFINED_YEARS = json.load(open(_fyp, encoding='utf8'))
+MINED_SRC = {}  # materials whose mined series is BGS long-run (vs USGS 5-yr) -> source string
+_msp = os.path.join(ROOT, 'out', 'mined_years_src.json')
+if os.path.exists(_msp):
+    MINED_SRC = json.load(open(_msp, encoding='utf8'))
 
 try:   # supply-risk scores (build_risk.py must run first)
     RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
@@ -211,8 +215,10 @@ def layer_para(m, layer, nm):
     reserves, mined, refined = (m.get('reserves') or []), (m.get('mined') or []), (m.get('refined') or [])
     rl, nir, ec = m.get('reserve_life'), m.get('net_import_reliance'), m.get('export_control')
     rec, sub = m.get('recycling'), m.get('substitutability')
+    mined_src = ('BGS World Mineral Statistics · mine production, 2000–2024 (USGS-validated)'
+                 if m.get('label') in MINED_SRC else 'USGS 2024 · 2023 production')
     src = {'reserves': 'USGS 2024 · reserves as of 2023',
-           'mined': 'USGS 2024 · 2023 production',
+           'mined': mined_src,
            'refined': (e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
 
     if layer == 'reserves':

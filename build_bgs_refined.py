@@ -22,7 +22,7 @@ MAP = {
     'germanium': 'germanium metal',
     'arsenic':   'arsenic, white',
 }
-WINDOW = 6  # number of most-recent years to keep for the slider
+STEPS = [2000, 2005, 2010, 2015, 2020, 2021, 2022, 2023, 2024]  # long-run + recent, keeps the slider readable
 
 def fetch(commodity):
     url = f"{API}?bgs_commodity_trans={urllib.parse.quote(commodity, safe='')}&limit=5000&f=json"
@@ -49,16 +49,18 @@ def series_for(commodity):
         by_year[yr][iso] = by_year[yr].get(iso, 0.0) + q
     if not by_year:
         return None
-    years = sorted(by_year)[-WINDOW:]
     ser = {}
-    for y in years:
-        tot = sum(by_year[y].values())
+    for y in STEPS:
+        ys = str(y)
+        if ys not in by_year:
+            continue
+        tot = sum(by_year[ys].values())
         if tot <= 0:
             continue
-        rows = sorted(((c, round(100 * v / tot)) for c, v in by_year[y].items()), key=lambda x: -x[1])
+        rows = sorted(((c, round(100 * v / tot)) for c, v in by_year[ys].items()), key=lambda x: -x[1])
         rows = [{'c': c, 'v': p} for c, p in rows if p >= 1]
         if rows:
-            ser[y] = rows
+            ser[ys] = rows
     return ser if len(ser) >= 3 else None
 
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
