@@ -33,6 +33,12 @@ FLOW_ALL = {}
 for _p in glob.glob(os.path.join(ROOT, 'out', 'flows_20*.json')):
     FLOW_ALL[int(os.path.basename(_p)[6:10])] = json.load(open(_p, encoding='utf8'))
 
+# historical mine-production series (USGS editions 2020–2024) for the Mined-layer year switcher; optional
+MINED_YEARS = {}
+_myp = os.path.join(ROOT, 'out', 'mined_years.json')
+if os.path.exists(_myp):
+    MINED_YEARS = json.load(open(_myp, encoding='utf8'))
+
 try:   # supply-risk scores (build_risk.py must run first)
     RISK = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'risk.json'), encoding='utf8'))['materials']}
 except Exception:
@@ -256,6 +262,26 @@ def layer_para(m, layer, nm):
     return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
             f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
 
+def mined_switcher(label, default_bars):
+    """If a validated multi-year mine-production series exists (out/mined_years.json), wrap the Mined bars
+    in a year switcher (USGS editions). Otherwise return the single-vintage bars unchanged. Uses its own
+    CSS classes / toggle fn so it never collides with the trade-year switcher."""
+    ser = MINED_YEARS.get(label)
+    if not ser:
+        return default_bars
+    yrs = sorted(int(y) for y in ser)
+    dft = 2023 if 2023 in yrs else max(yrs)
+    def bstyle(on): return (f'border:1px solid var(--line);border-radius:6px;padding:.2rem .5rem;margin:0 .28rem .3rem 0;'
+                            f'cursor:pointer;font-size:.82rem;font-weight:{"700" if on else "500"};'
+                            f'background:{"#8a5a1f" if on else "transparent"};color:{"#fff" if on else "inherit"}')
+    btns = ''.join(f'<button class="mnbtn" data-my="{y}" onclick="showMn({y})" style="{bstyle(y==dft)}">{y}</button>' for y in yrs)
+    panels = ''.join(f'<div class="mnpanel" data-my="{y}"{"" if y==dft else " hidden"}>{bars(ser[str(y)], "ore")}</div>' for y in yrs)
+    return (f'<div class="mnbar" style="margin:.1rem 0 .4rem">{btns}</div>{panels}'
+            '<script>function showMn(y){'
+            'document.querySelectorAll(".mnpanel").forEach(function(p){p.hidden=(+p.dataset.my!==y);});'
+            'document.querySelectorAll(".mnbtn").forEach(function(b){var on=(+b.dataset.my===y);'
+            'b.style.background=on?"#8a5a1f":"transparent";b.style.color=on?"#fff":"inherit";b.style.fontWeight=on?"700":"500";});}</script>')
+
 def qty_by(label, key, _fl=None):
     """Per country: (tonnes, value ON THOSE SAME edges) — so $/t is a price of the tonnage we actually have,
     not total-value / partial-tonnes. Quantity is 'where BACI reports it' (sparse for high-value metals)."""
@@ -439,7 +465,7 @@ def page(m):
   <h3>● Reserves — where it could come from</h3>
   {layer_para(m, 'reserves', nm)}{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is dug up today</h3>
-  {layer_para(m, 'mined', nm)}{bars(m.get('mined'), 'ore')}
+  {layer_para(m, 'mined', nm)}{mined_switcher(m['label'], bars(m.get('mined'), 'ore'))}
   <h3>● Refined / processed — where it becomes usable metal</h3>
   {layer_para(m, 'refined', nm)}{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
