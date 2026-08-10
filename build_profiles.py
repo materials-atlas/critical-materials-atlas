@@ -172,6 +172,55 @@ def bars(items, cls, n=12, source=None):
                    f'<span class="bv" style="color:var(--faint)">{rest:.0f}%</span></div>')
     return ''.join(out)
 
+def _cc(x): return f"{flag(x['c'])} {e(cname(x['c']))}"
+def _spread(arr):
+    """rough concentration read on a share list"""
+    h = sum((x['v'] / 100.0) ** 2 for x in arr)
+    return 'spread across many countries' if h < 0.22 else ('moderately concentrated' if h < 0.4 else 'highly concentrated in one or two')
+
+def layer_para(m, layer, nm):
+    """A short explanatory paragraph per layer: a generic concept sentence + a reading of THIS material's
+    numbers (computed from the data, never hand-entered)."""
+    arr = m.get('reserves' if layer == 'reserves' else 'mined' if layer == 'mined' else 'refined') or []
+    src = {'reserves': 'USGS 2024 · reserves as of 2023',
+           'mined': 'USGS 2024 · 2023 production',
+           'refined': (e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
+    if layer == 'reserves':
+        concept = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — a ceiling on where "
+                   "supply <i>could</i> come from over the long run, not what is produced now. A country can sit on large "
+                   "reserves yet barely mine them.")
+        if not arr:
+            read = f" A country-level reserve breakdown is not separately reported for {nm}."
+        else:
+            read = f" For {nm} they are {_spread(arr)}: {_cc(arr[0])} holds the most ({arr[0]['v']}%)"
+            read += f", ahead of {_cc(arr[1])} ({arr[1]['v']}%)." if len(arr) > 1 else "."
+    elif layer == 'mined':
+        concept = ("<b>Mining</b> is the first physical stage — ore actually leaving the ground. It is the layer most "
+                   "people picture as &ldquo;the source&rdquo;, yet it is rarely where the supply risk really sits.")
+        res = m.get('reserves') or []
+        if not arr:
+            read = f" Mine-production shares are not separately reported for {nm}."
+        else:
+            read = f" {_cc(arr[0])} leads at {arr[0]['v']}%"
+            read += f", with {_cc(arr[1])} ({arr[1]['v']}%) next." if len(arr) > 1 else "."
+            if res and res[0]['c'] != arr[0]['c']:
+                read += f" Note the top miner is not the top reserve-holder ({_cc(res[0])}) — holding the deposits is not the same as extracting them."
+    else:  # refined
+        concept = ("<b>Refining / processing</b> turns ore into the metal or compound buyers actually purchase. It usually "
+                   "concentrates in fewer countries than mining and sits closer to the buyer — so this is where the real "
+                   "chokepoint tends to be.")
+        mined = m.get('mined') or []
+        if not arr:
+            read = f" A country-level processing breakdown is not publicly reported for {nm} — only the leading refiner is known."
+        else:
+            read = f" {_cc(arr[0])} refines {arr[0]['v']}%."
+            if mined and mined[0]['c'] != arr[0]['c']:
+                read += f" So although {_cc(mined[0])} mines the most, {e(cname(arr[0]['c']))} controls processing — the classic mine-vs-refiner split this atlas exists to show."
+            elif mined and mined[0]['c'] == arr[0]['c']:
+                read += f" {e(cname(arr[0]['c']))} leads both mining and refining, so its grip here is genuine, not just a processing chokepoint."
+    return (f'<p class="note" style="margin:.15rem 0 .6rem">{concept}{read} '
+            f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
+
 def qty_by(label, key):
     """Per country: (tonnes, value ON THOSE SAME edges) — so $/t is a price of the tonnage we actually have,
     not total-value / partial-tonnes. Quantity is 'where BACI reports it' (sparse for high-value metals)."""
@@ -299,6 +348,7 @@ def page(m):
     if timp:
         trade_block += trade_table(timp_ranked, itot, 'importers', qty_by(label, 'to'))
 
+    nm = e(title.split(",")[0]).lower()
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -326,11 +376,11 @@ def page(m):
   <h2>The chain — from the ground to the buyer</h2>
   <p class="note" style="margin-top:-.3rem">A critical material passes through distinct stages, and the country that leads each stage is often <i>different</i> — that gap is what this atlas exists to show. Each layer comes from a different public source with its own vintage, labelled below; shares are % of the world total.</p>
   <h3>● Reserves — where it could come from</h3>
-  <p class="note" style="margin:.15rem 0 .5rem">What is still in the ground and economically worth mining — the ceiling on <i>future</i> supply, not today's output. <span style="color:var(--faint);font-weight:600">USGS 2024 · reserves as of 2023</span></p>{bars(m.get('reserves'), 'res')}
+  {layer_para(m, 'reserves', nm)}{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is dug up today</h3>
-  <p class="note" style="margin:.15rem 0 .5rem">Where the raw ore actually leaves the ground. <span style="color:var(--faint);font-weight:600">USGS 2024 · 2023 production</span></p>{bars(m.get('mined'), 'ore')}
+  {layer_para(m, 'mined', nm)}{bars(m.get('mined'), 'ore')}
   <h3>● Refined / processed — where it becomes usable metal</h3>
-  <p class="note" style="margin:.15rem 0 .5rem">Where ore is turned into the refined metal or compound buyers actually use — often a different country, and usually the real chokepoint. <span style="color:var(--faint);font-weight:600">{e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported'}</span></p>{bars(m.get('refined'), 'ref', source='refined')}
+  {layer_para(m, 'refined', nm)}{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>● Traded — who ships it ({YEAR})</h2>
