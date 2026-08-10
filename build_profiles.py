@@ -378,6 +378,7 @@ def page(m):
     stats = []
     if RISK.get(label): stats.append((f'{RISK[label]["score"]}<span style="color:var(--faint);font-weight:600">/100</span>', 'supply-risk index'))
     if m.get('reserve_life'): stats.append((f'{m["reserve_life"]}<span style="color:var(--faint);font-weight:600"> yr</span>', 'reserve life (reserves ÷ mining)'))
+    if m.get('host'): stats.append(('<span style="color:#7a5cff">⚗ by-product</span>', f'of {e(m["host"])}'))
     if m.get('export_control'): stats.append(('<span style="color:#e0703c">⚠ controlled</span>', e(m['export_control'])))
     if m.get('net_import_reliance'): stats.append((e(m['net_import_reliance']), 'US import reliance'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))
@@ -386,6 +387,14 @@ def page(m):
     if texp: stats.append((f'{flag(texp[0])} {cname(texp[0])}', f'top exporter · {texp[1]/etot*100:.0f}%'))
     if texp: stats.append((f'{ehhi:.2f}', 'export concentration (HHI)'))
     stat_html = ''.join(f'<div class="stat"><div class="n">{s[0]}</div><div class="l">{e(s[1])}</div></div>' for s in stats)
+
+    host_callout = ''
+    if m.get('host'):
+        h = e(m['host'])
+        host_callout = (f'<div class="callout" style="border-color:#7a5cff55"><b>⚗ A by-product, not a primary metal.</b> '
+                        f'{e(title)} is not mined for its own sake — it is recovered as a by-product of <b>{h}</b>. '
+                        f'So its supply tracks the <b>{h}</b> market, not its own price: a shortage can’t quickly pull more '
+                        f'out of the ground, because miners dig for {h}, not for this. That inelastic supply is a core, often-missed supply-risk driver.</div>')
 
     gap_callout = ''
     if og and mi and og[0] != mi['c'] and og[2] > 8:
@@ -412,8 +421,11 @@ def page(m):
             trend_block = (f'<div class="callout"><b>{e(cname(te_t))}</b>’s share of world {e(title.lower())} exports, '
                 f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{series[0]:.0f}% {arrow} {series[-1]:.0f}%</b>{sparkline(series)}</div>')
 
-    shared_note = ('<p class="note">⛓ Gallium, germanium and hafnium share one HS6 code (811292); their trade columns '
-                   'are identical and cannot be separated. The mine/refine/reserve layers still differ.</p>') if shared else ''
+    shared_flag = ('<div class="callout" style="border-color:#c08a2b66"><b>⛓ Trade shown under HS 811292 — a shared code.</b> '
+                   'Gallium, germanium and hafnium all clear customs under this one 6-digit line, so their trade columns are '
+                   '<b>identical and cannot be separated</b>. Any trade-based concentration figure for this material is really '
+                   'measuring <b>three supply chains at once</b> — it can only be split at 8-digit national tariff lines. The '
+                   'mine, refine and reserve layers above <i>are</i> material-specific.</div>') if shared else ''
 
     note = e(m.get('note') or '').strip()
     note_block = f'<h2>Context</h2><p>{note}</p>' if note else ''
@@ -465,6 +477,7 @@ def page(m):
 <section class="stats"><div class="wrap">{stat_html}</div></section>
 <article>
   {('<p style="font-size:.96rem;color:var(--ink-soft)"><b>Primary uses.</b> ' + e(m.get("uses")) + '.</p>') if m.get('uses') else ''}
+  {host_callout}
   {gap_callout}
   {trend_block}
   <h2>The chain — from the ground to the buyer</h2>
@@ -478,9 +491,9 @@ def page(m):
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>● Traded — who ships it</h2>
+  {shared_flag}
   <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. Pick a year below — <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025* nowcast, 2026** directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
   {trade_block}
-  {shared_note}
   {note_block}
   <div class="btnrow">
     <a class="btn primary" href="./#view=map&amp;mat={e(label)}">Explore {e(title.split(",")[0].lower())} in the atlas →</a>
