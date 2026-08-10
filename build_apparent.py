@@ -135,7 +135,7 @@ HTML = r'''<!doctype html>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="bloc-demand.html">Demand by bloc</a><a href="net-demand.html">Net demand</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+  <a href="limitations.html" class="hideable">Limitations</a><a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · apparent consumption</div>

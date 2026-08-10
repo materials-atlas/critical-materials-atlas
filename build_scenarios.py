@@ -98,7 +98,7 @@ def main():
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
   <a href="profiles.html" class="hideable">Profiles</a><a href="countries.html" class="hideable">Countries</a>
-  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Analysis · supply shocks</div>

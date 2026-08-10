@@ -231,7 +231,7 @@ HTML = r'''<!doctype html>
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="casestudies.html">Validation</a>
   <a href="cascade.html" class="hideable">Cascade</a><a href="findings.html" class="hideable">Findings</a>
-  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · production · cross-source validation</div>

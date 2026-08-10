@@ -123,7 +123,7 @@ def topbar(active=''):
             '<nav class="topnav">'
             f'{a("./","Atlas")}{a("methodology.html","Methodology")}{a("findings.html","Findings")}'
             f'{a("profiles.html","Profiles")}{a("technical-note.html","Note","hideable")}'
-            '<a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>'
+            '<a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>'
             '</nav></div></header>')
 
 FOOTER = ('<footer class="siteftr"><div class="wrap">'

@@ -79,14 +79,14 @@
     <a href="findings.html">Findings</a>
     <a href="profiles.html" class="hideable">Profiles</a>
     <a href="technical-note.html" class="active">Note</a>
-    <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
+    <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>
   </nav>
 </div></header>
 
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Working note · June 2026</div>
   <h1>Share-faithful reconstruction of bilateral trade from raw UN Comtrade — and a pre-registered nowcast for critical materials</h1>
-  <p class="authors"><b>materials-atlas</b> · independent research · public data only · <a href="https://github.com/materials-atlas/comtrade-reconcile">comtrade-reconcile</a> · <a href="https://criticalmaterialsatlas.org/">interactive atlas</a></p>
+  <p class="authors"><b>materials-atlas</b> · independent research · public data only · <a href="https://github.com/materials-atlas/critical-materials-atlas">comtrade-reconcile</a> · <a href="https://criticalmaterialsatlas.org/">interactive atlas</a></p>
   <p class="authors" style="margin-top:.3rem;font-size:.82rem;color:#9fbab6">Version 2026-06-29 · cite the dated revision in the <a href="https://github.com/materials-atlas/critical-materials-atlas/commits/main/technical-note.html">commit history</a> · trade years 2002–2024 (BACI HS02 + HS17, V202601)</p>
 </div></section>
 
@@ -208,7 +208,7 @@
 </ul>
 
 <h2><span class="s">10.</span>Reproducibility</h2>
-<p>Two public repositories, <b>no API key required to reproduce the pipeline end-to-end</b>: the interactive atlas (<a href="https://github.com/materials-atlas/critical-materials-atlas">materials-atlas/critical-materials-atlas</a>) and the reconciliation engine (<a href="https://github.com/materials-atlas/comtrade-reconcile">materials-atlas/comtrade-reconcile</a>, CI green). The raw 2024 Comtrade is committed (gzipped) under <code>fixtures/raw/</code>, so the reconciliation regenerates from raw rather than from a pre-computed file. On a fresh clone of the engine: <code>pip install -r requirements.txt</code>, then <code>ATLAS_ROOT=fixtures python reconcile.py 2024</code> (regenerates the reconciliation), <code>… validate.py 2024</code> (Table&nbsp;2), <code>python backtest.py</code> (Table&nbsp;3), <code>python findings.py</code> (Table&nbsp;4). CI runs the <code>reconcile → validate</code> chain on every push. The Comtrade key is needed only for the initial network pull and is read from the environment, never committed.</p>
+<p>Two public repositories, <b>no API key required to reproduce the pipeline end-to-end</b>: the interactive atlas (<a href="https://github.com/materials-atlas/critical-materials-atlas">materials-atlas/critical-materials-atlas</a>) and the reconciliation engine (<a href="https://github.com/materials-atlas/critical-materials-atlas">materials-atlas/comtrade-reconcile</a>, CI green). The raw 2024 Comtrade is committed (gzipped) under <code>fixtures/raw/</code>, so the reconciliation regenerates from raw rather than from a pre-computed file. On a fresh clone of the engine: <code>pip install -r requirements.txt</code>, then <code>ATLAS_ROOT=fixtures python reconcile.py 2024</code> (regenerates the reconciliation), <code>… validate.py 2024</code> (Table&nbsp;2), <code>python backtest.py</code> (Table&nbsp;3), <code>python findings.py</code> (Table&nbsp;4). CI runs the <code>reconcile → validate</code> chain on every push. The Comtrade key is needed only for the initial network pull and is read from the environment, never committed.</p>
 
 <h2><span class="s"></span>References</h2>
 <p style="font-size:.84rem;color:var(--mut);margin:.2rem 0 .6rem"><b>Data.</b></p>
@@ -254,7 +254,7 @@
     <a href="./">Interactive atlas</a><br>
     <a href="findings.html">The origin gap</a><br>
     <a href="methodology.html">Methodology</a><br>
-    <a href="https://github.com/materials-atlas/comtrade-reconcile">Reconciliation engine</a>
+    <a href="https://github.com/materials-atlas/critical-materials-atlas">Reconciliation engine</a>
   </div>
   <div>
     <h4>Sources</h4>

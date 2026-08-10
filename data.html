@@ -19,7 +19,7 @@
   <nav class="topnav">
     <a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
     <a href="profiles.html" class="hideable">Profiles</a><a href="technical-note.html" class="hideable">Note</a>
-    <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a>
+    <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>
   </nav>
 </div></header>
 
@@ -80,7 +80,7 @@
 const o = {}; for (const {from,value} of f.materials.lithium) o[from]=(o[from]||0)+value;
 console.log(Object.entries(o).sort((a,b)=>b[1]-a[1])[0]);   <span class="k">// → ["CL", …]</span></pre>
 
-  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources — UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the <em>original</em> source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note.html">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/comtrade-reconcile">engine repo</a>.</div>
+  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources — UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the <em>original</em> source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note.html">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</div>
 
   <div class="btnrow">
     <a class="btn primary" href="out/data.json">data.json →</a>

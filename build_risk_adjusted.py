@@ -144,7 +144,7 @@ HTML = r'''<!doctype html>
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="risk.html">Risk</a><a href="companionality.html">Hostage metals</a>
   <a href="riskmethods.html" class="hideable">Risk methods</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/comtrade-reconcile" class="hideable">Engine</a></nav>
+  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · risk · supply elasticity</div>
