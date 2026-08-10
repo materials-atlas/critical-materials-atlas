@@ -205,7 +205,7 @@ def layer_para(m, layer, nm):
         b = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — the long-run ceiling on "
              "supply, distinct from what is actually produced today.")
         if not reserves:
-            b += f" A country-level reserve breakdown is not separately reported for {nm}, so the geological base can't be mapped here — an opacity that is itself a caution."
+            b += f" USGS does not publish country-level reserves for {nm} — typically because it is a by-product of another ore or is drawn from an effectively unlimited source (e.g. quartz, seawater), so a national reserve map does not apply."
         else:
             b += f" {Nm}'s reserves are {_conc(reserves)}: {_cc(reserves[0])} holds the most ({reserves[0]['v']}%)"
             b += f", ahead of {_cc(reserves[1])} ({reserves[1]['v']}%)" if len(reserves) > 1 else ""
