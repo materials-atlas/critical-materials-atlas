@@ -173,52 +173,82 @@ def bars(items, cls, n=12, source=None):
     return ''.join(out)
 
 def _cc(x): return f"{flag(x['c'])} {e(cname(x['c']))}"
-def _spread(arr):
-    """rough concentration read on a share list"""
+def _conc(arr):
+    """Herfindahl-based concentration read on a share list."""
     h = sum((x['v'] / 100.0) ** 2 for x in arr)
-    return 'spread across many countries' if h < 0.22 else ('moderately concentrated' if h < 0.4 else 'highly concentrated in one or two')
+    return ('broadly diversified' if h < 0.20 else 'moderately concentrated' if h < 0.35
+            else 'concentrated' if h < 0.55 else 'highly concentrated')
+def _share(arr, code):
+    for x in arr:
+        if x['c'] == code: return x['v']
+    return 0
 
 def layer_para(m, layer, nm):
-    """A short explanatory paragraph per layer: a generic concept sentence + a reading of THIS material's
-    numbers (computed from the data, never hand-entered)."""
-    arr = m.get('reserves' if layer == 'reserves' else 'mined' if layer == 'mined' else 'refined') or []
+    """A heavier analytical paragraph per layer — concept + a reading of THIS material's numbers and their
+    supply-chain implications. Every figure is computed from data.json (concentration, reserve life,
+    cross-stage mismatches, export controls, import reliance, recycling/substitutability); no hand-entered
+    per-material prose."""
+    Nm = nm[:1].upper() + nm[1:]
+    reserves, mined, refined = (m.get('reserves') or []), (m.get('mined') or []), (m.get('refined') or [])
+    rl, nir, ec = m.get('reserve_life'), m.get('net_import_reliance'), m.get('export_control')
+    rec, sub = m.get('recycling'), m.get('substitutability')
     src = {'reserves': 'USGS 2024 · reserves as of 2023',
            'mined': 'USGS 2024 · 2023 production',
            'refined': (e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
+
     if layer == 'reserves':
-        concept = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — a ceiling on where "
-                   "supply <i>could</i> come from over the long run, not what is produced now. A country can sit on large "
-                   "reserves yet barely mine them.")
-        if not arr:
-            read = f" A country-level reserve breakdown is not separately reported for {nm}."
+        b = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — the long-run ceiling on "
+             "supply, distinct from what is actually produced today.")
+        if not reserves:
+            b += f" A country-level reserve breakdown is not separately reported for {nm}, so the geological base can't be mapped here — an opacity that is itself a caution."
         else:
-            read = f" For {nm} they are {_spread(arr)}: {_cc(arr[0])} holds the most ({arr[0]['v']}%)"
-            read += f", ahead of {_cc(arr[1])} ({arr[1]['v']}%)." if len(arr) > 1 else "."
+            b += f" {Nm}'s reserves are {_conc(reserves)}: {_cc(reserves[0])} holds the most ({reserves[0]['v']}%)"
+            b += f", ahead of {_cc(reserves[1])} ({reserves[1]['v']}%)" if len(reserves) > 1 else ""
+            b += f" and {_cc(reserves[2])} ({reserves[2]['v']}%)." if len(reserves) > 2 else "."
+            if rl:
+                fr = ('scarcity is not the binding constraint — access, capital and processing capacity are' if rl >= 40
+                      else 'the horizon is genuinely finite, so recycling and new discoveries will decide long-run supply' if rl < 25
+                      else 'there is only a moderate runway before fresh capacity must come online')
+                b += f" At today's extraction rate the known reserves would last roughly {rl} years, so {fr}."
+            if mined and reserves[0]['c'] != mined[0]['c']:
+                b += (f" Tellingly, the country sitting on the most ore ({_cc(reserves[0])}) is not the one extracting it "
+                      f"({_cc(mined[0])}) — geology sets the ceiling, but capacity and policy decide who actually supplies the market.")
     elif layer == 'mined':
-        concept = ("<b>Mining</b> is the first physical stage — ore actually leaving the ground. It is the layer most "
-                   "people picture as &ldquo;the source&rdquo;, yet it is rarely where the supply risk really sits.")
-        res = m.get('reserves') or []
-        if not arr:
-            read = f" Mine-production shares are not separately reported for {nm}."
+        b = ("<b>Mining</b> is where ore leaves the ground — the stage most people equate with &ldquo;the source&rdquo;, "
+             "though it is rarely where the supply risk actually concentrates.")
+        if not mined:
+            b += f" Mine-production shares are not separately reported for {nm}."
         else:
-            read = f" {_cc(arr[0])} leads at {arr[0]['v']}%"
-            read += f", with {_cc(arr[1])} ({arr[1]['v']}%) next." if len(arr) > 1 else "."
-            if res and res[0]['c'] != arr[0]['c']:
-                read += f" Note the top miner is not the top reserve-holder ({_cc(res[0])}) — holding the deposits is not the same as extracting them."
+            b += f" Output is {_conc(mined)}: {_cc(mined[0])} supplies {mined[0]['v']}%"
+            b += f", with {_cc(mined[1])} ({mined[1]['v']}%) next." if len(mined) > 1 else "."
+            if mined[0]['v'] >= 50:
+                b += " That is effectively a single-country dependence — one government's policy or one region's disruption can move the entire upstream."
+            if reserves and mined[0]['c'] != reserves[0]['c']:
+                rs = _share(reserves, mined[0]['c'])
+                b += (f" It out-produces reserve-richer {_cc(reserves[0])}" + (f" while holding just {rs}% of reserves itself" if rs else "")
+                      + " — supply power at this stage is built on installed capacity, not geology.")
+            if ec:
+                b += f" And the tap is politically live: {e(ec)}."
     else:  # refined
-        concept = ("<b>Refining / processing</b> turns ore into the metal or compound buyers actually purchase. It usually "
-                   "concentrates in fewer countries than mining and sits closer to the buyer — so this is where the real "
-                   "chokepoint tends to be.")
-        mined = m.get('mined') or []
-        if not arr:
-            read = f" A country-level processing breakdown is not publicly reported for {nm} — only the leading refiner is known."
+        b = ("<b>Refining / processing</b> converts ore into the metal or compound buyers actually purchase; it concentrates "
+             "in fewer hands than mining and sits at the buyer's doorstep, which is why it is usually the true chokepoint.")
+        if not refined:
+            b += f" A country-level processing breakdown is not publicly reported for {nm} — only the leading refiner is known, which itself signals how opaque this stage is."
         else:
-            read = f" {_cc(arr[0])} refines {arr[0]['v']}%."
-            if mined and mined[0]['c'] != arr[0]['c']:
-                read += f" So although {_cc(mined[0])} mines the most, {e(cname(arr[0]['c']))} controls processing — the classic mine-vs-refiner split this atlas exists to show."
-            elif mined and mined[0]['c'] == arr[0]['c']:
-                read += f" {e(cname(arr[0]['c']))} leads both mining and refining, so its grip here is genuine, not just a processing chokepoint."
-    return (f'<p class="note" style="margin:.15rem 0 .6rem">{concept}{read} '
+            b += f" {_cc(refined[0])} processes {refined[0]['v']}% — {_conc(refined)}."
+            if mined and refined[0]['c'] != mined[0]['c']:
+                b += (f" So although {_cc(mined[0])} mines the most, {e(cname(refined[0]['c']))} controls processing: the dependency "
+                      "the mine map hides, and the reason import-origin statistics misread the real source.")
+            elif mined and refined[0]['c'] == mined[0]['c']:
+                b += f" {e(cname(refined[0]['c']))} leads both mining and refining, so its grip is structural rather than a pure processing gate."
+            if ec:
+                b += f" This leverage is not hypothetical — {e(ec)}."
+            if rec is not None or sub or nir:
+                subw = 'scarce' if sub == 'high' else 'readily available' if sub == 'low' else 'only partial'
+                mit = f" On the buffers: {rec}% of supply is recovered from end-of-life recycling and substitutes are {subw}" if rec is not None else f" Substitutes are {subw}"
+                mit += f", while the US imports {e(nir)} of what it consumes." if nir else "."
+                b += mit
+    return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
             f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
 
 def qty_by(label, key):
