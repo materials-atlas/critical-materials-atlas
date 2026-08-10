@@ -23,6 +23,21 @@
    "shared": false
   },
   {
+   "label": "lithium",
+   "title": "Lithium carbonate",
+   "score": 65,
+   "gross": 65,
+   "recycling": 0,
+   "substitutability": "high",
+   "components": {
+    "production": 48,
+    "refining": 74,
+    "trade": 58.9,
+    "opacity": 84.4
+   },
+   "shared": false
+  },
+  {
    "label": "niobium",
    "title": "Ferro-niobium",
    "score": 64,
@@ -34,21 +49,6 @@
     "refining": 88,
     "trade": 59.7,
     "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
-   "label": "lithium",
-   "title": "Lithium carbonate",
-   "score": 62,
-   "gross": 62,
-   "recycling": 0,
-   "substitutability": "high",
-   "components": {
-    "production": 48,
-    "refining": 65,
-    "trade": 58.9,
-    "opacity": 84.4
    },
    "shared": false
   },
@@ -98,21 +98,6 @@
    "shared": false
   },
   {
-   "label": "magnets",
-   "title": "Rare-earth permanent magnets",
-   "score": 54,
-   "gross": 54,
-   "recycling": 1,
-   "substitutability": "high",
-   "components": {
-    "production": 69,
-    "refining": 90,
-    "trade": 42.4,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
    "label": "phosphorus",
    "title": "Phosphorus",
    "score": 54,
@@ -128,15 +113,30 @@
    "shared": false
   },
   {
+   "label": "magnets",
+   "title": "Rare-earth permanent magnets",
+   "score": 52,
+   "gross": 52,
+   "recycling": 1,
+   "substitutability": "high",
+   "components": {
+    "production": 69,
+    "refining": 84,
+    "trade": 42.4,
+    "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
    "label": "graphite",
    "title": "Natural graphite",
-   "score": 52,
+   "score": 51,
    "gross": 52,
    "recycling": 3,
    "substitutability": "high",
    "components": {
     "production": 77,
-    "refining": 95,
+    "refining": 94,
     "trade": 21.6,
     "opacity": 0.0
    },
@@ -353,6 +353,21 @@
    "shared": false
   },
   {
+   "label": "nickel",
+   "title": "Nickel, unwrought",
+   "score": 32,
+   "gross": 35,
+   "recycling": 16,
+   "substitutability": "medium",
+   "components": {
+    "production": 50,
+    "refining": 45,
+    "trade": 9.6,
+    "opacity": 29.8
+   },
+   "shared": false
+  },
+  {
    "label": "hafnium",
    "title": "Hafnium, unwrought",
    "score": 31,
@@ -366,21 +381,6 @@
     "opacity": 37.6
    },
    "shared": true
-  },
-  {
-   "label": "nickel",
-   "title": "Nickel, unwrought",
-   "score": 31,
-   "gross": 33,
-   "recycling": 16,
-   "substitutability": "medium",
-   "components": {
-    "production": 50,
-    "refining": 40,
-    "trade": 9.6,
-    "opacity": 29.8
-   },
-   "shared": false
   },
   {
    "label": "phosphate",
