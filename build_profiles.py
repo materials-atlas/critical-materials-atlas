@@ -141,7 +141,7 @@ FOOTER = ('<footer class="siteftr"><div class="wrap">'
  'mine/refine/reserves USGS &amp; IEA, approximate). An overlay of distinct measures, not one observed pipeline. '
  f'Data updated {e(STAMP)}.</div></div></footer>')
 
-def bars(items, cls, n=12):
+def bars(items, cls, n=12, source=None):
     if not items:
         return '<p class="note">not available</p>'
     out = []
@@ -156,9 +156,17 @@ def bars(items, cls, n=12):
                    f'<span class="bv">{v:.0f}%</span></div>')
     rest = round(100 - shown)   # everything not shown — so it reads to 100
     if rest >= 1:
-        # our source data lists only the TOP FEW countries, so the remainder is NOT verified to be all small.
-        # Say so honestly ("not detailed") rather than "Rest of world", which would imply we know it's all tiny.
-        rlabel = '🌍 Others (not detailed)'
+        n_src = len([x for x in items if x['v'] > 0])
+        if source == 'refined' and n_src < 3:
+            # IEA only details refining for the 6 energy-transition minerals; for the rest the source
+            # reports only the leading refiner, so the remainder is genuinely NOT published — say so.
+            rlabel = '🌍 Rest — not separately reported'
+        elif source == 'refined':
+            # we have a real multi-country breakdown (IEA / copper / bauxite); the remainder is a small tail
+            rlabel = '🌍 Other countries'
+        else:
+            # USGS mine/reserve layers list the top producers; the remainder is not verified to be all small
+            rlabel = '🌍 Others (not detailed)'
         out.append(f'<div class="barrow"><span class="bc" style="color:var(--faint)">{rlabel}</span>'
                    f'<span class="bw"><span class="bf" style="width:{max(2,min(100,rest)):.0f}%;background:#39414b"></span></span>'
                    f'<span class="bv" style="color:var(--faint)">{rest:.0f}%</span></div>')
@@ -318,7 +326,7 @@ def page(m):
   <h2>The five layers</h2>
   <h3>● Reserves — where it could come from (USGS, economically recoverable)</h3>{bars(m.get('reserves'), 'res')}
   <h3>● Mined — where it is produced today (USGS)</h3>{bars(m.get('mined'), 'ore')}
-  <h3>● Refined / processed (IEA)</h3>{bars(m.get('refined'), 'ref')}
+  <h3>● Refined / processed (IEA)</h3>{bars(m.get('refined'), 'ref', source='refined')}
   <h3>● Recycling &amp; substitutability — the mitigants (EU CRM)</h3>
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>Who trades it ({YEAR})</h2>
