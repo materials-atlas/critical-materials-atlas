@@ -39,8 +39,17 @@ python build_profiles.py                       # -> profile-*.html (material+cou
 python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)
 
 # 4. sanity-check, then commit + push (Pages redeploys automatically)
+#    validate.py needs two local CSVs; both build from public data already in raw/ — NO API key:
+python reconcile\reconcile.py 2024             # raw\comtrade\comtrade_2024.csv -> reconcile\recon_2024.csv
+python reconcile\extract_baci.py 2024          # raw\baci BACI HS17 zip        -> reconcile\baci_2024.csv (ground truth)
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)
 ```
+
+Both inputs are derived (gitignored); `reconcile.py` needs `raw\comtrade\comtrade_<year>.csv` (already
+present for 2022/2024/2025) and `extract_baci.py` needs only the public `raw\baci` BACI zip. The
+committed CI fixture (`reconcile\fixtures`) reproduces the *same* numbers with no raw data at all — run
+`ATLAS_ROOT=fixtures python reconcile.py 2024 && ATLAS_ROOT=fixtures python extract_baci.py 2024 &&
+ATLAS_ROOT=fixtures python validate.py 2024` to check the pipeline anywhere, key-free.
 
 **Before publishing, check the numbers — not just that it ran.** Comtrade's latest year is provisional and
 revised upward for months; the slider tiers (measured / provisional* / directional**) must stay honest.
