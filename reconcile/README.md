@@ -1,6 +1,6 @@
 # comtrade-reconcile
 
-[![validate](https://github.com/materials-atlas/comtrade-reconcile/actions/workflows/validate.yml/badge.svg)](https://github.com/materials-atlas/comtrade-reconcile/actions/workflows/validate.yml)
+[![validate](https://github.com/materials-atlas/critical-materials-atlas/actions/workflows/engine-validate.yml/badge.svg)](https://github.com/materials-atlas/critical-materials-atlas/actions/workflows/engine-validate.yml)
 
 **A share-faithful reconstruction of bilateral trade from raw UN Comtrade (BACI-style) — plus a nowcast
 for the recent years BACI has not released yet.**
@@ -50,8 +50,11 @@ Output: `reconcile/recon_<year>.csv` with columns `i, j, cmd, value` plus diagno
 Validated on **what matters downstream — exporter- and importer-side shares and concentration**, not just
 a global level correlation. As reported in `results/` for the settled year 2022 and the still-settling
 2024, the reconstruction reproduces BACI's top-1 exporters, top-3 overlap, share MAE and HHI closely
-(exporter top-1 25/30 and share MAE ~3.5% in 2024), while the level runs a near-constant multiple above
-BACI.
+(exporter top-1 **25/30** with share MAE ~3.5% in 2024; **22/30** with ~3.9% in 2022), while the level
+runs a near-constant multiple above BACI. Both years reproduce **key-free from committed fixtures** —
+`ATLAS_ROOT=fixtures python reconcile.py <year> && python validate.py <year>` — and the CI runs both on
+every push. Validating a *new* year needs only its raw Comtrade CSV in `raw/comtrade/` (already pulled
+when the nowcast for that year was built) plus BACI having released it; neither step needs an extra pull.
 
 ### The level offset — diagnosed honestly
 

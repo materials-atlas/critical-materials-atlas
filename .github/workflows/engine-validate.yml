@@ -22,11 +22,13 @@ jobs:
       - run: pip install -r requirements.txt
       - name: End-to-end — reconcile the raw Comtrade fixture, then validate vs official BACI (no API key)
         run: |
-          ATLAS_ROOT=fixtures python reconcile.py 2024        # raw Comtrade (committed, gzipped) -> recon_2024.csv
-          ATLAS_ROOT=fixtures python validate.py 2024 | tee out.txt
-          grep -qE "EXPORTER : top-1 2[0-9]/30" out.txt
-          grep -qE "IMPORTER : top-1 2[0-9]/30" out.txt
-          echo "end-to-end reproduced: raw Comtrade -> reconciliation -> validated vs BACI, no key."
+          for Y in 2022 2024; do                              # two independent years, both key-free from committed fixtures
+            ATLAS_ROOT=fixtures python reconcile.py $Y        # raw Comtrade (committed, gzipped) -> recon_$Y.csv
+            ATLAS_ROOT=fixtures python validate.py $Y | tee out.txt
+            grep -qE "EXPORTER : top-1 2[0-9]/30" out.txt
+            grep -qE "IMPORTER : top-1 2[0-9]/30" out.txt
+          done
+          echo "end-to-end reproduced for 2022 + 2024: raw Comtrade -> reconciliation -> validated vs BACI, no key."
       - name: Out-of-sample backtest + the origin-gap finding (no API key)
         run: |
           python backtest.py

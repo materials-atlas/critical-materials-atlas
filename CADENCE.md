@@ -45,11 +45,16 @@ python reconcile\extract_baci.py 2024          # raw\baci BACI HS17 zip        -
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)
 ```
 
-Both inputs are derived (gitignored); `reconcile.py` needs `raw\comtrade\comtrade_<year>.csv` (already
-present for 2022/2024/2025) and `extract_baci.py` needs only the public `raw\baci` BACI zip. The
-committed CI fixture (`reconcile\fixtures`) reproduces the *same* numbers with no raw data at all — run
-`ATLAS_ROOT=fixtures python reconcile.py 2024 && ATLAS_ROOT=fixtures python extract_baci.py 2024 &&
-ATLAS_ROOT=fixtures python validate.py 2024` to check the pipeline anywhere, key-free.
+Both inputs are derived (gitignored); `reconcile.py` reads `raw\comtrade\comtrade_<year>.csv` (present
+for 2022/2024/2025) and `extract_baci.py` reads only the public `raw\baci` BACI HS17 zip. The engine is
+validated on **two independent years — 2022 and 2024** — and both reproduce with **no raw data and no
+key** from the committed fixtures: `ATLAS_ROOT=fixtures python reconcile.py 2024 && ATLAS_ROOT=fixtures
+python validate.py 2024` (the ground-truth `baci_<year>.csv` ships in the fixture, so `extract_baci.py`
+is only needed to rebuild it for a live/new year). CI runs both years on every push.
+
+The one thing validation genuinely waits on is **BACI releasing a new year** — the pre-registered moment.
+The raw Comtrade for that year is already local by then (pulled when its nowcast was built), so validation
+itself never triggers an API pull; it is gated only on the upstream BACI release, which is inherent.
 
 **Before publishing, check the numbers — not just that it ran.** Comtrade's latest year is provisional and
 revised upward for months; the slider tiers (measured / provisional* / directional**) must stay honest.
