@@ -35,6 +35,17 @@
 
 <article>
   <div class="entry">
+    <div class="date">11 August 2026 <span class="tag">product</span></div>
+    <h3>Material profiles rebuilt: analytical layers, per-layer year sliders, and a new refined source (BGS)</h3>
+    <ul>
+      <li><b>Each layer is now an analytical paragraph, not a caption.</b> Reserves, Mined and Refined each carry a short read of the material’s own numbers <i>and</i> their implication — concentration, reserve-life framing, the geology-vs-supplier mismatch, and the mine-vs-refiner gatekeeper split — all computed from the data, with the layer’s <b>source and vintage labelled</b> on each.</li>
+      <li><b>Per-layer year sliders.</b> Drag to scrub years and the bars re-rank live: <b>Traded</b> 2018–2026 (reconciled BACI + 2025 nowcast + 2026 scenario, all materials), <b>Mined</b> 2019–2023 (18 materials, USGS editions), <b>Reserves</b> 2019–2023 (9 materials, USGS), <b>Refined</b> 2019–2024 (7 materials). You can now watch a stage’s country mix move over time — e.g. cobalt’s Indonesia climbing 0→7% at the mine, or China’s refined-copper share rising 40→47%.</li>
+      <li><b>New refined source — BGS World Mineral Statistics.</b> The refined layer was an IEA <i>projection</i> or a single EU-CRM year; for the 7 metals BGS reports (copper, cobalt, nickel, alumina, magnesium, germanium, arsenic) it is now <b>authoritative annual actuals by country</b>, pulled from the free BGS OGC API (<code>build_bgs_refined.py</code>, no key). Best-source-per-material: BGS where it has the data, IEA 2026 kept only for the battery minerals it doesn’t (lithium, graphite, rare-earth magnets), USGS/EU-CRM elsewhere — each profile shows the source it used.</li>
+      <li><b>Data completeness.</b> Mine and reserve layers filled to the full USGS country breakdowns (no more overclaiming “rest of world”); refined breakdowns filled for 16 materials; two lead-country corrections surfaced — nickel’s top refiner is <b>Indonesia</b> (not China) and arsenic’s is <b>Peru</b> (not China).</li>
+      <li><b>By-product seam made explicit.</b> Six materials now flag their parent metal — gallium←aluminium, germanium←zinc, hafnium←zirconium, arsenic←copper, cobalt←copper &amp; nickel, helium←natural gas — with the key point stated: their supply tracks the <i>host</i> metal’s market, not their own price, so it can’t respond to their own shortage. The shared HS-code caveat (gallium/germanium/hafnium under 811292) is now a prominent flag on their trade sections.</li>
+    </ul>
+  </div>
+  <div class="entry">
     <div class="date">10 August 2026 <span class="tag">data refresh</span></div>
     <h3>Full USGS country breakdowns replace the hand-picked top-4 &mdash; and the flagship moves 19&nbsp;&rarr;&nbsp;18</h3>
     <ul>
