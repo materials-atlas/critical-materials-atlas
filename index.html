@@ -311,7 +311,7 @@
   <h1>Where do critical raw materials really come from?</h1>
   <p class="deck">For any material — or any country — see where it is <b>mined</b>, where it is <b>refined</b>, and the <b>real global bilateral trade</b>, both directions. The chokepoint a customs ledger shows is usually the refiner, not the source.</p>
   <p class="meta-links"><a href="methodology.html">Methods &amp; validation</a> · reconciliation engine: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
-  <p class="byline">Independent research under the <b>materials-atlas</b> handle · public data only (USGS · IEA · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
+  <p class="byline">Independent research under the <b>materials-atlas</b> handle · public data only (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
 </div></section>
 
 <section class="stats"><div class="wrap">
@@ -442,7 +442,7 @@
     <h4>Sources</h4>
     USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank
   </div>
-  <div class="fineprint">Reconciled bilateral trade via CEPII BACI (Gaulier &amp; Zignago 2010); validated against official BACI — top-1 exporter 25/30, share error 3.5%. Mine production: USGS (approx.); refining: IEA (approx.). Figures are approximate and rounded; read each row as an overlay of distinct measures, not one observed pipeline. <span id="foot-stamp"></span></div>
+  <div class="fineprint">Reconciled bilateral trade via CEPII BACI (Gaulier &amp; Zignago 2010); validated against official BACI — top-1 exporter 25/30, share error 3.5%. Mine production: USGS &amp; BGS World Mineral Statistics (1970–2024 series); refining: best per material — BGS / IEA 2026 / EU CRM 2023 / USGS. Figures are approximate and rounded; read each row as an overlay of distinct measures, not one observed pipeline. <span id="foot-stamp"></span></div>
 </div></footer>
 
 
@@ -571,7 +571,7 @@ fetch('out/country_pages.json').then(r=>r.json()).then(a=>{ COUNTRY_PAGES=new Se
 fetch('out/risk.json').then(r=>r.json()).then(d=>{ (d.materials||[]).forEach(m=>RISK[m.label]=m); if(VIEW==='table'&&MATS.length) renderTable(); }).catch(()=>{});
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
-  $('#stamp').textContent="Trade: Comext through "+d.headlineYear+" (updated "+d.dataUpdated+") · mining: USGS (approx.) · "+MATS.length+" materials";
+  $('#stamp').textContent="Trade: reconciled BACI 2002–"+d.headlineYear+" + 2025 nowcast (updated "+d.dataUpdated+") · mine/refine: USGS · BGS · "+MATS.length+" materials";
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
   restoreURL();
   // reflect any restored deep-link state in the chrome before first paint
