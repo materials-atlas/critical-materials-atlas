@@ -38,8 +38,18 @@ def sector(code):
 CROSSWALK = {'copper': ('260300', '740311'), 'nickel': ('260400', '750210'), 'cobalt': ('260500', '282200'),
              'tungsten': ('261100', '810194'), 'titanium': ('261400', '810820'), 'antimony': ('261710', '811010'),
              'bauxite': ('260600', '281820')}
-ore_codes = {c: lab for lab, (c, _) in CROSSWALK.items()}
-ref_codes = {c: lab for lab, (_, c) in CROSSWALK.items()}
+# downstream extension: rare-earth midstream -> metal -> NdFeB magnet (HS 850511). This is where the
+# real value + Chinese capture live. NOTE: REE HS6 codes are aggregated/dirty (284690 is a catch-all),
+# so these three are ILLUSTRATIVE downstream nodes -- they show how far the magnet sits from anything
+# raw -- not a clean capability claim. See methodology memory on export-RCA vs. capability.
+DOWNSTREAM = {'284690': ('rare earths', 'refined', 'REE oxide'),
+              '280530': ('rare earths', 'refined', 'REE metal'),
+              '850511': ('magnet', 'magnet', 'NdFeB magnet')}
+# unified highlight table: code -> (material, role, display-label)
+HL = {}
+for _lab, (_o, _r) in CROSSWALK.items():
+    HL[_o] = (_lab, 'ore', _lab + ' ore'); HL[_r] = (_lab, 'refined', _lab + ' refined')
+HL.update(DOWNSTREAM)
 
 print(f'reading BACI HS17 {YEAR} …', flush=True)
 with zipfile.ZipFile(BACI_ZIP) as z:
@@ -57,7 +67,7 @@ products = list(M.columns)
 world_val = M.values.sum(0)                                   # world exports per product
 
 # --- restrict to top-N products by world value (keep all our material codes) ---
-must = set(ore_codes) | set(ref_codes)
+must = set(HL)
 order = np.argsort(-world_val)
 keep = [i for i in order[:TOPN]]
 kset = set(products[i] for i in keep)
@@ -92,12 +102,14 @@ nodes = []
 maxv = world_val[keep].max()
 for a, c in enumerate(codes):
     s, col = sector(c)
-    mat = ore_codes.get(c) or ref_codes.get(c)
-    role = 'ore' if c in ore_codes else ('refined' if c in ref_codes else None)
+    hl = HL.get(c)
+    mat = hl[0] if hl else None
+    role = hl[1] if hl else None
+    lab = hl[2] if hl else None
     nodes.append({'id': a, 'code': c, 'name': short(name.get(c, c)), 'sector': s, 'color': col,
                   'val': float(world_val[keep][a]),
                   'r': float(4 + 22 * np.sqrt(world_val[keep][a] / maxv)),
-                  'mat': mat, 'role': role})
+                  'mat': mat, 'role': role, 'lab': lab})
 links = [{'source': a, 'target': b} for (a, b) in edges]
 sectors = sorted({(nd['sector'], nd['color']) for nd in nodes}, key=lambda x: x[0])
 print(f'network: {n} nodes, {len(links)} edges; {sum(1 for nd in nodes if nd["role"])} material nodes', flush=True)
@@ -154,7 +166,7 @@ HTML = '''<!doctype html><html><head><meta charset="utf-8"><title>The Product Sp
  #readout b{color:#fff} #readout .mat{color:#e0a24a;font-weight:700}
 </style></head><body>
 <div id="hd"><a id="back" href="index.html">&lsaquo; Critical Materials Atlas</a><h1>The Product Space — where critical materials sit</h1>
-<p>Every dot is a product in world trade; two products are linked when the same countries tend to be good at exporting both. Sized by world exports, coloured by sector. <b style="color:#e0a24a">Amber◆</b> = the ORE of a critical material, <b style="color:#9a7cff">violet◆</b> = its REFINED form — see how far apart the two sit. Scroll to zoom, drag to pan.</p></div>
+<p>Every dot is a product in world trade; two products are linked when the same countries tend to be good at exporting both. Sized by world exports, coloured by sector. <b style="color:#e0a24a">Amber◆</b> = the ORE of a critical material, <b style="color:#9a7cff">violet◆</b> = its REFINED form, <b style="color:#35c39a">green◆</b> = the DOWNSTREAM NdFeB magnet — see how the chain climbs from the raw periphery into the complex core. Scroll to zoom, drag to pan.</p></div>
 <div id="ctrl"><label>Light up one country&rsquo;s strengths</label>
 <select id="csel"></select><div id="readout"></div></div>
 <div id="legend"></div><div id="hint">drag a node · scroll to zoom</div><div id="tip"></div>
@@ -172,17 +184,17 @@ const link=g.append("g").attr("stroke","#2a3038").attr("stroke-width",0.6).selec
   .data(D.links).join("line");
 const node=g.append("g").selectAll("circle").data(D.nodes).join("circle")
   .attr("r",d=>d.role?Math.max(d.r,9):d.r)
-  .attr("fill",d=>d.role==='ore'?'#e0a24a':d.role==='refined'?'#9a7cff':d.color)
+  .attr("fill",d=>d.role==='ore'?'#e0a24a':d.role==='refined'?'#9a7cff':d.role==='magnet'?'#35c39a':d.color)
   .attr("stroke",d=>d.role?'#fff':'#0f1216').attr("stroke-width",d=>d.role?2.2:0.7)
   .style("cursor","pointer")
   .call(d3.drag().on("start",ds).on("drag",dd).on("end",de));
 const mats=D.nodes.filter(d=>d.role);
 const mlab=g.append("g").selectAll("text").data(mats).join("text")
   .attr("class","matlabel").attr("text-anchor","middle")
-  .text(d=>d.mat+(d.role==='ore'?' ore':' refined'));
+  .text(d=>d.lab);
 const tip=d3.select("#tip");
 node.on("mousemove",(e,d)=>{tip.style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+12)+"px")
-    .html(`<b>${d.name}</b><br><span class="s">HS ${d.code} · ${d.sector}${d.mat?' · '+d.mat.toUpperCase()+' '+d.role:''}</span>`);})
+    .html(`<b>${d.name}</b><br><span class="s">HS ${d.code} · ${d.sector}${d.lab?' · '+d.lab.toUpperCase():''}</span>`);})
   .on("mouseleave",()=>tip.style("opacity",0));
 const sim=d3.forceSimulation(D.nodes).randomSource(lcg)
   .force("link",d3.forceLink(D.links).id(d=>d.id).distance(16).strength(0.35))
@@ -212,7 +224,7 @@ d3.select("#legend").selectAll("span").data(D.sectors).join("span")
   .html(s=>`<i style="background:${s.color}"></i>${s.name}`);
 
 // --- country portrait: light up the products a country exports competitively (RCA>=1), dim the rest ---
-function baseFill(d){return d.role==='ore'?'#e0a24a':d.role==='refined'?'#9a7cff':d.color;}
+function baseFill(d){return d.role==='ore'?'#e0a24a':d.role==='refined'?'#9a7cff':d.role==='magnet'?'#35c39a':d.color;}
 const sel=d3.select("#csel"), readout=d3.select("#readout");
 sel.append("option").attr("value","").text("—  the whole world  —");
 sel.selectAll("option.c").data(D.countries).join("option").attr("class","c")
@@ -229,10 +241,12 @@ function applyCountry(iso){
   const c=D.countries.find(x=>x.iso===iso);
   const lit=D.nodes.filter(d=>d.role&&set.has(d.id));
   const ores=lit.filter(d=>d.role==='ore').map(d=>d.mat);
-  const refs=lit.filter(d=>d.role==='refined').map(d=>d.mat);
+  const refs=lit.filter(d=>d.role==='refined').map(d=>d.lab);
+  const mags=lit.filter(d=>d.role==='magnet').map(d=>d.lab);
   readout.html(`<b>${c.name}</b> is competitive in <b>${c.n}</b> of ${D.nodes.length} products.`+
-    `<br><span class="mat">Ore:</span> ${ores.length?ores.join(", "):"—"}`+
-    `<br><span class="mat">Refined:</span> ${refs.length?refs.join(", "):"—"}`);
+    `<br><span class="mat" style="color:#e0a24a">Ore:</span> ${ores.length?ores.join(", "):"—"}`+
+    `<br><span class="mat" style="color:#9a7cff">Refined:</span> ${refs.length?refs.join(", "):"—"}`+
+    `<br><span class="mat" style="color:#35c39a">Magnet:</span> ${mags.length?mags.join(", "):"—"}`);
 }
 sel.on("change",function(){applyCountry(this.value);});
 </script></body></html>'''
