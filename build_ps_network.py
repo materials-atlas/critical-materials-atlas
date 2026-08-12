@@ -111,6 +111,17 @@ for a, c in enumerate(codes):
                   'r': float(4 + 22 * np.sqrt(world_val[keep][a] / maxv)),
                   'mat': mat, 'role': role, 'lab': lab})
 links = [{'source': a, 'target': b} for (a, b) in edges]
+# attach the capability map (who actually refines) to each highlighted node, for the tooltip
+try:
+    cap = json.load(open(os.path.join(ROOT, 'out', 'capability.json'), encoding='utf-8'))
+except Exception:
+    cap = {}
+capkey = {'magnet': 'magnet (NdFeB)'}
+for nd in nodes:
+    if not nd.get('role'):
+        continue
+    rows = cap.get(capkey.get(nd['mat'], nd['mat']), [])
+    nd['refiners'] = [{'n': r['name'], 'cap': r['cap'], 't': r['type']} for r in rows[:3] if r['cap'] >= 0.03]
 sectors = sorted({(nd['sector'], nd['color']) for nd in nodes}, key=lambda x: x[0])
 print(f'network: {n} nodes, {len(links)} edges; {sum(1 for nd in nodes if nd["role"])} material nodes', flush=True)
 
@@ -194,7 +205,8 @@ const mlab=g.append("g").selectAll("text").data(mats).join("text")
   .text(d=>d.lab);
 const tip=d3.select("#tip");
 node.on("mousemove",(e,d)=>{tip.style("opacity",1).style("left",(e.clientX+14)+"px").style("top",(e.clientY+12)+"px")
-    .html(`<b>${d.name}</b><br><span class="s">HS ${d.code} · ${d.sector}${d.lab?' · '+d.lab.toUpperCase():''}</span>`);})
+    .html(`<b>${d.name}</b><br><span class="s">HS ${d.code} · ${d.sector}${d.lab?' · '+d.lab.toUpperCase():''}</span>`
+      +(d.refiners&&d.refiners.length?`<br><span class="s">actually refined by: ${d.refiners.map(r=>r.n+' '+r.cap.toFixed(2)).join(' · ')}</span>`:''));})
   .on("mouseleave",()=>tip.style("opacity",0));
 const sim=d3.forceSimulation(D.nodes).randomSource(lcg)
   .force("link",d3.forceLink(D.links).id(d=>d.id).distance(16).strength(0.35))
