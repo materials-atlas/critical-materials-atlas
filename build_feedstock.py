@@ -40,13 +40,37 @@ CROSSWALK = {
     'manganese': (['260200'], ['811100', '720211', '720219', '720230']),  # Mn metal + ferro/silico-Mn
 }
 MAGNET_UP, MAGNET_DOWN = ['280530', '284690'], ['850511']    # REE metal + oxide -> NdFeB magnet
-CODES = sorted(set([c for (up, dn) in CROSSWALK.values() for c in up + dn] + MAGNET_UP + MAGNET_DOWN))
 
 cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 cur_ref = {m['label']: {x['c']: x['v'] for x in (m.get('refined') or [])} for m in d['materials']}
 cur_mine = {m['label']: {x['c']: x['v'] for x in (m.get('mined') or [])} for m in d['materials']}
+
+def hs6(t):
+    c = ''.join(ch for ch in t[t.find('(') + 1:t.find(')')] if ch.isdigit()); return c[:6]
+# full config: every atlas material -> (ore_codes, refined_codes). The 10 clean pairs get ore baskets
+# (full feedstock typing); magnets keep the dedicated 'magnet (NdFeB)' stage; the rest get only their
+# traded HS6 (no ore side -> the capability TYPE falls back to physical mine-vs-refine).
+MATCFG = {}
+for m in d['materials']:
+    lab = m['label']
+    if lab in CROSSWALK:
+        MATCFG[lab] = CROSSWALK[lab]
+    elif lab == 'magnets':
+        continue                                   # handled below as the 'magnet (NdFeB)' stage
+    else:
+        MATCFG[lab] = ([], [hs6(m['title'])])
+CODES = sorted(set([c for (up, dn) in MATCFG.values() for c in up + dn] + MAGNET_UP + MAGNET_DOWN))
+
+def phys_typ(mine_pct, ref_pct):                   # physical typing for materials with no ore pair
+    if ref_pct < 3:
+        return 'raw exporter' if mine_pct >= 8 else 'minor'
+    if ref_pct >= 2 * max(mine_pct, 1):
+        return 'import-fed refiner'
+    if mine_pct >= 10 and ref_pct >= 10:
+        return 'integrated (mine+refine)'
+    return 'mine-to-metal refiner'
 
 
 def classify(cap, phys_ref, phys_mine, basis, feed_imp, ore_share, magnet=False):
@@ -93,7 +117,10 @@ def stage_rows(exp, imp, up_codes, down_codes, phys_ref_d, phys_mine_d, magnet=F
         elif phys_ref > 2 * trade_score + 0.02:     basis = 'physical (domestic-absorbing)'
         elif trade_score > 0:                       basis = 'trade'
         else:                                       basis = '-'
-        typ = classify(cap, phys_ref, phys_mine, basis, feed_imp, ore_share, magnet)
+        if magnet or up_codes:                          # ore side present -> trade feedstock typing
+            typ = classify(cap, phys_ref, phys_mine, basis, feed_imp, ore_share, magnet)
+        else:                                            # no ore pair -> type from physical mine vs refine
+            typ = phys_typ(phys_mine * 100, phys_ref * 100)
         if typ == 'minor':
             continue
         rows.append({'iso': iso, 'name': num2name.get(int(c), iso), 'cap': round(cap, 3), 'basis': basis,
@@ -113,7 +140,7 @@ def compute_year(year):
     raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
     exp = raw.groupby(['i', 'k']).v.sum(); imp = raw.groupby(['j', 'k']).v.sum()
     out = {}
-    for lab, (ore, ref) in CROSSWALK.items():
+    for lab, (ore, ref) in MATCFG.items():
         out[lab] = stage_rows(exp, imp, ore, ref, cur_ref.get(lab), cur_mine.get(lab))
     out['magnet (NdFeB)'] = stage_rows(exp, imp, MAGNET_UP, MAGNET_DOWN, None, None, magnet=True)
     return out

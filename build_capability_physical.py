@@ -31,8 +31,8 @@ out = {}
 for m in d['materials']:
     mine = {x['c']: x['v'] for x in (m.get('mined') or [])}
     ref = {x['c']: x['v'] for x in (m.get('refined') or [])}
-    if not ref:
-        continue
+    if not mine and not ref:
+        continue                              # nothing to show at all
     countries = sorted(set(mine) | set(ref), key=lambda c: -max(mine.get(c, 0), ref.get(c, 0)))
     rows = []
     for c in countries:

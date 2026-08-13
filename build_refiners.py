@@ -30,13 +30,28 @@ if os.path.exists(_iea_path):
 _eucrm_path = os.path.join(ROOT, 'out', 'eucrm.json')
 EUCRM = json.load(open(_eucrm_path, encoding='utf-8'))['materials'] if os.path.exists(_eucrm_path) else {}
 
-STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400', '750210'),
-          ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
-          ('titanium', 'Titanium', '261400', '810820'), ('antimony', 'Antimony', '261710', '811010'),
-          ('bauxite', 'Bauxite → alumina', '260600', '281820'),
-          ('tantalum', 'Tantalum', '261590', '810320'), ('niobium', 'Niobium', '261590', '720293'),
-          ('manganese', 'Manganese', '260200', '8111/7202'),
-          ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
+# display crosswalk for the traceable ore-pair materials (shown first); everyone else gets its traded code
+_CW = {'copper': ('260300', '740311'), 'nickel': ('260400', '750210'), 'cobalt': ('260500', '282200'),
+       'tungsten': ('261100', '810194'), 'titanium': ('261400', '810820'), 'antimony': ('261710', '811010'),
+       'bauxite': ('260600', '281820'), 'tantalum': ('261590', '810320'), 'niobium': ('261590', '720293'),
+       'manganese': ('260200', '8111/7202'), 'magnets': ('2805.30/2846.90', '850511')}
+_ORDER1 = ['copper', 'nickel', 'cobalt', 'tungsten', 'titanium', 'antimony', 'bauxite',
+           'tantalum', 'niobium', 'manganese', 'magnets']
+_d2 = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
+_bylab = {m['label']: m for m in _d2['materials']}
+def _nm(m):
+    t = m['title']; return t[:t.find('(')].strip() if '(' in t else t
+def _hs6(m):
+    t = m['title']; c = ''.join(ch for ch in t[t.find('(') + 1:t.find(')')] if ch.isdigit()); return c[:6]
+_rest = sorted((m['label'] for m in _d2['materials'] if m['label'] not in _ORDER1), key=lambda L: _nm(_bylab[L]))
+STAGES = []
+for lab in _ORDER1 + _rest:
+    m = _bylab.get(lab)
+    if not m:
+        continue
+    key = 'magnet (NdFeB)' if lab == 'magnets' else lab
+    ore, ref = _CW.get(lab, ('', _hs6(m)))
+    STAGES.append((key, _nm(m), ore, ref))
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
                    'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS, 'iea': IEA, 'eucrm': EUCRM,
@@ -131,6 +146,8 @@ HTML = '''<!doctype html>
   <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against two authoritative sources: the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; refining <i>capacity</i> by country for the energy-transition minerals &mdash; and the <b>EU Critical Raw Materials 2023 study</b> (European Commission), which gives the top global supplier and bottleneck stage (extraction vs processing) for ~31 materials, including the specialty metals where trade and USGS/BGS fall silent (tungsten, gallium, germanium, PGMs). Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
   </details></div>
 
+  <h2 style="margin:1.6rem 0 .3rem;font-size:1.18rem">Capability over time — all 32 materials</h2>
+  <p class="note" style="margin-top:0">Trade-based capability score with the year slider. The first ~11 (a clean ore&rarr;refined HS pair) carry the full feedstock fingerprint &mdash; <i>import-fed</i> vs <i>mine-to-metal</i>; the rest are typed from physical mine-vs-refine. Below, the same 32 get a plain mine-vs-refine read, then the chokepoint ranking and the supply-shock test.</p>
   <div class="controls">
     <span class="yr" id="yr"></span>
     <input type="range" id="slider" min="0" step="1">
@@ -145,12 +162,12 @@ HTML = '''<!doctype html>
   <div class="capgrid" id="grid"></div>
 
   <h2 style="margin:2rem 0 .3rem;font-size:1.18rem">Every critical material — who mines it vs who refines it</h2>
-  <p class="note" style="margin-top:0">The 7 cards above trace the full ore&rarr;refined <i>trade</i> chain. But the capability <i>type</i> can be read for <b>all 29</b> materials straight from physical shares: a country that refines far more than it mines is <b>import-fed</b>; one that does both is <b>integrated</b>; one that digs but doesn&rsquo;t refine is a <b>raw exporter</b>. Each row shows the country&rsquo;s <b>mine</b> share (grey) above its <b>refine</b> share (teal) &mdash; the mine&rarr;refine handoff, per material.</p>
+  <p class="note" style="margin-top:0">The cards above score capability from <i>trade</i>, with the full ore&rarr;refined feedstock fingerprint where a clean HS pair exists (~11 materials) and a physical-derived type otherwise. This second grid gives the same <b>all 32</b> materials the plainest read of all &mdash; each country&rsquo;s <b>mine</b> share (grey) above its <b>refine</b> share (teal), the mine&rarr;refine handoff itself: a country that refines far more than it mines is <b>import-fed</b>; one that does both is <b>integrated</b>; one that digs but doesn&rsquo;t refine is a <b>raw exporter</b>.</p>
   <div class="pdual"><span><i style="background:#9aa6ad"></i> mine share</span><span><i style="background:#0e8f83"></i> refine share</span></div>
   <div class="pgrid" id="pgrid"></div>
 
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">All critical materials, by refining chokepoint</h2>
-  <p class="note" style="margin-top:0"><b id="ck-head"></b> The deep capability bars above need a clean ore&rarr;refined code pair, which only 7 of 32 materials have. Refining <i>concentration</i> needs only refined-output shares, so it spans all 29 that report them. HHI over BGS/USGS refined shares (magnets: HS 850511 exports). Colour = chokepoint band.</p>
+  <p class="note" style="margin-top:0"><b id="ck-head"></b> The full ore&rarr;refined <i>trade</i> fingerprint (import-fed vs mine-to-metal) needs a clean HS pair, which ~11 of 32 materials have; the rest are typed from physical shares. Refining <i>concentration</i> needs only refined-output shares, so it spans all 29 that report them. HHI over BGS/USGS refined shares (magnets: HS 850511 exports). Colour = chokepoint band.</p>
   <div class="choke-all" id="ranking"></div>
 
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">The fallback test — if the top refiner stopped supplying</h2>
@@ -185,7 +202,7 @@ function render(){
       choke=`<div class="choke"><span class="pill pill-${ex.band}">${ex.band} chokepoint</span>`+
         `<span>HHI <b>${ex.hhi.toFixed(2)}</b> · ${flag(ex.top)}<b>${ex.top}</b> ${ex.top_share.toFixed(0)}%`+
         `${rel?` · reliant: ${rel}`:''}</span></div>`; }
-    card.innerHTML=`<h3>${st.name}<span class="hs">${st.ore} → ${st.ref}</span></h3><p class="lead">${lead}</p>${choke}`;
+    card.innerHTML=`<h3>${st.name}<span class="hs">${st.ore?st.ore+' → ':''}${st.ref}</span></h3><p class="lead">${lead}</p>${choke}`;
     for(const r of shown){
       const c=cls(r.type); const w=Math.max(3,Math.min(100,r.cap/SCALE*100));
       const row=document.createElement('div'); row.className='row';
