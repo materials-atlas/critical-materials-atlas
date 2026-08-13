@@ -30,6 +30,8 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
           ('titanium', 'Titanium', '261400', '810820'), ('antimony', 'Antimony', '261710', '811010'),
           ('bauxite', 'Bauxite → alumina', '260600', '281820'),
+          ('tantalum', 'Tantalum', '261590', '810320'), ('niobium', 'Niobium', '261590', '720293'),
+          ('manganese', 'Manganese', '260200', '8111/7202'),
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,

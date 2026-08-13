@@ -25,11 +25,22 @@ LATEST = 2023                      # most recent complete year -> capability.jso
 EPS = 1e-9
 REF_FLOOR, ORE_FLOOR = 0.03, 0.03
 
-CROSSWALK = {'copper': ('260300', '740311'), 'nickel': ('260400', '750210'), 'cobalt': ('260500', '282200'),
-             'tungsten': ('261100', '810194'), 'titanium': ('261400', '810820'), 'antimony': ('261710', '811010'),
-             'bauxite': ('260600', '281820')}
-MAGNET_UP, MAGNET_DOWN = ['280530', '284690'], '850511'      # REE metal + oxide -> NdFeB magnet
-CODES = sorted(set([c for pair in CROSSWALK.values() for c in pair] + MAGNET_UP + [MAGNET_DOWN]))
+# ore-basket -> refined-basket. Baskets (from the atlas refining crosswalk) capture the dominant ferro-
+# alloy / intermediate routes so the refined stage reflects the form the metal is actually traded in.
+CROSSWALK = {
+    'copper':    (['260300'], ['740311']),                              # refined cathode
+    'nickel':    (['260400'], ['750210', '720260']),                   # unwrought + ferronickel
+    'cobalt':    (['260500'], ['282200']),                             # oxides/hydroxides (chemical refine)
+    'tungsten':  (['261100'], ['810194', '284180']),                   # unwrought W + APT
+    'titanium':  (['261400'], ['810820']),                             # unwrought titanium
+    'antimony':  (['261710'], ['811010']),                             # unwrought antimony
+    'bauxite':   (['260600'], ['281820']),                             # alumina (first-refined)
+    'tantalum':  (['261590'], ['810320']),                             # unwrought tantalum
+    'niobium':   (['261590'], ['720293']),                             # ferro-niobium
+    'manganese': (['260200'], ['811100', '720211', '720219', '720230']),  # Mn metal + ferro/silico-Mn
+}
+MAGNET_UP, MAGNET_DOWN = ['280530', '284690'], ['850511']    # REE metal + oxide -> NdFeB magnet
+CODES = sorted(set([c for (up, dn) in CROSSWALK.values() for c in up + dn] + MAGNET_UP + MAGNET_DOWN))
 
 cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
@@ -54,19 +65,21 @@ def classify(cap, phys_ref, phys_mine, basis, feed_imp, ore_share, magnet=False)
     return 'minor'
 
 
-def stage_rows(exp, imp, up_codes, down_code, phys_ref_d, phys_mine_d, magnet=False):
+def stage_rows(exp, imp, up_codes, down_codes, phys_ref_d, phys_mine_d, magnet=False):
     def fexp(c, code): return float(exp.get((c, code), 0.0))
     def fimp(c, code): return float(imp.get((c, code), 0.0))
+    def sexp(c, codes): return sum(fexp(c, k) for k in codes)
+    def simp(c, codes): return sum(fimp(c, k) for k in codes)
     countries = sorted({c for (c, _) in exp.index} | {c for (c, _) in imp.index})
-    world_ref = sum(fexp(c, down_code) for c in countries) + EPS
-    world_ore = sum(sum(fexp(c, u) for u in up_codes) for c in countries) + EPS
+    world_ref = sum(sexp(c, down_codes) for c in countries) + EPS
+    world_ore = sum(sexp(c, up_codes) for c in countries) + EPS
     rows = []
     for c in countries:
         iso = num2iso.get(int(c)) if str(c).lstrip('-').isdigit() else None
         if not isinstance(iso, str):
             continue
-        oi = sum(fimp(c, u) for u in up_codes); oe = sum(fexp(c, u) for u in up_codes)
-        di, de = fimp(c, down_code), fexp(c, down_code)
+        oi = simp(c, up_codes); oe = sexp(c, up_codes)
+        di, de = simp(c, down_codes), sexp(c, down_codes)
         phys_ref = (phys_ref_d or {}).get(iso, 0.0) / 100.0
         phys_mine = (phys_mine_d or {}).get(iso, 0.0) / 100.0
         if (oi + oe + di + de) < 200 and phys_ref == 0:
@@ -101,7 +114,7 @@ def compute_year(year):
     exp = raw.groupby(['i', 'k']).v.sum(); imp = raw.groupby(['j', 'k']).v.sum()
     out = {}
     for lab, (ore, ref) in CROSSWALK.items():
-        out[lab] = stage_rows(exp, imp, [ore], ref, cur_ref.get(lab), cur_mine.get(lab))
+        out[lab] = stage_rows(exp, imp, ore, ref, cur_ref.get(lab), cur_mine.get(lab))
     out['magnet (NdFeB)'] = stage_rows(exp, imp, MAGNET_UP, MAGNET_DOWN, None, None, magnet=True)
     return out
 
