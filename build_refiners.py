@@ -20,6 +20,7 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
+                   'ranking': EXP['ranking'],
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -62,6 +63,12 @@ HTML = '''<!doctype html>
  .caplegend span{display:flex;align-items:center;gap:6px} .caplegend i{width:12px;height:12px;border-radius:3px;display:inline-block}
  .cand{font-size:.72rem;color:var(--mut);margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--line)}
  .cand span{color:var(--faint)}
+ .choke-all{margin:1rem 0 .5rem}
+ .crow{display:flex;align-items:center;gap:9px;margin:3px 0;font-size:.8rem}
+ .crow .cm{width:172px;flex:0 0 172px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .crow .ct{flex:1;height:15px;background:var(--bg-soft);border-radius:4px;overflow:hidden}
+ .crow .cfill{height:100%;border-radius:4px} .crow .cv{width:70px;flex:0 0 70px;font-size:.72rem;color:var(--ink-soft)}
+ .cb-extreme{background:#b4291f} .cb-high{background:#d1701a} .cb-moderate{background:#c79a1a} .cb-diffuse{background:#8a94a0}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -94,6 +101,10 @@ HTML = '''<!doctype html>
   </div>
 
   <div class="capgrid" id="grid"></div>
+
+  <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">All critical materials, by refining chokepoint</h2>
+  <p class="note" style="margin-top:0"><b id="ck-head"></b> The deep capability bars above need a clean ore&rarr;refined code pair, which only 7 of 32 materials have. Refining <i>concentration</i> needs only refined-output shares, so it spans all 29 that report them. HHI over BGS/USGS refined shares (magnets: HS 850511 exports). Colour = chokepoint band.</p>
+  <div class="choke-all" id="ranking"></div>
 
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
   <p class="note" style="color:var(--faint);font-size:.76rem">Method lineage: Hidalgo &amp; Hausmann product space / economic complexity; feedstock-signature capability mapping addresses the export-RCA-&ne;-capability critique (constrain with physical output; read the direction of transformation). Cf. the product-space paper on China&rsquo;s critical minerals (Frontiers Env. Sci. 2023) and the Fitness-Criticality algorithm (Valverde-Carbonell, Pietrobelli &amp; Men&eacute;ndez, Resources Policy 2024).</p>
@@ -144,6 +155,17 @@ function render(){
   }
 }
 S.addEventListener('input',render); render();
+// all-materials chokepoint ranking (latest year, static)
+const RK=document.getElementById('ranking'), CKH=document.getElementById('ck-head');
+const ext=D.ranking.filter(r=>r.band==='extreme').length, cn=D.ranking.filter(r=>r.top==='CN').length;
+CKH.textContent=`${ext} of ${D.ranking.length} are extreme chokepoints; China is the single largest refiner of ${cn} of them.`;
+for(const r of D.ranking){
+  const el=document.createElement('div'); el.className='crow';
+  el.innerHTML=`<span class="cm" title="${r.name}">${r.name}</span>`+
+    `<span class="ct"><span class="cfill cb-${r.band}" style="width:${Math.max(2,r.hhi*100)}%"></span></span>`+
+    `<span class="cv">${r.hhi.toFixed(2)} · ${flag(r.top).trim()} ${r.top_share.toFixed(0)}%</span>`;
+  RK.appendChild(el);
+}
 </script>
 </body></html>'''
 
