@@ -135,6 +135,42 @@ json.dump(mine_refine, open(os.path.join(ROOT, 'out', 'mine_refine.json'), 'w', 
 print('\n=== mine->refine distance (low phi = big product-space jump) ===')
 print('\n'.join(report))
 
+# ===================== OPPORTUNITY GAIN / complexity outlook (who is CLOSEST to entering a stage) =====
+# For each refined / magnet product: per-country DENSITY (feasibility = share of its capabilities that
+# already surround the target) and the product's OUTLOOK (avg PCI of its proximity neighbourhood = how
+# much complexity sits around entering it). Candidates = high density but not yet a competitive refiner
+# -> the realistic diversification bets. This is the density/opportunity-gain leg of the product space.
+TARGETS = {lab: ref for lab, (ore, ref) in CROSSWALK.items()}
+TARGETS['magnet (NdFeB)'] = '850511'
+opportunity = {}
+for lab, code in TARGETS.items():
+    if code not in pidx:
+        continue
+    j = pidx[code]
+    phi_j = co[:, j] / np.maximum(kp, kp[j]); phi_j[j] = 0.0
+    denom = phi_j.sum()
+    if denom <= 0:
+        continue
+    dens = (Mb @ phi_j) / denom                                     # per country (idx_iso order)
+    pci_vec = np.array([PCI.get(products[i], 0.0) for i in range(len(products))])
+    outlook = float((phi_j * pci_vec).sum() / denom)                # neighbourhood complexity
+    refiners = cur_ref.get(lab, {})
+    already = Mb[:, j] > 0
+    cand = []
+    for i, c in enumerate(idx_iso):
+        if already[i] or refiners.get(c, 0) >= 3:                   # skip current competitive refiners
+            continue
+        cand.append({'c': c, 'density': round(float(dens[i]), 3), 'eci': round(float(ECI.get(c, 0.0)), 2)})
+    cand.sort(key=lambda r: -r['density'])
+    opportunity[lab] = {'code': code, 'pci': round(float(PCI.get(code, 0.0)), 2),
+                        'outlook': round(outlook, 2), 'candidates': cand[:8]}
+json.dump(opportunity, open(os.path.join(ROOT, 'out', 'opportunity.json'), 'w', encoding='utf-8'),
+          separators=(',', ':'), ensure_ascii=False)
+print('\n=== opportunity gain: closest NON-refiners to entering each stage (density) ===')
+for lab, o in opportunity.items():
+    tops = ', '.join(f"{r['c']} {r['density']:.2f}" for r in o['candidates'][:5])
+    print(f"  {lab:16} PCI {o['pci']:+.2f} outlook {o['outlook']:+.2f} | candidates: {tops}")
+
 # --- validation: extremes must look sane ---
 top_c = sorted(ECI, key=lambda c: -ECI[c])[:8]; bot_c = sorted(ECI, key=lambda c: ECI[c])[:8]
 top_p = sorted(PCI, key=lambda p: -PCI[p])[:6]; bot_p = sorted(PCI, key=lambda p: PCI[p])[:6]

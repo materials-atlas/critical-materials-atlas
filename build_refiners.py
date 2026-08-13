@@ -10,6 +10,8 @@ with a 2018-2024 year slider showing capability migrating. Includes the downstre
 import os, json
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 CAP = json.load(open(os.path.join(ROOT, 'out', 'capability_years.json'), encoding='utf-8'))
+EXP = json.load(open(os.path.join(ROOT, 'out', 'exposure.json'), encoding='utf-8'))
+OPP = json.load(open(os.path.join(ROOT, 'out', 'opportunity.json'), encoding='utf-8'))
 
 STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400', '750210'),
           ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
@@ -17,6 +19,7 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('bauxite', 'Bauxite → alumina', '260600', '281820'),
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
+                   'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -35,8 +38,13 @@ HTML = '''<!doctype html>
  .capcard{border:1px solid var(--line);border-radius:12px;padding:14px 16px 16px;background:var(--bg)}
  .capcard h3{font-size:1rem;margin:0 0 2px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
  .capcard h3 .hs{font-size:.66rem;color:var(--faint);font-weight:500;letter-spacing:.2px}
- .capcard .lead{font-size:.76rem;color:var(--mut);margin:0 0 10px;min-height:2.1em}
+ .capcard .lead{font-size:.76rem;color:var(--mut);margin:0 0 8px;min-height:2.1em}
  .capcard .lead b{color:var(--ink)}
+ .choke{display:flex;align-items:center;gap:7px;font-size:.72rem;color:var(--mut);margin:0 0 9px;flex-wrap:wrap}
+ .choke .pill{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;
+   padding:2px 7px;border-radius:20px;color:#fff}
+ .pill-extreme{background:#b4291f} .pill-high{background:#d1701a} .pill-moderate{background:#c79a1a} .pill-diffuse{background:#8a94a0}
+ .choke b{color:var(--ink-soft)}
  .row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:.8rem}
  .row .who{width:118px;flex:0 0 118px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .row .track{flex:1;height:15px;background:var(--bg-soft);border-radius:4px;position:relative;overflow:hidden}
@@ -52,6 +60,8 @@ HTML = '''<!doctype html>
  .controls .hint{font-size:.74rem;color:var(--mut)}
  .caplegend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:.78rem;color:var(--ink-soft);margin:.2rem 0 0}
  .caplegend span{display:flex;align-items:center;gap:6px} .caplegend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+ .cand{font-size:.72rem;color:var(--mut);margin:9px 0 0;padding-top:8px;border-top:1px dashed var(--line)}
+ .cand span{color:var(--faint)}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -108,7 +118,12 @@ function render(){
     if(top){ const basis = top.basis==='both'?'trade + physical confirm it':top.basis.startsWith('physical')?'<b>only physical data sees it</b> (absorbs output)':'trade signature';
       lead=`Top: <b>${flag(top.iso)}${top.name}</b> &mdash; ${basis}.`; }
     else lead='No country clears the capability floor.';
-    card.innerHTML=`<h3>${st.name}<span class="hs">${st.ore} → ${st.ref}</span></h3><p class="lead">${lead}</p>`;
+    const ex=D.exposure[st.key]; let choke='';
+    if(ex){ const rel=(ex.reliant||[]).slice(0,4).map(r=>flag(r.iso).trim()).join(' ');
+      choke=`<div class="choke"><span class="pill pill-${ex.band}">${ex.band} chokepoint</span>`+
+        `<span>HHI <b>${ex.hhi.toFixed(2)}</b> · ${flag(ex.top)}<b>${ex.top}</b> ${ex.top_share.toFixed(0)}%`+
+        `${rel?` · reliant: ${rel}`:''}</span></div>`; }
+    card.innerHTML=`<h3>${st.name}<span class="hs">${st.ore} → ${st.ref}</span></h3><p class="lead">${lead}</p>${choke}`;
     for(const r of shown){
       const c=cls(r.type); const w=Math.max(3,Math.min(100,r.cap/SCALE*100));
       const row=document.createElement('div'); row.className='row';
@@ -117,6 +132,13 @@ function render(){
         `<span class="val">${r.cap.toFixed(2)}</span>`+
         `<span class="tag ct-${c}">${subtype(r.type)}</span>`;
       card.appendChild(row);
+    }
+    const op=D.opportunity[st.key];
+    if(op&&op.candidates&&op.candidates.length){
+      const cands=op.candidates.slice(0,5).map(c=>flag(c.c).trim()).join(' ');
+      const f=document.createElement('p'); f.className='cand';
+      f.innerHTML=`<span>closest non-refiners (product-space density → could build it):</span> ${cands}`;
+      card.appendChild(f);
     }
     GRID.appendChild(card);
   }
