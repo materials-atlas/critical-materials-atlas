@@ -13,6 +13,7 @@ CAP = json.load(open(os.path.join(ROOT, 'out', 'capability_years.json'), encodin
 EXP = json.load(open(os.path.join(ROOT, 'out', 'exposure.json'), encoding='utf-8'))
 OPP = json.load(open(os.path.join(ROOT, 'out', 'opportunity.json'), encoding='utf-8'))
 SCN = json.load(open(os.path.join(ROOT, 'out', 'scenario.json'), encoding='utf-8'))
+PHYS = json.load(open(os.path.join(ROOT, 'out', 'capability_physical.json'), encoding='utf-8'))
 
 STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400', '750210'),
           ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
@@ -21,7 +22,7 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
-                   'ranking': EXP['ranking'], 'scenario': SCN['materials'],
+                   'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS,
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -77,6 +78,19 @@ HTML = '''<!doctype html>
  .scn-row .sl{color:var(--ink-soft)} .scn-row .sf{color:var(--mut)}
  .spofbadge{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:#b4291f;padding:2px 8px;border-radius:20px;white-space:nowrap}
  @media(max-width:720px){.scn-row{grid-template-columns:1fr;gap:2px}}
+ .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:1rem 0}
+ .pcard{border:1px solid var(--line);border-radius:11px;padding:12px 14px 13px;background:var(--bg)}
+ .pcard h3{font-size:.94rem;margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+ .pcard h3 .pl{font-size:.66rem;color:var(--mut);font-weight:500;white-space:nowrap}
+ .prow{display:grid;grid-template-columns:92px 1fr 86px;gap:8px;align-items:center;font-size:.73rem;margin:5px 0}
+ .prow .pw{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .pbars{display:flex;flex-direction:column;gap:2px}
+ .pbar{height:7px;border-radius:3px;background:var(--bg-soft);position:relative;overflow:hidden}
+ .pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:3px}
+ .pmine i{background:#9aa6ad} .pref i{background:#0e8f83}
+ .prow .pt{font-size:.63rem;color:var(--mut);text-align:right;line-height:1.15}
+ .pdual{font-size:.72rem;color:var(--mut);margin:.1rem 0 0;display:flex;gap:14px}
+ .pdual span{display:flex;align-items:center;gap:5px} .pdual i{width:11px;height:8px;border-radius:2px;display:inline-block}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -110,6 +124,11 @@ HTML = '''<!doctype html>
   </div>
 
   <div class="capgrid" id="grid"></div>
+
+  <h2 style="margin:2rem 0 .3rem;font-size:1.18rem">Every critical material — who mines it vs who refines it</h2>
+  <p class="note" style="margin-top:0">The 7 cards above trace the full ore&rarr;refined <i>trade</i> chain. But the capability <i>type</i> can be read for <b>all 29</b> materials straight from physical shares: a country that refines far more than it mines is <b>import-fed</b>; one that does both is <b>integrated</b>; one that digs but doesn&rsquo;t refine is a <b>raw exporter</b>. Each row shows the country&rsquo;s <b>mine</b> share (grey) above its <b>refine</b> share (teal) &mdash; the mine&rarr;refine handoff, per material.</p>
+  <div class="pdual"><span><i style="background:#9aa6ad"></i> mine share</span><span><i style="background:#0e8f83"></i> refine share</span></div>
+  <div class="pgrid" id="pgrid"></div>
 
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">All critical materials, by refining chokepoint</h2>
   <p class="note" style="margin-top:0"><b id="ck-head"></b> The deep capability bars above need a clean ore&rarr;refined code pair, which only 7 of 32 materials have. Refining <i>concentration</i> needs only refined-output shares, so it spans all 29 that report them. HHI over BGS/USGS refined shares (magnets: HS 850511 exports). Colour = chokepoint band.</p>
@@ -168,6 +187,21 @@ function render(){
   }
 }
 S.addEventListener('input',render); render();
+// physical mine-vs-refine capability cards (all 29 materials)
+const PG=document.getElementById('pgrid');
+const ptag={'integrated (mine+refine)':'integrated','import-fed refiner':'import-fed','mine-to-metal refiner':'mine→metal','raw exporter':'raw exporter'};
+for(const rk of D.ranking){
+  const p=D.physical[rk.label]; if(!p) continue;
+  const card=document.createElement('div'); card.className='pcard';
+  let h=`<h3>${p.name}<span class="pl">⛏ ${flag(p.mine_leader).trim()} · ⚗ ${flag(p.refine_leader).trim()}</span></h3>`;
+  for(const r of p.rows){
+    h+=`<div class="prow"><span class="pw" title="${r.iso}">${flag(r.iso).trim()}</span>`+
+       `<span class="pbars"><span class="pbar pmine" title="mine ${r.mine}%"><i style="width:${Math.min(100,r.mine)}%"></i></span>`+
+       `<span class="pbar pref" title="refine ${r.refine}%"><i style="width:${Math.min(100,r.refine)}%"></i></span></span>`+
+       `<span class="pt">${ptag[r.type]||r.type}</span></div>`;
+  }
+  card.innerHTML=h; PG.appendChild(card);
+}
 // all-materials chokepoint ranking (latest year, static)
 const RK=document.getElementById('ranking'), CKH=document.getElementById('ck-head');
 const ext=D.ranking.filter(r=>r.band==='extreme').length, cn=D.ranking.filter(r=>r.top==='CN').length;
