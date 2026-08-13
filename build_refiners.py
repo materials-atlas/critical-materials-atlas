@@ -25,6 +25,10 @@ if os.path.exists(_iea_path):
         if _r['stage'] == 'refining':
             IEA[_r['material']] = {'top1': _i3to2.get(_r['top1_country'], _r['top1_country']),
                                    'top1_share': float(_r['top1_share']), 'top3_share': float(_r['top3_share'])}
+# EU CRM 2023 (EC official): top global supplier + bottleneck stage for ~31 materials -- the one public
+# source with a per-country processing figure for specialty metals.
+_eucrm_path = os.path.join(ROOT, 'out', 'eucrm.json')
+EUCRM = json.load(open(_eucrm_path, encoding='utf-8'))['materials'] if os.path.exists(_eucrm_path) else {}
 
 STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400', '750210'),
           ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
@@ -35,7 +39,7 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
-                   'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS, 'iea': IEA,
+                   'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS, 'iea': IEA, 'eucrm': EUCRM,
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -124,7 +128,7 @@ HTML = '''<!doctype html>
   <br><br>A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
   <details class="howto"><summary>How it&rsquo;s measured &amp; caveats</summary>
   <p>From the BACI bilateral matrix, per country &times; material: <code>net_down = (refined_exp &minus; refined_imp)/(refined_exp + refined_imp)</code> (&gt;0 = net exporter of refined), <code>feedstock_import = ore_imp/(ore_imp+ore_exp)</code> (~1 = sources ore by import), and <code>trade_score = refined_world_share &times; max(net_down,0)</code> &mdash; a robust, re-export-penalised, export-control-proof marker. Physical refined share is BGS/USGS from the atlas data. <code>cap = max(physical, trade_score)</code>.</p>
-  <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; authoritative refining <i>capacity</i> by country, which catches domestic-absorbers invisible to trade (lithium, graphite, magnets). Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
+  <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against two authoritative sources: the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; refining <i>capacity</i> by country for the energy-transition minerals &mdash; and the <b>EU Critical Raw Materials 2023 study</b> (European Commission), which gives the top global supplier and bottleneck stage (extraction vs processing) for ~31 materials, including the specialty metals where trade and USGS/BGS fall silent (tungsten, gallium, germanium, PGMs). Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
   </details></div>
 
   <div class="controls">
@@ -215,8 +219,14 @@ for(const rk of D.ranking){
        `<span class="pbar pref" title="refine ${r.refine}%"><i style="width:${Math.min(100,r.refine)}%"></i></span></span>`+
        `<span class="pt">${ptag[r.type]||r.type}</span></div>`;
   }
-  const ie=D.iea[rk.label];
-  if(ie) h+=`<p class="iea">IEA refining capacity (physical, independent of trade): ${flag(ie.top1).trim()} <b>${ie.top1_share.toFixed(0)}%</b> · top-3 ${ie.top3_share.toFixed(0)}%</p>`;
+  const ie=D.iea[rk.label], eu=D.eucrm[rk.label];
+  if(ie||eu){
+    h+='<p class="iea">';
+    if(ie) h+=`IEA refining capacity: ${flag(ie.top1).trim()} <b>${ie.top1_share.toFixed(0)}%</b> · top-3 ${ie.top3_share.toFixed(0)}%`;
+    if(ie&&eu) h+='<br>';
+    if(eu) h+=`EU CRM 2023 (${eu.stage}): ${flag(eu.iso).trim()} <b>${eu.pct}%</b>`;
+    h+='</p>';
+  }
   card.innerHTML=h; PG.appendChild(card);
 }
 // all-materials chokepoint ranking (latest year, static)
