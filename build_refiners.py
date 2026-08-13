@@ -12,6 +12,7 @@ ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 CAP = json.load(open(os.path.join(ROOT, 'out', 'capability_years.json'), encoding='utf-8'))
 EXP = json.load(open(os.path.join(ROOT, 'out', 'exposure.json'), encoding='utf-8'))
 OPP = json.load(open(os.path.join(ROOT, 'out', 'opportunity.json'), encoding='utf-8'))
+SCN = json.load(open(os.path.join(ROOT, 'out', 'scenario.json'), encoding='utf-8'))
 
 STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400', '750210'),
           ('cobalt', 'Cobalt', '260500', '282200'), ('tungsten', 'Tungsten', '261100', '810194'),
@@ -20,7 +21,7 @@ STAGES = [('copper', 'Copper', '260300', '740311'), ('nickel', 'Nickel', '260400
           ('magnet (NdFeB)', 'NdFeB magnet (downstream)', '2805.30/2846.90', '850511')]
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
-                   'ranking': EXP['ranking'],
+                   'ranking': EXP['ranking'], 'scenario': SCN['materials'],
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -69,6 +70,13 @@ HTML = '''<!doctype html>
  .crow .ct{flex:1;height:15px;background:var(--bg-soft);border-radius:4px;overflow:hidden}
  .crow .cfill{height:100%;border-radius:4px} .crow .cv{width:70px;flex:0 0 70px;font-size:.72rem;color:var(--ink-soft)}
  .cb-extreme{background:#b4291f} .cb-high{background:#d1701a} .cb-moderate{background:#c79a1a} .cb-diffuse{background:#8a94a0}
+ .scn-row{display:grid;grid-template-columns:170px 200px 1fr auto;gap:12px;align-items:center;
+   font-size:.8rem;padding:6px 10px;border-radius:7px;margin:3px 0}
+ .scn-row.spof{background:#fbeeec;border:1px solid #e7c6bf}
+ .scn-row .sm{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ .scn-row .sl{color:var(--ink-soft)} .scn-row .sf{color:var(--mut)}
+ .spofbadge{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:#b4291f;padding:2px 8px;border-radius:20px;white-space:nowrap}
+ @media(max-width:720px){.scn-row{grid-template-columns:1fr;gap:2px}}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -83,7 +91,8 @@ HTML = '''<!doctype html>
   <p class="deck">The refiner is not the miner &mdash; but the exporter is not always the refiner either. This is a <b>capability map</b>: for each material it fuses two lenses to show who genuinely turns ore into refined metal. The <b>trade feedstock signature</b> (a country that <i>imports ore and exports refined</i> is transforming it &mdash; a fingerprint that survives export controls) plus <b>BGS/USGS physical output</b>, which catches the <i>domestic-absorbing</i> refiner &mdash; a giant like China that refines enormous volumes but consumes them at home, so it never shows up in refined exports.</p>
 </div></section>
 <article style="max-width:1180px">
-  <div class="callout">A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
+  <div class="callout"><b>A chokepoint</b> is a stage of the supply chain where so few countries hold the capacity that everyone else depends on them &mdash; a point where one supplier&rsquo;s decision (an export ban, an accident, a policy) can squeeze the whole world. We measure it at the <i>refining</i> stage with the <b>HHI</b> (Herfindahl index, the sum of squared national shares): 0 = perfectly spread, 1 = a single country. Above 0.25 is concentrated, above 0.5 extreme.
+  <br><br>A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
   <details class="howto"><summary>How it&rsquo;s measured &amp; caveats</summary>
   <p>From the BACI bilateral matrix, per country &times; material: <code>net_down = (refined_exp &minus; refined_imp)/(refined_exp + refined_imp)</code> (&gt;0 = net exporter of refined), <code>feedstock_import = ore_imp/(ore_imp+ore_exp)</code> (~1 = sources ore by import), and <code>trade_score = refined_world_share &times; max(net_down,0)</code> &mdash; a robust, re-export-penalised, export-control-proof marker. Physical refined share is BGS/USGS from the atlas data. <code>cap = max(physical, trade_score)</code>.</p>
   <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Built by <code>build_feedstock.py</code>; see also the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
@@ -105,6 +114,10 @@ HTML = '''<!doctype html>
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">All critical materials, by refining chokepoint</h2>
   <p class="note" style="margin-top:0"><b id="ck-head"></b> The deep capability bars above need a clean ore&rarr;refined code pair, which only 7 of 32 materials have. Refining <i>concentration</i> needs only refined-output shares, so it spans all 29 that report them. HHI over BGS/USGS refined shares (magnets: HS 850511 exports). Colour = chokepoint band.</p>
   <div class="choke-all" id="ranking"></div>
+
+  <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">The fallback test — if the top refiner stopped supplying</h2>
+  <p class="note" style="margin-top:0"><b id="scn-head"></b> A supply-shock <i>counterfactual</i>, not a forecast. The leader&rsquo;s share of world refined <b>output</b> is the magnitude at risk; the <b>fallback</b> is who else <i>exports</i> the refined form onto the world market — the countries the rest of the world could actually buy from (a hoarded-at-home refiner is not a fallback; an exporter is). A material is a single point of failure only if the leader holds &ge;50% of output <i>and</i> no other exporter reaches a third of its export volume. Export fallbacks can include re-export hubs, so read them as availability, not independent capacity.</p>
+  <div id="scn" style="margin:.6rem 0 1rem"></div>
 
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
   <p class="note" style="color:var(--faint);font-size:.76rem">Method lineage: Hidalgo &amp; Hausmann product space / economic complexity; feedstock-signature capability mapping addresses the export-RCA-&ne;-capability critique (constrain with physical output; read the direction of transformation). Cf. the product-space paper on China&rsquo;s critical minerals (Frontiers Env. Sci. 2023) and the Fitness-Criticality algorithm (Valverde-Carbonell, Pietrobelli &amp; Men&eacute;ndez, Resources Policy 2024).</p>
@@ -165,6 +178,19 @@ for(const r of D.ranking){
     `<span class="ct"><span class="cfill cb-${r.band}" style="width:${Math.max(2,r.hhi*100)}%"></span></span>`+
     `<span class="cv">${r.hhi.toFixed(2)} · ${flag(r.top).trim()} ${r.top_share.toFixed(0)}%</span>`;
   RK.appendChild(el);
+}
+// supply-shock stress test
+const SCN=document.getElementById('scn'), SH=document.getElementById('scn-head');
+const spofs=D.scenario.filter(r=>r.spof), cnspof=spofs.filter(r=>r.leader==='CN').length;
+SH.textContent=`Only ${spofs.length} of ${D.scenario.length} materials have no export fallback above a third of the leader — the true single points of failure (China leads ${cnspof}).`;
+for(const r of D.scenario){
+  const fb=(r.fallbacks||[]).map(f=>`${flag(f.iso).trim()} ${f.export_share.toFixed(0)}%`).join(' · ')||'none';
+  const el=document.createElement('div'); el.className='scn-row'+(r.spof?' spof':'');
+  el.innerHTML=`<span class="sm" title="${r.name}">${r.name}</span>`+
+    `<span class="sl">${flag(r.leader).trim()} <b>${r.lead_share.toFixed(0)}%</b> output · ${r.lead_export_share.toFixed(0)}% exports</span>`+
+    `<span class="sf">fallback exporters: ${fb}</span>`+
+    (r.spof?`<span class="spofbadge">single point</span>`:`<span></span>`);
+  SCN.appendChild(el);
 }
 </script>
 </body></html>'''
