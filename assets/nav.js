@@ -40,6 +40,7 @@
       ['scenarios.html', 'Shock scenarios'],
       ['cascade.html', 'Supply-shock cascade — the companion echo'],
       ['ot.html', 'Reallocation stress test — can the rest cover the cut?'],
+      ['leverage.html', 'Leverage map — how exposed is your country'],
       ['__lbl__', 'Interactive'],
       ['index-builder.html', 'Build your own risk index'],
       ['shock-builder.html', 'Build your own supply shock'] ] },
