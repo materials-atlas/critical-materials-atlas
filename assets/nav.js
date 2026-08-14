@@ -46,6 +46,7 @@
       ['companionality.html', 'Hostage metals — by-product dependency'],
       ['refining.html', 'The refining wedge — mine vs furnace'],
       ['refiners.html', 'Who actually refines — capability map'],
+      ['breakout.html', 'Break the chokepoint — the decision layer'],
       ['product-space.html', 'Product space — mine ▸ refine map'],
       ['risk-adjusted.html', 'Risk when supply can’t respond'],
       ['host-shock.html', 'Host shock — the commodities that gate criticals'],
