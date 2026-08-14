@@ -10,7 +10,7 @@ primary metals (37% vs 31%) using BACI trade unit values, 2018-2024. Two problem
      from "small market". Redlinger & Eggert (Resources Policy, 2016) — the direct precedent — use a
      REGRESSION for exactly this reason, and find by-products ~50% more volatile over ~50 years.
   2. BAD PRICE PROXY. Trade unit values mix grade, form and contract lag, are nominal, and gallium,
-     germanium and hafnium share one HS6 code (811292) — one price signal masquerading as three.
+     gallium and germanium share one HS6 code (811292) — one price signal masquerading as two (hafnium is separate).
 
 This builder fixes both. Prices are USGS "Historical Statistics for Mineral and Material Commodities"
 (Data Series 140) — real annual unit values in constant 1998 dollars, public domain, one series per

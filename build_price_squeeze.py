@@ -70,9 +70,9 @@ def series_stats(uv):
     return p1, chg, cagr
 
 
-# gallium/germanium/hafnium share one HS6 code (811292) => identical trade unit values.
+# gallium & germanium share one HS6 code (811292) => identical trade unit values (hafnium is separate).
 # They are ONE independent price signal, not three; flag them and de-duplicate for correlations.
-SHARED = {'gallium', 'germanium', 'hafnium'}
+SHARED = {'gallium', 'germanium'}
 SHARED_KEEP = 'gallium'   # representative of the shared trio in the correlation sample
 
 rows = []
@@ -113,7 +113,7 @@ out = {
     'n_locked': len(locked),
     'locked_up': [r['title'] for r in up],
     'locked_down': [r['title'] for r in down],
-    'shared_note': 'gallium, germanium & hafnium share HS6 811292 — identical unit values; counted once in correlations.',
+    'shared_note': 'gallium & germanium share HS6 811292 — identical unit values; counted once in correlations (hafnium is separate).',
     'withdrawn_note': 'An earlier version of this page also reported a volatility comparison (by-product 37% '
                       'vs primary 31%). It is withdrawn and removed from this dataset: there was no control '
                       'for market size, and trade unit values do not track real price volatility (r=0.13 vs '
@@ -169,7 +169,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the price test is built (and its limits)</summary>
   <p>Price = the <b>implied world unit value</b> (trade value &divide; quantity, $/tonne) from BACI, per material, 2002&ndash;2024 &mdash; the same series behind the <a href="volume.html">value-vs-volume page</a>. We take the 2018&rarr;2024 change and correlate it across materials against the <a href="demand.html">squeeze index</a> and companionality.</p>
-  <p class="howto-src"><b>Limits (important):</b> trade unit values are <i>not</i> spot prices &mdash; they mix grade, product form and contract lags, are <b>nominal</b> (not inflation-adjusted), and are noisy for thinly-traded materials. <b>Gallium, germanium and hafnium share one HS6 code (811292)</b>, so they carry <i>identical</i> unit values (marked ⛓) &mdash; counted once in the correlations, not three times. This is a directional corroboration test, not a price model; a weak or mixed correlation is a real result, not a bug. Inputs: <a href="out/volume.json">volume.json</a> &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/price_squeeze.json">price_squeeze.json</a>.</p>
+  <p class="howto-src"><b>Limits (important):</b> trade unit values are <i>not</i> spot prices &mdash; they mix grade, product form and contract lags, are <b>nominal</b> (not inflation-adjusted), and are noisy for thinly-traded materials. <b>Gallium and germanium share one HS6 code (811292)</b>, so they carry <i>identical</i> unit values (marked ⛓) &mdash; counted once in the correlations, not twice (hafnium is a separate line). This is a directional corroboration test, not a price model; a weak or mixed correlation is a real result, not a bug. Inputs: <a href="out/volume.json">volume.json</a> &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/price_squeeze.json">price_squeeze.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>

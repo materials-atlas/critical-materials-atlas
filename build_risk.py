@@ -18,7 +18,7 @@ YEAR = os.environ.get('PROFILE_YEAR', '2024')
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 NAMES = flows.get('names', {})
-SHARED = {'gallium', 'germanium', 'hafnium'}
+SHARED = {'gallium', 'germanium'}
 W = {'production': 0.30, 'refining': 0.25, 'trade': 0.25, 'opacity': 0.20}
 
 def cname(i): return NAMES.get(i, i)
@@ -125,7 +125,7 @@ def main():
     <thead><tr><th class="n">#</th><th>Material</th><th class="n">score</th><th class="n" title="end-of-life recycling input rate — a mitigant">recyc</th><th title="how hard to substitute (EU CRM) — shown, not scored">subst.</th><th>gross components (width = weighted contribution)</th></tr></thead>
     <tbody>{''.join(body)}</tbody>
   </table>
-  <p class="note">⛓ gallium/germanium/hafnium share one HS6 code (identical trade). Computed by build_risk.py from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/risk.json">risk.json</a>.</p>
+  <p class="note">⛓ gallium and germanium share one HS6 code (811292; identical trade; hafnium is separate). Computed by build_risk.py from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/risk.json">risk.json</a>.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

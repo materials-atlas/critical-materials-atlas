@@ -11,7 +11,7 @@ import json, os, html, glob
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
-SHARED_HS6 = {'gallium', 'germanium', 'hafnium'}
+SHARED_HS6 = {'gallium', 'germanium'}
 
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
@@ -432,10 +432,11 @@ def page(m):
                 f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{series[0]:.0f}% {arrow} {series[-1]:.0f}%</b>{sparkline(series)}</div>')
 
     shared_flag = ('<div class="callout" style="border-color:#c08a2b66"><b>⛓ Trade shown under HS 811292 — a shared code.</b> '
-                   'Gallium, germanium and hafnium all clear customs under this one 6-digit line, so their trade columns are '
-                   '<b>identical and cannot be separated</b>. Any trade-based concentration figure for this material is really '
-                   'measuring <b>three supply chains at once</b> — it can only be split at 8-digit national tariff lines. The '
-                   'mine, refine and reserve layers above <i>are</i> material-specific.</div>') if shared else ''
+                   'Gallium and germanium both clear customs under this one 6-digit line, so their trade columns are '
+                   '<b>identical and cannot be separated</b> (the code is a catch-all that also nominally covers hafnium, indium, '
+                   'niobium, rhenium and vanadium; here only gallium and germanium are drawn from it). Any trade-based '
+                   'concentration figure for this material is really measuring <b>two supply chains at once</b> — it can only be '
+                   'split at 8-digit national tariff lines. The mine, refine and reserve layers above <i>are</i> material-specific.</div>') if shared else ''
 
     note = e(m.get('note') or '').strip()
     note_block = f'<h2>Context</h2><p>{note}</p>' if note else ''

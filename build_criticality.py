@@ -37,7 +37,7 @@ except Exception:
     RISK = {}
 NAMES = flows.get('names', {})
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
-SHARED = {'gallium', 'germanium', 'hafnium'}
+SHARED = {'gallium', 'germanium'}
 SI_MAP = {'high': 1.0, 'medium': 0.8, 'low': 0.6}
 G_DEFAULT = 0.6   # governance risk for countries WGI doesn't cover (treated as moderately risky)
 
@@ -214,7 +214,7 @@ out = f'''<!doctype html>
       <th class="n" title="rank change from governance weighting (vs the same index un-weighted)">gov. effect</th></tr></thead>
     <tbody>{''.join(mr)}</tbody>
   </table>
-  <p class="note">⛓ gallium/germanium/hafnium share one HS6 code. WGI: World Bank (mean of 6 estimates). Computed from <a href="out/data.json">data.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/criticality.json">criticality.json</a>.</p>
+  <p class="note">⛓ gallium and germanium share one HS6 code (811292; hafnium is separate). WGI: World Bank (mean of 6 estimates). Computed from <a href="out/data.json">data.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/criticality.json">criticality.json</a>.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

@@ -171,7 +171,7 @@ import_validation = {
             'actual bilateral suppliers (BACI 2023), per metal. HHI(import) x sum share*grisk. The '
             'entrepot-stripped variant (drop NL/BE/CH/GB/SG/HK/AE) is the sensitivity check. Same metal '
             'carries different risk for different blocs - that is the whole point, and the producer view '
-            'hides it. Caveat: gallium/germanium/hafnium share HS 811292, so their import shares are '
+            'hides it. Caveat: gallium and germanium share HS 811292, so their import shares are '
             'bundled; and BACI records the shipping partner, not always the ultimate origin.',
 }
 
@@ -296,7 +296,7 @@ Promise.all([fetch('out/geopolrisk.json').then(r=>r.json()),
       var cells=IB.map(function(b){var v=r.blocs[b]; if(v==null) return '<td class="n" style="color:#c9d2d0">–</td>';
         var col=v>=0.35?'#c0392b':v>=0.15?'#d98324':'#5a6b68';
         return '<td class="n" style="color:'+col+';font-weight:'+(v>=0.35?700:400)+'">'+(v*1000).toFixed(0)+'</td>';}).join('');
-      return '<tr><td><b>'+r.title+'</b>'+(r.shared_hs?' <span title="shares HS 811292 with Ge/Hf" style="color:#b07a18">⛓</span>':'')+'</td><td class="n" style="color:#5a6b68">'+(r.production_gpr*1000).toFixed(0)+'</td>'+cells+'</tr>';
+      return '<tr><td><b>'+r.title+'</b>'+(r.shared_hs?' <span title="shares HS 811292 with germanium" style="color:#b07a18">⛓</span>':'')+'</td><td class="n" style="color:#5a6b68">'+(r.production_gpr*1000).toFixed(0)+'</td>'+cells+'</tr>';
     }).join('');
     document.querySelector('#imptab tbody').innerHTML=body;
     document.getElementById('impgate').innerHTML='Scores ×1000; red ≥350, amber ≥150. '+IV.note;

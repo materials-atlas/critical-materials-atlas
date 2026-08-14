@@ -35,7 +35,7 @@ NAMES = flows.get('names', {})
 MAT = {m['label']: m for m in data['materials']}
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
 HUBS = {'HK', 'SG', 'AE', 'PA', 'MO', 'GI', 'NL', 'BE'}   # entrepot / re-export hubs: brokerage = transit
-SHARED = {'gallium', 'germanium', 'hafnium'}
+SHARED = {'gallium', 'germanium'}
 
 def cname(i): return NAMES.get(i, i)
 def e(s): return html.escape(str(s), quote=True)
@@ -246,7 +246,7 @@ def main():
     <thead><tr><th>Material</th><th>Top exporter</th><th>Network chokepoint</th><th>type</th><th class="n" title="% of supply→demand routes lost if the chokepoint node is removed">fragility</th></tr></thead>
     <tbody>{''.join(matrows)}</tbody>
   </table>
-  <p class="note">{n_proc} of {len(rows)} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. ⛓ gallium/germanium/hafnium share one HS6 code. Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
+  <p class="note">{n_proc} of {len(rows)} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. ⛓ gallium and germanium share one HS6 code (811292; hafnium is separate). Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
 
   <h2 style="margin:2rem 0 .5rem">China's network centrality over time</h2>
   <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all 32 materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>

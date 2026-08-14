@@ -364,7 +364,7 @@
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
         <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
           <li><b>⚠ processing chokepoint</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader stands in between.</li>
-          <li><b>⛓ shared trade code</b> — gallium, germanium and hafnium report under one code and can&rsquo;t be separated.</li>
+          <li><b>⛓ shared trade code</b> — gallium and germanium report under one code (811292) and can&rsquo;t be separated; hafnium is kept separate.</li>
           <li><b>—</b> no distinct refining stage, or no data.</li>
         </ul>
         <p class="howto-src">Sources: USGS · IEA · UN Comtrade / CEPII&nbsp;BACI (reconciled). Sort by any column; open a row for the full profile.</p>
@@ -495,9 +495,9 @@ function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.material
 // Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
 // auditability; the chapter heuristic stays as a fallback for any future material.
 const RAW_MATS=new Set(['graphite','boron','fluorspar','feldspar','manganese','bauxite','phosphate','baryte','cokingcoal']);
-// gallium, germanium & hafnium share one HS6 code (811292) — their TRADE columns are identical and
+// gallium & germanium share one HS6 code (811292) — their TRADE columns are identical and
 // cannot be separated (their mined/refined/reserves layers still differ). Flagged with ⛓ in the table.
-const SHARED_HS6=new Set(['gallium','germanium','hafnium']);
+const SHARED_HS6=new Set(['gallium','germanium']);
 // Pure re-export entrepôts: negligible domestic mining/refining of these materials, so when they appear
 // as exporters it's trans-shipment, not production. Curated (a re-export RATIO mislabels real refiners
 // like Belgium/Germany and misses hubs like HK) — these are unambiguous logistics hubs.
@@ -674,7 +674,7 @@ function renderTable(){
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}${hhiCell}`+
-      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with the other two — gallium, germanium &amp; hafnium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
+      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with germanium — gallium &amp; germanium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
