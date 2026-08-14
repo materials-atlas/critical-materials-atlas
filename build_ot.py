@@ -100,7 +100,7 @@ for lab, meta in CW.items():
     cover = {k: (min(1.0, (k - 1) * Ssurv / freed) if freed > 0 else 1.0) for k in KAPPAS}
     # 4. OT reshuffle of the leader's freed demand onto survivors, min geographic cost
     dem = sub[sub.ei == L].groupby('ej').v.sum()     # leader's customers lose these imports
-    friction = None; stranded = []
+    friction = None; stranded = []; before_arcs = []; after_arcs = []
     if len(dem) and len(surv):
         imps = list(dem.index); sups = list(surv.index)
         b = dem.values.astype(float)
@@ -117,6 +117,13 @@ for lab, meta in CW.items():
                       for im in imps), key=lambda t: -t[1])[:6]
         stranded = [{'iso': im, 'name': NAMES.get(im, im),
                      'lost_usd': v, 'reliance': round(sh, 3)} for im, v, sh in rel]
+        # arcs for the reshuffle map: BEFORE = leader's exports; AFTER = the OT reallocation plan
+        before_arcs = sorted(({'to': im, 'v': float(dem[im])} for im in imps),
+                             key=lambda x: -x['v'])[:14]
+        edges = [(sups[si], imps[ii], float(P[si, ii]))
+                 for si in range(len(sups)) for ii in range(len(imps)) if sups[si] != imps[ii]]
+        after_arcs = [{'f': s, 't': im, 'v': v}
+                      for s, im, v in sorted(edges, key=lambda e: -e[2]) if v > 0][:26]
     out[lab] = {
         'label': lab,
         'name': lab.replace('(NdFeB)', '').replace('(ndfeb)', '').strip().title(),
@@ -130,6 +137,7 @@ for lab, meta in CW.items():
         'coverage': {str(k): round(v, 3) for k, v in cover.items()},
         'friction': round(friction, 2) if friction else None,
         'freed_usd': round(freed, 0), 'stranded': stranded,
+        'before': before_arcs, 'after': after_arcs,
         'n_exporters': int((exp > 0).sum())}
 
 # plain verdict + a "kind" flag for each material
@@ -167,7 +175,12 @@ summary = {'n': len(out),
            'by_kind': {k: sum(1 for r in out.values() if r.get('kind') == k) for k in KINDS},
            'uncoverable2x': sum(1 for r in out.values() if r['coverage']['2'] < 0.5),
            'backfire': sum(1 for r in out.values() if r['hhi_after'] >= r['hhi_before'])}
-payload = {'year': YEAR, 'kappas': KAPPAS, 'summary': summary,
+CENT = flows['centroids']
+usediso = {r['leader'] for r in out.values()} | {r['new_leader'] for r in out.values()}
+for r in out.values():
+    usediso |= {a['to'] for a in r['before']} | {a['f'] for a in r['after']} | {a['t'] for a in r['after']}
+cent_used = {i: CENT[i] for i in usediso if i in CENT}
+payload = {'year': YEAR, 'kappas': KAPPAS, 'summary': summary, 'centroids': cent_used,
            'note': ('Shock = loss of the leader’s EXPORTS (the redirectable supply). Export-based '
                     'by construction: a domestic-consuming refiner’s output was never available to '
                     'importers. Coverage assumes survivors can scale exports up to kappa× current; '
@@ -223,6 +236,19 @@ PAGE = r'''<!doctype html>
  .verdict.uncoverable{background:#fbeeec;border:1px solid #e7c6bf}.verdict.backfire{background:#fdf4e7;border:1px solid #f0dcc0}
  .empty{color:var(--faint);font-style:italic;padding:2rem;text-align:center}
  .lbl{font-size:.62rem;text-transform:uppercase;letter-spacing:.09em;font-weight:700;color:var(--faint);margin:0}
+ .mappanel{border:1px solid var(--line);border-radius:13px;padding:14px 16px 10px;background:var(--bg);margin:1.1rem 0}
+ .mapctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:0 0 8px}
+ .mapctl select{font:inherit;font-size:.86rem;font-weight:600;padding:5px 10px;border:1px solid var(--line);border-radius:8px;color:var(--navy);background:var(--bg)}
+ .mapctl .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+ .mapctl .seg button{font:inherit;font-size:.78rem;font-weight:600;padding:5px 13px;background:var(--bg);color:var(--ink-soft);border:0;cursor:pointer}
+ .mapctl .seg button.on{background:var(--navy);color:#fff}
+ .rmap{width:100%;height:auto;display:block;border-radius:9px;background:#eef3f5}
+ .rmap .grat{stroke:#d7e0e3;stroke-width:.5;fill:none}
+ .rmap .arc{fill:none;opacity:.72;transition:opacity .5s}
+ .rmap .node{stroke:#fff;stroke-width:.8}
+ .rmap .lbl2{font:600 10px Inter,sans-serif;fill:#15323a;paint-order:stroke;stroke:#eef3f5;stroke-width:2.4px}
+ .rmap .cut{stroke:#b4291f;stroke-width:1.6}
+ .mapcap{font-size:.8rem;color:var(--mut);line-height:1.4;margin:6px 2px 2px}.mapcap b{color:var(--navy)}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -242,6 +268,15 @@ PAGE = r'''<!doctype html>
   <p><b>N−1 stress</b> = 1/(1−f), where f is the leader&rsquo;s share of world <i>exports</i>: the factor by which every other exporter must scale to cover the same demand. <b>Concentration</b> is the export HHI before, and after the leader is removed and survivors are renormalised (the runner-up&rsquo;s new share). <b>Coverage@κ</b> assumes each surviving exporter can scale its exports up to κ× current; spare = (κ−1)×current, coverage = min(1, Σspare / freed). <b>Reshuffle &amp; friction</b>: entropic optimal transport (Sinkhorn) reallocates the leader&rsquo;s freed demand onto survivors at minimum great-circle cost between country centroids; friction = mean distance the reshuffled supply travels ÷ the leader&rsquo;s original mean shipping distance (&gt;1 = spare sits farther away).</p>
   <p class="howto-src"><b>Caveats.</b> This is <b>export-based by construction</b> — it models the loss of what the leader <i>ships</i>, which is the correct frame for reallocation (a domestic-consuming refiner&rsquo;s output was never available to importers), but it means the leader&rsquo;s share here is an <i>export</i> share, not a production share. The κ scale-up ceiling is an explicit assumption, not a forecast — read coverage as &ldquo;how much slack exists at ceiling κ,&rdquo; not a prediction. Distance is a crude friction proxy (centroid great-circle, not shipping cost or capability). <b>Shared HS codes</b> (gallium/germanium 811292) mix metals, so those rows are a basket. This is a stress test of <i>today&rsquo;s</i> trade structure, not the post-diversification world the <a href="breakout.html">Break the chokepoint</a> page tracks. Built by <code>build_ot.py</code> on CEPII BACI. <b>See also</b> <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="scenarios.html">shock scenarios</a>, <a href="cascade.html">the supply-shock cascade</a>, and <a href="breakout.html">the decision layer</a>.</p>
   </details></div>
+  <div class="mappanel">
+    <div class="mapctl">
+      <span class="lbl" style="margin-right:2px">Reshuffle map</span>
+      <select id="mapsel"></select>
+      <span class="seg"><button id="p-before" class="on">Before — the leader ships</button><button id="p-after">After the cut — optimal reshuffle</button></span>
+    </div>
+    <svg class="rmap" id="rmap" viewBox="0 0 1100 520" preserveAspectRatio="xMidYMid meet"></svg>
+    <div class="mapcap" id="mapcap"></div>
+  </div>
   <div class="sumstrip" id="sum"></div>
   <div class="filterbar" id="filters"></div>
   <div class="bgrid" id="grid"></div>
@@ -297,6 +332,57 @@ function render(){
   g.innerHTML=rows.length?rows.map(card).join(''):`<div class="empty">No materials match — widen the filters or clear the search.</div>`;
 }
 render();
+
+/* ---- reshuffle map ---- */
+const CENT=D.centroids, MW=1100, MH=520;
+function proj(iso){ const c=CENT[iso]; if(!c) return null; return [((c[1]+180)/360)*MW, ((90-c[0])/180)*MH]; }
+function arc(p,q,up){ const mx=(p[0]+q[0])/2,my=(p[1]+q[1])/2,dx=q[0]-p[0],dy=q[1]-p[1],d=Math.hypot(dx,dy);
+  const off=Math.min(120,d*0.28)*(up?-1:1); const cx=mx+(-dy/(d||1))*off, cy=my+(dx/(d||1))*off;
+  return `M${p[0].toFixed(1)} ${p[1].toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${q[0].toFixed(1)} ${q[1].toFixed(1)}`; }
+const mapMats=Object.values(D.materials).filter(m=>m.before&&m.before.length).sort((a,b)=>b.leader_export_share-a.leader_export_share);
+let curMat=(D.materials['magnets']&&D.materials['magnets'].before.length)?'magnets':(mapMats[0]&&mapMats[0].label);
+let phase='before';
+const sel=document.getElementById('mapsel');
+sel.innerHTML=mapMats.map(m=>`<option value="${m.label}"${m.label===curMat?' selected':''}>${m.name}</option>`).join('');
+sel.onchange=()=>{ curMat=sel.value; drawMap(); };
+document.getElementById('p-before').onclick=()=>{ phase='before'; togg(); drawMap(); };
+document.getElementById('p-after').onclick=()=>{ phase='after'; togg(); drawMap(); };
+function togg(){ document.getElementById('p-before').classList.toggle('on',phase==='before'); document.getElementById('p-after').classList.toggle('on',phase==='after'); }
+function sw(v,max){ return 1+Math.sqrt(v/max)*7; }
+function drawMap(){
+  const m=D.materials[curMat]; const svg=document.getElementById('rmap');
+  let h=`<rect x="0" y="0" width="${MW}" height="${MH}" fill="#eef3f5"/>`;
+  for(let lon=-150;lon<=150;lon+=30){ const x=((lon+180)/360)*MW; h+=`<line class="grat" x1="${x}" y1="0" x2="${x}" y2="${MH}"/>`; }
+  for(let lat=-60;lat<=60;lat+=30){ const y=((90-lat)/180)*MH; h+=`<line class="grat" x1="0" y1="${y}" x2="${MW}" y2="${y}"/>`; }
+  const Lp=proj(m.leader); const nodes={};
+  if(phase==='before'){
+    const mx=Math.max(...m.before.map(a=>a.v),1);
+    m.before.forEach(a=>{ const p=Lp,q=proj(a.to); if(!p||!q) return;
+      h+=`<path class="arc" d="${arc(p,q,q[0]>p[0])}" stroke="#b4291f" stroke-width="${sw(a.v,mx).toFixed(1)}"/>`;
+      nodes[a.to]=(nodes[a.to]||0)+a.v; });
+    nodes[m.leader]=(nodes[m.leader]||0)+m.before.reduce((s,a)=>s+a.v,0);
+  } else {
+    const mx=Math.max(...m.after.map(a=>a.v),1);
+    m.after.forEach(a=>{ const p=proj(a.f),q=proj(a.t); if(!p||!q) return;
+      h+=`<path class="arc" d="${arc(p,q,q[0]>p[0])}" stroke="#0e8f83" stroke-width="${sw(a.v,mx).toFixed(1)}"/>`;
+      nodes[a.f]=(nodes[a.f]||0)+a.v; nodes[a.t]=(nodes[a.t]||0)+a.v; });
+    if(Lp){ h+=`<line class="cut" x1="${(Lp[0]-7).toFixed(1)}" y1="${(Lp[1]-7).toFixed(1)}" x2="${(Lp[0]+7).toFixed(1)}" y2="${(Lp[1]+7).toFixed(1)}"/>`+
+             `<line class="cut" x1="${(Lp[0]-7).toFixed(1)}" y1="${(Lp[1]+7).toFixed(1)}" x2="${(Lp[0]+7).toFixed(1)}" y2="${(Lp[1]-7).toFixed(1)}"/>`; }
+  }
+  const nmax=Math.max(...Object.values(nodes),1);
+  for(const iso in nodes){ const p=proj(iso); if(!p) continue;
+    const isL=(iso===m.leader), r=3+Math.sqrt(nodes[iso]/nmax)*10;
+    const col=(phase==='after'&&isL)?'#9aa6ad':(isL?'#b4291f':(phase==='after'?'#0b6f66':'#5a6b68'));
+    h+=`<circle class="node" cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${r.toFixed(1)}" fill="${col}"/>`; }
+  // label the biggest ~10 nodes
+  Object.entries(nodes).sort((a,b)=>b[1]-a[1]).slice(0,10).forEach(([iso])=>{ const p=proj(iso); if(!p) return;
+    h+=`<text class="lbl2" x="${(p[0]+6).toFixed(1)}" y="${(p[1]+3).toFixed(1)}">${iso}</text>`; });
+  svg.innerHTML=h;
+  const cap=document.getElementById('mapcap');
+  if(phase==='before') cap.innerHTML=`<b>${m.leader_name}</b> ships ~${(m.leader_export_share*100).toFixed(0)}% of world ${m.name} exports — the red arcs are its actual destinations. Hit &ldquo;after the cut&rdquo; to see where the freed demand would have to come from instead.`;
+  else cap.innerHTML=`With <b>${m.leader_name}</b> cut (✕), optimal transport reallocates its freed demand across surviving exporters at minimum distance (teal). ${m.friction&&m.friction>=1.3?`The reshuffle travels ~${m.friction}× farther — spare capacity sits far from the buyers. `:''}${m.coverage['2']<0.5?`But even doubling every survivor covers only ${(m.coverage['2']*100).toFixed(0)}% of the gap.`:''}`;
+}
+drawMap();
 </script>
 </body></html>'''
 PAGE = PAGE.replace('__DATA__', json.dumps(payload, ensure_ascii=False))
