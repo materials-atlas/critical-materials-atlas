@@ -178,6 +178,25 @@ PIPE = {
             {'name': 'Talga — Vittangi', 'iso': 'SE', 'stage': 'mine + refine',
              'status': 'anode project; permitting (EU)'},
         ]},
+    'phosphorus': {
+        'iea': ("Elemental (white/yellow) phosphorus P4 — the industrial feedstock, not fertiliser. The "
+                "non-China pipeline is genuinely THIN and structural: P4 furnaces are power-intensive and hard "
+                "to permit, and Europe has produced no primary P4 since Thermphos closed (2012). What exists is "
+                "one new hydropower-fed furnace, a feed mine sustaining the last US plant, and a waste-recovery route."),
+        'projects': [
+            {'name': 'Cahya Mata — Samalaju yellow phosphorus', 'iso': 'MY', 'stage': 'refine',
+             'status': 'hydropower-fed complex — the main new furnace outside CN/KZ/VN'},
+            {'name': 'Bayer / Itafos — Caldwell Canyon (Soda Springs)', 'iso': 'US', 'stage': 'mine',
+             'status': 'FAST-41 feed mine sustaining the last US P4 plant'},
+            {'name': 'FlashPhos — P4 from sewage-sludge ash', 'iso': 'DE', 'stage': 'refine',
+             'status': 'EU consortium; full-scale design ~2026 (circular P4)'},
+        ]},
+    'arsenic': {
+        'iea': ("Arsenic is an UNWANTED by-product of copper and lead smelting — supply simply tracks those "
+                "smelters. There is no diversification pipeline because no one seeks to expand arsenic output; "
+                "public projects aim to STABILISE or dispose of it, and substitution means designing it out of "
+                "products, not sourcing it elsewhere. The blank here is the finding, not missing data."),
+        'projects': []},
 }
 NOTE = ('Representative publicly announced projects (company releases & filings, the EU CRMA Strategic '
         'Projects 2025 list, US DoD/DPA/DLA/EXIM/DOE and national funding, USGS), cross-checked across '

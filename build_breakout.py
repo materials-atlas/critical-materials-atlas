@@ -209,6 +209,7 @@ for mat, meta in cw.items():
         elif is_.get('forward'): parts.append('forward capacity tracked (USGS Outlook)')
         elif is_.get('gap_kind') == 'diffuse': parts.append('not a single-country chokepoint — buildout not the constraint')
         elif is_.get('gap_kind') == 'endowment': parts.append('mine-side endowment — exploration/off-take, not new capacity')
+        elif is_.get('iea'): parts.append('no diversification pipeline — structural (see note)')
         else: parts.append('no diversification project tracked (sourcing gap)')
         verdict = '; '.join(parts) + '.'
     records.append({
@@ -396,7 +397,7 @@ function card(r){
     </div>
     <div class="sec">
       <div class="lbl">Who is building it</div>
-      ${is || gapMsg(wi.gap_kind)}
+      ${is || (wi.iea ? `<div class="softgap">${wi.iea}</div>` : gapMsg(wi.gap_kind))}
     </div>
     <div class="verdict">${r.verdict}</div>
   </div>`;

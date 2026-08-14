@@ -51,11 +51,36 @@
     <div style="border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff"><h3 style="margin:.1rem 0 .6rem">Most-exposed economies</h3><ul><li><a href="profile-country-MK.html">🇲🇰 Macedonia [FYROM]</a> <b>31</b><span style="color:#9aa6ad">/100 · $1.1B</span></li><li><a href="profile-country-MX.html">🇲🇽 Mexico</a> <b>25</b><span style="color:#9aa6ad">/100 · $2.6B</span></li><li><a href="profile-country-US.html">🇺🇸 United States</a> <b>19</b><span style="color:#9aa6ad">/100 · $17.9B</span></li><li><a href="profile-country-BE.html">🇧🇪 Belgium</a> <b>19</b><span style="color:#9aa6ad">/100 · $2.3B</span></li><li><a href="profile-country-CA.html">🇨🇦 Canada</a> <b>18</b><span style="color:#9aa6ad">/100 · $2.0B</span></li><li><a href="profile-country-JP.html">🇯🇵 Japan</a> <b>17</b><span style="color:#9aa6ad">/100 · $30.7B</span></li></ul><p class="note"><a href="countries.html">all countries →</a></p></div>
   </div>
   <div class="callout"><b>China's footprint.</b> Across the 32 materials, China is the top <b>miner</b> in 13, the top <b>refiner</b> in 20, and the top <b>exporter</b> in 9. It leads the <i>entire</i> chain — mine, refine and export — in 7: Rare-earth permanent magnets, Magnesium, unwrought, Germanium, Natural graphite, Gallium, Tungsten, unwrought, Silicon, &lt; 99.99%. But the origin gap shows the reverse case too: many apparent dependencies on European/Japanese refiners are really upstream dependencies on African and Latin-American mines.</div>
-  <p class="note">Computed by build_insights.py from the public data (<a href="out/data.json">data.json</a>, <a href="out/flows_2024.json">flows_2024.json</a>, <a href="out/risk.json">risk.json</a>). Trade year 2024.</p>
+  <div style="margin:2rem 0 .3rem">
+    <div style="font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#0e7c74">The value chain doesn&rsquo;t end at the problem</div>
+    <h2 style="border:none;padding:0;margin:.25rem 0 .35rem">So what do you do about it?</h2>
+    <p style="margin:.2rem 0 1rem;color:#667179;max-width:72ch">Everything above maps the <i>problem</i> — where supply concentrates and who is exposed. The decision layer turns it into action: who could break each chokepoint, whether the world could absorb a cut, and how exposed any one country really is. Same public trade matrix, three tools.</p>
+  </div>
+  <div class="grid2" style="grid-template-columns:repeat(3,1fr)">
+    <a href="breakout.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
+      <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Break the chokepoint</div>
+      <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">10<span style="font-size:.82rem;color:#9aa6ad;font-weight:600"> of 32</span></div>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">chokepoints that are a <b>capability</b>, not an ore endowment — no export ban touches them. Who could realistically break each, and who is building alternatives.</p>
+      <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Open the decision layer &rarr;</span>
+    </a>
+    <a href="ot.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
+      <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Reallocation stress test</div>
+      <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">4 can&rsquo;t &middot; 8 worse</div>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">Cut a chokepoint and reallocate optimally: <b>4 of 31</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>8</b>, removal makes concentration <i>worse</i>. With a before/after map.</p>
+      <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Run the stress test &rarr;</span>
+    </a>
+    <a href="leverage.html" style="text-decoration:none;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.3rem;background:#fff;display:block">
+      <div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#0e7c74">Leverage map</div>
+      <div style="font-size:1.8rem;font-weight:800;color:#15323a;margin:.35rem 0 .1rem">Your country</div>
+      <p style="font-size:.88rem;color:#667179;margin:.2rem 0 .5rem">An importer &times; material heatmap: how much of each country&rsquo;s supply runs through a single source, and how single-sourced it is. The East-Asian manufacturing belt is the most locked-in.</p>
+      <span style="font-size:.82rem;font-weight:700;color:#0e7c74">Find your exposure &rarr;</span>
+    </a>
+  </div>
+  <p class="note">Computed by build_insights.py from the public data (<a href="out/data.json">data.json</a>, <a href="out/flows_2024.json">flows_2024.json</a>, <a href="out/risk.json">risk.json</a>). Trade year 2024. Decision-layer figures from <a href="out/breakout.json">breakout.json</a>, <a href="out/ot.json">ot.json</a>, <a href="out/leverage.json">leverage.json</a>.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings.html">The origin gap</a><br><a href="risk.html">Supply-risk index</a><br><a href="scenarios.html">Shock scenarios</a></div>
+  <div><h4>Navigate</h4><a href="./">Atlas home</a><br><a href="explorer.html">Explore the data</a><br><a href="findings.html">The origin gap</a><br><a href="breakout.html">Break the chokepoint</a><br><a href="ot.html">Reallocation stress test</a><br><a href="leverage.html">Leverage map</a><br><a href="risk.html">Supply-risk index</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI<br>USGS · IEA · EU CRM · World Bank</div>
   <div class="fineprint">A synthesis of public-data layers. Not an official criticality assessment.</div>
 </div></footer>
