@@ -177,6 +177,18 @@ for mat, meta in cw.items():
     could = who_could(mat, lead_iso)
     # never let the leader appear among its own alternatives (leaders can differ by source)
     could['candidates'] = [c for c in could['candidates'] if c['iso'] != lead_iso]
+    # distinguish a real sourcing gap from materials where buildout simply isn't the constraint:
+    #   chokepoint = concentrated single-country lock, we lack buildout data (the true to-do)
+    #   diffuse    = leader < 30% with fallbacks — not a single-country chokepoint
+    #   endowment  = mine-side geology — diversification is exploration/off-take, not capacity
+    if not is_['gap']:
+        is_['gap_kind'] = None
+    elif moat_type == 'mine-side endowment':
+        is_['gap_kind'] = 'endowment'
+    elif (lead_share or 0) < 30 and not s.get('spof'):
+        is_['gap_kind'] = 'diffuse'
+    else:
+        is_['gap_kind'] = 'chokepoint'
     # verdict sentence
     top = could['candidates'][:2]
     who = ', '.join(c['name'] for c in top) if top else None
@@ -193,7 +205,11 @@ for mat, meta in cw.items():
         if who: parts.append(('capability-adjacent alternatives' if could['strong']
                               else 'current alternatives') + f': {who}')
         else: parts.append('no clear alternative surfaced')
-        parts.append(f'being built: {build}' if build else 'public buildout data: none tracked (sourcing gap)')
+        if build: parts.append(f'being built: {build}')
+        elif is_.get('forward'): parts.append('forward capacity tracked (USGS Outlook)')
+        elif is_.get('gap_kind') == 'diffuse': parts.append('not a single-country chokepoint — buildout not the constraint')
+        elif is_.get('gap_kind') == 'endowment': parts.append('mine-side endowment — exploration/off-take, not new capacity')
+        else: parts.append('no diversification project tracked (sourcing gap)')
         verdict = '; '.join(parts) + '.'
     records.append({
         'label': mat, 'name': name, 'commodity': commodity, 'title_code': meta.get('title_code'),
@@ -217,6 +233,8 @@ MOAT_ORDER = ['import-fed capability', 'by-product capability',
 summary = {'n': len(records),
            'by_moat': {m: sum(1 for r in records if r['problem']['moat_type'] == m) for m in MOAT_ORDER},
            'strong_alt': sum(1 for r in records if r['who_could']['strong']),
+           'has_buildout': sum(1 for r in records if not r['who_is']['gap']),
+           'chokepoint_gap': sum(1 for r in records if r['who_is'].get('gap_kind') == 'chokepoint'),
            'buildout_gap': sum(1 for r in records if r['who_is']['gap'])}
 
 PAYLOAD = {'summary': summary, 'materials': records}
@@ -273,6 +291,7 @@ PAGE = r'''<!doctype html>
  .proj .pf{flex:0 0 auto}.proj .ps{color:var(--faint);font-size:.68rem}
  .fwd{font-size:.72rem;color:var(--mut);margin:5px 0 0}
  .gap{font-size:.75rem;color:#a5641a;background:#fdf4e7;border:1px solid #f0dcc0;border-radius:7px;padding:6px 9px;margin:2px 0 0}
+ .softgap{font-size:.73rem;color:var(--mut);background:var(--bg-soft);border:1px solid var(--line);border-radius:7px;padding:6px 9px;margin:2px 0 0;font-style:italic}
  .verdict{font-size:.82rem;color:var(--ink);line-height:1.45;background:var(--bg-soft);border-radius:9px;padding:9px 12px;margin-top:2px}
  .verdict b{color:var(--navy)}
  .empty{color:var(--faint);font-style:italic;padding:2rem;text-align:center}
@@ -317,7 +336,8 @@ sum.innerHTML =
   `<div class="s"><b>${S.n}</b>critical materials</div>`+
   `<div class="s"><b>${S.by_moat['import-fed capability']+S.by_moat['by-product capability']}</b>capability moats<br><span style="font-size:.68rem">(furnace / by-product, no ore lever)</span></div>`+
   `<div class="s"><b>${S.strong_alt}</b>with a capability-adjacent<br>alternative (product-space)</div>`+
-  `<div class="s"><b>${S.buildout_gap}</b>with no tracked buildout<br><span style="font-size:.68rem">&mdash; the sourcing to-do</span></div>`;
+  `<div class="s"><b>${S.has_buildout}</b>with tracked buildout<br><span style="font-size:.68rem">projects underway</span></div>`+
+  `<div class="s"><b>${S.chokepoint_gap}</b>chokepoints with no<br>tracked buildout <span style="font-size:.68rem">&mdash; the to-do</span></div>`;
 
 // filter chips
 const active=new Set(Object.keys(MOAT));
@@ -332,6 +352,11 @@ Object.entries(MOAT).forEach(([full,info])=>{
 const srch=document.createElement('input'); srch.type='search'; srch.placeholder='search material or country…';
 srch.oninput=render; fb.appendChild(srch);
 
+function gapMsg(kind){
+  if(kind==='diffuse') return `<div class="softgap">Not a single-country chokepoint (leader &lt;30% with fallback suppliers) — buildout is not the binding constraint here.</div>`;
+  if(kind==='endowment') return `<div class="softgap">Mine-side endowment — the answer is exploration &amp; off-take agreements, not new processing capacity.</div>`;
+  return `<div class="gap">No public diversification project tracked for this concentrated stage — either a real sourcing gap, or a supplier the market hasn&rsquo;t moved to replace (e.g. a well-supplied ally).</div>`;
+}
 function bar(width,color){ return `<span class="cf" style="width:${Math.max(3,Math.min(100,width))}%;background:${color}"></span>`; }
 function card(r){
   const p=r.problem, mo=MOAT[p.moat_type]||MOAT['refining capability'];
@@ -355,7 +380,7 @@ function card(r){
     is = wi.projects.slice(0,4).map(pr=>`<div class="proj"><span class="pf">${flag(pr.iso)}</span><span><b>${pr.name}</b> <span class="ps">${pr.stage||''}${pr.status?' · '+pr.status:''}</span></span></div>`).join('');
   }
   if(wi.forward){ is += `<div class="fwd">USGS capacity ${wi.forward.stage||''}: ${wi.forward.from}&rarr;${wi.forward.to} kt by 2029 (${wi.forward.growth_pct>=0?'+':''}${wi.forward.growth_pct}%)</div>`; }
-  if(wi.gap && !is){ is = `<div class="gap">No public buildout tracked — a sourcing gap to fill.</div>`; }
+  if(wi.gap && !is){ is = gapMsg(wi.gap_kind); }
   return `<div class="bcard" data-moat="${p.moat_type}" data-txt="${(r.name+' '+(r.commodity||'')+' '+p.leader_name+' '+cc.candidates.map(c=>c.name).join(' ')).toLowerCase()}">
     <h3><span>${r.name}</span><span class="hs">${r.title_code||''} · ${(r.flags||[]).join('/')||'—'}</span></h3>
     ${r.commodity?`<div class="commodity">${r.commodity}</div>`:''}
@@ -371,7 +396,7 @@ function card(r){
     </div>
     <div class="sec">
       <div class="lbl">Who is building it</div>
-      ${is || '<div class="gap">No public buildout tracked — a sourcing gap to fill.</div>'}
+      ${is || gapMsg(wi.gap_kind)}
     </div>
     <div class="verdict">${r.verdict}</div>
   </div>`;
