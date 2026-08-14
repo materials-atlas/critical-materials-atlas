@@ -1,1165 +1,232 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Critical Raw Materials — where do they really come from?</title>
-<meta name="description" content="Where 32 critical raw materials are mined, refined and traded worldwide — reconciled bilateral trade (UN Comtrade / CEPII BACI) set beside USGS mine production. In 18 of 32, the top exporter is not the top miner. Public data; interactive.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E🌍%3C/text%3E%3C/svg%3E">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://criticalmaterialsatlas.org/">
-<meta property="og:title" content="Critical raw materials — where do they really come from?">
-<meta property="og:description" content="32 critical materials mined ▸ refined ▸ traded — complete global bilateral trade, for any country. Public USGS · IEA · UN Comtrade (CEPII BACI) data.">
-<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<title>Critical Materials Atlas</title>
+<meta name="description" content="A public-data atlas of the critical raw-materials value chain: where 32 materials are mined, who refines them, how they really trade, who controls each chokepoint — and what to do about it. Built from USGS, BGS, IEA and reconciled UN Comtrade / CEPII BACI data.">
+<meta property="og:title" content="Critical Materials Atlas">
+<meta property="og:description" content="From the rock in the ground to the geopolitics of the refined metal — the full value chain of 32 critical raw materials, and what to do when one country holds the chokepoint. Public data.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Critical raw materials — where do they really come from?">
-<meta name="twitter:description" content="32 critical materials mined ▸ refined ▸ traded worldwide — a public-data atlas of mine, refinery and trade.">
-<meta name="twitter:image" content="https://criticalmaterialsatlas.org/out/share.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>
-  :root{ --red:#b22222; --blue:#3a6ea5; --ore:#d98a00; --ink:#1a1a1a; --mut:#666; --line:#e6e6e6; }
-  *{box-sizing:border-box}
-  body{font-family:system-ui,Segoe UI,Arial,sans-serif;max-width:1180px;margin:0 auto;padding:1.4rem 1rem 3rem;color:var(--ink);line-height:1.5}
-  h1{font-size:1.6rem;margin:0 0 .15rem}
-  .sub{color:var(--mut);margin:0}
-  .stamp{font-size:.78rem;color:#999;margin:.25rem 0 .8rem}
-  .intro{background:#faf6f6;border-left:3px solid var(--red);padding:.7rem 1rem;border-radius:0 6px 6px 0;font-size:.95rem}
-  .tabs{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;margin:1.3rem 0 .9rem;border-bottom:1px solid var(--line);padding-bottom:.6rem}
-  .tabs button{font:inherit;font-size:.9rem;padding:.4rem .9rem;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--ink)}
-  .tabs button.active{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .tabs .grow{flex:1}
-  .tabs input,.tabs select{font:inherit;font-size:.85rem;padding:.38rem .5rem;border:1px solid var(--line);border-radius:6px}
-  .tabs button.toolbtn{font-size:.8rem;padding:.34rem .6rem;color:#555;background:#f7f8fa}
-  .tabs button.toolbtn:hover{background:#eef1f5}
-  .depbtn{font:inherit;font-size:.8rem;padding:.28rem .55rem;border:1px solid var(--line);background:#f7f8fa;border-radius:6px;cursor:pointer;color:#555}
-  .depbtn:hover{background:#eef1f5}
-  .view.hidden{display:none}
-  .legend{font-size:.8rem;color:var(--mut);margin:.2rem 0 .7rem}
-  .legend .howto{margin-top:.35rem}
-  .legend .howto summary{cursor:pointer;color:var(--accent);font-weight:600;display:inline-block;padding:.1rem 0;list-style-position:inside}
-  .legend .howto summary:hover{text-decoration:underline}
-  .legend .howto[open] summary{margin-bottom:.15rem}
-  .legend .howto p,.legend .howto li{color:var(--mut);line-height:1.55}
-  .legend .howto-src{font-size:.74rem;color:var(--mut);opacity:.85;border-top:1px solid var(--line);padding-top:.4rem;margin-top:.5rem}
-  .sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:middle;margin:0 .2rem 0 .7rem}
-  /* dual-bar table */
-  .row{display:grid;grid-template-columns:11rem 1fr 1.4rem;gap:.7rem;align-items:center;padding:.5rem .3rem;border-bottom:1px solid var(--line);cursor:pointer}
-  .row:hover{background:#fafafa}
-  .row .name{font-weight:600;font-size:.92rem;line-height:1.2}
-  .row .name small{font-weight:400;color:var(--mut);display:block;font-size:.7rem}
-  .duo{display:flex;flex-direction:column;gap:.25rem}
-  .dbar{display:grid;grid-template-columns:4.4rem 1fr;gap:.4rem;align-items:center}
-  .dlbl{font-size:.66rem;color:var(--mut);text-transform:uppercase;letter-spacing:.02em;text-align:right;white-space:nowrap}
-  .bw{position:relative;background:#f0f0f0;border-radius:4px;height:19px;overflow:hidden}
-  .bf{position:absolute;left:0;top:0;bottom:0;border-radius:4px}
-  .bl{position:absolute;left:7px;top:0;line-height:19px;font-size:.74rem;color:#fff;text-shadow:0 0 2px rgba(0,0,0,.55);white-space:nowrap}
-  .sbar{display:flex;height:19px;border-radius:4px;overflow:hidden;background:#eee}
-  .seg{height:100%;display:flex;align-items:center;padding-left:4px;font-size:.65rem;color:#fff;white-space:nowrap;overflow:hidden;text-shadow:0 0 2px rgba(0,0,0,.55);box-shadow:inset -1px 0 0 rgba(255,255,255,.6)}
-  .warn{color:var(--ore);font-size:1.05rem;text-align:center}
-  .crow{display:grid;grid-template-columns:11.5rem 1fr .5rem 1fr .5rem 1fr .5rem 1.3fr 1.3fr 2.5rem 1rem;gap:.35rem;align-items:center;padding:.42rem .3rem;border-bottom:1px solid var(--line);cursor:pointer;font-size:.8rem}
-  .dim{color:#bbb}
-  .cimp{color:#8a5a9e}
-  .cnaive{color:#9a9a9a;font-style:italic}
-  .crow:hover{background:#fafafa}
-  .crow.head{cursor:default;font-size:.7rem;text-transform:uppercase;letter-spacing:.03em;color:#888;border-bottom:2px solid #ccc}
-  .crow.head [data-s]{cursor:pointer;user-select:none}
-  .crow.head [data-s]:hover{color:#333}
-  .crow.head:hover{background:none}
-  .cc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .cc small{color:#999;font-weight:400}
-  .htc{padding:.16rem .4rem;border-radius:4px}
-  .cmine{color:#9a5b14}
-  .cref{color:#2b4d6f} .cref.cn{color:var(--red);font-weight:600}
-  .carr{color:#ccc;text-align:center}
-  /* map / globe */
-  .maptog{font-size:.82rem;color:var(--mut);margin-bottom:.5rem}
-  .maptog button{font:inherit;font-size:.8rem;padding:.3rem .6rem;border:1px solid var(--line);background:#fff;border-radius:5px;cursor:pointer}
-  .maptog button.active{background:var(--red);color:#fff;border-color:var(--red)}
-  #map{height:520px;border:1px solid var(--line);border-radius:8px}
-  #globe{height:560px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#000}
-  #sankey{height:700px;border:1px solid var(--line);border-radius:8px;padding:4px}
-  #yearbar{display:flex;align-items:center;gap:.5rem;font-size:.85rem;color:#444;margin:.1rem 0 1rem;padding:.5rem .8rem;background:#f7f7f9;border:1px solid var(--line);border-radius:8px;flex-wrap:wrap}
-  #yr-tiers{flex-basis:100%;display:flex;gap:3px;margin-top:.15rem;font-size:.66rem;line-height:1.6}
-  #yr-tiers span{padding:1px 6px;border-radius:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
-  #yr-tiers .t-meas{flex:7;background:#e7eef6;color:#34618a}
-  #yr-tiers .t-prov{flex:1.6;background:#fff1df;color:#b35e16;text-align:center}
-  #yr-tiers .t-dir{flex:1.6;background:#fde9e9;color:#c0392b;text-align:center}
-  #yr-tiers button.t-dir{border:1px dashed #c0392b;cursor:pointer;font:inherit;font-weight:600;font-size:.66rem;padding:1px 6px}
-  #yr-tiers button.t-dir:hover{background:#fbd5d5}
-  #yr-tiers button.t-dir:disabled{cursor:default;opacity:.65;border-style:solid}
-  #yearbar input[type=range]{flex:0 0 220px;accent-color:rgb(142,68,173);cursor:pointer}
-  #yearbar b{color:rgb(142,68,173);font-size:1.05rem;min-width:2.7rem;text-align:center}
-  #yearbar .ymut{color:#999;font-size:.8rem}
-  .panel-info{font-size:.88rem;color:#333;margin-top:.6rem;min-height:1.4rem}
-  .loading{color:var(--mut);padding:2rem;text-align:center}
-  table.dt{border-collapse:collapse;width:100%;font-size:.86rem}
-  table.dt th,table.dt td{padding:.42rem .55rem;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-  table.dt th{cursor:pointer;user-select:none;color:#222;border-bottom:2px solid #bbb;position:sticky;top:0;background:#fff}
-  table.dt th:hover{color:var(--red)}
-  table.dt td.n,table.dt th.n{text-align:right;font-variant-numeric:tabular-nums}
-  table.dt tbody tr{cursor:pointer}
-  table.dt tbody tr:hover{background:#fafafa}
-  /* detail modal */
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:flex-start;justify-content:center;padding:3vh 1rem;overflow:auto;z-index:50}
-  .modal.hidden{display:none}
-  .modal-box{background:#fff;max-width:980px;width:100%;border-radius:10px;padding:1.2rem 1.4rem 1.8rem;position:relative}
-  #detail-close{position:absolute;top:.5rem;right:.7rem;border:none;background:none;font-size:1.7rem;cursor:pointer;color:var(--mut);line-height:1}
-  .contrast{background:#fff7e6;border-left:3px solid var(--ore);padding:.5rem .85rem;border-radius:0 6px 6px 0;font-size:.92rem;margin:.5rem 0}
-  .contrast.ok{background:#eef7ee;border-left-color:#3a8a3a}
-  .layers{display:flex;gap:1.2rem;flex-wrap:wrap;margin:.7rem 0}
-  .layer{flex:1;min-width:260px}
-  .layer h3{font-size:.8rem;margin:.2rem 0 .4rem;color:#333;text-transform:uppercase;letter-spacing:.03em}
-  .mrow{display:grid;grid-template-columns:8.5rem 1fr 2.4rem;gap:.4rem;align-items:center;font-size:.82rem;padding:.13rem 0}
-  .mc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .mbar-wrap{background:#f0f0f0;border-radius:3px;height:13px;overflow:hidden}
-  .mbar{display:block;height:100%;border-radius:3px}
-  .mv{text-align:right;color:#555;font-variant-numeric:tabular-nums}
-  .kpis{display:flex;gap:.6rem;flex-wrap:wrap;margin:.7rem 0}
-  .kpi{flex:1;min-width:120px;border:1px solid var(--line);border-radius:8px;padding:.55rem;text-align:center}
-  .kpi .v{font-size:1.35rem;font-weight:700;color:var(--red)} .kpi .l{font-size:.7rem;color:var(--mut)}
-  .modal img{max-width:100%;height:auto;border:1px solid var(--line);border-radius:6px;margin:.3rem 0}
-  .two{display:flex;gap:.6rem;flex-wrap:wrap}.two img{flex:1;min-width:300px}
-  footer{margin-top:2.4rem;font-size:.8rem;color:#888;border-top:1px solid var(--line);padding-top:.8rem}
-  a{color:var(--red)}
-
-  /* ===================== professional reskin — consulting / corporate ===================== */
-  :root{
-    --ink:#1a1f24; --ink-soft:#3c4650; --mut:#667179; --faint:#9aa6ad;
-    --line:#e6e9e8; --line-strong:#ccd5d3; --navy:#15323a; --navy2:#1d4a52;  /* deep teal-charcoal brand (deliberately NOT consulting-navy) */
-    --bg:#ffffff; --bg-soft:#f4f7f6; --accent:#0e7c74;  /* teal accent */
-  }
-  body{font-family:'Inter',system-ui,Segoe UI,Arial,sans-serif;max-width:1220px;padding:0 1.6rem 4rem;line-height:1.55;color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  /* masthead */
-  .masthead{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.15rem 0 .95rem;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .wordmark{display:flex;align-items:center;gap:.6rem;font-weight:800;letter-spacing:.15em;font-size:.82rem;text-transform:uppercase;color:var(--navy)}
-  .wordmark .mark{width:15px;height:15px;background:var(--navy);transform:rotate(45deg);border-radius:2px;flex:none}
-  .mast-meta{font-size:.72rem;color:var(--faint);letter-spacing:.06em;text-transform:uppercase;font-weight:600}
-
-  /* hero */
-  header.hero{padding:2.3rem 0 1.5rem}
-  header.hero h1{font-size:2.35rem;line-height:1.07;letter-spacing:-.022em;font-weight:800;color:var(--navy);margin:0;max-width:22ch}
-  header.hero .sub{font-size:1.03rem;color:var(--mut);max-width:74ch;margin:.75rem 0 0}
-  header.hero .meta-links{font-size:.86rem;color:var(--mut);margin-top:.65rem}
-  header.hero .stamp{margin:.55rem 0 0;color:var(--faint)}
-
-  /* intro -> clean kicker panel */
-  .intro{background:var(--bg-soft);border:1px solid var(--line);border-left:3px solid var(--navy);border-radius:8px;padding:.9rem 1.15rem;font-size:.9rem;color:var(--ink-soft);margin-top:.2rem}
-
-  /* nav tabs -> underline indicator */
-  .tabs{gap:.15rem;align-items:flex-end;margin:1.7rem 0 1.1rem;padding-bottom:0;border-bottom:1px solid var(--line);row-gap:.55rem}
-  .tabs button[data-view]{border:none;background:none;border-radius:0;padding:.55rem 1rem;color:var(--mut);font-weight:600;font-size:.93rem;border-bottom:2px solid transparent;margin-bottom:-1px}
-  .tabs button[data-view]:hover{color:var(--ink);background:none}
-  .tabs button[data-view].active{color:var(--navy);background:none;border-color:var(--navy)}
-  .tabs input,.tabs select{border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);padding:.42rem .6rem}
-  .tabs input:focus,.tabs select:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,37,69,.09)}
-  .tabs button.toolbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;font-weight:600}
-  .tabs button.toolbtn:hover{background:var(--bg-soft)}
-  .depbtn{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:8px;font-weight:600}
-  .depbtn:hover{background:var(--bg-soft)}
-  .maptog button.active{background:var(--navy);border-color:var(--navy)}
-
-  /* year bar */
-  #yearbar{background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:.65rem .95rem}
-  #yearbar b{color:var(--navy)}
-  #yearbar input[type=range]{accent-color:var(--navy)}
-
-  /* tables */
-  .crow.head{color:var(--navy);border-bottom:1px solid var(--line-strong);font-size:.68rem;letter-spacing:.05em}
-  .crow{border-bottom:1px solid var(--line)}
-  .crow:hover{background:var(--bg-soft)}
-  .row:hover{background:var(--bg-soft)}
-  table.dt th{color:var(--navy);border-bottom:2px solid var(--line-strong)}
-  table.dt th:hover{color:var(--accent)}
-  table.dt tbody tr:hover{background:var(--bg-soft)}
-
-  /* detail / kpis / panels */
-  .kpi{border:1px solid var(--line);border-radius:10px;background:var(--bg-soft)}
-  .kpi .v{color:var(--navy)}
-  .layer h3{color:var(--navy)}
-  .legend{color:var(--mut)}
-  .panel-info{color:var(--ink-soft)}
-  .modal-box{border-radius:14px;box-shadow:0 24px 64px rgba(16,24,40,.24);padding:1.4rem 1.6rem 2rem}
-  .modal-box h2{color:var(--navy);letter-spacing:-.01em}
-  #map,#globe,#sankey{border:1px solid var(--line);border-radius:10px}
-
-  /* footer */
-  footer{margin-top:3.2rem;border-top:1px solid var(--line);padding-top:1.3rem;color:var(--mut);font-size:.82rem;line-height:1.65}
-  @media (max-width:640px){ header.hero h1{font-size:1.85rem} body{padding:0 1rem 3rem} }
-
-  /* ===================== full-bleed editorial scaffolding ===================== */
-  body{max-width:none;margin:0;padding:0}
-  .wrap{max-width:1220px;margin:0 auto;padding:0 1.6rem}
-
-  /* sticky top navigation */
-  .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(140%) blur(8px);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
-  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:58px}
-  a.wordmark{text-decoration:none}
-  a.wordmark:hover{text-decoration:none}
-  .topnav{display:flex;align-items:center;gap:1.5rem}
-  .topnav a{color:var(--ink-soft);font-size:.86rem;font-weight:600;letter-spacing:.005em}
-  .topnav a:hover{color:var(--navy);text-decoration:none}
-  .topnav a.cta{color:#fff;background:var(--navy);padding:.42rem .85rem;border-radius:7px}
-  .topnav a.cta:hover{background:var(--navy2)}
-  .topnav .grp{position:relative}
-  .topnav .grp>button{font:inherit;color:var(--ink-soft);font-size:.86rem;font-weight:600;letter-spacing:.005em;background:none;border:0;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:.22rem}
-  .topnav .grp>button::after{content:'▾';font-size:.72em;opacity:.65}
-  .topnav .grp:hover>button,.topnav .grp.open>button{color:var(--navy)}
-  .topnav .menu{position:absolute;top:100%;left:0;margin-top:.4rem;background:#fff;border:1px solid var(--line);border-radius:10px;box-shadow:0 12px 32px rgba(20,50,58,.14);padding:.4rem;min-width:14.5rem;display:none;flex-direction:column;gap:.05rem;z-index:60}
-  .topnav .menu::before{content:'';position:absolute;top:-.4rem;left:0;right:0;height:.4rem}
-  .topnav .grp:hover .menu,.topnav .grp.open .menu{display:flex}
-  .topnav .menu a{display:block;padding:.42rem .6rem;border-radius:7px;font-size:.84rem;font-weight:500;color:var(--ink)}
-  .topnav .menu a:hover{background:var(--bg-soft);color:var(--navy);text-decoration:none}
-  .topnav .menu .lbl{font-size:.66rem;text-transform:uppercase;letter-spacing:.07em;color:#9aa6ad;font-weight:700;padding:.5rem .6rem .2rem;border-top:1px solid var(--line);margin-top:.25rem}
-  @media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable,.topnav .grp.hideable{display:none} }
-
-  /* hero band */
-  .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:3.4rem 0 2.8rem;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
-  .hero .wrap{position:relative;z-index:1}
-  .hero-motif{position:absolute;top:50%;right:-70px;transform:translateY(-50%);width:560px;height:560px;pointer-events:none}
-  @media(max-width:900px){ .hero-motif{right:-210px;opacity:.6} }
-  @media(max-width:760px){ .hero-motif{display:none} }
-  .hero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:.85rem}
-  .hero h1{font-size:2.65rem;line-height:1.05;letter-spacing:-.026em;font-weight:800;color:#fff;margin:0;max-width:19ch}
-  .hero .deck{font-size:1.1rem;line-height:1.5;color:#bdd1cf;max-width:68ch;margin:1.05rem 0 0;font-weight:400}
-  .hero .meta-links{font-size:.87rem;color:#9fbab6;margin-top:1.1rem}
-  .hero .meta-links a{color:#fff;font-weight:600}
-  .hero .byline{font-size:.8rem;color:#84a09c;margin-top:1.25rem;letter-spacing:.01em}
-
-  /* key-figures strip */
-  .stats{background:#fff;border-bottom:1px solid var(--line)}
-  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
-  .stat{padding:1.55rem 1.5rem;border-left:1px solid var(--line)}
-  .stat:first-child{border-left:none;padding-left:0}
-  .stat .n{font-size:1.95rem;font-weight:800;color:var(--navy);letter-spacing:-.025em;line-height:1}
-  .stat .l{font-size:.79rem;color:var(--mut);margin-top:.45rem;line-height:1.35;max-width:24ch}
-  @media(max-width:760px){ .stats .wrap{grid-template-columns:repeat(2,1fr);gap:.4rem 0} .stat{border-left:none;padding:1rem 0} .stat:nth-child(2){padding-left:0} }
-
-  #app{padding-top:1.7rem}
-  #app .intro{margin-top:0}
-
-  /* dark structured footer */
-  footer.siteftr{background:#12272c;color:#a4b9b6;margin-top:3.6rem;padding:2.6rem 0 2.2rem;font-size:.84rem;line-height:1.6;border:none}
-  footer.siteftr .wrap{display:grid;grid-template-columns:2.2fr 1fr 1fr;gap:2.2rem}
-  footer.siteftr h4{color:#fff;font-size:.74rem;text-transform:uppercase;letter-spacing:.1em;margin:0 0 .65rem;font-weight:700}
-  footer.siteftr a{color:#c1d6d2}
-  footer.siteftr a:hover{color:#fff}
-  footer.siteftr .fineprint{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.13);margin-top:1.1rem;padding-top:1.1rem;color:#7c918d;font-size:.78rem;line-height:1.55}
-  @media(max-width:760px){ footer.siteftr .wrap{grid-template-columns:1fr;gap:1.4rem} }
+ body{background:var(--bg)}
+ .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
+ /* hero */
+ .lhero{background:linear-gradient(158deg,#0f272c 0%,#164049 60%,#1d5059 100%);color:#fff;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
+ .lhero .wrap{padding:4rem 22px 3.2rem;position:relative;z-index:1}
+ .lhero .motif{position:absolute;top:50%;right:-90px;transform:translateY(-50%);width:600px;height:600px;pointer-events:none;z-index:0}
+ @media(max-width:900px){.lhero .motif{right:-260px;opacity:.55}}@media(max-width:640px){.lhero .motif{display:none}}
+ .lhero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:1rem}
+ .lhero h1{font-size:3rem;line-height:1.03;letter-spacing:-.028em;font-weight:800;margin:0;max-width:18ch}
+ @media(max-width:640px){.lhero h1{font-size:2.1rem}}
+ .lhero .deck{font-size:1.14rem;line-height:1.55;color:#c6dad7;max-width:60ch;margin:1.2rem 0 0}
+ .lhero .deck b{color:#fff;font-weight:600}
+ .lhero .cta{display:flex;flex-wrap:wrap;gap:12px;margin:1.7rem 0 0}
+ .lhero .cta a{font-size:.92rem;font-weight:700;text-decoration:none;border-radius:9px;padding:11px 20px}
+ .lhero .cta .primary{background:#2bb3a3;color:#08201f}.lhero .cta .primary:hover{background:#43c8b8}
+ .lhero .cta .ghost{border:1px solid rgba(255,255,255,.32);color:#fff}.lhero .cta .ghost:hover{background:rgba(255,255,255,.08)}
+ .lhero .byline{font-size:.8rem;color:#8fabab;margin:1.5rem 0 0}
+ /* stat strip */
+ .lstats{background:var(--navy);color:#fff}
+ .lstats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0}
+ .lstat{padding:1.15rem 22px;border-left:1px solid rgba(255,255,255,.12)}
+ .lstat:first-child{border-left:0;padding-left:0}.lstats .wrap{padding-left:22px}
+ .lstat .n{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1}
+ .lstat .n .u{font-size:.9rem;color:#7fa8a4;font-weight:600}
+ .lstat .l{font-size:.78rem;color:#a9c6c2;margin-top:.35rem;line-height:1.3}
+ @media(max-width:720px){.lstats .wrap{grid-template-columns:repeat(2,1fr)}.lstat{border-left:0;padding-left:0}}
+ /* section shell */
+ section.band{padding:3.4rem 0}
+ .band h2{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;color:var(--navy);margin:0 0 .5rem}
+ .band .lead{font-size:1.04rem;color:var(--mut);max-width:66ch;margin:0 0 2rem;line-height:1.55}
+ .kicker{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
+ /* value chain */
+ .chain{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+ @media(max-width:900px){.chain{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.chain{grid-template-columns:1fr}}
+ .stage{position:relative;border:1px solid var(--line);border-radius:13px;padding:16px 16px 18px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
+ .stage:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,50,58,.09)}
+ .stage .step{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+ .stage h3{font-size:1.06rem;color:var(--navy);margin:.35rem 0 .15rem;font-weight:700}
+ .stage .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle}
+ .stage p{font-size:.85rem;color:var(--mut);line-height:1.45;margin:.3rem 0 0;flex:1}
+ .stage p b{color:var(--ink-soft)}
+ .stage .go{font-size:.8rem;font-weight:700;color:var(--accent);margin-top:.8rem}
+ .stage.hot{border-color:#e7cdbf;background:linear-gradient(180deg,#fdf6f1,var(--bg) 60%)}
+ /* decision layer */
+ .decision{background:var(--bg-soft)}
+ .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+ @media(max-width:820px){.dgrid{grid-template-columns:1fr}}
+ .dcard{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
+ .dcard:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 12px 30px rgba(20,50,58,.1)}
+ .dcard .tag{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+ .dcard h3{font-size:1.24rem;color:var(--navy);margin:.5rem 0 .4rem;font-weight:800;letter-spacing:-.01em}
+ .dcard p{font-size:.88rem;color:var(--mut);line-height:1.5;margin:0;flex:1}
+ .dcard .big{font-size:2.1rem;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin:.6rem 0 .1rem;line-height:1}
+ .dcard .big .u{font-size:.86rem;font-weight:600;color:var(--faint)}
+ .dcard .go{font-size:.82rem;font-weight:700;color:var(--accent);margin-top:.9rem}
+ /* rigor */
+ .rigor .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+ @media(max-width:820px){.rigor .rgrid{grid-template-columns:1fr}}
+ .rig{border-left:3px solid var(--accent);padding:.2rem 0 .2rem 16px}
+ .rig h4{font-size:.98rem;color:var(--navy);margin:0 0 .3rem;font-weight:700}
+ .rig p{font-size:.85rem;color:var(--mut);line-height:1.5;margin:0}.rig a{font-weight:600}
+ /* explore CTA */
+ .explore{background:linear-gradient(158deg,#12272c,#1a4750);color:#fff;border-radius:16px;padding:2.2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
+ .explore h2{color:#fff;margin:0 0 .4rem}.explore p{color:#bcd4d1;font-size:.98rem;margin:0;max-width:52ch;line-height:1.5}
+ .explore a{white-space:nowrap;background:#2bb3a3;color:#08201f;font-weight:700;font-size:.98rem;padding:13px 24px;border-radius:10px;text-decoration:none}
+ .explore a:hover{background:#43c8b8}
+ /* footer */
+ .lftr{border-top:1px solid var(--line);padding:2.4rem 0 3rem;color:var(--mut);font-size:.86rem}
+ .lftr .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:1.5rem}
+ @media(max-width:720px){.lftr .cols{grid-template-columns:1fr;gap:1.3rem}}
+ .lftr h4{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);margin:0 0 .6rem}
+ .lftr a{color:var(--ink-soft);text-decoration:none;display:block;padding:.15rem 0}.lftr a:hover{color:var(--accent)}
+ .lftr .fine{font-size:.76rem;color:var(--faint);border-top:1px solid var(--line);padding-top:1.2rem;line-height:1.5;max-width:none}
 </style>
-</head>
-<body>
+</head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav">
-    <a href="./">Atlas</a>
-    <a href="insights.html">Insights</a>
-    <a href="findings.html" class="hideable">Findings</a>
-    <div class="grp hideable"><button type="button">Analysis</button><div class="menu">
-      <a href="trends.html">Trends — 22-year evolution</a>
-      <a href="volume.html">Value vs volume (price effects)</a>
-      <a href="network.html">Trade-network chokepoints</a>
-      <a href="complexity.html">Economic complexity</a>
-      <a href="product-space.html">Product space — mine ▸ refine map</a>
-      <a href="refiners.html">Who actually refines — capability map</a>
-      <a href="breakout.html">Break the chokepoint — the decision layer</a>
-      <a href="origin.html">Origin trace</a>
-      <a href="criticality.html">Governance-weighted criticality</a>
-    </div></div>
-    <div class="grp hideable"><button type="button">Risk</button><div class="menu">
-      <a href="risk.html">Supply-risk index</a>
-      <a href="riskmethods.html">Risk methods — TOPSIS · GeoPolRisk · tail</a>
-      <a href="scenarios.html">Shock scenarios</a>
-      <a href="ot.html">Reallocation stress test — can the rest cover the cut?</a>
-      <a href="leverage.html">Leverage map — how exposed is your country</a>
-      <span class="lbl">Interactive</span>
-      <a href="index-builder.html">Build your own risk index</a>
-      <a href="shock-builder.html">Build your own supply shock</a>
-    </div></div>
-    <div class="grp hideable"><button type="button">Satellite</button><div class="menu">
-      <a href="satellite.html">Mine footprint (from orbit)</a>
-      <a href="mining-expansion.html">Mining expansion — new supply</a>
-    </div></div>
-    <div class="grp hideable"><button type="button">Rigor</button><div class="menu">
-      <a href="robustness.html">Robustness — do findings survive?</a>
-      <a href="network-sensitivity.html">Network truncation sensitivity</a>
-      <a href="limitations.html">Limitations &amp; falsification</a>
-    </div></div>
-    <div class="grp hideable"><button type="button">Reference</button><div class="menu">
-      <a href="methodology.html">Methodology &amp; validation</a>
-      <a href="technical-note.html">Technical note (PDF)</a>
-      <a href="brief.html">One-page findings brief</a>
-      <a href="casestudies.html">Case studies — known-chain audit</a>
-      <a href="profiles.html">Material &amp; country profiles</a>
-      <a href="data.html">Open data / API</a>
-      <a href="map.html">Project map — how it's built</a>
-      <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">Reconciliation engine</a>
-    </div></div>
-    <a href="#" id="nav-csv" class="cta">Download data</a>
-  </nav>
-  <script>
-   document.querySelectorAll('.topnav .grp>button').forEach(function(b){
-     b.addEventListener('click',function(e){e.stopPropagation();var g=b.parentElement,open=g.classList.contains('open');
-       document.querySelectorAll('.topnav .grp.open').forEach(function(x){x.classList.remove('open');});
-       if(!open)g.classList.add('open');});
-   });
-   document.addEventListener('click',function(){document.querySelectorAll('.topnav .grp.open').forEach(function(x){x.classList.remove('open');});});
-  </script>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="findings.html">Findings</a>
+  <a href="breakout.html" class="hideable">Break the chokepoint</a><a href="methodology.html" class="hideable">Methods</a>
+  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 
-<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
-  <div class="eyebrow">Research · Critical-mineral supply chains</div>
-  <h1>Where do critical raw materials really come from?</h1>
-  <p class="deck">For any material — or any country — see where it is <b>mined</b>, where it is <b>refined</b>, and the <b>real global bilateral trade</b>, both directions. The chokepoint a customs ledger shows is usually the refiner, not the source.</p>
-  <p class="meta-links"><a href="methodology.html">Methods &amp; validation</a> · reconciliation engine: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
-  <p class="byline">Independent research under the <b>materials-atlas</b> handle · public data only (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
+<section class="lhero">
+  <svg class="motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".14" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/></g><g stroke="#9be3da" stroke-opacity=".24" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".5"><circle cx="120" cy="360" r="4.5"/><circle cx="472" cy="248" r="4.5"/><circle cx="158" cy="196" r="4.5"/><circle cx="442" cy="422" r="4.5"/></g></svg>
+  <div class="wrap">
+    <div class="eyebrow">Public-data research · the materials-atlas handle</div>
+    <h1>The value chain of the materials the modern world is built on.</h1>
+    <p class="deck">32 critical raw materials, from the rock in the ground to the geopolitics of the refined metal. Where they&rsquo;re <b>mined</b>, who turns them into usable <b>metal</b>, how they <b>really move</b> across borders, who holds each <b>chokepoint</b> — and, when one country does, <b>what you can actually do about it</b>. Built entirely from public data.</p>
+    <div class="cta">
+      <a class="primary" href="explorer.html">Explore all 32 materials →</a>
+      <a class="ghost" href="#decide">What do you do about a chokepoint?</a>
+    </div>
+    <p class="byline">Independent research · public data only (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · reconciled trade 2002–2024 + nowcast · not affiliated with any institution.</p>
+  </div>
+</section>
+
+<section class="lstats"><div class="wrap">
+  <div class="lstat"><div class="n">32</div><div class="l">critical raw materials, mine → refine → trade</div></div>
+  <div class="lstat"><div class="n">18<span class="u">/32</span></div><div class="l">where the top exporter never mined it</div></div>
+  <div class="lstat"><div class="n">2002–26</div><div class="l">reconciled bilateral trade, measured to nowcast</div></div>
+  <div class="lstat"><div class="n">25/30</div><div class="l">top exporters matched vs official BACI (3.5% share error)</div></div>
 </div></section>
 
-<section class="stats"><div class="wrap">
-  <div class="stat"><div class="n">32</div><div class="l"><a href="profiles.html">critical raw materials tracked</a></div></div>
-  <div class="stat"><div class="n">18<span style="color:var(--faint);font-weight:600">/32</span></div><div class="l"><a href="findings.html">where the top exporter is <i>not</i> the top miner</a></div></div>
-  <div class="stat"><div class="n">85%</div><div class="l"><a href="methodology.html#nowcast">year-over-year nowcast persistence, out-of-sample</a></div></div>
-  <div class="stat"><div class="n">2002–26</div><div class="l"><a href="trends.html">reconciled trade, measured to nowcast</a></div></div>
+<section class="band"><div class="wrap">
+  <div class="kicker">Follow a critical material through its life</div>
+  <h2>Reserves → mine → refine → trade → the grip</h2>
+  <p class="lead">Most maps of critical minerals stop at &ldquo;who exports it.&rdquo; That&rsquo;s the wrong end of the chain. Follow a material the whole way — and the real chokepoint appears where the customs ledger can&rsquo;t see it.</p>
+  <div class="chain">
+    <a class="stage" href="explorer.html">
+      <span class="step">Stage 1 · in the ground</span>
+      <h3>Reserves</h3>
+      <p>What&rsquo;s economically recoverable, and where the rock actually sits — often nothing like where it&rsquo;s sold. USGS reserves for all 32.</p>
+      <span class="go">See the map →</span>
+    </a>
+    <a class="stage" href="trends.html">
+      <span class="step">Stage 2 · out of the ground</span>
+      <h3>Mining <span class="dot" style="background:#de8c28"></span></h3>
+      <p>Who digs it up. USGS &amp; BGS production, <b>1970–2024</b> — the part everyone already counts.</p>
+      <span class="go">22-year trends →</span>
+    </a>
+    <a class="stage hot" href="refiners.html">
+      <span class="step">Stage 3 · into metal · the twist</span>
+      <h3>Refining <span class="dot" style="background:#8e44ad"></span></h3>
+      <p>Here the chain bends. The seller usually isn&rsquo;t the miner — for <b>18 of 32</b> materials the top exporter refined it, not mined it. Gallium: China refines <b>87%</b>, mines almost none.</p>
+      <span class="go">Who actually refines →</span>
+    </a>
+    <a class="stage" href="explorer.html">
+      <span class="step">Stage 4 · across borders</span>
+      <h3>Trade</h3>
+      <p>The real bilateral flows, both directions — reconciled from UN Comtrade, <b>2002–2024 + nowcast</b>. Follow any material to any country.</p>
+      <span class="go">Open the explorer →</span>
+    </a>
+    <a class="stage" href="network.html">
+      <span class="step">Stage 5 · the grip</span>
+      <h3>Chokepoints</h3>
+      <p>How concentrated each stage is, and where a single country&rsquo;s decision — a ban, an accident — squeezes the whole world.</p>
+      <span class="go">Trade-network chokepoints →</span>
+    </a>
+  </div>
 </div></section>
 
-<div class="wrap" id="app">
-<div class="intro">Follow each material from where it&rsquo;s <b>mined</b> <span style="color:rgb(222,140,40)">●</span> to where it&rsquo;s <b>refined</b> <span style="color:rgb(142,68,173)">●</span> to who imports it. On the map and globe, the arrows are real trade — <span style="color:rgb(222,140,40)">amber</span> for raw ore, <span style="color:rgb(142,68,173)">violet</span> for refined product.<details class="howto"><summary>How to use this</summary><p>Pick a <b>material</b> and a <b>country</b> to narrow the view, then switch between Table, Flow, Map and Globe. In the selectors, <b>⛏</b> marks a country that mines your material, <b>🏭</b> that it refines it, and <b>✓</b> that trade data exists for your selection. Open any material for its full profile.</p></details></div>
+<section class="band decision" id="decide"><div class="wrap">
+  <div class="kicker">So what do you do about it?</div>
+  <h2>The data shows the problem. These show what to do.</h2>
+  <p class="lead">A finding isn&rsquo;t a decision. Knowing China holds a chokepoint is only half an answer — the other half is who could break it, whether the world could absorb a cut, and how exposed you are. Three tools, built on the same public trade matrix.</p>
+  <div class="dgrid">
+    <a class="dcard" href="breakout.html">
+      <span class="tag">Break the chokepoint</span>
+      <div class="big">10<span class="u"> of 32</span></div>
+      <h3>Who could break it — and who&rsquo;s building it</h3>
+      <p>Chokepoints that are a <b>capability</b>, not an ore endowment — no export ban touches them. For each, who could realistically stand up an alternative, and who actually is (Perpetua, Almonty, Lynas, Euro Manganese…).</p>
+      <span class="go">Open the decision layer →</span>
+    </a>
+    <a class="dcard" href="ot.html">
+      <span class="tag">Reallocation stress test</span>
+      <div class="big">4 can&rsquo;t · 8 worse</div>
+      <h3>Can the rest of the world cover a cut?</h3>
+      <p>Cut a chokepoint and reallocate its exports optimally. <b>4 of 31</b> materials can&rsquo;t be covered even if every other exporter doubles; for <b>8</b>, removing the leader makes concentration <i>worse</i>. With a before/after map.</p>
+      <span class="go">Run the stress test →</span>
+    </a>
+    <a class="dcard" href="leverage.html">
+      <span class="tag">Leverage map</span>
+      <div class="big">Your country</div>
+      <h3>How exposed are you, material by material</h3>
+      <p>An importer × material heatmap: how much of each country&rsquo;s supply runs through a single source, and how single-sourced it is. The East-Asian manufacturing belt is the most locked-in.</p>
+      <span class="go">Find your exposure →</span>
+    </a>
+  </div>
+</div></section>
 
-<nav class="tabs">
-  <button data-view="table" class="active">▤ Table</button>
-  <button data-view="sankey">⤳ Flow</button>
-  <button data-view="map">🗺 Map</button>
-  <button data-view="globe">🌍 Globe</button>
-  <button data-view="ask">🔎 Ask</button>
-  <span class="grow"></span>
-  <input id="search" placeholder="filter: material or country…">
-  <select id="sort">
-    <option value="dom">sort: country domination ↓</option>
-    <option value="risk">sort: supply-risk index ↓</option>
-    <option value="mine">sort: mine share ↓</option>
-    <option value="diff">sort: mined ≠ exporter ↓</option>
-    <option value="name">sort: name A–Z</option>
-  </select>
-  <select id="cmpyr" title="Compare the current year against an earlier year — shows each top exporter's share change (Δpp)">
-    <option value="">Δ compare: off</option>
-    <option value="2002">Δ vs 2002</option>
-    <option value="2010">Δ vs 2010</option>
-    <option value="2018">Δ vs 2018</option>
-    <option value="2020">Δ vs 2020</option>
-    <option value="2022">Δ vs 2022</option>
-    <option value="2023">Δ vs 2023</option>
-    <option value="2024">Δ vs 2024</option>
-  </select>
-  <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
-  <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
-</nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024), 2024 newest complete. <b>2025*</b> = <a href="methodology.html#nowcast">provisional nowcast</a>. <b>2026**</b> = an opt-in <a href="methodology.html#nowcast">directional scenario</a>. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
-
-<main>
-  <div id="view-table" class="view">
-    <div class="legend">
-      <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
-        <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most — the last being the most exposed. Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
-        <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
-        <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
-          <li><b>⚠ processing chokepoint</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader stands in between.</li>
-          <li><b>⛓ shared trade code</b> — gallium and germanium report under one code (811292) and can&rsquo;t be separated; hafnium is kept separate.</li>
-          <li><b>—</b> no distinct refining stage, or no data.</li>
-        </ul>
-        <p class="howto-src">Sources: USGS · IEA · UN Comtrade / CEPII&nbsp;BACI (reconciled). Sort by any column; open a row for the full profile.</p>
-      </details>
+<section class="band"><div class="wrap">
+  <div class="explore">
+    <div>
+      <h2>Explore all 32 materials</h2>
+      <p>The interactive workbench: table, flow map and 3-D globe. Pick any material or any country and trace it from mine to refinery to buyer, with the real trade in both directions.</p>
     </div>
-    <div id="rows"></div>
+    <a href="explorer.html">Open the explorer →</a>
   </div>
-  <div id="view-map" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
-    <div id="map"><div class="loading">loading map…</div></div>
-    <p class="panel-info" id="map-info">Loading real trade flows…</p>
+</div></section>
+
+<section class="band rigor"><div class="wrap">
+  <div class="kicker">How we know</div>
+  <h2>Public data, reconciled, and falsifiable</h2>
+  <p class="lead">No paid databases, no black boxes. Every number traces to an open source, the reconciliation is validated against the official series, and the whole thing is built to be broken.</p>
+  <div class="rgrid">
+    <div class="rig"><h4>Reconciled &amp; validated</h4><p>Bilateral trade reconciled from UN Comtrade via CEPII BACI, checked against official BACI — top-1 exporter <b>25/30</b>, share error <b>3.5%</b>. <a href="methodology.html">Methodology →</a></p></div>
+    <div class="rig"><h4>Robustness-tested</h4><p>Findings re-run against alternative sources, truncations and vintages to see which survive. <a href="robustness.html">Robustness →</a></p></div>
+    <div class="rig"><h4>Open challenge</h4><p>Limitations stated, and a standing invitation to falsify any claim in the atlas. <a href="challenge.html">Break this atlas →</a></p></div>
   </div>
-  <div id="view-globe" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
-    <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
-    <p class="panel-info" id="globe-info">Loading real flows…</p>
-  </div>
-  <div id="view-sankey" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button></div>
-    <div id="sankey"><div class="loading">loading flow chart…</div></div>
-    <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
-  </div>
-  <div id="view-ask" class="view hidden">
-    <div style="max-width:760px">
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <input id="ask-q" placeholder="e.g. Where does Germany get its lithium?" style="flex:1;min-width:280px;font:inherit;font-size:.95rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px">
-        <button id="ask-go" type="button" style="font:inherit;font-weight:600;font-size:.9rem;padding:.55rem 1.1rem;border:none;border-radius:8px;background:#15323a;color:#fff;cursor:pointer">Ask</button>
-      </div>
-      <div id="ask-chips" style="margin:.6rem 0 .2rem;font-size:.82rem;color:#667179"></div>
-      <p style="font-size:.78rem;color:#9aa6ad;margin:.3rem 0 0">Answers are computed live from the reconciled trade + USGS/IEA layers — every figure is real, nothing is generated. Name a material and/or a country.</p>
-      <div id="ask-out" style="margin-top:1.1rem"></div>
+</div></section>
+
+<footer class="lftr"><div class="wrap">
+  <div class="cols">
+    <div>
+      <h4>Critical Materials Atlas</h4>
+      <p style="margin:0 0 .8rem;max-width:46ch">An independent, public-data demonstration of the critical raw-materials value chain — where 32 materials are mined, refined, traded and held in reserve, and what to do when supply concentrates. Not affiliated with, nor representing, any institution.</p>
+      <a href="explorer.html"><b>Explore the data →</b></a>
+    </div>
+    <div>
+      <h4>Start here</h4>
+      <a href="explorer.html">Interactive explorer</a>
+      <a href="findings.html">Headline findings</a>
+      <a href="breakout.html">Break the chokepoint</a>
+      <a href="ot.html">Reallocation stress test</a>
+      <a href="leverage.html">Leverage map</a>
+      <a href="brief.html">One-page brief (PDF)</a>
+    </div>
+    <div>
+      <h4>Data &amp; methods</h4>
+      <a href="methodology.html">Methodology &amp; validation</a>
+      <a href="data.html">Open data / API</a>
+      <a href="synthesis.html">State of supply</a>
+      <a href="map.html">Project map</a>
+      <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">Reconciliation engine ↗</a>
     </div>
   </div>
-</main>
-
-<div id="detail" class="modal hidden"><div class="modal-box"><button id="detail-close" aria-label="close">×</button><div id="detail-body"></div></div></div>
-
-</div><!-- /#app -->
-
-<footer class="siteftr"><div class="wrap">
-  <div>
-    <h4>Critical Materials Atlas</h4>
-    An independent demonstration from public data: where 32 critical raw materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the real source. Not affiliated with, nor representing, any institution.
-  </div>
-  <div>
-    <h4>Data &amp; methods</h4>
-    <a href="brief.html"><b>Key findings — 1-page brief (PDF)</b></a><br>
-    <a href="insights.html">State of supply (synthesis)</a><br>
-    <a href="methodology.html">Methodology &amp; validation</a><br>
-    <a href="map.html">Project map — how it's built</a><br>
-    <a href="casestudies.html">Case studies — known-chain audit</a><br>
-    <a href="findings.html">Headline finding — the origin gap</a><br>
-    <a href="trends.html">Trends — 22-year evolution</a><br>
-    <a href="robustness.html">Robustness — do the findings survive?</a><br>
-    <a href="network-sensitivity.html">Network truncation sensitivity</a><br>
-    <a href="limitations.html">What this is not — limitations &amp; falsification</a><br>
-    <a href="volume.html">Value vs volume (price effects)</a><br>
-    <a href="satellite.html">From orbit — satellite mine footprints</a><br>
-    <a href="mining-expansion.html">Mining expansion — where new supply is appearing</a><br>
-    <a href="risk.html">Supply-risk index</a><br>
-    <a href="riskmethods.html">Risk assessment (TOPSIS · GeoPolRisk · tail risk)</a><br>
-    <a href="index-builder.html">▸ Build your own risk index (interactive)</a><br>
-    <a href="shock-builder.html">▸ Build your own supply shock (interactive)</a><br>
-    <a href="network.html">Trade-network chokepoints</a><br>
-    <a href="criticality.html">Governance-weighted criticality</a><br>
-    <a href="complexity.html">Economic complexity</a><br>
-    <a href="origin.html">Origin trace</a><br>
-    <a href="scenarios.html">Supply-shock scenarios</a><br>
-    <a href="technical-note.html">Technical note</a><br>
-    <a href="profiles.html">Material profiles</a><br>
-    <a href="countries.html">Dependency by country</a><br>
-    <a href="data.html">Data &amp; API</a><br>
-    <a href="updates.html">Updates</a><br>
-    <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">Reconciliation engine</a>
-  </div>
-  <div>
-    <h4>Sources</h4>
-    USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank
-  </div>
-  <div class="fineprint">Reconciled bilateral trade via CEPII BACI (Gaulier &amp; Zignago 2010); validated against official BACI — top-1 exporter 25/30, share error 3.5%. Mine production: USGS &amp; BGS World Mineral Statistics (1970–2024 series); refining: best per material — BGS / IEA 2026 / EU CRM 2023 / USGS. Figures are approximate and rounded; read each row as an overlay of distinct measures, not one observed pipeline. <span id="foot-stamp"></span></div>
+  <div class="fine">Sources: USGS Mineral Commodity Summaries · BGS World Mineral Statistics · IEA Critical Minerals Outlook · EU CRM 2023 · UN Comtrade / CEPII BACI (Gaulier &amp; Zignago 2010) · Eurostat · World Bank. Trade reconciled and validated against official BACI (top-1 exporter 25/30, 3.5% share error). Figures are approximate and rounded; read each material as an overlay of distinct measures — reserves, mine, refine, trade — not one observed pipeline.</div>
 </div></footer>
-
-
-<script>
-const COUNTRY = {
-  CN:{n:"China",lat:35,lng:105}, US:{n:"United States",lat:39,lng:-98}, TR:{n:"Türkiye",lat:39,lng:35},
-  BR:{n:"Brazil",lat:-10,lng:-55}, ZA:{n:"South Africa",lat:-29,lng:24}, CL:{n:"Chile",lat:-31,lng:-71},
-  GA:{n:"Gabon",lat:-0.8,lng:11.6}, GN:{n:"Guinea",lat:9.9,lng:-11.8}, RU:{n:"Russia",lat:61,lng:90},
-  MX:{n:"Mexico",lat:23,lng:-102}, KZ:{n:"Kazakhstan",lat:48,lng:67}, TJ:{n:"Tajikistan",lat:38.9,lng:71.3},
-  NO:{n:"Norway",lat:62,lng:10}, JP:{n:"Japan",lat:36,lng:138}, VN:{n:"Vietnam",lat:14,lng:108},
-  DZ:{n:"Algeria",lat:28,lng:3}, QA:{n:"Qatar",lat:25.3,lng:51.2}, AU:{n:"Australia",lat:-25,lng:134},
-  CD:{n:"DR Congo",lat:-2.9,lng:23.6}, CG:{n:"Congo",lat:-0.7,lng:15.8}, MA:{n:"Morocco",lat:31.8,lng:-7},
-  KR:{n:"South Korea",lat:36,lng:128}, CA:{n:"Canada",lat:56,lng:-106}, GB:{n:"United Kingdom",lat:54,lng:-2},
-  CH:{n:"Switzerland",lat:47,lng:8}, GY:{n:"Guyana",lat:5,lng:-58}, IL:{n:"Israel",lat:31,lng:35},
-  AR:{n:"Argentina",lat:-34,lng:-64}, PH:{n:"Philippines",lat:13,lng:122}, TW:{n:"Taiwan",lat:23.7,lng:121},
-  LB:{n:"Lebanon",lat:33.9,lng:35.5}, BO:{n:"Bolivia",lat:-17,lng:-65}, IS:{n:"Iceland",lat:65,lng:-18},
-  IN:{n:"India",lat:22,lng:79}, AE:{n:"UAE",lat:24,lng:54}, MM:{n:"Myanmar",lat:21,lng:96},
-  MZ:{n:"Mozambique",lat:-18,lng:35}, MG:{n:"Madagascar",lat:-19,lng:46.7}, ZW:{n:"Zimbabwe",lat:-19,lng:29.8},
-  MN:{n:"Mongolia",lat:46.9,lng:103}, RW:{n:"Rwanda",lat:-1.9,lng:29.9}, NG:{n:"Nigeria",lat:9,lng:8},
-  IR:{n:"Iran",lat:32,lng:53}, ES:{n:"Spain",lat:40,lng:-4}, IT:{n:"Italy",lat:42.8,lng:12.6}, PE:{n:"Peru",lat:-9.2,lng:-75},
-  NC:{n:"New Caledonia",lat:-21,lng:165}, ID:{n:"Indonesia",lat:-2,lng:118}, EU:{n:"European Union",lat:50.85,lng:4.35}
-};
-const cname = c => (COUNTRY[c] && COUNTRY[c].n) || c;
-const flag  = c => /^[A-Z]{2}$/.test(c) ? String.fromCodePoint(...[...c].map(x=>0x1F1E6+x.charCodeAt(0)-65)) : "";
-const strip = t => t.replace(/\s*\(.*\)/,'');
-const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
-const mineTop = m => (m.mined && m.mined.length) ? {c:m.mined[0].c, v:m.mined[0].v, china:m.mined[0].c==='CN'} : null;
-
-let DATA=null, MATS=[], VIEW='table', SELMAT='', SELDEST='', FILL_MODE='prod', colSort=null, colDir=-1, CMP_YEAR='', CMP_DATA=null, COUNTRY_PAGES=new Set(), RISK={};
-// Export-control / policy timeline — surfaced under the year slider so structural breaks in the trade have a cause.
-const POLICY_EVENTS={
- '2018':'US–China tariff escalation begins; supply-security of critical minerals returns to the policy agenda.',
- '2020':'Indonesia bans nickel-ore exports to force domestic smelting — reshapes nickel/stainless supply chains.',
- '2022':'Russia’s invasion of Ukraine → sanctions reshuffle palladium, nickel and noble-gas (neon) trade.',
- '2023':'China introduces export licensing on gallium &amp; germanium (Aug) and graphite (Oct) — this atlas’s headline episode.',
- '2024':'EU Critical Raw Materials Act enters into force (May); China bans antimony, gallium &amp; germanium exports to the US (Dec).',
- '2025':'China extends export controls to rare-earth magnets and related technology (Apr) — provisional-year signal.',
- '2026':'Directional scenario only — no settled policy record yet.'
-};
-// world share of one country on one side of trade, from an arbitrary flows object (for year-vs-year diff)
-function shareOfIn(data,label,key,iso){ const a=(data&&data.materials&&data.materials[label]); if(!a||!a.length) return null; let o=0,tot=0; a.forEach(f=>{ if(f[key]===iso)o+=f.value; tot+=f.value; }); return tot?o/tot*100:null; }
-function setCmp(y){ CMP_YEAR=String(y||''); if(!CMP_YEAR){ CMP_DATA=null; renderTable(); return; }
-  if(typeof FLOWS_CACHE!=='undefined'&&FLOWS_CACHE[CMP_YEAR]){ CMP_DATA=FLOWS_CACHE[CMP_YEAR]; renderTable(); return; }
-  fetch('out/flows_'+CMP_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=CMP_YEAR; if(typeof FLOWS_CACHE!=='undefined') FLOWS_CACHE[CMP_YEAR]=d; CMP_DATA=d; renderTable(); }).catch(()=>{ CMP_DATA=null; renderTable(); }); }
-function setFill(v){ FILL_MODE=v; ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=v; }); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); if(typeof syncURL==='function') syncURL(); }
-const $ = s => document.querySelector(s);
-function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]).some(f=>f.to===dest||f.from===dest); }
-// Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
-// auditability; the chapter heuristic stays as a fallback for any future material.
-const RAW_MATS=new Set(['graphite','boron','fluorspar','feldspar','manganese','bauxite','phosphate','baryte','cokingcoal']);
-// gallium & germanium share one HS6 code (811292) — their TRADE columns are identical and
-// cannot be separated (their mined/refined/reserves layers still differ). Flagged with ⛓ in the table.
-const SHARED_HS6=new Set(['gallium','germanium']);
-// Pure re-export entrepôts: negligible domestic mining/refining of these materials, so when they appear
-// as exporters it's trans-shipment, not production. Curated (a re-export RATIO mislabels real refiners
-// like Belgium/Germany and misses hubs like HK) — these are unambiguous logistics hubs.
-const HUBS=new Set(['HK','SG','AE','PA','MO','GI']);
-function isRawMat(label){ if(RAW_MATS.has(label)) return true; const m=MATS.find(x=>x.label===label); if(!m) return false;
-  const d=((m.title.match(/\(([^)]*)\)/)||[])[1]||'').replace(/\D/g,''), ch=d.slice(0,2); return ch==='25'||ch==='26'||ch==='27'; }
-function populateMatSelectors(){
-  const mk = m => (SELDEST && matHasDest(m.label,SELDEST) ? '✓ ' : '')+strip(m.title);
-  const opts='<option value="">All materials</option>'+MATS.slice().sort((a,b)=>a.title.localeCompare(b.title)).map(m=>`<option value="${m.label}">${mk(m)}</option>`).join('');
-  ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELMAT; s.onchange=()=>setMat(s.value); } });
-}
-function setMat(label){ SELMAT=label;
-  ['#map-mat','#globe-mat','#sankey-mat'].forEach(id=>{ const s=$(id); if(s) s.value=label; });
-  populateDestSelectors();
-  rebuildActive();
-  syncURL();
-}
-function rebuildActive(){
-  if(VIEW==='map'&&window.jsVectorMap) buildMap();
-  else if(VIEW==='globe'&&window.Globe&&window.topojson) buildGlobe();
-  else if(VIEW==='sankey'&&window.echarts) buildSankey();
-}
-function destList(){
-  if(FLOWS&&FLOWS.importers&&FLOWS.importers.length) return FLOWS.importers.slice().filter(c=>fcoord(c)).sort((a,b)=>fname(a).localeCompare(fname(b)));
-  const s=new Set(); if(FLOWS&&FLOWS.materials) Object.values(FLOWS.materials).forEach(arr=>arr.forEach(f=>s.add(f.to)));
-  return [...s].sort((a,b)=>fname(a).localeCompare(fname(b))); }
-function minerSet(){ const s=new Set(); MATS.forEach(m=>(m.mined||[]).forEach(x=>s.add(x.c))); return s; }
-function refinerSet(){ const s=new Set(); MATS.forEach(m=>{ if(m.refined) m.refined.forEach(x=>s.add(x.c)); }); return s; }
-function populateDestSelectors(){ if(!FLOWS) return;
-  const mineS=minerSet(), refS=refinerSet();
-  const mk = c => { if(SELMAT) return (matHasDest(SELMAT,c)?'✓ ':'')+fname(c);
-    let b=''; if(mineS.has(c)) b+='⛏'; if(refS.has(c)) b+='🏭'; return (b?b+' ':'')+fname(c); };
-  const opts='<option value="">All destinations</option>'+destList().map(c=>`<option value="${c}">${mk(c)}</option>`).join('');
-  ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s){ s.innerHTML=opts; s.value=SELDEST; s.onchange=()=>setDest(s.value); } });
-}
-function setDest(c){ SELDEST=c;
-  ['#map-dest','#globe-dest','#sankey-dest'].forEach(id=>{ const s=$(id); if(s) s.value=c; });
-  populateMatSelectors();
-  rebuildActive();
-  syncURL();
-}
-
-/* ---------- permalinks (URL state) + CSV export ---------- */
-function syncURL(){ try{ const p=new URLSearchParams();
-  if(VIEW&&VIEW!=='table') p.set('view',VIEW);
-  if(SELMAT) p.set('mat',SELMAT);
-  if(SELDEST) p.set('dest',SELDEST);
-  if(typeof FLOWS_YEAR!=='undefined'&&String(FLOWS_YEAR)!=='2024') p.set('year',String(FLOWS_YEAR));
-  if(FILL_MODE&&FILL_MODE!=='prod') p.set('fill',FILL_MODE);
-  const s=p.toString(); history.replaceState(null,'', s?('#'+s):(location.pathname+location.search)); }catch(e){} }
-function restoreURL(){ try{ const h=location.hash.replace(/^#/,''); if(!h) return; const p=new URLSearchParams(h);
-  const v=p.get('view'); if(v&&['table','map','globe','sankey','ask'].includes(v)) VIEW=v;
-  if(p.get('mat')) SELMAT=p.get('mat');
-  if(p.get('dest')) SELDEST=p.get('dest');
-  const y=p.get('year'); if(y&&/^20\d\d$/.test(y)) FLOWS_YEAR=String(y);
-  const f=p.get('fill'); if(f==='reserves'||f==='prod') FILL_MODE=f; }catch(e){} }
-function flashBtn(sel,txt){ const b=$(sel); if(!b) return; const o=b.dataset.lbl||b.textContent; b.dataset.lbl=o; b.textContent=txt; setTimeout(()=>{ b.textContent=b.dataset.lbl; },1400); }
-function copyPermalink(){ syncURL(); const u=location.href;
-  if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(u).then(()=>flashBtn('#permalink','✓ copied')).catch(()=>flashBtn('#permalink','✓'));
-  else flashBtn('#permalink','✓ copied'); }
-function csvCell(s){ s=(s==null?'':String(s)); return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s; }
-function exportCSV(){
-  const head=['material','reserves_top','reserves_pct','mined_top','mined_pct','refined_top','refined_pct','top_exporter','exporter_share_pct','exporter_value_usd','top_importer','importer_share_pct','importer_value_usd','export_hhi','top3_exporter_share_pct','origin_gap_pp'];
-  const rows=[head];
-  MATS.slice().forEach(m=>{ const rv=reserveTop(m),mi=mineTop(m),re=(m.refined&&m.refined[0])?m.refined[0]:null,te=topExporter(m.label),ti=topImporter(m.label),hv=hhiTrade(m.label,'from'),t3=topNshare(m.label,'from',3),g=originGap(m);
-    rows.push([strip(m.title), rv?cname(rv.c):'', rv?rv.v.toFixed(1):'', mi?cname(mi.c):'', mi?mi.v.toFixed(1):'', re?cname(re.c):'', re?re.v.toFixed(1):'', te?fname(te.c):'', te?te.share.toFixed(1):'', te?Math.round(te.v):'', ti?fname(ti.c):'', ti?ti.share.toFixed(1):'', ti?Math.round(ti.v):'', hv!=null?hv.toFixed(3):'', t3!=null?t3.toFixed(1):'', g!=null?g.toFixed(1):'']); });
-  const csv=rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
-  const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}), url=URL.createObjectURL(blob);
-  const a=document.createElement('a'); a.href=url; a.download='critical-materials-atlas_'+FLOWS_YEAR+'.csv'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1500); }
-{ const c=$('#csv'); if(c) c.onclick=exportCSV; const pl=$('#permalink'); if(pl) pl.onclick=copyPermalink; const nc=$('#nav-csv'); if(nc) nc.onclick=e=>{ e.preventDefault(); exportCSV(); }; }
-
-fetch('out/country_pages.json').then(r=>r.json()).then(a=>{ COUNTRY_PAGES=new Set(a); }).catch(()=>{});
-fetch('out/risk.json').then(r=>r.json()).then(d=>{ (d.materials||[]).forEach(m=>RISK[m.label]=m); if(VIEW==='table'&&MATS.length) renderTable(); }).catch(()=>{});
-fetch('out/data.json').then(r=>r.json()).then(d=>{
-  DATA=d; MATS=d.materials;
-  $('#stamp').textContent="Trade: reconciled BACI 2002–"+d.headlineYear+" + 2025 nowcast (updated "+d.dataUpdated+") · mine/refine: USGS · BGS · "+MATS.length+" materials";
-  $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
-  restoreURL();
-  // reflect any restored deep-link state in the chrome before first paint
-  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===VIEW));
-  ['table','map','globe','sankey','ask'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
-  ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=FILL_MODE; });
-  if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026** added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
-  populateMatSelectors();
-  renderTable();
-  if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey(); else if(VIEW==='ask') initAsk();
-  if(String(FLOWS_YEAR)!=='2024') setYear(FLOWS_YEAR);   // load restored year + set the provisional banner
-}).catch(e=>{ $('#rows').innerHTML='<p class="loading">Could not load data.json ('+e+')</p>'; });
-
-/* ---------- table: both layers per row ---------- */
-function miniBar(x){ if(!x) return `<div class="bw"><div class="bf" style="width:2%;background:#ccc"></div><span class="bl" style="color:#888;text-shadow:none">n/a</span></div>`;
-  return `<div class="bw"><div class="bf" style="width:${Math.max(2,x.v)}%;background:${x.china?'var(--red)':'var(--blue)'}"></div><span class="bl">${flag(x.c)} ${cname(x.c)} ${x.v.toFixed(0)}%</span></div>`; }
-const PALETTE=['#3a6ea5','#5b9bd5','#48b5c4','#7ab648','#e8a33d','#c77dbb','#8a8d93','#d98a00','#4d9fe6'];
-function ccolor(c){ if(c==='CN') return 'var(--red)'; if(!c) return '#d8d8d8';
-  let h=0; for(const ch of c) h=(h*31+ch.charCodeAt(0))>>>0; return PALETTE[h%PALETTE.length]; }
-function stackBarC(list, colorFn, noteFn){
-  const segs=(list||[]).map(o=>({c:o.c,v:o.v}));
-  const sum=segs.reduce((a,o)=>a+o.v,0);
-  if(sum<99) segs.push({c:'',v:Math.max(0,100-sum)});
-  return '<div class="sbar">'+segs.map(o=>{
-    const lab=(o.c&&o.v>=11)?`${o.c} ${o.v.toFixed(0)}`:'';
-    const tip=o.c?cname(o.c)+' '+o.v.toFixed(0)+'%'+(noteFn?noteFn(o):''):'other producers';
-    return `<span class="seg" style="width:${o.v}%;background:${colorFn(o)}" title="${tip}">${lab}</span>`;
-  }).join('')+'</div>';
-}
-function stackBar(list){ return stackBarC(list, o=>ccolor(o.c)); }
-// Buy bar coloured by source type: green = the EU buys from a country that also MINES it
-// (real producer); orange = a refiner/reseller that sources the raw material elsewhere.
-function buyBar(m){ const ms=new Set((m.mined||[]).map(x=>x.c));
-  return stackBarC(m.origins,
-    o=> !o.c?'#d8d8d8' : ms.has(o.c)?'#3f9b46':'#e07b39',
-    o=> o.c?(ms.has(o.c)?' · also mines it':' · refines/resells (raw mined elsewhere)'):''); }
-function fmtV(v){ return v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+(v/1e6).toFixed(0)+'M':'$'+Math.max(1,Math.round(v/1e3))+'k'; }
-function topTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
-  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
-  let b=null,bv=-1; for(const c in o){ if(o[c]>bv){bv=o[c];b=c;} } return {c:b, v:bv, share: tot?bv/tot*100:0}; }
-function topExporter(label){ return topTrade(label,'from'); }
-function reserveTop(m){ return (m.reserves&&m.reserves[0])?m.reserves[0]:null; }   // USGS reserves = potential
-function srcN(){ return (FLOWS&&FLOWS.provisional)?'nowcast':'BACI'; }   // trade-source label (provisional 2025 vs reconciled BACI)
-function topImporter(label){ return topTrade(label,'to'); }
-// Exposure metrics from the reconciled bilateral trade: HHI (Herfindahl, 0–1) and top-N share, either side.
-function hhiTrade(label,key){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
-  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
-  if(!tot) return null; let h=0; for(const c in o){ const s=o[c]/tot; h+=s*s; } return h; }
-function topNshare(label,key,n){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label]); if(!a||!a.length) return null;
-  const o={}; let tot=0; a.forEach(f=>{ o[f[key]]=(o[f[key]]||0)+f.value; tot+=f.value; });
-  if(!tot) return null; const vs=Object.values(o).sort((x,y)=>y-x).slice(0,n); return vs.reduce((s,v)=>s+v,0)/tot*100; }
-// Origin gap = how much the top exporter's trade share exceeds its own mine share (pp). High = refiner/reseller, not the source.
-function originGap(m){ const te=topExporter(m.label); if(!te) return null; const ms=(m.mined||[]).find(x=>x.c===te.c); return te.share-(ms?ms.v:0); }
-const CTYPAL=['#1f77b4','#d62728','#2ca02c','#9467bd','#8c564b','#e377c2','#7f7f7f','#bcbd22','#17becf','#ff7f0e','#3a6ea5','#b22222','#2e8b57','#6a3d9a','#a0522d','#c71585','#556b2f','#008080','#cc6600','#4b0082'];
-function ctyColor(iso){ if(!iso) return '#888'; let h=0; for(const ch of iso) h=(h*31+ch.charCodeAt(0))>>>0; return CTYPAL[h%CTYPAL.length]; }
-function hexA(hex,a){ const h=hex.replace('#',''); return `rgba(${parseInt(h.slice(0,2),16)},${parseInt(h.slice(2,4),16)},${parseInt(h.slice(4,6),16)},${a})`; }
-function renderTable(){
-  if(!FLOWS && MATS.length){ ensureFlows(renderTable); }   // exporter column needs the trade data
-  const q=($('#search').value||"").trim().toLowerCase(), sort=$('#sort').value;
-  let list=MATS.slice();
-  if(q) list=list.filter(m=>{ const mi=mineTop(m), te=topExporter(m.label), re=(m.refined&&m.refined[0])?m.refined[0].c:null;
-    return m.title.toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q))||(te&&fname(te.c).toLowerCase().includes(q))||(re&&cname(re).toLowerCase().includes(q)); });
-  const mism=m=>{ const mi=mineTop(m), te=topExporter(m.label); return !!(mi&&te&&mi.c!==te.c); };
-  const domInfo=m=>{ const mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0].c:null, te=topExporter(m.label), ti=topImporter(m.label);
-    const cs=[mi?mi.c:null, re, te?te.c:null, ti?ti.c:null];
-    const pat=country=>{ let p=0; for(let i=0;i<4;i++) if(cs[i]===country) p+=(8>>i); return p; };   // mined col weighted most -> column-position triangle
-    const cn=pat('CN'); const cnt={}; cs.forEach(c=>{ if(c&&c!=='CN') cnt[c]=(cnt[c]||0)+1; });
-    let mo=0,dom=''; for(const c in cnt) if(cnt[c]>mo){mo=cnt[c];dom=c;}
-    return {cn, domOther:dom, domPat: dom?pat(dom):0}; };
-  if(colSort){ const cv=m=>{ switch(colSort){ case 'res': return reserveTop(m)?.v ?? -1; case 'mine': return mineTop(m)?.v ?? -1; case 'ref': return (m.refined&&m.refined[0])?m.refined[0].v:-1; case 'exp': return topExporter(m.label)?.share ?? -1; case 'imp': return topImporter(m.label)?.share ?? -1; case 'hhi': return hhiTrade(m.label,'from') ?? -1; default: return 0; } };
-    if(colSort==='name') list.sort((a,b)=>colDir*a.title.localeCompare(b.title));
-    else list.sort((a,b)=>colDir*(cv(a)-cv(b))); }
-  else if(sort==='mine') list.sort((a,b)=>((mineTop(b)?.v||0)-(mineTop(a)?.v||0)));
-  else if(sort==='risk') list.sort((a,b)=>((RISK[b.label]?.score||0)-(RISK[a.label]?.score||0)));
-  else if(sort==='diff') list.sort((a,b)=>(mism(b)?1:0)-(mism(a)?1:0));
-  else if(sort==='name') list.sort((a,b)=>a.title.localeCompare(b.title));
-  else list.sort((a,b)=>{ const A=domInfo(a),B=domInfo(b);   // triangle: China by column position (mined-China first, then refined, exporter, importer), then others grouped
-    if(A.cn!==B.cn) return B.cn-A.cn;
-    if(A.cn>0) return a.title.localeCompare(b.title);
-    return (B.domPat-A.domPat) || (A.domOther||'').localeCompare(B.domOther||'') || a.title.localeCompare(b.title); });
-  const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
-  const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
-  const yy=String(FLOWS_YEAR).slice(2);
-  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span></span><span data-s="mine">Mined in${sb}USGS</small>${ar('mine')}</span><span></span><span data-s="ref">Refined in${sb}IEA</small>${ar('ref')}</span><span></span><span data-s="exp">Top exporter${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp">Top importer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
-  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
-    const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
-    const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
-    const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
-    const refCell=re?htc(re.c,`${cname(re.c)} <small>${re.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
-    let expCell=te?htc(te.c,`${fname(te.c)} <small>${te.share.toFixed(0)}% · ${fmtV(te.v)}</small>`):`<span class="cc dim">—</span>`;
-    if(CMP_DATA&&te&&String(CMP_YEAR)!==String(FLOWS_YEAR)){ const prev=shareOfIn(CMP_DATA,m.label,'from',te.c);
-      if(prev!=null){ const d=te.share-prev, col=d>1?'#c0392b':d<-1?'#2e7d32':'#999', arr=d>1?'▲':d<-1?'▼':'▬';
-        expCell=expCell.replace('</span>',` <small style="color:${col};font-weight:600" title="${fname(te.c)}'s world export share: ${prev.toFixed(0)}% in ${CMP_YEAR} → ${te.share.toFixed(0)}% in ${FLOWS_YEAR}">${arr}${d>=0?'+':''}${d.toFixed(0)}pp</small></span>`); } }
-    const impCell=ti?htc(ti.c,`${fname(ti.c)} <small>${ti.share.toFixed(0)}% · ${fmtV(ti.v)}</small>`):`<span class="cc dim">—</span>`;
-    const hv=hhiTrade(m.label,'from'), t3=topNshare(m.label,'from',3);
-    const hhiCell=hv!=null?`<span class="cc" style="color:${hv>0.45?'#c0392b':hv>0.25?'#b35e16':'#7c8590'};font-variant-numeric:tabular-nums" title="${(hv>0.45?'highly':hv>0.25?'moderately':'less')} concentrated — top-3 exporters ≈ ${(t3||0).toFixed(0)}% of world trade">${hv.toFixed(2)}</span>`:`<span class="cc dim">—</span>`;
-    return `<div class="crow" data-k="${m.label}">`+
-      `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
-      `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
-      `${expCell}${impCell}${hhiCell}`+
-      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with germanium — gallium &amp; germanium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
-  }).join('');
-  $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
-  document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
-  document.querySelectorAll('#rows .crow.head [data-s]').forEach(h=>h.onclick=()=>{ if(colSort===h.dataset.s) colDir*=-1; else { colSort=h.dataset.s; colDir = h.dataset.s==='name'?1:-1; } renderTable(); });
-}
-$('#search').addEventListener('input',renderTable);
-$('#sort').addEventListener('change',()=>{ colSort=null; renderTable(); });   // dropdown overrides column-click sort
-{ const cy=$('#cmpyr'); if(cy) cy.addEventListener('change',()=>setCmp(cy.value)); }
-
-/* ---------- real sortable table ---------- */
-let gridSort={col:'ref',dir:-1};
-function gval(m,c){ const r=refTop(m), mi=mineTop(m);
-  return ({mat:strip(m.title), buy:cname(r.c), ref:r.v, cn:m.china_val, hhi:m.hhi, mine:mi?cname(mi.c):'~', minev:mi?mi.v:-1})[c]; }
-function renderGrid(){
-  const q=($('#search').value||'').trim().toLowerCase();
-  let list=MATS.slice();
-  if(q) list=list.filter(m=>{ const r=refTop(m),mi=mineTop(m); return m.title.toLowerCase().includes(q)||cname(r.c).toLowerCase().includes(q)||(mi&&cname(mi.c).toLowerCase().includes(q)); });
-  list.sort((a,b)=>{ const x=gval(a,gridSort.col),y=gval(b,gridSort.col); return (typeof x==='string')?gridSort.dir*String(x).localeCompare(String(y)):gridSort.dir*(x-y); });
-  const ar=c=>gridSort.col===c?(gridSort.dir<0?' ▾':' ▴'):'';
-  const th=(c,lab,cls)=>`<th class="${cls||''}" data-c="${c}">${lab}${ar(c)}</th>`;
-  const rows=list.map(m=>{ const r=refTop(m),mi=mineTop(m),mism=mi&&mi.c!==r.c;
-    return `<tr data-k="${m.label}"><td>${strip(m.title)}</td>`+
-      `<td>${flag(r.c)} ${cname(r.c)}</td><td class="n">${r.v.toFixed(0)}%</td>`+
-      `<td class="n">${m.china_val.toFixed(0)}%</td><td class="n">${m.hhi.toFixed(2)}</td>`+
-      `<td>${mi?flag(mi.c)+' '+cname(mi.c):'—'}${mism?' <span style="color:var(--ore)">⚠</span>':''}</td>`+
-      `<td class="n">${mi?mi.v.toFixed(0)+'%':'—'}</td></tr>`; }).join('');
-  $('#grid').innerHTML=`<table class="dt"><thead><tr>${th('mat','Material')}${th('buy','Buy from')}${th('ref','Refined %','n')}${th('cn','China %','n')}${th('hhi','HHI','n')}${th('mine','Mined in')}${th('minev','Mine %','n')}</tr></thead><tbody>${rows}</tbody></table>`;
-  $('#grid').querySelectorAll('th').forEach(h=>h.onclick=()=>{ const c=h.dataset.c; if(gridSort.col===c) gridSort.dir*=-1; else { gridSort.col=c; gridSort.dir=(c==='mat'||c==='buy'||c==='mine')?1:-1; } renderGrid(); });
-  $('#grid').querySelectorAll('tbody tr').forEach(tr=>tr.onclick=()=>showDetail(tr.dataset.k));
-}
-
-/* ---------- detail (both layers + contrast) ---------- */
-function bars(list){ return (list||[]).map(o=>
-  `<div class="mrow"><span class="mc">${flag(o.c)} ${cname(o.c)}</span>
-    <span class="mbar-wrap"><span class="mbar" style="width:${Math.max(2,o.v)}%;background:${o.c==='CN'?'var(--red)':'var(--blue)'}"></span></span>
-    <span class="mv">${o.v.toFixed(0)}%</span></div>`).join(''); }
-function showDetail(key){
-  const m=MATS.find(x=>x.label===key); if(!m) return;
-  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'material/'+key,event:true});
-  const eur=v=>v>=1e9?"€"+(v/1e9).toFixed(2)+"B":v>=1e6?"€"+(v/1e6).toFixed(0)+"M":"€"+v;
-  const te=topExporter(m.label), ti=topImporter(m.label), mt=(m.mined&&m.mined[0])?m.mined[0].c:null;
-  // world export concentration (HHI) from real BACI bilateral trade
-  const ex={}; let tot=0; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ ex[f.from]=(ex[f.from]||0)+f.value; tot+=f.value; });
-  let ghhi=0; if(tot) for(const c in ex){ const s=ex[c]/tot; ghhi+=s*s; }
-  let contrast='';
-  if(mt && te && mt!==te.c) contrast=`<p class="contrast">⚠ ${strip(m.title)} is exported mainly by <b>${fname(te.c)}</b> (${te.share.toFixed(0)}% of world trade) — but mined mainly in <b>${cname(mt)}</b>.${te.c==='CN'?' China is the refinery / chokepoint, not the mine.':''}</p>`;
-  else if(mt && te) contrast=`<p class="contrast ok">✓ ${fname(te.c)} is both the top exporter and a leading producer of the raw material.</p>`;
-  $('#detail-body').innerHTML=`
-    <h2 style="margin:.2rem 2rem .2rem 0">${m.title}</h2>
-    <p style="color:#444;font-size:.95rem">${m.note}</p>
-    <p style="margin:.1rem 0 .5rem"><a href="profile-${m.label}.html" style="font-weight:600">Open the full ${strip(m.title)} profile →</a></p>
-    ${contrast}
-    <div class="layers">
-      <div class="layer"><h3>● Reserves — USGS, economically recoverable (not full geological resources)</h3>${m.reserves&&m.reserves.length?bars(m.reserves):'<i style="color:#888">no reserves figure (byproduct / abundant)</i>'}</div>
-      <div class="layer"><h3>● Mined in — actual production today (USGS, approx.)</h3>${m.mined&&m.mined.length?bars(m.mined):'<i style="color:#888">not available</i>'}</div>
-      <div class="layer"><h3>● Refined / processed (IEA, approx.)</h3>${m.refined&&m.refined.length?bars(m.refined):'<i style="color:#888">no distinct refining stage</i>'}</div>
-    </div>
-    <div class="kpis">
-      <div class="kpi"><div class="v">${te?te.share.toFixed(0)+'%':'—'}</div><div class="l">top exporter${te?' '+fname(te.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
-      <div class="kpi"><div class="v">${ti?ti.share.toFixed(0)+'%':'—'}</div><div class="l">top importer${ti?' '+fname(ti.c):''} (${srcN()} '${String(FLOWS_YEAR).slice(2)})</div></div>
-      <div class="kpi"><div class="v">${ghhi.toFixed(2)}</div><div class="l">export concentration (HHI, world)</div></div>
-      ${RISK[m.label]?`<div class="kpi"><div class="v">${RISK[m.label].score}<small style="font-size:.6em;color:#aaa">/100</small></div><div class="l"><a href="risk.html">supply-risk index</a></div></div>`:''}
-      <div class="kpi"><div class="v">${(topNshare(m.label,'from',3)||0).toFixed(0)}%</div><div class="l">top-3 exporters' share</div></div>
-      ${(()=>{ const g=originGap(m); return g!=null?`<div class="kpi"><div class="v" style="color:${g>40?'#c0392b':g>15?'#b35e16':'#3f9b46'}">${(g>=0?'+':'')+g.toFixed(0)}pp</div><div class="l">origin gap — top exporter's trade share minus its <i>mine</i> share</div></div>`:''; })()}
-    </div>
-    <details style="margin-top:1.1rem;border-top:1px solid var(--line);padding-top:.7rem">
-      <summary style="cursor:pointer;color:#555;font-size:.9rem;font-weight:600">EU import-origin lens — one option (Eurostat Comext, ${m.year})</summary>
-      <div class="layers" style="margin-top:.7rem"><div class="layer"><h3>● EU buys from — refined origin (Comext)</h3>${bars((m.origins||[]).map(o=>({c:o.c,v:o.v})))}</div></div>
-      <div class="kpis">
-        <div class="kpi"><div class="v">${m.china_val.toFixed(0)}%</div><div class="l">China (EU refined imports)</div></div>
-        <div class="kpi"><div class="v">${m.hhi.toFixed(2)}</div><div class="l">HHI (EU refined origin)</div></div>
-        <div class="kpi"><div class="v">${eur(m.total_eur)}</div><div class="l">EU imports (${m.year})</div></div>
-      </div>
-      <img src="out/${m.label}_headline.png" alt="naive vs corrected" loading="lazy">
-      <div class="two"><img src="out/${m.label}_trend.png" alt="trend" loading="lazy"><img src="out/${m.label}_vq.png" alt="value vs tonnage" loading="lazy"></div>
-    </details>`;
-  $('#detail').classList.remove('hidden');
-}
-$('#detail-close').onclick=()=>$('#detail').classList.add('hidden');
-$('#detail').onclick=e=>{ if(e.target.id==='detail') $('#detail').classList.add('hidden'); };
-document.addEventListener('keydown',e=>{ if(e.key==='Escape') $('#detail').classList.add('hidden'); });
-
-/* ---------- generalised import-dependency lens (any country, from BACI) ---------- */
-function countryImportProfile(iso,label){ const a=(FLOWS&&FLOWS.materials&&FLOWS.materials[label])||[]; const o={}; let tot=0;
-  a.forEach(f=>{ if(f.to===iso&&f.from!==iso){ o[f.from]=(o[f.from]||0)+f.value; tot+=f.value; } });
-  if(!tot) return null; let top=null,tv=-1,h=0; for(const c in o){ if(o[c]>tv){tv=o[c];top=c;} const s=o[c]/tot; h+=s*s; }
-  return {top,topShare:tv/tot*100,hhi:h,cn:(o['CN']||0)/tot*100,total:tot,n:Object.keys(o).length}; }
-function showCountryReport(iso){ if(!iso) return;
-  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'report/'+iso,event:true});
-  const rows=MATS.map(m=>{ const p=countryImportProfile(iso,m.label); return p?{m,p}:null; }).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare);
-  const hcol=h=>h>0.45?'#c0392b':h>0.25?'#b35e16':'#3f9b46';
-  const tr=rows.map(({m,p})=>{ const lead=(m.mined&&m.mined[0])?m.mined[0].c:''; const isMine=p.top===lead;
-    return `<tr style="border-bottom:1px solid var(--line)"><td style="padding:.3rem .5rem">${strip(m.title)}</td>`+
-    `<td style="padding:.3rem .5rem">${flag(p.top)} ${fname(p.top)}${isMine?' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>':''}</td>`+
-    `<td style="padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums">${p.topShare.toFixed(0)}%</td>`+
-    `<td style="padding:.3rem .5rem;text-align:right;color:${hcol(p.hhi)};font-weight:600;font-variant-numeric:tabular-nums">${p.hhi.toFixed(2)}</td>`+
-    `<td style="padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums">${p.cn.toFixed(0)}%</td>`+
-    `<td style="padding:.3rem .5rem;text-align:right;color:#888">${p.n}</td>`+
-    `<td style="padding:.3rem .5rem;text-align:right;color:#888">${fmtV(p.total)}</td></tr>`; }).join('');
-  $('#detail-body').innerHTML=`
-    <h2 style="margin:.2rem 2rem .3rem 0">${fname(iso)} — import-dependency profile</h2>
-    <p style="color:#444;font-size:.92rem">Where <b>${fname(iso)}</b> sources each critical material, from the reconciled bilateral trade (${srcN()} ${FLOWS_YEAR}). This generalises the EU import-origin lens to <b>any country</b>; rows are sorted by single-supplier dependence (most concentrated first).</p>
-    ${COUNTRY_PAGES.has(iso)?`<p style="margin:-.2rem 0 .5rem"><a href="profile-country-${iso}.html" style="font-weight:600">Open the full ${fname(iso)} dependency page →</a></p>`:''}
-    <div style="overflow:auto;max-height:60vh"><table style="width:100%;border-collapse:collapse;font-size:.82rem">
-      <thead><tr style="text-align:left;border-bottom:2px solid var(--ink)"><th style="padding:.35rem .5rem">Material</th><th style="padding:.35rem .5rem">Top source</th><th style="padding:.35rem .5rem;text-align:right">its share</th><th style="padding:.35rem .5rem;text-align:right" title="Herfindahl index of import sources (0–1)">import HHI</th><th style="padding:.35rem .5rem;text-align:right">China</th><th style="padding:.35rem .5rem;text-align:right"># sources</th><th style="padding:.35rem .5rem;text-align:right">imports</th></tr></thead>
-      <tbody>${tr||'<tr><td colspan="7" style="padding:1rem;color:#888">no import data for this country in this year</td></tr>'}</tbody></table></div>
-    <p style="color:#888;font-size:.8rem;margin-top:.7rem">⛏ = the top source is also the lead miner (a genuine origin). Customs imports record the immediate shipping origin — for refined goods that is the refiner/hub, not the mine (the atlas's core caveat).</p>`;
-  $('#detail').classList.remove('hidden');
-}
-{ document.querySelectorAll('.depbtn').forEach(b=>b.onclick=()=>{ if(SELDEST) showCountryReport(SELDEST); else { const o=b.textContent; b.textContent='↑ pick a country first'; setTimeout(()=>b.textContent=o,1600); } }); }
-
-/* ---------- Ask the data — deterministic, grounded queries (no model, no invented numbers) ---------- */
-const ASK_ALIASES={'usa':'US','united states':'US','america':'US','uk':'GB','britain':'GB','united kingdom':'GB','drc':'CD','dr congo':'CD','congo':'CD','south korea':'KR','korea':'KR','uae':'AE','emirates':'AE','russia':'RU','china':'CN'};
-function askResolve(q){
-  q=' '+(q||'').toLowerCase().replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ')+' ';
-  let mat=null, matlen=0;
-  for(const m of MATS){ const kw=m.label.toLowerCase(); if(q.includes(' '+kw)&&kw.length>matlen){ mat=m; matlen=kw.length; } }
-  if(!mat){ outer: for(const m of MATS){ for(const w of strip(m.title).toLowerCase().split(/[^a-z]+/)){ if(w.length>4 && q.includes(' '+w+' ')){ mat=m; break outer; } } } }
-  const n2i={}; if(FLOWS&&FLOWS.names) for(const iso in FLOWS.names){ const nm=FLOWS.names[iso].toLowerCase(); if(nm.length>=4) n2i[nm]=iso; }
-  Object.keys(ASK_ALIASES).forEach(k=>n2i[k]=ASK_ALIASES[k]);
-  let iso=null, isolen=0; for(const name in n2i){ if(q.includes(' '+name+' ')&&name.length>isolen){ iso=n2i[name]; isolen=name.length; } }
-  let intent='overview';
-  if(/( import| imports| get | gets | buy | buys | source| depend| relies| rely| reliant| from )/.test(q) && iso) intent='import';
-  else if(/( export| exports| exporter| sell | sells | ships )/.test(q)) intent='export';
-  else if(/( mine | mined | mines | produce| producer| dug | extract)/.test(q)) intent='mine';
-  else if(/(concentrat|hhi| risk| exposed| exposure| diversif)/.test(q)) intent='conc';
-  else if(iso && mat) intent='import';
-  else if(iso && !mat) intent='country';
-  return {mat,iso,intent};
-}
-function askShow(view,label){ if(label) setMat(label); const b=document.querySelector('.tabs button[data-view="'+view+'"]'); if(b) b.click(); }
-function askCard(inner){ return '<div style="border:1px solid var(--line,#e6e9e8);border-radius:12px;padding:1rem 1.2rem;background:#fff;font-size:.95rem;line-height:1.55">'+inner+'</div>'; }
-function askLinks(mat,iso){ const l=[]; if(mat){ l.push('<a href="profile-'+mat.label+'.html">full '+strip(mat.title)+' profile →</a>'); l.push('<a href="#" onclick="askShow(\'map\',\''+mat.label+'\');return false">see it on the map</a>'); } if(iso) l.push('<a href="#" onclick="showCountryReport(\''+iso+'\');return false">'+fname(iso)+' dependency report</a>'); return l.length?'<p style="margin:.65rem 0 0;font-size:.82rem">'+l.join(' &nbsp;·&nbsp; ')+'</p>':''; }
-function askCompose(r){
-  const yr=FLOWS_YEAR, src=srcN(), {mat,iso,intent}=r;
-  if(!mat && !iso) return askCard('<b>Name a material and/or a country.</b> e.g. <i>“who exports cobalt?”</i>, <i>“where does Japan get its titanium?”</i>, <i>“how concentrated is gallium?”</i>');
-  if(intent==='country' && iso){
-    const rows=MATS.map(m=>{const p=countryImportProfile(iso,m.label); return p?{m,p}:null;}).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare).slice(0,6);
-    if(!rows.length) return askCard('No recorded imports for <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
-    const li=rows.map(({m,p})=>'<li><b>'+strip(m.title)+'</b>: '+Math.round(p.topShare)+'% from '+fname(p.top)+(p.cn>15&&p.top!=='CN'?' · China '+Math.round(p.cn)+'%':'')+' (HHI '+p.hhi.toFixed(2)+')</li>').join('');
-    return askCard('<b>'+fname(iso)+'</b> — its most single-supplier-concentrated critical-material imports ('+src+' '+yr+'):<ul style="margin:.5rem 0 0;padding-left:1.1rem">'+li+'</ul>'+askLinks(null,iso));
-  }
-  if(!mat) return askCard('Add a material — e.g. “'+(intent==='export'?'who exports lithium?':'where is cobalt mined?')+'”');
-  const te=topExporter(mat.label), ti=topImporter(mat.label), mi=mineTop(mat), hh=hhiTrade(mat.label,'from'), t3=topNshare(mat.label,'from',3), g=originGap(mat), title=strip(mat.title);
-  if(intent==='import' && iso){
-    const p=countryImportProfile(iso,mat.label);
-    if(!p) return askCard('No recorded <b>'+title+'</b> imports into <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
-    const ml=(mat.mined&&mat.mined[0])?mat.mined[0]:null;
-    const up=(ml&&p.top!==ml.c)?(' The immediate origin is '+fname(p.top)+', but '+title.toLowerCase()+' is mined mainly in '+cname(ml.c)+' ('+ml.v.toFixed(0)+'%) — customs records the shipper, not the mine.'):'';
-    return askCard('<b>'+fname(iso)+'</b> sources its <b>'+title+'</b> mainly from <b>'+fname(p.top)+'</b> ('+Math.round(p.topShare)+'% of its imports'+(p.cn>10?'; China '+Math.round(p.cn)+'%':'')+'), across '+p.n+' suppliers — import HHI '+p.hhi.toFixed(2)+' ('+src+' '+yr+').'+up+askLinks(mat,iso));
-  }
-  if(intent==='mine'){
-    const gp=(g!=null&&te)?(' Its top exporter is '+fname(te.c)+' ('+te.share.toFixed(0)+'% of trade) — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
-    return askCard('<b>'+title+'</b> is mined mainly in <b>'+(mi?cname(mi.c)+' ('+mi.v.toFixed(0)+'% of world output)':'— (no USGS figure)')+'</b>.'+gp+askLinks(mat,iso));
-  }
-  if(intent==='conc'){
-    const lvl=hh>0.45?'highly concentrated':hh>0.25?'moderately concentrated':'relatively diversified';
-    return askCard('<b>'+title+'</b> exports are <b>'+lvl+'</b> — Herfindahl '+(hh!=null?hh.toFixed(2):'—')+', top-3 exporters ≈ '+(t3||0).toFixed(0)+'% of world trade'+(te?'; led by '+fname(te.c)+' ('+te.share.toFixed(0)+'%)':'')+'.'+askLinks(mat,iso));
-  }
-  if(intent==='export'){
-    return askCard('<b>'+title+'</b> is exported mainly by <b>'+(te?fname(te.c)+' ('+te.share.toFixed(0)+'% of world trade, '+fmtV(te.v)+')':'—')+'</b>; top-3 ≈ '+(t3||0).toFixed(0)+'%, export HHI '+(hh!=null?hh.toFixed(2):'—')+' ('+src+' '+yr+').'+askLinks(mat,iso));
-  }
-  const gt=(g!=null&&mi&&te&&mi.c!==te.c)?(' Exported by '+fname(te.c)+' but mined in '+cname(mi.c)+' — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
-  return askCard('<b>'+title+'</b> ('+src+' '+yr+'): mined mainly in <b>'+(mi?cname(mi.c)+' '+mi.v.toFixed(0)+'%':'—')+'</b>, top exporter <b>'+(te?fname(te.c)+' '+te.share.toFixed(0)+'%':'—')+'</b>, top importer <b>'+(ti?fname(ti.c)+' '+ti.share.toFixed(0)+'%':'—')+'</b>; export HHI '+(hh!=null?hh.toFixed(2):'—')+'.'+gt+askLinks(mat,iso));
-}
-function askRun(){ const q=($('#ask-q')&&$('#ask-q').value)||''; ensureFlows(()=>{ $('#ask-out').innerHTML=askCompose(askResolve(q)); if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'ask',event:true}); }); }
-let askInit=false;
-function initAsk(){
-  if(!askInit){
-    const chips=['Who exports cobalt?','Where does Germany get its lithium?','How concentrated is gallium?','Where is nickel mined?','China critical-material exports'];
-    $('#ask-go').onclick=askRun;
-    $('#ask-q').addEventListener('keydown',e=>{ if(e.key==='Enter') askRun(); });
-    $('#ask-chips').innerHTML='Try: '+chips.map(c=>'<a href="#" data-q="'+c.replace(/"/g,'&quot;')+'">'+c+'</a>').join(' &nbsp; ');
-    document.querySelectorAll('#ask-chips a').forEach(a=>a.onclick=ev=>{ ev.preventDefault(); $('#ask-q').value=a.dataset.q; askRun(); });
-    askInit=true;
-  }
-  ensureFlows(()=>{ if(!($('#ask-out').innerHTML||'').trim()) $('#ask-out').innerHTML=askCompose(askResolve('overview cobalt')); });
-}
-
-/* ---------- view switching ---------- */
-document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
-  VIEW=b.dataset.view;
-  ['table','map','globe','sankey','ask'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
-  if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});
-  if(VIEW==='map') initMap();
-  if(VIEW==='globe') initGlobe();
-  if(VIEW==='sankey') initSankey();
-  if(VIEW==='ask') initAsk();
-  syncURL();
-});
-const _scripts={};
-function loadScript(src){ if(_scripts[src]) return _scripts[src];
-  return _scripts[src]=new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>{ delete _scripts[src]; rej(src); }; document.head.appendChild(s); }); }
-function loadCss(href){ if(document.querySelector('link[data-x="'+href+'"]'))return; const l=document.createElement('link'); l.rel='stylesheet'; l.href=href; l.dataset.x=href; document.head.appendChild(l); }
-
-/* ---------- map: flow map (mine → refiner → EU) ---------- */
-function initMap(){ if(window.jsVectorMap){ buildMap(); return; }
-  loadCss('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css');
-  loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/js/jsvectormap.min.js')
-   .then(()=>loadScript('https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/maps/world.js'))
-   .then(buildMap).catch(err=>{ $('#map').innerHTML='<p class="loading">Map library failed to load.<br>'+err+'</p>'; });
-}
-let mapInstance=null, FLOWS=null, redrawArrows=null, FLOWS_YEAR='2024', FLOWS_CACHE={};
-function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
-  if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
-  fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
-    .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
-function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y); if(typeof syncURL==='function') syncURL();
-  const ev=$('#yr-event'); if(ev) ev.innerHTML=POLICY_EVENTS[String(y)]?('▸ <b>'+y+'</b> — '+POLICY_EVENTS[String(y)]):'';
-  ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
-      (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
-      ?'⚠⚠ <b>2026 is a directional scenario</b> — 2025’s reconciled structure scaled per material by <b>Q1-2026 export momentum</b> (vs Q1-2025) blended with <b>commodity prices</b> (World Bank Pink Sheet). Only one quarter of 2026 exists, so <b>shares stay at 2025 — only levels tilt</b> (e.g. platinum up, price-corroborated; antimony &amp; graphite down). A trend signal, not a measurement.'
-      :(FLOWS&&FLOWS.provisional)
-      ?'⚠ <b>2025 is a provisional nowcast</b> — raw UN Comtrade (only ~half of countries have filed 2025) reconciled with our own BACI-validated method, levels calibrated to BACI 2024. Stable monopolies (niobium, gallium) hold; materials leaning on non-reporting countries (e.g. bauxite/Guinea) are distorted. Indicative only. <i>Out-of-sample (2018–2024), a lead exporter\'s world share moves ±3.5pp (median) to ±8.7pp (P90) per year — the nowcast\'s empirical error band.</i>'
-      :'';
-    renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
-{ const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
-{ ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
-{ const b=$('#show2026'); if(b) b.onclick=()=>{ const yr=$('#yr'); yr.max='2026'; yr.value='2026'; setYear('2026'); b.textContent='2026** added — slide to compare'; b.disabled=true; }; }
-function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
-function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
-  if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
-// A country is a MINER of a material if it actually EXPORTS the raw ore (raw materials) — derived
-// from trade, so every real exporter counts, not just a hardcoded top-N. For refined products the
-// ore isn't traded, so fall back to the USGS upstream source (otherwise the mine would be invisible).
-function minersOf(m){ if(!m) return {};
-  if(isRawMat(m.label)){ const o={}; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); return o; }
-  const o={}; (m.mined||[]).forEach(x=>{ o[x.c]=x.v; }); return o; }
-// Mirror of minersOf: a REFINER is any country that exports the refined product (refined materials,
-// derived from trade — every real refiner/exporter, not a hardcoded top-1). For raw ores the refined
-// form (e.g. alumina) is a different code not in this trade, so fall back to the IEA refining source.
-function refinersOf(m){ if(!m) return {};
-  if(!isRawMat(m.label)){ const o={}; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ o[f.from]=(o[f.from]||0)+f.value; }); return o; }
-  const o={}; if(m.refined) m.refined.forEach(x=>{ o[x.c]=x.v; }); return o; }
-function buildMap(){ ensureFlows(renderMap); }
-function renderMap(){
-  const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
-  // choropleth fill: who mines it (single: all real ore exporters) or #materials mined (all)
-  const mineV={};
-  if(single){ const mo=minersOf(mats[0]); for(const c in mo) mineV[c]=mo[c]; }
-  else { mats.forEach(m=>{ const mo=minersOf(m); Object.entries(mo).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>mineV[c]=(mineV[c]||0)+1); }); }
-  // refiner fill: who refines it (single: all real refined-product exporters) or #materials refined (all)
-  const refV={};
-  if(single){ const ro=refinersOf(mats[0]); for(const c in ro) refV[c]=ro[c]; }
-  else { mats.forEach(m=>{ const ro=refinersOf(m); Object.entries(ro).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>refV[c]=(refV[c]||0)+1); }); }
-  // per-country region fill: amber = mined, violet = refined, blend = both (shaded by share/count)
-  const AMBER=[222,140,40], VIOLET=[142,68,173], GREEN=[34,139,87], WHITE=[255,255,255];
-  const mix=(a,b,t)=>[0,1,2].map(i=>Math.round(a[i]+(b[i]-a[i])*t));
-  const maxMine=Math.max(1,...Object.values(mineV)), maxRef=Math.max(1,...Object.values(refV));
-  // reserves ("potential") fill mode: colour by share of world reserves, green; no trade arrows
-  const resMode=(FILL_MODE==='reserves'); const resV={};
-  if(resMode){ if(single){ ((mats[0].reserves)||[]).forEach(x=>resV[x.c]=x.v); } else { mats.forEach(m=>(m.reserves||[]).forEach(x=>resV[x.c]=(resV[x.c]||0)+1)); } }
-  const fillFor=(mw,rw)=>{ if(!mw&&!rw) return null;
-    if(mw&&rw) return 'url(#bothStripes)';                 // both = striped amber/violet
-    const base=mw?AMBER:VIOLET, inten=Math.sqrt(mw||rw);   // sqrt so small but real miners stay visible
-    const c=mix(WHITE,base,0.14+0.86*inten); return `rgb(${c[0]},${c[1]},${c[2]})`; };
-  // real flows (Comtrade); arrow colour = PRODUCT stage (raw ore = amber, refined = violet)
-  let flows;
-  if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
-  else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
-  flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
-  if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);   // all trade touching the country (in + out)
-  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
-  if(resMode) flows=[];   // reserves view is static (where it's in the ground) — no trade arrows
-  // a country is chosen: colour its trade PARTNERS (suppliers + customers)
-  const traderV={};
-  if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
-    Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
-    Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
-    partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
-  // grey out known re-export entrepôts (HK/SG/UAE…) when they surface as exporters — they trans-ship,
-  // they don't produce (never a reference producer). Curated set, not a ratio (which mislabels refiners).
-  if(single){ const ref=new Set([...((mats[0].mined||[]).map(x=>x.c)), ...((mats[0].refined||[]).map(x=>x.c))]);
-    [mineV,refV].forEach(V=>Object.keys(V).forEach(c=>{ if(HUBS.has(c)&&!ref.has(c)){ delete V[c]; traderV[c]=1; } })); }
-  flows.forEach(fl=>{ fl.color = fl.raw?'rgb(222,140,40)':'rgb(142,68,173)'; fl.arrow = fl.raw?'url(#arrA)':'url(#arrV)'; });
-  // per-country choropleth fills (sources only when a destination is selected)
-  const cscale={}, cvalues={}; let _ci=0;
-  if(resMode){ const maxR=Math.max(1,...Object.values(resV));
-    Object.keys(resV).forEach(iso=>{ const w=Math.sqrt(Math.min(1,resV[iso]/maxR)); const c=mix(WHITE,GREEN,0.14+0.86*w);
-      const k='k'+(_ci++); cscale[k]=`rgb(${c[0]},${c[1]},${c[2]})`; cvalues[iso]=k; }); }
-  else new Set([...Object.keys(mineV),...Object.keys(refV),...Object.keys(traderV)]).forEach(iso=>{
-    const mw=mineV[iso]!=null?Math.min(1,mineV[iso]/maxMine):0, rw=refV[iso]!=null?Math.min(1,refV[iso]/maxRef):0;
-    let col=fillFor(mw,rw); if(!col && traderV[iso]) col='#b9c2cc';
-    if(col){ const k='k'+(_ci++); cscale[k]=col; cvalues[iso]=k; } });
-  const eps=[...new Set(flows.flatMap(fl=>[fl.from,fl.to]))];
-  const markers=eps.map(iso=>({ name:fname(iso), coords:fcoord(iso), _iso:iso,
-    style:{fill: iso===SELDEST?'#2e8b57':'#42566b', r: iso===SELDEST?6.5:3.5, stroke:'#fff', strokeWidth: iso===SELDEST?2:1} }));
-  if(mapInstance){ try{ mapInstance.destroy(); }catch(e){} mapInstance=null; }
-  $('#map').innerHTML='';
-  mapInstance=new jsVectorMap({ selector:'#map', map:'world', zoomButtons:true, backgroundColor:'#f7f9fc',
-    regionStyle:{ initial:{fill:'#eceff2', stroke:'#fbfcfd', strokeWidth:.4} },
-    series:{ regions:[{ attribute:'fill', scale:cscale, values:cvalues }] },
-    markers,
-    onViewportChange(){ if(redrawArrows) redrawArrows(); },
-    onMarkerClick(e,index){ showCountry(markers[index]._iso); } });
-  requestAnimationFrame(()=>{ const NS='http://www.w3.org/2000/svg'; const svg=document.querySelector('#map svg'); if(!svg) return;
-    let defs=svg.querySelector('defs'); if(!defs){ defs=document.createElementNS(NS,'defs'); svg.insertBefore(defs, svg.firstChild); }
-    if(!defs.querySelector('#bothStripes')) defs.insertAdjacentHTML('beforeend','<pattern id="bothStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)"><rect width="8" height="8" fill="rgb(222,140,40)"/><rect width="4" height="8" fill="rgb(142,68,173)"/></pattern>');
-    const mk=(id,c)=>`<marker id="${id}" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10z" fill="${c}"/></marker>`;
-    if(!defs.querySelector('#arrA')) defs.insertAdjacentHTML('beforeend', mk('arrA','rgb(222,140,40)')+mk('arrV','rgb(142,68,173)')+mk('arrG','#8a8a8a'));
-    redrawArrows=()=>{ try{ let g=svg.querySelector('#flowArrows'); if(!g){ g=document.createElementNS(NS,'g'); g.setAttribute('id','flowArrows'); svg.appendChild(g); }
-      g.textContent='';
-      flows.forEach(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to); if(!a||!b) return;
-        const p1=mapInstance.coordsToPoint(a[0],a[1]), p2=mapInstance.coordsToPoint(b[0],b[1]); if(!p1||!p2) return;
-        const dx=p2.x-p1.x, dy=p2.y-p1.y, len=Math.hypot(dx,dy)||1, off=Math.min(190,len*0.36);
-        const cx=(p1.x+p2.x)/2 - dy/len*off, cy=(p1.y+p2.y)/2 + dx/len*off;
-        const path=document.createElementNS(NS,'path');
-        path.setAttribute('d',`M${p1.x.toFixed(1)} ${p1.y.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${p2.x.toFixed(1)} ${p2.y.toFixed(1)}`);
-        path.setAttribute('fill','none'); path.setAttribute('stroke',fl.color); path.setAttribute('stroke-width','2.6'); path.setAttribute('stroke-opacity','0.75'); path.setAttribute('stroke-linecap','round'); path.setAttribute('marker-end',fl.arrow);
-        g.appendChild(path); }); }catch(e){} };
-    redrawArrows();
-    if(typeof mapInstance._applyTransform==='function'){ const o=mapInstance._applyTransform.bind(mapInstance); mapInstance._applyTransform=function(){ o(); if(redrawArrows) redrawArrows(); }; }
-  });
-  const bothSw='background:repeating-linear-gradient(45deg,rgb(222,140,40) 0 3px,rgb(142,68,173) 3px 6px)';
-  $('#map-info').innerHTML= resMode
-    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(34,139,87)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): economically recoverable (USGS), exploited or not. Darker = larger reserves; no trade arrows in this view. <span style="color:#999">Reserves are conservative (proven, economic) — frontier deposits still classed as "resources" (e.g. Greenland) can stay dim, and byproduct metals carry no figure.</span>`
-    : single
-    ? `<b>${strip(mats[0].title)}</b> — country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both · <span class="sw" style="background:#b9c2cc"></span>re-export hub. Arrows = real trade (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber ➜</b></span> raw ore, <span style="color:rgb(142,68,173)"><b>violet ➜</b></span> refined product. <span style="color:#999">Grey = a known re-export hub (Hong Kong, Singapore, UAE…) — trans-ships, doesn't produce.</span> Click a country.`
-    : `Country fill = role: <span class="sw" style="background:rgb(222,140,40)"></span>raw stage (mines / exports ore) · <span class="sw" style="background:rgb(142,68,173)"></span>refined stage (refines / exports refined product) · <span class="sw" style="${bothSw}"></span>both. Arrows (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)"><b>amber</b></span> = raw ore, <span style="color:rgb(142,68,173)"><b>violet</b></span> = refined product. <span style="color:#999">Exporter ≠ producer: re-export hubs show as refiners.</span> Pick a material or country.`;
-}
-function showCountry(code){
-  const mines=MATS.filter(m=>minersOf(m)[code]!=null);
-  const refines=MATS.filter(m=>refinersOf(m)[code]!=null);
-  if(!mines.length&&!refines.length){ $('#map-info').innerHTML=`<b>${fname(code)}</b> — a trade destination here, not a top source.`; return; }
-  const lk=arr=>arr.map(m=>`<a href="#" data-k="${m.label}">${strip(m.title)}</a>`).join(', ')||'—';
-  $('#map-info').innerHTML=`<b>${fname(code)}</b><br><span style="color:#b35e16">raw stage (mines / exports ore):</span> ${lk(mines)}<br><span style="color:#2b4d6f">refined stage (refines / exports refined):</span> ${lk(refines)}`;
-  $('#map-info').querySelectorAll('a').forEach(a=>a.onclick=e=>{e.preventDefault();showDetail(a.dataset.k);});
-}
-
-/* ---------- globe: real Comtrade flows, role-coloured (matches the map) ---------- */
-function initGlobe(){ if(window.Globe && window.topojson){ buildGlobe(); return; }
-  Promise.all([
-    window.Globe?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/globe.gl'),
-    window.topojson?Promise.resolve():loadScript('https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js')
-  ]).then(()=>{ if(VIEW==='globe') buildGlobe(); })
-   .catch(err=>{ $('#globe').innerHTML='<p class="loading" style="color:#aaa">Globe library failed to load.<br>'+err+'</p>'; });
-}
-let globeInstance=null;
-function buildGlobe(){ ensureFlows(renderGlobe); }
-function renderGlobe(){
-  const single=!!SELMAT, mats=single?MATS.filter(m=>m.label===SELMAT):MATS;
-  const mineV={}, refV={};
-  if(single){ const mo=minersOf(mats[0]); for(const c in mo) mineV[c]=mo[c]; const ro=refinersOf(mats[0]); for(const c in ro) refV[c]=ro[c]; }
-  else { mats.forEach(m=>{ const mo=minersOf(m); Object.entries(mo).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>mineV[c]=(mineV[c]||0)+1); const ro=refinersOf(m); Object.entries(ro).sort((a,b)=>b[1]-a[1]).slice(0,6).forEach(([c])=>refV[c]=(refV[c]||0)+1); }); }
-  const resMode=(FILL_MODE==='reserves'); const resV={};
-  if(resMode){ if(single){ ((mats[0].reserves)||[]).forEach(x=>resV[x.c]=x.v); } else { mats.forEach(m=>(m.reserves||[]).forEach(x=>resV[x.c]=(resV[x.c]||0)+1)); } }
-  let flows;
-  if(single){ const raw=isRawMat(SELMAT); flows=(FLOWS.materials[SELMAT]||[]).map(f=>({from:f.from,to:f.to,value:f.value,raw})); }
-  else { const agg={}; MATS.forEach(m=>{ const raw=isRawMat(m.label); ((FLOWS.materials[m.label])||[]).forEach(fl=>{const k=fl.from+'>'+fl.to+'>'+(raw?'r':'f');agg[k]=(agg[k]||0)+fl.value;}); });
-    flows=Object.entries(agg).map(([k,v])=>{const a=k.split('>');return{from:a[0],to:a[1],value:v,raw:a[2]==='r'};}); }
-  flows=flows.filter(fl=>fcoord(fl.from)&&fcoord(fl.to)&&fl.from!==fl.to);
-  if(SELDEST) flows=flows.filter(fl=>fl.from===SELDEST||fl.to===SELDEST);
-  flows=flows.sort((a,b)=>b.value-a.value).slice(0, SELDEST?40:(single?30:45));
-  if(resMode) flows=[];   // reserves view is static — no arcs
-  const traderV={};
-  if(SELDEST){ const partners=new Set(); flows.forEach(f=>{ if(f.from!==SELDEST) partners.add(f.from); if(f.to!==SELDEST) partners.add(f.to); });
-    Object.keys(mineV).forEach(c=>{ if(!partners.has(c)) delete mineV[c]; });
-    Object.keys(refV).forEach(c=>{ if(!partners.has(c)) delete refV[c]; });
-    partners.forEach(c=>{ if(mineV[c]==null && refV[c]==null) traderV[c]=1; }); }
-  // grey out known re-export entrepôts (same curated set as the map).
-  if(single){ const ref=new Set([...((mats[0].mined||[]).map(x=>x.c)), ...((mats[0].refined||[]).map(x=>x.c))]);
-    [mineV,refV].forEach(V=>Object.keys(V).forEach(c=>{ if(HUBS.has(c)&&!ref.has(c)){ delete V[c]; traderV[c]=1; } })); }
-  const AMBER='rgb(222,140,40)', VIOLET='rgb(142,68,173)';
-  const arcs=flows.map(fl=>{ const a=fcoord(fl.from), b=fcoord(fl.to);
-    return { startLat:a[0],startLng:a[1],endLat:b[0],endLng:b[1], color: fl.raw?AMBER:VIOLET, value:fl.value,
-      label:`${fname(fl.from)} → ${fname(fl.to)} · ${fmtV(fl.value)}`, key:single?SELMAT:'' }; });
-  const maxArc=Math.max(1,...arcs.map(a=>a.value));
-  arcs.forEach(a=>a.stroke=0.25+1.3*Math.sqrt(a.value/maxArc));           // thickness ∝ trade value
-  const hubT={}; flows.forEach(f=>{ hubT[f.from]=(hubT[f.from]||0)+f.value; hubT[f.to]=(hubT[f.to]||0)+f.value; });
-  const hubs=Object.keys(hubT).sort((x,y)=>hubT[y]-hubT[x]).slice(0,9).map(iso=>{ const c=fcoord(iso); return c?{lat:c[0],lng:c[1],text:fname(iso)}:null; }).filter(Boolean);
-  const Argb=[222,140,40], Vrgb=[142,68,173], mixc=(p,q,t)=>[0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*t));
-  const maxR=resMode?Math.max(1,...Object.values(resV)):1;
-  const polyColor=feat=>{ const iso=(FLOWS.iso&&FLOWS.iso[String(parseInt(feat.id,10))])||null;
-    if(!iso) return 'rgba(120,150,180,0.07)';
-    if(resMode){ if(resV[iso]==null) return 'rgba(120,150,180,0.07)'; const w=Math.sqrt(Math.min(1,resV[iso]/maxR)); const c=mixc([255,255,255],[34,139,87],0.14+0.86*w); return `rgba(${c[0]},${c[1]},${c[2]},0.9)`; }
-    const isM=mineV[iso]!=null, isR=refV[iso]!=null;
-    if(isM&&isR){ const c=mixc(Argb,Vrgb,.5); return `rgba(${c[0]},${c[1]},${c[2]},0.88)`; }
-    if(isM) return 'rgba(222,140,40,0.82)'; if(isR) return 'rgba(142,68,173,0.82)';
-    if(traderV[iso]) return 'rgba(150,165,180,0.6)';
-    return 'rgba(120,150,180,0.07)'; };
-  requestAnimationFrame(()=>{
-    if(!globeInstance){
-      $('#globe').innerHTML='';
-      globeInstance=Globe()(document.getElementById('globe'))
-        .globeImageUrl('https://cdn.jsdelivr.net/npm/three-globe/example/img/earth-dark.jpg').backgroundColor('#0a0f1e')
-        .showAtmosphere(true).atmosphereColor('#5b8fc7').atmosphereAltitude(0.16)
-        .arcColor('color').arcStroke('stroke').arcStartLat('startLat').arcStartLng('startLng').arcEndLat('endLat').arcEndLng('endLng')
-        .arcDashLength(.4).arcDashGap(.18).arcDashAnimateTime(4200).arcLabel('label').onArcClick(a=>{ if(a.key) showDetail(a.key); })
-        .labelLat('lat').labelLng('lng').labelText('text').labelSize(()=>0.62).labelColor(()=>'rgba(255,255,255,0.92)').labelDotRadius(()=>0.32).labelAltitude(0.012).labelResolution(2)
-        .width($('#globe').clientWidth||900).height(560);
-      globeInstance.pointOfView({lat:25,lng:15,altitude:2.2});
-      try{ const ct=globeInstance.controls(); ct.autoRotate=true; ct.autoRotateSpeed=0.42; }catch(e){}   // gentle spin = first impression of the trade web
-      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(r=>r.json())
-        .then(topo=>{ const feats=(window.topojson&&topo.objects)?topojson.feature(topo,topo.objects.countries).features:[];
-          globeInstance.polygonsData(feats).polygonCapColor(polyColor).polygonSideColor(()=>'rgba(0,0,0,0.05)').polygonStrokeColor(()=>'#5e7488').polygonAltitude(0.006); })
-        .catch(()=>{});
-    } else { globeInstance.polygonCapColor(polyColor); }
-    globeInstance.arcsData(arcs).labelsData(hubs);
-    globeInstance.width($('#globe').clientWidth||900).height(560);
-  });
-  $('#globe-info').innerHTML = resMode
-    ? `<b>${single?strip(mats[0].title):'All materials'}</b> — <span style="color:rgb(46,180,120)"><b>green</b></span> = share of world <b>reserves</b> (USGS, approx.): economically recoverable (USGS), exploited or not. Darker = larger reserves; no arcs in this view. <span style="color:#888">Reserves are conservative (proven, economic) — frontier "resources" (e.g. Greenland) can stay dim; byproduct metals carry no figure.</span>`
-    : single
-    ? `<b>${strip(mats[0].title)}</b> — fill = role: <span style="color:rgb(222,140,40)">raw stage (mines / exports ore)</span> / <span style="color:rgb(142,68,173)">refined stage (refines / exports refined)</span> / mauve = both / <span style="color:#9aa7b4">grey = re-export hub</span>. Arcs (${srcN()} ${FLOWS.year}): <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Grey = a known re-export hub (HK/SG/UAE…) — trans-ships, doesn't produce. Arc thickness ∝ trade value; labels = top hubs; drag to spin. An illustrative overview — for precise shares use the <b>Table</b> or <b>Map</b>.</span> Click an arc.`
-    : `Fill = role: <span style="color:rgb(222,140,40)">raw stage</span> / <span style="color:rgb(142,68,173)">refined stage</span> / mauve = both. Arcs: <span style="color:rgb(222,140,40)">amber</span> = raw ore, <span style="color:rgb(142,68,173)">violet</span> = refined. <span style="color:#888">Exporter ≠ producer (re-export hubs show as refiners). Arc thickness ∝ trade value; labels = top hubs; drag to spin. An illustrative overview — for precise shares use the <b>Table</b> or <b>Map</b>.</span> Pick a material or country.`;
-}
-
-/* ---------- sankey: raw source → refiner → EU ---------- */
-let sankeyChart=null;
-function initSankey(){ if(window.echarts){ buildSankey(); return; }
-  loadScript('https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js').then(()=>{ if(VIEW==='sankey') buildSankey(); })
-   .catch(err=>{ $('#sankey').innerHTML='<p class="loading">Chart library failed to load.<br>'+err+'</p>'; });
-}
-function buildSankey(){
-  if(!FLOWS){ ensureFlows(buildSankey); return; }
-  const sel=SELMAT;
-  const mats=sel?MATS.filter(m=>m.label===sel):MATS;
-  const linkMap={}, nodeSet=new Set(), mineNodes=new Set(), refNodes=new Set();
-  const add=(s,t,v)=>{ if(v<=0||s===t) return; const k=s+''+t; linkMap[k]=(linkMap[k]||0)+v; nodeSet.add(s); nodeSet.add(t); };
-  const MINERS=new Set(), REFINERS=new Set();
-  mats.forEach(m=>{ (m.mined||[]).forEach(x=>MINERS.add(x.c)); if(m.refined) m.refined.forEach(x=>REFINERS.add(x.c)); });
-  mats.forEach(m=>{
-    const mines=(m.mined||[]).slice(0,3);
-    const re=(m.refined&&m.refined[0])?m.refined[0].c:null;
-    const mineSet=new Set(mines.map(x=>x.c));
-    const sumW=mines.reduce((a,o)=>a+o.v,0)||1, w=100;
-    const fl=(FLOWS.materials[m.label]||[]);
-    if(SELDEST){   // a country is chosen: show all trade touching it (imports + exports)
-      const touch=fl.filter(f=>(f.from===SELDEST||f.to===SELDEST)&&f.from!==f.to).sort((a,b)=>b.value-a.value).slice(0,10);
-      if(!touch.length) return;
-      const tot=touch.reduce((a,f)=>a+f.value,0)||1;
-      touch.forEach(f=>{ add(cname(f.from), cname(f.to), w*f.value/tot);
-        [f.from,f.to].forEach(c=>{ if(c!==SELDEST){ if(REFINERS.has(c)) refNodes.add(cname(c)); else if(MINERS.has(c)) mineNodes.add(cname(c)); } }); });
-      return; }
-    if(re){ const refN=cname(re)+" (refines)";
-      const dests = fl.filter(f=>f.from===re && !mineSet.has(f.to)).slice(0,8);
-      refNodes.add(refN);
-      mines.forEach(x=>{ add(cname(x.c), refN, w*x.v/sumW); mineNodes.add(cname(x.c)); });
-      const dTot=dests.reduce((a,f)=>a+f.value,0)||1;
-      dests.forEach(f=> add(refN, cname(f.to), w*f.value/dTot)); }
-    else { const ms=fl.filter(f=>mineSet.has(f.from)).slice(0,8);
-      const tot=ms.reduce((a,f)=>a+f.value,0)||1;
-      if(ms.length) ms.forEach(f=>{ add(cname(f.from), cname(f.to), w*f.value/tot); mineNodes.add(cname(f.from)); });
-      else mines.forEach(x=> mineNodes.add(cname(x.c))); }
-  });
-  const colFor=n=> (SELDEST && n===cname(SELDEST)) ? '#2e8b57' : refNodes.has(n) ? 'rgb(142,68,173)' : mineNodes.has(n) ? 'rgb(222,140,40)' : '#7f8c9b';
-  const links=Object.entries(linkMap).map(([k,v])=>{ const [s,t]=k.split(''); return {source:s,target:t,value:Math.round(v*10)/10}; }).filter(l=>l.value>=1);
-  links.sort((a,b)=>b.value-a.value);
-  const adj={}, kept=[], reaches=(s,t,seen)=>{ if(s===t) return true; if(seen.has(s)) return false; seen.add(s); return (adj[s]||[]).some(n=>reaches(n,t,seen)); };
-  links.forEach(l=>{ if(reaches(l.target,l.source,new Set())) return; (adj[l.source]=adj[l.source]||[]).push(l.target); kept.push(l); });
-  links.length=0; kept.forEach(l=>links.push(l));
-  const used=new Set(); links.forEach(l=>{ used.add(l.source); used.add(l.target); });
-  const srcSet=new Set(links.map(l=>l.source));   // terminal (pure-importer) nodes: label inside so it doesn't clip at the right edge
-  const nodes2=[...nodeSet].filter(n=>used.has(n)).map(n=>{ const o={ name:n, itemStyle:{color:colFor(n)} }; if(!srcSet.has(n)) o.label={position:'left'}; return o; });
-  const el=document.getElementById('sankey');
-  if(!el.clientWidth){ if(VIEW==='sankey') requestAnimationFrame(buildSankey); return; }
-  if(!sankeyChart){ el.innerHTML=''; sankeyChart=echarts.init(el); }
-  sankeyChart.setOption({
-    tooltip:{trigger:'item',formatter:p=>p.dataType==='edge'?`${p.data.source} → ${p.data.target}`.replace(/ \(refines\)/g,''):p.name.replace(/ \(refines\)$/,'')},
-    graphic: SELDEST ? [
-      {type:'text',left:'center',top:4,style:{text:fname(SELDEST).toUpperCase()+" — imports ↔ exports",fill:'#666',font:'bold 12px system-ui'}}
-    ] : [
-      {type:'text',left:'4%',top:4,style:{text:'⛏ MINED',fill:'#666',font:'bold 12px system-ui'}},
-      {type:'text',left:'center',top:4,style:{text:'🏭 REFINED',fill:'#666',font:'bold 12px system-ui'}},
-      {type:'text',right:'3%',top:4,style:{text:'➜ IMPORTED BY',fill:'#666',font:'bold 12px system-ui'}}
-    ],
-    series:[{type:'sankey',nodeAlign:'left',emphasis:{focus:'adjacency'},draggable:false,top:28,left:'1%',right:'6%',bottom:'1%',
-      data:nodes2,links:links,nodeGap:7,label:{fontSize:10,color:'#222',formatter:p=>p.name.replace(/ \(refines\)$/,'')},
-      lineStyle:{color:'source',opacity:.42,curveness:.5}}]
-  }, true);
-  requestAnimationFrame(()=>sankeyChart.resize());
-  const selM=sel?MATS.find(m=>m.label===sel):null;
-  $('#sankey-info').innerHTML = SELDEST
-    ? `<b>${fname(SELDEST)}</b>'s real trade in ${selM?'<b>'+strip(selM.title)+'</b>':'these materials'} (BACI/Comtrade ${FLOWS.year}) — what it imports <b>and</b> exports. <span style="color:rgb(222,140,40)">amber</span> = miner, <span style="color:rgb(142,68,173)">violet</span> = refiner.`+(selM?'  <a href="#" id="sk-detail">full detail →</a>':'')
-    : selM
-    ? `<b>${strip(selM.title)}</b>: <span style="color:rgb(222,140,40)"><b>mined</b></span> → <span style="color:rgb(142,68,173)"><b>refined</b></span> → the <b>real importing countries</b> (BACI/Comtrade ${FLOWS.year}). Refiner→buyer split is real trade; mine→refiner is structural.  <a href="#" id="sk-detail">full detail →</a>`
-    : `<span style="color:rgb(222,140,40)"><b>mined</b></span> → <span style="color:rgb(142,68,173)"><b>refined</b></span> → <b>real importing countries</b> across all materials (BACI/Comtrade ${FLOWS.year}); each material weighted equally. Pick a material to isolate its chain.`;
-  if(selM){ const a=$('#sk-detail'); if(a) a.onclick=e=>{e.preventDefault(); showDetail(selM.label);}; }
-}
-window.addEventListener('resize',()=>{ if(VIEW==='sankey'&&sankeyChart) sankeyChart.resize(); });
-</script>
-</body>
-</html>
+</body></html>

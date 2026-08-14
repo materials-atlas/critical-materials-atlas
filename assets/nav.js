@@ -83,6 +83,7 @@
 
   function build() {
     var html = '<a href="./">Atlas</a>' +
+               '<a href="explorer.html">Explore</a>' +
                '<a href="insights.html">Insights</a>' +
                '<a href="findings.html" class="hideable">Findings</a>';
     GROUPS.forEach(function (g) {
