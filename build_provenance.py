@@ -1,65 +1,53 @@
-"""HS-code provenance map (JRC/CN-style): for every atlas material, which HS6 codes represent which stage,
-and an explicit data-quality flag so users can see exactly which codes are clean vs shared vs trade-only.
-This makes the caveats auditable rather than buried in prose. Writes out/code_provenance.json.
-Run: python build_provenance.py
+"""HS-code provenance map -- now driven by the canonical out/crosswalk.json (single source of truth), so
+the ore/refined codes and flags can't drift from the rest of the pipeline. For every atlas material it
+reports the ore + refined HS codes, the refined stage, and a data-quality flag. Writes out/code_provenance.json.
+Run: python build_provenance.py  (after build_crosswalk.py)
 """
-import os, sys, json, collections
+import os, sys, json
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
+CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
 
 def nicename(m):
     t = m['title']; return t[:t.find('(')].strip() if '(' in t else t
-def hs6(t):
-    c = ''.join(ch for ch in t[t.find('(') + 1:t.find(')')] if ch.isdigit()); return c[:6]
-
-# clean ore->refined pairs (the traceable chains)
-ORE = {'copper': '260300', 'nickel': '260400', 'cobalt': '260500', 'tungsten': '261100',
-       'titanium': '261400', 'antimony': '261710', 'bauxite': '260600', 'tantalum': '261590',
-       'niobium': '261590', 'manganese': '260200'}
-BYPRODUCT = {'gallium', 'germanium', 'hafnium', 'arsenic'}         # recovered from other ores -> no ore trade line
-MINE_ONLY = {'baryte', 'cokingcoal', 'helium'}                     # no distinct refined stage in our data
-
 def stage(code):
     h2, h4 = code[:2], code[:4]
-    if h4 == '8505':                    return 'permanent magnet (downstream)'
-    if h4 == '2804':                    return 'refined element / metalloid / gas'
-    if h2 == '26':                      return 'ore / concentrate'
-    if h2 == '28':                      return 'refined compound / oxide'
-    if h2 == '72':                      return 'ferro-alloy'
-    if h2 == '71':                      return 'unwrought precious metal'
+    if h4 == '8505':  return 'permanent magnet (downstream)'
+    if h4 == '2804':  return 'refined element / metalloid / gas'
+    if h2 == '26':    return 'ore / concentrate'
+    if h2 == '28':    return 'refined compound / oxide'
+    if h2 == '72':    return 'ferro-alloy'
+    if h2 == '71':    return 'unwrought precious metal'
     if h2 in ('74', '75', '76', '78', '79', '80', '81'): return 'unwrought metal'
-    if h2 == '27':                      return 'coal'
-    if h2 == '25':                      return 'processed mineral'
+    if h2 == '27':    return 'coal'
+    if h2 == '25':    return 'processed mineral'
     return 'other'
 
-# detect HS6 codes shared by >1 material
-codes = collections.defaultdict(list)
-for m in d['materials']:
-    codes[hs6(m['title'])].append(m['label'])
-shared = {c for c, labs in codes.items() if len(labs) > 1}
+# flag -> human text + sort priority (most-limiting first)
+FLAG = {'shared_refined': ('shared refined HS6 (gallium/germanium 811292) — trade signal degenerate', 0),
+        'shared_ore':     ('shared ore HS6 (Nb-Ta 261590) — feedstock side unreliable', 1),
+        'byproduct':      ('by-product — no ore trade line (feedstock signature undefined)', 3),
+        'mine_only':      ('mine / mineral only — no distinct refined stage', 4),
+        'magnet':         ('downstream magnet — refined form only', 2),
+        'clean_pair':     ('clean ore→refined pair — full trade fingerprint', 2),
+        'refined_only':   ('refined form only — no clean ore pair (typed from physical)', 3)}
 
 out = []
 for m in d['materials']:
-    lab = m['label']; ref = hs6(m['title']); ore = ORE.get(lab)
-    if ref in shared:
-        flag = f'shared HS6 ({"/".join(sorted(codes[ref]))}) — trade signal degenerate'
-    elif lab in BYPRODUCT:
-        flag = 'by-product — no ore trade line (feedstock signature undefined)'
-    elif lab in MINE_ONLY:
-        flag = 'mine / mineral only — no distinct refined stage'
-    elif ore:
-        flag = 'clean ore→refined pair — full trade fingerprint'
-    else:
-        flag = 'refined form only — no clean ore pair (typed from physical)'
-    out.append({'label': lab, 'name': nicename(m), 'ore': ore, 'refined': ref,
-                'refined_stage': stage(ref), 'flag': flag})
+    lab = m['label']; c = CW.get(lab, {'ore_hs': [], 'refined_hs': [''], 'flags': ['refined_only']})
+    # pick the most-limiting flag for the label
+    flag_key = min(c['flags'], key=lambda f: FLAG.get(f, ('', 9))[1])
+    ref = (c['refined_hs'] or [''])[0]
+    out.append({'label': lab, 'name': nicename(m),
+                'ore': (c['ore_hs'] or [None])[0], 'refined': ref,
+                'refined_all': c['refined_hs'], 'refined_stage': stage(ref),
+                'flag': FLAG.get(flag_key, ('', 9))[0], 'flag_key': flag_key})
 
-order = {'clean ore': 0, 'refined form': 1, 'shared': 2, 'by-product': 3, 'mine /': 4}
-out.sort(key=lambda r: next((v for k, v in order.items() if r['flag'].startswith(k)), 9))
-cnt = collections.Counter(r['flag'].split(' —')[0].split(' (')[0] for r in out)
-json.dump({'shared_codes': sorted(shared), 'materials': out},
-          open(os.path.join(ROOT, 'out', 'code_provenance.json'), 'w', encoding='utf-8'),
+out.sort(key=lambda r: FLAG.get(r['flag_key'], ('', 9))[1])
+import collections
+cnt = collections.Counter(r['flag_key'] for r in out)
+json.dump({'materials': out}, open(os.path.join(ROOT, 'out', 'code_provenance.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)
 print('HS-code provenance:', dict(cnt))
 for r in out:

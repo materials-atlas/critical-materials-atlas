@@ -36,12 +36,15 @@ with zipfile.ZipFile(BACI_ZIP) as z:
 raw = raw[raw.k.isin(codes)].copy(); raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
 X = raw.groupby(['i', 'k']).v.sum().reset_index()
 M = X.pivot(index='i', columns='k', values='v').reindex(columns=codes).fillna(0.0)
-# RCA within the critical-materials basket (matches the atlas complexity page). NB: on this small 31-
-# material basket the non-linear country FITNESS (MFI) is ill-conditioned/unstable -- the reliable,
-# validated output here is the mineral CRITICALITY index (CMI); MFI is reported as experimental only.
+# RCA within the critical-materials basket (matches the atlas complexity page). NB: EXPERIMENTAL on both
+# sides. On this small 31-material basket the non-linear country FITNESS is ill-conditioned; and the
+# CRITICALITY (CMI) is distorted because shared HS6 codes (gallium/germanium fold into 811292) collapse
+# real chokepoints into one column -- so CMI can rank actual chokepoints as LEAST critical. Do NOT treat
+# either output as validated; the product-space page (full HS6 + share floor) is the trustworthy layer.
 Xc = M.values.sum(1, keepdims=True); Xm = M.values.sum(0, keepdims=True); Xt = M.values.sum()
-rca = np.divide(M.values / Xc, Xm / Xt, where=(Xc > 0) & (Xm > 0))
-Mb = (rca >= 1).astype(float)
+rca = np.divide(M.values / Xc, Xm / Xt, out=np.zeros_like(M.values), where=(Xc > 0) & (Xm > 0))
+share = np.divide(M.values, Xm, out=np.zeros_like(M.values), where=Xm > 0)   # world-share floor kills noise
+Mb = ((rca >= 1) & (share >= 0.001) & (M.values >= 500)).astype(float)
 ok = Mb.sum(1) > 0
 Mb = Mb[ok]
 cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
@@ -54,7 +57,7 @@ for _ in range(ITERS):
     F_new = Mb @ Q
     F_new /= F_new.mean() + 1e-12
     with np.errstate(divide='ignore'):
-        inv = np.where(F > 1e-12, 1.0 / F, 0.0)
+        inv = np.where(F_new > 1e-12, 1.0 / F_new, 0.0)   # Tacchella: Q update uses the NEW fitness
     denom = Mb.T @ inv
     Q_new = np.where(denom > 1e-12, 1.0 / denom, 0.0)
     Q_new /= Q_new.mean() + 1e-12

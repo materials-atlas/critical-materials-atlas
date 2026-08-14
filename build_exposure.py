@@ -30,14 +30,32 @@ def hs6(t):
 def nicename(m):
     t = m['title']; return t[:t.find('(')].strip() if '(' in t else t
 
-# material -> (display name, refined HS6, refined shares dict). 'magnets' -> 850511 (its traded form).
+CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
+
+# clean ISO2 -> display name: prefer current names, drop historical parentheticals, fix key ones
+_PREF = {'DE': 'Germany', 'TR': 'Türkiye', 'RU': 'Russia', 'KR': 'South Korea', 'CD': 'DR Congo',
+         'US': 'United States', 'GB': 'United Kingdom', 'CZ': 'Czechia', 'VN': 'Viet Nam', 'IR': 'Iran',
+         'BO': 'Bolivia', 'BE': 'Belgium', 'LA': 'Laos', 'SY': 'Syria', 'TW': 'Taiwan'}
+_iso_name = {}
+for _num, _iso in num2iso.items():
+    if not isinstance(_iso, str):
+        continue
+    _nm = str(num2name.get(_num, _iso))
+    if _iso not in _iso_name or ('(' in _iso_name[_iso] and '(' not in _nm):
+        _iso_name[_iso] = _nm
+def disp(iso):
+    return _PREF.get(iso, _iso_name.get(iso, iso))
+
+# material -> refined-code BASKET (from canonical crosswalk) + physical shares + flags
 MATS = {}
 for m in d['materials']:
     ref = {x['c']: x['v'] for x in (m.get('refined') or [])}
     if not ref:
         continue
-    MATS[m['label']] = {'name': nicename(m), 'code': hs6(m['title']), 'shares': ref}
-REF_CODES = sorted({v['code'] for v in MATS.values()})
+    cw = CW.get(m['label'], {})
+    codes = cw.get('refined_hs') or [hs6(m['title'])]
+    MATS[m['label']] = {'name': nicename(m), 'codes': codes, 'shares': ref, 'flags': cw.get('flags', [])}
+REF_CODES = sorted({c for v in MATS.values() for c in v['codes']})
 
 cap = json.load(open(os.path.join(ROOT, 'out', 'capability.json'), encoding='utf-8'))
 cap_lat = {stage: {r['iso']: r['cap'] for r in rows} for stage, rows in cap.items()}
@@ -53,28 +71,33 @@ xpo = raw.groupby(['i', 'k']).v.sum()   # exporter i
 def band(h):
     return 'extreme' if h >= 0.5 else 'high' if h >= 0.25 else 'moderate' if h >= 0.15 else 'diffuse'
 
+def fexp(c, k): return float(xpo.get((c, k), 0.0))
+def fimp(c, k): return float(exp.get((c, k), 0.0))
+countries = sorted({c for (c, _) in exp.index} | {c for (c, _) in xpo.index})
+
 exposure = {}
 for lab, info in MATS.items():
-    code, shares = info['code'], info['shares']
+    codes, shares, flags = info['codes'], info['shares'], info['flags']
+    shared = 'shared_refined' in flags                    # Ga/Ge 811292: trade fallbacks degenerate
     s = sorted(shares.items(), key=lambda kv: -kv[1])
+    listed = sum(v for _, v in s)                          # coverage of the physical breakdown
     hhi = sum((v / 100.0) ** 2 for _, v in s)
     top_iso, top_share = (s[0][0], round(s[0][1], 1)) if s else (None, 0)
     capk = CAP_KEY.get(lab, lab)
     imp = {}
-    for (c, k) in exp.index:
-        if k != code:
-            continue
-        iso = num2iso.get(int(c))
-        if not isinstance(iso, str):
-            continue
-        net = float(exp.get((c, code), 0.0)) - float(xpo.get((c, code), 0.0))
-        if net > 0 and cap_lat.get(capk, {}).get(iso, 0) < 0.03:
-            imp[iso] = net
+    if not shared:
+        for c in countries:
+            iso = num2iso.get(int(c))
+            if not isinstance(iso, str):
+                continue
+            net = sum(fimp(c, k) - fexp(c, k) for k in codes)
+            if net > 0 and cap_lat.get(capk, {}).get(iso, 0) < 0.03:
+                imp[iso] = net
     reliant = sorted(imp.items(), key=lambda kv: -kv[1])[:6]
-    exposure[lab] = {'name': info['name'], 'code': code, 'hhi': round(hhi, 3), 'band': band(hhi),
-                     'top': top_iso, 'top_name': num2name.get(iso2num.get(top_iso, -1), top_iso),
-                     'top_share': top_share,
-                     'reliant': [{'iso': i, 'name': num2name.get(iso2num.get(i, -1), i)} for i, _ in reliant]}
+    exposure[lab] = {'name': info['name'], 'code': codes[0], 'codes': codes,
+                     'hhi': round(hhi, 3), 'band': band(hhi), 'listed_pct': round(listed),
+                     'top': top_iso, 'top_name': disp(top_iso), 'top_share': top_share, 'shared': shared,
+                     'reliant': [{'iso': i, 'name': disp(i)} for i, _ in reliant]}
 
 if 'magnets' in exposure:                       # alias so the magnet card (keyed 'magnet (NdFeB)') resolves
     exposure['magnet (NdFeB)'] = exposure['magnets']

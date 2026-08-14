@@ -61,6 +61,11 @@ for m in d['materials']:
         continue                                   # handled below as the 'magnet (NdFeB)' stage
     else:
         MATCFG[lab] = ([], [hs6(m['title'])])
+# tantalum & niobium share the Nb-Ta ore (261590): the feed-import signal is unreliable, so drop their ore
+# side and type them from physical mine-vs-refine (keeps the distinct refined trade score 810320 / 720293).
+for _lab in ('tantalum', 'niobium'):
+    if _lab in MATCFG:
+        MATCFG[_lab] = ([], MATCFG[_lab][1])
 CODES = sorted(set([c for (up, dn) in MATCFG.values() for c in up + dn] + MAGNET_UP + MAGNET_DOWN))
 
 def phys_typ(mine_pct, ref_pct):                   # physical typing for materials with no ore pair

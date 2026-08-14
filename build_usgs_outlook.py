@@ -3,7 +3,8 @@ public, forward-looking capacity layer. Country-level production CAPACITY 2024->
 Crucially the capacity FORM is the metal/refining stage for gallium, magnesium, titanium and helium (a
 forward REFINING signal), and the mine stage for cobalt, lithium and the PGMs.
 
-For each commodity we compute the top holder's capacity SHARE and the HHI in 2024 and 2029, so the atlas
+For each commodity we compute the top holder's 2024 capacity SHARE + HHI, and the WORLD capacity growth
+2024->2029 (the release gives a country breakdown for 2024 only; outlook years are world totals). So the atlas
 can say whether a chokepoint is expected to HARDEN or EASE -- turning the static snapshot into a short
 forward view. Parses the committed CSV; writes out/usgs_outlook.json.  Run: python build_usgs_outlook.py
 """
@@ -22,7 +23,8 @@ N2I = {'Algeria': 'DZ', 'Argentina': 'AR', 'Australia': 'AU', 'Brazil': 'BR', 'C
        'Madagascar': 'MG', 'Mexico': 'MX', 'Morocco': 'MA', 'Namibia': 'NA', 'New Caledonia': 'NC',
        'Papua New Guinea': 'PG', 'Philippines': 'PH', 'Poland': 'PL', 'Portugal': 'PT', 'Qatar': 'QA',
        'Russia': 'RU', 'Saudi Arabia': 'SA', 'Serbia': 'RS', 'South Africa': 'ZA', 'Turkey': 'TR',
-       'Ukraine': 'UA', 'United States': 'US', 'Uzbekistan': 'UZ', 'Zambia': 'ZM', 'Zimbabwe': 'ZW'}
+       'Türkiye': 'TR', 'Ukraine': 'UA', 'United States': 'US', 'Uzbekistan': 'UZ', 'Zambia': 'ZM',
+       'Zimbabwe': 'ZW', 'Norway': 'NO', 'Bolivia': 'BO'}
 
 def region_iso(r):
     if r.startswith('United States'):
@@ -53,7 +55,9 @@ for com, lab in COM2LAB.items():
     cc = country24.get(com, {}); w = world.get(com, {})
     if not cc or '2024' not in w or '2029' not in w:
         continue
-    denom = w['2024'] + 1e-9                       # world total -> true world shares (rest-of-world residual)
+    # normalise by the sum of REPORTED national capacity (listed countries can exceed the world figure,
+    # which is a rounded/different measure) so shares form a valid composition and HHI is well-defined.
+    denom = sum(cc.values()) + 1e-9
     s = sorted(((iso, v / denom * 100) for iso, v in cc.items()), key=lambda kv: -kv[1])
     hhi = sum((v / 100) ** 2 for _, v in s)
     growth = round((w['2029'] / (w['2024'] + 1e-9) - 1) * 100)
