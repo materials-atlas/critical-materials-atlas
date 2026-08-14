@@ -35,6 +35,11 @@ USGS = json.load(open(_usgs_path, encoding='utf-8'))['materials'] if os.path.exi
 # Diversification pipeline overlay (curated public projects + IEA 2035 context)
 _pipe_path = os.path.join(ROOT, 'out', 'pipeline.json')
 PIPE = json.load(open(_pipe_path, encoding='utf-8'))['materials'] if os.path.exists(_pipe_path) else {}
+# robustness (BACI vs raw Comtrade) + HS-code provenance (auditable caveats)
+_rob_path = os.path.join(ROOT, 'out', 'robustness.json')
+ROB = json.load(open(_rob_path, encoding='utf-8')) if os.path.exists(_rob_path) else {}
+_prov_path = os.path.join(ROOT, 'out', 'code_provenance.json')
+PROV = json.load(open(_prov_path, encoding='utf-8'))['materials'] if os.path.exists(_prov_path) else []
 
 # display crosswalk for the traceable ore-pair materials (shown first); everyone else gets its traded code
 _CW = {'copper': ('260300', '740311'), 'nickel': ('260400', '750210'), 'cobalt': ('260500', '282200'),
@@ -60,7 +65,7 @@ for lab in _ORDER1 + _rest:
     STAGES.append((key, _nm(m), ore, ref))
 DATA = json.dumps({'stages': CAP['stages'], 'years': CAP['years'], 'latest': CAP['latest'],
                    'exposure': EXP['materials'], 'exp_year': EXP['year'], 'opportunity': OPP,
-                   'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS, 'iea': IEA, 'eucrm': EUCRM, 'usgs': USGS, 'pipeline': PIPE,
+                   'ranking': EXP['ranking'], 'scenario': SCN['materials'], 'physical': PHYS, 'iea': IEA, 'eucrm': EUCRM, 'usgs': USGS, 'pipeline': PIPE, 'rob': ROB, 'prov': PROV,
                    'order': [{'key': k, 'name': n, 'ore': o, 'ref': r} for k, n, o, r in STAGES]},
                   ensure_ascii=False)
 
@@ -186,6 +191,12 @@ HTML = '''<!doctype html>
   <div id="scn" style="margin:.6rem 0 1rem"></div>
 
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
+  <details class="howto" style="margin:1.4rem 0"><summary style="font-weight:600;font-size:1rem">Robustness &amp; HS-code provenance</summary>
+  <p class="note" id="rob-note" style="margin-top:.6rem"></p>
+  <div style="overflow-x:auto"><table id="prov-tbl" style="font-size:.78rem;border-collapse:collapse;min-width:640px"></table></div>
+  <p class="howto-src">Independent robustness: BACI is CEPII&rsquo;s reconciliation of UN Comtrade; the check recomputes the same refined-code concentration from <b>raw Comtrade</b> (reporter-declared exports) &mdash; divergences flag where reconciliation matters. Provenance built by <code>build_provenance.py</code>; robustness by <code>build_robustness.py</code>. Further independent reconciliations (OECD BIMTS, Harvard Growth Lab) and JRC/RMIS stage mappings are the next cross-checks.</p>
+  </details>
+
   <p class="note" style="color:var(--faint);font-size:.76rem">Method lineage: Hidalgo &amp; Hausmann product space / economic complexity; feedstock-signature capability mapping addresses the export-RCA-&ne;-capability critique (constrain with physical output; read the direction of transformation). Cf. the product-space paper on China&rsquo;s critical minerals (Frontiers Env. Sci. 2023) and the Fitness-Criticality algorithm (Valverde-Carbonell, Pietrobelli &amp; Men&eacute;ndez, Resources Policy 2024).</p>
 </article>
 <script>
@@ -292,6 +303,18 @@ for(const r of D.scenario){
     `<span class="sf">fallback exporters: ${fb}</span>`+
     (r.spof?`<span class="spofbadge">single point</span>`:`<span></span>`);
   SCN.appendChild(el);
+}
+// robustness note + HS-code provenance table
+if(D.rob&&D.rob.rows){
+  document.getElementById('rob-note').innerHTML=
+    `<b>Trade robustness (${D.rob.year}):</b> the refining leader agrees between BACI (reconciled) and raw UN Comtrade (reporter-declared) for <b>${D.rob.leader_match} of ${D.rob.n}</b> refined codes &mdash; including every extreme chokepoint (copper, cobalt, tungsten, antimony, niobium, magnets). The ${D.rob.n-D.rob.leader_match} that differ (nickel, titanium, tantalum) are where Comtrade&rsquo;s reporter gaps diverge from BACI&rsquo;s mirror-reconciliation, so the reconciled series is preferred. Mean top-share gap ${D.rob.mean_share_gap}pp, mean HHI gap ${D.rob.mean_hhi_gap}.`;
+}
+const pcol={'clean':'#0b6f66','refined':'#6b7681','shared':'#b4291f','by-product':'#a5641a','mine':'#6b7681'};
+function pc(f){for(const k in pcol) if(f.startsWith(k)) return pcol[k]; return '#6b7681';}
+const PT=document.getElementById('prov-tbl');
+if(PT&&D.prov){
+  PT.innerHTML='<tr style="text-align:left;border-bottom:1px solid var(--line)"><th>Material</th><th>Ore HS6</th><th>Refined HS6</th><th>Refined stage</th><th>Data-quality flag</th></tr>'+
+    D.prov.map(r=>`<tr style="border-bottom:1px solid var(--bg-soft)"><td>${r.name}</td><td>${r.ore||'—'}</td><td>${r.refined}</td><td style="color:var(--mut)">${r.refined_stage}</td><td style="color:${pc(r.flag)};font-weight:600">${r.flag}</td></tr>`).join('');
 }
 </script>
 </body></html>'''
