@@ -212,7 +212,7 @@ HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <style>
  *{margin:0;padding:0;box-sizing:border-box} html,body{width:100%;height:100%;overflow:hidden}
  body{background:#0f1216;color:#e8eaed;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
- svg{position:fixed;inset:0}
+ svg{position:fixed;top:0;left:0;width:100vw;height:100vh;display:block}
  #hd{position:fixed;top:0;left:0;right:0;padding:14px 20px;z-index:5;pointer-events:none}
  #hd a#back{pointer-events:auto;font-size:12.5px;color:#9aa6b2;text-decoration:none}
  #hd a#back:hover{color:#e8eaed}
