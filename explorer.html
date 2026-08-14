@@ -169,7 +169,13 @@
   #yearbar input[type=range]{accent-color:var(--navy)}
 
   /* tables */
-  .crow.head{color:var(--navy);border-bottom:1px solid var(--line-strong);font-size:.68rem;letter-spacing:.05em}
+  .crow.head{color:var(--navy);border-bottom:1px solid var(--line-strong);font-size:.68rem;letter-spacing:.05em;
+    position:sticky;top:52px;background:var(--bg);z-index:6;box-shadow:0 1px 0 var(--line-strong),0 6px 10px -8px rgba(20,50,58,.25)}
+  .crow.head i.hd{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:2px;vertical-align:middle}
+  .legendbar{display:flex;flex-wrap:wrap;gap:.5rem 1.1rem;font-size:.76rem;color:var(--mut);margin:.1rem 0 .5rem}
+  .legendbar span{display:inline-flex;align-items:center;gap:.32rem;white-space:nowrap}
+  .legendbar i{width:9px;height:9px;border-radius:50%;display:inline-block}
+  .legendbar b{color:var(--ink-soft);font-weight:600}
   .crow{border-bottom:1px solid var(--line)}
   .crow:hover{background:var(--bg-soft)}
   .row:hover{background:var(--bg-soft)}
@@ -357,11 +363,19 @@
   <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
   <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut">— 2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024), 2024 newest complete. <b>2025*</b> = <a href="methodology.html#nowcast">provisional nowcast</a>. <b>2026**</b> = an opt-in <a href="methodology.html#nowcast">directional scenario</a>. Mine/refine/reserves are undated reference.</span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut" title="2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024). Mine / refine / reserves are undated reference.">— <b>2024</b> newest complete · <b>2025*</b> <a href="methodology.html#nowcast">nowcast</a> · <b>2026**</b> <a href="methodology.html#nowcast">scenario</a></span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
 <main>
   <div id="view-table" class="view">
     <div class="legend">
+      <div class="legendbar">
+        <span><i style="background:#de8c28"></i> mined</span>
+        <span><i style="background:#8e44ad"></i> refined</span>
+        <span><b>▸</b> next stage of the chain</span>
+        <span><b>⚠</b> seller isn&rsquo;t the miner</span>
+        <span><b>⛓</b> shared trade code (Ga/Ge)</span>
+        <span>each country keeps its <b>own colour</b> across a row</span>
+      </div>
       <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
         <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most — the last being the most exposed. Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
@@ -660,7 +674,7 @@ function renderTable(){
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
   const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
   const yy=String(FLOWS_YEAR).slice(2);
-  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span></span><span data-s="mine">Mined in${sb}USGS</small>${ar('mine')}</span><span></span><span data-s="ref">Refined in${sb}IEA</small>${ar('ref')}</span><span></span><span data-s="exp">Top exporter${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp">Top importer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
+  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span class="carr">▸</span><span data-s="mine" title="Where it comes out of the ground (USGS mine production)">Mined <i class="hd" style="background:#de8c28"></i>${sb}USGS</small>${ar('mine')}</span><span class="carr">▸</span><span data-s="ref" title="Where the ore is turned into usable metal — often a different country">Refined <i class="hd" style="background:#8e44ad"></i>${sb}IEA</small>${ar('ref')}</span><span class="carr">▸</span><span data-s="exp" title="Who sells the most on the world market">Top seller${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp" title="Who buys the most — the most exposed">Top buyer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
