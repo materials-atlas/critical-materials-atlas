@@ -39,6 +39,7 @@
       ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
       ['scenarios.html', 'Shock scenarios'],
       ['cascade.html', 'Supply-shock cascade — the companion echo'],
+      ['ot.html', 'Reallocation stress test — can the rest cover the cut?'],
       ['__lbl__', 'Interactive'],
       ['index-builder.html', 'Build your own risk index'],
       ['shock-builder.html', 'Build your own supply shock'] ] },
