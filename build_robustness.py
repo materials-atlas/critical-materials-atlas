@@ -43,26 +43,41 @@ baci = baci[baci.k.isin(CODES)]
 baci['v'] = pd.to_numeric(baci['v'], errors='coerce').fillna(0.0)
 bac = {c: dict(g.groupby('i').v.sum()) for c, g in baci.groupby('k')}
 
+# Harvard Growth Lab (Bustos-Yildirim) — a 2nd, independent reconciliation (cached by build_harvard.py)
+_hv_path = os.path.join(ROOT, 'out', 'harvard.json')
+HV = json.load(open(_hv_path, encoding='utf-8'))['materials'] if os.path.exists(_hv_path) else {}
+
 rows = []
 for c in CODES:
-    if not com.get(c) or not bac.get(c):
+    if not bac.get(c):
         continue
-    ci, cs, ch = conc(com[c]); bi, bs, bh = conc(bac[c])
-    rows.append({'code': c, 'comtrade_top': ci, 'comtrade_share': cs, 'comtrade_hhi': ch,
-                 'baci_top': bi, 'baci_share': bs, 'baci_hhi': bh,
-                 'leader_match': ci == bi, 'hhi_gap': round(abs(ch - bh), 3), 'share_gap': round(abs(cs - bs), 1)})
+    bi, bs, bh = conc(bac[c])
+    row = {'code': c, 'baci_top': bi, 'baci_share': bs, 'baci_hhi': bh}
+    if com.get(c):
+        ci, cs, chh = conc(com[c])
+        row.update({'comtrade_top': ci, 'comtrade_share': cs, 'comtrade_hhi': chh, 'comtrade_match': ci == bi})
+    hv = HV.get(c)
+    if hv:
+        row.update({'harvard_top': hv['top'], 'harvard_share': hv['top_share'], 'harvard_hhi': hv['hhi'],
+                    'recon_match': hv['top'] == bi})       # two independent reconciliations agree?
+    rows.append(row)
 
-match = sum(r['leader_match'] for r in rows)
-mean_hhi_gap = round(sum(r['hhi_gap'] for r in rows) / max(len(rows), 1), 3)
-mean_share_gap = round(sum(r['share_gap'] for r in rows) / max(len(rows), 1), 1)
-print(f'Trade robustness: BACI (reconciled) vs raw UN Comtrade (reporter-declared), {YEAR}')
-print(f"{'code':8}{'Comtrade':16}{'BACI':16}{'match':7}{'HHIgap':7}")
+com_rows = [r for r in rows if 'comtrade_match' in r]
+recon_rows = [r for r in rows if 'recon_match' in r]
+com_match = sum(r['comtrade_match'] for r in com_rows)
+recon_match = sum(r['recon_match'] for r in recon_rows)
+print(f'Trade robustness {YEAR} — BACI vs raw Comtrade vs Harvard (Bustos-Yildirim):')
+print(f"{'code':8}{'BACI':14}{'Comtrade':14}{'Harvard':14}")
 for r in rows:
-    print(f"  {r['code']:8}{str(r['comtrade_top'])+' '+str(r['comtrade_share'])+'%':16}"
-          f"{str(r['baci_top'])+' '+str(r['baci_share'])+'%':16}{'yes' if r['leader_match'] else 'NO':7}{r['hhi_gap']}")
-print(f"\nleader agreement: {match}/{len(rows)} · mean HHI gap {mean_hhi_gap} · mean top-share gap {mean_share_gap}pp")
-json.dump({'year': YEAR, 'rows': rows, 'leader_match': match, 'n': len(rows),
-           'mean_hhi_gap': mean_hhi_gap, 'mean_share_gap': mean_share_gap},
+    print(f"  {r['code']:8}{str(r['baci_top'])+' '+str(r['baci_share'])+'%':14}"
+          f"{(str(r.get('comtrade_top',''))+' '+str(r.get('comtrade_share',''))+'%') if 'comtrade_top' in r else '—':14}"
+          f"{(str(r.get('harvard_top',''))+' '+str(r.get('harvard_share',''))+'%') if 'harvard_top' in r else '—':14}")
+print(f"\nBACI vs raw Comtrade leader agreement: {com_match}/{len(com_rows)}")
+print(f"BACI vs Harvard (two independent reconciliations) leader agreement: {recon_match}/{len(recon_rows)}")
+json.dump({'year': YEAR, 'rows': rows,
+           'comtrade_match': com_match, 'comtrade_n': len(com_rows),
+           'recon_match': recon_match, 'recon_n': len(recon_rows),
+           'harvard_year': HV and json.load(open(_hv_path, encoding='utf-8')).get('year')},
           open(os.path.join(ROOT, 'out', 'robustness.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)
 print('WROTE out/robustness.json')

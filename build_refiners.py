@@ -193,8 +193,10 @@ HTML = '''<!doctype html>
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
   <details class="howto" style="margin:1.4rem 0"><summary style="font-weight:600;font-size:1rem">Robustness &amp; HS-code provenance</summary>
   <p class="note" id="rob-note" style="margin-top:.6rem"></p>
+  <div style="overflow-x:auto;margin:.4rem 0 1rem"><table id="rob-tbl" style="font-size:.78rem;border-collapse:collapse;min-width:520px"></table></div>
+  <h4 style="margin:.4rem 0 .2rem">HS-code provenance — which codes are clean</h4>
   <div style="overflow-x:auto"><table id="prov-tbl" style="font-size:.78rem;border-collapse:collapse;min-width:640px"></table></div>
-  <p class="howto-src">Independent robustness: BACI is CEPII&rsquo;s reconciliation of UN Comtrade; the check recomputes the same refined-code concentration from <b>raw Comtrade</b> (reporter-declared exports) &mdash; divergences flag where reconciliation matters. Provenance built by <code>build_provenance.py</code>; robustness by <code>build_robustness.py</code>. Further independent reconciliations (OECD BIMTS, Harvard Growth Lab) and JRC/RMIS stage mappings are the next cross-checks.</p>
+  <p class="howto-src">Independent robustness: two separate reconciliations of UN Comtrade &mdash; <b>BACI</b> (CEPII) and the <b>Harvard Growth Lab</b> Atlas (Bustos-Yildirim method, queried live via its public GraphQL API) &mdash; plus <b>raw</b> reporter-declared Comtrade. Agreement between the two independent reconciliations is the belt-and-braces check; a &#9888; marks a leader that differs from BACI. OECD BIMTS is balanced trade at aggregate (not HS6) level, so it can&rsquo;t cross-check individual refined codes. Built by <code>build_robustness.py</code> + <code>build_harvard.py</code>; provenance by <code>build_provenance.py</code>.</p>
   </details>
 
   <p class="note" style="color:var(--faint);font-size:.76rem">Method lineage: Hidalgo &amp; Hausmann product space / economic complexity; feedstock-signature capability mapping addresses the export-RCA-&ne;-capability critique (constrain with physical output; read the direction of transformation). Cf. the product-space paper on China&rsquo;s critical minerals (Frontiers Env. Sci. 2023) and the Fitness-Criticality algorithm (Valverde-Carbonell, Pietrobelli &amp; Men&eacute;ndez, Resources Policy 2024).</p>
@@ -307,7 +309,15 @@ for(const r of D.scenario){
 // robustness note + HS-code provenance table
 if(D.rob&&D.rob.rows){
   document.getElementById('rob-note').innerHTML=
-    `<b>Trade robustness (${D.rob.year}):</b> the refining leader agrees between BACI (reconciled) and raw UN Comtrade (reporter-declared) for <b>${D.rob.leader_match} of ${D.rob.n}</b> refined codes &mdash; including every extreme chokepoint (copper, cobalt, tungsten, antimony, niobium, magnets). The ${D.rob.n-D.rob.leader_match} that differ (nickel, titanium, tantalum) are where Comtrade&rsquo;s reporter gaps diverge from BACI&rsquo;s mirror-reconciliation, so the reconciled series is preferred. Mean top-share gap ${D.rob.mean_share_gap}pp, mean HHI gap ${D.rob.mean_hhi_gap}.`;
+    `<b>Trade robustness (${D.rob.year}):</b> two <i>independent</i> reconciliations of UN Comtrade &mdash; CEPII&rsquo;s <b>BACI</b> and the Harvard Growth Lab&rsquo;s <b>Bustos-Yildirim</b> series &mdash; agree on the refining leader for <b>${D.rob.recon_match} of ${D.rob.recon_n}</b> refined codes (the sole exception is nickel: BACI &rarr; Australia, Harvard &rarr; Canada). Against <b>raw</b> Comtrade (reporter-declared) BACI agrees ${D.rob.comtrade_match}/${D.rob.comtrade_n} &mdash; and the codes where raw Comtrade differs (titanium, tantalum) are exactly the ones where <i>both</i> reconciliations agree with each other, pinning the divergence on Comtrade reporter gaps rather than the reconciliation. Every extreme chokepoint agrees across all three sources.`;
+}
+const rt=document.getElementById('rob-tbl');
+if(rt&&D.rob.rows){
+  rt.innerHTML='<tr style="text-align:left;border-bottom:1px solid var(--line)"><th>Refined code</th><th>BACI (CEPII)</th><th>raw Comtrade</th><th>Harvard (B-Y)</th></tr>'+
+    D.rob.rows.map(r=>`<tr style="border-bottom:1px solid var(--bg-soft)"><td>${r.code}</td>`+
+      `<td><b>${r.baci_top}</b> ${r.baci_share}%</td>`+
+      `<td>${r.comtrade_top?flag(r.comtrade_top).trim()+' '+r.comtrade_share+'%'+(r.comtrade_match?'':' ⚠'):'—'}</td>`+
+      `<td>${r.harvard_top?flag(r.harvard_top).trim()+' '+r.harvard_share+'%'+(r.recon_match?'':' ⚠'):'—'}</td></tr>`).join('');
 }
 const pcol={'clean':'#0b6f66','refined':'#6b7681','shared':'#b4291f','by-product':'#a5641a','mine':'#6b7681'};
 function pc(f){for(const k in pcol) if(f.startsWith(k)) return pcol[k]; return '#6b7681';}
