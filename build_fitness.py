@@ -13,6 +13,19 @@ ECI's linear averaging, and better on nested miner/refiner structures.
 
 M is the binary RCA>=1 matrix over the atlas's 32 critical materials (RCA computed within the critical-
 materials basket, as on the complexity page). Reads the committed BACI zip; writes out/fitness.json.
+
+WHY THIS IS EXPERIMENTAL AND UNPUBLISHED (a documented failed experiment, not a bug). Two independent
+reviews confirmed it: on this small/dirty 31-material basket the iteration undergoes the Pugliese-Zaccaria-
+Pietronero (2016) "inward-belly" / oligopoly collapse -- a 2-country beryllium duopoly (US, KZ) absorbs the
+entire mean-normalised mass (US=KZ~=53.5, every other country ~1e-10), and the 1/F term then zeroes the CMI
+of everything except beryllium; gallium/germanium fold into the shared HS6 811292 and rank LEAST critical.
+Servedio et al. (2018) added a non-homogeneous term precisely because this happens even on the full ~1000-
+product matrix; on 31 dirty columns it is guaranteed. This is a DATA/estimand problem (small, sparse, shared
+codes, re-export hubs), NOT numerics: the FC iteration is provably equivalent (up to normalisation) to
+SINKHORN-KNOPP matrix scaling with Fitness/Complexity as the energy-function potentials [Mazzilli, Mariani,
+Morone & Patelli, J. Phys. Complexity 5 015010 (2024), doi:10.1088/2632-072X/ad2697], so a log-domain
+Sinkhorn rewrite would faithfully scale the same degenerate matrix -- it cannot repair it. The trustworthy
+complexity layer is build_productspace.py (full HS6, share floor, ECI/PCI, phi). Do NOT render this.
 Run:  python build_fitness.py [year]
 """
 import os, sys, io, zipfile, json
