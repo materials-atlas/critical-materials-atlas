@@ -29,7 +29,7 @@ NAMES = flows.get('names', {})
 MATS = [m['label'] for m in data['materials']]
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
 MINE_TOP = {m['label']: (m['mined'][0]['c'] if m.get('mined') else None) for m in data['materials']}
-SHARED = {'gallium', 'germanium', 'hafnium'}
+SHARED = {'gallium', 'germanium'}   # only these fold into HS6 811292; hafnium is distinct (811231)
 
 def cname(i): return NAMES.get(i, i)
 def e(s): return html.escape(str(s), quote=True)
@@ -157,7 +157,7 @@ out = f'''<!doctype html>
     <thead><tr><th class="n">#</th><th>Country</th><th class="n" title="sum of 1/ubiquity over the materials it competitively exports (rewards rare baskets)">capability</th><th class="n" title="materials it competitively exports (RCA>=1)">diversity</th></tr></thead>
     <tbody>{''.join(cr)}</tbody>
   </table>
-  <p class="note">⛓ gallium/germanium/hafnium share one HS6 code. Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/complexity.json">complexity.json</a>.</p>
+  <p class="note">⛓ gallium and germanium share one HS6 code (811292); hafnium is distinct (811231). Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/complexity.json">complexity.json</a>.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

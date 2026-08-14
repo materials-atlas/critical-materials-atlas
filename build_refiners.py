@@ -73,7 +73,7 @@ HTML = '''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who actually refines — Critical Materials Atlas</title>
-<meta name="description" content="A capability map, not an export map: fusing the trade feedstock signature (imports ore, exports refined) with BGS/USGS physical output to show who actually turns ore into refined metal for 7 critical materials plus NdFeB magnets, 2018-2024.">
+<meta name="description" content="A capability map, not an export map: fusing the trade feedstock signature (imports ore, exports refined) with BGS/USGS physical output to show who actually turns ore into refined metal across all 32 critical materials, 2018-2024.">
 <meta property="og:title" content="Who actually refines — capability map">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -159,7 +159,7 @@ HTML = '''<!doctype html>
   <br><br>A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
   <details class="howto"><summary>How it&rsquo;s measured &amp; caveats</summary>
   <p>From the BACI bilateral matrix, per country &times; material: <code>net_down = (refined_exp &minus; refined_imp)/(refined_exp + refined_imp)</code> (&gt;0 = net exporter of refined), <code>feedstock_import = ore_imp/(ore_imp+ore_exp)</code> (~1 = sources ore by import), and <code>trade_score = refined_world_share &times; max(net_down,0)</code> &mdash; a robust, re-export-penalised, export-control-proof marker. Physical refined share is BGS/USGS from the atlas data. <code>cap = max(physical, trade_score)</code>.</p>
-  <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against two authoritative sources: the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; refining <i>capacity</i> by country for the energy-transition minerals &mdash; and the <b>EU Critical Raw Materials 2023 study</b> (European Commission), which gives the top global supplier and bottleneck stage (extraction vs processing) for ~31 materials, including the specialty metals where trade and USGS/BGS fall silent (tungsten, gallium, germanium, PGMs). A third, <i>forward</i> layer &mdash; the <b>USGS World Minerals Outlook to 2029</b> (SIR 2025-5021, CC0) &mdash; adds 2024 capacity concentration and world capacity growth for 8 commodities (lithium capacity is set to roughly double; magnesium contracts). A final <b>diversification pipeline</b> overlay names representative publicly announced projects building capacity outside the dominant producer (Lynas, MP Materials, Iluka, Rio Tinto Rincón, Umicore…), with the IEA&rsquo;s aggregate finding that refining/downstream capacity still lags mining to 2035 &mdash; curated, not exhaustive (the IEA&rsquo;s project-level list is not public). Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
+  <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against two authoritative sources: the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; refining <i>capacity</i> by country for the energy-transition minerals &mdash; and the <b>EU Critical Raw Materials 2023 study</b> (European Commission), which gives the top global supplier and bottleneck stage (extraction vs processing) for ~31 materials, including the specialty metals where trade and USGS/BGS fall silent (tungsten, gallium, germanium, PGMs). A third, <i>forward</i> layer &mdash; the <b>USGS World Minerals Outlook to 2029</b> (SIR 2025-5021, CC0) &mdash; adds 2024 capacity concentration and world capacity growth for 8 commodities (lithium capacity is set to roughly double; magnesium contracts). A final <b>diversification pipeline</b> overlay names representative publicly announced projects building capacity outside the dominant producer (Lynas, MP Materials, Iluka, Rio Tinto Rincón, Umicore…), with the IEA&rsquo;s aggregate finding that refining/downstream capacity still lags mining to 2035 &mdash; curated, not exhaustive (the IEA&rsquo;s project-level list is not public). The capability score <code>cap = max(physical share, trade score)</code> mixes two units, so read it as a <i>detector and a class</i> (integrated / import-fed / …), not a cardinal 0–1 measure — the bar length is indicative, the type is the finding. The IEA / EU-CRM / USGS cross-check lines are different <i>vintages and stages</i>, so they can disagree with the bar and with each other (that&rsquo;s expected, not an error). &ldquo;Closest non-refiners&rdquo; are high-diversity industrial economies (the product-space density artifact) — read them as <i>plausible</i>, not destined. Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
   </details></div>
 
   <h2 style="margin:1.6rem 0 .3rem;font-size:1.18rem">Capability over time — all 32 materials</h2>
@@ -250,8 +250,9 @@ S.addEventListener('input',render); render();
 // physical mine-vs-refine capability cards (all 29 materials)
 const PG=document.getElementById('pgrid');
 const ptag={'integrated (mine+refine)':'integrated','import-fed refiner':'import-fed','mine-to-metal refiner':'mine→metal','raw exporter':'raw exporter'};
-for(const rk of D.ranking){
-  const p=D.physical[rk.label]; if(!p) continue;
+const _physOrder=D.ranking.map(r=>r.label).concat(Object.keys(D.physical).filter(l=>!D.ranking.some(r=>r.label===l)));
+for(const lab of _physOrder){
+  const rk={label:lab}; const p=D.physical[lab]; if(!p) continue;
   const card=document.createElement('div'); card.className='pcard';
   let h=`<h3>${p.name}<span class="pl">⛏ ${flag(p.mine_leader).trim()} · ⚗ ${flag(p.refine_leader).trim()}</span></h3>`;
   for(const r of p.rows){
@@ -288,9 +289,10 @@ const ext=D.ranking.filter(r=>r.band==='extreme').length, cn=D.ranking.filter(r=
 CKH.textContent=`${ext} of ${D.ranking.length} are extreme chokepoints; China is the single largest refiner of ${cn} of them.`;
 for(const r of D.ranking){
   const el=document.createElement('div'); el.className='crow';
+  const partial=(r.listed_pct!=null&&r.listed_pct<80)?` <span title="physical breakdown covers only ${r.listed_pct}% of world output — HHI is a lower bound" style="color:var(--faint)">·${r.listed_pct}%◐</span>`:'';
   el.innerHTML=`<span class="cm" title="${r.name}">${r.name}</span>`+
     `<span class="ct"><span class="cfill cb-${r.band}" style="width:${Math.max(2,r.hhi*100)}%"></span></span>`+
-    `<span class="cv">${r.hhi.toFixed(2)} · ${flag(r.top).trim()} ${r.top_share.toFixed(0)}%</span>`;
+    `<span class="cv">${r.hhi.toFixed(2)} · ${flag(r.top).trim()} ${r.top_share.toFixed(0)}%${partial}</span>`;
   RK.appendChild(el);
 }
 // supply-shock stress test
@@ -309,7 +311,13 @@ for(const r of D.scenario){
 // robustness note + HS-code provenance table
 if(D.rob&&D.rob.rows){
   document.getElementById('rob-note').innerHTML=
-    `<b>Trade robustness (${D.rob.year}):</b> two <i>independent</i> reconciliations of UN Comtrade &mdash; CEPII&rsquo;s <b>BACI</b> and the Harvard Growth Lab&rsquo;s <b>Bustos-Yildirim</b> series &mdash; agree on the refining leader for <b>${D.rob.recon_match} of ${D.rob.recon_n}</b> refined codes (the sole exception is nickel: BACI &rarr; Australia, Harvard &rarr; Canada). Against <b>raw</b> Comtrade (reporter-declared) BACI agrees ${D.rob.comtrade_match}/${D.rob.comtrade_n} &mdash; and the codes where raw Comtrade differs (titanium, tantalum) are exactly the ones where <i>both</i> reconciliations agree with each other, pinning the divergence on Comtrade reporter gaps rather than the reconciliation. Every extreme chokepoint agrees across all three sources.`;
+    (function(){
+      const nm={'740311':'copper','750210':'nickel','282200':'cobalt','810194':'tungsten','810820':'titanium','811010':'antimony','281820':'bauxite','810320':'tantalum','720293':'niobium','850511':'magnets'};
+      const reconDiff=D.rob.rows.filter(r=>'recon_match' in r && !r.recon_match).map(r=>nm[r.code]||r.code);
+      const comDiff=D.rob.rows.filter(r=>'comtrade_match' in r && !r.comtrade_match).map(r=>nm[r.code]||r.code);
+      const reconTxt=reconDiff.length?`the exception${reconDiff.length>1?'s are':' is'} ${reconDiff.join(', ')}`:'with no exceptions';
+      return `<b>Trade robustness (${D.rob.year}):</b> two <i>independent</i> reconciliations of UN Comtrade &mdash; CEPII&rsquo;s <b>BACI</b> and the Harvard Growth Lab&rsquo;s <b>Bustos-Yildirim</b> series &mdash; agree on the refining leader for <b>${D.rob.recon_match} of ${D.rob.recon_n}</b> refined codes (${reconTxt}). Against <b>raw</b> Comtrade (reporter-declared) BACI agrees ${D.rob.comtrade_match}/${D.rob.comtrade_n}; the codes where raw Comtrade differs (${comDiff.join(', ')||'none'}) are largely ones where <i>both</i> reconciliations agree with each other, pinning the divergence on Comtrade reporter gaps rather than the reconciliation. Every extreme chokepoint agrees across all three sources.`;
+    })();
 }
 const rt=document.getElementById('rob-tbl');
 if(rt&&D.rob.rows){

@@ -2,9 +2,12 @@
 
 The 32 critical raw materials this atlas tracks, with the HS6 trade code used, the stage that code represents, and the headline figure from each data layer.
 
-- **Trade** = CEPII BACI HS22 V202501 (year 2023; primary source UN Comtrade).
-- **Mine** = USGS Mineral Commodity Summaries (approximate).
-- **Refine** = IEA Critical Minerals Outlook (approximate).
+The canonical machine-readable version is [`out/crosswalk.json`](out/crosswalk.json) (ore + refined HS codes
++ data-quality flags); this table is an illustrative snapshot — for current figures see the published JSON.
+
+- **Trade** = CEPII BACI HS17 V202601 (years 2018–2024; primary source UN Comtrade).
+- **Mine** = USGS Mineral Commodity Summaries / BGS World Mineral Statistics (approximate).
+- **Refine** = BGS / IEA Critical Minerals Dataset / EU CRM 2023 (approximate; see the live JSON).
 
 | Material | label | HS6 code | Stage | Top miner (USGS) | Top refiner (IEA) | Top exporter (BACI 2023) |
 |---|---|---|---|---|---|---|

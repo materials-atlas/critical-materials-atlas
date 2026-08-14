@@ -1,7 +1,7 @@
 """The Product Space as the iconic Hidalgo-Hausmann NETWORK — nodes = products, edges = proximity backbone
 (maximum spanning tree + all links above a proximity threshold), colored by sector, sized by world exports,
 with the critical-material ore->refined pairs highlighted. Builds a self-contained interactive HTML
-(force-directed, zoom/pan/hover) at out/social/product-space.html. Reads the committed BACI HS17 zip.
+(force-directed, zoom/pan/hover) at product-space.html (repo root). Reads the committed BACI HS17 zip.
 
 Run:  python build_ps_network.py [year]
 """

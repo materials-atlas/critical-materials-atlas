@@ -86,7 +86,7 @@ def classify(cap, phys_ref, phys_mine, basis, feed_imp, ore_share, magnet=False)
             return 'feedstock exporter'
         return 'minor'
     if cap >= REF_FLOOR:
-        if phys_mine >= 0.05 and phys_ref >= 0.05:  return 'integrated (mine+refine)'
+        if phys_mine >= 0.10 and phys_ref >= 0.10:  return 'integrated (mine+refine)'   # match physical-card typing
         if basis.startswith('physical'):            return 'domestic-absorbing refiner'
         if feed_imp >= 0.5:                          return 'import-fed refiner'
         return 'mine-to-metal refiner'
