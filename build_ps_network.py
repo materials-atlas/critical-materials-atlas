@@ -157,9 +157,13 @@ for lab, (o, r) in CROSSWALK.items():
     if o not in cidx or r not in cidx:
         continue
     mr = MR.get(lab, {})
+    a, b = cidx[o], cidx[r]                                       # proximity under alternative metrics
+    coab, ka, kb = float(co[a, b]), float(kp[a]), float(kp[b])
+    phi_cos = round(coab / (ka * kb) ** 0.5, 2) if ka * kb > 0 else 0.0
+    phi_jac = round(coab / (ka + kb - coab), 2) if (ka + kb - coab) > 0 else 0.0
     chains.append({'mat': lab, 'ore_id': cidx[o], 'refined_id': cidx[r],
                    'ore_pci': round(float(PCI.get(o, 0.0)), 2), 'refined_pci': round(float(PCI.get(r, 0.0)), 2),
-                   'phi': mr.get('phi_distance'), 'pci_gain': mr.get('pci_gain'),
+                   'phi': mr.get('phi_distance'), 'phi_cos': phi_cos, 'phi_jac': phi_jac, 'pci_gain': mr.get('pci_gain'),
                    'refiners': [{'n': x['name'], 'cap': x['cap']} for x in cap.get(lab, [])[:3] if x['cap'] >= 0.03],
                    'miners': {m['c']: {'mine': m['mines'], 'refine': m['refines'], 'density': m['density']}
                               for m in (mr.get('miners') or [])}})
@@ -247,7 +251,10 @@ HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
    <select id="msel"><option value="">— none —</option></select></div>
  <div class="card"><label>Light up a country</label>
    <select id="csel"><option value="">— the whole world —</option></select>
-   <div class="presets" id="cpre"></div></div>
+   <div class="presets" id="cpre"></div>
+   <select id="vsel" style="margin-top:7px"><option value="">— compare with… —</option></select></div>
+ <div class="card"><label>Find a product</label>
+   <input id="search" placeholder="product name or HS code…" autocomplete="off"></div>
  <div class="card" id="rocard" style="display:none"><div id="readout"></div></div>
 </div>
 <div id="legend"></div><div id="tip"></div>
@@ -328,6 +335,7 @@ function showMaterial(mat){
   const rf=ch.refiners.map(r=>`${r.n} ${r.cap.toFixed(2)}`).join(" · ")||"—";
   ro.html(`<b>${mat.charAt(0).toUpperCase()+mat.slice(1)}</b> — the mine→refine jump<br>`+
     `<table><tr><td>proximity φ(ore,refined)</td><td class="r"><b>${ch.phi!=null?ch.phi:'—'}</b></td></tr>`+
+    `<tr><td>&nbsp;&nbsp;<span style="color:#8a97a5">robustness: cosine · Jaccard</span></td><td class="r" style="color:#8a97a5">${ch.phi_cos} · ${ch.phi_jac}</td></tr>`+
     `<tr><td>PCI: ore → refined</td><td class="r">${ch.ore_pci} → ${ch.refined_pci}</td></tr>`+
     `<tr><td>complexity gain ΔPCI</td><td class="r"><b>${ch.pci_gain!=null?(ch.pci_gain>0?'+':'')+ch.pci_gain:'—'}</b></td></tr></table>`+
     `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`);
@@ -343,6 +351,7 @@ cpre.selectAll("button").data(D.countries.filter(c=>c.feat)).join("button")
   .text(d=>flag(d.iso)+' '+d.iso).on("click",function(_,d){showCountry(d.iso);});
 function showCountry(iso){
   msel.property("value","");
+  if(d3.select("#vsel").property("value")&&!iso) d3.select("#vsel").property("value","");
   document.querySelectorAll("#cpre button").forEach(b=>b.classList.toggle("on",b.textContent.trim().endsWith(iso)));
   csel.property("value",iso||"");
   if(!iso){ clearHi(); rocard.style.display="none"; fitView(); syncURL(); return; }
@@ -366,14 +375,50 @@ function showCountry(iso){
       `<div style="margin-top:6px;color:#9aa6b2">A miner with low <b>density</b> sits far from being able to refine (DR Congo cobalt ≈ 0.01); a refiner sits in the complex core.</div>`:''));
   rocard.style.display="block"; fitView(set.size?set:null); syncURL();
 }
-csel.on("change",function(){showCountry(this.value);});
+// compare-with select (overlay two countries)
+const vsel=d3.select("#vsel");
+vsel.selectAll("option.v").data(D.countries).join("option").attr("class","v").attr("value",d=>d.iso)
+  .text(d=>`${d.name} (${d.n})`);
+function compareMode(a,b){
+  msel.property("value","");
+  const A=new Set(D.members[a]||[]),B=new Set(D.members[b]||[]);
+  node.attr("fill",d=>{const x=A.has(d.id),y=B.has(d.id);return x&&y?'#ffffff':x?'#E69F00':y?'#0072B2':'#333a42';})
+      .attr("opacity",d=>(A.has(d.id)||B.has(d.id))?1:0.08).attr("stroke",d=>d.role?'#fff':'#0f1216');
+  link.attr("stroke-opacity",0.03); chain.attr("stroke-opacity",0.3);
+  mlab.attr("opacity",d=>(A.has(d.id)||B.has(d.id))?1:0.12);
+  const ca=D.countries.find(x=>x.iso===a),cb=D.countries.find(x=>x.iso===b);
+  let rows='';
+  for(const ch of D.chains){ const ma=ch.miners[a],mb=ch.miners[b];
+    if(!ma&&!mb&&!A.has(ch.ore_id)&&!A.has(ch.refined_id)&&!B.has(ch.ore_id)&&!B.has(ch.refined_id)) continue;
+    rows+=`<tr><td>${ch.mat}</td><td class="r">${ma?ma.density.toFixed(2):'·'}</td><td class="r">${mb?mb.density.toFixed(2):'·'}</td></tr>`; }
+  ro.html(`<b style="color:#E69F00">${ca.name}</b> vs <b style="color:#0072B2">${cb.name}</b> — density toward each refined product`+
+    (rows?`<table><tr style="color:#8a97a5"><td>material</td><td class="r">${a}</td><td class="r">${b}</td></tr>${rows}</table>`:'')+
+    `<div style="margin-top:6px;color:#9aa6b2"><span style="color:#E69F00">amber</span> = only ${ca.name}, <span style="color:#0072B2">blue</span> = only ${cb.name}, white = both. A country with high <b>density</b> toward a refined product can plausibly make it; DR Congo cobalt ≈ 0.01 = stuck at the mine.</div>`);
+  rocard.style.display="block"; fitView(new Set([...A,...B])); syncURL();
+}
+function routeCountry(){ const a=csel.property("value"),b=vsel.property("value");
+  if(a&&b) compareMode(a,b); else showCountry(a); }
+csel.on("change",routeCountry); vsel.on("change",routeCountry);
+
+// ---------- search ----------
+const search=document.getElementById("search");
+search.addEventListener("input",function(){
+  const q=this.value.trim().toLowerCase(); if(!q){ clearHi(); return; }
+  const hit=new Set(D.nodes.filter(d=>d.name.toLowerCase().includes(q)||d.code.includes(q)).map(d=>d.id));
+  node.attr("fill",baseFill).attr("opacity",d=>hit.has(d.id)?1:0.07)
+      .attr("stroke",d=>hit.has(d.id)?'#fff':(d.role?'#fff':'#0f1216')).attr("stroke-width",d=>hit.has(d.id)?2.2:(d.role?2.2:0.6));
+  link.attr("stroke-opacity",0.03); chain.attr("stroke-opacity",0.25);
+  mlab.attr("opacity",d=>hit.has(d.id)?1:0.12);
+  if(hit.size&&hit.size<=10) fitView(hit);
+});
 
 // ---------- permalink (?m=cobalt / ?c=CD) ----------
-function syncURL(){ const p=new URLSearchParams(); const m=msel.property("value"),c=csel.property("value");
-  if(m)p.set("m",m); if(c)p.set("c",c); history.replaceState(null,"",p.toString()?("?"+p):location.pathname); }
+function syncURL(){ const p=new URLSearchParams(); const m=msel.property("value"),c=csel.property("value"),v=vsel.property("value");
+  if(m)p.set("m",m); if(c)p.set("c",c); if(c&&v)p.set("v",v);
+  history.replaceState(null,"",p.toString()?("?"+p):location.pathname); }
 (function initURL(){ const p=new URLSearchParams(location.search);
   if(p.get("m")){ msel.property("value",p.get("m")); showMaterial(p.get("m")); }
-  else if(p.get("c")){ showCountry(p.get("c")); } })();
+  else if(p.get("c")){ csel.property("value",p.get("c")); if(p.get("v"))vsel.property("value",p.get("v")); routeCountry(); } })();
 </script></body></html>'''
 out = os.path.join(ROOT, 'product-space.html')
 open(out, 'w', encoding='utf-8').write(HTML.replace('D3_INLINE', D3JS).replace('DATA_PLACEHOLDER', DATA))
