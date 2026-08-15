@@ -202,6 +202,36 @@ for ci, num in enumerate(country_nums):
 clist.sort(key=lambda x: x['name'])
 print(f'countries: {len(clist)}', flush=True)
 
+# --- B: estimated "next rung" — the capability-adjacent, HIGHER-complexity products just above each
+# refined node in the space. This is an ESTIMATE (product-space proximity), not observed downstream trade:
+# it answers "if you refine this, what are you nearest to making next?" Full coverage, lower certainty --
+# rendered as dashed/estimate edges, and A (observed end-products) will later validate it. ---
+PCI_arr = pci_vals
+phi_rowsum = phi.sum(1) + 1e-9
+iso_by_ci = {ci: num2iso.get(int(num)) for ci, num in enumerate(country_nums)}
+def near_countries(p, k=3):
+    dens = (Mk @ phi[:, p]) / phi_rowsum[p]          # density of each country's basket to product p
+    out = []
+    for ci in np.argsort(-dens):
+        if Mk[ci, p] > 0:                            # skip countries that already make it competitively
+            continue
+        iso = iso_by_ci.get(int(ci))
+        if not iso or not isinstance(iso, str):
+            continue
+        out.append({'iso': iso, 'name': disp(iso), 'd': round(float(dens[ci]), 3)})
+        if len(out) >= k:
+            break
+    return out
+for ch in chains:
+    rr = ch['refined_id']; base = PCI_arr[rr]
+    cand = [a for a in range(n) if a not in matset and PCI_arr[a] > base and phi[rr, a] > 0]
+    cand.sort(key=lambda a: -phi[rr, a])
+    ch['next_rung'] = [{'id': a, 'code': codes[a], 'lab': short(name.get(codes[a], codes[a])),
+                        'pci': round(float(PCI_arr[a]), 2), 'dpci': round(float(PCI_arr[a] - base), 2),
+                        'phi': round(float(phi[rr, a]), 3), 'near': near_countries(a)}
+                       for a in cand[:5]]
+print('next-rung (B) estimated for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
+
 DATA = json.dumps({'nodes': nodes, 'links': links, 'chain_links': chain_links, 'chains': chains,
                    'sectors': [{'name': s, 'color': c} for s, c in sectors], 'year': YEAR,
                    'members': members, 'countries': clist, 'featured': FEATURED}, ensure_ascii=False)
@@ -280,6 +310,9 @@ const link=g.append("g").selectAll("line").data(D.links).join("line")
 const chain=g.append("g").selectAll("line").data(D.chain_links).join("line")
   .attr("x1",l=>l.s.x).attr("y1",l=>l.s.y).attr("x2",l=>l.t.x).attr("y2",l=>l.t.y)
   .attr("stroke","#7f8b98").attr("stroke-width",1.1).attr("stroke-dasharray","3 4").attr("stroke-opacity",0.5);
+// estimated next-rung (B) edges + labels, populated per material (RAW proximity estimate)
+const nextg=g.append("g"), nextlab=g.append("g");
+function clearNext(){ nextg.selectAll("line").remove(); nextlab.selectAll("text").remove(); }
 const node=g.append("g").selectAll("circle").data(D.nodes).join("circle")
   .attr("cx",d=>d.x).attr("cy",d=>d.y).attr("r",d=>d.role?Math.max(d.r,8.5):d.r)
   .attr("fill",baseFill).attr("stroke",d=>d.role?'#fff':'#0f1216').attr("stroke-width",d=>d.role?2.2:0.6)
@@ -313,15 +346,15 @@ fitView(); window.addEventListener("resize",()=>fitView());
 
 // ---------- legend + footer ----------
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
-document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
+document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated next rung</b> (proximity to higher-complexity products — an ESTIMATE, includes co-export artifacts, not observed downstream) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
 
 // ---------- material (guided) mode ----------
 const msel=d3.select("#msel"), csel=d3.select("#csel"), ro=d3.select("#readout"), rocard=document.getElementById("rocard");
 msel.selectAll("option.m").data(D.chains).join("option").attr("class","m").attr("value",d=>d.mat)
   .text(d=>d.mat.charAt(0).toUpperCase()+d.mat.slice(1)+(d.phi!=null?`  (φ ${d.phi})`:''));
-function clearHi(){ node.attr("opacity",1).attr("fill",baseFill).attr("stroke",d=>d.role?'#fff':'#0f1216').attr("stroke-width",d=>d.role?2.2:0.6);
+function clearHi(){ node.attr("opacity",1).attr("fill",baseFill).attr("stroke",d=>d.role?'#fff':'#0f1216').attr("stroke-width",d=>d.role?2.2:0.6).attr("stroke-dasharray",null);
   link.attr("stroke","#2a3038").attr("stroke-width",l=>0.4+l.phi*1.6).attr("stroke-opacity",l=>0.25+l.phi*0.5);
-  chain.attr("stroke","#7f8b98").attr("stroke-width",1.1).attr("stroke-opacity",0.5); mlab.attr("opacity",1); }
+  chain.attr("stroke","#7f8b98").attr("stroke-width",1.1).attr("stroke-opacity",0.5); mlab.attr("opacity",1); clearNext(); }
 // only one mode at a time: clear the OTHER controls (without firing their handlers)
 function resetControls(keep){
   if(keep!=='m') d3.select("#msel").property("value","");
@@ -334,19 +367,34 @@ function showMaterial(mat){
   if(!mat){ clearHi(); rocard.style.display="none"; fitView(); syncURL(); return; }
   const ch=D.chains.find(c=>c.mat===mat); if(!ch){return;}
   const chainIds=new Set([ch.ore_id,ch.refined_id]);
-  node.attr("opacity",d=>chainIds.has(d.id)?1:0.10);
+  const nr=ch.next_rung||[]; const nextIds=new Set(nr.map(x=>x.id));
+  const visIds=new Set([...chainIds,...nextIds]);
+  node.attr("opacity",d=>chainIds.has(d.id)?1:(nextIds.has(d.id)?0.9:0.09))
+      .attr("stroke",d=>nextIds.has(d.id)?'#2bb3a3':(d.role?'#fff':'#0f1216'))
+      .attr("stroke-width",d=>nextIds.has(d.id)?2:(d.role?2.2:0.6))
+      .attr("stroke-dasharray",d=>nextIds.has(d.id)?'2 2':null);
   link.attr("stroke-opacity",0.04);
   chain.attr("stroke",l=>l.mat===mat?'#fff':'#3a4048').attr("stroke-width",l=>l.mat===mat?2.4:0.8)
        .attr("stroke-opacity",l=>l.mat===mat?0.95:0.15);
   mlab.attr("opacity",d=>chainIds.has(d.id)?1:0.12);
+  // estimated next-rung edges + labels (dashed teal = ESTIMATE, from refined node up the ladder)
+  clearNext(); const rp=idn.get(ch.refined_id);
+  nextg.selectAll("line").data(nr).join("line")
+    .attr("x1",rp.x).attr("y1",rp.y).attr("x2",d=>idn.get(d.id).x).attr("y2",d=>idn.get(d.id).y)
+    .attr("stroke","#2bb3a3").attr("stroke-width",1.4).attr("stroke-dasharray","2 5").attr("stroke-opacity",0.85);
+  nextlab.selectAll("text").data(nr).join("text").attr("class","matlabel").style("fill","#4fd0c0")
+    .attr("text-anchor","middle").attr("x",d=>idn.get(d.id).x).attr("y",d=>idn.get(d.id).y-idn.get(d.id).r-3)
+    .text(d=>d.lab.slice(0,22));
   const rf=ch.refiners.map(r=>`${r.n} ${r.cap.toFixed(2)}`).join(" · ")||"—";
+  const nrhtml=nr.length?nr.map(x=>`<div style="margin-top:3px">⇢ ${x.lab} <span style="color:#8a97a5">+${x.dpci} PCI · φ${x.phi} · near ${x.near.map(c=>flag(c.iso)).join(' ')}</span></div>`).join(''):'<div style="color:#8a97a5">—</div>';
   ro.html(`<b>${mat.charAt(0).toUpperCase()+mat.slice(1)}</b> — the mine→refine jump<br>`+
     `<table><tr><td>proximity φ(ore,refined)</td><td class="r"><b>${ch.phi!=null?ch.phi:'—'}</b></td></tr>`+
     `<tr><td>&nbsp;&nbsp;<span style="color:#8a97a5">robustness: cosine · Jaccard</span></td><td class="r" style="color:#8a97a5">${ch.phi_cos} · ${ch.phi_jac}</td></tr>`+
     `<tr><td>PCI: ore → refined</td><td class="r">${ch.ore_pci} → ${ch.refined_pci}</td></tr>`+
     `<tr><td>complexity gain ΔPCI</td><td class="r"><b>${ch.pci_gain!=null?(ch.pci_gain>0?'+':'')+ch.pci_gain:'—'}</b></td></tr></table>`+
-    `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`);
-  rocard.style.display="block"; fitView(chainIds); syncURL();
+    `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`+
+    `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Estimated next rung ⇢</b> <span style="color:#8a97a5">capability-adjacent, higher PCI — <i>raw proximity estimate, not observed downstream; includes co-export artifacts</i></span>${nrhtml}</div>`);
+  rocard.style.display="block"; fitView(visIds); syncURL();
 }
 msel.on("change",function(){showMaterial(this.value);});
 
@@ -362,9 +410,10 @@ function showCountry(iso){
   document.querySelectorAll("#cpre button").forEach(b=>b.classList.toggle("on",b.textContent.trim().endsWith(iso)));
   csel.property("value",iso||"");
   if(!iso){ clearHi(); rocard.style.display="none"; fitView(); syncURL(); return; }
+  clearNext();
   const set=new Set(D.members[iso]||[]);
   node.attr("fill",d=>set.has(d.id)?baseFill(d):"#333a42").attr("opacity",d=>set.has(d.id)?1:0.10)
-      .attr("stroke",d=>d.role?(set.has(d.id)?"#fff":"#555"):"#0f1216");
+      .attr("stroke",d=>d.role?(set.has(d.id)?"#fff":"#555"):"#0f1216").attr("stroke-dasharray",null);
   link.attr("stroke-opacity",l=>(set.has(l.source)&&set.has(l.target))?0.5:0.03);
   chain.attr("stroke-opacity",0.3); mlab.attr("opacity",d=>set.has(d.id)?1:0.15);
   const c=D.countries.find(x=>x.iso===iso);
