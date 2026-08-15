@@ -152,6 +152,12 @@ try:
     MR = json.load(open(os.path.join(ROOT, 'out', 'mine_refine.json'), encoding='utf-8'))
 except Exception:
     MR = {}
+# OBSERVED physical downstream (real trade, material-specific HS codes) -- the TRUE chain beyond refined,
+# where clean codes exist. Rendered SOLID (vs B's dashed estimate). It stops at the last material-specific
+# code: end-products (motors, EVs, chips, cans) are shared across many inputs and are NOT attributable -- a
+# stated data wall. Aluminium is the clean showcase: bauxite ore -> alumina -> Al metal -> Al sheet.
+OBSERVED_DOWN = {'bauxite': ['760110', '760612'],   # alumina(refined) -> Al unwrought -> Al sheet
+                 'copper':  ['740811']}             # cathode(refined) -> Cu wire
 chains = []
 for lab, (o, r) in CROSSWALK.items():
     if o not in cidx or r not in cidx:
@@ -161,7 +167,9 @@ for lab, (o, r) in CROSSWALK.items():
     coab, ka, kb = float(co[a, b]), float(kp[a]), float(kp[b])
     phi_cos = round(coab / (ka * kb) ** 0.5, 2) if ka * kb > 0 else 0.0
     phi_jac = round(coab / (ka + kb - coab), 2) if (ka + kb - coab) > 0 else 0.0
-    chains.append({'mat': lab, 'ore_id': cidx[o], 'refined_id': cidx[r],
+    observed = [{'id': cidx[c], 'code': c, 'lab': short(name.get(c, c)),
+                 'pci': round(float(PCI.get(c, 0.0)), 2)} for c in OBSERVED_DOWN.get(lab, []) if c in cidx]
+    chains.append({'mat': lab, 'ore_id': cidx[o], 'refined_id': cidx[r], 'observed': observed,
                    'ore_pci': round(float(PCI.get(o, 0.0)), 2), 'refined_pci': round(float(PCI.get(r, 0.0)), 2),
                    'phi': mr.get('phi_distance'), 'phi_cos': phi_cos, 'phi_jac': phi_jac, 'pci_gain': mr.get('pci_gain'),
                    'refiners': [{'n': x['name'], 'cap': x['cap']} for x in cap.get(lab, [])[:3] if x['cap'] >= 0.03],
@@ -336,9 +344,10 @@ const link=g.append("g").selectAll("line").data(D.links).join("line")
 const chain=g.append("g").selectAll("line").data(D.chain_links).join("line")
   .attr("x1",l=>l.s.x).attr("y1",l=>l.s.y).attr("x2",l=>l.t.x).attr("y2",l=>l.t.y)
   .attr("stroke","#7f8b98").attr("stroke-width",1.1).attr("stroke-dasharray","3 4").attr("stroke-opacity",0.5);
-// estimated next-rung (B) edges + labels, populated per material (RAW proximity estimate)
-const nextg=g.append("g"), nextlab=g.append("g");
-function clearNext(){ nextg.selectAll("line").remove(); nextlab.selectAll("text").remove(); }
+// observed physical downstream (A, solid) + estimated next-rung (B, dashed), populated per material
+const obsg=g.append("g"), obslab=g.append("g"), nextg=g.append("g"), nextlab=g.append("g");
+function clearNext(){ nextg.selectAll("line").remove(); nextlab.selectAll("text").remove();
+  obsg.selectAll("line").remove(); obslab.selectAll("text").remove(); }
 const node=g.append("g").selectAll("circle").data(D.nodes).join("circle")
   .attr("cx",d=>d.x).attr("cy",d=>d.y).attr("r",d=>d.role?Math.max(d.r,8.5):d.r)
   .attr("fill",baseFill).attr("stroke",d=>d.role?'#fff':'#0f1216').attr("stroke-width",d=>d.role?2.2:0.6)
@@ -373,16 +382,16 @@ fitView(); window.addEventListener("resize",()=>fitView());
 // ---------- legend + footer ----------
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
 // A-validation card: does B's density actually predict realized downstream capability?
-if(D.aval&&D.aval.by_tier){
-  const av=D.aval, cap=av.by_tier.cap, com=av.by_tier.com;
+if(D.aval&&D.aval.windows){
+  const L=D.aval.windows.long, R=D.aval.windows.recent;
   document.getElementById("valcard").innerHTML=`<label>Does the estimated climb hold up?</label>`+
-    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">Does <b>${av.y0}</b> density predict which countries <b>acquired</b> a downstream product (RCA crossed 1) by <b>${av.y1}</b>? Tested on ${av.n_products} clean-code products, ${av.n_entrants} entries. <span style="color:#7f8b98">AUC 0.5 = no skill, 1 = perfect.</span>`+
-    `<div style="margin:6px 0 0;padding:5px 7px;background:#152a26;border-radius:5px"><b style="color:#4fd0c0">Capability-driven ✓ AUC ${cap.auc}</b><br><span style="color:#8a97a5;font-size:10.5px">specialty alloys, manufactured goods (magnets, batteries, solar, ferro-V/W, TiO₂…) — density predicts it. ${cap.n_products} products, ${cap.n_entrants} entries.</span></div>`+
-    `<div style="margin:5px 0 0;padding:5px 7px;background:#2a2320;border-radius:5px"><b style="color:#c79a6a">Commodity / energy-sited ✗ AUC ${com.auc}</b><br><span style="color:#8a97a5;font-size:10.5px">bulk smelting & ferroalloys (ferro-Si, Al unwrought…) — located by cheap power & ore, <b>not</b> capability, so density does <b>not</b> predict it. ${com.n_products} products, ${com.n_entrants} entries.</span></div>`+
-    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">The climb is real where capability decides it — the method&rsquo;s honest boundary. Still exploratory. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
+    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">Does density predict which countries <b>acquired</b> a downstream product (RCA crossed 1) years later? Tested on the HS2002 panel, <b>2002→2024</b> (${L.n_entrants} country-entries). <span style="color:#7f8b98">AUC 0.5 = no skill, 1 = perfect.</span>`+
+    `<div style="margin:6px 0 0;padding:5px 7px;background:#152a26;border-radius:5px"><b style="color:#4fd0c0">Capability-driven ✓ AUC ${L.by_tier.cap.auc}</b> <span style="color:#7f8b98">(0.88 in 2016→24)</span><br><span style="color:#8a97a5;font-size:10.5px">specialty alloys & manufactured goods (magnets, solar, ferro-V/W, TiO₂, Ti, Ni powder…) — density predicts it. ${L.by_tier.cap.n_products} products, ${L.by_tier.cap.n_entrants} entries.</span></div>`+
+    `<div style="margin:5px 0 0;padding:5px 7px;background:#2a2320;border-radius:5px"><b style="color:#c79a6a">Commodity / energy-sited ✗ AUC ${L.by_tier.com.auc}</b> <span style="color:#7f8b98">(0.72 in 2016→24)</span><br><span style="color:#8a97a5;font-size:10.5px">bulk smelting & ferroalloys (ferro-Si, Al unwrought…) — sited by cheap power & ore, <b>not</b> capability, so density does <b>not</b> predict it. ${L.by_tier.com.n_products} products, ${L.by_tier.com.n_entrants} entries.</span></div>`+
+    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">The climb is real where capability decides it — and it holds across a 22-yr and an 8-yr window. Batteries (HS2012 code): AUC 0.93, 2017→24. Exploratory. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
   document.getElementById("valcard").style.display="block";
 }
-document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated 2-hop climb</b> (hop-1 bright = material&rsquo;s next rung, hop-2 fainter = the rung beyond; industrial sectors only; a proximity ESTIMATE, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
+document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#f0b429">solid amber = OBSERVED downstream</b> (real trade, material-specific codes — bauxite→alumina→Al→sheet, copper→wire; stops where end-products go shared) · <b style="color:#2bb3a3">dashed teal = ESTIMATED 2-hop climb</b> (proximity estimate, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
 
 // ---------- material (guided) mode ----------
 const msel=d3.select("#msel"), csel=d3.select("#csel"), ro=d3.select("#readout"), rocard=document.getElementById("rocard");
@@ -404,21 +413,31 @@ function showMaterial(mat){
   const ch=D.chains.find(c=>c.mat===mat); if(!ch){return;}
   const chainIds=new Set([ch.ore_id,ch.refined_id]);
   const nr=ch.next_rung||[];
+  const obs=ch.observed||[]; const obsIds=new Set(obs.map(o=>o.id));
   const h1ids=new Set(nr.map(x=>x.id));
   const h2list=[]; nr.forEach(x=>(x.next||[]).forEach(c=>h2list.push(c)));
   const h2ids=new Set(h2list.map(c=>c.id));
   const rungIds=new Set([...h1ids,...h2ids]);
-  const visIds=new Set([...chainIds,...rungIds]);
-  node.attr("opacity",d=>chainIds.has(d.id)?1:(h1ids.has(d.id)?0.92:(h2ids.has(d.id)?0.6:0.08)))
-      .attr("stroke",d=>rungIds.has(d.id)?'#2bb3a3':(d.role?'#fff':'#0f1216'))
-      .attr("stroke-width",d=>h1ids.has(d.id)?2:(h2ids.has(d.id)?1.2:(d.role?2.2:0.6)))
-      .attr("stroke-dasharray",d=>rungIds.has(d.id)?'2 2':null);
+  const visIds=new Set([...chainIds,...obsIds,...rungIds]);
+  node.attr("opacity",d=>(chainIds.has(d.id)||obsIds.has(d.id))?1:(h1ids.has(d.id)?0.92:(h2ids.has(d.id)?0.6:0.08)))
+      .attr("stroke",d=>obsIds.has(d.id)?'#E69F00':(rungIds.has(d.id)?'#2bb3a3':(d.role?'#fff':'#0f1216')))
+      .attr("stroke-width",d=>obsIds.has(d.id)?2.4:(h1ids.has(d.id)?2:(h2ids.has(d.id)?1.2:(d.role?2.2:0.6))))
+      .attr("stroke-dasharray",d=>(obsIds.has(d.id)||!rungIds.has(d.id))?null:'2 2');
   link.attr("stroke-opacity",0.04);
   chain.attr("stroke",l=>l.mat===mat?'#fff':'#3a4048').attr("stroke-width",l=>l.mat===mat?2.4:0.8)
        .attr("stroke-opacity",l=>l.mat===mat?0.95:0.15);
   mlab.attr("opacity",d=>chainIds.has(d.id)?1:0.12);
   // estimated 2-hop climb: hop-1 = material's next rung (bright), hop-2 = the rung beyond (fainter)
   clearNext(); const rp=idn.get(ch.refined_id);
+  // OBSERVED physical downstream (A) — solid amber, real trade: refined -> obs0 -> obs1 -> ...
+  let oprev=rp; const oedges=[];
+  obs.forEach(o=>{ oedges.push({s:oprev,t:idn.get(o.id)}); oprev=idn.get(o.id); });
+  obsg.selectAll("line").data(oedges).join("line")
+    .attr("x1",d=>d.s.x).attr("y1",d=>d.s.y).attr("x2",d=>d.t.x).attr("y2",d=>d.t.y)
+    .attr("stroke","#E69F00").attr("stroke-width",2.4).attr("stroke-opacity",0.92);
+  obslab.selectAll("text").data(obs).join("text").attr("class","matlabel").style("fill","#f0b429")
+    .attr("text-anchor","middle").attr("x",d=>idn.get(d.id).x).attr("y",d=>idn.get(d.id).y-idn.get(d.id).r-3)
+    .text(d=>d.lab.slice(0,20));
   const edges=[];
   nr.forEach(x=>{ edges.push({s:rp,t:idn.get(x.id),hop:1}); (x.next||[]).forEach(c=>edges.push({s:idn.get(x.id),t:idn.get(c.id),hop:2})); });
   nextg.selectAll("line").data(edges).join("line")
@@ -435,12 +454,14 @@ function showMaterial(mat){
       const kids=(x.next||[]).map(c=>`<div style="margin:1px 0 1px 15px;color:#7f8b98">↳ ${c.lab} <span style="color:#6b7580">+${c.dpci} · φ${c.phi}</span></div>`).join('');
       return `<div style="margin-top:5px">⇢ <b style="color:#cfeeea">${x.lab}</b> <span style="color:#8a97a5">+${x.dpci} PCI · φ${x.phi} · near ${x.near.map(c=>flag(c.iso)).join(' ')}</span>${kids}</div>`;
     }).join(''):'<div style="color:#8a97a5">—</div>';
+  const obshtml=obs.length?`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#f0b429">Observed downstream — real trade ▬</b> <span style="color:#8a97a5">material-specific HS codes; the chain stops where end-products (motors, EVs, cans) become shared &amp; unattributable.</span>`+obs.map(o=>`<div style="margin-top:2px">▬ <b style="color:#f5d79a">${o.lab}</b> <span style="color:#8a97a5">PCI ${o.pci}</span></div>`).join('')+`</div>`:'';
   ro.html(`<b>${mat.charAt(0).toUpperCase()+mat.slice(1)}</b> — the mine→refine jump<br>`+
     `<table><tr><td>proximity φ(ore,refined)</td><td class="r"><b>${ch.phi!=null?ch.phi:'—'}</b></td></tr>`+
     `<tr><td>&nbsp;&nbsp;<span style="color:#8a97a5">robustness: cosine · Jaccard</span></td><td class="r" style="color:#8a97a5">${ch.phi_cos} · ${ch.phi_jac}</td></tr>`+
     `<tr><td>PCI: ore → refined</td><td class="r">${ch.ore_pci} → ${ch.refined_pci}</td></tr>`+
     `<tr><td>complexity gain ΔPCI</td><td class="r"><b>${ch.pci_gain!=null?(ch.pci_gain>0?'+':'')+ch.pci_gain:'—'}</b></td></tr></table>`+
     `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`+
+    obshtml+
     `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Estimated 2-hop climb ⇢</b> <span style="color:#8a97a5">hop&nbsp;1 = this material&rsquo;s next rung; ↳ = the rung beyond. Industrial sectors only — a capability-proximity <i>estimate</i>, not a verified value chain. &ldquo;near&rdquo; = countries closest by density.</span>${nrhtml}</div>`);
   rocard.style.display="block"; fitView(visIds); syncURL();
 }
