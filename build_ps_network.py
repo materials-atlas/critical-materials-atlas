@@ -373,13 +373,13 @@ fitView(); window.addEventListener("resize",()=>fitView());
 // ---------- legend + footer ----------
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
 // A-validation card: does B's density actually predict realized downstream capability?
-if(D.aval&&D.aval.pooled_auc!=null){
-  const av=D.aval;
-  const rows=av.products.filter(p=>p.auc!=null).map(p=>`<div style="display:flex;justify-content:space-between;gap:8px;margin:2px 0"><span style="color:#c2c8d0">${p.label}</span><span style="white-space:nowrap"><b style="color:#4fd0c0">${p.auc}</b> <span style="color:#7f8b98">${p.n_entrants}/${p.n_candidates}</span></span></div>`).join('');
+if(D.aval&&D.aval.by_tier){
+  const av=D.aval, cap=av.by_tier.cap, com=av.by_tier.com;
   document.getElementById("valcard").innerHTML=`<label>Does the estimated climb hold up?</label>`+
-    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">On ${av.n_products} downstream products with clean codes, <b>${av.y0}</b> density ranked the <b>${av.y1}</b> new-entrants at <b style="color:#4fd0c0">AUC ${av.pooled_auc}</b> <span style="color:#7f8b98">(0.5 = no skill, 1 = perfect)</span>.`+
-    `<div style="margin:5px 0 0">${rows}</div>`+
-    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">Small &amp; exploratory — 7 country-entries in all. It <b>bounds</b> trust in the estimate; it doesn&rsquo;t certify it. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
+    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">Does <b>${av.y0}</b> density predict which countries <b>acquired</b> a downstream product (RCA crossed 1) by <b>${av.y1}</b>? Tested on ${av.n_products} clean-code products, ${av.n_entrants} entries. <span style="color:#7f8b98">AUC 0.5 = no skill, 1 = perfect.</span>`+
+    `<div style="margin:6px 0 0;padding:5px 7px;background:#152a26;border-radius:5px"><b style="color:#4fd0c0">Capability-driven ✓ AUC ${cap.auc}</b><br><span style="color:#8a97a5;font-size:10.5px">specialty alloys, manufactured goods (magnets, batteries, solar, ferro-V/W, TiO₂…) — density predicts it. ${cap.n_products} products, ${cap.n_entrants} entries.</span></div>`+
+    `<div style="margin:5px 0 0;padding:5px 7px;background:#2a2320;border-radius:5px"><b style="color:#c79a6a">Commodity / energy-sited ✗ AUC ${com.auc}</b><br><span style="color:#8a97a5;font-size:10.5px">bulk smelting & ferroalloys (ferro-Si, Al unwrought…) — located by cheap power & ore, <b>not</b> capability, so density does <b>not</b> predict it. ${com.n_products} products, ${com.n_entrants} entries.</span></div>`+
+    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">The climb is real where capability decides it — the method&rsquo;s honest boundary. Still exploratory. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
   document.getElementById("valcard").style.display="block";
 }
 document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated 2-hop climb</b> (hop-1 bright = material&rsquo;s next rung, hop-2 fainter = the rung beyond; industrial sectors only; a proximity ESTIMATE, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
