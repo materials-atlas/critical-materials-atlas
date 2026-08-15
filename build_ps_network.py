@@ -251,9 +251,15 @@ for ch in chains:
     ch['next_rung'] = nr
 print('next-rung (B) 2-hop for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
 
+# A -- observable-downstream validation of B (from build_avalidate.py)
+try:
+    AVAL = json.load(open(os.path.join(ROOT, 'out', 'avalidate.json'), encoding='utf-8'))
+except Exception:
+    AVAL = None
+
 DATA = json.dumps({'nodes': nodes, 'links': links, 'chain_links': chain_links, 'chains': chains,
                    'sectors': [{'name': s, 'color': c} for s, c in sectors], 'year': YEAR,
-                   'members': members, 'countries': clist, 'featured': FEATURED}, ensure_ascii=False)
+                   'members': members, 'countries': clist, 'featured': FEATURED, 'aval': AVAL}, ensure_ascii=False)
 D3JS = open(os.path.join(ROOT, 'vendor', 'd3.v7.min.js'), encoding='utf-8').read()
 
 HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -304,6 +310,7 @@ HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
    <select id="vsel" style="margin-top:7px"><option value="">— compare with… —</option></select></div>
  <div class="card"><label>Find a product</label>
    <input id="search" placeholder="product name or HS code…" autocomplete="off"></div>
+ <div class="card" id="valcard" style="display:none"></div>
  <div class="card" id="rocard" style="display:none"><div id="readout"></div></div>
 </div>
 <div id="legend"></div><div id="tip"></div>
@@ -365,6 +372,16 @@ fitView(); window.addEventListener("resize",()=>fitView());
 
 // ---------- legend + footer ----------
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
+// A-validation card: does B's density actually predict realized downstream capability?
+if(D.aval&&D.aval.pooled_auc!=null){
+  const av=D.aval;
+  const rows=av.products.filter(p=>p.auc!=null).map(p=>`<div style="display:flex;justify-content:space-between;gap:8px;margin:2px 0"><span style="color:#c2c8d0">${p.label}</span><span style="white-space:nowrap"><b style="color:#4fd0c0">${p.auc}</b> <span style="color:#7f8b98">${p.n_entrants}/${p.n_candidates}</span></span></div>`).join('');
+  document.getElementById("valcard").innerHTML=`<label>Does the estimated climb hold up?</label>`+
+    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">On ${av.n_products} downstream products with clean codes, <b>${av.y0}</b> density ranked the <b>${av.y1}</b> new-entrants at <b style="color:#4fd0c0">AUC ${av.pooled_auc}</b> <span style="color:#7f8b98">(0.5 = no skill, 1 = perfect)</span>.`+
+    `<div style="margin:5px 0 0">${rows}</div>`+
+    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">Small &amp; exploratory — 7 country-entries in all. It <b>bounds</b> trust in the estimate; it doesn&rsquo;t certify it. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
+  document.getElementById("valcard").style.display="block";
+}
 document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated 2-hop climb</b> (hop-1 bright = material&rsquo;s next rung, hop-2 fainter = the rung beyond; industrial sectors only; a proximity ESTIMATE, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
 
 // ---------- material (guided) mode ----------
