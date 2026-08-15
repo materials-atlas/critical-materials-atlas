@@ -2,6 +2,8 @@
 
 **Live → https://criticalmaterialsatlas.org/**
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21948855.svg)](https://doi.org/10.5281/zenodo.21948855)
+
 A public-data atlas of **32 critical raw materials**: for each one, where it is **mined**, where it is
 **refined**, and the **real global trade** between every country pair — both directions, for any country
 you pick. Built to make one thing visible that most trade dashboards hide: **the refiner is usually not
