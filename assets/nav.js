@@ -67,6 +67,8 @@
       ['limitations.html', 'Limitations & falsification'],
       ['challenge.html', 'Break this atlas — open challenge'] ] },
     { label: 'Reference', items: [
+      ['about.html', 'About the atlas'],
+      ['reports.html', 'Reports — dated, citable'],
       ['synthesis.html', 'Synthesis — the hardest cases'],
       ['methodology.html', 'Methodology & validation'],
       ['technical-note.html', 'Technical note (PDF)'],
@@ -84,7 +86,8 @@
   function build() {
     var html = '<a href="./">Atlas</a>' +
                '<a href="explorer.html">Explore</a>' +
-               '<a href="insights.html">Insights</a>' +
+               '<a href="reports.html">Reports</a>' +
+               '<a href="insights.html" class="hideable">Insights</a>' +
                '<a href="findings.html" class="hideable">Findings</a>';
     GROUPS.forEach(function (g) {
       html += '<div class="grp hideable"><button type="button">' + g.label + '</button><div class="menu">';

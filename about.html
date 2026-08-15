@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Critical Materials Atlas</title>
+<meta name="description" content="The Critical Materials Atlas is an independent, public-data research project mapping the full value chain of 32 critical raw materials — mine, refine, trade, chokepoint, and what to do about it. Method, standards, sources, and how to cite.">
+<meta property="og:title" content="About the Critical Materials Atlas">
+<meta property="og:description" content="An independent, public-data research project on the critical raw-materials value chain. Methods, editorial standards, sources, reproducibility, and citation.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:820px}
+ .stand{border:1px solid var(--line);border-radius:12px;padding:1rem 1.3rem;margin:1.1rem 0;background:var(--bg-soft)}
+ .stand h3{margin:.1rem 0 .5rem;font-size:1rem;color:var(--navy)}
+ .principles{list-style:none;padding:0;margin:.4rem 0}
+ .principles li{padding:.4rem 0 .4rem 1.6rem;position:relative;border-top:1px solid var(--line);font-size:.95rem;line-height:1.5}
+ .principles li:first-child{border-top:0}
+ .principles li::before{content:"◆";position:absolute;left:0;color:var(--accent);font-size:.8rem;top:.55rem}
+ .principles b{color:var(--navy)}
+ .cite{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;font-size:.86rem;line-height:1.6;margin:1rem 0}
+ .cite code{color:#8fe0d4;font-size:.82rem;display:block;white-space:pre-wrap;margin-top:.4rem}
+ .stack{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+ @media(max-width:640px){.stack{grid-template-columns:1fr}}
+ .stack .b{border:1px solid var(--line);border-radius:10px;padding:.9rem 1.1rem}
+ .stack .b h4{margin:0 0 .4rem;font-size:.9rem;color:var(--navy)}
+ .stack .b p{margin:0;font-size:.88rem;color:var(--mut);line-height:1.5}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="reports.html">Reports</a>
+  <a href="methodology.html" class="hideable">Methodology</a><a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+</div></header>
+
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
+  <div class="eyebrow">About the project</div>
+  <h1>An independent atlas of the critical-materials value chain.</h1>
+  <p class="deck">The Critical Materials Atlas maps 32 critical raw materials the whole way — from the rock in the ground to the geopolitics of the refined metal — and turns each finding into a decision. It is built entirely from public data, its methods are open, and its numbers are meant to be checked.</p>
+</div></section>
+
+<article>
+  <p class="lead">Most maps of critical minerals stop at &ldquo;who exports it.&rdquo; This one follows each material through <b>reserves → mine → refine → trade → chokepoint</b>, then asks the question that matters: <b>so what do you do about it?</b> — who could break each chokepoint, whether the world could absorb a cut, and how exposed any one country really is.</p>
+
+  <h2>What it is</h2>
+  <p>An independent, non-commercial research project — not affiliated with, funded by, or representing any government, company, or institution. It exists to make the structure of critical-material supply legible from data anyone can inspect, and to be honest about the limits of what that data can show.</p>
+
+  <h2>How it&rsquo;s made</h2>
+  <p>Bilateral trade is reconciled from UN Comtrade via CEPII&rsquo;s BACI and validated against the official series (top-1 exporter matched 25/30, 3.5% share error). Mine and refining shares come from USGS and BGS World Mineral Statistics, cross-checked against the IEA Critical Minerals Dataset, the EU Critical Raw Materials 2023 study, and the USGS World Minerals Outlook. Every figure traces to an open source; the full reconciliation engine and all builders are public.</p>
+
+  <div class="stand">
+    <h3>Editorial standards</h3>
+    <ul class="principles">
+      <li><b>Public data only.</b> No paid or proprietary datasets — everything can be reproduced.</li>
+      <li><b>Every finding carries its method and its caveat.</b> A claim is stated with how it was measured and where it breaks.</li>
+      <li><b>Not a forecast.</b> Scenarios are labelled counterfactuals and sensitivities, never predictions.</li>
+      <li><b>Controls before claims.</b> Any proximity/&ldquo;prediction&rdquo; result is tested against a diversity baseline and placebos before it is allowed to stand — and reported honestly, including when it fails.</li>
+      <li><b>Falsifiable by design.</b> Limitations are stated, and there is a standing open invitation to break any claim in the atlas.</li>
+    </ul>
+  </div>
+
+  <h2>Reproducibility</h2>
+  <div class="stack">
+    <div class="b"><h4>Open data</h4><p>Every layer is published as JSON — download or query it on the <a href="data.html">data page</a>.</p></div>
+    <div class="b"><h4>Open engine</h4><p>The reconciliation pipeline and all builders are in the <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">public repository</a>.</p></div>
+    <div class="b"><h4>Methods</h4><p>The full methodology and validation are on the <a href="methodology.html">methodology page</a>.</p></div>
+    <div class="b"><h4>Robustness</h4><p>Findings are re-run against alternative sources and truncations — see <a href="robustness.html">robustness</a> and the <a href="challenge.html">open challenge</a>.</p></div>
+  </div>
+
+  <h2>Independence &amp; authorship</h2>
+  <p>The atlas is published independently under the <b>materials-atlas</b> handle. It is a research <i>project</i>, presented on its methods and its data rather than on any institutional badge — the standard it asks to be judged by is whether the numbers hold, not who produced them. Correspondence: <b>@materials-atlas</b> on X.</p>
+
+  <h2>How to cite</h2>
+  <div class="cite">Critical Materials Atlas (2026). <i>An independent, public-data atlas of the critical raw-materials value chain.</i> materials-atlas. Retrieved from https://criticalmaterialsatlas.org/
+  <code>@misc{critical_materials_atlas_2026,
+  title  = {Critical Materials Atlas: the critical raw-materials value chain},
+  author = {{materials-atlas}},
+  year   = {2026},
+  url    = {https://criticalmaterialsatlas.org/},
+  note   = {Independent public-data research project}
+}</code>
+  <div style="margin-top:.6rem;color:#9fbab6;font-size:.8rem">A versioned archive with a permanent DOI is planned via Zenodo — cite the DOI once available.</div></div>
+
+  <p class="note" style="margin-top:1.4rem">Not an official criticality assessment. A synthesis of public-data layers, offered for scrutiny.</p>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Atlas home</a><br><a href="explorer.html">Explore the data</a><br><a href="reports.html">Reports</a><br><a href="methodology.html">Methodology</a><br><a href="data.html">Open data</a></div>
+  <div><h4>Sources</h4>USGS · BGS World Mineral Statistics<br>IEA · EU CRM 2023<br>UN Comtrade · CEPII BACI · Eurostat</div>
+  <div class="fineprint">Public-data research under the materials-atlas handle. Figures are approximate and rounded; read each material as an overlay of distinct measures, not one observed pipeline.</div>
+</div></footer>
+</body></html>
