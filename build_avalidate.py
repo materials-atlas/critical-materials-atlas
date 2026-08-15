@@ -92,6 +92,7 @@ def run_window(t0, t1):
     phi0 = np.divide(co0, den, out=np.zeros_like(co0, float), where=den > 0)
     pidx0 = {p: i for i, p in enumerate(B0.columns)}; colsum = phi0.sum(0)
     tier_pool = {'cap': ([], []), 'com': ([], [])}; pooled = ([], []); prods = []
+    percountry = {}   # per-country downstream trajectory over this window (for the country-mode validation)
     for code, (lab, up, tier) in TARGETS.items():
         if code not in pidx0 or code not in B1.columns:
             prods.append({'code': code, 'label': lab, 'tier': tier, 'skip': 1}); continue
@@ -100,6 +101,15 @@ def run_window(t0, t1):
         made0 = B0[code]; made1 = B1[code].reindex(B0.index).fillna(0.0)
         test = made0 == 0; d = dens[test]; y = made1[test].astype(int)
         a = auc(d.values, y.values); base = float(y.mean())
+        qd = d.quantile(0.75)   # per-country trajectory: did the density-near ones climb?
+        for C in d.index:
+            iso = C
+            if y[C] == 1:        # ACQUIRED it over the window
+                percountry.setdefault(iso, {'gained': [], 'near': []})['gained'].append(
+                    {'code': code, 'label': lab, 'tier': tier, 'pred': bool(d[C] >= qd)})
+            elif d[C] >= qd:     # density-near in t0 but still NOT made by t1 -> open opportunity
+                percountry.setdefault(iso, {'gained': [], 'near': []})['near'].append(
+                    {'code': code, 'label': lab, 'tier': tier})
         q = d.quantile(0.75); top = y[d >= q]; tr = float(top.mean()) if len(top) else None
         ranked = d.sort_values(ascending=False)
         confirms = [{'iso': i, 'name': NAMES.get(i, i)} for i in ranked.index if y[i] == 1][:6]
@@ -115,10 +125,15 @@ def run_window(t0, t1):
                 'n_products': sum(1 for r in prods if r.get('tier') == t and r.get('auc') is not None),
                 'n_entrants': int(sum(y))}
     pa = auc(*pooled)
+    # trim per-country: keep countries that gained or are near >=1; cap near-list to 6
+    pc = {}
+    for iso, v in percountry.items():
+        if v['gained'] or v['near']:
+            pc[iso] = {'gained': v['gained'], 'near': v['near'][:6]}
     return {'t0': t0, 't1': t1, 'by_tier': {'cap': ts('cap'), 'com': ts('com')},
             'pooled_auc': round(pa, 3) if pa else None,
             'n_products': sum(1 for r in prods if r.get('auc') is not None),
-            'n_entrants': int(sum(pooled[1])), 'products': prods}
+            'n_entrants': int(sum(pooled[1])), 'products': prods, 'per_country': pc}
 
 print('building HS2002 panel (this reads several large years) ...', flush=True)
 windows = {}

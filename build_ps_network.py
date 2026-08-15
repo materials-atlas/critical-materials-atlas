@@ -156,8 +156,11 @@ except Exception:
 # where clean codes exist. Rendered SOLID (vs B's dashed estimate). It stops at the last material-specific
 # code: end-products (motors, EVs, chips, cans) are shared across many inputs and are NOT attributable -- a
 # stated data wall. Aluminium is the clean showcase: bauxite ore -> alumina -> Al metal -> Al sheet.
-OBSERVED_DOWN = {'bauxite': ['760110', '760612'],   # alumina(refined) -> Al unwrought -> Al sheet
-                 'copper':  ['740811']}             # cathode(refined) -> Cu wire
+# Only codes that (a) are material-specific and (b) exist as product-space NODES can be drawn. That limits
+# the observable chain to aluminium & copper; nickel/titanium/tungsten/cobalt/antimony have NO clean
+# downstream node (their next stage is shared, non-competitive, or a different ore-branch) -- a real wall.
+OBSERVED_DOWN = {'bauxite': ['760110', '760612', '760711'],   # alumina -> Al unwrought -> sheet -> foil
+                 'copper':  ['740811', '854411']}             # cathode -> Cu wire -> insulated winding wire
 chains = []
 for lab, (o, r) in CROSSWALK.items():
     if o not in cidx or r not in cidx:
@@ -495,9 +498,20 @@ function showCountry(iso){
           `<td class="r">${m&&m.refine?m.refine+'%':(refRCA?'✓':'·')}</td>`+
           `<td class="r">${m?m.density.toFixed(2):'·'}</td></tr>`;
   }
+  // per-country validation: did THIS country's density-near downstream products actually materialise 2002->2024?
+  const pcv=(D.aval&&D.aval.windows&&D.aval.windows.long&&D.aval.windows.long.per_country)?D.aval.windows.long.per_country[iso]:null;
+  let pcHtml='';
+  if(pcv&&(pcv.gained.length||pcv.near.length)){
+    const g=pcv.gained.map(x=>`<div style="margin:1px 0">✓ <b style="color:#cfeeea">${x.label}</b> <span style="color:#8a97a5">${x.pred?'density-predicted ✓':'surprise (low density)'}</span></div>`).join('');
+    const nro=pcv.near.slice(0,5).map(x=>`<div style="margin:1px 0;color:#9aa6b2">◦ ${x.label}</div>`).join('');
+    pcHtml=`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#4fd0c0">Downstream climbs 2002→2024 <span style="color:#8a97a5;font-weight:400">(A-validation, this country)</span></b>`+
+      (pcv.gained.length?`<div style="margin-top:3px;color:#8a97a5;font-size:10.5px">acquired (RCA crossed 1):</div>${g}`:`<div style="color:#8a97a5;font-size:10.5px;margin-top:3px">no new downstream acquisitions in the tracked set.</div>`)+
+      (pcv.near.length?`<div style="margin-top:4px;color:#8a97a5;font-size:10.5px">density-near in 2002, still open — its live opportunities:</div>${nro}`:'')+
+      `</div>`;
+  }
   ro.html(`<b>${c.name}</b> competitively exports <b>${c.n}</b> of ${D.nodes.length} products (${c.mats} are critical-material nodes).`+
     (rows?`<table><tr style="color:#8a97a5"><td>material</td><td class="r">mine</td><td class="r">refine</td><td class="r">density→refined</td></tr>${rows}</table>`+
-      `<div style="margin-top:6px;color:#9aa6b2">A miner with low <b>density</b> sits far from being able to refine (DR Congo cobalt ≈ 0.01); a refiner sits in the complex core.</div>`:''));
+      `<div style="margin-top:6px;color:#9aa6b2">A miner with low <b>density</b> sits far from being able to refine (DR Congo cobalt ≈ 0.01); a refiner sits in the complex core.</div>`:'')+pcHtml);
   rocard.style.display="block"; fitView(set.size?set:null); syncURL();
 }
 // compare-with select (overlay two countries)
