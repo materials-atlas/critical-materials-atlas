@@ -154,16 +154,35 @@ for lab, code in TARGETS.items():
     dens = (Mb @ phi_j) / denom                                     # per country (idx_iso order)
     pci_vec = np.array([PCI.get(products[i], 0.0) for i in range(len(products))])
     outlook = float((phi_j * pci_vec).sum() / denom)                # neighbourhood complexity
+    # RESIDUAL density: regress density on DIVERSITY (kc = # competitive products) and ECI, keep the residual.
+    # Raw density is mechanically dominated by kc ("a country that makes many things is close to everything")
+    # -- the control-test discipline from the product-space review. The residual = proximity to THIS product
+    # BEYOND what breadth alone buys, so it surfaces genuinely material-adjacent countries, not just big ones.
+    kc_arr = Mb.sum(1).astype(float)                                 # country diversity (count), Mb row order
+    eci_arr = np.array([ECI.get(c, np.nan) for c in idx_iso])
+    m = ~np.isnan(eci_arr)
+    resid = np.full_like(dens, np.nan)
+    if m.sum() > 3:
+        A = np.vstack([kc_arr[m], eci_arr[m], np.ones(int(m.sum()))]).T
+        b, _, _, _ = np.linalg.lstsq(A, dens[m], rcond=None)
+        resid[m] = dens[m] - A @ b
+    dens_eci_corr = float(np.corrcoef(dens, kc_arr)[0, 1])           # corr with diversity (the artifact driver)
     refiners = cur_ref.get(lab, {})
     already = Mb[:, j] > 0
     cand = []
     for i, c in enumerate(idx_iso):
         if already[i] or refiners.get(c, 0) >= 3:                   # skip current competitive refiners
             continue
-        cand.append({'c': c, 'density': round(float(dens[i]), 3), 'eci': round(float(ECI.get(c, 0.0)), 2)})
-    cand.sort(key=lambda r: -r['density'])
+        if not isinstance(c, str) or c in ('nan', 'None', '') or np.isnan(resid[i]):
+            continue                                                # drop bad ISO / no-ECI countries
+        cand.append({'c': c, 'density': round(float(dens[i]), 3),
+                     'resid': round(float(resid[i]), 3), 'eci': round(float(ECI.get(c, 0.0)), 2)})
+    # rank by RESIDUAL (material-specific proximity beyond breadth), not raw density (diversity artifact)
+    cand.sort(key=lambda r: -r['resid'])
     opportunity[lab] = {'code': code, 'pci': round(float(PCI.get(code, 0.0)), 2),
-                        'outlook': round(outlook, 2), 'candidates': cand[:8]}
+                        'outlook': round(outlook, 2),
+                        'density_eci_corr': round(dens_eci_corr, 2) if dens_eci_corr is not None else None,
+                        'candidates': cand[:8]}
 json.dump(opportunity, open(os.path.join(ROOT, 'out', 'opportunity.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)
 print('\n=== opportunity gain: closest NON-refiners to entering each stage (density) ===')
