@@ -116,7 +116,7 @@
   <div class="choke-all" id="ranking"></div>
 
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">The fallback test — if the top refiner stopped supplying</h2>
-  <p class="note" style="margin-top:0"><b id="scn-head"></b> A supply-shock <i>counterfactual</i>, not a forecast. The leader&rsquo;s share of world refined <b>output</b> is the magnitude at risk; the <b>fallback</b> is who else <i>exports</i> the refined form onto the world market — the countries the rest of the world could actually buy from (a hoarded-at-home refiner is not a fallback; an exporter is). A material is a single point of failure only if the leader holds &ge;50% of output <i>and</i> no other exporter reaches a third of its export volume. Export fallbacks can include re-export hubs, so read them as availability, not independent capacity.</p>
+  <p class="note" style="margin-top:0"><b id="scn-head"></b> A supply-shock <i>counterfactual</i>, not a forecast. The leader&rsquo;s share of world refined <b>output</b> is the magnitude at risk; the <b>fallback</b> is who else <i>exports</i> the refined form onto the world market — the countries the rest of the world could actually buy from (a hoarded-at-home refiner is not a fallback; an exporter is). A material is a single point of failure only if the leader holds &ge;50% of output <i>and</i> no other exporter reaches a third of its export volume. Export fallbacks can include re-export hubs, so read them as availability, not independent capacity. This is an export-share <b>screen</b>, not a capacity test — the <a href="ot.html">reallocation stress test</a> asks the harder question of whether the world&rsquo;s remaining capacity could actually cover a cut, and by design flags a <i>different</i>, stricter set as &ldquo;structurally uncoverable.&rdquo;</p>
   <div id="scn" style="margin:.6rem 0 1rem"></div>
 
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
@@ -228,7 +228,7 @@ for(const r of D.ranking){
 // supply-shock stress test
 const SCN=document.getElementById('scn'), SH=document.getElementById('scn-head');
 const spofs=D.scenario.filter(r=>r.spof), cnspof=spofs.filter(r=>r.leader==='CN').length;
-SH.textContent=`Only ${spofs.length} of ${D.scenario.length} materials have no export fallback above a third of the leader — the true single points of failure (China leads ${cnspof}).`;
+SH.textContent=`Only ${spofs.length} of ${D.scenario.length} materials fail this export-fallback screen — no other exporter reaches a third of the leader's volume, the single points of failure on this measure (China leads ${cnspof}). A separate capacity test on the reallocation page flags a different set as structurally uncoverable.`;
 for(const r of D.scenario){
   const fb=(r.fallbacks||[]).map(f=>`${flag(f.iso).trim()} ${f.export_share.toFixed(0)}%`).join(' · ')||'none';
   const el=document.createElement('div'); el.className='scn-row'+(r.spof?' spof':'');
