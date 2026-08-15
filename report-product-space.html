@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does the product space predict the climb? — Report 03 — Critical Materials Atlas</title>
+<meta name="description" content="Report 03: an honest control test of economic-complexity density as a forecaster of downstream capability. It looks strong (AUC ~0.86) until the controls — density is ~97% a country's overall diversity, placebos like whisky score the same, and the residual collapses toward chance. A negative result, published.">
+<meta property="og:title" content="Does the product space predict the climb? — Critical Materials Atlas, Report 03">
+<meta property="og:description" content="An honest control: the apparent product-space signal for critical-material capability is largely a diversity artifact. Published because the discipline is the point.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.1;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut)}
+ .abstract{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.96rem;line-height:1.6}
+ .abstract b{color:var(--navy)}
+ .keys{list-style:none;padding:0;margin:1rem 0}
+ .keys li{padding:.5rem 0 .5rem 1.7rem;position:relative;border-top:1px solid var(--line);line-height:1.5}
+ .keys li:first-child{border-top:0}.keys li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:800}
+ .keys b{color:var(--navy)}
+ .eqn{background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.2rem;margin:1.1rem 0;font-size:.95rem;color:var(--navy)}
+ .tblwrap{overflow-x:auto;margin:1.3rem 0}
+ table.data{border-collapse:collapse;width:100%;font-size:.85rem;min-width:600px}
+ table.data caption{caption-side:bottom;font-size:.8rem;color:var(--faint);text-align:left;padding-top:.5rem;line-height:1.45}
+ table.data th,table.data td{padding:.5rem .55rem;border-bottom:1px solid var(--line);text-align:left}
+ table.data thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy)}
+ table.data td.n,table.data th.n{text-align:right;font-variant-numeric:tabular-nums}
+ table.data tbody tr:hover,table.data tr:hover{background:var(--bg-soft)}
+ table.data .grp{background:var(--bg-soft);font-weight:700;color:var(--navy)}
+ .resid{color:var(--accent);font-weight:800}
+ .cite{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem;line-height:1.6;margin:1.4rem 0}
+ .cite code{color:#8fe0d4;font-size:.8rem;display:block;white-space:pre-wrap;margin-top:.4rem}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ .callout{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.92rem;line-height:1.55}
+ @media print{
+   .topbar,.toolbar,.siteftr,.hero-motif{display:none!important}
+   body{padding:0}article{max-width:none}
+   .abstract,.cite,.eqn,.callout{background:#f4f7f6!important;color:#1a1f24!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+   .cite code{color:#0b6f66!important}
+   table.data{break-inside:avoid} h2{break-after:avoid}
+ }
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="reports.html">Reports</a>
+  <a href="about.html" class="hideable">About</a><a href="methodology.html" class="hideable">Methodology</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Report 03 · August 2026 · Method</div>
+    <h1>Does the product space predict the climb? An honest control</h1>
+    <div class="by">Critical Materials Atlas · independent research under the materials-atlas handle · CEPII BACI HS2002 panel, 2002–2024 · exploratory, reported as a null result</div>
+  </div>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="product-space.html">Interactive: the product space →</a>
+    <a href="out/avalidate.json">Full results (JSON) →</a>
+  </div>
+
+  <div class="abstract"><b>Abstract.</b> Economic-complexity theory says a country&rsquo;s <i>density</i> in the product space — how close its current exports sit to a new product — should forecast which new capabilities it acquires. We put that claim to a strict test for downstream critical-material products: does density in year <i>t₀</i> rank the countries that later acquired a product (revealed comparative advantage crossing 1 by <i>t₁</i>) above those that did not? On its face the answer looks strong — <b>AUC ≈ 0.86</b> for capability-type products. It does not survive the controls. Density is <b>95–98% correlated</b> with a country&rsquo;s overall export diversity; once diversity is regressed out, the residual predictive power <b>collapses toward chance</b>; and <b>placebo</b> products with no plausible product-space logic — whisky, wine, salmon, cotton — score in the same band as the real ones. The apparent &ldquo;capability climb&rdquo; is mostly that already-diversified economies diversify further. We report this as a negative result, because a decision layer that names <i>who could break a chokepoint</i> must know exactly how much its own signal is worth.</div>
+
+  <h2>Key findings</h2>
+  <ul class="keys">
+    <li><b>The raw signal looks convincing — and is nearly all diversity.</b> Capability-type products score AUC 0.856 (2002→2024). A pure diversity baseline scores 0.848. Density and diversity are correlated <b>0.95–0.98</b> across materials: they are almost the same variable.</li>
+    <li><b>The residual collapses.</b> Regress density on diversity and score only what is left, and the AUC falls to <b>0.63</b> (long window) — barely above the 0.50 coin-flip, and driven by the very few, very diversified entrants.</li>
+    <li><b>Placebos pass the same test.</b> Whisky (0.76), cotton (0.73), wine (0.72) and salmon (0.70) — products with no product-space relationship to critical materials — score in the same 0.69–0.73 band as the real signal. A test that &ldquo;confirms&rdquo; whisky is not confirming anything specific to capability.</li>
+    <li><b>Report the null, keep the tool.</b> The product space is still a useful <i>map</i> of what sits near what; it is not a validated <i>forecaster</i> of critical-material capability on this evidence. Where the atlas names who could break a chokepoint, that estimate is labelled as adjacency, not destiny.</li>
+  </ul>
+
+  <h2>1 · The test</h2>
+  <p>We build the binary export-capability matrix (Balassa RCA ≥ 1, with world-share and value floors) for every country and product in each year of the CEPII BACI <b>HS2002</b> panel — one consistent nomenclature from 2002 to 2024, so there is no vintage join to contaminate the result. For a set of downstream critical-material products, we ask a strict emergence question in the spirit of Hidalgo &amp; Hausmann:</p>
+  <div class="eqn">Among countries that did <b>not</b> have RCA ≥ 1 in product <i>p</i> at <i>t₀</i>, does their <b>density</b> at <i>t₀</i> rank those that <b>acquired</b> <i>p</i> (RCA crossed 1) by <i>t₁</i> above those that did not?</div>
+  <p>We score that ranking with ROC-AUC. Crucially, we score three things side by side: density itself; a pure <b>diversity</b> baseline (how many products a country already exports competitively); and the <b>residual</b> of density after diversity is regressed out. And we run the identical test on <b>placebo</b> products chosen to have no product-space link to critical materials, as a control on the whole procedure.</p>
+
+  <h2>2 · Results</h2>
+  <div class="tblwrap">
+  <table class="data">
+    <caption>ROC-AUC of density at <i>t₀</i> predicting RCA-crossing by <i>t₁</i>, among non-holders at <i>t₀</i>. &ldquo;diversity&rdquo; = same test using overall diversity; &ldquo;residual&rdquo; = density with diversity regressed out. Capability-type products = specialty/manufactured downstream goods; commodity-type = bulk smelting/ferroalloys. n = entrant countries.</caption>
+    <thead><tr><th>Window</th><th>Product tier</th><th class="n">density AUC</th><th class="n">diversity AUC</th><th class="n">residual AUC</th><th class="n">n products</th><th class="n">n entrants</th></tr></thead>
+    <tbody>
+      <tr><td rowspan="2">2002 → 2024</td><td>Capability-type</td><td class="n">0.856</td><td class="n">0.848</td><td class="n resid">0.629</td><td class="n">10</td><td class="n">53</td></tr>
+      <tr><td>Commodity-type</td><td class="n">0.685</td><td class="n">0.677</td><td class="n resid">0.593</td><td class="n">5</td><td class="n">39</td></tr>
+      <tr><td rowspan="2">2016 → 2024</td><td>Capability-type</td><td class="n">0.877</td><td class="n">0.866</td><td class="n resid">0.709</td><td class="n">9</td><td class="n">33</td></tr>
+      <tr><td>Commodity-type</td><td class="n">0.716</td><td class="n">0.715</td><td class="n resid">0.520</td><td class="n">5</td><td class="n">25</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Two things jump out. First, in every row the density AUC and the diversity AUC are within ~0.01 of each other — density adds almost nothing over simply asking &ldquo;is this a diversified economy?&rdquo; Second, the residual (what density knows <i>beyond</i> diversity) drops to 0.52–0.71, with the commodity tier at essentially chance. The signal is real but it is a <b>diversity</b> signal, not a product-space one.</p>
+
+  <h2>3 · The placebo control</h2>
+  <p>If the test were measuring something specific to product-space proximity, products with no such proximity should fail it. They do not.</p>
+  <div class="tblwrap">
+  <table class="data">
+    <caption>Placebo products run through the identical density→emergence test. All score in the same band as the real capability signal — evidence the procedure rewards general diversification, not specific adjacency.</caption>
+    <thead><tr><th>Placebo product</th><th class="n">AUC 2002→2024</th><th class="n">AUC 2016→2024</th></tr></thead>
+    <tbody>
+      <tr><td>Whisky</td><td class="n">0.76</td><td class="n">0.74</td></tr>
+      <tr><td>Cotton</td><td class="n">0.73</td><td class="n">0.57</td></tr>
+      <tr><td>Wine</td><td class="n">0.72</td><td class="n">0.82</td></tr>
+      <tr><td>Fresh salmon</td><td class="n">0.70</td><td class="n">0.62</td></tr>
+      <tr><td class="grp">Placebo average</td><td class="n grp">0.73</td><td class="n grp">0.69</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Whisky is not something a country &ldquo;climbs to&rdquo; through nearby manufacturing capability; it is a story about being Scotland. That it scores 0.76 — right on top of the real capability tier — is the whole point. A test any diversified economy passes for whisky is not evidence that the product space forecasts <i>critical-material</i> capability.</p>
+
+  <div class="callout"><b>One apparent exception, flagged.</b> In a separate HS2017 run (2017–2024), Li-ion batteries (HS 850760) scored AUC 0.93. It is the single most capability-shaped result we found — but it lives in a different nomenclature vintage, is absent from this consistent HS2002 panel, and rests on very few entrants. We record it as a lead worth chasing, <i>not</i> as a replicated result, precisely so it is not quietly promoted into a headline the controls would not support.</div>
+
+  <h2>4 · Why publish a negative result</h2>
+  <p>An earlier version of this atlas reported the 0.86 figure as a validation of the product-space method. It was not one. Under a two-engine adversarial review the number was re-run, the diversity baseline and placebos were added, and the claim did not survive. The honest conclusion is a boundary, not a confirmation — and the atlas is more trustworthy for stating it. A decision layer that tells a policymaker <i>who could realistically build the missing capability</i> is only as good as its knowledge of its own error bars. This report is that error bar, stated in the open.</p>
+  <p>A methodological caveat compounds the story: under the ~0.5–5% base rates of these emergence events, ROC-AUC is optimistic; precision-recall (reported in the <a href="out/avalidate.json">data</a>) is the fairer lens and is weaker still.</p>
+
+  <h2>Method</h2>
+  <p>Binary capability matrices from CEPII BACI HS2002, 2002–2024. Balassa RCA with world-share (≥0.1%) and value ($500k) floors; density computed from the product-space proximity matrix φ (co-occurrence normalised by max ubiquity). Emergence = RCA crossing 1 between <i>t₀</i> and <i>t₁</i> among non-holders at <i>t₀</i>. AUC by Mann–Whitney; residual AUC by regressing density on diversity (and ECI) and scoring the residual. Placebos: HS 220830 (whisky), 220421 (wine), 030212 (fresh salmon), 520100 (cotton). Products split into capability-type (specialty/manufactured downstream) and commodity-type (bulk smelting/ferroalloys) tiers. Exploratory throughout; reported as a null-ish control, not a confirmation. Full methods are <a href="methodology.html">open</a>; all figures are in <a href="out/avalidate.json">avalidate.json</a>.</p>
+
+  <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Does the product space predict the climb? An honest control.</i> Report 03. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
+  <code>@techreport{cma_report03_2026,
+  title       = {Does the product space predict the climb? An honest control},
+  author      = {{materials-atlas}},
+  institution = {Critical Materials Atlas},
+  number      = {Report 03},
+  year        = {2026},
+  publisher   = {Zenodo},
+  doi         = {10.5281/zenodo.21948855},
+  url         = {https://criticalmaterialsatlas.org/report-product-space.html}
+}</code>
+  <div style="margin-top:.6rem;color:#9fbab6;font-size:.8rem">Archived on Zenodo — concept DOI <b>10.5281/zenodo.21948855</b> (always resolves to the latest version).</div></div>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="reports.html">All reports</a><br><a href="product-space.html">The product space</a><br><a href="explorer.html">Explore the data</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA · EU CRM<br>UN Comtrade · CEPII BACI</div>
+  <div class="fineprint">Public-data research under the materials-atlas handle. Exploratory method work, reported as a null result.</div>
+</div></footer>
+</body></html>
