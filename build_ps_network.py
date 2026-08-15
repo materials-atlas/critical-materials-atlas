@@ -222,15 +222,34 @@ def near_countries(p, k=3):
         if len(out) >= k:
             break
     return out
+# 2-hop, sector-filtered climb: keep only industrial "climb" sectors (drops food/ag/textiles/wood + raw ores,
+# which is where the co-export artifacts live -- salmon, whisky, plywood, iron ore). hop-1 = this material's
+# next rung; hop-2 = the rung beyond it. Still a proximity ESTIMATE, not a verified value chain.
+KEEP_SECT = {'Chemicals', 'Plastic & rubber', 'Stone, glass, gems', 'Metals',
+             'Machinery & elec.', 'Transport', 'Instruments & misc.'}
+def _sect(a): return sector(codes[a])[0]
+NOISE_CH = {92, 93, 94, 95, 96, 97}   # music/arms/furniture/toys/misc/art — the "Instruments & misc." tail
+def rung_neighbors(src, base_pci, exclude, k):
+    cand = [a for a in range(n) if a not in exclude and a not in matset
+            and _sect(a) in KEEP_SECT and int(codes[a][:2]) not in NOISE_CH
+            and PCI_arr[a] > base_pci and phi[src, a] > 0]
+    cand.sort(key=lambda a: -phi[src, a])
+    return cand[:k]
+def rung_node(a, parent, hop):
+    return {'id': a, 'code': codes[a], 'lab': short(name.get(codes[a], codes[a])), 'hop': hop,
+            'sect': _sect(a), 'pci': round(float(PCI_arr[a]), 2),
+            'dpci': round(float(PCI_arr[a] - PCI_arr[parent]), 2),
+            'phi': round(float(phi[parent, a]), 3), 'near': near_countries(a)}
 for ch in chains:
-    rr = ch['refined_id']; base = PCI_arr[rr]
-    cand = [a for a in range(n) if a not in matset and PCI_arr[a] > base and phi[rr, a] > 0]
-    cand.sort(key=lambda a: -phi[rr, a])
-    ch['next_rung'] = [{'id': a, 'code': codes[a], 'lab': short(name.get(codes[a], codes[a])),
-                        'pci': round(float(PCI_arr[a]), 2), 'dpci': round(float(PCI_arr[a] - base), 2),
-                        'phi': round(float(phi[rr, a]), 3), 'near': near_countries(a)}
-                       for a in cand[:5]]
-print('next-rung (B) estimated for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
+    rr = ch['refined_id']; used = {rr} | matset
+    h1 = rung_neighbors(rr, PCI_arr[rr], used, 3); used |= set(h1)
+    nr = []
+    for a in h1:
+        h2 = rung_neighbors(a, PCI_arr[a], used, 2); used |= set(h2)
+        nd = rung_node(a, rr, 1); nd['next'] = [rung_node(c, a, 2) for c in h2]
+        nr.append(nd)
+    ch['next_rung'] = nr
+print('next-rung (B) 2-hop for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
 
 DATA = json.dumps({'nodes': nodes, 'links': links, 'chain_links': chain_links, 'chains': chains,
                    'sectors': [{'name': s, 'color': c} for s, c in sectors], 'year': YEAR,
@@ -346,7 +365,7 @@ fitView(); window.addEventListener("resize",()=>fitView());
 
 // ---------- legend + footer ----------
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
-document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated next rung</b> (proximity to higher-complexity products — an ESTIMATE, includes co-export artifacts, not observed downstream) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
+document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#2bb3a3">dashed teal = estimated 2-hop climb</b> (hop-1 bright = material&rsquo;s next rung, hop-2 fainter = the rung beyond; industrial sectors only; a proximity ESTIMATE, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
 
 // ---------- material (guided) mode ----------
 const msel=d3.select("#msel"), csel=d3.select("#csel"), ro=d3.select("#readout"), rocard=document.getElementById("rocard");
@@ -367,33 +386,45 @@ function showMaterial(mat){
   if(!mat){ clearHi(); rocard.style.display="none"; fitView(); syncURL(); return; }
   const ch=D.chains.find(c=>c.mat===mat); if(!ch){return;}
   const chainIds=new Set([ch.ore_id,ch.refined_id]);
-  const nr=ch.next_rung||[]; const nextIds=new Set(nr.map(x=>x.id));
-  const visIds=new Set([...chainIds,...nextIds]);
-  node.attr("opacity",d=>chainIds.has(d.id)?1:(nextIds.has(d.id)?0.9:0.09))
-      .attr("stroke",d=>nextIds.has(d.id)?'#2bb3a3':(d.role?'#fff':'#0f1216'))
-      .attr("stroke-width",d=>nextIds.has(d.id)?2:(d.role?2.2:0.6))
-      .attr("stroke-dasharray",d=>nextIds.has(d.id)?'2 2':null);
+  const nr=ch.next_rung||[];
+  const h1ids=new Set(nr.map(x=>x.id));
+  const h2list=[]; nr.forEach(x=>(x.next||[]).forEach(c=>h2list.push(c)));
+  const h2ids=new Set(h2list.map(c=>c.id));
+  const rungIds=new Set([...h1ids,...h2ids]);
+  const visIds=new Set([...chainIds,...rungIds]);
+  node.attr("opacity",d=>chainIds.has(d.id)?1:(h1ids.has(d.id)?0.92:(h2ids.has(d.id)?0.6:0.08)))
+      .attr("stroke",d=>rungIds.has(d.id)?'#2bb3a3':(d.role?'#fff':'#0f1216'))
+      .attr("stroke-width",d=>h1ids.has(d.id)?2:(h2ids.has(d.id)?1.2:(d.role?2.2:0.6)))
+      .attr("stroke-dasharray",d=>rungIds.has(d.id)?'2 2':null);
   link.attr("stroke-opacity",0.04);
   chain.attr("stroke",l=>l.mat===mat?'#fff':'#3a4048').attr("stroke-width",l=>l.mat===mat?2.4:0.8)
        .attr("stroke-opacity",l=>l.mat===mat?0.95:0.15);
   mlab.attr("opacity",d=>chainIds.has(d.id)?1:0.12);
-  // estimated next-rung edges + labels (dashed teal = ESTIMATE, from refined node up the ladder)
+  // estimated 2-hop climb: hop-1 = material's next rung (bright), hop-2 = the rung beyond (fainter)
   clearNext(); const rp=idn.get(ch.refined_id);
-  nextg.selectAll("line").data(nr).join("line")
-    .attr("x1",rp.x).attr("y1",rp.y).attr("x2",d=>idn.get(d.id).x).attr("y2",d=>idn.get(d.id).y)
-    .attr("stroke","#2bb3a3").attr("stroke-width",1.4).attr("stroke-dasharray","2 5").attr("stroke-opacity",0.85);
-  nextlab.selectAll("text").data(nr).join("text").attr("class","matlabel").style("fill","#4fd0c0")
+  const edges=[];
+  nr.forEach(x=>{ edges.push({s:rp,t:idn.get(x.id),hop:1}); (x.next||[]).forEach(c=>edges.push({s:idn.get(x.id),t:idn.get(c.id),hop:2})); });
+  nextg.selectAll("line").data(edges).join("line")
+    .attr("x1",d=>d.s.x).attr("y1",d=>d.s.y).attr("x2",d=>d.t.x).attr("y2",d=>d.t.y)
+    .attr("stroke","#2bb3a3").attr("stroke-dasharray",d=>d.hop===1?"2 5":"1 5")
+    .attr("stroke-width",d=>d.hop===1?1.5:0.85).attr("stroke-opacity",d=>d.hop===1?0.85:0.45);
+  const labs=[...nr.map(x=>({id:x.id,lab:x.lab,hop:1})),...h2list.map(c=>({id:c.id,lab:c.lab,hop:2}))];
+  nextlab.selectAll("text").data(labs).join("text").attr("class","matlabel")
+    .style("fill",d=>d.hop===1?"#4fd0c0":"#3a8f85").style("font-size",d=>d.hop===1?"11px":"9px")
     .attr("text-anchor","middle").attr("x",d=>idn.get(d.id).x).attr("y",d=>idn.get(d.id).y-idn.get(d.id).r-3)
-    .text(d=>d.lab.slice(0,22));
+    .text(d=>d.lab.slice(0,d.hop===1?22:15));
   const rf=ch.refiners.map(r=>`${r.n} ${r.cap.toFixed(2)}`).join(" · ")||"—";
-  const nrhtml=nr.length?nr.map(x=>`<div style="margin-top:3px">⇢ ${x.lab} <span style="color:#8a97a5">+${x.dpci} PCI · φ${x.phi} · near ${x.near.map(c=>flag(c.iso)).join(' ')}</span></div>`).join(''):'<div style="color:#8a97a5">—</div>';
+  const nrhtml=nr.length?nr.map(x=>{
+      const kids=(x.next||[]).map(c=>`<div style="margin:1px 0 1px 15px;color:#7f8b98">↳ ${c.lab} <span style="color:#6b7580">+${c.dpci} · φ${c.phi}</span></div>`).join('');
+      return `<div style="margin-top:5px">⇢ <b style="color:#cfeeea">${x.lab}</b> <span style="color:#8a97a5">+${x.dpci} PCI · φ${x.phi} · near ${x.near.map(c=>flag(c.iso)).join(' ')}</span>${kids}</div>`;
+    }).join(''):'<div style="color:#8a97a5">—</div>';
   ro.html(`<b>${mat.charAt(0).toUpperCase()+mat.slice(1)}</b> — the mine→refine jump<br>`+
     `<table><tr><td>proximity φ(ore,refined)</td><td class="r"><b>${ch.phi!=null?ch.phi:'—'}</b></td></tr>`+
     `<tr><td>&nbsp;&nbsp;<span style="color:#8a97a5">robustness: cosine · Jaccard</span></td><td class="r" style="color:#8a97a5">${ch.phi_cos} · ${ch.phi_jac}</td></tr>`+
     `<tr><td>PCI: ore → refined</td><td class="r">${ch.ore_pci} → ${ch.refined_pci}</td></tr>`+
     `<tr><td>complexity gain ΔPCI</td><td class="r"><b>${ch.pci_gain!=null?(ch.pci_gain>0?'+':'')+ch.pci_gain:'—'}</b></td></tr></table>`+
     `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`+
-    `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Estimated next rung ⇢</b> <span style="color:#8a97a5">capability-adjacent, higher PCI — <i>raw proximity estimate, not observed downstream; includes co-export artifacts</i></span>${nrhtml}</div>`);
+    `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Estimated 2-hop climb ⇢</b> <span style="color:#8a97a5">hop&nbsp;1 = this material&rsquo;s next rung; ↳ = the rung beyond. Industrial sectors only — a capability-proximity <i>estimate</i>, not a verified value chain. &ldquo;near&rdquo; = countries closest by density.</span>${nrhtml}</div>`);
   rocard.style.display="block"; fitView(visIds); syncURL();
 }
 msel.on("change",function(){showMaterial(this.value);});
