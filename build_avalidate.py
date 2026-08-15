@@ -74,6 +74,10 @@ def binary_matrix(year):
     _MB_CACHE[year] = Mb
     return Mb
 
+# negative-control placebos: if density "predicts" these food/textile products as well as the
+# critical-material downstream, the signal is a diversity artifact, not product-space capability.
+PLACEBOS = {'220830': 'whisky', '030212': 'fresh salmon', '220421': 'wine', '520100': 'cotton'}
+
 def auc(scores, labels):
     s = np.asarray(scores, float); y = np.asarray(labels, int)
     npos, nneg = int(y.sum()), int((1 - y).sum())
@@ -85,13 +89,35 @@ def auc(scores, labels):
     ranks = np.array([avg[i] for i in inv])
     return float((ranks[y == 1].sum() - npos * (npos + 1) / 2.0) / (npos * nneg))
 
+def pr_auc(scores, labels):
+    """Average precision (area under precision-recall) -- honest under extreme class imbalance."""
+    s = np.asarray(scores, float); y = np.asarray(labels, int)
+    if y.sum() == 0:
+        return None
+    o = np.argsort(-s, kind='mergesort'); y = y[o]
+    tp = np.cumsum(y); prec = tp / np.arange(1, len(y) + 1)
+    rec = tp / y.sum(); ap = 0.0; prev = 0.0
+    for i in range(len(y)):
+        if y[i]:
+            ap += prec[i] * (rec[i] - prev); prev = rec[i]
+    return float(ap)
+
+def residual_auc(dens, div, y):
+    """AUC of density after regressing out diversity (kc) -- does the product space add anything?"""
+    d = np.asarray(dens, float); k = np.asarray(div, float)
+    A = np.vstack([k, np.ones(len(k))]).T
+    b, _, _, _ = np.linalg.lstsq(A, d, rcond=None)
+    return auc(d - A @ b, y)
+
 def run_window(t0, t1):
     B0, B1 = binary_matrix(t0), binary_matrix(t1)
     kp0 = B0.values.sum(0); co0 = B0.values.T @ B0.values
     den = np.maximum(kp0[:, None], kp0[None, :])
     phi0 = np.divide(co0, den, out=np.zeros_like(co0, float), where=den > 0)
     pidx0 = {p: i for i, p in enumerate(B0.columns)}; colsum = phi0.sum(0)
-    tier_pool = {'cap': ([], []), 'com': ([], [])}; pooled = ([], []); prods = []
+    kc = pd.Series(B0.values.sum(1), index=B0.index)   # country diversity (# competitive products)
+    tier_pool = {'cap': ([], [], []), 'com': ([], [], [])}   # (density, diversity, y)
+    pooled = ([], [], []); prods = []
     percountry = {}   # per-country downstream trajectory over this window (for the country-mode validation)
     for code, (lab, up, tier) in TARGETS.items():
         if code not in pidx0 or code not in B1.columns:
@@ -110,21 +136,39 @@ def run_window(t0, t1):
             elif d[C] >= qd:     # density-near in t0 but still NOT made by t1 -> open opportunity
                 percountry.setdefault(iso, {'gained': [], 'near': []})['near'].append(
                     {'code': code, 'label': lab, 'tier': tier})
-        q = d.quantile(0.75); top = y[d >= q]; tr = float(top.mean()) if len(top) else None
+        kk = kc[test]
         ranked = d.sort_values(ascending=False)
         confirms = [{'iso': i, 'name': NAMES.get(i, i)} for i in ranked.index if y[i] == 1][:6]
-        tier_pool[tier][0].extend(d.values); tier_pool[tier][1].extend(y.values)
-        pooled[0].extend(d.values); pooled[1].extend(y.values)
+        tier_pool[tier][0].extend(d.values); tier_pool[tier][1].extend(kk.values); tier_pool[tier][2].extend(y.values)
+        pooled[0].extend(d.values); pooled[1].extend(kk.values); pooled[2].extend(y.values)
         prods.append({'code': code, 'label': lab, 'upstream': up, 'tier': tier,
-                      'auc': round(a, 3) if a is not None else None, 'base_rate': round(base, 3),
-                      'lift': round(tr / base, 2) if (tr and base) else None,
+                      'auc': round(a, 3) if a is not None else None,
+                      'pr_auc': round(pr_auc(d.values, y.values), 3) if y.sum() else None,
+                      'base_rate': round(base, 3),
                       'n_candidates': int(test.sum()), 'n_entrants': int(y.sum()), 'confirms': confirms})
+    # placebos (negative controls): density AUC for food/textile products
+    plac = []
+    for pc_code, pc_lab in PLACEBOS.items():
+        if pc_code not in pidx0 or pc_code not in B1.columns:
+            continue
+        P = pidx0[pc_code]
+        dens = pd.Series((B0.values @ phi0[:, P]) / (colsum[P] + 1e-12), index=B0.index)
+        made0 = B0[pc_code]; made1 = B1[pc_code].reindex(B0.index).fillna(0.0)
+        test = made0 == 0; d = dens[test]; y = made1[test].astype(int); aa = auc(d.values, y.values)
+        if aa is not None:
+            plac.append({'code': pc_code, 'label': pc_lab, 'auc': round(aa, 3), 'n_entrants': int(y.sum())})
+    plac_auc = auc([x for r in [] for x in r], []) if False else (
+        round(np.mean([p['auc'] for p in plac]), 3) if plac else None)
+
     def ts(t):
-        s, y = tier_pool[t]; a = auc(s, y)
-        return {'auc': round(a, 3) if a is not None else None,
+        s, k, y = tier_pool[t]
+        ad = auc(s, y); adiv = auc(k, y); ares = residual_auc(s, k, y)
+        return {'auc': round(ad, 3) if ad is not None else None,
+                'auc_diversity': round(adiv, 3) if adiv is not None else None,
+                'auc_residual': round(ares, 3) if ares is not None else None,
                 'n_products': sum(1 for r in prods if r.get('tier') == t and r.get('auc') is not None),
                 'n_entrants': int(sum(y))}
-    pa = auc(*pooled)
+    pa = auc(pooled[0], pooled[2])
     # trim per-country: keep countries that gained or are near >=1; cap near-list to 6
     pc = {}
     for iso, v in percountry.items():
@@ -132,8 +176,9 @@ def run_window(t0, t1):
             pc[iso] = {'gained': v['gained'], 'near': v['near'][:6]}
     return {'t0': t0, 't1': t1, 'by_tier': {'cap': ts('cap'), 'com': ts('com')},
             'pooled_auc': round(pa, 3) if pa else None,
+            'placebos': plac, 'placebo_auc': plac_auc,
             'n_products': sum(1 for r in prods if r.get('auc') is not None),
-            'n_entrants': int(sum(pooled[1])), 'products': prods, 'per_country': pc}
+            'n_entrants': int(sum(pooled[2])), 'products': prods, 'per_country': pc}
 
 print('building HS2002 panel (this reads several large years) ...', flush=True)
 windows = {}
@@ -143,18 +188,23 @@ for name, (t0, t1) in WINDOWS.items():
 
 payload = {'panel': 'BACI HS2002 (2002-2024, consistent nomenclature)', 'windows': windows,
            'battery_note': BATTERY_NOTE,
-           'note': ('Predictive test of B: does product-space density at t0 rank the countries that ACQUIRED '
-                    'each downstream product (RCA crossed 1) by t1 above those that did not? ROC-AUC 0.5 = no '
-                    'skill, 1 = perfect. Split by tier -- CAPABILITY-driven (specialty alloys, manufactured '
-                    'goods) vs COMMODITY/energy-sited (bulk smelting/ferroalloys, sited by cheap power & ore, '
-                    'not capability). Density is expected to predict the capability tier and not the commodity '
-                    'tier. Exploratory: few entrants per product; it bounds trust in B, does not certify it.')}
+           'note': ('A GENERAL product-space appearance test (NOT a validation of B''s specific next-rung codes): '
+                    'does density at t0 rank the countries that ACQUIRED a downstream product (RCA crossed 1) by t1 '
+                    'above those that did not? The honest verdict, after controls: density barely beats a pure '
+                    'DIVERSITY baseline (auc_diversity), and once diversity is regressed out the residual AUC '
+                    'collapses toward chance -- and PLACEBO products (whisky, salmon) score in the same band. So '
+                    'the apparent "capability climb" is mostly that already-diversified economies diversify further, '
+                    'not evidence that product-space proximity forecasts critical-material capability. ROC-AUC is '
+                    'also optimistic under ~0.5-5% base rates -- see pr_auc. Exploratory; reported as a NULL-ish '
+                    'control result, not a confirmation.')}
 json.dump(payload, open(os.path.join(ROOT, 'out', 'avalidate.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)
 
 for name, w in windows.items():
+    c = w['by_tier']['cap']
     print(f"\n=== {name.upper()} {w['t0']}->{w['t1']} ===")
-    print(f"  CAPABILITY tier AUC {w['by_tier']['cap']['auc']} ({w['by_tier']['cap']['n_products']} products, {w['by_tier']['cap']['n_entrants']} entries)")
-    print(f"  COMMODITY  tier AUC {w['by_tier']['com']['auc']} ({w['by_tier']['com']['n_products']} products, {w['by_tier']['com']['n_entrants']} entries)")
-    print(f"  POOLED {w['pooled_auc']} ({w['n_products']} products, {w['n_entrants']} entries)")
-print('\nWROTE out/avalidate.json')
+    print(f"  CAPABILITY: density {c['auc']}  vs diversity {c['auc_diversity']}  residual(density perp diversity) {c['auc_residual']}  ({c['n_entrants']} entries)")
+    print(f"  COMMODITY : density {w['by_tier']['com']['auc']}  residual {w['by_tier']['com']['auc_residual']}")
+    print(f"  PLACEBOS  : mean density AUC {w['placebo_auc']}  ({', '.join(p['label']+' '+str(p['auc']) for p in w['placebos'])})")
+print('\nHonest reading: density ~= diversity; residual collapses toward chance; placebos match. NULL-ish control.')
+print('WROTE out/avalidate.json')

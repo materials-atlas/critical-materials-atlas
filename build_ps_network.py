@@ -45,7 +45,7 @@ CROSSWALK = {'copper': ('260300', '740311'), 'nickel': ('260400', '750210'), 'co
              'bauxite': ('260600', '281820')}
 DOWNSTREAM = {'284690': ('rare earths', 'refined', 'REE oxide'),   # ILLUSTRATIVE: aggregated/dirty HS codes
               '280530': ('rare earths', 'refined', 'REE metal'),
-              '850511': ('magnet', 'magnet', 'NdFeB magnet')}
+              '850511': ('magnet', 'magnet', 'permanent magnet')}
 HL = {}
 for _lab, (_o, _r) in CROSSWALK.items():
     HL[_o] = (_lab, 'ore', _lab + ' ore'); HL[_r] = (_lab, 'refined', _lab + ' refined')
@@ -253,14 +253,13 @@ def rung_node(a, parent, hop):
             'phi': round(float(phi[parent, a]), 3), 'near': near_countries(a)}
 for ch in chains:
     rr = ch['refined_id']; used = {rr} | matset
-    h1 = rung_neighbors(rr, PCI_arr[rr], used, 3); used |= set(h1)
-    nr = []
-    for a in h1:
-        h2 = rung_neighbors(a, PCI_arr[a], used, 2); used |= set(h2)
-        nd = rung_node(a, rr, 1); nd['next'] = [rung_node(c, a, 2) for c in h2]
-        nr.append(nd)
-    ch['next_rung'] = nr
-print('next-rung (B) 2-hop for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
+    # HOP-1 ONLY. A council review showed a 2nd hop compounds a category error (phi is co-export
+    # relatedness, not an input-output chain -> hop-2 gave vaccines/coffee-makers). Even hop-1 is a
+    # weak proximity signal that can SKIP the real physical step (the PCI>base filter rejects unwrought
+    # aluminium, which sits BELOW alumina in PCI). So this is labelled "co-export neighbours", not a chain.
+    h1 = rung_neighbors(rr, PCI_arr[rr], used, 4)
+    ch['next_rung'] = [rung_node(a, rr, 1) for a in h1]
+print('next-rung (B, hop-1 only) for ' + str(sum(1 for c in chains if c.get('next_rung'))) + ' chains', flush=True)
 
 # A -- observable-downstream validation of B (from build_avalidate.py)
 try:
@@ -311,7 +310,7 @@ HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
 <svg id="svg"></svg>
 <div id="hd"><a id="back" href="index.html">&lsaquo; Critical Materials Atlas</a>
 <h1>The Product Space — the mine ▸ refine climb</h1>
-<p>Every dot is a product in world trade; two are linked when the same countries competitively export both. The <b>chain</b> for each critical material — <b style="color:#E69F00">ore ◆</b> in the raw periphery, <b style="color:#CC79A7">refined ●</b> pulled toward the complex core, <b style="color:#009E73">NdFeB magnet ■</b> deepest in — is drawn as a dashed line. Pick a <b>material</b> to trace it, or a <b>country</b> to see what it competitively exports.</p></div>
+<p>Every dot is a product in world trade; two are linked when the same countries competitively export both. The <b>chain</b> for each critical material — <b style="color:#E69F00">ore ◆</b> in the raw periphery, <b style="color:#CC79A7">refined ●</b> pulled toward the complex core, <b style="color:#009E73">permanent magnet ■</b> (HS 850511, all types) deepest in — is drawn as a dashed line. Pick a <b>material</b> to trace it, or a <b>country</b> to see what it competitively exports.</p></div>
 <div id="panel">
  <div class="card"><label>Trace a material's chain</label>
    <select id="msel"><option value="">— none —</option></select></div>
@@ -386,15 +385,14 @@ fitView(); window.addEventListener("resize",()=>fitView());
 d3.select("#legend").selectAll("span").data(D.sectors).join("span").html(s=>`<i style="background:${s.color}"></i>${s.name}`);
 // A-validation card: does B's density actually predict realized downstream capability?
 if(D.aval&&D.aval.windows){
-  const L=D.aval.windows.long, R=D.aval.windows.recent;
-  document.getElementById("valcard").innerHTML=`<label>Does the estimated climb hold up?</label>`+
-    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">Does density predict which countries <b>acquired</b> a downstream product (RCA crossed 1) years later? Tested on the HS2002 panel, <b>2002→2024</b> (${L.n_entrants} country-entries). <span style="color:#7f8b98">AUC 0.5 = no skill, 1 = perfect.</span>`+
-    `<div style="margin:6px 0 0;padding:5px 7px;background:#152a26;border-radius:5px"><b style="color:#4fd0c0">Capability-driven ✓ AUC ${L.by_tier.cap.auc}</b> <span style="color:#7f8b98">(0.88 in 2016→24)</span><br><span style="color:#8a97a5;font-size:10.5px">specialty alloys & manufactured goods (magnets, solar, ferro-V/W, TiO₂, Ti, Ni powder…) — density predicts it. ${L.by_tier.cap.n_products} products, ${L.by_tier.cap.n_entrants} entries.</span></div>`+
-    `<div style="margin:5px 0 0;padding:5px 7px;background:#2a2320;border-radius:5px"><b style="color:#c79a6a">Commodity / energy-sited ✗ AUC ${L.by_tier.com.auc}</b> <span style="color:#7f8b98">(0.72 in 2016→24)</span><br><span style="color:#8a97a5;font-size:10.5px">bulk smelting & ferroalloys (ferro-Si, Al unwrought…) — sited by cheap power & ore, <b>not</b> capability, so density does <b>not</b> predict it. ${L.by_tier.com.n_products} products, ${L.by_tier.com.n_entrants} entries.</span></div>`+
-    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">The climb is real where capability decides it — and it holds across a 22-yr and an 8-yr window. Batteries (HS2012 code): AUC 0.93, 2017→24. Exploratory. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
+  const L=D.aval.windows.long, cap=L.by_tier.cap;
+  document.getElementById("valcard").innerHTML=`<label>Does the product space actually add anything? (a control test)</label>`+
+    `<div style="font-size:11.5px;color:#aeb6c0;line-height:1.5">A general appearance test on the HS2002 panel, <b>2002→2024</b>: does density at t0 rank the countries that later <b>acquired</b> a downstream product (RCA crossed 1)? It looks predictive — <b style="color:#cfeeea">AUC ${cap.auc}</b> — but that is almost entirely a <b>diversity</b> effect:`+
+    `<div style="margin:6px 0 0;padding:5px 7px;background:#20242c;border-radius:5px">density <b style="color:#cfeeea">${cap.auc}</b> ≈ raw diversity <b style="color:#cfeeea">${cap.auc_diversity}</b><br>density with diversity removed → <b style="color:#e0a24a">${cap.auc_residual}</b> <span style="color:#8a97a5">(toward the 0.5 coin-flip)</span><br>placebos — whisky/salmon/cotton — score <b style="color:#e0a24a">${L.placebo_auc}</b>, the same band.</div>`+
+    `<div style="color:#8a97a5;margin-top:6px;font-size:10.5px">So the apparent &ldquo;climb&rdquo; is mostly that <b>already-diversified economies diversify further</b> — not evidence that product-space proximity forecasts critical-material capability. ROC-AUC is also optimistic at ~0.5–5% base rates (see PR-AUC in the data). Reported honestly as a <b>null-ish control</b>, not a confirmation. <a href="out/avalidate.json" style="color:#7f8b98">data</a></div></div>`;
   document.getElementById("valcard").style.display="block";
 }
-document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#f0b429">solid amber = OBSERVED downstream</b> (real trade, material-specific codes — bauxite→alumina→Al→sheet, copper→wire; stops where end-products go shared) · <b style="color:#2bb3a3">dashed teal = ESTIMATED 2-hop climb</b> (proximity estimate, not a verified chain) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
+document.getElementById("foot").innerHTML=`${D.year} BACI HS17 · M = RCA≥1 & ≥0.1% world share & ≥$500k · edges = max-spanning-tree + φ≥0.55 · dashed grey = ore→refined→magnet chain (drawn even at low φ — the canyon is the point) · <b style="color:#f0b429">solid amber = OBSERVED downstream</b> (real trade, material-specific codes — bauxite→alumina→Al→sheet, copper→wire; stops where end-products go shared) · <b style="color:#2bb3a3">dashed teal = co-export neighbours</b> (raw proximity only — NOT a value chain, NOT validated) · node size = √world exports · REE oxide/metal & HS 850511 magnet are aggregated/illustrative · <a href="methodology.html">methods</a> · <a href="refiners.html">who refines</a>`;
 
 // ---------- material (guided) mode ----------
 const msel=d3.select("#msel"), csel=d3.select("#csel"), ro=d3.select("#readout"), rocard=document.getElementById("rocard");
@@ -465,7 +463,7 @@ function showMaterial(mat){
     `<tr><td>complexity gain ΔPCI</td><td class="r"><b>${ch.pci_gain!=null?(ch.pci_gain>0?'+':'')+ch.pci_gain:'—'}</b></td></tr></table>`+
     `<div style="margin-top:6px;color:#9aa6b2">φ near 0 = the ore and its refined form share almost no capabilities — a real jump. Actually refined by: <b style="color:#fff">${rf}</b>.</div>`+
     obshtml+
-    `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Estimated 2-hop climb ⇢</b> <span style="color:#8a97a5">hop&nbsp;1 = this material&rsquo;s next rung; ↳ = the rung beyond. Industrial sectors only — a capability-proximity <i>estimate</i>, not a verified value chain. &ldquo;near&rdquo; = countries closest by density.</span>${nrhtml}</div>`);
+    `<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#2bb3a3">Co-export neighbours ⇢</b> <span style="color:#8a97a5">higher-complexity products the refiners also tend to export — a raw <i>proximity</i> signal, NOT a value chain and NOT validated (it can even skip the real physical step). &ldquo;near&rdquo; = highest-density countries, itself largely a diversity artifact.</span>${nrhtml}</div>`);
   rocard.style.display="block"; fitView(visIds); syncURL();
 }
 msel.on("change",function(){showMaterial(this.value);});
@@ -502,11 +500,11 @@ function showCountry(iso){
   const pcv=(D.aval&&D.aval.windows&&D.aval.windows.long&&D.aval.windows.long.per_country)?D.aval.windows.long.per_country[iso]:null;
   let pcHtml='';
   if(pcv&&(pcv.gained.length||pcv.near.length)){
-    const g=pcv.gained.map(x=>`<div style="margin:1px 0">✓ <b style="color:#cfeeea">${x.label}</b> <span style="color:#8a97a5">${x.pred?'density-predicted ✓':'surprise (low density)'}</span></div>`).join('');
+    const g=pcv.gained.map(x=>`<div style="margin:1px 0">• <b style="color:#cfeeea">${x.label}</b> <span style="color:#8a97a5">${x.pred?'(was top-density-quartile)':'(low density — a surprise)'}</span></div>`).join('');
     const nro=pcv.near.slice(0,5).map(x=>`<div style="margin:1px 0;color:#9aa6b2">◦ ${x.label}</div>`).join('');
-    pcHtml=`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#4fd0c0">Downstream climbs 2002→2024 <span style="color:#8a97a5;font-weight:400">(A-validation, this country)</span></b>`+
-      (pcv.gained.length?`<div style="margin-top:3px;color:#8a97a5;font-size:10.5px">acquired (RCA crossed 1):</div>${g}`:`<div style="color:#8a97a5;font-size:10.5px;margin-top:3px">no new downstream acquisitions in the tracked set.</div>`)+
-      (pcv.near.length?`<div style="margin-top:4px;color:#8a97a5;font-size:10.5px">density-near in 2002, still open — its live opportunities:</div>${nro}`:'')+
+    pcHtml=`<div style="margin-top:8px;padding-top:6px;border-top:1px solid #232a34"><b style="color:#4fd0c0">Downstream products acquired 2002→2024 <span style="color:#8a97a5;font-weight:400">(observed)</span></b>`+
+      (pcv.gained.length?`<div style="margin-top:3px;color:#8a97a5;font-size:10.5px">RCA crossed 1 (&ldquo;density-near&rdquo; = was in the top-density quartile — but so is nearly every diversified economy):</div>${g}`:`<div style="color:#8a97a5;font-size:10.5px;margin-top:3px">no new downstream acquisitions in the tracked set.</div>`)+
+      (pcv.near.length?`<div style="margin-top:4px;color:#8a97a5;font-size:10.5px">high-density non-entrants (NOT an opportunity claim — density ≈ diversity):</div>${nro}`:'')+
       `</div>`;
   }
   ro.html(`<b>${c.name}</b> competitively exports <b>${c.n}</b> of ${D.nodes.length} products (${c.mats} are critical-material nodes).`+
