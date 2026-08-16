@@ -21,6 +21,20 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 EPS = 1e-9
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
+EUCRM = json.load(open(os.path.join(ROOT, 'out', 'eucrm.json'), encoding='utf-8')).get('materials', {})
+
+# Materials with no separable trade series (811292 basket) can't be run through the export screen, but
+# authoritative PRODUCTION data can see them. Curated context (USGS MCS 2025 + EU CRM 2023 + BGS):
+#   gallium  = genuine near-monopoly (China ~99% USGS / ~94% EU CRM); no material alternative.
+#   germanium= concentrated (China ~68-77% USGS / ~83% EU CRM) but real alternative refiners exist.
+SHARED_CONTEXT = {
+    'gallium':   {'verdict': 'chokepoint', 'alt': [],
+                  'note': 'No material alternative — a genuine chokepoint the trade code cannot see. '
+                          'China put gallium under export licensing in 2023.'},
+    'germanium': {'verdict': 'has-alt', 'alt': ['Umicore (BE)', 'Teck (CA)', 'Russia'],
+                  'note': 'Concentrated, but real alternative refiners exist: Umicore (Belgium recycling), '
+                          'Teck (Canada, zinc-to-Ge), Russia — invisible in the shared trade code.'},
+}
 cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 _PREF = {'DE': 'Germany', 'TR': 'Türkiye', 'RU': 'Russia', 'KR': 'South Korea', 'CD': 'DR Congo',
@@ -103,11 +117,18 @@ for lab, info in MATS.items():
                             'spof': sp})
     form_dependent = len({f['spof'] for f in by_form}) > 1    # the answer depends on which form
 
-    rows.append({'label': lab, 'name': info['name'], 'code': info['codes'][0], 'shared': shared,
-                 'leader': leader, 'leader_name': disp(leader), 'lead_share': round(lead_share, 1),
-                 'lead_export_share': round(lead_exp, 1),
-                 'fallbacks': [{'iso': c, 'name': disp(c), 'export_share': round(v, 1)} for c, v in fb_top],
-                 'spof': spof, 'by_form': by_form, 'form_dependent': form_dependent})
+    row = {'label': lab, 'name': info['name'], 'code': info['codes'][0], 'shared': shared,
+           'leader': leader, 'leader_name': disp(leader), 'lead_share': round(lead_share, 1),
+           'lead_export_share': round(lead_exp, 1),
+           'fallbacks': [{'iso': c, 'name': disp(c), 'export_share': round(v, 1)} for c, v in fb_top],
+           'spof': spof, 'by_form': by_form, 'form_dependent': form_dependent}
+    if shared:                                               # production-based read (trade can't see it)
+        ctx = SHARED_CONTEXT.get(lab, {})
+        row['prod'] = {'usgs_bgs_share': round(lead_share, 0),
+                       'eucrm_share': (EUCRM.get(lab) or {}).get('pct'),
+                       'verdict': ctx.get('verdict', 'chokepoint'),
+                       'alt': ctx.get('alt', []), 'note': ctx.get('note', '')}
+    rows.append(row)
 
 rows.sort(key=lambda r: -r['lead_share'])
 spof_rows = [r for r in rows if r['spof']]
