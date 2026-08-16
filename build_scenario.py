@@ -75,8 +75,10 @@ for lab, info in MATS.items():
     fb = [(c, v) for c, v in trade if c != leader]           # export fallbacks (exclude the leader)
     fb_top = fb[:3]
     best_fb = fb_top[0][1] if fb_top else 0.0
-    # SPOF: leader dominates output AND no exporter fallback above a third of the leader's export volume
-    spof = lead_share >= 50 and best_fb < max(lead_exp, EPS) / 3.0
+    # SPOF: leader dominates output AND no exporter fallback above a third of the leader's export volume.
+    # Shared-code materials (Ga/Ge/Hf under HS 811292) have no separable export series, so this screen
+    # cannot assess them -- exclude rather than flag (a zeroed export figure makes the test vacuously true).
+    spof = (not shared) and lead_share >= 50 and best_fb < max(lead_exp, EPS) / 3.0
     rows.append({'label': lab, 'name': info['name'], 'code': info['codes'][0], 'shared': shared,
                  'leader': leader, 'leader_name': disp(leader), 'lead_share': round(lead_share, 1),
                  'lead_export_share': round(lead_exp, 1),
