@@ -35,6 +35,11 @@ for _num, _iso in num2iso.items():
         _iso_name[_iso] = _nm
 def disp(iso): return _PREF.get(iso, _iso_name.get(iso, iso))
 
+# human labels for the refined forms of multi-code materials (metal vs alloy/chemical)
+FORM_LABEL = {'810194': 'metal', '284180': 'APT / tungstates', '811100': 'metal',
+              '720211': 'ferro-alloy (high-C)', '720219': 'ferro-alloy', '720230': 'silico-alloy',
+              '750210': 'unwrought', '720260': 'ferro-alloy'}
+
 def hs6(t):
     c = ''.join(ch for ch in t[t.find('(') + 1:t.find(')')] if ch.isdigit()); return c[:6]
 def nicename(m):
@@ -69,21 +74,40 @@ def trade_shares(codes):
 rows = []
 for lab, info in MATS.items():
     phys = info['phys']; leader, lead_share = phys[0]
-    shared = 'shared_refined' in info['flags']              # Ga/Ge 811292: fallbacks degenerate -> suppress
+    # Ga/Ge sit in the shared "other minor metals" basket 811292 (indium etc. too); their individual
+    # export series is not separable, so trade fallbacks are degenerate -> suppress. (Hafnium=811231 is
+    # its own code and not affected.)
+    shared = 'shared_refined' in info['flags']
     trade = [] if shared else trade_shares(info['codes'])
     lead_exp = next((v for c, v in trade if c == leader), 0.0)
     fb = [(c, v) for c, v in trade if c != leader]           # export fallbacks (exclude the leader)
     fb_top = fb[:3]
     best_fb = fb_top[0][1] if fb_top else 0.0
     # SPOF: leader dominates output AND no exporter fallback above a third of the leader's export volume.
-    # Shared-code materials (Ga/Ge/Hf under HS 811292) have no separable export series, so this screen
-    # cannot assess them -- exclude rather than flag (a zeroed export figure makes the test vacuously true).
+    # Shared-code materials have no separable export series, so this screen cannot assess them -- exclude
+    # rather than flag (a zeroed export figure makes the test vacuously true).
     spof = (not shared) and lead_share >= 50 and best_fb < max(lead_exp, EPS) / 3.0
+
+    def spof_of(codes):                                       # verdict for one refined form (single code)
+        sh = trade_shares(codes); le = next((v for c, v in sh if c == leader), 0.0)
+        fbx = [(c, v) for c, v in sh if c != leader][:3]
+        bf = fbx[0][1] if fbx else 0.0
+        return le, fbx, (lead_share >= 50 and bf < max(le, EPS) / 3.0)
+    # per-form breakdown: metal vs alloy/chemical can flip the verdict (tungsten APT, manganese ferroalloys)
+    by_form = []
+    if not shared and len(info['codes']) > 1:
+        for c in info['codes']:
+            le, fbx, sp = spof_of([c])
+            by_form.append({'code': c, 'label': FORM_LABEL.get(c, c), 'lead_export_share': round(le, 1),
+                            'fallbacks': [{'iso': k, 'name': disp(k), 'export_share': round(v, 1)} for k, v in fbx],
+                            'spof': sp})
+    form_dependent = len({f['spof'] for f in by_form}) > 1    # the answer depends on which form
+
     rows.append({'label': lab, 'name': info['name'], 'code': info['codes'][0], 'shared': shared,
                  'leader': leader, 'leader_name': disp(leader), 'lead_share': round(lead_share, 1),
                  'lead_export_share': round(lead_exp, 1),
                  'fallbacks': [{'iso': c, 'name': disp(c), 'export_share': round(v, 1)} for c, v in fb_top],
-                 'spof': spof})
+                 'spof': spof, 'by_form': by_form, 'form_dependent': form_dependent})
 
 rows.sort(key=lambda r: -r['lead_share'])
 spof_rows = [r for r in rows if r['spof']]

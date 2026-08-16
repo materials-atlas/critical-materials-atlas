@@ -120,7 +120,13 @@ HTML = '''<!doctype html>
  .scn-row .sm{font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
  .scn-row .sl{color:var(--ink-soft)} .scn-row .sf{color:var(--mut)}
  .spofbadge{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#fff;background:#b4291f;padding:2px 8px;border-radius:20px;white-space:nowrap}
- @media(max-width:720px){.scn-row{grid-template-columns:1fr;gap:2px}}
+ .formbadge{font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:#7a4a12;background:#fbead0;border:1px solid #ecc98d;padding:2px 7px;border-radius:20px;white-space:nowrap}
+ .scn-forms{margin:-1px 0 6px 10px;padding:7px 12px;border-left:2px solid #ecc98d;background:#fffaf1;border-radius:0 7px 7px 0;font-size:.75rem;color:var(--mut)}
+ .scn-forms .fh{font-weight:700;color:var(--ink-soft);margin-bottom:3px}
+ .scn-forms .fr{display:grid;grid-template-columns:150px 1fr auto;gap:10px;padding:2px 0;align-items:baseline}
+ .scn-forms .fr .fl{font-weight:600;color:var(--ink)} .scn-forms .fr .fv{color:var(--mut)}
+ .scn-forms .yes{color:#b4291f;font-weight:700} .scn-forms .no{color:#0e8f83;font-weight:700}
+ @media(max-width:720px){.scn-row{grid-template-columns:1fr;gap:2px}.scn-forms .fr{grid-template-columns:1fr}}
  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin:1rem 0}
  .pcard{border:1px solid var(--line);border-radius:11px;padding:12px 14px 13px;background:var(--bg)}
  .pcard h3{font-size:.94rem;margin:0 0 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
@@ -187,7 +193,7 @@ HTML = '''<!doctype html>
   <div class="choke-all" id="ranking"></div>
 
   <h2 style="margin:1.9rem 0 .3rem;font-size:1.18rem">The fallback test — if the top refiner stopped supplying</h2>
-  <p class="note" style="margin-top:0"><b id="scn-head"></b> A supply-shock <i>counterfactual</i>, not a forecast. The leader&rsquo;s share of world refined <b>output</b> is the magnitude at risk; the <b>fallback</b> is who else <i>exports</i> the refined form onto the world market — the countries the rest of the world could actually buy from (a hoarded-at-home refiner is not a fallback; an exporter is). A material is a single point of failure only if the leader holds &ge;50% of output <i>and</i> no other exporter reaches a third of its export volume. Export fallbacks can include re-export hubs, so read them as availability, not independent capacity. This is an export-share <b>screen</b>, not a capacity test — the <a href="ot.html">reallocation stress test</a> asks the harder question of whether the world&rsquo;s remaining capacity could actually cover a cut, and by design flags a <i>different</i>, stricter set as &ldquo;structurally uncoverable.&rdquo; Materials whose refined form has no separable trade series (gallium, germanium and hafnium all share HS 811292) <b>cannot be assessed</b> on this screen and are shown but not flagged.</p>
+  <p class="note" style="margin-top:0"><b id="scn-head"></b> A supply-shock <i>counterfactual</i>, not a forecast. The leader&rsquo;s share of world refined <b>output</b> is the magnitude at risk; the <b>fallback</b> is who else <i>exports</i> the refined form onto the world market — the countries the rest of the world could actually buy from (a hoarded-at-home refiner is not a fallback; an exporter is). A material is a single point of failure only if the leader holds &ge;50% of output <i>and</i> no other exporter reaches a third of its export volume. Export fallbacks can include re-export hubs, so read them as availability, not independent capacity. This is an export-share <b>screen</b>, not a capacity test — the <a href="ot.html">reallocation stress test</a> asks the harder question of whether the world&rsquo;s remaining capacity could actually cover a cut, and by design flags a <i>different</i>, stricter set as &ldquo;structurally uncoverable.&rdquo; Materials whose refined form has no separable trade series (gallium and germanium share the &ldquo;other minor metals&rdquo; basket HS 811292) <b>cannot be assessed</b> on this screen and are shown but not flagged. And where a material trades in more than one refined form (tungsten as metal vs APT chemical; manganese as metal vs ferro-alloys), the verdict can <b>change with the form</b> — the leader can be a single point of failure in one and have a real backup exporter in another; those rows carry a &ldquo;depends on form&rdquo; note with the per-form breakdown.</p>
   <div id="scn" style="margin:.6rem 0 1rem"></div>
 
   <p class="note">Reading it: the <b>miner and the refiner are usually different countries</b>, and the refiner sits downstream where the value is. The amber bars are the story the export data alone would miss &mdash; China refining copper, alumina and titanium sponge for its own industry, invisible to any trade metric. At the <b>magnet stage</b>, capability collapses onto a single country: watch China climb from 0.39 (2018) to 0.58 (2024) as the rest of the world stays near zero.</p>
@@ -303,15 +309,29 @@ const nShared=D.scenario.filter(r=>r.shared).length, nAssessable=D.scenario.leng
 SH.textContent=`Only ${spofs.length} of ${nAssessable} assessable materials fail this export-fallback screen — no other exporter reaches a third of the leader's volume, the single points of failure on this measure (China leads ${cnspof}). A separate capacity test on the reallocation page flags a different set as structurally uncoverable; ${nShared} shared-HS-code materials (Ga/Ge/Hf, 811292) can't be assessed here.`;
 for(const r of D.scenario){
   const el=document.createElement('div'); el.className='scn-row'+(r.spof?' spof':'');
+  const badge = r.form_dependent
+    ? `<span class="formbadge" title="single point of failure in one refined form but not another">depends on form</span>`
+    : (r.spof?`<span class="spofbadge">single point</span>`:`<span></span>`);
   const detail = r.shared
     ? `<span class="sl">${flag(r.leader).trim()} <b>${r.lead_share.toFixed(0)}%</b> output · <i>exports not separable</i></span>`+
-      `<span class="sf">shares HS 811292 with Ge/Hf — no trade fallback signal</span>`+
+      `<span class="sf">shares the 811292 basket with Ge/indium — no trade fallback signal</span>`+
       `<span class="spofbadge" style="background:#6b7280">not assessable</span>`
     : `<span class="sl">${flag(r.leader).trim()} <b>${r.lead_share.toFixed(0)}%</b> output · ${r.lead_export_share.toFixed(0)}% exports</span>`+
       `<span class="sf">fallback exporters: ${(r.fallbacks||[]).map(f=>`${flag(f.iso).trim()} ${f.export_share.toFixed(0)}%`).join(' · ')||'none'}</span>`+
-      (r.spof?`<span class="spofbadge">single point</span>`:`<span></span>`);
+      badge;
   el.innerHTML=`<span class="sm" title="${r.name}">${r.name}</span>`+detail;
   SCN.appendChild(el);
+  if(r.by_form&&r.by_form.length){
+    const fx=document.createElement('div'); fx.className='scn-forms';
+    const rows=r.by_form.map(f=>{
+      const fb=(f.fallbacks||[]).map(x=>`${flag(x.iso).trim()} ${x.export_share.toFixed(0)}%`).join(' · ')||'none';
+      return `<div class="fr"><span class="fl">${f.label}</span>`+
+        `<span class="fv">${flag(r.leader).trim()} ${f.lead_export_share.toFixed(0)}% exports · fallback ${fb}</span>`+
+        `<span class="${f.spof?'yes':'no'}">${f.spof?'single point':'has backup'}</span></div>`;
+    }).join('');
+    fx.innerHTML=`<div class="fh">By refined form — ${r.form_dependent?'the answer changes with the form':'consistent across forms'}:</div>`+rows;
+    SCN.appendChild(fx);
+  }
 }
 // robustness note + HS-code provenance table
 if(D.rob&&D.rob.rows){
