@@ -30,7 +30,7 @@ raw['v'] = pd.to_numeric(raw['v'], errors='coerce')
 X = raw.groupby(['i', 'k'], as_index=False).v.sum()          # exporter i, product k -> value
 X = X[X.v >= MIN_VALUE]
 M = X.pivot(index='i', columns='k', values='v').fillna(0.0)  # country x product value matrix
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 num2iso2 = dict(zip(cc.country_code, cc.country_iso2))
 M.index = [str(num2iso2.get(int(c), c)) for c in M.index]     # BACI numeric code -> ISO2
 print(f'matrix: {M.shape[0]} countries x {M.shape[1]} products', flush=True)

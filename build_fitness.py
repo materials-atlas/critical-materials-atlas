@@ -60,7 +60,7 @@ share = np.divide(M.values, Xm, out=np.zeros_like(M.values), where=Xm > 0)   # w
 Mb = ((rca >= 1) & (share >= 0.001) & (M.values >= 500)).astype(float)
 ok = Mb.sum(1) > 0
 Mb = Mb[ok]
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 countries = [int(c) for c in np.array(M.index)[ok]]
 

@@ -11,7 +11,7 @@ ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = 2022
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 COMTRADE = os.path.join(ROOT, 'raw', 'comtrade', f'comtrade_{YEAR}.csv')
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 num2iso = dict(zip(cc.country_code, cc.country_iso2))
 
 # refined codes we report concentration on (present in both sources)

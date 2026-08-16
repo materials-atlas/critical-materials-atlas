@@ -17,7 +17,7 @@ for m in d['materials']:
     c = hs6(m); c = '811292' if c == '811231' else c
     code2lab.setdefault(c, []).append(m['label'])
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 i3_i2 = dict(zip(cc.country_iso3, cc.country_iso2))
 ref = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf8'))   # reuse country reference
 cen, nm, isomap = ref['centroids'], ref['names'], ref['iso']

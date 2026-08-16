@@ -20,7 +20,7 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 MAGNET_DOWN = '850511'
 EPS = 1e-9
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 iso2num = {v: k for k, v in num2iso.items()}
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))

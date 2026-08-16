@@ -38,7 +38,7 @@ CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8
 flows = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))
 CENT = flows['centroids']                 # iso2 -> [lat, lon]
 NAMES = flows['names']                    # iso2 -> country name
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 
 REF_CODES = sorted({c for m in CW.values() for c in (m.get('refined_hs') or [])})

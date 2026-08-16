@@ -35,7 +35,7 @@ SHARED_CONTEXT = {
                   'note': 'Concentrated, but real alternative refiners exist: Umicore (Belgium recycling), '
                           'Teck (Canada, zinc-to-Ge), Russia — invisible in the shared trade code.'},
 }
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 num2iso[490] = 'TW'; num2name[490] = 'Taiwan'   # CEPII leaves Taiwan ISO-2 blank -> would be dropped
 num2iso[516] = 'NA'; num2name[516] = 'Namibia'  # Namibia ISO-2 'NA' reads as NaN in pandas -> dropped

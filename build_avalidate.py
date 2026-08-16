@@ -49,7 +49,7 @@ TARGETS = {
     '720221': ('Ferro-silicon', 'silicon', 'com'),
     '720230': ('Ferro-silico-manganese', 'manganese · silicon', 'com'),
     '720219': ('Ferro-manganese', 'manganese', 'com')}
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
+cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['names']
 
