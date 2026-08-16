@@ -1,7 +1,7 @@
 # The origin gap — one finding from the atlas
 
 **Headline:** across 32 critical raw materials, **import-origin statistics systematically overstate the
-geographic diversification of true supply.** In **18 of 32** materials (2024 reconciled BACI trade), the
+geographic diversification of true supply.** In **17 of 32** materials (2024 reconciled BACI trade), the
 top *exporter* is not the top *miner*. The country a customs ledger records as the source is, more often
 than not, a refinery or a hub standing in front of the mine.
 

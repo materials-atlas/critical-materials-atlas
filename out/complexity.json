@@ -1,25 +1,25 @@
 {
  "year": "2024",
- "n_countries": 176,
+ "n_countries": 182,
  "materials": [
   {
    "label": "lithium",
    "title": "Lithium carbonate",
    "shared": false,
-   "ubiquity": 7,
+   "ubiquity": 8,
    "mine_top": "AU",
    "related": [
     [
-     0.25,
+     0.24,
      "Natural borates"
     ],
     [
-     0.14,
-     "Hafnium, unwrought"
+     0.18,
+     "Tungsten, unwrought"
     ],
     [
      0.14,
-     "Germanium"
+     "Tantalum, unwrought"
     ]
    ]
   },
@@ -31,7 +31,7 @@
    "mine_top": "US",
    "related": [
     [
-     0.18,
+     0.17,
      "Titanium, unwrought"
     ],
     [
@@ -39,7 +39,7 @@
      "Magnesium, unwrought"
     ],
     [
-     0.15,
+     0.14,
      "Tantalum, unwrought"
     ]
    ]
@@ -56,12 +56,12 @@
      "Fluorspar, >97% CaF2"
     ],
     [
-     0.25,
-     "Tungsten, unwrought"
-    ],
-    [
      0.21,
      "Arsenic"
+    ],
+    [
+     0.2,
+     "Feldspar"
     ]
    ]
   },
@@ -77,33 +77,12 @@
      "Antimony, unwrought"
     ],
     [
-     0.24,
+     0.22,
      "Titanium, unwrought"
     ],
     [
      0.18,
      "Palladium, unwrought"
-    ]
-   ]
-  },
-  {
-   "label": "niobium",
-   "title": "Ferro-niobium",
-   "shared": false,
-   "ubiquity": 11,
-   "mine_top": "BR",
-   "related": [
-    [
-     0.29,
-     "Hafnium, unwrought"
-    ],
-    [
-     0.29,
-     "Germanium"
-    ],
-    [
-     0.29,
-     "Gallium"
     ]
    ]
   },
@@ -115,7 +94,7 @@
    "mine_top": "CN",
    "related": [
     [
-     0.38,
+     0.36,
      "Ferro-vanadium"
     ],
     [
@@ -124,70 +103,28 @@
     ],
     [
      0.29,
-     "Hafnium, unwrought"
+     "Arsenic"
     ]
    ]
   },
   {
-   "label": "tungsten",
-   "title": "Tungsten, unwrought",
+   "label": "niobium",
+   "title": "Ferro-niobium",
    "shared": false,
    "ubiquity": 12,
-   "mine_top": "CN",
+   "mine_top": "BR",
    "related": [
     [
-     0.31,
-     "Tantalum, unwrought"
+     0.25,
+     "Magnesium, unwrought"
     ],
     [
-     0.29,
+     0.24,
+     "Ferro-vanadium"
+    ],
+    [
+     0.21,
      "Arsenic"
-    ],
-    [
-     0.27,
-     "Platinum, unwrought"
-    ]
-   ]
-  },
-  {
-   "label": "tantalum",
-   "title": "Tantalum, unwrought",
-   "shared": false,
-   "ubiquity": 13,
-   "mine_top": "CD",
-   "related": [
-    [
-     0.47,
-     "Titanium, unwrought"
-    ],
-    [
-     0.38,
-     "Hafnium, unwrought"
-    ],
-    [
-     0.38,
-     "Germanium"
-    ]
-   ]
-  },
-  {
-   "label": "cobalt",
-   "title": "Cobalt oxides & hydroxides",
-   "shared": false,
-   "ubiquity": 14,
-   "mine_top": "CD",
-   "related": [
-    [
-     0.36,
-     "Arsenic"
-    ],
-    [
-     0.31,
-     "Natural borates"
-    ],
-    [
-     0.29,
-     "Tantalum, unwrought"
     ]
    ]
   },
@@ -199,16 +136,58 @@
    "mine_top": "PE",
    "related": [
     [
-     0.48,
+     0.35,
+     "Nickel, unwrought"
+    ],
+    [
+     0.34,
      "Hafnium, unwrought"
     ],
     [
-     0.48,
+     0.34,
      "Germanium"
+    ]
+   ]
+  },
+  {
+   "label": "tantalum",
+   "title": "Tantalum, unwrought",
+   "shared": false,
+   "ubiquity": 14,
+   "mine_top": "CD",
+   "related": [
+    [
+     0.5,
+     "Titanium, unwrought"
     ],
     [
-     0.48,
-     "Gallium"
+     0.47,
+     "Tungsten, unwrought"
+    ],
+    [
+     0.33,
+     "Cobalt oxides & hydroxides"
+    ]
+   ]
+  },
+  {
+   "label": "cobalt",
+   "title": "Cobalt oxides & hydroxides",
+   "shared": false,
+   "ubiquity": 15,
+   "mine_top": "CD",
+   "related": [
+    [
+     0.33,
+     "Tantalum, unwrought"
+    ],
+    [
+     0.33,
+     "Arsenic"
+    ],
+    [
+     0.26,
+     "Nickel, unwrought"
     ]
    ]
   },
@@ -220,7 +199,7 @@
    "mine_top": "CN",
    "related": [
     [
-     0.4,
+     0.44,
      "Feldspar"
     ],
     [
@@ -234,22 +213,43 @@
    ]
   },
   {
+   "label": "tungsten",
+   "title": "Tungsten, unwrought",
+   "shared": false,
+   "ubiquity": 17,
+   "mine_top": "CN",
+   "related": [
+    [
+     0.47,
+     "Tantalum, unwrought"
+    ],
+    [
+     0.42,
+     "Platinum, unwrought"
+    ],
+    [
+     0.35,
+     "Palladium, unwrought"
+    ]
+   ]
+  },
+  {
    "label": "boron",
    "title": "Natural borates",
    "shared": false,
-   "ubiquity": 16,
+   "ubiquity": 17,
    "mine_top": "TR",
    "related": [
     [
-     0.31,
-     "Cobalt oxides & hydroxides"
-    ],
-    [
-     0.31,
+     0.29,
      "Arsenic"
     ],
     [
-     0.25,
+     0.24,
+     "Ferro-vanadium"
+    ],
+    [
+     0.24,
      "Magnesium, unwrought"
     ]
    ]
@@ -262,16 +262,16 @@
    "mine_top": "RU",
    "related": [
     [
-     0.5,
+     0.46,
      "Platinum, unwrought"
     ],
     [
-     0.43,
-     "Hafnium, unwrought"
+     0.35,
+     "Tungsten, unwrought"
     ],
     [
-     0.43,
-     "Germanium"
+     0.33,
+     "Titanium, unwrought"
     ]
    ]
   },
@@ -279,20 +279,20 @@
    "label": "titanium",
    "title": "Titanium, unwrought",
    "shared": false,
-   "ubiquity": 17,
+   "ubiquity": 18,
    "mine_top": "CN",
    "related": [
     [
-     0.47,
+     0.5,
      "Tantalum, unwrought"
     ],
     [
-     0.38,
-     "Hafnium, unwrought"
+     0.36,
+     "Ferro-vanadium"
     ],
     [
-     0.38,
-     "Germanium"
+     0.35,
+     "Nickel, unwrought"
     ]
    ]
   },
@@ -318,48 +318,6 @@
    ]
   },
   {
-   "label": "germanium",
-   "title": "Germanium",
-   "shared": true,
-   "ubiquity": 21,
-   "mine_top": "CN",
-   "related": [
-    [
-     1.0,
-     "Hafnium, unwrought"
-    ],
-    [
-     0.48,
-     "Arsenic"
-    ],
-    [
-     0.43,
-     "Palladium, unwrought"
-    ]
-   ]
-  },
-  {
-   "label": "gallium",
-   "title": "Gallium",
-   "shared": true,
-   "ubiquity": 21,
-   "mine_top": "CN",
-   "related": [
-    [
-     1.0,
-     "Hafnium, unwrought"
-    ],
-    [
-     0.48,
-     "Arsenic"
-    ],
-    [
-     0.43,
-     "Palladium, unwrought"
-    ]
-   ]
-  },
-  {
    "label": "antimony",
    "title": "Antimony, unwrought",
    "shared": false,
@@ -367,79 +325,16 @@
    "mine_top": "CN",
    "related": [
     [
-     0.33,
-     "Hafnium, unwrought"
-    ],
-    [
-     0.33,
-     "Germanium"
-    ],
-    [
-     0.33,
-     "Gallium"
-    ]
-   ]
-  },
-  {
-   "label": "manganese",
-   "title": "Manganese ore",
-   "shared": false,
-   "ubiquity": 21,
-   "mine_top": "ZA",
-   "related": [
-    [
-     0.24,
+     0.32,
      "Feldspar"
     ],
     [
-     0.24,
-     "Aluminium ores / bauxite"
+     0.28,
+     "Ferro-vanadium"
     ],
     [
-     0.19,
-     "Fluorspar, >97% CaF2"
-    ]
-   ]
-  },
-  {
-   "label": "bauxite",
-   "title": "Aluminium ores / bauxite",
-   "shared": false,
-   "ubiquity": 21,
-   "mine_top": "AU",
-   "related": [
-    [
-     0.24,
-     "Manganese ore"
-    ],
-    [
-     0.19,
-     "Ferro-niobium"
-    ],
-    [
-     0.19,
-     "Hafnium, unwrought"
-    ]
-   ]
-  },
-  {
-   "label": "hafnium",
-   "title": "Hafnium, unwrought",
-   "shared": false,
-   "ubiquity": 21,
-   "mine_top": "AU",
-   "related": [
-    [
-     1.0,
-     "Germanium"
-    ],
-    [
-     1.0,
-     "Gallium"
-    ],
-    [
-     0.48,
-     "Arsenic"
+     0.28,
+     "Baryte"
     ]
    ]
   },
@@ -451,7 +346,7 @@
    "mine_top": "AU",
    "related": [
     [
-     0.17,
+     0.16,
      "Ferro-vanadium"
     ],
     [
@@ -465,23 +360,44 @@
    ]
   },
   {
-   "label": "platinum",
-   "title": "Platinum, unwrought",
+   "label": "manganese",
+   "title": "Manganese ore",
    "shared": false,
    "ubiquity": 22,
    "mine_top": "ZA",
    "related": [
     [
-     0.5,
-     "Palladium, unwrought"
+     0.24,
+     "Feldspar"
     ],
     [
-     0.36,
-     "Hafnium, unwrought"
+     0.23,
+     "Aluminium ores / bauxite"
     ],
     [
-     0.36,
-     "Germanium"
+     0.18,
+     "Fluorspar, >97% CaF2"
+    ]
+   ]
+  },
+  {
+   "label": "bauxite",
+   "title": "Aluminium ores / bauxite",
+   "shared": false,
+   "ubiquity": 22,
+   "mine_top": "AU",
+   "related": [
+    [
+     0.23,
+     "Manganese ore"
+    ],
+    [
+     0.2,
+     "Silicon, < 99.99%"
+    ],
+    [
+     0.18,
+     "Ferro-niobium"
     ]
    ]
   },
@@ -489,41 +405,41 @@
    "label": "nickel",
    "title": "Nickel, unwrought",
    "shared": false,
-   "ubiquity": 22,
+   "ubiquity": 23,
    "mine_top": "ID",
    "related": [
     [
-     0.41,
-     "Hafnium, unwrought"
+     0.36,
+     "Ferro-vanadium"
     ],
     [
-     0.41,
-     "Germanium"
+     0.35,
+     "Titanium, unwrought"
     ],
     [
-     0.41,
-     "Gallium"
+     0.35,
+     "Arsenic"
     ]
    ]
   },
   {
-   "label": "vanadium",
-   "title": "Ferro-vanadium",
+   "label": "platinum",
+   "title": "Platinum, unwrought",
    "shared": false,
    "ubiquity": 24,
-   "mine_top": "CN",
+   "mine_top": "ZA",
    "related": [
     [
-     0.42,
-     "Hafnium, unwrought"
+     0.46,
+     "Palladium, unwrought"
     ],
     [
      0.42,
-     "Germanium"
+     "Tungsten, unwrought"
     ],
     [
-     0.42,
-     "Gallium"
+     0.33,
+     "Titanium, unwrought"
     ]
    ]
   },
@@ -535,15 +451,99 @@
    "mine_top": "TR",
    "related": [
     [
-     0.4,
+     0.44,
      "Fluorspar, >97% CaF2"
     ],
     [
-     0.36,
-     "Baryte"
+     0.4,
+     "Ferro-vanadium"
     ],
     [
-     0.36,
+     0.39,
+     "Baryte"
+    ]
+   ]
+  },
+  {
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
+   "shared": false,
+   "ubiquity": 25,
+   "mine_top": "CN",
+   "related": [
+    [
+     0.4,
+     "Silicon, < 99.99%"
+    ],
+    [
+     0.4,
+     "Feldspar"
+    ],
+    [
+     0.38,
+     "Hafnium, unwrought"
+    ]
+   ]
+  },
+  {
+   "label": "germanium",
+   "title": "Germanium",
+   "shared": true,
+   "ubiquity": 29,
+   "mine_top": "CN",
+   "related": [
+    [
+     1.0,
+     "Hafnium, unwrought"
+    ],
+    [
+     0.38,
+     "Ferro-vanadium"
+    ],
+    [
+     0.34,
+     "Nickel, unwrought"
+    ]
+   ]
+  },
+  {
+   "label": "gallium",
+   "title": "Gallium",
+   "shared": true,
+   "ubiquity": 29,
+   "mine_top": "CN",
+   "related": [
+    [
+     1.0,
+     "Hafnium, unwrought"
+    ],
+    [
+     0.38,
+     "Ferro-vanadium"
+    ],
+    [
+     0.34,
+     "Nickel, unwrought"
+    ]
+   ]
+  },
+  {
+   "label": "hafnium",
+   "title": "Hafnium, unwrought",
+   "shared": false,
+   "ubiquity": 29,
+   "mine_top": "AU",
+   "related": [
+    [
+     1.0,
+     "Germanium"
+    ],
+    [
+     1.0,
+     "Gallium"
+    ],
+    [
+     0.38,
      "Ferro-vanadium"
     ]
    ]
@@ -573,20 +573,20 @@
    "label": "graphite",
    "title": "Natural graphite",
    "shared": false,
-   "ubiquity": 31,
+   "ubiquity": 32,
    "mine_top": "CN",
    "related": [
     [
-     0.32,
+     0.34,
      "Feldspar"
     ],
     [
-     0.29,
+     0.31,
      "Silicon, < 99.99%"
     ],
     [
-     0.26,
-     "Helium"
+     0.28,
+     "Ferro-vanadium"
     ]
    ]
   },
@@ -594,11 +594,11 @@
    "label": "copper",
    "title": "Refined copper cathodes",
    "shared": false,
-   "ubiquity": 33,
+   "ubiquity": 34,
    "mine_top": "CL",
    "related": [
     [
-     0.27,
+     0.29,
      "Ferro-vanadium"
     ],
     [
@@ -606,8 +606,8 @@
      "Silicon, < 99.99%"
     ],
     [
-     0.19,
-     "Baryte"
+     0.21,
+     "Nickel, unwrought"
     ]
    ]
   },
@@ -619,7 +619,7 @@
    "mine_top": "IN",
    "related": [
     [
-     0.36,
+     0.39,
      "Feldspar"
     ],
     [
@@ -640,7 +640,7 @@
    "mine_top": "US",
    "related": [
     [
-     0.39,
+     0.42,
      "Rare-earth permanent magnets"
     ],
     [
@@ -649,7 +649,7 @@
     ],
     [
      0.26,
-     "Silicon, < 99.99%"
+     "Hafnium, unwrought"
     ]
    ]
   },
@@ -657,19 +657,19 @@
    "label": "magnets",
    "title": "Rare-earth permanent magnets",
    "shared": false,
-   "ubiquity": 51,
+   "ubiquity": 52,
    "mine_top": "CN",
    "related": [
     [
-     0.39,
+     0.42,
      "Helium"
     ],
     [
-     0.25,
+     0.27,
      "Natural graphite"
     ],
     [
-     0.22,
+     0.25,
      "Ferro-vanadium"
     ]
    ]
@@ -679,91 +679,91 @@
   {
    "c": "CN",
    "name": "China",
-   "capability": 1.03,
-   "diversity": 18
+   "capability": 0.99,
+   "diversity": 19
   },
   {
    "c": "DE",
    "name": "Germany",
-   "capability": 0.94,
-   "diversity": 18
+   "capability": 0.99,
+   "diversity": 19
   },
   {
    "c": "RO",
    "name": "Romania",
-   "capability": 0.88,
+   "capability": 0.83,
    "diversity": 18
   },
   {
    "c": "DK",
    "name": "Denmark",
-   "capability": 0.85,
+   "capability": 0.77,
    "diversity": 15
   },
   {
    "c": "MY",
    "name": "Malaysia",
-   "capability": 0.78,
+   "capability": 0.72,
    "diversity": 16
   },
   {
    "c": "NL",
    "name": "Netherlands",
-   "capability": 0.74,
-   "diversity": 14
-  },
-  {
-   "c": "HU",
-   "name": "Hungary",
-   "capability": 0.68,
-   "diversity": 12
+   "capability": 0.64,
+   "diversity": 13
   },
   {
    "c": "LU",
    "name": "Luxembourg",
-   "capability": 0.68,
+   "capability": 0.63,
    "diversity": 12
   },
   {
    "c": "FR",
    "name": "France",
-   "capability": 0.67,
+   "capability": 0.62,
+   "diversity": 13
+  },
+  {
+   "c": "HU",
+   "name": "Hungary",
+   "capability": 0.62,
+   "diversity": 12
+  },
+  {
+   "c": "TW",
+   "name": "Taiwan",
+   "capability": 0.55,
    "diversity": 13
   },
   {
    "c": "GB",
    "name": "United Kingdom",
-   "capability": 0.62,
+   "capability": 0.53,
    "diversity": 11
   },
   {
    "c": "IN",
    "name": "India",
-   "capability": 0.54,
+   "capability": 0.53,
    "diversity": 11
   },
   {
-   "c": "SG",
-   "name": "Singapore",
-   "capability": 0.54,
+   "c": "US",
+   "name": "United States",
+   "capability": 0.53,
    "diversity": 10
   },
   {
    "c": "KR",
    "name": "South Korea",
-   "capability": 0.53,
-   "diversity": 10
-  },
-  {
-   "c": "US",
-   "name": "United States",
    "capability": 0.52,
-   "diversity": 9
+   "diversity": 11
   },
   {
    "c": "IT",
    "name": "Italy",
-   "capability": 0.52,
+   "capability": 0.51,
    "diversity": 8
   }
  ]

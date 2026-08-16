@@ -24,9 +24,13 @@ $codes=New-Object 'System.Collections.Generic.HashSet[string]'; $code2labels.Key
 
 # country code -> ISO2 (load once)
 $cc=Import-Csv $ccCsv
-$num2iso=@{}; foreach($r in $cc){ if($r.country_iso2 -and $r.country_iso2 -ne 'NA'){ $num2iso[$r.country_code]=$r.country_iso2 } }
+$num2iso=@{}; foreach($r in $cc){ if($r.country_iso2){ $num2iso[$r.country_code]=$r.country_iso2 } }
 $ccName=@{}; foreach($r in $cc){ if($r.country_iso2){ $ccName[$r.country_iso2]=$r.country_name } }
-$isoMap=[ordered]@{}; foreach($r in $cc){ if($r.country_iso2 -and $r.country_iso2 -ne 'NA'){ $isoMap[$r.country_code]=$r.country_iso2 } }
+$isoMap=[ordered]@{}; foreach($r in $cc){ if($r.country_iso2){ $isoMap[$r.country_code]=$r.country_iso2 } }
+# CEPII leaves Taiwan (490, 'Other Asia, nes') ISO-2 blank and Namibia (516) as 'NA' -> both were silently
+# dropped, inflating other shares (China tungsten +12pp). Force-map so their trade is counted.
+$num2iso['490']='TW'; $isoMap['490']='TW'; $ccName['TW']='Taiwan'
+$num2iso['516']='NA'; $isoMap['516']='NA'; $ccName['NA']='Namibia'
 
 # centroids + names (fetch once)
 $cenCsv=Invoke-RestMethod 'https://raw.githubusercontent.com/google/dspl/master/samples/google/canonical/countries.csv' -TimeoutSec 40

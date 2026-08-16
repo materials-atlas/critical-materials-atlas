@@ -37,6 +37,8 @@ SHARED_CONTEXT = {
 }
 cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'))
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
+num2iso[490] = 'TW'; num2name[490] = 'Taiwan'   # CEPII leaves Taiwan ISO-2 blank -> would be dropped
+num2iso[516] = 'NA'; num2name[516] = 'Namibia'  # Namibia ISO-2 'NA' reads as NaN in pandas -> dropped
 _PREF = {'DE': 'Germany', 'TR': 'Türkiye', 'RU': 'Russia', 'KR': 'South Korea', 'CD': 'DR Congo',
          'US': 'United States', 'GB': 'United Kingdom', 'CZ': 'Czechia', 'VN': 'Viet Nam', 'IR': 'Iran',
          'BO': 'Bolivia', 'BE': 'Belgium', 'LA': 'Laos', 'SY': 'Syria', 'TW': 'Taiwan'}
