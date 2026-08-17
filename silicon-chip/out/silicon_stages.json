@@ -1,0 +1,3073 @@
+{
+  "source": "UN Comtrade via CEPII BACI HS17 V202601",
+  "years": [
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "note": "Draft extraction on wip/silicon-chip-chain. Not added to the 32. Value = BACI v × 1000 USD. Quantity = metric tons.",
+  "codes": {
+    "280469": {
+      "label": "silicon_metal",
+      "title": "Silicon, < 99.99%",
+      "atlas": "current Atlas silicon (HS 28046900)",
+      "flag": "industrial / metallurgical silicon metal"
+    },
+    "280461": {
+      "label": "silicon_highpurity",
+      "title": "Silicon, >= 99.99%",
+      "atlas": "not in the 32",
+      "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code"
+    },
+    "381800": {
+      "label": "wafers",
+      "title": "Doped discs / wafers for electronics",
+      "atlas": "not in the 32",
+      "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code"
+    }
+  },
+  "years_data": {
+    "2018": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1150,
+        "world_usd": 3933177558,
+        "world_tonnes": 1695731.4,
+        "world_usd_per_t": 2319.5,
+        "export_hhi": 0.2226,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 1680725304,
+            "share": 0.4273,
+            "tonnes": 805835.3,
+            "usd_per_t": 2085.7,
+            "name": "China"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 493688852,
+            "share": 0.1255,
+            "tonnes": 196947.0,
+            "usd_per_t": 2506.7,
+            "name": "Brazil"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 469859993,
+            "share": 0.1195,
+            "tonnes": 192067.5,
+            "usd_per_t": 2446.3,
+            "name": "Norway"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 298075877,
+            "share": 0.0758,
+            "tonnes": 123367.5,
+            "usd_per_t": 2416.2,
+            "name": "France"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 105414726,
+            "share": 0.0268,
+            "tonnes": 43546.4,
+            "usd_per_t": 2420.7,
+            "name": "Australia"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 102233934,
+            "share": 0.026,
+            "tonnes": 43908.2,
+            "usd_per_t": 2328.4,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "BA",
+            "value_usd": 93887309,
+            "share": 0.0239,
+            "tonnes": 36258.7,
+            "usd_per_t": 2589.4,
+            "name": "Bosnia Herzegovina"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 92835950,
+            "share": 0.0236,
+            "tonnes": 30765.8,
+            "usd_per_t": 3017.5,
+            "name": "Canada"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 657846855,
+            "share": 0.1673,
+            "tonnes": 288685.0,
+            "usd_per_t": 2278.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 500402477,
+            "share": 0.1272,
+            "tonnes": 229891.6,
+            "usd_per_t": 2176.7,
+            "name": "Japan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 371252141,
+            "share": 0.0944,
+            "tonnes": 166581.4,
+            "usd_per_t": 2228.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "US",
+            "value_usd": 335800525,
+            "share": 0.0854,
+            "tonnes": 119346.6,
+            "usd_per_t": 2813.7,
+            "name": "USA"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 328466871,
+            "share": 0.0835,
+            "tonnes": 130881.7,
+            "usd_per_t": 2509.6,
+            "name": "United Kingdom"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 214122322,
+            "share": 0.0544,
+            "tonnes": 96643.5,
+            "usd_per_t": 2215.6,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 154577850,
+            "share": 0.0393,
+            "tonnes": 38307.2,
+            "usd_per_t": 4035.2,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 153192453,
+            "share": 0.0389,
+            "tonnes": 69172.6,
+            "usd_per_t": 2214.6,
+            "name": "Thailand"
+          }
+        ],
+        "import_hhi": 0.0788,
+        "china_export_share": 0.4273
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 731,
+        "world_usd": 4675299308,
+        "world_tonnes": 263471.2,
+        "world_usd_per_t": 17745.0,
+        "export_hhi": 0.1796,
+        "exporters": [
+          {
+            "iso": "US",
+            "value_usd": 1238286790,
+            "share": 0.2649,
+            "tonnes": 50701.5,
+            "usd_per_t": 24423.1,
+            "name": "USA"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 1067949131,
+            "share": 0.2284,
+            "tonnes": 59484.2,
+            "usd_per_t": 17953.5,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 859956809,
+            "share": 0.1839,
+            "tonnes": 64420.0,
+            "usd_per_t": 13349.2,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 494115719,
+            "share": 0.1057,
+            "tonnes": 22268.9,
+            "usd_per_t": 22188.6,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 460394195,
+            "share": 0.0985,
+            "tonnes": 13726.9,
+            "usd_per_t": 33539.5,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 145236248,
+            "share": 0.0311,
+            "tonnes": 22950.3,
+            "usd_per_t": 6328.3,
+            "name": "China"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 143098715,
+            "share": 0.0306,
+            "tonnes": 12193.0,
+            "usd_per_t": 11736.2,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 108786048,
+            "share": 0.0233,
+            "tonnes": 8692.8,
+            "usd_per_t": 12514.4,
+            "name": "Norway"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 1914651551,
+            "share": 0.4095,
+            "tonnes": 138137.0,
+            "usd_per_t": 13860.5,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 1003275010,
+            "share": 0.2146,
+            "tonnes": 26892.9,
+            "usd_per_t": 37306.4,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 641021385,
+            "share": 0.1371,
+            "tonnes": 38292.5,
+            "usd_per_t": 16740.1,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 279626100,
+            "share": 0.0598,
+            "tonnes": 7527.8,
+            "usd_per_t": 37145.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 208627657,
+            "share": 0.0446,
+            "tonnes": 6463.5,
+            "usd_per_t": 32277.9,
+            "name": "Singapore"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 158629981,
+            "share": 0.0339,
+            "tonnes": 11534.2,
+            "usd_per_t": 13753.1,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "US",
+            "value_usd": 95786106,
+            "share": 0.0205,
+            "tonnes": 1878.3,
+            "usd_per_t": 50996.3,
+            "name": "USA"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 39532905,
+            "share": 0.0085,
+            "tonnes": 3389.8,
+            "usd_per_t": 11662.3,
+            "name": "Norway"
+          }
+        ],
+        "import_hhi": 0.2401,
+        "china_export_share": 0.0311
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1669,
+        "world_usd": 16422061707,
+        "world_tonnes": 88895.2,
+        "world_usd_per_t": 184735.1,
+        "export_hhi": 0.1535,
+        "exporters": [
+          {
+            "iso": "JP",
+            "value_usd": 4326109313,
+            "share": 0.2634,
+            "tonnes": 8311.1,
+            "usd_per_t": 520524.4,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 3414320489,
+            "share": 0.2079,
+            "tonnes": 53227.0,
+            "usd_per_t": 64146.4,
+            "name": "China"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 2310653439,
+            "share": 0.1407,
+            "tonnes": 4774.7,
+            "usd_per_t": 483939.5,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1367694850,
+            "share": 0.0833,
+            "tonnes": 2583.6,
+            "usd_per_t": 529375.0,
+            "name": "USA"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1250685933,
+            "share": 0.0762,
+            "tonnes": 3773.9,
+            "usd_per_t": 331403.1,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 1036136493,
+            "share": 0.0631,
+            "tonnes": 2418.4,
+            "usd_per_t": 428442.0,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 842955301,
+            "share": 0.0513,
+            "tonnes": 2931.5,
+            "usd_per_t": 287554.6,
+            "name": "Singapore"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 429151275,
+            "share": 0.0261,
+            "tonnes": 534.0,
+            "usd_per_t": 803589.4,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 3015157421,
+            "share": 0.1836,
+            "tonnes": 18183.8,
+            "usd_per_t": 165815.7,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2509771263,
+            "share": 0.1528,
+            "tonnes": 14850.7,
+            "usd_per_t": 169000.6,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2154844030,
+            "share": 0.1312,
+            "tonnes": 4532.6,
+            "usd_per_t": 475412.6,
+            "name": "China"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1776978918,
+            "share": 0.1082,
+            "tonnes": 3182.1,
+            "usd_per_t": 558437.9,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1641905113,
+            "share": 0.1,
+            "tonnes": 2027.2,
+            "usd_per_t": 809933.8,
+            "name": "Singapore"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 1045773003,
+            "share": 0.0637,
+            "tonnes": 2387.6,
+            "usd_per_t": 438007.4,
+            "name": "Japan"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 997478206,
+            "share": 0.0607,
+            "tonnes": 18148.2,
+            "usd_per_t": 54963.0,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 544260353,
+            "share": 0.0331,
+            "tonnes": 2072.5,
+            "usd_per_t": 262606.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          }
+        ],
+        "import_hhi": 0.1072,
+        "china_export_share": 0.2079
+      }
+    },
+    "2019": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1150,
+        "world_usd": 3175043437,
+        "world_tonnes": 1566398.9,
+        "world_usd_per_t": 2027.0,
+        "export_hhi": 0.2025,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 1231544712,
+            "share": 0.3879,
+            "tonnes": 696557.9,
+            "usd_per_t": 1768.0,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 486934188,
+            "share": 0.1534,
+            "tonnes": 221111.3,
+            "usd_per_t": 2202.2,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 445775337,
+            "share": 0.1404,
+            "tonnes": 190641.7,
+            "usd_per_t": 2338.3,
+            "name": "Brazil"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 191329717,
+            "share": 0.0603,
+            "tonnes": 96268.7,
+            "usd_per_t": 1987.5,
+            "name": "France"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 138369353,
+            "share": 0.0436,
+            "tonnes": 60038.9,
+            "usd_per_t": 2304.7,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 95016401,
+            "share": 0.0299,
+            "tonnes": 43223.2,
+            "usd_per_t": 2198.3,
+            "name": "Australia"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 79655730,
+            "share": 0.0251,
+            "tonnes": 29498.4,
+            "usd_per_t": 2700.3,
+            "name": "Canada"
+          },
+          {
+            "iso": "BA",
+            "value_usd": 72756499,
+            "share": 0.0229,
+            "tonnes": 34688.3,
+            "usd_per_t": 2097.4,
+            "name": "Bosnia Herzegovina"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 532558343,
+            "share": 0.1677,
+            "tonnes": 256549.8,
+            "usd_per_t": 2075.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 360857160,
+            "share": 0.1137,
+            "tonnes": 191820.1,
+            "usd_per_t": 1881.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 345962254,
+            "share": 0.109,
+            "tonnes": 142913.7,
+            "usd_per_t": 2420.8,
+            "name": "USA"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 240678686,
+            "share": 0.0758,
+            "tonnes": 122055.5,
+            "usd_per_t": 1971.9,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 230776358,
+            "share": 0.0727,
+            "tonnes": 93908.7,
+            "usd_per_t": 2457.5,
+            "name": "United Kingdom"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 210540881,
+            "share": 0.0663,
+            "tonnes": 118834.5,
+            "usd_per_t": 1771.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 147512603,
+            "share": 0.0465,
+            "tonnes": 74042.3,
+            "usd_per_t": 1992.3,
+            "name": "Thailand"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 132967011,
+            "share": 0.0419,
+            "tonnes": 46161.0,
+            "usd_per_t": 2880.5,
+            "name": "Malaysia"
+          }
+        ],
+        "import_hhi": 0.0778,
+        "china_export_share": 0.3879
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 717,
+        "world_usd": 3219505225,
+        "world_tonnes": 229431.3,
+        "world_usd_per_t": 14032.5,
+        "export_hhi": 0.1834,
+        "exporters": [
+          {
+            "iso": "US",
+            "value_usd": 863417182,
+            "share": 0.2682,
+            "tonnes": 38723.4,
+            "usd_per_t": 22297.0,
+            "name": "USA"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 827615427,
+            "share": 0.2571,
+            "tonnes": 63691.0,
+            "usd_per_t": 12994.2,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 490678809,
+            "share": 0.1524,
+            "tonnes": 53154.9,
+            "usd_per_t": 9231.1,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 364155050,
+            "share": 0.1131,
+            "tonnes": 14333.2,
+            "usd_per_t": 25406.4,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 224230496,
+            "share": 0.0696,
+            "tonnes": 11962.4,
+            "usd_per_t": 18744.7,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 184875435,
+            "share": 0.0574,
+            "tonnes": 22161.8,
+            "usd_per_t": 8342.1,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 94024031,
+            "share": 0.0292,
+            "tonnes": 11553.3,
+            "usd_per_t": 8138.3,
+            "name": "China"
+          },
+          {
+            "iso": "DK",
+            "value_usd": 48500104,
+            "share": 0.0151,
+            "tonnes": 110.3,
+            "usd_per_t": 439515.6,
+            "name": "Denmark"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 1287825133,
+            "share": 0.4,
+            "tonnes": 144978.1,
+            "usd_per_t": 8882.9,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 658569197,
+            "share": 0.2046,
+            "tonnes": 18767.4,
+            "usd_per_t": 35091.1,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 316330278,
+            "share": 0.0983,
+            "tonnes": 17702.8,
+            "usd_per_t": 17868.9,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 236280626,
+            "share": 0.0734,
+            "tonnes": 7668.0,
+            "usd_per_t": 30813.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 129336677,
+            "share": 0.0402,
+            "tonnes": 1963.8,
+            "usd_per_t": 65860.9,
+            "name": "Singapore"
+          },
+          {
+            "iso": "US",
+            "value_usd": 109085968,
+            "share": 0.0339,
+            "tonnes": 1506.8,
+            "usd_per_t": 72393.7,
+            "name": "USA"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 108796958,
+            "share": 0.0338,
+            "tonnes": 6195.0,
+            "usd_per_t": 17562.0,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 96032319,
+            "share": 0.0298,
+            "tonnes": 7055.6,
+            "usd_per_t": 13610.9,
+            "name": "Malaysia"
+          }
+        ],
+        "import_hhi": 0.2223,
+        "china_export_share": 0.0292
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1722,
+        "world_usd": 15315717839,
+        "world_tonnes": 134163.5,
+        "world_usd_per_t": 114157.2,
+        "export_hhi": 0.1525,
+        "exporters": [
+          {
+            "iso": "JP",
+            "value_usd": 4470838564,
+            "share": 0.2919,
+            "tonnes": 14356.0,
+            "usd_per_t": 311426.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2663332075,
+            "share": 0.1739,
+            "tonnes": 72942.6,
+            "usd_per_t": 36512.7,
+            "name": "China"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 1934301312,
+            "share": 0.1263,
+            "tonnes": 9870.5,
+            "usd_per_t": 195968.6,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1392474867,
+            "share": 0.0909,
+            "tonnes": 3055.5,
+            "usd_per_t": 455724.8,
+            "name": "USA"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1043255731,
+            "share": 0.0681,
+            "tonnes": 5400.4,
+            "usd_per_t": 193182.9,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 830782671,
+            "share": 0.0542,
+            "tonnes": 2295.2,
+            "usd_per_t": 361965.3,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 789789677,
+            "share": 0.0516,
+            "tonnes": 2726.2,
+            "usd_per_t": 289706.5,
+            "name": "Singapore"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 527458605,
+            "share": 0.0344,
+            "tonnes": 708.9,
+            "usd_per_t": 744064.8,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 2519582548,
+            "share": 0.1645,
+            "tonnes": 10244.4,
+            "usd_per_t": 245947.6,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2255458493,
+            "share": 0.1473,
+            "tonnes": 14911.3,
+            "usd_per_t": 151258.0,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2078883486,
+            "share": 0.1357,
+            "tonnes": 5819.4,
+            "usd_per_t": 357233.9,
+            "name": "China"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1635285086,
+            "share": 0.1068,
+            "tonnes": 2600.6,
+            "usd_per_t": 628798.6,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1382468777,
+            "share": 0.0903,
+            "tonnes": 3185.8,
+            "usd_per_t": 433950.9,
+            "name": "Singapore"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 1138013218,
+            "share": 0.0743,
+            "tonnes": 43646.3,
+            "usd_per_t": 26073.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 974002822,
+            "share": 0.0636,
+            "tonnes": 2410.2,
+            "usd_per_t": 404125.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 491665473,
+            "share": 0.0321,
+            "tonnes": 1566.6,
+            "usd_per_t": 313847.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          }
+        ],
+        "import_hhi": 0.1003,
+        "china_export_share": 0.1739
+      }
+    },
+    "2020": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1090,
+        "world_usd": 2686089427,
+        "world_tonnes": 1426251.4,
+        "world_usd_per_t": 1883.3,
+        "export_hhi": 0.2016,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 1020461595,
+            "share": 0.3799,
+            "tonnes": 603377.4,
+            "usd_per_t": 1691.2,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 452896245,
+            "share": 0.1686,
+            "tonnes": 219558.7,
+            "usd_per_t": 2062.8,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 363801556,
+            "share": 0.1354,
+            "tonnes": 183997.0,
+            "usd_per_t": 1977.2,
+            "name": "Brazil"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 168431035,
+            "share": 0.0627,
+            "tonnes": 82182.7,
+            "usd_per_t": 2049.5,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 161616476,
+            "share": 0.0602,
+            "tonnes": 80403.4,
+            "usd_per_t": 2010.1,
+            "name": "France"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 80089676,
+            "share": 0.0298,
+            "tonnes": 41449.8,
+            "usd_per_t": 1932.2,
+            "name": "Australia"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 69052946,
+            "share": 0.0257,
+            "tonnes": 35937.5,
+            "usd_per_t": 1921.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 52549434,
+            "share": 0.0196,
+            "tonnes": 22651.9,
+            "usd_per_t": 2319.9,
+            "name": "Canada"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 461800809,
+            "share": 0.1719,
+            "tonnes": 234941.5,
+            "usd_per_t": 1965.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 338437605,
+            "share": 0.126,
+            "tonnes": 187041.1,
+            "usd_per_t": 1809.4,
+            "name": "Japan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 249941559,
+            "share": 0.0931,
+            "tonnes": 117072.2,
+            "usd_per_t": 2134.9,
+            "name": "USA"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 196027644,
+            "share": 0.073,
+            "tonnes": 102560.5,
+            "usd_per_t": 1911.3,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 180134140,
+            "share": 0.0671,
+            "tonnes": 81741.2,
+            "usd_per_t": 2203.7,
+            "name": "United Kingdom"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 140634863,
+            "share": 0.0524,
+            "tonnes": 86493.2,
+            "usd_per_t": 1626.0,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 138776639,
+            "share": 0.0517,
+            "tonnes": 77584.5,
+            "usd_per_t": 1788.7,
+            "name": "Thailand"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 108951379,
+            "share": 0.0406,
+            "tonnes": 46357.8,
+            "usd_per_t": 2350.2,
+            "name": "Malaysia"
+          }
+        ],
+        "import_hhi": 0.0772,
+        "china_export_share": 0.3799
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 695,
+        "world_usd": 2691217040,
+        "world_tonnes": 165599.1,
+        "world_usd_per_t": 16251.4,
+        "export_hhi": 0.2128,
+        "exporters": [
+          {
+            "iso": "US",
+            "value_usd": 816281094,
+            "share": 0.3033,
+            "tonnes": 30674.4,
+            "usd_per_t": 26611.1,
+            "name": "USA"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 810309559,
+            "share": 0.3011,
+            "tonnes": 61273.2,
+            "usd_per_t": 13224.5,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 344449966,
+            "share": 0.128,
+            "tonnes": 12863.5,
+            "usd_per_t": 26777.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 209269751,
+            "share": 0.0778,
+            "tonnes": 23400.0,
+            "usd_per_t": 8943.2,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 170394185,
+            "share": 0.0633,
+            "tonnes": 7590.3,
+            "usd_per_t": 22448.9,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 129746374,
+            "share": 0.0482,
+            "tonnes": 15046.3,
+            "usd_per_t": 8623.1,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 90806425,
+            "share": 0.0337,
+            "tonnes": 4818.3,
+            "usd_per_t": 18846.2,
+            "name": "China"
+          },
+          {
+            "iso": "IT",
+            "value_usd": 27370295,
+            "share": 0.0102,
+            "tonnes": 294.2,
+            "usd_per_t": 93020.6,
+            "name": "Italy"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 947790464,
+            "share": 0.3522,
+            "tonnes": 98953.2,
+            "usd_per_t": 9578.2,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 588895678,
+            "share": 0.2188,
+            "tonnes": 15092.3,
+            "usd_per_t": 39019.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 261703810,
+            "share": 0.0972,
+            "tonnes": 14843.9,
+            "usd_per_t": 17630.4,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 235505440,
+            "share": 0.0875,
+            "tonnes": 7394.5,
+            "usd_per_t": 31848.8,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 172430746,
+            "share": 0.0641,
+            "tonnes": 5047.7,
+            "usd_per_t": 34160.3,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 117508420,
+            "share": 0.0437,
+            "tonnes": 2250.2,
+            "usd_per_t": 52221.9,
+            "name": "Singapore"
+          },
+          {
+            "iso": "US",
+            "value_usd": 85825717,
+            "share": 0.0319,
+            "tonnes": 1068.4,
+            "usd_per_t": 80328.3,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 63725098,
+            "share": 0.0237,
+            "tonnes": 1835.2,
+            "usd_per_t": 34723.7,
+            "name": "Malaysia"
+          }
+        ],
+        "import_hhi": 0.1972,
+        "china_export_share": 0.0337
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1701,
+        "world_usd": 15137708644,
+        "world_tonnes": 109120.4,
+        "world_usd_per_t": 138724.8,
+        "export_hhi": 0.1579,
+        "exporters": [
+          {
+            "iso": "JP",
+            "value_usd": 4497400304,
+            "share": 0.2971,
+            "tonnes": 10274.7,
+            "usd_per_t": 437717.7,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2829025156,
+            "share": 0.1869,
+            "tonnes": 55240.5,
+            "usd_per_t": 51212.9,
+            "name": "China"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 1711227938,
+            "share": 0.113,
+            "tonnes": 4681.4,
+            "usd_per_t": 365537.3,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1405977525,
+            "share": 0.0929,
+            "tonnes": 5470.5,
+            "usd_per_t": 257008.5,
+            "name": "USA"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1041113746,
+            "share": 0.0688,
+            "tonnes": 5195.4,
+            "usd_per_t": 200392.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 829736272,
+            "share": 0.0548,
+            "tonnes": 1802.2,
+            "usd_per_t": 460402.9,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 817581931,
+            "share": 0.054,
+            "tonnes": 2312.3,
+            "usd_per_t": 353585.3,
+            "name": "Singapore"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 610281260,
+            "share": 0.0403,
+            "tonnes": 685.9,
+            "usd_per_t": 889729.2,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 2605741282,
+            "share": 0.1721,
+            "tonnes": 8651.8,
+            "usd_per_t": 301178.8,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2145356679,
+            "share": 0.1417,
+            "tonnes": 5029.8,
+            "usd_per_t": 426529.6,
+            "name": "China"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1959017299,
+            "share": 0.1294,
+            "tonnes": 12930.5,
+            "usd_per_t": 151503.4,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1539615606,
+            "share": 0.1017,
+            "tonnes": 2453.0,
+            "usd_per_t": 627658.3,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1262087619,
+            "share": 0.0834,
+            "tonnes": 3315.2,
+            "usd_per_t": 380701.2,
+            "name": "Singapore"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 1072473405,
+            "share": 0.0708,
+            "tonnes": 34407.7,
+            "usd_per_t": 31169.6,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 975196708,
+            "share": 0.0644,
+            "tonnes": 2387.1,
+            "usd_per_t": 408519.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 475197126,
+            "share": 0.0314,
+            "tonnes": 13127.6,
+            "usd_per_t": 36198.3,
+            "name": "Thailand"
+          }
+        ],
+        "import_hhi": 0.0977,
+        "china_export_share": 0.1869
+      }
+    },
+    "2021": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1212,
+        "world_usd": 4651929691,
+        "world_tonnes": 1712348.5,
+        "world_usd_per_t": 2716.7,
+        "export_hhi": 0.2835,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 2336938328,
+            "share": 0.5024,
+            "tonnes": 772914.4,
+            "usd_per_t": 3023.5,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 572125883,
+            "share": 0.123,
+            "tonnes": 249849.5,
+            "usd_per_t": 2289.9,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 443832194,
+            "share": 0.0954,
+            "tonnes": 192298.7,
+            "usd_per_t": 2308.0,
+            "name": "Brazil"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 219635191,
+            "share": 0.0472,
+            "tonnes": 92438.0,
+            "usd_per_t": 2376.0,
+            "name": "France"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 210093603,
+            "share": 0.0452,
+            "tonnes": 91504.5,
+            "usd_per_t": 2296.0,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 129958693,
+            "share": 0.0279,
+            "tonnes": 45881.4,
+            "usd_per_t": 2832.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 90385099,
+            "share": 0.0194,
+            "tonnes": 43285.6,
+            "usd_per_t": 2088.1,
+            "name": "Australia"
+          },
+          {
+            "iso": "BA",
+            "value_usd": 87361717,
+            "share": 0.0188,
+            "tonnes": 31334.9,
+            "usd_per_t": 2788.0,
+            "name": "Bosnia Herzegovina"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "value_usd": 758669439,
+            "share": 0.1631,
+            "tonnes": 216232.2,
+            "usd_per_t": 3508.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 556369889,
+            "share": 0.1196,
+            "tonnes": 258957.4,
+            "usd_per_t": 2148.5,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 327449213,
+            "share": 0.0704,
+            "tonnes": 140929.2,
+            "usd_per_t": 2323.5,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "US",
+            "value_usd": 311662452,
+            "share": 0.067,
+            "tonnes": 129331.4,
+            "usd_per_t": 2409.8,
+            "name": "USA"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 288313369,
+            "share": 0.062,
+            "tonnes": 84050.0,
+            "usd_per_t": 3430.3,
+            "name": "Thailand"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 274547611,
+            "share": 0.059,
+            "tonnes": 89488.8,
+            "usd_per_t": 3068.0,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 213297060,
+            "share": 0.0459,
+            "tonnes": 86602.5,
+            "usd_per_t": 2462.9,
+            "name": "United Kingdom"
+          },
+          {
+            "iso": "AE",
+            "value_usd": 203214248,
+            "share": 0.0437,
+            "tonnes": 58926.6,
+            "usd_per_t": 3448.6,
+            "name": "United Arab Emirates"
+          }
+        ],
+        "import_hhi": 0.0696,
+        "china_export_share": 0.5024
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 687,
+        "world_usd": 4501552029,
+        "world_tonnes": 195810.0,
+        "world_usd_per_t": 22989.4,
+        "export_hhi": 0.2142,
+        "exporters": [
+          {
+            "iso": "DE",
+            "value_usd": 1526685377,
+            "share": 0.3391,
+            "tonnes": 62790.5,
+            "usd_per_t": 24314.0,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1133464151,
+            "share": 0.2518,
+            "tonnes": 41546.4,
+            "usd_per_t": 27281.9,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 610613813,
+            "share": 0.1356,
+            "tonnes": 31740.7,
+            "usd_per_t": 19237.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 481279878,
+            "share": 0.1069,
+            "tonnes": 21322.1,
+            "usd_per_t": 22571.9,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 276492141,
+            "share": 0.0614,
+            "tonnes": 10536.8,
+            "usd_per_t": 26240.7,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 163279145,
+            "share": 0.0363,
+            "tonnes": 9355.4,
+            "usd_per_t": 17452.9,
+            "name": "China"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 106160053,
+            "share": 0.0236,
+            "tonnes": 5747.7,
+            "usd_per_t": 18470.1,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DK",
+            "value_usd": 44101879,
+            "share": 0.0098,
+            "tonnes": 207.5,
+            "usd_per_t": 212553.5,
+            "name": "Denmark"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 2174257766,
+            "share": 0.483,
+            "tonnes": 113309.3,
+            "usd_per_t": 19188.7,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 685633145,
+            "share": 0.1523,
+            "tonnes": 15428.0,
+            "usd_per_t": 44440.9,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 418386882,
+            "share": 0.0929,
+            "tonnes": 19111.4,
+            "usd_per_t": 21892.1,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 300832184,
+            "share": 0.0668,
+            "tonnes": 8201.5,
+            "usd_per_t": 36680.0,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 157682897,
+            "share": 0.035,
+            "tonnes": 6272.2,
+            "usd_per_t": 25140.0,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 140095183,
+            "share": 0.0311,
+            "tonnes": 2537.8,
+            "usd_per_t": 55202.7,
+            "name": "Singapore"
+          },
+          {
+            "iso": "US",
+            "value_usd": 126414793,
+            "share": 0.0281,
+            "tonnes": 1928.4,
+            "usd_per_t": 65555.9,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 123071355,
+            "share": 0.0273,
+            "tonnes": 2634.2,
+            "usd_per_t": 46719.9,
+            "name": "Malaysia"
+          }
+        ],
+        "import_hhi": 0.2742,
+        "china_export_share": 0.0363
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1815,
+        "world_usd": 18233295756,
+        "world_tonnes": 111418.3,
+        "world_usd_per_t": 163647.2,
+        "export_hhi": 0.1591,
+        "exporters": [
+          {
+            "iso": "JP",
+            "value_usd": 5152712148,
+            "share": 0.2826,
+            "tonnes": 11752.9,
+            "usd_per_t": 438419.0,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 3986085831,
+            "share": 0.2186,
+            "tonnes": 62357.5,
+            "usd_per_t": 63923.2,
+            "name": "China"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 1887031844,
+            "share": 0.1035,
+            "tonnes": 7472.0,
+            "usd_per_t": 252547.4,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1565378766,
+            "share": 0.0859,
+            "tonnes": 2694.7,
+            "usd_per_t": 580904.6,
+            "name": "USA"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1193224904,
+            "share": 0.0654,
+            "tonnes": 4725.0,
+            "usd_per_t": 252533.5,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1093418727,
+            "share": 0.06,
+            "tonnes": 2383.0,
+            "usd_per_t": 458849.2,
+            "name": "Singapore"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 994055493,
+            "share": 0.0545,
+            "tonnes": 2442.0,
+            "usd_per_t": 407068.1,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 719236016,
+            "share": 0.0394,
+            "tonnes": 844.2,
+            "usd_per_t": 852011.8,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 3011579188,
+            "share": 0.1652,
+            "tonnes": 9269.5,
+            "usd_per_t": 324890.0,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2770444694,
+            "share": 0.1519,
+            "tonnes": 7193.7,
+            "usd_per_t": 385118.8,
+            "name": "China"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2285405909,
+            "share": 0.1253,
+            "tonnes": 12334.0,
+            "usd_per_t": 185293.7,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1705492029,
+            "share": 0.0935,
+            "tonnes": 2847.6,
+            "usd_per_t": 598931.2,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1430863698,
+            "share": 0.0785,
+            "tonnes": 3087.4,
+            "usd_per_t": 463449.0,
+            "name": "Singapore"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 1303351620,
+            "share": 0.0715,
+            "tonnes": 22407.4,
+            "usd_per_t": 58166.0,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 1118778858,
+            "share": 0.0614,
+            "tonnes": 2499.9,
+            "usd_per_t": 447535.0,
+            "name": "Japan"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 713468773,
+            "share": 0.0391,
+            "tonnes": 12616.5,
+            "usd_per_t": 56550.6,
+            "name": "Thailand"
+          }
+        ],
+        "import_hhi": 0.0959,
+        "china_export_share": 0.2186
+      }
+    },
+    "2022": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1231,
+        "world_usd": 6191986719,
+        "world_tonnes": 1594801.5,
+        "world_usd_per_t": 3882.6,
+        "export_hhi": 0.1925,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 2288075378,
+            "share": 0.3695,
+            "tonnes": 663954.0,
+            "usd_per_t": 3446.1,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 953941266,
+            "share": 0.1541,
+            "tonnes": 226562.5,
+            "usd_per_t": 4210.5,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 931172641,
+            "share": 0.1504,
+            "tonnes": 207752.5,
+            "usd_per_t": 4482.1,
+            "name": "Brazil"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 390217284,
+            "share": 0.063,
+            "tonnes": 92891.1,
+            "usd_per_t": 4200.8,
+            "name": "France"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 224570053,
+            "share": 0.0363,
+            "tonnes": 52745.2,
+            "usd_per_t": 4257.6,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 219096487,
+            "share": 0.0354,
+            "tonnes": 45052.1,
+            "usd_per_t": 4863.2,
+            "name": "Canada"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 198491410,
+            "share": 0.0321,
+            "tonnes": 43588.1,
+            "usd_per_t": 4553.8,
+            "name": "Australia"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 148872550,
+            "share": 0.024,
+            "tonnes": 46649.6,
+            "usd_per_t": 3191.3,
+            "name": "Malaysia"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 1015027964,
+            "share": 0.1639,
+            "tonnes": 252688.6,
+            "usd_per_t": 4016.9,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 778951085,
+            "share": 0.1258,
+            "tonnes": 206901.2,
+            "usd_per_t": 3764.8,
+            "name": "Japan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 702466554,
+            "share": 0.1134,
+            "tonnes": 128234.3,
+            "usd_per_t": 5478.0,
+            "name": "USA"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 340533886,
+            "share": 0.055,
+            "tonnes": 80783.5,
+            "usd_per_t": 4215.4,
+            "name": "Thailand"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 289485161,
+            "share": 0.0468,
+            "tonnes": 89501.3,
+            "usd_per_t": 3234.4,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 287017859,
+            "share": 0.0464,
+            "tonnes": 87543.0,
+            "usd_per_t": 3278.6,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 261337365,
+            "share": 0.0422,
+            "tonnes": 56701.1,
+            "usd_per_t": 4609.0,
+            "name": "United Kingdom"
+          },
+          {
+            "iso": "IN",
+            "value_usd": 249475897,
+            "share": 0.0403,
+            "tonnes": 75690.6,
+            "usd_per_t": 3296.0,
+            "name": "India"
+          }
+        ],
+        "import_hhi": 0.0745,
+        "china_export_share": 0.3695
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 705,
+        "world_usd": 5859530807,
+        "world_tonnes": 185186.2,
+        "world_usd_per_t": 31641.3,
+        "export_hhi": 0.2325,
+        "exporters": [
+          {
+            "iso": "DE",
+            "value_usd": 2098537796,
+            "share": 0.3581,
+            "tonnes": 69991.9,
+            "usd_per_t": 29982.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1587215569,
+            "share": 0.2709,
+            "tonnes": 42970.4,
+            "usd_per_t": 36937.4,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 753048624,
+            "share": 0.1285,
+            "tonnes": 25434.3,
+            "usd_per_t": 29607.6,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 570591628,
+            "share": 0.0974,
+            "tonnes": 14558.3,
+            "usd_per_t": 39193.5,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 310040648,
+            "share": 0.0529,
+            "tonnes": 7659.7,
+            "usd_per_t": 40476.6,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 231362181,
+            "share": 0.0395,
+            "tonnes": 8449.2,
+            "usd_per_t": 27382.6,
+            "name": "China"
+          },
+          {
+            "iso": "DK",
+            "value_usd": 88190093,
+            "share": 0.0151,
+            "tonnes": 659.2,
+            "usd_per_t": 133787.8,
+            "name": "Denmark"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 80428412,
+            "share": 0.0137,
+            "tonnes": 3104.6,
+            "usd_per_t": 25906.2,
+            "name": "Rep. of Korea"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 2674744546,
+            "share": 0.4565,
+            "tonnes": 88748.2,
+            "usd_per_t": 30138.6,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 749432226,
+            "share": 0.1279,
+            "tonnes": 17049.7,
+            "usd_per_t": 43955.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "VN",
+            "value_usd": 704370821,
+            "share": 0.1202,
+            "tonnes": 19886.6,
+            "usd_per_t": 35419.3,
+            "name": "Viet Nam"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 498544837,
+            "share": 0.0851,
+            "tonnes": 15801.3,
+            "usd_per_t": 31551.0,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 296970781,
+            "share": 0.0507,
+            "tonnes": 5427.1,
+            "usd_per_t": 54719.5,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 180440738,
+            "share": 0.0308,
+            "tonnes": 5489.7,
+            "usd_per_t": 32868.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 170602544,
+            "share": 0.0291,
+            "tonnes": 1984.1,
+            "usd_per_t": 85983.5,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 150089872,
+            "share": 0.0256,
+            "tonnes": 2559.9,
+            "usd_per_t": 58630.9,
+            "name": "Singapore"
+          }
+        ],
+        "import_hhi": 0.2521,
+        "china_export_share": 0.0395
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1873,
+        "world_usd": 21861346199,
+        "world_tonnes": 146231.6,
+        "world_usd_per_t": 149498.1,
+        "export_hhi": 0.1823,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 6674334485,
+            "share": 0.3053,
+            "tonnes": 83976.0,
+            "usd_per_t": 79479.0,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 5538033850,
+            "share": 0.2533,
+            "tonnes": 12088.8,
+            "usd_per_t": 458114.3,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 2020781508,
+            "share": 0.0924,
+            "tonnes": 5579.6,
+            "usd_per_t": 362174.9,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1640808048,
+            "share": 0.0751,
+            "tonnes": 5018.5,
+            "usd_per_t": 326954.8,
+            "name": "USA"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1358219311,
+            "share": 0.0621,
+            "tonnes": 3526.7,
+            "usd_per_t": 385126.8,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1159988998,
+            "share": 0.0531,
+            "tonnes": 17082.8,
+            "usd_per_t": 67903.8,
+            "name": "Singapore"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 1026990427,
+            "share": 0.047,
+            "tonnes": 1841.7,
+            "usd_per_t": 557618.1,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 706790538,
+            "share": 0.0323,
+            "tonnes": 2357.5,
+            "usd_per_t": 299801.2,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 3616135575,
+            "share": 0.1654,
+            "tonnes": 9808.8,
+            "usd_per_t": 368662.5,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 3074760831,
+            "share": 0.1406,
+            "tonnes": 6082.5,
+            "usd_per_t": 505507.5,
+            "name": "China"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2502761312,
+            "share": 0.1145,
+            "tonnes": 11239.9,
+            "usd_per_t": 222667.4,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 2103391077,
+            "share": 0.0962,
+            "tonnes": 52378.4,
+            "usd_per_t": 40157.6,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "US",
+            "value_usd": 2013246743,
+            "share": 0.0921,
+            "tonnes": 3274.6,
+            "usd_per_t": 614809.4,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1472303935,
+            "share": 0.0673,
+            "tonnes": 3116.6,
+            "usd_per_t": 472408.6,
+            "name": "Singapore"
+          },
+          {
+            "iso": "VN",
+            "value_usd": 1310816135,
+            "share": 0.06,
+            "tonnes": 17658.9,
+            "usd_per_t": 74229.8,
+            "name": "Viet Nam"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 1180585353,
+            "share": 0.054,
+            "tonnes": 2510.0,
+            "usd_per_t": 470350.9,
+            "name": "Japan"
+          }
+        ],
+        "import_hhi": 0.094,
+        "china_export_share": 0.3053
+      }
+    },
+    "2023": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1187,
+        "world_usd": 3908859768,
+        "world_tonnes": 1337554.3,
+        "world_usd_per_t": 2922.4,
+        "export_hhi": 0.1874,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 1325488502,
+            "share": 0.3391,
+            "tonnes": 560651.1,
+            "usd_per_t": 2364.2,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 753984697,
+            "share": 0.1929,
+            "tonnes": 232617.0,
+            "usd_per_t": 3241.3,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 637510254,
+            "share": 0.1631,
+            "tonnes": 186564.7,
+            "usd_per_t": 3417.1,
+            "name": "Brazil"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 216512932,
+            "share": 0.0554,
+            "tonnes": 66624.4,
+            "usd_per_t": 3249.8,
+            "name": "France"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 160980762,
+            "share": 0.0412,
+            "tonnes": 39265.8,
+            "usd_per_t": 4099.8,
+            "name": "Canada"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 142085897,
+            "share": 0.0363,
+            "tonnes": 45140.0,
+            "usd_per_t": 3147.7,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 104803750,
+            "share": 0.0268,
+            "tonnes": 24067.6,
+            "usd_per_t": 4354.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 102640903,
+            "share": 0.0263,
+            "tonnes": 31327.1,
+            "usd_per_t": 3276.4,
+            "name": "Australia"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 758396875,
+            "share": 0.194,
+            "tonnes": 227216.2,
+            "usd_per_t": 3337.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 411139707,
+            "share": 0.1052,
+            "tonnes": 159132.3,
+            "usd_per_t": 2583.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 402469040,
+            "share": 0.103,
+            "tonnes": 98691.9,
+            "usd_per_t": 4078.0,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 237646950,
+            "share": 0.0608,
+            "tonnes": 68034.7,
+            "usd_per_t": 3493.0,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 199048892,
+            "share": 0.0509,
+            "tonnes": 84832.9,
+            "usd_per_t": 2346.4,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "IN",
+            "value_usd": 194848300,
+            "share": 0.0498,
+            "tonnes": 83439.9,
+            "usd_per_t": 2335.2,
+            "name": "India"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 194329800,
+            "share": 0.0497,
+            "tonnes": 71973.6,
+            "usd_per_t": 2700.0,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "GB",
+            "value_usd": 170113171,
+            "share": 0.0435,
+            "tonnes": 46675.9,
+            "usd_per_t": 3644.6,
+            "name": "United Kingdom"
+          }
+        ],
+        "import_hhi": 0.0789,
+        "china_export_share": 0.3391
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 665,
+        "world_usd": 4440075299,
+        "world_tonnes": 156821.8,
+        "world_usd_per_t": 28312.9,
+        "export_hhi": 0.2333,
+        "exporters": [
+          {
+            "iso": "DE",
+            "value_usd": 1485931073,
+            "share": 0.3347,
+            "tonnes": 62153.3,
+            "usd_per_t": 23907.5,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1334575614,
+            "share": 0.3006,
+            "tonnes": 37840.4,
+            "usd_per_t": 35268.5,
+            "name": "USA"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 613497925,
+            "share": 0.1382,
+            "tonnes": 28302.4,
+            "usd_per_t": 21676.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 364976096,
+            "share": 0.0822,
+            "tonnes": 7008.3,
+            "usd_per_t": 52077.8,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 246921108,
+            "share": 0.0556,
+            "tonnes": 10105.1,
+            "usd_per_t": 24435.3,
+            "name": "China"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 152059344,
+            "share": 0.0342,
+            "tonnes": 3377.2,
+            "usd_per_t": 45025.5,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "DK",
+            "value_usd": 111452634,
+            "share": 0.0251,
+            "tonnes": 731.3,
+            "usd_per_t": 152410.7,
+            "name": "Denmark"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 52973702,
+            "share": 0.0119,
+            "tonnes": 1774.4,
+            "usd_per_t": 29854.6,
+            "name": "Rep. of Korea"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "value_usd": 1423464770,
+            "share": 0.3206,
+            "tonnes": 61771.5,
+            "usd_per_t": 23044.0,
+            "name": "China"
+          },
+          {
+            "iso": "VN",
+            "value_usd": 1049664561,
+            "share": 0.2364,
+            "tonnes": 38745.6,
+            "usd_per_t": 27091.2,
+            "name": "Viet Nam"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 726233172,
+            "share": 0.1636,
+            "tonnes": 15538.0,
+            "usd_per_t": 46739.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 291688293,
+            "share": 0.0657,
+            "tonnes": 9740.5,
+            "usd_per_t": 29945.8,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 210497712,
+            "share": 0.0474,
+            "tonnes": 4548.9,
+            "usd_per_t": 46274.6,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 136232858,
+            "share": 0.0307,
+            "tonnes": 2435.9,
+            "usd_per_t": 55926.8,
+            "name": "Singapore"
+          },
+          {
+            "iso": "US",
+            "value_usd": 115259412,
+            "share": 0.026,
+            "tonnes": 1329.3,
+            "usd_per_t": 86704.2,
+            "name": "USA"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 106244377,
+            "share": 0.0239,
+            "tonnes": 2454.7,
+            "usd_per_t": 43281.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          }
+        ],
+        "import_hhi": 0.1948,
+        "china_export_share": 0.0556
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1766,
+        "world_usd": 20832181484,
+        "world_tonnes": 162193.4,
+        "world_usd_per_t": 128440.4,
+        "export_hhi": 0.1906,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 6992169894,
+            "share": 0.3356,
+            "tonnes": 102949.3,
+            "usd_per_t": 67918.6,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 4921424547,
+            "share": 0.2362,
+            "tonnes": 10228.6,
+            "usd_per_t": 481143.3,
+            "name": "Japan"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1751551180,
+            "share": 0.0841,
+            "tonnes": 11175.1,
+            "usd_per_t": 156736.9,
+            "name": "USA"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 1542822520,
+            "share": 0.0741,
+            "tonnes": 8618.3,
+            "usd_per_t": 179017.1,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1076277452,
+            "share": 0.0517,
+            "tonnes": 2161.9,
+            "usd_per_t": 497830.4,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 1003411769,
+            "share": 0.0482,
+            "tonnes": 1717.3,
+            "usd_per_t": 584303.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 980599505,
+            "share": 0.0471,
+            "tonnes": 7721.5,
+            "usd_per_t": 126996.0,
+            "name": "Singapore"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 670400792,
+            "share": 0.0322,
+            "tonnes": 749.8,
+            "usd_per_t": 894163.4,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 3150940348,
+            "share": 0.1513,
+            "tonnes": 7766.6,
+            "usd_per_t": 405704.1,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2471815835,
+            "share": 0.1187,
+            "tonnes": 5364.7,
+            "usd_per_t": 460756.5,
+            "name": "China"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2325607661,
+            "share": 0.1116,
+            "tonnes": 9976.0,
+            "usd_per_t": 233119.2,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 2131315586,
+            "share": 0.1023,
+            "tonnes": 49977.8,
+            "usd_per_t": 42645.3,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1528481224,
+            "share": 0.0734,
+            "tonnes": 2491.9,
+            "usd_per_t": 613374.7,
+            "name": "USA"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 1515056995,
+            "share": 0.0727,
+            "tonnes": 26071.8,
+            "usd_per_t": 58110.9,
+            "name": "Thailand"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1366021922,
+            "share": 0.0656,
+            "tonnes": 3136.7,
+            "usd_per_t": 435493.0,
+            "name": "Singapore"
+          },
+          {
+            "iso": "VN",
+            "value_usd": 1242596452,
+            "share": 0.0596,
+            "tonnes": 21724.7,
+            "usd_per_t": 57197.5,
+            "name": "Viet Nam"
+          }
+        ],
+        "import_hhi": 0.0848,
+        "china_export_share": 0.3356
+      }
+    },
+    "2024": {
+      "280469": {
+        "label": "silicon_metal",
+        "title": "Silicon, < 99.99%",
+        "flag": "industrial / metallurgical silicon metal",
+        "n_flows": 1121,
+        "world_usd": 3889946787,
+        "world_tonnes": 1557240.7,
+        "world_usd_per_t": 2498.0,
+        "export_hhi": 0.2001,
+        "exporters": [
+          {
+            "iso": "CN",
+            "value_usd": 1555149693,
+            "share": 0.3998,
+            "tonnes": 724025.6,
+            "usd_per_t": 2147.9,
+            "name": "China"
+          },
+          {
+            "iso": "NO",
+            "value_usd": 489119535,
+            "share": 0.1257,
+            "tonnes": 188537.2,
+            "usd_per_t": 2594.3,
+            "name": "Norway"
+          },
+          {
+            "iso": "BR",
+            "value_usd": 476821971,
+            "share": 0.1226,
+            "tonnes": 176741.2,
+            "usd_per_t": 2697.9,
+            "name": "Brazil"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 221211081,
+            "share": 0.0569,
+            "tonnes": 77306.9,
+            "usd_per_t": 2861.5,
+            "name": "France"
+          },
+          {
+            "iso": "CA",
+            "value_usd": 128870241,
+            "share": 0.0331,
+            "tonnes": 39389.3,
+            "usd_per_t": 3271.7,
+            "name": "Canada"
+          },
+          {
+            "iso": "AU",
+            "value_usd": 120487894,
+            "share": 0.031,
+            "tonnes": 42595.3,
+            "usd_per_t": 2828.7,
+            "name": "Australia"
+          },
+          {
+            "iso": "NL",
+            "value_usd": 117685956,
+            "share": 0.0303,
+            "tonnes": 36995.6,
+            "usd_per_t": 3181.1,
+            "name": "Netherlands"
+          },
+          {
+            "iso": "ES",
+            "value_usd": 104465820,
+            "share": 0.0269,
+            "tonnes": 34600.6,
+            "usd_per_t": 3019.2,
+            "name": "Spain"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "value_usd": 587658435,
+            "share": 0.1511,
+            "tonnes": 231310.4,
+            "usd_per_t": 2540.6,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 515701909,
+            "share": 0.1326,
+            "tonnes": 166983.7,
+            "usd_per_t": 3088.3,
+            "name": "USA"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 381876208,
+            "share": 0.0982,
+            "tonnes": 173248.6,
+            "usd_per_t": 2204.2,
+            "name": "Japan"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 314173197,
+            "share": 0.0808,
+            "tonnes": 85507.6,
+            "usd_per_t": 3674.2,
+            "name": "Thailand"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 198622302,
+            "share": 0.0511,
+            "tonnes": 71433.4,
+            "usd_per_t": 2780.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "IN",
+            "value_usd": 182870671,
+            "share": 0.047,
+            "tonnes": 89916.5,
+            "usd_per_t": 2033.8,
+            "name": "India"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 173015466,
+            "share": 0.0445,
+            "tonnes": 85959.2,
+            "usd_per_t": 2012.8,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 164394298,
+            "share": 0.0423,
+            "tonnes": 30448.6,
+            "usd_per_t": 5399.1,
+            "name": "China"
+          }
+        ],
+        "import_hhi": 0.0728,
+        "china_export_share": 0.3998
+      },
+      "280461": {
+        "label": "silicon_highpurity",
+        "title": "Silicon, >= 99.99%",
+        "flag": "MIXED: solar-grade polysilicon and electronic-grade polysilicon share this code",
+        "n_flows": 597,
+        "world_usd": 3625664179,
+        "world_tonnes": 164129.1,
+        "world_usd_per_t": 22090.3,
+        "export_hhi": 0.2256,
+        "exporters": [
+          {
+            "iso": "DE",
+            "value_usd": 1176072842,
+            "share": 0.3244,
+            "tonnes": 51471.9,
+            "usd_per_t": 22848.8,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1090231614,
+            "share": 0.3007,
+            "tonnes": 34627.4,
+            "usd_per_t": 31484.6,
+            "name": "USA"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 456419667,
+            "share": 0.1259,
+            "tonnes": 43097.9,
+            "usd_per_t": 10590.3,
+            "name": "China"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 295768287,
+            "share": 0.0816,
+            "tonnes": 15834.3,
+            "usd_per_t": 18679.0,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 258970833,
+            "share": 0.0714,
+            "tonnes": 4511.4,
+            "usd_per_t": 57403.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 135744857,
+            "share": 0.0374,
+            "tonnes": 3395.7,
+            "usd_per_t": 39975.4,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "DK",
+            "value_usd": 92390122,
+            "share": 0.0255,
+            "tonnes": 504.8,
+            "usd_per_t": 183024.7,
+            "name": "Denmark"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 52384105,
+            "share": 0.0144,
+            "tonnes": 1608.4,
+            "usd_per_t": 32570.0,
+            "name": "Rep. of Korea"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "VN",
+            "value_usd": 881581511,
+            "share": 0.2432,
+            "tonnes": 48424.5,
+            "usd_per_t": 18205.3,
+            "name": "Viet Nam"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 855708814,
+            "share": 0.236,
+            "tonnes": 39288.1,
+            "usd_per_t": 21780.4,
+            "name": "China"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 624157757,
+            "share": 0.1721,
+            "tonnes": 12142.4,
+            "usd_per_t": 51403.3,
+            "name": "Japan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 244272987,
+            "share": 0.0674,
+            "tonnes": 6280.3,
+            "usd_per_t": 38895.0,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 188433117,
+            "share": 0.052,
+            "tonnes": 6200.7,
+            "usd_per_t": 30389.2,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 163813956,
+            "share": 0.0452,
+            "tonnes": 17158.5,
+            "usd_per_t": 9547.1,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "US",
+            "value_usd": 120437941,
+            "share": 0.0332,
+            "tonnes": 1704.9,
+            "usd_per_t": 70641.4,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 103084488,
+            "share": 0.0284,
+            "tonnes": 1890.4,
+            "usd_per_t": 54531.6,
+            "name": "Singapore"
+          }
+        ],
+        "import_hhi": 0.1574,
+        "china_export_share": 0.1259
+      },
+      "381800": {
+        "label": "wafers",
+        "title": "Doped discs / wafers for electronics",
+        "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+        "n_flows": 1585,
+        "world_usd": 17805696079,
+        "world_tonnes": 114146.6,
+        "world_usd_per_t": 155989.7,
+        "export_hhi": 0.1582,
+        "exporters": [
+          {
+            "iso": "JP",
+            "value_usd": 4997671994,
+            "share": 0.2807,
+            "tonnes": 9385.1,
+            "usd_per_t": 532513.6,
+            "name": "Japan"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 3964362017,
+            "share": 0.2226,
+            "tonnes": 66684.8,
+            "usd_per_t": 59449.2,
+            "name": "China"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1857356150,
+            "share": 0.1043,
+            "tonnes": 2432.3,
+            "usd_per_t": 763606.6,
+            "name": "USA"
+          },
+          {
+            "iso": "TW",
+            "value_usd": 1333040139,
+            "share": 0.0749,
+            "tonnes": 3446.8,
+            "usd_per_t": 386743.9,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 1094612995,
+            "share": 0.0615,
+            "tonnes": 2390.8,
+            "usd_per_t": 457839.2,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "DE",
+            "value_usd": 1032621841,
+            "share": 0.058,
+            "tonnes": 1371.0,
+            "usd_per_t": 753163.0,
+            "name": "Fed. Rep. of Germany (...1990)"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 977251523,
+            "share": 0.0549,
+            "tonnes": 10898.4,
+            "usd_per_t": 89669.5,
+            "name": "Singapore"
+          },
+          {
+            "iso": "FR",
+            "value_usd": 689486658,
+            "share": 0.0387,
+            "tonnes": 629.1,
+            "usd_per_t": 1095987.2,
+            "name": "France"
+          }
+        ],
+        "importers": [
+          {
+            "iso": "TW",
+            "value_usd": 2955713507,
+            "share": 0.166,
+            "tonnes": 6606.7,
+            "usd_per_t": 447379.5,
+            "name": "Taiwan"
+          },
+          {
+            "iso": "KR",
+            "value_usd": 2469011794,
+            "share": 0.1387,
+            "tonnes": 10091.8,
+            "usd_per_t": 244655.6,
+            "name": "Rep. of Korea"
+          },
+          {
+            "iso": "CN",
+            "value_usd": 2408557406,
+            "share": 0.1353,
+            "tonnes": 6088.5,
+            "usd_per_t": 395588.5,
+            "name": "China"
+          },
+          {
+            "iso": "US",
+            "value_usd": 1556600088,
+            "share": 0.0874,
+            "tonnes": 3158.5,
+            "usd_per_t": 492829.7,
+            "name": "USA"
+          },
+          {
+            "iso": "SG",
+            "value_usd": 1283604278,
+            "share": 0.0721,
+            "tonnes": 2128.0,
+            "usd_per_t": 603187.0,
+            "name": "Singapore"
+          },
+          {
+            "iso": "JP",
+            "value_usd": 1214316744,
+            "share": 0.0682,
+            "tonnes": 2341.9,
+            "usd_per_t": 518519.1,
+            "name": "Japan"
+          },
+          {
+            "iso": "MY",
+            "value_usd": 981425511,
+            "share": 0.0551,
+            "tonnes": 21411.4,
+            "usd_per_t": 45836.5,
+            "name": "Malaysia"
+          },
+          {
+            "iso": "TH",
+            "value_usd": 814306302,
+            "share": 0.0457,
+            "tonnes": 17028.6,
+            "usd_per_t": 47819.9,
+            "name": "Thailand"
+          }
+        ],
+        "import_hhi": 0.0922,
+        "china_export_share": 0.2226
+      }
+    }
+  }
+}
