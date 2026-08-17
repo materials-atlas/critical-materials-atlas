@@ -2,7 +2,7 @@
 
 Unpublished draft on `wip/silicon-chip-chain`. Not added to the 32. Not on the live site.
 
-Source: the same CEPII BACI HS17 V202601 files the Atlas already uses (2018–2024).
+Source: the same CEPII BACI files the Atlas already uses — HS02 2002–2016, HS17 2017–2024.
 Reproduce: `python silicon-chip/extract_baci.py`
 
 ## What we pulled
@@ -27,6 +27,16 @@ Reproduce: `python silicon-chip/extract_baci.py`
 | Next: Norway / Brazil / France | 13% / 12% / 6% | 13% / 12% / 6% |
 
 Close enough. The extractor is reading the same trade the Atlas already trusts.
+
+## China export share, 2002–2024 (value)
+
+| | 2002 | 2010 | 2017 | 2023 | 2024 |
+|---|---|---|---|---|---|
+| Metal 280469 | 29% | 41% | 45% | 34% | 40% |
+| Purer silicon 280461 | 4.5% | 4% | 2.5% | 6% | 13% |
+| Wafers 381800 | 0.7% | 15% | 28% | 34% | 22% |
+
+Purer-silicon *exports* stay small even while IEA says China *makes* ~90% of solar poly. Wafer export share rose as solar wafers scaled. 2024 metal still matches the live profile.
 
 ## 2024 headline
 

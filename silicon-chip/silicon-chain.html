@@ -21,6 +21,10 @@
   table.cmp th:nth-child(n+2), table.cmp td:nth-child(n+2){text-align:right;font-variant-numeric:tabular-nums}
   .flag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#fbf3f2;color:#b4532b;border:1px solid #f0d9d5;border-radius:4px;padding:.12rem .4rem;vertical-align:middle}
   .okflag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;background:#eef6f5;color:#0e7c74;border:1px solid #d4e8e5;border-radius:4px;padding:.12rem .4rem}
+  .yr{display:flex;align-items:center;gap:.7rem;margin:.8rem 0 1rem}
+  .yr input{flex:1;accent-color:#0e7c74;cursor:pointer;height:4px}
+  .yr b{font-variant-numeric:tabular-nums;min-width:3.4em;font-size:1.15rem;color:#15323a}
+  .spark{width:100%;height:120px;display:block;margin:.4rem 0 1rem}
 </style>
 </head><body>
 <div class="draftbar">Draft · unpublished · not on the live site <span>— not added to the 32 · not in the nav</span></div>
@@ -37,7 +41,7 @@
   <div class="eyebrow">Draft · chips first · silicon only</div>
   <h1>Silicon metal → pure silicon → wafers</h1>
   <p class="deck">One hop past the silicon the Atlas already publishes. The next two customs lines are real and thick. Both mix <b>solar and chips</b>. Who <i>makes</i> the solar half is public. Who makes the chip half is not — and this page does not invent it.</p>
-  <p class="byline">Trade 2024 · CEPII BACI HS17 V202601 · factory 2023 · IEA-PVPS Trends T1-43:2024 · metal layer USGS / live Atlas silicon</p>
+  <p class="byline">Trade 2002–2024 · CEPII BACI (HS02 to 2016, HS17 from 2017) · factory vintages 2020 / 2023 / 2024 · IEA-PVPS + IEA ETP · metal layer USGS</p>
 </div></section>
 
 <article>
@@ -49,16 +53,16 @@
 
   <div class="stat4">
     <div class="box">
-      <div class="v">$3.9B</div>
-      <div class="l">Industrial silicon metal traded, 2024 (HS 280469) — already on the live profile</div>
+      <div class="v" id="s-metal">—</div>
+      <div class="l" id="s-metal-l">Industrial silicon metal traded (HS 280469)</div>
     </div>
     <div class="box">
-      <div class="v">$3.6B</div>
-      <div class="l">Purer silicon traded, 2024 (HS 280461) — same dollars, one-tenth the tonnes</div>
+      <div class="v" id="s-hp">—</div>
+      <div class="l" id="s-hp-l">Purer silicon traded (HS 280461)</div>
     </div>
     <div class="box">
-      <div class="v">$17.8B</div>
-      <div class="l">Wafers traded, 2024 (HS 381800) — the money jumps here, not at the metal</div>
+      <div class="v" id="s-waf">—</div>
+      <div class="l" id="s-waf-l">Wafers traded (HS 381800)</div>
     </div>
     <div class="box gap">
       <div class="v">No public table</div>
@@ -66,38 +70,44 @@
     </div>
   </div>
 
+  <h2>China’s export share, 2002–2024</h2>
+  <p class="note" style="margin-top:0">Annual customs share — not factory production. Factory points sit as dots on the same chart where IEA published them. Nomenclature changes in 2017 (HS02 → HS17); the three codes themselves do not.</p>
+  <svg class="spark" id="spark" viewBox="0 0 640 120" preserveAspectRatio="none" aria-label="China export share 2002-2024"></svg>
+  <p class="note" id="spark-leg"></p>
+
   <h2>The chain, in three measurable hops</h2>
   <p>Same grammar as the rest of the Atlas: a public code, who ships it, who makes it if a public factory series exists, and a flag when the code is dirty.</p>
+  <div class="yr"><span class="note">trade year</span><input id="ys" type="range" min="0" max="0" value="0" step="1" aria-label="year"><b id="ylab">—</b></div>
 
   <h3 class="stage">1 · Silicon metal <span class="okflag">already published</span></h3>
   <p>HS <b>280469</b> — silicon under 99.99%. Alloys, silicones, and the feedstock for everything downstream. This <i>is</i> current Atlas silicon.</p>
-  <p class="note">2024 trade matches the live <a href="../profile-silicon.html">silicon profile</a> (China 40% of exports, $1.55B, ~$2,150/t). Mine / refine shares on that page are USGS / IEA: China ~73% of mining, ~79% of refining. The metal is abundant; the concentration is already genuine, not an accounting trick.</p>
+  <p class="note" id="metal-note"></p>
   <div id="metal-exp"></div>
 
   <h3 class="stage">2 · Purer silicon <span class="flag">mixed code</span></h3>
   <p>HS <b>280461</b> — silicon at least 99.99%. The legal cut is 4N. Solar polysilicon and electronic-grade poly both live here. Vietnam as the top importer is solar cells, not a chip plant.</p>
-  <p class="note">2024: $3.63B, 164 kt, about <b>$22,000/t</b> — nine times the metal’s price. Germany and the US lead <i>exports</i>. China leads <i>making</i> the solar half and uses most of it at home.</p>
+  <p class="note" id="hp-note"></p>
   <div id="hp-exp"></div>
   <table class="cmp">
     <caption>China on this hop — factory vs customs ledger</caption>
     <thead><tr><th></th><th>China share</th><th>What the number is</th></tr></thead>
     <tbody>
-      <tr><td>Makes polysilicon</td><td>92%</td><td>IEA-PVPS 2023 <i>production</i> (solar + a little semiconductor; semiconductor is ~2% of world tonnes)</td></tr>
-      <tr><td>Exports 280461</td><td>13%</td><td>BACI 2024 export <i>value</i>. China’s cargo is cheap (~$10,600/t); Japan’s is ~$57,000/t</td></tr>
+      <tr><td>Makes polysilicon</td><td>92% in 2023 · 86% in 2020</td><td>IEA-PVPS <i>production</i> vintages (solar + a little semiconductor). Not an annual series.</td></tr>
+      <tr><td>Exports 280461</td><td id="hp-cn-exp">—</td><td id="hp-cn-exp-l">BACI export <i>value</i> in the selected year</td></tr>
     </tbody>
   </table>
   <p class="note">Same Atlas thesis as cobalt: the country that makes it is not the country the customs line puts first. More than 98% of 2023 polysilicon went to solar.</p>
 
   <h3 class="stage">3 · Wafers <span class="flag">mixed code</span></h3>
   <p>HS <b>381800</b> — doped discs / wafers for electronics. Silicon wafers and compound wafers; cheap solar wafers and expensive chip wafers.</p>
-  <p class="note">2024: $17.8B, 114 kt. Japan leads <i>value</i> (28%, ~$533,000/t). China leads <i>tonnes</i> (58% of weight, 22% of value, ~$59,000/t). Buyers are Taiwan, Korea, China — the fab countries.</p>
+  <p class="note" id="waf-note"></p>
   <div id="waf-exp"></div>
   <table class="cmp">
     <caption>China on this hop — factory vs customs ledger</caption>
     <thead><tr><th></th><th>China share</th><th>What the number is</th></tr></thead>
     <tbody>
-      <tr><td>Makes solar wafers</td><td>98%</td><td>IEA-PVPS 2023 production (668 of 682 GW). Vietnam 2%</td></tr>
-      <tr><td>Exports 381800</td><td>22% value · 58% tonnes</td><td>BACI 2024. The tonne share is the solar-wafer half showing through</td></tr>
+      <tr><td>Makes solar wafers</td><td>98% in 2023</td><td>IEA-PVPS production vintage. ~90% of wafer + poly <i>supply</i> in 2024 (IEA ETP). Not an annual series.</td></tr>
+      <tr><td>Exports 381800</td><td id="waf-cn-exp">—</td><td id="waf-cn-exp-l">BACI export value (and tonnes) in the selected year</td></tr>
     </tbody>
   </table>
 
@@ -125,13 +135,14 @@
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>Unpublished draft on a local branch. Not affiliated with, nor representing, any institution.</div>
   <div><h4>This draft</h4><a href="NOTES.md">Trade note</a><br><a href="PRODUCTION.md">Factory note</a><br><a href="../profile-silicon.html">Live silicon profile</a></div>
-  <div><h4>Sources</h4>CEPII BACI HS17 V202601<br>IEA-PVPS Trends 2024<br>USGS MCS (metal layer only)</div>
+  <div><h4>Sources</h4>CEPII BACI V202601 (HS02 2002–16, HS17 2017–24)<br>IEA-PVPS Trends 2024 (factory vintages)<br>USGS MCS (metal layer only)</div>
   <div class="fineprint">Mixed HS codes are flagged, not cleaned. Solar factory shares must not be pasted onto a page titled “chips.” Chip-grade production has no public country table here.</div>
 </div></footer>
 
 <script>
 const NICE = {CN:'China',DE:'Germany',US:'United States',JP:'Japan',TW:'Taiwan',KR:'Korea',MY:'Malaysia',VN:'Vietnam',NO:'Norway',BR:'Brazil',FR:'France',CA:'Canada',AU:'Australia',SG:'Singapore',IN:'India',TH:'Thailand',DK:'Denmark'};
-function money(v){ if(v>=1e9) return '$'+(v/1e9).toFixed(1)+'B'; if(v>=1e6) return '$'+(v/1e6).toFixed(0)+'M'; return '$'+Math.round(v).toLocaleString(); }
+function money(v){ if(v>=1e9) return '$'+(v/1e9).toFixed(2)+'B'; if(v>=1e6) return '$'+(v/1e6).toFixed(0)+'M'; return '$'+Math.round(v).toLocaleString(); }
+function pct(x){ return (x==null) ? '—' : (100*x).toFixed(0)+'%'; }
 function bars(el, rows, worldT){
   el.innerHTML = rows.slice(0,6).map(r=>{
     const name = NICE[r.iso] || r.name || r.iso;
@@ -141,17 +152,97 @@ function bars(el, rows, worldT){
       + '<p class="note" style="margin:.0 0 .45rem 0">'+money(r.value_usd)+tshare+px+'</p>';
   }).join('');
 }
+function pathFor(series, key, years){
+  const vals = years.map(y => {
+    const row = series.find(s => s.year===y);
+    return row && row[key]!=null ? row[key] : null;
+  });
+  const n = years.length;
+  let d='', started=false;
+  vals.forEach((v,i)=>{
+    if(v==null){ started=false; return; }
+    const x = (i/(n-1))*640;
+    const y = 110 - v*100;
+    d += (started?' L':'M')+x.toFixed(1)+','+y.toFixed(1);
+    started=true;
+  });
+  return d;
+}
+function renderSpark(T){
+  const years = T.years;
+  const svg = document.getElementById('spark');
+  const cols = {'280469':'#c77f0a','280461':'#6d5fb0','381800':'#0e7c74'};
+  let g = '';
+  [0,0.25,0.5,0.75,1].forEach(f=>{
+    const y = 110 - f*100;
+    g += '<line x1="0" y1="'+y+'" x2="640" y2="'+y+'" stroke="#e6e9e8" stroke-width="1"/>';
+  });
+  // 2017 stitch
+  const i17 = years.indexOf(2017);
+  if(i17>0){
+    const x = (i17/(years.length-1))*640;
+    g += '<line x1="'+x+'" y1="8" x2="'+x+'" y2="112" stroke="#9aa6ad" stroke-dasharray="3 3" stroke-width="1"/>';
+  }
+  Object.keys(cols).forEach(code=>{
+    g += '<path d="'+pathFor(T.series[code],'china_export_share',years)+'" fill="none" stroke="'+cols[code]+'" stroke-width="2"/>';
+  });
+  // IEA factory dots (share of PRODUCTION, not exports)
+  const dots = [{y:2020,v:0.86,c:'#6d5fb0'},{y:2023,v:0.92,c:'#6d5fb0'},{y:2023,v:0.98,c:'#0e7c74'}];
+  dots.forEach(p=>{
+    const i = years.indexOf(p.y);
+    if(i<0) return;
+    const x = (i/(years.length-1))*640;
+    const yy = 110 - p.v*100;
+    g += '<circle cx="'+x+'" cy="'+yy+'" r="3.2" fill="'+p.c+'" stroke="#fff" stroke-width="1"/>';
+  });
+  svg.innerHTML = g;
+  document.getElementById('spark-leg').innerHTML =
+    '<span style="color:#c77f0a">■</span> metal exports · '+
+    '<span style="color:#6d5fb0">■</span> purer-silicon exports · '+
+    '<span style="color:#0e7c74">■</span> wafer exports · '+
+    'dots = IEA <i>factory</i> (poly 86% in 2020, 92% in 2023; solar wafers 98% in 2023) · dashed line = HS02→HS17';
+}
+function show(T, yi){
+  const year = T.years[yi];
+  const y = T.years_data[String(year)];
+  const hs = (T.vintage && T.vintage[year]) || y['280469'].hs || '';
+  document.getElementById('ylab').textContent = year;
+  const m=y['280469'], h=y['280461'], w=y['381800'];
+  document.getElementById('s-metal').textContent = money(m.world_usd);
+  document.getElementById('s-hp').textContent = money(h.world_usd);
+  document.getElementById('s-waf').textContent = money(w.world_usd);
+  document.getElementById('s-metal-l').textContent = 'Industrial silicon metal traded in '+year+' (HS 280469 · '+hs+')';
+  document.getElementById('s-hp-l').textContent = 'Purer silicon traded in '+year+' (HS 280461) — mixed solar + chips';
+  document.getElementById('s-waf-l').textContent = 'Wafers traded in '+year+' (HS 381800) — mixed solar + chips';
+  document.getElementById('metal-note').innerHTML =
+    year+' trade. China '+pct(m.china_export_share)+' of exports, HHI '+(m.export_hhi||'—')+
+    '. Live <a href="../profile-silicon.html">silicon profile</a> is the same code. USGS mine/refine on that page are a snapshot, not this slider.';
+  document.getElementById('hp-note').innerHTML =
+    year+': '+money(h.world_usd)+', '+(h.world_tonnes/1e3).toFixed(0)+' kt, about <b>$'+Math.round(h.world_usd_per_t).toLocaleString()+'/t</b>. China export share '+pct(h.china_export_share)+'.';
+  document.getElementById('waf-note').innerHTML =
+    year+': '+money(w.world_usd)+', '+(w.world_tonnes/1e3).toFixed(0)+' kt. China '+pct(w.china_export_share)+' of export value.';
+  const cnW = w.exporters.find(r=>r.iso==='CN');
+  const tshare = (cnW && w.world_tonnes>0) ? (100*cnW.tonnes/w.world_tonnes).toFixed(0)+'% of tonnes' : '—';
+  document.getElementById('hp-cn-exp').textContent = pct(h.china_export_share)+' in '+year;
+  document.getElementById('hp-cn-exp-l').textContent = 'BACI export value in '+year+' ('+hs+')';
+  document.getElementById('waf-cn-exp').textContent = pct(w.china_export_share)+' value · '+tshare;
+  document.getElementById('waf-cn-exp-l').textContent = 'BACI in '+year+' ('+hs+')';
+  bars(document.getElementById('metal-exp'), m.exporters, m.world_tonnes);
+  bars(document.getElementById('hp-exp'), h.exporters, h.world_tonnes);
+  bars(document.getElementById('waf-exp'), w.exporters, w.world_tonnes);
+}
 Promise.all([
-  fetch('out/silicon_stages.json').then(r=>r.json()),
-  fetch('out/iea_pv_production.json').then(r=>r.json())
-]).then(([T,P])=>{
-  const y = T.years_data['2024'];
-  bars(document.getElementById('metal-exp'), y['280469'].exporters, y['280469'].world_tonnes);
-  bars(document.getElementById('hp-exp'), y['280461'].exporters, y['280461'].world_tonnes);
-  bars(document.getElementById('waf-exp'), y['381800'].exporters, y['381800'].world_tonnes);
+  fetch('out/silicon_stages.json').then(r=>r.json())
+]).then(([T])=>{
+  const sl = document.getElementById('ys');
+  sl.max = T.years.length-1;
+  sl.value = T.years.length-1;
+  sl.oninput = function(){ show(T, +this.value); };
+  renderSpark(T);
+  show(T, T.years.length-1);
 }).catch(err=>{
   document.querySelector('article').insertAdjacentHTML('afterbegin',
-    '<div class="callout hot"><b>JSON not loaded.</b> Open this file via a local server from the repo, or read NOTES.md / PRODUCTION.md.</div>');
+    '<div class="callout hot"><b>JSON not loaded.</b> Keep the local server on and refresh after the 2002–2024 extract finishes.</div>');
   console.error(err);
 });
 </script>
