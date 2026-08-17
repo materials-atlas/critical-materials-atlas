@@ -73,9 +73,8 @@ Top importers: Taiwan 17%, Korea 14%, China 14% — the places that actually run
 
 ## Next data (not a page)
 
-If we keep going on this branch, the missing layer is **production**, not more trade:
+**Done for solar.** See `PRODUCTION.md`: IEA-PVPS 2023 production shares (China 92% poly, 98% solar wafers) sit next to the BACI export shares (China 13% / 22%). Factory ≠ customs ledger.
 
-- Who *makes* polysilicon (solar vs electronic), from USGS silicon chapter / IEA — to sit next to 280461 the way mine shares sit next to 280469.
-- Who *makes* semiconductor wafers vs solar wafers. Public sources are thinner here. If we cannot measure it, it stays a note.
+**Still missing for chips.** No public IEA/USGS country table for electronic-grade poly or semiconductor wafers.
 
 Do not add these codes to the 32. Do not publish a page until the mixed-code flags are in the same file as the numbers (they are, here).
