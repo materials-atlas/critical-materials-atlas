@@ -1,7 +1,7 @@
-"""Draft extractor — silicon metal vs high-purity silicon vs wafers.
+"""Draft extractor — silicon metal and downstream silicon products.
 
 Reads the already-downloaded CEPII BACI zips (same source as the live Atlas)
-and keeps only three HS6 codes. Same stitch the Atlas uses:
+and keeps only four HS6 codes. Same stitch the Atlas uses:
   HS02  2002–2016
   HS17  2017–2024
 Does not touch out/ or the 32.
@@ -9,6 +9,7 @@ Does not touch out/ or the 32.
   280469  Silicon <  99.99%     — current Atlas `silicon`
   280461  Silicon >= 99.99%     — solar poly + electronic poly, mixed
   381800  Doped discs / wafers  — silicon and compound wafers, mixed
+  854140  PV cells / modules, LEDs and other photosensitive devices, mixed
 
 Run from repo root:  python silicon-chip/extract_baci.py
 """
@@ -59,6 +60,12 @@ CODES = {
         "title": "Doped discs / wafers for electronics",
         "atlas": "not in the 32",
         "flag": "MIXED: silicon wafers and compound-semiconductor wafers share this code",
+    },
+    "854140": {
+        "label": "pv_cells_modules_broad",
+        "title": "Photosensitive semiconductor devices, including PV cells/modules and LEDs",
+        "atlas": "not in the 32",
+        "flag": "MIXED: PV cells, assembled modules/panels, LEDs and other photosensitive devices; not a solar-module production measure",
     },
 }
 

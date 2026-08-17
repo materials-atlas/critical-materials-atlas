@@ -1,0 +1,199 @@
+"""Build the sourced evidence layer for the unpublished solar-chain pilot.
+
+The output keeps four concepts separate:
+  * regional module production over the long run,
+  * manufacturing capacity at comparable 2010 and 2021 vintages,
+  * physical production by stage in 2023, and
+  * broad customs context from the shared BACI extraction.
+
+Run from the repository root: python solar-chain/record_solar.py
+"""
+from __future__ import annotations
+
+import json
+import os
+
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "solar_chain.json")
+
+
+SOURCES = {
+    "fraunhofer_2026": {
+        "title": "Fraunhofer ISE, Photovoltaics Report",
+        "year": 2026,
+        "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf",
+    },
+    "iea_capacity_2010": {
+        "title": "IEA, Solar PV manufacturing capacity by country and region, 2010",
+        "year": 2022,
+        "url": "https://www.iea.org/data-and-statistics/charts/solar-pv-manufacturing-capacity-by-country-and-region-2010",
+        "licence": "CC BY 4.0",
+    },
+    "iea_capacity_2021": {
+        "title": "IEA, Solar PV manufacturing capacity by country and region, 2021",
+        "year": 2022,
+        "url": "https://www.iea.org/data-and-statistics/charts/solar-pv-manufacturing-capacity-by-country-and-region-2021",
+        "licence": "CC BY 4.0",
+    },
+    "iea_supply_chains_2022": {
+        "title": "IEA, Solar PV Global Supply Chains",
+        "year": 2022,
+        "url": "https://www.iea.org/reports/solar-pv-global-supply-chains",
+        "licence": "CC BY 4.0",
+    },
+    "iea_pvps_2024": {
+        "title": "IEA-PVPS, Trends in Photovoltaic Applications 2024",
+        "year": 2024,
+        "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf",
+    },
+    "iea_etp_2026": {
+        "title": "IEA, Energy Technology Perspectives 2026: Supply chain risks",
+        "year": 2026,
+        "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness",
+        "licence": "CC BY 4.0",
+    },
+    "baci_2026": {
+        "title": "CEPII BACI V202601, based on UN Comtrade",
+        "year": 2026,
+        "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+    },
+}
+
+
+# Rounded readings from Fraunhofer ISE's published 100% stacked chart.
+# They are deliberately sparse and sum to 100; source vintages change in 2000,
+# 2010 and 2022, so this is a long-view orientation series rather than a single
+# homogeneous statistical panel.
+MODULE_REGION_SHARE = [
+    {"year": 1990, "Asia": 43, "Europe": 21, "North America": 36, "Rest of world": 0},
+    {"year": 1995, "Asia": 37, "Europe": 20, "North America": 43, "Rest of world": 0},
+    {"year": 2000, "Asia": 47, "Europe": 23, "North America": 30, "Rest of world": 0},
+    {"year": 2005, "Asia": 54, "Europe": 31, "North America": 10, "Rest of world": 5},
+    {"year": 2010, "Asia": 82, "Europe": 13, "North America": 2, "Rest of world": 3},
+    {"year": 2015, "Asia": 88, "Europe": 6, "North America": 3, "Rest of world": 3},
+    {"year": 2020, "Asia": 92, "Europe": 1, "North America": 4, "Rest of world": 3},
+    {"year": 2025, "Asia": 92, "Europe": 1, "North America": 6, "Rest of world": 1},
+]
+
+
+CAPACITY_REGIONS = ["China", "Europe", "North America", "APAC", "India", "Rest of world"]
+CAPACITY_COMPARISON = {
+    "unit": "percent of global manufacturing capacity (demand row is percent of global demand)",
+    "regions": CAPACITY_REGIONS,
+    "source_note": "IEA charts use identical categories; APAC excludes India.",
+    "years": {
+        "2010": {
+            "source": "iea_capacity_2010",
+            "stages": {
+                "Demand": [3.5, 80.4, 6.2, 8.6, 0.2, 1.1],
+                "Modules": [55.7, 12.8, 7.6, 18.7, 3.6, 1.6],
+                "Cells": [57.9, 7.3, 4.6, 28.4, 1.8, 0.0],
+                "Wafers": [78.3, 3.2, 0.3, 18.3, 0.0, 0.0],
+                "Polysilicon": [28.6, 19.4, 28.7, 21.5, 0.0, 1.8],
+            },
+        },
+        "2021": {
+            "source": "iea_capacity_2021",
+            "stages": {
+                "Demand": [36.4, 16.8, 17.6, 13.2, 6.9, 9.1],
+                "Modules": [74.7, 2.8, 2.4, 15.4, 2.8, 1.9],
+                "Cells": [85.1, 0.6, 0.6, 12.4, 1.1, 0.2],
+                "Wafers": [96.8, 0.5, 0.0, 2.5, 0.0, 0.2],
+                "Polysilicon": [79.4, 8.0, 5.6, 6.0, 0.2, 1.0],
+            },
+        },
+    },
+}
+
+
+PRODUCTION_2023 = {
+    "year": 2023,
+    "metric": "physical production",
+    "source": "iea_pvps_2024",
+    "stages": [
+        {
+            "stage": "Polysilicon (PV + semiconductor)",
+            "world_value": 1_608_000,
+            "unit": "tonnes",
+            "china_value": 1_470_000,
+            "china_share": 0.92,
+            "note": "The published total includes 38.8 kt for semiconductor use; more than 97% went to PV.",
+        },
+        {"stage": "Solar wafers", "world_value": 682, "unit": "GW", "china_value": 668, "china_share": 0.98},
+        {"stage": "Solar cells", "world_value": 644, "unit": "GW", "china_value": 591, "china_share": 0.918},
+        {"stage": "PV modules", "world_value": 612, "unit": "GW", "china_value": 510, "china_share": 0.846},
+    ],
+}
+
+
+def build():
+    data = {
+        "title": "Solar manufacturing chain evidence",
+        "status": "unpublished pilot",
+        "updated": "2026-08-17",
+        "principle": "Production, capacity, ownership, demand and customs trade are separate measures.",
+        "coverage": {
+            "module_production_geography": "1990-2025, eight rounded regional snapshots from a 35-year source chart",
+            "manufacturing_capacity": "2010 and 2021 comparable stage-by-stage matrices",
+            "physical_production": "2023 country/stage snapshot",
+            "current_capacity": "2024 concentration snapshot",
+            "material_intensity": "2004 and 2024 snapshots",
+            "trade_context": "2002-2024 annual; broad customs categories only",
+        },
+        "chain": [
+            "Silicon metal",
+            "PV-grade polysilicon",
+            "Ingots and wafers",
+            "Solar cells",
+            "PV modules",
+            "Installed systems",
+        ],
+        "module_production_region_share": {
+            "unit": "percent of total MWp produced",
+            "source": "fraunhofer_2026",
+            "method": "Selected values are rounded readings from the published chart; underlying data providers change in 2000, 2010 and 2022.",
+            "series": MODULE_REGION_SHARE,
+        },
+        "manufacturing_capacity": CAPACITY_COMPARISON,
+        "production_2023": PRODUCTION_2023,
+        "current_capacity_2024": {
+            "metric": "manufacturing capacity",
+            "china_weighted_supply_chain_share": 0.85,
+            "china_wafer_share": 0.95,
+            "source": "iea_etp_2026",
+        },
+        "material_intensity": {
+            "metric": "silicon used per watt of silicon-cell output",
+            "unit": "grams per watt-peak",
+            "source": "fraunhofer_2026",
+            "series": [{"year": 2004, "value": 16.0}, {"year": 2024, "value": 2.0}],
+            "drivers": ["higher cell efficiency", "thinner wafers", "diamond-wire sawing", "larger ingots"],
+        },
+        "trade_context": {
+            "file": "../silicon-chip/out/silicon_stages.json",
+            "source": "baci_2026",
+            "codes": {
+                "280461": "Mixed solar- and electronic-grade polysilicon.",
+                "854140": "Broad pre-HS2022 basket: PV cells/modules, LEDs and other photosensitive semiconductor devices; not a module-production series.",
+            },
+        },
+        "boundaries": [
+            "The 1990-2025 module series is regional and uses changing commercial data providers.",
+            "The 2010/2021 matrices measure nameplate manufacturing capacity, not actual output.",
+            "The 2023 stage table measures production and must not be joined arithmetically to capacity.",
+            "HS 280461 and 854140 are too broad to identify solar factory location.",
+            "Installed capacity and electricity generation describe demand/use, not manufacturing origin.",
+        ],
+        "sources": SOURCES,
+    }
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print("WROTE", OUT)
+    return data
+
+
+if __name__ == "__main__":
+    build()

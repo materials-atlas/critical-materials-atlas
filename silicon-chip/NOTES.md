@@ -1,90 +1,63 @@
-# Silicon → chips: first data pull
+# Semiconductor-chain interpretation notes
 
-Unpublished draft on `wip/silicon-chip-chain`. Not added to the 32. Not on the live site.
+## Why the first silicon-to-chip story was rejected
 
-Source: the same CEPII BACI files the Atlas already uses — HS02 2002–2016, HS17 2017–2024.
-Reproduce: `python silicon-chip/extract_baci.py`
+The original draft tried to use two customs codes as downstream production
+measures. That does not work:
 
-## What we pulled
+- HS 280461 combines solar- and semiconductor-grade polysilicon.
+- HS 381800 includes doped discs and wafers made from materials other than
+  silicon and also captures solar products.
+- A high unit value does not identify electronic grade or a particular wafer
+  diameter. Price can reflect product mix, quality, contracts, and reporting.
+- Export shares are not factory shares. A producer may consume its output at
+  home, while a trading hub may re-export material it did not manufacture.
 
-| Code | What the customs line says | Role here |
-|---|---|---|
-| **280469** | Silicon **under** 99.99% | Control. This *is* current Atlas silicon. |
-| **280461** | Silicon **at least** 99.99% | Next hop after the metal. |
-| **381800** | Doped discs / wafers for electronics | Hop after that. |
+The semiconductor story therefore cannot be recovered by filtering these
+codes by price. They remain useful only as clearly labelled trade context.
 
-## Sanity check
+## Replacement design
 
-2024 industrial silicon (280469) from this pull vs the live profile:
+The pilot follows four physically distinct stages:
 
-| | This pull | Live profile (`profile-silicon.html`) |
-|---|---|---|
-| World | $3.89B | — |
-| China export share | 40.0% | 40% |
-| China value | $1.555B | $1.5B |
-| China tonnes | 724 kt | 721.6 kt |
-| China $/t | $2,148 | $2,146 |
-| Next: Norway / Brazil / France | 13% / 12% / 6% | 13% / 12% / 6% |
+1. silicon metal;
+2. electronic-grade polysilicon (at least 11N purity);
+3. blank semiconductor silicon wafers;
+4. front-end wafer fabrication.
 
-Close enough. The extractor is reading the same trade the Atlas already trusts.
+For each stage it asks separately: where is it physically made, which firms
+control supply, and what—if anything—can customs data show?
 
-## China export share, 2002–2024 (value)
+## What the longer view changes
 
-| | 2002 | 2010 | 2017 | 2023 | 2024 |
-|---|---|---|---|---|---|
-| Metal 280469 | 29% | 41% | 45% | 34% | 40% |
-| Purer silicon 280461 | 4.5% | 4% | 2.5% | 6% | 13% |
-| Wafers 381800 | 0.7% | 15% | 28% | 34% | 22% |
+The chain does not have one permanent geographic centre.
 
-Purer-silicon *exports* stay small even while IEA says China *makes* ~90% of solar poly. Wafer export share rose as solar wafers scaled. 2024 metal still matches the live profile.
+- In 1990, the United States and Europe held most reported commercial capacity
+  among fabs using 200 mm and larger wafers. By the 2020s, most capacity was in
+  East Asia.
+- The 2025 leader depends on the chip: Taiwan leads advanced logic, Korea leads
+  commodity memory, and China leads power/discrete, analog, and mature logic.
+- Worldwide blank-wafer shipment area grew over 2007–2025 but moved through the
+  2009 contraction, the 2019 slowdown, the 2022 peak, and a 2023–2024 correction.
+- Upstream snapshots tell a different story again: China dominates ordinary
+  silicon metal, the United States and Germany dominate electronic-grade
+  polysilicon, and Japanese firms lead blank semiconductor wafers.
 
-## 2024 headline
+The point is a moving sequence of chokepoints, not a single country ranking.
 
-**Industrial silicon (280469)** — $3.9B, 1,557 kt, about **$2,500/t**.
-China 40% of exports. Same story you already publish.
+## Evidence gaps kept visible
 
-**High-purity silicon (280461)** — $3.6B, only **164 kt**, about **$22,000/t**.
-Same dollars as the cheap metal, one-tenth the tonnes, nine times the price.
+No comparable open annual country series was found for electronic-grade
+polysilicon or blank semiconductor-wafer production. The page uses dated
+snapshots for those stages and says so. This is preferable to manufacturing a
+long series from mixed trade lines.
 
-Top exporters by *value*: Germany 32%, United States 30%, China 13%.
-Top exporters by *tonnes*: Germany 31%, China 26%, United States 21%.
-China’s cargo is cheap ($10,600/t). Japan’s is $57,000/t, Taiwan’s $40,000/t, the US $31,000/t.
+## Rules to reuse for solar, magnets, batteries, and other product chains
 
-Top importers: Vietnam 24%, China 24%, Japan 17%.
-
-**Wafers (381800)** — $17.8B, 114 kt, about **$156,000/t**.
-
-Top exporters by *value*: Japan 28%, China 22%, United States 10%.
-Top exporters by *tonnes*: China **58%**, Singapore 10%, Japan 8%.
-China’s wafers are $59,000/t. Japan $533,000/t, US $764,000/t, Germany $753,000/t.
-
-Top importers: Taiwan 17%, Korea 14%, China 14% — the places that actually run fabs.
-
-## What this means (plainly)
-
-1. **Both new codes are measurable.** They are real, thick trade lines in the files you already have. We do not need a new vendor for this first hop.
-
-2. **Both codes are mixed. Say so on any future page.**
-   - 280461 is *not* “chip-grade silicon”. It is “silicon pure enough for solar *or* chips”. Vietnam as the top importer is the solar-cell industry, not TSMC.
-   - 381800 is *not* “Shin-Etsu 300 mm wafers”. It is “any doped disc”, including cheap solar wafers. That is why China can lead tonnes and Japan can lead dollars.
-
-3. **Unit price splits the mix.** Cheap Chinese tonnes vs expensive Japanese / US / German / Taiwanese kilos is the same move the Atlas already uses (value next to tonnes). Do not pick one number and call it “the” market.
-
-4. **Trade is not production.** IEA is right that China dominates *making* solar polysilicon. That barely shows up as Chinese *exports* of 280461, because most of it is used at home. China is a top *importer* of the high-purity code. Same Atlas thesis: the customs ledger is not the factory.
-
-5. **Wafers are already a bigger traded market than either silicon code** ($18B vs $4B). The money in this chain jumps at the wafer, not at the metal.
-
-## What we will not claim
-
-- That 280461 is electronic-grade polysilicon (9N–12N). The legal cut is 99.99% (4N). Solar lives in this code.
-- That 381800 is semiconductor wafers only.
-- That Germany “owns” high-purity silicon. Wacker is real; the code still mixes solar and electronic, and Denmark’s tiny high-price slice looks like a trading hub.
-- Any company share (Shin-Etsu, SUMCO, Wacker, Hemlock). BACI cannot see firms.
-
-## Next data (not a page)
-
-**Done for solar.** See `PRODUCTION.md`: IEA-PVPS 2023 production shares (China 92% poly, 98% solar wafers) sit next to the BACI export shares (China 13% / 22%). Factory ≠ customs ledger.
-
-**Still missing for chips.** No public IEA/USGS country table for electronic-grade poly or semiconductor wafers.
-
-Do not add these codes to the 32. Do not publish a page until the mixed-code flags are in the same file as the numbers (they are, here).
+1. Define the physical transformation before choosing a dataset.
+2. Prefer production or capacity for “who makes it.”
+3. Show ownership separately when company concentration matters.
+4. Use customs data only at the specificity actually present in the code.
+5. Put years, units, scope, and forecast status beside every measure.
+6. Extend the period as far as comparable evidence permits; show gaps rather
+   than splicing incompatible measures into a false history.

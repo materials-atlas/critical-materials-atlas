@@ -1,44 +1,73 @@
-# Who makes it at home (solar factory layer)
+# Semiconductor evidence ledger
 
-Unpublished. Sits next to `out/silicon_stages.json` (trade).
-Reproduce: `python silicon-chip/record_iea_pv.py`
-Local report: `raw/iea/IEA-PVPS-Task-1-Trends-Report-2024.pdf`
+This file records exactly what each production-side source supports. Machine-
+readable values and full URLs are in `out/semiconductor_chain.json`, generated
+by `record_semiconductor.py`.
 
-## What this layer is
+## 1. Silicon metal
 
-IEA can see the **solar** factory. It cannot see the **chip** factory.
+OECD reports that China accounts for about 85% of global silicon-metal
+production in the current supply structure. The BACI series for HS 280469
+(2002–2024) is retained as trade context, not substituted for production.
 
-So this fill-in is for the solar half of the mixed trade codes — and a later solar product page. It is not a chip-production table.
+## 2. Electronic-grade polysilicon
 
-## 2023 production (IEA-PVPS Trends 2024)
+- Semiconductor-grade material is at least 11N purity; solar material is
+  generally 6N–10N (SIA, 2025).
+- IEA-PVPS reports 38.8 thousand tonnes for semiconductor use in 2023 within
+  its broader polysilicon-production accounting.
+- SIA forecasts 33.5 thousand tonnes of semiconductor demand in 2025, only
+  2.4% of all polysilicon demand.
+- OECD places roughly 65% of semiconductor-grade production in Germany and
+  the United States combined and less than 10% in China.
+- SIA identifies five major suppliers—Wacker, Hemlock, Tokuyama, SUMCO, and
+  OCI—and estimates Wacker plus Hemlock at about 75% of the market.
 
-These are **production** shares, not capacity. That is the right match for Atlas “who makes it.”
+These are dated snapshots, not a constructed annual country series. HS 280461
+cannot fill the gap because it combines solar and semiconductor grades; SIA
+explicitly warns that the tariff line cannot distinguish the two.
 
-| Stage | China | Next | World total | Chart |
-|---|---|---|---|---|
-| Polysilicon (PV + a little semiconductor) | **92%** | Germany 4%, US 2%, Malaysia 2% | 1.61 Mt (of which ~39 kt semiconductor) | Fig. 4.2 |
-| Solar wafers | **98%** | Vietnam 2% | 682 GW (China 668 GW) | Fig. 4.3 |
-| Solar cells | **92%** | Malaysia 2%, Vietnam 2% | 644 GW | Fig. 4.4 |
-| Solar modules | **85%** | Vietnam 3%, India 3% | 612 GW | Fig. 4.5 |
+## 3. Blank semiconductor wafers
 
-Newer IEA text (ETP 2026, year 2024): China still about **90%** of wafer + polysilicon supply and **80%** of modules. Same picture, one year on, no full country table.
+- SEMI's annual silicon shipment series covers semiconductor applications and
+  explicitly excludes solar. The pilot records worldwide shipment area and
+  nominal revenue for every year from 2007 through 2025.
+- OECD reports that Shin-Etsu Handotai and SUMCO together supply more than half
+  of the market.
+- SIA reports that six firms supply about 92% of the global blank-wafer market.
+- OECD places at least 85% of semiconductor-grade wafer production across
+  Japan, Germany, Korea, the United States, and Taiwan.
 
-More than **98%** of all polysilicon made in 2023 went to solar. Chip-grade poly is the small remainder (~39 kt).
+The shipment series is global, not a country-production series. HS 381800 is
+shown only as mixed trade context because it does not isolate blank silicon
+semiconductor wafers.
 
-## Next to our 2024 trade (the Atlas point)
+## 4. Front-end wafer fabrication
 
-| | China *makes* (IEA-PVPS 2023) | China *exports* (BACI 2024) |
-|---|---|---|
-| High-purity silicon (280461) | 92% of polysilicon | **13%** of export value |
-| Wafers (381800) | 98% of solar wafers | **22%** of export value (58% of tonnes) |
+### Long geography, 1990–2032F
 
-China makes almost all of the solar factory product and uses most of it at home. The customs line therefore understates the factory. Same finding as cobalt: the exporter is not the source.
+SIA/BCG Exhibit 7 supplies eleven regional snapshots of commercial fab
+capacity. The scope is fabs using wafers of 200 mm or larger, normalized to
+300 mm-equivalent wafer starts per month; facilities below 5,000 WSPM are
+excluded. Values from 2025 onward are forecasts and are visually dashed.
 
-Vietnam as top importer of 280461 also fits: IEA says China shipped ~70 GW of wafers to cell plants in Vietnam, Malaysia, Thailand and neighbours.
+### Physical capacity by chip type, September 2025
 
-## What we still cannot say
+OECD's World Fab Forecast analysis assigns capacity to the physical fab—not
+the owner's headquarters—and normalizes it to 8-inch-equivalent wafer starts
+per month. The pilot records the three largest economies for power/discrete,
+analog, mature logic, advanced logic, commodity memory, and specialty memory.
+The leading economy differs by chip category.
 
-- Who makes **chip-grade** polysilicon by country. USGS does not publish that table. IEA folds the ~39 kt into the 92% chart and labels it.
-- Who makes **semiconductor wafers** (Shin-Etsu, SUMCO, …). No public IEA/USGS country series. Stays a note.
+## Source set
 
-Do not put IEA solar-factory shares on a page titled “chips.”
+- IEA-PVPS, *Trends in Photovoltaic Applications 2024*.
+- OECD, *Mapping the Semiconductor Value Chain* (2025).
+- OECD, *The Chip Landscape* (2025).
+- OECD, *Due Diligence for Responsible Sand and Silicate Supply Chains* (2026).
+- Semiconductor Industry Association, polysilicon Section 232 comments (2025).
+- SIA/BCG, *Emerging Resilience in the Semiconductor Supply Chain* (2024).
+- SEMI annual silicon-wafer shipment releases covering 2007–2025.
+
+The generated JSON is the canonical source ledger: each observation or block
+points to a source identifier with title, year, and URL.

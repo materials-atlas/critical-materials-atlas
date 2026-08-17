@@ -1,0 +1,213 @@
+"""Build the public-source evidence layer for the semiconductor pilot.
+
+The output deliberately keeps unlike measures separate:
+  * physical semiconductor-wafer shipments (SEMI, global time series),
+  * fab capacity shares (SEMI/BCG, regional time series and forecast),
+  * fab capacity by chip type (OECD, current snapshot), and
+  * electronic-grade polysilicon / blank-wafer concentration (dated snapshots).
+
+It does not infer chip-grade production from HS 280461 or HS 381800.
+Run from the repository root: python silicon-chip/record_semiconductor.py
+"""
+from __future__ import annotations
+
+import json
+import os
+
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "semiconductor_chain.json")
+
+
+SOURCES = {
+    "iea_pvps_2024": {
+        "title": "IEA-PVPS, Trends in Photovoltaic Applications 2024",
+        "year": 2024,
+        "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf",
+    },
+    "oecd_silicates_2026": {
+        "title": "OECD, Due Diligence for Responsible Sand and Silicate Supply Chains",
+        "year": 2026,
+        "url": "https://www.oecd.org/en/publications/due-diligence-for-responsible-sand-and-silicate-supply-chains_7be0093e-en/full-report/component-5.html",
+    },
+    "oecd_mapping_2025": {
+        "title": "OECD, Mapping the Semiconductor Value Chain",
+        "year": 2025,
+        "url": "https://www.oecd.org/en/publications/mapping-the-semiconductor-value-chain_4154cdbf-en.html",
+    },
+    "oecd_fabs_2025": {
+        "title": "OECD, The Chip Landscape: Geographical Distribution of Wafer Fabrication Capacity",
+        "year": 2025,
+        "url": "https://www.oecd.org/en/publications/the-chip-landscape_02dbd028-en/full-report/component-6.html",
+    },
+    "sia_poly_2025": {
+        "title": "Semiconductor Industry Association comments on the polysilicon Section 232 investigation",
+        "year": 2025,
+        "url": "https://www.semiconductors.org/wp-content/uploads/2025/08/Semiconductor-Industry-Association-SIA-Comments-Polysilicon-Section-232-Investigation.pdf",
+    },
+    "sia_bcg_2024": {
+        "title": "SIA/BCG, Emerging Resilience in the Semiconductor Supply Chain",
+        "year": 2024,
+        "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf",
+    },
+    "semi_wafers_2016": {
+        "title": "SEMI, Another Record Year for Silicon Wafer Shipment Volumes in 2015",
+        "year": 2016,
+        "url": "https://www.semi.org/en/another-record-year-silicon-wafer-shipment-volumes-2015",
+    },
+    "semi_wafers_2020": {
+        "title": "SEMI, 2019 Global Silicon Shipments",
+        "year": 2020,
+        "url": "https://www.semi.org/en/news-resources/press/2019-global-silicon-shipments",
+    },
+    "semi_wafers_2025": {
+        "title": "SEMI, Worldwide Silicon Wafer Shipments and Revenue Start Recovery in Late 2024",
+        "year": 2025,
+        "url": "https://www.semi.org/en/semi-press-release/worldwide-silicon-wafer-shipments-and-revenue-start-recovery-in-late-2024-semi-reports",
+    },
+    "semi_wafers_2026": {
+        "title": "SEMI, 2025 Annual Worldwide Silicon Wafer Shipments and Revenue Results",
+        "year": 2026,
+        "url": "https://www.semi.org/en/semi-press-release/semi-reports-2025-annual-worldwide-silicon-wafer-shipments-and-revenue-results",
+    },
+}
+
+
+# Global shipments for semiconductor applications only; solar is explicitly excluded.
+# MSI = million square inches. Revenue is nominal USD billions.
+WAFER_SHIPMENTS = [
+    {"year": 2007, "msi": 8661, "revenue_usd_bn": 12.1, "source": "semi_wafers_2016"},
+    {"year": 2008, "msi": 8137, "revenue_usd_bn": 11.4, "source": "semi_wafers_2016"},
+    {"year": 2009, "msi": 6707, "revenue_usd_bn": 6.7, "source": "semi_wafers_2016"},
+    {"year": 2010, "msi": 9370, "revenue_usd_bn": 9.7, "source": "semi_wafers_2016"},
+    {"year": 2011, "msi": 9043, "revenue_usd_bn": 9.9, "source": "semi_wafers_2016"},
+    {"year": 2012, "msi": 9031, "revenue_usd_bn": 8.7, "source": "semi_wafers_2016"},
+    {"year": 2013, "msi": 9067, "revenue_usd_bn": 7.5, "source": "semi_wafers_2016"},
+    {"year": 2014, "msi": 10098, "revenue_usd_bn": 7.6, "source": "semi_wafers_2016"},
+    {"year": 2015, "msi": 10434, "revenue_usd_bn": 7.2, "source": "semi_wafers_2016"},
+    {"year": 2016, "msi": 10738, "revenue_usd_bn": 7.2, "source": "semi_wafers_2020"},
+    {"year": 2017, "msi": 11810, "revenue_usd_bn": 8.7, "source": "semi_wafers_2020"},
+    {"year": 2018, "msi": 12732, "revenue_usd_bn": 11.4, "source": "semi_wafers_2020"},
+    {"year": 2019, "msi": 11810, "revenue_usd_bn": 11.2, "source": "semi_wafers_2020"},
+    {"year": 2020, "msi": 12407, "revenue_usd_bn": 11.2, "source": "semi_wafers_2025"},
+    {"year": 2021, "msi": 14165, "revenue_usd_bn": 12.6, "source": "semi_wafers_2025"},
+    {"year": 2022, "msi": 14713, "revenue_usd_bn": 13.8, "source": "semi_wafers_2025"},
+    {"year": 2023, "msi": 12602, "revenue_usd_bn": 12.3, "source": "semi_wafers_2025"},
+    {"year": 2024, "msi": 12266, "revenue_usd_bn": 11.5, "source": "semi_wafers_2025"},
+    {"year": 2025, "msi": 12973, "revenue_usd_bn": 11.4, "source": "semi_wafers_2026"},
+]
+
+
+# Share of global commercial fab capacity, 200 mm and above, expressed in
+# 300 mm-equivalent wafer starts per month. 2025 onward is a forecast.
+FAB_CAPACITY_SHARE = [
+    {"year": 1990, "US": 37, "Europe": 44, "Japan": 17, "Korea": 0, "Taiwan": 0, "China": 0, "Other": 2},
+    {"year": 1995, "US": 27, "Europe": 24, "Japan": 19, "Korea": 12, "Taiwan": 15, "China": 0, "Other": 3},
+    {"year": 2000, "US": 19, "Europe": 25, "Japan": 16, "Korea": 13, "Taiwan": 22, "China": 0, "Other": 4},
+    {"year": 2005, "US": 14, "Europe": 17, "Japan": 21, "Korea": 14, "Taiwan": 21, "China": 7, "Other": 7},
+    {"year": 2010, "US": 13, "Europe": 13, "Japan": 18, "Korea": 15, "Taiwan": 22, "China": 11, "Other": 8},
+    {"year": 2015, "US": 13, "Europe": 11, "Japan": 15, "Korea": 18, "Taiwan": 24, "China": 12, "Other": 7},
+    {"year": 2020, "US": 12, "Europe": 7, "Japan": 18, "Korea": 18, "Taiwan": 19, "China": 18, "Other": 8},
+    {"year": 2022, "US": 10, "Europe": 8, "Japan": 17, "Korea": 17, "Taiwan": 18, "China": 24, "Other": 7},
+    {"year": 2025, "forecast": True, "US": 11, "Europe": 8, "Japan": 15, "Korea": 18, "Taiwan": 18, "China": 24, "Other": 6},
+    {"year": 2030, "forecast": True, "US": 13, "Europe": 8, "Japan": 15, "Korea": 19, "Taiwan": 17, "China": 22, "Other": 6},
+    {"year": 2032, "forecast": True, "US": 14, "Europe": 8, "Japan": 15, "Korea": 19, "Taiwan": 17, "China": 21, "Other": 5},
+]
+
+
+FAB_BY_TYPE_2025 = {
+    "as_of": "September 2025",
+    "unit": "million 8-inch-equivalent wafer starts per month",
+    "source": "oecd_fabs_2025",
+    "types": [
+        {"type": "Power & discrete", "leaders": [{"economy": "China", "value": 6.28}, {"economy": "Taiwan", "value": 2.42}, {"economy": "Japan", "value": 1.60}]},
+        {"type": "Analog", "leaders": [{"economy": "China", "value": 3.64}, {"economy": "Taiwan", "value": 2.09}, {"economy": "United States", "value": 1.90}]},
+        {"type": "Mature logic (>=20 nm)", "leaders": [{"economy": "China", "value": 4.23}, {"economy": "Taiwan", "value": 2.48}, {"economy": "Japan", "value": 1.24}]},
+        {"type": "Advanced logic (<20 nm)", "leaders": [{"economy": "Taiwan", "value": 1.55}, {"economy": "United States", "value": 0.84}, {"economy": "China", "value": 0.39}]},
+        {"type": "Commodity memory", "leaders": [{"economy": "Korea", "value": 4.58}, {"economy": "China", "value": 2.37}, {"economy": "Japan", "value": 2.21}]},
+        {"type": "Specialty memory", "leaders": [{"economy": "Taiwan", "value": 1.18}, {"economy": "China", "value": 0.92}, {"economy": "United States", "value": 0.67}]},
+    ],
+}
+
+
+def build():
+    data = {
+        "title": "Semiconductor chain evidence",
+        "status": "unpublished pilot",
+        "updated": "2026-08-17",
+        "principle": "Production, ownership and trade are separate measures. Mixed customs codes are never allocated to chips by price.",
+        "coverage": {
+            "fab_capacity": "1990-2032F (eleven reported/forecast snapshots)",
+            "semiconductor_wafer_shipments": "2007-2025 annual",
+            "electronic_grade_polysilicon": "2023 volume and 2025 concentration snapshots",
+            "blank_wafer_geography": "2025 concentration snapshot",
+            "baci_trade_context": "2002-2024 annual; mixed-code context only",
+        },
+        "silicon_metal": {
+            "snapshot": {
+                "source_vintage": 2026,
+                "china_production_share": 0.85,
+                "measure": "approximate current share of global silicon-metal production reported by OECD",
+                "source": "oecd_silicates_2026",
+            },
+            "trade_series": "See silicon_stages.json; HS 280469, 2002-2024.",
+        },
+        "electronic_grade_polysilicon": {
+            "purity": ">=11N",
+            "global_volume": [
+                {"year": 2023, "tonnes": 38800, "measure": "semiconductor-use volume reported within total polysilicon production", "source": "iea_pvps_2024"},
+                {"year": 2025, "tonnes": 33500, "measure": "forecast demand", "source": "sia_poly_2025"},
+            ],
+            "snapshot_2025": {
+                "semiconductor_share_of_all_polysilicon_demand": 0.024,
+                "germany_us_combined_share": 0.65,
+                "china_share_upper_bound": 0.10,
+                "wacker_hemlock_combined_share": 0.75,
+                "major_suppliers": [
+                    {"company": "Wacker Chemie", "home": "Germany"},
+                    {"company": "Hemlock Semiconductor", "home": "United States"},
+                    {"company": "Tokuyama", "home": "Japan"},
+                    {"company": "SUMCO", "home": "Japan"},
+                    {"company": "OCI", "home": "Korea"},
+                ],
+                "sources": ["sia_poly_2025", "oecd_silicates_2026"],
+            },
+            "trade_warning": "HS 280461 combines solar- and semiconductor-grade polysilicon; SIA states that trade data cannot distinguish them.",
+        },
+        "semiconductor_wafers": {
+            "shipments": WAFER_SHIPMENTS,
+            "snapshot_2025": {
+                "top_two_japanese_suppliers_share_lower_bound": 0.50,
+                "top_six_supplier_share": 0.92,
+                "leading_suppliers": ["Shin-Etsu Handotai", "SUMCO", "GlobalWafers", "SK Siltron", "Siltronic"],
+                "leading_production_economies": ["Japan", "Germany", "Korea", "United States", "Taiwan"],
+                "leading_economies_combined_share_lower_bound": 0.85,
+                "sources": ["sia_poly_2025", "oecd_mapping_2025", "oecd_silicates_2026"],
+            },
+            "trade_warning": "HS 381800 also contains other doped elements and compounds and does not isolate semiconductor silicon wafers globally.",
+        },
+        "fab_capacity_share": {
+            "unit": "percent of global 300 mm-equivalent capacity",
+            "scope": "commercial fabs >=200 mm; facilities below 5,000 WSPM excluded",
+            "source": "sia_bcg_2024",
+            "series": FAB_CAPACITY_SHARE,
+        },
+        "fab_capacity_by_type_2025": FAB_BY_TYPE_2025,
+        "current_concentration": {
+            "year": 2025,
+            "top_five_economies_share": 0.87,
+            "economies": ["China", "Taiwan", "Korea", "Japan", "United States"],
+            "source": "oecd_fabs_2025",
+        },
+        "sources": SOURCES,
+    }
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(OUT, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    print("WROTE", OUT)
+    return data
+
+
+if __name__ == "__main__":
+    build()
