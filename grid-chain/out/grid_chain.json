@@ -1,0 +1,1191 @@
+{
+  "title": "Electricity-grid chain evidence",
+  "status": "unpublished pilot",
+  "updated": "2026-08-17",
+  "principle": "Grid kilometres, investment, metal production, equipment lead times and customs trade are separate measures.",
+  "chain": [
+    {
+      "stage": "Metals & steel",
+      "detail": "Copper, aluminium and electrical steel; mining, refining and rolling are distinct."
+    },
+    {
+      "stage": "Conductors & cores",
+      "detail": "Wire rod, stranded conductor, cable and grain-oriented transformer steel."
+    },
+    {
+      "stage": "Equipment",
+      "detail": "Transformers, switchgear, insulators, converters and protection systems."
+    },
+    {
+      "stage": "Network assets",
+      "detail": "Substations plus overhead, underground and submarine lines."
+    },
+    {
+      "stage": "Power system",
+      "detail": "Transmission and distribution connect generation, storage and demand."
+    },
+    {
+      "stage": "Operate & renew",
+      "detail": "Maintain, uprate, replace, recover and recycle assets over decades."
+    }
+  ],
+  "material_history": {
+    "sources": [
+      "usgs_copper",
+      "usgs_aluminium"
+    ],
+    "series": [
+      {
+        "material": "Copper",
+        "metric": "world production",
+        "unit": "metric tonnes of contained metal",
+        "coverage": "1900-2020",
+        "series": [
+          {
+            "year": 1900,
+            "tonnes": 495000
+          },
+          {
+            "year": 1901,
+            "tonnes": 526000
+          },
+          {
+            "year": 1902,
+            "tonnes": 555000
+          },
+          {
+            "year": 1903,
+            "tonnes": 596000
+          },
+          {
+            "year": 1904,
+            "tonnes": 660000
+          },
+          {
+            "year": 1905,
+            "tonnes": 713000
+          },
+          {
+            "year": 1906,
+            "tonnes": 724000
+          },
+          {
+            "year": 1907,
+            "tonnes": 721000
+          },
+          {
+            "year": 1908,
+            "tonnes": 744000
+          },
+          {
+            "year": 1909,
+            "tonnes": 828000
+          },
+          {
+            "year": 1910,
+            "tonnes": 858000
+          },
+          {
+            "year": 1911,
+            "tonnes": 890000
+          },
+          {
+            "year": 1912,
+            "tonnes": 1000000
+          },
+          {
+            "year": 1913,
+            "tonnes": 996000
+          },
+          {
+            "year": 1914,
+            "tonnes": 938000
+          },
+          {
+            "year": 1915,
+            "tonnes": 1060000
+          },
+          {
+            "year": 1916,
+            "tonnes": 1420000
+          },
+          {
+            "year": 1917,
+            "tonnes": 1430000
+          },
+          {
+            "year": 1918,
+            "tonnes": 1430000
+          },
+          {
+            "year": 1919,
+            "tonnes": 994000
+          },
+          {
+            "year": 1920,
+            "tonnes": 959000
+          },
+          {
+            "year": 1921,
+            "tonnes": 558000
+          },
+          {
+            "year": 1922,
+            "tonnes": 884000
+          },
+          {
+            "year": 1923,
+            "tonnes": 1270000
+          },
+          {
+            "year": 1924,
+            "tonnes": 1360000
+          },
+          {
+            "year": 1925,
+            "tonnes": 1530000
+          },
+          {
+            "year": 1926,
+            "tonnes": 1510000
+          },
+          {
+            "year": 1927,
+            "tonnes": 1520000
+          },
+          {
+            "year": 1928,
+            "tonnes": 1730000
+          },
+          {
+            "year": 1929,
+            "tonnes": 1950000
+          },
+          {
+            "year": 1930,
+            "tonnes": 1610000
+          },
+          {
+            "year": 1931,
+            "tonnes": 1400000
+          },
+          {
+            "year": 1932,
+            "tonnes": 909000
+          },
+          {
+            "year": 1933,
+            "tonnes": 1050000
+          },
+          {
+            "year": 1934,
+            "tonnes": 1280000
+          },
+          {
+            "year": 1935,
+            "tonnes": 1500000
+          },
+          {
+            "year": 1936,
+            "tonnes": 1720000
+          },
+          {
+            "year": 1937,
+            "tonnes": 2290000
+          },
+          {
+            "year": 1938,
+            "tonnes": 1990000
+          },
+          {
+            "year": 1939,
+            "tonnes": 2130000
+          },
+          {
+            "year": 1940,
+            "tonnes": 2400000
+          },
+          {
+            "year": 1941,
+            "tonnes": 2480000
+          },
+          {
+            "year": 1942,
+            "tonnes": 2590000
+          },
+          {
+            "year": 1943,
+            "tonnes": 2620000
+          },
+          {
+            "year": 1944,
+            "tonnes": 2460000
+          },
+          {
+            "year": 1945,
+            "tonnes": 2110000
+          },
+          {
+            "year": 1946,
+            "tonnes": 1780000
+          },
+          {
+            "year": 1947,
+            "tonnes": 2130000
+          },
+          {
+            "year": 1948,
+            "tonnes": 2210000
+          },
+          {
+            "year": 1949,
+            "tonnes": 2140000
+          },
+          {
+            "year": 1950,
+            "tonnes": 2380000
+          },
+          {
+            "year": 1951,
+            "tonnes": 2490000
+          },
+          {
+            "year": 1952,
+            "tonnes": 2570000
+          },
+          {
+            "year": 1953,
+            "tonnes": 2600000
+          },
+          {
+            "year": 1954,
+            "tonnes": 2640000
+          },
+          {
+            "year": 1955,
+            "tonnes": 2900000
+          },
+          {
+            "year": 1956,
+            "tonnes": 3200000
+          },
+          {
+            "year": 1957,
+            "tonnes": 3300000
+          },
+          {
+            "year": 1958,
+            "tonnes": 3190000
+          },
+          {
+            "year": 1959,
+            "tonnes": 3430000
+          },
+          {
+            "year": 1960,
+            "tonnes": 3940000
+          },
+          {
+            "year": 1961,
+            "tonnes": 4090000
+          },
+          {
+            "year": 1962,
+            "tonnes": 4220000
+          },
+          {
+            "year": 1963,
+            "tonnes": 4290000
+          },
+          {
+            "year": 1964,
+            "tonnes": 4450000
+          },
+          {
+            "year": 1965,
+            "tonnes": 4660000
+          },
+          {
+            "year": 1966,
+            "tonnes": 4580000
+          },
+          {
+            "year": 1967,
+            "tonnes": 4630000
+          },
+          {
+            "year": 1968,
+            "tonnes": 5010000
+          },
+          {
+            "year": 1969,
+            "tonnes": 5520000
+          },
+          {
+            "year": 1970,
+            "tonnes": 5900000
+          },
+          {
+            "year": 1971,
+            "tonnes": 5940000
+          },
+          {
+            "year": 1972,
+            "tonnes": 6540000
+          },
+          {
+            "year": 1973,
+            "tonnes": 6920000
+          },
+          {
+            "year": 1974,
+            "tonnes": 7100000
+          },
+          {
+            "year": 1975,
+            "tonnes": 6740000
+          },
+          {
+            "year": 1976,
+            "tonnes": 7260000
+          },
+          {
+            "year": 1977,
+            "tonnes": 7420000
+          },
+          {
+            "year": 1978,
+            "tonnes": 7280000
+          },
+          {
+            "year": 1979,
+            "tonnes": 7350000
+          },
+          {
+            "year": 1980,
+            "tonnes": 7200000
+          },
+          {
+            "year": 1981,
+            "tonnes": 7690000
+          },
+          {
+            "year": 1982,
+            "tonnes": 7580000
+          },
+          {
+            "year": 1983,
+            "tonnes": 7610000
+          },
+          {
+            "year": 1984,
+            "tonnes": 7810000
+          },
+          {
+            "year": 1985,
+            "tonnes": 7990000
+          },
+          {
+            "year": 1986,
+            "tonnes": 7940000
+          },
+          {
+            "year": 1987,
+            "tonnes": 8240000
+          },
+          {
+            "year": 1988,
+            "tonnes": 8720000
+          },
+          {
+            "year": 1989,
+            "tonnes": 9040000
+          },
+          {
+            "year": 1990,
+            "tonnes": 9200000
+          },
+          {
+            "year": 1991,
+            "tonnes": 9330000
+          },
+          {
+            "year": 1992,
+            "tonnes": 9470000
+          },
+          {
+            "year": 1993,
+            "tonnes": 9490000
+          },
+          {
+            "year": 1994,
+            "tonnes": 9500000
+          },
+          {
+            "year": 1995,
+            "tonnes": 10000000
+          },
+          {
+            "year": 1996,
+            "tonnes": 11000000
+          },
+          {
+            "year": 1997,
+            "tonnes": 11500000
+          },
+          {
+            "year": 1998,
+            "tonnes": 12100000
+          },
+          {
+            "year": 1999,
+            "tonnes": 12800000
+          },
+          {
+            "year": 2000,
+            "tonnes": 13300000
+          },
+          {
+            "year": 2001,
+            "tonnes": 13700000
+          },
+          {
+            "year": 2002,
+            "tonnes": 13600000
+          },
+          {
+            "year": 2003,
+            "tonnes": 13800000
+          },
+          {
+            "year": 2004,
+            "tonnes": 14700000
+          },
+          {
+            "year": 2005,
+            "tonnes": 15000000
+          },
+          {
+            "year": 2006,
+            "tonnes": 15100000
+          },
+          {
+            "year": 2007,
+            "tonnes": 15500000
+          },
+          {
+            "year": 2008,
+            "tonnes": 15600000
+          },
+          {
+            "year": 2009,
+            "tonnes": 16000000
+          },
+          {
+            "year": 2010,
+            "tonnes": 16100000
+          },
+          {
+            "year": 2011,
+            "tonnes": 16100000
+          },
+          {
+            "year": 2012,
+            "tonnes": 16700000
+          },
+          {
+            "year": 2013,
+            "tonnes": 18400000
+          },
+          {
+            "year": 2014,
+            "tonnes": 18600000
+          },
+          {
+            "year": 2015,
+            "tonnes": 19300000
+          },
+          {
+            "year": 2016,
+            "tonnes": 20500000
+          },
+          {
+            "year": 2017,
+            "tonnes": 20100000
+          },
+          {
+            "year": 2018,
+            "tonnes": 20600000
+          },
+          {
+            "year": 2019,
+            "tonnes": 20400000
+          },
+          {
+            "year": 2020,
+            "tonnes": 20600000
+          }
+        ]
+      },
+      {
+        "material": "Aluminium",
+        "metric": "world production",
+        "unit": "metric tonnes of contained metal",
+        "coverage": "1900-2021",
+        "series": [
+          {
+            "year": 1900,
+            "tonnes": 6800
+          },
+          {
+            "year": 1901,
+            "tonnes": 6800
+          },
+          {
+            "year": 1902,
+            "tonnes": 7900
+          },
+          {
+            "year": 1903,
+            "tonnes": 8500
+          },
+          {
+            "year": 1904,
+            "tonnes": 10000
+          },
+          {
+            "year": 1905,
+            "tonnes": 13000
+          },
+          {
+            "year": 1906,
+            "tonnes": 17000
+          },
+          {
+            "year": 1907,
+            "tonnes": 22000
+          },
+          {
+            "year": 1908,
+            "tonnes": 17000
+          },
+          {
+            "year": 1909,
+            "tonnes": 30000
+          },
+          {
+            "year": 1910,
+            "tonnes": 45000
+          },
+          {
+            "year": 1911,
+            "tonnes": 46000
+          },
+          {
+            "year": 1912,
+            "tonnes": 58000
+          },
+          {
+            "year": 1913,
+            "tonnes": 65000
+          },
+          {
+            "year": 1914,
+            "tonnes": 69000
+          },
+          {
+            "year": 1915,
+            "tonnes": 78000
+          },
+          {
+            "year": 1916,
+            "tonnes": 106000
+          },
+          {
+            "year": 1917,
+            "tonnes": 123000
+          },
+          {
+            "year": 1918,
+            "tonnes": 128000
+          },
+          {
+            "year": 1919,
+            "tonnes": 121000
+          },
+          {
+            "year": 1920,
+            "tonnes": 125000
+          },
+          {
+            "year": 1921,
+            "tonnes": 70000
+          },
+          {
+            "year": 1922,
+            "tonnes": 87000
+          },
+          {
+            "year": 1923,
+            "tonnes": 141000
+          },
+          {
+            "year": 1924,
+            "tonnes": 168000
+          },
+          {
+            "year": 1925,
+            "tonnes": 178000
+          },
+          {
+            "year": 1926,
+            "tonnes": 195000
+          },
+          {
+            "year": 1927,
+            "tonnes": 220000
+          },
+          {
+            "year": 1928,
+            "tonnes": 258000
+          },
+          {
+            "year": 1929,
+            "tonnes": 280000
+          },
+          {
+            "year": 1930,
+            "tonnes": 272000
+          },
+          {
+            "year": 1931,
+            "tonnes": 220000
+          },
+          {
+            "year": 1932,
+            "tonnes": 153000
+          },
+          {
+            "year": 1933,
+            "tonnes": 142000
+          },
+          {
+            "year": 1934,
+            "tonnes": 170000
+          },
+          {
+            "year": 1935,
+            "tonnes": 259000
+          },
+          {
+            "year": 1936,
+            "tonnes": 360000
+          },
+          {
+            "year": 1937,
+            "tonnes": 482000
+          },
+          {
+            "year": 1938,
+            "tonnes": 579000
+          },
+          {
+            "year": 1939,
+            "tonnes": 720000
+          },
+          {
+            "year": 1940,
+            "tonnes": 787000
+          },
+          {
+            "year": 1941,
+            "tonnes": 1040000
+          },
+          {
+            "year": 1942,
+            "tonnes": 1400000
+          },
+          {
+            "year": 1943,
+            "tonnes": 1950000
+          },
+          {
+            "year": 1944,
+            "tonnes": 1690000
+          },
+          {
+            "year": 1945,
+            "tonnes": 870000
+          },
+          {
+            "year": 1946,
+            "tonnes": 790000
+          },
+          {
+            "year": 1947,
+            "tonnes": 1080000
+          },
+          {
+            "year": 1948,
+            "tonnes": 1270000
+          },
+          {
+            "year": 1949,
+            "tonnes": 1310000
+          },
+          {
+            "year": 1950,
+            "tonnes": 1490000
+          },
+          {
+            "year": 1951,
+            "tonnes": 1800000
+          },
+          {
+            "year": 1952,
+            "tonnes": 2060000
+          },
+          {
+            "year": 1953,
+            "tonnes": 2470000
+          },
+          {
+            "year": 1954,
+            "tonnes": 2810000
+          },
+          {
+            "year": 1955,
+            "tonnes": 3140000
+          },
+          {
+            "year": 1956,
+            "tonnes": 3370000
+          },
+          {
+            "year": 1957,
+            "tonnes": 3370000
+          },
+          {
+            "year": 1958,
+            "tonnes": 3510000
+          },
+          {
+            "year": 1959,
+            "tonnes": 4060000
+          },
+          {
+            "year": 1960,
+            "tonnes": 4490000
+          },
+          {
+            "year": 1961,
+            "tonnes": 4700000
+          },
+          {
+            "year": 1962,
+            "tonnes": 5060000
+          },
+          {
+            "year": 1963,
+            "tonnes": 5320000
+          },
+          {
+            "year": 1964,
+            "tonnes": 5940000
+          },
+          {
+            "year": 1965,
+            "tonnes": 6310000
+          },
+          {
+            "year": 1966,
+            "tonnes": 6880000
+          },
+          {
+            "year": 1967,
+            "tonnes": 7570000
+          },
+          {
+            "year": 1968,
+            "tonnes": 8020000
+          },
+          {
+            "year": 1969,
+            "tonnes": 8970000
+          },
+          {
+            "year": 1970,
+            "tonnes": 9650000
+          },
+          {
+            "year": 1971,
+            "tonnes": 10300000
+          },
+          {
+            "year": 1972,
+            "tonnes": 11000000
+          },
+          {
+            "year": 1973,
+            "tonnes": 12100000
+          },
+          {
+            "year": 1974,
+            "tonnes": 13200000
+          },
+          {
+            "year": 1975,
+            "tonnes": 12100000
+          },
+          {
+            "year": 1976,
+            "tonnes": 12600000
+          },
+          {
+            "year": 1977,
+            "tonnes": 13800000
+          },
+          {
+            "year": 1978,
+            "tonnes": 14100000
+          },
+          {
+            "year": 1979,
+            "tonnes": 14600000
+          },
+          {
+            "year": 1980,
+            "tonnes": 15400000
+          },
+          {
+            "year": 1981,
+            "tonnes": 15100000
+          },
+          {
+            "year": 1982,
+            "tonnes": 13400000
+          },
+          {
+            "year": 1983,
+            "tonnes": 13900000
+          },
+          {
+            "year": 1984,
+            "tonnes": 15700000
+          },
+          {
+            "year": 1985,
+            "tonnes": 15400000
+          },
+          {
+            "year": 1986,
+            "tonnes": 15400000
+          },
+          {
+            "year": 1987,
+            "tonnes": 16500000
+          },
+          {
+            "year": 1988,
+            "tonnes": 18500000
+          },
+          {
+            "year": 1989,
+            "tonnes": 19000000
+          },
+          {
+            "year": 1990,
+            "tonnes": 19300000
+          },
+          {
+            "year": 1991,
+            "tonnes": 19700000
+          },
+          {
+            "year": 1992,
+            "tonnes": 19500000
+          },
+          {
+            "year": 1993,
+            "tonnes": 19800000
+          },
+          {
+            "year": 1994,
+            "tonnes": 19200000
+          },
+          {
+            "year": 1995,
+            "tonnes": 19700000
+          },
+          {
+            "year": 1996,
+            "tonnes": 20800000
+          },
+          {
+            "year": 1997,
+            "tonnes": 21700000
+          },
+          {
+            "year": 1998,
+            "tonnes": 22600000
+          },
+          {
+            "year": 1999,
+            "tonnes": 23600000
+          },
+          {
+            "year": 2000,
+            "tonnes": 24300000
+          },
+          {
+            "year": 2001,
+            "tonnes": 24300000
+          },
+          {
+            "year": 2002,
+            "tonnes": 26100000
+          },
+          {
+            "year": 2003,
+            "tonnes": 28000000
+          },
+          {
+            "year": 2004,
+            "tonnes": 29900000
+          },
+          {
+            "year": 2005,
+            "tonnes": 31900000
+          },
+          {
+            "year": 2006,
+            "tonnes": 33900000
+          },
+          {
+            "year": 2007,
+            "tonnes": 37900000
+          },
+          {
+            "year": 2008,
+            "tonnes": 39700000
+          },
+          {
+            "year": 2009,
+            "tonnes": 37200000
+          },
+          {
+            "year": 2010,
+            "tonnes": 41800000
+          },
+          {
+            "year": 2011,
+            "tonnes": 46800000
+          },
+          {
+            "year": 2012,
+            "tonnes": 49300000
+          },
+          {
+            "year": 2013,
+            "tonnes": 52200000
+          },
+          {
+            "year": 2014,
+            "tonnes": 54100000
+          },
+          {
+            "year": 2015,
+            "tonnes": 57800000
+          },
+          {
+            "year": 2016,
+            "tonnes": 59400000
+          },
+          {
+            "year": 2017,
+            "tonnes": 59400000
+          },
+          {
+            "year": 2018,
+            "tonnes": 63300000
+          },
+          {
+            "year": 2019,
+            "tonnes": 62600000
+          },
+          {
+            "year": 2020,
+            "tonnes": 65000000
+          },
+          {
+            "year": 2021,
+            "tonnes": 67500000
+          }
+        ]
+      }
+    ],
+    "boundary": "Economy-wide world production, not grid consumption. The series establish long-run material scale only."
+  },
+  "network_task": {
+    "source": "iea_grids_2023",
+    "published": 2023,
+    "existing_grid_million_km": 80,
+    "add_or_refurbish_by_2040_million_km": 80,
+    "queued_renewables_gw": 1500,
+    "queue_reference_year": 2022,
+    "queue_multiple_of_2022_solar_wind_additions": 5,
+    "boundary": "The 2040 figure combines new and refurbished lines; it is not 80 million kilometres of wholly new construction."
+  },
+  "investment_anchors": {
+    "sources": [
+      "iea_investment_2024",
+      "iea_grids_2023"
+    ],
+    "unit": "billion USD per year",
+    "points": [
+      {
+        "period": "2015-2021",
+        "value": 300,
+        "qualifier": "around",
+        "meaning": "observed annual grid investment plateau"
+      },
+      {
+        "period": "2024",
+        "value": 400,
+        "qualifier": "expected",
+        "meaning": "annual grid investment"
+      },
+      {
+        "period": "2030",
+        "value": 600,
+        "qualifier": "more than",
+        "meaning": "annual investment needed"
+      }
+    ],
+    "boundary": "Published anchors with different statuses, not an interpolated annual time series or a forecast of metal demand."
+  },
+  "conductor_choice": {
+    "source": "doe_conductors_2023",
+    "facts": [
+      {
+        "statement": "Aluminium has roughly 60% of copper's electrical conductivity by equal cross-sectional area.",
+        "implication": "An equivalent conductor generally needs more aluminium cross-section."
+      },
+      {
+        "statement": "Aluminium can carry roughly twice as much current as copper by equal weight.",
+        "implication": "Low weight favours aluminium in overhead spans."
+      },
+      {
+        "statement": "Steel-reinforced aluminium conductor has been used since the early 1900s and is the world's most widely used overhead conductor type.",
+        "implication": "Substitution is an old engineering architecture, not a recent emergency response."
+      }
+    ],
+    "boundary": "Material choice depends on conductivity, strength, weight, diameter, connections, route, losses and lifetime cost; there is no universal copper-to-aluminium ratio."
+  },
+  "transformer_bottleneck": {
+    "global": {
+      "source": "iea_transmission_2025",
+      "as_of": 2025,
+      "cable_procurement_years": [
+        2,
+        3
+      ],
+      "large_transformer_procurement_years_up_to": 4,
+      "dc_cable_procurement_years_more_than": 5,
+      "power_transformer_real_price_change_since_2019": 0.75,
+      "cable_real_price_change_since_2019": "nearly doubled"
+    },
+    "us_distribution_case": {
+      "source": "doe_distribution_2024",
+      "series": [
+        {
+          "year": 2019,
+          "lead_time_months": [
+            3,
+            6
+          ]
+        },
+        {
+          "year": 2023,
+          "lead_time_months": [
+            12,
+            30
+          ]
+        }
+      ],
+      "boundary": "US distribution transformers only; not a global series and not large power transformers."
+    },
+    "us_large_transformer_anatomy": {
+      "source": "doe_lpt_2024",
+      "inputs": [
+        "grain-oriented electrical steel",
+        "continuously transposed copper wire",
+        "insulation"
+      ],
+      "goes_cost_share": 0.25,
+      "copper_wire_cost_share": 0.25,
+      "survey_year": 2020,
+      "boundary": "Approximate shares of final US large-power-transformer production cost in a Commerce survey; not physical mass shares or global values."
+    }
+  },
+  "trade_context": {
+    "source": "baci",
+    "coverage": "2002-2024",
+    "file": "out/grid_trade.json",
+    "boundary": "Four grouped customs baskets provide context; none measures total grid investment, production capacity or project origin."
+  },
+  "boundaries": [
+    "Economy-wide copper and aluminium production is not grid material demand.",
+    "Overhead, underground and submarine networks use different conductor and insulation architectures.",
+    "Grid investment is spending, not kilometres, tonnes or transformer output.",
+    "A bottleneck can sit in specialised processing and equipment factories even when the bulk metal is available.",
+    "Export concentration is not the same as production concentration or import dependence."
+  ],
+  "sources": {
+    "usgs_copper": {
+      "title": "USGS Historical Statistics for Mineral and Material Commodities: Copper",
+      "year": 2023,
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"
+    },
+    "usgs_aluminium": {
+      "title": "USGS Historical Statistics for Mineral and Material Commodities: Aluminum",
+      "year": 2023,
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"
+    },
+    "iea_grids_2023": {
+      "title": "IEA, Electricity Grids and Secure Energy Transitions",
+      "year": 2023,
+      "url": "https://www.iea.org/reports/electricity-grids-and-secure-energy-transitions/executive-summary"
+    },
+    "iea_investment_2024": {
+      "title": "IEA, World Energy Investment 2024",
+      "year": 2024,
+      "url": "https://www.iea.org/reports/world-energy-investment-2024/overview-and-key-findings"
+    },
+    "iea_transmission_2025": {
+      "title": "IEA, Building the Future Transmission Grid",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/building-the-future-transmission-grid"
+    },
+    "doe_lpt_2024": {
+      "title": "US DOE, Large Power Transformer Resilience Report",
+      "year": 2024,
+      "url": "https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%20signed%20by%20Secretary%20Granholm%20on%207-10-24.pdf"
+    },
+    "doe_distribution_2024": {
+      "title": "US DOE, DOE and Industry Team Up to Keep the Lights on for America",
+      "year": 2024,
+      "url": "https://www.energy.gov/oe/articles/doe-and-industry-team-keep-lights-america"
+    },
+    "doe_conductors_2023": {
+      "title": "US DOE, Advanced Conductor Scan Report",
+      "year": 2023,
+      "url": "https://www.energy.gov/sites/default/files/2024-08/Advanced%20Conductor%20Report%20December%202023.pdf"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
