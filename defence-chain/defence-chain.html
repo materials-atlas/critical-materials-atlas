@@ -1,0 +1,62 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>DRAFT · The materials behind modern weapons — Critical Materials Atlas</title><meta name="description" content="Unpublished defence-materials chain pilot: gallium, germanium, antimony, tungsten and rare earths behind radar, night vision and munitions — and the export controls that hit exactly those materials."><link rel="stylesheet" href="../assets/site.css">
+<style>
+:root{--acc:#8a3b3b}
+.draftbar{background:var(--acc);color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.5rem 1rem;text-align:center}.draftbar span{font-weight:500;letter-spacing:0;text-transform:none;opacity:.9}
+.hero h1{max-width:26ch}.hero .deck{max-width:82ch}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin:1.2rem 0}@media(max-width:800px){.stats{grid-template-columns:1fr 1fr}}@media(max-width:470px){.stats{grid-template-columns:1fr}}
+.stat{background:var(--bg);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:9px;padding:.8rem .9rem}.stat .v{font-size:1.35rem;font-weight:800;color:var(--navy)}.stat .l{font-size:.74rem;color:var(--mut);line-height:1.35}
+.chain{display:grid;grid-template-columns:repeat(4,1fr);gap:.5rem;margin:1rem 0}@media(max-width:760px){.chain{grid-template-columns:1fr 1fr}}
+.hop{border:1px solid var(--line);border-radius:9px;padding:.7rem;background:var(--bg-soft);min-height:6.2rem}.hop .n{font-size:.64rem;color:var(--acc);font-weight:800;text-transform:uppercase}.hop .t{font-size:.75rem;color:var(--mut);margin-top:.28rem;line-height:1.35}
+.panel{border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;margin:1rem 0;background:var(--bg)}.panel h3{margin-top:0;color:var(--navy)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1rem}@media(max-width:720px){.split{grid-template-columns:1fr}}
+.bars{display:grid;gap:.6rem;margin-top:.4rem}.barrow{display:grid;grid-template-columns:11rem 1fr 4rem;gap:.55rem;align-items:center;font-size:.78rem}.track{height:14px;background:#eceeef;border-radius:8px;overflow:hidden}.fill{height:100%;background:var(--acc);border-radius:8px;display:block}.num{text-align:right;font-weight:800;color:var(--navy)}
+.big{font-size:2.1rem;font-weight:800;color:var(--acc);margin:.2rem 0}
+.flag{display:inline-block;font-size:.63rem;font-weight:700;text-transform:uppercase;border-radius:4px;padding:.12rem .35rem;background:#f1e9e9;color:var(--acc);border:1px solid #e2cccc}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:.5rem}@media(max-width:820px){.cards{grid-template-columns:1fr 1fr}}@media(max-width:480px){.cards{grid-template-columns:1fr}}
+.card{border:1px solid var(--line);border-radius:9px;padding:.75rem .8rem;background:var(--bg)}.card h4{margin:.1rem 0 .3rem;color:var(--acc);font-size:.9rem}.card p{margin:0;font-size:.8rem;color:var(--mut);line-height:1.45}
+.control{display:flex;gap:.65rem;align-items:center;margin:.7rem 0}.control input{flex:1;accent-color:var(--acc)}.control b{min-width:4rem;text-align:right}
+.source-list li{margin:.42rem 0;font-size:.82rem;color:var(--mut)}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:.45rem .5rem;border-bottom:1px solid var(--line);font-size:.82rem;vertical-align:top}th{color:var(--navy)}
+@media(max-width:560px){.barrow{grid-template-columns:8rem 1fr 3.5rem}}
+</style></head><body>
+<div class="draftbar" id="draftbar">Research pilot · unpublished — not part of the live Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../value-chains.html">All chains</a><a href="README.md">Pilot note</a></nav></div></header>
+<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<article>
+<div class="callout hot" id="correction"></div>
+<div class="stats" id="stats"></div>
+<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
+<div id="sections"></div>
+<h2>Customs records are context, not capability</h2>
+<p id="trade-intro"></p>
+<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
+<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
+<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+</article>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>An unpublished product-chain pilot built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains.html">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">Noindex. Not linked from the live Atlas. Existing profiles are unchanged.</div></div></footer>
+<script>
+const DATA='out/defence_chain.json', TRADE='out/defence_trade.json';
+function esc(s){return String(s==null?'':s).replace(/[<>]/g,c=>({'<':'&lt;','>':'&gt;'}[c]))}
+function money(v){return v>=1e9?'$'+(v/1e9).toFixed(1)+'B':v>=1e6?'$'+(v/1e6).toFixed(1)+'M':'$'+Math.round(v/1e3)+'k'}
+function barsHTML(rows,max){const m=max||Math.max.apply(null,rows.map(r=>r.value||0))||1;return '<div class="bars">'+rows.map(r=>{const v=r.value;const w=v==null?0:Math.max(2,v/m*100);const show=v==null?'n/a':(r.fmt==='pct0'?Math.round(v)+'%':(v<=1?Math.round(v*100)+'%':v.toLocaleString()));return '<div class="barrow"><b>'+esc(r.label)+'</b><span class="track"><span class="fill" style="width:'+w+'%"></span></span><span class="num">'+show+'</span></div>'}).join('')+'</div>'}
+function panelHTML(p){let inner='';if(p.h3)inner+='<h3>'+esc(p.h3)+'</h3>';if(p.kind==='bars')inner+=barsHTML(p.bars,p.max);else if(p.kind==='big')inner+='<p class="big">'+esc(p.big)+'</p><p>'+esc(p.text)+'</p>';else if(p.kind==='text')inner+='<p style="margin-top:0">'+esc(p.text)+'</p>';else if(p.kind==='cards')inner+='<div class="cards">'+p.cards.map(c=>'<div class="card"><h4>'+esc(c.t)+'</h4><p>'+esc(c.d)+'</p></div>').join('')+'</div>';if(p.note)inner+='<p class="note">'+esc(p.note)+'</p>';if(p.flag)inner+='<span class="flag">'+esc(p.flag)+'</span>';return '<div class="panel">'+inner+'</div>'}
+function tradeRow(T,i){const y=T.years[i],d=T.years_data[String(y)];document.getElementById('trade-year').textContent=y;document.getElementById('trade-body').innerHTML=Object.keys(T.codes).map(k=>{const c=d[k],lead=c.exporters&&c.exporters[0];return '<tr><td><b>'+esc(T.codes[k].title)+'</b><br><span class="note">HS '+k+'</span></td><td>'+(c.world_usd?money(c.world_usd):'—')+'</td><td>'+(lead?esc(lead.name)+' · '+Math.round(lead.share*100)+'%':'—')+'</td><td><span class="flag">'+esc(T.codes[k].boundary)+'</span></td></tr>'}).join('')}
+Promise.all([fetch(DATA).then(r=>r.json()),fetch(TRADE).then(r=>r.ok?r.json():null).catch(()=>null)]).then(([D,T])=>{
+  if(D.accent)document.documentElement.style.setProperty('--acc',D.accent);
+  document.getElementById('draftbar').innerHTML='Research pilot · unpublished <span>— '+esc(D.title)+', not part of the live Atlas</span>';
+  document.getElementById('eyebrow').textContent=D.eyebrow||'';
+  document.getElementById('h1').textContent=D.h1||D.title;
+  document.getElementById('deck').innerHTML=esc(D.deck).replace(/&lt;i&gt;/g,'<i>').replace(/&lt;\/i&gt;/g,'</i>');
+  document.getElementById('byline').textContent=D.byline||'';
+  document.getElementById('correction').innerHTML='<b>The correction.</b> '+esc(D.correction);
+  document.getElementById('stats').innerHTML=(D.stats||[]).map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  document.getElementById('chain').innerHTML=(D.hops||[]).map(h=>'<div class="hop"><div class="n">'+esc(h.n)+'</div><div class="t">'+esc(h.t)+'</div></div>').join('');
+  document.getElementById('sections').innerHTML=(D.sections||[]).map(sec=>{const ps=sec.panels||[];const wrap=ps.length===2?'<div class="split">'+ps.map(panelHTML).join('')+'</div>':ps.map(panelHTML).join('');return '<h2>'+esc(sec.h2)+'</h2>'+wrap}).join('');
+  document.getElementById('trade-intro').textContent=D.trade_intro||'';
+  document.getElementById('method-body').innerHTML=(D.method||[]).map(m=>'<tr><td><b>'+esc(m.stage)+'</b></td><td>'+esc(m.lens)+'</td><td class="note">'+esc(m.why)+'</td></tr>').join('');
+  document.getElementById('source-list').innerHTML=Object.values(D.sources||{}).map(s=>'<li><a href="'+s.url+'">'+esc(s.title)+'</a> ('+s.year+')'+(s.note?' — <span class="note">'+esc(s.note)+'</span>':'')+'</li>').join('');
+  document.getElementById('ev-json').href=DATA;document.getElementById('tr-json').href=TRADE;
+  if(T&&T.years&&T.years.length){const ts=document.getElementById('trade-slider');ts.max=T.years.length-1;ts.value=T.years.length-1;ts.oninput=()=>tradeRow(T,+ts.value);tradeRow(T,+ts.value);}
+  else{document.getElementById('trade-body').innerHTML='<tr><td colspan="4" class="note">Trade JSON not built yet — run the chain’s extract_baci.py.</td></tr>';}
+}).catch(err=>{document.querySelector('article').insertAdjacentHTML('afterbegin','<div class="callout hot"><b>Evidence JSON did not load.</b> Serve the repository over HTTP.</div>');console.error(err)});
+</script></body></html>
