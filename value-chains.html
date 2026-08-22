@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Value Chains — Critical Materials Atlas</title>
+<meta name="description" content="Research preview: eleven end-use value chains — from raw material to finished technology (chips, solar, wind, EVs, batteries, magnets, nuclear, grids, heat pumps, electrolysers, data centres). Each traces where the real bottleneck sits, which is rarely the mine.">
+<meta property="og:title" content="Value Chains — Critical Materials Atlas">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:1000px}
+ .preview{display:flex;gap:.6rem;align-items:baseline;background:var(--bg-soft);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.7rem 1rem;margin:0 0 1.6rem;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .preview b{color:var(--navy)}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:70ch;margin:.2rem 0 1.6rem}
+ .thesis b{color:var(--navy)}
+ .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.1rem;margin:1.2rem 0}
+ .ch{display:flex;flex-direction:column;border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem 1rem;background:var(--bg);transition:border-color .15s,transform .08s}
+ .ch:hover{border-color:var(--accent);transform:translateY(-1px)}
+ .ch .tag{font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--accent)}
+ .ch h3{margin:.35rem 0 .45rem;font-size:1.05rem;line-height:1.25;color:var(--navy);letter-spacing:-.01em}
+ .ch p{margin:0 0 .9rem;font-size:.88rem;line-height:1.5;color:var(--mut);flex:1}
+ .ch a.go{font-size:.82rem;font-weight:700;color:var(--accent);text-decoration:none;align-self:flex-start}
+ .ch a.go:hover{text-decoration:underline}
+ .ch a.stretch{position:absolute;inset:0}
+ .chwrap{position:relative}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2.2rem 0 .3rem;border-top:1px solid var(--line);padding-top:1.6rem}
+ ol.rules{margin:.8rem 0;padding-left:1.2rem;max-width:74ch}
+ ol.rules li{padding:.3rem 0;color:var(--ink-soft);line-height:1.55}
+ ol.rules li b{color:var(--navy)}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="reports.html">Reports</a>
+  <a href="about.html" class="hideable">About</a><a href="methodology.html" class="hideable">Methodology</a></nav>
+</div></header>
+
+<section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
+  <div class="eyebrow">Research preview</div>
+  <h1>Value Chains</h1>
+  <p class="deck">The atlas maps 32 materials. This layer follows them the other way — from the ground to the finished technology — for eleven of the systems the energy transition and the digital build-out actually run on.</p>
+</div></section>
+
+<article>
+  <div class="preview"><b>Research preview.</b> These eleven chains are working drafts, kept deliberately separate from the 32 published material profiles. Each keeps physical production, company control and customs trade as distinct measures, and shows its gaps rather than papering over them. Read them as sourced research, not finished reports.</div>
+
+  <p class="thesis">One finding runs through all eleven: <b>the chokepoint is rarely the mine.</b> The same lesson the atlas draws for single materials — the refiner is not the source — scales up to whole technologies. As a raw material becomes a purified feedstock, a component, and then a finished machine, the binding constraint keeps moving <i>downstream</i> — to the furnace, the fab, the magnet, the enrichment plant, the transformer. Each chain below shows where it actually sits.</p>
+
+  <div class="grid">
+    <div class="chwrap"><div class="ch"><span class="tag">Compute</span>
+      <h3>The chokepoint moves as silicon becomes a chip</h3>
+      <p>China dominates raw silicon metal, but the scarce electronic-grade purification and blank-wafer capability sits in the US, Germany, Japan and Taiwan. The bottleneck is downstream, not at the mine.</p>
+      <a class="go" href="silicon-chip/silicon-chain.html">Open the chain →</a><a class="stretch" href="silicon-chip/silicon-chain.html" aria-label="From silicon to chips"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Compute</span>
+      <h3>A GPU is not a connected data centre</h3>
+      <p>Accelerators matter, but usable compute also needs memory, networking, servers, power (transformers, UPS), cooling — and a permitted, powered site. The scarce link is often power and land, not the chip.</p>
+      <a class="go" href="data-centre-chain/data-centre-chain.html">Open the chain →</a><a class="stretch" href="data-centre-chain/data-centre-chain.html" aria-label="From chips to connected compute"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Power</span>
+      <h3>Solar grew by moving — and by using less silicon</h3>
+      <p>Module manufacturing consolidated into Asia (over 90% of output) even as each panel used steadily less silicon per watt. Where it is made moved; how much material it needs fell.</p>
+      <a class="go" href="solar-chain/solar-chain.html">Open the chain →</a><a class="stretch" href="solar-chain/solar-chain.html" aria-label="From silicon to solar power"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Power</span>
+      <h3>The turbine design decides which bottleneck matters</h3>
+      <p>Installed capacity hides where turbines are built — and the drivetrain choice (direct-drive vs geared) decides whether rare-earth magnets are the binding constraint at all.</p>
+      <a class="go" href="wind-chain/wind-chain.html">Open the chain →</a><a class="stretch" href="wind-chain/wind-chain.html" aria-label="From materials to wind turbines"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Power</span>
+      <h3>A uranium mine is not a nuclear fuel supply chain</h3>
+      <p>Nuclear runs on a sequence of specialised, concentrated capabilities — mining, conversion, enrichment, fabrication. The mine is the least concentrated stage of the four.</p>
+      <a class="go" href="nuclear-chain/nuclear-chain.html">Open the chain →</a><a class="stretch" href="nuclear-chain/nuclear-chain.html" aria-label="From uranium to nuclear power"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Infrastructure</span>
+      <h3>For the grid, the bottleneck is the component, not the ore</h3>
+      <p>The next grid build-out rivals the length of today's entire grid. Copper and aluminium are abundant; the squeeze is transformers, cable and the factories that make them.</p>
+      <a class="go" href="grid-chain/grid-chain.html">Open the chain →</a><a class="stretch" href="grid-chain/grid-chain.html" aria-label="From metals to electricity grids"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Storage</span>
+      <h3>A battery is a changing recipe, not a single mineral</h3>
+      <p>The tightest bottleneck migrates with chemistry — NMC's cobalt and nickel, LFP's phosphate and graphite, sodium's escape from both. "The battery material" depends on the year and the cell.</p>
+      <a class="go" href="battery-chain/battery-chain.html">Open the chain →</a><a class="stretch" href="battery-chain/battery-chain.html" aria-label="From minerals to batteries"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Mobility</span>
+      <h3>There is no single electric-vehicle recipe</h3>
+      <p>Chemistry, motor topology and pack size all vary, so the "EV material bottleneck" is not one thing — it depends on which vehicle, which motor, which battery.</p>
+      <a class="go" href="ev-chain/ev-chain.html">Open the chain →</a><a class="stretch" href="ev-chain/ev-chain.html" aria-label="From materials to electric vehicles"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Components · cross-cutting</span>
+      <h3>For magnets, the mine is only the first bottleneck</h3>
+      <p>Rare-earth mining expanded more than 200-fold, but the strategic squeeze tightened downstream — separation, metal, alloy and sintered-magnet capability, overwhelmingly in China. This chain feeds both wind and EVs.</p>
+      <a class="go" href="magnet-chain/magnet-chain.html">Open the chain →</a><a class="stretch" href="magnet-chain/magnet-chain.html" aria-label="From rare earths to permanent magnets"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Heat</span>
+      <h3>The machine is only one part of delivered heat</h3>
+      <p>A heat pump is a compressor, refrigerant, heat exchangers, motor and controls — but its real performance then depends on installation and the grid behind it.</p>
+      <a class="go" href="heat-pump-chain/heat-pump-chain.html">Open the chain →</a><a class="stretch" href="heat-pump-chain/heat-pump-chain.html" aria-label="From components to useful heat"></a></div></div>
+
+    <div class="chwrap"><div class="ch"><span class="tag">Hydrogen</span>
+      <h3>Hydrogen is not one technology — or one recipe</h3>
+      <p>Alkaline, PEM and solid-oxide electrolysers need different materials — nickel, iridium and PGMs, or none of them — so the bottleneck depends entirely on which stack scales.</p>
+      <a class="go" href="electrolyser-chain/electrolyser-chain.html">Open the chain →</a><a class="stretch" href="electrolyser-chain/electrolyser-chain.html" aria-label="From materials to electrolysers"></a></div></div>
+  </div>
+
+  <h2 class="sec">How each chain is built</h2>
+  <p style="color:var(--mut);max-width:74ch;line-height:1.6">The chains follow one rule set, so they can be read against each other and against the material profiles. It is the same discipline the atlas applies to single materials — separate the measures, and never claim more than the data can carry.</p>
+  <ol class="rules">
+    <li><b>Define the physical transformation first</b>, then choose the dataset — not the other way round.</li>
+    <li><b>Prefer production or capacity</b> for "who makes it"; trade shares are not factory shares.</li>
+    <li><b>Show ownership separately</b> when a handful of firms — not countries — hold the stage.</li>
+    <li><b>Use customs data only at the specificity the HS code actually has</b> — never split a shared code by price.</li>
+    <li><b>Put years, units, scope and forecast status beside every number.</b></li>
+    <li><b>Extend the history only as far as comparable evidence allows</b> — show the gaps rather than splice incompatible measures into a false series.</li>
+  </ol>
+
+  <p class="note" style="margin-top:1.6rem">Sources are logged per chain (OECD, IEA / IEA-PVPS, IRENA, USGS, SIA, SEMI, UN Comtrade via CEPII BACI) in each chain's <code>PRODUCTION.md</code> ledger, with rejected interpretations recorded in <code>NOTES.md</code>. Public data only.</p>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="./">Atlas home</a><br><a href="explorer.html">Explore the data</a><br><a href="reports.html">Reports</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>USGS · IEA · IRENA · OECD<br>SIA · SEMI · UN Comtrade · CEPII BACI</div>
+  <div class="fineprint">Research preview under the materials-atlas handle. Working drafts, offered for scrutiny.</div>
+</div></footer>
+</body></html>
