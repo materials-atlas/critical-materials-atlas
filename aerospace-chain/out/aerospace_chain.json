@@ -1,0 +1,180 @@
+{
+  "title": "Aerospace / jet-engine superalloy chain",
+  "status": "unpublished research pilot",
+  "thesis": "A jet engine's bottleneck is not the ore. Chile's rhenium is a copper by-product; China makes most titanium sponge but almost none of it is aerospace-qualified; single-crystal blade casting is held by a few firms; and three Western groups build nearly every large engine. Each stage downstream is MORE concentrated than the mine.",
+  "stages": [
+    {
+      "stage": "1 · Rhenium (scarce superalloy element)",
+      "lens": "by-product mine production",
+      "data": {
+        "source": "usgs_rhenium",
+        "world_production_2025_kg": 81000,
+        "unit": "kilograms of contained rhenium",
+        "note": "Rhenium is recovered as a by-product of molybdenum from porphyry copper ores — no mine operates for rhenium itself, so supply cannot be scaled independently of copper.",
+        "end_uses": [
+          {
+            "use": "Superalloys (high-temperature turbine-engine components)",
+            "share": 0.8
+          },
+          {
+            "use": "Petroleum-reforming catalysts",
+            "share": 0.15
+          },
+          {
+            "use": "Other",
+            "share": 0.05
+          }
+        ],
+        "mine_leaders": [
+          {
+            "country": "Chile",
+            "share": 0.55,
+            "basis": "share of world MINE production (porphyry copper by-product)"
+          }
+        ],
+        "secondary_producers": [
+          "United States",
+          "Germany",
+          "Canada",
+          "Estonia",
+          "France",
+          "Japan",
+          "Poland",
+          "Russia",
+          "Kazakhstan"
+        ],
+        "reading": "The metal that makes single-crystal turbine blades possible is a trace by-product of copper mining, ~55% from Chile. It is a chokepoint by scarcity and by-product coupling, not by refining."
+      }
+    },
+    {
+      "stage": "2 · Titanium sponge (structure)",
+      "lens": "production vs aerospace qualification",
+      "data": {
+        "source": "usgs_titanium",
+        "world_sponge_note": "China dominates titanium-sponge PRODUCTION (~71% of world output in 2024), but most Chinese sponge is not qualified for critical aerospace use.",
+        "sponge_production_shares": [
+          {
+            "country": "China",
+            "share": 0.71,
+            "year": 2024
+          },
+          {
+            "country": "Japan",
+            "share": 0.17,
+            "year": 2022
+          },
+          {
+            "country": "Russia",
+            "share": 0.13,
+            "year": 2022
+          },
+          {
+            "country": "Kazakhstan",
+            "share": null,
+            "year": 2022,
+            "note": "smaller producer"
+          },
+          {
+            "country": "Ukraine",
+            "share": null,
+            "year": 2022,
+            "note": "smaller producer; disrupted by war"
+          }
+        ],
+        "aerospace_qualified": {
+          "source": "argus_ti",
+          "note": "Aerospace-grade sponge is a narrow, allied subset of total production. The premium/qualified supply comes from Japan, Russia and Kazakhstan — not from the world's largest producer."
+        },
+        "us_import_reliance": {
+          "source": "usgs_titanium_reliance",
+          "note": "The United States has NO domestic titanium-sponge production and imports it.",
+          "sources": [
+            {
+              "country": "Japan",
+              "share": 0.8
+            },
+            {
+              "country": "Saudi Arabia",
+              "share": 0.13
+            },
+            {
+              "country": "Kazakhstan",
+              "share": 0.09
+            }
+          ]
+        },
+        "reading": "The sponge chokepoint is not tonnage — China leads that — it is QUALIFICATION. Aerospace runs on a narrow allied base (Japan above all), which is why a production-share map misreads the risk."
+      }
+    },
+    {
+      "stage": "3 · Single-crystal blade casting",
+      "lens": "company / capability control",
+      "data": {
+        "note": "Casting nickel-superalloy single-crystal blades (directional solidification, hafnium/rhenium-bearing) is a low-yield, capital- and know-how-intensive stage held by a handful of firms and engine OEMs.",
+        "structure": "Concentrated among specialist casters (e.g. Precision Castparts, Doncasters) and the OEMs' own foundries, in the United States, United Kingdom, France and Japan; China is developing capability. No public country-production series exists for this stage — company control is the right lens.",
+        "measure": "company/capability concentration (qualitative)",
+        "reading": "This is the classic 'the refiner is not the source' stage: even with the ore and the sponge, the blade-casting capability is the true bottleneck, and it is measured in firms, not countries."
+      }
+    },
+    {
+      "stage": "4 · Jet-engine assembly",
+      "lens": "OEM market share",
+      "data": {
+        "source": "market_engines",
+        "market_value_usd_2024": 81000000000,
+        "overall_oem_share": [
+          {
+            "oem": "GE Aerospace (incl. CFM JV with Safran)",
+            "country": "United States / France",
+            "share": 0.55
+          },
+          {
+            "oem": "Pratt & Whitney (RTX)",
+            "country": "United States",
+            "share": 0.26
+          },
+          {
+            "oem": "Rolls-Royce",
+            "country": "United Kingdom",
+            "share": 0.18
+          }
+        ],
+        "segment_note": "Narrow-body: CFM (GE+Safran) holds >60%, Pratt & Whitney ~35%. Wide-body: GE and Rolls-Royce split the field (RR strong on Trent-powered twins).",
+        "reading": "The finished machine is the most concentrated stage of all — three Western groups build essentially every large commercial jet engine. The chokepoint has walked all the way downstream to the assembler."
+      }
+    }
+  ],
+  "sources": {
+    "usgs_rhenium": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Rhenium",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf"
+    },
+    "usgs_titanium": {
+      "title": "USGS Mineral Commodity Summaries 2025 — Titanium and Titanium Dioxide",
+      "year": 2025,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-titanium.pdf"
+    },
+    "argus_ti": {
+      "title": "Argus, Aerospace-approved Ti sponge supply up in 2024",
+      "year": 2025,
+      "url": "https://www.argusmedia.com/en/news-and-insights/latest-market-news/2659047-aerospace-approved-ti-sponge-supply-up-in-2024"
+    },
+    "usgs_titanium_reliance": {
+      "title": "USGS MCS 2025 — Titanium sponge U.S. net import reliance & sources",
+      "year": 2025,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-titanium.pdf"
+    },
+    "market_engines": {
+      "title": "Commercial aircraft engine market analyses (Mordor Intelligence; Simple Flying), 2024",
+      "year": 2024,
+      "url": "https://www.mordorintelligence.com/industry-reports/commercial-aircraft-engines-market",
+      "note": "Secondary market analyses; OEM shares are approximate and vary by segment and metric."
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
