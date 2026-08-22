@@ -1,0 +1,97 @@
+"""Evidence JSON for the unpublished PGM / catalyst chain pilot. Uniform schema. Public sources.
+Run: python record_pgm.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "pgm_chain.json")
+
+SRC = {
+    "usgs_pgm": {"title": "USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf"},
+    "usgs_outlook": {"title": "USGS World Minerals Outlook — palladium & platinum through 2029 (SIR 2025-5021)", "year": 2025, "url": "https://pubs.usgs.gov/publication/sir20255021/full"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "PGM / catalyst chain",
+    "accent": "#5a6472",
+    "eyebrow": "Product-chain pilot · catalysts & emissions",
+    "h1": "Two countries mine it, and its own scrap saves it",
+    "deck": "Platinum, palladium and rhodium clean car exhaust, drive chemical and refining catalysts, and coat fuel "
+            "cells. Their mine supply comes from essentially two places — South Africa and Russia — but unlike most "
+            "critical materials, a large share is recovered by recycling spent catalytic converters.",
+    "byline": "mine (South Africa + Russia) ≠ refined ≠ autocatalyst ≠ the scrap that comes back",
+    "correction": "PGMs break the pattern twice. The supply chokepoint is geological, not downstream — one province "
+                  "(South Africa's Bushveld) and one Russian producer. But the biggest risk is not a supply cut; it is "
+                  "recycling relieving supply, and the EV transition removing the autocatalyst demand altogether.",
+    "stats": [
+        {"v": "~90%", "l": "of world PGM reserves are in South Africa (the Bushveld Complex)"},
+        {"v": "SA + RU", "l": "essentially the only two large mine sources"},
+        {"v": "autocatalysts", "l": "the dominant use of platinum, palladium and rhodium"},
+        {"v": "~1/4+", "l": "of supply comes back as recycled catalytic-converter scrap"},
+    ],
+    "hops": [
+        {"n": "1 · Mine", "t": "South Africa (platinum, rhodium) + Russia (palladium) — a two-country base"},
+        {"n": "2 · Refine", "t": "complex separation of six co-occurring metals; few refiners"},
+        {"n": "3 · Use", "t": "autocatalysts above all; fuel cells, chemical/refining catalysts, jewellery"},
+        {"n": "4 · Loop", "t": "recycling of spent converters returns a large secondary supply"},
+    ],
+    "sections": [
+        {"h2": "1 · The mine base is two countries", "panels": [
+            {"kind": "cards", "h3": "Each metal, and who mines it", "cards": [
+                {"t": "Platinum", "d": "South Africa dominates mine supply (~70%+); the Bushveld Complex holds the bulk of world reserves."},
+                {"t": "Palladium", "d": "Russia (Norilsk Nickel) and South Africa co-lead; US palladium imports run ~32% Russia, ~32% South Africa."},
+                {"t": "Rhodium", "d": "A South-African by-product of platinum mining; supply is small, concentrated and famously volatile in price."},
+            ]},
+            {"kind": "text", "h3": "Concentration by geology, not by refining",
+             "text": "Unlike gallium or germanium, PGMs are not a processing chokepoint — they are a geological one. "
+                     "About 90% of world reserves sit in South Africa's Bushveld Complex, and the only other large "
+                     "primary source is Russia. The six PGMs co-occur, so they are separated together in a handful of "
+                     "complex refineries.",
+             "flag": "a geological chokepoint"},
+        ]},
+        {"h2": "2 · What they do", "panels": [
+            {"kind": "cards", "h3": "Uses", "cards": [
+                {"t": "Autocatalysts", "d": "The dominant use — oxidation catalysts in car and truck exhaust systems. This single application sets most PGM demand."},
+                {"t": "Fuel cells", "d": "Platinum is the catalyst in PEM fuel cells — a growth use if hydrogen mobility scales (see the hydrogen chain)."},
+                {"t": "Chemical & refining", "d": "PGM catalysts in petroleum reforming, nitric-acid and specialty chemistry; also glass and electronics."},
+            ]},
+        ]},
+        {"h2": "3 · The relief valve: PGMs come back", "panels": [
+            {"kind": "big", "h3": "Secondary supply", "big": "a quarter+ of supply",
+             "text": "Recycling of spent catalytic converters, jewellery and electronics returns a large, growing "
+                     "share of world PGM supply. Where phosphorus is lost to runoff, PGMs sit in a durable stock in "
+                     "use and are economically worth recovering — so the mine chokepoint is partly self-relieving.",
+             "note": "USGS: recycled material provides a significant proportion of total supply."},
+            {"kind": "text", "h3": "Why that matters for the risk read",
+             "text": "A two-country mine base looks alarming until you add the scrap loop: a supply shock is cushioned "
+                     "by an above-ground stock that grows every year the car fleet turns over. The recycling capability "
+                     "itself — collection, sampling, smelting — becomes a stage worth watching.",
+             "flag": "stock-in-use is a hidden reserve"},
+        ]},
+        {"h2": "4 · The real threat is demand, not supply", "panels": [
+            {"kind": "text", "h3": "The EV transition removes the main use",
+             "text": "Battery-electric vehicles have no exhaust and no autocatalyst. As they take share, the dominant "
+                     "source of PGM demand shrinks — a structural demand cliff rather than a supply cut. Platinum has a "
+                     "partial hedge (fuel cells, hydrogen, industrial use); palladium and rhodium, tied tightly to "
+                     "petrol autocatalysts, are more exposed.",
+             "note": "USGS World Minerals Outlook.", "flag": "demand destruction, not a chokepoint"},
+        ]},
+    ],
+    "trade_intro": "BACI shows unwrought and semi-manufactured PGM trade, but refined metal, catalyst articles and "
+                   "recycled flows move through a few hubs (UK, Switzerland, Germany) that refine or trade rather than "
+                   "mine. Read exporter shares as trading/refining hubs, not the mine base.",
+    "method": [
+        {"stage": "Mine", "lens": "USGS reserves & mine production", "why": "the geological base — two countries"},
+        {"stage": "Use", "lens": "end-use demand split", "why": "autocatalysts dominate; the demand is the risk"},
+        {"stage": "Recycling", "lens": "secondary-supply share", "why": "the relief valve most critical materials lack"},
+        {"stage": "Trade", "lens": "BACI unwrought PGM", "why": "trading/refining hubs, not the mine base"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "— PGM chain, SA ~90% reserves, recycling relief, EV demand risk")
