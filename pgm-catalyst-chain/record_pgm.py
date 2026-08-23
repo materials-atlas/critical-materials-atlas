@@ -6,6 +6,12 @@ import json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "pgm_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+
+def hist_points(material, country):
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
 
 SRC = {
     "usgs_pgm": {"title": "USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf"},
@@ -26,11 +32,22 @@ CHAIN = {
                   "(South Africa's Bushveld) and one Russian producer. But the biggest risk is not a supply cut; it is "
                   "recycling relieving supply, and the EV transition removing the autocatalyst demand altogether.",
     "stats": [
-        {"v": "~90%", "l": "of world PGM reserves are in South Africa (the Bushveld Complex)"},
-        {"v": "SA + RU", "l": "essentially the only two large mine sources"},
-        {"v": "autocatalysts", "l": "the dominant use of platinum, palladium and rhodium"},
-        {"v": "~1/4+", "l": "of supply comes back as recycled catalytic-converter scrap"},
+        {"v": "~90%", "l": "of world PGM reserves are in South Africa (the Bushveld Complex)", "conf": "estimate"},
+        {"v": "SA + RU", "l": "essentially the only two large mine sources", "conf": "measured"},
+        {"v": "autocatalysts", "l": "the dominant use of platinum, palladium and rhodium", "conf": "measured"},
+        {"v": "~1/4+", "l": "of supply comes back as recycled catalytic-converter scrap", "conf": "estimate"},
     ],
+    "history": {
+        "title": "Platinum mine production: a two-country base, 2000–2024",
+        "conf": "measured",
+        "note": "BGS/USGS (mine production %), from the atlas's own data. South Africa held ~57-60% throughout; "
+                "Russia's share fell from ~46% in 2000 to ~24%. Together they are still essentially the whole mine "
+                "base — the concentration is geological and stable, not a moving downstream chokepoint.",
+        "series": [
+            {"label": "South Africa", "points": hist_points("platinum", "ZA")},
+            {"label": "Russia", "points": hist_points("platinum", "RU")},
+        ],
+    },
     "hops": [
         {"n": "1 · Mine", "t": "South Africa (platinum, rhodium) + Russia (palladium) — a two-country base"},
         {"n": "2 · Refine", "t": "complex separation of six co-occurring metals; few refiners"},

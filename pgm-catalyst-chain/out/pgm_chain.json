@@ -9,21 +9,114 @@
   "stats": [
     {
       "v": "~90%",
-      "l": "of world PGM reserves are in South Africa (the Bushveld Complex)"
+      "l": "of world PGM reserves are in South Africa (the Bushveld Complex)",
+      "conf": "estimate"
     },
     {
       "v": "SA + RU",
-      "l": "essentially the only two large mine sources"
+      "l": "essentially the only two large mine sources",
+      "conf": "measured"
     },
     {
       "v": "autocatalysts",
-      "l": "the dominant use of platinum, palladium and rhodium"
+      "l": "the dominant use of platinum, palladium and rhodium",
+      "conf": "measured"
     },
     {
       "v": "~1/4+",
-      "l": "of supply comes back as recycled catalytic-converter scrap"
+      "l": "of supply comes back as recycled catalytic-converter scrap",
+      "conf": "estimate"
     }
   ],
+  "history": {
+    "title": "Platinum mine production: a two-country base, 2000–2024",
+    "conf": "measured",
+    "note": "BGS/USGS (mine production %), from the atlas's own data. South Africa held ~57-60% throughout; Russia's share fell from ~46% in 2000 to ~24%. Together they are still essentially the whole mine base — the concentration is geological and stable, not a moving downstream chokepoint.",
+    "series": [
+      {
+        "label": "South Africa",
+        "points": [
+          {
+            "y": 2000,
+            "v": 47
+          },
+          {
+            "y": 2005,
+            "v": 58
+          },
+          {
+            "y": 2010,
+            "v": 60
+          },
+          {
+            "y": 2015,
+            "v": 60
+          },
+          {
+            "y": 2020,
+            "v": 55
+          },
+          {
+            "y": 2021,
+            "v": 61
+          },
+          {
+            "y": 2022,
+            "v": 57
+          },
+          {
+            "y": 2023,
+            "v": 57
+          },
+          {
+            "y": 2024,
+            "v": 57
+          }
+        ]
+      },
+      {
+        "label": "Russia",
+        "points": [
+          {
+            "y": 2000,
+            "v": 46
+          },
+          {
+            "y": 2005,
+            "v": 32
+          },
+          {
+            "y": 2010,
+            "v": 30
+          },
+          {
+            "y": 2015,
+            "v": 22
+          },
+          {
+            "y": 2020,
+            "v": 27
+          },
+          {
+            "y": 2021,
+            "v": 22
+          },
+          {
+            "y": 2022,
+            "v": 25
+          },
+          {
+            "y": 2023,
+            "v": 24
+          },
+          {
+            "y": 2024,
+            "v": 24
+          }
+        ]
+      }
+    ]
+  },
   "hops": [
     {
       "n": "1 · Mine",

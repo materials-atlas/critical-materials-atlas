@@ -6,6 +6,12 @@ import json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "phosphate_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+
+def hist_points(material, country):
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
 
 SRC = {
     "usgs_phosphate": {"title": "USGS Mineral Commodity Summaries 2026 — Phosphate Rock", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf"},
@@ -28,11 +34,24 @@ CHAIN = {
                   "synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base "
                   "itself is the chokepoint, and it is extraordinarily concentrated.",
     "stats": [
-        {"v": "~70%", "l": "of world phosphate-rock reserves are in Morocco"},
-        {"v": "China", "l": "the largest producer (then Morocco, US, Russia)"},
-        {"v": "47.8 Mt", "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028"},
-        {"v": "0", "l": "substitutes for phosphorus in growing food"},
+        {"v": "~70%", "l": "of world phosphate-rock reserves are in Morocco", "conf": "estimate"},
+        {"v": "China", "l": "the largest producer (then Morocco, US, Russia)", "conf": "measured"},
+        {"v": "47.8 Mt", "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028", "conf": "measured"},
+        {"v": "0", "l": "substitutes for phosphorus in growing food", "conf": "measured"},
     ],
+    "history": {
+        "title": "Phosphate-rock mine production shifted to China, 2000–2024",
+        "conf": "measured",
+        "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose "
+                "from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output "
+                "moved to China, but the long-run RESERVE base (~70%) stayed in Morocco — production and reserves point "
+                "to different countries.",
+        "series": [
+            {"label": "China", "points": hist_points("phosphate", "CN")},
+            {"label": "United States", "points": hist_points("phosphate", "US")},
+            {"label": "Morocco", "points": hist_points("phosphate", "MA")},
+        ],
+    },
     "hops": [
         {"n": "1 · Phosphate rock", "t": "the only significant source of phosphorus; reserves ~70% Morocco"},
         {"n": "2 · Acid & fertilizer", "t": "phosphoric acid → DAP/MAP; Morocco (OCP) is also a top processor"},

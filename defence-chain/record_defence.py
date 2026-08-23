@@ -10,6 +10,12 @@ import json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "defence_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")  # atlas's own BGS mine-history
+
+def hist_points(material, country):
+    """China's (or any country's) mine-production share over 2000-2024, from the atlas's BGS series."""
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
 
 SRC = {
     "usgs_gallium": {"title": "USGS Mineral Commodity Summaries 2025 — Gallium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"},
@@ -34,11 +40,23 @@ CHAIN = {
     "correction": "A defence 'critical minerals' list is not just a supply-risk table — it is a map of a rival's "
                   "leverage. Every material below is China-dominated upstream AND has already been export-controlled.",
     "stats": [
-        {"v": "~99%", "l": "of refined gallium is China (GaN radar &amp; electronic warfare)"},
-        {"v": "48%", "l": "of mined antimony is China — it goes into 200+ munitions"},
-        {"v": "−97%", "l": "China antimony shipments after the Sept-2024 controls (prices +200%)"},
-        {"v": "Dec 2024", "l": "China banned Ga, Ge, Sb &amp; superhard materials to the US outright"},
+        {"v": "~99%", "l": "of refined gallium is China (GaN radar &amp; electronic warfare)", "conf": "measured"},
+        {"v": "48%", "l": "of mined antimony is China — it goes into 200+ munitions", "conf": "measured"},
+        {"v": "−97%", "l": "China antimony shipments after the Sept-2024 controls (prices +200%)", "conf": "measured"},
+        {"v": "Dec 2024", "l": "China banned Ga, Ge, Sb &amp; superhard materials to the US outright", "conf": "measured"},
     ],
+    "history": {
+        "title": "China's share of mined antimony and tungsten, 2000–2024",
+        "conf": "measured",
+        "note": "BGS World Mineral Statistics (mine production), from the atlas's own data. The nuance the snapshot "
+                "hides: China's antimony MINE share has fallen from ~87% (2005) to ~40% as its reserves deplete — even "
+                "as it kept refining dominance and used export controls. Tungsten's mine grip, by contrast, is durable "
+                "(~80% for two decades). So the antimony leverage now sits in refining and policy, not the mine.",
+        "series": [
+            {"label": "Antimony (China, mine %)", "points": hist_points("antimony", "CN")},
+            {"label": "Tungsten (China, mine %)", "points": hist_points("tungsten", "CN")},
+        ],
+    },
     "hops": [
         {"n": "1 · Materials", "t": "gallium, germanium, antimony, tungsten, rare earths — China-dominated upstream"},
         {"n": "2 · Components", "t": "GaN radar chips, IR optics, magnets, penetrators, capacitors"},

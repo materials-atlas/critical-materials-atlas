@@ -9,21 +9,155 @@
   "stats": [
     {
       "v": "~70%",
-      "l": "of world phosphate-rock reserves are in Morocco"
+      "l": "of world phosphate-rock reserves are in Morocco",
+      "conf": "estimate"
     },
     {
       "v": "China",
-      "l": "the largest producer (then Morocco, US, Russia)"
+      "l": "the largest producer (then Morocco, US, Russia)",
+      "conf": "measured"
     },
     {
       "v": "47.8 Mt",
-      "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028"
+      "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028",
+      "conf": "measured"
     },
     {
       "v": "0",
-      "l": "substitutes for phosphorus in growing food"
+      "l": "substitutes for phosphorus in growing food",
+      "conf": "measured"
     }
   ],
+  "history": {
+    "title": "Phosphate-rock mine production shifted to China, 2000–2024",
+    "conf": "measured",
+    "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output moved to China, but the long-run RESERVE base (~70%) stayed in Morocco — production and reserves point to different countries.",
+    "series": [
+      {
+        "label": "China",
+        "points": [
+          {
+            "y": 2000,
+            "v": 14
+          },
+          {
+            "y": 2005,
+            "v": 19
+          },
+          {
+            "y": 2010,
+            "v": 36
+          },
+          {
+            "y": 2015,
+            "v": 52
+          },
+          {
+            "y": 2020,
+            "v": 40
+          },
+          {
+            "y": 2021,
+            "v": 43
+          },
+          {
+            "y": 2022,
+            "v": 45
+          },
+          {
+            "y": 2023,
+            "v": 44
+          },
+          {
+            "y": 2024,
+            "v": 44
+          }
+        ]
+      },
+      {
+        "label": "United States",
+        "points": [
+          {
+            "y": 2000,
+            "v": 21
+          },
+          {
+            "y": 2005,
+            "v": 22
+          },
+          {
+            "y": 2010,
+            "v": 14
+          },
+          {
+            "y": 2015,
+            "v": 10
+          },
+          {
+            "y": 2020,
+            "v": 11
+          },
+          {
+            "y": 2021,
+            "v": 9
+          },
+          {
+            "y": 2022,
+            "v": 8
+          },
+          {
+            "y": 2023,
+            "v": 8
+          },
+          {
+            "y": 2024,
+            "v": 8
+          }
+        ]
+      },
+      {
+        "label": "Morocco",
+        "points": [
+          {
+            "y": 2000,
+            "v": 16
+          },
+          {
+            "y": 2005,
+            "v": 18
+          },
+          {
+            "y": 2010,
+            "v": 14
+          },
+          {
+            "y": 2015,
+            "v": 10
+          },
+          {
+            "y": 2020,
+            "v": 18
+          },
+          {
+            "y": 2021,
+            "v": 16
+          },
+          {
+            "y": 2022,
+            "v": 13
+          },
+          {
+            "y": 2023,
+            "v": 12
+          },
+          {
+            "y": 2024,
+            "v": 14
+          }
+        ]
+      }
+    ]
+  },
   "hops": [
     {
       "n": "1 · Phosphate rock",

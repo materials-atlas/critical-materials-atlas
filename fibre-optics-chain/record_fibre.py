@@ -29,10 +29,10 @@ CHAIN = {
                   "trace element that raises the glass's refractive index. Downstream: the submarine-cable systems that "
                   "carry the world's data are built by only four firms, one of them Chinese.",
     "stats": [
-        {"v": "~60%", "l": "of refined germanium is China — the fibre dopant, export-controlled since 2023"},
-        {"v": "4", "l": "firms build essentially all the world's submarine cables"},
-        {"v": ">60%", "l": "of wet-plant revenue is ASN + NEC + SubCom (2024)"},
-        {"v": "~99%", "l": "of intercontinental data crosses on subsea fibre"},
+        {"v": "~60%", "l": "of refined germanium is China — the fibre dopant, export-controlled since 2023", "conf": "measured"},
+        {"v": "4", "l": "firms build essentially all the world's submarine cables", "conf": "estimate"},
+        {"v": ">60%", "l": "of wet-plant revenue is ASN + NEC + SubCom (2024)", "conf": "estimate"},
+        {"v": "~99%", "l": "of intercontinental data crosses on subsea fibre", "conf": "estimate"},
     ],
     "hops": [
         {"n": "1 · Dopant", "t": "germanium doped into silica raises the refractive index — a trace, but essential"},
