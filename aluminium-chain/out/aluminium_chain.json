@@ -1,0 +1,253 @@
+{
+  "title": "Aluminium chain",
+  "accent": "#5f7180",
+  "eyebrow": "Product-chain pilot · light metal",
+  "h1": "Aluminium is congealed electricity",
+  "deck": "Bauxite is mined in three places at once — Australia, Guinea and China. But turning it into metal is one of the most electricity-hungry industrial processes there is, so the smelter, not the mine, is the chokepoint — and it went where power was cheapest.",
+  "byline": "bauxite (spread) ≠ alumina ≠ smelting (electricity) ≠ the metal's carbon footprint",
+  "correction": "A bauxite map looks diversified — Australia, Guinea and China each mine about a quarter. But aluminium smelting is ~40% electricity by cost, so it concentrated wherever power was cheap. China's share jumps from ~21% at the mine to ~59% at the smelter.",
+  "stats": [
+    {
+      "v": "21% → 59%",
+      "l": "China's share from bauxite MINING to aluminium SMELTING",
+      "conf": "measured"
+    },
+    {
+      "v": "12–15 MWh",
+      "l": "electricity to smelt one tonne of aluminium",
+      "conf": "measured"
+    },
+    {
+      "v": "AU · GN · CN",
+      "l": "bauxite mining is a three-way split (~25% each)",
+      "conf": "measured"
+    },
+    {
+      "v": "Guinea",
+      "l": "holds the largest bauxite reserves (7.4 bn t)",
+      "conf": "measured"
+    }
+  ],
+  "history": {
+    "title": "Bauxite mining stays a three-way split, 2019–2024",
+    "conf": "measured",
+    "note": "BGS/USGS mine production, from the atlas's own data. Australia, Guinea and China each mine roughly a quarter of world bauxite — there is no single dominant miner. That is exactly why the story is the smelter, not the mine: China's ~59% comes from processing, not from the rock. (Series is 2019–2024, the comparable window in the local data.)",
+    "series": [
+      {
+        "label": "Australia",
+        "points": [
+          {
+            "y": 2019,
+            "v": 28
+          },
+          {
+            "y": 2020,
+            "v": 31
+          },
+          {
+            "y": 2021,
+            "v": 29
+          },
+          {
+            "y": 2022,
+            "v": 27
+          },
+          {
+            "y": 2023,
+            "v": 25
+          }
+        ]
+      },
+      {
+        "label": "Guinea",
+        "points": [
+          {
+            "y": 2019,
+            "v": 23
+          },
+          {
+            "y": 2020,
+            "v": 23
+          },
+          {
+            "y": 2021,
+            "v": 22
+          },
+          {
+            "y": 2022,
+            "v": 23
+          },
+          {
+            "y": 2023,
+            "v": 25
+          }
+        ]
+      },
+      {
+        "label": "China",
+        "points": [
+          {
+            "y": 2019,
+            "v": 21
+          },
+          {
+            "y": 2020,
+            "v": 17
+          },
+          {
+            "y": 2021,
+            "v": 23
+          },
+          {
+            "y": 2022,
+            "v": 24
+          },
+          {
+            "y": 2023,
+            "v": 24
+          }
+        ]
+      }
+    ]
+  },
+  "hops": [
+    {
+      "n": "1 · Bauxite",
+      "t": "the ore — mined in Australia, Guinea and China (~25% each)"
+    },
+    {
+      "n": "2 · Alumina",
+      "t": "Bayer process refines bauxite to aluminium oxide"
+    },
+    {
+      "n": "3 · Smelting",
+      "t": "Hall–Héroult electrolysis — 12–15 MWh/tonne; China ~59%, energy-sited"
+    },
+    {
+      "n": "4 · The metal",
+      "t": "transport, packaging, construction, grid — and a power-dependent carbon footprint"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · The mine is spread; the smelter is not",
+      "panels": [
+        {
+          "kind": "bars",
+          "h3": "China's share along the chain",
+          "conf": "measured",
+          "max": 1.0,
+          "note": "USGS. The single most important number in this chain: China mines about a fifth of world bauxite but smelts nearly three-fifths of the metal. The concentration is built in the smelter, not the ground.",
+          "bars": [
+            {
+              "label": "Bauxite (mine)",
+              "value": 0.21
+            },
+            {
+              "label": "Alumina (refining)",
+              "value": 0.58
+            },
+            {
+              "label": "Aluminium (smelting)",
+              "value": 0.59
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "h3": "Why it moved downstream",
+          "text": "Bauxite is abundant and heavy, so it is mined near many deposits. But smelting bauxite-derived alumina into metal is electrolysis at industrial scale — the single biggest cost is power. Smelters are therefore built where electricity is cheap and reliable, and over two decades that meant China's coal fleet, plus hydro in Canada, Norway and the Gulf's gas.",
+          "flag": "the chokepoint is the powerline, not the pit"
+        }
+      ]
+    },
+    {
+      "h2": "2 · Aluminium is congealed electricity",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "Energy per tonne",
+          "big": "12–15 MWh",
+          "conf": "measured",
+          "text": "the electricity to smelt one tonne of primary aluminium — roughly what an average home uses in a year, per tonne of metal. Because power is such a large share of cost, the aluminium map is really an electricity map: it shows where cheap power was built.",
+          "note": "USGS: newer plants ~12 MWh/t, older ~15 MWh/t."
+        },
+        {
+          "kind": "text",
+          "h3": "The recycling relief",
+          "text": "Recycled (secondary) aluminium needs only about 5% of the electricity of primary smelting, so scrap is a huge, growing part of supply and a genuine relief valve — the metal is infinitely recyclable and worth recovering. As with PGMs, the above-ground stock cushions the mine-and-smelter chokepoint.",
+          "flag": "scrap = ~5% of the energy"
+        }
+      ]
+    },
+    {
+      "h2": "3 · The carbon twist: same metal, very different footprint",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Coal aluminium vs hydro aluminium",
+          "text": "Because smelting is electricity, a tonne of aluminium's carbon footprint depends almost entirely on the smelter's power source. Chinese coal-powered metal carries several times the CO₂ of hydro-powered metal from Canada, Norway or Iceland. 'Green aluminium' commands a premium, and carbon border adjustments (EU CBAM) turn the power source into a trade variable.",
+          "note": "Industry / IEA carbon-intensity ranges.",
+          "flag": "the power source is now a trade variable"
+        }
+      ]
+    },
+    {
+      "h2": "4 · Bauxite's own shift — toward Guinea",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "The ore is moving even as the smelter stays",
+          "text": "Guinea holds the world's largest bauxite reserves and its exports to China are climbing, while Indonesia banned raw bauxite exports to force domestic refining. So the upstream is re-sorting — more Guinean ore, more Indonesian alumina — but the electricity-bound smelting chokepoint has not moved with it. Ore geography and smelter geography are two different maps.",
+          "note": "USGS (Bauxite and Alumina).",
+          "flag": "ore map ≠ smelter map"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "BACI shows bauxite, alumina and unwrought-aluminium trade, but not smelter power sources or captive integration. Unwrought-aluminium trade also routes through metal hubs. Read exporter shares as availability of the traded form, not the smelting map.",
+  "method": [
+    {
+      "stage": "Bauxite",
+      "lens": "USGS mine share",
+      "why": "spread across three countries — not the chokepoint"
+    },
+    {
+      "stage": "Alumina / smelting",
+      "lens": "USGS processing/smelter share",
+      "why": "where the concentration is built (energy-sited)"
+    },
+    {
+      "stage": "Energy",
+      "lens": "MWh per tonne",
+      "why": "smelting is ~40% electricity by cost — the real driver"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI bauxite/alumina/aluminium",
+      "why": "availability of the traded form, not the smelter map"
+    }
+  ],
+  "sources": {
+    "usgs_aluminum": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Aluminum",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf"
+    },
+    "usgs_bauxite": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Bauxite and Alumina",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf"
+    },
+    "usgs_maps": {
+      "title": "USGS, Global Maps of Critical Mineral Production in 2023 (FS 2025-3038)",
+      "year": 2025,
+      "url": "https://pubs.usgs.gov/fs/2025/3038/fs20253038.pdf"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
