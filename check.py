@@ -38,7 +38,10 @@ def warn(check, msg):
 
 
 def pages():
-    return [f for f in sorted(os.listdir('.')) if f.endswith('.html')]
+    """Tracked site HTML at any depth (root + the value-chain subfolders), so nested pilot pages no
+    longer escape the link/JS/dataset checks. Excludes the pipeline/reconcile tooling trees."""
+    out = subprocess.run(['git', 'ls-files', '*.html'], capture_output=True, text=True).stdout.split()
+    return sorted(p for p in out if not p.startswith(('pipeline/', 'reconcile/')))
 
 
 def tracked(path):
@@ -52,12 +55,18 @@ def check_datasets():
     explicit allowlist, so a new dataset silently 404s in production while working fine locally."""
     for p in pages():
         html = open(p, encoding='utf8').read()
-        for ds in set(re.findall(r"fetch\('(out/[\w.\-]+\.json)'\)", html)):
-            if not os.path.exists(ds):
-                fail('datasets', f'{p} fetches {ds} which does not exist')
-            elif not tracked(ds):
-                fail('datasets', f'{p} fetches {ds} but it is GITIGNORED -> will 404 live. '
-                                 f'Add "!{ds}" to .gitignore')
+        base = os.path.dirname(p)
+        # inline fetch('out/..json') AND the chain shells' window.CHAIN_DATA/CHAIN_TRADE='out/..json'
+        refs = set(re.findall(r"fetch\('(out/[\w.\-]+\.json)'\)", html))
+        refs |= set(re.findall(r"CHAIN_(?:DATA|TRADE)\s*=\s*'(out/[\w.\-]+\.json)'", html))
+        for ds in refs:
+            full = os.path.normpath(os.path.join(base, ds)) if base else ds
+            rel = full.replace(os.sep, '/')
+            if not os.path.exists(full):
+                fail('datasets', f'{p} references {ds} which does not exist')
+            elif not tracked(full):
+                fail('datasets', f'{p} references {ds} but it is GITIGNORED -> will 404 live. '
+                                 f'Add "!{rel}" to .gitignore')
 
 
 # ---------------------------------------------------------------- 2. internal links
@@ -91,6 +100,13 @@ def check_js():
             if r.returncode != 0:
                 fail('js', f'{p} inline script #{i+1} has a syntax error: '
                            f'{r.stderr.strip().splitlines()[-1] if r.stderr.strip() else "?"}')
+    # standalone renderer/helper JS (the value-chain pages load these instead of inlining)
+    stray = subprocess.run(['git', 'ls-files', 'chain-assets/*.js', 'assets/*.js'],
+                           capture_output=True, text=True).stdout.split()
+    for jsf in stray:
+        r = subprocess.run(['node', '--check', jsf], capture_output=True, text=True)
+        if r.returncode != 0:
+            fail('js', f'{jsf} has a syntax error: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else "?"}')
 
 
 # ---------------------------------------------------------------- 4. the anonymity scrub
@@ -104,7 +120,7 @@ def _scrub_pattern():
         'KG1vZGVsfGFzc2lzdHxnZW5lcmF0fGNyb3NzfHdyaXQpfGFydGlmaWNpYWwgaW50ZWxsaWdlbmNlfGxhbmd1YWdlIG1v'
         'ZGVsKVxi').decode(), re.I)
 
-_BINEXT = ('png', 'jpg', 'jpeg', 'pdf', 'gpkg', 'zip', 'xlsx')
+_BINEXT = ('png', 'jpg', 'jpeg', 'pdf', 'gpkg', 'zip', 'xlsx', 'parquet', 'gz')
 
 def check_scrub(staged=False):
     """The anonymity scrub. Leaked FOUR times, every time because the guard ran AFTER the commit -- it

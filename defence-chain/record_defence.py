@@ -1,0 +1,131 @@
+"""Evidence JSON for the unpublished defence / military-materials chain pilot.
+
+Uniform chain schema (shared by the newer chains): title/thesis/stats/hops/sections/
+method/sources. Physical production, component use, demonstrated leverage and the
+stockpile response are kept as separate measures. Public sources only.
+Run: python record_defence.py  ->  out/defence_chain.json
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "defence_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")  # atlas's own BGS mine-history
+
+def hist_points(material, country):
+    """China's (or any country's) mine-production share over 2000-2024, from the atlas's BGS series."""
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
+SRC = {
+    "usgs_gallium": {"title": "USGS Mineral Commodity Summaries 2025 — Gallium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"},
+    "usgs_germanium": {"title": "USGS Mineral Commodity Summaries 2025 — Germanium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"},
+    "usgs_antimony": {"title": "USGS Mineral Commodity Summaries 2025 — Antimony", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf"},
+    "csis_controls": {"title": "CSIS, China Imposes Its Most Stringent Critical Minerals Export Restrictions Yet (Dec 2024)", "year": 2024, "url": "https://www.csis.org/analysis/china-imposes-its-most-stringent-critical-minerals-export-restrictions-yet-amidst"},
+    "gta_antimony": {"title": "Global Trade Alert, China export-control measures for antimony (Aug 2024)", "year": 2024, "url": "https://globaltradealert.org/state-act/88204-china-government-announces-export-control-measures-for-antimony-and-related-items"},
+    "fastmarkets": {"title": "Fastmarkets, Uncertainty lingers over antimony exports (2025)", "year": 2025, "url": "https://www.fastmarkets.com/insights/uncertainty-lingers-over-antimony-exports-following-us-china-truce/"},
+    "eu_crm": {"title": "European Commission, Study on the Critical Raw Materials for the EU 2023", "year": 2023, "url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Defence / military-materials chain",
+    "accent": "#8a3b3b",
+    "eyebrow": "Product-chain pilot · defence industrial base",
+    "h1": "The West's weapons run on materials a rival controls",
+    "deck": "Radar, night vision, precision-guided munitions and the shells themselves depend on a short list of "
+            "materials whose mining and refining is concentrated in China — the same materials China placed under "
+            "export control in 2023–2024 and briefly banned outright to the United States.",
+    "byline": "material ≠ component ≠ weapon system ≠ who can switch it off",
+    "correction": "A defence 'critical minerals' list is not just a supply-risk table — it is a map of a rival's "
+                  "leverage. Every material below is China-dominated upstream AND has already been export-controlled.",
+    "stats": [
+        {"v": "~99%", "l": "of refined gallium is China (GaN radar &amp; electronic warfare)", "conf": "measured"},
+        {"v": "48%", "l": "of mined antimony is China — it goes into 200+ munitions", "conf": "measured"},
+        {"v": "−97%", "l": "China antimony shipments after the Sept-2024 controls (prices +200%)", "conf": "measured"},
+        {"v": "Dec 2024", "l": "China banned Ga, Ge, Sb &amp; superhard materials to the US outright", "conf": "measured"},
+    ],
+    "history": {
+        "title": "China's share of mined antimony and tungsten, 2000–2024",
+        "conf": "measured",
+        "note": "BGS World Mineral Statistics (mine production), from the atlas's own data. The nuance the snapshot "
+                "hides: China's antimony MINE share has fallen from ~87% (2005) to ~40% as its reserves deplete — even "
+                "as it kept refining dominance and used export controls. Tungsten's mine grip, by contrast, is durable "
+                "(~80% for two decades). So the antimony leverage now sits in refining and policy, not the mine.",
+        "series": [
+            {"label": "Antimony (China, mine %)", "points": hist_points("antimony", "CN")},
+            {"label": "Tungsten (China, mine %)", "points": hist_points("tungsten", "CN")},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Materials", "t": "gallium, germanium, antimony, tungsten, rare earths — China-dominated upstream"},
+        {"n": "2 · Components", "t": "GaN radar chips, IR optics, magnets, penetrators, capacitors"},
+        {"n": "3 · Weapon systems", "t": "EW/radar, night vision, precision-guided munitions, armour, shells"},
+        {"n": "4 · Leverage & response", "t": "export controls demonstrated; Western stockpiles thin"},
+    ],
+    "sections": [
+        {"h2": "1 · The materials — China holds the upstream of nearly all of them", "panels": [
+            {"kind": "bars", "h3": "China's share of supply (mine or refined)", "max": 1.0, "note":
+                "USGS / EU CRM. Shares mix stages (mine vs refined) by material — gallium and germanium are refining "
+                "shares, antimony and tungsten are mine shares, magnets are downstream. Read each as 'the stage that "
+                "matters for that material'.", "bars": [
+                {"label": "Gallium (refined)", "value": 0.99},
+                {"label": "Germanium (refined)", "value": 0.60},
+                {"label": "Rare-earth magnets", "value": 0.90},
+                {"label": "Tungsten (mine)", "value": 0.80},
+                {"label": "Antimony (mine)", "value": 0.48},
+            ]},
+            {"kind": "text", "h3": "Why this list, not another",
+             "text": "These are not the biggest materials by tonnage — they are the ones a modern weapon cannot be "
+                     "built without and cannot quickly re-source. Gallium and germanium are trace by-products; antimony "
+                     "and tungsten are small markets with one dominant producer; rare-earth magnets are a downstream "
+                     "capability China spent decades concentrating.",
+             "flag": "defence-critical, not high-tonnage"},
+        ]},
+        {"h2": "2 · Each maps to a weapon-system capability", "panels": [
+            {"kind": "cards", "h3": "Material → what it enables", "cards": [
+                {"t": "Gallium", "d": "Gallium-nitride (GaN) chips for AESA radar, electronic warfare and jammers — the sensor edge of modern air defence."},
+                {"t": "Germanium", "d": "Infrared optics and night-vision / thermal imaging; also space-grade solar cells and fibre."},
+                {"t": "Antimony", "d": "Hardened lead for armour-piercing rounds, primers and tracer compounds — cited in 200+ munition types — plus flame retardants."},
+                {"t": "Tungsten", "d": "Armour-piercing penetrators, shaped-charge liners and heavy alloy — the density metal of kinetic weapons."},
+                {"t": "Rare earths", "d": "NdFeB and samarium-cobalt magnets for actuators, guidance fins and motors in precision-guided munitions."},
+                {"t": "Tantalum", "d": "High-reliability capacitors in guidance electronics, avionics and communications."},
+            ]},
+        ]},
+        {"h2": "3 · The leverage has already been used", "panels": [
+            {"kind": "big", "h3": "Antimony after the September 2024 controls", "big": "−97% / +200%",
+             "text": "Chinese antimony shipments fell about 97% and prices roughly tripled after export licensing "
+                     "took effect in September 2024 — a live demonstration that the upstream position is a usable lever.",
+             "note": "Fastmarkets / Global Trade Alert."},
+            {"kind": "text", "h3": "The escalation timeline",
+             "text": "July 2023: gallium and germanium placed under export licensing. Aug–Sep 2024: antimony and "
+                     "superhard materials added. December 2024: China banned exports of gallium, germanium, antimony "
+                     "and superhard materials to the United States outright and tightened dual-use graphite checks. "
+                     "The bans were later eased under a truce — but the capability was proven.",
+             "note": "CSIS.", "flag": "2023 → 2024 escalation"},
+        ]},
+        {"h2": "4 · The Western response is thin", "panels": [
+            {"kind": "text", "h3": "No domestic supply, limited stockpiles",
+             "text": "The United States has no primary domestic production of antimony or gallium and only limited "
+                     "strategic stockpiles; allied primary capacity for these materials is small and slow to build. "
+                     "The gap between the material list and the response is the whole risk.",
+             "note": "USGS net-import-reliance; public stockpile reporting.",
+             "flag": "the list is long, the buffer is short"},
+        ]},
+    ],
+    "trade_intro": "BACI gives a consistent monetary lens on the traded forms, but it cannot see military end-use, "
+                   "captive defence procurement, or the shared HS codes (gallium/germanium sit in one basket). Read "
+                   "the table as availability of the traded good, not as who arms whom.",
+    "method": [
+        {"stage": "Materials", "lens": "USGS/EU CRM production or refining share", "why": "who holds the upstream, by the stage that binds each material"},
+        {"stage": "Components", "lens": "qualitative end-use mapping", "why": "no public per-weapon bill of materials; map material to capability"},
+        {"stage": "Leverage", "lens": "policy events + price/volume response", "why": "export controls are observable; the market response measures the bite"},
+        {"stage": "Response", "lens": "net-import reliance + stockpile reporting", "why": "the buffer, not the flow"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "— defence chain, 4 sections, gallium 99% / antimony 48% + Sep-2024 controls")

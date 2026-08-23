@@ -1,0 +1,118 @@
+"""Evidence JSON for the unpublished phosphate → fertilizer → food chain pilot.
+Uniform chain schema. Public sources only. Run: python record_phosphate.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "phosphate_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+
+def hist_points(material, country):
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
+
+SRC = {
+    "usgs_phosphate": {"title": "USGS Mineral Commodity Summaries 2026 — Phosphate Rock", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf"},
+    "usgs_phosphate25": {"title": "USGS Mineral Commodity Summaries 2025 — Phosphate Rock", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf"},
+    "usgs_potash": {"title": "USGS Mineral Commodity Summaries 2025 — Potash", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-potash.pdf"},
+    "usgs_nitrogen": {"title": "USGS Mineral Commodity Summaries 2025 — Nitrogen (Fixed) — Ammonia", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-nitrogen.pdf"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Phosphate → fertilizer → food chain",
+    "accent": "#6f7c3c",
+    "eyebrow": "Product-chain pilot · food security",
+    "h1": "For food, the mine is the chokepoint",
+    "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the "
+            "exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 70% "
+            "of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
+    "byline": "reserves ≠ production ≠ fertilizer ≠ food — but for phosphorus there is no plan B",
+    "correction": "The atlas's usual finding — 'the refiner is not the source' — inverts for phosphorus. There is no "
+                  "synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base "
+                  "itself is the chokepoint, and it is extraordinarily concentrated.",
+    "stats": [
+        {"v": "~70%", "l": "of world phosphate-rock reserves are in Morocco", "conf": "estimate"},
+        {"v": "China", "l": "the largest producer (then Morocco, US, Russia)", "conf": "measured"},
+        {"v": "47.8 Mt", "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028", "conf": "measured"},
+        {"v": "0", "l": "substitutes for phosphorus in growing food", "conf": "measured"},
+    ],
+    "history": {
+        "title": "Phosphate-rock mine production shifted to China, 2000–2024",
+        "conf": "measured",
+        "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose "
+                "from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output "
+                "moved to China, but the long-run RESERVE base (~70%) stayed in Morocco — production and reserves point "
+                "to different countries.",
+        "series": [
+            {"label": "China", "points": hist_points("phosphate", "CN")},
+            {"label": "United States", "points": hist_points("phosphate", "US")},
+            {"label": "Morocco", "points": hist_points("phosphate", "MA")},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Phosphate rock", "t": "the only significant source of phosphorus; reserves ~70% Morocco"},
+        {"n": "2 · Acid & fertilizer", "t": "phosphoric acid → DAP/MAP; Morocco (OCP) is also a top processor"},
+        {"n": "3 · The three nutrients", "t": "P (Morocco), K / potash (Canada, Russia, Belarus), N (natural gas)"},
+        {"n": "4 · Food", "t": "non-substitutable, finite, poorly recycled — the demand cannot be switched off"},
+    ],
+    "sections": [
+        {"h2": "1 · Reserves are even more concentrated than production", "panels": [
+            {"kind": "bars", "h3": "Phosphate-rock reserves", "max": 1.0, "note":
+                "USGS. Morocco (incl. Western Sahara) holds ~50 billion t — about 70% of world reserves. Reserves are "
+                "the long-run ceiling; they are far more concentrated than current output.", "bars": [
+                {"label": "Morocco", "value": 0.70},
+                {"label": "Rest of world", "value": 0.30},
+            ]},
+            {"kind": "text", "h3": "Production is more spread — for now",
+             "text": "China is currently the largest producer of phosphate rock, ahead of Morocco, the United States "
+                     "and Russia. But several producers mine from limited reserves and restrict exports to protect "
+                     "domestic fertilizer supply; over the long run, output gravitates toward where the rock actually is.",
+             "flag": "reserves are the ceiling, not output"},
+        ]},
+        {"h2": "2 · The chokepoint does not move downstream — it stays at the resource", "panels": [
+            {"kind": "text", "h3": "Why phosphorus is the exception",
+             "text": "In the tech chains, the bottleneck migrates to a furnace, a fab or a magnet. Phosphorus cannot "
+                     "do that: there is no synthetic substitute and no alternative ore. Morocco's OCP has also moved "
+                     "downstream into phosphoric acid and finished fertilizer, so it holds both the reserve base AND "
+                     "a large share of processing — concentration at two stages at once.",
+             "note": "USGS.", "flag": "an inversion of the atlas thesis"},
+            {"kind": "big", "h3": "The demand that cannot be switched off", "big": "47.8 Mt/yr",
+             "text": "P₂O₅ contained in fertilizer used worldwide, rising toward ~52 Mt by 2028. Every tonne of it "
+                     "ultimately traces to phosphate rock; there is no recycling loop at scale to relieve it.",
+             "note": "USGS. Fertilizer is the overwhelming end use of phosphate rock."},
+        ]},
+        {"h2": "3 · The other two nutrients are locked up too (N-P-K)", "panels": [
+            {"kind": "cards", "h3": "Each fertilizer nutrient has its own concentration", "cards": [
+                {"t": "P — Phosphorus", "d": "Phosphate rock, ~70% of reserves in Morocco. No substitute. The subject of this chain."},
+                {"t": "K — Potassium", "d": "Potash, dominated by Canada, Russia and Belarus. Russia + Belarus supply was disrupted after 2022 sanctions."},
+                {"t": "N — Nitrogen", "d": "Fixed from the air by Haber-Bosch, but powered by natural gas — so nitrogen fertilizer tracks the price and security of gas."},
+            ]},
+        ]},
+        {"h2": "4 · Finite, non-substitutable, barely recycled", "panels": [
+            {"kind": "text", "h3": "The long-run risk is different from a chokepoint",
+             "text": "Phosphorus is not scarce this decade, but it is finite, non-substitutable and lost to runoff "
+                     "rather than recycled — so the security question is less 'who can cut supply tomorrow' and more "
+                     "'who owns the only resource, and how efficiently is it used'. Recovery from wastewater and "
+                     "manure exists but is nowhere near the scale of demand.",
+             "note": "USGS; fertilizer-efficiency literature.", "flag": "a resource question, not a refining one"},
+        ]},
+    ],
+    "trade_intro": "BACI shows the traded forms — phosphate rock, DAP/MAP fertilizer and potash — as a consistent "
+                   "monetary series. Export restrictions (China, Russia) and captive domestic use mean trade shares "
+                   "understate where the resource actually sits; read them as availability, not reserves.",
+    "method": [
+        {"stage": "Reserves", "lens": "USGS reserve estimates", "why": "the long-run ceiling — the right lens when there is no substitute"},
+        {"stage": "Production", "lens": "USGS mine output", "why": "current flow, distinct from reserves and often export-restricted"},
+        {"stage": "Nutrients", "lens": "per-nutrient production concentration", "why": "N, P and K each have a different geography"},
+        {"stage": "Trade", "lens": "BACI rock + fertilizer + potash", "why": "availability of the traded form, not the resource base"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "— phosphate/food chain, Morocco ~70% reserves, no substitute")

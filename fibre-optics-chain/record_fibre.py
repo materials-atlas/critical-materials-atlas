@@ -1,0 +1,104 @@
+"""Evidence JSON for the unpublished fibre-optics / telecom chain pilot. Uniform schema. Public sources.
+Run: python record_fibre.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "fibre_chain.json")
+
+SRC = {
+    "usgs_germanium": {"title": "USGS Mineral Commodity Summaries 2025 — Germanium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf"},
+    "csis_subsea": {"title": "CSIS, Safeguarding Subsea Cables (Aug 2024)", "year": 2024, "url": "https://csis-website-prod.s3.amazonaws.com/s3fs-public/2024-08/240816_Runde_Subsea_Cables.pdf"},
+    "carnegie_subsea": {"title": "Carnegie Endowment, Securing Europe's Subsea Data Cables (Dec 2024)", "year": 2024, "url": "https://carnegieendowment.org/research/2024/12/securing-europes-subsea-data-cables"},
+    "market_subsea": {"title": "Submarine cable systems market analyses (Mordor Intelligence; Submarine Networks), 2024", "year": 2024, "url": "https://www.mordorintelligence.com/industry-reports/submarine-cabling-systems-market", "note": "Secondary market analyses; supplier shares approximate."},
+    "corning": {"title": "Corning, Hemlock (Michigan) preform-capacity expansion announcement (2024)", "year": 2024, "url": "https://www.corning.com/worldwide/en/about-us/news-events.html"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Fibre-optics / telecom chain",
+    "accent": "#2f7d8a",
+    "eyebrow": "Product-chain pilot · the physical internet",
+    "h1": "The internet's backbone is a trace of germanium, drawn by a handful of firms",
+    "deck": "Almost all intercontinental data crosses the ocean on optical fibre. That fibre is ultra-pure silica "
+            "doped with a trace of germanium, drawn from giant preforms by a few manufacturers, and laid as submarine "
+            "cable by just four companies. There are chokepoints at both ends of the chain.",
+    "byline": "germanium dopant ≠ silica preform ≠ drawn fibre ≠ submarine cable system",
+    "correction": "Fibre optics has two chokepoints, not one. Upstream: germanium — a China-dominated, export-controlled "
+                  "trace element that raises the glass's refractive index. Downstream: the submarine-cable systems that "
+                  "carry the world's data are built by only four firms, one of them Chinese.",
+    "stats": [
+        {"v": "~60%", "l": "of refined germanium is China — the fibre dopant, export-controlled since 2023", "conf": "measured"},
+        {"v": "4", "l": "firms build essentially all the world's submarine cables", "conf": "estimate"},
+        {"v": ">60%", "l": "of wet-plant revenue is ASN + NEC + SubCom (2024)", "conf": "estimate"},
+        {"v": "~99%", "l": "of intercontinental data crosses on subsea fibre", "conf": "estimate"},
+    ],
+    "hops": [
+        {"n": "1 · Dopant", "t": "germanium doped into silica raises the refractive index — a trace, but essential"},
+        {"n": "2 · Preform", "t": "giant germanium-doped silica blanks; a handful of makers (Corning leads)"},
+        {"n": "3 · Fibre", "t": "preforms drawn into hair-thin fibre; low-loss grades are specialised"},
+        {"n": "4 · Subsea system", "t": "cable + repeaters laid by ASN, SubCom, NEC, HMN — the physical internet"},
+    ],
+    "sections": [
+        {"h2": "1 · The dopant chokepoint is upstream", "panels": [
+            {"kind": "text", "h3": "A trace element that carries the light",
+             "text": "Optical fibre is ultra-pure silica with its core doped by germanium, which raises the refractive "
+                     "index so the fibre guides infrared light with very low loss. Fibre optics is one of germanium's "
+                     "largest single uses. And germanium is exactly the material China placed under export licensing "
+                     "in 2023 — so the fibre chain inherits the germanium chokepoint (see the defence chain).",
+             "note": "USGS: China ~60% of refined germanium; fibre optics a major end use.",
+             "flag": "the germanium export-control link"},
+            {"kind": "text", "h3": "Small volume, high leverage",
+             "text": "The germanium in a cable is a tiny mass, so this is not a tonnage risk — it is a qualification "
+                     "and single-source risk, the same pattern as gallium in radar. A trace input with one dominant "
+                     "supplier can gate a strategic system.",
+             "flag": "trace input, strategic leverage"},
+        ]},
+        {"h2": "2 · The preform and fibre stage is a few firms", "panels": [
+            {"kind": "text", "h3": "Giant glass blanks, drawn to hair-thin fibre",
+             "text": "The chain's hard capability is the preform — a metre-scale germanium-doped silica blank drawn "
+                     "into thousands of kilometres of fibre. The lowest-loss grades used for subsea are made by a "
+                     "handful of firms; Corning (US) leads and supplies most submarine consortia, alongside makers such "
+                     "as Prysmian, YOFC (China) and Sumitomo. Corning's 2024 preform-capacity expansion signals how "
+                     "few players hold this stage.",
+             "note": "Company disclosures; market analyses.", "flag": "capability, not tonnage"},
+        ]},
+        {"h2": "3 · Four firms lay the world's data cables", "panels": [
+            {"kind": "cards", "h3": "The submarine-cable oligopoly", "cards": [
+                {"t": "ASN (France)", "d": "Alcatel Submarine Networks, a Nokia division — the 2024 market leader by systems and cable-km."},
+                {"t": "SubCom (US)", "d": "The US supplier; strategic for allied and trans-oceanic routes."},
+                {"t": "NEC (Japan)", "d": "The Japanese builder; ASN + NEC + SubCom together were >60% of 2024 wet-plant revenue."},
+                {"t": "HMN Tech (China)", "d": "Formerly Huawei Marine; the Chinese challenger, growing via price and Belt-and-Road routes."},
+            ]},
+            {"kind": "text", "h3": "The most geopolitically contested stage",
+             "text": "Subsea cables carry almost all intercontinental data, and who builds, owns and repairs them has "
+                     "become a security question in its own right. The stage is concentrated in four firms across the "
+                     "US, France, Japan and China — a four-country oligopoly for the physical internet.",
+             "note": "CSIS; Carnegie Endowment.", "flag": "the physical internet"},
+        ]},
+        {"h2": "4 · China sits at both ends", "panels": [
+            {"kind": "text", "h3": "Dopant and cable-maker",
+             "text": "The fibre chain is unusual in that one country appears at both the upstream chokepoint "
+                     "(germanium) and the downstream one (a submarine-cable maker, HMN). The West's exposure is a trace "
+                     "element it largely imports and a physical-internet stage in which it holds three of four builders "
+                     "— but not the low-cost challenger.",
+             "flag": "two chokepoints, one country at both"},
+        ]},
+    ],
+    "trade_intro": "BACI shows optical-fibre and cable trade, but not the preform capability, the germanium content, or "
+                   "who lays a given subsea system. Cable trade also routes through integrators. Read the table as "
+                   "availability of the traded good, not the maker structure.",
+    "method": [
+        {"stage": "Dopant", "lens": "USGS germanium refining share", "why": "the upstream chokepoint; a trace input"},
+        {"stage": "Preform/fibre", "lens": "company capability", "why": "few firms make low-loss subsea-grade fibre"},
+        {"stage": "Subsea systems", "lens": "supplier market share", "why": "a four-firm oligopoly; a security question"},
+        {"stage": "Trade", "lens": "BACI optical fibre & cable", "why": "availability of the traded good, not the maker"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "— fibre chain, germanium dopant + 4 subsea cable makers")

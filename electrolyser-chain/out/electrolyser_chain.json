@@ -1,0 +1,2055 @@
+{
+  "title": "Electrolyser and hydrogen chain evidence",
+  "status": "unpublished pilot",
+  "updated": "2026-08-18",
+  "principle": "Total hydrogen, low-emissions hydrogen, installed electrolysis, projects, factory capacity and equipment trade are separate measures.",
+  "chain": [
+    {
+      "stage": "Materials",
+      "detail": "Nickel, platinum, iridium, titanium, zirconium, rare earths, steels and polymers"
+    },
+    {
+      "stage": "Stack",
+      "detail": "Electrodes, catalysts, membranes or electrolyte, separators and bipolar plates"
+    },
+    {
+      "stage": "System",
+      "detail": "Stacks plus rectifier, water treatment, cooling, gas purification and controls"
+    },
+    {
+      "stage": "Hydrogen plant",
+      "detail": "Electricity and water supply integrated with compression and storage"
+    },
+    {
+      "stage": "Conversion & transport",
+      "detail": "Pipeline, vessel or conversion to ammonia, methanol and synthetic fuels"
+    },
+    {
+      "stage": "Use & recover",
+      "detail": "Refining, fertiliser, steel, fuels and recovery of scarce catalyst materials"
+    }
+  ],
+  "hydrogen_system_2025": {
+    "sources": [
+      "iea_2026_production",
+      "iea_2026_demand"
+    ],
+    "total_demand_mt_more_than": 100,
+    "low_emissions_production_mt_almost": 1,
+    "low_emissions_share": 0.01,
+    "traditional_uses": [
+      "oil refining",
+      "ammonia",
+      "methanol",
+      "fossil-based direct reduced iron"
+    ],
+    "boundary": "Low-emissions hydrogen includes electrolysis with low-emissions electricity and fossil routes with sufficiently effective carbon capture; it is not synonymous with electrolysis."
+  },
+  "installed_electrolysis": {
+    "sources": [
+      "iea_2024_dashboard",
+      "iea_2025_summary",
+      "iea_2026_production"
+    ],
+    "unit": "GW electrical input",
+    "series": [
+      {
+        "year": 2021,
+        "value": 0.6,
+        "status": "observed"
+      },
+      {
+        "year": 2022,
+        "value": 0.7,
+        "status": "observed"
+      },
+      {
+        "year": 2023,
+        "value": 1.4,
+        "status": "observed"
+      },
+      {
+        "year": 2024,
+        "value": 2.0,
+        "status": "observed"
+      },
+      {
+        "year": 2025,
+        "value": 4.0,
+        "status": "more than"
+      }
+    ],
+    "boundary": "Operating installed water-electrolyser capacity. The 2024 value is the later observed estimate, not the earlier 5.2 GW project-based forecast."
+  },
+  "project_clocks": {
+    "source": "iea_2026_production",
+    "as_of": 2026,
+    "items": [
+      {
+        "clock": "Operating at end-2025",
+        "value_gw": 4.0,
+        "precision": "more than"
+      },
+      {
+        "clock": "Under construction for 2026",
+        "value_gw": 2.5,
+        "precision": "more than"
+      },
+      {
+        "clock": "Announced capacity at risk of missing 2030",
+        "value_gw": 100,
+        "precision": "more than"
+      }
+    ],
+    "production_2030_mtpa": {
+      "committed": 4.3,
+      "strong_potential_more_than": 6,
+      "full_pipeline": 27
+    },
+    "boundary": "The GW values describe electrolyser electrical-input capacity; the Mtpa values describe low-emissions hydrogen from all eligible production routes. They cannot be added or converted without project-level assumptions."
+  },
+  "technology_source": "irena_2020",
+  "technologies": [
+    {
+      "name": "Alkaline",
+      "temperature_c": "70–90",
+      "materials": "Nickel-coated steel electrodes, nickel meshes, potassium hydroxide and zirconia-containing separator",
+      "strength": "Mature and generally lower equipment cost",
+      "constraint": "Large footprint and traditionally less dynamic operation"
+    },
+    {
+      "name": "PEM",
+      "temperature_c": "50–80",
+      "materials": "Iridium-oxide anode catalyst, platinum cathode, titanium transport layers and fluorinated membrane",
+      "strength": "Compact, flexible and suited to variable operation",
+      "constraint": "Exposure to very scarce iridium and other expensive materials"
+    },
+    {
+      "name": "Solid oxide",
+      "temperature_c": "700–850",
+      "materials": "Nickel, yttria-stabilised zirconia and lanthanum-containing ceramics",
+      "strength": "High efficiency when high-temperature heat is available; potentially reversible",
+      "constraint": "Earlier commercial stage and demanding thermal cycling"
+    },
+    {
+      "name": "AEM",
+      "temperature_c": "40–60",
+      "materials": "Nickel or nickel-iron-cobalt catalysts with an anion-exchange polymer membrane",
+      "strength": "Aims to combine flexible operation with fewer precious metals",
+      "constraint": "Emerging durability and scale-up evidence"
+    }
+  ],
+  "material_specific": {
+    "source": "iea_minerals",
+    "pem_platinum_kg_per_mw": 0.3,
+    "rule": "Platinum is only one PEM input; do not infer iridium demand from this value.",
+    "boundary": "Indicative technology-era intensity from the source, not a timeless bill of materials. Catalyst loading is an active innovation target."
+  },
+  "material_histories": {
+    "source": "usgs",
+    "series": [
+      {
+        "material": "Nickel",
+        "unit": "tonnes nickel content",
+        "coverage": "1900-2019",
+        "series": [
+          {
+            "year": 1900,
+            "world_tonnes": 9290
+          },
+          {
+            "year": 1901,
+            "world_tonnes": 11400
+          },
+          {
+            "year": 1902,
+            "world_tonnes": 12200
+          },
+          {
+            "year": 1903,
+            "world_tonnes": 10200
+          },
+          {
+            "year": 1904,
+            "world_tonnes": 10500
+          },
+          {
+            "year": 1905,
+            "world_tonnes": 15600
+          },
+          {
+            "year": 1906,
+            "world_tonnes": 16000
+          },
+          {
+            "year": 1907,
+            "world_tonnes": 16300
+          },
+          {
+            "year": 1908,
+            "world_tonnes": 14900
+          },
+          {
+            "year": 1909,
+            "world_tonnes": 17000
+          },
+          {
+            "year": 1910,
+            "world_tonnes": 23100
+          },
+          {
+            "year": 1911,
+            "world_tonnes": 25200
+          },
+          {
+            "year": 1912,
+            "world_tonnes": 27900
+          },
+          {
+            "year": 1913,
+            "world_tonnes": 32200
+          },
+          {
+            "year": 1914,
+            "world_tonnes": 30000
+          },
+          {
+            "year": 1915,
+            "world_tonnes": 39100
+          },
+          {
+            "year": 1916,
+            "world_tonnes": 45500
+          },
+          {
+            "year": 1917,
+            "world_tonnes": 46200
+          },
+          {
+            "year": 1918,
+            "world_tonnes": 47600
+          },
+          {
+            "year": 1919,
+            "world_tonnes": 23100
+          },
+          {
+            "year": 1920,
+            "world_tonnes": 35700
+          },
+          {
+            "year": 1921,
+            "world_tonnes": 10400
+          },
+          {
+            "year": 1922,
+            "world_tonnes": 11800
+          },
+          {
+            "year": 1923,
+            "world_tonnes": 31100
+          },
+          {
+            "year": 1924,
+            "world_tonnes": 35300
+          },
+          {
+            "year": 1925,
+            "world_tonnes": 37100
+          },
+          {
+            "year": 1926,
+            "world_tonnes": 33900
+          },
+          {
+            "year": 1927,
+            "world_tonnes": 34500
+          },
+          {
+            "year": 1928,
+            "world_tonnes": 50300
+          },
+          {
+            "year": 1929,
+            "world_tonnes": 56300
+          },
+          {
+            "year": 1930,
+            "world_tonnes": 54200
+          },
+          {
+            "year": 1931,
+            "world_tonnes": 36300
+          },
+          {
+            "year": 1932,
+            "world_tonnes": 21800
+          },
+          {
+            "year": 1933,
+            "world_tonnes": 46300
+          },
+          {
+            "year": 1934,
+            "world_tonnes": 71600
+          },
+          {
+            "year": 1935,
+            "world_tonnes": 77400
+          },
+          {
+            "year": 1936,
+            "world_tonnes": 93400
+          },
+          {
+            "year": 1937,
+            "world_tonnes": 120000
+          },
+          {
+            "year": 1938,
+            "world_tonnes": 115000
+          },
+          {
+            "year": 1939,
+            "world_tonnes": 122000
+          },
+          {
+            "year": 1940,
+            "world_tonnes": 140000
+          },
+          {
+            "year": 1941,
+            "world_tonnes": 162000
+          },
+          {
+            "year": 1942,
+            "world_tonnes": 158000
+          },
+          {
+            "year": 1943,
+            "world_tonnes": 167000
+          },
+          {
+            "year": 1944,
+            "world_tonnes": 157000
+          },
+          {
+            "year": 1945,
+            "world_tonnes": 145000
+          },
+          {
+            "year": 1946,
+            "world_tonnes": 123000
+          },
+          {
+            "year": 1947,
+            "world_tonnes": 140000
+          },
+          {
+            "year": 1948,
+            "world_tonnes": 151000
+          },
+          {
+            "year": 1949,
+            "world_tonnes": 146000
+          },
+          {
+            "year": 1950,
+            "world_tonnes": 145000
+          },
+          {
+            "year": 1951,
+            "world_tonnes": 132000
+          },
+          {
+            "year": 1952,
+            "world_tonnes": 146000
+          },
+          {
+            "year": 1953,
+            "world_tonnes": 198000
+          },
+          {
+            "year": 1954,
+            "world_tonnes": 216000
+          },
+          {
+            "year": 1955,
+            "world_tonnes": 239000
+          },
+          {
+            "year": 1956,
+            "world_tonnes": 259000
+          },
+          {
+            "year": 1957,
+            "world_tonnes": 286000
+          },
+          {
+            "year": 1958,
+            "world_tonnes": 224000
+          },
+          {
+            "year": 1959,
+            "world_tonnes": 285000
+          },
+          {
+            "year": 1960,
+            "world_tonnes": 320000
+          },
+          {
+            "year": 1961,
+            "world_tonnes": 361000
+          },
+          {
+            "year": 1962,
+            "world_tonnes": 357000
+          },
+          {
+            "year": 1963,
+            "world_tonnes": 339000
+          },
+          {
+            "year": 1964,
+            "world_tonnes": 371000
+          },
+          {
+            "year": 1965,
+            "world_tonnes": 425000
+          },
+          {
+            "year": 1966,
+            "world_tonnes": 412000
+          },
+          {
+            "year": 1967,
+            "world_tonnes": 449000
+          },
+          {
+            "year": 1968,
+            "world_tonnes": 497000
+          },
+          {
+            "year": 1969,
+            "world_tonnes": 487000
+          },
+          {
+            "year": 1970,
+            "world_tonnes": 628000
+          },
+          {
+            "year": 1971,
+            "world_tonnes": 637000
+          },
+          {
+            "year": 1972,
+            "world_tonnes": 611000
+          },
+          {
+            "year": 1973,
+            "world_tonnes": 710000
+          },
+          {
+            "year": 1974,
+            "world_tonnes": 770000
+          },
+          {
+            "year": 1975,
+            "world_tonnes": 802000
+          },
+          {
+            "year": 1976,
+            "world_tonnes": 792000
+          },
+          {
+            "year": 1977,
+            "world_tonnes": 828000
+          },
+          {
+            "year": 1978,
+            "world_tonnes": 658000
+          },
+          {
+            "year": 1979,
+            "world_tonnes": 686000
+          },
+          {
+            "year": 1980,
+            "world_tonnes": 779000
+          },
+          {
+            "year": 1981,
+            "world_tonnes": 726000
+          },
+          {
+            "year": 1982,
+            "world_tonnes": 621000
+          },
+          {
+            "year": 1983,
+            "world_tonnes": 673000
+          },
+          {
+            "year": 1984,
+            "world_tonnes": 773000
+          },
+          {
+            "year": 1985,
+            "world_tonnes": 813000
+          },
+          {
+            "year": 1986,
+            "world_tonnes": 852000
+          },
+          {
+            "year": 1987,
+            "world_tonnes": 891000
+          },
+          {
+            "year": 1988,
+            "world_tonnes": 952000
+          },
+          {
+            "year": 1989,
+            "world_tonnes": 987000
+          },
+          {
+            "year": 1990,
+            "world_tonnes": 974000
+          },
+          {
+            "year": 1991,
+            "world_tonnes": 1010000
+          },
+          {
+            "year": 1992,
+            "world_tonnes": 1010000
+          },
+          {
+            "year": 1993,
+            "world_tonnes": 928000
+          },
+          {
+            "year": 1994,
+            "world_tonnes": 932000
+          },
+          {
+            "year": 1995,
+            "world_tonnes": 1040000
+          },
+          {
+            "year": 1996,
+            "world_tonnes": 1060000
+          },
+          {
+            "year": 1997,
+            "world_tonnes": 1140000
+          },
+          {
+            "year": 1998,
+            "world_tonnes": 1180000
+          },
+          {
+            "year": 1999,
+            "world_tonnes": 1170000
+          },
+          {
+            "year": 2000,
+            "world_tonnes": 1290000
+          },
+          {
+            "year": 2001,
+            "world_tonnes": 1350000
+          },
+          {
+            "year": 2002,
+            "world_tonnes": 1350000
+          },
+          {
+            "year": 2003,
+            "world_tonnes": 1370000
+          },
+          {
+            "year": 2004,
+            "world_tonnes": 1350000
+          },
+          {
+            "year": 2005,
+            "world_tonnes": 1460000
+          },
+          {
+            "year": 2006,
+            "world_tonnes": 1570000
+          },
+          {
+            "year": 2007,
+            "world_tonnes": 1740000
+          },
+          {
+            "year": 2008,
+            "world_tonnes": 1630000
+          },
+          {
+            "year": 2009,
+            "world_tonnes": 1410000
+          },
+          {
+            "year": 2010,
+            "world_tonnes": 1710000
+          },
+          {
+            "year": 2011,
+            "world_tonnes": 2340000
+          },
+          {
+            "year": 2012,
+            "world_tonnes": 2570000
+          },
+          {
+            "year": 2013,
+            "world_tonnes": 2610000
+          },
+          {
+            "year": 2014,
+            "world_tonnes": 2130000
+          },
+          {
+            "year": 2015,
+            "world_tonnes": 2110000
+          },
+          {
+            "year": 2016,
+            "world_tonnes": 2000000
+          },
+          {
+            "year": 2017,
+            "world_tonnes": 2190000
+          },
+          {
+            "year": 2018,
+            "world_tonnes": 2380000
+          },
+          {
+            "year": 2019,
+            "world_tonnes": 2510000
+          }
+        ],
+        "boundary": "All nickel uses; world production."
+      },
+      {
+        "material": "Platinum-group metals",
+        "unit": "tonnes PGM content",
+        "coverage": "1900-2022",
+        "series": [
+          {
+            "year": 1900,
+            "world_tonnes": 6.62
+          },
+          {
+            "year": 1901,
+            "world_tonnes": 9.85
+          },
+          {
+            "year": 1902,
+            "world_tonnes": 9.33
+          },
+          {
+            "year": 1903,
+            "world_tonnes": 7.03
+          },
+          {
+            "year": 1904,
+            "world_tonnes": 9.03
+          },
+          {
+            "year": 1905,
+            "world_tonnes": 6.24
+          },
+          {
+            "year": 1906,
+            "world_tonnes": 6.59
+          },
+          {
+            "year": 1907,
+            "world_tonnes": 9.65
+          },
+          {
+            "year": 1908,
+            "world_tonnes": 8
+          },
+          {
+            "year": 1909,
+            "world_tonnes": 8.45
+          },
+          {
+            "year": 1910,
+            "world_tonnes": 8.89
+          },
+          {
+            "year": 1911,
+            "world_tonnes": 9.74
+          },
+          {
+            "year": 1912,
+            "world_tonnes": 9.77
+          },
+          {
+            "year": 1913,
+            "world_tonnes": 8.31
+          },
+          {
+            "year": 1914,
+            "world_tonnes": 8.11
+          },
+          {
+            "year": 1915,
+            "world_tonnes": 4.45
+          },
+          {
+            "year": 1916,
+            "world_tonnes": 2.8
+          },
+          {
+            "year": 1917,
+            "world_tonnes": 2.59
+          },
+          {
+            "year": 1918,
+            "world_tonnes": 1.96
+          },
+          {
+            "year": 1919,
+            "world_tonnes": 2.11
+          },
+          {
+            "year": 1920,
+            "world_tonnes": 2.3
+          },
+          {
+            "year": 1921,
+            "world_tonnes": 1.84
+          },
+          {
+            "year": 1922,
+            "world_tonnes": 2.17
+          },
+          {
+            "year": 1923,
+            "world_tonnes": 2.56
+          },
+          {
+            "year": 1924,
+            "world_tonnes": 3.56
+          },
+          {
+            "year": 1925,
+            "world_tonnes": 3.23
+          },
+          {
+            "year": 1926,
+            "world_tonnes": 4.42
+          },
+          {
+            "year": 1927,
+            "world_tonnes": 4.64
+          },
+          {
+            "year": 1928,
+            "world_tonnes": 4.31
+          },
+          {
+            "year": 1929,
+            "world_tonnes": 4.84
+          },
+          {
+            "year": 1930,
+            "world_tonnes": 4.75
+          },
+          {
+            "year": 1931,
+            "world_tonnes": 8.94
+          },
+          {
+            "year": 1932,
+            "world_tonnes": 6.53
+          },
+          {
+            "year": 1933,
+            "world_tonnes": 6.77
+          },
+          {
+            "year": 1934,
+            "world_tonnes": 12.9
+          },
+          {
+            "year": 1935,
+            "world_tonnes": 12.1
+          },
+          {
+            "year": 1936,
+            "world_tonnes": 14.2
+          },
+          {
+            "year": 1937,
+            "world_tonnes": 14.8
+          },
+          {
+            "year": 1938,
+            "world_tonnes": 16.8
+          },
+          {
+            "year": 1939,
+            "world_tonnes": 16.9
+          },
+          {
+            "year": 1940,
+            "world_tonnes": 14.5
+          },
+          {
+            "year": 1941,
+            "world_tonnes": 14.9
+          },
+          {
+            "year": 1942,
+            "world_tonnes": 16.9
+          },
+          {
+            "year": 1943,
+            "world_tonnes": 19.6
+          },
+          {
+            "year": 1944,
+            "world_tonnes": 16
+          },
+          {
+            "year": 1945,
+            "world_tonnes": 30
+          },
+          {
+            "year": 1946,
+            "world_tonnes": 17.9
+          },
+          {
+            "year": 1947,
+            "world_tonnes": 15.6
+          },
+          {
+            "year": 1948,
+            "world_tonnes": 16.3
+          },
+          {
+            "year": 1949,
+            "world_tonnes": 17.9
+          },
+          {
+            "year": 1950,
+            "world_tonnes": 18.7
+          },
+          {
+            "year": 1951,
+            "world_tonnes": 21
+          },
+          {
+            "year": 1952,
+            "world_tonnes": 21.8
+          },
+          {
+            "year": 1953,
+            "world_tonnes": 24.1
+          },
+          {
+            "year": 1954,
+            "world_tonnes": 29.2
+          },
+          {
+            "year": 1955,
+            "world_tonnes": 33.9
+          },
+          {
+            "year": 1956,
+            "world_tonnes": 34.5
+          },
+          {
+            "year": 1957,
+            "world_tonnes": 41.1
+          },
+          {
+            "year": 1958,
+            "world_tonnes": 27.7
+          },
+          {
+            "year": 1959,
+            "world_tonnes": 32.8
+          },
+          {
+            "year": 1960,
+            "world_tonnes": 39.7
+          },
+          {
+            "year": 1961,
+            "world_tonnes": 41.8
+          },
+          {
+            "year": 1962,
+            "world_tonnes": 50.5
+          },
+          {
+            "year": 1963,
+            "world_tonnes": 63.4
+          },
+          {
+            "year": 1964,
+            "world_tonnes": 79.2
+          },
+          {
+            "year": 1965,
+            "world_tonnes": 92.3
+          },
+          {
+            "year": 1966,
+            "world_tonnes": 94.5
+          },
+          {
+            "year": 1967,
+            "world_tonnes": 98.8
+          },
+          {
+            "year": 1968,
+            "world_tonnes": 106
+          },
+          {
+            "year": 1969,
+            "world_tonnes": 107
+          },
+          {
+            "year": 1970,
+            "world_tonnes": 132
+          },
+          {
+            "year": 1971,
+            "world_tonnes": 127
+          },
+          {
+            "year": 1972,
+            "world_tonnes": 133
+          },
+          {
+            "year": 1973,
+            "world_tonnes": 163
+          },
+          {
+            "year": 1974,
+            "world_tonnes": 179
+          },
+          {
+            "year": 1975,
+            "world_tonnes": 178
+          },
+          {
+            "year": 1976,
+            "world_tonnes": 194
+          },
+          {
+            "year": 1977,
+            "world_tonnes": 203
+          },
+          {
+            "year": 1978,
+            "world_tonnes": 200
+          },
+          {
+            "year": 1979,
+            "world_tonnes": 202
+          },
+          {
+            "year": 1980,
+            "world_tonnes": 213
+          },
+          {
+            "year": 1981,
+            "world_tonnes": 216
+          },
+          {
+            "year": 1982,
+            "world_tonnes": 200
+          },
+          {
+            "year": 1983,
+            "world_tonnes": 203
+          },
+          {
+            "year": 1984,
+            "world_tonnes": 238
+          },
+          {
+            "year": 1985,
+            "world_tonnes": 247
+          },
+          {
+            "year": 1986,
+            "world_tonnes": 260
+          },
+          {
+            "year": 1987,
+            "world_tonnes": 271
+          },
+          {
+            "year": 1988,
+            "world_tonnes": 280
+          },
+          {
+            "year": 1989,
+            "world_tonnes": 282
+          },
+          {
+            "year": 1990,
+            "world_tonnes": 291
+          },
+          {
+            "year": 1991,
+            "world_tonnes": 287
+          },
+          {
+            "year": 1992,
+            "world_tonnes": 280
+          },
+          {
+            "year": 1993,
+            "world_tonnes": 276
+          },
+          {
+            "year": 1994,
+            "world_tonnes": 269
+          },
+          {
+            "year": 1995,
+            "world_tonnes": 326
+          },
+          {
+            "year": 1996,
+            "world_tonnes": 324
+          },
+          {
+            "year": 1997,
+            "world_tonnes": 339
+          },
+          {
+            "year": 1998,
+            "world_tonnes": 354
+          },
+          {
+            "year": 1999,
+            "world_tonnes": 366
+          },
+          {
+            "year": 2000,
+            "world_tonnes": 364
+          },
+          {
+            "year": 2001,
+            "world_tonnes": 395
+          },
+          {
+            "year": 2002,
+            "world_tonnes": 414
+          },
+          {
+            "year": 2003,
+            "world_tonnes": 466
+          },
+          {
+            "year": 2004,
+            "world_tonnes": 472
+          },
+          {
+            "year": 2005,
+            "world_tonnes": 504
+          },
+          {
+            "year": 2006,
+            "world_tonnes": 515
+          },
+          {
+            "year": 2007,
+            "world_tonnes": 509
+          },
+          {
+            "year": 2008,
+            "world_tonnes": 468
+          },
+          {
+            "year": 2009,
+            "world_tonnes": 450
+          },
+          {
+            "year": 2010,
+            "world_tonnes": 472
+          },
+          {
+            "year": 2011,
+            "world_tonnes": 491
+          },
+          {
+            "year": 2012,
+            "world_tonnes": 423
+          },
+          {
+            "year": 2013,
+            "world_tonnes": 459
+          },
+          {
+            "year": 2014,
+            "world_tonnes": 382
+          },
+          {
+            "year": 2015,
+            "world_tonnes": 470
+          },
+          {
+            "year": 2016,
+            "world_tonnes": 460
+          },
+          {
+            "year": 2017,
+            "world_tonnes": 458
+          },
+          {
+            "year": 2018,
+            "world_tonnes": 471
+          },
+          {
+            "year": 2019,
+            "world_tonnes": 478
+          },
+          {
+            "year": 2020,
+            "world_tonnes": 418
+          },
+          {
+            "year": 2021,
+            "world_tonnes": 472
+          },
+          {
+            "year": 2022,
+            "world_tonnes": 437
+          }
+        ],
+        "boundary": "Combined PGM production; not an iridium or platinum series."
+      },
+      {
+        "material": "Zircon mineral concentrates",
+        "unit": "tonnes gross weight",
+        "coverage": "1944-2021",
+        "series": [
+          {
+            "year": 1944,
+            "world_tonnes": 17300
+          },
+          {
+            "year": 1945,
+            "world_tonnes": 19700
+          },
+          {
+            "year": 1946,
+            "world_tonnes": 24700
+          },
+          {
+            "year": 1947,
+            "world_tonnes": 25900
+          },
+          {
+            "year": 1948,
+            "world_tonnes": 26600
+          },
+          {
+            "year": 1949,
+            "world_tonnes": 24100
+          },
+          {
+            "year": 1950,
+            "world_tonnes": 25200
+          },
+          {
+            "year": 1951,
+            "world_tonnes": 46200
+          },
+          {
+            "year": 1952,
+            "world_tonnes": 33900
+          },
+          {
+            "year": 1953,
+            "world_tonnes": 53300
+          },
+          {
+            "year": 1954,
+            "world_tonnes": 63200
+          },
+          {
+            "year": 1955,
+            "world_tonnes": 78200
+          },
+          {
+            "year": 1956,
+            "world_tonnes": 118000
+          },
+          {
+            "year": 1957,
+            "world_tonnes": 146000
+          },
+          {
+            "year": 1958,
+            "world_tonnes": 105000
+          },
+          {
+            "year": 1959,
+            "world_tonnes": 103000
+          },
+          {
+            "year": 1960,
+            "world_tonnes": 129000
+          },
+          {
+            "year": 1961,
+            "world_tonnes": 159000
+          },
+          {
+            "year": 1962,
+            "world_tonnes": 149000
+          },
+          {
+            "year": 1963,
+            "world_tonnes": 195000
+          },
+          {
+            "year": 1964,
+            "world_tonnes": 191000
+          },
+          {
+            "year": 1965,
+            "world_tonnes": 235000
+          },
+          {
+            "year": 1966,
+            "world_tonnes": 244000
+          },
+          {
+            "year": 1967,
+            "world_tonnes": 293000
+          },
+          {
+            "year": 1968,
+            "world_tonnes": 309000
+          },
+          {
+            "year": 1969,
+            "world_tonnes": 386000
+          },
+          {
+            "year": 1970,
+            "world_tonnes": 399000
+          },
+          {
+            "year": 1971,
+            "world_tonnes": 432000
+          },
+          {
+            "year": 1972,
+            "world_tonnes": 369000
+          },
+          {
+            "year": 1973,
+            "world_tonnes": 379000
+          },
+          {
+            "year": 1974,
+            "world_tonnes": 397000
+          },
+          {
+            "year": 1975,
+            "world_tonnes": 418000
+          },
+          {
+            "year": 1976,
+            "world_tonnes": 448000
+          },
+          {
+            "year": 1977,
+            "world_tonnes": 505000
+          },
+          {
+            "year": 1978,
+            "world_tonnes": 525000
+          },
+          {
+            "year": 1979,
+            "world_tonnes": 629000
+          },
+          {
+            "year": 1980,
+            "world_tonnes": 680000
+          },
+          {
+            "year": 1981,
+            "world_tonnes": 645000
+          },
+          {
+            "year": 1982,
+            "world_tonnes": 710000
+          },
+          {
+            "year": 1983,
+            "world_tonnes": 666000
+          },
+          {
+            "year": 1984,
+            "world_tonnes": 736000
+          },
+          {
+            "year": 1985,
+            "world_tonnes": 815000
+          },
+          {
+            "year": 1986,
+            "world_tonnes": 741000
+          },
+          {
+            "year": 1987,
+            "world_tonnes": 753000
+          },
+          {
+            "year": 1988,
+            "world_tonnes": 929000
+          },
+          {
+            "year": 1989,
+            "world_tonnes": 979000
+          },
+          {
+            "year": 1990,
+            "world_tonnes": 852000
+          },
+          {
+            "year": 1991,
+            "world_tonnes": 795000
+          },
+          {
+            "year": 1992,
+            "world_tonnes": 856000
+          },
+          {
+            "year": 1993,
+            "world_tonnes": 796000
+          },
+          {
+            "year": 1994,
+            "world_tonnes": 897000
+          },
+          {
+            "year": 1995,
+            "world_tonnes": 918000
+          },
+          {
+            "year": 1996,
+            "world_tonnes": 894000
+          },
+          {
+            "year": 1997,
+            "world_tonnes": 830000
+          },
+          {
+            "year": 1998,
+            "world_tonnes": 732000
+          },
+          {
+            "year": 1999,
+            "world_tonnes": 673000
+          },
+          {
+            "year": 2000,
+            "world_tonnes": 731000
+          },
+          {
+            "year": 2001,
+            "world_tonnes": 750000
+          },
+          {
+            "year": 2002,
+            "world_tonnes": 973000
+          },
+          {
+            "year": 2003,
+            "world_tonnes": 1040000
+          },
+          {
+            "year": 2004,
+            "world_tonnes": 1070000
+          },
+          {
+            "year": 2005,
+            "world_tonnes": 1060000
+          },
+          {
+            "year": 2006,
+            "world_tonnes": 1240000
+          },
+          {
+            "year": 2007,
+            "world_tonnes": 1420000
+          },
+          {
+            "year": 2008,
+            "world_tonnes": 1350000
+          },
+          {
+            "year": 2009,
+            "world_tonnes": 1210000
+          },
+          {
+            "year": 2010,
+            "world_tonnes": 1280000
+          },
+          {
+            "year": 2011,
+            "world_tonnes": 1660000
+          },
+          {
+            "year": 2012,
+            "world_tonnes": 1420000
+          },
+          {
+            "year": 2013,
+            "world_tonnes": 1010000
+          },
+          {
+            "year": 2014,
+            "world_tonnes": 1580000
+          },
+          {
+            "year": 2015,
+            "world_tonnes": 1500000
+          },
+          {
+            "year": 2016,
+            "world_tonnes": 1580000
+          },
+          {
+            "year": 2017,
+            "world_tonnes": 1510000
+          },
+          {
+            "year": 2018,
+            "world_tonnes": 1580000
+          },
+          {
+            "year": 2019,
+            "world_tonnes": 1430000
+          },
+          {
+            "year": 2020,
+            "world_tonnes": 1190000
+          },
+          {
+            "year": 2021,
+            "world_tonnes": 1350000
+          }
+        ],
+        "boundary": "Mineral-concentrate output; not electrolyser-grade zirconia."
+      },
+      {
+        "material": "Rare earths",
+        "unit": "tonnes REO equivalent",
+        "coverage": "1900-2020",
+        "series": [
+          {
+            "year": 1900,
+            "world_tonnes": 1040
+          },
+          {
+            "year": 1901,
+            "world_tonnes": 1090
+          },
+          {
+            "year": 1902,
+            "world_tonnes": 863
+          },
+          {
+            "year": 1903,
+            "world_tonnes": 2030
+          },
+          {
+            "year": 1904,
+            "world_tonnes": 2860
+          },
+          {
+            "year": 1905,
+            "world_tonnes": 2780
+          },
+          {
+            "year": 1906,
+            "world_tonnes": 2600
+          },
+          {
+            "year": 1907,
+            "world_tonnes": 2580
+          },
+          {
+            "year": 1908,
+            "world_tonnes": 2840
+          },
+          {
+            "year": 1909,
+            "world_tonnes": 3690
+          },
+          {
+            "year": 1910,
+            "world_tonnes": 3020
+          },
+          {
+            "year": 1911,
+            "world_tonnes": 2490
+          },
+          {
+            "year": 1912,
+            "world_tonnes": 2500
+          },
+          {
+            "year": 1913,
+            "world_tonnes": 1480
+          },
+          {
+            "year": 1914,
+            "world_tonnes": 992
+          },
+          {
+            "year": 1915,
+            "world_tonnes": 870
+          },
+          {
+            "year": 1916,
+            "world_tonnes": 731
+          },
+          {
+            "year": 1917,
+            "world_tonnes": 1730
+          },
+          {
+            "year": 1918,
+            "world_tonnes": 1470
+          },
+          {
+            "year": 1919,
+            "world_tonnes": 1210
+          },
+          {
+            "year": 1920,
+            "world_tonnes": 1590
+          },
+          {
+            "year": 1921,
+            "world_tonnes": 929
+          },
+          {
+            "year": 1922,
+            "world_tonnes": 189
+          },
+          {
+            "year": 1923,
+            "world_tonnes": 138
+          },
+          {
+            "year": 1924,
+            "world_tonnes": 348
+          },
+          {
+            "year": 1925,
+            "world_tonnes": 12
+          },
+          {
+            "year": 1926,
+            "world_tonnes": 146
+          },
+          {
+            "year": 1927,
+            "world_tonnes": 352
+          },
+          {
+            "year": 1928,
+            "world_tonnes": 180
+          },
+          {
+            "year": 1929,
+            "world_tonnes": 197
+          },
+          {
+            "year": 1930,
+            "world_tonnes": 17
+          },
+          {
+            "year": 1931,
+            "world_tonnes": 50
+          },
+          {
+            "year": 1932,
+            "world_tonnes": 530
+          },
+          {
+            "year": 1933,
+            "world_tonnes": 302
+          },
+          {
+            "year": 1934,
+            "world_tonnes": 564
+          },
+          {
+            "year": 1935,
+            "world_tonnes": 2130
+          },
+          {
+            "year": 1936,
+            "world_tonnes": 1840
+          },
+          {
+            "year": 1937,
+            "world_tonnes": 2150
+          },
+          {
+            "year": 1938,
+            "world_tonnes": 3310
+          },
+          {
+            "year": 1939,
+            "world_tonnes": 2510
+          },
+          {
+            "year": 1940,
+            "world_tonnes": 2370
+          },
+          {
+            "year": 1941,
+            "world_tonnes": 2380
+          },
+          {
+            "year": 1942,
+            "world_tonnes": 1500
+          },
+          {
+            "year": 1943,
+            "world_tonnes": 1900
+          },
+          {
+            "year": 1944,
+            "world_tonnes": 3200
+          },
+          {
+            "year": 1945,
+            "world_tonnes": 1440
+          },
+          {
+            "year": 1946,
+            "world_tonnes": 721
+          },
+          {
+            "year": 1947,
+            "world_tonnes": 1300
+          },
+          {
+            "year": 1948,
+            "world_tonnes": 2720
+          },
+          {
+            "year": 1949,
+            "world_tonnes": 1290
+          },
+          {
+            "year": 1950,
+            "world_tonnes": 470
+          },
+          {
+            "year": 1951,
+            "world_tonnes": 1240
+          },
+          {
+            "year": 1952,
+            "world_tonnes": 1820
+          },
+          {
+            "year": 1953,
+            "world_tonnes": 3960
+          },
+          {
+            "year": 1954,
+            "world_tonnes": 7840
+          },
+          {
+            "year": 1955,
+            "world_tonnes": 5760
+          },
+          {
+            "year": 1956,
+            "world_tonnes": 5230
+          },
+          {
+            "year": 1957,
+            "world_tonnes": 5980
+          },
+          {
+            "year": 1958,
+            "world_tonnes": 8060
+          },
+          {
+            "year": 1959,
+            "world_tonnes": 2810
+          },
+          {
+            "year": 1960,
+            "world_tonnes": 2270
+          },
+          {
+            "year": 1961,
+            "world_tonnes": 3690
+          },
+          {
+            "year": 1962,
+            "world_tonnes": 8020
+          },
+          {
+            "year": 1963,
+            "world_tonnes": 6060
+          },
+          {
+            "year": 1964,
+            "world_tonnes": 3680
+          },
+          {
+            "year": 1965,
+            "world_tonnes": 6960
+          },
+          {
+            "year": 1966,
+            "world_tonnes": 16200
+          },
+          {
+            "year": 1967,
+            "world_tonnes": 16900
+          },
+          {
+            "year": 1968,
+            "world_tonnes": 16200
+          },
+          {
+            "year": 1969,
+            "world_tonnes": 18100
+          },
+          {
+            "year": 1970,
+            "world_tonnes": 15900
+          },
+          {
+            "year": 1971,
+            "world_tonnes": 16400
+          },
+          {
+            "year": 1972,
+            "world_tonnes": 18200
+          },
+          {
+            "year": 1973,
+            "world_tonnes": 24000
+          },
+          {
+            "year": 1974,
+            "world_tonnes": 25600
+          },
+          {
+            "year": 1975,
+            "world_tonnes": 22100
+          },
+          {
+            "year": 1976,
+            "world_tonnes": 19700
+          },
+          {
+            "year": 1977,
+            "world_tonnes": 24500
+          },
+          {
+            "year": 1978,
+            "world_tonnes": 26500
+          },
+          {
+            "year": 1979,
+            "world_tonnes": 28800
+          },
+          {
+            "year": 1980,
+            "world_tonnes": 27300
+          },
+          {
+            "year": 1981,
+            "world_tonnes": 30600
+          },
+          {
+            "year": 1982,
+            "world_tonnes": 26600
+          },
+          {
+            "year": 1983,
+            "world_tonnes": 31400
+          },
+          {
+            "year": 1984,
+            "world_tonnes": 41400
+          },
+          {
+            "year": 1985,
+            "world_tonnes": 43500
+          },
+          {
+            "year": 1986,
+            "world_tonnes": 39900
+          },
+          {
+            "year": 1987,
+            "world_tonnes": 46900
+          },
+          {
+            "year": 1988,
+            "world_tonnes": 55300
+          },
+          {
+            "year": 1989,
+            "world_tonnes": 60700
+          },
+          {
+            "year": 1990,
+            "world_tonnes": 52900
+          },
+          {
+            "year": 1991,
+            "world_tonnes": 41700
+          },
+          {
+            "year": 1992,
+            "world_tonnes": 50100
+          },
+          {
+            "year": 1993,
+            "world_tonnes": 46700
+          },
+          {
+            "year": 1994,
+            "world_tonnes": 55100
+          },
+          {
+            "year": 1995,
+            "world_tonnes": 74300
+          },
+          {
+            "year": 1996,
+            "world_tonnes": 79700
+          },
+          {
+            "year": 1997,
+            "world_tonnes": 68300
+          },
+          {
+            "year": 1998,
+            "world_tonnes": 77100
+          },
+          {
+            "year": 1999,
+            "world_tonnes": 86600
+          },
+          {
+            "year": 2000,
+            "world_tonnes": 90900
+          },
+          {
+            "year": 2001,
+            "world_tonnes": 94500
+          },
+          {
+            "year": 2002,
+            "world_tonnes": 98200
+          },
+          {
+            "year": 2003,
+            "world_tonnes": 97100
+          },
+          {
+            "year": 2004,
+            "world_tonnes": 102000
+          },
+          {
+            "year": 2005,
+            "world_tonnes": 122000
+          },
+          {
+            "year": 2006,
+            "world_tonnes": 137000
+          },
+          {
+            "year": 2007,
+            "world_tonnes": 124000
+          },
+          {
+            "year": 2008,
+            "world_tonnes": 132000
+          },
+          {
+            "year": 2009,
+            "world_tonnes": 135000
+          },
+          {
+            "year": 2010,
+            "world_tonnes": 101000
+          },
+          {
+            "year": 2011,
+            "world_tonnes": 104000
+          },
+          {
+            "year": 2012,
+            "world_tonnes": 106000
+          },
+          {
+            "year": 2013,
+            "world_tonnes": 107000
+          },
+          {
+            "year": 2014,
+            "world_tonnes": 125000
+          },
+          {
+            "year": 2015,
+            "world_tonnes": 129000
+          },
+          {
+            "year": 2016,
+            "world_tonnes": 133000
+          },
+          {
+            "year": 2017,
+            "world_tonnes": 147000
+          },
+          {
+            "year": 2018,
+            "world_tonnes": 190000
+          },
+          {
+            "year": 2019,
+            "world_tonnes": 219000
+          },
+          {
+            "year": 2020,
+            "world_tonnes": 243000
+          }
+        ],
+        "boundary": "All rare earths; not yttrium or lanthanum specifically."
+      }
+    ],
+    "boundary": "Economy-wide production context. None of these series measures electrolyser demand or usable catalyst supply."
+  },
+  "manufacturing": {
+    "sources": [
+      "iea_2024_production",
+      "iea_2025_summary",
+      "iea_2025_questions"
+    ],
+    "world": {
+      "year": 2023,
+      "capacity_gw_per_year": 25,
+      "output_gw": 2.5,
+      "utilisation_implied": 0.1
+    },
+    "china": {
+      "year": 2024,
+      "capacity_gw_per_year": 20,
+      "domestic_demand_gw": 2,
+      "global_capacity_share": 0.6
+    },
+    "installed_stack_cost_share": [
+      0.15,
+      0.2
+    ],
+    "boundary": "Nameplate factory capacity, factory output, domestic demand and installed-system cost are different. The stack is only 15–20% of total installed investment in the IEA comparison."
+  },
+  "water_context": {
+    "source": "iea_2024_production",
+    "planned_projects_in_water_stressed_regions_share": 0.4,
+    "boundary": "Share of planned low-emissions hydrogen projects, not operating electrolysers. Water treatment, cooling and local availability matter beyond reaction stoichiometry."
+  },
+  "trade_context": {
+    "source": "baci",
+    "coverage": "2002-2024",
+    "file": "out/electrolyser_trade.json",
+    "boundary": "No clean global HS code identifies water electrolysers. All four baskets are upstream or mixed-use context and must not be labelled electrolyser trade."
+  },
+  "boundaries": [
+    "Most hydrogen today is fossil-based and used in established industry.",
+    "Electrolysis capacity in GW is not hydrogen production in tonnes; utilisation and efficiency are required.",
+    "An announcement is not a final investment decision, construction site or operating plant.",
+    "Alkaline, PEM, solid-oxide and AEM systems have different material recipes.",
+    "Bulk mineral production does not reveal catalyst-grade or component availability."
+  ],
+  "sources": {
+    "iea_2026_production": {
+      "title": "IEA, Global Hydrogen Review 2026 — Production",
+      "year": 2026,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2026/production",
+      "licence": "CC BY 4.0"
+    },
+    "iea_2026_demand": {
+      "title": "IEA, Global Hydrogen Review 2026 — Demand",
+      "year": 2026,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2026/demand",
+      "licence": "CC BY 4.0"
+    },
+    "iea_2025_summary": {
+      "title": "IEA, Global Hydrogen Review 2025 — Executive summary",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2025/executive-summary",
+      "licence": "CC BY 4.0"
+    },
+    "iea_2025_questions": {
+      "title": "IEA, Global Hydrogen Review 2025 — Five key questions about hydrogen",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2025/five-key-questions-about-hydrogen",
+      "licence": "CC BY 4.0"
+    },
+    "iea_2024_dashboard": {
+      "title": "IEA, Global Hydrogen Review 2024 — Progress dashboard",
+      "year": 2024,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2024/progress-summary-dashboard",
+      "licence": "CC BY 4.0"
+    },
+    "iea_2024_production": {
+      "title": "IEA, Global Hydrogen Review 2024 — Hydrogen production",
+      "year": 2024,
+      "url": "https://www.iea.org/reports/global-hydrogen-review-2024/hydrogen-production",
+      "licence": "CC BY 4.0"
+    },
+    "iea_minerals": {
+      "title": "IEA, The Role of Critical Minerals in Clean Energy Transitions",
+      "year": 2021,
+      "url": "https://www.iea.org/reports/the-role-of-critical-minerals-in-clean-energy-transitions/mineral-requirements-for-clean-energy-transitions",
+      "licence": "CC BY 4.0"
+    },
+    "irena_2020": {
+      "title": "IRENA, Green Hydrogen Cost Reduction",
+      "year": 2020,
+      "url": "https://www.irena.org/publications/2020/Dec/Green-hydrogen-cost-reduction"
+    },
+    "usgs": {
+      "title": "USGS, Historical Statistics for Mineral and Material Commodities",
+      "year": 2024,
+      "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
