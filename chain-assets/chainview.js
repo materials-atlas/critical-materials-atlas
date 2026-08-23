@@ -63,7 +63,9 @@
   ]).then(function (res) {
     var D = res[0], T = res[1];
     if (D.accent) document.documentElement.style.setProperty('--acc', D.accent);
-    document.getElementById('draftbar').innerHTML = 'Research pilot · unpublished <span>— ' + esc(D.title) + ', not part of the live Atlas</span>';
+    var db = document.getElementById('draftbar');
+    if (D.published) db.innerHTML = 'Value Chains <span>— a research layer of the Critical Materials Atlas · ' + esc(D.title) + '</span>';
+    else db.innerHTML = 'Research pilot · unpublished <span>— ' + esc(D.title) + ', not part of the live Atlas</span>';
     document.getElementById('eyebrow').textContent = D.eyebrow || '';
     document.getElementById('h1').textContent = D.h1 || D.title;
     document.getElementById('deck').innerHTML = esc(D.deck).replace(/&lt;i&gt;/g, '<i>').replace(/&lt;\/i&gt;/g, '</i>');

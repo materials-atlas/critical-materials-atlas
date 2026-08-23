@@ -87,6 +87,7 @@
     var html = '<a href="./">Atlas</a>' +
                '<a href="explorer.html">Explore</a>' +
                '<a href="reports.html">Reports</a>' +
+               '<a href="value-chains.html">Value Chains</a>' +
                '<a href="insights.html" class="hideable">Insights</a>' +
                '<a href="findings.html" class="hideable">Findings</a>';
     GROUPS.forEach(function (g) {

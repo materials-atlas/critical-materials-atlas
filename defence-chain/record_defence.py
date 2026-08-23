@@ -30,6 +30,7 @@ SRC = {
 
 CHAIN = {
     "title": "Defence / military-materials chain",
+    "published": True,  # the flagship chain wired into the live atlas nav
     "accent": "#8a3b3b",
     "eyebrow": "Product-chain pilot · defence industrial base",
     "h1": "The West's weapons run on materials a rival controls",
