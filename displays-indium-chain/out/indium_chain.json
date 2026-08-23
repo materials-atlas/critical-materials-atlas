@@ -1,0 +1,155 @@
+{
+  "title": "Displays / indium chain",
+  "accent": "#5b5b9c",
+  "eyebrow": "Product-chain pilot · the screens you touch",
+  "h1": "Every screen you touch runs on a metal no one mines on purpose",
+  "deck": "The transparent, conductive coating on almost every LCD and touchscreen is indium tin oxide. Indium is not mined for its own sake — it is a trace by-product of zinc — and its refining is concentrated in China, which placed it under export control in 2025.",
+  "byline": "zinc by-product ≠ refined indium (China) ≠ ITO coating ≠ the screen — plus an ITO-scrap loop",
+  "correction": "Indium looks obscure until you notice it is on the glass in front of you. It cannot be scaled on its own — it rides on zinc mining — its refining is ~70% China, and China restricted its export in 2025. A trace input with one dominant refiner gates a mass-market product: the display.",
+  "stats": [
+    {
+      "v": "~70%",
+      "l": "of refined indium is China",
+      "conf": "measured"
+    },
+    {
+      "v": "−72%",
+      "l": "China unwrought-indium exports after the Feb-2025 controls (YoY)",
+      "conf": "measured"
+    },
+    {
+      "v": "zinc",
+      "l": "indium is a by-product — recovered from zinc-ore residues",
+      "conf": "measured"
+    },
+    {
+      "v": "ITO",
+      "l": "indium tin oxide is most indium use — the coating on flat-panel displays",
+      "conf": "measured"
+    }
+  ],
+  "hops": [
+    {
+      "n": "1 · Zinc",
+      "t": "indium is recovered from zinc-ore (sphalerite) processing residues — a by-product"
+    },
+    {
+      "n": "2 · Refined indium",
+      "t": "primary indium refining is ~70% China; export-controlled since 2025"
+    },
+    {
+      "n": "3 · ITO",
+      "t": "indium tin oxide sputtering targets → transparent conductive coating"
+    },
+    {
+      "n": "4 · The screen",
+      "t": "LCDs and touchscreens — plus ITO-scrap recycling in Japan and Korea"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · A metal no one mines on purpose",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Indium rides on zinc",
+          "conf": "measured",
+          "text": "Indium is recovered from the residues of zinc-ore (sphalerite) processing, where it occurs at roughly 1–100 parts per million. No mine operates for indium; its supply is coupled to zinc, so it cannot be scaled independently of the zinc market — the same by-product trap as gallium, germanium and rhenium elsewhere in this atlas.",
+          "note": "USGS.",
+          "flag": "by-product, not a primary mine"
+        },
+        {
+          "kind": "text",
+          "h3": "Refining is the concentrated stage",
+          "conf": "measured",
+          "text": "China is the leading producer of refined indium at about 70% of world output. As with the other trace metals, the chokepoint is the refinery, not the ore body — indium-bearing zinc is mined in many places, but turned into refined indium mostly in China.",
+          "flag": "the refiner, not the mine"
+        }
+      ]
+    },
+    {
+      "h2": "2 · ITO — the transparent conductor in every screen",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "The dominant use",
+          "big": "ITO",
+          "conf": "measured",
+          "text": "Indium tin oxide accounts for most world indium consumption. It is the rare material that is both electrically conductive and optically transparent, so it forms the invisible electrode layer on LCDs, OLED and capacitive touchscreens. Deposited as a sputtered thin film from ITO targets, it is what makes a sheet of glass a touch-sensitive display.",
+          "note": "USGS: ITO for flat-panel displays is the largest indium end use."
+        },
+        {
+          "kind": "text",
+          "h3": "Substitutes exist, but ITO holds",
+          "text": "Carbon-nanotube coatings and silver or copper nanowires have been explored as ITO substitutes for touchscreens, and metal-mesh alternatives exist. None has displaced ITO at scale — so the indium dependence persists even as the hedge is researched.",
+          "flag": "substitutes researched, not adopted"
+        }
+      ]
+    },
+    {
+      "h2": "3 · China controls it — and used the lever",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Export control, 2025",
+          "conf": "measured",
+          "text": "In February 2025 China's Ministry of Commerce placed indium under export restrictions, and unwrought-indium exports fell about 72% year-on-year from September 2024 to September 2025. It is the same playbook applied to gallium, germanium and antimony — a trace input with one dominant refiner, turned into a lever (see the defence chain).",
+          "note": "USGS MCS 2026.",
+          "flag": "the same export-control playbook"
+        }
+      ]
+    },
+    {
+      "h2": "4 · The relief valve: ITO-scrap recycling",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Most of the metal is recovered in Japan and Korea",
+          "text": "Sputtering ITO onto glass is inefficient — much of the target ends up as scrap — so a large share of indium is recovered from ITO manufacturing scrap, chiefly in Japan and the Republic of Korea, where the display industry sits. That secondary loop cushions the primary-refining chokepoint, much as recycling does for PGMs and aluminium — though public end-use data for indium are thin.",
+          "note": "USGS: indium is most commonly recovered from ITO scrap in Japan and Korea.",
+          "flag": "the display industry recycles its own scrap"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "Indium has no clean HS6 line — unwrought indium sits in the shared 811292 'other minor metals' basket with gallium and germanium, so its trade cannot be isolated (the same limit the atlas flags for Ga/Ge). The table below shows that basket and the LCD-device heading only as flagged context, not as an indium series.",
+  "method": [
+    {
+      "stage": "Zinc/indium",
+      "lens": "USGS refined-indium share",
+      "why": "by-product; refining is the concentrated stage"
+    },
+    {
+      "stage": "ITO / displays",
+      "lens": "USGS end-use",
+      "why": "the dominant use; qualitative, no country series"
+    },
+    {
+      "stage": "Policy",
+      "lens": "export-control event + trade response",
+      "why": "the lever is observable"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI 811292 basket + LCD devices",
+      "why": "flagged context only — indium is not separable"
+    }
+  ],
+  "sources": {
+    "usgs_indium": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Indium",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-indium.pdf"
+    },
+    "usgs_indium25": {
+      "title": "USGS Mineral Commodity Summaries 2025 — Indium",
+      "year": 2025,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-indium.pdf"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
