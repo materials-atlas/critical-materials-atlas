@@ -70,9 +70,9 @@
 
   <h2>Key findings</h2>
   <ul class="keys">
-    <li><b>The raw signal looks convincing — and is nearly all diversity.</b> Capability-type products score AUC 0.856 (2002→2024). A pure diversity baseline scores 0.848. Density and diversity are correlated <b>0.95–0.98</b> across materials: they are almost the same variable.</li>
+    <li><b>The raw signal looks convincing — and is nearly all diversity.</b> Capability-type products score AUC 0.855 (2002→2024). A pure diversity baseline scores 0.847. Density and diversity are correlated <b>0.95–0.98</b> across materials: they are almost the same variable.</li>
     <li><b>The residual collapses.</b> Regress density on diversity and score only what is left, and the AUC falls to <b>0.63</b> (long window) — barely above the 0.50 coin-flip, and driven by the very few, very diversified entrants.</li>
-    <li><b>Placebos pass the same test.</b> Whisky (0.76), cotton (0.73), wine (0.72) and salmon (0.70) — products with no product-space relationship to critical materials — score in the same 0.69–0.73 band as the real signal. A test that &ldquo;confirms&rdquo; whisky is not confirming anything specific to capability.</li>
+    <li><b>Placebos pass the same test.</b> Whisky (0.76), wine (0.81), cotton (0.72) and salmon (0.70) — products with no product-space relationship to critical materials — land in the same 0.70–0.81 band as the real signal, and wine actually <i>outscores</i> the capability residual. A test that &ldquo;confirms&rdquo; whisky and wine is not confirming anything specific to capability.</li>
     <li><b>Report the null, keep the tool.</b> The product space is still a useful <i>map</i> of what sits near what; it is not a validated <i>forecaster</i> of critical-material capability on this evidence. Where the atlas names who could break a chokepoint, that estimate is labelled as adjacency, not destiny.</li>
   </ul>
 
@@ -87,14 +87,14 @@
     <caption>ROC-AUC of density at <i>t₀</i> predicting RCA-crossing by <i>t₁</i>, among non-holders at <i>t₀</i>. &ldquo;diversity&rdquo; = same test using overall diversity; &ldquo;residual&rdquo; = density with diversity regressed out. Capability-type products = specialty/manufactured downstream goods; commodity-type = bulk smelting/ferroalloys. n = entrant countries.</caption>
     <thead><tr><th>Window</th><th>Product tier</th><th class="n">density AUC</th><th class="n">diversity AUC</th><th class="n">residual AUC</th><th class="n">n products</th><th class="n">n entrants</th></tr></thead>
     <tbody>
-      <tr><td rowspan="2">2002 → 2024</td><td>Capability-type</td><td class="n">0.856</td><td class="n">0.848</td><td class="n resid">0.629</td><td class="n">10</td><td class="n">53</td></tr>
-      <tr><td>Commodity-type</td><td class="n">0.685</td><td class="n">0.677</td><td class="n resid">0.593</td><td class="n">5</td><td class="n">39</td></tr>
-      <tr><td rowspan="2">2016 → 2024</td><td>Capability-type</td><td class="n">0.877</td><td class="n">0.866</td><td class="n resid">0.709</td><td class="n">9</td><td class="n">33</td></tr>
-      <tr><td>Commodity-type</td><td class="n">0.716</td><td class="n">0.715</td><td class="n resid">0.520</td><td class="n">5</td><td class="n">25</td></tr>
+      <tr><td rowspan="2">2002 → 2024</td><td>Capability-type</td><td class="n">0.855</td><td class="n">0.847</td><td class="n resid">0.627</td><td class="n">10</td><td class="n">53</td></tr>
+      <tr><td>Commodity-type</td><td class="n">0.692</td><td class="n">0.685</td><td class="n resid">0.570</td><td class="n">5</td><td class="n">39</td></tr>
+      <tr><td rowspan="2">2016 → 2024</td><td>Capability-type</td><td class="n">0.873</td><td class="n">0.861</td><td class="n resid">0.699</td><td class="n">9</td><td class="n">32</td></tr>
+      <tr><td>Commodity-type</td><td class="n">0.719</td><td class="n">0.717</td><td class="n resid">0.539</td><td class="n">5</td><td class="n">25</td></tr>
     </tbody>
   </table>
   </div>
-  <p>Two things jump out. First, in every row the density AUC and the diversity AUC are within ~0.01 of each other — density adds almost nothing over simply asking &ldquo;is this a diversified economy?&rdquo; Second, the residual (what density knows <i>beyond</i> diversity) drops to 0.52–0.71, with the commodity tier at essentially chance. The signal is real but it is a <b>diversity</b> signal, not a product-space one.</p>
+  <p>Two things jump out. First, in every row the density AUC and the diversity AUC are within ~0.01 of each other — density adds almost nothing over simply asking &ldquo;is this a diversified economy?&rdquo; Second, the residual (what density knows <i>beyond</i> diversity) drops to 0.54–0.70, with the commodity tier at essentially chance. The signal is real but it is a <b>diversity</b> signal, not a product-space one.</p>
 
   <h2>3 · The placebo control</h2>
   <p>If the test were measuring something specific to product-space proximity, products with no such proximity should fail it. They do not.</p>
@@ -104,10 +104,10 @@
     <thead><tr><th>Placebo product</th><th class="n">AUC 2002→2024</th><th class="n">AUC 2016→2024</th></tr></thead>
     <tbody>
       <tr><td>Whisky</td><td class="n">0.76</td><td class="n">0.74</td></tr>
-      <tr><td>Cotton</td><td class="n">0.73</td><td class="n">0.57</td></tr>
-      <tr><td>Wine</td><td class="n">0.72</td><td class="n">0.82</td></tr>
+      <tr><td>Cotton</td><td class="n">0.72</td><td class="n">0.56</td></tr>
+      <tr><td>Wine</td><td class="n">0.81</td><td class="n">0.89</td></tr>
       <tr><td>Fresh salmon</td><td class="n">0.70</td><td class="n">0.62</td></tr>
-      <tr><td class="grp">Placebo average</td><td class="n grp">0.73</td><td class="n grp">0.69</td></tr>
+      <tr><td class="grp">Placebo average</td><td class="n grp">0.75</td><td class="n grp">0.70</td></tr>
     </tbody>
   </table>
   </div>
