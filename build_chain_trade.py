@@ -58,6 +58,25 @@ CHAINS = {
         "847150": {"title": "Automatic data-processing units (servers)", "boundary": "Server hardware only; the binding inputs (electricity, grid connection) are not traded goods."},
         "854231": {"title": "Electronic integrated circuits, processors", "boundary": "Processors; a chip chokepoint of their own (see the silicon-chip chain), shown as context."},
     }),
+    "graphite": ("graphite-chain", "graphite", {
+        "250410": {"title": "Natural graphite, powder or flakes", "boundary": "Raw flake; battery-anode-grade spherical graphite is not a separate customs line."},
+        "250490": {"title": "Natural graphite, other", "boundary": "Lump/other natural graphite; grade and end use not distinguished."},
+        "380110": {"title": "Artificial graphite", "boundary": "Synthetic graphite (all grades); anode-grade not separable from electrode/other uses."},
+    }),
+    "fluorine": ("fluorine-chain", "fluorine", {
+        "252922": {"title": "Fluorspar, > 97% CaF2 (acid-grade)", "boundary": "The chemical-grade feed to HF; the downstream fluorochemicals are not traded under this line."},
+        "252921": {"title": "Fluorspar, <= 97% CaF2 (met-grade)", "boundary": "Metallurgical-grade fluorspar; a flux, distinct from the acid-grade chemical feed."},
+        "281111": {"title": "Hydrogen fluoride (hydrofluoric acid)", "boundary": "The gateway acid; chip gases, LiPF6 and refrigerants made from it sit in broad chemical headings."},
+    }),
+    "steel": ("steel-chain", "steel", {
+        "260111": {"title": "Iron ores, non-agglomerated", "boundary": "The abundant, diversified raw ore; DRI-grade vs ordinary ore is not distinguished."},
+        "270112": {"title": "Bituminous coal", "boundary": "Includes metallurgical coking coal, but customs does not separate it from thermal coal here."},
+        "720712": {"title": "Semi-finished iron/steel, rectangular", "boundary": "Semi-finished steel; a trading/processing position, not the smelting map."},
+    }),
+    "tin": ("tin-chain", "tin", {
+        "260900": {"title": "Tin ores and concentrates", "boundary": "Cassiterite; some feed (e.g. Myanmar Wa) routes through China and is not visible as origin."},
+        "800110": {"title": "Unwrought tin, not alloyed", "boundary": "Refined tin metal; origin is the smelter, not the (sometimes conflict-linked) mine."},
+    }),
 }
 
 # code -> list of chains that use it
