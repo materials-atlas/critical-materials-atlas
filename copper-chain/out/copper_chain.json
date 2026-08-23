@@ -1,0 +1,300 @@
+{
+  "title": "Copper chain",
+  "accent": "#a05a2c",
+  "eyebrow": "Product-chain pilot · the metal that electrifies",
+  "h1": "The copper chokepoint is a clock, not a map",
+  "deck": "Nothing gets electrified without copper — grids, motors, EVs, data centres, renewables. Its mining is spread across a handful of countries and even diversifying. The bottleneck is different in kind: demand is about to outrun supply, and a new copper mine takes 10–20 years to build.",
+  "byline": "mine (spread, grades falling) ≠ refined (China) ≠ surging demand ≠ the years to close the gap",
+  "correction": "Most chains in this atlas have a geographic chokepoint. Copper's is temporal. It is not monopolised — five countries mine ~62% of it and the leader (Chile) is losing share. The risk is that electrification lifts demand ~30% by 2040 while the mine pipeline points to a ~30% shortfall by 2035, because you cannot open a mine quickly.",
+  "stats": [
+    {
+      "v": "23 Mt",
+      "l": "world copper mine production (2025); top 5 = ~62%",
+      "conf": "measured"
+    },
+    {
+      "v": "−30%",
+      "l": "projected supply shortfall by 2035 (IEA)",
+      "conf": "estimate"
+    },
+    {
+      "v": "+30%",
+      "l": "copper demand growth to 2040 — electrification & EVs",
+      "conf": "estimate"
+    },
+    {
+      "v": "10–20 yr",
+      "l": "to bring a new copper mine online",
+      "conf": "estimate"
+    }
+  ],
+  "history": {
+    "title": "Copper mining is spread — and diversifying, 2000–2024",
+    "conf": "measured",
+    "note": "BGS/USGS mine production, from the atlas's own data. Chile's share FELL from ~35% to ~24% as grades matured, while the DR Congo climbed from ~0% to ~14% and Peru rose. Copper mining is getting LESS concentrated — which is exactly why its chokepoint is not a country but the clock: total new supply, not who owns it.",
+    "series": [
+      {
+        "label": "Chile",
+        "points": [
+          {
+            "y": 2000,
+            "v": 35
+          },
+          {
+            "y": 2005,
+            "v": 36
+          },
+          {
+            "y": 2010,
+            "v": 34
+          },
+          {
+            "y": 2015,
+            "v": 30
+          },
+          {
+            "y": 2020,
+            "v": 28
+          },
+          {
+            "y": 2021,
+            "v": 26
+          },
+          {
+            "y": 2022,
+            "v": 24
+          },
+          {
+            "y": 2023,
+            "v": 23
+          },
+          {
+            "y": 2024,
+            "v": 24
+          }
+        ]
+      },
+      {
+        "label": "DR Congo",
+        "points": [
+          {
+            "y": 2000,
+            "v": 0
+          },
+          {
+            "y": 2005,
+            "v": 1
+          },
+          {
+            "y": 2010,
+            "v": 2
+          },
+          {
+            "y": 2015,
+            "v": 5
+          },
+          {
+            "y": 2020,
+            "v": 8
+          },
+          {
+            "y": 2021,
+            "v": 9
+          },
+          {
+            "y": 2022,
+            "v": 11
+          },
+          {
+            "y": 2023,
+            "v": 14
+          },
+          {
+            "y": 2024,
+            "v": 14
+          }
+        ]
+      },
+      {
+        "label": "Peru",
+        "points": [
+          {
+            "y": 2000,
+            "v": 4
+          },
+          {
+            "y": 2005,
+            "v": 7
+          },
+          {
+            "y": 2010,
+            "v": 8
+          },
+          {
+            "y": 2015,
+            "v": 9
+          },
+          {
+            "y": 2020,
+            "v": 10
+          },
+          {
+            "y": 2021,
+            "v": 11
+          },
+          {
+            "y": 2022,
+            "v": 11
+          },
+          {
+            "y": 2023,
+            "v": 12
+          },
+          {
+            "y": 2024,
+            "v": 12
+          }
+        ]
+      }
+    ]
+  },
+  "hops": [
+    {
+      "n": "1 · Mine",
+      "t": "Chile, DRC, Peru, China, Russia — spread; ore grades falling"
+    },
+    {
+      "n": "2 · Smelt/refine",
+      "t": "concentrate → cathode; China leads refined-copper output"
+    },
+    {
+      "n": "3 · Semis",
+      "t": "wire, cable, tube — the forms electrification actually uses"
+    },
+    {
+      "n": "4 · Demand",
+      "t": "grid, EVs (3–4× a petrol car), motors, data centres, renewables"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · Mining is spread — and getting more so",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Not a monopoly",
+          "conf": "measured",
+          "text": "The five largest producers — Chile, the DR Congo, Peru, China and Russia — together mine about 62% of world copper, and no single country dominates. Chile, long the leader, is losing share as its ore grades fall, while the DR Congo has risen fast. Unlike gallium or niobium, copper has no single-country chokepoint at the mine.",
+          "note": "USGS MCS 2026.",
+          "flag": "diversified at the mine"
+        },
+        {
+          "kind": "text",
+          "h3": "But grades are falling",
+          "text": "The copper in a tonne of ore keeps declining (much mined rock is now well under 1% copper), so the world must move more rock, use more energy and water, and open more mines just to stand still. Diversified geography does not mean easy supply.",
+          "flag": "more rock for less metal"
+        }
+      ]
+    },
+    {
+      "h2": "2 · The one concentrated stage is refining",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "China leads the smelter",
+          "conf": "estimate",
+          "text": "As with aluminium and the atlas's other materials, the processing stage is more concentrated than the mine: China is by far the largest producer of refined copper, turning imported concentrate into cathode. So even a diversified mine base still funnels through a concentrated refining step — and Chinese grid build-out has been the single largest driver of copper-demand growth.",
+          "note": "USGS; IEA.",
+          "flag": "the mine is spread; the smelter is not"
+        }
+      ]
+    },
+    {
+      "h2": "3 · The real chokepoint is time",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "The gap that is opening",
+          "big": "~30% short by 2035",
+          "conf": "estimate",
+          "text": "The IEA's outlook has copper demand rising ~30% by 2040 on electrification, EVs, grids and data centres, while the announced mine pipeline points to roughly a 30% supply shortfall by 2035 — a deficit that could exceed 6 million tonnes a year in the early 2030s. Demand can turn on in a product cycle; supply cannot.",
+          "note": "IEA Global Critical Minerals Outlook 2025."
+        },
+        {
+          "kind": "text",
+          "h3": "Why supply can't answer quickly",
+          "text": "A new copper mine takes 10–20 years from discovery to production — permitting, financing, construction, ramp-up — against falling grades, rising capital costs and a discovery drought. Recycling helps and grows, but cannot close a gap of this size on this timeline. The chokepoint is not a border; it is a lead time.",
+          "flag": "you can't mine your way out fast"
+        }
+      ]
+    },
+    {
+      "h2": "4 · What is pulling the demand",
+      "panels": [
+        {
+          "kind": "cards",
+          "h3": "Where the new copper goes",
+          "cards": [
+            {
+              "t": "The grid",
+              "d": "Every wire and transformer is copper; expanding and reinforcing grids for electrification is the single biggest new demand."
+            },
+            {
+              "t": "EVs",
+              "d": "A battery-electric car uses roughly 3–4× the copper of a petrol car — in the motor, battery and wiring."
+            },
+            {
+              "t": "Data centres & AI",
+              "d": "Power distribution, busbars and cabling for AI compute add a fast-growing new copper demand on top of the grid."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "trade_intro": "BACI shows copper ore, refined cathode, wire and scrap. Cathode and scrap route through metal hubs and refiners, so exporter shares are trading/refining positions, not the mine base. Read them as availability of the traded form.",
+  "method": [
+    {
+      "stage": "Mine",
+      "lens": "USGS mine share + 2000–2024 history",
+      "why": "spread and diversifying — not the chokepoint"
+    },
+    {
+      "stage": "Refine",
+      "lens": "refined-copper output share",
+      "why": "the one concentrated stage (China)"
+    },
+    {
+      "stage": "Balance",
+      "lens": "IEA demand vs mine-pipeline outlook",
+      "why": "the temporal chokepoint — a projection, marked as such"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI ore/cathode/wire/scrap",
+      "why": "availability of the traded form, via hubs"
+    }
+  ],
+  "sources": {
+    "usgs_copper": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Copper",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-copper.pdf"
+    },
+    "iea_outlook": {
+      "title": "IEA, Global Critical Minerals Outlook 2025",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/overview-of-outlook-for-key-minerals"
+    },
+    "iea_exec": {
+      "title": "IEA, Global Critical Minerals Outlook 2025 — Executive summary",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}
