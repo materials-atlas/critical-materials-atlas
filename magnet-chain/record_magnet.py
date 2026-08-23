@@ -1,0 +1,112 @@
+"""Evidence JSON for the rare-earth permanent-magnet chain pilot. Uniform schema. Public sources.
+Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_magnet.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "magnet_chain.json")
+
+SRC = {
+    "iea_ree": {"title": "IEA, Global Critical Minerals Outlook 2025 — rare earths & magnets", "year": 2025, "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — rare-earth mine production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "usgs_ree": {"title": "USGS Mineral Commodity Summaries 2026 — Rare Earths", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Rare-earth magnet chain",
+    "accent": "#7a5a8a",
+    "eyebrow": "Product-chain pilot · the motors that move everything",
+    "h1": "The mine is the least of it — China's grip tightens downstream",
+    "deck": "Rare-earth permanent magnets turn EV motors, wind generators and guided weapons. Everyone points at "
+            "the mine, where China holds ~60%. But the real chokepoint is the separation plant — and China's share "
+            "does not fall along the chain, it climbs: ~91% of separation, ~94% of the finished magnets.",
+    "byline": "mine (~60%) ≠ separation & refining (~91%) ≠ sintered NdFeB magnet (~94%) ≠ the motor",
+    "correction": "Opening a rare-earth mine in Australia or the United States does little on its own, because the ore "
+                  "still has to be chemically separated — and separation is ~91% China, magnet-making ~94% China. The "
+                  "chokepoint is not the deposit; it is the refinery and the magnet plant downstream of it, and China's "
+                  "hold gets stronger at each step rather than weaker.",
+    "stats": [
+        {"v": "60→91→94%", "l": "China's share rises at each step: mine → separation → sintered magnet", "conf": "measured"},
+        {"v": "~91%", "l": "of rare-earth separation & refining is China — the real chokepoint", "conf": "measured"},
+        {"v": "~50→94%", "l": "China's share of sintered NdFeB magnet output, 2005 → 2024", "conf": "estimate"},
+        {"v": "Nd·Pr·Dy·Tb", "l": "the four magnet rare earths; Dy and Tb are the scarce, China-gated heavies", "conf": "measured"},
+    ],
+    "history": {
+        "title": "The chokepoint deepened: China's magnet share, 2005 → 2024",
+        "conf": "estimate",
+        "note": "IEA. Two published anchors — China made roughly half the world's sintered permanent magnets around "
+                "2005 and about 94% by 2024 — not an annual interpolated series, so it is marked as an estimate. The "
+                "line the atlas keeps finding is here in its starkest form: as capability moved downstream, the "
+                "concentration did not dilute, it intensified.",
+        "series": [
+            {"label": "China · sintered magnets", "points": [{"y": 2005, "v": 50}, {"y": 2024, "v": 94}]},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Mine", "t": "ore carrying many rare-earth elements — China ~60%, plus the US, Myanmar, Australia"},
+        {"n": "2 · Separate & refine", "t": "solvent-extraction splits 15+ chemically-alike elements into oxides — ~91% China"},
+        {"n": "3 · Metal & alloy", "t": "reduce to metal, cast NdFeB alloy strip"},
+        {"n": "4 · Sintered magnet", "t": "press, sinter, machine, coat, magnetise — ~94% China"},
+    ],
+    "sections": [
+        {"h2": "1 · The chokepoint moves downstream — and deepens", "panels": [
+            {"kind": "bars", "h3": "China's share along the magnet chain (2024)", "conf": "measured", "max": 1.0, "note":
+                "IEA, magnet-specific physical stages. The single most important shape in this chain: the bars go UP, "
+                "not down. Most supply worries fixate on the mine, where China is 'only' ~60%. Every step after it is "
+                "more concentrated, not less.", "bars": [
+                {"label": "Mining", "value": 0.60},
+                {"label": "Separation & refining", "value": 0.91},
+                {"label": "Sintered magnets", "value": 0.94},
+            ]},
+            {"kind": "text", "h3": "Why separation is the hard step",
+             "text": "Rare earths are not rare in the ground; they are rare as separated, high-purity oxides. The "
+                     "elements are chemically almost identical, so pulling them apart takes long cascades of solvent-"
+                     "extraction stages, large reagent flows and the environmental permitting that comes with them. "
+                     "That industrial base — not the ore body — is what sits ~91% in China, and it is what a new mine "
+                     "elsewhere does not replace.",
+             "flag": "the refinery, not the pit"},
+        ]},
+        {"h2": "2 · The heavies are the real scarcity", "panels": [
+            {"kind": "big", "h3": "The four magnet elements", "big": "Nd·Pr·Dy·Tb", "conf": "measured",
+             "text": "Neodymium and praseodymium give NdFeB magnets their strength; dysprosium and terbium — the "
+                     "'heavy' rare earths — let them keep that strength hot, in a traction motor or a missile fin. The "
+                     "heavies are geologically scarcer and their separation is even more concentrated in China than the "
+                     "lights, so the part of the magnet that matters most for high-temperature and defence use is the "
+                     "part with the thinnest alternative supply.",
+             "note": "IEA / USGS: Dy and Tb are the binding heavy-rare-earth constraint."},
+            {"kind": "text", "h3": "Substitution is partial, not a way out",
+             "text": "Ferrite and other magnet chemistries exist and are used where performance allows, and engineers "
+                     "trim dysprosium with grain-boundary diffusion. But for the power-dense motors that electrification "
+                     "and defence actually want, NdFeB with some heavies remains the material — so the dependence "
+                     "persists even as the hedges are researched.",
+             "flag": "hedged, not replaced"},
+        ]},
+        {"h2": "3 · The lever has already been pulled", "panels": [
+            {"kind": "text", "h3": "From technology ban to export licensing", "conf": "measured",
+             "text": "China banned the export of its rare-earth extraction, separation and magnet-making technology "
+                     "in December 2023, then in April 2025 placed several medium and heavy rare earths and their magnets "
+                     "under export licensing — briefly throttling shipments to Western automakers and defence suppliers. "
+                     "It is the same playbook the atlas documents for gallium, germanium and antimony: a downstream "
+                     "chokepoint, turned into a policy instrument.",
+             "note": "USGS MCS 2026; public policy record.", "flag": "the same export-control playbook (see the defence chain)"},
+        ]},
+    ],
+    "trade_intro": "BACI carries rare-earth compounds and permanent magnets (HS 850511), but customs origin is the last "
+                   "shipment point, not where the ore was separated — magnets assembled into a motor cross as the motor. "
+                   "Read the export shares below as trading positions, not the separation map, which is the real "
+                   "chokepoint and is not visible in trade.",
+    "method": [
+        {"stage": "Mine", "lens": "BGS/USGS rare-earth mine share", "why": "~60% China — the least concentrated step"},
+        {"stage": "Separate & refine", "lens": "IEA magnet-stage share", "why": "~91% China — the actual chokepoint"},
+        {"stage": "Magnet", "lens": "IEA sintered-magnet share + 2005/2024 anchors", "why": "~94% China; concentration deepened downstream"},
+        {"stage": "Trade", "lens": "BACI 850511 magnets", "why": "trading position, not the separation map — flagged context"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- magnet, China 60-91-94pct (chokepoint deepens downstream)")
