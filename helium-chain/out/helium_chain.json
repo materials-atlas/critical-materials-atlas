@@ -1,0 +1,140 @@
+{
+  "title": "Helium chain",
+  "accent": "#4a7a9c",
+  "eyebrow": "Product-chain pilot · the gas you can't make",
+  "h1": "The gas that cools MRI scanners cannot be manufactured — only captured",
+  "deck": "Helium has no substitute for the coldest jobs — cooling the superconducting magnets in MRI scanners and NMR labs, carrying semiconductor and fibre-optic processes, testing for leaks, lifting instruments. It cannot be synthesised: it is a by-product of a few helium-rich natural-gas fields, and once released it escapes to space.",
+  "byline": "helium-rich gas field ≠ cryogenic separation ≠ liquid helium ≠ MRI / chips / rockets (and it's gone once used)",
+  "correction": "Helium breaks the usual supply frame twice. It cannot be made — only extracted from natural gas that happens to contain it, so its supply is coupled to a handful of gas fields in the United States, Qatar and Russia, not to demand. And it is genuinely non-renewable at human scale: vented or released helium drifts up and off the planet. A recurring cycle of shortages follows from that coupling, not from any mine running out.",
+  "stats": [
+    {
+      "v": "by-product",
+      "l": "helium is extracted from helium-rich natural gas — it can't be made",
+      "conf": "measured"
+    },
+    {
+      "v": "US · QA · RU",
+      "l": "the United States, Qatar and Russia dominate world supply",
+      "conf": "measured"
+    },
+    {
+      "v": "MRI",
+      "l": "cooling superconducting magnets is a top use — plus semiconductors and fibre",
+      "conf": "measured"
+    },
+    {
+      "v": "escapes to space",
+      "l": "released helium leaves the atmosphere — truly non-renewable",
+      "conf": "measured"
+    }
+  ],
+  "hops": [
+    {
+      "n": "1 · Gas field",
+      "t": "natural gas with enough helium (roughly >0.3%) to be worth extracting"
+    },
+    {
+      "n": "2 · Cryogenic separation",
+      "t": "helium separated and purified during gas processing / liquefaction"
+    },
+    {
+      "n": "3 · Liquid helium",
+      "t": "liquefied to 4 K and shipped in specialised cryogenic containers"
+    },
+    {
+      "n": "4 · End uses",
+      "t": "MRI/NMR cooling, semiconductor & fibre processing, leak detection, rockets"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · Supply is welded to gas fields, not to need",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "A coupled by-product",
+          "big": "by-product",
+          "conf": "measured",
+          "text": "Helium is only economic to recover from natural gas that already contains it in unusual concentration. That ties world supply to specific fields — the US (notably the Hugoton area and the LaBarge field in Wyoming), Qatar's North Field, Russia's new Amur plant, and Algeria — and means supply cannot simply ramp with demand. When one large plant trips, the whole market feels it.",
+          "note": "USGS MCS 2026."
+        },
+        {
+          "kind": "text",
+          "h3": "The US reserve exit added instability",
+          "text": "For decades the US Federal Helium Reserve buffered the market; its wind-down and 2024 sale removed that shock absorber just as demand grew. Combined with the concentration in Qatar and Russia, that is why helium has run through repeated shortages (2019, 2022) — a structural fragility, not a one-off.",
+          "note": "US BLM / GAO.",
+          "flag": "the buffer was removed"
+        }
+      ]
+    },
+    {
+      "h2": "2 · Why nothing else will do",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "The lowest boiling point there is",
+          "conf": "measured",
+          "text": "Helium boils at about 4 kelvin — closer to absolute zero than any other element — so it is the only practical coolant for the superconducting magnets in MRI and NMR machines and in research magnets. It is also inert and tiny, which makes it ideal for semiconductor and fibre-optic atmospheres and for leak detection. For these roles there is simply no substitute.",
+          "note": "USGS: cryogenics and controlled atmospheres are leading uses.",
+          "flag": "no substitute for 4 K"
+        }
+      ]
+    },
+    {
+      "h2": "3 · The one real mitigation: don't waste it",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Recovery and conservation, because it's finite",
+          "text": "Since helium cannot be remade, the genuine responses are capturing it from more gas streams (new plants in Qatar, Russia, the US, Tanzania and elsewhere) and recovering and recycling it on-site — modern MRI suites increasingly reclaim boil-off. Conservation is not an efficiency footnote here; for a non-renewable gas that escapes the planet, it is the supply strategy.",
+          "flag": "conservation is the supply strategy"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "BACI carries helium only inside the shared 'rare gases' line (280429), which also contains neon, krypton and xenon, so helium cannot be isolated in customs data — the same limit that hides neon in the specialty-gas chain. Read the shares below as the whole rare-gas basket, not a helium series.",
+  "method": [
+    {
+      "stage": "Source",
+      "lens": "USGS helium by gas field",
+      "why": "a by-product coupled to specific gas fields"
+    },
+    {
+      "stage": "Supply",
+      "lens": "US/Qatar/Russia capacity + reserve exit",
+      "why": "concentrated and structurally shortage-prone"
+    },
+    {
+      "stage": "Use",
+      "lens": "USGS end-use (cryogenics)",
+      "why": "4 K coolant with no substitute"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI 280429 rare gases",
+      "why": "helium not separable from neon/krypton/xenon — flagged context"
+    }
+  ],
+  "sources": {
+    "usgs_helium": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Helium",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf"
+    },
+    "usgs_helium25": {
+      "title": "USGS Mineral Commodity Summaries 2025 — Helium",
+      "year": 2025,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-helium.pdf"
+    },
+    "blm": {
+      "title": "US BLM / GAO, Federal Helium Reserve disposal",
+      "year": 2024,
+      "url": "https://www.gao.gov/products/gao-24-106390"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}

@@ -77,6 +77,20 @@ CHAINS = {
         "260900": {"title": "Tin ores and concentrates", "boundary": "Cassiterite; some feed (e.g. Myanmar Wa) routes through China and is not visible as origin."},
         "800110": {"title": "Unwrought tin, not alloyed", "boundary": "Refined tin metal; origin is the smelter, not the (sometimes conflict-linked) mine."},
     }),
+    "tantalum": ("tantalum-chain", "tantalum", {
+        "261590": {"title": "Niobium/tantalum/vanadium ores", "boundary": "Tantalum ore shares this line with niobium and vanadium; it cannot be isolated. Conflict origin is tracked by traceability schemes, not customs."},
+        "810320": {"title": "Tantalum, unwrought / powder", "boundary": "Semi-processed tantalum; capacitor-grade powder and the tantalum inside finished electronics are not separable."},
+    }),
+    "helium": ("helium-chain", "helium", {
+        "280429": {"title": "Rare gases (helium, neon, krypton, xenon)", "boundary": "Customs lumps all rare gases together, so helium cannot be isolated — the dependency is literally invisible in trade data."},
+    }),
+    "neon": ("neon-chain", "neon", {
+        "280429": {"title": "Rare gases (neon, helium, krypton, xenon)", "boundary": "Semiconductor-grade neon cannot be separated from the shared rare-gas line — the chokepoint that matters is invisible in customs data."},
+    }),
+    "ammonia": ("ammonia-chain", "ammonia", {
+        "281410": {"title": "Anhydrous ammonia", "boundary": "The fertilizer intermediate; its binding input — natural gas — is a separate energy market, not visible here."},
+        "310210": {"title": "Urea", "boundary": "The most-traded nitrogen fertilizer; a downstream form, gas-cost-driven upstream."},
+    }),
 }
 
 # code -> list of chains that use it
