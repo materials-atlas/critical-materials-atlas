@@ -1,137 +1,103 @@
-"""Build evidence JSON for the unpublished data-centre and AI-infrastructure pilot."""
+"""Evidence JSON for the data-centre / AI-infrastructure chain pilot. Uniform schema. Public sources.
+Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_data_centre.py
+"""
 from __future__ import annotations
+import json, os
 
-import json
-import os
-
-import openpyxl
-
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "data_centre_chain.json")
 
-SOURCES = {
-    "iea_demand": {"title": "IEA, Energy and AI — Energy demand from AI", "year": 2025, "url": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai", "licence": "CC BY 4.0"},
-    "iea_summary": {"title": "IEA, Energy and AI — Executive summary", "year": 2025, "url": "https://www.iea.org/reports/energy-and-ai/executive-summary", "licence": "CC BY 4.0"},
-    "iea_supply": {"title": "IEA, Energy and AI — Energy supply for AI", "year": 2025, "url": "https://www.iea.org/reports/energy-and-ai/energy-supply-for-ai", "licence": "CC BY 4.0"},
-    "iea_update": {"title": "IEA, Key Questions on Energy and AI — Executive summary", "year": 2026, "url": "https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary", "licence": "CC BY 4.0"},
-    "iea_grid": {"title": "IEA, Building the Future Transmission Grid — Executive summary", "year": 2025, "url": "https://www.iea.org/reports/building-the-future-transmission-grid/executive-summary", "licence": "CC BY 4.0"},
-    "doe_lbnl": {"title": "US DOE, 2024 Report on U.S. Data Center Energy Use — release", "year": 2024, "url": "https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers"},
-    "usgs": {"title": "USGS, Historical Statistics for Mineral and Material Commodities", "year": 2024, "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"},
+SRC = {
+    "iea_demand": {"title": "IEA, Energy and AI — Energy demand from AI", "year": 2025, "url": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai"},
+    "iea_summary": {"title": "IEA, Energy and AI — Executive summary", "year": 2025, "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"},
+    "iea_update": {"title": "IEA, Key Questions on Energy and AI — Executive summary", "year": 2026, "url": "https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary"},
+    "doe_lbnl": {"title": "US DOE / LBNL, 2024 Report on U.S. Data Center Energy Use", "year": 2024, "url": "https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 
-HISTORY = {
-    "Copper": ("copper.xlsx", "Copper", 12, "tonnes copper content", "All mine output; not data-centre cable, busbar or refined copper availability."),
-    "Primary aluminium": ("aluminum.xlsx", "Aluminum", 15, "tonnes aluminium content", "All primary metal; not heat sinks, racks, cable or recycled aluminium."),
-    "Tin": ("tin.xlsx", "Tin", 11, "tonnes tin content", "All mine output; solder is only one use and electronics-grade supply is not isolated."),
-    "Rare earths": ("rare-earths.xlsx", "Rare earths", 7, "tonnes REO equivalent", "All rare earths; magnet exposure varies across drives, motors and cooling equipment."),
+CHAIN = {
+    "title": "Data-centre / AI chain",
+    "accent": "#5a5a9c",
+    "eyebrow": "Product-chain pilot · the compute behind AI",
+    "h1": "The chip is ready — the power isn't",
+    "deck": "The story of AI infrastructure is told as a chip story, and the chip is a real chokepoint (see the "
+            "silicon-chip chain). But the constraint that now bites is electricity: data-centre power demand is set to "
+            "roughly double by 2030, and connecting that load to the grid — transformers, substations, capacity — is "
+            "the binding limit.",
+    "byline": "chips (a chokepoint of their own) ≠ servers ≠ power & cooling ≠ grid connection ≠ operating electricity",
+    "correction": "Once the accelerators are secured, the next wall is not another material — it is megawatts. "
+                  "US data-centre electricity roughly tripled from 2014 to 2023, and global demand is projected to "
+                  "roughly double to ~950 TWh by 2030. The bottleneck moves to the same place the grid chain flags: "
+                  "transformers, substations and grid-connection queues, not the chip.",
+    "stats": [
+        {"v": "485→950 TWh", "l": "world data-centre electricity, 2025 → 2030 (projection)", "conf": "estimate"},
+        {"v": "~3×", "l": "US data-centre electricity growth, 2014 → 2023 (58 → 176 TWh)", "conf": "measured"},
+        {"v": "the grid", "l": "the binding constraint is power and connection, not the semiconductors", "conf": "estimate"},
+        {"v": "~3%", "l": "of world electricity used by data centres by 2030", "conf": "estimate"},
+    ],
+    "history": {
+        "title": "The load that tripled: US data-centre electricity, 2014 → 2023",
+        "conf": "measured",
+        "unit": "TWh per year (US)",
+        "note": "US DOE / LBNL. US data-centre electricity rose from about 58 TWh in 2014 to about 176 TWh in 2023 — "
+                "roughly a tripling, and accelerating with AI. These are two measured national endpoints, not an annual "
+                "series; the DOE's own 2028 forecast (325–580 TWh) sits well above the line. The observed history alone "
+                "already shows why grid connection, not the chip, is the emerging wall.",
+        "series": [
+            {"label": "US data-centre electricity", "points": [{"y": 2014, "v": 58}, {"y": 2023, "v": 176}]},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Chips", "t": "accelerators, CPUs, memory and substrates — a chokepoint of their own (silicon-chip chain)"},
+        {"n": "2 · Servers & network", "t": "chips integrated into boards, servers, storage and switches"},
+        {"n": "3 · Facility & power", "t": "UPS, batteries, switchgear, transformers, cooling and water systems"},
+        {"n": "4 · Grid & site", "t": "land, fibre, substations and transmission capacity — the binding connection"},
+    ],
+    "sections": [
+        {"h2": "1 · The demand curve that changed the problem", "panels": [
+            {"kind": "big", "h3": "US data centres", "big": "58 → 176 TWh", "conf": "measured",
+             "text": "US data-centre electricity roughly tripled between 2014 and 2023, and AI is bending the curve "
+                     "further up — DOE's forecast has US data centres at 325–580 TWh by 2028, or up to ~12% of national "
+                     "electricity. Globally the IEA projects a rough doubling to ~950 TWh by 2030. The compute exists; "
+                     "the question is where the power comes from.",
+             "note": "US DOE / LBNL; IEA Energy and AI."},
+            {"kind": "text", "h3": "The bottleneck moved downstream to the grid",
+             "text": "Chips remain a genuine chokepoint upstream (advanced logic, HBM memory, packaging). But for the "
+                     "operators building now, the gating item is a grid connection: transformers with multi-year lead "
+                     "times, substation capacity and interconnection queues — exactly the constraints the grid chain "
+                     "documents. AI's physical limit is increasingly the power system.",
+             "flag": "see the grid and silicon-chip chains"},
+        ]},
+        {"h2": "2 · How wide the uncertainty really is", "panels": [
+            {"kind": "cards", "h3": "2035 is a set of scenarios, not a number", "cards": [
+                {"t": "Headwinds ~700 TWh", "d": "Slower AI uptake, strong efficiency gains and supply-chain friction hold data-centre electricity down."},
+                {"t": "Base ~1,200 TWh", "d": "The IEA's central case for data-centre electricity in 2035 — a large but not explosive rise."},
+                {"t": "Lift-off ~1,700 TWh", "d": "Rapid AI adoption with weaker efficiency pushes demand far higher. These are scenarios, not a confidence interval."},
+            ]},
+        ]},
+        {"h2": "3 · The material layer, kept in proportion", "panels": [
+            {"kind": "text", "h3": "Copper, and the chip chain behind it",
+             "text": "A data centre is copper busbars and cabling, steel, aluminium, batteries for backup, and a great "
+                     "deal of water for cooling — plus the semiconductors themselves. None of the bulk materials is a "
+                     "unique chokepoint; the concentrated risk lives in the chip chain it sits on and in the power it "
+                     "draws. The honest framing is energy-and-chips, not a new critical mineral.",
+             "note": "IEA Energy and AI.", "flag": "energy + chips, not a new mineral"},
+        ]},
+    ],
+    "trade_intro": "BACI carries servers, networking gear and processors under broad electronics headings, but a data "
+                   "centre is built and operated in place — its defining input, electricity, and its binding "
+                   "constraint, grid connection, are not traded goods. Read any hardware trade below as context; the "
+                   "chain's real limits are power and the chip chain, not customs flows.",
+    "method": [
+        {"stage": "Chips", "lens": "silicon-chip chain", "why": "a real upstream chokepoint — analysed separately"},
+        {"stage": "Electricity", "lens": "DOE/IEA demand history & outlook", "why": "roughly doubling by 2030 — the emerging wall"},
+        {"stage": "Grid", "lens": "connection & transformer constraints", "why": "the binding limit; shared with the grid chain"},
+        {"stage": "Trade", "lens": "BACI electronics headings", "why": "hardware only; power isn't a traded good — flagged context"},
+    ],
+    "sources": SRC,
 }
 
-
-def histories():
-    result = []
-    for material, (filename, sheet_name, column, unit, boundary) in HISTORY.items():
-        sheet = openpyxl.load_workbook(os.path.join(ROOT, "raw", "usgs_hist", filename), read_only=True, data_only=True)[sheet_name]
-        values = {}
-        for row in sheet.iter_rows(min_row=6, values_only=True):
-            if isinstance(row[0], int) and isinstance(row[column], (int, float)) and row[column] > 0:
-                values[row[0]] = row[column]
-        rows = [{"year": year, "world_tonnes": round(value, 3)} for year, value in sorted(values.items())]
-        result.append({"material": material, "unit": unit, "coverage": f"{rows[0]['year']}-{rows[-1]['year']}", "series": rows, "boundary": boundary})
-    return result
-
-
-def build():
-    data = {
-        "title": "Data-centre and AI-infrastructure evidence",
-        "status": "unpublished pilot",
-        "updated": "2026-08-18",
-        "principle": "Compute hardware, IT power, facility capacity, grid connection, electricity use and digital service output are separate measures.",
-        "chain": [
-            {"stage": "Materials & chips", "detail": "Semiconductors, substrates, memory, copper, aluminium, tin, steels, polymers and specialised components."},
-            {"stage": "Servers & network", "detail": "CPUs/accelerators, memory, storage and switches are integrated into boards, servers and racks."},
-            {"stage": "Facility systems", "detail": "UPS, batteries, switchgear, transformers, cooling, water systems, controls and backup generation."},
-            {"stage": "Grid & site", "detail": "Land, fibre, substations, transmission capacity, generation and permits connect concentrated load."},
-            {"stage": "Operate", "detail": "Workload, utilisation, hardware/software efficiency and cooling determine electricity per service."},
-            {"stage": "Refresh & recover", "detail": "Short IT refresh cycles coexist with longer buildings and power assets; reuse and material recovery differ."},
-        ],
-        "global_2024": {
-            "source": "iea_demand", "electricity_twh": 415, "world_electricity_share": 0.015,
-            "annual_growth_previous_five_years": 0.12,
-            "regions": [{"region": "United States", "share": 0.45}, {"region": "China", "share": 0.25}, {"region": "Europe", "share": 0.15}, {"region": "Other", "share": 0.15}],
-            "boundary": "Modelled electricity consumption by data centres. Regional shares are rounded and do not measure installed compute or investment.",
-        },
-        "electricity_outlook": {
-            "source": "iea_update", "vintage": 2026,
-            "points": [{"year": 2025, "twh": 485, "status": "estimate"}, {"year": 2030, "twh": 950, "status": "central projection"}],
-            "world_share_2030": 0.03,
-            "boundary": "A later IEA modelling vintage than the 415 TWh 2024 estimate. The values are presented as a separate outlook, not a measured annual series.",
-        },
-        "uncertainty_2035": {
-            "source": "iea_summary", "vintage": 2025, "unit": "TWh",
-            "headwinds": 700, "base": 1200, "lift_off": 1700,
-            "boundary": "Scenario results, not a confidence interval. The cases vary AI uptake, efficiency, supply-chain resilience and energy bottlenecks.",
-        },
-        "facility_electricity": {
-            "source": "iea_demand",
-            "items": [
-                {"component": "Servers", "share": 0.60, "precision": "around"},
-                {"component": "Storage", "share": 0.05, "precision": "around"},
-                {"component": "Networking", "share": 0.05, "precision": "up to"},
-                {"component": "Cooling", "share_min": 0.07, "share_max": 0.30, "precision": "range"},
-            ],
-            "boundary": "Illustrative modern-facility shares. Cooling varies from efficient hyperscale to less-efficient enterprise sites; these items are not a universal balance summing to 100%.",
-        },
-        "growth_drivers_2024_2030": {
-            "source": "iea_demand",
-            "items": [{"driver": "Accelerated servers", "net_growth_share": 0.50, "precision": "almost"}, {"driver": "Conventional servers", "net_growth_share": 0.20, "precision": "around"}, {"driver": "Cooling and other infrastructure", "net_growth_share": 0.20, "precision": "around"}, {"driver": "Other IT equipment", "net_growth_share": 0.10, "precision": "around"}],
-            "boundary": "Approximate contributions to the net increase in the IEA 2025 Base Case, not shares of total 2030 consumption.",
-        },
-        "us_history": {
-            "source": "doe_lbnl", "observed": [{"year": 2014, "twh": 58}, {"year": 2023, "twh": 176}],
-            "forecast_2028": {"low_twh": 325, "high_twh": 580, "electricity_share_low": 0.067, "electricity_share_high": 0.12},
-            "boundary": "National model endpoints and a forecast range; intermediate years are not interpolated. Cryptocurrency mining is handled according to the source methodology.",
-        },
-        "power_supply_2024": {
-            "source": "iea_supply", "basis": "physical electricity supply, not contractual procurement",
-            "shares": [{"source": "Coal", "share": 0.30}, {"source": "Renewables", "share": 0.27}, {"source": "Natural gas", "share": 0.26}, {"source": "Nuclear", "share": 0.15}, {"source": "Other/rounding", "share": 0.02}],
-            "boundary": "Global physical supply mix estimated by IEA. Power-purchase agreements do not by themselves change the local electricity physically consumed.",
-        },
-        "capacity_clocks": [
-            {"clock": "Compute", "measure": "accelerators, FLOP/s or workload throughput", "warning": "Chip counts ignore utilisation, memory and network bottlenecks."},
-            {"clock": "IT load", "measure": "MW delivered to servers, storage and network", "warning": "Excludes cooling and power losses."},
-            {"clock": "Facility load", "measure": "MW at the meter", "warning": "Depends on cooling, UPS and operating efficiency."},
-            {"clock": "Electricity", "measure": "MWh or TWh over time", "warning": "Requires load factor; a nameplate MW is not annual use."},
-            {"clock": "Digital service", "measure": "training runs, tokens, queries or stored data", "warning": "Definitions and quality change quickly."},
-        ],
-        "grid_constraint": {
-            "source": "iea_grid", "data_centre_build_years": "2–3", "cable_lead_years": "2–3", "large_transformer_lead_years": "up to 4",
-            "price_change_since_2019": {"cables": "nearly doubled", "power_transformers": "+75%"},
-            "boundary": "Grid-industry survey values, not data-centre-specific procurement guarantees. Project siting and permitting can add further delay.",
-        },
-        "material_histories": {"source": "usgs", "series": histories(), "boundary": "Economy-wide production context. These series do not measure data-centre demand, refined/component-grade availability or recycled material."},
-        "trade_context": {
-            "source": "baci", "coverage": "2002-2024", "file": "out/data_centre_trade.json",
-            "boundary": "No clean HS basket isolates data-centre or AI equipment. Processing units, storage, converters and heat exchangers serve many end uses; services, domestic production and facility construction are omitted.",
-        },
-        "boundaries": [
-            "A GPU shipment is not a commissioned rack, and a commissioned rack is not a grid-connected data centre.",
-            "IT MW, facility MW, annual TWh and compute output cannot be converted without utilisation and efficiency assumptions.",
-            "Cooling share depends strongly on facility type, climate, density and system design.",
-            "Global electricity share can look small while local grid impacts are large because capacity clusters geographically.",
-            "Forecast ranges are scenarios shaped by AI adoption, efficiency, supply chains and energy infrastructure—not observations.",
-        ],
-        "sources": SOURCES,
-    }
-    os.makedirs(os.path.dirname(OUT), exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as handle:
-        json.dump(data, handle, ensure_ascii=False, indent=2)
-        handle.write("\n")
-    print("WROTE", OUT)
-    for row in data["material_histories"]["series"]:
-        print(row["material"], row["coverage"], len(row["series"]))
-
-
-if __name__ == "__main__":
-    build()
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- data centre, chip ready but power/grid is the wall; US 58->176 TWh")

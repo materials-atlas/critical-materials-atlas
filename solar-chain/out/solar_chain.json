@@ -1,305 +1,186 @@
 {
-  "title": "Solar manufacturing chain evidence",
-  "status": "unpublished pilot",
-  "updated": "2026-08-17",
-  "principle": "Production, capacity, ownership, demand and customs trade are separate measures.",
-  "coverage": {
-    "module_production_geography": "1990-2025, eight rounded regional snapshots from a 35-year source chart",
-    "manufacturing_capacity": "2010 and 2021 comparable stage-by-stage matrices",
-    "physical_production": "2023 country/stage snapshot",
-    "current_capacity": "2024 concentration snapshot",
-    "material_intensity": "2004 and 2024 snapshots",
-    "trade_context": "2002-2024 annual; broad customs categories only"
-  },
-  "chain": [
-    "Silicon metal",
-    "PV-grade polysilicon",
-    "Ingots and wafers",
-    "Solar cells",
-    "PV modules",
-    "Installed systems"
+  "title": "Solar-PV chain",
+  "accent": "#c08a2e",
+  "eyebrow": "Product-chain pilot · the panel on the roof",
+  "h1": "The whole panel is a China product — and the physics got cheaper anyway",
+  "deck": "A solar module is silicon, refined into polysilicon, grown into wafers, turned into cells and laminated into panels. China makes roughly 85–98% of every one of those stages — even as the silicon needed per watt fell about eight-fold in twenty years. The chain both concentrated and dematerialised at once.",
+  "byline": "silicon ≠ polysilicon (~92% CN) ≠ wafer (~98% CN) ≠ cell (~92% CN) ≠ module (~85% CN)",
+  "correction": "The solar chokepoint is not a scarce element — silicon is the second-most-abundant element in the crust, and a panel uses ever less of it. The chokepoint is the factory: China holds ~92% of polysilicon, ~98% of wafers, ~92% of cells and ~85% of modules. Diversifying solar means rebuilding a manufacturing stack, not finding a deposit.",
+  "stats": [
+    {
+      "v": "92–98%",
+      "l": "China's share of polysilicon, wafers and cells (2023)",
+      "conf": "measured"
+    },
+    {
+      "v": "~85%",
+      "l": "China's share of finished PV modules (2023)",
+      "conf": "measured"
+    },
+    {
+      "v": "16→2 g/W",
+      "l": "silicon used per watt of cell output, 2004 → 2024",
+      "conf": "measured"
+    },
+    {
+      "v": "~8×",
+      "l": "less silicon per watt than twenty years ago — the panel dematerialised",
+      "conf": "measured"
+    }
   ],
-  "module_production_region_share": {
-    "unit": "percent of total MWp produced",
-    "source": "fraunhofer_2026",
-    "method": "Selected values are rounded readings from the published chart; underlying data providers change in 2000, 2010 and 2022.",
+  "history": {
+    "title": "The panel dematerialised: silicon per watt, 2004 → 2024",
+    "conf": "measured",
+    "unit": "g/W (silicon per watt-peak)",
+    "note": "Fraunhofer ISE. Silicon consumed per watt of cell output fell from about 16 g/W to about 2 g/W — thinner wafers, higher efficiency, diamond-wire sawing and larger ingots. Two published anchors, not an annual series. The lesson cuts against intuition: the material got radically cheaper to use, yet the chokepoint hardened — because it was never the silicon, it was the factory.",
     "series": [
       {
-        "year": 1990,
-        "Asia": 43,
-        "Europe": 21,
-        "North America": 36,
-        "Rest of world": 0
-      },
-      {
-        "year": 1995,
-        "Asia": 37,
-        "Europe": 20,
-        "North America": 43,
-        "Rest of world": 0
-      },
-      {
-        "year": 2000,
-        "Asia": 47,
-        "Europe": 23,
-        "North America": 30,
-        "Rest of world": 0
-      },
-      {
-        "year": 2005,
-        "Asia": 54,
-        "Europe": 31,
-        "North America": 10,
-        "Rest of world": 5
-      },
-      {
-        "year": 2010,
-        "Asia": 82,
-        "Europe": 13,
-        "North America": 2,
-        "Rest of world": 3
-      },
-      {
-        "year": 2015,
-        "Asia": 88,
-        "Europe": 6,
-        "North America": 3,
-        "Rest of world": 3
-      },
-      {
-        "year": 2020,
-        "Asia": 92,
-        "Europe": 1,
-        "North America": 4,
-        "Rest of world": 3
-      },
-      {
-        "year": 2025,
-        "Asia": 92,
-        "Europe": 1,
-        "North America": 6,
-        "Rest of world": 1
+        "label": "silicon per watt",
+        "points": [
+          {
+            "y": 2004,
+            "v": 16
+          },
+          {
+            "y": 2024,
+            "v": 2
+          }
+        ]
       }
     ]
   },
-  "manufacturing_capacity": {
-    "unit": "percent of global manufacturing capacity (demand row is percent of global demand)",
-    "regions": [
-      "China",
-      "Europe",
-      "North America",
-      "APAC",
-      "India",
-      "Rest of world"
-    ],
-    "source_note": "IEA charts use identical categories; APAC excludes India.",
-    "years": {
-      "2010": {
-        "source": "iea_capacity_2010",
-        "stages": {
-          "Demand": [
-            3.5,
-            80.4,
-            6.2,
-            8.6,
-            0.2,
-            1.1
-          ],
-          "Modules": [
-            55.7,
-            12.8,
-            7.6,
-            18.7,
-            3.6,
-            1.6
-          ],
-          "Cells": [
-            57.9,
-            7.3,
-            4.6,
-            28.4,
-            1.8,
-            0.0
-          ],
-          "Wafers": [
-            78.3,
-            3.2,
-            0.3,
-            18.3,
-            0.0,
-            0.0
-          ],
-          "Polysilicon": [
-            28.6,
-            19.4,
-            28.7,
-            21.5,
-            0.0,
-            1.8
-          ]
-        }
-      },
-      "2021": {
-        "source": "iea_capacity_2021",
-        "stages": {
-          "Demand": [
-            36.4,
-            16.8,
-            17.6,
-            13.2,
-            6.9,
-            9.1
-          ],
-          "Modules": [
-            74.7,
-            2.8,
-            2.4,
-            15.4,
-            2.8,
-            1.9
-          ],
-          "Cells": [
-            85.1,
-            0.6,
-            0.6,
-            12.4,
-            1.1,
-            0.2
-          ],
-          "Wafers": [
-            96.8,
-            0.5,
-            0.0,
-            2.5,
-            0.0,
-            0.2
-          ],
-          "Polysilicon": [
-            79.4,
-            8.0,
-            5.6,
-            6.0,
-            0.2,
-            1.0
-          ]
-        }
-      }
+  "hops": [
+    {
+      "n": "1 · Polysilicon",
+      "t": "metallurgical silicon purified to PV-grade polysilicon — ~92% China"
+    },
+    {
+      "n": "2 · Wafer",
+      "t": "polysilicon grown into ingots and sliced into wafers — ~98% China"
+    },
+    {
+      "n": "3 · Cell",
+      "t": "wafers processed into photovoltaic cells — ~92% China"
+    },
+    {
+      "n": "4 · Module",
+      "t": "cells laminated with glass, EVA and a frame into panels — ~85% China"
     }
-  },
-  "production_2023": {
-    "year": 2023,
-    "metric": "physical production",
-    "source": "iea_pvps_2024",
-    "stages": [
-      {
-        "stage": "Polysilicon (PV + semiconductor)",
-        "world_value": 1608000,
-        "unit": "tonnes",
-        "china_value": 1470000,
-        "china_share": 0.92,
-        "note": "The published total includes 38.8 kt for semiconductor use; more than 97% went to PV."
-      },
-      {
-        "stage": "Solar wafers",
-        "world_value": 682,
-        "unit": "GW",
-        "china_value": 668,
-        "china_share": 0.98
-      },
-      {
-        "stage": "Solar cells",
-        "world_value": 644,
-        "unit": "GW",
-        "china_value": 591,
-        "china_share": 0.918
-      },
-      {
-        "stage": "PV modules",
-        "world_value": 612,
-        "unit": "GW",
-        "china_value": 510,
-        "china_share": 0.846
-      }
-    ]
-  },
-  "current_capacity_2024": {
-    "metric": "manufacturing capacity",
-    "china_weighted_supply_chain_share": 0.85,
-    "china_wafer_share": 0.95,
-    "source": "iea_etp_2026"
-  },
-  "material_intensity": {
-    "metric": "silicon used per watt of silicon-cell output",
-    "unit": "grams per watt-peak",
-    "source": "fraunhofer_2026",
-    "series": [
-      {
-        "year": 2004,
-        "value": 16.0
-      },
-      {
-        "year": 2024,
-        "value": 2.0
-      }
-    ],
-    "drivers": [
-      "higher cell efficiency",
-      "thinner wafers",
-      "diamond-wire sawing",
-      "larger ingots"
-    ]
-  },
-  "trade_context": {
-    "file": "../silicon-chip/out/silicon_stages.json",
-    "source": "baci_2026",
-    "codes": {
-      "280461": "Mixed solar- and electronic-grade polysilicon.",
-      "854140": "Broad pre-HS2022 basket: PV cells/modules, LEDs and other photosensitive semiconductor devices; not a module-production series."
+  ],
+  "sections": [
+    {
+      "h2": "1 · China at every stage of the chain",
+      "panels": [
+        {
+          "kind": "bars",
+          "h3": "China's production share by stage (2023)",
+          "conf": "measured",
+          "max": 1.0,
+          "note": "IEA-PVPS. This is what total concentration looks like: not one chokepoint but a continuous one, from the purified silicon all the way to the finished panel. The module share is 'only' ~85% because final assembly is the easiest stage to move — the wafer, at ~98%, is the hard one.",
+          "bars": [
+            {
+              "label": "Polysilicon",
+              "value": 0.92
+            },
+            {
+              "label": "Wafers",
+              "value": 0.98
+            },
+            {
+              "label": "Cells",
+              "value": 0.918
+            },
+            {
+              "label": "Modules",
+              "value": 0.846
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "h3": "The wafer is the real lock",
+          "text": "Module assembly is spreading — India, the US and Southeast Asia are building it. But wafers, at ~98% China, are the stage nobody has replicated at scale: it is capital-heavy, power-hungry and know-how-dense. A panel 'made in' another country is very often built on a Chinese wafer, so assembly shares overstate how diversified the chain really is.",
+          "flag": "assembly moves; the wafer doesn't"
+        }
+      ]
+    },
+    {
+      "h2": "2 · The panel got radically more efficient",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "Silicon per watt",
+          "big": "16 → 2 g/W",
+          "conf": "measured",
+          "text": "Two decades of thinner wafers, higher cell efficiency and better sawing cut the silicon in a watt of solar roughly eight-fold. That is why panel prices collapsed and why 'silicon supply' is not the constraint — the industry keeps doing more with less of the raw material. The scarce thing is the industrial capacity to convert it, which is what concentrated.",
+          "note": "Fraunhofer ISE Photovoltaics Report."
+        },
+        {
+          "kind": "text",
+          "h3": "Why it concentrated in China",
+          "text": "Polysilicon and wafer production are electricity-intensive and scale-sensitive, and China combined cheap power, a decade of coordinated investment and a full upstream-to-downstream cluster. The result is the lowest-cost solar in history — and a supply chain whose every rung sits in one country. Cheap and concentrated are, here, the same fact.",
+          "flag": "cheapest ever, and single-sourced"
+        }
+      ]
+    },
+    {
+      "h2": "3 · The exposure that remains",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Silver and the small inputs",
+          "text": "The panel is not entirely China-proof of scarcity: each cell uses a little silver paste for its contacts, and PV is a meaningful slice of world silver demand — an input the industry is actively thinning (copper metallisation) but has not eliminated. It is the one genuinely material-side constraint in a chain whose main chokepoint is industrial, not geological.",
+          "note": "IEA / industry: silver paste in cell metallisation.",
+          "flag": "the one material input to watch"
+        }
+      ]
     }
-  },
-  "boundaries": [
-    "The 1990-2025 module series is regional and uses changing commercial data providers.",
-    "The 2010/2021 matrices measure nameplate manufacturing capacity, not actual output.",
-    "The 2023 stage table measures production and must not be joined arithmetically to capacity.",
-    "HS 280461 and 854140 are too broad to identify solar factory location.",
-    "Installed capacity and electricity generation describe demand/use, not manufacturing origin."
+  ],
+  "trade_intro": "BACI carries polysilicon, wafers, cells and modules, but a module's customs origin is its final assembly point — which increasingly hides an upstream Chinese wafer. Read the export shares below as trading positions; the true concentration is at the wafer stage, which trade data does not cleanly isolate.",
+  "method": [
+    {
+      "stage": "Polysilicon–wafer–cell",
+      "lens": "IEA-PVPS production share",
+      "why": "~92–98% China — a continuous chokepoint"
+    },
+    {
+      "stage": "Module",
+      "lens": "IEA-PVPS assembly share",
+      "why": "~85% China; assembly is the movable stage"
+    },
+    {
+      "stage": "Intensity",
+      "lens": "Fraunhofer g/W history",
+      "why": "the panel dematerialised — silicon is not the constraint"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI poly/wafer/cell/module",
+      "why": "assembly-point origin hides the wafer — flagged context"
+    }
   ],
   "sources": {
-    "fraunhofer_2026": {
-      "title": "Fraunhofer ISE, Photovoltaics Report",
-      "year": 2026,
-      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf"
-    },
-    "iea_capacity_2010": {
-      "title": "IEA, Solar PV manufacturing capacity by country and region, 2010",
-      "year": 2022,
-      "url": "https://www.iea.org/data-and-statistics/charts/solar-pv-manufacturing-capacity-by-country-and-region-2010",
-      "licence": "CC BY 4.0"
-    },
-    "iea_capacity_2021": {
-      "title": "IEA, Solar PV manufacturing capacity by country and region, 2021",
-      "year": 2022,
-      "url": "https://www.iea.org/data-and-statistics/charts/solar-pv-manufacturing-capacity-by-country-and-region-2021",
-      "licence": "CC BY 4.0"
-    },
-    "iea_supply_chains_2022": {
-      "title": "IEA, Solar PV Global Supply Chains",
-      "year": 2022,
-      "url": "https://www.iea.org/reports/solar-pv-global-supply-chains",
-      "licence": "CC BY 4.0"
-    },
     "iea_pvps_2024": {
       "title": "IEA-PVPS, Trends in Photovoltaic Applications 2024",
       "year": 2024,
       "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf"
     },
-    "iea_etp_2026": {
-      "title": "IEA, Energy Technology Perspectives 2026: Supply chain risks",
-      "year": 2026,
-      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness",
-      "licence": "CC BY 4.0"
+    "iea_supply_chains_2022": {
+      "title": "IEA, Solar PV Global Supply Chains",
+      "year": 2022,
+      "url": "https://www.iea.org/reports/solar-pv-global-supply-chains"
     },
-    "baci_2026": {
+    "iea_etp_2026": {
+      "title": "IEA, Energy Technology Perspectives 2026 — supply-chain risks",
+      "year": 2026,
+      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness"
+    },
+    "fraunhofer_2026": {
+      "title": "Fraunhofer ISE, Photovoltaics Report",
+      "year": 2026,
+      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf"
+    },
+    "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
       "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"

@@ -1,1421 +1,146 @@
 {
-  "title": "Nuclear fuel-chain evidence",
-  "status": "unpublished pilot",
-  "updated": "2026-08-18",
-  "principle": "A uranium mine, conversion plant, enrichment plant, fuel factory, reactor and spent-fuel facility are different capabilities measured in different units.",
-  "chain": [
+  "title": "Nuclear fuel chain",
+  "accent": "#5a7d4a",
+  "eyebrow": "Product-chain pilot · the fuel behind the reactor",
+  "h1": "The uranium mine is the easy part — the chokepoint is a service, not a rock",
+  "deck": "Nuclear fuel is not just uranium ore. Between the mine and the reactor sit conversion, enrichment and fabrication — industrial services, not commodities. The mine is diversified and buffered by stockpiles; the concentration is downstream, and at enrichment Russia is the single largest supplier.",
+  "byline": "mine (diversified) ≠ conversion (few plants) ≠ enrichment (Russia-led) ≠ fabrication (reactor-locked)",
+  "correction": "Worrying about 'who has the uranium' misreads the chain. Uranium is mined across Kazakhstan, Canada, Namibia, Australia and Niger, and utilities hold years of stock. The binding steps are the services: conversion sits with four suppliers, enrichment is led by Russia's Rosatom, and fuel fabrication must be licensed to a specific reactor. The rock is fungible; the service is not.",
+  "stats": [
     {
-      "stage": "Mine & mill",
-      "detail": "Ore becomes uranium concentrate (U3O8 or yellowcake), reported in tonnes of uranium."
+      "v": "~43%",
+      "l": "Kazakhstan's share of world uranium mine output (2023)",
+      "conf": "measured"
+    },
+    {
+      "v": "4 suppliers",
+      "l": "Rosatom, Cameco, CNNC and Orano hold nearly all conversion capacity",
+      "conf": "measured"
+    },
+    {
+      "v": "Russia",
+      "l": "the single largest enricher — roughly 40–45% of world capacity",
+      "conf": "estimate"
+    },
+    {
+      "v": "reactor-locked",
+      "l": "fabricated fuel must match one licensed reactor design — not interchangeable",
+      "conf": "measured"
+    }
+  ],
+  "hops": [
+    {
+      "n": "1 · Mine & mill",
+      "t": "ore becomes uranium concentrate (U3O8, 'yellowcake') — diversified, buffered by stock"
+    },
+    {
+      "n": "2 · Convert",
+      "t": "concentrate purified and converted to UF6 — four suppliers hold nearly all capacity"
+    },
+    {
+      "n": "3 · Enrich",
+      "t": "U-235 concentration raised; a service measured in separative work — Russia-led"
+    },
+    {
+      "n": "4 · Fabricate & operate",
+      "t": "pellets, rods and assemblies licensed to a specific reactor design"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · The mine is diversified — and cushioned",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Many producers, plus a stockpile buffer",
+          "conf": "measured",
+          "text": "Kazakhstan leads at ~43% of mine output, but Canada, Namibia, Australia and Niger supply the rest, and known resources are widely spread. Crucially, uranium is cheap to store and utilities and governments hold multi-year inventories, so a mine disruption does not stop a reactor the way a cut-off in an industrial service would. The mine is the least fragile link.",
+          "note": "OECD NEA / IAEA, Uranium 2024 (Red Book).",
+          "flag": "storable and diversified"
+        },
+        {
+          "kind": "text",
+          "h3": "The reactor locks in the fuel",
+          "text": "A fuel assembly is engineered and licensed to a particular reactor design, so a utility cannot freely switch fabricators or, historically, enrichers. That is why Russian-designed VVER reactors across Europe were hard to de-Russify quickly — the dependence is embedded in the machine, not just the fuel market.",
+          "flag": "the machine embeds the supplier"
+        }
+      ]
+    },
+    {
+      "h2": "2 · Conversion and enrichment are the chokepoints",
+      "panels": [
+        {
+          "kind": "bars",
+          "h3": "World conversion capacity by supplier (2022)",
+          "conf": "measured",
+          "max": 1.0,
+          "note": "OECD NEA. Turning yellowcake into UF6 gas for enrichment is done at a handful of plants: Rosatom, Cameco, CNNC and Orano together hold nearly all of it. This is a services oligopoly, not a commodity market — and it is a deliberately narrow neck between a diversified mine and a Russia-led enrichment stage.",
+          "bars": [
+            {
+              "label": "Rosatom (Russia)",
+              "value": 0.286
+            },
+            {
+              "label": "Cameco (Canada)",
+              "value": 0.252
+            },
+            {
+              "label": "CNNC (China)",
+              "value": 0.25
+            },
+            {
+              "label": "Orano (France)",
+              "value": 0.11
+            }
+          ]
+        },
+        {
+          "kind": "text",
+          "h3": "Enrichment — and the HALEU sub-chokepoint",
+          "text": "Enrichment, a service measured in separative-work units, is even more concentrated, with Russia the single largest supplier. The next-generation twist is HALEU (high-assay low-enriched uranium) that many advanced and small modular reactors need — and today Russia is essentially the only commercial source, so a new reactor class is being designed around a supply that barely exists outside one country.",
+          "note": "OECD NEA, HALEU; US DOE.",
+          "flag": "the new reactors need a fuel almost only Russia makes"
+        }
+      ]
+    },
+    {
+      "h2": "3 · Why this chain reads differently",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Concentration in capability, not geology",
+          "text": "Most chains in this atlas concentrate at a mine or a refinery. Nuclear concentrates at engineered services — conversion plants, enrichment centrifuges, licensed fabrication — that take a decade and heavy capital to build. The West is now rebuilding exactly this capacity (new enrichment in the US, UK, France) precisely because the rock was never the problem.",
+          "flag": "rebuilding a service, not opening a mine"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "BACI carries uranium ore and compounds, but enrichment and conversion are traded as services and under long confidential contracts that customs data does not capture. Read any uranium trade below as ore movement only — the real chokepoints (enrichment SWU, licensed fabrication) are invisible in trade statistics.",
+  "method": [
+    {
+      "stage": "Mine",
+      "lens": "NEA/IAEA mine share + stockpiles",
+      "why": "diversified and buffered — the least fragile link"
     },
     {
       "stage": "Convert",
-      "detail": "Concentrate is purified and commonly converted to UF6 for enrichment."
+      "lens": "NEA conversion-capacity shares",
+      "why": "four-supplier oligopoly — a deliberate narrow neck"
     },
     {
       "stage": "Enrich",
-      "detail": "U-235 concentration rises; capacity is a service measured in separative work, not mined tonnes."
+      "lens": "SWU capacity (Russia-led)",
+      "why": "the real chokepoint; HALEU a new sub-chokepoint"
     },
     {
-      "stage": "Fabricate",
-      "detail": "Fuel chemistry, pellets, rods and assemblies must match a licensed reactor design."
-    },
-    {
-      "stage": "Operate",
-      "detail": "Reactors turn fuel and plant availability into electricity over decades."
-    },
-    {
-      "stage": "Back end",
-      "detail": "Spent fuel is stored, possibly reprocessed, and ultimately managed or disposed."
+      "stage": "Trade",
+      "lens": "BACI uranium ore/compounds",
+      "why": "ore only; enrichment is a service — flagged context"
     }
-  ],
-  "pris": {
-    "source": "iaea_pris",
-    "coverage": "2006-2025",
-    "series": [
-      {
-        "year": 2006,
-        "capacity_gwe": 371,
-        "reactors_with_generation_data": 442,
-        "electricity_twh": 2660.85
-      },
-      {
-        "year": 2007,
-        "capacity_gwe": 371,
-        "reactors_with_generation_data": 438,
-        "electricity_twh": 2608.18
-      },
-      {
-        "year": 2008,
-        "capacity_gwe": 369,
-        "reactors_with_generation_data": 436,
-        "electricity_twh": 2597.81
-      },
-      {
-        "year": 2009,
-        "capacity_gwe": 369,
-        "reactors_with_generation_data": 436,
-        "electricity_twh": 2558.06
-      },
-      {
-        "year": 2010,
-        "capacity_gwe": 372,
-        "reactors_with_generation_data": 438,
-        "electricity_twh": 2629.82
-      },
-      {
-        "year": 2011,
-        "capacity_gwe": 375,
-        "reactors_with_generation_data": 442,
-        "electricity_twh": 2517.98
-      },
-      {
-        "year": 2012,
-        "capacity_gwe": 356,
-        "reactors_with_generation_data": 419,
-        "electricity_twh": 2346.19
-      },
-      {
-        "year": 2013,
-        "capacity_gwe": 355,
-        "reactors_with_generation_data": 416,
-        "electricity_twh": 2358.86
-      },
-      {
-        "year": 2014,
-        "capacity_gwe": 354,
-        "reactors_with_generation_data": 414,
-        "electricity_twh": 2410.37
-      },
-      {
-        "year": 2015,
-        "capacity_gwe": 364,
-        "reactors_with_generation_data": 423,
-        "electricity_twh": 2441.34
-      },
-      {
-        "year": 2016,
-        "capacity_gwe": 370,
-        "reactors_with_generation_data": 426,
-        "electricity_twh": 2477.3
-      },
-      {
-        "year": 2017,
-        "capacity_gwe": 372,
-        "reactors_with_generation_data": 427,
-        "electricity_twh": 2502.82
-      },
-      {
-        "year": 2018,
-        "capacity_gwe": 379,
-        "reactors_with_generation_data": 432,
-        "electricity_twh": 2562.76
-      },
-      {
-        "year": 2019,
-        "capacity_gwe": 379,
-        "reactors_with_generation_data": 429,
-        "electricity_twh": 2657.16
-      },
-      {
-        "year": 2020,
-        "capacity_gwe": 375,
-        "reactors_with_generation_data": 422,
-        "electricity_twh": 2553.24
-      },
-      {
-        "year": 2021,
-        "capacity_gwe": 375,
-        "reactors_with_generation_data": 420,
-        "electricity_twh": 2653.34
-      },
-      {
-        "year": 2022,
-        "capacity_gwe": 374,
-        "reactors_with_generation_data": 416,
-        "electricity_twh": 2486.83
-      },
-      {
-        "year": 2023,
-        "capacity_gwe": 377,
-        "reactors_with_generation_data": 418,
-        "electricity_twh": 2552.07
-      },
-      {
-        "year": 2024,
-        "capacity_gwe": 379,
-        "reactors_with_generation_data": 421,
-        "electricity_twh": 2617.53
-      },
-      {
-        "year": 2025,
-        "capacity_gwe": 379,
-        "reactors_with_generation_data": 420,
-        "electricity_twh": 2635.25
-      }
-    ],
-    "boundary": "PRIS annual capacity and reactor counts cover units that supplied production data during the year. They are not end-of-year operational-fleet counts."
-  },
-  "status_2024": {
-    "source": "iaea_2024",
-    "date": "2024-12-31",
-    "operational_reactors": 417,
-    "operational_capacity_gwe": 377.0,
-    "under_construction_reactors": 62,
-    "under_construction_capacity_gwe": 64.5,
-    "older_than_30_years": {
-      "reactors": 284,
-      "capacity_gwe": 254.7,
-      "capacity_share": 0.67
-    },
-    "boundary": "A fixed end-2024 status snapshot. Do not combine its reactor count with the PRIS 2025 count of reactors reporting generation."
-  },
-  "uranium_production": {
-    "source": "nea_redbook",
-    "unit": "tonnes uranium (tU)",
-    "world": [
-      {
-        "year": 2020,
-        "value": 47588
-      },
-      {
-        "year": 2021,
-        "value": 47361
-      },
-      {
-        "year": 2022,
-        "value": 49490
-      },
-      {
-        "year": 2023,
-        "value": 54597
-      }
-    ],
-    "producers_2023": [
-      {
-        "country": "Kazakhstan",
-        "value": 21112
-      },
-      {
-        "country": "Canada",
-        "value": 10986
-      },
-      {
-        "country": "Namibia",
-        "value": 6985
-      },
-      {
-        "country": "Uzbekistan",
-        "value": 4000
-      },
-      {
-        "country": "Russia",
-        "value": 2600
-      },
-      {
-        "country": "China",
-        "value": 1600
-      },
-      {
-        "country": "Niger",
-        "value": 1130
-      },
-      {
-        "country": "India",
-        "value": 485
-      },
-      {
-        "country": "Ukraine",
-        "value": 300
-      },
-      {
-        "country": "South Africa",
-        "value": 200
-      },
-      {
-        "country": "Brazil",
-        "value": 171
-      }
-    ],
-    "finding": "Among countries with installed nuclear generation, Canada alone produced enough uranium in 2023 to meet its own annual reactor requirements.",
-    "boundary": "Mining output is not conversion, enrichment, fabricated-fuel availability or reactor fuel inventory."
-  },
-  "front_end_concentration": {
-    "source": "nea_haleu",
-    "year": 2022,
-    "conversion_capacity_shares": [
-      {
-        "supplier": "Rosatom",
-        "share": 0.286
-      },
-      {
-        "supplier": "Cameco",
-        "share": 0.252
-      },
-      {
-        "supplier": "CNNC",
-        "share": 0.25
-      },
-      {
-        "supplier": "Orano",
-        "share": 0.212
-      }
-    ],
-    "enrichment_context": {
-      "source": "doe_enrichment",
-      "year": 2024,
-      "russia_global_services_share_about": 0.44
-    },
-    "boundary": "Conversion shares are a 2022 capacity snapshot. The Russian figure is a 2024 US DOE estimate for global enrichment services; the two percentages have different denominators."
-  },
-  "reactor_families": [
-    {
-      "name": "Light-water reactors",
-      "fuel": "Usually low-enriched uranium dioxide",
-      "materials": "Water moderator/coolant; zirconium-alloy cladding is widespread",
-      "exposure": "Conversion, enrichment and design-qualified fuel fabrication"
-    },
-    {
-      "name": "Heavy-water reactors",
-      "fuel": "Can use natural uranium",
-      "materials": "Heavy water and pressure tubes; fuel architecture differs from LWRs",
-      "exposure": "Can reduce enrichment dependence but not mining, conversion or fabrication needs"
-    },
-    {
-      "name": "Graphite-moderated reactors",
-      "fuel": "Varies by design",
-      "materials": "Nuclear-grade graphite is a functional reactor material",
-      "exposure": "Graphite quality and component supply matter; bulk natural graphite is only context"
-    },
-    {
-      "name": "Advanced reactors and SMRs",
-      "fuel": "Design-dependent: conventional LEU, HALEU or other fuels",
-      "materials": "May use TRISO, graphite, specialised alloys or familiar LWR materials",
-      "exposure": "Do not assume every SMR needs HALEU; licensing and qualification can be the bottleneck"
-    }
-  ],
-  "fuel_definitions": {
-    "source": "nea_haleu",
-    "haleu_u235": "above 5% and below 20%",
-    "rule": "HALEU is a fuel specification used by some advanced designs, not a synonym for SMR fuel."
-  },
-  "material_histories": {
-    "source": "usgs",
-    "series": [
-      {
-        "material": "Zircon mineral concentrates",
-        "unit": "tonnes gross weight",
-        "coverage": "1944-2021",
-        "series": [
-          {
-            "year": 1944,
-            "world_tonnes": 17300
-          },
-          {
-            "year": 1945,
-            "world_tonnes": 19700
-          },
-          {
-            "year": 1946,
-            "world_tonnes": 24700
-          },
-          {
-            "year": 1947,
-            "world_tonnes": 25900
-          },
-          {
-            "year": 1948,
-            "world_tonnes": 26600
-          },
-          {
-            "year": 1949,
-            "world_tonnes": 24100
-          },
-          {
-            "year": 1950,
-            "world_tonnes": 25200
-          },
-          {
-            "year": 1951,
-            "world_tonnes": 46200
-          },
-          {
-            "year": 1952,
-            "world_tonnes": 33900
-          },
-          {
-            "year": 1953,
-            "world_tonnes": 53300
-          },
-          {
-            "year": 1954,
-            "world_tonnes": 63200
-          },
-          {
-            "year": 1955,
-            "world_tonnes": 78200
-          },
-          {
-            "year": 1956,
-            "world_tonnes": 118000
-          },
-          {
-            "year": 1957,
-            "world_tonnes": 146000
-          },
-          {
-            "year": 1958,
-            "world_tonnes": 105000
-          },
-          {
-            "year": 1959,
-            "world_tonnes": 103000
-          },
-          {
-            "year": 1960,
-            "world_tonnes": 129000
-          },
-          {
-            "year": 1961,
-            "world_tonnes": 159000
-          },
-          {
-            "year": 1962,
-            "world_tonnes": 149000
-          },
-          {
-            "year": 1963,
-            "world_tonnes": 195000
-          },
-          {
-            "year": 1964,
-            "world_tonnes": 191000
-          },
-          {
-            "year": 1965,
-            "world_tonnes": 235000
-          },
-          {
-            "year": 1966,
-            "world_tonnes": 244000
-          },
-          {
-            "year": 1967,
-            "world_tonnes": 293000
-          },
-          {
-            "year": 1968,
-            "world_tonnes": 309000
-          },
-          {
-            "year": 1969,
-            "world_tonnes": 386000
-          },
-          {
-            "year": 1970,
-            "world_tonnes": 399000
-          },
-          {
-            "year": 1971,
-            "world_tonnes": 432000
-          },
-          {
-            "year": 1972,
-            "world_tonnes": 369000
-          },
-          {
-            "year": 1973,
-            "world_tonnes": 379000
-          },
-          {
-            "year": 1974,
-            "world_tonnes": 397000
-          },
-          {
-            "year": 1975,
-            "world_tonnes": 418000
-          },
-          {
-            "year": 1976,
-            "world_tonnes": 448000
-          },
-          {
-            "year": 1977,
-            "world_tonnes": 505000
-          },
-          {
-            "year": 1978,
-            "world_tonnes": 525000
-          },
-          {
-            "year": 1979,
-            "world_tonnes": 629000
-          },
-          {
-            "year": 1980,
-            "world_tonnes": 680000
-          },
-          {
-            "year": 1981,
-            "world_tonnes": 645000
-          },
-          {
-            "year": 1982,
-            "world_tonnes": 710000
-          },
-          {
-            "year": 1983,
-            "world_tonnes": 666000
-          },
-          {
-            "year": 1984,
-            "world_tonnes": 736000
-          },
-          {
-            "year": 1985,
-            "world_tonnes": 815000
-          },
-          {
-            "year": 1986,
-            "world_tonnes": 741000
-          },
-          {
-            "year": 1987,
-            "world_tonnes": 753000
-          },
-          {
-            "year": 1988,
-            "world_tonnes": 929000
-          },
-          {
-            "year": 1989,
-            "world_tonnes": 979000
-          },
-          {
-            "year": 1990,
-            "world_tonnes": 852000
-          },
-          {
-            "year": 1991,
-            "world_tonnes": 795000
-          },
-          {
-            "year": 1992,
-            "world_tonnes": 856000
-          },
-          {
-            "year": 1993,
-            "world_tonnes": 796000
-          },
-          {
-            "year": 1994,
-            "world_tonnes": 897000
-          },
-          {
-            "year": 1995,
-            "world_tonnes": 918000
-          },
-          {
-            "year": 1996,
-            "world_tonnes": 894000
-          },
-          {
-            "year": 1997,
-            "world_tonnes": 830000
-          },
-          {
-            "year": 1998,
-            "world_tonnes": 732000
-          },
-          {
-            "year": 1999,
-            "world_tonnes": 673000
-          },
-          {
-            "year": 2000,
-            "world_tonnes": 731000
-          },
-          {
-            "year": 2001,
-            "world_tonnes": 750000
-          },
-          {
-            "year": 2002,
-            "world_tonnes": 973000
-          },
-          {
-            "year": 2003,
-            "world_tonnes": 1040000
-          },
-          {
-            "year": 2004,
-            "world_tonnes": 1070000
-          },
-          {
-            "year": 2005,
-            "world_tonnes": 1060000
-          },
-          {
-            "year": 2006,
-            "world_tonnes": 1240000
-          },
-          {
-            "year": 2007,
-            "world_tonnes": 1420000
-          },
-          {
-            "year": 2008,
-            "world_tonnes": 1350000
-          },
-          {
-            "year": 2009,
-            "world_tonnes": 1210000
-          },
-          {
-            "year": 2010,
-            "world_tonnes": 1280000
-          },
-          {
-            "year": 2011,
-            "world_tonnes": 1660000
-          },
-          {
-            "year": 2012,
-            "world_tonnes": 1420000
-          },
-          {
-            "year": 2013,
-            "world_tonnes": 1010000
-          },
-          {
-            "year": 2014,
-            "world_tonnes": 1580000
-          },
-          {
-            "year": 2015,
-            "world_tonnes": 1500000
-          },
-          {
-            "year": 2016,
-            "world_tonnes": 1580000
-          },
-          {
-            "year": 2017,
-            "world_tonnes": 1510000
-          },
-          {
-            "year": 2018,
-            "world_tonnes": 1580000
-          },
-          {
-            "year": 2019,
-            "world_tonnes": 1430000
-          },
-          {
-            "year": 2020,
-            "world_tonnes": 1190000
-          },
-          {
-            "year": 2021,
-            "world_tonnes": 1350000
-          }
-        ],
-        "boundary": "All zircon mineral-concentrate uses; not nuclear-grade zirconium metal or cladding."
-      },
-      {
-        "material": "Boron minerals",
-        "unit": "tonnes gross weight",
-        "coverage": "1900-2013",
-        "series": [
-          {
-            "year": 1900,
-            "world_tonnes": 46900
-          },
-          {
-            "year": 1901,
-            "world_tonnes": 42900
-          },
-          {
-            "year": 1902,
-            "world_tonnes": 41300
-          },
-          {
-            "year": 1903,
-            "world_tonnes": 54700
-          },
-          {
-            "year": 1904,
-            "world_tonnes": 65200
-          },
-          {
-            "year": 1905,
-            "world_tonnes": 65800
-          },
-          {
-            "year": 1906,
-            "world_tonnes": 87400
-          },
-          {
-            "year": 1907,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1908,
-            "world_tonnes": 74800
-          },
-          {
-            "year": 1909,
-            "world_tonnes": 86800
-          },
-          {
-            "year": 1910,
-            "world_tonnes": 67100
-          },
-          {
-            "year": 1911,
-            "world_tonnes": 99000
-          },
-          {
-            "year": 1912,
-            "world_tonnes": 86000
-          },
-          {
-            "year": 1913,
-            "world_tonnes": 55100
-          },
-          {
-            "year": 1964,
-            "world_tonnes": 172000
-          },
-          {
-            "year": 1965,
-            "world_tonnes": 189000
-          },
-          {
-            "year": 1966,
-            "world_tonnes": 209000
-          },
-          {
-            "year": 1967,
-            "world_tonnes": 221000
-          },
-          {
-            "year": 1968,
-            "world_tonnes": 232000
-          },
-          {
-            "year": 1969,
-            "world_tonnes": 251000
-          },
-          {
-            "year": 1970,
-            "world_tonnes": 257000
-          },
-          {
-            "year": 1971,
-            "world_tonnes": 284000
-          },
-          {
-            "year": 1972,
-            "world_tonnes": 314000
-          },
-          {
-            "year": 1973,
-            "world_tonnes": 342000
-          },
-          {
-            "year": 1974,
-            "world_tonnes": 328000
-          },
-          {
-            "year": 1975,
-            "world_tonnes": 354000
-          },
-          {
-            "year": 1976,
-            "world_tonnes": 2340000
-          },
-          {
-            "year": 1977,
-            "world_tonnes": 2730000
-          },
-          {
-            "year": 1978,
-            "world_tonnes": 2660000
-          },
-          {
-            "year": 1979,
-            "world_tonnes": 2520000
-          },
-          {
-            "year": 1980,
-            "world_tonnes": 2610000
-          },
-          {
-            "year": 1981,
-            "world_tonnes": 2560000
-          },
-          {
-            "year": 1982,
-            "world_tonnes": 2270000
-          },
-          {
-            "year": 1983,
-            "world_tonnes": 2240000
-          },
-          {
-            "year": 1984,
-            "world_tonnes": 2510000
-          },
-          {
-            "year": 1985,
-            "world_tonnes": 2510000
-          },
-          {
-            "year": 1986,
-            "world_tonnes": 2510000
-          },
-          {
-            "year": 1987,
-            "world_tonnes": 2690000
-          },
-          {
-            "year": 1988,
-            "world_tonnes": 2990000
-          },
-          {
-            "year": 1989,
-            "world_tonnes": 2990000
-          },
-          {
-            "year": 1990,
-            "world_tonnes": 2910000
-          },
-          {
-            "year": 1991,
-            "world_tonnes": 2960000
-          },
-          {
-            "year": 1992,
-            "world_tonnes": 2670000
-          },
-          {
-            "year": 1993,
-            "world_tonnes": 2640000
-          },
-          {
-            "year": 1994,
-            "world_tonnes": 3810000
-          },
-          {
-            "year": 1995,
-            "world_tonnes": 4020000
-          },
-          {
-            "year": 1996,
-            "world_tonnes": 4330000
-          },
-          {
-            "year": 1997,
-            "world_tonnes": 4580000
-          },
-          {
-            "year": 1998,
-            "world_tonnes": 4570000
-          },
-          {
-            "year": 1999,
-            "world_tonnes": 4460000
-          },
-          {
-            "year": 2000,
-            "world_tonnes": 4600000
-          },
-          {
-            "year": 2001,
-            "world_tonnes": 4740000
-          },
-          {
-            "year": 2002,
-            "world_tonnes": 4580000
-          },
-          {
-            "year": 2003,
-            "world_tonnes": 4750000
-          },
-          {
-            "year": 2004,
-            "world_tonnes": 4960000
-          },
-          {
-            "year": 2005,
-            "world_tonnes": 4950000
-          },
-          {
-            "year": 2006,
-            "world_tonnes": 3620000
-          },
-          {
-            "year": 2007,
-            "world_tonnes": 4200000
-          },
-          {
-            "year": 2008,
-            "world_tonnes": 4480000
-          },
-          {
-            "year": 2009,
-            "world_tonnes": 3600000
-          },
-          {
-            "year": 2010,
-            "world_tonnes": 4120000
-          },
-          {
-            "year": 2011,
-            "world_tonnes": 8150000
-          },
-          {
-            "year": 2012,
-            "world_tonnes": 5910000
-          },
-          {
-            "year": 2013,
-            "world_tonnes": 6030000
-          }
-        ],
-        "boundary": "All boron mineral uses; boron control and coolant applications depend on reactor design."
-      },
-      {
-        "material": "Natural graphite",
-        "unit": "tonnes gross weight",
-        "coverage": "1900-2022",
-        "series": [
-          {
-            "year": 1900,
-            "world_tonnes": 81600
-          },
-          {
-            "year": 1901,
-            "world_tonnes": 77100
-          },
-          {
-            "year": 1902,
-            "world_tonnes": 81600
-          },
-          {
-            "year": 1903,
-            "world_tonnes": 77100
-          },
-          {
-            "year": 1904,
-            "world_tonnes": 77100
-          },
-          {
-            "year": 1905,
-            "world_tonnes": 90700
-          },
-          {
-            "year": 1906,
-            "world_tonnes": 104000
-          },
-          {
-            "year": 1907,
-            "world_tonnes": 109000
-          },
-          {
-            "year": 1908,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1909,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1910,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1911,
-            "world_tonnes": 109000
-          },
-          {
-            "year": 1912,
-            "world_tonnes": 118000
-          },
-          {
-            "year": 1913,
-            "world_tonnes": 136000
-          },
-          {
-            "year": 1914,
-            "world_tonnes": 104000
-          },
-          {
-            "year": 1915,
-            "world_tonnes": 113000
-          },
-          {
-            "year": 1916,
-            "world_tonnes": 172000
-          },
-          {
-            "year": 1917,
-            "world_tonnes": 209000
-          },
-          {
-            "year": 1918,
-            "world_tonnes": 181000
-          },
-          {
-            "year": 1919,
-            "world_tonnes": 122000
-          },
-          {
-            "year": 1920,
-            "world_tonnes": 118000
-          },
-          {
-            "year": 1921,
-            "world_tonnes": 90700
-          },
-          {
-            "year": 1922,
-            "world_tonnes": 104000
-          },
-          {
-            "year": 1923,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1924,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1925,
-            "world_tonnes": 122000
-          },
-          {
-            "year": 1926,
-            "world_tonnes": 136000
-          },
-          {
-            "year": 1927,
-            "world_tonnes": 154000
-          },
-          {
-            "year": 1928,
-            "world_tonnes": 150000
-          },
-          {
-            "year": 1929,
-            "world_tonnes": 150000
-          },
-          {
-            "year": 1930,
-            "world_tonnes": 118000
-          },
-          {
-            "year": 1931,
-            "world_tonnes": 77100
-          },
-          {
-            "year": 1932,
-            "world_tonnes": 72600
-          },
-          {
-            "year": 1933,
-            "world_tonnes": 86200
-          },
-          {
-            "year": 1934,
-            "world_tonnes": 109000
-          },
-          {
-            "year": 1935,
-            "world_tonnes": 145000
-          },
-          {
-            "year": 1936,
-            "world_tonnes": 150000
-          },
-          {
-            "year": 1937,
-            "world_tonnes": 159000
-          },
-          {
-            "year": 1938,
-            "world_tonnes": 177000
-          },
-          {
-            "year": 1939,
-            "world_tonnes": 222000
-          },
-          {
-            "year": 1940,
-            "world_tonnes": 254000
-          },
-          {
-            "year": 1941,
-            "world_tonnes": 231000
-          },
-          {
-            "year": 1942,
-            "world_tonnes": 272000
-          },
-          {
-            "year": 1943,
-            "world_tonnes": 277000
-          },
-          {
-            "year": 1944,
-            "world_tonnes": 263000
-          },
-          {
-            "year": 1945,
-            "world_tonnes": 136000
-          },
-          {
-            "year": 1946,
-            "world_tonnes": 95300
-          },
-          {
-            "year": 1947,
-            "world_tonnes": 122000
-          },
-          {
-            "year": 1948,
-            "world_tonnes": 163000
-          },
-          {
-            "year": 1949,
-            "world_tonnes": 168000
-          },
-          {
-            "year": 1950,
-            "world_tonnes": 159000
-          },
-          {
-            "year": 1951,
-            "world_tonnes": 195000
-          },
-          {
-            "year": 1952,
-            "world_tonnes": 177000
-          },
-          {
-            "year": 1953,
-            "world_tonnes": 168000
-          },
-          {
-            "year": 1954,
-            "world_tonnes": 168000
-          },
-          {
-            "year": 1955,
-            "world_tonnes": 272000
-          },
-          {
-            "year": 1956,
-            "world_tonnes": 263000
-          },
-          {
-            "year": 1957,
-            "world_tonnes": 372000
-          },
-          {
-            "year": 1958,
-            "world_tonnes": 318000
-          },
-          {
-            "year": 1959,
-            "world_tonnes": 372000
-          },
-          {
-            "year": 1960,
-            "world_tonnes": 435000
-          },
-          {
-            "year": 1961,
-            "world_tonnes": 413000
-          },
-          {
-            "year": 1962,
-            "world_tonnes": 535000
-          },
-          {
-            "year": 1963,
-            "world_tonnes": 679000
-          },
-          {
-            "year": 1964,
-            "world_tonnes": 620000
-          },
-          {
-            "year": 1965,
-            "world_tonnes": 607000
-          },
-          {
-            "year": 1966,
-            "world_tonnes": 484000
-          },
-          {
-            "year": 1967,
-            "world_tonnes": 358000
-          },
-          {
-            "year": 1968,
-            "world_tonnes": 437000
-          },
-          {
-            "year": 1969,
-            "world_tonnes": 376000
-          },
-          {
-            "year": 1970,
-            "world_tonnes": 393000
-          },
-          {
-            "year": 1971,
-            "world_tonnes": 394000
-          },
-          {
-            "year": 1972,
-            "world_tonnes": 361000
-          },
-          {
-            "year": 1973,
-            "world_tonnes": 395000
-          },
-          {
-            "year": 1974,
-            "world_tonnes": 497000
-          },
-          {
-            "year": 1975,
-            "world_tonnes": 451000
-          },
-          {
-            "year": 1976,
-            "world_tonnes": 449000
-          },
-          {
-            "year": 1977,
-            "world_tonnes": 493000
-          },
-          {
-            "year": 1978,
-            "world_tonnes": 534000
-          },
-          {
-            "year": 1979,
-            "world_tonnes": 626000
-          },
-          {
-            "year": 1980,
-            "world_tonnes": 597000
-          },
-          {
-            "year": 1981,
-            "world_tonnes": 589000
-          },
-          {
-            "year": 1982,
-            "world_tonnes": 562000
-          },
-          {
-            "year": 1983,
-            "world_tonnes": 604000
-          },
-          {
-            "year": 1984,
-            "world_tonnes": 625000
-          },
-          {
-            "year": 1985,
-            "world_tonnes": 584000
-          },
-          {
-            "year": 1986,
-            "world_tonnes": 625000
-          },
-          {
-            "year": 1987,
-            "world_tonnes": 643000
-          },
-          {
-            "year": 1988,
-            "world_tonnes": 575000
-          },
-          {
-            "year": 1989,
-            "world_tonnes": 1010000
-          },
-          {
-            "year": 1990,
-            "world_tonnes": 946000
-          },
-          {
-            "year": 1991,
-            "world_tonnes": 771000
-          },
-          {
-            "year": 1992,
-            "world_tonnes": 670000
-          },
-          {
-            "year": 1993,
-            "world_tonnes": 648000
-          },
-          {
-            "year": 1994,
-            "world_tonnes": 517000
-          },
-          {
-            "year": 1995,
-            "world_tonnes": 584000
-          },
-          {
-            "year": 1996,
-            "world_tonnes": 555000
-          },
-          {
-            "year": 1997,
-            "world_tonnes": 685000
-          },
-          {
-            "year": 1998,
-            "world_tonnes": 651000
-          },
-          {
-            "year": 1999,
-            "world_tonnes": 692000
-          },
-          {
-            "year": 2000,
-            "world_tonnes": 846000
-          },
-          {
-            "year": 2001,
-            "world_tonnes": 816000
-          },
-          {
-            "year": 2002,
-            "world_tonnes": 932000
-          },
-          {
-            "year": 2003,
-            "world_tonnes": 999000
-          },
-          {
-            "year": 2004,
-            "world_tonnes": 1010000
-          },
-          {
-            "year": 2005,
-            "world_tonnes": 1030000
-          },
-          {
-            "year": 2006,
-            "world_tonnes": 1020000
-          },
-          {
-            "year": 2007,
-            "world_tonnes": 1120000
-          },
-          {
-            "year": 2008,
-            "world_tonnes": 1050000
-          },
-          {
-            "year": 2009,
-            "world_tonnes": 746000
-          },
-          {
-            "year": 2010,
-            "world_tonnes": 1040000
-          },
-          {
-            "year": 2011,
-            "world_tonnes": 1190000
-          },
-          {
-            "year": 2012,
-            "world_tonnes": 1210000
-          },
-          {
-            "year": 2013,
-            "world_tonnes": 699000
-          },
-          {
-            "year": 2014,
-            "world_tonnes": 905000
-          },
-          {
-            "year": 2015,
-            "world_tonnes": 917000
-          },
-          {
-            "year": 2016,
-            "world_tonnes": 917000
-          },
-          {
-            "year": 2017,
-            "world_tonnes": 1270000
-          },
-          {
-            "year": 2018,
-            "world_tonnes": 1490000
-          },
-          {
-            "year": 2019,
-            "world_tonnes": 1520000
-          },
-          {
-            "year": 2020,
-            "world_tonnes": 1300000
-          },
-          {
-            "year": 2021,
-            "world_tonnes": 1520000
-          },
-          {
-            "year": 2022,
-            "world_tonnes": 1680000
-          }
-        ],
-        "boundary": "All natural graphite uses; graphite is a moderator only in some reactor families."
-      }
-    ],
-    "excluded": "Hafnium has a reactor-control use, but the local USGS workbook lacks a world-production series; no global line is shown.",
-    "boundary": "Economy-wide mineral production is not nuclear-grade material output, reactor demand or qualified manufacturing capacity."
-  },
-  "trade_context": {
-    "source": "baci",
-    "coverage": "2002-2024",
-    "file": "out/nuclear_trade.json",
-    "boundary": "Customs value is not physical fuel-cycle capacity. Sensitive or confidential nuclear flows may be incomplete, and enrichment services are not fully represented by traded material codes."
-  },
-  "boundaries": [
-    "Tonnes of uranium cannot be added to separative-work capacity, fabricated fuel or reactor GW.",
-    "A reactor under construction is not an operating unit; an announced design is not a project.",
-    "Natural uranium and enriched uranium trade codes do not reveal enrichment services or inventory drawdown.",
-    "Zirconium, graphite, boron and hafnium roles vary by reactor architecture and nuclear-grade specification.",
-    "The back end branches: storage, reprocessing and disposal are distinct choices and facilities."
   ],
   "sources": {
-    "iaea_pris": {
-      "title": "IAEA PRIS, World trend in electrical production",
-      "year": 2026,
-      "url": "https://pris.iaea.org/PRIS/WorldStatistics/WorldTrendinElectricalProduction.aspx"
-    },
-    "iaea_2024": {
-      "title": "IAEA, Nuclear Power Reactors in the World 2025 edition",
-      "year": 2025,
-      "url": "https://www-pub.iaea.org/MTCD/publications/PDF/p15942-25-02880E_RDS-1-45_web.pdf"
-    },
     "nea_redbook": {
-      "title": "OECD NEA and IAEA, Uranium 2024: Resources, Production and Demand",
+      "title": "OECD NEA & IAEA, Uranium 2024: Resources, Production and Demand",
       "year": 2025,
       "url": "https://cms.oecd-nea.org/jcms/pl_103179/uranium-2024-resources-production-and-demand"
     },
@@ -1429,25 +154,10 @@
       "year": 2024,
       "url": "https://www.energy.gov/ne/articles/uranium-enrichment-explained"
     },
-    "iaea_cycle": {
-      "title": "IAEA Nuclear Fuel Cycle Simulation System, fuel-cycle description",
+    "iaea_pris": {
+      "title": "IAEA PRIS, World trend in electrical production",
       "year": 2026,
-      "url": "https://infcis.iaea.org/nfcss/modeling"
-    },
-    "iaea_smr": {
-      "title": "IAEA, Advances in Small Modular Reactor Technology Developments 2024",
-      "year": 2024,
-      "url": "https://aris.iaea.org/Publications/SMR_catalogue_2024.pdf"
-    },
-    "usgs": {
-      "title": "USGS, Historical Statistics for Mineral and Material Commodities",
-      "year": 2024,
-      "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"
-    },
-    "usgs_zh": {
-      "title": "USGS, Zirconium and Hafnium Statistics and Information",
-      "year": 2026,
-      "url": "https://www.usgs.gov/centers/national-minerals-information-center/zirconium-and-hafnium-statistics-and-information"
+      "url": "https://pris.iaea.org/PRIS/WorldStatistics/WorldTrendinElectricalProduction.aspx"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",

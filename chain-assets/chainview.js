@@ -32,12 +32,18 @@
     var years = [], vals = [];
     hist.series.forEach(function (s) { s.points.forEach(function (p) { years.push(p.y); vals.push(p.v); }); });
     var y0 = Math.min.apply(null, years), y1 = Math.max.apply(null, years);
-    var vmax = Math.min(100, Math.ceil(Math.max.apply(null, vals) / 10) * 10 + 5), vmin = 0;
-    var px = function (y) { return pad + (y - y0) / (y1 - y0) * (W - 2 * pad); };
+    // Default: a 0-100% share axis. If hist.unit is set, plot an absolute series with a
+    // data-driven axis (unit named in the title/note), e.g. g/W, TWh, GW.
+    var isPct = !hist.unit, rawmax = Math.max.apply(null, vals), vmin = 0, vmax, ticks;
+    if (isPct) { vmax = Math.min(100, Math.ceil(rawmax / 10) * 10 + 5); ticks = [0, 25, 50, 75, 100].filter(function (g) { return g <= vmax; }); }
+    else { var mag = Math.pow(10, Math.floor(Math.log10(rawmax))); vmax = Math.ceil(rawmax / mag) * mag; if (vmax < rawmax * 1.05) vmax += mag; ticks = [0, vmax / 4, vmax / 2, vmax * 3 / 4, vmax]; }
+    var fmt = function (g) { return isPct ? g + '%' : (Math.round(g * 100) / 100).toLocaleString(); };
+    var px = function (y) { return pad + (y1 === y0 ? 0.5 : (y - y0) / (y1 - y0)) * (W - 2 * pad); };
     var py = function (v) { return H - pad - (v - vmin) / (vmax - vmin) * (H - 2 * pad); };
     var s = '';
-    [0, 25, 50, 75, 100].filter(function (g) { return g <= vmax; }).forEach(function (g) {
-      s += '<line x1="' + pad + '" y1="' + py(g) + '" x2="' + (W - pad) + '" y2="' + py(g) + '" stroke="#e6e9e8"/><text x="6" y="' + (py(g) + 3) + '" font-size="9" fill="#68737a">' + g + '%</text>';
+    if (!isPct) s += '<text x="6" y="12" font-size="9" fill="#68737a">' + esc(hist.unit) + '</text>';
+    ticks.forEach(function (g) {
+      s += '<line x1="' + pad + '" y1="' + py(g) + '" x2="' + (W - pad) + '" y2="' + py(g) + '" stroke="#e6e9e8"/><text x="6" y="' + (py(g) + 3) + '" font-size="9" fill="#68737a">' + fmt(g) + '</text>';
     });
     hist.series.forEach(function (ser, i) {
       var col = PALETTE[i % PALETTE.length];
@@ -88,7 +94,7 @@
     document.getElementById('ev-json').href = DATA; document.getElementById('tr-json').href = TRADE;
     var cl = document.getElementById('conflegend');
     if (cl) cl.innerHTML = 'Confidence: <span class="conf measured">measured</span> reported figure · <span class="conf estimate">estimate</span> published estimate · <span class="conf snapshot">snapshot</span> single-year, no long series · <span class="conf proxy">proxy</span> mixed/indirect.';
-    if (T && T.years && T.years.length) { var ts = document.getElementById('trade-slider'); ts.max = T.years.length - 1; ts.value = T.years.length - 1; ts.oninput = function () { tradeRow(T, +ts.value); }; tradeRow(T, +ts.value); }
+    if (T && T.years && T.years.length && T.codes) { var ts = document.getElementById('trade-slider'); ts.max = T.years.length - 1; ts.value = T.years.length - 1; ts.oninput = function () { tradeRow(T, +ts.value); }; tradeRow(T, +ts.value); }
     else { document.getElementById('trade-body').innerHTML = '<tr><td colspan="4" class="note">Trade JSON not built yet — run the chain’s extract_baci.py.</td></tr>'; }
   }).catch(function (err) { document.querySelector('article').insertAdjacentHTML('afterbegin', '<div class="callout hot"><b>Evidence JSON did not load.</b> Serve the repository over HTTP.</div>'); console.error(err); });
 })();

@@ -1,0 +1,5453 @@
+{
+  "source": "CEPII BACI V202601, based on UN Comtrade",
+  "years": [
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "vintage": {
+    "2002": "HS02",
+    "2003": "HS02",
+    "2004": "HS02",
+    "2005": "HS02",
+    "2006": "HS02",
+    "2007": "HS02",
+    "2008": "HS02",
+    "2009": "HS02",
+    "2010": "HS02",
+    "2011": "HS02",
+    "2012": "HS02",
+    "2013": "HS02",
+    "2014": "HS02",
+    "2015": "HS02",
+    "2016": "HS02",
+    "2017": "HS17",
+    "2018": "HS17",
+    "2019": "HS17",
+    "2020": "HS17",
+    "2021": "HS17",
+    "2022": "HS17",
+    "2023": "HS17",
+    "2024": "HS17"
+  },
+  "codes": {
+    "280461": {
+      "title": "Silicon, >= 99.99% pure",
+      "boundary": "Polysilicon feedstock (PV + semiconductor); the pure-silicon input, not the panel."
+    },
+    "854140": {
+      "title": "Photosensitive / PV semiconductor devices",
+      "boundary": "Cells and modules; the PV heading was reclassified in 2022, so later years shift codes."
+    }
+  },
+  "years_data": {
+    "2002": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 710175029,
+        "world_tonnes": 21534.0,
+        "n_flows": 481,
+        "china_export_share": 0.0455,
+        "export_hhi": 0.2295,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 286839626,
+            "share": 0.4039
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 133582430,
+            "share": 0.1881
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 102291474,
+            "share": 0.144
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 42345249,
+            "share": 0.0596
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 42059002,
+            "share": 0.0592
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 32313882,
+            "share": 0.0455
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 13252389,
+            "share": 0.0187
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 10194121,
+            "share": 0.0144
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 289442950,
+            "share": 0.4076
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 77115334,
+            "share": 0.1086
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 48400484,
+            "share": 0.0682
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 47452828,
+            "share": 0.0668
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 41988109,
+            "share": 0.0591
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 38073825,
+            "share": 0.0536
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 35054271,
+            "share": 0.0494
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 23104480,
+            "share": 0.0325
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 7103789270,
+        "world_tonnes": 105747.2,
+        "n_flows": 3239,
+        "china_export_share": 0.0809,
+        "export_hhi": 0.1565,
+        "exporters": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 2415653809,
+            "share": 0.3401
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 851117147,
+            "share": 0.1198
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 619687746,
+            "share": 0.0872
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 574674291,
+            "share": 0.0809
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 478054661,
+            "share": 0.0673
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 415416286,
+            "share": 0.0585
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 235362240,
+            "share": 0.0331
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 210396810,
+            "share": 0.0296
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1010835230,
+            "share": 0.1423
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 852967730,
+            "share": 0.1201
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 751855478,
+            "share": 0.1058
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 727875144,
+            "share": 0.1025
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 476476610,
+            "share": 0.0671
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 459035747,
+            "share": 0.0646
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 281344124,
+            "share": 0.0396
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 275423140,
+            "share": 0.0388
+          }
+        ]
+      }
+    },
+    "2003": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 914986464,
+        "world_tonnes": 52643.1,
+        "n_flows": 525,
+        "china_export_share": 0.0764,
+        "export_hhi": 0.2102,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 347501094,
+            "share": 0.3798
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 169629343,
+            "share": 0.1854
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 117903237,
+            "share": 0.1289
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 69876354,
+            "share": 0.0764
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 68932695,
+            "share": 0.0753
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 44465616,
+            "share": 0.0486
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 15875912,
+            "share": 0.0174
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 15309159,
+            "share": 0.0167
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 372150438,
+            "share": 0.4067
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 74217414,
+            "share": 0.0811
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 63538555,
+            "share": 0.0694
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 59566681,
+            "share": 0.0651
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 57450307,
+            "share": 0.0628
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 56963391,
+            "share": 0.0623
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 30341462,
+            "share": 0.0332
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 29185487,
+            "share": 0.0319
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 9356695824,
+        "world_tonnes": 2824869.2,
+        "n_flows": 3651,
+        "china_export_share": 0.0865,
+        "export_hhi": 0.169,
+        "exporters": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3392583819,
+            "share": 0.3626
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 902396207,
+            "share": 0.0964
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 812446851,
+            "share": 0.0868
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 809450122,
+            "share": 0.0865
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 701385017,
+            "share": 0.075
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 592441798,
+            "share": 0.0633
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 267988052,
+            "share": 0.0286
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 249756725,
+            "share": 0.0267
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1207425742,
+            "share": 0.129
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1014511910,
+            "share": 0.1084
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 991864495,
+            "share": 0.106
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 960648469,
+            "share": 0.1027
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 697044807,
+            "share": 0.0745
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 684483799,
+            "share": 0.0732
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 361475227,
+            "share": 0.0386
+          },
+          {
+            "iso": "HU",
+            "name": "Hungary",
+            "value_usd": 343706848,
+            "share": 0.0367
+          }
+        ]
+      }
+    },
+    "2004": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 1304824486,
+        "world_tonnes": 55973.2,
+        "n_flows": 555,
+        "china_export_share": 0.0803,
+        "export_hhi": 0.2224,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 518949852,
+            "share": 0.3977
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 225465805,
+            "share": 0.1728
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 186435829,
+            "share": 0.1429
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 104783741,
+            "share": 0.0803
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 93866094,
+            "share": 0.0719
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 51179592,
+            "share": 0.0392
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 18114468,
+            "share": 0.0139
+          },
+          {
+            "iso": "RU",
+            "name": "Russian Federation",
+            "value_usd": 15731275,
+            "share": 0.0121
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 532679019,
+            "share": 0.4082
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 105262841,
+            "share": 0.0807
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 102230759,
+            "share": 0.0783
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 98766955,
+            "share": 0.0757
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 74711295,
+            "share": 0.0573
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 67797868,
+            "share": 0.052
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 66646114,
+            "share": 0.0511
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 42056043,
+            "share": 0.0322
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 12670628603,
+        "world_tonnes": 2099231.5,
+        "n_flows": 4001,
+        "china_export_share": 0.0877,
+        "export_hhi": 0.1641,
+        "exporters": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4527315376,
+            "share": 0.3573
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1126984975,
+            "share": 0.0889
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1111524909,
+            "share": 0.0877
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1089865743,
+            "share": 0.086
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 891064900,
+            "share": 0.0703
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 849744795,
+            "share": 0.0671
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 423128390,
+            "share": 0.0334
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 314686881,
+            "share": 0.0248
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1920392630,
+            "share": 0.1516
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1759613762,
+            "share": 0.1389
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 1327129511,
+            "share": 0.1047
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1083188121,
+            "share": 0.0855
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 992626575,
+            "share": 0.0783
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 780948506,
+            "share": 0.0616
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 465110046,
+            "share": 0.0367
+          },
+          {
+            "iso": "HU",
+            "name": "Hungary",
+            "value_usd": 443945428,
+            "share": 0.035
+          }
+        ]
+      }
+    },
+    "2005": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 1962679839,
+        "world_tonnes": 65386.1,
+        "n_flows": 660,
+        "china_export_share": 0.0866,
+        "export_hhi": 0.2505,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 877973618,
+            "share": 0.4473
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 297100528,
+            "share": 0.1514
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 228748100,
+            "share": 0.1165
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 169898411,
+            "share": 0.0866
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 128923037,
+            "share": 0.0657
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 63900533,
+            "share": 0.0326
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 35382335,
+            "share": 0.018
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 33802916,
+            "share": 0.0172
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 822386111,
+            "share": 0.419
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 196202975,
+            "share": 0.1
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 173144867,
+            "share": 0.0882
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 139364654,
+            "share": 0.071
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 99756451,
+            "share": 0.0508
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 98623599,
+            "share": 0.0502
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 86599113,
+            "share": 0.0441
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 74790952,
+            "share": 0.0381
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 15697613720,
+        "world_tonnes": 236469.0,
+        "n_flows": 4208,
+        "china_export_share": 0.1208,
+        "export_hhi": 0.1478,
+        "exporters": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5114348350,
+            "share": 0.3258
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1896725621,
+            "share": 0.1208
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1327498606,
+            "share": 0.0846
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1275190469,
+            "share": 0.0812
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1165879912,
+            "share": 0.0743
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 1060162800,
+            "share": 0.0675
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 347212618,
+            "share": 0.0221
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 336391594,
+            "share": 0.0214
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3213975019,
+            "share": 0.2047
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2163104077,
+            "share": 0.1378
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 1422535081,
+            "share": 0.0906
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1378214088,
+            "share": 0.0878
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1123012220,
+            "share": 0.0715
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 846389043,
+            "share": 0.0539
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 455689141,
+            "share": 0.029
+          },
+          {
+            "iso": "HU",
+            "name": "Hungary",
+            "value_usd": 360322365,
+            "share": 0.023
+          }
+        ]
+      }
+    },
+    "2006": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 2991557131,
+        "world_tonnes": 73537.1,
+        "n_flows": 715,
+        "china_export_share": 0.0725,
+        "export_hhi": 0.2676,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1427345910,
+            "share": 0.4771
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 425863482,
+            "share": 0.1424
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 275813320,
+            "share": 0.0922
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 216903520,
+            "share": 0.0725
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 136772638,
+            "share": 0.0457
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 126863415,
+            "share": 0.0424
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 94403386,
+            "share": 0.0316
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 71002758,
+            "share": 0.0237
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1094398705,
+            "share": 0.3658
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 549465623,
+            "share": 0.1837
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 251752159,
+            "share": 0.0842
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 192920911,
+            "share": 0.0645
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 171402802,
+            "share": 0.0573
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 166352865,
+            "share": 0.0556
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 118086716,
+            "share": 0.0395
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 86152605,
+            "share": 0.0288
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 19656143226,
+        "world_tonnes": 263530.8,
+        "n_flows": 4457,
+        "china_export_share": 0.1701,
+        "export_hhi": 0.1319,
+        "exporters": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5443147309,
+            "share": 0.2769
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3343536769,
+            "share": 0.1701
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1765214256,
+            "share": 0.0898
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1507365332,
+            "share": 0.0767
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1340568639,
+            "share": 0.0682
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 1300697139,
+            "share": 0.0662
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 524889927,
+            "share": 0.0267
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 466547950,
+            "share": 0.0237
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3986143364,
+            "share": 0.2028
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2444972774,
+            "share": 0.1244
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 1857617877,
+            "share": 0.0945
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1738558686,
+            "share": 0.0884
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1191249226,
+            "share": 0.0606
+          },
+          {
+            "iso": "ES",
+            "name": "Spain",
+            "value_usd": 1059091940,
+            "share": 0.0539
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 935313355,
+            "share": 0.0476
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 510351306,
+            "share": 0.026
+          }
+        ]
+      }
+    },
+    "2007": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 4574624381,
+        "world_tonnes": 84785.7,
+        "n_flows": 740,
+        "china_export_share": 0.064,
+        "export_hhi": 0.2205,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1924279708,
+            "share": 0.4206
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 609645380,
+            "share": 0.1333
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 545818256,
+            "share": 0.1193
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 292974248,
+            "share": 0.064
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 213631794,
+            "share": 0.0467
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 206024858,
+            "share": 0.045
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 173655195,
+            "share": 0.038
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 125439517,
+            "share": 0.0274
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1482499661,
+            "share": 0.3241
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1229649598,
+            "share": 0.2688
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 346855910,
+            "share": 0.0758
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 263689714,
+            "share": 0.0576
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 261672277,
+            "share": 0.0572
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 186627482,
+            "share": 0.0408
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 156397743,
+            "share": 0.0342
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 98875253,
+            "share": 0.0216
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 25733425944,
+        "world_tonnes": 321021.0,
+        "n_flows": 4697,
+        "china_export_share": 0.2224,
+        "export_hhi": 0.1291,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 5722412394,
+            "share": 0.2224
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5651672044,
+            "share": 0.2196
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2947041529,
+            "share": 0.1145
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 2376444676,
+            "share": 0.0923
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1634807072,
+            "share": 0.0635
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 1348255294,
+            "share": 0.0524
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 612057636,
+            "share": 0.0238
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 581904340,
+            "share": 0.0226
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 4724146644,
+            "share": 0.1836
+          },
+          {
+            "iso": "ES",
+            "name": "Spain",
+            "value_usd": 3406493762,
+            "share": 0.1324
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2978643807,
+            "share": 0.1157
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2122315075,
+            "share": 0.0825
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 1981806643,
+            "share": 0.077
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1258570820,
+            "share": 0.0489
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1121504614,
+            "share": 0.0436
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 897225898,
+            "share": 0.0349
+          }
+        ]
+      }
+    },
+    "2008": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 8595930924,
+        "world_tonnes": 99129.9,
+        "n_flows": 791,
+        "china_export_share": 0.0375,
+        "export_hhi": 0.1738,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2735106673,
+            "share": 0.3182
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1575428458,
+            "share": 0.1833
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1293890236,
+            "share": 0.1505
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 860158649,
+            "share": 0.1001
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 407324601,
+            "share": 0.0474
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 322076470,
+            "share": 0.0375
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 290488934,
+            "share": 0.0338
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 217084499,
+            "share": 0.0253
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3316611549,
+            "share": 0.3858
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1798673261,
+            "share": 0.2092
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 688516721,
+            "share": 0.0801
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 593204607,
+            "share": 0.069
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 444283928,
+            "share": 0.0517
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 307524681,
+            "share": 0.0358
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 274533965,
+            "share": 0.0319
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 173342333,
+            "share": 0.0202
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 41966213373,
+        "world_tonnes": 696789.5,
+        "n_flows": 5025,
+        "china_export_share": 0.2939,
+        "export_hhi": 0.1461,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 12333521159,
+            "share": 0.2939
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 6830413474,
+            "share": 0.1628
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 5546204472,
+            "share": 0.1322
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 3967618303,
+            "share": 0.0945
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2044318946,
+            "share": 0.0487
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 1711181410,
+            "share": 0.0408
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 1009757287,
+            "share": 0.0241
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 755980472,
+            "share": 0.018
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 8737203300,
+            "share": 0.2082
+          },
+          {
+            "iso": "ES",
+            "name": "Spain",
+            "value_usd": 8502400862,
+            "share": 0.2026
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3394758271,
+            "share": 0.0809
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2729718206,
+            "share": 0.065
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 2144967644,
+            "share": 0.0511
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2121645365,
+            "share": 0.0506
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 1952097471,
+            "share": 0.0465
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1400417613,
+            "share": 0.0334
+          }
+        ]
+      }
+    },
+    "2009": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 6367573155,
+        "world_tonnes": 108646.4,
+        "n_flows": 750,
+        "china_export_share": 0.0324,
+        "export_hhi": 0.1939,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2056308603,
+            "share": 0.3229
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1394006503,
+            "share": 0.2189
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 871534285,
+            "share": 0.1369
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 866054795,
+            "share": 0.136
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 240377244,
+            "share": 0.0378
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 210112498,
+            "share": 0.033
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 206017360,
+            "share": 0.0324
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 126095339,
+            "share": 0.0198
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1789275389,
+            "share": 0.281
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1496430991,
+            "share": 0.235
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 715434615,
+            "share": 0.1124
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 451366517,
+            "share": 0.0709
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 428792182,
+            "share": 0.0673
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 379841260,
+            "share": 0.0597
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 210059032,
+            "share": 0.033
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 162747428,
+            "share": 0.0256
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 38004820523,
+        "world_tonnes": 935628.3,
+        "n_flows": 5141,
+        "china_export_share": 0.2831,
+        "export_hhi": 0.1321,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 10760948105,
+            "share": 0.2831
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5251826351,
+            "share": 0.1382
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 4221503742,
+            "share": 0.1111
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 3682479382,
+            "share": 0.0969
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 2650703038,
+            "share": 0.0697
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1981269748,
+            "share": 0.0521
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1056178909,
+            "share": 0.0278
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 807795187,
+            "share": 0.0213
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 9831460662,
+            "share": 0.2587
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3517816588,
+            "share": 0.0926
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 2852092146,
+            "share": 0.075
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2348403381,
+            "share": 0.0618
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 2238961722,
+            "share": 0.0589
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1976101988,
+            "share": 0.052
+          },
+          {
+            "iso": "BE",
+            "name": "Belgium-Luxembourg (...1998)",
+            "value_usd": 1682064228,
+            "share": 0.0443
+          },
+          {
+            "iso": "FR",
+            "name": "France",
+            "value_usd": 1643882796,
+            "share": 0.0433
+          }
+        ]
+      }
+    },
+    "2010": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 8005361807,
+        "world_tonnes": 171998.8,
+        "n_flows": 804,
+        "china_export_share": 0.0397,
+        "export_hhi": 0.2044,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2761704495,
+            "share": 0.345
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1587790347,
+            "share": 0.1983
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1381388334,
+            "share": 0.1726
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 871611329,
+            "share": 0.1089
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 317928345,
+            "share": 0.0397
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 301597069,
+            "share": 0.0377
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 215039729,
+            "share": 0.0269
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 141924291,
+            "share": 0.0177
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2717605727,
+            "share": 0.3395
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1481791696,
+            "share": 0.1851
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 993180410,
+            "share": 0.1241
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 474085767,
+            "share": 0.0592
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 436907832,
+            "share": 0.0546
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 428464947,
+            "share": 0.0535
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 317463883,
+            "share": 0.0397
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 225061701,
+            "share": 0.0281
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 70322365007,
+        "world_tonnes": 2163490.1,
+        "n_flows": 5477,
+        "china_export_share": 0.3536,
+        "export_hhi": 0.164,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 24866597818,
+            "share": 0.3536
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 7058939233,
+            "share": 0.1004
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 6903007244,
+            "share": 0.0982
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 6667706696,
+            "share": 0.0948
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 4400477276,
+            "share": 0.0626
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3098960241,
+            "share": 0.0441
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2773744860,
+            "share": 0.0394
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2076537074,
+            "share": 0.0295
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 16884931952,
+            "share": 0.2401
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 11611791827,
+            "share": 0.1651
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6110625744,
+            "share": 0.0869
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 4352256841,
+            "share": 0.0619
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3379710596,
+            "share": 0.0481
+          },
+          {
+            "iso": "CZ",
+            "name": "Czechia",
+            "value_usd": 3006595359,
+            "share": 0.0428
+          },
+          {
+            "iso": "FR",
+            "name": "France",
+            "value_usd": 2795116818,
+            "share": 0.0397
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2760065504,
+            "share": 0.0392
+          }
+        ]
+      }
+    },
+    "2011": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 9688714631,
+        "world_tonnes": 202565.6,
+        "n_flows": 855,
+        "china_export_share": 0.0328,
+        "export_hhi": 0.1912,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2805548404,
+            "share": 0.2896
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2283782775,
+            "share": 0.2357
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1888431501,
+            "share": 0.1949
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 885911354,
+            "share": 0.0914
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 516679853,
+            "share": 0.0533
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 317880215,
+            "share": 0.0328
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 219078040,
+            "share": 0.0226
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 211095271,
+            "share": 0.0218
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3670007733,
+            "share": 0.3788
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1749610858,
+            "share": 0.1806
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1155457133,
+            "share": 0.1193
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 507326201,
+            "share": 0.0524
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 502179836,
+            "share": 0.0518
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 359237920,
+            "share": 0.0371
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 329935042,
+            "share": 0.0341
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 314679808,
+            "share": 0.0325
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 72821593213,
+        "world_tonnes": 2894366.9,
+        "n_flows": 5754,
+        "china_export_share": 0.3853,
+        "export_hhi": 0.1859,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 28060110833,
+            "share": 0.3853
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 7188424218,
+            "share": 0.0987
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 7004812855,
+            "share": 0.0962
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 6439100328,
+            "share": 0.0884
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5246006331,
+            "share": 0.072
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3176743929,
+            "share": 0.0436
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 2299173596,
+            "share": 0.0316
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2131475547,
+            "share": 0.0293
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 13892485178,
+            "share": 0.1908
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 9689310883,
+            "share": 0.1331
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 7128166176,
+            "share": 0.0979
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6854096495,
+            "share": 0.0941
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3808673596,
+            "share": 0.0523
+          },
+          {
+            "iso": "FR",
+            "name": "France",
+            "value_usd": 3657828395,
+            "share": 0.0502
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2890179444,
+            "share": 0.0397
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2778078704,
+            "share": 0.0381
+          }
+        ]
+      }
+    },
+    "2012": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 6029038500,
+        "world_tonnes": 230120.2,
+        "n_flows": 822,
+        "china_export_share": 0.0425,
+        "export_hhi": 0.2204,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1962359243,
+            "share": 0.3255
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1644429852,
+            "share": 0.2728
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 941123815,
+            "share": 0.1561
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 622150764,
+            "share": 0.1032
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 333124436,
+            "share": 0.0553
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 256186062,
+            "share": 0.0425
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 41936027,
+            "share": 0.007
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 35623484,
+            "share": 0.0059
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2191903062,
+            "share": 0.3636
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1199434014,
+            "share": 0.1989
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 830594131,
+            "share": 0.1378
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 473911347,
+            "share": 0.0786
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 218655844,
+            "share": 0.0363
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 163271701,
+            "share": 0.0271
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 159326326,
+            "share": 0.0264
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 157946405,
+            "share": 0.0262
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 57619713016,
+        "world_tonnes": 2442505.3,
+        "n_flows": 5970,
+        "china_export_share": 0.4037,
+        "export_hhi": 0.2007,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 23262763352,
+            "share": 0.4037
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 6431404566,
+            "share": 0.1116
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 5054472104,
+            "share": 0.0877
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 4578132027,
+            "share": 0.0795
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 4169436168,
+            "share": 0.0724
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3187468976,
+            "share": 0.0553
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 1842187876,
+            "share": 0.032
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1562765396,
+            "share": 0.0271
+          }
+        ],
+        "importers": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 7564598872,
+            "share": 0.1313
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 7150973244,
+            "share": 0.1241
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6596733124,
+            "share": 0.1145
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 4926459410,
+            "share": 0.0855
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3713978006,
+            "share": 0.0645
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3371518715,
+            "share": 0.0585
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2985160360,
+            "share": 0.0518
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 2961095416,
+            "share": 0.0514
+          }
+        ]
+      }
+    },
+    "2013": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 5079767499,
+        "world_tonnes": 224341.5,
+        "n_flows": 772,
+        "china_export_share": 0.0537,
+        "export_hhi": 0.196,
+        "exporters": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1418559642,
+            "share": 0.2793
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1413153672,
+            "share": 0.2782
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 718537705,
+            "share": 0.1415
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 522283063,
+            "share": 0.1028
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 416793041,
+            "share": 0.082
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 272551680,
+            "share": 0.0537
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 73950655,
+            "share": 0.0146
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 52618666,
+            "share": 0.0104
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1562393381,
+            "share": 0.3076
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1153239020,
+            "share": 0.227
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1005802305,
+            "share": 0.198
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 430944082,
+            "share": 0.0848
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 185506153,
+            "share": 0.0365
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 148962999,
+            "share": 0.0293
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 104108771,
+            "share": 0.0205
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 100668236,
+            "share": 0.0198
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 52233539361,
+        "world_tonnes": 2312462.7,
+        "n_flows": 6153,
+        "china_export_share": 0.3614,
+        "export_hhi": 0.1772,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 18876940774,
+            "share": 0.3614
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 6182156774,
+            "share": 0.1184
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 6108754993,
+            "share": 0.117
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 4905560995,
+            "share": 0.0939
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3208983641,
+            "share": 0.0614
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3091685741,
+            "share": 0.0592
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1430660174,
+            "share": 0.0274
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 1301576384,
+            "share": 0.0249
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 7497138680,
+            "share": 0.1435
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 7056548962,
+            "share": 0.1351
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 5731945733,
+            "share": 0.1097
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 4101293874,
+            "share": 0.0785
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4078814419,
+            "share": 0.0781
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3242114551,
+            "share": 0.0621
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2401582028,
+            "share": 0.046
+          },
+          {
+            "iso": "MX",
+            "name": "Mexico",
+            "value_usd": 1390139371,
+            "share": 0.0266
+          }
+        ]
+      }
+    },
+    "2014": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 6462969452,
+        "world_tonnes": 300728.4,
+        "n_flows": 762,
+        "china_export_share": 0.0449,
+        "export_hhi": 0.1962,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1907155671,
+            "share": 0.2951
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1533826877,
+            "share": 0.2373
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1242705961,
+            "share": 0.1923
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 553225921,
+            "share": 0.0856
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 501773176,
+            "share": 0.0776
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 290040539,
+            "share": 0.0449
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 92244409,
+            "share": 0.0143
+          },
+          {
+            "iso": "FR",
+            "name": "France",
+            "value_usd": 69467416,
+            "share": 0.0107
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2237061425,
+            "share": 0.3461
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1349901145,
+            "share": 0.2089
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 1060114024,
+            "share": 0.164
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 379100759,
+            "share": 0.0587
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 347224419,
+            "share": 0.0537
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 192809235,
+            "share": 0.0298
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 188437850,
+            "share": 0.0292
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 179380017,
+            "share": 0.0278
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 53232431537,
+        "world_tonnes": 76602412.0,
+        "n_flows": 6208,
+        "china_export_share": 0.3648,
+        "export_hhi": 0.1835,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 19419604142,
+            "share": 0.3648
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 7178137111,
+            "share": 0.1348
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5990658250,
+            "share": 0.1125
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5656420387,
+            "share": 0.1063
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3037227845,
+            "share": 0.0571
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2714087416,
+            "share": 0.051
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1466001873,
+            "share": 0.0275
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 1305638444,
+            "share": 0.0245
+          }
+        ],
+        "importers": [
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 8752409245,
+            "share": 0.1644
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 8262217342,
+            "share": 0.1552
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 5782231468,
+            "share": 0.1086
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4139893166,
+            "share": 0.0778
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3185909575,
+            "share": 0.0598
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2854610930,
+            "share": 0.0536
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 2392934125,
+            "share": 0.045
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2063063376,
+            "share": 0.0388
+          }
+        ]
+      }
+    },
+    "2015": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 5619049482,
+        "world_tonnes": 430698.8,
+        "n_flows": 809,
+        "china_export_share": 0.0559,
+        "export_hhi": 0.1762,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1366806385,
+            "share": 0.2432
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1286725583,
+            "share": 0.229
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1201318231,
+            "share": 0.2138
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 556301233,
+            "share": 0.099
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 388320005,
+            "share": 0.0691
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 314277852,
+            "share": 0.0559
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 143931392,
+            "share": 0.0256
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 102168143,
+            "share": 0.0182
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2121293690,
+            "share": 0.3775
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1119562295,
+            "share": 0.1992
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 869410422,
+            "share": 0.1547
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 336435045,
+            "share": 0.0599
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 237278105,
+            "share": 0.0422
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 153626360,
+            "share": 0.0273
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 144973229,
+            "share": 0.0258
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 120312244,
+            "share": 0.0214
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 54085884799,
+        "world_tonnes": 2805127.1,
+        "n_flows": 6445,
+        "china_export_share": 0.3604,
+        "export_hhi": 0.1759,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 19494037953,
+            "share": 0.3604
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 6653917790,
+            "share": 0.123
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5626523981,
+            "share": 0.104
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5244446101,
+            "share": 0.097
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3599350276,
+            "share": 0.0665
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2801549073,
+            "share": 0.0518
+          },
+          {
+            "iso": "PH",
+            "name": "Philippines",
+            "value_usd": 1817650478,
+            "share": 0.0336
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1582594938,
+            "share": 0.0293
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 8317041577,
+            "share": 0.1538
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 7613873465,
+            "share": 0.1408
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 7047936561,
+            "share": 0.1303
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4102873030,
+            "share": 0.0759
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2617089533,
+            "share": 0.0484
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2431281064,
+            "share": 0.045
+          },
+          {
+            "iso": "GB",
+            "name": "United Kingdom",
+            "value_usd": 2175552085,
+            "share": 0.0402
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 2033482781,
+            "share": 0.0376
+          }
+        ]
+      }
+    },
+    "2016": {
+      "280461": {
+        "hs": "HS02",
+        "world_usd": 5765907441,
+        "world_tonnes": 284564.8,
+        "n_flows": 789,
+        "china_export_share": 0.0348,
+        "export_hhi": 0.1939,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1709892215,
+            "share": 0.2966
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1306827758,
+            "share": 0.2266
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1115260387,
+            "share": 0.1934
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 569885065,
+            "share": 0.0988
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 408192596,
+            "share": 0.0708
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 200474477,
+            "share": 0.0348
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 144101740,
+            "share": 0.025
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 117908054,
+            "share": 0.0204
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2323354547,
+            "share": 0.4029
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1386239789,
+            "share": 0.2404
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 956357153,
+            "share": 0.1659
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 267877133,
+            "share": 0.0465
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 174392699,
+            "share": 0.0302
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 140955272,
+            "share": 0.0244
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 99502537,
+            "share": 0.0173
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 78466479,
+            "share": 0.0136
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS02",
+        "world_usd": 52453441625,
+        "world_tonnes": 3224000.6,
+        "n_flows": 6587,
+        "china_export_share": 0.3519,
+        "export_hhi": 0.1692,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 18457971862,
+            "share": 0.3519
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5883545834,
+            "share": 0.1122
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 5650849117,
+            "share": 0.1077
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5342798660,
+            "share": 0.1019
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3626190018,
+            "share": 0.0691
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2458826103,
+            "share": 0.0469
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 1579867374,
+            "share": 0.0301
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1275092241,
+            "share": 0.0243
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 10804841101,
+            "share": 0.206
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 5969225201,
+            "share": 0.1138
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4771128713,
+            "share": 0.091
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3894173790,
+            "share": 0.0742
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 3145945235,
+            "share": 0.06
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2436972550,
+            "share": 0.0465
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2413061926,
+            "share": 0.046
+          },
+          {
+            "iso": "TR",
+            "name": "Türkiye",
+            "value_usd": 2033866968,
+            "share": 0.0388
+          }
+        ]
+      }
+    },
+    "2017": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 5727034130,
+        "world_tonnes": 301281.8,
+        "n_flows": 718,
+        "china_export_share": 0.0255,
+        "export_hhi": 0.1943,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1724622350,
+            "share": 0.3011
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1236833704,
+            "share": 0.216
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1122727035,
+            "share": 0.196
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 580035552,
+            "share": 0.1013
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 446139521,
+            "share": 0.0779
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 163212503,
+            "share": 0.0285
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 147958992,
+            "share": 0.0258
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 145798560,
+            "share": 0.0255
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2518434962,
+            "share": 0.4397
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1126729818,
+            "share": 0.1967
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 812087312,
+            "share": 0.1418
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 312970730,
+            "share": 0.0546
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 239560660,
+            "share": 0.0418
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 111256946,
+            "share": 0.0194
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 110610334,
+            "share": 0.0193
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 106340858,
+            "share": 0.0186
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 52356782068,
+        "world_tonnes": 3382520.9,
+        "n_flows": 5797,
+        "china_export_share": 0.3406,
+        "export_hhi": 0.1605,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 17834161533,
+            "share": 0.3406
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5779695264,
+            "share": 0.1104
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4841871774,
+            "share": 0.0925
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 4774325580,
+            "share": 0.0912
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 4466352220,
+            "share": 0.0853
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2583793511,
+            "share": 0.0493
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 2317250596,
+            "share": 0.0443
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 2070282816,
+            "share": 0.0395
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 7432163604,
+            "share": 0.142
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6609775585,
+            "share": 0.1262
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 4446536979,
+            "share": 0.0849
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4267585985,
+            "share": 0.0815
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3850405263,
+            "share": 0.0735
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2677080109,
+            "share": 0.0511
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2460668326,
+            "share": 0.047
+          },
+          {
+            "iso": "TR",
+            "name": "Türkiye",
+            "value_usd": 2393310012,
+            "share": 0.0457
+          }
+        ]
+      }
+    },
+    "2018": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 4675299308,
+        "world_tonnes": 263471.2,
+        "n_flows": 731,
+        "china_export_share": 0.0311,
+        "export_hhi": 0.1796,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1238286790,
+            "share": 0.2649
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1067949131,
+            "share": 0.2284
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 859956809,
+            "share": 0.1839
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 494115719,
+            "share": 0.1057
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 460394195,
+            "share": 0.0985
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 145236248,
+            "share": 0.0311
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 143098715,
+            "share": 0.0306
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 108786048,
+            "share": 0.0233
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1914651551,
+            "share": 0.4095
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 1003275010,
+            "share": 0.2146
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 641021385,
+            "share": 0.1371
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 279626100,
+            "share": 0.0598
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 208627657,
+            "share": 0.0446
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 158629981,
+            "share": 0.0339
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 95786106,
+            "share": 0.0205
+          },
+          {
+            "iso": "NO",
+            "name": "Norway",
+            "value_usd": 39532905,
+            "share": 0.0085
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 51253877389,
+        "world_tonnes": 3702240.3,
+        "n_flows": 6235,
+        "china_export_share": 0.3704,
+        "export_hhi": 0.1768,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 18984055854,
+            "share": 0.3704
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5294876923,
+            "share": 0.1033
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5270976997,
+            "share": 0.1028
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 4192505878,
+            "share": 0.0818
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 3532830616,
+            "share": 0.0689
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2422300757,
+            "share": 0.0473
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1936119255,
+            "share": 0.0378
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 1715632580,
+            "share": 0.0335
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6132875145,
+            "share": 0.1197
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 5325744518,
+            "share": 0.1039
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4740609754,
+            "share": 0.0925
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3622204316,
+            "share": 0.0707
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 2841915158,
+            "share": 0.0554
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2679530494,
+            "share": 0.0523
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2527990184,
+            "share": 0.0493
+          },
+          {
+            "iso": "MX",
+            "name": "Mexico",
+            "value_usd": 2192402293,
+            "share": 0.0428
+          }
+        ]
+      }
+    },
+    "2019": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 3219505225,
+        "world_tonnes": 229431.3,
+        "n_flows": 717,
+        "china_export_share": 0.0292,
+        "export_hhi": 0.1834,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 863417182,
+            "share": 0.2682
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 827615427,
+            "share": 0.2571
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 490678809,
+            "share": 0.1524
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 364155050,
+            "share": 0.1131
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 224230496,
+            "share": 0.0696
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 184875435,
+            "share": 0.0574
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 94024031,
+            "share": 0.0292
+          },
+          {
+            "iso": "DK",
+            "name": "Denmark",
+            "value_usd": 48500104,
+            "share": 0.0151
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1287825133,
+            "share": 0.4
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 658569197,
+            "share": 0.2046
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 316330278,
+            "share": 0.0983
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 236280626,
+            "share": 0.0734
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 129336677,
+            "share": 0.0402
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 109085968,
+            "share": 0.0339
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 108796958,
+            "share": 0.0338
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 96032319,
+            "share": 0.0298
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 55919810349,
+        "world_tonnes": 5272714.9,
+        "n_flows": 6438,
+        "china_export_share": 0.4355,
+        "export_hhi": 0.2212,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 24350555901,
+            "share": 0.4355
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5851752397,
+            "share": 0.1046
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4871939706,
+            "share": 0.0871
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3387652615,
+            "share": 0.0606
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 2905006377,
+            "share": 0.0519
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2582825901,
+            "share": 0.0462
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 2510263886,
+            "share": 0.0449
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1605822682,
+            "share": 0.0287
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 8538086434,
+            "share": 0.1527
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 4487567716,
+            "share": 0.0803
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4363556075,
+            "share": 0.078
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3445932175,
+            "share": 0.0616
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 3406884694,
+            "share": 0.0609
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3298199203,
+            "share": 0.059
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2791848581,
+            "share": 0.0499
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2666285295,
+            "share": 0.0477
+          }
+        ]
+      }
+    },
+    "2020": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 2691217040,
+        "world_tonnes": 165599.1,
+        "n_flows": 695,
+        "china_export_share": 0.0337,
+        "export_hhi": 0.2128,
+        "exporters": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 816281094,
+            "share": 0.3033
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 810309559,
+            "share": 0.3011
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 344449966,
+            "share": 0.128
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 209269751,
+            "share": 0.0778
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 170394185,
+            "share": 0.0633
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 129746374,
+            "share": 0.0482
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 90806425,
+            "share": 0.0337
+          },
+          {
+            "iso": "IT",
+            "name": "Italy",
+            "value_usd": 27370295,
+            "share": 0.0102
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 947790464,
+            "share": 0.3522
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 588895678,
+            "share": 0.2188
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 261703810,
+            "share": 0.0972
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 235505440,
+            "share": 0.0875
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 172430746,
+            "share": 0.0641
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 117508420,
+            "share": 0.0437
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 85825717,
+            "share": 0.0319
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 63725098,
+            "share": 0.0237
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 57675796676,
+        "world_tonnes": 29722917.4,
+        "n_flows": 6312,
+        "china_export_share": 0.43,
+        "export_hhi": 0.2161,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 24801504304,
+            "share": 0.43
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5684267612,
+            "share": 0.0986
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4994504628,
+            "share": 0.0866
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3686770493,
+            "share": 0.0639
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3163674308,
+            "share": 0.0549
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 2365892864,
+            "share": 0.041
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2363718831,
+            "share": 0.041
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 2316043162,
+            "share": 0.0402
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 10328194254,
+            "share": 0.1791
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 5208422799,
+            "share": 0.0903
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 4567180536,
+            "share": 0.0792
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4355487468,
+            "share": 0.0755
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 3969827434,
+            "share": 0.0688
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 3027760375,
+            "share": 0.0525
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2910737000,
+            "share": 0.0505
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2719334007,
+            "share": 0.0471
+          }
+        ]
+      }
+    },
+    "2021": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 4501552029,
+        "world_tonnes": 195810.0,
+        "n_flows": 687,
+        "china_export_share": 0.0363,
+        "export_hhi": 0.2142,
+        "exporters": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1526685377,
+            "share": 0.3391
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1133464151,
+            "share": 0.2518
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 610613813,
+            "share": 0.1356
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 481279878,
+            "share": 0.1069
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 276492141,
+            "share": 0.0614
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 163279145,
+            "share": 0.0363
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 106160053,
+            "share": 0.0236
+          },
+          {
+            "iso": "DK",
+            "name": "Denmark",
+            "value_usd": 44101879,
+            "share": 0.0098
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2174257766,
+            "share": 0.483
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 685633145,
+            "share": 0.1523
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 418386882,
+            "share": 0.0929
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 300832184,
+            "share": 0.0668
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 157682897,
+            "share": 0.035
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 140095183,
+            "share": 0.0311
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 126414793,
+            "share": 0.0281
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 123071355,
+            "share": 0.0273
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 72802824388,
+        "world_tonnes": 7270209.4,
+        "n_flows": 6577,
+        "china_export_share": 0.4769,
+        "export_hhi": 0.2525,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 34720157590,
+            "share": 0.4769
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 6262646652,
+            "share": 0.086
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5946676587,
+            "share": 0.0817
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3745417472,
+            "share": 0.0514
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 3269671269,
+            "share": 0.0449
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3007923043,
+            "share": 0.0413
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2897815641,
+            "share": 0.0398
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 2548879822,
+            "share": 0.035
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 9623117991,
+            "share": 0.1322
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 7077069431,
+            "share": 0.0972
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 6049442854,
+            "share": 0.0831
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 5179753504,
+            "share": 0.0711
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 4216526009,
+            "share": 0.0579
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3996979468,
+            "share": 0.0549
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 3225774934,
+            "share": 0.0443
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3121872148,
+            "share": 0.0429
+          }
+        ]
+      }
+    },
+    "2022": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 5859530807,
+        "world_tonnes": 185186.2,
+        "n_flows": 705,
+        "china_export_share": 0.0395,
+        "export_hhi": 0.2325,
+        "exporters": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2098537796,
+            "share": 0.3581
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1587215569,
+            "share": 0.2709
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 753048624,
+            "share": 0.1285
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 570591628,
+            "share": 0.0974
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 310040648,
+            "share": 0.0529
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 231362181,
+            "share": 0.0395
+          },
+          {
+            "iso": "DK",
+            "name": "Denmark",
+            "value_usd": 88190093,
+            "share": 0.0151
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 80428412,
+            "share": 0.0137
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 2674744546,
+            "share": 0.4565
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 749432226,
+            "share": 0.1279
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 704370821,
+            "share": 0.1202
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 498544837,
+            "share": 0.0851
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 296970781,
+            "share": 0.0507
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 180440738,
+            "share": 0.0308
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 170602544,
+            "share": 0.0291
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 150089872,
+            "share": 0.0256
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 87201305817,
+        "world_tonnes": 8960162.2,
+        "n_flows": 6226,
+        "china_export_share": 0.4935,
+        "export_hhi": 0.2638,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 43036715743,
+            "share": 0.4935
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 6558361331,
+            "share": 0.0752
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5308498733,
+            "share": 0.0609
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5286596455,
+            "share": 0.0606
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3432689312,
+            "share": 0.0394
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 3404900844,
+            "share": 0.039
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 2763683692,
+            "share": 0.0317
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2731033358,
+            "share": 0.0313
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 13644570228,
+            "share": 0.1565
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 5861282290,
+            "share": 0.0672
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 5383987389,
+            "share": 0.0617
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 4318386375,
+            "share": 0.0495
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 4174527455,
+            "share": 0.0479
+          },
+          {
+            "iso": "ES",
+            "name": "Spain",
+            "value_usd": 4058433852,
+            "share": 0.0465
+          },
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 3999020056,
+            "share": 0.0459
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3065204409,
+            "share": 0.0352
+          }
+        ]
+      }
+    },
+    "2023": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 4440075299,
+        "world_tonnes": 156821.8,
+        "n_flows": 665,
+        "china_export_share": 0.0556,
+        "export_hhi": 0.2333,
+        "exporters": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1485931073,
+            "share": 0.3347
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1334575614,
+            "share": 0.3006
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 613497925,
+            "share": 0.1382
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 364976096,
+            "share": 0.0822
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 246921108,
+            "share": 0.0556
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 152059344,
+            "share": 0.0342
+          },
+          {
+            "iso": "DK",
+            "name": "Denmark",
+            "value_usd": 111452634,
+            "share": 0.0251
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 52973702,
+            "share": 0.0119
+          }
+        ],
+        "importers": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 1423464770,
+            "share": 0.3206
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 1049664561,
+            "share": 0.2364
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 726233172,
+            "share": 0.1636
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 291688293,
+            "share": 0.0657
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 210497712,
+            "share": 0.0474
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 136232858,
+            "share": 0.0307
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 115259412,
+            "share": 0.026
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 106244377,
+            "share": 0.0239
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 95492640911,
+        "world_tonnes": 13292338.4,
+        "n_flows": 6506,
+        "china_export_share": 0.4704,
+        "export_hhi": 0.2443,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 44916572031,
+            "share": 0.4704
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 8013573139,
+            "share": 0.0839
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 6780135102,
+            "share": 0.071
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 5796995982,
+            "share": 0.0607
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 5091590742,
+            "share": 0.0533
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 3055599745,
+            "share": 0.032
+          },
+          {
+            "iso": "KH",
+            "name": "Cambodia",
+            "value_usd": 2622914802,
+            "share": 0.0275
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 2312758434,
+            "share": 0.0242
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 22087139595,
+            "share": 0.2313
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 5355099833,
+            "share": 0.0561
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 5114819906,
+            "share": 0.0536
+          },
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 4035029825,
+            "share": 0.0423
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 3568005886,
+            "share": 0.0374
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3459695063,
+            "share": 0.0362
+          },
+          {
+            "iso": "ES",
+            "name": "Spain",
+            "value_usd": 3332958357,
+            "share": 0.0349
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 3133213245,
+            "share": 0.0328
+          }
+        ]
+      }
+    },
+    "2024": {
+      "280461": {
+        "hs": "HS17",
+        "world_usd": 3625664179,
+        "world_tonnes": 164129.1,
+        "n_flows": 597,
+        "china_export_share": 0.1259,
+        "export_hhi": 0.2256,
+        "exporters": [
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 1176072842,
+            "share": 0.3244
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 1090231614,
+            "share": 0.3007
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 456419667,
+            "share": 0.1259
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 295768287,
+            "share": 0.0816
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 258970833,
+            "share": 0.0714
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 135744857,
+            "share": 0.0374
+          },
+          {
+            "iso": "DK",
+            "name": "Denmark",
+            "value_usd": 92390122,
+            "share": 0.0255
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 52384105,
+            "share": 0.0144
+          }
+        ],
+        "importers": [
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 881581511,
+            "share": 0.2432
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 855708814,
+            "share": 0.236
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 624157757,
+            "share": 0.1721
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 244272987,
+            "share": 0.0674
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 188433117,
+            "share": 0.052
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 163813956,
+            "share": 0.0452
+          },
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 120437941,
+            "share": 0.0332
+          },
+          {
+            "iso": "SG",
+            "name": "Singapore",
+            "value_usd": 103084488,
+            "share": 0.0284
+          }
+        ]
+      },
+      "854140": {
+        "hs": "HS17",
+        "world_usd": 77980038830,
+        "world_tonnes": 16891400.2,
+        "n_flows": 6194,
+        "china_export_share": 0.4732,
+        "export_hhi": 0.2473,
+        "exporters": [
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 36897969661,
+            "share": 0.4732
+          },
+          {
+            "iso": "VN",
+            "name": "Viet Nam",
+            "value_usd": 7397011597,
+            "share": 0.0949
+          },
+          {
+            "iso": "MY",
+            "name": "Malaysia",
+            "value_usd": 5137907463,
+            "share": 0.0659
+          },
+          {
+            "iso": "JP",
+            "name": "Japan",
+            "value_usd": 4275341026,
+            "share": 0.0548
+          },
+          {
+            "iso": "TH",
+            "name": "Thailand",
+            "value_usd": 4114849984,
+            "share": 0.0528
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2234840224,
+            "share": 0.0287
+          },
+          {
+            "iso": "TW",
+            "name": "Taiwan",
+            "value_usd": 2140496261,
+            "share": 0.0274
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 1807662080,
+            "share": 0.0232
+          }
+        ],
+        "importers": [
+          {
+            "iso": "US",
+            "name": "USA",
+            "value_usd": 18570635848,
+            "share": 0.2381
+          },
+          {
+            "iso": "NL",
+            "name": "Netherlands",
+            "value_usd": 5218574432,
+            "share": 0.0669
+          },
+          {
+            "iso": "IN",
+            "name": "India",
+            "value_usd": 4674584167,
+            "share": 0.0599
+          },
+          {
+            "iso": "HK",
+            "name": "China, Hong Kong SAR",
+            "value_usd": 3973566302,
+            "share": 0.051
+          },
+          {
+            "iso": "CN",
+            "name": "China",
+            "value_usd": 3541078156,
+            "share": 0.0454
+          },
+          {
+            "iso": "BR",
+            "name": "Brazil",
+            "value_usd": 2943844990,
+            "share": 0.0378
+          },
+          {
+            "iso": "KR",
+            "name": "Rep. of Korea",
+            "value_usd": 2536637873,
+            "share": 0.0325
+          },
+          {
+            "iso": "DE",
+            "name": "Fed. Rep. of Germany (...1990)",
+            "value_usd": 2252813854,
+            "share": 0.0289
+          }
+        ]
+      }
+    }
+  },
+  "series": {
+    "280461": [
+      {
+        "year": 2002,
+        "hs": "HS02",
+        "world_usd": 710175029,
+        "world_tonnes": 21534.0,
+        "china_export_share": 0.0455,
+        "export_hhi": 0.2295
+      },
+      {
+        "year": 2003,
+        "hs": "HS02",
+        "world_usd": 914986464,
+        "world_tonnes": 52643.1,
+        "china_export_share": 0.0764,
+        "export_hhi": 0.2102
+      },
+      {
+        "year": 2004,
+        "hs": "HS02",
+        "world_usd": 1304824486,
+        "world_tonnes": 55973.2,
+        "china_export_share": 0.0803,
+        "export_hhi": 0.2224
+      },
+      {
+        "year": 2005,
+        "hs": "HS02",
+        "world_usd": 1962679839,
+        "world_tonnes": 65386.1,
+        "china_export_share": 0.0866,
+        "export_hhi": 0.2505
+      },
+      {
+        "year": 2006,
+        "hs": "HS02",
+        "world_usd": 2991557131,
+        "world_tonnes": 73537.1,
+        "china_export_share": 0.0725,
+        "export_hhi": 0.2676
+      },
+      {
+        "year": 2007,
+        "hs": "HS02",
+        "world_usd": 4574624381,
+        "world_tonnes": 84785.7,
+        "china_export_share": 0.064,
+        "export_hhi": 0.2205
+      },
+      {
+        "year": 2008,
+        "hs": "HS02",
+        "world_usd": 8595930924,
+        "world_tonnes": 99129.9,
+        "china_export_share": 0.0375,
+        "export_hhi": 0.1738
+      },
+      {
+        "year": 2009,
+        "hs": "HS02",
+        "world_usd": 6367573155,
+        "world_tonnes": 108646.4,
+        "china_export_share": 0.0324,
+        "export_hhi": 0.1939
+      },
+      {
+        "year": 2010,
+        "hs": "HS02",
+        "world_usd": 8005361807,
+        "world_tonnes": 171998.8,
+        "china_export_share": 0.0397,
+        "export_hhi": 0.2044
+      },
+      {
+        "year": 2011,
+        "hs": "HS02",
+        "world_usd": 9688714631,
+        "world_tonnes": 202565.6,
+        "china_export_share": 0.0328,
+        "export_hhi": 0.1912
+      },
+      {
+        "year": 2012,
+        "hs": "HS02",
+        "world_usd": 6029038500,
+        "world_tonnes": 230120.2,
+        "china_export_share": 0.0425,
+        "export_hhi": 0.2204
+      },
+      {
+        "year": 2013,
+        "hs": "HS02",
+        "world_usd": 5079767499,
+        "world_tonnes": 224341.5,
+        "china_export_share": 0.0537,
+        "export_hhi": 0.196
+      },
+      {
+        "year": 2014,
+        "hs": "HS02",
+        "world_usd": 6462969452,
+        "world_tonnes": 300728.4,
+        "china_export_share": 0.0449,
+        "export_hhi": 0.1962
+      },
+      {
+        "year": 2015,
+        "hs": "HS02",
+        "world_usd": 5619049482,
+        "world_tonnes": 430698.8,
+        "china_export_share": 0.0559,
+        "export_hhi": 0.1762
+      },
+      {
+        "year": 2016,
+        "hs": "HS02",
+        "world_usd": 5765907441,
+        "world_tonnes": 284564.8,
+        "china_export_share": 0.0348,
+        "export_hhi": 0.1939
+      },
+      {
+        "year": 2017,
+        "hs": "HS17",
+        "world_usd": 5727034130,
+        "world_tonnes": 301281.8,
+        "china_export_share": 0.0255,
+        "export_hhi": 0.1943
+      },
+      {
+        "year": 2018,
+        "hs": "HS17",
+        "world_usd": 4675299308,
+        "world_tonnes": 263471.2,
+        "china_export_share": 0.0311,
+        "export_hhi": 0.1796
+      },
+      {
+        "year": 2019,
+        "hs": "HS17",
+        "world_usd": 3219505225,
+        "world_tonnes": 229431.3,
+        "china_export_share": 0.0292,
+        "export_hhi": 0.1834
+      },
+      {
+        "year": 2020,
+        "hs": "HS17",
+        "world_usd": 2691217040,
+        "world_tonnes": 165599.1,
+        "china_export_share": 0.0337,
+        "export_hhi": 0.2128
+      },
+      {
+        "year": 2021,
+        "hs": "HS17",
+        "world_usd": 4501552029,
+        "world_tonnes": 195810.0,
+        "china_export_share": 0.0363,
+        "export_hhi": 0.2142
+      },
+      {
+        "year": 2022,
+        "hs": "HS17",
+        "world_usd": 5859530807,
+        "world_tonnes": 185186.2,
+        "china_export_share": 0.0395,
+        "export_hhi": 0.2325
+      },
+      {
+        "year": 2023,
+        "hs": "HS17",
+        "world_usd": 4440075299,
+        "world_tonnes": 156821.8,
+        "china_export_share": 0.0556,
+        "export_hhi": 0.2333
+      },
+      {
+        "year": 2024,
+        "hs": "HS17",
+        "world_usd": 3625664179,
+        "world_tonnes": 164129.1,
+        "china_export_share": 0.1259,
+        "export_hhi": 0.2256
+      }
+    ],
+    "854140": [
+      {
+        "year": 2002,
+        "hs": "HS02",
+        "world_usd": 7103789270,
+        "world_tonnes": 105747.2,
+        "china_export_share": 0.0809,
+        "export_hhi": 0.1565
+      },
+      {
+        "year": 2003,
+        "hs": "HS02",
+        "world_usd": 9356695824,
+        "world_tonnes": 2824869.2,
+        "china_export_share": 0.0865,
+        "export_hhi": 0.169
+      },
+      {
+        "year": 2004,
+        "hs": "HS02",
+        "world_usd": 12670628603,
+        "world_tonnes": 2099231.5,
+        "china_export_share": 0.0877,
+        "export_hhi": 0.1641
+      },
+      {
+        "year": 2005,
+        "hs": "HS02",
+        "world_usd": 15697613720,
+        "world_tonnes": 236469.0,
+        "china_export_share": 0.1208,
+        "export_hhi": 0.1478
+      },
+      {
+        "year": 2006,
+        "hs": "HS02",
+        "world_usd": 19656143226,
+        "world_tonnes": 263530.8,
+        "china_export_share": 0.1701,
+        "export_hhi": 0.1319
+      },
+      {
+        "year": 2007,
+        "hs": "HS02",
+        "world_usd": 25733425944,
+        "world_tonnes": 321021.0,
+        "china_export_share": 0.2224,
+        "export_hhi": 0.1291
+      },
+      {
+        "year": 2008,
+        "hs": "HS02",
+        "world_usd": 41966213373,
+        "world_tonnes": 696789.5,
+        "china_export_share": 0.2939,
+        "export_hhi": 0.1461
+      },
+      {
+        "year": 2009,
+        "hs": "HS02",
+        "world_usd": 38004820523,
+        "world_tonnes": 935628.3,
+        "china_export_share": 0.2831,
+        "export_hhi": 0.1321
+      },
+      {
+        "year": 2010,
+        "hs": "HS02",
+        "world_usd": 70322365007,
+        "world_tonnes": 2163490.1,
+        "china_export_share": 0.3536,
+        "export_hhi": 0.164
+      },
+      {
+        "year": 2011,
+        "hs": "HS02",
+        "world_usd": 72821593213,
+        "world_tonnes": 2894366.9,
+        "china_export_share": 0.3853,
+        "export_hhi": 0.1859
+      },
+      {
+        "year": 2012,
+        "hs": "HS02",
+        "world_usd": 57619713016,
+        "world_tonnes": 2442505.3,
+        "china_export_share": 0.4037,
+        "export_hhi": 0.2007
+      },
+      {
+        "year": 2013,
+        "hs": "HS02",
+        "world_usd": 52233539361,
+        "world_tonnes": 2312462.7,
+        "china_export_share": 0.3614,
+        "export_hhi": 0.1772
+      },
+      {
+        "year": 2014,
+        "hs": "HS02",
+        "world_usd": 53232431537,
+        "world_tonnes": 76602412.0,
+        "china_export_share": 0.3648,
+        "export_hhi": 0.1835
+      },
+      {
+        "year": 2015,
+        "hs": "HS02",
+        "world_usd": 54085884799,
+        "world_tonnes": 2805127.1,
+        "china_export_share": 0.3604,
+        "export_hhi": 0.1759
+      },
+      {
+        "year": 2016,
+        "hs": "HS02",
+        "world_usd": 52453441625,
+        "world_tonnes": 3224000.6,
+        "china_export_share": 0.3519,
+        "export_hhi": 0.1692
+      },
+      {
+        "year": 2017,
+        "hs": "HS17",
+        "world_usd": 52356782068,
+        "world_tonnes": 3382520.9,
+        "china_export_share": 0.3406,
+        "export_hhi": 0.1605
+      },
+      {
+        "year": 2018,
+        "hs": "HS17",
+        "world_usd": 51253877389,
+        "world_tonnes": 3702240.3,
+        "china_export_share": 0.3704,
+        "export_hhi": 0.1768
+      },
+      {
+        "year": 2019,
+        "hs": "HS17",
+        "world_usd": 55919810349,
+        "world_tonnes": 5272714.9,
+        "china_export_share": 0.4355,
+        "export_hhi": 0.2212
+      },
+      {
+        "year": 2020,
+        "hs": "HS17",
+        "world_usd": 57675796676,
+        "world_tonnes": 29722917.4,
+        "china_export_share": 0.43,
+        "export_hhi": 0.2161
+      },
+      {
+        "year": 2021,
+        "hs": "HS17",
+        "world_usd": 72802824388,
+        "world_tonnes": 7270209.4,
+        "china_export_share": 0.4769,
+        "export_hhi": 0.2525
+      },
+      {
+        "year": 2022,
+        "hs": "HS17",
+        "world_usd": 87201305817,
+        "world_tonnes": 8960162.2,
+        "china_export_share": 0.4935,
+        "export_hhi": 0.2638
+      },
+      {
+        "year": 2023,
+        "hs": "HS17",
+        "world_usd": 95492640911,
+        "world_tonnes": 13292338.4,
+        "china_export_share": 0.4704,
+        "export_hhi": 0.2443
+      },
+      {
+        "year": 2024,
+        "hs": "HS17",
+        "world_usd": 77980038830,
+        "world_tonnes": 16891400.2,
+        "china_export_share": 0.4732,
+        "export_hhi": 0.2473
+      }
+    ]
+  }
+}
