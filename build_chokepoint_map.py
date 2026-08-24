@@ -20,7 +20,9 @@ BESPOKE = [
 ]
 
 
-def build():
+def derive():
+    """Read every chain record's chokepoint field (+ the bespoke silicon-chip row) and return the map
+    structure. This is the single source of truth; both build() and check.py's guard call it."""
     rows = list(BESPOKE)
     for d in sorted(glob.glob(os.path.join(ROOT, "*-chain"))):
         slug = os.path.basename(d)[:-6]  # strip trailing "-chain"
@@ -36,15 +38,19 @@ def build():
         row.update({k: ck.get(k, "—") for k in ("product", "stage", "mechanism", "physics", "holder", "share", "control", "conf")})
         rows.append(row)
     rows.sort(key=lambda r: r["chain"])
-    out = {"source": "derived from the chain records' chokepoint fields", "count": len(rows), "rows": rows}
+    return {"source": "derived from the chain records' chokepoint fields", "count": len(rows), "rows": rows}
+
+
+def build():
+    out = derive()
     path = os.path.join(ROOT, "chokepoint_map.json")
     with open(path, "w", encoding="utf-8") as fh:
         json.dump(out, fh, ensure_ascii=False, indent=2)
     # tallies, for the log
     from collections import Counter
-    c = Counter(r["mechanism"] for r in rows)
+    c = Counter(r["mechanism"] for r in out["rows"])
     geo = c.get("geological", 0)
-    print("wrote chokepoint_map.json —", len(rows), "chains |", dict(c), "| geological", geo, "/ made", len(rows) - geo)
+    print("wrote chokepoint_map.json —", out["count"], "chains |", dict(c), "| geological", geo, "/ made", out["count"] - geo)
 
 
 if __name__ == "__main__":

@@ -232,10 +232,41 @@ def check_builders():
             fail('builders', f'{f} has a syntax error at line {e.lineno}: {e.msg}')
 
 
+def check_chokepoint_sync():
+    """The Chokepoint Map and the hub counts DERIVE from chokepoint_map.json, which is built from each
+    chain record's `chokepoint` field by build_chokepoint_map.py. If a record's classification changed
+    but the map JSON was not rebuilt, the live page silently goes stale. Re-derive from the records and
+    compare, so a stale map is impossible, not merely unlikely. Run: python build_chokepoint_map.py"""
+    import importlib.util
+    bp, mp = os.path.join(ROOT, 'build_chokepoint_map.py'), os.path.join(ROOT, 'chokepoint_map.json')
+    if not os.path.exists(bp) or not os.path.exists(mp):
+        return
+    try:
+        spec = importlib.util.spec_from_file_location('bcm', bp)
+        bcm = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(bcm)
+        derived = {r['chain']: r for r in bcm.derive()['rows']}
+    except Exception as e:
+        fail('chokepoint', f'could not derive the map from records: {e}'); return
+    try:
+        onfile = {r['chain']: r for r in json.load(open(mp, encoding='utf8')).get('rows', [])}
+    except Exception as e:
+        fail('chokepoint', f'chokepoint_map.json is unreadable: {e}'); return
+    if derived == onfile:
+        return
+    detail = []
+    miss, extra = sorted(set(derived) - set(onfile)), sorted(set(onfile) - set(derived))
+    diff = sorted(c for c in derived if c in onfile and derived[c] != onfile[c])
+    if miss:  detail.append(f'records missing from map: {miss[:5]}')
+    if extra: detail.append(f'map rows with no record: {extra[:5]}')
+    if diff:  detail.append(f'{len(diff)} row(s) changed (e.g. {diff[0]})')
+    fail('chokepoint', 'chokepoint_map.json is STALE — run: python build_chokepoint_map.py  (' + '; '.join(detail) + ')')
+
+
 # ---------------------------------------------------------------- run
 CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
-          ('builders', check_builders)]
+          ('builders', check_builders), ('chokepoint', check_chokepoint_sync)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
