@@ -192,6 +192,19 @@ CHAINS = {
     "arsenic": ("arsenic-chain", "arsenic", {
         "280480": {"title": "Arsenic", "boundary": "Semiconductor-grade high-purity arsenic and the GaAs it makes are not separable from the bulk toxic material."},
     }),
+    "molybdenum": ("molybdenum-chain", "molybdenum", {
+        "261310": {"title": "Molybdenum ores, roasted", "boundary": "Roasted concentrate; ~half a copper by-product, so exporter shares mix by-product and primary output."},
+        "720270": {"title": "Ferro-molybdenum", "boundary": "The steel-alloying form; a diversified trade (Chile/China) - no single-country concentration to flag."},
+    }),
+    "tellurium": ("tellurium-chain", "tellurium", {
+        "280450": {"title": "Boron and tellurium", "boundary": "Tellurium is lumped with boron in this line and cannot be isolated; the real volumes are tiny (a few hundred tonnes/yr)."},
+    }),
+    "rhenium": ("rhenium-chain", "rhenium", {
+        "811299": {"title": "Other base metals (incl. rhenium)", "boundary": "Rhenium has no clean HS6 line - it sits in this minor-metals basket and cannot be separated; volumes are tiny."},
+    }),
+    "bismuth": ("bismuth-chain", "bismuth", {
+        "810600": {"title": "Bismuth and articles thereof", "boundary": "The traded metal, where China's ~80% dominance shows; the lead/tungsten by-product origin is not visible in this line."},
+    }),
 }
 
 # code -> list of chains that use it

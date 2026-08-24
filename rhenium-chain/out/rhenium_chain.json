@@ -1,0 +1,164 @@
+{
+  "title": "Rhenium chain",
+  "chokepoint": {
+    "product": "Jet-engine superalloys",
+    "stage": "Recovery (moly roasting)",
+    "mechanism": "byproduct",
+    "physics": "A by-product of a by-product — recovered from molybdenum roasting, itself a copper by-product; one of the rarest metals, and it gates single-crystal turbine blades",
+    "holder": "Chile · US · Poland",
+    "share": "—",
+    "control": "—",
+    "conf": "measured"
+  },
+  "published": true,
+  "related": [
+    {
+      "href": "../aerospace-chain/aerospace-chain.html",
+      "label": "Aerospace chain"
+    },
+    {
+      "href": "../copper-chain/copper-chain.html",
+      "label": "Copper chain"
+    },
+    {
+      "href": "../defence-chain/defence-chain.html",
+      "label": "Defence chain"
+    }
+  ],
+  "accent": "#4a5a6a",
+  "eyebrow": "Product-chain pilot · the metal that flies hottest",
+  "h1": "The jet-engine metal that's a by-product of a by-product",
+  "deck": "Rhenium is one of the rarest elements in the Earth's crust, and nobody mines it. It is recovered from the flue dust of roasting molybdenum — which is itself mostly a by-product of copper. Yet a few percent of rhenium in a single-crystal nickel superalloy lets a jet-engine turbine blade run hotter, which is what makes modern engines efficient. It gates the hottest part of flight.",
+  "byline": "copper → molybdenum by-product → rhenium (flue dust) ≠ superalloy ≠ single-crystal turbine blade ≠ the engine",
+  "correction": "Rhenium sits two coupling levels down: it is recovered from the gases and dust given off when molybdenum concentrate (a copper by-product) is roasted, so its supply is tied to copper and molybdenum output, not to rhenium demand. Its defining use is aerospace: adding rhenium to single-crystal nickel superalloys raises the temperature a turbine blade can survive, directly improving jet-engine efficiency and thrust. It links to the aerospace chain's blade chokepoint — and is recycled hard because it is so scarce.",
+  "stats": [
+    {
+      "v": "turbine blades",
+      "l": "rhenium superalloys let jet-engine blades run hotter — more efficient engines",
+      "conf": "measured"
+    },
+    {
+      "v": "by-product²",
+      "l": "recovered from molybdenum roasting — itself a copper by-product",
+      "conf": "measured"
+    },
+    {
+      "v": "among the rarest",
+      "l": "one of the scarcest elements in the crust; no rhenium mines exist",
+      "conf": "measured"
+    },
+    {
+      "v": "aerospace-gated",
+      "l": "demand tracks jet-engine production; heavily recycled from engine scrap",
+      "conf": "measured"
+    }
+  ],
+  "hops": [
+    {
+      "n": "1 · Copper → moly",
+      "t": "molybdenite (a copper by-product) carries trace rhenium — Chile, US, Poland, Kazakhstan"
+    },
+    {
+      "n": "2 · Roast & capture",
+      "t": "roasting molybdenum releases rhenium in flue dust; captured as perrhenate"
+    },
+    {
+      "n": "3 · Superalloy",
+      "t": "a few percent rhenium in single-crystal nickel superalloy"
+    },
+    {
+      "n": "4 · Blade / engine",
+      "t": "cast into turbine blades that run hotter; plus reforming catalysts"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · Rarity coupled two levels deep",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "Where rhenium comes from",
+          "big": "moly flue dust",
+          "conf": "measured",
+          "text": "There is no rhenium mine. The metal occurs in molybdenite at trace levels, and molybdenite is mostly recovered as a by-product of copper. So rhenium is a by-product of a by-product: captured from the flue gases when molybdenum concentrate is roasted, chiefly at operations in Chile, the United States, Poland and Kazakhstan. World output is a few dozen tonnes a year — among the smallest of any industrial metal.",
+          "note": "USGS Rhenium 2026."
+        }
+      ]
+    },
+    {
+      "h2": "2 · Why aerospace cannot do without it",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Hotter blades, better engines",
+          "conf": "measured",
+          "text": "Modern jet engines run their turbine sections as hot as the materials allow, because higher temperature means more efficiency and thrust. Adding 2-6% rhenium to the single-crystal nickel superalloys of turbine blades raises that temperature ceiling and improves creep resistance. That is why rhenium demand is dominated by aerospace, and why it connects directly to the aerospace chain's single-crystal-blade chokepoint (hot but batch, qualification-gated).",
+          "note": "USGS; superalloy literature.",
+          "flag": "the temperature ceiling of flight"
+        },
+        {
+          "kind": "text",
+          "h3": "The other use: cleaner petrol",
+          "text": "Outside aerospace, platinum-rhenium catalysts are used in catalytic reforming to raise the octane of petrol. But the strategic weight is in the engines — which is why rhenium is stockpiled and closely tracked by aerospace primes.",
+          "flag": "also a reforming catalyst"
+        }
+      ]
+    },
+    {
+      "h2": "3 · Scarcity managed by recycling",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "Reclaimed from every scrapped engine",
+          "text": "Because rhenium is so rare and cannot be scaled, a large share of supply is recycled — reclaimed from worn turbine blades and superalloy scrap, and from spent reforming catalysts. Engine makers run closed-loop recovery. The decision layer, as with tellurium, is efficiency and recycling, not new mines that cannot exist.",
+          "flag": "closed-loop, not new mines"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "Rhenium has no clean HS6 line — it sits in the shared 'other base metals' basket (811299) with several minor metals, so its trade cannot be isolated, and volumes are tiny. Read the shares below as that shared basket only, not a rhenium series.",
+  "method": [
+    {
+      "stage": "Source",
+      "lens": "USGS by-product recovery",
+      "why": "from molybdenum roasting — a by-product of a by-product"
+    },
+    {
+      "stage": "Use",
+      "lens": "superalloy blade demand",
+      "why": "aerospace-dominated; the temperature ceiling"
+    },
+    {
+      "stage": "Supply",
+      "lens": "recycling share",
+      "why": "heavily recycled — scarcity managed, not scaled"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI 811299 (minor-metals basket)",
+      "why": "rhenium not separable; tiny volumes — flagged"
+    }
+  ],
+  "sources": {
+    "usgs_rhenium": {
+      "title": "USGS Mineral Commodity Summaries 2026 — Rhenium",
+      "year": 2026,
+      "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf"
+    },
+    "roskill_context": {
+      "title": "Industry / NRC — rhenium in single-crystal superalloys",
+      "year": 2024,
+      "url": "https://www.nrel.gov/"
+    },
+    "bgs_wms": {
+      "title": "BGS, World Mineral Statistics — rhenium",
+      "year": 2024,
+      "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}

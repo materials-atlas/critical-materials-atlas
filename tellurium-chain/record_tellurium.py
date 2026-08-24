@@ -1,0 +1,102 @@
+"""Evidence JSON for the tellurium chain pilot. Uniform schema. Public sources.
+A by-product of a by-product. Run: python record_tellurium.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "tellurium_chain.json")
+
+SRC = {
+    "usgs_tellurium": {"title": "USGS Mineral Commodity Summaries 2026 — Tellurium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tellurium.pdf"},
+    "firstsolar": {"title": "First Solar / NREL — cadmium-telluride (CdTe) thin-film PV", "year": 2024, "url": "https://www.nrel.gov/pv/cadmium-telluride-solar-cells.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — tellurium", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Tellurium chain",
+    "chokepoint": {"product": "CdTe solar · thermoelectrics", "stage": "Recovery (copper slimes)", "mechanism": "byproduct", "physics": "An extreme by-product — recovered from the anode slimes of copper refining; supply is bounded by copper, and it is among the rarest metals recovered at scale", "holder": "China · others", "share": "—", "control": "—", "conf": "measured"},
+    "published": True,
+    "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../solar-chain/solar-chain.html", "label": "Solar-PV chain"}, {"href": "../silver-chain/silver-chain.html", "label": "Silver chain"}],
+    "accent": "#6a5a7a",
+    "eyebrow": "Product-chain pilot · the metal in the sludge",
+    "h1": "One of the rarest metals you rely on — hiding in copper-refinery sludge",
+    "deck": "Tellurium is among the scarcest elements recovered industrially, and almost all of it comes from a single "
+            "unlikely source: the anode slimes left at the bottom of copper-refining tanks. That tiny by-product "
+            "stream makes cadmium-telluride solar panels — the main non-silicon photovoltaic technology — and the "
+            "thermoelectric coolers in portable fridges and lasers.",
+    "byline": "copper anode slimes ≠ recovered tellurium (tiny) ≠ CdTe / Bi2Te3 ≠ thin-film solar · thermoelectric coolers",
+    "correction": "Tellurium is the atlas's clearest 'by-product of a by-product' at the extreme. It is recovered "
+                  "almost entirely from the slimes that collect during electrolytic copper refining, so world supply is "
+                  "a rounding error on copper and cannot be scaled on its own no matter the demand. Yet it is the "
+                  "critical ingredient of cadmium-telluride (CdTe) thin-film solar — the largest solar technology after "
+                  "silicon — and of bismuth-telluride thermoelectrics. A vanishingly small, copper-bound supply "
+                  "underwrites a real slice of the energy transition.",
+    "stats": [
+        {"v": "copper slimes", "l": "tellurium is recovered from copper-refinery anode slimes — a by-product", "conf": "measured"},
+        {"v": "CdTe solar", "l": "the main non-silicon thin-film photovoltaic (First Solar's technology)", "conf": "measured"},
+        {"v": "extremely rare", "l": "one of the scarcest elements recovered at industrial scale", "conf": "measured"},
+        {"v": "can't scale", "l": "supply is bounded by copper refining, not by tellurium demand", "conf": "measured"},
+    ],
+    "hops": [
+        {"n": "1 · Copper refining", "t": "electrolytic copper refining drops anode slimes rich in trace metals"},
+        {"n": "2 · Recover", "t": "tellurium (with selenium, silver, gold) extracted from the slimes — tiny volumes"},
+        {"n": "3 · Compounds", "t": "cadmium telluride (CdTe) and bismuth telluride (Bi2Te3), plus metal"},
+        {"n": "4 · End use", "t": "thin-film solar modules, thermoelectric coolers, steel-machinability additive"},
+    ],
+    "sections": [
+        {"h2": "1 · Supply welded to copper — twice over", "panels": [
+            {"kind": "big", "h3": "Where it comes from", "big": "anode slimes", "conf": "measured",
+             "text": "When copper is refined electrolytically, impurities settle as anode slimes, and those slimes are "
+                     "the world's main tellurium source — alongside selenium, silver and gold. So tellurium is coupled "
+                     "to copper output and, within that, to how much slime is processed for its trace metals. World "
+                     "production is measured in a few hundred tonnes a year, among the smallest of any element the "
+                     "modern economy depends on.",
+             "note": "USGS Tellurium 2026."},
+            {"kind": "text", "h3": "Which caps how fast solar can lean on it",
+             "text": "Because tellurium cannot be scaled independently, CdTe solar's growth is inherently limited by "
+                     "copper refining and by how much tellurium is recovered — a genuine ceiling that pushes the "
+                     "industry toward thinner cells (less tellurium per watt) and recycling. It is the by-product trap "
+                     "of gallium and indium, but on an even tinier base.",
+             "flag": "the ceiling under CdTe solar"},
+        ]},
+        {"h2": "2 · What the tiny supply enables", "panels": [
+            {"kind": "text", "h3": "The main non-silicon solar", "conf": "measured",
+             "text": "Cadmium-telluride thin-film modules are the largest solar technology after crystalline silicon, "
+                     "commercialised at scale chiefly by First Solar. They use far less energy to make than silicon "
+                     "panels and perform well in heat, so CdTe is a real, growing part of the solar mix (see the solar "
+                     "chain) — entirely dependent on a metal from copper sludge.",
+             "note": "First Solar / NREL.", "flag": "a solar technology on a by-product"},
+            {"kind": "text", "h3": "And the coolers that need no compressor",
+             "text": "Bismuth-telluride is the standard thermoelectric material — turning a temperature difference into "
+                     "electricity, or a current into cooling with no moving parts. It runs portable fridges, laser and "
+                     "sensor cooling, and waste-heat harvesting. A niche but irreplaceable role for a niche metal.",
+             "flag": "solid-state cooling"},
+        ]},
+        {"h2": "3 · Living within the ceiling", "panels": [
+            {"kind": "text", "h3": "Thrift and recycling, because there's no more",
+             "text": "With supply structurally capped, the response is efficiency and recovery: using less tellurium "
+                     "per solar cell, recovering more from copper slimes, and recycling end-of-life modules. There is "
+                     "no 'open a mine' option for tellurium — the decision layer is entirely about doing more with the "
+                     "trickle that copper provides.",
+             "flag": "thrift, not new mines"},
+        ]},
+    ],
+    "trade_intro": "BACI lumps tellurium with boron in one line (280450), so it cannot be isolated, and the real "
+                   "volumes are tiny and specialised. Read the shares below as that shared minor-element line only, not "
+                   "a tellurium series — the material is nearly invisible in trade, as befits a few-hundred-tonne "
+                   "market.",
+    "method": [
+        {"stage": "Source", "lens": "USGS by-product recovery", "why": "copper anode slimes — an extreme by-product"},
+        {"stage": "Use", "lens": "CdTe solar + thermoelectrics", "why": "the main non-silicon PV; solid-state cooling"},
+        {"stage": "Ceiling", "lens": "supply vs demand", "why": "bounded by copper — thrift and recycling only"},
+        {"stage": "Trade", "lens": "BACI 280450 (boron/tellurium)", "why": "tellurium not separable; tiny volumes — flagged"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- tellurium, extreme copper by-product; CdTe solar; can't scale")
