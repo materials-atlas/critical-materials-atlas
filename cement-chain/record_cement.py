@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Cement chain",
+    "chokepoint": {"product": "Concrete", "stage": "Kiln (local)", "mechanism": "diffuse", "physics": "Limestone + kilns are everywhere and cement is cheap + heavy → made locally; no chokepoint, only CO₂", "holder": "local, everywhere", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#8a8a8a",

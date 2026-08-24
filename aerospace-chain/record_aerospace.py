@@ -19,6 +19,7 @@ SRC = {
 
 CHAIN = {
     "title": "Aerospace / jet-engine superalloy chain",
+    "chokepoint": {"product": "Aircraft", "stage": "Turbine blades", "mechanism": "capability", "physics": "Single-crystal blades are HOT but BATCH — concentrated by qualification + know-how, not power", "holder": "mixed", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../titanium-chain/titanium-chain.html", "label": "Titanium chain"}, {"href": "../pgm-catalyst-chain/pgm-catalyst-chain.html", "label": "PGM / catalyst chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#35617f",

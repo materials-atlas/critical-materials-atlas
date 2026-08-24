@@ -21,6 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "PGM / catalyst chain",
+    "chokepoint": {"product": "Autocatalysts", "stage": "Bushveld", "mechanism": "geological", "physics": "The platinum-group ore is in the Bushveld Complex — can't be relocated", "holder": "South Africa", "share": "~70%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}, {"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}],
     "accent": "#5a6472",

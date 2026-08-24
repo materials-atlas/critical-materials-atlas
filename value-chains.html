@@ -47,7 +47,7 @@
 
   <p class="thesis">One finding runs through the layer: <b>the chokepoint is rarely the mine — and when it is, geology is why.</b> The same lesson the atlas draws for single materials — the refiner is not the source — scales up to whole technologies: as a raw material becomes a feedstock, a component and then a finished machine, the binding constraint keeps moving <i>downstream</i>, to the furnace, the fab, the magnet, the enrichment plant, the transformer. That distinction is the useful one, because <b>a constraint that was built can be rebuilt elsewhere</b> — a new smelter, fab, casting shop or cable yard, given time and capital. A handful of chains break the pattern, and they break it for the same reason: the chokepoint is <b>a deposit that cannot be substituted or relocated</b> — phosphate reserves (~70% Morocco, no substitute for phosphorus), the platinum-group Bushveld, and niobium's essentially single Brazilian mine. A built chokepoint is a policy problem; a geological one is a fact of the map. And the built ones are not all alike: a stage concentrates for a knowable reason — a <b>continuous-hot</b> process that must be one big unit at cheap power, a <b>by-product</b> that can't scale alone, a <b>capability</b> that takes years to qualify, or a <b>rule</b> — and the <a href="chokepoint-map.html">Chokepoint Map</a> sorts all forty-four by that mechanism, because the mechanism is what tells you the fix.</p>
 
-  <div class="preview" style="border-left-color:#2f6f4f"><b>The Chokepoint Map.</b> The whole layer in one sortable table: every chain classified by where its bottleneck actually sits. Of 44 chains, only 3 are geological; 41 were made. <a href="chokepoint-map.html">Open the Chokepoint Map →</a></div>
+  <div class="preview" style="border-left-color:#2f6f4f"><b>The Chokepoint Map.</b> The whole layer in one sortable table: every chain classified by where its bottleneck actually sits. Of <span id="cm-total">44</span> chains, only <span id="cm-geo">3</span> are geological; <span id="cm-made">41</span> were made. <a href="chokepoint-map.html">Open the Chokepoint Map →</a></div>
 
   <div class="grid">
     <div class="chwrap"><div class="ch"><span class="tag">Compute</span>
@@ -291,4 +291,11 @@
   <div><h4>Sources</h4>USGS · IEA · IRENA · OECD<br>SIA · SEMI · UN Comtrade · CEPII BACI</div>
   <div class="fineprint">Research preview under the materials-atlas handle. Working drafts, offered for scrutiny.</div>
 </div></footer>
+<script>
+fetch('chokepoint_map.json').then(function(r){return r.json();}).then(function(j){
+  var rows=j.rows||[], total=rows.length, geo=rows.filter(function(r){return r.mechanism==='geological';}).length;
+  var set=function(id,v){var e=document.getElementById(id); if(e)e.textContent=v;};
+  set('cm-total',total); set('cm-geo',geo); set('cm-made',total-geo);
+}).catch(function(){});
+</script>
 </body></html>

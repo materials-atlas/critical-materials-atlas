@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Steel / structural-alloys chain",
+    "chokepoint": {"product": "Ferroalloys (Nb/V)", "stage": "Niobium mine", "mechanism": "geological", "physics": "Niobium is essentially one Brazilian mine (CBMM)", "holder": "Brazil", "share": "~90%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../wind-chain/wind-chain.html", "label": "Wind-turbine chain"}],
     "accent": "#4e5a66",

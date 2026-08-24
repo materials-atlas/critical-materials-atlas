@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Graphite / battery-anode chain",
+    "chokepoint": {"product": "Battery anode", "stage": "Spherical anode", "mechanism": "capability", "physics": "Spheronising + purifying + coating flake into anode — ~100% China", "holder": "China", "share": "~100%", "control": "Dec 2023", "conf": "measured"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}],
     "accent": "#4a4a4a",

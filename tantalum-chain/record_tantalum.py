@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tantalum / capacitor chain",
+    "chokepoint": {"product": "Capacitors", "stage": "Mine (3TG)", "mechanism": "governance", "physics": "~70% from DRC/Rwanda artisanal mining — a conflict-mineral supply, not a unique deposit", "holder": "DRC · Rwanda", "share": "~70%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#6a5a4a",

@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Manganese chain",
+    "chokepoint": {"product": "Battery manganese", "stage": "Sulphate / EMM", "mechanism": "capability", "physics": "High-purity manganese sulphate + electrolytic metal — ~90% China", "holder": "China", "share": "~90%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
     "accent": "#7a4a4a",

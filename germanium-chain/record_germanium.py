@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Germanium chain",
+    "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own", "holder": "China", "share": "~60%", "control": "Jul 2023", "conf": "measured"},
     "published": True,
     "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
     "accent": "#5a7a5a",

@@ -18,6 +18,7 @@ SRC = {
 
 CHAIN = {
     "title": "Lithium-ion battery chain",
+    "chokepoint": {"product": "Battery cells", "stage": "Cell + cathode", "mechanism": "capability", "physics": "Electrode coating + cell assembly at scale — capital + process capability, ~80% China", "holder": "China", "share": "~80%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../lithium-chain/lithium-chain.html", "label": "Lithium chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}, {"href": "../graphite-chain/graphite-chain.html", "label": "Graphite / anode chain"}],
     "accent": "#3f7d5a",

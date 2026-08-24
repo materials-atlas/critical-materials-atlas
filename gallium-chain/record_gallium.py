@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Gallium chain",
+    "chokepoint": {"product": "GaN / GaAs chips", "stage": "Recovery", "mechanism": "byproduct", "physics": "Trace by-product of alumina/zinc refining — bounded by the host, not gallium demand", "holder": "China", "share": "~98%", "control": "Jul 2023", "conf": "measured"},
     "published": True,
     "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
     "accent": "#8a5a3a",

@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Electrolyser / hydrogen chain",
+    "chokepoint": {"product": "Green hydrogen", "stage": "Iridium (PEM)", "mechanism": "byproduct", "physics": "The scale limit is iridium — a trace by-product of platinum mining (future-tense)", "holder": "South Africa", "share": "—", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../pgm-catalyst-chain/pgm-catalyst-chain.html", "label": "PGM / catalyst chain"}, {"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#3f7d8a",

@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Titanium chain",
+    "chokepoint": {"product": "Aerospace metal", "stage": "Sponge + mill", "mechanism": "capability", "physics": "Kroll sponge + qualified aerospace mill — batch, certification-gated (VSMPO etc.)", "holder": "CN · JP · RU · KZ", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#6a6a7a",

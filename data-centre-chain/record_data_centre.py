@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Data-centre / AI chain",
+    "chokepoint": {"product": "AI compute", "stage": "Grid connection", "mechanism": "diffuse", "physics": "Power + grid connection are local and switchable — the limit is megawatts, not one country", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#5a5a9c",

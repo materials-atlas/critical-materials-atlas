@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tungsten chain",
+    "chokepoint": {"product": "Carbide tools · defence", "stage": "APT + carbide", "mechanism": "capability", "physics": "Mine + APT + carbide processing; ~80% China for decades", "holder": "China", "share": "~80%", "control": "Feb 2025", "conf": "measured"},
     "published": True,
     "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}],
     "accent": "#5a5a5a",

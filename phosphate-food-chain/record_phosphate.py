@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Phosphate → fertilizer → food chain",
+    "chokepoint": {"product": "Fertilizer / food", "stage": "Reserves", "mechanism": "geological", "physics": "~70% of reserves are in Morocco; no substitute for phosphorus", "holder": "Morocco", "share": "~70%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#6f7c3c",

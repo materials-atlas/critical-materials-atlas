@@ -18,6 +18,7 @@ SRC = {
 
 CHAIN = {
     "title": "Primary / green-steel chain",
+    "chokepoint": {"product": "Primary steel", "stage": "Blast furnace", "mechanism": "thermodynamic", "physics": "Continuous coke-fired reduction; gated by coking coal + energy", "holder": "China smelt", "share": "~54%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#7a6a5a",

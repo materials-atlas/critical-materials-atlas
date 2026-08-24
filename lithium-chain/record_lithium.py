@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Lithium chain",
+    "chokepoint": {"product": "Battery lithium", "stage": "Conversion", "mechanism": "capability", "physics": "Converting spodumene/brine to battery-grade chemical — the concentrated step, China", "holder": "China", "share": "most", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
     "accent": "#7a7a3a",

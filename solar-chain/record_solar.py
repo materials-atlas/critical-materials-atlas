@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Solar-PV chain",
+    "chokepoint": {"product": "Solar modules", "stage": "Polysilicon + wafer", "mechanism": "thermodynamic", "physics": "Polysilicon + wafer pulling are power- and capital-hungry, sited at cheap Chinese power", "holder": "China", "share": "~95%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
     "accent": "#c08a2e",
