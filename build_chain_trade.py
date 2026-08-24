@@ -154,6 +154,23 @@ CHAINS = {
         "811212": {"title": "Beryllium, unwrought; powder", "boundary": "A very small, specialised US-led trade; copper-beryllium alloy sits in copper-alloy lines, not here."},
         "811219": {"title": "Beryllium, other (articles)", "boundary": "Wrought beryllium articles; the US processing dominance is only partly visible."},
     }),
+    "zinc": ("zinc-chain", "zinc", {
+        "260800": {"title": "Zinc ores and concentrates", "boundary": "The diversified base-metal ore; the trace gallium/germanium/indium it hosts are invisible here."},
+        "790111": {"title": "Unwrought zinc, >= 99.99% pure", "boundary": "Refined zinc; ~half China. The by-product recovery that matters strategically is not visible in this line."},
+    }),
+    "boron": ("boron-chain", "boron", {
+        "252800": {"title": "Natural borates and concentrates", "boundary": "Crude borate ore — where the Turkey-plus-US geological duopoly shows most directly."},
+        "281000": {"title": "Boron oxides; boric acids", "boundary": "The first-refined boron chemicals; downstream glass/fertilizer/magnet uses are not separable."},
+    }),
+    "lead": ("lead-chain", "lead", {
+        "260700": {"title": "Lead ores and concentrates", "boundary": "Primary ore only; the dominant secondary (recycled) flow barely crosses borders."},
+        "780110": {"title": "Refined unwrought lead", "boundary": "Refined lead metal; much of it recycled locally, so trade is the primary/refined margin."},
+        "780199": {"title": "Unwrought lead, other (incl. secondary)", "boundary": "Includes secondary lead, but the recycling loop is overwhelmingly local, not traded."},
+    }),
+    "zirconium": ("zirconium-chain", "zirconium", {
+        "261510": {"title": "Zirconium ores and concentrates (zircon)", "boundary": "Abundant zircon sand (a titanium-sands by-product); ceramic vs nuclear grade not distinguished."},
+        "810920": {"title": "Zirconium, unwrought; powder", "boundary": "Unwrought zirconium; nuclear-grade (hafnium-free) metal and hafnium itself are not separable here."},
+    }),
 }
 
 # code -> list of chains that use it

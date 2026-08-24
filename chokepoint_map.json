@@ -1,6 +1,6 @@
 {
   "source": "derived from the chain records' chokepoint fields",
-  "count": 44,
+  "count": 48,
   "rows": [
     {
       "chain": "aerospace",
@@ -71,6 +71,18 @@
       "physics": "Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint",
       "holder": "United States",
       "share": "~55%",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "boron",
+      "href": "boron-chain/boron-chain.html",
+      "product": "Fibreglass · fertilizer · magnets",
+      "stage": "Reserves",
+      "mechanism": "geological",
+      "physics": "Turkey's borate deposits are geologically exceptional — ~70% of world reserves; the deposit can't be relocated",
+      "holder": "Turkey",
+      "share": "~70% reserves",
       "control": "—",
       "conf": "measured"
     },
@@ -274,6 +286,18 @@
       "mechanism": "byproduct",
       "physics": "By-product of helium-rich natural gas; coupled to a few fields, non-renewable",
       "holder": "US · QA · RU",
+      "share": "—",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "lead",
+      "href": "lead-chain/lead-chain.html",
+      "product": "Lead-acid batteries",
+      "stage": "Recycling loop",
+      "mechanism": "diffuse",
+      "physics": "~60% of lead is recycled from spent batteries, locally — a closed loop, not a geographic chokepoint",
+      "holder": "—",
       "share": "—",
       "control": "—",
       "conf": "measured"
@@ -527,6 +551,30 @@
       "physics": "A steel-and-concrete machine; the limit is scale/logistics + OEM share, and it localises",
       "holder": "China OEM",
       "share": "~67%",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "zinc",
+      "href": "zinc-chain/zinc-chain.html",
+      "product": "Galvanizing · by-product host",
+      "stage": "Smelting",
+      "mechanism": "capability",
+      "physics": "The host: gallium, germanium, indium and cadmium are recovered at zinc smelters — refining capacity (China ~half) gates them, not just zinc",
+      "holder": "China",
+      "share": "~half",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "zirconium",
+      "href": "zirconium-chain/zirconium-chain.html",
+      "product": "Nuclear fuel cladding",
+      "stage": "Nuclear-grade sponge",
+      "mechanism": "capability",
+      "physics": "Nuclear-grade (hafnium-free) zirconium sponge + cladding is a qualified capability held by a few; Zr and Hf are chemical twins, hard to separate",
+      "holder": "FR · US · RU · CN",
+      "share": "few",
       "control": "—",
       "conf": "measured"
     }
