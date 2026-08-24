@@ -1,0 +1,120 @@
+"""Evidence JSON for the vanadium chain pilot. Uniform schema. Public sources.
+Shared chainview renderer, per-figure confidence tags. Run: python record_vanadium.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "vanadium_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+
+
+def hist_points(material, country):
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
+
+SRC = {
+    "usgs_vanadium": {"title": "USGS Mineral Commodity Summaries 2026 — Vanadium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf"},
+    "iea_grid_storage": {"title": "IEA, Grid-scale storage & long-duration technologies", "year": 2024, "url": "https://www.iea.org/energy-system/electricity/grid-scale-storage"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — vanadium", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Vanadium chain",
+    "published": True,
+    "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}],
+    "accent": "#5a5a7a",
+    "eyebrow": "Product-chain pilot · stronger steel, and maybe the grid battery",
+    "h1": "A pinch of vanadium strengthens steel — and it might store the grid",
+    "deck": "About nine-tenths of vanadium goes into steel, where a tiny addition makes rebar and tools far stronger — "
+            "an invisible ingredient behind earthquake-resistant construction. Its second act is energy: vanadium "
+            "redox-flow batteries offer long-duration grid storage that does not degrade. China now mines most of it, "
+            "often as a by-product of its own steel industry.",
+    "byline": "magnetite / steel slag ≠ ferro-vanadium (steel) or vanadium electrolyte (flow battery) ≠ rebar or grid storage",
+    "correction": "Vanadium is a dual-purpose metal whose map flipped. Historically South Africa led; today China mines "
+                  "~64% (up from ~37% in 2000), largely recovering vanadium as a by-product of processing its "
+                  "vanadium-bearing iron ore and steel slag, while South Africa's share fell to ~13%. Its dominant use "
+                  "is micro-alloying steel — a tiny dose for a big strength gain — and its emerging use is "
+                  "vanadium-redox-flow batteries for long-duration storage, a technology China is also building out.",
+    "stats": [
+        {"v": "~90%", "l": "of vanadium micro-alloys steel — rebar, pipeline and tool strength", "conf": "measured"},
+        {"v": "37 → 64%", "l": "China's mine share rose as South Africa's fell", "conf": "measured"},
+        {"v": "flow batteries", "l": "vanadium-redox-flow — long-duration grid storage that doesn't degrade", "conf": "estimate"},
+        {"v": "by-product", "l": "mostly recovered from vanadium-bearing iron ore and steel slag", "conf": "measured"},
+    ],
+    "history": {
+        "title": "The map flipped to China, 2000 → 2024",
+        "conf": "measured",
+        "note": "BGS/USGS mine production, from the atlas's own data. South Africa led in 2000 (~55%) but fell to "
+                "~13%, while China rose from ~37% to ~64%, recovering vanadium as a by-product of its vast steel "
+                "industry, with Russia third. As with several battery-adjacent metals, the concentration built up in "
+                "China — here tied to its dominance in steel itself.",
+        "series": [
+            {"label": "China", "points": hist_points("vanadium", "CN")},
+            {"label": "South Africa", "points": hist_points("vanadium", "ZA")},
+            {"label": "Russia", "points": hist_points("vanadium", "RU")},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Source", "t": "vanadium-bearing magnetite iron ore and steel slag — mostly a by-product"},
+        {"n": "2 · Convert", "t": "vanadium pentoxide → ferro-vanadium (steel) or high-purity electrolyte (batteries)"},
+        {"n": "3a · Steel", "t": "micro-alloying: a small dose greatly raises strength (rebar, pipe, tools)"},
+        {"n": "3b · Storage", "t": "vanadium-redox-flow battery electrolyte for long-duration grid storage"},
+    ],
+    "sections": [
+        {"h2": "1 · The invisible strengthener", "panels": [
+            {"kind": "big", "h3": "What most vanadium does", "big": "~90% steel", "conf": "measured",
+             "text": "The overwhelming use of vanadium is micro-alloying steel: adding a fraction of a percent sharply "
+                     "raises strength and toughness, which is why high-strength rebar (for earthquake-resistant "
+                     "building), pipelines and tool steels depend on it. The quantities are tiny and the metal is "
+                     "cheap per tonne of steel, but the function is hard to replace — a small, essential input.",
+             "note": "USGS: steel alloying dominates vanadium demand."},
+            {"kind": "text", "h3": "A by-product of steel, so tied to it",
+             "text": "Most vanadium is not mined for its own sake; it is recovered from vanadium-rich magnetite iron "
+                     "ore and from the slag left over when that ore is made into steel. That coupling is why China — "
+                     "the world's steel superpower — became the dominant vanadium producer: its vanadium supply rides "
+                     "on its steel output.",
+             "flag": "vanadium rides on steel"},
+        ]},
+        {"h2": "2 · The map flipped to China", "panels": [
+            {"kind": "big", "h3": "South Africa out, China in", "big": "37 → 64%", "conf": "measured",
+             "text": "In 2000 South Africa mined most of the world's vanadium; by 2024 China did, having risen to ~64% "
+                     "as South African output fell to ~13% amid power and cost pressures. Russia is a distant third. It "
+                     "is the same story as several battery-adjacent metals — a concentration that built over two "
+                     "decades — here anchored in China's steel dominance rather than a unique deposit.",
+             "note": "BGS/USGS mine-production history."},
+            {"kind": "text", "h3": "Not scarce, but concentrated",
+             "text": "Vanadium is reasonably abundant in the crust and recoverable from several sources (magnetite, "
+                     "slag, spent catalysts, even some crude oils), so it is not geologically scarce. The risk is "
+                     "processing concentration and by-product coupling — the familiar pattern where the mine map "
+                     "understates where the real control sits.",
+             "flag": "abundant, but processing-concentrated"},
+        ]},
+        {"h2": "3 · The second act: storing the grid", "panels": [
+            {"kind": "text", "h3": "Vanadium-redox-flow batteries", "conf": "estimate",
+             "text": "Vanadium's growth story is energy storage. A vanadium-redox-flow battery stores energy in liquid "
+                     "electrolyte tanks, scales power and capacity independently, lasts decades and barely degrades — "
+                     "well suited to the long-duration storage a renewable grid needs (see the grid chain). It is still "
+                     "small versus lithium-ion, and the electrolyte ties it to vanadium supply, but if long-duration "
+                     "storage scales, a humble steel additive becomes an energy metal.",
+             "note": "IEA grid-storage analyses; marked as an emerging use.", "flag": "the storage upside, still emerging"},
+        ]},
+    ],
+    "trade_intro": "BACI carries ferro-vanadium (720292) and vanadium oxides (282530); vanadium ore sits in the shared "
+                   "niobium/tantalum/vanadium line and is not separable. Read the shares below as the traded alloy and "
+                   "oxide — where China's processing role shows — not the by-product mine map.",
+    "method": [
+        {"stage": "Source", "lens": "USGS/BGS mine share + history", "why": "China ~64%, by-product of its steel industry"},
+        {"stage": "Convert", "lens": "ferro-vanadium vs electrolyte", "why": "the split between steel and storage use"},
+        {"stage": "Use", "lens": "steel alloying vs flow batteries", "why": "~90% steel today; storage the emerging upside"},
+        {"stage": "Trade", "lens": "BACI 720292 ferro-V + 282530 oxide", "why": "alloy/oxide show processing, not the mine — flagged"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- vanadium, ~90pct steel micro-alloy; China 37->64pct; flow-battery upside")

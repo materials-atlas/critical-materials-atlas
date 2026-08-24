@@ -123,6 +123,21 @@ CHAINS = {
         "260200": {"title": "Manganese ores and concentrates", "boundary": "The diversified ore (South Africa, Gabon, Australia) - not the China-concentrated battery-grade refining."},
         "720211": {"title": "Ferro-manganese", "boundary": "Steel-grade alloy; electrolytic manganese metal and battery-grade sulphate are not captured."},
     }),
+    "antimony": ("antimony-chain", "antimony", {
+        "811010": {"title": "Unwrought antimony, powder", "boundary": "Refined antimony metal; China's refining dominance shows here more than in the diversifying mine."},
+        "282580": {"title": "Antimony oxides (incl. trioxide)", "boundary": "The flame-retardant form (ATO); the stage the Sept-2024 export controls targeted."},
+    }),
+    "germanium": ("germanium-chain", "germanium", {
+        "811292": {"title": "Germanium/gallium/indium (unwrought minor metals)", "boundary": "Germanium shares this basket with gallium and indium and cannot be isolated — invisible in customs data."},
+    }),
+    "chromium": ("chromium-chain", "chromium", {
+        "261000": {"title": "Chromium ores and concentrates (chromite)", "boundary": "South-Africa-led ore; increasingly shipped to Kazakh and Chinese ferrochrome capacity."},
+        "720241": {"title": "Ferro-chromium, > 4% carbon", "boundary": "The energy-intensive alloy step; where the smelter geography (KZ/CN) shows, not the ore map."},
+    }),
+    "vanadium": ("vanadium-chain", "vanadium", {
+        "720292": {"title": "Ferro-vanadium", "boundary": "The steel-alloying form; China's processing dominance shows here, not in the shared V ore line."},
+        "282530": {"title": "Vanadium oxides and hydroxides", "boundary": "Vanadium pentoxide — feeds both ferro-vanadium and flow-battery electrolyte; grade not distinguished."},
+    }),
 }
 
 # code -> list of chains that use it

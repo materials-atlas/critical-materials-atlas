@@ -65,8 +65,8 @@
 
   <div class="headline">
     <div class="hcard perm"><div class="big">3</div><div class="lbl">chains whose chokepoint is <b>geological</b> — a deposit that cannot be relocated or substituted. These are permanent.</div></div>
-    <div class="hcard built"><div class="big">28</div><div class="lbl">chains whose chokepoint was <b>built</b> — refining, manufacturing, energy, policy. What was built can be rebuilt.</div></div>
-    <div class="hcard coupled"><div class="big">5</div><div class="lbl">chains that are <b>coupled or timed</b> — a by-product that can't scale alone, or a lead-time that can't be rushed.</div></div>
+    <div class="hcard built"><div class="big">31</div><div class="lbl">chains whose chokepoint was <b>built</b> — refining, manufacturing, energy, policy. What was built can be rebuilt.</div></div>
+    <div class="hcard coupled"><div class="big">6</div><div class="lbl">chains that are <b>coupled or timed</b> — a by-product that can't scale alone, or a lead-time that can't be rushed.</div></div>
   </div>
 
   <p class="note">Click a type to filter; click a column heading to sort. Each chain links to its full page. "Share at the choke" is the concentration at the binding step (not always the mine). Confidence and sourcing live on each chain's page.</p>
@@ -87,7 +87,7 @@
   </table></div>
 
   <h2 class="sec">What the map shows</h2>
-  <p class="note">Of thirty-six chains, only <b>three</b> — phosphate, the platinum-group metals and niobium — have a chokepoint that is genuinely geological: a deposit that cannot be substituted or relocated. Everything else is a <b>built</b> constraint: a refinery (rare-earth separation, lithium and cobalt conversion), a factory (solar wafers, chip fabs, battery cells, graphite anode), an energy input (ammonia's gas, aluminium's power), a policy (Indonesia's nickel ban) or a service (uranium enrichment). A separate five are <b>coupled</b> — by-products like gallium, helium and neon that cannot be scaled on their own — or <b>timed</b>, like copper, where the limit is the decade it takes to open a mine. The practical reading: most of these dependencies are policy problems with engineering answers, not permanent features of the earth — which is exactly why the distinction is worth drawing.</p>
+  <p class="note">Of forty chains, only <b>three</b> — phosphate, the platinum-group metals and niobium — have a chokepoint that is genuinely geological: a deposit that cannot be substituted or relocated. Everything else is a <b>built</b> constraint: a refinery (rare-earth separation, lithium and cobalt conversion), a factory (solar wafers, chip fabs, battery cells, graphite anode), an energy input (ammonia's gas, aluminium's power, ferrochrome's power), a policy (Indonesia's nickel ban) or a service (uranium enrichment). A separate <b>six</b> are <b>coupled</b> — by-products like gallium, germanium, helium and neon that cannot be scaled on their own — or <b>timed</b>, like copper, where the limit is the decade it takes to open a mine. The practical reading: most of these dependencies are policy problems with engineering answers, not permanent features of the earth — which is exactly why the distinction is worth drawing.</p>
 
   <p class="note" style="margin-top:1rem">A research synthesis of the <a href="value-chains.html">Value Chains</a> layer. Read each chain for its sources, confidence tags and boundaries.</p>
 </article>
@@ -143,7 +143,11 @@ var ROWS = [
  ["heat-pump","Heat pumps","Labour — installers","systemic","—","—","—","Built"],
  ["copper","Electrification","Time — mine lead-time","systemic","diversified","—","—","Temporal"],
  ["aerospace","Aircraft","Composite — Ti / Ni / Re / CF","systemic","mixed","—","—","Built"],
- ["defence","Weapons systems","Composite — RE + many inputs","systemic","China (many)","—","multiple","Built"]
+ ["defence","Weapons systems","Composite — RE + many inputs","systemic","China (many)","—","multiple","Built"],
+ ["antimony","Flame retardant · munitions","Refining + 2024 control","refining","China (refine)","refine","Sep 2024","Built"],
+ ["germanium","IR optics · fibre","By-product — zinc / coal","byproduct","China","~60%","Jul 2023","Coupled"],
+ ["chromium","Stainless steel","Energy — ferrochrome smelting","energy","S.Africa · KZ · CN","—","—","Built"],
+ ["vanadium","Steel + grid storage","Refining — steel by-product","refining","China","~64%","—","Built"]
 ];
 var COLIDX={chain:0,product:1,type:2,holder:4,share:5,control:6,reb:7}, FAMI=3; // family stored at index 3
 var active=null, sortK="chain", sortDir=1;
