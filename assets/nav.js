@@ -70,6 +70,7 @@
       ['about.html', 'About the atlas'],
       ['reports.html', 'Reports — dated, citable'],
       ['synthesis.html', 'Synthesis — the hardest cases'],
+      ['chokepoint-map.html', 'Chokepoint map — value-chains synthesis'],
       ['methodology.html', 'Methodology & validation'],
       ['technical-note.html', 'Technical note (PDF)'],
       ['brief.html', 'One-page findings brief'],
