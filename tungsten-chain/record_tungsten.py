@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tungsten chain",
+    "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}],
     "accent": "#5a5a5a",
     "eyebrow": "Product-chain pilot · the metal that cuts the others",
     "h1": "You can't machine metal without tungsten — and China has about 80%",

@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Ammonia / nitrogen-fertilizer chain",
+    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}],
     "accent": "#5a7a4a",
     "eyebrow": "Product-chain pilot · the other half of the food supply",
     "h1": "Half the world eats because we pull nitrogen from the air with natural gas",

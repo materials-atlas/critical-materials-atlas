@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Helium chain",
+    "related": [{"href": "../neon-chain/neon-chain.html", "label": "Neon / specialty-gas chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#4a7a9c",
     "eyebrow": "Product-chain pilot · the gas you can't make",
     "h1": "The gas that cools MRI scanners cannot be manufactured — only captured",

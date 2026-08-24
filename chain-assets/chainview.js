@@ -92,6 +92,11 @@
     document.getElementById('method-body').innerHTML = (D.method || []).map(function (m) { return '<tr><td><b>' + esc(m.stage) + '</b></td><td>' + esc(m.lens) + '</td><td class="note">' + esc(m.why) + '</td></tr>'; }).join('');
     document.getElementById('source-list').innerHTML = Object.keys(D.sources || {}).map(function (k) { var sc = D.sources[k]; return '<li><a href="' + sc.url + '">' + esc(sc.title) + '</a> (' + sc.year + ')' + (sc.note ? ' — <span class="note">' + esc(sc.note) + '</span>' : '') + '</li>'; }).join('');
     document.getElementById('ev-json').href = DATA; document.getElementById('tr-json').href = TRADE;
+    var rel = (D.related || []).map(function (r) { return '<a href="' + esc(r.href) + '">' + esc(r.label) + '</a>'; });
+    var strip = '<div class="panel" style="margin-top:1.6rem"><h3 style="margin-top:0">Explore the layer</h3><p style="margin:0;line-height:1.9">' +
+      '<a href="../value-chains.html">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map.html">The Chokepoint Map</a>' +
+      (rel.length ? '<br><b>Related chains:</b> ' + rel.join(' &nbsp;·&nbsp; ') : '') + '</p></div>';
+    document.querySelector('article').insertAdjacentHTML('beforeend', strip);
     var cl = document.getElementById('conflegend');
     if (cl) cl.innerHTML = 'Confidence: <span class="conf measured">measured</span> reported figure · <span class="conf estimate">estimate</span> published estimate · <span class="conf snapshot">snapshot</span> single-year, no long series · <span class="conf proxy">proxy</span> mixed/indirect.';
     if (T && T.years && T.years.length && T.codes) { var ts = document.getElementById('trade-slider'); ts.max = T.years.length - 1; ts.value = T.years.length - 1; ts.oninput = function () { tradeRow(T, +ts.value); }; tradeRow(T, +ts.value); }

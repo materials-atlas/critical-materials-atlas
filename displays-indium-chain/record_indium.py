@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Displays / indium chain",
+    "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}],
     "accent": "#5b5b9c",
     "eyebrow": "Product-chain pilot · the screens you touch",
     "h1": "Every screen you touch runs on a metal no one mines on purpose",

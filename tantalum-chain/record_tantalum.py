@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tantalum / capacitor chain",
+    "related": [{"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#6a5a4a",
     "eyebrow": "Product-chain pilot · the capacitor in every device",
     "h1": "The capacitor metal comes mostly from a conflict zone",

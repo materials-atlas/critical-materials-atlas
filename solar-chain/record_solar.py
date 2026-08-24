@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Solar-PV chain",
+    "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
     "accent": "#c08a2e",
     "eyebrow": "Product-chain pilot · the panel on the roof",
     "h1": "The whole panel is a China product — and the physics got cheaper anyway",

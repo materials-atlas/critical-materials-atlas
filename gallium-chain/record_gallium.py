@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Gallium chain",
+    "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
     "accent": "#8a5a3a",
     "eyebrow": "Product-chain pilot · the chip metal that became a lever",
     "h1": "China makes almost all the gallium — then made it a lever",

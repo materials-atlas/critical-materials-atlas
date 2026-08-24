@@ -21,6 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "Copper chain",
+    "related": [{"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain.html", "label": "Data-centre / AI chain"}],
     "accent": "#a05a2c",
     "eyebrow": "Product-chain pilot · the metal that electrifies",
     "h1": "The copper chokepoint is a clock, not a map",

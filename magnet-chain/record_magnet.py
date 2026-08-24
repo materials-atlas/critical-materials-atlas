@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Rare-earth magnet chain",
+    "related": [{"href": "../wind-chain/wind-chain.html", "label": "Wind-turbine chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#7a5a8a",
     "eyebrow": "Product-chain pilot · the motors that move everything",
     "h1": "The mine is the least of it — China's grip tightens downstream",

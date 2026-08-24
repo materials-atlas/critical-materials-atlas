@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tin / solder chain",
+    "related": [{"href": "../tantalum-chain/tantalum-chain.html", "label": "Tantalum chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#5a6a7a",
     "eyebrow": "Product-chain pilot · the metal that joins everything",
     "h1": "Nothing electronic works without the metal almost no one thinks about",

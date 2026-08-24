@@ -21,6 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "Aluminium chain",
+    "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../magnesium-chain/magnesium-chain.html", "label": "Magnesium chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}],
     "accent": "#5f7180",
     "eyebrow": "Product-chain pilot · light metal",
     "h1": "Aluminium is congealed electricity",

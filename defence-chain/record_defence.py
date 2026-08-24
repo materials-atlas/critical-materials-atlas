@@ -30,6 +30,7 @@ SRC = {
 
 CHAIN = {
     "title": "Defence / military-materials chain",
+    "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../titanium-chain/titanium-chain.html", "label": "Titanium chain"}],
     "published": True,  # the flagship chain wired into the live atlas nav
     "accent": "#8a3b3b",
     "eyebrow": "Product-chain pilot · defence industrial base",
