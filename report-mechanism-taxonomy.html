@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Why stages concentrate — Report 04 — Critical Materials Atlas</title>
+<meta name="description" content="Report 04: a mechanism taxonomy for supply-chain concentration, derived from 58 end-use value chains. Of 58 chains only 4 have a geological chokepoint; the other 54 were made, each by one of seven knowable mechanisms — thermodynamic, by-product, built capability, geological, governance, policy, or none. Naming the mechanism predicts the concentration and names the fix.">
+<meta property="og:title" content="Why stages concentrate: a mechanism taxonomy from 58 value chains — Critical Materials Atlas, Report 04">
+<meta property="og:description" content="Supply-chain concentration is not random: it tracks the physics of the binding stage. Seven mechanisms, each with a testable rule and a fix.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.1;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut)}
+ .abstract{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.96rem;line-height:1.6}
+ .abstract b{color:var(--navy)}
+ .keys{list-style:none;padding:0;margin:1rem 0}
+ .keys li{padding:.5rem 0 .5rem 1.7rem;position:relative;border-top:1px solid var(--line);line-height:1.5}
+ .keys li:first-child{border-top:0}.keys li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:800}
+ .keys b{color:var(--navy)}
+ .eqn{background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.2rem;margin:1.1rem 0;font-size:.95rem;color:var(--navy)}
+ .tblwrap{overflow-x:auto;margin:1.3rem 0}
+ table.data{border-collapse:collapse;width:100%;font-size:.85rem;min-width:640px}
+ table.data caption{caption-side:bottom;font-size:.8rem;color:var(--faint);text-align:left;padding-top:.5rem;line-height:1.45}
+ table.data th,table.data td{padding:.5rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+ table.data thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy)}
+ table.data td.n,table.data th.n{text-align:right;font-variant-numeric:tabular-nums}
+ table.data tbody tr:hover{background:var(--bg-soft)}
+ table.data .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem;vertical-align:baseline}
+ .cite{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem;line-height:1.6;margin:1.4rem 0}
+ .cite code{color:#8fe0d4;font-size:.8rem;display:block;white-space:pre-wrap;margin-top:.4rem}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ .callout{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.92rem;line-height:1.55}
+ .callout b{color:var(--navy)}
+ @media print{
+   .toolbar,.siteftr,.topbar{display:none!important}
+   .abstract,.cite,.eqn,.callout{background:#f4f7f6!important;color:#1a1f24!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+   .cite code{color:#0b6f66!important}
+ }
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Report 04 · August 2026 · Synthesis</div>
+    <h1>Why stages concentrate: a mechanism taxonomy from 58 value chains</h1>
+    <div class="by">Critical Materials Atlas · independent research under the materials-atlas handle · derived from the 58 end-use value chains, each on public production, ownership and customs data</div>
+  </div>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="chokepoint-map.html">Interactive: the Chokepoint Map →</a>
+    <a href="value-chains.html">The value-chains layer →</a>
+    <a href="chokepoint_map.json">The data (JSON) →</a>
+  </div>
+
+  <div class="abstract"><b>Abstract.</b> The atlas&rsquo;s value-chains layer traces <b>58</b> end-use systems — from chips and solar to fertilizer and jet engines — from raw material to finished product, and marks the single stage in each that actually binds supply. One pattern dominates: the binding stage is <b>rarely the mine</b>. Of 58 chains, only <b>4</b> have a chokepoint that is genuinely geological — a deposit that cannot be substituted or relocated. The other <b>54</b> were <i>made</i>. But &ldquo;built versus geological&rdquo; only labels a stage after you already know where it binds. This report proposes a <b>mechanism taxonomy</b>: seven reasons a stage concentrates, each stated as a rule about the process itself, so the concentration is <i>predicted</i> rather than described — and each mechanism carries a different fix. Two chains falsify the simplest version and set the multi-regime structure: indium refining concentrates because it is a <b>by-product of zinc</b>, not because it is hot; single-crystal turbine blades concentrate because of <b>qualification</b>, though they are hot. The result is a decision layer: the mechanism tells you whether a dependency can be out-built, and how.</div>
+
+  <h2>Key findings</h2>
+  <ul class="keys">
+    <li><b>Only four chokepoints are geological.</b> Phosphate (~70% Morocco), the platinum-group Bushveld, niobium&rsquo;s single Brazilian mine and boron&rsquo;s Turkish borate reserves are the only stages fixed to an unrelocatable deposit. For these you cannot add supply — you substitute, recycle or stockpile. Every other chain&rsquo;s chokepoint was made, and made things can be remade.</li>
+    <li><b>Concentration tracks the process, not importance or tonnage.</b> Cement and aluminium are both bulk materials, yet cement has no chokepoint and aluminium is ~59% one country. The difference is physical: aluminium smelting is continuous and hot, so it must be one large unit at cheap power; a cement kiln is switchable and local, so it spreads. The binding question is whether the stage <i>can</i> be small.</li>
+    <li><b>Seven mechanisms cover the layer.</b> Thermodynamic (6 chains), by-product (15), built capability (20), geological (4), governance (2), policy (1), and diffuse — the switchable stages that never concentrated (10). Each is a testable claim about the binding stage, stated in the table below.</li>
+    <li><b>The mechanism is the fix.</b> A thermodynamic chokepoint is a build-a-smelter-at-clean-power problem; a by-product cannot be willed into existence and must be recovered from its host; a built capability takes years to qualify; a geological one cannot be out-built at all. Naming the mechanism turns a list of dependencies into a list of decisions.</li>
+  </ul>
+
+  <h2>1 · Why sort by mechanism</h2>
+  <p>The layer&rsquo;s first finding — <i>the chokepoint is rarely the mine</i> — is descriptive: it tells you the bottleneck has usually moved downstream, to a refinery, a fab, an enrichment plant or a transformer. The sharper question is <b>why</b> a particular stage gathers into few hands, because a rule about the process predicts the concentration and, more usefully, names what it would take to undo it. Splitting chains into &ldquo;built&rdquo; and &ldquo;geological&rdquo; labels them after the fact; a mechanism classifies them from the physics of the binding step.</p>
+  <div class="eqn">A stage concentrates when something about the process <b>forces</b> it to be large, single-sourced or hard to replicate — continuous heat, coupling to a host material, a qualification barrier, or the geology itself. Where nothing forces it, the stage <b>spreads</b>. Concentration is the exception that needs a cause; diffusion is the default.</div>
+
+  <h2>2 · The seven mechanisms</h2>
+  <div class="tblwrap">
+  <table class="data">
+    <caption>The 58 value chains classified by the mechanism that concentrates their binding stage, derived from each chain record&rsquo;s <code>chokepoint</code> field (single source of truth; the counts are re-checked against the records on every build). &ldquo;Chains&rdquo; = number in that class. Each rule is a falsifiable statement about the process.</caption>
+    <thead><tr><th>Mechanism</th><th class="n">Chains</th><th>What makes it concentrate</th><th>What it would take to move it</th></tr></thead>
+    <tbody>
+      <tr><td><span class="dot" style="background:#2f6fae"></span><b>Built capability</b></td><td class="n">20</td><td>A refinery, fab or separation plant whose barrier is capital, process know-how and years of qualification. Switchable in principle, concentrated by accumulated capability.</td><td>Fund and qualify capacity elsewhere over years — slow, but not fixed by nature.</td></tr>
+      <tr><td><span class="dot" style="background:#6a4a9c"></span><b>By-product</b></td><td class="n">15</td><td>The material is not produced for its own sake; output is bounded by a host (zinc, copper, gas, steel), so it cannot scale on demand.</td><td>Incentivise recovery at existing host refineries, and recycle — it cannot be willed into existence.</td></tr>
+      <tr><td><span class="dot" style="background:#808080"></span><b>Diffuse (spreads)</b></td><td class="n">10</td><td>A switchable, cool process with no concentrating force — so it spreads. The constraint is scale, logistics, labour or time, not one country.</td><td>Nothing to break: build capacity broadly. The rule working in reverse.</td></tr>
+      <tr><td><span class="dot" style="background:#c0392b"></span><b>Thermodynamic</b></td><td class="n">6</td><td>A continuous, high-temperature process that cannot be stopped without wrecking the plant — so it must be one very large unit, sited where power is cheap and never fails.</td><td>Build capacity at cheap, reliable (clean) power — capital plus energy policy.</td></tr>
+      <tr><td><span class="dot" style="background:#7a5c1e"></span><b>Geological</b></td><td class="n">4</td><td>A deposit that cannot be substituted or relocated. The only mechanism where you cannot add supply.</td><td>Substitution, recycling, stockpiles — not new mines.</td></tr>
+      <tr><td><span class="dot" style="background:#cf8a2e"></span><b>Governance</b></td><td class="n">2</td><td>Supply concentrated in conflict-linked or artisanal production from specific regions (the 3TG minerals). The scarce thing is documented, responsible supply.</td><td>Traceability, due diligence, alternative sources.</td></tr>
+      <tr><td><span class="dot" style="background:#2f9c9c"></span><b>Policy</b></td><td class="n">1</td><td>Concentration created or enforced by a rule — an export ban, resource nationalism.</td><td>It can reverse in either direction, quickly — trade and diplomacy.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Two features of the table matter. First, <b>diffuse</b> is not a failure to classify — it is a finding: ten chains (cement, wind, grids, EV assembly, heat pumps, copper&rsquo;s lead-time, lead&rsquo;s recycling loop, baryte, strontium, data-centre power) have <i>no</i> single-country chokepoint, and the reason is always the same — the binding stage is switchable and local, so nothing pins it. Second, <b>geological</b> is the smallest class by far. The intuition that critical-material dependence is mostly a mining problem is almost exactly wrong: it is overwhelmingly a processing, coupling and capability problem, which is far more tractable than geology.</p>
+
+  <h2>3 · The two cases that set the taxonomy</h2>
+  <p>The simplest version of the idea — a single rule that a continuous-hot process concentrates while a cold one spreads — is real but incomplete. Two chains break it in different directions, and each forces a separate mechanism.</p>
+  <div class="tblwrap">
+  <table class="data">
+    <caption>Two falsification tests. Each would look identical to the others on a &ldquo;built vs geological&rdquo; chart, yet each concentrates for a different reason and admits a different fix — which is the reason to sort by mechanism rather than by outcome.</caption>
+    <thead><tr><th>Chain / stage</th><th>Hot?</th><th>Continuous?</th><th>Why it actually concentrates</th></tr></thead>
+    <tbody>
+      <tr><td>Aluminium smelting</td><td>Yes</td><td>Yes</td><td><b>Thermodynamic</b> — a potline freezes if power drops, so one big unit at cheap power.</td></tr>
+      <tr><td>Indium refining (~70% one country)</td><td>No</td><td>—</td><td><b>By-product</b> — refined electrolytically at modest temperature; it concentrates because it rides on zinc, not because of heat.</td></tr>
+      <tr><td>Single-crystal turbine blades</td><td>Yes</td><td>No (batch)</td><td><b>Built capability</b> — cast one at a time; concentrated by decades of metallurgical qualification, not power-siting.</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Indium proves that heat is not necessary for concentration (a cold, switchable process can still be single-sourced if it is coupled to a host); single-crystal blades prove it is not sufficient (a hot process can still spread across qualified suppliers, or be pinned by qualification rather than power). The taxonomy therefore needs at least these distinct regimes — thermodynamics, by-product coupling, and qualification — plus geology, governance and policy. The thermal-continuity rule earns its place as one mechanism of seven, not as the whole story.</p>
+
+  <h2>4 · What the taxonomy is for</h2>
+  <p>The point of naming the mechanism is that it names the response. A policymaker or a firm looking at a dependency does not primarily need to know <i>how concentrated</i> it is; they need to know <i>what kind of concentration</i> it is, because that determines whether it can be undone and at what cost. A thermodynamic chokepoint yields to cheap, reliable power and capital. A by-product chokepoint does not respond to price at all — you cannot mine gallium; you recover more of it from the aluminium and zinc you already refine, or you recycle. A built-capability chokepoint (a chip fab, rare-earth separation, a turbine-blade foundry) is a multi-year funding-and-qualification programme, hard but finite. Only the four geological chokepoints cannot be out-built, and there the entire toolkit is substitution, recycling and stockpiling. The taxonomy converts a wall of concentration statistics into a short list of decisions, each with a known shape.</p>
+
+  <div class="callout"><b>What this report is, and is not.</b> This is a classification synthesis, not a statistical test. Each chain&rsquo;s mechanism is a reasoned judgement about its binding stage, made falsifiable by stating the process rule explicitly (a reader can check whether indium refining is really electrolytic, or whether a potline really cannot be stopped). Every underlying figure — the concentration shares, the export-control dates, the histories — carries a per-figure confidence tag on the chain&rsquo;s own page (measured, estimate, snapshot or proxy), and the boundaries of the customs data are flagged throughout. The taxonomy is a lens for reading the layer, offered on its logic and its sources, not a claim of statistical proof.</p></div>
+
+  <h2>Method</h2>
+  <p>Each of the 58 chains carries a structured <code>chokepoint</code> record — its binding stage, the concentrating mechanism, a one-line statement of the physics, the holder, the share and any export control — authored from public production and trade data (USGS Mineral Commodity Summaries, BGS World Mineral Statistics, IEA, OECD/NEA, the European Commission&rsquo;s CRM studies, industry associations, and CEPII BACI customs data). The <a href="chokepoint-map.html">Chokepoint Map</a> and the counts in this report are <b>derived</b> from those records by a single build step (<code>build_chokepoint_map.py</code>), and a pre-flight check re-derives and compares them on every build, so the classification lives in one place and the tallies cannot drift from the per-chain pages. Mechanism definitions and the fix per mechanism are held once, centrally. The layer is production-primary: trade is demoted to a flagged overlay, never used to split a broad customs code. Counts are as of the 58-chain layer at publication; adding chains updates the map automatically. Full per-chain sources and confidence tags are on each chain page, reachable from the <a href="value-chains.html">value-chains hub</a>.</p>
+
+  <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Why stages concentrate: a mechanism taxonomy from 58 value chains.</i> Report 04. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
+  <code>@techreport{cma_report04_2026,
+  title       = {Why stages concentrate: a mechanism taxonomy from 58 value chains},
+  author      = {{materials-atlas}},
+  institution = {Critical Materials Atlas},
+  number      = {Report 04},
+  year        = {2026},
+  publisher   = {Zenodo},
+  doi         = {10.5281/zenodo.21948855},
+  url         = {https://criticalmaterialsatlas.org/report-mechanism-taxonomy.html}
+}</code>
+  <div style="margin-top:.6rem;color:#9fbab6;font-size:.8rem">Archived on Zenodo — concept DOI <b>10.5281/zenodo.21948855</b> (always resolves to the latest version).</div></div>
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="reports.html">All reports</a><br><a href="value-chains.html">Value Chains</a><br><a href="chokepoint-map.html">The Chokepoint Map</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA · OECD/NEA · EU CRM<br>UN Comtrade · CEPII BACI</div>
+  <div class="fineprint">Public-data research under the materials-atlas handle. A classification synthesis of the value-chains layer.</div>
+</div></footer>
+</body></html>
