@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Chokepoint Map — Critical Materials Atlas</title>
+<meta name="description" content="Where the real bottleneck sits across 36 end-use value chains, classified by chokepoint type. Of 36 chains, only three have a chokepoint that cannot be relocated — the rest were built, and what was built can be rebuilt.">
+<meta property="og:title" content="The Chokepoint Map — Critical Materials Atlas">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:1120px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:72ch;margin:.2rem 0 1.4rem}
+ .thesis b{color:var(--navy)}
+ .headline{display:flex;flex-wrap:wrap;gap:1rem;margin:1.4rem 0}
+ .hcard{flex:1;min-width:200px;border:1px solid var(--line);border-radius:12px;padding:1rem 1.2rem;background:var(--bg)}
+ .hcard .big{font-size:2rem;font-weight:800;color:var(--navy);line-height:1.1}
+ .hcard .lbl{font-size:.86rem;color:var(--mut);margin-top:.3rem;line-height:1.45}
+ .hcard.perm{border-left:4px solid #b3123a}
+ .hcard.built{border-left:4px solid #2f6f4f}
+ .hcard.coupled{border-left:4px solid #6a4a9c}
+ .legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.1rem 0 .3rem}
+ .chip{font-size:.76rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:.28rem .7rem;cursor:pointer;background:var(--bg);color:var(--ink-soft);display:inline-flex;align-items:center;gap:.4rem;-webkit-user-select:none;user-select:none}
+ .chip:hover{border-color:var(--acc)}
+ .chip .dot{width:9px;height:9px;border-radius:50%;flex:none}
+ .chip .n{color:var(--mut);font-weight:700}
+ .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+ .chip[aria-pressed="true"] .n{color:#cfe}
+ .twrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:1rem 0}
+ table.cm{border-collapse:collapse;width:100%;font-size:.85rem;min-width:820px}
+ table.cm th,table.cm td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+ table.cm th{position:sticky;top:0;background:var(--bg-soft);color:var(--navy);font-weight:700;cursor:pointer;white-space:nowrap;font-size:.78rem}
+ table.cm th:hover{color:var(--acc)}
+ table.cm th .ar{opacity:.4;font-size:.7rem}
+ table.cm td.ch a{color:var(--navy);font-weight:700;text-decoration:none}
+ table.cm td.ch a:hover{text-decoration:underline}
+ table.cm tr:hover td{background:var(--bg-soft)}
+ .tag2{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+ .tag2 .dot{width:9px;height:9px;border-radius:50%;flex:none}
+ .reb{font-size:.72rem;font-weight:700;border-radius:999px;padding:.1rem .5rem;white-space:nowrap}
+ .reb.Built{background:rgba(47,111,79,.12);color:#2f6f4f}
+ .reb.Geological{background:rgba(179,18,58,.12);color:#b3123a}
+ .reb.Coupled{background:rgba(106,74,156,.12);color:#6a4a9c}
+ .reb.Temporal{background:rgba(176,122,46,.14);color:#8a5a1e}
+ .ctrl{font-size:.8rem}
+ .ctrl.yes{color:#b3123a;font-weight:700}
+ .ctrl.no{color:var(--mut)}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2.2rem 0 .3rem;border-top:1px solid var(--line);padding-top:1.6rem}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:74ch}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Value Chains · synthesis</div>
+  <h1>The Chokepoint Map</h1>
+  <p class="deck">Thirty-six end-use chains, each traced to where its real bottleneck sits — and sorted by what kind of chokepoint it is. The point of the layer, in one table.</p>
+</div></section>
+
+<article>
+  <p class="thesis">Across the layer, one finding holds: <b>the chokepoint is rarely the mine — and when it is, geology is why.</b> Most bottlenecks sit downstream, in a refinery, a fab, a smelter, an enrichment plant or a single fuel — things that were <b>built</b>, and can therefore be rebuilt elsewhere given time and capital. Only a handful are fixed to a <b>deposit that cannot be moved</b>. Sorting the 36 chains this way turns a pile of findings into a decision: which dependencies are policy problems, and which are facts of the map.</p>
+
+  <div class="headline">
+    <div class="hcard perm"><div class="big">3</div><div class="lbl">chains whose chokepoint is <b>geological</b> — a deposit that cannot be relocated or substituted. These are permanent.</div></div>
+    <div class="hcard built"><div class="big">28</div><div class="lbl">chains whose chokepoint was <b>built</b> — refining, manufacturing, energy, policy. What was built can be rebuilt.</div></div>
+    <div class="hcard coupled"><div class="big">5</div><div class="lbl">chains that are <b>coupled or timed</b> — a by-product that can't scale alone, or a lead-time that can't be rushed.</div></div>
+  </div>
+
+  <p class="note">Click a type to filter; click a column heading to sort. Each chain links to its full page. "Share at the choke" is the concentration at the binding step (not always the mine). Confidence and sourcing live on each chain's page.</p>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="twrap"><table class="cm" id="cm">
+    <thead><tr>
+      <th data-k="chain">Chain <span class="ar">↕</span></th>
+      <th data-k="product">End product <span class="ar">↕</span></th>
+      <th data-k="type">Where the chokepoint sits <span class="ar">↕</span></th>
+      <th data-k="holder">Who holds it <span class="ar">↕</span></th>
+      <th data-k="share">Share at the choke <span class="ar">↕</span></th>
+      <th data-k="control">Export-controlled <span class="ar">↕</span></th>
+      <th data-k="reb">Rebuildable? <span class="ar">↕</span></th>
+    </tr></thead>
+    <tbody id="cmbody"></tbody>
+  </table></div>
+
+  <h2 class="sec">What the map shows</h2>
+  <p class="note">Of thirty-six chains, only <b>three</b> — phosphate, the platinum-group metals and niobium — have a chokepoint that is genuinely geological: a deposit that cannot be substituted or relocated. Everything else is a <b>built</b> constraint: a refinery (rare-earth separation, lithium and cobalt conversion), a factory (solar wafers, chip fabs, battery cells, graphite anode), an energy input (ammonia's gas, aluminium's power), a policy (Indonesia's nickel ban) or a service (uranium enrichment). A separate five are <b>coupled</b> — by-products like gallium, helium and neon that cannot be scaled on their own — or <b>timed</b>, like copper, where the limit is the decade it takes to open a mine. The practical reading: most of these dependencies are policy problems with engineering answers, not permanent features of the earth — which is exactly why the distinction is worth drawing.</p>
+
+  <p class="note" style="margin-top:1rem">A research synthesis of the <a href="value-chains.html">Value Chains</a> layer. Read each chain for its sources, confidence tags and boundaries.</p>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="value-chains.html">All value chains</a><br><a href="reports.html">Reports</a></div><div class="fineprint">A synthesis of research-preview chains. Read each chain for its evidence.</div></div></footer>
+
+<script>
+// family: key -> {label, color}
+var FAM = {
+  geological:   {label:"Geological (the deposit)", color:"#b3123a"},
+  refining:     {label:"Refining / separation",    color:"#2f6fae"},
+  manufacturing:{label:"Manufacturing / fab",      color:"#2f6f4f"},
+  energy:       {label:"Energy input",             color:"#c8862e"},
+  byproduct:    {label:"By-product / coupled",     color:"#6a4a9c"},
+  policy:       {label:"Policy · service · governance", color:"#2f9c9c"},
+  systemic:     {label:"Systemic (equipment · scale · time)", color:"#7a7a7a"}
+};
+function href(slug){ return slug==="silicon-chip" ? "silicon-chip/silicon-chain.html" : slug+"-chain/"+slug+"-chain.html"; }
+// chain rows
+var ROWS = [
+ ["phosphate-food","Fertilizer / food","Geological — reserves","geological","Morocco","~70%","—","Geological"],
+ ["pgm-catalyst","Autocatalysts / H2","Geological — Bushveld","geological","South Africa","~70%","—","Geological"],
+ ["steel-alloys","Ferroalloys (Nb/V)","Geological — niobium (Brazil)","geological","Brazil (CBMM)","~90%","—","Geological"],
+ ["magnet","Permanent magnets","Refining — RE separation","refining","China","~91%","Apr 2025","Built"],
+ ["lithium","Battery lithium","Refining — conversion","refining","China","most","—","Built"],
+ ["cobalt","Battery cobalt","Refining + DRC mine","refining","China refine","~75%","—","Built"],
+ ["manganese","Battery manganese","Refining — sulphate / EMM","refining","China","~90%","—","Built"],
+ ["fluorine","Chips · batteries · cooling","Processing — HF","refining","China","~65%","—","Built"],
+ ["displays-indium","Displays (ITO)","Refining — indium","refining","China","~70%","Feb 2025","Built"],
+ ["silicon-chip","Logic chips","Manufacturing — fab / wafer","manufacturing","Taiwan · US · JP · NL","—","US↔China","Built"],
+ ["solar","Solar modules","Manufacturing — wafer / cell","manufacturing","China","~95%","—","Built"],
+ ["battery","Battery cells","Manufacturing — cell","manufacturing","China","~80%","—","Built"],
+ ["ev","Electric vehicles","Manufacturing — assembly","manufacturing","China","~70%","—","Built"],
+ ["graphite","Battery anode","Manufacturing — spherical anode","manufacturing","China","~100%","Dec 2023","Built"],
+ ["titanium","Aerospace metal","Manufacturing — sponge","manufacturing","China · JP · RU · KZ","—","—","Built"],
+ ["fibre-optics","Optical fibre","Manufacturing — preform","manufacturing","US · JP","—","—","Built"],
+ ["tungsten","Carbide tools · defence","Mine + carbide processing","manufacturing","China","~80%","Feb 2025","Built"],
+ ["gallium","GaN / GaAs chips","By-product — Al / Zn refining","byproduct","China","~98%","Jul 2023","Coupled"],
+ ["helium","Cryogenics / MRI","By-product — natural gas","byproduct","US · QA · RU","—","—","Coupled"],
+ ["neon","Chip lithography","By-product — steel air-sep","byproduct","(was Ukraine)","~half","—","Coupled"],
+ ["electrolyser","Green hydrogen","By-product — iridium (PGM)","byproduct","South Africa","—","—","Coupled"],
+ ["ammonia","Nitrogen fertilizer","Energy — natural gas","energy","cheap-gas regions","—","—","Built"],
+ ["aluminium","Aluminium metal","Energy — electricity (smelting)","energy","China","~59%","—","Built"],
+ ["magnesium","Aluminium alloys","Energy — coal (Pidgeon)","energy","China","~87%","—","Built"],
+ ["steel","Primary steel","Energy — coking coal","energy","AU coal · China smelt","~54%","—","Built"],
+ ["nickel","Stainless + battery Ni","Policy — export ban","policy","Indonesia · China","~61%","—","Built"],
+ ["nuclear","Reactor fuel","Service — enrichment","policy","Russia","largest","—","Built"],
+ ["tantalum","Capacitors","Governance — 3TG (DRC)","policy","DRC · Rwanda","~70%","—","Built"],
+ ["tin","Solder","Governance — 3TG + refining","policy","China · ID · Myanmar","~half","—","Built"],
+ ["grid","Electricity grid","Equipment — transformer lead-time","systemic","—","—","—","Built"],
+ ["data-centre","AI compute","Energy + grid connection","systemic","—","—","—","Built"],
+ ["wind","Wind turbines","Scale · logistics · OEM","systemic","China OEM","~67%","—","Built"],
+ ["heat-pump","Heat pumps","Labour — installers","systemic","—","—","—","Built"],
+ ["copper","Electrification","Time — mine lead-time","systemic","diversified","—","—","Temporal"],
+ ["aerospace","Aircraft","Composite — Ti / Ni / Re / CF","systemic","mixed","—","—","Built"],
+ ["defence","Weapons systems","Composite — RE + many inputs","systemic","China (many)","—","multiple","Built"]
+];
+var COLIDX={chain:0,product:1,type:2,holder:4,share:5,control:6,reb:7}, FAMI=3; // family stored at index 3
+var active=null, sortK="chain", sortDir=1;
+function fam(r){ return r[FAMI]; }
+// build legend with counts
+var counts={}; ROWS.forEach(function(r){counts[fam(r)]=(counts[fam(r)]||0)+1;});
+var leg=document.getElementById("legend");
+leg.innerHTML='<span class="chip" data-f="all" aria-pressed="true"><span class="n">'+ROWS.length+'</span> All</span>'+
+ Object.keys(FAM).map(function(k){return '<span class="chip" data-f="'+k+'" aria-pressed="false"><span class="dot" style="background:'+FAM[k].color+'"></span>'+FAM[k].label+' <span class="n">'+(counts[k]||0)+'</span></span>';}).join('');
+leg.addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;active=c.dataset.f==="all"?null:c.dataset.f;
+ [].forEach.call(leg.querySelectorAll(".chip"),function(x){x.setAttribute("aria-pressed", (x.dataset.f===(active||"all"))?"true":"false");}); render();});
+function cellIdx(k){return COLIDX[k];}
+function render(){
+ var rows=ROWS.slice();
+ if(active) rows=rows.filter(function(r){return fam(r)===active;});
+ var ki=cellIdx(sortK);
+ rows.sort(function(a,b){var x=(a[ki]||"").toString().toLowerCase(),y=(b[ki]||"").toString().toLowerCase();return x<y?-1*sortDir:x>y?1*sortDir:0;});
+ document.getElementById("cmbody").innerHTML=rows.map(function(r){
+   var f=FAM[fam(r)];
+   var ctrl=r[6]==="—"?'<span class="ctrl no">—</span>':'<span class="ctrl yes">'+r[6]+'</span>';
+   return '<tr>'+
+     '<td class="ch"><a href="'+href(r[0])+'">'+r[0].replace(/-/g," ")+'</a></td>'+
+     '<td>'+r[1]+'</td>'+
+     '<td><span class="tag2"><span class="dot" style="background:'+f.color+'"></span>'+r[2]+'</span></td>'+
+     '<td>'+r[4]+'</td>'+
+     '<td>'+r[5]+'</td>'+
+     '<td>'+ctrl+'</td>'+
+     '<td><span class="reb '+r[7]+'">'+r[7]+'</span></td>'+
+   '</tr>';
+ }).join('');
+}
+[].forEach.call(document.querySelectorAll("th[data-k]"),function(th){th.addEventListener("click",function(){var k=th.dataset.k;if(sortK===k)sortDir*=-1;else{sortK=k;sortDir=1;}render();});});
+render();
+</script>
+</body></html>
