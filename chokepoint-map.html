@@ -2,23 +2,23 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Chokepoint Map — Critical Materials Atlas</title>
-<meta name="description" content="Where the real bottleneck sits across 36 end-use value chains, classified by chokepoint type. Of 36 chains, only three have a chokepoint that cannot be relocated — the rest were built, and what was built can be rebuilt.">
+<meta name="description" content="Why the bottleneck sits where it does, across 40 end-use value chains — classified by the mechanism that concentrates each binding stage: thermodynamics, by-product coupling, built capability, geology, governance, policy, or none. Naming the mechanism turns the map into a to-do list.">
 <meta property="og:title" content="The Chokepoint Map — Critical Materials Atlas">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>
- article{max-width:1120px}
- .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:72ch;margin:.2rem 0 1.4rem}
+ article{max-width:1160px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:74ch;margin:.2rem 0 1.4rem}
  .thesis b{color:var(--navy)}
  .headline{display:flex;flex-wrap:wrap;gap:1rem;margin:1.4rem 0}
- .hcard{flex:1;min-width:200px;border:1px solid var(--line);border-radius:12px;padding:1rem 1.2rem;background:var(--bg)}
- .hcard .big{font-size:2rem;font-weight:800;color:var(--navy);line-height:1.1}
+ .hcard{flex:1;min-width:220px;border:1px solid var(--line);border-radius:12px;padding:1rem 1.2rem;background:var(--bg)}
+ .hcard .big{font-size:1.9rem;font-weight:800;color:var(--navy);line-height:1.1}
  .hcard .lbl{font-size:.86rem;color:var(--mut);margin-top:.3rem;line-height:1.45}
- .hcard.perm{border-left:4px solid #b3123a}
- .hcard.built{border-left:4px solid #2f6f4f}
- .hcard.coupled{border-left:4px solid #6a4a9c}
+ .hcard.perm{border-left:4px solid #7a5c1e}
+ .hcard.made{border-left:4px solid #2f6fae}
+ .hcard.rule{border-left:4px solid #c0392b}
  .legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.1rem 0 .3rem}
  .chip{font-size:.76rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:.28rem .7rem;cursor:pointer;background:var(--bg);color:var(--ink-soft);display:inline-flex;align-items:center;gap:.4rem;-webkit-user-select:none;user-select:none}
  .chip:hover{border-color:var(--acc)}
@@ -26,27 +26,30 @@
  .chip .n{color:var(--mut);font-weight:700}
  .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
  .chip[aria-pressed="true"] .n{color:#cfe}
+ .defs{margin:.6rem 0 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+ .defs details{border-top:1px solid var(--line)}
+ .defs details:first-child{border-top:0}
+ .defs summary{cursor:pointer;padding:.6rem .9rem;font-weight:600;font-size:.86rem;color:var(--navy);display:flex;align-items:center;gap:.5rem;list-style:none}
+ .defs summary::-webkit-details-marker{display:none}
+ .defs .dot{width:10px;height:10px;border-radius:50%;flex:none}
+ .defs p{margin:0 .9rem .8rem 2rem;font-size:.85rem;color:var(--mut);line-height:1.5;max-width:80ch}
+ .defs p b{color:var(--ink-soft)}
  .twrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:1rem 0}
- table.cm{border-collapse:collapse;width:100%;font-size:.85rem;min-width:820px}
- table.cm th,table.cm td{text-align:left;padding:.6rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
- table.cm th{position:sticky;top:0;background:var(--bg-soft);color:var(--navy);font-weight:700;cursor:pointer;white-space:nowrap;font-size:.78rem}
+ table.cm{border-collapse:collapse;width:100%;font-size:.84rem;min-width:960px}
+ table.cm th,table.cm td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+ table.cm th{position:sticky;top:0;background:var(--bg-soft);color:var(--navy);font-weight:700;cursor:pointer;white-space:nowrap;font-size:.77rem}
  table.cm th:hover{color:var(--acc)}
- table.cm th .ar{opacity:.4;font-size:.7rem}
- table.cm td.ch a{color:var(--navy);font-weight:700;text-decoration:none}
+ table.cm td.ch a{color:var(--navy);font-weight:700;text-decoration:none;white-space:nowrap}
  table.cm td.ch a:hover{text-decoration:underline}
  table.cm tr:hover td{background:var(--bg-soft)}
- .tag2{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
- .tag2 .dot{width:9px;height:9px;border-radius:50%;flex:none}
- .reb{font-size:.72rem;font-weight:700;border-radius:999px;padding:.1rem .5rem;white-space:nowrap}
- .reb.Built{background:rgba(47,111,79,.12);color:#2f6f4f}
- .reb.Geological{background:rgba(179,18,58,.12);color:#b3123a}
- .reb.Coupled{background:rgba(106,74,156,.12);color:#6a4a9c}
- .reb.Temporal{background:rgba(176,122,46,.14);color:#8a5a1e}
- .ctrl{font-size:.8rem}
+ .why{display:inline-flex;align-items:center;gap:.4rem;font-size:.78rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+ .why .dot{width:9px;height:9px;border-radius:50%;flex:none}
+ .phys{color:var(--mut);font-size:.8rem;line-height:1.4}
  .ctrl.yes{color:#b3123a;font-weight:700}
  .ctrl.no{color:var(--mut)}
  h2.sec{font-size:1.2rem;color:var(--navy);margin:2.2rem 0 .3rem;border-top:1px solid var(--line);padding-top:1.6rem}
- .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:74ch}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:80ch}
+ .note b{color:var(--ink-soft)}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -57,125 +60,130 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Value Chains · synthesis</div>
   <h1>The Chokepoint Map</h1>
-  <p class="deck">Thirty-six end-use chains, each traced to where its real bottleneck sits — and sorted by what kind of chokepoint it is. The point of the layer, in one table.</p>
+  <p class="deck">Forty end-use chains, each traced to where its real bottleneck sits — and sorted by the <i>mechanism</i> that concentrates that stage. Not where the chokepoint is, but why it is there, and therefore what it would take to move it.</p>
 </div></section>
 
 <article>
-  <p class="thesis">Across the layer, one finding holds: <b>the chokepoint is rarely the mine — and when it is, geology is why.</b> Most bottlenecks sit downstream, in a refinery, a fab, a smelter, an enrichment plant or a single fuel — things that were <b>built</b>, and can therefore be rebuilt elsewhere given time and capital. Only a handful are fixed to a <b>deposit that cannot be moved</b>. Sorting the 36 chains this way turns a pile of findings into a decision: which dependencies are policy problems, and which are facts of the map.</p>
+  <p class="thesis">The layer's first finding was that <b>the chokepoint is rarely the mine</b>. But that labels stages after the fact. The sharper question — prompted by a reader's reply on X — is <b>why</b> a given stage concentrates, because the answer predicts it from the process and tells you the fix. Stages concentrate for a small number of distinct reasons: a <b>continuous-hot</b> process that physically cannot be small; a <b>by-product</b> that cannot scale on its own; a <b>built capability</b> that takes years to qualify; a <b>deposit</b> that cannot be moved; a <b>conflict-linked</b> supply; or a <b>policy</b>. A seventh group barely concentrates at all. Name the mechanism, and the map becomes a to-do list.</p>
 
   <div class="headline">
-    <div class="hcard perm"><div class="big">3</div><div class="lbl">chains whose chokepoint is <b>geological</b> — a deposit that cannot be relocated or substituted. These are permanent.</div></div>
-    <div class="hcard built"><div class="big">31</div><div class="lbl">chains whose chokepoint was <b>built</b> — refining, manufacturing, energy, policy. What was built can be rebuilt.</div></div>
-    <div class="hcard coupled"><div class="big">6</div><div class="lbl">chains that are <b>coupled or timed</b> — a by-product that can't scale alone, or a lead-time that can't be rushed.</div></div>
+    <div class="hcard perm"><div class="big">3</div><div class="lbl">chokepoints are <b>geological</b> — a deposit that can't be relocated. The only ones where you cannot add supply; you substitute, recycle or stockpile.</div></div>
+    <div class="hcard made"><div class="big">37</div><div class="lbl">were <b>made</b>, each by a knowable mechanism — thermodynamic, by-product, capability, governance, policy, or none. Made things can be remade; the mechanism says how.</div></div>
+    <div class="hcard rule"><div class="big">the rule</div><div class="lbl">a <b>continuous-hot</b> stage (a smelter, a potline) must be one big unit at cheap power → it concentrates. A <b>switchable, cold</b> one can be many small units → it spreads, unless a by-product or a capability barrier pins it.</div></div>
   </div>
 
-  <p class="note">Click a type to filter; click a column heading to sort. Each chain links to its full page. "Share at the choke" is the concentration at the binding step (not always the mine). Confidence and sourcing live on each chain's page.</p>
+  <p class="note">Click a mechanism to filter; click a column to sort; expand a mechanism below for what it would take to move it. Each chain links to its full page. "Share at the choke" is the concentration at the binding stage (not always the mine).</p>
 
   <div class="legend" id="legend"></div>
+  <div class="defs" id="defs"></div>
 
   <div class="twrap"><table class="cm" id="cm">
     <thead><tr>
-      <th data-k="chain">Chain <span class="ar">↕</span></th>
-      <th data-k="product">End product <span class="ar">↕</span></th>
-      <th data-k="type">Where the chokepoint sits <span class="ar">↕</span></th>
-      <th data-k="holder">Who holds it <span class="ar">↕</span></th>
-      <th data-k="share">Share at the choke <span class="ar">↕</span></th>
-      <th data-k="control">Export-controlled <span class="ar">↕</span></th>
-      <th data-k="reb">Rebuildable? <span class="ar">↕</span></th>
+      <th data-k="chain">Chain <span>↕</span></th>
+      <th data-k="product">End product <span>↕</span></th>
+      <th data-k="stage">Binding stage <span>↕</span></th>
+      <th data-k="mech">Why it concentrates <span>↕</span></th>
+      <th data-k="phys">The physics <span>↕</span></th>
+      <th data-k="holder">Who holds it <span>↕</span></th>
+      <th data-k="share">Share <span>↕</span></th>
+      <th data-k="control">Export-controlled <span>↕</span></th>
     </tr></thead>
     <tbody id="cmbody"></tbody>
   </table></div>
 
-  <h2 class="sec">What the map shows</h2>
-  <p class="note">Of forty chains, only <b>three</b> — phosphate, the platinum-group metals and niobium — have a chokepoint that is genuinely geological: a deposit that cannot be substituted or relocated. Everything else is a <b>built</b> constraint: a refinery (rare-earth separation, lithium and cobalt conversion), a factory (solar wafers, chip fabs, battery cells, graphite anode), an energy input (ammonia's gas, aluminium's power, ferrochrome's power), a policy (Indonesia's nickel ban) or a service (uranium enrichment). A separate <b>six</b> are <b>coupled</b> — by-products like gallium, germanium, helium and neon that cannot be scaled on their own — or <b>timed</b>, like copper, where the limit is the decade it takes to open a mine. The practical reading: most of these dependencies are policy problems with engineering answers, not permanent features of the earth — which is exactly why the distinction is worth drawing.</p>
+  <h2 class="sec">The two cases that set the rule</h2>
+  <p class="note">The taxonomy has more than two regimes, and two chains prove it. <b>Indium refining</b> (~70% one country) is done electrolytically at modest temperature — <i>not</i> a continuous-hot process — so thermodynamics is not what concentrates it; it is a <b>by-product of zinc</b>, bounded by the zinc it rides on. <b>Single-crystal turbine blades</b> (aerospace) are hot but <b>batch</b>, cast one at a time; their concentration is decades of metallurgical <b>qualification</b>, not power-siting. Both would look identical on a "built vs geological" chart, yet they have different causes and different fixes — which is the whole reason to sort by mechanism. Credit for pushing this sharper: a public reply from <b>@iRowow</b> on X.</p>
+
+  <h2 class="sec">What the map is for</h2>
+  <p class="note">The mechanism is the decision. A <b>thermodynamic</b> chokepoint (aluminium, magnesium, ferrochrome, steel, ammonia) is a build-a-smelter-at-clean-power problem — capital and energy policy can move it. A <b>by-product</b> (gallium, germanium, indium, helium) can't be willed into existence; you incentivise recovery at existing host refineries and recycle. A <b>built capability</b> (chip fabs, rare-earth separation, battery cells, turbine blades) takes years of funding and qualification but is not fixed by nature. A <b>geological</b> one (phosphate, PGMs, niobium) is the only kind you cannot out-build — there, substitution, recycling and stockpiles are the whole toolkit. <b>Governance</b> (tantalum, tin) is a traceability and sourcing problem; <b>policy</b> (nickel) can reverse in either direction, fast. And the <b>diffuse</b> chains (wind, grids, heat pumps, copper's lead-time) are the switchable-and-cold ones that never strongly concentrated — the rule working in reverse.</p>
 
   <p class="note" style="margin-top:1rem">A research synthesis of the <a href="value-chains.html">Value Chains</a> layer. Read each chain for its sources, confidence tags and boundaries.</p>
 </article>
 
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="value-chains.html">All value chains</a><br><a href="reports.html">Reports</a></div><div class="fineprint">A synthesis of research-preview chains. Read each chain for its evidence.</div></div></footer>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="value-chains.html">All value chains</a><br><a href="reports.html">Reports</a></div><div class="fineprint">A synthesis of the value-chain layer. Read each chain for its evidence.</div></div></footer>
 
 <script>
-// family: key -> {label, color}
-var FAM = {
-  geological:   {label:"Geological (the deposit)", color:"#b3123a"},
-  refining:     {label:"Refining / separation",    color:"#2f6fae"},
-  manufacturing:{label:"Manufacturing / fab",      color:"#2f6f4f"},
-  energy:       {label:"Energy input",             color:"#c8862e"},
-  byproduct:    {label:"By-product / coupled",     color:"#6a4a9c"},
-  policy:       {label:"Policy · service · governance", color:"#2f9c9c"},
-  systemic:     {label:"Systemic (equipment · scale · time)", color:"#7a7a7a"}
+var MECH = {
+  thermodynamic: {label:"Thermodynamic", color:"#c0392b", def:"A <b>continuous, high-temperature</b> process that cannot be throttled or stopped without wrecking the plant — so it must be one very large unit, sited where power is cheap and never fails. Physics forces concentration. <b>Fix:</b> build capacity at cheap, reliable (clean) power — capital + energy policy."},
+  byproduct: {label:"By-product", color:"#6a4a9c", def:"The material is <b>not produced for its own sake</b>; its output is bounded by a host (zinc, gas, steel, copper), so it cannot scale on demand and concentrates wherever the host is refined. <b>Fix:</b> incentivise recovery at existing host refineries, and recycle — it cannot be willed into existence."},
+  capability: {label:"Built capability", color:"#2f6fae", def:"A refinery, fab or separation plant whose barrier is <b>capital, process know-how and years of qualification</b>. Switchable in principle, but concentrated by accumulated capability. <b>Fix:</b> fund and qualify capacity elsewhere over years — slow, but not fixed by nature."},
+  geological: {label:"Geological", color:"#7a5c1e", def:"A <b>deposit that cannot be substituted or relocated</b>. The only mechanism where you cannot add supply. <b>Fix:</b> substitution, recycling, stockpiles — not new mines."},
+  governance: {label:"Governance", color:"#cf8a2e", def:"Supply concentrated in <b>conflict-linked or artisanal</b> production from specific regions (the 3TG minerals). The scarce thing is documented, responsible supply. <b>Fix:</b> traceability, due diligence, alternative sources."},
+  policy: {label:"Policy", color:"#2f9c9c", def:"Concentration <b>created or enforced by a rule</b> — an export ban, resource nationalism. <b>Fix:</b> it can reverse in either direction, quickly — trade and diplomacy."},
+  diffuse: {label:"Diffuse (spreads)", color:"#808080", def:"A <b>switchable, cool</b> process with no concentrating force — so it spreads. The constraint is scale, logistics, labour or time, not one country. <b>This is the rule working in reverse.</b>"}
 };
 function href(slug){ return slug==="silicon-chip" ? "silicon-chip/silicon-chain.html" : slug+"-chain/"+slug+"-chain.html"; }
-// chain rows
+// {chain, product, stage, mech, phys, holder, share, control}
 var ROWS = [
- ["phosphate-food","Fertilizer / food","Geological — reserves","geological","Morocco","~70%","—","Geological"],
- ["pgm-catalyst","Autocatalysts / H2","Geological — Bushveld","geological","South Africa","~70%","—","Geological"],
- ["steel-alloys","Ferroalloys (Nb/V)","Geological — niobium (Brazil)","geological","Brazil (CBMM)","~90%","—","Geological"],
- ["magnet","Permanent magnets","Refining — RE separation","refining","China","~91%","Apr 2025","Built"],
- ["lithium","Battery lithium","Refining — conversion","refining","China","most","—","Built"],
- ["cobalt","Battery cobalt","Refining + DRC mine","refining","China refine","~75%","—","Built"],
- ["manganese","Battery manganese","Refining — sulphate / EMM","refining","China","~90%","—","Built"],
- ["fluorine","Chips · batteries · cooling","Processing — HF","refining","China","~65%","—","Built"],
- ["displays-indium","Displays (ITO)","Refining — indium","refining","China","~70%","Feb 2025","Built"],
- ["silicon-chip","Logic chips","Manufacturing — fab / wafer","manufacturing","Taiwan · US · JP · NL","—","US↔China","Built"],
- ["solar","Solar modules","Manufacturing — wafer / cell","manufacturing","China","~95%","—","Built"],
- ["battery","Battery cells","Manufacturing — cell","manufacturing","China","~80%","—","Built"],
- ["ev","Electric vehicles","Manufacturing — assembly","manufacturing","China","~70%","—","Built"],
- ["graphite","Battery anode","Manufacturing — spherical anode","manufacturing","China","~100%","Dec 2023","Built"],
- ["titanium","Aerospace metal","Manufacturing — sponge","manufacturing","China · JP · RU · KZ","—","—","Built"],
- ["fibre-optics","Optical fibre","Manufacturing — preform","manufacturing","US · JP","—","—","Built"],
- ["tungsten","Carbide tools · defence","Mine + carbide processing","manufacturing","China","~80%","Feb 2025","Built"],
- ["gallium","GaN / GaAs chips","By-product — Al / Zn refining","byproduct","China","~98%","Jul 2023","Coupled"],
- ["helium","Cryogenics / MRI","By-product — natural gas","byproduct","US · QA · RU","—","—","Coupled"],
- ["neon","Chip lithography","By-product — steel air-sep","byproduct","(was Ukraine)","~half","—","Coupled"],
- ["electrolyser","Green hydrogen","By-product — iridium (PGM)","byproduct","South Africa","—","—","Coupled"],
- ["ammonia","Nitrogen fertilizer","Energy — natural gas","energy","cheap-gas regions","—","—","Built"],
- ["aluminium","Aluminium metal","Energy — electricity (smelting)","energy","China","~59%","—","Built"],
- ["magnesium","Aluminium alloys","Energy — coal (Pidgeon)","energy","China","~87%","—","Built"],
- ["steel","Primary steel","Energy — coking coal","energy","AU coal · China smelt","~54%","—","Built"],
- ["nickel","Stainless + battery Ni","Policy — export ban","policy","Indonesia · China","~61%","—","Built"],
- ["nuclear","Reactor fuel","Service — enrichment","policy","Russia","largest","—","Built"],
- ["tantalum","Capacitors","Governance — 3TG (DRC)","policy","DRC · Rwanda","~70%","—","Built"],
- ["tin","Solder","Governance — 3TG + refining","policy","China · ID · Myanmar","~half","—","Built"],
- ["grid","Electricity grid","Equipment — transformer lead-time","systemic","—","—","—","Built"],
- ["data-centre","AI compute","Energy + grid connection","systemic","—","—","—","Built"],
- ["wind","Wind turbines","Scale · logistics · OEM","systemic","China OEM","~67%","—","Built"],
- ["heat-pump","Heat pumps","Labour — installers","systemic","—","—","—","Built"],
- ["copper","Electrification","Time — mine lead-time","systemic","diversified","—","—","Temporal"],
- ["aerospace","Aircraft","Composite — Ti / Ni / Re / CF","systemic","mixed","—","—","Built"],
- ["defence","Weapons systems","Composite — RE + many inputs","systemic","China (many)","—","multiple","Built"],
- ["antimony","Flame retardant · munitions","Refining + 2024 control","refining","China (refine)","refine","Sep 2024","Built"],
- ["germanium","IR optics · fibre","By-product — zinc / coal","byproduct","China","~60%","Jul 2023","Coupled"],
- ["chromium","Stainless steel","Energy — ferrochrome smelting","energy","S.Africa · KZ · CN","—","—","Built"],
- ["vanadium","Steel + grid storage","Refining — steel by-product","refining","China","~64%","—","Built"]
+ ["aluminium","Aluminium metal","Smelting","thermodynamic","Hall–Héroult runs non-stop; a potline freezes solid if power drops — one big unit at cheap power","China","~59%","—"],
+ ["magnesium","Aluminium alloys","Reduction","thermodynamic","Coal-fired Pidgeon retorts, energy-sited in one Chinese province","China","~87%","—"],
+ ["chromium","Stainless steel","Ferrochrome smelting","thermodynamic","Ferrochrome is ~40% power by cost — the furnace follows cheap electricity (KZ/CN)","S.Africa · KZ · CN","—","—"],
+ ["steel","Primary steel","Blast furnace","thermodynamic","Continuous coke-fired reduction; gated by coking coal + energy","China smelt","~54%","—"],
+ ["solar","Solar modules","Polysilicon + wafer","thermodynamic","Polysilicon + wafer pulling are power- and capital-hungry, sited at cheap Chinese power","China","~95%","—"],
+ ["ammonia","Nitrogen fertilizer","Haber–Bosch","thermodynamic","Continuous high-temp, high-pressure synthesis; gas is feedstock + energy → sites at cheap gas","cheap-gas regions","—","—"],
+ ["gallium","GaN / GaAs chips","Recovery","byproduct","Trace by-product of alumina/zinc refining — bounded by the host, not gallium demand","China","~98%","Jul 2023"],
+ ["germanium","IR optics · fibre","Recovery","byproduct","By-product of zinc residues + coal fly ash — can't scale on its own","China","~60%","Jul 2023"],
+ ["displays-indium","Displays (ITO)","Refining","byproduct","Refined electrolytically at MODEST temp — concentrated because it rides on zinc, not by heat","China","~70%","Feb 2025"],
+ ["helium","Cryogenics / MRI","Separation","byproduct","By-product of helium-rich natural gas; coupled to a few fields, non-renewable","US · QA · RU","—","—"],
+ ["neon","Chip lithography","Air separation","byproduct","By-product of steel-plant air separation — captured, not made","(was Ukraine)","~half","—"],
+ ["cobalt","Battery cobalt","Mine + refine","byproduct","A by-product of Congolese copper; can't be mined alone, then refined in China","China refine","~75%","—"],
+ ["vanadium","Steel + storage","Recovery","byproduct","Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel","China","~64%","—"],
+ ["electrolyser","Green hydrogen","Iridium (PEM)","byproduct","The scale limit is iridium — a trace by-product of platinum mining (future-tense)","South Africa","—","—"],
+ ["silicon-chip","Logic chips","Fab / EUV","capability","Batch lithography; barrier is decades of process know-how + a single EUV supplier","TW · US · JP · NL","—","US↔China"],
+ ["magnet","Permanent magnets","RE separation","capability","Solvent-extraction separation of chemically-alike elements — an industrial base, ~91% China","China","~91%","Apr 2025"],
+ ["fibre-optics","Optical fibre","Preform","capability","Vapour-deposition preform-making — a few firms hold the process know-how","US · JP","—","—"],
+ ["titanium","Aerospace metal","Sponge + mill","capability","Kroll sponge + qualified aerospace mill — batch, certification-gated (VSMPO etc.)","CN · JP · RU · KZ","—","—"],
+ ["battery","Battery cells","Cell + cathode","capability","Electrode coating + cell assembly at scale — capital + process capability, ~80% China","China","~80%","—"],
+ ["graphite","Battery anode","Spherical anode","capability","Spheronising + purifying + coating flake into anode — ~100% China","China","~100%","Dec 2023"],
+ ["lithium","Battery lithium","Conversion","capability","Converting spodumene/brine to battery-grade chemical — the concentrated step, China","China","most","—"],
+ ["manganese","Battery manganese","Sulphate / EMM","capability","High-purity manganese sulphate + electrolytic metal — ~90% China","China","~90%","—"],
+ ["fluorine","Chips · batteries · cooling","HF","capability","Fluorspar → HF → fluorochemicals; the gateway chemical, ~65% China","China","~65%","—"],
+ ["nuclear","Reactor fuel","Enrichment","capability","Centrifuge enrichment — a licensed service; Russia the largest","Russia","largest","—"],
+ ["tungsten","Carbide tools · defence","APT + carbide","capability","Mine + APT + carbide processing; ~80% China for decades","China","~80%","Feb 2025"],
+ ["antimony","Flame retardant · munitions","Refining","capability","Trioxide + metal refining — China built the capacity; the mine diversified but refining didn't","China refine","refine","Sep 2024"],
+ ["aerospace","Aircraft","Turbine blades","capability","Single-crystal blades are HOT but BATCH — concentrated by qualification + know-how, not power","mixed","—","—"],
+ ["defence","Weapons systems","Many inputs","capability","A composite — inherits its inputs' China-processed capability (magnets, gallium, antimony, tungsten)","China (many)","—","multiple"],
+ ["phosphate-food","Fertilizer / food","Reserves","geological","~70% of reserves are in Morocco; no substitute for phosphorus","Morocco","~70%","—"],
+ ["pgm-catalyst","Autocatalysts","Bushveld","geological","The platinum-group ore is in the Bushveld Complex — can't be relocated","South Africa","~70%","—"],
+ ["steel-alloys","Ferroalloys (Nb/V)","Niobium mine","geological","Niobium is essentially one Brazilian mine (CBMM)","Brazil","~90%","—"],
+ ["tantalum","Capacitors","Mine (3TG)","governance","~70% from DRC/Rwanda artisanal mining — a conflict-mineral supply, not a unique deposit","DRC · Rwanda","~70%","—"],
+ ["tin","Solder","Mine + smelt (3TG)","governance","Concentrated + conflict-linked (Myanmar Wa, 3TG); the ore feed is the fragile part","CN · ID · Myanmar","~half","—"],
+ ["nickel","Stainless + battery Ni","Smelting","policy","Indonesia's raw-ore export BAN forced (China-financed) domestic smelting — built by a rule","Indonesia · China","~61%","—"],
+ ["data-centre","AI compute","Grid connection","diffuse","Power + grid connection are local and switchable — the limit is megawatts, not one country","—","—","—"],
+ ["wind","Wind turbines","OEM + logistics","diffuse","A steel-and-concrete machine; the limit is scale/logistics + OEM share, and it localises","China OEM","~67%","—"],
+ ["grid","Electricity grid","Transformers","diffuse","Batch-built equipment; the limit is factory lead-time (years), spread across suppliers","—","—","—"],
+ ["ev","Electric vehicles","Assembly","diffuse","Assembly is switchable and localises near demand; the real chokepoint is upstream (battery/magnet)","China","~70%","—"],
+ ["heat-pump","Heat pumps","Install","diffuse","No scarce input; the limit is factory capacity + installer labour — a labour market","—","—","—"],
+ ["copper","Electrification","Mine lead-time","diffuse","Mining is diversified and switchable; the limit is TIME — a decade to open a mine","diversified","—","—"]
 ];
-var COLIDX={chain:0,product:1,type:2,holder:4,share:5,control:6,reb:7}, FAMI=3; // family stored at index 3
-var active=null, sortK="chain", sortDir=1;
-function fam(r){ return r[FAMI]; }
-// build legend with counts
-var counts={}; ROWS.forEach(function(r){counts[fam(r)]=(counts[fam(r)]||0)+1;});
+var COLIDX={chain:0,product:1,stage:2,mech:3,phys:4,holder:5,share:6,control:7};
+var active=null, sortK="mech", sortDir=1;
+var counts={}; ROWS.forEach(function(r){counts[r[3]]=(counts[r[3]]||0)+1;});
+var order=Object.keys(MECH);
 var leg=document.getElementById("legend");
 leg.innerHTML='<span class="chip" data-f="all" aria-pressed="true"><span class="n">'+ROWS.length+'</span> All</span>'+
- Object.keys(FAM).map(function(k){return '<span class="chip" data-f="'+k+'" aria-pressed="false"><span class="dot" style="background:'+FAM[k].color+'"></span>'+FAM[k].label+' <span class="n">'+(counts[k]||0)+'</span></span>';}).join('');
+ order.map(function(k){return '<span class="chip" data-f="'+k+'" aria-pressed="false"><span class="dot" style="background:'+MECH[k].color+'"></span>'+MECH[k].label+' <span class="n">'+(counts[k]||0)+'</span></span>';}).join('');
 leg.addEventListener("click",function(e){var c=e.target.closest(".chip");if(!c)return;active=c.dataset.f==="all"?null:c.dataset.f;
- [].forEach.call(leg.querySelectorAll(".chip"),function(x){x.setAttribute("aria-pressed", (x.dataset.f===(active||"all"))?"true":"false");}); render();});
-function cellIdx(k){return COLIDX[k];}
+ [].forEach.call(leg.querySelectorAll(".chip"),function(x){x.setAttribute("aria-pressed",(x.dataset.f===(active||"all"))?"true":"false");});render();});
+document.getElementById("defs").innerHTML=order.map(function(k){return '<details><summary><span class="dot" style="background:'+MECH[k].color+'"></span>'+MECH[k].label+' <span style="color:var(--mut);font-weight:600">· '+(counts[k]||0)+'</span></summary><p>'+MECH[k].def+'</p></details>';}).join('');
 function render(){
  var rows=ROWS.slice();
- if(active) rows=rows.filter(function(r){return fam(r)===active;});
- var ki=cellIdx(sortK);
- rows.sort(function(a,b){var x=(a[ki]||"").toString().toLowerCase(),y=(b[ki]||"").toString().toLowerCase();return x<y?-1*sortDir:x>y?1*sortDir:0;});
+ if(active) rows=rows.filter(function(r){return r[3]===active;});
+ var ki=COLIDX[sortK];
+ if(sortK==="mech"){ rows.sort(function(a,b){var x=order.indexOf(a[3]),y=order.indexOf(b[3]);return x!==y?(x-y)*sortDir:a[0]<b[0]?-1:1;}); }
+ else rows.sort(function(a,b){var x=(a[ki]||"").toLowerCase(),y=(b[ki]||"").toLowerCase();return x<y?-sortDir:x>y?sortDir:0;});
  document.getElementById("cmbody").innerHTML=rows.map(function(r){
-   var f=FAM[fam(r)];
-   var ctrl=r[6]==="—"?'<span class="ctrl no">—</span>':'<span class="ctrl yes">'+r[6]+'</span>';
+   var m=MECH[r[3]];
+   var ctrl=r[7]==="—"?'<span class="ctrl no">—</span>':'<span class="ctrl yes">'+r[7]+'</span>';
    return '<tr>'+
      '<td class="ch"><a href="'+href(r[0])+'">'+r[0].replace(/-/g," ")+'</a></td>'+
      '<td>'+r[1]+'</td>'+
-     '<td><span class="tag2"><span class="dot" style="background:'+f.color+'"></span>'+r[2]+'</span></td>'+
-     '<td>'+r[4]+'</td>'+
+     '<td>'+r[2]+'</td>'+
+     '<td><span class="why"><span class="dot" style="background:'+m.color+'"></span>'+m.label+'</span></td>'+
+     '<td class="phys">'+r[4]+'</td>'+
      '<td>'+r[5]+'</td>'+
+     '<td>'+r[6]+'</td>'+
      '<td>'+ctrl+'</td>'+
-     '<td><span class="reb '+r[7]+'">'+r[7]+'</span></td>'+
    '</tr>';
  }).join('');
 }
