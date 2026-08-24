@@ -138,6 +138,22 @@ CHAINS = {
         "720292": {"title": "Ferro-vanadium", "boundary": "The steel-alloying form; China's processing dominance shows here, not in the shared V ore line."},
         "282530": {"title": "Vanadium oxides and hydroxides", "boundary": "Vanadium pentoxide — feeds both ferro-vanadium and flow-battery electrolyte; grade not distinguished."},
     }),
+    "sulfur": ("sulfur-chain", "sulfur", {
+        "250300": {"title": "Sulfur of all kinds (excl. sublimed/precipitated)", "boundary": "A by-product of oil/gas/smelting moved regionally; most is used on-site and never enters trade."},
+        "280700": {"title": "Sulfuric acid; oleum", "boundary": "The workhorse acid; largely made and consumed at fertilizer and metal plants, so trade is a thin surplus."},
+    }),
+    "cement": ("cement-chain", "cement", {
+        "252310": {"title": "Cement clinkers", "boundary": "The tradable intermediate; moves regionally at most because it is cheap and heavy."},
+        "252329": {"title": "Portland cement (other)", "boundary": "Only a small share of cement is traded — production is overwhelmingly local."},
+    }),
+    "silver": ("silver-chain", "silver", {
+        "261610": {"title": "Silver ores and concentrates", "boundary": "Silver is mostly a by-product credit in base-metal concentrates, not a standalone ore trade."},
+        "710691": {"title": "Silver, unwrought", "boundary": "Refined silver, incl. bullion moved for investment — trading, not consumption."},
+    }),
+    "beryllium": ("beryllium-chain", "beryllium", {
+        "811212": {"title": "Beryllium, unwrought; powder", "boundary": "A very small, specialised US-led trade; copper-beryllium alloy sits in copper-alloy lines, not here."},
+        "811219": {"title": "Beryllium, other (articles)", "boundary": "Wrought beryllium articles; the US processing dominance is only partly visible."},
+    }),
 }
 
 # code -> list of chains that use it

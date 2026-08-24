@@ -2,7 +2,7 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Chokepoint Map — Critical Materials Atlas</title>
-<meta name="description" content="Why the bottleneck sits where it does, across 40 end-use value chains — classified by the mechanism that concentrates each binding stage: thermodynamics, by-product coupling, built capability, geology, governance, policy, or none. Naming the mechanism turns the map into a to-do list.">
+<meta name="description" content="Why the bottleneck sits where it does, across 44 end-use value chains — classified by the mechanism that concentrates each binding stage: thermodynamics, by-product coupling, built capability, geology, governance, policy, or none. Naming the mechanism turns the map into a to-do list.">
 <meta property="og:title" content="The Chokepoint Map — Critical Materials Atlas">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,7 +60,7 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Value Chains · synthesis</div>
   <h1>The Chokepoint Map</h1>
-  <p class="deck">Forty end-use chains, each traced to where its real bottleneck sits — and sorted by the <i>mechanism</i> that concentrates that stage. Not where the chokepoint is, but why it is there, and therefore what it would take to move it.</p>
+  <p class="deck">Forty-four end-use chains, each traced to where its real bottleneck sits — and sorted by the <i>mechanism</i> that concentrates that stage. Not where the chokepoint is, but why it is there, and therefore what it would take to move it.</p>
 </div></section>
 
 <article>
@@ -68,7 +68,7 @@
 
   <div class="headline">
     <div class="hcard perm"><div class="big">3</div><div class="lbl">chokepoints are <b>geological</b> — a deposit that can't be relocated. The only ones where you cannot add supply; you substitute, recycle or stockpile.</div></div>
-    <div class="hcard made"><div class="big">37</div><div class="lbl">were <b>made</b>, each by a knowable mechanism — thermodynamic, by-product, capability, governance, policy, or none. Made things can be remade; the mechanism says how.</div></div>
+    <div class="hcard made"><div class="big">41</div><div class="lbl">were <b>made</b>, each by a knowable mechanism — thermodynamic, by-product, capability, governance, policy, or none. Made things can be remade; the mechanism says how.</div></div>
     <div class="hcard rule"><div class="big">the rule</div><div class="lbl">a <b>continuous-hot</b> stage (a smelter, a potline) must be one big unit at cheap power → it concentrates. A <b>switchable, cold</b> one can be many small units → it spreads, unless a by-product or a capability barrier pins it.</div></div>
   </div>
 
@@ -154,7 +154,11 @@ var ROWS = [
  ["grid","Electricity grid","Transformers","diffuse","Batch-built equipment; the limit is factory lead-time (years), spread across suppliers","—","—","—"],
  ["ev","Electric vehicles","Assembly","diffuse","Assembly is switchable and localises near demand; the real chokepoint is upstream (battery/magnet)","China","~70%","—"],
  ["heat-pump","Heat pumps","Install","diffuse","No scarce input; the limit is factory capacity + installer labour — a labour market","—","—","—"],
- ["copper","Electrification","Mine lead-time","diffuse","Mining is diversified and switchable; the limit is TIME — a decade to open a mine","diversified","—","—"]
+ ["copper","Electrification","Mine lead-time","diffuse","Mining is diversified and switchable; the limit is TIME — a decade to open a mine","diversified","—","—"],
+ ["sulfur","Fertilizer · battery metals","Recovery","byproduct","A by-product of oil/gas desulfurization + smelting; bounded by fossil-fuel processing, so decarbonization shrinks it","oil/gas refiners","—","—"],
+ ["silver","Solar paste · contacts","Mine (by-product)","byproduct","~70% a by-product of lead/zinc/copper/gold — output bounded by the base metals, can't scale to demand","Mexico · CN · Peru","—","—"],
+ ["cement","Concrete","Kiln (local)","diffuse","Limestone + kilns are everywhere and cement is cheap + heavy → made locally; no chokepoint, only CO₂","local, everywhere","—","—"],
+ ["beryllium","Aerospace · defence","Extraction (US)","capability","Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint","United States","~55%","—"]
 ];
 var COLIDX={chain:0,product:1,stage:2,mech:3,phys:4,holder:5,share:6,control:7};
 var active=null, sortK="mech", sortDir=1;

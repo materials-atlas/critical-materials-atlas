@@ -1,0 +1,102 @@
+"""Evidence JSON for the sulfur / sulfuric-acid chain pilot. Uniform schema. Public sources.
+Shared chainview renderer, per-figure confidence tags. Run: python record_sulfur.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "sulfur_chain.json")
+
+SRC = {
+    "usgs_sulfur": {"title": "USGS Mineral Commodity Summaries 2026 — Sulfur", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-sulfur.pdf"},
+    "maslin_2022": {"title": "Maslin et al., The future of the sulfur supply (Geographical Journal)", "year": 2022, "url": "https://rgs-ibg.onlinelibrary.wiley.com/doi/10.1111/geoj.12475"},
+    "usgs_history": {"title": "USGS, Historical Statistics for Mineral and Material Commodities", "year": 2024, "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Sulfur / sulfuric-acid chain",
+    "published": True,
+    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
+    "accent": "#8a7a2e",
+    "eyebrow": "Product-chain pilot · the chemical that feeds the world",
+    "h1": "The most-used industrial chemical is a fossil-fuel by-product — and the transition is draining it",
+    "deck": "Sulfuric acid is the highest-volume industrial chemical on Earth, and most of the sulfur that makes it is "
+            "no longer mined — it is recovered from cleaning sulfur out of oil, gas and sour metal ores. That acid "
+            "dissolves phosphate rock into fertilizer and leaches the metals out of battery ores. The catch: as the "
+            "world burns less fossil fuel, this by-product supply shrinks, just as demand climbs.",
+    "byline": "oil/gas desulfurization + smelter SO2 ≠ elemental sulfur ≠ sulfuric acid ≠ fertilizer · battery metals · chemicals",
+    "correction": "Sulfur inverts the usual supply story. It is not scarce and not mined for its own sake — roughly "
+                  "all of it now comes as a by-product of removing sulfur from petroleum, natural gas and metal "
+                  "smelting. Sulfuric acid made from it dissolves phosphate rock (about half the world's food depends "
+                  "on it) and leaches nickel, cobalt, copper and lithium for batteries. So decarbonization — burning "
+                  "less fossil fuel — threatens to cut the sulfur supply that fertilizer and battery metals rely on: a "
+                  "chokepoint that runs backwards.",
+    "stats": [
+        {"v": "#1 chemical", "l": "sulfuric acid is the highest-volume industrial chemical made", "conf": "measured"},
+        {"v": "by-product", "l": "most sulfur is recovered from oil, gas and smelting — not mined", "conf": "measured"},
+        {"v": "fertilizer", "l": "sulfuric acid dissolves phosphate rock → about half the world's food", "conf": "measured"},
+        {"v": "the irony", "l": "decarbonization shrinks by-product sulfur as demand rises", "conf": "estimate"},
+    ],
+    "hops": [
+        {"n": "1 · Recovery", "t": "sulfur removed from oil, gas (desulfurization) and recovered from smelter gases"},
+        {"n": "2 · Sulfuric acid", "t": "elemental sulfur burned to SO2/SO3 and converted to H2SO4 — the workhorse acid"},
+        {"n": "3a · Fertilizer", "t": "acid dissolves phosphate rock into phosphoric acid and phosphate fertilizer"},
+        {"n": "3b · Battery metals & more", "t": "leaches nickel, cobalt, copper, lithium; plus chemicals, refining, metals"},
+    ],
+    "sections": [
+        {"h2": "1 · No one mines sulfur any more", "panels": [
+            {"kind": "big", "h3": "Where sulfur comes from now", "big": "by-product", "conf": "measured",
+             "text": "For most of the 20th century sulfur was mined (the Frasch process); today that is almost gone. "
+                     "Environmental rules force refiners to strip sulfur out of crude oil and sour gas, and smelters to "
+                     "capture sulfur dioxide, and that recovered sulfur is now essentially the entire supply. Sulfur is "
+                     "produced because we clean fossil fuels and ores — not because anyone wants sulfur.",
+             "note": "USGS Sulfur 2026."},
+            {"kind": "text", "h3": "So supply is bounded by fossil fuels",
+             "text": "Because sulfur is a by-product, its output tracks how much oil, gas and metal the world processes, "
+                     "not sulfur demand — the same coupling as gallium or helium, but on a vast scale. It cannot be "
+                     "scaled up on its own, and it cannot easily be scaled down without piling up: refiners must do "
+                     "something with the sulfur they remove.",
+             "flag": "coupled to fossil fuels, not to demand"},
+        ]},
+        {"h2": "2 · It quietly feeds the world", "panels": [
+            {"kind": "text", "h3": "Sulfuric acid dissolves phosphate rock", "conf": "measured",
+             "text": "The single largest use of sulfuric acid is making phosphate fertilizer: the acid attacks "
+                     "phosphate rock to release plant-available phosphorus (see the phosphate chain). Since roughly half "
+                     "of humanity is fed on synthetically fertilized crops, a sulfur or sulfuric-acid squeeze is a "
+                     "food-security issue hiding inside a bulk chemical almost no one tracks.",
+             "note": "USGS; fertilizer literature.", "flag": "food security, via a bulk chemical"},
+            {"kind": "text", "h3": "And it leaches the battery metals",
+             "text": "Sulfuric acid is also the standard reagent for hydrometallurgy — leaching nickel, cobalt, copper "
+                     "and lithium out of their ores and into solution (Indonesia's HPAL nickel, copper heap leaching, "
+                     "lithium processing all consume it). So the same acid underpins both the old economy (fertilizer) "
+                     "and the new one (batteries), quietly linking the phosphate and battery chains.",
+             "flag": "the reagent under the battery boom"},
+        ]},
+        {"h2": "3 · The transition undermines its own input", "panels": [
+            {"kind": "big", "h3": "The backwards chokepoint", "big": "less oil → less sulfur", "conf": "estimate",
+             "text": "Here is the twist: green-energy demand for batteries and fertilizer pushes sulfuric-acid demand "
+                     "up, while cutting fossil-fuel refining pushes by-product sulfur supply down. Analysts warn of a "
+                     "potential sulfur shortfall of hundreds of millions of tonnes by mid-century if decarbonization "
+                     "proceeds. Mining native sulfur again — energy- and carbon-intensive — would be the fallback. It "
+                     "is a rare case where the transition threatens one of its own quiet inputs.",
+             "note": "Maslin et al. 2022 (Geographical Journal); marked as a projection."},
+        ]},
+    ],
+    "trade_intro": "BACI carries elemental sulfur (250300) and sulfuric acid (280700), but both are cheap, heavy and "
+                   "largely a by-product moved regionally, and much sulfuric acid is made and consumed on-site at "
+                   "fertilizer and metal plants. Read the shares below as the traded surplus, not the true scale of "
+                   "sulfur that never enters trade.",
+    "method": [
+        {"stage": "Source", "lens": "USGS recovered-sulfur share", "why": "a by-product of oil/gas/smelting — not mined"},
+        {"stage": "Acid", "lens": "sulfuric-acid production/use", "why": "the highest-volume industrial chemical"},
+        {"stage": "Balance", "lens": "Maslin et al. supply outlook", "why": "the decarbonization squeeze — marked as a projection"},
+        {"stage": "Trade", "lens": "BACI 250300 sulfur + 280700 acid", "why": "traded surplus only; most is used on-site — flagged"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- sulfur, by-product of fossil desulfurization; gates fertilizer+batteries; transition drains it")
