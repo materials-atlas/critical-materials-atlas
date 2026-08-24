@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Fluorine (fluorspar → HF) chain",
+    "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../heat-pump-chain/heat-pump-chain.html", "label": "Heat-pump chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
     "accent": "#3a7d6a",
     "eyebrow": "Product-chain pilot · one mineral, three technologies",

@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Nuclear fuel chain",
+    "published": True,
     "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#5a7d4a",
     "eyebrow": "Product-chain pilot · the fuel behind the reactor",

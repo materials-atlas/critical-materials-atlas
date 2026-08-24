@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Magnesium chain",
+    "published": True,
     "related": [{"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
     "accent": "#8a7a5a",
     "eyebrow": "Product-chain pilot · the metal that lightens the others",

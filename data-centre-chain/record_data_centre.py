@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Data-centre / AI chain",
+    "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#5a5a9c",
     "eyebrow": "Product-chain pilot · the compute behind AI",

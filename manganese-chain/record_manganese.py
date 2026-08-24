@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Manganese chain",
+    "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
     "accent": "#7a4a4a",
     "eyebrow": "Product-chain pilot · the metal steel can't do without",

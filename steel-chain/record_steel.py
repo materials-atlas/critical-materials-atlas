@@ -18,6 +18,7 @@ SRC = {
 
 CHAIN = {
     "title": "Primary / green-steel chain",
+    "published": True,
     "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#7a6a5a",
     "eyebrow": "Product-chain pilot · the material civilisation is built from",

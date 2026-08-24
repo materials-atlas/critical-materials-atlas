@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Titanium chain",
+    "published": True,
     "related": [{"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#6a6a7a",
     "eyebrow": "Product-chain pilot · pigment, and the metal that flies",

@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Electric-vehicle chain",
+    "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}],
     "accent": "#3f6ea5",
     "eyebrow": "Product-chain pilot · the car that plugs in",

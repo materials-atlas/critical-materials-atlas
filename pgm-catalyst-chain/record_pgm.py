@@ -21,6 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "PGM / catalyst chain",
+    "published": True,
     "related": [{"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}, {"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}],
     "accent": "#5a6472",
     "eyebrow": "Product-chain pilot · catalysts & emissions",

@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Nickel chain",
+    "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
     "accent": "#4a7a5a",
     "eyebrow": "Product-chain pilot · stainless steel and the battery",

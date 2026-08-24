@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Phosphate → fertilizer → food chain",
+    "published": True,
     "related": [{"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#6f7c3c",
     "eyebrow": "Product-chain pilot · food security",

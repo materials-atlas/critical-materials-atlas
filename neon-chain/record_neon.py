@@ -16,6 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Neon / specialty-gas chain",
+    "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../helium-chain/helium-chain.html", "label": "Helium chain"}],
     "accent": "#7a4a7a",
     "eyebrow": "Product-chain pilot · the gas inside the lithography laser",

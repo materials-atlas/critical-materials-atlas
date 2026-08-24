@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Electricity-grid chain",
+    "published": True,
     "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain.html", "label": "Data-centre / AI chain"}],
     "accent": "#8a6a3a",
     "eyebrow": "Product-chain pilot · the wires that carry it all",

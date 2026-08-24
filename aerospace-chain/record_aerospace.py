@@ -19,6 +19,7 @@ SRC = {
 
 CHAIN = {
     "title": "Aerospace / jet-engine superalloy chain",
+    "published": True,
     "related": [{"href": "../titanium-chain/titanium-chain.html", "label": "Titanium chain"}, {"href": "../pgm-catalyst-chain/pgm-catalyst-chain.html", "label": "PGM / catalyst chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
     "accent": "#35617f",
     "eyebrow": "Product-chain pilot · aerospace propulsion",

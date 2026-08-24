@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Heat-pump chain",
+    "published": True,
     "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
     "accent": "#5a8a6a",
     "eyebrow": "Product-chain pilot · the box that heats the house",

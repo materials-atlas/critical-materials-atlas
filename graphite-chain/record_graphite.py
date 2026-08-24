@@ -23,6 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Graphite / battery-anode chain",
+    "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}],
     "accent": "#4a4a4a",
     "eyebrow": "Product-chain pilot · the other half of the battery",

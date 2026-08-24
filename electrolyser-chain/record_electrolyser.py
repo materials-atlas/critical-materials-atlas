@@ -17,6 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Electrolyser / hydrogen chain",
+    "published": True,
     "related": [{"href": "../pgm-catalyst-chain/pgm-catalyst-chain.html", "label": "PGM / catalyst chain"}, {"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#3f7d8a",
     "eyebrow": "Product-chain pilot · splitting water for fuel",
