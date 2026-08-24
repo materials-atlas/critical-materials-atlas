@@ -1,0 +1,93 @@
+"""Evidence JSON for the gallium chain pilot. Uniform schema. Public sources.
+Shared chainview renderer, per-figure confidence tags. Run: python record_gallium.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "gallium_chain.json")
+
+SRC = {
+    "usgs_gallium": {"title": "USGS Mineral Commodity Summaries 2026 — Gallium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf"},
+    "usgs_gallium25": {"title": "USGS Mineral Commodity Summaries 2025 — Gallium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf"},
+    "csis_gallium": {"title": "CSIS, China's gallium and germanium export controls", "year": 2023, "url": "https://www.csis.org/analysis/chinas-gallium-and-germanium-export-controls"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Gallium chain",
+    "accent": "#8a5a3a",
+    "eyebrow": "Product-chain pilot · the chip metal that became a lever",
+    "h1": "China makes almost all the gallium — then made it a lever",
+    "deck": "Gallium is not mined for itself: it is a trace by-product of refining aluminium and zinc, and China "
+            "produces about 98% of the world's primary supply. In July 2023 it placed gallium under export licensing "
+            "— the archetype of the export-control playbook this atlas keeps meeting. Gallium goes into the GaN and "
+            "GaAs chips behind radar, 5G, EV power electronics and LEDs.",
+    "byline": "bauxite / zinc (the host) ≠ by-product gallium (~98% CN) ≠ high-purity GaAs / GaN ≠ radar, 5G, power chips",
+    "correction": "Gallium is the cleanest example of the atlas's recurring lever. No one runs a gallium mine — it is "
+                  "extracted in tiny amounts during alumina (Bayer-process) and zinc refining, so it cannot be scaled "
+                  "on its own, and China refines ~98% of it. That concentration became an instrument in July 2023, when "
+                  "China required export licences for gallium and germanium — throttling a material that gates "
+                  "compound-semiconductor chips for defence and communications.",
+    "stats": [
+        {"v": "~98%", "l": "China's share of world primary (low-purity) gallium", "conf": "measured"},
+        {"v": "by-product", "l": "extracted from alumina and zinc refining — no standalone mine", "conf": "measured"},
+        {"v": "Jul 2023", "l": "China placed gallium (and germanium) under export licensing", "conf": "measured"},
+        {"v": "GaN + GaAs", "l": "compound-semiconductor chips: radar, 5G, EV power electronics, LEDs", "conf": "measured"},
+    ],
+    "hops": [
+        {"n": "1 · Host ore", "t": "bauxite (for alumina) or zinc ore — gallium rides along as a trace impurity"},
+        {"n": "2 · By-product extraction", "t": "gallium recovered during alumina/zinc refining — ~98% China"},
+        {"n": "3 · High-purity & compounds", "t": "purified to 6N–7N and made into GaAs and GaN wafers"},
+        {"n": "4 · Devices", "t": "radar and electronic-warfare, 5G base stations, EV inverters, LEDs, satellites"},
+    ],
+    "sections": [
+        {"h2": "1 · The by-product trap, at its most extreme", "panels": [
+            {"kind": "big", "h3": "Where primary gallium is made", "big": "~98% China", "conf": "measured",
+             "text": "Because gallium occurs at parts-per-million in bauxite and zinc ores, supply is welded to alumina "
+                     "and zinc refining — and to whoever chose to install recovery circuits. China did, at scale and "
+                     "low cost, and now produces about 98% of primary gallium. The Western world has the host ores and "
+                     "refineries but largely stopped recovering the gallium because China's was cheaper.",
+             "note": "USGS MCS 2026."},
+            {"kind": "text", "h3": "So it cannot be scaled on its own",
+             "text": "Gallium production is capped by how much alumina and zinc the world refines, not by gallium "
+                     "demand — the same by-product coupling as indium, germanium and rhenium elsewhere in this atlas. "
+                     "You cannot simply 'mine more gallium'; you recover more of what is already flowing through "
+                     "existing refineries, which takes capital and time to retrofit.",
+             "flag": "coupled to alumina and zinc, not to demand"},
+        ]},
+        {"h2": "2 · The lever, pulled in 2023", "panels": [
+            {"kind": "text", "h3": "Export licensing on a defence-critical chip metal", "conf": "measured",
+             "text": "In July 2023 China required export licences for gallium and germanium, and Chinese gallium "
+                     "exports fell sharply. Gallium matters because gallium-nitride (GaN) and gallium-arsenide (GaAs) "
+                     "make the high-frequency, high-power chips in military radar and electronic warfare, 5G base "
+                     "stations, satellite communications and increasingly EV power inverters — so the control lands on "
+                     "both defence and the digital build-out (see the defence and silicon-chip chains).",
+             "note": "USGS; CSIS.", "flag": "the export-control playbook, in its purest form"},
+        ]},
+        {"h2": "3 · The response: recover what was being discarded", "panels": [
+            {"kind": "text", "h3": "Recoverable, but not overnight",
+             "text": "Because gallium is technically recoverable from many existing alumina and zinc plants, the fix is "
+                     "industrial rather than geological: restart or add recovery circuits in Europe, North America and "
+                     "elsewhere, plus recycling from GaAs wafer scrap. It is a built chokepoint that can be rebuilt — "
+                     "but qualifying new high-purity supply into defence and semiconductor lines takes years, so the "
+                     "leverage is real in the meantime.",
+             "flag": "a built chokepoint, rebuildable slowly"},
+        ]},
+    ],
+    "trade_intro": "Gallium has no clean HS6 line — unwrought gallium sits in the shared 811292 'other minor metals' "
+                   "basket with indium and germanium, so its trade cannot be isolated (the same limit the atlas flags "
+                   "for indium). The table below shows that basket only as flagged context, not a gallium series.",
+    "method": [
+        {"stage": "Source", "lens": "USGS primary-gallium share", "why": "~98% China; a by-product of alumina/zinc"},
+        {"stage": "Policy", "lens": "Jul-2023 export licensing", "why": "the lever on a defence-critical chip metal"},
+        {"stage": "Devices", "lens": "GaN/GaAs end-use literature", "why": "radar, 5G, power electronics — qualitative"},
+        {"stage": "Trade", "lens": "BACI 811292 basket", "why": "gallium not separable from indium/germanium — flagged context"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- gallium, ~98pct China by-product; Jul-2023 export controls; GaN/GaAs")

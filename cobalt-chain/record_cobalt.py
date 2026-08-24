@@ -1,0 +1,112 @@
+"""Evidence JSON for the cobalt chain pilot. Uniform schema. Public sources.
+Shared chainview renderer, per-figure confidence tags. Run: python record_cobalt.py
+"""
+from __future__ import annotations
+import json, os
+
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUT = os.path.join(HERE, "out", "cobalt_chain.json")
+MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+
+
+def hist_points(material, country):
+    node = json.load(open(MINED, encoding="utf-8")).get(material, {})
+    return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
+
+SRC = {
+    "usgs_cobalt": {"title": "USGS Mineral Commodity Summaries 2026 — Cobalt", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf"},
+    "iea_minerals_2025": {"title": "IEA, Global Critical Minerals Outlook 2025", "year": 2025, "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — cobalt mine production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+}
+
+CHAIN = {
+    "title": "Cobalt chain",
+    "accent": "#3a5a8a",
+    "eyebrow": "Product-chain pilot · a battery metal with two chokepoints",
+    "h1": "Cobalt has a mine problem in one country and a refining problem in another",
+    "deck": "Cobalt strengthens the cathode in many lithium-ion batteries — and it carries two separate "
+            "concentrations. About three-quarters is mined in the Democratic Republic of the Congo, a share that also "
+            "raises artisanal-mining and child-labour concerns; and about three-quarters is refined in China. Battery "
+            "makers have responded by engineering cobalt down, not by finding new mines.",
+    "byline": "DRC mine (~75%, some artisanal) ≠ China refining (~75%) ≠ cathode ≠ the cell (and chemistry is cutting it out)",
+    "correction": "Cobalt is a double chokepoint plus an ethics problem. The DR Congo mines ~75% of it — much as a "
+                  "by-product of copper, and a meaningful slice from artisanal miners in hazardous conditions — while "
+                  "China refines ~75% of the world's cobalt regardless of where it is dug. The industry's main answer "
+                  "has not been new supply but new chemistry: LFP and high-nickel low-cobalt cathodes cut the cobalt "
+                  "per cell, shrinking the exposure from the demand side.",
+    "stats": [
+        {"v": "~75%", "l": "of cobalt is mined in the DR Congo", "conf": "measured"},
+        {"v": "~75%", "l": "of cobalt is refined in China — wherever it was mined", "conf": "measured"},
+        {"v": "artisanal", "l": "a meaningful DRC share is artisanal — child-labour and safety concerns", "conf": "estimate"},
+        {"v": "engineered down", "l": "LFP and low-cobalt cathodes are cutting cobalt per battery", "conf": "estimate"},
+    ],
+    "history": {
+        "title": "The DR Congo's grip tightened, 2000 → 2024",
+        "conf": "measured",
+        "note": "BGS/USGS mine production, from the atlas's own data. The DR Congo's share of cobalt mining rose from "
+                "~21% in 2000 to ~75% today, as older producers (Canada, Russia, Zambia) faded and Congolese "
+                "copper-cobalt output surged; Indonesia has lately emerged as a nickel-by-product source. The mine "
+                "concentration is real — but so is the second one, in refining, which no mine-side chart shows.",
+        "series": [
+            {"label": "DR Congo", "points": hist_points("cobalt", "CD")},
+            {"label": "Indonesia", "points": hist_points("cobalt", "ID")},
+            {"label": "Russia", "points": hist_points("cobalt", "RU")},
+        ],
+    },
+    "hops": [
+        {"n": "1 · Mine", "t": "DR Congo ~75% — largely a by-product of copper, plus artisanal output"},
+        {"n": "2 · Refine", "t": "cobalt intermediates refined to battery-grade sulphate — ~75% China"},
+        {"n": "3 · Cathode", "t": "cobalt in NMC/NCA cathode powders (LFP uses none)"},
+        {"n": "4 · Cell", "t": "the battery — cobalt improves stability and energy density in some chemistries"},
+    ],
+    "sections": [
+        {"h2": "1 · The mine: concentration plus an ethics problem", "panels": [
+            {"kind": "big", "h3": "Where cobalt comes out of the ground", "big": "~75% DRC", "conf": "measured",
+             "text": "Most cobalt is a by-product of Congolese copper mining, so its supply is tied to copper economics "
+                     "as well as to one country. A significant share comes from artisanal and small-scale miners working "
+                     "in hazardous conditions, which is why cobalt carries reputational and due-diligence weight beyond "
+                     "its tonnage — a governance dimension alongside the geographic one.",
+             "note": "USGS MCS 2026; IEA."},
+            {"kind": "text", "h3": "A by-product of copper, so hard to steer",
+             "text": "Because cobalt rides on copper (and, in Indonesia, on nickel), you cannot easily open a "
+                     "cobalt-only mine — output moves with copper and nickel demand. That coupling, plus the country "
+                     "concentration, is what makes the mine side hard to diversify quickly even when prices spike.",
+             "flag": "a by-product, not a standalone mine"},
+        ]},
+        {"h2": "2 · The second chokepoint: refining", "panels": [
+            {"kind": "text", "h3": "China refines what the DRC digs", "conf": "measured",
+             "text": "As with lithium and graphite, the ore's origin and the refining geography are different maps: "
+                     "roughly three-quarters of cobalt is refined into battery-grade chemical in China, whatever its "
+                     "mined origin. So even Congolese or Indonesian cobalt typically becomes battery material only after "
+                     "passing through Chinese refineries — the industrial chokepoint that a mine-share map misses.",
+             "note": "IEA Global Critical Minerals Outlook 2025.", "flag": "the refinery, a second concentration"},
+        ]},
+        {"h2": "3 · The demand-side answer: use less", "panels": [
+            {"kind": "text", "h3": "Chemistry is cutting cobalt out",
+             "text": "Rather than solve the supply concentration head-on, battery makers have reduced their exposure: "
+                     "cobalt-free LFP cells took roughly half the EV market (see the battery chain), and NMC cathodes "
+                     "moved to higher nickel and less cobalt. Cobalt demand from batteries is still large, but the "
+                     "cobalt per cell is falling — a reminder that in battery chains the recipe, not just the mine, "
+                     "moves the risk.",
+             "flag": "the recipe shrinks the exposure"},
+        ]},
+    ],
+    "trade_intro": "BACI carries cobalt ores and unwrought/intermediate cobalt (260500, 810520), but not battery-grade "
+                   "cobalt sulphate cleanly, and refined-cobalt origin is the refinery, not the mine. Read the shares "
+                   "below as the traded raw and semi-refined forms, not the DRC mine share or the China refining share, "
+                   "which customs data does not isolate.",
+    "method": [
+        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~75% DRC; a copper by-product with an ethics dimension"},
+        {"stage": "Refine", "lens": "IEA refining share", "why": "~75% China — the second, industrial chokepoint"},
+        {"stage": "Chemistry", "lens": "LFP / low-cobalt cathodes", "why": "demand-side de-risking — marked as a trend"},
+        {"stage": "Trade", "lens": "BACI 260500 ores + 810520 cobalt", "why": "raw/semi-refined forms only — flagged context"},
+    ],
+    "sources": SRC,
+}
+
+os.makedirs(os.path.dirname(OUT), exist_ok=True)
+with open(OUT, "w", encoding="utf-8") as fh:
+    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
+print("wrote", os.path.relpath(OUT, HERE), "- cobalt, DRC 21->75pct mine + China ~75pct refine; engineered down")

@@ -91,6 +91,22 @@ CHAINS = {
         "281410": {"title": "Anhydrous ammonia", "boundary": "The fertilizer intermediate; its binding input — natural gas — is a separate energy market, not visible here."},
         "310210": {"title": "Urea", "boundary": "The most-traded nitrogen fertilizer; a downstream form, gas-cost-driven upstream."},
     }),
+    "gallium": ("gallium-chain", "gallium", {
+        "811292": {"title": "Gallium/indium/germanium (unwrought minor metals)", "boundary": "Gallium shares this basket with indium and germanium and cannot be isolated — the dependency is invisible in customs data."},
+    }),
+    "cobalt": ("cobalt-chain", "cobalt", {
+        "260500": {"title": "Cobalt ores and concentrates", "boundary": "Mined concentrate; largely a copper by-product, and refined-origin differs from mined-origin."},
+        "810520": {"title": "Cobalt mattes, unwrought cobalt, powder", "boundary": "Semi-refined cobalt; battery-grade sulphate and the China refining share are not separable here."},
+    }),
+    "nickel": ("nickel-chain", "nickel", {
+        "260400": {"title": "Nickel ores and concentrates", "boundary": "Little ore now trades — Indonesia's export ban moved the value into smelted products this line misses."},
+        "750210": {"title": "Unwrought nickel, not alloyed", "boundary": "Refined nickel metal; class-1 vs class-2 and Indonesian intermediates are not distinguished."},
+    }),
+    "tungsten": ("tungsten-chain", "tungsten", {
+        "261100": {"title": "Tungsten ores and concentrates", "boundary": "Mined scheelite/wolframite; China's processing dominance shows more in the APT line than in the ore."},
+        "284180": {"title": "Tungstates (incl. ammonium paratungstate, APT)", "boundary": "The traded chemical intermediate; where China's midstream dominance is most visible."},
+        "810194": {"title": "Tungsten, unwrought / powder", "boundary": "Metal powder; finished carbide tools and munitions are not captured."},
+    }),
 }
 
 # code -> list of chains that use it
