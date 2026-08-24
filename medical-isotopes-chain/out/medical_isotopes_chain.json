@@ -1,0 +1,165 @@
+{
+  "title": "Medical-isotopes chain",
+  "chokepoint": {
+    "product": "Medical imaging (Tc-99m)",
+    "stage": "Reactor irradiation",
+    "mechanism": "capability",
+    "physics": "Mo-99 is made in a handful of ageing research reactors; a 66-hour half-life means no stockpile is possible — an irreplaceable, buffer-less capability",
+    "holder": "NL · BE · few reactors",
+    "share": "~6 reactors",
+    "control": "—",
+    "conf": "measured"
+  },
+  "published": true,
+  "related": [
+    {
+      "href": "../nuclear-chain/nuclear-chain.html",
+      "label": "Nuclear fuel chain"
+    },
+    {
+      "href": "../zirconium-chain/zirconium-chain.html",
+      "label": "Zirconium / hafnium chain"
+    },
+    {
+      "href": "../pgm-catalyst-chain/pgm-catalyst-chain.html",
+      "label": "PGM / catalyst chain"
+    }
+  ],
+  "accent": "#7a5a6a",
+  "eyebrow": "Product-chain pilot · the scan you might need",
+  "h1": "The world's most-used medical isotope is made in about six ageing reactors — and can't be stored",
+  "deck": "Technetium-99m images tens of millions of patients a year — bones, hearts, tumours. It is milked from molybdenum-99, which is produced in only a handful of ageing research reactors. And because Mo-99 decays with a 66-hour half-life, none of it can be stockpiled: when one reactor goes down for maintenance, hospitals worldwide run short within days.",
+  "byline": "research reactor (few, ageing) ≠ Mo-99 (66h half-life, no stockpile) ≠ Tc-99m generator ≠ the scan",
+  "correction": "This chain is a chokepoint of a different kind — not concentration for leverage, but fragility. The isotope behind ~40 million diagnostic scans a year, technetium-99m, comes from molybdenum-99 made in roughly six research reactors (in the Netherlands, Belgium, and a few others), most of them decades old. Mo-99's short half-life makes stockpiling impossible, so a single reactor outage cascades into global shortages. The risk is an irreplaceable, buffer-less capability, not a hostile supplier.",
+  "stats": [
+    {
+      "v": "~40M scans/yr",
+      "l": "technetium-99m is the workhorse of nuclear-medicine imaging",
+      "conf": "measured"
+    },
+    {
+      "v": "~6 reactors",
+      "l": "most Mo-99 comes from a handful of ageing research reactors",
+      "conf": "measured"
+    },
+    {
+      "v": "no stockpile",
+      "l": "Mo-99's 66-hour half-life means it cannot be stored — outages hit instantly",
+      "conf": "measured"
+    },
+    {
+      "v": "recurring shortages",
+      "l": "reactor maintenance or breakdown causes worldwide supply crunches",
+      "conf": "measured"
+    }
+  ],
+  "hops": [
+    {
+      "n": "1 · Reactor",
+      "t": "a research reactor irradiates uranium (or Mo-98) targets — few, ageing facilities"
+    },
+    {
+      "n": "2 · Mo-99",
+      "t": "molybdenum-99 extracted and shipped fast — 66-hour half-life, no buffer"
+    },
+    {
+      "n": "3 · Generator",
+      "t": "Mo-99 decays to technetium-99m in a hospital 'moly cow' generator"
+    },
+    {
+      "n": "4 · The scan",
+      "t": "Tc-99m injected as a tracer for bone, cardiac, renal and cancer imaging"
+    }
+  ],
+  "sections": [
+    {
+      "h2": "1 · A supply chain that races the clock",
+      "panels": [
+        {
+          "kind": "big",
+          "h3": "Why it can't be stockpiled",
+          "big": "66-hour half-life",
+          "conf": "measured",
+          "text": "Molybdenum-99 loses about 1% of its activity per hour, so from the moment it leaves the reactor it is decaying. There is no way to build a strategic reserve — the entire chain, from irradiation to the patient, runs in days. That is what makes a routine reactor shutdown a clinical emergency: you cannot draw down a stock that physically cannot exist.",
+          "note": "OECD NEA; IAEA."
+        },
+        {
+          "kind": "text",
+          "h3": "And the reactors are old",
+          "text": "The bulk of world Mo-99 has come from a small set of research reactors built in the 1960s-70s — the Netherlands' HFR at Petten, Belgium's BR2, and a few others — with periodic gaps as they age and undergo refurbishment. Canada's NRU, once a mainstay, closed in 2018. Each retirement thins an already thin supply, which is why the sector lives with recurring shortage scares.",
+          "flag": "few facilities, decades old"
+        }
+      ]
+    },
+    {
+      "h2": "2 · What depends on it",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "The invisible backbone of diagnosis",
+          "conf": "measured",
+          "text": "Technetium-99m is used in roughly 80% of nuclear-medicine procedures — bone scans, cardiac perfusion, kidney function, sentinel-node cancer staging — because it emits a clean imaging gamma and clears the body quickly. There is no drop-in substitute for many of these scans, so a Mo-99 shortage directly delays cancer staging and cardiac diagnosis for patients.",
+          "note": "OECD NEA; IAEA.",
+          "flag": "no substitute for many scans"
+        }
+      ]
+    },
+    {
+      "h2": "3 · The fix: spread and modernise production",
+      "panels": [
+        {
+          "kind": "text",
+          "h3": "New routes, no more weapons uranium",
+          "text": "The response is to diversify and modernise: converting production off highly-enriched (weapons-grade) uranium targets to low-enriched ones, adding new reactor and accelerator-based routes, and building capacity in more countries. It is a capability-rebuilding problem — funding and qualifying new production over years — the same shape as enrichment or turbine blades, but for a material that images the sick.",
+          "note": "NNSA / IAEA.",
+          "flag": "rebuild capacity, off weapons uranium"
+        }
+      ]
+    }
+  ],
+  "trade_intro": "BACI carries radioactive isotopes and compounds in one broad line (284440); Mo-99 and Tc-99m cannot be isolated, and because they decay in hours much of the real flow is time-critical air freight that customs statistics capture poorly. Read the shares below as the broad radioisotope basket only, not a medical-isotope series.",
+  "method": [
+    {
+      "stage": "Production",
+      "lens": "OECD NEA reactor list",
+      "why": "~6 ageing research reactors — the fragile capability"
+    },
+    {
+      "stage": "Logistics",
+      "lens": "half-life / no stockpile",
+      "why": "days-long chain; a single outage cascades"
+    },
+    {
+      "stage": "Use",
+      "lens": "nuclear-medicine share",
+      "why": "~80% of procedures; no substitute for many scans"
+    },
+    {
+      "stage": "Trade",
+      "lens": "BACI 284440 radioactive isotopes",
+      "why": "Mo-99/Tc-99m not separable; decays in transit — flagged"
+    }
+  ],
+  "sources": {
+    "oecd_nea_mo99": {
+      "title": "OECD NEA — The Supply of Medical Radioisotopes (Mo-99/Tc-99m)",
+      "year": 2023,
+      "url": "https://www.oecd-nea.org/med-radio/"
+    },
+    "iaea_isotopes": {
+      "title": "IAEA — production and supply of medical radioisotopes",
+      "year": 2024,
+      "url": "https://www.iaea.org/topics/radioisotopes"
+    },
+    "usgs_context": {
+      "title": "USGS / NNSA — molybdenum-99 without highly enriched uranium",
+      "year": 2024,
+      "url": "https://www.nnsa.energy.gov/aboutus/ourprograms/nonproliferation/programoffices/mo-99"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "year": 2026,
+      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "source": "derived from the chain records' chokepoint fields",
-  "count": 48,
+  "count": 54,
   "rows": [
     {
       "chain": "aerospace",
@@ -48,6 +48,30 @@
       "holder": "China refine",
       "share": "refine",
       "control": "Sep 2024",
+      "conf": "measured"
+    },
+    {
+      "chain": "arsenic",
+      "href": "arsenic-chain/arsenic-chain.html",
+      "product": "GaAs chips · alloys",
+      "stage": "Recovery (by-product)",
+      "mechanism": "byproduct",
+      "physics": "A by-product of copper/gold smelting — recovered from toxic flue dust, not mined; supply bounded by the host and by nobody wanting to make it",
+      "holder": "Peru · China",
+      "share": "—",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "baryte",
+      "href": "baryte-chain/baryte-chain.html",
+      "product": "Oil & gas drilling mud",
+      "stage": "Mine",
+      "mechanism": "diffuse",
+      "physics": "A cheap, heavy, abundant weighting mineral mined near demand (India/China/Morocco) — no chokepoint, but you can't drill without it",
+      "holder": "India · China · Morocco",
+      "share": "—",
+      "control": "—",
       "conf": "measured"
     },
     {
@@ -351,6 +375,18 @@
       "conf": "measured"
     },
     {
+      "chain": "medical-isotopes",
+      "href": "medical-isotopes-chain/medical-isotopes-chain.html",
+      "product": "Medical imaging (Tc-99m)",
+      "stage": "Reactor irradiation",
+      "mechanism": "capability",
+      "physics": "Mo-99 is made in a handful of ageing research reactors; a 66-hour half-life means no stockpile is possible — an irreplaceable, buffer-less capability",
+      "holder": "NL · BE · few reactors",
+      "share": "~6 reactors",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
       "chain": "neon",
       "href": "neon-chain/neon-chain.html",
       "product": "Chip lithography",
@@ -411,6 +447,30 @@
       "conf": "measured"
     },
     {
+      "chain": "rare-earths",
+      "href": "rare-earths-chain/rare-earths-chain.html",
+      "product": "Magnets · phosphors · catalysts · polishing",
+      "stage": "Separation",
+      "mechanism": "capability",
+      "physics": "Separating 15+ chemically-alike elements is a vast solvent-extraction industrial base — ~90% China, gating the whole basket, not just magnets",
+      "holder": "China",
+      "share": "~90% separation",
+      "control": "Apr 2025",
+      "conf": "measured"
+    },
+    {
+      "chain": "semiconductor-inputs",
+      "href": "semiconductor-inputs-chain/semiconductor-inputs-chain.html",
+      "product": "Chip fabrication",
+      "stage": "Photoresist + process chemicals",
+      "mechanism": "capability",
+      "physics": "Advanced photoresist is ~90% Japan; process gases, CMP slurries and EUV pellicles are each held by a few qualified suppliers",
+      "holder": "Japan (resist)",
+      "share": "~90%",
+      "control": "2019 JP↔KR",
+      "conf": "measured"
+    },
+    {
       "chain": "silicon-chip",
       "href": "silicon-chip/silicon-chain.html",
       "product": "Logic chips",
@@ -467,6 +527,18 @@
       "physics": "Niobium is essentially one Brazilian mine (CBMM)",
       "holder": "Brazil",
       "share": "~90%",
+      "control": "—",
+      "conf": "measured"
+    },
+    {
+      "chain": "strontium",
+      "href": "strontium-chain/strontium-chain.html",
+      "product": "Ferrite magnets · pyrotechnics",
+      "stage": "Mine (celestite)",
+      "mechanism": "diffuse",
+      "physics": "A small celestite-mineral market spread across Iran, China, Spain and Mexico — moderately concentrated, no severe chokepoint",
+      "holder": "Iran",
+      "share": "~58%",
       "control": "—",
       "conf": "measured"
     },

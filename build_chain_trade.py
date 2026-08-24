@@ -171,6 +171,27 @@ CHAINS = {
         "261510": {"title": "Zirconium ores and concentrates (zircon)", "boundary": "Abundant zircon sand (a titanium-sands by-product); ceramic vs nuclear grade not distinguished."},
         "810920": {"title": "Zirconium, unwrought; powder", "boundary": "Unwrought zirconium; nuclear-grade (hafnium-free) metal and hafnium itself are not separable here."},
     }),
+    "medical_isotopes": ("medical-isotopes-chain", "medical_isotopes", {
+        "284440": {"title": "Radioactive elements, isotopes and compounds", "boundary": "Mo-99/Tc-99m cannot be isolated in this broad line, and they decay in hours — much real flow is time-critical air freight customs captures poorly."},
+    }),
+    "rare_earths": ("rare-earths-chain", "rare_earths", {
+        "280530": {"title": "Rare-earth metals, scandium and yttrium", "boundary": "The individual elements are lumped; a traded oxide's origin is the separation plant, not the mine."},
+        "284690": {"title": "Rare-earth compounds (other)", "boundary": "Mixed and single-element RE compounds; China's separation dominance shows here more than in mine figures."},
+    }),
+    "semiconductor_inputs": ("semiconductor-inputs-chain", "semiconductor_inputs", {
+        "370790": {"title": "Chemical preparations for photographic uses", "boundary": "Semiconductor-grade photoresist is not separable from this broad line; process gases, CMP slurries and pellicles sit elsewhere - a coarse proxy only."},
+    }),
+    "baryte": ("baryte-chain", "baryte", {
+        "251110": {"title": "Natural barium sulfate (baryte)", "boundary": "The drilling-grade mineral; cheap and heavy, so traded regionally near drilling demand."},
+        "251120": {"title": "Natural barium carbonate (witherite)", "boundary": "A minor barium mineral; the diversified mine map is the point - no chokepoint to find."},
+    }),
+    "strontium": ("strontium-chain", "strontium", {
+        "281640": {"title": "Oxides/hydroxides/peroxides of strontium or barium", "boundary": "Strontium is lumped with barium here and cannot be isolated; a small market."},
+        "253090": {"title": "Mineral substances, n.e.s. (incl. celestite)", "boundary": "A catch-all mineral basket; the Iran-led mine map (history chart) is the clearer signal."},
+    }),
+    "arsenic": ("arsenic-chain", "arsenic", {
+        "280480": {"title": "Arsenic", "boundary": "Semiconductor-grade high-purity arsenic and the GaAs it makes are not separable from the bulk toxic material."},
+    }),
 }
 
 # code -> list of chains that use it
