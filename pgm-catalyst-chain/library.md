@@ -1,0 +1,55 @@
+# PGM / catalyst chain — research library
+
+Two countries mine it, and its own scrap saves it: platinum, palladium and rhodium clean car exhaust and are concentrated in South Africa's Bushveld Complex and Russia's Norilsk deposits, but recycling of spent catalytic converters is a real relief valve — and the EV transition, not a supply cut, is the structural threat to demand. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+
+## Core references (already cited in the chain)
+- [USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf) — USGS (2025). Annual reserves, mine production and US import-source data for the six PGMs.
+- [USGS World Minerals Outlook — palladium & platinum through 2029 (SIR 2025-5021)](https://pubs.usgs.gov/publication/sir20255021/full) — USGS (2025). Forward supply/demand outlook, including EV-driven demand risk for autocatalyst metals.
+- [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonized bilateral trade database used for the chain's trade-flow layer.
+
+## Government & agency reports
+- [DG ENTR Report on Critical Raw Materials for the EU](https://rmis.jrc.ec.europa.eu/uploads/crm-report-on-critical-raw-materials_en.pdf) — European Commission JRC/RMIS. Foundational EU criticality methodology and material list, including PGMs.
+- [Raw Materials & the War in Ukraine — Platinum briefing (JRC133245)](https://rmis.jrc.ec.europa.eu/uploads/jrc133245_briefing_platinum_final.pdf) — European Commission JRC (2023). EU platinum supply-risk briefing; notes South Africa supplies 71% of EU platinum demand and an even higher share of iridium/rhodium/ruthenium.
+- [Special Report 04/2026 — Critical raw materials for the energy transition](https://www.eca.europa.eu/ECAPublications/SR-2026-04/SR-2026-04_EN.pdf) — European Court of Auditors (2026). EU audit of critical-raw-materials policy delivery, covering the energy-transition metals including PGMs.
+- [Critical Raw Materials Act — EU policy page](https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en) — European Commission (ongoing). Official CRMA policy hub; PGMs listed among the 17 EU strategic raw materials.
+- [Platinum Group Metal Catalysts Supply Chain Deep Dive Assessment](https://www.energy.gov/sites/default/files/2022-02/PGM%20catalyst%20supply%20chain%20report%20-%20final%20draft%202.25.22.pdf) — U.S. Department of Energy (2022). US government deep-dive on PGM catalyst supply-chain vulnerability, including hydrogen/fuel-cell demand growth.
+
+## Academic papers & reviews
+- [Global platinum group element resources, reserves and mining — A critical assessment](https://www.sciencedirect.com/science/article/abs/pii/S0048969717334083) — Science of the Total Environment (ScienceDirect). Assesses the geological base of PGE resources/reserves and mining constraints, centered on the Bushveld Complex.
+- [Mapping global platinum supply chain and assessing potential supply risks](https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2023.1033220/full) — Frontiers in Energy Research (2023). Supply-chain mapping and risk assessment for platinum specifically.
+- [The Platinum Group Element Deposits of the Bushveld Complex in South Africa](https://technology.matthey.com/content/journals/10.1595/147106710X520222) — Johnson Matthey Technology Review. Geological review of the Bushveld Complex's PGE deposits — the source of ~90% of world reserves.
+- [Supply and demand of platinum group metals and strategies for sustainable management](https://www.sciencedirect.com/science/article/abs/pii/S1364032124005471) — ScienceDirect (2024). Review of PGM supply/demand balance and sustainable-management strategies (recycling, substitution).
+- [Will there be enough platinum for a large deployment of fuel cell electric vehicles?](https://www.sciencedirect.com/science/article/abs/pii/S0360319921037022) — International Journal of Hydrogen Energy (ScienceDirect). Models platinum-supply adequacy under large-scale FCEV rollout.
+- [Critical Iridium Demands arising from future Expansion of Proton Exchange Membrane Electrolysis](https://arxiv.org/html/2509.05357v1) — arXiv (2025). Quantifies iridium demand growth from PEM electrolyser scale-up — a PGM that is not the chain's headline metal but shares the same geological base.
+- [A Critical Review of the Hydrometallurgy and Pyrometallurgical Recovery Processes of Platinum Group Metals from End-of-Life Fuel Cells](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11766938/) — PMC/NCBI. Review of PGM recovery routes from spent fuel cells, complementing the autocatalyst-recycling literature.
+- [A new approach to recover platinum-group metals from spent catalytic converters via iron matte](https://www.sciencedirect.com/science/article/abs/pii/S0921344920302093) — Resources, Conservation and Recycling (ScienceDirect). Pyrometallurgical route achieving high (>97-99%) PGM recovery from spent autocatalysts using an iron-matte process.
+- [Extraction of platinum group metals from catalytic converters](https://www.sciencedirect.com/science/article/pii/S2405844024013148) — Heliyon/ScienceDirect. Recent survey of extraction techniques for PGMs from end-of-life catalytic converters.
+- [Studies on the Formation of Catalytically Active PGM Nanoparticles from Model Solutions as a Basis for the Recycling of Spent Catalysts](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8779495/) — PMC/NCBI. Basic-science study underpinning catalyst-recycling process design.
+
+## Databases & data sources
+- [USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf) — USGS. Annual reserves/production/trade tables (also listed as a core reference).
+- [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade. Bilateral trade flows by HS code for unwrought/semi-manufactured PGMs.
+- [World Platinum Investment Council — Platinum Quarterly](https://platinuminvestment.com/supply-and-demand/platinum-quarterly) — WPIC, research by Metals Focus. Quarterly platinum supply/demand balance, the standard market dataset; next report due 9 September 2026.
+- [WPIC Platinum Quarterly Q4 2025 (PDF)](https://platinuminvestment.com/files/473349/WPIC_Platinum_Quarterly_Q4_2025.pdf) — World Platinum Investment Council (2026). Full-quarter data release with supply/demand detail and the multi-year deficit forecast (four consecutive annual deficits, 2023-2026).
+- [Johnson Matthey PGM Market Report, May 2026 (PDF)](https://matthey.com/documents/161599/509428/pgm-market-report-26.pdf/a2d115af-bf7c-f589-29e9-6beacf8a4452?t=1778750383760) — Johnson Matthey (2026). Twice-yearly PGM market report covering platinum/palladium/rhodium/ruthenium/iridium supply-demand balances and mine/recycling splits.
+
+## Industry & trade associations
+- [IPA — International Platinum Group Metals Association: Sustainability Principles](https://ipa-news.com/index/sustainability/sustainability-principles/) — IPA. Industry sustainability framework for PGM miners and fabricators.
+- [IPA — Fact sheets](https://ipa-news.de/index/about-pgms/fact-sheets.html) — IPA. Reference fact sheets on each PGM's properties, production and uses.
+- [Johnson Matthey publishes 2026 PGM Market Report (press release)](https://matthey.com/media/2026/johnson-matthey-publishes-2026-pgm-market-report1) — Johnson Matthey (2026). Summary release of the May 2026 PGM report: platinum deficit, palladium/rhodium closer to balance, data-centre and electrolysis demand growth.
+- [World Platinum Investment Council — 2 to 5 Year View](https://platinuminvestment.com/supply-and-demand/2-to-5-year-view) — WPIC. Medium-term platinum supply/demand scenario analysis.
+
+## Analysis, think-tanks & reporting
+- [South Africa's Blackouts Threaten Platinum Mine Supplies](https://www.bloomberg.com/news/articles/2023-01-26/south-africa-s-blackouts-threaten-platinum-mine-supplies) — Bloomberg (2023). Reporting on Eskom load-shedding's direct hit to Bushveld mine output.
+- [Load-shedding threatens global platinum supply](https://dailyinvestor.com/business/39586/load-shedding-threatens-global-platinum-supply/) — Daily Investor. South African power-crisis impact on platinum production, with production-decline estimates (~12-20% SA, ~9% global 2023-2027).
+- [South African PGM Supply Risk: The Geological Reality in 2026](https://discoveryalert.com.au/platinum-supply-risk-south-africa-pgm-deficits-2026/) — Discovery Alert (2026). 2026 market-analysis piece on the Bushveld's structural supply risk amid new demand from hydrogen electrolysers, AI servers and electronics connectors.
+- [Johnson Matthey 2026 PGM Report: Platinum Deficit and Palladium Surplus](https://discoveryalert.com.au/pgm-market-platinum-deficit-palladium-rhodium-surpluses-2026/) — Discovery Alert (2026). Digest of the May 2026 JM report's per-metal balances.
+- [Fourth consecutive platinum market deficit forecast for 2026 — supply to fall short of demand by 297 koz](https://www.prnewswire.com/news-releases/fourth-consecutive-platinum-market-deficit-forecast-for-2026---supply-to-fall-short-of-demand-by-297-koz-302774250.html) — PR Newswire / WPIC. Press release detail on the platinum deficit forecast.
+- [Platinum Demand Scenarios Show Hydrogen's Fatal Constraint](https://cleantechnica.com/2025/08/20/platinum-demand-scenarios-show-hydrogens-fatal-constraint/) — CleanTechnica (2025). Commentary connecting hydrogen-economy platinum demand scenarios to supply-base limits.
+
+## Gaps & good next searches
+- No CSIS or RMI-branded think-tank piece turned up in the searches run this session (the query for "CSIS platinum group metals South Africa" hit the session's WebSearch budget before returning) — worth a follow-up search specifically on CSIS.org and rmi.org for PGM/critical-minerals framing.
+- No Benchmark Mineral Intelligence PGM-specific report surfaced directly; BMI's platinum/palladium coverage is subscription-gated and would need a targeted search or direct site check.
+- South African DMRE (Department of Mineral Resources and Energy) primary policy documents (Critical Minerals Strategy) were referenced secondhand via Lexology/SFA Oxford summaries, not fetched directly — worth pulling the DMRE strategy PDF itself.
+- Russian/Norilsk Nickel primary reporting is thin in English-language open sources given sanctions-era opacity; Norilsk Nickel's own investor disclosures (nornickel.com) would be the next stop for palladium mine-side detail.
+- The EV-driven "demand cliff" for palladium/rhodium (autocatalyst volume decline) is asserted in JM/WPIC market reports but a dedicated academic or IEA study modeling the autocatalyst demand curve to 2035-2040 was not directly retrieved — good next search: "IEA autocatalyst platinum group metal demand electric vehicle 2035".

@@ -1,0 +1,55 @@
+# Aerospace / jet-engine superalloy chain — research library
+
+A jet engine turns nickel, cobalt, rhenium, hafnium and titanium into superalloys, then single-crystal turbine blades, then a finished engine — and at every step downstream the supply gets narrower; the mine is the least concentrated stage of all. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+
+## Core references (already cited in the chain)
+- [USGS Mineral Commodity Summaries 2026 — Rhenium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf) — USGS (2026). Annual world production/reserves/uses data for rhenium; ~81 t world mine output, ~55% Chile.
+- [USGS Mineral Commodity Summaries 2025 — Titanium and Titanium Dioxide](https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-titanium.pdf) — USGS (2025). Annual titanium-sponge production/reserves/trade data by country.
+- [Argus: Aerospace-approved Ti sponge supply up in 2024](https://www.argusmedia.com/en/news-and-insights/latest-market-news/2659047-aerospace-approved-ti-sponge-supply-up-in-2024) — Argus Media (2025). Market reporting distinguishing bulk titanium-sponge tonnage from aerospace-qualified supply.
+- [Commercial aircraft engine market analyses (Mordor Intelligence)](https://www.mordorintelligence.com/industry-reports/commercial-aircraft-engines-market) — Mordor Intelligence (2024). Secondary market-size and OEM-share analysis for commercial jet engines.
+- [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonized bilateral trade database (HS6, 2002–2024) used for the chain's trade table.
+
+## Government & agency reports
+- [USGS — About the 2025 List of Critical Minerals](https://www.usgs.gov/programs/mineral-resources-program/science/about-2025-list-critical-minerals) — USGS (2025). Explains the revised methodology (trade-disruption/GDP-loss modeling across 84 commodities) that newly qualified rhenium.
+- [Federal Register pre-publication notice, USGS 2025 critical minerals rulemaking](https://public-inspection.federalregister.gov/2025-19813.pdf) — U.S. Department of the Interior / USGS (2025). Official notice tied to rhenium's addition to the critical minerals list.
+- [Critical Mineral Resources: National Policy and Critical Minerals List (R47982)](https://www.congress.gov/crs-product/R47982) — Congressional Research Service (2024). Legislative/policy background on the U.S. critical minerals list process.
+- [Raw materials in the European defence industry](https://setis.ec.europa.eu/system/files/2021-02/raw_materials_in_the_european_defence_industry.pdf) — Claudiu C. Pavel, European Commission JRC/SETIS (2021). Assesses EU dependency on rhenium, hafnium, titanium and other materials for defence/aerospace.
+- [Study on the Critical Raw Materials for the EU 2023](https://www.eunews.it/wp-content/uploads/2023/10/study-on-the-critical-raw-materials-for-the-eu-2023-ET0723116ENN.pdf) — European Commission (2023). The EU's formal CRM criticality assessment underlying its 2023 list.
+- [Closing the loop: EU's titanium supply chain](https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/closing-loop-eus-titanium-supply-chain-2025-01-23_en) — European Commission Joint Research Centre (2025). Titanium scrap/recycling policy note; notes Kazakhstan as an EU titanium supplier.
+- [U.S. Strategic Material Supply Chain Assessment: Titanium](https://www.bis.gov/media/documents/titanium-supply-chain-assessment-web-version.pdf) — U.S. Department of Commerce, Bureau of Industry and Security. Government assessment of titanium supply-chain vulnerability for defense/aerospace end uses.
+
+## Academic papers & reviews
+- [Assessment of supply interruption of rhenium, recycling, processing sources and technologies](https://www.sciencedirect.com/science/article/abs/pii/S0263436819301556) — ScienceDirect / Resources Policy-type journal. Supply-risk and recycling-pathway analysis specific to rhenium.
+- [Review of rhenium extraction and recycling technologies from primary and secondary resources](https://www.sciencedirect.com/science/article/abs/pii/S0892687520305392) — ScienceDirect (Minerals Engineering). Reviews primary/secondary rhenium recovery routes and yields.
+- [Vulnerability Analysis on the Titanium Supply Chain: A Network Approach](https://repository.library.northeastern.edu/files/neu:4f248n72b/fulltext.pdf) — Northeastern University repository (thesis/working paper). Network-based vulnerability analysis of the global titanium supply chain.
+- [Life Cycle Assessment and Risk Management of Titanium for Aerospace/Defense Applications](https://repository.gatech.edu/server/api/core/bitstreams/b8c32ac1-026d-4da6-bea2-38ffedd1fbc6/content) — Georgia Tech repository. LCA and supply-risk study of titanium in aerospace/defense use.
+- [Resource recycling of superalloys and hydrometallurgical challenges](https://www.researchgate.net/publication/262572757_Resource_recycling_of_superalloys_and_hydrometallurgical_challenges) — ResearchGate. Pyro-/hydrometallurgical recovery of Ni, Co and Re from superalloy scrap.
+
+## Databases & data sources
+- [USGS Mineral Commodity Summaries series](https://pubs.usgs.gov/periodicals/mcs2026/) — USGS. Annual by-commodity production/reserves/trade data (rhenium, titanium and related superalloy elements).
+- [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Bilateral HS6 trade flows built from UN Comtrade, reconciled for mirror discrepancies (used for the chain's trade table).
+- [Congress.gov CRS Critical Mineral Resources product page](https://www.congress.gov/crs_external_products/R/HTML/R47982.web.html) — Library of Congress / CRS. Tracks the U.S. critical minerals list and its statutory basis over time.
+
+## Industry & trade associations
+- [SAE International — Aerospace Material Standards (AMS) overview](https://visuresolutions.com/aerospace-and-defense/ams-material-standards/) — Visure Solutions summary of SAE AMS. Explains the AMS specification system that qualifies nickel/cobalt superalloys for aerospace use.
+- [SAE AMS2774F — Heat Treatment, Wrought Nickel Alloy and Cobalt Alloy Parts](https://www.sae.org/standards/content/ams2774f/) — SAE International. Governing specification for heat-treating nickel/cobalt superalloy aerospace parts.
+- [United Steelworkers — Titanium Sponge Section 232 petition (2018)](https://usw.org/wp-content/uploads/2024/09/Titanium-Sponge-232-Petition-09-27-2018-3.pdf) — United Steelworkers. Trade-policy petition documenting the collapse of U.S. domestic titanium-sponge production.
+
+## Analysis, think-tanks & reporting
+- [CSIS — Critical Minerals and the Future of the U.S. Economy](https://www.csis.org/analysis/critical-minerals-and-future-us-economy) — CSIS (2025). Think-tank framing of critical-minerals supply-chain risk for strategic industries including aerospace/defense.
+- [CSIS Critical Minerals Security Program](https://www.csis.org/programs/critical-minerals-security-program) — CSIS. Ongoing think-tank research hub on minerals security and diplomacy.
+- [Metal Tech News — Rhenium returns to critical mineral status](https://www.metaltechnews.com/story/2025/12/10/tech-metals/rhenium-returns-to-critical-mineral-status/2578.html) — Metal Tech News (2025). Reporting on rhenium's re-addition to the U.S. critical minerals list under the 2025 methodology.
+- [MINING.com — Ukraine's titanium opportunity](https://www.mining.com/op-ed-a-strategic-metal-for-a-strategic-moment-ukraines-titanium-opportunity/) — MINING.com op-ed. Geopolitical angle on titanium supply diversification away from Russia.
+- [AeroTime — Global titanium supply squeeze: who controls the market?](https://www.aerotime.aero/articles/global-titanium-market-at-risk-of-tightening-as-china-russia-grip-persists) — AeroTime. Market analysis of China/Russia grip on titanium and Western aerospace exposure.
+- [The Oregon Group — China's titanium dominance](https://theoregongroup.com/commodities/titanium/chinas-titanium-dominance-vertical-supply-chain-cost-edge-and-global-ripple-effects/) — The Oregon Group (critical minerals/energy intelligence). Analysis of China's vertically integrated titanium supply chain and its limits for aerospace qualification.
+- [Metalnomist — China aerospace-grade titanium sponge exports set to rise](https://www.metalnomist.com/2026/06/china-aerospace-grade-titanium-sponge.html) — The Metalnomist (2026). Reports Chinese producer Chaoyang Jinda Titanium's plan to scale qualified aerospace-grade sponge exports toward 2030.
+- [AlloyIndex — Is there a titanium shortage? Aerospace and defense demand outlook 2026](https://alloyindex.com/news/is-there-a-titanium-shortage-aerospace-and-defense-demand-outlook-2026/) — AlloyIndex (2026). Market outlook on titanium demand/supply balance for aerospace and defense.
+- [Simple Flying — GE, Rolls-Royce, Pratt & Whitney: who rules the engine market?](https://simpleflying.com/ge-rolls-royce-pratt-whitney/) — Simple Flying. Secondary market analysis of commercial jet-engine OEM market shares.
+- [GlobeNewswire — Global Aircraft Engine Market report summary](https://www.globenewswire.com/news-release/2022/12/14/2573537/0/en/Global-Aircraft-Engine-Market-to-Fly-High-at-a-CAGR-of-10-89-and-Generate-104-65-Billion-Pratt-Whitney-Rolls-Royce-GE-Aviation-and-Safran-Holds-80-Share.html) — GlobeNewswire market-research press release (2022). Cites Pratt & Whitney, Rolls-Royce, GE Aviation and Safran holding ~80% of the aircraft-engine market.
+
+## Gaps & good next searches
+- No public country-level production series exists for single-crystal blade casting (confirmed by this search — only patents and technical/metallurgy papers turned up, no supply-chain-mapping study). Next search: "directional solidification foundry capacity Precision Castparts Doncasters" or trade-press profiles of the major independent casters.
+- Rhenium has no clean HS6 trade code, so BACI cannot verify the USGS production read; a dedicated academic criticality study (e.g. a Resources Policy or Resources, Conservation & Recycling paper modeling rhenium supply risk with citation metadata) would strengthen the by-product argument — search "rhenium criticality index by-product copper molybdenum Resources Policy" with a journal-site filter.
+- Hafnium (used with rhenium in single-crystal alloys) is under-covered here beyond the one JRC line (France ~49% of EU supply); worth a dedicated pass: "hafnium supply chain zirconium co-product nuclear aerospace criticality."
+- Engine-OEM market-share figures are all secondary/trade-press (Mordor Intelligence, Simple Flying, GlobeNewswire) with no primary regulatory or antitrust-filing source found; a next search could target FAA/EASA type-certificate holder counts or company 10-K segment disclosures for a harder primary number.
+- (none found; suggested search: "IEA Advanced Materials for Clean Energy aerospace superalloys" for an IEA-specific angle, since no IEA hit surfaced in this pass.)
