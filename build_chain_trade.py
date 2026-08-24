@@ -107,6 +107,22 @@ CHAINS = {
         "284180": {"title": "Tungstates (incl. ammonium paratungstate, APT)", "boundary": "The traded chemical intermediate; where China's midstream dominance is most visible."},
         "810194": {"title": "Tungsten, unwrought / powder", "boundary": "Metal powder; finished carbide tools and munitions are not captured."},
     }),
+    "lithium": ("lithium-chain", "lithium", {
+        "283691": {"title": "Lithium carbonate", "boundary": "Refined battery/technical chemical; customs origin is the refinery, not the mine."},
+        "282520": {"title": "Lithium oxide and hydroxide", "boundary": "The other battery-grade chemical; spodumene concentrate is not shown here."},
+    }),
+    "titanium": ("titanium-chain", "titanium", {
+        "261400": {"title": "Titanium ores and concentrates", "boundary": "Ilmenite/rutile sands; pigment-grade vs metal-grade is not distinguished."},
+        "810820": {"title": "Titanium, unwrought / powder (incl. sponge)", "boundary": "Includes aerospace sponge, but pigment vs metal grade and mill products are not separable."},
+    }),
+    "magnesium": ("magnesium-chain", "magnesium", {
+        "810411": {"title": "Unwrought magnesium, >= 99.8% pure", "boundary": "Primary magnesium metal; exporter shares track China's output; embedded magnesium in aluminium alloys is invisible."},
+        "810419": {"title": "Unwrought magnesium, other", "boundary": "Lower-purity/alloyed unwrought magnesium."},
+    }),
+    "manganese": ("manganese-chain", "manganese", {
+        "260200": {"title": "Manganese ores and concentrates", "boundary": "The diversified ore (South Africa, Gabon, Australia) - not the China-concentrated battery-grade refining."},
+        "720211": {"title": "Ferro-manganese", "boundary": "Steel-grade alloy; electrolytic manganese metal and battery-grade sulphate are not captured."},
+    }),
 }
 
 # code -> list of chains that use it
