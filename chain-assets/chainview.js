@@ -16,6 +16,13 @@
       return '<div class="barrow"><b>' + esc(r.label) + '</b><span class="track"><span class="fill" style="width:' + w + '%"></span></span><span class="num">' + show + '</span></div>';
     }).join('') + '</div>';
   }
+  var _sources = {};
+  function srcCite(src) {
+    if (!src) return '';
+    var keys = Object.prototype.toString.call(src) === '[object Array]' ? src : [src];
+    var out = keys.map(function (k) { var s = _sources[k]; return s ? '<a class="srccite" href="' + s.url + '" target="_blank" rel="noopener" title="' + esc(s.title) + '">†</a>' : ''; }).join('');
+    return out ? ' ' + out : '';
+  }
   function panelHTML(p) {
     var inner = '';
     if (p.h3) inner += '<h3>' + esc(p.h3) + conf(p.conf) + '</h3>';
@@ -23,7 +30,7 @@
     else if (p.kind === 'big') inner += '<p class="big">' + esc(p.big) + '</p><p>' + esc(p.text) + '</p>';
     else if (p.kind === 'text') inner += '<p style="margin-top:0">' + esc(p.text) + '</p>';
     else if (p.kind === 'cards') inner += '<div class="cards">' + p.cards.map(function (c) { return '<div class="card"><h4>' + esc(c.t) + '</h4><p>' + esc(c.d) + '</p></div>'; }).join('') + '</div>';
-    if (p.note) inner += '<p class="note">' + esc(p.note) + '</p>';
+    if (p.note) inner += '<p class="note">' + esc(p.note) + srcCite(p.src) + '</p>';
     if (p.flag) inner += '<span class="flag">' + esc(p.flag) + '</span>';
     return '<div class="panel">' + inner + '</div>';
   }
@@ -76,13 +83,14 @@
     document.getElementById('h1').textContent = D.h1 || D.title;
     document.getElementById('deck').innerHTML = esc(D.deck).replace(/&lt;i&gt;/g, '<i>').replace(/&lt;\/i&gt;/g, '</i>');
     document.getElementById('byline').textContent = D.byline || '';
-    document.getElementById('correction').innerHTML = '<b>The correction.</b> ' + esc(D.correction);
+    document.getElementById('correction').innerHTML = '<b>The finding.</b> ' + esc(D.correction);
     document.getElementById('stats').innerHTML = (D.stats || []).map(function (st) { return '<div class="stat"><div class="v">' + st.v + '</div><div class="l">' + st.l + conf(st.conf) + '</div></div>'; }).join('');
     document.getElementById('chain').innerHTML = (D.hops || []).map(function (h) { return '<div class="hop"><div class="n">' + esc(h.n) + '</div><div class="t">' + esc(h.t) + '</div></div>'; }).join('');
     if (D.history && D.history.series && D.history.series.length) {
       var wrap = document.getElementById('history-wrap');
       wrap.innerHTML = '<h2>' + esc(D.history.title) + conf(D.history.conf) + '</h2><div class="panel">' + historyChart(D.history) + '<p class="note">' + esc(D.history.note || '') + '</p></div>';
     }
+    _sources = D.sources || {};
     document.getElementById('sections').innerHTML = (D.sections || []).map(function (sec) {
       var ps = sec.panels || [];
       var wrap = ps.length === 2 ? '<div class="split">' + ps.map(panelHTML).join('') + '</div>' : ps.map(panelHTML).join('');

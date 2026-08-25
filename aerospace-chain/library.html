@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Aerospace superalloy chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the aerospace / jet-engine superalloy value chain, ordered to follow the chain from raw element to finished engine. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="aerospace-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Aerospace</div>
+    <h1>Aerospace / jet-engine superalloy chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A jet engine turns nickel, cobalt, rhenium, hafnium and titanium into superalloys, then single-crystal turbine blades, then a finished engine — and at every step downstream the supply gets narrower. <b>The mine is the least concentrated stage of all.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Rhenium (raw element) → ② Titanium (sponge to aerospace-qualified metal) → superalloys → ③ single-crystal blade casting → ④ jet engines — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="aerospace-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">31</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (23) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (2, both paywalled) · <span class="pill ref">Reference</span> context / provenance (6).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Rhenium — the scarce superalloy element</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Rhenium</td><td class="took">By-product framing → new "0 primary mines" panel + by-product coupling; sources the ~81 t and 55%-Chile stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Rhenium supply-interruption (ScienceDirect)</td><td class="took">Method: estimate recoverable rhenium locked in in-service turbine stock → a "recyclable stock" supply source. <span class="miss">Paper paywalled (403) — no public stock figure; left open.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>Rhenium extraction &amp; recycling review (Min. Eng.)</td><td class="took">Recovery routes &amp; yields. <span class="miss">This paper paywalled (403); equivalent Re recovery yields were obtained from #16 and applied in §7.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Titanium — sponge to aerospace-qualified metal</td></tr>
+      <tr><td class="n">4</td><td>USGS MCS — Titanium</td><td class="took">Sponge-vs-qualified split + import reliance (Japan 82%) → the "where the US buys sponge" bars; feeds the ~28% qualified stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>Argus — aerospace-approved sponge</td><td class="took">89 kt qualified vs 220 kt uncertified → the new <b>~28% aerospace-qualified</b> stat + panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>BIS — Titanium supply-chain assessment</td><td class="took">Industrial-base survey method → qualified-supplier counts per stage in the §6 node cards (~5 rhenium, ~6 sponge, a handful of casters, 3 engine makers).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>Titanium network model (Northeastern)</td><td class="took">Node-disruption method → new <b>§6 Node-disruption</b> section: per-stage top-node share + reroutability; the binding node is downstream.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>Titanium LCA (Georgia Tech)</td><td class="took">Buy-to-fly mass balance → <b>§7</b>: only ~31% of sponge flies (up to 90% machined away); HSCR-steel substitute at TRL/MRL 3.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>USW Section 232 petition (TIMET)</td><td class="took">Single-domestic-producer failure point → TIMET flagged as the lone US sponge producer in the §6 node cards.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>JRC — Closing the loop (titanium)</td><td class="took">Import-to-export ratio method → reproduced on BACI: <b>US sponge 3.1:1, nickel imports-only, engines 0.4:1</b> — the "dependency inverts downstream" panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>MINING.com — Ukraine titanium</td><td class="took">World sponge output ~320 kt / capacity 410 kt → the denominator for the 28%-qualified stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>AeroTime — titanium squeeze</td><td class="took">Certification ~a decade → the qualification-lag note on the new China value-chain panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>Oregon Group — China's dominance</td><td class="took">Vertical split (34% minerals / 67% sponge / 55% pigment) → new <b>China value-chain</b> bars in the Titanium section.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">14</td><td>Metalnomist — China aerospace sponge</td><td class="took">Chinese aerospace-grade exports 1→10 kt by 2030 → forward annotation on the China value-chain panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">15</td><td>AlloyIndex — titanium shortage outlook</td><td class="took">Certification lead times → reinforces the ~decade qualification-lag note (§2).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">Superalloys — alloying, standards &amp; recycling</td></tr>
+      <tr><td class="n">16</td><td>Superalloy recycling (ResearchGate)</td><td class="took">Recovery-route yields → <b>§7</b>: remelting recovers 0% Re, hydromet up to &gt;98% Re — but "not yet economically feasible."</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">17</td><td>SAE — AMS standards overview</td><td class="took">The qualification/standards system → underpins the "qualification, not tonnage, is the gate" framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">18</td><td>SAE AMS2774F (heat-treat spec)</td><td class="took">A concrete qualification step (Ni/Co part heat treatment) — documents the gate, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Jet engines &amp; OEM concentration</td></tr>
+      <tr><td class="n">19</td><td>Mordor Intelligence — engine market</td><td class="took">Market size ($81B) + OEM shares → the "$81B three-firm oligopoly" panel; shares feed the HHI.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">20</td><td>Simple Flying — engine OEM shares</td><td class="took">GE 55 / P&amp;W 26 / RR 18 (Statista) → the new <b>engine-maker HHI = 4,026</b> vs 1,345 in customs.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">21</td><td>GlobeNewswire — engine market</td><td class="took">Four OEMs ~80% → corroborates the oligopoly / HHI.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — frameworks &amp; policy</td></tr>
+      <tr><td class="n">22</td><td>USGS — About the 2025 list</td><td class="took">Supply-disruption scenario method → realised as the §6 single-largest-node removal test.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">23</td><td>Federal Register — 2025 rulemaking</td><td class="took">Methodology provenance for the criticality of rhenium/titanium.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>CRS R47982</td><td class="took">Policy/list background — the statutory frame around the chain's inputs.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>EU JRC — defence raw materials</td><td class="took">Alloy carries higher supply risk than its elements → folded into the §6 node-disruption finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">26</td><td>EU CRM 2023 (EI × Supply Risk)</td><td class="took">EI × SR scores → <b>§7</b> criticality cards (Co/Ti/Hf critical, Ni strategic, Re non-critical) + the "index underrates rhenium" finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">27</td><td>CSIS — Critical Minerals &amp; the US economy</td><td class="took">Policy actions (domestic development, processing/recycling, allied partnerships) → belong in the decision-layer / breakout page, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>CSIS — Critical Minerals Security Program</td><td class="took">Ongoing analysis hub — context for the policy layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">29</td><td>Metal Tech News — rhenium status</td><td class="took">Rhenium's 2025 critical-list status → the rhenium criticality framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">30</td><td>CEPII BACI</td><td class="took">The data engine → powers the reproduced <b>dependency ratios</b> and the <b>trade HHI (1,345)</b>.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">31</td><td>USGS MCS series</td><td class="took">The production data engine → the production figures across every stage.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Rhenium — the scarce superalloy element <span class="ct">3</span></h2>
+  <div class="stagesub">The raw input, and a by-product no one mines for: ~55% Chile, recovered from copper–molybdenum.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf">USGS Mineral Commodity Summaries 2026 — Rhenium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production/reserves/uses data for rhenium; ~81 t world mine output, ~55% Chile.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US primary rhenium output rose 5% to 9,800 kg, recovered as a by-product of porphyry copper–molybdenum roasting in Arizona and Montana. Chief uses are superalloy turbine-engine components (80%) and petroleum-reforming catalysts (15%). Net import reliance 75%; imports from Chile, Canada, Germany, Kazakhstan and Poland.</span>
+      <span class="dat"><b>Data.</b> USGS annual company/producer canvass plus reported trade and price data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0263436819301556">Assessment of supply interruption of rhenium, recycling, processing sources and technologies</a><span class="src"> · ScienceDirect</span>
+      <span class="desc">Supply-risk and recycling-pathway analysis specific to rhenium.</span>
+      <span class="abs"><b>Abstract.</b> Rhenium — critical to aerospace superalloys and petrochemical catalysts — is a "by-product of a by-product" (from molybdenum, itself from copper), making resource estimates highly uncertain. The paper assesses secondary sources, examines historical cost and supply-interruption indicators, and discusses recovering and reusing existing stocks through industrial ecology to mitigate supply risk.</span>
+      <span class="dat"><b>Data.</b> Assessment of secondary rhenium sources using historical price and supply-interruption indicators; industrial-ecology framing — no new experimental dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0892687520305392">Review of rhenium extraction and recycling technologies from primary and secondary resources</a><span class="src"> · Minerals Engineering</span>
+      <span class="desc">Reviews primary/secondary rhenium recovery routes and yields.</span>
+      <span class="abs"><b>Abstract.</b> Review of rhenium extraction and recycling technologies from primary and secondary resources. Rhenium is scarce yet vital in high-temperature superalloys and platinum–rhenium catalysts; the paper surveys extraction and recycling routes from both source types, assessing their processes and challenges (Minerals Engineering, 2021).</span>
+      <span class="dat"><b>Data.</b> Literature review of primary and secondary rhenium extraction and recycling technologies — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Titanium — from sponge to aerospace-qualified metal <span class="ct">12</span></h2>
+  <div class="stagesub">Production (China ~71% of sponge) is not the same as aerospace-qualified supply (Japan / Kazakhstan / Russia).</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-titanium.pdf">USGS Mineral Commodity Summaries 2025 — Titanium and Titanium Dioxide</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual titanium-sponge production/reserves/trade data by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: US titanium sponge made by one Utah operation (data withheld); most titanium metal goes to aerospace. 2024 imported-sponge customs value about $450 million, up 7%. Sponge net import reliance exceeds 95% (Japan 82%, Kazakhstan, Saudi Arabia). TiO₂ pigment production separately valued near $3 billion.</span>
+      <span class="dat"><b>Data.</b> USGS voluntary producer surveys (much withheld) plus reported import/export trade data.</span></li>
+    <li><a href="https://www.argusmedia.com/en/news-and-insights/latest-market-news/2659047-aerospace-approved-ti-sponge-supply-up-in-2024">Aerospace-approved Ti sponge supply up in 2024</a><span class="src"> · Argus Media (2025)</span>
+      <span class="desc">Market reporting distinguishing bulk titanium-sponge tonnage from aerospace-qualified supply.</span>
+      <span class="abs"><b>Summary.</b> News article (18 Feb 2025): aerospace-approved titanium-sponge output from Japan, Kazakhstan and Saudi Arabia rose to 89,000 t in 2024 from 84,000, at 83% capacity utilisation; uncertified Chinese sponge held steady at 220,000 t.</span>
+      <span class="dat"><b>Data.</b> No primary dataset — producer and trade figures reported in market commentary.</span></li>
+    <li><a href="https://www.bis.gov/media/documents/titanium-supply-chain-assessment-web-version.pdf">U.S. Strategic Material Supply Chain Assessment: Titanium</a><span class="src"> · U.S. Dept. of Commerce, BIS</span>
+      <span class="desc">Government assessment of titanium supply-chain vulnerability for defense/aerospace end uses.</span>
+      <span class="abs"><b>Abstract.</b> U.S. Dept. of Commerce BIS (Office of Technology Evaluation) industrial-base assessment of the domestic titanium supply chain (2016). Surveys manufacturers and distributors on products, sourcing, single/sole-source inputs, capacity, government and defense dependency, financial health, employment and R&amp;D, mapping vulnerabilities and reliance on foreign inputs.</span>
+      <span class="dat"><b>Data.</b> Original BIS OTE industrial-base survey of U.S. titanium manufacturers and distributors (respondent-reported products, sourcing, capacity, financials).</span></li>
+    <li><a href="https://repository.library.northeastern.edu/files/neu:4f248n72b/fulltext.pdf">Vulnerability Analysis on the Titanium Supply Chain: A Network Approach</a><span class="src"> · Northeastern University</span>
+      <span class="desc">Network-based vulnerability analysis of the global titanium supply chain.</span>
+      <span class="abs"><b>Abstract.</b> Master's thesis modelling the U.S. titanium supply chain as a network to assess vulnerability. Node-disruption analysis finds TIMET ingot/mill capacity critical, though diverse U.S. ingot capacity (e.g. ATI) permits rerouting; activating domestic sponge production reduces redundant ingot capacity, amplifying a TIMET disruption's impact on meeting demand.</span>
+      <span class="dat"><b>Data.</b> Network model of the U.S. titanium supply chain (sponge/ingot/mill nodes and capacities — TIMET, ATI, ZTMC) with node-disruption simulation.</span></li>
+    <li><a href="https://repository.gatech.edu/server/api/core/bitstreams/b8c32ac1-026d-4da6-bea2-38ffedd1fbc6/content">Life Cycle Assessment and Risk Management of Titanium for Aerospace/Defense Applications</a><span class="src"> · Georgia Tech</span>
+      <span class="desc">LCA and supply-risk study of titanium in aerospace/defense use.</span>
+      <span class="abs"><b>Abstract.</b> Life-cycle assessment and supply-risk analysis of titanium for aerospace. Examines ore extraction, global distribution, mill-product capacity, feedstock prices and geopolitical vulnerabilities, finding China and Russia dominant; a national emergency could halt U.S. titanium production through sponge/scrap shortages. Proposes HSCR-steel substitution, domestic capacity and scrap use, and assesses technology and manufacturing readiness.</span>
+      <span class="dat"><b>Data.</b> LCA plus supply-chain risk analysis on production-capacity, trade and price data (USGS/industry) and TRL/MRL evaluation of alternatives.</span></li>
+    <li><a href="https://usw.org/wp-content/uploads/2024/09/Titanium-Sponge-232-Petition-09-27-2018-3.pdf">United Steelworkers — Titanium Sponge Section 232 petition (2018)</a><span class="src"> · United Steelworkers</span>
+      <span class="desc">Trade-policy petition documenting the collapse of U.S. domestic titanium-sponge production.</span>
+      <span class="abs"><b>Abstract.</b> Section 232 petition by Titanium Metals Corporation (TIMET), Sep 2018, seeking relief from titanium-sponge imports threatening national security. TIMET's Henderson, Nevada plant is the last US sponge producer; without relief the US becomes 100% import-dependent on Japan, Kazakhstan, Russia, China and Ukraine, jeopardising the defence supply chain.</span>
+      <span class="dat"><b>Data.</b> Petition citing DOC/ITC findings and dumping margins, plus industry production, consumption and world sponge-capacity data.</span></li>
+    <li><a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/closing-loop-eus-titanium-supply-chain-2025-01-23_en">Closing the loop: EU's titanium supply chain</a><span class="src"> · European Commission JRC (2025)</span>
+      <span class="desc">Titanium scrap/recycling policy note; notes Kazakhstan as an EU titanium supplier.</span>
+      <span class="abs"><b>Summary.</b> JRC update on EU titanium vulnerability: despite heavy consumption, import-to-export ratios reach 6:1 (products) and 10:1 (sponge), with Russia the top aviation-grade producer. Recommends reshoring midstream processing, recycling decommissioned-aircraft titanium, and partnerships with Kazakhstan and Ukraine.</span>
+      <span class="dat"><b>Data.</b> JRC analysis citing titanium import-to-export ratios and producer concentration — no primary dataset.</span></li>
+    <li><a href="https://www.mining.com/op-ed-a-strategic-metal-for-a-strategic-moment-ukraines-titanium-opportunity/">Ukraine's titanium opportunity</a><span class="src"> · MINING.com</span>
+      <span class="desc">Geopolitical angle on titanium supply diversification away from Russia.</span>
+      <span class="abs"><b>Summary.</b> Op-ed arguing Ukraine's deep Soviet-era titanium legacy (Kroll-process sponge, zirconium/hafnium metallurgy) positions it to help diversify a now highly concentrated global titanium industry disrupted by Russia's war, where China dominates sponge output.</span>
+      <span class="dat"><b>Data.</b> Op-ed commentary (Yegor Perelygin) citing USGS figures (2024 global sponge capacity 410,000 t, output 320,000 t, China ~69%).</span></li>
+    <li><a href="https://www.aerotime.aero/articles/global-titanium-market-at-risk-of-tightening-as-china-russia-grip-persists">Global titanium supply squeeze: who controls the market?</a><span class="src"> · AeroTime</span>
+      <span class="desc">Market analysis of China/Russia grip on titanium and Western aerospace exposure.</span>
+      <span class="abs"><b>Summary.</b> Reports China and Russia together control about 74% of global titanium-sponge production; surging aerospace demand risks supply tightening, with aerospace-grade certification taking up to a decade — limiting near-term Western diversification.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing Project Blue market-intelligence data and interviews; no government/academic sources.</span></li>
+    <li><a href="https://theoregongroup.com/commodities/titanium/chinas-titanium-dominance-vertical-supply-chain-cost-edge-and-global-ripple-effects/">China's titanium dominance</a><span class="src"> · The Oregon Group</span>
+      <span class="desc">Analysis of China's vertically integrated titanium supply chain and its limits for aerospace qualification.</span>
+      <span class="abs"><b>Summary.</b> Analyses China's vertically integrated titanium dominance (34% minerals, 67% sponge, 55% pigment capacity) while noting aerospace-qualification and feedstock constraints; frames Western opportunities via new projects and anti-dumping trade defences.</span>
+      <span class="dat"><b>Data.</b> Market analysis citing JRC, USGS, Argus Media, a Stanford critical-minerals report and company figures.</span></li>
+    <li><a href="https://www.metalnomist.com/2026/06/china-aerospace-grade-titanium-sponge.html">China aerospace-grade titanium sponge exports set to rise</a><span class="src"> · The Metalnomist (2026)</span>
+      <span class="desc">Reports a Chinese producer's plan to scale qualified aerospace-grade sponge exports toward 2030.</span>
+      <span class="abs"><b>Summary.</b> Reports Chinese aerospace-grade titanium-sponge exports projected to rise from ~1,000 t/yr to 10,000 t by 2030 as Western OEMs diversify from Russian supply and aircraft output grows.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing producer projections (Chaoyang Jinda Titanium), capacity/pricing and trade-flow figures.</span></li>
+    <li><a href="https://alloyindex.com/news/is-there-a-titanium-shortage-aerospace-and-defense-demand-outlook-2026/">Is there a titanium shortage? Aerospace and defense demand outlook 2026</a><span class="src"> · AlloyIndex (2026)</span>
+      <span class="desc">Market outlook on titanium demand/supply balance for aerospace and defense.</span>
+      <span class="abs"><b>Summary.</b> Examines whether a titanium shortage is emerging, arguing concentrated aerospace-grade supply, long certification lead times and accelerating aircraft/defence demand could trigger structural tightness in high-grade titanium alloys.</span>
+      <span class="dat"><b>Data.</b> Market commentary / analyst opinion; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Superalloys — alloying, standards &amp; recycling <span class="ct">3</span></h2>
+  <div class="stagesub">Where the metal becomes the alloy: the qualification standards and recovery routes between metal and blade.</div>
+  <ul class="refs">
+    <li><a href="https://www.researchgate.net/publication/262572757_Resource_recycling_of_superalloys_and_hydrometallurgical_challenges">Resource recycling of superalloys and hydrometallurgical challenges</a><span class="src"> · ResearchGate</span>
+      <span class="desc">Pyro-/hydrometallurgical recovery of Ni, Co and Re from superalloy scrap.</span>
+      <span class="abs"><b>Abstract.</b> Overview of processes to recycle superalloys — the high-melting, creep- and corrosion-resistant alloys used in aircraft-engine and power-plant turbines. Their toughness makes recycling among the most demanding, and rising alloyed-element counts add difficulty. Reviews each process's advantages and disadvantages, finding them not yet technologically or economically feasible, and urges value-added recycling over simple remelting.</span>
+      <span class="dat"><b>Data.</b> Literature review of superalloy recycling processes (pyro-/hydrometallurgical) — commentary/synthesis, no primary dataset.</span></li>
+    <li><a href="https://visuresolutions.com/aerospace-and-defense/ams-material-standards/">SAE International — Aerospace Material Standards (AMS) overview</a><span class="src"> · SAE / Visure summary</span>
+      <span class="desc">Explains the AMS specification system that qualifies nickel/cobalt superalloys for aerospace use.</span>
+      <span class="abs"><b>Summary.</b> Explainer of SAE-issued Aerospace Material Standards (AMS): specifications defining composition, properties, manufacturing and quality of aerospace metals, composites, coatings and adhesives. Cites examples (AMS4911, AMS5599, AMS2460), compares to MIL-STD, and notes FAA/EASA/NASA compliance and testing methods.</span>
+      <span class="dat"><b>Data.</b> No primary data — descriptive vendor commentary on a standards system, no statistics.</span></li>
+    <li><a href="https://www.sae.org/standards/content/ams2774f/">SAE AMS2774F — Heat Treatment, Wrought Nickel Alloy and Cobalt Alloy Parts</a><span class="src"> · SAE International</span>
+      <span class="desc">Governing specification for heat-treating nickel/cobalt superalloy aerospace parts.</span>
+      <span class="abs"><b>Scope.</b> SAE aerospace material specification governing the heat treatment of wrought nickel- and cobalt-alloy parts. <span class="miss">(Full standard is paywalled / served as a JS app shell — not retrievable; scope taken from the standard's title.)</span></span>
+      <span class="dat"><b>Data.</b> SAE consensus engineering standard — a specification, not a dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Single-crystal blade casting <span class="ct">0</span></h2>
+  <div class="stagesub">Held by a handful of firms — and the thinnest evidence base in the whole chain.</div>
+  <div class="stagegap">No public, country-level source maps this stage: a targeted search returned only patents and metallurgy papers, no supply-chain study, and there is no production series to cite. That absence is itself the finding — see <a href="#gaps">Gaps &amp; good next searches</a> for the leads worth chasing (independent casters such as Precision Castparts and Doncasters).</div>
+
+  <h2 class="sec">④ Jet engines &amp; OEM concentration <span class="ct">3</span></h2>
+  <div class="stagesub">The most concentrated stage: three Western groups build nearly every large engine.</div>
+  <ul class="refs">
+    <li><a href="https://www.mordorintelligence.com/industry-reports/commercial-aircraft-engines-market">Commercial aircraft engine market analyses</a><span class="src"> · Mordor Intelligence (2024)</span>
+      <span class="desc">Secondary market-size and OEM-share analysis for commercial jet engines.</span>
+      <span class="abs"><b>Summary.</b> Market-research page: global commercial aircraft-engine market projected to grow from USD 95.56 bn (2025) to USD 117.13 bn (2031) at 3.45% CAGR; dominated by CFM, GE Aerospace, Safran, Rolls-Royce and Pratt &amp; Whitney; turbofans and narrowbody lead.</span>
+      <span class="dat"><b>Data.</b> Proprietary Mordor Intelligence market modelling and estimates — no public primary dataset.</span></li>
+    <li><a href="https://simpleflying.com/ge-rolls-royce-pratt-whitney/">GE, Rolls-Royce, Pratt &amp; Whitney: who rules the engine market?</a><span class="src"> · Simple Flying</span>
+      <span class="desc">Secondary market analysis of commercial jet-engine OEM market shares.</span>
+      <span class="abs"><b>Summary.</b> Describes the commercial aircraft-engine market as an oligopoly among GE, Pratt &amp; Whitney and Rolls-Royce, each specialising in different aircraft segments; reviews their key engine programmes and operational challenges.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing Statista 2020 market-share figures (GE 55% incl. CFM, P&amp;W 26%, Rolls-Royce 18%) and company examples.</span></li>
+    <li><a href="https://www.globenewswire.com/news-release/2022/12/14/2573537/0/en/Global-Aircraft-Engine-Market-to-Fly-High-at-a-CAGR-of-10-89-and-Generate-104-65-Billion-Pratt-Whitney-Rolls-Royce-GE-Aviation-and-Safran-Holds-80-Share.html">Global Aircraft Engine Market report summary</a><span class="src"> · GlobeNewswire (2022)</span>
+      <span class="desc">Cites Pratt &amp; Whitney, Rolls-Royce, GE Aviation and Safran holding ~80% of the aircraft-engine market.</span>
+      <span class="abs"><b>Summary.</b> Market-research press release cited for the ~80% combined aircraft-engine market share of Pratt &amp; Whitney, Rolls-Royce, GE Aviation and Safran. <span class="miss">(Press release not retrievable on this pass — repeated timeouts; noted from the cited headline figure only.)</span></span>
+      <span class="dat"><b>Data.</b> Market-research press release — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">8</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and analysis that classify the whole chain's inputs.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/programs/mineral-resources-program/science/about-2025-list-critical-minerals">About the 2025 List of Critical Minerals</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Explains the revised methodology (trade-disruption/GDP-loss modeling across 84 commodities) that newly qualified rhenium.</span>
+      <span class="abs"><b>Summary.</b> USGS page: the final 2025 critical-minerals list holds 60 minerals (2022's 50 plus 10 additions), posted in the Federal Register 7 Nov 2025; built from an economic model grouping 84 commodities into supply chains across 1,200+ disruption scenarios.</span>
+      <span class="dat"><b>Data.</b> USGS economic supply-disruption model on 84 commodities; production, trade and import-reliance data, 1,200+ scenarios.</span></li>
+    <li><a href="https://public-inspection.federalregister.gov/2025-19813.pdf">Federal Register pre-publication notice, USGS 2025 critical-minerals rulemaking</a><span class="src"> · U.S. Dept. of the Interior / USGS (2025)</span>
+      <span class="desc">Official notice tied to rhenium's addition to the critical minerals list.</span>
+      <span class="abs"><b>Abstract.</b> Federal Register notice presenting the final 2025 List of Critical Minerals — 60 minerals, revising the 2022 list of 50 — and an enhanced methodology quantifying the economic effects of foreign trade-disruption scenarios and single-domestic-producer failure points. Draft additions included potash, silicon, copper, silver, rhenium and lead.</span>
+      <span class="dat"><b>Data.</b> USGS supply-risk methodology: trade-disruption economic modelling plus supply-chain single-point-of-failure analysis; public comment docket.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R47982">Critical Mineral Resources: National Policy and Critical Minerals List (R47982)</a><span class="src"> · Congressional Research Service (2024)</span>
+      <span class="desc">Legislative/policy background on the U.S. critical minerals list process.</span>
+      <span class="abs"><b>Summary.</b> CRS report (Linda Rowan): reviews US minerals policy, the Energy Act of 2020 definition of a critical mineral, and USGS list development (2022: 50 minerals; 2025: 60) for congressional supply-chain considerations.</span>
+      <span class="dat"><b>Data.</b> Secondary synthesis of USGS lists/methodology, statute, and production/import-reliance data; no new primary dataset.</span></li>
+    <li><a href="https://setis.ec.europa.eu/system/files/2021-02/raw_materials_in_the_european_defence_industry.pdf">Raw materials in the European defence industry</a><span class="src"> · European Commission JRC/SETIS (2021)</span>
+      <span class="desc">Assesses EU dependency on rhenium, hafnium, titanium and other materials for defence/aerospace.</span>
+      <span class="abs"><b>Abstract.</b> Identifies the raw materials important to the European defence industry and their supply risk from import dependency. Finds 39 raw materials needed for advanced defence materials — about half fully import-reliant — and 47 critical alloys, compounds and composites whose special performance defies substitution, giving higher supply risk than their constituents; urges securing supply and keeping alloy-manufacturing leadership.</span>
+      <span class="dat"><b>Data.</b> JRC synthesis of a prior contract study; inventory of 39 raw materials and 47 alloys/composites plus EU import-dependency data.</span></li>
+    <li><a href="https://www.eunews.it/wp-content/uploads/2023/10/study-on-the-critical-raw-materials-for-the-eu-2023-ET0723116ENN.pdf">Study on the Critical Raw Materials for the EU 2023</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's formal CRM criticality assessment underlying its 2023 list.</span>
+      <span class="abs"><b>Abstract.</b> The EU's fifth technical criticality assessment (2023), feeding the Critical Raw Materials Act. Screens 70 candidate raw materials against Economic Importance and Supply Risk thresholds, adding neon, krypton, xenon, roundwood and titanium metal. Defines the CRM and Strategic Raw Materials lists underpinning EU supply-diversification and strategic-autonomy policy.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over 70 candidate materials using production, trade, value-added, substitution and recycling data.</span></li>
+    <li><a href="https://www.csis.org/analysis/critical-minerals-and-future-us-economy">Critical Minerals and the Future of the U.S. Economy</a><span class="src"> · CSIS (2025)</span>
+      <span class="desc">Think-tank framing of critical-minerals supply-chain risk for strategic industries including aerospace/defense.</span>
+      <span class="abs"><b>Abstract.</b> CSIS edited volume (Feb 2025, eds. Baskaran &amp; Wood, 15 experts) arguing that securing mineral supply chains for advanced technologies and defence is an economic and national-security imperative. Examines lithium, graphite, tungsten and rare earths, proposing domestic development, processing/recycling, international partnerships and sustainable practices.</span>
+      <span class="dat"><b>Data.</b> Policy synthesis of expert contributions; no primary dataset presented on the page.</span></li>
+    <li><a href="https://www.csis.org/programs/critical-minerals-security-program">CSIS Critical Minerals Security Program</a><span class="src"> · CSIS</span>
+      <span class="desc">Ongoing think-tank research hub on minerals security and diplomacy.</span>
+      <span class="abs"><b>Summary.</b> Landing page for the CSIS Critical Minerals Security Program — an initiative to strengthen resilient US minerals supply chains via market-led solutions and allied partnerships, countering foreign-adversary (notably China) dominance. Produces analysis, reports, commentary, events and newsletters.</span>
+      <span class="dat"><b>Data.</b> No primary data — program description and commentary.</span></li>
+    <li><a href="https://www.metaltechnews.com/story/2025/12/10/tech-metals/rhenium-returns-to-critical-mineral-status/2578.html">Rhenium returns to critical mineral status</a><span class="src"> · Metal Tech News (2025)</span>
+      <span class="desc">Reporting on rhenium's re-addition to the U.S. critical minerals list under the 2025 methodology.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report on rhenium's addition to the 2025 US critical-minerals list. <span class="miss">(Article behind a Cloudflare challenge — not fully retrievable; note from the headline only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024) used for the chain's trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data (rhenium, titanium and related superalloy elements).</span>
+      <span class="abs"><b>Summary.</b> USGS index page for Mineral Commodity Summaries 2026: downloadable PDF chapters for every commodity (abrasives through zirconium), plus the full report, appendixes and version history. USGS's annual reference on domestic and world mineral production, supply and use.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No public country-level production series exists for <b>single-crystal blade casting</b> (stage ③) — only patents and metallurgy papers turned up, no supply-chain-mapping study. Next: "directional solidification foundry capacity Precision Castparts Doncasters", or trade-press profiles of the major independent casters.</li>
+      <li><b>Rhenium has no clean HS6 trade code</b>, so BACI cannot verify the USGS production read; a dedicated criticality study (Resources Policy / RCR modeling rhenium supply risk with citation metadata) would strengthen the by-product argument.</li>
+      <li><b>Hafnium</b> (used with rhenium in single-crystal alloys) is under-covered beyond the one JRC line (France ~49% of EU supply); worth a pass on "hafnium supply chain zirconium co-product nuclear aerospace criticality."</li>
+      <li>Engine-OEM market-share figures are all secondary/trade-press; a harder primary number would come from FAA/EASA type-certificate holder counts or company 10-K segment disclosures.</li>
+      <li>No IEA-specific source surfaced; try "IEA Advanced Materials for Clean Energy aerospace superalloys."</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from raw element to finished engine, with cross-cutting frameworks and data grouped at the end. 31 unique sources (three exact duplicates — a second CEPII listing, the CRS HTML edition, and a repeated USGS methodology link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (Cloudflare/JS challenges) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="aerospace-chain.html">The aerospace chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

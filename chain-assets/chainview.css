@@ -18,6 +18,7 @@
 .num{text-align:right;font-weight:800;color:var(--navy)}
 .big{font-size:2.1rem;font-weight:800;color:var(--acc);margin:.2rem 0}
 .flag{display:inline-block;font-size:.63rem;font-weight:700;text-transform:uppercase;border-radius:4px;padding:.12rem .35rem;background:color-mix(in srgb,var(--acc) 12%,#fff);color:var(--acc);border:1px solid color-mix(in srgb,var(--acc) 30%,#fff)}
+.srccite{color:var(--acc);text-decoration:none;font-weight:800;margin-left:1px}.srccite:hover{text-decoration:underline}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:.5rem}
 @media(max-width:820px){.cards{grid-template-columns:1fr 1fr}}@media(max-width:480px){.cards{grid-template-columns:1fr}}
 .card{border:1px solid var(--line);border-radius:9px;padding:.75rem .8rem;background:var(--bg)}
