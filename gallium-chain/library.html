@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Gallium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the gallium value chain, ordered to follow the chain from host ore to finished GaN/GaAs device. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="gallium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Gallium</div>
+    <h1>Gallium value chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">No one runs a gallium mine. Gallium is a trace by-product of refining aluminium and zinc, and China makes about 98% of the world's primary supply — then, in July 2023, put it under export licensing. <b>The chokepoint is the recovery circuit, not the ore.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① host ore (bauxite / zinc) → by-product gallium (~98% China) → ② high-purity metal, GaN / GaAs compounds &amp; devices → ③ the July-2023 export-control lever → ④ the recover-and-recycle response — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="gallium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">27</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (10) · <span class="pill ref">Reference</span> context / provenance (13).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Host ore → by-product gallium (the ~98% China stage)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Gallium</td><td class="took">Sources the <b>~98–99% China / by-product-of-bauxite</b> production read + the "no U.S. primary since 1987" and DOE/DPA recovery-restart notes.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Gallium</td><td class="took">Prior-year baseline for the by-product framing, uses split (ICs/optoelectronics) and 100% net import reliance.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Global anthropogenic gallium cycle (MFA)</td><td class="took">Material-flow method → the "79% of co-mined gallium is discarded to red mud" recovery-potential figure behind the "recoverable, not overnight" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>AlCircle — aluminium-to-recycling shift</td><td class="took">By-product coupling detail (20–80 ppm in bauxite, &lt;1 ppm in secondary Al) → sharpens the "coupled to alumina, not to demand" flag.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② High-purity, compounds &amp; devices — GaN / GaAs</td></tr>
+      <tr><td class="n">5</td><td>SCRREEN — Gallium CRM factsheet</td><td class="took">The value-chain purity ladder (3N–4N primary → 6N–7N refined) + CN 81129289 basket → the "high-purity &amp; compounds" hop and the no-clean-trade-code note.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Chip-industry mineral early-warning (SMAA)</td><td class="took">Dynamic supply-risk method over gallium/germanium/arsenic/silicon → a candidate quantitative model for the devices-stage risk.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The lever — July-2023 export licensing</td></tr>
+      <tr><td class="n">7</td><td>CSIS — Understanding China's gallium sanctions</td><td class="took">The July-2023 licensing framing + the exports-vs-production nuance (~29% of exports vs ~98% of primary) → the §2 lever panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>Mayer Brown — new export controls</td><td class="took">The legal mechanics (3 Jul 2023 announcement, 1 Aug effect, GaN derivatives, provincial MOFCOM licence) — documents the control, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>HSF Kramer — regulatory summary</td><td class="took">Second law-firm reading of the measures. <span class="miss">Page bot-blocked (403) — noted from the title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>USITC — Germanium &amp; Gallium trade briefing</td><td class="took">Trade/price-impact figures (gallium net import reliance 100%; import value +997% 2021→22; price +68% since Jul-2023) → a quantitative overlay to reproduce on BACI.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>SEMI Europe — comments on the controls</td><td class="took">Downstream-industry response — provenance for the "control lands on the semiconductor build-out" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>Stimson — consequences for the US</td><td class="took">The "indirect trade routes blunt the ban" finding → a caveat on how binding the lever really is.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>CSIS — De-risking gallium supply chains</td><td class="took">Policy actions (domestic investment, diversified sourcing) → belong in the decision-layer / breakout page, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>CSIS — Beyond rare earths</td><td class="took">Corroborates the ~98% share + the "tightening since 2023" trajectory.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>ORF America — export-control chokepoints</td><td class="took">Cross-mineral framing (gallium alongside germanium/graphite/antimony) → context for the atlas's recurring-lever thesis.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>Geopolitical Monitor — supply &amp; demand</td><td class="took">Market overview corroborating the ~99% China share + Western self-sufficiency progress.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Critical-minerals supply chain under trade restriction</td><td class="took">Supply-chain risk method under export restrictions. <span class="miss">Preprint/publisher shell — abstract not retrievable; noted from the title.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The response — recover &amp; recycle what was discarded</td></tr>
+      <tr><td class="n">18</td><td>Gallium from zinc-refinery residues</td><td class="took">Solvent-extraction recovery route (N235 / Cyanex 272) → evidence the zinc by-product stream is a recoverable source. <span class="miss">Full abstract not retrievable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>US gallium supply-resilience case study</td><td class="took">US material-flow analysis with recycling scenarios → quantifies how much a domestic recover-and-recycle response could cover. <span class="miss">Preprint abstract not retrievable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>Critical-material recovery from US by-products</td><td class="took">Scenario method separating contained inventory / pilot / announced / commercial → the honest "rebuildable slowly" caveat for by-product recovery.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>In/Ga/Ge recovery from e-waste (review)</td><td class="took">Recycling-route survey (LCDs, LEDs, PV, optical fibre) → the recycling half of the §3 response.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">22</td><td>Gallium from GaAs wafer scrap</td><td class="took">Wafer-scrap recycling process → recovery at the compound-semiconductor stage. <span class="miss">Full abstract not retrievable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; profiles</td></tr>
+      <tr><td class="n">23</td><td>EU CRM 2023 study</td><td class="took">EU Economic-Importance × Supply-Risk method → gallium's critical classification, the framework behind the criticality framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>DG ENTR — CRM report for the EU</td><td class="took">Earlier EU criticality methodology (54 materials) — provenance for the assessment lineage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>RMIS — gallium profile</td><td class="took">EU-side criticality database entry. <span class="miss">Live profile is a JS app shell — data not retrievable by static fetch; listed for provenance.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">26</td><td>CEPII BACI</td><td class="took">The trade engine → the flagged <b>HS 811292</b> basket panel (gallium not separable from indium/germanium).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">27</td><td>USGS MCS 2025 — Gallium Data Release</td><td class="took">Machine-readable series behind the MCS gallium chapter — the production/import/price data engine. <span class="miss">Catalog page bot-blocked this pass.</span></td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Host ore → by-product gallium <span class="ct">4</span></h2>
+  <div class="stagesub">The raw input, and a metal no one mines for: recovered at parts-per-million from bauxite (and some zinc), ~98% China.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf">USGS Mineral Commodity Summaries 2026 — Gallium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual U.S./world gallium production, use, price and trade data; the primary-share and by-product read.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: no U.S. primary (low-purity) gallium has been recovered since 1987; globally it is recovered predominantly as a by-product of bauxite (and some zinc) processing. China accounted for 99% of world primary low-purity gallium, with Japan and Russia the rest. Integrated circuits took 73% of U.S. consumption; net import reliance 100%. DOE and a Defense Production Act award now fund domestic recovery.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export and price data; world low-purity production and capacity table.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf">USGS Mineral Commodity Summaries 2025 — Gallium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year baseline: gallium production, uses, import reliance and price data by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: no U.S. primary gallium since 1987; recovered globally as a by-product of bauxite and zinc processing. In 2024 gallium-metal imports were ~$4 million and GaAs-wafer imports ~$140 million. About 83% of U.S. consumption was in GaAs, GaN and GaP wafers (ICs 79%); net import reliance 100%. One New York plant refined high-purity gallium from imported metal and new scrap.</span>
+      <span class="dat"><b>Data.</b> USGS voluntary producer surveys plus reported import/export trade and price data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0959378024000633">Tracking the global anthropogenic gallium cycle during 2000–2020: a trade-linked multiregional material flow analysis</a><span class="src"> · Global Environmental Change (2024)</span>
+      <span class="desc">Material-flow analysis of world gallium stocks and flows, and the recycling headroom in the by-product stream.</span>
+      <span class="abs"><b>Abstract.</b> Maps the global and regional gallium cycles for 2000–2020 using a trade-linked multiregional material-flow analysis. Finds 79% of gallium co-mined from bauxite ended up in red mud or entered the aluminium cycle as an impurity — a large untapped recycling potential — with regions playing different but complementary roles in the global cycle.</span>
+      <span class="dat"><b>Data.</b> Trade-linked multiregional material-flow analysis on production, trade and use data, 2000–2020.</span></li>
+    <li><a href="https://www.alcircle.com/news/gallium-faces-growing-pressure-as-aluminium-production-shifts-to-recycling-116517">Gallium faces growing pressure as aluminium production shifts to recycling</a><span class="src"> · AlCircle</span>
+      <span class="desc">Aluminium-industry trade press on the by-product coupling risk.</span>
+      <span class="abs"><b>Summary.</b> Gallium occurs at only 20–80 ppm in bauxite and under 1 ppm in secondary aluminium, so as aluminium output shifts toward recycling the primary Bayer-process stream that yields roughly 90% of gallium shrinks — tightening supply despite rising prices, with China controlling ~98%.</span>
+      <span class="dat"><b>Data.</b> Trade-press commentary citing concentration and production-share figures — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② High-purity, compounds &amp; devices — GaN / GaAs <span class="ct">2</span></h2>
+  <div class="stagesub">Where the metal becomes 6N–7N wafers and then the chips behind radar, 5G and power electronics.</div>
+  <ul class="refs">
+    <li><a href="https://scrreen.eu/wp-content/uploads/2023/01/GALLIUM_CRM_2020_Factsheets_critical_Final.pdf">SCRREEN — Gallium CRM factsheet</a><span class="src"> · EU SCRREEN (2020)</span>
+      <span class="desc">Value-chain diagram, purity grades and criticality factsheet for gallium.</span>
+      <span class="abs"><b>Abstract.</b> SCRREEN factsheet: gallium (upper-crust abundance 17.5 ppm) never occurs natively. "Primary/crude" gallium is 3N–4N metal from first processing; "refined" is 6N–7N. As a by-product of aluminium and zinc, its supply risk tracks recovery capacity. It is assessed under trade code CN 81129289, is not exchange-traded, and prices are negotiated bilaterally.</span>
+      <span class="dat"><b>Data.</b> EU SCRREEN/CRM criticality assessment; CN 81129289 trade code, USGS/BGR price series 2012–2016.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s10614-025-10926-z">Risk Evaluation and Early Warning Study on Supply of Critical Minerals for China's Chip Industry</a><span class="src"> · Computational Economics (2025)</span>
+      <span class="desc">Dynamic supply-risk / early-warning model for chip-critical minerals including gallium.</span>
+      <span class="abs"><b>Abstract.</b> Examines global developments and conducts a supply-risk and early-warning analysis of critical minerals for China's chip industry. A stochastic multi-criteria acceptability analysis (SMAA) dynamically assesses supply risk for four minerals — gallium, germanium, arsenic and silicon — over 2010–2021, then explores the availability risk of each resource.</span>
+      <span class="dat"><b>Data.</b> Stochastic multi-criteria acceptability analysis over gallium/germanium/arsenic/silicon indicators, 2010–2021.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The lever — July-2023 export licensing <span class="ct">11</span></h2>
+  <div class="stagesub">The archetype of the export-control playbook: a defence-critical chip metal placed under licence, and what followed.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/understanding-chinas-gallium-sanctions">Understanding China's Gallium Sanctions</a><span class="src"> · CSIS (2023)</span>
+      <span class="desc">Explainer on the July 2023 gallium/germanium export licensing and the defence stakes.</span>
+      <span class="abs"><b>Summary.</b> In July 2023 China restricted gallium and germanium exports on national-security grounds, targeting U.S. defence supply chains — radar, high-frequency radio, satellite communications. CSIS argues China controls ~29% of gallium exports (versus ~98% of primary production), so alternative capacity in Japan, Germany and Australia limits the sanctions' bite.</span>
+      <span class="dat"><b>Data.</b> CSIS analysis of government announcements, industry and supply-chain data (published July 2023).</span></li>
+    <li><a href="https://www.mayerbrown.com/en/insights/publications/2023/07/china-imposes-new-export-controls-on-two-minerals-critical-to-the-manufacture-of-semiconductors">China Imposes New Export Controls on Two Minerals Critical to the Manufacture of Semiconductors</a><span class="src"> · Mayer Brown (2023)</span>
+      <span class="desc">Legal / trade-compliance analysis of the 2023 measures.</span>
+      <span class="abs"><b>Summary.</b> On 3 July 2023 China announced export-licensing requirements for gallium and germanium (effective 1 August 2023), extending to derivative products such as gallium nitride and zone-refined germanium ingots; exporters must obtain provincial Ministry of Commerce approval.</span>
+      <span class="dat"><b>Data.</b> Legal analysis of China's Export Control Law, Foreign Trade Law and Customs Law; Joint Announcement No. 23 (2023).</span></li>
+    <li><a href="https://www.hsfkramer.com/notes/sanctions/2023-08/china-releases-latest-export-control-measures-on-gallium-and-germanium">China releases latest export control measures on gallium and germanium</a><span class="src"> · Herbert Smith Freehills Kramer (2023)</span>
+      <span class="desc">Law-firm regulatory summary of the July/August 2023 measures.</span>
+      <span class="abs"><b>Summary.</b> Law-firm regulatory note on China's July 2023 gallium and germanium export-licensing measures and their compliance implications for exporters. <span class="miss">(Page not retrievable on this pass — bot-blocked 403; noted from the article title.)</span></span>
+      <span class="dat"><b>Data.</b> Law-firm regulatory commentary — no primary dataset.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/germanium_and_gallium_us_trade_and_chinese_export.htm">Germanium and Gallium: U.S. Trade and Chinese Export Restrictions</a><span class="src"> · U.S. International Trade Commission (2024)</span>
+      <span class="desc">Trade-flow and price-impact briefing on the 2023 controls.</span>
+      <span class="abs"><b>Summary.</b> USITC executive briefing (March 2024): U.S. 2022 net import reliance was 100% for gallium; the general customs value of U.S. gallium imports rose ~997% from 2021 to 2022; and global gallium prices rose ~68% after the July 2023 licensing regime took effect.</span>
+      <span class="dat"><b>Data.</b> USITC analysis of official U.S. trade statistics and reported price series.</span></li>
+    <li><a href="https://www.semi.org/sites/semi.org/files/2024-04/SEMI%20Europe%20Comments%20on%20the%20Export%20Controls%20on%20Gallium%20and%20Germanium.pdf">SEMI Europe Comments on the Export Controls on Gallium and Germanium</a><span class="src"> · SEMI Europe (2024)</span>
+      <span class="desc">Semiconductor-industry association response to the licensing regime.</span>
+      <span class="abs"><b>Summary.</b> SEMI Europe position paper to the European Commission, Parliament and Council setting out the semiconductor industry's priorities on the gallium and germanium export controls and their impact on supply — the downstream industry's own reading of the lever.</span>
+      <span class="dat"><b>Data.</b> Industry-association policy submission — no primary dataset.</span></li>
+    <li><a href="https://www.stimson.org/2025/chinas-germanium-and-gallium-export-restrictions-consequences-for-the-united-states/">China's Germanium and Gallium Export Restrictions: Consequences for the United States</a><span class="src"> · Stimson Center (2025)</span>
+      <span class="desc">Downstream impact assessment of the restrictions on U.S. supply.</span>
+      <span class="abs"><b>Summary.</b> Stimson analysis finding that despite China's export restrictions, germanium and gallium still reach the United States through indirect trade routes — a caveat on how binding the licensing regime is in practice.</span>
+      <span class="dat"><b>Data.</b> Stimson trade-flow analysis of indirect routing — no primary dataset shown.</span></li>
+    <li><a href="https://www.csis.org/analysis/de-risking-gallium-supply-chains-national-security-case-eroding-chinas-critical-mineral">De-risking Gallium Supply Chains: The National Security Case for Eroding China's Critical Mineral Dominance</a><span class="src"> · CSIS</span>
+      <span class="desc">Policy case for diversification away from Chinese gallium.</span>
+      <span class="abs"><b>Summary.</b> Argues China's ~98% control of raw gallium — essential to semiconductors for military radar and defence — was exposed by the 2023 restrictions, and makes the national-security case for domestic investment and diversified sourcing to cut dependence.</span>
+      <span class="dat"><b>Data.</b> USGS assessments, DOE reports, DOD contracts, trade data and Chinese policy documents.</span></li>
+    <li><a href="https://www.csis.org/analysis/beyond-rare-earths-chinas-growing-threat-gallium-supply-chains">Beyond Rare Earths: China's Growing Threat to Gallium Supply Chains</a><span class="src"> · CSIS</span>
+      <span class="desc">Broader framing of gallium within China's mineral leverage.</span>
+      <span class="abs"><b>Summary.</b> Documents China's ~98% control of global gallium and progressively tightening export restrictions since 2023, creating shortages that threaten U.S. and allied defence systems reliant on gallium semiconductors; alternative production is emerging but needs sustained government investment.</span>
+      <span class="dat"><b>Data.</b> Chinese customs data, USGS reports, Rotterdam market pricing and industry interviews.</span></li>
+    <li><a href="https://orfamerica.org/newresearch/chinas-critical-mineral-export-controls">China's Critical Mineral Export Controls: Background &amp; Chokepoints</a><span class="src"> · ORF America</span>
+      <span class="desc">Cross-mineral chokepoint framing that includes gallium.</span>
+      <span class="abs"><b>Summary.</b> Background paper: China controls ~60–90% of several critical minerals and has imposed export controls on germanium, gallium, graphite and antimony since 2023, signalling economic-coercion capability in retaliation for U.S. semiconductor limits and threatening allied supply chains.</span>
+      <span class="dat"><b>Data.</b> USGS projections, Chinese customs data and production statistics; historical coercion precedents.</span></li>
+    <li><a href="https://www.geopoliticalmonitor.com/critical-minerals-global-gallium-supply-demand/">Critical Minerals: Global Gallium Supply &amp; Demand</a><span class="src"> · Geopolitical Monitor</span>
+      <span class="desc">Market and geopolitical overview of gallium.</span>
+      <span class="abs"><b>Summary.</b> Overview of gallium as a semiconductor metal with China producing ~99% of world supply, examining supply-and-demand dynamics and recent progress toward self-sufficiency in Western supply chains.</span>
+      <span class="dat"><b>Data.</b> Trade-press market overview — no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0301420725002685">Assessment of critical minerals supply chain for the United States in perspective of trade restriction by foreign countries</a><span class="src"> · Resources Policy</span>
+      <span class="desc">Supply-chain risk modelling under Chinese export restrictions, gallium among the cases.</span>
+      <span class="abs"><b>Summary.</b> Models U.S. critical-minerals supply-chain risk under trade restrictions imposed by foreign countries — gallium among the assessed minerals. <span class="miss">(Publisher/preprint shell — full abstract not retrievable; summary from the paper's title and venue.)</span></span>
+      <span class="dat"><b>Data.</b> Supply-chain risk assessment under trade-restriction scenarios.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The response — recover &amp; recycle what was discarded <span class="ct">5</span></h2>
+  <div class="stagesub">A built chokepoint is rebuildable: recovery circuits on existing plants, plus recycling of GaAs scrap and e-waste.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0304386X21001717">Recovery of gallium from leach solutions of zinc refinery residues by stepwise solvent extraction</a><span class="src"> · Hydrometallurgy (2021)</span>
+      <span class="desc">Hydrometallurgical route to recover gallium from the zinc by-product stream.</span>
+      <span class="abs"><b>Summary.</b> Demonstrates recovering gallium from leach solutions of zinc-refinery residues by stepwise solvent extraction with N235 and Cyanex 272 — evidence that the zinc by-product stream is a recoverable gallium source. <span class="miss">(Full abstract not retrievable — publisher shell; summary from the paper's title and venue.)</span></span>
+      <span class="dat"><b>Data.</b> Bench-scale hydrometallurgical solvent-extraction experiments.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344925003143">Enhancing supply resilience for critical materials: case study of gallium supply in the United States</a><span class="src"> · Resources, Conservation &amp; Recycling (2025)</span>
+      <span class="desc">U.S. gallium material-flow analysis with recycling scenarios to 2035.</span>
+      <span class="abs"><b>Summary.</b> Case study modelling U.S. gallium supply resilience, quantifying recovery and recycling potential to 2035 to gauge how much of demand a domestic recover-and-recycle response could cover. <span class="miss">(Preprint/publisher shell — full abstract not retrievable; summary from the paper's title. Also posted at eScholarship.)</span></span>
+      <span class="dat"><b>Data.</b> U.S. gallium material-flow analysis with recycling scenarios.</span></li>
+    <li><a href="https://doi.org/10.3390/resources15080104">Critical-Material Recovery from U.S. Industrial Byproducts: A Scenario-Based Supply-Risk Analysis</a><span class="src"> · Resources (MDPI, 2026)</span>
+      <span class="desc">Scenario-based supply-risk analysis of by-product recovery, gallium included.</span>
+      <span class="abs"><b>Abstract.</b> Evaluates eight U.S. pathways for recovering gallium, germanium, tellurium, lithium, magnesium and cobalt from industrial by-products — distinguishing contained inventory, pilot output, announced capacity and commercial production. Facility- and stream-specific quantities are converted to qualifying domestic output in same-stage material balances to test how much supply risk recovery can actually reduce.</span>
+      <span class="dat"><b>Data.</b> Facility/stream-specific material balances across eight U.S. by-product pathways under explicit utilisation, eligibility and demand assumptions.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0301479723018315">Recovery technologies for indium, gallium, and germanium from end-of-life products (electronic waste) — a review</a><span class="src"> · Journal of Environmental Management (2023)</span>
+      <span class="desc">Review of recycling routes for the three by-product metals from end-of-life electronics.</span>
+      <span class="abs"><b>Abstract.</b> Reviews recent advances in pre-treatment, hydrometallurgical and biohydrometallurgical recovery of indium, gallium and germanium from end-of-life products — spent LCDs, LEDs, photovoltaics and optical fibres — as a route to easing supply risk for these high-value, high-risk technology-critical elements.</span>
+      <span class="dat"><b>Data.</b> Literature review of e-waste recovery technologies for indium/gallium/germanium.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0957582024002593">Efficient separation and recovery of gallium from GaAs scraps by alkaline oxidative leaching, cooling crystallization and cyclone electrowinning</a><span class="src"> · Process Safety and Environmental Protection (2024)</span>
+      <span class="desc">Wafer-scrap recycling process for gallium at the compound-semiconductor stage.</span>
+      <span class="abs"><b>Summary.</b> Presents a process to recover gallium from GaAs wafer scrap by alkaline oxidative leaching, cooling crystallization and cyclone electrowinning — recycling gallium at the compound-semiconductor stage. <span class="miss">(Full abstract not retrievable — publisher shell; summary from the paper's title and venue.)</span></span>
+      <span class="dat"><b>Data.</b> Bench-scale hydro-/electrometallurgical recycling experiments.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; profiles <span class="ct">3</span></h2>
+  <div class="stagesub">The EU/US methodologies and database entries that classify gallium's criticality.</div>
+  <ul class="refs">
+    <li><a href="https://www.greenpolicyplatform.org/sites/default/files/downloads/resource/study%20on%20the%20critical%20raw%20materials%20for%20the%20eu%202023-ET0723116ENN.pdf">Study on the Critical Raw Materials for the EU 2023 — Final Report</a><span class="src"> · European Commission DG GROW (2023)</span>
+      <span class="desc">The EU's fifth technical criticality assessment; gallium factsheet included.</span>
+      <span class="abs"><b>Abstract.</b> The EU's Critical Raw Materials assessment — first published 2011 and updated every three years under the Raw Materials Initiative's diversification strategy. It screens candidate materials on Economic Importance and Supply Risk to define the CRM list underpinning EU supply-security policy; gallium is assessed as critical.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) with production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/uploads/crm-report-on-critical-raw-materials_en.pdf">Report on Critical Raw Materials for the EU</a><span class="src"> · European Commission DG ENTR</span>
+      <span class="desc">Earlier EU Ad-hoc Working Group CRM methodology and scoring covering gallium.</span>
+      <span class="abs"><b>Abstract.</b> Report of the EU Ad-hoc Working Group on defining critical raw materials: applies a two-criterion method — economic importance and supply risk (poor-governance weighted) — to 54 non-energy, non-agricultural materials, identifying the critical set within a fixed criticality zone. Gallium is among the assessed materials.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology over 54 candidate materials (economic importance, supply risk).</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/rmp/Gallium">Gallium — RMIS raw materials profile</a><span class="src"> · EU JRC RMIS</span>
+      <span class="desc">EU JRC criticality/supply database entry for gallium.</span>
+      <span class="abs"><b>Summary.</b> EU JRC Raw Materials Information System profile page for gallium — the EU-side criticality and supply database entry. <span class="miss">(Live profile is a JavaScript application shell — data not retrievable by static fetch; listed for provenance.)</span></span>
+      <span class="dat"><b>Data.</b> EU JRC RMIS database — no static dataset returned.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024) used for the chain's trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII's BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Unwrought gallium is not separable — it shares HS 811292 with indium and germanium.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://data.usgs.gov/datacatalog/data/USGS:6797fd60d34ea8c18376e18b">Mineral Commodity Summaries 2025 — Gallium Data Release</a><span class="src"> · USGS Science Data Catalog</span>
+      <span class="desc">Machine-readable data tables behind the MCS gallium chapter.</span>
+      <span class="abs"><b>Summary.</b> USGS Science Data Catalog release providing the structured, machine-readable tables — production, imports, price, stocks — that underlie the Mineral Commodity Summaries 2025 gallium chapter. <span class="miss">(Catalog landing page bot-blocked on this pass; described from the release title and the MCS chapter it accompanies.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics, structured data release.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>Gallium has no clean HS6 trade code</b> — unwrought gallium sits in the shared HS 811292 basket with indium and germanium, so BACI cannot isolate it (the same limit the atlas flags for indium). Customs (CN 81129289 / HS 811292) will not verify the USGS production read.</li>
+      <li>No dedicated gallium industry association surfaced — the closest are downstream semiconductor bodies (SEMI) and aluminium trade press. Next: check the <b>Minor Metals Trade Association (MMTA)</b> directly for a gallium page.</li>
+      <li>Quantified <b>Western recovery-restart capacity</b> is still thin. USGS MCS 2026 now records a DOE ~$6M R&amp;D initiative and a $29.9M Defense Production Act (Title III) award for a Louisiana gallium/scandium recovery demonstration — a fuller capacity series would let the "rebuildable slowly" claim be sized.</li>
+      <li><b>Price-series data</b> (Fastmarkets/Argus/USGS historical tables) was not directly retrieved; the USITC "+68% since July 2023" figure and the USGS unit-value series are only partial proxies. Next: "gallium price history post-2023 export controls."</li>
+      <li>Several academic abstracts sit behind Elsevier/SSRN application shells; their DOIs are listed above (e.g. 10.1016/j.hydromet.2021.105722, 10.1016/j.psep.2024.03.039) for retrieval through an institutional library.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from host ore to finished GaN/GaAs device, with cross-cutting frameworks and data grouped at the end. 27 unique sources (repeat listings — a second CEPII BACI entry, a second USGS gallium data-release link and a second RMIS profile link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (bot-blocked or JavaScript-only) that is flagged in italics, and where only a title was available the summary says so. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="gallium-chain.html">The gallium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

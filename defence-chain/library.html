@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Defence / military-materials chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the defence / military-materials value chain, ordered to follow the chain from raw material to weapon system to demonstrated leverage. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./defence-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Defence</div>
+    <h1>Defence / military-materials chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Radar, night vision, precision-guided munitions and the shells themselves run on a short list of materials — gallium, germanium, antimony, tungsten, rare-earth magnets — whose mining and refining is concentrated in one country, which has already export-controlled or banned them to the United States. <b>A defence "critical minerals" list is not a supply-risk table — it is a map of a rival's leverage.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Materials (the China-held upstream) → ② components and the weapon-system capability each enables → ③ the leverage, already demonstrated through export controls → ④ the Western response (stockpiles and the industrial base) — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./defence-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">27</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (8) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (9) · <span class="pill ref">Reference</span> context / provenance (10).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① The materials — the China-held upstream</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2025 — Gallium</td><td class="took">Refined-share + import-reliance data → the <b>~99% refined-gallium</b> material bar and the "trace by-product" framing (GaN radar/EW).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Germanium</td><td class="took">Production + end-use split → the <b>~60% germanium</b> bar and the IR-optics / night-vision material link.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2025 — Antimony</td><td class="took">Mine-share + net-import-reliance → the antimony material bar and the "no US primary production" finding in §4.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Components → weapon-system capability</td></tr>
+      <tr><td class="n">4</td><td>CSIS — magnet restrictions threaten US defence</td><td class="took">Per-system rare-earth content (F-35 &gt;900 lb, submarine ~9,200 lb) → a <b>planned</b> quantified "material → weapon system" panel behind the §2 cards.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>Modern War Institute — minerals, magnets &amp; military capability</td><td class="took">Framing of export control as demonstrated weaponisation → the §3 "the leverage has already been used" thesis.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Geopolitical risk &amp; rare-earth magnet supply (Energy Economics)</td><td class="took">Method: regress magnet export volume on a geopolitical-risk index → a reproducible test of whether volume tracks risk.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Securing defence critical minerals (Comparative Strategy)</td><td class="took">Peer-reviewed frame for the material≠component≠system≠leverage decomposition.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The leverage — export controls demonstrated</td></tr>
+      <tr><td class="n">8</td><td>CSIS — most stringent restrictions yet (Dec 2024)</td><td class="took">The Dec-2024 outright ban + the escalation narrative → the §3 timeline and the "48% antimony / $3.4B GDP" context.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>Global Trade Alert — antimony controls (Aug 2024)</td><td class="took">Primary policy record (17 HS codes, effective 15 Sep 2024) → dates the antimony lever in §3.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>Fastmarkets — antimony export uncertainty</td><td class="took">Market response → corroborates the <b>−97% shipments / +200% price</b> figure in the §3 big-number panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>CSET (Georgetown) — MOFCOM Notice 2024 No. 46</td><td class="took">Translation of the primary notice behind the Dec-2024 ban — provenance for the §3 timeline.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>CSIS — consequences of the new rare-earth restrictions</td><td class="took">The seven Apr-2025 heavy-REE licences (Sm, Gd, Tb, Dy, Lu, Sc, Y) → a <b>planned</b> extension of the §3 timeline past antimony.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>CSIS — rare-earth restrictions one year later</td><td class="took">Yttrium exports to US collapsing 333→17 t → a candidate case-study of a lever's bite.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>IEA — supply-concentration risks become reality</td><td class="took">Magnet share 50%→94% over two decades; refining ~91% → a <b>planned</b> upstream-share cross-check for the §1 bars.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>The Diplomat — export ban strikes the defence base</td><td class="took">Material→munition mapping (Sb in rounds, Ga in radar, Ge in night vision) — context for the §2 cards.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The Western response — stockpiles &amp; the industrial base</td></tr>
+      <tr><td class="n">16</td><td>CRS R47833 — National Defense Stockpile</td><td class="took">Inventory covers &lt;40% of military shortfall ($912M vs $14.83B) → a <b>planned</b> hard number for the §4 "buffer is short" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>GAO-24-106959 — stockpile preparedness</td><td class="took">Shortfalls +167% (FY19–23); &gt;90% of shortfall materials have 0–1 domestic supplier → a <b>planned</b> §4 concentration metric.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>National Defense Magazine — stockpiling opportunities</td><td class="took">Coverage of the up-to-$1B procurement intent — context for §4.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>National Defense Magazine — DLA dips into stockpiles</td><td class="took">"Break-glass" drawdown; 48 minerals across 6 sites; DoD is often ~1% of demand — the §4 buffer framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Inside Government Contracts — federal stockpiling review</td><td class="took">2025-in-review of NDS funding ($2B OBBA transaction fund) — policy context for §4.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>MINING.com — Pentagon $1B stockpile</td><td class="took">Itemised buys ($500M cobalt, $245M antimony, $100M tantalum, $45M scandium) → a <b>planned</b> quantified §4 response panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">22</td><td>CSIS — Minerals at War</td><td class="took">Historical frame: mineral security is permanent stewardship, not crisis response — the §4 argument.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>NDIA — Vital Signs 2026</td><td class="took">Defence-industrial-base health survey (1,646 respondents; resilient-supply-chains pillar) — context for §4.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>DIBC — Critical Minerals RPP (round 1)</td><td class="took">The DPA Title III / IBAS solicitation mechanism — how the response is funded; context for §4.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>Inside Government Contracts — DIBC RPP (round 2)</td><td class="took">The 13-material defence-critical list (As, Bi, Gd, Ge, graphite, Hf, Ni, Sm, W, V, Yb, Y, Zr) → a <b>planned</b> cross-check of the §1 material set.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">26</td><td>EU CRM 2023 (EI × Supply Risk)</td><td class="took">EU criticality list → cross-checked against the chain's material set (heavy REEs 100% China to the EU, boron 99% Turkey).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">27</td><td>CEPII BACI</td><td class="took">The data engine → the trade lens on the traded forms, flagged as availability-not-end-use (shared HS baskets).</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① The materials — the China-held upstream <span class="ct">3</span></h2>
+  <div class="stagesub">Not the biggest materials by tonnage — the ones a modern weapon cannot be built without and cannot quickly re-source.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf">USGS Mineral Commodity Summaries 2025 — Gallium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual world production/reserves/trade data for gallium; the source of the ~98–99% refined-China share.</span>
+      <span class="abs"><b>Summary.</b> USGS commodity summary: China supplied about 98% of the world's primary refined gallium and 99% of low-purity gallium; world high-purity refined output was ~320,000 kg in 2024. US net import reliance is 100%. Integrated circuits took 79% of US consumption, optoelectronics 20%; 2023 Chinese export controls spurred efforts to restart domestic output.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade data; production largely a by-product of aluminium (bauxite) and zinc refining.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf">USGS Mineral Commodity Summaries 2025 — Germanium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual germanium supply/use data underlying the IR-optics and night-vision material link.</span>
+      <span class="abs"><b>Summary.</b> USGS commodity summary: China is the leading germanium producer and banned all germanium exports to the US in December 2024. US germanium-metal imports (2020–23) were 51% China, 27% Belgium, 15% Germany. Major US end uses are fibre optics, infrared optics (lenses for thermal/night-vision systems), semiconductors and solar cells; a 2025 DoD award funded domestic wafer capacity.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade data; germanium recovered as a by-product of zinc ores and coal fly ash.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf">USGS Mineral Commodity Summaries 2025 — Antimony</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual antimony mine-production and trade data; feeds the antimony material-share bar.</span>
+      <span class="abs"><b>Summary.</b> USGS commodity summary: China is the world's largest antimony producer (~40,000 t of ~110,000 t world mine output). US net import reliance is 85%, with an estimated 54% of consumption met by imports from China; antimony oxide imports are 76% China. Main uses are flame retardants, lead-acid batteries, and munitions (primers, tracers, hardened alloy).</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export trade data; no primary US mine production.</span></li>
+  </ul>
+
+  <h2 class="sec">② Components → weapon-system capability <span class="ct">4</span></h2>
+  <div class="stagesub">Where a material becomes a component becomes a capability — and where the public bill of materials runs out, so the mapping turns qualitative.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/chinas-new-rare-earth-and-magnet-restrictions-threaten-us-defense-supply-chains">China's New Rare Earth and Magnet Restrictions Threaten U.S. Defense Supply Chains</a><span class="src"> · CSIS</span>
+      <span class="desc">Defense-specific framing of the rare-earth / magnet restrictions, with per-platform material content.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis: China's controls threaten US platforms — an F-35 needs over 900 lb of rare earths, a Virginia-/Columbia-class submarine ~9,200 lb, plus Tomahawks, radars, drones and smart bombs. A foreign-direct-product rule blocks magnets with even 0.1% Chinese content; China holds ~70% of mining, ~90% of processing, ~93% of magnet manufacture.</span>
+      <span class="dat"><b>Data.</b> Analysis of Chinese export-control notices plus published per-platform rare-earth content and processing-share estimates; no primary dataset.</span></li>
+    <li><a href="https://mwi.westpoint.edu/minerals-magnets-and-military-capability-chinas-rare-earth-weaponization-should-be-a-wake-up-call/">Minerals, Magnets, and Military Capability: China's Rare Earth Weaponization Should Be a Wake-Up Call</a><span class="src"> · Modern War Institute (West Point)</span>
+      <span class="desc">Military-academy analysis framing rare-earth export control as demonstrated weaponization.</span>
+      <span class="abs"><b>Summary.</b> Argues China's rare-earth controls are strategic weaponisation threatening US readiness: China refines over 85% of the world's rare earths and makes nearly 90% of high-performance magnets. Proposes restocking the National Defense Stockpile with finished magnets, accelerating domestic production, and binding allied partnerships. Notes GAO's $18.5B remediation estimate and a sub-$1B stockpile (vs ~$42B at Cold-War peak).</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing processing-share estimates, GAO cost figures and stockpile valuations; no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0140988325003202">Geopolitical risk and the global supply of rare earth permanent magnets: Insights from China's export trends</a><span class="src"> · Energy Economics (2025)</span>
+      <span class="desc">Quantitative analysis of geopolitical risk in the rare-earth magnet supply chain via Chinese export data.</span>
+      <span class="abs"><b>Abstract.</b> Using multiple linear regression on Chinese national export figures for 2017–2024, the study finds geopolitical risk exerts a markedly positive effect on the supply of rare-earth permanent magnets: a 1% rise in geopolitical risk correlates with a ~3.8-tonne increase in magnet exports — suggesting China uses high-volume exports to reinforce market dominance rather than hoarding to punish rivals. <span class="miss">(Full text behind a publisher wall — abstract taken from the record and public indexing; authors Depraiter, Goutte &amp; Porcher.)</span></span>
+      <span class="dat"><b>Data.</b> Chinese national rare-earth-magnet export figures 2017–2024 against a geopolitical-risk index; multiple linear regression.</span></li>
+    <li><a href="https://www.tandfonline.com/doi/full/10.1080/01495933.2025.2456427">Securing defense critical minerals: Challenges and U.S. strategic responses in an evolving geopolitical landscape</a><span class="src"> · Comparative Strategy (2025)</span>
+      <span class="desc">Peer-reviewed review of US strategic responses to defense-critical-mineral dependency.</span>
+      <span class="abs"><b>Abstract.</b> Peer-reviewed review (V. Vivoda, Comparative Strategy 44:2) of the growing dependence on critical minerals for advanced military technologies. Identifies key defence-critical minerals, emphasises their dual-use nature and the risk of reliance on adversarial states such as China and Russia, analyses US strategic responses, and recommends balancing national security, economic feasibility and sustainability. <span class="miss">(Full article behind a publisher wall — summarised from the abstract and public indexing.)</span></span>
+      <span class="dat"><b>Data.</b> Qualitative review / policy synthesis of US defence-critical-mineral strategy; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The leverage — export controls demonstrated <span class="ct">8</span></h2>
+  <div class="stagesub">The upstream position is not theoretical: 2023–2024 turned it into a used lever, with an observable price and volume response.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/china-imposes-its-most-stringent-critical-minerals-export-restrictions-yet-amidst">China Imposes Its Most Stringent Critical Minerals Export Restrictions Yet</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">Analysis of the December 2024 gallium/germanium/antimony export ban to the US.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis: in December 2024 China banned exports of gallium, germanium, antimony and superhard materials to the US — its first country-specific ban — retaliating for new US semiconductor-equipment controls on 140 Chinese firms. China holds 48% of global antimony output and 63% of US antimony imports; a full Ga/Ge ban could cost ~$3.4B in US GDP.</span>
+      <span class="dat"><b>Data.</b> Analysis of Chinese Ministry of Commerce notices plus USGS production/import-reliance and GDP-loss estimates.</span></li>
+    <li><a href="https://globaltradealert.org/state-act/88204-china-government-announces-export-control-measures-for-antimony-and-related-items">China export-control measures for antimony and related items</a><span class="src"> · Global Trade Alert (2024)</span>
+      <span class="desc">Primary policy-tracking record of the August 2024 antimony export controls.</span>
+      <span class="abs"><b>Summary.</b> Policy-tracking record: China's Ministry of Commerce announced export-licensing requirements for antimony and related items in August 2024, covering 17 HS codes and effective 15 September 2024, with no revocation date. Global Trade Alert classifies the measure as "certainly harmful".</span>
+      <span class="dat"><b>Data.</b> Structured policy-intervention record from Global Trade Alert's state-act monitoring; no market dataset.</span></li>
+    <li><a href="https://www.fastmarkets.com/insights/uncertainty-lingers-over-antimony-exports-following-us-china-truce/">Uncertainty lingers over antimony exports following US-China truce</a><span class="src"> · Fastmarkets (2025)</span>
+      <span class="desc">Market reporting on antimony volume/price response and the trade truce.</span>
+      <span class="abs"><b>Summary.</b> Market report: China's antimony export controls (from September 2024, tightened May 2025) stalled shipments, with containers held at ports for months and most exporters suspending overseas business. After the November Trump-Xi meeting, participants awaited clarity on whether US exports would resume.</span>
+      <span class="dat"><b>Data.</b> Qualitative market commentary and trader interviews; no quantified volume/price series on this page.</span></li>
+    <li><a href="https://cset.georgetown.edu/publication/china-rare-earth-export-ban/">Ministry of Commerce Notice 2024 No. 46 — controls on dual-use items to the United States</a><span class="src"> · CSET, Georgetown (2024)</span>
+      <span class="desc">Translation/analysis of China's formal notice tightening dual-use export controls to the US.</span>
+      <span class="abs"><b>Summary.</b> CSET translation of China's Ministry of Commerce Notice 2024 No. 46 (3 December 2024): prohibits military-use exports and bans commercial shipments of gallium, germanium, antimony and superhard materials to the United States, and tightens checks on dual-use graphite — issued a day after new US microchip export controls.</span>
+      <span class="dat"><b>Data.</b> Primary-document translation of the Ministry of Commerce notice; analytical commentary, no dataset.</span></li>
+    <li><a href="https://www.csis.org/analysis/consequences-chinas-new-rare-earths-export-restrictions">The Consequences of China's New Rare Earths Export Restrictions</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of the April 2025 heavy-rare-earth and magnet export restrictions.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis: in April 2025 China imposed licensing on seven medium/heavy rare earths — samarium, gadolinium, terbium, dysprosium, lutetium, scandium, yttrium — and magnets, threatening export pauses that especially hit listed US defence contractors. China held ~99% of heavy-REE processing until 2023. MP Materials' ~1,300 t/yr is under 1% of China's ~300,000 t of magnet output.</span>
+      <span class="dat"><b>Data.</b> Analysis of Chinese licensing notices plus processing-share and production-capacity estimates; no primary dataset.</span></li>
+    <li><a href="https://www.csis.org/analysis/rare-earth-export-restrictions-one-year-later">Rare Earth Export Restrictions One Year Later</a><span class="src"> · CSIS</span>
+      <span class="desc">One-year retrospective on China's rare-earth export restrictions and downstream effects.</span>
+      <span class="abs"><b>Summary.</b> CSIS retrospective: a year after the April 2025 restrictions, China's yttrium exports to the US had collapsed from 333 t to 17 t. The US responded with ~$7.3B of government financing across mining, processing and magnet manufacturing (MP Materials, Vulcan Elements, others) and partnerships with Australia, Saudi Arabia, Japan and Malaysia. 2025 US REE imports were 71% China.</span>
+      <span class="dat"><b>Data.</b> US production/import figures, export-flow series (yttrium tonnages) and itemised federal financing commitments across five agencies.</span></li>
+    <li><a href="https://www.iea.org/commentaries/with-new-export-controls-on-critical-minerals-supply-concentration-risks-become-reality">With new export controls on critical minerals, supply concentration risks become reality</a><span class="src"> · IEA commentary</span>
+      <span class="desc">IEA's read on how export controls turn theoretical supply-concentration risk into realised disruption.</span>
+      <span class="abs"><b>Summary.</b> IEA commentary: China's October 2025 controls on rare earths and lithium-ion batteries turned concentration risk into live disruption across autos, defence and semiconductors. China refines ~91% of rare earths; its permanent-magnet share rose from ~50% two decades ago to 94%. 2024 magnet exports were 58,000 t; post-April-2025 European prices reached up to six times Chinese levels.</span>
+      <span class="dat"><b>Data.</b> IEA supply-concentration analysis using refining/manufacturing shares, magnet export volumes and regional price differentials.</span></li>
+    <li><a href="https://thediplomat.com/2024/12/chinas-mineral-export-ban-strikes-at-the-us-defense-industrial-base/">China's Mineral Export Ban Strikes at the US Defense Industrial Base</a><span class="src"> · The Diplomat (2024)</span>
+      <span class="desc">Regional-affairs framing of the December 2024 ban's direct defense-industrial impact.</span>
+      <span class="abs"><b>Summary.</b> The Diplomat: on 3 December 2024 China's Ministry of Commerce barred exports of gallium, germanium, antimony and superhard materials to the US. Antimony goes into bullets and artillery rounds, gallium into radar integrated circuits, germanium into night-vision and thermal sensors — so the immediate-effect ban risks near-term shortages, price rises and delayed munitions production.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis of the export notice plus qualitative material-to-munition mapping; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The Western response — stockpiles &amp; the industrial base <span class="ct">10</span></h2>
+  <div class="stagesub">The gap between the material list and the response is the whole risk: no domestic supply of key inputs, and a buffer built for a different era.</div>
+  <ul class="refs">
+    <li><a href="https://www.congress.gov/crs-product/R47833">Emergency Access to Strategic and Critical Materials: The National Defense Stockpile (R47833)</a><span class="src"> · Congressional Research Service (2023)</span>
+      <span class="desc">Background on the legal authority and mechanics of the US National Defense Stockpile.</span>
+      <span class="abs"><b>Summary.</b> CRS report (14 Nov 2023): the DoD-managed National Defense Stockpile gives domestic manufacturers emergency access to essential inputs "in the interest of national defense only". As of April 2023, inventory ($912.3M) covered only 37.9% of projected military shortfalls, 7.5% of civilian shortfalls and 6.2% of total net shortfalls; the FY2023 assessment found net shortfalls in 88 materials worth $14.83B.</span>
+      <span class="dat"><b>Data.</b> Secondary synthesis of DoD stockpile-assessment figures, statute and materials-shortfall valuations; no new primary dataset.</span></li>
+    <li><a href="https://www.gao.gov/products/gao-24-106959">National Defense Stockpile: Actions Needed to Improve DOD's Efforts to Prepare for Emergencies (GAO-24-106959)</a><span class="src"> · U.S. GAO (2024)</span>
+      <span class="desc">Audit finding gaps in DOD's stockpile preparedness for supply disruptions.</span>
+      <span class="abs"><b>Summary.</b> GAO audit: DoD lacks data to model requirements for over 40% of its strategic and critical materials, and material shortfalls rose 167% between FY2019 and FY2023 (37 to 99 materials). Over 90% of shortfall materials had zero or one domestic supplier. GAO made six recommendations on data, processes and reporting, all concurred with.</span>
+      <span class="dat"><b>Data.</b> GAO review of DoD stockpile requirement-modelling, shortfall lists and congressional reporting; supplier-concentration counts.</span></li>
+    <li><a href="https://www.nationaldefensemagazine.org/articles/2026/3/6/gci-critical-mineral-stockpiling-presents-opportunities">Critical Mineral Stockpiling Presents Opportunities</a><span class="src"> · National Defense Magazine (2026)</span>
+      <span class="desc">Coverage of the Pentagon's 2025 intent to procure up to $1B in stockpile materials.</span>
+      <span class="abs"><b>Summary.</b> Government-contracting commentary on the DoD's 2025 intent to procure up to $1 billion in National Defense Stockpile materials — scandium, tungsten, graphite, samarium, dysprosium, terbium and related critical minerals — and the contracting opportunities that opens for domestic suppliers. <span class="miss">(Page served as a script shell — summarised from the outlet's headline and matching public reporting.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press commentary citing DoD/DLA procurement notices; no primary dataset.</span></li>
+    <li><a href="https://www.nationaldefensemagazine.org/articles/2025/6/20/defense-logistics-agency-considers-dipping-into-strategic-mineral-stockpiles">Defense Logistics Agency Considers Dipping into Strategic Mineral Stockpiles</a><span class="src"> · National Defense Magazine (2025)</span>
+      <span class="desc">Reporting on DLA stockpile-drawdown deliberations amid supply pressure.</span>
+      <span class="abs"><b>Summary.</b> Report: the Defense Logistics Agency, which holds ~48 minerals and alloys across six US sites as a "break-glass" reserve, is nearing the point of drawdown as China trade disputes cause shortages. A structural limit is noted — the military is often only ~1% of demand for many of these minerals, so a defence-only stockpile has limited market reach. <span class="miss">(Page served as a script shell — summarised from public reporting of the article.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing DLA statements; no primary dataset.</span></li>
+    <li><a href="https://www.insidegovernmentcontracts.com/2026/02/federal-push-for-critical-minerals-stockpiling-2025-in-review-and-outlook-for-2026/">Federal Push for Critical Minerals Stockpiling: 2025 in Review and Outlook for 2026</a><span class="src"> · Inside Government Contracts (2026)</span>
+      <span class="desc">Year-in-review of US federal critical-minerals stockpiling policy.</span>
+      <span class="abs"><b>Summary.</b> Year-in-review: in 2025 the DLA announced ~$1 billion of stockpile procurements (RFIs for scandium, tungsten, graphite and rare earths), and Congress appropriated $2 billion to the NDS Transaction Fund. Materials in focus span copper, nickel, lithium, samarium, dysprosium, terbium, bismuth, vanadium, indium and fluorspar; 2026 is expected to bring greater interagency coordination.</span>
+      <span class="dat"><b>Data.</b> Policy synthesis of DoD/DLA notices and appropriations; no primary dataset.</span></li>
+    <li><a href="https://www.mining.com/pentagon-moves-to-build-1-billion-critical-minerals-stockpile-to-counter-china-report/">Pentagon moves to build $1 billion critical minerals stockpile to counter China</a><span class="src"> · MINING.com</span>
+      <span class="desc">Trade-press report on the Pentagon's stockpiling drive and its itemised buys.</span>
+      <span class="abs"><b>Summary.</b> Report (citing DLA filings): the Pentagon is acquiring up to $1 billion of critical minerals — including up to $500M of cobalt and $245M of antimony from US Antimony Corporation, $100M of tantalum, and ~$45M of scandium from Rio Tinto and APL. It sits within the ~$7.5B critical-minerals allocation of the 2025 budget act. <span class="miss">(Direct page returned 403 this pass — itemised figures taken from matching public reporting of the same DLA filings.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press report citing Defense Logistics Agency public procurement filings.</span></li>
+    <li><a href="https://www.csis.org/analysis/minerals-war-strategic-resources-and-foundations-us-defense-industrial-base">Minerals at War: Strategic Resources and the Foundations of the U.S. Defense Industrial Base</a><span class="src"> · CSIS</span>
+      <span class="desc">Broader framing of strategic minerals as the foundation of the US defense industrial base.</span>
+      <span class="abs"><b>Summary.</b> CSIS report: mineral security is a permanent national-security challenge needing continuous stewardship, not episodic crisis response. It traces recurring cycles of wartime mobilisation and peacetime dismantling — from WWI platinum shortages to the loss of Mountain Pass rare-earth dominance (1965–1995) and near-total US import reliance on chromium, cobalt and manganese by 1983.</span>
+      <span class="dat"><b>Data.</b> Historical synthesis (WWI–1990s) using case studies, import-reliance figures and stockpile valuations ($1.6B–$7.7B across eras).</span></li>
+    <li><a href="https://www.ndia.org/-/media/sites/ndia/policy/vital-signs/2026/ndia_vitalsigns_2026.pdf?download=1">Vital Signs 2026: The Health and Readiness of the Defense Industrial Base</a><span class="src"> · National Defense Industrial Association (2026)</span>
+      <span class="desc">NDIA's annual defense-industrial-base health assessment, including supply-chain findings.</span>
+      <span class="abs"><b>Summary.</b> NDIA's flagship annual assessment (April 2026) scores US defence-industrial-base health across eight dimensions — including production-inputs and supply-chain conditions — from a record 1,646 survey respondents, and offers 83 recommendations. A dedicated "Ensuring Resilient Supply Chains" pillar addresses critical-mineral dependence; 47% of government respondents cited supply-chain challenges as a major issue.</span>
+      <span class="dat"><b>Data.</b> NDIA Vital Signs 2026 survey (1,646 government/industry respondents) plus quantitative "vital signs" indicators across eight dimensions.</span></li>
+    <li><a href="https://www.dibconsortium.org/wp-content/uploads/2026/02/P02-Critical-Minerals-RPP-Final.pdf">Domestic Processing Capabilities of Critical Minerals — Request for Project Proposals (RPP-CM-26-01)</a><span class="src"> · Defense Industrial Base Consortium (2026)</span>
+      <span class="desc">DOD-affiliated consortium solicitation targeting domestic critical-minerals processing.</span>
+      <span class="abs"><b>Summary.</b> Solicitation (released 27 Feb 2026, closed 20 Mar 2026) from the Defense Industrial Base Consortium under the Office of Industrial Base Policy. It funds domestic critical-minerals processing capacity through two authorities — Industrial Base Analysis and Sustainment (IBAS) and Defense Production Act Title III (DPAP) — via equity, loans and offtake, to reduce reliance on foreign sources.</span>
+      <span class="dat"><b>Data.</b> Government solicitation document — funding mechanism and eligibility criteria, not a dataset.</span></li>
+    <li><a href="https://www.insidegovernmentcontracts.com/2026/03/defense-industrial-base-consortium-issues-new-critical-minerals-request-for-project-proposals/">Defense Industrial Base Consortium Issues New Critical Minerals Request for Project Proposals</a><span class="src"> · Inside Government Contracts (2026)</span>
+      <span class="desc">Coverage of the DIBC's second critical-minerals RPP round and its target-material list.</span>
+      <span class="abs"><b>Summary.</b> Coverage of the DIBC's second critical-minerals solicitation (27 Feb 2026, closed 20 Mar 2026), seeking proposals across supply-chain stages from extraction to recycling for thirteen defence-critical minerals — arsenic, bismuth, gadolinium, germanium, graphite, hafnium, nickel, samarium, tungsten, vanadium, ytterbium, yttrium and zirconium — under DPA Title III and 10 U.S.C. §4817, with awards of $100M–$500M.</span>
+      <span class="dat"><b>Data.</b> Trade-press summary of the DIBC solicitation; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">1</span></h2>
+  <div class="stagesub">The list methodology that classifies the whole chain's inputs, cross-checked against the material set.</div>
+  <ul class="refs">
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">Study on the Critical Raw Materials for the EU 2023</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's formal CRM criticality assessment, cross-checked for the chain's material list.</span>
+      <span class="abs"><b>Summary.</b> European Commission page: the 2023 (fifth) criticality assessment screens 70 candidate materials on Economic Importance × Supply Risk and lists 34 critical raw materials plus strategic copper and nickel, feeding the Critical Raw Materials Act. Concentration examples: China supplies 100% of the EU's heavy rare earths, Turkey 99% of boron, South Africa 71% of platinum.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over 70 candidate materials using production, trade, substitution and recycling data.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's trade lens is built from — read as availability of the traded good, not who arms whom.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, ~1995–2024) used for the chain's trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII database (version 202601, released 30 Jan 2026): BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, derived from UN Comtrade by converting CIF import values to FOB and reliability-weighting reporter discrepancies. Its shared HS baskets (gallium and germanium sit together) are why customs data cannot see military end-use.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated <b>tungsten / antimony munitions bill-of-materials</b> study surfaced — the material-to-munition mapping in §2 stays qualitative. Next: "tungsten antimony military munitions supply chain vulnerability" or "penetrator alloy tungsten defense supply".</li>
+      <li>No independent database beyond USGS and BACI tracks <b>defence-specific</b> critical-mineral flows. Next: "Defense Logistics Agency Strategic Materials annual report" or "DOD Industrial Base Analysis and Sustainment (IBAS) critical minerals dataset" for a primary DoD data source.</li>
+      <li><b>Tantalum</b> capacitors and NdFeB magnets beyond the CSIS pieces are thin on peer-reviewed material. Next: "tantalum capacitor defense supply chain criticality" and "NdFeB magnet defense procurement Resources Policy".</li>
+      <li>The <b>EU-side defence-materials</b> angle (beyond the general EU CRM 2023 study) is unexplored. Next: "European Defence Agency critical raw materials report" for an EU counterpart to the US sources.</li>
+      <li>The Payne Institute (Colorado School of Mines) runs an active defense-industrial-base research stream not yet mined for specific reports — worth a follow-up pass.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from raw material to weapon system to demonstrated leverage, with cross-cutting frameworks and data grouped at the end. 27 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved directly (403, publisher wall or a script shell) that is flagged in italics and the summary is drawn from the source's own abstract and matching public reporting. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./defence-chain.html">The defence chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

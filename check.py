@@ -74,8 +74,12 @@ def check_links():
     have = set(pages())
     for p in pages():
         html = open(p, encoding='utf8').read()
+        base = os.path.dirname(p)
         for href in set(re.findall(r'href="([\w.\-]+\.html)(?:#[\w\-]+)?"', html)):
-            if href not in have:
+            # resolve a same-folder/bare link relative to the file's own directory,
+            # the way check_datasets does — a bare "sibling.html" is not a repo-root path.
+            rel = os.path.normpath(os.path.join(base, href)).replace(os.sep, '/') if base else href
+            if href not in have and rel not in have:
                 fail('links', f'{p} links to {href} which does not exist')
         for anchor in set(re.findall(r'href="#([\w\-]+)"', html)):
             if f'id="{anchor}"' not in html:
