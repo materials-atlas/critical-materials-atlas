@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Lithium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the lithium value chain, ordered to follow the chain from mine to battery cell. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./lithium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Lithium</div>
+    <h1>Lithium chain — mine to battery cell</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Lithium is mined in many countries — Australia's hard-rock spodumene, Chile's and Argentina's brine, fast-rising Zimbabwe and Brazil — but almost none of it becomes a battery until it passes through a Chinese refinery. <b>The mine is the least concentrated stage of all; the chokepoint is the conversion step.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Mine (hard-rock spodumene / brine) → ② Refining to battery-grade carbonate &amp; hydroxide — the China chokepoint → ③ cathode → ④ cell — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./lithium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">25</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (8) · <span class="pill ref">Reference</span> context / provenance (13).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Mine — brine &amp; hard-rock, the diversified upstream</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Lithium</td><td class="took">Mine-share + reserves data → the <b>~62% Australia</b> mine stat and the reserves-≠-output finding. <span class="miss">2026 PDF 403 this pass; figures from the atlas's stored USGS series.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics</td><td class="took">Long-run mine series → the <b>2000→2024 history chart</b> (Australia to ~62%, Chile falling, Zimbabwe jumping). <span class="miss">Portal 404 this pass; series from stored extract.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>BGS — Lithium Triangle</td><td class="took">Reserves-vs-output gap + brine water-risk framing → the §2 "reserves in one place, output in another" panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>Resource nationalism in the lithium triangle</td><td class="took">Why vast brine reserves convert slowly into supply (Bolivia barely started) → context for the §2 reserves panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Mongabay — Chile brine impacts</td><td class="took">Brine water-intensity + DLE-not-yet-at-scale evidence → the "slow, water-intensive" brine note in §2.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>POMDP — US lithium resources</td><td class="took">Decision-under-geological-uncertainty method → a planned reserves-development lens (develop domestic vs diversify).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Refining — spodumene/brine → battery-grade chemical, the China chokepoint</td></tr>
+      <tr><td class="n">7</td><td>IEA — Global Critical Minerals Outlook 2025</td><td class="took">Refining-concentration share (top-3 refiners ~86%) → the "conversion is the chokepoint, mostly China" finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>IEA — Outlook 2026 (executive summary)</td><td class="took">Updated top-refiner share (72% in 2025) + a narrowing lithium deficit → a planned refresh of the chokepoint stat.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>IEA — Outlook 2026 (outlook)</td><td class="took">Lithium demand &gt;3× by 2040 while refining lags mining → planned "slow-to-build midstream" evidence for §3.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Market &amp; price — the lithium whipsaw</td></tr>
+      <tr><td class="n">10</td><td>Benchmark — OEMs on alert (2024)</td><td class="took">The 2022→2023 crash (carbonate −72%) → the §3 "boom then crash" whipsaw.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>Benchmark — Lithium Forward Curves</td><td class="took">Forward-price infrastructure + China-vs-seaborne delta → context for a uniquely volatile young market.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>Carbon Credits — price crash below $10k</td><td class="took">Feb-2025 sub-$10k four-year low + producer cutbacks → the §3 "underwater producers" evidence.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">13</td><td>EU Critical Raw Materials Act</td><td class="took">10/40/25 benchmarks + 65% single-country cap + lithium 12× by 2030 → the demand-pull framing (decision layer).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>Geography of control (lithium chain)</td><td class="took">Criticality control-point method along the chain → planned mapping of where control concentrates.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>Critical risks in lithium supply networks</td><td class="took">Static-structure + dynamic risk-propagation model → planned network-disruption lens.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>Technological risks disrupting lithium trade</td><td class="took">Patent+trade network: US holds 56–79% of core tech → planned "technology chokepoint" counterpoint to refining.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Revising the EU 'Economic Importance' dimension</td><td class="took">EU criticality method illustrated on lithium → planned criticality-scoring reproduction.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>Securing European lithium (demand/supply/recycling)</td><td class="took">EU demand-supply-recycling balance → planned recycling-as-a-source lens.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>EU self-sufficiency for e-mobility</td><td class="took">EU import-dependence quantified for lithium → context for the demand-pull.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Bruegel — CRM strategy must be international</td><td class="took"><b>94% of Australian lithium-mineral output goes to China for refining</b> → the sharpest single confirmation of the refinery chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Industry &amp; trade associations</td></tr>
+      <tr><td class="n">21</td><td>International Lithium Association (ILiA)</td><td class="took">Whole-chain trade-body provenance (founded 2021) → context on who speaks for the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>Global Battery Alliance</td><td class="took">Cross-material battery-sustainability alliance (Battery Passport) → downstream cell-stage context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">23</td><td>CEPII BACI</td><td class="took">The trade engine → the traded battery-chemical shares (carbonate 283691 + hydroxide 282520).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">24</td><td>USGS interactive critical-minerals viz</td><td class="took">Country production/reserve explorer → a cross-check for the mine shares. <span class="miss">App 403 this pass.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>USGS MCS 2026 (main volume)</td><td class="took">Reserves/production context (~26 Mt reserves) → provenance for the mine figures. <span class="miss">Page 403 this pass.</span></td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Mine — brine &amp; hard-rock <span class="ct">6</span></h2>
+  <div class="stagesub">The diversified upstream: Australia's fast hard-rock spodumene leads (~62%), the Lithium Triangle holds the reserves in slow brine.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf">USGS Mineral Commodity Summaries 2026 — Lithium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world lithium mine production, reserves, uses and import reliance by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS annual commodity summary for lithium — world mine production, reserves, end uses (dominated by batteries) and US net import reliance by country. <span class="miss">The 2026 PDF returned HTTP 403 on this pass and was not retrievable; the atlas's ~62% Australia mine share and its 2000→2024 mine series derive from this USGS series.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, reserve and price data.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — lithium mine production</a><span class="src"> · BGS (2024)</span>
+      <span class="desc">Long-run, country-level mine-production series, including lithium.</span>
+      <span class="abs"><b>Summary.</b> BGS World Mineral Statistics — the long-run, country-level mine-production database behind the atlas's 2000→2024 lithium history. <span class="miss">The statistics portal returned HTTP 404 on this pass; the mine series (Australia to ~62%, Chile falling, Zimbabwe rising) is taken from the atlas's stored extract.</span></span>
+      <span class="dat"><b>Data.</b> BGS annual global mineral-production compilation from national statistical returns.</span></li>
+    <li><a href="https://www.bgs.ac.uk/news/responsible-extraction-in-south-americas-lithium-triangle/">Responsible extraction in South America's Lithium Triangle</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">BGS field project on sustainable brine extraction in Chile, Argentina and Bolivia.</span>
+      <span class="abs"><b>Summary.</b> BGS Lithium Triangle initiative: the salt-flat brines of Chile, Argentina and Bolivia hold roughly half of known lithium, but brine mining threatens groundwater, habitats and indigenous communities. Participatory 2024 workshops with agencies, miners and communities built a sustainable-extraction research roadmap.</span>
+      <span class="dat"><b>Data.</b> Stakeholder workshops (2024) with agencies, operators and indigenous representatives — a qualitative research agenda, no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2214790X24001308">Bringing the state back in the lithium triangle: an institutional analysis of resource nationalism</a><span class="src"> · Extractive Industries and Society</span>
+      <span class="desc">Political-economy analysis of resource nationalism across the three Lithium Triangle states.</span>
+      <span class="abs"><b>Summary.</b> Institutional analysis of resource nationalism and the state's role across Chile, Argentina and Bolivia — why vast brine reserves convert only slowly into flowing supply. <span class="miss">Full text paywalled (HTTP 403); summary from the title and abstract listing (2024).</span></span>
+      <span class="dat"><b>Data.</b> Comparative institutional / political-economy case studies — no primary dataset.</span></li>
+    <li><a href="https://news.mongabay.com/2025/09/lithium-mining-leaves-severe-impacts-in-chile-but-new-methods-exist-report/">Lithium mining leaves severe impacts in Chile, but new methods exist</a><span class="src"> · Mongabay (2025)</span>
+      <span class="desc">Environmental reporting on brine extraction in Chile's Salar de Atacama.</span>
+      <span class="abs"><b>Summary.</b> Reports severe impacts of Atacama brine mining — roughly 500,000 litres evaporated per tonne of lithium carbonate, groundwater down ~10 m in 15 years, harm to Lickanantay communities — and direct-lithium-extraction (DLE) as a less damaging but as-yet-unimplemented alternative.</span>
+      <span class="dat"><b>Data.</b> Reporting on an impact report citing hydrological and production figures; no primary dataset.</span></li>
+    <li><a href="https://arxiv.org/abs/2502.05690">Managing geological uncertainty in critical mineral supply chains: a POMDP approach with application to U.S. lithium resources</a><span class="src"> · arXiv (2025)</span>
+      <span class="desc">Decision-theoretic model applied to US lithium resource development.</span>
+      <span class="abs"><b>Abstract.</b> Applies Partially Observable Markov Decision Processes to critical-mineral sourcing under geological uncertainty. A US lithium case study shows POMDP policies outperform traditional approaches when reserve estimates are imperfect, and offers guidance on balancing domestic resource development against international supply diversification.</span>
+      <span class="dat"><b>Data.</b> Decision-theoretic POMDP model on a US lithium resource case; simulated policies, no new field data.</span></li>
+  </ul>
+
+  <h2 class="sec">② Refining — the China chokepoint <span class="ct">3</span></h2>
+  <div class="stagesub">Neither spodumene nor raw brine is usable in a cell; converting either to battery-grade carbonate or hydroxide is concentrated in China.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary">IEA — Global Critical Minerals Outlook 2025 (executive summary)</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Refining-concentration analysis across critical minerals, including lithium conversion.</span>
+      <span class="abs"><b>Abstract.</b> IEA outlook on critical-mineral supply security. Refining concentration rose across nearly all minerals: the average market share of the top three refining nations of key energy minerals climbed from ~82% (2020) to ~86% (2024), and is projected to ease only marginally to ~82% by 2035.</span>
+      <span class="dat"><b>Data.</b> IEA supply-demand modelling on production, refining and trade data across critical minerals.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026/executive-summary">IEA — Global Critical Minerals Outlook 2026 (executive summary)</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">2026 update on refining records, lithium prices and the projected deficit.</span>
+      <span class="abs"><b>Abstract.</b> IEA's 2026 update: the average share of the top refining country rose to 72% in 2025 (from 70% in 2023). Lithium prices more than doubled between January 2025 and April 2026, yet producers cut investment ~40%; the projected 2035 lithium deficit narrowed from ~30% to ~25%.</span>
+      <span class="dat"><b>Data.</b> IEA supply-demand and price modelling; refining-concentration and investment series.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026/outlook">IEA — Global Critical Minerals Outlook 2026 (outlook)</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Demand-growth and processing-capacity scenarios to 2040.</span>
+      <span class="abs"><b>Abstract.</b> IEA scenarios: critical-mineral demand nearly doubles by 2040, with lithium rising over threefold — the steepest of any mineral. Mining capacity expands globally while refining and downstream manufacturing lag, keeping the midstream the binding constraint across lithium, graphite, nickel and cobalt.</span>
+      <span class="dat"><b>Data.</b> IEA Stated Policies / scenario projections of demand, supply and processing capacity to 2040.</span></li>
+  </ul>
+
+  <h2 class="sec">Market &amp; price — the lithium whipsaw <span class="ct">3</span></h2>
+  <div class="stagesub">Not scarce, just slow to build: a boom to 2022, then a crash as supply caught up — the price signal that runs across the chain.</div>
+  <ul class="refs">
+    <li><a href="https://source.benchmarkminerals.com/article/oems-and-battery-makers-on-alert-as-lower-lithium-prices-to-push-into-2024-benchmark">OEMs and battery makers on alert as lower lithium prices push into 2024</a><span class="src"> · Benchmark Mineral Intelligence (2024)</span>
+      <span class="desc">Market commentary on the lithium price collapse and downstream response.</span>
+      <span class="abs"><b>Summary.</b> Battery-grade lithium carbonate fell 71.8% from $81,375/t (Dec 2022) to $22,950/t (Oct 2023) as supply outpaced Chinese demand and cell makers ran down inventories; Benchmark saw a small 2024 surplus but a return to deficit from 2028.</span>
+      <span class="dat"><b>Data.</b> Benchmark Mineral Intelligence price assessments and market forecasts — no primary dataset.</span></li>
+    <li><a href="https://source.benchmarkminerals.com/article/benchmark-launches-industry-first-lithium-forward-curves">Benchmark launches industry-first Lithium Forward Curves</a><span class="src"> · Benchmark Mineral Intelligence</span>
+      <span class="desc">New forward-price infrastructure for battery-grade lithium and spodumene.</span>
+      <span class="abs"><b>Summary.</b> Benchmark launched year-ahead forward price curves for battery-grade lithium carbonate, hydroxide and spodumene, aggregating producer, trader and OEM expectations — infrastructure aimed at a metal it calls uniquely volatile, and at the China-domestic-versus-seaborne price gap.</span>
+      <span class="dat"><b>Data.</b> Aggregated forward-price submissions across the lithium supply chain (Benchmark index).</span></li>
+    <li><a href="https://carboncredits.com/lithium-prices-crash-below-10k-hitting-a-4-year-low-will-the-market-rebound/">Lithium prices crash below $10K, hitting a 4-year low</a><span class="src"> · Carbon Credits (2025)</span>
+      <span class="desc">Reporting on the price collapse, oversupply and underwater producers.</span>
+      <span class="abs"><b>Summary.</b> Lithium carbonate fell below $10,000/t in February 2025 to $9,550/t, a four-year low, on oversupply (Chile, Mali, Argentina) and LFP-driven demand softening; Albemarle and SQM cut output and several hydroxide-refinery expansions were suspended.</span>
+      <span class="dat"><b>Data.</b> Market reporting citing price, export and project-capacity figures; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ ④ Cathode &amp; cell <span class="ct">0</span></h2>
+  <div class="stagesub">Downstream of the refinery — where the lithium chemical becomes cathode powder and then the cell — the country-level trail runs cold for lithium alone.</div>
+  <div class="stagegap">No lithium-specific, country-level public source maps the cathode (③) and cell (④) stages: past the battery-grade chemical, the chain merges into the broader battery build-out, and the lithium share is no longer separable in trade data. That downstream is carried by the <b>battery chain</b> instead — see <a href="#gaps">Gaps &amp; good next searches</a> for the cathode-precursor and LFP-versus-NMC leads worth chasing.</div>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">8</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and network analyses that classify the whole chain — and, repeatedly, land on the refining step.</div>
+  <ul class="refs">
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials/critical-raw-materials-act_en">Critical Raw Materials Act</a><span class="src"> · European Commission</span>
+      <span class="desc">The EU regulation setting 2030 domestic-capacity benchmarks; lithium listed as critical and strategic.</span>
+      <span class="abs"><b>Summary.</b> The EU Critical Raw Materials Act sets 2030 targets — 10% extraction, 40% processing, 25% recycling of annual consumption, and no more than 65% from any single third country. Lithium is listed as both critical and strategic, with EU demand seen rising twelvefold by 2030.</span>
+      <span class="dat"><b>Data.</b> EU legislative benchmarks and Commission demand projections.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s13563-023-00414-x">Geography of control: a deep dive assessment on criticality and the lithium supply chain</a><span class="src"> · Mineral Economics (2023)</span>
+      <span class="desc">Criticality assessment mapping the control points along the lithium supply chain.</span>
+      <span class="abs"><b>Abstract.</b> Assesses criticality across the lithium supply chain, mapping where control concentrates from deposit to battery. <span class="miss">Full text behind a Springer login (303 redirect); summary from the title and journal listing (Mineral Economics, 2023).</span></span>
+      <span class="dat"><b>Data.</b> Supply-chain criticality analysis (Mineral Economics) — full text not retrievable this pass.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0957582025004045">Critical risks in an industry chain-based global lithium supply network: static structure and dynamic propagation</a><span class="src"> · Process Safety and Environmental Protection (2025)</span>
+      <span class="desc">Network model of static structure and dynamic risk propagation in global lithium supply.</span>
+      <span class="abs"><b>Summary.</b> Models the global lithium supply network's static structure and the dynamic propagation of risk along the industry chain. <span class="miss">Full text paywalled (HTTP 403); summary from the title and abstract listing (2025).</span></span>
+      <span class="dat"><b>Data.</b> Industry-chain network model with risk-propagation simulation — full text not retrievable this pass.</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12270698/">Technological risks disrupting trade stability in the global lithium supply chain network</a><span class="src"> · PMC (2025)</span>
+      <span class="desc">Multi-layer patent-and-trade network analysis of upstream-to-battery lithium flows.</span>
+      <span class="abs"><b>Abstract.</b> A three-layer patent-and-trade network of the global lithium chain. The US holds 56–79% of core technologies across stages versus China's 6–25%; full technological disruption could cost ~$90 billion. Risk spreads mainly horizontally within layers, through a few core-nation nodes.</span>
+      <span class="dat"><b>Data.</b> Patent analysis, Granger-causality tests and an SI epidemic model with Monte-Carlo simulation.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0301420724008201">Revising the 'Economic importance' dimension: the European framework for critical raw materials, illustrated using lithium</a><span class="src"> · Resources Policy (2024)</span>
+      <span class="desc">Methodology paper revising the EU 'Economic Importance' criticality dimension, worked through lithium.</span>
+      <span class="abs"><b>Abstract.</b> Revises the 'Economic Importance' dimension of the EU criticality framework, completing and illustrating the method with lithium as the worked example. <span class="miss">Full text paywalled (HTTP 403); summary from the title and journal listing (Resources Policy, 2024).</span></span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) applied to lithium — full text not retrievable this pass.</span></li>
+    <li><a href="https://www.nature.com/articles/s44296-026-00114-x">Securing European lithium: assessing future demand, primary supply, trade and the role of recycling</a><span class="src"> · npj Materials Sustainability (2026)</span>
+      <span class="desc">EU lithium demand, primary supply, trade and recycling balance to future horizons.</span>
+      <span class="abs"><b>Abstract.</b> Assesses future EU lithium demand against primary supply and trade, and the role recycling can play in closing the gap. <span class="miss">Full text behind a Nature login (303 redirect); summary from the title and journal listing (npj Materials Sustainability, 2026).</span></span>
+      <span class="dat"><b>Data.</b> EU demand / supply / recycling scenario balance — full text not retrievable this pass.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344924006001">Self-sufficiency of the European Union in critical raw materials for e-mobility</a><span class="src"> · Sustainable Production and Consumption (2024)</span>
+      <span class="desc">Quantifies EU import dependence on lithium and other e-mobility raw materials.</span>
+      <span class="abs"><b>Summary.</b> Quantifies the EU's self-sufficiency in critical raw materials for e-mobility, including lithium import dependence. <span class="miss">Full text paywalled (HTTP 403); summary from the title and abstract listing (2024).</span></span>
+      <span class="dat"><b>Data.</b> EU material-flow / import-dependence analysis — full text not retrievable this pass.</span></li>
+    <li><a href="https://www.bruegel.org/analysis/why-europes-critical-raw-materials-strategy-has-be-international">Why Europe's critical raw materials strategy has to be international</a><span class="src"> · Bruegel</span>
+      <span class="desc">Think-tank analysis of EU CRM strategy, import concentration and the refining chokepoint.</span>
+      <span class="abs"><b>Summary.</b> Argues the EU cannot secure critical materials domestically: exposure is market concentration, not cost. Notes 94% of Australian lithium-mineral output goes to China for refining, and that eight materials exceed the 65% single-country import threshold; urges international partnerships.</span>
+      <span class="dat"><b>Data.</b> Analysis of EU import-concentration data and CRM-Act benchmarks; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Industry &amp; trade associations <span class="ct">2</span></h2>
+  <div class="stagesub">Who speaks for the chain — a whole-chain lithium body and the cross-material battery alliance downstream.</div>
+  <ul class="refs">
+    <li><a href="https://lithium.org/">International Lithium Association (ILiA)</a><span class="src"> · ILiA</span>
+      <span class="desc">Global trade body for the whole lithium value chain, founded 2021.</span>
+      <span class="abs"><b>Summary.</b> The International Lithium Association (founded 2021) is a not-for-profit representing the whole lithium value chain — mines and refineries through OEMs and recyclers — promoting ESG and positioning itself as a global authority on lithium.</span>
+      <span class="dat"><b>Data.</b> Industry-association profile — no dataset.</span></li>
+    <li><a href="https://www.globalbattery.org/about/members/">Global Battery Alliance — members</a><span class="src"> · GBA</span>
+      <span class="desc">Cross-material battery-supply-chain sustainability alliance that ILiA has joined.</span>
+      <span class="abs"><b>Summary.</b> The Global Battery Alliance convenes the whole battery value chain — makers, miners, finance, academia, NGOs and governments — around responsible sourcing, its Battery Passport and circularity; a cross-material body reaching downstream of the lithium chain.</span>
+      <span class="dat"><b>Data.</b> Multi-stakeholder alliance profile — no dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">3</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's traded lithium chemicals.</span>
+      <span class="abs"><b>Summary.</b> BACI reconciles UN Comtrade into bilateral HS6 trade flows for ~200 countries and ~5,000 products (from 1995), removing CIF freight and reliability-weighting reporter discrepancies — the engine behind the chain's traded lithium-chemical shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://apps.usgs.gov/critical-minerals/mineral-commodities-2026.html">USGS interactive critical-minerals data visualization</a><span class="src"> · USGS</span>
+      <span class="desc">Country-level production/reserve explorer, 2026 vintage.</span>
+      <span class="abs"><b>Summary.</b> USGS interactive explorer of country-level mineral production and reserves, 2026 vintage — a cross-check for the lithium mine shares. <span class="miss">The app returned HTTP 403 on this pass and was not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> USGS Mineral Commodity Summaries 2026 data, presented interactively.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/mcs2026">USGS Mineral Commodity Summaries 2026 (main volume)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">The full USGS annual reference volume across every commodity, behind the lithium chapter.</span>
+      <span class="abs"><b>Summary.</b> The complete USGS Mineral Commodity Summaries 2026 — annual production, reserves, trade and use across every commodity, the reference volume behind the lithium chapter (reserves reached ~26 Mt). <span class="miss">The publication page returned HTTP 403 on this pass and was not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated <b>conversion / refining</b> trade association exists (ILiA covers the whole chain), and the chokepoint stage itself is thinly documented at company level — next: "China lithium carbonate hydroxide conversion capacity" for refiner-level detail.</li>
+      <li><b>Direct-lithium-extraction (DLE)</b> technology and cost data is thin here; the IDTechEx "Direct Lithium Extraction 2025–2035" report surfaced only in search snippets with no stable public URL — try IDTechEx or S&amp;P Global Commodity Insights directly.</li>
+      <li>No peer-reviewed <b>life-cycle-assessment</b> comparing spodumene-versus-brine carbon intensity was captured — worth a dedicated search ("lithium LCA spodumene brine comparison").</li>
+      <li><b>Bolivia's YLB / Uyuni</b> brine project appears only in passing — search "Bolivia lithium YLB Uyuni 2026" for a current-state check on the reserve-rich, output-poor corner of the Triangle.</li>
+      <li>The <b>cathode (③) and cell (④)</b> stages have no lithium-specific public source here; the downstream is carried by the battery chain. A cathode-precursor capacity source (LFP vs NMC) would close the trail past the refinery.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from mine to battery cell, with cross-cutting frameworks and data grouped at the end. 25 unique sources (three database duplicates — a second CEPII listing, the USGS interactive viz and the BGS statistics link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (paywalls, publisher logins, or HTTP 403/404) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./lithium-chain.html">The lithium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nickel chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the nickel value chain, ordered to follow the chain from laterite ore to battery cell. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./nickel-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Nickel</div>
+    <h1>Nickel chain — laterite ore to battery cell</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Nickel makes stainless steel and, increasingly, high-energy battery cathodes — and Indonesia rewrote its whole geography with one rule. Banning raw-ore exports forced smelting at home and pulled its share of world mine output from ~8% to ~61% in little over a decade. <b>This chokepoint was built by policy, not laid down by a deposit.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Laterite ore &amp; Indonesia's export ban → ② smelting (RKEF/NPI class 2, HPAL → MHP class 1) → ③ the environmental bill → ④ stainless &amp; battery cell — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./nickel-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">34</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (8) · <span class="pill ref">Reference</span> context / provenance (22).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Laterite ore &amp; the export ban</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Nickel</td><td class="took">Mine-share + reserves → the mine stage and the <b>~61% Indonesia</b> headline; sources the stainless ~two-thirds use.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics</td><td class="took">Country-level mine series → the <b>2000→2024 history chart</b> (Indonesia 8→61%, Philippines #2, Russia falling).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USITC — Indonesia's export ban (working paper)</td><td class="took">Ban-effect method → quantify how the ore-export ban moved smelting onshore. <span class="miss">PDF blocked (403) — not yet reproduced.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>USITC — Executive Briefing (Nickel &amp; Indonesia 2)</td><td class="took">Indonesia's rise post-ban → corroborates the policy-built framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Nationalist enclaves (Indonesia)</td><td class="took">The downstreaming / smelter-enclave mechanism → the "policy, not geology" narrative in §1.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>CSIS — Nickel industrial strategy</td><td class="took">~$30bn Chinese FDI; refined 24 kt→636 kt → the China-financed smelter-wave story.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>CSIS — Downstreaming up the value chain</td><td class="took">~58% share; Chinese firms ~75% of refining / ~82% of exports → the two-keyholder split in §3.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>NBR — Indonesia's export ban</td><td class="took">Supply-chain / energy-transition impacts → context for the ban's reach into batteries.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>RSIS — The new politics of nickel</td><td class="took">Chinese-capital structural rebalancing → the ownership half of the chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>CSIS — Diversifying investment</td><td class="took">2020 ban vs the 2014 bauxite failure; &gt;90% of smelters Chinese-built; ~45% 2023 price fall → the concentration-and-oversupply note.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Smelting &amp; refining — RKEF/NPI (class 2), HPAL → MHP (class 1)</td></tr>
+      <tr><td class="n">11</td><td>Wood Mackenzie — Indonesian HPAL</td><td class="took">Capex (&lt;$1.5bn) + 1.4–1.6 t waste per t Ni → the "cheap but coal-and-waste" smelting panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>Cradle-to-gate LCA (HPAL sulphate)</td><td class="took">LCA method → a footprint figure for the HPAL → MHP → sulphate route. <span class="miss">Abstract blocked (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>npj — LCI granularity, battery nickel</td><td class="took">Correction that generic inventories understate Ni-sulphate CO₂ → sharpens the environmental-bill claim.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Environmental burden of nickel sulfate</td><td class="took">Mass-vs-economic allocation → how the reported GWP of battery nickel is chosen.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The environmental bill — coal power &amp; tailings</td></tr>
+      <tr><td class="n">15</td><td>Brookings — dirty nickel</td><td class="took">Class-1 nickel ~2–6× CO₂ on a ~60%-coal grid → the "how clean is the battery" flag.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>Earthworks — nickel-boom risk</td><td class="took">Tailings failures, contamination, &gt;40 park deaths → the social / environmental cost of the fast build-out.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>MINING.com — deep-sea tailings halt</td><td class="took">Ban on deep-sea disposal → the waste-storage constraint on HPAL growth.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">18</td><td>IEA — Global Critical Minerals Outlook 2025</td><td class="took">~90% of nickel supply growth from one supplier; −10–20% 2024 price → the concentration + price context.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">19</td><td>IEA — Role of Critical Minerals</td><td class="took">Indonesia+Philippines ~45% of output; class-1 as the quality constraint → the class-1/class-2 framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>ECA — Special Report 04/2026</td><td class="took">EU audit of critical-raw-materials policy → the EU-demand side; nickel strategic.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>EC — Critical Raw Materials Act</td><td class="took">10 / 40 / 25% + 65%-single-country benchmarks → the policy-response context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>JIE — System-dynamics nickel model</td><td class="took">Mine-level dynamic-criticality method → a resilience test of the chain. <span class="miss">Journal host blocked this pass.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>Frontiers — Country risk &amp; nickel network</td><td class="took">Network + panel-regression method → how risk reshapes nickel trade; reproducible on BACI.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>Cambridge — Global nickel supply-chain (MFA)</td><td class="took">Material-flow + recycling framing → the circularity lever for the decision layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — statistics, market &amp; trade data</td></tr>
+      <tr><td class="n">25</td><td>CEPII BACI</td><td class="took">The trade engine → the reproduced nickel-ore (260400) and unwrought-nickel (750210) shares, flagged post-ban.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">26</td><td>USGS — Nickel Statistics &amp; Information</td><td class="took">The nickel data hub → historical series behind the mine figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>USGS MCS 2026 (full report)</td><td class="took">Provenance of the nickel chapter.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>USGS — MCS data hub</td><td class="took">Entry point to the machine-readable commodity data.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">29</td><td>USGS — MCS 2025 Nickel data release</td><td class="took">Machine-readable nickel tables → direct ingest for the history chart.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">30</td><td>INSG — Online statistics database</td><td class="took">Monthly mine vs refined by country → would separate mine share from refined share.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">31</td><td>INSG — World Nickel Factbook 2024</td><td class="took">Structured production / use / trade overview → cross-check on shares.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">32</td><td>INSG (organisation)</td><td class="took">The intergovernmental nickel-statistics body → provenance for INSG data.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">33</td><td>Benchmark Mineral Intelligence</td><td class="took">Asset-level extraction→refining→EV tracking → the midstream detail behind class 1/2 (subscription).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">34</td><td>Fastmarkets</td><td class="took">Battery-grade sulphate premium + MHP pricing → the price signal the class-1 split turns on (subscription).</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Laterite ore &amp; the export ban <span class="ct">10</span></h2>
+  <div class="stagesub">The mine remade by a rule: Indonesia's abundant low-grade laterite, and the 2020 ore-export ban that forced smelting — and Chinese capital — onshore.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf">USGS Mineral Commodity Summaries 2026 — Nickel</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world nickel mine production, reserves and salient statistics by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: annual world nickel mine production, reserves and salient statistics. Indonesia is by far the largest mine producer, the Philippines second; stainless steel takes roughly two-thirds of use, with battery demand rising. <span class="miss">(The MCS-2026 nickel PDF returned 403 on two passes — specific 2025 tonnages not re-verified this pass.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade data; the atlas's history chart draws on this series together with BGS.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — nickel mine production</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Long-run country-level mine-production series compiled from national statistical returns.</span>
+      <span class="abs"><b>Summary.</b> The British Geological Survey's long-run, country-level mine-production series, compiled from national statistical returns — the backbone of the atlas's 2000→2024 nickel history chart (Indonesia 8→61%). <span class="miss">(This landing URL returned 404 this pass; the dataset is reached via BGS MineralsUK.)</span></span>
+      <span class="dat"><b>Data.</b> BGS World Mineral Statistics: national government production returns, multi-decade time series by commodity and country.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/working_papers/ermm_indonesia_export_ban_of_nickel.pdf">Indonesia's Export Ban of Nickel</a><span class="src"> · US International Trade Commission</span>
+      <span class="desc">Working paper on the economic and supply-chain effects of the nickel-ore export ban.</span>
+      <span class="abs"><b>Abstract.</b> USITC working paper analysing the economic and supply-chain effects of Indonesia's nickel-ore export ban — how the restriction pulled smelting investment onshore and reshaped global nickel trade. <span class="miss">(PDF returned 403 this pass — scope from the title / series; full text not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> USITC economic analysis drawing on production and trade statistics.</span></li>
+    <li><a href="https://www.usitc.gov/sites/default/files/publications/332/executive_briefings/ebot_nickel_and_indonesia_part_2.pdf">Executive Briefing on Trade — Nickel and Indonesia, Part 2</a><span class="src"> · USITC (2021)</span>
+      <span class="desc">Short briefing on Indonesia's rising role in global nickel supply after the ban.</span>
+      <span class="abs"><b>Summary.</b> USITC executive briefing (May 2021) on Indonesia's rising role in global nickel supply following the ore-export ban. <span class="miss">(PDF returned 403 this pass — noted from the title only.)</span></span>
+      <span class="dat"><b>Data.</b> USITC briefing citing production and trade statistics — no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2214790X24001606">Nationalist enclaves: Industrialising the critical mineral boom in Indonesia</a><span class="src"> · The Extractive Industries and Society</span>
+      <span class="desc">Political-economy study of Indonesia's downstreaming policy and its smelter enclaves.</span>
+      <span class="abs"><b>Abstract.</b> Political-economy study of Indonesia's "downstreaming" — the export ban and the largely Chinese-financed smelter enclaves it created — reading the nickel boom as an industrial-policy project rather than a market outcome. <span class="miss">(ScienceDirect abstract returned 403 this pass — scope from the title; full abstract not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> Qualitative political-economy case analysis of Indonesian nickel industrial parks.</span></li>
+    <li><a href="https://www.csis.org/analysis/indonesias-nickel-industrial-strategy">Indonesia's Nickel Industrial Strategy</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of the downstreaming strategy behind the export ban.</span>
+      <span class="abs"><b>Summary.</b> CSIS: Indonesia used a 2020 ore-export ban to force domestic processing, drawing about $30bn of Chinese investment; refined nickel output leapt from 24,000 t (2014) to 636,000 t (2020) as smelter counts and the first HPAL plants multiplied.</span>
+      <span class="dat"><b>Data.</b> CSIS policy analysis citing Indonesian investment, smelter-count and refined-production figures.</span></li>
+    <li><a href="https://www.csis.org/blogs/charting-geoeconomics/indonesian-industrialization-downstreaming-value-chain">Indonesian Industrialization: Downstreaming Up the Value Chain</a><span class="src"> · CSIS, Charting Geoeconomics</span>
+      <span class="desc">How the ban is pushing Indonesia up the value chain — and into China dependence.</span>
+      <span class="abs"><b>Summary.</b> CSIS: downstreaming lifted Indonesia to ~58% of world nickel output but built deep China dependence — Chinese firms run about 75% of refining capacity and take roughly 82% of Indonesia's nickel exports, while high-grade battery nickel stays foreign-controlled.</span>
+      <span class="dat"><b>Data.</b> CSIS analysis citing FDI, production-share and trade-concentration figures.</span></li>
+    <li><a href="https://www.nbr.org/publication/indonesias-nickel-export-ban-impacts-on-supply-chains-and-the-energy-transition/">Indonesia's Nickel Export Ban: Impacts on Supply Chains and the Energy Transition</a><span class="src"> · National Bureau of Asian Research</span>
+      <span class="desc">Supply-chain and energy-transition impacts of the export ban.</span>
+      <span class="abs"><b>Summary.</b> National Bureau of Asian Research on how Indonesia's ore-export ban reshaped nickel supply chains and the energy transition, and what it means for battery-grade supply. <span class="miss">(Page returned 403 this pass — noted from the title only.)</span></span>
+      <span class="dat"><b>Data.</b> NBR policy analysis — no primary dataset.</span></li>
+    <li><a href="https://rsis.edu.sg/rsis-publication/rsis/the-new-politics-of-nickel-chinese-investment-in-indonesia-and-structural-rebalancing/">The New Politics of Nickel: Chinese Investment in Indonesia and Structural Rebalancing</a><span class="src"> · RSIS</span>
+      <span class="desc">Geopolitical commentary on Chinese capital in Indonesian nickel.</span>
+      <span class="abs"><b>Summary.</b> S. Rajaratnam School of International Studies commentary on Chinese investment in Indonesian nickel and the structural rebalancing it drives — the ownership side of the policy-built chokepoint. <span class="miss">(Page returned 403 this pass — noted from the title only.)</span></span>
+      <span class="dat"><b>Data.</b> RSIS geopolitical commentary — no primary dataset.</span></li>
+    <li><a href="https://www.csis.org/analysis/diversifying-investment-indonesias-mining-sector">Diversifying Investment in Indonesia's Mining Sector</a><span class="src"> · CSIS</span>
+      <span class="desc">On reducing reliance on Chinese capital in Indonesian nickel processing.</span>
+      <span class="abs"><b>Summary.</b> CSIS: the 2020 nickel ban succeeded where the 2014 bauxite ban failed, drawing $7.3bn of Chinese investment by 2023 — Chinese firms built over 90% of Indonesia's smelters; the resulting oversupply then cut nickel prices about 45% in 2023.</span>
+      <span class="dat"><b>Data.</b> CSIS analysis citing investment, smelter-ownership and price figures.</span></li>
+  </ul>
+
+  <h2 class="sec">② Smelting &amp; refining — RKEF/NPI (class 2), HPAL → MHP (class 1) <span class="ct">4</span></h2>
+  <div class="stagesub">Where laterite becomes metal: rotary-kiln electric furnaces make ferronickel/NPI for stainless (class 2); high-pressure acid leaching makes battery-grade intermediate (class 1).</div>
+  <ul class="refs">
+    <li><a href="https://www.woodmac.com/news/opinion/rise-of-indonesian-hpal/">The rise and rise of Indonesian HPAL — can it continue?</a><span class="src"> · Wood Mackenzie</span>
+      <span class="desc">Market-analyst view on the sustainability of Indonesia's HPAL boom.</span>
+      <span class="abs"><b>Summary.</b> Wood Mackenzie: Indonesia's HPAL boom is cheap (under $1.5bn per plant vs $2–6bn in the West) and Chinese-backed, but every tonne of HPAL nickel makes about 1.4–1.6 t of waste — so tailings disposal, not technology, may cap growth.</span>
+      <span class="dat"><b>Data.</b> Wood Mackenzie market analysis citing capex, capacity and waste-intensity figures.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0048969724060583">Cradle to gate life-cycle assessment of battery grade nickel sulphate production through high-pressure acid leaching</a><span class="src"> · Science of the Total Environment (2024)</span>
+      <span class="desc">Process-based LCA of the Indonesian laterite-to-battery-nickel HPAL route.</span>
+      <span class="abs"><b>Abstract.</b> Cradle-to-gate life-cycle assessment of battery-grade nickel sulphate made via high-pressure acid leaching of Indonesian laterite (the MHP route), quantifying the carbon and wider environmental burden of the dominant new supply. <span class="miss">(ScienceDirect returned 403 this pass — scope from the title; figures not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> Process-based LCA of the HPAL → MHP → nickel-sulphate route.</span></li>
+    <li><a href="https://www.nature.com/articles/s44296-025-00059-7">Improving process granularity of life cycle inventories for battery grade nickel</a><span class="src"> · npj Materials Sustainability (2025)</span>
+      <span class="desc">Argues generic ecoinvent nickel-sulfate datasets understate climate impact.</span>
+      <span class="abs"><b>Abstract.</b> Argues that generic ecoinvent nickel-sulphate datasets can materially understate the climate impact of battery-grade nickel, and that finer process granularity in the inventory is needed to represent HPAL-route supply honestly. <span class="miss">(nature.com sat behind an authentication redirect this pass — specific figures not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> Refined life-cycle inventory for battery-grade nickel production.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0921344925000096">Assessing the environmental burden of nickel sulfate for batteries: A life cycle perspective</a><span class="src"> · Resources, Conservation and Recycling (2025)</span>
+      <span class="desc">Mass vs economic allocation for HPAL-route nickel-sulfate global-warming potential.</span>
+      <span class="abs"><b>Abstract.</b> Life-cycle study of nickel sulphate for batteries, comparing mass- versus economic-allocation choices and their large effect on the reported global-warming potential of HPAL-route nickel — a methodological driver of how "dirty" battery nickel looks. <span class="miss">(ScienceDirect abstract returned 403 this pass — scope from the title; figures not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> Comparative LCA (mass vs economic allocation) of HPAL nickel-sulphate GWP.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The environmental bill — coal power &amp; tailings <span class="ct">3</span></h2>
+  <div class="stagesub">The speed of the build-out has a footprint: coal-fired smelting and large tailings volumes shape how clean the batteries built on this nickel really are.</div>
+  <ul class="refs">
+    <li><a href="https://www.brookings.edu/articles/indonesias-electric-vehicle-batteries-dream-has-a-dirty-nickel-problem">Indonesia's electric vehicle batteries dream has a dirty nickel problem</a><span class="src"> · Brookings</span>
+      <span class="desc">On the environmental cost behind the battery-nickel buildout.</span>
+      <span class="abs"><b>Summary.</b> Brookings: making battery-grade (class-1) nickel from Indonesian laterite emits roughly two-to-six times the CO₂ of sulphide routes, on a grid about 60% coal; nickel-processing parks already take ~15% of Indonesia's coal — the EV-battery paradox.</span>
+      <span class="dat"><b>Data.</b> Brookings commentary citing carbon-intensity multiples, grid mix and investment figures.</span></li>
+    <li><a href="https://earthworks.org/releases/new-report-details-high-risk-of-indonesias-nickel-boom/">New Report Details High Risk of Indonesia's Nickel Boom</a><span class="src"> · Earthworks</span>
+      <span class="desc">Advocacy-sector report on environmental and social risk in the buildout.</span>
+      <span class="abs"><b>Summary.</b> Earthworks: Indonesia's nickel output rose from 130,000 to 2.31 Mt (2015–2024) ahead of safeguards; HPAL generates large volumes of toxic tailings, with dam failures, groundwater contamination (boron, chromium-6, nickel) and more than 40 industrial-park deaths reported.</span>
+      <span class="dat"><b>Data.</b> Earthworks report using satellite imagery, incident records and tailings-facility technical assessment.</span></li>
+    <li><a href="https://www.mining.com/web/facing-green-pressure-indonesia-halts-deep-sea-mining-disposal/">Indonesia halts deep-sea mining waste disposal</a><span class="src"> · MINING.com</span>
+      <span class="desc">Reporting on Indonesia's tailings-disposal policy shift under environmental pressure.</span>
+      <span class="abs"><b>Summary.</b> MINING.com: under environmental pressure Indonesia halted deep-sea tailings disposal for nickel HPAL, pushing plants toward costlier land-based storage in a seismic, high-rainfall region. <span class="miss">(Article returned 403 this pass — noted from the headline.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Stainless &amp; battery cell — end use <span class="ct">0</span></h2>
+  <div class="stagesub">Where the two nickels split for good: class-2 into stainless steel (~two-thirds of demand), class-1 into EV cathodes.</div>
+  <div class="stagegap">No dedicated, country-level public source maps nickel at the finished stainless-mill or battery-cell stage: stainless-demand structure (still ~two-thirds of nickel use) and cell-level nickel are under-covered in what this pass surfaced, and there is no clean production series to cite here. The split itself is carried in the smelting sources (RKEF/NPI vs HPAL/MHP) and the price signal in Fastmarkets. See <a href="#gaps">Gaps &amp; good next searches</a> for the World Stainless Association and cathode-chemistry leads worth chasing.</div>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">7</span></h2>
+  <div class="stagesub">The outlooks, audits and assessments that classify nickel's supply risk and frame the policy response.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary">Global Critical Minerals Outlook 2025 — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Annual outlook covering nickel supply concentration, demand growth and prices.</span>
+      <span class="abs"><b>Summary.</b> IEA: refining stays highly concentrated — for nickel about 90% of 2020–24 supply growth came from the single top supplier (Indonesia), lifting the top-three refiners to ~86%; nickel prices fell 10–20% in 2024 as output surged. Underpins the chain's concentration framing.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on company production data, S&amp;P Global market data, Bloomberg prices and announced project pipelines.</span></li>
+    <li><a href="https://www.iea.org/reports/the-role-of-critical-minerals-in-clean-energy-transitions/reliable-supply-of-minerals">The Role of Critical Minerals in Clean Energy Transitions — Reliable supply of minerals</a><span class="src"> · IEA</span>
+      <span class="desc">Foundational IEA critical-minerals report; supply-concentration framing.</span>
+      <span class="abs"><b>Summary.</b> IEA foundational report: geographic concentration means disruption in one producer cascades globally. Indonesia and the Philippines hold ~45% of nickel output, with Indonesia driving roughly half of growth; battery-grade class-1 nickel is the binding quality constraint, most new supply being laterite.</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling with S&amp;P Global project-pipeline and lead-time data.</span></li>
+    <li><a href="https://www.eca.europa.eu/ECAPublications/SR-2026-04/SR-2026-04_EN.pdf">Special Report 04/2026: Critical raw materials for the energy transition</a><span class="src"> · European Court of Auditors (2026)</span>
+      <span class="desc">EU audit of critical-raw-materials policy; nickel among the strategic list.</span>
+      <span class="abs"><b>Summary.</b> European Court of Auditors audit of EU critical-raw-materials policy for the energy transition, with nickel among the strategic materials assessed — the EU-demand-and-governance side of the chain. <span class="miss">(The 3.8 MB PDF was not machine-readable this pass — scope from the title and metadata; findings not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> ECA audit evidence: EU policy review, interviews and Commission data.</span></li>
+    <li><a href="https://commission.europa.eu/topics/competitiveness/green-deal-industrial-plan/european-critical-raw-materials-act_en">European Critical Raw Materials Act</a><span class="src"> · European Commission</span>
+      <span class="desc">Policy page; battery-grade nickel is on the EU's strategic raw materials list.</span>
+      <span class="abs"><b>Summary.</b> European Commission page: the Critical Raw Materials Act sets 2030 EU benchmarks — 10% extraction, 40% processing and 25% recycling of annual need, and no more than 65% of any strategic material from a single third country; battery nickel is on the strategic list.</span>
+      <span class="dat"><b>Data.</b> EU policy document — benchmark targets, no primary dataset.</span></li>
+    <li><a href="https://onlinelibrary.wiley.com/doi/10.1111/jiec.70072?af=R">System dynamics modeling of the global nickel supply system at a mine-level resolution</a><span class="src"> · Journal of Industrial Ecology (2025)</span>
+      <span class="desc">Prospective dynamic-criticality and resilience modelling of nickel supply.</span>
+      <span class="abs"><b>Abstract.</b> Prospective system-dynamics model of global nickel supply at mine-level resolution, used to test dynamic criticality and the resilience of the nickel system under demand and disruption scenarios. <span class="miss">(The journal host was blocked by network policy this pass — findings not retrieved.)</span></span>
+      <span class="dat"><b>Data.</b> Mine-level system-dynamics simulation of the global nickel supply system.</span></li>
+    <li><a href="https://www.frontiersin.org/journals/earth-science/articles/10.3389/feart.2024.1487521/full">The impact of country risk on nickel supply chain: complex network and panel regression analysis</a><span class="src"> · Frontiers in Earth Science (2024)</span>
+      <span class="desc">Network analysis of how political/economic country risk reshapes nickel trade.</span>
+      <span class="abs"><b>Abstract.</b> Builds a 2000–2022 global nickel trade network and a panel regression linking political and economic country risk to trade structure. Finds trade increasingly concentrated and network stability weak; economic risk pushes importers to diversify supply, while political risk depresses exports.</span>
+      <span class="dat"><b>Data.</b> Complex-network metrics plus panel regression on 2000–2022 nickel trade (ores, ferronickel, stainless).</span></li>
+    <li><a href="https://www.cambridge.org/core/journals/metallurgical-research-and-technology/article/abs/global-supply-chain-analysis-of-nickel-importance-and-possibility-of-controlling-the-resource-logistics/514C79AF8EE2E88B3C4174152A3DA31A">Global supply chain analysis of nickel: importance and possibility of controlling the resource logistics</a><span class="src"> · Metallurgical Research &amp; Technology</span>
+      <span class="desc">Supply-chain and resource-logistics framing of nickel criticality.</span>
+      <span class="abs"><b>Abstract.</b> Material-flow analysis of global nickel, with remote sensing of mine land-use and a metallurgical-thermodynamic recycling lens. Stresses end-of-life recovery from vehicles and construction and better scrap sorting to cut primary nickel demand and CO₂ emissions.</span>
+      <span class="dat"><b>Data.</b> Material-flow analysis plus remote sensing and metallurgical-thermodynamic recycling analysis.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — statistics, market &amp; trade data <span class="ct">10</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — mine and refined production, trade flows and prices.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade figures.</span>
+      <span class="abs"><b>Summary.</b> CEPII BACI: reconciled bilateral trade for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies — the source for the chain's nickel-ore (260400) and unwrought-nickel (750210) shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/nickel-statistics-and-information">Nickel Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Ongoing nickel data hub — historical statistics and the commodity-summaries archive.</span>
+      <span class="abs"><b>Summary.</b> USGS nickel hub: commodity summaries (from 1996), yearbooks and historical statistics, plus focused studies on nickel-cobalt laterites, batteries and recycling; notes stainless steel takes roughly 65% of nickel use and the laterite/sulphide deposit split.</span>
+      <span class="dat"><b>Data.</b> USGS annual nickel statistics: production, consumption, trade and recycling.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf">Mineral Commodity Summaries 2026 (full report)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">The full 90-plus-commodity volume the nickel chapter sits inside.</span>
+      <span class="abs"><b>Summary.</b> The full USGS Mineral Commodity Summaries 2026 volume in which the nickel chapter sits — 90-plus commodities in one annual report, the provenance for the nickel figures. <span class="miss">(pubs.usgs.gov PDF returned 403 this pass — noted from the series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual multi-commodity statistics volume.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries">USGS Mineral Commodity Summaries — data hub</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Landing page for all commodity summaries, including annual nickel releases.</span>
+      <span class="abs"><b>Summary.</b> USGS Mineral Commodity Summaries landing hub: annual data sheets for 90-plus minerals with five-year statistics, downloadable PDFs (from 1996) and machine-readable data releases — the entry point to the nickel chapter and its data.</span>
+      <span class="dat"><b>Data.</b> USGS annual nonfuel mineral-industry statistics in PDF and structured formats.</span></li>
+    <li><a href="https://data.usgs.gov/datacatalog/data/USGS:6798004ed34ea8c18376e1ef">Mineral Commodity Summaries 2025, Nickel Data Release</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Machine-readable prior-year nickel dataset underlying the MCS chapter.</span>
+      <span class="abs"><b>Summary.</b> The machine-readable USGS data release underlying the 2025 MCS nickel chapter — the structured production, trade and reserve tables the atlas can ingest directly for its history chart. <span class="miss">(Catalog page returned 403 this pass — noted from the title.)</span></span>
+      <span class="dat"><b>Data.</b> USGS structured nickel dataset (MCS 2025 data release).</span></li>
+    <li><a href="https://insg.org/index.php/statistics_database/">Online Statistics Database</a><span class="src"> · International Nickel Study Group</span>
+      <span class="desc">Monthly mine/refined production, usage, stocks and trade by country.</span>
+      <span class="abs"><b>Summary.</b> INSG's database of monthly mine and refined nickel production, usage, stocks and trade by country — the finest-grained public-body nickel series, useful for separating the mine share from the refined share the export ban created. <span class="miss">(Access is members-only — content not retrievable this pass.)</span></span>
+      <span class="dat"><b>Data.</b> INSG monthly country-level nickel statistics (members-gated).</span></li>
+    <li><a href="https://insg.org/wp-content/uploads/2024/09/publist_The-World-Nickel-Factbook-2024.pdf">The World Nickel Factbook 2024</a><span class="src"> · International Nickel Study Group (2024)</span>
+      <span class="desc">Structured overview of global nickel production, use and trade.</span>
+      <span class="abs"><b>Summary.</b> INSG's structured overview of global nickel production, use, trade and reserves by country — a cross-check on the mine and refined shares used in the chain. <span class="miss">(The 2.2 MB PDF was not machine-readable this pass — scope from the title.)</span></span>
+      <span class="dat"><b>Data.</b> INSG compilation of member and industry nickel statistics.</span></li>
+    <li><a href="https://insg.org/">International Nickel Study Group (INSG)</a><span class="src"> · INSG</span>
+      <span class="desc">Intergovernmental producer/user/trader body (Lisbon), est. 1990.</span>
+      <span class="abs"><b>Summary.</b> The International Nickel Study Group — an intergovernmental producer/user/trader body (Lisbon, established 1990; 15 member states plus the EU) that publishes World Nickel Statistics, the Factbook and a facilities directory, without market intervention.</span>
+      <span class="dat"><b>Data.</b> Intergovernmental statistical body — publications, not a single dataset.</span></li>
+    <li><a href="https://www.benchmarkminerals.com/nickel/supply-chain-data">Nickel Supply Chain Data</a><span class="src"> · Benchmark Mineral Intelligence</span>
+      <span class="desc">Extraction-to-refining-to-EV-use supply-chain tracking for nickel.</span>
+      <span class="abs"><b>Summary.</b> Benchmark Mineral Intelligence: asset-level nickel tracking from extraction through refining to EV/battery use, with supply-demand forecasts, price and cost modelling and carbon-intensity metrics — the midstream detail behind the class-1/class-2 split (subscription).</span>
+      <span class="dat"><b>Data.</b> Benchmark proprietary asset-level nickel supply-chain data (subscription).</span></li>
+    <li><a href="https://www.fastmarkets.com/metals-and-mining/battery-raw-materials/nickel/">Nickel Prices, Live Charts &amp; Market Assessments</a><span class="src"> · Fastmarkets</span>
+      <span class="desc">Daily physical nickel pricing including battery-grade sulphate premiums and Indonesian MHP.</span>
+      <span class="abs"><b>Summary.</b> Fastmarkets: daily physical nickel pricing including battery-grade sulphate premiums (FOB Indonesia, CIF Japan/Korea, Rotterdam), Indonesian mixed-hydroxide-precipitate (MHP) and nickel-pig-iron assessments — the class-1 premium the chain's battery split turns on (subscription).</span>
+      <span class="dat"><b>Data.</b> Fastmarkets price-reporting-agency assessments (subscription).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated country-level source maps the <b>stainless &amp; battery-cell end use</b> (stage ④) — despite stainless still taking ~two-thirds of nickel. Next: "World Stainless Association nickel demand stainless steel statistics" for the class-2 side, and cathode-chemistry (NMC/NCA) demand splits for the class-1 side.</li>
+      <li>The <b>2022 LME nickel short-squeeze / trading halt</b> — a defining market-structure event for this chain — did not surface. Next: "LME nickel March 2022 short squeeze trading suspension report".</li>
+      <li><b>Philippines</b> is the chain's #2 mine producer yet is thin on primary geological-survey material; try "Philippines nickel mine production MGB statistics", plus "Geoscience Australia nickel critical minerals" and Natural Resources Canada for the sulphide side.</li>
+      <li>No <b>EU JRC</b> primary factsheet (as opposed to the European Commission / ECA pages) surfaced — search "JRC critical raw materials factsheet nickel" directly on the JRC site.</li>
+      <li>The <b>Nickel Institute</b> (nickelinstitute.org) and direct UN Comtrade / World Bank nickel data pages returned no confirmed URL in search — worth a direct fetch next pass rather than a general search.</li>
+      <li>Several primary documents here (USITC papers, the ScienceDirect LCAs, the Wiley model, the ECA and INSG PDFs) were <b>blocked or not machine-readable</b> this pass — re-fetch to convert the Planned entries into Applied enrichment.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from laterite ore to battery cell, with cross-cutting frameworks and data grouped at the end. 34 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403, authentication redirects, members-only access, network policy, or a non-machine-readable PDF) that is flagged in italics and the entry falls back to the source's title/scope only. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./nickel-chain.html">The nickel chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

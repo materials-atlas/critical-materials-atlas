@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Rare earths chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the rare-earth (full-basket) value chain, ordered to follow the chain from mixed ore through separation — the real chokepoint — to magnets, phosphors and catalysts. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./rare-earths-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Rare Earths</div>
+    <h1>Rare earths (full basket) chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">The seventeen rare earths are not scarce in the ground; they come out of the ore mixed together, and because the elements are chemically near-identical, pulling them apart into pure single-element oxides takes long, capital-heavy solvent-extraction cascades. That separation industrial base is roughly 90% China — and it gates the whole basket at once: magnets, phosphors, polishing powders and refining catalysts. <b>The mine is not the chokepoint; separation is.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Mixed ore (~70% China) → ② Separation / refining — the ~90% China chokepoint → ③ Oxides, metals &amp; recovery → ④ End uses (magnets, phosphors, polishing, catalysts) → ⑤ the export-licensing lever — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./rare-earths-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">30</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (13) · <span class="pill ref">Reference</span> context / provenance (13). Thirteen pages could not be retrieved this pass (pubs.usgs.gov 403, publisher bot-walls, one DNS failure) — each is flagged in italics below.</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Mine — the ore is not the scarce part (~70% China)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Rare Earths</td><td class="took">Mine-share + export-control baseline → the chain's ~70% China mine / ~90% China separation framing and the Apr 2025 licensing stat. <span class="miss">PDF 403 (pubs.usgs.gov) — figures corroborated from the entries below.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2026 — Rare Earths (Heavy)</td><td class="took">Dedicated Dy/Tb/Y split → would sharpen the "heavies are the tightest" panel. <span class="miss">PDF 403 (pubs.usgs.gov).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2025 — Rare Earths</td><td class="took">Prior-year baseline for tracking the shift into 2026 export-control language. <span class="miss">PDF 403 (pubs.usgs.gov).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>BGS World Mineral Statistics</td><td class="took">Country-level mine-production series → ground-truth cross-check on USGS mine shares. <span class="miss">Landing page 404 (section moved).</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>rare-earth-mining.com — Producing Countries 2026</td><td class="took">Country-ranked output (~390 kt; China ~69%) → cross-checks the chain's "~70% China mine" figure.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>MDPI Resources — Global potential vs clean-tech demand</td><td class="took">Resource-base vs demand → a "not rare in the ground" panel. <span class="miss">Page 403 (bot-wall).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Separation &amp; refining — the real chokepoint (~90% China)</td></tr>
+      <tr><td class="n">7</td><td>IEA — Global Critical Minerals Outlook 2025</td><td class="took">Refining/separation concentration (China dominant refiner, 19 of 20 minerals) → sources the ~90% China separation chokepoint the chain rests on.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>MRS Bulletin — Recent advances in the global REE supply chain</td><td class="took">Separation/extraction economics → a "why solvent-extraction is hard" explainer. <span class="miss">Springer paywall (auth gate).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>PMC — Reshaping heavy-REE supply chains (China env. rules)</td><td class="took">Environmental rules, not quotas, are the binding constraint (~90% of producers closed; Tb output −90%) → recasts the "heavies are tightest" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Oxides, metals &amp; recovery</td></tr>
+      <tr><td class="n">10</td><td>MDPI — REE recovery from electronic waste</td><td class="took">Secondary-supply / recycling route → a source on the oxides-and-metals stage that partly bypasses separation. <span class="miss">Page 403 (bot-wall).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ End uses &amp; demand — magnets, phosphors, polishing, catalysts</td></tr>
+      <tr><td class="n">11</td><td>EU RMSP — Rare Earth Elements factsheet</td><td class="took">EU dependency 100% extraction / &gt;99% processing; China 68% mine, 85% processing; 2030 demand ~6,800 t → hard figures for the demand/end-use panels.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>MDPI Energies — REE in the energy transition (review)</td><td class="took">Only ~1.4% of REE literature is on supply-chain/geopolitical risk → frames the research gap this library sits in. <span class="miss">Page 403 (bot-wall).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>ScienceDirect — REE sector allocations &amp; supply chain</td><td class="took">Ties end-use demand shares to concentration risk. <span class="miss">Abstract paywalled (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">⑤ The export-licensing lever</td></tr>
+      <tr><td class="n">14</td><td>Andersen Institute — China's export-control architecture</td><td class="took">The mechanism turning ~90% separation into leverage (Apr 2025 seven REEs, Oct 2025 0.1% rule).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>Al Jazeera — China tightens REE controls (Oct 2025)</td><td class="took">Apr→Oct 2025 escalation → 12 of 17 elements licensed → pins the export-control timeline onto the chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>Reuters/Yahoo — 2025 REE exports at 11-year high</td><td class="took">62,585 t in 2025 (+12.9%) → a real tonnage: licensing curbed access, not volume.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Statista — China's annual REE export volume</td><td class="took">Export-volume time series behind the licensing narrative. <span class="miss">Host did not resolve (DNS).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>Bulletin of CAS — China's REE trade-flow analysis</td><td class="took">China now a net importer of REE resources / a processing hub → supports "separation, not mining, is the chokepoint."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Diversification — building separation outside China</td></tr>
+      <tr><td class="n">19</td><td>SEC — MP Materials Form 424B5</td><td class="took">Company-level provenance for Mountain Pass, the main non-Asian light-REE separation site. <span class="miss">EDGAR 403 to automated fetch.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Yahoo Finance — MP Materials vs Lynas</td><td class="took">Sizes the two non-China separation anchors (MP 2,599 t NdPr; Lynas first heavy-REE separation outside China in decades).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>Mining Technology — Mapping REE projects outside China</td><td class="took">The diversification pipeline (MP, Energy Fuels, Lynas, Iluka, ASM) — confirms separation is the missing capacity.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks, policy &amp; analysis</td></tr>
+      <tr><td class="n">22</td><td>European Court of Auditors — SR 04/2026</td><td class="took">Independent-auditor confirmation of the EU processing/recycling gap behind rare earths.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>JRC RMIS — EU Critical Raw Materials</td><td class="took">The authoritative EU list/method (2023: 34 critical, 16 strategic) placing REEs as critical + strategic.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>EU DG GROW — Critical Raw Materials policy</td><td class="took">Sources the "China 100% of heavy REE" EU headline and the CRMA target frame.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>CRS R41347 — REE: The Global Supply Chain</td><td class="took">Historical baseline — same "abundant but not concentrated, now China-reliant" thesis, a decade earlier (2013).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Euronews — Is Europe losing the REE race?</td><td class="took">EU-side dependency figures (95% import, 98% of magnets) for the end-use/policy context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>Jacques Delors Centre — ReSourceEU</td><td class="took">The policy-response menu (belongs in the decision layer, not the chain).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>Resources Policy — REE market: historical &amp; financial</td><td class="took">Price-history context (the 2010–11 spike) for the market narrative. <span class="miss">Abstract paywalled (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">29</td><td>ScienceDirect — Supply-risk propagation in REE trade networks</td><td class="took">A network-propagation method to reproduce on the chain's own trade extract. <span class="miss">Abstract paywalled (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">30</td><td>CEPII BACI</td><td class="took">The trade engine → powers the chain's HS 280530 (metals) + 284690 (compounds) shares.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Mine — the ore is not the scarce part <span class="ct">6</span></h2>
+  <div class="stagesub">Mixed ore, roughly 70% China — but the elements are common in the crust, so the mine is the least concentrated stage.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf">USGS Mineral Commodity Summaries 2026 — Rare Earths</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world mine production, reserves, uses and the 2025 export-control timeline for rare earths.</span>
+      <span class="abs"><b>Abstract.</b> USGS two-page commodity summary — world rare-earth mine production and reserves by country, US recovery at Mountain Pass, principal uses (magnets, catalysts, phosphors, glass polishing) and the 2025 export-control timeline. <span class="miss">PDF returned 403 on repeated attempts (pubs.usgs.gov blocked this pass) — no figures are quoted here; corroborating mine shares appear in the entries below (China ~69% of ~390 kt mined).</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and reserve data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths-heavy.pdf">USGS Mineral Commodity Summaries 2026 — Rare Earths (Heavy)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Companion two-pager isolating the heavy rare earths (Dy/Tb/Y).</span>
+      <span class="abs"><b>Abstract.</b> USGS companion summary isolating the heavy rare earths — dysprosium, terbium, yttrium — the scarcer, more concentrated end of the basket on which high-performance magnets and phosphors depend. <span class="miss">PDF returned 403 (pubs.usgs.gov blocked this pass) — not retrievable; the heavy-REE concentration point is corroborated by the PMC entry in §2.</span></span>
+      <span class="dat"><b>Data.</b> USGS heavy-rare-earth production and reserve statistics.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-rare-earths.pdf">USGS Mineral Commodity Summaries 2025 — Rare Earths</a><span class="src"> · USGS, D.J. Cordier (2025)</span>
+      <span class="desc">Prior-year edition; a baseline for tracking the shift into 2026's export-control language.</span>
+      <span class="abs"><b>Abstract.</b> The 2025 edition of the USGS rare-earth commodity summary — world mine production, reserves, US recovery, uses and net import reliance — useful mainly as a year-over-year baseline against the 2026 report. <span class="miss">PDF returned 403 (pubs.usgs.gov blocked this pass) — not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass and trade data (2025 edition).</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — rare-earth production</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">Country-level rare-earth mine-production series, a ground-truth cross-check on USGS.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The BGS World Mineral Statistics landing page returned 404 this pass — the mineralsUK statistics section appears to have moved.</span> BGS compiles long-run, country-level production series for rare earths and most other minerals from national statistical returns, the independent reference used to cross-check USGS mine shares.</span>
+      <span class="dat"><b>Data.</b> BGS annual World Mineral Statistics — country-level production from national returns.</span></li>
+    <li><a href="https://rare-earth-mining.com/top-10-rare-earth-producing-countries/">Rare Earth Producing Countries 2026: The Definitive Ranked Guide</a><span class="src"> · rare-earth-mining.com (2026)</span>
+      <span class="desc">Country-ranked mine-production overview, useful as a cross-check against USGS/BGS figures.</span>
+      <span class="abs"><b>Summary.</b> Ranks 2026 rare-earth mine output at ~390,000 t oxide-equivalent — China ~270,000 t (~69%), then the US (~45,000 t), Myanmar (~31,000 t) and Australia — and frames China's Bayan Obo (light) and ionic-clay (heavy) deposits as a structural, not incidental, advantage.</span>
+      <span class="dat"><b>Data.</b> Secondary compilation of country mine-production tonnages (USGS-style figures) — no primary dataset.</span></li>
+    <li><a href="https://www.mdpi.com/2075-163X/7/11/203">Global Potential of Rare Earth Resources and Rare Earth Demand from Clean Technologies</a><span class="src"> · MDPI, Resources</span>
+      <span class="desc">Compares the rare-earth resource base against projected clean-technology demand.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The MDPI article page returned 403 (bot challenge) this pass — abstract not retrievable.</span> By its title and journal it weighs the global rare-earth resource base against demand from clean-energy technologies, bearing directly on whether scarcity is a resource problem or a processing one.</span>
+      <span class="dat"><b>Data.</b> Resource-base vs clean-tech demand modelling (per title/journal) — abstract not accessed.</span></li>
+  </ul>
+
+  <h2 class="sec">② Separation &amp; refining — the real chokepoint <span class="ct">3</span></h2>
+  <div class="stagesub">Splitting the chemically-alike elements into pure oxides is a vast solvent-extraction industrial base — roughly 90% China, gating the whole basket at once.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary">IEA — Global Critical Minerals Outlook 2025 (executive summary)</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Executive summary covering mine vs processing/refining shares and the demand outlook.</span>
+      <span class="abs"><b>Summary.</b> IEA finds China the dominant refiner for 19 of 20 minerals analysed (~70% average share); rare-earth mining's top-three share rose from 73% (2020) to 77% (2024), while refined-supply concentration is projected to ease only marginally to ~82% by 2035. Rare-earth demand rose 6–8% in 2024.</span>
+      <span class="dat"><b>Data.</b> IEA supply-concentration and demand modelling across mining and refining stages.</span></li>
+    <li><a href="https://link.springer.com/article/10.1557/s43577-022-00305-6">Recent advances in the global rare-earth supply chain</a><span class="src"> · MRS Bulletin / Springer (2022)</span>
+      <span class="desc">Mineralogy, separation/extraction, mining economics and circular-economy potential for REEs.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The Springer page redirected to an authentication gate (paywalled) — the abstract was not retrievable this pass.</span> The article reviews rare-earth mineralogy, the separation/extraction step, mining economics and circular-economy potential — precisely the separation-chokepoint mechanism at the centre of this chain.</span>
+      <span class="dat"><b>Data.</b> Review article (MRS Bulletin, 2022) — no primary dataset; abstract not accessed.</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11997559/">Reshaping heavy rare-earth supply chains amidst China's stringent environmental regulations</a><span class="src"> · PMC (NIH)</span>
+      <span class="desc">How Chinese environmental policy — not quotas — reshapes heavy-REE (terbium) supply.</span>
+      <span class="abs"><b>Abstract.</b> Finds stricter Chinese environmental standards, not production quotas, are the real heavy-REE constraint: post-2011 pollution rules forced nearly 90% of producers to close, official terbium output fell ~90% (2007–2018) leaving a 3,300 t cumulative shortfall, and only 25% of the 2018 heavy-REE quota was used.</span>
+      <span class="dat"><b>Data.</b> China terbium supply/demand and quota-utilisation modelling, 2007–2018, with scenarios to 2060.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Oxides, metals &amp; recovery <span class="ct">1</span></h2>
+  <div class="stagesub">Individual oxides, metals and alloys — plus the secondary route that could partly bypass separation.</div>
+  <ul class="refs">
+    <li><a href="https://www.mdpi.com/1420-3049/29/19/4624">A Review of the Occurrence and Recovery of Rare Earth Elements from Electronic Waste</a><span class="src"> · MDPI, Molecules (2024)</span>
+      <span class="desc">Conventional and emerging green routes to recover rare earths from e-waste.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The MDPI page returned 403 (bot challenge) — abstract not retrievable this pass.</span> By its title it reviews the occurrence of rare earths in electronic waste and both conventional and emerging green recovery technologies — the secondary-supply route that could ease pressure on the primary separation chokepoint.</span>
+      <span class="dat"><b>Data.</b> Review of REE e-waste recovery technologies (per title/journal, 2024) — abstract not accessed.</span></li>
+  </ul>
+
+  <h2 class="sec">④ End uses &amp; demand <span class="ct">3</span></h2>
+  <div class="stagesub">One separation step feeds every rare-earth product: magnets (Nd/Dy), phosphors (Eu/Tb/Y), cerium polishing, lanthanum catalysts.</div>
+  <ul class="refs">
+    <li><a href="https://single-market-economy.ec.europa.eu/document/download/1e925ebe-d23f-4bc2-8801-1e49824c2aaf_en?filename=RMSP_REEs_Factsheet_V2.pdf">Strategic Raw Materials — Rare Earth Elements factsheet</a><span class="src"> · European Commission, RMSP</span>
+      <span class="desc">Two-page EU factsheet on REE demand, uses, supply risk and dependency.</span>
+      <span class="abs"><b>Summary.</b> EU Strategic-Raw-Materials factsheet: rare earths (Nd/Pr/Tb/Dy/Gd/Sm/Ce) drive permanent magnets for EVs, wind and defence; EU dependency is 100% at extraction and &gt;99% at processing; global extraction is China 68% / Myanmar 10% / US 9%, processing China 85%; EU 2030 demand ~6,800 t, five times 2020.</span>
+      <span class="dat"><b>Data.</b> EU foresight study "Critical Raw Materials for the EU 2023"; global sourcing shares by stage.</span></li>
+    <li><a href="https://www.mdpi.com/2673-4117/7/5/211">Rare Earth Elements in the Energy Transition: A Review of the Demand–Sustainability–Risk Nexus</a><span class="src"> · MDPI, Eng (2026)</span>
+      <span class="desc">PRISMA systematic review of 2015–2026 rare-earth literature.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The MDPI page returned 403 (bot challenge) — abstract not retrievable this pass.</span> Per the chain record, this PRISMA systematic review flags that only ~1.4% of the rare-earth literature addresses supply-chain and geopolitical risk, versus ~87% on availability, production and recycling — the imbalance this library works against.</span>
+      <span class="dat"><b>Data.</b> PRISMA systematic review of 2015–2026 literature (per record) — abstract not accessed.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1002072124000358">Rare earth elements: Sector allocations and supply chain considerations</a><span class="src"> · ScienceDirect (2024)</span>
+      <span class="desc">Supply-chain framing for rare-earth sector investment and allocation.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The ScienceDirect abstract page returned 403 (paywall) — not retrievable this pass.</span> By its title it frames rare-earth sector allocations against supply-chain considerations, connecting end-use demand to the concentration risk carried at the separation stage.</span>
+      <span class="dat"><b>Data.</b> Journal article, 2024 — abstract not accessible.</span></li>
+  </ul>
+
+  <h2 class="sec">⑤ The export-licensing lever <span class="ct">5</span></h2>
+  <div class="stagesub">The step that turns a ~90% separation share into geopolitical leverage — China's 2025 licensing of medium and heavy rare earths.</div>
+  <ul class="refs">
+    <li><a href="https://anderseninstitute.org/chinas-export-control-architecture-and-its-use-of-critical-minerals-as-strategic-pressure-points/">China's Export Controls: Critical Minerals and Strategic Pressure Points</a><span class="src"> · Andersen Institute</span>
+      <span class="desc">How China's export-control system uses processing dominance as strategic leverage.</span>
+      <span class="abs"><b>Summary.</b> Traces China's unified export-control architecture (2020 Export Control Law → 2024 dual-use rules): April 2025 added seven medium and heavy rare earths, October 2025 a stricter 0.1% de-minimis rule; only about half of EU licence applications were approved by November 2025, and supplier switching keeps alternatives roughly a decade out.</span>
+      <span class="dat"><b>Data.</b> Policy/legal analysis of China's Export Control Law and 2023–2025 measures — no primary dataset.</span></li>
+    <li><a href="https://www.aljazeera.com/news/2025/10/10/china-tightens-export-controls-on-rare-earth-metals-why-this-matters">China tightens export controls on rare-earth metals: Why this matters</a><span class="src"> · Al Jazeera (Oct 2025)</span>
+      <span class="desc">The October 2025 expansion of export controls to more rare earths.</span>
+      <span class="abs"><b>Summary.</b> On 10 Oct 2025 China added five more rare earths (holmium, erbium, thulium, europium, ytterbium); with April's seven it now licenses 12 of the 17 elements plus refining equipment, and any foreign magnet or chip containing ≥0.1% Chinese heavy rare earth. Cites China mining ≥60% and processing ~90%.</span>
+      <span class="dat"><b>Data.</b> News reporting citing CSIS figures (China ~60% mine, ~90% processing).</span></li>
+    <li><a href="https://finance.yahoo.com/news/chinas-2025-rare-earth-exports-042255750.html">China's 2025 rare-earth exports hit highest since at least 2014 despite restrictions</a><span class="src"> · Reuters / Yahoo Finance (2026)</span>
+      <span class="desc">2025 export tonnage despite the licensing regime.</span>
+      <span class="abs"><b>Summary.</b> China exported 62,585 t of rare earths in 2025, up 12.9% year-on-year — the highest since at least 2014 — despite April's control list; magnet exports slumped in April–May, then rebounded from June under trade agreements with the US and EU.</span>
+      <span class="dat"><b>Data.</b> Reuters wire citing Chinese customs export tonnage, 2025.</span></li>
+    <li><a href="https://www.statista.com/chart/36059/annual-volume-of-rare-earth-exports-from-china">Annual volume of rare earth exports from China</a><span class="src"> · Statista</span>
+      <span class="desc">Chart of China's annual rare-earth export tonnage through the 2025 control period.</span>
+      <span class="abs"><b>Summary.</b> <span class="miss">The Statista host did not resolve this pass (DNS failure) — the chart was not retrievable.</span> Per the chain record it plots China's annual rare-earth export volume through the 2025 licensing period, peaking at 62,585 t in 2025 — the highest since 2014.</span>
+      <span class="dat"><b>Data.</b> Statista chart of Chinese customs export volumes (per record) — not accessed.</span></li>
+    <li><a href="https://bulletinofcas.researchcommons.org/journal/vol39/iss12/7/">China's rare earths trade flow analysis: Trade patterns and strategic considerations</a><span class="src"> · Bulletin of the Chinese Academy of Sciences</span>
+      <span class="desc">Trade-pattern analysis of China's rare-earth exports and imports.</span>
+      <span class="abs"><b>Abstract.</b> Analyses China's rare-earth trade 2015–2022 and finds it turned from net exporter to net importer of rare-earth resources after 2018, repositioning as a processing hub that imports both ores and refined goods while exporting lower-value separation products and mid-grade magnets.</span>
+      <span class="dat"><b>Data.</b> China rare-earth trade-flow analysis, 2015–2022, on customs data.</span></li>
+  </ul>
+
+  <h2 class="sec">Diversification — building separation outside China <span class="ct">3</span></h2>
+  <div class="stagesub">A handful of non-China anchors — and the recurring finding that mining, not separation, is what is actually being rebuilt.</div>
+  <ul class="refs">
+    <li><a href="https://www.sec.gov/Archives/edgar/data/1801368/000119312521273954/d219059d424b5.htm">MP Materials Corp. — Form 424B5</a><span class="src"> · SEC EDGAR</span>
+      <span class="desc">Prospectus detailing the Mountain Pass mine and separation facility.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">SEC EDGAR returned 403 to automated fetch this pass — the filing text was not retrieved.</span> The 2021 MP Materials prospectus documents the Mountain Pass, California mine and its on-site separation facility, the main non-Asian light-rare-earth separation operation and the anchor of US supply.</span>
+      <span class="dat"><b>Data.</b> SEC registration statement (prospectus), 2021 — not accessed this pass.</span></li>
+    <li><a href="https://finance.yahoo.com/markets/stocks/articles/mp-vs-lysdy-rare-earth-125100315.html">MP vs. LYSDY: Which Rare-Earth Stock Is the Smarter Pick Now?</a><span class="src"> · Yahoo Finance</span>
+      <span class="desc">Comparison of the two leading non-China separation producers.</span>
+      <span class="abs"><b>Summary.</b> Compares MP Materials (Mountain Pass; record 2,599 t NdPr oxide in 2025, first US commercial-scale magnets) and Lynas (Mt Weld; REO up 33% to 9,608 t, and "the first production of separated heavy rare earths outside China in decades") — the two anchors of non-China supply.</span>
+      <span class="dat"><b>Data.</b> Trade-press comparison citing company 2025 production and financial figures.</span></li>
+    <li><a href="https://www.mining-technology.com/features/mapping-rare-earths-projects-outside-china/">Mapping rare earths projects outside China</a><span class="src"> · Mining Technology</span>
+      <span class="desc">Landscape of non-Chinese mine and separation projects under development.</span>
+      <span class="abs"><b>Summary.</b> Maps non-China projects — MP Materials (~15% of world supply), Energy Fuels (White Mesa), Lynas (Mt Weld plus a Texas plant), Iluka (Eneabba) and Australian Strategic Materials (Dubbo) — and stresses the persistent gap: most operations must still export raw material for separation.</span>
+      <span class="dat"><b>Data.</b> Trade-press survey of company projects with reserve and capacity figures.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks, policy &amp; analysis <span class="ct">8</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and analysis that classify the whole basket and the market it trades in.</div>
+  <ul class="refs">
+    <li><a href="https://www.eca.europa.eu/ECAPublications/SR-2026-04/SR-2026-04_EN.pdf">Special Report 04/2026 — Critical raw materials for the energy transition</a><span class="src"> · European Court of Auditors (2026)</span>
+      <span class="desc">EU auditors' review of progress and gaps on critical raw materials.</span>
+      <span class="abs"><b>Summary.</b> European Court of Auditors audit of EU preparedness on critical raw materials for the energy transition: it credits the CRMA and assessment work but flags import concentration, thin domestic extraction and processing, weak recycling and poor member-state coordination, singling out rare earths for permanent magnets.</span>
+      <span class="dat"><b>Data.</b> EU performance audit of Commission CRM policy, programmes and data.</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials">RMIS — EU Critical Raw Materials</a><span class="src"> · European Commission JRC</span>
+      <span class="desc">JRC Raw Materials Information System — background for the EU CRM list and the CRMA.</span>
+      <span class="abs"><b>Summary.</b> The JRC's Raw Materials Information System hosts the triennial EU criticality assessments (the 2023 round listed 34 critical and 16 strategic raw materials, rare earths among them), plus material profiles and supply-risk × economic-importance dashboards that underpin the Critical Raw Materials Act.</span>
+      <span class="dat"><b>Data.</b> JRC criticality assessments (Economic Importance × Supply Risk) and material profiles.</span></li>
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">Critical raw materials — DG GROW policy page</a><span class="src"> · European Commission</span>
+      <span class="desc">Official Critical Raw Materials Act policy hub.</span>
+      <span class="abs"><b>Summary.</b> The Commission's CRM page: the 2023 assessment lists 34 critical raw materials from 70 candidates, and flags severe concentration — China 100% of heavy rare earths, Turkey 99% of boron, South Africa 71% of platinum-group metals — as the risk the Critical Raw Materials Act is meant to address.</span>
+      <span class="dat"><b>Data.</b> Commission CRM assessment and policy statements.</span></li>
+    <li><a href="https://www.congress.gov/crs_external_products/R/PDF/R41347/R41347.20.pdf">Rare Earth Elements: The Global Supply Chain (R41347)</a><span class="src"> · Congressional Research Service (2013)</span>
+      <span class="desc">Long-standing US legislative primer on the rare-earth supply chain.</span>
+      <span class="abs"><b>Abstract.</b> CRS primer (updated 16 Dec 2013): the 17 rare earths are moderately abundant but seldom concentrated enough to mine economically, and the US went from self-reliant to 100% import-reliant — mainly on China — over 15 years. Covers Molycorp's Mountain Pass "mine-to-magnet" restart, end uses and policy options.</span>
+      <span class="dat"><b>Data.</b> CRS synthesis of USGS/industry production, demand (~136,000 t in 2010) and trade data.</span></li>
+    <li><a href="https://www.euronews.com/my-europe/2026/01/20/is-europe-losing-the-race-to-secure-rare-earth-materials">Is Europe losing the race to secure rare earth materials?</a><span class="src"> · Euronews (Jan 2026)</span>
+      <span class="desc">EU-focused reporting on rare-earth dependency and the CRMA response.</span>
+      <span class="abs"><b>Summary.</b> Reports the EU imports ~95% of its rare earths (recycling below 1%), with China supplying ~85% of the EU's rare earths and ~98% of its magnets and controlling up to ~90% of processing; concludes the EU will likely miss its 2030 CRMA extraction, processing and recycling targets.</span>
+      <span class="dat"><b>Data.</b> News reporting citing EU import-dependency and CRMA-target figures.</span></li>
+    <li><a href="https://www.delorscentre.eu/en/publications/detail/publication/the-eus-critical-raw-materials-predicament">The EU's critical raw materials predicament: ReSourceEU to the Rescue?</a><span class="src"> · Jacques Delors Centre</span>
+      <span class="desc">Think-tank analysis of the EU's CRM predicament, including rare earths.</span>
+      <span class="abs"><b>Summary.</b> Argues EU dependence is above all on China's midstream processing, not just ores; reviews the ReSourceEU proposal (€3 bn in 12 months for magnets, batteries and defence, a European CRM Centre, joint purchasing) and warns most tools remain indicative, with permitting delays such as Kiruna running 10–15 years.</span>
+      <span class="dat"><b>Data.</b> Policy analysis of the ReSourceEU initiative and CRMA instruments — no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S030142071730079X">Rare-earth elements market: A historical and financial perspective</a><span class="src"> · Resources Policy / ScienceDirect</span>
+      <span class="desc">Market-structure and pricing history of the rare-earth sector.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The ScienceDirect abstract page returned 403 (paywall) — not retrievable this pass.</span> By its title it offers a historical and financial perspective on the rare-earth market — the price spikes and market structure (notably the 2010–2011 episode) behind the sector's boom-and-bust reputation.</span>
+      <span class="dat"><b>Data.</b> Resources Policy journal article — abstract not accessible.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0959652625018967">Supply risk propagation in multilayer trade networks of rare earth — from the industry-chain perspective</a><span class="src"> · ScienceDirect (2025)</span>
+      <span class="desc">Network analysis of how rare-earth supply risk propagates along the industry chain.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">The ScienceDirect abstract page returned 403 (paywall) — not retrievable this pass.</span> Per its title it models supply-risk propagation across multilayer rare-earth trade networks from an industry-chain perspective — a method for tracing how a separation-stage shock spreads downstream.</span>
+      <span class="dat"><b>Data.</b> Multilayer trade-network model (2025) — abstract not accessible.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's own trade figures are built from — where separation, not mine, sets the customs origin.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's HS-code trade extract.</span>
+      <span class="abs"><b>Summary.</b> CEPII's BACI reconstructs bilateral trade for ~200 countries across ~5,000 HS6 products (1995–2024) from UN Comtrade, stripping CIF freight from import values and reliability-weighting reporter discrepancies into one figure per flow.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No technical paper on the actual chokepoint mechanism — <b>solvent-extraction separation chemistry and process economics</b> — was captured this pass. Next: "solvent extraction rare earth separation process cost review" to underpin a "why separation is hard" explainer.</li>
+      <li><b>The primary USGS and BGS series would not retrieve</b> (pubs.usgs.gov returned 403 on every attempt; the BGS statistics page 404s). The chain's mine and reserve figures rest on them, so re-fetch both once the hosts unblock, and locate the current BGS World Mineral Statistics URL.</li>
+      <li>No confirmed source for a dedicated <b>rare-earth industry trade association</b> (Rare Earth Industry Association / REIA, or China's CREIA) or a magnet-maker body — retry "Rare Earth Industry Association REIA members" and "China Rare Earth Industry Association CREIA".</li>
+      <li>No <b>Adamas Intelligence</b> report was confirmed with a live URL — it is the standard proprietary tracker for magnet-grade NdPr/Dy/Tb price and demand, worth chasing specifically.</li>
+      <li>The <b>China MIIT mining and separation quota system</b> — the two annual quota batches that set the ~90% separation baseline — was not directly sourced; search "China Ministry of Industry and Information Technology rare earth mining quota 2026".</li>
+      <li>The <b>US DOE Critical Materials Strategy / Assessment</b> was not retrieved this pass — worth adding as the US policy counterpart to the EU CRMA material, alongside recurring CSIS and RMI rare-earth briefs.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from mixed ore through separation — the real chokepoint — to end uses and the export-licensing lever, with cross-cutting frameworks and data grouped at the end. 30 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved this pass (pubs.usgs.gov 403s, publisher bot-walls, one DNS failure, one paywall redirect) that is flagged in italics, and thirteen entries carry such a flag. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./rare-earths-chain.html">The rare-earths chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
