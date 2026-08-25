@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Graphite / battery-anode chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the graphite / battery-anode value chain, ordered to follow the chain from natural flake and synthetic feedstock to the spherical, coated anode and the cell. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="graphite-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Graphite</div>
+    <h1>Graphite / battery-anode chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Every lithium-ion cell needs a graphite anode. China mines about three-quarters of natural flake — but it turns nearly all of that, plus the synthetic graphite, into the spherical, purified, coated anode powder cells actually use. <b>The chokepoint is the processing, not the flake in the ground.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Natural flake &amp; synthetic graphite (the raw feedstock) → ② spheronising, purifying &amp; coating into anode-grade graphite (the ~100% China chokepoint) → ③ the anode, the cell &amp; the response — then the December-2023 export-control lever, the cross-cutting frameworks and the trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="graphite-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">30</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (11) · <span class="pill ref">Reference</span> context / provenance (15).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Natural flake &amp; synthetic graphite — the raw feedstock</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Graphite (Natural)</td><td class="took">Mine share + US consumption + the 2026 25% tariff → sources the <b>~74%</b> China stat and the US-response context.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Graphite (Natural)</td><td class="took">The tariff-to-25% and five US exploration projects → a planned "US domestic response" annotation.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>USGS Science Data Catalog — MCS 2025 Graphite data release</td><td class="took">Machine-readable MCS graphite tables → provenance for the production numbers.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>USGS — Graphite Statistics and Information</td><td class="took">The MCS / Minerals Yearbook / DS-140 series → the production-data provenance behind the mine figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>BGS World Mineral Statistics</td><td class="took">Mine-production time series (China / Madagascar / Brazil) → the <b>history chart</b> (~65% → ~78% → ~74%).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>Nature Reviews Materials — graphite as a critical mineral</td><td class="took">Frames the material's rise; ~90% anode / ~98% graphitisation China → the correction framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Spheronising, purifying &amp; coating — the ~100% China chokepoint</td></tr>
+      <tr><td class="n">7</td><td>IEA Global Critical Minerals Outlook 2025</td><td class="took">~90% of refined-graphite growth China; spherical processing overwhelmingly China → the <b>~100% anode-step chokepoint</b>.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>IEA Global Critical Minerals Outlook 2026</td><td class="took">&gt;90% top-refiner share + the 2025 controls → a planned refresh of the policy section.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Benchmark Mineral Intelligence — Natural Graphite &amp; Anode</td><td class="took">Facility-level anode-capacity data → provenance for capacity claims (subscription service).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>Benchmark — "China controls three-quarters" infographic</td><td class="took">&lt;1% uncoated spherical outside China; 69% low-sulphur pet-coke → a planned per-stage share panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>USITC — Graphite in Li-ion Batteries for EVs (GVC)</td><td class="took">GVC method: mining diverse, refining clustered in China → the "mine is the least concentrated stage" finding.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>Overview of the graphite supply chain (Geosciences Journal)</td><td class="took">Mine-to-anode review. <span class="miss">Full text paywalled — planned once obtainable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Decoding the Dragon — why China makes the anodes</td><td class="took">Mechanism: HF spheronising/purifying + 3,000&deg;C graphitisation power cost → why the step stays in one country.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>MDPI Batteries — LCA of Québec graphite processing</td><td class="took">1.44 vs 9.6 t CO<sub>2</sub>e per t of anode material → a planned decision-layer figure for a non-China route.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The anode, the cell &amp; the response</td></tr>
+      <tr><td class="n">15</td><td>Recycling strategies for renewable graphite (J. Cleaner Prod.)</td><td class="took">Physical / chemical / electrochemical anode-recovery routes → a planned "response" secondary-supply source.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>Pamir — US homegrown synthetic-graphite supply chain</td><td class="took">Anovion / Novonix / Graphex / Epsilon + IRA → context for the "rebuilt slowly" section-3 claim.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Rice University — resilient graphite supply solutions</td><td class="took">Biomass / CO<sub>2</sub> synthetic + recycling paths → the diversification framing (companion to the review above).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">The lever — China's graphite export controls</td></tr>
+      <tr><td class="n">18</td><td>CSIS — China's new graphite restrictions</td><td class="took">Dec-2023 scope + Korea 93% / Japan 90% anode dependence → context for §2.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>FTI Consulting — China's export controls on critical minerals</td><td class="took">Same instrument as gallium/germanium → the "export-control playbook" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>C&amp;EN (ACS) — China restricts graphite for anodes</td><td class="took">99% spherical / 93% anode material China → corroborates the <b>~100%</b> claim.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>Fastmarkets — Jan–Feb graphite exports plunge</td><td class="took">Jan–Feb 2024 exports &minus;78% flake / &minus;65% spherical → a planned "what the lever did" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">22</td><td>Miller &amp; Chevalier — graphite export-controls flash</td><td class="took">Licensing / compliance mechanism. <span class="miss">Page not retrievable (403); scope from the title.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>Herbert Smith Freehills Kramer — Oct-2025 controls</td><td class="took">Oct-2025 Decision 58 imposed then suspended to Nov-2026 → a correction to the "Oct-2025 controls" timeline.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>MMTA — impact of graphite export restrictions</td><td class="took">60% flake / 80% synthetic / 99% spherical shares → corroborating figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>Crux Investor — temporary easing of the controls</td><td class="took">Nov-2025 suspension + Kasiya $241 vs $257/t → an outlook / optionality note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">26</td><td>Shanghai Metal Market — decoding the controls</td><td class="took">Qualitative market impact + pre-deadline stockpiling → context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks</td></tr>
+      <tr><td class="n">27</td><td>EU SCRREEN — Natural Graphite CRM factsheet</td><td class="took">EU value-chain / criticality framing. <span class="miss">PDF served as unreadable binary; scope from the factsheet title.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">28</td><td>Resilience of critical transition minerals (Taylor &amp; Francis)</td><td class="took">US / EU / China regulatory-resilience frame → the policy context around the controls.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">29</td><td>CEPII BACI</td><td class="took">The trade engine → the reproduced graphite <b>export shares</b> (HS 2504 / 380110).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">30</td><td>USGS Mineral Commodity Summaries series</td><td class="took">The production-data series → the production figures across the stages.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Natural flake &amp; synthetic graphite — the raw feedstock <span class="ct">6</span></h2>
+  <div class="stagesub">Where the chain starts: flake mined ~74% in China, plus synthetic graphite baked from petroleum coke — and this is the <em>least</em> concentrated stage.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-graphite.pdf">USGS Mineral Commodity Summaries 2026 — Graphite (Natural)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual natural-graphite production, trade and tariff data; US consumption, imports and uses.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: the US mined no natural graphite in 2024; about 100 firms consumed 52,000 t ($115M). Imports ~60,000 t (87.7% flake/high-purity). Major uses are batteries, refractories and steelmaking. Apparent consumption fell ~21% on weaker battery demand and cheaper Chinese synthetic anode material; a 25% tariff on Chinese natural graphite begins 2026. <span class="miss">(Direct PDF returned 403 on this pass; figures from the USGS MCS 2026 graphite text.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer/importer canvass plus reported trade and price data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-graphite.pdf">USGS Mineral Commodity Summaries 2025 — Graphite (Natural)</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year graphite summary; flags the 2026 US tariff increase and US mining projects.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary (2025): the US produced no natural graphite, and imports plus battery demand dominate use. Notes the announced increase of the tariff on Chinese natural graphite to 25% from 2026, and several US natural-graphite mining projects under exploration as potential domestic supply. <span class="miss">(Direct PDF returned 403 on this pass; figures from the USGS MCS 2025 graphite text.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual canvass and reported import/export trade data.</span></li>
+    <li><a href="https://data.usgs.gov/datacatalog/data/USGS:6797fe3fd34ea8c18376e1a3">Mineral Commodity Summaries 2025 — Graphite (Natural) data release</a><span class="src"> · USGS Science Data Catalog (2025)</span>
+      <span class="desc">Machine-readable data release behind the MCS 2025 graphite chapter.</span>
+      <span class="abs"><b>Summary.</b> The structured data release accompanying the 2025 Mineral Commodity Summaries graphite chapter — the production, import-reliance and world-statistics tables in reusable form, the source data behind the printed summary. <span class="miss">(Catalog page did not load on this pass; described from the catalog listing.)</span></span>
+      <span class="dat"><b>Data.</b> USGS MCS 2025 underlying data tables (production, imports, world statistics).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/graphite-statistics-and-information">Graphite Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Portal to the graphite MCS, Minerals Yearbook and historical statistics.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center portal for graphite: annual Mineral Commodity Summaries (1996–2026), Minerals Yearbook volumes (1994–2022) and Data Series 140 historical statistics on US and world supply, demand and material flow — the reference behind the mine-production figures, now migrating to ScienceBase.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral statistics (production, consumption, trade).</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — graphite mine production</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Historical mine-production series by commodity and country (China / Madagascar / Brazil).</span>
+      <span class="abs"><b>Summary.</b> British Geological Survey database of world mineral production by commodity and country, spanning several decades — the source of the natural-graphite mine-production time series (China, Madagascar, Brazil) used for the chain's history chart. <span class="miss">(Page did not load on this pass; described from the known BGS World Mineral Statistics database.)</span></span>
+      <span class="dat"><b>Data.</b> National-statistics returns compiled annually by BGS.</span></li>
+    <li><a href="https://www.nature.com/articles/s41578-025-00848-5">Graphite: the new critical mineral</a><span class="src"> · Nature Reviews Materials (2025)</span>
+      <span class="desc">High-level review of graphite's rise as a critical mineral for batteries.</span>
+      <span class="abs"><b>Abstract.</b> Review: graphite is the backbone of the lithium-ion industry as the primary anode material, yet natural supply is geographically concentrated with sluggish mining scalability. China controls ~90% of anode production and ~98% of graphitisation; purification, spheronisation and coating happen almost entirely there. Argues green synthesis and spent-anode recycling are the way out.</span>
+      <span class="dat"><b>Data.</b> Literature review / perspective (Rice University authors) — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Spheronising, purifying &amp; coating — the ~100% China chokepoint <span class="ct">8</span></h2>
+  <div class="stagesub">Turning flake or synthetic graphite into rounded, &gt;99.95%-carbon, carbon-coated anode powder — the wasteful, know-how-heavy step that is almost entirely in one country.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary">IEA Global Critical Minerals Outlook 2025 — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Graphite demand and processing-concentration analysis.</span>
+      <span class="abs"><b>Summary.</b> IEA outlook: China supplied ~90% of refined-graphite growth in 2020–2024; the top-three refiners hold ~82%, and outside the leader only about half of remaining 2035 demand is met. Energy uses drove 85% of battery-mineral demand growth; graphite prices fell 10–20% in 2024.</span>
+      <span class="dat"><b>Data.</b> IEA supply/demand modelling on production, trade and project-pipeline data.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026/outlook">IEA Global Critical Minerals Outlook 2026 — Outlook</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Updated outlook; refining concentration and export-restriction context.</span>
+      <span class="abs"><b>Summary.</b> IEA 2026 outlook: for graphite (with gallium, manganese and rare earths) the top refiner, China, exceeds 90% of global supply; demand grows 50–90% to 2040; midstream/downstream build-out lags upstream mining, and many such materials already face export restrictions.</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling (Stated Policies and announced pledges).</span></li>
+    <li><a href="https://www.benchmarkminerals.com/anode">Benchmark Mineral Intelligence — Natural Graphite &amp; Anode</a><span class="src"> · Benchmark (also <a href="https://www.benchmarkminerals.com/natural-graphite">Natural Graphite</a>)</span>
+      <span class="desc">Dedicated graphite/anode price, capacity and forecast service.</span>
+      <span class="abs"><b>Summary.</b> Benchmark's price, capacity and forecast service for flake, spherical and synthetic graphite and anode active material: facility-level capacity to 2035, supply/demand to 2050, graphitisation tolling fees and satellite-verified plant assessments — the market-intelligence base for anode-capacity questions.</span>
+      <span class="dat"><b>Data.</b> Proprietary price assessments, facility surveys and satellite verification — subscription service, no open dataset.</span></li>
+    <li><a href="https://source.benchmarkminerals.com/article/infographic-china-controls-three-quarters-of-graphite-anode-supply-chain">Infographic: China controls three-quarters of the graphite anode supply chain</a><span class="src"> · Benchmark Mineral Intelligence</span>
+      <span class="desc">Visual summary of processing concentration across the chain.</span>
+      <span class="abs"><b>Summary.</b> Benchmark infographic: China holds ~74% of the whole graphite-anode supply chain, with under 1% of uncoated spherical-graphite output forecast outside China, and 69% of the low-sulphur petroleum coke that feeds synthetic anode (Japan 11%, US 10%).</span>
+      <span class="dat"><b>Data.</b> Benchmark supply-chain modelling and forecasts.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/working_papers/gvc_paper.pdf">Global Value Chains: Graphite in Lithium-ion Batteries for Electric Vehicles</a><span class="src"> · USITC working paper</span>
+      <span class="desc">Global-value-chain analysis of the graphite-to-anode chain.</span>
+      <span class="abs"><b>Abstract.</b> USITC Office of Industries working paper mapping the graphite global value chain for EV batteries. Finds the unrefined (mining) stage geographically diverse, but the refining stage before cell manufacture clustered in Asia, especially China; about 65% of anode active material was natural graphite, ~30% artificial (2016 base).</span>
+      <span class="dat"><b>Data.</b> USITC industry analysis of production and trade data across the four key battery materials.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s12303-025-00027-2">Overview of graphite supply chain and its challenges</a><span class="src"> · Geosciences Journal (Springer, 2025)</span>
+      <span class="desc">Supply-chain-wide review from mine to anode.</span>
+      <span class="abs"><b>Abstract.</b> Peer-reviewed review of the graphite supply chain from mine to battery anode and its supply-security challenges. <span class="miss">Full text is behind a publisher paywall — not retrievable on this pass (a research-sharing mirror also blocked access); the mine-to-anode scope is taken from the article's title and listing.</span></span>
+      <span class="dat"><b>Data.</b> Literature review (Geosciences Journal, 2025) — no primary dataset.</span></li>
+    <li><a href="https://decodingthedragon.substack.com/p/48-why-does-china-make-97-of-the">Why does China make 97% of the world's battery anodes?</a><span class="src"> · Decoding the Dragon</span>
+      <span class="desc">Explainer on the processing chokepoint and why it stays concentrated.</span>
+      <span class="abs"><b>Summary.</b> Explainer on the anode chokepoint: flake is spheronised then purified to 99.95% carbon with hydrofluoric acid (hard to permit in the West); synthetic graphite is graphitised near 3,000&deg;C, where electricity is 25–50% of cost. Three Chinese firms dominate; China made ~97% of anode material.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing producer capacities and cost structure.</span></li>
+    <li><a href="https://www.mdpi.com/2313-0105/12/2/68">Toward Sustainable Anode Materials: LCA of Natural Graphite Processing in Québec</a><span class="src"> · Batteries / MDPI</span>
+      <span class="desc">Life-cycle assessment of an alternative (non-China) anode-processing route.</span>
+      <span class="abs"><b>Abstract.</b> Life-cycle assessment of a Québec graphite mine and processing plant making anode active material (AAM). Producing one tonne of AAM in Québec emits ~1.44 t CO₂-equivalent, far below the ~9.6 t per tonne reported for Chinese production — quantifying the emissions case for a North American route.</span>
+      <span class="dat"><b>Data.</b> LCA on industrial primary data from a Québec operation.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The anode, the cell &amp; the response <span class="ct">3</span></h2>
+  <div class="stagesub">The graphite is cast onto copper foil as the anode; the response — recycling and Western reshoring — runs on a battery-qualification timescale, not a policy one.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0959652625002215">Recycling strategies for renewable graphite and other carbon nanomaterials from used batteries: A review</a><span class="src"> · Journal of Cleaner Production</span>
+      <span class="desc">Anode-recycling review — relevant to the "response" stage.</span>
+      <span class="abs"><b>Abstract.</b> Review of strategies to recycle graphite and carbon nanomaterials from spent batteries: physical routes (flotation, roasting, microwave), chemical routes (alkali etching, acid leaching), electrochemical recovery and functionalisation, plus synthesis of carbon nanomaterials and the environmental impacts of battery-waste recycling — a secondary-supply path for anode graphite.</span>
+      <span class="dat"><b>Data.</b> Literature review (Journal of Cleaner Production, 2025) — no primary dataset.</span></li>
+    <li><a href="https://pamirllc.com/blog/the-u-s-is-building-a-homegrown-synthetic-graphite-supply-chain-for-ev-batteries">The U.S. is building a homegrown synthetic graphite supply chain for EV batteries</a><span class="src"> · Pamir Consulting</span>
+      <span class="desc">US reshoring analysis of synthetic-graphite capacity.</span>
+      <span class="abs"><b>Summary.</b> Analysis of US synthetic-graphite reshoring: Anovion (DOE-backed, ~$800M, 40,000 t/yr Georgia plant), Novonix, Graphex and Epsilon among projects, aided by IRA incentives. Synthetic could be ~two-thirds of the anode market, but the transition takes years and natural-graphite sourcing stays a risk.</span>
+      <span class="dat"><b>Data.</b> Industry analysis citing company announcements and funding figures.</span></li>
+    <li><a href="https://news.rice.edu/news/2025/mapping-resilient-supply-solutions-graphite-critical-mineral-powering-energy-storage-rice">Mapping resilient supply solutions for graphite</a><span class="src"> · Rice University News (2025)</span>
+      <span class="desc">Research-communication piece on diversification options (companion to the Nature Reviews review).</span>
+      <span class="abs"><b>Summary.</b> Rice University summary of its Nature Reviews Materials review: graphite demand is outpacing lithium, supply is concentrated and carbon-intensive, and the resilient paths are synthetic graphite from biomass or captured CO₂, spent-anode recycling and greener graphitisation.</span>
+      <span class="dat"><b>Data.</b> Research communication accompanying the peer-reviewed review.</span></li>
+  </ul>
+
+  <h2 class="sec">The lever — China's graphite export controls <span class="ct">9</span></h2>
+  <div class="stagesub">Because the anode step is ~100% China, the December-2023 licensing was a lever on the whole battery industry — extended to anode materials in October 2025, then suspended.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/chinas-new-graphite-restrictions">China's New Graphite Restrictions</a><span class="src"> · CSIS</span>
+      <span class="desc">Policy analysis of the December 2023 export licensing.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis of China's 1 December 2023 graphite licensing (high-purity synthetic and natural flake graphite and their products). China refines over 90% of graphite; the measure hits allies hardest — South Korea sources 93% and Japan 90% of anode material from China.</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing trade and import-dependency figures.</span></li>
+    <li><a href="https://www.fticonsulting.com/insights/articles/chinas-export-controls-critical-minerals-gallium-germanium-graphite">China's Export Controls on Critical Minerals</a><span class="src"> · FTI Consulting</span>
+      <span class="desc">Cross-mineral analysis (gallium, germanium, graphite).</span>
+      <span class="abs"><b>Summary.</b> FTI Consulting places the December 2023 graphite licensing in the same playbook as the August 2023 gallium and germanium controls: MOFCOM approval required to export, initial shipments halted, and a "significant risk" to EV battery supply chains outside China.</span>
+      <span class="dat"><b>Data.</b> Consulting analysis of the control measures and their trade impact.</span></li>
+    <li><a href="https://cen.acs.org/policy/trade/China-restricts-exports-graphite-used/101/i36">China restricts exports of graphite used to make battery anodes</a><span class="src"> · C&amp;EN (ACS)</span>
+      <span class="desc">Trade-press coverage of the December 2023 controls.</span>
+      <span class="abs"><b>Summary.</b> Chemical &amp; Engineering News: from December 2023 Chinese firms need permits to export several natural and synthetic graphite forms used for anodes. Chinese producers make 99% of spherical graphite and 93% of all graphite anode material — corroborating the near-total processing grip.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing production-share figures.</span></li>
+    <li><a href="https://www.fastmarkets.com/insights/chinas-jan-feb-graphite-exports-plunge-amid-export-controls/">China's Jan-Feb graphite exports plunge amid export controls</a><span class="src"> · Fastmarkets</span>
+      <span class="desc">Market reporting on the export-volume impact of the controls.</span>
+      <span class="abs"><b>Summary.</b> Fastmarkets: in Jan–Feb 2024, after the December controls, Chinese flake-graphite exports fell 78% year-on-year (to 3,236 t) and spherical-graphite exports 65% (to 2,567 t); spherical went mostly to Japan (61%), the US (29%) and South Korea (9%).</span>
+      <span class="dat"><b>Data.</b> Chinese customs export-volume statistics.</span></li>
+    <li><a href="https://www.millerchevalier.com/publication/trade-compliance-flash-graphite-export-controls-chinas-trade-countermeasures-affecting">Trade Compliance Flash: Graphite Export Controls</a><span class="src"> · Miller &amp; Chevalier</span>
+      <span class="desc">Legal / trade-compliance analysis of the controls.</span>
+      <span class="abs"><b>Summary.</b> Law-firm trade-compliance note on China's graphite export-licensing countermeasures affecting electric-vehicle supply chains and the compliance obligations they create. <span class="miss">(Page not retrievable on this pass — 403; scope taken from the publication title.)</span></span>
+      <span class="dat"><b>Data.</b> Legal analysis of the export-control regime — no primary dataset.</span></li>
+    <li><a href="https://www.hsfkramer.com/insights/2025-10/china-export-controls-lithium-batteries-and-artificial-graphite-anode-materials">China imposes export controls on lithium-batteries and artificial graphite anode materials</a><span class="src"> · Herbert Smith Freehills Kramer (2025)</span>
+      <span class="desc">The October 2025 extension of controls to anode materials — and its immediate suspension.</span>
+      <span class="abs"><b>Summary.</b> Law-firm update: on 9 Oct 2025 China (MOFCOM Decision 58) put lithium batteries, cathode and artificial-graphite anode materials and related equipment on the dual-use export-control list — then on 7 Nov 2025 (Decision 70) suspended it until 10 Nov 2026, so those exports currently remain unrestricted.</span>
+      <span class="dat"><b>Data.</b> Chinese MOFCOM/Customs decisions (official policy record).</span></li>
+    <li><a href="https://mmta.co.uk/impact-of-graphite-export-restrictions-in-china/">Impact of graphite export restrictions in China</a><span class="src"> · Minor Metals Trade Association</span>
+      <span class="desc">Trade-association market commentary.</span>
+      <span class="abs"><b>Summary.</b> MMTA commentary: China holds over 60% of flake and ~80% of synthetic graphite, and 99% of spherical / 93% of anode material; the December 2023 permits raised concern over spherical-graphite availability and gave short-term price support amid pre-deadline stocking.</span>
+      <span class="dat"><b>Data.</b> Trade-association market commentary — no primary dataset.</span></li>
+    <li><a href="https://www.cruxinvestor.com/posts/chinas-temporary-easing-of-graphite-export-controls-the-shifting-global-supply-outlook-for-battery-materials">China's Temporary Easing of Graphite Export Controls</a><span class="src"> · Crux Investor</span>
+      <span class="desc">Market-outlook piece on the suspension and non-China supply.</span>
+      <span class="abs"><b>Summary.</b> Outlook on China's November 2025 suspension of enhanced graphite controls to the US (to Nov 2026): tactical relief, not a structural shift. China holds ~75% of natural graphite at ~$257/t; non-China projects (e.g. Malawi's Kasiya, ~$241/t) gain optionality under IRA content rules.</span>
+      <span class="dat"><b>Data.</b> Investor analysis citing production-cost and project figures.</span></li>
+    <li><a href="https://www.metal.com/en/newscontent/103269594">Decoding China's Graphite Export Controls: A Global Battery Supply Chain Crisis?</a><span class="src"> · Shanghai Metal Market</span>
+      <span class="desc">Market reporting on the scope and impact of the controls.</span>
+      <span class="abs"><b>Summary.</b> Shanghai Metal Market: China's permits on high-purity, high-strength graphite (effective December 2023) target EV, aerospace and semiconductor uses; the controls shrink supply and raise costs, prompting pre-deadline stockpiling and a push toward synthetic graphite and recycling.</span>
+      <span class="dat"><b>Data.</b> Market reporting — qualitative, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks <span class="ct">2</span></h2>
+  <div class="stagesub">EU/US assessments and regulatory-resilience analysis that classify the whole chain and the policy around it.</div>
+  <ul class="refs">
+    <li><a href="https://scrreen.eu/wp-content/uploads/2023/01/NATURAL-GRAPHITE_CRM_2020_Factsheets_critical_Final.pdf">Natural Graphite — CRM factsheet</a><span class="src"> · EU SCRREEN project (2020)</span>
+      <span class="desc">EU value-chain and criticality factsheet for natural graphite.</span>
+      <span class="abs"><b>Abstract.</b> EU SCRREEN project factsheet on natural graphite as a Critical Raw Material: the mine-to-application value chain, EU import dependence on China-dominated supply, end uses and substitution/recycling potential. <span class="miss">(The PDF served as an unreadable binary on this pass; scope taken from the factsheet title and the EU CRM programme.)</span></span>
+      <span class="dat"><b>Data.</b> EU CRM assessment (SCRREEN, 2020) — production, trade and substitution data.</span></li>
+    <li><a href="https://www.tandfonline.com/doi/full/10.1080/02646811.2025.2495920">Resilience of critical transition minerals supply chain in the context of strategic rivalry</a><span class="src"> · Journal of Energy &amp; Natural Resources Law (2025)</span>
+      <span class="desc">Policy/regulatory-resilience framing including graphite.</span>
+      <span class="abs"><b>Abstract.</b> Article (Hao Zhang, 2025): as clean-energy demand raises reliance on a few producer countries, market-dominant nations deploy protective measures; the paper compares the US, EU and China policy and regulatory responses for supply security — the legal frame around graphite's export controls.</span>
+      <span class="dat"><b>Data.</b> Legal/policy analysis — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024); natural graphite HS2504, artificial HS380110.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI reconstructs reconciled bilateral trade for ~200 countries across ~5,000 HS6 products, 1995–2024, from UN Comtrade by removing CIF costs and reliability-weighting reporter gaps — the source of the chain's graphite trade shares (HS 2504, 380110).</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data (graphite and related materials).</span>
+      <span class="abs"><b>Summary.</b> USGS index page for Mineral Commodity Summaries 2026: downloadable PDF chapters for every commodity plus the full report and appendixes — USGS's annual reference on domestic and world mineral production, supply and use, the series behind the graphite production figures.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>Quantitative Western <b>spheronising / synthetic-anode capacity</b> build-out (US IRA-backed plants, EU projects) is present here only qualitatively, not as hard tonnage. Next: "spherical graphite plant capacity United States Europe 2025 2026 announced" — or Benchmark facility data and company filings.</li>
+      <li><b>No HS6 customs line isolates spherical/coated anode graphite</b> from ordinary flake or refractory graphite (or from artificial graphite HS380110), so BACI reads the raw forms only. Worth checking national customs schedules directly, including China's own export-control HS lines.</li>
+      <li>Academic <b>material-flow analysis specific to anode-grade graphite</b> (parallel to the gallium/indium MFA work) was not retrieved. Next: "material flow analysis battery anode graphite China".</li>
+      <li>The binding step — the <b>spherical-anode stage itself</b> — has no public country-level production series; it hides inside broad customs baskets and market-intelligence subscriptions. That invisibility is itself the finding, and mirrors the single-crystal-blade gap in the aerospace chain.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from natural flake and synthetic feedstock to the spherical, coated anode and the cell, with the export-control lever, cross-cutting frameworks and trade data grouped at the end. 30 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (paywalls, bot blocks, binary PDFs) that is flagged in italics, and USGS figures were recovered from the same commodity summaries via search. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="graphite-chain.html">The graphite chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
