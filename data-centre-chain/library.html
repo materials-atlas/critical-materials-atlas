@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Data-centre / AI-compute chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the data-centre / AI-infrastructure value chain, ordered to follow the chain from chip to grid connection. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="data-centre-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Data centres</div>
+    <h1>Data-centre / AI-compute chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">The story of AI infrastructure is told as a chip story, and the chip is a genuine chokepoint. But the constraint that now bites is electricity: data-centre power demand is set to roughly double by 2030, and connecting that load to the grid — transformers, substations, interconnection queues — is the binding limit. <b>The wall is megawatts, not a mineral.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① chips &amp; hardware (the upstream chokepoint) → ② electricity demand → ③ grid connection: transformers &amp; substations → ④ cooling, copper &amp; the material build-out → ⑤ operators — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="data-centre-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">31</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (22).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Chips &amp; AI hardware — the upstream chokepoint</td></tr>
+      <tr><td class="n">1</td><td>SEMI — Manufacturing Monitor</td><td class="took">Quarterly fab-utilisation / capacity / equipment-spend series → frames the chip layer upstream; the real chip chokepoint is analysed in the silicon-chip chain, not here.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">2</td><td>SEMI — Market Intelligence</td><td class="took">Semiconductor market-research hub → provenance for the chip-supply framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>USGS — Key Minerals in Data Centers</td><td class="took">Data-centre bill of materials by component → the §3 "material layer kept in proportion" panel — no bulk material is a unique chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>Life-Cycle Emissions of AI Hardware</td><td class="took">Cradle-to-grave split (operation ≫ embodied) → supports the finding that the concentrated risk lives in the chip chain and the power, not the bulk materials.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Energy Cost of the A.I. Lifecycle</td><td class="took">Per-stage energy across the machine-learning lifecycle → context that inference and transmission, not just training, drive the load.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Electricity demand — the curve that changed the problem</td></tr>
+      <tr><td class="n">6</td><td>IEA — Energy demand from AI</td><td class="took">The 485→950 TWh 2025→2030 projection + ~3% of world electricity → the headline stats and §1 demand panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>IEA — Energy and AI, Executive summary</td><td class="took">Top-line energy-and-AI framing → the deck and the "power, not the chip" correction.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>IEA — Key Questions on Energy and AI</td><td class="took">Scenario spread + capex context → reinforces the §2 uncertainty cards.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>IEA — surging electricity demand (news)</td><td class="took">700–1,700 TWh 2035 scenario range → the §2 "scenarios, not a number" cards.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>IEA — Energy supply for AI</td><td class="took">Fuel-mix of the load (renewables/gas/nuclear) → context for the supply side of the wall.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>US DOE / LBNL announcement</td><td class="took">US 58→176 TWh (2014→2023) → the history chart's two measured endpoints + the ~3× stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>2024 US Data Center Energy Usage Report (full PDF)</td><td class="took">Full 2014–2028 US series + 325–580 TWh (2028) band + 74–132 GW → <b>next enrichment:</b> replace the two-endpoint history with the full curve and add the power-demand read.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Electricity Demand &amp; Grid Impacts of AI Data Centers</td><td class="took">Training/inference demand patterns across three grid timescales → <b>next enrichment:</b> a demand-pattern / grid-impact panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Power for AI Data Centers (MDPI)</td><td class="took">Peer-reviewed demand + grid-integration review → corroborates the grid-connection wall. <span class="miss">Full text paywalled (403); noted from title/listing.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The grid connection — transformers &amp; substations</td></tr>
+      <tr><td class="n">15</td><td>ChinaTalk — Gridlocked (transformers)</td><td class="took">GOES bottleneck + domestic transformer supply ~20% of demand, 120-week lead times → <b>next enrichment:</b> a transformer-concentration panel behind the connection limit.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>PowerMag — Transformers in 2026</td><td class="took">2026 shortage, 128–144-week lead times → the transformer lead-time evidence behind §1's grid wall.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>The Conversation — grid equipment</td><td class="took">Equipment, not capacity, is the bottleneck (4–6× cost) → context for the interconnection-queue framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Rabobank — supply-chain constraints</td><td class="took">Power/water/materials/labour limits on buildout → corroborates "the binding limit is build-out, not the chip." <span class="miss">Page hard-blocked (403).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Cooling, copper &amp; the material build-out</td></tr>
+      <tr><td class="n">19</td><td>Generative AI LCA (multiple typologies)</td><td class="took">High-density facility LCA (up to 130 kW/rack) → the cooling/water dimension of the facility layer. <span class="miss">Publisher abstract paywalled (403).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Fastmarkets — copper demand</td><td class="took">Copper in busbars + liquid-cooling cold plates; 330–420 kt by 2030 → the copper-intensity note in §3.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>BofA Institute — resource shock</td><td class="took">~60–75 t metal per incremental MW + ~75% of water off-site → <b>next enrichment:</b> a metal-per-MW intensity panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">⑤ Operators &amp; the wider picture</td></tr>
+      <tr><td class="n">22</td><td>Uptime Institute — Research &amp; Reports</td><td class="took">Operator-research catalogue → provenance for the operator-side constraints.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>Uptime — Global Data Center Survey 2025</td><td class="took">15th survey — power availability now a top-tier constraint → corroborates the demand-side "power is the wall" finding.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>Socio-technical dynamics review</td><td class="took">364-article review of AI/data-centre energy → framing context, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">25</td><td>USGS — draft 2025 Critical Minerals List</td><td class="took">The 54-commodity draft list → provenance for the chip/hardware criticality layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>CRS R47982</td><td class="took">Critical-minerals-list policy background → the statutory frame around the hardware inputs.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>CRS R48005</td><td class="took">How USGS tracks critical-mineral supply for downstream electronics → methodology provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">28</td><td>CEPII BACI</td><td class="took">The trade engine → powers the hardware trade table (servers, networking gear, processors).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">29</td><td>LBNL — report landing page</td><td class="took">Dataset / methodology repository → the data basis behind the history chart. <span class="miss">Landing page 403; the report PDF it hosts was read directly (see #12).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">30</td><td>DCD — "double by 2030"</td><td class="took">Trade-press restatement of the ~945 TWh projection → corroborates the headline stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">31</td><td>Carbon Brief — five charts</td><td class="took">Data-centre share vs other demand drivers → keeps the demand curve in proportion.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Chips &amp; AI hardware — the upstream chokepoint <span class="ct">5</span></h2>
+  <div class="stagesub">The chip is a real chokepoint — but it is analysed in its own chain; here it is the starting hardware the load is built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.semi.org/en/products-services/market-data/manufacturing-monitor">SEMI, Semiconductor Manufacturing Monitor</a><span class="src"> · SEMI</span>
+      <span class="desc">Quarterly semiconductor manufacturing / fab-capacity data covering the chip layer upstream of data centres.</span>
+      <span class="abs"><b>Summary.</b> SEMI's quarterly Semiconductor Manufacturing Monitor tracks fab utilisation, equipment and materials spending, installed capacity and shipment trends across the global chipmaking supply chain. <span class="miss">(Subscription market-data product; landing page not directly retrievable — HTTP 403; summary from the product description.)</span></span>
+      <span class="dat"><b>Data.</b> Aggregated SEMI member / industry survey data on fab operations and equipment–materials markets.</span></li>
+    <li><a href="https://www.semi.org/en/products-services/market-intelligence">SEMI, Market Intelligence</a><span class="src"> · SEMI</span>
+      <span class="desc">SEMI's market-data hub for the semiconductor and electronics supply chain (3,000+ member companies).</span>
+      <span class="abs"><b>Summary.</b> SEMI's Market Intelligence portfolio compiles semiconductor market research, forecasts and data reports spanning equipment, materials and fab activity across the chip supply chain. <span class="miss">(Association market-data hub; page not directly retrievable — HTTP 403; summary from title and context.)</span></span>
+      <span class="dat"><b>Data.</b> Association-compiled industry statistics and forecasts.</span></li>
+    <li><a href="https://www.usgs.gov/media/images/key-minerals-data-centers-infographic">USGS, Key Minerals in Data Centers Infographic</a><span class="src"> · USGS</span>
+      <span class="desc">USGS map of the mineral commodities embedded in data-centre hardware.</span>
+      <span class="abs"><b>Summary.</b> USGS infographic mapping the minerals used to build and run data centres by component: server boards/circuitry (silver, gold, copper, tin, tantalum, palladium, platinum), heat sinks (aluminium, copper), semiconductors (arsenic, fluorite, gallium, germanium, indium, silicon, tantalum) and magnets/storage (barite, boron, rare earths); notes data-centre load roughly tripled 2014–2024.</span>
+      <span class="dat"><b>Data.</b> US import-reliance figures from USGS Mineral Commodity Summaries 2025 (gallium/germanium/indium/tantalum 100%, rare earths 80%).</span></li>
+    <li><a href="https://arxiv.org/html/2502.01671v1">Life-Cycle Emissions of AI Hardware: A Cradle-To-Grave Approach and Generational Trends</a><span class="src"> · arXiv (2025)</span>
+      <span class="desc">Cradle-to-grave manufacturing/operation analysis for data-centre accelerators.</span>
+      <span class="abs"><b>Abstract.</b> A cradle-to-grave greenhouse-gas assessment of five generations of accelerator hardware in data centres — raw-material extraction, manufacturing, operation and disposal. Operational electricity dominates (~70–90% of lifecycle emissions); memory is the largest embodied-carbon driver (about a third); carbon per inference improved roughly threefold across four years.</span>
+      <span class="dat"><b>Data.</b> Direct fleet measurement (power sampled every five minutes) over an assumed six-year lifespan under the GHG Protocol (Scopes 1–3), with market-, location- and hourly carbon-free-energy accounting.</span></li>
+    <li><a href="https://arxiv.org/pdf/2408.00540">The Energy Cost of the A.I. Lifecycle in Communication Networks</a><span class="src"> · arXiv (2024)</span>
+      <span class="desc">Energy-consumption formulas across the machine-learning lifecycle in network / data-centre contexts.</span>
+      <span class="abs"><b>Abstract.</b> A lifecycle energy analysis of deploying machine-learning workloads across communication networks — development, training, inference and network transmission. Finds energy costs extend well beyond training, with inference and data-transmission overhead contributing substantially, and that architecture choice materially affects cumulative energy; offers accuracy-versus-energy trade-off frameworks.</span>
+      <span class="dat"><b>Data.</b> Lifecycle assessment combining empirical power measurements with theoretical modelling across architectures (Transformers, CNNs, Kolmogorov–Arnold Networks).</span></li>
+  </ul>
+
+  <h2 class="sec">② Electricity demand — the curve that changed the problem <span class="ct">9</span></h2>
+  <div class="stagesub">Roughly a doubling of data-centre electricity by 2030 — the demand that moved the chokepoint downstream.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai">IEA, Energy and AI — Energy demand from AI</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">The central IEA analysis of AI-driven data-centre electricity demand; source of the 485→950 TWh projection.</span>
+      <span class="abs"><b>Abstract.</b> IEA analysis: data-centre electricity was about 415 TWh in 2024 (~1.5% of world electricity), growing ~12% a year. In the base case it doubles to around 945 TWh by 2030 (just under 3% of world electricity), with the United States and China accounting for nearly 80% of the growth.</span>
+      <span class="dat"><b>Data.</b> Scenario-based approach (Lift-Off, High Efficiency, Headwinds cases) built on near-term industry projections for server shipments.</span></li>
+    <li><a href="https://www.iea.org/reports/energy-and-ai/executive-summary">IEA, Energy and AI — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Top-line findings of the flagship IEA Energy and AI report.</span>
+      <span class="abs"><b>Abstract.</b> The flagship report examines the two-way link between energy and AI. Data centres used about 1.5% of world electricity in 2024 (415 TWh), led by the US (45%), China (25%) and Europe (15%); consumption more than doubles to ~945 TWh by 2030, renewables meeting half the growth, with wide uncertainty (700–1,700 TWh by 2035).</span>
+      <span class="dat"><b>Data.</b> A new global model and dataset of data-centre electricity demand, plus consultation with policymakers, the technology sector and the energy industry.</span></li>
+    <li><a href="https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary">IEA, Key Questions on Energy and AI — Executive summary</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Follow-up IEA report addressing open questions on data-centre energy.</span>
+      <span class="abs"><b>Abstract.</b> A 2026 follow-up updating the earlier landmark analysis. Capital expenditure of just five technology firms now exceeds global oil-and-gas production investment; per-task efficiency improves at least an order of magnitude annually, yet demanding applications use far more per query. Data-centre electricity roughly doubles from 485 TWh (2025) to 950 TWh (2030).</span>
+      <span class="dat"><b>Data.</b> Satellite-based tracking of data-centre development, financial-market analysis, economic modelling with OECD cooperation, and an energy-company survey on adoption barriers.</span></li>
+    <li><a href="https://www.iea.org/news/ai-is-set-to-drive-surging-electricity-demand-from-data-centres-while-offering-the-potential-to-transform-how-the-energy-sector-works">IEA, AI is set to drive surging electricity demand from data centres</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">News release accompanying the Energy and AI report, with the 2030/2035 scenario range (700–1,700 TWh).</span>
+      <span class="abs"><b>Summary.</b> News release (10 April 2025) for the Energy and AI report: worldwide data-centre electricity demand more than doubles by 2030 to about 945 TWh, with demand from AI-optimised facilities more than quadrupling; US data centres account for almost half of national demand growth to 2030.</span>
+      <span class="dat"><b>Data.</b> Comprehensive global analysis of energy–AI links, spanning renewables and natural gas as supply options.</span></li>
+    <li><a href="https://www.iea.org/reports/energy-and-ai/energy-supply-for-ai">IEA, Energy supply for AI</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">IEA analysis of how data-centre power demand will be met (renewables, nuclear, gas).</span>
+      <span class="abs"><b>Abstract.</b> Electricity generation serving data centres rises from 460 TWh (2024) to over 1,000 TWh by 2030 and 1,300 TWh by 2035 (base case). The 2024 mix is roughly coal 30%, renewables 27%, natural gas 26%, nuclear 15%; renewables meet nearly half of added demand, growing 22% a year; CO₂ emissions peak near 320 Mt around 2030.</span>
+      <span class="dat"><b>Data.</b> Analysis of the fuel mix physically consumed by data centres, rather than contractual renewable agreements.</span></li>
+    <li><a href="https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers">US DOE / LBNL, 2024 Report on U.S. Data Center Energy Use (announcement)</a><span class="src"> · US DOE (2024)</span>
+      <span class="desc">DOE announcement of the LBNL report; source of the US 58→176 TWh (2014→2023) history.</span>
+      <span class="abs"><b>Summary.</b> DOE announcement of Lawrence Berkeley National Laboratory's 2024 report: US data-centre electricity rose from 58 TWh (2014) to 176 TWh (2023) and is projected at 325–580 TWh by 2028 (roughly 6.7–12% of US electricity, up from 4.4% in 2023). DOE outlines onsite-power, retired-coal-site and advanced-nuclear responses.</span>
+      <span class="dat"><b>Data.</b> Based on the LBNL 2024 US data-centre energy usage report projecting consumption through 2028.</span></li>
+    <li><a href="https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report_1.pdf">2024 United States Data Center Energy Usage Report (full PDF)</a><span class="src"> · LBNL / US DOE (2024)</span>
+      <span class="desc">The underlying report with the full 2014–2028 US series and the 2028 scenario band.</span>
+      <span class="abs"><b>Abstract.</b> The LBNL report, mandated by the Energy Act of 2020, reconstructs US data-centre electricity back to 2014 and projects to 2028. Use held near 60 TWh through 2014–2016, then climbed as accelerated servers grew, reaching 176 TWh (4.4%) by 2023; scenarios span 325–580 TWh (6.7–12%) by 2028, or 74–132 GW of power demand.</span>
+      <span class="dat"><b>Data.</b> Bottom-up model of server, storage, network and infrastructure stock; input data from Omdia, Dell'Oro Group, S&amp;P Global and IDC, reviewed by ~50 industry organisations (LBNL-2001637).</span></li>
+    <li><a href="https://arxiv.org/pdf/2509.07218">Electricity Demand and Grid Impacts of AI Data Centers</a><span class="src"> · arXiv (2025)</span>
+      <span class="desc">Review of demand patterns across training / inference and the resulting grid impacts.</span>
+      <span class="abs"><b>Abstract.</b> A review of how fast-growing data-centre loads strain power grids, covering infrastructure and demand patterns from model preparation through inference. Frames the challenge across three timescales — long-term planning and interconnection, short-term markets and operations, and real-time stability — urging coordination among grid operators, facility operators and end users.</span>
+      <span class="dat"><b>Data.</b> Literature review and synthesis of existing studies (no new empirical dataset), spanning grid, data-centre and end-user perspectives.</span></li>
+    <li><a href="https://doi.org/10.3390/en19030722">Power for AI Data Centers: Energy Demand, Grid Impacts, Challenges and Perspectives</a><span class="src"> · MDPI Energies</span>
+      <span class="desc">Peer-reviewed review of data-centre power demand and grid-integration challenges.</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed review of the electricity demand of data centres, their impacts on power grids, and mitigation perspectives. <span class="miss">(Full text not directly retrievable — HTTP 403 on the MDPI page and its full-text mirror; noted from the article's title and listing.)</span></span>
+      <span class="dat"><b>Data.</b> Peer-reviewed review article (MDPI <i>Energies</i>).</span></li>
+  </ul>
+
+  <h2 class="sec">③ The grid connection — transformers &amp; substations <span class="ct">4</span></h2>
+  <div class="stagesub">The binding limit: transformers with multi-year lead times, substation capacity and interconnection queues — the same wall the grid chain documents.</div>
+  <ul class="refs">
+    <li><a href="https://www.chinatalk.media/p/gridlocked-transformer-shortage-choking">ChinaTalk, Gridlocked: Transformer Shortage Choking U.S. Supply Chains</a><span class="src"> · ChinaTalk</span>
+      <span class="desc">Deep dive on the grain-oriented electrical steel (GOES) bottleneck behind the transformer shortage.</span>
+      <span class="abs"><b>Abstract.</b> A critical shortage of electrical transformers is obstructing US infrastructure across housing, data centres and renewables. Domestic supply meets only ~20% of demand; lead times rose from 50 weeks (2021) to 120 weeks (2024); prices climbed 60–80% since 2020. The authors urge CHIPS-Act-style industrial policy and a strategic transformer reserve.</span>
+      <span class="dat"><b>Data.</b> Wood Mackenzie lead-time data (Apr 2024), a NIAC June 2024 supply-side report, transformer trade figures and utility resource-planner interviews.</span></li>
+    <li><a href="https://www.powermag.com/transformers-in-2026-shortage-scramble-or-self-inflicted-crisis/">PowerMag, Transformers in 2026: Shortage, Scramble, or Self-Inflicted Crisis?</a><span class="src"> · Power Magazine (2026)</span>
+      <span class="desc">Industry analysis of the 2026 transformer shortage and its causes.</span>
+      <span class="abs"><b>Summary.</b> Examines whether the US transformer shortage is a genuine supply crisis or a procurement problem. Wood Mackenzie projects 30% power and 10% distribution shortfalls through 2025; lead times reach 128–144 weeks; prices are up 45–77% since 2019 — though one market broker disputes that any true shortage exists.</span>
+      <span class="dat"><b>Data.</b> Wood Mackenzie August 2025 projections, Q2 2025 lead-time surveys, manufacturing-investment tracking and broker interviews.</span></li>
+    <li><a href="https://theconversation.com/supply-chain-delays-rising-equipment-prices-threaten-electricity-grid-269448">The Conversation, Supply-chain delays, rising equipment prices threaten electricity grid</a><span class="src"> · The Conversation</span>
+      <span class="desc">Explainer on equipment-price and lead-time pressure on grid buildout.</span>
+      <span class="abs"><b>Abstract.</b> Equipment shortages — not generation or transmission capacity — are the critical bottleneck constraining US grid expansion. Transformer lead times reached about 120 weeks (up to four years for large units) at four-to-six times pre-2022 cost; circuit-breaker waits doubled to nearly three years; some gas turbines are sold out seven years ahead.</span>
+      <span class="dat"><b>Data.</b> NREL transformer-inventory data, NERC reliability assessments, Duke Nicholas Institute research citing Wood Mackenzie, and DOE reports.</span></li>
+    <li><a href="https://www.rabobank.com/knowledge/d011526506-supply-chain-constraints-are-curbing-us-data-center-development">Rabobank, Supply chain constraints are curbing US data center development</a><span class="src"> · Rabobank</span>
+      <span class="desc">Financial-sector analysis of power, water, materials and labour constraints on US data-centre buildout.</span>
+      <span class="abs"><b>Summary.</b> Financial-sector analysis of how power, water, materials and labour constraints are curbing US data-centre development. <span class="miss">(Page hard-blocked — HTTP 403 to both automated fetch and browser-headed retrieval; noted from the article title only.)</span></span>
+      <span class="dat"><b>Data.</b> Rabobank research note — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Cooling, copper &amp; the material build-out <span class="ct">3</span></h2>
+  <div class="stagesub">A data centre is copper, water and steel — a large demand, but no single bulk material is a unique chokepoint. The honest framing is energy-and-chips, not a new mineral.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0306261925020185">Generative AI impact assessment through a life cycle analysis of multiple data center typologies</a><span class="src"> · ScienceDirect (2025)</span>
+      <span class="desc">LCA of generative workloads across differing data-centre designs, at up to 130 kW/rack density.</span>
+      <span class="abs"><b>Summary.</b> Life-cycle assessment of generative workloads across multiple data-centre typologies, modelling high-density infrastructure at up to 130 kW per rack. <span class="miss">(Publisher abstract page not directly retrievable — HTTP 403 / paywall; noted from the article's title and indexing.)</span></span>
+      <span class="dat"><b>Data.</b> Life-cycle assessment comparing multiple data-centre typologies (Applied Energy, 2025).</span></li>
+    <li><a href="https://www.fastmarkets.com/insights/copper-demand-data-centers-future-trends/">Fastmarkets, How AI and data center growth drive copper demand in the US</a><span class="src"> · Fastmarkets</span>
+      <span class="desc">Market analysis of copper demand from data-centre and AI buildout (busbars, cold plates for liquid cooling).</span>
+      <span class="abs"><b>Summary.</b> AI and data-centre expansion are accelerating US copper demand: energy-transition copper use is projected to grow 8.9% a year through 2035, with Macquarie estimating 330,000–420,000 t of copper in data centres by 2030. Construction is 30–40% electrical, cooling an increasingly large driver (busbars, cold plates).</span>
+      <span class="dat"><b>Data.</b> Fastmarkets 10-year outlook (May 2025), Macquarie research, a NEMA 2024 cooling study and industry-expert interviews.</span></li>
+    <li><a href="https://institute.bankofamerica.com/content/dam/sustainability/data-center-construction.pdf">Bank of America Institute, Data center construction creates a resource shock</a><span class="src"> · BofA Institute</span>
+      <span class="desc">Estimates data-centre-driven copper demand and metal intensity per MW.</span>
+      <span class="abs"><b>Abstract.</b> Data-centre construction creates a resource shock across water, power and metals. Up to 75% of a data centre's water use occurs off-site through electricity generation; each incremental megawatt of capacity embeds roughly 60–75 tons of metals, especially copper. Global capacity is expected to exceed 200 GW by 2030 and triple by 2035.</span>
+      <span class="dat"><b>Data.</b> BofA Global Research, drawing on IEA and BloombergNEF data, a Black &amp; Veatch 2025 survey of 680 US water-sector stakeholders, and university water-demand estimates.</span></li>
+  </ul>
+
+  <h2 class="sec">⑤ Operators &amp; the wider picture <span class="ct">3</span></h2>
+  <div class="stagesub">What the operators building now actually report — and the broad reviews that put the whole load in context.</div>
+  <ul class="refs">
+    <li><a href="https://uptimeinstitute.com/resources/research-and-reports">Uptime Institute, Research and Reports</a><span class="src"> · Uptime Institute</span>
+      <span class="desc">The data-centre industry's principal research body; annual survey and infrastructure reports.</span>
+      <span class="abs"><b>Summary.</b> Index of Uptime Institute Intelligence research: annual global data-centre surveys (2018–2026), outage analyses, year-ahead predictions and topic reports on direct liquid cooling, energy efficiency, sustainability, staffing and resiliency. Executive summaries are public; fuller reports require membership.</span>
+      <span class="dat"><b>Data.</b> Uptime Institute Intelligence publications catalogue spanning 2017–2026.</span></li>
+    <li><a href="https://uptimeinstitute.com/resources/research-and-reports/uptime-institute-global-data-center-survey-results-2025">Uptime Institute Global Data Center Survey Results 2025</a><span class="src"> · Uptime Institute (2025)</span>
+      <span class="desc">800+-operator survey finding power availability is now a top-tier strategic constraint.</span>
+      <span class="abs"><b>Abstract.</b> The 15th annual Uptime Institute Global Data Center Survey describes a resilient industry now facing rising costs, worsening power constraints and difficulty meeting AI-driven demand. Operators must simultaneously manage availability, efficiency, staffing shortages and supply-chain delays as facilities expand for power and density.</span>
+      <span class="dat"><b>Data.</b> 15th annual global operator survey; a 13-page public executive summary excerpting a 31-page full report.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S1364032126001607">Reviewing the socio-technical dynamics of AI, data centers and digitalization on energy and the environment</a><span class="src"> · ScienceDirect (2026)</span>
+      <span class="desc">Broad review connecting AI / data-centre growth to energy-system and environmental effects.</span>
+      <span class="abs"><b>Abstract.</b> A socio-technical review screening 364 articles (2000–2025) across four dimensions of AI, data centres and digitalisation: natural resources, facilities and components, applications, and users and institutions. It asks which low- and zero-carbon technologies mitigate energy and carbon footprints, what blocks adoption, and which policies help.</span>
+      <span class="dat"><b>Data.</b> Systematic literature review of 364 peer-reviewed articles (2000–2025); Renewable and Sustainable Energy Reviews.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">3</span></h2>
+  <div class="stagesub">List methodologies and US assessments that classify the hardware layer's mineral inputs.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/news/science-snippet/department-interior-releases-draft-2025-list-critical-minerals">USGS, Department of the Interior releases draft 2025 List of Critical Minerals</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">The current US critical-minerals list, relevant to the chip/hardware layer of the chain.</span>
+      <span class="abs"><b>Summary.</b> The Interior Department, through the USGS, released a draft 2025 Critical Minerals List of 54 commodities — recommending adding potash, silicon, copper, silver, rhenium and lead, and removing arsenic and tellurium — to guide federal strategy, investment and permitting.</span>
+      <span class="dat"><b>Data.</b> USGS economic-effects model assessing 1,200+ trade-disruption scenarios over 84 commodities and 402 industries; probability-weighted economic impact.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R47982">CRS R47982, Critical Mineral Resources: National Policy and Critical Minerals List</a><span class="src"> · Congressional Research Service</span>
+      <span class="desc">Background on the US critical-minerals list and import reliance (100% reliant for 12 of 50 minerals).</span>
+      <span class="abs"><b>Abstract.</b> The report reviews changes to national materials and minerals policy, the evolving definition of a "critical mineral," and development of the critical-minerals list, then discusses the list's impact on federal policy. It notes the 2021 amendment to the 1980 policy act and the supply-resilience issues facing Congress.</span>
+      <span class="dat"><b>Data.</b> CRS report R47982 (updated Jan 2026); legal/policy analysis grounded in the National Materials and Minerals Policy Act and Energy Act of 2020.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R48005">CRS R48005, Critical Mineral Resources: The USGS Role in Research and Analysis</a><span class="src"> · Congressional Research Service</span>
+      <span class="desc">How USGS assesses and tracks critical-mineral supply for downstream industries including electronics.</span>
+      <span class="abs"><b>Abstract.</b> The report examines the USGS as the lead federal science agency for mineral-resource research. Under the Energy Act of 2020 the Secretary of the Interior, through the USGS Director, designates critical minerals as those essential to economic and national security with vulnerable supply chains and essential manufacturing functions; it covers national mapping and data initiatives.</span>
+      <span class="dat"><b>Data.</b> CRS report R48005 (Feb 2025, Linda R. Rowan); USGS mineral-resource research and import-reliance data.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — and the trade caveat that a data centre is built and operated in place.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonised bilateral trade database (HS6, 1995–2024) used for the chain's hardware trade table.</span>
+      <span class="abs"><b>Summary.</b> BACI provides bilateral trade flows for ~200 countries across ~5,000 HS6 products. It reconciles duplicate Comtrade reports in two steps — estimating and removing CIF costs to align importer with FOB exporter values, then down-weighting reporters whose data diverge from partners to set harmonised flows.</span>
+      <span class="dat"><b>Data.</b> Reconciled bilateral trade from UN Comtrade; HS6, 1995–2024; version V202601 (released 30 Jan 2026), Etalab 2.0 licence.</span></li>
+    <li><a href="https://eta-publications.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report">LBNL Energy Technologies Area, 2024 Data Center Energy Usage Report landing page</a><span class="src"> · LBNL</span>
+      <span class="desc">Repository page for the underlying US data-centre energy dataset and methodology.</span>
+      <span class="abs"><b>Summary.</b> The LBNL Energy Technologies Area publication record for the 2024 US Data Center Energy Usage Report — the repository entry for the report's dataset and methodology. <span class="miss">(Landing page not directly retrievable — HTTP 403; the report PDF it hosts was read directly and appears above at #12.)</span></span>
+      <span class="dat"><b>Data.</b> Publication record for the LBNL 2024 report (LBNL-2001637).</span></li>
+    <li><a href="https://www.datacenterdynamics.com/en/news/iea-data-center-energy-consumption-set-to-double-by-2030-to-945twh/">DCD, IEA: Data center energy consumption set to double by 2030 to 945TWh</a><span class="src"> · Data Center Dynamics (2025)</span>
+      <span class="desc">Trade-press summary of the IEA projection.</span>
+      <span class="abs"><b>Summary.</b> Trade-press summary of the IEA projection: global data-centre electricity use more than doubles to 945 TWh by 2030 from 415 TWh in 2024, with AI the main driver and the US and China together accounting for nearly 80% of the growth.</span>
+      <span class="dat"><b>Data.</b> Reporting on the IEA Energy and AI report (Apr 2025) demand projections to 2030/2035.</span></li>
+    <li><a href="https://www.carbonbrief.org/ai-five-charts-that-put-data-centre-energy-use-and-emissions-into-context">Carbon Brief, AI: Five charts that put data-centre energy use — and emissions — into context</a><span class="src"> · Carbon Brief</span>
+      <span class="desc">Chart-driven explainer contextualising data-centre energy and emissions growth.</span>
+      <span class="abs"><b>Summary.</b> Chart explainer putting data-centre energy in context: data centres were just over 1% of global electricity and 0.5% of CO₂ in 2024, driving roughly 8% of demand growth to 2030 (behind EVs and air-conditioning) — up to 50% in advanced economies — with wide forecast uncertainty.</span>
+      <span class="dat"><b>Data.</b> Charts from the IEA Energy and AI report, IEA Global Energy Review, LBNL analysis and Global Energy Monitor.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>EU-side source</b> (JRC / EU Commission Critical Raw Materials Act) specific to data-centre hardware or European data-centre power demand surfaced — next: "EU JRC data centre electricity critical raw materials" or "European Commission data centre energy report."</li>
+      <li>No dedicated <b>criticality / material-flow paper</b> with a data-centre bill of materials was found — next: "data center bill of materials critical minerals Resources Policy" or "server hardware material criticality assessment."</li>
+      <li>No primary <b>US EIA</b> data-centre electricity dataset was surfaced — next: "EIA data center electricity consumption forecast" for an official statistical counterpart to LBNL/IEA.</li>
+      <li><b>GOES / transformer-steel</b> supply is thin on primary industry sources — next: "grain-oriented electrical steel capacity" or "IEEE transformer core steel supply chain" for manufacturer-side detail.</li>
+      <li>The <b>academic power/LCA layer</b> is largely paywalled (MDPI, the ScienceDirect LCAs) — an open-access mirror or preprint pass ("data center power demand grid impact arXiv 2025") would let those abstracts be quoted in full.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from chip to grid connection, with cross-cutting frameworks and data grouped at the end. 31 unique sources (two exact duplicates in the source notes — a second CEPII listing and a repeated USGS infographic — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 / paywall / bot-block) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="data-centre-chain.html">The data-centre chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

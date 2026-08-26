@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Electrolyser / hydrogen chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the green-hydrogen electrolyser value chain, ordered to follow the chain from catalyst material to finished hydrogen. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./electrolyser-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Electrolyser</div>
+    <h1>Electrolyser / hydrogen chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Electrolysis splits water into hydrogen using either a PEM stack — which needs iridium and platinum — or an alkaline stack, which needs only nickel. Today the sector is a few gigawatts and the near-term limit is cost and demand, not metals; the feared iridium chokepoint is real but future-tense. <b>And it is optional — chemistry, not the mine, decides it.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Catalyst materials — iridium &amp; platinum (PEM) vs nickel (alkaline) → ② the escape hatch: alkaline chemistry, thrifting &amp; recycling → ③ stacks, systems &amp; manufacturing → ④ green hydrogen at scale — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./electrolyser-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">34</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (18) · <span class="pill ref">Reference</span> context / provenance (11).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Catalyst materials — the iridium bottleneck (PEM)</td></tr>
+      <tr><td class="n">1</td><td>IEA — Mineral requirements for clean energy</td><td class="took">Foundational demand-side scenarios → the atlas's "material risk is future-tense, and scales with deployment" framing for the whole chain.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Material gap in GW-scale PEM (RCR)</td><td class="took">Method: iridium material-flow gap vs deployment → how deep loading cuts must go (89–97% by 2050). Needs full text to reproduce the flow model.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>Is iridium demand a bottleneck? (IJHE 2021)</td><td class="took">The two-precondition test (loading cut + ≥90% recycling) → the recyclability lever in the escape-hatch story.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Critical iridium demands (arXiv)</td><td class="took">Supply benchmark ~7.5 t/yr by-product, ~30% of output needed → sharpens the "by-product of a by-product" ceiling; 2030 timing to fold in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>Severe supply risk of iridium</td><td class="took">The 32–40 t (2030 demand) vs ~7 t (supply) figures → a concrete number for the future iridium gap.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>Methodological insights on stack criticality</td><td class="took">Cross-stack criticality method (alkaline lowest; Ir=PEM, Ni=alkaline) → underpins "PEM vs alkaline decides the exposure."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Sustainable supply for electrolysers (Nature)</td><td class="took">Six-dimension device comparison → per-technology weak-point mapping (PEM = disruption risk, alkaline = depletion).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② The escape hatch — alkaline, thrifting &amp; recycling</td></tr>
+      <tr><td class="n">8</td><td>Cost of alkaline vs PEM stacks (IJHE)</td><td class="took">Stack-cost trajectories to 2030 (alkaline far cheaper) → the economics behind "chemistry is the lever."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Green hydrogen catalyst materials 2026 (Patsnap)</td><td class="took">Price/abundance contrast (Ir ~$4,700/oz vs Ni ~$14/kg) → context for why the alkaline route is attractive.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>Iridium availability (WPIC)</td><td class="took">The substitution/thrifting/recycling lever set → the optimistic counter-case to the bottleneck.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>Recycling and thrifting (Johnson Matthey)</td><td class="took">Loading-cut arithmetic (~75% → 8–10 t) → the mitigation counter-case, in the refiner's own terms.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>Critical materials white paper (JCDREAM/CHARGE)</td><td class="took">US import-reliance + loading data (0.45 kg Ir/MW) → national-exposure context; loadings to reproduce.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Why iridium won't constrain PEM (Mining Review)</td><td class="took">Trade-press restatement of the WPIC optimistic case. <span class="miss">Page 403 — noted from the visible snippet only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>Rising Pt/Ir prices &amp; PEM (Hydrogen Insight)</td><td class="took">PGM cost-share of a PEM stack (iridium ~8%). <span class="miss">Behind a paywall — noted from the snippet only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>PGMs: an enabler, not a barrier (Hydrogen Tech World)</td><td class="took">Illustrative 1.5 t/yr Ir → 1,000+ GW scenario → the strongest "not a barrier" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Stacks, systems &amp; manufacturing</td></tr>
+      <tr><td class="n">16</td><td>Hydrogen Shot water-electrolysis assessment (DOE)</td><td class="took">$1/kg target + three-lever pathway across PEM/alkaline/AEM/SOEC → the "cost, not minerals" near-term framing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Electrolysers tracking page (IEA)</td><td class="took">Installed- and manufacturing-capacity tracking → the source behind the installed-GW history.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>Electrolyser manufacturing capacity (EU Observatory)</td><td class="took">EU manufacturing-capacity dataset by technology → a build-out denominator for the deployment story.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>EU 2025 status report (SETIS/JRC)</td><td class="took">EU operational (514–800 MW) and manufacturing (8.9→41.7 GW/yr) figures → European scale context.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>Hydrogen Insights 2024 (Hydrogen Council)</td><td class="took">FID/investment pipeline (434 projects, $75bn) → a deployment-reality check on the announcement hype.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>Hydrogen Insights 2023 (Hydrogen Council)</td><td class="took">Prior-year baseline (announced vs FID gap) → the stalled-pipeline trend across two editions.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Green hydrogen at scale — production &amp; demand</td></tr>
+      <tr><td class="n">22</td><td>Global Hydrogen Review 2025 — exec summary (IEA)</td><td class="took">Demand ~100 Mt, &lt;1% low-emissions, China ~65%/60% shares → the "tiny base" stats and the chain's correction.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">23</td><td>Global Hydrogen Review 2026 — production (IEA)</td><td class="took">Installed electrolysis doubled to &gt;4 GW (2025) → the 0.6→4 GW history endpoint.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">24</td><td>Green Hydrogen Cost Reduction (IRENA)</td><td class="took">Cost curve (electricity #1, electrolyser #2; up to −80%) → the "cost, not minerals, is the near-term limit" framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">25</td><td>GHR 2025 — progress dashboard (IEA)</td><td class="took">Four-area progress tracker → provenance for the capacity/investment figures.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">26</td><td>GHR 2025 — production prospects to 2030 (IEA)</td><td class="took">Pipeline likelihood tiers + &gt;50% slippage → the "demand is a projection, not a fact" flag.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">27</td><td>GHR 2025 — five key questions (IEA)</td><td class="took">Offtake &lt;2 Mtpa as the binding constraint → the "demand limits, not metals" point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>GHR 2025 — full report (IEA)</td><td class="took">The China ~65%/60% shares. <span class="miss">PDF returned as binary — corroborated by the report's own web sections.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">29</td><td>Ramp slower than we wanted (GH2)</td><td class="took">Advocacy read of the same IEA numbers → sector-perspective context on the definition of "low-emissions."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">30</td><td>Underused electrolyser factories (gasworld/EIC)</td><td class="took">3 of 31 GW at FID, 86% China alkaline → the demand-binding evidence and the alkaline-manufacturing tilt.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">31</td><td>Ranking critical materials 2024 (IRENA)</td><td class="took">Renewable-specific criticality index (PGMs high, platinum only moderate) → a framework to place iridium and nickel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">32</td><td>Enough minerals for electrolyzers? (Breakthrough)</td><td class="took">Reserves-adequate-but-PEM-vulnerable synthesis → the "scarcity isn't the wall" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">33</td><td>The material risk of green hydrogen (Ramboll)</td><td class="took">CAPEX-exposure framing (~10% of alkaline) → decision-layer risk context, drawn from EV-battery/wind lessons.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">34</td><td>CEPII BACI</td><td class="took">The trade engine → the flagged electrical-machinery context (BACI cannot isolate stack type or iridium).</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Catalyst materials — the iridium bottleneck (PEM) <span class="ct">7</span></h2>
+  <div class="stagesub">PEM's oxygen-evolution catalyst is iridium — among Earth's scarcest elements, a by-product of platinum mining. The literature that quantifies the future gap.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/the-role-of-critical-minerals-in-clean-energy-transitions/mineral-requirements-for-clean-energy-transitions">The Role of Critical Minerals in Clean Energy Transitions — Mineral requirements</a><span class="src"> · IEA (2021)</span>
+      <span class="desc">Foundational mineral-demand-scenario report covering electrolyser and other clean-energy materials.</span>
+      <span class="abs"><b>Summary.</b> IEA scenario report: clean-energy mineral demand roughly doubles by 2040 under stated policies and quadruples under sustainable development, with technology choice — including electrolyser design — a major uncertainty. The demand-side reference for electrolyser materials.</span>
+      <span class="dat"><b>Data.</b> IEA STEPS/SDS deployment scenarios × sub-technology market shares × mineral-intensity data, with 11 alternative technology cases plus a base case.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344925005646">Addressing the material gap in GW-scale PEM electrolyser deployment</a><span class="src"> · Resources, Conservation &amp; Recycling</span>
+      <span class="desc">Quantifies the iridium "material gap" against GW-scale PEM deployment goals.</span>
+      <span class="abs"><b>Abstract.</b> Finds plausible iridium availability insufficient for projected PEM deployment even under optimistic catalyst-loading cuts: staying within supply demands an 89–97% reduction in iridium use by 2050, with loadings falling from 0.64 kg/MW to 0.07–0.02 kg/MW by 2030. Platinum is judged less pressing, aided by future secondary supply.</span>
+      <span class="dat"><b>Data.</b> Scenario / material-flow analysis coupling PEM deployment scenarios with catalyst material-intensity and iridium/platinum secondary-supply assumptions.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0360319921016219">Is iridium demand a potential bottleneck in the realization of large-scale PEM water electrolysis?</a><span class="src"> · Int. J. Hydrogen Energy (2021)</span>
+      <span class="desc">Early, widely-cited quantitative bottleneck study.</span>
+      <span class="abs"><b>Abstract.</b> Assesses whether iridium — PEM's scarce oxygen-evolution catalyst — bottlenecks large-scale water electrolysis. Concludes it does: meeting future demand requires two preconditions together, a dramatic cut in iridium catalyst loading and a recycling infrastructure reaching end-of-life recycling rates of at least 90%.</span>
+      <span class="dat"><b>Data.</b> Model combining iridium reserves and mine production, PEM technical loading-optimisation prospects, and a ~50-year market ramp-up model.</span></li>
+    <li><a href="https://arxiv.org/abs/2509.05357">Critical Iridium Demands arising from future Expansion of Proton Exchange Membrane Electrolysis</a><span class="src"> · arXiv preprint (2025)</span>
+      <span class="desc">Finds supply shortages could arise as early as 2030 and net-zero paths need ~30% of global iridium output.</span>
+      <span class="abs"><b>Abstract.</b> Estimates future iridium demand from expanding PEM electrolysis against a by-product supply of only ~7.5 t/yr from platinum mining. Meeting net-zero targets needs both major catalyst-efficiency gains and roughly 30% of annual global iridium output; shortages could arise as early as 2030, earlier than previously anticipated, with post-2040 needs underestimated.</span>
+      <span class="dat"><b>Data.</b> Demand model across PEM deployment and catalyst-efficiency scenarios benchmarked against ~7.5 t/yr iridium by-product supply.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1383586625040262">Severe supply risk of iridium on hydrogen energy and its sustainable development strategy</a><span class="src"> · Separation and Purification Technology</span>
+      <span class="desc">Supply-risk assessment plus mitigation strategy (recycling, loading reduction, alloying).</span>
+      <span class="abs"><b>Abstract.</b> Warns PEM electrolysers could consume 32–40 tonnes of iridium by 2030 against global annual production near 7 tonnes — a severe supply–demand imbalance constraining the hydrogen industry. Proposes three complementary mitigations: substitution, loading reduction, and recycling, alongside a full supply–demand analysis.</span>
+      <span class="dat"><b>Data.</b> Supply–demand analysis (iridium production versus projected PEM demand) plus a qualitative mitigation-strategy framework; no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S266737892500015X">Methodological insights of defining material criticality by assessing different electrolysis and fuel cell stacks</a><span class="src"> · ScienceDirect</span>
+      <span class="desc">Cross-technology criticality methodology for electrolyser/fuel-cell stacks.</span>
+      <span class="abs"><b>Abstract.</b> Compares product-level material-criticality indicators using different electrolysis and fuel-cell stacks as the test case. Alkaline electrolysis scores lowest criticality in seven of nine indicators; iridium drives PEM criticality, nickel drives alkaline, and rare earths drive solid-oxide. Five of nine indicators converge on the same hotspots.</span>
+      <span class="dat"><b>Data.</b> Nine criticality indicators applied to bill-of-materials / composition data for PEM, alkaline and solid-oxide stacks — a methodological comparison.</span></li>
+    <li><a href="https://www.nature.com/articles/s43247-025-02621-6">Sustainable supply of critical materials for water electrolysers and fuel cells</a><span class="src"> · Communications Earth &amp; Environment</span>
+      <span class="desc">Broader materials-sustainability assessment across electrolyser technologies.</span>
+      <span class="abs"><b>Abstract.</b> Assesses sustainable supply of eight critical materials (nickel, zirconium, platinum, iridium, titanium, lanthanum, yttrium, strontium) across three electrolyser and two fuel-cell types over six dimensions — supply-disruption risk, environmental and social impact, depletion pressure, circularity, substitutability. Alkaline's weak points are depletion and substitutability; PEM's is supply-disruption risk.</span>
+      <span class="dat"><b>Data.</b> Six-dimension criticality review synthesising published data across five device types; no new primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② The escape hatch — alkaline, thrifting &amp; recycling <span class="ct">8</span></h2>
+  <div class="stagesub">The chokepoint is optional. Alkaline chemistry avoids PGMs entirely; where PEM is used, thrifting and recycling can stretch the iridium — the counter-case, in the industry's own words.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0360319923022590">Present and future cost of alkaline and PEM electrolyser stacks</a><span class="src"> · Int. J. Hydrogen Energy (2023)</span>
+      <span class="desc">Cost-trajectory comparison underpinning the alkaline-vs-PEM economics.</span>
+      <span class="abs"><b>Abstract.</b> Techno-economic assessment of alkaline and PEM stack costs to 2030. Total stack cost falls from 242–388 €/kW (alkaline) and 384–1071 €/kW (PEM) in 2020 to 52–79 €/kW (alkaline) and 63–234 €/kW (PEM) by 2030 — the economics underlying the alkaline-versus-PEM choice.</span>
+      <span class="dat"><b>Data.</b> Techno-economic analysis combining bottom-up (component/material) and top-down cost approaches.</span></li>
+    <li><a href="https://www.patsnap.com/resources/blog/articles/green-hydrogen-catalyst-materials-2026-pem-alkaline/">Green hydrogen catalyst materials 2026: PEM &amp; alkaline</a><span class="src"> · Patsnap</span>
+      <span class="desc">Technology-landscape overview of catalyst materials by electrolyser type.</span>
+      <span class="abs"><b>Summary.</b> Technology-landscape blog framing green-hydrogen scaling as a catalyst-materials problem: PEM needs scarce PGMs (iridium ~7–8 t/yr, ~$4,700/oz) while alkaline/AEM use abundant nickel–iron / nickel–molybdenum (~$14/kg). Surveys five catalyst-innovation themes.</span>
+      <span class="dat"><b>Data.</b> Commercial patent-analytics vendor commentary; patent-landscape framing plus generic price/production figures, no primary data.</span></li>
+    <li><a href="https://platinuminvestment.com/about/60-seconds-in-platinum/2023/08/17">Iridium availability — 60 Seconds in Platinum</a><span class="src"> · World Platinum Investment Council</span>
+      <span class="desc">PGM-industry view of iridium's by-product supply constraints.</span>
+      <span class="abs"><b>Summary.</b> PGM-industry view arguing iridium supply suffices for PEM demand to the IEA's 2050 level (1,550 GW) despite ~250,000 oz/yr output, resting on three levers: substitution to other PGMs, thrifting (400→100→possibly 30 kg/GW), and recycling toward 99%.</span>
+      <span class="dat"><b>Data.</b> World Platinum Investment Council research citing IEA capacity projections and the US clean-hydrogen roadmap; industry advocacy, no primary dataset.</span></li>
+    <li><a href="https://matthey.com/science-and-innovation/expert-insights/2022/recycling-and-thrifting-the-answer-to-the-iridium-question-in-electrolyser-growth">Recycling and thrifting: the answer to the iridium question in electrolyser growth</a><span class="src"> · Johnson Matthey (2022)</span>
+      <span class="desc">PGM refiner/catalyst maker's perspective on iridium mitigation strategies.</span>
+      <span class="abs"><b>Summary.</b> PGM refiner concedes the arithmetic — iridium output ~7–8 t/yr, and at ~400 kg/GW 2030 targets would need 30–40 t — but argues a ~75% loading cut brings needs to ~8–10 t, within supply, aided by existing closed-loop recycling.</span>
+      <span class="dat"><b>Data.</b> Johnson Matthey expert commentary; loading-versus-supply estimation, no primary dataset.</span></li>
+    <li><a href="https://jcdream.org/wp-content/uploads/CHARGE-PGM-PEM-White-Paper.pdf">Critical Materials in Electrolyzers and Fuel Cells (white paper)</a><span class="src"> · JCDREAM / CHARGE consortium</span>
+      <span class="desc">Industry-research white paper on PGM use in electrolysers and fuel cells.</span>
+      <span class="abs"><b>Abstract.</b> US-focused white paper warning of a likely primary platinum/iridium shortage in the 2030s as clean hydrogen scales, naming iridium PEM's main bottleneck (US 100% import-reliant on iridium, 79% on platinum). Cites loadings of 0.45 kg Ir/MW and 0.26 kg Pt/MW and DOE thrifting targets; profiles graphite, strontium and yttrium too.</span>
+      <span class="dat"><b>Data.</b> Synthesis of US DOE production/loading data, Hydrogen Council 2022 demand projections and Johnson Matthey prices; no new primary data.</span></li>
+    <li><a href="https://www.miningreview.com/energy/why-iridium-supply-will-not-constraint-on-pem-electrolyser-growth/">Why iridium supply will not constrain PEM electrolyser growth</a><span class="src"> · Mining Review</span>
+      <span class="desc">Counter-take arguing the iridium bottleneck is manageable.</span>
+      <span class="abs"><b>Summary.</b> Trade-press write-up of WPIC research arguing substitution, thrifting and recycling make iridium supply sufficient for PEM growth to 2050. <span class="miss">Page returned HTTP 403 — not retrievable; noted from the visible search snippet, which adds a ruthenium catalyst enabling ~85% iridium saving.</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting relaying WPIC forecasts; no primary dataset.</span></li>
+    <li><a href="https://www.hydrogeninsight.com/analysis/analysis-will-rising-platinum-and-iridium-prices-restrict-the-growth-of-pem-hydrogen-electrolysers-and-fuel-cells-/2-1-1460113">Will rising platinum and iridium prices restrict the growth of PEM hydrogen electrolysers and fuel cells?</a><span class="src"> · Hydrogen Insight</span>
+      <span class="desc">Trade-press analysis of PGM price effects on PEM economics.</span>
+      <span class="abs"><b>Summary.</b> Trade-press analysis of PGM price effects on PEM economics — platinum a tiny share of electrolyser cost, iridium about 8%. <span class="miss">Page behind an NHST/Zephr paywall — not retrievable; noted from the visible snippet only.</span></span>
+      <span class="dat"><b>Data.</b> Specialist hydrogen journalism drawing on WPIC/industry figures; no primary dataset.</span></li>
+    <li><a href="https://hydrogentechworld.com/platinum-group-metals-an-enabler-for-hydrogen-not-a-barrier">Platinum group metals: an enabler for hydrogen, not a barrier</a><span class="src"> · Hydrogen Tech World</span>
+      <span class="desc">Industry-friendly counter-narrative to the scarcity framing.</span>
+      <span class="abs"><b>Summary.</b> Industry counter-narrative (Johnson Matthey author): PGM scarcity incentivises efficiency and recycling rather than blocking hydrogen; ~80% of ~190 t/yr platinum comes from southern Africa, and aggressive thrifting-plus-recycling could let ~1.5 t/yr iridium support 1,000+ GW by 2050.</span>
+      <span class="dat"><b>Data.</b> Johnson Matthey commentary with an illustrative modelling scenario; no independent primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Stacks, systems &amp; manufacturing <span class="ct">6</span></h2>
+  <div class="stagesub">Where materials become electrolysers — and where the near-term constraint really sits: factory build-out and utilisation, not the metal.</div>
+  <ul class="refs">
+    <li><a href="https://primarynewssource.org/sourcedocument/hydrogen-shot-water-electrolysis-technology-assessment/">Hydrogen Shot: Water Electrolysis Technology Assessment</a><span class="src"> · US DOE (2024)</span>
+      <span class="desc">Technology assessment of PEM, alkaline, AEM and solid-oxide electrolysers and their materials.</span>
+      <span class="abs"><b>Abstract.</b> US DOE assessment (Dec 2024) concluding electrolysis can meet the Hydrogen Shot goal of $1/kg clean hydrogen, contingent on advances in three areas — manufacturing, technology efficiency, and integrated energy systems. Reviews the status of and cost-reduction pathways for PEM, alkaline, AEM and solid-oxide electrolysers.</span>
+      <span class="dat"><b>Data.</b> DOE status-and-pathways review of electrolysis technologies against the $1/kg target; quantitative detail in the full 58-page report.</span></li>
+    <li><a href="https://www.iea.org/energy-system/low-emission-fuels/electrolysers">Electrolysers (Energy System tracking page)</a><span class="src"> · IEA</span>
+      <span class="desc">Technology tracking page for electrolyser deployment and manufacturing.</span>
+      <span class="abs"><b>Summary.</b> IEA technology-tracking page (refreshed June 2026) charting low-emissions hydrogen production and electrolyser installed capacity, 2021–2026, with 2026 values estimated. The headline installed-capacity and manufacturing figures sit in the interactive charts and the full report.</span>
+      <span class="dat"><b>Data.</b> IEA Global Hydrogen Review datasets; deployment and manufacturing-capacity tracking.</span></li>
+    <li><a href="https://observatory.clean-hydrogen.europa.eu/hydrogen-landscape/technology-manufacturing/electrolyser-manufacturing-capacity">European Hydrogen Observatory — Electrolyser manufacturing capacity</a><span class="src"> · Clean Hydrogen Partnership / EU</span>
+      <span class="desc">Tracks European electrolyser manufacturing build-out.</span>
+      <span class="abs"><b>Summary.</b> European Hydrogen Observatory dataset (May 2026 snapshot) of cumulative electrolyser manufacturing capacity for EU27, EFTA and UK facilities — current and planned to 2027, split by technology and by operational / under-construction / planned status, with a downloadable spreadsheet.</span>
+      <span class="dat"><b>Data.</b> Public-source data verified with companies; EU27 + EFTA + UK scope, not global.</span></li>
+    <li><a href="https://setis.ec.europa.eu/water-electrolysis-and-hydrogen-european-union-2025-status-report-technology-development-trends_en">Water electrolysis and hydrogen — European Union 2025 status report</a><span class="src"> · European Commission SETIS/JRC (2026)</span>
+      <span class="desc">Technology development and trends status report for EU water electrolysis.</span>
+      <span class="abs"><b>Abstract.</b> JRC Clean Energy Technology Observatory report (Jan 2026) assessing EU water-electrolysis technology, markets and competitiveness. Cumulative operational capacity by end-2025 is projected at 514–800 MW; EU manufacturing capacity ~8.9 GW/yr, with announced plans reaching 41.7 GW/yr by 2030. The EU leads in patents but faces state-backed competition and imported-materials dependence.</span>
+      <span class="dat"><b>Data.</b> JRC CETO assessment; capacity projections from announced company plans plus JRC analysis.</span></li>
+    <li><a href="https://hydrogencouncil.com/wp-content/uploads/2024/09/Hydrogen-Insights-2024.pdf">Hydrogen Insights 2024</a><span class="src"> · Hydrogen Council / McKinsey (2024)</span>
+      <span class="desc">Annual industry report on deployment, investment and manufacturing capacity.</span>
+      <span class="abs"><b>Summary.</b> Hydrogen Council/McKinsey report: projects reaching FID rose from 102 (2020) to 434 (2024) and committed investment from ~$10bn to ~$75bn, but only ~12–18 Mt of the 48 Mtpa announced 2030 supply looks deployable amid regulatory and offtake headwinds.</span>
+      <span class="dat"><b>Data.</b> Hydrogen Council &amp; McKinsey Project &amp; Investment Tracker (Dec 2020, May 2022, May 2024 snapshots).</span></li>
+    <li><a href="https://hydrogencouncil.com/wp-content/uploads/2023/05/Hydrogen-Insights-2023.pdf">Hydrogen Insights 2023</a><span class="src"> · Hydrogen Council / McKinsey (2023)</span>
+      <span class="desc">Prior-year baseline for deployment and manufacturing-capacity trends.</span>
+      <span class="abs"><b>Summary.</b> Prior-year Hydrogen Council/McKinsey baseline: over 1,000 project proposals and $320bn announced 2030 investment, but only $29bn past FID; announced 2030 clean-hydrogen supply 38 Mtpa versus under 1 Mtpa deployed — momentum outrunning investment decisions.</span>
+      <span class="dat"><b>Data.</b> Hydrogen Council &amp; McKinsey Project &amp; Investment Tracker, as of 31 Jan 2023.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Green hydrogen at scale — production &amp; demand <span class="ct">9</span></h2>
+  <div class="stagesub">The sector state: a tiny built base, a shrinking 2030 pipeline, and demand — not minerals — as the binding near-term constraint.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-hydrogen-review-2025/executive-summary">Global Hydrogen Review 2025 — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Annual state-of-play: installed capacity, low-emissions hydrogen share, project pipeline.</span>
+      <span class="abs"><b>Summary.</b> IEA flagship: 2024 hydrogen demand neared 100 Mt but low-emissions supply stayed under 1%; the 2030 announced pipeline fell to 37 from 49 Mtpa as projects slipped. China holds ~65% of installed electrolyser capacity and ~60% of manufacturing.</span>
+      <span class="dat"><b>Data.</b> IEA Hydrogen Production Projects Database (Sept 2025) plus IEA demand tracking.</span></li>
+    <li><a href="https://www.iea.org/reports/global-hydrogen-review-2026/production">Global Hydrogen Review 2026 — Production</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Latest production figures and outlook.</span>
+      <span class="abs"><b>Summary.</b> IEA update: low-emissions hydrogen reached ~1 Mt in 2025; installed electrolysis doubled to over 4 GW (Europe leading new build), while the 2030 pipeline shrank 10 Mt to 27 Mt and new FIDs fell below 0.8 Mtpa.</span>
+      <span class="dat"><b>Data.</b> IEA hydrogen project/production tracking underlying the Global Hydrogen Review 2026.</span></li>
+    <li><a href="https://www.irena.org/publications/2020/Dec/Green-hydrogen-cost-reduction">Green Hydrogen Cost Reduction</a><span class="src"> · IRENA (2020)</span>
+      <span class="desc">Cost-curve analysis underlying the "cost, not minerals, is the near-term limit" framing.</span>
+      <span class="abs"><b>Abstract.</b> IRENA report: green hydrogen still costs 2–3× blue, with electricity the largest cost and the electrolyser the second, so cheap power is a precondition. Larger standardised designs, GW-scale manufacturing (learning-by-doing) and optimised operation could cut electrolysis cost ~40% short-term and up to ~80% long-term, pushing green hydrogen below $2/kg within a decade.</span>
+      <span class="dat"><b>Data.</b> IRENA electrolyser technology characterisation, 1-MW component cost breakdowns, 16–21% learning rates, and 1.5°C scenario pathways to 2050.</span></li>
+    <li><a href="https://www.iea.org/reports/global-hydrogen-review-2025/progress-summary-dashboard">Global Hydrogen Review 2025 — Progress summary dashboard</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Dashboard tracking capacity additions and FIDs.</span>
+      <span class="abs"><b>Summary.</b> IEA interactive tracker organising hydrogen progress into four areas — production and electrolysers, manufacturing capacity, policy strategies, and investment — with the headline values held in the downloadable figures rather than the page text.</span>
+      <span class="dat"><b>Data.</b> IEA Global Hydrogen Review 2025 project, manufacturing, policy and investment tracking databases.</span></li>
+    <li><a href="https://www.iea.org/reports/global-hydrogen-review-2025/production-prospects-to-2030-2">Global Hydrogen Review 2025 — Production prospects to 2030</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Pipeline-to-2030 figures and their likelihood tiers.</span>
+      <span class="abs"><b>Summary.</b> IEA finds only a fraction of the announced pipeline realistic by 2030: over 4 Mtpa "almost certain," +6 "strong" and +7 "moderate" potential, with over half low or uncertain; over half of announced projects have slipped their start dates.</span>
+      <span class="dat"><b>Data.</b> IEA Hydrogen Production Projects Database (Sept 2025); likelihood tiering by status, size, location and end-use.</span></li>
+    <li><a href="https://www.iea.org/reports/global-hydrogen-review-2025/five-key-questions-about-hydrogen">Global Hydrogen Review 2025 — Five key questions about hydrogen</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Framing piece on the sector's near-term uncertainties.</span>
+      <span class="abs"><b>Summary.</b> IEA framing piece: the largest electrolyser grew 30 MW (2021) to 500 MW (2025); firm offtake under 2 Mtpa (~5% of potential 2030 supply) is the binding constraint; China holds nearly 60% of electrolyser manufacturing at 40–45% lower renewable-hydrogen cost.</span>
+      <span class="dat"><b>Data.</b> IEA analysis of project status, offtake-agreement data 2021–2025 and comparative policy across seven markets.</span></li>
+    <li><a href="https://iea.blob.core.windows.net/assets/12d92ecc-e960-40f3-aff5-b2de6690ab6b/GlobalHydrogenReview2025.pdf">Global Hydrogen Review 2025 (full report)</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Full report: China ~65% of installed capacity and ~60% of electrolyser manufacturing capacity.</span>
+      <span class="abs"><b>Summary.</b> The full report underpins the headline that China holds ~65% of installed electrolyser capacity and ~60% of manufacturing. <span class="miss">The 9.6 MB PDF returned as compressed binary — text not extractable this pass; the China shares are corroborated by the report's own web sections.</span></span>
+      <span class="dat"><b>Data.</b> IEA Global Hydrogen Review 2025 full report (project, manufacturing and demand tracking).</span></li>
+    <li><a href="https://gh2.org/ieas-global-hydrogen-review-2025-green-hydrogen-ramp-slower-we-wanted-it-happening-all-same">The IEA's Global Hydrogen Review 2025: green hydrogen ramp-up is slower than we wanted</a><span class="src"> · Green Hydrogen Organisation (2025)</span>
+      <span class="desc">Sector-advocacy commentary on the IEA report.</span>
+      <span class="abs"><b>Summary.</b> Green Hydrogen Organisation commentary accepting the IEA's slower-than-hoped ramp but stressing real electrolyser-led progress; it challenges the loose "low-emissions" label for blue hydrogen (asking ≤0.2% methane leakage, ≥95% capture) and calls for carbon pricing and stronger support.</span>
+      <span class="dat"><b>Data.</b> Advocacy commentary interpreting the IEA Global Hydrogen Review 2025; no independent dataset.</span></li>
+    <li><a href="https://www.gasworld.com/story/stalled-european-hydrogen-demand-leaves-electrolyser-factories-underused-eic/2257107.article/">Stalled European hydrogen demand leaves electrolyser factories underused</a><span class="src"> · gasworld / EIC</span>
+      <span class="desc">Reporting on demand (not materials) as the binding near-term constraint.</span>
+      <span class="abs"><b>Summary.</b> Reports an EIC finding that weak demand leaves Europe's ~8.5 GW/yr electrolyser factories underused — only 3 of 31 GW targeted for 2030 is past FID — and cites the World Bank's 86% China share of alkaline capacity.</span>
+      <span class="dat"><b>Data.</b> EIC industry report plus cited IEA (2024) and World Bank figures.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">3</span></h2>
+  <div class="stagesub">Ranking methodologies and analyses that place the chain's inputs — iridium, platinum, nickel — against the wider material system.</div>
+  <ul class="refs">
+    <li><a href="https://www.irena.org/-/media/Files/IRENA/Agency/Publication/2024/Oct/IRENA_Ranking_critical_materials_for_the_energy-transition_2024.pdf">Ranking critical materials for the energy transition</a><span class="src"> · IRENA (2024)</span>
+      <span class="desc">Ranks nickel, cobalt, iridium, platinum, copper and others by energy-transition criticality.</span>
+      <span class="abs"><b>Abstract.</b> IRENA–NUPI brief building a renewable-energy-specific criticality ranking, arguing generic lists mix in medical, military and fossil uses. Ranks lithium, cobalt, gallium, rare earths and neodymium most critical, with PGMs and nickel high and platinum only moderately critical. Stresses criticality shifts over time and warns against micromanaging single materials.</span>
+      <span class="dat"><b>Data.</b> Two-step method: a renewable-filtered meta-list plus a composite index over six indicators (listing trends, market HHI, abundance, 1.5°C demand, recycling, substitution).</span></li>
+    <li><a href="https://thebreakthrough.org/issues/energy/are-there-enough-critical-minerals-for-hydrogen-electrolyzers">Are There Enough Critical Minerals for Hydrogen Electrolyzers?</a><span class="src"> · The Breakthrough Institute</span>
+      <span class="desc">Think-tank assessment concluding materials are broadly sufficient if policy accelerates.</span>
+      <span class="abs"><b>Summary.</b> Think-tank assessment: geological reserves are broadly adequate — the real constraints are market and geopolitical, not scarcity. Alkaline and solid-oxide materials suffice to 2050, but PEM's PGMs are the vulnerability, with iridium possibly needing 2× to over 10× cumulative mine production.</span>
+      <span class="dat"><b>Data.</b> Analysis synthesising published reserve/production statistics and demand scenarios; no new primary dataset.</span></li>
+    <li><a href="https://www.ramboll.com/en-apac/insights/decarbonise-for-net-zero/the-material-risk-of-green-hydrogen">The material risk of green hydrogen</a><span class="src"> · Ramboll</span>
+      <span class="desc">Engineering-consultancy risk framing of electrolyser materials.</span>
+      <span class="abs"><b>Summary.</b> Engineering-consultancy risk framing: electrolysers are highly exposed to critical-mineral price volatility yet developers rarely mitigate it. Exposure differs by technology (alkaline common nickel/zinc, PEM scarce platinum/iridium); it claims ~10% of alkaline CAPEX ties to critical minerals — the most exposed energy technology it surveyed.</span>
+      <span class="dat"><b>Data.</b> Consultancy risk-advisory framing; qualitative analysis with one CAPEX-share figure, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset behind the chain's flagged trade context — coarse, because customs cannot see a stack type or an iridium loading.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) behind the chain's electrical-machinery context.</span>
+      <span class="abs"><b>Summary.</b> CEPII database of reconciled bilateral trade for ~200 countries and ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by converting CIF to FOB and reliability-weighting reporter discrepancies. Latest release version 202601 (Jan 2026). Powers the chain's flagged electrical-machinery context.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No source gives a clean, current tonnage for <b>South African iridium/PGM production specifically</b> (as distinct from platinum) — the geological ceiling behind the whole PEM story. Next: USGS Mineral Commodity Summaries "Platinum-Group Metals", plus Anglo American Platinum and Sibanye-Stillwater production reports for iridium by-product volumes.</li>
+      <li>The library is strong on the <b>iridium/PEM bottleneck literature (2021–2026)</b> but thinner on hard numbers for <b>alkaline nickel-demand-at-scale</b> — the escape hatch's own material bill. Worth "alkaline electrolyser nickel demand IEA critical minerals" and IRENA material-intensity tables directly.</li>
+      <li>No dedicated source on <b>AEM (anion-exchange-membrane) commercialisation</b>, the PGM-free membrane route that could blunt the iridium question further; try "AEM anion exchange membrane electrolyser commercialisation 2026".</li>
+      <li><b>Iridium end-of-life recycling rate</b> is the pivotal assumption in several studies but is nowhere pinned to observed practice; search "iridium recycling rate PEM stack end of life" and DOE H2NEW / H2-AMP workshop outcomes.</li>
+      <li><b>China alkaline manufacturing capacity</b> is cited only second-hand (World Bank 86%); a primary series would come from "China alkaline electrolyser manufacturing capacity 2026" and the DOE Hydrogen Shot electrolyser critical-materials workshop.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from catalyst material to finished hydrogen, with cross-cutting frameworks and data grouped at the end. 34 unique sources (three exact duplicates — a second IEA Electrolysers listing, a second European Hydrogen Observatory listing, and a repeated CEPII BACI link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403s, paywalls, a binary PDF) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./electrolyser-chain.html">The electrolyser chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
