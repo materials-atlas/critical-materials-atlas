@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Bismuth chain",
-    "chokepoint": {"product": "Non-toxic lead replacement · pharma", "stage": "Recovery (lead/tungsten)", "mechanism": "byproduct", "physics": "A by-product of lead and tungsten smelting; China ~80% of production and refining — coupled to hosts, and China dominates the refining", "holder": "China", "share": "~80%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Non-toxic lead replacement · pharma", "stage": "Recovery (lead/tungsten)", "mechanism": "byproduct", "physics": "A by-product of lead and tungsten smelting; China ~85% of production and refining — coupled to hosts, and China dominates the refining", "holder": "China", "share": "~85%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../lead-chain/lead-chain.html", "label": "Lead chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}],
     "accent": "#5a7a6a",
@@ -25,22 +25,22 @@ CHAIN = {
     "deck": "Bismuth is the oddity of the heavy metals: dense like lead, but remarkably non-toxic — so it is the go-to "
             "replacement as lead is regulated out of plumbing, alloys, ammunition and fishing weights. It is also the "
             "'bismol' in stomach remedies and the shimmer in cosmetics. It comes as a by-product of lead and tungsten "
-            "smelting, and China produces around 80% of it.",
-    "byline": "lead / tungsten smelting ≠ by-product bismuth (China ~80%) ≠ fusible alloys · free-machining · pharma · pigment",
+            "smelting, and China produces around 85% of it.",
+    "byline": "lead / tungsten smelting ≠ by-product bismuth (China ~85%) ≠ fusible alloys · free-machining · pharma · pigment",
     "correction": "Bismuth's appeal is exactly that it is a safe heavy metal, which makes it the standard non-toxic "
                   "substitute for lead in drinking-water brass, free-machining steel and brass, shot and sinkers. It is "
                   "recovered as a by-product of lead and tungsten smelting, and China dominates both production and "
-                  "refining at roughly 80%. So the metal the world reaches for to get away from toxic lead is itself "
+                  "refining at roughly 85%. So the metal the world reaches for to get away from toxic lead is itself "
                   "concentrated in one supplier — and its demand rises precisely as lead is phased out.",
     "stats": [
         {"v": "lead replacement", "l": "non-toxic bismuth replaces lead in plumbing, alloys, shot and sinkers", "conf": "measured"},
-        {"v": "~80% China", "l": "of world bismuth production and refining", "conf": "measured"},
+        {"v": "~85% China", "l": "of world bismuth production and refining", "conf": "measured"},
         {"v": "by-product", "l": "recovered from lead and tungsten smelting — can't scale on its own", "conf": "measured"},
         {"v": "pharma + pigment", "l": "bismuth subsalicylate (stomach remedies) and pearlescent cosmetics", "conf": "measured"},
     ],
     "hops": [
         {"n": "1 · Host smelting", "t": "lead and tungsten smelting carry bismuth as a by-product — China-led"},
-        {"n": "2 · Refine", "t": "bismuth separated and refined to metal and compounds — ~80% China"},
+        {"n": "2 · Refine", "t": "bismuth separated and refined to metal and compounds — ~85% China"},
         {"n": "3 · Alloys & compounds", "t": "fusible/free-machining alloys, bismuth subsalicylate, bismuth oxide/pigment"},
         {"n": "4 · End use", "t": "lead-free plumbing & alloys, ammunition, pharma, cosmetics, fire-sprinkler links"},
     ],
@@ -53,9 +53,9 @@ CHAIN = {
                      "non-toxic shot and fishing sinkers, and low-melting 'fusible' alloys for fire-sprinkler links and "
                      "safety devices. Its whole value proposition is being the harmless heavy metal.",
              "note": "USGS Bismuth 2026; EC CRM 2023."},
-            {"kind": "text", "h3": "The catch: it's ~80% China",
+            {"kind": "text", "h3": "The catch: it's ~85% China",
              "text": "The awkwardness is that the metal chosen to escape toxic lead is itself a concentrated dependency: "
-                     "China produces and refines roughly 80% of world bismuth, as a by-product of its lead and tungsten "
+                     "China produces and refines roughly 85% of world bismuth, as a by-product of its lead and tungsten "
                      "industries. So a health-and-safety substitution creates a supply-concentration exposure, and "
                      "bismuth demand grows exactly as lead phase-outs advance.",
              "flag": "swap toxicity for concentration"},
@@ -83,7 +83,7 @@ CHAIN = {
                    "as the traded metal — the by-product origin (lead/tungsten) is not visible in this line.",
     "method": [
         {"stage": "Source", "lens": "USGS by-product recovery", "why": "a lead/tungsten by-product — can't scale alone"},
-        {"stage": "Refine", "lens": "USGS/EC production share", "why": "~80% China — the concentration"},
+        {"stage": "Refine", "lens": "USGS/EC production share", "why": "~85% China — the concentration"},
         {"stage": "Use", "lens": "lead-replacement + pharma", "why": "demand grows as lead is phased out"},
         {"stage": "Trade", "lens": "BACI 810600 bismuth", "why": "traded metal; by-product origin not visible — flagged"},
     ],
@@ -93,4 +93,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- bismuth, non-toxic lead replacement; ~80pct China by-product of lead/tungsten")
+print("wrote", os.path.relpath(OUT, HERE), "- bismuth, non-toxic lead replacement; ~85pct China by-product of lead/tungsten")

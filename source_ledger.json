@@ -12,21 +12,21 @@
     "supports": true
   },
   "pgm-catalyst": {
-    "claim": "South Africa ~78% of world PGM reserves (platinum ~71%; palladium Russia-led)",
+    "claim": "South Africa ~83% of world PGM reserves (platinum ~71%; palladium Russia-led)",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Platinum-Group Metals",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf",
-    "quoted_row": "South Africa ... 125,000 120,000 63,000,000 | World total ... 179,000 170,000 >81,000,000; 'resources and reserves are in the Bushveld Complex in South Africa'",
-    "computed": "reserves 63,000,000/>81,000,000 = 77.8% -> ~78%; platinum 120,000/170,000 = 71%; palladium SA 72,000/190,000 = 38%, Russia 75,000 leads",
+    "source": "USGS MCS 2026 — Platinum-Group Metals",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+    "quoted_row": "South Africa 82,600 70,000 126,000 120,000 63,000,000 | World total 217,000 190,000 179,000 170,000 >76,000,000",
+    "computed": "reserves 63,000,000/>76,000,000 = 82.9% -> ~83% (world reserves revised DOWN 81->76 Mkg between editions; was ~78% on MCS2025). Platinum 120,000/170,000=71%; palladium SA 70,000/190,000=37%.",
     "supports": true
   },
   "steel-alloys": {
-    "claim": "Brazil ~92% niobium (chokepoint); vanadium China ~75%",
+    "claim": "Brazil ~93% niobium (chokepoint); vanadium China ~75%",
     "conf": "measured",
     "source": "USGS MCS 2026 — Niobium; USGS MCS 2026 — Vanadium",
     "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
-    "quoted_row": "Niobium: 'Brazil ~92% of global production'. Vanadium: China e84,000 82,000 5,800 | World total 118,000 110,000 21,000",
-    "computed": "niobium 92%; vanadium 82,000/110,000 = 75% (2025) — MCS2025 gave 70%, revised up.",
+    "quoted_row": "'Brazil ... approximately 93% of global production, followed by Canada'; Vanadium China 82,000/110,000",
+    "computed": "niobium 93% verbatim (was 92% on MCS2025); vanadium 75%",
     "supports": true
   },
   "boron": {
@@ -66,12 +66,12 @@
     "supports": true
   },
   "bismuth": {
-    "claim": "China ~80% of world bismuth production",
+    "claim": "China ~85% of world bismuth production/refining",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Bismuth",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bismuth.pdf",
-    "quoted_row": "China 13,300 13,000 NA | World total (rounded) 16,200 16,000 NA; 'China, the leading producer and exporter'",
-    "computed": "13,000 / 16,000 = 81% -> ~80% supported",
+    "source": "USGS MCS 2026 — Bismuth (industry sources ~65-80%)",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
+    "quoted_row": "China 14,000 14,000 NA | World total (rounded) 16,300 16,000 NA",
+    "computed": "USGS 2026: 14,000/16,000 = 88% (was 81% on MCS2025); industry sources ~65-80%; by-product/uncertain -> atlas uses ~85% central",
     "supports": true
   },
   "germanium": {
@@ -88,8 +88,8 @@
     "conf": "measured",
     "source": "USGS MCS 2025 — Antimony",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf",
-    "quoted_row": "China e62,300 60,000 670,000 | World total (rounded) 106,000 100,000 >2,000,000; US import 'Oxide: China 76%'",
-    "computed": "mine 60,000/100,000 = 60%; chokepoint is refining/oxide + Sep-2024 export controls, not the mine share",
+    "quoted_row": "China e40,000 40,000 830,000 | World total (rounded) 119,000 110,000 >2,000,000 (MCS 2026)",
+    "computed": "MCS2026 mine: China 40,000/110,000 = 36% (fell from 60% on MCS2025); chokepoint is REFINING/oxide (China oxide 76% + Sep-2024 controls), unaffected by the mine drop",
     "supports": true
   },
   "beryllium": {
@@ -133,8 +133,8 @@
     "conf": "measured",
     "source": "USGS MCS 2025 — Cobalt (mine); refining share is industry/IEA",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cobalt.pdf",
-    "quoted_row": "Congo (Kinshasa) 175,000 220,000 6,000,000 | World total (rounded) 238,000 290,000 11,000,000; 'China was the world's leading producer of refined cobalt'",
-    "computed": "DRC mine 220,000/290,000 = 76% (USGS-measured). China refine ~75% is USGS-qualitative + industry — PENDING an IEA/Cobalt-Institute source for the exact %",
+    "quoted_row": "Congo (Kinshasa) 226,000 230,000 6,000,000 | Indonesia 35,000 44,000; 'DRC ~73% of world total, Indonesia 14%' (MCS 2026)",
+    "computed": "MCS2026: DRC 'an estimated 73% of world total, followed by Indonesia 14%' (mine). China refine ~75% (USGS-qualitative + industry). Chokepoint is refining.",
     "supports": "mine measured; refine % pending source"
   },
   "molybdenum": {

@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Steel / structural-alloys chain",
-    "chokepoint": {"product": "Ferroalloys (Nb/V)", "stage": "Niobium mine", "mechanism": "geological", "physics": "Niobium is essentially one Brazilian mine (CBMM) — Brazil is ~92% of world mine production, Canada ~7%", "holder": "Brazil", "share": "~92% production", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Ferroalloys (Nb/V)", "stage": "Niobium mine", "mechanism": "geological", "physics": "Niobium is essentially one Brazilian mine (CBMM) — Brazil is ~93% of world mine production, Canada ~7%", "holder": "Brazil", "share": "~93% production", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../wind-chain/wind-chain.html", "label": "Wind-turbine chain"}],
     "accent": "#4e5a66",
@@ -37,7 +37,7 @@ CHAIN = {
                   "additives: a few hundred grams of niobium per tonne, from essentially one Brazilian mine, decide "
                   "whether a pipeline or a car body can be made light and strong.",
     "stats": [
-        {"v": "~92%", "l": "of world niobium is Brazil (one company, CBMM)", "conf": "measured"},
+        {"v": "~93%", "l": "of world niobium is Brazil (one company, CBMM)", "conf": "measured"},
         {"v": "~75%", "l": "of world vanadium is China (82,000 of 110,000 t, 2025) — tied to its steel industry", "conf": "measured"},
         {"v": "SA → CN", "l": "chromium: South Africa mines the ore, China makes the ferrochrome", "conf": "measured"},
         {"v": "77%", "l": "of niobium goes into steel (21% into superalloys)", "conf": "measured"},
@@ -64,7 +64,7 @@ CHAIN = {
             {"kind": "bars", "h3": "Concentration of the key steel-alloying metals", "conf": "measured", "max": 1.0, "note":
                 "USGS. Niobium and vanadium are mine shares; chromium and manganese are more concentrated at the "
                 "ferroalloy/processing stage (China) than at the mine. Read each by the stage that binds it.", "bars": [
-                {"label": "Niobium (Brazil, mine)", "value": 0.92},
+                {"label": "Niobium (Brazil, mine)", "value": 0.93},
                 {"label": "Vanadium (China, mine)", "value": 0.75},
                 {"label": "Chromium (China, ferrochrome)", "value": 0.60},
                 {"label": "Molybdenum (China, mine)", "value": 0.40},
@@ -76,7 +76,7 @@ CHAIN = {
              "flag": "trace additive, whole-grade leverage"},
         ]},
         {"h2": "2 · Niobium — one mine for the world", "panels": [
-            {"kind": "big", "h3": "Niobium mine share", "big": "~92% Brazil", "conf": "measured",
+            {"kind": "big", "h3": "Niobium mine share", "big": "~93% Brazil", "conf": "measured",
              "text": "one country — and largely one company, CBMM at Araxá — supplies most of the world's niobium, with "
                      "Canada a distant second. About 77% goes into steel as ferro-niobium; Brazil's exports run ~49% to "
                      "China. It is one of the most geographically concentrated critical materials there is.",
@@ -124,4 +124,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— steel/alloys, niobium ~92% Brazil, vanadium ~75% China")
+print("wrote", os.path.relpath(OUT, HERE), "— steel/alloys, niobium ~93% Brazil, vanadium ~75% China")
