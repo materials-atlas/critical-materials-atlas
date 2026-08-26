@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Helium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the helium value chain, ordered to follow the chain from helium-rich gas field to finished cryogenic use. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./helium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Helium</div>
+    <h1>Helium chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Helium cools the superconducting magnets in MRI scanners and carries semiconductor and fibre-optic processes — yet it cannot be manufactured, only captured as a by-product of a few helium-rich natural-gas fields, and once released it escapes to space. <b>Supply is welded to gas fields, not to demand.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① helium-rich gas field (US / Qatar / Russia) → ② cryogenic separation &amp; the Federal Helium Reserve → ③ end uses — MRI, chips &amp; rockets → ④ non-renewable: recovery &amp; conservation — then the cross-cutting shortage/geopolitics analysis and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./helium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">29</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (8) · <span class="pill ref">Reference</span> context / provenance (17).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Helium as a by-product — gas fields, US / Qatar / Russia</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Helium</td><td class="took">The 2025 supply read: 81 Mm³ sales, US 381 vs Qatar 63 vs Russia 18 Mm³ production, and the 15% MRI / 17% chips-and-fibre end-use split — the numbers behind the by-product and US·QA·RU stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Helium</td><td class="took">Prior-year baseline plus the Federal Helium System sale detail (two lots, transferred 27 Jun 2024) → the "buffer removed" panel in §1.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USGS Minerals Yearbook 2023 — Helium</td><td class="took">The full Helium Stewardship Act phase-out chronology → a deeper reserve-timeline enrichment; not yet folded in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>USGS SIR — outlook through 2029</td><td class="took">Helium production-capacity outlook (stable-to-moderate growth, above current output) → a forward supply-capacity panel to add.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>A review of helium resources &amp; development</td><td class="took">Enrichment mechanisms + the "no imminent crisis before 2060" finding → a resource-adequacy counterpoint to fold in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② The Federal Helium Reserve — the buffer that was removed</td></tr>
+      <tr><td class="n">6</td><td>US BLM / GAO — Federal Helium Reserve disposal</td><td class="took">Cited in the chain record as the reserve-disposal source. <span class="miss">The GAO product number (GAO-24-106390) resolves to an unrelated report (Veterans Community Care); the FHR-sale facts are instead carried by USGS MCS 2025.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>Economics, helium &amp; the US FHR (NRR)</td><td class="took">Its six structural fragilities (inelastic demand, by-product-only, 4–5 producers, escape, no FHR-scale storage, no venting penalty) → the structural-fragility framing for §1.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>National Academies — Impact of Selling the FHR</td><td class="took">The scenario method for reserve drawdown → a reserve-exit impact enrichment.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>GAO-15-394</td><td class="took">Oversight detail on HSA tolling/auction implementation — provenance for the reserve wind-down.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>GAO-15-734T</td><td class="took">Testimony restating the 2015 tolling/auction findings — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>GAO-13-351T</td><td class="took">2013 "urgent issues" testimony — the reserve-debt and storage backdrop.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>BLM — disposal-process press release</td><td class="took">Announces BLM's exit and transfer to GSA — provenance for the wind-down timeline.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>GSA — sale of Federal Helium System assets</td><td class="took">Announces the asset sale (Cliffside plant, Bush Dome, pipeline) — provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ End uses &amp; the semiconductor stakes — MRI, chips, rockets</td></tr>
+      <tr><td class="n">14</td><td>Global Policy Journal — Helium, semiconductors &amp; Hormuz</td><td class="took">Frames Hormuz as a helium (not only oil/gas) chokepoint gating chips and MRI — context for the end-use stakes.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>The Oregon Group — US control of the chip supply chain</td><td class="took">Argues the crisis hands the US semiconductor leverage — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Non-renewable — recovery, conservation &amp; the economics of a finite gas</td></tr>
+      <tr><td class="n">16</td><td>A Review of the Sustainability of Helium</td><td class="took">Decarbonisation shrinks the natural-gas host → a "net-zero cuts helium supply" enrichment, plus recovery/recycling framing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>MRS Bulletin — policy report on long-term solutions</td><td class="took">Closed-cycle reliquefaction + recycling as the conservation levers → supports "conservation is the supply strategy" (§3).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Eastern Economic Journal — helium &amp; natural gas</td><td class="took">Joint-resource (helium + gas) taxation economics — the economic root of the coupling.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — shortages, geopolitics &amp; disruption</td></tr>
+      <tr><td class="n">19</td><td>Helium global supply &amp; demand: GeoPolRisk</td><td class="took">The GeoPolRisk index method (helium 0.15–0.30, 2015–19, ten economies) → a reproducible supply-risk score to add.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>USITC — Impact of Conflict on the Helium Shortage</td><td class="took">Conflict-impact chronology (Amur fires, BLM CHEU, Qatar maintenance) → the shortage-mechanism timeline.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>C4MR — Helium supply &amp; the Hormuz crisis</td><td class="took">2026 Hormuz scenario: ~1/3 of supply removed in a single event — context for the concentration risk.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>The Moscow Times — Russia export controls</td><td class="took">Russia's 2026 helium export controls — context on the RU supply lever.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>Santiago &amp; Company — after the ceasefire</td><td class="took">Boil-off / 35–45-day storage limit + governance framing — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>Peak Scientific — Helium Shortage 4.0</td><td class="took">Industry account of Shortage 4.0 + GC carrier-gas alternatives — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>C&amp;EN — helium in short supply again</td><td class="took">Contemporary reporting of the 2022 shortage causes (Amur fire, BLM maintenance) — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Rocky Mountain Air — sanctions &amp; maintenance</td><td class="took">Distributor account of sanctions + plant maintenance driving Shortage 4.0 — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>Real Price of Risk — the predictable crisis</td><td class="took">The recurring ~4-year shortage-cycle pattern (Shortages 1.0–5.0) — context for the structural fragility.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">28</td><td>CEPII BACI</td><td class="took">The trade engine — but helium hides inside HS 280429 "rare gases" with neon/krypton/xenon, so customs cannot isolate it: the flagged trade overlay.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">29</td><td>USGS MCS 2026 Appendixes</td><td class="took">Resource/reserve definitions (Appendix C) behind the USGS helium figures — provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Helium as a by-product — gas fields, US / Qatar / Russia <span class="ct">5</span></h2>
+  <div class="stagesub">The raw input, and a gas no one drills for on its own: only economic where natural gas already carries it in unusual concentration.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf">USGS Mineral Commodity Summaries 2026 — Helium and Rare Gases</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world helium production/reserves/trade data plus the US end-use breakdown.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US Grade-A and gaseous helium sales an estimated 81 million m³ ($970 million). World production ~190 million m³ — US 381, Qatar 63, Russia 18, Algeria 11. US uses span analytical/specialty gases (22%), controlled atmospheres/fibre/semiconductors (17%), lifting (17%), MRI (15%). Nothing substitutes for helium below −429 °F.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price data; rare-gas figures from Intelligas Consulting and TECHCET.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-helium.pdf">USGS Mineral Commodity Summaries 2025 — Helium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year baseline; documents the January 2024 sale of the Federal Helium System.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2024 helium sales ~81 million m³. Records that the Helium Stewardship Act of 2013 mandated privatisation; management passed from BLM to GSA in December 2022, and on 25 January 2024 the Federal Helium System assets were sold in two lots (~28 and ~22 million m³ of crude helium), transferred to one company on 27 June 2024.</span>
+      <span class="dat"><b>Data.</b> USGS producer surveys plus Census Bureau import/export data; reserves revised on Government reports.</span></li>
+    <li><a href="https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-helium.pdf">USGS Minerals Yearbook 2023 — Helium (advance release)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual detail chapter with the full Helium Stewardship Act phase-out chronology.</span>
+      <span class="abs"><b>Abstract.</b> USGS annual chapter: 2023 US helium consumption 56.0 million m³, sales 81.2 million m³ (up 5%). Details the Helium Stewardship Act of 2013 four-phase privatisation timeline — continuing the 1996 Helium Privatization Act's mandated sale of the Cliffside Field reserve, structured to mitigate shortages while stimulating private helium sources through market-driven auctions.</span>
+      <span class="dat"><b>Data.</b> USGS domestic survey data and tables; Census Bureau import/export figures; statutory record of the HSA.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/sir20255021/full">World minerals outlook — cobalt, gallium, helium … through 2029</a><span class="src"> · USGS SIR 2025-5021</span>
+      <span class="desc">Forward supply-capacity outlook for eight commodities, including helium.</span>
+      <span class="abs"><b>Abstract.</b> USGS Scientific Investigations Report analysing production-capacity outlooks for 2025–2029. Cobalt and lithium are expected to see large capacity growth; for gallium, helium, palladium and platinum, capacity should stay stable or grow moderately, still above current production, leaving room for future output. Magnesium and titanium outlooks are opaque owing to nonmarket-economy production.</span>
+      <span class="dat"><b>Data.</b> USGS analysis of 2018–2024 production and production-capacity data by commodity and country.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2352854025000397">A review of helium resources and development</a><span class="src"> · Natural Gas Industry B (2025)</span>
+      <span class="desc">Comprehensive review of helium sources, enrichment and supply sustainability.</span>
+      <span class="abs"><b>Abstract.</b> Review (Hu et al., June 2025) of the value, sources, production methods, supply dynamics and sustainability of helium, whose scarcity demands efficient use. It analyses helium enrichment processes and exploration methods and recommends developing preservation, recovery and extraction technologies — especially for helium-poor fields — concluding no imminent global helium-supply crisis is expected before 2060.</span>
+      <span class="dat"><b>Data.</b> Literature and industry review of helium geology, enrichment and market outlook — synthesis, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② The Federal Helium Reserve — the buffer that was removed <span class="ct">8</span></h2>
+  <div class="stagesub">For decades the US reserve absorbed shocks; its 2013 mandated wind-down and 2024 sale removed that cushion just as demand grew.</div>
+  <ul class="refs">
+    <li><a href="https://www.gao.gov/products/gao-24-106390">US BLM / GAO — Federal Helium Reserve disposal</a><span class="src"> · GAO (2024)</span>
+      <span class="desc">Listed in the chain record as the reserve-disposal oversight source.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">Flagged: the cited GAO product number (GAO-24-106390) resolves to an unrelated report — "Veterans Community Care Program: VA Needs to Strengthen Contract Oversight" — not a Federal Helium Reserve document. The reserve-sale facts the chain relies on are instead carried by USGS MCS 2025 (the 25 Jan 2024 two-lot sale) and the GAO/GSA/BLM items below.</span></span>
+      <span class="dat"><b>Data.</b> Not applicable — the linked report's subject does not match the cited topic; see USGS MCS 2025 and items 9–13 for the reserve record.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s11053-017-9359-y">Economics, Helium, and the U.S. Federal Helium Reserve: Summary and Outlook</a><span class="src"> · Natural Resources Research (2018)</span>
+      <span class="desc">Economic review of helium markets and the drawdown of the Federal Helium Reserve.</span>
+      <span class="abs"><b>Abstract.</b> Reviews why helium markets lack flexibility, so drawing on the Federal Helium Reserve cannot easily offset the loss of a major producer. Names the sector's structural issues: inelastic demand, availability only as a by-product, just 4–5 major producers, helium's escape from the crust, no FHR-scale storage elsewhere, and no penalty for venting. Notes a lack of empirical helium-market models.</span>
+      <span class="dat"><b>Data.</b> Economic synthesis of helium supply/demand and FHR drawdown literature; no new empirical estimation.</span></li>
+    <li><a href="https://nap.nationalacademies.org/catalog/9860/the-impact-of-selling-the-federal-helium-reserve">The Impact of Selling the Federal Helium Reserve</a><span class="src"> · National Research Council (2000)</span>
+      <span class="desc">Congressionally mandated study of the 1996 Helium Privatization Act.</span>
+      <span class="abs"><b>Abstract.</b> National Research Council committee assessing whether the Helium Privatization Act's mandated liquidation of the Federal Helium Reserve would substantially harm US scientific, technical, biomedical and national-security users. It maps helium applications and market dynamics and builds disposal scenarios to test consequences for helium-dependent research and industry.</span>
+      <span class="dat"><b>Data.</b> Committee evidence: site visits (Amarillo reserve, ExxonMobil), supplier/user workshops, and analysis of helium demand and global resources.</span></li>
+    <li><a href="https://www.gao.gov/products/gao-15-394">BLM: More Information Needed to Implement the Helium Stewardship Act of 2013 (GAO-15-394)</a><span class="src"> · GAO (2015)</span>
+      <span class="desc">Oversight review of BLM's early implementation of the 2013 Act.</span>
+      <span class="abs"><b>Summary.</b> GAO found BLM lacked information to verify refiners' compliance with the Act's "tolling" provision (excess refining capacity offered to competitors), because reporting was voluntary and incomplete, and had not assessed whether its auction method maximised federal revenue as the law required.</span>
+      <span class="dat"><b>Data.</b> Review of BLM's first (2014) helium auction results, the 2013 statute, and interviews with BLM and registered refiners/non-refiners.</span></li>
+    <li><a href="https://www.gao.gov/products/gao-15-734t">Helium Stewardship Act of 2013: BLM Needs More Information (GAO-15-734T)</a><span class="src"> · GAO (2015)</span>
+      <span class="desc">Congressional testimony restating the April 2015 findings.</span>
+      <span class="abs"><b>Summary.</b> July 2015 testimony reprising GAO-15-394: BLM lacked full assurance that refiners satisfied the tolling provision and had chosen a live-auction format without confirming it maximised revenue, after two refiners bought all 93 million cubic feet of the 2014 auction above competing bids.</span>
+      <span class="dat"><b>Data.</b> Drawn from the April 2015 report — 2014 auction analysis and interviews with 12 of 13 registered refiners/non-refiners.</span></li>
+    <li><a href="https://www.gao.gov/assets/gao-13-351t.pdf">Helium Program: Urgent Issues Facing BLM's Storage and Sale of Helium Reserves (GAO-13-351T)</a><span class="src"> · GAO (2013)</span>
+      <span class="desc">Testimony on the reserve-debt and storage backdrop before the 2013 Act.</span>
+      <span class="abs"><b>Summary.</b> February 2013 testimony before the House Natural Resources Committee: the federal government has produced, stored and used helium since the early 20th century. Interior bought ~34 billion cubic feet of crude helium in the 1960s–70s for conservation and federal needs; the purchase debt is repaid through crude-helium sales into the revolving Helium Fund.</span>
+      <span class="dat"><b>Data.</b> GAO review of BLM's helium program operations, storage, and the Helium Fund accounts.</span></li>
+    <li><a href="https://www.blm.gov/press-release/blm-announces-disposal-process-federal-helium-system">BLM announces disposal process for Federal Helium System</a><span class="src"> · US Bureau of Land Management (2020)</span>
+      <span class="desc">Press release on BLM's exit and the handover to GSA.</span>
+      <span class="abs"><b>Summary.</b> BLM announced it would cease managing the Federal Helium System, with remaining assets transferring to GSA for disposal per the Helium Stewardship Act. The Amarillo, Texas reserve was then the world's only helium storage facility; since FY2005 the self-funded program returned nearly $2 billion to the Treasury.</span>
+      <span class="dat"><b>Data.</b> Agency announcement — no dataset.</span></li>
+    <li><a href="https://www.gsa.gov/about-us/gsa-regions/region-7-greater-southwest/region-7-newsroom/greater-southwest-feature-stories-and-news-releases/gsa-announces-sale-of-federal-helium-system-assets-06222023">GSA Announces Sale of Federal Helium System Assets</a><span class="src"> · US General Services Administration (2023)</span>
+      <span class="desc">Press release opening the sale of the reserve's physical assets.</span>
+      <span class="abs"><b>Summary.</b> GSA announced the sale of the Federal Helium System (June 2023), covering the Cliffside Gas Plant near Amarillo, ~38,000 acres of mineral rights, the Bush Dome storage reservoir (~4+ billion cubic feet of federal helium), 23 gas wells and a 423-mile helium pipeline delivering to refineries in Texas, Oklahoma and Kansas.</span>
+      <span class="dat"><b>Data.</b> Agency announcement listing the asset inventory — no dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ End uses &amp; the semiconductor stakes — MRI, chips, rockets <span class="ct">2</span></h2>
+  <div class="stagesub">Why nothing else will do: the 4 K coolant for MRI magnets and the inert atmosphere for chips and fibre, with no substitute for the coldest jobs.</div>
+  <ul class="refs">
+    <li><a href="https://www.globalpolicyjournal.com/blog/19/05/2026/helium-semiconductors-and-strategic-risk-hormuz">Helium, Semiconductors, and the Strategic Risk of Hormuz</a><span class="src"> · Global Policy Journal (2026)</span>
+      <span class="desc">Argues the Strait of Hormuz is a critical-material, not only an oil-and-gas, chokepoint.</span>
+      <span class="abs"><b>Summary.</b> Zamani and Farzanegan (May 2026) argue the Strait of Hormuz should be treated as a helium chokepoint too: helium is essential to semiconductors, medical imaging and cryogenics and depends on Gulf gas infrastructure and specialised maritime transport. They propose mapping exposure, building strategic reserves and improving helium-market transparency.</span>
+      <span class="dat"><b>Data.</b> Policy analysis of helium supply-chain geography; no primary dataset.</span></li>
+    <li><a href="https://theoregongroup.substack.com/p/helium-crisis-puts-us-in-control">Helium crisis puts US in control of semiconductor supply chain</a><span class="src"> · The Oregon Group (2026)</span>
+      <span class="desc">Analysis of how a Qatar disruption concentrates helium leverage in the US.</span>
+      <span class="abs"><b>Summary.</b> Argues that with Qatar's ~one-third of world helium (63 million m³ in 2025) removed by a March 2026 disruption, the US — already the largest producer (81 million m³) — becomes the dominant supplier of an irreplaceable semiconductor, cryogenic and imaging input, with spot prices up ~50% and demand rising toward 2030.</span>
+      <span class="dat"><b>Data.</b> Market commentary citing USGS production figures and spot-price reporting.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Non-renewable — recovery, conservation &amp; the economics of a finite gas <span class="ct">3</span></h2>
+  <div class="stagesub">Since helium cannot be remade and escapes the planet once vented, capturing more streams and recovering boil-off on-site is the real supply strategy.</div>
+  <ul class="refs">
+    <li><a href="https://www.mdpi.com/3042-4658/1/1/6">A Review of the Sustainability of Helium: An Assessment of Its Past, Present and a Zero-Carbon Future</a><span class="src"> · RSEE / MDPI (2024)</span>
+      <span class="desc">Sustainability-framed review linking helium supply to fossil-fuel decline.</span>
+      <span class="abs"><b>Abstract.</b> Wilkinson and Gerth (2024) review the economics of a non-renewable gas recovered mainly as a by-product of natural gas. They examine scarcity, price volatility and supply disruption, and warn that the transition to net-zero — by cutting natural-gas production — directly threatens future helium availability, making recovery and recycling central.</span>
+      <span class="dat"><b>Data.</b> Economic and literature review of helium supply, price and sustainability — synthesis, no primary dataset.</span></li>
+    <li><a href="https://link.springer.com/article/10.1557/mrs.2016.256">Policy report on helium proposes long-term solutions</a><span class="src"> · MRS Bulletin (2016)</span>
+      <span class="desc">Coverage of the MRS/APS/ACS policy report on preserving research access to helium.</span>
+      <span class="abs"><b>Summary.</b> Reports the MRS/APS/ACS policy response to liquid-helium cost and supply risk from the Federal Helium Reserve's closure. Long-term fixes: cut usage with advanced closed-cycle systems and recycle helium by capturing and reliquefying it; near-term, a DLA brokerage program bought liquid helium for federally funded researchers at ~15% average savings.</span>
+      <span class="dat"><b>Data.</b> Journalistic coverage of a policy report; program savings figures cited from the DLA/APS/ACS program.</span></li>
+    <li><a href="https://ideas.repec.org/a/eej/eeconj/v17y1991i1p80-88.html">Joint Natural Resources and Government Policy: Helium and Natural Gas</a><span class="src"> · Eastern Economic Journal (1991)</span>
+      <span class="desc">Historical economics paper on jointly extracted helium and natural gas.</span>
+      <span class="abs"><b>Abstract.</b> Hughey (1991) builds an economic model of jointly extracted resources to study taxation policy. Under competitive owners with perfect foresight, he characterises intertemporal equilibrium and how subsidies shift prices and extraction. Applied to helium and natural gas, the jointness of the resources yields results different from a single-resource model.</span>
+      <span class="dat"><b>Data.</b> Theoretical resource-economics model — no empirical dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — shortages, geopolitics &amp; disruption <span class="ct">9</span></h2>
+  <div class="stagesub">The recurring cycle of shortages that follows from the coupling — supply-risk indices, conflict impacts and contemporary reporting.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0921344923000721">Helium resource global supply and demand: Geopolitical supply risk analysis</a><span class="src"> · Resources, Conservation &amp; Recycling (2023)</span>
+      <span class="desc">Applies the GeoPolRisk method to helium imports for ten economies.</span>
+      <span class="abs"><b>Abstract.</b> First study to map global helium flows and score import supply risk with the GeoPolRisk method for ten economies over 2015–2019. Helium imports carry a relatively high GeoPolRisk index (0.15–0.30), consistent with a "critical" classification. 2019 world output was ~27,000 t (160 million m³), mostly from the US, Qatar and Algeria, moved as time-constrained cryogenic liquid.</span>
+      <span class="dat"><b>Data.</b> Bilateral helium trade flows plus governance/concentration indicators feeding the GeoPolRisk index, 2015–2019.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/executive_briefings/ebot_the_impact_of_conflict_on_the_global_helium_shortage.pdf">The Impact of Conflict on the Global Helium Shortage</a><span class="src"> · USITC (2022)</span>
+      <span class="desc">Executive briefing tying the 2022 shortage to conflict and plant outages.</span>
+      <span class="abs"><b>Summary.</b> USITC briefing (May 2022): the 2022 shortage combined pre-existing tightness with war stress. Unexpected shutdowns at BLM's Crude Helium Enrichment plant (summer 2021, January 2022) coincided with fires at Russian gas plants (October 2021, January 2022) halting Amur output and scheduled Qatar maintenance (February–March 2022), forcing suppliers into allocation.</span>
+      <span class="dat"><b>Data.</b> USITC trade-analysis briefing citing production-outage timelines and helium market reporting.</span></li>
+    <li><a href="https://c4mr.org/reports/helium-supply-and-the-strait-of-hormuz-crisis-a-critical-raw-material-under-pressure/">Helium Supply and the Strait of Hormuz Crisis</a><span class="src"> · C4MR (2026)</span>
+      <span class="desc">Scenario analysis of a Hormuz blockade's effect on helium.</span>
+      <span class="abs"><b>Summary.</b> C4MR (March 2026): a Strait of Hormuz blockade disrupting Qatar removed roughly one-third of global helium supply in a single event, with no spare capacity elsewhere. It warns the risk is not just price but unavailability for MRI, semiconductors and research, urging strategic reserves, recycling and helium-efficient technologies.</span>
+      <span class="dat"><b>Data.</b> Scenario analysis of market conditions and supply-chain vulnerability — no primary dataset in the summary.</span></li>
+    <li><a href="https://www.themoscowtimes.com/2026/04/14/russia-introduces-helium-export-controls-amid-global-shortage-a92496">Russia Introduces Helium Export Controls Amid Global Shortage</a><span class="src"> · The Moscow Times (2026)</span>
+      <span class="desc">News report on Russia restricting helium exports during the 2026 shortage.</span>
+      <span class="abs"><b>Summary.</b> April 2026: Russia — the third-largest producer — introduced helium export controls through 2027, requiring government approval for exports outside the Eurasian Economic Union, to prioritise domestic supply. Its main facility is Gazprom's Amur plant near the Chinese border, with China the primary buyer of Russian helium.</span>
+      <span class="dat"><b>Data.</b> News reporting citing Russian government statements — no dataset.</span></li>
+    <li><a href="https://www.santiagocompany.com/insights/the-real-helium-crisis-begins-after-the-ceasefire">The Real Helium Crisis Begins After the Ceasefire</a><span class="src"> · Santiago &amp; Company (2026)</span>
+      <span class="desc">Argues the crisis outlasts any ceasefire because of physical and governance factors.</span>
+      <span class="abs"><b>Summary.</b> April 2026: after the March 2026 Ras Laffan attack cut ~one-third of world helium and QatarEnergy declared force majeure, the crisis persists beyond any ceasefire — liquid helium boils off in 35–45 days, and two nations produce 76% of supply. It frames helium as a strategic utility, not a commodity.</span>
+      <span class="dat"><b>Data.</b> Analyst commentary citing USGS production shares and industry sourcing/inventory figures.</span></li>
+    <li><a href="https://www.peakscientific.com/discover/news/helium-shortage-4/">Helium Shortage 4.0 &amp; the alternatives for your GC</a><span class="src"> · Peak Scientific</span>
+      <span class="desc">Industry account of the 2022 shortage and gas-chromatography alternatives.</span>
+      <span class="abs"><b>Summary.</b> Industry account of "Helium Shortage 4.0": an explosion and fire at Russia's Amur plant, a four-month BLM reserve maintenance shutdown (from July 2021, ~40% of US supply), Ukraine-conflict export barriers and Qatar/Algeria maintenance drove prices up ~20%. Frames hydrogen and nitrogen carrier gases and generators as GC alternatives.</span>
+      <span class="dat"><b>Data.</b> Trade commentary — no primary dataset.</span></li>
+    <li><a href="https://cen.acs.org/business/Helium-short-supply-again/100/i6">Helium is in short supply again</a><span class="src"> · C&amp;EN / ACS (2022)</span>
+      <span class="desc">Chemistry-trade reporting on the causes of the 2022 shortage.</span>
+      <span class="abs"><b>Summary.</b> C&amp;EN (2022): the shortage was driven by a fire at Gazprom's new Amur plant — which had started up in September 2021 with capacity heading toward 60 million m³/yr — plus a second January fire, and prolonged technical problems at the US Federal Helium Reserve whose July 2021 maintenance ran months long.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing producer and BLM outage accounts — no dataset.</span></li>
+    <li><a href="https://rockymountainair.com/blog/sanctions-plant-maintenance-helium-shortage-4/">Sanctions, Plant Maintenance, and How We Reached Helium Shortage 4.0</a><span class="src"> · Rocky Mountain Air</span>
+      <span class="desc">Distributor account of the overlapping causes of Shortage 4.0.</span>
+      <span class="abs"><b>Summary.</b> Distributor account: Gazprom's Amur facility (designed to supply ~30% of world helium) suffered fires and a minor explosion amid sanctions, BLM's Amarillo reserve went offline for four months from July 2021, and Qatar and Algeria took maintenance outages in spring 2022 — three of the world's largest facilities down within months, lifting prices ~20%.</span>
+      <span class="dat"><b>Data.</b> Trade commentary — no primary dataset.</span></li>
+    <li><a href="https://realpriceofrisk.substack.com/p/helium-the-worlds-most-predictable">Helium: The World's Most Predictable Supply Crisis</a><span class="src"> · Real Price of Risk (2026)</span>
+      <span class="desc">Argues the shortage cycle is a recurring, plannable risk, not a surprise.</span>
+      <span class="abs"><b>Summary.</b> April 2026: helium crises recur roughly every four years yet are treated as surprises. It tracks the pattern — 2006–07, 2011–13, 2018–20, 2021–23 (Russian plant explosions, US equipment failure, Qatar maintenance) and the 2026 Ras Laffan attack — and argues helium risk belongs in financial planning and contracts.</span>
+      <span class="dat"><b>Data.</b> Historical narrative of shortage episodes with price commentary — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — and the customs line that hides helium.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database; helium sits in HS 280429 with neon/krypton/xenon.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Helium has no clean HS6 code — it shares 280429 "rare gases" with neon, krypton and xenon, so customs cannot isolate it.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-appendixes.pdf">USGS Mineral Commodity Summaries 2026 — Appendixes</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Definitions and data-source notes underlying the USGS commodity chapters.</span>
+      <span class="abs"><b>Summary.</b> USGS reference appendixes to the 2026 Mineral Commodity Summaries: resource and reserve definitions and classification (Appendix C), source and methodology notes, and the country coverage behind each commodity chapter — the provenance for the helium production, reserve and resource figures.</span>
+      <span class="dat"><b>Data.</b> USGS methodology and definitions document — reference, not a dataset.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated <b>gas-industry association</b> source was retrieved — a priority follow-up given helium's industrial-gas-market framing. Next: "Compressed Gas Association helium supply statement" and "EIGA helium market report".</li>
+      <li><b>New-supply capacity</b> (Tanzania's Rukwa deposit, new US and South African plants) is asserted qualitatively in the chain but not sourced here with hard figures. Next: "Tanzania helium Rukwa production start 2025 2026" and "new US helium plant capacity 2025".</li>
+      <li><b>On-site MRI helium recovery/recycling adoption rates</b> would harden the "conservation is the supply strategy" claim. Next: "zero boil-off MRI helium recycling adoption hospitals".</li>
+      <li><b>Helium has no clean HS6 code</b> — it shares 280429 with neon, krypton and xenon — so BACI cannot verify the USGS production read, the same customs-invisibility that hides neon in the specialty-gas chain.</li>
+      <li>The chain record's <b>reserve-disposal citation resolves to an unrelated GAO report</b> (see item 6); replace it with a GAO Federal-Helium product or the USGS MCS 2025 record to close the provenance gap.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from helium-rich gas field to finished cryogenic use, with cross-cutting shortage analysis and data grouped at the end. 29 unique sources (duplicate CEPII and USGS-helium listings from the source notes were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved, or a cited link resolves to the wrong document, that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./helium-chain.html">The helium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
