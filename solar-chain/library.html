@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Solar-PV chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the solar-PV value chain, ordered to follow the chain from purified silicon to finished module. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./solar-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Solar-PV</div>
+    <h1>Solar-PV chain — polysilicon to module</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A solar module is silicon refined into polysilicon, grown into wafers, cut into cells and laminated into panels — and China makes roughly <b>85–98% of every one of those stages</b>. The chokepoint is not a scarce element: silicon is the second-most-abundant in the crust, and a panel uses ever less of it. <b>The chokepoint is the factory.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Polysilicon (silicon purified to PV-grade) → ② wafer · cell · module (manufacturing concentration, China ~85–98%) → the dematerialisation story (silicon per watt, 16 → 2 g/W) → then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./solar-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">16</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (8) · <span class="pill ref">Reference</span> context / provenance (3).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Polysilicon — silicon purified to PV-grade</td></tr>
+      <tr><td class="n">1</td><td>Ramírez-Márquez — solar-grade silicon (Commodities)</td><td class="took">Commodity-lens framing of solar-grade silicon (enables &gt;90% of PV) → underpins the "silicon ≠ polysilicon" byline and the factory-not-deposit correction.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Wafer · cell · module — manufacturing concentration</td></tr>
+      <tr><td class="n">2</td><td>IEA — Solar PV Global Supply Chains</td><td class="took">The five-segment concentration map (polysilicon→ingot→wafer→cell→module) → the <b>§1 "China at every stage"</b> framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>IEA-PVPS — Trends in PV Applications 2024</td><td class="took">Stage-level production/capacity shares → the <b>§1 China-by-stage bars</b> (poly 92 / wafer 98 / cell 92 / module 85).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">4</td><td>Evans et al. — Diversifying the PV supply chain (iScience)</td><td class="took">Europe-diversification analysis → the <b>"assembly moves, the wafer doesn't"</b> finding + the diversification framing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>Petavratzi et al. — UK foresight, PV cells (BGS)</td><td class="took">PV-cell material-demand foresight → supports the material-intensity and residual-exposure framing (§2–§3).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">The panel dematerialised — intensity, cost &amp; circularity</td></tr>
+      <tr><td class="n">6</td><td>Fraunhofer ISE — Photovoltaics Report</td><td class="took">Silicon-per-watt anchors 16 → 2 g/W + wafer ~98% of 2025 output → the <b>§2 dematerialisation panel</b> and the history chart.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>Kavlak et al. — Drivers of PV cost evolution (MIT)</td><td class="took">Cost-decomposition method → the "efficiency, not cheaper silicon, drove the cost down" reading behind §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>Yuan et al. — PV mineral circularity (Nature Comms)</td><td class="took">Secondary-supply/circularity model → a future "recycled silver &amp; tellurium" angle on the <b>§3 exposure</b> panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">9</td><td>IEA — Global Critical Minerals Outlook 2026</td><td class="took">Silver / copper / silicon demand outlook → the §3 silver-exposure figure and the material-input watch.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>IEA — Energy Technology Perspectives 2026</td><td class="took">~85% China solar-capacity cross-check → corroborates the §1 concentration read from an independent estimate.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>EU — Study on Critical Raw Materials 2023</td><td class="took">EI × Supply-Risk method + silicon-metal criticality → the criticality framing of the upstream input.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>EU — Critical Raw Materials Act</td><td class="took">The 40%-processing / 65%-single-supplier benchmarks → belong in the decision-layer / breakout page, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>SolarPower Europe — Global Solar Market Outlook</td><td class="took">3 TW installed / 664 GW-a demand denominators → scale context for the concentration risk.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>SolarPower Europe — Solar &amp; Storage for EU security</td><td class="took">Import-dependence framing → context for the policy layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">15</td><td>CEPII BACI</td><td class="took">The data engine → powers the reproduced <b>trade shares</b> across polysilicon, wafers, cells and modules.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">16</td><td>UN Comtrade Plus</td><td class="took">The declared import/export records that BACI reconciles — provenance of the trade layer.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Polysilicon — silicon purified to PV-grade <span class="ct">1</span></h2>
+  <div class="stagesub">The first hard step: metallurgical silicon refined to PV-grade polysilicon — ~92% China.</div>
+  <ul class="refs">
+    <li><a href="https://www.mdpi.com/2813-2432/4/3/18">Solar-Grade Silicon in the Energy Transition: A Strategic Commodity for the Global Photovoltaic Market</a><span class="src"> · Ramírez-Márquez, Commodities (2025)</span>
+      <span class="desc">Reframes polysilicon from a technical material to a strategic, concentrated commodity.</span>
+      <span class="abs"><b>Abstract.</b> Short communication reframing solar-grade silicon — which enables over 90% of PV technologies — as a strategic commodity of geopolitical and economic weight rather than a mere technical material. Analyses price trends, regional production asymmetries and trade dependencies, identifies supply-chain vulnerabilities, and argues perovskite/organic alternatives remain commercially immature.</span>
+      <span class="dat"><b>Data.</b> Techno-economic review integrating price, production-asymmetry and trade-dependency data with policy and investment analysis — a short communication, no new primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Wafer · cell · module — manufacturing concentration <span class="ct">4</span></h2>
+  <div class="stagesub">China ~85–98% at every stage; the wafer (~98%) is the stage nobody has replicated at scale.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/solar-pv-global-supply-chains">Solar PV Global Supply Chains</a><span class="src"> · IEA (2022)</span>
+      <span class="desc">The reference IEA study on manufacturing concentration across the PV supply chain.</span>
+      <span class="abs"><b>Abstract.</b> The reference IEA study mapping solar-PV supply chains from raw materials to finished product across the five manufacturing segments — polysilicon, ingots, wafers, cells and modules. Documents extreme geographic concentration in China and covers supply, demand, production, energy use, emissions, employment, costs, investment and trade.</span>
+      <span class="dat"><b>Data.</b> IEA analysis of PV manufacturing capacity, production, cost, trade and investment across the five supply-chain segments.</span></li>
+    <li><a href="https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf">Trends in Photovoltaic Applications 2024</a><span class="src"> · IEA-PVPS (2024)</span>
+      <span class="desc">Annual global PV deployment and manufacturing-trend report; source for the stage-share bars.</span>
+      <span class="abs"><b>Abstract.</b> IEA-PVPS Task 1 annual report on global PV deployment and manufacturing. Records record installations against a China-led manufacturing build-out whose overcapacity drove module prices to levels threatening the industry's viability, and details installed capacity, industrial/manufacturing policy, module prices and production over 2013–2023.</span>
+      <span class="dat"><b>Data.</b> IEA-PVPS national-survey network: country-level installed capacity, module production and capacity, and price data.</span></li>
+    <li><a href="https://www.cell.com/iscience/fulltext/S2589-0042(25)01012-0">Diversifying the solar photovoltaic supply chain to secure Europe's energy and climate roadmap and sovereignty</a><span class="src"> · Evans, Grand &amp; Dupuis, iScience (2025)</span>
+      <span class="desc">Analyses options for reducing China-concentration risk in EU PV supply.</span>
+      <span class="abs"><b>Abstract.</b> Examines Europe's exposure to China's overwhelming dominance of PV modules and upstream components, offshored and upscaled over fifteen years into low-cost gigafactories. Warns the concentration risks disruption — critical for repowering and once thermal plants retire — and assesses sovereignty options under the EU's Industrial Green Deal.</span>
+      <span class="dat"><b>Data.</b> Supply-chain and scenario analysis of European PV manufacturing capacity, module/component trade positions and diversification options.</span></li>
+    <li><a href="https://nora.nerc.ac.uk/id/eprint/539379/">A UK foresight study of materials in decarbonisation technologies: the case of photovoltaic cells</a><span class="src"> · Petavratzi, Josso, Shaw, Horn &amp; Singh (2024)</span>
+      <span class="desc">UK government-affiliated foresight study on PV-cell material demand.</span>
+      <span class="abs"><b>Summary.</b> British Geological Survey foresight study on materials in decarbonisation technologies, taking PV cells as its case: solar as a near-infinite renewable source and the materials underpinning domestic- and industrial-scale panels. A 45-page BGS report, internally reviewed but not externally peer-reviewed.</span>
+      <span class="dat"><b>Data.</b> British Geological Survey foresight assessment (45 pp) of PV-cell material demand; funded by BGS and the Department for Business &amp; Trade.</span></li>
+  </ul>
+
+  <h2 class="sec">The panel dematerialised — intensity, cost &amp; circularity <span class="ct">3</span></h2>
+  <div class="stagesub">Silicon per watt fell about eight-fold in twenty years — the chokepoint hardened anyway.</div>
+  <ul class="refs">
+    <li><a href="https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf">Photovoltaics Report</a><span class="src"> · Fraunhofer ISE (2026)</span>
+      <span class="desc">Technical reference on cell/module technology, efficiency and material-intensity trends.</span>
+      <span class="abs"><b>Abstract.</b> Fraunhofer ISE's regularly updated technical reference on PV markets, cell/module efficiency, material intensity, life-cycle assessment and prices. Documents silicon-per-watt falling from about 16 g/Wp (2004) to about 2.0 g/Wp (2024) via thinner wafers and higher efficiency, and wafer-based crystalline silicon at ~98% of 2025 production.</span>
+      <span class="dat"><b>Data.</b> Fraunhofer ISE / PSE compilation of PV market, efficiency, wafer-thickness, silicon-usage and price data from public industry and research sources.</span></li>
+    <li><a href="https://dspace.mit.edu/handle/1721.1/115605">Evaluating the causes of cost reduction in photovoltaic modules</a><span class="src"> · Kavlak, McNerney &amp; Trancik, MIT (2018)</span>
+      <span class="desc">Decomposes the historical fall in PV cost and material intensity.</span>
+      <span class="abs"><b>Abstract.</b> Advances a framework quantifying the causes of PV-module cost decline, separating low-level mechanisms (efficiency, materials) from high-level ones (R&amp;D, learning-by-doing, scale). Finds increased module efficiency the leading low-level cause over 1980–2012 (~25% of the decline) and R&amp;D the dominant high-level driver, with scale economies rising after 2001.</span>
+      <span class="dat"><b>Data.</b> Cost-model decomposition of PV-module cost changes 1980–2012 using historical cost, efficiency and material-input data.</span></li>
+    <li><a href="https://www.nature.com/articles/s41467-025-64145-z">Role of anthropogenic mineral circularity in addressing dual challenges of resource supply and waste management in global photovoltaic development</a><span class="src"> · Yuan, Song, Liu, Huang &amp; Wang, Nature Communications (2025)</span>
+      <span class="desc">Global PV material-circularity / recycling modelling.</span>
+      <span class="abs"><b>Abstract.</b> Models secondary-material supply potential across five PV technologies under different energy scenarios. Projects cumulative material demand of 705–1879 Mt and waste of 238–529 Mt by 2050; a circularity strategy could raise the annual secondary-supply ratio from 3.3% (2020) to 43–102% by 2050, with silver and tellurium potentially in surplus.</span>
+      <span class="dat"><b>Data.</b> Tailored global material-flow / circularity model of five PV technologies across energy-transition scenarios to 2050.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">6</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and industry outlooks that classify or size the whole chain.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">Global Critical Minerals Outlook 2026</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Annual outlook covering the metals (silicon, silver, copper) that feed PV manufacturing.</span>
+      <span class="abs"><b>Summary.</b> The IEA's 2026 outlook on 37 critical minerals for energy transitions — including silicon, silver and copper that feed PV — with supply–demand projections across three scenarios and analysis of concentration, export restrictions and underinvestment as security risks.</span>
+      <span class="dat"><b>Data.</b> IEA market assessments and medium/long-term projections across three scenarios; published 16 July 2026.</span></li>
+    <li><a href="https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness">Energy Technology Perspectives 2026 — supply-chain risks and industrial competitiveness</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Cross-technology assessment of supply-chain and industrial-competitiveness risk.</span>
+      <span class="abs"><b>Abstract.</b> Cross-technology assessment of clean-energy supply-chain risk and industrial competitiveness. Finds manufacturing for solar PV, batteries, wind and heat pumps heavily concentrated in China (~85% of solar capacity), with non-Chinese production unable to meet demand and geographic diversification unlikely before 2030 on current commitments.</span>
+      <span class="dat"><b>Data.</b> IEA analysis (ETP 2026) drawing on BNEF, Benchmark Mineral Intelligence and S&amp;P Global manufacturing-capacity data.</span></li>
+    <li><a href="https://op.europa.eu/en/publication-detail/-/publication/57318397-fdd4-11ed-a05c-01aa75ed71a1">Study on the Critical Raw Materials for the EU 2023 — Final Report</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's fifth CRM assessment; covers silicon metal, relevant to polysilicon supply.</span>
+      <span class="abs"><b>Abstract.</b> The EU's fifth technical criticality assessment (2023), feeding the Critical Raw Materials Act. Screens candidate materials against Economic Importance and Supply Risk thresholds — governance-weighted concentration adjusted for recycling and substitution — identifying 34 critical raw materials, among them silicon metal, the feedstock for polysilicon.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over the candidate-material pool, using production, trade, value-added, substitution and recycling data.</span></li>
+    <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=OJ:L_202401252">Critical Raw Materials Act (Regulation 2024/1252)</a><span class="src"> · European Union, Official Journal (2024)</span>
+      <span class="desc">Legal text of the EU's policy response to raw-material supply concentration.</span>
+      <span class="abs"><b>Summary.</b> EU Regulation 2024/1252 establishing a framework to secure critical-raw-material supply. Sets 2030 benchmarks — 10% domestic extraction, 40% processing and 25% recycling of EU consumption — and caps any single third country at 65% of a strategic raw material's supply.</span>
+      <span class="dat"><b>Data.</b> EU legal instrument — Official Journal L 2024/1252; a regulation, not a dataset.</span></li>
+    <li><a href="https://www.solarpowereurope.org/insights/outlooks/global-solar-market-outlook-2026-2030">Global Solar Market Outlook 2026-2030</a><span class="src"> · SolarPower Europe (2026)</span>
+      <span class="desc">Flagship annual global demand/supply outlook for the solar industry.</span>
+      <span class="abs"><b>Summary.</b> SolarPower Europe's flagship annual outlook: a record 664 GW of new solar installed in 2025 lifting global capacity to 3 TW, with regional and country-level forecasts to 2030 and analysis of policy, grid and manufacturing constraints on continued growth.</span>
+      <span class="dat"><b>Data.</b> SolarPower Europe industry data and demand/supply modelling; published 22 June 2026.</span></li>
+    <li><a href="https://www.solarpowereurope.org/insights/thematic-reports/solar-and-storage-for-eu-energy-security">Solar &amp; Storage for EU Energy Security</a><span class="src"> · SolarPower Europe (2026)</span>
+      <span class="desc">Thematic report linking PV/storage deployment to import-dependence reduction.</span>
+      <span class="abs"><b>Summary.</b> Thematic briefing linking solar-plus-storage deployment to reduced EU energy vulnerability — cutting fossil-fuel imports and price exposure, with EU solar generation expected to avoid tens of billions of euros in gas imports in 2026 alone.</span>
+      <span class="dat"><b>Data.</b> SolarPower Europe modelling of solar's contribution to EU energy security (April 2026).</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own trade figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII (2026)</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade layer.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by converting CIF-valued imports to FOB and reliability-weighting reporter discrepancies. Version 202601 released 30 January 2026.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB conversion, reporter-reliability weighting).</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a><span class="src"> · United Nations</span>
+      <span class="desc">Official international merchandise-trade-statistics platform underlying BACI.</span>
+      <span class="abs"><b>Summary.</b> The United Nations' official international merchandise-trade-statistics platform — the reported import/export declarations that CEPII reconciles into BACI. <span class="miss">The live portal is a JavaScript application shell and returned no document text on this pass; described from its known role.</span></span>
+      <span class="dat"><b>Data.</b> UN Statistics Division merchandise-trade declarations — the provenance layer beneath BACI.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The granular, <b>stage-by-stage China market-share numbers</b> the chain relies on come partly from independent market-intelligence firms (BloombergNEF, Wood Mackenzie, Bernreuter Research on polysilicon) that were not reachable this session — a direct pass on those would sharpen the poly/wafer/cell/module split.</li>
+      <li>The wafer stage (~98% China) is the true lock, yet <b>no clean public country-level wafer-output series</b> isolates it from cells and modules; ITRPV (International Technology Roadmap for Photovoltaic) reports are the best next source for wafer-thickness and capacity detail.</li>
+      <li><b>SEIA</b> and CSIS's Critical Minerals Security Program pages returned access errors this session — worth a follow-up for US-specific PV supply-chain policy analysis.</li>
+      <li>The <b>EU Net-Zero Industry Act</b> analysis of European PV manufacturing capacity — the counter-move to China concentration — is a natural next search alongside the CRM Act benchmarks already listed here.</li>
+      <li>A dedicated series behind the "eight-fold" <b>silicon-per-watt decline</b> (g/W over time, not just the 2004 and 2024 anchors) would firm up the dematerialisation claim — Fraunhofer ISE and ITRPV are the places to look.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from purified silicon to finished module, with cross-cutting frameworks and data grouped at the end. 16 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text (abstracts drawn from the papers themselves; PDF figures read directly from the reports); where a page could not be retrieved (a JavaScript app shell) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./solar-chain.html">The solar-PV chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
