@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Fluorine (fluorspar → HF) chain",
-    "chokepoint": {"product": "Chips · batteries · cooling", "stage": "HF", "mechanism": "capability", "physics": "Fluorspar → HF → fluorochemicals; the gateway chemical, ~62% China", "holder": "China", "share": "~62%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Chips · batteries · cooling", "stage": "HF", "mechanism": "capability", "physics": "Fluorspar → HF → fluorochemicals; the gateway chemical, ~60% China", "holder": "China", "share": "~60%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../heat-pump-chain/heat-pump-chain.html", "label": "Heat-pump chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
     "accent": "#3a7d6a",
@@ -33,15 +33,15 @@ CHAIN = {
             "unrelated critical products: the etching gases that make semiconductors, the electrolyte and binder in "
             "every lithium-ion cell, and the refrigerants in every air conditioner and heat pump. China mines about "
             "two-thirds of it.",
-    "byline": "fluorspar (~62% CN) → hydrogen fluoride → { chip gases · LiPF6 electrolyte · refrigerants }",
+    "byline": "fluorspar (~60% CN) → hydrogen fluoride → { chip gases · LiPF6 electrolyte · refrigerants }",
     "correction": "Supply-risk lists rarely mention fluorine, yet it is a hidden common node. Fluorspar → HF feeds "
                   "semiconductor etchants, the LiPF6 electrolyte and PVDF binder in Li-ion cells, and HFC/HFO "
-                  "refrigerants — three chains that look independent but share one upstream mineral. China mines ~62% "
+                  "refrigerants — three chains that look independent but share one upstream mineral. China mines ~60% "
                   "of fluorspar (up from ~37% in 2000) and makes most of the world's HF, so a single quiet chokepoint "
                   "sits under chips, batteries and heat pumps together.",
     "stats": [
-        {"v": "~62%", "l": "China's share of world fluorspar mine output (2024)", "conf": "measured"},
-        {"v": "37 → 62%", "l": "China's fluorspar share climbed steadily, 2000 → 2024", "conf": "measured"},
+        {"v": "~60%", "l": "China's share of world fluorspar mine output (2024)", "conf": "measured"},
+        {"v": "37 → 60%", "l": "China's fluorspar share climbed steadily, 2000 → 2024", "conf": "measured"},
         {"v": "HF", "l": "hydrogen fluoride — the one chemical gateway to all three end uses", "conf": "measured"},
         {"v": "3 chains", "l": "chips, Li-ion cells and refrigerants all depend on this mineral", "conf": "measured"},
     ],
@@ -49,7 +49,7 @@ CHAIN = {
         "title": "A chokepoint that was built: China's fluorspar share, 2000 → 2024",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. China's share roughly doubled from ~37% to a "
-                "peak near 70% before easing to ~62%, while Mexico held second place. Unlike a geological monopoly, "
+                "peak near 70% before easing to ~60%, while Mexico held second place. Unlike a geological monopoly, "
                 "this concentration was built over two decades — which is exactly the atlas's distinction: a built "
                 "chokepoint can, in principle, be rebuilt elsewhere.",
         "series": [
@@ -59,7 +59,7 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Fluorspar", "t": "calcium fluoride ore (CaF2), acid-grade — China ~62% of the mine"},
+        {"n": "1 · Fluorspar", "t": "calcium fluoride ore (CaF2), acid-grade — China ~60% of the mine"},
         {"n": "2 · Hydrogen fluoride", "t": "fluorspar + sulphuric acid → HF, the reactive gateway chemical"},
         {"n": "3 · Fluorochemicals", "t": "etch gases (NF3, WF6), LiPF6 electrolyte + PVDF binder, HFC/HFO refrigerants"},
         {"n": "4 · The products", "t": "semiconductors, lithium-ion cells, air conditioners and heat pumps"},
@@ -78,7 +78,7 @@ CHAIN = {
              "flag": "a shared node under five chains"},
         ]},
         {"h2": "2 · The concentration was built, not born", "panels": [
-            {"kind": "big", "h3": "China's climb", "big": "37 → 62%", "conf": "measured",
+            {"kind": "big", "h3": "China's climb", "big": "37 → 60%", "conf": "measured",
              "text": "China's share of fluorspar mining roughly doubled over two decades as other producers (South "
                      "Africa, Mongolia, Mexico) held or shrank and Chinese output grew. It also dominates the HF and "
                      "downstream fluorochemical steps. Because this was built with capital and policy rather than "
@@ -105,7 +105,7 @@ CHAIN = {
                    "headings. Read the shares below as the raw mineral and its first acid; the three end-use branches "
                    "are not separable in customs data.",
     "method": [
-        {"stage": "Fluorspar", "lens": "USGS/BGS mine share + history", "why": "~62% China, built from ~37% since 2000"},
+        {"stage": "Fluorspar", "lens": "USGS/BGS mine share + history", "why": "~60% China, built from ~37% since 2000"},
         {"stage": "HF", "lens": "USGS/IEA HF production", "why": "the single chemical gateway; most of it in China"},
         {"stage": "End uses", "lens": "chips / battery / refrigerant literature", "why": "three chains share the node — qualitative"},
         {"stage": "Trade", "lens": "BACI 252921/252922 fluorspar + 281111 HF", "why": "raw mineral + acid only; fluorochemicals not separable — flagged"},

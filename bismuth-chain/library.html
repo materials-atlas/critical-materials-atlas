@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bismuth chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the bismuth value chain — the non-toxic heavy metal that replaces lead, a by-product of lead and tungsten smelting with China ~80% of production and refining. Ordered to follow the chain; each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="bismuth-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Bismuth</div>
+    <h1>Bismuth chain — the non-toxic heavy metal that replaces lead</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Bismuth is the safe heavy metal — dense like lead but non-toxic — so it is the standard replacement as lead is regulated out of drinking-water brass, free-machining alloys, shot and sinkers, and it is the "bismol" in stomach remedies and the shimmer in cosmetics. It is recovered as a by-product of lead and tungsten smelting, and China makes and refines roughly 80% of it. <b>The metal we reach for to escape toxic lead is itself a one-country dependency.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① By-product source — recovered from lead and tungsten smelting, China ~80% of production and refining → ② end uses — the non-toxic lead replacement (plumbing, alloys, shot) plus pharma and pigment — then the cross-cutting criticality frameworks, market reporting and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="bismuth-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">23</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (15).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① By-product source — lead &amp; tungsten smelting, China ~80%</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Bismuth</td><td class="took">Sources the headline concentration (2025: China 88% of world refinery output, 14,000 of 16,000 t) + the by-product-of-lead/tungsten framing + ~92% US import reliance → the chain's Source and Refine stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS Bismuth 2020–2024 series</td><td class="took">Multi-year China-share and US import-source trend (China 68%→56% of US imports as Korea/Germany grew) → provenance for the concentration claim; a candidate history series.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>USGS 2010 Minerals Yearbook — Bismuth</td><td class="took">End-use split (65% chemical/pharmaceutical, 27% metallurgical, 8% alloys/solder/ammunition) + by-product-of-lead history → the "medicine-cabinet metal" panel context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>BGS World Mineral Statistics</td><td class="took">Independent long-run production series to cross-check the USGS shares (BGS/USGS ground-truth guardrail).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>USGS OFR — China's mineral industries</td><td class="took">China's up-to-98% single-commodity dominance + a processing-infrastructure map → context for one-refiner concentration.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Bismuth: economic geology &amp; value chains</td><td class="took">Deposit-type / value-chain method (W-, Pb-, Au-skarns; five-element veins; Sn/W greisens as by-product hosts) → would deepen §3 "why it's a by-product."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Bismuth Mining &amp; Processing (CSM Hub)</td><td class="took">By-product recovery + Kroll–Betterton / electrolytic refining geography → the processing-stage narrative.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② End uses — non-toxic lead replacement, pharma &amp; pigment</td></tr>
+      <tr><td class="n">8</td><td>Lead-free machining Al (In/Bi) — Materials</td><td class="took">Substitution evidence: indium promising, bismuth limited in Mg-bearing alloys → would nuance the "bismuth replaces lead" claim.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Bi–Sn solder in lead-free brass — J. Clean. Prod.</td><td class="took">Quantified machinability substitution (3% Bi–Sn ≈ commercial EnviroBrass III) → hard evidence for the potable-water brass replacement use.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>Bismuth Alloys — ScienceDirect Topics</td><td class="took">Fusible-alloy compositions and uses reference → the fire-sprinkler / low-melting-alloy end-use detail.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>Free-cutting Al, tin vs lead — Springer BHM</td><td class="took">Comparative lead-substitution metallurgy (tin vs bismuth) under the EU End-of-Life Vehicles ban → substitution-landscape context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">12</td><td>EU Critical Raw Materials 2023 — bismuth</td><td class="took">EI × Supply-Risk method → bismuth on the 2023 CRM list; frames the "critical" designation used across the chain.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>SCRREEN2 — Bismuth CRM 2020 factsheet</td><td class="took">EU value-chain quantities (consumption ~1,985 t, China 93% of EU imports, 62% pharma/feed, 28% fusible alloys) → would add EU-flow figures to the chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>CRM Alliance — Bismuth</td><td class="took">Policy-facing "China ~80% of refined output / 47% of EU imports" figures → corroborates the concentration.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>Trade-restriction supply-chain risk (Resources Policy)</td><td class="took">Producer-concentration risk-score method (bismuth = Tier 1) validated by the 2024 China export controls → a reproducible chokepoint-scoring approach.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — market, price &amp; reporting</td></tr>
+      <tr><td class="n">16</td><td>Metal Tech News — supply-chain heartburn</td><td class="took">Western diversification narrative → belongs in the decision-layer / breakout page, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Rare Earth Exchanges — Bismuth's Moment?</td><td class="took">"Midstream, not mines" resilience thesis → reinforces the by-product / refining-chokepoint finding.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Reuters/Yahoo — a metal jumps 500%</td><td class="took">2025 price spike + export-control mechanics → makes the "swap toxicity for concentration" flag concrete.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>Bismuth Global Strategic Industry Report 2025</td><td class="took">Market-size forecast (~$634.9M by 2030) + demand drivers (pharma, semiconductor, cosmetics) → end-use / demand context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>SFA (Oxford) — The Bismuth Market</td><td class="took">Price-driver + supply-concentration commentary → the market-mechanism context behind the by-product coupling.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>Metalpedia — associations &amp; companies</td><td class="took">Producer directory (China vs non-China firms; Núi Pháo, Sidech, MCP, Fortune) → diversification-target leads.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">22</td><td>CEPII BACI</td><td class="took">The trade engine → powers the reproduced <b>HS 810600 bismuth trade panel</b> and export shares.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">23</td><td>USGS MCS series</td><td class="took">The production data engine → the production figures across every stage.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① By-product source — lead &amp; tungsten, China ~80% <span class="ct">7</span></h2>
+  <div class="stagesub">The raw input no one mines for itself: recovered as a by-product of lead, tungsten (and, in Japan/Korea, zinc) smelting — and China makes and refines roughly 80%.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf">USGS Mineral Commodity Summaries 2026 — Bismuth</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production/reserves/uses data for bismuth; China's dominant share and US import reliance.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: the US ceased primary refined-bismuth production in 1997 and is ~92% import-reliant. Bismuth is recovered mostly as a by-product of lead — and, in China and Vietnam, tungsten — smelting. Estimated 2025 world refinery output was 16,000 t, China 88% (14,000 t); chief uses are pharmaceuticals, non-toxic lead replacement, and fusible alloys.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, price (Fastmarkets, Rotterdam) and world refinery-production data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-bismuth.pdf">USGS Mineral Commodity Summaries — Bismuth (2020–2024 series)</a><span class="src"> · USGS</span>
+      <span class="desc">Year-by-year annual summaries showing China's leading share and the US import trend.</span>
+      <span class="abs"><b>Abstract.</b> Earlier annual USGS bismuth chapters track the same structure: no US primary refinery since 1997, net import reliance 90–97%, China the leading producer and exporter, and China's share of US imports falling from 68% (2019–22) toward 56% (2021–24) as the Republic of Korea and Germany grew. Documents the multi-year China-concentration trend.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics, year by year (production, imports, net import reliance, price).</span></li>
+    <li><a href="https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/mineral-pubs/bismuth/myb1-2010-bismu.pdf">2010 Minerals Yearbook — Bismuth</a><span class="src"> · USGS</span>
+      <span class="desc">Detailed annual chapter: by-product recovery, US end-use split, world review.</span>
+      <span class="abs"><b>Abstract.</b> Detailed 2010 USGS annual chapter: US bismuth consumption ~884 t, split 65% chemical/pharmaceutical, 27% metallurgical additives, 8% alloys/fusible-alloy/solder/ammunition. US primary production ended in 1997 (last recovered as a by-product of lead refining at a Nebraska refinery); leading refined-bismuth producers were China, Mexico, Belgium and Peru. Notes emerging non-toxic lead-replacement uses.</span>
+      <span class="dat"><b>Data.</b> USGS annual domestic-consumption survey plus the world refinery-production table.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — bismuth</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Long-run public series of world mine/metal production and trade by commodity and country.</span>
+      <span class="abs"><b>Abstract.</b> BGS's long-run public dataset of world mine and metal production and trade by commodity and country, from national statistical returns — the standard non-USGS ground-truth series used to cross-check bismuth production shares. <span class="miss">(Cited mineralsUK index page returned 404 this pass — the statistics browser has moved; URL needs refreshing.)</span></span>
+      <span class="dat"><b>Data.</b> BGS compilation of national government production and trade returns, spanning several decades.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/ofr20261018/full">Production of mineral commodities and geospatial map of the mineral industries of China</a><span class="src"> · USGS Open-File Report (2026)</span>
+      <span class="desc">Review of China's 2023 mineral production, capacity and processing infrastructure.</span>
+      <span class="abs"><b>Abstract.</b> USGS Open-File Report reviewing China's 2023 mineral production and capacity: of 77 commodities in the USGS dataset China produced 74 and ranked first for 39, with global shares up to 98% (gallium); reserves are comparatively smaller (20% zinc ore to 52% tungsten ore). Maps mines and processing infrastructure — context for bismuth's China concentration.</span>
+      <span class="dat"><b>Data.</b> USGS global mineral dataset (77 commodities) plus a geospatial GIS map of Chinese mineral mines and processing infrastructure.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0169136822000300">Bismuth: economic geology and value chains</a><span class="src"> · Ore Geology Reviews (2022)</span>
+      <span class="desc">Deposit geology and full value-chain academic review of bismuth.</span>
+      <span class="abs"><b>Abstract.</b> Bismuth occurs across many deposit types and is usually a deleterious by-product; its EU (2017) and US (2018) criticality listings reawakened supply-security interest as demand rises to substitute lead and for chemicals. Reviews its geochemistry and sources — W-, Pb- and Au-rich skarns, five-element veins, and Sn/W greisens — and the value chain.</span>
+      <span class="dat"><b>Data.</b> Ore-deposit and geochemistry synthesis plus value-chain review — no new primary dataset.</span></li>
+    <li><a href="https://criticalstrategicmetals.com/minerals/bismuth/mining-and-processing/">Bismuth Mining &amp; Processing</a><span class="src"> · Critical &amp; Strategic Metals Hub</span>
+      <span class="desc">Overview of by-product recovery and processing geography.</span>
+      <span class="abs"><b>Summary.</b> Overview page: bismuth (~20,000 t/yr) is obtained predominantly as a by-product of lead and copper smelting and tungsten mining rather than by primary extraction; China leads output (cited ~65% share); recovery uses electrolytic refining and the Kroll–Betterton process.</span>
+      <span class="dat"><b>Data.</b> Secondary explainer — cites production shares and process descriptions, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② End uses — non-toxic lead replacement, pharma &amp; pigment <span class="ct">4</span></h2>
+  <div class="stagesub">Bismuth's whole value proposition is being the harmless heavy metal: lead-free brass, free-machining alloys, shot and sinkers, fusible alloys — plus bismuth subsalicylate and pearlescent pigment.</div>
+  <ul class="refs">
+    <li><a href="https://doi.org/10.3390/ma16186241">Thermodynamic and Microstructural Analysis of Lead-Free Machining Aluminium Alloys with Indium and Bismuth Additions</a><span class="src"> · Materials (MDPI, 2023)</span>
+      <span class="desc">Peer-reviewed study of bismuth (with indium) as a lead-free machinability additive.</span>
+      <span class="abs"><b>Abstract.</b> Study testing indium and indium–bismuth additions as substitutes for toxic lead in free-machining aluminium alloys (EN AW 6026, 1370), using Thermo-Calc modelling, DSC and SEM–EDS. Finds indium a promising lead alternative — homogeneous, low-melting particles that avoid interactions — but bismuth does not improve machinability in magnesium-containing aluminium: a nuanced substitution result.</span>
+      <span class="dat"><b>Data.</b> Thermodynamic (Thermo-Calc TCAL-6) plus DSC and SEM–EDS characterisation of two aluminium alloys.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0959652617303128">Using recycled bismuth–tin solder in novel machinable lead-free brass</a><span class="src"> · Journal of Cleaner Production (2017)</span>
+      <span class="desc">Academic comparison of bismuth vs other additives for lead-free brass machinability.</span>
+      <span class="abs"><b>Abstract.</b> Study using recycled bismuth–tin solder as a machinability additive in lead-free Cu-38Zn-0.5Si brass. Adding 1–3 mass% Bi–Sn cut tensile strength and machining force and broke long continuous chips into short ones; 3% gave the best machinability, matching commercial EnviroBrass III — evidence bismuth can replace lead in free-cutting brass.</span>
+      <span class="dat"><b>Data.</b> Experimental mechanical-property, microstructure and machinability tests on Bi–Sn-added lead-free brass.</span></li>
+    <li><a href="https://www.sciencedirect.com/topics/earth-and-planetary-sciences/bismuth-alloys">Bismuth Alloys — an overview</a><span class="src"> · ScienceDirect Topics</span>
+      <span class="desc">Reference summary of bismuth alloy chemistry and fusible-alloy uses.</span>
+      <span class="abs"><b>Summary.</b> Reference aggregation of textbook and handbook excerpts on bismuth alloys — chiefly low-melting "fusible" alloys and their compositions and uses. <span class="miss">(Page served behind a 403 block on this pass — not retrievable; entry noted from its title and index role.)</span></span>
+      <span class="dat"><b>Data.</b> Aggregated encyclopaedia/handbook excerpts — reference material, no dataset.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s00501-008-0390-5">Free-Cutting Aluminium Alloys with Tin as Substitution for Lead</a><span class="src"> · BHM (Springer)</span>
+      <span class="desc">Comparative lead-substitution metallurgy (tin vs bismuth).</span>
+      <span class="abs"><b>Abstract.</b> Study (Univ. Leoben Institute of Nonferrous Metallurgy) responding to the EU End-of-Life Vehicles ban (from 2008) on machining aluminium above 0.4 wt% lead: develops a lead-free tin-alloyed 2030 aluminium with grade-"A" machinability — short, broken chips — matching leaded alloys on microstructure, strength, corrosion resistance and machinability; tin is the lead substitute, bismuth the comparator.</span>
+      <span class="dat"><b>Data.</b> Alloy-development study: microstructure, mechanical, corrosion and machinability testing of tin-alloyed aluminium against a leaded reference.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">4</span></h2>
+  <div class="stagesub">EU/US assessments and analysis that classify bismuth and quantify its supply concentration.</div>
+  <ul class="refs">
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">European Commission — Critical Raw Materials (2023 assessment)</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's formal criticality assessment underlying its 2023 CRM list, which includes bismuth.</span>
+      <span class="abs"><b>Abstract.</b> The EU's 2023 criticality assessment scores 70 candidate materials on Economic Importance and Supply Risk, yielding 34 Critical Raw Materials — bismuth among them (with copper and nickel added as strategic). It feeds the Critical Raw Materials Act; the assessment reflects bismuth's high supply concentration in China.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over 70 materials using production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://scrreen.eu/wp-content/uploads/2023/01/BISMUTH_CRM_2020_Factsheets_critical_Final.pdf">BISMUTH — CRM 2020 Factsheet</a><span class="src"> · SCRREEN2 / EU Horizon (2020)</span>
+      <span class="desc">EU criticality factsheet: supply risk, economic importance, end uses, substitution.</span>
+      <span class="abs"><b>Abstract.</b> EU Horizon (SCRREEN2/JRC) factsheet: bismuth, very rarely mined as a main metal, is mainly a by-product of lead and tungsten, with China the top mined and refined producer. EU consumption ~1,985 t and ~50% import-reliant, China 93% of EU imports; end uses pharma/animal-feed 62%, fusible alloys 28%. World reserves ~370,000 t.</span>
+      <span class="dat"><b>Data.</b> JRC value-chain elaboration (DERA, USGS, Eurostat, Minerals4EU) with EU sourcing, end-use split and reserve figures.</span></li>
+    <li><a href="https://www.crmalliance.eu/bismuth">Bismuth | CRM Alliance</a><span class="src"> · CRM Alliance (EU)</span>
+      <span class="desc">Policy-facing profile of bismuth as an EU critical raw material.</span>
+      <span class="abs"><b>Summary.</b> EU industry-alliance profile: bismuth as an eco-friendly lead substitute with growing pharma, electronics and metallurgical uses; supply highly concentrated — China ~80% of refined production (2021) and 47% of EU imports — underpinning its critical-raw-material status.</span>
+      <span class="dat"><b>Data.</b> Policy-facing profile — cites production and EU-import shares, no primary dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0301420725002685">Assessment of critical minerals supply chain for the United States in perspective of trade restriction by foreign countries</a><span class="src"> · Resources Policy (2025)</span>
+      <span class="desc">US-focused analysis of trade-restriction exposure, including bismuth's 2024 Chinese export controls.</span>
+      <span class="abs"><b>Abstract.</b> Scores the 50 US critical minerals for supply-chain vulnerability by screening each stage (extraction, processing, trade) for single-foreign-country dominance, weighted by a "freedom in the world" indicator (risk score Spr). Bismuth scores Tier 1 (high risk); the approach is validated by China's 2024 export controls on bismuth, antimony and magnesium.</span>
+      <span class="dat"><b>Data.</b> Producer-concentration screening of 50 critical minerals across extraction/processing/trade with a governance-weighted Spr score.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — market, price &amp; reporting <span class="ct">6</span></h2>
+  <div class="stagesub">Trade-press and market analysis on the by-product coupling, the 2024–25 export-control price spike, and diversification.</div>
+  <ul class="refs">
+    <li><a href="https://www.metaltechnews.com/story/2025/08/07/critical-minerals-alliances-2025/relieving-bismuth-supply-chain-heartburn/2406.html">Relieving bismuth supply chain heartburn</a><span class="src"> · Metal Tech News (2025)</span>
+      <span class="desc">Trade-press analysis of Western diversification efforts.</span>
+      <span class="abs"><b>Summary.</b> Trade-press analysis of Western efforts to diversify bismuth supply away from China. <span class="miss">(Article behind a Cloudflare challenge — not fully retrievable; noted from the headline and the companion review below.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+    <li><a href="https://rareearthexchanges.com/news/bismuths-moment-new-review-maps-the-road-to-a-more-resilient-critical-mineral-supply-chain/">Bismuth's Moment? New review maps the road to a more resilient supply chain</a><span class="src"> · Rare Earth Exchanges</span>
+      <span class="desc">Commentary on the economic-geology/value-chain review, framing resilience options.</span>
+      <span class="abs"><b>Summary.</b> Commentary on a review of bismuth extraction, refining and recycling: China controls over 80% of refined bismuth, mostly a by-product; resilience lies less in new mines than in midstream hydrometallurgy, solvent extraction and recycling — technologies years from deployment.</span>
+      <span class="dat"><b>Data.</b> Secondary commentary summarising a published technology review — no primary dataset.</span></li>
+    <li><a href="https://www.yahoo.com/news/critical-metal-jumps-500-xi-060647688.html">A critical metal jumps 500% after Xi replies to Trump tariffs</a><span class="src"> · Yahoo / Reuters</span>
+      <span class="desc">Market reporting on the price impact of China's 2024–25 bismuth export controls.</span>
+      <span class="abs"><b>Summary.</b> Wire report: bismuth surged ~500% after China's early-2025 export controls (answering US tariffs), from ~$6 to ~$35/lb as Chinese exports fell to 458 t in February; China makes ~80% of refined bismuth, the US imports ~two-thirds.</span>
+      <span class="dat"><b>Data.</b> Market reporting citing price and Chinese export-volume figures.</span></li>
+    <li><a href="https://www.businesswire.com/news/home/20250327159728/en/Bismuth-Global-Strategic-Industry-Report-2025-Market-to-Reach-$634.9-Million-by-2030---Innovations-in-Bismuth-Based-Catalysts-and-Chemicals-Demand-from-Pharma-Semiconductor-and-Cosmetics---ResearchAndMarkets.com">Bismuth Global Strategic Industry Report 2025</a><span class="src"> · ResearchAndMarkets / BusinessWire (2025)</span>
+      <span class="desc">Market-size forecast and demand-driver breakdown (pharma, cosmetics, catalysts, semiconductor).</span>
+      <span class="abs"><b>Summary.</b> Market-research press release: global bismuth market projected to reach ~$634.9M by 2030, driven by pharma, semiconductor, cosmetics and bismuth-catalyst/chemical demand. <span class="miss">(Release page 403/timed out this pass — figures from the report's own headline.)</span></span>
+      <span class="dat"><b>Data.</b> Proprietary market-research forecast — no public primary dataset.</span></li>
+    <li><a href="https://www.sfa-oxford.com/rare-earths-and-minor-metals/minor-metals-and-minerals/bismuth-market-and-bismuth-price-drivers/">The Bismuth Market</a><span class="src"> · SFA (Oxford)</span>
+      <span class="desc">Specialist minor-metals market analysis and price-driver commentary.</span>
+      <span class="abs"><b>Summary.</b> Minor-metals specialist page: bismuth as a non-toxic lead substitute and energy-transition enabler (thermoelectrics, batteries, medical imaging); supply heavily concentrated in China, which dominates mining and refining; prices driven by its by-product coupling to lead/copper mining and by smelter regulation.</span>
+      <span class="dat"><b>Data.</b> Specialist market commentary and price-driver analysis — no primary dataset.</span></li>
+    <li><a href="http://metalpedia.asianmetal.com/metal/bismuth/organization.shtml">Bismuth: associations and companies</a><span class="src"> · Metalpedia (Asian Metal)</span>
+      <span class="desc">Directory of producers and national associations (US, China, EU).</span>
+      <span class="abs"><b>Summary.</b> Directory of bismuth producers and associations: Chinese firms (Hunan Jinwang Bismuth, Hunan Bismuth Industry, Xianyang Yuehua, Shizhuyuan) and non-Chinese ones (MCP UK, Sidech Belgium, Fortune Minerals Canada, Núi Pháo Vietnam, Tasna Bolivia); lists the China Indium Bismuth Germanium Association.</span>
+      <span class="dat"><b>Data.</b> Curated industry directory — company and association listings, no statistics.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's HS 810600 trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Supplies the chain's HS 810600 "bismuth and articles thereof" trade panel.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data (bismuth and related by-product metals).</span>
+      <span class="abs"><b>Summary.</b> USGS index for Mineral Commodity Summaries: downloadable annual PDF chapters for every commodity (bismuth included) plus the full report and appendixes — the annual reference on domestic and world mineral production, supply and use that anchors the chain's production figures.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No academic Graedel-style <b>criticality-matrix paper scoring bismuth</b> surfaced — try "bismuth criticality index Resources Conservation and Recycling" or "bismuth Yale criticality matrix."</li>
+      <li>China's <b>2024–25 bismuth export-control mechanics</b> (licensing, volumes) are only in market/wire reporting here — a primary MOFCOM/regulatory source would firm up the chokepoint.</li>
+      <li>Vietnam's <b>Núi Pháo bismuth–tungsten mine</b> (a real non-China source) has no dedicated reference — try "Núi Pháo mine bismuth tungsten Masan production."</li>
+      <li>The <b>International Bismuth Association</b> and Bismuth Producers Association were named in results but no working primary URL was confirmed — verify before citing them as live links.</li>
+      <li>The <b>BGS World Mineral Statistics</b> live index moved (404) — the bismuth series needs its updated mineralsUK browser URL to restore the independent production cross-check.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from by-product source to end use, with cross-cutting frameworks, market reporting and data grouped at the end. 23 unique sources (CRM Alliance and the USGS bismuth series each appear once, merged across the source themes). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (404s, Cloudflare/JS challenges, 403 blocks) that is flagged in italics. Headline share is stated as ~80% China per the chain record; individual sources report their own figures (65%–88%) as quoted. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="bismuth-chain.html">The bismuth chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

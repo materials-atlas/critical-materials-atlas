@@ -1,6 +1,6 @@
 {
   "_doc": "Source ledger for chokepoint / headline shares. Each entry ties a figure to a NAMED source AND the quoted table row / sentence, so a bare citation cannot hide a misread. Rule: a chokepoint tagged conf=measured MUST have an entry here whose quoted row supports its share; if the source has no computable figure, the tag is estimate/attributed. check.py enforces presence (check_ledger).",
-  "_method": "USGS MCS PDFs fetched with a browser User-Agent (the default fetch UA gets 403); extracted with `pdftotext -raw` (with -layout the reserves column drifts onto the wrong country row). Shares computed from the 2024 production/reserves column.",
+  "_method": "USGS MCS PDFs fetched with a browser User-Agent (default fetch UA gets 403); extracted with `pdftotext -raw`. USE THE LATEST EDITION (MCS 2026): USGS revises prior-year numbers substantially between editions (e.g. rhenium world 62->81 t; strontium Iran 39->56%; tungsten world 81->85 kt). Shares below are from the MCS 2026 (2025-data) column.",
   "_verified": "2026-08-26",
   "phosphate-food": {
     "claim": "Morocco ~68% of world phosphate-rock reserves",
@@ -21,12 +21,12 @@
     "supports": true
   },
   "steel-alloys": {
-    "claim": "Brazil ~92% of world niobium production (chokepoint); vanadium China ~70% (stat)",
+    "claim": "Brazil ~92% niobium (chokepoint); vanadium China ~75%",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Niobium; USGS MCS 2025 — Vanadium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-niobium.pdf",
-    "quoted_row": "Niobium: 'Brazil ... approximately 92% of global production, followed by Canada with about 7%.' | Vanadium: China e70,000 70,000 4,100 | World total 104,000 100,000 18,000",
-    "computed": "niobium 92% verbatim; vanadium 70,000/100,000 = 70% (was ~64% in atlas -> corrected)",
+    "source": "USGS MCS 2026 — Niobium; USGS MCS 2026 — Vanadium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
+    "quoted_row": "Niobium: 'Brazil ~92% of global production'. Vanadium: China e84,000 82,000 5,800 | World total 118,000 110,000 21,000",
+    "computed": "niobium 92%; vanadium 82,000/110,000 = 75% (2025) — MCS2025 gave 70%, revised up.",
     "supports": true
   },
   "boron": {
@@ -39,21 +39,21 @@
     "supports": "estimate only — deliberately not measured"
   },
   "tungsten": {
-    "claim": "China ~83% of world tungsten mine production",
+    "claim": "China ~79% of world tungsten mine production",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Tungsten",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-tungsten.pdf",
-    "quoted_row": "China 66,000 67,000 2,400,000 | World total (rounded) 79,500 81,000 >4,600,000",
-    "computed": "67,000 / 81,000 = 82.7% -> ~83% (was ~80% in atlas -> tightened)",
+    "source": "USGS MCS 2026 — Tungsten",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
+    "quoted_row": "China 67,000 67,000 2,500,000 | World total (rounded) 82,000 85,000 >4,700,000",
+    "computed": "67,000/85,000 = 78.8% -> ~79% (2025). NOTE: MCS2025 gave 67,000/81,000=83%; USGS revised world up to 85,000 -> back to ~79% (original atlas ~80% was right).",
     "supports": true
   },
   "strontium": {
-    "claim": "Iran ~39% of world celestite production (tied with Spain)",
+    "claim": "Iran ~56% of world celestite production",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Strontium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-strontium.pdf",
-    "quoted_row": "China 80,000 80,000 12,000,000 | Iran 200,000 200,000 7,100,000 | Spain 200,000 | World total (rounded) 509,000 510,000 Large",
-    "computed": "Iran 200,000/510,000 = 39% (Spain also 200,000 = 39%; China 80,000 = 16%) -> was 'Iran ~58%' in atlas -> corrected",
+    "source": "USGS MCS 2026 — Strontium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf",
+    "quoted_row": "China 80,000 80,000 | Iran 200,000 250,000 2,000,000 | Spain 100,000 100,000 | World total (rounded) 400,000 450,000",
+    "computed": "Iran 250,000/450,000 = 56% (2025); Spain 100,000 = 22%; China 80,000 = 18%. NOTE: MCS2025 gave Iran 39% (tied Spain); USGS revised -> Iran is the clear leader ~56%. Original atlas ~58% was ~right.",
     "supports": true
   },
   "gallium": {
@@ -93,21 +93,21 @@
     "supports": true
   },
   "beryllium": {
-    "claim": "United States ~50% of world beryllium production (falling from ~83%)",
+    "claim": "United States ~53% of world beryllium production",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Beryllium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-beryllium.pdf",
-    "quoted_row": "United States 185 180 | China e74 77 | Brazil e40 80 | World total (rounded) 325 360",
-    "computed": "US 180/360 = 50% (2024); 2023 was 185/325 = 57% — atlas '~55%' tightened to ~50%",
+    "source": "USGS MCS 2026 — Beryllium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf",
+    "quoted_row": "United States 230 230 | China e78 77 | Brazil e80 80 | World total (rounded) 433 430",
+    "computed": "US 230/430 = 53% (2025). MCS2025 gave 180/360=50%; USGS revised US up to 230.",
     "supports": true
   },
   "fluorine": {
-    "claim": "China ~62% of world fluorspar mine production",
+    "claim": "China ~60% of world fluorspar mine production",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Fluorspar",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-fluorspar.pdf",
-    "quoted_row": "China 6,000 5,900 86,000 | World total (rounded) 9,530 9,500 320,000",
-    "computed": "5,900/9,500 = 62% (2024) — atlas '~65%' tightened to ~62%",
+    "source": "USGS MCS 2026 — Fluorspar",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf",
+    "quoted_row": "China 6,000 6,000 110,000 | World total (rounded) 10,300 10,000 330,000",
+    "computed": "6,000/10,000 = 60% (2025). MCS2025 gave 62%.",
     "supports": true
   },
   "displays-indium": {

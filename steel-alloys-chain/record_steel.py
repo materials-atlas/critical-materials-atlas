@@ -38,7 +38,7 @@ CHAIN = {
                   "whether a pipeline or a car body can be made light and strong.",
     "stats": [
         {"v": "~92%", "l": "of world niobium is Brazil (one company, CBMM)", "conf": "measured"},
-        {"v": "~70%", "l": "of world vanadium is China (70,000 of 100,000 t, 2024) — tied to its steel industry", "conf": "measured"},
+        {"v": "~75%", "l": "of world vanadium is China (82,000 of 110,000 t, 2025) — tied to its steel industry", "conf": "measured"},
         {"v": "SA → CN", "l": "chromium: South Africa mines the ore, China makes the ferrochrome", "conf": "measured"},
         {"v": "77%", "l": "of niobium goes into steel (21% into superalloys)", "conf": "measured"},
     ],
@@ -65,7 +65,7 @@ CHAIN = {
                 "USGS. Niobium and vanadium are mine shares; chromium and manganese are more concentrated at the "
                 "ferroalloy/processing stage (China) than at the mine. Read each by the stage that binds it.", "bars": [
                 {"label": "Niobium (Brazil, mine)", "value": 0.92},
-                {"label": "Vanadium (China, mine)", "value": 0.70},
+                {"label": "Vanadium (China, mine)", "value": 0.75},
                 {"label": "Chromium (China, ferrochrome)", "value": 0.60},
                 {"label": "Molybdenum (China, mine)", "value": 0.40},
             ]},
@@ -124,4 +124,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— steel/alloys, niobium ~92% Brazil, vanadium ~70% China")
+print("wrote", os.path.relpath(OUT, HERE), "— steel/alloys, niobium ~92% Brazil, vanadium ~75% China")
