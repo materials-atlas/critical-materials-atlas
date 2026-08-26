@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Lithium-ion battery chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the lithium-ion battery value chain, ordered to follow the chain from mined metal to finished cell and pack. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./battery-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Battery</div>
+    <h1>Lithium-ion battery chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A lithium-ion battery turns spread-out mines — lithium in Australia and Chile, cobalt in the DR Congo, nickel in Indonesia — into battery-grade chemical, then cathode and anode powder, then an assembled cell and pack. <b>The mine is the least concentrated stage of all; the midstream runs ~80–90% through China.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Raw materials &amp; battery-grade refining → ② cathode &amp; anode active materials (~85% / ~90% China) → ③ cell manufacturing (~80% China) → ④ pack, EV &amp; grid storage — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./battery-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">29</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (6) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (17) · <span class="pill ref">Reference</span> context / provenance (6).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Raw materials &amp; battery-grade refining</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Lithium</td><td class="took">Battery-share (88% of use) + world mine split (Australia/Chile/China, ~290 kt) → the "mine is spread" upstream and the "batteries now ARE the lithium market" read.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2026 — Cobalt</td><td class="took">DR Congo ~74% of mine + cobalt being engineered out of cells → the LFP cobalt-free thread and the §3 "cobalt, engineered down" card.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>BGS World Mineral Statistics</td><td class="took">An independent mine-production series to cross-check USGS lithium/cobalt tonnages — a ground-truth guardrail on the upstream figures.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>BGS mineral-statistics datasets</td><td class="took">Downloadable production tables — the reuse/provenance source behind the mine-share figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Cathode &amp; anode active materials — the chemistry midstream</td></tr>
+      <tr><td class="n">5</td><td>IEA — Global Critical Minerals Outlook 2025 (beyond NMC)</td><td class="took">LFP cathode/cell ~98% China + sodium-ion still downstream-China → the <b>"recipe changing under the chokepoint"</b> section and the LFP thread.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>IEA — Global EV Outlook 2023 (Trends in batteries)</td><td class="took">Earlier ~65% cells / ~80% cathode + LFP ~30% baseline → the history anchor beneath LFP's <b>10 → 49%</b> rise.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>JRC — deep dive on CRM for batteries</td><td class="took">EU cathode/anode demand-vs-capacity gap + recycling as a supply lever → a planned EU-shortfall panel and the circularity thread.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Cell manufacturing — the ~80% China chokepoint</td></tr>
+      <tr><td class="n">8</td><td>IEA — Global EV Outlook 2025 (EV batteries)</td><td class="took">Cathode 85% / anode 90% / cell 80% China → the <b>§1 midstream bars</b> and the 80–90% headline stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>IEA — Global EV Outlook 2026 (Manufacturing &amp; trade)</td><td class="took">2025 shares + Stated-Policies-to-2035 → confirms the bars hold and that the concentration eases only modestly.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>CSIS — Friendshoring cell manufacturing</td><td class="took">Anode ~90% + US ~7% of output + plant-cost gap ($865M vs $650M) → a planned "why not just onshore" cost note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>NREL / NAATBatt — supply-chain database</td><td class="took">Facility-level North American directory → a planned map of where non-China capacity actually sits. <span class="miss">Database host unreachable on this pass; described from published scope.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Pack, EV &amp; grid storage — demand &amp; end use</td></tr>
+      <tr><td class="n">12</td><td>IEA — Batteries and Secure Energy Transitions</td><td class="took">2,400 GWh demand + cost −90% + ~85% cell capacity → the §3 "demand arrived faster than supply" panel and the <b>−90%</b> stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>ICCT — US battery supply chain &amp; BEV costs</td><td class="took">Bottom-up pack-cost model + lithium supply-vs-demand → a planned cost-sensitivity note on the pack stage.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>McKinsey — Battery 2030</td><td class="took">Demand-to-2030 value-chain outlook → planned demand context. <span class="miss">Page unreachable on this pass; no figures taken.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; bottleneck analysis</td></tr>
+      <tr><td class="n">15</td><td>Olivetti et al. — LIB bottlenecks (Joule)</td><td class="took">Bottleneck method for Li/Co/Ni/graphite → the conceptual base for tracking the stage, not just the element. <span class="miss">Full abstract not openly retrievable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>Sun et al. — entire-supply-chain risk</td><td class="took">Whole-chain (beyond-mine) supply-risk estimation → supports the "refining is the quiet chokepoint" framing. <span class="miss">Full abstract not openly retrievable.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Global Competition in the LIB chain (ES&amp;T)</td><td class="took">A "competition index" over 15 LIB commodities → a planned trade-competition overlay on the trade panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>Critical Materials of the Battery Market (ACS Energy Lett.)</td><td class="took">MPGe metric + locked-reserves / recycling → a planned end-of-life supply-lever note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>RFF — Market power in EV-battery minerals</td><td class="took">China ~65% Li / ~74% Co, but "power held, not exercised" → nuance on what concentration does and does not mean.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>RFF — Mineral-security policy</td><td class="took">Processing dominance as industrial policy → the framing for why the refining chokepoint exists at all.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — policy, security &amp; reporting</td></tr>
+      <tr><td class="n">21</td><td>Li-Bridge / DOE — US supply-chain action plan</td><td class="took">US 2030/2050 targets + top challenges → decision-layer / breakout material, not this chain's own figures.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">22</td><td>Kleinman Center — Battling for Batteries</td><td class="took">US-vs-China policy coding (135 policies, 1994–2025) → policy-timeline context for how the chokepoint was built.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>Council on Strategic Risks — Devil in the Details</td><td class="took">US import-dependence detail → context for the dependence framing. <span class="miss">Page returned 403; noted from title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>CEIAS — Russian gas to Chinese batteries</td><td class="took">EU &gt;80% battery imports / ~90% anode → the EU-exposure framing (the Russian-gas analogy).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>NAATBatt International</td><td class="took">Trade-association provenance behind Li-Bridge — context, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Benchmark Mineral Intelligence</td><td class="took">The commercial project/price data underpinning several IEA shares — provenance, subscription-gated.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">27</td><td>CEPII BACI</td><td class="took">The data engine → the reproduced trade shares on HS 850760 cells and lithium chemicals in the trade panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">28</td><td>EIA — China dominates battery-mineral trade</td><td class="took">China 44% / 58% of interregional trade + 74% of pack exports → corroborates the customs-origin caveat on the trade panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">29</td><td>USGS MCS 2026 (full volume)</td><td class="took">The umbrella volume behind the lithium and cobalt chapters — provenance for the production figures.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Raw materials &amp; battery-grade refining <span class="ct">4</span></h2>
+  <div class="stagesub">The mine map is genuinely multi-country — but ships to China to become battery-grade chemical.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf">USGS Mineral Commodity Summaries 2026 — Lithium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world lithium production/reserves/uses; battery demand driving growth.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: batteries are 88% of lithium end use. Excluding US output, 2025 world mine production rose 31% to ~290,000 t — Australia ~92,000 t, Chile ~56,000 t, China ~62,000 t, Argentina among the leaders. US net import reliance exceeds 50% (Chile 54%, Argentina 43%); battery-grade carbonate averaged ~$9,000/t.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass (US company data withheld) plus reported trade and price data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf">USGS Mineral Commodity Summaries 2026 — Cobalt</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">China as leading refined-cobalt producer/consumer; cobalt-free LFP substitution.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 world cobalt mine production ~310,000 t, with the DR Congo ~230,000 t (~74%) and Indonesia ~44,000 t the next largest. Cobalt content of lithium-ion batteries — the leading use — is being cut, and cobalt-free LFP substitutes hold significant market share in China. US net import reliance 79%.</span>
+      <span class="dat"><b>Data.</b> USGS producer estimates plus S&amp;P Global Platts price data and reported trade.</span></li>
+    <li><a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/">British Geological Survey — World Mineral Statistics</a><span class="src"> · BGS</span>
+      <span class="desc">UK/world mine-production statistics dataset since 1913; covers lithium and cobalt.</span>
+      <span class="abs"><b>Summary.</b> BGS statistical series giving mineral-production statistics for 70+ commodities by country worldwide, from 1913 to the present (latest edition 2020–2024), compiled to support security-of-supply, economic-planning and policy analysis.</span>
+      <span class="dat"><b>Data.</b> BGS compilation from government departments, statistical offices, commodity authorities, company reports and an international contact network.</span></li>
+    <li><a href="https://www.bgs.ac.uk/datasets/uk-and-world-mineral-statistics-datasets/">BGS — UK and world mineral statistics datasets</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Downloadable production datasets, recent five-year window.</span>
+      <span class="abs"><b>Summary.</b> The downloadable-dataset portal for the BGS World Mineral Statistics series — production tables over a recent five-year window (2020–2024) for lithium, cobalt and other commodities, released for reuse.</span>
+      <span class="dat"><b>Data.</b> BGS-compiled national mine and production statistics, published as downloadable tables.</span></li>
+  </ul>
+
+  <h2 class="sec">② Cathode &amp; anode active materials — the chemistry midstream <span class="ct">3</span></h2>
+  <div class="stagesub">Where ore becomes battery powder: cathode ~85% China, anode ~90% — and the recipe keeps moving.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/beyond-nmc-batteries-supply-chain-issues-for-emerging-battery-technologies">IEA — Global Critical Minerals Outlook 2025: Beyond NMC batteries</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">China's cathode/anode/cell shares and the LFP/sodium-ion transition.</span>
+      <span class="abs"><b>Abstract.</b> IEA analysis of battery chemistries beyond nickel-manganese-cobalt: over 98% of LFP cathode material and LFP cells are produced in China, versus under two-thirds for nickel-based cells. Sodium-ion offers upstream diversification (US, Europe), but its downstream — cell, cathode and hard-carbon anode — remains China-dominated.</span>
+      <span class="dat"><b>Data.</b> IEA analysis drawing on USGS mineral summaries, Benchmark Mineral Intelligence and FAO data for 2024 capacity distribution.</span></li>
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2023/trends-in-batteries">IEA — Global EV Outlook 2023: Trends in batteries</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">Earlier baseline for chemistry and cost trends.</span>
+      <span class="abs"><b>Abstract.</b> IEA baseline: in 2022 LFP reached ~30% of EV-battery capacity against NMC's ~60% as Chinese makers pursued lower cost; average pack price was ~$150/kWh. About 65% of cells and nearly 80% of cathodes were made in China — the earlier anchor for the midstream-concentration read.</span>
+      <span class="dat"><b>Data.</b> IEA analysis from EV Volumes, BloombergNEF price surveys, S&amp;P Global and USGS commodity data (2015–2023).</span></li>
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/bitstream/JRC141715/jrc141715_01.pdf">JRC — Deep dive on critical raw materials for batteries</a><span class="src"> · European Commission JRC (2025)</span>
+      <span class="desc">EU cathode/anode production vs demand gap underpinning the CRMA.</span>
+      <span class="abs"><b>Abstract.</b> JRC deep dive on critical raw materials for EU batteries: identifies supply-concentration risks along the lithium-ion chain, projects battery-material demand to 2050 under baseline and aggressive-innovation (alternative-chemistry) scenarios, and assesses how repurposing and recycling — with EU recycling capacity as of December 2024 — can mitigate supply risk.</span>
+      <span class="dat"><b>Data.</b> JRC foresight modelling of EU battery deployment/demand scenarios to 2050 plus an EU recycling-capacity inventory (Dec 2024).</span></li>
+  </ul>
+
+  <h2 class="sec">③ Cell manufacturing — the ~80% China chokepoint <span class="ct">4</span></h2>
+  <div class="stagesub">The binding stage: electrode coating and cell assembly at scale run about 80% through China.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2025/electric-vehicle-batteries">IEA — Global EV Outlook 2025: Electric vehicle batteries</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Battery demand, chemistry mix and manufacturing capacity by country.</span>
+      <span class="abs"><b>Abstract.</b> IEA: 2024 EV-battery demand topped 950 GWh (heading past 3 TWh by 2030), with LFP near half the market. China held ~80% of battery-cell production and near-monopolies on cathode (~85%) and anode (~90%) active material; announced US/EU projects would only cut China's share to about two-thirds by 2030.</span>
+      <span class="dat"><b>Data.</b> IEA analysis from EV Volumes, Benchmark Mineral Intelligence and BloombergNEF — installed capacity and sales-weighted demand.</span></li>
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade">IEA — Global EV Outlook 2026: Manufacturing and trade</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Latest cell/cathode/anode manufacturing and trade shares.</span>
+      <span class="abs"><b>Abstract.</b> IEA update: in 2025 China supplied over 80% of battery-cell production, ~85% of cathode and over 90% of anode active material. Under the Stated Policies Scenario to 2035 the concentration eases only modestly — roughly three-quarters of cells, ~75% of cathode and ~90% of anode — as advanced economies expand slowly.</span>
+      <span class="dat"><b>Data.</b> IEA Manufacturing and Trade model (Energy Technology Perspectives 2026) with EV Volumes and Benchmark Mineral Intelligence.</span></li>
+    <li><a href="https://www.csis.org/analysis/friendshoring-lithium-ion-battery-supply-chain-battery-cell-manufacturing">CSIS — Friendshoring the Lithium-Ion Battery Supply Chain: Cell Manufacturing</a><span class="src"> · CSIS</span>
+      <span class="desc">Policy analysis of onshoring/friendshoring cell manufacturing away from China.</span>
+      <span class="abs"><b>Abstract.</b> CSIS analysis: as of 2022 China produced roughly 90% of anodes and lithium electrolyte, while the US held only ~7% of global battery production; a US cell plant cost ~$865M against ~$650M in China. It argues for nearshoring with Japan and South Korea over domestic-only content mandates.</span>
+      <span class="dat"><b>Data.</b> CSIS policy analysis citing production-share and plant-cost figures; secondary industry data.</span></li>
+    <li><a href="https://www.nrel.gov/transportation/li-ion-battery-supply-chain-database-online.html">NREL / NAATBatt — Online Lithium-Ion Battery Supply Chain Database</a><span class="src"> · NREL</span>
+      <span class="desc">Directory of North American facilities across raw materials, electrode, cell and pack manufacturing.</span>
+      <span class="abs"><b>Summary.</b> Public NREL/NAATBatt directory of North American lithium-ion supply-chain facilities — raw materials, electrode, cell and pack manufacturing. <span class="miss">Database page not retrievable on this pass (host unreachable) — described from its published scope.</span></span>
+      <span class="dat"><b>Data.</b> NREL-maintained facility directory (company-reported North American plants and capabilities).</span></li>
+  </ul>
+
+  <h2 class="sec">④ Pack, EV &amp; grid storage — demand &amp; end use <span class="ct">3</span></h2>
+  <div class="stagesub">The demand that reorganised the whole chain in a decade — cells into vehicles and grid storage.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/batteries-and-secure-energy-transitions/status-of-battery-demand-and-supply">IEA — Batteries and Secure Energy Transitions: Status of demand and supply</a><span class="src"> · IEA (2024)</span>
+      <span class="desc">Full-chain demand/supply status report.</span>
+      <span class="abs"><b>Abstract.</b> IEA status report: energy-sector battery demand topped 2,400 GWh in 2023, a fourfold rise on 2020, while average battery costs have fallen about 90% since 2010. China holds nearly 85% of global battery-cell production capacity — the supply-side counterpart to the demand surge.</span>
+      <span class="dat"><b>Data.</b> IEA synthesis of demand, cost and manufacturing-capacity metrics through 2023–2024.</span></li>
+    <li><a href="https://theicct.org/wp-content/uploads/2024/02/ID-85-%E2%80%93-EV-supply-chain-Report-Letter-70112-v3.pdf">ICCT — Investigating the U.S. Battery Supply Chain and its Impact on EVs</a><span class="src"> · ICCT (2024)</span>
+      <span class="desc">US-focused battery supply-chain and EV cost report.</span>
+      <span class="abs"><b>Abstract.</b> ICCT (Feb 2024): models the US battery supply chain and its effect on BEV prices, 2023–2032. Finds new lithium supply from US and FTA / critical-mineral-agreement partners may far exceed US light-duty BEV demand; builds bottom-up pack-cost scenarios across lithium, cobalt and nickel prices.</span>
+      <span class="dat"><b>Data.</b> ICCT project-level assessment of new lithium projects plus a bottom-up battery-cost model under EPA 2027–2032 standards.</span></li>
+    <li><a href="https://www.mckinsey.com/industries/automotive-and-assembly/our-insights/battery-2030-resilient-sustainable-and-circular">McKinsey — Battery 2030: Resilient, sustainable, and circular</a><span class="src"> · McKinsey &amp; Company</span>
+      <span class="desc">Demand forecast and value-chain outlook to 2030.</span>
+      <span class="abs"><b>Summary.</b> McKinsey outlook on the battery value chain to 2030 under resilient, sustainable and circular framings. <span class="miss">Page not retrievable on this pass (host unreachable / connection reset) — noted from title and publisher only; no figures taken.</span></span>
+      <span class="dat"><b>Data.</b> McKinsey proprietary market forecast — no public primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; bottleneck analysis <span class="ct">6</span></h2>
+  <div class="stagesub">Methods that classify supply risk along the whole chain, not just at the mine.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2542435117300442">Lithium-Ion Battery Supply Chain Considerations: Analysis of Potential Bottlenecks in Critical Metals</a><span class="src"> · Joule / ScienceDirect (2017)</span>
+      <span class="desc">Foundational bottleneck analysis for Li, Co, Ni and graphite.</span>
+      <span class="abs"><b>Summary.</b> Foundational Joule paper analysing potential bottlenecks in the critical metals of the lithium-ion supply chain — lithium, cobalt, nickel and graphite. <span class="miss">Full abstract not openly retrievable (paywalled; no abstract in open indexes) — described from title and venue.</span></span>
+      <span class="dat"><b>Data.</b> Supply-chain bottleneck analysis of Li/Co/Ni/graphite production and reserves — secondary/industry data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S2468606919302035">Supply risks of lithium-ion battery materials: An entire supply chain estimation</a><span class="src"> · ScienceDirect (2019)</span>
+      <span class="desc">Extends criticality analysis beyond the mine to downstream processing.</span>
+      <span class="abs"><b>Summary.</b> Estimates supply risk across the entire lithium-ion battery material supply chain, extending criticality analysis beyond the mine to downstream processing stages. <span class="miss">Full abstract not openly retrievable (paywalled; no abstract in open indexes) — described from title and venue (2019).</span></span>
+      <span class="dat"><b>Data.</b> Whole-chain supply-risk estimation across material stages — method paper; no open dataset retrieved.</span></li>
+    <li><a href="https://pubs.acs.org/doi/10.1021/acs.est.1c03376">Global Competition in the Lithium-Ion Battery Supply Chain: A Novel Perspective for Criticality Analysis</a><span class="src"> · Environmental Science &amp; Technology (2021)</span>
+      <span class="desc">Trade-based criticality lens on lithium hydroxide/carbonate competition.</span>
+      <span class="abs"><b>Abstract.</b> Quantifies global competition intensity for 15 categories of lithium-ion-battery commodities via a new "competition index". Finds lithium hydroxides, LIBs and lithium carbonates were the focal points of global competition in 2019 — with hydroxide competition set to intensify — and competition among Korea, Japan and the USA the most notable.</span>
+      <span class="dat"><b>Data.</b> Author-compiled trade data on 15 LIB commodity categories, processed into a competition index (2019).</span></li>
+    <li><a href="https://pubs.acs.org/doi/10.1021/acsenergylett.4c01300">Insights into the Critical Materials Supply Chain of the Battery Market for Enhanced Energy Security</a><span class="src"> · ACS Energy Letters (2024)</span>
+      <span class="desc">Material-flow view plus end-of-life/recycling as a supply lever.</span>
+      <span class="abs"><b>Abstract.</b> Examines the battery market's critical-materials supply chain for long-term energy security, treating EV packs as decade-long "locked reserves". Introduces a "Materials Per Gallon-Electric (MPGe)" metric for per-mile consumption of critical reserves, and stresses advancing recycling to recover critical materials and secure a durable domestic supply chain.</span>
+      <span class="dat"><b>Data.</b> Material-flow analysis plus a new per-mile critical-reserve consumption metric (MPGe).</span></li>
+    <li><a href="https://www.resources.org/common-resources/market-power-in-critical-mineral-supply-chains-for-electric-vehicle-batteries/">Market Power in Critical Mineral Supply Chains for Electric Vehicle Batteries</a><span class="src"> · Resources for the Future</span>
+      <span class="desc">Market-power / concentration framing for EV battery minerals.</span>
+      <span class="abs"><b>Abstract.</b> RFF analysis of concentration in EV battery-mineral chains: China controlled ~65% of lithium supply (2020) and ~74% of cobalt (2021), yet has not aggressively restricted supply or inflated prices. It frames price discrimination — not physical scarcity — as the main risk, with non-Chinese processing capacity the remedy.</span>
+      <span class="dat"><b>Data.</b> RFF analysis of trade statistics and mineral-processing shares.</span></li>
+    <li><a href="https://www.rff.org/publications/reports/mineral-security-policy-for-electric-vehicle-battery-minerals/">"Mineral Security" Policy for Electric Vehicle Battery Minerals</a><span class="src"> · Resources for the Future</span>
+      <span class="desc">Policy-report companion on mineral security.</span>
+      <span class="abs"><b>Abstract.</b> RFF report on mineral-security policy for EV battery minerals, focusing on China's dominant processing of lithium, cobalt, graphite, nickel and manganese. It argues China's processing overcapacity reflects industrial policy prioritising domestic supply chains rather than market manipulation, tempering common supply-disruption fears.</span>
+      <span class="dat"><b>Data.</b> Roskill Information Services data (2019–2020), USGS mineral statistics (1999–2024) and expert consultation.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — policy, security &amp; reporting <span class="ct">6</span></h2>
+  <div class="stagesub">National action plans, comparative policy and the analysis that reads the chain politically.</div>
+  <ul class="refs">
+    <li><a href="https://netl.doe.gov/sites/default/files/2023-03/Li-Bridge%20-%20Building%20a%20Robust%20and%20Resilient%20U.S.%20Lithium%20Battery%20Supply%20Chain.pdf">Li-Bridge — Building a Robust and Resilient U.S. Lithium Battery Supply Chain</a><span class="src"> · DOE / Argonne (2023)</span>
+      <span class="desc">US federal action plan and 2030 domestic-supply-chain targets.</span>
+      <span class="abs"><b>Abstract.</b> Li-Bridge (DOE/Argonne-convened, authored with BCG and NAATBatt): a US action plan to build a robust domestic lithium-battery supply chain. It sets 2030 and 2050 goals, diagnoses the top challenges holding back US industry, and issues objectives and specific recommendations for government and industry stakeholders.</span>
+      <span class="dat"><b>Data.</b> Industry-consortium action plan (Li-Bridge / FCAB) synthesising stakeholder input and a US supply-chain gap analysis.</span></li>
+    <li><a href="https://kleinmanenergy.upenn.edu/research/publications/battling-for-batteries-li-ion-policy-and-supply-chain-dynamics-in-the-u-s-and-china/">Battling for Batteries: Li-ion Policy and Supply Chain Dynamics in the U.S. and China</a><span class="src"> · Kleinman Center, U. Penn</span>
+      <span class="desc">Comparative US-China policy and supply-chain analysis.</span>
+      <span class="abs"><b>Abstract.</b> Kleinman Center comparison of US and Chinese lithium-ion policy, 1994–2025: China's steady, strategic industrial policy versus intermittent, politically dependent US efforts. Coding 135 policies (85 US, 50 Chinese), it links China's coordination to its dominance, with recent US action shifting toward minerals security over climate goals.</span>
+      <span class="dat"><b>Data.</b> Analysis of 135 policies (1994–2025) via the IEA Policy Tracker and government sources, plus 2023–2024 trade/sales data.</span></li>
+    <li><a href="https://councilonstrategicrisks.org/2025/05/30/the-devil-is-in-the-details-minerals-batteries-and-us-dependence-on-chinese-imports/">The Devil is in the Details: Minerals, Batteries, and US Dependence on Chinese Imports</a><span class="src"> · Council on Strategic Risks (2025)</span>
+      <span class="desc">US import-dependence detail on battery minerals.</span>
+      <span class="abs"><b>Summary.</b> Council on Strategic Risks brief detailing US dependence on Chinese imports across battery minerals and components. <span class="miss">Page returned 403 on this pass — not retrievable; noted from title and publisher only, no figures taken.</span></span>
+      <span class="dat"><b>Data.</b> Policy commentary on US–China battery-mineral import dependence — no primary dataset retrieved.</span></li>
+    <li><a href="https://ceias.eu/from-russian-gas-to-chinese-batteries-tracking-the-eus-new-energy-dependence/">From Russian gas to Chinese batteries: Tracking the EU's new energy dependence</a><span class="src"> · CEIAS</span>
+      <span class="desc">Frames EU battery-China dependence against the earlier Russian-gas dependence.</span>
+      <span class="abs"><b>Summary.</b> CEIAS argues the EU is trading Russian-gas dependence for Chinese-battery dependence: China supplies over 80% of EU battery imports and ~90% of global anode capacity, and dominates processing of three of five key battery raw materials (lithium, manganese, graphite).</span>
+      <span class="dat"><b>Data.</b> Analysis citing EU import shares and global battery-material processing/production concentration.</span></li>
+    <li><a href="https://naatbatt.org/">NAATBatt International</a><span class="src"> · NAATBatt</span>
+      <span class="desc">North American advanced-battery trade association; convened Li-Bridge.</span>
+      <span class="abs"><b>Summary.</b> NAATBatt International is a not-for-profit trade association of 385+ member companies working to develop, commercialise and manufacture advanced battery technology in North America; it convened the Li-Bridge initiative.</span>
+      <span class="dat"><b>Data.</b> Trade-association landing page — organisational description, no dataset.</span></li>
+    <li><a href="https://www.benchmarkminerals.com/battery-gigafactory/supply-chain-data">Benchmark Mineral Intelligence — Battery &amp; Gigafactory Supply Chain Data</a><span class="src"> · Benchmark Mineral Intelligence</span>
+      <span class="desc">Project-level gigafactory and price-reporting coverage across the chain.</span>
+      <span class="abs"><b>Summary.</b> Benchmark's supply-chain data service tracks global gigafactory build-outs, cell-production capacity and costs from raw materials to cell across lithium-ion and sodium-ion, with price forecasting and demand modelling.</span>
+      <span class="dat"><b>Data.</b> Commercial price-assessment and project-tracking datasets (subscription) — not openly reproducible.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">3</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.eia.gov/todayinenergy/detail.php?id=65305">China dominates global trade of battery minerals</a><span class="src"> · U.S. EIA (2025)</span>
+      <span class="desc">China's share of interregional battery-mineral trade (imports/exports).</span>
+      <span class="abs"><b>Summary.</b> US EIA: in 2023 China took ~44% of interregional battery-mineral imports and ~58% of exports, and held 53% of global battery-material exports and 74% of battery-pack and component exports.</span>
+      <span class="dat"><b>Data.</b> EIA analysis of UN Comtrade (UN Statistics Division) interregional trade flows, 2023.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf">USGS Mineral Commodity Summaries 2026 (full volume)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">All ~90 nonfuel commodities, published February 2026.</span>
+      <span class="abs"><b>Summary.</b> USGS Mineral Commodity Summaries 2026 — the full annual volume covering ~90 nonfuel mineral commodities (production, imports, reserves, uses), published February 2026; the umbrella source behind the per-commodity lithium and cobalt chapters.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics (producer canvass, trade and reserves).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The binding stage — <b>cell and pack manufacturing</b> — has no clean country-level customs code: HS 850760 records a traded cell's assembly origin, not the refining and electrode midstream behind it. A facility-level capacity series (Benchmark or the NREL directory, both partly paywalled or unreachable on this pass) would close the gap.</li>
+      <li><b>Recycling and second-life material flows</b> are only lightly covered here (ACS Energy Letters 2024 touches it) — a dedicated "battery recycling material-flow analysis EU/US 2026" search would strengthen the circularity angle the chain's "engineered down" thread gestures at.</li>
+      <li><b>Sodium-ion and solid-state</b> supply-chain implications appear in the IEA 2025 material but lack an independent source — try "sodium-ion battery supply chain China CATL 2026" for a dedicated reference.</li>
+      <li><b>Graphite/anode</b> (~90%+ China) is asserted across several sources here but belongs in the dedicated <a href="../graphite-chain/graphite-chain.html">graphite-chain library</a> rather than duplicated in this one.</li>
+      <li>Company-level (CATL, BYD, LG Energy Solution, Panasonic) capacity and investment data was not pulled — Benchmark Mineral Intelligence and company IR filings are the next stop for that granularity.</li>
+      <li>No dedicated OECD or NEA battery report surfaced — worth "OECD critical minerals policy tracker" or "OECD battery raw materials trade".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from mined metal to finished cell and pack, with cross-cutting frameworks and data grouped at the end. 29 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (host unreachable, a 403, or a paywalled abstract absent from open indexes) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./battery-chain.html">The battery chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
