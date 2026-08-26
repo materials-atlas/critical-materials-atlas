@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Heat-pump chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the heat-pump value chain, ordered to follow the chain from refrigerant and components to the finished unit and its installation. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./heat-pump-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Heat pumps</div>
+    <h1>Heat-pump chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A heat pump wraps copper, aluminium and steel around a compressor and a refrigerant to make a box that heats a house — and no step is gated by a scarce mineral. The one input under pressure, the refrigerant, is being reshaped by regulation, not shortage; the one concentrated component is the compressor; and the binding limit on deployment sits downstream of all of it. <b>The chokepoint is not a mine — it is a labour market.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Refrigerant (the regulated input, F-gases) → ② copper, magnets &amp; the compressor (the components) → ③ the heat-pump unit (technology, market &amp; distributed manufacturing) → ④ installation (the workforce bottleneck) — then the trade data that sits across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./heat-pump-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">27</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (3) · <span class="pill ref">Reference</span> context / provenance (19).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Refrigerant — the regulated input (F-gases &amp; the HFC phase-down)</td></tr>
+      <tr><td class="n">1</td><td>UNEP — Kigali HFC phase-down timeline</td><td class="took">The official phase-down schedule → sources the chain's "refrigerant is legislated, not rationed" framing (§1).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>US EPA — HFC phase-down FAQ</td><td class="took">AIM Act stepwise cuts (60% of baseline by 2024, 85% by 2036) → corroborates the regulatory-transition reading for the US market.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>Harvard EELP — HFC / Kigali tracker</td><td class="took">Legal chronology of the AIM Act + 2022 Kigali ratification → provenance for the "chemistry is legislated" claim.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>CoolSys — AIM Act &amp; HFC phase-down</td><td class="took">Industry-side view (high GWP, migration to CO₂/natural refrigerants) → context for why designs, not supply, are changing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>CKY — HFC quota &amp; Kigali guide</td><td class="took">Quotas make high-GWP refrigerant scarce/expensive by rule → the clearest illustration of "rationed by policy, not geology."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Copper, magnets &amp; the compressor — the components</td></tr>
+      <tr><td class="n">6</td><td>Rinnovabili — why heat pumps are cheaper in China</td><td class="took">China ~95% of compressor output + components 60–80% of unit cost → the one concentrated component; a compressor-concentration panel not yet in the record.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The heat-pump unit — technology, market &amp; manufacturing</td></tr>
+      <tr><td class="n">7</td><td>IEA — Heat Pump Monitor 2026, Key findings</td><td class="took">2025 sales ~108 GW + China 35 / US 25 / EU 20% capacity + ~50–53 bcm gas avoided → the §2 manufacturing-share bars and headline stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>IEA — Heat Pump Monitor 2026, full report + dashboards</td><td class="took">Country-level sales/stock series → the data behind the "trade ≠ deployment" caveat on the trade table.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>IEA — Heat Pump Monitor 2026 (full-text PDF)</td><td class="took">Gas-avoidance figures (~50 bcm 2024 → ~53 bcm 2025) → a datum to fold into the §2 narrative.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>IEA — The Future of Heat Pumps</td><td class="took">Installer demand quadruples by 2030; capacity 1,000→2,600 GW → sources the §3 "installers are the scarce resource" finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>IEA — Heat Pump Taxonomy</td><td class="took">Source / sink / product classification → the vocabulary for the "what a heat pump is" section (§1).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>IEA — Global Energy Review 2026 (heat pumps)</td><td class="took">2025 sales −2% global, EU +11%, US −13% → context on the demand swings behind the market-risk framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>IEA — The Future of Heat Pumps in China</td><td class="took">China ~35% of output, &gt;300k sector workers → the China bar in the §2 manufacturing-share panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>EHPA — Market Report 2025</td><td class="took">2024 EU sales 2.31 M (−22%), stock 25.5 M (~12% of households), 433k jobs → the ~12% space-heating stat + European detail.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">15</td><td>REN21 — Global Status Report 2024 (heat pumps)</td><td class="took">Cross-country 2023 trends (China +12%, Germany +60%, some declines) → corroborates the distributed-market reading.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>HPT TCP — Heat Pumps Step Up (Monitor 2026)</td><td class="took">"Price signal, workforce and will to build" + China compressor caveat → reinforces the labour-not-metal thesis.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>HPT TCP — IEA ETP 2026</td><td class="took">Heat pumps a "core technology of the Age of Electricity"; ~$50 B market 2024 → framing and scale context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>IEA — Is a turnaround in sight? (commentary)</td><td class="took">2024 slump then late-2024/2025 recovery signals → the demand-volatility point in §2.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>IEA — Double-digit sales growth (commentary)</td><td class="took">2022 +11% (EU +40%) → the historical growth baseline behind the "long runway" stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Installation — the workforce bottleneck</td></tr>
+      <tr><td class="n">20</td><td>Aldersgate Group — Workforce planning for clean heat</td><td class="took">UK installer FTEs 4,500 (2023) → 41,000 (2028) → 122,000 (2035) → hard numbers to quantify the §3 bottleneck.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>UK Parliament — written evidence on heat-pump skills</td><td class="took">Committee testimony on the training pipeline → qualitative support for the installer constraint. <span class="miss">Page 403 on this pass — noted from the record title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>EHPA — Heat pumps need people (SKILLS4HP)</td><td class="took">Installers "a main bottleneck to scaling deployment" → the EU-side installer-constraint evidence.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>Modern Building Services — UK skills shortage</td><td class="took">Engineers 3,000→14,800 vs 33,700 needed by 2028; ~39% of trainees never install → the training-leakage nuance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>MCS Foundation — skills competition report</td><td class="took">~76,000 relevant workers but competed-for and ageing → the labour-competition angle on the gap.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>Nesta — installers held back by staff shortages</td><td class="took">Installer survey: staffing the 2nd barrier (30%, 41% at larger firms) → ground-level confirmation of the bottleneck.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>EC BUILD UP — shortage of skilled workers</td><td class="took">EU 10 M-heat-pump aim held back by installer shortage → the EU-wide framing of the §3 finding.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">27</td><td>CEPII BACI</td><td class="took">HS 8415 / 8418 bilateral flows → the equipment-trade shares, flagged as not measuring who can actually deploy.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Refrigerant — the regulated input <span class="ct">5</span></h2>
+  <div class="stagesub">The one input under real pressure — and the pressure is a phase-down law, not a shortage.</div>
+  <ul class="refs">
+    <li><a href="https://www.unep.org/ozonaction/resources/toolkits-manuals-and-guides/path-kigali-hfc-phase-down-timeline">The path to Kigali — HFC phase-down timeline</a><span class="src"> · UNEP OzonAction (2026)</span>
+      <span class="desc">The official Kigali Amendment schedule for phasing down hydrofluorocarbon refrigerants.</span>
+      <span class="abs"><b>Scope.</b> UNEP OzonAction reference for the Kigali Amendment HFC phase-down: the stepwise cut in production and consumption of high-warming refrigerants, on separate timelines for developed and Article-5 developing countries, that is reshaping heat-pump and air-conditioning chemistry. <span class="miss">(Page returned HTTP 403 on this pass — scope taken from the source title and the corroborating EPA / Harvard entries.)</span></span>
+      <span class="dat"><b>Data.</b> Montreal Protocol / Kigali Amendment treaty schedule — a regulatory timeline, not a dataset.</span></li>
+    <li><a href="https://www.epa.gov/hfcs/frequent-questions-phasedown-hydrofluorocarbons">Frequent questions on the phase-down of hydrofluorocarbons</a><span class="src"> · US EPA</span>
+      <span class="desc">Official AIM Act guidance on the US HFC phase-down for refrigeration and heat pumps.</span>
+      <span class="abs"><b>Summary.</b> EPA FAQ on the American Innovation and Manufacturing (AIM) Act: an 85% phase-down of HFCs from baseline by 2036, via stepwise cuts (10% in 2022, 60% of baseline by 2024), an allowance-allocation program and sector technology-transition restrictions effective January 2025.</span>
+      <span class="dat"><b>Data.</b> EPA regulatory guidance — allowance schedules, GWP-weighted baselines and compliance rules; no primary dataset.</span></li>
+    <li><a href="https://eelp.law.harvard.edu/tracker/hydrofluorocarbons-and-kigali-amendment-to-montreal-protocol/">Hydrofluorocarbons and the Kigali Amendment to the Montreal Protocol</a><span class="src"> · Harvard EELP</span>
+      <span class="desc">Legal/regulatory tracker for HFC rules, the AIM Act and Kigali ratification.</span>
+      <span class="abs"><b>Summary.</b> Harvard Environmental &amp; Energy Law Program tracker of HFC regulation: the 2020 AIM Act's 85%-by-2036 phase-down and the 2022 US Senate ratification of the Kigali Amendment, recording EPA rule changes, compliance deadlines, court challenges and policy reversals across administrations.</span>
+      <span class="dat"><b>Data.</b> Legal/regulatory chronology — statutes, rules and litigation; no primary dataset.</span></li>
+    <li><a href="https://coolsys.com/resource/everything-you-need-to-know-about-the-aim-act-and-hfc-phasedown/">Everything you need to know about the AIM Act and HFC phase-down</a><span class="src"> · CoolSys</span>
+      <span class="desc">Industry explainer on the US refrigerant phase-down for HVAC/refrigeration operators.</span>
+      <span class="abs"><b>Summary.</b> Industry explainer on the AIM Act's HFC phase-down (10% cut by 2024 rising to 85% by 2036), stressing the very high global-warming potential of legacy refrigerants (e.g. R-404A ≈ 3,920× CO₂) and the transition to CO₂ and other low-GWP alternatives for compliance.</span>
+      <span class="dat"><b>Data.</b> Vendor commentary citing the AIM Act schedule and refrigerant GWP values; no primary dataset.</span></li>
+    <li><a href="https://www.cky.com.tw/en/insights/hfc-quota-kigali">HFC quota management &amp; the Kigali Amendment: refrigerant transition guide</a><span class="src"> · CKY HVAC Engineering</span>
+      <span class="desc">Industry guide to the refrigerant transition and HFC import-quota mechanics.</span>
+      <span class="abs"><b>Summary.</b> Industry guide showing how Taiwan's July 2025 HFC quota caps refrigerant imports by CO₂-equivalent, making high-GWP fluids (R-410A, R-404A) scarce and costly; it maps a short-to-long transition — leak reduction, then R-32, then natural refrigerants.</span>
+      <span class="dat"><b>Data.</b> Trade guidance on quota mechanics and refrigerant GWP tiers; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Copper, magnets &amp; the compressor — the components <span class="ct">1</span></h2>
+  <div class="stagesub">The metals are commodities with no gate; the one concentrated component is the compressor.</div>
+  <div class="stagegap">Copper, aluminium and steel are ordinary commodity inputs with no supply chokepoint, and the permanent magnets in some compressor motors are only a minor link (see the <a href="../magnet-chain/magnet-chain.html">rare-earth magnet chain</a>). The single component that <em>is</em> concentrated is the compressor — reported at ~95% Chinese unit production below — but no public, country-level compressor-production series surfaced to size it independently; that absence is itself a finding (see <a href="#gaps">Gaps &amp; good next searches</a>).</div>
+  <ul class="refs">
+    <li><a href="https://www.rinnovabili.net/business/producing-heat-pumps-why-its-cheaper-in-china-than-in-the-us/">Producing heat pumps: why it's cheaper in China than in the US</a><span class="src"> · Rinnovabili</span>
+      <span class="desc">Cost-comparison analysis tracing China's heat-pump price edge to component (compressor) manufacturing.</span>
+      <span class="abs"><b>Summary.</b> Analysis finding heat-pump production ~50% cheaper in China than the US (40–60% cheaper than the EU), driven by components — 60–80% of unit cost — with China holding ~95% of global compressor production; assembly itself is simple, so the edge is in the integrated component supply chain.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing IEA cost-structure figures and compressor-concentration estimates; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The heat-pump unit — technology, market &amp; manufacturing <span class="ct">13</span></h2>
+  <div class="stagesub">Where the box is made: mature technology, unusually distributed factory capacity, demand that swings with prices and subsidies.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/heat-pump-monitor-2026/key-findings">Heat Pump Monitor 2026 — Key findings</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">The IEA's latest global/regional heat-pump market and manufacturing assessment.</span>
+      <span class="abs"><b>Summary.</b> IEA Monitor: global sales reached ~108 GW in 2025, avoiding ~50–53 bcm of natural gas for heating in 2024–25. Manufacturing capacity is spread — China ~35%, the US ~25%, the EU ~20% — with heat pumps meeting ~5% of global heating and set to more than double by 2035.</span>
+      <span class="dat"><b>Data.</b> IEA analysis of sales, stock and manufacturing-capacity data across major markets; stated-policies projection.</span></li>
+    <li><a href="https://www.iea.org/reports/heat-pump-monitor-2026">Heat Pump Monitor 2026 — full report &amp; dashboards</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">The full Monitor report plus interactive country-level sales/stock dashboards.</span>
+      <span class="abs"><b>Summary.</b> The complete IEA Heat Pump Monitor 2026, with interactive dashboards giving country-level sales and stock series behind the key findings — the granular evidence for reading equipment trade against actual deployment.</span>
+      <span class="dat"><b>Data.</b> IEA country-level heat-pump sales and stock series (interactive dashboards).</span></li>
+    <li><a href="https://iea.blob.core.windows.net/assets/f29fd3c4-f022-4e94-953f-48e274f6215b/HeatPumpMonitor2026.pdf">Heat Pump Monitor 2026 — Trends and market opportunities (PDF)</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">The full-text Monitor report, including gas-use-avoidance figures.</span>
+      <span class="abs"><b>Summary.</b> Full-text IEA Monitor documenting heat pumps' avoidance of ~50 bcm of gas use for heating in 2024, rising to ~53 bcm in 2025, alongside sales, manufacturing and deployment-barrier analysis. <span class="miss">(PDF served as binary on this pass — figures cross-read from the report's HTML key findings.)</span></span>
+      <span class="dat"><b>Data.</b> IEA analytical report — sales, stock, gas-avoidance and capacity estimates.</span></li>
+    <li><a href="https://www.iea.org/reports/the-future-of-heat-pumps/executive-summary">The Future of Heat Pumps — Executive summary</a><span class="src"> · IEA (2022)</span>
+      <span class="desc">Foundational IEA report on heat-pump deployment barriers and manufacturing.</span>
+      <span class="abs"><b>Summary.</b> IEA's foundational assessment: heat pumps run three-to-five times more efficient than gas boilers but face higher upfront cost (air-to-water 2–4× a boiler) and installer shortages — with installer demand set to quadruple by 2030 as global capacity rises from ~1,000 GW (2021) toward ~2,600 GW (2030).</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling of capacity, cost, gas savings, investment and installer-workforce needs.</span></li>
+    <li><a href="https://www.iea.org/reports/heat-pump-taxonomy">Heat Pump Taxonomy</a><span class="src"> · IEA</span>
+      <span class="desc">A technology-classification reference for heat-pump types.</span>
+      <span class="abs"><b>Summary.</b> IEA reference framework classifying heat pumps by source, sink and product characteristics, to standardise monitoring and data collection across regions and help policymakers compare deployment and infrastructure needs.</span>
+      <span class="dat"><b>Data.</b> Classification framework — a taxonomy, not a dataset.</span></li>
+    <li><a href="https://www.iea.org/reports/global-energy-review-2026/technology-heat-pumps">Technology: Heat pumps — Global Energy Review 2026</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Annual energy-review chapter tracking 2025 heat-pump demand.</span>
+      <span class="abs"><b>Summary.</b> IEA review: global heat-pump sales fell ~2% in 2025, with an 11% EU recovery (Germany outselling gas boilers for the first time), stable China, and a ~13% US drop attributed partly to refrigerant shortages and slower housing — heat pumps still beating gas boilers there for a fourth year.</span>
+      <span class="dat"><b>Data.</b> IEA annual sales/demand tracking across major markets.</span></li>
+    <li><a href="https://www.iea.org/reports/the-future-of-heat-pumps-in-china/executive-summary">The Future of Heat Pumps in China — Executive summary</a><span class="src"> · IEA</span>
+      <span class="desc">China-specific heat-pump manufacturing and market assessment.</span>
+      <span class="abs"><b>Summary.</b> IEA finds China the world's largest heat-pump maker and market — producing ~35% of units sold worldwide and over a quarter of global sales — employing more than 300,000 people in the sector, with employment projected to double by 2050 under the Announced Pledges Scenario.</span>
+      <span class="dat"><b>Data.</b> IEA analysis of Chinese production, sales and sector-employment data with scenario projections.</span></li>
+    <li><a href="https://www.ehpa.org/wp-content/uploads/2025/07/EHPA-Market-Report-2025-executive-summary.pdf">EHPA Market Report 2025 — Executive summary</a><span class="src"> · European Heat Pump Association (2025)</span>
+      <span class="desc">European heat-pump sales, stock and workforce statistics.</span>
+      <span class="abs"><b>Summary.</b> EHPA reports ~2.31 million heat pumps sold across 19 European countries in 2024, down 22% (Germany −48%, Czechia −64%, UK +56%). Installed stock reached ~25.5 million (~12% of households), avoiding ~21 bcm of gas imports, with the sector employing ~433,000 people.</span>
+      <span class="dat"><b>Data.</b> EHPA survey of national heat-pump associations — country-level 2024 sales, stock, per-household and employment figures.</span></li>
+    <li><a href="https://www.ren21.net/gsr-2024/modules/energy_supply/02_market_and_industry_trends/04_heatpumps/">Market and industry trends — Heat pumps (GSR 2024)</a><span class="src"> · REN21</span>
+      <span class="desc">Cross-country heat-pump market-and-industry trend module.</span>
+      <span class="abs"><b>Summary.</b> REN21's Global Status Report module on the world heat-pump sector: 2023 sales trends by market (China +12%, Germany +60%, declines in Canada and several European countries), efficiency (3–4 units of heat per unit of electricity), plus workforce and energy-pricing challenges.</span>
+      <span class="dat"><b>Data.</b> REN21 synthesis of 2023 market data from IEA, EHPA and national sources.</span></li>
+    <li><a href="https://heatpumpingtechnologies.org/articles/heat-pumps-step-up-what-the-ieas-heat-pump-monitor-2026-means-for-heating-industry-and-energy-security/">Heat Pumps Step Up: what the IEA's Heat Pump Monitor 2026 means</a><span class="src"> · HPT TCP (IEA)</span>
+      <span class="desc">Industry-facing analysis of the 2026 Monitor for heating, industry and energy security.</span>
+      <span class="abs"><b>Summary.</b> Heat Pumping Technologies TCP reads the 2026 Monitor: heat pumps meet under 15% of global heating but are set to more than double by 2035; success hinges on aligning "price signal, workforce and will to build," while managing China's compressor dominance and the low-GWP refrigerant transition.</span>
+      <span class="dat"><b>Data.</b> Commentary on IEA Monitor findings; no primary dataset.</span></li>
+    <li><a href="https://heatpumpingtechnologies.org/articles/iea-etp-2026-released-highlights-the-important-role-of-heat-pumping-technologies/">IEA ETP 2026 highlights heat pumping technologies</a><span class="src"> · HPT TCP (IEA)</span>
+      <span class="desc">Summary of Energy Technology Perspectives 2026 on heat pumps' role.</span>
+      <span class="abs"><b>Summary.</b> HPT TCP on IEA's Energy Technology Perspectives 2026: heat pumps and air conditioning framed as "core technologies of the Age of Electricity," a market of ~USD 50 billion in 2024 that has doubled over the decade, held back by upfront cost, compressor-concentration supply risk and short-term policy.</span>
+      <span class="dat"><b>Data.</b> Commentary citing IEA ETP 2026 market figures; no primary dataset.</span></li>
+    <li><a href="https://www.iea.org/commentaries/is-a-turnaround-in-sight-for-heat-pump-markets">Is a turnaround in sight for heat pump markets?</a><span class="src"> · IEA commentary</span>
+      <span class="desc">Commentary on recovery signals after the 2024 heat-pump slump.</span>
+      <span class="abs"><b>Summary.</b> IEA commentary on an uneven recovery from the 2024 declines: US sales up almost 15% year-on-year by November and China holding double-digit growth, while the EU and Japan still struggled — Germany expecting a 30%+ rebound in 2025 as subsidies took effect.</span>
+      <span class="dat"><b>Data.</b> IEA market-tracking commentary — partial-year sales growth by region.</span></li>
+    <li><a href="https://www.iea.org/commentaries/global-heat-pump-sales-continue-double-digit-growth">Global heat pump sales continue double-digit growth</a><span class="src"> · IEA commentary</span>
+      <span class="desc">Commentary on the 2022 double-digit sales-growth year.</span>
+      <span class="abs"><b>Summary.</b> IEA commentary: global heat-pump sales grew 11% in 2022, a second straight double-digit year, led by a record 40% rise in Europe, with US heat-pump sales overtaking gas furnaces for the first time and the Chinese market broadly stable.</span>
+      <span class="dat"><b>Data.</b> IEA market-tracking commentary — 2022 sales-growth figures by region.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Installation — the workforce bottleneck <span class="ct">7</span></h2>
+  <div class="stagesub">The binding constraint — a skilled trade in short supply, invisible to every trade statistic.</div>
+  <ul class="refs">
+    <li><a href="https://www.aldersgategroup.org.uk/content/uploads/2025/11/Heat-Pump-Workforce-report-1.pdf">Workforce planning for clean heat — where will the heat pump workforce come from?</a><span class="src"> · Aldersgate Group (2025)</span>
+      <span class="desc">UK report quantifying the heat-pump installer workforce gap to 2035.</span>
+      <span class="abs"><b>Summary.</b> Aldersgate Group finds UK heat-pump installer demand must rise from ~4,500 full-time equivalents in 2023 to 41,000 by 2028 and 122,000 by 2035; it recommends expanded training and apprenticeships, better installer pay and conditions, and coordinated government–industry–education action.</span>
+      <span class="dat"><b>Data.</b> Workforce modelling of installer FTEs against UK deployment targets.</span></li>
+    <li><a href="https://committees.parliament.uk/writtenevidence/134082/html/">Written evidence on heat-pump skills</a><span class="src"> · UK Parliament</span>
+      <span class="desc">Committee written evidence on the heat-pump skills and training pipeline.</span>
+      <span class="abs"><b>Scope.</b> Written evidence submitted to a UK Parliament committee on the heat-pump skills gap and installer-training pipeline. <span class="miss">(Page returned HTTP 403 on this pass — not retrievable; noted from the record title only.)</span></span>
+      <span class="dat"><b>Data.</b> Submitted committee testimony — qualitative evidence, no primary dataset.</span></li>
+    <li><a href="https://ehpa.org/news-and-resources/projects/heat-pumps-need-people-closing-the-skills-gap/">Heat pumps need people: closing the skills gap</a><span class="src"> · European Heat Pump Association</span>
+      <span class="desc">EHPA-led project (SKILLS4HP) on the European installer skills gap.</span>
+      <span class="abs"><b>Summary.</b> EHPA's SKILLS4HP cluster of five EU-funded projects addresses heat-pump workforce shortages, calling a shortage of skilled installers, planners and technicians "one of the main bottlenecks to scaling deployment," against large potential (e.g. ~2 million heat-pump-ready homes in the Netherlands).</span>
+      <span class="dat"><b>Data.</b> Project description citing EU deployment-potential figures; no primary dataset.</span></li>
+    <li><a href="https://modbs.co.uk/news/fullstory.php/aid/20607/UK_HVAC___heat_pump_skills_shortage_-_where_do_we_go_from_here_.html">UK HVAC &amp; heat pump skills shortage — where do we go from here?</a><span class="src"> · Modern Building Services</span>
+      <span class="desc">Trade reporting on the UK HVAC/heat-pump engineer shortage.</span>
+      <span class="abs"><b>Summary.</b> Trade report: UK heat-pump-qualified engineers rose from ~3,000 (2022) to ~14,800 by mid-2024 but remain far short of the ~33,700 needed for 2028 net-zero targets, with ~39% of trainees never going on to install — a demand and support problem, not just training capacity.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing UK engineer-count and training figures.</span></li>
+    <li><a href="https://mcsfoundation.org.uk/news/heat-pump-skills-competition-puts-uk-warm-homes-ambition-at-risk-warns-new-report/">Heat pump skills competition puts UK warm-homes ambition at risk</a><span class="src"> · MCS Foundation</span>
+      <span class="desc">Report on competition for skilled workers threatening UK heat-pump targets.</span>
+      <span class="abs"><b>Summary.</b> MCS Foundation warns competition for skilled labour risks the Warm Homes Plan: ~76,000 workers in England hold relevant skills but many are in high-demand trades, small firms or nearing retirement, while the heat-pump workforce must reach 41,000 by 2028 and 122,000 by 2035.</span>
+      <span class="dat"><b>Data.</b> Report analysis of England's skilled-worker pool against workforce targets.</span></li>
+    <li><a href="https://www.nesta.org.uk/press-release/heat-pump-engineers-held-back-on-installations-by-staff-shortages/">Heat pump engineers held back on installations by staff shortages</a><span class="src"> · Nesta</span>
+      <span class="desc">Survey of UK installers on the barriers to scaling installations.</span>
+      <span class="abs"><b>Summary.</b> A Nesta survey of 345 UK installers finds staffing the second-ranked barrier to growth (30% overall, 41% among firms of 6+ employees) after weak demand (41%); 81% of larger firms planned to hire, but smaller ones doubted apprenticeship quality on practical skills.</span>
+      <span class="dat"><b>Data.</b> Nesta survey of 345 UK heat-pump installers.</span></li>
+    <li><a href="https://build-up.ec.europa.eu/en/news-and-events/news/heat-pumps-and-shortage-skilled-workers">Heat pumps and the shortage of skilled workers</a><span class="src"> · European Commission BUILD UP</span>
+      <span class="desc">EU portal article on the installer shortage across the bloc.</span>
+      <span class="abs"><b>Summary.</b> European Commission BUILD UP notes that while the EU aims to install 10 million heat pumps over five years to cut Russian-gas dependence, "there is a general lack of skilled workers" able to install them — though it gives no single quantified EU-wide gap figure.</span>
+      <span class="dat"><b>Data.</b> EU portal commentary; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's equipment-trade figures are built from — and the caveat that trade is not deployment.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024); heat pumps sit in the HS 8415 / 8418 headings.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Heat-pump and air-conditioning equipment falls in the HS 8415 / 8418 headings.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>No peer-reviewed academic papers</b> surfaced in this pass — the heat-pump literature here is agency-, industry- and trade-press-dominated. Next: search <em>Energy Policy</em> / <em>Applied Energy</em> / <em>Building and Environment</em> for "heat pump adoption barriers" or "heat pump refrigerant transition life-cycle assessment."</li>
+      <li><b>Compressor-manufacturing concentration</b> (~95% of units, ~50% of trade value in China per IEA/trade-press) is the one genuinely concentrated component but has no dedicated public country-level series; try "scroll/rotary compressor production capacity by country IEA" for the underlying data to size stage ②.</li>
+      <li><b>Installer-training-pipeline data outside the UK/EU</b> is thin — nearly every workforce source here is British. Next: "heat pump installer training program United States Inflation Reduction Act workforce," and equivalents for Japan and Korea.</li>
+      <li><b>Permanent magnets in compressor motors</b> are noted only as a minor link; a targeted pass on "heat pump compressor permanent-magnet motor rare-earth content" would size (or dismiss) that thread against the <a href="../magnet-chain/magnet-chain.html">magnet chain</a>.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from the regulated refrigerant, through the components and the finished unit, to installation — with the cross-cutting trade dataset at the end. 27 unique sources (duplicate listings of the IEA Monitor dashboards, the EHPA report and CEPII BACI were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (HTTP 403 / binary PDF) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./heat-pump-chain.html">The heat-pump chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
