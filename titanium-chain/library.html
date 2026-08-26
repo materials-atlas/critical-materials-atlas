@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Titanium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the titanium value chain, ordered to follow the chain from ore to aerospace-qualified metal. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="titanium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Titanium</div>
+    <h1>Titanium chain — from ore to aerospace-qualified metal</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Ninety percent of titanium is white pigment — a broad, diversified commodity mined and made in many countries. The other tenth is metal, produced as "sponge" by the Kroll process for jet engines, airframes, armour and implants — and that sliver is concentrated in China, Japan, Russia and Kazakhstan. <b>The tonnage average hides the risk.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① ilmenite / rutile ore → ② TiO₂ pigment (~90%, diversified) vs sponge (Kroll — the strategic ~10%) → ③ ingot &amp; mill: aerospace-qualified vs commodity metal — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="titanium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">22</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (13) · <span class="pill ref">Reference</span> context / provenance (5).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Ore — ilmenite &amp; rutile mineral concentrates</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Titanium Mineral Concentrates</td><td class="took">Country spread of ilmenite/rutile output → the "pigment ore is mined widely, not a chokepoint" panel (§1).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics</td><td class="took">Long-run mine-production series → cross-checks that ore diversification holds over time, not just a single year.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② TiO₂ pigment — the diversified ~90%</td></tr>
+      <tr><td class="n">3</td><td>USGS — Titanium Statistics &amp; Information</td><td class="took">The ~95%-as-TiO₂ end-use split → sources the "~90% is pigment" framing that separates the two supply chains.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>TZMI — mineral sands &amp; TiO₂ pigment</td><td class="took">Pigment/mineral-sands market structure → the "several large producers, competitive market" side of §1.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Sponge (Kroll) — aerospace-grade metal</td></tr>
+      <tr><td class="n">5</td><td>USGS MCS — Titanium Sponge</td><td class="took">Sponge production by country → the China/Japan/Russia/Kazakhstan concentration behind the §2 chokepoint.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>Argus — aerospace-approved sponge</td><td class="took">Aerospace-qualified vs uncertified tonnage → the distinction that total-sponge stats erase.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>USW Section 232 petition (TIMET)</td><td class="took">Single-domestic-producer failure point → the "few sponge makers" vulnerability in §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Ingot &amp; mill — qualified vs commodity</td></tr>
+      <tr><td class="n">8</td><td>BIS — Titanium supply-chain assessment</td><td class="took">Industrial-base survey method → qualified-supplier counts per stage; the sole/single-source mapping.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Titanium network model (Northeastern)</td><td class="took">Node-disruption method → the ingot/mill bottleneck (TIMET, ATI) and where rerouting is possible.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>Titanium LCA (Georgia Tech)</td><td class="took">Buy-to-fly mass balance + substitution readiness → the §3 "no drop-in substitute, slow qualification" finding.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Market &amp; geopolitics — China, Russia, Ukraine</td></tr>
+      <tr><td class="n">11</td><td>AeroTime — titanium squeeze</td><td class="took">China+Russia ~74% of sponge + decade-long certification → the concentration + slow-diversification note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>Oregon Group — China's dominance</td><td class="took">Vertical split (34% minerals / 67% sponge / 55% pigment) → a China value-chain panel for §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Metalnomist — China aerospace sponge</td><td class="took">Chinese aerospace-grade exports 1→10 kt by 2030 → forward annotation on the China-exposure story.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>AlloyIndex — shortage outlook</td><td class="took">Certification lead times + demand outlook → reinforces the qualification-lag note (§3).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>MINING.com — Ukraine titanium</td><td class="took">Ukraine's Kroll-sponge legacy → the "diversify away from Russia" option in §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">16</td><td>EU JRC137082 — titanium metal in the EU</td><td class="took">Criticality + circularity method → the "recycle to shrink dependency" framing for the metal sliver.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>JRC — Closing the loop (titanium)</td><td class="took">Import-to-export ratio method → the "dependency inverts downstream" reasoning for the mill stage.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>EU JRC — defence raw materials</td><td class="took">Alloy carries higher supply risk than its elements → the aerospace/defence-exposure framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>CRS R47982</td><td class="took">Policy/list background — the statutory frame around titanium's criticality.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">20</td><td>CEPII BACI</td><td class="took">The data engine → powers the reproduced ore (261400) + unwrought-titanium (810820) trade panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">21</td><td>USGS MCS series</td><td class="took">The production data engine → the production shares across every stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>UN Comtrade Plus</td><td class="took">The raw customs declarations behind BACI → provenance for the trade figures.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Ore — ilmenite &amp; rutile mineral concentrates <span class="ct">2</span></h2>
+  <div class="stagesub">The feedstock for both routes — mined widely in Australia, South Africa, China, Mozambique and Canada; not a chokepoint.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-mineral.pdf">USGS Mineral Commodity Summaries 2026 — Titanium Mineral Concentrates</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual ilmenite/rutile production, reserves and trade data by country; the pigment feedstock.</span>
+      <span class="abs"><b>Scope.</b> USGS commodity summary for titanium mineral concentrates — world ilmenite and rutile production, reserves, price and import-reliance data, the feedstock for TiO₂ pigment and sponge. <span class="miss">(PDF not retrievable this pass — HTTP 403 after one retry; scope from the chapter title and series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported mineral-concentrate trade and reserve data.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — titanium minerals</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Long-run world mine-production series by country, including titanium minerals.</span>
+      <span class="abs"><b>Summary.</b> The British Geological Survey's World Mineral Statistics database compiles long-run annual production (and, for many commodities, trade) by country for a wide range of minerals, drawn from national statistical returns. <span class="miss">(Query page not directly retrievable this pass — HTTP 404 on the listed URL; use the WMS search interface.)</span></span>
+      <span class="dat"><b>Data.</b> BGS compilation of national mine-production returns — long time series by country and commodity.</span></li>
+  </ul>
+
+  <h2 class="sec">② TiO₂ pigment — the diversified ~90% <span class="ct">2</span></h2>
+  <div class="stagesub">Most titanium is white paint. A large, competitive commodity market — the part that makes aggregate "titanium" statistics look safe.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/titanium-statistics-and-information">Titanium Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Hub page for titanium mineral concentrates, sponge and the annual Minerals Yearbook chapters.</span>
+      <span class="abs"><b>Summary.</b> USGS titanium resource hub linking Mineral Commodity Summaries (1996–2026), Minerals Yearbook chapters (1994–2022) and quarterly surveys. States that roughly 95% of titanium is consumed as titanium dioxide — the white pigment in paints, paper and plastics — the rest as high-strength-to-weight metal.</span>
+      <span class="dat"><b>Data.</b> Index/portal to the USGS titanium publication series (concentrates and sponge); no standalone dataset on the page.</span></li>
+    <li><a href="https://www.tzmi.com/">TZMI — Mineral Sands and TiO₂ Pigment Specialists</a><span class="src"> · TZ Minerals International</span>
+      <span class="desc">Consultancy covering the titanium-dioxide pigment and mineral-sands industry; publishes market and processing studies.</span>
+      <span class="abs"><b>Summary.</b> TZMI (est. 1994, Australia, with a Shanghai office) is a mineral-sands and TiO₂-pigment consultancy offering markets/strategic and technical/engineering advisory, monthly/quarterly/annual reports, mining and processing studies, and the annual TZMI Congress.</span>
+      <span class="dat"><b>Data.</b> Proprietary consultancy market/technical analysis — no public dataset on the site.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Sponge (Kroll) — aerospace-grade metal <span class="ct">3</span></h2>
+  <div class="stagesub">The strategic sliver: sponge production concentrated in China, Japan, Russia (VSMPO-Avisma) and Kazakhstan.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-sponge.pdf">USGS Mineral Commodity Summaries 2026 — Titanium Sponge</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual titanium-sponge production, reserves and trade data by country.</span>
+      <span class="abs"><b>Scope.</b> USGS commodity summary for titanium sponge — US and world Kroll-process sponge output, import reliance and end uses (chiefly aerospace metal), with producers led by China, Japan, Russia and Kazakhstan. <span class="miss">(PDF not retrievable this pass — HTTP 403 after one retry; scope from the chapter title and series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS voluntary producer surveys (much withheld) plus reported sponge import/export trade data.</span></li>
+    <li><a href="https://www.argusmedia.com/en/news-and-insights/latest-market-news/2659047-aerospace-approved-ti-sponge-supply-up-in-2024">Aerospace-approved Ti sponge supply up in 2024</a><span class="src"> · Argus Media (2025)</span>
+      <span class="desc">Market reporting distinguishing bulk titanium-sponge tonnage from aerospace-qualified supply.</span>
+      <span class="abs"><b>Summary.</b> News article (18 Feb 2025): aerospace-approved titanium-sponge output from Japan, Kazakhstan and Saudi Arabia rose to 89,000 t in 2024 from 84,000, at 83% capacity use; uncertified Chinese sponge held steady at 220,000 t.</span>
+      <span class="dat"><b>Data.</b> No primary dataset — producer and trade figures reported in market commentary.</span></li>
+    <li><a href="https://usw.org/wp-content/uploads/2024/09/Titanium-Sponge-232-Petition-09-27-2018-3.pdf">United Steelworkers — Titanium Sponge Section 232 petition (2018)</a><span class="src"> · United Steelworkers</span>
+      <span class="desc">Trade-policy petition documenting the collapse of U.S. domestic titanium-sponge production.</span>
+      <span class="abs"><b>Abstract.</b> Section 232 petition by Titanium Metals Corporation (TIMET), Sep 2018, seeking relief from titanium-sponge imports threatening national security. TIMET's Henderson, Nevada plant is the last US sponge producer; without relief the US becomes fully import-dependent on Japan, Kazakhstan, Russia, China and Ukraine.</span>
+      <span class="dat"><b>Data.</b> Petition citing DOC/ITC findings and dumping margins, plus industry production, consumption and world sponge-capacity data.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Ingot &amp; mill — qualified vs commodity <span class="ct">3</span></h2>
+  <div class="stagesub">Where sponge becomes ingot, then aerospace-qualified mill product — the stage that takes years to certify.</div>
+  <ul class="refs">
+    <li><a href="https://www.bis.gov/media/documents/titanium-supply-chain-assessment-web-version.pdf">U.S. Strategic Material Supply Chain Assessment: Titanium</a><span class="src"> · U.S. Dept. of Commerce, BIS</span>
+      <span class="desc">Government assessment of titanium supply-chain vulnerability for defense/aerospace end uses.</span>
+      <span class="abs"><b>Abstract.</b> U.S. Dept. of Commerce BIS (Office of Technology Evaluation) industrial-base assessment of the domestic titanium supply chain (2016). Surveys manufacturers and distributors on products, sourcing, single/sole-source inputs, capacity, defense dependency, financial health and R&amp;D, mapping vulnerabilities and reliance on foreign inputs.</span>
+      <span class="dat"><b>Data.</b> Original BIS OTE industrial-base survey of U.S. titanium manufacturers and distributors (respondent-reported sourcing, capacity, financials).</span></li>
+    <li><a href="https://repository.library.northeastern.edu/files/neu:4f248n72b/fulltext.pdf">Vulnerability Analysis on the Titanium Supply Chain: A Network Approach</a><span class="src"> · Northeastern University</span>
+      <span class="desc">Network-based vulnerability analysis of the global titanium supply chain.</span>
+      <span class="abs"><b>Abstract.</b> Master's thesis modelling the U.S. titanium supply chain as a network to assess vulnerability. Node-disruption analysis finds TIMET ingot/mill capacity critical, though diverse U.S. ingot capacity (e.g. ATI) permits rerouting; activating domestic sponge reduces redundant ingot capacity, amplifying a TIMET disruption's impact.</span>
+      <span class="dat"><b>Data.</b> Network model of the U.S. titanium supply chain (sponge/ingot/mill nodes and capacities — TIMET, ATI, ZTMC) with node-disruption simulation.</span></li>
+    <li><a href="https://repository.gatech.edu/server/api/core/bitstreams/b8c32ac1-026d-4da6-bea2-38ffedd1fbc6/content">Life Cycle Assessment and Risk Management of Titanium for Aerospace/Defense Applications</a><span class="src"> · Georgia Tech</span>
+      <span class="desc">LCA and supply-risk study of titanium in aerospace/defense use.</span>
+      <span class="abs"><b>Abstract.</b> Life-cycle assessment and supply-risk analysis of titanium for aerospace. Examines ore extraction, distribution, mill-product capacity, prices and geopolitical vulnerabilities, finding China and Russia dominant; a national emergency could halt U.S. production via sponge/scrap shortages. Proposes HSCR-steel substitution, domestic capacity and scrap use, with TRL/MRL evaluation.</span>
+      <span class="dat"><b>Data.</b> LCA plus supply-chain risk analysis on production-capacity, trade and price data (USGS/industry) and TRL/MRL evaluation of alternatives.</span></li>
+  </ul>
+
+  <h2 class="sec">Market &amp; geopolitics — China, Russia, Ukraine <span class="ct">5</span></h2>
+  <div class="stagesub">Trade-press and analyst reads on who controls sponge and how fast the West can diversify.</div>
+  <ul class="refs">
+    <li><a href="https://www.aerotime.aero/articles/global-titanium-market-at-risk-of-tightening-as-china-russia-grip-persists">Global titanium supply squeeze: who controls the market?</a><span class="src"> · AeroTime</span>
+      <span class="desc">Market analysis of China/Russia grip on titanium and Western aerospace exposure.</span>
+      <span class="abs"><b>Summary.</b> Reports China and Russia together control about 74% of global titanium-sponge production; surging aerospace demand risks tightening, with aerospace-grade certification taking up to a decade — limiting near-term Western diversification.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing Project Blue market-intelligence data and interviews; no government/academic sources.</span></li>
+    <li><a href="https://theoregongroup.com/commodities/titanium/chinas-titanium-dominance-vertical-supply-chain-cost-edge-and-global-ripple-effects/">China's titanium dominance</a><span class="src"> · The Oregon Group</span>
+      <span class="desc">Analysis of China's vertically integrated titanium supply chain and its limits for aerospace qualification.</span>
+      <span class="abs"><b>Summary.</b> Analyses China's vertically integrated titanium dominance (34% minerals, 67% sponge, 55% pigment capacity) while noting aerospace-qualification and feedstock constraints; frames Western opportunities via new projects and anti-dumping trade defences.</span>
+      <span class="dat"><b>Data.</b> Market analysis citing JRC, USGS, Argus Media, a Stanford critical-minerals report and company figures.</span></li>
+    <li><a href="https://www.metalnomist.com/2026/06/china-aerospace-grade-titanium-sponge.html">China aerospace-grade titanium sponge exports set to rise</a><span class="src"> · The Metalnomist (2026)</span>
+      <span class="desc">Reports a Chinese producer's plan to scale qualified aerospace-grade sponge exports toward 2030.</span>
+      <span class="abs"><b>Summary.</b> Reports Chinese aerospace-grade titanium-sponge exports projected to rise from ~1,000 t/yr to 10,000 t by 2030 as Western OEMs diversify from Russian supply and aircraft output grows.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing producer projections (Chaoyang Jinda Titanium), capacity/pricing and trade-flow figures.</span></li>
+    <li><a href="https://alloyindex.com/news/is-there-a-titanium-shortage-aerospace-and-defense-demand-outlook-2026/">Is there a titanium shortage? Aerospace and defense demand outlook 2026</a><span class="src"> · AlloyIndex (2026)</span>
+      <span class="desc">Market outlook on titanium demand/supply balance for aerospace and defense.</span>
+      <span class="abs"><b>Summary.</b> Examines whether a titanium shortage is emerging, arguing concentrated aerospace-grade supply, long certification lead times and accelerating aircraft/defence demand could trigger structural tightness in high-grade titanium alloys.</span>
+      <span class="dat"><b>Data.</b> Market commentary / analyst opinion; no primary dataset.</span></li>
+    <li><a href="https://www.mining.com/op-ed-a-strategic-metal-for-a-strategic-moment-ukraines-titanium-opportunity/">Ukraine's titanium opportunity</a><span class="src"> · MINING.com</span>
+      <span class="desc">Geopolitical angle on titanium supply diversification away from Russia.</span>
+      <span class="abs"><b>Summary.</b> Op-ed arguing Ukraine's deep Soviet-era titanium legacy (Kroll-process sponge, zirconium/hafnium metallurgy) positions it to help diversify a now highly concentrated global titanium industry disrupted by Russia's war, where China dominates sponge output.</span>
+      <span class="dat"><b>Data.</b> Op-ed commentary (Yegor Perelygin) citing USGS figures (2024 global sponge capacity 410,000 t, output 320,000 t, China ~69%).</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">4</span></h2>
+  <div class="stagesub">EU/US assessments and legislative background that classify titanium and its metal fraction.</div>
+  <ul class="refs">
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/handle/JRC137082">Titanium metal in the EU: Strategic relevance and circularity potential (JRC137082)</a><span class="src"> · European Commission JRC (2025)</span>
+      <span class="desc">Dedicated EU assessment of titanium metal's strategic role and recycling potential.</span>
+      <span class="abs"><b>Abstract.</b> JRC report (20 Jan 2025) examining titanium's strategic importance and circularity for the EU. Classified as both critical and strategic under the CRM Act, titanium metal serves aviation, defence, space and manufacturing; the EU faces a supply–demand gap and heavy import reliance, with enhanced circularity a route to reduce external dependence.</span>
+      <span class="dat"><b>Data.</b> Supply-chain and demand-side assessment across EU strategic industries, geopolitical evaluation and macroeconomic modelling of circularity scenarios; R&amp;I intensity via publications/patents.</span></li>
+    <li><a href="https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/closing-loop-eus-titanium-supply-chain-2025-01-23_en">Closing the loop: EU's titanium supply chain</a><span class="src"> · European Commission JRC (2025)</span>
+      <span class="desc">Titanium scrap/recycling policy note; flags Kazakhstan as an EU titanium supplier.</span>
+      <span class="abs"><b>Summary.</b> JRC update on EU titanium vulnerability: despite heavy consumption, import-to-export ratios reach 6:1 (products) and 10:1 (sponge), with Russia the top aviation-grade producer. Recommends reshoring midstream processing, recycling decommissioned-aircraft titanium, and partnerships with Kazakhstan and Ukraine.</span>
+      <span class="dat"><b>Data.</b> JRC analysis citing titanium import-to-export ratios and producer concentration — no primary dataset.</span></li>
+    <li><a href="https://setis.ec.europa.eu/system/files/2021-02/raw_materials_in_the_european_defence_industry.pdf">Raw materials in the European defence industry</a><span class="src"> · European Commission JRC/SETIS (2021)</span>
+      <span class="desc">Assesses EU dependency on titanium and other materials for defence/aerospace.</span>
+      <span class="abs"><b>Abstract.</b> Identifies the raw materials important to the European defence industry and their supply risk from import dependency. Finds 39 raw materials needed for advanced defence materials — about half fully import-reliant — and 47 critical alloys/composites whose performance defies substitution, giving higher supply risk than their constituents.</span>
+      <span class="dat"><b>Data.</b> JRC synthesis of a prior contract study; inventory of 39 raw materials and 47 alloys/composites plus EU import-dependency data.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R47982">Critical Mineral Resources: National Policy and Critical Minerals List (R47982)</a><span class="src"> · Congressional Research Service (2024)</span>
+      <span class="desc">Legislative/policy background on the U.S. critical minerals list process.</span>
+      <span class="abs"><b>Summary.</b> CRS report (Linda Rowan): reviews US minerals policy, the Energy Act of 2020 definition of a critical mineral, and USGS list development (2022: 50 minerals; 2025: 60) for congressional supply-chain considerations.</span>
+      <span class="dat"><b>Data.</b> Secondary synthesis of USGS lists/methodology, statute, and production/import-reliance data; no new primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">3</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's ore/unwrought-metal trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data, including titanium sponge and mineral concentrates.</span>
+      <span class="abs"><b>Summary.</b> USGS index for Mineral Commodity Summaries 2026: downloadable PDF chapters for every commodity (abrasives through zirconium), plus the full report and appendixes. USGS's annual reference on domestic and world mineral production, supply and use.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a><span class="src"> · United Nations Statistics Division</span>
+      <span class="desc">Official international merchandise-trade database underlying BACI.</span>
+      <span class="abs"><b>Summary.</b> UN Comtrade Plus is the UN Statistics Division's platform for official international merchandise-trade statistics — reporter-declared import/export flows by product and partner — the raw declarations that BACI reconciles into bilateral flows. <span class="miss">(Page served as a client-side app shell — content not directly retrievable this pass.)</span></span>
+      <span class="dat"><b>Data.</b> National customs declarations reported to the UN Statistics Division, by HS product and partner country.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>VSMPO-Avisma</b>-specific primary source (company reporting, a sanctions-list entry, or dedicated analysis) was captured, though it is central to the chain's finding. Next: "VSMPO-AVISMA titanium sanctions Boeing Airbus 2022" and company disclosures.</li>
+      <li><b>Kazakhstan's UKTMP</b> (Ust-Kamenogorsk Titanium-Magnesium Plant) is named among the sponge holders but has no dedicated source. Next: "UKTMP Kazakhstan titanium sponge production capacity."</li>
+      <li><b>No dedicated titanium criticality-index paper</b> (Graedel/Yale-style, or a Resources Policy article scoring titanium) surfaced — search "titanium criticality assessment Resources Policy" or "Graedel criticality matrix titanium."</li>
+      <li>The <b>TiO₂ pigment market structure</b> (the ~90% majority use) is thin beyond TZMI and the USGS concentrates chapter — search "TiO2 pigment industry Chemours Tronox Kronos market structure" for the diversified-market side.</li>
+      <li>The two <b>USGS 2026 titanium PDFs</b> (sponge, mineral concentrates) returned HTTP 403 this pass; retry the direct PDF links or read the same figures from the USGS titanium hub / Minerals Yearbook. The <b>BGS WMS</b> query page 404'd on the listed URL — use the WMS search interface.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from ore to aerospace-qualified metal, with cross-cutting frameworks and data grouped at the end. 22 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 / 404 / app-shell) that is flagged in italics, and USGS PDFs were retried once before flagging. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="titanium-chain.html">The titanium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
