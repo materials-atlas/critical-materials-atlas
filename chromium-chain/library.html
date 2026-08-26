@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Chromium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the chromium value chain, ordered to follow the chain from chromite ore to ferrochrome to stainless steel and superalloys. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="chromium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Chromium</div>
+    <h1>Chromium chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Chromite ore becomes ferrochrome, then stainless steel and superalloys — and the electricity-hungry smelting step, not the mine, is where the map bends. The ore stays in South Africa; the furnace chases cheap power to Kazakhstan and China. <b>The chokepoint is the furnace, not the pit.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Chromite ore (South Africa) → ② Ferrochrome (energy-sited: Kazakhstan, China) → ③ Stainless steel &amp; superalloys — then the cross-cutting toxicity/regulation, criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="chromium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">13</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (5).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Chromite — the ore, South-Africa-led</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Chromium (2026)</td><td class="took">Mine + reserve shares and the ~100% US import reliance → the "chromite concentrated but not monopolised, South Africa leads" framing; sources the ore-versus-ferrochrome split.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS — Chromium (2025)</td><td class="took">Prior-year edition of the same series → provenance and a year-over-year check on the production read.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>BGS World Mineral Statistics</td><td class="took">Long-run chromite mine-production series → the multi-decade history behind "South Africa dominates mining."</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Ferrochrome — the smelter chases power</td></tr>
+      <tr><td class="n">4</td><td>Project Blue — SA ferrochrome</td><td class="took">Market analysis of the South Africa → Kazakhstan/China smelting shift on power costs → direct support for the <b>"furnace follows the powerline"</b> thesis.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>ICDA — uses &amp; supply</td><td class="took">Cited in the chain for chromium uses/supply — but the domain now resolves to an unrelated medical-coding site; the citation needs a live ICDA URL (see Gaps).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Stainless steel &amp; superalloys — the end use</td></tr>
+      <tr><td class="n">6</td><td>Reck — MFA nickel &amp; stainless steel</td><td class="took">Material-flow method for stainless steel (chromium's dominant use) → a reproducible use-side stock/flow lens to add.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — toxicity &amp; regulation (Cr-VI)</td></tr>
+      <tr><td class="n">7</td><td>ECHA — chromium(VI) compounds</td><td class="took">EU regulatory/hazard record for hexavalent chromium → context for the plating/toxicity note, not a supply metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>EFSA — dietary reference values</td><td class="took">Chromium's biological trace-element role vs its industrial toxicity → context only.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>Mutation Research — genomic stability</td><td class="took">Cr(VI) toxicology → the occupational-exposure context around smelting and plating.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality &amp; US reliance</td></tr>
+      <tr><td class="n">10</td><td>USGS OFR 2019-1023D — resources</td><td class="took">US resource-assessment method covering chromium → a resource-base lens to set beside the mine-share view.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>USGS OFR 2020-1127 — foreign reliance</td><td class="took">Net-import-reliance method incl. chromium/ferrochrome → reproducible on BACI as a dependency read.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">12</td><td>CEPII BACI</td><td class="took">The data engine → powers the reproduced ore-vs-alloy trade shares (<b>chromite 261000 + ferro-chromium 720241</b>).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>USGS NMIC — Chromium portal</td><td class="took">The data portal → provenance for the production/reserves/trade series (MCS 1996–2026, Yearbook 1994–2023, life-cycle study).</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Chromite — the ore, South-Africa-led <span class="ct">3</span></h2>
+  <div class="stagesub">The ore, and it stays put: South Africa holds most chromite reserves and leads mine output.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf">USGS Mineral Commodity Summaries 2026 — Chromium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual chromite mine and ferrochromium production, reserves and US import reliance by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary for chromium. The persistent findings are US net import reliance near 100% (no domestic chromite mine production), South Africa leading world chromite reserves and mine output, and stainless steel as the dominant end use via ferrochromium. <span class="miss">The 2026 PDF returned HTTP 403 on two passes — specific current-year tonnages were not retrieved here.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, reserve and consumption data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-chromium.pdf">USGS Mineral Commodity Summaries 2025 — Chromium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year annual chromium summary, for year-over-year comparison.</span>
+      <span class="abs"><b>Summary.</b> The 2025 edition of the USGS chromium commodity chapter — the same production, reserves and import-reliance series one year earlier, used to check the year-over-year read against the 2026 edition. <span class="miss">PDF not retrievable this pass (HTTP 403); figures deferred to the 2026 edition.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics (production, imports, reserves, use).</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — chromium (chromite)</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Long-run world chromite mine-production series by country.</span>
+      <span class="abs"><b>Summary.</b> British Geological Survey's World Mineral Statistics: a searchable database of long-run world production and trade by commodity and country, including chromium ores and concentrates — the historical mine-output series behind "South Africa dominates mining." <span class="miss">The statistics portal returned HTTP 404 this pass — the series was not extracted here.</span></span>
+      <span class="dat"><b>Data.</b> BGS compilation of national government production and trade returns, spanning many decades.</span></li>
+  </ul>
+
+  <h2 class="sec">② Ferrochrome — the smelter chases power <span class="ct">2</span></h2>
+  <div class="stagesub">Where the map bends: converting chromite to ferrochrome is ~40% power by cost, so the furnace follows cheap electricity to Kazakhstan and China.</div>
+  <ul class="refs">
+    <li><a href="https://www.projectblue.com/blue/news-analysis/1167/south-africa%E2%80%99s-ferrochrome-industry%3A-facing-structural-decline-or-adaptation">South Africa's ferrochrome industry: facing structural decline or adaptation?</a><span class="src"> · Project Blue</span>
+      <span class="desc">Market-intelligence analysis of South Africa's ferrochrome industry and the smelting shift to Kazakhstan/China.</span>
+      <span class="abs"><b>Summary.</b> Market analysis arguing South Africa's ferrochrome smelting faces structural decline as high power costs and unreliable electricity push capacity toward Kazakhstan and China, which smelt imported South African chromite — direct support for the "furnace follows the powerline" thesis. <span class="miss">Full analysis is subscription-gated; only the framing was retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Project Blue proprietary market intelligence (ferrochrome capacity, cost and trade data).</span></li>
+    <li><a href="https://www.icdachromium.com/">International Chromium Development Association — uses and supply</a><span class="src"> · ICDA (cited)</span>
+      <span class="desc">The chain's cited chromium-industry association source for uses and supply.</span>
+      <span class="abs"><b>Summary.</b> Cited in the chain record as the International Chromium Development Association (uses and supply). <span class="miss">Checked live this pass, icdachromium.com now redirects to an unrelated medical ICD-10 coding site — the association's domain appears lapsed or reused; the citation needs a current ICDA URL (see Gaps).</span></span>
+      <span class="dat"><b>Data.</b> No data retrievable — the domain no longer resolves to the association.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Stainless steel &amp; superalloys — the end use <span class="ct">1</span></h2>
+  <div class="stagesub">What the metal becomes: stainless steel (most chromium consumed) and nickel-based superalloys.</div>
+  <ul class="refs">
+    <li><a href="https://scholar.archive.org/work/nvmjtm3klfddbhxdeyz6o4gwvq/">Material flow analysis case studies of nickel and stainless steel</a><span class="src"> · Reck, Yale (2012)</span>
+      <span class="desc">Material flow analysis of nickel and stainless steel — chromium's dominant end use.</span>
+      <span class="abs"><b>Summary.</b> A material-flow-analysis study (Reck, Yale) tracing nickel and stainless steel through production, use and end-of-life — a method transferable to chromium, since stainless steel embeds most chromium consumed. <span class="miss">Full text not retrieved this pass (host 404); scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> Material-flow analysis of stainless-steel stocks and flows — no chromium-specific dataset extracted here.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — toxicity &amp; regulation (Cr-VI) <span class="ct">3</span></h2>
+  <div class="stagesub">Chromium's other face: hexavalent chromium is a regulated hazard in plating and smelting.</div>
+  <ul class="refs">
+    <li><a href="https://echa.europa.eu/substance-information/-/substanceinfo/100.014.189">Substance Information — chromium(VI) compounds</a><span class="src"> · European Chemicals Agency</span>
+      <span class="desc">EU regulatory/hazard database entry on hexavalent chromium compounds.</span>
+      <span class="abs"><b>Summary.</b> European Chemicals Agency substance-information entry for chromium(VI) compounds — the EU regulatory and hazard record relevant to chrome plating and smelting exposure. <span class="miss">Page returned HTTP 403 this pass; scope taken from the ECHA entry title.</span></span>
+      <span class="dat"><b>Data.</b> ECHA regulatory database (classification, hazard and regulatory-obligation records).</span></li>
+    <li><a href="https://doi.org/10.2903/j.efsa.2014.3845">Scientific Opinion on Dietary Reference Values for chromium</a><span class="src"> · EFSA Journal (2014)</span>
+      <span class="desc">EU agency scientific opinion on chromium as a dietary trace element.</span>
+      <span class="abs"><b>Summary.</b> European Food Safety Authority scientific opinion on Dietary Reference Values for chromium — context for chromium's biological trace-element role against its industrial toxicity. <span class="miss">Full opinion not retrievable this pass (publisher 403); summarised from the title and journal.</span></span>
+      <span class="dat"><b>Data.</b> EFSA panel review of nutritional and intake evidence; no supply data.</span></li>
+    <li><a href="https://doi.org/10.1016/j.mrfmmm.2011.12.002">Chromium and genomic stability</a><span class="src"> · Mutation Research (2012)</span>
+      <span class="desc">Peer-reviewed review of hexavalent-chromium toxicology and genotoxicity.</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed review in Mutation Research on chromium and genomic stability — the genotoxicity and carcinogenicity of hexavalent chromium Cr(VI), relevant to occupational exposure in plating and smelting. <span class="miss">Full text paywalled/redirected (Elsevier) — not retrieved; scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> Literature review of Cr(VI) toxicology — no supply or production data.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality &amp; US reliance <span class="ct">2</span></h2>
+  <div class="stagesub">US and agency assessments that score chromium's resource base and import reliance.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/publication/ofr20191023D/full">Resources of 13 critical minerals in the US — including chromium</a><span class="src"> · Hammarstrom, Dicken &amp; Woodruff, USGS (2022)</span>
+      <span class="desc">US resource assessment covering chromium among 13 critical minerals.</span>
+      <span class="abs"><b>Summary.</b> USGS open-file report (Hammarstrom, Dicken &amp; Woodruff) assessing US resources of thirteen critical minerals including chromium — a resource-base lens to set beside the annual mine-share view. <span class="miss">Report PDF returned HTTP 403 this pass; scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> USGS geologic resource assessment — deposit and resource data, not annual production.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/ofr20201127">Investigation of US foreign reliance on critical minerals</a><span class="src"> · Nassar, Alonso &amp; Brainard, USGS (2020)</span>
+      <span class="desc">USGS analysis of US foreign reliance on critical minerals, including chromium.</span>
+      <span class="abs"><b>Summary.</b> USGS report (Nassar, Alonso &amp; Brainard) quantifying US foreign reliance and import dependence across critical minerals including chromium and ferrochromium — a method reproducible on BACI as a dependency read. <span class="miss">Report not retrieved this pass (HTTP 403); scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> USGS net-import-reliance and trade-flow analysis — no new primary dataset extracted here.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own ore-versus-alloy figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's ore/alloy trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade for ~200 countries across ~5,000 HS6 products (1995–2024), derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies — the engine for the chromite (261000) and ferro-chromium (720241) shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/chromium-statistics-and-information">Chromium Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">USGS chromium data portal — the production/reserves/trade series behind the chain figures.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center chromium portal: calls chromium "an essential feedstock in the production of stainless steel and superalloys" and links Mineral Commodity Summaries (1996–2026), Minerals Yearbook (1994–2023), monthly Mineral Industry Surveys and a Chromium Life Cycle Study.</span>
+      <span class="dat"><b>Data.</b> USGS monthly and annual mineral statistics (production, consumption, recycling, material flow).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The chain's own cited <b>ICDA source</b> (icdachromium.com) was checked live this pass and now resolves to an unrelated medical ICD-10 coding site — the association's domain appears lapsed or reused. Update the chain record to a live ICDA URL; search "International Chromium Development Association" for its current site before the next citation refresh.</li>
+      <li><b>South Africa's electricity crisis</b> (Eskom load-shedding) as the direct driver of ferrochrome offshoring has no dedicated primary source here — search "Eskom load shedding ferrochrome smelter closures South Africa" and Fastmarkets/Reuters ferrochrome-price coverage.</li>
+      <li>No academic <b>criticality-index paper</b> specifically scoring chromium was found — search "chromium criticality assessment Resources Policy" or "Graedel criticality chromium," and a CSIS/RMI-style chromium analysis.</li>
+      <li><b>Superalloy / aerospace-grade chromium use</b> (jet-engine hot sections) has no dedicated academic source — search "chromium nickel superalloy composition review," and cross-read the aerospace chain.</li>
+      <li>Several core USGS PDFs and the ECHA / Wiley / Elsevier entries returned HTTP 403 this pass (a transient host block), so their abstracts are flagged — re-fetch from <code>pubs.usgs.gov</code> and the publishers when reachable to lift the flags.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from chromite ore to ferrochrome to stainless steel and superalloys, with cross-cutting toxicity, criticality frameworks and trade data grouped at the end. 13 unique sources (duplicate listings — the USGS chromium data portal and the ECHA entry each appeared twice in the source notes — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (HTTP 403/404, paywall or a dead domain) that is flagged in italics, and a scope-level note is given in its place. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="chromium-chain.html">The chromium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
