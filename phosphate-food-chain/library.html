@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Phosphate / food chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the phosphate → fertilizer → food value chain, ordered to follow the chain from phosphate rock to food. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./phosphate-food-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Phosphate &amp; Food</div>
+    <h1>Phosphate → fertilizer → food chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Phosphate rock becomes phosphoric acid, then DAP/MAP fertilizer, then food — and unlike the tech chains, the supply does not get narrower downstream. It is already narrow at the source: about 68% of the world's phosphate-rock reserves sit in Morocco, and phosphorus has no substitute in agriculture. <b>Here the mine is the chokepoint — for phosphorus there is no plan B.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Phosphate rock (Morocco holds ~68% of reserves) → ② acid &amp; fertilizer (OCP, the downstream processor) → ③ the three nutrients N-P-K → ④ food — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./phosphate-food-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">20</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (5, all paywalled) · <span class="pill ref">Reference</span> context / provenance (10).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Phosphate rock — Morocco reserves, the only source</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Phosphate Rock</td><td class="took">Reserve-vs-production split → the §1 "reserves ~68% Morocco but only ~13% of output" finding + the reserves bar panel; sources the <b>47.8 Mt P₂O₅/yr</b> demand stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS — Phosphate Rock Statistics &amp; Information</td><td class="took">Provenance for the phosphate production/reserve series and the 2000–2024 mine-production history chart.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>Walan et al. — production &amp; depletion modelling</td><td class="took">Method: regional depletion / production-peak modelling → the §4 "finite, long-run resource" framing. <span class="miss">Paywalled — no new series extracted yet.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Mew — costs, prices &amp; resources interaction</td><td class="took">Cost-curve / resource economics → context for "reserve estimates respond to price". <span class="miss">Paywalled — not yet reproduced.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Acid &amp; fertilizer — OCP &amp; processing</td></tr>
+      <tr><td class="n">5</td><td>OCP Group</td><td class="took">Downstream integration (rock → acid → DAP/MAP) → the §2 "OCP holds the reserve base AND processing" two-stage-concentration point. <span class="miss">Corporate site 403.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Lee et al. — WEF-P nexus, Morocco</td><td class="took">Water-energy-food-phosphorus nexus on Morocco's fertilizer chain → a planned resource-use overlay on the OCP stage. <span class="miss">Paywalled.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Mew et al. — price peaks Part 2 (2008)</td><td class="took">2008 price-spike / market-power analysis → planned annotation on export-restriction and price risk. <span class="miss">Paywalled.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The three nutrients (N-P-K)</td></tr>
+      <tr><td class="n">8</td><td>USGS MCS 2025 — Potash</td><td class="took">The K in NPK: ~93% US import reliance (Canada / Russia / Belarus) → the §3 potassium card.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>USGS MCS 2025 — Nitrogen (Ammonia)</td><td class="took">The N in NPK: ammonia from natural gas → the §3 nitrogen card + the cross-link to the ammonia chain.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Food &amp; phosphorus security</td></tr>
+      <tr><td class="n">10</td><td>Cordell — phosphorus, food &amp; 'messy' problems</td><td class="took">Peak-phosphorus / no-substitute framing → underpins the §2 "inversion of the atlas thesis" and the "no plan B" byline.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>Cordell &amp; Neset — phosphorus vulnerability</td><td class="took">Vulnerability-framework method → a planned per-country phosphorus-vulnerability lens. <span class="miss">Paywalled.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>FAO — World fertilizer trends &amp; outlook</td><td class="took">Global N/P/K demand outlook → corroborates the 47.8 → ~52 Mt P₂O₅ trajectory. <span class="miss">Repository JS shell — not retrieved.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — frameworks &amp; policy</td></tr>
+      <tr><td class="n">13</td><td>EU — Critical Raw Materials</td><td class="took">EU CRM 2023 lists phosphate rock + phosphorus as critical → the criticality framing for the chain's input.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>CSIS — Critical Minerals Security Program</td><td class="took">Minerals-security policy context — belongs in the decision layer, not this chain page.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>IFDC — fertilizer &amp; food-security research</td><td class="took">Fertilizer-access / food-security context for the demand-side framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>IFA — International Fertilizer Association</td><td class="took">IFASTAT statistics + "about half of food production relies on mineral fertilizers" → the demand-cannot-switch-off stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; data</td></tr>
+      <tr><td class="n">17</td><td>CEPII BACI</td><td class="took">The data engine → the traded-forms series (phosphate rock + DAP/MAP + potash) and the trade panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">18</td><td>USGS MCS series</td><td class="took">The production / reserve data engine → the production and reserve figures across every stage.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">19</td><td>FAOSTAT — fertilizers by nutrient</td><td class="took">Per-nutrient production / use by country → the nutrient-basis check on the §3 NPK section.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>UN Comtrade</td><td class="took">The customs source BACI reconciles → provenance for the trade panel.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Phosphate rock — Morocco reserves, the only source <span class="ct">4</span></h2>
+  <div class="stagesub">The raw input, and the one stage that binds: reserves ~68% Morocco, no substitute for phosphorus.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-phosphate.pdf">USGS Mineral Commodity Summaries 2026 — Phosphate Rock</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world phosphate-rock production and reserves; Morocco holds the dominant share of reserves.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: in 2025 five firms mined ~20 Mt of marketable phosphate rock at 10 US mines; over 95% fed wet-process phosphoric acid for ammonium-phosphate fertilizers. China, Morocco, the US and Russia led output, but Morocco holds 50 of ~74 billion t of world reserves. World fertilizer P₂O₅ use reached 47.8 Mt, rising toward 51.5 Mt by 2029.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, price and world reserve estimates.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/phosphate-rock-statistics-and-information">USGS — Phosphate Rock Statistics and Information</a><span class="src"> · USGS</span>
+      <span class="desc">Annual and historical phosphate-rock statistics from the USGS National Minerals Information Center.</span>
+      <span class="abs"><b>Summary.</b> USGS portal for phosphate rock: monthly marketable-rock surveys, annual Mineral Commodity Summaries (1996–2026) and Minerals Yearbook chapters, crop-year phosphate/potash reports, the World Phosphate Mines dataset and historical statistics.</span>
+      <span class="dat"><b>Data.</b> USGS statistical series — monthly and annual production, trade and reserve compilations.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344914002298">Phosphate rock production and depletion: regional disaggregated modeling and global implications</a><span class="src"> · Resources, Conservation and Recycling (2014)</span>
+      <span class="desc">Depletion and production-peak modelling of phosphate rock (Walan, Davidsson, Johansson &amp; Höök).</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed study modelling phosphate-rock production and depletion with regional disaggregation to project global supply peaks and their implications. <span class="miss">Full text paywalled (ScienceDirect 403); title, authors and journal verified via Crossref (DOI 10.1016/j.resconrec.2014.10.011) — abstract text not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Regional disaggregated production/depletion modelling of phosphate-rock reserves.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0048969715305489">Phosphate rock costs, prices and resources interaction</a><span class="src"> · Science of the Total Environment (2016)</span>
+      <span class="desc">Cost-curve and resource economics of phosphate rock (M.C. Mew).</span>
+      <span class="abs"><b>Summary.</b> Journal article examining how phosphate-rock costs, prices and resource/reserve estimates interact — the cost-curve and resource economics of the rock. <span class="miss">Full text paywalled (403); metadata verified via Crossref (DOI 10.1016/j.scitotenv.2015.08.045) — abstract not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Cost-curve and resource-economics analysis of phosphate rock.</span></li>
+  </ul>
+
+  <h2 class="sec">② Acid &amp; fertilizer — OCP &amp; processing <span class="ct">3</span></h2>
+  <div class="stagesub">Morocco's OCP moved downstream into phosphoric acid and finished fertilizer — concentration at two stages at once.</div>
+  <ul class="refs">
+    <li><a href="https://www.ocpgroup.ma/">OCP Group</a><span class="src"> · OCP (Morocco)</span>
+      <span class="desc">The dominant phosphate producer's corporate and reserve disclosures.</span>
+      <span class="abs"><b>Summary.</b> OCP Group is Morocco's state-owned phosphate company — the vehicle through which Morocco's dominant reserve base is mined and processed into phosphoric acid and DAP/MAP fertilizers, holding both the resource and a large share of processing. <span class="miss">Corporate site returned HTTP 403; described from established fact, corroborated by USGS reserve data.</span></span>
+      <span class="dat"><b>Data.</b> Corporate disclosures (not retrievable this pass); Morocco's reserve/processing position corroborated by USGS MCS 2026.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0048969722066190">Development of WEF-P Nexus based on product-supply chain: phosphorous fertilizer industry in Morocco</a><span class="src"> · Science of the Total Environment (2023)</span>
+      <span class="desc">Water-energy-food-phosphorus nexus, focused on Morocco (OCP) — Lee, Assi, Mohtar et al.</span>
+      <span class="abs"><b>Summary.</b> Develops a water-energy-food-phosphorus (WEF-P) nexus model on the product-supply chain, applied as a case study to Morocco's phosphorous-fertilizer industry (OCP). <span class="miss">Full text paywalled (403); title and authors verified via Crossref (DOI 10.1016/j.scitotenv.2022.159520) — abstract not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> WEF-P nexus modelling of Morocco's phosphate-fertilizer supply chain.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0301420723002994">Phosphate price peaks and negotiations – Part 2: the 2008 peak and implications for the future</a><span class="src"> · Resources Policy (2023)</span>
+      <span class="desc">Price-formation and market-power analysis (Mew, Steiner, Haneklaus &amp; Geissler).</span>
+      <span class="abs"><b>Summary.</b> Analyses phosphate price peaks and negotiations, focusing on the 2008 price spike and its implications for future market power and supply security. <span class="miss">Full text paywalled (403); metadata verified via Crossref (DOI 10.1016/j.resourpol.2023.103588) — abstract not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Price-formation and market-power analysis of the 2008 phosphate peak.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The three nutrients (N-P-K) <span class="ct">2</span></h2>
+  <div class="stagesub">Each fertilizer nutrient has its own concentration: P (Morocco), K (Canada / Russia / Belarus), N (natural gas).</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-potash.pdf">USGS Mineral Commodity Summaries 2025 — Potash</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">The K in NPK fertilizer — companion nutrient supply.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: US potash output (~420 kt K₂O, from New Mexico and Utah) met little demand — net import reliance ran ~93%, sourced 79% Canada, 11% Russia, 4% Belarus. About 85% of potash sales went to fertilizer; potash is the K in NPK, with no US substitute for the imported supply.</span>
+      <span class="dat"><b>Data.</b> USGS producer survey plus import-source and price data (K₂O-equivalent basis).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-nitrogen.pdf">USGS Mineral Commodity Summaries 2025 — Nitrogen (Fixed)–Ammonia</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">The N in NPK — links to the ammonia chain; nitrogen fertilizer tracks natural-gas price.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 18 companies made ammonia at 37 US plants in 2024 (~14 Mt N); ~55% of capacity sits in Louisiana, Oklahoma and Texas for their natural-gas feedstock. About 88% of ammonia went to fertilizer. Ammonia — the N in NPK — tracks the price and availability of natural gas.</span>
+      <span class="dat"><b>Data.</b> USGS producer survey plus natural-gas (Henry Hub) and Gulf-Coast ammonia price data.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Food &amp; phosphorus security <span class="ct">3</span></h2>
+  <div class="stagesub">The end use that cannot be switched off — non-substitutable, finite, and poorly recycled.</div>
+  <ul class="refs">
+    <li><a href="https://opus.lib.uts.edu.au/handle/10453/16086">Phosphorus, food and 'messy' problems: a systemic inquiry into the management of a critical global resource</a><span class="src"> · Cordell, UTS (2008)</span>
+      <span class="desc">The seminal peak-phosphorus / phosphorus-security thesis.</span>
+      <span class="abs"><b>Abstract.</b> Doctoral thesis applying Soft Systems Methodology, stakeholder interviews and substance-flow analysis to phosphorus security. Finds phosphate rock finite and concentrated in China, Morocco and the US, with peak production plausible within decades and no international body governing phosphorus sustainability for food systems — an institutional gap that blocks corrective feedback.</span>
+      <span class="dat"><b>Data.</b> Soft Systems Methodology with stakeholder interviews, substance-flow and institutional analysis (UTS doctoral thesis).</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0959378013001970">Phosphorus vulnerability: a qualitative framework for assessing food-system vulnerability</a><span class="src"> · Global Environmental Change (2014)</span>
+      <span class="desc">Framework for national/regional phosphorus supply vulnerability (Cordell &amp; Neset).</span>
+      <span class="abs"><b>Summary.</b> Proposes a qualitative framework for assessing the vulnerability of national and regional food systems to the multi-dimensional stressors of phosphorus scarcity. <span class="miss">Full text paywalled (403); title and authors verified via Crossref (DOI 10.1016/j.gloenvcha.2013.11.005) — abstract not retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Qualitative national/regional phosphorus-vulnerability framework.</span></li>
+    <li><a href="https://www.fao.org/documents/card/en/c/cc0088en">FAO — World fertilizer trends and outlook</a><span class="src"> · FAO</span>
+      <span class="desc">Global fertilizer supply/demand outlook and food-security framing.</span>
+      <span class="abs"><b>Summary.</b> FAO outlook on world fertilizer supply, demand and balances for the three nutrients (N, P₂O₅, K₂O), with a food-security framing. <span class="miss">FAO repository served a JavaScript shell — full text not retrievable; described from the report title and Crossref metadata (publisher FAO).</span></span>
+      <span class="dat"><b>Data.</b> FAO nutrient-balance projections (supply, demand, trade) — publisher FAO.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">4</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and industry bodies that classify and track the whole chain.</div>
+  <ul class="refs">
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">European Commission — Critical Raw Materials</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">Phosphate rock and phosphorus are listed EU critical raw materials.</span>
+      <span class="abs"><b>Summary.</b> European Commission page on the EU Critical Raw Materials framework: the 2023 list (fifth assessment, 34 CRMs) scores 70 candidate materials on Economic Importance and Supply Risk. Phosphate rock and phosphorus are both listed as critical raw materials.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over 70 candidate materials.</span></li>
+    <li><a href="https://www.csis.org/programs/critical-minerals-security-program">CSIS — Critical Minerals Security Program</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of mineral supply security including fertilizer minerals.</span>
+      <span class="abs"><b>Summary.</b> Landing page for the CSIS Critical Minerals Security Program — analysis, reports, podcasts and events on building resilient US mineral supply chains, including fertilizer minerals, via domestic production and allied partnerships.</span>
+      <span class="dat"><b>Data.</b> No primary data — program description and policy commentary.</span></li>
+    <li><a href="https://ifdc.org/">IFDC — fertilizer &amp; food-security research</a><span class="src"> · IFDC</span>
+      <span class="desc">Applied research and reporting on fertilizer supply and access.</span>
+      <span class="abs"><b>Summary.</b> IFDC is an independent nonprofit focused on soil health and fertilizer access for food security — fertilizer/soil innovation, farmer training and market/policy development, mainly across Africa and other developing regions.</span>
+      <span class="dat"><b>Data.</b> No primary dataset on the page — program description and impact figures.</span></li>
+    <li><a href="https://www.fertilizer.org/">International Fertilizer Association (IFA)</a><span class="src"> · IFA</span>
+      <span class="desc">Global fertilizer industry statistics, outlooks and market intelligence.</span>
+      <span class="abs"><b>Summary.</b> The International Fertilizer Association — the global fertilizer industry body (~500 members across 80 countries). Provides market intelligence and the IFASTAT statistics platform, and notes that about half of world food production relies on mineral fertilizers.</span>
+      <span class="dat"><b>Data.</b> IFA / IFASTAT industry statistics (production, trade, capacity) — membership-sourced.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade in phosphate rock and fertilizers (HS6, 2002–2024).</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies (version 202601).</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual phosphate/potash/nitrogen production, reserves and trade data.</span>
+      <span class="abs"><b>Summary.</b> USGS index for Mineral Commodity Summaries 2026 — downloadable PDF chapters per commodity (phosphate rock, potash, nitrogen and every other mineral) plus the full report and appendixes. USGS's annual reference on production, reserves, trade and use.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+    <li><a href="https://www.fao.org/faostat/en/#data/RFN">FAOSTAT — fertilizers by nutrient</a><span class="src"> · FAO</span>
+      <span class="desc">Fertilizer production, use and trade by nutrient and country.</span>
+      <span class="abs"><b>Summary.</b> FAOSTAT's Fertilizers by Nutrient domain: country-level production, agricultural use and trade of the three nutrients (N, P₂O₅, K₂O), compiled by FAO — the nutrient-basis complement to USGS mineral figures.</span>
+      <span class="dat"><b>Data.</b> FAO-compiled national fertilizer statistics by nutrient (production, use, import/export).</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade</a><span class="src"> · United Nations</span>
+      <span class="desc">Bilateral trade in phosphate rock and fertilizer products.</span>
+      <span class="abs"><b>Summary.</b> UN Comtrade Plus — the United Nations' repository of bilateral merchandise trade statistics reported by national customs, queried at HS6 for phosphate rock and fertilizer products. The primary source that BACI reconciles.</span>
+      <span class="dat"><b>Data.</b> National customs import/export declarations, HS-classified (UN Statistics Division).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>Phosphorus recovery / recycling</b> — struvite from wastewater, manure and sewage — is the substitution side of a geological chokepoint but is under-covered here. Next: "struvite phosphorus recovery wastewater scale-up" and "manure phosphorus recycling agronomic efficiency."</li>
+      <li><b>Cadmium in phosphate fertilizer</b> is a quality/health dimension not yet in the chain — the EU has set cadmium limits on P fertilizers. Try "cadmium phosphate fertilizer EU regulation limit."</li>
+      <li>The <b>2008 and 2022 price spikes</b> and OCP's reserve disclosures need primary retrieval — the four ScienceDirect papers and the OCP corporate site were paywalled or blocked this pass; a library / DOI-proxy route would unlock the abstracts and any figures.</li>
+      <li>No clean single <b>HS6 code</b> separates unbeneficiated phosphate rock from fertilizer product, and export restrictions (China, Russia) plus captive domestic use mean BACI trade shares understate where the resource actually sits — reserves, not trade, are the right lens.</li>
+      <li>Morocco's reserve figure <b>includes Western Sahara</b>; the attribution is a data caveat worth a dedicated note when quoting the ~68% share.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from phosphate rock to food, with cross-cutting frameworks and data grouped at the end. 20 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; four ScienceDirect papers, the OCP corporate site and the FAO repository could not be retrieved (HTTP 403 / JavaScript shell), so their scope is stated from Crossref-verified metadata and flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./phosphate-food-chain.html">The phosphate / food chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

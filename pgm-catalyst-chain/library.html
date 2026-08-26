@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>PGM / catalyst chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the platinum-group-metal / autocatalyst value chain, ordered to follow the chain from a two-country mine base to the recycling loop. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./pgm-catalyst-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · PGM / Catalysts</div>
+    <h1>Platinum-group-metal / catalyst chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Platinum, palladium and rhodium clean car exhaust and coat fuel cells — and their mine supply comes from essentially two places, South Africa's Bushveld Complex and Russia. But this chain breaks the usual pattern twice: its own scrap relieves the supply, and the EV transition — not a supply cut — is the structural threat. <b>The chokepoint here is geological; the risk sits on the demand side.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Mine (South Africa's Bushveld + Russia) → ② refining &amp; the market balance → ③ use (autocatalysts, fuel cells &amp; the demand question) → ④ the recycling loop — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./pgm-catalyst-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">31</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (3) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (18) · <span class="pill ref">Reference</span> context / provenance (10).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Mine — South Africa's Bushveld + Russia</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2025 — Platinum-Group Metals</td><td class="took">Reserves &amp; mine-production read → the <b>~78% South-Africa reserves</b> stat and the two-country mine base; sources the ~120 t recycling figure.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Global PGE resources, reserves &amp; mining (STOTEN)</td><td class="took">Geological reserve-base assessment → supports the "geological, not downstream" chokepoint framing for the Bushveld. <span class="miss">Abstract page served a JS shell (403) — scope from title/journal.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>Bushveld Complex PGE deposits (Johnson Matthey)</td><td class="took">Century-plus reserve depth (~350 Moz Pt per km) → the "concentration is geological and stable" finding.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Mapping global platinum supply chain (Frontiers)</td><td class="took">Network + HHI supply-risk method → reproducible on our BACI trade layer for platinum concentration.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>SA blackouts threaten platinum (Bloomberg)</td><td class="took">Load-shedding → mine-output link → context for the South-African production-risk read. <span class="miss">Paywalled — noted from the headline only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Load-shedding threatens platinum (Daily Investor)</td><td class="took">SA/global production-decline estimates → a quantified supply-shock scenario to fold in. <span class="miss">Cloudflare challenge — figures from the source trailer only.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>SA PGM supply risk: geological reality 2026 (Discovery Alert)</td><td class="took">Structural-supply-risk framing + new demand (hydrogen, servers) → context for the demand-side read.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Refining &amp; the market balance</td></tr>
+      <tr><td class="n">8</td><td>USGS World Minerals Outlook (SIR 2025-5021)</td><td class="took">Capacity-to-2029 method → the forward supply-adequacy read behind the EV-demand finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>Supply/demand of PGM &amp; sustainable management (RSER)</td><td class="took">Supply/demand + recycling/substitution synthesis → the relief-valve and demand sections. <span class="miss">Abstract page served a JS shell — scope from title/journal.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>WPIC Platinum Quarterly</td><td class="took">Standard supply/demand balance → the deficit context and recycling-share estimate.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>WPIC Platinum Quarterly Q4 2025 (PDF)</td><td class="took">2025 deficit 1,082 koz + recycling +10% → the scrap-relief-valve quantification.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>Johnson Matthey PGM Market Report, May 2026 (PDF)</td><td class="took">Per-metal mine/recycling splits → the secondary-supply "a quarter+" estimate.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Johnson Matthey publishes 2026 report (release)</td><td class="took">Per-metal balance headline → context for the market-balance read.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>JM 2026 report digest (Discovery Alert)</td><td class="took">Digest of the JM per-metal balances → context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>WPIC 2 to 5 Year View</td><td class="took">Medium-term ~331 koz/yr deficit → forward supply-tightness context.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>Fourth consecutive Pt deficit 2026 (PR Newswire / WPIC)</td><td class="took">2026 ~297 koz deficit → deficit corroboration.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Use — autocatalysts, fuel cells &amp; the demand question</td></tr>
+      <tr><td class="n">17</td><td>PGM Catalyst Supply Chain Deep Dive (US DOE)</td><td class="took">Recycling-decline + fuel-cell recovery gaps → the recycling-loop and demand sections.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>Enough platinum for FCEV deployment? (Int. J. Hydrogen Energy)</td><td class="took">Platinum-adequacy-under-FCEV method → the fuel-cell hedge in the demand section. <span class="miss">Abstract page served a JS shell — scope from title/journal.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>Critical iridium demand from PEM electrolysis (arXiv)</td><td class="took">Iridium-demand-from-PEM model → the electrolyser cross-link (iridium shares the base).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>Hydrogen's platinum constraint (CleanTechnica)</td><td class="took">Hydrogen-demand-vs-supply framing → context for the fuel-cell hedge.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The recycling loop — PGMs come back</td></tr>
+      <tr><td class="n">21</td><td>PGM recovery via iron matte (Resources, Conservation &amp; Recycling)</td><td class="took">Iron-matte recovery yields → recyclability evidence for the relief-valve claim. <span class="miss">Abstract page served a JS shell — scope from title/journal.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">22</td><td>Extraction of PGM from catalytic converters (Heliyon)</td><td class="took">Autocatalyst recovery routes → the recycling-loop method.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>PGM recovery from end-of-life fuel cells (PMC)</td><td class="took">Fuel-cell PGM recovery routes → recyclability of the growth (fuel-cell) use.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>Catalytically active PGM nanoparticles (PMC)</td><td class="took">Precipitation / nanoparticle recovery science → process basis for catalyst recycling.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">25</td><td>DG ENTR — Report on CRM for the EU (2014)</td><td class="took">EU criticality methodology provenance → the frame classifying PGMs as critical.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Platinum briefing — war in Ukraine (JRC133245)</td><td class="took">SA ~three-quarters of world Pt + EU import-half → corroborates the South-Africa-led mine read.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">27</td><td>Special Report 04/2026 — CRM (European Court of Auditors)</td><td class="took">EU CRM-policy audit → the policy layer around the chain's inputs.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">28</td><td>Critical Raw Materials Act — EU policy page</td><td class="took">Strategic-materials list provenance → PGMs' EU strategic status.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">29</td><td>IPA — Sustainability Principles</td><td class="took">Industry sustainability frame → context / provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">30</td><td>IPA — Fact sheets</td><td class="took">Per-metal reference → context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">31</td><td>CEPII BACI</td><td class="took">The trade engine → the unwrought/semi-manufactured PGM trade layer and exporter (hub) shares.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Mine — South Africa's Bushveld + Russia <span class="ct">7</span></h2>
+  <div class="stagesub">The geological base: about 78% of world PGM reserves in one South African province, with Russia the only other large primary source.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf">USGS Mineral Commodity Summaries 2025 — Platinum-Group Metals</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual reserves, mine production and US import-source data for the six PGMs.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2024 world mine production ~190,000 kg palladium and 170,000 kg platinum, led by South Africa (the leading producer of mined PGMs) and Russia (leading palladium). South Africa holds ~63 of &gt;81 million kg of world reserves (~78%); the Bushveld Complex hosts the largest reserves and resources. About 120,000 kg of platinum-plus-palladium was recovered from scrap in 2024.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, price and recycling data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0048969717334083">Global platinum group element resources, reserves and mining — A critical assessment</a><span class="src"> · Science of the Total Environment</span>
+      <span class="desc">Critical assessment of the geological base of PGE resources, reserves and mining.</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed critical assessment of global platinum-group-element resources, reserves and mining constraints, centred on South Africa's Bushveld Complex — the dominant host of world PGE reserves. <span class="miss">(ScienceDirect served only a JavaScript shell on this pass; scope taken from the paper's title and journal record.)</span></span>
+      <span class="dat"><b>Data.</b> Assessment/review of published reserve, resource and mine-production data — no new experimental dataset.</span></li>
+    <li><a href="https://technology.matthey.com/content/journals/10.1595/147106710X520222">The Platinum Group Element Deposits of the Bushveld Complex in South Africa</a><span class="src"> · Johnson Matthey Technology Review</span>
+      <span class="desc">Geological review of the Bushveld Complex's PGE deposits — the source of the bulk of world reserves.</span>
+      <span class="abs"><b>Abstract.</b> The Bushveld Complex holds enough platinum-group elements to supply world demand for many decades or a century using current mining techniques. Reserves and resources reported by miners extend only ~20 years, but geological evidence continues far deeper — of order 350 million oz of platinum per 1 km of depth, against ~5 million oz mined annually. Explains reserves vs resources vs deposits.</span>
+      <span class="dat"><b>Data.</b> Geological review of Bushveld reef stratigraphy and company-reported reserves/resources.</span></li>
+    <li><a href="https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2023.1033220/full">Mapping global platinum supply chain and assessing potential supply risks</a><span class="src"> · Frontiers in Energy Research (2023)</span>
+      <span class="desc">Network mapping and supply-risk assessment for platinum specifically.</span>
+      <span class="abs"><b>Abstract.</b> Maps the global platinum upstream supply chain — 28 mines, 15 companies, 11 countries — and its trade network, scoring disruption risk across concentration, governance and environmental dimensions. Finds both the supply and trade networks sparse and poorly connected, so the overall network has weak resistance to disruption.</span>
+      <span class="dat"><b>Data.</b> Network analysis on UN Comtrade trade, HHI concentration, World Governance and Environmental Performance indices, and company ESG scores.</span></li>
+    <li><a href="https://www.bloomberg.com/news/articles/2023-01-26/south-africa-s-blackouts-threaten-platinum-mine-supplies">South Africa's Blackouts Threaten Platinum Mine Supplies</a><span class="src"> · Bloomberg (2023)</span>
+      <span class="desc">Reporting on Eskom load-shedding's direct hit to Bushveld mine output.</span>
+      <span class="abs"><b>Summary.</b> News report on how South African electricity load-shedding (Eskom) directly threatens Bushveld platinum-mine output. <span class="miss">(Bloomberg article behind a paywall — not retrievable; noted from the headline only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+    <li><a href="https://dailyinvestor.com/business/39586/load-shedding-threatens-global-platinum-supply/">Load-shedding threatens global platinum supply</a><span class="src"> · Daily Investor</span>
+      <span class="desc">South African power-crisis impact on platinum production, with production-decline estimates.</span>
+      <span class="abs"><b>Summary.</b> Reports that South African load-shedding threatens global platinum supply, citing production-decline estimates of roughly 12–20% for South Africa and about 9% globally over 2023–2027. <span class="miss">(Page behind a Cloudflare/JS challenge — figures noted from the source's own trailer; full text not retrievable.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing analyst production-decline estimates.</span></li>
+    <li><a href="https://discoveryalert.com.au/platinum-supply-risk-south-africa-pgm-deficits-2026/">South African PGM Supply Risk: The Geological Reality in 2026</a><span class="src"> · Discovery Alert (2026)</span>
+      <span class="desc">2026 market analysis on the Bushveld's structural supply risk amid new demand.</span>
+      <span class="abs"><b>Summary.</b> Trade-press analysis arguing South African PGM supply risk is a geological reality that policy, capital and diversification cannot quickly resolve, while new demand emerges from hydrogen electrolysers, data-centre servers and electronics connectors.</span>
+      <span class="dat"><b>Data.</b> Market-analysis commentary; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Refining &amp; the market balance <span class="ct">9</span></h2>
+  <div class="stagesub">Six co-occurring metals separated in a handful of complex refineries — and the market data that tracks each metal's supply/demand balance.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/publication/sir20255021/full">USGS World Minerals Outlook — palladium &amp; platinum through 2029 (SIR 2025-5021)</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Forward supply/demand outlook, including EV-driven demand risk for autocatalyst metals.</span>
+      <span class="abs"><b>Abstract.</b> USGS Scientific Investigations Report estimating mine-production capacity through 2029 for eight commodities including palladium and platinum. Finds platinum capacity growing only stably-to-moderately above current output, while much palladium/platinum supply comes from countries with concentrated, at-risk production — informing supply adequacy as demand shifts.</span>
+      <span class="dat"><b>Data.</b> USGS capacity-utilisation modelling of reported mine production to 2029, with a companion data release.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1364032124005471">Supply and demand of platinum group metals and strategies for sustainable management</a><span class="src"> · Renewable &amp; Sustainable Energy Reviews (2024)</span>
+      <span class="desc">Review of PGM supply/demand balance and sustainable-management strategies.</span>
+      <span class="abs"><b>Summary.</b> Review of the platinum-group-metal supply–demand balance and strategies for sustainable management — recycling, substitution and efficiency — across the autocatalyst-dominated demand base. <span class="miss">(ScienceDirect served only a JavaScript shell; scope taken from the paper's title and journal record.)</span></span>
+      <span class="dat"><b>Data.</b> Literature review / synthesis — no primary dataset.</span></li>
+    <li><a href="https://platinuminvestment.com/supply-and-demand/platinum-quarterly">World Platinum Investment Council — Platinum Quarterly</a><span class="src"> · WPIC / Metals Focus</span>
+      <span class="desc">Quarterly platinum supply/demand balance — the standard market dataset.</span>
+      <span class="abs"><b>Summary.</b> WPIC's quarterly platinum supply-and-demand balance, researched independently by Metals Focus — the standard market dataset. Current headline: a fourth consecutive market deficit forecast for 2026 (~297 koz), with above-ground stocks nearing three months of cover.</span>
+      <span class="dat"><b>Data.</b> Metals Focus supply/demand accounting (mine, recycling, demand by segment), quarterly.</span></li>
+    <li><a href="https://platinuminvestment.com/files/473349/WPIC_Platinum_Quarterly_Q4_2025.pdf">WPIC Platinum Quarterly Q4 2025 (PDF)</a><span class="src"> · World Platinum Investment Council (2026)</span>
+      <span class="desc">Full-quarter data release with the multi-year deficit forecast.</span>
+      <span class="abs"><b>Summary.</b> Platinum recorded a third consecutive deficit in 2025 of 1,082 koz — the largest in the WPIC series since 2013 — as total supply fell 1% (mine −4%, recycling +10%) and demand rose 1%. The 2026 forecast was revised from balance to a 240 koz deficit.</span>
+      <span class="dat"><b>Data.</b> Metals Focus quarterly supply/demand estimates for platinum, 2013–2026f.</span></li>
+    <li><a href="https://matthey.com/documents/161599/509428/pgm-market-report-26.pdf/a2d115af-bf7c-f589-29e9-6beacf8a4452?t=1778750383760">Johnson Matthey PGM Market Report, May 2026 (PDF)</a><span class="src"> · Johnson Matthey (2026)</span>
+      <span class="desc">Twice-yearly PGM market report — per-metal supply/demand and mine/recycling splits.</span>
+      <span class="abs"><b>Summary.</b> All five PGMs were in deficit in 2025 as primary supply from South Africa and North America contracted through rationalisation and mine closures, and autocatalyst recycling stayed weak, while resilient internal-combustion-vehicle output and firm industrial demand (petrochemicals, electronics) held demand up. Platinum, rhodium and ruthenium prices more than doubled.</span>
+      <span class="dat"><b>Data.</b> Johnson Matthey's proprietary per-metal supply/demand accounting (platinum, palladium, rhodium, ruthenium, iridium).</span></li>
+    <li><a href="https://matthey.com/media/2026/johnson-matthey-publishes-2026-pgm-market-report1">Johnson Matthey publishes 2026 PGM Market Report</a><span class="src"> · Johnson Matthey (2026)</span>
+      <span class="desc">Summary release of the May 2026 PGM report.</span>
+      <span class="abs"><b>Summary.</b> Press release for the 2026 PGM Market Report: platinum, ruthenium and iridium in deficit; palladium and rhodium closer to small surpluses; with growth demand from data-centre expansion and green-hydrogen (iridium) electrolysis.</span>
+      <span class="dat"><b>Data.</b> Press release summarising the JM report — no primary dataset.</span></li>
+    <li><a href="https://discoveryalert.com.au/pgm-market-platinum-deficit-palladium-rhodium-surpluses-2026/">Johnson Matthey 2026 PGM Report: Platinum Deficit and Palladium Surplus</a><span class="src"> · Discovery Alert (2026)</span>
+      <span class="desc">Digest of the May 2026 JM report's per-metal balances.</span>
+      <span class="abs"><b>Summary.</b> Trade-press digest of Johnson Matthey's 2026 PGM report, explaining platinum's deficit and why palladium and rhodium are shifting toward surplus.</span>
+      <span class="dat"><b>Data.</b> Secondary digest of the JM report; no primary dataset.</span></li>
+    <li><a href="https://platinuminvestment.com/supply-and-demand/2-to-5-year-view">World Platinum Investment Council — 2 to 5 Year View</a><span class="src"> · WPIC</span>
+      <span class="desc">Medium-term platinum supply/demand scenario analysis.</span>
+      <span class="abs"><b>Summary.</b> WPIC medium-term outlook: platinum expected to stay in deficit, averaging ~331 koz per year from 2026f–2030f, with demand spanning automotive, industrial, jewellery, investment, hydrogen and fuel-cell uses.</span>
+      <span class="dat"><b>Data.</b> WPIC / Metals Focus scenario projections to 2029–2030.</span></li>
+    <li><a href="https://www.prnewswire.com/news-releases/fourth-consecutive-platinum-market-deficit-forecast-for-2026---supply-to-fall-short-of-demand-by-297-koz-302774250.html">Fourth consecutive platinum market deficit forecast for 2026</a><span class="src"> · PR Newswire / WPIC</span>
+      <span class="desc">Press-release detail on the ~297 koz platinum deficit forecast for 2026.</span>
+      <span class="abs"><b>Summary.</b> WPIC press release: a fourth consecutive platinum market deficit is forecast for 2026, with supply falling ~297 koz short of demand and above-ground stocks depleting to about three months of cover.</span>
+      <span class="dat"><b>Data.</b> WPIC / Metals Focus Q1 2026 estimates — press release.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Use — autocatalysts, fuel cells &amp; the demand question <span class="ct">4</span></h2>
+  <div class="stagesub">Autocatalysts set most PGM demand — which is exactly why the demand side, not the mine, is the risk.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/sites/default/files/2022-02/PGM%20catalyst%20supply%20chain%20report%20-%20final%20draft%202.25.22.pdf">Platinum Group Metal Catalysts Supply Chain Deep Dive Assessment</a><span class="src"> · U.S. Department of Energy (2022)</span>
+      <span class="desc">US government deep-dive on PGM catalyst supply-chain vulnerability, incl. fuel-cell demand.</span>
+      <span class="abs"><b>Abstract.</b> US Department of Energy deep-dive (Executive Order 14017) on the platinum-group-metal catalyst supply chain from extraction to recycling. Flags reliance on scarce, by-product PGMs from concentrated foreign mines; a potential decline in autocatalyst scrap as combustion vehicles retire; and immature recovery technology for PEM electrolyser and fuel-cell PGMs.</span>
+      <span class="dat"><b>Data.</b> DOE industrial-base assessment synthesising production, trade, price-volatility and recycling data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0360319921037022">Will there be enough platinum for a large deployment of fuel cell electric vehicles?</a><span class="src"> · International Journal of Hydrogen Energy</span>
+      <span class="desc">Models platinum-supply adequacy under large-scale FCEV rollout.</span>
+      <span class="abs"><b>Summary.</b> Models whether platinum supply is adequate for large-scale deployment of fuel-cell electric vehicles, weighing catalyst loadings, recycling and mine supply against rollout scenarios. <span class="miss">(ScienceDirect served only a JavaScript shell; scope taken from the paper's title and journal record.)</span></span>
+      <span class="dat"><b>Data.</b> Scenario / material-flow modelling of platinum supply vs FCEV demand.</span></li>
+    <li><a href="https://arxiv.org/html/2509.05357v1">Critical Iridium Demands arising from future Expansion of Proton Exchange Membrane Electrolysis</a><span class="src"> · arXiv (2025)</span>
+      <span class="desc">Quantifies iridium demand growth from PEM electrolyser scale-up.</span>
+      <span class="abs"><b>Abstract.</b> Models iridium demand for green-hydrogen PEM electrolysis under business-as-usual and IEA net-zero pathways to 2050, including end-of-life replacement and recycling. Finds shortages could emerge as early as 2030; meeting net-zero targets needs major catalyst-efficiency gains and access to roughly 30% of annual global iridium output.</span>
+      <span class="dat"><b>Data.</b> Recursive model on IEA capacity targets, iridium loadings, electrolyser lifetimes, 70–97% recycling and a ~7.5 t/yr supply estimate.</span></li>
+    <li><a href="https://cleantechnica.com/2025/08/20/platinum-demand-scenarios-show-hydrogens-fatal-constraint/">Platinum Demand Scenarios Show Hydrogen's Fatal Constraint</a><span class="src"> · CleanTechnica (2025)</span>
+      <span class="desc">Commentary connecting hydrogen-economy platinum demand scenarios to the supply base.</span>
+      <span class="abs"><b>Summary.</b> Opinion piece arguing platinum scarcity is a binding constraint on mass hydrogen fuel-cell vehicle adoption: even modest penetration would absorb most global platinum supply and lift prices, favouring batteries over fuel cells.</span>
+      <span class="dat"><b>Data.</b> Commentary / scenario reasoning — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The recycling loop — PGMs come back <span class="ct">4</span></h2>
+  <div class="stagesub">The relief valve most critical materials lack: spent catalytic converters and fuel cells are economically worth recovering.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0921344920302093">A new approach to recover platinum-group metals from spent catalytic converters via iron matte</a><span class="src"> · Resources, Conservation and Recycling</span>
+      <span class="desc">Pyrometallurgical route recovering PGMs from spent autocatalysts via iron matte.</span>
+      <span class="abs"><b>Summary.</b> Presents a pyrometallurgical iron-matte process to collect platinum-group metals from spent catalytic converters at high recovery, an alternative to conventional smelting-only routes. <span class="miss">(ScienceDirect served only a JavaScript shell; scope taken from the paper's title and journal record.)</span></span>
+      <span class="dat"><b>Data.</b> Laboratory experimental study of an iron-matte PGM-collection process.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2405844024013148">Extraction of platinum group metals from catalytic converters</a><span class="src"> · Heliyon</span>
+      <span class="desc">Recent survey of extraction techniques for PGMs from end-of-life catalytic converters.</span>
+      <span class="abs"><b>Abstract.</b> Reviews extraction of platinum-group metals from spent catalytic converters. PGMs' chemical stability at high temperature makes them widely demanded across industry, but gradual reserve depletion makes recycling of PGM-bearing waste essential; recovering spent automotive catalysts is more cost-effective and environmentally sustainable than mining from natural ore.</span>
+      <span class="dat"><b>Data.</b> Literature review of pyro-/hydrometallurgical PGM recovery routes from spent autocatalysts.</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC11766938/">A Critical Review of the Hydrometallurgy and Pyrometallurgical Recovery Processes of PGMs from End-of-Life Fuel Cells</a><span class="src"> · PMC / NCBI</span>
+      <span class="desc">Review of PGM recovery routes from spent PEM fuel cells.</span>
+      <span class="abs"><b>Abstract.</b> Critical review of pyrometallurgical and hydrometallurgical routes to recover platinum-group metals from end-of-life PEM fuel-cell components. Favours hydrometallurgy over pyrometallurgy on environmental grounds — avoiding harmful high-temperature emissions — weighing health, technical, economic and future-opportunity aspects of sustainable PGM recycling.</span>
+      <span class="dat"><b>Data.</b> Critical literature review of PGM recovery from spent fuel cells.</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8779495/">Studies on the Formation of Catalytically Active PGM Nanoparticles for the Recycling of Spent Catalysts</a><span class="src"> · PMC / NCBI</span>
+      <span class="desc">Basic-science study underpinning catalyst-recycling process design.</span>
+      <span class="abs"><b>Abstract.</b> Laboratory study of how platinum, palladium, rhodium and ruthenium nanoparticles form when precipitated from model acidic solutions, testing reducing agents, stabilising polymers and pH for their effect on particle size, shape and catalytic activity — groundwork for recovering PGMs from spent automotive catalysts.</span>
+      <span class="dat"><b>Data.</b> Experimental precipitation study on model PGM solutions.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">6</span></h2>
+  <div class="stagesub">EU/US assessments and industry frameworks that classify the whole chain's inputs.</div>
+  <ul class="refs">
+    <li><a href="https://rmis.jrc.ec.europa.eu/uploads/crm-report-on-critical-raw-materials_en.pdf">DG ENTR — Report on Critical Raw Materials for the EU</a><span class="src"> · European Commission JRC/RMIS (2014)</span>
+      <span class="desc">Foundational EU criticality methodology and material list, including PGMs.</span>
+      <span class="abs"><b>Abstract.</b> The EU ad-hoc working group's Report on Critical Raw Materials (May 2014): sets out the EU criticality methodology — economic importance against supply risk — and the resulting critical-raw-materials list, including the platinum-group metals. It is the foundation of later EU CRM assessments.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology applied to candidate raw materials (economic importance, supply risk).</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/uploads/jrc133245_briefing_platinum_final.pdf">Raw Materials &amp; the war in Ukraine — Platinum: impact assessment for supply security (JRC133245)</a><span class="src"> · European Commission JRC (2023)</span>
+      <span class="desc">EU platinum supply-risk briefing; South Africa supplies most EU platinum.</span>
+      <span class="abs"><b>Abstract.</b> JRC/RMIS briefing on platinum supply security after Russia's invasion of Ukraine. South Africa mined nearly three-quarters of world platinum in 2021; Russia was second at ~10–13%. The EU imported about half its platinum supply; secondary (recycled) supply moderates risk, but availability from spent autocatalysts is set to decline.</span>
+      <span class="dat"><b>Data.</b> JRC analysis of production, EU import shares and trade flows within the RMIS methodology.</span></li>
+    <li><a href="https://www.eca.europa.eu/ECAPublications/SR-2026-04/SR-2026-04_EN.pdf">Special Report 04/2026 — Critical raw materials for the energy transition</a><span class="src"> · European Court of Auditors (2026)</span>
+      <span class="desc">EU audit of critical-raw-materials policy delivery, covering the energy-transition metals including PGMs.</span>
+      <span class="abs"><b>Abstract.</b> European Court of Auditors performance audit of whether EU actions secure critical raw materials. Finds the Critical Raw Materials Act sets a strategic course but rests on incomplete foundations — targets lacking justification, blind spots in trade data, and import-diversification, domestic-production and recycling efforts that have yet to deliver by 2030.</span>
+      <span class="dat"><b>Data.</b> Performance audit of EU CRM policy, funding and strategic projects.</span></li>
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">Critical Raw Materials Act — EU policy page</a><span class="src"> · European Commission (ongoing)</span>
+      <span class="desc">Official CRMA policy hub; PGMs among the EU strategic raw materials.</span>
+      <span class="abs"><b>Summary.</b> European Commission policy hub for the Critical Raw Materials Act — the EU response to supply-disruption risk, setting the critical and strategic raw-materials lists (PGMs included) and benchmarks for domestic extraction, processing, recycling and diversified sourcing.</span>
+      <span class="dat"><b>Data.</b> Policy page — no primary dataset.</span></li>
+    <li><a href="https://ipa-news.com/index/sustainability/sustainability-principles/">IPA — International Platinum Group Metals Association: Sustainability Principles</a><span class="src"> · IPA</span>
+      <span class="desc">Industry sustainability framework for PGM miners and fabricators.</span>
+      <span class="abs"><b>Summary.</b> International Platinum Group Metals Association page setting out the industry's sustainability principles — a decade-old framework in which PGM miners and fabricators commit to understanding life-cycle impacts and collaborating across the value chain.</span>
+      <span class="dat"><b>Data.</b> Industry-association framework — no primary dataset.</span></li>
+    <li><a href="https://ipa-news.de/index/about-pgms/fact-sheets.html">IPA — Fact sheets</a><span class="src"> · IPA</span>
+      <span class="desc">Reference fact sheets on each PGM's properties, production and uses.</span>
+      <span class="abs"><b>Summary.</b> International Platinum Group Metals Association reference fact sheets covering each platinum-group metal's properties, production and end uses — background material rather than a dataset.</span>
+      <span class="dat"><b>Data.</b> Industry-association reference sheets.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's trade layer is built from — read exporter shares as trading/refining hubs, not the mine base.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade layer.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Supplies the chain's unwrought and semi-manufactured PGM trade layer.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>CSIS or RMI-branded think-tank piece</b> surfaced on PGMs this session — worth a targeted pass on csis.org and rmi.org for critical-minerals framing of platinum/palladium.</li>
+      <li><b>Benchmark Mineral Intelligence</b> PGM coverage is subscription-gated and did not surface directly; a targeted search or direct site check would add a market-intelligence voice.</li>
+      <li>The <b>South African DMRE Critical Minerals Strategy</b> is referenced only secondhand (via Lexology / SFA Oxford summaries) — pull the DMRE strategy PDF itself.</li>
+      <li><b>Russian / Norilsk Nickel primary reporting</b> is thin in open English sources given sanctions-era opacity; Nornickel's own investor disclosures (nornickel.com) are the next stop for palladium mine-side detail.</li>
+      <li>The <b>EV-driven autocatalyst demand cliff</b> for palladium/rhodium is asserted in JM/WPIC market reports but no dedicated academic or IEA study modelling the autocatalyst demand curve to 2035–2040 was retrieved — try "IEA autocatalyst platinum group metal demand electric vehicle 2035".</li>
+      <li><b>Refined vs recycled flows are invisible in trade data</b>: BACI's HS 7110 codes mix unwrought/semi-manufactured metal and cannot separate the secondary (scrap-derived) supply that this chain turns on — the recycling loop needs its own dataset (WPIC/JM balances or national scrap statistics).</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from a two-country mine base to the recycling loop, with cross-cutting frameworks and data grouped at the end. 31 unique sources (two exact duplicates — a second USGS platinum-group listing and a second CEPII BACI listing — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (paywalls, Cloudflare/JS shells) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./pgm-catalyst-chain.html">The PGM / catalyst chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

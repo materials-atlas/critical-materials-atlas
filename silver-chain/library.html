@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Silver by-product &amp; solar chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the silver value chain, ordered to follow the chain from by-product host mine to solar cell. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./silver-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Silver</div>
+    <h1>Silver — a by-product wearing a precious-metal coat</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Most silver is never mined for itself: it comes up as a by-product of lead, zinc, copper and gold, is refined, then flows into solar-cell paste, electrical contacts, electronics and jewellery. <b>The mine cannot answer silver's own price — and solar is eating the slack.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Host mine (Pb / Zn / Cu / Au — silver rides along) → ② recover &amp; refine, and the market balance → ③ solar-cell paste, the swing demand → ④ industrial, EV &amp; jewellery demand — then the cross-cutting criticality / scarcity frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./silver-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">19</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (6) · <span class="pill ref">Reference</span> context / provenance (9).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Host mine — silver rides on base metals</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Silver</td><td class="took">By-product framing → the <b>~70% by-product</b> panel and the "mine can't scale to demand" finding; sources world mine output ~26 kt and the Mexico / China / Peru lead.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS OFR 2021-1045 (Nassar &amp; Fortier)</td><td class="took">By-product / host-commodity + single-point-of-failure screening method → to reproduce silver's coupling to lead-zinc, copper and gold as a formal criticality input.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Recover, refine &amp; the market balance</td></tr>
+      <tr><td class="n">3</td><td>Silver Institute — World Silver Survey</td><td class="took">The benchmark supply / demand / fabrication balance → the structural-deficit stat and the industrial-vs-investment demand split.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">4</td><td>World Silver Survey — series access page</td><td class="took">Provenance / access route to the full survey series — context, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Interim Silver Market Review (Metals Focus)</td><td class="took">2025 balance colour — record price, a London liquidity squeeze, resilient physical demand on a continued deficit.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Solar — the swing demand</td></tr>
+      <tr><td class="n">6</td><td>IEA — Solar PV Global Supply Chains</td><td class="took">PV manufacturing stages + silver at cell metallization → the "paste on every cell" panel and the solar-as-swing framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>Silver's Role in Solar Power (CRU)</td><td class="took">PV silver intensity + demand path (~100 Moz, ~11% of fabrication in 2019) → corroborates solar as the swing consumer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>Silver shortage for c-Si PV (Li &amp; Adachi)</td><td class="took">Silver-shortage-for-PV model to 2050 → a forward test of by-product supply vs solar demand; needs full text to fold in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Ag recovery from EoL PV (Saffarian et&nbsp;al.)</td><td class="took">End-of-life-PV silver-recovery routes (300–500 ppm, flotation + greener lixiviants) → the recycling-buffer leg of the balance.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Industrial, EV &amp; jewellery demand</td></tr>
+      <tr><td class="n">10</td><td>Fabrication demand to 2033 (Oxford Economics)</td><td class="took">End-user output forecasts (+46% industrial, electrical/electronics +55%) → the "industrial demand now leads" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>Silver, the Next Generation Metal</td><td class="took">Application-level demand (PV tripled, plus EV, electronics, data centres) → the "more a tech metal than money" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality, scarcity &amp; outlook</td></tr>
+      <tr><td class="n">12</td><td>IEA — Global Critical Minerals Outlook 2026</td><td class="took">Critical-mineral supply / demand / price context → the by-product-metal framing across the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>EU JRC foresight (Carrara et&nbsp;al.)</td><td class="took">EU material-demand-to-2050 method across 15 clean-tech chains → a demand-side check on the pull toward silver.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>PV resource scarcity 2050 (Kanz et&nbsp;al.)</td><td class="took">PV life-cycle assessment ranking Te / Au / Ag → silver among the scarcest PV inputs; supports the deficit thesis.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>Critical minerals &amp; the supply chain (Chepeliev et&nbsp;al.)</td><td class="took">Supply-chain-economics survey (co-production constraints, lead times) → framing for why by-products can't scale.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">16</td><td>CEPII BACI</td><td class="took">The trade engine → the reproduced silver-ore (261610) and unwrought-silver (710691) export shares.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">17</td><td>UN Comtrade Plus</td><td class="took">Provenance of BACI's declarations — the raw reporter data behind the trade layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>World Bank — Commodity Markets Outlook</td><td class="took">Cross-commodity price / outlook context for silver and its host metals.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>Commodity Markets Outlook — data files</td><td class="took">Underlying price series behind the Outlook — data provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Host mine — silver rides on base metals <span class="ct">2</span></h2>
+  <div class="stagesub">The raw input, and a by-product no one mines for: ~70% recovered from lead-zinc, copper and gold ores.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-silver.pdf">USGS Mineral Commodity Summaries 2026 — Silver</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production, reserves and by-product supply data for silver.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US mine output ~1,100 t, produced at 4 silver mines and as a by-product or co-product at 31 base- and precious-metal operations; world mine production ~26,000 t, led by Mexico, China and Peru. Silver was primarily obtained as a by-product of lead-zinc, copper and gold mines; net US import reliance 77%.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price data; world figures drawn from Metals Focus / the World Silver Survey.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/ofr20211045">Methodology and Technical Input for the 2021 Review and Revision of the U.S. Critical Minerals List (OFR 2021-1045)</a><span class="src"> · Nassar &amp; Fortier, USGS (2021)</span>
+      <span class="desc">Explains how USGS screens metals — including by-product ones — for criticality.</span>
+      <span class="abs"><b>Abstract.</b> USGS Open-File Report documenting the methodology behind the 2021 draft critical-minerals list: a quantitative supply-risk score (disruption potential × economic vulnerability × trade exposure) across dozens of commodities, plus a by-product / host-commodity classification and a single-point-of-failure screen. Silver is among the commodities assessed.</span>
+      <span class="dat"><b>Data.</b> USGS supply-risk indicators, 2007–2018, with by-product-status and single-point-of-failure analysis over production, trade and NAICS end-use data.</span></li>
+  </ul>
+
+  <h2 class="sec">② Recover, refine &amp; the market balance <span class="ct">3</span></h2>
+  <div class="stagesub">Silver is separated during base-metal refining; the benchmark surveys set the supply/demand balance and the deficit.</div>
+  <ul class="refs">
+    <li><a href="https://www.silverinstitute.org/all-world-silver-surveys/">World Silver Survey</a><span class="src"> · The Silver Institute (2025)</span>
+      <span class="desc">The industry's benchmark annual supply / demand / fabrication report.</span>
+      <span class="abs"><b>Abstract.</b> The industry benchmark: an annual report on the global silver market, produced for The Silver Institute by Metals Focus since 1990. It covers mine and scrap supply; industrial, jewellery, silverware and investment demand; fabrication, prices and the market balance — the source of the chain's structural-deficit and by-product-share figures.</span>
+      <span class="dat"><b>Data.</b> Metals Focus proprietary supply / demand fieldwork and modelling; the USGS silver summary cites it directly.</span></li>
+    <li><a href="https://silverinstitute.org/purchase-publications/">World Silver Survey — series access page</a><span class="src"> · The Silver Institute</span>
+      <span class="desc">Access point for the full annual survey series and free prior editions.</span>
+      <span class="abs"><b>Summary.</b> Access route to the full World Silver Survey series: the latest edition is purchasable while prior editions and summary press releases are free — the provenance path to the benchmark balance data the chain rests on.</span>
+      <span class="dat"><b>Data.</b> No dataset — a publications access / provenance page.</span></li>
+    <li><a href="https://silverinstitute.org/wp-content/uploads/2025/11/Silver_Institute_Silver_Interim_2025.pdf">Interim Silver Market Review</a><span class="src"> · Metals Focus for The Silver Institute (2025)</span>
+      <span class="desc">Mid-year update to the annual survey (Newman &amp; Tomlinson, Metals Focus).</span>
+      <span class="abs"><b>Summary.</b> Metals Focus mid-year update (Nov 2025): calls 2025 one of the most dramatic years for silver in living memory — a record price, a London liquidity squeeze, and resilient physical demand, all on a continued structural deficit.</span>
+      <span class="dat"><b>Data.</b> Metals Focus market analysis using Bloomberg, LBMA and CME / COMEX warehouse-stock data.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Solar — the swing demand <span class="ct">4</span></h2>
+  <div class="stagesub">Silver paste carries current off every cell; PV is the fastest-growing use, pulling on a supply that cannot easily grow.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/solar-pv-global-supply-chains">Solar PV Global Supply Chains</a><span class="src"> · IEA (2022)</span>
+      <span class="desc">Maps the PV manufacturing chain, including silver paste use in cells.</span>
+      <span class="abs"><b>Abstract.</b> IEA report mapping the five stages of PV manufacturing — polysilicon, ingots, wafers, cells and modules — with their supply, demand, cost, trade and geographic concentration. Silver enters at cell metallization, the conductive paste that collects current; the report frames PV supply-chain risk and opportunities for diversification.</span>
+      <span class="dat"><b>Data.</b> IEA compilation of manufacturing-capacity, cost, trade, emissions and employment data across the PV value chain.</span></li>
+    <li><a href="https://silverinstitute.org/wp-content/uploads/2020/06/SilverSolarPower_CRU2020.pdf">Silver's Important Role In Solar Power</a><span class="src"> · CRU for The Silver Institute (2020)</span>
+      <span class="desc">Market-trend report specifically on silver demand from PV.</span>
+      <span class="abs"><b>Summary.</b> CRU report for The Silver Institute: ~100 Moz of silver (~11% of fabrication demand) went into PV cells in 2019. Thrifting cuts silver per cell, but rising installations sustain roughly 70–80 Moz/yr of PV silver demand out to 2030.</span>
+      <span class="dat"><b>Data.</b> CRU electricity-generation and PV-capacity forecasts with per-cell silver-loading estimates.</span></li>
+    <li><a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/nrm.12176">Evaluation of long-term silver supply shortage for c-Si PV under different technological scenarios</a><span class="src"> · Li &amp; Adachi, Natural Resource Modeling (2019)</span>
+      <span class="desc">Models whether by-product silver supply can keep pace with PV cell demand.</span>
+      <span class="abs"><b>Abstract.</b> Models silver supply versus c-Si PV demand to 2050 using Hubbert theory (mine supply), a Weibull distribution (recycling) and demand intensity. It finds a silver shortage for PV manufacturing beginning around 2030; technology improvement delays but cannot prevent it, so lower silver loadings and recycling of retired panels are recommended.</span>
+      <span class="dat"><b>Data.</b> Scenario model of mine, recycling and manufacturing-demand series, 2015–2050.</span></li>
+    <li><a href="https://www.tandfonline.com/doi/abs/10.1080/08827508.2025.2569684">A critical review of leaching pathways for silver recovery from EoL photovoltaic modules and prospects for flotation</a><span class="src"> · Saffarian, Galvin &amp; Firouzi, Mineral Processing and Extractive Metallurgy (2026)</span>
+      <span class="desc">Recycling routes for silver from retired solar panels.</span>
+      <span class="abs"><b>Abstract.</b> Critical review of silver recovery from end-of-life PV modules, which carry 300–500 ppm silver — comparable to high-grade ore — with more than 60 Mt of panels expected by 2050. It surveys acid-leaching parameters and, for the first time, proposes froth flotation as a pre-concentration step and greener deep-eutectic-solvent lixiviants.</span>
+      <span class="dat"><b>Data.</b> Systematic literature review of leaching studies; no new experimental dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Industrial, EV &amp; jewellery demand <span class="ct">2</span></h2>
+  <div class="stagesub">Beyond solar, silver is the best conductor there is — contacts, electronics, EVs, brazing — with industrial use now over half of demand.</div>
+  <ul class="refs">
+    <li><a href="https://silverinstitute.org/wp-content/uploads/2023/11/OxfordLongRunSilverDemand.pdf">Fabrication Demand Drivers for Silver in the Industrial, Jewelry and Silverware Sectors Through 2033</a><span class="src"> · Oxford Economics for The Silver Institute (2023)</span>
+      <span class="desc">Long-run fabrication-demand forecast by end-user industry and country.</span>
+      <span class="abs"><b>Abstract.</b> Oxford Economics forecast for The Silver Institute: output of the industries that consume silver rises 46% in real terms over 2023–2033, led by electrical and electronics (+55%); jewellery +34% and silverware +30%. Combined fabrication output grows ~42% — roughly double the prior decade — concentrated in Asia, especially China.</span>
+      <span class="dat"><b>Data.</b> Oxford Economics industry-output modelling across silver end-user sectors and countries.</span></li>
+    <li><a href="https://silverinstitute.org/wp-content/uploads/2025/12/Silver_The-Next-Generation-Metal_DECEMBER-Release.pdf">Silver, The Next Generation Metal</a><span class="src"> · Oxford Economics / The Silver Institute (2025)</span>
+      <span class="desc">Industrial-demand-focused positioning report.</span>
+      <span class="abs"><b>Summary.</b> Oxford Economics / Silver Institute report on industrial demand: installed PV capacity grew tenfold in a decade (China ~51% of it) and PV silver use tripled despite thrifting; EVs, electronics and data centres are framed as the next legs of demand.</span>
+      <span class="dat"><b>Data.</b> Oxford Economics demand modelling by application (PV, automotive / EV, data centres).</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality, scarcity &amp; outlook <span class="ct">4</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and material-scarcity studies that classify the whole chain's inputs.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">Global Critical Minerals Outlook 2026</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Annual assessment of critical-mineral supply/demand — context for by-product metals.</span>
+      <span class="abs"><b>Summary.</b> IEA annual assessment of critical-mineral supply, demand, prices and investment across ~37 minerals, flagging supply concentration, export restrictions and under-investment — useful context for by-product metals whose output is set by their host commodities.</span>
+      <span class="dat"><b>Data.</b> IEA supply / demand and investment tracking with scenario-based demand projections.</span></li>
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/handle/JRC132889">Supply chain analysis and material demand forecast in strategic technologies and sectors in the EU — a foresight study</a><span class="src"> · Carrara, Bobba, Blagoeva et al., JRC (2023)</span>
+      <span class="desc">Widely-cited EU foresight study on material demand across clean-tech chains, silver included.</span>
+      <span class="abs"><b>Abstract.</b> JRC foresight study forecasting EU and global materials demand to 2050 across the full value chains of 15 key technologies in five strategic sectors — renewables, e-mobility, industry, digital and aerospace/defence. It underpins the Critical Raw Materials Act and maps the supply dependencies and bottlenecks of the materials each clean-tech chain draws on.</span>
+      <span class="dat"><b>Data.</b> Bottom-up technology-deployment scenarios linked to material-intensity data across 15 technologies.</span></li>
+    <li><a href="https://pubs.rsc.org/se/article-abstract/doi/10.1039/D5SE01467K/1288238">Resource scarcity challenges of photovoltaics in Europe 2050</a><span class="src"> · Kanz, Wulf &amp; Zapp, Sustainable Energy &amp; Fuels (2026)</span>
+      <span class="desc">Long-run material-scarcity modelling for PV, including silver.</span>
+      <span class="abs"><b>Abstract.</b> Assesses resource-scarcity risk for EU photovoltaic deployment using life-cycle assessment with the abiotic-depletion impact category. It finds that tellurium, gold and silver dominate the depletion impacts of PV — placing silver among the scarcest inputs constraining Europe's solar build-out to 2050.</span>
+      <span class="dat"><b>Data.</b> Life-cycle assessment (abiotic depletion) over PV material inventories and EU deployment scenarios.</span></li>
+    <li><a href="https://www.annualreviews.org/content/journals/10.1146/annurev-resource-112624-125817">Critical Minerals and the Global Supply Chain</a><span class="src"> · Chepeliev, Bekkers, Iyer, Qiu et al., Annual Review of Resource Economics (2026)</span>
+      <span class="desc">Economics-literature survey of critical-mineral supply chains.</span>
+      <span class="abs"><b>Abstract.</b> Annual Review survey of critical-mineral supply chains under rising clean-energy, electrification and computing demand. It examines upstream extraction, refining bottlenecks and downstream manufacturing, and the forces shaping them — long lead times, co-production constraints, trade policy and environmental limits — then outlines modelling frameworks for resilience.</span>
+      <span class="dat"><b>Data.</b> Literature synthesis; no original dataset — a multi-mineral review of supply-chain structure and policy.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — traded metal that mixes consumption with bullion and investment flows.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII (2026)</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII's reconciled bilateral trade database: ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. It powers the chain's silver-ore (261610) and unwrought-silver (710691) trade shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import / export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a><span class="src"> · United Nations</span>
+      <span class="desc">Official international merchandise-trade statistics platform underlying BACI.</span>
+      <span class="abs"><b>Summary.</b> The UN's official international merchandise-trade database — reporter-declared imports and exports by HS product and partner, and the primary source BACI is built from. <span class="miss">The live portal is a JavaScript application that did not render to a static fetch this pass; described from provenance.</span></span>
+      <span class="dat"><b>Data.</b> UN Statistics Division reporter-declared merchandise trade, by HS classification.</span></li>
+    <li><a href="https://openknowledge.worldbank.org/bitstreams/a384bcad-abc5-4b9b-9c1d-35f374581024/download">Commodity Markets Outlook, April 2026</a><span class="src"> · World Bank (2026)</span>
+      <span class="desc">Cross-commodity price and supply outlook covering precious and industrial metals.</span>
+      <span class="abs"><b>Summary.</b> World Bank semiannual flagship on commodity markets — price forecasts across energy, metals and minerals, precious metals and agriculture (April 2026 edition; next update October 2026). <span class="miss">The report PDF sits behind the Open Knowledge repository's JavaScript viewer; described from the World Bank commodities research page — the file itself was not retrievable this pass.</span></span>
+      <span class="dat"><b>Data.</b> World Bank monthly and annual commodity price series and forecasts.</span></li>
+    <li><a href="https://openknowledge.worldbank.org/bitstreams/76ad7738-f039-45cc-971a-2d5c6cf3a356/download">Commodity Markets Outlook — data files</a><span class="src"> · World Bank (2026)</span>
+      <span class="desc">Underlying price/production data behind the Outlook report.</span>
+      <span class="abs"><b>Summary.</b> The price and forecast data workbook behind the Outlook — monthly and annual commodity price series, precious and industrial metals included. <span class="miss">Served through the Open Knowledge repository's JavaScript download shell; the data file was not directly retrievable this pass.</span></span>
+      <span class="dat"><b>Data.</b> World Bank monthly / annual nominal and real commodity price series.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>Silver is <b>not on the EU's Critical Raw Materials list</b> — it fails the "economic importance" screen despite by-product concentration risk. Worth a direct search for academic critiques of that omission.</li>
+      <li>A dedicated <b>material-flow-analysis</b> quantifying the true by-product vs primary-silver-mine share would harden the core ~70% claim — search <i>Resources, Conservation and Recycling</i> or the <i>Journal of Industrial Ecology</i>.</li>
+      <li>Independent market-intelligence coverage (Metals Focus / CRU standalone, Fastmarkets, Benchmark Mineral Intelligence) was not reachable this session — search these directly for 2025/2026 price and by-product-supply commentary.</li>
+      <li>The <b>USGS National Minerals Information Center silver page</b> carries a historical time series, not just the annual MCS PDF — worth fetching directly for the long production and price history.</li>
+      <li>No clean single HS6 code separates <b>refined-silver consumption from bullion / investment trading</b>, so the trade layer mixes metal and money; a dedicated study on silver's monetary-vs-industrial flows would sharpen it.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from by-product host mine to solar cell, with cross-cutting frameworks and data grouped at the end. 19 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (JavaScript apps / repository shells) that is flagged in italics and described from provenance. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./silver-chain.html">The silver chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

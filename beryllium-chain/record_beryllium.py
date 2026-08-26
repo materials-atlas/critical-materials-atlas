@@ -24,7 +24,7 @@ SRC = {
 
 CHAIN = {
     "title": "Beryllium chain",
-    "chokepoint": {"product": "Aerospace · defence", "stage": "Extraction (US)", "mechanism": "capability", "physics": "Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint", "holder": "United States", "share": "~55%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Aerospace · defence", "stage": "Extraction (US)", "mechanism": "capability", "physics": "Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint", "holder": "United States", "share": "~50%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#4a6a4a",
@@ -36,21 +36,21 @@ CHAIN = {
             "reactors and the copper alloys in high-reliability connectors — and it is so toxic that few will handle it.",
     "byline": "bertrandite (US, Utah) ≠ hard-won extraction & alloying (US) ≠ Be metal / Cu-Be alloy ≠ aerospace · defence · nuclear",
     "correction": "Beryllium reverses the atlas's usual map. The chokepoint is American, not Chinese: the US mines "
-                  "about 55% of world beryllium from one Utah bertrandite deposit and dominates the extraction and "
+                  "about 50% of world beryllium from one Utah bertrandite deposit and dominates the extraction and "
                   "alloying, largely through a single firm. The concentration is a built capability guarded by a "
                   "serious barrier — beryllium dust causes chronic, sometimes fatal lung disease, so few producers "
                   "will touch it. China's share is rising (from ~9% to ~18% since 2000), which is exactly why the West "
                   "watches this one chokepoint it actually holds.",
     "stats": [
-        {"v": "~55% US", "l": "the rare critical mineral where the US — not China — is the chokepoint", "conf": "measured"},
-        {"v": "83 → 55%", "l": "US share fell as China (~18%) and Mozambique rose", "conf": "measured"},
+        {"v": "~50% US", "l": "the rare critical mineral where the US — not China — is the chokepoint", "conf": "measured"},
+        {"v": "83 → 50%", "l": "US share fell as China (~18%) and Mozambique rose", "conf": "measured"},
         {"v": "aero + defence", "l": "satellites, missiles, gyroscopes, X-ray windows, nuclear reflectors", "conf": "measured"},
         {"v": "toxic", "l": "beryllium dust causes berylliosis — a capability barrier few will cross", "conf": "measured"},
     ],
     "history": {
         "title": "The West's one chokepoint, slowly eroding: US beryllium share, 2000 → 2024",
         "conf": "measured",
-        "note": "BGS/USGS mine production, from the atlas's own data. The US share fell from ~83% to ~55% as China "
+        "note": "BGS/USGS mine production, from the atlas's own data. The US share fell from ~83% to ~50% as China "
                 "rose to ~18% and Mozambique emerged, but the US still leads mining and dominates downstream "
                 "extraction and alloying. It is the clearest example in the layer of a chokepoint held by the West — "
                 "and of that lead gradually narrowing.",
@@ -68,7 +68,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · The map, reversed", "panels": [
-            {"kind": "big", "h3": "Who holds beryllium", "big": "~55% US", "conf": "measured",
+            {"kind": "big", "h3": "Who holds beryllium", "big": "~50% US", "conf": "measured",
              "text": "The United States mines most of the world's beryllium from the Spor Mountain bertrandite deposit "
                      "in Utah and processes it largely through one company (Materion), giving the West a chokepoint it "
                      "rarely enjoys elsewhere in this atlas. China is second and growing, and Kazakhstan and Mozambique "
@@ -102,7 +102,7 @@ CHAIN = {
             {"kind": "text", "h3": "A narrowing lead",
              "text": "Because beryllium is defence-critical and Western-held, it is stockpiled and closely tracked — "
                      "the reverse of the anxiety China's dominance causes elsewhere. But the US share has slid from "
-                     "~83% to ~55% as China expands, so the story here is a Western chokepoint gradually eroding, not a "
+                     "~83% to ~50% as China expands, so the story here is a Western chokepoint gradually eroding, not a "
                      "Chinese one being built. It is the useful mirror-image case in the layer.",
              "flag": "the mirror-image of the usual worry"},
         ]},
@@ -111,7 +111,7 @@ CHAIN = {
                    "specialised trade dominated by US material, with copper-beryllium alloy sitting in copper-alloy "
                    "lines. Read the shares below as that thin traded metal, not the full US processing dominance.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~55% US (from ~83%) — the non-China chokepoint"},
+        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~50% US (from ~83%) — the non-China chokepoint"},
         {"stage": "Capability", "lens": "US extraction + alloying", "why": "a built capability guarded by toxicity"},
         {"stage": "Use", "lens": "aerospace/defence + Cu-Be alloy", "why": "irreplaceable in its niche; a tiny everyday additive"},
         {"stage": "Trade", "lens": "BACI 811212/811219 beryllium", "why": "a thin, specialised US-led trade — flagged context"},
@@ -122,4 +122,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- beryllium, the reversal: US ~55pct (from 83); aero/defence; toxicity moat")
+print("wrote", os.path.relpath(OUT, HERE), "- beryllium, the reversal: US ~50pct (from 83); aero/defence; toxicity moat")
