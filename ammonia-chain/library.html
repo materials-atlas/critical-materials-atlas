@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Ammonia / nitrogen-fertilizer chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the ammonia / nitrogen-fertilizer value chain, ordered to follow the chain from natural-gas feedstock to the harvest. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./ammonia-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Ammonia</div>
+    <h1>Ammonia / nitrogen-fertilizer chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Synthetic nitrogen fertilizer feeds roughly half the world — and its raw material, the nitrogen in the air, is free. What is not free is the natural gas that Haber-Bosch uses as both the hydrogen feedstock and the energy to run. <b>The chokepoint here is a fuel price, not a mine.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Natural gas (the feedstock and the energy) → ② Haber-Bosch (air + gas → ammonia) → ③ the green / blue decarbonisation branch → ④ urea, nitrogen fertilizer and the harvest → ⑤ the 2022 European gas-price shutdowns — then the cross-cutting geopolitics, policy and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./ammonia-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">27</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (10) · <span class="pill ref">Reference</span> context / provenance (13).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Natural gas — the feedstock and the energy</td></tr>
+      <tr><td class="n">1</td><td>Variable natural-gas feedstock (Comp. &amp; Chem. Eng.)</td><td class="took">Method: how gas-composition variability perturbs the reforming/synthesis loop → supports the "gas is feedstock <em>and</em> energy" chokepoint framing. <span class="miss">Full text not retrieved (publisher 403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">2</td><td>LCA of ammonia synthesis in China (Springer)</td><td class="took">Coal-vs-gas route GHG factors (coal route ~1.43× the gas route) → evidence for the coal-based Chinese half of world production noted in the chain's cards.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Haber-Bosch — fixing nitrogen from the air into ammonia</td></tr>
+      <tr><td class="n">3</td><td>USGS MCS — Nitrogen (Fixed)–Ammonia</td><td class="took">The production picture: US capacity sited on cheap gas (~57% in LA/OK/TX), ~88% to fertilizer, China/India lead output → the "raw material is free; the energy is not" panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">4</td><td>IEA — Ammonia Technology Roadmap</td><td class="took">~70% of ammonia goes to fertilizer; production ~1.3% of energy-system CO2 → the CO2-cost card and the decarbonisation-branch framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The decarbonisation branch — green &amp; blue ammonia</td></tr>
+      <tr><td class="n">5</td><td>Global ammonia supply-chain cost &amp; GHG (EES)</td><td class="took">63-country grey/blue/green cost + emissions database → the method behind the "two futures for a gas-bound chain" cards.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>Green ammonia market structure (arXiv)</td><td class="took">Transaction-cost market-structure prototypes → context for the green-ammonia / electrolyser-chain link.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Blue ammonia LCSA (Energies)</td><td class="took">Life-cycle sustainability assessment of gas + carbon-capture ammonia → the blue-route branch of the decarbonisation card.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>Clean-hydrogen ammonia &amp; gas demand (Sustainability)</td><td class="took">Ammonia ~4% of global gas supply, demand up 3–4× by 2050 → the "ammonia as fuel" demand card.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Urea, nitrogen fertilizer &amp; the harvest</td></tr>
+      <tr><td class="n">9</td><td>FAO — World fertilizer trends and outlook</td><td class="took">Global N/P/K supply-demand outlook → the "~half the world's food" fertilizer framing at the end of the chain.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>FAO — Food Outlook fertilizer update (2025)</td><td class="took">2024 recovery data + "nitrogen supply inextricably linked to gas" → reinforces the gas-price chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">⑤ The 2022 gas-price shutdowns</td></tr>
+      <tr><td class="n">11</td><td>OECD — resilience of fertiliser markets</td><td class="took">Policy-classification framework + market-concentration read → the shock section's policy context.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>European Commission — COM(2022) 590</td><td class="took">~70% of EU ammonia capacity shut → the "2022 European shutdowns" panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>USDA ERS — war &amp; fertilizer markets</td><td class="took">War price transmission (+50%); Russia ~16% of urea, Russia+Belarus ~40% of potash → the two-sided-shock note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Fertilizers Europe — gas-price crisis</td><td class="took">Gas up to 90% of variable cost; ~70% capacity curtailed → the "gas is most of the cost" figure.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>Yara — 2022 curtailment release</td><td class="took">Ferrara + Le Havre cut to ~45% capacity → the concrete plant-shutdown example.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>ICIS — crashing gas spurs restart</td><td class="took">Restarts as gas eased → shows the shock was reversible with the gas price. <span class="miss">Full text not retrieved (site block).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — geopolitics, food security &amp; policy</td></tr>
+      <tr><td class="n">17</td><td>Nexus: geopolitics, decarbonization, food security (One Earth)</td><td class="took">Cross-cutting risk lens over N/P/K chains → the chain's "distinct challenges per fertilizer" framing. <span class="miss">Full text not retrieved (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>IFPRI — war after a year</td><td class="took">War-to-market transmission into production, prices and trade → context for the shock section. <span class="miss">Page not retrieved (bot block).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>IFPRI — Russia/Belarus sanctions</td><td class="took">Russia/Belarus export shares of N and K → the export-concentration context. <span class="miss">Page not retrieved (bot block).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Carnegie — Russia's fertilizer leverage</td><td class="took">Russia ~23% of ammonia / ~14% of urea exports → the geopolitics-of-supply note.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — data, statistics &amp; industry sources</td></tr>
+      <tr><td class="n">21</td><td>CEPII BACI</td><td class="took">The data engine → the chain's ammonia (281410) + urea (310210) trade shares.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">22</td><td>USGS — Nitrogen Statistics &amp; Information</td><td class="took">Provenance for the USGS nitrogen production/trade series behind §1–2.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>USGS — Mineral Commodity Summaries</td><td class="took">The annual series behind the production figures across the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>IFASTAT — global fertilizer statistics</td><td class="took">N/P/K production-trade-consumption series → cross-check for the fertilizer figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>IFASTAT — plant-nutrition database</td><td class="took">Queryable nutrient database → the data layer under IFA's published numbers.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>International Fertilizer Association</td><td class="took">Association context; co-publisher of the Ammonia Technology Roadmap.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>The Fertilizer Institute — 2025 update</td><td class="took">US supply-demand and pricing snapshot → market context for the fertilizer stage.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Natural gas — the feedstock and the energy <span class="ct">2</span></h2>
+  <div class="stagesub">There is no ore: the nitrogen is the air. Gas is both the hydrogen source and the process heat — ~70–90% of the cost of making ammonia.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0098135422002885">Unraveling the effect of variable natural gas feedstock on an industrial ammonia process</a><span class="src"> · Computers &amp; Chemical Engineering (2022)</span>
+      <span class="desc">How natural-gas composition variability affects an industrial ammonia synthesis process.</span>
+      <span class="abs"><b>Abstract.</b> Process-systems study of how variation in natural-gas feedstock composition propagates through an industrial ammonia plant's reforming and synthesis loop, affecting conversion, energy use and operability. <span class="miss">(Full text not retrievable on this pass — publisher 403; scope taken from the title and venue, Computers &amp; Chemical Engineering, 2022, DOI 10.1016/j.compchemeng.2022.107951.)</span></span>
+      <span class="dat"><b>Data.</b> Process simulation / systems analysis of an industrial ammonia process — no public full text retrieved.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s11367-021-02010-z">Life cycle assessment of ammonia synthesis in China</a><span class="src"> · Int. J. Life Cycle Assessment (2021)</span>
+      <span class="desc">Cradle-to-gate LCA comparing coal-, coke-oven-gas- and natural-gas-based ammonia routes.</span>
+      <span class="abs"><b>Abstract.</b> Cradle-to-gate LCA (ISO 14040, CML 2001) of Chinese ammonia by raw-material route, on industrial data. Coal- and coke-oven-gas routes carry 1.43× and 1.7× the environmental burden of the natural-gas route, chiefly in greenhouse effect, acidification and fossil-energy depletion; advanced coal-water-slurry gasification cuts GHG from 3.88 to 2.18 kg CO2 per kg ammonia.</span>
+      <span class="dat"><b>Data.</b> Actual industrial process data for coal-, coke-oven-gas- and gas-based routes; LCA via CML 2001 with sensitivity analysis.</span></li>
+  </ul>
+
+  <h2 class="sec">② Haber-Bosch — fixing nitrogen from the air into ammonia <span class="ct">2</span></h2>
+  <div class="stagesub">Where inert N₂ and gas-derived hydrogen become ammonia — at high temperature and pressure, sited wherever gas is cheap.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nitrogen.pdf">USGS Mineral Commodity Summaries 2026 — Nitrogen (Fixed)–Ammonia</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world ammonia production/trade data; ties US capacity to natural-gas reserves.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: in 2025, 18 US companies made ammonia at 38 plants, ~57% of capacity in Louisiana, Oklahoma and Texas for their large natural-gas reserves — the dominant feedstock. About 88% of output went to fertilizer (urea, ammonium nitrate and others). China (~49,000) and India (~15,000 thousand t N) lead world output; Henry Hub gas averaged ~$3.44/MMBtu.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, capacity and Henry Hub natural-gas price data.</span></li>
+    <li><a href="https://www.iea.org/reports/ammonia-technology-roadmap">IEA, Ammonia Technology Roadmap</a><span class="src"> · IEA (2021)</span>
+      <span class="desc">The reference roadmap for decarbonising ammonia (Haber-Bosch) production.</span>
+      <span class="abs"><b>Summary.</b> IEA roadmap on making ammonia sustainable: ~70% of ammonia goes to fertilizers, and its production is ~1.3% of energy-system CO2 emissions. It uses three scenarios (Stated Policies, Sustainable Development, Net Zero by 2050) to chart technology pathways and set out roles for governments, producers and financiers.</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling (Stated Policies / Sustainable Development / Net Zero) of ammonia production, energy use and emissions.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The decarbonisation branch — green &amp; blue ammonia <span class="ct">4</span></h2>
+  <div class="stagesub">Two futures for a gas-bound chain: electrolytic hydrogen (green) or gas-plus-carbon-capture (blue) — plus new demand as ammonia becomes a fuel.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.rsc.org/en/content/articlepdf/2026/ee/d5ee05571g">Ammonia as an energy carrier: global supply-chain cost and greenhouse-gas emissions</a><span class="src"> · Energy &amp; Environmental Science (2025)</span>
+      <span class="desc">Integrated techno-economic and GHG assessment of global ammonia supply chains across routes.</span>
+      <span class="abs"><b>Abstract.</b> Builds a techno-economic and environmental database for global ammonia supply chains across 63 countries, comparing production technologies (grey, blue, yellow, pink, green) with downstream logistics on cost and greenhouse-gas emissions, to map where and how low-carbon ammonia can become competitive as an energy carrier.</span>
+      <span class="dat"><b>Data.</b> Techno-economic + life-cycle emissions database spanning 63 countries and five production routes plus shipping logistics.</span></li>
+    <li><a href="https://arxiv.org/pdf/2310.19498">Green ammonia supply chain and associated market structure: an analysis based on transaction cost economics</a><span class="src"> · arXiv (2023)</span>
+      <span class="desc">Economic-structure analysis of the emerging green-ammonia supply chain.</span>
+      <span class="abs"><b>Abstract.</b> Analyses green-ammonia supply chains from an industry-structure perspective using transaction-cost economics and lessons from oil and gas. Proposes three market-structure prototypes across the industry's phases — vertically integrated in infancy, disintegrating for efficiency, then competitive — and tests them with a regression model on a gas-industry case.</span>
+      <span class="dat"><b>Data.</b> Transaction-cost-economics framework plus a multi-linear regression on a gas-industry case; conceptual — no ammonia production dataset.</span></li>
+    <li><a href="https://doi.org/10.3390/en18051137">Blue Ammonia and the Supply Chain: Pioneering Sustainability Assessment for a Greener Future</a><span class="src"> · Energies (2025)</span>
+      <span class="desc">Life-cycle sustainability assessment of blue ammonia (natural gas + carbon capture).</span>
+      <span class="abs"><b>Abstract.</b> Life-cycle sustainability assessment (environmental, economic, social) of blue ammonia — natural gas with carbon capture — at 1.2 Mt/yr from feedstock to maritime transport, via Aspen HYSYS simulation. The synthesis converter dominates emissions, energy and cost; capture removes 6.5 Mt CO2/yr; transport distance and LNG fuel price are the leading sensitivities.</span>
+      <span class="dat"><b>Data.</b> Aspen HYSYS V12 process simulation plus a maritime-transport sustainability model for a 1.2 MMTPA blue-ammonia chain.</span></li>
+    <li><a href="https://www.mdpi.com/2071-1050/15/2/1623">Ammonia Production from Clean Hydrogen and the Implications for Global Natural Gas Demand</a><span class="src"> · Sustainability (2023)</span>
+      <span class="desc">Models how electrolytic-hydrogen ammonia could displace gas-based Haber-Bosch demand.</span>
+      <span class="abs"><b>Abstract.</b> Ammonia's ~183 Mt/yr production consumes ~4% of global natural-gas supply; 1.5°C pathways see demand rising 3–4× by 2050 as shipping, power and hydrogen-transport markets emerge. Assesses the technical and economic viability of green (electrolytic) and blue (gas + CO2 storage) routes at a systems level, stressing certification, standards and finance.</span>
+      <span class="dat"><b>Data.</b> Systems-level techno-economic assessment of green vs blue ammonia routes with process-integration modelling.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Urea, nitrogen fertilizer &amp; the harvest <span class="ct">2</span></h2>
+  <div class="stagesub">Ammonia becomes urea, ammonium nitrate and other nitrogen fertilizers — the yield that feeds roughly half the planet.</div>
+  <ul class="refs">
+    <li><a href="https://www.fao.org/documents/card/en/c/cc0088en">FAO, World fertilizer trends and outlook</a><span class="src"> · FAO (2022)</span>
+      <span class="desc">Global fertilizer supply, demand and trade outlook by nutrient, including nitrogen.</span>
+      <span class="abs"><b>Summary.</b> FAO outlook projecting world and regional fertilizer nutrient supply, demand and balances for nitrogen, phosphate and potash over the medium term, drawing on IFA and FAO statistics to flag prospective surpluses or deficits by nutrient.</span>
+      <span class="dat"><b>Data.</b> FAO/IFA fertilizer supply, demand, trade and capacity statistics by nutrient.</span></li>
+    <li><a href="https://openknowledge.fao.org/server/api/core/bitstreams/0c79f9df-b2eb-43cb-9b84-977efea5b197/content">FAO Food Outlook — Fertilizer market update, June 2025</a><span class="src"> · FAO (2025)</span>
+      <span class="desc">FAO's latest fertilizer market feature, post-2022-shock recovery data.</span>
+      <span class="abs"><b>Summary.</b> FAO fertilizer feature: 2024 output rose (nitrogen/urea ~+3%, led by India, Qatar, Saudi Arabia and the UAE) and stresses that nitrogen fertilizer supply is inextricably linked to natural-gas prices — 2024's calmer European TTF gas (avg ~€35/MWh, −15%) steadied production.</span>
+      <span class="dat"><b>Data.</b> FAO Food Outlook drawing on IFA production statistics and the Dutch TTF natural-gas price index.</span></li>
+  </ul>
+
+  <h2 class="sec">⑤ The 2022 gas-price shutdowns <span class="ct">6</span></h2>
+  <div class="stagesub">The chain's clearest stress test: when European gas spiked, ammonia plants closed — an energy crisis transmitted straight into food supply.</div>
+  <ul class="refs">
+    <li><a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/06/understanding-the-resilience-of-fertiliser-markets-to-shocks_c8c4806f/43664170-en.pdf">Understanding the resilience of fertiliser markets to shocks</a><span class="src"> · OECD (2024)</span>
+      <span class="desc">How fertilizer markets absorbed the 2022 gas-price and Russia/Belarus export shocks.</span>
+      <span class="abs"><b>Abstract.</b> OECD paper taking stock of fertilizer policies after the 2021–22 price surges and building a framework to classify them, in a highly concentrated, import-dependent market prone to disruption. Finds low or zero import tariffs, non-transparent and shifting export restrictions by major exporters, and a policy shift from supporting mineral fertilizer to curbing its use or backing organic alternatives.</span>
+      <span class="dat"><b>Data.</b> OECD inventory of member/partner-country fertilizer policies plus farmer-support estimates and trade data across N, P and K.</span></li>
+    <li><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX%3A52022DC0590">Ensuring availability and affordability of fertilisers — COM(2022) 590</a><span class="src"> · European Commission (2022)</span>
+      <span class="desc">EU policy response to the 2022 gas-driven ammonia plant curtailments.</span>
+      <span class="abs"><b>Abstract.</b> Commission communication on ensuring fertiliser availability and affordability after high gas prices and Russia's invasion shut a large share of EU ammonia capacity. Proposes prioritising gas for producers during rationing, state-aid and agricultural-reserve support, suspending ammonia/urea tariffs, a market observatory, import diversification (Egypt, Oman, Qatar) and conversion to renewable-hydrogen ammonia.</span>
+      <span class="dat"><b>Data.</b> EU policy document — no primary dataset; cites prevailing gas-price and ammonia-capacity conditions.</span></li>
+    <li><a href="https://www.ers.usda.gov/amber-waves/2023/september/global-fertilizer-market-challenged-by-russia-s-invasion-of-ukraine">Global Fertilizer Market Challenged by Russia's Invasion of Ukraine</a><span class="src"> · USDA Economic Research Service (2023)</span>
+      <span class="desc">US government analysis of the war's effect on global fertilizer prices and trade.</span>
+      <span class="abs"><b>Summary.</b> USDA ERS analysis: Russia's 2022 invasion of Ukraine drove fertilizer prices up over 50% (Feb–Apr 2022); Russia and Belarus together supplied ~40% of global potash exports and Russia alone ~16% of urea. Later, lower European gas prices let production recover.</span>
+      <span class="dat"><b>Data.</b> USDA ERS using 2020 trade data (latest available), World Bank prices and FAO statistics through March 2023.</span></li>
+    <li><a href="https://www.fertilizerseurope.com/gas-prices-2/">EU industry under threat of shutting down — Act now</a><span class="src"> · Fertilizers Europe</span>
+      <span class="desc">European producers' association campaign on the 2022 gas-price crisis and closures.</span>
+      <span class="abs"><b>Summary.</b> Fertilizers Europe campaign: with 2022 gas prices up over 1000% year-on-year and gas up to 90% of variable cost, ~70% of European ammonia capacity was curtailed. It urges EU action on gas pricing and reduced import reliance to protect food security.</span>
+      <span class="dat"><b>Data.</b> Industry-association advocacy citing member production-capacity curtailment and natural-gas cost shares — no primary dataset.</span></li>
+    <li><a href="https://www.yara.com/corporate-releases/yara-curtails-production-due-to-increased-natural-gas-prices/">Yara curtails production due to increased natural gas prices</a><span class="src"> · Yara International</span>
+      <span class="desc">Producer press release on 2022 curtailments at its Ferrara (Italy) and Le Havre (France) plants.</span>
+      <span class="abs"><b>Summary.</b> Yara press release (March 2022): record European gas prices forced curtailment of ammonia and urea at its Ferrara (Italy) and Le Havre (France) plants — together ~1.0 Mt ammonia and ~0.9 Mt urea a year — cutting European ammonia/urea output to ~45% of capacity.</span>
+      <span class="dat"><b>Data.</b> Company press release — self-reported plant capacities and utilisation.</span></li>
+    <li><a href="https://www.icis.com/explore/resources/news/2022/10/31/10820515/insight-crashing-gas-spurs-fertilizer-ramp-up-petchems-still-shuttered/">INSIGHT: Crashing gas spurs fertilizer ramp up, petchems still shuttered</a><span class="src"> · ICIS (2022)</span>
+      <span class="desc">Trade-press reporting on European ammonia plant restarts as gas prices eased.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report that easing European natural-gas prices in late 2022 prompted fertilizer producers to restart ammonia capacity even as petrochemical plants stayed shut. <span class="miss">(Article not retrievable on this pass — site access blocked; noted from the headline and standfirst only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press market reporting — no primary dataset; full text not retrieved.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — geopolitics, food security &amp; policy <span class="ct">4</span></h2>
+  <div class="stagesub">Analysis that reads the whole chain through export concentration, sanctions and the geopolitics of who holds cheap gas.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2590332224006031">The nexus of geopolitics, decarbonization, and food security gives rise to distinct challenges across fertilizer supply chains</a><span class="src"> · One Earth (2025)</span>
+      <span class="desc">Academic framing of fertilizer-chain concentration risk across geopolitics, climate policy and food security.</span>
+      <span class="abs"><b>Abstract.</b> Argues that geopolitics, decarbonization and food security intersect to create distinct risks across the nitrogen, phosphate and potash fertilizer supply chains, each concentrated differently. <span class="miss">(Full text not retrievable on this pass — publisher 403; scope taken from the title and venue, One Earth, 2025, DOI 10.1016/j.oneear.2024.12.009.)</span></span>
+      <span class="dat"><b>Data.</b> Supply-chain synthesis across N/P/K fertilizers — no public full text retrieved.</span></li>
+    <li><a href="https://www.ifpri.org/blog/russia-ukraine-war-after-year-impacts-fertilizer-production-prices-and-trade-flows/">The Russia-Ukraine war after a year: impacts on fertilizer production, prices, and trade flows</a><span class="src"> · IFPRI (2023)</span>
+      <span class="desc">Research-institute analysis of the war's transmission into global fertilizer markets.</span>
+      <span class="abs"><b>Summary.</b> IFPRI analysis of how the Russia–Ukraine war, one year on, transmitted into global fertilizer production, prices and trade flows. <span class="miss">(Page not retrievable on this pass — bot-protection block; noted from the title and IFPRI's blog series only.)</span></span>
+      <span class="dat"><b>Data.</b> IFPRI synthesis of fertilizer production, price and trade data — full text not retrieved.</span></li>
+    <li><a href="https://www.ifpri.org/blog/how-sanctions-russia-and-belarus-are-impacting-exports-agricultural-products-and-fertilizer/">How sanctions on Russia and Belarus are impacting exports of agricultural products and fertilizer</a><span class="src"> · IFPRI</span>
+      <span class="desc">Quantifies Russia/Belarus's combined share of global N and K fertilizer exports and sanctions exposure.</span>
+      <span class="abs"><b>Summary.</b> IFPRI blog quantifying Russia and Belarus's combined share of global nitrogen and potash fertilizer exports and the exposure sanctions create. <span class="miss">(Page not retrievable on this pass — bot-protection block; noted from the title only, no figures taken.)</span></span>
+      <span class="dat"><b>Data.</b> IFPRI trade-share analysis — full text not retrieved.</span></li>
+    <li><a href="https://carnegieendowment.org/russia-eurasia/politika/2026/03/russia-new-fertilizer-export">Beyond Oil: Hormuz Closure Puts Russia in the Lead in the Fertilizer Market</a><span class="src"> · Carnegie Endowment (2026)</span>
+      <span class="desc">Recent geopolitical analysis of Russia's fertilizer-export leverage.</span>
+      <span class="abs"><b>Summary.</b> Carnegie analysis arguing a Strait-of-Hormuz disruption to Gulf nitrogen exports would hand Russia — with ~23% of ammonia and ~14% of urea exports — leverage over fertilizer-dependent buyers in Africa and Asia, converting market share into political influence.</span>
+      <span class="dat"><b>Data.</b> Policy commentary citing Russian ammonia/urea export shares — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — data, statistics &amp; industry sources <span class="ct">7</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from, and the industry hubs that publish them.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's ammonia (281410) and urea (310210) figures.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/nitrogen-statistics-and-information">USGS — Nitrogen Statistics and Information</a><span class="src"> · USGS, National Minerals Information Center</span>
+      <span class="desc">Ongoing nitrogen/ammonia production and trade statistics hub.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center hub for nitrogen: annual Mineral Commodity Summaries and Minerals Yearbook chapters plus historical statistics on ammonia and nitrogen-compound production, trade and use.</span>
+      <span class="dat"><b>Data.</b> USGS annual nitrogen/ammonia production, trade and use series.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries">USGS — Mineral Commodity Summaries</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data, including nitrogen.</span>
+      <span class="abs"><b>Summary.</b> Landing page for the USGS Mineral Commodity Summaries — the earliest US government publication estimating nonfuel-mineral industry data, with five-year statistics, tariffs and policy notes for 90-plus minerals including nitrogen.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+    <li><a href="https://www.fertilizer.org/ifastat/">IFASTAT — Global Fertilizer Statistics &amp; Market Data</a><span class="src"> · International Fertilizer Association</span>
+      <span class="desc">Production, trade and consumption data by nutrient (N/P/K).</span>
+      <span class="abs"><b>Summary.</b> IFASTAT, the International Fertilizer Association's statistics service: production, trade and consumption data by nutrient (N, P, K), with consumption series back to 1961 and supply figures over recent decades.</span>
+      <span class="dat"><b>Data.</b> IFA member and national statistics on fertilizer production, trade and consumption by nutrient.</span></li>
+    <li><a href="https://www.ifastat.org/databases/plant-nutrition">Global Fertilizer database — IFASTAT plant-nutrition query</a><span class="src"> · IFASTAT</span>
+      <span class="desc">Queryable plant-nutrient database underlying IFA's published statistics.</span>
+      <span class="abs"><b>Summary.</b> IFASTAT's queryable plant-nutrition database: supply, demand and trade indicators for fertilizers and raw materials by nutrient and geography, with consumption data from 1961 to present.</span>
+      <span class="dat"><b>Data.</b> IFA plant-nutrient database (production/trade/consumption), user-queryable.</span></li>
+    <li><a href="https://www.fertilizer.org/">International Fertilizer Association (IFA)</a><span class="src"> · IFA</span>
+      <span class="desc">Global fertilizer industry association; publisher of IFASTAT and the Ammonia Technology Roadmap summary.</span>
+      <span class="abs"><b>Summary.</b> The International Fertilizer Association — the only global fertilizer association, ~500 members across some 80 countries spanning the whole value chain — publishes IFASTAT and, with the IEA, the Ammonia Technology Roadmap summary.</span>
+      <span class="dat"><b>Data.</b> No primary data — association profile and membership.</span></li>
+    <li><a href="https://www.tfi.org/wp-content/uploads/2025/07/Mid-Year-2025-Fertilizer-Market-Update.pdf">Mid-Year 2025 Fertilizer Market Update</a><span class="src"> · The Fertilizer Institute (2025)</span>
+      <span class="desc">US industry association's market snapshot of nitrogen supply/demand and pricing.</span>
+      <span class="abs"><b>Summary.</b> The Fertilizer Institute's mid-year 2025 update (Veronica Nigh): a snapshot of global and US fertilizer supply and demand, 2025 geopolitical challenges, US import sources and strong domestic demand heading into the fall application season.</span>
+      <span class="dat"><b>Data.</b> TFI market snapshot compiling global/US supply-demand, trade and price indicators.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>BGS</b> (British Geological Survey) equivalent exists for nitrogen — nitrogen has no ore, so BGS's mineral-statistics remit largely does not cover it. Next: check BGS's occasional gas/energy-criticality notes instead.</li>
+      <li>No <b>EU JRC Critical Raw Materials</b> entry — nitrogen/ammonia is not on the EU CRM list (an energy commodity, not a mineral), so JRC coverage would come via its gas/energy-security work rather than the CRM Foundation series.</li>
+      <li><b>Coal-based ammonia in China</b> — the main non-gas route — is thin here beyond one LCA paper. Next: "China coal-to-ammonia capacity" and NDRC/CNCIA sources for the non-gas half of world production.</li>
+      <li><b>Ammonia as shipping fuel and hydrogen carrier</b> is only lightly covered. Next: "IMO ammonia bunker fuel" and "ammonia hydrogen carrier shipping" for the demand-side branch flagged in the chain's cards.</li>
+      <li>Paid market-pricing services (Benchmark Mineral Intelligence / Fastmarkets style) were not surfaced by open search; their public commentary, if any, would need a targeted site search.</li>
+      <li>Five entries could not be fully retrieved on this pass (two ScienceDirect papers, two IFPRI blogs, one ICIS report) — flagged in italics above; a return pass with library access or an alternate mirror would close them.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from natural-gas feedstock to the harvest, with cross-cutting geopolitics, policy and data grouped at the end. 27 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (publisher 403s, bot-protection or site blocks) that is flagged in italics and no numbers are taken from it. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./ammonia-chain.html">The ammonia chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
