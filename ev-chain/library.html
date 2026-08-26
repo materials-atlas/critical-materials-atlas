@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Electric-vehicle chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the electric-vehicle value chain, ordered to follow the chain from the battery it contains to final assembly and market. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="ev-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Electric Vehicles</div>
+    <h1>Electric-vehicle chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">An electric car is mostly two supply chains it contains — the battery pack and the magnet motor — wrapped in final assembly. The battery is the real chokepoint; the magnet is a design choice you can engineer out; and assembly, though ~70% in China, localises near demand. <b>The finished-car map is the least informative layer of all.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Battery pack (the inherited mine-to-cell chokepoint) → ② Traction motor &amp; magnets (substitutable) → ③ EV assembly (~70% China, but diffuse) → ④ market &amp; demand — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="ev-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">37</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (19) · <span class="pill ref">Reference</span> context / provenance (13).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Battery — the chokepoint the EV inherits</td></tr>
+      <tr><td class="n">1</td><td>IEA GEVO 2026 — Electric vehicle batteries</td><td class="took">Battery is ~40% of value; cells ~80–90% China → the <b>§1 "the battery is the real dependency"</b> panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>IEA — Global Supply Chains of EV Batteries</td><td class="took">Mine-to-cell mapping (¾ of cells, 70% cathode, 85% anode, half of Li/Co/graphite refining in China) → the "securing 'EV supply' means securing the battery chain" framing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>IEA GCMO 2025 — Beyond NMC batteries</td><td class="took">&gt;98% of LFP cathode/cells in China → sharpens the battery-chain concentration behind the EV.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>USITC — Supply chain for EV batteries</td><td class="took">US-side battery supply-chain / trade mapping. <span class="miss">PDF bot-walled (403) — not retrieved this pass.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>ICCT — U.S. battery supply chain</td><td class="took">Bottom-up battery-cost method + FTA/CMA lithium-supply scoping → a future US-diversification overlay for the battery chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>RMI — EV battery supply chain explained</td><td class="took">Four-stage mine-to-pack framing → reference scaffold for the battery-chain narrative.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>EV battery chemistry &amp; disruption (PMC)</td><td class="took">Vulnerability-index method: 80% NMC / 92% LFP cathodes pass through China → a quantified "the EV inherits a China chokepoint" figure.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>RFF — Mineral security for EV battery minerals</td><td class="took">"Price risk, not physical scarcity" framing → belongs in the decision layer, not the chain map.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>RFF — Market power in battery mineral chains</td><td class="took">No-selective-cuts evidence (Japan 2010–19) → nuances the concentration finding.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>CSR — The devil is in the details</td><td class="took">US battery-mineral import-dependence breakdown. <span class="miss">Full text 403 — noted from the article's own description.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Traction motor &amp; magnets — the chokepoint you design around</td></tr>
+      <tr><td class="n">11</td><td>US DOE — Electric Motors R&amp;D</td><td class="took">Magnet vs magnet-free motor designs (IPM / induction / reluctance) → the <b>§2 "a chokepoint you can design around"</b> substitutability finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>EV traction motors without rare-earth magnets</td><td class="took">Rare-earth-free motor topologies → evidence the magnet exposure is a design choice. <span class="miss">Abstract bot-walled — title verified via Crossref.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Geopolitical risk &amp; rare-earth magnet supply</td><td class="took">China magnet-export trend as a risk signal → cross-link to the magnet chain. <span class="miss">Abstract bot-walled — title verified via Crossref.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Hybrid rotor, reduced rare-earth magnets (JOM)</td><td class="took">HRMM design: ~50% less rare earth at matched performance → a concrete "engineer-it-out" data point.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>Emerging magnetic materials for EV motors (MRS)</td><td class="took">Sm2Fe17N3 / Fe16N2 / L10-FeNi candidates → the substitution roadmap behind the "substitutable" claim.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>IEEE Spectrum — EV motors without rare earths</td><td class="took">Working REE-free prototypes (ZF, Oak Ridge) → engineering-press corroboration of substitutability.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ EV assembly &amp; the finished car — ~70% China, but diffuse</td></tr>
+      <tr><td class="n">17</td><td>IEA GEVO 2026 — Trends in electric cars</td><td class="took">~22M cars, ~16M China, >20M sold in 2025 → the <b>"~70% China"</b> big-stat + the §1 assembly panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">18</td><td>IEA GEVO 2026 — Manufacturing and trade</td><td class="took">Only ~¼ of EVs traded between regions; China ~40% of EV exports → the <b>§3 "trade understates"</b> panel + the trade-intro caveat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">19</td><td>IEA GEVO 2025 — Executive summary</td><td class="took">2024 baseline (17M sold, China ~11M) → the year-on-year denominator behind the 2025 stats.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>CSIS — China's EV internationalization</td><td class="took">Export-plant strategy (Europe / Thailand / Brazil) → why localised assembly diffuses the trade map.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>Contrary Research — China's journey to EV dominance</td><td class="took">How the assembly base was built (subsidies, cost, speed) → context for the "diffuse but concentrated in China" reading.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Market &amp; demand — sales and production statistics</td></tr>
+      <tr><td class="n">22</td><td>Benchmark — Global EV sales reach 20.7M (2025)</td><td class="took">2025 sales total + regional split → an independent cross-check on the IEA ~22M/~16M production figures.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>Benchmark — Li-ion demand rose 29% (2025)</td><td class="took">1.59 TWh demand, EV vs storage split → sizes the battery demand the chain sits on.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>Benchmark — EV &amp; Battery intelligence</td><td class="took">Commercial data/price service → provenance for the trade-press figures, not an open dataset.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>OICA — News &amp; statistics</td><td class="took">World motor-vehicle production series → the denominator for EV-share-of-all-cars context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Global Battery Alliance</td><td class="took">Battery-passport / responsible-sourcing initiative → context for the value-chain governance layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">27</td><td>IEA GCMO 2026 — Market overview</td><td class="took">Top-refiner ~70% share; battery demand >1.5 TWh → the concentration backdrop for the battery chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">28</td><td>IEA GCMO 2026 — Executive summary</td><td class="took">Top-refiner 72%; Apr-2025 rare-earth controls → the supply-risk framing across the motor + battery inputs.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">29</td><td>IEA GCMO 2025 — Executive summary</td><td class="took">Processing concentration for Co/Ni/Li/REE → the mineral-refining chokepoints upstream of the cell.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">30</td><td>JRC — Deep dive on CRMs for EU batteries</td><td class="took">Demand-to-2050 scenario method + circularity SWOT → a template for a forward battery-demand overlay.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">31</td><td>EU — Critical Raw Materials Act</td><td class="took">10/40/25% + 65%-single-country benchmarks → the policy frame around the chain's inputs.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">32</td><td>Nature Comms — Mineral bottlenecks &amp; EV climate benefit</td><td class="took">Reserves-vs-demand method (graphite/cobalt tightest) → a "which mineral actually binds" test for the battery chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">33</td><td>EU self-sufficiency in CRMs for E-mobility</td><td class="took">EU import-dependence quantification method. <span class="miss">Abstract bot-walled — title verified via Crossref.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">34</td><td>Unconventional CM resources for EVs — SWOT</td><td class="took">By-product / end-of-life resource SWOT → the substitution/recycling escape routes for the decision layer.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">35</td><td>Goldman Sachs — Resource realism</td><td class="took">Concentration-risk framing. <span class="miss">Page 403, no public abstract — noted from the verified title.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">36</td><td>RFF — Digging deep (innovation)</td><td class="took">Innovation-as-mitigant (material/process/system substitution) → belongs in the decision-layer / breakout page.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">37</td><td>CEPII BACI</td><td class="took">The data engine → powers the chain's <b>HS 870380 cars + 850760 cells</b> trade table and shares.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Battery — the chokepoint the EV inherits <span class="ct">10</span></h2>
+  <div class="stagesub">The pack is ~40% of the car's value and the one part with a deep mine-to-cell supply chain — refined and assembled ~80–90% in China.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries">IEA, Global EV Outlook 2026 — Electric vehicle batteries</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Battery chemistry mix and cell-manufacturing geography for 2025.</span>
+      <span class="abs"><b>Summary.</b> LFP passed 55% of EV batteries deployed globally in 2025 and cost more than 40% less per kWh than NMC; global cell capacity topped 4 TWh with China over 80%, and Chinese producers reached almost 75% of electric-car battery deployment.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on BloombergNEF, EV Volumes, Benchmark Mineral Intelligence and Chinese industry data.</span></li>
+    <li><a href="https://iea.blob.core.windows.net/assets/4eb8c252-76b1-4710-8f5e-867e751c8dda/GlobalSupplyChainsofEVBatteries.pdf">IEA, Global Supply Chains of EV Batteries</a><span class="src"> · IEA</span>
+      <span class="desc">Dedicated mine-to-cell mapping of the battery supply chain, stage by stage.</span>
+      <span class="abs"><b>Abstract.</b> Batteries are 30–40% of an EV's value, so the race to net zero centres on battery-mineral security. China makes three-quarters of lithium-ion cells, holds 70% of cathode and 85% of anode capacity, and over half of lithium, cobalt and graphite refining; 70% of capacity announced to 2030 is Chinese.</span>
+      <span class="dat"><b>Data.</b> IEA supply-chain mapping using production-capacity, minerals-processing and trade data.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/beyond-nmc-batteries-supply-chain-issues-for-emerging-battery-technologies">IEA, Global Critical Minerals Outlook 2025 — Beyond NMC batteries</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">LFP's cathode/cell concentration in China versus nickel-based chemistries.</span>
+      <span class="abs"><b>Summary.</b> Over 98% of LFP cathode material and LFP cells are produced in China, versus under two-thirds for nickel-based cathode material; China also makes ~75% of battery-grade purified phosphoric acid and 95% of battery-grade manganese sulphate — new bottlenecks as LFP grows.</span>
+      <span class="dat"><b>Data.</b> IEA analysis citing USGS (2025) Mineral Commodity Summaries, Benchmark Mineral Intelligence and FAO data.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/journals/the_supply_chain_for_electric_vehicle_batteries.pdf">The Supply Chain for Electric Vehicle Batteries</a><span class="src"> · US International Trade Commission</span>
+      <span class="desc">US-focused mapping of the EV battery supply chain and trade flows.</span>
+      <span class="abs"><b>Summary.</b> USITC Journal of International Commerce and Economics article mapping the electric-vehicle battery supply chain and US trade flows. <span class="miss">PDF behind a bot-challenge (403) — not retrievable this pass; entry from the verified title and publisher.</span></span>
+      <span class="dat"><b>Data.</b> USITC supply-chain and trade-flow analysis — not retrieved.</span></li>
+    <li><a href="https://theicct.org/wp-content/uploads/2024/02/ID-85-%E2%80%93-EV-supply-chain-Report-Letter-70112-v3.pdf">Investigating the U.S. Battery Supply Chain and Its Impact on Electric Vehicles</a><span class="src"> · ICCT (2024)</span>
+      <span class="desc">US battery supply-chain report tied to IRA sourcing rules.</span>
+      <span class="abs"><b>Abstract.</b> ICCT analyses the US battery supply chain and its impact on BEV costs, 2023–2032. New lithium supply from the US and its FTA/Critical-Mineral-Agreement partners may far exceed light-duty BEV demand; builds bottom-up battery-cost scenarios for lithium, cobalt and nickel to assess BEV price impacts.</span>
+      <span class="dat"><b>Data.</b> Bottom-up battery-cost model with lithium/cobalt/nickel price scenarios and a project-by-project lithium-supply assessment.</span></li>
+    <li><a href="https://rmi.org/the-ev-battery-supply-chain-explained/">The EV Battery Supply Chain Explained</a><span class="src"> · RMI</span>
+      <span class="desc">Accessible mine-to-pack explainer with supply-risk framing.</span>
+      <span class="abs"><b>Summary.</b> RMI explainer of the four battery stages — mining, refining, cell/pack, recycling. Notes China makes three-quarters of lithium-ion batteries and 70% of cathode capacity, while US capacity is set to scale from ~72 GWh past 1,000 GWh.</span>
+      <span class="dat"><b>Data.</b> RMI synthesis citing S&amp;P Global Mobility forecasts and US legislation (IIJA, IRA, CHIPS).</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10923860/">Electric vehicle battery chemistry affects supply chain disruption vulnerabilities</a><span class="src"> · PMC/NCBI (2024)</span>
+      <span class="desc">Network model comparing NMC vs LFP exposure to supply disruption.</span>
+      <span class="abs"><b>Abstract.</b> Maps supply chains for lithium, cobalt, nickel and manganese and computes a vulnerability index for NMC vs LFP cathodes. 80% of NMC and 92% of LFP cathodes contain minerals passing through China; combined multi-stage vulnerability substantially exceeds any single step.</span>
+      <span class="dat"><b>Data.</b> Supply-chain mapping plus a vulnerability index and network-flow optimisation over four battery minerals.</span></li>
+    <li><a href="https://www.rff.org/publications/reports/mineral-security-policy-for-electric-vehicle-battery-minerals/">"Mineral Security" Policy for Electric Vehicle Battery Minerals</a><span class="src"> · Resources for the Future (2025)</span>
+      <span class="desc">Policy report on US mineral-security options for EV batteries.</span>
+      <span class="abs"><b>Summary.</b> China refined 65% of lithium (2020) and 74% of cobalt (2021) but kept expanding capacity as prices fell — behaviour inconsistent with strategic supply cuts. RFF argues the real exposure is price risk, not physical scarcity, and urges pricing transparency.</span>
+      <span class="dat"><b>Data.</b> RFF analysis on Roskill and USGS (1999–2023) production/price data and historical supply episodes.</span></li>
+    <li><a href="https://www.resources.org/common-resources/market-power-in-critical-mineral-supply-chains-for-electric-vehicle-batteries/">Market Power in Critical Mineral Supply Chains for Electric Vehicle Batteries</a><span class="src"> · RFF Common Resources</span>
+      <span class="desc">Market-power / concentration framing of battery-mineral supply.</span>
+      <span class="abs"><b>Summary.</b> Examines whether China's processing dominance lets it cut supplies or raise prices. Finds no selective cuts to Japan (2010–19) and continued capacity expansion during price surges — suggesting limited pricing power, though possible international price discrimination.</span>
+      <span class="dat"><b>Data.</b> RFF analysis of refining-capacity, price and trade episodes.</span></li>
+    <li><a href="https://councilonstrategicrisks.org/2025/05/30/the-devil-is-in-the-details-minerals-batteries-and-us-dependence-on-chinese-imports/">The Devil is in the Details: Minerals, Batteries, and US Dependence on Chinese Imports</a><span class="src"> · Council on Strategic Risks (2025)</span>
+      <span class="desc">Detailed breakdown of US import dependence across battery minerals.</span>
+      <span class="abs"><b>Summary.</b> Council on Strategic Risks argues the US's growing dependence on China for critical minerals and battery supply chains is a significant national-security concern. <span class="miss">Full text not retrievable (403); noted from the article's own description.</span></span>
+      <span class="dat"><b>Data.</b> CSR policy analysis of US battery-mineral import dependence — full text not retrieved.</span></li>
+  </ul>
+
+  <h2 class="sec">② Traction motor &amp; magnets — the chokepoint you design around <span class="ct">6</span></h2>
+  <div class="stagesub">Permanent-magnet motors tie the car to neodymium and dysprosium — but induction and wound-rotor designs use no magnet rare earths at all.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/cmei/vehicles/electric-motors-research-and-development">Electric Motors Research and Development</a><span class="src"> · US DOE</span>
+      <span class="desc">Federal R&amp;D on traction motors, including rare-earth-free designs.</span>
+      <span class="abs"><b>Summary.</b> DOE programme on cutting rare-earth use in traction motors; contrasts internal-permanent-magnet, induction and switched-reluctance designs and funds Beyond-Rare-Earth-Magnet work at Ames and reduced/non-magnet motor designs at Oak Ridge.</span>
+      <span class="dat"><b>Data.</b> US DOE programme description — no dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2214993715000032">Electric vehicle traction motors without rare earth magnets</a><span class="src"> · Sustainable Materials and Technologies (2015)</span>
+      <span class="desc">Engineering review of induction and other rare-earth-free EV motor designs.</span>
+      <span class="abs"><b>Summary.</b> Review of EV traction-motor designs that avoid rare-earth magnets — induction and reluctance topologies among them. <span class="miss">Abstract not retrievable (publisher bot-wall); entry from the title and journal verified via Crossref (10.1016/j.susmat.2015.02.001).</span></span>
+      <span class="dat"><b>Data.</b> Engineering review of motor topologies — abstract not retrieved.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0140988325003202">Geopolitical risk and the global supply of rare earth permanent magnets: insights from China's export trends</a><span class="src"> · Energy Economics (2025)</span>
+      <span class="desc">China's magnet export trends as a geopolitical-risk signal.</span>
+      <span class="abs"><b>Summary.</b> Analyses China's rare-earth permanent-magnet export trends as a geopolitical-risk signal for the global magnet supply. <span class="miss">Abstract not retrievable (publisher bot-wall); entry from the title and journal verified via Crossref (10.1016/j.eneco.2025.108496).</span></span>
+      <span class="dat"><b>Data.</b> Trade-data analysis of China's magnet exports — abstract not retrieved.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s11837-022-05594-5">A Hybrid Rotor Design with Reduced Rare Earth Magnets for Traction Motors</a><span class="src"> · JOM / Springer (2022)</span>
+      <span class="desc">DOE Critical Materials Institute-linked motor redesign to cut rare-earth content.</span>
+      <span class="abs"><b>Abstract.</b> Proposes a hybrid-rotor multiple-magnet (HRMM) design placing Nd-Fe-B magnets only at key locations and ferrite elsewhere, so both magnetic and reluctance torque are harnessed. Benchmarked against a 2010 Prius 60 kW motor, it matches performance across the speed range with ~50% less critical rare-earth content at low cost.</span>
+      <span class="dat"><b>Data.</b> Electromagnetic motor design and simulation benchmarked to a commercial (Prius 2010) traction motor.</span></li>
+    <li><a href="https://link.springer.com/article/10.1557/s43577-024-00743-4">Emerging magnetic materials for electric vehicle drive motors</a><span class="src"> · MRS Bulletin / Springer (2024)</span>
+      <span class="desc">Review of Sm2Fe17N3, Fe16N2 and other rare-earth-free magnet candidates.</span>
+      <span class="abs"><b>Abstract.</b> About 80% of EV drivetrains rely on high-performance permanent magnets, mostly Nd2Fe14B, with samarium-cobalt the only commercialised alternative. Emerging Sm2Fe17N3, Fe16N2 and L10-FeNi use cheaper elements but are temperature-sensitive; advances in low-temperature synthesis could unlock magnets beyond rare earths.</span>
+      <span class="dat"><b>Data.</b> Materials-science review of commercialised and emerging permanent-magnet chemistries.</span></li>
+    <li><a href="https://spectrum.ieee.org/ev-motor">EV Motors Without Rare Earth Permanent Magnets</a><span class="src"> · IEEE Spectrum</span>
+      <span class="desc">Engineering-press survey of rare-earth-free motor efforts (Tesla, Niron, ORNL).</span>
+      <span class="abs"><b>Summary.</b> With ~90% of processed rare earths coming from China, engineers survey REE-free routes — ferrite/alnico/FeN/MnBi magnets (motors 30–65% heavier) and wirelessly-excited synchronous motors (ZF's 220 kW unit, an Oak Ridge 100 kW motor) that can match NdFeB performance.</span>
+      <span class="dat"><b>Data.</b> Engineering-press reporting citing Oak Ridge and ZF prototypes.</span></li>
+  </ul>
+
+  <h2 class="sec">③ EV assembly &amp; the finished car <span class="ct">5</span></h2>
+  <div class="stagesub">The EV's own concentration — ~70% built in China — but assembly is switchable and localises near demand, so the finished-car map hides the upstream.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars">IEA, Global EV Outlook 2026 — Trends in electric cars</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Headline EV production/sales trends and China's assembly share.</span>
+      <span class="abs"><b>Summary.</b> Over 20 million electric cars were sold in 2025 — one in four new cars — up 20% year on year; China took over half of sales (13M+), around 55% of its own new-car sales were electric, and BEVs were 65% of EV sales.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on EV Volumes, ACEA, EAFO and national automotive associations.</span></li>
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade">IEA, Global EV Outlook 2026 — Manufacturing and trade</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Where EVs are built versus traded; the localisation of assembly.</span>
+      <span class="abs"><b>Summary.</b> ~22 million electric cars were produced in 2025 with only about a quarter traded between major regions. China made ~16 million (over 70%, ~75% counting exports) and doubled exports past 2.5 million, while the EU (3.2 million) was the second-largest producer.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on Benchmark Mineral Intelligence, EV Volumes and manufacturer announcements.</span></li>
+    <li><a href="https://www.iea.org/reports/global-ev-outlook-2025/executive-summary">IEA, Global EV Outlook 2025 — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Prior-year baseline for EV sales/production trends.</span>
+      <span class="abs"><b>Summary.</b> Baseline: 2024 EV sales topped 17 million (over 20% of cars), with China ~11 million — about half its market. Sales were expected above 20 million in 2025 (over 25% share) and above 40% of car sales by 2030.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on S&amp;P Global and Bloomberg data.</span></li>
+    <li><a href="https://www.csis.org/analysis/chinas-electric-vehicle-industrys-internationalization">China's Electric Vehicle Industry's Internationalization</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of China's EV export expansion and global market penetration.</span>
+      <span class="abs"><b>Summary.</b> CSIS testimony: China holds ~60% of new-vehicle registrations and 40% of the global electric-car stock, makes 65% of lithium batteries and 80% of cathodes, and is building plants in Europe, Thailand and Brazil to skirt tariffs.</span>
+      <span class="dat"><b>Data.</b> CSIS congressional testimony (Mazzocco) synthesising trade and market data.</span></li>
+    <li><a href="https://research.contrary.com/report/chinas-journey-to-ev-dominance">Deep Dive: China's Journey to EV Dominance</a><span class="src"> · Contrary Research</span>
+      <span class="desc">Industry deep-dive on how China built EV manufacturing scale.</span>
+      <span class="abs"><b>Summary.</b> Contrary Research: China reached over 60% of global EV production by 2025; BYD overtook Tesla; China holds ~85% of cell-manufacturing capacity, built on roughly $29 billion of 2009–22 subsidies and much cheaper, faster factories.</span>
+      <span class="dat"><b>Data.</b> Industry synthesis of company production and market figures.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Market &amp; demand — sales and production statistics <span class="ct">5</span></h2>
+  <div class="stagesub">The demand the chain sits on — independent sales and production series to cross-check the production-share figures.</div>
+  <ul class="refs">
+    <li><a href="https://source.benchmarkminerals.com/article/global-ev-sales-reach-20-7-million-units-in-2025-growing-by-20">Global EV sales reach 20.7 million units in 2025, growing by 20%</a><span class="src"> · Benchmark Mineral Intelligence (2026)</span>
+      <span class="desc">2025 global EV sales figure and regional shares.</span>
+      <span class="abs"><b>Summary.</b> 2025 global EV sales hit 20.7 million (+20%) — China 12.9 million (+17%), Europe 4.3 million (+33%), North America 1.8 million (-4%) and rest-of-world 1.7 million (+48%); the US contracted after tax-credit repeal.</span>
+      <span class="dat"><b>Data.</b> Benchmark Mineral Intelligence EV-sales tracking.</span></li>
+    <li><a href="https://source.benchmarkminerals.com/article/global-lithium-ion-battery-demand-rose-29-in-2025">Global lithium ion battery demand rose 29% in 2025</a><span class="src"> · Benchmark Mineral Intelligence (2026)</span>
+      <span class="desc">2025 battery-demand growth and the EV vs storage split.</span>
+      <span class="abs"><b>Summary.</b> 2025 lithium-ion demand rose 29% to 1.59 TWh; EVs were 75% of demand (down from 77%), stationary storage the fastest-growing segment at +51%, and LFP demand jumped 48%.</span>
+      <span class="dat"><b>Data.</b> Benchmark Mineral Intelligence battery-demand database.</span></li>
+    <li><a href="https://www.benchmarkminerals.com/ev-and-battery">Benchmark Mineral Intelligence — EV &amp; Battery</a><span class="src"> · Benchmark Mineral Intelligence</span>
+      <span class="desc">Commercial data/price-reference service for EV battery supply chains.</span>
+      <span class="abs"><b>Summary.</b> Benchmark's EV &amp; Battery service: quarterly forecasts to 2050, weekly EV-sales tracking by country, brand and model, production forecasts across 30+ countries and chemistry-share analysis across the value chain.</span>
+      <span class="dat"><b>Data.</b> Proprietary subscription datasets — not open.</span></li>
+    <li><a href="https://oica.net/news/">OICA — International Organization of Motor Vehicle Manufacturers, News</a><span class="src"> · OICA</span>
+      <span class="desc">World auto-industry association; production/trade statistics source.</span>
+      <span class="abs"><b>Summary.</b> OICA (Paris) speaks for vehicle manufacturers in world forums; its news and statistics pages carry members' registration data and global production and sales series.</span>
+      <span class="dat"><b>Data.</b> OICA production and sales statistics compiled from member associations.</span></li>
+    <li><a href="https://www.globalbattery.org/">Global Battery Alliance</a><span class="src"> · GBA</span>
+      <span class="desc">Sustainable / responsible battery value-chain initiative.</span>
+      <span class="abs"><b>Summary.</b> WEF-convened alliance (founded 2017, 120+ members across automakers, miners and NGOs) working toward sustainable, responsible, circular battery value chains by 2030; runs the Battery Passport and critical-minerals/circularity workstreams.</span>
+      <span class="dat"><b>Data.</b> No primary dataset — multistakeholder initiative description.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">10</span></h2>
+  <div class="stagesub">Outlooks, assessments and policy that classify the whole chain's inputs — battery metals and magnet rare earths alike.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026/market-overview">IEA, Global Critical Minerals Outlook 2026 — Market overview</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Updated battery-metal demand and pricing outlook.</span>
+      <span class="abs"><b>Summary.</b> Battery demand topped 1.5 TWh in 2025 (over 35% growth); the top supplier averaged 70% of refined output (up from 68% in 2020), and China and Indonesia supplied three-quarters of 2023–25 supply growth.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on S&amp;P Capital IQ, Bloomberg, KOMIS and its own project pipeline.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026/executive-summary">IEA, Global Critical Minerals Outlook 2026 — Executive summary</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Top-line concentration and supply-risk findings.</span>
+      <span class="abs"><b>Summary.</b> The average top-refiner share reached 72% in 2025 (excluding rare earths). April-2025 Chinese controls on seven heavy rare earths threaten $6.5 trillion of downstream production outside China, and battery-related controls over $300 billion.</span>
+      <span class="dat"><b>Data.</b> IEA risk framework over 11 high-risk materials (supply concentration, substitutability, end-use criticality).</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary">IEA, Global Critical Minerals Outlook 2025 — Executive summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Processing concentration for cobalt, nickel, lithium and rare earths.</span>
+      <span class="abs"><b>Summary.</b> In 2024 the top-three refiners averaged 86% share (up from 82% in 2020); cobalt and nickel growth came ~90% from a single supplier each. For battery metals and rare earths, non-leading supply meets only about half of residual 2035 demand.</span>
+      <span class="dat"><b>Data.</b> IEA analysis on S&amp;P Global and Bloomberg data.</span></li>
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/bitstream/JRC141715/jrc141715_01.pdf">Deep dive on critical raw materials for batteries in the EU</a><span class="src"> · European Commission JRC (2025)</span>
+      <span class="desc">Foresight study underpinning the EU Critical Raw Materials Act, incl. Li-ion cells.</span>
+      <span class="abs"><b>Abstract.</b> JRC analyses the EU battery supply chain and the critical raw materials behind lithium-ion cells, identifying supply-concentration and manufacturing bottlenecks. Models battery deployment to 2050 under base and aggressive-innovation scenarios, estimates CRM demand, and assesses circularity and recycling as mitigation, including EU recycling capacity at December 2024.</span>
+      <span class="dat"><b>Data.</b> JRC foresight: qualitative supply-chain analysis plus quantitative demand and secondary-material scenarios to 2050.</span></li>
+    <li><a href="https://commission.europa.eu/topics/competitiveness/green-deal-industrial-plan/european-critical-raw-materials-act_en">European Critical Raw Materials Act</a><span class="src"> · European Commission</span>
+      <span class="desc">The CRMA's benchmark targets for EU mining/processing/recycling capacity.</span>
+      <span class="abs"><b>Summary.</b> By 2030 the EU should mine 10%, process 40% and recycle 25% of its annual strategic-raw-material needs, with no single third country supplying over 65% of any strategic material at any processing stage.</span>
+      <span class="dat"><b>Data.</b> EU regulation — policy benchmarks, not a dataset.</span></li>
+    <li><a href="https://www.nature.com/articles/s41467-024-51152-9">Climate impacts of critical mineral supply chain bottlenecks for electric vehicle deployment</a><span class="src"> · Nature Communications (2024)</span>
+      <span class="desc">Models how mineral-supply bottlenecks slow EV deployment and its climate benefit.</span>
+      <span class="abs"><b>Abstract.</b> Analyses how US tailpipe standards requiring 10.21 million EVs (2027–32) meet mineral limits: US-and-ally production supports only 5.09 million vehicles, and the shortfall forfeits ~59.5 Mt CO2e of lifecycle benefit. Battery-grade graphite and cobalt are the tightest constraints.</span>
+      <span class="dat"><b>Data.</b> Mineral-reserve and production-capacity modelling with lifecycle-emissions accounting.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344924006001">Self-sufficiency of the European Union in critical raw materials for E-mobility</a><span class="src"> · Resources, Conservation and Recycling (2025)</span>
+      <span class="desc">Quantifies the EU's import dependence for EV-relevant raw materials.</span>
+      <span class="abs"><b>Summary.</b> Quantifies EU self-sufficiency and import dependence for the critical raw materials behind e-mobility. <span class="miss">Abstract not retrievable (publisher bot-wall); entry from the title and journal verified via Crossref (10.1016/j.resconrec.2024.108009).</span></span>
+      <span class="dat"><b>Data.</b> Material-flow / self-sufficiency analysis — abstract not retrieved.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s42461-026-01492-5">Unconventional Critical Mineral Resources for Growing Electric Vehicle Industry: Sustainability SWOT Analysis</a><span class="src"> · Mining, Metallurgy &amp; Exploration / Springer (2026)</span>
+      <span class="desc">SWOT on alternative (non-traditional) mineral sources for EVs.</span>
+      <span class="abs"><b>Abstract.</b> Reviews unconventional EV-mineral sources — waste materials, industrial by-products and end-of-life batteries and magnets — through a SWOT across techno-economic, socio-political and environmental dimensions. Finds strong circular-economy opportunities but scalability, energy and regulatory hurdles; proposes a decision roadmap for sustainable supply.</span>
+      <span class="dat"><b>Data.</b> SWOT literature synthesis plus a decision-making roadmap framework.</span></li>
+    <li><a href="https://www.goldmansachs.com/insights/articles/resource-realism-the-geopolitics-of-critical-mineral-supply-chains">Resource realism: The geopolitics of critical mineral supply chains</a><span class="src"> · Goldman Sachs</span>
+      <span class="desc">Market / geopolitical framing of critical-mineral concentration risk.</span>
+      <span class="abs"><b>Summary.</b> Goldman Sachs framing of the geopolitics of critical-mineral supply chains ("resource realism"). <span class="miss">Page not retrievable (403, no public abstract); entry from the verified title and publisher.</span></span>
+      <span class="dat"><b>Data.</b> Investment-research commentary — not retrieved.</span></li>
+    <li><a href="https://www.rff.org/publications/issue-briefs/digging-deep-critical-mineral-supply-chains-electric-vehicles-and-the-role-of-technological-innovation/">Digging Deep: Critical Mineral Supply Chains, Electric Vehicles, and the Role of Technological Innovation</a><span class="src"> · Resources for the Future</span>
+      <span class="desc">Issue brief on innovation as a supply-risk mitigant.</span>
+      <span class="abs"><b>Summary.</b> RFF issue brief: technological innovation — material, process and system substitution plus recycling — can ease EV-mineral supply risk, but China's ~60–70%+ processing dominance means innovation needs policy support to scale a US midstream.</span>
+      <span class="dat"><b>Data.</b> RFF policy synthesis — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's own trade figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, to 2024) used for the chain's trade table (HS 870380, 850760).</span>
+      <span class="abs"><b>Summary.</b> BACI provides reconciled bilateral trade for ~200 countries across ~5,000 HS6 products (to 2024), derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No standalone <b>USGS commodity-data URL</b> for lithium, nickel, cobalt or graphite surfaced in this pass — only battery-report references. Next: search pubs.usgs.gov Mineral Commodity Summaries directly for each metal.</li>
+      <li>No <b>machine-readable data portal</b> (as opposed to report pages) was captured — try the IEA Critical Minerals Data Explorer and the USGS National Minerals Information Center commodity series.</li>
+      <li>Three ScienceDirect abstracts (rare-earth-free motors, China magnet-export risk, EU self-sufficiency), the USITC PDF and the Goldman note sit behind <b>publisher bot-walls</b> — worth an institutional-access pass to pull their full text.</li>
+      <li>No <b>EV assembly-stage</b> LCA or geographic-concentration academic paper was found (as opposed to battery-mineral papers) — the assembly stage's diffuseness is the least evidenced part of the chain. Try "EV assembly manufacturing geographic concentration life cycle".</li>
+      <li>Nothing specific on <b>solid-state or sodium-ion</b> supply-chain diversification as a chokepoint mitigant — search "sodium-ion battery critical minerals supply chain diversification 2026".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from the battery it contains to final assembly and market, with cross-cutting frameworks and data grouped at the end. 37 unique sources (a duplicate CEPII BACI listing was merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (bot-walls / paywalls) that is flagged in italics, and paywalled titles were verified against Crossref. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="ev-chain.html">The EV chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
