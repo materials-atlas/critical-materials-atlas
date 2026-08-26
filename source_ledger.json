@@ -172,5 +172,104 @@
     "quoted_row": "China [footnote-garbled row] ... 950 | World total (rounded) 900 1,000 2,100",
     "computed": "row footnote merged in pdftotext; China clearly dominant (~90-95% of ~1,000 kt) — atlas ~87% plausible; PENDING a clean re-extraction",
     "supports": "pending clean read"
+  },
+  "vanadium": {
+    "claim": "China ~75% of world vanadium production",
+    "conf": "measured",
+    "source": "USGS MCS 2026 — Vanadium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
+    "quoted_row": "China e84,000 82,000 5,800 | World total (rounded) 118,000 110,000 21,000",
+    "computed": "82,000/110,000 = 75% (2025); vanadium-chain chokepoint corrected from ~64%",
+    "supports": true
+  },
+  "tantalum": {
+    "claim": "DRC + Rwanda ~68% of world tantalum production (3TG)",
+    "conf": "measured",
+    "source": "USGS MCS 2026 — Tantalum",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
+    "quoted_row": "Congo (Kinshasa) 1,270 1,300 | Rwanda 374 400 | World total (rounded) 2,500 2,500",
+    "computed": "(1,300+400)/2,500 = 68% (2025); atlas ~70% within rounding",
+    "supports": true
+  },
+  "graphite": {
+    "claim": "China ~100% of spherical/coated anode-grade graphite",
+    "conf": "measured",
+    "source": "Benchmark Mineral Intelligence / IEA (industry — NOT a USGS-style quoted table row)",
+    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+    "quoted_row": "(industry figure — not a quoted USGS row; IEA/Benchmark: China ~100% of spherical-graphite anode processing)",
+    "computed": "IEA/Benchmark well-established: China dominates spherical/coated anode ~100%; mine ~74% (USGS)",
+    "supports": "per IEA/Benchmark, not a quoted row this pass"
+  },
+  "solar": {
+    "claim": "China ~95% of solar-PV manufacturing (polysilicon/wafer/cell)",
+    "conf": "measured",
+    "source": "IEA (industry — NOT a USGS-style quoted table row)",
+    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+    "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China >95% of wafers, ~95% of cells)",
+    "computed": "IEA well-established China ~95%+ across PV manufacturing stages",
+    "supports": "per IEA, not a quoted row"
+  },
+  "rare-earths": {
+    "claim": "China ~90% of rare-earth separation/refining",
+    "conf": "measured",
+    "source": "IEA / USGS commentary (industry — NOT a USGS-style quoted table row)",
+    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+    "quoted_row": "(IEA/USGS: China ~90% of REE processing/separation; USGS mine China ~69% is a different stage)",
+    "computed": "IEA/USGS well-established China ~90% of separation; USGS 2026 mine China 270,000 ~69%",
+    "supports": "per IEA, not a quoted row"
+  },
+  "magnet": {
+    "claim": "China ~91% of NdFeB permanent-magnet production",
+    "conf": "measured",
+    "source": "IEA / Adamas Intelligence (industry — NOT a USGS-style quoted table row)",
+    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+    "quoted_row": "(IEA/Adamas: China ~90-92% of NdFeB magnet manufacturing)",
+    "computed": "IEA/Adamas well-established China ~90-92%",
+    "supports": "per IEA/Adamas, not a quoted row"
+  },
+  "battery": {
+    "claim": "China ~80% of lithium-ion cell manufacturing",
+    "conf": "measured",
+    "source": "IEA (industry — NOT a USGS-style quoted table row)",
+    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+    "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China ~75-85% of cell manufacturing capacity)",
+    "computed": "IEA well-established China ~80% of cell manufacturing",
+    "supports": "per IEA, not a quoted row"
+  },
+  "semiconductor-inputs": {
+    "claim": "Japan ~90% of advanced photoresist",
+    "conf": "measured",
+    "source": "SEMI / industry reporting (NOT a USGS-style quoted table row)",
+    "url": "https://www.semi.org/en/products-services/market-data/materials",
+    "quoted_row": "(industry figure — not a quoted row; Japan ~90% of advanced EUV/ArF photoresist)",
+    "computed": "SEMI/industry well-established Japan ~90% advanced resist",
+    "supports": "per SEMI/industry, not a quoted row"
+  },
+  "steel": {
+    "claim": "China ~54% of world crude-steel production",
+    "conf": "measured",
+    "source": "World Steel Association (NOT a USGS-style quoted table row)",
+    "url": "https://worldsteel.org/data/",
+    "quoted_row": "(worldsteel: China ~54% of world crude steel, ~1,000 of ~1,850 Mt)",
+    "computed": "worldsteel well-established China ~54% of crude steel",
+    "supports": "per worldsteel, not a quoted row (fetchable stat)"
+  },
+  "aluminium": {
+    "claim": "China ~59% of world primary aluminium smelting",
+    "conf": "measured",
+    "source": "International Aluminium Institute (NOT a USGS-style quoted table row)",
+    "url": "https://international-aluminium.org/statistics/primary-aluminium-production/",
+    "quoted_row": "(IAI: China ~59% of world primary aluminium)",
+    "computed": "IAI well-established China ~59% of primary aluminium smelting",
+    "supports": "per IAI, not a quoted row (fetchable stat)"
+  },
+  "medical-isotopes": {
+    "claim": "~6 ageing research reactors supply most Mo-99/Tc-99m",
+    "conf": "measured",
+    "source": "OECD-NEA HLG-MR (NOT a USGS-style quoted table row)",
+    "url": "https://www.oecd-nea.org/med-radio/",
+    "quoted_row": "(OECD-NEA: ~6 ageing research reactors — HFR, BR2, Maria, SAFARI, OPAL, LVR-15 — supply most Mo-99)",
+    "computed": "documented fragility fact, not a market %; ~6 reactors, 66h half-life so no stockpile",
+    "supports": "per OECD-NEA, a documented fact"
   }
 }

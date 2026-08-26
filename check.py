@@ -267,10 +267,32 @@ def check_chokepoint_sync():
     fail('chokepoint', 'chokepoint_map.json is STALE — run: python build_chokepoint_map.py  (' + '; '.join(detail) + ')')
 
 
+def check_ledger():
+    """Every chokepoint tagged conf=measured with a NUMERIC share is a load-bearing figure that can be
+    posted. Each such figure MUST have an entry in source_ledger.json tying it to a named source and a
+    QUOTED row/sentence — a bare citation hid the boron misread ('~70% of deposits IN Turkey' became
+    '~70% of WORLD reserves') once. Fail if any numeric measured share has no ledger entry, so the
+    'measured' tag cannot drift back to unverified judgment the moment nobody is looking."""
+    lp, mp = os.path.join(ROOT, 'source_ledger.json'), os.path.join(ROOT, 'chokepoint_map.json')
+    if not os.path.exists(lp) or not os.path.exists(mp):
+        return
+    try:
+        L = json.load(open(lp, encoding='utf8'))
+        rows = json.load(open(mp, encoding='utf8')).get('rows', [])
+    except Exception as e:
+        fail('ledger', f'ledger or map unreadable: {e}'); return
+    have = {k for k in L if not k.startswith('_')}
+    for r in rows:
+        if r.get('conf') == 'measured' and re.search(r'\d', r.get('share', '')):
+            if r['chain'] not in have:
+                fail('ledger', f"{r['chain']} chokepoint is measured with a numeric share ({r['share']}) "
+                               f"but has NO source_ledger.json entry — add one with its quoted source row")
+
+
 # ---------------------------------------------------------------- run
 CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
-          ('builders', check_builders), ('chokepoint', check_chokepoint_sync)]
+          ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

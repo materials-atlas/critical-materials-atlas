@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Vanadium chain",
-    "chokepoint": {"product": "Steel + storage", "stage": "Recovery", "mechanism": "byproduct", "physics": "Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel", "holder": "China", "share": "~64%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Steel + storage", "stage": "Recovery", "mechanism": "byproduct", "physics": "Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel", "holder": "China", "share": "~75%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}],
     "accent": "#5a5a7a",
@@ -35,13 +35,13 @@ CHAIN = {
             "often as a by-product of its own steel industry.",
     "byline": "magnetite / steel slag ≠ ferro-vanadium (steel) or vanadium electrolyte (flow battery) ≠ rebar or grid storage",
     "correction": "Vanadium is a dual-purpose metal whose map flipped. Historically South Africa led; today China mines "
-                  "~64% (up from ~37% in 2000), largely recovering vanadium as a by-product of processing its "
+                  "~75% (up from ~37% in 2000), largely recovering vanadium as a by-product of processing its "
                   "vanadium-bearing iron ore and steel slag, while South Africa's share fell to ~13%. Its dominant use "
                   "is micro-alloying steel — a tiny dose for a big strength gain — and its emerging use is "
                   "vanadium-redox-flow batteries for long-duration storage, a technology China is also building out.",
     "stats": [
         {"v": "~90%", "l": "of vanadium micro-alloys steel — rebar, pipeline and tool strength", "conf": "measured"},
-        {"v": "37 → 64%", "l": "China's mine share rose as South Africa's fell", "conf": "measured"},
+        {"v": "37 → 75%", "l": "China's mine share rose as South Africa's fell", "conf": "measured"},
         {"v": "flow batteries", "l": "vanadium-redox-flow — long-duration grid storage that doesn't degrade", "conf": "estimate"},
         {"v": "by-product", "l": "mostly recovered from vanadium-bearing iron ore and steel slag", "conf": "measured"},
     ],
@@ -49,7 +49,7 @@ CHAIN = {
         "title": "The map flipped to China, 2000 → 2024",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. South Africa led in 2000 (~55%) but fell to "
-                "~13%, while China rose from ~37% to ~64%, recovering vanadium as a by-product of its vast steel "
+                "~13%, while China rose from ~37% to ~75%, recovering vanadium as a by-product of its vast steel "
                 "industry, with Russia third. As with several battery-adjacent metals, the concentration built up in "
                 "China — here tied to its dominance in steel itself.",
         "series": [
@@ -80,8 +80,8 @@ CHAIN = {
              "flag": "vanadium rides on steel"},
         ]},
         {"h2": "2 · The map flipped to China", "panels": [
-            {"kind": "big", "h3": "South Africa out, China in", "big": "37 → 64%", "conf": "measured",
-             "text": "In 2000 South Africa mined most of the world's vanadium; by 2024 China did, having risen to ~64% "
+            {"kind": "big", "h3": "South Africa out, China in", "big": "37 → 75%", "conf": "measured",
+             "text": "In 2000 South Africa mined most of the world's vanadium; by 2024 China did, having risen to ~75% "
                      "as South African output fell to ~13% amid power and cost pressures. Russia is a distant third. It "
                      "is the same story as several battery-adjacent metals — a concentration that built over two "
                      "decades — here anchored in China's steel dominance rather than a unique deposit.",
@@ -107,7 +107,7 @@ CHAIN = {
                    "niobium/tantalum/vanadium line and is not separable. Read the shares below as the traded alloy and "
                    "oxide — where China's processing role shows — not the by-product mine map.",
     "method": [
-        {"stage": "Source", "lens": "USGS/BGS mine share + history", "why": "China ~64%, by-product of its steel industry"},
+        {"stage": "Source", "lens": "USGS/BGS mine share + history", "why": "China ~75%, by-product of its steel industry"},
         {"stage": "Convert", "lens": "ferro-vanadium vs electrolyte", "why": "the split between steel and storage use"},
         {"stage": "Use", "lens": "steel alloying vs flow batteries", "why": "~90% steel today; storage the emerging upside"},
         {"stage": "Trade", "lens": "BACI 720292 ferro-V + 282530 oxide", "why": "alloy/oxide show processing, not the mine — flagged"},
