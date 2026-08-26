@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Fibre-optics / telecom chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the fibre-optics / telecom value chain, ordered to follow the chain from germanium dopant to preform to drawn fibre to submarine cable. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./fibre-optics-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Fibre-optics</div>
+    <h1>Fibre-optics / telecom chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Almost all intercontinental data crosses the ocean on optical fibre — ultra-pure silica doped with a trace of germanium, drawn from giant preforms by a handful of firms, then laid as submarine cable by just four companies. <b>There are chokepoints at both ends — the germanium dopant upstream, the cable-makers downstream — and the preform capability sits in between.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Germanium (the dopant, a trace element) → ② the preform &amp; drawn-fibre stage (the capability chokepoint, US / Japan) → ③ submarine-cable systems (a four-firm oligopoly) — then the cross-cutting export-control frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./fibre-optics-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">22</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (6) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (12).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Germanium — the dopant chokepoint (upstream)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Germanium</td><td class="took">China ~60% of refining + fibre optics as the top US germanium end use + the Dec-2024 US export ban → the ~60% / export-controlled stat and the "dopant chokepoint is upstream" framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS OFR 2024-1057 (Ga/Ge GDP model)</td><td class="took">Economic-model method (GDP loss from a germanium cutoff, ~$0.4B alone) → a quantified "what a cutoff costs" panel for the germanium node — next enrichment.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>USITC — Germanium and Gallium briefing</td><td class="took">US trade-exposure method → a reproducible germanium import-dependency read. <span class="miss">Page blocked (WAF/403) — noted from the briefing's title and series.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Preform &amp; drawn fibre — the capability chokepoint</td></tr>
+      <tr><td class="n">4</td><td>RP Photonics — Fiber Preforms</td><td class="took">The preform-fabrication methods (MCVD / OVD / VAD) that define the capability chokepoint — the technical basis for "the hard capability is the preform."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>IEEE Milestone — VAD process</td><td class="took">Provenance of the VAD process (NTT + three Japanese firms, 1977–83) now used for much telecom fibre — the Japan preform-capability heritage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Sumitomo Electric — VAD milestone</td><td class="took">Manufacturer confirmation of the VAD milestone and Japan's preform-capability heritage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>Corning — OVD process</td><td class="took">Manufacturer account of the OVD preform route — context for Corning's stage lead. <span class="miss">Page blocked (Corning WAF shell).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>Corning — Vapor Deposition (Science of Glass)</td><td class="took">Laydown/consolidation explainer — context for "giant glass blanks." <span class="miss">Page blocked (Corning WAF shell).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>Corning — Hemlock preform-capacity expansion</td><td class="took">Preform-capacity investment as evidence of how few firms hold this stage → the "capability, not tonnage" finding. <span class="miss">News landing blocked (WAF).</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Submarine-cable systems — the four-firm oligopoly (downstream)</td></tr>
+      <tr><td class="n">10</td><td>CSIS — Safeguarding Subsea Cables</td><td class="took">~98% of cables built by four firms (SubCom+ASN+NEC 87%, HMN 11%, 2021) + &gt;95% of data on subsea fibre → the four-firm-oligopoly panel and the ~99% stat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>Carnegie — Europe's subsea cables</td><td class="took">2020–24 supplier shares (ASN 34 / SubCom 19 / HMN 10) + repair-capacity gap → the "most geopolitically contested stage" framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>Mordor Intelligence — submarine cabling market</td><td class="took">Four wet-plant integrators (SubCom / ASN / HMN / NEC) + market size → the "4 firms / &gt;60% wet-plant revenue" stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>MarketsandMarkets — subsea cable market</td><td class="took">Corroborating market sizing + supplier list — a cross-check on the oligopoly.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>Fortune Business Insights — subsea cable</td><td class="took">Named competitive landscape (SubCom / ASN / NEC / Prysmian / Nexans) → a candidate named-supplier share table — next enrichment.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>Grand View Research — submarine cables</td><td class="took">Supplier-landscape cross-check. <span class="miss">Page blocked (Cloudflare challenge).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — export-control &amp; minerals frameworks</td></tr>
+      <tr><td class="n">16</td><td>Introl — Germanium chokepoint</td><td class="took">AI-fibre demand framing (a GPU rack uses ~36× the fibre of a CPU rack) + price series → context for why the germanium node matters now.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>FTI Consulting — China export controls</td><td class="took">Export-control timeline (Aug-2023 Ga/Ge licensing) → provenance for the germanium control date.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Z2Data — 5 critical minerals</td><td class="took">Cross-check on germanium's ~60% share + 100% US import reliance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>CIRS Group — China eases controls</td><td class="took">The Nov-2025 → Nov-2026 suspension (military-end-use ban kept) → keeps the germanium-control status current.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Invest In Germanium — controls explained</td><td class="took">Product-level detail (GeO₂ / GeCl₄ = the fibre-optic precursors licensed) → sharpens exactly how the control hits the fibre chain — next enrichment.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>Rare Earth Exchanges — tiny metals</td><td class="took">Refining-concentration argument → context for "by-product, refining chokepoint."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">22</td><td>CEPII BACI</td><td class="took">The data engine → the reproduced <b>optical-fibre &amp; cable trade table</b>.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Germanium — the dopant chokepoint <span class="ct">3</span></h2>
+  <div class="stagesub">A trace element that carries the light: fibre optics is one of germanium's largest single uses — and germanium is China-dominated and export-controlled.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf">USGS Mineral Commodity Summaries 2025 — Germanium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual world production/reserves/uses data for germanium; China's refining lead and germanium's use as the fibre dopant.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: fibre optics is germanium's largest US end use — germanium dioxide and tetrachloride are consumed in fibre-optic glass. US net import reliance exceeds 50%; China leads world refinery production, imposed export licensing in August 2023, and in December 2024 banned all germanium exports to the United States. Prices roughly doubled in 2024.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export trade and Argus Media price data.</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/ofr20241057/full">Quantifying potential effects of China's gallium and germanium export restrictions on the U.S. economy</a><span class="src"> · USGS Open-File Report 2024-1057</span>
+      <span class="desc">Economic modelling of the 2023 germanium/gallium export-licensing shock on US GDP.</span>
+      <span class="abs"><b>Abstract.</b> USGS Open-File Report presenting a new model of mineral supply-disruption effects on US GDP. Using post-disruption equilibrium prices, a nonlinear-optimization routine and economic input–output tables, it estimates that a complete Chinese cutoff of gallium and germanium net exports could cut US GDP by $3.1 billion and $0.4 billion separately, or $3.4 billion simultaneously.</span>
+      <span class="dat"><b>Data.</b> Nonlinear-optimization model over economic input–output tables; USGS production and trade data on gallium and germanium.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/executive_briefings/ebot_germanium_and_gallium.pdf">Germanium and Gallium: U.S. Trade and Chinese Export Controls</a><span class="src"> · U.S. International Trade Commission</span>
+      <span class="desc">Executive briefing on US trade exposure to China's germanium/gallium export controls.</span>
+      <span class="abs"><b>Summary.</b> US ITC executive briefing on US trade exposure to China's germanium and gallium export controls and the affected end uses, including fibre optics. <span class="miss">(PDF blocked this pass — the server returned a WAF/403 shell rather than the document; noted from the briefing's title and series.)</span></span>
+      <span class="dat"><b>Data.</b> US ITC trade-data briefing built on official germanium/gallium import statistics — no primary dataset beyond reported trade.</span></li>
+  </ul>
+
+  <h2 class="sec">② Preform &amp; drawn fibre — the capability chokepoint <span class="ct">6</span></h2>
+  <div class="stagesub">The chain's hard capability: metre-scale germanium-doped silica blanks drawn to hair-thin fibre — a process held by a handful of firms in the US and Japan.</div>
+  <ul class="refs">
+    <li><a href="https://www.rp-photonics.com/fiber_preforms.html">Fiber Preforms — fabrication, MCVD/OVD/VAD methods</a><span class="src"> · RP Photonics Encyclopedia</span>
+      <span class="desc">Technical reference (not peer-reviewed) on the preform-fabrication methods that define this chain's capability chokepoint.</span>
+      <span class="abs"><b>Summary.</b> RP Photonics Encyclopedia technical reference: silica fibre preforms are metre-scale germanium-doped glass rods made by vapour-deposition methods (MCVD, OVD, VAD), then drawn in a tower into hair-thin fibre that preserves the preform's refractive-index profile — the germanium doping raising the core's index.</span>
+      <span class="dat"><b>Data.</b> Technical encyclopedia reference describing preform-fabrication methods — no dataset.</span></li>
+    <li><a href="https://ethw.org/Milestones:Vapor-phase_Axial_Deposition_Method_for_Mass_Production_of_High-quality_Optical_Fiber,_1977-1983">IEEE Milestone: Vapor-phase Axial Deposition Method for Mass Production of High-quality Optical Fiber, 1977–1983</a><span class="src"> · Engineering &amp; Technology History Wiki / IEEE</span>
+      <span class="desc">History of the VAD process (NTT + Sumitomo / Furukawa / Fujikura) now used for much telecom fibre.</span>
+      <span class="abs"><b>Summary.</b> IEEE Milestone (dedicated 2015): in 1977 NTT's Dr. Tatsuo Izawa invented the vapor-phase axial deposition (VAD) method; NTT, Furukawa Electric, Sumitomo Electric and Fujikura developed it from 1975–1983 into a mass-production process that accelerated optical-fibre network construction worldwide.</span>
+      <span class="dat"><b>Data.</b> IEEE Milestone citation / historical record — no dataset.</span></li>
+    <li><a href="https://global-sei.com/company/press/2015/06/prs038.html">The VAD Method is Recognized as an IEEE Milestone</a><span class="src"> · Sumitomo Electric (2015)</span>
+      <span class="desc">Manufacturer's account of the VAD fibre-fabrication method it helped develop.</span>
+      <span class="abs"><b>Summary.</b> Sumitomo Electric press release (June 2015): NTT, Furukawa, Sumitomo and Fujikura received an IEEE Milestone for the VAD optical-fibre mass-production method, which their 1975 joint R&amp;D team developed and which accelerated global construction of optical-communication networks.</span>
+      <span class="dat"><b>Data.</b> Manufacturer press release — no dataset.</span></li>
+    <li><a href="https://www.corning.com/optical-communications/worldwide/en/home/products/fiber/manufacturing-excellence.html">Optical Fiber Manufacturing Excellence — Outside Vapor Deposition (OVD)</a><span class="src"> · Corning</span>
+      <span class="desc">Manufacturer's own account of the OVD preform process.</span>
+      <span class="abs"><b>Summary.</b> Corning's own account of its Outside Vapor Deposition (OVD) process for making optical-fibre preforms — context for how few firms hold the low-loss preform stage. <span class="miss">(Live page blocked — Corning served a WAF shell rather than the content; described from the page's stated subject.)</span></span>
+      <span class="dat"><b>Data.</b> Manufacturer process description — no dataset.</span></li>
+    <li><a href="https://www.corning.com/worldwide/en/innovation/the-glass-age/science-of-glass/how-it-works-vapor-deposition.html">Vapor Deposition Process — Science of Glass</a><span class="src"> · Corning</span>
+      <span class="desc">Explainer on preform "laydown" and consolidation before drawing.</span>
+      <span class="abs"><b>Summary.</b> Corning explainer on the vapor-deposition preform process — soot "laydown" and consolidation of a germanium-doped silica blank before it is drawn into fibre. <span class="miss">(Live page blocked — Corning served a WAF shell; described from the page's stated subject.)</span></span>
+      <span class="dat"><b>Data.</b> Manufacturer explainer — no dataset.</span></li>
+    <li><a href="https://www.corning.com/worldwide/en/about-us/news-events.html">Corning, Hemlock (Michigan) preform-capacity expansion announcement</a><span class="src"> · Corning (2024)</span>
+      <span class="desc">Corning's own preform-capacity investment as evidence of stage concentration.</span>
+      <span class="abs"><b>Summary.</b> Corning news announcing preform-capacity investment (Hemlock, Michigan) — evidence of how few firms hold the preform stage, the basis for the chain's "capability, not tonnage" finding. <span class="miss">(News-index landing not directly retrievable — served a WAF shell; noted from the announcement's subject.)</span></span>
+      <span class="dat"><b>Data.</b> Company announcement — no dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Submarine-cable systems — the four-firm oligopoly <span class="ct">6</span></h2>
+  <div class="stagesub">The physical internet: cable and repeaters laid by only four firms across the US, France, Japan and China — the most geopolitically contested stage.</div>
+  <ul class="refs">
+    <li><a href="https://csis-website-prod.s3.amazonaws.com/s3fs-public/2024-08/240816_Runde_Subsea_Cables.pdf">Safeguarding Subsea Cables: Protecting Cyber Infrastructure amid Great Power Competition</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">Security analysis of submarine-cable vulnerability and policy response.</span>
+      <span class="abs"><b>Abstract.</b> CSIS report (Runde, Murphy &amp; Bryja, Aug 2024): subsea fibre-optic cables carry over 95% of international data, yet ~98% are built and installed by four firms — SubCom, ASN and NEC held an 87% share in 2021, with China's HMN Tech at 11% — making the roughly 600-cable network a theatre of great-power competition.</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing FCC, TeleGeography and industry figures on cable counts, length and supplier market shares.</span></li>
+    <li><a href="https://carnegieendowment.org/research/2024/12/securing-europes-subsea-data-cables">Securing Europe's Subsea Data Cables</a><span class="src"> · Carnegie Endowment (2024)</span>
+      <span class="desc">Europe-focused subsea-cable security and resilience analysis.</span>
+      <span class="abs"><b>Abstract.</b> Carnegie Endowment analysis (Dec 2024) of European subsea-cable security. From 2020–2024 France's ASN led supply at ~34%, SubCom 19% and China's HMN 10% (falling to 4% of planned systems); only five firms operate seven-plus cable ships. It warns Europe's repair capacity is limited and recommends naval patrols and supply-chain security.</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing supplier market-share and cable-ship-fleet data and recent cable-cutting incidents.</span></li>
+    <li><a href="https://www.mordorintelligence.com/industry-reports/submarine-cabling-systems-market">Submarine Cabling Systems Market</a><span class="src"> · Mordor Intelligence (2024)</span>
+      <span class="desc">Market-share data for the wet-plant / cable-laying industry.</span>
+      <span class="abs"><b>Summary.</b> Mordor market report: the submarine-cable-systems market (~$14.9bn in 2025, ~10% CAGR) has wet-plant system integration concentrated among four integrators — SubCom, ASN, HMN Technologies and NEC — the basis for the chain's four-firm oligopoly.</span>
+      <span class="dat"><b>Data.</b> Proprietary Mordor Intelligence market modelling — supplier shares approximate; no public primary dataset.</span></li>
+    <li><a href="https://www.marketsandmarkets.com/Market-Reports/submarine-cable-system-market-184625.html">Submarine Cable Systems Market Report 2025–2030</a><span class="src"> · MarketsandMarkets</span>
+      <span class="desc">Market-research sizing/forecast for the subsea cable industry.</span>
+      <span class="abs"><b>Summary.</b> MarketsandMarkets sizing: the submarine-cable-systems market grows from $19.95bn (2025) to $33.75bn (2030) at 11.1% CAGR, driven by offshore wind and data-centre demand; names Prysmian, Nexans, Sumitomo, ASN and SubCom among suppliers.</span>
+      <span class="dat"><b>Data.</b> Proprietary market-research modelling — no public primary dataset.</span></li>
+    <li><a href="https://www.fortunebusinessinsights.com/submarine-cable-system-market-102670">Submarine Cable System Market</a><span class="src"> · Fortune Business Insights</span>
+      <span class="desc">Market sizing with named-supplier competitive landscape (ASN, SubCom, NEC, Prysmian, Nexans).</span>
+      <span class="abs"><b>Summary.</b> Fortune Business Insights sizing: the submarine-cable market grows from $24.5bn (2025) to $55.3bn (2034) at 9.84% CAGR; it names five dominant suppliers — SubCom, ASN, NEC, Prysmian and Nexans — a named competitive landscape.</span>
+      <span class="dat"><b>Data.</b> Proprietary market-research modelling with a named-supplier landscape — no public primary dataset.</span></li>
+    <li><a href="https://www.grandviewresearch.com/industry-analysis/submarine-cables-market">Submarine Cables Market</a><span class="src"> · Grand View Research</span>
+      <span class="desc">Market-share analysis of the submarine-cable supplier landscape.</span>
+      <span class="abs"><b>Summary.</b> Grand View Research market-share analysis of the submarine-cable supplier landscape. <span class="miss">(Live page blocked behind a Cloudflare "Just a moment" challenge — not retrievable this pass; noted from the report's stated scope.)</span></span>
+      <span class="dat"><b>Data.</b> Proprietary market-research modelling — no public primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — export-control &amp; minerals frameworks <span class="ct">6</span></h2>
+  <div class="stagesub">The analysis and regulatory tracking that frame germanium as a China-controlled chokepoint — provenance and status for the upstream node.</div>
+  <ul class="refs">
+    <li><a href="https://introl.com/blog/germanium-chokepoint-china-fiber-optic-supply-chain-2026">Germanium Chokepoint: China's Grip on AI Fiber</a><span class="src"> · Introl (2026)</span>
+      <span class="desc">Recent framing of germanium as a fibre / AI-infrastructure chokepoint.</span>
+      <span class="abs"><b>Summary.</b> Introl analysis framing germanium as an AI-infrastructure chokepoint: China controls ~60% of production and licenses exports; prices tripled to ~$8,600/kg by 2026 while a single GPU rack consumes ~36× the fibre-optic cable of a traditional CPU rack.</span>
+      <span class="dat"><b>Data.</b> Vendor commentary citing USGS shares, the Chinese export-control timeline and a germanium price series.</span></li>
+    <li><a href="https://www.fticonsulting.com/insights/articles/chinas-export-controls-critical-minerals-gallium-germanium-graphite">China's Export Controls on Critical Minerals</a><span class="src"> · FTI Consulting</span>
+      <span class="desc">Overview of the gallium / germanium / graphite export-control regime.</span>
+      <span class="abs"><b>Summary.</b> FTI Consulting overview of China's critical-mineral export controls: MOFCOM licensing on gallium and germanium (1 Aug 2023) and graphite (1 Dec 2023); exports briefly halted in August before resuming for licensed producers, with graphite judged the larger near-term risk.</span>
+      <span class="dat"><b>Data.</b> Advisory commentary on the export-control regime — no primary dataset.</span></li>
+    <li><a href="https://www.z2data.com/insights/5-critical-minerals-vulnerable-due-to-chinas-production-control">5 Critical Minerals Vulnerable Due to China's Production Control</a><span class="src"> · Z2Data</span>
+      <span class="desc">Supply-chain-risk vendor's take on China-controlled minerals including germanium.</span>
+      <span class="abs"><b>Summary.</b> Z2Data supply-risk brief on five China-controlled minerals (gallium, germanium, graphite, antimony, rare earths); on germanium it cites ~60% of world production and 100% US import reliance, with USGS warning that controls could disrupt advanced-optics and telecom infrastructure.</span>
+      <span class="dat"><b>Data.</b> Supply-chain-risk vendor synthesis citing USGS production and import-reliance figures.</span></li>
+    <li><a href="https://www.cirs-group.com/en/chemicals/us-export-controls-eased-restrictions-on-gallium-germanium-ultra-hard-materials-graphite-and-others-relaxed">China Eases U.S. Export Controls on Gallium, Germanium, Ultra-Hard Materials, Graphite</a><span class="src"> · CIRS Group</span>
+      <span class="desc">Regulatory-tracking update on the germanium licensing regime's evolution.</span>
+      <span class="abs"><b>Summary.</b> CIRS regulatory update: on 9 Nov 2025 MOFCOM suspended, through 27 Nov 2026, the export bans imposed on 3 Dec 2024 on gallium, germanium, antimony, graphite and ultra-hard materials to the US — but the prohibition on exports for US military end-uses stays in full effect.</span>
+      <span class="dat"><b>Data.</b> Regulatory-tracking summary of MOFCOM notices — no dataset.</span></li>
+    <li><a href="https://investingermanium.com/geopolitics/china-export-controls-explained/">China Germanium Export Controls Explained: Licensing Rules and Affected Products</a><span class="src"> · Invest In Germanium</span>
+      <span class="desc">Detail on which germanium products / end uses (incl. fibre) are licensed.</span>
+      <span class="abs"><b>Summary.</b> Explainer detailing which germanium products China licenses: germanium dioxide and tetrachloride — the fibre-optic preform precursors — plus metal and epitaxial substrates. MOFCOM review runs ~45 working days, stretching supply lead times from 4–6 to 9–10 weeks.</span>
+      <span class="dat"><b>Data.</b> Regulatory explainer of the germanium licensing regime by product / end use — no dataset.</span></li>
+    <li><a href="https://rareearthexchanges.com/news/tiny-metals-massive-leverage-how-chinas-grip-on-gallium-and-germanium-is-quietly-rewiring-global-power/">Tiny Metals, Massive Leverage: How China's Grip on Gallium and Germanium Is Quietly Rewiring Global Power</a><span class="src"> · Rare Earth Exchanges</span>
+      <span class="desc">Geopolitical framing of the gallium / germanium leverage story.</span>
+      <span class="abs"><b>Summary.</b> Rare Earth Exchanges argues gallium's and germanium's leverage comes from refining concentration, not scarcity: China holds ~99% of primary gallium and ~68% of germanium refining (2021), enabling export-control chokeholds over defence and optics applications.</span>
+      <span class="dat"><b>Data.</b> Commentary citing USGS and Nordic geological-survey refining-share figures.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's own optical-fibre and cable trade table is built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's optical-fibre / cable trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products (1995–2024), derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies — the source for the chain's optical-fibre and cable trade table.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>submarine-cable-route database</b> was reached this pass. TeleGeography is the standard citable source for "% of intercontinental data on subsea fibre" and for a cable-count / route database — run "TeleGeography submarine cable map / internet-traffic share" first next time to harden the ~99% stat.</li>
+      <li>No <b>peer-reviewed</b> (Resources Policy / J. Cleaner Production / MDPI) article on germanium criticality or optical-fibre supply-chain resilience surfaced — search "germanium criticality assessment peer review" and "optical fibre supply chain resilience journal" directly on ScienceDirect/MDPI.</li>
+      <li>No <b>EU JRC or IEA</b> report specific to germanium or to telecom / subsea infrastructure was found (only USGS/USITC) — search "JRC germanium critical raw material factsheet" and "IEA digital infrastructure critical minerals."</li>
+      <li>No <b>standards-body</b> source (ITU-T G.65x, IEC TC86 on fibre optics) was reached — worth a pass for the technical-standards layer behind the preform / fibre grades.</li>
+      <li>The <b>HMN Tech</b> capacity build-out is covered only through market-report mentions; a dedicated CSIS or Reuters profile of China's submarine-cable-building capacity would sharpen the "China at both ends" finding.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from germanium dopant to submarine cable, with cross-cutting export-control frameworks and trade data grouped at the end. 22 unique sources (two exact duplicates in the source list — a second BACI listing and a second USGS germanium listing — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (WAF / Cloudflare challenges) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./fibre-optics-chain.html">The fibre-optics chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
