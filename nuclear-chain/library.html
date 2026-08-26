@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Nuclear fuel chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the nuclear fuel value chain, ordered to follow the chain from uranium mine to reactor. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="nuclear-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Nuclear</div>
+    <h1>Nuclear fuel chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A reactor turns uranium ore into yellowcake, then UF₆, then enriched fuel licensed to one machine — and the binding steps are industrial services, not the rock. Conversion sits at five plants, enrichment is led by Russia, and fabrication is locked to a reactor design. <b>The mine is the least fragile link of all.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Uranium mine &amp; resources (Kazakhstan, Canada — diversified) → ② Conversion (five plants worldwide) → ③ Enrichment (a service; Russia the largest) → ④ Fuel fabrication &amp; the reactor (licensed to one design) — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./nuclear-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">34</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (6) · <span class="pill ref">Reference</span> context / provenance (23).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Uranium mine &amp; resources — diversified and buffered</td></tr>
+      <tr><td class="n">1</td><td>OECD NEA/IAEA — Uranium 2024 (Red Book)</td><td class="took">Mine-share and resource baseline → the "~43% Kazakhstan, diversified and stockpile-buffered" framing and the mine-is-least-fragile finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>IAEA — Sufficient Uranium Resources Exist</td><td class="took">Red Book headline (7.9 Mt recoverable) → the "plenty of rock, investment is the constraint" read of the mine stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>IAEA — Analysis of Uranium Supply to 2050</td><td class="took">Long-range supply-scenario method → a check on "resources are adequate; new production centres are the lead-time risk."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>World Nuclear News — Invest now, Red Book says</td><td class="took">Trade-press Red Book digest (US$840M exploration 2023) → corroborates the investment-lead-time point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Kazatomprom 4Q25 update</td><td class="took">Primary producer data (25.8 ktU, sulphuric-acid constraint) → sources the Kazakhstan mine-share stat and the "buffered but not frictionless" note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>CNBC — largest producer running short</td><td class="took">Kazatomprom shortfall reporting → context for the mine-supply wobble behind the price spike.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>Crux Investor — Niger uranium</td><td class="took">Niger disruption (~6–7% of world supply) → the "diversified mine can still wobble" example on the mine panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>allAfrica — Orano halts Arlit</td><td class="took">Somaïr shutdown after the 2023 coup and export blockade → a concrete single-mine disruption case.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Conversion — turning yellowcake into UF₆</td></tr>
+      <tr><td class="n">9</td><td>USGS FS2025-3057 — Uranium supply-chain risk</td><td class="took">"Only five conversion plants worldwide" + Kazakhstan ~39% → the four-supplier conversion-oligopoly panel and the stage counts.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>World Nuclear Association — Fuel Cycle Overview</td><td class="took">Stage map (mining → conversion → enrichment → fabrication) → the chain's hop structure.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Enrichment — the chokepoint, Russia the largest</td></tr>
+      <tr><td class="n">11</td><td>US DOE — Uranium Enrichment Explained</td><td class="took">Enrichment-as-service + Russia ~44% → the "chokepoint is a service, not a rock" thesis and the LEU/HALEU definitions.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>OECD NEA — HALEU security of supply</td><td class="took">HALEU supply-security analysis → the HALEU sub-chokepoint panel ("a fuel almost only Russia makes").</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>WNA — Uranium Enrichment</td><td class="took">2022 SWU capacity shares (Rosatom 27.1M / Urenco 17.9M / CNNC 8.9M / Orano 7.5M) → the enrichment-concentration numbers behind "Russia the largest."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>WNA — HALEU</td><td class="took">HALEU definition + Tenex dominance → reinforces the sub-chokepoint framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>US DOE — HALEU Consortium</td><td class="took">Domestic HALEU build-out mechanism → the "West is rebuilding the service" narrative.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>US DOE — Russian uranium ban response</td><td class="took">$2.72B funding + first Piketon HALEU → the rebuild-the-service evidence.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>US NRC — Backgrounder on Uranium Import Ban</td><td class="took">Regulatory frame of the ban. <span class="miss">Page blocked (edge server) — not retrievable; scope from the title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>US State Dept — Prohibiting Russian uranium</td><td class="took">Policy rationale for the ban → context for the de-Russification push.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>Covington &amp; Burling — Russian uranium ban</td><td class="took">Ban mechanics (waivers to 2027, permanent 2028) → the timeline behind the Western rebuild.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>The Moscow Times — enriched uranium</td><td class="took">Continued Tenex imports under waiver (~$1B/yr) → why the ban bites only slowly.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>World Nuclear News — DOE HALEU providers</td><td class="took">Named awardees (Urenco / Orano / General Matter / Centrus) → the Western enrichment pipeline.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>ANS — Urenco +2.1M SWU (New Mexico)</td><td class="took">New Mexico +2.1M SWU (2032–2036) → quantifies the Western enrichment rebuild.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>Orano — HALEU program</td><td class="took">Oak Ridge HALEU by 2030 → another rebuild-the-service data point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>Centrus — Feb 2026 investor presentation</td><td class="took">Sole US-owned enricher SWU/HALEU figures. <span class="miss">Static-file deck timed out repeatedly — not retrievable; left open.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Fabrication &amp; the reactor</td></tr>
+      <tr><td class="n">25</td><td>IAEA PRIS — World nuclear generation trend</td><td class="took">Reactor-fleet and generation data → the demand denominator and the reactor-locked-fuel framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">26</td><td>National Academies — nuclear fuel cycles</td><td class="took">Fuel-cycle technology options + "US lacks HALEU capacity" → the fabrication/advanced-fuel constraint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — frameworks &amp; policy</td></tr>
+      <tr><td class="n">27</td><td>MDPI Commodities — Nuclear Fuel Revival</td><td class="took">SMR-driven demand review. <span class="miss">Abstract page blocked (server) — not retrievable; scope from title/journal listing.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>Springer — Uranium at the nexus</td><td class="took">Demand trajectory (~70 → 130–150 ktU by 2040) + front-end readiness → the demand-vs-capacity framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">29</td><td>J. Cleaner Production — EU CRM policy</td><td class="took">EU CRM context. <span class="miss">Publisher blocked retrieval (ScienceDirect 403) — not retrievable; scope from the title.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">30</td><td>EU JRC RMIS — Critical Raw Materials</td><td class="took">EU criticality platform (uranium not on the CRM list) → why this chain sits outside the official EU frame.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">31</td><td>CSIS — Fueling the Future (US uranium)</td><td class="took">Russia+China &gt;62% of enrichment → the policy case belongs in the decision/breakout layer, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">32</td><td>CSIS — Russia's civil nuclear exports</td><td class="took">Rosatom reactor exports (20 units, 7 countries) → the reactor-lock geopolitics behind fabrication.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">33</td><td>Oxford Energy — Rosatom</td><td class="took">Vertically integrated model (TENEX enrichment, TVEL VVER fuel) → the "one firm across the whole chain" evidence.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">34</td><td>CEPII BACI</td><td class="took">The data engine → the uranium ore/compound <b>trade extract</b> — flagged as ore movement only, since enrichment is a service.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Uranium mine &amp; resources <span class="ct">8</span></h2>
+  <div class="stagesub">Kazakhstan ~40%, then Canada, Namibia, Australia, Niger — widely spread and cushioned by multi-year stockpiles.</div>
+  <ul class="refs">
+    <li><a href="https://cms.oecd-nea.org/jcms/pl_103179/uranium-2024-resources-production-and-demand">Uranium 2024: Resources, Production and Demand</a><span class="src"> · OECD NEA &amp; IAEA (2025)</span>
+      <span class="desc">The biennial "Red Book" — the definitive global survey of uranium resources, production and demand.</span>
+      <span class="abs"><b>Abstract.</b> 30th edition of the NEA/IAEA "Red Book," the biennial global reference on uranium. Covering 2021–2022, it reports identified recoverable resources of 7,934,500 tonnes (as of 1 Jan 2023, at $40–260/kgU), a 4% production rise over 2020–2022, and installed-capacity and uranium-requirement projections to 2050.</span>
+      <span class="dat"><b>Data.</b> Official government submissions from 62 uranium-producing and consuming countries.</span></li>
+    <li><a href="https://www.iaea.org/newscenter/pressreleases/sufficient-uranium-resources-exist-however-investments-needed-to-sustain-high-nuclear-energy-growth">Sufficient Uranium Resources Exist, However Investments Needed…</a><span class="src"> · IAEA (2025)</span>
+      <span class="desc">Press release framing the 2024 Red Book's headline findings on resource adequacy.</span>
+      <span class="abs"><b>Summary.</b> IAEA press release on the 2024 Red Book: identified recoverable resources reach 7.9 million tonnes — sufficient for projected growth — but new exploration, improved processing and new production centres need investment, given long lead times and today's risk-averse markets.</span>
+      <span class="dat"><b>Data.</b> NEA/IAEA Red Book official government data (2021–2022).</span></li>
+    <li><a href="https://www-pub.iaea.org/MTCD/Publications/PDF/Pub1104_scr.pdf">Analysis of Uranium Supply to 2050</a><span class="src"> · IAEA</span>
+      <span class="desc">IAEA long-range supply-scenario modelling for uranium.</span>
+      <span class="abs"><b>Abstract.</b> IAEA study projecting alternative uranium-supply scenarios to 2050 from then-current knowledge of resources and production facilities, assuming state-of-the-art, lowest-cost production. Assesses cumulative supply against demand, projected production cost, secondary supply and sensitivity to key assumptions.</span>
+      <span class="dat"><b>Data.</b> IAEA supply-scenario modelling on a resource and production-facility inventory — no new field data.</span></li>
+    <li><a href="https://www.world-nuclear-news.org/articles/invest-now-to-secure-long-term-uranium-future-red-book-says">Invest now to secure long-term uranium future, Red Book says</a><span class="src"> · World Nuclear News (2025)</span>
+      <span class="desc">Trade-press summary of the 2024 Red Book's investment warning.</span>
+      <span class="abs"><b>Summary.</b> Reports the 2024 Red Book's warning that substantial investment in new mining projects is essential to meet demand to 2050; exploration and development spending rebounded to USD 840 million in 2023, but high-demand scenarios risk supply shortfalls without continued expansion.</span>
+      <span class="dat"><b>Data.</b> World Nuclear News reporting on NEA/IAEA Red Book figures.</span></li>
+    <li><a href="https://www.kazatomprom.kz/en/media/view/Kazatomprom%204Q25%20Operations%20and%20Trading%20Update">Kazatomprom 4Q25 Operations and Trading Update</a><span class="src"> · Kazatomprom (2026)</span>
+      <span class="desc">Primary production and trading data from the world's largest uranium miner.</span>
+      <span class="abs"><b>Summary.</b> Operations and trading update from the world's largest uranium miner: 2025 production 25,839 tU (100% basis), 2026 guidance 27,500–29,000 tU and group sales 18,495 tU — with output still "subject to sulphuric-acid availability," the very input constraint behind the 2024 shortfall.</span>
+      <span class="dat"><b>Data.</b> Kazatomprom 4Q25 Operations and Trading Update (Feb 2026) — primary company data.</span></li>
+    <li><a href="https://www.cnbc.com/2024/01/25/worlds-largest-uranium-producer-is-running-short.html">Uranium prices could rally past 16-year highs as the world's largest producer runs short</a><span class="src"> · CNBC (2024)</span>
+      <span class="desc">Market reporting on Kazatomprom's 2024 supply shortfall.</span>
+      <span class="abs"><b>Summary.</b> Market report that the world's largest yellowcake producer faced production issues over the following two years, as Kazatomprom's sulphuric-acid shortage constrained output and uranium spot prices pushed toward multi-year highs.</span>
+      <span class="dat"><b>Data.</b> CNBC market reporting citing Kazatomprom guidance and analyst commentary.</span></li>
+    <li><a href="https://www.cruxinvestor.com/posts/nigers-contested-uranium-sales-intensifies-procurement-risk-for-12-000-tonne-european-nuclear-demand">Niger's Contested Uranium Sales Intensifies Procurement Risk…</a><span class="src"> · Crux Investor</span>
+      <span class="desc">Market analysis of the Niger coup's effect on Orano and European procurement.</span>
+      <span class="abs"><b>Summary.</b> Analysis arguing Niger's nationalisation and contested uranium sales disrupt roughly 6–7% of world supply, raising procurement risk for European utilities dependent on 12,000–13,000 tonnes a year and strengthening producers in stable jurisdictions such as Canada, the US and Australia.</span>
+      <span class="dat"><b>Data.</b> Crux Investor analysis of uranium supply concentration and market mechanics (Dec 2025).</span></li>
+    <li><a href="https://allafrica.com/stories/202410250009.html">Orano Halts Uranium Output At Niger's Arlit Mine Amid Financial Strain</a><span class="src"> · allAfrica (2024)</span>
+      <span class="desc">Reporting on Orano's October 2024 shutdown of the Somaïr operation.</span>
+      <span class="abs"><b>Summary.</b> Reports that Orano suspended production at its Arlit (Somaïr) uranium mine in northern Niger amid the subsidiary's financial strain, after Niger–Benin border closures triggered by the July 2023 coup blocked all uranium exports.</span>
+      <span class="dat"><b>Data.</b> allAfrica news reporting (Oct 2024).</span></li>
+  </ul>
+
+  <h2 class="sec">② Conversion — turning yellowcake into UF₆ <span class="ct">2</span></h2>
+  <div class="stagesub">Only five conversion plants operate worldwide — the first deliberately narrow neck between a diversified mine and a Russia-led enrichment stage.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/publication/fs20253057/full">Uranium — Deposits, Production and Resources, Market Dynamics, and Supply Chain Risks</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">US government fact sheet on mining, conversion and enrichment supply-chain risk.</span>
+      <span class="abs"><b>Abstract.</b> USGS fact sheet on uranium deposits, production, resources, market dynamics and supply-chain risk. Documents that only five conversion plants operate worldwide (Canada, China, France, Russia, US), Kazakhstan supplies ~39% of mine output, three commercial enrichers (Rosatom, Urenco, Orano) hold most non-domestic capacity, and fabrication runs in 12 countries.</span>
+      <span class="dat"><b>Data.</b> USGS Fact Sheet 2025-3057 (April 2026), compiled from NEA/IAEA, WNA and US-agency sources.</span></li>
+    <li><a href="https://world-nuclear.org/information-library/nuclear-fuel-cycle/introduction/nuclear-fuel-cycle-overview">Nuclear Fuel Cycle Overview</a><span class="src"> · World Nuclear Association</span>
+      <span class="desc">Front-end/back-end fuel-cycle reference.</span>
+      <span class="abs"><b>Summary.</b> Industry reference mapping the fuel cycle — front-end mining and milling, conversion, enrichment and fabrication, then reactor operation and the back-end of storage, optional reprocessing and disposal — with typical material balances for a 1000 MWe reactor.</span>
+      <span class="dat"><b>Data.</b> WNA reference (updated Sep 2025); illustrative material balances, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Enrichment — the chokepoint <span class="ct">14</span></h2>
+  <div class="stagesub">A licensed service measured in separative work, more concentrated than conversion — with Russia the single largest supplier, and HALEU a sub-chokepoint almost entirely Russian.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/ne/articles/uranium-enrichment-explained">Uranium Enrichment Explained</a><span class="src"> · US DOE (2024)</span>
+      <span class="desc">Plain-language explainer of the enrichment step and why it is the chokepoint.</span>
+      <span class="abs"><b>Abstract.</b> DOE explainer on enrichment — raising the uranium-235 fraction that sustains fission. The US uses gas-centrifuge technology at two facilities to make LEU (3–5%) for today's reactors and HALEU (5–19.75%) for advanced designs; Russia supplies roughly 44% of global enrichment, prompting a multi-billion-dollar domestic build-out.</span>
+      <span class="dat"><b>Data.</b> US DOE Office of Nuclear Energy explainer.</span></li>
+    <li><a href="https://oecd-nea.org/jcms/pl_96126/high-assay-low-enriched-uranium-drivers-implications-and-security-of-supply">High-Assay Low-Enriched Uranium: Drivers, Implications and Security of Supply</a><span class="src"> · OECD NEA (2024)</span>
+      <span class="desc">Why advanced/SMR reactors need HALEU and why supply is nearly all Russian today.</span>
+      <span class="abs"><b>Abstract.</b> OECD NEA assessment of high-assay low-enriched uranium (HALEU, 5–20% U-235) required by many small modular and advanced reactors. Analyses demand drivers, supply-chain implications and security-of-supply risk, noting that commercial HALEU production in OECD countries is limited and today concentrated in Russia.</span>
+      <span class="dat"><b>Data.</b> NEA evidence-based policy analysis; no primary dataset.</span></li>
+    <li><a href="https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/uranium-enrichment">Uranium Enrichment</a><span class="src"> · World Nuclear Association</span>
+      <span class="desc">Technical and market reference on centrifuge enrichment and the Rosatom/Urenco/Orano/CNNC oligopoly.</span>
+      <span class="abs"><b>Abstract.</b> WNA technical and market reference on centrifuge enrichment, measured in separative-work units (SWU). Reports 2022 capacity shares — Rosatom 27.1M SWU, Urenco 17.9M, CNNC 8.9M and Orano 7.5M of roughly 61,500k total — an oligopoly that has recently run in structural oversupply.</span>
+      <span class="dat"><b>Data.</b> WNA Nuclear Fuel Report 2023 and company websites.</span></li>
+    <li><a href="https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/high-assay-low-enriched-uranium-haleu">High-Assay Low-Enriched Uranium (HALEU)</a><span class="src"> · World Nuclear Association</span>
+      <span class="desc">Industry reference on the HALEU sub-chokepoint.</span>
+      <span class="abs"><b>Summary.</b> Industry reference: HALEU (greater than 5% to less than 20% U-235) is needed by most advanced and small modular reactor designs; commercial supply is currently dominated by Russia's Tenex, with the US and UK investing heavily to build domestic capacity.</span>
+      <span class="dat"><b>Data.</b> WNA reference (updated Aug 2026).</span></li>
+    <li><a href="https://www.energy.gov/ne/us-department-energy-haleu-consortium">US DOE HALEU Consortium</a><span class="src"> · US DOE</span>
+      <span class="desc">The federal program coordinating domestic HALEU supply-chain buildout.</span>
+      <span class="abs"><b>Summary.</b> The DOE HALEU Consortium coordinates the domestic HALEU supply chain — estimating demand, purchasing supplies, running demonstration projects and identifying gaps. Membership is free and open to US entities in the nuclear fuel cycle.</span>
+      <span class="dat"><b>Data.</b> US DOE program page; no primary dataset.</span></li>
+    <li><a href="https://www.energy.gov/ne/articles/russian-uranium-ban-will-speed-development-us-nuclear-fuel-supply-chain">Russian Uranium Ban Will Speed up Development of U.S. Nuclear Fuel Supply Chain</a><span class="src"> · US DOE</span>
+      <span class="desc">Official framing of the 2024 import ban and the domestic build-out response.</span>
+      <span class="abs"><b>Summary.</b> DOE framing of the 2024 Russian-uranium import ban and the response: $2.72 billion in congressional funding for domestic enrichment, the first HALEU produced at Piketon, Ohio, and roughly $4.2 billion mobilised through allied partnerships.</span>
+      <span class="dat"><b>Data.</b> US DOE article (May 2024).</span></li>
+    <li><a href="https://www.nrc.gov/reading-rm/doc-collections/fact-sheets/uranium-import-ban">Backgrounder on Uranium Import Ban</a><span class="src"> · US Nuclear Regulatory Commission</span>
+      <span class="desc">Regulator's summary of the Russian enriched-uranium import ban and waivers.</span>
+      <span class="abs"><b>Scope.</b> NRC backgrounder summarising the Russian enriched-uranium import ban and its waiver process. <span class="miss">(Page returned an edge-server block on this pass — not retrievable; scope taken from the title.)</span></span>
+      <span class="dat"><b>Data.</b> US NRC fact sheet — a regulatory summary, not a dataset.</span></li>
+    <li><a href="https://2021-2025.state.gov/prohibiting-imports-of-uranium-products-from-the-russian-federation/">Prohibiting Imports of Uranium Products from the Russian Federation</a><span class="src"> · US Department of State (2024)</span>
+      <span class="desc">State Department statement on the ban's rationale and scope.</span>
+      <span class="abs"><b>Summary.</b> State Department statement (14 May 2024) on prohibiting Russian uranium imports — framing the ban as securing a nuclear-fuel supply independent of adversarial influence, alongside expanded US enrichment and conversion capacity and the pledge to triple nuclear capacity by 2050.</span>
+      <span class="dat"><b>Data.</b> US Department of State press statement.</span></li>
+    <li><a href="https://www.cov.com/en/news-and-insights/insights/2024/05/us-senate-passes-bill-banning-russian-uranium-imports">U.S. Senate Passes Bill Banning Russian Uranium Imports</a><span class="src"> · Covington &amp; Burling (2024)</span>
+      <span class="desc">Law-firm client note explaining the ban's mechanics and waiver process.</span>
+      <span class="abs"><b>Summary.</b> Law-firm note on the Prohibiting Russian Uranium Imports Act (H.R. 1042): Senate-passed 30 April 2024, effective 90 days after enactment, waivable by the DOE through 2027, and permanent from 1 January 2028.</span>
+      <span class="dat"><b>Data.</b> Covington &amp; Burling client alert citing the statute and enrichment-capacity figures.</span></li>
+    <li><a href="https://www.themoscowtimes.com/2025/03/13/enriched-uranium-fuels-russias-war-machine-but-the-us-still-imports-it-a88274">Enriched Uranium Fuels Russia's War Machine. But the U.S. Still Imports It</a><span class="src"> · The Moscow Times (2025)</span>
+      <span class="desc">Reporting on continued US reliance on Russian enrichment despite the ban.</span>
+      <span class="abs"><b>Summary.</b> Reports that, despite the ban (permanent from 2028), the US kept importing Russian enriched uranium through waivers, with Rosatom's Tenex earning roughly $1 billion a year from continued sales.</span>
+      <span class="dat"><b>Data.</b> The Moscow Times, citing trade-tracking data and company reports (Mar 2025).</span></li>
+    <li><a href="https://world-nuclear-news.org/articles/doe-selects-haleu-enrichment-providers">DOE selects HALEU enrichment providers</a><span class="src"> · World Nuclear News</span>
+      <span class="desc">Coverage of the Louisiana Energy Services / Orano Federal Services / General Matter / American Centrifuge awards.</span>
+      <span class="abs"><b>Summary.</b> DOE selected four firms — Louisiana Energy Services (Urenco), Orano Federal Services, General Matter and American Centrifuge (Centrus) — for HALEU enrichment services, each a minimum $2 million with up to $2.7 billion available over ten years.</span>
+      <span class="dat"><b>Data.</b> World Nuclear News reporting (Oct 2024).</span></li>
+    <li><a href="https://www.ans.org/news/2026-06-02/article-8085/urenco-to-add-21-million-swu-of-enrichment-capacity-at-its-new-mexico-plant/">Urenco to add 2.1 million SWU of enrichment capacity at its New Mexico plant</a><span class="src"> · American Nuclear Society (2026)</span>
+      <span class="desc">Latest Western enrichment-capacity expansion.</span>
+      <span class="abs"><b>Summary.</b> Urenco USA will add 2.1 million SWU of enrichment capacity at its Eunice, New Mexico plant via 24 new centrifuge cascades, with production beginning in 2032 and completion by 2036.</span>
+      <span class="dat"><b>Data.</b> ANS / Nuclear Newswire reporting (June 2026).</span></li>
+    <li><a href="https://www.orano.group/usa/en/our-portfolio-expertise/advanced-reactors/haleu">HALEU</a><span class="src"> · Orano</span>
+      <span class="desc">Industry supplier's own HALEU program page.</span>
+      <span class="abs"><b>Summary.</b> Orano's US HALEU program page: plans domestic enrichment for advanced reactors targeting HALEU by 2030, backed by DOE enrichment and deconversion contracts and a new centrifuge facility selected for Oak Ridge, Tennessee.</span>
+      <span class="dat"><b>Data.</b> Orano USA program page; company statements.</span></li>
+    <li><a href="https://investors.centrusenergy.com/static-files/058b474a-c135-4600-a84b-e9908864a7af">Centrus Energy — February 2026 Investor Presentation</a><span class="src"> · Centrus Energy</span>
+      <span class="desc">Company-level HALEU production and SWU capacity figures for the sole US commercial enricher.</span>
+      <span class="abs"><b>Scope.</b> Investor presentation from the sole US-owned commercial enricher, covering HALEU production at Piketon and separative-work capacity and backlog. <span class="miss">(Static-file deck timed out repeatedly on this pass — not retrievable; scope taken from the title.)</span></span>
+      <span class="dat"><b>Data.</b> Centrus Energy investor presentation (Feb 2026) — company figures.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Fabrication &amp; the reactor <span class="ct">2</span></h2>
+  <div class="stagesub">Fabricated fuel is engineered and licensed to one reactor design — the dependence embedded in the machine, not the fuel market.</div>
+  <ul class="refs">
+    <li><a href="https://pris.iaea.org/PRIS/WorldStatistics/WorldTrendinElectricalProduction.aspx">PRIS — World trend in electrical production</a><span class="src"> · IAEA (2026)</span>
+      <span class="desc">Reactor fleet and nuclear-generation data.</span>
+      <span class="abs"><b>Summary.</b> The IAEA Power Reactor Information System — the authoritative database of the world's nuclear reactor fleet and generation. This view tracks the long-run world trend in nuclear electrical production, the demand end of the fuel chain.</span>
+      <span class="dat"><b>Data.</b> IAEA PRIS, compiled from member-state reporting.</span></li>
+    <li><a href="https://www.nationalacademies.org/read/26500/chapter/7">Merits and Viability of Different Nuclear Fuel Cycles and Technology Options…</a><span class="src"> · National Academies Press</span>
+      <span class="desc">Peer-reviewed committee assessment of fuel-cycle technology options.</span>
+      <span class="abs"><b>Abstract.</b> National Academies committee assessment of nuclear fuel-cycle technology options and the waste aspects of advanced reactors. Finds the US lacks domestic HALEU capacity for most advanced designs, and recommends continuing the once-through cycle while sustaining research into advanced reprocessing and transmutation as contingencies.</span>
+      <span class="dat"><b>Data.</b> National Academies of Sciences, Engineering, and Medicine consensus report.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — frameworks &amp; policy <span class="ct">7</span></h2>
+  <div class="stagesub">Market reviews, EU criticality context and think-tank analysis that classify the whole chain — and explain why uranium sits outside the official CRM list.</div>
+  <ul class="refs">
+    <li><a href="https://doi.org/10.3390/commodities5010007">Nuclear Fuel Revival: Uranium Markets, SMRs, and Global Energy Security</a><span class="src"> · MDPI Commodities (2026)</span>
+      <span class="desc">Review of uranium as a strategic resource amid SMR-driven demand growth.</span>
+      <span class="abs"><b>Scope.</b> Peer-reviewed review of nuclear fuel's revival — uranium markets, SMR-driven demand and global energy security. <span class="miss">(Abstract page returned a server block on this pass — not retrievable; scope taken from the title and journal listing.)</span></span>
+      <span class="dat"><b>Data.</b> MDPI Commodities review article (2026).</span></li>
+    <li><a href="https://link.springer.com/article/10.1186/s44329-025-00045-3">Uranium at the nexus of energy security and sustainable development in a renuclearised world</a><span class="src"> · Springer, BMC Environmental Science (2025)</span>
+      <span class="desc">Demand trajectories vs. mining/conversion/enrichment/HALEU expansion capacity.</span>
+      <span class="abs"><b>Abstract.</b> Integrated assessment of uranium demand and front-end fuel-cycle readiness in a "renuclearised" world. Projects annual reactor-related requirements rising from ~70,000 tU to 130,000–150,000 tU by 2040 — driven by new large reactors, life extensions and SMRs — and flags advanced-fuel and supply-chain bottlenecks.</span>
+      <span class="dat"><b>Data.</b> Integrated demand-and-technology modelling on reactor and fuel-cycle data.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344924006505">Critical raw materials, circular economy, sustainable development: EU policy reflections…</a><span class="src"> · Journal of Cleaner Production (2024)</span>
+      <span class="desc">EU CRM policy context relevant to why uranium sits outside the official CRM list.</span>
+      <span class="abs"><b>Scope.</b> EU policy paper on critical raw materials, the circular economy and sustainable development — context for why uranium is not on the official EU CRM list. <span class="miss">(Publisher page blocked retrieval on this pass — ScienceDirect 403; scope taken from the title.)</span></span>
+      <span class="dat"><b>Data.</b> Journal of Cleaner Production article (2024).</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials">RMIS — More on Critical Raw Materials</a><span class="src"> · EU Joint Research Centre</span>
+      <span class="desc">The EU's raw-materials data and foresight platform (uranium not listed as a CRM).</span>
+      <span class="abs"><b>Summary.</b> The EU's Raw Materials Information System — the JRC platform of criticality assessments, foresight and dashboards covering the 34 critical raw materials identified in 2023. Notably, uranium is not on the EU CRM list, so this chain sits outside the official European frame.</span>
+      <span class="dat"><b>Data.</b> EU triennial criticality assessments (Economic Importance × Supply Risk).</span></li>
+    <li><a href="https://www.csis.org/analysis/fueling-future-recommendations-strengthening-us-uranium-security">Fueling the Future: Recommendations for Strengthening U.S. Uranium Security</a><span class="src"> · CSIS</span>
+      <span class="desc">Policy recommendations on reducing Russia/China enrichment dependence.</span>
+      <span class="abs"><b>Summary.</b> CSIS recommendations to strengthen US uranium security — accelerate domestic enrichment, build preferential trade ties with allies such as Canada and Australia, and secure offtake abroad — to cut dependence on Russia and China, which together hold over 62% of enrichment capacity.</span>
+      <span class="dat"><b>Data.</b> CSIS analysis using government and industry supply-chain data.</span></li>
+    <li><a href="https://www.csis.org/analysis/geopolitics-russias-civil-nuclear-exports-four-years-war">The Geopolitics of Russia's Civil Nuclear Exports Four Years into the War</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of Rosatom's export strategy and sanctions resilience.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis of Rosatom's civil-nuclear exports four years into the war: about 20 reactor units under construction across seven countries; some states (Finland) exited while others (Hungary, Turkey, Bangladesh) continued, as Russia pivots toward Global South and CIS markets.</span>
+      <span class="dat"><b>Data.</b> CSIS analysis (Jane Nakano, Mar 2026), citing industry and government reports.</span></li>
+    <li><a href="https://www.oxfordenergy.org/wpcms/wp-content/uploads/2026/06/Insight-182-Rosatom.pdf">Rosatom — the growing influence of Russia's nuclear industry</a><span class="src"> · Oxford Institute for Energy Studies (2026)</span>
+      <span class="desc">In-depth paper on Rosatom's vertically integrated reactor-financing-fuel model.</span>
+      <span class="abs"><b>Abstract.</b> Think-tank paper on Rosatom, Russia's state nuclear holding. Details its vertically integrated model — subsidiary TENEX for enrichment, TVEL for VVER fuel — and overseas expansion via cheap finance and full fuel-cycle offerings, while questioning whether it can finance an ageing domestic fleet and its growing commitments.</span>
+      <span class="dat"><b>Data.</b> Oxford Institute for Energy Studies, Energy Insight 182 (June 2026); IAEA PRIS and company disclosures.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The one dataset the chain's own trade figures are built from — and why it captures only the ore, never the service.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's uranium ore/compound extract.</span>
+      <span class="abs"><b>Summary.</b> BACI reconciles bilateral trade flows for ~200 countries across ~5,000 HS6 products (1995–2024), derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Here it carries uranium ore and compounds only — enrichment and conversion trade as services, invisible to customs.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated academic paper models <b>conversion-stage concentration</b> (Rosatom / Cameco / CNNC / Orano) directly — the "five plants" figure rests on the USGS fact sheet and NEA summaries. Next: "uranium conversion capacity oligopoly," or NEA technical reports for the exact 2022 conversion-capacity shares behind the bar chart.</li>
+      <li>The <b>OECD/NEA "Uranium 2024" Red Book full text</b> was not obtained (paywalled/registration); the library rests on official summaries and secondary coverage. Worth a fetch of the NEA landing page for the precise resource/production tables.</li>
+      <li><b>China's enrichment build-out (CNNC)</b> alongside Rosatom is thin here — search "CNNC enrichment capacity expansion" and "China nuclear fuel self-sufficiency" for a fuller two-power picture.</li>
+      <li><b>VVER de-Russification in Europe</b> (Westinghouse / Framatome alternative-fuel qualification) deserves its own pass: "VVER alternative fuel Westinghouse Ukraine Europe."</li>
+      <li>Not reached this pass: <b>Kazakhstan's own uranium/critical-minerals strategy</b> and <b>IEA nuclear-specific reporting</b> — try "IEA uranium enrichment market report" and "Kazakhstan uranium strategy state policy 2026." Four pages here were blocked by servers or timeouts (flagged inline) and are worth re-fetching.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from uranium mine to reactor, with cross-cutting frameworks and data grouped at the end. 34 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (server blocks / timeouts) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="nuclear-chain.html">The nuclear chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
