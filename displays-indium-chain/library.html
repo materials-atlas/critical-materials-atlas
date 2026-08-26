@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Displays / indium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the displays / indium value chain, ordered to follow the chain from zinc by-product to the finished screen. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./displays-indium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Displays / Indium</div>
+    <h1>Displays / indium chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Every LCD and touchscreen carries a transparent conductor — indium tin oxide. Indium is a trace zinc by-product no mine targets, its refining is ~70% China, and China placed it under export control in February 2025. <b>The mine is nowhere; the chokepoint is the refinery.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Zinc by-product indium (refined ~70% China) → ② ITO sputtering targets → ③ flat-panel displays &amp; touchscreens — with an ITO-scrap recycling loop in Japan and Korea — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./displays-indium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">26</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (3) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (11) · <span class="pill ref">Reference</span> context / provenance (12).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Indium — a zinc by-product, refined ~70% in China</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Indium</td><td class="took">Sources the headline <b>China ~70% of refined indium</b> and the <b>−72% export drop</b> after the Feb-2025 controls; grounds the "refiner, not the mine" and export-lever panels.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Indium</td><td class="took">Prior-year confirmation of the 70% China share + the ITO-scrap-in-Japan/Korea recycling line; feeds the by-product and recycling panels.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2024 — Indium</td><td class="took">Earlier baseline (China leading producer/exporter; Auby zinc-smelter idle/restart) → the zinc-coupling evidence; a longer production read to backfill.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>USGS Mineral Commodity Profile (2004-1300)</td><td class="took">Provenance for the by-product framing (electrolytic zinc refining) and the ~65%-ITO end-use split — the historical root of the chain's thesis.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Werner et al. — global assessment of indium</td><td class="took">Deposit-by-deposit method: ≥356 kt indium in 1,512 deposits → a "resource is not the chokepoint" panel (the metal is abundant; refining is the bind).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>Quest Metals — indium price tied to zinc</td><td class="took">The by-product coupling stated plainly (~95% of refined indium from zinc processing) → the "rides on zinc" flag.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② ITO — the transparent conductor in every screen</td></tr>
+      <tr><td class="n">7</td><td>Indium Corporation</td><td class="took">Industry-side confirmation of the Western refiner/materials role for In/Ga/Ge and ITO targets — context for the non-China midstream.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>Indium Corporation — SEMI directory</td><td class="took">Places the refiner inside the display/semiconductor industry body — provenance only. <span class="miss">Directory page 403 on this pass; noted from the listing title.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The relief valve — ITO-scrap recycling (Japan &amp; Korea)</td></tr>
+      <tr><td class="n">9</td><td>Indium Corp — ITO target reclaim/recycling</td><td class="took">The recycling mechanism (sputtering is inefficient; spent targets reclaimed) → the "display industry recycles its own scrap" panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>Looking Down Under — Circular Economy of Indium (EST)</td><td class="took">Material-flow method: primary stocks dwarf end-of-life scrap → the finding that <b>new (manufacturing) scrap</b>, not end-of-life, is the loop.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>WORLD7 indium model (Natural Resources Research)</td><td class="took">Long-run system-dynamics: production peaks 2025–2030, recycling too low → a forward "supply ceiling" annotation.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ China controls it — export lever &amp; the AI/InP demand pull</td></tr>
+      <tr><td class="n">12</td><td>Geopolitical Monitor — indium supply &amp; demand</td><td class="took">Supply-concentration overview. <span class="miss">Page not retrievable (403); noted from title/outlet only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>Reuters — China tightens indium export checks</td><td class="took">The lever beyond Feb-2025 (slower approvals, end-user disclosure) + the DLA <b>403 t stockpile</b> plan → the "used the lever" panel and a decision-layer note.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Free Press Journal — export scrutiny &amp; AI chips</td><td class="took">Corroborates the export-scrutiny story and the AI-chip exposure — secondary confirmation.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>Project Blue — export restrictions may disrupt indium</td><td class="took">Market-impact analysis of the 2025 controls. <span class="miss">Served as a JS app shell — body not retrievable; noted from title only.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>TrendForce — InP shortage as AI bottleneck</td><td class="took">Downstream InP demand (optical interconnects) → a "the pull is moving to InP" annotation adjacent to the ITO story.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Tom's Hardware — optical interconnects &amp; photonics</td><td class="took">Context on InP/photonics as an AI commodity + US–China friction. <span class="miss">Body served as a JS shell — not retrievable; noted from title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Fastmarkets — US indium price launch</td><td class="took">A new US indium price series (MB-IN-0005, 1 May 2026) → evidence of regionalising pricing under the controls.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">19</td><td>SCRREEN — Indium CRM 2020 factsheet</td><td class="took">EU value-chain method: ~95% from zinc; world output 827 t (China 48%); ITO the main EU use; secondary is mostly new scrap → the recycling and by-product framing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>EU Study on the CRM list (2020)</td><td class="took">EI × Supply-Risk scores for indium (EI 3.3 / SR 1.8; China 48% supply; France 28% of EU) → a criticality card for the chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>RMIS — EU critical raw materials</td><td class="took">Portal/provenance for the EU criticality history (indium critical 2011/2014/2017, 2023).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>CRS R47982 — critical minerals list</td><td class="took">Policy/list background — the statutory frame around indium as a listed input.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>CRS R47833 — National Defense Stockpile</td><td class="took">The stockpile mechanism behind the DLA indium proposal — decision-layer context. <span class="miss">Report page 403; scope from title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>One Earth — criticality-assessment primer</td><td class="took">Method primer (uses indium as a worked example) → underpins the "how criticality is scored" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">25</td><td>CEPII BACI</td><td class="took">The trade engine → the flagged <b>HS 811292 basket</b> context (indium not separable from Ga/Ge) and the LCD-device heading.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">26</td><td>USGS — Indium statistics and information</td><td class="took">The production data engine → the refined-indium and price series behind the chain's figures.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Indium — a zinc by-product, refined ~70% in China <span class="ct">6</span></h2>
+  <div class="stagesub">The raw input, and a by-product no one mines for: recovered from zinc-ore residues, then refined mostly in China.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-indium.pdf">USGS Mineral Commodity Summaries 2026 — Indium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Latest annual indium production, consumption, price and China-share figures.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: the US recovered no indium from ores in 2025, and ITO for flat-panel displays remained most of global consumption. China leads refined-indium output at 70% of the world total; after China's February-2025 export restrictions, Asian Metal reported unwrought-indium exports fell ~72% year-on-year. US net import reliance 100%; refined price ~$350,000/t.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass, reported trade and Argus price data; world refinery-production figures estimated from trade, capacity and zinc/lead-smelter proxies.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-indium.pdf">USGS Mineral Commodity Summaries 2025 — Indium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year comparison; source for the ITO / Japan–Korea recycling line.</span>
+      <span class="abs"><b>Abstract.</b> Prior-year USGS summary: US indium consumption ~250 t, entirely imported (net import reliance 100%). China leads global production at 70% and is the leading exporter — 347 t in Jan–Sep 2024, ~74% to the Republic of Korea. Indium is most commonly recovered from ITO scrap in Japan and Korea; 5G and data-centre demand raise indium-phosphide use.</span>
+      <span class="dat"><b>Data.</b> USGS import/consumption estimates, Argus prices, reported Chinese export statistics, and country-level refinery-production estimates.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-indium.pdf">USGS Mineral Commodity Summaries 2024 — Indium</a><span class="src"> · USGS (2024)</span>
+      <span class="desc">Earlier-year baseline for the production and price series.</span>
+      <span class="abs"><b>Abstract.</b> Earlier USGS baseline: US indium consumption ~300 t, all imported. China the leading producer and exporter (381 t in Jan–Aug 2023). Illustrates the zinc coupling — an indium-producing zinc smelter at Auby, France was idled then reopened — and a Utah zinc-copper-silver-indium project with a historical ~1,530 t of contained indium.</span>
+      <span class="dat"><b>Data.</b> USGS consumption estimates, Argus prices, reported world refinery production by country, and company project disclosures.</span></li>
+    <li><a href="https://pubs.usgs.gov/of/2004/1300/2004-1300.pdf">Mineral Commodity Profile: Indium (Open-File Report 2004-1300)</a><span class="src"> · USGS, Jorgenson &amp; George</span>
+      <span class="desc">Long-form profile of indium geology, production, uses and history.</span>
+      <span class="abs"><b>Abstract.</b> Long-form USGS profile: indium is a volatile chalcophile by-product of the electrolytic refining of zinc, found in ores of zinc, copper and tin. About 65% of consumption is ITO thin films for LCDs; it is also used as indium phosphide in semiconductors. Covers geochemistry, production (e.g. Kidd Creek), scrap recovery, uses, substitutes and market history to 2000.</span>
+      <span class="dat"><b>Data.</b> USGS historical production, import/consumption and price series (1967–2000) with process and resource description.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0169136816300932">The world's by-product and critical metal resources part III: A global assessment of indium</a><span class="src"> · Ore Geology Reviews (2017)</span>
+      <span class="desc">Global inventory of indium in mineral deposits.</span>
+      <span class="abs"><b>Abstract.</b> Deposit-by-deposit global assessment: at least 356 kt of indium sit in 1,512 known mineral deposits (VMS, skarn, epithermal, sediment-hosted Pb–Zn), plus a minimum ~24 kt in mine wastes — figures the authors call a floor. That is enough to meet this century's demand, yet supply remains a concern given indium's by-product status and spatial concentration.</span>
+      <span class="dat"><b>Data.</b> New critical-metals resource-assessment methodology applied to 1,512 deposits (101 with reported indium contents; Werner, Mudd &amp; Jowitt).</span></li>
+    <li><a href="https://www.questmetals.com/blog/how-indium-s-price-is-tied-to-zinc-mining-production">How Indium's Price is Tied to Zinc Mining Production</a><span class="src"> · Quest Metals</span>
+      <span class="desc">Plain-language explainer of the by-product coupling to zinc.</span>
+      <span class="abs"><b>Summary.</b> Explainer: indium has no primary mines and occurs only in trace amounts in zinc ore, so roughly 95% of refined indium is produced during zinc processing — tying its supply and price to zinc-industry economics rather than an independent indium market.</span>
+      <span class="dat"><b>Data.</b> Plain-language commentary; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② ITO — the transparent conductor in every screen <span class="ct">2</span></h2>
+  <div class="stagesub">The dominant use: indium tin oxide, the invisible electrode on flat-panel displays and touchscreens.</div>
+  <ul class="refs">
+    <li><a href="https://www.indium.com/">Indium Corporation</a><span class="src"> · Indium Corporation</span>
+      <span class="desc">Major Western indium/gallium/germanium refiner and materials supplier — the industry-side view.</span>
+      <span class="abs"><b>Summary.</b> Corporate site of a materials-science company that refines and manufactures high-purity indium, gallium, germanium and tin, plus solders, fluxes and thermal-interface materials for electronics and semiconductor assembly. ~1,400 employees across 16 facilities — an industry-side view of the metal's midstream and downstream.</span>
+      <span class="dat"><b>Data.</b> Company self-description; no primary dataset.</span></li>
+    <li><a href="https://www.semi.org/en/resources/member-directory/indium-corporation">Indium Corporation — SEMI member directory</a><span class="src"> · SEMI</span>
+      <span class="desc">Confirms Indium Corporation's membership in the semiconductor/display industry association.</span>
+      <span class="abs"><b>Summary.</b> SEMI member-directory entry confirming Indium Corporation's place in the global semiconductor and display industry body — provenance for the midstream-materials role. <span class="miss">(Directory page returned 403 on this pass — not retrievable; noted from the listing title only.)</span></span>
+      <span class="dat"><b>Data.</b> Industry-association directory listing — no dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The relief valve — ITO-scrap recycling <span class="ct">3</span></h2>
+  <div class="stagesub">Sputtering ITO onto glass is inefficient, so much of the metal is recovered — chiefly in Japan and Korea, where the display industry sits.</div>
+  <ul class="refs">
+    <li><a href="https://www.indium.com/blog/ito-indium-tin-oxide-sputtering-target-reclaim-recycling/">ITO (Indium-Tin Oxide) Sputtering Target Reclaim/Recycling</a><span class="src"> · Indium Corporation</span>
+      <span class="desc">Industry explainer on ITO target reclaim — the mechanism behind Japan/Korea scrap recycling.</span>
+      <span class="abs"><b>Summary.</b> Vendor explainer: sputtering uses ITO very inefficiently, leaving "race-track"-eroded spent targets and unusable chunks. Users break up the remaining material and send it to recyclers, where it is converted back to indium metal to restart the cycle — the mechanism behind the Japan/Korea scrap loop.</span>
+      <span class="dat"><b>Data.</b> Technical explainer; no quantitative dataset.</span></li>
+    <li><a href="https://pubs.acs.org/doi/abs/10.1021/acs.est.7b05022">Looking Down Under for a Circular Economy of Indium</a><span class="src"> · Environmental Science &amp; Technology (2018)</span>
+      <span class="desc">Circular-economy / recycling-potential study of indium flows.</span>
+      <span class="abs"><b>Abstract.</b> Dynamic material-flow analysis of Australia's indium finds ~46.2 kt in mineral resources and 14.7 kt in mine wastes — decades of global demand (~0.8 kt/yr) — versus a negligible 43 t in discarded products. Resilience is best gained through mining efficiency (e.g. domestic refining) rather than end-of-life recycling; the same logic applies to gallium and germanium.</span>
+      <span class="dat"><b>Data.</b> Dynamic MFA on Australian Pb–Zn/Cu deposit resources, mining activity 1844–2013 and indium-product trade 1988–2015 (Werner, Ciacci, Mudd, Reck, Northey).</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s11053-023-10296-z">Modeling Indium Extraction, Supply, Price, Use and Recycling 1930–2200 Using the WORLD7 Model</a><span class="src"> · Natural Resources Research (2023)</span>
+      <span class="desc">Long-run system-dynamics model of indium supply and price.</span>
+      <span class="abs"><b>Abstract.</b> WORLD7 system-dynamics model of indium 1930–2200 estimates ~312 kt extractable, with production peaking 2025–2030. Only ~25% of solar-cell indium demand can be met, and insufficient recycling is a key constraint; the study frames indium supply as a limit on the energy transition and Europe's 2050 sustainability goals.</span>
+      <span class="dat"><b>Data.</b> WORLD7 system-dynamics model coupling mass balance with supply–demand price dynamics.</span></li>
+  </ul>
+
+  <h2 class="sec">④ China controls it — export lever &amp; the InP demand pull <span class="ct">7</span></h2>
+  <div class="stagesub">The concentrated refining stage turned into a policy lever in 2025 — while AI-datacentre demand pulls hard on indium phosphide downstream.</div>
+  <ul class="refs">
+    <li><a href="https://www.geopoliticalmonitor.com/critical-minerals-global-indium-supply-demand/">Critical Minerals: Global Indium Supply &amp; Demand</a><span class="src"> · Geopolitical Monitor</span>
+      <span class="desc">Supply-concentration and demand-growth overview.</span>
+      <span class="abs"><b>Summary.</b> Overview of global indium supply concentration and demand growth, framing the metal's by-product status and China's dominance. <span class="miss">(Article not retrievable on this pass — 403 / access wall; noted from title and outlet only.)</span></span>
+      <span class="dat"><b>Data.</b> Analytical commentary — page not retrieved.</span></li>
+    <li><a href="https://finance.yahoo.com/news/china-tightens-indium-export-checks-063922284.html">China tightens indium export checks as AI demand increases</a><span class="src"> · Reuters via Yahoo Finance (2026)</span>
+      <span class="desc">Reporting on tightened customs scrutiny beyond the Feb-2025 controls.</span>
+      <span class="abs"><b>Summary.</b> Reuters (19 Jun 2026): China intensified indium export scrutiny beyond the February-2025 controls — slower approvals and new end-user disclosure — as demand rose. China makes ~70% of indium; the US Defense Logistics Agency is reported to seek a 403 t stockpile over three years.</span>
+      <span class="dat"><b>Data.</b> News reporting citing buyers and DLA stockpiling plans; no primary dataset.</span></li>
+    <li><a href="https://www.freepressjournal.in/tech/china-tightens-export-scrutiny-on-indium-raising-fears-of-supply-chain-restrictions-for-ai-chips">China Tightens Export Scrutiny On Indium, Raising Fears Of Supply Chain Restrictions For AI Chips</a><span class="src"> · Free Press Journal</span>
+      <span class="desc">Coverage linking indium controls to advanced-chip supply-chain risk.</span>
+      <span class="abs"><b>Summary.</b> Coverage linking China's tightened indium export scrutiny (China ~70% of production; controls since February 2025) to supply-chain risk for advanced chips, as slower approvals and customs checks threaten downstream buyers.</span>
+      <span class="dat"><b>Data.</b> Secondary news coverage; no primary dataset.</span></li>
+    <li><a href="https://www.projectblue.com/blue/news-analysis/1132/chinese-export-restrictions-may-disrupt-indium-market-">Chinese export restrictions may disrupt indium market</a><span class="src"> · Project Blue</span>
+      <span class="desc">Market-analysis take on the 2025 export controls.</span>
+      <span class="abs"><b>Summary.</b> Market-intelligence analysis of how China's 2025 indium export restrictions may disrupt the market. <span class="miss">(Article served as a JavaScript app shell — body not retrievable; noted from title and outlet only.)</span></span>
+      <span class="dat"><b>Data.</b> Market analysis — page not retrieved.</span></li>
+    <li><a href="https://www.trendforce.com/news/2026/08/06/news-inp-shortage-emerges-as-ai-optical-interconnect-bottleneck/">InP Shortage Emerges as AI Optical Interconnect Bottleneck</a><span class="src"> · TrendForce (2026)</span>
+      <span class="desc">Reporting on indium phosphide (downstream of refined indium) as a datacentre bottleneck.</span>
+      <span class="abs"><b>Summary.</b> TrendForce (6 Aug 2026): indium phosphide — downstream of refined indium — is emerging as an optical-interconnect bottleneck, since silicon cannot emit light. Supply is constrained by limited indium, manufacturing complexity and industry concentration; a major buyer committed ~$2 bn to suppliers, with capacity tight through 2027.</span>
+      <span class="dat"><b>Data.</b> Trade-press market reporting; supplier and capacity commentary.</span></li>
+    <li><a href="https://www.tomshardware.com/tech-industry/photonics/how-optical-interconnects-and-silicon-photonics-emerged-as-ais-next-hot-commodity-looming-us-china-summit-puts-photonics-into-the-crosshairs">How optical interconnects and silicon photonics emerged as a hot commodity</a><span class="src"> · Tom's Hardware</span>
+      <span class="desc">Context on photonics / InP demand and US–China friction.</span>
+      <span class="abs"><b>Summary.</b> Context on how optical interconnects and silicon photonics — and indium phosphide — became a strategic commodity amid US–China friction. <span class="miss">(Article body served as a JavaScript shell — not retrievable; noted from title only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press feature — page not retrieved.</span></li>
+    <li><a href="https://www.fastmarkets.com/insights/fastmarkets-to-launch-us-bismuth-and-indium-prices/">Fastmarkets to launch US bismuth and indium prices</a><span class="src"> · Fastmarkets (2026)</span>
+      <span class="desc">Announcement of a new US indium price assessment (MB-IN-0005).</span>
+      <span class="abs"><b>Summary.</b> Fastmarkets announcement: it will launch fortnightly US indium (MB-IN-0005) and bismuth price assessments effective 1 May 2026, citing Section 301 tariffs, export controls and US government funding for domestic supply — evidence of the market regionalising indium pricing.</span>
+      <span class="dat"><b>Data.</b> Price-agency methodology announcement; no dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">6</span></h2>
+  <div class="stagesub">List methodologies and EU/US assessments that classify indium among the by-product critical metals.</div>
+  <ul class="refs">
+    <li><a href="https://scrreen.eu/wp-content/uploads/2023/01/INDIUM_CRM_2020_Factsheets_critical_Final.pdf">SCRREEN — Indium CRM 2020 Factsheet</a><span class="src"> · EU SCRREEN / JRC (2020)</span>
+      <span class="desc">EU criticality factsheet: supply chain, substitution, recycling.</span>
+      <span class="abs"><b>Abstract.</b> EU SCRREEN/JRC factsheet: ~95% of primary indium comes from zinc-ore processing; world production 2013–2016 averaged 827 t, China 48% and South Korea 21%. Indium's major EU use is ITO in flat-panel displays; substitutable in some transparent conductive oxides but not in CIGS/CIS semiconductors, and secondary output is chiefly new (manufacturing) scrap, not end-of-life.</span>
+      <span class="dat"><b>Data.</b> JRC/SCRREEN value-chain analysis on World Mining Data, Eurostat-Comext trade and USGS figures (EU averages 2012–2016).</span></li>
+    <li><a href="https://ec.europa.eu/docsroom/documents/42883/attachments/1/translations/en/renditions/native">Study on the EU's list of Critical Raw Materials (2020) — Final Report</a><span class="src"> · European Commission / JRC (2020)</span>
+      <span class="desc">EU-wide criticality methodology and indium supply-risk scoring.</span>
+      <span class="abs"><b>Summary.</b> The EU's fourth technical criticality assessment (2020, 83 materials via Economic Importance × Supply Risk): indium is critical, assessed at the processing stage, with Economic Importance 3.3 and Supply Risk 1.8; China supplies 48% of global indium and France 28% of EU sourcing.</span>
+      <span class="dat"><b>Data.</b> EI × Supply-Risk methodology over candidate materials using production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials">RMIS — More on Critical Raw Materials</a><span class="src"> · EU JRC Raw Materials Information System</span>
+      <span class="desc">Portal for EU CRM criticality factsheets, including indium.</span>
+      <span class="abs"><b>Summary.</b> EU JRC Raw Materials Information System — a dashboard and factsheet portal tracking criticality-assessment results for candidate raw materials across 2011–2023, including indium (identified as critical in the 2011, 2014 and 2017 assessments and again in 2023).</span>
+      <span class="dat"><b>Data.</b> Portal aggregating EU criticality assessments and supply-chain factsheets.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R47982">Critical Mineral Resources: National Policy and Critical Minerals List (R47982)</a><span class="src"> · Congressional Research Service (2024)</span>
+      <span class="desc">Legislative / policy background on the US critical minerals list process.</span>
+      <span class="abs"><b>Summary.</b> CRS report: reviews US minerals policy, the Energy Act of 2020 definition of a critical mineral, and USGS list development (2022: 50 minerals; 2025: 60) — the statutory frame around indium and other listed inputs.</span>
+      <span class="dat"><b>Data.</b> Secondary synthesis of USGS lists/methodology, statute and production/import-reliance data; no new primary dataset.</span></li>
+    <li><a href="https://www.congress.gov/crs-product/R47833">Emergency Access to Strategic and Critical Materials: The National Defense Stockpile (R47833)</a><span class="src"> · Congressional Research Service</span>
+      <span class="desc">Background on the US stockpile mechanism referenced by indium-stockpiling proposals.</span>
+      <span class="abs"><b>Scope.</b> CRS report on the National Defense Stockpile — the statutory mechanism (managed by the Defense Logistics Agency) for acquiring and holding strategic and critical materials for defence emergencies, the vehicle behind proposed indium stockpiling. <span class="miss">(Report page returned 403 — not retrievable; scope taken from the report title.)</span></span>
+      <span class="dat"><b>Data.</b> CRS policy synthesis — page not retrieved.</span></li>
+    <li><a href="https://www.cell.com/one-earth/fulltext/S2590-3322(21)00111-1">Selecting and prioritizing material resources by criticality assessments</a><span class="src"> · One Earth (2021)</span>
+      <span class="desc">Criticality-methodology primer that situates indium among by-product critical metals.</span>
+      <span class="abs"><b>Abstract.</b> Primer on criticality assessments — how countries and companies select and prioritise materials by supply risk, vulnerability and environmental/social impacts. Illustrated with copper and indium, it lays out four steps: define goal and scope, select and evaluate indicators, choose an aggregation approach, and interpret and communicate the results.</span>
+      <span class="dat"><b>Data.</b> Methodological review/primer (Helbig, Schrijvers, Hool); no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — with indium's trade-code limit flagged.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024) used for the chain's flagged basket context.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Unwrought indium sits in the shared HS 811292 basket with gallium and germanium, so it cannot be isolated.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/indium-statistics-and-information">USGS — Indium statistics and information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Landing page for the historical indium production and price data series.</span>
+      <span class="abs"><b>Summary.</b> USGS landing page for indium — the production data engine behind the chain — offering Mineral Commodity Summaries (1996–2026), Minerals Yearbook data (1994–2024) and Historical Statistics for the commodity, plus materials-flow and critical-minerals research.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, use, price).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>No clean, isolated indium trade series exists</b> — BACI/Comtrade lump unwrought indium with gallium and germanium in HS 811292 (confirmed by the chain's own trade note), so the customs table is context, not an indium series. Next: national customs data (China, Japan, Korea) for finer indium-specific codes.</li>
+      <li><b>Indium phosphide (InP)</b> is a distinct, fast-moving 2026 story — AI optical interconnects — adjacent to but not identical to the ITO/display chain. Worth a dedicated pass on optical-transceiver supply commentary and TrendForce/SemiAnalysis coverage if the chain is extended toward compute.</li>
+      <li><b>End-of-life recycling is near-zero</b>: the secondary loop is overwhelmingly new (manufacturing) scrap. A quantified secondary-recovery series (tonnes recovered from ITO scrap by country) is missing — USGS and SCRREEN both note the data gap.</li>
+      <li>Good next searches: "DERA Germany indium critical raw material study", "Fraunhofer ISI indium raw material list", "China indium export volume statistics customs", "SCRREEN2 indium factsheet 2023 update", "Indium Corporation gallium refining North America" (for the by-product-metals cluster).</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from zinc by-product to finished screen, with cross-cutting frameworks and data grouped at the end. 26 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 / JavaScript app-shell walls) that is flagged in italics. "Data" states each source's underlying evidence base. Record numbers are authoritative for the chain's headline figures (China ~70% of refined indium). Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./displays-indium-chain.html">The displays / indium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
