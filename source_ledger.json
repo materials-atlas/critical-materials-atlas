@@ -147,13 +147,13 @@
     "supports": true
   },
   "rhenium": {
-    "claim": "aerospace stat: 'world ~81 t, Chile ~55%'",
-    "conf": "PENDING",
-    "source": "USGS MCS 2025 — Rhenium says otherwise; record cites MCS 2026",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-rhenium.pdf",
-    "quoted_row": "Chile9 30,000 29,000 1,300,000 | World total (rounded) 62,600 62,000 Large",
-    "computed": "MCS2025: world 62 t, Chile 29,000/62,000 = 47% — CONFLICTS with aerospace '81 t / 55%'. Verify against the cited MCS 2026 edition before correcting.",
-    "supports": "FLAG — verify vs MCS 2026"
+    "claim": "aerospace: world ~81 t rhenium; Chile ~37% (largest single source)",
+    "conf": "measured",
+    "source": "USGS MCS 2026 — Rhenium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf",
+    "quoted_row": "Chile9 29,000 30,000 1,300,000 | World total (rounded) 79,800 81,000 Large; 'Estimated world rhenium production in 2025 increased 1% to 81,000 kg'",
+    "computed": "Chile 30,000/81,000 = 37% (2025). '~81 t world' is correct; the atlas's 'Chile 55%' was WRONG -> corrected to ~37%. (Note: MCS2025 listed world 62,000; USGS revised up in the 2026 edition.)",
+    "supports": true
   },
   "manganese": {
     "claim": "China ~90% of battery-grade manganese (sulphate/EMM) — processing, not mine",

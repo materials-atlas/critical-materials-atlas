@@ -38,14 +38,14 @@ CHAIN = {
                   "every large engine. The chokepoint walks downstream.",
     "stats": [
         {"v": "~81 t", "l": "world rhenium output per year (a copper by-product)", "conf": "measured"},
-        {"v": "55%", "l": "of rhenium mine production is Chile", "conf": "measured"},
+        {"v": "~37%", "l": "of world rhenium output is Chile (30,000 of 81,000 kg, 2025)", "conf": "measured"},
         {"v": "~71%", "l": "of titanium sponge is China — little of it aerospace-qualified", "conf": "measured"},
         {"v": "55 / 26 / 18", "l": "engine share: GE · Pratt &amp; Whitney · Rolls-Royce (%)", "conf": "estimate"},
         {"v": "~28%", "l": "of world titanium sponge is aerospace-qualified", "conf": "estimate"},
         {"v": "4,026", "l": "engine-maker Herfindahl index (&gt;2,500 = highly concentrated)", "conf": "estimate"},
     ],
     "hops": [
-        {"n": "1 · Rhenium", "t": "the scarce superalloy element — a copper by-product, ~55% Chile"},
+        {"n": "1 · Rhenium", "t": "the scarce superalloy element — a copper by-product, ~37% Chile"},
         {"n": "2 · Titanium sponge", "t": "production (China) vs aerospace qualification (Japan/Russia/Kazakhstan)"},
         {"n": "3 · Blade casting", "t": "single-crystal superalloy blades — a few firms, no country series"},
         {"n": "4 · Jet engine", "t": "GE, Pratt & Whitney, Rolls-Royce — the most concentrated stage"},
@@ -75,7 +75,7 @@ CHAIN = {
                 {"label": "Petroleum-reforming catalysts", "value": 0.15},
                 {"label": "Other", "value": 0.05},
             ]},
-            {"kind": "big", "h3": "Where it comes from", "big": "55% Chile", "conf": "measured",
+            {"kind": "big", "h3": "Where it comes from", "big": "~37% Chile", "conf": "measured",
              "text": "of world mine production, as a by-product of porphyry-copper molybdenum. World output is only "
                      "~81 tonnes a year and cannot be scaled without scaling copper. Secondary (recycled) rhenium is "
                      "led by the US and Germany — a downstream, not a mine, capability.",
@@ -173,12 +173,12 @@ CHAIN = {
             {"kind": "bars", "h3": "Largest single node (share of stage supply)", "conf": "measured", "max": 0.80, "note":
                 "Share held by the single largest supplier of each stage — a real, reproducible top-node measure. High almost "
                 "everywhere; the cards show what can actually be rerouted.", "src": ["usgs_titanium", "baci"], "bars": [
-                {"label": "Rhenium (Chile)", "value": 0.55},
+                {"label": "Rhenium (Chile)", "value": 0.37},
                 {"label": "Qualified Ti sponge to US (Japan)", "value": 0.80},
                 {"label": "Engine makers (GE + CFM)", "value": 0.55},
             ]},
             {"kind": "cards", "h3": "Reroute verdict, stage by stage", "conf": "snapshot", "cards": [
-                {"t": "Rhenium", "d": "~5 processors; Chile/Molymet ~55%. Reroute: hard — a by-product with no spare capacity, but partly stockable and substitutable."},
+                {"t": "Rhenium", "d": "~5 processors; Chile/Molymet ~37% (largest single source). Reroute: hard — a by-product with no spare capacity, but partly stockable and substitutable."},
                 {"t": "Qualified Ti sponge", "d": "~6 aerospace-qualified producers; Japan ~80% of US supply; TIMET the lone US sponge producer. Reroute: limited — ~a decade to qualify a new source."},
                 {"t": "Blade casting", "d": "a handful of qualified casters plus captive OEM foundries. Reroute: blocked — qualification is part- and engine-specific."},
                 {"t": "Engine assembly", "d": "three makers (GE/CFM, Pratt & Whitney, Rolls-Royce). Reroute: blocked — every engine is type-certified to an airframe."},
@@ -256,4 +256,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— aerospace (uniform schema), rhenium 81 t/Chile 55%, engines 55/26/18")
+print("wrote", os.path.relpath(OUT, HERE), "— aerospace (uniform schema), rhenium 81 t/Chile 37%, engines 55/26/18")
