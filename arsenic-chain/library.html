@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Arsenic chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the arsenic value chain, ordered to follow the chain from a toxic copper/gold smelting by-product to gallium-arsenide chips. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./arsenic-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Arsenic</div>
+    <h1>Arsenic — the poison that is also a semiconductor</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Arsenic is a toxic by-product of copper and gold smelting that producers would rather not make at all — yet the small high-purity fraction is half of gallium arsenide, the compound semiconductor behind radar, RF and satellite chips. <b>The chokepoint is the reluctant recovery step, not a mine.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① By-product recovery (copper/gold smelter flue dust; China → Peru) → ② trioxide, materials flow &amp; toxicology → ③ high-purity arsenic → gallium-arsenide chips → ④ legacy wood preservative (declining) — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./arsenic-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">26</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (14, five unfetchable this pass) · <span class="pill ref">Reference</span> context / provenance (8).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① By-product recovery — the toxic Cu/Au smelting by-product</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Arsenic</td><td class="took">By-product framing + 100% US import reliance + the &gt;80%-preservative/8%-semiconductor use split → the "reluctant by-product" panel and the use-mix in §1–§3.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics — arsenic</td><td class="took">Country production series → the <b>China 72→40% / Peru rose</b> history chart (ground-truthed against mined_years.json).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Arsenic in copper smelting (JCSU / Springer)</td><td class="took">Method: how arsenic partitions into slag/matte/flue dust → the mechanism for "captured, not mined." <span class="miss">Paper paywalled (303 auth redirect); mechanism taken from title + the SME/ATSDR sources.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>SME — Role of Arsenic in the Mining Industry</td><td class="took">Occurrence as arsenopyrite/pyrite impurity in Cu/Au/Pb ores + &gt;99% smelter capture → corroborates the by-product coupling.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>SME — Mining: Production and Control of Arsenic</td><td class="took">Control technology (scrubbers/precipitators/baghouses remove up to 99.7%) → why tighter pollution rules cut, not raise, output.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>SMM — China copper-concentrate impurity limits</td><td class="took">The 0.5%→0.4% arsenic-in-concentrate threshold + "high-arsenic ~8% of supply" → the policy lever on where As-bearing ore can be smelted.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Trioxide, materials flow &amp; toxicology</td></tr>
+      <tr><td class="n">7</td><td>USBM IC 9382 — Materials Flow of Arsenic</td><td class="took">Materials-flow accounting method (by-product → use → disposal) → the template for the chain's "where it goes" framing. <span class="miss">PDF is a scanned image — no extractable text; scope from the circular's title.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>USGS Materials Flow (index)</td><td class="took">Provenance for the IC 9382 study and the wider USGS supply-chain series — context, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>ATSDR — Toxicological Profile: Arsenic</td><td class="took">Flue dust up to ~30% As₂O₃ + &gt;90% of pre-2004 trioxide use was CCA → sizes the "toxic capture" and the wood-preservative decline.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The semiconductor half — GaAs chips</td></tr>
+      <tr><td class="n">10</td><td>USGS MCS 2026 — Gallium</td><td class="took">GaAs-wafer import value (~$120M) + IC/optoelectronic uses → the "half of gallium arsenide" panel; pairs arsenic to the gallium chain.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>GaAs properties (arXiv)</td><td class="took">Band gap 1.429 eV / high electron mobility → the physics behind why GaAs beats silicon at high frequency (the §2 claim).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>Exponential Industry — GaAs substrates for AI</td><td class="took">GaAs-wafer market ~$1.4B, AI-datacentre VCSEL demand, China ~99% gallium → the forward-demand annotation on §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>WaferWorld — running out of gallium?</td><td class="took">GaAs supply is economic not geological; InP/recycled-wafer substitutes → the substitution note pairing arsenic with gallium risk.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>CSIS — Minerals for semiconductor supply chains</td><td class="took">Ranks arsenic "moderate" disruption risk, paired with gallium for GaAs → external corroboration of the §2 pairing.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>CSIS — From Mine to Microchip</td><td class="took">Broader mine→chip framing (gallium/germanium/silicon) — context for the decision layer, not this chain's numbers.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The uses it is losing — legacy wood preservative</td></tr>
+      <tr><td class="n">16</td><td>US EPA — Chromated Arsenicals (CCA)</td><td class="took">Dec-2003 voluntary end of residential CCA-treated wood → the §3 "out of wood, into electronics" decline of the bulk use.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — statistics, data &amp; frameworks</td></tr>
+      <tr><td class="n">17</td><td>USGS — Arsenic Statistics and Information</td><td class="took">Master index behind the MCS/Yearbook production and import-reliance figures — provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>USGS — Arsenic Insights and Data</td><td class="took">By-product-of-Cu/Au/Pb-smelting definition + downloadable data — provenance for the source framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>USGS MCS 2026 (full volume)</td><td class="took">Cross-references arsenic against copper, gold and gallium in one volume — context for the by-product coupling.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>USGS/Data.gov — MCS 2025 Arsenic (data release)</td><td class="took">Machine-readable prior-year values → year-over-year check on the 2026 salient statistics.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">21</td><td>Arsenic flows in the EU environment (ScienceDirect)</td><td class="took">EU-scale environmental flow review → an EU-side flow layer. <span class="miss">Page paywalled (403); described from title + series listing.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">22</td><td>CEPII BACI V202601</td><td class="took">The trade engine → the reproduced arsenic trade view (HS 280480), read as coarse trade only.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">23</td><td>Embedded/embodied arsenic trade 1990–2019 (EST)</td><td class="took">Material-flow method over 18 products × 244 countries → an embodied-trade layer beyond HS 280480. <span class="miss">Full text paywalled (403); from publisher listing + title.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>UN Comtrade</td><td class="took">The declarations BACI reconciles — provenance for the trade figures. <span class="miss">Live site is a JS app shell ("Loading…"); described from its known role.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>BGS — World Mineral Statistics (data download)</td><td class="took">The machine-readable form of the arsenic production series (CSV) — provenance for the history chart.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>BGS WMS service — data.gov.uk</td><td class="took">Official catalogue/metadata access point for the BGS production/trade database — provenance.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① By-product recovery — the toxic Cu/Au smelting by-product <span class="ct">6</span></h2>
+  <div class="stagesub">Arsenic is not mined for itself: it is captured as arsenic trioxide from copper and gold smelter flue dust. China ~40%, Peru rose to the lead.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-arsenic.pdf">USGS Mineral Commodity Summaries 2026 — Arsenic</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual US/world arsenic production, trade, uses and import-source data.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: no arsenic metal or trioxide has been produced in the US since 1985, so net import reliance is 100%. Over 80% of domestic use is herbicides, insecticides and CCA wood preservatives; high-purity (99.9999%) arsenic makes GaAs and InGaAs semiconductors. 2025 imports ~$8.4M; trioxide from China 61%, Morocco 27%.</span>
+      <span class="dat"><b>Data.</b> USGS producer/import canvass — US salient statistics, import sources 2021–24, tariff and warehouse-price data.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS, World Mineral Statistics — arsenic</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">National production and trade statistics portal covering arsenic among ~80 commodities.</span>
+      <span class="abs"><b>Summary.</b> BGS World Mineral Statistics: production, imports and exports by country for about 80 commodities including arsenic; online series 1970–2021 (trade to 2002, selected Europe to 2018), earlier years in the archive, downloadable as CSV. The source of the chain's China→Peru production share series.</span>
+      <span class="dat"><b>Data.</b> BGS annual compilation of national mineral production and trade returns; the atlas's history chart is ground-truthed against mined_years.json.</span></li>
+    <li><a href="https://link.springer.com/content/pdf/10.1007/s11771-023-5392-7.pdf?pdf=inline+link">A review of arsenic reaction behavior in copper smelting and its disposal techniques</a><span class="src"> · J. Central South University (2023)</span>
+      <span class="desc">Technical review of how arsenic partitions in copper smelting and how it is disposed of.</span>
+      <span class="abs"><b>Summary.</b> Review of how arsenic behaves in the copper-smelting process — partitioning between slag, matte and flue dust — and of the techniques used to fix and dispose of it. <span class="miss">Full text paywalled (Springer 303 auth redirect); summarised from title and journal.</span></span>
+      <span class="dat"><b>Data.</b> Literature review (Journal of Central South University, 2023) — no primary dataset retrievable this pass.</span></li>
+    <li><a href="https://www.smenet.org/What-We-Do/Technical-Briefings/The-Role-of-Arsenic-in-the-Mining-Industry">The Role of Arsenic in the Mining Industry</a><span class="src"> · SME</span>
+      <span class="desc">Technical briefing on arsenic's occurrence and handling in mining/smelting.</span>
+      <span class="abs"><b>Summary.</b> SME briefing: arsenic — the 20th most abundant element — occurs as an arsenopyrite/pyrite impurity in copper, gold and lead ores; smelter scrubbers and precipitators capture over 99% of emissions. Notes 100% US import reliance and gallium arsenide as a growing, more strategic use.</span>
+      <span class="dat"><b>Data.</b> SME technical briefing — descriptive; cites global production figures and control practices.</span></li>
+    <li><a href="https://www.smenet.org/What-We-Do/Technical-Briefings/Mining-Production-and-Control-of-Arsenic">Mining: Production and Control of Arsenic</a><span class="src"> · SME</span>
+      <span class="desc">Companion briefing on arsenic production and environmental controls at mine/smelter sites.</span>
+      <span class="abs"><b>Summary.</b> SME briefing: scrubbers, electrostatic precipitators and baghouses remove up to 99.7% of dust and fumes at smelters; about 25% of atmospheric arsenic is natural. World production was ~59,000 t in 2021, all US supply imported (China, Morocco), under RCRA/EPA control.</span>
+      <span class="dat"><b>Data.</b> SME technical briefing — control-technology description within the RCRA/EPA regulatory frame.</span></li>
+    <li><a href="https://news.metal.com/newscontent/100959019/china-mulls-lower-impurity-thresholds-on-copper-concentrate-imports">China mulls lower impurity thresholds on copper concentrate imports</a><span class="src"> · SMM (Shanghai Metals Market)</span>
+      <span class="desc">Trade-policy reporting on China's arsenic limits for imported copper concentrate.</span>
+      <span class="abs"><b>Summary.</b> Trade report (Aug 2019): China's customs weighed cutting the arsenic limit on imported copper concentrate from 0.5% to 0.4%. High-arsenic concentrate is ~8% of global supply and rising (Chile, Peru), so tighter limits reshape where arsenic-bearing ore can be smelted.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting on a proposed Chinese customs standard — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Trioxide, materials flow &amp; toxicology <span class="ct">3</span></h2>
+  <div class="stagesub">From flue dust to refined trioxide — and the toxicology that governs how much anyone wants to make.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/usbmic/ic-9382/arsenic.pdf">Arsenic (Information Circular 9382) — The Materials Flow of Arsenic in the United States</a><span class="src"> · U.S. Bureau of Mines / USGS (1991)</span>
+      <span class="desc">Classic material-flow study tracing arsenic from smelter by-product to disposal.</span>
+      <span class="abs"><b>Summary.</b> USBM Information Circular 9382 (1991): a materials-flow study tracing arsenic from smelter by-product through manufacture, dissipative use and disposal in the United States. <span class="miss">The PDF is a scanned image with no machine-extractable text; described from the circular's title and known scope.</span></span>
+      <span class="dat"><b>Data.</b> US Bureau of Mines material-flow accounting — historical; text not extractable this pass.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/materials-flow">USGS Materials Flow</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Index of USGS material-flow / supply-chain studies, including the arsenic circular.</span>
+      <span class="abs"><b>Summary.</b> USGS index of material-flow and supply-chain studies across 40+ commodities, tracking extraction → processing → product plus recycling rates, stocks-in-use, import reliance and by-product recovery. The gateway to the arsenic circular and to USGS foreign-reliance work.</span>
+      <span class="dat"><b>Data.</b> USGS program index page — links to the underlying studies, not a dataset itself.</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/books/NBK591621/">Toxicological Profile for Arsenic — Production, Import/Export, Use, and Disposal</a><span class="src"> · ATSDR / NCBI Bookshelf</span>
+      <span class="desc">Federal toxicology profile chapter on arsenic production, trade and disposal.</span>
+      <span class="abs"><b>Abstract.</b> ATSDR profile: arsenic is a by-product of copper, lead, cobalt and gold smelting, accumulating in flue dust up to ~30% arsenic trioxide before refining. US production ended in 1985 (ASARCO Tacoma); over 90% of pre-2004 trioxide use was CCA wood preservative; wastes are landfilled under hazardous-material rules.</span>
+      <span class="dat"><b>Data.</b> ATSDR/NCBI federal synthesis of production, trade and disposal literature — no new dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The semiconductor half — gallium-arsenide chips <span class="ct">6</span></h2>
+  <div class="stagesub">Where the small high-purity fraction goes: half of gallium arsenide — radar, RF, satellite front-ends, LEDs. Pairs with the gallium chain.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf">USGS Mineral Commodity Summaries 2026 — Gallium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Gallium / gallium-arsenide semiconductor context — the paired chain arsenic feeds.</span>
+      <span class="abs"><b>Abstract.</b> USGS gallium summary: no primary US gallium since 1987; imported GaAs-wafer value ~$120M in 2025. Gallium arsenide makes compound-semiconductor wafers for integrated circuits and optoelectronics — laser diodes, LEDs, photodetectors, solar cells — used in defence, telecom and aerospace. GaAs is where high-purity arsenic goes.</span>
+      <span class="dat"><b>Data.</b> USGS gallium canvass — imports, reported consumption, GaAs-wafer values and end uses.</span></li>
+    <li><a href="https://arxiv.org/pdf/1601.05300">Accurate Electronic, Transport, and Bulk Properties of Gallium Arsenide (GaAs)</a><span class="src"> · arXiv (2016)</span>
+      <span class="desc">Materials-physics reference for the GaAs properties underlying its device uses.</span>
+      <span class="abs"><b>Summary.</b> Ab-initio (LDA, LCAO/BZW-EF) computation of GaAs's electronic, transport and bulk properties: direct band gap 1.429 eV (1.520 eV low-temperature), lattice constant 5.632 Å, bulk modulus 75.5 GPa — all matching experiment. The physics behind GaAs's high-frequency device use.</span>
+      <span class="dat"><b>Data.</b> Density-functional calculation (Diakite et al., 2016) — theoretical, no experimental dataset.</span></li>
+    <li><a href="https://www.exponentialindustry.com/blog/2026-07-14-gallium-arsenide-gaas-substrate-ai-interconnect/">GaAs Substrates for AI: Manufacturing, Market Growth &amp; Gallium Supply Chain Risks</a><span class="src"> · Exponential Industry (2026)</span>
+      <span class="desc">Market analysis of GaAs substrate demand and upstream gallium/arsenic risk.</span>
+      <span class="abs"><b>Summary.</b> Market analysis (Jul 2026): the GaAs-wafer market is ~$1.4B in 2026, 10–13% CAGR, driven by AI-datacentre VCSEL optical interconnects. Upstream risk is acute — China ~99% of primary gallium; three firms (Sumitomo, Freiberger, AXT) dominate substrates; end-of-life recycling below 1%.</span>
+      <span class="dat"><b>Data.</b> Trade analysis citing market-size, producer-share and recycling estimates — no primary dataset.</span></li>
+    <li><a href="https://www.waferworld.com/post/are-we-running-out-of-gallium-the-future-of-gaas-wafers-and-challenges-to-come">Are We Running Out of Gallium? The Future of GaAs Wafers and Challenges to Come</a><span class="src"> · WaferWorld</span>
+      <span class="desc">Industry commentary on gallium/GaAs wafer supply constraints.</span>
+      <span class="abs"><b>Summary.</b> Industry commentary: GaAs supply is economically, not physically, scarce — 80–90% of gallium is produced in China, none refined in the US since 1987, and China's mid-2023 export curbs strained chains. Indium phosphide and recycled wafers are partial substitutes.</span>
+      <span class="dat"><b>Data.</b> Trade commentary — qualitative, cites production-share figures.</span></li>
+    <li><a href="https://www.csis.org/analysis/mineral-demands-resilient-semiconductor-supply-chains">Mineral Demands for Resilient Semiconductor Supply Chains</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">Analysis of the mineral inputs (including arsenic-linked GaAs) behind semiconductor resilience.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis (May 2024, Berg et al.): ranks five semiconductor minerals by disruption risk — gallium highest, then germanium, fluorine and arsenic (moderate, paired with gallium for GaAs wafers). Argues China's processing dominance, not extraction, is the vulnerability; build Western-Hemisphere processing.</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing gallium-share (98%/86%) and semiconductor-market figures.</span></li>
+    <li><a href="https://www.csis.org/analysis/mine-microchip">From Mine to Microchip</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">Broader supply-chain analysis tracing critical minerals into chip manufacturing.</span>
+      <span class="abs"><b>Summary.</b> CSIS brief (Oct 2024, Baskaran &amp; Schwartz): traces gallium, germanium, palladium and silicon into chipmaking; a 30% gallium disruption is modelled at a $602B US GDP loss. Context for arsenic's GaAs partner, gallium, rather than arsenic itself.</span>
+      <span class="dat"><b>Data.</b> Policy brief citing production-share and economic-impact estimates — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The uses it is losing — legacy wood preservative <span class="ct">1</span></h2>
+  <div class="stagesub">The bulk use is going away: chromated-copper-arsenate wood preservative, phased out for homes on health grounds.</div>
+  <ul class="refs">
+    <li><a href="https://www.epa.gov/ingredients-used-pesticide-products/chromated-arsenicals-cca">Chromated Arsenicals (CCA)</a><span class="src"> · US EPA</span>
+      <span class="desc">Official page on the CCA wood-preservative residential phase-out.</span>
+      <span class="abs"><b>Summary.</b> EPA page on CCA (chromium/copper/arsenic) wood preservative: manufacturers voluntarily ended residential CCA-treated wood in December 2003; commercial uses (poles, pilings, foundation beams) continue under 15-year registration review. Documents the decline of arsenic's former bulk use.</span>
+      <span class="dat"><b>Data.</b> EPA regulatory / registration-review information — no production dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — statistics, data &amp; frameworks <span class="ct">5</span></h2>
+  <div class="stagesub">The index pages and prior-year releases behind the production figures, plus an EU-scale flow review.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/arsenic-statistics-and-information">Arsenic Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Landing page for historical arsenic production/consumption/price statistics.</span>
+      <span class="abs"><b>Summary.</b> USGS NMIC landing page: annual Mineral Commodity Summaries (1996–2026) and Minerals Yearbook (1994–2024, PDF/Excel) plus historical statistics for arsenic — the master index behind the production and import-reliance figures used across the chain.</span>
+      <span class="dat"><b>Data.</b> USGS NMIC index — links to the underlying commodity series.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/arsenic-insights-and-data">Arsenic Insights and Data</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Interactive commodity data and documents for arsenic.</span>
+      <span class="abs"><b>Summary.</b> USGS NMIC data page: downloadable documents and data for arsenic, noting it is recovered as a by-product of copper, gold and lead smelting or from roasting arsenopyrite. Companion to the statistics landing page and provenance for the by-product framing.</span>
+      <span class="dat"><b>Data.</b> USGS NMIC data portal — by-commodity documents and files.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf">Mineral Commodity Summaries 2026 (full volume)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Full annual volume covering all commodities including arsenic.</span>
+      <span class="abs"><b>Summary.</b> The complete USGS Mineral Commodity Summaries 2026 — one-page chapters for ~90 commodities plus appendixes on net import reliance and world production — used to cross-reference arsenic against copper, gold and gallium in a single volume.</span>
+      <span class="dat"><b>Data.</b> USGS annual reference volume (all commodities, production/reserves/trade).</span></li>
+    <li><a href="https://catalog.data.gov/dataset/mineral-commodity-summaries-2025-arsenic-data-release">Mineral Commodity Summaries 2025 — Arsenic (data release)</a><span class="src"> · USGS / Data.gov (2025)</span>
+      <span class="desc">Prior-year machine-readable arsenic dataset for year-over-year comparison.</span>
+      <span class="abs"><b>Summary.</b> USGS/Data.gov machine-readable release (XML, updated April 2025) of the 2025 arsenic data sheet — US salient statistics and world production. Gives the prior-year values for year-over-year comparison against MCS 2026.</span>
+      <span class="dat"><b>Data.</b> USGS data release, XML with metadata (public, DOI-linked).</span></li>
+    <li><a href="https://www.sciencedirect.com/science/chapter/bookseries/abs/pii/S1875112106090201">Arsenic flows in the environment of the European Union: a synoptic review</a><span class="src"> · ScienceDirect (book series)</span>
+      <span class="desc">EU-focused review of arsenic environmental flows.</span>
+      <span class="abs"><b>Summary.</b> Book-series chapter reviewing arsenic environmental flows across the European Union. <span class="miss">Page returned HTTP 403 — abstract not retrievable; described from the title and series listing.</span></span>
+      <span class="dat"><b>Data.</b> ScienceDirect book-series chapter — not retrievable this pass.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">5</span></h2>
+  <div class="stagesub">The datasets the chain's trade view is built from — and why customs data reads arsenic only coarsely (HS 280480).</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII BACI provides reconciled bilateral trade for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF/FOB costs and reliability-weighting reporter discrepancies. Carries arsenic under HS 280480 — the coarse trade the chain reads with a caveat.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.acs.org/doi/10.1021/acs.est.4c04715">Direct, Embedded, and Embodied Trade of Arsenic: 1990–2019</a><span class="src"> · Environmental Science &amp; Technology</span>
+      <span class="desc">Material-flow-analysis study of embedded/embodied arsenic trade.</span>
+      <span class="abs"><b>Summary.</b> Environmental Science &amp; Technology material-flow study of direct, embedded and embodied arsenic trade across 18 arsenic-containing products and 244 countries, 1990–2019 — an embodied-trade layer beyond the single HS 280480 code. <span class="miss">Full text paywalled (HTTP 403); described from the publisher listing and title.</span></span>
+      <span class="dat"><b>Data.</b> Material-flow analysis over 18 products × 244 countries — abstract not retrievable this pass.</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade</a><span class="src"> · UN Statistics Division</span>
+      <span class="desc">Underlying international trade statistics feeding BACI (arsenic HS 280480).</span>
+      <span class="abs"><b>Summary.</b> The UN Statistics Division's international trade database — national import/export declarations by HS commodity and partner — the raw source BACI reconciles. <span class="miss">The live site is a JavaScript app shell returning only "Loading…"; described from the platform's known role.</span></span>
+      <span class="dat"><b>Data.</b> UN member-state customs declarations, HS classification — feeds BACI (arsenic HS 280480).</span></li>
+    <li><a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/world-mineral-statistics-data/">World Mineral Statistics — data download</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Downloadable production-by-country dataset covering arsenic and 80+ commodities.</span>
+      <span class="abs"><b>Summary.</b> BGS downloadable World Mineral Statistics: production, imports and exports by country for ~80 commodities, 1970–2021 online (earlier years in the archive), exported as CSV. The machine-readable form of the arsenic production series behind the history chart.</span>
+      <span class="dat"><b>Data.</b> BGS compiled national production/trade returns, CSV download.</span></li>
+    <li><a href="https://www.data.gov.uk/dataset/c4631fb7-e565-432c-8174-8c16387d5132/bgs-world-mineral-statistics-service-wms">BGS World Mineral Statistics service (WMS)</a><span class="src"> · data.gov.uk / BGS</span>
+      <span class="desc">Machine-readable access point for the BGS world mineral production/trade database.</span>
+      <span class="abs"><b>Summary.</b> data.gov.uk catalogue entry for the BGS World Mineral Statistics service — the official machine-readable access point and metadata for the BGS production and trade database that carries arsenic.</span>
+      <span class="dat"><b>Data.</b> data.gov.uk dataset record pointing to the BGS WMS.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated arsenic <b>criticality paper</b> (Resources Policy / Journal of Cleaner Production) surfaced — search Scopus / Web of Science for "arsenic AND criticality AND supply" to strengthen the reluctant-by-product argument with a citable model.</li>
+      <li>The <b>EU Critical Raw Materials Act status of arsenic</b> is unconfirmed here — fetch the JRC / EU CRM 2023 arsenic factsheet and the Official Journal text directly ("EU Critical Raw Materials Act 2023 arsenic factsheet JRC").</li>
+      <li><b>China's arsenic-trioxide export-control / quota history</b> is thin (unlike the gallium/germanium controls) — search "China arsenic trioxide export quota" and "China rare-metals export-control list arsenic".</li>
+      <li><b>Peru-specific production detail</b> (Toromocho, La Oroya smelter) surfaced only via secondary summary — fetch a primary USGS or Peru MINEM source to anchor the "Peru rose" half of the history chart.</li>
+      <li>No <b>DOE Critical Materials Assessment 2023</b> PDF was fetched — search "DOE Critical Materials Assessment 2023 arsenic" for the primary listing document.</li>
+      <li>Two by-product/flow sources are locked (the Springer copper-smelting review, the EST embodied-trade study) and IC 9382 is a scanned image — a modern, text-searchable arsenic materials-flow update would close the ② stage.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from a toxic copper/gold smelting by-product to gallium-arsenide chips, with cross-cutting frameworks and data grouped at the end. 26 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (paywall / 403 / JavaScript shell / scanned image) that is flagged in italics — five entries this pass. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./arsenic-chain.html">The arsenic chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
