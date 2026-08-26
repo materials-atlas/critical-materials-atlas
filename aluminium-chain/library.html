@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Aluminium value chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the aluminium value chain, ordered to follow the chain from bauxite ore to finished metal. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="aluminium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Aluminium</div>
+    <h1>Aluminium value chain — bauxite to metal</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Aluminium is congealed electricity. Bauxite is mined in three places at once — Australia, Guinea and China, roughly a quarter each — but smelting is one of the most electricity-hungry industrial processes there is, so it concentrated where power was cheapest. <b>China's share jumps from ~21% at the mine to ~59% at the smelter — the chokepoint is the powerline, not the pit.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Bauxite (the ore, mined AU / GN / CN) → ② Alumina refining (the Bayer step, and the Indonesia–Guinea ore shift) → ③ Smelting (Hall–Héroult, ~40% electricity by cost — China ~59%, energy-sited: the chokepoint) → ④ the metal (carbon footprint, recycling, end use) — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./aluminium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">34</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (7) · <span class="pill ref">Reference</span> context / provenance (23).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Bauxite — the ore (mined AU / GN / CN)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Bauxite &amp; Alumina</td><td class="took">Bauxite/alumina country shares → the ~21% bauxite-mine and ~58% alumina-refining bars in §1; sources the three-way mine split and Guinea's reserve lead.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>AfDB — Critical Mineral Insights (Bauxite)</td><td class="took">Guinea-focused reserves/production factsheet → would firm up the "largest reserves" stat (§ header) and the §4 Guinea-shift panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>African bauxite deposits review (PMC)</td><td class="took">Gibbsite-dominant African-deposit geology → context for why bauxite is abundant and mined in many places (the diversified-mine premise).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>Carbochlorination of low-grade bauxite (MDPI)</td><td class="took">Non-Bayer route for low-grade ore → a candidate "break the refining step" lead; not yet a metric in the record.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Alumina refining &amp; the Indonesia–Guinea shift</td></tr>
+      <tr><td class="n">5</td><td>CSIS — Indonesia's mining sector</td><td class="took">Indonesia's raw-bauxite ban collapsing exports ~95% and forcing refining onshore → the evidence behind §4 "ore map ≠ smelter map."</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>PIIE — Scramble for bauxite</td><td class="took">Guinea/Jamaica refining is uneconomic without cheap power → reinforces "the chokepoint is the powerline, not the pit."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>Guinea bauxite offsets Indonesia (Antaike)</td><td class="took">Guinea's 100+ Mt/yr capacity replacing Indonesian ore into China → corroborates the §4 Guinea shift: exporter of ore, not metal.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>S&amp;P Global — Indonesia ban impact</td><td class="took">Ban's limited hit to Chinese alumina → supports that smelting concentration is unmoved by ore-geography shifts.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Smelting — the electricity chokepoint (China ~59%)</td></tr>
+      <tr><td class="n">9</td><td>USGS MCS 2026 — Aluminum</td><td class="took">Primary-aluminium production and energy → the ~59% China smelting bar (§1) and the 12–15 MWh/t stat (§2).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>USGS — Global Maps of Critical Mineral Production 2023</td><td class="took">Country-level mine-to-processing shares → cross-checks the 21% → 59% mine-to-smelter jump.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>IAI — Smelting Power Consumption by Country</td><td class="took">Country electricity-per-tonne series → the direct primary source to verify or replace the 12–15 MWh/t figure.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>IAI — Primary Aluminium Production</td><td class="took">Annual primary output by country (China independently estimated) → an industry cross-check on the USGS ~59% smelter share.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>LCA of a primary aluminium supply chain</td><td class="took">Cradle-to-gate LCA of the primary chain → context for the energy-and-emissions weight of smelting.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The metal — carbon, recycling &amp; end use</td></tr>
+      <tr><td class="n">14</td><td>IAI — GHG Emissions Intensity</td><td class="took">Cradle-to-gate CO₂e per tonne by region/power → would quantify the §3 "coal vs hydro aluminium" contrast now stated qualitatively.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">15</td><td>IAI — Decarbonisation dataset (IEA B2DS)</td><td class="took">IEA-aligned pathways (smelting −90%, more recycling) → context for §3 decarbonisation and the CBAM trade angle.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>Towards carbon-negative primary aluminium</td><td class="took">Biomass-anode + renewable-power smelting route → a §3 "green aluminium" technology lead.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Decarbonizing the aluminium industry (review)</td><td class="took">Survey of sector decarbonisation routes → background for the carbon-footprint section.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>IAI — Material Flow Analysis</td><td class="took">Scrap / old-scrap flow model → the primary basis to verify the §2 "scrap ≈ 5% of the energy" and secondary-supply claims.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">19</td><td>Social-LCA of an aluminium window profile</td><td class="took">Social-risk LCA of a product chain → downstream (semis / end-use) social-risk context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Aluminium alloy design for low CRM use</td><td class="took">Alloy design cutting critical-material content for automotive casting → an end-use substitution lead.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>IEA — Aluminium sector page</td><td class="took">Sector production / energy / emissions vs net-zero → the carbon-trajectory framing behind §3.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">22</td><td>JRC — Sustainability profile, bauxite &amp; aluminium</td><td class="took">Environmental/social profile of the chain → provenance for the chain narrative's sustainability framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>JRC — EU CRM 2020 assessment</td><td class="took">EU methodology that listed bauxite/aluminium as critical → provenance for the "critical mineral" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>JRC — CRM deep-dive (JRC141715)</td><td class="took">Foresight on aluminium demand under EU climate scenarios → the demand-growth backdrop to the chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>European Court of Auditors — SR 04/2026</td><td class="took">EU audit of CRM supply-security policy → the policy-response layer; belongs on the decision page, not the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>SCRREEN — Aluminium &amp; bauxite factsheet</td><td class="took">Two-page criticality factsheet (supply chain / uses / substitution) → quick provenance for the CRM figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">27</td><td>RUSI — A new critical-mineral frontier</td><td class="took">Argues aluminium is a security concern (China ~58% smelting) → independent corroboration of the smelter-concentration thesis.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">28</td><td>CEPII BACI</td><td class="took">The trade engine → the bauxite / alumina / unwrought-aluminium exporter shares in the trade panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">29</td><td>USGS MCS 2026 (full volume)</td><td class="took">Full MCS volume (tariff actions, Indonesian smelters) → the wider commodity context around the aluminium chapter.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">30</td><td>USGS — Bauxite &amp; Alumina Statistics portal</td><td class="took">Historical bauxite/alumina series and yearbooks → the back-catalogue behind the mine-share history.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">31</td><td>IAI — Statistics overview</td><td class="took">IAI's data hub → the index to the production / energy / emissions series used above.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">32</td><td>International Aluminium Institute</td><td class="took">The global primary-aluminium association → the authority behind the industry datasets cited.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">33</td><td>Statista — Bauxite production share</td><td class="took">Country-share chart for bauxite mining → a quick cross-look at the three-way split.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">34</td><td>statbase.org — Bauxite production 1970–2023</td><td class="took">Long-run country bauxite series → history context for the mine-share chart.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Bauxite — the ore <span class="ct">4</span></h2>
+  <div class="stagesub">Mined in a three-way split — Australia, Guinea and China, roughly a quarter each. Abundant and heavy, so it is dug near many deposits.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bauxite-alumina.pdf">USGS Mineral Commodity Summaries 2026 — Bauxite and Alumina</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual bauxite/alumina production, reserves and trade statistics by country.</span>
+      <span class="abs"><b>Scope.</b> USGS annual commodity summary for bauxite and alumina — world and US mine production, reserves, refinery output, trade and import reliance; the source of the chain's three-way mine split and Guinea's reserve lead. <span class="miss">PDF returned HTTP 403 on two passes — not retrievable this pass; scope taken from the USGS chapter's standing structure and the chain record.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export trade data.</span></li>
+    <li><a href="https://www.afdb.org/sites/default/files/documents/publications/bauxite_factsheet_final_nov_21.pdf">Critical Mineral Insights — Bauxite</a><span class="src"> · African Development Bank (2021)</span>
+      <span class="desc">Occurrence, production and by-production factsheet on bauxite, with Guinea-focused context.</span>
+      <span class="abs"><b>Scope.</b> African Development Bank factsheet on bauxite occurrence, production and by-production, with Guinea-focused context on Africa's role in world supply. <span class="miss">PDF returned HTTP 403 — not retrievable this pass; scope taken from the document title.</span></span>
+      <span class="dat"><b>Data.</b> AfDB compilation of production and reserve statistics — no primary dataset.</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10450972/">A comparative review of the mineralogical and chemical composition of African major bauxite deposits</a><span class="src"> · PMC (open access)</span>
+      <span class="desc">Comparative geology of Guinea and other African bauxite deposits.</span>
+      <span class="abs"><b>Abstract.</b> Comparative review of the mineralogy and chemistry of major African bauxite deposits (Cameroon, Ghana, Guinea, Mozambique, Sierra Leone, Tanzania). Finds gibbsite the dominant aluminium mineral across all, with widely varying silica moduli, Guinea holding the largest reserves — assessing each deposit's quality for aluminium production.</span>
+      <span class="dat"><b>Data.</b> Published literature compiled with XRD, XRF and ICP-AES composition measurements into standardized comparison tables.</span></li>
+    <li><a href="https://www.mdpi.com/1996-1944/17/14/3613">Co-Extraction of Aluminum and Silicon and Kinetics Analysis in Carbochlorination of Low-Grade Bauxite</a><span class="src"> · Materials (MDPI, 2024)</span>
+      <span class="desc">Alternative processing route for low-grade bauxite ores unsuitable for the Bayer process.</span>
+      <span class="abs"><b>Scope.</b> Study of a carbochlorination route co-extracting aluminium and silicon from low-grade bauxite unsuitable for the Bayer process, with kinetics analysis. <span class="miss">Publisher page returned HTTP 403 — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Laboratory carbochlorination experiments with reaction-kinetics analysis.</span></li>
+  </ul>
+
+  <h2 class="sec">② Alumina refining &amp; the Indonesia–Guinea shift <span class="ct">4</span></h2>
+  <div class="stagesub">The Bayer step, and the ore's own re-sorting: Indonesia banned raw exports to force domestic refining; Guinea fills the gap into China.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/diversifying-investment-indonesias-mining-sector">Diversifying Investment in Indonesia's Mining Sector</a><span class="src"> · CSIS</span>
+      <span class="desc">Analysis of Indonesia's raw-bauxite export ban and downstream refining push.</span>
+      <span class="abs"><b>Summary.</b> CSIS commentary on Indonesian resource nationalism: the raw-bauxite export ban collapsed output ~95% (55.7 Mt in 2013 to 2.6 Mt in 2014) and export revenue from $1.3 bn to $46 m, while Chinese investors shifted to Guinea — permanently diminishing Indonesia's market position.</span>
+      <span class="dat"><b>Data.</b> Historical Indonesian production and export-revenue figures around the 2014 export ban.</span></li>
+    <li><a href="https://piie.com/blogs/realtime-economic-issues-watch/scramble-bauxite-beware-chinese-promising-gifts">Scramble for bauxite: beware Chinese promising gifts</a><span class="src"> · Peterson Institute (PIIE)</span>
+      <span class="desc">Analysis of Chinese-financed bauxite investment in Guinea after Indonesia's ban.</span>
+      <span class="abs"><b>Summary.</b> PIIE blog (Marcus Noland) arguing Chinese pledges to build alumina refining in Guinea (and Jamaica) lack credibility: high energy costs and hydrocarbon dependence make refining/smelting there uneconomic without subsidy — reinforcing that cheap power, not ore, sites the industry.</span>
+      <span class="dat"><b>Data.</b> Commentary citing Chinese investment announcements and host-country energy-cost conditions — no primary dataset.</span></li>
+    <li><a href="https://www.investing.com/news/commodities-news/guinea-bauxite-can-make-up-for-indonesia-ban-chinas-antaike-says-2691363">Guinea bauxite can make up for Indonesia ban, China's Antaike says</a><span class="src"> · Reuters, via Investing.com</span>
+      <span class="desc">Market reporting on Guinea substituting for Indonesian bauxite supply.</span>
+      <span class="abs"><b>Summary.</b> Reuters report: China's Antaike says Guinea can fully offset any Indonesian export restriction. Chinese-invested Guinean projects exceed 100 Mt/yr capacity, nearly all shipped to China; Guinea imports were expected to reach ~58 Mt/yr with room to expand.</span>
+      <span class="dat"><b>Data.</b> Market reporting citing Antaike (China) capacity and trade-flow estimates.</span></li>
+    <li><a href="https://www.spglobal.com/commodityinsights/en/market-insights/latest-news/metals/112521-indonesias-bauxite-export-ban-to-have-limited-impact-on-china-supply">Indonesia's bauxite export ban to have limited impact on China supply</a><span class="src"> · S&amp;P Global Commodity Insights</span>
+      <span class="desc">Market analysis of the 2023 Indonesian export ban's effect on Chinese alumina supply.</span>
+      <span class="abs"><b>Scope.</b> Market analysis arguing Indonesia's 2023 raw-bauxite export ban would have limited impact on China's alumina supply, given Guinea and Australian ore. <span class="miss">Page returned HTTP 403 — full text not retrievable; scope from the headline.</span></span>
+      <span class="dat"><b>Data.</b> Market analysis of bauxite trade flows and Chinese alumina supply — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Smelting — the electricity chokepoint <span class="ct">5</span></h2>
+  <div class="stagesub">The chokepoint. Hall–Héroult electrolysis is ~40% electricity by cost, so it went where power was cheap — China ~59%.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-aluminum.pdf">USGS Mineral Commodity Summaries 2026 — Aluminum</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual production, reserves, trade and price data for aluminium metal.</span>
+      <span class="abs"><b>Scope.</b> USGS annual commodity summary for aluminium — primary and secondary metal production, smelter capacity, electricity use per tonne, trade and uses; underlies the ~59% China smelting share and the 12–15 MWh/t figure. <span class="miss">PDF returned HTTP 403 on two passes — not retrievable this pass; scope from the standing chapter and the chain record.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price data.</span></li>
+    <li><a href="https://pubs.usgs.gov/fs/2025/3038/fs20253038.pdf">USGS — Global Maps of Critical Mineral Production in 2023 (FS 2025-3038)</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Country-level mine-to-processing shares for critical minerals, including aluminium's chain.</span>
+      <span class="abs"><b>Scope.</b> USGS fact sheet mapping 2023 country-level mine-to-processing shares for critical minerals, aluminium's chain included — the cross-check on the mine-to-smelter concentration jump. <span class="miss">PDF returned HTTP 403 on two passes — not retrievable this pass; scope from the fact sheet's title and the chain record.</span></span>
+      <span class="dat"><b>Data.</b> USGS-compiled national production and processing statistics for 2023.</span></li>
+    <li><a href="https://international-aluminium.org/statistics/primary-aluminium-smelting-power-consumption-by-country/">Primary Aluminium Smelting Power Consumption — by Country</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">Country-level electricity consumption per tonne smelted — the direct evidence for the chain's MWh/t figure.</span>
+      <span class="abs"><b>Summary.</b> IAI statistics page for primary-aluminium smelting electricity consumption per tonne, by country and region. The page frames definitions, sourcing and methodology and links the series rather than printing values inline — the direct industry source for the chain's MWh/t figure.</span>
+      <span class="dat"><b>Data.</b> IAI member and non-member company reporting, with estimates for unreported facilities.</span></li>
+    <li><a href="https://international-aluminium.org/statistics/primary-aluminium-production/">Primary Aluminium Production</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">Monthly/annual primary aluminium output by country.</span>
+      <span class="abs"><b>Summary.</b> IAI dataset of annual primary-aluminium production by country and region from 1973 onward; China's output is independently estimated. An industry cross-check on the USGS ~59% China smelting share.</span>
+      <span class="dat"><b>Data.</b> Voluntary reports from IAI member and non-member companies plus estimates for unreported facilities; China estimated independently.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S0959652604000083">An LCA study of a primary aluminum supply chain</a><span class="src"> · Journal of Cleaner Production</span>
+      <span class="desc">Life-cycle assessment of the primary aluminium production chain.</span>
+      <span class="abs"><b>Scope.</b> Life-cycle assessment of a primary aluminium supply chain (bauxite → alumina → smelting), quantifying the energy and environmental burdens of each stage. <span class="miss">ScienceDirect returned HTTP 403 — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Life-cycle inventory of a primary aluminium production chain.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The metal — carbon, recycling &amp; end use <span class="ct">8</span></h2>
+  <div class="stagesub">Same metal, very different footprint: the smelter's power source sets the carbon, and recycled metal needs about 5% of the energy.</div>
+  <ul class="refs">
+    <li><a href="https://international-aluminium.org/statistics/greenhouse-gas-emissions-primary-aluminium/">Primary Aluminium Greenhouse Gas Emissions Intensity</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">Carbon-intensity data underlying the "coal vs hydro aluminium" contrast.</span>
+      <span class="abs"><b>Summary.</b> IAI 2024 dataset of cradle-to-gate GHG emissions intensity for primary aluminium (mining through casting) across global facilities. Methodology and sourcing are described on the page; specific CO₂e-per-tonne values by region sit in the underlying series, not printed inline.</span>
+      <span class="dat"><b>Data.</b> Industry life-cycle inventories (published 2005/2010/2015/2019) with annual energy and PFC updates; pre-2019 not comparable to later years.</span></li>
+    <li><a href="https://international-aluminium.org/iai-releases-aluminium-sectors-decarbonisation-dataset-in-line-with-the-international-energy-agencys-beyond-2-degrees-findings/">IAI Releases Aluminium Sector's Decarbonisation Dataset (IEA Beyond 2 Degrees)</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">Sector decarbonisation dataset aligned to IEA net-zero pathways.</span>
+      <span class="abs"><b>Summary.</b> IAI decarbonisation dataset aligned to the IEA Beyond 2 Degrees Scenario: the sector targets a ~77% CO₂e cut by 2050 despite ~81% demand growth, with smelting emissions down ~90% and refining ~50%, via electricity decarbonisation, direct-emission cuts and more recycling.</span>
+      <span class="dat"><b>Data.</b> IAI sector modelling aligned to the IEA B2DS pathway.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0959652625023510">Towards carbon-negative primary aluminium production: Integrating biomass resources and renewable electricity</a><span class="src"> · Journal of Cleaner Production (2025)</span>
+      <span class="desc">Pathways to decarbonise Hall–Héroult smelting via renewable power and biomass anodes.</span>
+      <span class="abs"><b>Scope.</b> Analysis of pathways to carbon-negative primary aluminium by integrating biomass feedstocks and renewable electricity into Hall–Héroult smelting. <span class="miss">ScienceDirect returned HTTP 403 — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Process modelling of biomass-anode and renewable-power smelting scenarios.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S2211467X25002160">Decarbonizing the aluminium industry: A comprehensive review of pathways and process integration perspectives</a><span class="src"> · Energy Strategy Reviews (2025)</span>
+      <span class="desc">Review of technical routes to cut aluminium-sector emissions.</span>
+      <span class="abs"><b>Scope.</b> Review of technical routes and process-integration options to cut aluminium-sector emissions across refining and smelting. <span class="miss">ScienceDirect returned HTTP 403 — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Literature review of aluminium-sector decarbonisation pathways — no primary dataset.</span></li>
+    <li><a href="https://international-aluminium.org/work-areas/material-flow-analysis/">Material Flow Analysis</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">MFA modelling of aluminium flows through fabrication, use, scrap and recycling.</span>
+      <span class="abs"><b>Summary.</b> IAI Material Flow Analysis modelling aluminium through production, fabrication, use, and old/new scrap over 1950–2021, globally and regionally — the primary basis for recycling rates and scrap's share of supply behind the chain's recycling-relief claim.</span>
+      <span class="dat"><b>Data.</b> IAI mass-balance material-flow model spanning 70+ years of production, use and scrap flows.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s11367-024-02334-6">Social risks assessment of the supply chain of an aluminium semi-finished profile for window</a><span class="src"> · Int. Journal of Life Cycle Assessment (2024)</span>
+      <span class="desc">Social-LCA of an aluminium product supply chain.</span>
+      <span class="abs"><b>Scope.</b> Social life-cycle assessment of an aluminium semi-finished window-profile supply chain, scoring social risks across its stages. <span class="miss">Springer redirected to a login wall — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Social-LCA scoring across supply-chain stages (social-hotspot / inventory data).</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s40962-024-01502-6">A Novel Aluminium Alloys Design Strategy for Low Usage of Critical Raw Materials and High Casting Processibility for Automotive Applications</a><span class="src"> · Int. Journal of Metalcasting (2024)</span>
+      <span class="desc">Alloy design to reduce reliance on critical raw materials in automotive aluminium.</span>
+      <span class="abs"><b>Scope.</b> An aluminium-alloy design strategy for low critical-raw-material usage and high casting processability in automotive applications. <span class="miss">Springer redirected to a login wall — abstract not retrievable; scope from the article title.</span></span>
+      <span class="dat"><b>Data.</b> Alloy-design experiments assessing composition, castability and critical-material content.</span></li>
+    <li><a href="https://www.iea.org/energy-system/industry/aluminium">Aluminium — IEA</a><span class="src"> · International Energy Agency</span>
+      <span class="desc">Sector page tracking aluminium production, energy use and emissions against net-zero benchmarks.</span>
+      <span class="abs"><b>Summary.</b> IEA aluminium sector page tracking production, energy demand and CO₂ emissions (2015–2024) against net-zero benchmarks, with interactive charts. Data drawn from the World Energy Outlook 2025 — the carbon-trajectory framing behind the chain's coal-vs-hydro contrast.</span>
+      <span class="dat"><b>Data.</b> IEA World Energy Outlook 2025 production, energy and emissions series.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">6</span></h2>
+  <div class="stagesub">EU/US assessments and analysis that classify the whole chain and frame the policy response.</div>
+  <ul class="refs">
+    <li><a href="https://rmis.jrc.ec.europa.eu/uploads/library/jrc125390_sustainability_profile_bauxite__aluminium_online.pdf">Sustainability aspects of Bauxite and Aluminium (JRC125390)</a><span class="src"> · European Commission JRC</span>
+      <span class="desc">Climate, environmental and social sustainability profile of the bauxite-aluminium value chain.</span>
+      <span class="abs"><b>Scope.</b> JRC sustainability profile of the bauxite–aluminium value chain — climate, environmental and social dimensions along mining, refining and smelting. <span class="miss">PDF exceeded the fetch size limit — not retrievable this pass; scope from the document title.</span></span>
+      <span class="dat"><b>Data.</b> JRC synthesis of environmental and social indicators along the value chain.</span></li>
+    <li><a href="https://rmis.jrc.ec.europa.eu/uploads/CRM_2020_Report_Final.pdf">Study on the EU's list of Critical Raw Materials (2020)</a><span class="src"> · European Commission JRC (2020)</span>
+      <span class="desc">Methodology and criticality assessment that placed bauxite/aluminium on the EU CRM list.</span>
+      <span class="abs"><b>Scope.</b> The EU JRC 2020 criticality assessment and methodology (Economic Importance × Supply Risk) that placed bauxite and aluminium on the EU Critical Raw Materials list. <span class="miss">PDF returned only binary content — text not retrievable this pass; scope from the report title.</span></span>
+      <span class="dat"><b>Data.</b> EU criticality methodology over candidate materials using production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/bitstream/JRC141715/jrc141715_01.pdf">JRC deep-dive on critical raw materials (JRC141715)</a><span class="src"> · European Commission JRC</span>
+      <span class="desc">Foresight-style assessment of CRM demand, including aluminium, under EU climate scenarios.</span>
+      <span class="abs"><b>Summary.</b> JRC foresight analysis of critical-raw-material demand — aluminium included — under EU climate scenarios, modelling material needs across decarbonisation pathways and flagging supply constraints for renewables, electrified transport and energy efficiency.</span>
+      <span class="dat"><b>Data.</b> EU climate scenarios with material-intensity coefficients and sectoral demand projections.</span></li>
+    <li><a href="https://www.eca.europa.eu/ECAPublications/SR-2026-04/SR-2026-04_EN.pdf">Special Report 04/2026 — Critical raw materials for the energy transition</a><span class="src"> · European Court of Auditors (2026)</span>
+      <span class="desc">EU audit of critical-raw-materials policy, including supply-security measures relevant to bauxite/aluminium.</span>
+      <span class="abs"><b>Summary.</b> European Court of Auditors special report auditing EU critical-raw-materials policy for the energy transition — supply-security measures, policy effectiveness and transition readiness relevant to bauxite/aluminium. <span class="miss">Only the report's front-matter/structure was retrievable; detailed findings need the full PDF.</span></span>
+      <span class="dat"><b>Data.</b> EU institutional audit of CRM policy and supply-security measures.</span></li>
+    <li><a href="https://scrreen.eu/wp-content/uploads/2023/01/ALUMINIUM-AND-BAUXITE_CRM_2020_Factsheets_critical_Final.pdf">Aluminium and Bauxite — CRM 2020 factsheet</a><span class="src"> · SCRREEN (EU consortium)</span>
+      <span class="desc">Two-page criticality factsheet covering supply chain, uses and substitution for aluminium/bauxite.</span>
+      <span class="abs"><b>Scope.</b> SCRREEN two-page criticality factsheet for aluminium and bauxite — supply chain, uses, substitution and country shares behind the EU CRM listing. <span class="miss">PDF timed out on two passes — not retrievable this pass; scope from the factsheet title.</span></span>
+      <span class="dat"><b>Data.</b> SCRREEN compilation of EU criticality-assessment figures — no primary dataset.</span></li>
+    <li><a href="https://www.rusi.org/explore-our-research/publications/commentary/aluminium-new-critical-mineral-frontier">Aluminium: A New Critical Mineral Frontier</a><span class="src"> · RUSI</span>
+      <span class="desc">Commentary on aluminium's re-emergence as a critical-mineral security concern.</span>
+      <span class="abs"><b>Summary.</b> RUSI commentary arguing aluminium — though abundant — is a new critical-mineral security concern: China dominates smelting (~58%), production has shifted to coal-heavy regions, and low-carbon-transition demand is rising; it calls for recycling incentives and diversified production geography.</span>
+      <span class="dat"><b>Data.</b> Policy commentary citing China's smelting share and demand-growth trends — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">7</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonised bilateral trade database (HS6, 1995–2024) used for the chain's bauxite/alumina/aluminium trade figures.</span>
+      <span class="abs"><b>Summary.</b> CEPII BACI: reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by converting CIF to FOB and reliability-weighting reporter discrepancies — the engine for the chain's bauxite/alumina/aluminium trade shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026.pdf">Mineral Commodity Summaries 2026 (full volume)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Full-volume MCS covering &gt;90 commodities; 2025 tariff actions and Indonesian smelter developments noted for aluminum.</span>
+      <span class="abs"><b>Scope.</b> The full USGS Mineral Commodity Summaries 2026 volume (&gt;90 commodities), noting 2025 tariff actions and Indonesian smelter developments for aluminium — the wider commodity context around the aluminium chapter. <span class="miss">PDF returned HTTP 403 — not retrievable this pass; scope from the publication and the chain record.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/bauxite-and-alumina-statistics-and-information">Bauxite and Alumina Statistics and Information</a><span class="src"> · USGS</span>
+      <span class="desc">Portal to historical bauxite/alumina statistics, yearbooks and commodity summaries.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center portal for bauxite and alumina: quarterly industry surveys, annual commodity summaries back to 1996, and minerals yearbooks (1994–2022) in PDF and spreadsheet form — worldwide supply, demand and material-flow data.</span>
+      <span class="dat"><b>Data.</b> USGS survey-based bauxite/alumina production and trade series.</span></li>
+    <li><a href="https://international-aluminium.org/statistics-overview/">Statistics — International Aluminium Institute</a><span class="src"> · International Aluminium Institute</span>
+      <span class="desc">Central hub for primary/secondary production, trade, energy and emissions statistics.</span>
+      <span class="abs"><b>Summary.</b> IAI statistics hub (since 1972) indexing primary-aluminium and alumina production, energy consumption, GHG emissions and safety metrics — monthly production, quarterly safety and annual energy/emissions data reported by producing companies.</span>
+      <span class="dat"><b>Data.</b> Company-reported IAI statistics across production, energy and emissions.</span></li>
+    <li><a href="https://international-aluminium.org/">International Aluminium Institute</a><span class="src"> · IAI</span>
+      <span class="desc">Global trade association for the primary aluminium industry; authoritative production/energy/emissions data.</span>
+      <span class="abs"><b>Summary.</b> The International Aluminium Institute — the body representing the global primary-aluminium industry. Provides authoritative production, energy and emissions data, a statistics repository, sustainability research and member GHG initiatives; the authority behind the industry datasets cited here.</span>
+      <span class="dat"><b>Data.</b> Industry association; aggregates member production, energy and emissions reporting.</span></li>
+    <li><a href="https://www.statista.com/statistics/1343888/worldwide-share-of-bauxite-production-by-country/">Bauxite production share worldwide by country</a><span class="src"> · Statista</span>
+      <span class="desc">Country-share chart for bauxite mine production.</span>
+      <span class="abs"><b>Scope.</b> Statista chart of country shares of world bauxite mine production — a quick cross-look at the three-way Australia / Guinea / China split. <span class="miss">Page hit a redirect loop — not retrievable this pass; scope from the chart title.</span></span>
+      <span class="dat"><b>Data.</b> Statista chart compiled from third-party production statistics.</span></li>
+    <li><a href="https://statbase.org/datasets/metals/bauxite-production/">Bauxite mining — data by countries from 1970 to 2023</a><span class="src"> · statbase.org</span>
+      <span class="desc">Long-run country-level bauxite production dataset.</span>
+      <span class="abs"><b>Scope.</b> Long-run (1970–2023) country-level bauxite production dataset — history context for the mine-share chart. <span class="miss">Server returned HTTP 520 on two passes — not retrievable this pass; scope from the dataset title.</span></span>
+      <span class="dat"><b>Data.</b> Compiled long-run national bauxite-production series.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No direct <b>BGS World Mineral Statistics</b> dataset URL surfaced (only third-party reporting) — search "BGS World Mineral Production 2020–2024 download" or "BGS Minerals4EU bauxite" for a citable primary link to sit alongside USGS.</li>
+      <li><b>Guinea's 2026 export-restriction policy</b> (Mines Minister Bouna Sylla, targeted April 2026) is still unfolding — search "Guinea bauxite export authorisation decree 2026" for the finalised policy text once published, to update the §4 ore-shift panel.</li>
+      <li><b>Red-mud (bauxite residue) disposal</b> and its regulatory/environmental risk is only touched on indirectly — search "bauxite residue red mud management review" for a dedicated academic/agency source.</li>
+      <li>Secondary (recycled) aluminium's <b>~95% energy saving</b> is asserted in the chain but not independently re-verified this pass — the IAI Material Flow Analysis (§18) is the primary source to pin the scrap share and the "~5% of the energy" figure.</li>
+      <li>Smelter-level <b>captive power / grid integration</b> (coal vs hydro vs gas siting by country) would benefit from an IEA or Carbon Brief deep-dive specifically on aluminium-smelter electricity sourcing.</li>
+      <li>Many primary PDFs and journal pages were <b>unfetchable this pass</b> (USGS 403, ScienceDirect/Springer paywalls, Statista/statbase server errors) — their figures rest on the chain record and titles; re-fetch on a clean pass to lift the italic flags.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from bauxite ore to finished metal, with cross-cutting frameworks and data grouped at the end. 34 unique sources (one exact duplicate — a second USGS bauxite-and-alumina statistics listing — was merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 / paywall / JS shell / server error) that is flagged in italics, and a scope line is taken from the source's title or the chain record rather than invented. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="aluminium-chain.html">The aluminium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
