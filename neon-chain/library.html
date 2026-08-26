@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Neon / specialty-gas chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the neon / semiconductor specialty-gas value chain, ordered to follow the chain from air-separation by-product to the lithography laser. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./neon-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Neon</div>
+    <h1>Neon / semiconductor specialty-gas chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Chip lithography runs on neon — a trace gas skimmed from the air-separation units bolted to large steel plants. Before 2022, roughly half of the semiconductor-grade supply came from Ukraine. <b>The dependency was real, sat under the most advanced step in electronics, and customs data could not even see it.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① air separation (steel-plant by-product) → ② crude neon &amp; the Ukrainian purifiers → ③ semiconductor grade &amp; the 2022 DUV-lithography shock — then the cross-cutting analysis and trade data that sit across every stage. Neon shares HS 280429 with helium, krypton and xenon, so customs statistics cannot isolate it.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./neon-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">10</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (3) · <span class="pill ref">Reference</span> context / provenance (3).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Air separation — neon captured as a by-product</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Helium &amp; rare gases</td><td class="took">Confirms neon is produced by fractional distillation in air-separation units and is not tracked as a standalone commodity → sources the "by-product, invisible in commodity data" framing + the 32% semiconductor / 53% lamp use split.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Crude neon &amp; the Ukrainian purifiers</td></tr>
+      <tr><td class="n">2</td><td>Ars Technica — Ukraine invasion chokes neon</td><td class="took">Names the two dominant Ukrainian producers (Cryoin, Ingas/Iceblick) and the steel-by-product route → producer-level detail behind the §1 "~half from Ukraine" concentration.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>The European Times — Iceblick</td><td class="took">Background/provenance on one of the two pre-war Ukrainian neon/krypton/xenon purifiers — context for the concentration, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Semiconductor grade &amp; the 2022 lithography shock</td></tr>
+      <tr><td class="n">4</td><td>CSIS — Semiconductors &amp; the Ukraine war</td><td class="took">The anchor citation for the chain's <b>~half-from-Ukraine</b> finding and the 2022 price-spike / diversification narrative in §1–§2.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>Reuters (Breakingviews) — neon warning</td><td class="took">Contemporaneous market-impact reading at the invasion's outset — corroborates the §2 price-spike framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>CNBC — chipmakers see limited impact</td><td class="took">Stockpile / near-term-buffer commentary → the "chipmakers had stockpiled and moved to diversify" note in §2.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — analysis &amp; frameworks</td></tr>
+      <tr><td class="n">7</td><td>Cheng — Hidden Critical Inputs (SSRN)</td><td class="took">Rare-gas supply-chain fragmentation model → a future <b>criticality-metric</b> layer for the "small volume, outsized leverage" thesis (needs full text).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>USITC — Partial-equilibrium model of Ukraine neon exports</td><td class="took">Method: a partial-equilibrium model quantifying the 2022 price/quantity shock → a reproducible shock-magnitude estimate to replace "many-fold" (needs full text).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>IEA — State of Clean Technology Manufacturing</td><td class="took">Cited in the chain record — but on fetch it covers solar/wind/battery/electrolyser/heat-pump only and does <b>not</b> discuss neon; flagged for replacement.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">10</td><td>CEPII BACI</td><td class="took">The trade engine → powers the §Trade shares, and confirms neon is pooled inside HS 280429 "rare gases" — the "invisible in customs" finding.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Air separation — neon captured as a by-product <span class="ct">1</span></h2>
+  <div class="stagesub">Neon is not mined and not made: it is skimmed from the air-separation units that supply oxygen to steelworks.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf">USGS Mineral Commodity Summaries 2026 — Helium and Rare Gases</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual US helium and rare-gas (neon, argon, krypton, xenon) production, use and trade data — the closest thing to an official neon series.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary for helium and rare gases. Rare gases are produced by fractional distillation in air-separation units. In 2025 US neon sales were ~110 million litres, used for lamps (53%), semiconductors (32%) and plasma displays (12%); US net import reliance for neon rose from 33% (2021) to 52% (2025). Neon is not tracked as a standalone mined commodity.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass; rare gases folded into the helium chapter; neon volumes in million litres, import reliance as % of apparent consumption.</span></li>
+  </ul>
+
+  <h2 class="sec">② Crude neon &amp; the Ukrainian purifiers <span class="ct">2</span></h2>
+  <div class="stagesub">Crude neon was collected and purified where the ex-Soviet steelworks were: two companies in Ukraine.</div>
+  <ul class="refs">
+    <li><a href="https://arstechnica.com/gadgets/2022/03/low-on-gas-ukraine-invasion-chokes-supply-of-neon-needed-for-chipmaking/">Low on gas: Ukraine invasion chokes supply of neon needed for chipmaking</a><span class="src"> · Ars Technica (2022)</span>
+      <span class="desc">Explains how the invasion disrupted the Ukrainian neon supply and names the two major producers, Cryoin and Ingas/Iceblick.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report (citing Financial Times reporting) that Russia's invasion choked the neon supply chipmaking depends on, identifying Cryoin and Ingas/Iceblick as the two major Ukrainian purifiers and neon as a by-product of steelmaking. <span class="miss">(Page not retrievable this pass — hard block; summarised from the source's headline and the chain's own reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> No primary dataset — trade-press reporting citing FT interviews and industry figures.</span></li>
+    <li><a href="https://the-european-times.com/iceblick/">Iceblick — a rare-gases supplier known for innovation</a><span class="src"> · The European Times (2020)</span>
+      <span class="desc">Company background on Iceblick, an Odessa-based purifier and one of the two dominant pre-war Ukrainian neon/krypton/xenon suppliers.</span>
+      <span class="abs"><b>Summary.</b> Profile of Iceblick, a Ukrainian (Odessa) rare-gas company purifying neon, krypton and xenon to high grade — one of the two firms behind Ukraine's pre-war concentration of semiconductor-grade neon supply. <span class="miss">(Page not retrievable this pass — server returns an empty body; summarised from the source title and the chain's reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> No primary dataset — company/industry profile.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Semiconductor grade &amp; the 2022 lithography shock <span class="ct">3</span></h2>
+  <div class="stagesub">Purified to laser grade, neon becomes the buffer gas in the DUV excimer lasers that pattern chips — and in 2022 that link snapped.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/semiconductor-supply-chain-and-russias-invasion-ukraine">CSIS — The semiconductor supply chain and Russia's invasion of Ukraine</a><span class="src"> · CSIS (2022)</span>
+      <span class="desc">The chain's anchor analysis of how the 2022 invasion exposed semiconductor reliance on Ukrainian neon.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis arguing that Russia's 2022 invasion exposed the chip supply chain's reliance on Ukrainian neon — the source behind the chain's "roughly half from Ukraine" concentration and the price-spike / diversification story. <span class="miss">(Original URL now returns HTTP 404 — flagged for replacement with the Reuters / USITC sources below; summarised from the chain's own citation notes.)</span></span>
+      <span class="dat"><b>Data.</b> CSIS policy analysis synthesising industry estimates; original URL no longer resolves.</span></li>
+    <li><a href="https://www.reuters.com/breakingviews/ukraine-war-flashes-neon-warning-lights-chips-2022-02-24/">Ukraine war flashes neon warning lights for chips</a><span class="src"> · Reuters Breakingviews (2022)</span>
+      <span class="desc">Market commentary at the invasion's outset on neon as a chip-lithography supply risk.</span>
+      <span class="abs"><b>Summary.</b> Contemporaneous Breakingviews column (24 Feb 2022) warning that neon — critical to chip lithography and heavily sourced from Ukraine — was a flashing supply-chain risk as the invasion began. <span class="miss">(Page not retrievable this pass — hard block; summarised from the source title and the chain's reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> No primary dataset — market commentary.</span></li>
+    <li><a href="https://www.cnbc.com/2022/02/24/chipmakers-see-limited-impact-russia-invasion-ukraine.html">Chipmakers see limited impact for now, as Russia invades Ukraine</a><span class="src"> · CNBC (2022)</span>
+      <span class="desc">Initial chip-industry reaction and stockpile commentary at the start of the invasion.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report (24 Feb 2022) on the chip industry's first read of the invasion: limited near-term impact, buffered by stockpiles and diversified sourcing, while flagging neon/specialty-gas exposure to Ukraine. <span class="miss">(Page not retrievable this pass — HTTP 403; summarised from the source title and the chain's reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> No primary dataset — trade-press reporting and company statements.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — analysis &amp; frameworks <span class="ct">3</span></h2>
+  <div class="stagesub">Economic models and framework reports that classify and quantify the neon / rare-gas dependency.</div>
+  <ul class="refs">
+    <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7172481">Hidden Critical Inputs and Geopolitical Fragmentation: Evidence from Rare Gas Supply Chains</a><span class="src"> · Cheng, SSRN (2026)</span>
+      <span class="desc">Working paper directly on neon / rare-gas supply-chain fragmentation under geopolitical stress.</span>
+      <span class="abs"><b>Summary.</b> Working paper using rare-gas (neon) supply chains as evidence of how small, "hidden" critical inputs concentrate geographically and fragment under geopolitical shocks — the academic frame behind the chain's "small volume, outsized leverage" thesis. <span class="miss">(SSRN body not retrievable this pass — HTTP 403; summarised from the paper title and the chain's reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> Academic working paper (rare-gas trade / concentration evidence) — full text not retrieved this pass.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/working_papers/ecwp_2022-07-c_as_pdf.pdf">A Partial Equilibrium Model of Neon Exports from Ukraine</a><span class="src"> · DeCarlo, Goodman &amp; Riker, USITC (2022)</span>
+      <span class="desc">USITC economics working paper modelling Ukraine's neon exports and the 2022 supply shock.</span>
+      <span class="abs"><b>Summary.</b> USITC economics working paper (DeCarlo, Goodman &amp; Riker, 2022) building a partial-equilibrium model of Ukraine's neon exports to estimate the price and quantity effects of the 2022 supply disruption. <span class="miss">(PDF and landing page not retrievable this pass — server block; summarised from the source title and the chain's reference notes.)</span></span>
+      <span class="dat"><b>Data.</b> Partial-equilibrium trade model on neon export/price data — full text not retrieved this pass.</span></li>
+    <li><a href="https://www.iea.org/reports/the-state-of-clean-technology-manufacturing">The State of Clean Technology Manufacturing</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">Cited in the chain record for specialty-gas context; verified on fetch not to discuss neon.</span>
+      <span class="abs"><b>Summary.</b> IEA report on clean-technology manufacturing capacity, covering five sectors — solar PV, wind, batteries, electrolysers and heat pumps. On re-fetch it does <b>not</b> discuss neon or semiconductor specialty gases, so it is a mis-attributed citation flagged for replacement.</span>
+      <span class="dat"><b>Data.</b> IEA manufacturing-capacity analysis (five clean-energy technologies); confirmed to contain no neon / specialty-gas content.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's trade figures are built from — and the reason neon is invisible in customs.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024); neon appears only inside the pooled HS 280429 "rare gases" line.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Neon is not separable — it is pooled with helium, krypton and xenon under HS 280429, so semiconductor-grade neon cannot be isolated in customs data.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting); neon read via HS 280429.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>Neon has no clean HS6 trade code</b> — it is pooled with helium, krypton and xenon under HS 280429, so BACI cannot verify any neon-specific volume. A dedicated criticality study modelling rare-gas supply risk with source metadata (Cheng SSRN, once full text is available) would strengthen the "invisible in customs" argument.</li>
+      <li>The chain's <b>CSIS anchor URL now 404s</b> and the <b>IEA citation does not actually cover neon</b> — both should be replaced. The USITC partial-equilibrium paper and the Reuters/Ars Technica/CNBC reporting are the natural, independently-confirmed substitutes.</li>
+      <li>No <b>post-2022 diversification</b> figure is pinned to a public report here — the chain asserts US/Korea/China air-separation and purification expansion. Next: "neon production China Korea capacity expansion 2023 2024" and steelmaker neon-recovery retrofits.</li>
+      <li>No government/agency review treats neon as a standalone tracked commodity (USGS folds it into "rare gases"). Next: "US Department of Commerce neon semiconductor supply-chain review" and "South Korea / Taiwan neon stockpile policy 2022."</li>
+      <li><b>Krypton and xenon</b> (same air-separation by-product family, also gated at semiconductor purity) would benefit from the same library treatment as a natural extension of this chain.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from air-separation by-product to the lithography laser, with cross-cutting analysis and trade data grouped at the end. 10 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (hard blocks, HTTP 403/404, or a temporarily offline archive) that is flagged in italics and the summary is drawn only from the source's title and the chain's own citation notes. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./neon-chain.html">The neon chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
