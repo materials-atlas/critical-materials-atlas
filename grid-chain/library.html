@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Electricity-grid chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the electricity-grid value chain, ordered to follow the chain from abundant metal to finished network. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="grid-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Electricity grid</div>
+    <h1>Electricity-grid chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A grid turns abundant copper and aluminium into conductors, then transformers wound around grain-oriented electrical steel, then a working network — and the binding constraint is none of the metals. A large power transformer can now take up to four years to procure. <b>The ore is fine; the transformer is the bottleneck.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① copper &amp; aluminium (abundant conductor metals) → ② transformers (grain-oriented electrical steel cores, years-long queues) → ③ the network that must roughly double by 2040 → ④ the interconnection queues that gate generation — then the trade data that sits across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="grid-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">26</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already cited in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (6, unretrieved this pass) · <span class="pill ref">Reference</span> corroborating context / provenance (15).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Copper, aluminium &amp; conductors — the abundant metals</td></tr>
+      <tr><td class="n">1</td><td>US DOE / INL — Advanced Conductor Report</td><td class="took">Advanced-conductor &amp; reconductoring options → the "metal is abundant; conductor capacity is the near-term lever" framing in §2.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Transformers — the grain-oriented-steel core bottleneck</td></tr>
+      <tr><td class="n">2</td><td>US DOE — Large Power Transformer Resilience Report</td><td class="took">36–60-month LPT lead times + 82% of new LPTs imported + ~80% of GOES imported (2019) → the transformer-queue &amp; GOES panels in §1.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Wood Mackenzie — Transformer troubles</td><td class="took">~30% modelled US power-transformer supply deficit + a single domestic GOES producer → corroborates the GOES-core bottleneck.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>CWIEME Berlin — the new normal</td><td class="took">24+-month lead times vs a 7–14-month pre-pandemic norm → context for the transformer-queue stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>IndustrialSage — record lead times</td><td class="took">128/144-week lead times + ~77% price rise since 2019 → context for the lead-time and price figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Transformer Magazine — shortage deepens</td><td class="took">Demand surge (generator step-up +274%, 2019–25) against GOES/copper limits → demand-side context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>mgrid.org — 128-week lead times</td><td class="took">Wood Mackenzie Q2-2025 lead-time data + solid-state-transformer angle → a break-the-chokepoint lead, pending full text.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>Energy Solutions — AI-grid transformer crisis</td><td class="took">"AI build-out delayed 4+ years by the transformer/GOES bottleneck" → a downstream-coupling lead into the data-centre chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>NS Energy — bottlenecks threaten upgrades</td><td class="took">Cable 2–3 yr / transformer up-to-4 yr + a ~1.5M-worker gap by 2030 → workforce-constraint context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The network must double — the IEA scale framing</td></tr>
+      <tr><td class="n">10</td><td>IEA — Electricity Grids &amp; Secure Energy Transitions</td><td class="took">80-million-km-by-2040 + flat ~$300bn/yr investment + Grid-Delay-Case → the chain's headline scale stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>IEA — Building the Future Transmission Grid</td><td class="took">2–3-yr cable / up-to-4-yr transformer lead times + price rises → the chain's lead-time stats.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>IEA — Building the Future Grid (exec summary)</td><td class="took">Reiterates the lead-time / price figures (twice 2021 levels) → provenance for §1.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>IEA news — rising component prices</td><td class="took">Cable ~2× / transformer +75% since 2019 → the price-rise note.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>IEA — Grids (Electricity 2026)</td><td class="took">2,500+ GW stalled in queues + ~50% investment rise needed by 2030 → updates the queue/scale figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>IEA news — lack of ambition, weak link</td><td class="took">80M km + investment doubling above $600bn by 2030 → companion framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>OECD/IEA — full report PDF</td><td class="took">Full text behind the executive summary → provenance for the scale stats.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Power Technology — 80 million km</td><td class="took">Trade-press summary of the IEA figure → corroborates the headline.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Green Grids Initiative — IEA report</td><td class="took">"No transition without transmission" framing → narrative context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>UNESCAP — IEA analyst presentation</td><td class="took">IEA slide deck of the grids findings → provenance, pending full text.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">20</td><td>Global Transmission Report — building future grids</td><td class="took">IEA-report coverage of supply-chain challenges → pending full text.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ Interconnection queues — where the grid gates generation</td></tr>
+      <tr><td class="n">21</td><td>LBNL — Queued Up</td><td class="took">~2,060 GW / ~8,200 projects / 5-yr median wait → the evidence base for the ~1,500 GW-queued stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>LBNL — grid-connection barriers (Joule 2024)</td><td class="took">Peer-reviewed delay-driver analysis → the strongest academic anchor for the queue story, once retrieved.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>Latitude Media — queue ≈ 2× capacity</td><td class="took">US queue roughly twice installed capacity → queue-scale context, pending full text.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">24</td><td>The Energy Mix — 1,700 / 2,600 GW blocked</td><td class="took">1,700 GW (EU) / 2,600 GW (US) blocked by grid capacity → cross-region queue context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>Advanced Energy United — 2026 progress report</td><td class="took">Median queue ~60 months (up from 20 in 2005) → the "queue is the gate" evidence.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade data</td></tr>
+      <tr><td class="n">26</td><td>CEPII BACI</td><td class="took">The data engine → the chain's wire, conductor, transformer and switchgear <b>trade shares</b>.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Copper, aluminium &amp; conductors — the abundant metals <span class="ct">1</span></h2>
+  <div class="stagesub">Grids run on abundant, recyclable copper and aluminium; the live question is conductor capacity and reconductoring, not ore.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/sites/default/files/2024-08/Advanced%20Conductor%20Report%20December%202023.pdf">U.S. DOE — Advanced Conductor Scan Report</a><span class="src"> · US DOE / Idaho National Laboratory (2023)</span>
+      <span class="desc">DOE Office of Electricity scan of advanced-conductor technologies and reconductoring on existing lines.</span>
+      <span class="abs"><b>Abstract.</b> Idaho National Laboratory report for the U.S. DOE Office of Electricity (INL/RPT-23-75873) surveying advanced overhead conductors — ACSS, ACCC and composite-core aluminium designs — that carry more current on existing rights-of-way. Reviews reconductoring case studies, adoption barriers and opportunities, framing higher-capacity aluminium conductor, not new copper, as a near-term grid-expansion lever.</span>
+      <span class="dat"><b>Data.</b> DOE/INL technology scan of conductor types (ACSS/ACCC/ACCR), utility case studies and reconductoring-candidate line segments — engineering review, no single dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Transformers — the grain-oriented-steel core bottleneck <span class="ct">8</span></h2>
+  <div class="stagesub">The heart of the chain: large power transformers need grain-oriented electrical steel and skilled winding, and now take years to procure.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%20signed%20by%20Secretary%20Granholm%20on%207-10-24.pdf">Large Power Transformer Resilience — Report to Congress</a><span class="src"> · US DOE (2024)</span>
+      <span class="desc">DOE assessment of large-power-transformer (LPT) vulnerabilities, lead times and strategic-reserve options.</span>
+      <span class="abs"><b>Abstract.</b> U.S. DOE report to Congress (July 2024) on large-power-transformer resilience. Finds LPT acquisition lead times commonly quoted at 36 months and reaching 60, that 82% of new LPTs were imported and roughly 80% of grain-oriented electrical steel was imported in 2019, and argues for surplus/strategic transformer reserves to speed grid recovery.</span>
+      <span class="dat"><b>Data.</b> DOE synthesis of prior LPT studies, producer conversations and trade figures on imports, GOES supply and lead times.</span></li>
+    <li><a href="https://www.woodmac.com/news/opinion/transformer-troubles-manufacturing-and-policy-constraints-hit-us-transformer-supply/">Transformer troubles: manufacturing and policy constraints hit US transformer supply</a><span class="src"> · Wood Mackenzie</span>
+      <span class="desc">Analysis of US transformer supply deficits, ageing stock and the single domestic GOES producer.</span>
+      <span class="abs"><b>Summary.</b> Wood Mackenzie opinion: US power-transformer supply runs a modelled ~30% deficit (distribution ~6%), constrained by a single domestic grain-oriented-electrical-steel producer and ageing stock — 55% of distribution transformers are over 33 years old.</span>
+      <span class="dat"><b>Data.</b> Wood Mackenzie Supply Chain Analytics estimates plus a 2024 DOE study and manufacturer interviews — no primary dataset.</span></li>
+    <li><a href="https://berlin.cwiemeevents.com/articles/new-normal-component-suppliers">24+ Month Lead Times: New Normal for Transformer Suppliers</a><span class="src"> · CWIEME Berlin</span>
+      <span class="desc">Coil-winding industry publication on why transformer lead times have doubled.</span>
+      <span class="abs"><b>Summary.</b> Coil-winding industry publication: transformer procurement now exceeds 24 months versus a 7–14-month pre-pandemic norm, blamed on limited grain-oriented electrical steel, bushing/tap-changer shortages and ~70% average plant utilisation against 5–12.7% annual demand growth to 2030.</span>
+      <span class="dat"><b>Data.</b> CWIEME industry commentary citing supplier utilisation, lead-time and demand-growth figures — no primary dataset.</span></li>
+    <li><a href="https://www.industrialsage.com/power-transformer-lead-times-us-grid-shortage/">Power Transformer Lead Times Hit Record Highs as U.S. Grid Equipment Shortage Deepens</a><span class="src"> · IndustrialSage</span>
+      <span class="desc">Trade report on record transformer lead times and prices amid a US grid-equipment shortage.</span>
+      <span class="abs"><b>Summary.</b> Trade report: power-transformer lead times average 128 weeks (144 for generator step-up units) and prices are up ~77% since 2019, as data-centre, electrification and grid demand outpaces capacity gated by grain-oriented electrical steel — with ~80% of large US transformers imported.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing Wood Mackenzie survey lead-time/price figures and demand-growth estimates.</span></li>
+    <li><a href="https://transformer-magazine.com/news/us-transformer-shortage-deepens/">US transformer shortage deepens</a><span class="src"> · Transformer Magazine</span>
+      <span class="desc">Industry news on deepening US transformer shortages and their demand drivers.</span>
+      <span class="abs"><b>Summary.</b> Industry news: US transformer delivery times stretch toward four years as AI-data-centre, electrification and grid demand surges — generator step-up demand up 274% and substation demand up 116% (2019–2025) — against grain-oriented electrical steel and copper constraints.</span>
+      <span class="dat"><b>Data.</b> Trade-press reporting citing demand-growth and lead-time figures; no primary dataset.</span></li>
+    <li><a href="https://mgrid.org/2026/04/20/power-transformer-lead-times-of-128-weeks-are-driving-the-2025-solid-state-transformer-commercial-opportunity/">Power Transformer Lead Times of 128 Weeks Are Driving the Solid-State Transformer Opportunity</a><span class="src"> · mgrid.org</span>
+      <span class="desc">Argues record transformer lead times open a commercial window for solid-state transformers.</span>
+      <span class="abs"><b>Summary.</b> Argues record transformer lead times — a 128-week average and 144 weeks for generator step-up units (Wood Mackenzie Q2-2025) — open a commercial window for solid-state transformers. <span class="miss">Page not retrievable this pass (403); noted from the cited headline figures only.</span></span>
+      <span class="dat"><b>Data.</b> Trade-analysis citing Wood Mackenzie Q2-2025 survey lead-time data — no primary dataset.</span></li>
+    <li><a href="https://energy-solutions.co/reports/ai-grid-transformer-crisis/">The AI-Grid Collision &amp; Transformer Crisis</a><span class="src"> · Energy Solutions Intelligence</span>
+      <span class="desc">Links the transformer / electrical-steel bottleneck to AI data-centre build-out.</span>
+      <span class="abs"><b>Summary.</b> Links the transformer and grain-oriented-electrical-steel bottleneck to AI data-centre demand, arguing the shortage could delay the AI build-out by four-plus years. <span class="miss">Page not retrievable this pass (403); noted from the title and thesis only.</span></span>
+      <span class="dat"><b>Data.</b> Trade-analysis report — no primary dataset accessible this pass.</span></li>
+    <li><a href="https://www.nsenergybusiness.com/analysis/bottlenecks-threaten-power-grid-upgrades/">Bottlenecks Threaten Power Grid Upgrades</a><span class="src"> · NS Energy Business</span>
+      <span class="desc">Trade analysis of equipment and workforce bottlenecks slowing grid upgrades.</span>
+      <span class="abs"><b>Summary.</b> Trade analysis of grid-equipment bottlenecks: cable procurement now 2–3 years and transformers up to 4, component costs sharply higher, and a grid workforce that needs at least ~1.5 million more workers by 2030 to keep pace.</span>
+      <span class="dat"><b>Data.</b> Trade-press analysis citing IEA lead-time, cost and workforce figures — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ The network must double — grids as the weak link <span class="ct">11</span></h2>
+  <div class="stagesub">The IEA framing: the world must roughly rebuild its grid by 2040, yet grid investment has barely moved.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/electricity-grids-and-secure-energy-transitions/executive-summary">Electricity Grids and Secure Energy Transitions — Executive Summary</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">The IEA's first global stocktake of electricity grids; source of the "80 million km by 2040" framing.</span>
+      <span class="abs"><b>Abstract.</b> The IEA's first global stocktake of electricity grids (2023). Finds the world must add or refurbish ~80 million km of grid by 2040 — the length of today's entire network — while grid investment has stayed flat near USD 300 billion/yr; a "Grid Delay Case" adds ~58 Gt of CO₂ by 2050 and puts 1.5 °C out of reach.</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling built on World Energy Outlook 2022 data, comparing grid-investment and deployment trajectories.</span></li>
+    <li><a href="https://www.iea.org/reports/building-the-future-transmission-grid">Building the Future Transmission Grid</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">IEA supply-chain and lead-time survey of transmission-grid equipment.</span>
+      <span class="abs"><b>Abstract.</b> IEA report (2025) on transmission-grid equipment supply chains, based on a 2024 survey of industry stakeholders. Documents procurement of 2–3 years for cables and up to 4 for large power transformers — roughly double 2021 — with cable prices nearly doubled and transformer prices up ~75% since 2019, plus capacity and skilled-labour constraints.</span>
+      <span class="dat"><b>Data.</b> IEA 2024 survey of leading transmission-equipment manufacturers plus global investment and workforce analysis.</span></li>
+    <li><a href="https://www.iea.org/reports/building-the-future-transmission-grid/executive-summary">Building the Future Transmission Grid — Executive Summary</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Executive-summary companion restating the equipment lead-time and price findings.</span>
+      <span class="abs"><b>Summary.</b> Executive-summary companion: reiterates 2–3-year cable and up-to-4-year transformer lead times (twice 2021 levels), price surges since 2019, and manufacturing-capacity and skilled-labour constraints across synchronised global grid expansion.</span>
+      <span class="dat"><b>Data.</b> IEA 2024 industry survey — no primary dataset beyond the survey.</span></li>
+    <li><a href="https://www.iea.org/news/rising-component-prices-and-supply-chain-pressures-are-hindering-the-development-of-transmission-grid-infrastructure">Rising component prices and supply-chain pressures are hindering transmission-grid infrastructure</a><span class="src"> · IEA news</span>
+      <span class="desc">IEA news release quantifying grid-component price rises and procurement delays.</span>
+      <span class="abs"><b>Summary.</b> IEA news release: cable prices have nearly doubled and large-power-transformer prices risen ~75% since 2019, with procurement now 2–3 years for cables and up to 4 for large transformers — double the 2021 timeframe — hindering transmission build-out.</span>
+      <span class="dat"><b>Data.</b> IEA industry-survey findings — press summary, no primary dataset.</span></li>
+    <li><a href="https://www.iea.org/reports/electricity-2026/grids">Grids — Electricity 2026</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">The Grids chapter of the IEA's annual electricity report; latest queue and investment read.</span>
+      <span class="abs"><b>Summary.</b> IEA Electricity 2026 grids chapter: over 2,500 GW of generation, load and storage projects sit stalled in grid queues worldwide, and annual grid investment must rise roughly 50% from ~USD 400 billion by 2030; flags grid-enhancing technologies to unlock existing capacity.</span>
+      <span class="dat"><b>Data.</b> 2025 grid-queue data plus literature review of grid-capacity assessments and component pricing.</span></li>
+    <li><a href="https://www.iea.org/news/lack-of-ambition-and-attention-risks-making-electricity-grids-the-weak-link-in-clean-energy-transitions">Lack of ambition risks making electricity grids the weak link in clean-energy transitions</a><span class="src"> · IEA news</span>
+      <span class="desc">Companion news release to the 2023 grids stocktake.</span>
+      <span class="abs"><b>Summary.</b> Companion release to the 2023 grids report: warns grids could become the clean-energy weak link, needing 80 million km of lines by 2040 and grid investment doubling above USD 600 billion by 2030 — with ~60 Gt more CO₂ and 1,500 GW of renewables waiting if investment lags.</span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling — press summary, no primary dataset.</span></li>
+    <li><a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2023/10/electricity-grids-and-secure-energy-transitions_9559dcb0/455dd4fb-en.pdf">Electricity Grids and Secure Energy Transitions (full report PDF)</a><span class="src"> · OECD/IEA (2023)</span>
+      <span class="desc">The full published text behind the executive summary.</span>
+      <span class="abs"><b>Summary.</b> Full published text of the IEA's 2023 grids stocktake behind the executive summary — the 80-million-km, flat-investment and Grid-Delay-Case findings in full. <span class="miss">PDF body not machine-parsed this pass; summarised from the report's own executive summary.</span></span>
+      <span class="dat"><b>Data.</b> IEA scenario modelling on World Energy Outlook 2022 data.</span></li>
+    <li><a href="https://www.power-technology.com/news/iea-80-million-km-power-lines-for-global-grid-expansion/">IEA: 80 million kilometres of power lines needed for grid expansions</a><span class="src"> · Power Technology</span>
+      <span class="desc">Trade-press summary of the IEA's 80-million-km figure.</span>
+      <span class="abs"><b>Summary.</b> Trade-press summary of the IEA's 2023 grids stocktake: 80 million km of power lines must be added or replaced by 2040 (the whole existing grid), with nearly 60 Gt of extra CO₂ between 2030 and 2050 if grid investment lags.</span>
+      <span class="dat"><b>Data.</b> Trade-press summary of the IEA report — no primary dataset.</span></li>
+    <li><a href="https://greengridsinitiative.net/news/iea-report-electricity-grids-and-secure-energy-transition/">IEA report: Electricity Grids and Secure Energy Transition</a><span class="src"> · Green Grids Initiative</span>
+      <span class="desc">Initiative write-up of the IEA grids report.</span>
+      <span class="abs"><b>Summary.</b> Initiative write-up of the IEA grids report: 80 million km of grid by 2040, grid investment needing to near-double above USD 600 billion by 2030, under the banner "no transition without transmission."</span>
+      <span class="dat"><b>Data.</b> Secondary summary of the IEA report — no primary dataset.</span></li>
+    <li><a href="https://www.unescap.org/sites/default/d8files/event-documents/Electricity%20grids%20and%20secure%20energy%20transitions%20by%20Yinglun%20Teng,%20Energy%20Analyst,%20IEA.pdf">Electricity grids and secure energy transitions (IEA presentation)</a><span class="src"> · IEA via UNESCAP</span>
+      <span class="desc">IEA analyst slide deck of the grids findings, hosted by UNESCAP.</span>
+      <span class="abs"><b>Summary.</b> IEA analyst slide deck (via UNESCAP) presenting the Electricity Grids and Secure Energy Transitions findings — the 80-million-km, investment-gap and Grid-Delay-Case figures. <span class="miss">PDF not retrievable this pass (403); noted from the source title only.</span></span>
+      <span class="dat"><b>Data.</b> IEA presentation of the 2023 report — no primary dataset.</span></li>
+    <li><a href="https://globaltransmission.info/building-future-grids-iea-report-highlights-need-to-overcome-challenges-for-clean-energy-transition/">Building Future Grids: IEA report highlights need to overcome challenges</a><span class="src"> · Global Transmission Report</span>
+      <span class="desc">Trade-report coverage of the IEA "Building the Future Transmission Grid."</span>
+      <span class="abs"><b>Summary.</b> Trade-report coverage of the IEA "Building the Future Transmission Grid," highlighting supply-chain and lead-time challenges for the clean-energy transition. <span class="miss">Page not retrievable this pass (403); noted from the title only.</span></span>
+      <span class="dat"><b>Data.</b> Secondary summary of the IEA report — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ Interconnection queues — where the grid gates generation <span class="ct">5</span></h2>
+  <div class="stagesub">The queue is the grid's downstream gate: generation sits built-but-unconnected, waiting on network capacity.</div>
+  <ul class="refs">
+    <li><a href="https://emp.lbl.gov/queues">Queued Up: Characteristics of Power Plants Seeking Transmission Interconnection</a><span class="src"> · Lawrence Berkeley National Laboratory (2026)</span>
+      <span class="desc">LBNL's annual US interconnection-queue dataset and report.</span>
+      <span class="abs"><b>Summary.</b> LBNL dataset (2026 edition, data through 2025): ~2,060 GW of generation and storage actively seek US grid connection across ~8,200 projects; the median wait now exceeds five years, and only ~13% of 2000–2020 requests were ever built (75% withdrawn).</span>
+      <span class="dat"><b>Data.</b> Interconnection-queue data from all seven ISOs/RTOs plus 50 utilities (~98% of US capacity), compiled with GridTracker, CC-BY-4.0.</span></li>
+    <li><a href="https://emp.lbl.gov/news/grid-connection-barriers-new-build-power-plants-united-states">Grid Connection Barriers To New-Build Power Plants In the United States</a><span class="src"> · LBNL Energy Markets &amp; Planning</span>
+      <span class="desc">LBNL analysis of the drivers of US interconnection delay.</span>
+      <span class="abs"><b>Summary.</b> LBNL analysis (peer-reviewed in Joule, 2024) of what drives US interconnection delay — study costs, queue congestion and network-upgrade cost assignment. <span class="miss">Landing page not retrievable this pass (403); nature noted from the linked Joule citation (Gorman et al.).</span></span>
+      <span class="dat"><b>Data.</b> LBNL interconnection-queue dataset behind the Queued Up series (Joule 2024, Gorman et al.).</span></li>
+    <li><a href="https://www.latitudemedia.com/news/the-us-interconnection-queue-is-twice-its-installed-capacity/">The US interconnection queue is twice its installed capacity</a><span class="src"> · Latitude Media</span>
+      <span class="desc">Reporting on the scale of the US interconnection queue.</span>
+      <span class="abs"><b>Summary.</b> Reports that the US interconnection queue holds roughly twice the country's installed generating capacity, citing LBNL queue data. <span class="miss">Page not retrievable this pass (403); noted from the headline figure only.</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting on LBNL queue figures — no primary dataset.</span></li>
+    <li><a href="https://www.theenergymix.com/limited-grid-capacity-blocks-1700-gw-of-renewables-in-eu-2600-gw-in-u-s/">Limited Grid Capacity Blocks 1,700 GW of Renewables in EU, 2,600 GW in U.S.</a><span class="src"> · The Energy Mix</span>
+      <span class="desc">Cross-region reporting on renewables stalled by grid capacity.</span>
+      <span class="abs"><b>Summary.</b> Reports limited transmission capacity blocking ~1,700 GW of renewables in the EU and ~2,600 GW in the US; the EU figure comes from a report by 32 transmission operators across 28 countries, the US figure from Lawrence Berkeley National Laboratory.</span>
+      <span class="dat"><b>Data.</b> Secondary reporting of European transmission-operator data and LBNL queue figures.</span></li>
+    <li><a href="https://advancedenergyunited.org/press-releases/interconnection-progress-report-june2026/">Transmission grid connection processes improving, but still too slow and unpredictable</a><span class="src"> · Advanced Energy United (2026)</span>
+      <span class="desc">2026 progress report on US interconnection reform under FERC Order 2023.</span>
+      <span class="abs"><b>Summary.</b> 2026 progress report: US grid-connection processes are improving under FERC Order 2023 but remain slow — median queue time ~60 months (up from 20 in 2005), over 1 million MW of projects stalled, with billions in avoidable consumer costs in a single 2024 PJM auction.</span>
+      <span class="dat"><b>Data.</b> Advanced Energy United analysis of interconnection queue times and FERC Order 2023 implementation.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset the chain's own trade shares are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII database reconciling bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Powers the chain's wire, conductor, transformer and switchgear trade shares.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>industry-association</b> sources (CIGRE, IEEE Power &amp; Energy Society, national transmission-operator bodies) were retrieved before the search budget ran out — a priority follow-up given the chain's equipment-standards angle. Next: "CIGRE transformer lead time report", "Eurelectric / WindEurope grid-connection position paper."</li>
+      <li>No <b>peer-reviewed academic</b> literature was retrieved directly; the one journal anchor — Gorman et al., <i>Joule</i> 2024, via LBNL — 403'd this pass. Next: retrieve that paper and search <i>Energy Policy</i>, <i>Applied Energy</i> and <i>Utilities Policy</i> for transformer/cable lead-time economics.</li>
+      <li><b>Grain-oriented electrical steel (GOES)</b> is the load-bearing claim in the chain but is sourced here mostly from trade press (Wood Mackenzie) plus the DOE LPT report's 2019 import figure — worth a direct USGS/DOE electrical-steel-specific pass.</li>
+      <li><b>HVDC cable and converter/switchgear supply</b> is under-covered as its own stage. Next: "HVDC cable factory lead time Nexans Prysmian", converter-station supplier concentration, and offshore-wind export-cable capacity.</li>
+      <li>Six pages (mgrid, Energy Solutions, UNESCAP, Global Transmission Report, LBNL barriers, Latitude Media) returned 403 or were not machine-parsed this pass — re-fetch with a browser session to fold their specific figures into the chain record.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from abundant metal to finished network, with the IEA scale-framing and trade data grouped after the equipment stage. 26 unique sources (two duplicate listings — a second CEPII entry and a repeated LBNL Queued-Up link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 / unparsed PDF) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="grid-chain.html">The electricity-grid chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
