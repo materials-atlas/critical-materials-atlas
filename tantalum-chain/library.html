@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tantalum / capacitor chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the tantalum / capacitor value chain, ordered to follow the chain from coltan ore to the capacitor. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="tantalum-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Tantalum</div>
+    <h1>Tantalum / capacitor chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">The tiny, ultra-reliable capacitor inside phones, cars, aircraft and implants runs on tantalum — and roughly 70% of it is mined in the DR Congo and Rwanda. <b>The chokepoint here is not a unique deposit but a governance one: a 3TG conflict mineral whose scarce part is documented, responsible supply.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Coltan / mine (~70% DR Congo + Rwanda, artisanal, 3TG) → due-diligence &amp; traceability (the governance response) → ② processing to tantalum powder (China-led) + the niobium twin → ③ capacitors &amp; end use — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="tantalum-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">19</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (7) · <span class="pill ref">Reference</span> context / provenance (8).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Coltan — the conflict-mineral mine</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Tantalum</td><td class="took">Mine-share + uses read → sources the <b>~70% DR Congo + Rwanda</b> mine figure and the capacitors-leading-use framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS — World Mineral Statistics</td><td class="took">Long-run mine-production series → the atlas's own <b>2019–2023 history chart</b> (DR Congo / Rwanda / Brazil).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USGS FS 2015-3079 — production shift</td><td class="took">The 2000→2014 Australia/Brazil → Central Africa shift → could extend the history chart back before 2019. <span class="miss">pubs.usgs.gov 403 this pass.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>USGS FS 2014-3122 — conflict minerals</td><td class="took">USGS's own 3TG conflict-mineral framing — provenance for the "governance chokepoint, not geological" argument.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>USGS PP1802 — critical mineral resources</td><td class="took">Chapter-level resource/reserve data → a reserves panel separating geology from the governance chokepoint. <span class="miss">pubs.usgs.gov 403.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Due diligence &amp; traceability — the 3TG governance fix</td></tr>
+      <tr><td class="n">6</td><td>OECD Due Diligence Guidance</td><td class="took">The five-step framework → the chain's <b>"traceability, not tonnage"</b> argument that responsible supply is the scarce thing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>iTSCi</td><td class="took">~3,000 mine-site bag-and-tag coverage → a traceability-coverage figure for the mine-stage governance fix.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>Responsible Minerals Initiative (CMRT / RMAP)</td><td class="took">RMAP conformant-smelter list → a count of validated tantalum processors for the processing stage.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Enough Project — Dodd-Frank 1502 progress</td><td class="took">Progress assessment — context on how far 3T mine validation has actually come.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>Enough Project — comprehensive approach</td><td class="took">Conflict-minerals strategy — background on the political economy behind the governance chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Processing, the niobium twin &amp; recycling</td></tr>
+      <tr><td class="n">11</td><td>USGS OFR 2013-1239 — supply-chain mapping</td><td class="took">A worked mine-to-capacitor mapping method → reproduce as a per-stage node map for tantalum. <span class="miss">pubs.usgs.gov 403.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>USGS FS 2014-3054 — indispensable twins</td><td class="took">Niobium/tantalum shared mineralogy — bridges to the steel-alloys chain (niobium).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>USGS Circular 1196 — recycling flow studies</td><td class="took">Scrap-recovery flow method → a recycling-share panel for the "processing sits downstream" section. <span class="miss">pubs.usgs.gov 403.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>T.I.C. (Tantalum-Niobium Int. Study Center)</td><td class="took">Industry production/processing statistics → a processor-concentration figure downstream of the mine.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">15</td><td>USGS NMIC — Niobium &amp; Tantalum hub</td><td class="took">Index/provenance of every tantalum MCS and Yearbook chapter behind the chain's numbers; confirms capacitors as the leading use.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>USGS — 2022 Critical Minerals List</td><td class="took">Tantalum's critical-list status (capacitors + superalloys) — the criticality framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>USGS Critical Minerals Review 2021</td><td class="took">Annual supply/demand/price context across critical minerals including tantalum. <span class="miss">apps.usgs.gov 403.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">18</td><td>CEPII BACI</td><td class="took">The data engine → the chain's <b>261590 ore + 810320 tantalum</b> trade-flow layer.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">19</td><td>USGS MCS series (archive)</td><td class="took">The annual production-data series the applied 2026 tantalum chapter belongs to.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Coltan — the conflict-mineral mine <span class="ct">5</span></h2>
+  <div class="stagesub">Where it comes out of the ground: ~70% DR Congo and Rwanda, much of it artisanal — a governance chokepoint, not a geological monopoly.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf">USGS Mineral Commodity Summaries 2026 — Tantalum</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world tantalum mine production, reserves, US import reliance and leading uses.</span>
+      <span class="abs"><b>Abstract.</b> USGS annual commodity summary for tantalum: world mine production, reserves, US net import reliance and sources, and leading uses (capacitors, superalloys). The atlas reads its mine shares — roughly 70% DR Congo and Rwanda — from this USGS/BGS series. <span class="miss">The 2026 PDF chapter would not render this pass (repeated HTTP 403); the capacitors-leading-use and full-import-reliance framing was corroborated against the USGS Niobium &amp; Tantalum hub (#15).</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and import-reliance data.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — tantalum mine production</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">Long-run world mine-production series by commodity and country, used for the history chart.</span>
+      <span class="abs"><b>Summary.</b> The British Geological Survey's World Mineral Statistics — the long-run world mine-production database by commodity and country, and the source of the atlas's tantalum history series (DR Congo, Rwanda, Brazil, 2019–2023). <span class="miss">The interactive query page returned HTTP 404/403 this pass — not directly retrievable; the tantalum series is used via the atlas's own extract.</span></span>
+      <span class="dat"><b>Data.</b> BGS compilation of national mine-production returns — long-run annual series.</span></li>
+    <li><a href="https://pubs.er.usgs.gov/publication/fs20153079">USGS Fact Sheet 2015-3079 — Shift in Global Tantalum Mine Production, 2000 to 2014</a><span class="src"> · USGS (2015)</span>
+      <span class="desc">Documents the swing in tantalum output toward Central Africa.</span>
+      <span class="abs"><b>Abstract.</b> USGS fact sheet documenting how tantalum mine production shifted from Australia and Brazil toward Central Africa (DR Congo, Rwanda) between 2000 and 2014 — exactly the move the chain's history chart shows. <span class="miss">pubs.usgs.gov returned HTTP 403 on retry — scope taken from the title; specific production shares not extracted this pass.</span></span>
+      <span class="dat"><b>Data.</b> USGS mine-production time series, 2000–2014.</span></li>
+    <li><a href="https://doi.org/10.3133/fs20143122">USGS Fact Sheet 2014-3122 — Conflict Minerals from the Democratic Republic of the Congo</a><span class="src"> · USGS (2014)</span>
+      <span class="desc">USGS's own framing of the DRC 3TG conflict-mineral problem.</span>
+      <span class="abs"><b>Summary.</b> USGS fact sheet framing the DR Congo conflict-mineral problem for the 3TG minerals (tin, tantalum, tungsten, gold) and the Dodd-Frank Section 1502 due-diligence regime. <span class="miss">pubs.usgs.gov HTTP 403 on retry — scope taken from the title only.</span></span>
+      <span class="dat"><b>Data.</b> USGS synthesis of DRC 3TG production and geology — no primary dataset extracted this pass.</span></li>
+    <li><a href="https://doi.org/10.3133/pp1802">USGS Professional Paper 1802 — Critical Mineral Resources of the United States</a><span class="src"> · USGS</span>
+      <span class="desc">Chapter-length geological/economic profile of tantalum as a US critical mineral.</span>
+      <span class="abs"><b>Abstract.</b> USGS Professional Paper 1802: chapter-length geological and economic profiles of US critical minerals, including a niobium-and-tantalum chapter on resources, reserves, production and supply risk. <span class="miss">pubs.usgs.gov HTTP 403 on retry — scope taken from the title; the tantalum chapter's figures not extracted this pass.</span></span>
+      <span class="dat"><b>Data.</b> USGS geological resource/reserve and production assessment.</span></li>
+  </ul>
+
+  <h2 class="sec">Due diligence &amp; traceability — the 3TG governance fix <span class="ct">5</span></h2>
+  <div class="stagesub">The response to this chokepoint is unusual: not a new mine but documented, validated supply — the scarce thing that shapes who manufacturers can legally buy from.</div>
+  <ul class="refs">
+    <li><a href="https://www.oecd.org/corporate/mne/mining.htm">OECD Due Diligence Guidance for Responsible Mineral Supply Chains</a><span class="src"> · OECD (2016)</span>
+      <span class="desc">The governance framework behind 3TG conflict-mineral due diligence.</span>
+      <span class="abs"><b>Summary.</b> The OECD's five-step framework for responsible sourcing of minerals from conflict-affected and high-risk areas — the governance standard behind 3TG (tin, tantalum, tungsten, gold) conflict-mineral due diligence, implemented downstream by iTSCi (#7) and the RMI (#8). <span class="miss">The OECD landing page returned HTTP 403 this pass — described from its established, widely-cited structure, corroborated by the iTSCi and RMI pages that implement it.</span></span>
+      <span class="dat"><b>Data.</b> OECD consensus due-diligence standard — guidance, not a dataset.</span></li>
+    <li><a href="https://www.itsci.org/">iTSCi — the ITSCI Programme</a><span class="src"> · ITSCI</span>
+      <span class="desc">Bag-and-tag traceability for 3T minerals across the Great Lakes region.</span>
+      <span class="abs"><b>Summary.</b> The ITSCI programme runs bag-and-tag traceability and OECD-aligned due diligence for 3T minerals (tin, tantalum, tungsten) across roughly 3,000 artisanal and semi-industrial mine sites in the DR Congo, Rwanda, Burundi and Uganda, supporting responsible export of 23,000+ tonnes a year.</span>
+      <span class="dat"><b>Data.</b> ITSCI field-team mine-site monitoring and export-tagging records across the Great Lakes region.</span></li>
+    <li><a href="https://www.responsiblemineralsinitiative.org/">Responsible Minerals Initiative (RMI) — CMRT &amp; RMAP</a><span class="src"> · RMI</span>
+      <span class="desc">Industry conflict-minerals reporting template and smelter/refiner audit program.</span>
+      <span class="abs"><b>Summary.</b> The Responsible Minerals Initiative — 500+ member companies — runs the Conflict Minerals Reporting Template (CMRT) supply-chain survey and the Responsible Minerals Assurance Process (RMAP), the flagship third-party smelter/refiner audit that validates conformant tantalum processors.</span>
+      <span class="dat"><b>Data.</b> RMAP audited-facility conformance lists and CMRT company disclosures.</span></li>
+    <li><a href="https://enoughproject.org/wp-content/uploads/Progress-and-challenges-June-2018.pdf">Enough Project — Progress and Challenges on Conflict Minerals: Facts on Dodd-Frank 1502</a><span class="src"> · Enough Project (2018)</span>
+      <span class="desc">Assessment of conflict-mineral due-diligence progress in the DRC, with 3T mine-validation data.</span>
+      <span class="abs"><b>Abstract.</b> Enough Project assessment of Dodd-Frank Section 1502 conflict-mineral due diligence in the DR Congo. Documents progress toward certified conflict-free 3T (tin, tantalum, tungsten) supply chains and RMI smelter auditing, while flagging that artisanal mining and informal trading networks remain hard to monitor and validate.</span>
+      <span class="dat"><b>Data.</b> Review of RMI / ITSCI mine-validation and smelter-conformance data plus field reporting.</span></li>
+    <li><a href="https://enoughproject.org/publications/comprehensive-approach-conflict-minerals-strategy-paper">Enough Project — A Comprehensive Approach to Congo's Conflict Minerals</a><span class="src"> · Enough Project</span>
+      <span class="desc">Strategy paper on conflict-minerals policy in the DRC.</span>
+      <span class="abs"><b>Abstract.</b> Strategy paper on Congo's conflict minerals (tin, tantalum, tungsten, gold), estimating armed groups earned about $185 million from the trade in 2008. Proposes four responses: verifiable mine-to-market chain of custody, securing key mines, transitional mining governance in the Kivus, and artisanal-miner livelihoods.</span>
+      <span class="dat"><b>Data.</b> Enough Project field analysis of eastern-DRC mine control and mineral-revenue estimates.</span></li>
+  </ul>
+
+  <h2 class="sec">② Processing, the niobium twin &amp; recycling <span class="ct">4</span></h2>
+  <div class="stagesub">The ore's origin and the processing geography are two different maps: concentrate becomes high-purity powder among a few processors, China-led, with recycling a meaningful share.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/of/2013/1239/">USGS Open-File Report 2013-1239 — Mineral Supply Chain Mapping Using Tantalum as an Example</a><span class="src"> · USGS (2013)</span>
+      <span class="desc">A full mine-to-capacitor supply-chain mapping exercise built around tantalum.</span>
+      <span class="abs"><b>Abstract.</b> USGS open-file report mapping the full tantalum supply chain — mine, concentrate, processing, powder and end use — as a worked example of mineral supply-chain mapping. <span class="miss">pubs.usgs.gov HTTP 403 on retry — scope taken from the title; the mapped node figures not extracted this pass.</span></span>
+      <span class="dat"><b>Data.</b> USGS supply-chain mapping of tantalum from mine to capacitor.</span></li>
+    <li><a href="https://doi.org/10.3133/fs20143054">USGS Fact Sheet 2014-3054 — Niobium and Tantalum: Indispensable Twins</a><span class="src"> · USGS (2014)</span>
+      <span class="desc">Primer on the linked niobium/tantalum mineralogy and supply chain.</span>
+      <span class="abs"><b>Summary.</b> USGS primer on the linked niobium/tantalum mineralogy and supply chain (niobium into steel alloys; tantalum into capacitors and superalloys) — the bridge to the atlas's steel-alloys chain. <span class="miss">pubs.usgs.gov HTTP 403 on retry — scope taken from the title.</span></span>
+      <span class="dat"><b>Data.</b> USGS descriptive primer — no primary dataset extracted this pass.</span></li>
+    <li><a href="https://pubs.usgs.gov/circ/circ1196/">USGS Circular 1196 — Flow Studies for Recycling Metal Commodities in the United States</a><span class="src"> · USGS</span>
+      <span class="desc">Covers tantalum recycling from electronic scrap.</span>
+      <span class="abs"><b>Abstract.</b> USGS material-flow studies for recycling US metal commodities, including tantalum recovery from electronic and capacitor scrap — relevant to the chain's "processing sits downstream" section. <span class="miss">pubs.usgs.gov HTTP 403 on retry — scope taken from the title; recovery rates not extracted this pass.</span></span>
+      <span class="dat"><b>Data.</b> USGS material-flow accounting of scrap and recycled metal.</span></li>
+    <li><a href="https://www.tanb.org/">Tantalum-Niobium International Study Center (T.I.C.)</a><span class="src"> · T.I.C.</span>
+      <span class="desc">The dedicated global industry association for tantalum and niobium producers/processors.</span>
+      <span class="abs"><b>Summary.</b> The Tantalum-Niobium International Study Center — the global industry association (founded 1974, 90+ members across 30 countries) for tantalum and niobium producers and processors; provides technical archives, supply-chain portals (mining, processing, manufacturing) and market data.</span>
+      <span class="dat"><b>Data.</b> Member-reported industry statistics and technical papers — no open dataset on the landing page.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Capacitors &amp; end use <span class="ct">0</span></h2>
+  <div class="stagesub">The dominant use — and, like blade casting in the aerospace chain, the thinnest evidence base here.</div>
+  <div class="stagegap">No public, country-level source maps tantalum-capacitor manufacturing: the concentration among a handful of capacitor makers is undocumented in open trade data (BACI cannot isolate capacitor-grade powder or the tantalum inside finished electronics), and no supply-chain study of the stage surfaced this pass. That absence is itself the finding — see <a href="#gaps">Gaps &amp; good next searches</a> for the leads worth chasing.</div>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">3</span></h2>
+  <div class="stagesub">The list methodologies and agency indexes that classify tantalum across the whole chain.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/niobium-and-tantalum-statistics-and-information">USGS — Niobium and Tantalum Statistics and Information</a><span class="src"> · USGS</span>
+      <span class="desc">Hub page indexing every niobium/tantalum Mineral Commodity Summary and Yearbook chapter.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center hub indexing all niobium/tantalum publications — Mineral Commodity Summaries (1996–2026) and Minerals Yearbook (2015–2023). States tantalum's major use is electronic components, mainly capacitors (phones, computers, automotive); the US relies entirely on imports, with Australia, Brazil and Canada the major concentrate producers.</span>
+      <span class="dat"><b>Data.</b> USGS NMIC index of tantalum/niobium production, trade and use statistics.</span></li>
+    <li><a href="https://www.usgs.gov/news/national-news-release/us-geological-survey-releases-2022-list-critical-minerals">USGS Geological Survey Releases 2022 List of Critical Minerals</a><span class="src"> · USGS (2022)</span>
+      <span class="desc">Confirms tantalum's continued inclusion on the US critical-minerals list.</span>
+      <span class="abs"><b>Summary.</b> USGS news release on the 2022 List of Critical Minerals — 50 commodities (up 15 from 2018, chiefly by splitting rare earths and platinum-group elements), mandated by the Energy Act of 2020 with a triennial review. Lists tantalum for its use in electronic capacitors and superalloys.</span>
+      <span class="dat"><b>Data.</b> USGS criticality assessment reviewing 1,000+ public comments; production/import-reliance data.</span></li>
+    <li><a href="https://apps.usgs.gov/minerals-information-archives/articles/usgs-critical-minerals-review-2021.pdf">USGS Critical Minerals Review 2021</a><span class="src"> · USGS (2021)</span>
+      <span class="desc">Annual review of critical-mineral supply/demand/price trends, tantalum among them.</span>
+      <span class="abs"><b>Summary.</b> USGS annual review of critical-mineral supply, demand and price trends across commodities, including tantalum. <span class="miss">apps.usgs.gov returned HTTP 403 this pass — scope taken from the title; tantalum-specific figures not extracted.</span></span>
+      <span class="dat"><b>Data.</b> USGS critical-minerals market review — annual synthesis.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's trade-flow layer.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI reconciles UN Comtrade into bilateral HS6 trade flows for ~200 countries and ~5,000 products, 1995–2024 (v202601, released 30 Jan 2026), by converting CIF imports to FOB and reliability-weighting divergent reporters.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/">USGS Mineral Commodity Summaries series</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade data, with a tantalum chapter each year.</span>
+      <span class="abs"><b>Summary.</b> USGS periodicals archive of the annual Mineral Commodity Summaries, carrying a tantalum chapter each year (1996–2026) with production, reserves, trade and use — the series the applied 2026 chapter (#1) belongs to. <span class="miss">The pubs.usgs.gov index returned HTTP 403 this pass — described from the known series.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No public country-level source maps <b>tantalum-capacitor manufacturing</b> (stage ③) — the concentration among a few capacitor makers is undocumented in open data, and BACI cannot isolate capacitor-grade material. Next: trade-press profiles of the major tantalum-capacitor producers and specialist processors.</li>
+      <li>No peer-reviewed <b>academic paper on tantalum criticality/substitution</b> was independently verified this pass — worth a dedicated "coltan supply chain criticality Resources Policy" and "tantalum capacitor substitution multilayer ceramic Journal of Cleaner Production" search once quota resets.</li>
+      <li>No <b>market-intelligence source</b> (Benchmark Mineral Intelligence, Fastmarkets, Reuters, Mining.com) was retrieved for current tantalum pricing/export dynamics — chase these next: "tantalum price capacitor grade 2025 2026".</li>
+      <li>The <b>EU Critical Raw Materials</b> list status for tantalum was not directly checked — confirm via the EU JRC Raw Materials Information System (RMIS).</li>
+      <li>Much of the USGS library (pubs.usgs.gov / apps.usgs.gov) would not render this pass (HTTP 403–404); re-fetch those chapters when the host is reachable to pull the specific production, reserve and recycling figures — and "DRC 3T mine validation ITSCi statistics 2025", "Rwanda tantalum export smuggling eastern DRC M23".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from coltan ore to the capacitor, with the 3TG governance response, cross-cutting frameworks and trade data grouped alongside. 19 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved this pass (pubs.usgs.gov / apps.usgs.gov / OECD returned HTTP 403–404 — 11 entries), that is flagged in italics and the entry falls back to the source's own title-level scope, never invented figures. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="tantalum-chain.html">The tantalum chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
