@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Tellurium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the tellurium value chain, ordered to follow the chain from copper-refinery anode slimes to CdTe thin-film solar and thermoelectrics. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="tellurium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Tellurium</div>
+    <h1>Tellurium chain — copper's rarest by-product</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Tellurium is recovered from the anode slimes left at the bottom of copper-refining tanks — a by-product of a by-product — then turned into cadmium telluride and bismuth telluride, then thin-film solar modules and solid-state coolers. At every step the supply is bounded by copper, not by demand. <b>There is no tellurium mine to open.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Recovery from copper anode slimes → ② the sister by-product selenium (recovery &amp; recycling method) → ③ CdTe thin-film solar &amp; thermoelectrics — then the cross-cutting criticality frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="tellurium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">14</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (3) · <span class="pill ref">Reference</span> context / provenance (7).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Recovery — the copper-anode-slime by-product</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Tellurium</td><td class="took">By-product framing + the hard numbers: &gt;90% from copper anode slimes, China ~80% of refined output, ~70% of use into CdTe solar; sources the 2025 price spike (+60–84%) and the Feb-2025 China export-licensing note.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS NMIC — Selenium &amp; Tellurium statistics hub</td><td class="took">Provenance for the whole tellurium series — the index behind the MCS/Minerals-Yearbook figures; confirms Se+Te tracked jointly as copper by-products.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>Global tellurium supply potential from copper refining (ScienceDirect)</td><td class="took">Method: estimate the ceiling — how much tellurium world copper refining could yield → the quantitative backbone of the "can't scale" finding. <span class="miss">Full text 403/paywalled — headline not yet extracted; left open.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② The sister by-product — selenium (recovery &amp; recycling method)</td></tr>
+      <tr><td class="n">4</td><td>USGS OFR 2003-018 — Selenium commodity profile</td><td class="took">Companion by-product-metal profile from the same copper slimes → context for tellurium's recovery economics and reserve framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>USGS Circular 1196-T — Selenium recycling</td><td class="took">Material-flow recycling method for the sister metal → the template for a tellurium recovery/recycling flow behind the "thrift, not new mines" decision layer.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ CdTe thin-film solar &amp; thermoelectrics</td></tr>
+      <tr><td class="n">6</td><td>First Solar / NREL — CdTe PV</td><td class="took">The largest end use → anchors the ~70%-into-solar split and the "thinner cells, less Te per watt" thrift lever. <span class="miss">NREL host did not resolve from this environment this pass.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>USGS Circular 1365 — Byproduct commodities for PV</td><td class="took">USGS's own study of by-product metals as photovoltaic inputs → directly on the chain's central thesis; the next enrichment for the solar-ceiling panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>USGS FS 2014-3077 — Tellurium, the bright future of solar</td><td class="took">USGS framing of the solar role + the rarity fact (~3 ppb, rarer than the rare earths, 8× less than gold) → the "extremely rare" stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">9</td><td>USGS PP1802 — Critical mineral resources of the US</td><td class="took">Chapter-length geological/economic profile of tellurium as a US critical mineral — the deep-background resource read.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>USGS — 2022 List of Critical Minerals (news release)</td><td class="took">Confirms tellurium on the US critical list (solar / thermoelectric / alloy uses) → the criticality framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade, prices &amp; commodity data</td></tr>
+      <tr><td class="n">11</td><td>USGS SIR 2012-5188 — Metal prices through 2010</td><td class="took">Long-run tellurium price series (1970–2010) → the historical baseline against which the 2025 price spike reads.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>BGS — World Mineral Statistics (tellurium)</td><td class="took">Independent world tellurium production series → a cross-check on the USGS refinery figures. <span class="miss">BGS page 404 this pass — the minerals-statistics site was restructured.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>CEPII BACI</td><td class="took">The trade engine → the shared HS 280450 (boron/tellurium) line the chain flags as un-isolatable; tellurium is nearly invisible in customs.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">14</td><td>USGS MCS archive</td><td class="took">The production-data engine → the annual tellurium series 1996–2026 behind every figure in the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Recovery — the copper-anode-slime by-product <span class="ct">3</span></h2>
+  <div class="stagesub">An extreme by-product: &gt;90% of tellurium is recovered from the slimes of electrolytic copper refining — a few hundred tonnes a year, bounded by copper.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tellurium.pdf">USGS Mineral Commodity Summaries 2026 — Tellurium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual by-product recovery volumes, refinery production by country, uses, prices and trade for tellurium.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: tellurium is recovered chiefly as a by-product of electrolytic copper refining, accumulating in anode slimes, with more than 90% coming from that route. China held ~80% of 2025 refined output; global end use was ~70% CdTe solar and 15% thermoelectrics. China's February 2025 export licensing pushed European prices up ~84%.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price data (Argus), and a world refinery-production/capacity table by country.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/selenium-and-tellurium-statistics-and-information">USGS National Minerals Information Center — Selenium and Tellurium Statistics and Information</a><span class="src"> · USGS</span>
+      <span class="desc">Hub page indexing every selenium/tellurium Mineral Commodity Summary and Minerals Yearbook chapter.</span>
+      <span class="abs"><b>Summary.</b> USGS hub page indexing every selenium and tellurium Mineral Commodity Summary (1996–2026) and Minerals Yearbook chapter (1994–2023); the two are tracked jointly as the major by-products of electrolytic copper refining.</span>
+      <span class="dat"><b>Data.</b> Index of USGS mineral-commodity statistics (MCS, Minerals Yearbook, special reports) in PDF/XLS — no new dataset.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S0921344922002774">Global tellurium supply potential from electrolytic copper refining</a><span class="src"> · ScienceDirect (2022)</span>
+      <span class="desc">Quantifies how much tellurium world copper-refining anode slimes could realistically supply.</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed study estimating how much tellurium world electrolytic copper refining could realistically recover — the empirical ceiling on independent supply, and the direct backbone of the chain's "can't scale" finding. <span class="miss">Full text 403/paywalled this pass — headline figures not extracted.</span></span>
+      <span class="dat"><b>Data.</b> Material-flow / supply-potential estimate on world copper-refining volumes and tellurium recovery rates (Resources, Conservation &amp; Recycling family, 2022).</span></li>
+  </ul>
+
+  <h2 class="sec">② The sister by-product — selenium <span class="ct">2</span></h2>
+  <div class="stagesub">Selenium is recovered from the same copper anode slimes as tellurium, so its commodity profile and recycling flows are transferable method for the tellurium stage.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/of/2003/of03-018/">USGS Open-File Report 2003-018 — Mineral Commodity Profiles: Selenium</a><span class="src"> · USGS (2003)</span>
+      <span class="desc">Companion by-product-metal profile: selenium recovered from copper (and minor lead) refining.</span>
+      <span class="abs"><b>Abstract.</b> USGS mineral commodity profile of selenium — a chalcogen recovered, like tellurium, as a by-product of copper (and minor lead) refining. In 2000, 14 countries produced more than 1,800 t of refined selenium, with Japan, Canada, the US and Belgium making ~85%. Reviews uses, resources and secondary recovery.</span>
+      <span class="dat"><b>Data.</b> USGS commodity profile citing world production, reserves and use statistics for selenium (2003).</span></li>
+    <li><a href="https://pubs.usgs.gov/circ/circ1196t/">USGS Circular 1196-T — Selenium Recycling in the United States in 2004</a><span class="src"> · USGS</span>
+      <span class="desc">Material-flow recycling study of the sister copper-slime by-product.</span>
+      <span class="abs"><b>Abstract.</b> USGS recycling-flow study of selenium, tellurium's sister copper-slime by-product. Most US selenium goes to dissipative uses (alloys, glass, pigments); of ~350 t reaching the 2004 market, ~300 t was dissipated and only ~4 t recovered from old scrap. No US selenium recycling facilities remained; scrap was exported.</span>
+      <span class="dat"><b>Data.</b> USGS material-flow study of US selenium supply, use and recovery for 2004 (George &amp; Wagner, Circular 1196-T).</span></li>
+  </ul>
+
+  <h2 class="sec">③ CdTe thin-film solar &amp; thermoelectrics <span class="ct">3</span></h2>
+  <div class="stagesub">Where the trickle goes: cadmium telluride is the main non-silicon solar technology (~70% of use), bismuth telluride the standard thermoelectric.</div>
+  <ul class="refs">
+    <li><a href="https://www.nrel.gov/pv/cadmium-telluride-solar-cells.html">First Solar / NREL — Cadmium-Telluride (CdTe) Solar Cells</a><span class="src"> · NREL (2024)</span>
+      <span class="desc">Technical overview of CdTe thin-film photovoltaics — the chain's largest end use.</span>
+      <span class="abs"><b>Summary.</b> NREL technical overview of cadmium-telluride thin-film photovoltaics — tellurium's largest end use (~70% of consumption) and the main non-silicon solar technology, commercialised at scale by First Solar. <span class="miss">NREL page did not resolve from this environment this pass — described from its title and role.</span></span>
+      <span class="dat"><b>Data.</b> NREL research-program overview of CdTe cell technology (efficiency, thin absorber layers) — descriptive; no dataset extracted this pass.</span></li>
+    <li><a href="https://pubs.usgs.gov/circ/1365/">USGS Circular 1365 — Byproduct Mineral Commodities Used for the Production of Photovoltaic Cells</a><span class="src"> · USGS (2010)</span>
+      <span class="desc">USGS study of the by-product metals (tellurium, indium, gallium, selenium) that feed thin-film PV.</span>
+      <span class="abs"><b>Abstract.</b> USGS study (Bleiwas, 2010) of the by-product metals — tellurium, indium, gallium, selenium — that feed thin-film photovoltaic cells. Sets out their sources and supplies against fast-growing PV output (world ~7 GW in 2008, ~30% CAGR from 1990), examining whether by-product supply can support solar's expansion.</span>
+      <span class="dat"><b>Data.</b> USGS Circular 1365 (10 p.): sources-and-supply analysis of by-product commodities used in PV cells, on production/capacity data.</span></li>
+    <li><a href="https://pubs.usgs.gov/fs/2014/3077/">USGS Fact Sheet 2014-3077 — Tellurium: The Bright Future of Solar Energy</a><span class="src"> · USGS (2014)</span>
+      <span class="desc">USGS short framing of tellurium's abundance, occurrence and role in solar energy.</span>
+      <span class="abs"><b>Summary.</b> USGS fact sheet on tellurium's role in solar energy: one of Earth's rarest elements (~3 ppb, rarer than the rare earths and eight times scarcer than gold), recovered mainly from copper and used in CdTe photovoltaics.</span>
+      <span class="dat"><b>Data.</b> USGS two-page fact sheet (Goldfarb, 2015) — descriptive summary of tellurium abundance, occurrence and solar use; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">2</span></h2>
+  <div class="stagesub">List methodologies and resource assessments that classify tellurium as a US critical mineral.</div>
+  <ul class="refs">
+    <li><a href="https://doi.org/10.3133/pp1802">USGS Professional Paper 1802 — Critical Mineral Resources of the United States</a><span class="src"> · USGS</span>
+      <span class="desc">Multi-chapter reference on the geology, economics and future supply of US critical minerals, with a tellurium chapter.</span>
+      <span class="abs"><b>Summary.</b> USGS Professional Paper 1802, "Critical Mineral Resources of the United States" — a multi-chapter reference on the geology, economics and future-supply prospects of US critical minerals, including a dedicated tellurium chapter on its occurrence and by-product supply.</span>
+      <span class="dat"><b>Data.</b> USGS peer-reviewed professional paper; per-commodity chapters synthesising deposit geology, production and resource data.</span></li>
+    <li><a href="https://www.usgs.gov/news/national-news-release/us-geological-survey-releases-2022-list-critical-minerals">U.S. Geological Survey Releases 2022 List of Critical Minerals</a><span class="src"> · USGS (2022)</span>
+      <span class="desc">News release confirming tellurium's place on the US critical-minerals list.</span>
+      <span class="abs"><b>Summary.</b> USGS news release (Feb 2022) on the 2022 List of Critical Minerals — 50 commodities, up from 35 in 2018, assessed under Energy Act of 2020 criteria. Tellurium is listed, cited for use in solar cells, thermoelectric devices and as an alloying additive.</span>
+      <span class="dat"><b>Data.</b> USGS methodology under the Energy Act of 2020: supply-chain vulnerability and manufacturing-function screening; multi-agency review and public comment.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade, prices &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — production, prices and the customs line tellurium hides inside.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/sir/2012/5188/">USGS Scientific Investigations Report 2012-5188 — Metal Prices in the United States Through 2010</a><span class="src"> · USGS (2012)</span>
+      <span class="desc">Long-run US price histories for a wide range of metals, including tellurium.</span>
+      <span class="abs"><b>Summary.</b> USGS report presenting long-run US price histories (1970–2010) for a wide range of metals, including tellurium, with current- and constant-dollar series and notes on the events that moved each price.</span>
+      <span class="dat"><b>Data.</b> USGS compilation of annual metal prices from trade journals (American Metal Market, Metal Bulletin, Platts) and USGS/Bureau of Mines publications.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS — World Mineral Statistics (tellurium)</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">Free database of world production (and some trade) by commodity and country, including tellurium.</span>
+      <span class="abs"><b>Summary.</b> British Geological Survey's World Mineral Statistics — a free database of world production (and some trade) by commodity and country, including tellurium, used here as an independent cross-check on the USGS refinery figures. <span class="miss">This BGS page returned 404 this pass — the minerals-statistics site has been restructured.</span></span>
+      <span class="dat"><b>Data.</b> BGS compilation of national statistical-office and government production returns; multi-decade world mineral series.</span></li>
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade layer.</span>
+      <span class="abs"><b>Summary.</b> CEPII's BACI reconstructs reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, from UN Comtrade — removing CIF costs and reliability-weighting reporter discrepancies. Tellurium falls inside the shared HS 280450 line and cannot be isolated.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF→FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/">USGS Mineral Commodity Summaries archive</a><span class="src"> · USGS</span>
+      <span class="desc">Annual by-commodity production/reserves/trade series, including tellurium, 1996–2026.</span>
+      <span class="abs"><b>Summary.</b> USGS Mineral Commodity Summaries archive — the annual reference series carrying tellurium production, trade, price and use data from 1996 to 2026; the production-data engine behind the chain's figures.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use), by-commodity chapters.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The <b>academic base is genuinely thin</b> — only the ScienceDirect supply-potential paper cleared as a peer-reviewed source, and its full text is paywalled. Next: a life-cycle / recycling study of CdTe module end-of-life tellurium recovery, and a dedicated criticality paper once access allows.</li>
+      <li>No <b>producer or market-reporting source</b> (5N Plus, Rio Tinto/Kennecott, Fastmarkets, Reuters, Mining.com) was retrievable this pass; tellurium has no trade association — production is captive to copper refiners. Next: "5N Plus tellurium producer", "Kennecott tellurium by-product recovery".</li>
+      <li><b>China's February 2025 tellurium export licensing</b> is visible in the USGS MCS and the IEA Critical Minerals Outlook (already cited in the solar and strontium chains) but has no dedicated primary citation here — check MOFCOM / Reuters directly.</li>
+      <li>Tellurium shares <b>HS 280450 with boron</b>, so BACI cannot isolate it — no independent trade series exists. The BGS production series is the only country-level cross-check, and its page needs a current, working URL.</li>
+      <li>CdTe <b>module end-of-life recycling recovery rates</b> are under-covered; try "CdTe module recycling tellurium recovery rate First Solar" and "bismuth telluride thermoelectric cooler market".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from the copper-slime by-product to CdTe solar and thermoelectrics, with cross-cutting frameworks and data grouped at the end. 14 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (404 / paywall / unreachable host) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="tellurium-chain.html">The tellurium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
