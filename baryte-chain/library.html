@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Baryte / drilling-mud chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the baryte / drilling-mud value chain, ordered to follow the chain from mined ore to the weighted mud in the well. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="baryte-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Baryte</div>
+    <h1>Baryte / drilling-mud chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">You cannot drill an oil or gas well without baryte: ground fine, its exceptional density weights the mud that holds back downhole pressure so the well does not blow out. Yet it is mined across India, China, Morocco, Kazakhstan and the US and ground near where wells are drilled. <b>There is no chokepoint to find — the mine is the most diversified stage, and the risk is only that an essential input is invisible until it is short.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Baryte ore (mined — India / China / Morocco) → ② ground to API drilling-grade powder → ③ the drilling mud &amp; the well (plus barium chemicals, filler and medical uses) — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./baryte-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">26</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (2) · <span class="pill ref">Reference</span> context / provenance (20).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Baryte ore — the mine and where it forms</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS — Barite</td><td class="took">Import sources (India 39 / China 21 / Morocco 19 / Mexico 14%), "&gt;90% used as a drilling weighting agent" and "no large-scale substitute" → sources the <b>diffuse thesis</b>, the dominant-use stat and the no-substitute finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics</td><td class="took">World mine-production series → the <b>2019→2024 history chart</b> (India / China / Morocco), which shows no single country dominates.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Boyarko — barite as critical raw material</td><td class="took">Production history (0.3→~9 Mt/yr) + 740 Mt exploitable resources + importer/exporter GDP shares → a resource-abundance panel; figures still to be folded in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Barite deposits of Türkiye (review)</td><td class="took">Deposit-genesis review (magmatic vs passive-margin) → provenance for the "geologically common, mined widely" claim, not a metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>Ballynoe stratiform barite (Ireland)</td><td class="took">Exhalative/SEDEX deposit type → context for baryte's widespread occurrence across settings.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">6</td><td>Barite in Zn-Pb-Ba deposits (Iran)</td><td class="took">350+ sediment-hosted deposits → illustrates geological abundance across many countries.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>Skarn-hosted barite, Nador (Morocco)</td><td class="took">Deposit genesis for Morocco (a top-3 producer) → provenance/context for the diversified map.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Grinding to drilling-grade powder</td></tr>
+      <tr><td class="n">8</td><td>API — drilling-fluid specifications</td><td class="took">Drilling-grade density/purity spec (SG 4.10 / 4.20) → defines the "ground to API drilling-grade powder" hop and the density argument.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>Fastmarkets — barite price assessments</td><td class="took">4.10 vs 4.20 SG grades + FOB China / India / Morocco → corroborates the diversified top-3 producer map at the traded-powder stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Drilling mud &amp; the well — the dominant use</td></tr>
+      <tr><td class="n">10</td><td>USGS SIR 2014-5230 — barite import reliance</td><td class="took">~95% of US wells use baryte mud, ~90% of imports go to drilling, per-country import shares → the sharpest "dominant use" evidence; figures to fold in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>ACS Omega — weighting agents compared</td><td class="took">Barite vs micromax / ilmenite / hematite rheology &amp; filter-cake test → substantiates "no substitute at the price" on measured data.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>Barite–ilmenite anti-sag blend</td><td class="took">Barite-sag fixed by ilmenite blending → shows substitution is partial/technical, reinforcing irreplaceability.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>Hematite-barite (delaminated iron ore)</td><td class="took">Alternative-weighting-agent trial → underscores how hard true substitution is at routine-drilling cost.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>Trident — role of barite in oil &amp; gas</td><td class="took">Function + producer geography → plain-language corroboration of the use / geography framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>Mining Digital — barite in flux</td><td class="took">China share 44% (2012) → 36% (2022), ~80% drilling use → corroborates diversification-over-time and the use stat.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>Rigzone — barite market tight</td><td class="took">A China-driven tightness episode → context that demand and logistics, not a chokepoint, drive baryte risk.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>Energy News Bulletin — Schlumberger shortage</td><td class="took">Oilfield-services response to a shortage → the "invisible until it is short" point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>Critical Minerals HQ — barite market</td><td class="took">China ~9.26 Mt output vs ~1.4 Mt domestic use → the exportable-surplus context behind the trade panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">19</td><td>CRS R47982</td><td class="took">US critical-list policy background → why baryte is listed on import reliance despite abundance.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>EU CRM 2023 study</td><td class="took">EI × Supply-Risk method that lists baryte among the 2023 CRMs → criticality framing, not a chain metric.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>Barytes Association</td><td class="took">Industry-structure provenance (25+ members ≈ half of world output) — who the producers are.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>IMA-Europe</td><td class="took">Sector context; baryte is represented separately (not an IMA-Europe commodity group) — a provenance note.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">23</td><td>CEPII BACI</td><td class="took">The trade engine → the <b>251110 / 251120 baryte trade panel</b> and its export shares.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">24</td><td>USGS MCS 2026 (full volume)</td><td class="took">The MCS series the barite two-pager sits in — provenance for the salient statistics.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">25</td><td>USGS — Barite Statistics &amp; Information</td><td class="took">Historical-series portal (1932→) — where a longer history chart would come from.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>USGS NMIC — Commodity Statistics</td><td class="took">Commodity-statistics portal — provenance for the production data engine.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Baryte ore — the mine and where it forms <span class="ct">7</span></h2>
+  <div class="stagesub">The raw input, and the most diversified stage: India, China, Morocco, Kazakhstan and the US — no single country dominates.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-barite.pdf">USGS Mineral Commodity Summaries 2026 — Barite</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual two-page synopsis: production, reserves, import sources, salient statistics for barite.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: in 2025 three companies mined barite at four Nevada operations (data withheld); ~2.3 Mt was sold by US crushers/grinders. Typically more than 90% of US barite is used as a weighting agent in oil- and gas-drilling fluids. Net import reliance exceeds 75% (India 39%, China 21%, Morocco 19%, Mexico 14%); no large-scale drilling substitute exists.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass (much withheld), reported import/export trade, world mine-production and reserves estimates, and rig-count indicators.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — barytes</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">Free searchable world production and trade statistics database, used for the chain's history chart.</span>
+      <span class="abs"><b>Summary.</b> BGS's World Mineral Statistics is a searchable database of annual world mine-production and trade figures by commodity and country, including barytes. The atlas draws the baryte mine-production time series from this series (alongside USGS) to build the diversified-mine history chart.</span>
+      <span class="dat"><b>Data.</b> BGS-compiled national mine-production and trade returns (multi-decade annual series) — a database, not a paper.</span></li>
+    <li><a href="https://mst.misis.ru/jour/article/view/572">World's barite resources as critical raw material</a><span class="src"> · Mining Science and Technology (Russia) (2023)</span>
+      <span class="desc">Academic treatment of global barite resources framed through the critical-raw-material lens.</span>
+      <span class="abs"><b>Abstract.</b> Boyarko &amp; Bolsunovskaya trace barite production from ~0.3 Mt/yr in the 1920s to 8.0–9.6 Mt/yr by 2010, with ~550 Mt cumulatively produced (1920–2020) and ~740 Mt of exploitable resources. Critical importing economies represent 38.8% of world GDP; new deposits in Iran, Kazakhstan and Pakistan and marine sediments could reduce criticality.</span>
+      <span class="dat"><b>Data.</b> Synthesis of long-run world production, trade and reserve/resource statistics, plus importer/exporter GDP-share analysis — no new experimental dataset.</span></li>
+    <li><a href="https://www.mdpi.com/2075-163X/15/7/692">Barite Deposits of Türkiye: A Review</a><span class="src"> · MDPI Minerals (2025)</span>
+      <span class="desc">Review of Turkish barite deposit genesis (magmatism-associated vs. passive-margin-hosted).</span>
+      <span class="abs"><b>Abstract.</b> Türkiye's barite deposits fall into two groups by tectonic setting: magmatism-associated (e.g. Kızılcaören carbonatite-related F+Ba+REE+Th; the Cretaceous Pontide-arc Kirazören and Karacaören) and passive-margin-hosted concordant/discordant veins in Palaeozoic lithologies of the Taurides and Arabian Platform. The Palaeozoic belt is the country's main resource, producing ~300,000 t/yr.</span>
+      <span class="dat"><b>Data.</b> Review of deposit geology plus Pb and Sr isotope data across Turkish barite districts.</span></li>
+    <li><a href="https://www.mdpi.com/2075-163X/14/5/498">The Ballynoe Stratiform Barite Deposit, Silvermines, County Tipperary, Ireland</a><span class="src"> · MDPI Minerals (2024)</span>
+      <span class="desc">Case study of an Irish-type exhalative barite deposit and its formation mechanism.</span>
+      <span class="abs"><b>Abstract.</b> The Ballynoe barite deposit is a conformable Lower Carboniferous horizon whose geometry follows footwall palaeotopography. Precipitated as a cryptocrystalline mud, later stylolitised and recrystallised, it shows compelling evidence of early local exhalation — pyritised worm tubes and haematised filaments of apparent microbial origin — and strontium with a seawater 87Sr/86Sr signature.</span>
+      <span class="dat"><b>Data.</b> Field geology, sedimentary/petrographic textures, palaeontology and strontium-isotope data from the deposit.</span></li>
+    <li><a href="https://www.mdpi.com/2075-163X/14/7/671">Barite Replacement as a Key Factor in the Genesis of Sediment-Hosted Zn-Pb±Ba and Barite-Sulfide Deposits (Iran)</a><span class="src"> · MDPI Minerals (2024)</span>
+      <span class="desc">Ore-fluid and isotope study of barite genesis in Iran's 350+ sediment-hosted Zn-Pb-Ba deposits.</span>
+      <span class="abs"><b>Abstract.</b> Iran hosts 350+ Precambrian–Cenozoic sediment-hosted Zn-Pb±Ba and barite-sulfide deposits (SHMS/SEDEX, Irish-type, MVT) in which barite is common — as disseminations, banded zebra textures, veins and massive lenses. In many giant Irish-type and stratabound deposits, sulfide ore replaces an early barite envelope, so barite replacement is a key control on genesis.</span>
+      <span class="dat"><b>Data.</b> Petrographic textures plus sulfur- and strontium-isotope signatures across Iranian sediment-hosted deposits.</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8119950/">Origin and occurrence of gem-quality, skarn-hosted barite from Jebel Ouichane near Nador, Morocco</a><span class="src"> · Scientific Reports (2021)</span>
+      <span class="desc">Deposit-genesis study specific to Morocco, one of the chain's three leading producers.</span>
+      <span class="abs"><b>Abstract.</b> Light-blue gem-quality barite from Jebel Ouichane occurs in iron-ore skarns in Jurassic–Cretaceous limestones. Fluid-inclusion and oxygen/sulfur-isotope data indicate slow, surface-reaction-controlled precipitation below 100 °C from low-salinity fluids mixing diluted meteoric water with magmatic-hydrothermal fluids, with Ba and Sr from altered carbonate and silicate minerals.</span>
+      <span class="dat"><b>Data.</b> Crystallography, fluid-inclusion microthermometry, and δ¹⁸O / sulfur-isotope geochemistry of the Nador barite.</span></li>
+  </ul>
+
+  <h2 class="sec">② Grinding to drilling-grade powder <span class="ct">2</span></h2>
+  <div class="stagesub">Where the ore becomes the product: milled to a controlled-density, API-grade powder near where wells are drilled.</div>
+  <ul class="refs">
+    <li><a href="https://www.api.org/">American Petroleum Institute — drilling-fluid (mud) specifications</a><span class="src"> · API (2024)</span>
+      <span class="desc">Industry specifications governing drilling-grade barite density and purity.</span>
+      <span class="abs"><b>Summary.</b> The American Petroleum Institute publishes the drilling-fluid material specifications (e.g. API 13A) that define barite grades by specific gravity and purity — including the 4.20-SG standard and the 4.10-SG alternate issued in 2010 as high-grade reserves tightened. These specs set what counts as drilling-grade powder.</span>
+      <span class="dat"><b>Data.</b> API consensus material specifications — engineering standards, not a dataset. <span class="miss">(Landing page only; specific standard documents sit behind API's publications store.)</span></span></li>
+    <li><a href="https://www.fastmarkets.com/insights/launch-of-three-monthly-price-assessments-for-barite/">Fastmarkets — launch of three monthly barite price assessments</a><span class="src"> · Fastmarkets (2023)</span>
+      <span class="desc">Price-reporting agency's barite grade-specific monthly assessments for the drilling market.</span>
+      <span class="abs"><b>Summary.</b> From 31 Aug 2023 Fastmarkets began three monthly barite assessments — FOB China, Chennai (India) and Morocco — for API-grade SG-4.10 unground lump, as western buyers switched from the scarcer 4.20 grade. The three producers were the world's top barite producers in 2022.</span>
+      <span class="dat"><b>Data.</b> Fastmarkets spot price assessments (monthly, 1,000 t minimum) — market-reported prices, not government data.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Drilling mud &amp; the well — the dominant use <span class="ct">9</span></h2>
+  <div class="stagesub">Where nearly all baryte goes: weighting the mud that controls downhole pressure — and why nothing cheap replaces it.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/sir/2014/5230/pdf/sir2014-5230.pdf">Barite — A Case Study of Import Reliance on an Essential Material for Oil and Gas Exploration and Development Drilling (SIR 2014-5230)</a><span class="src"> · USGS Scientific Investigations Report (2015)</span>
+      <span class="desc">Detailed USGS case study of barite as a weighting agent and the US import-reliance picture.</span>
+      <span class="abs"><b>Abstract.</b> Bleiwas &amp; Miller frame barite as an import-reliant essential: its high specific gravity makes it the only mineral used in bulk to weight water-based drilling mud, primarily to prevent explosive releases. In 2012 US mine output (~670,000 t) met only ~20% of drilling demand — a third of 1980 output; imports were led by China (77% of imports), India, Morocco and Mexico.</span>
+      <span class="dat"><b>Data.</b> USGS production, import and reserve/resource statistics with drilling-industry end-use data (2012 baseline, historical back to 1980).</span></li>
+    <li><a href="https://pubs.acs.org/doi/10.1021/acsomega.1c02129">Effect of Different Weighting Agents on Drilling Fluids and Filter Cake Properties in Sandstone Formations</a><span class="src"> · ACS Omega (2021)</span>
+      <span class="desc">Compares barite against alternative weighting agents on rheology and filter-cake performance.</span>
+      <span class="abs"><b>Abstract.</b> Water-based drilling fluids were weighted with barite, micromax, ilmenite and hematite at equal concentration, then measured for rheology (Fann viscometer, 80 °F) and filtration (200 °F, 300 psi) over sandstone. Particle size and mineralogy of each agent were characterised; the study quantifies how each weighting material changes fluid and filter-cake behaviour.</span>
+      <span class="dat"><b>Data.</b> Laboratory measurements — particle-size/mineralogy, rheological and filtration tests on water-based mud samples.</span></li>
+    <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6631356/">A Combined Barite–Ilmenite Weighting Material to Prevent Barite Sag in Water-Based Drilling Fluid</a><span class="src"> · Materials (Basel) (2019)</span>
+      <span class="desc">Technical study on blending barite with ilmenite to solve the "barite sag" settling problem.</span>
+      <span class="abs"><b>Abstract.</b> Barite sag — weighting particles settling out and causing density swings — threatens well control in HPHT drilling. Blending 25/50/75 wt% ilmenite with barite in water-based fluid raised density while holding pH and rheology; 50 wt% ilmenite cut the sag factor to 0.51 (static) and 0.33 (dynamic) with no filtration penalty, an effective, cost-efficient fix.</span>
+      <span class="dat"><b>Data.</b> Static and dynamic laboratory sag, density, pH, rheology and filtration tests on barite–ilmenite blends.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S209044792030054X">Delaminated iron ore (hematite-barite) as alternative weighting agent to barite in petroleum drilling fluids</a><span class="src"> · Ain Shams Engineering Journal (2020)</span>
+      <span class="desc">Investigates hematite-barite blends as a substitution route, underscoring how hard true substitution is.</span>
+      <span class="abs"><b>Abstract.</b> Motivated by the cost of barite-based mud, the study tests delaminated iron ore (hematite-barite) as a novel high-reserve weighting material. Mud samples loaded with the delaminated ore reached the same 9.6–18.7 lb/gal density range as barite and showed comparable rheology, mud-cake thickness and fluid-loss behaviour, indicating a workable alternative in specific settings.</span>
+      <span class="dat"><b>Data.</b> Laboratory mud formulations across a density range, with rheology, mud-cake and fluid-loss measurements plus a mechanism study.</span></li>
+    <li><a href="https://www.tridentenergyintl.com/blogs/post/the-crucial-role-of-barite-in-the-global-oil-and-gas-industry">The Crucial Role of Barite in the Global Oil and Gas Industry</a><span class="src"> · Trident Energy International</span>
+      <span class="desc">Industry-side explainer on barite's function and supply geography.</span>
+      <span class="abs"><b>Summary.</b> Explainer: barite's 4.2–4.5 specific gravity makes it the weighting agent that controls downhole pressure, prevents blowouts and stabilises the wellbore. Production concentrates in a handful of regions — China largest, then India, Morocco and Mexico — leaving major consumers such as the US import-reliant.</span>
+      <span class="dat"><b>Data.</b> No primary data — descriptive industry commentary on barite function and producer geography.</span></li>
+    <li><a href="https://miningdigital.com/supply-chain-management/focus-on-barite-a-critical-mineral-resource-in-flux">Focus on: Barite — a Crucial Critical Mineral Resource</a><span class="src"> · Mining Digital</span>
+      <span class="desc">Trade-press overview of barite's supply-chain complexity and geopolitical exposure.</span>
+      <span class="abs"><b>Summary.</b> Trade-press overview: ~80% of barite consumption is oil-and-gas drilling; China's share fell from 44% (2012) to 36% (2022) as India, Morocco and Kazakhstan grew and the US works to revive domestic output. Frames barite risk as concentration, environmental rules and resource nationalism, not a single chokepoint.</span>
+      <span class="dat"><b>Data.</b> Secondary reporting citing production-share figures and industry commentary — no primary dataset.</span></li>
+    <li><a href="https://www.rigzone.com/news/oil_gas/a/113495/Barite_Market_Tight_as_China_Supply_Decreases">Barite Market Tight as China Supply Decreases</a><span class="src"> · Rigzone</span>
+      <span class="desc">Market reporting on a China-driven barite tightness episode affecting drilling operators.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report on an episode of barite market tightness driven by falling Chinese supply and its effect on drilling operators. <span class="miss">(Page not retrievable on this pass — redirect loop; noted from the headline and the atlas's prior citation only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press market reporting — no primary dataset.</span></li>
+    <li><a href="https://www.energynewsbulletin.net/drilling/news/1099534/schlumberger-address-barite-shortage">Schlumberger to address barite shortage</a><span class="src"> · Energy News Bulletin</span>
+      <span class="desc">Reporting on an oilfield-services response to a barite supply shortage.</span>
+      <span class="abs"><b>Summary.</b> Report on an oilfield-services (Schlumberger) response to a barite supply shortage. <span class="miss">(Page behind an access wall — HTTP 403, not retrievable this pass; noted from the headline and the atlas's prior citation only.)</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+    <li><a href="https://criticalmineralshq.com/mineral/barite">Barite Market 2026 — Prices, Producers, Supply Outlook</a><span class="src"> · Critical Minerals HQ</span>
+      <span class="desc">Current market snapshot: China production vs domestic use, export surplus, price outlook.</span>
+      <span class="abs"><b>Summary.</b> Market snapshot: China's ~9.26 Mt output against ~1.4 Mt domestic use leaves a large exportable surplus, shaping global barite production and export dynamics. <span class="miss">(URL returned HTTP 404 on this pass — the page appears to have moved; figures noted from the atlas's prior citation.)</span></span>
+      <span class="dat"><b>Data.</b> Market-analysis snapshot — production/use/price estimates, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">4</span></h2>
+  <div class="stagesub">The list methodologies and industry bodies that classify and represent the whole chain.</div>
+  <ul class="refs">
+    <li><a href="https://www.congress.gov/crs-product/R47982">Critical Mineral Resources: National Policy and Critical Minerals List (R47982)</a><span class="src"> · Congressional Research Service (2024)</span>
+      <span class="desc">Legislative/policy background on the U.S. critical minerals list process, under which barite is listed.</span>
+      <span class="abs"><b>Summary.</b> CRS report reviewing US minerals policy, the Energy Act of 2020 definition of a critical mineral, and USGS list development (2022: 50 minerals; 2025: 60) for congressional supply-chain considerations — the policy frame in which barite is classified critical on import reliance.</span>
+      <span class="dat"><b>Data.</b> Secondary synthesis of USGS lists/methodology, statute and production/import-reliance data; no new primary dataset.</span></li>
+    <li><a href="https://single-market-economy.ec.europa.eu/publications/study-critical-raw-materials-eu-2023-final-report_en">Study on the Critical Raw Materials for the EU 2023 — Final Report</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's formal CRM criticality assessment underlying its 2023 list, which includes baryte.</span>
+      <span class="abs"><b>Summary.</b> The EU's fifth technical criticality assessment, feeding the Critical Raw Materials Act. It screens candidate raw materials against Economic Importance and Supply Risk thresholds and defines the CRM and Strategic Raw Materials lists; baryte is among the 2023 critical raw materials.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) using production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://www.barytes.org/about-us/">Barytes Association — About us</a><span class="src"> · Barytes Association</span>
+      <span class="desc">Industry association representing barytes/barite producers and processors.</span>
+      <span class="abs"><b>Summary.</b> Founded October 2000, the Barytes Association now has 25+ member companies — barytes miners and major processors — together representing about half of world barytes production and 80%+ of marketed sales. It liaises with Euromines and IMA-North America on legislative and environmental matters.</span>
+      <span class="dat"><b>Data.</b> No primary data — an industry-association description of membership and remit.</span></li>
+    <li><a href="https://ima-europe.eu/">IMA-Europe — Industrial Minerals Association Europe</a><span class="src"> · IMA-Europe</span>
+      <span class="desc">Umbrella body for European industrial-minerals sector associations.</span>
+      <span class="abs"><b>Summary.</b> IMA-Europe is an umbrella organisation of 15 mineral-specific associations (calcium carbonates, bentonite, borates, silica, talc and others), representing 500+ companies across 28 countries and engaging EU raw-materials, health, safety and environmental policy. Baryte is represented separately, via the Barytes Association, not as an IMA-Europe commodity group.</span>
+      <span class="dat"><b>Data.</b> No primary data — sector-association description.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's trade panel (HS 251110 / 251120).</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. The chain uses natural baryte (251110) and witherite (251120).</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://pubs.usgs.gov/publication/mcs2026">Mineral Commodity Summaries 2026 (full volume)</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Full-volume MCS covering 90+ commodities; the barite two-pager is one chapter.</span>
+      <span class="abs"><b>Summary.</b> The USGS Mineral Commodity Summaries 2026 is the annual reference on domestic and world production, supply and use for 90+ mineral commodities, published February 2026; the barite chapter is drawn from it. Provenance for the salient statistics used across the chain.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics (production, imports, reserves, use) across all commodities.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/barite-statistics-and-information">Barite Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">Landing page for historical barite production/price/trade statistics and past MCS editions.</span>
+      <span class="abs"><b>Summary.</b> The USGS NMIC barite hub links the Mineral Commodity Summaries (1996–2026), Minerals Yearbook chapters (1994–2023) and historical statistics back to 1932 — the source for extending the chain's short history chart further back, plus the SIR import-reliance case study.</span>
+      <span class="dat"><b>Data.</b> USGS historical barite production, price and trade series (1932→present).</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/commodity-statistics-and-information">USGS NMIC — Commodity Statistics and Information</a><span class="src"> · USGS</span>
+      <span class="desc">Portal to historical time series (Minerals Yearbook, MCS) across all mineral commodities including barite.</span>
+      <span class="abs"><b>Summary.</b> The USGS National Minerals Information Center portal to per-commodity statistics and information (Minerals Yearbook and Mineral Commodity Summaries), including barite — provenance for the production data engine behind the chain's figures.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No <b>Resources Policy / Journal of Cleaner Production</b> peer-reviewed criticality or material-flow-analysis paper specific to barite turned up; Boyarko (Mining Science and Technology, Russia) is the closest. Next: "barite material flow analysis" or "barite criticality assessment Graedel" on Scopus/Web of Science.</li>
+      <li>No <b>IEA or OECD</b> coverage exists — baryte sits outside their energy-transition-metals scope; do not force a citation here.</li>
+      <li>BGS and USGS both publish barite series, but a single long, consistent <b>multi-decade series (pre-2010)</b> is hard to source publicly; the older USGS Minerals Yearbook PDFs (e.g. myb1-2015-barit.pdf) are the next stop to extend the history chart back.</li>
+      <li><b>Fastmarkets / Benchmark</b> price coverage is paywalled beyond headlines; the free Fastmarkets methodology PDF and "insights" posts are the accessible layer.</li>
+      <li>Good next searches for industry structure: "barite reserves USGS world reserves by country", "Kazakhstan barite production Qaraghandy", "offshore drilling barite demand forecast 2026", "barite sag NPT deepwater cost".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from mined ore to the weighted mud in the well, with cross-cutting frameworks and data grouped at the end. 26 unique sources (two CEPII/BGS duplicate listings were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (redirect loops / access walls / a moved URL) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./baryte-chain.html">The baryte chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

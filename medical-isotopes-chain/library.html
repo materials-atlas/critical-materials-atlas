@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Medical-isotopes chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the medical-isotope value chain (Mo-99 / Tc-99m), ordered to follow the chain from research reactor to hospital scan. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./medical-isotopes-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Medical Isotopes</div>
+    <h1>Medical-isotopes chain (Mo-99 / Tc-99m)</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Technetium-99m images tens of millions of patients a year, but the chain that delivers it races a clock: its parent molybdenum-99 is made in about six ageing research reactors and decays with a 66-hour half-life, so none of it can be stockpiled. <b>The chokepoint here is not a hostile supplier — it is fragility.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① research reactors (few, ageing) → ② Mo-99 (66-hour half-life, no stockpile) → ③ Tc-99m generators → ④ hospital scans — then the cross-cutting supply-security frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./medical-isotopes-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">11</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (5) · <span class="pill ref">Reference</span> context / provenance (2).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Research reactors — the fragile production base</td></tr>
+      <tr><td class="n">1</td><td>NNSA — Mo-99 without HEU</td><td class="took">The HEU→LEU conversion and domestic-rebuild framing → the §3 "new routes, no more weapons uranium" fix panel; sources the reactor-conversion story.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Necessity of Nuclear Reactors (Krijger)</td><td class="took">"Main supply reactors ageing, expected to shut before 2025" → would sharpen the §1 "and the reactors are old" panel with a dated retirement horizon.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Mo-99 — the isotope that races the clock</td></tr>
+      <tr><td class="n">3</td><td>IAEA — radioisotopes</td><td class="took">Agency production/supply framing → the "OECD NEA; IAEA" note under the half-life and use panels.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">4</td><td>OECD NEA — Current Trends</td><td class="took">Trend assessment spanning Mo-99 plus emerging Lu-177/Ac-225 → a forward "emerging isotopes" extension of the chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>OECD NEA — Security of Supply 2023–2027</td><td class="took">Demand/capacity projection method → a quantified capacity-margin panel for the exact 2023–2027 window.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>Ahmad — Race Against Time</td><td class="took">"&gt;30M investigations/yr; supply fragile" → corroborates the ~40M-scans and recurring-shortage stats.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Tc-99m generators — parent to tracer</td></tr>
+      <tr><td class="n">7</td><td>Pillai — Possible Paths Forward</td><td class="took">Reactor- vs accelerator-route comparison (non-HEU) → the substance behind the §3 diversification fix.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The scan — clinical demand</td></tr>
+      <tr><td class="n">8</td><td>WNA — Radioisotopes in Medicine</td><td class="took">~80% of nuclear-medicine procedures, 66h half-life, &gt;50M procedures/yr → sources the ~80% / ~40M-scan headline stats.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — supply-security frameworks &amp; policy</td></tr>
+      <tr><td class="n">9</td><td>OECD NEA — The Supply of Medical Radioisotopes (HLG-MR)</td><td class="took">Security-of-supply programme + "few producers, ageing facilities" → the fragility thesis and the ~6-reactor framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>Peykov — HLG-MR Policy Approach</td><td class="took">Full-cost-recovery policy → belongs in the decision / breakout layer, not the chain metrics.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">11</td><td>CEPII BACI</td><td class="took">The trade engine → the flagged HS 284440 radioisotope-basket overlay (Mo-99/Tc-99m not separable).</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Research reactors — the ageing production base <span class="ct">2</span></h2>
+  <div class="stagesub">A handful of research reactors, most built in the 1960s–70s, irradiate the targets that become Mo-99.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/nnsa/nnsas-molybdenum-99-program-establishing-reliable-supply-mo-99-produced-without-highly">NNSA's Molybdenum-99 Program — a reliable supply produced without highly enriched uranium</a><span class="src"> · US NNSA (2024)</span>
+      <span class="desc">US program to establish a domestic Mo-99 supply produced without highly enriched uranium (HEU).</span>
+      <span class="abs"><b>Summary.</b> NNSA's Mo-99 Program minimises civilian highly-enriched-uranium use — helping global producers convert to low-enriched uranium and funding domestic US Mo-99 made without HEU. Mo-99 and its decay product Tc-99m serve over 40,000 US medical procedures daily; a SHINE plant under construction targets over 75% of US demand.</span>
+      <span class="dat"><b>Data.</b> US government program page; cooperative agreements with commercial producers (SHINE, NorthStar) plus reactor-conversion and uranium-supply data — no dataset served on the page.</span></li>
+    <li><a href="https://www.cell.com/trends/biotechnology/fulltext/S0167-7799(13)00093-0">The necessity of nuclear reactors for targeted radionuclide therapies</a><span class="src"> · Trends in Biotechnology (2013)</span>
+      <span class="desc">Argues nuclear reactors remain essential for Tc-99m/I-131 and for targeted radionuclide cancer therapy.</span>
+      <span class="abs"><b>Abstract.</b> Reactors are required for the workhorses of diagnosis and treatment — Tc-99m and I-131 — and remain essential to the expanding field of targeted radionuclide cancer therapy. The main reactors in the global supply are ageing and expected to shut before 2025; medicine, nuclear industry and politics must secure future reactor access and industrialise alternative production routes.</span>
+      <span class="dat"><b>Data.</b> Review / opinion (Krijger, Ponsard, Harfensteller et al.) — synthesis of the reactor-supply outlook, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Mo-99 — the isotope that races the clock <span class="ct">4</span></h2>
+  <div class="stagesub">Extracted and shipped within days: a 66-hour half-life means no buffer can exist, so any outage bites at once.</div>
+  <ul class="refs">
+    <li><a href="https://www.iaea.org/topics/radioisotopes">IAEA — production and supply of medical radioisotopes</a><span class="src"> · IAEA (2024)</span>
+      <span class="desc">IAEA topic page on the production, supply and application of medical radioisotopes.</span>
+      <span class="abs"><b>Abstract.</b> IAEA topic hub on producing and supplying medical radioisotopes for diagnosis and therapy. <span class="miss">(Page not retrievable this pass — repeated HTTP 402 Payment Required; scope taken from the page title and its role as a chain source, no figures quoted.)</span></span>
+      <span class="dat"><b>Data.</b> IAEA agency topic page — descriptive hub, no dataset served on the page.</span></li>
+    <li><a href="http://www.oecd-nea.org/jcms/pl_109877/current-trends-in-the-supply-and-utilisation-of-medical-radioisotopes">Current Trends in the Supply and Utilisation of Medical Radioisotopes</a><span class="src"> · OECD NEA (2025)</span>
+      <span class="desc">NEA assessment of supply/utilisation trends across Mo-99 and emerging therapeutic isotopes.</span>
+      <span class="abs"><b>Summary.</b> NEA report assessing the supply and utilisation of medical radioisotopes — from established Mo-99 challenges to emerging radioligand therapy and theranostics. Drawing on 15+ years of work, it reviews production capacity, innovation pipelines, regulation and health-system readiness, with strategic policy recommendations for sustainable access.</span>
+      <span class="dat"><b>Data.</b> NEA synthesis over 15+ years of supply monitoring; report landing page (full technical detail in the PDF).</span></li>
+    <li><a href="http://www.oecd-nea.org/jcms/pl_87477/the-security-of-supply-of-medical-radioisotopes-demand-and-capacity-projections-for-99mo/99mtc-for-the-2023-2027-period">The Security of Supply of Medical Radioisotopes: Demand and Capacity Projections for 99Mo/99mTc, 2023–2027</a><span class="src"> · OECD NEA (2023)</span>
+      <span class="desc">NEA demand/capacity projections for 99Mo/99mTc across the 2023–2027 window.</span>
+      <span class="abs"><b>Summary.</b> NEA report (NEA/NDC/R(2023)1, Oct 2023) giving security-of-supply scenarios to 2027 — the first since 2019 — comparing demand estimates against production-capacity and facility-utilisation forecasts, using confidential supply-chain data, to guide policymaker and producer decisions on sustainable Mo-99/Tc-99m supply.</span>
+      <span class="dat"><b>Data.</b> NEA modelling using confidential participant data on demand, capacity and reactor utilisation, 2023–2027.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s12149-011-0512-0">Molybdenum-99/technetium-99m management: race against time</a><span class="src"> · Annals of Nuclear Medicine (2011)</span>
+      <span class="desc">Short letter on the fragility of Tc-99m supply and its short-half-life constraint.</span>
+      <span class="abs"><b>Abstract.</b> Molybdenum-99 is the parent of diagnostic nuclear medicine, decaying to technetium-99m used in over 30 million investigations a year worldwide. Supplies of Tc-99m have stayed fragile in recent years and may be again in the short and long term; the letter registers suggestions to cope with inadequate supply of this most-wanted radionuclide.</span>
+      <span class="dat"><b>Data.</b> Letter (M. Ahmad) — commentary and suggestions, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Tc-99m generators — parent to tracer <span class="ct">1</span></h2>
+  <div class="stagesub">Mo-99 decays to technetium-99m inside a hospital "moly cow" generator — and the routes that feed it are being remade off weapons uranium.</div>
+  <ul class="refs">
+    <li><a href="https://jnm.snmjournals.org/content/54/2/313">Sustained availability of 99mTc: possible paths forward</a><span class="src"> · Journal of Nuclear Medicine (2013)</span>
+      <span class="desc">Reviews reactor- and accelerator-based routes to sustain Tc-99m supply without HEU.</span>
+      <span class="abs"><b>Abstract.</b> Tc-99m availability rests on 99Mo/99mTc generators made from fission Mo-99 produced with high-enriched-uranium targets now being phased out for proliferation reasons, with no plans to replace the limited reactor fleet. Reviews reactor- and accelerator-based non-HEU routes — their advantages, technical challenges, economics, security and regulatory obstacles — and the international efforts underway.</span>
+      <span class="dat"><b>Data.</b> Review (Pillai, Dash, Knapp) — synthesis of production technologies and international programmes, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">④ The scan — clinical demand <span class="ct">1</span></h2>
+  <div class="stagesub">Tc-99m is injected as a tracer for bone, cardiac, renal and cancer imaging — roughly 80% of nuclear-medicine procedures.</div>
+  <ul class="refs">
+    <li><a href="https://world-nuclear.org/information-library/non-power-nuclear-applications/radioisotopes-research/radioisotopes-in-medicine">Radioisotopes in Medicine</a><span class="src"> · World Nuclear Association (2026)</span>
+      <span class="desc">Industry-body overview of Tc-99m's diagnostic dominance and the Mo-99 reactor base.</span>
+      <span class="abs"><b>Summary.</b> WNA overview: technetium-99m accounts for about 80% of nuclear-medicine procedures and 85% of diagnostic scans; over 50 million nuclear-medicine procedures occur yearly (~20 million in the USA). Mo-99 (66-hour half-life) comes from a limited set of reactors; accelerator routes cost three-to-ten times more.</span>
+      <span class="dat"><b>Data.</b> Industry-body synthesis citing a producer-reactor capacity table (~26,440 six-day Ci of Mo-99) and procedure statistics.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — supply-security frameworks &amp; policy <span class="ct">2</span></h2>
+  <div class="stagesub">The programmes and policy principles built to keep a buffer-less supply chain from failing.</div>
+  <ul class="refs">
+    <li><a href="https://www.oecd-nea.org/med-radio/">The Supply of Medical Radioisotopes (Mo-99/Tc-99m) — NEA programme hub</a><span class="src"> · OECD NEA (2023)</span>
+      <span class="desc">NEA medical-radioisotope programme hub — the HLG-MR security-of-supply work.</span>
+      <span class="abs"><b>Abstract.</b> NEA's medical-radioisotope programme hub. The High-Level Group on the Security of Supply of Medical Radioisotopes (HLG-MR) completed four mandates, identifying root causes of supply instability and proposing resilience principles. Mo-99 supply stays vulnerable — few producers, ageing facilities, geopolitics; the NEA now convenes supply workshops and tracks availability, extending focus to Lu-177 and Ac-225.</span>
+      <span class="dat"><b>Data.</b> NEA programme page (the med-radio landing redirects here); HLG-MR findings and workshop outputs, no dataset served.</span></li>
+    <li><a href="https://inis.iaea.org/records/9x057-m4p39">The Supply of Medical Radioisotopes: the HLG-MR policy approach</a><span class="src"> · IAEA / OECD-NEA (2013)</span>
+      <span class="desc">Documents the HLG-MR policy approach and full-cost-recovery methodology for Mo-99 supply.</span>
+      <span class="abs"><b>Summary.</b> OECD/NEA self-assessment of the Mo-99/Tc-99m supply chain against the HLG-MR policy approach. Its central principle is full-cost recovery — pricing that recovers the full cost of irradiation to end host-nation subsidies — set out through six policy principles and periodic supply-chain-participant self-assessments.</span>
+      <span class="dat"><b>Data.</b> OECD/NEA policy self-assessment (Peykov &amp; Cameron); costing methodology and participant reporting, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset behind the chain's trade overlay — and why customs statistics barely see this material.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database; radioisotopes sit in one broad HS line (284440).</span>
+      <span class="abs"><b>Summary.</b> CEPII's BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Radioactive isotopes fall in one broad line (HS 284440), so Mo-99/Tc-99m cannot be isolated.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The <b>2009–2010 Tc-99m shortage</b> — Canada's NRU (Chalk River) and the Netherlands' HFR (Petten) both down at once — is a well-documented case study but was not captured here with a citable primary source. Next: "2009 molybdenum-99 shortage NRU HFR" for contemporaneous reporting and post-mortems.</li>
+      <li><b>No dedicated public Mo-99/Tc-99m production database</b> surfaced, and BACI's HS 284440 lumps all radioactive isotopes, so trade cannot isolate the medical series. Try the IAEA's nuclear-medicine and isotope databases (e.g. NUCLEUS).</li>
+      <li>Academic supply-economics work on the HEU→LEU transition is known to exist but had no confirmed live URL this pass — revisit <b>Von Hippel &amp; Kahn, "Molybdenum-99 production without highly enriched uranium," Science &amp; Global Security (2006)</b> directly.</li>
+      <li>No radiopharmaceutical-specific trade association was captured beyond the general WNA — search <b>"Nuclear Medicine Europe" (formerly AIPES)</b> and the <b>SNMMI</b> for sector-specific supply commentary.</li>
+      <li>Newer non-fission and accelerator routes (<b>NorthStar, SHINE, TRIUMF</b>) deserve a dedicated follow-up for company-level and DOE-program detail.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from research reactor to hospital scan, with cross-cutting frameworks and data grouped at the end. 11 unique sources (the OECD "med-radio" landing and the "pl_22261" programme page resolve to one destination — merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text (paper abstracts via PubMed/NCBI); where a page could not be retrieved (IAEA returned HTTP 402) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./medical-isotopes-chain.html">The medical-isotopes chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

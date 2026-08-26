@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Cement chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the cement value chain — the atlas's diffuse counter-example, ordered from limestone to concrete and then the carbon constraint. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./cement-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Cement</div>
+    <h1>Cement chain — the diffuse counter-example</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Limestone is one of Earth's most abundant rocks, a cement kiln is mature technology built wherever there is construction, and cement is too cheap and heavy to ship far — so it is made locally almost everywhere. <b>This is the atlas's counter-example: no stage concentrates into a chokepoint, and the only binding constraint is carbon — cement alone is about 8% of global CO₂.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Limestone (quarried everywhere) → kiln → clinker (~1450 °C) → cement → concrete (poured locally) → ② the carbon constraint (~8% of CO₂, most of it process chemistry) — then the trade data that sits across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./cement-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">10</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (2) · <span class="pill ref">Reference</span> context / provenance (4).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Production &amp; supply — the diffuse base (limestone → kiln → cement)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Cement</td><td class="took">World production table (~3.8 bn t, China ~1.7 bn t ≈ 45%) → sources the "China makes about half — but everyone makes their own" panel; US net import reliance 21%.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS Cement Statistics &amp; Information portal</td><td class="took">The data-hub provenance behind the production figures — monthly surveys + annual summaries back to the 1990s.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2022 — Cement</td><td class="took">Prior-year benchmark (US clinker 79 Mt, import reliance 18%) → cross-year check that supply is stable and local.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>USGS OF-2005-1152 — Background Facts</td><td class="took">Methodological provenance for how the cement series is compiled.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② The carbon constraint — kiln chemistry, CO₂ share &amp; decarbonization</td></tr>
+      <tr><td class="n">5</td><td>IEA — Cement tracking &amp; net-zero</td><td class="took">Sector emissions/production tracking → the <b>~8% of global CO₂</b> and process-vs-fuel framing in §2.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>GCCA — Concrete Future roadmap</td><td class="took">Industry 2050 net-zero levers → the "decarbonize, don't secure" decision-layer note (clinker substitution, SCMs, CCUS).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>PBL/JRC — Trends in global CO₂ 2014</td><td class="took">Independent EDGAR quantification (clinker ~4.8% non-combustion CO₂, ~10% with kiln fuel; China &gt;half) → planned cross-check on the ~8% and China-half claims. <span class="miss">Dated 2013 base year — needs a newer read.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">8</td><td>Cao et al. — sponge effect (Nature Comms)</td><td class="took">Carbonation MFA: concrete reabsorbs ~30% of cumulative 2015–2100 emissions → a planned "concrete is a CO₂ sponge" panel not yet in the chain.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>Chatham House — Making Concrete Change</td><td class="took">Think-tank framing of low-carbon cement innovation → context for the decarbonization decision layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade data</td></tr>
+      <tr><td class="n">10</td><td>CEPII BACI</td><td class="took">The data engine → powers the thin traded-margin panel on HS 252310 clinker + 252329 cement.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Production &amp; supply — the diffuse base <span class="ct">4</span></h2>
+  <div class="stagesub">Limestone → kiln → cement: the numbers that show supply is abundant, stable and made locally almost everywhere.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cement.pdf">USGS Mineral Commodity Summaries 2026 — Cement</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual US/world cement and clinker production, trade and reserves data by country.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US portland/blended cement output about 82 Mt (clinker 69 Mt) from 97 plants in 34 states; shipments ~100 Mt worth $17 billion. World cement production ~3.8 billion t, of which China ~1.7 billion t (≈45%). US net import reliance 21%; imports Turkey 32%, Canada 20%, Vietnam 13%.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export trade and price data.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/cement-statistics-and-information">Cement Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">The primary US cement data portal, linking every annual summary and yearbook chapter.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center hub for cement: monthly Mineral Industry Surveys (1965–2026), annual Mineral Commodity Summaries (1996–2026) and Minerals Yearbook (1994–2023), plus links to methodological open-file reports on US and world cement supply and demand.</span>
+      <span class="dat"><b>Data.</b> USGS monthly and annual mineral-statistics series (production, shipments, imports, stocks, prices).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-cement.pdf">USGS Mineral Commodity Summaries 2022 — Cement</a><span class="src"> · USGS (2022)</span>
+      <span class="desc">A prior-year annual summary, for cross-year comparison of a stable, local industry.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary for 2021: US portland cement output ~90 Mt (clinker 79 Mt) from 96 plants in 34 states; shipments valued $13.4 billion. Net import reliance 18%; imports Canada 32%, Turkey 20%, Greece 13%, China 8%. A benchmark showing supply that shifts little year to year.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer surveys plus reported import/export trade data.</span></li>
+    <li><a href="https://pubs.usgs.gov/of/2005/1152/">Background Facts and Issues Concerning Cement and Cement Data (OF-2005-1152)</a><span class="src"> · USGS (2005)</span>
+      <span class="desc">Methodological background on how USGS compiles its cement statistics.</span>
+      <span class="abs"><b>Abstract.</b> USGS Open-File Report documenting how the cement data series is built. Explains that portland, blended and masonry cement are the binder in concrete and most mortars, and sets out the definitions, data sources and survey methods behind USGS cement statistics — the provenance of the production numbers cited across the chain.</span>
+      <span class="dat"><b>Data.</b> USGS methodological documentation of its cement data-collection and estimation procedures — no new dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② The carbon constraint <span class="ct">5</span></h2>
+  <div class="stagesub">The real bottleneck is not geography but chemistry: heating limestone releases CO₂ that no fuel switch can remove.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/energy-system/industry/cement">IEA — Cement: tracking &amp; net-zero roadmap</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">IEA sector page tracking cement's energy use, production and emissions against a net-zero pathway.</span>
+      <span class="abs"><b>Summary.</b> IEA cement tracking hub: charts of energy demand, cement production and CO₂ emissions 2015–2024 (from World Energy Outlook 2025), linked to the IEA cement net-zero guide and transition-measures reports. <span class="miss">Headline CO₂-share figures are held in the embedded charts, not in page text.</span></span>
+      <span class="dat"><b>Data.</b> IEA World Energy Outlook 2025 modelling of cement energy use, output and CO₂.</span></li>
+    <li><a href="https://gccassociation.org/concretefuture/">Global Cement and Concrete Association — Concrete Future roadmap</a><span class="src"> · GCCA (2024)</span>
+      <span class="desc">The cement/concrete industry's own 2050 net-zero roadmap and decarbonization levers.</span>
+      <span class="abs"><b>Summary.</b> Industry roadmap: GCCA members commit to carbon-neutral concrete by 2050, promising a further ~20% CO₂ cut this decade (matching 30 years' progress) via clinker efficiency, supplementary cementitious materials and carbon capture. GCCA represents ~80% of the concrete industry outside China.</span>
+      <span class="dat"><b>Data.</b> GCCA member commitments and sector emissions accounting; roadmap synthesis, no primary dataset on the page.</span></li>
+    <li><a href="https://www.pbl.nl/sites/default/files/downloads/PBL_2014_Trends_in_global_CO2_emisions_2014_1490.pdf">Trends in global CO₂ emissions: 2014 Report</a><span class="src"> · PBL / EC-JRC (2014)</span>
+      <span class="desc">Government/EU-agency emissions accounting that sizes cement's independent CO₂ share.</span>
+      <span class="abs"><b>Abstract.</b> PBL/EC-JRC annual accounting from the EDGAR database: cement clinker production is the largest source of non-combustion CO₂, contributing about 4.8% of the global total (about 10% including the fuel burned to heat kilns); China accounted for more than half of world cement output in 2013.</span>
+      <span class="dat"><b>Data.</b> EDGAR 4.2 emissions database — IPCC-2006 Tier-1 process-emission factors per tonne of cement, adjusted for the falling clinker share.</span></li>
+    <li><a href="https://www.nature.com/articles/s41467-020-17583-w">The sponge effect and carbon emission mitigation potentials of the global cement cycle</a><span class="src"> · Cao et al., Nature Communications (2020)</span>
+      <span class="desc">Peer-reviewed global material-flow and carbon-cycle analysis of cement.</span>
+      <span class="abs"><b>Abstract.</b> Cement acts like a sponge in the carbon cycle: production emits heavily, yet hydrated products slowly reabsorb atmospheric CO₂ (carbonation). Modelling the full cycle, the authors find future reabsorption is significant (~30% of cumulative 2015–2100 emissions), but net reduction needs radical technology (carbon capture) plus material efficiency beyond current roadmaps.</span>
+      <span class="dat"><b>Data.</b> Dynamic global cement-cycle model (production, use, demolition) quantifying material flows, energy, emissions and carbonation uptake to 2100.</span></li>
+    <li><a href="https://www.chathamhouse.org/2018/06/making-concrete-change-innovation-low-carbon-cement-and-concrete">Making Concrete Change: Innovation in Low-carbon Cement and Concrete</a><span class="src"> · Chatham House (2018)</span>
+      <span class="desc">Widely-cited think-tank report on cement decarbonization pathways.</span>
+      <span class="abs"><b>Summary.</b> Chatham House report: deep, Paris-aligned cuts to cement emissions urgently require significant changes in how cement and concrete are produced and used. <span class="miss">Page body served as a JS shell — summarised from the report's own published description.</span></span>
+      <span class="dat"><b>Data.</b> Policy analysis of low-carbon cement/concrete innovation and its barriers; no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade data <span class="ct">1</span></h2>
+  <div class="stagesub">The dataset behind the chain's trade panel — a thin traded margin over an overwhelmingly local industry.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024) used for the chain's trade table (HS 252310 clinker, 252329 cement).</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Here it carries HS 252310 clinker and 252329 portland cement.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>This chain's search pass was cut short by a session-wide search-budget limit, so <b>market and trade-press coverage</b> (Reuters, Fastmarkets) and CSIS/RMI-style think-tank analysis were not confirmed live — worth a fresh pass with budget restored.</li>
+      <li>The <b>~8% of global CO₂</b> and <b>~60% process-chemistry</b> figures rest mostly on IEA/GCCA framing; a dedicated newer read (Global Carbon Project, or an IEA CO₂-from-cement update) would firm up the split and reconcile it with the PBL/JRC ~4.8% non-combustion figure — search "IEA cement CO₂ emissions 2024 update."</li>
+      <li><b>Carbon capture on kilns (CCUS)</b> and clinker-substitution SCMs (fly ash, slag, calcined clay / LC3) have no dedicated technical source here yet — search "cement carbon capture CCUS pilot" and "supplementary cementitious materials calcined clay LC3."</li>
+      <li>No non-USGS source independently quantifying <b>China's ~50% world-production share</b> — the USGS 2026 world table gives ≈45%, but an academic or IEA cross-check would strengthen it — search "China cement production share world 2025."</li>
+      <li>No <b>concrete-stage-specific</b> supply source exists (there is nothing to concentrate); the Cao et al. carbonation model is the closest, and is itself a planned enrichment.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from limestone to concrete, then the carbon constraint, with the trade dataset at the end. 10 unique sources (two exact duplicates — a second USGS Cement Statistics listing and a repeated GCCA link — were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (JS shells, chart-only hubs) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./cement-chain.html">The cement chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
