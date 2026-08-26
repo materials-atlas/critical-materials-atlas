@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Rhenium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the rhenium value chain, ordered to follow the chain from copper–molybdenum host to single-crystal turbine blade. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./rhenium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Rhenium</div>
+    <h1>Rhenium chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Rhenium is a by-product of a by-product — recovered from the flue dust of roasting molybdenum, itself mostly a copper by-product — yet a few percent of it in a single-crystal nickel superalloy is what lets a jet-engine turbine blade run hotter. <b>No one mines rhenium; its supply is set by copper and molybdenum output, not by its own demand.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Copper → molybdenum (host) → ② rhenium by-product recovery (roasting flue dust → ammonium perrhenate → metal) → ③ superalloys → single-crystal turbine blades (plus petroleum-reforming catalysts) → recycling — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./rhenium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">18</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (5) · <span class="pill ref">Reference</span> context / provenance (9).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Copper → molybdenum → rhenium (by-product recovery)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Rhenium</td><td class="took">By-product-of-a-by-product framing + the ~81 t world / ~37% Chile / 80% superalloy figures → the "no rhenium mine" panel and the holder read.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Availability of primary rhenium (Springer)</td><td class="took">Capture-rate method → a planned "how little is caught" panel: &lt;12% of in-ore rhenium is captured (30–44% at technical limits), ~32% lost at concentration.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>By-production of rhenium (AGU 2018)</td><td class="took">The textbook by-production framing — availability decoupled from demand. <span class="miss">Abstract page 405; framing taken from record title.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>BGS World Mineral Statistics</td><td class="took">Non-US production cross-check on the USGS output read. <span class="miss">Database page 404 this pass — link kept, figure not re-pulled.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Rhenium metal &amp; ammonium perrhenate — the market</td></tr>
+      <tr><td class="n">5</td><td>SFA (Oxford) — rhenium market</td><td class="took">Price-driver structure (moly/copper volumes, recovery capacity, recycling) → a planned price-driver note; corroborates by-product coupling.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>Quest Metals — global rhenium market</td><td class="took">Producer-concentration claim (Molymet ~half of supply, KGHM ~7%) → a planned holder-share reconciliation against USGS ~37% Chile.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>Quest Metals — rhenium surge</td><td class="took">Price/flow data point: China imported 26 t of rhenium from Chile in 2023 vs 2 t in 2018 — context for demand pull.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Superalloys &amp; single-crystal turbine blades</td></tr>
+      <tr><td class="n">8</td><td>Industry / NRC — Re in superalloys</td><td class="took">Background for the 2–6% rhenium "temperature ceiling" claim in §2. <span class="miss">Record carries only a generic institutional link.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">9</td><td>Low-rhenium superalloy patent (Cannon-Muskegon)</td><td class="took">Substitution-pressure evidence: rhenium cut to 1.4–1.6% (from ~3% CMSX-4) → supports the "scarcity managed, not scaled" framing (§3).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>Rhenium-free superalloy patent (EP2612936B9)</td><td class="took">Substitution-pressure evidence: a Re-free alloy that rebalances Ta/W/Mo — the strongest form of the scarcity-driven substitution signal.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>Single-crystal turbine-blade market</td><td class="took">Downstream demand sizing (~$724M in 2025 → ~$1.15B 2032) → a planned "what rhenium enables" market panel.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Scarcity managed by recycling</td></tr>
+      <tr><td class="n">12</td><td>Quest Metals — deficit &amp; recycling</td><td class="took">Recovery-rate figures (25–50% now, up to ~80% recoverable; ~4–15 t/yr from spent catalysts) → a planned recycling-rate panel for §3.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">13</td><td>Metal Tech News — Re critical status</td><td class="took">Rhenium's 2025 US critical-list re-listing → the criticality framing. <span class="miss">Article Cloudflare/403 — noted from headline only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>Discovery Alert — Re supply risk</td><td class="took">Supply-chain-risk framing around the critical-list status. <span class="miss">Page 403 this pass — noted from title only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">15</td><td>CEPII BACI</td><td class="took">The trade engine — but rhenium has no clean HS6 line, so it sits in the shared 811299 basket; the chain flags this rather than claiming a rhenium series.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">16</td><td>USGS MCS 2025</td><td class="took">Prior-year edition → year-over-year comparison on the rhenium production/import figures.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>USGS 2026 MCS web tool</td><td class="took">Interactive front-end to the same MCS 2026 dataset — provenance for the production read.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>USGS NMIC — MCS series</td><td class="took">The umbrella series behind the rhenium chapter — the production data engine across stages.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Copper → molybdenum → rhenium <span class="ct">4</span></h2>
+  <div class="stagesub">The raw input, and a by-product no one mines for: world output ~81 t, Chile ~37% (USGS 2026) — market-intelligence sources claim nearer half; we use the USGS read.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf">USGS Mineral Commodity Summaries 2026 — Rhenium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production/reserves/uses data for rhenium; ~81 t world output, Chile ~37%.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US primary rhenium output rose 5% to 9,800 kg, recovered as ammonium perrhenate and metal powder from roasting molybdenum concentrates of porphyry copper–molybdenum deposits in Arizona and Montana. Superalloy turbine components (80%) and petroleum-reforming catalysts (15%) dominate use; net import reliance 75%. World output ~81,000 kg, Chile ~37%.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price (Argus Media) data; world mine-production and reserves table.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s13563-023-00392-0">The availability of primary rhenium as a by-product of copper and molybdenum mining</a><span class="src"> · Mineral Economics / Springer (2023)</span>
+      <span class="desc">Models how much rhenium in copper–moly ore is actually captured versus geologically present.</span>
+      <span class="abs"><b>Abstract.</b> Bottom-up model tracking rhenium from deposit grades through mining, concentration and processing, 2000–2019. Finds less than 12% of the rhenium present in ore is actually captured (30–44% at technical recovery limits), with ~32% lost during ore concentration alone. Mean recoverable rhenium 2015–2019 was 161–213 t/yr out of 599–732 t geologically present.</span>
+      <span class="dat"><b>Data.</b> Deposit Re grades from Re–Os geochronology literature; production data covering 96.7% of copper and 83.8% of molybdenum mines; concentrate trade flows and per-stage recovery rates.</span></li>
+    <li><a href="https://ui.adsabs.harvard.edu/abs/2018AGUFM.V31G0200B/abstract">Assessing the by-production of critical materials: the rhenium case study</a><span class="src"> · AGU Fall Meeting / ADS (2018)</span>
+      <span class="desc">Early academic framing of rhenium as a textbook by-production criticality case.</span>
+      <span class="abs"><b>Abstract.</b> Conference abstract framing rhenium as a by-production case: because it is recovered only as a by-product of molybdenum — itself a copper by-product — its availability is decoupled from its own demand. <span class="miss">Full abstract text not retrievable this pass (405); framing taken from the ADS record title and library note.</span></span>
+      <span class="dat"><b>Data.</b> Conference abstract (AGU / ADS bibliographic record) — no dataset presented on the page.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS, World Mineral Statistics — rhenium</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">World production statistics database by commodity and country, including minor metals.</span>
+      <span class="abs"><b>Summary.</b> <span class="miss">BGS World Mineral Statistics database page not retrievable this pass (404).</span> BGS's long-running world production dataset by commodity and country, including minor metals such as rhenium — used as a non-US cross-check on the USGS output read.</span>
+      <span class="dat"><b>Data.</b> British Geological Survey compilation of national mine-production returns, by commodity and country (annual series).</span></li>
+  </ul>
+
+  <h2 class="sec">② Rhenium metal &amp; ammonium perrhenate — the market <span class="ct">3</span></h2>
+  <div class="stagesub">Perrhenate to metal: a tiny, concentrated, near-monopolistic trade priced off copper and molybdenum.</div>
+  <ul class="refs">
+    <li><a href="https://www.sfa-oxford.com/rare-earths-and-minor-metals/minor-metals-and-minerals/rhenium-market-and-rhenium-price-drivers/">The Rhenium Market and rhenium price drivers</a><span class="src"> · SFA (Oxford)</span>
+      <span class="desc">Minor-metals consultancy overview of rhenium market structure and price drivers.</span>
+      <span class="abs"><b>Summary.</b> Minor-metals consultancy overview: rhenium is recovered only as a molybdenum/copper by-product from porphyry deposits, so actual output is far below geological availability; aerospace superalloys dominate demand, with prices driven by copper/moly volumes, roasting and recovery capacity, and recycling.</span>
+      <span class="dat"><b>Data.</b> Qualitative market analysis (SFA Oxford) — no quantitative production or price series on the page.</span></li>
+    <li><a href="https://www.questmetals.com/blog/global-market-of-rhenium">Global Market of Rhenium</a><span class="src"> · Quest Metals</span>
+      <span class="desc">Overview of global rhenium production, demand and trade structure.</span>
+      <span class="abs"><b>Summary.</b> Market overview: rhenium supply is tied to molybdenum/copper output; Chile's Molymet is described as the largest producer at nearly half of global supply, Poland's KGHM ~7%, with a concentrated, near-monopolistic trade and aerospace-plus-catalyst demand.</span>
+      <span class="dat"><b>Data.</b> Trade commentary citing academic sources (Int. J. Refractory Metals 2019; Resources Policy 2023) — limited primary figures.</span></li>
+    <li><a href="https://www.questmetals.com/blog/rhenium-surge">Rhenium Surge</a><span class="src"> · Quest Metals</span>
+      <span class="desc">Market commentary on rhenium price spikes.</span>
+      <span class="abs"><b>Summary.</b> Commentary on a rhenium price spike: European catalytic-grade ammonium perrhenate rose toward $2,300–2,400/kg and Chinese APR ~17%; aerospace is ~75% of demand; notes China imported 26 t of rhenium from Chile in 2023 versus 2 t in 2018.</span>
+      <span class="dat"><b>Data.</b> Market/broker commentary and producer statements; cites a commercial market-outlook report — figures unverified.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Superalloys &amp; single-crystal turbine blades <span class="ct">4</span></h2>
+  <div class="stagesub">The defining use — 2–6% rhenium raises the temperature a blade survives — and the scarcity that pushes engineers to design it back out.</div>
+  <ul class="refs">
+    <li><a href="https://www.nrel.gov/">Industry / NRC — rhenium in single-crystal superalloys</a><span class="src"> · Industry / NRC context (2024)</span>
+      <span class="desc">Background context, cited in the chain record, on rhenium's role in single-crystal nickel superalloys.</span>
+      <span class="abs"><b>Summary.</b> General industry / NRC context (cited in the chain record) on rhenium's role in single-crystal nickel superalloys, where a few percent of rhenium raises the temperature a turbine blade can survive and improves creep resistance. <span class="miss">Record carries only a generic institutional link — no specific document retrievable.</span></span>
+      <span class="dat"><b>Data.</b> Cited as background context in the chain record; no specific dataset or page behind the generic link.</span></li>
+    <li><a href="https://www.freepatentsonline.com/y2018/0100401.html">Low rhenium single crystal superalloy for turbine blades and vane applications</a><span class="src"> · Cannon-Muskegon, patent (2018)</span>
+      <span class="desc">Patent literature on reducing rhenium content while preserving high-temperature creep resistance.</span>
+      <span class="abs"><b>Summary.</b> Patent application (Cannon-Muskegon): a single-crystal nickel superalloy holding rhenium to just 1.4–1.6% — roughly half of CMSX-4's ~3% — while keeping high-temperature creep and rupture life, evidencing scarcity-driven pressure to cut rhenium content.</span>
+      <span class="dat"><b>Data.</b> Patent specification with claimed alloy-composition ranges and rupture-life conditions — no external dataset.</span></li>
+    <li><a href="https://patents.google.com/patent/EP2612936B9/en">Rhenium-free single crystal superalloy for turbine blades and vane applications</a><span class="src"> · Google Patents · EP2612936B9</span>
+      <span class="desc">Patent literature on eliminating rhenium from single-crystal superalloys — substitution pressure from scarcity.</span>
+      <span class="abs"><b>Summary.</b> Patent (Cannon-Muskegon): a rhenium-free single-crystal nickel superalloy for turbine blades and vanes that rebalances tantalum, tungsten and molybdenum (17–20% refractory total) to keep creep resistance without rhenium's usual 3–7% — the strongest form of the scarcity-driven substitution signal.</span>
+      <span class="dat"><b>Data.</b> Patent specification (composition ranges, density, creep claims) — no dataset.</span></li>
+    <li><a href="https://www.researchandmarkets.com/reports/6080899/single-crystal-superalloy-turbine-blades">Single Crystal Superalloy Turbine Blades Market — Global Forecast 2025-2032</a><span class="src"> · ResearchAndMarkets (2025)</span>
+      <span class="desc">Commercial market-sizing report for the downstream product rhenium enables.</span>
+      <span class="abs"><b>Summary.</b> Commercial market-sizing report for the product rhenium enables: single-crystal superalloy turbine blades valued ~$724M in 2025, forecast to ~$1.15B by 2032 (6.79% CAGR); segments by casting process and alloy grade (CMSX-4/10, René N5).</span>
+      <span class="dat"><b>Data.</b> Proprietary market model from primary interviews, technical literature and filings — paywalled; figures from the public overview.</span></li>
+  </ul>
+
+  <h2 class="sec">Scarcity managed by recycling <span class="ct">1</span></h2>
+  <div class="stagesub">Because rhenium cannot be scaled, supply is stretched by reclaiming it from scrapped blades and spent catalysts.</div>
+  <ul class="refs">
+    <li><a href="https://www.questmetals.com/blog/the-ongoing-deficit-of-rhenium-may-lead-to-an-increase-in-recycling-efforts">The Ongoing Deficit Of Rhenium May Lead To An Increase In Recycling Efforts</a><span class="src"> · Quest Metals</span>
+      <span class="desc">Market commentary on structural rhenium deficits and the push toward recycling.</span>
+      <span class="abs"><b>Summary.</b> Commentary: a structural rhenium deficit against ~50 t/yr demand (jet blades ~40 t) is pushing recycling; current recovery is 25–50%, with up to ~80% claimed recoverable from post-use scrap, plus ~4–15 t/yr recovered from spent petroleum-reforming catalysts.</span>
+      <span class="dat"><b>Data.</b> Market commentary citing Werner et al. 2023 (Resources Policy) and Argus Media — figures not independently sourced.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">2</span></h2>
+  <div class="stagesub">The list decisions and supply-risk analysis that classify rhenium as critical.</div>
+  <ul class="refs">
+    <li><a href="https://www.metaltechnews.com/story/2025/12/10/tech-metals/rhenium-returns-to-critical-mineral-status/2578.html">Rhenium returns to critical mineral status</a><span class="src"> · Metal Tech News (2025)</span>
+      <span class="desc">Reporting on rhenium's re-addition to the US critical minerals list under the 2025 methodology.</span>
+      <span class="abs"><b>Summary.</b> Trade-press report on rhenium's addition to the 2025 US critical-minerals list. <span class="miss">Article behind a Cloudflare/403 block — not retrievable this pass; noted from the headline only.</span></span>
+      <span class="dat"><b>Data.</b> Trade-press reporting — no primary dataset.</span></li>
+    <li><a href="https://discoveryalert.com.au/rhenium-critical-mineral-status-supply-2025/">Rhenium Critical Mineral Status: Supply Chain Risks</a><span class="src"> · Discovery Alert (2025)</span>
+      <span class="desc">Market/mining-press analysis of rhenium supply-chain risk.</span>
+      <span class="abs"><b>Summary.</b> Mining-press analysis of rhenium's critical-mineral status and supply-chain risk. <span class="miss">Page returned 403 (not retrievable this pass); noted from the title only.</span></span>
+      <span class="dat"><b>Data.</b> Market/mining-press analysis — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from — noting rhenium has no clean trade line.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 2002–2024); rhenium shares the 811299 minor-metals basket.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Rhenium has no clean HS6 line — it sits in the shared 811299 basket.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.usgs.gov/publications/mineral-commodity-summaries-2025">Mineral Commodity Summaries 2025</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year edition of the same rhenium synopsis, useful for year-over-year comparison.</span>
+      <span class="abs"><b>Summary.</b> Prior-year edition of the USGS annual reference: US salient statistics and world production for 90+ nonfuel commodities including rhenium; released January 2025 (v2.0 April 2025) as per-commodity CSV tables — used here for year-over-year comparison.</span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics (production, imports, reserves, price, net import reliance).</span></li>
+    <li><a href="https://www.usgs.gov/tools/2026-usgs-mineral-commodity-summaries-web-tool">2026 USGS Mineral Commodity Summaries Web Tool</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Interactive tool for exploring the full MCS 2026 dataset, including rhenium.</span>
+      <span class="abs"><b>Summary.</b> Interactive USGS tool (launched 25 Feb 2026) to explore highlights and data from Mineral Commodity Summaries 2026, including rhenium — production, trade and recycling views over the full nonfuel-minerals dataset.</span>
+      <span class="dat"><b>Data.</b> Interactive front-end to the USGS MCS 2026 dataset.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/mineral-commodity-summaries">Mineral Commodity Summaries | National Minerals Information Center</a><span class="src"> · USGS</span>
+      <span class="desc">Landing page for the full historical MCS series (all commodities, all years).</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center landing page for the Mineral Commodity Summaries series: annual per-commodity data sheets (90+ minerals), full reports archived to 1996, appendixes and data releases — the umbrella series behind the rhenium chapter.</span>
+      <span class="dat"><b>Data.</b> USGS NMIC annual mineral-commodity statistics series (all commodities).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>Rhenium has no clean HS6 trade code</b> — it sits inside the shared "other base metals" basket (811299), so BACI cannot verify the USGS production read. A dedicated by-production criticality study with citation metadata (the Springer / Resources Policy line) would strengthen the argument rather than trade data.</li>
+      <li>No <b>EU JRC / Critical Raw Materials Act rhenium assessment</b> surfaced this pass — a natural companion to the USGS listing. Next: "EU CRM 2023 rhenium factsheet JRC."</li>
+      <li>No dedicated <b>recycling-rate study or industry-association source</b> was found — only market commentary (25–50%, up to ~80%). Next: closed-loop superalloy recycling data (GE Aerospace, Rolls-Royce, Umicore/Aleris) and Pt–Re catalyst reclamation.</li>
+      <li>No <b>national producer data</b> from Chile, Kazakhstan or Poland (Codelco/Molymet, KAZ Minerals, KGHM annual reports) to ground the "Chile · US · Poland" holder claim — and to reconcile USGS ~37% Chile against market-intel's "nearly half."</li>
+      <li>No <b>think-tank piece specifically on rhenium</b> (CSIS, RMI); coverage bundles it into general minor-metals / by-product discussions. Try "CSIS critical minerals rhenium" or "RMI minor metals by-product criticality."</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from the copper–molybdenum host to the finished turbine blade, with cross-cutting frameworks and data grouped at the end. 18 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (Cloudflare / JS / auth challenges) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./rhenium-chain.html">The rhenium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
