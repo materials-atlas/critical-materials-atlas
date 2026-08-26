@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Silicon chip chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the silicon / semiconductor value chain, ordered to follow the chain from quartz to finished chip. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./silicon-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Silicon chip</div>
+    <h1>Silicon / semiconductor value chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A chip begins as ordinary quartz, but every purification step narrows the field: China smelts most of the world's silicon metal, yet the electronic-grade polysilicon (US / Germany), the blank wafers (Japan) and the leading-edge fabs (Taiwan) sit elsewhere. <b>The chokepoint is not the mine — it is fab capability.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Quartz → silicon metal (raw material) → ② electronic-grade polysilicon (≥11N purification) → ③ monocrystalline blank wafer → ④ EUV lithography &amp; fabrication (Taiwan / TSMC leading-edge; ASML the sole EUV supplier, Netherlands; US / Japan tools and materials) → ⑤ finished chip — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./silicon-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">29</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (9) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (16).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Quartz → silicon metal — the raw input</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2025 — Silicon</td><td class="took">Production-primary framing → the "China ~80% of global silicon-materials output" read and the US five-facility / four-polysilicon-producer context behind the silica stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">2</td><td>OECD — Sand &amp; silicate due diligence</td><td class="took">Silicon-metal production shares → the ~85%-China silicon-metal snapshot at the base of the chain; frames "basic silicon is the least concentrated step."</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td colspan="4" class="stg">② Electronic-grade polysilicon — the ≥11N purification gate</td></tr>
+      <tr><td class="n">3</td><td>IEA-PVPS — Trends in PV 2024</td><td class="took">Semiconductor-use polysilicon volume → the 2023 ~38,800 t figure separating chip-grade from the vast solar-grade pool.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">4</td><td>SIA — Polysilicon §232 comments</td><td class="took">Supplier concentration → the <b>Wacker + Hemlock ~75%</b> panel, the "semiconductor = 2.4% of demand / 33,500 MT" split, and the HS 280461 solar-vs-chip caveat.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>Electronic-grade polysilicon review (RSER)</td><td class="took">Modified-Siemens impurity-control method → the "purification, not tonnage, is the gate" note. <span class="miss">Full text JS/paywall-gated — not retrievable; used at title level only.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Monocrystalline blank wafer</td></tr>
+      <tr><td class="n">6</td><td>SEMI — 2025 annual wafer results</td><td class="took">Latest blank-wafer area/revenue → the 2025 endpoint (12,973 MSI, +5.8%) of the semiconductor-only wafer series.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>SEMI — late-2024 recovery release</td><td class="took">2024 area (12,266 MSI, −2.7%) and the "semiconductor applications only, excludes solar" scope note that keeps the series clean.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>SEMI Silicon Wafer Shipment Statistics</td><td class="took">The standard quarterly MSI series — provenance for every wafer data point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">④ EUV lithography &amp; fabrication</td></tr>
+      <tr><td class="n">9</td><td>OECD — Mapping the semiconductor value chain</td><td class="took">Stage-by-stage dependency map → the chain's own stage skeleton and the "concentration differs by stage" framing.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">10</td><td>OECD — The chip landscape (fab capacity)</td><td class="took">Capacity by economy &amp; node → the <b>by-type table</b> and the "five economies = 87% of in-production capacity; top-10 firms ~50%" reads.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>SIA/BCG — Emerging resilience</td><td class="took">Fab-capacity share 1990–2032F → the long history chart; the "US 10%→14% with incentives, else 8%" annotation.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>ASML — export-restriction statement (2024)</td><td class="took">Primary word from the sole EUV supplier on the Dec-2024 US controls → the "one firm, one country (Netherlands)" EUV node.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">13</td><td>CSET — Preserving the chokepoints</td><td class="took">SME chokepoint mapping incl. ASML as sole commercial EUV → the tool-stage concentration argument. <span class="miss">Page 403-blocked — used from the published summary only.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">⑤ Finished chip &amp; foundry concentration</td></tr>
+      <tr><td class="n">14</td><td>TrendForce — 2Q25 foundry revenue</td><td class="took">Current leading-edge concentration → corroborates OECD's advanced-logic Taiwan lead (TSMC ~70% share, foundry $41.7bn).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>CSET — Semiconductor supply chain (national competitiveness)</td><td class="took">The most-cited public chokepoint map by stage → the benchmark against our own concentration reads. <span class="miss">Page 403-blocked — not retrievable this pass.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>CSIS — Indo-Pacific role</td><td class="took">Regional concentration across design/foundry/OSAT/equipment → context for "why Taiwan is the binding node."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">17</td><td>SIA — 2025 State of the US industry</td><td class="took">US manufacturing / CHIPS build-out snapshot → context for the fab-share history's US line.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">18</td><td>TSIA — Taiwan Semiconductor Industry Association</td><td class="took">The industry body for the leading-edge cluster — provenance / context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>SEMICON Taiwan</td><td class="took">Public window on Taiwan's fab / equipment / materials ecosystem — context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — frameworks &amp; policy</td></tr>
+      <tr><td class="n">20</td><td>IEA — Global Critical Minerals Outlook 2025</td><td class="took">Concentration for high-purity silicon, gallium, germanium → cross-links to the sibling gallium/germanium chains.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>DOE — 2023 Critical Materials Assessment</td><td class="took">Criticality screen (38 materials × 8 technologies; silicon among them) → the "why silicon is on the list" frame.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>European Chips Act</td><td class="took">EU sovereignty law (three pillars, &gt;EUR 32bn) → the policy backdrop to the fab-share forecast.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">23</td><td>CSIS — Double-edged sword of export controls</td><td class="took">How controls push design-out of US technology → belongs in the decision/breakout layer, not this chain.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">24</td><td>CSIS — Mineral demands for resilient chips</td><td class="took">Gallium/germanium/fluorine/arsenic dependencies behind fabrication → the input-mineral cross-links worth building out.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">25</td><td>Xiong et al. — supply-chain resilience (IJPR)</td><td class="took">Synthesis of disruption &amp; concentration research → framing for the node-vulnerability argument.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">26</td><td>Pirson et al. — IC production footprint (IEEE)</td><td class="took">Fab environmental footprint vs node downscaling — context on the cost of leading-edge. <span class="miss">IEEE page not retrievable (403) — title-level only.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">27</td><td>UN Comtrade Plus</td><td class="took">HS-level IC (8542) and silicon-product trade queries — a check on the BACI extract.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">28</td><td>CEPII BACI</td><td class="took">The trade engine → powers the chain's silicon-stage trade overlay (HS 280469 etc.), flagged as context because mixed codes never isolate chip grade.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">29</td><td>World IC exports (HS 8542) via WITS</td><td class="took">A public front-end onto Comtrade IC flows — quick cross-check by year.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Quartz → silicon metal — the raw input <span class="ct">2</span></h2>
+  <div class="stagesub">The least concentrated stage: quartz is abundant, and China smelts most of the world's silicon metal.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-silicon.pdf">USGS Mineral Commodity Summaries 2025 — Silicon</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Annual world/US production, trade, price and reserves data for ferrosilicon and silicon metal.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: in 2024 US ferrosilicon and silicon metal came from five facilities (one idled at end-2023), and four companies produced polysilicon. Silicon metal may be further refined to ultra-high-purity semiconductor- or solar-grade polysilicon. China accounted for almost 80% of total global silicon-materials production; total US net import reliance was under 50%.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export trade and price data (much company-specific data withheld).</span></li>
+    <li><a href="https://www.oecd.org/en/publications/due-diligence-for-responsible-sand-and-silicate-supply-chains_7be0093e-en/full-report/component-5.html">Due Diligence for Responsible Sand and Silicate Supply Chains</a><span class="src"> · OECD (2026)</span>
+      <span class="desc">Silicon-metal production shares and concentration along the sand-to-silicate chain.</span>
+      <span class="abs"><b>Summary.</b> OECD due-diligence report on sand and silicate chains: quartz (river or extracted rock) is refined into metallurgical-grade silicon (silicon metal), abundant and available in many regions, yet smelting is highly concentrated — China holding roughly 85% of silicon-metal production, the figure the chain uses at the base of the value chain.</span>
+      <span class="dat"><b>Data.</b> OECD synthesis of production and trade statistics with due-diligence framing — no new primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">② Electronic-grade polysilicon — the ≥11N purification gate <span class="ct">3</span></h2>
+  <div class="stagesub">Basic silicon is common; ≥11N electronic-grade polysilicon is not — a handful of firms in Germany, the US, Japan and Korea.</div>
+  <ul class="refs">
+    <li><a href="https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf">Trends in Photovoltaic Applications 2024</a><span class="src"> · IEA-PVPS (2024)</span>
+      <span class="desc">Annual global PV/polysilicon market and technology survey; source for the 2023 semiconductor-use polysilicon figure.</span>
+      <span class="abs"><b>Summary.</b> IEA-PVPS Task 1 annual report tracking global photovoltaic markets, production and technology. Within total polysilicon output it isolates the small semiconductor-use volume — about 38,800 t in 2023 — the number the chain uses to separate chip-grade polysilicon from the far larger solar-grade pool.</span>
+      <span class="dat"><b>Data.</b> IEA-PVPS national-survey and industry reporting on PV markets, production capacity and polysilicon volumes.</span></li>
+    <li><a href="https://www.semiconductors.org/wp-content/uploads/2025/08/Semiconductor-Industry-Association-SIA-Comments-Polysilicon-Section-232-Investigation.pdf">SIA Comments on the Polysilicon Section 232 Investigation</a><span class="src"> · Semiconductor Industry Association (2025)</span>
+      <span class="desc">Industry submission on electronic-grade polysilicon supply, concentration and the trade-data caveat.</span>
+      <span class="abs"><b>Abstract.</b> SIA §232 submission: semiconductor-grade polysilicon is a distinct, tiny market — about 2.4% of demand, a forecast 33,500 t — supplied mainly by Wacker Chemie (Germany), Hemlock (US), Tokuyama, SUMCO (Japan) and OCI (Korea), with Wacker and Hemlock roughly three-quarters. It warns HS 280461 combines solar and semiconductor grades, so trade data cannot distinguish them.</span>
+      <span class="dat"><b>Data.</b> SIA member-supplier figures plus USITC DataWeb trade statistics (HTS 2804.61 / 2804.69, 8541, 8542).</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S1364032125002424">Industrialized preparation of electronic-grade polysilicon: a review of impurity sources and control strategies</a><span class="src"> · Renewable and Sustainable Energy Reviews (2025)</span>
+      <span class="desc">Review of the modified-Siemens purification step that gates the wafer stage.</span>
+      <span class="abs"><b>Abstract.</b> Review (Yuan et al.) of industrialized electronic-grade polysilicon preparation, surveying impurity sources and the control strategies of the modified-Siemens process that lifts silicon to ≥11N chip purity. <span class="miss">Full text is JS/paywall-gated and could not be retrieved; described from its title and the chain's use of it.</span></span>
+      <span class="dat"><b>Data.</b> Literature review of purification chemistry and impurity control — no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Monocrystalline blank wafer <span class="ct">3</span></h2>
+  <div class="stagesub">Blank polished wafers concentrate in Japan (Shin-Etsu, SUMCO): the top two hold at least half, the top six ~92%.</div>
+  <ul class="refs">
+    <li><a href="https://www.semi.org/en/semi-press-release/semi-reports-2025-annual-worldwide-silicon-wafer-shipments-and-revenue-results">SEMI Reports 2025 Annual Worldwide Silicon Wafer Shipments and Revenue Results</a><span class="src"> · SEMI (2026)</span>
+      <span class="desc">Latest annual blank-wafer area and revenue, semiconductor applications only.</span>
+      <span class="abs"><b>Summary.</b> SEMI year-end release (Feb 2026): worldwide silicon-wafer shipments rose 5.8% in 2025 to 12,973 million square inches amid strong advanced-computing demand, while wafer revenue slipped 1.2% to $11.4 billion — the current endpoint of the chain's semiconductor-only wafer series.</span>
+      <span class="dat"><b>Data.</b> SEMI Silicon Manufacturers Group canvass of wafer producers; polished and non-polished area (MSI) and revenue, semiconductor use only.</span></li>
+    <li><a href="https://www.semi.org/en/semi-press-release/worldwide-silicon-wafer-shipments-and-revenue-start-recovery-in-late-2024-semi-reports">Worldwide Silicon Wafer Shipments and Revenue Start Recovery in Late 2024</a><span class="src"> · SEMI (2025)</span>
+      <span class="desc">Wafer-shipment series through 2024 feeding the multi-year chart.</span>
+      <span class="abs"><b>Summary.</b> SEMI release (Feb 2025): worldwide silicon-wafer shipments fell 2.7% in 2024 to 12,266 million square inches as inventory correction weighed on fab utilisation, with recovery expected into 2025. Shipments cover semiconductor applications only and exclude solar — the scope note that keeps the series clean.</span>
+      <span class="dat"><b>Data.</b> SEMI Silicon Manufacturers Group annual wafer-shipment area (MSI) and revenue series.</span></li>
+    <li><a href="https://www.semi.org/en/products-services/market-data/materials/si-shipment-statistics">Silicon Wafer Shipment Statistics</a><span class="src"> · SEMI Silicon Manufacturers Group</span>
+      <span class="desc">The standard quarterly worldwide wafer-shipment series (million square inches).</span>
+      <span class="abs"><b>Summary.</b> Landing page for SEMI's Silicon Manufacturers Group quarterly wafer-shipment statistics — the industry-standard area series (million square inches) behind every wafer data point the chain plots.</span>
+      <span class="dat"><b>Data.</b> SEMI SMG member canvass — quarterly and annual worldwide silicon-wafer shipment area; program/subscription product.</span></li>
+  </ul>
+
+  <h2 class="sec">④ EUV lithography &amp; fabrication <span class="ct">5</span></h2>
+  <div class="stagesub">The binding stage: Taiwan holds leading-edge fabs, ASML is the sole EUV supplier (Netherlands), and US/Japan hold the tools and materials.</div>
+  <ul class="refs">
+    <li><a href="https://www.oecd.org/en/publications/mapping-the-semiconductor-value-chain_4154cdbf-en.html">Mapping the Semiconductor Value Chain</a><span class="src"> · OECD (2025)</span>
+      <span class="desc">Stage-by-stage map of dependencies and vulnerabilities across the chain.</span>
+      <span class="abs"><b>Abstract.</b> OECD Science, Technology and Industry policy paper (57 pp, June 2025): maps the semiconductor value chain stage by stage — design, tools, materials, fabrication, assembly/test — to identify dependencies and vulnerabilities as activities disperse internationally, and the policy challenges that dispersion creates. The chain's own stage skeleton follows it.</span>
+      <span class="dat"><b>Data.</b> OECD synthesis of industry and trade data and prior literature; policy analysis, no new primary dataset.</span></li>
+    <li><a href="https://www.oecd.org/en/publications/the-chip-landscape_02dbd028-en/full-report/component-6.html">The Chip Landscape: Geographical Distribution of Wafer Fabrication Capacity</a><span class="src"> · OECD (2025)</span>
+      <span class="desc">Fab capacity by economy and by process node / chip type.</span>
+      <span class="abs"><b>Abstract.</b> OECD analysis of in-production wafer-fabrication capacity by feature size across the five largest economies — China, Chinese Taipei, Korea, Japan, the US — which together held 87% of global in-production capacity as of September 2025. The ten largest firms account for about half of monthly wafer starts; capacity distribution differs sharply by node.</span>
+      <span class="dat"><b>Data.</b> OECD compilation of fab-capacity data by economy, firm and process-node band (8-inch-equivalent wafer starts per month), as of September 2025.</span></li>
+    <li><a href="https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf">Emerging Resilience in the Semiconductor Supply Chain</a><span class="src"> · SIA / Boston Consulting Group (2024)</span>
+      <span class="desc">Fab-capacity geography 1990–2032F; the source for the long history chart.</span>
+      <span class="abs"><b>Abstract.</b> SIA/BCG report projecting fab-capacity geography to 2032. With CHIPS-Act grants and a 25% tax credit, the US share is projected to rise toward 14% by 2032 (its largest gain, versus slipping to 8% without action), while other incentive programs expand in Taiwan, Korea, Japan, India and China — leading-edge capacity beginning to diversify beyond Taiwan and Korea.</span>
+      <span class="dat"><b>Data.</b> BCG modelling of announced fabs and incentive programs plus SIA industry data; regional capacity shares 1990–2032 forecast.</span></li>
+    <li><a href="https://www.asml.com/news/press-releases/2024/asml-expects-impact-of-updated-export-restrictions-to-fall-within-outlook-for-2025">ASML expects impact of updated export restrictions to fall within outlook for 2025</a><span class="src"> · ASML (2024)</span>
+      <span class="desc">Primary statement from the sole EUV lithography supplier on the Dec-2024 US export-control update.</span>
+      <span class="abs"><b>Summary.</b> ASML announcement (Veldhoven, Netherlands, 2 Dec 2024) on updated US export-control rules — adding restricted technologies including metrology and software, effective immediately with a delayed 31 Dec 2024 compliance date for some changes — stating the impact falls within its 2025 financial outlook. Primary word from the only EUV-lithography maker.</span>
+      <span class="dat"><b>Data.</b> Company statement — no dataset; regulatory scope and guidance only.</span></li>
+    <li><a href="https://cset.georgetown.edu/publication/preserving-the-chokepoints/">Preserving the Chokepoints</a><span class="src"> · CSET / Georgetown (2022)</span>
+      <span class="desc">Semiconductor-manufacturing-equipment chokepoints, incl. ASML as sole commercial EUV supplier.</span>
+      <span class="abs"><b>Summary.</b> CSET report (Barbe &amp; Hunt) mapping semiconductor-manufacturing-equipment chokepoints, identifying ASML as the sole commercial EUV-lithography supplier and analysing where equipment concentration gives leverage. <span class="miss">Page 403-blocked this pass — described from the published summary, not full text.</span></span>
+      <span class="dat"><b>Data.</b> Analysis of SME market structure and supplier shares by tool category; no primary dataset accessed.</span></li>
+  </ul>
+
+  <h2 class="sec">⑤ Finished chip &amp; foundry concentration <span class="ct">6</span></h2>
+  <div class="stagesub">The most concentrated stage: one foundry (TSMC) and one region (Taiwan) dominate leading-edge logic.</div>
+  <ul class="refs">
+    <li><a href="https://www.trendforce.com/presscenter/news/20250901-12691.html">2Q25 Foundry Revenue Surges 14.6%; TSMC's Market Share Hits 70%</a><span class="src"> · TrendForce (2025)</span>
+      <span class="desc">Current evidence of leading-edge foundry concentration.</span>
+      <span class="abs"><b>Summary.</b> TrendForce research note: global foundry revenue reached a record US$41.7 billion in 2Q25, up 14.6% quarter-on-quarter, with TSMC's market share reaching about 70% — current corroboration of the OECD advanced-logic finding that leading-edge fabrication concentrates in Taiwan.</span>
+      <span class="dat"><b>Data.</b> TrendForce proprietary foundry market-share and revenue tracking — no public primary dataset.</span></li>
+    <li><a href="https://cset.georgetown.edu/publication/the-semiconductor-supply-chain/">The Semiconductor Supply Chain: Assessing National Competitiveness</a><span class="src"> · CSET / Georgetown (2021)</span>
+      <span class="desc">The most-cited public chokepoint map of national shares by stage.</span>
+      <span class="abs"><b>Summary.</b> CSET report (Khan, Peterson &amp; Mann) mapping national shares across every stage — design, tools, materials, fabrication, assembly/test — the most-cited public benchmark for stage-level concentration. <span class="miss">Page 403-blocked this pass — not retrievable; noted from its known scope.</span></span>
+      <span class="dat"><b>Data.</b> Compilation of firm/national market shares by supply-chain stage; no primary dataset accessed here.</span></li>
+    <li><a href="https://www.csis.org/analysis/mapping-semiconductor-supply-chain-critical-role-indo-pacific-region">Mapping the Semiconductor Supply Chain: The Critical Role of the Indo-Pacific Region</a><span class="src"> · CSIS (2023)</span>
+      <span class="desc">Indo-Pacific / Taiwan concentration across design, foundry, OSAT and equipment.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis (Thadani &amp; Allen): though the semiconductor industry is truly global, the Indo-Pacific is its critical region — Taiwan, Japan, China and South Korea each hold pivotal roles across design, foundry, assembly/test and equipment, concentrating the chain in a single geopolitically exposed region.</span>
+      <span class="dat"><b>Data.</b> Think-tank synthesis of industry market-share data by stage and economy; no primary dataset.</span></li>
+    <li><a href="https://www.semiconductors.org/2025-state-of-the-u-s-semiconductor-industry/">2025 State of the U.S. Semiconductor Industry</a><span class="src"> · Semiconductor Industry Association (2025)</span>
+      <span class="desc">Annual snapshot of US chip manufacturing, CHIPS build-out and global position.</span>
+      <span class="abs"><b>Summary.</b> SIA annual report on the US semiconductor position — design leadership, manufacturing, the CHIPS-Act build-out and global competition — context for the US line in the fab-capacity history and the "where advanced-computing demand is met" framing.</span>
+      <span class="dat"><b>Data.</b> SIA compilation of industry revenue, capital-investment, employment and market-share statistics.</span></li>
+    <li><a href="https://www.tsia.org.tw/en/index">Taiwan Semiconductor Industry Association (TSIA)</a><span class="src"> · TSIA</span>
+      <span class="desc">Industry body for the world's leading-edge foundry / design / OSAT / materials cluster.</span>
+      <span class="abs"><b>Summary.</b> Landing page for the TSIA — the industry association representing Taiwan's semiconductor cluster (foundry, design, assembly/test and materials), the leading-edge hub at the centre of the chain's fabrication stage. Provenance and context, not a data source.</span>
+      <span class="dat"><b>Data.</b> No primary data — association overview.</span></li>
+    <li><a href="https://www.semicontaiwan.org/en">SEMICON Taiwan</a><span class="src"> · SEMI Taiwan</span>
+      <span class="desc">Public window on Taiwan's fab, equipment, materials and packaging ecosystem.</span>
+      <span class="abs"><b>Summary.</b> Landing page for SEMICON Taiwan, SEMI's Taiwan event and ecosystem hub covering fabrication, equipment, materials and advanced packaging — context on the depth of the Taiwan cluster behind the leading-edge chokepoint.</span>
+      <span class="dat"><b>Data.</b> No primary data — event / ecosystem overview.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">7</span></h2>
+  <div class="stagesub">List methodologies, EU/US assessments and analysis that classify the whole chain's inputs and set the policy backdrop.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025">Global Critical Minerals Outlook 2025</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Supply/demand and concentration for critical minerals incl. high-purity silicon, gallium and germanium.</span>
+      <span class="abs"><b>Summary.</b> IEA flagship outlook on critical-mineral supply, demand and concentration, built from a detailed review of announced projects showing how mining- and refining-stage concentration evolves over time. Covers high-purity silicon and the chip-input minerals gallium and germanium — the cross-link to those sibling chains.</span>
+      <span class="dat"><b>Data.</b> IEA project-by-project database of announced mining/refining capacity plus demand scenarios.</span></li>
+    <li><a href="https://www.energy.gov/cmei/ammto/articles/2023-doe-critical-materials-assessment">2023 DOE Critical Materials Assessment</a><span class="src"> · US Dept. of Energy (2023)</span>
+      <span class="desc">Criticality screening of materials across energy technologies; silicon among them.</span>
+      <span class="abs"><b>Summary.</b> DOE criticality assessment updating prior reports for recent market and technology shifts: it considers 38 materials used by eight major energy technologies, of which 23 are evaluated in detail, placing them on a near-/medium-term criticality matrix. Silicon is among the materials screened.</span>
+      <span class="dat"><b>Data.</b> DOE criticality methodology (importance-to-energy × supply-risk) over 38 materials and eight technologies.</span></li>
+    <li><a href="https://digital-strategy.ec.europa.eu/en/policies/european-chips-act">European Chips Act</a><span class="src"> · European Commission (in force 2023)</span>
+      <span class="desc">The EU's semiconductor-sovereignty law: three pillars and approved public-plus-private funding.</span>
+      <span class="abs"><b>Summary.</b> EU law to strengthen semiconductor sovereignty and competitiveness through three pillars — the "Chips for Europe" initiative, a security-of-supply and resilience framework, and monitoring/crisis response — anchoring first-of-a-kind facilities that represent over EUR 32 billion of combined public and private investment. The policy backdrop to the fab-share forecast.</span>
+      <span class="dat"><b>Data.</b> Policy text plus State-aid decisions listing approved facility investments by member state.</span></li>
+    <li><a href="https://www.csis.org/analysis/double-edged-sword-semiconductor-export-controls">The Double-Edged Sword of Semiconductor Export Controls</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">How chip/equipment export controls push China to design out US technology.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis (Whitney, Schleich &amp; Reinsch) on how chip and equipment export controls, while restricting China's access, also incentivise it to design out US technology and build indigenous capacity — the risk that belongs in the decision/breakout layer rather than the descriptive chain.</span>
+      <span class="dat"><b>Data.</b> Policy analysis of export-control measures and industry response; no primary dataset.</span></li>
+    <li><a href="https://www.csis.org/analysis/mineral-demands-resilient-semiconductor-supply-chains">Mineral Demands for Resilient Semiconductor Supply Chains</a><span class="src"> · CSIS (2024)</span>
+      <span class="desc">Gallium/germanium/fluorine/arsenic dependencies behind chip manufacturing.</span>
+      <span class="abs"><b>Summary.</b> CSIS analysis (Berg, Ziemer &amp; Polo Anaya) on the input minerals behind fabrication: China has leveraged early-stage dominance to restrict gallium, germanium and graphite exports in response to US controls, able to modulate flows via licensing. Maps the gallium/germanium/fluorine/arsenic dependencies — the input cross-links worth building out.</span>
+      <span class="dat"><b>Data.</b> Policy synthesis citing trade and export-licensing data; no primary dataset.</span></li>
+    <li><a href="https://www.tandfonline.com/doi/full/10.1080/00207543.2024.2387074">Semiconductor supply chain resilience and disruption: insights, mitigation, and future directions</a><span class="src"> · International Journal of Production Research (2025)</span>
+      <span class="desc">Synthesis of supply-chain disruption, geographic concentration and mitigation research.</span>
+      <span class="abs"><b>Abstract.</b> Xiong et al. review synthesising research on semiconductor supply-chain disruptions after recent geopolitical and public-health shocks. It overviews the chain's key characteristics and complexities, analyses vulnerabilities — especially geopolitical and public-health risks — and catalogues resilience strategies, framing the node-vulnerability argument the chain draws on.</span>
+      <span class="dat"><b>Data.</b> Systematic literature review — synthesis of prior studies, no primary dataset.</span></li>
+    <li><a href="https://ieeexplore.ieee.org/document/9979766">The Environmental Footprint of IC Production: Review, Analysis, and Lessons From Historical Trends</a><span class="src"> · IEEE Trans. Semiconductor Manufacturing (2023)</span>
+      <span class="desc">IC/fab environmental footprint versus CMOS node downscaling.</span>
+      <span class="abs"><b>Abstract.</b> Pirson, Delhaye et al. review the environmental footprint of integrated-circuit production and how it tracks CMOS node downscaling — context on the rising cost of leading-edge fabrication. <span class="miss">IEEE Xplore page not retrievable (403) — described at title level only.</span></span>
+      <span class="dat"><b>Data.</b> Review and analysis of historical IC-production footprint data; no primary dataset accessed.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">3</span></h2>
+  <div class="stagesub">The datasets the chain's own trade figures are built from — kept as context, since mixed customs codes never isolate chip grade.</div>
+  <ul class="refs">
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a><span class="src"> · UN Statistics Division</span>
+      <span class="desc">HS-level trade queries for ICs (8542), semiconductor devices and silicon products.</span>
+      <span class="abs"><b>Summary.</b> UN Statistics Division's trade-query platform: bilateral import/export values and quantities by reporter, partner, year and HS code — used to query IC (8542), semiconductor-device and silicon-product flows as a check on the chain's BACI extract.</span>
+      <span class="dat"><b>Data.</b> Reported UN Comtrade import/export declarations at HS level by reporter/partner/year.</span></li>
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral HS 6-digit trade flows; the workhorse dataset for the chain's trade layer.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Powers the chain's silicon-stage trade overlay, kept as context because mixed codes cannot isolate chip grade.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://wits.worldbank.org/trade/comtrade/en/country/WLD/year/2019/tradeflow/Exports/partner/ALL/product/8542">World IC exports (HS 8542) via WITS</a><span class="src"> · World Bank WITS / UN Comtrade</span>
+      <span class="desc">Interface to Comtrade IC trade; change the year parameter for later years.</span>
+      <span class="abs"><b>Summary.</b> World Bank WITS front-end onto UN Comtrade for integrated-circuit trade (HS 8542): world and bilateral export/import flows by year, a quick public cross-check on the chip-trade layer. Change the year parameter in the URL for later years.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade IC (HS 8542) export/import flows served through the World Bank WITS interface.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No mixed customs code isolates <b>chip-grade silicon</b>: HS 280461 combines solar- and semiconductor-grade polysilicon and HS 381800 mixes doped wafers with other compounds, so trade data cannot verify the production read — the chain deliberately keeps trade as flagged context, not evidence.</li>
+      <li><b>US CHIPS Act primary docs</b>: no single Commerce/BIS URL is captured here — next, the NIST CHIPS Program Office award pages and the BIS advanced-computing/SME interim final rules (Oct 2022, Oct 2023, Dec 2024) for the export-control text itself.</li>
+      <li><b>Lithography depth</b> is thin: only ASML's own statement and the CSET SME summary. Next, IEEE Xplore and SPIE for EUV source-power/throughput and the DUV immersion field (Nikon / Canon).</li>
+      <li><b>Wafer-purity science</b>: only one polysilicon-purity review captured (and unretrievable in full). Next, ≥11N / Siemens-process and Czochralski crystal-growth defect literature (J. Cleaner Production, J. Crystal Growth).</li>
+      <li><b>Packaging / OSAT &amp; memory</b> are under-covered: advanced packaging (CoWoS) and the Korea-led memory segment. Next, CSET/CSIS packaging briefs and TrendForce DRAM/NAND data.</li>
+      <li><b>China domestic build-out</b>: quantify the "China leads several mature categories" claim over time via SIA/OECD and TrendForce on SMIC and mature-node capacity.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from quartz to finished chip, with cross-cutting frameworks and data grouped at the end. 29 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (403 blocks / JS or paywall shells) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./silicon-chain.html">The silicon chip chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
