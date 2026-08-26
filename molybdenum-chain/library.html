@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Molybdenum chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the molybdenum value chain, ordered to follow the chain from copper by-product and primary mine to alloy steel and refining catalyst. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./molybdenum-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Molybdenum</div>
+    <h1>Molybdenum — alloy metal &amp; refining-catalyst chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Molybdenum turns ordinary steel into stainless, tool and superalloy steel and makes the catalysts that strip sulfur out of diesel and jet fuel — yet about half of it falls out of copper mines as a by-product, and the rest from primary mines spread across Chile, China, the United States and Peru. <b>This is the atlas's low-drama case: essential to industry, but genuinely well-supplied — there is no single chokepoint to find.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① by-product &amp; primary mines (raw source) → ② roasting to oxide &amp; ferro-molybdenum (the midstream) → ③ superalloys, steel &amp; desulfurisation catalysts (end use) — then the cross-cutting price / market frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./molybdenum-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">12</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (4) · <span class="pill ref">Reference</span> context / provenance (4).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① The mine — by-product &amp; primary molybdenum</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Molybdenum</td><td class="took">Production read: world + US mine output, reserves by country and net import reliance → the chain's "~half by-product" and "diversified across Chile/China/US/Peru" claims. <span class="miss">(PDF returned 403 this pass; the series is the standing basis.)</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>BGS World Mineral Statistics</td><td class="took">Long-run mine-production series (1913→present) cross-checks the USGS country shares → confirms the diversification is structural, not a single-year artefact.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>USGS OFR 2013-1184 — U.S. Mineral Dependence</td><td class="took">US net import-reliance history 1990–2010 → would quantify how import-dependent the US is for molybdenum. <span class="miss">(Not retrievable this pass — needs the full text.)</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The uses — superalloys, steel &amp; clean-fuel catalysts</td></tr>
+      <tr><td class="n">4</td><td>IMOA — uses and supply</td><td class="took">The "&gt;80% to alloying" framing + uses across steel, vehicles and oil-and-gas → the chain's "alloying workhorse" section.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">5</td><td>IMOA — uses in stainless &amp; alloy steels</td><td class="took">Concrete alloying mechanics (~2% Mo in Type 316 stainless; creep resistance in superalloys) → sharpens the "a little goes a long way" panel; fold the figures in.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>USGS FS 2009-3106 — Key Component of Metal Alloys</td><td class="took">Plain-language alloy explainer → provenance for the "strengthens and heat-proofs steel" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>USGS Circular 1196 — Recycling flow studies</td><td class="took">Material-flow recycling data → the source behind "recycling from steel scrap is significant"; extract the Mo recovery rate. <span class="miss">(Not retrievable this pass — needs the full text.)</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — price, market &amp; sustainability</td></tr>
+      <tr><td class="n">8</td><td>USGS OFR 2007-1257 — Price influences</td><td class="took">Price-driver analysis across Mo + related alloy metals → underpins "price, not availability, is the usual concern". <span class="miss">(Not retrievable this pass — needs the full text.)</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>IMOA — Molybdenum Market Information</td><td class="took">2025 first-use of 671.8 Mlb + the Argus price basis → the demand denominator and the "price is the concern" point.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">10</td><td>IMOA — Life Cycle Assessment Program</td><td class="took">Life-cycle inventory for technical-grade oxide + ferro-molybdenum → the only public window on the midstream conversion (§②) stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">11</td><td>CEPII BACI</td><td class="took">The trade engine → the reproduced molybdenum-ore (261310) + ferro-molybdenum (720270) export shares that show no single-country concentration.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>USGS — Molybdenum Statistics &amp; Information</td><td class="took">The production-data index → provenance for the production figures used across the chain.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① The mine — by-product &amp; primary molybdenum <span class="ct">3</span></h2>
+  <div class="stagesub">The raw source: about half a by-product of copper mining, the rest from primary molybdenite mines — Chile, China, the US and Peru.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-molybdenum.pdf">USGS Mineral Commodity Summaries 2026 — Molybdenum</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world and US molybdenum mine production, reserves by country, uses and net import reliance.</span>
+      <span class="abs"><b>Abstract.</b> USGS annual commodity summary for molybdenum — world and US mine production, reserves by country, end uses and net import reliance, the standing basis for the chain's by-product-vs-primary split and country shares. <span class="miss">(PDF not retrievable this pass — pubs.usgs.gov returned HTTP 403 to automated requests; scope taken from the series' standard structure.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer/company canvass plus reported trade and price data.</span></li>
+    <li><a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/">BGS World Mineral Statistics</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">Long-run world mine-production series by country — the independent cross-check on the USGS molybdenum shares.</span>
+      <span class="abs"><b>Abstract.</b> BGS World Mineral Statistics — a continuous world dataset from 1913 to the present covering more than 70 mineral commodities across producing countries, with both production and trade figures. Compiled from government departments, national statistical offices, commodity specialists and company reports; released as PDF, Excel and a JSON API from 1970.</span>
+      <span class="dat"><b>Data.</b> BGS compilation from government, national-statistics, commodity-specialist and company sources; production and import/export series, JSON API from 1970.</span></li>
+    <li><a href="https://pubs.usgs.gov/of/2013/1184/">U.S. Mineral Dependence — Statistical Compilation of U.S. and World Mineral Production, Consumption, and Trade, 1990–2010 (OFR 2013-1184)</a><span class="src"> · USGS (2013)</span>
+      <span class="desc">Long-run US net import-reliance statistics, 1990–2010, covering molybdenum among many commodities.</span>
+      <span class="abs"><b>Abstract.</b> USGS open-file statistical compilation of US mineral dependence, 1990–2010 — net import reliance, production, consumption and trade across many commodities, molybdenum included. <span class="miss">(Not retrievable this pass — pubs.usgs.gov returned HTTP 403; scope taken from the report's title and series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS statistical compilation of US production, imports, exports and apparent consumption, 1990–2010.</span></li>
+  </ul>
+
+  <h2 class="sec">② Roasting to oxide &amp; ferro-molybdenum — the midstream <span class="ct">0</span></h2>
+  <div class="stagesub">Molybdenite is roasted to technical oxide, then to ferro-molybdenum or chemicals — and this is the thinnest evidence base in the chain.</div>
+  <div class="stagegap">No public, country-level source maps the roasting-to-oxide and ferro-molybdenum conversion stage on its own: a targeted search returned no dedicated supply-chain study and no production series for the midstream, only the industry life-cycle inventory (see #10) that documents the oxide and ferro-molybdenum <em>products</em>. Customs picks the stage up as roasted molybdenum ore (HS 261310) and ferro-molybdenum (HS 720270) — see the trade section. That thin midstream evidence is itself the finding — see <a href="#gaps">Gaps &amp; good next searches</a> for the leads worth chasing (roaster/converter capacity by country; China Molybdenum Co. disclosures).</div>
+
+  <h2 class="sec">③ Superalloys, steel &amp; clean-fuel catalysts — the uses <span class="ct">4</span></h2>
+  <div class="stagesub">Where the metal earns its keep: over 80% of demand is alloying — stainless, tool and superalloy steel — plus the catalysts that clean fuels.</div>
+  <ul class="refs">
+    <li><a href="https://www.imoa.info/">International Molybdenum Association — uses and supply</a><span class="src"> · IMOA (2024)</span>
+      <span class="desc">Trade-association overview of molybdenum's uses and supply.</span>
+      <span class="abs"><b>Summary.</b> IMOA — the non-profit representing most of the world molybdenum industry — describes how small additions raise the strength, corrosion resistance and fire performance of carbon and stainless steels and nickel alloys, across construction, vehicles and oil-and-gas; molybdenum is also an essential trace nutrient.</span>
+      <span class="dat"><b>Data.</b> Trade-association overview; no primary dataset on the landing page (market figures sit on the linked market page).</span></li>
+    <li><a href="https://www.imoa.info/molybdenum-uses/molybdenum-grade-alloy-steels-irons/iron-steel-other-alloys.php">IMOA — Molybdenum uses in stainless and alloy steels</a><span class="src"> · IMOA</span>
+      <span class="desc">Technical detail on molybdenum in stainless, superalloy and tool steels, and the alloying share of demand.</span>
+      <span class="abs"><b>Summary.</b> IMOA technical page: over 80% of molybdenum consumption goes to metal alloying. About 2% Mo in Type 316 stainless sharply improves pitting and crevice-corrosion resistance; in nickel superalloys it resists high-temperature creep; in carbon and tool steels it raises hardenability and wear resistance.</span>
+      <span class="dat"><b>Data.</b> Trade-association technical summary citing the &gt;80% alloying demand share; no primary dataset.</span></li>
+    <li><a href="https://doi.org/10.3133/fs20093106">Molybdenum: A Key Component of Metal Alloys (Fact Sheet 2009-3106)</a><span class="src"> · USGS (2009)</span>
+      <span class="desc">Plain-language explainer on molybdenum's role in steel and superalloys.</span>
+      <span class="abs"><b>Summary.</b> USGS fact sheet explaining molybdenum's role as an alloying element that strengthens and heat-proofs steels and superalloys, and its by-product and primary sources. <span class="miss">(Full text not retrievable this pass — the DOI resolves to pubs.usgs.gov, which returned HTTP 403; scope taken from the fact sheet's title.)</span></span>
+      <span class="dat"><b>Data.</b> USGS public explainer / fact sheet — descriptive, no primary dataset.</span></li>
+    <li><a href="https://pubs.usgs.gov/circ/circ1196/">Flow Studies for Recycling Metal Commodities in the United States (Circular 1196)</a><span class="src"> · USGS</span>
+      <span class="desc">Material-flow / recycling studies for US metal commodities, including molybdenum recycling flows.</span>
+      <span class="abs"><b>Abstract.</b> USGS circular of material-flow and recycling studies for US metal commodities; its molybdenum chapter is the basis for the chain's "recycling from steel scrap is significant" point. <span class="miss">(Not retrievable this pass — pubs.usgs.gov returned HTTP 403; scope taken from the circular's title.)</span></span>
+      <span class="dat"><b>Data.</b> USGS material-flow accounting of production, use, scrap and recycling by commodity.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — price, market &amp; sustainability <span class="ct">3</span></h2>
+  <div class="stagesub">Why molybdenum is low-drama: the analysis and market data behind "price, not availability, is the concern".</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/of/2007/1257/">Chromium, Copper, Manganese, Molybdenum, Nickel, and Steel Commodity Price Influences (OFR 2007-1257)</a><span class="src"> · USGS (2007)</span>
+      <span class="desc">Analysis of the drivers of prices across molybdenum and related alloy/steel metals.</span>
+      <span class="abs"><b>Abstract.</b> USGS open-file report analysing the influences on prices of chromium, copper, manganese, molybdenum, nickel and steel — support for the chain's point that for molybdenum, price rather than availability is the usual concern. <span class="miss">(Not retrievable this pass — pubs.usgs.gov returned HTTP 403; scope taken from the report's title.)</span></span>
+      <span class="dat"><b>Data.</b> USGS price-driver analysis across chromium, copper, manganese, molybdenum, nickel and steel.</span></li>
+    <li><a href="https://www.imoa.info/molybdenum/molybdenum-market-information.php">IMOA — Molybdenum Market Information</a><span class="src"> · IMOA</span>
+      <span class="desc">IMOA's market-data hub — first-use statistics, the price series, and the MolyReview / Annual Review.</span>
+      <span class="abs"><b>Summary.</b> IMOA's market hub reports 2025 first-use of molybdenum at 671.8 million pounds and tracks roasted-molybdenite prices as quarterly averages from Argus Media; it carries production and consumption by region, MolyReview and the Annual Review, with detailed data member-only.</span>
+      <span class="dat"><b>Data.</b> IMOA market surveys (first-use, regional production/consumption) plus an Argus Media price series; detailed data member-restricted.</span></li>
+    <li><a href="https://www.imoa.info/HSE/LCI/life-cycle-assessment-program.php">IMOA — Life Cycle Assessment Program</a><span class="src"> · IMOA (2024)</span>
+      <span class="desc">Industry LCA/LCI data on molybdenum products — the one public source touching the oxide / ferro-molybdenum midstream.</span>
+      <span class="abs"><b>Summary.</b> IMOA's LCA program (running since the 1990s) publishes life-cycle-inventory data for metallurgical molybdenum products — technical-grade oxide and ferro-molybdenum — and eight molybdenum chemicals, with a 2024 carbon-footprint update, following ISO 14040/14044.</span>
+      <span class="dat"><b>Data.</b> IMOA LCI studies on oxide, ferro-molybdenum and chemical products; ISO 14040/14044 methodology.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's molybdenum-ore + ferro-molybdenum trade table.</span>
+      <span class="abs"><b>Summary.</b> CEPII BACI reconciles UN Comtrade into bilateral flows for ~200 countries and ~5,000 HS6 products (HS92 1995–2024; version 202601, Jan 2026), removing CIF freight costs and reliability-weighting reporter discrepancies into one figure per flow — the source for the chain's molybdenum-ore (261310) and ferro-molybdenum (720270) trade.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting), 1995–2024.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/molybdenum-statistics-and-information">USGS — Molybdenum Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">The USGS data portal indexing every annual and monthly molybdenum data release.</span>
+      <span class="abs"><b>Summary.</b> The USGS National Minerals Information Center's molybdenum portal indexes every data release — Mineral Commodity Summaries (1996–2026), Minerals Yearbook (1994–2019) and monthly Mineral Industry Surveys — now migrating to the ScienceBase platform. It is the entry point to the production data behind the chain.</span>
+      <span class="dat"><b>Data.</b> USGS NMIC annual and monthly molybdenum statistics series (production, imports, reserves, use).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated public source maps the <b>midstream conversion</b> (stage ②) — roasting to technical oxide, then ferro-molybdenum — on its own; only the industry LCA touches those products. Next: "roaster / ferro-molybdenum converter capacity by country", or China Molybdenum Co. (CMOC) disclosures to split China's primary-mine output from its by-product.</li>
+      <li>Molybdenum is the atlas's <b>low-drama contrast case</b>, so current price / press commentary is thin (it is not a crisis commodity). Search Fastmarkets / Reuters / MINING.com directly for the latest molybdenum price cycle.</li>
+      <li>No peer-reviewed <b>criticality-index paper scoring molybdenum specifically</b> (vs copper, vs the alloy-steel basket) surfaced; worth "molybdenum by-product copper supply elasticity criticality Resources Policy" given the "essential but not concentrated" framing.</li>
+      <li>The <b>desulfurisation-catalyst link to the sulfur chain</b> would be strengthened by a dedicated refinery-catalyst-market source (e.g. S&amp;P Global / IHS Markit hydro-desulfurisation catalyst reports).</li>
+      <li><b>China's own primary-mine data</b> (vs by-product) is folded into the USGS/BGS aggregate; a China-specific industry source would separate the two and test the diversification claim from the largest producer's side.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from raw source to end use, with cross-cutting frameworks and data grouped at the end. 12 unique sources (duplicate CEPII and IMOA-homepage listings were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (pubs.usgs.gov returned HTTP 403 to automated requests this pass) that is flagged in italics and the scope is taken from the document's title. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./molybdenum-chain.html">The molybdenum chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
