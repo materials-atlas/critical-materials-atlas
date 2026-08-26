@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tungsten chain",
-    "chokepoint": {"product": "Carbide tools · defence", "stage": "APT + carbide", "mechanism": "capability", "physics": "Mine + APT + carbide processing; ~80% China for decades", "holder": "China", "share": "~80%", "control": "Feb 2025", "conf": "measured"},
+    "chokepoint": {"product": "Carbide tools · defence", "stage": "APT + carbide", "mechanism": "capability", "physics": "Mine + APT + carbide processing; ~83% China (67,000 of 81,000 t, 2024) — stable near 80%+ for decades", "holder": "China", "share": "~83%", "control": "Feb 2025", "conf": "measured"},
     "published": True,
     "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}],
     "accent": "#5a5a5a",
@@ -40,7 +40,7 @@ CHAIN = {
                   "carbide processing steps, and in February 2025 it placed tungsten under export controls — turning a "
                   "long-standing dominance into an active lever.",
     "stats": [
-        {"v": "~80%", "l": "China's share of world tungsten mine output — and it has been for decades", "conf": "measured"},
+        {"v": "~83%", "l": "China's share of world tungsten mine output (67,000 of 81,000 t, 2024) — near 80%+ for decades", "conf": "measured"},
         {"v": "carbide", "l": "cutting tools and wear parts are the largest use — machining everything else", "conf": "measured"},
         {"v": "defence", "l": "hard, dense penetrators and munitions — a strategic metal with no easy substitute", "conf": "measured"},
         {"v": "Feb 2025", "l": "China added tungsten to its export-control list", "conf": "measured"},
@@ -66,7 +66,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · A decades-long, stable chokepoint", "panels": [
-            {"kind": "big", "h3": "China's mine share", "big": "~80%", "conf": "measured",
+            {"kind": "big", "h3": "China's mine share", "big": "~83%", "conf": "measured",
              "text": "China has mined around 80% of the world's tungsten for as long as the modern record runs, holding "
                      "the bulk of reserves and the processing capacity. Where other chains show concentration being "
                      "built or moving downstream, tungsten's has simply persisted — a structural dominance that Western "
@@ -115,4 +115,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- tungsten, China ~80pct (stable); carbide+defence; Feb-2025 controls")
+print("wrote", os.path.relpath(OUT, HERE), "- tungsten, China ~83pct (stable); carbide+defence; Feb-2025 controls")

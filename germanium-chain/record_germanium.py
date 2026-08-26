@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Germanium chain",
-    "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own", "holder": "China", "share": "~60%", "control": "Jul 2023", "conf": "measured"},
+    "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own; USGS states producers do not publicly report germanium output, so the share is an estimate", "holder": "China", "share": "~60% (est.)", "control": "Jul 2023", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
     "accent": "#5a7a5a",
@@ -33,7 +33,7 @@ CHAIN = {
                   "light-guiding core of optical fibre, PET-plastic polymerisation catalysts and space solar cells. "
                   "China's July 2023 export controls named germanium and gallium together for exactly this reason.",
     "stats": [
-        {"v": "~60%+", "l": "China's share of world germanium production", "conf": "measured"},
+        {"v": "~60%+", "l": "China's share of world germanium production (USGS: output not publicly reported — an estimate)", "conf": "estimate"},
         {"v": "Jul 2023", "l": "export-controlled alongside gallium — the same lever, the same week", "conf": "measured"},
         {"v": "IR + fibre", "l": "infrared optics (night-vision / thermal) and optical-fibre cores", "conf": "measured"},
         {"v": "by-product", "l": "recovered from zinc residues and coal fly ash — can't scale alone", "conf": "measured"},
@@ -46,7 +46,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · The same by-product trap, the same lever", "panels": [
-            {"kind": "big", "h3": "Where germanium comes from", "big": "~60%+ China", "conf": "measured",
+            {"kind": "big", "h3": "Where germanium comes from", "big": "~60%+ China", "conf": "estimate",
              "text": "Germanium is not mined; it is recovered from the residues of zinc smelting and from coal fly ash, "
                      "so its supply is coupled to zinc and coal, not to germanium demand. China installed the recovery "
                      "capacity at scale and now produces the majority. When it placed germanium under export licensing "
@@ -98,4 +98,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- germanium, ~60pct China by-product; Jul-2023 controls; IR optics + fibre")
+print("wrote", os.path.relpath(OUT, HERE), "- germanium, ~60pct China (est.) by-product; Jul-2023 controls; IR optics + fibre")

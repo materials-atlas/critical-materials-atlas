@@ -1,0 +1,95 @@
+{
+  "_doc": "Source ledger for chokepoint / headline shares. Each entry ties a figure to a NAMED source AND the quoted table row / sentence, so a bare citation cannot hide a misread. Rule: a chokepoint tagged conf=measured MUST have an entry here whose quoted row supports its share; if the source has no computable figure, the tag is estimate/attributed. check.py enforces presence (check_ledger).",
+  "_method": "USGS MCS PDFs fetched with a browser User-Agent (the default fetch UA gets 403); extracted with `pdftotext -raw` (with -layout the reserves column drifts onto the wrong country row). Shares computed from the 2024 production/reserves column.",
+  "_verified": "2026-08-26",
+  "phosphate-food": {
+    "claim": "Morocco ~68% of world phosphate-rock reserves",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Phosphate Rock",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf",
+    "quoted_row": "Morocco 33,000 30,000 50,000,000 | World total (rounded) 233,000 240,000 74,000,000 (cols: 2023 prod, 2024 prod, reserves)",
+    "computed": "50,000,000 / 74,000,000 = 67.6% -> ~68% reserves; Morocco production 30,000/240,000 = 12.5%",
+    "supports": true
+  },
+  "pgm-catalyst": {
+    "claim": "South Africa ~78% of world PGM reserves (platinum ~71%; palladium Russia-led)",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Platinum-Group Metals",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-platinum-group.pdf",
+    "quoted_row": "South Africa ... 125,000 120,000 63,000,000 | World total ... 179,000 170,000 >81,000,000; 'resources and reserves are in the Bushveld Complex in South Africa'",
+    "computed": "reserves 63,000,000/>81,000,000 = 77.8% -> ~78%; platinum 120,000/170,000 = 71%; palladium SA 72,000/190,000 = 38%, Russia 75,000 leads",
+    "supports": true
+  },
+  "steel-alloys": {
+    "claim": "Brazil ~92% of world niobium production (chokepoint); vanadium China ~70% (stat)",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Niobium; USGS MCS 2025 — Vanadium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-niobium.pdf",
+    "quoted_row": "Niobium: 'Brazil ... approximately 92% of global production, followed by Canada with about 7%.' | Vanadium: China e70,000 70,000 4,100 | World total 104,000 100,000 18,000",
+    "computed": "niobium 92% verbatim; vanadium 70,000/100,000 = 70% (was ~64% in atlas -> corrected)",
+    "supports": true
+  },
+  "boron": {
+    "claim": "Turkey ~73% of world borate reserves (Eti Maden company estimate)",
+    "conf": "estimate",
+    "source": "USGS MCS 2025 — Boron (no world total); Eti Maden (company claim)",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-boron.pdf",
+    "quoted_row": "'World total4 XX XX XX' + footnote 4: 'World totals cannot be calculated because production and reserves are not reported in a consistent manner by all countries.' The '~70%' had been misread from 'About 70% of all deposits in Turkey are colemanite' (deposit TYPE, not world share).",
+    "computed": "NO world reserves total exists in USGS -> a world % is not computable; ~73% is Eti Maden's own claim, hence estimate",
+    "supports": "estimate only — deliberately not measured"
+  },
+  "tungsten": {
+    "claim": "China ~83% of world tungsten mine production",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Tungsten",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-tungsten.pdf",
+    "quoted_row": "China 66,000 67,000 2,400,000 | World total (rounded) 79,500 81,000 >4,600,000",
+    "computed": "67,000 / 81,000 = 82.7% -> ~83% (was ~80% in atlas -> tightened)",
+    "supports": true
+  },
+  "strontium": {
+    "claim": "Iran ~39% of world celestite production (tied with Spain)",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Strontium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-strontium.pdf",
+    "quoted_row": "China 80,000 80,000 12,000,000 | Iran 200,000 200,000 7,100,000 | Spain 200,000 | World total (rounded) 509,000 510,000 Large",
+    "computed": "Iran 200,000/510,000 = 39% (Spain also 200,000 = 39%; China 80,000 = 16%) -> was 'Iran ~58%' in atlas -> corrected",
+    "supports": true
+  },
+  "gallium": {
+    "claim": "China ~98% of world primary (low-purity) gallium production",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Gallium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
+    "quoted_row": "'China accounted for 99% of worldwide primary low-purity gallium production.'",
+    "computed": "USGS says 99%; atlas ~98% is within rounding",
+    "supports": true
+  },
+  "bismuth": {
+    "claim": "China ~80% of world bismuth production",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Bismuth",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bismuth.pdf",
+    "quoted_row": "China 13,300 13,000 NA | World total (rounded) 16,200 16,000 NA; 'China, the leading producer and exporter'",
+    "computed": "13,000 / 16,000 = 81% -> ~80% supported",
+    "supports": true
+  },
+  "germanium": {
+    "claim": "China ~60% of world germanium production (estimate)",
+    "conf": "estimate",
+    "source": "USGS MCS 2025 — Germanium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
+    "quoted_row": "'China continued to be the leading global producer and exporter of germanium metal'; 'most producers do not publicly report germanium' output.",
+    "computed": "USGS publishes NO country production table for germanium -> ~60% is an industry estimate, not measurable; retagged estimate",
+    "supports": "estimate only"
+  },
+  "antimony": {
+    "claim": "China refining chokepoint (mine ~60%; refining/oxide dominance is the binding stage)",
+    "conf": "measured",
+    "source": "USGS MCS 2025 — Antimony",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf",
+    "quoted_row": "China e62,300 60,000 670,000 | World total (rounded) 106,000 100,000 >2,000,000; US import 'Oxide: China 76%'",
+    "computed": "mine 60,000/100,000 = 60%; chokepoint is refining/oxide + Sep-2024 export controls, not the mine share",
+    "supports": true
+  }
+}
