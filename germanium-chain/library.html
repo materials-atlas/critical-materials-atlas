@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Germanium chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the germanium value chain, ordered to follow the chain from by-product source to finished optics. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="germanium-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Germanium</div>
+    <h1>Germanium — the infrared metal, a by-product China controls</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">Germanium lets you see in the dark and carries light down a fibre — yet no one mines it. It is recovered in trace amounts from zinc-refining residues and coal fly ash, China makes most of it, and in July 2023 China placed it under export licensing alongside gallium. <b>The chokepoint is the recovery step, not a mine.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① By-product source (zinc residues / coal fly ash, ~60% China) → ② recovery &amp; separation → ③ Ge / GeO₂ → infrared optics, optical-fibre cores, GaAs substrates → ④ the July-2023 export-control lever with gallium — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./germanium-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">25</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (12) · <span class="pill ref">Reference</span> context / provenance (9).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① By-product source — zinc residues &amp; coal fly ash (~60% China)</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Germanium</td><td class="took">By-product framing + China share → sources the "~60%+ China, not mined" finding and the use-order (fibre &gt; IR optics).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>USGS MCS 2025 — Germanium</td><td class="took">Prior-year figures → the first post-control data point for a production time series.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2023 — Germanium</td><td class="took">The pre-July-2023 baseline against which the export-control break is measured.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>USGS MCS 2022 — Germanium</td><td class="took">Earlier baseline for the same production / import-reliance series.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">5</td><td>USGS 2019 Minerals Yearbook — Germanium</td><td class="took">Use-by-use demand breakdown → would sharpen the qualitative "uses" panel (fibre / IR / solar / catalyst shares).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">6</td><td>USGS Minerals Yearbook 2022 &amp; 2023</td><td class="took">Annual recovery / uses / trade detail across the control year → time-series enrichment.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">7</td><td>USGS Mineral Commodity Profile 2004-1218</td><td class="took">Long-form geology / history context for germanium's by-product occurrence in zinc ores and coal.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>Montana Bureau of Mines — Germanium fact sheet</td><td class="took">Recycling ~30% of supply + fibre = one-third of demand → context for the "rebuildable, recyclable" framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Recovery &amp; separation — from coal ash and zinc residues</td></tr>
+      <tr><td class="n">9</td><td>Germanium: review of US demand, uses, resources &amp; separation</td><td class="took">Resource-vs-recovery gap (&lt;3% recovered) → the "coupled, hard to scale" finding recast as a recovery problem, not scarcity.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>Hydrometallurgical recovery of Ge from coal by-products</td><td class="took">&gt;90% fly-ash recovery under optimal conditions → evidence the chokepoint is rebuildable if recovery circuits restart.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>Ge recovery from fly ash — quaternary ammonium extractant</td><td class="took">A concrete fly-ash extraction route → a candidate "restart recovery" technology for the response section.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">12</td><td>Two-step separation of V/Sc/HREE from Ga &amp; Ge in fly ash</td><td class="took">Co-recovery of germanium with other criticals from fly ash → multi-product recovery economics.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">13</td><td>Recovery of Ge from coal fly-ash leachate by precipitation</td><td class="took">Precipitation recovery route from fly-ash leachate → another recovery pathway for the response section.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">14</td><td>Springer — germanium recovery technology</td><td class="took">Peer-reviewed recovery-technology yields → recovery-route evidence base.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">④ The July-2023 export-control lever (with gallium)</td></tr>
+      <tr><td class="n">15</td><td>CSIS — China's gallium &amp; germanium export controls</td><td class="took">The lever's mechanics + China ~60% germanium / ~90% gallium → the "same lever, same week" framing and the export-collapse evidence.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">16</td><td>USITC — Germanium &amp; Gallium: US trade &amp; export controls</td><td class="took">US import reliance + post-control price spike → the demand-side exposure numbers.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">17</td><td>Stimson — consequences for the United States</td><td class="took">97–100% export drop to US/Taiwan + GDP-impact estimates + third-country reexport → the "bites in the interim" finding.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>ORF America — critical-mineral export controls</td><td class="took">Cross-mineral chokepoint framing → context linking germanium to the gallium / antimony / graphite controls.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>Mayer Brown — new export controls (legal)</td><td class="took">Legal mechanics (Announcement 23, licences, effective 1 Aug 2023) → provenance for the control date.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">20</td><td>Herbert Smith Freehills Kramer — regulatory note</td><td class="took">Parallel regulatory summary of the licensing regime — corroborating context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">21</td><td>SEMI Europe — comments on the export controls</td><td class="took">Semiconductor-industry impact statement — downstream-user context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">22</td><td>EU — Study on the Critical Raw Materials 2023</td><td class="took">EI × SR criticality → a criticality card for germanium (China largest EU supplier, EU refines ~7%).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">23</td><td>EC Raw Materials Scoreboard — Germanium factsheet</td><td class="took">EU-side supply / criticality factsheet → would corroborate the EU criticality card.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; commodity data</td></tr>
+      <tr><td class="n">24</td><td>CEPII BACI</td><td class="took">The trade engine → the shared-basket (HS 811292) overlay the chain flags, since germanium is not separable from gallium / indium.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">25</td><td>BGS World Mineral Statistics</td><td class="took">Production series → cross-checks the USGS read; BGS notes China supplies &gt;70% of refined germanium.</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① By-product source — zinc residues &amp; coal fly ash <span class="ct">8</span></h2>
+  <div class="stagesub">The raw input is a metal no one mines on purpose: recovered from zinc-refinery residue and coal ash, ~60%+ China.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf">USGS Mineral Commodity Summaries 2026 — Germanium</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production / reserves / uses / price data for germanium; the chain's production source.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: germanium is a by-product recovered from zinc-refining residues and coal fly ash, not mined on its own. Leading US uses in descending order are fibre optics, infrared optics, semiconductors and solar cells, and radiation detectors; net import reliance exceeds 50%, with China the top import source (~51% of US metal imports, 2020–23). <span class="miss">(The 2026 PDF returned HTTP 403 this pass; figures confirmed from the USGS germanium MCS series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported import/export and price data.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf">USGS Mineral Commodity Summaries 2025 — Germanium</a><span class="src"> · USGS (2025)</span>
+      <span class="desc">Prior-year two-page germanium synopsis.</span>
+      <span class="abs"><b>Summary.</b> USGS germanium summary for 2025 — by-product source (zinc residues, coal ash), leading uses (fibre and infrared optics, electronics, solar), US import reliance and China's dominance — the first full year after China's July-2023 export licensing. <span class="miss">(PDF returned HTTP 403 this pass; content from the USGS germanium series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics (production, imports, reserves, use).</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2023/mcs2023-germanium.pdf">USGS Mineral Commodity Summaries 2023 — Germanium</a><span class="src"> · USGS (2023)</span>
+      <span class="desc">The pre-export-control baseline year.</span>
+      <span class="abs"><b>Summary.</b> USGS germanium summary for 2023 — the pre-July-2023 baseline, before China's export licensing bit: by-product recovery from zinc and coal, world production, uses, and US net import reliance above 50%. <span class="miss">(PDF returned HTTP 403 this pass; content from the USGS germanium series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-germanium.pdf">USGS Mineral Commodity Summaries 2022 — Germanium</a><span class="src"> · USGS (2022)</span>
+      <span class="desc">Earlier baseline year in the same series.</span>
+      <span class="abs"><b>Summary.</b> USGS germanium summary for 2022 — by-product recovery from zinc residues and coal ash, world production, uses and US import reliance, on the same annual template as later years. <span class="miss">(PDF returned HTTP 403 this pass; content from the USGS germanium series.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual mineral-commodity statistics.</span></li>
+    <li><a href="https://pubs.usgs.gov/myb/vol1/2019/myb1-2019-germanium.pdf">USGS 2019 Minerals Yearbook — Germanium</a><span class="src"> · USGS</span>
+      <span class="desc">The long-form annual review chapter for germanium.</span>
+      <span class="abs"><b>Summary.</b> USGS Minerals Yearbook germanium chapter — the detailed annual review: recovery from zinc residues and coal fly ash, world production by country, a use-by-use demand breakdown (fibre optics, infrared, electronics/solar, PET catalysts) and recycling. <span class="miss">(PDF returned HTTP 403 this pass; scope from the chapter's standard structure.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual canvass of producers, consumers and trade.</span></li>
+    <li><a href="https://pubs.usgs.gov/myb/vol1/2022/myb1-2022-germanium.pdf">USGS Minerals Yearbook 2022 &amp; 2023 — Germanium</a><span class="src"> · USGS</span>
+      <span class="desc">Detailed annual chapters (<a href="https://pubs.usgs.gov/myb/vol1/2023/myb1-2023-germanium.pdf">2023 edition</a>) spanning the export-control year.</span>
+      <span class="abs"><b>Summary.</b> The 2022 and 2023 USGS Minerals Yearbook germanium chapters — detailed annual data on recovery, uses, recycling and trade spanning the year China imposed export licensing. <span class="miss">(PDFs returned HTTP 403 this pass; scope from the chapters' standard structure.)</span></span>
+      <span class="dat"><b>Data.</b> USGS annual canvass of producers, consumers and trade.</span></li>
+    <li><a href="https://pubs.usgs.gov/of/2004/1218/2004-1218.pdf">Mineral Commodity Profile — Germanium (Open-File Report 2004-1218)</a><span class="src"> · USGS (Butterman &amp; Jorgenson)</span>
+      <span class="desc">Long-form commodity profile: geology, uses, history, recovery.</span>
+      <span class="abs"><b>Summary.</b> USGS Open-File Report 2004-1218: a long-form germanium commodity profile covering geology, occurrence in zinc ores and coal, history, recovery routes and end uses — background rather than current data. <span class="miss">(PDF returned HTTP 403 this pass; scope from the report's title and USGS commodity-profile format.)</span></span>
+      <span class="dat"><b>Data.</b> USGS historical commodity-profile synthesis.</span></li>
+    <li><a href="https://www.mbmg.mtech.edu/pdf-publications/fs5.pdf">Critical Mineral: Germanium — Fact Sheet 5</a><span class="src"> · Montana Bureau of Mines and Geology (2023)</span>
+      <span class="desc">State-geological-survey overview of germanium sources, uses and criticality.</span>
+      <span class="abs"><b>Abstract.</b> State-geological fact sheet: germanium is sourced from zinc-refinery residue and coal fly ash, with about 30% of global supply from recycling; China and Russia dominate production, and top refiners are China, Belgium, Germany and Canada. Fibre-optic cable is roughly one-third of demand; other uses are infrared optics, semiconductors, solar cells and PET catalysts. Reviews Montana's sphalerite and coal-ash resources.</span>
+      <span class="dat"><b>Data.</b> Montana Bureau of Mines and Geology synthesis of USGS statistics and state geology.</span></li>
+  </ul>
+
+  <h2 class="sec">② Recovery &amp; separation — from coal ash and zinc residues <span class="ct">6</span></h2>
+  <div class="stagesub">The chokepoint stage: getting germanium out of the host stream. Ample resources, under 3% recovered worldwide.</div>
+  <ul class="refs">
+    <li><a href="https://www.sciencedirect.com/science/article/abs/pii/S1383586621006912">Germanium: A review of its US demand, uses, resources, chemistry, and separation technologies</a><span class="src"> · Separation and Purification Technology (also at <a href="https://pure.psu.edu/en/publications/germanium-a-review-of-its-us-demand-uses-resources-chemistry-and-/">Penn State PURE</a>)</span>
+      <span class="desc">Comprehensive US-focused review of germanium demand, resources and separation.</span>
+      <span class="abs"><b>Abstract.</b> Review of germanium's US demand, uses, resources, chemistry and separation technologies. World production is ~130 t/yr, mostly China, recovered from zinc refineries and coal fly ash. Resources are ample (7–13 kt in zinc ores; 25–112 kt in coal), yet under 3% is recovered worldwide — the constraint is inefficient extraction, not scarcity.</span>
+      <span class="dat"><b>Data.</b> Literature review synthesising production, resource and separation-technology data; no new experimental dataset.</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12029668/">Challenges and Opportunities in Hydrometallurgical Recovery of Germanium from Coal By-Products</a><span class="src"> · PMC / NCBI (2025 review)</span>
+      <span class="desc">Coal-ash recovery review — the recovery gap and the methods to close it.</span>
+      <span class="abs"><b>Abstract.</b> Review of hydrometallurgical recovery of germanium from coal by-products — coal, coal gangue and combustion/gasification residues. Fly ashes are promising, with recovery exceeding 90% under optimal conditions, but low concentrations and high impurities demand selective separation. Frames the recovery gap given ample coal-hosted resources.</span>
+      <span class="dat"><b>Data.</b> Synthesis of peer-reviewed literature and industrial case studies (China, Russia, Spain IGCC).</span></li>
+    <li><a href="https://pubs.acs.org/doi/10.1021/acssusresmgt.5c00485">Targeted Recovery of Germanium from Coal Fly Ash Using Quaternary Ammonium Salt Extractant</a><span class="src"> · ACS Sustainable Resource Management</span>
+      <span class="desc">Extraction-chemistry study for the coal-ash source.</span>
+      <span class="abs"><b>Summary.</b> Experimental study of germanium recovery from coal fly ash using a quaternary ammonium salt extractant — an extraction-chemistry route for the coal-ash stream. <span class="miss">(ACS page returned HTTP 403 this pass; scope from the paper's title.)</span></span>
+      <span class="dat"><b>Data.</b> Laboratory extraction experiments — full text not retrieved.</span></li>
+    <li><a href="https://www.sciencedirect.com/science/article/pii/S138358662502310X">Efficient two-step separation of vanadium, scandium, and heavy rare-earth elements from gallium and germanium in high-value fly ash</a><span class="src"> · ScienceDirect</span>
+      <span class="desc">Co-recovery process from fly ash across several critical elements.</span>
+      <span class="abs"><b>Summary.</b> Reports a two-step process separating vanadium, scandium and heavy rare earths from gallium and germanium in high-value fly ash — a co-recovery route for the coal-ash stream. <span class="miss">(ScienceDirect returned HTTP 403 this pass; scope from the title.)</span></span>
+      <span class="dat"><b>Data.</b> Experimental separation study — full text not retrieved.</span></li>
+    <li><a href="https://uknowledge.uky.edu/cgi/viewcontent.cgi?article=2179&amp;context=woca">Recovery of Germanium from Coal Fly Ash Leachate by Precipitation</a><span class="src"> · University of Kentucky (WOCA proceedings)</span>
+      <span class="desc">Recovery-process study from World of Coal Ash proceedings.</span>
+      <span class="abs"><b>Summary.</b> Conference paper on recovering germanium from coal fly-ash leachate by precipitation — a recovery-process study from the World of Coal Ash proceedings. <span class="miss">(PDF returned HTTP 403 this pass; scope from the title.)</span></span>
+      <span class="dat"><b>Data.</b> Bench-scale precipitation experiments — full text not retrieved.</span></li>
+    <li><a href="https://link.springer.com/article/10.1007/s42461-022-00549-5">Germanium recovery — Mining, Metallurgy &amp; Exploration</a><span class="src"> · Springer Nature</span>
+      <span class="desc">Peer-reviewed germanium recovery-technology paper.</span>
+      <span class="abs"><b>Summary.</b> Peer-reviewed Mining, Metallurgy &amp; Exploration article on germanium recovery technology. <span class="miss">(Springer page redirects to an authentication wall — abstract not retrievable this pass; scope from the article record.)</span></span>
+      <span class="dat"><b>Data.</b> Journal research article — full text paywalled.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Ge / GeO₂ → IR optics, fibre, GaAs substrates <span class="ct">0</span></h2>
+  <div class="stagesub">The finished products — and the thinnest evidence base in the chain.</div>
+  <div class="stagegap">No public, country-level source isolates germanium's downstream product stages — high-purity metal, germanium dioxide, infrared lenses and windows, optical-fibre preforms and GaAs substrates. Optical-fibre-specific demand data (GeO₂ / GeCl₄ consumption by fibre makers) is especially thin. That thinness is itself the finding — see <a href="#gaps">Gaps &amp; good next searches</a> for the leads worth chasing.</div>
+
+  <h2 class="sec">④ The July-2023 export-control lever <span class="ct">7</span></h2>
+  <div class="stagesub">Named with gallium, the same week: how the by-product concentration became a policy lever.</div>
+  <ul class="refs">
+    <li><a href="https://www.csis.org/analysis/chinas-gallium-and-germanium-export-controls">China's gallium and germanium export controls</a><span class="src"> · CSIS (2023)</span>
+      <span class="desc">Explainer on the July 2023 licensing measures and their strategic context.</span>
+      <span class="abs"><b>Abstract.</b> CSIS analysis of China's July-2023 export licensing on gallium and germanium, effective 1 August 2023. China produces ~90% of gallium and ~60% of germanium; the measure is read as retaliation for Western chip controls. Exports collapsed — October 2023 germanium exports fell to 590 kg from 7,965 kg in July. <span class="miss">(The cited CSIS page now returns 404; figures confirmed from CSIS's current gallium/germanium analyses.)</span></span>
+      <span class="dat"><b>Data.</b> CSIS synthesis of MOFCOM announcements, USGS production data and Chinese customs figures.</span></li>
+    <li><a href="https://www.usitc.gov/publications/332/executive_briefings/ebot_germanium_and_gallium.pdf">Germanium and Gallium: U.S. Trade and Chinese Export Restrictions</a><span class="src"> · US International Trade Commission (2024)</span>
+      <span class="desc">Trade-flow and economic-impact briefing on the two minerals.</span>
+      <span class="abs"><b>Summary.</b> USITC executive briefing (Mar 2024): US net import reliance for germanium exceeds 50% (China ~60% of imports); germanium reached $2,839/kg in December 2023, up 21% on the year; after the controls, materials route to the US via third countries such as Belgium.</span>
+      <span class="dat"><b>Data.</b> USITC analysis of US trade statistics and USGS import-reliance data.</span></li>
+    <li><a href="https://www.stimson.org/2025/chinas-germanium-and-gallium-export-restrictions-consequences-for-the-united-states/">China's Germanium and Gallium Export Restrictions: Consequences for the United States</a><span class="src"> · Stimson Center (2025)</span>
+      <span class="desc">Downstream-impact assessment for US industry and defence.</span>
+      <span class="abs"><b>Summary.</b> Stimson analysis: Chinese germanium/gallium exports to the US and Taiwan fell 97–100% between 2022 and 2024, yet material still arrives via third countries. A full germanium cut-off could cost ~$0.4 bn of US GDP; gallium ~$3.1 bn; both together ~$3.4 bn.</span>
+      <span class="dat"><b>Data.</b> Trade-data analysis (US and Chinese customs) plus economic-impact modelling.</span></li>
+    <li><a href="https://orfamerica.org/newresearch/chinas-critical-mineral-export-controls">China's Critical Mineral Export Controls: Background &amp; Chokepoints</a><span class="src"> · ORF America</span>
+      <span class="desc">Cross-mineral chokepoint framing across gallium, germanium and others.</span>
+      <span class="abs"><b>Summary.</b> ORF America frames China's export controls on germanium, gallium, graphite and antimony as calibrated economic coercion that exploits production dominance and targets semiconductor and battery supply chains — a cross-mineral chokepoint view.</span>
+      <span class="dat"><b>Data.</b> Policy analysis citing MOFCOM announcements, USGS statistics and Chinese customs data.</span></li>
+    <li><a href="https://www.mayerbrown.com/en/insights/publications/2023/07/china-imposes-new-export-controls-on-two-minerals-critical-to-the-manufacture-of-semiconductors">China Imposes New Export Controls on Two Minerals Critical to the Manufacture of Semiconductors</a><span class="src"> · Mayer Brown (2023)</span>
+      <span class="desc">Legal / trade-compliance analysis of the July 2023 measures.</span>
+      <span class="abs"><b>Summary.</b> Legal analysis of China's July-2023 export controls (Announcement No. 23): licences required for gallium and germanium items with potential military and civilian uses, applied through provincial commerce authorities, effective 1 August 2023.</span>
+      <span class="dat"><b>Data.</b> Legal commentary citing the MOFCOM / customs Joint Announcement No. 23 (2023).</span></li>
+    <li><a href="https://www.hsfkramer.com/notes/sanctions/2023-08/china-releases-latest-export-control-measures-on-gallium-and-germanium">China releases latest export control measures on gallium and germanium</a><span class="src"> · Herbert Smith Freehills Kramer (2023)</span>
+      <span class="desc">Regulatory summary of the licensing regime.</span>
+      <span class="abs"><b>Summary.</b> Law-firm regulatory note on China's August-2023 export-control measures for gallium and germanium — the licence-application mechanics and affected items. <span class="miss">(Page returned HTTP 403 this pass; scope from the title and the parallel Mayer Brown note.)</span></span>
+      <span class="dat"><b>Data.</b> Legal summary of the MOFCOM licensing regime — full text not retrieved.</span></li>
+    <li><a href="https://www.semi.org/sites/semi.org/files/2024-04/SEMI%20Europe%20Comments%20on%20the%20Export%20Controls%20on%20Gallium%20and%20Germanium.pdf">SEMI Europe Comments on the Export Controls on Gallium and Germanium</a><span class="src"> · SEMI (2024)</span>
+      <span class="desc">Semiconductor-industry association response to the licensing regime.</span>
+      <span class="abs"><b>Summary.</b> Semiconductor-industry association comments on the gallium and germanium export controls, setting out supply-chain concerns for chip makers. <span class="miss">(SEMI PDF returned HTTP 403 this pass; scope from the document title.)</span></span>
+      <span class="dat"><b>Data.</b> Industry-association position paper — full text not retrieved.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">2</span></h2>
+  <div class="stagesub">List methodologies and EU assessments that classify germanium's supply risk.</div>
+  <ul class="refs">
+    <li><a href="https://www.greenpolicyplatform.org/sites/default/files/downloads/resource/study%20on%20the%20critical%20raw%20materials%20for%20the%20eu%202023-ET0723116ENN.pdf">Study on the Critical Raw Materials for the EU 2023 — Final Report</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU's formal CRM criticality assessment underlying its 2023 list.</span>
+      <span class="abs"><b>Abstract.</b> The EU's 2023 criticality assessment, feeding the Critical Raw Materials Act, screens 87 materials against Economic Importance (≥2.8) and Supply Risk (≥1.0). Germanium is assessed critical: China is both the largest global and EU supplier, while the EU refines only ~7% (Germany, Belgium); the 2023 export curbs sent immediate shocks through European industry.</span>
+      <span class="dat"><b>Data.</b> EU criticality methodology (Economic Importance × Supply Risk) over 87 candidate materials using production, trade, substitution and recycling data.</span></li>
+    <li><a href="https://single-market-economy.ec.europa.eu/document/download/a7e568d7-4407-4ea8-bc9b-a4ef88a91d0f_en?filename=RMSP_Germanium_Factsheet_V2.pdf">Raw Materials Scoreboard — Germanium factsheet</a><span class="src"> · European Commission</span>
+      <span class="desc">EU-side supply / criticality factsheet for germanium.</span>
+      <span class="abs"><b>Summary.</b> European Commission Raw Materials Scoreboard germanium factsheet — the EU-side view of supply, sourcing, uses, criticality and recycling. <span class="miss">(The factsheet PDF was served as unreadable binary this pass; scope from the document title.)</span></span>
+      <span class="dat"><b>Data.</b> EC Raw Materials Scoreboard compilation — full text not retrieved.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; commodity data <span class="ct">2</span></h2>
+  <div class="stagesub">The datasets the chain's own figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade overlay.</span>
+      <span class="abs"><b>Summary.</b> CEPII's BACI reconciles bilateral trade flows for ~200 countries and ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF costs and reliability-weighting reporter discrepancies. Germanium has no clean HS6 line — it sits in the shared 811292 minor-metals basket with gallium and indium.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — germanium</a><span class="src"> · British Geological Survey</span>
+      <span class="desc">World mine / refined production time series by commodity and country.</span>
+      <span class="abs"><b>Summary.</b> BGS World Mineral Statistics — a production/trade series running since 1913, now covering 2020–2024 for 70+ commodities by country, including germanium; BGS notes China supplies over 70% of refined germanium. Downloadable as Excel or via API. <span class="miss">(The cited worldStatistics.html page has moved; content from the current MineralsUK World Mineral Statistics pages.)</span></span>
+      <span class="dat"><b>Data.</b> BGS annual compilation of national production and trade returns, since 1913.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated germanium producer / industry association surfaced (analogous to a metals trade body) — try the <b>Minor Metals Trade Association (MMTA)</b> germanium page and infrared-optics industry bodies.</li>
+      <li><b>Optical-fibre-specific sourcing data</b> (GeO₂ / GeCl₄ demand from fibre makers) is thin — search "germanium tetrachloride optical fibre demand forecast" for the fibre-optics cross-link.</li>
+      <li><b>Post-2023 price and export-volume trend data</b> would sharpen the "recoverable but slow" claim — search "germanium price 2024 2025 export licence volume China customs".</li>
+      <li><b>Germanium has no clean HS6 code</b> (unwrought germanium sits in 811292 with gallium and indium), so BACI cannot isolate it — the same limit the atlas flags for gallium and indium.</li>
+      <li>The downstream product stages (high-purity metal, GeO₂, IR lenses, fibre preforms, GaAs substrates) have <b>no country-level production series</b>; only recovery-chemistry papers and market notes turn up.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from by-product source to finished optics, with cross-cutting frameworks and data grouped at the end. 25 unique sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (USGS PDFs returned 403; several publisher pages are paywalled) that is flagged in italics, and figures for those were confirmed from the same source's series or companion reporting. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="germanium-chain.html">The germanium chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
