@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Semiconductor-inputs chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the semiconductor-inputs value chain — the consumable chemicals every fab depends on, from photoresist to process gases, CMP slurries and EUV pellicles. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="semiconductor-inputs-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Semiconductor inputs</div>
+    <h1>Semiconductor-inputs chain — the chemicals beneath the fab</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A chip fab is famous for its machines, but it runs on a stream of ultra-pure consumable chemicals: the photoresist that patterns every layer, the process gases that etch and deposit, the slurries that polish wafers flat, the pellicles that protect masks. <b>Advanced photoresist is roughly 90% Japanese — a consumable can halt a fab full of the world's most advanced machines.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Photoresist (~90% Japan — the sharpest input) → ② process gases, CMP slurries &amp; EUV pellicles → ③ the fab &amp; supply-chain assessments — then the cross-cutting frameworks, policy and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="semiconductor-inputs-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">16</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (1) · <span class="pill ref">Reference</span> context / provenance (11).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Photoresist — the sharpest chokepoint (~90% Japan)</td></tr>
+      <tr><td class="n">1</td><td>SEMI — semiconductor materials market</td><td class="took">Materials-market framing (photoresist, gases, slurries, wet chemicals) → sources the "~90% Japan" advanced-resist concentration in §1.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>CSIS — 2019 Japan–Korea dispute</td><td class="took">The photoresist / HF / fluorinated-polyimide export-control episode → the §1 "2019 warning shot" panel and the "a consumable can halt a fab" flag.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Partners in Chips (SSRN)</td><td class="took">Method: quantify the Japan→Korea fab-chemical dependency and re-qualification cost. <span class="miss">SSRN page 403 — abstract not retrievable; left open.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Yoshioka — Japan–Korea IT industry (Kyushu)</td><td class="took">Corroborates the 2019 dispute and the historical Korea-on-Japan materials dependence — the context behind the §1 leverage story.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② Process gases, CMP slurries &amp; EUV pellicles</td></tr>
+      <tr><td class="n">5</td><td>IEA — State of Clean Technology Manufacturing</td><td class="took">Manufacturing-capacity-concentration method (a few countries dominate a stage) → the "qualification, not scarcity" framing in §2–§3. <span class="miss">Report covers clean-energy tech, not fab gases — used as a method analogue only.</span></td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>European Commission — Critical Raw Materials</td><td class="took">The 2023 CRM list places the lithography gases (neon/krypton/xenon) + silicon/gallium/germanium on the criticality map → the §2 "other narrow inputs" cards.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ The fab &amp; supply-chain assessments</td></tr>
+      <tr><td class="n">7</td><td>White House — 100-day supply-chain review</td><td class="took">"Foreign suppliers dominate silicon wafers, photomasks and photoresists" + US fab share 37%→12% → corroborates the input-chokepoint thesis at government level.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">8</td><td>BIS / US Dept of Commerce</td><td class="took">Government supply-chain risk-assessment method (export controls, Section 232 semiconductor probe) → provenance for the policy-leverage framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>CSET (Georgetown)</td><td class="took">Supply-chain chokepoint analyses (materials/chemicals) → context/leads for the fab-input mapping.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — frameworks, policy &amp; risk</td></tr>
+      <tr><td class="n">10</td><td>Yu &amp; Yu — Effective Availability</td><td class="took">"Effective availability" method (diversification + tariff-equivalents + geopolitical risk) → a candidate metric for the input-dependence panel.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">11</td><td>NPS — Competing at the upstream</td><td class="took">Upstream-materials-as-leverage framing → belongs in the decision-layer, reinforces "the chokepoint is upstream of the fab."</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">12</td><td>CSIS — Critical Minerals Security Program</td><td class="took">Ongoing minerals-security analysis hub → context for the policy layer.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; data</td></tr>
+      <tr><td class="n">13</td><td>CEPII BACI</td><td class="took">The data engine → powers the coarse HS-370790 photo-chemical trade proxy in the chain's trade panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">14</td><td>UN Comtrade</td><td class="took">The raw customs declarations BACI reconciles → the underlying trade record for photo-chemicals and specialty gases.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>SEMI — market data (broader)</td><td class="took">The equipment/materials/fab-capacity statistics service → source of the materials figures behind the resist framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">16</td><td>Semiconductor Industry Association (SIA)</td><td class="took">Industry supply-chain and policy reporting (State of the Industry, BCG/SIA studies) → corroboration and leads.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Photoresist — the sharpest chokepoint <span class="ct">4</span></h2>
+  <div class="stagesub">The light-sensitive polymer that records every circuit layer — advanced grades (KrF, ArF, EUV) are ~90% made by a few Japanese firms.</div>
+  <ul class="refs">
+    <li><a href="https://www.semi.org/en/products-services/market-data/materials">SEMI — Semiconductor Materials Market</a><span class="src"> · SEMI (2024)</span>
+      <span class="desc">Industry market-data service tracking the wafer-fab and packaging materials markets.</span>
+      <span class="abs"><b>Summary.</b> SEMI market-data product covering the semiconductor materials markets — photoresist and ancillaries, process/specialty gases, CMP slurries, wet chemicals, sputtering targets and packaging materials — by annual revenue and region. The advanced-photoresist concentration in these data underpins the chain's "~90% Japan" input picture.</span>
+      <span class="dat"><b>Data.</b> SEMI member surveys and materials-market statistics program (annual revenue by material segment and region); the detailed figures sit behind SEMI's paid service — the public page is a product listing.</span></li>
+    <li><a href="https://www.csis.org/analysis/japan-korea-trade-dispute">CSIS — Japan's photoresist and the 2019 Japan–Korea dispute</a><span class="src"> · CSIS (2019)</span>
+      <span class="desc">Analysis of Japan's July 2019 export curbs on photoresist and two fab chemicals to Korea.</span>
+      <span class="abs"><b>Summary.</b> In July 2019 Japan imposed export-licensing controls on three chemicals central to Korean chip and display making — photoresist, hydrogen fluoride and fluorinated polyimide — where Japanese producers held the dominant share, briefly threatening Samsung and SK Hynix and prompting a Korean drive to localise. <span class="miss">(The cited CSIS page returned 404 on this pass; the episode is corroborated by the Yoshioka / Kyushu paper below.)</span></span>
+      <span class="dat"><b>Data.</b> CSIS analysis (page not retrievable this pass) — no primary dataset; event corroborated by Yoshioka (Kyushu, 2022).</span></li>
+    <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7164499">Partners in Chips: Pathways for Korea–Japan Cooperation in Semiconductors</a><span class="src"> · SSRN (2026)</span>
+      <span class="desc">Working paper on Korea–Japan semiconductor cooperation and the fab-chemical dependency.</span>
+      <span class="abs"><b>Summary.</b> SSRN paper (Choi, Kyung &amp; Kim) on pathways for Korea–Japan semiconductor cooperation, directly addressing the photoresist and fab-chemical dependency exposed by the 2019 export controls. <span class="miss">(SSRN abstract page returned 403 — not retrievable this pass; listed from its title and authors only, not summarised from the text.)</span></span>
+      <span class="dat"><b>Data.</b> Not retrievable — SSRN page blocked (403); no content read.</span></li>
+    <li><a href="https://catalog.lib.kyushu-u.ac.jp/opac_download_md/4772426/19_p049.pdf">Changes in Relations between Japan and Korea in the IT Industry</a><span class="src"> · Kyushu University (2022)</span>
+      <span class="desc">Study of the Japan–Korea division of labour in semiconductor components, materials and equipment.</span>
+      <span class="abs"><b>Abstract.</b> Yoshioka (Kumamoto/Kyushu repository) traces the shifting Japan–Korea relationship in the IT industry — semiconductor and flat-panel components, materials and manufacturing equipment. Korea long depended on Japanese materials and equipment before partially localising (equipment exports HS8486 ~$8.6 bn in 2018); this dependence is the context in which Japan's 2019 export-control measures landed.</span>
+      <span class="dat"><b>Data.</b> Kyushu University repository article using bilateral HS-level trade statistics (e.g. HS8486 equipment) and industry analysis.</span></li>
+  </ul>
+
+  <h2 class="sec">② Process gases, CMP slurries &amp; EUV pellicles <span class="ct">2</span></h2>
+  <div class="stagesub">The rest of the chemical stack — each a niche of a few qualified suppliers, and the thinnest evidence base in the chain.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/the-state-of-clean-technology-manufacturing">The State of Clean Technology Manufacturing</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">IEA briefing on manufacturing-capacity concentration across clean-energy technologies.</span>
+      <span class="abs"><b>Summary.</b> IEA briefing for the 2023 G7 on how manufacturing capacity for clean-energy technologies (solar PV, wind, batteries, electrolysers, heat pumps) is expanding but geographically concentrated. <span class="miss">Not semiconductor-specific — used only as a method analogue for how a few countries can dominate a manufacturing stage.</span></span>
+      <span class="dat"><b>Data.</b> IEA manufacturing-capacity dataset by technology and country/region — no fab-input figures.</span></li>
+    <li><a href="https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en">European Commission — Critical Raw Materials</a><span class="src"> · European Commission (2023)</span>
+      <span class="desc">The EU criticality framework and 2023 CRM list, covering several fab-relevant inputs.</span>
+      <span class="abs"><b>Summary.</b> The European Commission's criticality assessment and 2023 list — 34 critical raw materials screened from 70 candidates on Economic Importance × Supply Risk. It covers several semiconductor-relevant inputs: silicon metal, gallium, germanium, hafnium and the lithography gases neon, krypton and xenon.</span>
+      <span class="dat"><b>Data.</b> Study on Critical Raw Materials for the EU 2023 (Economic Importance × Supply Risk over 70 candidate materials; production, trade, substitution data).</span></li>
+  </ul>
+  <div class="stagegap">No dedicated public, supplier-level source maps <b>CMP slurries</b> or <b>EUV pellicles</b>: a targeted search returned only industry pages and product listings, no supply-chain study and no production series to cite. That absence is itself the finding — the concentration in these inputs is a qualified-supplier fact, not a customs one. See <a href="#gaps">Gaps &amp; good next searches</a> for the market/technology reviews worth chasing (Cabot / Fujimi for slurry, Mitsui / ASML for pellicles).</div>
+
+  <h2 class="sec">③ The fab &amp; supply-chain assessments <span class="ct">3</span></h2>
+  <div class="stagesub">Government and think-tank assessments of the fab and where its material inputs concentrate.</div>
+  <ul class="refs">
+    <li><a href="https://bidenwhitehouse.archives.gov/wp-content/uploads/2021/06/100-day-supply-chain-review-report.pdf">Building Resilient Supply Chains — 100-day review (semiconductors)</a><span class="src"> · Executive Office of the President (2021)</span>
+      <span class="desc">The US 2021 100-day supply-chain review's semiconductor volume.</span>
+      <span class="abs"><b>Abstract.</b> The semiconductor section of the US 2021 100-day supply-chain review. Finds US fab capacity fell from ~37% to ~12% of global output over two decades; examines the chain in five segments (design, fabrication, ATP/packaging, materials, equipment) and notes that while many gases and wet chemicals are US-made, foreign suppliers dominate silicon wafers, photomasks and photoresists. Recommends CHIPS-style funding.</span>
+      <span class="dat"><b>Data.</b> Interagency review (Dept. of Commerce) drawing on BCG/SIA analysis and industry consultation. <span class="miss">(Original whitehouse.gov URL 404s post-administration; linked via the Biden White House archive.)</span></span></li>
+    <li><a href="https://www.bis.gov/">Bureau of Industry and Security — semiconductor supply-chain assessments</a><span class="src"> · U.S. Dept. of Commerce, BIS</span>
+      <span class="desc">The agency administering US export controls and supply-chain risk assessment for semiconductors.</span>
+      <span class="abs"><b>Summary.</b> The Commerce Department's Bureau of Industry and Security administers US export controls on advanced-computing semiconductors and is running a Section 232 national-security investigation of semiconductor imports — the government body behind supply-chain and materials risk assessments for the sector.</span>
+      <span class="dat"><b>Data.</b> BIS regulatory / enforcement portal and the Section 232 semiconductor investigation — no single dataset.</span></li>
+    <li><a href="https://cset.georgetown.edu/publications/">CSET — Center for Security and Emerging Technology (Georgetown)</a><span class="src"> · CSET / Georgetown</span>
+      <span class="desc">Policy research group publishing detailed semiconductor supply-chain analyses.</span>
+      <span class="abs"><b>Summary.</b> Georgetown's Center for Security and Emerging Technology is a data-driven policy research group; its Supply Chains programme publishes detailed analyses of the semiconductor supply chain, including the materials and chemical chokepoints upstream of the fab.</span>
+      <span class="dat"><b>Data.</b> CSET publications library — analysis and synthesis, no single primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — frameworks, policy &amp; risk <span class="ct">3</span></h2>
+  <div class="stagesub">Analyses and risk frameworks that classify the whole chain's inputs and the upstream leverage they carry.</div>
+  <ul class="refs">
+    <li><a href="https://www.scirp.net/pdf/me_7204130.pdf">Effective Availability in Global Semiconductor Trade</a><span class="src"> · Yu &amp; Yu, Modern Economy (2025)</span>
+      <span class="desc">Trade-based assessment of US semiconductor supply-chain risk and policy response.</span>
+      <span class="abs"><b>Abstract.</b> Develops an "effective availability" framework for US dependence on imported semiconductor inputs, combining supplier diversification, tariff-equivalent restrictions and geopolitical risk. Finds US reliance on East Asia significant but diversifying (Japan, Korea, Singapore, Malaysia) after the CHIPS Act; concludes resilience comes from diversified, trade-embedded supply chains, not self-sufficiency.</span>
+      <span class="dat"><b>Data.</b> Trade data, tariff measures and industry reports (Modern Economy, 16(11), 2025) — analytical framework, no new experimental dataset.</span></li>
+    <li><a href="https://dair.nps.edu/handle/123456789/5404">Competing at the upstream of innovation: the US–China balance in critical minerals</a><span class="src"> · Naval Postgraduate School (2025)</span>
+      <span class="desc">Upstream materials/minerals leverage in the US–China technology competition.</span>
+      <span class="abs"><b>Summary.</b> Picarsic &amp; de La Bruyère argue China holds an advantage in critical and strategic minerals — "the upstream of legacy and emerging technological applications" — and is investing disproportionately in early-stage materials research, framing upstream materials as strategic leverage over downstream technologies. <span class="miss">(Only the repository abstract was read; full text not retrieved this pass.)</span></span>
+      <span class="dat"><b>Data.</b> Repository abstract / metadata — analytical, no primary dataset read.</span></li>
+    <li><a href="https://www.csis.org/programs/critical-minerals-security-program">CSIS — Critical Minerals Security Program</a><span class="src"> · CSIS</span>
+      <span class="desc">Ongoing think-tank research hub on minerals-supply-chain security.</span>
+      <span class="abs"><b>Summary.</b> CSIS programme on US dependence on foreign adversaries for security-critical minerals, backing market-led expansion of production and processing and resilient supply chains through diplomacy and allied partnerships. Context for the materials layer beneath the fab.</span>
+      <span class="dat"><b>Data.</b> Program landing page — analysis, reports and commentary, no primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; data <span class="ct">4</span></h2>
+  <div class="stagesub">The datasets the chain's own trade figures are built from — read as a coarse proxy, since no clean HS6 code isolates fab-grade resist or the specialty gases.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's trade proxy.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, 1995–2024, derived from UN Comtrade by removing CIF freight/insurance and reliability-weighting mirror discrepancies. Supplies the chain's coarse HS-370790 photo-chemical resist proxy.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade</a><span class="src"> · United Nations Statistics Division</span>
+      <span class="desc">The raw customs declarations that BACI reconciles.</span>
+      <span class="abs"><b>Summary.</b> The UN Statistics Division's repository of official international merchandise-trade statistics, reported by ~200 countries at HS-code level — the underlying record (photographic / photoresist chemical preparations, specialty gases) that BACI cleans and reconciles.</span>
+      <span class="dat"><b>Data.</b> National customs declarations compiled by UNSD (Comtrade Plus platform), HS-level. <span class="miss">(Live page is a JavaScript app shell — summarised from the platform's documented scope, not scraped this pass.)</span></span></li>
+    <li><a href="https://www.semi.org/en/products-services/market-data">SEMI — market data (equipment, materials &amp; fab capacity)</a><span class="src"> · SEMI</span>
+      <span class="desc">SEMI's broader industry-statistics service beyond the materials segment.</span>
+      <span class="abs"><b>Summary.</b> SEMI's industry-statistics service — equipment, materials and fab-capacity market data for the semiconductor supply chain, from the global materials-and-equipment industry association. The source of the materials figures behind the photoresist framing; detailed data is subscription-only.</span>
+      <span class="dat"><b>Data.</b> SEMI member surveys and market-statistics program (subscription).</span></li>
+    <li><a href="https://www.semiconductors.org/">Semiconductor Industry Association (SIA)</a><span class="src"> · SIA</span>
+      <span class="desc">US industry body publishing supply-chain reports and policy analysis.</span>
+      <span class="abs"><b>Summary.</b> The Semiconductor Industry Association, the US industry body, publishes supply-chain and policy analysis (annual State of the Industry, CHIPS-Act work, the BCG/SIA supply-chain studies) covering chip manufacturing and its material inputs. <span class="miss">(Homepage returned 403 on this pass; described from its known, documented role, not scraped.)</span></span>
+      <span class="dat"><b>Data.</b> SIA reports and industry statistics — no single dataset.</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>No dedicated public, supplier-level source maps <b>CMP slurries</b> or <b>EUV pellicles</b> — only industry pages turned up, no supply-chain study and no production series. Next: market/technology reviews on "CMP slurry market Cabot Fujimi" and "EUV pellicle supplier Mitsui ASML".</li>
+      <li><b>Photoresist market shares are analyst figures</b> (SEMI, TechInsights); a harder primary number would come from firm disclosures. Next: "photoresist market share JSR Tokyo Ohka Shin-Etsu Fujifilm".</li>
+      <li>The cited <b>CSIS 2019 analysis page 404'd</b> and the <b>SSRN "Partners in Chips" abstract was blocked (403)</b>; a stable CSIS replacement (or a web-archive copy) and the SSRN text via the authors or journal would restore both citations.</li>
+      <li><b>No clean HS6 code</b> isolates semiconductor-grade photoresist or the specialty gases; BACI 370790 is a coarse photo-chemical proxy only. A dedicated study mapping fab chemicals to customs headings would strengthen the trade panel.</li>
+      <li>Specialty process gases are under-covered here beyond the neon/fluorine chains. Next: "electronic specialty gases neon WF6 NF3 supply chain" and "BCG SIA semiconductor supply chain report 2021" for the primary industrial-base numbers.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from the photoresist chokepoint through the rest of the chemical stack to the fab, with cross-cutting frameworks and trade data grouped at the end. 16 unique sources (SEMI's three overlapping market-data listings and a duplicate CEPII entry were merged in this pass). Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (404 / 403 / JS challenge) that is flagged in italics and the summary is grounded only in the title or a corroborating source. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="semiconductor-inputs-chain.html">The semiconductor-inputs chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
