@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Boron / borate chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the boron / borate value chain, ordered to follow the chain from geological reserves to finished use. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="boron-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Boron</div>
+    <h1>Boron / borate chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">The world's boron sits in the ground in just two places — Turkey, on roughly 70% of world borate reserves, and one large mine in California. Between them they supply most of the glass, fertilizer, borosilicate and NdFeB magnets that boron enables. <b>Here the chokepoint is the deposit itself, not a plant that capital can rebuild.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Borate reserves (Turkey ~70% + one California mine) → refined borax / boric acid / boron oxides → ② end uses: glass &amp; fibreglass, fertilizer, borosilicate, NdFeB magnets, neutron capture — then the cross-cutting production and trade series the shares are built from.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="boron-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">11</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (4) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (3) · <span class="pill ref">Reference</span> context / provenance (4).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Borate reserves — the geological chokepoint</td></tr>
+      <tr><td class="n">1</td><td>USGS MCS 2026 — Boron</td><td class="took">Reserves-by-country + production shares → the <b>~70%-Turkey reserves</b> headline and the "produced domestically only in California" duopoly framing; sources the geological-chokepoint classification.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Eti Maden (Turkey)</td><td class="took">Identity of the state monopoly that mines the ~70% reserve → names the holder in the chokepoint object (holder = Turkey).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">3</td><td>Mining &amp; Processing of Borates in Turkey (1992)</td><td class="took">Named deposits (tincal / colemanite / ulexite) + beneficiation detail → would harden the "geological rarity" claim. <span class="miss">Paper paywalled (403) — left for full-text.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>Boron Minerals in Turkey (2006)</td><td class="took">Turkey's endowment + its economic role → context for why one country holds most reserves. <span class="miss">Paper paywalled (403).</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>Boron and Borates (Helvaci)</td><td class="took">Reference-chapter mineralogy of the Turkish borate deposits → provenance for the mineral names in the hops. <span class="miss">Hosted PDF 404.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">② End uses — glass, fertilizer, magnets, nuclear</td></tr>
+      <tr><td class="n">6</td><td>Fibers, 5. Synthetic Inorganic (Ullmann's)</td><td class="took">Borosilicate / glass-fibre chemistry → sources the "glass &amp; fibreglass is the largest use" card. <span class="miss">Chapter paywalled (403).</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">7</td><td>BNCT chemistry (Hawthorne 1993)</td><td class="took">Documents the boron-10 neutron-capture end use → the "neutron shielding in nuclear" note on the magnets-and-more card.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — production &amp; trade data</td></tr>
+      <tr><td class="n">8</td><td>USGS — Boron Statistics &amp; Information</td><td class="took">Confirms "boron produced domestically only in California" + US/Turkey lead → provenance for the US half of the duopoly.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">9</td><td>USGS Historical Statistics (DS140)</td><td class="took">Long-run US/world production series covering boron → a history panel the chain does not yet carry.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>BGS World Mineral Statistics — borates</td><td class="took">Long-run mine-production-by-country series → ground-truth cross-check on the Turkey / US supply shares alongside USGS.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">11</td><td>CEPII BACI V202601</td><td class="took">The trade engine → powers the borate trade panel (HS 252800 natural borates + 281000 boron oxides / boric acid).</td><td><span class="pill applied">Applied</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Borate reserves — the geological chokepoint <span class="ct">5</span></h2>
+  <div class="stagesub">The raw input and the chokepoint itself: Turkey holds roughly 70% of world reserves, the US one large California mine.</div>
+  <ul class="refs">
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-boron.pdf">USGS Mineral Commodity Summaries 2026 — Boron</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual world production, reserves and end-use data for boron; the source behind the ~70%-Turkey reserves and California-only US-production readings.</span>
+      <span class="abs"><b>Scope.</b> USGS annual commodity summary for boron — world and US mine production, reserves by country, end uses and net import reliance. <span class="miss">The 2026 PDF returned HTTP 403 on two passes and could not be retrieved this session; the reserve and production readings used in the chain are corroborated by the USGS Boron Statistics portal below, which states US boron is produced only in California and that the US and Turkey lead world output — no figure is invented here to fill the gap.</span></span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade and price data.</span></li>
+    <li><a href="https://www.etimaden.gov.tr/en">Eti Maden — world boron reserves &amp; production</a><span class="src"> · Eti Maden (2024)</span>
+      <span class="desc">Turkey's state-owned borate producer — operator of the deposits behind the world's largest borate reserve base.</span>
+      <span class="abs"><b>Summary.</b> Eti Maden is the Turkish state enterprise that mines and processes the country's borate deposits into borax, boric acid and boron oxides, and is the single producer behind Turkey's share of world reserves. <span class="miss">The site (etimaden.gov.tr) could not be retrieved this pass — its TLS certificate failed verification; identity and role taken from the chain record and the USGS / BGS references here.</span></span>
+      <span class="dat"><b>Data.</b> Producer's own reserve, production and product disclosures (not retrieved this pass).</span></li>
+    <li><a href="https://doi.org/10.1080/08827509208952709">Mining and Processing of Borates in Turkey</a><span class="src"> · Mineral Processing &amp; Extractive Metallurgy Review (1992)</span>
+      <span class="desc">Peer-reviewed technical account of Turkish borate mining and processing.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">Paper paywalled (Taylor &amp; Francis, HTTP 403) — abstract not retrievable this pass. From the citation: a Mineral Processing and Extractive Metallurgy Review article (Vol. 9, 1992) on the mining and beneficiation of Turkey's borate ores — tincal, colemanite and ulexite.</span></span>
+      <span class="dat"><b>Data.</b> Technical review of Turkish borate mining / processing — no dataset retrieved.</span></li>
+    <li><a href="https://doi.org/10.1080/14041040500504293">Boron Minerals in Turkey, Their Application Areas and Importance for the Country's Economy</a><span class="src"> · Minerals &amp; Energy – Raw Materials Report (2006)</span>
+      <span class="desc">Academic analysis of Turkey's borate endowment and its role in the national economy.</span>
+      <span class="abs"><b>Abstract.</b> <span class="miss">Paper paywalled (Taylor &amp; Francis, HTTP 403) — abstract not retrievable this pass. From the citation: a Minerals &amp; Energy – Raw Materials Report article (Vol. 20, 2006) on Turkey's boron minerals, their application areas and their economic importance to the country.</span></span>
+      <span class="dat"><b>Data.</b> Academic analysis of Turkey's borate resources and economy — no dataset retrieved.</span></li>
+    <li><a href="http://kisi.deu.edu.tr/cahit.helvaci/Boron.pdf">Boron and Borates (Helvaci, in Industrial Minerals and Rocks)</a><span class="src"> · Dokuz Eylül University</span>
+      <span class="desc">Standard reference-book chapter on borate mineralogy and Turkish deposits.</span>
+      <span class="abs"><b>Scope.</b> Reference chapter (Cahit Helvaci, in Industrial Minerals and Rocks, 6th ed.) on borate mineralogy, occurrence and the Turkish borate deposits. <span class="miss">The hosted PDF (kisi.deu.edu.tr) returned HTTP 404 — not retrievable; scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> Reference-book synthesis of borate geology — a chapter, not a dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Refining — borax, boric acid &amp; boron oxides <span class="ct">0</span></h2>
+  <div class="stagesub">The first-refined forms — and, as in most atlas chains, the thinnest evidence base of the stages.</div>
+  <div class="stagegap">No dedicated public source maps the refining step on its own: borate ore is processed to borax, boric acid and boron oxides largely by the same two producers (Eti Maden and Rio Tinto), so the stage is not separately concentrated beyond the reserves that feed it. The Turkish-processing detail sits inside the paywalled 1992 mining-and-processing paper above; see <a href="#gaps">Gaps &amp; good next searches</a> for the Rio Tinto Boron, California lead worth chasing.</div>
+
+  <h2 class="sec">② End uses — glass, fertilizer, magnets, nuclear <span class="ct">2</span></h2>
+  <div class="stagesub">Where the borates go: borosilicate and glass fibre (the largest use), the fertilizer micronutrient, NdFeB magnets and neutron capture.</div>
+  <ul class="refs">
+    <li><a href="https://doi.org/10.1002/14356007.a11_001">Fibers, 5. Synthetic Inorganic</a><span class="src"> · Ullmann's Encyclopedia of Industrial Chemistry (2000)</span>
+      <span class="desc">Reference chapter covering borosilicate / glass-fibre chemistry — boron's largest end use.</span>
+      <span class="abs"><b>Scope.</b> Ullmann's Encyclopedia of Industrial Chemistry chapter (E. Fitzer, 2000) on synthetic inorganic fibres, including the borosilicate glass and glass-fibre chemistry that is boron's single largest use. <span class="miss">Chapter paywalled (Wiley, HTTP 403) — full abstract not retrievable; scope taken from the citation.</span></span>
+      <span class="dat"><b>Data.</b> Encyclopaedic reference chapter — no primary dataset.</span></li>
+    <li><a href="https://doi.org/10.1002/anie.199309501">The Role of Chemistry in the Development of Boron Neutron Capture Therapy of Cancer</a><span class="src"> · Angewandte Chemie Int. Ed. (1993)</span>
+      <span class="desc">Peer-reviewed review of boron neutron capture therapy — a real, niche boron end use.</span>
+      <span class="abs"><b>Abstract.</b> Review (M. F. Hawthorne, 1993) of the chemistry behind boron neutron capture therapy: boron-10 captures a thermal neutron and emits energetic helium and lithium ions that travel only about one cell diameter in tissue, destroying a targeted cell. Surveys boron-delivery vehicles and their synthesis across chemistry, biology, nuclear physics and medicine, with representative tumour-localisation data.</span>
+      <span class="dat"><b>Data.</b> Interdisciplinary literature review with representative tumour-localisation data — no new primary dataset.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — production &amp; trade data <span class="ct">4</span></h2>
+  <div class="stagesub">The production and trade series the chain's shares and its duopoly reading are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/boron-statistics-and-information">Boron Statistics and Information</a><span class="src"> · USGS National Minerals Information Center</span>
+      <span class="desc">USGS boron data portal: US (California) and world supply, demand and pricing, linked to the full MCS and Minerals Yearbook archives.</span>
+      <span class="abs"><b>Summary.</b> USGS National Minerals Information Center portal for boron: worldwide supply, demand and material-flow statistics. States that US boron is produced only in California and that the US and Turkey lead world production; links the Mineral Commodity Summaries (1996–2026), the Minerals Yearbook and the historical-statistics series.</span>
+      <span class="dat"><b>Data.</b> USGS voluntary producer / consumer surveys, aggregated into the MCS and Minerals Yearbook series.</span></li>
+    <li><a href="https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities">Historical Statistics for Mineral and Material Commodities</a><span class="src"> · USGS (Data Series 140)</span>
+      <span class="desc">USGS long-run US/world production, trade and price history (Data Series 140), covering boron.</span>
+      <span class="abs"><b>Summary.</b> USGS Data Series 140: long-run US statistics on about 90 nonfuel mineral commodities, many back to 1900, tracking production, imports, exports, stocks, consumption and unit prices (nominal and inflation-adjusted). Boron is included; figures are standardised to metric tons and dollars per metric ton for consistency.</span>
+      <span class="dat"><b>Data.</b> USGS compilation from 18,000+ producer / consumer establishments via surveys, site visits and agency / trade-association coordination.</span></li>
+    <li><a href="https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html">BGS World Mineral Statistics — borates</a><span class="src"> · British Geological Survey (2024)</span>
+      <span class="desc">Long-run global mine-production series by country, including borates.</span>
+      <span class="abs"><b>Summary.</b> BGS World Mineral Statistics: annual global production data for 70+ mineral commodities by country, the current volume covering 2020–2024, with the dataset extending back to 1913 (online from 1970). Borates are among the commodities covered, giving an independent long-run read on the Turkey / US supply split.</span>
+      <span class="dat"><b>Data.</b> BGS compilation from government departments, national statistical offices, commodity authorities and company reports; PDF, Excel and JSON API.</span></li>
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6) used for the chain's borate trade panel.</span>
+      <span class="abs"><b>Summary.</b> CEPII BACI: reconciled bilateral trade flows for ~200 countries across ~5,000 HS6 products, derived from UN Comtrade by removing CIF freight costs to FOB-equivalent values and reliability-weighting reporter discrepancies. Used here for HS 252800 (natural borates) and 281000 (boron oxides / boric acid).</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li><b>Rio Tinto's Boron, California operation</b> — the other half of the duopoly — has no dedicated source here. Next: "Rio Tinto Borax California mine production reserves" or the operation's own site, to source the US half directly rather than through USGS aggregates.</li>
+      <li>No <b>EU JRC / Critical Raw Materials Act factsheet for boron/borates</b> was confirmed live this pass. Next: "EU critical raw materials boron borates JRC factsheet" — boron is on the EU CRM list and a factsheet would add an independent criticality read.</li>
+      <li>No dedicated <b>academic criticality-index paper for boron</b> turned up. Next: "boron criticality Resources Policy" or "Graedel criticality boron" — would let the geological-chokepoint claim be scored, not just asserted.</li>
+      <li>The two Turkish borate papers (1992, 2006) are <b>paywalled</b>; their full text would harden the named-deposit and reserve-share detail. Next: an open-access mirror or the Helvaci chapter at a working URL.</li>
+      <li><b>China, Chile, Argentina and Russia's smaller borate output</b> (the rest of the market) is unsourced beyond BGS/USGS aggregates. Next: "China borate production" and "Chile Argentina borate lithium-brine by-product".</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from borate reserves to finished use, with the cross-cutting production and trade series grouped at the end. 11 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (a paywall, a 403/404, or a failed TLS certificate) that is flagged in italics, and no figure is invented to fill the gap. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="boron-chain.html">The boron chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>

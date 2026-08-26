@@ -23,21 +23,21 @@ SRC = {
 
 CHAIN = {
     "title": "Phosphate → fertilizer → food chain",
-    "chokepoint": {"product": "Fertilizer / food", "stage": "Reserves", "mechanism": "geological", "physics": "~70% of reserves are in Morocco; no substitute for phosphorus", "holder": "Morocco", "share": "~70%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Fertilizer / food", "stage": "Reserves", "mechanism": "geological", "physics": "~68% of world reserves are in Morocco (though only ~13% of current production); no substitute for phosphorus", "holder": "Morocco", "share": "~68% reserves", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
     "accent": "#6f7c3c",
     "eyebrow": "Product-chain pilot · food security",
     "h1": "For food, the mine is the chokepoint",
     "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the "
-            "exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 70% "
+            "exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 68% "
             "of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
     "byline": "reserves ≠ production ≠ fertilizer ≠ food — but for phosphorus there is no plan B",
     "correction": "The atlas's usual finding — 'the refiner is not the source' — inverts for phosphorus. There is no "
                   "synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base "
                   "itself is the chokepoint, and it is extraordinarily concentrated.",
     "stats": [
-        {"v": "~70%", "l": "of world phosphate-rock reserves are in Morocco", "conf": "estimate"},
+        {"v": "~68%", "l": "of world phosphate-rock reserves are in Morocco (but only ~13% of current output)", "conf": "measured"},
         {"v": "China", "l": "the largest producer (then Morocco, US, Russia)", "conf": "measured"},
         {"v": "47.8 Mt", "l": "P₂O₅ in fertilizer used per year — rising to ~52 Mt by 2028", "conf": "measured"},
         {"v": "0", "l": "substitutes for phosphorus in growing food", "conf": "measured"},
@@ -47,7 +47,7 @@ CHAIN = {
         "conf": "measured",
         "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose "
                 "from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output "
-                "moved to China, but the long-run RESERVE base (~70%) stayed in Morocco — production and reserves point "
+                "moved to China, but the long-run RESERVE base (~68%) stayed in Morocco — production and reserves point "
                 "to different countries.",
         "series": [
             {"label": "China", "points": hist_points("phosphate", "CN")},
@@ -56,7 +56,7 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Phosphate rock", "t": "the only significant source of phosphorus; reserves ~70% Morocco"},
+        {"n": "1 · Phosphate rock", "t": "the only significant source of phosphorus; reserves ~68% Morocco"},
         {"n": "2 · Acid & fertilizer", "t": "phosphoric acid → DAP/MAP; Morocco (OCP) is also a top processor"},
         {"n": "3 · The three nutrients", "t": "P (Morocco), K / potash (Canada, Russia, Belarus), N (natural gas)"},
         {"n": "4 · Food", "t": "non-substitutable, finite, poorly recycled — the demand cannot be switched off"},
@@ -64,10 +64,10 @@ CHAIN = {
     "sections": [
         {"h2": "1 · Reserves are even more concentrated than production", "panels": [
             {"kind": "bars", "h3": "Phosphate-rock reserves", "max": 1.0, "note":
-                "USGS. Morocco (incl. Western Sahara) holds ~50 billion t — about 70% of world reserves. Reserves are "
-                "the long-run ceiling; they are far more concentrated than current output.", "bars": [
-                {"label": "Morocco", "value": 0.70},
-                {"label": "Rest of world", "value": 0.30},
+                "USGS. Morocco (incl. Western Sahara) holds ~50 of ~74 billion t — about 68% of world reserves. Reserves "
+                "are the long-run ceiling; they are far more concentrated than current output (Morocco is ~13% of it).", "bars": [
+                {"label": "Morocco", "value": 0.68},
+                {"label": "Rest of world", "value": 0.32},
             ]},
             {"kind": "text", "h3": "Production is more spread — for now",
              "text": "China is currently the largest producer of phosphate rock, ahead of Morocco, the United States "
@@ -89,7 +89,7 @@ CHAIN = {
         ]},
         {"h2": "3 · The other two nutrients are locked up too (N-P-K)", "panels": [
             {"kind": "cards", "h3": "Each fertilizer nutrient has its own concentration", "cards": [
-                {"t": "P — Phosphorus", "d": "Phosphate rock, ~70% of reserves in Morocco. No substitute. The subject of this chain."},
+                {"t": "P — Phosphorus", "d": "Phosphate rock, ~68% of reserves in Morocco. No substitute. The subject of this chain."},
                 {"t": "K — Potassium", "d": "Potash, dominated by Canada, Russia and Belarus. Russia + Belarus supply was disrupted after 2022 sanctions."},
                 {"t": "N — Nitrogen", "d": "Fixed from the air by Haber-Bosch, but powered by natural gas — so nitrogen fertilizer tracks the price and security of gas."},
             ]},
@@ -118,4 +118,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— phosphate/food chain, Morocco ~70% reserves, no substitute")
+print("wrote", os.path.relpath(OUT, HERE), "— phosphate/food chain, Morocco ~68% reserves, no substitute")

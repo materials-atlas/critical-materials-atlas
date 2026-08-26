@@ -21,7 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "PGM / catalyst chain",
-    "chokepoint": {"product": "Autocatalysts", "stage": "Bushveld", "mechanism": "geological", "physics": "The platinum-group ore is in the Bushveld Complex — can't be relocated", "holder": "South Africa", "share": "~70%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Autocatalysts", "stage": "Bushveld", "mechanism": "geological", "physics": "The platinum-group ore is in South Africa's Bushveld Complex (~78% of world PGM reserves); SA leads platinum (~71% of mine output) but palladium is Russia-led", "holder": "South Africa", "share": "~78% reserves", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}, {"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}],
     "accent": "#5a6472",
@@ -35,7 +35,7 @@ CHAIN = {
                   "(South Africa's Bushveld) and one Russian producer. But the biggest risk is not a supply cut; it is "
                   "recycling relieving supply, and the EV transition removing the autocatalyst demand altogether.",
     "stats": [
-        {"v": "~90%", "l": "of world PGM reserves are in South Africa (the Bushveld Complex)", "conf": "estimate"},
+        {"v": "~78%", "l": "of world PGM reserves are in South Africa (the Bushveld Complex)", "conf": "measured"},
         {"v": "SA + RU", "l": "essentially the only two large mine sources", "conf": "measured"},
         {"v": "autocatalysts", "l": "the dominant use of platinum, palladium and rhodium", "conf": "measured"},
         {"v": "~1/4+", "l": "of supply comes back as recycled catalytic-converter scrap", "conf": "estimate"},
@@ -60,13 +60,13 @@ CHAIN = {
     "sections": [
         {"h2": "1 · The mine base is two countries", "panels": [
             {"kind": "cards", "h3": "Each metal, and who mines it", "cards": [
-                {"t": "Platinum", "d": "South Africa dominates mine supply (~70%+); the Bushveld Complex holds the bulk of world reserves."},
+                {"t": "Platinum", "d": "South Africa dominates mine supply (~71% of world output); the Bushveld Complex holds the bulk of world reserves."},
                 {"t": "Palladium", "d": "Russia (Norilsk Nickel) and South Africa co-lead; US palladium imports run ~32% Russia, ~32% South Africa."},
                 {"t": "Rhodium", "d": "A South-African by-product of platinum mining; supply is small, concentrated and famously volatile in price."},
             ]},
             {"kind": "text", "h3": "Concentration by geology, not by refining",
              "text": "Unlike gallium or germanium, PGMs are not a processing chokepoint — they are a geological one. "
-                     "About 90% of world reserves sit in South Africa's Bushveld Complex, and the only other large "
+                     "About 78% of world PGM reserves sit in South Africa's Bushveld Complex, and the only other large "
                      "primary source is Russia. The six PGMs co-occur, so they are separated together in a handful of "
                      "complex refineries.",
              "flag": "a geological chokepoint"},
@@ -114,4 +114,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "— PGM chain, SA ~90% reserves, recycling relief, EV demand risk")
+print("wrote", os.path.relpath(OUT, HERE), "— PGM chain, SA ~78% reserves, recycling relief, EV demand risk")

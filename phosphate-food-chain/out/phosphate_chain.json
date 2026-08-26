@@ -4,9 +4,9 @@
     "product": "Fertilizer / food",
     "stage": "Reserves",
     "mechanism": "geological",
-    "physics": "~70% of reserves are in Morocco; no substitute for phosphorus",
+    "physics": "~68% of world reserves are in Morocco (though only ~13% of current production); no substitute for phosphorus",
     "holder": "Morocco",
-    "share": "~70%",
+    "share": "~68% reserves",
     "control": "—",
     "conf": "measured"
   },
@@ -20,14 +20,14 @@
   "accent": "#6f7c3c",
   "eyebrow": "Product-chain pilot · food security",
   "h1": "For food, the mine is the chokepoint",
-  "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 70% of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
+  "deck": "Most of the value chains in this atlas find the bottleneck downstream of the mine. Phosphorus is the exception: it has no substitute in agriculture, its only real source is phosphate rock, and about 68% of the world's reserves sit in a single country. Here the raw resource is the binding constraint.",
   "byline": "reserves ≠ production ≠ fertilizer ≠ food — but for phosphorus there is no plan B",
   "correction": "The atlas's usual finding — 'the refiner is not the source' — inverts for phosphorus. There is no synthetic substitute for it and no alternative resource to phosphate rock, so the reserve base itself is the chokepoint, and it is extraordinarily concentrated.",
   "stats": [
     {
-      "v": "~70%",
-      "l": "of world phosphate-rock reserves are in Morocco",
-      "conf": "estimate"
+      "v": "~68%",
+      "l": "of world phosphate-rock reserves are in Morocco (but only ~13% of current output)",
+      "conf": "measured"
     },
     {
       "v": "China",
@@ -48,7 +48,7 @@
   "history": {
     "title": "Phosphate-rock mine production shifted to China, 2000–2024",
     "conf": "measured",
-    "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output moved to China, but the long-run RESERVE base (~70%) stayed in Morocco — production and reserves point to different countries.",
+    "note": "BGS/USGS (mine production %), from the atlas's own data. The US fell from ~21% to ~8%; China rose from ~14% to ~44% (peaking near 52% in 2015); Morocco stayed ~14-18%. Note the twist: current output moved to China, but the long-run RESERVE base (~68%) stayed in Morocco — production and reserves point to different countries.",
     "series": [
       {
         "label": "China",
@@ -178,7 +178,7 @@
   "hops": [
     {
       "n": "1 · Phosphate rock",
-      "t": "the only significant source of phosphorus; reserves ~70% Morocco"
+      "t": "the only significant source of phosphorus; reserves ~68% Morocco"
     },
     {
       "n": "2 · Acid & fertilizer",
@@ -201,15 +201,15 @@
           "kind": "bars",
           "h3": "Phosphate-rock reserves",
           "max": 1.0,
-          "note": "USGS. Morocco (incl. Western Sahara) holds ~50 billion t — about 70% of world reserves. Reserves are the long-run ceiling; they are far more concentrated than current output.",
+          "note": "USGS. Morocco (incl. Western Sahara) holds ~50 of ~74 billion t — about 68% of world reserves. Reserves are the long-run ceiling; they are far more concentrated than current output (Morocco is ~13% of it).",
           "bars": [
             {
               "label": "Morocco",
-              "value": 0.7
+              "value": 0.68
             },
             {
               "label": "Rest of world",
-              "value": 0.3
+              "value": 0.32
             }
           ]
         },
@@ -249,7 +249,7 @@
           "cards": [
             {
               "t": "P — Phosphorus",
-              "d": "Phosphate rock, ~70% of reserves in Morocco. No substitute. The subject of this chain."
+              "d": "Phosphate rock, ~68% of reserves in Morocco. No substitute. The subject of this chain."
             },
             {
               "t": "K — Potassium",
