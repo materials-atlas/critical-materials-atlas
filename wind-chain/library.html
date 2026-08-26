@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Wind-turbine chain — research library — Critical Materials Atlas</title>
+<meta name="description" content="A curated research library for the wind-turbine value chain, ordered to follow the chain from raw material to installed turbine. Each entry has an abstract and its data basis. Every entry a real, public source.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.12;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut);line-height:1.5}
+ .lead{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.98rem;line-height:1.6}
+ .lead b{color:var(--navy)}
+ .flow{font-size:.84rem;color:var(--mut);margin:.8rem 0 0;line-height:1.6}
+ .flow b{color:var(--navy)}
+ .etbl-wrap{overflow-x:auto;margin:1rem 0 0}
+ table.etbl{border-collapse:collapse;width:100%;font-size:.83rem;min-width:660px}
+ table.etbl th,table.etbl td{padding:.45rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;line-height:1.42}
+ table.etbl thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy);font-size:.74rem;text-transform:uppercase;letter-spacing:.03em}
+ table.etbl td.n{text-align:right;color:var(--faint);font-variant-numeric:tabular-nums;width:1.4rem}
+ table.etbl tbody tr:hover{background:var(--bg-soft)}
+ table.etbl .took{color:var(--ink-soft)}
+ table.etbl .stg{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.76rem}
+ .pill{display:inline-block;font-size:.69rem;font-weight:700;border-radius:20px;padding:.08rem .5rem;white-space:nowrap}
+ .pill.applied{background:#e6f4f2;color:#0e7c74;border:1px solid #bfe3de}
+ .pill.planned{background:var(--bg-soft);color:var(--navy);border:1px solid var(--line-strong)}
+ .pill.ref{background:transparent;color:var(--faint);border:1px solid var(--line)}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.1rem 0 1.6rem}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ h2.sec{font-size:1.12rem;color:var(--navy);margin:2rem 0 .3rem;display:flex;align-items:baseline;gap:.6rem}
+ h2.sec .ct{font-size:.72rem;font-weight:700;color:var(--faint);background:var(--bg-soft);border:1px solid var(--line);border-radius:20px;padding:.1rem .55rem;font-variant-numeric:tabular-nums}
+ .stagesub{font-size:.85rem;color:var(--faint);margin-top:.15rem}
+ ul.refs{list-style:none;padding:0;margin:.6rem 0 0}
+ ul.refs li{padding:.85rem 0;border-top:1px solid var(--line);line-height:1.5}
+ ul.refs li:first-child{border-top:0}
+ ul.refs a{font-weight:600;color:var(--navy);text-decoration:none;border-bottom:1px solid var(--line)}
+ ul.refs a:hover{color:var(--accent);border-color:var(--accent)}
+ ul.refs .src{font-size:.82rem;font-weight:600;color:var(--accent);margin-left:.15rem}
+ ul.refs .desc{display:block;font-size:.9rem;color:var(--mut);margin-top:.2rem}
+ ul.refs .abs{display:block;font-size:.86rem;color:var(--ink-soft);margin-top:.4rem;line-height:1.5}
+ ul.refs .dat{display:block;font-size:.82rem;color:var(--faint);margin-top:.28rem;line-height:1.45}
+ ul.refs .abs b,ul.refs .dat b{color:var(--navy);font-weight:700}
+ ul.refs .miss{color:var(--faint);font-style:italic}
+ .stagegap{border:1px dashed var(--line-strong);border-radius:8px;padding:.8rem 1.1rem;margin:.6rem 0 0;font-size:.88rem;color:var(--mut);line-height:1.5}
+ .gaps{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.92rem;line-height:1.55}
+ .gaps h2{font-size:1.05rem;color:var(--navy);margin:0 0 .5rem}
+ .gaps ul{margin:.4rem 0 0;padding-left:1.1rem}
+ .gaps li{margin:.5rem 0}
+ .foot-note{font-size:.82rem;color:var(--faint);margin:1.6rem 0 0;line-height:1.5}
+ @media print{ .toolbar,.siteftr,.topbar{display:none!important} }
+</style>
+</head><body>
+
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../value-chains.html">All chains</a><a href="../chokepoint-map.html">Chokepoint map</a><a href="./wind-chain.html">This chain</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Research Library · Wind</div>
+    <h1>Wind-turbine chain</h1>
+    <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
+  </div>
+
+  <p class="lead">A wind turbine turns steel, concrete, copper and composite blades into a nacelle, then a finished generating system installed on site — and at almost no step is a scarce mineral the binding constraint. <b>The chokepoint is rarely the mine; here it is barely a mineral at all — it is scale, logistics and the OEM.</b></p>
+
+  <p class="flow"><b>Ordered to follow the chain:</b> ① Materials (steel · concrete · copper · composites — magnet rare earths only in direct-drive) → ② Turbine OEM &amp; manufacturing → ③ Installation, logistics &amp; end-of-life — then the cross-cutting frameworks and trade data that sit across every stage.</p>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
+    <a href="./wind-chain.html">→ View the chain</a>
+    <a href="../value-chains.html">← All value chains</a>
+  </div>
+
+  <h2 class="sec">What we took — each source → chain enrichment <span class="ct">22</span></h2>
+  <div class="stagesub">The library is raw material for deepening the chain, not a bibliography. Each source is a method or dataset we reproduce on our own data. <span class="pill applied">Applied</span> already in the chain record (5) · <span class="pill planned">Planned</span> next enrichment, needs full-text or new data (11, three paywalled/gated) · <span class="pill ref">Reference</span> context / provenance (6).</div>
+  <div class="etbl-wrap"><table class="etbl">
+    <thead><tr><th class="n">#</th><th>Source</th><th>What we reproduced / took</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td colspan="4" class="stg">① Materials — steel, copper, composites &amp; magnet rare earths</td></tr>
+      <tr><td class="n">1</td><td>JRC — Material requirements for wind</td><td class="took">Material-intensity (kg/MW) method → the §1 "bulk commodities, not critical minerals" finding: ~85–90% steel/concrete/copper, magnets only in direct-drive.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">2</td><td>Ayer — Winds of Change (Degrowth Journal)</td><td class="took">Component-level supply-chain framing → reinforces the §1 bill-of-materials breakdown; qualitative, so no figure to reproduce.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">3</td><td>USGS MCS 2026 — Rare Earths</td><td class="took">Rare-earth production/import data → the Nd–Dy magnet-exposure context for direct-drive (67% net import reliance, 71% from China).</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">4</td><td>IEA — Rare Earth Elements</td><td class="took">Mine-to-magnet value-chain method → would sharpen the direct-drive magnet-dependency panel. <span class="miss">Needs the full PDF.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">5</td><td>Weng et al. — RE supply, LCA &amp; wind</td><td class="took">LCA of rare-earth constraints on wind. <span class="miss">Book chapter paywalled (Elsevier) — not retrievable; left open.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">② Turbine OEM &amp; manufacturing concentration</td></tr>
+      <tr><td class="n">6</td><td>GWEC — installations &amp; suppliers 2025</td><td class="took">Supplier-share tally → the headline <b>~67% China-HQ OEM</b> stat + 178 GW installed in §3.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>IEA — State of Clean Technology Manufacturing</td><td class="took">Manufacturing-capacity split → the "China &gt;60% of nacelle capacity" framing behind the OEM-concentration finding.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>Gosens — China wind-OEM expansion (Energy Policy)</td><td class="took">Mechanism of how Chinese OEMs won share → context for the ~67% figure. <span class="miss">Paywalled — noted, not reproduced.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">9</td><td>GWEC — Global Wind Report 2026</td><td class="took">Installation totals (1,299 GW cumulative, 165 GW new) → denominator context for the OEM shares.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">10</td><td>GWEC — Global Offshore Wind Report 2026</td><td class="took">Offshore concentration (top-5 markets 90%, 10 MW turbines) → the offshore-scale/logistics angle in §2.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>Wood Mackenzie — Lens Wind</td><td class="took">500+ factory / 20+ OEM tracking → the commercial benchmark our OEM-share read sits against. <span class="miss">Paywalled.</span></td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td colspan="4" class="stg">③ Installation, logistics &amp; end-of-life</td></tr>
+      <tr><td class="n">12</td><td>US DOE — Wind Turbine Recycling</td><td class="took">Recyclability split (85–90% recyclable, 10–15% composite/RE) → the §2 blade end-of-life panel.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">13</td><td>IEA — Offshore Wind Geospatial Analysis</td><td class="took">Depth / distance-to-shore siting data → context for the logistics-chokepoint framing (§2).</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">14</td><td>GWEC — Global Wind Workforce Outlook</td><td class="took">628,000-technician requirement → the labour dimension of the installation / O&amp;M stage.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">15</td><td>WindEurope — Offshore mid-year stats 2026</td><td class="took">H1 2026 European offshore connections. <span class="miss">Behind member sign-in — not retrieved.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">16</td><td>ACP — US Wind Energy Monitor Q2 2026</td><td class="took">US pipeline (&gt;50 GW to 2030, order intake) → national-market context for the installation stage.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — criticality frameworks &amp; policy</td></tr>
+      <tr><td class="n">17</td><td>IEA — Global Critical Minerals Outlook 2026</td><td class="took">Latest minerals-demand outlook → cross-checks wind's minor critical-mineral footprint. <span class="miss">Needs full report.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">18</td><td>IEA — Global Critical Minerals Outlook 2025</td><td class="took">Prior-year minerals outlook → the year-over-year baseline for the minerals framing.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">19</td><td>IEA — Renewables 2025</td><td class="took">Wind capacity-addition forecast → deployment trajectory behind the demand context. <span class="miss">Needs full report.</span></td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td colspan="4" class="stg">Across the chain — trade &amp; data</td></tr>
+      <tr><td class="n">20</td><td>CEPII BACI</td><td class="took">The data engine → powers the reproduced <b>component-trade shares</b> (generating sets &amp; parts).</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">21</td><td>IEA — Wind, energy-system overview</td><td class="took">Generation / capacity series 2015–2024 → background deployment context.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">22</td><td>UN Comtrade Plus</td><td class="took">Upstream trade declarations → the provenance of the BACI extract.</td><td><span class="pill ref">Reference</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2 class="sec">① Materials — steel, copper, composites &amp; magnet rare earths <span class="ct">5</span></h2>
+  <div class="stagesub">By mass a turbine is ~85–90% steel, concrete and copper; the only critical-mineral thread is magnet rare earths, and only in direct-drive designs.</div>
+  <ul class="refs">
+    <li><a href="https://publications.jrc.ec.europa.eu/repository/handle/JRC139701">Material requirements for wind turbines (JRC139701)</a><span class="src"> · European Commission JRC (2024)</span>
+      <span class="desc">Bill-of-materials study of material intensities (kg/MW) across wind-turbine types.</span>
+      <span class="abs"><b>Abstract.</b> JRC technical report (Nov 2024) providing updated estimates of the material intensity — kilograms per MW installed — of 17 materials across existing wind-turbine designs. Underpins the finding that wind is dominated by bulk commodities (steel, concrete, copper), with rare-earth magnets confined to permanent-magnet direct-drive drivetrains.</span>
+      <span class="dat"><b>Data.</b> JRC bottom-up material-intensity modelling (kg/MW) across wind-turbine archetypes.</span></li>
+    <li><a href="https://doi.org/10.36399/degrowth.003.01.03">Winds of Change: Supply Chain Analysis of a Wind Turbine</a><span class="src"> · Degrowth Journal (2025)</span>
+      <span class="desc">Component-level supply-chain analysis of a single wind turbine.</span>
+      <span class="abs"><b>Summary.</b> Degrowth Journal paper (Joshua Ayer, University of Alberta, 2025) applying supply-chain and commodity-frontier analysis to a wind turbine, de-fetishising it by tracing its material inputs; argues renewables are necessary but insufficient to offset growth without wider economic restructuring.</span>
+      <span class="dat"><b>Data.</b> Qualitative supply-chain / commodity-frontier analysis of one turbine — no primary quantitative dataset.</span></li>
+    <li><a href="https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf">USGS Mineral Commodity Summaries 2026 — Rare Earths</a><span class="src"> · USGS (2026)</span>
+      <span class="desc">Annual production/reserve/import data for the rare earths used in some turbine magnets.</span>
+      <span class="abs"><b>Abstract.</b> USGS commodity summary: 2025 US mine output ~51,000 t REO (valued $240 million) from Mountain Pass bastnaesite and southeastern monazite; net import reliance 67%, with compound/metal imports 71% from China. The leading global end use is magnets — the Nd–Dy demand linking rare earths to direct-drive wind generators.</span>
+      <span class="dat"><b>Data.</b> USGS annual producer canvass plus reported trade, price and import-source data.</span></li>
+    <li><a href="https://www.iea.org/reports/rare-earth-elements">Rare Earth Elements: Pathways to Secure and Diversified Supply Chains</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Dedicated rare-earth supply-chain report covering wind and EV magnet demand.</span>
+      <span class="abs"><b>Summary.</b> IEA report (April 2026), <i>Pathways to Secure and Diversified Supply Chains</i>, mapping the mine-to-magnet rare-earth value chain and its concentrated processing; frames neodymium–dysprosium magnet demand from wind and EVs and the options to diversify supply.</span>
+      <span class="dat"><b>Data.</b> IEA supply-demand scenario analysis of the rare-earth value chain (landing page / executive summary consulted).</span></li>
+    <li><a href="https://doi.org/10.1016/b978-0-12-809451-8.00024-2">Global rare earth supply, life cycle assessment, and wind energy</a><span class="src"> · Weng et al., Wind Energy Engineering (2017)</span>
+      <span class="desc">Life-cycle look at rare-earth supply constraints on wind energy.</span>
+      <span class="abs"><b>Summary.</b> Book chapter in <i>Wind Energy Engineering</i> (Weng et al., 2017) examining global rare-earth supply and life-cycle assessment for wind. <span class="miss">Full text paywalled (Elsevier) — not retrievable this pass; entry noted from title and catalogue metadata only.</span></span>
+      <span class="dat"><b>Data.</b> Life-cycle assessment plus rare-earth supply review — no accessible dataset (paywalled).</span></li>
+  </ul>
+
+  <h2 class="sec">② Turbine OEM &amp; manufacturing concentration <span class="ct">6</span></h2>
+  <div class="stagesub">The genuine concentration: China-HQ OEMs supplied ~67% of 2025 units — a corporate, not geological, chokepoint that localises.</div>
+  <ul class="refs">
+    <li><a href="https://www.gwec.net/news/gwec-records-sharp-rise-in-wind-turbine-installations-as-five-oems-exceed-100-gw">GWEC records sharp rise in wind-turbine installations as five OEMs exceed 100 GW</a><span class="src"> · Global Wind Energy Council (2026)</span>
+      <span class="desc">Source of the ~67% China-HQ OEM supplier-share figure and 178 GW installed.</span>
+      <span class="abs"><b>Summary.</b> GWEC news release (2026): a record 178 GW of wind was mechanically installed in 2025 (165 GW grid-connected) across 28,395 turbines. Chinese-HQ OEMs supplied 67% of global units, though 93% of their installations stayed in their vast home market.</span>
+      <span class="dat"><b>Data.</b> GWEC market-intelligence tally of 2025 turbine installations and supplier shares.</span></li>
+    <li><a href="https://www.iea.org/reports/the-state-of-clean-technology-manufacturing/analysis">The State of Clean Technology Manufacturing</a><span class="src"> · IEA (2023)</span>
+      <span class="desc">Manufacturing-capacity analysis across clean-tech supply chains including wind.</span>
+      <span class="abs"><b>Summary.</b> IEA analysis (2023): wind-manufacturing throughput reached ~100 GW in 2022, with China holding over 60% of onshore-nacelle capacity (EU ~15%, US ~10%); announced projects would push China to 55–65% by 2030 and 70–80% of offshore equipment.</span>
+      <span class="dat"><b>Data.</b> IEA bottom-up manufacturing-capacity dataset (existing plus announced projects) by technology and region.</span></li>
+    <li><a href="https://doi.org/10.1016/j.enpol.2013.12.055">Prospects for global market expansion of China's wind-turbine manufacturing industry</a><span class="src"> · Gosens, Energy Policy (2014)</span>
+      <span class="desc">Foundational analysis of how Chinese OEMs built global wind-turbine market share.</span>
+      <span class="abs"><b>Summary.</b> Energy Policy paper (Gosens, 2014) analysing the prospects for global market expansion of China's wind-turbine manufacturing industry — the mechanism behind today's ~67% figure. <span class="miss">Full text paywalled (Elsevier) — not retrievable this pass; noted from title and catalogue metadata.</span></span>
+      <span class="dat"><b>Data.</b> Industry analysis of Chinese-OEM export competitiveness — no accessible dataset (paywalled).</span></li>
+    <li><a href="https://www.gwec.net/reports/globalwindreport">GWEC Global Wind Report 2026</a><span class="src"> · Global Wind Energy Council (2026)</span>
+      <span class="desc">Annual flagship report on installations, growth pathways and the supplier landscape.</span>
+      <span class="abs"><b>Summary.</b> GWEC's annual flagship (2026): 165 GW of new wind connected in 2025 (up 40%), lifting cumulative capacity to 1,299 GW across 138 countries, with China, the USA and India leading additions; positions wind as a scalable grid-anchor amid energy-security pressures.</span>
+      <span class="dat"><b>Data.</b> GWEC installation database and member-reported supplier data.</span></li>
+    <li><a href="https://www.gwec.net/reports/globaloffshorewindreport">GWEC Global Offshore Wind Report 2026</a><span class="src"> · Global Wind Energy Council (2026)</span>
+      <span class="desc">Offshore-specific market and supply-chain report.</span>
+      <span class="abs"><b>Summary.</b> GWEC offshore report (2026): offshore capacity reached 92.5 GW by end-2025 (+9.3 GW); five markets — China, UK, Germany, Netherlands, Taiwan — hold 90%, average turbine size passed 10 MW, and it urges governments to diversify supply chains.</span>
+      <span class="dat"><b>Data.</b> GWEC offshore installation database and member-reported market data.</span></li>
+    <li><a href="https://www.woodmac.com/industry/power-and-renewables/wind/">Wood Mackenzie — Lens Wind</a><span class="src"> · Wood Mackenzie</span>
+      <span class="desc">Commercial data product tracking 500+ turbine factories and OEM market share (landing page; full reports paywalled).</span>
+      <span class="abs"><b>Summary.</b> Landing page for Wood Mackenzie's Lens Wind, a commercial platform tracking 500+ blade/tower/nacelle/drivetrain factories, the market share of 20+ turbine suppliers, quarterly order intake and 1,000+ turbine models, plus an annual supply-chain report. Full data paywalled.</span>
+      <span class="dat"><b>Data.</b> Proprietary commercial database (factory locations, supplier shares, order tracking) — paywalled; landing page only.</span></li>
+  </ul>
+
+  <h2 class="sec">③ Installation, logistics &amp; end-of-life <span class="ct">5</span></h2>
+  <div class="stagesub">The scale problem: 100-metre blades, specialised vessels, coastal factories and an O&amp;M workforce — plus the blade-recycling tail.</div>
+  <ul class="refs">
+    <li><a href="https://www.energy.gov/cmei/systems/wind-turbine-recycling">Wind Turbine Recycling</a><span class="src"> · US Department of Energy (2023)</span>
+      <span class="desc">Basis for the blade end-of-life / composite-recycling panel.</span>
+      <span class="abs"><b>Summary.</b> US DOE page: 85–90% of a wind turbine's mass is commercially recyclable today; the remaining 10–15% is fibre-reinforced composite (blades) and magnet rare earths. DOE's 2023 Materials Recycling Prize ($5.1 million, six 2024 winners) funds cost-effective blade-composite recovery.</span>
+      <span class="dat"><b>Data.</b> DOE program descriptions and recyclability estimates; no primary decommissioning-volume dataset.</span></li>
+    <li><a href="https://www.iea.org/data-and-statistics/data-tools/offshore-wind-geospatial-analysis">Offshore Wind Geospatial Analysis</a><span class="src"> · IEA</span>
+      <span class="desc">Global offshore-wind resource/siting data tool, relevant to the logistics-chokepoint framing.</span>
+      <span class="abs"><b>Summary.</b> IEA interactive tool (with Imperial College London, from the Offshore Wind Outlook 2019) mapping global technical potential for offshore wind by water depth and distance to shore, alongside projects and population density. Archived October 2024.</span>
+      <span class="dat"><b>Data.</b> Geospatial technical-potential model (water depth, distance-to-shore) plus project and population layers.</span></li>
+    <li><a href="https://www.gwec.net/reports/global-wind-workforce-outlook/2025-2030">GWEC / GWO Global Wind Workforce Outlook 2025–2030</a><span class="src"> · Global Wind Energy Council (2025)</span>
+      <span class="desc">Technician/labour requirements across the manufacturing and installation chain.</span>
+      <span class="abs"><b>Summary.</b> GWO/GWEC outlook: the wind industry will need 628,000 technicians by 2030 to build, install and — increasingly — maintain a 2.1 TW global fleet, with operations-and-maintenance the fastest-growing, most skill-intensive segment across six focus markets.</span>
+      <span class="dat"><b>Data.</b> GWO/GWEC workforce modelling across six markets (Australia, Brazil, France, Germany, India, USA).</span></li>
+    <li><a href="https://windeurope.org/data/products/offshore-wind-energy-2026-mid-year-statistics">WindEurope — Offshore Wind Energy 2026 Mid-Year Statistics</a><span class="src"> · WindEurope (2026)</span>
+      <span class="desc">H1 2026 European offshore connections and capacity data.</span>
+      <span class="abs"><b>Summary.</b> WindEurope's H1 2026 offshore statistics on European connections and capacity. <span class="miss">Page sits behind a member sign-in (B2C login redirect) — not retrievable this pass; entry noted from the product listing only.</span></span>
+      <span class="dat"><b>Data.</b> WindEurope member statistics on European offshore grid connections — access-gated.</span></li>
+    <li><a href="https://cleanpower.org/resources/us-wind-energy-monitor-q2-2026/">US Wind Energy Monitor Q2 2026</a><span class="src"> · American Clean Power / Wood Mackenzie (2026)</span>
+      <span class="desc">Quarterly US wind market analysis.</span>
+      <span class="abs"><b>Summary.</b> ACP / Wood Mackenzie quarterly (Q2 2026): the US is projected to connect over 50 GW through 2030 (forecast raised 4%); post-FID projects are 58% of greenfield additions to 2028; Q1 turbine orders hit 1.1 GW, fivefold year-on-year.</span>
+      <span class="dat"><b>Data.</b> ACP / Wood Mackenzie US project pipeline and turbine-order tracking.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — criticality frameworks &amp; policy <span class="ct">3</span></h2>
+  <div class="stagesub">Criticality outlooks and renewable-deployment forecasts that place wind's minor mineral footprint in context.</div>
+  <ul class="refs">
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">Global Critical Minerals Outlook 2026</a><span class="src"> · IEA (2026)</span>
+      <span class="desc">Latest annual outlook on minerals demand for clean-energy technologies, including wind.</span>
+      <span class="abs"><b>Summary.</b> IEA Global Critical Minerals Outlook 2026 (July 2026): annual assessment of supply and demand for energy-transition minerals — market, investment and technology trends, supply concentration in mining and refining, and policy implications for resilient, diversified supply chains.</span>
+      <span class="dat"><b>Data.</b> IEA critical-minerals supply-demand scenario modelling (Data Explorer, 37 minerals) — landing page consulted.</span></li>
+    <li><a href="https://www.iea.org/reports/global-critical-minerals-outlook-2025">Global Critical Minerals Outlook 2025</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Prior-year edition, useful for year-over-year comparison.</span>
+      <span class="abs"><b>Summary.</b> IEA Global Critical Minerals Outlook 2025 (May 2025): demand and supply for copper, lithium, nickel, cobalt, graphite and rare earths across STEPS/APS/NZE scenarios, with a focus on mining/refining concentration and diversification policy. The prior-year baseline for comparison.</span>
+      <span class="dat"><b>Data.</b> IEA critical-minerals scenario projections for 37 minerals — landing page consulted.</span></li>
+    <li><a href="https://www.iea.org/reports/renewables-2025">Renewables 2025</a><span class="src"> · IEA (2025)</span>
+      <span class="desc">Market forecasts and capacity additions for wind through 2030.</span>
+      <span class="abs"><b>Summary.</b> IEA Renewables 2025 (Oct 2025), the agency's main annual sector report, forecasting deployment of renewable technologies in electricity, transport and heat through 2030 — the source for wind capacity-addition trajectories used across the atlas's clean-energy chains.</span>
+      <span class="dat"><b>Data.</b> IEA renewable-deployment forecast model (Renewable Energy Progress Tracker) — landing page consulted.</span></li>
+  </ul>
+
+  <h2 class="sec">Across the chain — trade &amp; data <span class="ct">3</span></h2>
+  <div class="stagesub">The datasets the chain's component-trade figures are built from.</div>
+  <ul class="refs">
+    <li><a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI V202601, based on UN Comtrade</a><span class="src"> · CEPII</span>
+      <span class="desc">Harmonized bilateral trade database (HS6, 1995–2024) used for the chain's component-trade extract.</span>
+      <span class="abs"><b>Summary.</b> CEPII database: BACI provides reconciled bilateral trade for ~200 countries across ~5,000 HS6 products, 1995–2024 (release 202601), derived from UN Comtrade by removing CIF freight and reliability-weighting reporter discrepancies. Supplies the wind chain's generating-set and parts trade extract.</span>
+      <span class="dat"><b>Data.</b> UN Comtrade import/export declarations, HS6 bilateral, mirror-reconciled (CIF/FOB, reporter-reliability weighting).</span></li>
+    <li><a href="https://www.iea.org/energy-system/renewables-and-low-emissions-fuels/wind">Wind — energy-system overview</a><span class="src"> · IEA</span>
+      <span class="desc">Wind generation and capacity data, 2015–2024.</span>
+      <span class="abs"><b>Summary.</b> IEA wind energy-system overview: interactive charts (Renewable Energy Progress Tracker) for wind electricity generation, installed capacity and annual net additions, 2015–2024, plus the IEA Wind Energy Systems Technology Collaboration Programme. A data-explorer landing page.</span>
+      <span class="dat"><b>Data.</b> IEA Renewable Energy Progress Tracker series (generation, capacity, additions), 2015–2024.</span></li>
+    <li><a href="https://comtradeplus.un.org/">UN Comtrade Plus</a><span class="src"> · United Nations</span>
+      <span class="desc">Underlying international trade database that feeds BACI.</span>
+      <span class="abs"><b>Summary.</b> United Nations trade-statistics portal: the official source for detailed international merchandise-trade data by reporter, partner, commodity and classification (including HS), which is reconciled downstream into CEPII's BACI. The upstream provenance for the chain's trade figures.</span>
+      <span class="dat"><b>Data.</b> UN member-state customs declarations of merchandise trade (reporter × partner × HS commodity).</span></li>
+  </ul>
+
+  <div class="gaps" id="gaps">
+    <h2>Gaps &amp; good next searches</h2>
+    <ul>
+      <li>The <b>direct-drive-vs-geared split</b> governs the whole rare-earth exposure of wind, yet no public series gives the permanent-magnet (PMSG) share of the installed fleet — the single most useful missing number. Next: "direct-drive share of global wind installations 2020–2025" and OEM drivetrain-mix disclosures.</li>
+      <li>No <b>CSIS, RMI, Rystad Energy or Reuters/Mining.com</b> analysis of China's wind-OEM dominance could be confirmed this session (site fetches returned 403/blocked). Retry: "China wind turbine OEM dominance CSIS analysis" and "Reuters China wind turbine exports 2026".</li>
+      <li><b>Gosens (2014)</b> and <b>Weng et al. (2017)</b> are both paywalled (Elsevier); an open-access equivalent or a press summary on Chinese-OEM market-building and on wind rare-earth LCA would let us reproduce the mechanism, not just cite it.</li>
+      <li><b>IRENA</b>'s wind-energy and critical-materials pages returned 403 on fetch — worth a direct search pass ("IRENA wind energy statistics 2026", "IRENA critical materials renewable energy") to add an independent agency source.</li>
+      <li>No dedicated market-research report (<b>Wood Mackenzie, Rystad</b>) was accessible beyond a paywalled landing page; press summaries of their wind-OEM market-share data would corroborate the ~67% figure.</li>
+    </ul>
+  </div>
+
+  <p class="foot-note">Ordered to follow the value chain from raw material to installed turbine, with cross-cutting frameworks and data grouped at the end. 22 unique public sources. Sourcing rule: public sources only, every link a real destination — nothing fabricated. Abstracts are condensed from each source's own text; where a page could not be retrieved (paywalls / member sign-ins) that is flagged in italics. "Data" states each source's underlying evidence base. Descriptions and abstracts summarise sources; they are not endorsements of their numbers.</p>
+
+</article>
+
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research-support layer built from public aggregate evidence — one reference library per value chain.</div>
+  <div><h4>Related</h4><a href="./wind-chain.html">The wind-turbine chain</a><br><a href="../value-chains.html">All value chains</a><br><a href="../chokepoint-map.html">Chokepoint map</a></div>
+  <div><h4>Principle</h4>A finding is only as good as the source you can check it against.</div>
+  <div class="fineprint">Each chain shows its own sources and confidence tags; this library gathers the wider literature behind them.</div>
+</div></footer>
+
+</body></html>
