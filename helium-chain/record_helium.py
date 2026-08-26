@@ -10,7 +10,7 @@ OUT = os.path.join(HERE, "out", "helium_chain.json")
 SRC = {
     "usgs_helium": {"title": "USGS Mineral Commodity Summaries 2026 — Helium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-helium.pdf"},
     "usgs_helium25": {"title": "USGS Mineral Commodity Summaries 2025 — Helium", "year": 2025, "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-helium.pdf"},
-    "blm": {"title": "US BLM / GAO, Federal Helium Reserve disposal", "year": 2024, "url": "https://www.gao.gov/products/gao-24-106390"},
+    "blm": {"title": "GAO, Federal Helium Program — BLM storage and sale of helium reserves (GAO-15-394)", "year": 2015, "url": "https://www.gao.gov/products/gao-15-394"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 
