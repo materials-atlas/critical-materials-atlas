@@ -20,9 +20,19 @@ BESPOKE = [
 ]
 
 
+def _load_basis():
+    """basis.json explains how each 'estimate' figure was derived and its limits — rendered as a
+    clickable note on every estimate tag. Attached to the map rows so the map page needs no extra fetch."""
+    p = os.path.join(ROOT, "basis.json")
+    if not os.path.exists(p):
+        return {}
+    return {k: v for k, v in json.load(open(p, encoding="utf-8")).items() if not k.startswith("_")}
+
+
 def derive():
     """Read every chain record's chokepoint field (+ the bespoke silicon-chip row) and return the map
     structure. This is the single source of truth; both build() and check.py's guard call it."""
+    basis = _load_basis()
     rows = list(BESPOKE)
     for d in sorted(glob.glob(os.path.join(ROOT, "*-chain"))):
         slug = os.path.basename(d)[:-6]  # strip trailing "-chain"
@@ -36,6 +46,8 @@ def derive():
             continue
         row = {"chain": slug, "href": "%s-chain/%s-chain.html" % (slug, slug)}
         row.update({k: ck.get(k, "—") for k in ("product", "stage", "mechanism", "physics", "holder", "share", "control", "conf")})
+        if row["conf"] == "estimate" and slug in basis:
+            row["basis"] = basis[slug]
         rows.append(row)
     rows.sort(key=lambda r: r["chain"])
     return {"source": "derived from the chain records' chokepoint fields", "count": len(rows), "rows": rows}

@@ -50,6 +50,14 @@
  h2.sec{font-size:1.2rem;color:var(--navy);margin:2.2rem 0 .3rem;border-top:1px solid var(--line);padding-top:1.6rem}
  .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:80ch}
  .note b{color:var(--ink-soft)}
+ /* clickable estimate: the share is not a quoted primary figure — click to see how it was derived + its limits */
+ .sh.est{font:inherit;color:var(--navy);font-weight:600;background:none;border:none;padding:0;cursor:pointer;border-bottom:1px dotted var(--acc);white-space:nowrap}
+ .sh.est sup{font-size:.62rem;color:var(--acc);margin-left:.15em;font-weight:700}
+ .sh.est:hover{color:var(--acc)}
+ .sh.meas{color:var(--ink-soft);white-space:nowrap}
+ .bpop{position:absolute;z-index:50;max-width:340px;background:var(--bg);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:.7rem .8rem;font-size:.82rem;line-height:1.5;color:var(--ink-soft)}
+ .bpop .k{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);margin-bottom:.35rem}
+ .bpop .x{float:right;cursor:pointer;color:var(--mut);font-weight:700;margin:-.2rem -.2rem 0 .4rem;font-size:1rem;line-height:1}
 </style>
 </head><body>
 <header class="topbar"><div class="wrap">
@@ -97,7 +105,7 @@
   <h2 class="sec">What the map is for</h2>
   <p class="note">The mechanism is the decision. A <b>thermodynamic</b> chokepoint (aluminium, magnesium, ferrochrome, steel, ammonia) is a build-a-smelter-at-clean-power problem — capital and energy policy can move it. A <b>by-product</b> (gallium, germanium, indium, helium) can't be willed into existence; you incentivise recovery at existing host refineries and recycle. A <b>built capability</b> (chip fabs, rare-earth separation, battery cells, turbine blades) takes years of funding and qualification but is not fixed by nature. A <b>geological</b> one (phosphate, PGMs, niobium) is the only kind you cannot out-build — there, substitution, recycling and stockpiles are the whole toolkit. <b>Governance</b> (tantalum, tin) is a traceability and sourcing problem; <b>policy</b> (nickel) can reverse in either direction, fast. And the <b>diffuse</b> chains (wind, grids, heat pumps, copper's lead-time) are the switchable-and-cold ones that never strongly concentrated — the rule working in reverse.</p>
 
-  <p class="note" style="margin-top:1rem">A research synthesis of the <a href="value-chains.html">Value Chains</a> layer. Read each chain for its sources, confidence tags and boundaries.</p>
+  <p class="note" style="margin-top:1rem">A research synthesis of the <a href="value-chains.html">Value Chains</a> layer. Read each chain for its sources, confidence tags and boundaries. A <b>share shown with a dotted underline</b> is an <b>estimate</b>, not a figure quoted from a primary source — <b>click it</b> to see how it was derived and its limits. Plain shares are quoted from primary data (mostly USGS).</p>
 </article>
 
 <footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="value-chains.html">All value chains</a><br><a href="reports.html">Reports</a></div><div class="fineprint">A synthesis of the value-chain layer. Read each chain for its evidence.</div></div></footer>
@@ -114,6 +122,33 @@ var MECH = {
 };
 var order=Object.keys(MECH);
 function esc(x){return String(x==null?'':x).replace(/[<>]/g,function(c){return{'<':'&lt;','>':'&gt;'}[c];});}
+// A 'measured' share is quoted from a primary source (USGS). An 'estimate' is not — so it is clickable,
+// opening how it was derived and its limits. KINDLABEL turns the derivation type into plain words.
+var KINDLABEL={computed:"Calculated from primary data",reported:"Reported by an authoritative body",reconciled:"Reconciled central value",assessment:"Our assessment",count:"A count, not a market share"};
+function shareCell(r){
+  if(r.conf==='estimate' && r.basis && String(r.share)!=='—')
+    return '<button class="sh est" data-ch="'+esc(r.chain)+'">'+esc(r.share)+'<sup>&#9432;</sup></button>';
+  return '<span class="sh meas">'+esc(r.share)+'</span>';
+}
+function closePop(){var p=document.querySelector('.bpop');if(p)p.parentNode.removeChild(p);}
+function showBasis(btn){
+  closePop();
+  var r=DATA.filter(function(x){return x.chain===btn.dataset.ch;})[0];
+  if(!r||!r.basis)return;
+  var b=r.basis, pop=document.createElement('div'); pop.className='bpop';
+  pop.innerHTML='<span class="x" role="button" aria-label="close">&times;</span>'+
+    '<span class="k">'+esc(KINDLABEL[b.kind]||'How this was estimated')+'</span>'+esc(b.text);
+  document.body.appendChild(pop);
+  var rc=btn.getBoundingClientRect(), sx=window.pageXOffset, sy=window.pageYOffset;
+  var left=Math.min(rc.left+sx, sx+document.documentElement.clientWidth-pop.offsetWidth-12);
+  pop.style.left=Math.max(sx+8,left)+'px'; pop.style.top=(rc.bottom+sy+6)+'px';
+  pop.querySelector('.x').addEventListener('click',closePop);
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest && e.target.closest('.sh.est');
+  if(b){e.preventDefault();showBasis(b);return;}
+  if(!(e.target.closest && e.target.closest('.bpop')))closePop();
+});
 var KEY={chain:'chain',product:'product',stage:'stage',mech:'mechanism',phys:'physics',holder:'holder',share:'share',control:'control'};
 var DATA=[], active=null, sortK='mech', sortDir=1;
 function render(){
@@ -132,7 +167,7 @@ function render(){
       '<td><span class="why"><span class="dot" style="background:'+m.color+'"></span>'+esc(m.label)+'</span></td>'+
       '<td class="phys">'+esc(r.physics)+'</td>'+
       '<td>'+esc(r.holder)+'</td>'+
-      '<td>'+esc(r.share)+'</td>'+
+      '<td>'+shareCell(r)+'</td>'+
       '<td>'+ctrl+'</td>'+
     '</tr>';
   }).join('');

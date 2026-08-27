@@ -24,7 +24,11 @@
       "holder": "China",
       "share": "~59%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "International Aluminium Institute (IAI): China's share of world primary aluminium smelting, ~59%. Limit: IAI aggregates member and estimated output — it is not a customs or USGS figure, and smelter output is a different position from bauxite mining or alumina refining."
+      }
     },
     {
       "chain": "ammonia",
@@ -48,7 +52,12 @@
       "holder": "China refine",
       "share": "refine",
       "control": "Sep 2024",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "assessment",
+        "text": "Our assessment. USGS quotes only the MINE share (China ~36% of world mine, MCS 2026). The binding stage is trioxide/metal refining, where China's dominance is put at ~75-85% by industry and trade bodies — but no authoritative table isolates a refined-antimony share. Limit: the load-bearing number rests on industry reporting, not one quoted primary row; sources span ~70-85%.",
+        "human_check": true
+      }
     },
     {
       "chain": "arsenic",
@@ -84,7 +93,11 @@
       "holder": "China",
       "share": "~80%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA Global EV Outlook: China's share of world lithium-ion cell assembly, ~80%. Limit: IEA/BNEF figures are largely capacity-based; realised cell-output share differs and moves quickly year to year."
+      }
     },
     {
       "chain": "beryllium",
@@ -108,7 +121,12 @@
       "holder": "China",
       "share": "~85%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reconciled",
+        "text": "Central value. USGS MCS 2026 computes ~88% (China 14,000 / world 16,000 t); several industry sources give 65-80%. The atlas uses ~85% as a midpoint. Limit: bismuth is a by-product with poor statistics — the true share is genuinely uncertain across a ~20-point band.",
+        "human_check": true
+      }
     },
     {
       "chain": "boron",
@@ -120,7 +138,12 @@
       "holder": "Turkey",
       "share": "~73% (co. est.)",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "Eti Maden (Turkey's state boron company) figure: Turkey holds the majority of world borate reserves and production, ~73%. Limit: USGS publishes no world boron reserves total, so this rests on a state-company number rather than an independent primary source.",
+        "human_check": true
+      }
     },
     {
       "chain": "cement",
@@ -156,7 +179,11 @@
       "holder": "China refine",
       "share": "~75%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA / industry: China's share of refined, battery-grade cobalt, ~75% — regardless of where the ore was mined (mining is a separate ~75% DR Congo figure, which IS measured). Limit: the refining share is agency-compiled, not a quoted USGS table row."
+      }
     },
     {
       "chain": "copper",
@@ -216,7 +243,11 @@
       "holder": "South Africa",
       "share": "—",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "assessment",
+        "text": "Qualitative — no single national share. The scale limit for PEM electrolysers is iridium, a trace by-product of South African platinum mining. Limit: this is a materials-scaling constraint, not a country-concentration percentage."
+      }
     },
     {
       "chain": "ev",
@@ -228,7 +259,11 @@
       "holder": "China",
       "share": "~70%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA Global EV Outlook: China assembled ~16M of ~22M electric cars in 2025 (~70%). Limit: this is a production-location share that localises behind tariffs and shifts yearly; assembly is not the real chokepoint (the battery and magnet chains are)."
+      }
     },
     {
       "chain": "fibre-optics",
@@ -276,7 +311,12 @@
       "holder": "China",
       "share": "~60% (est.)",
       "control": "Jul 2023",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "China's share of primary germanium, a by-product of zinc residues and coal fly ash, commonly cited ~60%. Limit: germanium is poorly measured — USGS gives production estimates, not a firm country share, and by-product output is hard to attribute.",
+        "human_check": true
+      }
     },
     {
       "chain": "graphite",
@@ -288,7 +328,11 @@
       "holder": "China",
       "share": "~100%",
       "control": "Dec 2023",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "China's share of spherical / coated anode-grade graphite — the processed step that actually feeds a battery — is ~100%. Limit: this is the anode-precursor stage, not mined flake graphite (~65-70% China); '~100%' is a practical figure, not an exact measured share."
+      }
     },
     {
       "chain": "grid",
@@ -348,7 +392,11 @@
       "holder": "China",
       "share": "most",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA: China does most of the world's lithium-chemical conversion (spodumene/brine to battery-grade), even though mining is diversified (Australia, Chile). 'Most' is roughly 60-70% in sources. Limit: the conversion share is agency-estimated, not USGS-tabulated."
+      }
     },
     {
       "chain": "magnesium",
@@ -360,7 +408,11 @@
       "holder": "China",
       "share": "~87%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "computed",
+        "text": "Computed from the atlas's own BGS/USGS production series: China sat around 85-88% of primary magnesium across 2019-2023, so ~87%. Limit: the reliable public series is short; this point figure is our read of that series, pending a single clean primary quote."
+      }
     },
     {
       "chain": "magnet",
@@ -372,7 +424,11 @@
       "holder": "China",
       "share": "~91%",
       "control": "Apr 2025",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA and Adamas Intelligence: China's share of rare-earth separation and refining — the real magnet chokepoint — is ~91%. Limit: separation share is derived from proprietary industry data; published figures cluster 85-92%."
+      }
     },
     {
       "chain": "manganese",
@@ -384,7 +440,11 @@
       "holder": "China",
       "share": "~90%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "Industry: China's share of high-purity manganese sulphate and electrolytic manganese (the battery-grade step) is ~90%. Limit: mining is diversified (South Africa, Gabon, Australia); the ~90% applies only to the refined battery-grade stage and is industry-compiled."
+      }
     },
     {
       "chain": "medical-isotopes",
@@ -396,7 +456,11 @@
       "holder": "NL · BE · few reactors",
       "share": "~6 reactors",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "count",
+        "text": "OECD-NEA: most of the world's molybdenum-99 (which decays to the imaging isotope Tc-99m) is irradiated in roughly six ageing research reactors. Limit: this is a count of major suppliers, not a market share, and the number shifts as reactors retire or restart."
+      }
     },
     {
       "chain": "molybdenum",
@@ -420,7 +484,12 @@
       "holder": "(was Ukraine)",
       "share": "~half",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "Industry and press reporting: Ukraine supplied roughly half of the world's semiconductor-grade neon before 2022. Limit: neon is not in USGS statistics; the figure is industry-reported and was heavily disrupted by the 2022 war — a moving target, not a stable share.",
+        "human_check": true
+      }
     },
     {
       "chain": "nickel",
@@ -444,7 +513,11 @@
       "holder": "Russia",
       "share": "largest",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "World Nuclear Association / industry: Russia holds the single largest share of world uranium-enrichment (SWU) capacity, roughly 35-45%. Limit: enrichment is a licensed service measured in separative work units, not a mined commodity; 'largest' is a plurality, not a majority."
+      }
     },
     {
       "chain": "pgm-catalyst",
@@ -480,7 +553,11 @@
       "holder": "China",
       "share": "~90% separation",
       "control": "Apr 2025",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "IEA / industry: China's share of rare-earth separation capacity is ~90%. Limit: this is a separation-capacity figure from industry data; the mined share is lower and more diversified (US, Australia, Myanmar)."
+      }
     },
     {
       "chain": "rhenium",
@@ -504,7 +581,11 @@
       "holder": "Japan (resist)",
       "share": "~90%",
       "control": "2019 JP↔KR",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "SEMI / industry: Japan supplies ~90% of the most advanced photoresists. Limit: this applies to leading-edge resist specifically — other inputs (process gases, CMP slurries, EUV pellicles) have their own, different concentrations."
+      }
     },
     {
       "chain": "silicon-chip",
@@ -540,7 +621,11 @@
       "holder": "China",
       "share": "~95%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "BNEF / IEA: China's share of polysilicon and wafer manufacturing is ~95% at the wafer step. Limit: wafer is the most concentrated stage; cell and module are somewhat less concentrated, and the figures are capacity-based and industry-compiled."
+      }
     },
     {
       "chain": "steel",
@@ -552,7 +637,11 @@
       "holder": "China smelt",
       "share": "~54%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "worldsteel: China's share of world crude-steel production is ~54%. Limit: this is a crude-volume share — the real chokepoint is coking coal and energy, and downstream alloy / specialty steel is far more diversified."
+      }
     },
     {
       "chain": "steel-alloys",
@@ -624,7 +713,11 @@
       "holder": "CN · ID · Myanmar",
       "share": "~half",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "USGS end-use + International Tin Association: about half of tin demand is solder, and supply is concentrated in China / Indonesia and conflict-linked (Myanmar's Wa State). Limit: '~half' is a use-share, not a concentration share; the governance chokepoint is the ore feed, which no single percentage captures."
+      }
     },
     {
       "chain": "titanium",
@@ -672,7 +765,11 @@
       "holder": "China OEM",
       "share": "~67%",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "reported",
+        "text": "GWEC: China-headquartered OEMs supplied about two-thirds of new turbines in 2025 (~67%). Limit: this is a supplier-unit share; most turbines are built and sold near where they operate, so it is corporate concentration, not a materials chokepoint."
+      }
     },
     {
       "chain": "zinc",
@@ -684,7 +781,11 @@
       "holder": "China",
       "share": "~half",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "computed",
+        "text": "From USGS smelter-production figures: China does roughly half of world zinc smelting — which matters because gallium, germanium, indium and cadmium are recovered there. Limit: '~half' rounds the USGS smelter series; what actually gates the minor metals is the by-product recovery share, which is not separately published."
+      }
     },
     {
       "chain": "zirconium",
@@ -696,7 +797,11 @@
       "holder": "FR · US · RU · CN",
       "share": "few",
       "control": "—",
-      "conf": "estimate"
+      "conf": "estimate",
+      "basis": {
+        "kind": "assessment",
+        "text": "Our assessment. Nuclear-grade (hafnium-free) zirconium sponge and cladding is a qualified capability held by a few producers (France, US, Russia, China). Limit: this is a capability count, not a market share — there is no clean public tonnage split."
+      }
     }
   ]
 }

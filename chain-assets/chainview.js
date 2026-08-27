@@ -8,6 +8,20 @@
   function esc(s) { return String(s == null ? '' : s).replace(/[<>]/g, function (c) { return { '<': '&lt;', '>': '&gt;' }[c]; }); }
   function money(v) { return v >= 1e9 ? '$' + (v / 1e9).toFixed(1) + 'B' : v >= 1e6 ? '$' + (v / 1e6).toFixed(1) + 'M' : '$' + Math.round(v / 1e3) + 'k'; }
   function conf(c) { return c ? ' <span class="conf ' + esc(c) + '" title="evidence type">' + esc(c) + '</span>' : ''; }
+  // An 'estimate' is not a figure quoted from a primary source. basis.json says how it was derived and
+  // its limits; these render it as a click-to-open note so the reader can see exactly what stands behind it.
+  var KINDLABEL = { computed: 'Calculated from primary data', reported: 'Reported by an authoritative body', reconciled: 'Reconciled central value', assessment: 'Our assessment', count: 'A count, not a market share' };
+  function closeBasisPop() { var p = document.querySelector('.bpop'); if (p) p.parentNode.removeChild(p); }
+  function showBasisPop(anchor, b) {
+    closeBasisPop();
+    var pop = document.createElement('div'); pop.className = 'bpop';
+    pop.innerHTML = '<span class="x" role="button" aria-label="close">&times;</span><span class="k">' + esc(KINDLABEL[b.kind] || 'How this was estimated') + '</span>' + esc(b.text);
+    document.body.appendChild(pop);
+    var rc = anchor.getBoundingClientRect(), sx = window.pageXOffset, sy = window.pageYOffset;
+    var left = Math.min(rc.left + sx, sx + document.documentElement.clientWidth - pop.offsetWidth - 12);
+    pop.style.left = Math.max(sx + 8, left) + 'px'; pop.style.top = (rc.bottom + sy + 6) + 'px';
+    pop.querySelector('.x').addEventListener('click', closeBasisPop);
+  }
   function barsHTML(rows, max) {
     var m = max || Math.max.apply(null, rows.map(function (r) { return r.value || 0; })) || 1;
     return '<div class="bars">' + rows.map(function (r) {
@@ -109,5 +123,27 @@
     if (cl) cl.innerHTML = 'Confidence: <span class="conf measured">measured</span> reported figure · <span class="conf estimate">estimate</span> published estimate · <span class="conf snapshot">snapshot</span> single-year, no long series · <span class="conf proxy">proxy</span> mixed/indirect.';
     if (T && T.years && T.years.length && T.codes) { var ts = document.getElementById('trade-slider'); ts.max = T.years.length - 1; ts.value = T.years.length - 1; ts.oninput = function () { tradeRow(T, +ts.value); }; tradeRow(T, +ts.value); }
     else { document.getElementById('trade-body').innerHTML = '<tr><td colspan="4" class="note">Trade JSON not built yet — run the chain’s extract_baci.py.</td></tr>'; }
+    // Clickable estimate: if this chain's chokepoint is an estimate, load its basis and make every
+    // 'estimate' tag on the page open how it was derived + its limits.
+    fetch('../basis.json').then(function (r) { return r.ok ? r.json() : null; }).then(function (B) {
+      if (!B) return;
+      var parts = location.pathname.split('/').filter(Boolean);
+      var folder = parts[parts.length - 2] || '';
+      var b = B[folder.replace(/-chain$/, '')];
+      if (!b) return;
+      [].forEach.call(document.querySelectorAll('.conf.estimate'), function (t) {
+        t.classList.add('clickable'); t.setAttribute('title', 'how this estimate was derived — click');
+        t.addEventListener('click', function (e) { e.stopPropagation(); showBasisPop(t, b); });
+      });
+      var cor = document.getElementById('correction');
+      if (cor && D.chokepoint && D.chokepoint.conf === 'estimate') {
+        cor.insertAdjacentHTML('beforeend', ' <button class="basislink">How this estimate was derived, and its limits</button>');
+        var bl = cor.querySelector('.basislink');
+        bl.addEventListener('click', function (e) { e.stopPropagation(); showBasisPop(bl, b); });
+      }
+      var lg = document.getElementById('conflegend');
+      if (lg) lg.insertAdjacentHTML('beforeend', ' <span class="note">— an <b>estimate</b> tag is clickable: it opens how the figure was derived and its limits.</span>');
+    }).catch(function () { });
+    document.addEventListener('click', function (e) { if (!(e.target.closest && (e.target.closest('.bpop') || e.target.closest('.conf.estimate') || e.target.closest('.basislink')))) closeBasisPop(); });
   }).catch(function (err) { document.querySelector('article').insertAdjacentHTML('afterbegin', '<div class="callout hot"><b>Evidence JSON did not load.</b> Serve the repository over HTTP.</div>'); console.error(err); });
 })();

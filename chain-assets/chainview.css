@@ -33,4 +33,13 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:.45rem .
 .conf.snapshot{color:#4a5a7a;border-color:#c9d3e6;background:#eef2fa}
 .conf.proxy{color:#8a3b3b;border-color:#e2cccc;background:#f7ecec}
 .conflegend{font-size:.72rem;color:var(--faint);margin:.4rem 0 0}
+/* an estimate tag with a basis note is clickable */
+.conf.estimate.clickable{cursor:pointer}
+.conf.estimate.clickable::after{content:"\24D8";margin-left:.22em;font-size:.9em}
+.conf.estimate.clickable:hover{background:#f6e6c4}
+.basislink{font:inherit;font-size:.82rem;font-weight:700;color:var(--acc);background:none;border:none;border-bottom:1px dotted var(--acc);padding:0;margin-left:.35em;cursor:pointer}
+.basislink:hover{opacity:.8}
+.bpop{position:absolute;z-index:60;max-width:340px;background:var(--bg);border:1px solid var(--line);border-radius:10px;box-shadow:0 8px 28px rgba(0,0,0,.18);padding:.7rem .8rem;font-size:.82rem;line-height:1.5;color:var(--ink,#243b4a)}
+.bpop .k{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--acc);margin-bottom:.35rem}
+.bpop .x{float:right;cursor:pointer;color:var(--mut);font-weight:700;margin:-.2rem -.2rem 0 .4rem;font-size:1rem;line-height:1}
 @media(max-width:560px){.barrow{grid-template-columns:8rem 1fr 3.5rem}}

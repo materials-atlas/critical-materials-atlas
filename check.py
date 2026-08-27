@@ -300,10 +300,39 @@ def check_ledger():
                                f"quoted source row that supports it, or demote the chokepoint conf to 'estimate'")
 
 
+def check_basis():
+    """The other half of the ledger guard, aimed at the 'estimate' set. An estimate is not a quoted
+    primary figure, so on the site it is clickable and must open how it was derived and its limits —
+    basis.json. Fail if any estimate with a QUANTITATIVE share (digit or word-quantifier) has no basis
+    entry, so 'estimate' can never mean an unexplained number. Also range-check every percentage share
+    (measured or estimate): a share written as N% must be 0-100 — a typo'd 610% can't reach the page."""
+    mp, bp = os.path.join(ROOT, 'chokepoint_map.json'), os.path.join(ROOT, 'basis.json')
+    if not os.path.exists(mp):
+        return
+    try:
+        rows = json.load(open(mp, encoding='utf8')).get('rows', [])
+        B = {k: v for k, v in json.load(open(bp, encoding='utf8')).items() if not k.startswith('_')} if os.path.exists(bp) else {}
+    except Exception as e:
+        fail('basis', f'map or basis unreadable: {e}'); return
+    quant = re.compile(r'\d|~half|\bhalf\b|\bmost\b|\bmajority\b|\blargest\b|~all|\bfew\b')
+    for r in rows:
+        share = r.get('share', '')
+        if r.get('conf') == 'estimate' and quant.search(share.lower()):
+            b = B.get(r['chain'])
+            if not b or not (b.get('text') or '').strip():
+                fail('basis', f"{r['chain']} chokepoint is an estimate with a quantitative share ({share}) but has "
+                              f"NO basis.json entry — add one saying how it was derived and its limits (it renders as "
+                              f"the clickable note behind the estimate)")
+        for pct in re.findall(r'(\d+(?:\.\d+)?)\s*%', share):
+            if not (0 <= float(pct) <= 100):
+                fail('basis', f"{r['chain']} share {share!r} has a percentage outside 0-100 — check for a typo")
+
+
 # ---------------------------------------------------------------- run
 CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
-          ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger)]
+          ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
+          ('basis', check_basis)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
