@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Rare earths (full basket) chain",
-    "chokepoint": {"product": "Magnets · phosphors · catalysts · polishing", "stage": "Separation", "mechanism": "capability", "physics": "Separating 15+ chemically-alike elements is a vast solvent-extraction industrial base — ~90% China, gating the whole basket, not just magnets", "holder": "China", "share": "~90% separation", "control": "Apr 2025", "conf": "measured"},
+    "chokepoint": {"product": "Magnets · phosphors · catalysts · polishing", "stage": "Separation", "mechanism": "capability", "physics": "Separating 15+ chemically-alike elements is a vast solvent-extraction industrial base — ~90% China, gating the whole basket, not just magnets", "holder": "China", "share": "~90% separation", "control": "Apr 2025", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../boron-chain/boron-chain.html", "label": "Boron chain"}],
     "accent": "#8a4a6a",

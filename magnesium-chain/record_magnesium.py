@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Magnesium chain",
-    "chokepoint": {"product": "Aluminium alloys", "stage": "Reduction", "mechanism": "thermodynamic", "physics": "Coal-fired Pidgeon retorts, energy-sited in one Chinese province", "holder": "China", "share": "~87%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Aluminium alloys", "stage": "Reduction", "mechanism": "thermodynamic", "physics": "Coal-fired Pidgeon retorts, energy-sited in one Chinese province", "holder": "China", "share": "~87%", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
     "accent": "#8a7a5a",

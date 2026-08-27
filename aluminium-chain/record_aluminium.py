@@ -21,7 +21,7 @@ SRC = {
 
 CHAIN = {
     "title": "Aluminium chain",
-    "chokepoint": {"product": "Aluminium metal", "stage": "Smelting", "mechanism": "thermodynamic", "physics": "Hall–Héroult runs non-stop; a potline freezes solid if power drops — one big unit at cheap power", "holder": "China", "share": "~59%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Aluminium metal", "stage": "Smelting", "mechanism": "thermodynamic", "physics": "Hall–Héroult runs non-stop; a potline freezes solid if power drops — one big unit at cheap power", "holder": "China", "share": "~59%", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../magnesium-chain/magnesium-chain.html", "label": "Magnesium chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}],
     "accent": "#5f7180",

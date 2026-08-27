@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Semiconductor-inputs chain",
-    "chokepoint": {"product": "Chip fabrication", "stage": "Photoresist + process chemicals", "mechanism": "capability", "physics": "Advanced photoresist is ~90% Japan; process gases, CMP slurries and EUV pellicles are each held by a few qualified suppliers", "holder": "Japan (resist)", "share": "~90%", "control": "2019 JP↔KR", "conf": "measured"},
+    "chokepoint": {"product": "Chip fabrication", "stage": "Photoresist + process chemicals", "mechanism": "capability", "physics": "Advanced photoresist is ~90% Japan; process gases, CMP slurries and EUV pellicles are each held by a few qualified suppliers", "holder": "Japan (resist)", "share": "~90%", "control": "2019 JP↔KR", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon → chips chain"}, {"href": "../neon-chain/neon-chain.html", "label": "Neon / specialty-gas chain"}, {"href": "../fluorine-chain/fluorine-chain.html", "label": "Fluorine chain"}],
     "accent": "#4a5a8a",

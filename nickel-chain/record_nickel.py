@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Nickel chain",
-    "chokepoint": {"product": "Stainless + battery Ni", "stage": "Smelting", "mechanism": "policy", "physics": "Indonesia's raw-ore export BAN forced (China-financed) domestic smelting — built by a rule", "holder": "Indonesia · China", "share": "~61%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Stainless + battery Ni", "stage": "Smelting", "mechanism": "policy", "physics": "Indonesia's raw-ore export BAN forced (China-financed) domestic smelting — built by a rule", "holder": "Indonesia · China", "share": "~67%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
     "accent": "#4a7a5a",
@@ -40,7 +40,7 @@ CHAIN = {
                   "share leapt to ~60%, and it now dominates both stainless-grade (class 2) and, via HPAL, battery-grade "
                   "(class 1) nickel — a concentration created by a rule, not a deposit.",
     "stats": [
-        {"v": "8 → 61%", "l": "Indonesia's share of world nickel mine output, 2000 → 2024", "conf": "measured"},
+        {"v": "8 → 67%", "l": "Indonesia's share of world nickel mine output, 2000 → 2024", "conf": "measured"},
         {"v": "export ban", "l": "Indonesia's 2020 raw-ore export ban forced domestic smelting", "conf": "measured"},
         {"v": "class 1 vs 2", "l": "battery-grade (class 1) vs stainless-grade (class 2) — different products", "conf": "measured"},
         {"v": "China-financed", "l": "the new Indonesian smelters are largely Chinese-built and -owned", "conf": "measured"},
@@ -49,7 +49,7 @@ CHAIN = {
         "title": "A chokepoint built by policy: Indonesia's nickel share, 2000 → 2024",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. Indonesia went from ~8% of world nickel mining to "
-                "~61%, while Russia, Canada and Australia shrank in relative terms and the Philippines held second "
+                "~67%, while Russia, Canada and Australia shrank in relative terms and the Philippines held second "
                 "place. The inflection follows Indonesia's ore-export restrictions — a rare, vivid example of "
                 "geography being remade by a policy rather than by geology.",
         "series": [
@@ -66,7 +66,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · A map redrawn by a rule", "panels": [
-            {"kind": "big", "h3": "Indonesia's leap", "big": "8 → 61%", "conf": "measured",
+            {"kind": "big", "h3": "Indonesia's leap", "big": "8 → 67%", "conf": "measured",
              "text": "Indonesia banned exports of unprocessed nickel ore to capture more value at home. Miners and "
                      "(mostly Chinese) investors responded by building a wave of smelters, and Indonesian mine output "
                      "and processing surged. In roughly a decade the country went from marginal to dominant — a "
@@ -102,7 +102,7 @@ CHAIN = {
                    "lines only partly capture. Read the shares below as the traded metal forms, not the mine or "
                    "smelter map, which the export ban deliberately reshaped.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "Indonesia ~61%, built by the export ban"},
+        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "Indonesia ~67%, built by the export ban"},
         {"stage": "Smelt", "lens": "RKEF vs HPAL; class 1 vs 2", "why": "the processing split that gates batteries vs stainless"},
         {"stage": "Control", "lens": "Indonesian resource + Chinese capacity", "why": "a two-keyholder chokepoint"},
         {"stage": "Trade", "lens": "BACI 260400 ore + 750210 nickel", "why": "ore barely trades post-ban — flagged context"},

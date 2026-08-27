@@ -120,17 +120,17 @@
     "supports": true
   },
   "nickel": {
-    "claim": "Indonesia ~61% of world nickel mine production",
+    "claim": "Indonesia ~67% of world nickel mine production",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Nickel",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-nickel.pdf",
-    "quoted_row": "Indonesia 2,030,000 2,200,000 55,000,000 | World total (rounded) 3,750,000 3,700,000 >130,000,000",
-    "computed": "2,200,000/3,700,000 = 59.5% ~ 60% (atlas ~61%, within rounding)",
+    "source": "USGS MCS 2026 — Nickel",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+    "quoted_row": "Indonesia 2,600,000 (2025) | World total (rounded) 3,900,000 (MCS 2026)",
+    "computed": "2,600,000/3,900,000 = 66.7% -> ~67% (2025). Was ~61% off MCS2025 (stale) -> corrected to latest edition.",
     "supports": true
   },
   "cobalt": {
     "claim": "China refining ~75% (chokepoint); DRC mine 76%",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "USGS MCS 2025 — Cobalt (mine); refining share is industry/IEA",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cobalt.pdf",
     "quoted_row": "Congo (Kinshasa) 226,000 230,000 6,000,000 | Indonesia 35,000 44,000; 'DRC ~73% of world total, Indonesia 14%' (MCS 2026)",
@@ -157,7 +157,7 @@
   },
   "manganese": {
     "claim": "China ~90% of battery-grade manganese (sulphate/EMM) — processing, not mine",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "USGS MCS 2025 (mine, diversified); battery-grade share is industry/IEA",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-manganese.pdf",
     "quoted_row": "China 767 770 280,000 | South Africa 7,300 7,400 560,000 | World total 19,600 20,000 1,700,000",
@@ -166,7 +166,7 @@
   },
   "magnesium": {
     "claim": "China ~87% of world magnesium-metal production",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "USGS MCS 2025 — Magnesium Metal",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-magnesium-metal.pdf",
     "quoted_row": "China [footnote-garbled row] ... 950 | World total (rounded) 900 1,000 2,100",
@@ -193,7 +193,7 @@
   },
   "graphite": {
     "claim": "China ~100% of spherical/coated anode-grade graphite",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "Benchmark Mineral Intelligence / IEA (industry — NOT a USGS-style quoted table row)",
     "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
     "quoted_row": "(industry figure — not a quoted USGS row; IEA/Benchmark: China ~100% of spherical-graphite anode processing)",
@@ -202,7 +202,7 @@
   },
   "solar": {
     "claim": "China ~95% of solar-PV manufacturing (polysilicon/wafer/cell)",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "IEA (industry — NOT a USGS-style quoted table row)",
     "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
     "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China >95% of wafers, ~95% of cells)",
@@ -211,7 +211,7 @@
   },
   "rare-earths": {
     "claim": "China ~90% of rare-earth separation/refining",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "IEA / USGS commentary (industry — NOT a USGS-style quoted table row)",
     "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
     "quoted_row": "(IEA/USGS: China ~90% of REE processing/separation; USGS mine China ~69% is a different stage)",
@@ -220,7 +220,7 @@
   },
   "magnet": {
     "claim": "China ~91% of NdFeB permanent-magnet production",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "IEA / Adamas Intelligence (industry — NOT a USGS-style quoted table row)",
     "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
     "quoted_row": "(IEA/Adamas: China ~90-92% of NdFeB magnet manufacturing)",
@@ -229,7 +229,7 @@
   },
   "battery": {
     "claim": "China ~80% of lithium-ion cell manufacturing",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "IEA (industry — NOT a USGS-style quoted table row)",
     "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
     "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China ~75-85% of cell manufacturing capacity)",
@@ -238,7 +238,7 @@
   },
   "semiconductor-inputs": {
     "claim": "Japan ~90% of advanced photoresist",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "SEMI / industry reporting (NOT a USGS-style quoted table row)",
     "url": "https://www.semi.org/en/products-services/market-data/materials",
     "quoted_row": "(industry figure — not a quoted row; Japan ~90% of advanced EUV/ArF photoresist)",
@@ -247,7 +247,7 @@
   },
   "steel": {
     "claim": "China ~54% of world crude-steel production",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "World Steel Association (NOT a USGS-style quoted table row)",
     "url": "https://worldsteel.org/data/",
     "quoted_row": "(worldsteel: China ~54% of world crude steel, ~1,000 of ~1,850 Mt)",
@@ -256,7 +256,7 @@
   },
   "aluminium": {
     "claim": "China ~59% of world primary aluminium smelting",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "International Aluminium Institute (NOT a USGS-style quoted table row)",
     "url": "https://international-aluminium.org/statistics/primary-aluminium-production/",
     "quoted_row": "(IAI: China ~59% of world primary aluminium)",
@@ -265,11 +265,11 @@
   },
   "medical-isotopes": {
     "claim": "~6 ageing research reactors supply most Mo-99/Tc-99m",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "OECD-NEA HLG-MR (NOT a USGS-style quoted table row)",
     "url": "https://www.oecd-nea.org/med-radio/",
     "quoted_row": "(OECD-NEA: ~6 ageing research reactors — HFR, BR2, Maria, SAFARI, OPAL, LVR-15 — supply most Mo-99)",
     "computed": "documented fragility fact, not a market %; ~6 reactors, 66h half-life so no stockpile",
-    "supports": "per OECD-NEA, a documented fact"
+    "supports": false
   }
 }

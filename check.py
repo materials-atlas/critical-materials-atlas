@@ -281,12 +281,19 @@ def check_ledger():
         rows = json.load(open(mp, encoding='utf8')).get('rows', [])
     except Exception as e:
         fail('ledger', f'ledger or map unreadable: {e}'); return
-    have = {k for k in L if not k.startswith('_')}
     for r in rows:
         if r.get('conf') == 'measured' and re.search(r'\d', r.get('share', '')):
-            if r['chain'] not in have:
+            e = L.get(r['chain'])
+            if not e:
                 fail('ledger', f"{r['chain']} chokepoint is measured with a numeric share ({r['share']}) "
                                f"but has NO source_ledger.json entry — add one with its quoted source row")
+            elif e.get('supports') is not True:
+                # A 'measured' figure must be genuinely supported by its quoted row — not 'pending'
+                # or an industry figure that is 'not a quoted row'. (The Auditor's boron-class-2 hole:
+                # manganese/cobalt passed green while their own quoted_row contradicted the share.)
+                fail('ledger', f"{r['chain']} chokepoint is 'measured' with a numeric share ({r['share']}) but its "
+                               f"ledger entry is NOT fully supported (supports={e.get('supports')!r}) — either supply a "
+                               f"quoted source row that supports it, or demote the chokepoint conf to 'estimate'")
 
 
 # ---------------------------------------------------------------- run
