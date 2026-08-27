@@ -57,12 +57,12 @@
     "supports": true
   },
   "gallium": {
-    "claim": "China ~98% of world primary (low-purity) gallium production",
+    "claim": "China ~99% of world primary low-purity gallium",
     "conf": "measured",
-    "source": "USGS MCS 2025 — Gallium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-gallium.pdf",
-    "quoted_row": "'China accounted for 99% of worldwide primary low-purity gallium production.'",
-    "computed": "USGS says 99%; atlas ~98% is within rounding",
+    "source": "USGS MCS 2026 — Gallium",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+    "quoted_row": "'China accounted for 99% of worldwide primary low-purity gallium production.' + table China 839,000/848,000 (2024) = 98.9%; 900,000/900,000 (2025e).",
+    "computed": "USGS states 99% verbatim (primary low-purity). Was ~98% (that is the REFINED figure); the atlas chokepoint is labelled primary low-purity, so 99% is correct.",
     "supports": true
   },
   "bismuth": {
@@ -188,7 +188,7 @@
     "source": "USGS MCS 2026 — Tantalum",
     "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
     "quoted_row": "Congo (Kinshasa) 1,270 1,300 | Rwanda 374 400 | World total (rounded) 2,500 2,500",
-    "computed": "(1,300+400)/2,500 = 68% (2025); atlas ~70% within rounding",
+    "computed": "DRC 1,300 + Rwanda 400 = 1,700 / world 2,500 = 68% (MCS 2026). Was ~70% (2pp round-up); tightened to ~68%.",
     "supports": true
   },
   "graphite": {

@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tantalum / capacitor chain",
-    "chokepoint": {"product": "Capacitors", "stage": "Mine (3TG)", "mechanism": "governance", "physics": "~70% from DRC/Rwanda artisanal mining — a conflict-mineral supply, not a unique deposit", "holder": "DRC · Rwanda", "share": "~70%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Capacitors", "stage": "Mine (3TG)", "mechanism": "governance", "physics": "~68% from DRC/Rwanda artisanal mining — a conflict-mineral supply, not a unique deposit", "holder": "DRC · Rwanda", "share": "~68%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#6a5a4a",
@@ -33,14 +33,14 @@ CHAIN = {
             "weapons. About two-thirds of it is mined in Central Africa — the Democratic Republic of the Congo and "
             "Rwanda — which makes it a '3TG' conflict mineral, while the powder and capacitor processing concentrate "
             "elsewhere.",
-    "byline": "coltan (~70% DRC + Rwanda) ≠ tantalum powder (processing) ≠ the capacitor ≠ the device",
+    "byline": "coltan (~68% DRC + Rwanda) ≠ tantalum powder (processing) ≠ the capacitor ≠ the device",
     "correction": "Tantalum is a small-volume metal with an outsized reach: its capacitors sit in almost every "
                   "high-reliability electronic device, and there is no clean substitute for their size-to-performance. "
-                  "The exposure is twofold — the mine is ~70% in the DR Congo and Rwanda, so tantalum carries "
+                  "The exposure is twofold — the mine is ~68% in the DR Congo and Rwanda, so tantalum carries "
                   "conflict-mineral due-diligence obligations, and the downstream powder and capacitor making are "
                   "concentrated in a few processors, led by China.",
     "stats": [
-        {"v": "~70%", "l": "of tantalum mined in the DR Congo and Rwanda (Central Africa)", "conf": "measured"},
+        {"v": "~68%", "l": "of tantalum mined in the DR Congo and Rwanda (Central Africa)", "conf": "measured"},
         {"v": "capacitors", "l": "the dominant use — tantalum capacitors in high-reliability electronics", "conf": "measured"},
         {"v": "3TG", "l": "a conflict mineral (tin, tantalum, tungsten, gold) with due-diligence rules", "conf": "measured"},
         {"v": "no easy sub", "l": "unmatched volumetric efficiency in a tiny, stable capacitor", "conf": "estimate"},
@@ -49,7 +49,7 @@ CHAIN = {
         "title": "The mine sits in Central Africa, 2019 → 2023",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data (the reliable public series is short, 2019–2023). "
-                "The DR Congo and Rwanda together mine roughly 70% of the world's tantalum, with Brazil the main "
+                "The DR Congo and Rwanda together mine roughly 68% of the world's tantalum, with Brazil the main "
                 "outside source. This is one of the atlas's mine-side chokepoints — but a governance one (artisanal, "
                 "conflict-linked), not a pure geological monopoly.",
         "series": [
@@ -59,15 +59,15 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Coltan / mine", "t": "columbite-tantalite ore — ~70% DR Congo and Rwanda, much of it artisanal"},
+        {"n": "1 · Coltan / mine", "t": "columbite-tantalite ore — ~68% DR Congo and Rwanda, much of it artisanal"},
         {"n": "2 · Process", "t": "concentrate refined to tantalum oxide, then metal — a few processors, China-led"},
         {"n": "3 · Powder & wire", "t": "high-purity tantalum powder and wire — the capacitor feedstock"},
         {"n": "4 · Capacitor / device", "t": "tantalum capacitors in phones, cars, aircraft, implants and defence"},
     ],
     "sections": [
         {"h2": "1 · The mine is a conflict-mineral chokepoint", "panels": [
-            {"kind": "big", "h3": "Where it comes out of the ground", "big": "~70% Central Africa", "conf": "measured",
-             "text": "The DR Congo and Rwanda together supply roughly 70% of mined tantalum, much of it from artisanal "
+            {"kind": "big", "h3": "Where it comes out of the ground", "big": "~68% Central Africa", "conf": "measured",
+             "text": "The DR Congo and Rwanda together supply roughly 68% of mined tantalum, much of it from artisanal "
                      "and small-scale mining. Because that mining has funded armed groups in the Great Lakes region, "
                      "tantalum is one of the four '3TG' minerals subject to conflict-mineral due-diligence laws — the "
                      "same regime that governs the tin in the solder next to it (see the tin chain).",
@@ -102,7 +102,7 @@ CHAIN = {
                    "tantalum inside finished electronics. Read the shares below as the raw and semi-processed forms, "
                    "not the conflict-mineral origin, which traceability schemes — not customs — track.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~70% DR Congo + Rwanda — a governance chokepoint"},
+        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~68% DR Congo + Rwanda — a governance chokepoint"},
         {"stage": "Process", "lens": "powder/capacitor processing", "why": "concentrated downstream, China-led"},
         {"stage": "Due diligence", "lens": "3TG / OECD guidance", "why": "responsible supply is the binding constraint"},
         {"stage": "Trade", "lens": "BACI 261590 ore + 810320 tantalum", "why": "shared ore line; capacitor grade not separable — flagged"},
