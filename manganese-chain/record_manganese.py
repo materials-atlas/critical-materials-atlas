@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Manganese chain",
-    "chokepoint": {"product": "Battery manganese", "stage": "Sulphate / EMM", "mechanism": "capability", "physics": "High-purity manganese sulphate + electrolytic metal — ~90% China", "holder": "China", "share": "~90%", "control": "—", "conf": "estimate"},
+    "chokepoint": {"product": "Battery manganese", "stage": "Sulphate / EMM", "mechanism": "capability", "physics": "High-purity manganese sulphate + electrolytic metal — ~95% China", "holder": "China", "share": "~95%", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
     "accent": "#7a4a4a",
@@ -42,7 +42,7 @@ CHAIN = {
     "stats": [
         {"v": "~90%", "l": "of manganese goes into steel — with no substitute in steelmaking", "conf": "measured"},
         {"v": "ZA · GA · AU", "l": "the mine is diversified: South Africa, Gabon, Australia lead", "conf": "measured"},
-        {"v": "~90% China", "l": "electrolytic manganese metal and battery-grade sulphate refining", "conf": "estimate"},
+        {"v": "~95% China", "l": "electrolytic manganese metal and battery-grade sulphate refining", "conf": "estimate"},
         {"v": "batteries", "l": "high-purity manganese sulphate for NMC and rising LMFP cathodes", "conf": "estimate"},
     ],
     "history": {
@@ -80,7 +80,7 @@ CHAIN = {
              "flag": "essential ≠ concentrated"},
         ]},
         {"h2": "2 · For batteries, the refining is China", "panels": [
-            {"kind": "big", "h3": "The battery-grade chokepoint", "big": "~90% China", "conf": "estimate",
+            {"kind": "big", "h3": "The battery-grade chokepoint", "big": "~95% China", "conf": "estimate",
              "text": "Batteries do not use ore or steel-grade ferroalloy; they need high-purity manganese sulphate, and "
                      "electrolytic manganese metal (EMM) is the usual route to it. Both are made overwhelmingly in "
                      "China. So as manganese-rich cathodes (NMC, and cheaper high-manganese LMFP) grow, the battery "
@@ -108,7 +108,7 @@ CHAIN = {
                    "refining, which trade data does not isolate.",
     "method": [
         {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "diversified (South Africa, Gabon, Australia) — low risk"},
-        {"stage": "Refine", "lens": "EMM + high-purity sulphate", "why": "~90% China — the battery-grade chokepoint"},
+        {"stage": "Refine", "lens": "EMM + high-purity sulphate", "why": "~95% China — the battery-grade chokepoint"},
         {"stage": "Use", "lens": "steel vs battery grade", "why": "~90% steel (irreplaceable); rising battery slice"},
         {"stage": "Trade", "lens": "BACI 260200 ore + 720211 ferro-manganese", "why": "ore/alloy only; battery grade not separable — flagged"},
     ],

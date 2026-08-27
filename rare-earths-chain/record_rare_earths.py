@@ -33,7 +33,7 @@ CHAIN = {
                   "single capability gates every rare-earth product at once: magnets, the red and green phosphors in "
                   "displays and lamps, cerium glass-polishing powder, and the lanthanum catalysts that crack crude oil.",
     "stats": [
-        {"v": "~90% separation", "l": "China's share of rare-earth separation — the real chokepoint", "conf": "measured"},
+        {"v": "~90% separation", "l": "China's share of rare-earth separation — the real chokepoint", "conf": "estimate"},
         {"v": "not rare", "l": "the 17 elements are common in the crust but occur mixed together", "conf": "measured"},
         {"v": "the whole basket", "l": "magnets, phosphors, polishing and refining catalysts — all gated by separation", "conf": "measured"},
         {"v": "Apr 2025", "l": "China placed several medium and heavy rare earths under export licensing", "conf": "measured"},
@@ -46,7 +46,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · The chokepoint is separation, not mining", "panels": [
-            {"kind": "big", "h3": "Where the basket is gated", "big": "~90% China", "conf": "measured",
+            {"kind": "big", "h3": "Where the basket is gated", "big": "~90% China", "conf": "estimate",
              "text": "Rare earths come out of the ground as a mixture, and because the elements are chemically alike, "
                      "pulling them apart into pure single-element oxides needs long solvent-extraction cascades, large "
                      "reagent flows and the environmental permitting that comes with them. That industrial base sits "
