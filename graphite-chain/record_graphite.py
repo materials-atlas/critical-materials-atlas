@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Graphite / battery-anode chain",
-    "chokepoint": {"product": "Battery anode", "stage": "Spherical anode", "mechanism": "capability", "physics": "Spheronising + purifying + coating flake into anode — ~100% China", "holder": "China", "share": "~100%", "control": "Dec 2023", "conf": "estimate"},
+    "chokepoint": {"product": "Battery anode", "stage": "Spherical anode", "mechanism": "capability", "physics": "Spheronising + purifying + coating flake into anode — ~95% China", "holder": "China", "share": "~95%", "control": "Dec 2023", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}],
     "accent": "#4a4a4a",
@@ -33,15 +33,15 @@ CHAIN = {
             "mines about three-quarters of natural graphite — and turns nearly all of it, plus synthetic graphite, "
             "into the spherical, coated anode powder cells actually need. In December 2023 it put that step under "
             "export licensing.",
-    "byline": "flake graphite (~74% CN) ≠ spherical/purified anode graphite (~100% CN) ≠ the anode ≠ the cell",
+    "byline": "flake graphite (~74% CN) ≠ spherical/purified anode graphite (~95% CN) ≠ the anode ≠ the cell",
     "correction": "The graphite chokepoint is not the flake in the ground — it is the processing. China mines ~74% of "
-                  "natural graphite, but it makes close to 100% of the spherical, purified and coated anode-grade "
+                  "natural graphite, but it makes roughly 95% of the spherical, purified and coated anode-grade "
                   "graphite that batteries require, and it dominates synthetic anode graphite too. Mining flake "
                   "elsewhere does little while the spheronising and coating stay in one country — which then export-"
                   "controlled them in December 2023.",
     "stats": [
         {"v": "~74%", "l": "China's share of natural graphite mine output (2024)", "conf": "measured"},
-        {"v": "~100%", "l": "China's share of spherical / coated battery-anode graphite", "conf": "estimate"},
+        {"v": "~95%", "l": "China's share of spherical / coated battery-anode graphite", "conf": "estimate"},
         {"v": "Dec 2023", "l": "China placed graphite under export licensing", "conf": "measured"},
         {"v": "natural + synthetic", "l": "both anode feedstocks are China-led — there is no easy second source", "conf": "measured"},
     ],
@@ -50,7 +50,7 @@ CHAIN = {
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. China's share of natural graphite mining rose "
                 "from ~65% to a peak near 78% before easing to ~74%, while Madagascar and Brazil grew as small "
-                "alternative sources. But the mine is the LESS concentrated stage — the ~100% grip is downstream, at "
+                "alternative sources. But the mine is the LESS concentrated stage — the ~95% grip is downstream, at "
                 "the spherical-anode step, which no country series captures.",
         "series": [
             {"label": "China", "points": hist_points("graphite", "CN")},
@@ -60,13 +60,13 @@ CHAIN = {
     },
     "hops": [
         {"n": "1 · Flake / mine", "t": "natural flake graphite (or synthetic from petroleum coke) — China ~74% of natural"},
-        {"n": "2 · Spheronise & purify", "t": "grind to spheres, purify to >99.95% — the concentrated step, ~100% China"},
+        {"n": "2 · Spheronise & purify", "t": "grind to spheres, purify to >99.95% — the concentrated step, ~95% China"},
         {"n": "3 · Coat", "t": "carbon-coat into anode active material (natural or synthetic)"},
         {"n": "4 · Anode / cell", "t": "cast onto copper foil as the anode — the negative electrode of the cell"},
     ],
     "sections": [
         {"h2": "1 · The chokepoint is the anode step, not the flake", "panels": [
-            {"kind": "big", "h3": "Where the grip really is", "big": "~100%", "conf": "estimate",
+            {"kind": "big", "h3": "Where the grip really is", "big": "~95%", "conf": "estimate",
              "text": "Turning flake into battery anode means spheronising it into rounded particles, purifying to "
                      "very high carbon and coating it — a wasteful, know-how-heavy process (much of the flake is lost) "
                      "that is almost entirely in China. So even flake mined in Madagascar or Mozambique is typically "
@@ -83,7 +83,7 @@ CHAIN = {
             {"kind": "text", "h3": "Graphite joined the export-control list", "conf": "measured",
              "text": "In December 2023 China placed several graphite items — including high-purity, high-hardness and "
                      "high-intensity spherical graphite — under export licensing, the same instrument used for gallium, "
-                     "germanium and, later, rare-earth magnets. Because the anode step is ~100% China, this is a lever "
+                     "germanium and, later, rare-earth magnets. Because the anode step is ~95% China, this is a lever "
                      "on the whole battery industry, not a niche material (see the battery and magnet chains).",
              "note": "USGS MCS 2026; public policy record.", "flag": "the same export-control playbook"},
         ]},
@@ -103,7 +103,7 @@ CHAIN = {
                    "step, not a customs line.",
     "method": [
         {"stage": "Mine", "lens": "USGS/BGS natural-graphite share + history", "why": "~74% China — the less concentrated stage"},
-        {"stage": "Spheronise/coat", "lens": "IEA anode-graphite processing", "why": "~100% China — the actual chokepoint"},
+        {"stage": "Spheronise/coat", "lens": "IEA anode-graphite processing", "why": "~95% China — the actual chokepoint"},
         {"stage": "Policy", "lens": "Dec-2023 export licensing", "why": "the lever on the whole battery anode"},
         {"stage": "Trade", "lens": "BACI 2504/380110 graphite", "why": "raw forms only; anode grade not separable — flagged context"},
     ],
