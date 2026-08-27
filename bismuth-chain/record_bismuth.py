@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Bismuth chain",
-    "chokepoint": {"product": "Non-toxic lead replacement · pharma", "stage": "Recovery (lead/tungsten)", "mechanism": "byproduct", "physics": "A by-product of lead and tungsten smelting; China ~85% of production and refining — coupled to hosts, and China dominates the refining", "holder": "China", "share": "~85%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Non-toxic lead replacement · pharma", "stage": "Recovery (lead/tungsten)", "mechanism": "byproduct", "physics": "A by-product of lead and tungsten smelting; China ~85% of production and refining — coupled to hosts, and China dominates the refining", "holder": "China", "share": "~85%", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../lead-chain/lead-chain.html", "label": "Lead chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}],
     "accent": "#5a7a6a",

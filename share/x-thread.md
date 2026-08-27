@@ -4,7 +4,7 @@
 → criticalmaterialsatlas.org
 [card1.png]
 
-**2/** The chokepoint usually isn't the mine — it's the furnace. For 10 materials the dominant supplier *imports the ore and exports the refined metal*, or pulls it from a domestic by-product stream. Export controls on ORE can't touch that. Gallium: China refines 87%, and mines ~none of it.
+**2/** The chokepoint usually isn't the mine — it's the furnace. For 10 materials the dominant supplier *imports the ore and exports the refined metal*, or pulls it from a domestic by-product stream. Export controls on ORE can't touch that. Gallium: China refines ~98%, and mines ~none of it.
 
 **3/** So can the rest of the world cover a cut? I reallocated each leader's exports across every other exporter by optimal transport. For 4 of 31 materials, even DOUBLING every surviving exporter doesn't cover the gap. Beryllium: 2× everyone = 12%.
 [card2.png]

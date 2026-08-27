@@ -67,12 +67,12 @@
   },
   "bismuth": {
     "claim": "China ~85% of world bismuth production/refining",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "USGS MCS 2026 — Bismuth (industry sources ~65-80%)",
     "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
     "quoted_row": "China 14,000 14,000 NA | World total (rounded) 16,300 16,000 NA",
-    "computed": "USGS 2026: 14,000/16,000 = 88% (was 81% on MCS2025); industry sources ~65-80%; by-product/uncertain -> atlas uses ~85% central",
-    "supports": true
+    "computed": "USGS 2026: 14,000/16,000 = 88% (was 81% on MCS2025); industry sources ~65-80%; by-product/uncertain -> atlas uses ~85% central | DEMOTED: ~85% is a synthesized midpoint between USGS 88% and industry 65-80%, not a quoted figure -> estimate.",
+    "supports": false
   },
   "germanium": {
     "claim": "China ~60% of world germanium production (estimate)",
@@ -85,12 +85,12 @@
   },
   "antimony": {
     "claim": "China refining chokepoint (mine ~60%; refining/oxide dominance is the binding stage)",
-    "conf": "measured",
+    "conf": "estimate",
     "source": "USGS MCS 2025 — Antimony",
     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf",
     "quoted_row": "China e40,000 40,000 830,000 | World total (rounded) 119,000 110,000 >2,000,000 (MCS 2026)",
-    "computed": "MCS2026 mine: China 40,000/110,000 = 36% (fell from 60% on MCS2025); chokepoint is REFINING/oxide (China oxide 76% + Sep-2024 controls), unaffected by the mine drop",
-    "supports": true
+    "computed": "MCS2026 mine: China 40,000/110,000 = 36% (fell from 60% on MCS2025); chokepoint is REFINING/oxide (China oxide 76% + Sep-2024 controls), unaffected by the mine drop | DEMOTED: quoted row is the MINE table (36%); the load-bearing refining/oxide ~76% has no quoted primary row -> estimate.",
+    "supports": false
   },
   "beryllium": {
     "claim": "United States ~53% of world beryllium production",

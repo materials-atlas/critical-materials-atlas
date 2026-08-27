@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Antimony chain",
-    "chokepoint": {"product": "Flame retardant · munitions", "stage": "Refining", "mechanism": "capability", "physics": "Trioxide + metal refining — China built the capacity; the mine diversified but refining didn't", "holder": "China refine", "share": "refine", "control": "Sep 2024", "conf": "measured"},
+    "chokepoint": {"product": "Flame retardant · munitions", "stage": "Refining", "mechanism": "capability", "physics": "Trioxide + metal refining — China built the capacity; the mine diversified but refining didn't", "holder": "China refine", "share": "refine", "control": "Sep 2024", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}],
     "accent": "#7a5a5a",

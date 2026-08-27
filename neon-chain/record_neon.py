@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Neon / specialty-gas chain",
-    "chokepoint": {"product": "Chip lithography", "stage": "Air separation", "mechanism": "byproduct", "physics": "By-product of steel-plant air separation — captured, not made", "holder": "(was Ukraine)", "share": "~half", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Chip lithography", "stage": "Air separation", "mechanism": "byproduct", "physics": "By-product of steel-plant air separation — captured, not made", "holder": "(was Ukraine)", "share": "~half", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../helium-chain/helium-chain.html", "label": "Helium chain"}],
     "accent": "#7a4a7a",

@@ -41,7 +41,7 @@ CHAIN = {
                   "per cell, shrinking the exposure from the demand side.",
     "stats": [
         {"v": "~75%", "l": "of cobalt is mined in the DR Congo", "conf": "measured"},
-        {"v": "~75%", "l": "of cobalt is refined in China — wherever it was mined", "conf": "measured"},
+        {"v": "~75%", "l": "of cobalt is refined in China — wherever it was mined", "conf": "estimate"},
         {"v": "artisanal", "l": "a meaningful DRC share is artisanal — child-labour and safety concerns", "conf": "estimate"},
         {"v": "engineered down", "l": "LFP and low-cobalt cathodes are cutting cobalt per battery", "conf": "estimate"},
     ],
@@ -79,7 +79,7 @@ CHAIN = {
              "flag": "a by-product, not a standalone mine"},
         ]},
         {"h2": "2 · The second chokepoint: refining", "panels": [
-            {"kind": "text", "h3": "China refines what the DRC digs", "conf": "measured",
+            {"kind": "text", "h3": "China refines what the DRC digs", "conf": "estimate",
              "text": "As with lithium and graphite, the ore's origin and the refining geography are different maps: "
                      "roughly three-quarters of cobalt is refined into battery-grade chemical in China, whatever its "
                      "mined origin. So even Congolese or Indonesian cobalt typically becomes battery material only after "

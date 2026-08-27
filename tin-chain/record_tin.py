@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Tin / solder chain",
-    "chokepoint": {"product": "Solder", "stage": "Mine + smelt (3TG)", "mechanism": "governance", "physics": "Concentrated + conflict-linked (Myanmar Wa, 3TG); the ore feed is the fragile part", "holder": "CN · ID · Myanmar", "share": "~half", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Solder", "stage": "Mine + smelt (3TG)", "mechanism": "governance", "physics": "Concentrated + conflict-linked (Myanmar Wa, 3TG); the ore feed is the fragile part", "holder": "CN · ID · Myanmar", "share": "~half", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../tantalum-chain/tantalum-chain.html", "label": "Tantalum chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}],
     "accent": "#5a6a7a",

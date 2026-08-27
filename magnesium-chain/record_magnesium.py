@@ -40,7 +40,7 @@ CHAIN = {
                   "without a little magnesium. When Chinese energy curbs cut magnesium output in late 2021, European "
                   "carmakers and smelters were within weeks of a shortage, with almost no alternative supply.",
     "stats": [
-        {"v": "~87%", "l": "China's share of world primary magnesium production", "conf": "measured"},
+        {"v": "~87%", "l": "China's share of world primary magnesium production", "conf": "estimate"},
         {"v": "aluminium alloy", "l": "magnesium's biggest job — alloying aluminium and die-casting", "conf": "measured"},
         {"v": "2021 shock", "l": "China's energy curbs cut output; Europe was weeks from a shortage", "conf": "measured"},
         {"v": "coal-fired", "l": "most magnesium is made by the energy-intensive Pidgeon process", "conf": "measured"},
@@ -67,7 +67,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · Among the most single-sourced metals here", "panels": [
-            {"kind": "big", "h3": "China's share", "big": "~87%", "conf": "measured",
+            {"kind": "big", "h3": "China's share", "big": "~87%", "conf": "estimate",
              "text": "Most of the world's magnesium is made in China by the Pidgeon process — reducing dolomite with "
                      "ferrosilicon in coal-fired retorts, concentrated in Shaanxi province. The feedstock (dolomite, "
                      "magnesite, even seawater) is abundant everywhere, so this is not a geological monopoly but an "

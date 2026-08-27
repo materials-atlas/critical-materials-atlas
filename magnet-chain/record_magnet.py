@@ -31,8 +31,8 @@ CHAIN = {
                   "chokepoint is not the deposit; it is the refinery and the magnet plant downstream of it, and China's "
                   "hold gets stronger at each step rather than weaker.",
     "stats": [
-        {"v": "60→91→94%", "l": "China's share rises at each step: mine → separation → sintered magnet", "conf": "measured"},
-        {"v": "~91%", "l": "of rare-earth separation & refining is China — the real chokepoint", "conf": "measured"},
+        {"v": "60→91→94%", "l": "China's share rises at each step: mine → separation → sintered magnet", "conf": "estimate"},
+        {"v": "~91%", "l": "of rare-earth separation & refining is China — the real chokepoint", "conf": "estimate"},
         {"v": "~50→94%", "l": "China's share of sintered NdFeB magnet output, 2005 → 2024", "conf": "estimate"},
         {"v": "Nd·Pr·Dy·Tb", "l": "the four magnet rare earths; Dy and Tb are the scarce, China-gated heavies", "conf": "measured"},
     ],
@@ -55,7 +55,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · The chokepoint moves downstream — and deepens", "panels": [
-            {"kind": "bars", "h3": "China's share along the magnet chain (2024)", "conf": "measured", "max": 1.0, "note":
+            {"kind": "bars", "h3": "China's share along the magnet chain (2024)", "conf": "estimate", "max": 1.0, "note":
                 "IEA, magnet-specific physical stages. The single most important shape in this chain: the bars go UP, "
                 "not down. Most supply worries fixate on the mine, where China is 'only' ~60%. Every step after it is "
                 "more concentrated, not less.", "bars": [

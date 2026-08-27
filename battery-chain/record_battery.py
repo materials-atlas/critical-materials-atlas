@@ -34,8 +34,8 @@ CHAIN = {
                   "and nickel-free LFP went from a tenth of EV batteries to about half in four years, deepening the "
                   "midstream China leads rather than loosening it.",
     "stats": [
-        {"v": "80–90%", "l": "China's share of cathode (~85%), anode (~90%) and cell (~80%) output", "conf": "measured"},
-        {"v": "~65%", "l": "of lithium refining is China — regardless of where the ore is dug", "conf": "measured"},
+        {"v": "80–90%", "l": "China's share of cathode (~85%), anode (~90%) and cell (~80%) output", "conf": "estimate"},
+        {"v": "~65%", "l": "of lithium refining is China — regardless of where the ore is dug", "conf": "estimate"},
         {"v": "10→49%", "l": "LFP's share of EV batteries, 2020 → 2024 — the recipe changing under the chokepoint", "conf": "estimate"},
         {"v": "−90%", "l": "fall in average battery cost, 2010 → 2023", "conf": "measured"},
     ],
@@ -58,7 +58,7 @@ CHAIN = {
     ],
     "sections": [
         {"h2": "1 · The mine is spread; the midstream is China", "panels": [
-            {"kind": "bars", "h3": "China's share down the battery midstream (2025)", "conf": "measured", "max": 1.0, "note":
+            {"kind": "bars", "h3": "China's share down the battery midstream (2025)", "conf": "estimate", "max": 1.0, "note":
                 "IEA. The mine map is genuinely multi-country — lithium in Australia and Chile, cobalt in the DR Congo, "
                 "nickel in Indonesia. But everything between the ore and the finished car funnels through China: this is "
                 "where the dependence actually sits, and it is not visible on a map of mines.", "bars": [

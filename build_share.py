@@ -51,7 +51,7 @@ n_cap = bo['summary']['by_moat']['import-fed capability'] + bo['summary']['by_mo
 card(1, f'''<div class="card">
  <div class="eyebrow">The finding</div>
  <div class="h">China refines what it<br>doesn&rsquo;t <span class="amber">mine</span>.</div>
- <div class="sub">For <b>{n_cap}</b> critical materials the chokepoint is a <b>capability</b>, not an ore endowment — it <i>imports</i> the ore and <i>exports</i> the refined metal, or pulls the metal from a domestic by-product stream. <b>Export controls on ore can&rsquo;t touch it.</b> Gallium: China holds <b>87%</b> of refined supply as a by-product moat.</div>
+ <div class="sub">For <b>{n_cap}</b> critical materials the chokepoint is a <b>capability</b>, not an ore endowment — it <i>imports</i> the ore and <i>exports</i> the refined metal, or pulls the metal from a domestic by-product stream. <b>Export controls on ore can&rsquo;t touch it.</b> Gallium: China holds <b>~98%</b> of refined supply as a by-product moat.</div>
  <div class="spacer"></div>{FOOT}</div>''')
 
 # ---- Card 2: uncoverable ----
@@ -140,7 +140,7 @@ thread = f'''# X thread — Critical Materials Atlas (draft, {ot['year']} data)
 → criticalmaterialsatlas.org
 [card1.png]
 
-**2/** The chokepoint usually isn't the mine — it's the furnace. For {n_cap} materials the dominant supplier *imports the ore and exports the refined metal*, or pulls it from a domestic by-product stream. Export controls on ORE can't touch that. Gallium: China refines 87%, and mines ~none of it.
+**2/** The chokepoint usually isn't the mine — it's the furnace. For {n_cap} materials the dominant supplier *imports the ore and exports the refined metal*, or pulls it from a domestic by-product stream. Export controls on ORE can't touch that. Gallium: China refines ~98%, and mines ~none of it.
 
 **3/** So can the rest of the world cover a cut? I reallocated each leader's exports across every other exporter by optimal transport. For {ot['summary']['uncoverable2x']} of 31 materials, even DOUBLING every surviving exporter doesn't cover the gap. Beryllium: 2× everyone = {be['coverage']['2']*100:.0f}%.
 [card2.png]
