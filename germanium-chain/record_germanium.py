@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Germanium chain",
-    "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own; USGS states producers do not publicly report germanium output, so the share is an estimate", "holder": "China", "share": "~90% (est.)", "control": "Jul 2023", "conf": "estimate"},
+    "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own; USGS states producers do not publicly report germanium output, so the share is an estimate", "holder": "China", "share": "~85% (est.)", "control": "Jul 2023", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
     "accent": "#5a7a5a",
@@ -26,27 +26,27 @@ CHAIN = {
             "zinc refining and coal fly ash — no one mines it on purpose — and China produces most of it. In July 2023 "
             "China placed germanium under export licensing alongside gallium: the same by-product trap, the same lever, "
             "the same week.",
-    "byline": "zinc residue / coal ash ≠ by-product germanium (China ~90%+) ≠ high-purity Ge / GeO2 ≠ IR optics · fibre · catalysts",
+    "byline": "zinc residue / coal ash ≠ by-product germanium (China ~85%+) ≠ high-purity Ge / GeO2 ≠ IR optics · fibre · catalysts",
     "correction": "Germanium is gallium's mirror image and shares its playbook. It cannot be mined on its own — it is "
                   "recovered in tiny amounts from zinc refining and coal fly ash — and China produces the majority. Its "
                   "critical roles are infrared optics (thermal imaging and night-vision, a defence use), the "
                   "light-guiding core of optical fibre, PET-plastic polymerisation catalysts and space solar cells. "
                   "China's July 2023 export controls named germanium and gallium together for exactly this reason.",
     "stats": [
-        {"v": "~90%+", "l": "China's share of world germanium production (USGS: output not publicly reported — an estimate)", "conf": "estimate"},
+        {"v": "~85%+", "l": "China's share of world germanium production (USGS: output not publicly reported — an estimate)", "conf": "estimate"},
         {"v": "Jul 2023", "l": "export-controlled alongside gallium — the same lever, the same week", "conf": "measured"},
         {"v": "IR + fibre", "l": "infrared optics (night-vision / thermal) and optical-fibre cores", "conf": "measured"},
         {"v": "by-product", "l": "recovered from zinc residues and coal fly ash — can't scale alone", "conf": "measured"},
     ],
     "hops": [
         {"n": "1 · Host", "t": "zinc refining residues and coal fly ash — germanium rides along in trace amounts"},
-        {"n": "2 · By-product extraction", "t": "germanium recovered and purified to high purity — China ~90%+"},
+        {"n": "2 · By-product extraction", "t": "germanium recovered and purified to high purity — China ~85%+"},
         {"n": "3 · Ge / GeO2", "t": "high-purity germanium metal, germanium dioxide, and optical-grade crystals"},
         {"n": "4 · Uses", "t": "infrared lenses, optical-fibre cores, PET catalysts, space photovoltaic cells"},
     ],
     "sections": [
         {"h2": "1 · The same by-product trap, the same lever", "panels": [
-            {"kind": "big", "h3": "Where germanium comes from", "big": "~90%+ China", "conf": "estimate",
+            {"kind": "big", "h3": "Where germanium comes from", "big": "~85%+ China", "conf": "estimate",
              "text": "Germanium is not mined; it is recovered from the residues of zinc smelting and from coal fly ash, "
                      "so its supply is coupled to zinc and coal, not to germanium demand. China installed the recovery "
                      "capacity at scale and now produces the majority. When it placed germanium under export licensing "
@@ -87,7 +87,7 @@ CHAIN = {
                    "metals' basket with gallium and indium, so its trade cannot be isolated (the same limit the atlas "
                    "flags for gallium and indium). The table below shows that basket only as flagged context.",
     "method": [
-        {"stage": "Source", "lens": "USGS germanium share", "why": "~90%+ China; a by-product of zinc/coal"},
+        {"stage": "Source", "lens": "USGS germanium share", "why": "~85%+ China; a by-product of zinc/coal"},
         {"stage": "Policy", "lens": "Jul-2023 export licensing", "why": "the lever, named with gallium"},
         {"stage": "Uses", "lens": "IR / fibre / catalyst literature", "why": "infrared optics + fibre cores — qualitative"},
         {"stage": "Trade", "lens": "BACI 811292 basket", "why": "germanium not separable from gallium/indium — flagged context"},
