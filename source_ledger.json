@@ -66,13 +66,13 @@
     "supports": true
   },
   "bismuth": {
-    "claim": "China ~85% of world bismuth production/refining",
-    "conf": "estimate",
-    "source": "USGS MCS 2026 — Bismuth (industry sources ~65-80%)",
+    "claim": "China ~88% of world bismuth production",
+    "conf": "measured",
+    "source": "USGS MCS 2026 — Bismuth",
     "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
-    "quoted_row": "China 14,000 14,000 NA | World total (rounded) 16,300 16,000 NA",
-    "computed": "USGS 2026: 14,000/16,000 = 88% (was 81% on MCS2025); industry sources ~65-80%; by-product/uncertain -> atlas uses ~85% central | DEMOTED: ~85% is a synthesized midpoint between USGS 88% and industry 65-80%, not a quoted figure -> estimate.",
-    "supports": false
+    "quoted_row": "'Estimated world production of bismuth was 16,000 tons in 2025. China accounted for 88% of the bismuth world production in 2025.' + Refinery table: China 14,000 / World total 16,000.",
+    "computed": "USGS states 88% verbatim; refinery table 14,000/16,000 = 87.5% -> ~88%. (Earlier ~85% was an unnecessary midpoint with industry 65-80%; USGS is the primary and states 88%, so it is measured, not estimate.)",
+    "supports": true
   },
   "germanium": {
     "claim": "China ~60% of world germanium production (estimate)",
@@ -86,10 +86,10 @@
   "antimony": {
     "claim": "China refining chokepoint (mine ~60%; refining/oxide dominance is the binding stage)",
     "conf": "estimate",
-    "source": "USGS MCS 2025 — Antimony",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf",
-    "quoted_row": "China e40,000 40,000 830,000 | World total (rounded) 119,000 110,000 >2,000,000 (MCS 2026)",
-    "computed": "MCS2026 mine: China 40,000/110,000 = 36% (fell from 60% on MCS2025); chokepoint is REFINING/oxide (China oxide 76% + Sep-2024 controls), unaffected by the mine drop | DEMOTED: quoted row is the MINE table (36%); the load-bearing refining/oxide ~76% has no quoted primary row -> estimate.",
+    "source": "USGS MCS 2026 — Antimony (mine); Reuters + Project Blue (refining)",
+    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf",
+    "quoted_row": "China 40,000 / World total 110,000 (mine, 2025e) = ~36%. US import sources: Oxide China 66%, total metal+oxide China 55%. Reuters (2024-08-15): 'China is the biggest supplier of refined antimony … it is a net importer of concentrates.'",
+    "computed": "Mine ~36% China (2025e; was 48% in 2023 per Reuters) — mine is DIVERSIFYING, not the chokepoint. The chokepoint is REFINING, which Reuters/Project Blue confirm qualitatively; no primary source gives a world refined-antimony %. Page asserts refining dominance as 'refine' (no number), not a false 76%.",
     "supports": false
   },
   "beryllium": {
