@@ -18,7 +18,7 @@ SRC = {
 
 CHAIN = {
     "title": "Primary / green-steel chain",
-    "chokepoint": {"product": "Primary steel", "stage": "Blast furnace", "mechanism": "thermodynamic", "physics": "Continuous coke-fired reduction; gated by coking coal + energy", "holder": "China smelt", "share": "~54%", "control": "—", "conf": "estimate"},
+    "chokepoint": {"product": "Primary steel", "stage": "Blast furnace", "mechanism": "thermodynamic", "physics": "Continuous coke-fired reduction; gated by coking coal + energy", "holder": "China smelt", "share": "~52%", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
     "accent": "#7a6a5a",
@@ -27,14 +27,14 @@ CHAIN = {
     "deck": "Steel is the most-produced metal on Earth, and its ore is genuinely plentiful — Australia and Brazil "
             "ship most of the world's iron ore. The real constraints sit elsewhere: metallurgical coking coal to "
             "reduce the ore, and, for low-carbon 'green steel', a scarce grade of ore plus clean hydrogen.",
-    "byline": "iron ore (abundant, AU/BR) ≠ coking coal (the carbon chokepoint) ≠ crude steel (~54% CN) ≠ green steel (ore + H2)",
+    "byline": "iron ore (abundant, AU/BR) ≠ coking coal (the carbon chokepoint) ≠ crude steel (~52% CN) ≠ green steel (ore + H2)",
     "correction": "Steel breaks the 'scarce mineral' frame — iron is the fourth-most-abundant element in the crust and "
                   "the ore trade is diversified. The bottlenecks are a fuel and a transition: metallurgical coking "
-                  "coal reduces most of the world's ore (China smelts ~54% of crude steel), and decarbonising it needs "
+                  "coal reduces most of the world's ore (China smelts ~52% of crude steel), and decarbonising it needs "
                   "hydrogen-based direct reduction — which in turn needs high-grade DRI-suitable ore that is itself in "
                   "short supply.",
     "stats": [
-        {"v": "~54%", "l": "China's share of world crude-steel production", "conf": "measured"},
+        {"v": "~52%", "l": "China's share of world crude-steel production", "conf": "estimate"},
         {"v": "AU + BR", "l": "Australia and Brazil ship most of the world's seaborne iron ore", "conf": "measured"},
         {"v": "coking coal", "l": "the carbon chokepoint — most steel is still made via coke-fired blast furnaces", "conf": "measured"},
         {"v": "DRI-grade", "l": "green steel needs scarce high-grade ore plus clean hydrogen", "conf": "estimate"},
@@ -42,7 +42,7 @@ CHAIN = {
     "hops": [
         {"n": "1 · Iron ore", "t": "haematite/magnetite — abundant; Australia and Brazil dominate seaborne supply"},
         {"n": "2 · Reduce", "t": "coke-fired blast furnace (most steel) or direct reduction (gas/hydrogen DRI)"},
-        {"n": "3 · Crude steel", "t": "basic-oxygen or electric-arc furnace — China makes ~54% of it"},
+        {"n": "3 · Crude steel", "t": "basic-oxygen or electric-arc furnace — China makes ~52% of it"},
         {"n": "4 · Rolled & finished", "t": "flat and long products for construction, cars, machinery, packaging"},
     ],
     "sections": [
@@ -53,8 +53,8 @@ CHAIN = {
                      "Unlike gallium or rare earths, there is no single-country geological chokepoint at the iron mine. "
                      "The concentration in steel is downstream, in who smelts it.",
              "note": "USGS Iron Ore 2026.", "flag": "no chokepoint at the mine"},
-            {"kind": "big", "h3": "Where it concentrates", "big": "~54% China", "conf": "measured",
-             "text": "China makes roughly 54% of the world's crude steel, importing ore (much of it Australian and "
+            {"kind": "big", "h3": "Where it concentrates", "big": "~52% China", "conf": "estimate",
+             "text": "China makes roughly 52% of the world's crude steel, importing ore (much of it Australian and "
                      "Brazilian) and turning it into metal in the world's largest blast-furnace fleet. So steel's "
                      "concentration is an industrial one — smelting capacity — not a mined-resource one, the same "
                      "pattern as aluminium.",
@@ -83,7 +83,7 @@ CHAIN = {
     "method": [
         {"stage": "Iron ore", "lens": "USGS mine/trade share", "why": "abundant and diversified — not the chokepoint"},
         {"stage": "Reduce", "lens": "blast furnace vs DRI; coking coal", "why": "the carbon chokepoint; ~70% via coke"},
-        {"stage": "Crude steel", "lens": "worldsteel production share", "why": "~54% China — an industrial concentration"},
+        {"stage": "Crude steel", "lens": "worldsteel production share", "why": "~52% China — an industrial concentration"},
         {"stage": "Green shift", "lens": "IEA H2-DRI / DRI-grade ore", "why": "the transition's bottleneck — marked as forward-looking"},
     ],
     "sources": SRC,
