@@ -30,17 +30,17 @@ CHAIN = {
     "eyebrow": "Product-chain pilot · the other half of the battery",
     "h1": "Every lithium battery has a graphite anode — and China makes almost all of it",
     "deck": "Cathodes get the attention, but the anode of essentially every lithium-ion cell is graphite. China "
-            "mines about three-quarters of natural graphite — and turns nearly all of it, plus synthetic graphite, "
+            "mines about four-fifths of natural graphite — and turns nearly all of it, plus synthetic graphite, "
             "into the spherical, coated anode powder cells actually need. In December 2023 it put that step under "
             "export licensing.",
-    "byline": "flake graphite (~74% CN) ≠ spherical/purified anode graphite (~95% CN) ≠ the anode ≠ the cell",
-    "correction": "The graphite chokepoint is not the flake in the ground — it is the processing. China mines ~74% of "
+    "byline": "flake graphite (~80% CN) ≠ spherical/purified anode graphite (~95% CN) ≠ the anode ≠ the cell",
+    "correction": "The graphite chokepoint is not the flake in the ground — it is the processing. China mines ~80% of "
                   "natural graphite, but it makes roughly 95% of the spherical, purified and coated anode-grade "
                   "graphite that batteries require, and it dominates synthetic anode graphite too. Mining flake "
                   "elsewhere does little while the spheronising and coating stay in one country — which then export-"
                   "controlled them in December 2023.",
     "stats": [
-        {"v": "~74%", "l": "China's share of natural graphite mine output (2024)", "conf": "measured"},
+        {"v": "~80%", "l": "China's share of natural graphite mine output (2025)", "conf": "measured"},
         {"v": "~95%", "l": "China's share of spherical / coated battery-anode graphite", "conf": "estimate"},
         {"v": "Dec 2023", "l": "China placed graphite under export licensing", "conf": "measured"},
         {"v": "natural + synthetic", "l": "both anode feedstocks are China-led — there is no easy second source", "conf": "measured"},
@@ -49,7 +49,7 @@ CHAIN = {
         "title": "Concentration at the mine, 2000 → 2024",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. China's share of natural graphite mining rose "
-                "from ~65% to a peak near 78% before easing to ~74%, while Madagascar and Brazil grew as small "
+                "from ~65% to a peak near 84% (2023) before easing to ~80% in 2025 as Mozambique and Tanzania restarted, while Madagascar and Brazil grew as small "
                 "alternative sources. But the mine is the LESS concentrated stage — the ~95% grip is downstream, at "
                 "the spherical-anode step, which no country series captures.",
         "series": [
@@ -59,7 +59,7 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Flake / mine", "t": "natural flake graphite (or synthetic from petroleum coke) — China ~74% of natural"},
+        {"n": "1 · Flake / mine", "t": "natural flake graphite (or synthetic from petroleum coke) — China ~80% of natural"},
         {"n": "2 · Spheronise & purify", "t": "grind to spheres, purify to >99.95% — the concentrated step, ~95% China"},
         {"n": "3 · Coat", "t": "carbon-coat into anode active material (natural or synthetic)"},
         {"n": "4 · Anode / cell", "t": "cast onto copper foil as the anode — the negative electrode of the cell"},
@@ -70,7 +70,7 @@ CHAIN = {
              "text": "Turning flake into battery anode means spheronising it into rounded particles, purifying to "
                      "very high carbon and coating it — a wasteful, know-how-heavy process (much of the flake is lost) "
                      "that is almost entirely in China. So even flake mined in Madagascar or Mozambique is typically "
-                     "shipped to China to become anode material. The mine share (~74%) understates the dependence.",
+                     "shipped to China to become anode material. The mine share (~80%) understates the dependence.",
              "note": "IEA / USGS: spherical graphite processing is overwhelmingly China."},
             {"kind": "text", "h3": "Synthetic doesn't escape it",
              "text": "Anodes also use synthetic graphite, made by baking petroleum coke at high temperature — energy-"
@@ -102,7 +102,7 @@ CHAIN = {
                    "Read the export shares below as the traded raw forms; the anode-grade chokepoint is a processing "
                    "step, not a customs line.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS natural-graphite share + history", "why": "~74% China — the less concentrated stage"},
+        {"stage": "Mine", "lens": "USGS/BGS natural-graphite share + history", "why": "~80% China — the less concentrated stage"},
         {"stage": "Spheronise/coat", "lens": "IEA anode-graphite processing", "why": "~95% China — the actual chokepoint"},
         {"stage": "Policy", "lens": "Dec-2023 export licensing", "why": "the lever on the whole battery anode"},
         {"stage": "Trade", "lens": "BACI 2504/380110 graphite", "why": "raw forms only; anode grade not separable — flagged context"},

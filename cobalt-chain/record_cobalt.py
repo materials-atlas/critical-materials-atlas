@@ -30,17 +30,17 @@ CHAIN = {
     "eyebrow": "Product-chain pilot · a battery metal with two chokepoints",
     "h1": "Cobalt has a mine problem in one country and a refining problem in another",
     "deck": "Cobalt strengthens the cathode in many lithium-ion batteries — and it carries two separate "
-            "concentrations. About three-quarters is mined in the Democratic Republic of the Congo, a share that also "
+            "concentrations. Roughly 70% is mined in the Democratic Republic of the Congo, a share that also "
             "raises artisanal-mining and child-labour concerns; and about three-quarters is refined in China. Battery "
             "makers have responded by engineering cobalt down, not by finding new mines.",
-    "byline": "DRC mine (~75%, some artisanal) ≠ China refining (~75%) ≠ cathode ≠ the cell (and chemistry is cutting it out)",
-    "correction": "Cobalt is a double chokepoint plus an ethics problem. The DR Congo mines ~75% of it — much as a "
+    "byline": "DRC mine (~70%, some artisanal) ≠ China refining (~75%) ≠ cathode ≠ the cell (and chemistry is cutting it out)",
+    "correction": "Cobalt is a double chokepoint plus an ethics problem. The DR Congo mines ~70% of it — much as a "
                   "by-product of copper, and a meaningful slice from artisanal miners in hazardous conditions — while "
                   "China refines ~75% of the world's cobalt regardless of where it is dug. The industry's main answer "
                   "has not been new supply but new chemistry: LFP and high-nickel low-cobalt cathodes cut the cobalt "
                   "per cell, shrinking the exposure from the demand side.",
     "stats": [
-        {"v": "~75%", "l": "of cobalt is mined in the DR Congo", "conf": "measured"},
+        {"v": "~70%", "l": "of cobalt is mined in the DR Congo (Indonesia now ~15%)", "conf": "measured"},
         {"v": "~75%", "l": "of cobalt is refined in China — wherever it was mined", "conf": "estimate"},
         {"v": "artisanal", "l": "a meaningful DRC share is artisanal — child-labour and safety concerns", "conf": "estimate"},
         {"v": "engineered down", "l": "LFP and low-cobalt cathodes are cutting cobalt per battery", "conf": "estimate"},
@@ -49,8 +49,9 @@ CHAIN = {
         "title": "The DR Congo's grip tightened, 2000 → 2024",
         "conf": "measured",
         "note": "BGS/USGS mine production, from the atlas's own data. The DR Congo's share of cobalt mining rose from "
-                "~21% in 2000 to ~75% today, as older producers (Canada, Russia, Zambia) faded and Congolese "
-                "copper-cobalt output surged; Indonesia has lately emerged as a nickel-by-product source. The mine "
+                "~21% in 2000 to a ~75% peak, easing to ~70% by 2025 as Indonesia surged to ~15% (a nickel by-product); "
+                "note that the DRC's 2025 export quota cut its MARKETED supply further (IEA reports ~two-thirds sold). "
+                "Older producers (Canada, Russia, Zambia) had faded as Congolese copper-cobalt output surged. The mine "
                 "concentration is real — but so is the second one, in refining, which no mine-side chart shows.",
         "series": [
             {"label": "DR Congo", "points": hist_points("cobalt", "CD")},
@@ -59,14 +60,14 @@ CHAIN = {
         ],
     },
     "hops": [
-        {"n": "1 · Mine", "t": "DR Congo ~75% — largely a by-product of copper, plus artisanal output"},
+        {"n": "1 · Mine", "t": "DR Congo ~70% — largely a by-product of copper, plus artisanal output"},
         {"n": "2 · Refine", "t": "cobalt intermediates refined to battery-grade sulphate — ~75% China"},
         {"n": "3 · Cathode", "t": "cobalt in NMC/NCA cathode powders (LFP uses none)"},
         {"n": "4 · Cell", "t": "the battery — cobalt improves stability and energy density in some chemistries"},
     ],
     "sections": [
         {"h2": "1 · The mine: concentration plus an ethics problem", "panels": [
-            {"kind": "big", "h3": "Where cobalt comes out of the ground", "big": "~75% DRC", "conf": "measured",
+            {"kind": "big", "h3": "Where cobalt comes out of the ground", "big": "~70% DRC", "conf": "measured",
              "text": "Most cobalt is a by-product of Congolese copper mining, so its supply is tied to copper economics "
                      "as well as to one country. A significant share comes from artisanal and small-scale miners working "
                      "in hazardous conditions, which is why cobalt carries reputational and due-diligence weight beyond "
@@ -101,7 +102,7 @@ CHAIN = {
                    "below as the traded raw and semi-refined forms, not the DRC mine share or the China refining share, "
                    "which customs data does not isolate.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~75% DRC; a copper by-product with an ethics dimension"},
+        {"stage": "Mine", "lens": "USGS/BGS mine share + history", "why": "~70% DRC; a copper by-product with an ethics dimension"},
         {"stage": "Refine", "lens": "IEA refining share", "why": "~75% China — the second, industrial chokepoint"},
         {"stage": "Chemistry", "lens": "LFP / low-cobalt cathodes", "why": "demand-side de-risking — marked as a trend"},
         {"stage": "Trade", "lens": "BACI 260500 ores + 810520 cobalt", "why": "raw/semi-refined forms only — flagged context"},
