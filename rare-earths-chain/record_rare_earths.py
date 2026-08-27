@@ -16,7 +16,7 @@ SRC = {
 
 CHAIN = {
     "title": "Rare earths (full basket) chain",
-    "chokepoint": {"product": "Magnets · phosphors · catalysts · polishing", "stage": "Separation", "mechanism": "capability", "physics": "Separating 15+ chemically-alike elements is a vast solvent-extraction industrial base — ~90% China, gating the whole basket, not just magnets", "holder": "China", "share": "~90% separation", "control": "Apr 2025", "conf": "estimate"},
+    "chokepoint": {"product": "Magnets · phosphors · catalysts · polishing", "stage": "Separation", "mechanism": "capability", "physics": "Separating 15+ chemically-alike elements is a vast solvent-extraction industrial base — ~85% China, gating the whole basket, not just magnets", "holder": "China", "share": "~85% separation", "control": "Apr 2025", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../boron-chain/boron-chain.html", "label": "Boron chain"}],
     "accent": "#8a4a6a",
@@ -24,33 +24,33 @@ CHAIN = {
     "h1": "Rare earths are not rare — separating them is the whole game",
     "deck": "The seventeen rare-earth elements are not scarce in the ground; they are just chemically near-identical "
             "and always found mixed together. Turning a mixed ore into pure, single-element oxides takes long "
-            "solvent-extraction cascades — an industrial base that is roughly 90% China. That separation step gates "
+            "solvent-extraction cascades — an industrial base that is roughly 85% China. That separation step gates "
             "not only magnets, but phosphors, polishing powders and refining catalysts alike.",
-    "byline": "mixed ore (~70% China) ≠ separation (~90% China) ≠ Nd/Dy magnets · Eu/Tb phosphors · Ce polishing · La catalysts",
+    "byline": "mixed ore (~70% China) ≠ separation (~85% China) ≠ Nd/Dy magnets · Eu/Tb phosphors · Ce polishing · La catalysts",
     "correction": "The magnet chain covers the neodymium and dysprosium story; this one is the whole basket. Rare "
                   "earths are common in the crust — the difficulty is that the elements behave almost identically, so "
-                  "separating them into pure oxides is the hard, dirty, capital-heavy step, and it is ~90% China. That "
+                  "separating them into pure oxides is the hard, dirty, capital-heavy step, and it is ~85% China. That "
                   "single capability gates every rare-earth product at once: magnets, the red and green phosphors in "
                   "displays and lamps, cerium glass-polishing powder, and the lanthanum catalysts that crack crude oil.",
     "stats": [
-        {"v": "~90% separation", "l": "China's share of rare-earth separation — the real chokepoint", "conf": "estimate"},
+        {"v": "~85% separation", "l": "China's share of rare-earth separation — the real chokepoint", "conf": "estimate"},
         {"v": "not rare", "l": "the 17 elements are common in the crust but occur mixed together", "conf": "measured"},
         {"v": "the whole basket", "l": "magnets, phosphors, polishing and refining catalysts — all gated by separation", "conf": "measured"},
         {"v": "Apr 2025", "l": "China placed several medium and heavy rare earths under export licensing", "conf": "measured"},
     ],
     "hops": [
         {"n": "1 · Mine", "t": "bastnäsite/monazite/ionic-clay ore — ~70% China, plus the US, Myanmar, Australia"},
-        {"n": "2 · Separate", "t": "solvent-extraction cascades split the mixed oxides into single elements — ~90% China"},
+        {"n": "2 · Separate", "t": "solvent-extraction cascades split the mixed oxides into single elements — ~85% China"},
         {"n": "3 · Oxides & metals", "t": "individual rare-earth oxides, metals and alloys"},
         {"n": "4 · End uses", "t": "magnets (Nd/Dy), phosphors (Eu/Tb/Y), polishing (Ce), FCC catalysts (La), and more"},
     ],
     "sections": [
         {"h2": "1 · The chokepoint is separation, not mining", "panels": [
-            {"kind": "big", "h3": "Where the basket is gated", "big": "~90% China", "conf": "estimate",
+            {"kind": "big", "h3": "Where the basket is gated", "big": "~85% China", "conf": "estimate",
              "text": "Rare earths come out of the ground as a mixture, and because the elements are chemically alike, "
                      "pulling them apart into pure single-element oxides needs long solvent-extraction cascades, large "
                      "reagent flows and the environmental permitting that comes with them. That industrial base sits "
-                     "roughly 90% in China. A mine in Australia or the US does not solve it — the ore still has to be "
+                     "roughly 85% in China. A mine in Australia or the US does not solve it — the ore still has to be "
                      "separated, and separation is the bottleneck for everything downstream.",
              "note": "USGS Rare Earths 2026; IEA."},
             {"kind": "text", "h3": "The light-heavy split matters",
@@ -84,7 +84,7 @@ CHAIN = {
                    "mine figure.",
     "method": [
         {"stage": "Mine", "lens": "USGS/BGS mine share", "why": "~70% China; not the chokepoint on its own"},
-        {"stage": "Separate", "lens": "IEA separation share", "why": "~90% China — gates the whole basket"},
+        {"stage": "Separate", "lens": "IEA separation share", "why": "~85% China — gates the whole basket"},
         {"stage": "Use", "lens": "magnets/phosphors/catalysts", "why": "one separation step feeds every rare-earth product"},
         {"stage": "Trade", "lens": "BACI 280530 metals + 284690 compounds", "why": "separation-plant origin, elements lumped — flagged"},
     ],
