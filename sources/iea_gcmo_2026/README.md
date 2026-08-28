@@ -13,6 +13,7 @@ Complete, agent-consultable capture of the **IEA Global Critical Minerals Outloo
 | `annex-supply-demand.json` | The 12 annex "Key projection results" tables — exact tonnages by country/year/scenario for copper, lithium, nickel, cobalt, graphite, rare earths (mining + refining + demand) |
 | `concentration-and-controls.json` | Export-control market-share table (p.39), refined shares (p.31), mining shares (p.32), prose shares (p.121), battery supply chain (p.73), minor-minerals scatter (p.199), nuclear fuel cycle (p.224-228), other scattered shares |
 | `byproducts-and-costs.json` | By-product "roots" map (p.367-368), material cost shares, economic value-at-risk, diversification economics |
+| `charts-catalog.json` | Every figure in the report catalogued by **chart type** (line / bar / stacked / scatter / heatmap-matrix / flowchart / waterfall / table), with axes, series, page, and what it showed — so an agent knows which *kind* of graph was used for each topic |
 | `../iea_gcmo_2026_data.md` | The original atlas-relevant summary (which figures the atlas uses, and where IEA disagrees with USGS) |
 
 ## How the atlas uses it
