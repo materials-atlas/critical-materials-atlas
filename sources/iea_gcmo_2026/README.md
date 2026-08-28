@@ -14,6 +14,7 @@ Complete, agent-consultable capture of the **IEA Global Critical Minerals Outloo
 | `concentration-and-controls.json` | Export-control market-share table (p.39), refined shares (p.31), mining shares (p.32), prose shares (p.121), battery supply chain (p.73), minor-minerals scatter (p.199), nuclear fuel cycle (p.224-228), other scattered shares |
 | `byproducts-and-costs.json` | By-product "roots" map (p.367-368), material cost shares, economic value-at-risk, diversification economics |
 | `charts-catalog.json` | Every figure in the report catalogued by **chart type** (line / bar / stacked / scatter / heatmap-matrix / flowchart / waterfall / table), with axes, series, page, and what it showed — so an agent knows which *kind* of graph was used for each topic |
+| `GlobalCriticalMineralsOutlook2026.pdf` | **The full original report PDF** (14.8 MB, 370 pp) — every graph, table and image in high fidelity. Downloaded from the IEA (iea.blob.core.windows.net/assets/19c60aa0-.../GlobalCriticalMineralsOutlook2026.pdf). (C) IEA, CC BY 4.0. Authoritative source; the .md/.json files are its machine-readable extraction |
 | `../iea_gcmo_2026_data.md` | The original atlas-relevant summary (which figures the atlas uses, and where IEA disagrees with USGS) |
 
 ## How the atlas uses it
