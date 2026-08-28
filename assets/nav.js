@@ -51,6 +51,8 @@
       ['breakout.html', 'Break the chokepoint — the decision layer'],
       ['security-premium.html', 'The security premium — cost to insure vs at risk'],
       ['trajectory.html', 'Chokepoints in motion — easing vs entrenching'],
+      ['n1.html', 'N−1 — can the rest cope without the leader?'],
+      ['smelters.html', 'Smelters, not mines — the by-product host map'],
       ['product-space.html', 'Product space — mine ▸ refine map'],
       ['risk-adjusted.html', 'Risk when supply can’t respond'],
       ['host-shock.html', 'Host shock — the commodities that gate criticals'],
@@ -67,7 +69,8 @@
       ['price-volatility.html', 'Volatility — by-product, or just small?'],
       ['uncertainty.html', 'Scorecard uncertainty (Monte-Carlo)'],
       ['limitations.html', 'Limitations & falsification'],
-      ['challenge.html', 'Break this atlas — open challenge'] ] },
+      ['challenge.html', 'Break this atlas — open challenge'],
+      ['iea-risk-check.html', 'IEA cross-check — does our risk index recover theirs?'] ] },
     { label: 'Reference', items: [
       ['about.html', 'About the atlas'],
       ['reports.html', 'Reports — dated, citable'],

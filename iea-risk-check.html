@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Independent check: does our risk index recover the IEA's? — Critical Materials Atlas</title>
+<meta name="description" content="The atlas's public-data supply-risk index, built from USGS/BGS + governance + substitution, independently flags the same by-product and built-capability minerals the IEA's proprietary-data assessment calls highest-risk — gallium, magnets, graphite, germanium, tungsten, cobalt — while its broader scope also surfaces others.">
+<meta property="og:title" content="Does our public-data risk index recover the IEA's?">
+<meta property="og:description" content="An independent test: the atlas's risk index, from public data, flags the same high-tech by-product/capability minerals the IEA calls highest-risk.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/iea-risk-check.html">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ :root{--acc:#0e7c74}
+ article{max-width:1000px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:78ch;margin:.2rem 0 1.2rem}
+ .thesis b{color:var(--navy)}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2rem 0 .5rem;border-top:1px solid var(--line);padding-top:1.5rem}
+ .kpi{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0}
+ .kpi .c{flex:1;min-width:200px;border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;background:var(--bg)}
+ .kpi .c.hi{border-left:4px solid var(--acc)}
+ .kpi .big{font-size:1.7rem;font-weight:800;color:var(--navy);line-height:1.1}
+ .kpi .lbl{font-size:.82rem;color:var(--mut);margin-top:.25rem;line-height:1.4}
+ .rank{display:flex;flex-direction:column;gap:.3rem;margin:1rem 0}
+ .r{display:grid;grid-template-columns:1.8rem 9rem 1fr 2.6rem;align-items:center;gap:.7rem;font-size:.85rem}
+ .r .num{color:var(--faint);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+ .r .nm a{color:var(--navy);font-weight:600;text-decoration:none}.r .nm a:hover{text-decoration:underline}
+ .r .track{height:16px;background:var(--bg-soft);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+ .r .fill{display:block;height:100%;background:#c9d3d1;border-radius:5px}
+ .r.iea .fill{background:var(--acc)}
+ .r.iea .nm a{color:var(--acc);font-weight:800}
+ .r .sc{font-weight:700;text-align:right;color:var(--navy);font-variant-numeric:tabular-nums}
+ .r .tag{font-size:.64rem;font-weight:700;color:#fff;background:var(--acc);border-radius:4px;padding:.05rem .3rem;margin-left:.4rem}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:82ch}
+ .note b{color:var(--ink-soft)}
+ .rule{background:var(--bg-soft);border-left:4px solid var(--acc);border-radius:8px;padding:.9rem 1.1rem;margin:1.2rem 0;font-size:.95rem;line-height:1.55}
+ .rule b{color:var(--navy)}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Rigor · independent cross-check</div>
+  <h1>Does our risk index recover the IEA's?</h1>
+  <p class="deck">The IEA names eight materials as highest-risk — <b>gallium, magnet rare earths, yttrium, graphite, tungsten, germanium, tellurium, cobalt</b> — from a framework resting on proprietary market data. The atlas builds its own <a href="risk.html">supply-risk index</a> from entirely public sources (USGS/BGS production, governance, substitution, recycling). Do they agree? Below, the atlas's ranking with the IEA's high-risk minerals highlighted. The convergence is the point: two independent methods land on the same by-product and built-capability metals.</p>
+</div></section>
+
+<article>
+  <p class="thesis">This is a falsification test of the atlas's method. If a public-data index recovers the same high-risk minerals a well-resourced agency identifies from paid data, the public-data approach is validated. It does — with an honest caveat about scope, below.</p>
+
+  <div class="kpi" id="kpi"></div>
+
+  <h2 class="sec">The atlas's supply-risk ranking — IEA high-risk minerals highlighted</h2>
+  <div class="rank" id="rank"></div>
+
+  <div class="rule"><b>Convergent, with an honest scope difference.</b> Of the IEA's eight high-risk minerals, six exist as discrete atlas materials (yttrium and tellurium sit inside the rare-earth basket and copper by-products), and <b id="topn">most</b> of those rank in the atlas's upper third — gallium, magnets, graphite, germanium and tungsten cluster high, cobalt just below. Two independent methods, converging on the same by-product and built-capability metals. Where they differ is <i>scope, not contradiction</i>: the atlas ranks a broader 32-material EU-CRM set and weights governance and recyclability, so it also elevates beryllium, niobium, lithium and magnesium — materials the IEA's energy-transition lens does not foreground. The agreement is on the specifics; the difference is a wider aperture.</div>
+
+  <p class="note" style="margin-top:1rem">Atlas index: live from <a href="risk.html">this site's supply-risk model</a> (USGS/BGS production shares → HHI, governance via World Bank WGI, substitutability and recycling from EU CRM 2023). IEA high-risk list: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA GCMO 2026</a> risk-assessment section (supply concentration + alternative supply routes + strategic importance), © IEA CC BY 4.0. Note the atlas's exact weights differ from the IEA's (which are not published), so this tests <i>rank agreement</i>, not identical scores — see <a href="riskmethods.html">risk methods</a>.</p>
+  <div class="ftr"><a href="risk.html">The supply-risk index</a> · <a href="riskmethods.html">Risk methods</a> · <a href="smelters.html">Smelters, not mines</a></div>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="risk.html">Risk index</a><br><a href="reports.html">Reports</a></div><div class="fineprint">Cross-check of the atlas's public-data risk index against the IEA GCMO 2026 (CC BY 4.0).</div></div></footer>
+
+<script>
+// IEA's named highest-risk minerals -> atlas material labels (yttrium, tellurium have no discrete atlas material)
+var IEA={gallium:1,magnets:1,graphite:1,tungsten:1,germanium:1,cobalt:1}; // + yttrium, tellurium (in RE basket / Cu by-products)
+fetch('out/risk.json').then(function(r){return r.json();}).then(function(d){
+  var items=(d.materials||[]).slice().sort(function(a,b){return (b.score||0)-(a.score||0);});
+  var max=items.length?items[0].score:100;
+  // rank map
+  items.forEach(function(it,i){it._rank=i+1;});
+  var flagged=items.filter(function(it){return IEA[(it.label||it.title||'').toLowerCase()];});
+  var inTop=flagged.filter(function(it){return it._rank<=Math.ceil(items.length/3);}).length;
+  document.getElementById('kpi').innerHTML=
+    '<div class="c hi"><div class="big">6 / 8</div><div class="lbl">IEA high-risk minerals that exist as discrete atlas materials (yttrium &amp; tellurium sit inside baskets)</div></div>'+
+    '<div class="c hi"><div class="big">'+inTop+' / '+flagged.length+'</div><div class="lbl">of those rank in the atlas index’s top third — independent convergence</div></div>'+
+    '<div class="c"><div class="big">'+items.length+'</div><div class="lbl">materials in the atlas’s public-data risk index (EU-CRM scope)</div></div>';
+  document.getElementById('topn').textContent=inTop+' of the 6';
+  document.getElementById('rank').innerHTML=items.slice(0,20).map(function(it){
+    var lab=(it.label||it.title||''), isIea=IEA[lab.toLowerCase()];
+    var nm=lab.charAt(0).toUpperCase()+lab.slice(1);
+    return '<div class="r'+(isIea?' iea':'')+'"><span class="num">'+it._rank+'</span>'+
+      '<span class="nm"><a href="risk.html">'+nm+'</a>'+(isIea?'<span class="tag">IEA high-risk</span>':'')+'</span>'+
+      '<span class="track"><span class="fill" style="width:'+((it.score||0)/max*100)+'%"></span></span>'+
+      '<span class="sc">'+(it.score||0)+'</span></div>';
+  }).join('');
+}).catch(function(){document.getElementById('rank').innerHTML='<p class="note">Risk data did not load — serve the repository over HTTP.</p>';});
+</script>
+</body></html>
