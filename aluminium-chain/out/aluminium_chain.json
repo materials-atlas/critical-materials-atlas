@@ -209,10 +209,43 @@
       "h2": "3 · The carbon twist: same metal, very different footprint",
       "panels": [
         {
+          "kind": "bars",
+          "h3": "How the world's smelters are powered",
+          "conf": "estimate",
+          "max": 1.0,
+          "note": "International Aluminium Institute (IAI), latest fuel-mix statistics. Aluminium smelting draws roughly three-fifths of its electricity from COAL worldwide — the single reason the metal's carbon footprint is so power-dependent. China's own smelter fleet is close to 90% coal-fired, while Canada, Norway and Iceland run on hydro. (Figures are IAI industry aggregates, read off their fuel-mix dashboard.)",
+          "bars": [
+            {
+              "label": "Coal",
+              "value": 0.57
+            },
+            {
+              "label": "Hydro",
+              "value": 0.28
+            },
+            {
+              "label": "Natural gas",
+              "value": 0.1
+            },
+            {
+              "label": "Nuclear + other",
+              "value": 0.05
+            }
+          ]
+        },
+        {
+          "kind": "big",
+          "h3": "Carbon per tonne",
+          "big": "~16 t CO₂e",
+          "conf": "estimate",
+          "text": "the IAI global-average cradle-to-gate greenhouse-gas intensity of a tonne of primary aluminium — but the average hides everything. Hydro-powered metal sits near ~4 t CO₂e/t; coal-powered metal runs past ~20 t. Same metal, a 5× spread, set almost entirely by the smelter's powerline.",
+          "note": "IAI GHG-intensity statistics; hydro–coal range is IAI-consistent."
+        },
+        {
           "kind": "text",
           "h3": "Coal aluminium vs hydro aluminium",
           "text": "Because smelting is electricity, a tonne of aluminium's carbon footprint depends almost entirely on the smelter's power source. Chinese coal-powered metal carries several times the CO₂ of hydro-powered metal from Canada, Norway or Iceland. 'Green aluminium' commands a premium, and carbon border adjustments (EU CBAM) turn the power source into a trade variable.",
-          "note": "Industry / IEA carbon-intensity ranges.",
+          "note": "IAI fuel mix; EU CBAM.",
           "flag": "the power source is now a trade variable"
         }
       ]
@@ -273,6 +306,16 @@
       "title": "CEPII BACI V202601, based on UN Comtrade",
       "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    },
+    "iai_power": {
+      "title": "International Aluminium Institute — Primary Aluminium Smelting Power Consumption & Fuel Mix",
+      "year": 2024,
+      "url": "https://international-aluminium.org/statistics/primary-aluminium-smelting-power-consumption/"
+    },
+    "iai_ghg": {
+      "title": "International Aluminium Institute — Greenhouse Gas Emissions Intensity, Primary Aluminium",
+      "year": 2024,
+      "url": "https://international-aluminium.org/statistics/greenhouse-gas-emissions-intensity-primary-aluminium/"
     }
   }
 }
