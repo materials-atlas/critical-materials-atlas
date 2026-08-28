@@ -1,0 +1,72 @@
+{
+  "_source": "IEA, Global Critical Minerals Outlook 2026, CC BY 4.0. By-product 'Roots of by-products' table (annex p.367-368) and material cost-share figures (p.234, 241-248), transcribed verbatim.",
+
+  "byproduct_roots_p367_368": {
+    "_title": "Theoretical by-product production from primary production. Each by-product is recovered as a secondary output during extraction/processing of a primary product.",
+    "_columns": ["by_product","recovery_stage","process","theoretical_production","typical_content_grade"],
+    "Copper": [
+      {"by_product": "Molybdenum", "recovery_stage": "Mining", "process": "Flotation during beneficiation; molybdenum concentrate separated from copper concentrate", "theoretical_production": "10-1000 t from Mt of ore", "typical_content": "0.001-0.1% in 1 t of ore"},
+      {"by_product": "Rhenium", "recovery_stage": "Smelting", "process": "Roasting", "theoretical_production": "0.1-0.6 t from Mt of ore", "typical_content": "0.1-0.6 g per t of ore"},
+      {"by_product": "Gold", "recovery_stage": "Refining", "process": "Anode slimes from copper electro-refining", "theoretical_production": "0.1-1 t from Mt of ore", "typical_content": "0.1-1 g per t of ore"},
+      {"by_product": "Silver", "recovery_stage": "Refining", "process": "Anode slimes from copper electro-refining", "theoretical_production": "0.1-20 t from Mt of ore", "typical_content": "0.1-20 g per t of ore"},
+      {"by_product": "Selenium", "recovery_stage": "Refining", "process": "Anode slimes from electro-refining", "theoretical_production": "50 t from kt of anode slime", "typical_content": "5% in anode slimes"},
+      {"by_product": "Tellurium", "recovery_stage": "Refining", "process": "Anode slimes from electro-refining", "theoretical_production": "20 t from kt of anode slime", "typical_content": "2% in anode slimes"},
+      {"by_product": "Cobalt", "recovery_stage": "Refining", "process": "Acid leach solutions in copper hydrometallurgy", "theoretical_production": "100-5000 t from Mt of ore", "typical_content": "0.01-0.5% in 1 t of ore"}
+    ],
+    "Zinc": [
+      {"by_product": "Indium", "recovery_stage": "Refining", "process": "Leach residues and solvent extraction", "theoretical_production": "40-270 t from Mt of concentrate", "typical_content": "0.004-0.027% in 1 t of concentrate"},
+      {"by_product": "Germanium", "recovery_stage": "Refining", "process": "Roast-leach-electrowinning", "theoretical_production": "30 t from Mt of ore", "typical_content": "0.003% in 1 t of ore"},
+      {"by_product": "Gallium", "recovery_stage": "Refining", "process": "Leach residues and solvent extraction", "theoretical_production": "10-500 t from Mt of ore", "typical_content": "0.001-0.05% in 1 t of ore"}
+    ],
+    "Lead": [
+      {"by_product": "Silver", "recovery_stage": "Refining", "process": "Hydrometallurgy process during lead refining", "theoretical_production": "500 t from Mt of concentrate", "typical_content": "hundreds g per 1 t of concentrate"},
+      {"by_product": "Bismuth", "recovery_stage": "Refining", "process": "Roasting dross and reduction", "theoretical_production": "~200 t from Mt of concentrate", "typical_content": "~0.02% in 1 t of concentrate"},
+      {"by_product": "Antimony", "recovery_stage": "Refining", "process": "Roasting dross and reduction", "theoretical_production": "4000 t from Mt of concentrate", "typical_content": "0.4% in 1 t of concentrate"}
+    ],
+    "Nickel": [
+      {"by_product": "Cobalt", "recovery_stage": "Refining", "process": "Precipitation and electrolytic", "theoretical_production": "1000-2000 t from Mt of ore", "typical_content": "0.1-0.2% in 1 t of ore"},
+      {"by_product": "Platinum group metals", "recovery_stage": "Refining", "process": "Anode slimes from copper electrolytic refining", "theoretical_production": "Palladium ~9 and platinum ~2 t from Mt of ore", "typical_content": "Palladium ~9 g and platinum ~2 g per t of ore"}
+    ],
+    "Aluminium": [
+      {"by_product": "Gallium", "recovery_stage": "Refining", "process": "Solvent extraction and electrowinning (from Bayer liquor)", "theoretical_production": "10-100 t from Mt of ore", "typical_content": "0.001-0.01% in 1 t of ore"}
+    ],
+    "_atlas_note": "This table validates the atlas by-product mechanism chains: rhenium/tellurium/selenium/molybdenum/cobalt from copper; indium/germanium/gallium from zinc; bismuth/antimony/silver from lead; cobalt/PGM from nickel; gallium from aluminium. Directly corroborates the zinc 'host' chain thesis."
+  },
+
+  "material_cost_shares": {
+    "_title": "Share of critical minerals in final product prices (p.234, 241-248)",
+    "battery": {
+      "minerals_share_of_cell_pct": 26, "minerals_share_of_pack_pct": 18, "minerals_share_of_storage_system_pct": 2, "minerals_share_of_ev_pct": 3,
+      "lithium_share_of_pack_pct": 4, "graphite_share_of_pack_pct": 4, "nickel_sulphate_share_of_pack_pct": 3, "copper_share_of_pack_pct": 3, "cobalt_sulphate_share_of_pack_pct": 2, "manganese_sulphate_share_of_pack_pct": 0.1,
+      "tripling_minerals_raises_pack_price_pct": 36, "tripling_minerals_raises_ev_price_pct": 5
+    },
+    "rare_earths": {
+      "share_of_magnet_price_pct": 40, "dysprosium_share_of_magnet_pct": 20, "ndpr_share_of_magnet_pct": 15, "terbium_share_of_magnet_pct": 10,
+      "share_of_motor_price_pct": 5, "share_of_ev_pct": 1, "share_of_ice_car_pct": 0.1, "share_of_wide_body_aircraft_pct": 0.001,
+      "tripling_re_raises_magnet_price_pct": 80, "tripling_re_raises_motor_price_pct": 10, "tripling_re_raises_car_price_pct": 0.1
+    },
+    "copper": {
+      "share_of_transformer_price_pct": 10, "share_of_subsea_cable_price_pct": 15,
+      "2026_price_raises_transformer_price_pct": 7, "2026_price_raises_subsea_cable_price_pct": 10
+    }
+  },
+
+  "economic_value_at_risk_from_export_controls": {
+    "_title": "Economic value of downstream production at risk outside China from full export controls (p.235-240)",
+    "rare_earths_total_usd_trillion_per_year": 6.5, "rare_earths_pct_of_ex_china_gdp": 7,
+    "rare_earths_by_region_usd_bn": {"United States": 1500, "Europe": 1500, "Japan_and_Korea": 500},
+    "rare_earths_by_sector_usd_bn": {"automotive": 3000, "electronics": 1000, "other_transport": 1000, "defence": 600, "data_centres": 350},
+    "graphite_total_usd_bn_per_year": 300, "graphite_ratio_smaller_than_rare_earths": 20,
+    "graphite_by_region_usd_bn": {"Europe": 150, "United States": 90, "Japan_and_Korea": 50},
+    "graphite_by_sector_usd_bn": {"electric_vehicles": 275, "battery_storage": 5, "battery_production": 40}
+  },
+
+  "diversification_economics": {
+    "_title": "Cost of building supply chains outside the dominant supplier (p.263-266)",
+    "capex_higher_outside_dominant_pct": "20 to over 150", "opex_higher_outside_dominant_pct": 50,
+    "graphite_plant_costs_higher_pct": 100, "graphite_construction_costs_higher_pct": 20,
+    "rare_earth_magnet_equipment_costlier_x": "5-12", "grain_boundary_diffusion_equipment_costlier_x": 12, "grain_boundary_diffusion_suppliers_outside_china": 1,
+    "diversify_rare_earth_investment_usd_bn": 60, "close_rare_earth_supply_gaps_investment_usd_bn": 60, "close_graphite_supply_gaps_investment_usd_bn": 30,
+    "stockpiling_11_high_risk_materials_net_annual_usd_million": 900, "stockpiling_purchase_asset_value_usd_bn": 9.2
+  }
+}

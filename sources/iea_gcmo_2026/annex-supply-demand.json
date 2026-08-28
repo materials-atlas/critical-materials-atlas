@@ -1,0 +1,120 @@
+{
+  "_source": "IEA, Global Critical Minerals Outlook 2026 (published 16 July 2026, revised July 2026), CC BY 4.0. Annex 'Key projection results', pages 347-364. Transcribed verbatim from the report tables.",
+  "_units": "Demand tables in kt (kilotonnes) of contained metal unless noted; supply tables in kt. Years: 2021 and 2025 = historical; 2030/2040/2050 = projections. Scenarios: CPS=Current Policies, STEPS=Stated Policies, HDS=High Demand. Supply base_case columns are 2021/2025/2030/2040.",
+  "_note": "Rare earths in demand/supply tables refer to MAGNET rare earths only (Nd, Pr, Dy, Tb). 'Top3 share' = combined share of the top three producing countries, as printed in the table.",
+
+  "copper": {
+    "demand_ktCu": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "clean_energy": [5654,8003,10232,11822,12174,10725,13073,13559,12302,15668,16572],
+      "clean_energy_electricity_networks": [4189,4544,5637,6693,6430,5713,6631,6316,6002,7181,6815],
+      "clean_energy_electric_vehicles": [264,794,1623,2359,2391,1763,3046,3476,2017,4143,4750],
+      "clean_energy_solar_pv": [707,1970,2044,1755,2099,2222,2219,2300,2803,2626,2758],
+      "clean_energy_other": [493,695,927,1015,1253,1066,1177,1466,1480,1719,2249],
+      "other_uses": [19296,19772,20560,21757,23714,20605,21911,24014,19665,20051,21495],
+      "total": [24950,27775,30792,33580,35888,31370,34984,37572,31967,35719,38066],
+      "share_clean_energy_pct": [23,29,33,35,34,34,37,36,38,44,44]
+    },
+    "supply_ktCu": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining": {"Chile":[5672,5485,5369,4165],"DRC":[2019,3338,4212,2696],"Peru":[2284,2726,2712,1859],"China":[1823,1838,2040,1852],"Russia":[867,1145,1244,1343],"United States":[1262,1101,1196,632],"Rest of world":[7530,7594,7798,4636],"World":[21457,23227,24571,17183],"Top3_share_pct":[46,50,50,51]},
+      "refining": {"China":[10378,13069,17121,17221],"DRC":[1563,2659,3278,1979],"Chile":[2282,1741,1846,1359],"Japan":[1514,1431,1624,1624],"Russia":[954,990,1110,1105],"India":[490,646,1500,1500],"Rest of world":[7328,6740,8970,8205],"World":[24965,27955,36383,33710],"Top3_share_pct":[57,62,61,62]}
+    },
+    "_derived_2025_shares": {"china_refining_pct": 46.7, "top_miner_chile_pct": 23.6}
+  },
+
+  "lithium": {
+    "demand_ktLi": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "clean_energy": [67,203,368,652,708,407,836,1002,470,1131,1381],
+      "clean_energy_electric_vehicles": [63,171,333,594,636,365,765,911,416,1037,1260],
+      "clean_energy_battery_storage": [5,32,35,57,72,42,71,90,54,94,121],
+      "other_uses": [36,72,70,96,120,70,96,120,70,96,120],
+      "total": [103,275,438,748,828,476,932,1122,540,1227,1501],
+      "share_clean_energy_pct": [65,74,84,87,85,85,90,89,87,92,92]
+    },
+    "supply_ktLi": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining_raw_materials": {"Australia":[50,104,143,120],"China":[17,70,162,150],"Chile":[28,52,57,59],"Zimbabwe":[2,28,27,27],"Argentina":[6,19,51,54],"Canada":[0,7,24,22],"Rest of world":[4,23,77,50],"World":[107,302,540,482],"Top3_share_pct":[89,75,67,68]},
+      "refining_chemicals": {"China":[70,235,369,374],"Chile":[25,52,57,59],"Argentina":[7,16,51,54],"Australia":[0,6,16,26],"Germany":[0,3,6,7],"United States":[1,1,19,20],"Rest of world":[0,5,25,28],"World":[103,319,544,568],"Top3_share_pct":[99,95,88,86]}
+    },
+    "_derived_2025_shares": {"china_chemicals_refining_pct": 73.7, "note": "IEA prose (p.142) states China lithium refining share rose from 70% in 2024 to 75% in 2025; annex table computes 73.7%"}
+  },
+
+  "nickel": {
+    "demand_ktNi": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "clean_energy": [308,625,1276,1932,2051,1409,2403,2763,1698,3253,3963],
+      "clean_energy_electric_vehicles": [222,439,909,1449,1448,989,1851,2054,1119,2500,2839],
+      "clean_energy_battery_storage": [9,28,59,160,305,71,199,382,92,264,512],
+      "clean_energy_other": [77,159,308,323,297,348,353,326,486,488,611],
+      "other_uses": [2536,2906,3055,3429,3746,3055,3429,3746,3100,3270,3375],
+      "total": [2845,3532,4331,5361,5797,4464,5832,6509,4799,6523,7338],
+      "share_clean_energy_pct": [11,18,29,36,35,32,41,42,35,50,54]
+    },
+    "supply_ktNi": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining": {"Indonesia":[1105,2637,3567,3568],"Philippines":[476,482,308,308],"Russia":[205,192,218,218],"China":[108,147,161,152],"New Caledonia":[186,138,207,207],"Canada":[134,138,147,52],"Brazil":[76,85,82,82],"Rest of world":[480,388,408,271],"World":[2770,4207,5098,4858],"Top3_share_pct":[65,79,80,84]},
+      "refining": {"Indonesia":[907,1681,2080,2081],"China":[746,1160,1194,1194],"Canada":[113,125,134,90],"Russia":[121,123,142,142],"Japan":[128,108,107,107],"Norway":[91,100,92,92],"Brazil":[61,64,73,65],"Rest of world":[541,367,409,387],"World":[2709,3729,4231,4159],"Top3_share_pct":[66,80,81,82]},
+      "_refining_note": "Nickel refining includes nickel processed into metal, oxide, nickel pig iron, ferronickel, or sulphate; excludes outputs from intermediate production steps."
+    },
+    "_derived_2025_shares": {"indonesia_mining_pct": 62.7, "indonesia_refining_pct": 45.1, "china_refining_pct": 31.1, "note": "IEA gives Indonesia ~63% of mining vs USGS ~67% (2,600/3,900) — difference is world-total denominator (IEA 4,207 kt vs USGS 3,900 kt)"}
+  },
+
+  "cobalt": {
+    "demand_ktCo": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "clean_energy": [52,90,123,109,118,134,139,167,153,190,233],
+      "clean_energy_electric_vehicles": [50,84,119,109,118,130,139,167,147,190,233],
+      "clean_energy_battery_storage": [2,6,4,0,0,5,0,0,6,0,0],
+      "other_uses": [135,169,165,197,225,171,204,234,165,195,222],
+      "total": [187,259,287,306,343,305,343,401,318,385,455],
+      "share_clean_energy_pct": [28,35,43,36,34,44,41,42,48,49,51]
+    },
+    "supply_ktCo": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining": {"DRC":[122,210,121,88],"Indonesia":[4,48,69,67],"Russia":[6,8,8,8],"China":[7,7,7,7],"Australia":[8,4,5,4],"Zambia":[4,4,7,6],"Rest of world":[35,39,34,21],"World":[186,320,252,200],"Top3_share_pct":[73,83,79,81]},
+      "refining": {"China":[132,180,217,260],"Finland":[14,20,20,20],"Japan":[5,6,7,7],"Indonesia":[0,6,17,17],"Canada":[4,6,6,2],"Norway":[4,3,3,3],"Rest of world":[19,17,26,27],"World":[177,238,295,335],"Top3_share_pct":[85,87,86,89]}
+    },
+    "_derived_2025_shares": {"drc_mining_pct": 65.6, "indonesia_mining_pct": 15.0, "china_refining_pct": 75.6, "note": "IEA notes DRC 2025-2026 supply numbers reflect SOLD volumes (cut by the Sept-2025 export quota), not production; USGS gives a higher DRC production share (~75%)"}
+  },
+
+  "graphite": {
+    "demand_kt": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "_note": "Demand covers raw natural graphite AND synthetic graphite",
+      "clean_energy": [849,2491,4227,4519,2649,4675,5809,3687,5408,7871,5079],
+      "clean_energy_electric_vehicles": [786,2087,3804,3776,1871,4162,4884,2711,4747,6644,3774],
+      "clean_energy_battery_storage": [62,404,424,743,778,513,925,976,661,1227,1305],
+      "other_uses": [3391,3287,3906,5009,5961,3975,5138,6170,4031,5383,6444],
+      "total": [4240,5779,8133,9529,8610,8650,10947,9856,9438,13254,11523],
+      "share_clean_energy_pct": [20,43,52,47,31,54,53,37,57,59,44]
+    },
+    "supply_kt": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining_natural_graphite": {"China":[1234,1432,1239,1337],"Madagascar":[82,70,170,165],"Mozambique":[77,67,259,368],"Tanzania":[0,62,263,283],"Brazil":[67,64,99,84],"Russia":[28,28,30,49],"Rest of world":[51,58,154,174],"World":[1540,1781,2214,2460],"Top3_share_pct":[90,88,80,81]},
+      "refined_battery_grade": {"China":[638,2139,3026,4039],"Japan":[41,68,149,165],"Indonesia":[0,32,93,103],"United States":[0,13,15,17],"Korea":[0,5,10,11],"Germany":[0,5,10,10],"Rest of world":[4,3,53,121],"World":[683,2266,3356,4467],"Top3_share_pct":[100,99,97,96]},
+      "_refined_note": "Refined battery-grade supply includes spherical graphite made from natural flake graphite AND synthetic anode production"
+    },
+    "_derived_2025_shares": {"china_natural_mining_pct": 80.4, "china_battery_grade_pct": 94.4}
+  },
+
+  "rare_earths_magnet": {
+    "_scope": "Magnet rare earths only: neodymium, praseodymium, dysprosium, terbium",
+    "demand_ktREE": {
+      "columns": ["hist_2021","hist_2025","CPS_2030","CPS_2040","CPS_2050","STEPS_2030","STEPS_2040","STEPS_2050","HDS_2030","HDS_2040","HDS_2050"],
+      "clean_energy": [11,21,33,36,40,37,44,56,48,64,80],
+      "clean_energy_electric_vehicles": [3,11,20,25,26,21,33,41,24,46,54],
+      "clean_energy_wind": [8,10,13,10,13,16,11,15,24,18,27],
+      "other_uses": [64,72,79,95,111,79,95,111,79,95,112],
+      "total": [75,93,112,131,151,116,140,167,127,160,192],
+      "share_clean_energy_pct": [15,22,30,27,26,32,32,34,38,40,42]
+    },
+    "supply_ktREE": {
+      "columns_years": [2021,2025,2030,2040],
+      "mining": {"China":[32,47,51,57],"Myanmar":[8,13,11,11],"United States":[6,7,9,9],"Australia":[4,4,11,12],"Lao PDR":[0,4,8,8],"Rest of world":[7,5,6,6],"World":[57,80,97,104],"Top3_share_pct":[81,85,76,77]},
+      "refining": {"China":[53,75,81,86],"United States":[0,5,9,11],"Malaysia":[4,5,10,10],"France":[0,1,1,1],"Viet Nam":[1,1,1,1],"Rest of world":[2,3,8,9],"World":[60,89,111,118],"Top3_share_pct":[97,94,91,91]}
+    },
+    "_derived_2025_shares": {"china_mining_pct": 58.8, "china_refining_separation_pct": 84.3, "note": "China refining declined 90% (2024) -> 84-85% (2025) as US (MP Materials) + Malaysia (Lynas) ramped — the one major chain where concentration is falling"}
+  }
+}

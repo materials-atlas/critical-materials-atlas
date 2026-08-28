@@ -1,0 +1,113 @@
+{
+  "_source": "IEA, Global Critical Minerals Outlook 2026, CC BY 4.0. Concentration charts and export-control table transcribed from the report. Chart values are read off stacked bars (approximate, ±1-2pp); table and prose values are exact.",
+
+  "export_controls_market_share_table_p39": {
+    "_title": "Export controls announced, proposed or updated in 2025 and 2026 (p.39). 'By' = controlling country; 'Market share (2025)' as printed.",
+    "rows": [
+      {"material": "Aluminium (bauxite)", "by": "Guinea", "market_share_2025_pct": 34, "annotation": "share of mining", "latest": "Proposed new export control effective Jun 2026"},
+      {"material": "Antimony", "by": "China", "market_share_2025_pct": 44, "annotation": "share of refining", "latest": "Suspended its ban on export to the US until Nov 2026"},
+      {"material": "Bismuth", "by": "China", "market_share_2025_pct": 73, "latest": "Export licensing in Feb 2025"},
+      {"material": "Cobalt", "by": "DRC", "market_share_2025_pct": 66, "latest": "Export quota system in Oct 2025"},
+      {"material": "Gallium", "by": "China", "market_share_2025_pct": 99, "latest": "Suspended its ban on export to the US until Nov 2026"},
+      {"material": "Germanium", "by": "China", "market_share_2025_pct": 94, "latest": "Suspended its ban on export to the US until Nov 2026"},
+      {"material": "Graphite (mined)", "by": "Mozambique", "market_share_2025_pct": 4, "latest": "Mandated local processing of mined material"},
+      {"material": "Graphite (refined)", "by": "China", "market_share_2025_pct": 94, "latest": "Proposed new restrictions, suspended until Nov 2026"},
+      {"material": "Indium", "by": "China", "market_share_2025_pct": 86, "latest": "Export licensing in Feb 2025"},
+      {"material": "Lithium", "by": "Zimbabwe", "market_share_2025_pct": 10, "latest": "Suspended lithium-concentrate exports Feb 2026; potential ban 2027"},
+      {"material": "Manganese", "by": "Gabon", "market_share_2025_pct": 25, "latest": "Proposed ban on raw mineral exports to start 2029"},
+      {"material": "Molybdenum", "by": "China", "market_share_2025_pct": 41, "latest": "Export licensing in Feb 2025"},
+      {"material": "Nickel", "by": "Philippines", "market_share_2025_pct": 11, "latest": "Proposed ban on raw mineral exports to start 2030"},
+      {"material": "Rare Earths", "by": "China", "market_share_2025_pct": 91, "latest": "Export licensing on seven rare earths Apr 2025; further restrictions suspended until Nov 2026"},
+      {"material": "Sulphuric acid", "by": "China", "market_share_2025_pct": 34, "latest": "Halted exports from May 2026 until the end of the year"},
+      {"material": "Tellurium", "by": "China", "market_share_2025_pct": 73, "latest": "Export licensing in Feb 2025"},
+      {"material": "Tungsten", "by": "China", "market_share_2025_pct": 76, "latest": "Export licensing in Feb 2025"},
+      {"material": "Rare Earths (technology)", "by": "China", "market_share_2025_pct": 91, "latest": "Proposed controls on related products/equipment/technologies suspended until Nov 2026"},
+      {"material": "Batteries (LFP)", "by": "China", "market_share_2025_pct": 99, "annotation": "share of cell manufacturing", "latest": "Proposed controls suspended until Nov 2026"},
+      {"material": "Lithium refining", "by": "China", "market_share_2025_pct": 71, "latest": "Proposed technology export control in Jan 2025"}
+    ]
+  },
+
+  "refined_production_shares_2025_p31": {
+    "_title": "Share of refined material production by country in 2025 vs top producer's share in 2023 (chart p.31). China unless noted.",
+    "copper": {"top_refiner_2025_pct": 45, "top_refiner": "China"},
+    "lithium": {"top_refiner_2025_pct": 69, "top_refiner": "China", "range": "68-70"},
+    "nickel": {"top_refiner_2025_pct": 75, "top_refiner": "Indonesia", "2023_dot_pct": 41},
+    "cobalt": {"top_refiner_2025_pct": 75, "top_refiner": "China", "2023_dot_pct": 80},
+    "graphite_battery_grade": {"top_refiner_2025_pct": 94, "top_refiner": "China"},
+    "manganese_sulphate": {"top_refiner_2025_pct": 97, "top_refiner": "China", "2023_dot_pct": 92},
+    "rare_earths_magnet": {"top_refiner_2025_pct": 85, "top_refiner": "China", "2023_dot_pct": 91, "note": "declining exception"}
+  },
+
+  "mined_output_shares_2025_p32": {
+    "_title": "Share of mined output by country in 2025 (chart p.32). Top producer's share.",
+    "copper": {"top_miner_2025_pct": 25, "stable": true},
+    "lithium": {"top_miner_2025_pct": 25, "top_miner": "China", "note": "Australia+Chile larger; diversified"},
+    "nickel": {"top_miner_2025_pct": 65, "top_miner": "Indonesia"},
+    "cobalt": {"top_miner_2025_pct": 75, "top_miner": "DRC"},
+    "graphite_natural": {"top_miner_2025_pct": 80, "top_miner": "China", "was_2023_pct": 84},
+    "manganese": {"top_region": "Africa", "pct": 63},
+    "rare_earths_magnet": {"top_miner_2025_pct": 60, "top_miner": "China", "2023_dot_pct": 57, "note": "declining"}
+  },
+
+  "prose_refining_shares_p121": {
+    "_title": "IEA prose (p.121): 'Today, China accounts for...'",
+    "copper_refining_pct": 50, "copper_qualifier": "just under",
+    "lithium_refining_pct": 70,
+    "cobalt_refining_pct": 75,
+    "rare_earth_magnet_separation_pct": 85,
+    "graphite_battery_grade_pct": 90, "graphite_qualifier": "over"
+  },
+
+  "battery_supply_chain_p73": {
+    "_title": "IEA prose (p.73): China's 2025 share across battery supply chain",
+    "lithium_cobalt_phosphate_manganese_graphite_processing_pct": "70-95",
+    "lfp_cathode_materials_pct": 98,
+    "nickel_based_cathode_pct": 66, "nickel_based_cathode_qualifier": "two-thirds",
+    "anode_material_pct": 90, "anode_qualifier": "over",
+    "battery_cells_pct": 80,
+    "cathode_precursor_capacity_pct": 95,
+    "battery_recycling_pretreatment_pct": 76, "battery_recycling_qualifier": "over three-quarters",
+    "battery_recycling_material_recovery_pct": 90,
+    "lfp_share_of_ev_batteries_2025_pct": 55, "lfp_share_within_china_pct": 80, "lfp_share_battery_storage_pct": 90
+  },
+
+  "minor_minerals_top_refiner_share_p199": {
+    "_title": "Market size and top refining country share (scatter chart p.199, approximate x-axis reads)",
+    "copper_pct": 46, "aluminium_pct": 60, "nickel_pct": 45, "zinc_pct": 48, "lead_pct": 42,
+    "lithium_pct": 70, "cobalt_pct": 72, "tantalum_pct": 45,
+    "antimony_pct": 69, "titanium_pct": 70, "indium_pct": 70, "germanium_pct": 78, "tungsten_pct": 78,
+    "tellurium_pct": 68, "rare_earths_pct": 85, "gallium_pct": 98
+  },
+
+  "nuclear_fuel_cycle_p224_p225": {
+    "_title": "Nuclear fuel-cycle concentration, 2025 (region + ownership, p.224-228)",
+    "uranium_mining_top3_pct": 73, "uranium_mining_top3_countries": ["Kazakhstan","Canada","Namibia"], "mining_ownership_top6_companies_pct": 88,
+    "conversion_top3_pct": 70, "conversion_facilities": 5, "conversion_owners": ["Rosatom","Cameco","Orano","ConverDyn","CNNC"],
+    "enrichment_top3_pct": 70, "enrichment_russia_pct": 45, "enrichment_china_pct": 14, "enrichment_france_pct": 11,
+    "enrichment_four_companies_pct": 92, "enrichment_companies": ["Urenco","Rosatom","Orano","CNNC"],
+    "fuel_fabrication_top3_pct": 47, "fabrication_five_companies_pct": 65, "fabrication_companies": ["Westinghouse","Framatome","TVEL","GNF","KEPCO"],
+    "vver_share_of_global_fleet_pct": 14, "vver_primary_supplier": "Russia TVEL",
+    "china_enrichment_capacity_MSWU": 10.8, "global_enrichment_MSWU": 49,
+    "kazakhstan_uzbekistan_mining_share_pct": 45, "half_uranium_transits_russia_or_china_2015_2025": true
+  },
+
+  "other_material_shares_scattered": {
+    "_title": "Other country-concentration figures stated in the report text/charts",
+    "copper_smelting_china_2025_pct": 50, "copper_smelting_china_2005_pct": 15, "copper_smelting_china_share_of_growth_since_2005_pct": 90,
+    "aluminium_primary_china_pct": 60, "aluminium_alumina_china_pct": 60, "aluminium_bauxite_china_pct": 20, "middle_east_primary_aluminium_pct": 8,
+    "sulphuric_acid_china_production_pct": 40, "sulphuric_acid_china_demand_pct": 33, "middle_east_sulphur_supply_pct": 25,
+    "helium_us_pct": 45, "helium_qatar_pct": 35,
+    "strontium_iran": "more than half of global supply",
+    "silver_lac_production_pct": 55, "silver_by_cell_cost_solar_pct": 60,
+    "niobium_brazil_production_pct": 90, "niobium_single_mine_pct": 80,
+    "rhenium_chile_pct": 33, "rhenium_demand_superalloys_pct": 80,
+    "molybdenum_lac_pct": 40, "copper_mine_chile_peru_mexico_pct": 40,
+    "manganese_battery_sulphate_china_2025_pct": 95, "manganese_mine_south_africa_pct": 40, "manganese_mine_gabon_pct": 25, "manganese_mine_ghana_pct": 10, "manganese_mine_australia_pct": 8,
+    "phosphate_rock_morocco_reserves_pct": 70, "phosphate_rock_morocco_mine_pct": 15, "phosphate_rock_china_mine_pct": 45,
+    "ppa_battery_grade_china_pct": 70, "ppa_battery_grade_china_2035_pct": 75,
+    "tin_mine_china_pct": 24, "tin_mine_indonesia_pct": 21, "tin_mine_peru_pct": 11, "tin_refining_china_pct": 50, "tin_solder_share_of_demand": "more than half",
+    "pgm_platinum_mine_south_africa_pct": 70, "pgm_platinum_mine_russia_pct": 12, "pgm_palladium_mine_russia_pct": 45,
+    "zirconium_refining_china_pct": 38, "zircon_mining_australia_south_africa_pct": 60,
+    "germanium_us_metal_imports_from_china_pct": 41
+  }
+}
