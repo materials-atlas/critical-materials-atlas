@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Export-control tracker — Critical Materials Atlas</title>
+<meta name="description" content="Every 2023-2026 critical-mineral export control, by material, controlling country, market share and status — including the wave suspended until November 2026. Controls cluster on by-product and built-capability chokepoints, exactly where the map says concentration sits.">
+<meta property="og:title" content="Export-control tracker — the November 2026 cliff">
+<meta property="og:description" content="China-controlled tariff codes tripled since 2023. See every critical-mineral export control by material, share and status — and why they land on by-product and capability chokepoints.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/controls.html">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ :root{--acc:#0e7c74}
+ article{max-width:1160px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:76ch;margin:.2rem 0 1.2rem}
+ .thesis b{color:var(--navy)}
+ .headline{display:flex;flex-wrap:wrap;gap:1rem;margin:1.2rem 0}
+ .hcard{flex:1;min-width:180px;border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;background:var(--bg)}
+ .hcard .big{font-size:1.8rem;font-weight:800;color:var(--navy);line-height:1.1}
+ .hcard .lbl{font-size:.84rem;color:var(--mut);margin-top:.25rem;line-height:1.45}
+ .hcard.cliff{border-left:4px solid #b4532b}
+ .filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.1rem 0 .3rem;align-items:center}
+ .filters .flabel{font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--faint);font-weight:700;margin-right:.2rem}
+ .chip{font-size:.76rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:.28rem .7rem;cursor:pointer;background:var(--bg);color:var(--ink-soft);-webkit-user-select:none;user-select:none}
+ .chip:hover{border-color:var(--acc)}
+ .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+ .twrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:1rem 0}
+ table.ct{border-collapse:collapse;width:100%;font-size:.84rem;min-width:900px}
+ table.ct th,table.ct td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+ table.ct th{position:sticky;top:0;background:var(--bg-soft);color:var(--navy);font-weight:700;cursor:pointer;white-space:nowrap;font-size:.77rem}
+ table.ct th:hover{color:var(--acc)}
+ table.ct tr:hover td{background:var(--bg-soft)}
+ td.mat a{color:var(--navy);font-weight:700;text-decoration:none;white-space:nowrap}
+ td.mat a:hover{text-decoration:underline}
+ .bar{display:inline-flex;align-items:center;gap:.5rem;white-space:nowrap}
+ .bar .track{width:64px;height:9px;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+ .bar .fill{display:block;height:100%;background:var(--acc);border-radius:6px}
+ .bar .v{font-weight:700;font-variant-numeric:tabular-nums;font-size:.8rem}
+ .mech{display:inline-flex;align-items:center;gap:.35rem;font-size:.76rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+ .mech .dot{width:9px;height:9px;border-radius:50%;flex:none}
+ .st{font-size:.72rem;font-weight:700;border-radius:5px;padding:.12rem .4rem;white-space:nowrap}
+ .st.inforce{color:#b3123a;background:#fdeaee;border:1px solid #f3c2cd}
+ .st.suspended{color:#8a5a12;background:#fbf3e2;border:1px solid #e6cf9a}
+ .st.proposed{color:#4a5a7a;background:#eef2fa;border:1px solid #c9d3e6}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:82ch}
+ .note b{color:var(--ink-soft)}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2rem 0 .3rem;border-top:1px solid var(--line);padding-top:1.5rem}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Reference · export controls</div>
+  <h1>The export-control tracker</h1>
+  <p class="deck">Every critical-mineral export control announced from 2023 to 2026 — by material, who imposed it, the market share behind it, and whether it is in force, suspended, or proposed. The controls do not fall randomly: they cluster on the <b>by-product</b> and <b>built-capability</b> chokepoints the <a href="chokepoint-map.html">Chokepoint Map</a> already flags, and never on the diffuse chains.</p>
+</div></section>
+
+<article>
+  <p class="thesis">Since 2023 the number of tariff codes China requires a licence to export has <b>tripled</b>, and the value of controlled exports passed <b>USD 11 billion</b> in 2025. A large wave announced in October 2025 — expanded rare-earth controls and the whole battery supply chain — was <b>suspended for one year, until November 2026</b>. The suspension is a cliff, not a resolution: the underlying concentration is unchanged.</p>
+
+  <div class="headline" id="tallies"></div>
+
+  <div class="filters">
+    <span class="flabel">Status</span><span id="fstatus"></span>
+    <span class="flabel" style="margin-left:.6rem">Imposed by</span><span id="fby"></span>
+  </div>
+
+  <div class="twrap"><table class="ct">
+    <thead><tr>
+      <th data-k="material">Material</th>
+      <th data-k="by">Imposed by</th>
+      <th data-k="share">2025 share</th>
+      <th data-k="stage">Stage</th>
+      <th data-k="mechanism">Mechanism</th>
+      <th data-k="action">Action</th>
+      <th data-k="date">Since</th>
+      <th data-k="status">Status</th>
+    </tr></thead>
+    <tbody id="ctbody"></tbody>
+  </table></div>
+
+  <h2 class="sec">Why the map predicts what gets controlled</h2>
+  <p class="note">Export controls are a downstream weapon: they only bite where one country holds a genuine chokepoint. Sorted by the atlas's <a href="chokepoint-map.html">7-mechanism taxonomy</a>, the pattern is stark — controls land almost entirely on <b>by-product</b> stages (gallium 99%, germanium 94%, indium 86%, tellurium 73%, bismuth 73% — all recovered from a host metal, so they cannot scale on their own) and <b>built-capability</b> stages (rare-earth separation 91%, refined graphite 94%, tungsten 76%). No one has export-controlled a <b>diffuse</b> chain (wind turbines, heat pumps, grids) — because there is no chokepoint there to weaponise. The map is, in effect, a list of what can be controlled next.</p>
+
+  <p class="note" style="margin-top:1rem">Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA, Global Critical Minerals Outlook 2026</a> (market-share table and control timeline), © IEA, CC BY 4.0, cross-checked against USGS and public policy records. Shares are the top country's 2025 position (mine or refining stage as noted); some are IEA figures that differ from USGS — see each material's chain page for the reconciliation.</p>
+
+  <div class="ftr"><a href="chokepoint-map.html">The Chokepoint Map</a> · <a href="value-chains.html">All value chains</a> · <a href="security-premium.html">The security premium</a></div>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="chokepoint-map.html">Chokepoint map</a><br><a href="reports.html">Reports</a></div><div class="fineprint">Export-control data from the IEA GCMO 2026 (CC BY 4.0), cross-checked against USGS.</div></div></footer>
+
+<script>
+// Static from IEA GCMO 2026 export-control table (p.39) + the dated timeline in the report narrative.
+// mechanism uses the atlas's 7-mechanism taxonomy. share = top country's 2025 market share (%).
+var MECH={byproduct:{label:"By-product",color:"#6a4a9c"},capability:{label:"Built capability",color:"#2f6fae"},governance:{label:"Governance",color:"#cf8a2e"},policy:{label:"Policy",color:"#2f9c9c"},geological:{label:"Geological",color:"#7a5c1e"}};
+var DATA=[
+ {material:"Gallium",href:"gallium-chain/gallium-chain.html",by:"China",share:99,stage:"Recovery (by-product)",mechanism:"byproduct",action:"Export licensing (with germanium); US ban Dec 2024, lifted Nov 2025",date:"Aug 2023",status:"inforce"},
+ {material:"Germanium",href:"germanium-chain/germanium-chain.html",by:"China",share:94,stage:"Recovery (by-product)",mechanism:"byproduct",action:"Export licensing (with gallium); US ban Dec 2024",date:"Aug 2023",status:"inforce"},
+ {material:"Graphite (spherical/synthetic)",href:"graphite-chain/graphite-chain.html",by:"China",share:94,stage:"Anode refining",mechanism:"capability",action:"Licensing on high-purity/spherical graphite items",date:"Dec 2023",status:"inforce"},
+ {material:"Antimony",href:"antimony-chain/antimony-chain.html",by:"China",share:44,stage:"Refining (industry 75-90%)",mechanism:"capability",action:"Export controls; exports to US/Japan/Taiwan halted Sep 2024",date:"Aug 2024",status:"inforce"},
+ {material:"Bismuth",href:"bismuth-chain/bismuth-chain.html",by:"China",share:73,stage:"Refining (by-product)",mechanism:"byproduct",action:"Export licensing (Feb-2025 wave)",date:"Feb 2025",status:"inforce"},
+ {material:"Tellurium",href:"tellurium-chain/tellurium-chain.html",by:"China",share:73,stage:"Refining (by-product)",mechanism:"byproduct",action:"Export licensing (Feb-2025 wave)",date:"Feb 2025",status:"inforce"},
+ {material:"Tungsten",href:"tungsten-chain/tungsten-chain.html",by:"China",share:76,stage:"Refining / APT",mechanism:"capability",action:"Export licensing on selected tungsten items",date:"Feb 2025",status:"inforce"},
+ {material:"Molybdenum",href:"molybdenum-chain/molybdenum-chain.html",by:"China",share:41,stage:"Refining (by-product)",mechanism:"byproduct",action:"Export licensing (Feb-2025 wave)",date:"Feb 2025",status:"inforce"},
+ {material:"Indium",href:"displays-indium-chain/displays-indium-chain.html",by:"China",share:86,stage:"Refining (by-product)",mechanism:"byproduct",action:"Export licensing (Feb-2025 wave)",date:"Feb 2025",status:"inforce"},
+ {material:"Cobalt",href:"cobalt-chain/cobalt-chain.html",by:"DR Congo",share:66,stage:"Mine",mechanism:"governance",action:"Export ban (Feb 2025) → export quota 96,600 t (Oct 2025) → strategic reserve",date:"Feb 2025",status:"inforce"},
+ {material:"Rare earths (7 heavy)",href:"rare-earths-chain/rare-earths-chain.html",by:"China",share:91,stage:"Separation",mechanism:"capability",action:"Licensing on 7 heavy REs (Dy, Tb, Sm…)",date:"Apr 2025",status:"inforce"},
+ {material:"Rare earths (expanded)",href:"rare-earths-chain/rare-earths-chain.html",by:"China",share:91,stage:"Separation + tech",mechanism:"capability",action:"Extended to 'internationally made' products + equipment/tech",date:"Oct 2025",status:"suspended"},
+ {material:"Graphite anode (battery chain)",href:"graphite-chain/graphite-chain.html",by:"China",share:94,stage:"Anode materials",mechanism:"capability",action:"Battery supply-chain controls (anodes, LFP cathode, precursors, equipment)",date:"Oct 2025",status:"suspended"},
+ {material:"Batteries (LFP cells)",href:"battery-chain/battery-chain.html",by:"China",share:99,stage:"Cell manufacturing",mechanism:"capability",action:"Battery cell/equipment/technology controls",date:"Oct 2025",status:"suspended"},
+ {material:"Lithium",href:"lithium-chain/lithium-chain.html",by:"Zimbabwe",share:10,stage:"Mine / concentrate",mechanism:"policy",action:"Concentrate export restrictions to force domestic processing",date:"Feb 2026",status:"inforce"},
+ {material:"Graphite (mined)",href:"graphite-chain/graphite-chain.html",by:"Mozambique",share:4,stage:"Mine",mechanism:"governance",action:"Local value-addition mandate on unprocessed material",date:"Jun 2026",status:"inforce"},
+ {material:"Sulphuric acid",href:"sulfur-chain/sulfur-chain.html",by:"China",share:34,stage:"Production (by-product)",mechanism:"byproduct",action:"Export halt May–Dec 2026 (post-Hormuz sulphur shock)",date:"May 2026",status:"inforce"},
+ {material:"Aluminium (bauxite)",href:"aluminium-chain/aluminium-chain.html",by:"Guinea",share:34,stage:"Mine",mechanism:"policy",action:"Proposed export control (effective Jun 2026)",date:"2026",status:"proposed"},
+ {material:"Manganese",href:"manganese-chain/manganese-chain.html",by:"Gabon",share:25,stage:"Mine",mechanism:"policy",action:"Proposed ban on raw exports (from 2029)",date:"proposed",status:"proposed"},
+ {material:"Nickel",href:"nickel-chain/nickel-chain.html",by:"Philippines",share:11,stage:"Mine",mechanism:"policy",action:"Proposed ban on raw exports (from 2030)",date:"proposed",status:"proposed"}
+];
+function esc(x){return String(x==null?'':x).replace(/[<>]/g,function(c){return{'<':'&lt;','>':'&gt;'}[c];});}
+var STLAB={inforce:"In force",suspended:"Suspended → Nov 2026",proposed:"Proposed"};
+var activeStatus=null, activeBy=null, sortK='date', sortDir=1;
+var KEYORDER={date:0,inforce:0}; // date sorts by original order roughly
+function render(){
+  var rows=DATA.slice();
+  if(activeStatus) rows=rows.filter(function(r){return r.status===activeStatus;});
+  if(activeBy) rows=rows.filter(function(r){return r.by===activeBy;});
+  if(sortK==='share') rows.sort(function(a,b){return (a.share-b.share)*sortDir;});
+  else if(sortK!=='date') rows.sort(function(a,b){var x=(a[sortK]||'').toLowerCase(),y=(b[sortK]||'').toLowerCase();return x<y?-sortDir:x>y?sortDir:0;});
+  document.getElementById('ctbody').innerHTML=rows.map(function(r){
+    var m=MECH[r.mechanism]||{label:r.mechanism,color:'#888'};
+    return '<tr>'+
+      '<td class="mat"><a href="'+esc(r.href)+'">'+esc(r.material)+'</a></td>'+
+      '<td>'+esc(r.by)+'</td>'+
+      '<td><span class="bar"><span class="track"><span class="fill" style="width:'+r.share+'%"></span></span><span class="v">'+r.share+'%</span></span></td>'+
+      '<td class="note" style="max-width:180px">'+esc(r.stage)+'</td>'+
+      '<td><span class="mech"><span class="dot" style="background:'+m.color+'"></span>'+esc(m.label)+'</span></td>'+
+      '<td class="note" style="max-width:280px">'+esc(r.action)+'</td>'+
+      '<td style="white-space:nowrap">'+esc(r.date)+'</td>'+
+      '<td><span class="st '+r.status+'">'+esc(STLAB[r.status])+'</span></td>'+
+    '</tr>';
+  }).join('');
+}
+function tallies(){
+  var inforce=DATA.filter(function(r){return r.status==='inforce';}).length;
+  var susp=DATA.filter(function(r){return r.status==='suspended';}).length;
+  var prop=DATA.filter(function(r){return r.status==='proposed';}).length;
+  var bp=DATA.filter(function(r){return r.mechanism==='byproduct';}).length;
+  var cap=DATA.filter(function(r){return r.mechanism==='capability';}).length;
+  document.getElementById('tallies').innerHTML=
+    '<div class="hcard"><div class="big">'+inforce+'</div><div class="lbl">controls <b>in force</b> today</div></div>'+
+    '<div class="hcard cliff"><div class="big">'+susp+'</div><div class="lbl">suspended until <b>Nov 2026</b> — the cliff, not a resolution</div></div>'+
+    '<div class="hcard"><div class="big">'+(bp+cap)+' / '+DATA.length+'</div><div class="lbl">land on a <b>by-product</b> ('+bp+') or <b>built-capability</b> ('+cap+') chokepoint — where the map says concentration sits</div></div>';
+}
+function buildFilters(){
+  var statuses=['inforce','suspended','proposed'];
+  document.getElementById('fstatus').innerHTML='<span class="chip" data-s="all" aria-pressed="true">All</span>'+statuses.map(function(s){return '<span class="chip" data-s="'+s+'">'+STLAB[s]+'</span>';}).join('');
+  var bys=[]; DATA.forEach(function(r){if(bys.indexOf(r.by)<0)bys.push(r.by);});
+  document.getElementById('fby').innerHTML='<span class="chip" data-b="all" aria-pressed="true">All</span>'+bys.map(function(b){return '<span class="chip" data-b="'+esc(b)+'">'+esc(b)+'</span>';}).join('');
+  [].forEach.call(document.querySelectorAll('#fstatus .chip'),function(c){c.addEventListener('click',function(){activeStatus=c.dataset.s==='all'?null:c.dataset.s;[].forEach.call(document.querySelectorAll('#fstatus .chip'),function(x){x.setAttribute('aria-pressed',x.dataset.s===(activeStatus||'all')?'true':'false');});render();});});
+  [].forEach.call(document.querySelectorAll('#fby .chip'),function(c){c.addEventListener('click',function(){activeBy=c.dataset.b==='all'?null:c.dataset.b;[].forEach.call(document.querySelectorAll('#fby .chip'),function(x){x.setAttribute('aria-pressed',x.dataset.b===(activeBy||'all')?'true':'false');});render();});});
+}
+[].forEach.call(document.querySelectorAll('th[data-k]'),function(th){th.addEventListener('click',function(){var k=th.dataset.k;if(sortK===k)sortDir*=-1;else{sortK=k;sortDir=1;}render();});});
+tallies();buildFilters();render();
+</script>
+</body></html>

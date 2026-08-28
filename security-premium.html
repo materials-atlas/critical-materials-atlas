@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The security premium — Critical Materials Atlas</title>
+<meta name="description" content="A rare-earth export shock puts USD 6.5 trillion of production at risk — yet tripling every rare-earth price raises a car by 0.1%. Critical minerals are a tiny share of final-product cost, so the chokepoint is cheap to insure against. An interactive.">
+<meta property="og:title" content="The security premium — the chokepoint is cheap to insure against">
+<meta property="og:description" content="USD 6.5 trillion at risk from rare-earth controls; tripling rare-earth prices adds 0.1% to a car. Drag the slider and see why diversification cost is absorbable downstream.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/security-premium.html">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ :root{--acc:#0e7c74}
+ article{max-width:1060px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:76ch;margin:.2rem 0 1.2rem}
+ .thesis b{color:var(--navy)}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2rem 0 .5rem;border-top:1px solid var(--line);padding-top:1.5rem}
+ .panel{border:1px solid var(--line);border-radius:12px;padding:1.1rem 1.2rem;background:var(--bg);margin:1rem 0}
+ /* value at risk */
+ .varow{display:grid;grid-template-columns:9rem 1fr 5rem;align-items:center;gap:.7rem;margin:.4rem 0;font-size:.85rem}
+ .varow .lab{color:var(--ink-soft);font-weight:600}
+ .varow .track{height:20px;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+ .varow .fill{display:block;height:100%;border-radius:6px}
+ .varow .val{font-weight:800;color:var(--navy);text-align:right;font-variant-numeric:tabular-nums}
+ .vatitle{font-weight:700;color:var(--navy);margin:.4rem 0 .5rem}
+ /* slider */
+ .cases{display:flex;flex-wrap:wrap;gap:.5rem;margin:.2rem 0 1rem}
+ .chip{font-size:.8rem;font-weight:600;border:1px solid var(--line);border-radius:999px;padding:.32rem .8rem;cursor:pointer;background:var(--bg);color:var(--ink-soft)}
+ .chip[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+ .slider-wrap{display:flex;align-items:center;gap:1rem;margin:.6rem 0 1.2rem}
+ .slider-wrap input[type=range]{flex:1;accent-color:var(--acc)}
+ .slider-wrap .kval{font-size:1.6rem;font-weight:800;color:var(--acc);min-width:3.4rem;text-align:right;font-variant-numeric:tabular-nums}
+ .bigsentence{font-size:1.15rem;line-height:1.5;color:var(--ink);background:var(--bg-soft);border-left:4px solid var(--acc);border-radius:8px;padding:.9rem 1.1rem;margin:.4rem 0 1.2rem}
+ .bigsentence b{color:var(--navy)}
+ .prow{display:grid;grid-template-columns:11rem 1fr 5.5rem;align-items:center;gap:.7rem;margin:.5rem 0;font-size:.85rem}
+ .prow .lab{color:var(--ink-soft);font-weight:600}
+ .prow .track{height:22px;background:var(--bg-soft);border:1px solid var(--line);border-radius:6px;overflow:hidden;position:relative}
+ .prow .base{position:absolute;left:0;top:0;height:100%;background:#c9d3d1;border-radius:6px}
+ .prow .add{position:absolute;top:0;height:100%;background:var(--acc);opacity:.9}
+ .prow .val{font-weight:800;text-align:right;font-variant-numeric:tabular-nums;color:var(--navy)}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:82ch}
+ .note b{color:var(--ink-soft)}
+ .kpi{display:flex;flex-wrap:wrap;gap:1rem;margin:1rem 0}
+ .kpi .c{flex:1;min-width:200px;border:1px solid var(--line);border-radius:12px;padding:.9rem 1.1rem;background:var(--bg)}
+ .kpi .big{font-size:1.7rem;font-weight:800;color:var(--navy);line-height:1.1}
+ .kpi .lbl{font-size:.82rem;color:var(--mut);margin-top:.25rem;line-height:1.4}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Supply structure · the decision layer</div>
+  <h1>The security premium</h1>
+  <p class="deck">A rare-earth export shock puts an estimated <b>USD 6.5 trillion</b> a year of production outside China at risk. Yet tripling the price of <i>every</i> rare earth would add about <b>0.1%</b> to the price of a car. Critical minerals are a tiny slice of final-product cost — so the chokepoint is expensive to <i>suffer</i> but cheap to <i>insure against</i>.</p>
+</div></section>
+
+<article>
+  <p class="thesis">This is the answer to "so what do I do about a chokepoint." Diversified supply costs more than the incumbent — capital 20–150% higher, operating cost ~50% higher — and someone must bear that gap. But because the mineral is a small fraction of the finished product, that extra cost is <b>absorbable downstream</b>. The premium is economic insurance: a small, known cost against a large, uncertain one.</p>
+
+  <h2 class="sec">The exposure — what a full export shock puts at risk</h2>
+  <p class="note">IEA's estimate of the annual economic value of downstream production <b>outside China</b> that would be at risk if the October-2025 controls were fully enforced. Rare earths alone ≈ 7% of the combined GDP of the exposed economies.</p>
+  <div class="panel" id="varisk"></div>
+
+  <h2 class="sec">The premium — drag the price shock</h2>
+  <p class="note">Pick a value chain, then multiply its critical-mineral prices. The grey bar is the mineral's share of the finished product's price today; the teal is the added cost. Assumes full pass-through of the mineral cost — IEA's own figures confirm the anchors (tripling rare earths → magnet +80%, motor +10%; tripling battery minerals → pack +36%).</p>
+  <div class="cases" id="cases"></div>
+  <div class="slider-wrap">
+    <span style="font-weight:600;color:var(--ink-soft)">Multiply mineral price ×</span>
+    <input type="range" id="k" min="1" max="5" step="0.1" value="3" aria-label="Multiply mineral price">
+    <span class="kval" id="kval">3.0×</span>
+  </div>
+  <div class="bigsentence" id="sentence"></div>
+  <div class="panel" id="prows"></div>
+
+  <h2 class="sec">Exposure vs insurance</h2>
+  <div class="kpi">
+    <div class="c"><div class="big">USD 6.5 tn</div><div class="lbl">a year at risk from full rare-earth controls (graphite: USD 300 bn)</div></div>
+    <div class="c"><div class="big">&lt; USD 0.9 bn</div><div class="lbl">net annual cost to stockpile the 11 highest-risk materials (USD 9.2 bn of assets)</div></div>
+    <div class="c"><div class="big">~0.1%</div><div class="lbl">the price impact on a car of tripling every rare-earth price</div></div>
+  </div>
+  <p class="note">The ratio between what a concentrated supply chain puts at risk and what it costs to defuse is roughly <b>thousands to one</b>. The cheapest fix depends on the <a href="chokepoint-map.html">mechanism</a>: for <b>by-product</b> and <b>geological</b> chokepoints — tiny volumes, negligible cost share — a stockpile dominates; for <b>thermodynamic</b> and <b>built-capability</b> ones you must actually build capacity, but even then the downstream price impact is small enough to absorb. See <a href="breakout.html">Break the chokepoint</a> for the per-mechanism playbook.</p>
+
+  <p class="note" style="margin-top:1rem">Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA, Global Critical Minerals Outlook 2026</a> — cost-share figures (pp. 234, 241-248), value-at-risk (pp. 235-240), stockpiling economics (p. 254). © IEA, CC BY 4.0.</p>
+  <div class="ftr"><a href="breakout.html">Break the chokepoint</a> · <a href="controls.html">Export-control tracker</a> · <a href="chokepoint-map.html">The Chokepoint Map</a></div>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="breakout.html">Decision layer</a><br><a href="reports.html">Reports</a></div><div class="fineprint">Cost-share &amp; value-at-risk data from the IEA GCMO 2026 (CC BY 4.0).</div></div></footer>
+
+<script>
+// value at risk (USD bn/yr), IEA GCMO 2026 pp.235-240
+var VAR={
+ "Rare earths — USD 6,500 bn/yr at risk":[["Automotive",3000,"#b4532b"],["Electronics",1000,"#2f6fae"],["Other transport",1000,"#6a4a9c"],["Defence",600,"#cf8a2e"],["Data centres",350,"#0e7c74"],["Other",550,"#9aa6ad"]],
+ "Battery-grade graphite — USD 300 bn/yr at risk":[["Electric vehicles",275,"#b4532b"],["Battery production",40,"#2f6fae"],["Battery storage",5,"#0e7c74"]]
+};
+function renderVar(){
+  var max=3000, html='';
+  Object.keys(VAR).forEach(function(t){
+    html+='<div class="vatitle">'+t+'</div>';
+    VAR[t].forEach(function(r){
+      html+='<div class="varow"><span class="lab">'+r[0]+'</span><span class="track"><span class="fill" style="width:'+(r[1]/max*100)+'%;background:'+r[2]+'"></span></span><span class="val">$'+(r[1]>=1000?(r[1]/1000).toFixed(1)+'tn':r[1]+'bn')+'</span></div>';
+    });
+  });
+  document.getElementById('varisk').innerHTML=html;
+}
+// cost-share model: product price change % = (k-1) * mineral_share%
+var CASES={
+ "Rare earths":{unit:"rare earths",items:[["NdFeB magnet",40],["EV traction motor",5],["Electric vehicle",1],["Petrol (ICE) car",0.05],["Wide-body aircraft",0.001]]},
+ "Battery minerals":{unit:"battery minerals",items:[["Battery cell",26],["Battery pack",18],["Electric vehicle",3],["Storage system",2]]},
+ "Copper":{unit:"copper",items:[["Power transformer",10],["Subsea power cable",15]]}
+};
+var curCase="Rare earths";
+function fmt(x){return x>=1?x.toFixed(x<10?1:0):x<0.01?x.toFixed(3):x.toFixed(2);}
+function renderCase(){
+  var k=parseFloat(document.getElementById('k').value), C=CASES[curCase];
+  document.getElementById('kval').textContent=k.toFixed(1)+'×';
+  // sentence uses the last (most-finished) item
+  var last=C.items[C.items.length-1], lastChg=(k-1)*last[1];
+  var mag=C.items[0], magChg=(k-1)*mag[0>-1?1:1];
+  document.getElementById('sentence').innerHTML='Multiply '+C.unit+' prices by <b>'+k.toFixed(1)+'×</b> and a <b>'+mag[0]+'</b> costs about <b>+'+fmt((k-1)*mag[1])+'%</b> more — but a <b>'+last[0].toLowerCase()+'</b> costs only <b>+'+fmt(lastChg)+'%</b> more.';
+  document.getElementById('prows').innerHTML=C.items.map(function(it){
+    var share=it[1], chg=(k-1)*share, total=share+chg, w=Math.min(total,100);
+    var basew=Math.min(share,100)/Math.max(w,0.001)*Math.min(w, 100);
+    // draw base (today's share) then added, both scaled so full bar = max total in this case
+    return '<div class="prow"><span class="lab">'+it[0]+'</span>'+
+      '<span class="track"><span class="base" style="width:'+Math.min(share, 100)+'%"></span><span class="add" style="left:'+Math.min(share,100)+'%;width:'+Math.min(chg,100-Math.min(share,100))+'%"></span></span>'+
+      '<span class="val">+'+fmt(chg)+'%</span></div>';
+  }).join('');
+}
+function buildCases(){
+  document.getElementById('cases').innerHTML=Object.keys(CASES).map(function(c){return '<span class="chip" data-c="'+c+'" aria-pressed="'+(c===curCase)+'">'+c+'</span>';}).join('');
+  [].forEach.call(document.querySelectorAll('#cases .chip'),function(ch){ch.addEventListener('click',function(){curCase=ch.dataset.c;[].forEach.call(document.querySelectorAll('#cases .chip'),function(x){x.setAttribute('aria-pressed',x.dataset.c===curCase?'true':'false');});renderCase();});});
+}
+document.getElementById('k').addEventListener('input',renderCase);
+renderVar();buildCases();renderCase();
+</script>
+</body></html>

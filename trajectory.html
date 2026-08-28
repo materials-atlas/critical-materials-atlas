@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chokepoints in motion — Critical Materials Atlas</title>
+<meta name="description" content="Which refining chokepoints are easing and which are entrenching, 2025 to 2035 — and why the direction lines up with the mechanism. Built-capability chokepoints erode; policy and thermodynamic ones entrench. The taxonomy predicts the trend.">
+<meta property="og:title" content="Chokepoints in motion — which are easing, which entrenching, and why">
+<meta property="og:description" content="Of the six key minerals, only rare-earth and graphite refining are easing; nickel, copper and cobalt entrench. The direction of change tracks the chokepoint mechanism.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/trajectory.html">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ :root{--acc:#0e7c74}
+ article{max-width:1060px}
+ .thesis{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:76ch;margin:.2rem 0 1.2rem}
+ .thesis b{color:var(--navy)}
+ h2.sec{font-size:1.2rem;color:var(--navy);margin:2rem 0 .5rem;border-top:1px solid var(--line);padding-top:1.5rem}
+ .slopewrap{border:1px solid var(--line);border-radius:12px;padding:1rem;background:var(--bg);margin:1rem 0;overflow-x:auto}
+ .leg{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.82rem;color:var(--ink-soft);margin:.4rem 0 0}
+ .leg span{display:inline-flex;align-items:center;gap:.4rem}
+ .leg i{width:22px;height:3px;border-radius:2px;display:inline-block}
+ .twrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:1rem 0}
+ table.tj{border-collapse:collapse;width:100%;font-size:.85rem;min-width:820px}
+ table.tj th,table.tj td{text-align:left;padding:.55rem .7rem;border-bottom:1px solid var(--line);vertical-align:top}
+ table.tj th{background:var(--bg-soft);color:var(--navy);font-weight:700;font-size:.77rem;white-space:nowrap}
+ table.tj td.m a{color:var(--navy);font-weight:700;text-decoration:none}
+ table.tj td.m a:hover{text-decoration:underline}
+ .trend{font-weight:800;white-space:nowrap}
+ .trend.down{color:#0e7c5a}.trend.up{color:#b3123a}.trend.flat{color:var(--mut)}
+ .mech{display:inline-flex;align-items:center;gap:.35rem;font-size:.78rem;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+ .mech .dot{width:9px;height:9px;border-radius:50%;flex:none}
+ .note{color:var(--mut);font-size:.85rem;line-height:1.55;max-width:82ch}
+ .note b{color:var(--ink-soft)}
+ .rule{background:var(--bg-soft);border-left:4px solid var(--acc);border-radius:8px;padding:.9rem 1.1rem;margin:1rem 0;font-size:.95rem;line-height:1.55}
+ .rule b{color:var(--navy)}
+</style>
+</head><body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Value Chains · finding</div>
+  <h1>Chokepoints in motion</h1>
+  <p class="deck">The mechanism taxonomy is not just descriptive — it is <i>predictive of direction</i>. Track each refining chokepoint from 2025 to 2035 and the movement lines up with why it concentrates: <b>built-capability</b> chokepoints erode as money and years buy capacity elsewhere; <b>policy</b> and <b>thermodynamic</b> ones entrench. Naming the mechanism tells you not only where the bottleneck is, but which way it is going.</p>
+</div></section>
+
+<article>
+  <p class="thesis">Of the six key energy minerals the IEA projects to 2035, only two refining chokepoints are <b>easing</b> — rare earths and graphite — and both are <b>built-capability</b> moats being deliberately rebuilt outside China (MP Materials, Lynas; African graphite + new anode plants). The three that are <b>entrenching</b> — nickel, copper, cobalt — are held by <b>policy</b> (Indonesia's ore-export rules), <b>thermodynamics</b> (China's smelter build-out) and <b>by-product coupling</b>. Concentration is not a fixed fact; it moves, and the mechanism says which way.</p>
+
+  <h2 class="sec">Top-refiner share, 2025 → 2035</h2>
+  <div class="slopewrap" id="slope"></div>
+  <div class="leg"><span><i style="background:#0e7c5a"></i> easing (concentration falling)</span><span><i style="background:#b3123a"></i> entrenching (rising)</span></div>
+
+  <div class="twrap"><table class="tj">
+    <thead><tr><th>Mineral (refining stage)</th><th>2025</th><th>2035</th><th>Trend</th><th>Mechanism</th><th>Why it's moving that way</th></tr></thead>
+    <tbody id="tjbody"></tbody>
+  </table></div>
+
+  <div class="rule"><b>The rule the data supports:</b> a chokepoint's <b>direction of change is set by its mechanism</b>. Capability moats (rare earths, graphite, lithium's long run) erode — they can be out-built, just slowly. Policy chokepoints (Indonesian nickel) can tighten <i>or</i> loosen fast, because a rule made them. By-product and thermodynamic chokepoints (cobalt, copper smelting) barely move, because they are pinned by physics and coupling, not choice. So the taxonomy answers a question the raw shares cannot: <b>will this chokepoint relax on its own, or do you have to act?</b></div>
+
+  <p class="note">Reading: China's (or the top refiner's) single-country share of refined output, 2025 vs 2035 base case, computed from the IEA's own projected tonnages. Rare earths and lithium refer to magnet-RE separation and lithium-chemical conversion; nickel is Indonesia's refined share. Near-term nuance: lithium refining actually <i>rose</i> 70%→75% into 2025 before the projected long-run decline as conversion capacity outside China ramps.</p>
+  <p class="note" style="margin-top:.8rem">Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA, Global Critical Minerals Outlook 2026</a>, annex supply tables (pp. 347-364), © IEA, CC BY 4.0. Shares computed from the country tonnages; mechanism tags are the atlas's own (see the <a href="chokepoint-map.html">Chokepoint Map</a>).</p>
+  <div class="ftr"><a href="chokepoint-map.html">The Chokepoint Map</a> · <a href="controls.html">Export-control tracker</a> · <a href="security-premium.html">The security premium</a></div>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="chokepoint-map.html">Chokepoint map</a><br><a href="value-chains.html">Value Chains</a></div><div class="fineprint">Trajectory data from the IEA GCMO 2026 (CC BY 4.0), computed from country tonnages.</div></div></footer>
+
+<script>
+var MECH={byproduct:{label:"By-product",color:"#6a4a9c"},capability:{label:"Built capability",color:"#2f6fae"},thermodynamic:{label:"Thermodynamic",color:"#c0392b"},policy:{label:"Policy",color:"#2f9c9c"}};
+// single-country top-refiner share 2025 & 2035(base), computed from IEA annex tonnages
+var D=[
+ {m:"Rare earths — separation",href:"rare-earths-chain/rare-earths-chain.html",who:"China",y25:84,y35:73,mechanism:"capability",why:"US (MP Materials) + Malaysia (Lynas) separation ramping — the one chain IEA flags as declining"},
+ {m:"Lithium — chemical conversion",href:"lithium-chain/lithium-chain.html",who:"China",y25:74,y35:66,mechanism:"capability",why:"conversion capacity building in Argentina, US, Australia (near-term it rose 70→75 first)"},
+ {m:"Graphite — battery-grade",href:"graphite-chain/graphite-chain.html",who:"China",y25:94,y35:90,mechanism:"capability",why:"Africa/Canada mines + a few anode plants, but qualification is slow — barely eases"},
+ {m:"Cobalt — refining",href:"cobalt-chain/cobalt-chain.html",who:"China",y25:76,y35:78,mechanism:"byproduct",why:"coupled to copper/nickel; refining stays China regardless of where it's mined"},
+ {m:"Copper — refining/smelting",href:"copper-chain/copper-chain.html",who:"China",y25:47,y35:51,mechanism:"thermodynamic",why:"China's continuous-hot smelter build-out (15%→50% of capacity since 2005) keeps rising"},
+ {m:"Nickel — refining",href:"nickel-chain/nickel-chain.html",who:"Indonesia",y25:45,y35:50,mechanism:"policy",why:"Indonesia's ore-export ban + RKAB quotas concentrate refining further by rule"}
+];
+function trendClass(a,b){var d=b-a; return d<=-3?'down':d>=3?'up':'flat';}
+function trendArrow(a,b){var d=b-a; return d<=-3?'▼ '+Math.abs(d)+'pp':d>=3?'▲ '+d+'pp':'→ '+(d>0?'+':'')+d+'pp';}
+// slope chart
+(function(){
+  var W=680,H=300,padL=150,padR=150,padT=24,padB=20, x0=padL, x1=W-padR;
+  function y(v){return padT+(1-v/100)*(H-padT-padB);}
+  var s='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="max-width:100%;font-family:Inter,sans-serif">';
+  // gridlines
+  [0,25,50,75,100].forEach(function(g){s+='<line x1="'+x0+'" y1="'+y(g)+'" x2="'+x1+'" y2="'+y(g)+'" stroke="#eceeef"/>'+'<text x="'+(x0-8)+'" y="'+(y(g)+4)+'" text-anchor="end" font-size="11" fill="#9aa6ad">'+g+'%</text>';});
+  s+='<text x="'+x0+'" y="'+(H-4)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#15323a">2025</text>';
+  s+='<text x="'+x1+'" y="'+(H-4)+'" text-anchor="middle" font-size="12" font-weight="700" fill="#15323a">2035</text>';
+  D.forEach(function(r){
+    var col=trendClass(r.y25,r.y35)==='down'?'#0e7c5a':trendClass(r.y25,r.y35)==='up'?'#b3123a':'#9aa6ad';
+    s+='<line x1="'+x0+'" y1="'+y(r.y25)+'" x2="'+x1+'" y2="'+y(r.y35)+'" stroke="'+col+'" stroke-width="2.5" opacity=".85"/>';
+    s+='<circle cx="'+x0+'" cy="'+y(r.y25)+'" r="4" fill="'+col+'"/><circle cx="'+x1+'" cy="'+y(r.y35)+'" r="4" fill="'+col+'"/>';
+    s+='<text x="'+(x0-10)+'" y="'+(y(r.y25)+4)+'" text-anchor="end" font-size="11.5" font-weight="600" fill="#3c4650">'+r.m.split(' — ')[0]+' '+r.y25+'%</text>';
+    s+='<text x="'+(x1+10)+'" y="'+(y(r.y35)+4)+'" text-anchor="start" font-size="11.5" font-weight="600" fill="#3c4650">'+r.y35+'%</text>';
+  });
+  s+='</svg>';
+  document.getElementById('slope').innerHTML=s;
+})();
+document.getElementById('tjbody').innerHTML=D.map(function(r){
+  var m=MECH[r.mechanism], tc=trendClass(r.y25,r.y35);
+  return '<tr><td class="m"><a href="'+r.href+'">'+r.m+'</a></td><td>'+r.y25+'%</td><td>'+r.y35+'%</td>'+
+    '<td class="trend '+tc+'">'+trendArrow(r.y25,r.y35)+'</td>'+
+    '<td><span class="mech"><span class="dot" style="background:'+m.color+'"></span>'+m.label+'</span></td>'+
+    '<td class="note" style="max-width:340px">'+r.why+'</td></tr>';
+}).join('');
+</script>
+</body></html>
