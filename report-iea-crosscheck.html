@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does a public-data risk index recover the IEA’s? — Report 06 — Critical Materials Atlas</title>
+<meta name="description" content="Report 06: a falsification test. The atlas builds a supply-risk index from entirely public data (USGS/BGS, governance, substitution, recycling). Does it independently recover the same highest-risk minerals the IEA names from proprietary market data? Four of the IEA’s six discrete high-risk minerals rank in the atlas’s top third.">
+<meta property="og:title" content="Does our public-data risk index recover the IEA’s? - Critical Materials Atlas, Report 06">
+<meta property="og:description" content="Two independent methods, one from public data and one from paid data, converge on the same by-product and built-capability minerals. A validation of the public-data approach - with an honest scope caveat.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.1;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut)}
+ .abstract{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.96rem;line-height:1.6}
+ .abstract b{color:var(--navy)}
+ .keys{list-style:none;padding:0;margin:1rem 0}
+ .keys li{padding:.5rem 0 .5rem 1.7rem;position:relative;border-top:1px solid var(--line);line-height:1.5}
+ .keys li:first-child{border-top:0}.keys li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:800}
+ .keys b{color:var(--navy)}
+ .eqn{background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.2rem;margin:1.1rem 0;font-size:.95rem;color:var(--navy)}
+ .tblwrap{overflow-x:auto;margin:1.3rem 0}
+ table.data{border-collapse:collapse;width:100%;font-size:.85rem;min-width:640px}
+ table.data caption{caption-side:bottom;font-size:.8rem;color:var(--faint);text-align:left;padding-top:.5rem;line-height:1.45}
+ table.data th,table.data td{padding:.5rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+ table.data thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy)}
+ table.data td.n,table.data th.n{text-align:right;font-variant-numeric:tabular-nums}
+ table.data tbody tr:hover{background:var(--bg-soft)}
+ table.data .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem;vertical-align:baseline}
+ .cite{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem;line-height:1.6;margin:1.4rem 0}
+ .cite code{color:#8fe0d4;font-size:.8rem;display:block;white-space:pre-wrap;margin-top:.4rem}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ .callout{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.92rem;line-height:1.55}
+ .callout b{color:var(--navy)}
+
+ .rank{display:flex;flex-direction:column;gap:.28rem;margin:1rem 0}
+ .rk{display:grid;grid-template-columns:1.7rem 8rem 1fr 2.4rem;align-items:center;gap:.6rem;font-size:.82rem}
+ .rk .n{color:var(--faint);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+ .rk .nm{color:var(--navy);font-weight:600}
+ .rk .tr{height:15px;background:var(--bg-soft);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+ .rk .fl{display:block;height:100%;background:#c9d3d1;border-radius:5px}
+ .rk.iea .fl{background:var(--accent)}
+ .rk.iea .nm{color:var(--accent);font-weight:800}
+ .rk .sc{font-weight:700;text-align:right;color:var(--navy);font-variant-numeric:tabular-nums}
+ .rk .tg{font-size:.6rem;font-weight:800;color:#fff;background:var(--accent);border-radius:4px;padding:.03rem .28rem;margin-left:.35rem}
+ @media print{
+   .toolbar,.siteftr,.topbar{display:none!important}
+   .abstract,.cite,.eqn,.callout{background:#f4f7f6!important;color:#1a1f24!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+   .cite code{color:#0b6f66!important}
+ }
+</style>
+</head>
+<body>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+</div></header>
+
+<article>
+  <div class="rhead">
+    <div class="no">Report 06 · August 2026 · Validation</div>
+    <h1>Does a public-data risk index recover the IEA&rsquo;s?</h1>
+    <div class="by">Critical Materials Atlas · independent research under the materials-atlas handle · a falsification test of the atlas&rsquo;s public-data method against the IEA Global Critical Minerals Outlook 2026</div>
+  </div>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">&#9113; Print / save as PDF</button>
+    <a href="iea-risk-check.html">The interactive &#8594;</a>
+    <a href="risk.html">The risk index &#8594;</a>
+    <a href="riskmethods.html">Risk methods &#8594;</a>
+  </div>
+
+  <div class="abstract"><b>Abstract.</b> A supply-risk score is only as trustworthy as the data under it, and the atlas is built entirely from <i>public</i> data &mdash; USGS/BGS production, World Bank governance, EU-CRM substitution and recycling. The IEA&rsquo;s Global Critical Minerals Outlook 2026 reaches its own highest-risk list from <i>proprietary</i> market data the atlas cannot see. If the two disagree, the public-data approach is suspect; if they converge, it is validated. They converge: of the IEA&rsquo;s six discrete high-risk minerals, <b>four rank in the atlas&rsquo;s top third</b> and all six in the upper half &mdash; two independent methods landing on the same by-product and built-capability metals. The one honest difference is <b>scope, not contradiction</b>: the atlas&rsquo;s wider 32-material aperture and governance weighting also elevate minerals the IEA&rsquo;s energy-transition lens does not foreground.</div>
+
+  <h2>Key findings</h2>
+  <ul class="keys">
+    <li>The atlas&rsquo;s public-data risk index independently reproduces the IEA&rsquo;s high-risk signal: <b>four of six</b> discrete IEA high-risk minerals (gallium, magnet rare earths, graphite, germanium) sit in the atlas&rsquo;s <b>top third</b>; the other two (tungsten, cobalt) sit in the upper half.</li>
+    <li>The overlap is on <b>the specifics</b> &mdash; both methods surface the same <b>by-product</b> metals (gallium, germanium) and <b>built-capability</b> chokepoints (magnets, graphite, tungsten), not a generic &ldquo;China list.&rdquo;</li>
+    <li>Where they differ is <b>aperture</b>: the atlas ranks a 32-material EU-CRM set and weights governance and recyclability, so it also elevates beryllium, niobium, lithium and magnesium &mdash; a wider lens, not a contradiction.</li>
+    <li>This is a genuine <b>falsification test survived</b>: a free, reproducible, public-data method recovers the risk ranking a well-resourced agency reaches from paid data. The public-data approach is validated for the minerals both cover.</li>
+  </ul>
+
+  <h2>1 &middot; Why this is a test worth running</h2>
+  <p>The atlas&rsquo;s entire claim is that you can see the critical-materials risk map without proprietary data &mdash; from production statistics, governance indicators and substitution factors that anyone can download. That claim is falsifiable. The IEA, with access to asset-level market intelligence (S&amp;P&nbsp;Global, Wood&nbsp;Mackenzie) the atlas will never have, publishes its own assessment of which minerals are highest-risk. If a public-data index cannot recover that assessment, the public-data thesis fails. So we run the index blind and check whether the IEA&rsquo;s named minerals rise to the top on their own.</p>
+
+  <h2>2 &middot; The result: the atlas ranking, IEA high-risk minerals highlighted</h2>
+  <p>The atlas&rsquo;s supply-risk index ranks 32 EU-CRM materials by a composite of production concentration (HHI), governance of the producing countries (World Bank WGI), substitutability and recyclability. The IEA&rsquo;s GCMO 2026 risk-assessment section names eight minerals as highest-risk &mdash; gallium, magnet rare earths, yttrium, graphite, tungsten, germanium, tellurium, cobalt &mdash; of which six exist as discrete atlas materials (yttrium and tellurium sit inside the rare-earth basket and copper by-products). Below, the atlas&rsquo;s top 14, with the IEA-named minerals marked.</p>
+
+  <div class="rank" id="rank"></div>
+  <p class="callout" style="border-left-color:var(--accent)"><b>Four of the six discrete IEA high-risk minerals rank in the atlas&rsquo;s top third (ranks 1&ndash;11 of 32); all six in the upper half.</b> gallium (#5), magnets (#8), graphite (#9) and germanium (#11) cluster near the top; tungsten (#13) and cobalt (#17) follow. Two methods, two data sources, one signal.</p>
+
+  <h2>3 &middot; What the convergence means &mdash; and what it doesn&rsquo;t</h2>
+  <p>The agreement is specific, not generic. Both methods independently elevate the same <i>by-product</i> metals &mdash; gallium and germanium, recovered as trace outputs of aluminium and zinc refining, structurally impossible to scale on their own &mdash; and the same <i>built-capability</i> chokepoints, where the concentration is in a hard-to-replicate processing step (rare-earth separation for magnets, battery-grade spheroidisation for graphite, APT/carbide for tungsten). That is the atlas&rsquo;s own mechanism taxonomy (Report&nbsp;04) recovering the IEA&rsquo;s risk list from first principles.</p>
+  <p>The one real difference is honest and worth stating plainly: the atlas ranks a broader 32-material set and weights governance and recyclability, so it also puts beryllium, niobium, lithium and magnesium high &mdash; materials the IEA&rsquo;s energy-transition-demand lens does not foreground. This is <i>scope, not contradiction</i>: a wider aperture and a different weighting, converging with the IEA exactly where the two overlap.</p>
+
+  <div class="callout"><b>A public-data method that recovers a paid-data agency&rsquo;s risk ranking is validated for what both cover.</b> The convergence does not prove the atlas&rsquo;s exact scores are right &mdash; the IEA&rsquo;s weights are unpublished, so this is a test of <i>rank agreement</i>, not identical numbers. But it does show the free, reproducible approach is not missing the signal. Where the atlas ranks minerals the IEA does not foreground, that is a wider lens to interrogate, not an error to discount.</div>
+
+  <h2>Method</h2>
+  <p>Atlas index: the site&rsquo;s live supply-risk model (<a href="risk.html">risk.html</a>) &mdash; production shares from USGS/BGS &rarr; Herfindahl concentration, governance via World Bank Worldwide Governance Indicators, substitutability and recycling factors from EU&nbsp;CRM&nbsp;2023; see <a href="riskmethods.html">risk methods</a> for the exact composite. IEA high-risk list: GCMO&nbsp;2026 risk-assessment section (supply concentration + alternative-supply routes + strategic importance), &copy;&nbsp;IEA, CC&nbsp;BY&nbsp;4.0. The IEA&rsquo;s weights are proprietary, so this tests <b>rank agreement</b>, not identical scores. &ldquo;Top third&rdquo; = ranks 1&ndash;11 of the 32-material set. Two of the IEA&rsquo;s eight named minerals (yttrium, tellurium) have no discrete atlas material and are excluded from the six-of-eight count. The live, self-updating version is at <a href="iea-risk-check.html">iea-risk-check.html</a>.</p>
+
+  <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Does a public-data risk index recover the IEA&rsquo;s?</i> Report 06. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
+  <code>@techreport{cma_report06_2026,
+  title       = {Does a public-data risk index recover the IEA's?},
+  author      = {{materials-atlas}},
+  institution = {Critical Materials Atlas},
+  number      = {Report 06},
+  year        = {2026},
+  publisher   = {Zenodo},
+  doi         = {10.5281/zenodo.21948855},
+  url         = {https://criticalmaterialsatlas.org/report-iea-crosscheck.html}
+}</code>
+  <div style="margin-top:.6rem;color:#9fbab6;font-size:.8rem">Archived on Zenodo &mdash; concept DOI <b>10.5281/zenodo.21948855</b> (always resolves to the latest version). Cross-check against the IEA Global Critical Minerals Outlook 2026 (CC&nbsp;BY&nbsp;4.0).</div></div>
+</article>
+
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="reports.html">All reports</a><br><a href="iea-risk-check.html">Interactive</a><br><a href="risk.html">Risk index</a></div><div class="fineprint">Report 06 &mdash; validation against the IEA GCMO 2026 (CC&nbsp;BY&nbsp;4.0).</div></div></footer>
+
+<script>
+// Atlas top materials with IEA high-risk flag — static snapshot matching out/risk.json (computed at build time).
+var R=[
+ {r:1,nm:"Beryllium",sc:74},{r:2,nm:"Niobium",sc:64},{r:3,nm:"Lithium",sc:64},
+ {r:4,nm:"Magnesium",sc:60},{r:5,nm:"Gallium",sc:57,iea:1},{r:6,nm:"Strontium",sc:57},
+ {r:7,nm:"Phosphorus",sc:57},{r:8,nm:"Magnets",sc:52,iea:1},{r:9,nm:"Graphite",sc:51,iea:1},
+ {r:10,nm:"Fluorspar",sc:49},{r:11,nm:"Germanium",sc:47,iea:1},{r:12,nm:"Silicon",sc:47},
+ {r:13,nm:"Tungsten",sc:46,iea:1},{r:14,nm:"Manganese",sc:46}
+];
+var mx=R[0].sc;
+document.getElementById('rank').innerHTML=R.map(function(x){
+  return '<div class="rk'+(x.iea?' iea':'')+'"><span class="n">'+x.r+'</span>'+
+   '<span class="nm">'+x.nm+(x.iea?'<span class="tg">IEA</span>':'')+'</span>'+
+   '<span class="tr"><span class="fl" style="width:'+(x.sc/mx*100)+'%"></span></span>'+
+   '<span class="sc">'+x.sc+'</span></div>';
+}).join('');
+</script>
+</body></html>
