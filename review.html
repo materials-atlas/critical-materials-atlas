@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/review">
+<title>For reviewers — an open invitation to audit the atlas — Critical Materials Atlas</title>
+<meta name="description" content="An open invitation for an adversarial methods audit of the Critical Materials Atlas: the three flagship claims, the exact data and reproducible scripts behind each, the weaknesses we already know about, and how to submit findings.">
+<meta property="og:title" content="For reviewers — audit the Critical Materials Atlas">
+<meta property="og:description" content="The flagship claims, the scripts behind them, the weaknesses we already know, and how to challenge them. Everything reproducible, no API key.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ :root{--acc:#0e7c74}
+ article{max-width:900px}
+ h2.sec{font-size:1.2rem;color:var(--navy);border-top:1px solid var(--line);padding-top:1.4rem;margin:2rem 0 .5rem}
+ .claim{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 10px 10px 0;padding:1rem 1.2rem;margin:1rem 0;background:var(--bg)}
+ .claim h3{margin:0 0 .3rem;color:var(--navy);font-size:1.05rem}
+ .claim .ev{font-size:.86rem;color:var(--mut);line-height:1.55;margin:.3rem 0 0}
+ .claim code{background:var(--bg-soft);padding:.05rem .35rem;border-radius:4px;font-size:.82rem}
+ .weak{background:var(--bg-soft);border-left:4px solid #b4532b;border-radius:8px;padding:.9rem 1.1rem;margin:1.2rem 0;font-size:.92rem;line-height:1.6}
+ .weak b{color:var(--navy)}
+ .note{color:var(--mut);font-size:.9rem;line-height:1.6;max-width:82ch}
+ .cta{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;margin:1.4rem 0;font-size:.9rem;line-height:1.6}
+ .cta a{color:#8fe0d4}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · open invitation</div>
+  <h1>For reviewers: come and audit this</h1>
+  <p class="deck">This atlas is one person&rsquo;s public-data research, and its biggest missing ingredient is <b>outside scrutiny</b>. This page is a standing invitation to a methods expert &mdash; in trade data, mineral economics, or mining analysis &mdash; to run an <b>adversarial audit</b>. Below are the three flagship claims, the exact reproducible script behind each, the weaknesses we already know about, and how to submit what you find. Everything runs from the public repository with no API key.</p>
+</div></section>
+<article>
+  <p class="note">The point of an audit is not applause; it is to find what breaks. We would rather publish &ldquo;a reviewer showed claim X is weaker than stated, here is the correction&rdquo; than leave it unchecked. Findings &mdash; confirmations, corrections, or refutations &mdash; will be published on this site with attribution (or anonymously, your choice), alongside what changed as a result.</p>
+
+  <h2 class="sec">The three claims most worth attacking</h2>
+
+  <div class="claim">
+    <h3>1 · The origin gap: &ldquo;the top exporter is not the top miner&rdquo; (17 of 32)</h3>
+    <p class="ev"><b>Where:</b> <a href="findings">findings</a>. <b>Data:</b> reconciled CEPII BACI trade vs USGS mine shares. <b>Reproduce:</b> <code>python build_origin_gap_units.py</code>. <b>Robustness already run:</b> the gap holds measured tonnes-vs-tonnes (17/17 survive), and in every case the top exporter is a genuine refiner, not a re-export hub (0/17). <b>Best attack:</b> we bound the transshipment artefact but do not fully <i>trace</i> ore-to-refined product-form differences; quantify how much of a given gap is refining vs. a customs product-code change.</p>
+  </div>
+  <div class="claim">
+    <h3>2 · The mechanism taxonomy: &ldquo;only 4 of 58 chokepoints are geological&rdquo;</h3>
+    <p class="ev"><b>Where:</b> <a href="chokepoint-map">Chokepoint Map</a> + <a href="report-mechanism-taxonomy">Report 04</a>. <b>What it is:</b> a classification of each chain&rsquo;s binding stage into seven mechanisms from process physics. <b>Best attack:</b> these are <i>assigned judgments</i>, not statistical inferences, and carry no uncertainty. Challenge specific assignments, or propose a mechanism the taxonomy misses; the classifier is a single JSON field per chain, so a re-classification is a one-line change to test.</p>
+  </div>
+  <div class="claim">
+    <h3>3 · The nowcast: 84% out-of-sample persistence, engine forward-test pending</h3>
+    <p class="ev"><b>Where:</b> <a href="nowcast-backtest">nowcast backtest</a>. <b>Reproduce:</b> <code>python build_nowcast_backtest.py</code>. <b>Known limit (stated):</b> 84% is a high base rate (top exporters rarely change), and the model has ~no skill at year-over-year direction (42%). The reconciliation engine&rsquo;s skill <i>over</i> persistence is <b>not yet</b> validated &mdash; a 2025 forward test is pre-registered. <b>Best attack:</b> is persistence the right baseline; are the material-years independent; what are the confidence intervals; does the engine&rsquo;s ~1.8&times; level bias vs official BACI bias any share-based claim?</p>
+  </div>
+
+  <h2 class="sec">Weaknesses we already know about</h2>
+  <div class="weak">Stated so you can go straight to the frontier rather than rediscover them. <b>(1)</b> No external review yet &mdash; this page exists to fix that. <b>(2)</b> Trade shares are value-based by default; product-form and re-export effects are bounded but not fully traced. <b>(3)</b> Series are short (≈23 annual points, with a 2016/17 HS-vintage splice) and the reconciliation runs ~1.8&times; higher than official BACI on <i>levels</i> (share-faithful, not level-faithful). <b>(4)</b> The mechanism taxonomy and the headline chain counts are classifications, not inferences, and carry no uncertainty. <b>(5)</b> It is one unbylined author writing at volume; the institutional voice reflects method, not a team.</div>
+
+  <h2 class="sec">How to contribute</h2>
+  <p class="note">Everything is public and reproducible. The whole reconciliation engine runs in CI without an API key.</p>
+  <ul class="note">
+    <li><b>Open an issue or pull request</b> on the public repository: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">github.com/materials-atlas/critical-materials-atlas</a> &mdash; the fastest path for a specific correction.</li>
+    <li><b>Prefer to write it up?</b> A short adversarial memo (what you checked, what held, what didn&rsquo;t) is exactly what would raise this from &ldquo;careful solo project&rdquo; to reviewed research. It will be published here with your name or anonymously, alongside the resulting changes.</li>
+    <li><b>Already looked and found nothing wrong?</b> Say so &mdash; a named &ldquo;checked X, it holds&rdquo; is worth as much as a correction.</li>
+  </ul>
+  <div class="cta"><b>The standing challenge.</b> If you can break a headline claim, the atlas would rather know. See also the open <a href="challenge">&ldquo;break this atlas&rdquo;</a> challenge and the <a href="limitations">limitations</a> page &mdash; this review invitation is the same posture, aimed at experts.</div>
+  <div class="ftr" style="margin-top:1.4rem"><a href="methodology">Methodology &amp; validation</a> · <a href="method">Method hub</a> · <a href="limitations">Limitations</a></div>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Related</h4><a href="challenge">Break this atlas</a><br><a href="limitations">Limitations</a><br><a href="methodology">Methodology</a></div>
+  <div class="fineprint">An open invitation to an adversarial methods audit.</div>
+</div></footer>
+</body></html>
