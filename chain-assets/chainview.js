@@ -115,8 +115,23 @@
     document.getElementById('source-list').innerHTML = Object.keys(D.sources || {}).map(function (k) { var sc = D.sources[k]; return '<li><a href="' + sc.url + '">' + esc(sc.title) + '</a> (' + sc.year + ')' + (sc.note ? ' — <span class="note">' + esc(sc.note) + '</span>' : '') + '</li>'; }).join('');
     document.getElementById('ev-json').href = DATA; document.getElementById('tr-json').href = TRADE;
     var rel = (D.related || []).map(function (r) { return '<a href="' + esc(r.href) + '">' + esc(r.label) + '</a>'; });
+    // cross-link into the material-profile / analysis world when this chain maps to a tracked material
+    var CHAIN2PROFILE = {
+      'antimony-chain':'antimony','arsenic-chain':'arsenic','baryte-chain':'baryte','beryllium-chain':'beryllium',
+      'boron-chain':'boron','cobalt-chain':'cobalt','copper-chain':'copper','fluorine-chain':'fluorspar',
+      'gallium-chain':'gallium','germanium-chain':'germanium','graphite-chain':'graphite','helium-chain':'helium',
+      'lithium-chain':'lithium','magnesium-chain':'magnesium','magnet-chain':'magnets','manganese-chain':'manganese',
+      'nickel-chain':'nickel','phosphate-food-chain':'phosphate','silicon-chip':'silicon','strontium-chain':'strontium',
+      'tantalum-chain':'tantalum','titanium-chain':'titanium','tungsten-chain':'tungsten','vanadium-chain':'vanadium',
+      'aluminium-chain':'bauxite','pgm-catalyst-chain':'platinum','zirconium-chain':'hafnium',
+      'steel-alloys-chain':'niobium','steel-chain':'cokingcoal'
+    };
+    var _parts = location.pathname.replace(/\/$/, '').split('/'), _folder = _parts[_parts.length - 2] || '';
+    var _prof = CHAIN2PROFILE[_folder];
+    var profLink = _prof ? '<br><b>This material:</b> <a href="../profile-' + _prof + '">' + esc(_prof.charAt(0).toUpperCase() + _prof.slice(1)) + ' profile (reserves &middot; mine &middot; refine &middot; trade)</a> &nbsp;&middot;&nbsp; <a href="../risk">supply-risk index</a>' : '';
     var strip = '<div class="panel" style="margin-top:1.6rem"><h3 style="margin-top:0">Explore the layer</h3><p style="margin:0;line-height:1.9">' +
       '<a href="../value-chains">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map">The Chokepoint Map</a>' +
+      profLink +
       (rel.length ? '<br><b>Related chains:</b> ' + rel.join(' &nbsp;·&nbsp; ') : '') + '</p></div>';
     document.querySelector('article').insertAdjacentHTML('beforeend', strip);
     var cl = document.getElementById('conflegend');
