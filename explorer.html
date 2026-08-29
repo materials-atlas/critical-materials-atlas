@@ -256,6 +256,7 @@
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
@@ -288,14 +289,14 @@
 <div class="intro">Follow each material from where it&rsquo;s <b>mined</b> <span style="color:rgb(222,140,40)">●</span> to where it&rsquo;s <b>refined</b> <span style="color:rgb(142,68,173)">●</span> to who imports it. On the map and globe, the arrows are real trade — <span style="color:rgb(222,140,40)">amber</span> for raw ore, <span style="color:rgb(142,68,173)">violet</span> for refined product.<details class="howto"><summary>How to use this</summary><p>Pick a <b>material</b> and a <b>country</b> to narrow the view, then switch between Table, Flow, Map and Globe. In the selectors, <b>⛏</b> marks a country that mines your material, <b>🏭</b> that it refines it, and <b>✓</b> that trade data exists for your selection. Open any material for its full profile.</p></details></div>
 
 <nav class="tabs">
-  <button data-view="table" class="active">▤ Table</button>
-  <button data-view="sankey">⤳ Flow</button>
-  <button data-view="map">🗺 Map</button>
-  <button data-view="globe">🌍 Globe</button>
-  <button data-view="ask">🔎 Ask</button>
+  <button data-view="table" class="active" aria-pressed="true">▤ Table</button>
+  <button data-view="sankey" aria-pressed="false">⤳ Flow</button>
+  <button data-view="map" aria-pressed="false">🗺 Map</button>
+  <button data-view="globe" aria-pressed="false">🌍 Globe</button>
+  <button data-view="ask" aria-pressed="false">🔎 Ask</button>
   <span class="grow"></span>
-  <input id="search" placeholder="filter: material or country…">
-  <select id="sort">
+  <input id="search" aria-label="Filter by material or country" placeholder="filter: material or country…">
+  <select id="sort" aria-label="Sort the table">
     <option value="dom">sort: country domination ↓</option>
     <option value="risk">sort: supply-risk index ↓</option>
     <option value="mine">sort: mine share ↓</option>
@@ -317,7 +318,7 @@
 </nav>
 <div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut" title="2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024). Mine / refine / reserves are undated reference.">— <b>2024</b> newest complete · <b>2025*</b> <a href="methodology#nowcast">nowcast</a> · <b>2026**</b> <a href="methodology#nowcast">scenario</a></span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
 
-<main>
+<main id="main">
   <div id="view-table" class="view">
     <div class="legend">
       <div class="legendbar">
@@ -342,24 +343,24 @@
     <div id="rows"></div>
   </div>
   <div id="view-map" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="map-mat" aria-label="Map: material" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="map-dest" aria-label="Map: destination country" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="map-fill" title="Map fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="map"><div class="loading">loading map…</div></div>
     <p class="panel-info" id="map-info">Loading real trade flows…</p>
   </div>
   <div id="view-globe" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="globe-mat" aria-label="Globe: material" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="globe-dest" aria-label="Globe: destination country" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button> &nbsp;fill: <select id="globe-fill" title="Globe fill" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"><option value="prod">production / trade</option><option value="reserves">reserves (potential)</option></select></div>
     <div id="globe"><div class="loading" style="color:#aaa">loading globe…</div></div>
     <p class="panel-info" id="globe-info">Loading real flows…</p>
   </div>
   <div id="view-sankey" class="view hidden">
-    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button></div>
+    <div class="maptog" style="margin-bottom:.5rem">material: <select id="sankey-mat" aria-label="Flow: material" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> &nbsp;country: <select id="sankey-dest" aria-label="Flow: destination country" style="font:inherit;font-size:.85rem;padding:.3rem .5rem;border:1px solid var(--line);border-radius:6px"></select> <button type="button" class="depbtn" title="Full import-dependency report for the selected country">📊 dependency report</button></div>
     <div id="sankey"><div class="loading">loading flow chart…</div></div>
     <p class="panel-info" id="sankey-info">mined (left) → refined (middle) → importing countries (right). Mine→refiner links are structural (reference shares); refiner→buyer links are real trade.</p>
   </div>
   <div id="view-ask" class="view hidden">
     <div style="max-width:760px">
       <div style="display:flex;gap:.5rem;flex-wrap:wrap">
-        <input id="ask-q" placeholder="e.g. Where does Germany get its lithium?" style="flex:1;min-width:280px;font:inherit;font-size:.95rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px">
+        <input id="ask-q" aria-label="Ask a question about the data" placeholder="e.g. Where does Germany get its lithium?" style="flex:1;min-width:280px;font:inherit;font-size:.95rem;padding:.55rem .7rem;border:1px solid var(--line);border-radius:8px">
         <button id="ask-go" type="button" style="font:inherit;font-weight:600;font-size:.9rem;padding:.55rem 1.1rem;border:none;border-radius:8px;background:#15323a;color:#fff;cursor:pointer">Ask</button>
       </div>
       <div id="ask-chips" style="margin:.6rem 0 .2rem;font-size:.82rem;color:#667179"></div>
@@ -530,7 +531,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
   restoreURL();
   // reflect any restored deep-link state in the chrome before first paint
-  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x.dataset.view===VIEW));
+  document.querySelectorAll('.tabs button[data-view]').forEach(x=>{var a=x.dataset.view===VIEW;x.classList.toggle('active',a);x.setAttribute('aria-pressed',a);});
   ['table','map','globe','sankey','ask'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
   ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=FILL_MODE; });
   if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026** added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
@@ -809,7 +810,7 @@ function initAsk(){
 
 /* ---------- view switching ---------- */
 document.querySelectorAll('.tabs button[data-view]').forEach(b=>b.onclick=()=>{
-  document.querySelectorAll('.tabs button[data-view]').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.tabs button[data-view]').forEach(x=>{x.classList.toggle('active',x===b);x.setAttribute('aria-pressed',x===b);});
   VIEW=b.dataset.view;
   ['table','map','globe','sankey','ask'].forEach(k=>$('#view-'+k).classList.toggle('hidden',k!==VIEW));
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'view/'+VIEW,event:true});

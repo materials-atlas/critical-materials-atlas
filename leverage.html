@@ -42,10 +42,12 @@
  @media(max-width:640px){.drow{grid-template-columns:1fr;gap:2px}}
 </style>
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
+<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · importer-side exposure</div>
   <h1>Leverage map</h1>
@@ -129,4 +131,11 @@ document.getElementById('m-cap').onclick=()=>{ MODE='capture'; document.getEleme
 document.getElementById('m-cn').onclick=()=>{ MODE='cn'; document.getElementById('m-cn').classList.add('on'); document.getElementById('m-cap').classList.remove('on'); build(); };
 build(); detail();
 </script>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
+  <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
+</div></footer>
 </body></html>

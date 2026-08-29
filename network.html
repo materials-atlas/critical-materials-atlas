@@ -11,10 +11,12 @@
 <link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
+<main id="main">
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Method · network position</div>
   <h1>The trade routes concentration misses</h1>
@@ -45,9 +47,10 @@
   <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all 32 materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
   <div style="background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem .8rem .4rem;margin:.6rem 0"><div id="cnchart" style="width:100%;height:400px"></div></div>
 </article>
+</main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings">The origin gap</a><br><a href="risk">Supply-risk index</a><br><a href="scenarios">Supply-shock scenarios</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI<br>USGS · IEA · World Bank</div>
   <div class="fineprint">Network position is one lens; betweenness on a trade network also reflects import size. Method documented.</div>
 </div></footer>

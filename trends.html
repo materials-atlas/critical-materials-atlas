@@ -17,10 +17,12 @@
   .muted{color:#5a6b68;font-size:.86rem}
 </style>
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
+<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Time · 2002&ndash;2024</div>
   <h1>Twenty-two years, drawn</h1>
@@ -60,9 +62,10 @@
   <p class="muted" style="margin-top:0">The export-concentration (HHI) trend per material, <b>tested</b> rather than eyeballed: Mann&ndash;Kendall significance (Benjamini&ndash;Hochberg FDR-corrected across the 32 materials), Theil&ndash;Sen slope, the Pettitt structural-break year, and the country that drove the 2002&ndash;2024 HHI change. Sorted by slope. The standard critical-minerals literature plots concentration but rarely tests it &mdash; with T=23, read p-values as screening evidence. Computed by <code>build_trends.py</code> (scipy + statsmodels).</p>
   <table id="ttab"><thead><tr><th>Material</th><th class="n" title="Theil-Sen robust slope, HHI points per year">Sen slope /yr</th><th class="n" title="Mann-Kendall p-value, Benjamini-Hochberg FDR-corrected across 32 materials">MK p (FDR)</th><th class="n" title="Pettitt structural-break year">break</th><th title="country contributing most to the 2002-2024 HHI change">&Delta;HHI driver</th></tr></thead><tbody></tbody></table>
 </article>
+</main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="findings">The origin gap</a><br><a href="network">Network chokepoints</a><br><a href="casestudies">Case studies</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI (HS02 + HS17)</div>
   <div class="fineprint">Pre-2017 is the HS02 BACI vintage spliced to the HS17 recent end. Shares over captured flows.</div>
 </div></footer>

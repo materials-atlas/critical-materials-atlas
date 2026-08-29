@@ -27,10 +27,12 @@
 .chartwrap{background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem;margin:1rem 0}
 </style>
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
+<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Interactive · your weights</div>
   <h1>Build your own supply-risk index</h1>
@@ -66,9 +68,10 @@
   <table id="tab"><thead><tr><th class="n">#</th><th>Material</th><th class="n">your score</th><th class="n">published</th><th class="n">entropy-TOPSIS</th><th>your biggest driver</th></tr></thead><tbody></tbody></table>
   <p class="note">Computed in-browser from <a href="out/riskmethods.json">riskmethods.json</a> (the same min-max criteria behind the entropy-TOPSIS panel). &ldquo;Biggest driver&rdquo; = the criterion contributing most to that material&rsquo;s score under your weights. A weighting exercise is a way to see your assumptions, not a forecast.</p>
 </article>
+</main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="riskmethods">Risk methods</a><br><a href="risk">Supply-risk index</a><br><a href="shock-builder">Shock-scenario builder</a><br><a href="methodology">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Method</h4>Your weights × eight normalised criteria · live Spearman vs published index &amp; entropy-TOPSIS</div>
   <div class="fineprint">Runs entirely client-side on public data. A way to interrogate weighting choices, not a prediction.</div>
 </div></footer>

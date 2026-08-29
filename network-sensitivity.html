@@ -12,10 +12,12 @@
 <style>.muted{color:#5a6b68;font-size:.86rem}.yes{color:#2f8f46;font-weight:700}.no{color:#b07a18;font-weight:700}#c1{width:100%;height:340px}</style>
 <script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
+<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · network robustness</div>
   <h1>Is China&rsquo;s network centrality just a truncation artifact?</h1>
@@ -36,9 +38,10 @@
   <table id="tab"><thead><tr><th>Material</th><th class="n">CN share top6</th><th class="n">CN share full</th><th class="n">CN bet-rank top6→full</th><th class="n">frag top6→full</th></tr></thead><tbody></tbody></table>
   <p class="note">Full graph = every reporting country (no per-side cap). Betweenness on inverse-value distances. Fragility = fraction of reachable ordered country-pairs lost when China is removed; it falls on the full graph because real alternative routes exist that the cap hides &mdash; so the Network page&rsquo;s fragility figures are an <i>upper bound</i>. Source: BACI HS17 2024 &rarr; <a href="out/network_sensitivity.json">network_sensitivity.json</a>.</p>
 </article>
+</main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="network">Network</a><br><a href="robustness">Robustness</a><br><a href="methodology">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Method</h4>Top-6 / 10 / 20 / full graph · throughput · betweenness · node-removal fragility</div>
   <div class="fineprint">Truncation-sensitivity check on the 2024 trade network. Fragility on the capped graph is an upper bound.</div>
 </div></footer>
