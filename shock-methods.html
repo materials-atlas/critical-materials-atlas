@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/shock-methods">
 <title>How to model a supply shock — four methods, one honest choice · Critical Materials Atlas</title>
 <meta name="description" content="Should a critical-materials supply shock be modelled with a static scenario, a network cascade, an input-output model, or a dynamic VAR? A structured comparison of the four families for host-to-by-product propagation on open data — and a reasoned choice.">
 <meta property="og:title" content="How to model a supply shock: four methods, one honest choice">
@@ -31,13 +32,13 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="host-shock.html">Host shock</a><a href="cascade.html">Cascade</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="methodology.html" class="hideable">Methodology</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="host-shock">Host shock</a><a href="cascade">Cascade</a>
+  <a href="limitations" class="hideable">Limitations</a><a href="methodology" class="hideable">Methodology</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method study · how to model a shock</div>
   <h1>Four ways to model a supply shock — and the honest choice</h1>
-  <p class="deck">A fair challenge to the <a href="host-shock.html" style="color:#fff;text-decoration:underline">host-shock</a> layer: is a <b>static</b> &ldquo;what if this host drops X%&rdquo; the right tool, or does it need a network-cascade, an input&ndash;output model, or a dynamic VAR? We compared the four families the literature offers &mdash; specifically for propagating a shock from a <b>host commodity to the critical by-products</b> recovered from it, under a hard <b>open-data, reproducible</b> constraint &mdash; and let the choice follow from the evidence, not the fashion.</p>
+  <p class="deck">A fair challenge to the <a href="host-shock" style="color:#fff;text-decoration:underline">host-shock</a> layer: is a <b>static</b> &ldquo;what if this host drops X%&rdquo; the right tool, or does it need a network-cascade, an input&ndash;output model, or a dynamic VAR? We compared the four families the literature offers &mdash; specifically for propagating a shock from a <b>host commodity to the critical by-products</b> recovered from it, under a hard <b>open-data, reproducible</b> constraint &mdash; and let the choice follow from the evidence, not the fashion.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><b>Verdict:</b> keep the <b>static first-order</b> shock as the <b>spine</b> &mdash; it answers the exact question a public atlas can honestly answer and is the same logic the official USGS and EU criticality methods use &mdash; but <b>supplement</b> it with the trade-network and governance layers the atlas already has, <b>relabel its outputs as exposure bounds, not forecasts</b>, and add sensitivity bands. A <b>VAR is a category error</b> here (it measures price co-movement, not physical propagation); <b>input&ndash;output models can&rsquo;t even see</b> by-product metals; and the structurally-correct supply-curve model needs proprietary cost data. Transparency beats false dynamism.
@@ -79,7 +80,7 @@
       <dt>Open data</dt><dd><b>Good.</b> Built from BACI trade + the by-product graph — which the atlas already has.</dd>
       <dt>Holds for by-products?</dt><dd>Captures the indirect ripple static misses; but full physics-style cascade rules (&ldquo;30% flow loss = node failure&rdquo;) <b>overstate</b> thin markets that inventories and spot trade buffer.</dd>
       <dt>Precedent</dt><dd>Buldyrev et&nbsp;al. (cascades on interdependent networks); recent metal trade-network criticality studies; the 2024 iron-ore disruption-propagation model.</dd>
-      <dt>Verdict</dt><dd><b>Already in the atlas</b> — the <a href="cascade.html">supply-shock cascade</a> (step&nbsp;11) is exactly this, in real tonnes. The higher-order piece is covered.</dd>
+      <dt>Verdict</dt><dd><b>Already in the atlas</b> — the <a href="cascade">supply-shock cascade</a> (step&nbsp;11) is exactly this, in real tonnes. The higher-order piece is covered.</dd>
     </dl>
   </div>
 
@@ -100,7 +101,7 @@
       <dt>Open data</dt><dd><b>Weak.</b> Host prices are fine; by-product prices are sparse, fragmented, and broken by policy events (China&rsquo;s Ga/Ge export controls) — too few clean observations to identify a stable model.</dd>
       <dt>Holds for by-products?</dt><dd>No. A VAR estimates <b>historical price co-movement</b>, but the causal mechanism here is <b>physical co-production</b>, not a price relationship. Using it as the propagation engine is statistical sophistication without physical credibility.</dd>
       <dt>Precedent</dt><dd>Diebold&ndash;Yilmaz spillover index; SVAR commodity studies — mostly on <i>liquid bulk</i> markets.</dd>
-      <dt>Verdict</dt><dd><b>Not the backbone.</b> Legitimate only as a price-side appendix for liquid pairs — which the atlas already does, as correlation, in <a href="host-coupling.html">host-coupling</a> (step&nbsp;8).</dd>
+      <dt>Verdict</dt><dd><b>Not the backbone.</b> Legitimate only as a price-side appendix for liquid pairs — which the atlas already does, as correlation, in <a href="host-coupling">host-coupling</a> (step&nbsp;8).</dd>
     </dl>
   </div>
 
@@ -122,7 +123,7 @@
     &nbsp;&nbsp;<span class="op">&times;</span> <b>governance &amp; concentration context</b> <span class="op">(risk / GeoPolRisk — already built)</span><br>
     &nbsp;&nbsp;<span class="op">=</span> a reproducible <b>screening</b> tool — with IO, VAR and structural PE cited as limitations and future work, to be added only when proprietary calibration is available.
   </div>
-  <p>The refinements this study prescribes for the host-shock layer &mdash; the concrete payoff, not just a verdict, and all three now <b style="color:#0e7c74">live</b> on the <a href="host-shock.html">host-shock page</a>:</p>
+  <p>The refinements this study prescribes for the host-shock layer &mdash; the concrete payoff, not just a verdict, and all three now <b style="color:#0e7c74">live</b> on the <a href="host-shock">host-shock page</a>:</p>
   <div class="keyline">
     <b>1 · Bounds, not forecasts &mdash; <span style="color:#0e7c74">done.</span></b> The output is read as a <b>companionality-bounded exposure bound</b> (the maximum first-order supply at risk), never a predicted production loss. &nbsp; <b>2 · Sensitivity bands &mdash; <span style="color:#0e7c74">done.</span></b> Every loss now carries a low&ndash;high range from a &plusmn;15pp uncertainty on companionality, so no number is a false point estimate. &nbsp; <b>3 · Shock-stage labels &mdash; <span style="color:#0e7c74">done.</span></b> The simulator tags each scenario as a <i>mine</i>, <i>smelter/refinery</i> or <i>trade</i> shock &mdash; and correctly routes a trade embargo to the cascade/network layers, since co-production doesn&rsquo;t model it.
   </div>
@@ -132,7 +133,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="host-shock.html">Host shock</a><br><a href="cascade.html">Supply-shock cascade</a><br><a href="host-coupling.html">Host coupling</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Navigate</h4><a href="host-shock">Host shock</a><br><a href="cascade">Supply-shock cascade</a><br><a href="host-coupling">Host coupling</a><br><a href="limitations">Limitations</a></div>
   <div><h4>Method sources</h4>USGS 2025 &amp; EU CRM (static) · Buldyrev et al. (cascade) · EXIOBASE/EORA (MRIO) · Diebold&ndash;Yilmaz (spillover) · Nature Comms 2025 (Cu&ndash;Co&ndash;Ni supply curves).</div>
 </div></footer>
 </body></html>

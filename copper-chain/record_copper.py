@@ -23,7 +23,7 @@ CHAIN = {
     "title": "Copper chain",
     "chokepoint": {"product": "Electrification", "stage": "Mine lead-time", "mechanism": "diffuse", "physics": "Mining is diversified and switchable; the limit is TIME — a decade to open a mine", "holder": "diversified", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain.html", "label": "Data-centre / AI chain"}],
+    "related": [{"href": "../grid-chain/grid-chain", "label": "Electricity-grid chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain", "label": "Data-centre / AI chain"}],
     "accent": "#a05a2c",
     "eyebrow": "Product-chain pilot · the metal that electrifies",
     "h1": "The copper chokepoint is a clock, not a map",

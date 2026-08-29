@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Vanadium chain",
     "chokepoint": {"product": "Steel + storage", "stage": "Recovery", "mechanism": "byproduct", "physics": "Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel", "holder": "China", "share": "~75%", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}],
+    "related": [{"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain", "label": "Electricity-grid chain"}, {"href": "../battery-chain/battery-chain", "label": "Battery chain"}],
     "accent": "#5a5a7a",
     "eyebrow": "Product-chain pilot · stronger steel, and maybe the grid battery",
     "h1": "A pinch of vanadium strengthens steel — and it might store the grid",

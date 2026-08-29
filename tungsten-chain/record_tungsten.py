@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Tungsten chain",
     "chokepoint": {"product": "Carbide tools · defence", "stage": "APT + carbide", "mechanism": "capability", "physics": "Mine + APT + carbide processing; ~79% China (67,000 of 85,000 t, 2025) — stable near 80%+ for decades", "holder": "China", "share": "~79%", "control": "Feb 2025", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}],
+    "related": [{"href": "../defence-chain/defence-chain", "label": "Defence chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}],
     "accent": "#5a5a5a",
     "eyebrow": "Product-chain pilot · the metal that cuts the others",
     "h1": "You can't machine metal without tungsten — and China has about 80%",

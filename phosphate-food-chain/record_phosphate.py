@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Phosphate → fertilizer → food chain",
     "chokepoint": {"product": "Fertilizer / food", "stage": "Reserves", "mechanism": "geological", "physics": "~68% of world reserves are in Morocco (though only ~13% of current production); no substitute for phosphorus", "holder": "Morocco", "share": "~68% reserves", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
+    "related": [{"href": "../ammonia-chain/ammonia-chain", "label": "Ammonia / nitrogen chain"}],
     "accent": "#6f7c3c",
     "eyebrow": "Product-chain pilot · food security",
     "h1": "For food, the mine is the chokepoint",

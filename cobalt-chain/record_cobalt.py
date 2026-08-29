@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Cobalt chain",
     "chokepoint": {"product": "Battery cobalt", "stage": "Mine + refine", "mechanism": "byproduct", "physics": "A by-product of Congolese copper; can't be mined alone, then refined in China", "holder": "China refine", "share": "~75%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}, {"href": "../graphite-chain/graphite-chain.html", "label": "Graphite / anode chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../nickel-chain/nickel-chain", "label": "Nickel chain"}, {"href": "../graphite-chain/graphite-chain", "label": "Graphite / anode chain"}],
     "accent": "#3a5a8a",
     "eyebrow": "Product-chain pilot · a battery metal with two chokepoints",
     "h1": "Cobalt has a mine problem in one country and a refining problem in another",

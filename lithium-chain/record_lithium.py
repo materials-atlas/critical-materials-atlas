@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Lithium chain",
     "chokepoint": {"product": "Battery lithium", "stage": "Conversion", "mechanism": "capability", "physics": "Converting spodumene/brine to battery-grade chemical — the concentrated step, China", "holder": "China", "share": "most", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain", "label": "Cobalt chain"}, {"href": "../nickel-chain/nickel-chain", "label": "Nickel chain"}],
     "accent": "#7a7a3a",
     "eyebrow": "Product-chain pilot · the battery's headline metal",
     "h1": "The lithium mine moved to Australia — the refinery stayed in China",

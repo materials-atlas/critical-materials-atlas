@@ -20,7 +20,7 @@ CHAIN = {
     "title": "Fibre-optics / telecom chain",
     "chokepoint": {"product": "Optical fibre", "stage": "Preform", "mechanism": "capability", "physics": "Vapour-deposition preform-making — a few firms hold the process know-how", "holder": "US · JP", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
+    "related": [{"href": "../silicon-chip/silicon-chain", "label": "Silicon-chip chain"}, {"href": "../displays-indium-chain/displays-indium-chain", "label": "Displays / indium chain"}],
     "accent": "#2f7d8a",
     "eyebrow": "Product-chain pilot · the physical internet",
     "h1": "The internet's backbone is a trace of germanium, drawn by a handful of firms",

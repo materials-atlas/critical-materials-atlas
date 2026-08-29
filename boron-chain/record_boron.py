@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Boron chain",
     "chokepoint": {"product": "Fibreglass · fertilizer · magnets", "stage": "Reserves", "mechanism": "geological", "physics": "Turkey's borate basins (tincal, colemanite) are a geological rarity concentrated in one region and can't be relocated; its state producer Eti Maden claims ~73% of world reserves, though USGS publishes no consistent world total", "holder": "Turkey", "share": "~73% (co. est.)", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}],
+    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../phosphate-food-chain/phosphate-food-chain", "label": "Phosphate / food chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}],
     "accent": "#8a6a4a",
     "eyebrow": "Product-chain pilot · one country's rock",
     "h1": "Two countries hold the world's boron — and one of them holds most of it",

@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Germanium chain",
     "chokepoint": {"product": "IR optics · fibre", "stage": "Recovery", "mechanism": "byproduct", "physics": "By-product of zinc residues + coal fly ash — can't scale on its own; USGS states producers do not publicly report germanium output, so the share is an estimate", "holder": "China", "share": "~85% (est.)", "control": "Jul 2023", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
+    "related": [{"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain", "label": "Fibre-optics chain"}, {"href": "../defence-chain/defence-chain", "label": "Defence chain"}, {"href": "../displays-indium-chain/displays-indium-chain", "label": "Displays / indium chain"}],
     "accent": "#5a7a5a",
     "eyebrow": "Product-chain pilot · the infrared metal",
     "h1": "Gallium's twin — the infrared metal China controls with the same lever",

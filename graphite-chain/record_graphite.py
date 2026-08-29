@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Graphite / battery-anode chain",
     "chokepoint": {"product": "Battery anode", "stage": "Spherical anode", "mechanism": "capability", "physics": "Spheronising + purifying + coating flake into anode — ~95% China", "holder": "China", "share": "~95%", "control": "Dec 2023", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../ev-chain/ev-chain", "label": "Electric-vehicle chain"}],
     "accent": "#4a4a4a",
     "eyebrow": "Product-chain pilot · the other half of the battery",
     "h1": "Every lithium battery has a graphite anode — and China makes almost all of it",

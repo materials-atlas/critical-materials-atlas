@@ -1,11 +1,12 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/technical-note">
 <title>Technical note — Critical Materials Atlas</title>
 <meta name="description" content="Share-faithful reconstruction of bilateral trade from raw UN Comtrade, validated against CEPII BACI, with a pre-registered nowcast and the origin-gap finding for 32 critical materials.">
 <meta property="og:title" content="Technical note — share-faithful trade reconstruction & the origin gap">
 <meta property="og:description" content="A Gaulier–Zignago-style reconciliation of raw UN Comtrade, validated vs BACI, with a pre-registered nowcast and the origin-gap finding.">
-<meta property="og:url" content="https://criticalmaterialsatlas.org/technical-note.html">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/technical-note">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -75,10 +76,10 @@
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav">
     <a href="./">Atlas</a>
-    <a href="methodology.html">Methodology</a>
-    <a href="findings.html">Findings</a>
-    <a href="profiles.html" class="hideable">Profiles</a>
-    <a href="technical-note.html" class="active">Note</a>
+    <a href="methodology">Methodology</a>
+    <a href="findings">Findings</a>
+    <a href="profiles" class="hideable">Profiles</a>
+    <a href="technical-note" class="active">Note</a>
     <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>
   </nav>
 </div></header>
@@ -94,7 +95,7 @@
 
 <div class="toolbar no-print">
   <a class="btn primary" href="technical-note.pdf">⬇ Download PDF</a>
-  <a class="btn ghost" href="findings.html">The finding, interactive →</a>
+  <a class="btn ghost" href="findings">The finding, interactive →</a>
 </div>
 
 <div class="abstract"><b>In plain terms.</b> I rebuild who really trades 32 critical raw materials from raw UN&nbsp;Comtrade, check it against the official CEPII&nbsp;BACI data, and find that in <b>17 of 32</b> the country that <em>exports</em> the most isn&rsquo;t the one that <em>mines</em> the most — so standard import statistics misread where supply is concentrated. I extend the series back to <b>2002</b>, <b>test</b> the trends rather than just plotting them, and <b>pre-register</b> the forecast. Everything is public and reproduces from the committed code, no API key.
@@ -189,12 +190,12 @@
 <li><b>Structural breaks.</b> The Pettitt (1979) non-parametric change-point test dates the year a series shifts regime (cf. Bai &amp; Perron 1998 for multiple breaks).</li>
 <li><b>Decomposition.</b> The 2002→2024 change in export-HHI is attributed by country (contribution = share²<sub>2024</sub> − share²<sub>2002</sub>), identifying which exporter drove each material's concentration.</li>
 </ul>
-<p>The result: <b>9 of 32</b> materials show a statistically significant <a href="trends.html">rising export-concentration trend</a> (FDR&lt;0.05); their structural breaks <b>cluster in 2012–2016</b>, the period in which export-control measures and critical-minerals-security policy intensified. The steepest are beryllium, tungsten, bauxite and rare-earth magnets. The aggregate <b>origin gap</b> — averaged across materials — is wide and somewhat higher at the end of the period (~15→~18pp), but the index steps at the <b>2017 HS-vintage join</b>, so this is read as trade-side drift, not a clean trend — an HS17-only confirmation is the proper test &mdash; now carried out on the <a href="robustness.html">robustness page</a> (autocorrelation-robust Mann–Kendall plus the HS02-vs-HS17 sub-period check). Because USGS mine shares enter as a current fixed reference, this isolates how the <em>trade</em> map drifted from today's mining geography; it is a trade-side, not a geological, trend. I did not find a peer-reviewed study applying this combined Mann–Kendall / Theil–Sen / Pettitt screening to critical-material export-concentration panels; formal trend and change-point inference on these series appears uncommon in the policy literature. The contribution is the testing, not the plotting.</p>
+<p>The result: <b>9 of 32</b> materials show a statistically significant <a href="trends">rising export-concentration trend</a> (FDR&lt;0.05); their structural breaks <b>cluster in 2012–2016</b>, the period in which export-control measures and critical-minerals-security policy intensified. The steepest are beryllium, tungsten, bauxite and rare-earth magnets. The aggregate <b>origin gap</b> — averaged across materials — is wide and somewhat higher at the end of the period (~15→~18pp), but the index steps at the <b>2017 HS-vintage join</b>, so this is read as trade-side drift, not a clean trend — an HS17-only confirmation is the proper test &mdash; now carried out on the <a href="robustness">robustness page</a> (autocorrelation-robust Mann–Kendall plus the HS02-vs-HS17 sub-period check). Because USGS mine shares enter as a current fixed reference, this isolates how the <em>trade</em> map drifted from today's mining geography; it is a trade-side, not a geological, trend. I did not find a peer-reviewed study applying this combined Mann–Kendall / Theil–Sen / Pettitt screening to critical-material export-concentration panels; formal trend and change-point inference on these series appears uncommon in the policy literature. The contribution is the testing, not the plotting.</p>
 
 <h2><span class="s">8.</span>Further analytical layers</h2>
 <p>Four additional lenses are built on the same reconciled trade, each deliberately framed as a <em>screening indicator</em>, not a structural claim:</p>
 <ul>
-<li><b><a href="network.html">Trade-routing centrality</a>.</b> Treating each material's bilateral flows as a directed network, betweenness and PageRank (Freeman 1977) plus a <a href="network-sensitivity.html">node-removal fragility test</a> surface the brokers and processing hubs that share-concentration misses. Read as routing centrality — betweenness on a trade network also reflects import size, so a large buyer scores high without "controlling" anything.</li>
+<li><b><a href="network">Trade-routing centrality</a>.</b> Treating each material's bilateral flows as a directed network, betweenness and PageRank (Freeman 1977) plus a <a href="network-sensitivity">node-removal fragility test</a> surface the brokers and processing hubs that share-concentration misses. Read as routing centrality — betweenness on a trade network also reflects import size, so a large buyer scores high without "controlling" anything.</li>
 <li><b>Governance-weighted criticality.</b> An EU/SCRREEN-shaped supply-risk proxy (Blengini et al. 2017) weighting concentration by World Bank Worldwide Governance Indicators, plus a Graedel-style supply-risk axis (Graedel et al. 2012). These are proxies on public approximations, not the official EU or Yale scores; they correlate with the project's transparent index at ρ≈0.79 — partly mechanically, since they share inputs.</li>
 <li><b>Economic complexity.</b> Balassa (1965) revealed comparative advantage over the 32-material export matrix — specialization <em>within</em> critical materials, not economy-wide RCA — with material ubiquity and relatedness (Hidalgo &amp; Hausmann 2009).</li>
 <li><b>Origin trace.</b> A first-order re-attribution of refiner-fronted imports to the dominant mine, reported explicitly as an <em>upper bound</em> on single-origin concentration.</li>
@@ -253,8 +254,8 @@
   <div>
     <h4>Navigate</h4>
     <a href="./">Interactive atlas</a><br>
-    <a href="findings.html">The origin gap</a><br>
-    <a href="methodology.html">Methodology</a><br>
+    <a href="findings">The origin gap</a><br>
+    <a href="methodology">Methodology</a><br>
     <a href="https://github.com/materials-atlas/critical-materials-atlas">Reconciliation engine</a>
   </div>
   <div>

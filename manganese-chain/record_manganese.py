@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Manganese chain",
     "chokepoint": {"product": "Battery manganese", "stage": "Sulphate / EMM", "mechanism": "capability", "physics": "High-purity manganese sulphate + electrolytic metal — ~95% China", "holder": "China", "share": "~95%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../steel-chain/steel-chain", "label": "Primary / green-steel chain"}, {"href": "../nickel-chain/nickel-chain", "label": "Nickel chain"}],
     "accent": "#7a4a4a",
     "eyebrow": "Product-chain pilot · the metal steel can't do without",
     "h1": "The manganese mine is spread across Africa — the battery-grade refining is China",

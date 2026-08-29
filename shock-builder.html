@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/shock-builder">
 <title>Build your own supply shock · Critical Materials Atlas</title>
 <meta name="description" content="An interactive supply-shock tool: pick one or more producer countries to disrupt, set a severity, and see which of the 32 critical materials lose the most supply — computed live in your browser on public mine-production data.">
 <meta property="og:title" content="Build your own critical-materials supply shock">
@@ -25,14 +26,14 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="scenarios.html">Scenarios</a><a href="risk.html">Risk index</a>
-  <a href="index-builder.html" class="hideable">Index builder</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="scenarios">Scenarios</a><a href="risk">Risk index</a>
+  <a href="index-builder" class="hideable">Index builder</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Interactive · your shock</div>
   <h1>Build your own supply shock</h1>
-  <p class="deck">Pick one or more producer countries to knock out, set how hard, and see which critical materials bleed the most supply &mdash; ranked live. It&rsquo;s the stress test from the <a href="scenarios.html" style="color:#fff;text-decoration:underline">scenarios page</a>, but the scenario is yours to write. All in your browser, on public mine-production data.</p>
+  <p class="deck">Pick one or more producer countries to knock out, set how hard, and see which critical materials bleed the most supply &mdash; ranked live. It&rsquo;s the stress test from the <a href="scenarios" style="color:#fff;text-decoration:underline">scenarios page</a>, but the scenario is yours to write. All in your browser, on public mine-production data.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><b>How it works.</b> For each material, the supply at risk is the share of world <b>mine production</b> held by the countries you disrupt, times your severity. Optionally it&rsquo;s cushioned by the material&rsquo;s recycling rate and how substitutable it is &mdash; a material you can recycle or swap loses less <i>effective</i> supply. This is a transparent what-if on production shares, not a market model or a forecast.</div>
@@ -52,11 +53,11 @@
 
   <h2 style="margin:1.4rem 0 .4rem">Full exposure ranking</h2>
   <table id="tab"><thead><tr><th class="n">#</th><th>Material</th><th class="n">supply at risk</th><th class="n">raw share hit</th><th>from</th></tr></thead><tbody></tbody></table>
-  <p class="note">Computed in-browser from <a href="out/data.json">data.json</a> mine-production shares. &ldquo;Raw share hit&rdquo; = disrupted share × severity before the recycling/substitution cushion. Mine shares are static USGS-based approximations (see <a href="limitations.html">limitations</a>); this is a what-if, not a prediction.</p>
+  <p class="note">Computed in-browser from <a href="out/data.json">data.json</a> mine-production shares. &ldquo;Raw share hit&rdquo; = disrupted share × severity before the recycling/substitution cushion. Mine shares are static USGS-based approximations (see <a href="limitations">limitations</a>); this is a what-if, not a prediction.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="scenarios.html">Shock scenarios</a><br><a href="index-builder.html">Index builder</a><br><a href="risk.html">Supply-risk index</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Navigate</h4><a href="scenarios">Shock scenarios</a><br><a href="index-builder">Index builder</a><br><a href="risk">Supply-risk index</a><br><a href="limitations">Limitations</a></div>
   <div><h4>Method</h4>Disrupted mine share × severity, optionally cushioned by recycling &amp; substitutability</div>
   <div class="fineprint">Client-side what-if on public mine-production shares. Not a market model or forecast.</div>
 </div></footer>
@@ -104,7 +105,7 @@ Promise.all([
         label:{show:true,position:'right',formatter:'{c}%',fontSize:11}}]},true);
     const tb=document.querySelector('#tab tbody'); tb.innerHTML='';
     rows.forEach((r,i)=>{const tr=document.createElement('tr');
-      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+r.label+'.html">'+r.title+'</a></td>'+
+      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+r.label+'">'+r.title+'</a></td>'+
         '<td class="n" style="font-weight:700;color:'+(r.eff>=50?'#c0392b':r.eff>=25?'#b07a18':'#52605d')+'">'+r.eff+'%</td>'+
         '<td class="n muted">'+r.raw+'%</td><td class="muted" style="font-size:.82rem">'+r.froms.join(' · ')+'</td>';
       tb.appendChild(tr);});

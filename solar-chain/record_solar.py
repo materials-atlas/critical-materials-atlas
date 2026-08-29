@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Solar-PV chain",
     "chokepoint": {"product": "Solar modules", "stage": "Polysilicon + wafer", "mechanism": "thermodynamic", "physics": "Polysilicon + wafer pulling are power- and capital-hungry, sited at cheap Chinese power", "holder": "China", "share": "~95%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
+    "related": [{"href": "../silicon-chip/silicon-chain", "label": "Silicon-chip chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}],
     "accent": "#c08a2e",
     "eyebrow": "Product-chain pilot · the panel on the roof",
     "h1": "The whole panel is a China product — and the physics got cheaper anyway",

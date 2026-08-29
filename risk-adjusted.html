@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/risk-adjusted">
 <title>When supply can't respond — companionality-adjusted risk · Critical Materials Atlas</title>
 <meta name="description" content="Standard supply-risk scores assume a shortage summons new production. For by-product metals it can't. This layer re-weights the risk index by supply elasticity and shows which materials the market most under-rates.">
 <meta property="og:title" content="When supply can't respond: risk the market under-rates">
@@ -28,19 +29,19 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="risk.html">Risk</a><a href="companionality.html">Hostage metals</a>
-  <a href="riskmethods.html" class="hideable">Risk methods</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="risk">Risk</a><a href="companionality">Hostage metals</a>
+  <a href="riskmethods" class="hideable">Risk methods</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · risk · supply elasticity</div>
   <h1>When supply can&rsquo;t respond</h1>
-  <p class="deck">Every supply-risk score quietly assumes the market can answer a shortage by producing more. For the <a href="companionality.html" style="color:#fff;text-decoration:underline">by-product metals</a> that assumption breaks &mdash; you can&rsquo;t open a gallium mine. This layer re-weights the <a href="risk.html" style="color:#fff;text-decoration:underline">risk index</a> by how elastic each material&rsquo;s supply actually is, and asks: which materials does &ldquo;just mine more&rdquo; most under-rate?</p>
+  <p class="deck">Every supply-risk score quietly assumes the market can answer a shortage by producing more. For the <a href="companionality" style="color:#fff;text-decoration:underline">by-product metals</a> that assumption breaks &mdash; you can&rsquo;t open a gallium mine. This layer re-weights the <a href="risk" style="color:#fff;text-decoration:underline">risk index</a> by how elastic each material&rsquo;s supply actually is, and asks: which materials does &ldquo;just mine more&rdquo; most under-rate?</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the adjustment works</summary>
-  <p>We take the transparent <a href="risk.html">risk score</a> and multiply it by a <b>supply-response factor</b> derived from supply-shock economics. The scarcity impact of a disruption scales <i>inversely</i> with supply elasticity &mdash; an outage bites harder when output can&rsquo;t respond &mdash; so vulnerability &prop; 1/(1+&epsilon;). We infer each metal&rsquo;s long-run supply elasticity from its companionality (a primary metal can scale, &epsilon; &asymp; &epsilon;<sub>0</sub>; a pure by-product cannot, &epsilon; &asymp; 0): &nbsp;<b>&epsilon;(c) = &epsilon;<sub>0</sub>(1 &minus; c/100)</b>, &nbsp;<b>factor = (1+&epsilon;<sub>0</sub>)/(1+&epsilon;(c))</b>, normalised so a primary metal is unchanged and a 100%-by-product carries the full 1+&epsilon;<sub>0</sub>. We then re-rank and report the <b>movement</b> &mdash; the rank change is the message, not the absolute value.</p>
+  <p>We take the transparent <a href="risk">risk score</a> and multiply it by a <b>supply-response factor</b> derived from supply-shock economics. The scarcity impact of a disruption scales <i>inversely</i> with supply elasticity &mdash; an outage bites harder when output can&rsquo;t respond &mdash; so vulnerability &prop; 1/(1+&epsilon;). We infer each metal&rsquo;s long-run supply elasticity from its companionality (a primary metal can scale, &epsilon; &asymp; &epsilon;<sub>0</sub>; a pure by-product cannot, &epsilon; &asymp; 0): &nbsp;<b>&epsilon;(c) = &epsilon;<sub>0</sub>(1 &minus; c/100)</b>, &nbsp;<b>factor = (1+&epsilon;<sub>0</sub>)/(1+&epsilon;(c))</b>, normalised so a primary metal is unchanged and a 100%-by-product carries the full 1+&epsilon;<sub>0</sub>. We then re-rank and report the <b>movement</b> &mdash; the rank change is the message, not the absolute value.</p>
   <p class="howto-src"><b>What makes &epsilon;<sub>0</sub> = 0.5 defensible, not arbitrary.</b> It now has a structural meaning: it is the <b>long-run supply elasticity of a scalable primary metal</b>. The literature supports the two endpoints the model rests on &mdash; every non-fuel mineral is <b>price-inelastic in the short run</b> (mines can&rsquo;t be built quickly: <a href="https://doi.org/10.1007/s13563-025-00537-3" target="_blank" rel="noopener">USGS / Fernandez 2025</a>, 74 commodities; <a href="https://econpapers.repec.org/RePEc:mns:wpaper:wp202002" target="_blank" rel="noopener">Dahl MEDS</a>), while <b>long-run primary supply is substantially elastic</b> (<a href="https://www.dallasfed.org/-/media/documents/research/papers/2014/wp1413.pdf" target="_blank" rel="noopener">Stuermer 2017</a>; Radetzki 2008; Krautkraemer 1998) &mdash; so &epsilon;<sub>0</sub>&nbsp;=&nbsp;0.5 is <i>conservative</i> (higher published values would only deepen the by-product penalty). And <b>companion supply really is host-locked</b>: the most rigorous open model of a by-product &mdash; the copper&ndash;cobalt&ndash;nickel supply-curve system (<a href="https://www.nature.com/articles/s41467-025-62570-8" target="_blank" rel="noopener">Nature Communications 2025</a>, ~99% of cobalt a by-product) &mdash; is built on exactly this mechanism. <b>Honest ceiling:</b> per-material long-run elasticities are <i>not</i> published for the critical by-products (they&rsquo;re too hard to estimate &mdash; the thesis itself), and the gold-standard structural models need proprietary cost curves. We tried estimating own-price response from 8 years of BACI trade data; too noisy (re-exports, quality mix, shared Ga/Ge/Hf HS code) to trust. So &epsilon;(c) is a <b>calibrated inference from companionality, not a measurement</b> &mdash; a re-ordering lens grounded in the economics, not a cardinal elasticity. Inputs: <a href="out/risk.json">risk.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/risk_adjusted.json">risk_adjusted.json</a>.</p>
   </details></div>
 
@@ -60,7 +61,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="risk.html">Supply-risk index</a><br><a href="companionality.html">Hostage metals</a><br><a href="scenarios.html">Shock scenarios</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="risk">Supply-risk index</a><br><a href="companionality">Hostage metals</a><br><a href="scenarios">Shock scenarios</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>Risk index (USGS/IEA/trade) × companionality (USGS MCS 2024 · Nassar et al. 2015)</div>
   <div class="fineprint">A re-ordering lens: the supply-response amplitude (0.5) is a legible choice grounded in the elasticity literature (short-run supply inelastic for all minerals; long-run response low for by-products), not a per-material estimated elasticity.</div>
 </div></footer>

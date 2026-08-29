@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/recycling">
 <title>Secondary supply — recycling, and the metals with no way out · Critical Materials Atlas</title>
 <meta name="description" content="Recycling is the only supply lever for a by-product metal that doesn't depend on its host commodity. This layer crosses end-of-life recycling rates with companionality to find the materials with no primary response and no scrap buffer.">
 <meta property="og:title" content="The metals with no way out: no new mine, no scrap">
@@ -39,19 +40,19 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="host-shock.html">Host shock</a>
-  <a href="risk.html" class="hideable">Risk</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="companionality">Hostage metals</a><a href="host-shock">Host shock</a>
+  <a href="risk" class="hideable">Risk</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · secondary supply</div>
   <h1>The metals with no way out</h1>
-  <p class="deck">A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality.html" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock.html" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
+  <p class="deck">A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How &ldquo;trapped&rdquo; is measured &mdash; and <i>why</i> a metal is trapped</summary>
-  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality.html">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Then we split the trapped metals by <b>why</b> they aren&rsquo;t recycled: <b>dissipated</b> (used dispersively or physically lost &mdash; helium vents to air, arsenic and phosphate disperse into chemicals and soil &mdash; so <i>no</i> technology recovers them: trapped <b>forever</b>) vs <b>recoverable-but-uncollected</b> (locked in products that <i>could</i> be recycled but currently aren&rsquo;t &mdash; trapped <b>for now</b>, fixable by collection and policy).</p>
+  <p><b>Recycling</b> = end-of-life recycling input rate (EU CRM 2023 EOL-RIR): the share of a material&rsquo;s supply met by recycled end-of-life scrap. We cross it with <a href="companionality">companionality</a> into a <b>trapped index = companionality &times; (1 − recycling)</b>: high only when supply can neither be mined afresh (by-product) nor recovered from scrap. Then we split the trapped metals by <b>why</b> they aren&rsquo;t recycled: <b>dissipated</b> (used dispersively or physically lost &mdash; helium vents to air, arsenic and phosphate disperse into chemicals and soil &mdash; so <i>no</i> technology recovers them: trapped <b>forever</b>) vs <b>recoverable-but-uncollected</b> (locked in products that <i>could</i> be recycled but currently aren&rsquo;t &mdash; trapped <b>for now</b>, fixable by collection and policy).</p>
   <p class="howto-src"><b>Sources &amp; caveats:</b> recycling metric = <b>EU CRM 2023 EOL-RIR</b>, one of several the field uses (the <a href="https://www.resourcepanel.org/reports/recycling-rates-metals" target="_blank" rel="noopener">UNEP / International Resource Panel 2011</a> status report also defines EOL-RR, recycled content and old-scrap ratio; current benchmark is the <a href="https://www.iea.org/reports/recycling-of-critical-minerals" target="_blank" rel="noopener">IEA 2024</a> recycling report). It is EU-centric and omits in-process/new scrap and future capacity &mdash; today&rsquo;s functional secondary supply, not a ceiling. The <b>dissipative vs recoverable</b> split is classified from each metal&rsquo;s dominant end-use per Ciacci, Reck &amp; Graedel, <i>&ldquo;Lost by Design&rdquo;</i> (ES&amp;T 2015) and <i>&ldquo;Losses and lifetimes of metals&rdquo;</i> (Nature Sustainability 2022) &mdash; a literature-based judgement, like companionality. Inputs: <a href="out/data.json">data.json</a> &times; <a href="out/companionality.json">companionality.json</a> &rarr; <a href="out/recycling.json">recycling.json</a>.</p>
   </details></div>
 
@@ -71,11 +72,11 @@
   <div class="split2" id="split"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">What this closes, and what it opens</h2>
-  <p>This completes the supply-structure arc that began with the <a href="commodity-attribution.html">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together they say the same thing three ways &mdash; for a handful of metals, the usual mitigations simply aren&rsquo;t available, and the only real levers are <b>host-side recovery yield, stockpiles, and substitution</b>. The open branch from here is <b>demand</b>: which technologies pull hardest on exactly these trapped metals? That is the next arm of the atlas to grow.</p>
+  <p>This completes the supply-structure arc that began with the <a href="commodity-attribution">satellite attribution gap</a>: primary geography (mines), supply elasticity (companionality), systemic exposure (host shock), and now the secondary buffer (recycling). Read together they say the same thing three ways &mdash; for a handful of metals, the usual mitigations simply aren&rsquo;t available, and the only real levers are <b>host-side recovery yield, stockpiles, and substitution</b>. The open branch from here is <b>demand</b>: which technologies pull hardest on exactly these trapped metals? That is the next arm of the atlas to grow.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="companionality">Hostage metals</a><br><a href="host-shock">Host shock</a><br><a href="risk-adjusted">Adjusted risk</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>EU CRM 2023 (EOL-RIR) · UNEP/IRP 2011 &amp; IEA 2024 (recycling metrics) · dissipation from Ciacci/Reck/Graedel &ldquo;Lost by Design&rdquo; 2015 &amp; Nature Sustainability 2022 · companionality (USGS · Nassar 2015)</div>
   <div class="fineprint">EOL recycling is an EU-centric end-of-life estimate; the dissipative/recoverable split is a literature-based classification of dominant end-use.</div>
 </div></footer>

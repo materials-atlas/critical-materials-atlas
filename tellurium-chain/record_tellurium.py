@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Tellurium chain",
     "chokepoint": {"product": "CdTe solar · thermoelectrics", "stage": "Recovery (copper slimes)", "mechanism": "byproduct", "physics": "An extreme by-product — recovered from the anode slimes of copper refining; supply is bounded by copper, and it is among the rarest metals recovered at scale", "holder": "China · others", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../solar-chain/solar-chain.html", "label": "Solar-PV chain"}, {"href": "../silver-chain/silver-chain.html", "label": "Silver chain"}],
+    "related": [{"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../solar-chain/solar-chain", "label": "Solar-PV chain"}, {"href": "../silver-chain/silver-chain", "label": "Silver chain"}],
     "accent": "#6a5a7a",
     "eyebrow": "Product-chain pilot · the metal in the sludge",
     "h1": "One of the rarest metals you rely on — hiding in copper-refinery sludge",

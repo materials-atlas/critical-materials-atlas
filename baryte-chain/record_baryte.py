@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Baryte / drilling-mud chain",
     "chokepoint": {"product": "Oil & gas drilling mud", "stage": "Mine", "mechanism": "diffuse", "physics": "A cheap, heavy, abundant weighting mineral mined near demand (India/China/Morocco) — no chokepoint, but you can't drill without it", "holder": "India · China · Morocco", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../sulfur-chain/sulfur-chain.html", "label": "Sulfur / sulfuric-acid chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../ammonia-chain/ammonia-chain.html", "label": "Ammonia / nitrogen chain"}],
+    "related": [{"href": "../sulfur-chain/sulfur-chain", "label": "Sulfur / sulfuric-acid chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../ammonia-chain/ammonia-chain", "label": "Ammonia / nitrogen chain"}],
     "accent": "#7a7a6a",
     "eyebrow": "Product-chain pilot · the mineral in the mud",
     "h1": "You can't drill an oil or gas well without this invisible mineral",

@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Zirconium / hafnium chain",
     "chokepoint": {"product": "Nuclear fuel cladding", "stage": "Nuclear-grade sponge", "mechanism": "capability", "physics": "Nuclear-grade (hafnium-free) zirconium sponge + cladding is a qualified capability held by a few; Zr and Hf are chemical twins, hard to separate", "holder": "FR · US · RU · CN", "share": "few", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../nuclear-chain/nuclear-chain.html", "label": "Nuclear fuel chain"}, {"href": "../titanium-chain/titanium-chain.html", "label": "Titanium chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon → chips chain"}],
+    "related": [{"href": "../nuclear-chain/nuclear-chain", "label": "Nuclear fuel chain"}, {"href": "../titanium-chain/titanium-chain", "label": "Titanium chain"}, {"href": "../silicon-chip/silicon-chain", "label": "Silicon → chips chain"}],
     "accent": "#5a7a7a",
     "eyebrow": "Product-chain pilot · the metal that clads the fuel",
     "h1": "The metal that clads nuclear fuel — and its twin that must not be there",

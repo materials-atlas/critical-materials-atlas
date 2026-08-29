@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Silver chain",
     "chokepoint": {"product": "Solar paste · contacts", "stage": "Mine (by-product)", "mechanism": "byproduct", "physics": "~70% a by-product of lead/zinc/copper/gold — output bounded by the base metals, can't scale to demand", "holder": "Mexico · CN · Peru", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../solar-chain/solar-chain.html", "label": "Solar-PV chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
+    "related": [{"href": "../solar-chain/solar-chain", "label": "Solar-PV chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../displays-indium-chain/displays-indium-chain", "label": "Displays / indium chain"}],
     "accent": "#7a8a9a",
     "eyebrow": "Product-chain pilot · money, mirrors and solar cells",
     "h1": "Most silver is a by-product — and solar is eating the rest",

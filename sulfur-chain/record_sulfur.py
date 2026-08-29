@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Sulfur / sulfuric-acid chain",
     "chokepoint": {"product": "Fertilizer · battery metals", "stage": "Recovery", "mechanism": "byproduct", "physics": "A by-product of oil/gas desulfurization + smelting; bounded by fossil-fuel processing, so decarbonization shrinks it", "holder": "oil/gas refiners", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
+    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain", "label": "Phosphate / food chain"}, {"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}],
     "accent": "#8a7a2e",
     "eyebrow": "Product-chain pilot · the chemical that feeds the world",
     "h1": "The most-used industrial chemical is a fossil-fuel by-product — and the transition is draining it",

@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Arsenic chain",
     "chokepoint": {"product": "GaAs chips · alloys", "stage": "Recovery (by-product)", "mechanism": "byproduct", "physics": "A by-product of copper/gold smelting — recovered from toxic flue dust, not mined; supply bounded by the host and by nobody wanting to make it", "holder": "Peru · China", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../silicon-chip/silicon-chain.html", "label": "Silicon → chips chain"}],
+    "related": [{"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../silicon-chip/silicon-chain", "label": "Silicon → chips chain"}],
     "accent": "#5a6a4a",
     "eyebrow": "Product-chain pilot · the poison in the chip",
     "h1": "The poison that's also a semiconductor — and nobody wants to make it",

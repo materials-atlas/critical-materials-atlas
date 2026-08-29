@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/bloc-demand">
 <title>Demand by bloc — whose policy pulls which metal · Critical Materials Atlas</title>
 <meta name="description" content="Using the atlas's own import flows as a revealed-demand proxy, which bloc — China, EU, US, Japan, Korea, India — pulls hardest on each squeezed critical material, and which industrial policy is behind it.">
 <meta property="og:title" content="Demand by bloc: whose industrial policy pulls which critical metal">
@@ -30,20 +31,20 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="demand.html">The squeeze</a><a href="countries.html">Countries</a>
-  <a href="companionality.html" class="hideable">Hostage metals</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="demand">The squeeze</a><a href="countries">Countries</a>
+  <a href="companionality" class="hideable">Hostage metals</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · geography</div>
   <h1>Whose policy pulls which metal</h1>
-  <p class="deck">The <a href="demand.html" style="color:#fff;text-decoration:underline">squeeze</a> is global, but the pull is national. Using the atlas&rsquo;s own import flows as a revealed-demand proxy, this reads which bloc &mdash; China, the EU, the US, Japan, Korea, India &mdash; draws hardest on each squeezed metal, and names the industrial policy behind it. It reconnects the demand arm to the atlas&rsquo;s geographic spine.</p>
+  <p class="deck">The <a href="demand" style="color:#fff;text-decoration:underline">squeeze</a> is global, but the pull is national. Using the atlas&rsquo;s own import flows as a revealed-demand proxy, this reads which bloc &mdash; China, the EU, the US, Japan, Korea, India &mdash; draws hardest on each squeezed metal, and names the industrial policy behind it. It reconnects the demand arm to the atlas&rsquo;s geographic spine.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How demand-by-bloc is read (and why imports are only a proxy)</summary>
   <p>For each material we aggregate <b>import value by destination</b> (the &ldquo;to&rdquo; side of every trade flow, <span id="yr"></span>) into blocs, and read the share each bloc pulls. Overlaid: the industrial-policy driver and each bloc&rsquo;s import reliance.</p>
-  <p class="howto-src"><b>Big caveat &mdash; two flaws, not one.</b> Imports are <i>not</i> final consumption. <b>(1) Re-export</b> of the same metal: China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship. The <a href="net-demand.html">net-demand page</a> fixes this by subtracting exports. <b>(2) Demand embodied in finished goods</b> &mdash; gallium consumed inside an imported chip never appears as a gallium import at all &mdash; and for critical metals this is the <i>larger</i> channel. Netting does not touch it. Two routes at it, both tested and both limited. A <b>material-footprint</b> model (Raw Material Equivalents via a multi-region input-output table) captures all tiers but is sector-coarse &mdash; it sees &ldquo;electronics&rdquo;, not gallium. A <b>bottom-up</b> estimate (product trade &times; metal intensity) sounds per-metal, and we prototyped it for cobalt on battery trade &mdash; but stress-testing showed it answers a trade-<b>stage</b> question, not a demand one: it reveals that intermediate cobalt is China-bound while finished cells are net-imported by the US/EU, yet calling that &ldquo;cobalt demand&rdquo; is a category error (it erases China&rsquo;s own large use, mixes product-weight with contained metal, and misses cobalt riding in imported cars). So even cobalt resists a per-country final-demand figure. A bloc&rsquo;s share here is <b>revealed trade pull</b> &mdash; a stage fact, not consumption. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
+  <p class="howto-src"><b>Big caveat &mdash; two flaws, not one.</b> Imports are <i>not</i> final consumption. <b>(1) Re-export</b> of the same metal: China imports ores it refines and re-exports; Hong Kong, the Netherlands and Singapore trans-ship. The <a href="net-demand">net-demand page</a> fixes this by subtracting exports. <b>(2) Demand embodied in finished goods</b> &mdash; gallium consumed inside an imported chip never appears as a gallium import at all &mdash; and for critical metals this is the <i>larger</i> channel. Netting does not touch it. Two routes at it, both tested and both limited. A <b>material-footprint</b> model (Raw Material Equivalents via a multi-region input-output table) captures all tiers but is sector-coarse &mdash; it sees &ldquo;electronics&rdquo;, not gallium. A <b>bottom-up</b> estimate (product trade &times; metal intensity) sounds per-metal, and we prototyped it for cobalt on battery trade &mdash; but stress-testing showed it answers a trade-<b>stage</b> question, not a demand one: it reveals that intermediate cobalt is China-bound while finished cells are net-imported by the US/EU, yet calling that &ldquo;cobalt demand&rdquo; is a category error (it erases China&rsquo;s own large use, mixes product-weight with contained metal, and misses cobalt riding in imported cars). So even cobalt resists a per-country final-demand figure. A bloc&rsquo;s share here is <b>revealed trade pull</b> &mdash; a stage fact, not consumption. Inputs: flows &times; <a href="out/demand.json">demand.json</a> &rarr; <a href="out/bloc_demand.json">bloc_demand.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -60,7 +61,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="demand.html">The squeeze</a><br><a href="origin.html">Origin trace</a><br><a href="countries.html">Dependency by country</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="demand">The squeeze</a><br><a href="origin">Origin trace</a><br><a href="countries">Dependency by country</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>Reconciled import flows (revealed demand) × IEA/USGS/EU CRMA policy framing</div>
   <div class="fineprint">Bloc share is revealed import pull, not final consumption. Re-export inflates China's share (netted on the net-demand page); demand embodied in imported finished goods is unobserved per metal and would need a material-footprint/RME model.</div>
 </div></footer>

@@ -21,70 +21,70 @@
 
   var GROUPS = [
     { label: 'Analysis', items: [
-      ['trends.html', 'Trends — 22-year evolution'],
-      ['volume.html', 'Value vs volume (price effects)'],
-      ['demand.html', 'Demand & the squeeze (to 2040)'],
-      ['price-squeeze.html', 'Does the market show the squeeze? (price test)'],
-      ['host-coupling.html', 'Host coupling — does price follow the host?'],
-      ['bloc-demand.html', 'Demand by bloc — whose policy pulls what'],
-      ['net-demand.html', 'Net demand — who really pulls (re-exports out)'],
-      ['apparent-consumption.html', 'Apparent consumption — who actually uses it'],
-      ['network.html', 'Trade-network chokepoints'],
-      ['complexity.html', 'Economic complexity'],
-      ['origin.html', 'Origin trace'],
-      ['criticality.html', 'Governance-weighted criticality'],
-      ['geopolrisk.html', 'Concentration in tonnes (GeoPolRisk)'] ] },
+      ['trends', 'Trends — 22-year evolution'],
+      ['volume', 'Value vs volume (price effects)'],
+      ['demand', 'Demand & the squeeze (to 2040)'],
+      ['price-squeeze', 'Does the market show the squeeze? (price test)'],
+      ['host-coupling', 'Host coupling — does price follow the host?'],
+      ['bloc-demand', 'Demand by bloc — whose policy pulls what'],
+      ['net-demand', 'Net demand — who really pulls (re-exports out)'],
+      ['apparent-consumption', 'Apparent consumption — who actually uses it'],
+      ['network', 'Trade-network chokepoints'],
+      ['complexity', 'Economic complexity'],
+      ['origin', 'Origin trace'],
+      ['criticality', 'Governance-weighted criticality'],
+      ['geopolrisk', 'Concentration in tonnes (GeoPolRisk)'] ] },
     { label: 'Risk', items: [
-      ['risk.html', 'Supply-risk index'],
-      ['riskmethods.html', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
-      ['scenarios.html', 'Shock scenarios'],
-      ['cascade.html', 'Supply-shock cascade — the companion echo'],
-      ['ot.html', 'Reallocation stress test — can the rest cover the cut?'],
-      ['leverage.html', 'Leverage map — how exposed is your country'],
+      ['risk', 'Supply-risk index'],
+      ['riskmethods', 'Risk methods — TOPSIS · GeoPolRisk · tail'],
+      ['scenarios', 'Shock scenarios'],
+      ['cascade', 'Supply-shock cascade — the companion echo'],
+      ['ot', 'Reallocation stress test — can the rest cover the cut?'],
+      ['leverage', 'Leverage map — how exposed is your country'],
       ['__lbl__', 'Interactive'],
-      ['index-builder.html', 'Build your own risk index'],
-      ['shock-builder.html', 'Build your own supply shock'] ] },
+      ['index-builder', 'Build your own risk index'],
+      ['shock-builder', 'Build your own supply shock'] ] },
     { label: 'Supply structure', items: [
-      ['companionality.html', 'Hostage metals — by-product dependency'],
-      ['refining.html', 'The refining wedge — mine vs furnace'],
-      ['refiners.html', 'Who actually refines — capability map'],
-      ['breakout.html', 'Break the chokepoint — the decision layer'],
-      ['security-premium.html', 'The security premium — cost to insure vs at risk'],
-      ['trajectory.html', 'Chokepoints in motion — easing vs entrenching'],
-      ['n1.html', 'N−1 — can the rest cope without the leader?'],
-      ['smelters.html', 'Smelters, not mines — the by-product host map'],
-      ['product-space.html', 'Product space — mine ▸ refine map'],
-      ['risk-adjusted.html', 'Risk when supply can’t respond'],
-      ['host-shock.html', 'Host shock — the commodities that gate criticals'],
-      ['recycling.html', 'Secondary supply — recycling & the trapped metals'],
-      ['gallium.html', 'Gallium end-to-end — a deep-dive proof'] ] },
+      ['companionality', 'Hostage metals — by-product dependency'],
+      ['refining', 'The refining wedge — mine vs furnace'],
+      ['refiners', 'Who actually refines — capability map'],
+      ['breakout', 'Break the chokepoint — the decision layer'],
+      ['security-premium', 'The security premium — cost to insure vs at risk'],
+      ['trajectory', 'Chokepoints in motion — easing vs entrenching'],
+      ['n1', 'N−1 — can the rest cope without the leader?'],
+      ['smelters', 'Smelters, not mines — the by-product host map'],
+      ['product-space', 'Product space — mine ▸ refine map'],
+      ['risk-adjusted', 'Risk when supply can’t respond'],
+      ['host-shock', 'Host shock — the commodities that gate criticals'],
+      ['recycling', 'Secondary supply — recycling & the trapped metals'],
+      ['gallium', 'Gallium end-to-end — a deep-dive proof'] ] },
     { label: 'Satellite', items: [
-      ['satellite.html', 'Mine footprint (from orbit)'],
-      ['mining-expansion.html', 'Mining expansion — new supply'],
-      ['commodity-attribution.html', 'Which mineral? (attribution limit)'] ] },
+      ['satellite', 'Mine footprint (from orbit)'],
+      ['mining-expansion', 'Mining expansion — new supply'],
+      ['commodity-attribution', 'Which mineral? (attribution limit)'] ] },
     { label: 'Rigor', items: [
-      ['robustness.html', 'Robustness — do findings survive?'],
-      ['network-sensitivity.html', 'Network truncation sensitivity'],
-      ['shock-methods.html', 'How to model a shock — method study'],
-      ['price-volatility.html', 'Volatility — by-product, or just small?'],
-      ['uncertainty.html', 'Scorecard uncertainty (Monte-Carlo)'],
-      ['limitations.html', 'Limitations & falsification'],
-      ['challenge.html', 'Break this atlas — open challenge'],
-      ['iea-risk-check.html', 'IEA cross-check — does our risk index recover theirs?'] ] },
+      ['robustness', 'Robustness — do findings survive?'],
+      ['network-sensitivity', 'Network truncation sensitivity'],
+      ['shock-methods', 'How to model a shock — method study'],
+      ['price-volatility', 'Volatility — by-product, or just small?'],
+      ['uncertainty', 'Scorecard uncertainty (Monte-Carlo)'],
+      ['limitations', 'Limitations & falsification'],
+      ['challenge', 'Break this atlas — open challenge'],
+      ['iea-risk-check', 'IEA cross-check — does our risk index recover theirs?'] ] },
     { label: 'Reference', items: [
-      ['about.html', 'About the atlas'],
-      ['reports.html', 'Reports — dated, citable'],
-      ['synthesis.html', 'Synthesis — the hardest cases'],
-      ['chokepoint-map.html', 'Chokepoint map — value-chains synthesis'],
-      ['controls.html', 'Export-control tracker — the Nov-2026 cliff'],
-      ['methodology.html', 'Methodology & validation'],
-      ['technical-note.html', 'Technical note (PDF)'],
-      ['brief.html', 'One-page findings brief'],
-      ['casestudies.html', 'Case studies — known-chain audit'],
-      ['production.html', 'Production in tonnes — cross-source check'],
-      ['profiles.html', 'Material & country profiles'],
-      ['data.html', 'Open data / API'],
-      ['map.html', 'Project map — how it\'s built'],
+      ['about', 'About the atlas'],
+      ['reports', 'Reports — dated, citable'],
+      ['synthesis', 'Synthesis — the hardest cases'],
+      ['chokepoint-map', 'Chokepoint map — value-chains synthesis'],
+      ['controls', 'Export-control tracker — the Nov-2026 cliff'],
+      ['methodology', 'Methodology & validation'],
+      ['technical-note', 'Technical note (PDF)'],
+      ['brief', 'One-page findings brief'],
+      ['casestudies', 'Case studies — known-chain audit'],
+      ['production', 'Production in tonnes — cross-source check'],
+      ['profiles', 'Material & country profiles'],
+      ['data', 'Open data / API'],
+      ['map', 'Project map — how it\'s built'],
       ['https://github.com/materials-atlas/comtrade-reconcile', 'Reconciliation engine'] ] }
   ];
 
@@ -92,11 +92,11 @@
 
   function build() {
     var html = '<a href="./">Atlas</a>' +
-               '<a href="explorer.html">Explore</a>' +
-               '<a href="reports.html">Reports</a>' +
-               '<a href="value-chains.html">Value Chains</a>' +
-               '<a href="insights.html" class="hideable">Insights</a>' +
-               '<a href="findings.html" class="hideable">Findings</a>';
+               '<a href="explorer">Explore</a>' +
+               '<a href="reports">Reports</a>' +
+               '<a href="value-chains">Value Chains</a>' +
+               '<a href="insights" class="hideable">Insights</a>' +
+               '<a href="findings" class="hideable">Findings</a>';
     GROUPS.forEach(function (g) {
       html += '<div class="grp hideable"><button type="button">' + g.label + '</button><div class="menu">';
       g.items.forEach(function (it) {
@@ -105,7 +105,7 @@
       });
       html += '</div></div>';
     });
-    html += '<a href="data.html" class="cta">Download data</a>';
+    html += '<a href="data" class="cta">Download data</a>';
     return html;
   }
 
@@ -117,7 +117,8 @@
       document.head.appendChild(st);
     }
     nav.innerHTML = build();
-    var here = (location.pathname.split('/').pop() || 'index.html');
+    // active-marker: compare the current page leaf to link hrefs, tolerating both clean and .html forms
+    var here = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
     nav.querySelectorAll('a[href]').forEach(function (a) {
       if (a.getAttribute('href') === here) a.classList.add('active');
     });

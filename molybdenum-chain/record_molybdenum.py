@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Molybdenum chain",
     "chokepoint": {"product": "Superalloys · refining catalysts", "stage": "Recovery + primary", "mechanism": "byproduct", "physics": "About half a by-product of copper mining (the rest primary); diversified across Chile/China/US/Peru — coupled, but not a severe chokepoint", "holder": "China · Chile", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../sulfur-chain/sulfur-chain.html", "label": "Sulfur / sulfuric-acid chain"}],
+    "related": [{"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}, {"href": "../sulfur-chain/sulfur-chain", "label": "Sulfur / sulfuric-acid chain"}],
     "accent": "#5a6a7a",
     "eyebrow": "Product-chain pilot · the metal that takes the heat",
     "h1": "The metal that lets steel take the heat — and mostly a copper by-product",

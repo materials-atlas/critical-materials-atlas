@@ -31,7 +31,7 @@ SRC = {
 CHAIN = {
     "title": "Defence / military-materials chain",
     "chokepoint": {"product": "Weapons systems", "stage": "Many inputs", "mechanism": "capability", "physics": "A composite — inherits its inputs' China-processed capability (magnets, gallium, antimony, tungsten)", "holder": "China (many)", "share": "—", "control": "multiple", "conf": "measured"},
-    "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../titanium-chain/titanium-chain.html", "label": "Titanium chain"}],
+    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../tungsten-chain/tungsten-chain", "label": "Tungsten chain"}, {"href": "../titanium-chain/titanium-chain", "label": "Titanium chain"}],
     "published": True,  # the flagship chain wired into the live atlas nav
     "accent": "#8a3b3b",
     "eyebrow": "Product-chain pilot · defence industrial base",

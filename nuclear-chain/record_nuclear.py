@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Nuclear fuel chain",
     "chokepoint": {"product": "Reactor fuel", "stage": "Enrichment", "mechanism": "capability", "physics": "Centrifuge enrichment — a licensed service; Russia the largest", "holder": "Russia", "share": "largest", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
+    "related": [{"href": "../defence-chain/defence-chain", "label": "Defence chain"}],
     "accent": "#5a7d4a",
     "eyebrow": "Product-chain pilot · the fuel behind the reactor",
     "h1": "The uranium mine is the easy part — the chokepoint is a service, not a rock",

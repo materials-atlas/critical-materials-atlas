@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Chromium chain",
     "chokepoint": {"product": "Stainless steel", "stage": "Ferrochrome smelting", "mechanism": "thermodynamic", "physics": "Ferrochrome is ~40% power by cost — the furnace follows cheap electricity (KZ/CN)", "holder": "S.Africa · KZ · CN", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}, {"href": "../nickel-chain/nickel-chain.html", "label": "Nickel chain"}],
+    "related": [{"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}, {"href": "../aerospace-chain/aerospace-chain", "label": "Aerospace chain"}, {"href": "../nickel-chain/nickel-chain", "label": "Nickel chain"}],
     "accent": "#5a6a5a",
     "eyebrow": "Product-chain pilot · the metal that makes steel stainless",
     "h1": "There is no stainless steel without chromium — and the smelter moved to cheap power",

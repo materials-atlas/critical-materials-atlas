@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/network-sensitivity">
 <title>Does the chokepoint survive an uncapped graph? — Critical Materials Atlas</title>
 <meta name="description" content="A truncation-sensitivity test of the trade-network findings: China's throughput share, betweenness rank and node-removal fragility recomputed at top-6, top-10, top-20 and the full uncapped 2024 graph for 32 critical materials.">
 <meta property="og:title" content="Is China's network centrality a truncation artifact? (No.)">
@@ -13,8 +14,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="network.html">Network</a>
-  <a href="robustness.html" class="hideable">Robustness</a><a href="technical-note.html" class="hideable">Technical note</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology">Methodology</a><a href="network">Network</a>
+  <a href="robustness" class="hideable">Robustness</a><a href="technical-note" class="hideable">Technical note</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -39,7 +40,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="network.html">Network</a><br><a href="robustness.html">Robustness</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="network">Network</a><br><a href="robustness">Robustness</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Method</h4>Top-6 / 10 / 20 / full graph · throughput · betweenness · node-removal fragility</div>
   <div class="fineprint">Truncation-sensitivity check on the 2024 trade network. Fragility on the capped graph is an upper bound.</div>
 </div></footer>
@@ -63,7 +64,7 @@ fetch('out/network_sensitivity.json').then(r=>r.json()).then(S=>{
   S.rows.slice().sort((x,y)=>(y.full?y.full.cn_share:0)-(x.full?x.full.cn_share:0)).forEach(r=>{
     if(!r.top6||!r.full)return; const tr=document.createElement('tr');
     const rk=(r.top6.cn_bet_rank||'–')+'→'+(r.full.cn_bet_rank||'–');
-    tr.innerHTML='<td><a href="profile-'+r.lab+'.html">'+r.title+'</a></td>'+
+    tr.innerHTML='<td><a href="profile-'+r.lab+'">'+r.title+'</a></td>'+
       '<td class="n">'+r.top6.cn_share+'%</td><td class="n" style="font-weight:600">'+r.full.cn_share+'%</td>'+
       '<td class="n">'+rk+'</td><td class="n">'+r.top6.frag+'%→'+r.full.frag+'%</td>';
     tb.appendChild(tr);});

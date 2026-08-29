@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Data-centre / AI chain",
     "chokepoint": {"product": "AI compute", "stage": "Grid connection", "mechanism": "diffuse", "physics": "Power + grid connection are local and switchable — the limit is megawatts, not one country", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}],
+    "related": [{"href": "../silicon-chip/silicon-chain", "label": "Silicon-chip chain"}, {"href": "../grid-chain/grid-chain", "label": "Electricity-grid chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}],
     "accent": "#5a5a9c",
     "eyebrow": "Product-chain pilot · the compute behind AI",
     "h1": "The chip is ready — the power isn't",

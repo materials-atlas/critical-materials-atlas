@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Ammonia / nitrogen-fertilizer chain",
     "chokepoint": {"product": "Nitrogen fertilizer", "stage": "Haber–Bosch", "mechanism": "thermodynamic", "physics": "Continuous high-temp, high-pressure synthesis; gas is feedstock + energy → sites at cheap gas", "holder": "cheap-gas regions", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain.html", "label": "Phosphate / food chain"}, {"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}],
+    "related": [{"href": "../phosphate-food-chain/phosphate-food-chain", "label": "Phosphate / food chain"}, {"href": "../electrolyser-chain/electrolyser-chain", "label": "Electrolyser chain"}],
     "accent": "#5a7a4a",
     "eyebrow": "Product-chain pilot · the other half of the food supply",
     "h1": "Half the world eats because we pull nitrogen from the air with natural gas",

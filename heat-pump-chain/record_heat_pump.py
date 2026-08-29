@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Heat-pump chain",
     "chokepoint": {"product": "Heat pumps", "stage": "Install", "mechanism": "diffuse", "physics": "No scarce input; the limit is factory capacity + installer labour — a labour market", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}],
+    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}],
     "accent": "#5a8a6a",
     "eyebrow": "Product-chain pilot · the box that heats the house",
     "h1": "No scarce metal gates the heat pump — people and factories do",

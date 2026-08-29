@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Electric-vehicle chain",
     "chokepoint": {"product": "Electric vehicles", "stage": "Assembly", "mechanism": "diffuse", "physics": "Assembly is switchable and localises near demand; the real chokepoint is upstream (battery/magnet)", "holder": "China", "share": "~70%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}],
     "accent": "#3f6ea5",
     "eyebrow": "Product-chain pilot · the car that plugs in",
     "h1": "An EV is a battery with a car around it",

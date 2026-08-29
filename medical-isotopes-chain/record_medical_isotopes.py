@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Medical-isotopes chain",
     "chokepoint": {"product": "Medical imaging (Tc-99m)", "stage": "Reactor irradiation", "mechanism": "capability", "physics": "Mo-99 is made in a handful of ageing research reactors; a 66-hour half-life means no stockpile is possible — an irreplaceable, buffer-less capability", "holder": "NL · BE · few reactors", "share": "~6 reactors", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../nuclear-chain/nuclear-chain.html", "label": "Nuclear fuel chain"}, {"href": "../zirconium-chain/zirconium-chain.html", "label": "Zirconium / hafnium chain"}, {"href": "../pgm-catalyst-chain/pgm-catalyst-chain.html", "label": "PGM / catalyst chain"}],
+    "related": [{"href": "../nuclear-chain/nuclear-chain", "label": "Nuclear fuel chain"}, {"href": "../zirconium-chain/zirconium-chain", "label": "Zirconium / hafnium chain"}, {"href": "../pgm-catalyst-chain/pgm-catalyst-chain", "label": "PGM / catalyst chain"}],
     "accent": "#7a5a6a",
     "eyebrow": "Product-chain pilot · the scan you might need",
     "h1": "The world's most-used medical isotope is made in about six ageing reactors — and can't be stored",

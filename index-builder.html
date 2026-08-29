@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/index-builder">
 <title>Build your own supply-risk index · Critical Materials Atlas</title>
 <meta name="description" content="An interactive tool: set your own weights across eight supply-risk criteria and watch the 32 critical materials re-rank live, with the correlation to the published index updating in real time. Runs entirely in your browser on public data.">
 <meta property="og:title" content="Build your own critical-materials supply-risk index">
@@ -28,8 +29,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="riskmethods.html">Risk methods</a><a href="risk.html">Risk index</a>
-  <a href="shock-builder.html" class="hideable">Shock builder</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="riskmethods">Risk methods</a><a href="risk">Risk index</a>
+  <a href="shock-builder" class="hideable">Shock builder</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -40,7 +41,7 @@
 <article style="max-width:1040px">
   <div class="callout">Every risk index hides a choice of weights &mdash; here you make it. Set the eight sliders however you like, and all 32 materials re-rank live, with the correlation to the published index updating as you go.
   <details class="howto"><summary>The eight criteria, and what you&rsquo;re comparing against</summary>
-  <p>Each material is scored on eight risk criteria, each normalised to 0&ndash;1 (higher = riskier): mine and refining concentration, trade concentration, China&rsquo;s share, the origin gap, lack of recycling, hard-to-substitute, and producer governance risk. Your weights combine them into a 0&ndash;100 score. The published <a href="risk.html">supply-risk index</a> and the data-driven <a href="riskmethods.html">entropy-TOPSIS</a> are just two particular weightings &mdash; the correlations show how close your index lands to each.</p>
+  <p>Each material is scored on eight risk criteria, each normalised to 0&ndash;1 (higher = riskier): mine and refining concentration, trade concentration, China&rsquo;s share, the origin gap, lack of recycling, hard-to-substitute, and producer governance risk. Your weights combine them into a 0&ndash;100 score. The published <a href="risk">supply-risk index</a> and the data-driven <a href="riskmethods">entropy-TOPSIS</a> are just two particular weightings &mdash; the correlations show how close your index lands to each.</p>
   </details></div>
 
   <div class="chartwrap">
@@ -69,7 +70,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="riskmethods.html">Risk methods</a><br><a href="risk.html">Supply-risk index</a><br><a href="shock-builder.html">Shock-scenario builder</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="riskmethods">Risk methods</a><br><a href="risk">Supply-risk index</a><br><a href="shock-builder">Shock-scenario builder</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Method</h4>Your weights × eight normalised criteria · live Spearman vs published index &amp; entropy-TOPSIS</div>
   <div class="fineprint">Runs entirely client-side on public data. A way to interrogate weighting choices, not a prediction.</div>
 </div></footer>
@@ -121,7 +122,7 @@ fetch('out/riskmethods.json').then(r=>r.json()).then(R=>{
       ]},true);
     const tb=document.querySelector('#tab tbody'); tb.innerHTML='';
     scored.forEach((m,i)=>{const tr=document.createElement('tr');
-      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+m.label+'.html">'+m.title+'</a></td>'+
+      tr.innerHTML='<td class="n muted">'+(i+1)+'</td><td><a href="profile-'+m.label+'">'+m.title+'</a></td>'+
         '<td class="n" style="font-weight:700;color:#0e7c74">'+m.score+'</td>'+
         '<td class="n muted">'+(m.fixed!=null?m.fixed:'—')+'</td><td class="n muted">'+Math.round(m.topsis)+'</td>'+
         '<td class="muted">'+m.driver+'</td>';

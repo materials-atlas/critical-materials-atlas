@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/report-product-space">
 <title>Does the product space predict the climb? — Report 03 — Critical Materials Atlas</title>
 <meta name="description" content="Report 03: an honest control test of economic-complexity density as a forecaster of downstream capability. It looks strong (AUC ~0.86) until the controls — density is ~97% a country's overall diversity, placebos like whisky score the same, and the residual collapses toward chance. A negative result, published.">
 <meta property="og:title" content="Does the product space predict the climb? — Critical Materials Atlas, Report 03">
@@ -48,8 +49,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="reports.html">Reports</a>
-  <a href="about.html" class="hideable">About</a><a href="methodology.html" class="hideable">Methodology</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="reports">Reports</a>
+  <a href="about" class="hideable">About</a><a href="methodology" class="hideable">Methodology</a></nav>
 </div></header>
 
 <article>
@@ -61,7 +62,7 @@
 
   <div class="toolbar">
     <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
-    <a href="product-space.html">Interactive: the product space →</a>
+    <a href="product-space">Interactive: the product space →</a>
     <a href="out/avalidate.json">Full results (JSON) →</a>
   </div>
 
@@ -119,7 +120,7 @@
   <p>A methodological caveat compounds the story: under the ~0.5–5% base rates of these emergence events, ROC-AUC is optimistic; precision-recall (reported in the <a href="out/avalidate.json">data</a>) is the fairer lens and is weaker still.</p>
 
   <h2>Method</h2>
-  <p>Binary capability matrices from CEPII BACI HS2002, 2002–2024. Balassa RCA with world-share (≥0.1%) and value ($500k) floors; density computed from the product-space proximity matrix φ (co-occurrence normalised by max ubiquity). Emergence = RCA crossing 1 between <i>t₀</i> and <i>t₁</i> among non-holders at <i>t₀</i>. AUC by Mann–Whitney; residual AUC by regressing density on diversity (and ECI) and scoring the residual. Placebos: HS 220830 (whisky), 220421 (wine), 030212 (fresh salmon), 520100 (cotton). Products split into capability-type (specialty/manufactured downstream) and commodity-type (bulk smelting/ferroalloys) tiers. Exploratory throughout; reported as a null-ish control, not a confirmation. Full methods are <a href="methodology.html">open</a>; all figures are in <a href="out/avalidate.json">avalidate.json</a>.</p>
+  <p>Binary capability matrices from CEPII BACI HS2002, 2002–2024. Balassa RCA with world-share (≥0.1%) and value ($500k) floors; density computed from the product-space proximity matrix φ (co-occurrence normalised by max ubiquity). Emergence = RCA crossing 1 between <i>t₀</i> and <i>t₁</i> among non-holders at <i>t₀</i>. AUC by Mann–Whitney; residual AUC by regressing density on diversity (and ECI) and scoring the residual. Placebos: HS 220830 (whisky), 220421 (wine), 030212 (fresh salmon), 520100 (cotton). Products split into capability-type (specialty/manufactured downstream) and commodity-type (bulk smelting/ferroalloys) tiers. Exploratory throughout; reported as a null-ish control, not a confirmation. Full methods are <a href="methodology">open</a>; all figures are in <a href="out/avalidate.json">avalidate.json</a>.</p>
 
   <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Does the product space predict the climb? An honest control.</i> Report 03. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
   <code>@techreport{cma_report03_2026,
@@ -137,7 +138,7 @@
 
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="reports.html">All reports</a><br><a href="product-space.html">The product space</a><br><a href="explorer.html">Explore the data</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="reports">All reports</a><br><a href="product-space">The product space</a><br><a href="explorer">Explore the data</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA · EU CRM<br>UN Comtrade · CEPII BACI</div>
   <div class="fineprint">Public-data research under the materials-atlas handle. Exploratory method work, reported as a null result.</div>
 </div></footer>

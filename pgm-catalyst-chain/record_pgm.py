@@ -23,7 +23,7 @@ CHAIN = {
     "title": "PGM / catalyst chain",
     "chokepoint": {"product": "Autocatalysts", "stage": "Bushveld", "mechanism": "geological", "physics": "The platinum-group ore is in South Africa's Bushveld Complex (~83% of world PGM reserves); SA leads platinum (~71% of mine output) but palladium is Russia-led", "holder": "South Africa", "share": "~83% reserves", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../electrolyser-chain/electrolyser-chain.html", "label": "Electrolyser chain"}, {"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}],
+    "related": [{"href": "../electrolyser-chain/electrolyser-chain", "label": "Electrolyser chain"}, {"href": "../aerospace-chain/aerospace-chain", "label": "Aerospace chain"}],
     "accent": "#5a6472",
     "eyebrow": "Product-chain pilot · catalysts & emissions",
     "h1": "Two countries mine it, and its own scrap saves it",

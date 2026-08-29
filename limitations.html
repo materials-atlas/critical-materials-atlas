@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/limitations">
 <title>What this is not — limitations &amp; falsification · Critical Materials Atlas</title>
 <meta name="description" content="An honest accounting of what the Critical Materials Atlas is not: every known limitation with its direction of bias, and the concrete conditions that would prove each headline finding wrong.">
 <meta property="og:title" content="What this is not — the limitations, and what would change my mind">
@@ -23,8 +24,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="robustness.html">Robustness</a>
-  <a href="technical-note.html" class="hideable">Technical note</a><a href="findings.html" class="hideable">Findings</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology">Methodology</a><a href="robustness">Robustness</a>
+  <a href="technical-note" class="hideable">Technical note</a><a href="findings" class="hideable">Findings</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -49,31 +50,31 @@
   <div class="lim">
     <h3>The 2017 HS-vintage splice <span class="bias over">overstates</span></h3>
     <p>The long series joins HS-2002 codes (2002&ndash;2016) to HS-2017 codes (2017&ndash;2024). The origin-gap index <i>steps</i> at that join, so part of the &ldquo;gap widened 15&rarr;18pp&rdquo; is a splice artifact, not real drift.</p>
-    <p class="fix">&#10003; The step is caveated everywhere and marked on the Trends chart; the <a href="robustness.html">robustness page</a> re-tests each trend separately on the two windows &mdash; <span class="dyn" data-k="splice">6 of 9</span> rising-concentration findings keep their sign in both halves.</p>
+    <p class="fix">&#10003; The step is caveated everywhere and marked on the Trends chart; the <a href="robustness">robustness page</a> re-tests each trend separately on the two windows &mdash; <span class="dyn" data-k="splice">6 of 9</span> rising-concentration findings keep their sign in both halves.</p>
   </div>
 
   <div class="lim">
     <h3>Mine and refining shares are static, hand-entered approximations <span class="bias neutral">uncertain</span></h3>
     <p>The USGS/IEA production and refining shares are fixed values entered per material on mixed vintages &mdash; they don&rsquo;t move year-to-year, and one can go stale (a case-study audit caught a lithium mine share two years out of date).</p>
-    <p class="fix">&#10003; Caught and corrected via the <a href="casestudies.html">case-study audit</a>; a periodic USGS-refresh sweep is in the runbook. This is the atlas&rsquo;s softest data and the first place to check a surprising number.</p>
+    <p class="fix">&#10003; Caught and corrected via the <a href="casestudies">case-study audit</a>; a periodic USGS-refresh sweep is in the runbook. This is the atlas&rsquo;s softest data and the first place to check a surprising number.</p>
   </div>
 
   <div class="lim">
     <h3>The network fragility figures are an upper bound <span class="bias over">overstates</span></h3>
     <p>The trade-network graphs are drawn from the top-6 partners per side for legibility. A truncated graph hides real alternative routes, so &ldquo;removing China breaks X% of routes&rdquo; is too high.</p>
-    <p class="fix">&#10003; Quantified on the <a href="network-sensitivity.html">truncation-sensitivity page</a>: rebuilt fully uncapped, average fragility falls from <span class="dyn" data-k="frag6">34%</span> to <span class="dyn" data-k="fragfull">12%</span>. China&rsquo;s <i>centrality</i>, however, barely moves &mdash; that finding survives.</p>
+    <p class="fix">&#10003; Quantified on the <a href="network-sensitivity">truncation-sensitivity page</a>: rebuilt fully uncapped, average fragility falls from <span class="dyn" data-k="frag6">34%</span> to <span class="dyn" data-k="fragfull">12%</span>. China&rsquo;s <i>centrality</i>, however, barely moves &mdash; that finding survives.</p>
   </div>
 
   <div class="lim">
     <h3>Trend significance rests on 23 annual points <span class="bias over">overstates</span></h3>
     <p>Mann-Kendall on a short, serially-correlated annual series overstates significance. &ldquo;9 of 32 materials are significantly concentrating&rdquo; is an exploratory screen, not a confirmatory test.</p>
-    <p class="fix">&#10003; Re-run with an autocorrelation-robust correction on the <a href="robustness.html">robustness page</a>: <span class="dyn" data-k="surv">7 of 9</span> survive. The rest are labelled exploratory.</p>
+    <p class="fix">&#10003; Re-run with an autocorrelation-robust correction on the <a href="robustness">robustness page</a>: <span class="dyn" data-k="surv">7 of 9</span> survive. The rest are labelled exploratory.</p>
   </div>
 
   <div class="lim">
     <h3>The satellite footprint is all-commodity, not critical-material-specific <span class="bias neutral">uncertain</span></h3>
     <p>The Maus et al. mine polygons (Sentinel-2, ~2019) carry no reliable per-mineral label, so the country map is <i>total</i> mining intensity (coal, iron, gold included), not critical-material footprint.</p>
-    <p class="fix">&#10003; Stated loudly on the <a href="satellite.html">satellite page</a>; the curated flagship mines carry the material-specific view. Used only as a cross-check, never as a production measure. We went further and <a href="commodity-attribution.html">quantified the limit</a>: stacking six independent public mine registers (Jasansky 2023 + USGS MRDS + OpenStreetMap + USGS critical-minerals PP1802 + Geoscience Australia + IPIS artisanal-mining sites) labels ~52% of the footprint and ties ~16% to a tracked critical material &mdash; up from 17% / 4% on Jasansky alone &mdash; and where two primary-commodity sources label the same mine they agree ~86% of the time. Tellingly, adding the dedicated artisanal-mining dataset (IPIS, ~8,000 eastern-DRC sites) barely moved coverage: artisanal mining scarcely overlaps the ~2019 satellite footprint, so it is invisible to the imagery, not merely unlabelled. The residual ~half is non-critical mines, register geographic gaps, and the by-product problem. More data triples coverage; it does not close the gap.</p>
+    <p class="fix">&#10003; Stated loudly on the <a href="satellite">satellite page</a>; the curated flagship mines carry the material-specific view. Used only as a cross-check, never as a production measure. We went further and <a href="commodity-attribution">quantified the limit</a>: stacking six independent public mine registers (Jasansky 2023 + USGS MRDS + OpenStreetMap + USGS critical-minerals PP1802 + Geoscience Australia + IPIS artisanal-mining sites) labels ~52% of the footprint and ties ~16% to a tracked critical material &mdash; up from 17% / 4% on Jasansky alone &mdash; and where two primary-commodity sources label the same mine they agree ~86% of the time. Tellingly, adding the dedicated artisanal-mining dataset (IPIS, ~8,000 eastern-DRC sites) barely moved coverage: artisanal mining scarcely overlaps the ~2019 satellite footprint, so it is invisible to the imagery, not merely unlabelled. The residual ~half is non-critical mines, register geographic gaps, and the by-product problem. More data triples coverage; it does not close the gap.</p>
   </div>
 
   <div class="two">
@@ -108,7 +109,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="robustness.html">Robustness</a><br><a href="network-sensitivity.html">Network sensitivity</a><br><a href="technical-note.html">Technical note</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="robustness">Robustness</a><br><a href="network-sensitivity">Network sensitivity</a><br><a href="technical-note">Technical note</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Stance</h4>Screening tool, not peer-review or forecast. Public data only. Falsifiable by design.</div>
   <div class="fineprint">Limitations stated with direction of bias; headline findings stated with their falsifiers.</div>
 </div></footer>

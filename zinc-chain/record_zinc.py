@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Zinc chain",
     "chokepoint": {"product": "Galvanizing · by-product host", "stage": "Smelting", "mechanism": "capability", "physics": "The host: gallium, germanium, indium and cadmium are recovered at zinc smelters — refining capacity (China ~half) gates them, not just zinc", "holder": "China", "share": "~half", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../germanium-chain/germanium-chain.html", "label": "Germanium chain"}, {"href": "../displays-indium-chain/displays-indium-chain.html", "label": "Displays / indium chain"}],
+    "related": [{"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../germanium-chain/germanium-chain", "label": "Germanium chain"}, {"href": "../displays-indium-chain/displays-indium-chain", "label": "Displays / indium chain"}],
     "accent": "#6a7a8a",
     "eyebrow": "Product-chain pilot · the host metal",
     "h1": "Zinc is the invisible host that gates half the atlas's by-product metals",

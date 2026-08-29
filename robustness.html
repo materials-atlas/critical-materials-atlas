@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/robustness">
 <title>Do the findings survive? — robustness · Critical Materials Atlas</title>
 <meta name="description" content="An adversarial robustness check on the atlas's trend findings: autocorrelation-robust Mann-Kendall (Hamed-Rao 1998) and a 2002-16 vs 2017-24 splice sub-period test, for export-concentration trends across 32 critical materials.">
 <meta property="og:title" content="Do the concentration findings survive a harder test?">
@@ -12,8 +13,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="trends.html">Trends</a>
-  <a href="technical-note.html" class="hideable">Technical note</a><a href="findings.html" class="hideable">Findings</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology">Methodology</a><a href="trends">Trends</a>
+  <a href="technical-note" class="hideable">Technical note</a><a href="findings" class="hideable">Findings</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -37,7 +38,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="trends.html">Trends</a><br><a href="technical-note.html">Technical note</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="trends">Trends</a><br><a href="technical-note">Technical note</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Method</h4>Hamed-Rao autocorrelation-robust Mann-Kendall · sub-period splice test · BH-FDR</div>
   <div class="fineprint">Exploratory robustness screen on 23 annual observations. Significance is a screen, not proof.</div>
 </div></footer>
@@ -54,7 +55,7 @@ fetch('out/robustness.json').then(r=>r.json()).then(R=>{
   const tb=document.querySelector('#tab tbody');
   const sig=R.rows.filter(r=>r.sig_std);
   sig.forEach(r=>{const tr=document.createElement('tr');
-    tr.innerHTML='<td><a href="profile-'+r.lab+'.html">'+r.title+'</a></td>'+
+    tr.innerHTML='<td><a href="profile-'+r.lab+'">'+r.title+'</a></td>'+
       '<td class="n">'+(r.slope>=0?'+':'')+r.slope.toFixed(3)+'</td>'+
       '<td class="n">'+r.mk_fdr.toFixed(3)+'</td>'+
       '<td class="n">'+r.hr_fdr.toFixed(3)+'</td>'+

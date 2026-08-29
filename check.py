@@ -71,16 +71,37 @@ def check_datasets():
 
 # ---------------------------------------------------------------- 2. internal links
 def check_links():
-    have = set(pages())
+    have = set(pages())                       # repo-relative 'x.html' paths
+    SKIP = ('http', '//', 'mailto:', 'tel:', '#', 'data:', 'javascript:')
     for p in pages():
         html = open(p, encoding='utf8').read()
         base = os.path.dirname(p)
-        for href in set(re.findall(r'href="([\w.\-]+\.html)(?:#[\w\-]+)?"', html)):
-            # resolve a same-folder/bare link relative to the file's own directory,
-            # the way check_datasets does — a bare "sibling.html" is not a repo-root path.
-            rel = os.path.normpath(os.path.join(base, href)).replace(os.sep, '/') if base else href
+        # (a) any explicit .html links (legacy or external-with-html) resolve to a real page
+        for href in set(re.findall(r'href="([\w./\-]+\.html)(?:[#?][^"]*)?"', html)):
+            if href.lower().startswith(SKIP):
+                continue
+            if href.startswith('/'):          # root-relative on the custom domain = repo root
+                rel = href.lstrip('/')
+            else:
+                rel = os.path.normpath(os.path.join(base, href)).replace(os.sep, '/') if base else href
             if href not in have and rel not in have:
                 fail('links', f'{p} links to {href} which does not exist')
+        # (b) clean extensionless internal page links must resolve to <target>.html — since the
+        # clean-URL migration these are the normal form; keep the safety net that catches typos.
+        for href in set(re.findall(r'href="([\w./\-]+)(?:[#?][^"]*)?"', html)):
+            if not href or href in ('.', '/', './', '../') or href.endswith('/'):
+                continue
+            if href.lower().startswith(SKIP):
+                continue
+            leaf = href.rsplit('/', 1)[-1]
+            if '.' in leaf:                    # has an extension (.json/.css/.png/.html) — not a clean page link
+                continue
+            if href.startswith('/'):           # root-relative on the custom domain = repo root
+                target = href.lstrip('/')
+            else:
+                target = os.path.normpath(os.path.join(base, href)).replace(os.sep, '/') if base else href
+            if target + '.html' not in have:
+                fail('links', f'{p} links to clean URL "{href}" but {target}.html does not exist')
         for anchor in set(re.findall(r'href="#([\w\-]+)"', html)):
             if f'id="{anchor}"' not in html:
                 fail('links', f'{p} links to #{anchor} but no element has that id')

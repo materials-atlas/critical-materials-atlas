@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Steel / structural-alloys chain",
     "chokepoint": {"product": "Ferroalloys (Nb/V)", "stage": "Niobium mine", "mechanism": "geological", "physics": "Niobium is essentially one Brazilian mine (CBMM) — Brazil is ~93% of world mine production, Canada ~7%", "holder": "Brazil", "share": "~93% production", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../wind-chain/wind-chain.html", "label": "Wind-turbine chain"}],
+    "related": [{"href": "../steel-chain/steel-chain", "label": "Primary / green-steel chain"}, {"href": "../tungsten-chain/tungsten-chain", "label": "Tungsten chain"}, {"href": "../wind-chain/wind-chain", "label": "Wind-turbine chain"}],
     "accent": "#4e5a66",
     "eyebrow": "Product-chain pilot · the built world",
     "h1": "Steel is abundant; the metals that make it strong are not",

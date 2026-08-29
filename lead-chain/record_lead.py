@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Lead chain",
     "chokepoint": {"product": "Lead-acid batteries", "stage": "Recycling loop", "mechanism": "diffuse", "physics": "~60% of lead is recycled from spent batteries, locally — a closed loop, not a geographic chokepoint", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Lithium-ion battery chain"}, {"href": "../zinc-chain/zinc-chain.html", "label": "Zinc chain"}, {"href": "../sulfur-chain/sulfur-chain.html", "label": "Sulfur / sulfuric-acid chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Lithium-ion battery chain"}, {"href": "../zinc-chain/zinc-chain", "label": "Zinc chain"}, {"href": "../sulfur-chain/sulfur-chain", "label": "Sulfur / sulfuric-acid chain"}],
     "accent": "#6a6a6a",
     "eyebrow": "Product-chain pilot · the circular metal",
     "h1": "The most-recycled metal runs in a loop, not a chokepoint",

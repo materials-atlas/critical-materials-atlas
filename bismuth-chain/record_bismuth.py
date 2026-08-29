@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Bismuth chain",
     "chokepoint": {"product": "Non-toxic lead replacement · pharma", "stage": "Recovery (lead/tungsten)", "mechanism": "byproduct", "physics": "A by-product of lead and tungsten smelting; China ~88% of production and refining — coupled to hosts, and China dominates the refining", "holder": "China", "share": "~88%", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../lead-chain/lead-chain.html", "label": "Lead chain"}, {"href": "../tungsten-chain/tungsten-chain.html", "label": "Tungsten chain"}, {"href": "../tin-chain/tin-chain.html", "label": "Tin / solder chain"}],
+    "related": [{"href": "../lead-chain/lead-chain", "label": "Lead chain"}, {"href": "../tungsten-chain/tungsten-chain", "label": "Tungsten chain"}, {"href": "../tin-chain/tin-chain", "label": "Tin / solder chain"}],
     "accent": "#5a7a6a",
     "eyebrow": "Product-chain pilot · the safe heavy metal",
     "h1": "The non-toxic heavy metal that replaces lead — and China makes most of it",

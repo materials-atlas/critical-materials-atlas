@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Neon / specialty-gas chain",
     "chokepoint": {"product": "Chip lithography", "stage": "Air separation", "mechanism": "byproduct", "physics": "By-product of steel-plant air separation — captured, not made", "holder": "(was Ukraine)", "share": "~half", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../silicon-chip/silicon-chain.html", "label": "Silicon-chip chain"}, {"href": "../helium-chain/helium-chain.html", "label": "Helium chain"}],
+    "related": [{"href": "../silicon-chip/silicon-chain", "label": "Silicon-chip chain"}, {"href": "../helium-chain/helium-chain", "label": "Helium chain"}],
     "accent": "#7a4a7a",
     "eyebrow": "Product-chain pilot · the gas inside the lithography laser",
     "h1": "Chip lithography runs on a gas that Ukraine once supplied half the world's supply of",

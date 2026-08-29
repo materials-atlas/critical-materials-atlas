@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/leverage">
 <title>Leverage map — Critical Materials Atlas</title>
 <meta name="description" content="How exposed is your country: an importer-by-material heatmap of who depends on the chokepoint leader (capture) and who is single-sourced (lock-in), from the bilateral trade matrix.">
 <meta property="og:title" content="Leverage map — how exposed is your country">
@@ -43,8 +44,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-  <a href="breakout.html" class="hideable">Break the chokepoint</a><a href="ot.html" class="hideable">Reallocation</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology">Methodology</a><a href="findings">Findings</a>
+  <a href="breakout" class="hideable">Break the chokepoint</a><a href="ot" class="hideable">Reallocation</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -56,7 +57,7 @@
   <div class="callout"><b>How to read it.</b> Rows are importing countries (most China-captured at the top), columns are materials (most globally-concentrated at the left). A cell&rsquo;s darkness is how much of that country&rsquo;s imports of that material comes from the chokepoint leader — toggle between the <b>material&rsquo;s global leader</b> and <b>China specifically</b>. A pale cell is diversified supply; a dark cell is a country that has handed one supplier its whole book for that material.
   <details class="howto"><summary>Method &amp; caveats</summary>
   <p><b>Capture</b> = share of country i&rsquo;s imports of material m that comes from m&rsquo;s dominant global exporter. <b>China</b> mode shows the share from China specifically. <b>Lock-in</b> = the country&rsquo;s own import-source HHI and top-source share (≥70% from one source flags a single-source dependency). The per-country <b>score</b> = capture × √(import HHI): high when you buy heavily from the global chokepoint AND have few alternatives.</p>
-  <p class="howto-src"><b>Caveats.</b> This is <b>import-based</b>: a country that refines for itself simply imports less, so a <i>low</i> exposure can mean self-sufficiency, not resilience (China&rsquo;s own row is small because it feeds itself). It captures refined-goods dependence via trade, not stockpiles, long-term contracts, or domestic mines. <b>Shared HS codes</b> (gallium/germanium 811292) are a basket. Top 40 importers by critical-material import value are shown; the open dataset covers all. Built by <code>build_leverage.py</code> on CEPII BACI. <b>See also</b> <a href="breakout.html">Break the chokepoint</a> and the <a href="ot.html">reallocation stress test</a>.</p>
+  <p class="howto-src"><b>Caveats.</b> This is <b>import-based</b>: a country that refines for itself simply imports less, so a <i>low</i> exposure can mean self-sufficiency, not resilience (China&rsquo;s own row is small because it feeds itself). It captures refined-goods dependence via trade, not stockpiles, long-term contracts, or domestic mines. <b>Shared HS codes</b> (gallium/germanium 811292) are a basket. Top 40 importers by critical-material import value are shown; the open dataset covers all. Built by <code>build_leverage.py</code> on CEPII BACI. <b>See also</b> <a href="breakout">Break the chokepoint</a> and the <a href="ot">reallocation stress test</a>.</p>
   </details></div>
   <div class="sumstrip" id="sum"></div>
   <div class="ctrls">

@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Magnesium chain",
     "chokepoint": {"product": "Aluminium alloys", "stage": "Reduction", "mechanism": "thermodynamic", "physics": "Coal-fired Pidgeon retorts, energy-sited in one Chinese province", "holder": "China", "share": "~87%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
+    "related": [{"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}, {"href": "../steel-chain/steel-chain", "label": "Primary / green-steel chain"}],
     "accent": "#8a7a5a",
     "eyebrow": "Product-chain pilot · the metal that lightens the others",
     "h1": "One country makes almost all the magnesium — and once switched it off",

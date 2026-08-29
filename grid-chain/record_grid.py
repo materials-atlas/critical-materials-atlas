@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Electricity-grid chain",
     "chokepoint": {"product": "Electricity grid", "stage": "Transformers", "mechanism": "diffuse", "physics": "Batch-built equipment; the limit is factory lead-time (years), spread across suppliers", "holder": "—", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../aluminium-chain/aluminium-chain.html", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain.html", "label": "Data-centre / AI chain"}],
+    "related": [{"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}, {"href": "../data-centre-chain/data-centre-chain", "label": "Data-centre / AI chain"}],
     "accent": "#8a6a3a",
     "eyebrow": "Product-chain pilot · the wires that carry it all",
     "h1": "The ore is fine — the transformer is the bottleneck",

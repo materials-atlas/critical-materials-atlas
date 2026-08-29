@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/updates">
 <title>Updates — Critical Materials Atlas</title>
 <meta name="description" content="A dated log of changes to the Critical Materials Atlas: data refreshes, new features, and the pre-registered nowcast checks.">
 <meta property="og:title" content="Critical Materials Atlas — updates">
@@ -21,8 +22,8 @@
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav">
-    <a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-    <a href="profiles.html" class="hideable">Profiles</a><a href="technical-note.html" class="hideable">Note</a>
+    <a href="./">Atlas</a><a href="methodology">Methodology</a><a href="findings">Findings</a>
+    <a href="profiles" class="hideable">Profiles</a><a href="technical-note" class="hideable">Note</a>
     <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>
   </nav>
 </div></header>
@@ -50,15 +51,15 @@
     <h3>Full USGS country breakdowns replace the hand-picked top-4 &mdash; and the flagship moves 19&nbsp;&rarr;&nbsp;18</h3>
     <ul>
       <li><b>What changed.</b> The mine and reserve layers previously carried only a hand-selected top few producers per material, with the remainder swept into an undifferentiated &ldquo;rest of world&rdquo;. They now carry the <b>complete country breakdown</b> read straight from the <a href="https://pubs.usgs.gov/periodicals/mcs2024/" target="_blank" rel="noopener">USGS Mineral Commodity Summaries 2024</a>: <b>28 of 32</b> materials with full mine-production shares, <b>19</b> with full reserve shares, every value checked against the published world total. Added alongside: <b>reserve life</b> (reserves &divide; annual production), <b>US net-import-reliance</b> for 28 materials, and export-control flags where a producer has imposed them.</li>
-      <li><b>The flagship moved &mdash; honestly.</b> Re-running <a href="findings.html">the origin-gap finding</a> on the better data shifts the headline from <b>19 of 32</b> to <b>18 of 32</b> materials where the top exporter is not the top miner. One example row was simply <b>wrong before</b>: strontium&rsquo;s true lead miner is <b>Iran (38%)</b>, not Spain &mdash; a lower-quality source had mis-assigned it. Several shares tightened too (lithium&rsquo;s Australia 37&rarr;48%, beryllium&rsquo;s US 65&rarr;58%, cobalt&rsquo;s DR&nbsp;Congo 76&rarr;74%). This finding is <i>not</i> pre-registered &mdash; only the nowcast is &mdash; so updating it to reflect better inputs is the correct move, and the change is logged here rather than made silently.</li>
-      <li><b>Propagated everywhere it feeds.</b> The mine layer drives the derived analytics, so all of them were regenerated and the numbers re-checked: the <a href="origin.html">origin trace</a> (now 25 of 32 materials more concentrated at the mine than in trade, was 27), the <a href="criticality.html">governance-weighted criticality</a> (which correctly re-rates strontium up as Iran&rsquo;s governance risk replaces Spain&rsquo;s), plus the risk, complexity, case-study, synthesis and country-vulnerability pages. No page was left pointing at the old numbers.</li>
+      <li><b>The flagship moved &mdash; honestly.</b> Re-running <a href="findings">the origin-gap finding</a> on the better data shifts the headline from <b>19 of 32</b> to <b>18 of 32</b> materials where the top exporter is not the top miner. One example row was simply <b>wrong before</b>: strontium&rsquo;s true lead miner is <b>Iran (38%)</b>, not Spain &mdash; a lower-quality source had mis-assigned it. Several shares tightened too (lithium&rsquo;s Australia 37&rarr;48%, beryllium&rsquo;s US 65&rarr;58%, cobalt&rsquo;s DR&nbsp;Congo 76&rarr;74%). This finding is <i>not</i> pre-registered &mdash; only the nowcast is &mdash; so updating it to reflect better inputs is the correct move, and the change is logged here rather than made silently.</li>
+      <li><b>Propagated everywhere it feeds.</b> The mine layer drives the derived analytics, so all of them were regenerated and the numbers re-checked: the <a href="origin">origin trace</a> (now 25 of 32 materials more concentrated at the mine than in trade, was 27), the <a href="criticality">governance-weighted criticality</a> (which correctly re-rates strontium up as Iran&rsquo;s governance risk replaces Spain&rsquo;s), plus the risk, complexity, case-study, synthesis and country-vulnerability pages. No page was left pointing at the old numbers.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">15 July 2026 <span class="tag">correction</span></div>
     <h3>&ldquo;The host decides the direction&rdquo; &mdash; the mechanism test refutes the mechanism</h3>
     <ul>
-      <li><b>What we claimed.</b> The <a href="host-coupling.html">host-coupling</a> page was built to prove the <a href="price-squeeze.html">price test&rsquo;s</a> mechanism: that a by-product&rsquo;s price direction is set by its host&rsquo;s cycle. It reported a mean best-host correlation of <b>0.29</b> and named five metals &mdash; palladium, gallium, germanium, helium, rare earths &mdash; as beating the control. <b>All of that is withdrawn.</b></li>
+      <li><b>What we claimed.</b> The <a href="host-coupling">host-coupling</a> page was built to prove the <a href="price-squeeze">price test&rsquo;s</a> mechanism: that a by-product&rsquo;s price direction is set by its host&rsquo;s cycle. It reported a mean best-host correlation of <b>0.29</b> and named five metals &mdash; palladium, gallium, germanium, helium, rare earths &mdash; as beating the control. <b>All of that is withdrawn.</b></li>
       <li><b>Three broken legs.</b> <b>(1) The control was not a control.</b> It computed corr(companion, host) &minus; corr(companion, base index) and called the pair host-specific if the gap beat an arbitrary 0.1. Subtracting two correlations is not residualisation and has no sampling theory; the correct statistic is the <b>partial correlation</b> &mdash; regress the cycle out of <i>both</i> series, then correlate the residuals. <b>(2) It was never significant.</b> At n&asymp;21 the 5% critical correlation is <b>|r|&asymp;0.44</b>; 0.29 is below it. <b>(3) It cherry-picked.</b> It reported the <i>best-matching</i> host out of two or three candidates and then tested at 5% &mdash; roughly 30 such tests manufacture ~1.5 false positives by chance, about the number it &ldquo;found&rdquo;. Hosts are now <b>pre-specified</b> (one per companion, from where the metal actually comes from) with a <b>Benjamini&ndash;Hochberg FDR</b> correction across the 18 tests.</li>
       <li><b>The result.</b> Rebuilt on <b>real USGS prices</b> (DS-140, constant 1998$) on both sides instead of trade unit values, the mean coupling falls from <b>0.27 to 0.03</b>. Watch it happen per metal: <b>antimony +0.58 &rarr; &minus;0.05</b>, molybdenum +0.56 &rarr; +0.03, silver +0.50 &rarr; &minus;0.01, cobalt +0.47 &rarr; &minus;0.23, germanium +0.33 &rarr; &minus;0.14. That gap <i>was the macro commodity cycle</i>, credited to the host. <b>One pair survives</b>: <b>bismuth&larr;lead</b> (partial r=0.68, p=0.001, CI 0.35&ndash;0.87) &mdash; strong, real, and one of the pairs the published literature independently identifies.</li>
       <li><b>And it tested the wrong channel.</b> Joint production says the host&rsquo;s <b>output</b> drags the companion out of the ground: host produces more &rarr; companion floods out &rarr; companion price <i>falls</i>. That is a claim about <b>tonnes, not dollars</b> &mdash; and host <i>price</i> is dominated by the same demand cycle that lifts every metal at once, so a price-price correlation cannot identify it. Run on host <b>production</b>: only <b>4 of 17</b> even carry the theory&rsquo;s negative sign, and <b>none</b> is significant. Meanwhile the <b>commodity cycle</b> is significant for germanium, antimony, bismuth and silver. That is the finding underneath: these metals are not pushed around by their hosts. They are pushed around by whatever pushes every commodity at once.</li>
@@ -69,14 +70,14 @@
     <div class="date">15 July 2026 <span class="tag">correction</span></div>
     <h3>&ldquo;By-product metals are more volatile&rdquo; &mdash; retested on real prices, and withdrawn</h3>
     <ul>
-      <li><b>What we claimed.</b> The <a href="price-squeeze.html">price test</a> reported that by-product metals run more price-volatile than primary ones (<b>37% vs 31%</b>), from trade unit values over 2018&ndash;24. It is one of the best-known regularities in mineral economics, and we asserted it as a mean-versus-mean comparison &mdash; with <b>no control for market size</b>. That is the flaw: by-product metals are also <i>tiny</i> markets, and thin markets swing for liquidity reasons that have nothing to do with companionality.</li>
-      <li><b>The retest.</b> New page: <a href="price-volatility.html">volatility &mdash; by-product, or just small?</a> It replaces the proxy with <b>real price series</b> (<a href="https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities" target="_blank" rel="noopener">USGS Historical Statistics, Data Series 140</a>, constant 1998 dollars, public domain &mdash; one series per commodity, so the gallium/germanium/hafnium shared-HS6 problem <i>dissolves</i> rather than gets patched), and runs the regression the literature runs: volatility ~ by-product status, then the same <b>plus market size</b>.</li>
+      <li><b>What we claimed.</b> The <a href="price-squeeze">price test</a> reported that by-product metals run more price-volatile than primary ones (<b>37% vs 31%</b>), from trade unit values over 2018&ndash;24. It is one of the best-known regularities in mineral economics, and we asserted it as a mean-versus-mean comparison &mdash; with <b>no control for market size</b>. That is the flaw: by-product metals are also <i>tiny</i> markets, and thin markets swing for liquidity reasons that have nothing to do with companionality.</li>
+      <li><b>The retest.</b> New page: <a href="price-volatility">volatility &mdash; by-product, or just small?</a> It replaces the proxy with <b>real price series</b> (<a href="https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities" target="_blank" rel="noopener">USGS Historical Statistics, Data Series 140</a>, constant 1998 dollars, public domain &mdash; one series per commodity, so the gallium/germanium/hafnium shared-HS6 problem <i>dissolves</i> rather than gets patched), and runs the regression the literature runs: volatility ~ by-product status, then the same <b>plus market size</b>.</li>
       <li><b>The result.</b> Uncontrolled, by-products really are more volatile: <b>+9.25pp</b> (p=0.017), replicating the published direction. Add market size and the by-product effect <b>collapses to +0.9pp (p=0.85)</b> while size is strongly significant (p=0.003) and R&sup2; more than doubles (0.18&rarr;0.41). The confound, measured: by-product metals are <b>~174&times; smaller markets</b> (median output 6,100 t vs 1,060,500 t; r=&minus;0.55, p=0.0008). <b>The volatility is accounted for by smallness, not by stuck supply</b> &mdash; with the causal caveat spelled out below.</li>
       <li><b>It survives six ways of asking.</b> A <b>permutation test</b> (20,000 label shuffles, assuming no normality): by-product p=0.78. A <b>rank-based</b> model, immune to the huge leverage of bulk commodities (iron ore is 10<sup>9</sup> t, rhenium 10<sup>1.7</sup>): p=0.89, while size holds at p=0.001. A <b>physical-tonnes</b> control with no price on the right-hand side: p=0.37. Contested classifications dropped: p=0.45. <b>Drop-one</b> (iron ore, aluminium, rhenium): size stays p=0.003&ndash;0.007. And non-overlapping <b>5/8/12/24-year windows</b>: by-product insignificant at all four. Errors are <b>HC3</b>, not HC0 &mdash; HC0 is biased downward at n&lt;250 (Long &amp; Ervin 2000) and was flattering our own numbers; under HC3 our size term weakens from p=0.0008 to p=0.003, which is the honest figure.</li>
       <li><b>The hardest objection, and the honest answer.</b> &ldquo;Market size is a <b>bad control</b>&rdquo;: if being a by-product <i>causes</i> a small market (output is capped by whatever the host mine yields), then size sits on the causal path, and controlling it subtracts companionality&rsquo;s own mechanism &mdash; so a null would mean &ldquo;no <i>direct</i> effect&rdquo;, not &ldquo;companionality is irrelevant&rdquo;. The objection is legitimate and no further regression answers it, so the page now (1) reports the <b>total effect as the headline</b> (+9.25pp, p=0.017 &mdash; by-product metals <i>are</i> more volatile, we are explaining that, not denying it); (2) re-runs with size measured <b>1985&ndash;99</b> against volatility 2000&ndash;23 &mdash; by-product +0.6pp (p=0.91), size still &minus;6.3 (p=0.003), so volatility cannot be what kept these markets small; and (3) points at the metals mediation cannot reach: <b>rare earths (50.0%), tantalum (45.0%) and beryllium (42.7%)</b> are <i>primary</i> metals with no host to be hostage to, small only because demand is small, and among the most volatile prices in the data. Matched on size, the by-product gap is <b>+1.7pp (p=0.75)</b> &mdash; nothing. <b>Smallness alone is sufficient for volatility.</b> What we still cannot settle, and say so plainly: whether companionality contributes to these markets being small in the first place.</li>
       <li><b>On &ldquo;n=33 is small&rdquo;.</b> It is, and it cannot be fixed: only ~40 metals have a published price series, so this is most of the <b>population</b>, not a sample of a larger one &mdash; the same bound binds the literature. Worth naming the trap, since it nearly caught us: slicing into rolling 5-year windows gives n=614 and <i>appears to reverse</i> the finding (by-product +7.8pp, p=0.07). It is pseudo-replication &mdash; overlapping windows reuse each return up to four times, counting the 2023 export-control spike repeatedly. The <i>same</i> window without overlap gives +1.5pp (p=0.70) and size returns (p=0.003). By-product status also never varies within a metal, so a panel adds no information about it: naive errors claim p&lt;0.0001, but cluster by metal and the effective sample is 33 again. <b>A panel gives you the same evidence, counted more times.</b></li>
       <li><b>The proxy failed too.</b> Trade unit-value volatility correlates with real price volatility at <b>r=0.13 (p=0.52)</b> &mdash; indistinguishable from no relationship. For second moments, unit values were not a noisy measure of price; they were <b>not a measure of it</b>. A separate discovery forced the window: before ~2000 the USGS nominal series for minor metals are <b>administered list prices</b>, frozen for 8&ndash;13 years at a time, so deflating them manufactures fake &ldquo;real&rdquo; volatility &mdash; landing on exactly the by-product metals. Window restricted to <b>2000&ndash;2023</b>, where every series is market-priced.</li>
-      <li><b>What survives.</b> The <a href="companionality.html">hostage-metals</a> thesis is untouched and sharper for it: inelasticity is a claim about <i>supply response</i> (no gallium price builds a gallium mine), evidenced independently. What falls is the lazy corollary that inelasticity must therefore show up as turbulence. The <a href="risk-adjusted.html">risk re-weighting</a> penalises companionality via elasticity, not observed volatility, and is unaffected &mdash; a reason to keep it that way. The price test&rsquo;s <i>direction</i> findings (who rose, who crashed, why the host decides) also stand. The claim is withdrawn <b>in place</b>, not quietly deleted.</li>
+      <li><b>What survives.</b> The <a href="companionality">hostage-metals</a> thesis is untouched and sharper for it: inelasticity is a claim about <i>supply response</i> (no gallium price builds a gallium mine), evidenced independently. What falls is the lazy corollary that inelasticity must therefore show up as turbulence. The <a href="risk-adjusted">risk re-weighting</a> penalises companionality via elasticity, not observed volatility, and is unaffected &mdash; a reason to keep it that way. The price test&rsquo;s <i>direction</i> findings (who rose, who crashed, why the host decides) also stand. The claim is withdrawn <b>in place</b>, not quietly deleted.</li>
     </ul>
   </div>
   <div class="entry">
@@ -85,14 +86,14 @@
     <ul>
       <li>The forward demand multiple <i>g</i> was a curated point estimate, which hid the fact that it is scenario-dependent by construction. The <a href="https://www.iea.org/data-and-statistics/data-product/critical-minerals-dataset" target="_blank" rel="noopener">IEA Critical Minerals Dataset</a> (CC&nbsp;BY&nbsp;4.0) publishes total demand under all three scenarios, so <i>g</i> is now <b>computed</b> for the six minerals it covers and carried as a band: <b>STEPS &rarr; APS &rarr; NZE</b> (lithium <b>4.5&ndash;7.5&times;</b>, graphite <b>2.3&ndash;3.9&times;</b>). The other materials keep a curated estimate, now labelled as such in the table.</li>
       <li><b>The correction:</b> five of our six curated values sat <i>above even the Net-Zero scenario</i> &mdash; magnets were carried at <b>3.5&times; when the IEA&rsquo;s most aggressive case is 1.9&times;</b>, cobalt 2.5&times; vs 1.98&times;, lithium 8&times; vs 7.54&times;. They were 2024-report headlines on a 2023 base, superseded by the May-2025 update on a 2024 base. <b>Consequence:</b> cobalt no longer clears <i>g</i>&nbsp;&ge;&nbsp;2 and <b>drops out of the structural-squeeze set</b> (now gallium, germanium, vanadium). Earlier entries below quoting ~8&times; lithium and cobalt-in-the-squeeze reflect what was published then; this entry supersedes them.</li>
-      <li><b>The headline survived it:</b> gallium (99%) and germanium (96%) remain the <a href="synthesis.html">hardest cases</a> under <a href="uncertainty.html">Monte-Carlo</a> &mdash; they never leaned on the numbers that moved. Also <b>decomposed the pull by end-use technology</b>: the growth driver is the same for all six minerals &mdash; the <b>electric vehicle</b> (89% of lithium&rsquo;s growth, 75% nickel, 74% cobalt) &mdash; while for copper/cobalt/nickel/magnets clean tech is still a <i>minority</i> of 2040 demand. On the <a href="demand.html">demand page</a>.</li>
+      <li><b>The headline survived it:</b> gallium (99%) and germanium (96%) remain the <a href="synthesis">hardest cases</a> under <a href="uncertainty">Monte-Carlo</a> &mdash; they never leaned on the numbers that moved. Also <b>decomposed the pull by end-use technology</b>: the growth driver is the same for all six minerals &mdash; the <b>electric vehicle</b> (89% of lithium&rsquo;s growth, 75% nickel, 74% cobalt) &mdash; while for copper/cobalt/nickel/magnets clean tech is still a <i>minority</i> of 2040 demand. On the <a href="demand">demand page</a>.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">15 July 2026 <span class="tag">data</span></div>
     <h3>Refining capacity computed, not curated &mdash; and the attribution ceiling reached the frontier</h3>
     <ul>
-      <li><b>Capacity wedge.</b> The <a href="refining.html">refining wedge</a> measured only <i>exported</i> refined metal, so refining consumed at home was invisible. The IEA dataset publishes mining <i>and</i> refining supply <b>by country</b>, so that view is now <b>computed</b>: <b>lithium is mined in Australia (35%) and refined in China (70%), +19pp</b>; magnets +11, copper +9, cobalt +8. <b>China refines 5 of these 6 minerals but mines only 2.</b> It also reaches lithium/graphite/magnets, whose refined stage has no clean trade code and is invisible to the trade wedge. <b>Nickel is the control</b>: +0pp, independently matching the trade wedge&rsquo;s Indonesia 43% &mdash; two datasets, same answer. This corrects an earlier claim on that page that no clean open capacity dataset existed.</li>
+      <li><b>Capacity wedge.</b> The <a href="refining">refining wedge</a> measured only <i>exported</i> refined metal, so refining consumed at home was invisible. The IEA dataset publishes mining <i>and</i> refining supply <b>by country</b>, so that view is now <b>computed</b>: <b>lithium is mined in Australia (35%) and refined in China (70%), +19pp</b>; magnets +11, copper +9, cobalt +8. <b>China refines 5 of these 6 minerals but mines only 2.</b> It also reaches lithium/graphite/magnets, whose refined stage has no clean trade code and is invisible to the trade wedge. <b>Nickel is the control</b>: +0pp, independently matching the trade wedge&rsquo;s Indonesia 43% &mdash; two datasets, same answer. This corrects an earlier claim on that page that no clean open capacity dataset existed.</li>
       <li><b>Attribution reached the published frontier.</b> Thirteen stacked registers (added the <b>ICMM Global Mining Dataset 2025</b>) lift labelling to <b>63%</b>, and grouping neighbouring polygons into mining <b>districts</b> &mdash; the method the frontier uses &mdash; reaches <b>~73%</b>, matching Maus et&nbsp;al. 2026 / Mine&nbsp;the&nbsp;Gap on fully open data. A census of the unlabelled remainder shows it is <b>~81% coal and construction minerals</b>, not hidden criticals &mdash; so the residual is mostly bulk material, not a blind spot over critical supply.</li>
     </ul>
   </div>
@@ -101,14 +102,14 @@
     <h3>Eight public registers + a diagnostic: where the unlabelled footprint actually is</h3>
     <ul>
       <li>Tested directly whether more mine registers close the satellite-attribution gap: stacked <b>six independent public sources</b> onto the join against the Maus polygons &mdash; Jasansky, <b>USGS MRDS</b> (~284k), <b>OpenStreetMap</b> (~54k), the <b>USGS critical-minerals set</b> (PP1802, ~2,100), a national cadastre (<b>Geoscience Australia</b>, ~420), and the one dataset that covers <b>artisanal</b> mining, <b>IPIS</b> (~8,000 eastern-DRC &amp; CAR sites).</li>
-      <li>Since expanded to <b>eight sources</b> (added Wikidata ~7,300 mines, and BC MINFILE ~15,000 occurrences): footprint labelled <b>17% → 55%</b>, critical <b>4% → 17%</b>, ~81% inter-source agreement. Two structural findings: (1) IPIS&rsquo;s 8,000 artisanal sites barely overlap the satellite footprint (+0.1pp) &mdash; informal mining is invisible to the ~2019 imagery itself; (2) a per-country diagnostic shows the still-unlabelled footprint is concentrated in <b>Russia (7.5%), China (6.9%), Indonesia (4.5%), Myanmar (2%)</b> &mdash; all countries with no open, downloadable mine database. The remaining ceiling is therefore a <b>data-transparency</b> limit, not an effort limit. On the <a href="commodity-attribution.html">attribution page</a>.</li>
+      <li>Since expanded to <b>eight sources</b> (added Wikidata ~7,300 mines, and BC MINFILE ~15,000 occurrences): footprint labelled <b>17% → 55%</b>, critical <b>4% → 17%</b>, ~81% inter-source agreement. Two structural findings: (1) IPIS&rsquo;s 8,000 artisanal sites barely overlap the satellite footprint (+0.1pp) &mdash; informal mining is invisible to the ~2019 imagery itself; (2) a per-country diagnostic shows the still-unlabelled footprint is concentrated in <b>Russia (7.5%), China (6.9%), Indonesia (4.5%), Myanmar (2%)</b> &mdash; all countries with no open, downloadable mine database. The remaining ceiling is therefore a <b>data-transparency</b> limit, not an effort limit. On the <a href="commodity-attribution">attribution page</a>.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Concentration measured the standard way — production tonnes &amp; GeoPolRisk</h3>
     <ul>
-      <li>New page: <a href="geopolrisk.html">concentration in tonnes</a>. The atlas headlines concentration on trade <i>value</i> (the engine&rsquo;s most attackable input); this recomputes it the way the field does &mdash; the Herfindahl on <b>physical production tonnes</b> (World Mining Data), weighted by governance (WGI), aligned to the <b>GeoPolRisk</b> indicator (Gemechu et&nbsp;al. 2016; Cimprich/Helbig/Sonnemann 2017–2024) and the EU CRM methodology.</li>
+      <li>New page: <a href="geopolrisk">concentration in tonnes</a>. The atlas headlines concentration on trade <i>value</i> (the engine&rsquo;s most attackable input); this recomputes it the way the field does &mdash; the Herfindahl on <b>physical production tonnes</b> (World Mining Data), weighted by governance (WGI), aligned to the <b>GeoPolRisk</b> indicator (Gemechu et&nbsp;al. 2016; Cimprich/Helbig/Sonnemann 2017–2024) and the EU CRM methodology.</li>
       <li>Value, volume and production HHI side by side shows where the dollar view misleads: it badly <b>understates</b> gallium&rsquo;s real concentration (value 0.50 vs production 0.97, China ~98%) because its trade is smeared across a re-export/shared code, and <b>overstates</b> boron (0.96 vs 0.28) and feldspar, where many countries produce but few export. Highest GeoPolRisk: gallium, germanium, niobium, cobalt. Puts the concentration claim on physical footing and closes the gap the engine&rsquo;s own caveat left open.</li>
     </ul>
   </div>
@@ -116,14 +117,14 @@
     <div class="date">10 July 2026 <span class="tag">rigor</span></div>
     <h3>Break this atlas — an open adversarial-review challenge</h3>
     <ul>
-      <li>New page: <a href="challenge.html">Break this atlas</a>. Self-review has a ceiling &mdash; internal cross-checks test consistency, not correctness &mdash; so this opens the atlas to adversarial outside review. It lists the five load-bearing claims with the concrete test that would falsify each, names the soft spots it already flags, and invites public issues with a commitment to fix, bound, or rebut every substantive challenge in the open.</li>
+      <li>New page: <a href="challenge">Break this atlas</a>. Self-review has a ceiling &mdash; internal cross-checks test consistency, not correctness &mdash; so this opens the atlas to adversarial outside review. It lists the five load-bearing claims with the concrete test that would falsify each, names the soft spots it already flags, and invites public issues with a commitment to fix, bound, or rebut every substantive challenge in the open.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">depth</span></div>
     <h3>Gallium end to end — the thesis proved on one metal</h3>
     <ul>
-      <li>A single-metal deep dive: <a href="gallium.html">gallium traced physically</a> from bauxite through alumina refining to recovery and export, with explicit bias bounds at every step &mdash; depth to balance the atlas&rsquo;s breadth.</li>
+      <li>A single-metal deep dive: <a href="gallium">gallium traced physically</a> from bauxite through alumina refining to recovery and export, with explicit bias bounds at every step &mdash; depth to balance the atlas&rsquo;s breadth.</li>
       <li>The mass balance is the point: ~20,700 t of gallium is embedded in world bauxite and ~17,600 t passes through alumina refineries, but only ~987 t is recovered &mdash; <b>~94% is discarded to red mud</b> (recovery ~5.6%), because the extraction step exists at only a few plants. So a price spike can&rsquo;t summon supply; capacity is a multi-year refinery retrofit. &ldquo;Can&rsquo;t scale&rdquo; is no longer asserted but quantified &mdash; with the HS-811292 trade-aliasing (Ga+Ge+Hf) and China&rsquo;s non-reporting flagged as honest bounds.</li>
     </ul>
   </div>
@@ -131,7 +132,7 @@
     <div class="date">10 July 2026 <span class="tag">rigor</span></div>
     <h3>Scorecard under uncertainty — probabilities, not a threshold cliff</h3>
     <ul>
-      <li>Answering a fair critique that the hardest-cases scorecard&rsquo;s hard cutoffs hide borderline metals: a new <a href="uncertainty.html">Monte-Carlo page</a> puts an explicit uncertainty on all five axis inputs and propagates it with 20,000 draws per material, reporting P(hardest) and expected failures with a 90% interval.</li>
+      <li>Answering a fair critique that the hardest-cases scorecard&rsquo;s hard cutoffs hide borderline metals: a new <a href="uncertainty">Monte-Carlo page</a> puts an explicit uncertainty on all five axis inputs and propagates it with 20,000 draws per material, reporting P(hardest) and expected failures with a 90% interval.</li>
       <li>The binary &ldquo;only gallium and germanium&rdquo; becomes a gradient: <b>gallium (99%) and germanium (96%) survive every reasonable perturbation</b> &mdash; robust, not a threshold fluke &mdash; while <b>vanadium (23%)</b> is genuinely borderline and the rest fall away. And it reframes the message: <i>supply elasticity and market thinness</i>, not geographic concentration, are what most decide the hardest set. Model spreads are stated on-page as explicit judgement calls.</li>
     </ul>
   </div>
@@ -139,7 +140,7 @@
     <div class="date">10 July 2026 <span class="tag">synthesis</span></div>
     <h3>The hardest cases — the whole argument on one scorecard</h3>
     <ul>
-      <li>New synthesis page: <a href="synthesis.html">the hardest cases</a>. It scores all 32 materials on five independent failure axes drawn from the session&rsquo;s layers &mdash; can&rsquo;t scale (by-product), can&rsquo;t diversify (concentrated), can&rsquo;t recycle, surging demand, and a physically tiny market &mdash; and counts how many safeguards are gone at once.</li>
+      <li>New synthesis page: <a href="synthesis">the hardest cases</a>. It scores all 32 materials on five independent failure axes drawn from the session&rsquo;s layers &mdash; can&rsquo;t scale (by-product), can&rsquo;t diversify (concentrated), can&rsquo;t recycle, surging demand, and a physically tiny market &mdash; and counts how many safeguards are gone at once.</li>
       <li>The conclusion: most materials trip one or two axes; only <b>gallium and germanium trip four or five</b>. Concentration &mdash; where the critical-materials conversation usually starts and stops &mdash; is just one of at least five ways a material gets stuck, and rarely the binding one. A coarse scorecard by design (count of failures, not a false-precision composite).</li>
     </ul>
   </div>
@@ -147,16 +148,16 @@
     <div class="date">10 July 2026 <span class="tag">data</span></div>
     <h3>Production in real tonnes — and an independent cross-check</h3>
     <ul>
-      <li>New data acquisition + page: <a href="production.html">the atlas in absolute tonnes</a>. Added World Mining Data 6.4 (Austrian Federal Ministry of Finance, 2026 ed.) — mine production by country in metric tonnes — for 28 of the 32 materials, and laid it beside the atlas&rsquo;s USGS-derived shares.</li>
+      <li>New data acquisition + page: <a href="production">the atlas in absolute tonnes</a>. Added World Mining Data 6.4 (Austrian Federal Ministry of Finance, 2026 ed.) — mine production by country in metric tonnes — for 28 of the 32 materials, and laid it beside the atlas&rsquo;s USGS-derived shares.</li>
       <li>Independent cross-validation: a second authority names the <b>same top producer for 26 of 28</b> materials, mean share gap 6.4pp (gallium 98.7% vs 98%, phosphate 44% vs 44%, tantalum 41% vs 40%) — so the producer geography isn&rsquo;t a one-source artefact; the two genuine disagreements (coking coal, bauxite: production vs export leadership) are flagged. And the scale finally shows: gallium is a ~1,000-tonne world, germanium ~150 t, versus coking coal at ~1 billion t. Data fetched with the atlas&rsquo;s own web tools.</li>
-      <li>The tonnages are already fed back into the <a href="cascade.html">supply-shock cascade</a>, which now quantifies every hit in <b>real tonnes at risk</b> (a full China shock removes ~967 t of the world&rsquo;s ~987 t of gallium) rather than an index &mdash; the step from shares toward quantities.</li>
+      <li>The tonnages are already fed back into the <a href="cascade">supply-shock cascade</a>, which now quantifies every hit in <b>real tonnes at risk</b> (a full China shock removes ~967 t of the world&rsquo;s ~987 t of gallium) rather than an index &mdash; the step from shares toward quantities.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Supply-shock cascade — the first-order hit and the companion echo</h3>
     <ul>
-      <li>New capstone: <a href="cascade.html">an interactive supply-shock cascade</a>. A shock to a producer country is propagated through production geography (USGS shares), then the companion web (a lost host drags its by-products down), then out to the exposed importing blocs &mdash; and each country is scored as a single point of failure.</li>
+      <li>New capstone: <a href="cascade">an interactive supply-shock cascade</a>. A shock to a producer country is propagated through production geography (USGS shares), then the companion web (a lost host drags its by-products down), then out to the exposed importing blocs &mdash; and each country is scored as a single point of failure.</li>
       <li>China scores far above any other producer (14.1 vs ~2.7 next); the model makes the second-order damage explicit &mdash; shock Congo and its copper drags extra cobalt down, shock Indonesia&rsquo;s nickel and cobalt falls again. Structural first-and-second-order map from public data, honestly short of a calibrated forecast (no price feedback; echo only through hosts the atlas tracks).</li>
     </ul>
   </div>
@@ -164,7 +165,7 @@
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Net demand — stripping the re-export confound out of the bloc picture</h3>
     <ul>
-      <li>New page: <a href="net-demand.html">net demand by bloc</a>. The demand-by-bloc page conflated consumption with refine-and-re-export; this nets it out (imports − exports per bloc), so trans-shipment hubs collapse toward zero and refiner-exporters are revealed as net suppliers.</li>
+      <li>New page: <a href="net-demand">net demand by bloc</a>. The demand-by-bloc page conflated consumption with refine-and-re-export; this nets it out (imports − exports per bloc), so trans-shipment hubs collapse toward zero and refiner-exporters are revealed as net suppliers.</li>
       <li>The reveal: China is a net <b>supplier</b> (net exporter) of eight squeezed metals it is said to dominate demand for &mdash; gallium, germanium, rare earths, cobalt, graphite, vanadium, hafnium, arsenic &mdash; because it imports the ore and exports the refined output. It still tops the net table only via raw-ore imports it processes; the <i>finished</i> squeezed metals are pulled by the EU, US, Japan and Korea. Honest limit: net trade, not full apparent consumption (production is available only as shares, not tonnes).</li>
     </ul>
   </div>
@@ -172,31 +173,31 @@
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Demand by bloc — whose industrial policy pulls which metal</h3>
     <ul>
-      <li>New page: <a href="bloc-demand.html">demand by bloc</a>. Using the atlas&rsquo;s own import flows as a revealed-demand proxy, it reads which bloc &mdash; China, EU, US, Japan, Korea, India &mdash; pulls hardest on each squeezed metal, and names the industrial policy behind it (EU CRMA, US IRA/CHIPS, China export controls, Japan/Korea supply-security).</li>
-      <li>Demand is as concentrated as supply, just in different capitals: batteries pull toward China/Korea/EU, chips toward the US/Japan/Korea, magnets and defence toward the EU/US. Stated loudly: import share is <i>revealed trade pull, not final consumption</i> &mdash; China tops several tables for metals it refines and re-exports (read beside the <a href="origin.html">origin trace</a>).</li>
+      <li>New page: <a href="bloc-demand">demand by bloc</a>. Using the atlas&rsquo;s own import flows as a revealed-demand proxy, it reads which bloc &mdash; China, EU, US, Japan, Korea, India &mdash; pulls hardest on each squeezed metal, and names the industrial policy behind it (EU CRMA, US IRA/CHIPS, China export controls, Japan/Korea supply-security).</li>
+      <li>Demand is as concentrated as supply, just in different capitals: batteries pull toward China/Korea/EU, chips toward the US/Japan/Korea, magnets and defence toward the EU/US. Stated loudly: import share is <i>revealed trade pull, not final consumption</i> &mdash; China tops several tables for metals it refines and re-exports (read beside the <a href="origin">origin trace</a>).</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Host coupling — testing the mechanism directly</h3>
     <ul>
-      <li>New page: <a href="host-coupling.html">does a companion&rsquo;s price track its host?</a> The price test claimed a by-product metal&rsquo;s direction is set by its host&rsquo;s cycle; this correlates each companion&rsquo;s price against its host commodity (World Bank Pink Sheet spot prices, 2002&ndash;24) with the general base-metals cycle as a control.</li>
-      <li>Mixed but honest: mean best-host correlation 0.29; palladium, gallium and vanadium track a host at r&ge;0.4, and five pairs (palladium, gallium, germanium, helium, REE magnets) beat the common-cycle control. The mechanism is visible for some pairs and lost in trade-unit-value noise for others &mdash; the next step is to re-run on clean reported prices where they exist. <b>Update:</b> that re-run has happened, and it <a href="host-coupling.html">withdrew this entry&rsquo;s finding</a> &mdash; the 0.29 was the commodity cycle, the control was not a valid control, and the result was never significant.</li>
+      <li>New page: <a href="host-coupling">does a companion&rsquo;s price track its host?</a> The price test claimed a by-product metal&rsquo;s direction is set by its host&rsquo;s cycle; this correlates each companion&rsquo;s price against its host commodity (World Bank Pink Sheet spot prices, 2002&ndash;24) with the general base-metals cycle as a control.</li>
+      <li>Mixed but honest: mean best-host correlation 0.29; palladium, gallium and vanadium track a host at r&ge;0.4, and five pairs (palladium, gallium, germanium, helium, REE magnets) beat the common-cycle control. The mechanism is visible for some pairs and lost in trade-unit-value noise for others &mdash; the next step is to re-run on clean reported prices where they exist. <b>Update:</b> that re-run has happened, and it <a href="host-coupling">withdrew this entry&rsquo;s finding</a> &mdash; the 0.29 was the commodity cycle, the control was not a valid control, and the result was never significant.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Price test — does the market already show the squeeze?</h3>
     <ul>
-      <li>New page: <a href="price-squeeze.html">a falsification of the squeeze thesis</a> against the atlas&rsquo;s own implied trade-price series (BACI unit values, 2018&ndash;2024). The clean result would have been &ldquo;squeeze predicts price&rdquo;; the honest one is sharper.</li>
-      <li>Of the seven by-product-locked metals, four surged and three crashed &mdash; same structural inelasticity, opposite outcomes, because the <a href="host-shock.html">host&rsquo;s cycle</a> sets the direction (gallium/germanium up on 2023 export controls; cobalt/vanadium down on host oversupply). The raw correlation (+0.39) is modest and leans on gallium/germanium/hafnium, which share one HS6 code and post identical moves &mdash; de-duplicated and flagged. The thesis survives, refined not refuted. <b>Update:</b> this entry originally also reported that by-product metals run more volatile (37% vs 31%). That claim has since been <a href="price-volatility.html">retested and withdrawn</a> &mdash; the gap is market size, not companionality.</li>
+      <li>New page: <a href="price-squeeze">a falsification of the squeeze thesis</a> against the atlas&rsquo;s own implied trade-price series (BACI unit values, 2018&ndash;2024). The clean result would have been &ldquo;squeeze predicts price&rdquo;; the honest one is sharper.</li>
+      <li>Of the seven by-product-locked metals, four surged and three crashed &mdash; same structural inelasticity, opposite outcomes, because the <a href="host-shock">host&rsquo;s cycle</a> sets the direction (gallium/germanium up on 2023 export controls; cobalt/vanadium down on host oversupply). The raw correlation (+0.39) is modest and leans on gallium/germanium/hafnium, which share one HS6 code and post identical moves &mdash; de-duplicated and flagged. The thesis survives, refined not refuted. <b>Update:</b> this entry originally also reported that by-product metals run more volatile (37% vs 31%). That claim has since been <a href="price-volatility">retested and withdrawn</a> &mdash; the gap is market size, not companionality.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Demand arm — the squeeze, where surging demand meets inelastic supply</h3>
     <ul>
-      <li>New page: <a href="demand.html">Demand &amp; the squeeze</a>. The atlas&rsquo;s first demand-side lens &mdash; principal end-use sectors, clean-energy exposure, and a demand-growth multiple to ~2040 (IEA Global Critical Minerals Outlook 2024 + USGS end-use).</li>
+      <li>New page: <a href="demand">Demand &amp; the squeeze</a>. The atlas&rsquo;s first demand-side lens &mdash; principal end-use sectors, clean-energy exposure, and a demand-growth multiple to ~2040 (IEA Global Critical Minerals Outlook 2024 + USGS end-use).</li>
       <li>The synthesis with the supply-structure arm splits &ldquo;critical + high-demand&rdquo; into two problems: <b>demand-driven but mineable</b> (lithium ~8&times;, graphite ~4.5&times; &mdash; capital and time can answer) versus the <b>structural squeeze</b> &mdash; surging demand <i>and</i> by-product-locked supply that can&rsquo;t scale: gallium, cobalt, germanium, vanadium. Different problems need different playbooks; subsidising mines helps only the first.</li>
     </ul>
   </div>
@@ -204,17 +205,17 @@
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Supply-structure arm — companionality and its children</h3>
     <ul>
-      <li><a href="companionality.html">Hostage metals</a>: 7 of 32 materials are produced mostly as by-products (gallium, germanium, hafnium, helium, arsenic ~100%; cobalt, vanadium ~90%), so their supply can&rsquo;t answer their own price. Crossed with trade concentration, three are in double jeopardy: arsenic, germanium, gallium. Data from USGS MCS 2024 + Nassar et&nbsp;al. 2015.</li>
-      <li><a href="risk-adjusted.html">Risk when supply can&rsquo;t respond</a>: re-weighting the risk index by supply elasticity lifts the hostage metals past materials whose risk is addressable with new mines (biggest movers: hafnium +10, germanium +9).</li>
-      <li><a href="host-shock.html">Host shock</a>: inverts the map to the bulk commodities that gate critical supply — zinc, nickel and copper each carry three critical riders — with a live slider to propagate a host cut into companion losses.</li>
-      <li><a href="recycling.html">Secondary supply</a>: by-product metals recycle at 3.9% end-of-life vs 8.8% for primary; six are fully trapped — no new mine and no scrap (Ga, As, Hf, He, Ge, V).</li>
+      <li><a href="companionality">Hostage metals</a>: 7 of 32 materials are produced mostly as by-products (gallium, germanium, hafnium, helium, arsenic ~100%; cobalt, vanadium ~90%), so their supply can&rsquo;t answer their own price. Crossed with trade concentration, three are in double jeopardy: arsenic, germanium, gallium. Data from USGS MCS 2024 + Nassar et&nbsp;al. 2015.</li>
+      <li><a href="risk-adjusted">Risk when supply can&rsquo;t respond</a>: re-weighting the risk index by supply elasticity lifts the hostage metals past materials whose risk is addressable with new mines (biggest movers: hafnium +10, germanium +9).</li>
+      <li><a href="host-shock">Host shock</a>: inverts the map to the bulk commodities that gate critical supply — zinc, nickel and copper each carry three critical riders — with a live slider to propagate a host cut into companion losses.</li>
+      <li><a href="recycling">Secondary supply</a>: by-product metals recycle at 3.9% end-of-life vs 8.8% for primary; six are fully trapped — no new mine and no scrap (Ga, As, Hf, He, Ge, V).</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">10 July 2026 <span class="tag">method</span></div>
     <h3>Which mineral is that mine? — the satellite footprint&rsquo;s hard limit, quantified</h3>
     <ul>
-      <li>New page: <a href="commodity-attribution.html">commodity attribution of the satellite footprint</a>. It overlays the peer-reviewed Jasansky et&nbsp;al. (2023, <i>Scientific Data</i>; Zenodo, CC-BY) mine-facility database — 2,413 georeferenced mines with a commodity label — onto the all-commodity Maus polygons, and measures how much can actually be named.</li>
+      <li>New page: <a href="commodity-attribution">commodity attribution of the satellite footprint</a>. It overlays the peer-reviewed Jasansky et&nbsp;al. (2023, <i>Scientific Data</i>; Zenodo, CC-BY) mine-facility database — 2,413 georeferenced mines with a commodity label — onto the all-commodity Maus polygons, and measures how much can actually be named.</li>
       <li>Result: only <b>~17%</b> of mapped footprint is commodity-labellable, and <b>~4%</b> ties to a tracked critical material (almost all copper) — stable across a 0–25&nbsp;km join buffer. Open mine data resolves ~11 broad classes and never names lithium, cobalt, rare earths or tungsten as a primary product; they surface only as sparse byproducts. The receipt for why the atlas reads material identity from USGS/IEA production + trade, not imagery.</li>
       <li>Method hardened after an independent methodological review: added a byproduct pass on the richer <code>commodities_products</code> field, a join-buffer sensitivity band, and the shared-authorship / temporal caveats. Reproducible via <code>build_commodity_attribution.py</code> &rarr; <a href="out/commodity_attribution.json">commodity_attribution.json</a>.</li>
     </ul>
@@ -223,49 +224,49 @@
     <div class="date">29 June 2026 <span class="tag">method</span></div>
     <h3>Robustness &amp; falsification — the project tests its own claims</h3>
     <ul>
-      <li>Added an autocorrelation-robust re-test (Hamed-Rao) plus a vintage-splice sub-period check on the concentration trends: <a href="robustness.html">7 of 9 rising-HHI findings survive</a>, the weaker two are now labelled exploratory.</li>
-      <li><a href="network-sensitivity.html">Network truncation sensitivity</a>: rebuilt every 2024 graph fully uncapped — China&rsquo;s centrality holds, but the fragility figures are relabelled an upper bound (they fall 34%&rarr;12% once alternative routes are included).</li>
-      <li>A <a href="limitations.html">&ldquo;what this is not&rdquo; page</a>: every known limitation with its direction of bias, and a concrete falsifier for each headline claim.</li>
+      <li>Added an autocorrelation-robust re-test (Hamed-Rao) plus a vintage-splice sub-period check on the concentration trends: <a href="robustness">7 of 9 rising-HHI findings survive</a>, the weaker two are now labelled exploratory.</li>
+      <li><a href="network-sensitivity">Network truncation sensitivity</a>: rebuilt every 2024 graph fully uncapped — China&rsquo;s centrality holds, but the fragility figures are relabelled an upper bound (they fall 34%&rarr;12% once alternative routes are included).</li>
+      <li>A <a href="limitations">&ldquo;what this is not&rdquo; page</a>: every known limitation with its direction of bias, and a concrete falsifier for each headline claim.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">29 June 2026 <span class="tag">data</span></div>
     <h3>Two views from orbit — satellite mine footprints</h3>
     <ul>
-      <li><a href="satellite.html">Mine footprint from space</a> (Maus et al. 2022, 44,929 Sentinel-2 polygons) as an independent cross-check: 12 of the top-15 footprint countries are major critical-material producers, and 34 flagship mines are snapped to their real district footprints.</li>
-      <li><a href="mining-expansion.html">Where new mining is appearing</a> (Sepin et al. 2025): tropical mine footprint grew +47% (2016&ndash;2023), concentrated on Indonesia&rsquo;s nickel, the lithium triangle, and the copper-cobalt belts.</li>
+      <li><a href="satellite">Mine footprint from space</a> (Maus et al. 2022, 44,929 Sentinel-2 polygons) as an independent cross-check: 12 of the top-15 footprint countries are major critical-material producers, and 34 flagship mines are snapped to their real district footprints.</li>
+      <li><a href="mining-expansion">Where new mining is appearing</a> (Sepin et al. 2025): tropical mine footprint grew +47% (2016&ndash;2023), concentrated on Indonesia&rsquo;s nickel, the lithium triangle, and the copper-cobalt belts.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">29 June 2026 <span class="tag">method</span></div>
     <h3>Value vs volume, implied price, and a risk panel</h3>
     <ul>
-      <li><a href="volume.html">Value vs volume</a>: concentration computed in tonnes as well as dollars, separating real concentration from price effects. The implied unit-value chart shows China exporting the higher-value <em>processed</em> form (tungsten +107% $/tonne vs the rest of the world) — why its value-share beats its volume-share.</li>
-      <li>A <a href="riskmethods.html">risk-assessment panel</a>: entropy-weighted TOPSIS (data-driven weights), GeoPolRisk, and a Monte-Carlo supply-at-risk model (ESaR / VaR / CVaR tail risk).</li>
+      <li><a href="volume">Value vs volume</a>: concentration computed in tonnes as well as dollars, separating real concentration from price effects. The implied unit-value chart shows China exporting the higher-value <em>processed</em> form (tungsten +107% $/tonne vs the rest of the world) — why its value-share beats its volume-share.</li>
+      <li>A <a href="riskmethods">risk-assessment panel</a>: entropy-weighted TOPSIS (data-driven weights), GeoPolRisk, and a Monte-Carlo supply-at-risk model (ESaR / VaR / CVaR tail risk).</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">29 June 2026 <span class="tag">data</span></div>
     <h3>Two decades of trade — and tested trends</h3>
     <ul>
-      <li>Extended the reconciled bilateral series back to <strong>2002</strong> (CEPII BACI HS02), and added a <a href="trends.html">Trends page</a> charting the 22-year evolution of concentration, China&rsquo;s rise, and the origin gap.</li>
-      <li>Tested whether the trends are statistically real (Mann-Kendall / Theil-Sen / Pettitt change-points with FDR control), added China&rsquo;s <a href="network.html">network centrality over time</a>, a &Delta;HHI decomposition, and a one-page <a href="brief.html">findings brief</a> (HTML + PDF).</li>
+      <li>Extended the reconciled bilateral series back to <strong>2002</strong> (CEPII BACI HS02), and added a <a href="trends">Trends page</a> charting the 22-year evolution of concentration, China&rsquo;s rise, and the origin gap.</li>
+      <li>Tested whether the trends are statistically real (Mann-Kendall / Theil-Sen / Pettitt change-points with FDR control), added China&rsquo;s <a href="network">network centrality over time</a>, a &Delta;HHI decomposition, and a one-page <a href="brief">findings brief</a> (HTML + PDF).</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">28 June 2026 <span class="tag">method</span></div>
     <h3>Four replicated published methods + a case-study audit</h3>
     <ul>
-      <li>Replicated recent earth-materials/trade methods on the atlas&rsquo;s data: <a href="network.html">trade-network chokepoints</a>, <a href="complexity.html">economic-complexity</a> specialization, <a href="criticality.html">governance-weighted criticality</a> (EU/SCRREEN-shaped), and a hybrid <a href="origin.html">origin trace</a>.</li>
-      <li>A <a href="casestudies.html">case-study audit</a> checks five expert-known chains (bauxite, cobalt, graphite, lithium, REE magnets) against USGS/IEA — which caught and fixed a stale lithium mine-share.</li>
+      <li>Replicated recent earth-materials/trade methods on the atlas&rsquo;s data: <a href="network">trade-network chokepoints</a>, <a href="complexity">economic-complexity</a> specialization, <a href="criticality">governance-weighted criticality</a> (EU/SCRREEN-shaped), and a hybrid <a href="origin">origin trace</a>.</li>
+      <li>A <a href="casestudies">case-study audit</a> checks five expert-known chains (bauxite, cobalt, graphite, lithium, REE magnets) against USGS/IEA — which caught and fixed a stale lithium mine-share.</li>
     </ul>
   </div>
   <div class="entry">
     <div class="date">26 June 2026 <span class="tag">feature</span></div>
     <h3>Material profiles, open data page, and a cadence</h3>
     <ul>
-      <li>Added a <a href="profiles.html">profile page for every material</a> (32) — five layers, trade, and a data-derived origin-gap hook, generated deterministically from the public data.</li>
-      <li>Documented the <a href="data.html">open data layer / static API</a>: stable JSON endpoints, schema, example fetch.</li>
+      <li>Added a <a href="profiles">profile page for every material</a> (32) — five layers, trade, and a data-derived origin-gap hook, generated deterministically from the public data.</li>
+      <li>Documented the <a href="data">open data layer / static API</a>: stable JSON endpoints, schema, example fetch.</li>
       <li>Set the refresh <a href="CADENCE.md">runbook</a> and scheduled the reproduction CI to run monthly.</li>
     </ul>
   </div>
@@ -274,7 +275,7 @@
     <h3>End-to-end reproducible engine + technical note</h3>
     <ul>
       <li>Committed the raw Comtrade fixture so CI now <em>regenerates</em> the reconciliation from raw and validates it against BACI (top-1 25/30, share MAE 3.5%, HHI 0.92) — no key.</li>
-      <li>Published the <a href="technical-note.html">technical note</a> (HTML + PDF): method, validation, the out-of-sample backtest (85% persistence; P50 3.5 / P90 8.7pp bands), and the pre-registration.</li>
+      <li>Published the <a href="technical-note">technical note</a> (HTML + PDF): method, validation, the out-of-sample backtest (85% persistence; P50 3.5 / P90 8.7pp bands), and the pre-registration.</li>
       <li>Pre-registered how the 2025 nowcast will be scored when BACI 2025 releases.</li>
     </ul>
   </div>
@@ -282,7 +283,7 @@
     <div class="date">26 June 2026 <span class="tag">design</span></div>
     <h3>Redesign into a research publication</h3>
     <ul>
-      <li>New teal-charcoal identity, masthead, hero, key-figures strip, and a structured footer across all pages; a styled <a href="findings.html">findings report</a>, methodology, share card, and 404.</li>
+      <li>New teal-charcoal identity, masthead, hero, key-figures strip, and a structured footer across all pages; a styled <a href="findings">findings report</a>, methodology, share card, and 404.</li>
     </ul>
   </div>
   <div class="entry">
@@ -297,7 +298,7 @@
 
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the real source. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles.html">Material profiles</a><br><a href="findings.html">The origin gap</a><br><a href="data.html">Data &amp; API</a></div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles">Material profiles</a><br><a href="findings">The origin gap</a><br><a href="data">Data &amp; API</a></div>
   <div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>
   <div class="fineprint">Public data only · independent research under the materials-atlas handle.</div>
 </div></footer>

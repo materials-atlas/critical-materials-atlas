@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/host-shock">
 <title>Host-shock model — when the host stumbles, the companion bleeds · Critical Materials Atlas</title>
 <meta name="description" content="By-product metals are produced only when their host commodity is. This layer inverts the map — host commodity to the criticals riding on it — and lets you shock any host to watch the companion supply losses cascade.">
 <meta property="og:title" content="Host-shock: the bulk commodities that secretly gate critical supply">
@@ -34,20 +35,20 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="scenarios.html">Scenarios</a>
-  <a href="risk-adjusted.html" class="hideable">Adjusted risk</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="companionality">Hostage metals</a><a href="scenarios">Scenarios</a>
+  <a href="risk-adjusted" class="hideable">Adjusted risk</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · systemic · host dependency</div>
   <h1>When the host stumbles</h1>
-  <p class="deck">A by-product metal is hostage to the commodity it rides on. So the real supply shock for gallium isn&rsquo;t a gallium event &mdash; it&rsquo;s an <i>aluminium</i> event. This layer &mdash; child of the <a href="companionality.html" style="color:#fff;text-decoration:underline">hostage-metals</a> page &mdash; inverts the map to expose the ordinary bulk commodities that silently gate critical supply, and lets you shock any one of them.</p>
+  <p class="deck">A by-product metal is hostage to the commodity it rides on. So the real supply shock for gallium isn&rsquo;t a gallium event &mdash; it&rsquo;s an <i>aluminium</i> event. This layer &mdash; child of the <a href="companionality" style="color:#fff;text-decoration:underline">hostage-metals</a> page &mdash; inverts the map to expose the ordinary bulk commodities that silently gate critical supply, and lets you shock any one of them.</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How the host-shock is modelled</summary>
   <p>For every by-product material we split its by-product share evenly across its named hosts: <b>exposure(companion&rarr;host) = companionality/100 ÷ number of hosts</b>. Inverting gives, for each host commodity, the critical materials riding on it. A shock of <b>S%</b> to a host cuts each rider&rsquo;s supply by <b>S% &times; exposure</b>. A host&rsquo;s <b>payload</b> weights those exposures by each companion&rsquo;s supply-risk score &mdash; how much <i>critical</i> supply hangs on that one commodity.</p>
-  <p class="howto-src"><b>Caveat &mdash; and why static is the right tool here:</b> even host-splitting is a simplification (real shares vary by deposit and are often undocumented), and it assumes a linear pass-through from host output to companion recovery. Read each figure as an <b>exposure bound, not a forecast</b>. This static first-order design is deliberate, not a shortcut &mdash; it is the same logic as the official USGS/EU criticality methods, and a <a href="shock-methods.html">four-way method comparison</a> found it the honest spine for an open-data atlas (a VAR would measure price co-movement, not physical loss; an input&ndash;output model can&rsquo;t even resolve by-product metals; structural supply curves need proprietary cost data). The higher-order ripple is handled separately by the <a href="cascade.html">cascade</a> layer. Inputs: <a href="out/companionality.json">companionality.json</a> &times; <a href="out/risk.json">risk.json</a> &rarr; <a href="out/host_shock.json">host_shock.json</a>.</p>
+  <p class="howto-src"><b>Caveat &mdash; and why static is the right tool here:</b> even host-splitting is a simplification (real shares vary by deposit and are often undocumented), and it assumes a linear pass-through from host output to companion recovery. Read each figure as an <b>exposure bound, not a forecast</b>. This static first-order design is deliberate, not a shortcut &mdash; it is the same logic as the official USGS/EU criticality methods, and a <a href="shock-methods">four-way method comparison</a> found it the honest spine for an open-data atlas (a VAR would measure price co-movement, not physical loss; an input&ndash;output model can&rsquo;t even resolve by-product metals; structural supply curves need proprietary cost data). The higher-order ripple is handled separately by the <a href="cascade">cascade</a> layer. Inputs: <a href="out/companionality.json">companionality.json</a> &times; <a href="out/risk.json">risk.json</a> &rarr; <a href="out/host_shock.json">host_shock.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -69,13 +70,13 @@
   <table class="tidy" id="tab"><thead><tr><th>Host commodity</th><th class="n">critical riders</th><th>which materials (by exposure)</th><th class="n">payload</th></tr></thead><tbody></tbody></table>
 
   <h2 style="margin:1.8rem 0 .3rem">What this spawns</h2>
-  <p>The host map turns an abstract list of &ldquo;critical&rdquo; metals into a small set of chokepoint commodities &mdash; aluminium, zinc, copper, nickel, natural gas &mdash; whose ordinary market cycles propagate into the critical layer. The next children write themselves: a <b>recovery-yield / recycling</b> lens (secondary supply is the only source that <i>doesn&rsquo;t</i> depend on the host), and a coupling of this map to real <a href="scenarios.html">shock scenarios</a> and the <a href="trends.html">price series</a> &mdash; do historic aluminium slumps actually show up as gallium squeezes?</p>
+  <p>The host map turns an abstract list of &ldquo;critical&rdquo; metals into a small set of chokepoint commodities &mdash; aluminium, zinc, copper, nickel, natural gas &mdash; whose ordinary market cycles propagate into the critical layer. The next children write themselves: a <b>recovery-yield / recycling</b> lens (secondary supply is the only source that <i>doesn&rsquo;t</i> depend on the host), and a coupling of this map to real <a href="scenarios">shock scenarios</a> and the <a href="trends">price series</a> &mdash; do historic aluminium slumps actually show up as gallium squeezes?</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="scenarios.html">Shock scenarios</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="companionality">Hostage metals</a><br><a href="risk-adjusted">Adjusted risk</a><br><a href="scenarios">Shock scenarios</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>Companionality (USGS MCS 2024 · Nassar et al. 2015) × supply-risk index</div>
-  <div class="fineprint">A first-order systemic map (the <a href="shock-methods.html" style="color:#9aa6ad;text-decoration:underline">method study</a>&rsquo;s chosen spine): outputs are exposure bounds with a &plusmn;15pp companionality band, tagged by shock stage; host shares split evenly, pass-through linear.</div>
+  <div class="fineprint">A first-order systemic map (the <a href="shock-methods" style="color:#9aa6ad;text-decoration:underline">method study</a>&rsquo;s chosen spine): outputs are exposure bounds with a &plusmn;15pp companionality band, tagged by shock stage; host shares split evenly, pass-through linear.</div>
 </div></footer>
 <script>
 fetch('out/host_shock.json').then(r=>r.json()).then(S=>{
@@ -100,7 +101,7 @@ fetch('out/host_shock.json').then(r=>r.json()).then(S=>{
     const h=H[+sel.value], s=+shock.value, st=STAGES[+stageSel.value]||{applies:true}; shockv.textContent=s+'%';
     stagenote.innerHTML=st.note?('<b>'+st.name+':</b> '+st.note):'';
     if(st.applies===false){
-      simout.innerHTML='<div class="stagebox">A <b>'+st.name.toLowerCase()+'</b> doesn&rsquo;t cut <i>production</i>, so the co-production link above doesn&rsquo;t apply &mdash; this shock propagates by trade concentration. See the <a href="cascade.html">supply-shock cascade</a> and <a href="network.html">trade-network</a> layers, which model exactly that.</div>';
+      simout.innerHTML='<div class="stagebox">A <b>'+st.name.toLowerCase()+'</b> doesn&rsquo;t cut <i>production</i>, so the co-production link above doesn&rsquo;t apply &mdash; this shock propagates by trade concentration. See the <a href="cascade">supply-shock cascade</a> and <a href="network">trade-network</a> layers, which model exactly that.</div>';
       return;
     }
     const rows=h.companions.map(c=>({t:c.title,loss:s*c.exposure,lo:s*c.exp_lo,hi:s*c.exp_hi})).sort((a,b)=>b.loss-a.loss);

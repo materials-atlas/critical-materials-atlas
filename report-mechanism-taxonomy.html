@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/report-mechanism-taxonomy">
 <title>Why stages concentrate — Report 04 — Critical Materials Atlas</title>
 <meta name="description" content="Report 04: a mechanism taxonomy for supply-chain concentration, derived from 58 end-use value chains. Of 58 chains only 4 have a geological chokepoint; the other 54 were made, each by one of seven knowable mechanisms — thermodynamic, by-product, built capability, geological, governance, policy, or none. Naming the mechanism predicts the concentration and names the fix.">
 <meta property="og:title" content="Why stages concentrate: a mechanism taxonomy from 58 value chains — Critical Materials Atlas, Report 04">
@@ -46,7 +47,7 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="value-chains.html">Value Chains</a><a href="reports.html">Reports</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="reports">Reports</a></nav>
 </div></header>
 
 <article>
@@ -58,8 +59,8 @@
 
   <div class="toolbar">
     <button type="button" onclick="window.print()">⎙ Print / save as PDF</button>
-    <a href="chokepoint-map.html">Interactive: the Chokepoint Map →</a>
-    <a href="value-chains.html">The value-chains layer →</a>
+    <a href="chokepoint-map">Interactive: the Chokepoint Map →</a>
+    <a href="value-chains">The value-chains layer →</a>
     <a href="chokepoint_map.json">The data (JSON) →</a>
   </div>
 
@@ -116,7 +117,7 @@
   <div class="callout"><b>What this report is, and is not.</b> This is a classification synthesis, not a statistical test. Each chain&rsquo;s mechanism is a reasoned judgement about its binding stage, made falsifiable by stating the process rule explicitly (a reader can check whether indium refining is really electrolytic, or whether a potline really cannot be stopped). Every underlying figure — the concentration shares, the export-control dates, the histories — carries a per-figure confidence tag on the chain&rsquo;s own page (measured, estimate, snapshot or proxy), and the boundaries of the customs data are flagged throughout. The taxonomy is a lens for reading the layer, offered on its logic and its sources, not a claim of statistical proof.</p></div>
 
   <h2>Method</h2>
-  <p>Each of the 58 chains carries a structured <code>chokepoint</code> record — its binding stage, the concentrating mechanism, a one-line statement of the physics, the holder, the share and any export control — authored from public production and trade data (USGS Mineral Commodity Summaries, BGS World Mineral Statistics, IEA, OECD/NEA, the European Commission&rsquo;s CRM studies, industry associations, and CEPII BACI customs data). The <a href="chokepoint-map.html">Chokepoint Map</a> and the counts in this report are <b>derived</b> from those records by a single build step (<code>build_chokepoint_map.py</code>), and a pre-flight check re-derives and compares them on every build, so the classification lives in one place and the tallies cannot drift from the per-chain pages. Mechanism definitions and the fix per mechanism are held once, centrally. The layer is production-primary: trade is demoted to a flagged overlay, never used to split a broad customs code. Counts are as of the 58-chain layer at publication; adding chains updates the map automatically. Full per-chain sources and confidence tags are on each chain page, reachable from the <a href="value-chains.html">value-chains hub</a>.</p>
+  <p>Each of the 58 chains carries a structured <code>chokepoint</code> record — its binding stage, the concentrating mechanism, a one-line statement of the physics, the holder, the share and any export control — authored from public production and trade data (USGS Mineral Commodity Summaries, BGS World Mineral Statistics, IEA, OECD/NEA, the European Commission&rsquo;s CRM studies, industry associations, and CEPII BACI customs data). The <a href="chokepoint-map">Chokepoint Map</a> and the counts in this report are <b>derived</b> from those records by a single build step (<code>build_chokepoint_map.py</code>), and a pre-flight check re-derives and compares them on every build, so the classification lives in one place and the tallies cannot drift from the per-chain pages. Mechanism definitions and the fix per mechanism are held once, centrally. The layer is production-primary: trade is demoted to a flagged overlay, never used to split a broad customs code. Counts are as of the 58-chain layer at publication; adding chains updates the map automatically. Full per-chain sources and confidence tags are on each chain page, reachable from the <a href="value-chains">value-chains hub</a>.</p>
 
   <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Why stages concentrate: a mechanism taxonomy from 58 value chains.</i> Report 04. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
   <code>@techreport{cma_report04_2026,
@@ -134,7 +135,7 @@
 
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="reports.html">All reports</a><br><a href="value-chains.html">Value Chains</a><br><a href="chokepoint-map.html">The Chokepoint Map</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="reports">All reports</a><br><a href="value-chains">Value Chains</a><br><a href="chokepoint-map">The Chokepoint Map</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA · OECD/NEA · EU CRM<br>UN Comtrade · CEPII BACI</div>
   <div class="fineprint">Public-data research under the materials-atlas handle. A classification synthesis of the value-chains layer.</div>
 </div></footer>

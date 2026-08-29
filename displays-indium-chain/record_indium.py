@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Displays / indium chain",
     "chokepoint": {"product": "Displays (ITO)", "stage": "Refining", "mechanism": "byproduct", "physics": "Refined electrolytically at MODEST temp — concentrated because it rides on zinc, not by heat", "holder": "China", "share": "~70%", "control": "Feb 2025", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../gallium-chain/gallium-chain.html", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain.html", "label": "Fibre-optics chain"}],
+    "related": [{"href": "../gallium-chain/gallium-chain", "label": "Gallium chain"}, {"href": "../fibre-optics-chain/fibre-optics-chain", "label": "Fibre-optics chain"}],
     "accent": "#5b5b9c",
     "eyebrow": "Product-chain pilot · the screens you touch",
     "h1": "Every screen you touch runs on a metal no one mines on purpose",

@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/uncertainty">
 <title>How robust is that? — the scorecard under uncertainty · Critical Materials Atlas</title>
 <meta name="description" content="The hardest-cases scorecard uses hard thresholds. This propagates uncertainty through all five axes with 20,000 Monte-Carlo draws per material, turning binary pass/fail into a probability gradient — and showing the 'only gallium and germanium' result has soft edges.">
 <meta property="og:title" content="The hardest cases, under uncertainty — probabilities, not a cliff">
@@ -33,14 +34,14 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="synthesis.html">Hardest cases</a><a href="robustness.html">Robustness</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="synthesis">Hardest cases</a><a href="robustness">Robustness</a>
+  <a href="limitations" class="hideable">Limitations</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Rigor · uncertainty propagation</div>
   <h1>How robust is that?</h1>
-  <p class="deck">The <a href="synthesis.html" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard draws hard lines &mdash; and a fair critic says a metal sitting just under a cutoff is hidden by pass/fail. So don&rsquo;t draw the line once. Put an honest uncertainty on every input and run it <b>20,000 times</b>: the binary cliff becomes a probability gradient, and the &ldquo;only gallium and germanium&rdquo; headline gets the soft edges it deserves.</p>
+  <p class="deck">The <a href="synthesis" style="color:#fff;text-decoration:underline">hardest-cases</a> scorecard draws hard lines &mdash; and a fair critic says a metal sitting just under a cutoff is hidden by pass/fail. So don&rsquo;t draw the line once. Put an honest uncertainty on every input and run it <b>20,000 times</b>: the binary cliff becomes a probability gradient, and the &ldquo;only gallium and germanium&rdquo; headline gets the soft edges it deserves.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
@@ -75,7 +76,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="synthesis.html">Hardest cases</a><br><a href="robustness.html">Robustness</a><br><a href="limitations.html">Limitations</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="synthesis">Hardest cases</a><br><a href="robustness">Robustness</a><br><a href="limitations">Limitations</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>Monte-Carlo (20,000 draws) over the five scorecard axes</div>
   <div class="fineprint">The five input spreads are explicit judgement calls; the aim is the ranking's shape and what survives perturbation, not a precise probability.</div>
 </div></footer>

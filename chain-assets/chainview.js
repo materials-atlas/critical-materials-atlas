@@ -116,7 +116,7 @@
     document.getElementById('ev-json').href = DATA; document.getElementById('tr-json').href = TRADE;
     var rel = (D.related || []).map(function (r) { return '<a href="' + esc(r.href) + '">' + esc(r.label) + '</a>'; });
     var strip = '<div class="panel" style="margin-top:1.6rem"><h3 style="margin-top:0">Explore the layer</h3><p style="margin:0;line-height:1.9">' +
-      '<a href="../value-chains.html">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map.html">The Chokepoint Map</a>' +
+      '<a href="../value-chains">All value chains</a> &nbsp;·&nbsp; <a href="../chokepoint-map">The Chokepoint Map</a>' +
       (rel.length ? '<br><b>Related chains:</b> ' + rel.join(' &nbsp;·&nbsp; ') : '') + '</p></div>';
     document.querySelector('article').insertAdjacentHTML('beforeend', strip);
     var cl = document.getElementById('conflegend');

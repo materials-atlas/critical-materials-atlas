@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/data">
 <title>Data &amp; API — Critical Materials Atlas</title>
 <meta name="description" content="The atlas's open data layer: stable JSON endpoints for reconciled bilateral trade and the mine/refine/reserve layers across 32 critical materials. Free, public, no key.">
 <meta property="og:title" content="Critical Materials Atlas — open data &amp; static API">
@@ -17,8 +18,8 @@
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
   <nav class="topnav">
-    <a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-    <a href="profiles.html" class="hideable">Profiles</a><a href="technical-note.html" class="hideable">Note</a>
+    <a href="./">Atlas</a><a href="methodology">Methodology</a><a href="findings">Findings</a>
+    <a href="profiles" class="hideable">Profiles</a><a href="technical-note" class="hideable">Note</a>
     <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>
   </nav>
 </div></header>
@@ -80,18 +81,18 @@
 const o = {}; for (const {from,value} of f.materials.lithium) o[from]=(o[from]||0)+value;
 console.log(Object.entries(o).sort((a,b)=>b[1]-a[1])[0]);   <span class="k">// → ["CL", …]</span></pre>
 
-  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources — UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the <em>original</em> source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note.html">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</div>
+  <div class="callout"><b>Attribution &amp; licence.</b> The data derives from public sources — UN Comtrade (reconciled via CEPII BACI), USGS Mineral Commodity Summaries, IEA Critical Minerals Outlook, Eurostat Comext, World Bank. Use freely; please cite the <em>original</em> source for serious work, and link this atlas as the derived/reconciled layer. The reconciliation method is documented in the <a href="technical-note">technical note</a> and reproducible from the <a href="https://github.com/materials-atlas/critical-materials-atlas">engine repo</a>.</div>
 
   <div class="btnrow">
     <a class="btn primary" href="out/data.json">data.json →</a>
     <a class="btn ghost" href="out/flows_2024.json">flows_2024.json →</a>
-    <a class="btn ghost" href="technical-note.html">How it's built</a>
+    <a class="btn ghost" href="technical-note">How it's built</a>
   </div>
 </article>
 
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the real source. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles.html">Material profiles</a><br><a href="findings.html">The origin gap</a><br><a href="technical-note.html">Technical note</a></div>
+  <div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="profiles">Material profiles</a><br><a href="findings">The origin gap</a><br><a href="technical-note">Technical note</a></div>
   <div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>
   <div class="fineprint">Open data, public sources only. An overlay of distinct measures, not one observed pipeline.</div>
 </div></footer>

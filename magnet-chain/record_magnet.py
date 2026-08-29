@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Rare-earth magnet chain",
     "chokepoint": {"product": "Permanent magnets", "stage": "RE separation", "mechanism": "capability", "physics": "Solvent-extraction separation of chemically-alike elements — an industrial base, ~91% China", "holder": "China", "share": "~91%", "control": "Apr 2025", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../wind-chain/wind-chain.html", "label": "Wind-turbine chain"}, {"href": "../ev-chain/ev-chain.html", "label": "Electric-vehicle chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
+    "related": [{"href": "../wind-chain/wind-chain", "label": "Wind-turbine chain"}, {"href": "../ev-chain/ev-chain", "label": "Electric-vehicle chain"}, {"href": "../defence-chain/defence-chain", "label": "Defence chain"}],
     "accent": "#7a5a8a",
     "eyebrow": "Product-chain pilot · the motors that move everything",
     "h1": "The mine is the least of it — China's grip tightens downstream",

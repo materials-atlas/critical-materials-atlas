@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/commodity-attribution">
 <title>Which mineral? The limit of satellite mine maps · Critical Materials Atlas</title>
 <meta name="description" content="Can satellite mine polygons be labelled by commodity? We overlay the best open, peer-reviewed georeferenced mine database (Jasansky et al. 2023) onto the Maus footprint and measure exactly how far commodity attribution gets — and why it fails for the critical materials that matter most.">
 <meta property="og:title" content="Which mineral is that mine? The hard limit of satellite maps">
@@ -34,14 +35,14 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="satellite.html">Satellite</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="findings.html" class="hideable">Findings</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="methodology">Methodology</a><a href="satellite">Satellite</a>
+  <a href="limitations" class="hideable">Limitations</a><a href="findings" class="hideable">Findings</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · satellite &middot; the commodity question</div>
   <h1>Which mineral is that mine?</h1>
-  <p class="deck">The <a href="satellite.html" style="color:#fff;text-decoration:underline">satellite page</a> maps where mining scars the earth &mdash; but the polygons are <b>all-commodity</b>: they can&rsquo;t tell lithium from coal. So we asked the obvious next question and <i>measured the answer</i>: overlay the best open, peer-reviewed, georeferenced mine database onto the footprint and see how much of it can actually be labelled. The result is the honest case for why this atlas builds material-level geography from <i>production statistics and trade</i>, using imagery only as a physical cross-check.</p>
+  <p class="deck">The <a href="satellite" style="color:#fff;text-decoration:underline">satellite page</a> maps where mining scars the earth &mdash; but the polygons are <b>all-commodity</b>: they can&rsquo;t tell lithium from coal. So we asked the obvious next question and <i>measured the answer</i>: overlay the best open, peer-reviewed, georeferenced mine database onto the footprint and see how much of it can actually be labelled. The result is the honest case for why this atlas builds material-level geography from <i>production statistics and trade</i>, using imagery only as a physical cross-check.</p>
 </div></section>
 <article style="max-width:1060px">
   <div class="callout"><span id="lead"></span>
@@ -106,11 +107,11 @@
   <div class="keyline" id="clustkey" style="background:#f2f6f5;border-color:#d9e6e3;border-left-color:#0e7c74"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Why the atlas reads production and trade, not imagery</h2>
-  <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite.html">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings.html">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology.html">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
+  <p>Satellite polygons prove <i>where</i> the earth is disturbed, and the <a href="satellite">footprint page</a> uses them exactly that way &mdash; as a physical cross-check on the producer story. But this page shows their ceiling for <i>identity</i>: even with the two largest public mine registers stacked on (above), well over half the mapped footprint stays unlabelled, and the minerals at the centre of every supply-risk debate &mdash; lithium, cobalt, rare earths, tantalum, tungsten &mdash; barely register as primary products in open mine data. Part of that 4% is an artifact of a large-mine registry meeting an all-commodity footprint; but the deeper limit is structural &mdash; the open taxonomy resolves ~11 broad classes and won&rsquo;t name the criticals no matter how the buffer is tuned. So <i>material identity</i> has to come from sources that <i>do</i> resolve all 32 minerals: <a href="findings">USGS &amp; IEA production shares</a> for the geography, reconciled <a href="methodology">bilateral trade</a> for the flows. Imagery corroborates the footprint; it doesn&rsquo;t name the mineral. This page is the receipt for that design choice.</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="satellite.html">Satellite footprint</a><br><a href="mining-expansion.html">Mining expansion</a><br><a href="limitations.html">Limitations</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="satellite">Satellite footprint</a><br><a href="mining-expansion">Mining expansion</a><br><a href="limitations">Limitations</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>Maus et al. 2022 (mine polygons) · Jasansky et al. 2023 (facility commodities) · USGS · IEA</div>
   <div class="fineprint">Commodity attribution overlays 2,413 open, peer-reviewed mine facilities on the all-commodity satellite footprint; it quantifies a limitation, it is not a per-mineral map.</div>
 </div></footer>

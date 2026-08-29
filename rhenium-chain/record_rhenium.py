@@ -18,7 +18,7 @@ CHAIN = {
     "title": "Rhenium chain",
     "chokepoint": {"product": "Jet-engine superalloys", "stage": "Recovery (moly roasting)", "mechanism": "byproduct", "physics": "A by-product of a by-product — recovered from molybdenum roasting, itself a copper by-product; one of the rarest metals, and it gates single-crystal turbine blades", "holder": "Chile · US · Poland", "share": "—", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../aerospace-chain/aerospace-chain.html", "label": "Aerospace chain"}, {"href": "../copper-chain/copper-chain.html", "label": "Copper chain"}, {"href": "../defence-chain/defence-chain.html", "label": "Defence chain"}],
+    "related": [{"href": "../aerospace-chain/aerospace-chain", "label": "Aerospace chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}, {"href": "../defence-chain/defence-chain", "label": "Defence chain"}],
     "accent": "#4a5a6a",
     "eyebrow": "Product-chain pilot · the metal that flies hottest",
     "h1": "The jet-engine metal that's a by-product of a by-product",

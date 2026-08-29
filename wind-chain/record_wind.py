@@ -19,7 +19,7 @@ CHAIN = {
     "title": "Wind-turbine chain",
     "chokepoint": {"product": "Wind turbines", "stage": "OEM + logistics", "mechanism": "diffuse", "physics": "A steel-and-concrete machine; the limit is scale/logistics + OEM share, and it localises", "holder": "China OEM", "share": "~67%", "control": "—", "conf": "estimate"},
     "published": True,
-    "related": [{"href": "../magnet-chain/magnet-chain.html", "label": "Rare-earth magnet chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain.html", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain.html", "label": "Electricity-grid chain"}],
+    "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain", "label": "Electricity-grid chain"}],
     "accent": "#4a8090",
     "eyebrow": "Product-chain pilot · the machine in the wind",
     "h1": "The wind-turbine bottleneck is scale, not scarcity",

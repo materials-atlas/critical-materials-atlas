@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/refining">
 <title>The refining wedge — mine vs furnace · Critical Materials Atlas</title>
 <meta name="description" content="Every metal is traded as ore and again as refined metal. Where the refined stage is more geographically concentrated than the ore, control has moved from the mine to the furnace. We measure both from the same bilateral-trade source (BACI) and rank the processing chokepoints.">
 <meta property="og:title" content="The refining wedge: where control moves from the mine to the furnace">
@@ -31,8 +32,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="criticality.html">Criticality</a><a href="production.html">Production</a>
-  <a href="geopolrisk.html" class="hideable">GeoPolRisk</a><a href="methodology.html" class="hideable">Methodology</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="criticality">Criticality</a><a href="production">Production</a>
+  <a href="geopolrisk" class="hideable">GeoPolRisk</a><a href="methodology" class="hideable">Methodology</a>
   <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
@@ -44,7 +45,7 @@
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>The method, and its honest scope</summary>
   <p>For each metal we take its <b>ore/concentrate</b> HS-2017 line and its <b>refined / first-processed</b> basket (refined metal plus the dominant ferroalloy or intermediate route, so the &ldquo;refined&rdquo; stage reflects the form actually traded &mdash; e.g. ferronickel for nickel, ferrochrome for chromium). For each stage we compute the <b>exporter Herfindahl (HHI)</b> on trade <i>value</i>, then the <b>wedge = HHI(refined) &minus; HHI(ore)</b>. Positive = processing more concentrated than extraction.</p>
-  <p class="howto-src"><b>Source:</b> CEPII <b>BACI</b> (HS-2017), 3-year mean 2022&ndash;2024, exporter value shares &rarr; <a href="out/refining.json">refining.json</a>. Value, not tonnage: BACI quantities carry unit artifacts (they put one EU smelter at 66% of world zinc by weight but 13% by value). <b>Honest scope:</b> this is concentration of <i>tradeable</i> processed supply. A refiner that consumes its output at home &mdash; China turning imported concentrate into battery cathode, or into magnets &mdash; exports little refined metal and is <i>understated</i> here; that capacity shows up in the <a href="geopolrisk.html">production / GeoPolRisk</a> layer instead. This page is specifically about who controls the metal that crosses borders in processed form.</p>
+  <p class="howto-src"><b>Source:</b> CEPII <b>BACI</b> (HS-2017), 3-year mean 2022&ndash;2024, exporter value shares &rarr; <a href="out/refining.json">refining.json</a>. Value, not tonnage: BACI quantities carry unit artifacts (they put one EU smelter at 66% of world zinc by weight but 13% by value). <b>Honest scope:</b> this is concentration of <i>tradeable</i> processed supply. A refiner that consumes its output at home &mdash; China turning imported concentrate into battery cathode, or into magnets &mdash; exports little refined metal and is <i>understated</i> here; that capacity shows up in the <a href="geopolrisk">production / GeoPolRisk</a> layer instead. This page is specifically about who controls the metal that crosses borders in processed form.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -70,7 +71,7 @@
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="refiners.html">Who actually refines (capability)</a><br><a href="geopolrisk.html">GeoPolRisk</a><br><a href="production.html">Production in tonnes</a><br><a href="commodity-attribution.html">Commodity attribution</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="refiners">Who actually refines (capability)</a><br><a href="geopolrisk">GeoPolRisk</a><br><a href="production">Production in tonnes</a><br><a href="commodity-attribution">Commodity attribution</a><br><a href="methodology">Methodology</a></div>
   <div><h4>Sources</h4>CEPII BACI (HS-2017) bilateral trade, 2022&ndash;24 mean &middot; ore vs refined HS pairs</div>
 </div></footer>
 <script>
@@ -132,7 +133,7 @@ fetch('out/refining.json').then(r=>r.json()).then(S=>{
   }
   document.getElementById('capkey').innerHTML='<b style="color:#0e7c74">The gap, quantified.</b> China leads <b>reported refining capacity</b> in <b>'+S.n_capacity_china_leads+' of '+S.n_materials+'</b> metals here &mdash; but the trade-export wedge flags it as the refined leader in only <b>'+S.n_trade_china_leads+'</b>. The other '+(S.n_capacity_china_leads-S.n_trade_china_leads)+' (manganese 90%, bauxite/aluminium 59%, copper 45%, cobalt 76%, zinc, lead, tin, molybdenum, antimony&hellip;) are refined in China and <i>consumed at home</i>, so they never cross a border as refined metal and vanish from the wedge. The red cells above are exactly that hidden dependence &mdash; the honest correction to this page&rsquo;s trade-only view.';
   const chn=S.rows.filter(d=>d.refined.chn>=20).map(d=>TITLE(d.material)+' ('+d.refined.chn+'%)');
-  document.getElementById('closing').innerHTML='Read alongside the <a href="geopolrisk.html">production concentration</a> layer, this closes a loop the mine map can&rsquo;t: physical output can be spread across continents while the <i>usable</i> metal funnels through a handful of processors. Where refined exports still lean on China in this trade-visible view &mdash; '+(chn.join(', ')||'a few metals')+' &mdash; the dependence is on processing, not deposits, and no new mine fixes it. And the metals whose wedge is <i>negative</i> are a quiet reassurance: their refining is genuinely global, so an ore shock has somewhere else to go. It is the same discipline as the rest of the atlas &mdash; measure the thing where it actually happens, and let the two stages disagree out loud.';
+  document.getElementById('closing').innerHTML='Read alongside the <a href="geopolrisk">production concentration</a> layer, this closes a loop the mine map can&rsquo;t: physical output can be spread across continents while the <i>usable</i> metal funnels through a handful of processors. Where refined exports still lean on China in this trade-visible view &mdash; '+(chn.join(', ')||'a few metals')+' &mdash; the dependence is on processing, not deposits, and no new mine fixes it. And the metals whose wedge is <i>negative</i> are a quiet reassurance: their refining is genuinely global, so an ore shock has somewhere else to go. It is the same discipline as the rest of the atlas &mdash; measure the thing where it actually happens, and let the two stages disagree out loud.';
 });
 </script>
 </body></html>

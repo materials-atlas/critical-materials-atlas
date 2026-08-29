@@ -25,7 +25,7 @@ CHAIN = {
     "title": "Nickel chain",
     "chokepoint": {"product": "Stainless + battery Ni", "stage": "Smelting", "mechanism": "policy", "physics": "Indonesia's raw-ore export BAN forced (China-financed) domestic smelting — built by a rule", "holder": "Indonesia · China", "share": "~67%", "control": "—", "conf": "measured"},
     "published": True,
-    "related": [{"href": "../battery-chain/battery-chain.html", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain.html", "label": "Cobalt chain"}, {"href": "../steel-chain/steel-chain.html", "label": "Primary / green-steel chain"}],
+    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../cobalt-chain/cobalt-chain", "label": "Cobalt chain"}, {"href": "../steel-chain/steel-chain", "label": "Primary / green-steel chain"}],
     "accent": "#4a7a5a",
     "eyebrow": "Product-chain pilot · stainless steel and the battery",
     "h1": "Indonesia rewrote the nickel map with a single policy",

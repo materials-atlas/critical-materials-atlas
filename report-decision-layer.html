@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/report-decision-layer">
 <title>Breaking the chokepoint — Report 01 — Critical Materials Atlas</title>
 <meta name="description" content="Report 01: turning critical-material chokepoints into decisions — moat type, who could break each, whether the world could absorb a cut (8 of 31 materials get worse when the leader is removed), and how exposed each country is.">
 <meta property="og:title" content="Breaking the chokepoint — Critical Materials Atlas, Report 01">
@@ -40,8 +41,8 @@
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer.html">Explore</a><a href="reports.html">Reports</a>
-  <a href="about.html" class="hideable">About</a><a href="breakout.html" class="hideable">Interactive</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="reports">Reports</a>
+  <a href="about" class="hideable">About</a><a href="breakout" class="hideable">Interactive</a></nav>
 </div></header>
 
 <article>
@@ -53,9 +54,9 @@
 
   <div class="toolbar">
     <button onclick="window.print()">⎙ Print / save as PDF</button>
-    <a href="breakout.html">Interactive: Break the chokepoint →</a>
-    <a href="ot.html">Reallocation stress test →</a>
-    <a href="leverage.html">Leverage map →</a>
+    <a href="breakout">Interactive: Break the chokepoint →</a>
+    <a href="ot">Reallocation stress test →</a>
+    <a href="leverage">Leverage map →</a>
   </div>
 
   <div class="abstract"><b>Abstract.</b> The dominant fact of critical-material supply — that a handful of countries, above all China, control the refining stage — is by now well known. It is also only half an answer. This report turns that fact into decisions across 32 materials: it classifies <b>what kind of moat</b> holds each chokepoint (because the moat type decides what can work), identifies <b>who could realistically break it</b>, tests <b>whether the world&rsquo;s remaining capacity could absorb a cut</b>, and measures <b>how exposed each importing country is</b>. Two results stand out: the chokepoint is usually a <b>capability</b>, not an ore endowment, so export controls on ore cannot touch it; and for <b>8 of 31</b> materials, removing the leading exporter would make global concentration <i>worse</i>, not better — diversification, done naively, backfires.</div>
@@ -82,10 +83,10 @@
   <figure><img src="share/card5.png" alt="Leverage map: South Korea is China-sourced on 12 of 31 critical materials"><figcaption>Figure 4. The leverage map. South Korea is ≥50%-China-sourced on 12 of 31 materials; the US and Germany are diversified.</figcaption></figure>
 
   <h2>4 · A note on what we do <i>not</i> claim</h2>
-  <p>&ldquo;Who could break it&rdquo; is estimated from product-space capability-adjacency where a clean signal exists, and from current alternative-supplier shares otherwise — always labelled. We separately tested whether product-space proximity actually forecasts which countries develop downstream capability, and found that the apparent signal is largely a <b>diversity artifact</b> (already-diversified economies diversify further); that honest control is reported in the <a href="product-space.html">product-space</a> work rather than overstated here. The reallocation is a statement about <i>today&rsquo;s</i> capacity, not a forecast.</p>
+  <p>&ldquo;Who could break it&rdquo; is estimated from product-space capability-adjacency where a clean signal exists, and from current alternative-supplier shares otherwise — always labelled. We separately tested whether product-space proximity actually forecasts which countries develop downstream capability, and found that the apparent signal is largely a <b>diversity artifact</b> (already-diversified economies diversify further); that honest control is reported in the <a href="product-space">product-space</a> work rather than overstated here. The reallocation is a statement about <i>today&rsquo;s</i> capacity, not a forecast.</p>
 
   <h2>Method</h2>
-  <p>Bilateral trade is reconciled from UN Comtrade via CEPII BACI (validated against the official series: top-1 exporter 25/30, 3.5% share error). Moat type is read from the trade feedstock signature (imports ore / exports refined) plus BGS/USGS physical output; refining concentration from refined-export HHI, cross-checked against the IEA Critical Minerals Dataset, EU CRM 2023, and the USGS World Minerals Outlook. The reallocation is an entropic optimal-transport (Sinkhorn) solve on the bilateral matrix; coverage assumes surviving exporters can scale to a stated ceiling. Full methods and all data are <a href="methodology.html">open</a>. Figures are approximate and rounded; read each material as an overlay of distinct measures, not one observed pipeline.</p>
+  <p>Bilateral trade is reconciled from UN Comtrade via CEPII BACI (validated against the official series: top-1 exporter 25/30, 3.5% share error). Moat type is read from the trade feedstock signature (imports ore / exports refined) plus BGS/USGS physical output; refining concentration from refined-export HHI, cross-checked against the IEA Critical Minerals Dataset, EU CRM 2023, and the USGS World Minerals Outlook. The reallocation is an entropic optimal-transport (Sinkhorn) solve on the bilateral matrix; coverage assumes surviving exporters can scale to a stated ceiling. Full methods and all data are <a href="methodology">open</a>. Figures are approximate and rounded; read each material as an overlay of distinct measures, not one observed pipeline.</p>
 
   <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>Breaking the chokepoint: from finding to decision.</i> Report 01. materials-atlas. Zenodo. https://doi.org/10.5281/zenodo.21948855
   <code>@techreport{cma_report01_2026,
@@ -103,7 +104,7 @@
 
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical raw-materials value chain. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="reports.html">All reports</a><br><a href="breakout.html">Break the chokepoint</a><br><a href="ot.html">Reallocation stress test</a><br><a href="leverage.html">Leverage map</a></div>
+  <div><h4>Navigate</h4><a href="reports">All reports</a><br><a href="breakout">Break the chokepoint</a><br><a href="ot">Reallocation stress test</a><br><a href="leverage">Leverage map</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA · EU CRM<br>UN Comtrade · CEPII BACI</div>
   <div class="fineprint">Public-data research under the materials-atlas handle. Not a forecast; a synthesis of public-data layers offered for scrutiny.</div>
 </div></footer>
