@@ -58,6 +58,16 @@
  .stage p b{color:var(--ink-soft)}
  .stage .go{font-size:.8rem;font-weight:700;color:var(--accent);margin-top:.8rem}
  .stage.hot{border-color:#e7cdbf;background:linear-gradient(180deg,#fdf6f1,var(--bg) 60%)}
+ /* featured findings */
+ .findgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+ @media(max-width:940px){.findgrid{grid-template-columns:repeat(2,1fr)}}
+ @media(max-width:520px){.findgrid{grid-template-columns:1fr}}
+ .findcard{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px;padding:16px 17px 18px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
+ .findcard:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,50,58,.09)}
+ .findcard .fk{font-size:.64rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
+ .findcard h3{font-size:1.06rem;color:var(--navy);margin:.45rem 0 .35rem;font-weight:800;letter-spacing:-.01em;line-height:1.15}
+ .findcard p{font-size:.84rem;color:var(--mut);line-height:1.45;margin:0;flex:1}
+ .findcard .go{font-size:.78rem;font-weight:700;color:var(--accent);margin-top:.8rem}
  /* decision layer */
  .decision{background:var(--bg-soft)}
  .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
@@ -124,7 +134,39 @@
   <div class="lstat"><div class="n">58</div><div class="l"><a href="value-chains" style="color:inherit">end-use value chains, raw material → finished tech</a></div></div>
 </div></section>
 
-<section class="band" id="start"><div class="wrap">
+<section class="band"><div class="wrap">
+  <div class="kicker">What the atlas has found</div>
+  <h2>Four findings, each reproducible from public data</h2>
+  <p class="lead">Independent, public-data research — every number traces to an open source, the reconciliation is validated against the official series, and the method is built to be broken. A few of the results:</p>
+  <div class="findgrid">
+    <a class="findcard" href="chokepoint-map">
+      <span class="fk">The big idea</span>
+      <h3>The chokepoint is rarely the mine</h3>
+      <p>Of 58 supply chains, only <b>4</b> are constrained by geology. The other <b>54</b> were built by capital and policy — so they can be rebuilt.</p>
+      <span class="go">The Chokepoint Map →</span>
+    </a>
+    <a class="findcard" href="findings">
+      <span class="fk">The flagship</span>
+      <h3>The refiner is not the source</h3>
+      <p>For <b>17 of 32</b> materials the top exporter never mined it — and the gap <b>holds in tonnes</b>, not just dollars. Not a unit artifact.</p>
+      <span class="go">The origin gap →</span>
+    </a>
+    <a class="findcard" href="nowcast-backtest">
+      <span class="fk">The method, tested</span>
+      <h3>It predicts before the data lands</h3>
+      <p>Out-of-sample, last year names this year's top exporter <b>84%</b> of the time — and we state plainly where it can't (turning points).</p>
+      <span class="go">The nowcast backtest →</span>
+    </a>
+    <a class="findcard" href="iea-risk-check">
+      <span class="fk">The validation</span>
+      <h3>Free data recovers the paid answer</h3>
+      <p>The atlas's public-data risk index independently reproduces <b>4 of the IEA's 6</b> discrete high-risk minerals in its top third.</p>
+      <span class="go">The cross-check →</span>
+    </a>
+  </div>
+</div></section>
+
+<section class="band decision" id="start"><div class="wrap">
   <div class="kicker">New here? Start with one of these</div>
   <h2>Three ways in</h2>
   <div class="dgrid">
