@@ -22,6 +22,19 @@
  .hcard:hover{border-color:var(--acc);box-shadow:0 3px 14px rgba(20,50,58,.08)}
  .hcard .ht{display:block;font-weight:700;color:var(--navy);font-size:.9rem;line-height:1.25}
  .hcard .hd{display:block;color:var(--mut);font-size:.78rem;margin-top:.2rem;line-height:1.35}
+ .proves{margin:.5rem 0 2.4rem}
+ .proves h2{font-size:1.15rem;color:var(--navy);margin:0 0 .2rem}
+ .proves .sub{color:var(--mut);font-size:.9rem;margin:.1rem 0 1.1rem;max-width:70ch}
+ .pgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem}
+ @media(max-width:720px){.pgrid{grid-template-columns:1fr}}
+ .pcard{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px;padding:1rem 1.1rem 1.1rem;background:var(--bg-soft);position:relative}
+ .pcard .pn{position:absolute;top:.9rem;right:1.1rem;font-size:1.6rem;font-weight:800;color:var(--line)}
+ .pcard h3{font-size:1.02rem;color:var(--navy);margin:.1rem 3rem .35rem 0;font-weight:800;line-height:1.2}
+ .pcard p{font-size:.86rem;color:var(--mut);line-height:1.5;margin:0}
+ .pcard .path{margin-top:.7rem;font-size:.82rem}
+ .pcard .path a{font-weight:600}
+ .fullidx{font-size:1.05rem;color:var(--navy);border-top:1px solid var(--line);padding-top:1.4rem;margin:0}
+ .fullidx .fs{font-size:.85rem;color:var(--mut);font-weight:400;display:block;margin-top:.15rem}
 </style>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,9 +46,32 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Analysis</div>
   <h1>Analysis</h1>
-  <p class="deck">Every analytical lens, in one place. Demand and who pulls it, the reconciled trade map, supply-risk and shock scenarios, and where the concentration really sits along the chain.</p>
+  <p class="deck">These pages test one question from every angle: where the concentration in critical-material supply chains really sits, and what to do about it. Here is what they collectively show &mdash; then the full set, organised in four groups, below.</p>
 </div></section>
 <article>
+<section class="proves">
+  <h2>What these analyses collectively show</h2>
+  <p class="sub">Four conclusions the pages below reach from different angles. Follow a thread, or browse the full set underneath.</p>
+  <div class="pgrid">
+    <div class="pcard"><span class="pn">1</span>
+      <h3>The chokepoint is the refiner, not the mine</h3>
+      <p>Control sits at the furnace: for 17 of 32 materials the top exporter is a processor, not a miner &mdash; and the gap survives in tonnes and isn&rsquo;t transshipment.</p>
+      <p class="path"><a href="refining">the refining wedge</a> &rarr; <a href="origin">origin trace</a> &rarr; <a href="complexity">why RCA misses it</a></p></div>
+    <div class="pcard"><span class="pn">2</span>
+      <h3>By-product metals are structurally trapped</h3>
+      <p>Metals pulled from a host ore can&rsquo;t be out-mined, recycle at half the rate of primary metals, and ride their host&rsquo;s market &mdash; a dependency no new mine answers.</p>
+      <p class="path"><a href="companionality">hostage metals</a> &rarr; <a href="smelters">the host-facility map</a> &rarr; <a href="recycling">no way out</a></p></div>
+    <div class="pcard"><span class="pn">3</span>
+      <h3>The concentration is real, and survives scrutiny</h3>
+      <p>Measured in tonnes not dollars it holds for 28 of 32 materials; weighted by governance the ranking sharpens rather than dissolves.</p>
+      <p class="path"><a href="volume">value vs volume</a> &rarr; <a href="geopolrisk">tonnes + governance</a> &rarr; <a href="criticality">the governance flip</a></p></div>
+    <div class="pcard"><span class="pn">4</span>
+      <h3>Not every dependency is fixed the same way</h3>
+      <p>Some a stockpile can bridge, some need years of capacity; some chokepoints are easing, some entrenching &mdash; and only 3 of 32 are a mine you can&rsquo;t rebuild.</p>
+      <p class="path"><a href="n1">N&minus;1 resilience</a> &rarr; <a href="trajectory">easing vs entrenching</a> &rarr; <a href="breakout">the decision layer</a></p></div>
+  </div>
+</section>
+<h2 class="fullidx">The full set<span class="fs">Every analysis, in four groups.</span></h2>
   <section class="hsec"><h2>Demand &amp; consumption</h2><p class="hblurb">Who actually pulls these materials — gross, net of re-exports, and by policy bloc.</p>
     <div class="hgrid">
       <a class="hcard" href="demand"><span class="ht">Demand &amp; the squeeze</span><span class="hd">(to 2040)</span></a>
