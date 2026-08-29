@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/report-november-cliff">
+<title>The November 2026 cliff — Report 07 — Critical Materials Atlas</title>
+<meta name="description" content="Report 07: China's October-2025 export-control wave — expanded rare earths and the whole battery supply chain — was suspended for one year, to November 2026. Three years of controls land exactly where the atlas's mechanism map says the leverage is: by-product and built-capability chokepoints, never diffuse chains.">
+<meta property="og:title" content="The November 2026 cliff — Critical Materials Atlas, Report 07">
+<meta property="og:description" content="A scheduled snap-back, not a resolution. What the suspended October-2025 wave puts back in force, and why the controls cluster on exactly the chokepoints the mechanism map flags.">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/share/card1.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:820px}
+ .rhead{border-bottom:2px solid var(--navy);padding-bottom:1rem;margin-bottom:1.4rem}
+ .rhead .no{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+ .rhead h1{font-size:2rem;line-height:1.1;margin:.4rem 0 .5rem;color:var(--navy)}
+ .rhead .by{font-size:.84rem;color:var(--mut)}
+ .abstract{background:var(--bg-soft);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.96rem;line-height:1.6}
+ .abstract b{color:var(--navy)}
+ .keys{list-style:none;padding:0;margin:1rem 0}
+ .keys li{padding:.5rem 0 .5rem 1.7rem;position:relative;border-top:1px solid var(--line);line-height:1.5}
+ .keys li:first-child{border-top:0}.keys li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:800}
+ .keys b{color:var(--navy)}
+ .eqn{background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;padding:.9rem 1.2rem;margin:1.1rem 0;font-size:.95rem;color:var(--navy)}
+ .tblwrap{overflow-x:auto;margin:1.3rem 0}
+ table.data{border-collapse:collapse;width:100%;font-size:.85rem;min-width:640px}
+ table.data caption{caption-side:bottom;font-size:.8rem;color:var(--faint);text-align:left;padding-top:.5rem;line-height:1.45}
+ table.data th,table.data td{padding:.5rem .6rem;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+ table.data thead th{color:var(--navy);font-weight:700;border-bottom:2px solid var(--navy)}
+ table.data td.n,table.data th.n{text-align:right;font-variant-numeric:tabular-nums}
+ table.data tbody tr:hover{background:var(--bg-soft)}
+ table.data .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:.45rem;vertical-align:baseline}
+ .cite{background:#12272c;color:#cfe0dd;border-radius:10px;padding:1rem 1.2rem;font-size:.84rem;line-height:1.6;margin:1.4rem 0}
+ .cite code{color:#8fe0d4;font-size:.8rem;display:block;white-space:pre-wrap;margin-top:.4rem}
+ .toolbar{display:flex;gap:.7rem;flex-wrap:wrap;margin:1rem 0}
+ .toolbar button,.toolbar a{font:inherit;font-size:.84rem;font-weight:600;border:1px solid var(--line);background:var(--bg);color:var(--ink-soft);border-radius:8px;padding:7px 14px;cursor:pointer;text-decoration:none}
+ .toolbar button:hover,.toolbar a:hover{border-color:var(--accent);color:var(--accent)}
+ .callout{border:1px solid var(--line);border-left:3px solid var(--navy);background:var(--bg-soft);border-radius:0 8px 8px 0;padding:.9rem 1.2rem;margin:1.2rem 0;font-size:.92rem;line-height:1.55}
+ .callout b{color:var(--navy)}
+
+ .rank{display:flex;flex-direction:column;gap:.28rem;margin:1rem 0}
+ .rk{display:grid;grid-template-columns:1.7rem 8rem 1fr 2.4rem;align-items:center;gap:.6rem;font-size:.82rem}
+ .rk .n{color:var(--faint);font-weight:700;text-align:right;font-variant-numeric:tabular-nums}
+ .rk .nm{color:var(--navy);font-weight:600}
+ .rk .tr{height:15px;background:var(--bg-soft);border:1px solid var(--line);border-radius:5px;overflow:hidden}
+ .rk .fl{display:block;height:100%;background:#c9d3d1;border-radius:5px}
+ .rk.iea .fl{background:var(--accent)}
+ .rk.iea .nm{color:var(--accent);font-weight:800}
+ .rk .sc{font-weight:700;text-align:right;color:var(--navy);font-variant-numeric:tabular-nums}
+ .rk .tg{font-size:.6rem;font-weight:800;color:#fff;background:var(--accent);border-radius:4px;padding:.03rem .28rem;margin-left:.35rem}
+ @media print{
+   .toolbar,.siteftr,.topbar{display:none!important}
+   .abstract,.cite,.eqn,.callout{background:#f4f7f6!important;color:#1a1f24!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+   .cite code{color:#0b6f66!important}
+ }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Report","headline":"The November 2026 cliff","author":{"@type":"Organization","name":"materials-atlas"},"publisher":{"@type":"Organization","name":"Critical Materials Atlas"},"url":"https://criticalmaterialsatlas.org/report-november-cliff","identifier":"https://doi.org/10.5281/zenodo.21948855","isAccessibleForFree":true,"inLanguage":"en","datePublished":"2026"}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<article>
+  <div class="rhead">
+    <div class="no">Report 07 · August 2026 · Policy watch</div>
+    <h1>The November 2026 cliff</h1>
+    <div class="by">Critical Materials Atlas · independent public-data research · built on the atlas&rsquo;s <a href="controls">export-control tracker</a> and read through the mechanism taxonomy (Report 04)</div>
+  </div>
+
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">&#9113; Print / save as PDF</button>
+    <a href="controls">The live tracker &#8594;</a>
+    <a href="chokepoint-map">The Chokepoint Map &#8594;</a>
+  </div>
+
+  <div class="abstract"><b>Abstract.</b> In October 2025 China announced its most sweeping critical-mineral export-control wave yet &mdash; expanded rare-earth licensing plus much of the battery supply chain &mdash; and then <b>suspended it for one year, to November 2026</b>. That suspension is a cliff, not a resolution: the underlying concentration is unchanged, and the measures are drafted and ready to re-impose. This report reads three years of controls (2023&ndash;2026) through the atlas&rsquo;s mechanism taxonomy and finds they are <b>not random</b>: every control lands on a <b>by-product</b> or <b>built-capability</b> chokepoint &mdash; exactly where the <a href="chokepoint-map">Chokepoint Map</a> says the leverage sits &mdash; and <b>never</b> on a diffuse chain. The cliff is therefore predictable in shape, and the right preparation follows from the mechanism, not the headline.</div>
+
+  <h2>Key findings</h2>
+  <ul class="keys">
+    <li>The <b>November 2026 cliff</b> is a scheduled event: China&rsquo;s October-2025 wave (expanded rare earths + battery supply chain) is <b>suspended, not withdrawn</b>, and returns unless renegotiated.</li>
+    <li>The escalation is structural, not episodic: since 2023 the number of tariff codes China requires a licence to export has <b>tripled</b>, and controlled exports passed <b>USD&nbsp;11&nbsp;billion</b> in 2025.</li>
+    <li>Every control clusters on a <b>by-product</b> chokepoint (gallium, germanium, bismuth, tellurium, indium, molybdenum &mdash; metals coupled to a host ore) or a <b>built-capability</b> one (spherical graphite, antimony and tungsten refining, rare-earth separation). <b>None</b> targets a diffuse chain &mdash; you cannot licence what everyone can make.</li>
+    <li>That pattern is the actionable part: the mechanism says which dependencies a stockpile can bridge and which need years of capacity &mdash; before the cliff, not after.</li>
+  </ul>
+
+  <h2>1 &middot; The escalation is structural</h2>
+  <p>Export controls on critical minerals are no longer occasional shocks; they are a widening instrument. Since the first modern wave in 2023, the count of tariff lines China requires a licence to export has roughly <b>tripled</b>, and the value of controlled exports crossed <b>USD&nbsp;11&nbsp;billion</b> in 2025. The measures have arrived in distinct waves, each broader than the last:</p>
+
+  <div class="tblwrap"><table class="data">
+    <caption>Critical-mineral export-control waves, 2023&ndash;2026, from the atlas&rsquo;s <a href="controls">export-control tracker</a>. Shares are the controlling country&rsquo;s 2025 position at the controlled stage.</caption>
+    <thead><tr><th>Wave</th><th>What was controlled</th><th>Chokepoint type</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Aug 2023</td><td>Gallium &amp; germanium — export licensing</td><td><span class="dot" style="background:#6a4a9c"></span>By-product</td><td>In force</td></tr>
+      <tr><td>Dec 2023</td><td>Graphite — high-purity / spherical anode items</td><td><span class="dot" style="background:#2f6fae"></span>Built capability</td><td>In force</td></tr>
+      <tr><td>Aug&ndash;Sep 2024</td><td>Antimony — controls; shipments to US / Japan / Taiwan halted</td><td><span class="dot" style="background:#2f6fae"></span>Built capability</td><td>In force</td></tr>
+      <tr><td>Feb 2025</td><td>Bismuth, tellurium, tungsten, molybdenum, indium — licensing</td><td><span class="dot" style="background:#6a4a9c"></span>By-product / capability</td><td>In force</td></tr>
+      <tr><td><b>Oct 2025</b></td><td><b>Expanded rare earths + the battery supply chain</b></td><td><span class="dot" style="background:#2f6fae"></span>Built capability</td><td><b>Suspended → Nov 2026</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>2 &middot; What the cliff puts back in force</h2>
+  <p>The October-2025 wave is the widest yet: it reaches past individual by-product metals into <b>rare-earth separation</b> and much of the <b>battery supply chain</b> &mdash; the midstream that turns mined material into cells and magnets. Its one-year suspension buys a negotiating window, but the drafting stands and the concentration it exploits has not moved. If the suspension lapses in November 2026, the controls return against a supply map that is no more diversified than it was in October 2025. Planning that treats the suspension as a resolution is planning for the wrong year.</p>
+
+  <h2>3 &middot; The controls are not random &mdash; they trace the mechanism map</h2>
+  <p>Laid over the atlas&rsquo;s <a href="chokepoint-map">Chokepoint Map</a>, the three-year record has a clean signature. Every control sits on one of two mechanisms:</p>
+  <ul class="keys">
+    <li><b>By-product chokepoints</b> &mdash; gallium, germanium, bismuth, tellurium, indium, molybdenum. These metals are recovered as trace outputs of a host ore (aluminium, zinc, copper, lead), so their supply is coupled to the host&rsquo;s market and <i>cannot be scaled on their own</i>. A licence on them cannot be answered by opening a mine.</li>
+    <li><b>Built-capability chokepoints</b> &mdash; spherical-graphite anode, antimony and tungsten refining, rare-earth separation. Here the concentration is in a processing step that took decades and capital to build and takes years to replicate. A licence buys time that only capacity can spend.</li>
+  </ul>
+  <p>What is <b>absent</b> is as telling as what is present: no control targets a <b>diffuse</b> chain &mdash; a material mined and processed in many places. You cannot licence what everyone can make. Controls are imposed exactly where leverage exists, and the mechanism map drew that boundary before the controls arrived.</p>
+
+  <div class="callout"><b>The cliff is predictable in its shape.</b> Because every control lands on a by-product or built-capability chokepoint, the mechanism tells you the response in advance. For <b>by-product</b> targets, no amount of new mining helps &mdash; the lever is recovery capacity at existing host smelters, plus a stockpile to bridge the interruption. For <b>built-capability</b> targets, the lever is qualified midstream capacity built <i>before</i> the cliff, since it cannot be stood up during one. For diffuse chains, there is nothing to prepare, because there is no chokepoint to exploit.</div>
+
+  <h2>4 &middot; What to do before November</h2>
+  <p>The suspension is a countdown, and the mechanism map is the checklist. Three moves follow from it: (1) <b>inventory the exposure by mechanism, not by material</b> &mdash; group your critical inputs into by-product, built-capability, and diffuse, because the fix differs by group; (2) <b>stockpile the by-product metals</b>, which are cheap to store, small in volume, and impossible to out-mine on short notice; (3) <b>commit the multi-year capacity</b> for the built-capability targets now, because a plant that takes years to qualify cannot be a response to a cliff &mdash; only a preparation for one. The controls will keep arriving where the leverage is; the map already shows where that is.</p>
+
+  <h2>Method</h2>
+  <p>The wave record is compiled in the atlas&rsquo;s <a href="controls">export-control tracker</a> from public reporting of announced measures (2023&ndash;2026); dates and controlled stages are as announced, and shares are the controlling country&rsquo;s 2025 position at the controlled stage (USGS / IEA / BGS, per the tracker). Mechanism tags are the atlas&rsquo;s own, assigned in the <a href="chokepoint-map">Chokepoint Map</a> (Report&nbsp;04) from process physics, independently of the controls. This report is a reading of announced policy against that map, not a forecast of whether the November 2026 suspension will be renewed.</p>
+
+  <div class="cite"><b>How to cite.</b> Critical Materials Atlas (2026). <i>The November 2026 cliff.</i> Report 07. Zenodo. https://doi.org/10.5281/zenodo.21948855
+  <code>@techreport{cma_report07_2026,
+  title       = {The November 2026 cliff},
+  author      = {{materials-atlas}},
+  institution = {Critical Materials Atlas},
+  number      = {Report 07},
+  year        = {2026},
+  publisher   = {Zenodo},
+  doi         = {10.5281/zenodo.21948855},
+  url         = {https://criticalmaterialsatlas.org/report-november-cliff}
+}</code>
+  <div style="margin-top:.6rem;color:#9fbab6;font-size:.8rem">Archived on Zenodo &mdash; concept DOI <b>10.5281/zenodo.21948855</b> (always resolves to the latest version). Built on the atlas&rsquo;s export-control tracker.</div></div>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Related</h4><a href="controls">Export-control tracker</a><br><a href="chokepoint-map">Chokepoint Map</a></div><div class="fineprint">Report 07 — a reading of announced export controls against the atlas&rsquo;s mechanism map.</div></div></footer>
+</body></html>
