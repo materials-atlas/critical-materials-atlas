@@ -45,11 +45,15 @@ for _ in range(B):
         boot[name]['dhit'].append(h - bh)             # model - persistence (hit; higher better)
         boot[name]['dmae'].append(m - bm)             # model - persistence (mae; lower better)
 
+def boot_p(dd):
+    """two-sided bootstrap p-value for a paired difference vs persistence."""
+    neg = sum(d < 0 for d in dd) / len(dd); pos = sum(d > 0 for d in dd) / len(dd)
+    return round(2 * min(neg, pos), 4)
+
 rows = []
 for name in MODELS:
     ph, pm = point[name]
     dhit_ci = ci(boot[name]['dhit']); dmae_ci = ci(boot[name]['dmae'])
-    # distinguishable on share MAE if the paired-diff CI excludes 0 (negative = beats persistence)
     beats_mae = dmae_ci[1] < 0
     worse_mae = dmae_ci[0] > 0
     beats_hit = dhit_ci[0] > 0
@@ -59,23 +63,47 @@ for name in MODELS:
         'top_hit_pct': round(ph, 1), 'top_hit_ci': ci(boot[name]['hit']),
         'share_mae_pp': round(pm, 2), 'share_mae_ci': ci(boot[name]['mae']),
         'd_hit_vs_persist_ci': dhit_ci, 'd_mae_vs_persist_ci': dmae_ci,
-        'distinguishable_from_persistence': bool(name != BASE and (beats_mae or worse_mae or beats_hit or worse_hit)),
-        'verdict': ('baseline' if name == BASE else
+        'p_mae_vs_persist': None if name == BASE else boot_p(boot[name]['dmae']),
+        'distinguishable_from_persistence_uncorrected': bool(name != BASE and (beats_mae or worse_mae or beats_hit or worse_hit)),
+        'verdict_uncorrected': ('baseline' if name == BASE else
                     'beats persistence (share)' if beats_mae else
                     'worse than persistence (share)' if worse_mae else
                     'indistinguishable from persistence'),
     })
 
-out = {'note': ('Block bootstrap over 32 materials (B=2000, seed 20260830). A model differs from naive '
-                'persistence only if the 95% CI of the paired difference excludes zero. Heavier '
-                'ETS/panel/Bayesian rows on the site are single-run point estimates, not bootstrapped.'),
-       'B': B, 'n_materials': len(LABS), 'baseline': BASE, 'models': rows}
+# --- Holm-Bonferroni across the non-baseline models (the council's multiplicity demand) ---
+alt = sorted((r for r in rows if r['model'] != BASE), key=lambda r: r['p_mae_vs_persist'])
+m = len(alt); still = True
+for i, r in enumerate(alt):
+    thr = 0.05 / (m - i)
+    r['holm_threshold'] = round(thr, 4)
+    r['survives_holm'] = bool(still and r['p_mae_vs_persist'] < thr)
+    still = r['survives_holm']
+    r['direction'] = 'better' if r['d_mae_vs_persist_ci'][1] < 0 else ('worse' if r['d_mae_vs_persist_ci'][0] > 0 else 'n/a')
+holm_winners = [r['model'] for r in alt if r['survives_holm'] and r['direction'] == 'better']
+holm_worse = [r['model'] for r in alt if r['survives_holm'] and r['direction'] == 'worse']
+
+out = {'note': ('Block bootstrap over 32 materials (B=2000, seed 20260830). ESTIMAND: uncertainty across '
+                'the 32-material atlas conditional on the 2019-2024 backtest window -- not a claim about all '
+                'future years. Raw 95% paired-difference CIs are exploratory; the Holm-Bonferroni column '
+                'corrects for testing several models. Heavier ETS/panel/Bayesian rows on the site are '
+                'single-run point estimates, not bootstrapped and outside this multiplicity correction.'),
+       'B': B, 'n_materials': len(LABS), 'baseline': BASE,
+       'holm_significant_better': holm_winners, 'holm_significant_worse': holm_worse,
+       'models': rows}
 json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out', 'nowcast_bootstrap.json'),
                     'w', encoding='utf-8'), indent=1, ensure_ascii=False)
 
 print(f"Block bootstrap over {len(LABS)} materials, B={B}\n")
-print(f"{'model':30}{'hit%':>6} {'hitCI':>13}  {'MAE':>5} {'MAEci':>12}  {'dMAE vs persist 95%CI':>22}  verdict")
+print(f"{'model':30}{'hit%':>6}  {'MAE':>5}  {'dMAE 95%CI':>16} {'p':>6} {'Holm':>10}")
 for r in rows:
-    print(f"{r['model']:30}{r['top_hit_pct']:6.1f} {str(r['top_hit_ci']):>13}  "
-          f"{r['share_mae_pp']:5.2f} {str(r['share_mae_ci']):>12}  {str(r['d_mae_vs_persist_ci']):>22}  {r['verdict']}")
-print("\nwrote out/nowcast_bootstrap.json")
+    if r['model'] == BASE:
+        print(f"{r['model']:30}{r['top_hit_pct']:6.1f}  {r['share_mae_pp']:5.2f}  {'(baseline)':>16}")
+        continue
+    print(f"{r['model']:30}{r['top_hit_pct']:6.1f}  {r['share_mae_pp']:5.2f}  {str(r['d_mae_vs_persist_ci']):>16} "
+          f"{r['p_mae_vs_persist']:6.3f} {('SURVIVES' if r['survives_holm'] else 'no')+' '+r.get('direction',''):>10}")
+print(f"\nHolm-Bonferroni verdict: better-than-persistence {holm_winners or 'NONE'}; "
+      f"worse {holm_worse or 'none'}.")
+print("No model reliably beats persistence after multiplicity correction." if not holm_winners
+      else f"Survives as better: {holm_winners}")
+print("wrote out/nowcast_bootstrap.json")

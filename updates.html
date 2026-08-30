@@ -35,6 +35,17 @@
 <article>
   <div class="entry">
     <div class="date">30 August 2026 <span class="tag">method</span></div>
+    <h3>Round-two review: the fixes themselves corrected for overreach</h3>
+    <p>A second maximum-strictness pass attacked the day&rsquo;s fixes and landed four hits &mdash; all now corrected, several by tightening the statistics rather than the wording:</p>
+    <ul>
+      <li><b>The HHI &ldquo;envelope&rdquo; was overstated.</b> Two mirror reports biased the same way do not &ldquo;bracket the truth,&rdquo; and the engine sits <i>below</i> both for some commodities &mdash; so &ldquo;lower bound&rdquo; was wrong. Reframed as a <b>mirror-report spread</b> (a measure of uncertainty, not a confidence interval); the engine &ldquo;tends to run low,&rdquo; a direction, not a proven bound.</li>
+      <li><b>Forecast: multiplicity correction flips the verdict &mdash; in our favour.</b> The compositional model&rsquo;s &minus;0.32pp edge does <b>not</b> survive Holm&ndash;Bonferroni across the models (raw p=0.018, needed &lt;0.010). So the honest, corrected statement is cleaner: <b>no model reliably beats naive persistence at all</b>, and that survives the correction.</li>
+      <li><b>Trend robustness: the 27/29 headline was inflated by cheap null/null agreement.</b> Corrected to the quantity that matters &mdash; among the <b>19</b> commodities where both series find a significant trend, direction agrees <b>19/19</b>; phosphorus dissolves under a Benjamini&ndash;Hochberg correction (threshold noise), leaving cobalt as the lone conflict. Autocorrelation caveat added.</li>
+      <li><b>Taxonomy: &ldquo;almost perfect inter-rater reliability&rdquo; downgraded.</b> The second coder is an automated classifier, not a human expert, and may share priors &mdash; so &kappa;=0.83 is <b>recoding consistency</b>, not external validation. A human expert remains the real test.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="date">30 August 2026 <span class="tag">method</span></div>
     <h3>The two open council items closed: forecast confidence intervals, and a blind second rater for the taxonomy</h3>
     <ul>
       <li><b>Forecast bake-off, now with confidence intervals.</b> A paired <b>block-bootstrap over the 32 materials</b> (2,000 resamples, respecting the China-tops-many dependence; <code>build_nowcast_bootstrap.py</code>) replaces the bare leaderboard. Result: on <i>who leads</i>, no model separates from persistence; on the leader&rsquo;s <i>share</i>, exactly one is statistically distinguishable as better &mdash; the compositional CLR-shrink model, by &minus;0.31pp (95% CI &minus;0.55 to &minus;0.07). The rest are indistinguishable or worse. So &ldquo;only a compositional model reliably beats naive persistence, and only by a third of a point.&rdquo; See <a href="nowcast-backtest">the backtest</a>.</li>

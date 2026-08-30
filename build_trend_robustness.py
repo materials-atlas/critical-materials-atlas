@@ -117,22 +117,45 @@ for cmd in sorted(set(engine_series) & set(baci_series)):
     if not sign_ok:
         flips.append(rec)
 
+# --- reviewer's demands: separate cheap null/null agreement from real agreement; add BH-FDR ---
+both_sig = [r for r in rows if r['engine']['sig'] and r['baci']['sig']]
+either_sig = [r for r in rows if r['engine']['sig'] or r['baci']['sig']]
+null_null_agree = sum(1 for r in rows if r['trend_sign_agrees'] and not r['engine']['sig'] and not r['baci']['sig'])
+sign_agree_both_sig = sum(r['engine']['sign05'] == r['baci']['sign05'] for r in both_sig)
+# Benjamini-Hochberg on the engine p-values
+ps = sorted((r['engine']['p'], r['name']) for r in rows)
+mm = len(ps); fdr_survivors = set()
+for i, (p, n) in enumerate(ps, 1):
+    if p <= 0.05 * i / mm:
+        fdr_survivors = {nm for _, nm in ps[:i]}
+for r in rows:
+    r['engine']['sig_bh_fdr'] = r['name'] in fdr_survivors
+
 summary = {'n_commodities': both, 'trend_sign_agrees': agree_sign,
            'significance_agrees': agree_sig,
            'trend_sign_agree_pct': round(100 * agree_sign / both, 1) if both else None,
-           'n_sign_flips': len(flips)}
-out = {'note': ('Mann-Kendall (Kendall-tau) monotonic-trend test on annual export-HHI 2002-2024, '
-                'computed on the atlas engine series and on CEPII BACI HS02 independently. The claim '
-                '"the reconciliation choice does not change the trend" holds for a commodity iff both '
-                'agree on trend sign at p<0.05.'),
+           'n_sign_flips': len(flips),
+           'n_both_significant': len(both_sig),
+           'sign_agree_among_both_significant': sign_agree_both_sig,
+           'n_agreement_that_is_null_null': null_null_agree,
+           'n_engine_trends_uncorrected': sum(1 for r in rows if r['engine']['sig']),
+           'n_engine_trends_bh_fdr': len(fdr_survivors)}
+out = {'note': ('Mann-Kendall-equivalent (Kendall-tau, p<0.05, NOT autocorrelation-corrected -> absolute '
+                'significance is approximate) on annual export-HHI 2002-2024, on the atlas engine series and '
+                'on CEPII BACI HS02 independently. Robust quantity: among commodities where BOTH series '
+                'detect a significant trend, do they agree on sign? (raw sign-agreement is inflated by cheap '
+                'null/null cases; BH-FDR guards multiple testing).'),
        'summary': summary, 'materials': rows}
 json.dump(out, open(os.path.join(ROOT, 'out', 'trend_robustness.json'), 'w', encoding='utf-8'),
           indent=1, ensure_ascii=False,
           default=lambda o: o.item() if hasattr(o, 'item') else str(o))
 
 print(f"\ncommodities with both series testable: {both}")
-print(f"trend SIGN agrees (engine vs BACI, p<0.05): {agree_sign}/{both} ({summary['trend_sign_agree_pct']}%)")
-print(f"significance agrees: {agree_sig}/{both}")
+print(f"raw SIGN agreement: {agree_sign}/{both} -- but {null_null_agree} of those are cheap null/null")
+print(f"ROBUST quantity -> among {len(both_sig)} commodities where BOTH detect a significant trend, "
+      f"sign agrees: {sign_agree_both_sig}/{len(both_sig)}")
+print(f"engine trends: {summary['n_engine_trends_uncorrected']} uncorrected -> "
+      f"{summary['n_engine_trends_bh_fdr']} survive BH-FDR (q=0.05)")
 if flips:
     print("sign/one-significant flips:")
     for r in flips:
