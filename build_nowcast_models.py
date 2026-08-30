@@ -72,7 +72,21 @@ def m_lintrend(k):
         return norm(out)
     return f
 
-MODELS = {'persistence (naive)': m_persist, '3-yr moving avg': m_ma(3), '5-yr moving avg': m_ma(5),
+import math
+def _clr(d,cs):
+    v={c:math.log(d.get(c,0)+1e-6) for c in cs}; g=sum(v.values())/len(v)
+    return {c:v[c]-g for c in cs}
+def _inv(z):
+    m=max(z.values()); e={c:math.exp(z[c]-m) for c in z}; t=sum(e.values())
+    return {c:e[c]/t for c in z}
+def m_clr_shrink(a,k):
+    def f(h,ys):
+        cs=set().union(*[set(h[y]) for y in ys[-k:]])
+        p=_clr(h[ys[-1]],cs); mm={c:statistics.mean(_clr(h[y],cs)[c] for y in ys[-k:]) for c in cs}
+        return _inv({c:a*p[c]+(1-a)*mm[c] for c in cs})
+    return f
+
+MODELS = {'persistence (naive)': m_persist, 'compositional CLR-shrink 0.7->3yr': m_clr_shrink(0.7,3), '3-yr moving avg': m_ma(3), '5-yr moving avg': m_ma(5),
           'exp. smoothing (a=.4)': m_ses(0.4), 'shrink 70% -> 5-yr mean': m_shrink(0.7, 5), 'linear trend': m_lintrend(4)}
 res = {k: {'hit': 0, 'n': 0, 'smae': []} for k in MODELS}
 for lab in LAB:
