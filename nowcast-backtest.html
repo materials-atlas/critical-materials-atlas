@@ -44,7 +44,7 @@
   <p class="note">The 2025 figure on the slider is a <a href="methodology#nowcast">nowcast</a>, not measured BACI. Its defensibility rests on one empirical question: how much does the prior year actually tell you about the next? This page answers it the only honest way &mdash; by hiding the answer and scoring the prediction. No model here sees the year it predicts.</p>
 
   <div class="stat4">
-    <div class="stat"><div class="v">84%</div><div class="l">the prior year names the <b>same top exporter</b> as the observed year (out-of-sample, 2019&ndash;2024, 192 material-years)</div></div>
+    <div class="stat"><div class="v">84%</div><div class="l">the prior year names the <b>same top exporter</b> as the observed year (out-of-sample, 2019&ndash;2024, 192 material-years). <b>95% CI 77&ndash;92%</b>, bootstrap clustered by material.</div></div>
     <div class="stat"><div class="v">4.8 pp</div><div class="l">mean absolute error on that top exporter&rsquo;s <b>share</b></div></div>
     <div class="stat"><div class="v">306</div><div class="l">mean absolute error on <b>concentration</b> (HHI, 0&ndash;10,000 scale)</div></div>
     <div class="stat warn"><div class="v">42%</div><div class="l"><b>direction</b> of the year-over-year change called correctly &mdash; ~a coin flip</div></div>
@@ -52,6 +52,7 @@
 
   <h2 class="sec">What it means</h2>
   <p>Two things, and the atlas states both. <b>The structure is highly persistent.</b> Last year alone pins this year&rsquo;s leading exporter 84% of the time and its share to within about 4.8 points &mdash; which is precisely why a nowcast that carries the prior year forward and reconciles the current year&rsquo;s partial customs data is a <i>defensible provisional estimate</i>, not a guess. This persistence baseline is the floor the reconciliation engine improves on by adding real current-year data.</p>
+  <p><b>And it is not a low bar cleared by luck.</b> The 84% is precisely estimated: correcting for the fact that a material recurs across years &mdash; a bootstrap that resamples <i>whole materials</i>, the honest clustered standard &mdash; the 95% interval is <b>77&ndash;92%</b>. And it is far above chance: with a median of <b>67</b> exporting countries per material, a blind guess would land the top exporter just <b>1.6%</b> of the time, so persistence beats chance by ~82 points. The high hit rate is real information &mdash; trade structure genuinely is stable &mdash; which is exactly what a persistence-grounded nowcast exploits. <span style="color:var(--mut);font-size:.9em">(Added after an adversarial audit of this page; see the <a href="updates">changelog</a>.)</span></p>
 
   <div class="rule"><b>The honest limit.</b> Persistence is good at <i>levels</i> and poor at <i>turning points</i>. It calls the direction of a year-over-year move correctly only <b>42%</b> of the time &mdash; no better than chance. So read the nowcast as &ldquo;the structure of last year carried forward and re-measured,&rdquo; <b>not</b> &ldquo;a forecast of where shares are heading.&rdquo; When a share genuinely turns, a persistence-grounded nowcast is the last thing to see it. The atlas nowcast mitigates this by reconciling actual current-year Comtrade rather than extrapolating &mdash; but the limit is real and named here rather than buried.</p>
 

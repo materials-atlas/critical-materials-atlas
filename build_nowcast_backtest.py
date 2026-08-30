@@ -33,6 +33,8 @@ per_year = []
 hit = n = 0
 share_mae, hhi_mae = [], []
 dir_hit = dir_n = 0
+by_mat = {}
+chance_terms = []
 for T in TEST:
     obs, prev, prev2 = load(T), load(T - 1), load(T - 2)
     if not obs or not prev:
@@ -44,6 +46,9 @@ for T in TEST:
             continue
         at = top(so)
         n += 1; yn += 1
+        _h = 1 if top(sp) == at else 0
+        by_mat.setdefault(lab, []).append(_h)   # per-material blocks for the clustered bootstrap
+        chance_terms.append(1.0 / len(so))       # blind-guess P(correct) = 1/#exporters that year
         if top(sp) == at:
             hit += 1; yhit += 1
         share_mae.append(abs(sp.get(at, 0) - so[at]) * 100)
@@ -62,6 +67,22 @@ HIT = round(100 * hit / n)
 SMAE = round(statistics.mean(share_mae), 1)
 HMAE = round(statistics.mean(hhi_mae))
 DIR = round(100 * dir_hit / dir_n)
+
+# --- audit C: 95% CI via block bootstrap CLUSTERED BY MATERIAL, + a blind-guess chance baseline ---
+# Material-years are not independent (a material recurs across years), so resample whole-material blocks.
+import random as _rnd
+_rnd.seed(42)
+_mats = list(by_mat)
+def _boot():
+    s = [h for _ in _mats for h in by_mat[_rnd.choice(_mats)]]
+    return 100 * sum(s) / len(s)
+_B = sorted(_boot() for _ in range(4000))
+CI_LO = round(_B[int(0.025 * len(_B))])
+CI_HI = round(_B[int(0.975 * len(_B))])
+CHANCE = round(100 * statistics.mean(chance_terms), 1)   # 1/#exporters averaged
+import statistics as _st
+MED_EX = round(1 / _st.median(chance_terms))              # median exporters per material-year
+beat = round(HIT - CHANCE)
 print(f"top-exporter hit {hit}/{n} = {HIT}% | share MAE {SMAE}pp | HHI MAE {HMAE} | direction {dir_hit}/{dir_n} = {DIR}%")
 
 rows = ''.join(f'<tr><td>{T}</td><td class="n">{yh}/{yn}</td><td class="n">{round(100*yh/yn)}%</td></tr>'
@@ -113,7 +134,7 @@ HTML = f'''<!doctype html>
   <p class="note">The 2025 figure on the slider is a <a href="methodology#nowcast">nowcast</a>, not measured BACI. Its defensibility rests on one empirical question: how much does the prior year actually tell you about the next? This page answers it the only honest way &mdash; by hiding the answer and scoring the prediction. No model here sees the year it predicts.</p>
 
   <div class="stat4">
-    <div class="stat"><div class="v">{HIT}%</div><div class="l">the prior year names the <b>same top exporter</b> as the observed year (out-of-sample, 2019&ndash;2024, {n} material-years)</div></div>
+    <div class="stat"><div class="v">{HIT}%</div><div class="l">the prior year names the <b>same top exporter</b> as the observed year (out-of-sample, 2019&ndash;2024, {n} material-years). <b>95% CI {CI_LO}&ndash;{CI_HI}%</b>, bootstrap clustered by material.</div></div>
     <div class="stat"><div class="v">{SMAE} pp</div><div class="l">mean absolute error on that top exporter&rsquo;s <b>share</b></div></div>
     <div class="stat"><div class="v">{HMAE}</div><div class="l">mean absolute error on <b>concentration</b> (HHI, 0&ndash;10,000 scale)</div></div>
     <div class="stat warn"><div class="v">{DIR}%</div><div class="l"><b>direction</b> of the year-over-year change called correctly &mdash; ~a coin flip</div></div>
@@ -121,6 +142,7 @@ HTML = f'''<!doctype html>
 
   <h2 class="sec">What it means</h2>
   <p>Two things, and the atlas states both. <b>The structure is highly persistent.</b> Last year alone pins this year&rsquo;s leading exporter {HIT}% of the time and its share to within about {SMAE} points &mdash; which is precisely why a nowcast that carries the prior year forward and reconciles the current year&rsquo;s partial customs data is a <i>defensible provisional estimate</i>, not a guess. This persistence baseline is the floor the reconciliation engine improves on by adding real current-year data.</p>
+  <p><b>And it is not a low bar cleared by luck.</b> The {HIT}% is precisely estimated: correcting for the fact that a material recurs across years &mdash; a bootstrap that resamples <i>whole materials</i>, the honest clustered standard &mdash; the 95% interval is <b>{CI_LO}&ndash;{CI_HI}%</b>. And it is far above chance: with a median of <b>{MED_EX}</b> exporting countries per material, a blind guess would land the top exporter just <b>{CHANCE}%</b> of the time, so persistence beats chance by ~{beat} points. The high hit rate is real information &mdash; trade structure genuinely is stable &mdash; which is exactly what a persistence-grounded nowcast exploits. <span style="color:var(--mut);font-size:.9em">(Added after an adversarial audit of this page; see the <a href="updates">changelog</a>.)</span></p>
 
   <div class="rule"><b>The honest limit.</b> Persistence is good at <i>levels</i> and poor at <i>turning points</i>. It calls the direction of a year-over-year move correctly only <b>{DIR}%</b> of the time &mdash; no better than chance. So read the nowcast as &ldquo;the structure of last year carried forward and re-measured,&rdquo; <b>not</b> &ldquo;a forecast of where shares are heading.&rdquo; When a share genuinely turns, a persistence-grounded nowcast is the last thing to see it. The atlas nowcast mitigates this by reconciling actual current-year Comtrade rather than extrapolating &mdash; but the limit is real and named here rather than buried.</p>
 
