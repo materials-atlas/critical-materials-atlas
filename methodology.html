@@ -261,14 +261,24 @@ tail's, so it <i>preserves the leader's identity and rank</i> (kept in <b>73% of
 in 2024</b>) but systematically <b>dilutes the leader's share</b> (median <b>~2 percentage points</b>) and
 <b>understates concentration</b> (median HHI understated <b>+0.01</b>, but up to <b>+0.27</b> for thin,
 dominated commodities). This is the same mechanism behind both the level offset and the HHI gap — one
-phenomenon, not two. We therefore <b>correct it</b>: the authoritative concentration is the un-diluted
-official value, published per material in <code>out/hhi_correction.json</code> and reproducible with
-<code>build_hhi_correction.py</code>. The eight materials most affected in 2024 (engine&nbsp;&rarr;&nbsp;corrected):
+phenomenon, not two. We therefore <b>correct toward</b> the BACI benchmark, published per material in
+<code>out/hhi_correction.json</code> and reproducible with <code>build_hhi_correction.py</code>.
+<b>One caveat we will not hide</b> (both engines of an adversarial cross-check pressed it): BACI is
+<i>not</i> raw ground truth &mdash; CEPII builds it by reconciling the same mirror reports with
+<i>reliability-weighted</i> averaging (Gaulier&nbsp;&amp;&nbsp;Zignago), so this is an
+unweighted-average&nbsp;vs&nbsp;reliability-weighted-average comparison, not construct&nbsp;vs&nbsp;truth.
+Read the BACI column as a better-weighted benchmark that recovers dominant shares the plain average
+dilutes, and the atlas value as a <b>lower bound</b> &mdash; not as a claim that BACI is the true share.
+The eight materials most affected in 2024 (engine&nbsp;&rarr;&nbsp;BACI benchmark):
 beryllium <b>0.53&rarr;0.80</b>, tungsten <b>0.28&rarr;0.40</b>, bauxite <b>0.45&rarr;0.55</b>, lithium
 <b>0.50&rarr;0.59</b>, graphite <b>0.14&rarr;0.21</b>, silicon <b>0.14&rarr;0.20</b>, magnesium
-<b>0.48&rarr;0.54</b>, titanium <b>0.13&rarr;0.18</b>. Because the dilution is roughly constant year to
-year, it shifts the <i>level</i>, not the <i>trend</i>: the concentration <b>direction</b> tested on the
-Trends page (Mann&ndash;Kendall / Theil&ndash;Sen) is unaffected. <b>Not valid:</b> absolute dollar levels — there is a known
+<b>0.48&rarr;0.54</b>, titanium <b>0.13&rarr;0.18</b>. We had written that the dilution is &ldquo;roughly constant year to
+year&rdquo; and so shifts the <i>level</i> not the <i>trend</i> &mdash; but that rests on only <b>two
+snapshot years</b>, and the identity-agreement rate itself moved (73%&rarr;83%), so constancy is
+<b>not established</b>. The honest statement is narrower: in the two years we could check, the bias is
+mostly level-like; whether the trend tests (Mann&ndash;Kendall / Theil&ndash;Sen) survive the correction
+is an <b>open item</b> that needs the engine&minus;BACI gap recomputed for every year in the trend
+window before those trend claims can be called robust. <b>Not valid:</b> absolute dollar levels — there is a known
 ~1.5–1.8× offset (current Comtrade runs above BACI's published values; diagnosed above), so arc and
 Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that the offset is a clean
 <i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and
