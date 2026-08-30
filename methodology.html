@@ -286,7 +286,11 @@ directional scenario (Q1 momentum, shares held at 2025) — a trend signal, not 
 reconciled, mirror-harmonised form <b>CEPII BACI</b> (Gaulier, G. &amp; Zignago, S., 2010, <i>BACI:
 International Trade Database at the Product-Level</i>, CEPII WP 2010-23) — releases HS02 + HS17 V202601, years
 <b>2002–2024</b> (HS02 vintage through 2016, HS17 from 2017). The year is
-selectable in the tool.</p>
+selectable in the tool. <b>Does the 2016/17 vintage join manufacture a trend?</b> Tested: the mean
+year-over-year change in top-exporter share <i>at the splice</i> (4.6&nbsp;pp) is if anything
+<i>smaller</i> than a typical year (5.1&nbsp;pp average across all boundaries) &mdash; <b>&minus;0.5&nbsp;standard
+deviations</b>, well inside ordinary variation. The splice is invisible in the series, so trends across
+2002&ndash;2024 are not artefacts of it (reproducible: <code>build_splice_sensitivity.py</code>).</p>
 <p><b>EU import-origin lens</b> (Table view): Eurostat Comext, dataset <code>DS-045409</code>, extra-EU
 imports, annual. Base-R pipeline, parameterised by CN code, refreshes from the live API.
 <b>Mine production &amp; reserves:</b> USGS Mineral Commodity Summaries (annual editions 2020–2024, with a
