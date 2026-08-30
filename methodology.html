@@ -254,20 +254,27 @@ in CI from committed data (no API key) — see the <a href="https://github.com/m
 <p>Full per-material 2024 result (red rows = top-1 miss):</p>
 <table><thead><tr><th>Material</th><th>Top exporter (ours vs BACI)</th><th class="n">share MAE</th><th class="n">HHI ours</th><th class="n">HHI BACI</th></tr></thead><tbody><tr style="background:#fdf2f2"><td>fluorspar</td><td><b>ZAF</b> vs MEX</td><td class="n">9.0%</td><td class="n">0.25</td><td class="n">0.25</td></tr><tr style="background:#fdf2f2"><td>graphite</td><td><b>TZA</b> vs CHN</td><td class="n">6.7%</td><td class="n">0.14</td><td class="n">0.21</td></tr><tr style="background:#fdf2f2"><td>arsenic</td><td><b>JPN</b> vs CHN</td><td class="n">4.5%</td><td class="n">0.18</td><td class="n">0.18</td></tr><tr style="background:#fdf2f2"><td>phosphate</td><td><b>MAR</b> vs JOR</td><td class="n">4.0%</td><td class="n">0.16</td><td class="n">0.15</td></tr><tr style="background:#fdf2f2"><td>tantalum</td><td><b>CHN</b> vs USA</td><td class="n">3.5%</td><td class="n">0.14</td><td class="n">0.16</td></tr><tr><td>beryllium</td><td>KAZ ✓</td><td class="n">5.5%</td><td class="n">0.53</td><td class="n">0.80</td></tr><tr><td>cobalt</td><td>COD ✓</td><td class="n">5.2%</td><td class="n">0.22</td><td class="n">0.17</td></tr><tr><td>vanadium</td><td>AUT ✓</td><td class="n">4.7%</td><td class="n">0.16</td><td class="n">0.13</td></tr><tr><td>tungsten</td><td>CHN ✓</td><td class="n">4.7%</td><td class="n">0.28</td><td class="n">0.40</td></tr><tr><td>titanium</td><td>JPN ✓</td><td class="n">4.3%</td><td class="n">0.13</td><td class="n">0.18</td></tr><tr><td>manganese</td><td>ZAF ✓</td><td class="n">4.2%</td><td class="n">0.44</td><td class="n">0.33</td></tr><tr><td>baryte</td><td>IND ✓</td><td class="n">3.8%</td><td class="n">0.09</td><td class="n">0.11</td></tr><tr><td>silicon</td><td>CHN ✓</td><td class="n">3.5%</td><td class="n">0.14</td><td class="n">0.20</td></tr><tr><td>strontium</td><td>DEU ✓</td><td class="n">3.4%</td><td class="n">0.43</td><td class="n">0.44</td></tr><tr><td>feldspar</td><td>TUR ✓</td><td class="n">3.4%</td><td class="n">0.32</td><td class="n">0.21</td></tr><tr><td>Ga/Ge/Hf</td><td>CHN ✓</td><td class="n">2.9%</td><td class="n">0.13</td><td class="n">0.14</td></tr><tr><td>boron</td><td>TUR ✓</td><td class="n">2.8%</td><td class="n">0.47</td><td class="n">0.38</td></tr><tr><td>helium</td><td>QAT ✓</td><td class="n">2.8%</td><td class="n">0.17</td><td class="n">0.16</td></tr><tr><td>antimony</td><td>TJK ✓</td><td class="n">2.7%</td><td class="n">0.19</td><td class="n">0.17</td></tr><tr><td>cokingcoal</td><td>AUS ✓</td><td class="n">2.6%</td><td class="n">0.21</td><td class="n">0.22</td></tr><tr><td>palladium</td><td>ZAF ✓</td><td class="n">2.6%</td><td class="n">0.18</td><td class="n">0.14</td></tr><tr><td>magnets</td><td>CHN ✓</td><td class="n">2.3%</td><td class="n">0.38</td><td class="n">0.41</td></tr><tr><td>nickel</td><td>NOR ✓</td><td class="n">2.3%</td><td class="n">0.11</td><td class="n">0.09</td></tr><tr><td>niobium</td><td>BRA ✓</td><td class="n">2.2%</td><td class="n">0.54</td><td class="n">0.59</td></tr><tr><td>bauxite</td><td>GIN ✓</td><td class="n">2.1%</td><td class="n">0.45</td><td class="n">0.55</td></tr><tr><td>copper</td><td>COD ✓</td><td class="n">2.0%</td><td class="n">0.08</td><td class="n">0.11</td></tr><tr><td>lithium</td><td>CHL ✓</td><td class="n">1.9%</td><td class="n">0.50</td><td class="n">0.59</td></tr><tr><td>magnesium</td><td>CHN ✓</td><td class="n">1.9%</td><td class="n">0.48</td><td class="n">0.54</td></tr><tr><td>platinum</td><td>ZAF ✓</td><td class="n">1.4%</td><td class="n">0.18</td><td class="n">0.16</td></tr><tr><td>phosphorus</td><td>VNM ✓</td><td class="n">1.1%</td><td class="n">0.37</td><td class="n">0.35</td></tr></tbody></table>
 <p class="q"><b>What it is and isn't valid for.</b> <b>Valid:</b> shares, ranks and top exporters.
-<b>Concentration (HHI): directionally valid, but read with care.</b> An adversarial audit found the
-reconciliation can <i>understate</i> concentration for <b>thin, dominated commodities</b>: on identical
-flows and the same leader, averaging the two mirror reports dilutes the dominant share, so the atlas's
-HHI runs below official BACI's &mdash; beryllium <b>0.53 vs 0.80</b>, tungsten <b>0.28 vs 0.40</b>. For
-such materials treat the atlas HHI as a <i>lower bound</i> and the higher BACI value as equally valid
-(reproducible: <code>build_hhi_divergence.py</code>). <b>Not valid:</b> absolute dollar levels — there is a known
+<b>Concentration (HHI): corrected.</b> An adversarial audit found — and we have now measured across
+<b>every commodity and both audited snapshot years (2022 and 2024)</b> — that the engine's mirror
+average is <b>not a uniform offset</b>: it shrinks the dominant exporter's reported value more than the
+tail's, so it <i>preserves the leader's identity and rank</i> (kept in <b>73% of commodities in 2022, 83%
+in 2024</b>) but systematically <b>dilutes the leader's share</b> (median <b>~2 percentage points</b>) and
+<b>understates concentration</b> (median HHI understated <b>+0.01</b>, but up to <b>+0.27</b> for thin,
+dominated commodities). This is the same mechanism behind both the level offset and the HHI gap — one
+phenomenon, not two. We therefore <b>correct it</b>: the authoritative concentration is the un-diluted
+official value, published per material in <code>out/hhi_correction.json</code> and reproducible with
+<code>build_hhi_correction.py</code>. The eight materials most affected in 2024 (engine&nbsp;&rarr;&nbsp;corrected):
+beryllium <b>0.53&rarr;0.80</b>, tungsten <b>0.28&rarr;0.40</b>, bauxite <b>0.45&rarr;0.55</b>, lithium
+<b>0.50&rarr;0.59</b>, graphite <b>0.14&rarr;0.21</b>, silicon <b>0.14&rarr;0.20</b>, magnesium
+<b>0.48&rarr;0.54</b>, titanium <b>0.13&rarr;0.18</b>. Because the dilution is roughly constant year to
+year, it shifts the <i>level</i>, not the <i>trend</i>: the concentration <b>direction</b> tested on the
+Trends page (Mann&ndash;Kendall / Theil&ndash;Sen) is unaffected. <b>Not valid:</b> absolute dollar levels — there is a known
 ~1.5–1.8× offset (current Comtrade runs above BACI's published values; diagnosed above), so arc and
-Sankey widths are <em>relative</em>, not dollar-precise. A <i>uniform</i> multiplicative offset cancels in shares
-<b>by construction</b> — so the real question is whether the offset is uniform. A 2024 check (engine vs
-official BACI) finds it is <b>not strongly country-tilted</b>: re-export hubs and producers differ by
-~0.01 percentage points in computed share. <b>Honest caveat</b> (added after an adversarial review): this
-is a single year, and 2024 is the year the levels are calibrated to, so it is <i>in-sample</i> and tests
-country-level tilt only &mdash; read it as &ldquo;no gross country distortion detected,&rdquo; <b>not</b> a
-full validation across every product code, route or filer (reproducible: <code>build_level_bias_audit.py</code>). <b>2025*</b> is provisional (partial reporting,
+Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that the offset is a clean
+<i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and
+is retracted</b>: the two-year measurement above shows the offset falls unevenly on the leader, which is
+precisely why concentration needed correcting (reproducible: <code>build_level_bias_audit.py</code>,
+<code>build_hhi_correction.py</code>). <b>2025*</b> is provisional (partial reporting,
 level-calibrated to BACI; not independently validated until BACI 2025 is released). <b>2026**</b> is a
 directional scenario (Q1 momentum, shares held at 2025) — a trend signal, not a measurement.</p>
 
