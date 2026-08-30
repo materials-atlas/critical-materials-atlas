@@ -60,6 +60,21 @@
   <p>Honesty requires naming what this backtest does <i>not</i> prove. Because top exporters rarely change, 84% is a <b>high base rate</b> &mdash; persistence is a strong baseline, not a low bar cleared. The open question is whether the reconciliation engine, which folds in the current year&rsquo;s <i>partial</i> customs data, actually <b>beats</b> that baseline. It clearly <i>moves</i>: the engine&rsquo;s 2025 nowcast departs substantially from simply carrying 2024 forward, so it is incorporating new information &mdash; but whether those moves are signal or noise cannot be known until the truth arrives.</p>
   <div class="rule" style="border-left-color:#2f6fae"><b>Pre-registration.</b> The atlas&rsquo;s <b>2025 nowcast is frozen and public now</b>. When CEPII releases official BACI&nbsp;2025 (trade data lags ~1.5 years, so around 2027), we will score the frozen nowcast against it <b>and</b> against the naive-persistence baseline &mdash; with <b>MASE</b> (a scaled error where &lt;1 means it beats naive, &gt;1 means it doesn&rsquo;t) and a <b>Diebold&ndash;Mariano</b> test for whether any edge is significant &mdash; and publish the result here, win or lose. Until then, the honest statement is that the engine&rsquo;s skill <i>over</i> persistence is <b>unproven</b>. The prediction exists before the answer does; that is the difference between a forecast and a fit.</p>
 
+  <h2 class="sec">Can a smarter model beat persistence? We tried six.</h2>
+  <p>Rather than assume persistence is best, we ran a bake-off the standard methods for a short, persistent, compositional, low-N series. Each predicts every year 2019&ndash;2024 from prior years only, scored the same way:</p>
+  <div class="tblwrap" style="overflow-x:auto"><table class="data" style="max-width:560px">
+    <thead><tr><th>Model</th><th class="n">top-exporter hit</th><th class="n">share error</th></tr></thead>
+    <tbody>
+      <tr><td><b>Persistence (naive)</b></td><td class="n"><b>84.4%</b></td><td class="n">4.83pp</td></tr>
+      <tr><td>3-year moving average</td><td class="n">83.3%</td><td class="n">4.96pp</td></tr>
+      <tr><td>5-year moving average</td><td class="n">81.8%</td><td class="n">5.74pp</td></tr>
+      <tr><td>Exponential smoothing</td><td class="n">81.8%</td><td class="n">5.06pp</td></tr>
+      <tr><td>Shrink 70% &rarr; 5-yr mean</td><td class="n">82.3%</td><td class="n"><b>4.66pp</b></td></tr>
+      <tr><td>Linear trend</td><td class="n">82.3%</td><td class="n">5.75pp</td></tr>
+    </tbody>
+  </table></div>
+  <div class="rule"><b>None beats naive persistence at naming the top exporter</b> &mdash; 84.4% is the ceiling. One (shrinking last year&rsquo;s shares 70% toward the 5-year mean) marginally improves the <i>share</i> error (4.83&nbsp;&rarr;&nbsp;4.66pp). That is exactly the Meese&ndash;Rogoff result, now on our own data: a series this persistent leaves little for a cleverer extrapolation to add. So the honest conclusion is not &ldquo;our forecast is clever&rdquo; but &ldquo;<b>the world is stable, and the only real lever is the reconciliation engine&rsquo;s use of current-year data</b>&rdquo; &mdash; which is the pre-registered test above. One candidate we have <i>not</i> tried, plausibly better in low-N: hierarchical/panel shrinkage that borrows across all 32 materials. <span style="color:var(--mut);font-size:.9em">(Reproducible: <code>build_nowcast_models.py</code>.)</span></div>
+
   <h2 class="sec">Hit rate by test year</h2>
   <p class="note" style="margin-top:0">Top-exporter hit rate when each year is predicted from the year before, across all materials with data in both years.</p>
   <table class="data"><thead><tr><th>Predicted year</th><th class="n">correct</th><th class="n">hit rate</th></tr></thead><tbody><tr><td>2019</td><td class="n">27/32</td><td class="n">84%</td></tr><tr><td>2020</td><td class="n">27/32</td><td class="n">84%</td></tr><tr><td>2021</td><td class="n">27/32</td><td class="n">84%</td></tr><tr><td>2022</td><td class="n">27/32</td><td class="n">84%</td></tr><tr><td>2023</td><td class="n">26/32</td><td class="n">81%</td></tr><tr><td>2024</td><td class="n">28/32</td><td class="n">88%</td></tr></tbody></table>
