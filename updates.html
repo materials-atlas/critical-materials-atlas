@@ -35,6 +35,14 @@
 <article>
   <div class="entry">
     <div class="date">30 August 2026 <span class="tag">method</span></div>
+    <h3>The two open council items closed: forecast confidence intervals, and a blind second rater for the taxonomy</h3>
+    <ul>
+      <li><b>Forecast bake-off, now with confidence intervals.</b> A paired <b>block-bootstrap over the 32 materials</b> (2,000 resamples, respecting the China-tops-many dependence; <code>build_nowcast_bootstrap.py</code>) replaces the bare leaderboard. Result: on <i>who leads</i>, no model separates from persistence; on the leader&rsquo;s <i>share</i>, exactly one is statistically distinguishable as better &mdash; the compositional CLR-shrink model, by &minus;0.31pp (95% CI &minus;0.55 to &minus;0.07). The rest are indistinguishable or worse. So &ldquo;only a compositional model reliably beats naive persistence, and only by a third of a point.&rdquo; See <a href="nowcast-backtest">the backtest</a>.</li>
+      <li><b>Mechanism taxonomy, now with an inter-rater check.</b> All 58 chokepoints were re-coded by an <b>independent classifier working blind</b> (stage facts + the eight definitions only, atlas labels hidden; <code>build_taxonomy_agreement.py</code>). Agreement <b>86%</b>, Cohen&rsquo;s <b>&kappa;&nbsp;=&nbsp;0.83</b> (&ldquo;almost perfect&rdquo;). The eight disagreements land mainly on chains the atlas already shows as blends (beryllium, cobalt, antimony) &mdash; it stays a consistency check, not a domain-expert panel. Shown on the <a href="chokepoint-map">Chokepoint Map</a> and <a href="report-mechanism-taxonomy">Report&nbsp;04</a>.</li>
+    </ul>
+  </div>
+  <div class="entry">
+    <div class="date">30 August 2026 <span class="tag">method</span></div>
     <h3>Concentration reported as an envelope, and the trend claim tested on 23 years, not two</h3>
     <p>A maximum-strictness adversarial council (two independent engines) attacked the corrections shipped earlier the same day and landed real hits — on the corrections themselves. Both were addressed with new work, not new wording:</p>
     <ul>

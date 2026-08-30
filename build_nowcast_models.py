@@ -88,28 +88,33 @@ def m_clr_shrink(a,k):
 
 MODELS = {'persistence (naive)': m_persist, 'compositional CLR-shrink 0.7->3yr': m_clr_shrink(0.7,3), '3-yr moving avg': m_ma(3), '5-yr moving avg': m_ma(5),
           'exp. smoothing (a=.4)': m_ses(0.4), 'shrink 70% -> 5-yr mean': m_shrink(0.7, 5), 'linear trend': m_lintrend(4)}
-res = {k: {'hit': 0, 'n': 0, 'smae': []} for k in MODELS}
-for lab in LAB:
-    h = series[lab]; ys_all = sorted(h)
-    for T in range(2019, 2025):
-        if T not in h:
-            continue
-        hist = [y for y in ys_all if y < T]
-        if len(hist) < 3:
-            continue
-        hpast = {y: h[y] for y in hist}; actual = h[T]; at = top(actual)
-        for name, fn in MODELS.items():
-            try:
-                pred = fn(hpast, hist)
-            except Exception:
+def per_material_records():
+    """For each material, the list of test-year outcomes per model: (top_hit 0/1, share_abs_err pp).
+    Exposed so build_nowcast_bootstrap.py can block-bootstrap over materials."""
+    recs = {lab: {name: [] for name in MODELS} for lab in LAB}
+    for lab in LAB:
+        h = series[lab]; ys_all = sorted(h)
+        for T in range(2019, 2025):
+            if T not in h:
                 continue
-            r = res[name]; r['n'] += 1
-            r['hit'] += (top(pred) == at)
-            r['smae'].append(abs(pred.get(at, 0) - actual[at]) * 100)
+            hist = [y for y in ys_all if y < T]
+            if len(hist) < 3:
+                continue
+            hpast = {y: h[y] for y in hist}; actual = h[T]; at = top(actual)
+            for name, fn in MODELS.items():
+                try:
+                    pred = fn(hpast, hist)
+                except Exception:
+                    continue
+                recs[lab][name].append((int(top(pred) == at), abs(pred.get(at, 0) - actual[at]) * 100))
+    return recs
 
-print(f"{'model':24} {'top-hit':>8} {'shareMAE':>9}")
-for name, r in res.items():
-    print(f"{name:24} {100*r['hit']/r['n']:7.1f}% {statistics.mean(r['smae']):8.2f}pp")
-print("\nNo model beats naive persistence at identifying the top exporter; shrink-to-mean marginally "
-      "improves the share error. Persistence is near-optimal among simple models — the real lever is "
-      "current-year reconciliation, not a cleverer extrapolation.")
+if __name__ == '__main__':
+    recs = per_material_records()
+    print(f"{'model':24} {'top-hit':>8} {'shareMAE':>9}")
+    for name in MODELS:
+        flat = [o for lab in LAB for o in recs[lab][name]]
+        print(f"{name:24} {100*sum(h for h,_ in flat)/len(flat):7.1f}% {statistics.mean(e for _,e in flat):8.2f}pp")
+    print("\nNo model beats naive persistence at identifying the top exporter; shrink-to-mean marginally "
+          "improves the share error. Persistence is near-optimal among simple models — the real lever is "
+          "current-year reconciliation, not a cleverer extrapolation.")
