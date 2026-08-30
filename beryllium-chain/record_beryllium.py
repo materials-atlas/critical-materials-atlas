@@ -24,7 +24,7 @@ SRC = {
 
 CHAIN = {
     "title": "Beryllium chain",
-    "chokepoint": {"product": "Aerospace · defence", "stage": "Extraction (US)", "mechanism": "capability", "physics": "Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint", "holder": "United States", "share": "~53%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Aerospace · defence", "stage": "Extraction (US)", "mechanism": "capability", "secondary": "geological", "research": True, "physics": "Hard-won hydrometallurgy + alloying, guarded by toxicity — concentrated in the US, the non-China chokepoint", "holder": "United States", "share": "~53%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../aerospace-chain/aerospace-chain", "label": "Aerospace chain"}, {"href": "../defence-chain/defence-chain", "label": "Defence chain"}, {"href": "../copper-chain/copper-chain", "label": "Copper chain"}],
     "accent": "#4a6a4a",

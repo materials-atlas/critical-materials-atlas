@@ -17,7 +17,7 @@ SRC = {
 
 CHAIN = {
     "title": "Nuclear fuel chain",
-    "chokepoint": {"product": "Reactor fuel", "stage": "Enrichment", "mechanism": "capability", "physics": "Centrifuge enrichment — a licensed service; Russia the largest", "holder": "Russia", "share": "largest", "control": "—", "conf": "estimate"},
+    "chokepoint": {"product": "Reactor fuel", "stage": "Enrichment", "mechanism": "capability", "secondary": "policy", "research": True, "physics": "Centrifuge enrichment — a licensed service; Russia the largest", "holder": "Russia", "share": "largest", "control": "—", "conf": "estimate"},
     "published": True,
     "related": [{"href": "../defence-chain/defence-chain", "label": "Defence chain"}],
     "accent": "#5a7d4a",

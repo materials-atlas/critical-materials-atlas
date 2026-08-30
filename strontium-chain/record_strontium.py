@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Strontium chain",
-    "chokepoint": {"product": "Ferrite magnets · pyrotechnics", "stage": "Mine (celestite)", "mechanism": "diffuse", "physics": "A small celestite-mineral market spread across Iran, China, Spain and Mexico — moderately concentrated, no severe chokepoint", "holder": "Iran", "share": "~56%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Ferrite magnets · pyrotechnics", "stage": "Mine (celestite)", "mechanism": "geological", "physics": "Iran mines ~56% of world celestite from its own mineral deposits — a geological concentration in the ground, not a diffuse market", "holder": "Iran", "share": "~56%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../boron-chain/boron-chain", "label": "Boron chain"}, {"href": "../rare-earths-chain/rare-earths-chain", "label": "Rare earths (full basket)"}],
     "accent": "#8a5a5a",

@@ -46,6 +46,10 @@ def derive():
             continue
         row = {"chain": slug, "href": "%s-chain/%s-chain.html" % (slug, slug)}
         row.update({k: ck.get(k, "—") for k in ("product", "stage", "mechanism", "physics", "holder", "share", "control", "conf")})
+        if ck.get("secondary"):          # a chain can carry a secondary mechanism where the concentration is a genuine blend
+            row["secondary"] = ck["secondary"]
+        if ck.get("research"):           # flagged as needing deeper research on the mechanism split
+            row["research"] = True
         if row["conf"] == "estimate" and slug in basis:
             row["basis"] = basis[slug]
         rows.append(row)

@@ -23,7 +23,7 @@ SRC = {
 
 CHAIN = {
     "title": "Vanadium chain",
-    "chokepoint": {"product": "Steel + storage", "stage": "Recovery", "mechanism": "byproduct", "physics": "Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel", "holder": "China", "share": "~75%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Steel + storage", "stage": "Recovery", "mechanism": "byproduct", "secondary": "capability", "research": True, "physics": "Recovered from vanadium-bearing iron ore + steel slag — rides on China's steel", "holder": "China", "share": "~75%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../steel-alloys-chain/steel-alloys-chain", "label": "Steel-alloys chain"}, {"href": "../grid-chain/grid-chain", "label": "Electricity-grid chain"}, {"href": "../battery-chain/battery-chain", "label": "Battery chain"}],
     "accent": "#5a5a7a",
