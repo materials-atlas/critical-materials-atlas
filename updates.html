@@ -35,6 +35,16 @@
 <article>
   <div class="entry">
     <div class="date">30 August 2026 <span class="tag">method</span></div>
+    <h3>Concentration reported as an envelope, and the trend claim tested on 23 years, not two</h3>
+    <p>A maximum-strictness adversarial council (two independent engines) attacked the corrections shipped earlier the same day and landed real hits — on the corrections themselves. Both were addressed with new work, not new wording:</p>
+    <ul>
+      <li><b>&ldquo;Correct toward BACI&rdquo; was itself an overclaim — replaced with a reconciliation envelope.</b> BACI is not ground truth; it is CEPII&rsquo;s reconciliation of the same mirror reports, and our engine is a reconciliation too (CIF/FOB + inverse-variance weights, not a plain average, as a stray earlier line implied). <code>build_recon_envelope.py</code> now reports concentration <b>four ways</b> per commodity — exporter-only (FOB) and importer-only (CIF), which <b>bracket</b> the truth, plus the two reconciliations inside. The finding sharpens the critique: the raw bracket is wide (median 0.07–0.09 HHI, up to 0.54), and <b>BACI falls outside it for 24 of 30 commodities</b>, usually at the high end. There is no true point to correct to — only a band, with the atlas engine near its lower edge. The one-number &ldquo;beryllium 0.53&rarr;0.80&rdquo; is now shown as a band ~0.5–0.8.</li>
+      <li><b>The &ldquo;level not trend&rdquo; claim, previously resting on two years, tested across 23.</b> <code>build_trend_robustness.py</code> recomputes the export-HHI series every year 2002–2024 on the engine <i>and</i> on CEPII BACI independently, and runs Mann–Kendall on each. The reconciliation choice does <b>not</b> change the trend for <b>27 of 29</b> commodities (same sign and significance). Two exceptions named: phosphorus (borderline, same direction) and <b>cobalt</b> (a genuine disagreement — now flagged unresolved).</li>
+    </ul>
+    <p class="src" style="color:var(--faint);font-size:.82rem">The council also left standing items we did not close and say so on <a href="method">Method</a>: a codebook + second rater for the mechanism taxonomy, and per-commodity confidence bands on the forecast bake-off (a paired block-bootstrap). Cross-checked with two external engines.</p>
+  </div>
+  <div class="entry">
+    <div class="date">30 August 2026 <span class="tag">method</span></div>
     <h3>Concentration corrected, the level-bias claim retracted, and the taxonomy set beside its peers</h3>
     <ul>
       <li><b>Concentration (HHI) corrected, not just flagged.</b> Two audit items turned out to be one phenomenon. The engine averages each flow&rsquo;s exporter- and importer-reported value, and that average is <i>not</i> a uniform offset — it shrinks the dominant exporter more than the tail. Measured across <b>every commodity and both audited years (2022 and 2024)</b>, it preserves the leader&rsquo;s identity (73% / 83% of commodities) but dilutes the leader&rsquo;s share by a median <b>~2pp</b> and understates HHI (median +0.01, up to <b>+0.27</b> for beryllium). The authoritative concentration is now the un-diluted official value, published per material in <code>out/hhi_correction.json</code> (<code>build_hhi_correction.py</code>) and used to correct the figures on <a href="method">Method</a>.</li>
