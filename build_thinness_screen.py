@@ -10,9 +10,11 @@ outcomes. So we screen every tracked code, up front, on three fragility signals:
   3. top-1 leverage: how much the HHI moves if the single largest exporter flow is dropped
      (high leverage -> one flow drives the whole concentration signal)
 
-A commodity is flagged THIN-FRAGILE if trade value < $100M OR fewer than 8 active exporters OR the
-top-1-drop moves HHI by more than 0.10. Concentration and trend claims on flagged codes should be read
-as indicative, not measured. This is the ex-ante rule cobalt should have been caught by.
+A commodity is flagged THIN-FRAGILE if trade value < $100M OR fewer than 8 active exporters. Top-1
+leverage is reported too, but is NOT a fragility flag on its own: in a deep market with many exporters,
+high leverage means the commodity is GENUINELY dominated by one country (bauxite->Guinea, niobium->Brazil)
+-- that is a finding, not a data problem. Leverage counts toward fragility only when the market is also
+thin. Concentration/trend claims on thin-fragile codes should be read as indicative, not measured.
 
 Run: python build_thinness_screen.py   ->  writes out/thinness_screen.json   (uses official BACI 2024)
 """
@@ -50,23 +52,27 @@ for code, d in exp.items():
         lev = abs(h - hhi(d2)) if hhi(d2) is not None else None
     else:
         lev = 1.0
-    thin = (total < VAL_MIN) or (n < N_MIN) or (lev is not None and lev > LEV_MAX)
+    # thinness = a shallow market only (low value OR few exporters). High top-1 leverage is NOT
+    # fragility -- in a real market it is genuine single-country dominance, a finding, tagged separately.
+    thin = (total < VAL_MIN) or (n < N_MIN)
     reasons = []
     if total < VAL_MIN: reasons.append('low trade value')
     if n < N_MIN: reasons.append('few exporters')
-    if lev is not None and lev > LEV_MAX: reasons.append('top-1 leverage')
+    single_supplier = bool(lev is not None and lev > LEV_MAX and not thin)   # genuinely one-country dominated
     rows.append({'code': code, 'name': CODE2NAME.get(code, code),
                  'trade_value_musd': round(total / 1e6, 1), 'n_exporters': n,
                  'hhi': round(h, 3) if h else None,
                  'top1_leverage': round(lev, 3) if lev is not None else None,
-                 'thin_fragile': bool(thin), 'reasons': reasons})
+                 'thin_fragile': bool(thin), 'single_supplier_dominated': single_supplier,
+                 'reasons': reasons})
 
 rows.sort(key=lambda r: (not r['thin_fragile'], r['trade_value_musd']))
 flagged = [r for r in rows if r['thin_fragile']]
-out = {'note': ('Ex-ante thinness screen on official BACI 2024. A commodity is THIN-FRAGILE if annual '
-                f'trade value < ${VAL_MIN/1e6:.0f}M, or fewer than {N_MIN} active exporters, or dropping '
-                f'the single largest exporter moves HHI by more than {LEV_MAX}. Concentration/trend claims '
-                'on flagged codes are indicative, not measured.'),
+out = {'note': ('Ex-ante thinness screen on official BACI 2024. THIN-FRAGILE if annual trade value < '
+                f'${VAL_MIN/1e6:.0f}M or fewer than {N_MIN} active exporters (or high single-flow leverage '
+                'in a sub-$1B market). High top-1 leverage in a DEEP market is genuine single-country '
+                'dominance (single_supplier_dominated), a finding, not a data flag. Thin-fragile '
+                'concentration/trend claims are indicative, not measured.'),
        'thresholds': {'value_musd_min': VAL_MIN / 1e6, 'n_exporters_min': N_MIN, 'top1_leverage_max': LEV_MAX},
        'n_flagged': len(flagged), 'n_total': len(rows), 'materials': rows}
 json.dump(out, open(os.path.join(ROOT, 'out', 'thinness_screen.json'), 'w', encoding='utf-8'),
