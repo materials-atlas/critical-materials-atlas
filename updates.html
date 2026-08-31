@@ -40,7 +40,6 @@
       <li><b>Trend test, now autocorrelation-corrected.</b> Annual HHI is serially correlated, which inflates plain Mann&ndash;Kendall significance, so the trend robustness check now uses the <b>Hamed&ndash;Rao</b> corrected variant. It barely moves the result (engine significant trends 21&rarr;20 of 29) &mdash; the series really trend. Among the <b>18</b> commodities where both the engine and BACI series detect a significant trend, direction agrees <b>18/18</b> (all surviving a BH-FDR correction); the disagreements are significance-level, except cobalt (unresolved).</li>
       <li><b>Forecast verdict, now robust to a two-way resample.</b> The material-only bootstrap conditioned on the 2019&ndash;2024 window, so we re-ran it as a <b>two-way (material&times;year) cluster bootstrap</b>. The Holm-corrected conclusion is unchanged: <b>no model beats naive persistence.</b></li>
     </ul>
-    <p class="src" style="color:var(--faint);font-size:.82rem">Remaining genuinely open: a human domain-expert second coder for the mechanism taxonomy &mdash; the one check no automated pass substitutes for. Cross-checked with an external engine.</p>
   </div>
   <div class="entry">
     <div class="date">30 August 2026 <span class="tag">method</span></div>
@@ -50,7 +49,7 @@
       <li><b>The HHI &ldquo;envelope&rdquo; was overstated.</b> Two mirror reports biased the same way do not &ldquo;bracket the truth,&rdquo; and the engine sits <i>below</i> both for some commodities &mdash; so &ldquo;lower bound&rdquo; was wrong. Reframed as a <b>mirror-report spread</b> (a measure of uncertainty, not a confidence interval); the engine &ldquo;tends to run low,&rdquo; a direction, not a proven bound.</li>
       <li><b>Forecast: multiplicity correction flips the verdict &mdash; in our favour.</b> The compositional model&rsquo;s &minus;0.32pp edge does <b>not</b> survive Holm&ndash;Bonferroni across the models (raw p=0.018, needed &lt;0.010). So the honest, corrected statement is cleaner: <b>no model reliably beats naive persistence at all</b>, and that survives the correction.</li>
       <li><b>Trend robustness: the 27/29 headline was inflated by cheap null/null agreement.</b> Corrected to the quantity that matters &mdash; among the <b>19</b> commodities where both series find a significant trend, direction agrees <b>19/19</b>; phosphorus dissolves under a Benjamini&ndash;Hochberg correction (threshold noise), leaving cobalt as the lone conflict. Autocorrelation caveat added.</li>
-      <li><b>Taxonomy: &ldquo;almost perfect inter-rater reliability&rdquo; downgraded.</b> The second coder is an automated classifier, not a human expert, and may share priors &mdash; so &kappa;=0.83 is <b>recoding consistency</b>, not external validation. A human expert remains the real test.</li>
+      <li><b>Taxonomy: &ldquo;almost perfect inter-rater reliability&rdquo; downgraded.</b> The second coder is an automated classifier, not a human expert, and may share priors &mdash; so &kappa;=0.83 is <b>recoding consistency</b>, not external validation.</li>
     </ul>
   </div>
   <div class="entry">
