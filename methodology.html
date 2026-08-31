@@ -331,12 +331,18 @@ level-space mean changes the concentration almost nothing. The other diluter is 
 (imports with no matching exporter report &mdash; often re-export/entrepôt) inflating the tail; but a full
 down-weight sweep shows no middle setting helps &mdash; partial weights barely move the BACI gap while
 <i>worsening</i> the fit, and only dropping them entirely improves raw-bracket coverage, at the cost of
-<b>over-shooting</b> past BACI. We measure this two truth-agnostic ways: agreement with BACI (an external
-reconstruction, not ground truth) and coverage of the raw [exporter, importer] bracket; no operator we
-tested improves one without hurting the other. That does <b>not</b> prove the bias is intrinsically
-unfixable &mdash; a log-normal bias correction or a gravity-fitted CIF (BACI&rsquo;s own method) remain untested
-&mdash; but the two obvious levers fail, so we report the spread as-is rather than hand-tune the engine toward
-BACI, which is not a target to hit. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
+<b>over-shooting</b> past BACI. We also tested the principled candidate a
+reviewer named &mdash; the <b>log-normal smearing correction</b> (multiply the geometric mean by
+exp&frac12;&sigma;&sup2; to retransform from log-median to level-mean). It <b>fails badly here</b>: with only
+two reports per flow the variance &sigma;&sup2; is far too noisy, and the exponential over-inflates
+high-disagreement flows (a 100&times; mirror gap becomes a ~13&times; multiplier, pushing the value above
+<i>both</i> reports), so concentration over-shoots &mdash; raw-bracket coverage collapses from 17/30 to 6/30.
+We measure all of this two truth-agnostic ways: agreement with BACI (an external reconstruction, not
+ground truth) and coverage of the raw [exporter, importer] bracket; <b>no operator we tested improves one
+without hurting the other</b>. The one lever left untried is a gravity-fitted CIF like BACI&rsquo;s, which
+<code>reconcile.py</code> documents as statistically unidentified on this 31-code slice (R&sup2;&nbsp;&asymp;&nbsp;0.01).
+So among the operators available to us, none improves the estimate &mdash; we report the spread as-is rather
+than hand-tune the engine toward BACI, which is not a target to hit. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
 the trend&rdquo; on only two years, which was not enough &mdash; so we did the full test
 (<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>):
 recompute the export-HHI series <b>every year 2002&ndash;2024</b> on the engine reconciliation <i>and</i>

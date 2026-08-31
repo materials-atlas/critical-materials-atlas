@@ -73,6 +73,10 @@ def reconcile(op, drop_imp_only=False):
             wi, wj = 1.0 / vget(i), 1.0 / vget(j)
             if op == 'geometric':
                 val = math.exp((wi * math.log(x) + wj * math.log(mf)) / (wi + wj))
+            elif op == 'smearing':   # log-normal retransform bias correction: geometric * exp(0.5*var)
+                lh = (wi * math.log(x) + wj * math.log(mf)) / (wi + wj)
+                s2 = (wi * (math.log(x) - lh) ** 2 + wj * (math.log(mf) - lh) ** 2) / (wi + wj)
+                val = math.exp(lh + 0.5 * s2)
             else:  # arithmetic inverse-variance on levels
                 val = (wi * x + wj * mf) / (wi + wj)
         elif x > 0:
