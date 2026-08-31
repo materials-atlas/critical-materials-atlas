@@ -109,6 +109,29 @@ def per_material_records():
                 recs[lab][name].append((int(top(pred) == at), abs(pred.get(at, 0) - actual[at]) * 100))
     return recs
 
+def per_cell_records():
+    """Outcomes keyed by (material, test-year) cell: {(lab, T): {name: (hit, err)}}. Lets the bootstrap
+    resample BOTH materials and years (a two-way cluster bootstrap), not just materials."""
+    cells = {}
+    for lab in LAB:
+        h = series[lab]; ys_all = sorted(h)
+        for T in range(2019, 2025):
+            if T not in h:
+                continue
+            hist = [y for y in ys_all if y < T]
+            if len(hist) < 3:
+                continue
+            hpast = {y: h[y] for y in hist}; actual = h[T]; at = top(actual)
+            cell = {}
+            for name, fn in MODELS.items():
+                try:
+                    pred = fn(hpast, hist)
+                except Exception:
+                    continue
+                cell[name] = (int(top(pred) == at), abs(pred.get(at, 0) - actual[at]) * 100)
+            cells[(lab, T)] = cell
+    return cells
+
 if __name__ == '__main__':
     recs = per_material_records()
     print(f"{'model':24} {'top-hit':>8} {'shareMAE':>9}")

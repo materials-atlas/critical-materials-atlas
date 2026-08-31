@@ -279,18 +279,20 @@ at the bottom and BACI at the top. Does this band bias the <b>trend</b> claims? 
 the trend&rdquo; on only two years, which was not enough &mdash; so we did the full test
 (<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>):
 recompute the export-HHI series <b>every year 2002&ndash;2024</b> on the engine reconciliation <i>and</i>
-independently on CEPII BACI, and run a Mann&ndash;Kendall(-equivalent) trend test on each. Two honest
-caveats a reviewer forced (both concede real points): the test is a Kendall&ndash;tau on 23-point series and
-does <b>not</b> correct for autocorrelation, so absolute significance is approximate; and the raw headline
-&mdash; sign+significance agree for 27 of 29 &mdash; is inflated because <b>8 of those 27 agree only by both
-finding &ldquo;no trend,&rdquo;</b> which is cheap agreement. So we report the quantity that actually matters:
-<b>among the 19 commodities where both series detect a significant trend, the direction agrees 19 of 19</b>
-&mdash; the reconciliation choice never flips a real trend&rsquo;s sign. Of the two former &ldquo;exceptions,&rdquo;
-<b>phosphorus dissolves</b> once we apply a Benjamini&ndash;Hochberg correction across the 29 tests (its
-p=0.050 was threshold noise, exactly as the reviewer said), leaving <b>cobalt</b> as the one genuine
-significance conflict (engine: falling and significant; BACI: mildly rising, not) &mdash; its trend is
-<b>unresolved</b>. So the &ldquo;reconciliation choice does not change a real trend&rdquo; claim stands on 23
-years and on the significant cases specifically, with cobalt flagged as the lone exception. <b>Not valid:</b> absolute dollar levels — there is a known
+independently on CEPII BACI, and run a Mann&ndash;Kendall trend test on each &mdash; and, because a reviewer
+noted annual HHI is serially correlated (which inflates plain-MK significance), using the
+<b>Hamed&ndash;Rao autocorrelation-corrected</b> variant. The correction barely moves the picture: it drops
+the engine&rsquo;s significant trends from <b>21 to 20</b> of 29, so the series really are trending, not just
+persistent. A second honest point the reviewer forced: the raw &ldquo;sign+significance agree for 26 of 29&rdquo;
+headline is inflated because <b>8 of those agree only by both finding &ldquo;no trend,&rdquo;</b> which is cheap. So
+we report the quantity that actually matters: <b>among the 18 commodities where both series detect a
+significant trend, the direction agrees 18 of 18</b> &mdash; the reconciliation choice never flips a real
+trend&rsquo;s sign, and all 18 survive a Benjamini&ndash;Hochberg multiple-testing correction. The three
+disagreements are all <b>significance-level</b> (one series clears the bar, the other just misses: arsenic,
+titanium), not direction reversals &mdash; except <b>cobalt</b>, the one substantive conflict (engine: a
+significant fall; BACI: no significant trend), whose direction is <b>unresolved</b>. So the &ldquo;reconciliation
+choice does not change a real trend&rdquo; claim stands on 23 years, on the autocorrelation-corrected and
+FDR-guarded significant cases, with cobalt flagged as the lone exception. <b>Not valid:</b> absolute dollar levels — there is a known
 ~1.5–1.8× offset (current Comtrade runs above BACI's published values; diagnosed above), so arc and
 Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that the offset is a clean
 <i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and

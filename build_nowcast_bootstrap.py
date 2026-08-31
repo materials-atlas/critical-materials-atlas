@@ -12,7 +12,7 @@ heavier ETS/panel/Bayesian rows shown on the site are single-run point estimates
 bootstrapped here). Run: python build_nowcast_bootstrap.py -> writes out/nowcast_bootstrap.json
 """
 import os, json, random, statistics
-from build_nowcast_models import per_material_records, MODELS, LAB
+from build_nowcast_models import per_material_records, per_cell_records, MODELS, LAB
 
 random.seed(20260830)
 B = 2000
@@ -83,6 +83,48 @@ for i, r in enumerate(alt):
 holm_winners = [r['model'] for r in alt if r['survives_holm'] and r['direction'] == 'better']
 holm_worse = [r['model'] for r in alt if r['survives_holm'] and r['direction'] == 'worse']
 
+# --- two-way (material x year) cluster bootstrap: a reviewer noted the material-only resample
+# conditions on the exact 2019-2024 window. Resample BOTH materials and test-years with replacement
+# and re-check whether the Holm conclusion (no model beats persistence) is robust. ---
+CELLS = per_cell_records()
+alt_names = [n for n in MODELS if n != BASE]
+def cell_dmae(mats, yrs):
+    out = {n: [] for n in MODELS}
+    for lab in mats:
+        for T in yrs:
+            c = CELLS.get((lab, T))
+            if c:
+                for n in MODELS:
+                    if n in c:
+                        out[n].append(c[n][1])
+    if not out[BASE]:
+        return None
+    bm = statistics.mean(out[BASE])
+    return {n: (statistics.mean(out[n]) - bm) for n in alt_names if out[n]}
+YRS = list(range(2019, 2025))
+tw = {n: [] for n in alt_names}
+for _ in range(B):
+    mats = [random.choice(LABS) for _ in LABS]
+    yrs = [random.choice(YRS) for _ in YRS]
+    d = cell_dmae(mats, yrs)
+    if d:
+        for n in alt_names:
+            if n in d:
+                tw[n].append(d[n])
+def p_of(dd):
+    if not dd:
+        return 1.0
+    return round(2 * min(sum(x < 0 for x in dd), sum(x > 0 for x in dd)) / len(dd), 4)
+tw_ps = sorted((p_of(tw[n]), n) for n in alt_names)
+mt = len(tw_ps); still = True; tw_better = []
+for i, (p, n) in enumerate(tw_ps):
+    ok = still and p < 0.05 / (mt - i)
+    still = ok
+    if ok and statistics.mean(tw[n]) < 0:
+        tw_better.append(n)
+twoway = {'better_than_persistence_holm': tw_better,
+          'note': 'two-way (material x year) cluster bootstrap; Holm-corrected'}
+
 out = {'note': ('Block bootstrap over 32 materials (B=2000, seed 20260830). ESTIMAND: uncertainty across '
                 'the 32-material atlas conditional on the 2019-2024 backtest window -- not a claim about all '
                 'future years. Raw 95% paired-difference CIs are exploratory; the Holm-Bonferroni column '
@@ -90,6 +132,7 @@ out = {'note': ('Block bootstrap over 32 materials (B=2000, seed 20260830). ESTI
                 'single-run point estimates, not bootstrapped and outside this multiplicity correction.'),
        'B': B, 'n_materials': len(LABS), 'baseline': BASE,
        'holm_significant_better': holm_winners, 'holm_significant_worse': holm_worse,
+       'two_way_material_year': twoway,
        'models': rows}
 json.dump(out, open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out', 'nowcast_bootstrap.json'),
                     'w', encoding='utf-8'), indent=1, ensure_ascii=False)
@@ -106,4 +149,6 @@ print(f"\nHolm-Bonferroni verdict: better-than-persistence {holm_winners or 'NON
       f"worse {holm_worse or 'none'}.")
 print("No model reliably beats persistence after multiplicity correction." if not holm_winners
       else f"Survives as better: {holm_winners}")
+print(f"Two-way (material x year) resample, Holm-corrected: better-than-persistence "
+      f"{tw_better or 'NONE'} (robustness check on the material-only result).")
 print("wrote out/nowcast_bootstrap.json")

@@ -57,14 +57,6 @@ def baci_hhi_year(zf, year):
             out[cmd] = float(((sub.v / t) ** 2).sum())
     return out
 
-# --- BACI series ---
-baci_series = {}   # cmd -> {year: hhi}
-with zipfile.ZipFile(ZIP) as zf:
-    for y in YEARS:
-        for cmd, h in baci_hhi_year(zf, y).items():
-            baci_series.setdefault(cmd, {})[y] = h
-    print('BACI HS02 extracted', flush=True)
-
 # --- engine series from flows ---
 def engine_hhi_year(year):
     p = os.path.join(ROOT, 'out', f'flows_{year}.json')
@@ -84,22 +76,50 @@ def engine_hhi_year(year):
             out[tc] = sum((v / t) ** 2 for v in by.values())
     return out
 
-engine_series = {}
-for y in YEARS:
-    for cmd, h in engine_hhi_year(y).items():
-        engine_series.setdefault(cmd, {})[y] = h
+# --- series cache: the BACI HS02 extraction is slow (~4 min), so cache both annual series ---
+CACHE = os.path.join(ROOT, 'out', 'trend_series.json')
+baci_series, engine_series = {}, {}
+if os.path.exists(CACHE):
+    c = json.load(open(CACHE, encoding='utf-8'))
+    baci_series = {cmd: {int(y): v for y, v in d.items()} for cmd, d in c['baci'].items()}
+    engine_series = {cmd: {int(y): v for y, v in d.items()} for cmd, d in c['engine'].items()}
+    print('loaded series from cache', flush=True)
+else:
+    with zipfile.ZipFile(ZIP) as zf:
+        for y in YEARS:
+            for cmd, h in baci_hhi_year(zf, y).items():
+                baci_series.setdefault(cmd, {})[y] = h
+        print('BACI HS02 extracted', flush=True)
+    for y in YEARS:
+        for cmd, h in engine_hhi_year(y).items():
+            engine_series.setdefault(cmd, {})[y] = h
+    json.dump({'baci': baci_series, 'engine': engine_series},
+              open(CACHE, 'w', encoding='utf-8'))
+    print('wrote series cache', flush=True)
+
+import pymannkendall as pmk
 
 def mk(series):
-    """Mann-Kendall-equivalent: Kendall tau of value vs year. Returns (sign, p, n)."""
+    """Mann-Kendall trend test. Reports BOTH the plain test and the Hamed-Rao autocorrelation-corrected
+    variant (a reviewer objected that annual HHI is serially correlated, which inflates plain-MK
+    significance). 'sig'/'sign05' use the corrected test; 'p' is plain, 'p_hr' is corrected."""
     ys = sorted(series)
-    if len(ys) < 5:
+    if len(ys) < 8:
         return None
-    tau, p = kendalltau(ys, [series[y] for y in ys])
+    vals = [series[y] for y in ys]
+    tau, p = kendalltau(ys, vals)
     if tau is None or pd.isna(tau):
         return None
-    sign = 0 if p >= 0.05 else (1 if tau > 0 else -1)
-    return {'tau': round(float(tau), 3), 'p': round(float(p), 4),
-            'dir': 'rising' if tau > 0 else 'falling', 'sig': p < 0.05, 'n': len(ys), 'sign05': sign}
+    try:
+        hr = pmk.hamed_rao_modification_test(vals)
+        p_hr, sig_hr = float(hr.p), bool(hr.h)
+        rising = (hr.trend == 'increasing') if hr.trend != 'no trend' else (tau > 0)
+    except Exception:
+        p_hr, sig_hr, rising = float(p), (p < 0.05), (tau > 0)
+    sign = 0 if not sig_hr else (1 if rising else -1)
+    return {'tau': round(float(tau), 3), 'p': round(float(p), 4), 'p_hr': round(p_hr, 4),
+            'dir': 'rising' if rising else 'falling', 'sig': sig_hr, 'sig_plain': bool(p < 0.05),
+            'n': len(ys), 'sign05': sign}
 
 rows, agree_sign, agree_sig, both, flips = [], 0, 0, 0, []
 for cmd in sorted(set(engine_series) & set(baci_series)):
@@ -122,14 +142,16 @@ both_sig = [r for r in rows if r['engine']['sig'] and r['baci']['sig']]
 either_sig = [r for r in rows if r['engine']['sig'] or r['baci']['sig']]
 null_null_agree = sum(1 for r in rows if r['trend_sign_agrees'] and not r['engine']['sig'] and not r['baci']['sig'])
 sign_agree_both_sig = sum(r['engine']['sign05'] == r['baci']['sign05'] for r in both_sig)
-# Benjamini-Hochberg on the engine p-values
-ps = sorted((r['engine']['p'], r['name']) for r in rows)
+# Benjamini-Hochberg on the engine autocorrelation-corrected (Hamed-Rao) p-values
+ps = sorted((r['engine']['p_hr'], r['name']) for r in rows)
 mm = len(ps); fdr_survivors = set()
 for i, (p, n) in enumerate(ps, 1):
     if p <= 0.05 * i / mm:
         fdr_survivors = {nm for _, nm in ps[:i]}
 for r in rows:
     r['engine']['sig_bh_fdr'] = r['name'] in fdr_survivors
+n_sig_plain = sum(1 for r in rows if r['engine']['sig_plain'])
+n_sig_hr = sum(1 for r in rows if r['engine']['sig'])
 
 summary = {'n_commodities': both, 'trend_sign_agrees': agree_sign,
            'significance_agrees': agree_sig,
@@ -138,13 +160,14 @@ summary = {'n_commodities': both, 'trend_sign_agrees': agree_sign,
            'n_both_significant': len(both_sig),
            'sign_agree_among_both_significant': sign_agree_both_sig,
            'n_agreement_that_is_null_null': null_null_agree,
-           'n_engine_trends_uncorrected': sum(1 for r in rows if r['engine']['sig']),
-           'n_engine_trends_bh_fdr': len(fdr_survivors)}
-out = {'note': ('Mann-Kendall-equivalent (Kendall-tau, p<0.05, NOT autocorrelation-corrected -> absolute '
-                'significance is approximate) on annual export-HHI 2002-2024, on the atlas engine series and '
-                'on CEPII BACI HS02 independently. Robust quantity: among commodities where BOTH series '
-                'detect a significant trend, do they agree on sign? (raw sign-agreement is inflated by cheap '
-                'null/null cases; BH-FDR guards multiple testing).'),
+           'n_engine_trends_plain_mk': n_sig_plain,
+           'n_engine_trends_hamed_rao': n_sig_hr,
+           'n_engine_trends_hr_then_bh_fdr': len(fdr_survivors)}
+out = {'note': ('Mann-Kendall trend test on annual export-HHI 2002-2024, on the atlas engine series and on '
+                'CEPII BACI HS02 independently. Significance uses the HAMED-RAO autocorrelation-corrected '
+                'variant (annual HHI is serially correlated; plain MK over-rejects). Robust quantity: among '
+                'commodities where BOTH series detect a significant trend, do they agree on sign? (raw '
+                'sign-agreement is inflated by cheap null/null cases; a further BH-FDR guards multiple testing).'),
        'summary': summary, 'materials': rows}
 json.dump(out, open(os.path.join(ROOT, 'out', 'trend_robustness.json'), 'w', encoding='utf-8'),
           indent=1, ensure_ascii=False,
@@ -154,8 +177,8 @@ print(f"\ncommodities with both series testable: {both}")
 print(f"raw SIGN agreement: {agree_sign}/{both} -- but {null_null_agree} of those are cheap null/null")
 print(f"ROBUST quantity -> among {len(both_sig)} commodities where BOTH detect a significant trend, "
       f"sign agrees: {sign_agree_both_sig}/{len(both_sig)}")
-print(f"engine trends: {summary['n_engine_trends_uncorrected']} uncorrected -> "
-      f"{summary['n_engine_trends_bh_fdr']} survive BH-FDR (q=0.05)")
+print(f"engine trends significant: plain MK {n_sig_plain} -> Hamed-Rao (autocorr-corrected) {n_sig_hr} "
+      f"-> +BH-FDR {len(fdr_survivors)}")
 if flips:
     print("sign/one-significant flips:")
     for r in flips:
