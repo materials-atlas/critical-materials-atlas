@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/cobalt">
+<title>Cobalt, followed end to end — one country mines it, another refines it · Critical Materials Atlas</title>
+<meta name="description" content="A single-metal deep dive: cobalt traced from Congolese copper ore to the battery — a by-product one country mines (DR Congo ~75%) and another refines (China ~76%). Also the one material where the atlas's own engine understated reality, corrected here from production and official BACI.">
+<meta property="og:title" content="Cobalt end to end: mined in one country, refined in another, and the day our own tool got it wrong">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/cobalt">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.4rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat.warn{border-left-color:#c0392b}.stat.warn .v{color:#c0392b}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ .step{margin:.5rem 0}
+ .step .top{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;margin-bottom:.2rem}
+ .step .top b{color:#15323a}.step .top .t{font-weight:800;font-variant-numeric:tabular-nums}
+ .step .bar{position:relative;background:#eef3f2;border-radius:5px;height:30px;overflow:hidden}
+ .step .fill{height:100%;border-radius:5px}
+ .step .ci{position:absolute;top:0;bottom:0;background:rgba(21,50,58,.10);border-left:1px dashed #9aa6ad;border-right:1px dashed #9aa6ad}
+ .step .note{font-size:.76rem;color:#9aa6ad;margin-top:.12rem}
+ .keyline{background:#fbf3f2;border:1px solid #f0d9d5;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#c0392b}
+ .miss{background:#f5f8f8;border:1px solid #d9e6e4;border-left:4px solid #8a1c1c;border-radius:10px;padding:1rem 1.15rem;margin:1.2rem 0}
+ .miss h3{margin:0 0 .4rem;color:#8a1c1c;font-size:1.05rem}
+ .miss table{width:100%;border-collapse:collapse;font-size:.9rem;margin:.5rem 0}
+ .miss td,.miss th{padding:.35rem .5rem;border-bottom:1px solid #e3ecea;text-align:left}
+ .miss td.n,.miss th.n{text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Deep dive · one metal, followed to the bottom</div>
+  <h1>Cobalt, end to end</h1>
+  <p class="deck">Cobalt is barely mined for its own sake &mdash; it comes up with the copper of the DR&nbsp;Congo and the nickel of Indonesia. So its supply is set by <b>someone else&rsquo;s</b> metal, its mine sits in <b>one</b> country and its refining in <b>another</b>, and &mdash; uniquely on this atlas &mdash; it is the material where our <a href="confidence" style="color:#fff;text-decoration:underline">own reconciliation engine got it wrong</a>. This page follows the one metal all the way down, and corrects the record where our tool fell short.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>The mass balance, and every constant it rests on</summary>
+  <p>World cobalt production (<b>World Mining Data 2024</b>, ~269,000&nbsp;t) with the DR&nbsp;Congo&rsquo;s mine share taken from the same source. The by-product split (~70% recovered with copper, ~28% with nickel, ~2% primary) is from USGS and the Cobalt Institute; the China refining share (~76%) from the IEA Critical Minerals Dataset and USGS MCS; the battery end-use share (~72%) from the Cobalt Institute / IEA. Each carries the low&ndash;high bracket shown on the bars.</p>
+  <p class="howto-src"><b>The engine-miss is measured, not asserted:</b> the 2020 comparison below is computed from the atlas&rsquo;s own <a href="out/flows_2020.json">flows_2020.json</a> against official CEPII BACI (HS&nbsp;2822.00), reproducible with <code>extract_baci.py</code>. Inputs: <a href="out/production.json">production.json</a> &rarr; <a href="out/cobalt.json">cobalt.json</a>.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">The mass balance — one metal, two countries</h2>
+  <p class="muted" style="margin-top:0">From the world&rsquo;s mined cobalt down to the battery, and note the hand-off: the country that <i>mines</i> it is not the country that <i>refines</i> it. Bars to scale; the shaded bracket is the low&ndash;high bound.</p>
+  <div id="steps"></div>
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Why price can&rsquo;t fix it &mdash; and why a ban can</h2>
+  <p>Cobalt has two chokepoints, and they are different in kind. Upstream, it is a <b>by-product</b>: you do not open a cobalt mine, you open a <i>copper</i> mine and the cobalt comes with it. So when cobalt&rsquo;s price spikes, supply cannot answer on cobalt&rsquo;s terms &mdash; it answers on copper&rsquo;s, and copper expands for copper&rsquo;s own reasons. Downstream, refining is a <b>built capability</b> concentrated in China (~76%): that one <i>can</i> be rebuilt with capital and years, but until it is, an export or licensing decision there reaches every cathode maker on earth. The mine is a governance-and-geology problem (the DRC&rsquo;s copperbelt cannot be relocated); the refinery is a capacity problem. The one genuine <i>demand-side</i> escape is chemistry: <b>LFP</b> batteries use no cobalt at all, and their rise is the first thing in decades to actually loosen the squeeze &mdash; a lever the supply side never had.</p>
+
+  <div class="miss">
+    <h3>The day our own tool got it wrong &mdash; and how we know</h3>
+    <p style="margin:.2rem 0 .5rem;font-size:.92rem">A research tool is only honest if it shows where it fails. For cobalt, the atlas&rsquo;s reconciliation engine &mdash; which reconstructs trade from both partners&rsquo; reports &mdash; <b>badly understated</b> the DR&nbsp;Congo&rsquo;s real export dominance during the 2020&ndash;2023 battery boom. It reconstructs a fraction of the trade, with the DRC a minor player, where official BACI (and reality) show the DRC dominant:</p>
+    <table id="misstab"><thead><tr><th>2020, HS 2822.00 cobalt oxides/hydroxides</th><th class="n">Total trade</th><th class="n">DR Congo share</th></tr></thead><tbody></tbody></table>
+    <p style="margin:.5rem 0 0;font-size:.9rem" id="missnote"></p>
+  </div>
+
+  <h2 style="margin:1.8rem 0 .3rem">Why one metal, done deep, matters</h2>
+  <p>A scorecard across 32 materials shows breadth; a single chain followed to the bottom shows the mechanism &mdash; and, here, its edges. Cobalt makes three of the atlas&rsquo;s abstractions concrete: <i>by-product</i> becomes &ldquo;~98% comes up with copper or nickel, so price cannot summon it&rdquo;; <i>the chokepoint is rarely the mine</i> becomes &ldquo;mined in the DRC, refined in China &mdash; two countries, two different fixes&rdquo;; and <i>the engine understates concentration</i> stops being a caveat and becomes a measured, corrected fact you can see. The materials the atlas is most sure about are the ones where it has also found its own limits. <a href="confidence">What you can trust &rarr;</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>World Mining Data 2024 (production, DRC share) · USGS MCS &amp; Cobalt Institute (by-product split, end-use) · IEA Critical Minerals Dataset (refining) · reconciled trade vs official CEPII BACI (the engine-miss)</div>
+  <div class="fineprint">Constants (by-product split, refine and battery shares) are literature ranges, shown with bounds. The 2020 engine-vs-BACI comparison is computed from the atlas's own flows against official BACI HS 2822.00.</div>
+</div></footer>
+<script>
+fetch('out/cobalt.json').then(r=>r.json()).then(S=>{
+  const f=n=>Number(Math.round(n)).toLocaleString();
+  document.getElementById('lead').innerHTML='<b>The shape of it:</b> about <b>'+f(S.cobalt_world_t)+' tonnes</b> of cobalt are mined a year, and roughly <b>'+S.byproduct_pct+'%</b> of it is a by-product &mdash; it comes up with copper (mostly in the DR&nbsp;Congo, <b>~'+Math.round(S.drc_mine_share)+'%</b> of world mine supply) or with nickel. It is then refined overwhelmingly in <b>China (~'+S.china_refine_pct.central+'%)</b> and turned mostly into <b>batteries (~'+S.battery_pct.central+'%)</b>. Mine, refinery and market are three different places &mdash; which is why no single lever fixes it.';
+  const st=[
+    {v:'~'+Math.round(S.drc_mine_share)+'%',l:'of mined cobalt from the DR Congo — a copper by-product',warn:true},
+    {v:'~'+S.byproduct_pct+'%',l:'is a by-product of copper or nickel — supply set by the host, not cobalt’s price'},
+    {v:'~'+S.china_refine_pct.central+'%',l:'of refining in China — the chokepoint sits in a different country than the mine',warn:true},
+    {v:'~'+S.battery_pct.central+'%',l:'of end-use in batteries — the one demand that LFP chemistry can walk away from'},
+  ];
+  document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  const mx=S.steps[0].hi, cols=['#15323a','#c0392b','#8e44ad','#0e7c74'];
+  document.getElementById('steps').innerHTML=S.steps.map((s,i)=>{
+    const w=100*s.tonnes/mx, lo=100*s.lo/mx, hi=100*s.hi/mx;
+    return '<div class="step"><div class="top"><b>'+s.label+'</b><span class="t">'+f(s.tonnes)+' t</span></div>'+
+      '<div class="bar"><div class="fill" style="width:'+Math.max(1,w)+'%;background:'+cols[i]+'"></div>'+
+      '<div class="ci" style="left:'+lo+'%;width:'+Math.max(1,hi-lo)+'%"></div></div>'+
+      '<div class="note">'+s.note+' &middot; range '+f(s.lo)+'–'+f(s.hi)+' t</div></div>';
+  }).join('');
+  document.getElementById('keyline').innerHTML='<b>Mined in the DRC, refined in China.</b> The map of who digs cobalt out of the ground and the map of who turns it into battery chemical are two different countries &mdash; so &ldquo;reduce dependence on cobalt&rdquo; has two answers, not one: diversify the <i>refining</i> (capital and time), and cut the <i>demand</i> (LFP). Diversifying the mine is the hardest of the three, because the copper it rides on sits where it sits.';
+  const tb=document.querySelector('#misstab tbody');
+  const rows=[['Atlas engine (reconciled)','$'+f(S.engine_2020.total_musd)+'M','~'+S.engine_2020.drc_share+'%'],
+              ['Official BACI (reality)','$'+f(S.baci_2020.total_musd)+'M','~'+S.baci_2020.drc_share+'%']];
+  rows.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+r[0]+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td>';tb.appendChild(tr);});
+  document.getElementById('missnote').innerHTML='The engine reconstructs about <b>a fifth</b> of the trade and misses the DRC almost entirely, because its reliability weighting shrinks the DRC&rsquo;s large but weakly-corroborated export reports. The fix is not to hand-tune the engine toward BACI &mdash; it is to say plainly: <b>for cobalt, trust production and BACI, not the reconciled series.</b> That correction is the finding.';
+});
+</script>
+</body></html>

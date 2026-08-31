@@ -1,0 +1,61 @@
+{
+ "cobalt_world_t": 268755,
+ "drc_mine_share": 74.5,
+ "copper_world_t": 22911145,
+ "byproduct": {
+  "copper": 0.7,
+  "nickel": 0.28,
+  "primary": 0.02
+ },
+ "byproduct_pct": 98,
+ "china_refine_pct": {
+  "low": 68,
+  "central": 76,
+  "high": 80
+ },
+ "battery_pct": {
+  "low": 65,
+  "central": 72,
+  "high": 78
+ },
+ "steps": [
+  {
+   "label": "World cobalt mined",
+   "tonnes": 268755,
+   "lo": 268755,
+   "hi": 268755,
+   "note": "WMD 2024 — 100% of primary supply"
+  },
+  {
+   "label": "From DR Congo (as a copper by-product)",
+   "tonnes": 200222,
+   "lo": 188128,
+   "hi": 209629,
+   "note": "~74% of mine supply, recovered from Katangan copper ore"
+  },
+  {
+   "label": "Refined in China",
+   "tonnes": 204254,
+   "lo": 182753,
+   "hi": 215004,
+   "note": "~76% of refining — the chokepoint moves to a different country than the mine"
+  },
+  {
+   "label": "Into batteries",
+   "tonnes": 193504,
+   "lo": 174691,
+   "hi": 209629,
+   "note": "~72% of end-use — and LFP (cobalt-free) is eroding this"
+  }
+ ],
+ "engine_2020": {
+  "total_musd": 675,
+  "drc_share": 15.1
+ },
+ "baci_2020": {
+  "total_musd": 3519,
+  "drc_share": 84.2,
+  "hhi": 0.71
+ },
+ "gap_musd": 2844
+}
