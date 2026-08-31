@@ -95,6 +95,26 @@ def raw_hhi(src):
         agg[k[2]][k[0]] += v
     return {c: hhi(d) for c, d in agg.items()}
 
+def reconcile_alpha(alpha):
+    """Keep importer-only flows but DOWNWEIGHT them by alpha (middle ground between keep-all alpha=1
+    and drop-all alpha=0). A reviewer's point: all-or-nothing is crude; a partial weight may land
+    between the current understatement and the drop-all overshoot."""
+    agg = defaultdict(lambda: defaultdict(float))
+    for k in keys:
+        i, j, c = k
+        x = exp.get(k, 0.0); mf = imp.get(k, 0.0) / cif.get(c, gmed)
+        if x > 0 and mf > 0:
+            wi, wj = 1.0 / vget(i), 1.0 / vget(j)
+            val = math.exp((wi * math.log(x) + wj * math.log(mf)) / (wi + wj))
+        elif x > 0:
+            val = x
+        elif mf > 0:
+            val = alpha * mf
+        else:
+            continue
+        agg[c][i] += val
+    return agg
+
 geo = reconcile('geometric'); ari = reconcile('arithmetic')
 geo_nx = reconcile('geometric', drop_imp_only=True)   # diagnostic: drop importer-only flows
 h_geo = {c: hhi(d) for c, d in geo.items()}

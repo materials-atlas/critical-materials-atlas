@@ -275,15 +275,26 @@ bound</b> (an estimator can simply be wrong). Four ways, 2024 (exp / imp / engin
 <b>0.89 / 0.35 / 0.44 / 0.33</b>, graphite <b>0.23 / 0.48 / 0.14 / 0.21</b>,
 beryllium <b>0.62 / 0.78 / 0.53 / 0.80</b>. The earlier one-number &ldquo;beryllium 0.53&rarr;0.80&rdquo;
 overstated false precision: read it as a wide, unresolved spread of roughly <b>0.5&ndash;0.8</b>, the engine
-at the bottom and BACI at the top. <b>Is the understatement fixable at source?</b> We tested it
-(<code>reconcile/operator_test.py</code>) and the answer is no, not cleanly. The two-sided reconciliation&rsquo;s
-<i>geometric</i> mean was the obvious suspect, but switching it to an arithmetic level-space mean changes
-the concentration almost nothing. The real diluter is <b>importer-only flows</b> (imports with no matching
-exporter report &mdash; often re-export/entrepôt) inflating the tail; but dropping them <b>over-corrects</b>,
-pushing the engine <i>past</i> BACI (mean gap flips from +0.02 to &minus;0.03, and the absolute error to BACI
-gets <i>worse</i>). Because the raw reports disagree by ~0.15 HHI and BACI is not ground truth, no
-operator lands on the &ldquo;true&rdquo; value &mdash; so we report the spread as-is, a <i>tested</i> conclusion,
-not an unexamined limitation. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
+at the bottom and BACI at the top. <b>Which commodities are too thin to carry a concentration number at
+all?</b> Rather than judge that after the fact, we screen every code up front
+(<code>build_thinness_screen.py</code>): a commodity is flagged <b>thin-fragile</b> if its annual trade is
+under $100M, it has fewer than 8 active exporters, or dropping its single largest exporter moves the HHI
+by more than 0.10. <b>9 of 30</b> are flagged (arsenic, beryllium, graphite, strontium, tungsten,
+magnesium, niobium, magnets, bauxite) &mdash; their concentration should be read as indicative, not measured.
+(This is the ex-ante rule that should have caught cobalt&rsquo;s oddity; in the event it caught a different
+problem &mdash; see the trend note below.) <b>Is the understatement fixable at source?</b> We tried
+(<code>reconcile/operator_test.py</code>); simple operator substitutions do not remove it. The two-sided
+reconciliation&rsquo;s <i>geometric</i> mean was the obvious suspect, but switching it to an arithmetic
+level-space mean changes the concentration almost nothing. The other diluter is <b>importer-only flows</b>
+(imports with no matching exporter report &mdash; often re-export/entrepôt) inflating the tail; but a full
+down-weight sweep shows no middle setting helps &mdash; partial weights barely move the BACI gap while
+<i>worsening</i> the fit, and only dropping them entirely improves raw-bracket coverage, at the cost of
+<b>over-shooting</b> past BACI. We measure this two truth-agnostic ways: agreement with BACI (an external
+reconstruction, not ground truth) and coverage of the raw [exporter, importer] bracket; no operator we
+tested improves one without hurting the other. That does <b>not</b> prove the bias is intrinsically
+unfixable &mdash; a log-normal bias correction or a gravity-fitted CIF (BACI&rsquo;s own method) remain untested
+&mdash; but the two obvious levers fail, so we report the spread as-is rather than hand-tune the engine toward
+BACI, which is not a target to hit. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
 the trend&rdquo; on only two years, which was not enough &mdash; so we did the full test
 (<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>):
 recompute the export-HHI series <b>every year 2002&ndash;2024</b> on the engine reconciliation <i>and</i>
@@ -298,17 +309,21 @@ significant trend, the direction agrees 18 of 18</b> &mdash; the reconciliation 
 trend&rsquo;s sign, and all 18 survive a Benjamini&ndash;Hochberg multiple-testing correction. The three
 disagreements are all <b>significance-level</b> (one series clears the bar, the other just misses: arsenic,
 titanium), not direction reversals &mdash; except <b>cobalt</b>, the one substantive conflict (engine: a
-significant fall; BACI: no significant trend), which we <b>ran down</b>. The cause is the tracked code:
-cobalt&rsquo;s refined proxy is <b>HS&nbsp;2822.00</b> (cobalt oxides/hydroxides), a <b>very thin</b> trade code
-&mdash; only <b>$1&ndash;5&nbsp;million a year</b> &mdash; so a handful of DR&nbsp;Congo flows swing its
-concentration violently (COD is 41% of the code in 2016, <b>84% in 2020, 88% in 2023</b>, then 29% in 2024;
-BACI&rsquo;s HHI spikes to <b>0.71&ndash;0.77</b> in those years). The engine&rsquo;s mirror reconciliation smooths
-those single-source spikes while BACI keeps them, which is the whole disagreement. So cobalt&rsquo;s
-<i>trend</i> is not reliably estimable on this sliver of a code &mdash; a <b>thin-data</b> artifact, not a genuine
-ambiguity about cobalt, whose real concentration story is the mine (DRC ~70%), not this $-few-million oxide
-line. So the &ldquo;reconciliation choice does not change a real trend&rdquo; claim stands on 23 years, on the
-autocorrelation-corrected and FDR-guarded significant cases, with cobalt set aside as un-estimable on its
-tracked code rather than a true exception. <b>Not valid:</b> absolute dollar levels — there is a known
+significant fall; BACI: a rise), which we <b>ran down &mdash; and it exposes a real engine limitation, not a
+BACI one</b>. <span style="color:#8a1c1c"><b>(Correction, 31 Aug:</b> our first pass called this a
+&ldquo;thin-code artifact&rdquo; on the strength of a buggy extraction that had dropped most exporters; cobalt&rsquo;s
+code is <i>not</i> thin, and the story is the opposite.)</span> Cobalt&rsquo;s refined code (HS&nbsp;2822.00,
+oxides/hydroxides) is a real <b>$0.8&ndash;4.9&nbsp;billion</b> market, and BACI captures a genuine event: DR&nbsp;Congo&rsquo;s
+share of those exports surged from <b>41% (2016) to ~85% (2020&ndash;2023)</b> &mdash; the battery-era
+cobalt-hydroxide boom &mdash; then fell back in 2024 on the price crash (BACI HHI 0.25&rarr;0.71&rarr;0.17). The
+<b>atlas engine missed it entirely</b>: in 2020 it reconstructs only <b>$0.7B</b> of the trade (BACI: $3.5B) and
+puts DRC at <b>15%</b>, not 84%. The reason is the engine&rsquo;s own reliability weighting: DRC is a weak
+customs reporter, so its large but under-corroborated export claims get shrunk in reconciliation &mdash; exactly
+the &ldquo;engine understates concentration&rdquo; failure mode, here on a big, real dependency rather than a thin
+one. So the honest reading reverses: <b>for cobalt, trust BACI and production (DRC ~70% of mine supply), not
+the engine&rsquo;s smoothed series</b>, whose &ldquo;falling concentration&rdquo; is an artefact of progressively
+shrinking DRC. This does not touch the 18/18 significant-trend agreement elsewhere, but it is a genuine
+scalp for the reconciliation engine, kept in view rather than buried. <b>Not valid:</b> absolute dollar levels — there is a known
 ~1.5–1.8× offset (current Comtrade runs above BACI's published values; diagnosed above), so arc and
 Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that the offset is a clean
 <i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and
