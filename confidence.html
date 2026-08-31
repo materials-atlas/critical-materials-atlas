@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/confidence">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<title>What you can trust — Critical Materials Atlas</title>
+<meta name="description" content="What the Critical Materials Atlas can say with confidence, and how it knows: every claim traces to an open script, ten automated guards, and three rounds of adversarial red-team review that caught and published three real errors. Plus a per-commodity reliability status.">
+<meta property="og:title" content="What you can trust — Critical Materials Atlas">
+<meta property="og:description" content="Built to be broken: every claim traces to an open script and ten automated guards, three red-team rounds caught three real errors, and each commodity carries a reliability status. Here is what survives.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/confidence">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:1080px}
+ .csec{margin:2.2rem 0}
+ .csec h2{font-size:1.35rem;color:var(--navy);margin:0 0 .3rem;border-top:1px solid var(--line);padding-top:1.5rem;letter-spacing:-.01em}
+ .csec .sub{color:var(--mut);font-size:.95rem;margin:.1rem 0 1.1rem;max-width:72ch;line-height:1.55}
+ .pill{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;margin:1rem 0}
+ @media(max-width:760px){.pill{grid-template-columns:repeat(2,1fr)}}
+ .p{border:1px solid var(--line);border-radius:12px;padding:1rem 1.05rem;background:var(--bg)}
+ .p .n{font-size:1.9rem;font-weight:800;color:var(--navy);letter-spacing:-.02em;line-height:1}
+ .p .l{font-size:.8rem;color:var(--mut);margin-top:.4rem;line-height:1.35}
+ .status{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin:1rem 0}
+ @media(max-width:760px){.status{grid-template-columns:repeat(2,1fr)}}
+ .st{border-radius:11px;padding:.85rem .9rem;color:#fff}
+ .st .n{font-size:1.5rem;font-weight:800;line-height:1}
+ .st .l{font-size:.76rem;margin-top:.3rem;opacity:.95;line-height:1.3}
+ .find{border:1px solid var(--line);border-left:3px solid var(--acc,#0e7c74);border-radius:11px;padding:1rem 1.15rem;margin:.8rem 0;background:var(--bg)}
+ .find h3{font-size:1.08rem;color:var(--navy);margin:0 0 .3rem;font-weight:800;letter-spacing:-.01em}
+ .find p{font-size:.92rem;color:var(--mut);line-height:1.55;margin:.2rem 0 0}
+ .find .so{font-size:.88rem;color:var(--ink-soft,#2a3b3a);margin-top:.5rem}
+ .find .so b{color:var(--navy)}
+ .ledger{border:1px solid #e6cfcf;background:#fdf5f4;border-radius:12px;padding:1.1rem 1.25rem;margin:1rem 0}
+ .ledger li{margin:.4rem 0;font-size:.9rem;line-height:1.5;color:var(--mut)}
+ .ledger li b{color:#8a1c1c}
+ .cta2{display:flex;gap:12px;flex-wrap:wrap;margin:1.5rem 0 0}
+ .cta2 a{font-size:.9rem;font-weight:700;text-decoration:none;border-radius:9px;padding:11px 20px}
+ .cta2 .primary{background:#2bb3a3;color:#08201f}.cta2 .primary:hover{background:#43c8b8}
+ .cta2 .ghost{border:1px solid var(--line);color:var(--navy)}.cta2 .ghost:hover{background:var(--bg-soft)}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">What you can trust</div>
+  <h1>Built to be broken &mdash; here is what survives.</h1>
+  <p class="deck">Most dashboards ask you to trust them. This one shows its work and tries to break itself. Every number traces to an open script; ten automated guards run on every change; and the atlas has been through <b>three rounds of adversarial red-team review</b> that caught &mdash; and published &mdash; three real errors. This page is the short version: what the atlas can say with confidence, and how it knows.</p>
+</div></section>
+<article>
+
+  <section class="csec"><h2>The discipline</h2>
+  <p class="sub">Rigor is not a claim; it is a set of habits you can check. These are the atlas&rsquo;s.</p>
+  <div class="pill">
+    <div class="p"><div class="n">100%</div><div class="l">of claims trace to an <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">open, re-runnable script</a> &mdash; no black boxes</div></div>
+    <div class="p"><div class="n">10</div><div class="l">automated guards run on every commit (dead links, stale data, unproven claims)</div></div>
+    <div class="p"><div class="n">3</div><div class="l">rounds of hostile <a href="review">external review</a> &mdash; each attacked the previous round&rsquo;s fixes</div></div>
+    <div class="p"><div class="n">3</div><div class="l">real errors <a href="updates">caught and published</a>, not buried</div></div>
+  </div>
+  <p class="sub" style="margin-top:1rem">The rule throughout: <b>never hand-tune a number to look right.</b> Where the data cannot settle a question, the atlas reports the range and says so &mdash; concentration, for instance, is shown as a <a href="methodology#status">spread across four reconstructions</a>, not a single figure, because no reconstruction of customs data is ground truth.</p>
+  </section>
+
+  <section class="csec"><h2>The reliability map</h2>
+  <p class="sub">Not every number is equally solid, so the atlas grades each one. Of 31 tracked commodities, most carry a <b>robust</b> concentration and trend signal; a handful are flagged &mdash; up front, by an <a href="methodology#status">ex-ante screen</a>, not after the fact. <b>Draw headline conclusions from the robust rows.</b></p>
+  <div class="status">
+    <div class="st" style="background:#1f7a4d"><div class="n">21</div><div class="l">robust &mdash; solid to headline</div></div>
+    <div class="st" style="background:#b8860b"><div class="n">4</div><div class="l">spread-sensitive &mdash; read with the band</div></div>
+    <div class="st" style="background:#5566aa"><div class="n">2</div><div class="l">shared HS code &mdash; not separable in trade</div></div>
+    <div class="st" style="background:#a0416a"><div class="n">3</div><div class="l">thin-fragile &mdash; too little trade to measure</div></div>
+    <div class="st" style="background:#8a1c1c"><div class="n">1</div><div class="l">engine-understated &mdash; trust BACI here (cobalt)</div></div>
+  </div>
+  <p class="sub">See the full per-commodity table on the <a href="methodology#status">Method page</a>.</p>
+  </section>
+
+  <section class="csec"><h2>What the atlas can say with confidence</h2>
+  <p class="sub">The findings below rest on robust rows only &mdash; and each ends where a finding should: with what to do about it.</p>
+
+  <div class="find">
+    <h3>The chokepoint is rarely the mine</h3>
+    <p>Across 58 end-use supply chains, only <b>5</b> are constrained by geology &mdash; a deposit that cannot be moved. The other <b>53</b> concentrate at a stage that was <i>built</i>: a refinery, a fab, a separation plant, an export rule.</p>
+    <p class="so"><b>So what:</b> most dependencies are not permanent. An export ban on ore cannot touch a refining chokepoint &mdash; but capital, energy policy and years of qualification can rebuild one. Target the stage that concentrates, not the mine. <a href="chokepoint-map">The Chokepoint Map &rarr;</a></p>
+  </div>
+
+  <div class="find">
+    <h3>The seller is usually not the source</h3>
+    <p>For <b>17 of 32</b> materials the top exporter never mined the material &mdash; it refined someone else&rsquo;s ore and re-sold it. The gap holds when measured in <b>tonnes</b>, not just dollars, and survives a permutation test (it is far more than chance).</p>
+    <p class="so"><b>So what:</b> a customs ledger of &ldquo;who exports&rdquo; systematically mislocates the real dependency. Trace to the refiner, and to the mine behind it, before you name a supplier secure. <a href="findings">The origin gap &rarr;</a></p>
+  </div>
+
+  <div class="find">
+    <h3>Concentration is moving &mdash; and we can date it</h3>
+    <p>On the robust series, export concentration is <b>rising</b> for coking coal, manganese, bauxite, rare-earth magnets, magnesium, tungsten and strontium &mdash; several already single-country dominated (magnets, magnesium and tungsten toward China; bauxite toward Guinea). It is <b>falling</b> for copper, nickel, palladium, helium, vanadium and tantalum.</p>
+    <p class="so"><b>So what:</b> the materials tightening are not always the ones in the headlines. A rising-and-already-dominated material (magnesium, tungsten) is where a shock would bite hardest and where diversification has the most to undo. <a href="trends">The tested trends &rarr;</a></p>
+  </div>
+
+  <div class="find">
+    <h3>When the chokepoint <i>is</i> the mine, geology says why</h3>
+    <p>The five geological chokepoints &mdash; phosphate rock, the platinum-group metals, boron, strontium, and niobium (the steel-alloy chain) &mdash; cannot be out-built. There is no second Bushveld for the platinum-group metals, no second Araxá for niobium.</p>
+    <p class="so"><b>So what:</b> for these, the toolkit is not &ldquo;build capacity elsewhere.&rdquo; It is substitution, recycling and stockpiling &mdash; a different, slower policy, and worth starting early. <a href="chokepoint-map">Why the mechanism matters &rarr;</a></p>
+  </div>
+  </section>
+
+  <section class="csec"><h2>What we got wrong (on purpose visible)</h2>
+  <p class="sub">A research site that never corrects itself is not being checked. The atlas keeps a public ledger of its own errors &mdash; because the corrections are the evidence the method works.</p>
+  <div class="ledger"><ul>
+    <li><b>A price-coupling claim, withdrawn.</b> We had argued by-product metals track their host&rsquo;s price; a proper test on real price series refuted the general law (only bismuth&larr;lead survived). The supply claim stands; the price claim was retracted.</li>
+    <li><b>Cobalt, diagnosed backwards, then corrected.</b> A first pass called a cobalt trend conflict a &ldquo;thin-code artifact&rdquo; on a buggy extraction. Screening thinness across every commodity up front exposed the error: cobalt is a real $0.8&ndash;4.9B market, and the finding is that the <i>engine</i> understated DR Congo&rsquo;s real dominance &mdash; a genuine limitation, kept in view.</li>
+    <li><b>A screen that flagged the wrong thing.</b> An early fragility rule mislabelled nine genuinely-concentrated commodities (bauxite, magnets, tungsten) as unreliable. Fixed: single-country dominance is a finding, not a data flaw. The real fragile list is three.</li>
+  </ul></div>
+  <p class="sub">The full history is in the <a href="updates">changelog</a>; the standing invitation to break the atlas is <a href="challenge">here</a>.</p>
+  <div class="cta2">
+    <a class="primary" href="explorer">Explore the 32 materials &rarr;</a>
+    <a class="ghost" href="methodology">Read the full method</a>
+    <a class="ghost" href="review">Audit the atlas</a>
+  </div>
+  </section>
+
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div class="fineprint">What you can trust — a page of the Critical Materials Atlas.</div></div></footer>
+</body></html>
