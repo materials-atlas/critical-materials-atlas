@@ -275,7 +275,15 @@ bound</b> (an estimator can simply be wrong). Four ways, 2024 (exp / imp / engin
 <b>0.89 / 0.35 / 0.44 / 0.33</b>, graphite <b>0.23 / 0.48 / 0.14 / 0.21</b>,
 beryllium <b>0.62 / 0.78 / 0.53 / 0.80</b>. The earlier one-number &ldquo;beryllium 0.53&rarr;0.80&rdquo;
 overstated false precision: read it as a wide, unresolved spread of roughly <b>0.5&ndash;0.8</b>, the engine
-at the bottom and BACI at the top. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
+at the bottom and BACI at the top. <b>Is the understatement fixable at source?</b> We tested it
+(<code>reconcile/operator_test.py</code>) and the answer is no, not cleanly. The two-sided reconciliation&rsquo;s
+<i>geometric</i> mean was the obvious suspect, but switching it to an arithmetic level-space mean changes
+the concentration almost nothing. The real diluter is <b>importer-only flows</b> (imports with no matching
+exporter report &mdash; often re-export/entrepôt) inflating the tail; but dropping them <b>over-corrects</b>,
+pushing the engine <i>past</i> BACI (mean gap flips from +0.02 to &minus;0.03, and the absolute error to BACI
+gets <i>worse</i>). Because the raw reports disagree by ~0.15 HHI and BACI is not ground truth, no
+operator lands on the &ldquo;true&rdquo; value &mdash; so we report the spread as-is, a <i>tested</i> conclusion,
+not an unexamined limitation. Does this band bias the <b>trend</b> claims? We had asserted &ldquo;the dilution shifts the level not
 the trend&rdquo; on only two years, which was not enough &mdash; so we did the full test
 (<code>build_trend_robustness.py</code>&nbsp;&rarr;&nbsp;<code>out/trend_robustness.json</code>):
 recompute the export-HHI series <b>every year 2002&ndash;2024</b> on the engine reconciliation <i>and</i>

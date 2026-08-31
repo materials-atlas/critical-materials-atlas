@@ -34,6 +34,16 @@
 
 <article>
   <div class="entry">
+    <div class="date">31 August 2026 <span class="tag">method</span></div>
+    <h3>We tried to fix the concentration understatement at source — and it can&rsquo;t be, cleanly</h3>
+    <p>The honest next step after flagging that the engine runs low on concentration was to try to <i>fix</i> it in the reconciliation, not just caveat it. We did (<code>reconcile/operator_test.py</code>), and the result is a genuine null:</p>
+    <ul>
+      <li>The two-sided reconciliation&rsquo;s <b>geometric mean</b> was the obvious suspect (a geometric mean sits below the arithmetic one), but switching to an arithmetic level-space mean changes the HHI <b>almost nothing</b> (beryllium 0.52 either way).</li>
+      <li>The real diluter is <b>importer-only flows</b> (imports with no matching exporter report, often re-export/entrep&ocirc;t) inflating the tail &mdash; but dropping them <b>over-corrects</b>, pushing the engine <i>past</i> BACI and making the absolute error worse.</li>
+      <li>Because the two raw reports disagree by ~0.15 HHI and BACI is not ground truth, <b>no operator lands on the true value.</b> So the &ldquo;report it as a spread&rdquo; treatment stays &mdash; now a tested conclusion, not an unexamined limitation.</li>
+    </ul>
+  </div>
+  <div class="entry">
     <div class="date">30 August 2026 <span class="tag">method</span></div>
     <h3>Two statistical refinements the second review asked for</h3>
     <ul>
