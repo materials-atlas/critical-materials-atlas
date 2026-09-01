@@ -1,25 +1,12 @@
 {
  "note": "Curated substitution graph joined to the atlas’s production concentration. A substitution is an ESCAPE only if the replacement sits in an abundant/diffuse or markedly less-concentrated supply chain; otherwise it SHIFTS the chokepoint to another country. Domain edges from USGS MCS substitutes + battery/magnet/semiconductor literature; not exhaustive.",
  "tally": {
-  "escape": 6,
+  "escape": 2,
   "relieve": 2,
-  "partial": 3,
+  "partial": 7,
   "shift": 4
  },
  "edges": [
-  {
-   "from": "gallium",
-   "from_name": "Gallium",
-   "from_conc": 99.0,
-   "from_top": "China",
-   "application": "power & RF semiconductors",
-   "substitute": "silicon",
-   "sub_conc": null,
-   "sub_top": null,
-   "penalty": "lower efficiency at high power / high frequency",
-   "effect": "escape",
-   "note": "Silicon is the mature default GaN/GaAs improved on. Falling back loses performance but exits a 99%-China by-product entirely — for many uses, viable."
-  },
   {
    "from": "cobalt",
    "from_name": "Cobalt",
@@ -34,19 +21,6 @@
    "note": "LFP drops BOTH cobalt (DRC) and nickel (Indonesia) for iron and phosphate — the cleanest real escape in the whole set, and it is already ~40% of new EV batteries."
   },
   {
-   "from": "magnets",
-   "from_name": "Rare-earth magnets",
-   "from_conc": 68.0,
-   "from_top": "China",
-   "application": "EV traction & wind motors",
-   "substitute": "no-magnet motor (Cu + electronics)",
-   "sub_conc": null,
-   "sub_top": null,
-   "penalty": "lower efficiency/torque density, more copper & control electronics",
-   "effect": "escape",
-   "note": "Induction and externally-excited motors use no rare earths at all (Renault, Tesla have shipped both). The cost is efficiency and copper, not a new chokepoint."
-  },
-  {
    "from": "tantalum",
    "from_name": "Tantalum",
    "from_conc": 41.0,
@@ -58,32 +32,6 @@
    "penalty": "different performance envelope",
    "effect": "escape",
    "note": "Multilayer ceramic capacitors replace tantalum in most consumer electronics, using abundant materials — the real exit where performance allows."
-  },
-  {
-   "from": "lithium",
-   "from_name": "Lithium",
-   "from_conc": 38.0,
-   "from_top": "Australia",
-   "application": "stationary & entry EV batteries",
-   "substitute": "sodium (Na-ion)",
-   "sub_conc": null,
-   "sub_top": null,
-   "penalty": "lower energy density, earlier commercial stage",
-   "effect": "escape",
-   "note": "Sodium is one of the most abundant elements on earth. Na-ion cannot match lithium on density, but for grid storage and cheap EVs it is a genuine exit, not a swap."
-  },
-  {
-   "from": "antimony",
-   "from_name": "Antimony",
-   "from_conc": 33.0,
-   "from_top": "China",
-   "application": "flame retardants",
-   "substitute": "carbon / organics",
-   "sub_conc": null,
-   "sub_top": null,
-   "penalty": "reformulation cost",
-   "effect": "escape",
-   "note": "Phosphorus- and mineral-based flame retardants replace antimony trioxide in many plastics, exiting a China-controlled, export-restricted metal for abundant chemistry."
   },
   {
    "from": "magnesium",
@@ -110,6 +58,19 @@
    "penalty": "lower conductivity — bigger cross-section",
    "effect": "relieve",
    "note": "Aluminium already replaces copper in overhead lines and some cabling. Its ORE is more diffuse than copper, though aluminium SMELTING is itself China-heavy — relief at the mine, not fully at the furnace."
+  },
+  {
+   "from": "gallium",
+   "from_name": "Gallium",
+   "from_conc": 99.0,
+   "from_top": "China",
+   "application": "power & RF semiconductors",
+   "substitute": "silicon",
+   "sub_conc": null,
+   "sub_top": null,
+   "penalty": "lower efficiency / frequency; no drop-in for LEDs, RF",
+   "effect": "partial",
+   "note": "Silicon is the mature baseline GaN/GaAs improved on, and for some power uses it is a viable fallback — but it cannot replace GaN/GaAs in LEDs, RF or high-frequency parts, where silicon carbide (SiC), not plain silicon, is the closer substitute. A partial exit, use by use."
   },
   {
    "from": "tungsten",
@@ -142,6 +103,19 @@
    "from_name": "Rare-earth magnets",
    "from_conc": 68.0,
    "from_top": "China",
+   "application": "EV traction & wind motors",
+   "substitute": "no-magnet motor (Cu + electronics)",
+   "sub_conc": null,
+   "sub_top": null,
+   "penalty": "lower efficiency/torque density, more copper & control electronics",
+   "effect": "partial",
+   "note": "Induction and externally-excited motors use no rare earths at all (Renault, Tesla have shipped both) — but only for MOTORS, at an efficiency and mass cost, and not for the many other NdFeB uses. A real exit for some drivetrains, not for magnets in general."
+  },
+  {
+   "from": "magnets",
+   "from_name": "Rare-earth magnets",
+   "from_conc": 68.0,
+   "from_top": "China",
    "application": "lower-grade motors & speakers",
    "substitute": "strontium",
    "sub_conc": null,
@@ -149,6 +123,32 @@
    "penalty": "much weaker field — larger, heavier magnets",
    "effect": "partial",
    "note": "Ferrite (strontium) magnets are cheap and high-volume but far weaker; they replace NdFeB only where size and weight do not matter. Strontium itself is concentrated (Iran)."
+  },
+  {
+   "from": "lithium",
+   "from_name": "Lithium",
+   "from_conc": 38.0,
+   "from_top": "Australia",
+   "application": "stationary & entry EV batteries",
+   "substitute": "sodium (Na-ion)",
+   "sub_conc": null,
+   "sub_top": null,
+   "penalty": "lower energy density, earlier commercial stage",
+   "effect": "partial",
+   "note": "Sodium is one of the most abundant elements on earth, so where Na-ion fits it is a true exit — but that is stationary storage and entry EVs first, not high-energy packs. An escape by SEGMENT, not across the board."
+  },
+  {
+   "from": "antimony",
+   "from_name": "Antimony",
+   "from_conc": 33.0,
+   "from_top": "China",
+   "application": "flame retardants",
+   "substitute": "phosphorus / mineral retardants",
+   "sub_conc": null,
+   "sub_top": null,
+   "penalty": "not a drop-in synergist; reformulation + certification",
+   "effect": "partial",
+   "note": "Phosphorus- and mineral-based retardants replace antimony trioxide in some polymers, but they are not drop-in synergists and phosphorus has its own concentrated supply — relief in places, not a clean exit for a China-controlled, export-restricted metal."
   },
   {
    "from": "niobium",
@@ -174,7 +174,7 @@
    "sub_top": "Indonesia",
    "penalty": "thermal stability falls as nickel rises",
    "effect": "shift",
-   "note": "High-nickel NMC uses less cobalt but MORE nickel — you swap DR Congo (75%) for Indonesia (62%). The dependency moves; it does not leave."
+   "note": "High-nickel NMC uses less cobalt but MORE nickel — you swap a DR Congo cobalt dependency for a nickel one, and nickel’s marginal growth is Indonesia-concentrated (with China-linked HPAL processing). The dependency moves; it does not leave."
   },
   {
    "from": "platinum",

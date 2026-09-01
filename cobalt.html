@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/cobalt">
 <title>Cobalt, followed end to end — one country mines it, another refines it · Critical Materials Atlas</title>
-<meta name="description" content="A single-metal deep dive: cobalt traced from Congolese copper ore to the battery — a by-product one country mines (DR Congo ~75%) and another refines (China ~76%). Also the one material where the atlas's own engine understated reality, corrected here from production and official BACI.">
+<meta name="description" content="A single-metal deep dive: cobalt traced from Congolese copper ore to the battery — a by-product one country mines (DR Congo ~75%) and another refines (China ~76%). Also the one material where the atlas's own engine understated reality, corrected here from production and BACI.">
 <meta property="og:title" content="Cobalt end to end: mined in one country, refined in another, and the day our own tool got it wrong">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/cobalt">
@@ -49,7 +49,7 @@
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>The mass balance, and every constant it rests on</summary>
   <p>World cobalt production (<b>World Mining Data 2024</b>, ~269,000&nbsp;t) with the DR&nbsp;Congo&rsquo;s mine share taken from the same source. The by-product split (~70% recovered with copper, ~28% with nickel, ~2% primary) is from USGS and the Cobalt Institute; the China refining share (~76%) from the IEA Critical Minerals Dataset and USGS MCS; the battery end-use share (~72%) from the Cobalt Institute / IEA. Each carries the low&ndash;high bracket shown on the bars.</p>
-  <p class="howto-src"><b>The engine-miss is measured, not asserted:</b> the 2020 comparison below is computed from the atlas&rsquo;s own <a href="out/flows_2020.json">flows_2020.json</a> against official CEPII BACI (HS&nbsp;2822.00), reproducible with <code>extract_baci.py</code>. Inputs: <a href="out/production.json">production.json</a> &rarr; <a href="out/cobalt.json">cobalt.json</a>.</p>
+  <p class="howto-src"><b>The engine-miss is measured, not asserted:</b> the 2020 comparison below is computed from the atlas&rsquo;s own <a href="out/flows_2020.json">flows_2020.json</a> against CEPII BACI (HS&nbsp;2822.00), reproducible with <code>extract_baci.py</code>. Inputs: <a href="out/production.json">production.json</a> &rarr; <a href="out/cobalt.json">cobalt.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -64,7 +64,7 @@
 
   <div class="miss">
     <h3>The day our own tool got it wrong &mdash; and how we know</h3>
-    <p style="margin:.2rem 0 .5rem;font-size:.92rem">A research tool is only honest if it shows where it fails. For cobalt, the atlas&rsquo;s reconciliation engine &mdash; which reconstructs trade from both partners&rsquo; reports &mdash; <b>badly understated</b> the DR&nbsp;Congo&rsquo;s real export dominance during the 2020&ndash;2023 battery boom. It reconstructs a fraction of the trade, with the DRC a minor player, where official BACI (and reality) show the DRC dominant:</p>
+    <p style="margin:.2rem 0 .5rem;font-size:.92rem">A research tool is only honest if it shows where it fails. For cobalt, the atlas&rsquo;s reconciliation engine &mdash; which reconstructs trade from both partners&rsquo; reports &mdash; <b>badly understated</b> the DR&nbsp;Congo&rsquo;s real export dominance during the 2020&ndash;2023 battery boom. It reconstructs a fraction of the trade, with the DRC a minor player, where BACI (and reality) show the DRC dominant:</p>
     <table id="misstab"><thead><tr><th>2020, HS 2822.00 cobalt oxides/hydroxides</th><th class="n">Total trade</th><th class="n">DR Congo share</th></tr></thead><tbody></tbody></table>
     <p style="margin:.5rem 0 0;font-size:.9rem" id="missnote"></p>
   </div>
@@ -76,8 +76,8 @@
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
-  <div><h4>Sources</h4>World Mining Data 2024 (production, DRC share) · USGS MCS &amp; Cobalt Institute (by-product split, end-use) · IEA Critical Minerals Dataset (refining) · reconciled trade vs official CEPII BACI (the engine-miss)</div>
-  <div class="fineprint">Constants (by-product split, refine and battery shares) are literature ranges, shown with bounds. The 2020 engine-vs-BACI comparison is computed from the atlas's own flows against official BACI HS 2822.00.</div>
+  <div><h4>Sources</h4>World Mining Data 2024 (production, DRC share) · USGS MCS &amp; Cobalt Institute (by-product split, end-use) · IEA Critical Minerals Dataset (refining) · reconciled trade vs CEPII BACI (the engine-miss)</div>
+  <div class="fineprint">Constants (by-product split, refine and battery shares) are literature ranges, shown with bounds. The 2020 engine-vs-BACI comparison is computed from the atlas's own flows against BACI HS 2822.00.</div>
 </div></footer>
 <script>
 fetch('out/cobalt.json').then(r=>r.json()).then(S=>{
@@ -103,7 +103,7 @@ fetch('out/cobalt.json').then(r=>r.json()).then(S=>{
   const rows=[['Atlas engine (reconciled)','$'+f(S.engine_2020.total_musd)+'M','~'+S.engine_2020.drc_share+'%'],
               ['Official BACI (reality)','$'+f(S.baci_2020.total_musd)+'M','~'+S.baci_2020.drc_share+'%']];
   rows.forEach(r=>{const tr=document.createElement('tr');tr.innerHTML='<td>'+r[0]+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td>';tb.appendChild(tr);});
-  document.getElementById('missnote').innerHTML='The engine reconstructs about <b>a fifth</b> of the trade and misses the DRC almost entirely, because its reliability weighting shrinks the DRC&rsquo;s large but weakly-corroborated export reports. The fix is not to hand-tune the engine toward BACI &mdash; it is to say plainly: <b>for cobalt, trust production and BACI, not the reconciled series.</b> That correction is the finding.';
+  document.getElementById('missnote').innerHTML='The engine reconstructs about <b>a fifth</b> of the trade and misses the DRC almost entirely, because its reliability weighting shrinks the DRC&rsquo;s large but weakly-corroborated export reports. The fix is not to hand-tune the engine toward BACI &mdash; it is to say plainly: <b>for cobalt, trust production and BACI (itself a reconciliation of mirror trade, but with DRC’s real ~70% mine dominance the far better guide here), not the atlas’s own reconciled series.</b> That correction is the finding.';
 });
 </script>
 </body></html>

@@ -15,11 +15,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 SPECS = {
     # key (substring of project name) : capex, first production, target capacity, source
-    'Perpetua':     {'capex': '~$2.2bn', 'online': '2028', 'capacity': '~35% of US antimony demand (6 yrs)',
+    'Perpetua':     {'capex': '~$2.2bn (gold-led; antimony by-product)', 'online': '2028', 'capacity': '~35% of US antimony demand (6 yrs)',
                      'src': 'Perpetua / US EXIM 2025'},
-    'Sangdong':     {'capex': '~$0.1bn', 'online': '2025–26 (Ph.1)', 'capacity': '~2,300 t/yr WO₃ → ~40% ex-China',
+    'Sangdong':     {'capex': '~$0.1bn', 'online': '2025–26 (Ph.1)', 'capacity': '~2,300 t/yr WO₃ concentrate → ~40% ex-China',
                      'src': 'Almonty 2025'},
-    'Seadrift':     {'capex': '~$0.3bn (DoD-backed)', 'online': '2026', 'capacity': '~2,500–3,000 t/yr heavy REO',
+    'Seadrift':     {'capex': '~$0.3bn US DoD grant (not total capex)', 'online': 'target 2026', 'capacity': '~2,500–3,000 t/yr heavy REO',
                      'src': 'Lynas / US DoD 2025'},
     'MP Materials': {'capex': '~$1.25bn (“10X”)', 'online': '2028 (10X); Independence live', 'capacity': '~10,000 t/yr magnets',
                      'src': 'MP Materials 2026'},
