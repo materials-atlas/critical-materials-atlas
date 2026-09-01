@@ -1,0 +1,56 @@
+{
+ "pt_sa_share": 70,
+ "pd_ru_share": 41,
+ "reserves_sa": {
+  "low": 70,
+  "central": 90,
+  "high": 91
+ },
+ "split": {
+  "platinum": 38,
+  "palladium": 39,
+  "rhodium": 8,
+  "other (Ru/Ir/Os)": 15
+ },
+ "autocat": {
+  "low": 60,
+  "central": 68,
+  "high": 80
+ },
+ "recycle": {
+  "low": 22,
+  "central": 27,
+  "high": 30
+ },
+ "rh_peak_usd": 29800,
+ "steps": [
+  {
+   "label": "One geological basket (South Africa + Russia)",
+   "tonnes": 100,
+   "lo": 100,
+   "hi": 100,
+   "note": "South Africa ~70% of platinum, Russia ~41% of palladium — 90% of reserves in one complex"
+  },
+  {
+   "label": "Split by the ore, not by demand",
+   "tonnes": 85,
+   "lo": 78,
+   "hi": 92,
+   "note": "Pt 38% · Pd 39% · Rh 8% — a ratio geology fixes"
+  },
+  {
+   "label": "Into autocatalysts",
+   "tonnes": 68,
+   "lo": 60,
+   "hi": 80,
+   "note": "~68% of demand cleans vehicle exhaust — plus hydrogen, jewellery"
+  },
+  {
+   "label": "Recovered from spent catalysts",
+   "tonnes": 27,
+   "lo": 22,
+   "hi": 30,
+   "note": "~27% of supply is recycled — the one lever that adds metal without new geology"
+  }
+ ]
+}

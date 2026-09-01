@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/pgm">
+<title>Platinum-group metals, end to end — the chokepoint that is the mine · Critical Materials Atlas</title>
+<meta name="description" content="A single-basket deep dive: the platinum-group metals are the atlas's sharpest GEOLOGICAL chokepoint — one ore body (South Africa's Bushveld) holds ~90% of reserves, and platinum, palladium and rhodium come out of the same rock in a ratio geology fixes, so a shortage of one cannot be mined away. The opposite failure mode to a by-product.">
+<meta property="og:title" content="Platinum-group metals: the chokepoint you cannot out-build, and the co-production lock">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/pgm">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:.9rem;margin:1.2rem 0}
+ @media(max-width:720px){.stat4{grid-template-columns:repeat(2,1fr)}}
+ .stat{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #7a5c1e;border-radius:10px;padding:.8rem .9rem}
+ .stat .v{font-size:1.4rem;font-weight:800;color:#15323a;letter-spacing:-.02em}
+ .stat.warn{border-left-color:#7a5c1e}.stat.warn .v{color:#7a5c1e}
+ .stat .l{font-size:.76rem;color:#5a6b68;margin-top:.15rem;line-height:1.35}
+ .step{margin:.5rem 0}
+ .step .top{display:flex;justify-content:space-between;align-items:baseline;font-size:.9rem;margin-bottom:.2rem}
+ .step .top b{color:#15323a}.step .top .t{font-weight:800;font-variant-numeric:tabular-nums}
+ .step .bar{position:relative;background:#eef3f2;border-radius:5px;height:30px;overflow:hidden}
+ .step .fill{height:100%;border-radius:5px}
+ .step .ci{position:absolute;top:0;bottom:0;background:rgba(21,50,58,.10);border-left:1px dashed #9aa6ad;border-right:1px dashed #9aa6ad}
+ .step .note{font-size:.76rem;color:#9aa6ad;margin-top:.12rem}
+ .keyline{background:#fbf6ee;border:1px solid #ecdcc0;border-left:4px solid #7a5c1e;border-radius:10px;padding:.9rem 1.1rem;margin:1.2rem 0}
+ .keyline b{color:#7a5c1e}
+ .split{display:flex;height:34px;border-radius:7px;overflow:hidden;margin:.6rem 0;font-size:.78rem;font-weight:700}
+ .split div{display:flex;align-items:center;justify-content:center;color:#fff}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Deep dive · one basket, followed to the bottom</div>
+  <h1>Platinum-group metals, end to end</h1>
+  <p class="deck">Gallium and cobalt are chokepoints you cannot <i>scale</i> &mdash; they ride a host metal. The platinum-group metals are the opposite: a chokepoint you cannot <b>out-build</b>, because it <i>is</i> the mine. One ore body holds most of the world&rsquo;s reserves, and platinum, palladium and rhodium come out of it in a ratio the rock fixes &mdash; so you cannot mine more of one without the others. This is the atlas&rsquo;s sharpest <a href="chokepoint-map" style="color:#fff;text-decoration:underline">geological</a> case, followed to the bottom.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><span id="lead"></span>
+  <details class="howto"><summary>The numbers, and every constant they rest on</summary>
+  <p>Mine shares are from <b>World Mining Data 2024</b> (South Africa&rsquo;s platinum share, Russia&rsquo;s palladium share). The reserve concentration (~90% in South Africa), the mine split by metal (Pt/Pd/Rh), the autocatalyst demand share (~68%) and the recycled share (~27%) are from USGS Mineral Commodity Summaries and the Johnson Matthey PGM Market Report; each carries the low&ndash;high bracket. The rhodium price peak (2021) is Johnson Matthey.</p>
+  <p class="howto-src">Input: <a href="out/production.json">production.json</a> &rarr; <a href="out/pgm.json">pgm.json</a> (<code>build_pgm.py</code>). PGMs are co-mined, so &ldquo;output&rdquo; here is by contained metal mass; individual-metal shares vary by deposit.</p>
+  </details></div>
+
+  <div class="stat4" id="stats"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">The co-production lock</h2>
+  <p class="muted" style="margin-top:0">Platinum, palladium and rhodium are not mined separately &mdash; they come out of the same ore in this rough mass ratio. You cannot buy &ldquo;more rhodium&rdquo;; you can only mine more of the whole basket.</p>
+  <div class="split" id="splitbar"></div>
+  <div id="steps"></div>
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Why you can&rsquo;t out-build it</h2>
+  <p>A refining chokepoint &mdash; gallium&rsquo;s furnace, cobalt&rsquo;s Chinese refineries &mdash; is a <i>capability</i>: hard to reproduce, but reproducible, with capital and years. A geological chokepoint is not. The platinum-group metals are concentrated because the ore that carries them in economic grade sits, overwhelmingly, in <b>one complex in South Africa</b> and one district in Russia. There is no second Bushveld to build; you cannot fund a deposit into existence. This is why the atlas keeps only <b>five</b> of its 58 chains in the geological class &mdash; the mechanism where the entire toolkit of &ldquo;stand up an alternative supplier&rdquo; simply does not apply. What is left is narrower and slower: <b>substitution</b> within the basket (which moves nothing &mdash; Pt, Pd and Rh trade for each other but all come from the same two countries, see the <a href="substitution">substitution networks</a>), <b>recycling</b> spent autocatalysts (~a quarter of supply, the one lever that adds metal without new geology), and <b>stockpiling</b> against a shock. The 2021 rhodium spike &mdash; above <b>$29,000 an ounce</b>, richer than gold by an order of magnitude &mdash; is what the lock looks like when demand for one co-product outruns the geology of the others.</p>
+
+  <h2 style="margin:1.8rem 0 .3rem">Why one basket, done deep, matters</h2>
+  <p>The atlas&rsquo;s thesis is that <i>the chokepoint is rarely the mine</i> &mdash; and it means it, which is why the exceptions carry weight. The platinum-group metals are the clean counter-case: here the chokepoint <b>is</b> the mine, and geology says why. Set beside <a href="gallium">gallium</a> (a by-product you can&rsquo;t scale) and <a href="cobalt">cobalt</a> (mined in one country, refined in another), the PGMs complete the picture &mdash; the three mechanisms that put a material out of reach are <i>can&rsquo;t scale it</i>, <i>can&rsquo;t see past the refiner</i>, and <i>can&rsquo;t out-build the rock</i>. Knowing which one you face is the whole of the decision. <a href="chokepoint-map">The mechanism map &rarr;</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>World Mining Data 2024 (mine shares) · USGS Mineral Commodity Summaries (reserves) · Johnson Matthey PGM Market Report (metal split, demand, recycling, prices)</div>
+  <div class="fineprint">PGMs are co-mined; per-metal shares vary by deposit, so the split is an approximate global mass mix shown with bounds. Reserve concentration and demand shares are literature ranges.</div>
+</div></footer>
+<script>
+fetch('out/pgm.json').then(r=>r.json()).then(S=>{
+  document.getElementById('lead').innerHTML='<b>The lock, in one sentence:</b> platinum, palladium and rhodium come out of the <i>same</i> ore, in a ratio the rock sets &mdash; and that ore sits overwhelmingly in <b>one complex in South Africa</b> (~'+S.reserves_sa.central+'% of reserves; ~'+S.pt_sa_share+'% of platinum mine supply) plus Russia&rsquo;s Norilsk (~'+S.pd_ru_share+'% of palladium). So a shortage of one metal cannot be answered by mining more of just that metal &mdash; there is no such mine. This is a chokepoint you cannot out-build.';
+  const st=[
+    {v:'~'+S.reserves_sa.central+'%',l:'of world PGM reserves in one complex (South Africa’s Bushveld) — geology you can’t relocate',warn:true},
+    {v:'~'+S.pt_sa_share+'%',l:'of platinum mine supply from South Africa'},
+    {v:'~'+S.pd_ru_share+'%',l:'of palladium mine supply from Russia (Norilsk)'},
+    {v:'~'+S.autocat.central+'%',l:'of PGM demand cleans vehicle exhaust — one end-use, two countries'},
+  ];
+  document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat'+(s.warn?' warn':'')+'"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
+  const cols={'platinum':'#8a99a8','palladium':'#7a5c1e','rhodium':'#c0392b','other (Ru/Ir/Os)':'#9aa6ad'};
+  document.getElementById('splitbar').innerHTML=Object.entries(S.split).map(([k,v])=>
+    '<div style="width:'+v+'%;background:'+(cols[k]||'#888')+'" title="'+k+' '+v+'%">'+(v>=8?k.split(' ')[0]+' '+v+'%':'')+'</div>').join('');
+  const mx=100, cols2=['#7a5c1e','#8a99a8','#c0392b','#1f7a4d'];
+  document.getElementById('steps').innerHTML=S.steps.map((s,i)=>{
+    const w=100*s.tonnes/mx, lo=100*s.lo/mx, hi=100*s.hi/mx;
+    return '<div class="step"><div class="top"><b>'+s.label+'</b><span class="t">'+s.tonnes+'</span></div>'+
+      '<div class="bar"><div class="fill" style="width:'+Math.max(2,w)+'%;background:'+cols2[i]+'"></div>'+
+      '<div class="ci" style="left:'+lo+'%;width:'+Math.max(1,hi-lo)+'%"></div></div>'+
+      '<div class="note">'+s.note+'</div></div>';
+  }).join('');
+  document.getElementById('keyline').innerHTML='<b>Demand for one metal is capped by the geology of the others.</b> When tightening emissions rules drove rhodium demand up, its price ran past <b>$'+S.rh_peak_usd.toLocaleString()+' an ounce</b> in 2021 — because you cannot open a rhodium mine. Rhodium is ~'+S.split.rhodium+'% of what the ore yields; to get more, you mine more platinum and palladium too, from the same two countries. That is the geological lock: no price fixes it on any horizon a mine can answer.';
+});
+</script>
+</body></html>
