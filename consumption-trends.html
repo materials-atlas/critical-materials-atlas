@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/consumption-trends">
-<title>Consumption over time — watching the matrix move, 2000 to 2023 · Critical Materials Atlas</title>
-<meta name="description" content="The trade-independent consumption matrix as a time series: 2023-calibrated intensities applied to each year's activity, 2000–2023. Two stories production maps can't show — the consumption centre of gravity moving to China across almost every material, and the energy-transition metals (lithium, cobalt, graphite, rare-earth magnets) going from near-zero to dominant.">
-<meta property="og:title" content="Consumption over time: watching the matrix move, 2000 to 2023">
+<title>Consumption over time — watching the matrix move, 2000 to 2024 · Critical Materials Atlas</title>
+<meta name="description" content="The trade-independent consumption matrix as a time series: 2023-calibrated intensities applied to each year's activity, 2000–2024. Two stories production maps can't show — the consumption centre of gravity moving to China across almost every material, and the energy-transition metals (lithium, cobalt, graphite, rare-earth magnets) going from near-zero to dominant.">
+<meta property="og:title" content="Consumption over time: watching the matrix move, 2000 to 2024">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/consumption-trends">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
   <p class="deck">The same trade-independent estimate &mdash; <b>demand = activity &times; intensity</b> &mdash; run across time. Hold the calibrated intensities fixed and feed each year&rsquo;s real activity, and two shifts appear that no production map shows: the consumption <b>centre of gravity moving to China</b>, and the <b>energy-transition metals</b> emerging from almost nothing.</p>
 </div></section>
 <article style="max-width:1100px">
-  <div class="draftbar"><b>Method &mdash; annual, level-corrected.</b> Every year 2000&ndash;2023 (intermediate years interpolated between 2000/2010/2023 activity benchmarks). Each country&rsquo;s <i>share</i> comes from its real activity; each material&rsquo;s <i>level</i> is then re-scaled to the real world-consumption trend (USGS/IEA), anchored so 2023 equals the calibrated value. It still does <b>not</b> model thrifting (less cobalt per battery over time) or substitution &mdash; so read the <i>movement</i> as the finding. Covers <b>35 materials</b>; the level re-calibration is applied to the broad set (steel family, battery metals, copper/silver, PGM), while specialty metals use activity-driven levels (v1) until their world-consumption histories are added.</div>
+  <div class="draftbar"><b>Method &mdash; how much is real data.</b> Every year <b>2000&ndash;2024</b>. Six drivers are <b>real annual data</b> &mdash; electricity, population, nuclear, solar, wind (Ember/OWID) and fertilizer (FAOSTAT); the rest (steel, vehicles, EVs, cement, aluminium&hellip;) are <b>interpolated between 3 real benchmark years</b> (2000/2010/2023), because no open annual per-country series exists for them. So each material carries a <b>&ldquo;real&rdquo; %</b> (share of its demand driven by real-annual data): <b>phosphate &amp; phosphorus are 100% real</b>; steel-driven metals are 0% (benchmark-interpolated). Levels are re-scaled to the real world-consumption trend, pinned so 2023 = the calibrated value. Read the <i>movement</i> as the finding; it does not model thrifting or substitution.</div>
 
   <div class="yearbar"><span class="yr" id="yr">—</span><div class="yrbtns" id="yrbtns"></div>
     <input type="range" id="slider" aria-label="Select year" title="Select year" style="flex:1;min-width:180px" min="0" max="0" value="0"></div>
@@ -97,7 +97,7 @@ fetch('out/consumption_series.json').then(r=>r.json()).then(S=>{
       let y2=sortKey==='name'?b.name:sortKey==='total'?b.total:(b.cells[sortKey]||0);
       return sortKey==='name'?(asc?x.localeCompare(y2):y2.localeCompare(x)):(asc?x-y2:y2-x);});
     let h='<thead><tr><th class="c0" data-k="name">Country ('+rows.length+')</th>';
-    cols.forEach(m=>h+='<th class="rot" data-k="'+m+'"><span>'+lab(m)+'</span></th>');
+    cols.forEach(m=>h+='<th class="rot" data-k="'+m+'" title="'+lab(m)+' — '+Math.round((S.real_frac&&S.real_frac[m]||0)*100)+'% from real annual data (rest interpolated between benchmarks)"><span>'+lab(m)+'</span></th>');
     h+='<th data-k="total">Total</th></tr></thead><tbody>';
     rows.forEach(r=>{h+='<tr><td class="c0">'+r.name+'</td>';
       cols.forEach(m=>{const v=r.cells[m]||0;h+='<td style="background:'+heat(v,colmax[m])+'" title="'+r.name+' · '+lab(m)+' '+y+': '+Math.round(v).toLocaleString()+' t">'+fmt(v)+'</td>';});
