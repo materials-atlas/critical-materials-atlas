@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/consumption">
 <title>Trade-independent consumption — activity × material intensity · Critical Materials Atlas</title>
-<meta name="description" content="A consumption estimate built without trade data: demand = national activity × calibrated material intensity, for 116 countries × 18 materials. Intensities are back-solved from known world totals, so world sums can't drift; a per-material capture ratio states honestly how much of world demand each column accounts for. This is the trade-independent input the production-constrained anchor needs.">
+<meta name="description" content="A consumption estimate built without trade data: demand = national activity × calibrated material intensity, for 117 countries × 36 materials. Intensities are back-solved from known world totals, so world sums can't drift; each material carries a capture ratio and a confidence tag stating honestly how much of world demand it accounts for and how firm the end-use split is. This is the trade-independent input the production-constrained anchor needs.">
 <meta property="og:title" content="Trade-independent consumption: activity × material intensity">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/consumption">
@@ -46,7 +46,7 @@
 
   <p class="muted" id="cap">&nbsp;</p>
   <div class="scroll"><table id="t"></table></div>
-  <p class="muted" style="margin-top:.6rem">Cells are tonnes of contained material consumed per year, shaded by intensity within each column. &mdash; = no activity in that material&rsquo;s drivers (a genuine ~0 consumer). Click a header to sort. Bottom row = capture ratio (share of world demand the column accounts for).</p>
+  <p class="muted" style="margin-top:.6rem">Cells are tonnes of contained material consumed per year, shaded by intensity within each column. &mdash; = no activity in that material&rsquo;s drivers (a genuine ~0 consumer). Click a header to sort. Bottom row = capture ratio (share of world demand the column accounts for); * marks a rough end-use split (arsenic, magnets, hafnium, strontium).</p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -83,7 +83,8 @@ fetch('out/consumption.json').then(r=>r.json()).then(S=>{
       mats.forEach(m=>{const v=r.cells[m];h+='<td style="background:'+heat(v,colmax[m])+'" title="'+r.name+' · '+lab(m)+': '+Math.round(v).toLocaleString()+' t">'+fmt(v)+'</td>';});
       h+='<td class="tot" style="background:'+heat(r.total,totmax)+'">'+fmt(r.total)+'</td></tr>';});
     h+='</tbody><tfoot><tr><td class="c0">Capture ratio</td>';
-    mats.forEach(m=>{const c=S.capture[m];h+='<td class="'+(c<0.5?'lo':'')+'">'+c.toFixed(2)+'</td>';});
+    mats.forEach(m=>{const c=S.capture[m];const cf=S.conf?S.conf[m]:'';
+      h+='<td class="'+((c<0.5||cf==='rough')?'lo':'')+'" title="end-use split confidence: '+cf+'">'+c.toFixed(2)+(cf==='rough'?'*':'')+'</td>';});
     h+='<td></td></tr></tfoot>';
     document.getElementById('t').innerHTML=h;
     document.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k;

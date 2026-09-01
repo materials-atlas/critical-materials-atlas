@@ -33,6 +33,9 @@ prod = {r['label']: r for r in json.load(open(os.path.join(ROOT,'out','productio
 _cj = json.load(open(os.path.join(ROOT,'out','consumption.json'),encoding='utf8'))
 cons = _cj['matrix']
 CONS_MATS = set(_cj['materials'])   # materials we actually have a consumption estimate for
+KNOWN = _cj['known_world']          # world consumption per material, in the consumption model's own units
+CAP = _cj.get('capture', {})        # per-material share of world demand the consumption model captures
+CONF = _cj.get('conf', {})          # per-material confidence in the end-use split (good/moderate/rough)
 fj = json.load(open(os.path.join(ROOT,'out','flows_2024.json'),encoding='utf8'))
 flows, NAMES = fj['materials'], fj['names']
 I2to3 = {}
@@ -56,7 +59,7 @@ def derive():
   for mat, p in prod.items():
     if mat not in flows or not p.get('top5'): continue
     obs = export_share(mat)                       # WORLD base: c's exports / world exports
-    world_t = p.get('world_tonnes') or 0
+    known = KNOWN.get(mat) or 0                   # world consumption (consumption-model units)
     divergent = mat in STAGE_DIVERGENT
     has_cons = mat in CONS_MATS                    # do we have a real consumption estimate for this material?
     # regime: divergent (stage mismatch) > production-only (no consumption estimate, exportable=production is an
@@ -66,7 +69,10 @@ def derive():
     for t in p['top5']:
         iso = t['iso']; o = obs.get(iso, 0.0)
         c = consumption_t(iso, mat)
-        e = 100*max(0.0, t['tonnes'] - c)/world_t if world_t else 0.0   # WORLD base: exportable / world production
+        # Unit-SAFE: exportable share = production share - consumption share (both % of their world total), so the
+        # production form (oxide, borate) and the consumption form (contained metal) never have to match.
+        cons_share = 100*c/known if known else 0.0
+        e = max(0.0, t['share'] - cons_share)
         g = e - o
         # A correction is asserted ONLY when it is both physically safe (under-attribution: producer credited
         # LESS than it can supply -> refiner-fronting) AND consumption-anchored (we can rule out domestic use).
@@ -77,17 +83,26 @@ def derive():
                      'gap': round(g, 1), 'corrected_pc': corrected,
                      'review': (o > e + 10 and o > 5)})
     top = rows[0]
+    # A consumption-anchored pull-up is FIRM when the producer's own consumption is trustworthy — either it is a
+    # near-zero consumer (a pure exporter, so uncovered end-uses can't hide at home: DRC cobalt, SA platinum), OR
+    # its consumption is well-captured (high capture, non-rough split). It is INDICATIVE when the producer
+    # plausibly consumes in end-uses we DON'T capture (US beryllium: capture 0.49 and the US has the industry).
+    cap, cf = CAP.get(mat), CONF.get(mat, 'good')
+    top_cons_share = 100*consumption_t(top['iso'], mat)/known if known else 0.0
+    firm = (regime == 'matched' and top['corrected_pc'] is not None
+            and (top_cons_share < 3.0 or ((cap or 1) >= 0.7 and cf != 'rough')))
     results.append({'material': mat, 'title': p.get('title', mat), 'wmd_stage': p.get('wmd_stage','mine'),
-                    'regime': regime, 'has_consumption': has_cons,
+                    'regime': regime, 'has_consumption': has_cons, 'capture': cap, 'conf': cf, 'firm': firm,
                     'stage_note': STAGE_DIVERGENT.get(mat, ''), 'top': top['name'],
                     'top_gap': top['gap'], 'top_obs': top['obs_pc'], 'top_expble': top['expble_pc'],
                     'top_corrected': top['corrected_pc'], 'porigin': (regime=='production-only' and top['gap']>10),
                     'rows': rows})
   matched = [r for r in results if r['regime'] == 'matched']
   corrected = [r for r in matched if r['top_corrected'] is not None]     # consumption-anchored origin-gap repairs
+  firm = [r for r in corrected if r['firm']]
   mean_gap = round(sum(r['top_gap'] for r in corrected)/len(corrected), 1) if corrected else 0
   return {'w_default': W_DEFAULT, 'n_materials': len(results), 'n_matched': len(matched),
-       'n_corrected': len(corrected), 'mean_gap': mean_gap,
+       'n_corrected': len(corrected), 'n_firm': len(firm), 'mean_gap': mean_gap,
        'note': ('Production-constrained anchor: exportable = production - trade-independent consumption; the '
                 'mirror-trade origin share is guardrailed (cannot exceed exportable) and pulled toward the '
                 'physical prior. Corrects the refiner-fronting origin gap for stage-matched materials; '

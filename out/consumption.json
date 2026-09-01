@@ -32,6 +32,38 @@
   "pop": {
    "world": 8091.73,
    "source": "UN WPP 2024"
+  },
+  "aluminium": {
+   "world": 72000.0,
+   "source": "USGS MCS 2025"
+  },
+  "lead": {
+   "world": 13500.0,
+   "source": "ILZSG est."
+  },
+  "drilling": {
+   "world": 1750.0,
+   "source": "Baker Hughes (intl est.)"
+  },
+  "fertp": {
+   "world": 42000.0,
+   "source": "FAOSTAT/IFA 2022"
+  },
+  "glass": {
+   "world": 185.0,
+   "source": "proxy est."
+  },
+  "semi": {
+   "world": 30.0,
+   "source": "SEMI 2024 (region)"
+  },
+  "aero": {
+   "world": 850.0,
+   "source": "proxy revenue est."
+  },
+  "nuclear": {
+   "world": 2667.2999999999997,
+   "source": "IAEA PRIS/WNA 2024"
   }
  },
  "end_use_shares": {
@@ -87,10 +119,6 @@
    "veh": 0.05,
    "elec": 0.2
   },
-  "rareearths": {
-   "ev": 0.15,
-   "wind": 0.14
-  },
   "platinum": {
    "veh": 0.4
   },
@@ -98,7 +126,97 @@
    "veh": 0.8
   },
   "phosphate": {
-   "pop": 0.9
+   "fertp": 0.85,
+   "pop": 0.05
+  },
+  "magnets": {
+   "ev": 0.22,
+   "veh": 0.22,
+   "semi": 0.18,
+   "elec": 0.1,
+   "wind": 0.12
+  },
+  "gallium": {
+   "semi": 0.99
+  },
+  "germanium": {
+   "semi": 0.46,
+   "aero": 0.27
+  },
+  "tantalum": {
+   "semi": 0.4,
+   "aero": 0.2
+  },
+  "antimony": {
+   "pop": 0.42,
+   "lead": 0.33,
+   "glass": 0.15,
+   "aero": 0.1
+  },
+  "arsenic": {
+   "pop": 0.45,
+   "lead": 0.18,
+   "glass": 0.15,
+   "semi": 0.08
+  },
+  "beryllium": {
+   "aero": 0.17,
+   "semi": 0.31,
+   "elec": 0.07
+  },
+  "boron": {
+   "glass": 0.5,
+   "cement": 0.15,
+   "fertp": 0.1,
+   "pop": 0.1
+  },
+  "fluorspar": {
+   "elec": 0.55,
+   "aluminium": 0.18,
+   "steel": 0.25
+  },
+  "titanium": {
+   "cement": 0.45,
+   "pop": 0.45,
+   "aero": 0.05
+  },
+  "feldspar": {
+   "cement": 0.6,
+   "glass": 0.35
+  },
+  "baryte": {
+   "drilling": 0.88,
+   "pop": 0.05
+  },
+  "bauxite": {
+   "aluminium": 0.87,
+   "cement": 0.13
+  },
+  "magnesium": {
+   "aluminium": 0.4,
+   "veh": 0.32,
+   "steel": 0.1
+  },
+  "phosphorus": {
+   "fertp": 0.82,
+   "pop": 0.1
+  },
+  "hafnium": {
+   "aero": 0.55,
+   "nuclear": 0.22,
+   "semi": 0.13
+  },
+  "strontium": {
+   "veh": 0.21,
+   "semi": 0.21,
+   "aluminium": 0.3,
+   "pop": 0.17
+  },
+  "helium": {
+   "semi": 0.17,
+   "pop": 0.38,
+   "aero": 0.09,
+   "steel": 0.08
   }
  },
  "known_world": {
@@ -116,10 +234,27 @@
   "graphite": 4000000,
   "copper": 26000000,
   "silver": 35000,
-  "rareearths": 180000,
   "platinum": 230,
   "palladium": 270,
-  "phosphate": 220000000
+  "phosphate": 220000000,
+  "magnets": 220000,
+  "gallium": 700,
+  "germanium": 145,
+  "tantalum": 2250,
+  "antimony": 130000,
+  "arsenic": 40000,
+  "beryllium": 300,
+  "boron": 4500000,
+  "fluorspar": 8500000,
+  "titanium": 9000000,
+  "feldspar": 28000000,
+  "baryte": 8000000,
+  "bauxite": 400000000,
+  "magnesium": 1100000,
+  "phosphorus": 50000000,
+  "hafnium": 85,
+  "strontium": 300000,
+  "helium": 32000
  },
  "capture": {
   "manganese": 0.896,
@@ -136,12 +271,66 @@
   "graphite": 0.598,
   "copper": 0.756,
   "silver": 0.381,
-  "rareearths": 0.289,
   "platinum": 0.383,
   "palladium": 0.778,
-  "phosphate": 0.829
+  "phosphate": 0.86,
+  "magnets": 0.813,
+  "gallium": 0.9,
+  "germanium": 0.655,
+  "tantalum": 0.544,
+  "antimony": 0.93,
+  "arsenic": 0.801,
+  "beryllium": 0.487,
+  "boron": 0.797,
+  "fluorspar": 0.953,
+  "titanium": 0.821,
+  "feldspar": 0.824,
+  "baryte": 0.738,
+  "bauxite": 0.954,
+  "magnesium": 0.803,
+  "phosphorus": 0.877,
+  "hafnium": 0.8,
+  "strontium": 0.846,
+  "helium": 0.665
  },
- "n_countries": 116,
+ "conf": {
+  "manganese": "good",
+  "chromium": "good",
+  "nickel": "good",
+  "molybdenum": "good",
+  "vanadium": "good",
+  "niobium": "good",
+  "tungsten": "good",
+  "silicon": "good",
+  "cokingcoal": "good",
+  "lithium": "good",
+  "cobalt": "good",
+  "graphite": "good",
+  "copper": "good",
+  "silver": "good",
+  "platinum": "good",
+  "palladium": "good",
+  "phosphate": "good",
+  "magnets": "rough",
+  "gallium": "moderate",
+  "germanium": "moderate",
+  "tantalum": "moderate",
+  "antimony": "moderate",
+  "arsenic": "rough",
+  "beryllium": "moderate",
+  "boron": "moderate",
+  "fluorspar": "moderate",
+  "titanium": "good",
+  "feldspar": "moderate",
+  "baryte": "good",
+  "bauxite": "good",
+  "magnesium": "moderate",
+  "phosphorus": "good",
+  "hafnium": "rough",
+  "strontium": "rough",
+  "helium": "moderate"
+ },
+ "n_countries": 117,
  "materials": [
   "manganese",
   "chromium",
@@ -157,10 +346,27 @@
   "graphite",
   "copper",
   "silver",
-  "rareearths",
   "platinum",
   "palladium",
-  "phosphate"
+  "phosphate",
+  "magnets",
+  "gallium",
+  "germanium",
+  "tantalum",
+  "antimony",
+  "arsenic",
+  "beryllium",
+  "boron",
+  "fluorspar",
+  "titanium",
+  "feldspar",
+  "baryte",
+  "bauxite",
+  "magnesium",
+  "phosphorus",
+  "hafnium",
+  "strontium",
+  "helium"
  ],
  "matrix": {
   "CHN": {
@@ -222,10 +428,6 @@
      "t": 5743,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 32656,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 30,
      "basis": "calibrated"
@@ -235,7 +437,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 34809718,
+     "t": 46457683,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 80220,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 199,
+     "basis": "calibrated"
+    },
+    "germanium": {
+     "t": 22,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 295,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 38479,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 10150,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 38,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1687393,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 3548607,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 2823466,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 13637310,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 251351,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 234467480,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 435518,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 10640938,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 101088,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 5313,
      "basis": "calibrated"
     }
    }
@@ -299,10 +573,6 @@
      "t": 692,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 773,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 6,
      "basis": "calibrated"
@@ -312,7 +582,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 35188750,
+     "t": 37573978,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 5380,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 6,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 14331,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 4078,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 342648,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 549017,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 1131123,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 2156757,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 493488,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 25500000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 55836,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 8698129,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 18255,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 2391,
      "basis": "calibrated"
     }
    }
@@ -376,10 +718,6 @@
      "t": 460,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 469,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 9,
      "basis": "calibrated"
@@ -389,7 +727,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 3043263,
+     "t": 1504784,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 12303,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 109,
+     "basis": "calibrated"
+    },
+    "germanium": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 3335,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 1234,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 16,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 91335,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 256366,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 122227,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 522716,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 6148,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 634146,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 38914,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 369707,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 16713,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 1225,
      "basis": "calibrated"
     }
    }
@@ -453,10 +863,6 @@
      "t": 1570,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 4047,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 10,
      "basis": "calibrated"
@@ -466,7 +872,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 8404759,
+     "t": 17831217,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 19018,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 72,
+     "basis": "calibrated"
+    },
+    "germanium": {
+     "t": 25,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 305,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 13405,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 2179,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 37,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 282626,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 776041,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 473570,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 1273419,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 2374374,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 4392480,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 48756,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 4019384,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 29,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 16659,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 2544,
      "basis": "calibrated"
     }
    }
@@ -530,10 +1008,6 @@
      "t": 292,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 65,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -543,7 +1017,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 3558834,
+     "t": 3536999,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1327,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 2737,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 657,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 110643,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 351567,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 142334,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 604372,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 7190,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 19089593,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 30376,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 822012,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 6158,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 406,
      "basis": "calibrated"
     }
    }
@@ -607,10 +1153,6 @@
      "t": 265,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 308,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 4,
      "basis": "calibrated"
@@ -620,7 +1162,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1266293,
+     "t": 70350,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 9902,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 118,
+     "basis": "calibrated"
+    },
+    "germanium": {
+     "t": 12,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 157,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 3541,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 1248,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 17,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 71920,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 172225,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 79527,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 469743,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 2558,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 634146,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 19847,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 31977,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 13894,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 1120,
      "basis": "calibrated"
     }
    }
@@ -684,10 +1298,6 @@
      "t": 391,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 2083,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 4,
      "basis": "calibrated"
@@ -697,7 +1307,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 2068890,
+     "t": 1450653,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 5712,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 3331,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 639,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 93051,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 128752,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 66142,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 370811,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 4180,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 2078333,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 20149,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 345102,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 3838,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 327,
      "basis": "calibrated"
     }
    }
@@ -761,10 +1443,6 @@
      "t": 187,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 222,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -774,7 +1452,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 2135447,
+     "t": 2344826,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1329,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1010,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 324,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 71865,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 88246,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 121716,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 535599,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 4314,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 1001951,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 7485,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 542021,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1539,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 177,
      "basis": "calibrated"
     }
    }
@@ -838,10 +1588,6 @@
      "t": 380,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 1171,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 2,
      "basis": "calibrated"
@@ -851,7 +1597,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 5166475,
+     "t": 28337026,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 3031,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 2700,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 722,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 138263,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 170797,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 172145,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 470038,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 10437,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 6115691,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 17325,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 6280467,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 4271,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 388,
      "basis": "calibrated"
     }
    }
@@ -915,10 +1733,6 @@
      "t": 112,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -928,7 +1742,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 2217175,
+     "t": 1681510,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 898,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1247,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 308,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 19490,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 105758,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 109559,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 266341,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 4479,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 3241057,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 9336,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 397656,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 1996,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 178,
      "basis": "calibrated"
     }
    }
@@ -992,10 +1878,6 @@
      "t": 143,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 374,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -1005,7 +1887,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1455931,
+     "t": 882314,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1241,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 1670,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 358,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 53886,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 64916,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 39310,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 211892,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 2941,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 4538,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 212480,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 968,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 179,
      "basis": "calibrated"
     }
    }
@@ -1069,10 +2023,6 @@
      "t": 95,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 241,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -1082,7 +2032,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 2455507,
+     "t": 2629750,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 625,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1472,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 357,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 29690,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 65153,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 158885,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 450732,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 4961,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 1395122,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 1991,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 608674,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 789,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 177,
      "basis": "calibrated"
     }
    }
@@ -1146,10 +2168,6 @@
      "t": 108,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 239,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -1159,7 +2177,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 570627,
+     "t": 31702,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 8119,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 132,
+     "basis": "calibrated"
+    },
+    "germanium": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 171,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 157,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 660,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 18,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1297,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 65937,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 11672,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1153,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 2094,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 14410,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 12293,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 1094,
      "basis": "calibrated"
     }
    }
@@ -1223,10 +2313,6 @@
      "t": 179,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 32,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 4,
      "basis": "calibrated"
@@ -1236,7 +2322,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 3174664,
+     "t": 2046370,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 2388,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 2558,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 615,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 56433,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 74406,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 114327,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 363797,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 167328,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 634146,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 16042,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 490168,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 3513,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 218,
      "basis": "calibrated"
     }
    }
@@ -1300,10 +2458,6 @@
      "t": 113,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 34,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -1313,7 +2467,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 6880558,
+     "t": 5279872,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1043,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 2214,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 723,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 74117,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 74120,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 201983,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 412968,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 174814,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 786341,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 6229,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 1247561,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 2712,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 445,
      "basis": "calibrated"
     }
    }
@@ -1377,10 +2603,6 @@
      "t": 190,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 533,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 2,
      "basis": "calibrated"
@@ -1390,7 +2612,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 961648,
+     "t": 3837949,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 2089,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 15,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 1488,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 221,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 11293,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 184905,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 34494,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 746171,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 15950000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 26722,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 854046,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 5419,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 170,
      "basis": "calibrated"
     }
    }
@@ -1454,10 +2748,6 @@
      "t": 189,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 403,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 2,
      "basis": "calibrated"
@@ -1467,7 +2757,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1172330,
+     "t": 1400844,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 2077,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 7,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 1585,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 327,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 42365,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 64227,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 31391,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 158919,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 2368,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 1691667,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 12025,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 322461,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 2390,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 135,
      "basis": "calibrated"
     }
    }
@@ -1531,10 +2893,6 @@
      "t": 52,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 54,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -1544,7 +2902,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 2802728,
+     "t": 1491421,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 221,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 773,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 255,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 17816,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 46653,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 106719,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 204878,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 5662,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 634146,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 605,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 363633,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 722,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 186,
      "basis": "calibrated"
     }
    }
@@ -1608,10 +3038,6 @@
      "t": 168,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 1400,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -1621,7 +3047,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1625749,
+     "t": 2004843,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 2541,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 37,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 2290,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 336,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 5,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 56951,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 92982,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 70313,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 211892,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 3284,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 581,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 460816,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 6,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 419,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 351,
      "basis": "calibrated"
     }
    }
@@ -1685,10 +3183,6 @@
      "t": 128,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -1698,7 +3192,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 789384,
+     "t": 43855,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 318,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 428,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 137,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 34844,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 99378,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 68500,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 323117,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 242966,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 5360528,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 6503,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 19934,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1416,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 62,
      "basis": "calibrated"
     }
    }
@@ -1762,10 +3328,6 @@
      "t": 59,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 22,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -1775,7 +3337,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 859611,
+     "t": 1160851,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 579,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 237,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 78,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 4632,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 56507,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 17583,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1737,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 4205000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 8667,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 265755,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1831,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 63,
      "basis": "calibrated"
     }
    }
@@ -1839,10 +3473,6 @@
      "t": 54,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 187,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -1854,6 +3484,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 403,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 19160,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 842,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 77,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 10,
+     "basis": "calibrated"
     }
    }
   },
@@ -1916,10 +3618,6 @@
      "t": 105,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 318,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -1929,7 +3627,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 948435,
+     "t": 1566500,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 500,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 864,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 232,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 42285,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 33273,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 19400,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 158919,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 1916,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 372,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 355855,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 244,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 67,
      "basis": "calibrated"
     }
    }
@@ -1993,10 +3763,6 @@
      "t": 0,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2006,7 +3772,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 923231,
+     "t": 1164386,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 255,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 84,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 4777,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 6964,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 18884,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1865,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 366,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 267362,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 239,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 65,
      "basis": "calibrated"
     }
    }
@@ -2070,10 +3908,6 @@
      "t": 47,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 413,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2085,6 +3919,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 949,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 381,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 64,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 19570,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 1593,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 224,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 8,
+     "basis": "calibrated"
     }
    }
   },
@@ -2147,10 +4053,6 @@
      "t": 110,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 1206,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -2160,7 +4062,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1680560,
+     "t": 93364,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 2672,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 2294,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 389,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 40306,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 52390,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 58199,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 158919,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 3395,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 4184,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 42438,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 1123,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 263,
      "basis": "calibrated"
     }
    }
@@ -2224,10 +4198,6 @@
      "t": 56,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2237,7 +4207,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 6056183,
+     "t": 4343597,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 169,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1670,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 551,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 23407,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 33054,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 123876,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 12235,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 607,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 1031505,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 1613,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 379,
      "basis": "calibrated"
     }
    }
@@ -2301,10 +4343,6 @@
      "t": 123,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 397,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2314,7 +4352,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 647216,
+     "t": 4488337,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 766,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 814,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 166,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 12185,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 80867,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 13239,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1308,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 7250000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 9498,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 992534,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 2046,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 47,
      "basis": "calibrated"
     }
    }
@@ -2378,10 +4488,6 @@
      "t": 79,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 175,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 2,
      "basis": "calibrated"
@@ -2391,7 +4497,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1754458,
+     "t": 1878422,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1409,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 695,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 224,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 32597,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 35634,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 35887,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 105946,
+     "basis": "calibrated"
+    },
+    "baryte": {
+     "t": 3544,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 7221,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 434781,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1692,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 115,
      "basis": "calibrated"
     }
    }
@@ -2455,10 +4633,6 @@
      "t": 24,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -2468,7 +4642,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 4195773,
+     "t": 2370241,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1157,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 381,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 14679,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 21490,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 85823,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 8476,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 291,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 574525,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1081,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 264,
      "basis": "calibrated"
     }
    }
@@ -2532,10 +4778,6 @@
      "t": 98,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 63,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -2545,7 +4787,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1546713,
+     "t": 1065452,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 568,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 427,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 141,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 5872,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 57627,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 31637,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 3125,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 3480000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 7074,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 253820,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 1725,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 102,
      "basis": "calibrated"
     }
    }
@@ -2609,10 +4923,6 @@
      "t": 46,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 87,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -2622,7 +4932,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1114338,
+     "t": 3267622,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 517,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 307,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 101,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 10247,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 38053,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 22793,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 263737,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 2078333,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 5211,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 730997,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 1236,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 75,
      "basis": "calibrated"
     }
    }
@@ -2686,10 +5068,6 @@
      "t": 93,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 764,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2701,6 +5079,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 1171,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 24183,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 656,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 68,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 6,
+     "basis": "calibrated"
     }
    }
   },
@@ -2763,10 +5213,6 @@
      "t": 20,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 10,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -2778,6 +5224,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 578,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 4942,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 4320,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 727,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 6,
+     "basis": "calibrated"
     }
    }
   },
@@ -2840,10 +5358,6 @@
      "t": 23,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2853,7 +5367,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1129509,
+     "t": 62750,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 72,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 311,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 103,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 2567,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 20052,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 23104,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2282,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 265,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 28523,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 293,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 75,
      "basis": "calibrated"
     }
    }
@@ -2917,10 +5503,6 @@
      "t": 66,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 761,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -2932,6 +5514,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 1314,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 30998,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 1291,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 186,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 6,
+     "basis": "calibrated"
     }
    }
   },
@@ -2994,10 +5648,6 @@
      "t": 30,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 63,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -3007,7 +5657,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 497463,
+     "t": 27637,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 226,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 805,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 157,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1131,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 22281,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 10175,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1005,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 780,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 12562,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 227,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 36,
      "basis": "calibrated"
     }
    }
@@ -3071,10 +5793,6 @@
      "t": 71,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 55,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3086,6 +5804,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 207,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 88044,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 221257,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 13050000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 16721,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 3375,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 5,
+     "basis": "calibrated"
     }
    }
   },
@@ -3148,10 +5938,6 @@
      "t": 25,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 370,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -3163,6 +5949,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 557,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 17115,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 496,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 49,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 5,
+     "basis": "calibrated"
     }
    }
   },
@@ -3225,10 +6083,6 @@
      "t": 56,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 24,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -3240,6 +6094,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 825,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 15764,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 5483,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 946,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 5,
+     "basis": "calibrated"
     }
    }
   },
@@ -3302,10 +6228,6 @@
      "t": 11,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3317,6 +6239,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 33,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 22461,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 241371,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 2755000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 3652,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 712,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 4,
+     "basis": "calibrated"
     }
    }
   },
@@ -3379,10 +6373,6 @@
      "t": 34,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3392,7 +6382,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1102837,
+     "t": 61269,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 108,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 304,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 100,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 2506,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 25997,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 22558,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 223485,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 163,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 27849,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 284,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 72,
      "basis": "calibrated"
     }
    }
@@ -3456,10 +6518,6 @@
      "t": 10,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3471,6 +6529,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 31,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 9161,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 134,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 3,
+     "basis": "calibrated"
     }
    }
   },
@@ -3533,10 +6663,6 @@
      "t": 33,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 124,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -3548,6 +6674,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 421,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 9518,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 1314,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 214,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 3,
+     "basis": "calibrated"
     }
    }
   },
@@ -3610,10 +6808,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 31,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3625,6 +6819,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 56,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 2134,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 110,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 3,
+     "basis": "calibrated"
     }
    }
   },
@@ -3687,10 +6953,6 @@
      "t": 29,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -3700,7 +6962,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 2811293,
+     "t": 1046659,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 134,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 775,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 256,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 8532,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 20530,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 57504,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 5679,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 457,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 266230,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 786,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 175,
      "basis": "calibrated"
     }
    }
@@ -3764,10 +7098,6 @@
      "t": 14,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 104,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3777,7 +7107,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 828290,
+     "t": 46016,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 154,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 228,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1882,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 11390,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 16942,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1673,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 93,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 20916,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 213,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 53,
      "basis": "calibrated"
     }
    }
@@ -3841,10 +7243,6 @@
      "t": 39,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 30,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -3854,7 +7252,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 467855,
+     "t": 25992,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 361,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 129,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 43,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1063,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 10772,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 9570,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 945,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 2024,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 11815,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 466,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 31,
      "basis": "calibrated"
     }
    }
@@ -3918,10 +7388,6 @@
      "t": 9,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 24,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -3933,6 +7399,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 54,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 7883,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 87,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 2,
+     "basis": "calibrated"
     }
    }
   },
@@ -3995,10 +7533,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4008,7 +7542,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1354138,
+     "t": 75230,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 373,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 123,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 3078,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 1572,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 27698,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2736,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 81,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 34195,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 349,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 85,
      "basis": "calibrated"
     }
    }
@@ -4072,10 +7678,6 @@
      "t": 20,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 113,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 1,
      "basis": "calibrated"
@@ -4085,7 +7687,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 922742,
+     "t": 941740,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 427,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 254,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 84,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 4240,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 8264,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 18874,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1864,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 2098,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 218540,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 599,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 59,
      "basis": "calibrated"
     }
    }
@@ -4149,10 +7823,6 @@
      "t": 21,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 11,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -4162,7 +7832,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 1280240,
+     "t": 1184220,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 102,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 353,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 116,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 5588,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 15217,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 26187,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 123272,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 212,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 276377,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 353,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 81,
      "basis": "calibrated"
     }
    }
@@ -4226,10 +7968,6 @@
      "t": 9,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4241,6 +7979,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 28,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 41365,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 7733333,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 9853,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 2000,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 2,
+     "basis": "calibrated"
     }
    }
   },
@@ -4303,10 +8113,6 @@
      "t": 33,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 149,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4318,6 +8124,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 217,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 9059,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 2,
+     "basis": "calibrated"
     }
    }
   },
@@ -4380,10 +8258,6 @@
      "t": 37,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 150,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4395,6 +8269,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 320,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 12390,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 2,
+     "basis": "calibrated"
     }
    }
   },
@@ -4457,10 +8403,6 @@
      "t": 10,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4470,7 +8412,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 5576093,
+     "t": 1200259,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 30,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 1538,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 507,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 14816,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 7796,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 114056,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 11265,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 336049,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1436,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 344,
      "basis": "calibrated"
     }
    }
@@ -4534,10 +8548,6 @@
      "t": 46,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 158,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4547,7 +8557,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 481069,
+     "t": 26726,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 235,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 133,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 44,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1093,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 15410,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 9840,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 972,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 12148,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 124,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 31,
      "basis": "calibrated"
     }
    }
@@ -4611,10 +8693,6 @@
      "t": 13,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4626,6 +8704,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 24145,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 3190000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 4097,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 825,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 1,
+     "basis": "calibrated"
     }
    }
   },
@@ -4688,10 +8838,6 @@
      "t": 21,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -4703,6 +8849,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 67,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 15269,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 201143,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 58,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 1,
+     "basis": "calibrated"
     }
    }
   },
@@ -4765,10 +8983,6 @@
      "t": 35,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 20,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -4778,7 +8992,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 872335,
+     "t": 48463,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 312,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 241,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 79,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1983,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 13226,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 17843,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1762,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 1661,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 22029,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 512,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 55,
      "basis": "calibrated"
     }
    }
@@ -4842,10 +9128,6 @@
      "t": 32,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 22,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -4855,6 +9137,78 @@
      "basis": "calibrated"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 302,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 1909,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 342,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -4919,10 +9273,6 @@
      "t": 7,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 11,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -4932,6 +9282,78 @@
      "basis": "calibrated"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 51,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 229,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 41,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -4996,10 +9418,6 @@
      "t": 0,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -5009,6 +9427,78 @@
      "basis": "calibrated"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 19,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5073,10 +9563,6 @@
      "t": 0,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -5086,7 +9572,79 @@
      "basis": "calibrated"
     },
     "phosphate": {
-     "t": 646482,
+     "t": 35916,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 59,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1469,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 13224,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1306,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 8,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 16325,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 168,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 40,
      "basis": "calibrated"
     }
    }
@@ -5150,10 +9708,6 @@
      "t": 4,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "calibrated"
@@ -5163,6 +9717,78 @@
      "basis": "calibrated"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 8,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5227,10 +9853,6 @@
      "t": 36,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 217,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5240,6 +9862,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 503,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 51836,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 6283333,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 7944,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 1625,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5304,10 +9998,6 @@
      "t": 6,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 199,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5317,6 +10007,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 326,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5381,10 +10143,6 @@
      "t": 30,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 174,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5394,6 +10152,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 335,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 12202,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5458,10 +10288,6 @@
      "t": 8,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 108,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5471,6 +10297,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 162,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5535,10 +10433,6 @@
      "t": 10,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 103,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5548,6 +10442,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 183,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 13984,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 1643333,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 2078,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 425,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5612,10 +10578,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 24,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5625,6 +10587,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 44,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 16575,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 3770000,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 4767,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 975,
+     "basis": "calibrated"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5689,10 +10723,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 15,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5702,7 +10732,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 733104,
+     "t": 40728,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 26,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 202,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 67,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1666,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 14995,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1481,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 18513,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 189,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 45,
      "basis": "calibrated"
     }
    }
@@ -5766,10 +10868,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 12,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5779,6 +10877,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 22,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5843,10 +11013,6 @@
      "t": 18,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 10,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5858,6 +11024,78 @@
     "phosphate": {
      "t": 0,
      "basis": "none"
+    },
+    "magnets": {
+     "t": 60,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "tantalum": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "antimony": {
+     "t": 92,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 9033,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 3176,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 20,
+     "basis": "calibrated"
     }
    }
   },
@@ -5920,10 +11158,6 @@
      "t": 8,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 80,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -5933,6 +11167,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 89,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -5997,10 +11303,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 42,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6010,6 +11312,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 48,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6074,10 +11448,6 @@
      "t": 26,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 4,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6087,6 +11457,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 37,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 413,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 69,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 6316,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6151,10 +11593,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 4,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6164,6 +11602,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 7,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6228,10 +11738,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 15,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6241,6 +11747,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 19,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6305,10 +11883,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 4,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6318,6 +11892,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 7,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6382,10 +12028,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 3,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6395,6 +12037,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 5,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6459,10 +12173,6 @@
      "t": 17,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6472,7 +12182,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 692485,
+     "t": 38471,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 53,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 191,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 1574,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 11340,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 14164,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1399,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 17487,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 43,
      "basis": "calibrated"
     }
    }
@@ -6536,10 +12318,6 @@
      "t": 13,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6549,6 +12327,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 39,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 8359,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6613,10 +12463,6 @@
      "t": 12,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6626,6 +12472,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 39,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 8242,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6690,10 +12608,6 @@
      "t": 9,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6703,6 +12617,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 28,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 5949,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6767,10 +12753,6 @@
      "t": 10,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6780,7 +12762,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 577234,
+     "t": 32069,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 159,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1312,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 11807,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1166,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 14577,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 149,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 35,
      "basis": "calibrated"
     }
    }
@@ -6844,10 +12898,6 @@
      "t": 5,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 9,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6857,6 +12907,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6921,10 +13043,6 @@
      "t": 5,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -6934,6 +13052,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -6998,10 +13188,6 @@
      "t": 4,
      "basis": "calibrated"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7011,6 +13197,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -7075,10 +13333,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 22,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7088,6 +13342,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 23,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -7152,10 +13478,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 13,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7165,6 +13487,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 14,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -7229,10 +13623,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 11,
-     "basis": "calibrated"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7242,6 +13632,78 @@
      "basis": "none"
     },
     "phosphate": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
      "t": 0,
      "basis": "none"
     }
@@ -7306,10 +13768,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7319,7 +13777,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 3148971,
+     "t": 1288038,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 868,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 286,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 9835,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 64411,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 6362,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 323567,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 811,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 193,
      "basis": "calibrated"
     }
    }
@@ -7383,10 +13913,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7396,7 +13922,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 2588621,
+     "t": 143812,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 714,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 235,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 5883,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 52949,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 5230,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 65369,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 667,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 159,
      "basis": "calibrated"
     }
    }
@@ -7460,10 +14058,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7473,7 +14067,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1630153,
+     "t": 90564,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 450,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 148,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 3705,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 33344,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 3293,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 41165,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 420,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 100,
      "basis": "calibrated"
     }
    }
@@ -7537,10 +14203,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7550,7 +14212,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1324530,
+     "t": 73585,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 365,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 120,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 3010,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 27093,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2676,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 33448,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 341,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 81,
      "basis": "calibrated"
     }
    }
@@ -7614,10 +14348,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7627,7 +14357,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1224450,
+     "t": 68025,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 338,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 111,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 2783,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 25046,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2474,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 30920,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 315,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 75,
      "basis": "calibrated"
     }
    }
@@ -7691,10 +14493,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7704,7 +14502,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1190682,
+     "t": 66149,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 328,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 108,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 2706,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 24355,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2405,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 30068,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 307,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 73,
      "basis": "calibrated"
     }
    }
@@ -7768,10 +14638,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7781,7 +14647,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 1014258,
+     "t": 56348,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 280,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 92,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 2305,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 20746,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 2049,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 25613,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 261,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 62,
      "basis": "calibrated"
     }
    }
@@ -7845,10 +14783,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7858,7 +14792,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 963851,
+     "t": 53547,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 266,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 88,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 2191,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 19715,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1947,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 24340,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 248,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 59,
      "basis": "calibrated"
     }
    }
@@ -7922,10 +14928,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -7935,7 +14937,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 899251,
+     "t": 49958,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 248,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 82,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 2044,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 18394,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1817,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 22708,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 232,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 55,
      "basis": "calibrated"
     }
    }
@@ -7999,10 +15073,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8012,7 +15082,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 826822,
+     "t": 45935,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 228,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1879,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 16912,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1670,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 20879,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 213,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 51,
      "basis": "calibrated"
     }
    }
@@ -8076,10 +15218,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8089,7 +15227,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 823152,
+     "t": 45731,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 227,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1871,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 11900,
+     "basis": "calibrated"
+    },
+    "titanium": {
+     "t": 16837,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1663,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 2706667,
+     "basis": "calibrated"
+    },
+    "magnesium": {
+     "t": 3422,
+     "basis": "calibrated"
+    },
+    "phosphorus": {
+     "t": 20787,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 912,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 51,
      "basis": "calibrated"
     }
    }
@@ -8153,10 +15363,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8166,7 +15372,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 763446,
+     "t": 42414,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 211,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 69,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1735,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 15616,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1542,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 19279,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 197,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 47,
      "basis": "calibrated"
     }
    }
@@ -8230,10 +15508,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8243,7 +15517,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 762712,
+     "t": 42373,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 210,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 69,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1733,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 15601,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1541,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 19260,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 196,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 47,
      "basis": "calibrated"
     }
    }
@@ -8307,10 +15653,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8320,7 +15662,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 694198,
+     "t": 38567,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 191,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1578,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 14199,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1402,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 17530,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 179,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 43,
      "basis": "calibrated"
     }
    }
@@ -8384,10 +15798,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8397,7 +15807,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 640120,
+     "t": 35562,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 177,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 58,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1455,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 13093,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1293,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 16165,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 165,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 39,
      "basis": "calibrated"
     }
    }
@@ -8461,10 +15943,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8474,7 +15952,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 581638,
+     "t": 32313,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 160,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 53,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1322,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 11897,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1175,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 14688,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 150,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 36,
      "basis": "calibrated"
     }
    }
@@ -8538,10 +16088,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8551,7 +16097,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 563531,
+     "t": 31307,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 155,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 51,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1281,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 11527,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1138,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 14231,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 145,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 35,
      "basis": "calibrated"
     }
    }
@@ -8615,10 +16233,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8628,7 +16242,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 562063,
+     "t": 31226,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 155,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 51,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1277,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 11497,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1135,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 14194,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 145,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 35,
      "basis": "calibrated"
     }
    }
@@ -8692,10 +16378,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8705,7 +16387,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 516305,
+     "t": 28684,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 142,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1173,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 10561,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1043,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 13038,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 133,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 32,
      "basis": "calibrated"
     }
    }
@@ -8769,10 +16523,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8782,7 +16532,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 507007,
+     "t": 28167,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 140,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 46,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1152,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 10371,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 1024,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 12803,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 131,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 31,
      "basis": "calibrated"
     }
    }
@@ -8846,10 +16668,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8859,7 +16677,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 472749,
+     "t": 26264,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 130,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 43,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1074,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 9670,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 955,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 11938,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 122,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 29,
      "basis": "calibrated"
     }
    }
@@ -8923,10 +16813,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -8936,7 +16822,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 449259,
+     "t": 24959,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 124,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 41,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1021,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 9189,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 908,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 11345,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 116,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 28,
      "basis": "calibrated"
     }
    }
@@ -9000,10 +16958,6 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
-     "t": 0,
-     "basis": "none"
-    },
     "platinum": {
      "t": 0,
      "basis": "none"
@@ -9013,7 +16967,79 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 443386,
+     "t": 24633,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 122,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 40,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1008,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 9069,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 896,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 11197,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 114,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 27,
      "basis": "calibrated"
     }
    }
@@ -9077,7 +17103,148 @@
      "t": 0,
      "basis": "none"
     },
-    "rareearths": {
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 24578,
+     "basis": "calibrated"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 122,
+     "basis": "calibrated"
+    },
+    "arsenic": {
+     "t": 40,
+     "basis": "calibrated"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 1005,
+     "basis": "calibrated"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 9049,
+     "basis": "calibrated"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 894,
+     "basis": "calibrated"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 11172,
+     "basis": "calibrated"
+    },
+    "hafnium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "strontium": {
+     "t": 114,
+     "basis": "calibrated"
+    },
+    "helium": {
+     "t": 27,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ARM": {
+   "name": "Armenia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
      "t": 0,
      "basis": "none"
     },
@@ -9090,8 +17257,80 @@
      "basis": "none"
     },
     "phosphate": {
-     "t": 442407,
+     "t": 0,
+     "basis": "none"
+    },
+    "magnets": {
+     "t": 0,
+     "basis": "none"
+    },
+    "gallium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "germanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tantalum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "antimony": {
+     "t": 0,
+     "basis": "none"
+    },
+    "arsenic": {
+     "t": 0,
+     "basis": "none"
+    },
+    "beryllium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "boron": {
+     "t": 0,
+     "basis": "none"
+    },
+    "fluorspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "titanium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "feldspar": {
+     "t": 0,
+     "basis": "none"
+    },
+    "baryte": {
+     "t": 0,
+     "basis": "none"
+    },
+    "bauxite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "magnesium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphorus": {
+     "t": 0,
+     "basis": "none"
+    },
+    "hafnium": {
+     "t": 0,
      "basis": "calibrated"
+    },
+    "strontium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "helium": {
+     "t": 0,
+     "basis": "none"
     }
    }
   }
