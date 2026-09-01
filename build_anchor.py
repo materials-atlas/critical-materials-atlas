@@ -28,6 +28,15 @@ W_DEFAULT = 0.5   # equal-weight blend of observed trade and physical exportable
 # mined form != traded form in the HS codes we track -> constraint not valid without stage matching
 STAGE_DIVERGENT = {'lithium': 'mined as spodumene, traded as carbonate/oxide',
                    'graphite': 'mined as flake, traded as spherical/processed (re-exported)'}
+# RECYCLING: a country's own secondary supply meets part of its use, so only (1-R) of its consumption draws
+# on PRIMARY exportable. R = approx world recycled/secondary share of supply (USGS MCS + EU CRM end-of-life
+# rates; estimates). Assumes recycling arises ~proportional to consumption (scrap is where the metal was used).
+# Note: imports are deliberately NOT added -- imported material carries a FOREIGN origin; the anchor traces
+# origin to the mine, and re-exported imports surface instead as the 'review' (over-attribution) flag.
+RECYCLE = {'copper':0.30,'nickel':0.30,'cobalt':0.25,'silver':0.18,'platinum':0.25,'palladium':0.25,
+           'tungsten':0.30,'molybdenum':0.25,'niobium':0.20,'vanadium':0.10,'chromium':0.20,'manganese':0.10,
+           'antimony':0.20,'germanium':0.30,'titanium':0.20,'magnesium':0.10,'beryllium':0.10,'tantalum':0.05,
+           'lithium':0.05,'magnets':0.05}
 
 prod = {r['label']: r for r in json.load(open(os.path.join(ROOT,'out','production.json'),encoding='utf8'))['rows']}
 _cj = json.load(open(os.path.join(ROOT,'out','consumption.json'),encoding='utf8'))
@@ -69,10 +78,12 @@ def derive():
     for t in p['top5']:
         iso = t['iso']; o = obs.get(iso, 0.0)
         c = consumption_t(iso, mat)
-        # Unit-SAFE: exportable share = production share - consumption share (both % of their world total), so the
-        # production form (oxide, borate) and the consumption form (contained metal) never have to match.
+        # Unit-SAFE: exportable share = production share - (1-R)*consumption share (both % of their world total),
+        # so production form (oxide, borate) and consumption form (contained metal) never have to match. R =
+        # recycled share: a country's own recycling meets R of its use, so only (1-R) draws on primary supply.
+        R = RECYCLE.get(mat, 0.0)
         cons_share = 100*c/known if known else 0.0
-        e = max(0.0, t['share'] - cons_share)
+        e = max(0.0, t['share'] - (1-R)*cons_share)
         g = e - o
         # A correction is asserted ONLY when it is both physically safe (under-attribution: producer credited
         # LESS than it can supply -> refiner-fronting) AND consumption-anchored (we can rule out domestic use).
@@ -93,6 +104,7 @@ def derive():
             and (top_cons_share < 3.0 or ((cap or 1) >= 0.7 and cf != 'rough')))
     results.append({'material': mat, 'title': p.get('title', mat), 'wmd_stage': p.get('wmd_stage','mine'),
                     'regime': regime, 'has_consumption': has_cons, 'capture': cap, 'conf': cf, 'firm': firm,
+                    'recycle': RECYCLE.get(mat, 0.0),
                     'stage_note': STAGE_DIVERGENT.get(mat, ''), 'top': top['name'],
                     'top_gap': top['gap'], 'top_obs': top['obs_pc'], 'top_expble': top['expble_pc'],
                     'top_corrected': top['corrected_pc'], 'porigin': (regime=='production-only' and top['gap']>10),
