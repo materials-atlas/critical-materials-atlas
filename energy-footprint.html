@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/energy-footprint">
+<title>The energy footprint of the chokepoints — the furnace concentrates at cheap power · Critical Materials Atlas</title>
+<meta name="description" content="The atlas classifies the most stubborn refining chokepoints as 'thermodynamic' — sited where power is cheapest. This puts numbers on it: the most energy-intensive refining stages (magnesium ~78 MWh/t, polysilicon ~50, aluminium ~14) are the most China-concentrated, while low-energy smelting (copper) stays diffuse. Energy intensity predicts the geography — and the concentration carries a huge embedded CO2 cost.">
+<meta property="og:title" content="The energy footprint of the chokepoints: energy intensity predicts the concentration">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/energy-footprint">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .row{display:grid;grid-template-columns:9rem 1fr 5.5rem;gap:.7rem;align-items:center;padding:.4rem 0;border-bottom:1px solid #eef1f0}
+ @media(max-width:640px){.row{grid-template-columns:6.5rem 1fr 4.5rem}}
+ .row .nm{font-weight:700;color:#15323a;font-size:.9rem;line-height:1.15}
+ .row .nm small{display:block;font-weight:500;color:#9aa6ad;font-size:.72rem}
+ .row .track{background:#f4f1ea;border-radius:5px;height:26px;position:relative;overflow:hidden}
+ .row .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#c98a2e,#8a1c1c);display:flex;align-items:center;justify-content:flex-end;padding-right:8px;color:#fff;font-weight:700;font-size:.76rem;box-sizing:border-box;min-width:38px}
+ .row .conc{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;color:#15323a}
+ .row .conc small{display:block;font-weight:500;color:#9aa6ad;font-size:.68rem}
+ .lede-cap{font-size:.78rem;color:#9aa6ad;margin:.2rem 0 0}
+ .keyline{background:#fbf6ee;border:1px solid #ecdcc0;border-left:4px solid #c98a2e;border-radius:10px;padding:.9rem 1.1rem;margin:1.3rem 0}
+ .keyline b{color:#8a5a1e}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Supply structure · the energy footprint</div>
+  <h1>The furnace concentrates at cheap power &mdash; now in numbers</h1>
+  <p class="deck">The atlas calls the most stubborn refining chokepoints <a href="chokepoint-map" style="color:#fff;text-decoration:underline">thermodynamic</a>: a continuous, high-temperature process that can&rsquo;t be switched off, so it must be one big unit sited where power is cheapest and never fails. That was a thesis. Here it is measured: the <b>more energy a refining stage burns per tonne, the more concentrated it is</b> &mdash; and the concentration comes with an enormous carbon bill.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="callout"><b>Energy intensity vs concentration.</b> Bars are electricity/energy per tonne of product (MWh/t); the right column is how concentrated the stage is (top producer&rsquo;s share). Read top to bottom: as the energy bill falls, so does the concentration &mdash; until copper, low-energy and diffuse, the control case. Energy figures are approximate literature values (the extremes &mdash; magnesium ~78 MWh/t and ~25 t CO2/t, polysilicon ~40&ndash;70 kWh/kg &mdash; are web-verified); reproducible: <code>build_energy_footprint.py</code> &rarr; <a href="out/energy_footprint.json">energy_footprint.json</a>. Sources: IMA/LCA magnesium studies, Fraunhofer ISE polysilicon, IAI aluminium, worldsteel, USGS.</div>
+
+  <div id="rows" style="margin:1.3rem 0"></div>
+  <p class="lede-cap">Bar = MWh per tonne · number in bar = t CO&#8322; per tonne · right = top producer&rsquo;s share</p>
+
+  <div class="keyline" id="keyline"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">Why this is the whole mechanism</h2>
+  <p>A high-temperature furnace cannot be turned down at night or stopped for the weekend without wrecking it, so it runs flat out and its economics are dominated by one input: <b>the price of power</b>. That single fact explains the map. The world&rsquo;s aluminium, magnesium, polysilicon and ferro-alloys did not concentrate in China because the ore is there &mdash; it mostly isn&rsquo;t &mdash; but because the <i>power</i> was cheap and, for two decades, unpriced for carbon. So the chokepoint is really an <b>energy chokepoint wearing a metal&rsquo;s name</b>. Two consequences follow, and they are the decision. <b>(1) Diversifying it means building at cheap, reliable power elsewhere</b> &mdash; not opening a mine, which is why an ore embargo can&rsquo;t touch these stages and a power-price shock can. <b>(2) Decarbonising and diversifying are the same project:</b> the only way to move magnesium or polysilicon out of China&rsquo;s coal grid <i>and</i> cut its ~25&ndash;36 t of CO2 per tonne is to build the furnace at cheap <i>clean</i> power &mdash; hydro, nuclear, firmed renewables. The country that has abundant cheap clean electricity in the 2030s inherits these chokepoints. <a href="chokepoint-map">The mechanism map &rarr;</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>International Magnesium Association / Pidgeon LCA studies · Fraunhofer ISE (polysilicon) · International Aluminium Institute · worldsteel · USGS · atlas production data</div>
+  <div class="fineprint">Energy and CO2 per tonne are approximate literature values with wide ranges by process, vintage and grid; treat as order-of-magnitude. CO2 depends heavily on the power source (coal vs hydro). Concentration is the top producer/refiner share from the atlas's own data.</div>
+</div></footer>
+<script>
+fetch('out/energy_footprint.json').then(r=>r.json()).then(S=>{
+  const mx=Math.max(...S.materials.map(m=>m.mwh));
+  document.getElementById('rows').innerHTML=S.materials.map(m=>{
+    const w=Math.max(6,100*m.mwh/mx);
+    const diffuse = String(m.holder).toLowerCase().indexOf('diffuse')>=0 || String(m.holder).toLowerCase().indexOf('cheap-gas')>=0;
+    return '<div class="row"><div class="nm">'+m.m+'<small>'+m.process+'</small></div>'+
+      '<div class="track"><div class="fill" style="width:'+w+'%'+(diffuse?';background:linear-gradient(90deg,#9aa6ad,#5a6b68)':'')+'">'+m.co2+' t</div></div>'+
+      '<div class="conc">'+m.share+'%<small>'+m.holder.split(' ')[0]+'</small></div></div>';
+  }).join('');
+  document.getElementById('keyline').innerHTML='<b>Energy intensity predicts the geography.</b> The three most energy-hungry stages &mdash; magnesium (~78 MWh/t), polysilicon (~50), aluminium (~14) &mdash; are also the three most concentrated (87%, 95%, 59% China). The least energy-hungry, copper smelting (~2.5 MWh/t), is the most <i>diffuse</i>. The furnace goes where power is cheap; the ore does not decide. And the bill for that concentration is carbon: magnesium and polysilicon each emit <b>~25&ndash;36 tonnes of CO2 per tonne of metal</b>, almost all of it from the coal that made the power cheap.';
+});
+</script>
+</body></html>
