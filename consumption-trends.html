@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/consumption-trends">
+<title>Consumption over time — watching the matrix move, 2000 to 2023 · Critical Materials Atlas</title>
+<meta name="description" content="The trade-independent consumption matrix as a time series: 2023-calibrated intensities applied to each year's activity, 2000–2023. Two stories production maps can't show — the consumption centre of gravity moving to China across almost every material, and the energy-transition metals (lithium, cobalt, graphite, rare-earth magnets) going from near-zero to dominant.">
+<meta property="og:title" content="Consumption over time: watching the matrix move, 2000 to 2023">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/consumption-trends">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .draftbar{background:#eef4f2;border:1px solid #cfe0da;border-radius:9px;padding:.6rem .9rem;margin:1rem 0;font-size:.82rem;color:#3a5a52}
+ .yearbar{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin:1.2rem 0 .3rem}
+ .yearbar .yr{font-size:2.4rem;font-weight:800;letter-spacing:-.03em;color:#0e7c74;font-variant-numeric:tabular-nums;min-width:5rem}
+ .yrbtns{display:flex;gap:.4rem}
+ .yrbtn{border:1px solid #cfe0da;background:#fff;color:#3a5a52;font-weight:700;font-size:.9rem;padding:.35rem .8rem;border-radius:7px;cursor:pointer;font-variant-numeric:tabular-nums}
+ .yrbtn.on{background:#0e7c74;color:#fff;border-color:#0e7c74}
+ .headstat{background:#f4f7f5;border:1px solid #dfe8e4;border-radius:9px;padding:.7rem 1rem;font-size:.92rem;color:#15323a;margin:.4rem 0 1rem}
+ .headstat b{color:#0e7c74}
+ .scroll{overflow-x:auto;border:1px solid #e3e9e8;border-radius:11px}
+ table{border-collapse:separate;border-spacing:0;font-size:.76rem;font-variant-numeric:tabular-nums;min-width:100%}
+ th,td{padding:.3rem .5rem;text-align:right;white-space:nowrap;border-bottom:1px solid #eef1f0}
+ thead th{position:sticky;top:0;background:#fff;z-index:3;color:#5a6b68;font-weight:700;font-size:.62rem;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;border-bottom:2px solid #e3e9e8;vertical-align:bottom}
+ thead th.rot{height:104px}
+ thead th.rot span{display:inline-block;transform:rotate(-52deg);transform-origin:left bottom;width:18px;text-align:left}
+ th.c0,td.c0{position:sticky;left:0;background:#fff;text-align:left;z-index:2;font-weight:700;color:#15323a;border-right:1px solid #e3e9e8;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+ thead th.c0{z-index:4}
+ td.tot{font-weight:800;color:#0b3a4a;border-left:1px solid #e3e9e8}
+ .z{color:#c3ccca}
+ h2{font-size:1.35rem;letter-spacing:-.01em;margin:2rem 0 .5rem;border-top:1px solid #e7edeb;padding-top:1.4rem}
+ .lead{color:#42514f;font-size:.98rem;line-height:1.65;max-width:74ch}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · consumption over time</div>
+  <h1>Watching the consumption matrix move</h1>
+  <p class="deck">The same trade-independent estimate &mdash; <b>demand = activity &times; intensity</b> &mdash; run across time. Hold the calibrated intensities fixed and feed each year&rsquo;s real activity, and two shifts appear that no production map shows: the consumption <b>centre of gravity moving to China</b>, and the <b>energy-transition metals</b> emerging from almost nothing.</p>
+</div></section>
+<article style="max-width:1100px">
+  <div class="draftbar"><b>Fixed-intensity method.</b> Intensities are held at their 2023 calibration, so this isolates <i>activity-driven</i> change and the shifting country distribution. It does <b>not</b> model thrifting (less cobalt per battery over time), substitution, or brand-new intensities &mdash; so read levels as indicative and the <i>movement</i> as the finding. Broad-driver materials only (steel family, battery metals, copper/silver, PGM); specialty metals lack a back-series and stay on the <a href="consumption">single-year matrix</a>.</div>
+
+  <div class="yearbar"><span class="yr" id="yr">—</span><div class="yrbtns" id="yrbtns"></div>
+    <input type="range" id="slider" style="flex:1;min-width:180px" min="0" max="0" value="0"></div>
+  <div class="headstat" id="headstat">&nbsp;</div>
+
+  <div class="scroll"><table id="t"></table></div>
+  <p class="muted" style="margin-top:.6rem">Cells are estimated tonnes of contained material consumed in the selected year, shaded within each column. Drag the slider or tap a year. Click a header to sort.</p>
+
+  <h2>What moves, and why it matters</h2>
+  <p class="lead">Two readings carry the page. <b>China across the board:</b> in 2000 the consumption leaders were spread across the industrialised world; by 2023 China leads almost every column, because its steel, power and construction activity outgrew everyone&rsquo;s &mdash; the country that refines the world&rsquo;s materials also came to use most of them. <b>A new demand category:</b> lithium, cobalt, graphite and rare-earth magnets barely register in 2000 (no EVs, little wind) and become major columns by 2023 &mdash; you are watching an entire material economy be born. Both are <i>demand</i> stories, and demand is exactly what trade and production maps leave out.</p>
+  <p class="lead">Method &amp; caveats live on the <a href="consumption">consumption page</a>; this view feeds the same <a href="anchor">production-constrained anchor</a>. Reproducible: <code>build_consumption_series.py</code> &rarr; <a href="out/consumption_series.json">consumption_series.json</a>.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="consumption">Consumption (single year)</a><br><a href="anchor">The anchor</a><br><a href="analysis">Analysis</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>Annual activity: worldsteel · OICA · IEA · Ember · IRENA · USGS · UN — applied to 2023-calibrated intensities (USGS/EU CRM end-use splits)</div>
+  <div class="fineprint">Fixed-intensity time series: activity-driven change only; thrifting, substitution and new intensities are not modelled. Levels indicative; the movement is the finding.</div>
+</div></footer>
+<script>
+fetch('out/consumption_series.json').then(r=>r.json()).then(S=>{
+  const LAB={cokingcoal:'Coking coal'};const lab=m=>LAB[m]||(m.charAt(0).toUpperCase()+m.slice(1));
+  const years=S.years, mats=S.materials, names=S.names;
+  // order columns by 2023 (last year) world sum
+  const last=years[years.length-1];
+  const wsum=y=>Object.fromEntries(mats.map(m=>[m,Object.values(S.series[y]).reduce((s,c)=>s+(c[m]||0),0)]));
+  const w23=wsum(last);
+  const cols=mats.slice().sort((a,b)=>w23[b]-w23[a]);
+  const fmt=v=>{if(!v||v<1)return'<span class=z>&mdash;</span>';if(v>=1e6)return(v/1e6).toFixed(v>=1e7?0:1)+' Mt';if(v>=1e3)return(v/1e3).toFixed(v>=1e4?0:1)+' kt';return Math.round(v)+' t';};
+  let yi=years.length-1, sortKey='total', asc=false;
+  const btns=document.getElementById('yrbtns');
+  btns.innerHTML=years.map((y,i)=>'<button class="yrbtn" data-i="'+i+'">'+y+'</button>').join('');
+  const slider=document.getElementById('slider'); slider.max=years.length-1; slider.value=yi;
+  function chinaShare(y){let tot=0,cn=0;for(const iso in S.series[y]){const s=cols.reduce((a,m)=>a+(S.series[y][iso][m]||0),0);tot+=s;if(iso==='CHN')cn+=s;}return tot?100*cn/tot:0;}
+  function draw(){
+    const y=years[yi];
+    document.getElementById('yr').textContent=y;
+    document.querySelectorAll('.yrbtn').forEach(b=>b.classList.toggle('on',+b.dataset.i===yi));
+    slider.value=yi;
+    const c0=chinaShare(years[0]), cN=chinaShare(y);
+    document.getElementById('headstat').innerHTML='In <b>'+y+'</b>, China is <b>'+cN.toFixed(0)+'%</b> of the covered consumption in this matrix — up from <b>'+c0.toFixed(0)+'%</b> in '+years[0]+'.';
+    const ser=S.series[y];
+    const rows=Object.keys(ser).map(iso=>({iso,name:names[iso]||iso,cells:ser[iso],total:cols.reduce((s,m)=>s+(ser[iso][m]||0),0)}));
+    const colmax={};cols.forEach(m=>colmax[m]=Math.max(1,...rows.map(r=>r.cells[m]||0)));
+    const totmax=Math.max(1,...rows.map(r=>r.total));
+    const heat=(v,mx)=>{if(!v)return'transparent';const a=0.08+0.80*Math.log(v+1)/Math.log(mx+1);return'rgba(14,124,116,'+a.toFixed(3)+')';};
+    rows.sort((a,b)=>{let x=sortKey==='name'?a.name:sortKey==='total'?a.total:(a.cells[sortKey]||0);
+      let y2=sortKey==='name'?b.name:sortKey==='total'?b.total:(b.cells[sortKey]||0);
+      return sortKey==='name'?(asc?x.localeCompare(y2):y2.localeCompare(x)):(asc?x-y2:y2-x);});
+    let h='<thead><tr><th class="c0" data-k="name">Country ('+rows.length+')</th>';
+    cols.forEach(m=>h+='<th class="rot" data-k="'+m+'"><span>'+lab(m)+'</span></th>');
+    h+='<th data-k="total">Total</th></tr></thead><tbody>';
+    rows.forEach(r=>{h+='<tr><td class="c0">'+r.name+'</td>';
+      cols.forEach(m=>{const v=r.cells[m]||0;h+='<td style="background:'+heat(v,colmax[m])+'" title="'+r.name+' · '+lab(m)+' '+y+': '+Math.round(v).toLocaleString()+' t">'+fmt(v)+'</td>';});
+      h+='<td class="tot" style="background:'+heat(r.total,totmax)+'">'+fmt(r.total)+'</td></tr>';});
+    document.getElementById('t').innerHTML=h+'</tbody>';
+    document.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k;if(sortKey===k)asc=!asc;else{sortKey=k;asc=false;}draw();});
+  }
+  btns.querySelectorAll('.yrbtn').forEach(b=>b.onclick=()=>{yi=+b.dataset.i;draw();});
+  slider.oninput=()=>{yi=+slider.value;draw();};
+  draw();
+});
+</script>
+</body></html>

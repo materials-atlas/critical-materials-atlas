@@ -64,6 +64,8 @@
   <div class="scroll"><table id="t"></table></div>
   <p class="muted" style="margin-top:.6rem">Cells are tonnes of contained material consumed per year, shaded by intensity within each column. &mdash; = no activity in that material&rsquo;s drivers (a genuine ~0 consumer). Click a header to sort. Bottom row = capture ratio (share of world demand the column accounts for); * marks a rough end-use split (arsenic, magnets, hafnium, strontium).</p>
 
+  <p style="margin:1rem 0"><a href="consumption-trends" style="display:inline-block;background:#0e7c74;color:#fff;text-decoration:none;font-weight:700;font-size:.92rem;padding:.55rem 1rem;border-radius:8px">&#9654;&nbsp; Watch it move over time &mdash; consumption 2000&ndash;2023</a></p>
+
   <h2 class="eyerule">How it&rsquo;s built &mdash; calibrated, not guessed</h2>
   <p class="lead">Every cell is a country&rsquo;s real 2023 activity times a material intensity. The trick is that the intensity isn&rsquo;t a hand-picked kg-per-unit that could be off by 10&times; &mdash; it is <b>back-solved from a known world total</b>, so the world sums can&rsquo;t drift:</p>
   <div class="formula">intensity(material, driver) = ( world consumption &times; end-use share ) &divide; world driver total<br>demand(country, material) = &Sigma;<sub>drivers</sub>  activity(country, driver) &times; intensity(material, driver)</div>
