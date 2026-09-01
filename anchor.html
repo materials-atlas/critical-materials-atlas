@@ -48,6 +48,7 @@
   <div id="prodonly" class="grp"></div>
   <div id="review" class="grp"></div>
   <div id="divergent" class="grp"></div>
+  <div id="twostage" class="grp"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Why this is the moat</h2>
   <p>Mirror-trade reconciliation (matching what exporters and importers each report) is well-trodden. Constraining it with <i>physical production and an independent consumption estimate</i> is not &mdash; and it is exactly what fixes the atlas&rsquo;s hardest problem: the <b>origin gap</b>, where a material&rsquo;s true source disappears from trade because it is refined and re-exported by someone else (DR Congo&rsquo;s cobalt fronted by Chinese refiners; Indonesia&rsquo;s nickel; South Africa&rsquo;s platinum). The anchor puts the origin back, not by assertion but by a mass balance the data has to respect. The honest boundary is <b>stage matching</b>: the constraint holds only where the mined form is the traded form &mdash; lithium (spodumene &rarr; carbonate) and graphite (flake &rarr; processed) need the two-stage version, which is the next build. <a href="consumption">See the consumption input &rarr;</a></p>
@@ -85,8 +86,22 @@ fetch('out/anchor.json').then(r=>r.json()).then(S=>{
   set('prodonly','');
   set('review', rev.length?'<h2 style="color:#b0611d">Flagged for review ('+rev.length+')</h2>'+
     '<p class="d">Here exports <i>exceed</i> the mine surplus — usually because the country refines imported or domestic ore (bauxite&rarr;alumina, magnesium metal, tungsten concentrate&rarr;APT) which our final-demand consumption doesn&rsquo;t capture. Not corrected; flagged as a stage/processing effect to resolve.</p>'+tbl(rev,'flag'):'');
-  set('divergent', div.length?'<h2 style="color:#8a5a1e">Stage-divergent — needs the two-stage anchor ('+div.length+')</h2>'+
-    '<p class="d">The mined form is not the traded form, so production and trade aren&rsquo;t comparable: '+div.map(r=>'<b>'+r.title+'</b> ('+r.stage_note+')').join('; ')+'. These need ore-vs-refined matching before the constraint applies.</p>'+tbl(div,'flag'):'');
+  set('divergent', div.length?'<h2 style="color:#8a5a1e">Stage-divergent — the two-stage anchor ('+div.length+')</h2>'+
+    '<p class="d">The mined form is not the traded form, so production and single-code trade aren&rsquo;t comparable: '+div.map(r=>'<b>'+r.title+'</b> ('+r.stage_note+')').join('; ')+'. The fix is to match stages — anchor mine output to the ORE-stage trade, refined output to the REFINED-stage trade (full BACI 2023, below).</p>'+tbl(div,'flag'):'');
+});
+fetch('out/two_stage.json').then(r=>r.json()).then(T=>{
+  const box=document.getElementById('twostage'); if(!T||!T.materials)return;
+  let h='<h3 style="font-size:1.05rem;margin:.3rem 0 .5rem;color:#8a5a1e">The stages, resolved</h3>';
+  for(const m in T.materials){const r=T.materials[m];
+    h+='<div class="card" style="border-left:4px solid #8a5a1e;margin:.5rem 0"><div class="ch"><h3>'+m.charAt(0).toUpperCase()+m.slice(1)+
+       '</h3><span class="stage">mine leader (WMD): '+(r.mine_leader.leader||'—')+' '+r.mine_leader.share+'%</span></div>';
+    r.stages.forEach(s=>{const top=s.top.map(x=>x.iso+' '+x.share+'%').join(' · ');
+      h+='<div style="font-size:.85rem;margin:.25rem 0"><b>'+s.stage+'</b><br><span style="color:#42514f">'+top+'</span></div>';});
+    h+='<p class="verdict warn" style="margin-top:.4rem">'+(m==='graphite'
+      ? 'At the <b>ore</b> stage the origin is diversified (China + Mozambique + Madagascar); at the <b>processed</b> stage China dominates because it refines imported African flake. Matching stages resolves the single-code &ldquo;exports exceed mine surplus&rdquo; flag.'
+      : 'Only the <b>refined</b> stage is trackable — Chile and Argentina export brine-derived carbonate directly, while Australia&rsquo;s hard-rock mine output (the WMD leader) is <b>invisible in trade</b>: spodumene has no dedicated HS6 code. The mine stage can&rsquo;t be anchored from trade — that data gap is the finding.')+'</p></div>';
+  }
+  box.innerHTML=h;
 });
 </script>
 </body></html>

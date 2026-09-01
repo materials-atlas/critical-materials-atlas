@@ -1,0 +1,111 @@
+{
+ "note": "Two-stage view: export-origin shares at the ORE stage vs the REFINED/processed stage, from full BACI 2023. Resolves the stage-divergent materials — the mine leader is credited at the ore stage; the refiner dominates the processed stage; and lithium’s ore stage is untrackable (spodumene has no dedicated HS6).",
+ "materials": {
+  "graphite": {
+   "mine_leader": {
+    "leader": "China",
+    "share": 76
+   },
+   "stages": [
+    {
+     "stage": "ore (natural flake, 2504.10)",
+     "tonnes": 527103,
+     "top": [
+      {
+       "iso": "CHN",
+       "share": 34.9
+      },
+      {
+       "iso": "MOZ",
+       "share": 21.2
+      },
+      {
+       "iso": "MDG",
+       "share": 11.7
+      },
+      {
+       "iso": "ARE",
+       "share": 9.9
+      },
+      {
+       "iso": "USA",
+       "share": 5.9
+      },
+      {
+       "iso": "DEU",
+       "share": 2.3
+      }
+     ]
+    },
+    {
+     "stage": "processed (spherical/other 2504.90 + synthetic 3801.10)",
+     "tonnes": 775894,
+     "top": [
+      {
+       "iso": "CHN",
+       "share": 58.5
+      },
+      {
+       "iso": "DEU",
+       "share": 5.2
+      },
+      {
+       "iso": "USA",
+       "share": 4.7
+      },
+      {
+       "iso": "BRA",
+       "share": 3.4
+      },
+      {
+       "iso": "ESP",
+       "share": 2.9
+      },
+      {
+       "iso": "FRA",
+       "share": 2.6
+      }
+     ]
+    }
+   ]
+  },
+  "lithium": {
+   "mine_leader": {
+    "leader": "Australia",
+    "share": 38
+   },
+   "stages": [
+    {
+     "stage": "refined (carbonate/oxide, 2836.91)",
+     "tonnes": 227803,
+     "top": [
+      {
+       "iso": "CHL",
+       "share": 72.5
+      },
+      {
+       "iso": "ARG",
+       "share": 16.6
+      },
+      {
+       "iso": "CHN",
+       "share": 3.4
+      },
+      {
+       "iso": "KOR",
+       "share": 1.6
+      },
+      {
+       "iso": "GBR",
+       "share": 1.0
+      },
+      {
+       "iso": "USA",
+       "share": 0.8
+      }
+     ]
+    }
+   ]
+  }
+ }
+}

@@ -46,10 +46,10 @@
   <p class="deck">The same trade-independent estimate &mdash; <b>demand = activity &times; intensity</b> &mdash; run across time. Hold the calibrated intensities fixed and feed each year&rsquo;s real activity, and two shifts appear that no production map shows: the consumption <b>centre of gravity moving to China</b>, and the <b>energy-transition metals</b> emerging from almost nothing.</p>
 </div></section>
 <article style="max-width:1100px">
-  <div class="draftbar"><b>Fixed-intensity method.</b> Intensities are held at their 2023 calibration, so this isolates <i>activity-driven</i> change and the shifting country distribution. It does <b>not</b> model thrifting (less cobalt per battery over time), substitution, or brand-new intensities &mdash; so read levels as indicative and the <i>movement</i> as the finding. Broad-driver materials only (steel family, battery metals, copper/silver, PGM); specialty metals lack a back-series and stay on the <a href="consumption">single-year matrix</a>.</div>
+  <div class="draftbar"><b>Method &mdash; annual, level-corrected.</b> Every year 2000&ndash;2023 (intermediate years interpolated between 2000/2010/2023 activity benchmarks). Each country&rsquo;s <i>share</i> comes from its real activity; each material&rsquo;s <i>level</i> is then re-scaled to the real world-consumption trend (USGS/IEA), anchored so 2023 equals the calibrated value. It still does <b>not</b> model thrifting (less cobalt per battery over time) or substitution &mdash; so read the <i>movement</i> as the finding. Covers <b>35 materials</b>; the level re-calibration is applied to the broad set (steel family, battery metals, copper/silver, PGM), while specialty metals use activity-driven levels (v1) until their world-consumption histories are added.</div>
 
   <div class="yearbar"><span class="yr" id="yr">—</span><div class="yrbtns" id="yrbtns"></div>
-    <input type="range" id="slider" style="flex:1;min-width:180px" min="0" max="0" value="0"></div>
+    <input type="range" id="slider" aria-label="Select year" title="Select year" style="flex:1;min-width:180px" min="0" max="0" value="0"></div>
   <div class="headstat" id="headstat">&nbsp;</div>
 
   <div class="scroll"><table id="t"></table></div>
