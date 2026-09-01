@@ -106,6 +106,12 @@ def parse_sheet(sheet):
             out[name] = float(v)
     return out
 
+# WMD reports 'production' at different STAGES by commodity: mine production for most, but refinery/primary
+# recovery for the non-mined by-products (gallium, germanium) and produced-metal for magnesium (Pidgeon).
+# Curated so downstream callers can ASSERT the stage instead of assuming mine -- this is the field that
+# closes the wmd_top_share stage-conflation a review caught (a refining share read as if it were the mine).
+WMD_STAGE = {'gallium': 'refinery', 'germanium': 'refinery', 'magnesium': 'metal'}
+
 rows_out = []
 unmapped = set()
 for lab, sheet in SHEET.items():
@@ -140,7 +146,8 @@ for lab, sheet in SHEET.items():
     rows_out.append({
         'label': lab, 'title': DATA.get(lab, {}).get('title', lab).split(' (')[0],
         'world_tonnes': round(world), 'unit': 'metric tonnes',
-        'wmd_top': top_name, 'wmd_top_iso': top_iso, 'wmd_top_share': wmd_share, 'top5': top5,
+        'wmd_top': top_name, 'wmd_top_iso': top_iso, 'wmd_top_share': wmd_share,
+        'wmd_stage': WMD_STAGE.get(lab, 'mine'), 'top5': top5,
         'usgs_top_iso': a_iso, 'usgs_top_name': NAMES.get(a_iso, a_iso), 'usgs_top_share': a_share,
         'same_top_producer': same_top, 'share_delta': delta,
         'bgs_top_iso': b_iso, 'bgs_top_name': NAMES.get(b_iso, b_iso) if b_iso else None,

@@ -33,6 +33,8 @@ for lab, fl in flows['materials'].items():
     p = prod.get(lab)
     if not t or not p or not p.get('wmd_top'):
         continue
+    if p.get('wmd_stage', 'mine') != 'mine':
+        continue   # wmd_top_share is refinery/metal basis here, not mine -- do not label it a mine leader
     exp_iso = max(by, key=by.get)
     exp_name, exp_sh = NAMES.get(exp_iso, exp_iso), round(100 * by[exp_iso] / t)
     mine_name, mine_sh, mine_iso = p['wmd_top'], round(p.get('wmd_top_share') or 0), p.get('wmd_top_iso')
