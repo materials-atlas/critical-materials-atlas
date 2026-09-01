@@ -47,7 +47,7 @@ EDGES = [
     ('copper', 'Copper', 'grid wiring & busbars', 'aluminium (metal)', 'lower conductivity — bigger cross-section',
      'relieve', 'Aluminium already replaces copper in overhead lines and some cabling. Its ORE is more diffuse than copper, though aluminium SMELTING is itself China-heavy — relief at the mine, not fully at the furnace.'),
     ('magnesium', 'Magnesium', 'lightweight structural alloys', 'aluminium (metal)', 'heavier than magnesium',
-     'relieve', 'Aluminium substitutes for magnesium in many castings; it trades away some weight saving but exits China’s ~87% Pidgeon-process magnesium grip for a more diversified metal.'),
+     'relieve', 'Aluminium substitutes for magnesium in many castings; it trades away some weight saving but exits China’s Pidgeon-process magnesium grip (~66% of metal on WMD, ~88% on USGS) for a more diversified metal.'),
     ('tantalum', 'Tantalum', 'capacitors', 'niobium', 'lower capacitance density',
      'shift', 'Niobium capacitors substitute for tantalum — but niobium is 92% Brazil, MORE concentrated than tantalum. A textbook case of shifting, not escaping.'),
     ('tantalum', 'Tantalum', 'capacitors', 'ceramics / diamond', 'different performance envelope',

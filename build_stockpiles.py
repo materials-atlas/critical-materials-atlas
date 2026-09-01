@@ -7,7 +7,9 @@ materials the Western buffer is roughly zero, while China's is real but opaque.
 The data is genuinely sparse (China's State Reserve Bureau holdings are secret), so this is curated from
 public sources and web-verified, not computed from a comprehensive series:
   - US National Defense Stockpile (DLA): ~$1.0-1.4bn inventory vs an identified shortfall of ~$14.8-15.5bn
-    across 88 materials -- it covers only ~6% of the net shortfall. Most critical materials: not held.
+    across 88 materials -- the holding is ~6% of that dollar shortfall. NB this is a budget gap in dollars,
+    NOT days of cover; and government reserves are only part of the buffer (commercial inventories, scrap
+    mobilisation and rationing also absorb a shock). Still, most critical materials are simply not held.
   - Japan (JOGMEC): the model. Stockpiles 7 rare metals -- nickel, chromium, tungsten, cobalt, molybdenum,
     manganese, vanadium -- at ~60 days of consumption (post-2010 policy; target up to 180 days for
     high-risk minerals).
@@ -40,7 +42,7 @@ out = {
              'secret, so this measures the PUBLIC Western/allied buffer, which is the honest gap.'),
     'regimes': [
         {'who': 'United States (National Defense Stockpile / DLA)',
-         'fact': '~$1.0-1.4bn held vs a ~$14.8-15.5bn identified shortfall across 88 materials — covers ~6% of the net shortfall.',
+         'fact': '~$1.0-1.4bn held vs a ~$14.8-15.5bn identified shortfall across 88 materials — the holding is ~6% of that dollar shortfall (a budget gap, not days of cover).',
          'verdict': 'Largely depleted since the Cold War; most critical materials not held.'},
         {'who': 'Japan (JOGMEC)', 'fact': 'Stockpiles 7 rare metals (incl. cobalt, tungsten, manganese, vanadium, nickel) at ~60 days of consumption; target up to 180 days for high-risk.',
          'verdict': 'The model — a deliberate buffer built after the 2010 rare-earth shock.'},

@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/stockpiles">
 <title>Strategic stockpiles — the buffer that mostly isn't there · Critical Materials Atlas</title>
-<meta name="description" content="The atlas names stockpiling as a lever but never measured the buffer. Honestly: for 27 of 32 critical materials the West holds no public strategic reserve — spot-market dependent. The US National Defense Stockpile covers only ~6% of its own identified $15bn shortfall; Japan's JOGMEC holds ~60 days on 7 metals; China's reserves are real but opaque.">
+<meta name="description" content="The atlas names stockpiling as a lever but never measured the buffer. Honestly: for 27 of 32 critical materials the West holds no public strategic reserve — spot-market dependent. The US National Defense Stockpile holds only ~6% of its own identified $15bn dollar shortfall (a budget gap, not days of cover); Japan's JOGMEC holds ~60 days on 7 metals; China's reserves are real but opaque.">
 <meta property="og:title" content="Strategic stockpiles: 27 of 32 critical materials have no Western buffer at all">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/stockpiles">
@@ -38,7 +38,7 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Decision layer · the buffer</div>
   <h1>The stockpile that mostly isn&rsquo;t there</h1>
-  <p class="deck">Half the atlas&rsquo;s remedies end in the same word: <i>stockpile</i>. When a chokepoint can&rsquo;t be out-built or substituted quickly, a strategic reserve is the bridge. So how many days of cover does the West actually hold? For most critical materials, the honest answer is <b>none</b> &mdash; and the one number that captures it is that the US strategic stockpile covers about <b>6%</b> of its own identified shortfall.</p>
+  <p class="deck">Half the atlas&rsquo;s remedies end in the same word: <i>stockpile</i>. When a chokepoint can&rsquo;t be out-built or substituted quickly, a strategic reserve is the bridge. So how much of a public buffer does the West actually hold? For most critical materials, the honest answer is <b>none</b> &mdash; and one number frames the US case: its strategic stockpile holds about <b>6%</b> of its own identified <i>dollar</i> shortfall (a budget gap, not days of cover).</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><b>An honest, data-thin page.</b> Strategic-reserve holdings are the least transparent numbers in this field &mdash; China&rsquo;s are secret, and even Western figures are patchy. So this does not compute a precise days-of-cover for all 32; it reports the <i>public</i> buffer, which is the gap. Figures web-verified from CRS, GAO, Columbia CGEP and JOGMEC; reproducible: <code>build_stockpiles.py</code> &rarr; <a href="out/stockpiles.json">stockpiles.json</a>.</div>
@@ -55,7 +55,7 @@
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Why this is the quiet decision</h2>
-  <p>Every other lever the atlas measures &mdash; build an alternative supplier, substitute the material, recycle it &mdash; takes <b>years</b>. A stockpile is the only one that works on the timescale of an actual shock: it buys the months or years the others need. That is exactly why its absence matters. For the geological chokepoints (phosphate, the platinum-group metals, niobium) there is <i>no</i> faster option &mdash; you cannot out-build the rock &mdash; so the stockpile is not a backstop but the <b>front line</b>, and for most of them the West holds nothing. Japan drew the right lesson from its 2010 rare-earth shock and built a 60-to-180-day buffer; the US let a Cold-War stockpile wither to ~6% of need; the EU has a plan and no reserve; and China, which holds the chokepoints, also holds an undisclosed reserve behind them. The cheapest insurance in the whole toolkit is the one almost nobody has bought. <a href="breakout">What else you can do &rarr;</a></p>
+  <p>Every other lever the atlas measures &mdash; build an alternative supplier, substitute the material, recycle it &mdash; takes <b>years</b>. A stockpile is the only one that works on the timescale of an actual shock: it buys the months or years the others need. That is exactly why its absence matters. For the geological chokepoints (phosphate, the platinum-group metals, niobium) there is <i>no</i> faster option &mdash; you cannot out-build the rock &mdash; so the stockpile is not a backstop but the <b>front line</b>, and for most of them the West holds nothing. Japan drew the right lesson from its 2010 rare-earth shock and built a 60-to-180-day buffer; the US let a Cold-War stockpile wither to ~6% of its own identified dollar shortfall; the EU has a plan and no reserve; and China, which holds the chokepoints, also holds an undisclosed reserve behind them. One honest qualifier: government reserves aren&rsquo;t the only cushion &mdash; commercial inventories, scrap mobilisation and rationing all absorb part of a shock &mdash; but those are private and unplanned, and for the geological chokepoints there is no substitute for a deliberate public buffer. The cheapest insurance in the whole toolkit is the one almost nobody has bought. <a href="breakout">What else you can do &rarr;</a></p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -68,7 +68,7 @@
 fetch('out/stockpiles.json').then(r=>r.json()).then(S=>{
   document.getElementById('stats').innerHTML=[
     {v:S.n_materials-S.n_with_allied_buffer+' of '+S.n_materials,l:'tracked materials with NO public Western strategic reserve — spot-market dependent'},
-    {v:'~6%',l:'of its own identified $15bn shortfall is what the US National Defense Stockpile actually covers'},
+    {v:'~6%',l:'of its own identified $15bn dollar shortfall is what the US National Defense Stockpile holds — a budget gap, not days of cover'},
     {v:'60–180',l:'days of cover Japan (JOGMEC) targets — on just 7 metals; the model almost no one copies'},
   ].map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
   document.getElementById('regimes').innerHTML=S.regimes.map(r=>

@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/energy-footprint">
-<title>The energy footprint of the chokepoints — the furnace concentrates at cheap power · Critical Materials Atlas</title>
-<meta name="description" content="The atlas classifies the most stubborn refining chokepoints as 'thermodynamic' — sited where power is cheapest. This puts numbers on it: the most energy-intensive refining stages (magnesium ~78 MWh/t, polysilicon ~50, aluminium ~14) are the most China-concentrated, while low-energy smelting (copper) stays diffuse. Energy intensity predicts the geography — and the concentration carries a huge embedded CO2 cost.">
-<meta property="og:title" content="The energy footprint of the chokepoints: energy intensity predicts the concentration">
+<title>The energy footprint of the chokepoints — cheap energy concentrates refining · Critical Materials Atlas</title>
+<meta name="description" content="Cheap energy concentrates refining — but the FORM of the energy sets the mechanism. Some stages site on cheap power (aluminium ~14 MWh/t, polysilicon ~50, silicon metal ~11); others on cheap fuel plus a co-located reductant or ore (magnesium, ferrochrome, steel, ammonia); and copper smelting shows even a low-energy stage can concentrate — on logistics and policy, not watts. Stage-matched concentration, with the embedded CO2 cost.">
+<meta property="og:title" content="The energy footprint of the chokepoints: cheap energy concentrates refining">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/energy-footprint">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,6 +23,8 @@
  .lede-cap{font-size:.78rem;color:#9aa6ad;margin:.2rem 0 0}
  .keyline{background:#fbf6ee;border:1px solid #ecdcc0;border-left:4px solid #c98a2e;border-radius:10px;padding:.9rem 1.1rem;margin:1.3rem 0}
  .keyline b{color:#8a5a1e}
+ .grp{font-size:.74rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;color:#8a5a1e;margin:1.1rem 0 .3rem;padding-bottom:.2rem;border-bottom:1px solid #ecdcc0}
+ .grp:first-child{margin-top:0}
 </style>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,19 +35,22 @@
 <main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Supply structure · the energy footprint</div>
-  <h1>The furnace concentrates at cheap power &mdash; now in numbers</h1>
-  <p class="deck">The atlas calls the most stubborn refining chokepoints <a href="chokepoint-map" style="color:#fff;text-decoration:underline">thermodynamic</a>: a continuous, high-temperature process that can&rsquo;t be switched off, so it must be one big unit sited where power is cheapest and never fails. That was a thesis. Here it is measured: the <b>more energy a refining stage burns per tonne, the more concentrated it is</b> &mdash; and the concentration comes with an enormous carbon bill.</p>
+  <h1>Cheap energy concentrates refining &mdash; but read the form of the energy</h1>
+  <p class="deck">The atlas calls several refining chokepoints <a href="chokepoint-map" style="color:#fff;text-decoration:underline">energy-sited</a>. Here it is measured &mdash; and honestly. Cheap energy really does pull refining into a few countries, but the <b>form</b> of that energy sets the mechanism: some stages site on cheap <b>power</b> (aluminium, polysilicon, silicon metal); others on cheap <b>fuel</b> plus a co-located reductant or ore (magnesium, ferrochrome, steel, ammonia); and copper smelting shows even a <i>low</i>-energy stage can concentrate &mdash; on logistics and policy, not watts. Energy is a primary driver of the map, not a single ruler.</p>
 </div></section>
 <article style="max-width:1040px">
-  <div class="callout"><b>Energy intensity vs concentration.</b> Bars are electricity/energy per tonne of product (MWh/t); the right column is how concentrated the stage is (top producer&rsquo;s share). Read top to bottom: as the energy bill falls, so does the concentration &mdash; until copper, low-energy and diffuse, the control case. Energy figures are approximate literature values (the extremes &mdash; magnesium ~78 MWh/t and ~25 t CO2/t, polysilicon ~40&ndash;70 kWh/kg &mdash; are web-verified); reproducible: <code>build_energy_footprint.py</code> &rarr; <a href="out/energy_footprint.json">energy_footprint.json</a>. Sources: IMA/LCA magnesium studies, Fraunhofer ISE polysilicon, IAI aluminium, worldsteel, USGS.</div>
+  <div class="callout"><b>Energy per tonne vs concentration, grouped by what drives the siting.</b> Bars are <b>total primary energy</b> per tonne (MWh/t); each row also states its <b>electricity</b> share of that (elec) and the <b>form</b> of energy that actually sites it. The right column is the <b>stage-matched</b> concentration &mdash; the share of the <i>same</i> stage the row describes (refined/smelter/process, never the mine share for a refining stage). Figures are order-of-magnitude literature values; reproducible: <code>build_energy_footprint.py</code> &rarr; <a href="out/energy_footprint.json">energy_footprint.json</a>. Sources per row (IMA/Pidgeon LCA, Fraunhofer ISE, IAI, ICSG, worldsteel, IFA, USGS).</div>
 
   <div id="rows" style="margin:1.3rem 0"></div>
-  <p class="lede-cap">Bar = MWh per tonne · number in bar = t CO&#8322; per tonne · right = top producer&rsquo;s share</p>
+  <p class="lede-cap">Bar = total primary MWh/t · number in bar = t CO&#8322;/t · elec = electricity MWh/t · right = stage-matched top share</p>
 
   <div class="keyline" id="keyline"></div>
 
-  <h2 style="margin:1.6rem 0 .3rem">Why this is the whole mechanism</h2>
-  <p>A high-temperature furnace cannot be turned down at night or stopped for the weekend without wrecking it, so it runs flat out and its economics are dominated by one input: <b>the price of power</b>. That single fact explains the map. The world&rsquo;s aluminium, magnesium, polysilicon and ferro-alloys did not concentrate in China because the ore is there &mdash; it mostly isn&rsquo;t &mdash; but because the <i>power</i> was cheap and, for two decades, unpriced for carbon. So the chokepoint is really an <b>energy chokepoint wearing a metal&rsquo;s name</b>. Two consequences follow, and they are the decision. <b>(1) Diversifying it means building at cheap, reliable power elsewhere</b> &mdash; not opening a mine, which is why an ore embargo can&rsquo;t touch these stages and a power-price shock can. <b>(2) Decarbonising and diversifying are the same project:</b> the only way to move magnesium or polysilicon out of China&rsquo;s coal grid <i>and</i> cut its ~25&ndash;36 t of CO2 per tonne is to build the furnace at cheap <i>clean</i> power &mdash; hydro, nuclear, firmed renewables. The country that has abundant cheap clean electricity in the 2030s inherits these chokepoints. <a href="chokepoint-map">The mechanism map &rarr;</a></p>
+  <h2 style="margin:1.6rem 0 .3rem">Three mechanisms, not one</h2>
+  <p><b>1 &mdash; Power-sited (aluminium, polysilicon, silicon metal).</b> These run on electricity: their feedstock (alumina, quartz) is cheap and shippable, so the price of <i>power</i> dominates and the furnace goes where electricity is cheapest and most reliable. This is the clean &ldquo;energy chokepoint wearing a metal&rsquo;s name&rdquo; case &mdash; an ore embargo can&rsquo;t touch it, a power-price shock can, and diversifying means building at cheap reliable power elsewhere, not opening a mine.</p>
+  <p><b>2 &mdash; Fuel/reductant-sited (magnesium, ferrochrome, steel, ammonia).</b> Here the energy is mostly <i>not</i> electricity. Magnesium&rsquo;s Pidgeon retorts are coal-fired batch units (~1&ndash;3 MWh/t of electricity; the ~78 MWh/t is primary energy including embodied ferrosilicon) sited on dolomite, ferrosilicon and cheap coal &mdash; not on a cheap grid. Steel and ammonia site on coking coal and natural gas as reductant and feedstock. Cheap energy still concentrates them, but as <b>fuel plus a co-located reductant or ore</b>, so the fix is different: it&rsquo;s about coal, gas and material logistics, not just electricity price.</p>
+  <p><b>3 &mdash; The control: copper smelting.</b> Low energy (~2.5 MWh/t) &mdash; and yet <i>not</i> diffuse: China holds ~40&ndash;45% of refined copper. A low-energy stage that concentrated anyway, on concentrate logistics, sulphuric-acid handling and industrial policy. It is the proof that energy intensity is a driver of the map but not the whole of it.</p>
+  <p style="margin-top:.7rem">The through-line survives, sharpened: <b>decarbonising and diversifying are often the same project</b> for the power-sited stages &mdash; the only way to move polysilicon or aluminium off China&rsquo;s coal grid <i>and</i> cut ~16&ndash;36 t CO2/t is to rebuild them at cheap <i>clean</i> power. For the fuel-sited stages the lever is coal/gas and reductant supply; for copper it is smelter policy. <a href="chokepoint-map">The mechanism map &rarr;</a></p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -56,15 +61,24 @@
 </div></footer>
 <script>
 fetch('out/energy_footprint.json').then(r=>r.json()).then(S=>{
-  const mx=Math.max(...S.materials.map(m=>m.mwh));
-  document.getElementById('rows').innerHTML=S.materials.map(m=>{
-    const w=Math.max(6,100*m.mwh/mx);
-    const diffuse = String(m.holder).toLowerCase().indexOf('diffuse')>=0 || String(m.holder).toLowerCase().indexOf('cheap-gas')>=0;
-    return '<div class="row"><div class="nm">'+m.m+'<small>'+m.process+'</small></div>'+
-      '<div class="track"><div class="fill" style="width:'+w+'%'+(diffuse?';background:linear-gradient(90deg,#9aa6ad,#5a6b68)':'')+'">'+m.co2+' t</div></div>'+
-      '<div class="conc">'+m.share+'%<small>'+m.holder.split(' ')[0]+'</small></div></div>';
-  }).join('');
-  document.getElementById('keyline').innerHTML='<b>Energy intensity predicts the geography.</b> The three most energy-hungry stages &mdash; magnesium (~78 MWh/t), polysilicon (~50), aluminium (~14) &mdash; are also the three most concentrated (87%, 95%, 59% China). The least energy-hungry, copper smelting (~2.5 MWh/t), is the most <i>diffuse</i>. The furnace goes where power is cheap; the ore does not decide. And the bill for that concentration is carbon: magnesium and polysilicon each emit <b>~25&ndash;36 tonnes of CO2 per tonne of metal</b>, almost all of it from the coal that made the power cheap.';
+  const mx=Math.max(...S.materials.map(m=>m.mwh_primary));
+  const GH={power:'Power-sited — cheap electricity is the siting force',
+            fuel:'Fuel / reductant-sited — cheap coal, gas or a co-located reductant',
+            control:'Control — low energy, yet concentrated'};
+  let html='', seen={};
+  S.materials.forEach(m=>{
+    if(!seen[m.group]){seen[m.group]=1; html+='<div class="grp">'+GH[m.group]+'</div>';}
+    const w=Math.max(6,100*m.mwh_primary/mx);
+    const isControl=m.group==='control', isFuel=m.group==='fuel';
+    const grad=isControl?'linear-gradient(90deg,#9aa6ad,#5a6b68)':(isFuel?'linear-gradient(90deg,#b07a3a,#6b3410)':'linear-gradient(90deg,#c98a2e,#8a1c1c)');
+    const elec = m.mwh_elec<m.mwh_primary ? ('elec '+m.mwh_elec) : ('all elec');
+    html+='<div class="row" title="'+m.energy_type+' · stage: '+m.stage+' · '+m.src+'">'+
+      '<div class="nm">'+m.m+'<small>'+m.process+' · '+elec+' MWh/t</small></div>'+
+      '<div class="track"><div class="fill" style="width:'+w+'%;background:'+grad+'">'+m.co2+' t</div></div>'+
+      '<div class="conc">'+m.share+'%<small>'+m.holder.split(' ')[0]+' · '+m.stage.split(' ')[0]+'</small></div></div>';
+  });
+  document.getElementById('rows').innerHTML=html;
+  document.getElementById('keyline').innerHTML='<b>Cheap energy concentrates refining &mdash; but the form decides the mechanism.</b> The power-sited stages (polysilicon ~93%, silicon ~70%, aluminium ~59% China) really do follow cheap electricity. But magnesium &mdash; the biggest energy number on the page &mdash; is a <i>fuel</i> story: coal-fired batch retorts (~1&ndash;3 MWh/t of electricity) sited on ferrosilicon and coal, not a cheap grid. And copper smelting is low-energy yet ~40&ndash;45% China. So energy is a primary driver of the map, not a single ruler &mdash; and for the power-sited stages the carbon bill is enormous: <b>~16&ndash;36 t CO2 per tonne</b>, almost all from the coal that made the power cheap.';
 });
 </script>
 </body></html>
