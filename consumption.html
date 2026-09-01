@@ -26,6 +26,22 @@
  .z{color:#c3ccca}
  tfoot td{font-size:.66rem;color:#8a99a4;border-top:2px solid #e3e9e8;font-weight:700}
  tfoot td.lo{color:#b0611d}
+ h2{font-size:1.35rem;letter-spacing:-.01em;margin:2.2rem 0 .5rem}
+ h2.eyerule{border-top:1px solid #e7edeb;padding-top:1.5rem}
+ .lead{color:#42514f;font-size:.98rem;line-height:1.65;max-width:74ch}
+ .formula{background:#f4f7f5;border:1px solid #dfe8e4;border-radius:9px;padding:.7rem 1rem;font-size:.92rem;margin:1rem 0;font-family:ui-monospace,monospace;color:#15323a;overflow-x:auto}
+ .stories{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.1rem 0}
+ @media(max-width:720px){.stories{grid-template-columns:1fr}}
+ .story{background:#fff;border:1px solid #e3e9e8;border-left:4px solid #0e7c74;border-radius:10px;padding:.9rem 1.05rem}
+ .story h3{margin:0 0 .3rem;font-size:1rem;color:#15323a}
+ .story p{margin:0;font-size:.9rem;color:#42514f;line-height:1.55}
+ .story b{color:#0e7c74}
+ .mtable{width:100%;border-collapse:collapse;font-size:.85rem;margin:.6rem 0}
+ .mtable th{text-align:left;font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;color:#8a99a4;font-weight:700;padding:.4rem .55rem;border-bottom:2px solid #e7edeb}
+ .mtable td{padding:.4rem .55rem;border-bottom:1px solid #eef1f0;vertical-align:top}
+ .mtable td.r{text-align:right;font-variant-numeric:tabular-nums}
+ .badge{display:inline-block;font-size:.64rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:.08rem .4rem;border-radius:5px}
+ .b-good{background:#eaf4ee;color:#1f7a4d}.b-moderate{background:#eef4f7;color:#296a8a}.b-rough{background:#fbf1e7;color:#b0611d}.b-proxy{background:#f4eef7;color:#7a4a8a}
 </style>
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
@@ -47,6 +63,27 @@
   <p class="muted" id="cap">&nbsp;</p>
   <div class="scroll"><table id="t"></table></div>
   <p class="muted" style="margin-top:.6rem">Cells are tonnes of contained material consumed per year, shaded by intensity within each column. &mdash; = no activity in that material&rsquo;s drivers (a genuine ~0 consumer). Click a header to sort. Bottom row = capture ratio (share of world demand the column accounts for); * marks a rough end-use split (arsenic, magnets, hafnium, strontium).</p>
+
+  <h2 class="eyerule">How it&rsquo;s built &mdash; calibrated, not guessed</h2>
+  <p class="lead">Every cell is a country&rsquo;s real 2023 activity times a material intensity. The trick is that the intensity isn&rsquo;t a hand-picked kg-per-unit that could be off by 10&times; &mdash; it is <b>back-solved from a known world total</b>, so the world sums can&rsquo;t drift:</p>
+  <div class="formula">intensity(material, driver) = ( world consumption &times; end-use share ) &divide; world driver total<br>demand(country, material) = &Sigma;<sub>drivers</sub>  activity(country, driver) &times; intensity(material, driver)</div>
+  <p class="lead">A material&rsquo;s end-use split (from USGS Minerals Yearbook and the EU Critical Raw Materials assessment) says how its demand divides across activities &mdash; cobalt is ~40% batteries, manganese ~90% steel, phosphate ~85% fertilizer. Each slice is pinned to the activity that drives it, and the intensity is set so the world adds up. The consequence, stated honestly on every column: where a material&rsquo;s end-uses are only partly covered by our drivers, its <b>capture ratio</b> lands below 1 &mdash; it is never inflated to force a fit. A blank cell is a country with no activity in that material&rsquo;s drivers: a genuine near-zero consumer, not a hole in the data.</p>
+
+  <h2>The 16 activity drivers</h2>
+  <p class="lead">Coverage is set by these drivers &mdash; broadly-measured ones (steel, electricity, population) reach ~every country; specialty ones (semiconductor fabs, aerospace) reach only the handful that have the industry, which is exactly right.</p>
+  <div style="overflow-x:auto"><table class="mtable" id="drivers"></table></div>
+
+  <h2>Stories in the matrix</h2>
+  <div class="stories">
+    <div class="story"><h3>China lights up almost every column</h3><p>Because consumption follows <b>activity</b>, and China holds the largest share of world steel, power, vehicles and construction, it is the largest consumer of most materials &mdash; often by a wide margin. The matrix makes visible what production maps hide: the same country that <i>refines</i> the world&rsquo;s materials also <i>uses</i> most of them.</p></div>
+    <div class="story"><h3>Two material families, two signatures</h3><p>Sort by <b>Manganese</b> or <b>Coking coal</b> and the ranking is the steel league table; sort by <b>Lithium</b> or <b>Cobalt</b> and it becomes the EV league table. The energy transition has its own consumption fingerprint, distinct from the old industrial one &mdash; you can read it straight off the columns.</p></div>
+    <div class="story"><h3>The specialty metals live in ~5 countries</h3><p><b>Gallium, germanium, tantalum</b> consumption sits almost entirely in the chip-making economies (China, Taiwan, Korea, Japan, US), because that is who uses them. The long tail of blanks isn&rsquo;t missing data &mdash; it is the truth that most countries consume none.</p></div>
+    <div class="story"><h3>Phosphate is the one everyone shares</h3><p>Nearly every industrial material concentrates in a few economies. <b>Phosphate</b> breaks the pattern: driven by fertilizer and population, its consumption spreads across the whole world &mdash; because everyone eats. It is the most democratic column in the matrix.</p></div>
+  </div>
+
+  <h2>Confidence &amp; limits</h2>
+  <p class="lead">This is an <b>estimate layer</b>, and it says so per cell. Two honesty signals travel with every material &mdash; the <b>capture ratio</b> (how much of world demand the drivers account for) and a <b>split-confidence tag</b> (how well-established the end-use split is). The four <span class="badge b-rough">rough</span> splits (arsenic, rare-earth magnets, hafnium, strontium) are opaque or fast-moving markets; treat their columns as directional. And this is <i>apparent</i> consumption from activity &mdash; it does not yet capture material <i>thrifting</i> (less cobalt per battery over time) or the difference between where a material is used and where the finished good is finally consumed. It is built to be a trade-independent cross-check for <a href="anchor">the anchor</a>, not a definitive inventory.</p>
+  <div style="overflow-x:auto"><table class="mtable" id="conftbl"></table></div>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -91,6 +128,31 @@ fetch('out/consumption.json').then(r=>r.json()).then(S=>{
       if(sortKey===k)asc=!asc;else{sortKey=k;asc=false;}draw();});
   }
   draw();
+
+  // --- driver metadata table ---
+  const DRV={steel:['Crude steel','steel-alloying metals (Mn, Cr, Nb, V, Mo, Si, W)'],
+    veh:['Motor vehicles','autocatalyst PGM, magnets, magnesium'],ev:['Plug-in EV sales','battery metals (Li, Co, Ni, graphite)'],
+    elec:['Electricity generation','grid & power metals (Cu, Ag, fluorochemicals)'],solar:['Solar PV additions','PV silver & silicon'],
+    wind:['Wind additions','turbine magnets (rare earths)'],cement:['Cement production','construction (pigment, borates)'],
+    pop:['Population','fertilizer, consumer & flame-retardant proxy'],aluminium:['Primary aluminium','bauxite, magnesium, aluminium fluoride'],
+    lead:['Refined lead','antimony & arsenic alloys'],drilling:['Oil & gas rig count','drilling-mud baryte'],
+    fertp:['P₂O₅ fertilizer','phosphate, phosphorus, boron micronutrient'],glass:['Flat + container glass','boron & feldspar'],
+    semi:['Semiconductor fab capacity','gallium, germanium, tantalum, arsenic'],aero:['Aerospace output','titanium, beryllium, hafnium'],
+    nuclear:['Nuclear generation','hafnium / zirconium cladding']};
+  const order=['steel','veh','ev','elec','solar','wind','cement','pop','aluminium','lead','drilling','fertp','glass','semi','aero','nuclear'];
+  const fmtw=v=>v>=1e6?(v/1e6).toFixed(1)+'M':v>=1e3?(v/1e3).toFixed(0)+'k':(''+Math.round(v));
+  let dh='<thead><tr><th>Driver</th><th>Proxies demand for</th><th>World total</th><th>Source</th></tr></thead><tbody>';
+  order.forEach(d=>{if(!S.drivers[d])return;const m=DRV[d]||[d,''];
+    dh+='<tr><td><b>'+m[0]+'</b></td><td>'+m[1]+'</td><td class=r>'+fmtw(S.drivers[d].world)+'</td><td>'+S.drivers[d].source+'</td></tr>';});
+  document.getElementById('drivers').innerHTML=dh+'</tbody>';
+
+  // --- per-material capture + confidence ---
+  const bd={good:'b-good',moderate:'b-moderate',rough:'b-rough'};
+  let ch='<thead><tr><th>Material</th><th>Capture ratio</th><th>Split confidence</th><th>~World consumption</th></tr></thead><tbody>';
+  mats.forEach(m=>{const cf=S.conf?S.conf[m]:'good';const k=S.known_world[m];
+    ch+='<tr><td><b>'+lab(m)+'</b></td><td class=r>'+S.capture[m].toFixed(2)+'</td>'+
+        '<td><span class="badge '+(bd[cf]||'b-good')+'">'+cf+'</span></td><td class=r>'+fmtw(k)+' t</td></tr>';});
+  document.getElementById('conftbl').innerHTML=ch+'</tbody>';
 });
 </script>
 </body></html>
