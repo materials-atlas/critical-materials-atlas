@@ -71,10 +71,24 @@ real_frac = {m: round(sum(s for d, s in SHARES[m].items() if d in ANNUAL_DRV) / 
              for m in series_mats}
 isos = sorted({iso for (iso, d) in PTS})
 
+# REAL annual world crude steel (worldsteel WSIF) shapes the steel LEVEL to the true curve (the 2009/2015/2020
+# dynamics a straight line misses); per-country steel distribution stays interpolated between benchmark years.
+WS = {}; wsp = os.path.join(ROOT, 'raw', 'activity', 'world_steel.csv')
+if os.path.exists(wsp):
+    for r in csv.DictReader(open(wsp, encoding='utf-8')):
+        try: WS[int(r['year'])] = float(r['world_mt'])
+        except (ValueError, KeyError): continue
+steel_scale = {}
+if WS:
+    for y in YEARS:
+        iw = sum(interp(PTS[(iso, 'steel')], y) for iso in isos if (iso, 'steel') in PTS)
+        steel_scale[y] = (interp(WS, y) / iw) if iw else 1.0
+
 demand = {y: {} for y in YEARS}
 for y in YEARS:
     for iso in isos:
-        acts = {d: interp(PTS[(iso, d)], y) for d in HISTDRV if (iso, d) in PTS}
+        acts = {d: interp(PTS[(iso, d)], y) * (steel_scale.get(y, 1.0) if d == 'steel' else 1.0)
+                for d in HISTDRV if (iso, d) in PTS}
         cell = {m: sum(acts.get(d, 0) * intensity.get((m, d), 0) for d in SHARES[m]) for m in series_mats}
         cell = {m: v for m, v in cell.items() if v > 0}
         if cell: demand[y][iso] = cell
