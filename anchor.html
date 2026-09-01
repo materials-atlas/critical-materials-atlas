@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/anchor">
+<title>The production-constrained anchor — repairing the origin gap with physics · Critical Materials Atlas</title>
+<meta name="description" content="A reconciliation that obeys physics: a country can't export more of a material than it produces minus what it consumes. Using a trade-independent consumption estimate, the anchor repairs the origin gap — where customs credit the refiner, not the mine — for 5 consumption-anchored materials (DRC cobalt 33→54%, Indonesia nickel 7→34%, South Africa platinum 30→50%, Brazil niobium 72→82%, Russia palladium 23→32%), with a production-only tier where the same gap appears (China gallium ~99% produced vs 22% credited).">
+<meta property="og:title" content="The production-constrained anchor: repairing the origin gap with physics">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/anchor">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .draftbar{background:#eef4f2;border:1px solid #cfe0da;border-radius:9px;padding:.6rem .9rem;margin:1rem 0;font-size:.82rem;color:#3a5a52}
+ .grp{margin:1.7rem 0 .5rem}.grp h2{font-size:1.18rem;margin:0 0 .15rem;letter-spacing:-.01em}
+ .grp .d{margin:.1rem 0 .8rem;color:#5a6b68;font-size:.9rem;max-width:76ch;line-height:1.5}
+ table{width:100%;border-collapse:collapse;font-size:.86rem;font-variant-numeric:tabular-nums;margin:.4rem 0}
+ th{text-align:right;font-size:.68rem;font-weight:700;color:#8a99a4;text-transform:uppercase;letter-spacing:.03em;padding:.35rem .5rem;border-bottom:2px solid #e7edeb}
+ th:first-child{text-align:left}
+ td{padding:.4rem .5rem;border-bottom:1px solid #eef1f0;text-align:right}
+ td.n{text-align:left;font-weight:700;color:#15323a}
+ .arrow{color:#9aa6ad}.up{color:#1f7a4d;font-weight:800}
+ .flag{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:.08rem .35rem;border-radius:4px;background:#fbf1e7;color:#b0611d}
+ .keyline{background:#eef7f3;border:1px solid #cfe6dc;border-left:4px solid #1f7a4d;border-radius:10px;padding:.9rem 1.1rem;margin:1.3rem 0}
+ .keyline b{color:#166a41}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · the reconciliation, improved</div>
+  <h1>The production-constrained anchor</h1>
+  <p class="deck">A trade reconciliation should obey physics: a country can&rsquo;t <b>export</b> more of a material than it <b>produces</b> minus what it <b>consumes</b>. Feed the reconciliation a consumption estimate built <i>without</i> trade, and that becomes a testable constraint &mdash; one that repairs the <a href="findings" style="color:#fff;text-decoration:underline">origin gap</a>, where customs credit the refiner and re-exporter, not the mine.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="draftbar"><b>Research / method layer.</b> This demonstrates a technique on top of the atlas&rsquo;s reconciled trade. The consumption input is an <b>estimate</b> (activity &times; calibrated intensity), and the blend weight is a documented default (w&nbsp;=&nbsp;0.5). The <i>direction and magnitude</i> of the corrections are robust; treat the exact corrected percentages as indicative.</div>
+
+  <div class="callout"><b>How it works.</b> Three independent inputs: <b>production</b> (World Mining Data, per country) &middot; <b>consumption</b> (<a href="consumption">trade-independent bottom-up</a> = national activity &times; a calibrated material intensity) &middot; <b>observed exports</b> (the atlas&rsquo;s reconciled mirror trade). For each producer, <b>exportable&nbsp;supply&nbsp;=&nbsp;max(0,&nbsp;production&nbsp;&minus;&nbsp;consumption)</b>. Two levers: a <b>hard guardrail</b> (no origin can export more than it can supply) and a <b>soft prior</b> (pull a deleted origin back toward what production says it must be). We assert only the <b>safe direction</b> &mdash; a mine leader credited far <i>less</i> than it can supply (classic refiner-fronting) &mdash; and flag the rest. Reproducible: <code>build_anchor.py</code> &rarr; <a href="out/anchor.json">anchor.json</a>.</div>
+
+  <div class="keyline" id="keyline"></div>
+
+  <div id="corrected" class="grp"></div>
+  <div id="prodonly" class="grp"></div>
+  <div id="review" class="grp"></div>
+  <div id="divergent" class="grp"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">Why this is the moat</h2>
+  <p>Mirror-trade reconciliation (matching what exporters and importers each report) is well-trodden. Constraining it with <i>physical production and an independent consumption estimate</i> is not &mdash; and it is exactly what fixes the atlas&rsquo;s hardest problem: the <b>origin gap</b>, where a material&rsquo;s true source disappears from trade because it is refined and re-exported by someone else (DR Congo&rsquo;s cobalt fronted by Chinese refiners; Indonesia&rsquo;s nickel; South Africa&rsquo;s platinum). The anchor puts the origin back, not by assertion but by a mass balance the data has to respect. The honest boundary is <b>stage matching</b>: the constraint holds only where the mined form is the traded form &mdash; lithium (spodumene &rarr; carbonate) and graphite (flake &rarr; processed) need the two-stage version, which is the next build. <a href="consumption">See the consumption input &rarr;</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>World Mining Data (production) · worldsteel / OICA / IEA / Ember / IRENA / USGS / UN (activity) · atlas reconciled trade (BACI/Comtrade)</div>
+  <div class="fineprint">The consumption input is an order-of-magnitude estimate with partial end-use capture; corrected shares use an equal-weight blend (w=0.5) and are indicative. Only under-attribution (a producer credited less than its exportable supply) is corrected; over-attribution is flagged, not adjusted, because domestic refining may not be captured.</div>
+</div></footer>
+<script>
+fetch('out/anchor.json').then(r=>r.json()).then(S=>{
+  const nprod=S.results.filter(r=>r.regime==='production-only'&&r.porigin&&!r.rows[0].review).length;
+  document.getElementById('keyline').innerHTML='<b>'+S.n_corrected+' materials show a consumption-anchored origin-gap repair.</b> '+
+    'For these we have an independent consumption estimate, so exportable = production &minus; consumption is a real mass balance — '+
+    'and the mirror trade under-credits the mine leader by an average of <b>'+S.mean_gap+' percentage points</b> (its true source hidden behind a refiner). '+
+    'A further <b>'+nprod+'</b> show the same gap on production alone, pending a consumption estimate to confirm.';
+  const pc=v=>v==null?'—':Math.round(v)+'%';
+  const tbl=(list,cols)=>{let h='<table><thead><tr><th>Material</th><th>Mine leader</th><th>Mines</th><th>Consumes (t)</th><th>Trade credits</th><th>Exportable</th>'+(cols?'<th>Anchor</th>':'<th></th>')+'</tr></thead><tbody>';
+    list.forEach(r=>{const t=r.rows[0];
+      h+='<tr><td class=n>'+r.title+'</td><td style="text-align:left">'+r.top+'</td><td>'+pc(t.prod_pc)+'</td><td>'+t.cons_t.toLocaleString()+'</td>'+
+         '<td>'+pc(t.obs_pc)+'</td><td>'+pc(t.expble_pc)+'</td>'+
+         (cols?('<td><span class=arrow>&rarr;</span> <span class=up>'+pc(r.top_corrected)+'</span></td>')
+              :('<td>'+(t.review?'<span class=flag>review</span>':(r.regime==='divergent'?'<span class=flag>stage</span>':''))+'</td>'))+'</tr>';});
+    return h+'</tbody></table>';};
+  const corr=S.results.filter(r=>r.top_corrected!=null);
+  const prod=S.results.filter(r=>r.regime==='production-only'&&r.porigin&&!r.rows[0].review);
+  const rev=S.results.filter(r=>r.top_corrected==null&&r.rows[0].review);
+  const div=S.results.filter(r=>r.regime==='divergent');
+  document.getElementById('corrected').innerHTML='<h2 style="color:#1f7a4d">Consumption-anchored origin-gap repair ('+corr.length+') <span class="flag" style="background:#eaf4ee;color:#1f7a4d">the result</span></h2>'+
+    '<p class="d">We have an independent consumption estimate for these, so exportable = production &minus; consumption is a genuine mass balance. The mine leader is credited far less of world exports than it can supply — the refiner-fronting deletion — and the anchor pulls its origin share up.</p>'+tbl(corr,true);
+  document.getElementById('prodonly').innerHTML='<h2 style="color:#0b3a4a">Same gap on production alone ('+prod.length+') <span class="flag">needs consumption</span></h2>'+
+    '<p class="d">Here the mine leader is under-credited too, but we don&rsquo;t yet have a consumption estimate — so exportable = production is an <i>assumption</i> that would over-correct if the producer consumes at home (e.g. the US consumes its own beryllium). Shown as a flagged origin gap, not corrected. Gallium and germanium stand out: China holds ~93&ndash;99% of production but customs credit it ~22%, diluted by a shared HS code.</p>'+tbl(prod,false);
+  document.getElementById('review').innerHTML='<h2 style="color:#b0611d">Flagged for review ('+rev.length+')</h2>'+
+    '<p class="d">Here exports <i>exceed</i> the mine surplus — usually because the country refines imported or domestic ore (bauxite&rarr;alumina, tungsten concentrate&rarr;APT) which our final-demand consumption doesn&rsquo;t capture. Not corrected; flagged as a stage/processing effect to resolve.</p>'+tbl(rev,false);
+  document.getElementById('divergent').innerHTML='<h2 style="color:#8a5a1e">Stage-divergent — needs the two-stage anchor ('+div.length+')</h2>'+
+    '<p class="d">The mined form is not the traded form, so production and trade aren&rsquo;t comparable: '+div.map(r=>'<b>'+r.title+'</b> ('+r.stage_note+')').join('; ')+'. These need ore-vs-refined matching before the constraint applies.</p>'+tbl(div,false);
+});
+</script>
+</body></html>

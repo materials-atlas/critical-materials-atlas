@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/consumption">
+<title>Trade-independent consumption — activity × material intensity · Critical Materials Atlas</title>
+<meta name="description" content="A consumption estimate built without trade data: demand = national activity × calibrated material intensity, for 116 countries × 18 materials. Intensities are back-solved from known world totals, so world sums can't drift; a per-material capture ratio states honestly how much of world demand each column accounts for. This is the trade-independent input the production-constrained anchor needs.">
+<meta property="og:title" content="Trade-independent consumption: activity × material intensity">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/consumption">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .draftbar{background:#eef4f2;border:1px solid #cfe0da;border-radius:9px;padding:.6rem .9rem;margin:1rem 0;font-size:.82rem;color:#3a5a52}
+ .scroll{overflow-x:auto;border:1px solid #e3e9e8;border-radius:11px;margin-top:1rem}
+ table{border-collapse:separate;border-spacing:0;font-size:.76rem;font-variant-numeric:tabular-nums;min-width:100%}
+ th,td{padding:.3rem .5rem;text-align:right;white-space:nowrap;border-bottom:1px solid #eef1f0}
+ thead th{position:sticky;top:0;background:#fff;z-index:3;color:#5a6b68;font-weight:700;font-size:.62rem;
+  text-transform:uppercase;letter-spacing:.02em;cursor:pointer;border-bottom:2px solid #e3e9e8;vertical-align:bottom}
+ thead th.rot{height:104px}
+ thead th.rot span{display:inline-block;transform:rotate(-52deg);transform-origin:left bottom;width:18px;text-align:left}
+ th.c0,td.c0{position:sticky;left:0;background:#fff;text-align:left;z-index:2;font-weight:700;color:#15323a;border-right:1px solid #e3e9e8;max-width:140px;overflow:hidden;text-overflow:ellipsis}
+ thead th.c0{z-index:4}
+ td.tot{font-weight:800;color:#0b3a4a;border-left:1px solid #e3e9e8}
+ .z{color:#c3ccca}
+ tfoot td{font-size:.66rem;color:#8a99a4;border-top:2px solid #e3e9e8;font-weight:700}
+ tfoot td.lo{color:#b0611d}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · trade-independent consumption</div>
+  <h1>Who consumes what &mdash; estimated without trade data</h1>
+  <p class="deck">To check trade, you need a number that doesn&rsquo;t come <i>from</i> trade. This estimates each country&rsquo;s material consumption bottom-up: <b>demand = national activity &times; material intensity</b> &mdash; steel output, vehicles, EVs, electricity, solar &amp; wind builds, cement, population &mdash; so it can be used to constrain the mirror trade instead of depending on it.</p>
+</div></section>
+<article style="max-width:1100px">
+  <div class="draftbar"><b>Estimate layer.</b> Intensities are order-of-magnitude and end-use capture is partial for multi-use metals &mdash; so each column carries a <b>capture ratio</b> (bottom row) stating how much of world demand it accounts for. Nothing is inflated to fit; a low ratio is honest under-coverage.</div>
+
+  <div class="callout"><b>How it&rsquo;s built &mdash; and why it&rsquo;s calibrated, not guessed.</b> Each driver&rsquo;s intensity is <b>back-solved from a known world total</b>: intensity = (world consumption &times; end-use share) &divide; world driver total. So every cell is a country&rsquo;s <i>real</i> 2023 activity &times; that calibrated intensity, and the world sums can&rsquo;t drift. Activity data: crude steel (worldsteel), vehicles (OICA), EV sales (IEA), electricity (Ember), solar &amp; wind additions (IRENA), cement (USGS), population (UN). End-use splits from USGS&nbsp;MCS + EU&nbsp;CRM. Reproducible: <code>build_consumption.py</code> &rarr; <a href="out/consumption.json">consumption.json</a>. This is the input to <a href="anchor">the production-constrained anchor</a>.</div>
+
+  <p class="muted" id="cap">&nbsp;</p>
+  <div class="scroll"><table id="t"></table></div>
+  <p class="muted" style="margin-top:.6rem">Cells are tonnes of contained material consumed per year, shaded by intensity within each column. &mdash; = no activity in that material&rsquo;s drivers (a genuine ~0 consumer). Click a header to sort. Bottom row = capture ratio (share of world demand the column accounts for).</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>worldsteel · OICA · IEA GEVO · Ember · IRENA · USGS MCS · UN WPP · end-use splits USGS/EU CRM</div>
+  <div class="fineprint">An estimate, not an inventory: order-of-magnitude intensities and partial end-use capture, surfaced per-material as a capture ratio. Intended as a trade-independent cross-check, not a definitive consumption series.</div>
+</div></footer>
+<script>
+fetch('out/consumption.json').then(r=>r.json()).then(S=>{
+  const LAB={rareearths:'Rare earths (magnet)',cokingcoal:'Coking coal',phosphate:'Phosphate'};
+  const lab=m=>LAB[m]||(m.charAt(0).toUpperCase()+m.slice(1));
+  const mats=S.materials.slice().sort((a,b)=>{
+    const wa=Object.values(S.matrix).reduce((s,r)=>s+(r.demand[a].t||0),0);
+    const wb=Object.values(S.matrix).reduce((s,r)=>s+(r.demand[b].t||0),0);return wb-wa;});
+  const rows=Object.keys(S.matrix).map(iso=>({name:S.matrix[iso].name,
+    cells:Object.fromEntries(mats.map(m=>[m,S.matrix[iso].demand[m].t||0])),
+    total:mats.reduce((s,m)=>s+(S.matrix[iso].demand[m].t||0),0)}));
+  document.getElementById('cap').innerHTML='<b>'+S.n_countries+' countries &times; '+mats.length+' materials</b>, all calibrated to real 2023 activity.';
+  const fmt=v=>{if(!v||v<1)return'<span class=z>&mdash;</span>';
+    if(v>=1e6)return(v/1e6).toFixed(v>=1e7?0:1)+' Mt';if(v>=1e3)return(v/1e3).toFixed(v>=1e4?0:1)+' kt';return Math.round(v)+' t';};
+  const colmax={};mats.forEach(m=>colmax[m]=Math.max(...rows.map(r=>r.cells[m])));
+  const totmax=Math.max(...rows.map(r=>r.total));
+  const heat=(v,mx)=>{if(!v)return'transparent';const a=0.08+0.80*Math.log(v+1)/Math.log(mx+1);return'rgba(14,124,116,'+a.toFixed(3)+')';};
+  let sortKey='total',asc=false;
+  function draw(){
+    const rs=rows.slice().sort((a,b)=>{let x=sortKey==='name'?a.name:sortKey==='total'?a.total:a.cells[sortKey];
+      let y=sortKey==='name'?b.name:sortKey==='total'?b.total:b.cells[sortKey];
+      return sortKey==='name'?(asc?x.localeCompare(y):y.localeCompare(x)):(asc?x-y:y-x);});
+    let h='<thead><tr><th class="c0" data-k="name">Country ('+rows.length+')</th>';
+    mats.forEach(m=>h+='<th class="rot" data-k="'+m+'"><span>'+lab(m)+'</span></th>');
+    h+='<th data-k="total">Total</th></tr></thead><tbody>';
+    rs.forEach(r=>{h+='<tr><td class="c0">'+r.name+'</td>';
+      mats.forEach(m=>{const v=r.cells[m];h+='<td style="background:'+heat(v,colmax[m])+'" title="'+r.name+' · '+lab(m)+': '+Math.round(v).toLocaleString()+' t">'+fmt(v)+'</td>';});
+      h+='<td class="tot" style="background:'+heat(r.total,totmax)+'">'+fmt(r.total)+'</td></tr>';});
+    h+='</tbody><tfoot><tr><td class="c0">Capture ratio</td>';
+    mats.forEach(m=>{const c=S.capture[m];h+='<td class="'+(c<0.5?'lo':'')+'">'+c.toFixed(2)+'</td>';});
+    h+='<td></td></tr></tfoot>';
+    document.getElementById('t').innerHTML=h;
+    document.querySelectorAll('th[data-k]').forEach(th=>th.onclick=()=>{const k=th.dataset.k;
+      if(sortKey===k)asc=!asc;else{sortKey=k;asc=false;}draw();});
+  }
+  draw();
+});
+</script>
+</body></html>

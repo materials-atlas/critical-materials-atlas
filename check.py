@@ -349,11 +349,48 @@ def check_basis():
                 fail('basis', f"{r['chain']} share {share!r} has a percentage outside 0-100 — check for a typo")
 
 
+def check_anchor_sync():
+    """out/anchor.json DERIVES from production.json + consumption.json + flows_2024.json via build_anchor.py.
+    If an input changed but the anchor wasn't rebuilt, the live page silently goes stale. Re-derive and
+    compare (like the chokepoint guard), and range-check every share to 0-100. Run: python build_anchor.py"""
+    import importlib.util
+    bp, mp = os.path.join(ROOT, 'build_anchor.py'), os.path.join(ROOT, 'out', 'anchor.json')
+    if not os.path.exists(bp) or not os.path.exists(mp):
+        return
+    try:
+        spec = importlib.util.spec_from_file_location('banch', bp)
+        m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+        derived = m.derive()
+    except Exception as e:
+        fail('anchor', f'could not derive anchor from inputs: {e}'); return
+    try:
+        onfile = json.load(open(mp, encoding='utf8'))
+    except Exception as e:
+        fail('anchor', f'anchor.json unreadable: {e}'); return
+    if derived != onfile:
+        d = {r['material']: r for r in derived['results']}
+        o = {r['material']: r for r in onfile.get('results', [])}
+        diff = sorted(set(d) ^ set(o)) or sorted(k for k in d if k in o and d[k] != o[k])
+        fail('anchor', f'anchor.json is STALE — run: python build_anchor.py  (differs: {diff[:6]})')
+    for r in onfile.get('results', []):          # range-check shares
+        for row in r['rows']:
+            for k in ('obs_pc', 'expble_pc', 'prod_pc'):
+                if row.get(k) is not None and not (0 <= row[k] <= 100):
+                    fail('anchor', f"{r['material']}/{row['iso']} {k}={row[k]} outside 0-100")
+    # consumption honesty invariant: a capture ratio must never exceed ~1 (never inflated to fit)
+    cp = os.path.join(ROOT, 'out', 'consumption.json')
+    if os.path.exists(cp):
+        cj = json.load(open(cp, encoding='utf8'))
+        for mat, c in cj.get('capture', {}).items():
+            if c > 1.05:
+                fail('anchor', f'consumption capture for {mat} is {c} (>1) — an inflated fit, not honest coverage')
+
+
 # ---------------------------------------------------------------- run
 CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis)]
+          ('basis', check_basis), ('anchor', check_anchor_sync)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

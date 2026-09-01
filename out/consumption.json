@@ -1,0 +1,9099 @@
+{
+ "note": "Trade-independent consumption estimate (activity x calibrated intensity). Intensities are back-solved from known world totals; the per-material capture ratio is the honest share of world demand these drivers+countries account for (<=1, never inflated). ESTIMATE layer.",
+ "drivers": {
+  "steel": {
+   "world": 1892.0,
+   "source": "worldsteel 2024"
+  },
+  "veh": {
+   "world": 93546599.0,
+   "source": "OICA 2023"
+  },
+  "ev": {
+   "world": 13700000.0,
+   "source": "IEA GEVO 2024"
+  },
+  "elec": {
+   "world": 29665.34,
+   "source": "Ember 2024"
+  },
+  "solar": {
+   "world": 360.61,
+   "source": "IRENA RCS 2024"
+  },
+  "wind": {
+   "world": 116.0,
+   "source": "IRENA RCS 2024"
+  },
+  "cement": {
+   "world": 4100.0,
+   "source": "USGS MCS 2024"
+  },
+  "pop": {
+   "world": 8091.73,
+   "source": "UN WPP 2024"
+  }
+ },
+ "end_use_shares": {
+  "manganese": {
+   "steel": 0.9
+  },
+  "chromium": {
+   "steel": 0.85
+  },
+  "nickel": {
+   "steel": 0.66,
+   "ev": 0.12
+  },
+  "molybdenum": {
+   "steel": 0.8
+  },
+  "vanadium": {
+   "steel": 0.9
+  },
+  "niobium": {
+   "steel": 0.9
+  },
+  "tungsten": {
+   "steel": 0.6
+  },
+  "silicon": {
+   "steel": 0.55,
+   "solar": 0.1
+  },
+  "cokingcoal": {
+   "steel": 0.9
+  },
+  "lithium": {
+   "ev": 0.74
+  },
+  "cobalt": {
+   "ev": 0.4
+  },
+  "graphite": {
+   "ev": 0.35,
+   "steel": 0.25
+  },
+  "copper": {
+   "elec": 0.28,
+   "ev": 0.1,
+   "solar": 0.06,
+   "wind": 0.05,
+   "veh": 0.12,
+   "cement": 0.2
+  },
+  "silver": {
+   "solar": 0.14,
+   "veh": 0.05,
+   "elec": 0.2
+  },
+  "rareearths": {
+   "ev": 0.15,
+   "wind": 0.14
+  },
+  "platinum": {
+   "veh": 0.4
+  },
+  "palladium": {
+   "veh": 0.8
+  },
+  "phosphate": {
+   "pop": 0.9
+  }
+ },
+ "known_world": {
+  "manganese": 20000000,
+  "chromium": 40000000,
+  "nickel": 3300000,
+  "molybdenum": 300000,
+  "vanadium": 110000,
+  "niobium": 83000,
+  "tungsten": 110000,
+  "silicon": 3500000,
+  "cokingcoal": 1100000000,
+  "lithium": 180000,
+  "cobalt": 220000,
+  "graphite": 4000000,
+  "copper": 26000000,
+  "silver": 35000,
+  "rareearths": 180000,
+  "platinum": 230,
+  "palladium": 270,
+  "phosphate": 220000000
+ },
+ "capture": {
+  "manganese": 0.896,
+  "chromium": 0.846,
+  "nickel": 0.777,
+  "molybdenum": 0.796,
+  "vanadium": 0.896,
+  "niobium": 0.896,
+  "tungsten": 0.597,
+  "silicon": 0.647,
+  "cokingcoal": 0.896,
+  "lithium": 0.738,
+  "cobalt": 0.399,
+  "graphite": 0.598,
+  "copper": 0.756,
+  "silver": 0.381,
+  "rareearths": 0.289,
+  "platinum": 0.383,
+  "palladium": 0.778,
+  "phosphate": 0.829
+ },
+ "n_countries": 116,
+ "materials": [
+  "manganese",
+  "chromium",
+  "nickel",
+  "molybdenum",
+  "vanadium",
+  "niobium",
+  "tungsten",
+  "silicon",
+  "cokingcoal",
+  "lithium",
+  "cobalt",
+  "graphite",
+  "copper",
+  "silver",
+  "rareearths",
+  "platinum",
+  "palladium",
+  "phosphate"
+ ],
+ "matrix": {
+  "CHN": {
+   "name": "China",
+   "demand": {
+    "manganese": {
+     "t": 9695455,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 18313636,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1410172,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 129273,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 53325,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 40236,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 35550,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1247384,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 533250000,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 79726,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 52672,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 1376593,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 9335418,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 5743,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 32656,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 30,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 34809718,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "IND": {
+   "name": "India",
+   "demand": {
+    "manganese": {
+     "t": 1333827,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 2519450,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 163771,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 17784,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 7336,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 5535,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 4891,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 151934,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 73360465,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 800,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 528,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 82509,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 1274415,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 692,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 773,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 6,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 14,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 35188750,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "JPN": {
+   "name": "Japan",
+   "demand": {
+    "manganese": {
+     "t": 827696,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 1563425,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 104198,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 11036,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 4552,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 3435,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 3035,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 92409,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 45523256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1361,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 899,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 60290,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 664447,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 460,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 469,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 3043263,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "USA": {
+   "name": "United States",
+   "demand": {
+    "manganese": {
+     "t": 774419,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 1462791,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 133883,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 10326,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 4259,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 3214,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 2840,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 109103,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 42593023,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 13514,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 8928,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 185067,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 1961672,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 1570,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 4047,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 25,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 8404759,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "RUS": {
+   "name": "Russia",
+   "demand": {
+    "manganese": {
+     "t": 721142,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 1362156,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 87410,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 9615,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 3966,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 2993,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 2644,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 77122,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 39662791,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 51,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 34,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 40601,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 389583,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 292,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 65,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 3558834,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "KOR": {
+   "name": "South Korea",
+   "demand": {
+    "manganese": {
+     "t": 634567,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 1198626,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 80598,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 8461,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 3490,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 2633,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 2327,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 70678,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 34901163,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1283,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 848,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 48743,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 396559,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 265,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 308,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1266293,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "DEU": {
+   "name": "Germany",
+   "demand": {
+    "manganese": {
+     "t": 336786,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 636152,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 60985,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 4490,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1852,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 1398,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 1235,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 49926,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 18523256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 6806,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 4496,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 90243,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 492557,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 391,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 2083,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 2068890,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "TUR": {
+   "name": "Turkey",
+   "demand": {
+    "manganese": {
+     "t": 320613,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 605603,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 40745,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 4275,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1763,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 1331,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 1176,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 40296,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 17633721,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 656,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 434,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 24710,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 271830,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 187,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 222,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 2135447,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BRA": {
+   "name": "Brazil",
+   "demand": {
+    "manganese": {
+     "t": 303488,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 573256,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 38225,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 4047,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1669,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 1259,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 1113,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 44579,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 16691860,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 506,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 334,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 22174,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 450255,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 380,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 1171,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 5,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 5166475,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "IRN": {
+   "name": "Iran",
+   "demand": {
+    "manganese": {
+     "t": 295877,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 558879,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 35801,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 3945,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1627,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 1228,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 1085,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 31642,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 16273256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 16438,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 215827,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 112,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 2217175,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ITA": {
+   "name": "Italy",
+   "demand": {
+    "manganese": {
+     "t": 200740,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 379175,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 28221,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 2677,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1104,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 833,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 736,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 26127,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 11040698,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1322,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 874,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 25050,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 145605,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 143,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 374,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1455931,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "VNM": {
+   "name": "Vietnam",
+   "demand": {
+    "manganese": {
+     "t": 182664,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 345032,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 23029,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 2436,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 1005,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 758,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 670,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 21369,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 10046512,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 312,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 206,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 13425,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 238591,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 95,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 241,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 2455507,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "TWN": {
+   "name": "Taiwan",
+   "demand": {
+    "manganese": {
+     "t": 181712,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 343235,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 21987,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 2423,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 999,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 754,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 666,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 22044,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 9994186,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 10095,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 101951,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 108,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 239,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 570627,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MEX": {
+   "name": "Mexico",
+   "demand": {
+    "manganese": {
+     "t": 160782,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 303700,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 19920,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 2144,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 884,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 667,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 590,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 18699,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 8843023,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 157,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 103,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 10578,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 292962,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 179,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 32,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 3174664,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "IDN": {
+   "name": "Indonesia",
+   "demand": {
+    "manganese": {
+     "t": 159831,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 301903,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 19836,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 2131,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 879,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 663,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 586,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 17404,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 8790698,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 167,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 110,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 10633,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 215864,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 113,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 34,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 6880558,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "CAN": {
+   "name": "Canada",
+   "demand": {
+    "manganese": {
+     "t": 116068,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 219239,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 18987,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 1548,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 638,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 482,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 426,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 13112,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 6383721,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1663,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 1098,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 23923,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 254875,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 190,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 533,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 961648,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ESP": {
+   "name": "Spain",
+   "demand": {
+    "manganese": {
+     "t": 108457,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 204863,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 16650,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 1446,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 597,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 450,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 398,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 17112,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 5965116,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1186,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 784,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 18493,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 206379,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 189,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 403,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 6,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1172330,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "EGY": {
+   "name": "Egypt",
+   "demand": {
+    "manganese": {
+     "t": 98943,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 186892,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 11972,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 1319,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 544,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 411,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 363,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 10581,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 5441860,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 5497,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 120676,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 54,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 2802728,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "FRA": {
+   "name": "France",
+   "demand": {
+    "manganese": {
+     "t": 95137,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 179704,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 25097,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 1268,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 523,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 395,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 349,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 13406,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 5232558,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 4570,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 3019,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 53315,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 255337,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 168,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 1400,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1625749,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SAU": {
+   "name": "Saudi Arabia",
+   "demand": {
+    "manganese": {
+     "t": 94186,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 177907,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 11397,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 1256,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 518,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 391,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 345,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 12014,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 5180233,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 5233,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 181211,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 128,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 789384,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MYS": {
+   "name": "Malaysia",
+   "demand": {
+    "manganese": {
+     "t": 71353,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 134778,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 8955,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 951,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 392,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 296,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 262,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 7631,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 3924419,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 108,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 71,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 5098,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 74028,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 59,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 22,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 859611,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "AUT": {
+   "name": "Austria",
+   "demand": {
+    "manganese": {
+     "t": 67548,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 127590,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 10052,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 901,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 372,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 280,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 248,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 9738,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 3715116,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 632,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 418,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 10395,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 47793,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 54,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 187,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "POL": {
+   "name": "Poland",
+   "demand": {
+    "manganese": {
+     "t": 60888,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 115011,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 8235,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 812,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 335,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 253,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 223,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 11219,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 3348837,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 292,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 193,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 6448,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 80630,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 105,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 318,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 948435,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "UKR": {
+   "name": "Ukraine",
+   "demand": {
+    "manganese": {
+     "t": 58985,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 111416,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 7137,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 786,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 324,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 245,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 216,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 6308,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 3244186,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 3277,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 50,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 923231,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BEL": {
+   "name": "Belgium",
+   "demand": {
+    "manganese": {
+     "t": 56131,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 106025,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 12371,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 748,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 309,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 233,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 206,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 7536,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 3087209,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1876,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 1240,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 22841,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 76375,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 413,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "GBR": {
+   "name": "United Kingdom",
+   "demand": {
+    "manganese": {
+     "t": 53277,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 100634,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 19454,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 710,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 293,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 221,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 195,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 7270,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2930233,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 4375,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 2891,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 48945,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 214874,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 110,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 1206,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1680560,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "PAK": {
+   "name": "Pakistan",
+   "demand": {
+    "manganese": {
+     "t": 50423,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 95243,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 6101,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 672,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 277,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 209,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 185,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 6392,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2773256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 2801,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 49310,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 56,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 6056183,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "AUS": {
+   "name": "Australia",
+   "demand": {
+    "manganese": {
+     "t": 50423,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 95243,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 8934,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 672,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 277,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 209,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 185,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 9556,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2773256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 953,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 629,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 12816,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 114917,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 123,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 397,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 647216,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "THA": {
+   "name": "Thailand",
+   "demand": {
+    "manganese": {
+     "t": 47569,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 89852,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 8328,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 634,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 262,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 197,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 5087,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2616279,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 865,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 572,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 11738,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 125059,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 79,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 175,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1754458,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BGD": {
+   "name": "Bangladesh",
+   "demand": {
+    "manganese": {
+     "t": 47569,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 89852,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5756,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 634,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 262,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 197,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 5087,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2616279,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 2643,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 24720,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 4195773,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ZAF": {
+   "name": "South Africa",
+   "demand": {
+    "manganese": {
+     "t": 47569,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 89852,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5787,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 634,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 262,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 197,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 7320,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2616279,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 7,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 2753,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 91583,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 98,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1546713,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ARG": {
+   "name": "Argentina",
+   "demand": {
+    "manganese": {
+     "t": 46617,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 88055,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5641,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 622,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 256,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 193,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 171,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 4985,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2563953,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 2590,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 61309,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 46,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 87,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1114338,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "NLD": {
+   "name": "Netherlands",
+   "demand": {
+    "manganese": {
+     "t": 44715,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 84461,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 9920,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 596,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 246,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 186,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 164,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 9247,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2459302,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1517,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 1002,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 18426,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 105870,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 93,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 764,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "SVK": {
+   "name": "Slovakia",
+   "demand": {
+    "manganese": {
+     "t": 41860,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 79070,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5218,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 558,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 230,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 153,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 4477,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2302326,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 34,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 2867,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 37026,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 20,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 2,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "DZA": {
+   "name": "Algeria",
+   "demand": {
+    "manganese": {
+     "t": 41860,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 79070,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5065,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 558,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 230,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 153,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 4477,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2302326,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 2326,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 23611,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 23,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1129509,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SWE": {
+   "name": "Sweden",
+   "demand": {
+    "manganese": {
+     "t": 40909,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 77273,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 9893,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 545,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 225,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 170,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 150,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 5928,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2250000,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 1663,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 1098,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 19747,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 111207,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 66,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 761,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "KAZ": {
+   "name": "Kazakhstan",
+   "demand": {
+    "manganese": {
+     "t": 37104,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 70085,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 4490,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 495,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 204,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 154,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 136,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 3968,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 2040698,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 2061,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 36028,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 30,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 497463,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ARE": {
+   "name": "United Arab Emirates",
+   "demand": {
+    "manganese": {
+     "t": 36152,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 68288,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 4863,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 482,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 199,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 150,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 133,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 6147,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1988372,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 164,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 109,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 3735,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 55607,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 71,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 55,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "FIN": {
+   "name": "Finland",
+   "demand": {
+    "manganese": {
+     "t": 36152,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 68288,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 5762,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 482,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 199,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 150,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 133,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 4196,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1988372,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 467,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 308,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 6914,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 47255,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 25,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 370,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "CZE": {
+   "name": "Czechia",
+   "demand": {
+    "manganese": {
+     "t": 32347,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 61099,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 4261,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 431,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 134,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 119,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 4275,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1779070,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 117,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 77,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 3023,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 71356,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 56,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "OMN": {
+   "name": "Oman",
+   "demand": {
+    "manganese": {
+     "t": 27590,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 52114,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 3338,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 368,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 114,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 101,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2951,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1517442,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 1533,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 11043,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "IRQ": {
+   "name": "Iraq",
+   "demand": {
+    "manganese": {
+     "t": 26638,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 50317,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 3223,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 355,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 147,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 111,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 98,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2849,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1465116,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 1480,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 35586,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 34,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1102837,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BLR": {
+   "name": "Belarus",
+   "demand": {
+    "manganese": {
+     "t": 21882,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 41332,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 2648,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 292,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 120,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 91,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 80,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2340,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1203488,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 1216,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 10243,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "PRT": {
+   "name": "Portugal",
+   "demand": {
+    "manganese": {
+     "t": 19027,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 35941,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 4123,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 254,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 105,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 79,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 70,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 3219,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 1046512,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 613,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 405,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 7495,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 39171,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 33,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 124,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "LUX": {
+   "name": "Luxembourg",
+   "demand": {
+    "manganese": {
+     "t": 18076,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 34144,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 2644,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 241,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 99,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 66,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1933,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 994186,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 154,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 101,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 2619,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 2999,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 31,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "PHL": {
+   "name": "Philippines",
+   "demand": {
+    "manganese": {
+     "t": 18076,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 34144,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 2187,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 241,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 99,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 66,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1933,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 994186,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 1004,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 31722,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 29,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 2811293,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "PER": {
+   "name": "Peru",
+   "demand": {
+    "manganese": {
+     "t": 15222,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 28753,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1842,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 203,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 84,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 56,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1628,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 837209,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 846,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 20317,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 14,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 104,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 828290,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ROU": {
+   "name": "Romania",
+   "demand": {
+    "manganese": {
+     "t": 15222,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 28753,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 2275,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 203,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 84,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 56,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2773,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 837209,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 146,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 96,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 2379,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 39039,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 39,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 30,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 467855,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SRB": {
+   "name": "Serbia",
+   "demand": {
+    "manganese": {
+     "t": 14271,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 26956,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1727,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 190,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 78,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 59,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1526,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 784884,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 793,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 10885,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "KEN": {
+   "name": "Kenya",
+   "demand": {
+    "manganese": {
+     "t": 13319,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 25159,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1612,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 73,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 55,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 49,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1424,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 732558,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 740,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1354138,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MAR": {
+   "name": "Morocco",
+   "demand": {
+    "manganese": {
+     "t": 13319,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 25159,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1612,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 73,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 55,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 49,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1424,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 732558,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 740,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 34118,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 20,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 113,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 922742,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "COL": {
+   "name": "Colombia",
+   "demand": {
+    "manganese": {
+     "t": 13319,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 25159,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1773,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 178,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 73,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 55,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 49,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1424,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 732558,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 54,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 36,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 1312,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 23467,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 1280240,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BHR": {
+   "name": "Bahrain",
+   "demand": {
+    "manganese": {
+     "t": 12368,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 23362,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1497,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 165,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 68,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 51,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 45,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1323,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 680233,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 687,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 9195,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "GRC": {
+   "name": "Greece",
+   "demand": {
+    "manganese": {
+     "t": 11416,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 21564,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1873,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2754,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 627907,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 165,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 109,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 2371,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 28009,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 33,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 149,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "CHE": {
+   "name": "Switzerland",
+   "demand": {
+    "manganese": {
+     "t": 11416,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 21564,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 3578,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 2716,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 627907,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 739,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 488,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 8401,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 38281,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 37,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 150,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "NGA": {
+   "name": "Nigeria",
+   "demand": {
+    "manganese": {
+     "t": 11416,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 21564,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1381,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1221,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 627907,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 634,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 10042,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 5576093,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "CHL": {
+   "name": "Chile",
+   "demand": {
+    "manganese": {
+     "t": 11416,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 21564,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1442,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 152,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 63,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 47,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 3016,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 627907,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 14,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 850,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 38258,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 46,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 158,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 481069,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "QAT": {
+   "name": "Qatar",
+   "demand": {
+    "manganese": {
+     "t": 10465,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 19767,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1266,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 140,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 58,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 43,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 38,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1119,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 575581,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 581,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 13836,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "KWT": {
+   "name": "Kuwait",
+   "demand": {
+    "manganese": {
+     "t": 9514,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 17970,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1151,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 127,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 39,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 35,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1017,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 523256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 529,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 22027,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "UZB": {
+   "name": "Uzbekistan",
+   "demand": {
+    "manganese": {
+     "t": 9514,
+     "basis": "calibrated"
+    },
+    "chromium": {
+     "t": 17970,
+     "basis": "calibrated"
+    },
+    "nickel": {
+     "t": 1439,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 127,
+     "basis": "calibrated"
+    },
+    "vanadium": {
+     "t": 52,
+     "basis": "calibrated"
+    },
+    "niobium": {
+     "t": 39,
+     "basis": "calibrated"
+    },
+    "tungsten": {
+     "t": 35,
+     "basis": "calibrated"
+    },
+    "silicon": {
+     "t": 1658,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 523256,
+     "basis": "calibrated"
+    },
+    "lithium": {
+     "t": 97,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 64,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 1546,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 37796,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 35,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 20,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 872335,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "HUN": {
+   "name": "Hungary",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 327,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 1621,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 110,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 73,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 1155,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 26286,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 32,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 22,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 1,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "SVN": {
+   "name": "Slovenia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 159,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 398,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 53,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 35,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 562,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 4848,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 7,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "AZE": {
+   "name": "Azerbaijan",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 170,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "PRK": {
+   "name": "North Korea",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 67,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 646482,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "TUN": {
+   "name": "Tunisia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 301,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 1408,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "calibrated"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "NOR": {
+   "name": "Norway",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 3180,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 1069,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 707,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 11241,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 58577,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 36,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 217,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "DNK": {
+   "name": "Denmark",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 2312,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 446,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 778,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 514,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 8175,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 19302,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 6,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 199,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "ISR": {
+   "name": "Israel",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 1879,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 854,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 632,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 418,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 6642,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 37498,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 30,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 174,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "IRL": {
+   "name": "Ireland",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 954,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 544,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 321,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 212,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 3372,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 10927,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 8,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 108,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "NZL": {
+   "name": "New Zealand",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 867,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 292,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 193,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 3066,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 18460,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 103,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "ISL": {
+   "name": "Iceland",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 358,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 121,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 80,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 1267,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 2353,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 24,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "NPL": {
+   "name": "Nepal",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 217,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 73,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 48,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 766,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 1422,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 15,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 733104,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "CRI": {
+   "name": "Costa Rica",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 183,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 62,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 41,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 648,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 1203,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 12,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "SGP": {
+   "name": "Singapore",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 147,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 291,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 49,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 33,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 520,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 16330,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 18,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "LTU": {
+   "name": "Lithuania",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 92,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 573,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 31,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 327,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 6970,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 8,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 80,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "HRV": {
+   "name": "Croatia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 75,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 25,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 17,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 265,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 2397,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 42,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "BGR": {
+   "name": "Bulgaria",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 62,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 1155,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 21,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 14,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 221,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 15394,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 26,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "JOR": {
+   "name": "Jordan",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 60,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 20,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 214,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 397,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "LVA": {
+   "name": "Latvia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 59,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 20,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 209,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 949,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 15,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "EST": {
+   "name": "Estonia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 57,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 19,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 200,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 372,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "CYP": {
+   "name": "Cyprus",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 38,
+     "basis": "calibrated"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "cobalt": {
+     "t": 8,
+     "basis": "calibrated"
+    },
+    "graphite": {
+     "t": 133,
+     "basis": "calibrated"
+    },
+    "copper": {
+     "t": 247,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 3,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "VEN": {
+   "name": "Venezuela",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 17659,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 17,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 692485,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "PRY": {
+   "name": "Paraguay",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 13016,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "LAO": {
+   "name": "Laos",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 12835,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 12,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "HKG": {
+   "name": "Hong Kong",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 9264,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "SYR": {
+   "name": "Syria",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 699,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 3115,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 10,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 577234,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MKD": {
+   "name": "North Macedonia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 388,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 2179,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 5,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 9,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "DOM": {
+   "name": "Dominican Republic",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 330,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 1471,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 5,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "PRI": {
+   "name": "Puerto Rico",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 311,
+     "basis": "calibrated"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 1384,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 4,
+     "basis": "calibrated"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "MRT": {
+   "name": "Mauritania",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 1121,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 22,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "DJI": {
+   "name": "Djibouti",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 672,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 13,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "ECU": {
+   "name": "Ecuador",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 560,
+     "basis": "calibrated"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 11,
+     "basis": "calibrated"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 0,
+     "basis": "none"
+    }
+   }
+  },
+  "ETH": {
+   "name": "Ethiopia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 3148971,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "COD": {
+   "name": "DR Congo",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 2588621,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "TZA": {
+   "name": "Tanzania",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1630153,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MMR": {
+   "name": "Myanmar",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1324530,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SDN": {
+   "name": "Sudan",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1224450,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "UGA": {
+   "name": "Uganda",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1190682,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "AFG": {
+   "name": "Afghanistan",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 1014258,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "YEM": {
+   "name": "Yemen",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 963851,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "AGO": {
+   "name": "Angola",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 899251,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "GHA": {
+   "name": "Ghana",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 826822,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MOZ": {
+   "name": "Mozambique",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 823152,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MDG": {
+   "name": "Madagascar",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 763446,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "CIV": {
+   "name": "Ivory Coast",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 762712,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "CMR": {
+   "name": "Cameroon",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 694198,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "NER": {
+   "name": "Niger",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 640120,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MLI": {
+   "name": "Mali",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 581638,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "BFA": {
+   "name": "Burkina Faso",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 563531,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "LKA": {
+   "name": "Sri Lanka",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 562063,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "MWI": {
+   "name": "Malawi",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 516305,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "ZMB": {
+   "name": "Zambia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 507007,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "TCD": {
+   "name": "Chad",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 472749,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SOM": {
+   "name": "Somalia",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 449259,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "GTM": {
+   "name": "Guatemala",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 443386,
+     "basis": "calibrated"
+    }
+   }
+  },
+  "SEN": {
+   "name": "Senegal",
+   "demand": {
+    "manganese": {
+     "t": 0,
+     "basis": "none"
+    },
+    "chromium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "nickel": {
+     "t": 0,
+     "basis": "none"
+    },
+    "molybdenum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "vanadium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "niobium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "tungsten": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silicon": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cokingcoal": {
+     "t": 0,
+     "basis": "none"
+    },
+    "lithium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "cobalt": {
+     "t": 0,
+     "basis": "none"
+    },
+    "graphite": {
+     "t": 0,
+     "basis": "none"
+    },
+    "copper": {
+     "t": 0,
+     "basis": "none"
+    },
+    "silver": {
+     "t": 0,
+     "basis": "none"
+    },
+    "rareearths": {
+     "t": 0,
+     "basis": "none"
+    },
+    "platinum": {
+     "t": 0,
+     "basis": "none"
+    },
+    "palladium": {
+     "t": 0,
+     "basis": "none"
+    },
+    "phosphate": {
+     "t": 442407,
+     "basis": "calibrated"
+    }
+   }
+  }
+ }
+}
