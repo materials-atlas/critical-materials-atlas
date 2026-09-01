@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/risk-index">
+<title>The reweightable supply-risk index — choose the weights · Critical Materials Atlas</title>
+<meta name="description" content="There is no single supply-risk number — it depends on what you weight. This one interactive index replaces five fixed rankings: choose the concentration basis (trade value, tonnes, or mine production), turn governance weighting, recyclability and substitutability on or off, and watch the ranking of 28 critical materials move.">
+<meta property="og:title" content="The reweightable supply-risk index: there is no single risk number, so choose the weights">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/risk-index">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ .muted{color:#5a6b68;font-size:.86rem}
+ .controls{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:flex-end;background:#f5f8f8;border:1px solid #dbe7e5;border-radius:12px;padding:1rem 1.2rem;margin:1.2rem 0}
+ .cg{display:flex;flex-direction:column;gap:.35rem}
+ .cg .lab{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#5a6b68}
+ .seg{display:inline-flex;border:1px solid #cdb;border-radius:8px;overflow:hidden}
+ .seg button{border:0;background:#fff;padding:.4rem .7rem;font-size:.82rem;font-weight:600;color:#42514f;cursor:pointer}
+ .seg button.on{background:#0e7c74;color:#fff}
+ .chip{border:1px solid #cdd8d6;background:#fff;border-radius:20px;padding:.4rem .8rem;font-size:.82rem;font-weight:600;color:#42514f;cursor:pointer;user-select:none}
+ .chip.on{background:#15323a;color:#fff;border-color:#15323a}
+ .chip .x{opacity:.6;font-size:.75em}
+ .rows{margin:1.2rem 0}
+ .r{display:grid;grid-template-columns:1.5rem 8.5rem 1fr 3rem;gap:.6rem;align-items:center;padding:.28rem 0;font-size:.86rem;transition:transform .35s}
+ @media(max-width:640px){.r{grid-template-columns:1.3rem 6rem 1fr 2.6rem}}
+ .r .rk{color:#9aa6ad;font-variant-numeric:tabular-nums;text-align:right}
+ .r .nm{font-weight:700;color:#15323a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ .r .nm small{display:block;font-weight:500;color:#9aa6ad;font-size:.72rem}
+ .r .track{background:#eef3f2;border-radius:5px;height:20px;position:relative;overflow:hidden}
+ .r .fill{height:100%;border-radius:5px;background:linear-gradient(90deg,#0e7c74,#15323a);transition:width .4s}
+ .r .sc{font-weight:800;color:#15323a;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Risk &amp; scenarios · one index, your weights</div>
+  <h1>There is no single supply-risk number. So choose the weights.</h1>
+  <p class="deck">Every &ldquo;critical materials risk ranking&rdquo; is really one concentration index with someone else&rsquo;s weighting baked in &mdash; on trade value or on tonnes, with or without governance, ignoring or crediting recycling. This page hands you the dial instead. Change the basis and the adjustments, and watch the ranking of 28 materials move. Where a material stays near the top under <i>every</i> setting, that is a robust dependency; where it swings, the &ldquo;risk&rdquo; was an artefact of the weighting.</p>
+</div></section>
+<article style="max-width:1040px">
+  <div class="controls">
+    <div class="cg"><span class="lab">Concentration basis</span>
+      <div class="seg" id="unit">
+        <button data-u="hhi_value" class="on">Trade value</button>
+        <button data-u="hhi_volume">Trade volume</button>
+        <button data-u="hhi_prod">Mine production</button>
+      </div></div>
+    <div class="cg"><span class="lab">Adjustments &mdash; tap to toggle</span>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+        <span class="chip" data-t="gov">Weight by governance</span>
+        <span class="chip" data-t="rec">Credit recycling</span>
+        <span class="chip" data-t="sub">Credit substitutes</span>
+      </div></div>
+  </div>
+  <p class="muted" id="caption" style="margin:.2rem 0 0"></p>
+
+  <div class="rows" id="rows"></div>
+
+  <h2 style="margin:1.6rem 0 .3rem">What this replaces, and why one page is better</h2>
+  <p>The atlas used to carry this as several separate rankings &mdash; a value index, a tonnes index, a governance-weighted index, a recycling-adjusted index &mdash; each one an argument about which weighting is &ldquo;right.&rdquo; They were all correct and all incomplete, because the honest finding is that <b>the weighting is a choice, not a fact</b>. Collapsing them into one dial makes that visible and testable: a robust dependency (gallium, rare-earth magnets, tungsten) sits near the top however you set it; a fragile one moves. For the external reality check &mdash; does <i>any</i> of this recover an independent expert list? &mdash; see the <a href="iea-risk-check">IEA cross-check</a>. For the deeper &ldquo;is concentration even measured right&rdquo; question, the <a href="methodology#status">per-commodity status map</a>. This index takes concentration as given and asks only: once you have it, what do you multiply it by?</p>
+  <p class="muted">Ingredients (each material&rsquo;s three HHIs, its top producer&rsquo;s governance score, its recycling rate and substitutability) are assembled by <code>build_risk_index.py</code> from the atlas&rsquo;s own <a href="out/risk_index.json">risk_index.json</a>. Governance from World Bank WGI; recycling/substitutability from USGS. Adjustments are transparent multipliers, shown below, not a black box.</p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>Reconciled trade + World Mining Data (three HHIs) · World Bank WGI (governance) · USGS (recycling, substitutability)</div>
+  <div class="fineprint">score = concentration(basis) × governance factor (0.6 + 0.8·gov-risk) × recycling discount (1 − ½·recycled-share) × substitution discount (1 − 0.4·ease). Multipliers are illustrative and transparent; the point is the sensitivity of any ranking to them, not a new canonical number.</div>
+</div></footer>
+<script>
+let U='hhi_value', T={gov:false,rec:false,sub:false}, DATA=[];
+const cap=()=>{
+  const parts=['Concentration on '+({hhi_value:'trade value',hhi_volume:'trade volume (tonnes)',hhi_prod:'mine production'}[U])];
+  if(T.gov)parts.push('× governance');if(T.rec)parts.push('× recycling credit');if(T.sub)parts.push('× substitution credit');
+  document.getElementById('caption').textContent=parts.join('  ');
+};
+const score=m=>{
+  let s=m[U]||0;
+  if(T.gov)s*=(0.6+0.8*m.gov_risk);
+  if(T.rec)s*=(1-0.5*(m.recycling||0)/100);
+  if(T.sub)s*=(1-0.4*(m.sub_ease||0));
+  return 100*s;
+};
+function render(){
+  const scored=DATA.map(m=>({m,s:score(m)})).sort((a,b)=>b.s-a.s);
+  const mx=Math.max(...scored.map(x=>x.s))||1;
+  document.getElementById('rows').innerHTML=scored.map((x,i)=>{
+    const m=x.m, w=Math.max(2,100*x.s/mx);
+    return '<div class="r"><span class="rk">'+(i+1)+'</span>'+
+      '<span class="nm">'+m.title.split(',')[0]+'<small>'+(m.top_producer||'')+' '+(m.top_share?Math.round(m.top_share)+'%':'')+'</small></span>'+
+      '<span class="track"><span class="fill" style="width:'+w+'%"></span></span>'+
+      '<span class="sc">'+x.s.toFixed(0)+'</span></div>';
+  }).join('');
+  cap();
+}
+document.querySelectorAll('#unit button').forEach(b=>b.onclick=()=>{
+  U=b.dataset.u;document.querySelectorAll('#unit button').forEach(x=>x.classList.toggle('on',x===b));render();});
+document.querySelectorAll('.chip').forEach(c=>c.onclick=()=>{
+  T[c.dataset.t]=!T[c.dataset.t];c.classList.toggle('on',T[c.dataset.t]);render();});
+fetch('out/risk_index.json').then(r=>r.json()).then(d=>{DATA=d.materials;render();});
+</script>
+</body></html>
