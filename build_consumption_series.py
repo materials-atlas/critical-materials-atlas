@@ -64,7 +64,7 @@ def interp(pv, y):
         if a <= y <= b: return pv[a] + (pv[b]-pv[a]) * (y-a)/(b-a)
     return pv[ys[-1]]
 
-YEARS = list(range(2000, 2025))            # 2000-2024 (real-annual drivers reach 2024; benchmark drivers held flat past 2023)
+YEARS = list(range(2000, 2026))            # 2000-2025 (steel/veh/semi reach 2025 real; other benchmark drivers held flat past their last year)
 series_mats = [m for m in cj['materials'] if SHARES[m] and all(d in HISTDRV for d in SHARES[m])]
 # per material: fraction of its end-use share carried by REAL-ANNUAL drivers (how 'real' the trend is)
 real_frac = {m: round(sum(s for d, s in SHARES[m].items() if d in ANNUAL_DRV) / sum(SHARES[m].values()), 2)
@@ -125,7 +125,7 @@ out = {'note': ('Time series 2000-2024. Each country-share comes from activity; 
        'annual_drivers': sorted(ANNUAL_DRV), 'years': YEARS, 'materials': series_mats,
        'recalibrated': recal, 'real_frac': real_frac, 'names': NAME, 'series': series}
 json.dump(out, open(os.path.join(ROOT, 'out', 'consumption_series.json'), 'w', encoding='utf-8'), indent=1)
-show = [2000, 2010, 2020, 2023, 2024]
+show = [2000, 2010, 2020, 2023, 2025]
 print(f"{len(YEARS)} years ({YEARS[0]}-{YEARS[-1]}) | {len(series_mats)} materials | real-annual drivers {sorted(ANNUAL_DRV)}")
 print(f"{'material':12}{'real%':>6}" + ''.join(f'{y:>10}' for y in show))
 for m in series_mats:
