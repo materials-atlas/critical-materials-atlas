@@ -33,7 +33,7 @@ Three honesty tiers:
 | **fertilizer** | Real split | FAOSTAT | per-country, annual | Phosphate nutrient use. |
 | **lead** | Real split | USGS — Minerals Yearbook: Lead (world refinery production, T12/T13) | per-country, annual 2004–2022 | Public domain XLS. Refined (not mined) — right distribution. ~54 countries, ~93% of world. ILZSG (consumption) is the gated gold standard; USGS is the free equivalent. |
 | **glass** | Real split (**proxy**) | USGS — Minerals Yearbook: Soda Ash (world production by country) | per-country, annual 2004–2024 | **Proxy**: soda ash is glass's main raw material. Public domain XLS. ~32 countries. Flagged *proxy* on the site. |
-| **aerospace** | Level-real | Airbus O&D + Boeing O&D | world, annual 2000–2025 | `world_aero.csv` = Airbus + Boeing commercial deliveries. Captures 2001–03 post-9/11, 2019 MAX grounding, 2020 COVID. Country split stays benchmark. |
+| **aerospace** | Level-real | Airbus O&D + Boeing O&D | world, annual 2000–2025 | `world_aero.csv` = Airbus + Boeing commercial deliveries. Captures 2001–03 post-9/11, 2019 MAX grounding, 2020 COVID. Country split is *ill-posed* (deliveries misallocate the metals), not blocked — see below. |
 | **semiconductors** | Level-real | WSTS/SIA world sales (level) + SEMI 2025 materials-spend (split) | world, annual 2000–2025; split 2000/2010/2023/2025 | `world_semi.csv` = WSTS/SIA billings. Country split corrected to SEMI 2025 (Taiwan #1, 16 yrs). See below. |
 
 ## Lead & glass — solved via USGS (Sep 2026)
@@ -45,21 +45,33 @@ glass's principal raw material; editions span 2004–2024), flagged *proxy* on t
 gated gold standard for lead *consumption*, but USGS refined *production* gives the same country
 distribution for free. This lifted antimony 42→90%, arsenic 52→91%, boron 41→100%, feldspar 63→100%.
 
-## The two hard drivers — why they can't be fully real
+## The two open drivers — the honest state of their country split
 
-- **semiconductors (split).** The only clean *per-country annual physical* series (fab wafer capacity)
-  is **SEMI World Fab Watch** — proprietary/licensed. Every free path was evaluated and falls short of
-  a real annual split: **WSTS** (4-region *revenue*, copyrighted, login-gated), the **OECD Chip
-  Landscape** (a single 2025 snapshot; per-economy values only as unextractable bar heights), and
-  aggregator rankings (single-year, secondary). What *is* free and authoritative: **WSTS/SIA world
-  sales** (the level) and **SEMI 2025 materials-spend by economy** (a recent, physical, authoritative
-  *snapshot* of the split). So semiconductors is built as level-real with a SEMI-anchored split, not a
-  real annual split.
-- **aerospace (split).** Airbus and Boeing publish full delivery histories for free, but only as
-  *maker* totals — there is no per-country series of aerospace material consumption. Hence level-real.
+> **Correction (Sep 2026).** An earlier version of this note (and a draft post) said the per-country
+> series for these "cannot be built from open data." That is **false**, and false in the same way the
+> atlas's retracted refining-capacity claim was: it lists *vendor* products (WSTS, SEMI, OECD) and
+> skips **national statistics offices**, which are open. The honest wording is *"no single harmonised
+> open series; national sources exist but have not yet been tested for concordance,"* never "cannot be
+> built."
 
-Closing these last two splits would require **paying** for SEMI World Fab Watch — deferred unless a
-client needs that precision.
+- **semiconductors (split).** The commercial *per-country fab-capacity* panel (**SEMI World Fab Watch**)
+  is licensed, and WSTS (4-region revenue, copyrighted), OECD Chip Landscape (a 2025 snapshot) and
+  aggregators don't give a real annual split. **But open national sources do exist and were not
+  documented as checked:** China NBS (integrated-circuit output, monthly), Taiwan MOEA / TSIA, Korea
+  KOSIS, Japan METI / JEITA, US Census **NAICS 334413**, Eurostat **PRODCOM 26.11**, OECD ICIO / FIGARO,
+  UNIDO INDSTAT (**ISIC 2610/3030**). None is a drop-in — they measure output *value or units*, not
+  materials consumption; ISIC 2610 bundles PCB assembly with chips; cross-source comparability is the
+  whole problem. **Open task:** test this NSO stitch against what the `semi` driver needs; if it
+  concords, `semi` can move from level-real to a real annual split. Record the outcome here *including
+  rejections and reasons.* **Caveat (D6/D7):** even a perfect NSO stitch fixes *silicon-CMOS* geography
+  — it still does not locate **gallium/germanium/indium**, which are consumed at LED and compound-semi
+  fabs, a different map. Those splits stay de-allocated until a compound-semi/LED series is found.
+- **aerospace (split).** This is **not a paywall problem — it is an ill-posed country split.** Final
+  assembly (Airbus/Boeing deliveries) is a handful of plants, but the metals live on different maps:
+  titanium mill products, aero-grade aluminium, superalloys, machining and engines each have their own
+  geography. Deliveries-by-country would *misallocate* the metals even with a complete series. The
+  missing object is **process-level metal use**, which no one publishes. So `aero` stays a world-level
+  trend (Airbus + Boeing) with the country split described as unresolved, not "blocked."
 
 ## Reproducing / verifying
 
