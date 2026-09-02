@@ -56,7 +56,7 @@
   <div class="gauges" id="gauges"></div>
   <div class="leg"><span><i style="background:#0e7c5a"></i> resilient (≥60%)</span><span><i style="background:#cf8a2e"></i> exposed (30–60%)</span><span><i style="background:#b3123a"></i> critical (&lt;30%)</span><span style="color:var(--mut)">▏ marker = full self-sufficiency (100%)</span></div>
 
-  <div class="rule"><b>What the gaps tell you to do.</b> Lithium (82%) and nuclear enrichment (~90% ex-top-2) are close to self-healing — a modest strategic reserve bridges any shock. Nickel (36%) and rare-earth <i>refining</i> (~25%) are exposed — friend-shoring helps but capacity must expand. Graphite (28%) and rare-earth <i>magnets</i> (&lt;20%) are critical — no realistic stockpile covers the gap, so the answer is sustained investment in midstream and downstream capacity, on a multi-year timeline. The N−1 number turns "who dominates" into "and can we live without them."</div>
+  <div class="rule"><b>What the gaps tell you to do.</b> Reading the genuine N−1 rows only: <b>Lithium (82%)</b> is close to self-healing — a modest strategic reserve bridges any shock; <b>Nickel (36%)</b> is exposed — friend-shoring helps but capacity must expand; <b>Graphite (28%)</b> is critical — no realistic stockpile covers the gap, so the answer is sustained midstream investment on a multi-year timeline. <i>The rare-earth rows (mining/refining/magnets) and nuclear enrichment are shown for context but are a different metric — a 2035 diversification-pipeline forecast and an N−2 figure respectively — so they are not on this same resilient/exposed/critical scale.</i> The N−1 number turns "who dominates" into "and can we live without them."</div>
 
   <p class="note" style="margin-top:1rem">Source: <a href="https://www.iea.org/reports/global-critical-minerals-outlook-2026">IEA, Global Critical Minerals Outlook 2026</a> — N−1 analysis (Ch. 2, pp. 121-122, 226) and the diversification-pipeline figures for rare earths (mining ~50% / refining ~25% / magnets &lt;20% of ex-China demand by 2035). © IEA, CC BY 4.0.</p>
   <div class="ftr"><a href="trajectory">Chokepoints in motion</a> · <a href="security-premium">The security premium</a> · <a href="ot">Reallocation stress test</a></div>
@@ -66,21 +66,33 @@
 <footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="chokepoint-map">Chokepoint map</a><br><a href="reports">Reports</a></div><div class="fineprint">N−1 coverage from the IEA GCMO 2026 (CC BY 4.0).</div></div></footer>
 
 <script>
-// ex-dominant-supplier coverage of demand by 2035 (%), IEA GCMO 2026
+// IEA GCMO 2026. Only kind:"n1" rows are genuine N−1 (non-dominant supply as % of world demand,
+// both excluding the largest supplier). The others are DIFFERENT metrics and are shown un-banded:
+//   kind:"n2"       — ex the top TWO suppliers (Russia + China), i.e. N−2, not N−1
+//   kind:"pipeline" — projected non-China supply as a % of ex-China DEMAND by 2035 (a diversification
+//                     pipeline forecast), not an N−1 coverage of world demand
 var D=[
- {name:"Lithium",sub:"refined chemical",href:"lithium-chain/lithium-chain.html",pct:82},
- {name:"Nuclear enrichment",sub:"ex-top-2 (SWU)",href:"nuclear-chain/nuclear-chain.html",pct:90},
- {name:"Rare earths — mining",sub:"magnet REs",href:"rare-earths-chain/rare-earths-chain.html",pct:50},
- {name:"Nickel",sub:"refined",href:"nickel-chain/nickel-chain.html",pct:36},
- {name:"Graphite",sub:"battery-grade",href:"graphite-chain/graphite-chain.html",pct:28},
- {name:"Rare earths — refining",sub:"separation",href:"rare-earths-chain/rare-earths-chain.html",pct:25},
- {name:"Rare earths — magnets",sub:"finished NdFeB",href:"magnet-chain/magnet-chain.html",pct:18}
-].sort(function(a,b){return b.pct-a.pct;});
+ {name:"Lithium",sub:"refined chemical",href:"lithium-chain/lithium-chain.html",pct:82,kind:"n1"},
+ {name:"Nickel",sub:"refined",href:"nickel-chain/nickel-chain.html",pct:36,kind:"n1"},
+ {name:"Graphite",sub:"battery-grade",href:"graphite-chain/graphite-chain.html",pct:28,kind:"n1"},
+ {name:"Nuclear enrichment",sub:"ex-top-2 (SWU) — N−2",href:"nuclear-chain/nuclear-chain.html",pct:90,kind:"n2"},
+ {name:"Rare earths — mining",sub:"pipeline: % of ex-China demand, 2035",href:"rare-earths-chain/rare-earths-chain.html",pct:50,kind:"pipeline"},
+ {name:"Rare earths — refining",sub:"pipeline: % of ex-China demand, 2035",href:"rare-earths-chain/rare-earths-chain.html",pct:25,kind:"pipeline"},
+ {name:"Rare earths — magnets",sub:"pipeline: % of ex-China demand, 2035",href:"magnet-chain/magnet-chain.html",pct:18,kind:"pipeline"}
+];
+var N1=D.filter(function(x){return x.kind==='n1';}).sort(function(a,b){return b.pct-a.pct;});
+var OTHER=D.filter(function(x){return x.kind!=='n1';}).sort(function(a,b){return b.pct-a.pct;});
 function col(p){return p>=60?"#0e7c5a":p>=30?"#cf8a2e":"#b3123a";}
-document.getElementById('gauges').innerHTML=D.map(function(g){
+function grow(g,banded){var c=banded?col(g.pct):"#6b7580";
   return '<div class="g"><span class="name"><a href="'+g.href+'">'+g.name+'</a><span class="sub">'+g.sub+'</span></span>'+
-    '<span class="track"><span class="fill" style="width:'+g.pct+'%;background:'+col(g.pct)+'"></span><span class="mk" style="right:0"></span></span>'+
-    '<span class="pct">'+g.pct+'%</span></div>';
-}).join('');
+    '<span class="track"><span class="fill" style="width:'+g.pct+'%;background:'+c+'"></span><span class="mk" style="right:0"></span></span>'+
+    '<span class="pct">'+g.pct+'%</span></div>';}
+document.getElementById('gauges').innerHTML =
+  N1.map(function(g){return grow(g,true);}).join('') +
+  '<div style="margin:1.1rem 0 .5rem;padding:.6rem .8rem;background:#f4f5f6;border-left:3px solid #9aa4ad;border-radius:6px;font-size:.86rem;color:#42514f">'+
+  '<b>Below: not the same metric</b> — shown for context, and <b>excluded from the resilient/exposed/critical bands above</b>. '+
+  'Nuclear enrichment is <b>N−2</b> (ex the top <i>two</i>, Russia + China). The rare-earth figures are a <b>diversification-pipeline forecast</b> — '+
+  'projected non-China supply as a % of <i>ex-China demand</i> by 2035, not an N−1 coverage of world demand. Different denominators; do not read them on one scale.</div>' +
+  OTHER.map(function(g){return grow(g,false);}).join('');
 </script>
 </body></html>
