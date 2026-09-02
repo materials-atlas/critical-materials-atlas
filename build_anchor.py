@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
-"""Production-constrained reconciliation -- the anchor. A trade reconciliation should obey physics: a country
-cannot EXPORT more of a material than it PRODUCES minus what it CONSUMES at home. With a trade-INDEPENDENT
-consumption estimate (build_consumption.py) that becomes a testable constraint on the mirror trade, and it
-repairs the origin gap -- where customs credit the refiner/re-exporter, not the mine.
+"""Production-constrained reconciliation -- the anchor. An ATTRIBUTION constraint (not a physical identity):
+a country's mine-ORIGIN credit is bounded by what it PRODUCES minus what it domestically ABSORBS. Production
+is the support of mine-origin attribution; the trade-INDEPENDENT consumption estimate (build_consumption.py)
+is a proxy for domestic absorption. Where that bound BINDS it repairs the origin gap -- where customs credit
+the refiner/re-exporter, not the mine. Two honest limits are surfaced explicitly: (1) the consumption term
+does real work in only ~half the corrected rows -- each row now carries a `top_bind` = how far consumption
+moves it vs a zero-consumption baseline; where that is ~0 the anchor is just a midpoint prior, not a
+consumption-constrained result; (2) w=0.5 is a documented knob, so corrected shares are midpoints of
+[observed, exportable], not point findings.
 
 Inputs (all independent):  production.json (WMD, per-country tonnes) . consumption.json (activity x calibrated
 intensity, trade-independent) . flows_2024.json (the atlas's reconciled mirror trade, qty in tonnes).
@@ -37,6 +42,15 @@ RECYCLE = {'copper':0.30,'nickel':0.30,'cobalt':0.25,'silver':0.18,'platinum':0.
            'tungsten':0.30,'molybdenum':0.25,'niobium':0.20,'vanadium':0.10,'chromium':0.20,'manganese':0.10,
            'antimony':0.20,'germanium':0.30,'titanium':0.20,'magnesium':0.10,'beryllium':0.10,'tantalum':0.05,
            'lithium':0.05,'magnets':0.05}
+# DRIVER MIS-PAIRING (under review): these materials get their consumption country-split from the `semi`
+# driver, whose of_what is "silicon-fab materials spend" -- but they are consumed in DIFFERENT industries
+# (Ga: compound-semi/LED; Ge: fibre/IR optics, PET; Be: specialty alloys/aerospace), with different geography.
+# No open per-country series exists for the right industry, so the split is treated as UNALLOCATABLE: no
+# correction is asserted (flagged, not corrected) rather than inherit silicon-fab geography. (tantalum also
+# draws on semi but its anchor row is inert -- consumption doesn't bind -- so it is left for a later pass.)
+DRIVER_REVIEW = {'gallium': 'split from silicon-fab spend; Ga is consumed in compound-semi/LED — different geography',
+                 'germanium': 'split from silicon-fab spend; Ge is consumed in fibre/IR optics & PET — different geography',
+                 'beryllium': 'split from silicon-fab spend; Be is consumed in specialty alloys/aerospace — different geography'}
 
 prod = {r['label']: r for r in json.load(open(os.path.join(ROOT,'out','production.json'),encoding='utf8'))['rows']}
 _cj = json.load(open(os.path.join(ROOT,'out','consumption.json'),encoding='utf8'))
@@ -87,13 +101,19 @@ def derive():
         g = e - o
         # A correction is asserted ONLY when it is both physically safe (under-attribution: producer credited
         # LESS than it can supply -> refiner-fronting) AND consumption-anchored (we can rule out domestic use).
-        under = regime == 'matched' and g > 10
+        under = regime == 'matched' and g > 10 and mat not in DRIVER_REVIEW
         corrected = round(W_DEFAULT*o + (1-W_DEFAULT)*e, 1) if under else None
         rows.append({'iso': iso, 'name': NAMES.get(iso, iso), 'prod_t': t['tonnes'], 'prod_pc': round(t['share']),
                      'cons_t': round(c), 'obs_pc': round(o, 1), 'expble_pc': round(e, 1),
                      'gap': round(g, 1), 'corrected_pc': corrected,
                      'review': (o > e + 10 and o > 5)})
     top = rows[0]
+    # BIND: how far the consumption term moves the correction vs a zero-consumption baseline (C=0, where
+    # exportable collapses to production). corrected = w*obs + (1-w)*exportable; corrected(C=0) = w*obs +
+    # (1-w)*production. So bind = (1-w)*(production_share - exportable_share) = half the leader's consumption
+    # share. ~0 means the mine leader consumes ~none of what it digs -> the anchor is a midpoint prior, not a
+    # consumption-constrained result. This is the single most honest number the page can show.
+    top_bind = round((1-W_DEFAULT)*max(0.0, top['prod_pc'] - top['expble_pc']), 1)
     # A consumption-anchored pull-up is FIRM when the producer's own consumption is trustworthy — either it is a
     # near-zero consumer (a pure exporter, so uncovered end-uses can't hide at home: DRC cobalt, SA platinum), OR
     # its consumption is well-captured (high capture, non-rough split). It is INDICATIVE when the producer
@@ -108,26 +128,39 @@ def derive():
                     'stage_note': STAGE_DIVERGENT.get(mat, ''), 'top': top['name'],
                     'top_gap': top['gap'], 'top_obs': top['obs_pc'], 'top_expble': top['expble_pc'],
                     'top_corrected': top['corrected_pc'], 'porigin': (regime=='production-only' and top['gap']>10),
+                    'top_bind': top_bind, 'binds': top_bind >= 3,
+                    'driver_review': DRIVER_REVIEW.get(mat, ''),
                     'rows': rows})
   matched = [r for r in results if r['regime'] == 'matched']
   corrected = [r for r in matched if r['top_corrected'] is not None]     # consumption-anchored origin-gap repairs
   firm = [r for r in corrected if r['firm']]
+  binding = [r for r in corrected if r['binds']]                         # consumption actually moves the anchor >=3pp
+  review = [r for r in results if r['driver_review']]                    # split mis-paired to a wrong-industry driver
   mean_gap = round(sum(r['top_gap'] for r in corrected)/len(corrected), 1) if corrected else 0
   return {'w_default': W_DEFAULT, 'n_materials': len(results), 'n_matched': len(matched),
-       'n_corrected': len(corrected), 'n_firm': len(firm), 'mean_gap': mean_gap,
-       'note': ('Production-constrained anchor: exportable = production - trade-independent consumption; the '
-                'mirror-trade origin share is guardrailed (cannot exceed exportable) and pulled toward the '
-                'physical prior. Corrects the refiner-fronting origin gap for stage-matched materials; '
-                'stage-divergent materials (mined form != traded form) are flagged, not corrected.'),
+       'n_corrected': len(corrected), 'n_firm': len(firm), 'n_binding': len(binding),
+       'n_driver_review': len(review),
+       'note': ('Attribution constraint (not physics): mine-origin credit is bounded by production minus a '
+                'trade-independent consumption estimate; the mirror-trade origin share is guardrailed (cannot '
+                'exceed exportable) and pulled toward the exportable prior at w=0.5 (a documented knob, so '
+                'corrected shares are midpoints of [observed, exportable]). Each row carries top_bind = how far '
+                'consumption moves it vs a zero-consumption baseline; where ~0 the mine leader consumes almost '
+                'none of what it digs, so the anchor is a midpoint prior there, not a consumption-constrained '
+                'result. Materials whose consumption split is mis-paired to a wrong-industry driver (gallium/'
+                'germanium/beryllium on silicon-fab spend) are flagged driver-review, not corrected. '
+                'Stage-divergent materials (mined form != traded form) are flagged, not corrected.'),
+       'mean_gap': mean_gap,
        'results': sorted(results, key=lambda r: (r['regime'] != 'matched', -r['top_gap']))}
 
 if __name__ == '__main__':
     out = derive()
     json.dump(out, open(os.path.join(ROOT, 'out', 'anchor.json'), 'w', encoding='utf-8'), indent=1)
-    print(f"{out['n_materials']} materials | {out['n_matched']} stage-matched | {out['n_corrected']} origin-gap corrected | mean gap {out['mean_gap']} pts")
+    print(f"{out['n_materials']} materials | {out['n_matched']} stage-matched | {out['n_corrected']} corrected "
+          f"({out['n_binding']} where consumption actually binds) | {out['n_driver_review']} driver-review | mean gap {out['mean_gap']} pts")
     for r in out['results']:
         tag = r['regime'][:5]
-        if r['top_corrected'] is not None:   note = f" -> corrected {r['top_corrected']:>4.0f}%"
+        if r['driver_review']:               note = "  (DRIVER-REVIEW: consumption split mis-paired, not corrected)"
+        elif r['top_corrected'] is not None: note = f" -> corrected {r['top_corrected']:>4.0f}%  [bind {r['top_bind']:>4.1f}{'  INERT' if not r['binds'] else ''}]"
         elif r['regime'] == 'divergent':     note = "  (stage-divergent: needs ore/refined match)"
         elif r.get('porigin'):               note = "  (production-only origin gap: needs a consumption estimate)"
         elif r['rows'][0]['review']:         note = "  (review: exports exceed mine surplus -- domestic refining?)"
