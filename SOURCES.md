@@ -31,12 +31,21 @@ Three honesty tiers:
 | **solar** | Real split | IRENA / Ember | per-country, annual | Capacity / generation. |
 | **wind** | Real split | IRENA / Ember | per-country, annual | Capacity / generation. |
 | **fertilizer** | Real split | FAOSTAT | per-country, annual | Phosphate nutrient use. |
+| **lead** | Real split | USGS — Minerals Yearbook: Lead (world refinery production, T12/T13) | per-country, annual 2004–2022 | Public domain XLS. Refined (not mined) — right distribution. ~54 countries, ~93% of world. ILZSG (consumption) is the gated gold standard; USGS is the free equivalent. |
+| **glass** | Real split (**proxy**) | USGS — Minerals Yearbook: Soda Ash (world production by country) | per-country, annual 2004–2024 | **Proxy**: soda ash is glass's main raw material. Public domain XLS. ~32 countries. Flagged *proxy* on the site. |
 | **aerospace** | Level-real | Airbus O&D + Boeing O&D | world, annual 2000–2025 | `world_aero.csv` = Airbus + Boeing commercial deliveries. Captures 2001–03 post-9/11, 2019 MAX grounding, 2020 COVID. Country split stays benchmark. |
 | **semiconductors** | Level-real | WSTS/SIA world sales (level) + SEMI 2025 materials-spend (split) | world, annual 2000–2025; split 2000/2010/2023/2025 | `world_semi.csv` = WSTS/SIA billings. Country split corrected to SEMI 2025 (Taiwan #1, 16 yrs). See below. |
-| **glass** | Benchmark | — | anchors only | No open per-country annual series exists. |
-| **lead** | Benchmark | ILZSG (not used) | anchors only | ILZSG per-country data is subscription-gated. |
 
-## The four hard drivers — why they can't be fully real
+## Lead & glass — solved via USGS (Sep 2026)
+
+Both were previously benchmark-only. **Lead** is now real from the **USGS Minerals Yearbook Lead** world
+refinery-production tables (public-domain XLS, ~5 years per edition; editions 2008/2013/2018–2022 span
+2004–2022). **Glass** is proxied by **USGS Minerals Yearbook Soda Ash** world production (soda ash is
+glass's principal raw material; editions span 2004–2024), flagged *proxy* on the site. ILZSG remains the
+gated gold standard for lead *consumption*, but USGS refined *production* gives the same country
+distribution for free. This lifted antimony 42→90%, arsenic 52→91%, boron 41→100%, feldspar 63→100%.
+
+## The two hard drivers — why they can't be fully real
 
 - **semiconductors (split).** The only clean *per-country annual physical* series (fab wafer capacity)
   is **SEMI World Fab Watch** — proprietary/licensed. Every free path was evaluated and falls short of
@@ -48,11 +57,9 @@ Three honesty tiers:
   real annual split.
 - **aerospace (split).** Airbus and Boeing publish full delivery histories for free, but only as
   *maker* totals — there is no per-country series of aerospace material consumption. Hence level-real.
-- **lead.** The right body (ILZSG) has per-country data behind a paid subscription.
-- **glass.** No public per-country annual series exists at all.
 
-Closing these last splits would require **paying** for SEMI World Fab Watch or ILZSG data — deferred
-unless a client needs that precision.
+Closing these last two splits would require **paying** for SEMI World Fab Watch — deferred unless a
+client needs that precision.
 
 ## Reproducing / verifying
 

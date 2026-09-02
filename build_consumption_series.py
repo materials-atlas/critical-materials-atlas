@@ -132,11 +132,11 @@ series = {y: {i: {m: round(v) for m, v in demand[y][i].items() if v >= 1} for i 
 out = {'note': ('Time series 2000-2025. Each country-share comes from activity; each material-level is rescaled '
                 'to the real world-consumption trend (v2), pinned so 2023 = the calibrated value. Drivers are '
                 'REAL ANNUAL for the country split where available (steel, vehicles, EVs, aluminium, cement, '
-                'drilling; electricity, population, nuclear, solar, wind from OWID/Ember; fertilizer FAOSTAT) '
-                '-- these carry real_frac. Three more drivers are LEVEL-REAL (the world total follows a real '
-                'annual curve while the country split stays benchmark, "trend real, split estimated"): steel '
-                '(worldsteel), aerospace (Airbus+Boeing deliveries), semiconductors (WSTS/SIA sales). Remaining '
-                'benchmark drivers (glass, lead) are 3-point-interpolated. Each material carries real_frac = the '
+                'drilling, lead [USGS refinery], glass [USGS soda-ash PROXY]; electricity, population, nuclear, '
+                'solar, wind from OWID/Ember; fertilizer FAOSTAT) -- these carry real_frac. Two more drivers are '
+                'LEVEL-REAL (the world total follows a real annual curve while the country split stays benchmark, '
+                '"trend real, split estimated"): aerospace (Airbus+Boeing deliveries), semiconductors (WSTS/SIA '
+                'sales); steel is BOTH real-split and world-level-shaped. Each material carries real_frac = the '
                 'share of its demand carried by real-annual-SPLIT drivers. Does NOT model thrifting/substitution.'),
        'annual_drivers': sorted(ANNUAL_DRV), 'level_real_drivers': LEVEL_REAL,
        'years': YEARS, 'materials': series_mats,
