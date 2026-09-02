@@ -71,23 +71,37 @@ real_frac = {m: round(sum(s for d, s in SHARES[m].items() if d in ANNUAL_DRV) / 
              for m in series_mats}
 isos = sorted({iso for (iso, d) in PTS})
 
-# REAL annual world crude steel (worldsteel WSIF) shapes the steel LEVEL to the true curve (the 2009/2015/2020
-# dynamics a straight line misses); per-country steel distribution stays interpolated between benchmark years.
-WS = {}; wsp = os.path.join(ROOT, 'raw', 'activity', 'world_steel.csv')
-if os.path.exists(wsp):
-    for r in csv.DictReader(open(wsp, encoding='utf-8')):
-        try: WS[int(r['year'])] = float(r['world_mt'])
+# REAL annual world-LEVEL curves shape a driver's total to its true curve (the dynamics a straight line between
+# benchmark years misses), while the per-country DISTRIBUTION stays interpolated between benchmark years:
+#   steel <- world crude steel (worldsteel WSIF, 2009/2015/2020 dips)
+#   aero  <- world commercial aircraft deliveries, Airbus+Boeing (2001-03 post-9/11, 2019 MAX, 2020 COVID)
+#   semi  <- world semiconductor sales (WSTS/SIA billings, 2001 dot-com, 2009, 2019 cycles)
+# 'trend real, country-split estimated' for aero/semi. Column is 'world_mt' for steel, 'world' otherwise.
+LEVEL_CURVES = {'steel': ('world_steel.csv', 'world_mt'), 'aero': ('world_aero.csv', 'world'),
+                'semi': ('world_semi.csv', 'world')}
+lvl_scale = {}
+for drv, (fn, col) in LEVEL_CURVES.items():
+    path = os.path.join(ROOT, 'raw', 'activity', fn)
+    if not os.path.exists(path): continue
+    curve = {}
+    for r in csv.DictReader(open(path, encoding='utf-8')):
+        try: curve[int(r['year'])] = float(r[col])
         except (ValueError, KeyError): continue
-steel_scale = {}
-if WS:
-    for y in YEARS:
-        iw = sum(interp(PTS[(iso, 'steel')], y) for iso in isos if (iso, 'steel') in PTS)
-        steel_scale[y] = (interp(WS, y) / iw) if iw else 1.0
+    if not curve: continue
+    lvl_scale[drv] = {}
+    ca = interp(curve, 2023)                                                        # anchor the shape at 2023
+    iwa = sum(interp(PTS[(iso, drv)], 2023) for iso in isos if (iso, drv) in PTS)   # so the CALIBRATED
+    for y in YEARS:                                                                 # 2023 level is preserved
+        cy = interp(curve, y)
+        iwy = sum(interp(PTS[(iso, drv)], y) for iso in isos if (iso, drv) in PTS)
+        # import only the SHAPE: real curve's move vs 2023, net of the benchmark interp's own move vs 2023
+        lvl_scale[drv][y] = ((cy/ca) / (iwy/iwa)) if (ca and iwy and iwa) else 1.0
+LEVEL_REAL = sorted(lvl_scale)   # drivers whose LEVEL trend follows a real annual world curve (pinned at 2023)
 
 demand = {y: {} for y in YEARS}
 for y in YEARS:
     for iso in isos:
-        acts = {d: interp(PTS[(iso, d)], y) * (steel_scale.get(y, 1.0) if d == 'steel' else 1.0)
+        acts = {d: interp(PTS[(iso, d)], y) * lvl_scale.get(d, {}).get(y, 1.0)
                 for d in HISTDRV if (iso, d) in PTS}
         cell = {m: sum(acts.get(d, 0) * intensity.get((m, d), 0) for d in SHARES[m]) for m in series_mats}
         cell = {m: v for m, v in cell.items() if v > 0}
@@ -115,14 +129,17 @@ for m in series_mats:
                     if m in demand[y][i]: demand[y][i][m] *= sc
 
 series = {y: {i: {m: round(v) for m, v in demand[y][i].items() if v >= 1} for i in demand[y] if demand[y][i]} for y in YEARS}
-out = {'note': ('Time series 2000-2024. Each country-share comes from activity; each material-level is rescaled '
+out = {'note': ('Time series 2000-2025. Each country-share comes from activity; each material-level is rescaled '
                 'to the real world-consumption trend (v2), pinned so 2023 = the calibrated value. Drivers are '
-                'REAL ANNUAL where available (electricity, population, nuclear, solar, wind from OWID/Ember; '
-                'fertilizer from FAOSTAT) and 3-benchmark-interpolated (2000/2010/2023) otherwise (steel, '
-                'vehicles, EVs, cement, aluminium, lead, glass, semiconductors, aerospace, drilling). Each '
-                'material carries real_frac = the share of its demand carried by real-annual drivers. Does NOT '
-                'model thrifting/substitution.'),
-       'annual_drivers': sorted(ANNUAL_DRV), 'years': YEARS, 'materials': series_mats,
+                'REAL ANNUAL for the country split where available (steel, vehicles, EVs, aluminium, cement, '
+                'drilling; electricity, population, nuclear, solar, wind from OWID/Ember; fertilizer FAOSTAT) '
+                '-- these carry real_frac. Three more drivers are LEVEL-REAL (the world total follows a real '
+                'annual curve while the country split stays benchmark, "trend real, split estimated"): steel '
+                '(worldsteel), aerospace (Airbus+Boeing deliveries), semiconductors (WSTS/SIA sales). Remaining '
+                'benchmark drivers (glass, lead) are 3-point-interpolated. Each material carries real_frac = the '
+                'share of its demand carried by real-annual-SPLIT drivers. Does NOT model thrifting/substitution.'),
+       'annual_drivers': sorted(ANNUAL_DRV), 'level_real_drivers': LEVEL_REAL,
+       'years': YEARS, 'materials': series_mats,
        'recalibrated': recal, 'real_frac': real_frac, 'names': NAME, 'series': series}
 json.dump(out, open(os.path.join(ROOT, 'out', 'consumption_series.json'), 'w', encoding='utf-8'), indent=1)
 show = [2000, 2010, 2020, 2023, 2025]
