@@ -1,15 +1,20 @@
 {
- "note": "Strategic-stockpile status per material. Curated + web-verified; China SRB holdings are secret, so this measures the PUBLIC Western/allied buffer, which is the honest gap.",
+ "note": "Per-material transparency of strategic reserves. The honest axis is not \"who holds a buffer\" (the US NDS and China SRB both hold materials) but \"whose buffer is quantified in the open\" — only Japan (JOGMEC) publishes per-material days of cover. Curated + web-verified.",
  "regimes": [
   {
    "who": "United States (National Defense Stockpile / DLA)",
-   "fact": "~$1.0-1.4bn held vs a ~$14.8-15.5bn identified shortfall across 88 materials — the holding is ~6% of that dollar shortfall (a budget gap, not days of cover).",
-   "verdict": "Largely depleted since the Cold War; most critical materials not held."
+   "fact": "DLA Strategic Materials holds ~28 commodities (incl. cobalt, tungsten, tantalum, titanium sponge, beryllium, germanium); the inventory is ~$1.0-1.4bn vs a ~$14.8-15.5bn identified shortfall — small in dollar terms, and per-material days of cover are not published.",
+   "verdict": "Holds materials, but small relative to identified need and not published on a days-of-cover basis."
   },
   {
    "who": "Japan (JOGMEC)",
    "fact": "Stockpiles 7 rare metals (incl. cobalt, tungsten, manganese, vanadium, nickel) at ~60 days of consumption; target up to 180 days for high-risk.",
-   "verdict": "The model — a deliberate buffer built after the 2010 rare-earth shock."
+   "verdict": "The model — the only country publishing per-material days of cover."
+  },
+  {
+   "who": "South Korea (KORES / MOTIE)",
+   "fact": "Holds a rare-metals reserve and publishes coverage TARGETS (e.g. days-of-cover goals), though per-material current levels are less granular than JOGMEC.",
+   "verdict": "A second allied programme with public targets — so \"only Japan\" is about published per-material cover specifically."
   },
   {
    "who": "China (State Reserve Bureau)",
@@ -23,167 +28,167 @@
   }
  ],
  "n_materials": 32,
- "n_with_allied_buffer": 5,
+ "n_with_published_cover": 5,
  "materials": [
   {
    "label": "magnets",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "magnesium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "germanium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "graphite",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "gallium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "tungsten",
-   "buffer": "allied",
-   "note": "Japan (JOGMEC) ~60 days; up to 180-day target"
+   "buffer": "quantified",
+   "note": "Japan (JOGMEC): ~60-day cover, target up to 180 — the only PUBLISHED per-material days of cover"
   },
   {
    "label": "cobalt",
-   "buffer": "allied",
-   "note": "Japan (JOGMEC) ~60 days; up to 180-day target"
+   "buffer": "quantified",
+   "note": "Japan (JOGMEC): ~60-day cover, target up to 180 — the only PUBLISHED per-material days of cover"
   },
   {
    "label": "niobium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "boron",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "lithium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "antimony",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "platinum",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "palladium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "fluorspar",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "titanium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "silicon",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "feldspar",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "vanadium",
-   "buffer": "allied",
-   "note": "Japan (JOGMEC) ~60 days; up to 180-day target"
+   "buffer": "quantified",
+   "note": "Japan (JOGMEC): ~60-day cover, target up to 180 — the only PUBLISHED per-material days of cover"
   },
   {
    "label": "manganese",
-   "buffer": "allied",
-   "note": "Japan (JOGMEC) ~60 days; up to 180-day target"
+   "buffer": "quantified",
+   "note": "Japan (JOGMEC): ~60-day cover, target up to 180 — the only PUBLISHED per-material days of cover"
   },
   {
    "label": "bauxite",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "phosphate",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "baryte",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "arsenic",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "beryllium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "hafnium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "strontium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "phosphorus",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "tantalum",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "cokingcoal",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "helium",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "copper",
-   "buffer": "none",
-   "note": "No public strategic reserve — spot-market dependent"
+   "buffer": "unquantified",
+   "note": "No published days-of-cover (US NDS may hold it undisclosed; China SRB secret; EU not built)"
   },
   {
    "label": "nickel",
-   "buffer": "allied",
-   "note": "Japan (JOGMEC) ~60 days; up to 180-day target"
+   "buffer": "quantified",
+   "note": "Japan (JOGMEC): ~60-day cover, target up to 180 — the only PUBLISHED per-material days of cover"
   }
  ]
 }

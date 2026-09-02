@@ -38,11 +38,20 @@ platinum-group metals. Neither mines any. The metal is South African and Russian
 
 Every bilateral flow can be reported twice: the exporter declares it FOB, the importer declares its mirror
 CIF (freight + insurance included). Put both on a common basis and they *should* line up. For monthly
-critical-materials flows where we have both sides (n = 1,040), they disagree by more than 2×
-**in 535 cases — 51%.** The engine refuses to invent a single number for those; it publishes the range and,
-where it can, the likely cause:
+critical-materials flows where we have both sides (n = 1,052), they disagree by more than 2×
+**in 536 cases — 51% by flow count.** Two things make that number trustworthy rather than an artefact.
+**(i) It replicates, it doesn't just span.** The two-sided sample is concentrated in two well-covered months
+— December 2024 (n = 907) and June 2026 (n = 130), reported by *different* sets of countries — and each lands
+independently at a similar rate (**50%** and **58%**). So read this as a replication across two independent
+months, not a figure spread thinly over 2024–2026. **(ii) It is not thin-cell noise.** Value-weighted, the
+rate is lower — roughly a quarter, though the exact figure depends on how the *ranged* (disagreeing) flows
+are valued — but disagreement stays high at every flow size: even the **largest flows, running into the
+billions of dollars, disagree about 42% of the time** (versus ~53% for the smallest). Big trades disagree
+nearly as often as small ones, which is the opposite of what a thin-cell artefact would show. The engine
+refuses to invent a single number for the conflicting flows; it publishes the range and, where it can, the
+likely cause:
 
-| Likely cause of the disagreement | share of the 535 |
+| Likely cause of the disagreement | share of the 536 |
 |---|--:|
 | Exporter reports ≫ importer (importer under-reporting / confidentiality) | 34% |
 | An entrepôt / re-export leg (the two "sides" aren't the same physical trade) | 30% |
@@ -54,14 +63,16 @@ genuinely unexplained. The single largest bucket is one side simply reporting fa
 second is trade that physically passes through a hub, so the "exporter's" and "importer's" flows are not the
 same shipment at all — finding #1 and finding #2 are the same phenomenon seen from two angles.
 
-## The engine tracks the real market (a check, not a headline)
+## Why there is no price cross-check here
 
-A fair worry: is a reconciled figure just an average of two bad numbers? One external check — **price**.
-The implied unit value of germanium (value ÷ kg), aggregated across all reporters, rose from a median of
-**$1,685/kg in 2024 to $3,781/kg in early 2026 — a 2.2× increase** — matching the well-documented
-tightening after China's 2023 export controls on the metal. The engine was not told about the controls; it
-recovered their price signature from customs data alone. (Monthly samples are small, 25–27 obs per window,
-so this corroborates rather than headlines.)
+A tempting external check is price: does the reconciled data recover a known move, such as germanium's spike
+after China's 2023 export controls? We deliberately do **not** offer that check, and the reason is itself a
+finding. The germanium HS6 code (**811292**) bundles **gallium, germanium and hafnium** — as
+[FINDINGS.md](FINDINGS.md) states, they cannot be separated at this code — so an "implied germanium unit
+value" is not actually germanium. And the monthly implied unit values are wildly unstable on 1–7
+observations: the median swings from **~$768/kg (Dec 2024) to ~$8,872 (Jan 2026) to ~$248 (Jun 2026)**, so
+almost any pair of endpoints can be picked to tell almost any story. The honest move is to flag that this
+code cannot carry a price series, not to dress a noisy ratio as corroboration.
 
 ## What this is and isn't
 
@@ -97,12 +108,14 @@ FROM 'pipeline/data/flows_best.parquet' GROUP BY 1 ORDER BY 2 DESC;
 SELECT disagree_reason, COUNT(*) FROM 'pipeline/data/flows_reconciled.parquet'
 WHERE basis='disagreement' GROUP BY 1 ORDER BY 2 DESC;
 
--- 3 · germanium price signal
-SELECT period, ROUND(median(value_usd/qty_kg)) AS usd_per_kg
-FROM 'pipeline/data/flows_best.parquet'
-WHERE material='germanium' AND qty_kg>0 AND value_usd>0 GROUP BY 1 ORDER BY 1;
+-- 3 · the two-sided sample is concentrated in two months (the replication, not a span)
+SELECT period, COUNT(*) AS two_sided,
+       ROUND(100.0*AVG((basis='disagreement')::INT)) AS pct_disagree
+FROM 'pipeline/data/flows_reconciled.parquet'
+WHERE basis IN ('disagreement','reconciled') GROUP BY 1 ORDER BY 2 DESC;
 ```
 
 *Independent work, public data only (UN Comtrade, Eurostat, UK HMRC, Brazil ComexStat, US Census, CEPII
-BACI). Monthly reconciliation covers 2024–2026 as coverage accrues; figures rounded. Read the hub share as
-"trade that touches a hub," not "trade that is fraudulent."*
+BACI). Two-sided monthly reconciliation is currently concentrated in two well-covered months (Dec 2024,
+Jun 2026) as coverage accrues — read the 51% as a two-month replication, not a continuous 2024–2026 series;
+figures rounded. Read the hub share as "trade that touches a hub," not "trade that is fraudulent."*

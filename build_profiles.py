@@ -246,6 +246,10 @@ def layer_para(m, layer, nm):
         else:
             b += f" Output is {_conc(mined)}: {_cc(mined[0])} supplies {mined[0]['v']}%"
             b += f", with {_cc(mined[1])} ({mined[1]['v']}%) next." if len(mined) > 1 else "."
+            if m.get('label') == 'tantalum' and any(x['c'] == 'RW' for x in mined[:3]):
+                b += (" Note: much of Rwanda&rsquo;s <i>reported</i> mine output is widely assessed (UN Group of Experts and "
+                      "others) as Congolese coltan re-exported across the border, so DRC&rsquo;s true share is higher and part "
+                      "of Rwanda&rsquo;s &ldquo;mine production&rdquo; is an origin artefact rather than a measured mine.")
             if mined[0]['v'] >= 50:
                 b += " That is effectively a single-country dependence — one government's policy or one region's disruption can move the entire upstream."
             if reserves and mined[0]['c'] != reserves[0]['c']:

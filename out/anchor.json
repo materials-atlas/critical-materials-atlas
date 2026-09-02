@@ -2,10 +2,12 @@
  "w_default": 0.5,
  "n_materials": 28,
  "n_matched": 26,
- "n_corrected": 14,
- "n_firm": 11,
- "mean_gap": 36.5,
- "note": "Production-constrained anchor: exportable = production - trade-independent consumption; the mirror-trade origin share is guardrailed (cannot exceed exportable) and pulled toward the physical prior. Corrects the refiner-fronting origin gap for stage-matched materials; stage-divergent materials (mined form != traded form) are flagged, not corrected.",
+ "n_corrected": 11,
+ "n_firm": 10,
+ "n_binding": 4,
+ "n_driver_review": 3,
+ "note": "Attribution constraint (not physics): mine-origin credit is bounded by production minus a trade-independent consumption estimate; the mirror-trade origin share is guardrailed (cannot exceed exportable) and pulled toward the exportable prior at w=0.5 (a documented knob, so corrected shares are midpoints of [observed, exportable]). Each row carries top_bind = how far consumption moves it vs a zero-consumption baseline; where ~0 the mine leader consumes almost none of what it digs, so the anchor is a midpoint prior there, not a consumption-constrained result. Materials whose consumption split is mis-paired to a wrong-industry driver (gallium/germanium/beryllium on silicon-fab spend) are flagged driver-review, not corrected. Stage-divergent materials (mined form != traded form) are flagged, not corrected.",
+ "mean_gap": 31.2,
  "results": [
   {
    "material": "germanium",
@@ -22,8 +24,11 @@
    "top_gap": 63.5,
    "top_obs": 21.6,
    "top_expble": 85.1,
-   "top_corrected": 53.4,
+   "top_corrected": null,
    "porigin": false,
+   "top_bind": 4.0,
+   "binds": true,
+   "driver_review": "split from silicon-fab spend; Ge is consumed in fibre/IR optics & PET \u2014 different geography",
    "rows": [
     {
      "iso": "CN",
@@ -34,7 +39,7 @@
      "obs_pc": 21.6,
      "expble_pc": 85.1,
      "gap": 63.5,
-     "corrected_pc": 53.4,
+     "corrected_pc": null,
      "review": false
     },
     {
@@ -95,15 +100,18 @@
    "has_consumption": true,
    "capture": 0.936,
    "conf": "moderate",
-   "firm": true,
+   "firm": false,
    "recycle": 0.0,
    "stage_note": "",
    "top": "China",
    "top_gap": 55.9,
    "top_obs": 21.6,
    "top_expble": 77.6,
-   "top_corrected": 49.6,
+   "top_corrected": null,
    "porigin": false,
+   "top_bind": 10.7,
+   "binds": true,
+   "driver_review": "split from silicon-fab spend; Ga is consumed in compound-semi/LED \u2014 different geography",
    "rows": [
     {
      "iso": "CN",
@@ -114,7 +122,7 @@
      "obs_pc": 21.6,
      "expble_pc": 77.6,
      "gap": 55.9,
-     "corrected_pc": 49.6,
+     "corrected_pc": null,
      "review": false
     },
     {
@@ -172,6 +180,9 @@
    "top_expble": 61.8,
    "top_corrected": 34.3,
    "porigin": false,
+   "top_bind": 0.1,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "ID",
@@ -252,6 +263,9 @@
    "top_expble": 50.8,
    "top_corrected": 25.4,
    "porigin": false,
+   "top_bind": 0.1,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "PE",
@@ -330,8 +344,11 @@
    "top_gap": 48.9,
    "top_obs": 0.0,
    "top_expble": 48.9,
-   "top_corrected": 24.4,
+   "top_corrected": null,
    "porigin": false,
+   "top_bind": 5.1,
+   "binds": true,
+   "driver_review": "split from silicon-fab spend; Be is consumed in specialty alloys/aerospace \u2014 different geography",
    "rows": [
     {
      "iso": "US",
@@ -342,7 +359,7 @@
      "obs_pc": 0.0,
      "expble_pc": 48.9,
      "gap": 48.9,
-     "corrected_pc": 24.4,
+     "corrected_pc": null,
      "review": false
     },
     {
@@ -366,7 +383,7 @@
      "obs_pc": 0.0,
      "expble_pc": 14.7,
      "gap": 14.7,
-     "corrected_pc": 7.3,
+     "corrected_pc": null,
      "review": false
     },
     {
@@ -412,6 +429,9 @@
    "top_expble": 74.5,
    "top_corrected": 53.9,
    "porigin": false,
+   "top_bind": 0.0,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CD",
@@ -492,6 +512,9 @@
    "top_expble": 41.1,
    "top_corrected": 20.6,
    "porigin": false,
+   "top_bind": 0.0,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CD",
@@ -572,6 +595,9 @@
    "top_expble": 69.9,
    "top_corrected": 49.7,
    "porigin": false,
+   "top_bind": 0.0,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "ZA",
@@ -652,6 +678,9 @@
    "top_expble": 23.0,
    "top_corrected": 11.7,
    "porigin": false,
+   "top_bind": 10.5,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -732,6 +761,9 @@
    "top_expble": 22.8,
    "top_corrected": 11.9,
    "porigin": false,
+   "top_bind": 10.6,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -812,6 +844,9 @@
    "top_expble": 91.2,
    "top_corrected": 81.5,
    "porigin": false,
+   "top_bind": 0.4,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "BR",
@@ -892,6 +927,9 @@
    "top_expble": 26.0,
    "top_corrected": 16.6,
    "porigin": false,
+   "top_bind": 21.0,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -972,6 +1010,9 @@
    "top_expble": 40.3,
    "top_corrected": 31.5,
    "porigin": false,
+   "top_bind": 0.4,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "RU",
@@ -1052,6 +1093,9 @@
    "top_expble": 55.3,
    "top_corrected": 48.3,
    "porigin": false,
+   "top_bind": 11.4,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1132,6 +1176,9 @@
    "top_expble": 19.3,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 1.3,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1212,6 +1259,9 @@
    "top_expble": 24.9,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 21.6,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1292,6 +1342,9 @@
    "top_expble": 23.9,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 0.1,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CL",
@@ -1372,6 +1425,9 @@
    "top_expble": 11.1,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 12.4,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1452,6 +1508,9 @@
    "top_expble": 0.9,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 24.1,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1532,6 +1591,9 @@
    "top_expble": 7.2,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 12.9,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -1612,6 +1674,9 @@
    "top_expble": 39.6,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 2.7,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "TR",
@@ -1692,6 +1757,9 @@
    "top_expble": 39.0,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 0.0,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "ZA",
@@ -1772,6 +1840,9 @@
    "top_expble": 20.2,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 2.4,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "TR",
@@ -1852,6 +1923,9 @@
    "top_expble": 34.2,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 0.0,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "GN",
@@ -1932,6 +2006,9 @@
    "top_expble": 34.4,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 16.8,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -2012,6 +2089,9 @@
    "top_expble": 30.9,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 17.6,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
@@ -2092,6 +2172,9 @@
    "top_expble": 37.7,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 0.1,
+   "binds": false,
+   "driver_review": "",
    "rows": [
     {
      "iso": "AU",
@@ -2172,6 +2255,9 @@
    "top_expble": 41.5,
    "top_corrected": null,
    "porigin": false,
+   "top_bind": 17.2,
+   "binds": true,
+   "driver_review": "",
    "rows": [
     {
      "iso": "CN",
