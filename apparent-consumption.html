@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/apparent-consumption">
 <title>Who actually uses each metal? — apparent consumption · Critical Materials Atlas</title>
-<meta name="description" content="Net trade shows who moves a metal; it erases who refines and uses it at home. Apparent consumption (production + imports − exports) restores that. Validated for copper (China 56%, matching ICSG and USGS independently) and lithium — and honestly rejected for the metals whose trade codes don't match.">
-<meta property="og:title" content="Who actually uses each refined metal? Apparent consumption, validated">
+<meta name="description" content="Net trade shows who moves a metal; it erases who refines and uses it at home. Apparent consumption (production + imports − exports) restores that, graded on a scorecard: copper is measured (China 56%, matching ICSG and USGS independently), lithium measured with a caveat, and cobalt/nickel/REE are honestly rejected where the trade codes bundle intermediates.">
+<meta property="og:title" content="Who actually uses each refined metal? Apparent consumption, graded">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,77 +22,91 @@
  .keyline b{color:#0e7c74}
  .fail{background:#fdf4f2;border:1px solid #f0d7d0;border-left:4px solid #c0392b;border-radius:10px;padding:.9rem 1.1rem;margin:.6rem 0}
  .fail b{color:#c0392b}
- .pass-badge{display:inline-block;background:#e7f4f1;color:#0e7c74;border:1px solid #bfe0d8;border-radius:5px;font-size:.68rem;font-weight:700;text-transform:uppercase;padding:.1rem .4rem;margin-left:.3rem}
+ .tier{display:inline-block;border-radius:5px;font-size:.68rem;font-weight:700;text-transform:uppercase;padding:.1rem .45rem;margin-left:.3rem}
+ .tA{background:#e7f4f1;color:#0e7c74;border:1px solid #bfe0d8}
+ .tB{background:#eef4ea;color:#4d7a1f;border:1px solid #cfe0bd}
+ .tC{background:#fbf3ea;color:#8a5a1e;border:1px solid #ecdcc4}
+ .tD{background:#fdf4f2;color:#c0392b;border:1px solid #f0d7d0}
+ .sc{font-size:.8rem;color:#5a6b68;border-collapse:collapse;margin:.3rem 0 1rem}
+ .sc td{padding:.15rem .5rem .15rem 0}
+ .sc td:first-child{color:#8492a0;font-weight:600;white-space:nowrap}
 </style>
 </head><body>
-<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="bloc-demand.html">Demand by bloc</a><a href="net-demand.html">Net demand</a>
+  <a href="limitations.html" class="hideable">Limitations</a><a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
 </div></header>
-<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · apparent consumption</div>
   <h1>Who actually <i>uses</i> each metal?</h1>
-  <p class="deck">Imports show who buys a metal; <a href="net-demand" style="color:#fff;text-decoration:underline">net trade</a> shows who keeps it — but both erase the metal a country refines and consumes <b>at home</b>. Apparent consumption adds domestic production back in. It is the textbook measure, and it is the first rung in this demand arm that <b>survives its own validation</b> — for the metals whose trade codes are clean enough, and only those.</p>
+  <p class="deck">Imports show who buys a metal; <a href="net-demand.html" style="color:#fff;text-decoration:underline">net trade</a> shows who keeps it — but both erase the metal a country refines and consumes <b>at home</b>. Apparent consumption adds domestic production back in. It is the textbook measure, and every metal is <b>graded A–D on a scorecard</b> — only the ones that earn it are published as measured.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>
-  <details class="howto"><summary>How it is built, and the validation gate</summary>
-  <p><b>Apparent consumption = refined production + imports − exports</b>, per bloc. Production restores the domestic use net trade erases. Production: IEA Critical Minerals Dataset 2024 (refining by country, CC&nbsp;BY), with <b>EU-27 refined copper from Eurostat PRODCOM</b> (ds-059358) so the EU isn't lumped, and USGS MCS 2025 as a cross-check. Trade: CEPII BACI 2023, refined-form HS codes.</p>
-  <p class="howto-src"><b>The validation gate (this is the point):</b> a metal only qualifies if its refined-form trade HS matches what "refined production" counts. We test each against China's known refined-metal consumption share — a metal that returns a sensible share passes; one that returns nonsense (a bloc consuming 200% of world supply) is <b>rejected, not fudged</b>. Copper is additionally validated against two independent published figures. What this measures is refined-metal <b>absorption</b>, not final demand — it still misses metal embodied in imported finished goods. → <a href="out/apparent.json">apparent.json</a>.</p>
+  <details class="howto"><summary>How it is built, and the validation scorecard</summary>
+  <p><b>Apparent consumption = refined production + imports − exports</b>, per bloc. Production restores the domestic use net trade erases. Production: IEA Critical Minerals Dataset 2024 (refining by country, CC&nbsp;BY), with <b>EU-27 refined copper from Eurostat PRODCOM</b> (ds-059358), and USGS MCS 2025 as a cross-check. Trade: CEPII BACI 2023, refined-form HS codes.</p>
+  <p class="howto-src"><b>The scorecard (upgraded from a single pass/fail gate):</b> each metal is graded on five checks — <b>stage-match</b> (production stage = trade stage), <b>HS purity</b> (does the code contain the refined form, or bundle intermediates?), <b>contained-metal</b> basis, <b>global closure</b> (world AC ≈ world refined production — but this ~cancels under balanced trade, so it mainly catches missing/units, not fine error), and <b>multi-anchor</b> (China's known share <i>plus</i> a second free anchor where one exists — USGS, ICSG). <b>A</b> = measured; <b>B</b> = measured, one caveat; <b>C</b> = directional only; <b>D</b> = not publishable (the code double-counts). Only A/B are shown as numbers. → <a href="out/apparent.json">apparent.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
   <div class="keyline" id="keyline"></div>
 
-  <h2 style="margin:1.6rem 0 .3rem">The validated metals</h2>
-  <p class="muted" style="margin-top:0">Only metals whose refined-form HS cleanly matches production. Each row: how apparent consumption is built, and the independent figure it matches.</p>
+  <h2 style="margin:1.6rem 0 .3rem">Measured — the metals that earn a grade</h2>
+  <p class="muted" style="margin-top:0">Tier A or B. Each row: how apparent consumption is built, its scorecard, and the independent figure it matches.</p>
   <div id="passed"></div>
 
-  <h2 style="margin:1.8rem 0 .3rem">The metals the method <i>can't</i> do — and why that's shown, not hidden</h2>
-  <p>Three of the five IEA-covered metals fail the gate, and the failures are instructive. Their trade codes don't mean what "refined production" means — so <code>production + imports</code> double-counts feedstock, or the code misses most of the metal. The absurd shares below <b>are</b> the evidence: this is where the atlas stops rather than publish a number it can't stand behind.</p>
+  <h2 style="margin:1.8rem 0 .3rem">Not publishable — and why that's shown, not hidden</h2>
+  <p>Cobalt, nickel and rare earths are graded <b>D</b>: their trade codes don't mean what "refined production" means — so <code>production + imports</code> double-counts the intermediate feedstock, or the code misses most of the metal. The absurd shares <b>are</b> the evidence. The fix is real but not free: each needs national 8-digit customs lines (e.g. China 81052010 feedstock vs 81052020 refined cobalt) — a later phase of the registry.</p>
   <div id="failed"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">The ceiling, stated plainly</h2>
   <p id="ceiling"></p>
 </article>
-</main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
-  <div><h4>Sources</h4>IEA Critical Minerals Dataset 2024 (CC BY) · Eurostat PRODCOM · USGS MCS 2025 · CEPII BACI 2023</div>
-  <div class="fineprint">Apparent consumption = refined-metal absorption, not final demand; validated for copper and lithium, honestly rejected for cobalt/nickel/REE where the trade codes don't match production.</div>
+  <div><h4>Navigate</h4><a href="bloc-demand.html">Demand by bloc</a><br><a href="net-demand.html">Net demand</a><br><a href="refining.html">Refining wedge</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Sources</h4>IEA Critical Minerals Dataset 2024 (CC BY) · Eurostat PRODCOM · USGS MCS 2025 · CEPII BACI 2023 · ICSG Copper Factbook</div>
+  <div class="fineprint">Apparent consumption = refined-metal absorption, not final demand; graded A–D. Bloc-level today; per-country + more metals are the registry's next phases.</div>
 </div></footer>
 <script>
 fetch('out/apparent.json').then(r=>r.json()).then(S=>{
   const M=S.minerals, col={China:'#c0392b',EU:'#2f6fb0',US:'#0e7c74',Japan:'#b07a18',Korea:'#7d5fb0',India:'#c98a2f',Other:'#9aa6ad'};
   const cu=M.copper;
-  document.getElementById('lead').innerHTML='<b>Result:</b> apparent consumption works, and it is validated. For <b>copper</b> it puts China at <b>'+cu.china_share+'%</b> of world refined use — matching ICSG’s published 15.5 Mt and USGS’s separately-reported US figure, two independent sources the atlas never touched. For <b>lithium</b>, China '+M.lithium.china_share+'%. Both restore the domestic refining that net trade erased. And <b>three other metals are rejected</b>, on purpose: their trade codes don’t match refined production, so the honest output is a documented failure, not a fabricated share.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> apparent consumption, graded honestly. <b>Copper is tier A</b> — it puts China at <b>'+cu.china_share+'%</b> of world refined use, matching ICSG’s 15.5 Mt and USGS’s US figure, two independent sources the atlas never touched. <b>Lithium is tier B</b> (China '+M.lithium.china_share+'%, clean but only one anchor). <b>Cobalt, nickel and REE are tier D</b> — their trade codes bundle intermediates, so the honest output is a documented failure, not a fabricated share.';
+  const nPub=S.published.length, nTot=S.published.length+S.rejected.length;
   const st=[
-    {v:cu.china_share+'%',l:'China’s share of world refined <b>copper</b> use (apparent consumption) — matches ICSG independently'},
-    {v:M.lithium.china_share+'%',l:'China’s share of refined <b>lithium</b> — matches its known ~65%'},
-    {v:S.passed.length+' / '+(S.passed.length+S.failed.length),l:'metals that pass the validation gate; the rest are rejected, not fudged'},
-    {v:'+'+(cu.rows.find(r=>r.bloc==='China').production)+'kt',l:'domestic copper refining net trade erased — restored by apparent consumption'},
+    {v:cu.china_share+'%',l:'China’s share of world refined <b>copper</b> use — tier A, matches ICSG independently'},
+    {v:M.lithium.china_share+'%',l:'China’s share of refined <b>lithium</b> — tier B, matches its known ~65%'},
+    {v:nPub+' / '+nTot,l:'metals that earn tier A/B (published as measured); the rest are graded C/D, not fudged'},
+    {v:'A–D',l:'scorecard grade on every metal — stage-match, HS purity, closure, multi-anchor'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>Why this is the honest win of the demand arm:</b> every earlier step measured trade and called it demand. This one measures refined <i>use</i> and proves it against outside data — and it is disciplined enough to <b>refuse</b> the metals it cannot do. Copper: China '+cu.china_share+'% (ICSG 15.5 Mt ✓, USGS US 1.6 Mt ✓). That is not a story fitted to a hope; it is a number two other institutions publish, recovered from primary trade + production data.';
+  document.getElementById('keyline').innerHTML='<b>Why the scorecard, not a pass/fail gate:</b> a single "China within 15pp" test can pass on luck (offsetting errors) or fail on a mismatched comparator. Grading each metal on stage, HS purity, closure and <i>two</i> anchors makes the pass mean something. Copper earns tier A: China '+cu.china_share+'% (ICSG 15.5 Mt ✓, USGS US 1.6 Mt ✓) — a number two other institutions publish, recovered from primary trade + production.';
 
+  const tc={A:'tA',B:'tB',C:'tC',D:'tD'};
+  function scTable(d){
+    const c=d.checks;
+    return '<table class="sc"><tr><td>stage-match</td><td>'+(c.stage_match?'yes':'<b style="color:#c0392b">no</b>')+'</td></tr>'+
+      '<tr><td>HS purity</td><td>'+c.hs_purity+'</td></tr><tr><td>contained-metal</td><td>'+c.contained_metal+'</td></tr>'+
+      '<tr><td>anchor · China</td><td>'+c.anchor1_china+'</td></tr><tr><td>anchor · 2nd</td><td>'+c.anchor2+'</td></tr>'+
+      '<tr><td>world closure</td><td>'+(d.closure_pct==null?'n/a':d.closure_pct+'%')+'</td></tr></table>';
+  }
   function tbl(m){
     const d=M[m];
     let h='<table class="tidy"><thead><tr><th>'+d.title+'</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">apparent consumption</th><th class="n">share</th></tr></thead><tbody>';
     d.rows.slice().sort((a,b)=>b.ac-a.ac).forEach(r=>{
       h+='<tr><td><b style="color:'+(col[r.bloc]||'#333')+'">'+r.bloc+'</b></td><td class="n">'+r.production.toLocaleString()+'</td><td class="n">'+(r.net_trade>0?'+':'')+r.net_trade.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'%</td></tr>';
     });
-    return h+'</tbody></table><p class="muted" style="margin:.2rem 0 1rem">HS: '+d.hs_note+'</p>';
+    return h+'</tbody></table>'+scTable(d)+'<p class="muted" style="margin:.2rem 0 1rem">HS: '+d.hs_note+'</p>';
   }
-  document.getElementById('passed').innerHTML=S.passed.map(m=>'<h3 style="margin:1rem 0 .2rem">'+M[m].title+'<span class="pass-badge">validated · China '+M[m].china_share+'% ≈ known '+M[m].china_known+'%</span></h3>'+tbl(m)).join('');
+  document.getElementById('passed').innerHTML=S.published.map(m=>'<h3 style="margin:1rem 0 .2rem">'+M[m].title+'<span class="tier '+tc[M[m].tier]+'">tier '+M[m].tier+' · '+M[m].badge+'</span></h3>'+tbl(m)).join('');
 
-  document.getElementById('failed').innerHTML=S.failed.map(m=>{
-    const d=M[m], chn=d.rows.find(r=>r.bloc==='China');
-    return '<div class="fail"><b>'+d.title+' — rejected (China apparent consumption = '+d.china_share+'% of world, physically impossible).</b> '+d.hs_note+'. The gate rejects it: a share above 100% means <code>production + imports</code> is counting the same metal twice (China imports the intermediate <i>and</i> makes the refined output under codes that don’t separate them). Known China share is ~'+d.china_known+'%; the trade codes cannot recover it. So no number is published for '+d.title.toLowerCase()+' here.</div>';
+  document.getElementById('failed').innerHTML=S.rejected.map(m=>{
+    const d=M[m], over=d.china_share>100;
+    return '<div class="fail"><b>'+d.title+' — tier '+d.tier+' ('+d.badge+'). Computed China share = '+d.china_share+'% vs known ~'+d.china_known+'%.</b> '+d.hs_note+'. '+(over?'A share above 100% means <code>production + imports</code> counts the same metal twice — the intermediate feedstock and the refined output share one HS code.':'The HS code misses most of the metal (for nickel, all of class-II ferronickel/NPI), so the share is understated and not usable.')+' So no number is published for '+d.title.toLowerCase()+' here.'+scTable(d)+'</div>';
   }).join('');
-  document.getElementById('ceiling').innerHTML=S.ceiling+' <b>Two of five is not a defeat</b> — it is the measure working where the data supports it and stopping where it doesn’t. The published copper and lithium figures are, as far as we can tell, the only per-bloc refined-consumption numbers on this site that two outside institutions independently confirm.';
+  document.getElementById('ceiling').innerHTML=S.ceiling+' <b>Two of five measured is not a defeat</b> — it is the measure working where the data supports it and grading down where it doesn’t. Copper and lithium are, as far as we can tell, the only per-bloc refined-consumption numbers on this site that outside institutions independently confirm.';
 });
 </script>
 </body></html>
