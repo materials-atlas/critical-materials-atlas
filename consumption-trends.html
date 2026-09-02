@@ -64,7 +64,7 @@
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="consumption">Consumption (single year)</a><br><a href="anchor">The anchor</a><br><a href="analysis">Analysis</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Annual activity: worldsteel · OICA · IEA · Ember · IRENA · USGS · UN — applied to 2023-calibrated intensities (USGS/EU CRM end-use splits)</div>
-  <div class="fineprint">Fixed-intensity time series: activity-driven change only; thrifting, substitution and new intensities are not modelled. Levels indicative; the movement is the finding.</div>
+  <div class="fineprint">Fixed-, <b>uniform</b>-intensity time series: activity-driven change only; thrifting, substitution and new intensities are not modelled. Because per-country intensity is uniform, each country&rsquo;s consumption share simply tracks its share of the driver activity &mdash; the &ldquo;centre of gravity moving to China&rdquo; is China&rsquo;s rising share of world heavy industry, not a material-specific behaviour the model could detect. Levels indicative; the movement is the finding.</div>
 </div></footer>
 <script>
 fetch('out/consumption_series.json').then(r=>r.json()).then(S=>{
