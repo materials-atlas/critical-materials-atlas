@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/stockpiles">
-<title>Strategic stockpiles — the buffer that mostly isn't there · Critical Materials Atlas</title>
-<meta name="description" content="The atlas names stockpiling as a lever but never measured the buffer. Honestly: for 27 of 32 critical materials the West holds no public strategic reserve — spot-market dependent. The US National Defense Stockpile holds only ~6% of its own identified $15bn dollar shortfall (a budget gap, not days of cover); Japan's JOGMEC holds ~60 days on 7 metals; China's reserves are real but opaque.">
-<meta property="og:title" content="Strategic stockpiles: 27 of 32 critical materials have no Western buffer at all">
+<title>Strategic stockpiles — the buffer no one publishes · Critical Materials Atlas</title>
+<meta name="description" content="For 27 of 32 critical materials, no country publishes a per-material days-of-cover figure — only Japan (JOGMEC) does, for 5. The US National Defense Stockpile holds ~28 commodities but not on a disclosed days-of-cover basis (~6% of its own identified $15bn shortfall); China's reserves are held but secret. The honest gap is transparency, not just tonnage.">
+<meta property="og:title" content="Strategic stockpiles: for 27 of 32 critical materials, no country publishes days-of-cover">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/stockpiles">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,8 +23,8 @@
  .reg .v{font-size:.82rem;color:#5a6b68;margin-top:.3rem;font-style:italic}
  .chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.5rem 0}
  .chip{font-size:.8rem;font-weight:600;padding:.25rem .6rem;border-radius:16px}
- .chip.allied{background:#e6f2ee;color:#1f7a4d;border:1px solid #bfe0d3}
- .chip.none{background:#fbeeee;color:#8a1c1c;border:1px solid #ecc9c9}
+ .chip.quantified{background:#e6f2ee;color:#1f7a4d;border:1px solid #bfe0d3}
+ .chip.unquantified{background:#fbf3ea;color:#8a5a1e;border:1px solid #ecdcc4}
  .keyline{background:#fbf3f2;border:1px solid #f0d9d5;border-left:4px solid #8a1c1c;border-radius:10px;padding:.9rem 1.1rem;margin:1.3rem 0}
  .keyline b{color:#8a1c1c}
 </style>
@@ -38,49 +38,49 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Decision layer · the buffer</div>
   <h1>The stockpile that mostly isn&rsquo;t there</h1>
-  <p class="deck">Half the atlas&rsquo;s remedies end in the same word: <i>stockpile</i>. When a chokepoint can&rsquo;t be out-built or substituted quickly, a strategic reserve is the bridge. So how much of a public buffer does the West actually hold? For most critical materials, the honest answer is <b>none</b> &mdash; and one number frames the US case: its strategic stockpile holds about <b>6%</b> of its own identified <i>dollar</i> shortfall (a budget gap, not days of cover).</p>
+  <p class="deck">Half the atlas&rsquo;s remedies end in the same word: <i>stockpile</i>. When a chokepoint can&rsquo;t be out-built or substituted quickly, a strategic reserve is the bridge. So how big is the West&rsquo;s buffer? For most critical materials, <b>no country will tell you</b> &mdash; only Japan (JOGMEC) publishes a per-material days-of-cover figure. The US <i>holds</i> materials (the NDS stores ~28 commodities) but not on a disclosed cover basis, and its dollar holdings are small: about <b>6%</b> of its own identified shortfall. China holds more, in secret. The honest gap is <b>transparency</b>, not just tonnage.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><b>An honest, data-thin page.</b> Strategic-reserve holdings are the least transparent numbers in this field &mdash; China&rsquo;s are secret, and even Western figures are patchy. So this does not compute a precise days-of-cover for all 32; it reports the <i>public</i> buffer, which is the gap. Figures web-verified from CRS, GAO, Columbia CGEP and JOGMEC; reproducible: <code>build_stockpiles.py</code> &rarr; <a href="out/stockpiles.json">stockpiles.json</a>.</div>
 
   <div class="stat2" id="stats"></div>
 
-  <h2 style="margin:1.5rem 0 .3rem">Who holds a buffer, and who doesn&rsquo;t</h2>
+  <h2 style="margin:1.5rem 0 .3rem">Who quantifies a buffer, and who doesn&rsquo;t</h2>
   <div id="regimes"></div>
 
-  <h2 style="margin:1.6rem 0 .3rem">The 32 materials, by strategic buffer</h2>
-  <p class="muted" style="margin-top:0">Which of the atlas&rsquo;s materials sit behind an allied strategic stockpile, and which rely on the spot market if supply is cut.</p>
+  <h2 style="margin:1.6rem 0 .3rem">The 32 materials, by published cover</h2>
+  <p class="muted" style="margin-top:0">Which of the atlas&rsquo;s materials have a published per-material days-of-cover (Japan/JOGMEC), and which don&rsquo;t &mdash; either held on an undisclosed basis (US NDS) or with no reserve at all.</p>
   <div id="matlist"></div>
 
   <div class="keyline" id="keyline"></div>
 
   <h2 style="margin:1.6rem 0 .3rem">Why this is the quiet decision</h2>
-  <p>Every other lever the atlas measures &mdash; build an alternative supplier, substitute the material, recycle it &mdash; takes <b>years</b>. A stockpile is the only one that works on the timescale of an actual shock: it buys the months or years the others need. That is exactly why its absence matters. For the geological chokepoints (phosphate, the platinum-group metals, niobium) there is <i>no</i> faster option &mdash; you cannot out-build the rock &mdash; so the stockpile is not a backstop but the <b>front line</b>, and for most of them the West holds nothing. Japan drew the right lesson from its 2010 rare-earth shock and built a 60-to-180-day buffer; the US let a Cold-War stockpile wither to ~6% of its own identified dollar shortfall; the EU has a plan and no reserve; and China, which holds the chokepoints, also holds an undisclosed reserve behind them. One honest qualifier: government reserves aren&rsquo;t the only cushion &mdash; commercial inventories, scrap mobilisation and rationing all absorb part of a shock &mdash; but those are private and unplanned, and for the geological chokepoints there is no substitute for a deliberate public buffer. The cheapest insurance in the whole toolkit is the one almost nobody has bought. <a href="breakout">What else you can do &rarr;</a></p>
+  <p>Every other lever the atlas measures &mdash; build an alternative supplier, substitute the material, recycle it &mdash; takes <b>years</b>. A stockpile is the only one that works on the timescale of an actual shock: it buys the months or years the others need. That is exactly why its absence matters. For the geological chokepoints (phosphate, the platinum-group metals, niobium) there is <i>no</i> faster option &mdash; you cannot out-build the rock &mdash; so the stockpile is not a backstop but the <b>front line</b>, and for most of them no country publishes how large a buffer it holds. Japan drew the right lesson from its 2010 rare-earth shock and built &mdash; and publishes &mdash; a 60-to-180-day buffer; the US <i>holds</i> ~28 commodities but its dollar inventory is small (~6% of its own identified shortfall) and it doesn&rsquo;t disclose per-material cover; the EU has a plan and no reserve; and China, which holds the chokepoints, also holds an undisclosed reserve behind them. One honest qualifier: government reserves aren&rsquo;t the only cushion &mdash; commercial inventories, scrap mobilisation and rationing all absorb part of a shock &mdash; but those are private and unplanned, and for the geological chokepoints there is no substitute for a deliberate public buffer. The cheapest insurance in the whole toolkit is the one almost nobody has bought. <a href="breakout">What else you can do &rarr;</a></p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
   <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>US CRS R47833 · GAO-24-106959 · Columbia CGEP stockpiling report 2025 · JOGMEC · public reporting on China SRB / EU CRMA</div>
-  <div class="fineprint">Strategic-reserve levels are opaque (China undisclosed; Western figures patchy), so this reports the public buffer and its absence, not a precise days-of-cover for every material. Japan's list is the 7 rare metals it stockpiles that overlap the atlas's set.</div>
+  <div class="fineprint">This reports which reserves are publicly <i>quantified</i> per material (only Japan&rsquo;s), not who holds a reserve &mdash; the US NDS and China&rsquo;s SRB both hold materials, but on an undisclosed or secret basis. Japan&rsquo;s list is the 7 rare metals it stockpiles that overlap the atlas&rsquo;s set; South Korea publishes coverage targets too, so &ldquo;only Japan&rdquo; means published <i>per-material</i> days of cover specifically. Figures web-verified from CRS, GAO, Columbia CGEP and JOGMEC.</div>
 </div></footer>
 <script>
 fetch('out/stockpiles.json').then(r=>r.json()).then(S=>{
   document.getElementById('stats').innerHTML=[
-    {v:S.n_materials-S.n_with_allied_buffer+' of '+S.n_materials,l:'tracked materials with NO public Western strategic reserve — spot-market dependent'},
-    {v:'~6%',l:'of its own identified $15bn dollar shortfall is what the US National Defense Stockpile holds — a budget gap, not days of cover'},
-    {v:'60–180',l:'days of cover Japan (JOGMEC) targets — on just 7 metals; the model almost no one copies'},
+    {v:S.n_materials-S.n_with_published_cover+' of '+S.n_materials,l:'tracked materials for which NO country publishes a per-material days-of-cover figure'},
+    {v:'~6%',l:'of its own identified $15bn shortfall is what the US NDS holds — small in dollar terms, and not published as days of cover'},
+    {v:'60–180',l:'days of cover Japan (JOGMEC) targets — the only country publishing per-material cover, on 7 metals'},
   ].map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
   document.getElementById('regimes').innerHTML=S.regimes.map(r=>
     '<div class="reg"><h3>'+r.who+'</h3><div class="f">'+r.fact+'</div><div class="v">'+r.verdict+'</div></div>').join('');
-  const allied=S.materials.filter(m=>m.buffer==='allied'), none=S.materials.filter(m=>m.buffer==='none');
+  const quant=S.materials.filter(m=>m.buffer==='quantified'), unq=S.materials.filter(m=>m.buffer==='unquantified');
   const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
   document.getElementById('matlist').innerHTML=
-    '<p style="margin:.3rem 0 .2rem;font-weight:700;color:#1f7a4d">Behind an allied stockpile — Japan (JOGMEC), ~60 days ('+allied.length+')</p>'+
-    '<div class="chips">'+allied.map(m=>'<span class="chip allied">'+cap(m.label)+'</span>').join('')+'</div>'+
-    '<p style="margin:.7rem 0 .2rem;font-weight:700;color:#8a1c1c">No public strategic reserve — spot-market dependent ('+none.length+')</p>'+
-    '<div class="chips">'+none.map(m=>'<span class="chip none">'+cap(m.label)+'</span>').join('')+'</div>';
-  document.getElementById('keyline').innerHTML='<b>27 of 32 critical materials have no Western buffer at all.</b> Only five &mdash; cobalt, nickel, tungsten, manganese, vanadium &mdash; sit behind an allied strategic stockpile, and only because Japan built one. For the rest, the plan if China restricts supply is the spot market: pay whatever it costs, if anyone will sell. A stockpile is the cheapest insurance in the toolkit, and it is the one almost no one has bought.';
+    '<p style="margin:.3rem 0 .2rem;font-weight:700;color:#1f7a4d">Published per-material days of cover — Japan (JOGMEC), ~60 days ('+quant.length+')</p>'+
+    '<div class="chips">'+quant.map(m=>'<span class="chip quantified">'+cap(m.label)+'</span>').join('')+'</div>'+
+    '<p style="margin:.7rem 0 .2rem;font-weight:700;color:#8a5a1e">No published days-of-cover ('+unq.length+') — held-but-undisclosed (US NDS) or no reserve; not &ldquo;spot-market dependent&rdquo; by default</p>'+
+    '<div class="chips">'+unq.map(m=>'<span class="chip unquantified">'+cap(m.label)+'</span>').join('')+'</div>';
+  document.getElementById('keyline').innerHTML='<b>For 27 of 32 critical materials, no country publishes a per-material days-of-cover figure.</b> Only five &mdash; cobalt, nickel, tungsten, manganese, vanadium &mdash; have one, and only because Japan (JOGMEC) publishes it. That is <i>not</i> the same as &ldquo;no reserve&rdquo;: the US NDS holds ~28 commodities and China&rsquo;s SRB holds more, but neither discloses per-material cover. The honest gap is <b>transparency</b> as much as tonnage &mdash; you cannot plan against a buffer whose size is secret.';
 });
 </script>
 </body></html>
