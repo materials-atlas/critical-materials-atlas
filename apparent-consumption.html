@@ -52,8 +52,12 @@
   <div class="stat4" id="stats"></div>
   <div class="keyline" id="keyline"></div>
 
-  <h2 style="margin:1.6rem 0 .3rem">Measured — the metals that earn a grade</h2>
-  <p class="muted" style="margin-top:0">Tier A or B. Each row: how apparent consumption is built, its scorecard, and the independent figure it matches.</p>
+  <h2 style="margin:1.6rem 0 .3rem">Per-country — the real measurement</h2>
+  <p class="muted" style="margin-top:0">Refined production <i>by country</i> (USGS Minerals Yearbook) + refined-form trade (BACI), per ISO country — not bloc. This is the measured layer the whole demand arm was building toward, one metal at a time.</p>
+  <div id="country"></div>
+
+  <h2 style="margin:1.8rem 0 .3rem">By bloc — the metals that earn a grade</h2>
+  <p class="muted" style="margin-top:0">Tier A or B, at bloc level. Each row: how apparent consumption is built, its scorecard, and the independent figure it matches.</p>
   <div id="passed"></div>
 
   <h2 style="margin:1.8rem 0 .3rem">Not publishable — and why that's shown, not hidden</h2>
@@ -73,7 +77,8 @@
 fetch('out/apparent.json').then(r=>r.json()).then(S=>{
   const M=S.minerals, col={China:'#c0392b',EU:'#2f6fb0',US:'#0e7c74',Japan:'#b07a18',Korea:'#7d5fb0',India:'#c98a2f',Other:'#9aa6ad'};
   const cu=M.copper;
-  document.getElementById('lead').innerHTML='<b>Result:</b> apparent consumption, graded honestly. <b>Copper is tier A</b> — it puts China at <b>'+cu.china_share+'%</b> of world refined use, matching ICSG’s 15.5 Mt and USGS’s US figure, two independent sources the atlas never touched. <b>Lithium is tier B</b> (China '+M.lithium.china_share+'%, clean but only one anchor). <b>Cobalt, nickel and REE are tier D</b> — their trade codes bundle intermediates, so the honest output is a documented failure, not a fabricated share.';
+  const ccu=(S.country_level||{}).copper;
+  document.getElementById('lead').innerHTML='<b>Result:</b> the demand arm now reaches a real <b>per-country</b> measurement. For <b>copper</b> — refined production by country (USGS) plus refined-form trade — it puts China at <b>'+(ccu?ccu.china_share:cu.china_share)+'%</b> of world refined use across <b>'+(ccu?ccu.n_countries:'—')+'&nbsp;countries</b>, matching ICSG’s ~56% and USGS’s US figure independently (world closure '+(ccu?ccu.closure_pct:'—')+'%). <b>Lithium is tier B</b> at bloc level; <b>cobalt, nickel and REE are tier D</b> — their codes bundle intermediates, so the honest output is a documented failure, not a fabricated share.';
   const nPub=S.published.length, nTot=S.published.length+S.rejected.length;
   const st=[
     {v:cu.china_share+'%',l:'China’s share of world refined <b>copper</b> use — tier A, matches ICSG independently'},
@@ -85,6 +90,16 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
   document.getElementById('keyline').innerHTML='<b>Why the scorecard, not a pass/fail gate:</b> a single "China within 15pp" test can pass on luck (offsetting errors) or fail on a mismatched comparator. Grading each metal on stage, HS purity, closure and <i>two</i> anchors makes the pass mean something. Copper earns tier A: China '+cu.china_share+'% (ICSG 15.5 Mt ✓, USGS US 1.6 Mt ✓) — a number two other institutions publish, recovered from primary trade + production.';
 
   const tc={A:'tA',B:'tB',C:'tC',D:'tD'};
+  // ---- per-country (Phase 2) ----
+  const CL=S.country_level||{};
+  document.getElementById('country').innerHTML=Object.keys(CL).length?Object.keys(CL).map(m=>{
+    const d=CL[m];
+    let h='<h3 style="margin:1rem 0 .2rem">'+d.title+'<span class="tier '+tc[d.tier]+'">tier '+d.tier+' · '+d.badge+'</span> <span class="muted">per country · '+d.n_countries+' countries · prod '+d.prod_year+' / trade '+d.trade_year+'</span></h3>'+
+      '<p class="muted" style="margin:.1rem 0 .3rem">Validation: China <b>'+d.china_share+'%</b> vs known ~'+d.china_known+'% · world closure '+d.closure_pct+'% (AC '+Math.round(d.world_ac).toLocaleString()+' vs production '+Math.round(d.world_prod).toLocaleString()+' kt) · anchor: '+d.anchor2+'. HS '+d.hs+'.</p>'+
+      '<table class="tidy"><thead><tr><th>country</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">apparent consumption</th><th class="n">share</th></tr></thead><tbody>';
+    d.rows.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+(r.net>0?'+':'')+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'%</td></tr>';});
+    return h+'</tbody></table><p class="muted" style="margin:.2rem 0 1rem">kt of contained metal; top '+d.rows.length+' shown. Source: '+d.prod_source+' + BACI.</p>';
+  }).join(''):'<p class="muted">No per-country metal built yet.</p>';
   function scTable(d){
     const c=d.checks;
     return '<table class="sc"><tr><td>stage-match</td><td>'+(c.stage_match?'yes':'<b style="color:#c0392b">no</b>')+'</td></tr>'+
