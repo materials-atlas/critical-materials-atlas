@@ -1,0 +1,50 @@
+<!doctype html><html><head><meta charset="utf-8"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><style>*{margin:0;padding:0;box-sizing:border-box}
+ html,body{width:1600px;height:900px;overflow:hidden;font-family:Inter,sans-serif}
+ .card{width:1600px;height:900px;background:radial-gradient(120% 120% at 12% 0%,#123c42 0%,#0b2024 60%,#081619 100%);color:#eaf2f2;padding:70px 104px 56px;display:flex;flex-direction:column;position:relative}
+ .eyebrow{font-size:23px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#2bb3a3;margin-bottom:22px}
+ .h{font-size:74px;font-weight:800;line-height:1.02;letter-spacing:-.018em;color:#fff}
+ .h .red{color:#ef7c6b}
+ /* diverging pair */
+ .viz{margin:40px 0 26px}
+ .drow{display:grid;grid-template-columns:1fr 3px 1fr;align-items:center}
+ .drow+.drow{margin-top:18px}
+ .half{display:flex;align-items:center;height:58px}
+ .half.left{justify-content:flex-end}.half.right{justify-content:flex-start}
+ .axis{align-self:stretch;background:rgba(255,255,255,.30)}
+ .bar{height:58px;border-radius:9px;display:flex;align-items:center}
+ .bar.g{background:#1f9e86;justify-content:flex-start;padding-left:26px}
+ .bar.r{background:#d13b52;justify-content:flex-end;padding-right:26px}
+ .bar .lab{font-size:26px;font-weight:800;color:#fff;white-space:nowrap}
+ .valblk{white-space:nowrap;line-height:1.05}
+ .valblk.g{text-align:right;padding-right:26px}.valblk.r{text-align:left;padding-left:26px}
+ .valblk .v{font-size:38px;font-weight:900;letter-spacing:-.01em}
+ .valblk.g .v{color:#4fd8bf}.valblk.r .v{color:#ff9a86}
+ .valblk .cnt{font-size:20px;font-weight:700;color:#a9c2c2}
+ .dirlbl{display:flex;justify-content:space-between;font-size:20px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#7fa0a0;margin-top:18px;padding:0 2px}
+ .exc{font-size:27px;font-weight:600;line-height:1.4;color:#f0b429;max-width:1380px}
+ .exc b{font-weight:800}
+ .cov{font-size:23px;font-weight:500;line-height:1.4;color:#9fb8b8;margin-top:14px;max-width:1380px}
+ .cov b{color:#cfe0e0;font-weight:700}
+ .spacer{flex:1}
+ .foot{display:flex;justify-content:space-between;align-items:center;font-size:23px;color:#7fa0a0;font-weight:600;border-top:1px solid rgba(255,255,255,.13);padding-top:24px}
+ .foot .u{color:#2bb3a3}</style></head><body><div class="card">
+ <div class="eyebrow">Production concentration · 1995&ndash;2024</div>
+ <div class="h">Everything else spread out.<br>Critical materials <span class="red">didn&rsquo;t</span>.</div>
+ <div class="viz">
+  <div class="drow">
+   <div class="half left"></div>
+   <div class="axis"></div>
+   <div class="half right"><div class="bar r" style="width:47%"><span class="lab">23 critical materials</span></div><div class="valblk r"><span class="v">+0.034 HHI</span><br><span class="cnt">15 of 23 concentrated</span></div></div>
+  </div>
+  <div class="drow">
+   <div class="half left"><div class="valblk g"><span class="v">&minus;0.036 HHI</span><br><span class="cnt">10 of 13 spread out</span></div><div class="bar g" style="width:50%"><span class="lab">13 ordinary commodities</span></div></div>
+   <div class="axis"></div>
+   <div class="half right"></div>
+  </div>
+  <div class="dirlbl"><span>&larr; spread out (more producers)</span><span>more concentrated &rarr;</span></div>
+ </div>
+ <div class="exc">But not all: <b>antimony &minus;0.34</b>, <b>graphite &minus;0.19</b>, <b>rare earths &minus;0.18</b> came off monopoly highs &mdash; real diversification.</div>
+ <div class="cov">Both groups <b>gained</b> producers over the window (criticals 23&rarr;26, controls 44&rarr;47), so the divergence is <b>understated</b>, not a reporting artifact.</div>
+ <div class="spacer"></div>
+ <div class="foot"><span>Critical Materials Atlas · BGS production data, no trade or model</span><span class="u">criticalmaterialsatlas.org</span></div>
+</div></body></html>
