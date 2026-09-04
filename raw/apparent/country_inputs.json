@@ -9,9 +9,9 @@
   "world_prod_kt": 25872.6,
   "china_known": 56,
   "anchor2": {
-   "name": "ICSG refined-copper usage (~15.5 Mt China)",
-   "independent": false,
-   "note": "independent COMPILATION, not an independent measurement \u2014 ICSG draws on the same national government/industry returns that feed USGS (our production input), so agreement is compilation agreement"
+   "name": "ICSG refined-copper usage (China ~56%)",
+   "kind": "reproducibility-check",
+   "note": "REPRODUCIBILITY CHECK, not an anchor: ICSG 'refined copper usage' is itself apparent consumption (refined production + net trade + stock change) \u2014 the same sum, same inputs as ours. Landing within 1pp of it confirms our trade parsing and arithmetic are sound; it does NOT independently validate the premise. (ICSG separately estimates China's 'real' usage with an unreported-scrap add-on, a partial bottom-up element, but the headline usage figure is apparent-consumption-based.)"
   },
   "prod": {
    "ARG": 16.0,
@@ -263,7 +263,11 @@
   "prod_source": "USGS Minerals Yearbook Copper 2022, Table 22 (world refinery production by country)",
   "trade_source": "BACI/Comtrade HS 740311",
   "of_what": "refined-metal apparent consumption = refined production + imports - exports at the stated HS codes; measures refined-metal ABSORPTION only (excludes direct-melt scrap, which is large in fabricator economies) and assumes zero stock change (materially wrong for China in heavy bonded/SRB stocking years)",
-  "hs_note": "Four-code test (BACI 2024): adding wire-bars/billets/other-refined 740312/313/319 to cathode 740311 moves every top-15 share by <=0.3pp (fabricators Italy/Germany/Korea/Turkey <=0.1pp; China +1.0pp) and leaves world AC unchanged (they net out globally). So cathode 740311 alone is materially adequate. The published figure keeps the atlas pipeline's RECONCILED/hub-deduped 740311 (higher trade quality than raw BACI); the reconciliation gain (~1pp on China) and the four-code completeness gain roughly cancel."
+  "hs_note": "Four-code test (BACI 2024): adding wire-bars/billets/other-refined 740312/313/319 to cathode 740311 moves every top-15 share by <=0.3pp (fabricators Italy/Germany/Korea/Turkey <=0.1pp; China +1.0pp) and leaves world AC unchanged (they net out globally). So cathode 740311 alone is materially adequate. The published figure keeps the atlas pipeline's RECONCILED/hub-deduped 740311 (higher trade quality than raw BACI); the reconciliation gain (~1pp on China) and the four-code completeness gain roughly cancel.",
+  "stage_clean": true,
+  "hs_clean": true,
+  "current_year": true,
+  "repro": "ICSG refined-copper usage (China ~15.5 Mt, ~56%)"
  },
  "silicon": {
   "stage": "silicon metal",
@@ -277,7 +281,8 @@
   "anchor2": {
    "name": "industry/USGS silicon-metal consumption (China ~55-60%)",
    "independent": false,
-   "note": "the China anchor is a 5-point RANGE (~55-60%), not a point \u2014 almost any plausible build lands inside a 5-point band, so it cannot discriminate a good number from a mediocre one; and USGS is our production input, so there is still no second source with a different upstream. A POINT anchor (a national statistics office publishing silicon consumption, or an independently-built Eurostat PRODCOM EU figure) is what would move silicon toward A."
+   "note": "the China anchor is a 5-point RANGE (~55-60%), not a point \u2014 almost any plausible build lands inside a 5-point band, so it cannot discriminate a good number from a mediocre one; and USGS is our production input, so there is still no second source with a different upstream. A POINT anchor (a national statistics office publishing silicon consumption, or an independently-built Eurostat PRODCOM EU figure) is what would move silicon toward A.",
+   "kind": "no-study-group"
   },
   "of_what": "METALLURGICAL silicon metal (HS 280469, <99.99% Si) apparent consumption = production + imports - exports. NOT polysilicon (HS 280461, the solar chain) and NOT semiconductors; silicon metal goes mostly to aluminium alloying, silicones, then polysilicon feedstock. Refined absorption only; 2020 snapshot (USGS MYB silicon lags and the industry has grown since); assumes zero stock change.",
   "hs_note": "280469 (<99.99% Si) bundles THREE grades in one code \u2014 aluminium-alloy grade, chemical/silicone grade, and some upgraded-metallurgical (UMG) silicon \u2014 different markets and prices, one HS heading. Fine for a tonnage measure of silicon-metal ABSORPTION (all three are silicon metal being absorbed); NOT usable for any end-use claim, and the reason this can never be an A on HS purity. Ferrosilicon (720221/29) correctly excluded. Trade is hub-exposed (44% of flows, 23% of value via entrep\u00f4ts; Netherlands a top exporter) \u2014 but apparent consumption self-cancels transit, so hubs are annotated, not netted.",
@@ -545,7 +550,11 @@
    "NAM": 0.0
   },
   "prod_source": "USGS Minerals Yearbook Silicon 2020, Table 7 (silicon metal rows only, world production by country)",
-  "share_note": "China's silicon-metal output roughly DOUBLED after 2020, so the 2020 share has very likely moved \u2014 read 56% as a 2020 figure, not today's."
+  "share_note": "China's silicon-metal output roughly DOUBLED after 2020, so the 2020 share has very likely moved \u2014 read 56% as a 2020 figure, not today's.",
+  "stage_clean": true,
+  "hs_clean": false,
+  "current_year": false,
+  "repro": null
  },
  "lead": {
   "stage": "refined metal",
@@ -558,8 +567,8 @@
   "china_known": 44,
   "anchor2": {
    "name": "ILZSG refined-lead usage (China ~44%)",
-   "independent": false,
-   "note": "ILZSG 'usage' is itself often an APPARENT-CONSUMPTION figure (production + net trade) for many countries \u2014 the same method and overlapping inputs as ours \u2014 so agreement is a consistency check on the data, not an independent measurement. A truly independent lead anchor (bottom-up: lead-acid battery output x lead content) is not free. This is why the whole layer is tier B: no free independent consumption measurement exists for these metals."
+   "kind": "reproducibility-check",
+   "note": "REPRODUCIBILITY CHECK, not an anchor: ILZSG 'refined lead usage' is itself apparent consumption (production + net trade) for most countries \u2014 the same sum we do. Matching it confirms the arithmetic, not the premise. No free source measures lead use bottom-up."
   },
   "of_what": "refined-lead apparent consumption = refined production + imports - exports (HS 780110, refined unwrought lead). Refined-metal absorption; matched year 2022; excludes lead alloys (780191 Pb-Sb / 780199 other) and direct scrap-melt; assumes zero stock change.",
   "hs_note": "780110 = refined unwrought lead, the clean refined form; lead alloys (780191/780199) excluded. Low hub exposure \u2014 top exporters (Korea, Australia, India, China) are producers, not entrepots.",
@@ -846,6 +855,10 @@
    "MAR": 0.0,
    "MWI": 0.5
   },
-  "prod_source": "USGS Minerals Yearbook Lead (world refinery production by country), 2022"
+  "prod_source": "USGS Minerals Yearbook Lead (world refinery production by country), 2022",
+  "stage_clean": true,
+  "hs_clean": true,
+  "current_year": true,
+  "repro": "ILZSG refined-lead usage (China ~44%)"
  }
 }
