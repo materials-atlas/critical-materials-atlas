@@ -1,208 +1,244 @@
 {
- "copper": {
-  "prod": "Copper, refined",
-  "trade": [
-   "Copper, unwrought"
-  ],
-  "q": "clean-refined",
-  "note": "validated China 57% (2024)"
+ "pairs": {
+  "copper": {
+   "prod": [
+    "Copper, refined",
+    null
+   ],
+   "trade": [
+    "Copper, unwrought",
+    "Unwrought, refined"
+   ],
+   "tier": "A",
+   "publish": true,
+   "note": "sub=Unwrought,refined excludes alloys(1658)+unrefined blister(998) \u2014 the bug"
+  },
+  "lead": {
+   "prod": [
+    "Lead, refined",
+    null
+   ],
+   "trade": [
+    "Lead unwrought",
+    "Unwrought"
+   ],
+   "tier": "A",
+   "publish": true,
+   "note": "lead unwrought has only sub=Unwrought (no alloy series)"
+  },
+  "zinc": {
+   "prod": [
+    "Zinc, slab",
+    null
+   ],
+   "trade": [
+    "Zinc unwrought",
+    "Unwrought"
+   ],
+   "tier": "A",
+   "publish": true,
+   "note": "sub=Unwrought excludes Unwrought alloys(1331)"
+  },
+  "tin": {
+   "prod": [
+    "Tin, smelter",
+    null
+   ],
+   "trade": [
+    "Tin metal",
+    null
+   ],
+   "tier": "A",
+   "publish": true,
+   "note": "verify tin metal has no alloy sub; builder excludes any *alloy* sub as a safety net"
+  },
+  "cobalt": {
+   "prod": [
+    "Cobalt (refined)",
+    null
+   ],
+   "trade": [
+    "Cobalt (refined)",
+    null
+   ],
+   "tier": "A",
+   "publish": true,
+   "note": "refined both sides"
+  },
+  "fluorspar": {
+   "prod": [
+    "Fluorspar",
+    null
+   ],
+   "trade": [
+    "Fluorspar",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "feldspar": {
+   "prod": [
+    "Feldspar",
+    null
+   ],
+   "trade": [
+    "Feldspar",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "graphite": {
+   "prod": [
+    "Graphite",
+    null
+   ],
+   "trade": [
+    "Graphite",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "phosphate_rock": {
+   "prod": [
+    "Phosphate rock",
+    null
+   ],
+   "trade": [
+    "Phosphate rock",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "barytes": {
+   "prod": [
+    "Barytes",
+    null
+   ],
+   "trade": [
+    "Barytes",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "magnesite": {
+   "prod": [
+    "Magnesite and magnesia",
+    null
+   ],
+   "trade": [
+    "Magnesite and magnesia",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "note": "mineral"
+  },
+  "titanium": {
+   "prod": [
+    "Titanium minerals",
+    null
+   ],
+   "trade": [
+    "Titanium minerals",
+    null
+   ],
+   "tier": "B",
+   "publish": true,
+   "title": "Titanium mineral (pigment feedstock)",
+   "note": "ilmenite/rutile -> TiO2 pigment, NOT the aerospace sponge chain"
+  },
+  "platinum_group_metals": {
+   "prod": [
+    "Platinum group metals (mine production, metal content)",
+    null
+   ],
+   "trade": [
+    "Platinum group metals (mine production, metal content)",
+    null
+   ],
+   "tier": "C",
+   "publish": true,
+   "title": "PGMs (metal content)",
+   "note": "metal-content both sides (kg); PGM content of trade \u2014 approximate"
+  },
+  "nickel": {
+   "publish": false,
+   "tier": "drop",
+   "note": "BGS combines smelter+refinery in production (NPI/ferronickel); cannot isolate class-I -> Indonesia exports invisible to the subtraction. Drop until a refinery-only series exists."
+  },
+  "antimony": {
+   "publish": false,
+   "tier": "C",
+   "note": "production is mine metal-content, trade is refined metal \u2014 stage mismatch (refiner illusion). No clean refined production series."
+  },
+  "bismuth": {
+   "publish": false,
+   "tier": "C",
+   "note": "mine metal-content vs refined metal trade \u2014 stage mismatch"
+  },
+  "arsenic": {
+   "publish": false,
+   "tier": "C",
+   "note": "white arsenic (oxide) prod vs Arsenic trade \u2014 stage/form ambiguous"
+  },
+  "manganese": {
+   "publish": false,
+   "tier": "C",
+   "note": "ore-only AC = a smelting-capacity map, not consumption (alloy is what moves and is dropped). Needs ore+alloy two-series."
+  },
+  "chromium": {
+   "publish": false,
+   "tier": "C",
+   "note": "same as manganese: ore-only measures smelting, not chromium consumption"
+  },
+  "molybdenum": {
+   "publish": false,
+   "tier": "messy",
+   "note": "mine metal-content vs metal+oxide+ore trade"
+  },
+  "tungsten": {
+   "publish": false,
+   "tier": "messy",
+   "note": "mine vs metal+carbide+ore"
+  },
+  "vanadium": {
+   "publish": false,
+   "tier": "messy",
+   "note": "mine vs pentoxide+metal+ore; also thin (293)"
+  },
+  "lithium": {
+   "publish": false,
+   "tier": "messy",
+   "note": "minerals vs lithium compound \u2014 stage-divergent"
+  },
+  "rare_earths": {
+   "publish": false,
+   "tier": "messy",
+   "note": "oxides vs metals+compounds"
+  }
  },
- "lead": {
-  "prod": "Lead, refined",
-  "trade": [
-   "Lead unwrought"
-  ],
-  "q": "clean-refined",
-  "note": "validated China 43% (2022)"
+ "thin_floor": {
+  "min_prod_records": 500,
+  "min_countries_per_year": 10,
+  "flagged_thin": [
+   "beryllium",
+   "gallium",
+   "germanium",
+   "magnesium",
+   "rare_earths",
+   "strontium",
+   "vanadium"
+  ]
  },
- "zinc": {
-  "prod": "Zinc, slab",
-  "trade": [
-   "Zinc unwrought"
-  ],
-  "q": "clean-refined",
-  "note": "validated China 48% (2022)"
- },
- "tin": {
-  "prod": "Tin, smelter",
-  "trade": [
-   "Tin metal"
-  ],
-  "q": "clean-refined",
-  "note": "new"
- },
- "cobalt": {
-  "prod": "Cobalt (refined)",
-  "trade": [
-   "Cobalt (refined)"
-  ],
-  "q": "clean-refined",
-  "note": "refined both sides \u2014 clean, unlike the HS-810520 bloc build that failed"
- },
- "nickel": {
-  "prod": "Nickel, smelter/refinery",
-  "trade": [
-   "Nickel metal"
-  ],
-  "q": "partial",
-  "note": "metal only \u2014 misses class-II ferronickel/NPI (Indonesia); understates like the HS-750210 build"
- },
- "fluorspar": {
-  "prod": "Fluorspar",
-  "trade": [
-   "Fluorspar"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "feldspar": {
-  "prod": "Feldspar",
-  "trade": [
-   "Feldspar"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "graphite": {
-  "prod": "Graphite",
-  "trade": [
-   "Graphite"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "phosphate_rock": {
-  "prod": "Phosphate rock",
-  "trade": [
-   "Phosphate rock"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "barytes": {
-  "prod": "Barytes",
-  "trade": [
-   "Barytes"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "magnesite": {
-  "prod": "Magnesite and magnesia",
-  "trade": [
-   "Magnesite and magnesia"
-  ],
-  "q": "clean-mineral",
-  "note": ""
- },
- "chromium": {
-  "prod": "Chromium ores and concentrates (gross weight)",
-  "trade": [
-   "Chromium ores and concentrates (gross weight)"
-  ],
-  "q": "clean-mineral",
-  "note": "chromite; gross weight both sides"
- },
- "manganese": {
-  "prod": "Manganese ore (gross weight)",
-  "trade": [
-   "Manganese ore (gross weight)"
-  ],
-  "q": "clean-mineral",
-  "note": "ore both sides; excludes Manganese metal trade"
- },
- "titanium": {
-  "prod": "Titanium minerals",
-  "trade": [
-   "Titanium minerals"
-  ],
-  "q": "clean-mineral",
-  "note": "ilmenite/rutile; excludes titanium metal + oxides"
- },
- "antimony": {
-  "prod": "Antimony (mine production, metal production)",
-  "trade": [
-   "Antimony"
-  ],
-  "q": "metal-content-approx",
-  "note": "refined antimony metal; excludes ores"
- },
- "silver": {
-  "prod": "Silver (mine production, metal content)",
-  "trade": [
-   "Silver metal"
-  ],
-  "q": "metal-content-approx",
-  "note": "mine metal-content ~ refined; excludes ores"
- },
- "bismuth": {
-  "prod": "Bismuth (mine production, metal content)",
-  "trade": [
-   "Bismuth metal"
-  ],
-  "q": "metal-content-approx",
-  "note": ""
- },
- "platinum_group_metals": {
-  "prod": "Platinum group metals (mine production, metal content)",
-  "trade": [
-   "Platinum group metals (mine production, metal content)"
-  ],
-  "q": "metal-content-approx",
-  "note": "metal content both sides"
- },
- "arsenic": {
-  "prod": "White arsenic",
-  "trade": [
-   "Arsenic"
-  ],
-  "q": "metal-content-approx",
-  "note": ""
- },
- "molybdenum": {
-  "prod": "Molybdenum (mine production, metal content)",
-  "trade": [
-   "Molybdenum metal and oxides",
-   "Molybdenum ores and concentrates"
-  ],
-  "q": "messy",
-  "note": "mine metal-content vs metal+oxide+ore trade \u2014 stage/unit mismatch, needs per-material work"
- },
- "tungsten": {
-  "prod": "Tungsten (mine production, metal content)",
-  "trade": [
-   "Tungsten metal",
-   "Tungsten carbide",
-   "Tungsten ores and concentrates (Gross weight)"
-  ],
-  "q": "messy",
-  "note": "mine vs metal+carbide+ore \u2014 mismatch"
- },
- "vanadium": {
-  "prod": "Vanadium (mine production, metal content)",
-  "trade": [
-   "Vanadium pentoxide",
-   "Vanadium metal",
-   "Vanadium ores and concentrates (gross weight)"
-  ],
-  "q": "messy",
-  "note": "mine vs pentoxide+metal+ore \u2014 mismatch"
- },
- "lithium": {
-  "prod": "Lithium minerals",
-  "trade": [
-   "Lithium"
-  ],
-  "q": "messy",
-  "note": "minerals (spodumene) vs lithium compound trade \u2014 stage-divergent"
- },
- "rare_earths": {
-  "prod": "Rare earth oxides",
-  "trade": [
-   "Rare earths",
-   "Rare earth compounds"
-  ],
-  "q": "messy",
-  "note": "oxides vs metals+compounds \u2014 mixed forms"
- }
+ "rule": "pair on FULL identity: erml_commodity AND erml_sub_commodity AND units AND stage. Assert units match; never convert; treat None(missing) as absent; exclude any *alloy* sub as a safety net."
 }
