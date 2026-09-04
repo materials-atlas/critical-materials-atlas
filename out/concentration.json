@@ -1,0 +1,418 @@
+{
+ "note": "BGS production-concentration (HHI), 1995-2004 vs 2015-2024. Production only \u2014 no trade/AC/model. Lead with the CHANGE (divergence), not the LEVEL: the level gap is partly definitional (criticality lists select on concentration) and the baseline predates the EU CRM 2011 list; the change is not definitional. Coverage confound ruled out IN THE RIGHT DIRECTION: both groups gained reporters, so the criticals' rise is understated. HHI = sum of squared production shares; years with >=5 reporters only.",
+ "critical": {
+  "n": 23,
+  "mean_hhi_9504": 0.291,
+  "mean_hhi_1524": 0.324,
+  "mean_change": 0.034,
+  "n_concentrated": 15,
+  "n_deconcentrated": 7,
+  "mean_cov_9504": 23,
+  "mean_cov_1524": 26
+ },
+ "transition": {
+  "n": 9,
+  "mean_hhi_9504": 0.333,
+  "mean_hhi_1524": 0.39,
+  "mean_change": 0.057,
+  "n_concentrated": 5,
+  "n_deconcentrated": 4,
+  "mean_cov_9504": 17,
+  "mean_cov_1524": 20
+ },
+ "non_transition": {
+  "n": 14,
+  "mean_hhi_9504": 0.263,
+  "mean_hhi_1524": 0.282,
+  "mean_change": 0.019,
+  "n_concentrated": 10,
+  "n_deconcentrated": 3,
+  "mean_cov_9504": 27,
+  "mean_cov_1524": 30
+ },
+ "control": {
+  "n": 18,
+  "mean_hhi_9504": 0.237,
+  "mean_hhi_1524": 0.223,
+  "mean_change": -0.014,
+  "n_concentrated": 5,
+  "n_deconcentrated": 13,
+  "mean_cov_9504": 33,
+  "mean_cov_1524": 33
+ },
+ "materials": {
+  "critical": [
+   {
+    "material": "lithium",
+    "hhi_9504": 0.208,
+    "hhi_1524": 0.712,
+    "change": 0.504,
+    "cov_9504": 10,
+    "cov_1524": 7,
+    "transition": true
+   },
+   {
+    "material": "cobalt",
+    "hhi_9504": 0.14,
+    "hhi_1524": 0.45,
+    "change": 0.31,
+    "cov_9504": 14,
+    "cov_1524": 20,
+    "transition": true
+   },
+   {
+    "material": "fluorspar",
+    "hhi_9504": 0.314,
+    "hhi_1524": 0.472,
+    "change": 0.158,
+    "cov_9504": 26,
+    "cov_1524": 24,
+    "transition": false
+   },
+   {
+    "material": "lead",
+    "hhi_9504": 0.097,
+    "hhi_1524": 0.227,
+    "change": 0.13,
+    "cov_9504": 57,
+    "cov_1524": 73,
+    "transition": false
+   },
+   {
+    "material": "vanadium",
+    "hhi_9504": 0.316,
+    "hhi_1524": 0.416,
+    "change": 0.1,
+    "cov_9504": 6,
+    "cov_1524": 5,
+    "transition": true
+   },
+   {
+    "material": "phosphate_rock",
+    "hhi_9504": 0.16,
+    "hhi_1524": 0.249,
+    "change": 0.089,
+    "cov_9504": 34,
+    "cov_1524": 36,
+    "transition": false
+   },
+   {
+    "material": "nickel",
+    "hhi_9504": 0.119,
+    "hhi_1524": 0.195,
+    "change": 0.076,
+    "cov_9504": 20,
+    "cov_1524": 28,
+    "transition": true
+   },
+   {
+    "material": "magnesite",
+    "hhi_9504": 0.269,
+    "hhi_1524": 0.345,
+    "change": 0.076,
+    "cov_9504": 22,
+    "cov_1524": 24,
+    "transition": false
+   },
+   {
+    "material": "bismuth",
+    "hhi_9504": 0.238,
+    "hhi_1524": 0.312,
+    "change": 0.074,
+    "cov_9504": 10,
+    "cov_1524": 10,
+    "transition": false
+   },
+   {
+    "material": "feldspar",
+    "hhi_9504": 0.099,
+    "hhi_1524": 0.159,
+    "change": 0.06,
+    "cov_9504": 52,
+    "cov_1524": 52,
+    "transition": false
+   },
+   {
+    "material": "tungsten",
+    "hhi_9504": 0.611,
+    "hhi_1524": 0.657,
+    "change": 0.046,
+    "cov_9504": 16,
+    "cov_1524": 22,
+    "transition": false
+   },
+   {
+    "material": "chromium",
+    "hhi_9504": 0.253,
+    "hhi_1524": 0.298,
+    "change": 0.046,
+    "cov_9504": 22,
+    "cov_1524": 19,
+    "transition": false
+   },
+   {
+    "material": "zinc",
+    "hhi_9504": 0.102,
+    "hhi_1524": 0.146,
+    "change": 0.044,
+    "cov_9504": 41,
+    "cov_1524": 54,
+    "transition": false
+   },
+   {
+    "material": "manganese",
+    "hhi_9504": 0.152,
+    "hhi_1524": 0.175,
+    "change": 0.024,
+    "cov_9504": 21,
+    "cov_1524": 30,
+    "transition": true
+   },
+   {
+    "material": "molybdenum",
+    "hhi_9504": 0.223,
+    "hhi_1524": 0.233,
+    "change": 0.01,
+    "cov_9504": 13,
+    "cov_1524": 17,
+    "transition": false
+   },
+   {
+    "material": "titanium",
+    "hhi_9504": 0.165,
+    "hhi_1524": 0.161,
+    "change": -0.004,
+    "cov_9504": 13,
+    "cov_1524": 23,
+    "transition": false
+   },
+   {
+    "material": "copper",
+    "hhi_9504": 0.145,
+    "hhi_1524": 0.113,
+    "change": -0.031,
+    "cov_9504": 47,
+    "cov_1524": 55,
+    "transition": true
+   },
+   {
+    "material": "tin",
+    "hhi_9504": 0.217,
+    "hhi_1524": 0.173,
+    "change": -0.044,
+    "cov_9504": 18,
+    "cov_1524": 24,
+    "transition": false
+   },
+   {
+    "material": "barytes",
+    "hhi_9504": 0.246,
+    "hhi_1524": 0.169,
+    "change": -0.077,
+    "cov_9504": 42,
+    "cov_1524": 31,
+    "transition": false
+   },
+   {
+    "material": "platinum_group_metals",
+    "hhi_9504": 0.471,
+    "hhi_1524": 0.376,
+    "change": -0.095,
+    "cov_9504": 7,
+    "cov_1524": 12,
+    "transition": true
+   },
+   {
+    "material": "rare_earths",
+    "hhi_9504": 0.765,
+    "hhi_1524": 0.583,
+    "change": -0.182,
+    "cov_9504": 5,
+    "cov_1524": 9,
+    "transition": true
+   },
+   {
+    "material": "graphite",
+    "hhi_9504": 0.684,
+    "hhi_1524": 0.494,
+    "change": -0.19,
+    "cov_9504": 19,
+    "cov_1524": 17,
+    "transition": true
+   },
+   {
+    "material": "antimony",
+    "hhi_9504": 0.69,
+    "hhi_1524": 0.346,
+    "change": -0.344,
+    "cov_9504": 14,
+    "cov_1524": 16,
+    "transition": false
+   }
+  ],
+  "control": [
+   {
+    "material": "wollastonite",
+    "hhi_9504": 0.369,
+    "hhi_1524": 0.542,
+    "change": 0.173,
+    "cov_9504": 6,
+    "cov_1524": 7,
+    "transition": false
+   },
+   {
+    "material": "asbestos",
+    "hhi_9504": 0.28,
+    "hhi_1524": 0.399,
+    "change": 0.118,
+    "cov_9504": 11,
+    "cov_1524": 5,
+    "transition": false
+   },
+   {
+    "material": "iodine",
+    "hhi_9504": 0.421,
+    "hhi_1524": 0.464,
+    "change": 0.043,
+    "cov_9504": 8,
+    "cov_1524": 9,
+    "transition": false
+   },
+   {
+    "material": "perlite",
+    "hhi_9504": 0.181,
+    "hhi_1524": 0.221,
+    "change": 0.04,
+    "cov_9504": 22,
+    "cov_1524": 19,
+    "transition": false
+   },
+   {
+    "material": "salt",
+    "hhi_9504": 0.084,
+    "hhi_1524": 0.098,
+    "change": 0.015,
+    "cov_9504": 102,
+    "cov_1524": 101,
+    "transition": false
+   },
+   {
+    "material": "diamond",
+    "hhi_9504": 0.188,
+    "hhi_1524": 0.182,
+    "change": -0.006,
+    "cov_9504": 23,
+    "cov_1524": 22,
+    "transition": false
+   },
+   {
+    "material": "sillimanite_and_related_minerals",
+    "hhi_9504": 0.333,
+    "hhi_1524": 0.328,
+    "change": -0.006,
+    "cov_9504": 8,
+    "cov_1524": 6,
+    "transition": false
+   },
+   {
+    "material": "mica",
+    "hhi_9504": 0.181,
+    "hhi_1524": 0.164,
+    "change": -0.017,
+    "cov_9504": 21,
+    "cov_1524": 21,
+    "transition": false
+   },
+   {
+    "material": "bentonite_and_fuller_s_earth",
+    "hhi_9504": 0.158,
+    "hhi_1524": 0.14,
+    "change": -0.018,
+    "cov_9504": 47,
+    "cov_1524": 51,
+    "transition": false
+   },
+   {
+    "material": "aggregates_and_related_materials",
+    "hhi_9504": 0.125,
+    "hhi_1524": 0.103,
+    "change": -0.022,
+    "cov_9504": 24,
+    "cov_1524": 28,
+    "transition": false
+   },
+   {
+    "material": "gypsum",
+    "hhi_9504": 0.088,
+    "hhi_1524": 0.062,
+    "change": -0.026,
+    "cov_9504": 81,
+    "cov_1524": 84,
+    "transition": false
+   },
+   {
+    "material": "diatomite",
+    "hhi_9504": 0.203,
+    "hhi_1524": 0.176,
+    "change": -0.026,
+    "cov_9504": 28,
+    "cov_1524": 27,
+    "transition": false
+   },
+   {
+    "material": "gold",
+    "hhi_9504": 0.088,
+    "hhi_1524": 0.051,
+    "change": -0.037,
+    "cov_9504": 79,
+    "cov_1524": 99,
+    "transition": false
+   },
+   {
+    "material": "talc",
+    "hhi_9504": 0.151,
+    "hhi_1524": 0.108,
+    "change": -0.043,
+    "cov_9504": 42,
+    "cov_1524": 35,
+    "transition": false
+   },
+   {
+    "material": "bromine",
+    "hhi_9504": 0.335,
+    "hhi_1524": 0.264,
+    "change": -0.071,
+    "cov_9504": 12,
+    "cov_1524": 9,
+    "transition": false
+   },
+   {
+    "material": "vermiculite",
+    "hhi_9504": 0.324,
+    "hhi_1524": 0.219,
+    "change": -0.104,
+    "cov_9504": 11,
+    "cov_1524": 13,
+    "transition": false
+   },
+   {
+    "material": "kaolin",
+    "hhi_9504": 0.215,
+    "hhi_1524": 0.106,
+    "change": -0.109,
+    "cov_9504": 56,
+    "cov_1524": 58,
+    "transition": false
+   },
+   {
+    "material": "potash",
+    "hhi_9504": 0.539,
+    "hhi_1524": 0.388,
+    "change": -0.151,
+    "cov_9504": 6,
+    "cov_1524": 6,
+    "transition": false
+   }
+  ]
+ }
+}
