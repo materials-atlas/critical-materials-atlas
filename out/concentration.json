@@ -31,14 +31,14 @@
   "mean_cov_1524": 30
  },
  "control": {
-  "n": 18,
-  "mean_hhi_9504": 0.237,
-  "mean_hhi_1524": 0.223,
-  "mean_change": -0.014,
-  "n_concentrated": 5,
-  "n_deconcentrated": 13,
-  "mean_cov_9504": 33,
-  "mean_cov_1524": 33
+  "n": 13,
+  "mean_hhi_9504": 0.187,
+  "mean_hhi_1524": 0.15,
+  "mean_change": -0.036,
+  "n_concentrated": 3,
+  "n_deconcentrated": 10,
+  "mean_cov_9504": 44,
+  "mean_cov_1524": 47
  },
  "materials": {
   "critical": [
@@ -252,33 +252,6 @@
   ],
   "control": [
    {
-    "material": "wollastonite",
-    "hhi_9504": 0.369,
-    "hhi_1524": 0.542,
-    "change": 0.173,
-    "cov_9504": 6,
-    "cov_1524": 7,
-    "transition": false
-   },
-   {
-    "material": "asbestos",
-    "hhi_9504": 0.28,
-    "hhi_1524": 0.399,
-    "change": 0.118,
-    "cov_9504": 11,
-    "cov_1524": 5,
-    "transition": false
-   },
-   {
-    "material": "iodine",
-    "hhi_9504": 0.421,
-    "hhi_1524": 0.464,
-    "change": 0.043,
-    "cov_9504": 8,
-    "cov_1524": 9,
-    "transition": false
-   },
-   {
     "material": "perlite",
     "hhi_9504": 0.181,
     "hhi_1524": 0.221,
@@ -288,30 +261,21 @@
     "transition": false
    },
    {
+    "material": "silver",
+    "hhi_9504": 0.091,
+    "hhi_1524": 0.115,
+    "change": 0.024,
+    "cov_9504": 54,
+    "cov_1524": 70,
+    "transition": false
+   },
+   {
     "material": "salt",
     "hhi_9504": 0.084,
     "hhi_1524": 0.098,
     "change": 0.015,
     "cov_9504": 102,
     "cov_1524": 101,
-    "transition": false
-   },
-   {
-    "material": "diamond",
-    "hhi_9504": 0.188,
-    "hhi_1524": 0.182,
-    "change": -0.006,
-    "cov_9504": 23,
-    "cov_1524": 22,
-    "transition": false
-   },
-   {
-    "material": "sillimanite_and_related_minerals",
-    "hhi_9504": 0.333,
-    "hhi_1524": 0.328,
-    "change": -0.006,
-    "cov_9504": 8,
-    "cov_1524": 6,
     "transition": false
    },
    {
@@ -375,15 +339,6 @@
     "change": -0.043,
     "cov_9504": 42,
     "cov_1524": 35,
-    "transition": false
-   },
-   {
-    "material": "bromine",
-    "hhi_9504": 0.335,
-    "hhi_1524": 0.264,
-    "change": -0.071,
-    "cov_9504": 12,
-    "cov_1524": 9,
     "transition": false
    },
    {

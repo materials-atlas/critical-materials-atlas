@@ -12,9 +12,13 @@ CRITICAL=['copper','lead','zinc','tin','cobalt','nickel','manganese','tungsten',
  'antimony','graphite','fluorspar','lithium','titanium','magnesite','feldspar','barytes','phosphate_rock',
  'chromium','bismuth','platinum_group_metals','rare_earths']
 TRANSITION={'lithium','cobalt','nickel','graphite','rare_earths','copper','platinum_group_metals','vanadium','manganese'}
-CONTROL=['gypsum','salt','kaolin','gold','talc','diamond','bentonite_and_fuller_s_earth','potash',
- 'aggregates_and_related_materials','asbestos','diatomite','mica','perlite','vermiculite','wollastonite',
- 'nepheline_syenite','sillimanite_and_related_minerals','iodine','bromine']
+# Clean control group: genuinely ordinary commodities with market-structure (not cartel or regulatory)
+# producer sets. Excluded on purpose: cement & iron/steel (they are DRIVERS in our own consumption model
+# -> circular); diamond (cartel/structurally concentrated, behaves like a critical); asbestos (progressive
+# bans collapsed the producer set -> policy shock, not market structure); wollastonite/nepheline/sillimanite/
+# iodine/bromine (thin, geologically concentrated -> diamond-like noise).
+CONTROL=['salt','silver','gypsum','gold','kaolin','talc','potash','diatomite',
+ 'aggregates_and_related_materials','mica','perlite','vermiculite','bentonite_and_fuller_s_earth']
 def series(m):
     fn=f'{P}/{m}.json'
     if not os.path.exists(fn): return None,None
