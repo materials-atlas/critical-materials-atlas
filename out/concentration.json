@@ -1,5 +1,5 @@
 {
- "note": "BGS production-concentration (HHI of national production shares), 1995-2004 vs 2015-2024. Production only - no trade, no apparent consumption, no model. THE FINDING IS THE MEDIAN, NOT THE MEAN: the critical MEAN (+0.034) is carried almost entirely by lithium (+0.504) and cobalt (+0.310) - remove them and it goes to -0.002. The MEDIAN (+0.046) is robust to that (+0.044 without the two), so the TYPICAL critical material did concentrate modestly, while the often-cited average is really two materials. The LEVEL gap is partly definitional (criticality lists select on concentration) and the baseline predates the EU CRM 2011 list. CONTROL CAVEAT: most \"ordinary minerals\" are transport-sited (deconcentrate for logistics, not a counterfactual); the genuinely comparable, globally-traded controls are gold/silver/potash. SELECTION CAVEAT: critical lists were rewritten 2011-2023, inside the window, and lithium was listed partly because it concentrated - a full ex-ante freeze is the outstanding robustness check; the median's leave-one-out robustness is a partial defence. COVERAGE: reporter counts rose in both groups on average, but that does NOT correct a nonlinear per-row measure and the single biggest mover (lithium) LOST reporters (10->7); so the two largest movers are shown separately, not folded into an averaged coverage claim.",
+ "note": "BGS production-concentration (HHI of national production shares), 1995-2004 vs 2015-2024. Production only - no trade, no apparent consumption, no model. THE FINDING IS THE MEDIAN, NOT THE MEAN: the critical MEAN (+0.034) is carried almost entirely by lithium (+0.504) and cobalt (+0.310) - remove them and it goes to -0.002. The MEDIAN (+0.046) is robust to that (+0.044 without the two), so the TYPICAL critical material did concentrate modestly, while the often-cited average is really two materials. The LEVEL gap is partly definitional (criticality lists select on concentration) and the baseline predates the EU CRM 2011 list. CONTROL CAVEAT: most \"ordinary minerals\" are transport-sited (deconcentrate for logistics, not a counterfactual); the genuinely comparable, globally-traded controls are gold/silver/potash. SELECTION - THE EX-ANTE FREEZE REVERSES THE BROAD CLAIM: frozen to the EU CRM 2011 list (the 7 of our materials critical BEFORE the change window), the median is -0.095 and only 3 of 7 rose - i.e. the materials defined critical pre-window mostly DIVERSIFIED (antimony/graphite/rare earths/PGMs off monopoly highs); the full-set +0.046 is substantially an artifact of materials ADDED to lists during the window. So the honest, robust, control-free finding is the DIVERGENCE WITHIN criticals: cobalt (2011-critical) concentrated hard and cleanly (HHI 0.14->0.45, reporters ROSE 14->20) while the older export-controlled materials diversified; and the cited concentration AVERAGE is two materials (Li+Co -> mean flips to -0.002). COVERAGE: mean reporter counts rose in both groups but that does NOT correct a nonlinear per-row measure; lithium (biggest mover) LOST reporters 10->7, so the two extremes are shown as individual dots, never in an averaged coverage claim.",
  "critical": {
   "n": 23,
   "mean_change": 0.034,
@@ -21,6 +21,17 @@
   "n_deconcentrated": 7,
   "mean_cov_9504": 24,
   "mean_cov_1524": 28
+ },
+ "ex_ante_2011": {
+  "n": 7,
+  "mean_change": -0.042,
+  "median_change": -0.095,
+  "mean_hhi_9504": 0.525,
+  "mean_hhi_1524": 0.483,
+  "n_concentrated": 3,
+  "n_deconcentrated": 4,
+  "mean_cov_9504": 14,
+  "mean_cov_1524": 17
  },
  "transition": {
   "n": 9,

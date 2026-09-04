@@ -50,6 +50,11 @@ def analyze(names):
 # a clean counterfactual. So the comparable subset is the real control; the wider set is context.
 COMPARABLE={'gold','silver','potash'}
 EXTREMES={'lithium','cobalt'}  # the two materials that carry the critical MEAN (leave-one-out test)
+# Ex-ante freeze: the EU's FIRST critical-raw-materials list (2011), the only single vintage that sits at the
+# end of our baseline decade rather than inside the change window. If a material was critical in 2011, its
+# classification cannot have been caused by concentration observed after 2011. 2011 list was 14 materials;
+# these 7 are the ones also in our set. Run the divergence on this subset to test the selection problem.
+EU_CRM_2011={'antimony','cobalt','fluorspar','graphite','platinum_group_metals','rare_earths','tungsten'}
 crit=analyze(CRITICAL)
 ctrl=analyze(CONTROL)
 for r in ctrl: r['comparable']=r['material'] in COMPARABLE
@@ -65,6 +70,7 @@ def summ(rows):
             'mean_cov_1524':round(st.mean(r['cov_1524'] for r in rows))}
 tr=[r for r in crit if r['transition']]; ntr=[r for r in crit if not r['transition']]
 crit_ex=[r for r in crit if r['material'] not in EXTREMES]      # leave-one-out: drop the two extremes
+exante=[r for r in crit if r['material'] in EU_CRM_2011]         # frozen to the 2011 EU list (pre-window)
 comp=[r for r in ctrl if r['comparable']]                        # gold/silver/potash
 out={'note':'BGS production-concentration (HHI of national production shares), 1995-2004 vs 2015-2024. '
      'Production only - no trade, no apparent consumption, no model. THE FINDING IS THE MEDIAN, NOT THE MEAN: '
@@ -74,18 +80,23 @@ out={'note':'BGS production-concentration (HHI of national production shares), 1
      'The LEVEL gap is partly definitional (criticality lists select on concentration) and the baseline predates '
      'the EU CRM 2011 list. CONTROL CAVEAT: most "ordinary minerals" are transport-sited (deconcentrate for '
      'logistics, not a counterfactual); the genuinely comparable, globally-traded controls are gold/silver/potash. '
-     'SELECTION CAVEAT: critical lists were rewritten 2011-2023, inside the window, and lithium was listed partly '
-     'because it concentrated - a full ex-ante freeze is the outstanding robustness check; the median\'s '
-     'leave-one-out robustness is a partial defence. COVERAGE: reporter counts rose in both groups on average, '
-     'but that does NOT correct a nonlinear per-row measure and the single biggest mover (lithium) LOST reporters '
-     '(10->7); so the two largest movers are shown separately, not folded into an averaged coverage claim.',
-     'critical':summ(crit),'critical_ex_extremes':summ(crit_ex),
+     'SELECTION - THE EX-ANTE FREEZE REVERSES THE BROAD CLAIM: frozen to the EU CRM 2011 list (the 7 of our '
+     'materials critical BEFORE the change window), the median is -0.095 and only 3 of 7 rose - i.e. the materials '
+     'defined critical pre-window mostly DIVERSIFIED (antimony/graphite/rare earths/PGMs off monopoly highs); the '
+     'full-set +0.046 is substantially an artifact of materials ADDED to lists during the window. So the honest, '
+     'robust, control-free finding is the DIVERGENCE WITHIN criticals: cobalt (2011-critical) concentrated hard '
+     'and cleanly (HHI 0.14->0.45, reporters ROSE 14->20) while the older export-controlled materials diversified; '
+     'and the cited concentration AVERAGE is two materials (Li+Co -> mean flips to -0.002). COVERAGE: mean reporter '
+     'counts rose in both groups but that does NOT correct a nonlinear per-row measure; lithium (biggest mover) '
+     'LOST reporters 10->7, so the two extremes are shown as individual dots, never in an averaged coverage claim.',
+     'critical':summ(crit),'critical_ex_extremes':summ(crit_ex),'ex_ante_2011':summ(exante),
      'transition':summ(tr),'non_transition':summ(ntr),
      'control_all':summ(ctrl),'control_comparable':summ(comp),
      'materials':{'critical':sorted(crit,key=lambda r:-r['change']),'control':sorted(ctrl,key=lambda r:-r['change'])}}
 os.makedirs('out',exist_ok=True); json.dump(out,open('out/concentration.json','w'),indent=1)
-print("CRITICAL         ",summ(crit))
+print("CRITICAL full    ",summ(crit))
 print("  minus Li+Co    ",summ(crit_ex))
+print("  EU CRM 2011 (7)",summ(exante))
 print("CONTROL all (13) ",summ(ctrl))
 print("CONTROL comp (3) ",summ(comp))
 print("wrote out/concentration.json")
