@@ -67,7 +67,8 @@ for m in d['materials']:
     cw = CW.get(m['label'], {})
     MATS[m['label']] = {'name': nicename(m), 'codes': cw.get('refined_hs') or [hs6(m['title'])],
                         'flags': cw.get('flags', []),
-                        'phys': sorted(((x['c'], x['v']) for x in m['refined']), key=lambda kv: -kv[1])}
+                        'phys': sorted(((x['c'], x['v']) for x in m['refined']), key=lambda kv: -kv[1]),
+                        'phys_source': m.get('refined_source')}   # BGS shares are of reporting countries
 CODES = sorted({c for v in MATS.values() for c in v['codes']})
 
 with zipfile.ZipFile(BACI_ZIP) as z:
@@ -127,6 +128,7 @@ for lab, info in MATS.items():
     if shared:                                               # production-based read (trade can't see it)
         ctx = SHARED_CONTEXT.get(lab, {})
         row['prod'] = {'usgs_bgs_share': round(lead_share, 0),
+                       'share_source': info.get('phys_source'),   # e.g. 'BGS ... share of 3 reporting countries'
                        'eucrm_share': (EUCRM.get(lab) or {}).get('pct'),
                        'verdict': ctx.get('verdict', 'chokepoint'),
                        'alt': ctx.get('alt', []), 'note': ctx.get('note', '')}

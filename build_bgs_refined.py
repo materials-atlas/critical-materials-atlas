@@ -48,8 +48,8 @@ def series_for(commodity):
         by_year.setdefault(yr, {})
         by_year[yr][iso] = by_year[yr].get(iso, 0.0) + q
     if not by_year:
-        return None
-    ser = {}
+        return None, None
+    ser, counts = {}, {}
     for y in STEPS:
         ys = str(y)
         if ys not in by_year:
@@ -61,7 +61,8 @@ def series_for(commodity):
         rows = [{'c': c, 'v': p} for c, p in rows if p >= 1]
         if rows:
             ser[ys] = rows
-    return ser if len(ser) >= 3 else None
+            counts[ys] = len(by_year[ys])   # ALL positive reporters, before the >=1% display cut
+    return (ser, counts) if len(ser) >= 3 else (None, None)
 
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 refined_years = {}
@@ -70,16 +71,23 @@ for m in d['materials']:
     lab = m['label']
     if lab not in MAP:
         continue
-    ser = series_for(MAP[lab])
+    ser, counts = series_for(MAP[lab])
     if not ser:
         report.append(f"  {lab:11} — no usable series")
         continue
     refined_years[lab] = ser
     latest = max(ser)
     m['refined'] = ser[latest]                       # headline = latest BGS year
-    m['refined_source'] = f'BGS World Mineral Statistics {latest}'
+    # BGS is a compilation of national returns: these are shares of the countries that REPORT, not of
+    # world output. For broad-coverage metals (copper, nickel) that is nearly the same thing; for thin
+    # by-products it is not — germanium 2024 has THREE reporters (CN/US/RU), so "China 94%" is 94% of
+    # reporters while USGS says most producers do not report and credible world figures span ~60-94%.
+    # The reporter count travels with the source string so every renderer shows it.
+    n_rep = counts[latest]
+    m['refined_source'] = f'BGS World Mineral Statistics {latest}, share of {n_rep} reporting countries'
+    m['refined_basis'] = 'reporters'
     top = ser[latest][0]
-    report.append(f"  {lab:11} {sorted(ser)} · {latest} top {top['c']} {top['v']}%  (src '{MAP[lab]}')")
+    report.append(f"  {lab:11} {sorted(ser)} · {latest} top {top['c']} {top['v']}%  n={n_rep}  (src '{MAP[lab]}')")
 
 json.dump(d, open(os.path.join(ROOT, 'out', 'data.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 json.dump(refined_years, open(os.path.join(ROOT, 'out', 'refined_years.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
