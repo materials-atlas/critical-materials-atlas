@@ -17,12 +17,16 @@ TRANSITION={'lithium','cobalt','nickel','graphite','rare_earths','copper','plati
 # -> circular); diamond (cartel/structurally concentrated, behaves like a critical); asbestos (progressive
 # bans collapsed the producer set -> policy shock, not market structure); wollastonite/nepheline/sillimanite/
 # iodine/bromine (thin, geologically concentrated -> diamond-like noise).
-CONTROL=['salt','silver','gypsum','gold','kaolin','talc','potash','diatomite',
+CONTROL=['salt','silver','gypsum','gold','kaolin','talc','potash','diatomite','iron_and_steel:iron ore',
  'aggregates_and_related_materials','mica','perlite','vermiculite','bentonite_and_fuller_s_earth']
 def series(m):
-    fn=f'{P}/{m}.json'
+    # 'group:commodity' selects one bgs commodity inside a group file (iron ore sits in iron_and_steel
+    # beside crude steel and pig iron, which would win the dominant-form pick)
+    fn=f"{P}/{m.split(':')[0]}.json"
     if not os.path.exists(fn): return None,None
     d=json.load(open(fn)); prod=[r for r in d if r['bgs_statistic_type_trans']=='Production' and r['quantity'] and r['quantity']>0 and r['country_iso3_code']]
+    if ':' in m:
+        want=m.split(':',1)[1]; prod=[r for r in prod if (r['bgs_commodity_trans'] or '')==want]
     if not prod: return None,None
     form=Counter(r['erml_commodity'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['erml_commodity']==form]
     unit=Counter(r['units'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['units']==unit]
@@ -48,7 +52,7 @@ def analyze(names):
 # resource is, not next to the point of use). The rest of CONTROL are transport-limited industrial minerals
 # (gypsum/salt/aggregates/talc/perlite/kaolin/bentonite...) that deconcentrate for logistics reasons, not as
 # a clean counterfactual. So the comparable subset is the real control; the wider set is context.
-COMPARABLE={'gold','silver','potash'}
+COMPARABLE={'gold','silver','potash','iron_and_steel:iron ore'}  # iron ore added by adversarial pass - and it CONCENTRATED (+0.08)
 EXTREMES={'lithium','cobalt'}  # the two materials that carry the critical MEAN (leave-one-out test)
 # Ex-ante freeze: the EU's FIRST critical-raw-materials list (2011), the only single vintage that sits at the
 # end of our baseline decade rather than inside the change window. If a material was critical in 2011, its

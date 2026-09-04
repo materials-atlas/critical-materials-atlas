@@ -72,7 +72,7 @@
   <h2>The whole distribution, one dot per material</h2>
   <p class="striplab">Each material&rsquo;s change in production HHI, 1995&ndash;2004 &rarr; 2015&ndash;2024, on one axis (0 = many equal producers, 1 = a single producer). This is the most honest object on the page: it shows the two outliers doing the work instead of hiding them inside an average. The vertical tick is each group&rsquo;s <b>median</b>.</p>
   <div class="strip"><svg id="strip" viewBox="0 0 920 240" role="img" aria-label="Dot strip of HHI change by material"></svg></div>
-  <div class="leg"><span><i style="background:#b3123a"></i> critical material</span><span><i style="background:#0e7c5a"></i> comparable control (Au/Ag/potash)</span><span><i style="background:#9aa6ad"></i> other ordinary mineral (transport-sited)</span><span style="color:var(--mut)">▏ = median (all 23 criticals; the 3 comparable controls)</span></div>
+  <div class="leg"><span><i style="background:#b3123a"></i> critical material</span><span><i style="background:#0e7c5a"></i> comparable control (Au/Ag/potash/iron&nbsp;ore)</span><span><i style="background:#9aa6ad"></i> other ordinary mineral (transport-sited)</span><span style="color:var(--mut)">▏ = median (all 23 criticals; the 4 comparable controls)</span></div>
 
   <h2>The concentration average is two materials</h2>
   <p style="max-width:80ch">The number that gets repeated is a group mean, and it says critical-material production grew more concentrated by +0.034. It is true, and it is misleading: two materials sit at the far edge of the distribution and carry the whole thing. Lithium&rsquo;s HHI more than tripled (0.21&nbsp;&rarr;&nbsp;0.71) and cobalt&rsquo;s tripled too (0.14&nbsp;&rarr;&nbsp;0.45). Remove those two and the average of the other 21 is <b>essentially zero</b> (&minus;0.002).</p>
@@ -95,7 +95,7 @@
   <p style="max-width:80ch">The materials critical <i>before</i> the window mostly <b>diversified</b> &mdash; antimony, graphite and rare earths came off near-monopoly highs, and PGMs eased from a lower base. So &ldquo;critical minerals are concentrating&rdquo; as a class statement is substantially an artifact of list expansion. What is left once selection is controlled for is not a class trend at all &mdash; it is the divergence: one material on that 2011 list, <b>cobalt</b>, concentrated hard, and it is the cleanest signal in the dataset.</p>
 
   <h2>The clean case, and the caveated one</h2>
-  <p style="max-width:80ch"><b>Cobalt is the finding you can lean on.</b> It was defined critical in 2011, before any of this; its production HHI tripled (0.14&nbsp;&rarr;&nbsp;0.45); and its reporting producers <i>rose</i> from 14 to 20 &mdash; so the concentration is real, not an artifact of fewer countries reporting. <b>Lithium is the one to be careful with.</b> Its HHI rose more still (0.21&nbsp;&rarr;&nbsp;0.71), but it was listed only in 2020 (so selection bites), and its reporting producers <i>fell</i> from 10 to 7 &mdash; the one big mover where thinner reporting inflates the index. It belongs in the picture, labelled, not leaned on.</p>
+  <p style="max-width:80ch"><b>Cobalt is the finding you can lean on.</b> It was defined critical in 2011, before any of this; its production HHI tripled (0.14&nbsp;&rarr;&nbsp;0.45); and its reporting producers <i>rose</i> from 14 to 20 &mdash; so the concentration is real, not an artifact of fewer countries reporting. The mechanism is no mystery either: the baseline decade coincides with the collapse of Congo&rsquo;s state producer during the 1996&ndash;2003 wars, and the rise since is Congo&rsquo;s return and expansion to roughly 70% of world mine supply. Naming the cause does not soften the measurement &mdash; it explains it. <b>Lithium is the one to be careful with.</b> Its HHI rose more still (0.21&nbsp;&rarr;&nbsp;0.71), but it was listed only in 2020 (so selection bites), and its reporting producers <i>fell</i> from 10 to 7 &mdash; the one big mover where thinner reporting inflates the index. It belongs in the picture, labelled, not leaned on.</p>
 
   <div class="panel">
     <h3>Every critical material, ranked <span class="tag">production HHI change, 1995&ndash;2004 &rarr; 2015&ndash;2024</span></h3>
@@ -104,13 +104,13 @@
   <div class="leg"><span><i style="background:#b3123a;border-radius:3px"></i> grew more concentrated</span><span><i style="background:#0e7c5a;border-radius:3px"></i> diversified</span><span style="color:var(--mut)"><span class="dg" style="color:var(--faint)">&dagger;</span> thin coverage (&lt;8 producers)</span></div>
 
   <h2>Does a control group help? A little, and it shows its own limit</h2>
-  <p style="max-width:80ch">The divergence above needs no control &mdash; each material is compared to its own past. But it is fair to ask whether ordinary commodities behaved differently. Most don&rsquo;t make a clean comparison: bulky, low-value minerals (gypsum, salt, aggregates, talc) deconcentrate because they are produced next to where they are used &mdash; transport economics, not a counterfactual. The genuinely comparable non-critical commodities are the globally-traded, geology-sited ones. There are only three &mdash; and that scarcity is itself the point, because being scarce and concentrated is much of what gets a material <i>called</i> critical:</p>
+  <p style="max-width:80ch">The divergence above needs no control &mdash; each material is compared to its own past. But it is fair to ask whether ordinary commodities behaved differently. Most don&rsquo;t make a clean comparison: bulky, low-value minerals (gypsum, salt, aggregates, talc) deconcentrate because they are produced next to where they are used &mdash; transport economics, not a counterfactual. The genuinely comparable non-critical commodities are the globally-traded, geology-sited ones. We first drew that set as three &mdash; gold, silver, potash &mdash; and an adversarial pass added a fourth we had missed: iron ore. Four is a check, not a control group, so each is shown by name:</p>
   <div class="panel"><div class="chart" id="chart-cmp"></div></div>
-  <p style="max-width:80ch">Two of the three &mdash; gold and potash &mdash; spread out; silver ticked up a trivial +0.02. None concentrated the way cobalt did. It is a three-observation check, not a control group, and it is shown as three named materials for exactly that reason.</p>
+  <p style="max-width:80ch">And they split. <b>Iron ore concentrated</b> (+0.08 on broad coverage &mdash; the Australia&ndash;Brazil consolidation of the seaborne market); silver barely moved; gold and potash spread out. So the comparable non-criticals show no class trend either &mdash; which is this page&rsquo;s point. &ldquo;Critical vs ordinary&rdquo; is not the axis that explains concentration; the mechanism inside each market is.</p>
 
   <div class="callout"><b>The coverage question, stated correctly.</b> Concentration indices can rise simply because fewer countries report. Reporter counts actually <i>rose</i> in most of these series &mdash; but a group average of reporter counts does not clear a nonlinear, per-material index, so it is checked per material. The one place it bites is lithium (10&nbsp;&rarr;&nbsp;7), which is why lithium is shown as an individual dot and not leaned on. Cobalt &mdash; the case the page rests on &mdash; goes the clean way: 14&nbsp;&rarr;&nbsp;20 producers <i>and</i> a tripling HHI.</div>
 
-  <div class="callout"><b>What this rests on, and what it doesn&rsquo;t.</b> Concentration is measured on <b>mine/primary production tonnages</b> from the <a href="https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS">BGS World Mineral Statistics</a> panel &mdash; one consistent source across every material, computed only for years with at least five reporting producers. Like every BGS figure on this site, these are shares of the countries that <i>report</i> &mdash; which is why reporter counts are checked per material, thin series carry a &dagger;, and the one material whose count fell while its index rose (lithium) is shown, not leaned on. It uses <b>no trade data, no apparent-consumption estimate, and no model</b>, so it is independent of everything still open in the atlas&rsquo;s consumption layer. It measures where material is <i>produced</i>, not refined or consumed &mdash; a material can have diversified mines and a concentrated midstream (that is the <a href="chokepoint-map">chokepoint</a> question, and a different measurement). The level of concentration (criticals sit higher than ordinary minerals) is partly definitional and is deliberately not the claim here; the <i>change</i> is.</div>
+  <div class="callout"><b>What this rests on, and what it doesn&rsquo;t.</b> Concentration is measured on <b>mine/primary production tonnages</b> from the <a href="https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS">BGS World Mineral Statistics</a> panel &mdash; one consistent source across every material, computed only for years with at least five reporting producers. Like every BGS figure on this site, these are shares of the countries that <i>report</i> &mdash; which is why reporter counts are checked per material, thin series carry a &dagger;, and the one material whose count fell while its index rose (lithium) is shown, not leaned on. It uses <b>no trade data, no apparent-consumption estimate, and no model</b>, so it is independent of everything still open in the atlas&rsquo;s consumption layer. It measures where material is <i>produced</i>, not refined or consumed &mdash; a material can have diversified mines and a concentrated midstream &mdash; graphite and rare earths are the live cases: their <i>mining</i> diversified in this data while their <i>processing</i> stayed concentrated in China (that is the <a href="chokepoint-map">chokepoint</a> question, and a different measurement). The level of concentration (criticals sit higher than ordinary minerals) is partly definitional and is deliberately not the claim here; the <i>change</i> is.</div>
 
   <div class="ftr"><a href="chokepoint-map">Where the real chokepoints sit</a> · <a href="n1">Can the rest cope without the leader?</a> · <a href="analysis">All analysis</a></div>
 </article>
@@ -131,13 +131,13 @@ var CRIT=[
  {n:"Titanium",c:-.004},{n:"Copper",c:-.031,h:"copper-chain/copper-chain.html"},{n:"Tin",c:-.044},{n:"Barytes",c:-.077},
  {n:"Platinum-group metals",c:-.095,thin:1,e11:1},{n:"Rare earths",c:-.182,thin:1,e11:1,h:"rare-earths-chain/rare-earths-chain.html"},
  {n:"Graphite",c:-.190,e11:1,h:"graphite-chain/graphite-chain.html"},{n:"Antimony",c:-.344,e11:1}];
-var CMP=[{n:"Silver",c:.024},{n:"Gold",c:-.037},{n:"Potash",c:-.151,thin:1}];
+var CMP=[{n:"Iron ore",c:.080},{n:"Silver",c:.024},{n:"Gold",c:-.037},{n:"Potash",c:-.151,thin:1}];
 // full 13-material control (for the dot strip's lower lane): comparable ones flagged cmp
 var CTRL=[
- {n:"Perlite",c:.040},{n:"Silver",c:.024,cmp:1},{n:"Salt",c:.015},{n:"Mica",c:-.017},{n:"Bentonite",c:-.018},
+ {n:"Iron ore",c:.080,cmp:1},{n:"Perlite",c:.040},{n:"Silver",c:.024,cmp:1},{n:"Salt",c:.015},{n:"Mica",c:-.017},{n:"Bentonite",c:-.018},
  {n:"Aggregates",c:-.022},{n:"Gypsum",c:-.026},{n:"Diatomite",c:-.026},{n:"Gold",c:-.037,cmp:1},{n:"Talc",c:-.043},
  {n:"Vermiculite",c:-.104},{n:"Kaolin",c:-.109},{n:"Potash",c:-.151,cmp:1,thin:1}];
-var MED={crit:.046,ctrlCmp:-.037};
+var MED={crit:.046,ctrlCmp:-.006};
 
 /* ---- dot strip ---- */
 (function(){
@@ -152,7 +152,7 @@ var MED={crit:.046,ctrlCmp:-.037};
  s+='<line x1="'+X(0)+'" y1="30" x2="'+X(0)+'" y2="205" stroke="#9aa6ad" stroke-width="1" stroke-dasharray="3 3"/>';
  s+='<text x="'+X(0)+'" y="24" font-size="11" fill="#667179" text-anchor="middle" font-family="Inter,sans-serif">no change</text>';
  s+='<text x="'+L+'" y="52" font-size="12.5" font-weight="700" fill="#15323a" font-family="Inter,sans-serif">Critical materials (23)</text>';
- s+='<text x="'+L+'" y="144" font-size="12.5" font-weight="700" fill="#15323a" font-family="Inter,sans-serif">Ordinary minerals (13)</text>';
+ s+='<text x="'+L+'" y="144" font-size="12.5" font-weight="700" fill="#15323a" font-family="Inter,sans-serif">Ordinary minerals (14)</text>';
  function dots(rows,lane,mode){
    rows.forEach(function(r,i){var cx=X(r.c),cy=lane+jit[i%jit.length];
      var col=mode==='ctrl'?(r.cmp?'#0e7c5a':'#9aa6ad'):'#b3123a';
@@ -164,7 +164,7 @@ var MED={crit:.046,ctrlCmp:-.037};
  dots(CRIT,laneC,'crit'); dots(CTRL,laneT,'ctrl');
  function med(v,lane,col,lbl){s+='<line x1="'+X(v)+'" y1="'+(lane-40)+'" x2="'+X(v)+'" y2="'+(lane+40)+'" stroke="'+col+'" stroke-width="2.5"/>'+
    '<text x="'+X(v)+'" y="'+(lane-46)+'" font-size="11" font-weight="700" fill="'+col+'" text-anchor="middle" font-family="Inter,sans-serif">'+lbl+' '+(v>0?'+':'')+v.toFixed(3)+'</text>';}
- med(MED.crit,laneC,'#15323a','median'); med(MED.ctrlCmp,laneT,'#0e7c5a','Au/Ag/potash median');
+ med(MED.crit,laneC,'#15323a','median'); med(MED.ctrlCmp,laneT,'#0e7c5a','comparable median');
  document.getElementById('strip').innerHTML=s;
 })();
 

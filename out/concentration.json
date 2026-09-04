@@ -56,26 +56,26 @@
   "mean_cov_1524": 30
  },
  "control_all": {
-  "n": 13,
-  "mean_change": -0.036,
-  "median_change": -0.026,
-  "mean_hhi_9504": 0.187,
-  "mean_hhi_1524": 0.15,
-  "n_concentrated": 3,
+  "n": 14,
+  "mean_change": -0.028,
+  "median_change": -0.024,
+  "mean_hhi_9504": 0.183,
+  "mean_hhi_1524": 0.154,
+  "n_concentrated": 4,
   "n_deconcentrated": 10,
   "mean_cov_9504": 44,
   "mean_cov_1524": 47
  },
  "control_comparable": {
-  "n": 3,
-  "mean_change": -0.055,
-  "median_change": -0.037,
-  "mean_hhi_9504": 0.239,
-  "mean_hhi_1524": 0.185,
-  "n_concentrated": 1,
+  "n": 4,
+  "mean_change": -0.021,
+  "median_change": -0.006,
+  "mean_hhi_9504": 0.212,
+  "mean_hhi_1524": 0.192,
+  "n_concentrated": 2,
   "n_deconcentrated": 2,
   "mean_cov_9504": 46,
-  "mean_cov_1524": 58
+  "mean_cov_1524": 56
  },
  "materials": {
   "critical": [
@@ -288,6 +288,16 @@
    }
   ],
   "control": [
+   {
+    "material": "iron_and_steel:iron ore",
+    "hhi_9504": 0.131,
+    "hhi_1524": 0.212,
+    "change": 0.08,
+    "cov_9504": 45,
+    "cov_1524": 48,
+    "transition": false,
+    "comparable": true
+   },
    {
     "material": "perlite",
     "hhi_9504": 0.181,
