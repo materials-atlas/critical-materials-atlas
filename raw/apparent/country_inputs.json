@@ -8,7 +8,11 @@
   ],
   "world_prod_kt": 25872.6,
   "china_known": 56,
-  "anchor2": "ICSG 15.5 Mt + USGS US 1.6 Mt",
+  "anchor2": {
+   "name": "ICSG refined-copper usage (~15.5 Mt China)",
+   "independent": false,
+   "note": "independent COMPILATION, not an independent measurement \u2014 ICSG draws on the same national government/industry returns that feed USGS (our production input), so agreement is compilation agreement"
+  },
   "prod": {
    "ARG": 16.0,
    "AUS": 400.9,
@@ -257,6 +261,7 @@
    "UKR": 0.1
   },
   "prod_source": "USGS Minerals Yearbook Copper 2022, Table 22 (world refinery production by country)",
-  "trade_source": "BACI/Comtrade HS 740311"
+  "trade_source": "BACI/Comtrade HS 740311",
+  "of_what": "refined-metal apparent consumption = refined production + imports - exports at the stated HS codes; measures refined-metal ABSORPTION only (excludes direct-melt scrap, which is large in fabricator economies) and assumes zero stock change (materially wrong for China in heavy bonded/SRB stocking years)"
  }
 }

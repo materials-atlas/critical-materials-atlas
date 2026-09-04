@@ -125,21 +125,28 @@ country = {}
 if os.path.exists(CIN):
     for m, d in json.load(open(CIN, encoding='utf8')).items():
         prod, imp, exp = d['prod'], d['imp'], d['exp']
-        ac = {c: prod.get(c, 0) + imp.get(c, 0) - exp.get(c, 0) for c in set(prod) | set(imp) | set(exp)}
-        ac = {c: round(v, 1) for c, v in ac.items() if v > 0}
-        tot = sum(ac.values()) or 1
-        rows = sorted(({'iso': c, 'prod': prod.get(c, 0), 'net': round(imp.get(c, 0) - exp.get(c, 0), 1),
-                        'ac': ac[c], 'share': round(ac[c] / tot * 100, 1)} for c in ac), key=lambda r: -r['ac'])
-        china = round(ac.get('CHN', 0) / tot * 100)
-        closure = round(abs(tot - d['world_prod_kt']) / d['world_prod_kt'] * 100, 1)
+        ac = {c: round(prod.get(c, 0) + imp.get(c, 0) - exp.get(c, 0), 1) for c in set(prod) | set(imp) | set(exp)}
+        # KEEP NEGATIVES (do not silently drop): a negative AC = a country exporting more refined than it makes
+        # + imports -> a data flag (under-reported production, transit/re-export, or stage/timing), NOT noise.
+        world_ac = round(sum(ac.values()), 1)                          # net total, includes negatives
+        closure = round(abs(world_ac - d['world_prod_kt']) / d['world_prod_kt'] * 100, 1)  # on the FULL set
+        row = lambda c: {'iso': c, 'prod': prod.get(c, 0), 'net': round(imp.get(c, 0) - exp.get(c, 0), 1),
+                         'ac': ac[c], 'share': round(ac[c] / world_ac * 100, 1)}
+        consumers = sorted((row(c) for c in ac if ac[c] > 0), key=lambda r: -r['ac'])
+        review = sorted((row(c) for c in ac if ac[c] <= 0), key=lambda r: r['ac'])   # net-supplier flags
+        china = round(ac.get('CHN', 0) / world_ac * 100)
         gap = abs(china - d['china_known'])
-        tier = 'A' if (gap <= 10 and closure < 15 and d.get('anchor2')) else 'B' if gap <= 15 else 'C'
-        country[m] = {'title': m.capitalize(), 'rows': rows[:15], 'n_countries': len(ac),
-                      'world_ac': round(tot, 1), 'world_prod': d['world_prod_kt'], 'closure_pct': closure,
+        a2 = d.get('anchor2') or {}
+        indep = bool(a2.get('independent'))                           # tier A needs an INDEPENDENT 2nd anchor
+        tier = 'A' if (gap <= 10 and closure < 15 and indep) else 'B' if (gap <= 15 and closure < 20) else 'C'
+        country[m] = {'title': m.capitalize(), 'rows': consumers[:15], 'review': review[:8],
+                      'n_countries': len(consumers), 'n_review': len(review),
+                      'world_ac': world_ac, 'world_prod': d['world_prod_kt'], 'closure_pct': closure,
                       'china_share': china, 'china_known': d['china_known'], 'tier': tier, 'badge': BADGE[tier],
                       'prod_year': d['prod_year'], 'trade_year': d['trade_year'], 'hs': ' + '.join(d['hs']),
-                      'anchor2': d.get('anchor2'), 'prod_source': d['prod_source']}
-        print(f"  [country] {m:9s} tier {tier}  China {china}% (known {d['china_known']}%)  closure {closure}%  {len(ac)} countries")
+                      'anchor2': a2, 'of_what': d.get('of_what', ''), 'prod_source': d['prod_source']}
+        print(f"  [country] {m:9s} tier {tier}  China {china}% (known {d['china_known']}%)  closure {closure}%  "
+              f"{len(consumers)} consumers + {len(review)} net-supplier flags")
 
 published = [m for m in results if results[m]['tier'] in ('A', 'B')]   # measured
 rejected = [m for m in results if results[m]['tier'] in ('C', 'D')]    # not published as consumption
@@ -177,7 +184,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Who actually uses each metal? — apparent consumption · Critical Materials Atlas</title>
-<meta name="description" content="Net trade shows who moves a metal; it erases who refines and uses it at home. Apparent consumption (production + imports − exports) restores that, graded on a scorecard: copper is measured (China 56%, matching ICSG and USGS independently), lithium measured with a caveat, and cobalt/nickel/REE are honestly rejected where the trade codes bundle intermediates.">
+<meta name="description" content="Net trade shows who moves a metal; it erases who refines and uses it at home. Apparent consumption (production + imports − exports) restores that, per country and graded on a scorecard: copper is measured tier B (China 56% of refined absorption; its one anchor, ICSG, is a compilation not an independent measurement), and cobalt/nickel/REE are honestly rejected where the trade codes bundle intermediates.">
 <meta property="og:title" content="Who actually uses each refined metal? Apparent consumption, graded">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -221,7 +228,7 @@ HTML = r'''<!doctype html>
   <div class="callout"><span id="lead"></span>
   <details class="howto"><summary>How it is built, and the validation scorecard</summary>
   <p><b>Apparent consumption = refined production + imports − exports</b>, per bloc. Production restores the domestic use net trade erases. Production: IEA Critical Minerals Dataset 2024 (refining by country, CC&nbsp;BY), with <b>EU-27 refined copper from Eurostat PRODCOM</b> (ds-059358), and USGS MCS 2025 as a cross-check. Trade: CEPII BACI 2023, refined-form HS codes.</p>
-  <p class="howto-src"><b>The scorecard (upgraded from a single pass/fail gate):</b> each metal is graded on five checks — <b>stage-match</b> (production stage = trade stage), <b>HS purity</b> (does the code contain the refined form, or bundle intermediates?), <b>contained-metal</b> basis, <b>global closure</b> (world AC ≈ world refined production — but this ~cancels under balanced trade, so it mainly catches missing/units, not fine error), and <b>multi-anchor</b> (China's known share <i>plus</i> a second free anchor where one exists — USGS, ICSG). <b>A</b> = measured; <b>B</b> = measured, one caveat; <b>C</b> = directional only; <b>D</b> = not publishable (the code double-counts). Only A/B are shown as numbers. → <a href="out/apparent.json">apparent.json</a>.</p>
+  <p class="howto-src"><b>The scorecard (upgraded from a single pass/fail gate):</b> each metal is graded on five checks — <b>stage-match</b> (production stage = trade stage), <b>HS purity</b> (does the code contain the refined form, or bundle intermediates?), <b>contained-metal</b> basis, <b>global closure</b> (world AC ≈ world refined production — but this ~cancels under balanced trade, so it mainly catches missing/units, not fine error), and <b>multi-anchor</b> (China's known share <i>plus</i> a second anchor with a genuinely <i>different upstream</i> — a compilation that shares source returns with our production input does not count). <b>A</b> = clean stage/HS + closure + an <i>independent</i> anchor; <b>B</b> = measured, one caveat (e.g. only a compilation anchor — this is copper); <b>C</b> = directional only; <b>D</b> = not publishable (the code double-counts). Only A/B are shown as numbers. → <a href="out/apparent.json">apparent.json</a>.</p>
   </details></div>
 
   <div class="stat4" id="stats"></div>
@@ -253,27 +260,32 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
   const M=S.minerals, col={China:'#c0392b',EU:'#2f6fb0',US:'#0e7c74',Japan:'#b07a18',Korea:'#7d5fb0',India:'#c98a2f',Other:'#9aa6ad'};
   const cu=M.copper;
   const ccu=(S.country_level||{}).copper;
-  document.getElementById('lead').innerHTML='<b>Result:</b> the demand arm now reaches a real <b>per-country</b> measurement. For <b>copper</b> — refined production by country (USGS) plus refined-form trade — it puts China at <b>'+(ccu?ccu.china_share:cu.china_share)+'%</b> of world refined use across <b>'+(ccu?ccu.n_countries:'—')+'&nbsp;countries</b>, matching ICSG’s ~56% and USGS’s US figure independently (world closure '+(ccu?ccu.closure_pct:'—')+'%). <b>Lithium is tier B</b> at bloc level; <b>cobalt, nickel and REE are tier D</b> — their codes bundle intermediates, so the honest output is a documented failure, not a fabricated share.';
+  document.getElementById('lead').innerHTML='<b>Result:</b> the demand arm now reaches a real <b>per-country</b> measurement — both inputs (production and trade) are observed, so a country’s number is a measurement, not its industrial size in disguise. For <b>copper</b>, China is <b>'+(ccu?ccu.china_share:56)+'%</b> of world refined <i>absorption</i> across <b>'+(ccu?ccu.n_countries:'—')+'</b> consumers. Graded honestly <b>tier '+(ccu?ccu.tier:'B')+'</b>, not A: its only country anchor (ICSG) is an independent <i>compilation</i>, not an independent measurement — and USGS is our production input, so it cannot also anchor the result. <b>Lithium is tier B</b> at bloc level; <b>cobalt, nickel and REE are tier D</b> — their codes bundle intermediates, a documented failure, not a fabricated share.';
   const nPub=S.published.length, nTot=S.published.length+S.rejected.length;
   const st=[
-    {v:cu.china_share+'%',l:'China’s share of world refined <b>copper</b> use — tier A, matches ICSG independently'},
+    {v:(ccu?ccu.china_share:56)+'%',l:'China’s share of world refined <b>copper</b> absorption — per country, tier B (one compilation anchor)'},
     {v:M.lithium.china_share+'%',l:'China’s share of refined <b>lithium</b> — tier B, matches its known ~65%'},
     {v:nPub+' / '+nTot,l:'metals that earn tier A/B (published as measured); the rest are graded C/D, not fudged'},
     {v:'A–D',l:'scorecard grade on every metal — stage-match, HS purity, closure, multi-anchor'},
   ];
   document.getElementById('stats').innerHTML=st.map(s=>'<div class="stat"><div class="v">'+s.v+'</div><div class="l">'+s.l+'</div></div>').join('');
-  document.getElementById('keyline').innerHTML='<b>Why the scorecard, not a pass/fail gate:</b> a single "China within 15pp" test can pass on luck (offsetting errors) or fail on a mismatched comparator. Grading each metal on stage, HS purity, closure and <i>two</i> anchors makes the pass mean something. Copper earns tier A: China '+cu.china_share+'% (ICSG 15.5 Mt ✓, USGS US 1.6 Mt ✓) — a number two other institutions publish, recovered from primary trade + production.';
+  document.getElementById('keyline').innerHTML='<b>Why the scorecard, not a pass/fail gate:</b> a single "China within 15pp" test can pass on luck (offsetting errors) or fail on a mismatched comparator. Grading each metal on stage, HS purity, closure and an <i>independent</i> anchor makes a pass mean something — and it is why copper is honestly <b>tier B, not A</b>: its one anchor (ICSG) is a compilation that shares national returns with USGS, our production input, so it checks the arithmetic, not the premise. A real tier-A needs an anchor with a genuinely different upstream. The number is still the best in the layer — a measurement, not an allocation.';
 
   const tc={A:'tA',B:'tB',C:'tC',D:'tD'};
   // ---- per-country (Phase 2) ----
   const CL=S.country_level||{};
   document.getElementById('country').innerHTML=Object.keys(CL).length?Object.keys(CL).map(m=>{
-    const d=CL[m];
-    let h='<h3 style="margin:1rem 0 .2rem">'+d.title+'<span class="tier '+tc[d.tier]+'">tier '+d.tier+' · '+d.badge+'</span> <span class="muted">per country · '+d.n_countries+' countries · prod '+d.prod_year+' / trade '+d.trade_year+'</span></h3>'+
-      '<p class="muted" style="margin:.1rem 0 .3rem">Validation: China <b>'+d.china_share+'%</b> vs known ~'+d.china_known+'% · world closure '+d.closure_pct+'% (AC '+Math.round(d.world_ac).toLocaleString()+' vs production '+Math.round(d.world_prod).toLocaleString()+' kt) · anchor: '+d.anchor2+'. HS '+d.hs+'.</p>'+
-      '<table class="tidy"><thead><tr><th>country</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">apparent consumption</th><th class="n">share</th></tr></thead><tbody>';
+    const d=CL[m], a=d.anchor2||{};
+    let h='<h3 style="margin:1rem 0 .2rem">'+d.title+'<span class="tier '+tc[d.tier]+'">tier '+d.tier+' · '+d.badge+'</span> <span class="muted">per country · '+d.n_countries+' consumers · prod '+d.prod_year+' / trade '+d.trade_year+'</span></h3>'+
+      '<p class="muted" style="margin:.1rem 0 .3rem"><b>of_what:</b> '+(d.of_what||'')+'</p>'+
+      '<p class="muted" style="margin:.1rem 0 .3rem">Anchor: China <b>'+d.china_share+'%</b> vs '+a.name+' (~'+d.china_known+'%). <i>'+(a.independent?'independent measurement':'an independent <b>compilation</b>, not an independent measurement — so this agreement checks the arithmetic, not the premise')+'.</i> World closure '+d.closure_pct+'% ('+Math.round(d.world_ac).toLocaleString()+' vs production '+Math.round(d.world_prod).toLocaleString()+' kt) is a <b>data-sanity check that world trade roughly balances — it cannot validate the country allocation</b>. HS '+d.hs+'.</p>'+
+      '<table class="tidy"><thead><tr><th>country</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">refined absorption</th><th class="n">share</th></tr></thead><tbody>';
     d.rows.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+(r.net>0?'+':'')+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'%</td></tr>';});
-    return h+'</tbody></table><p class="muted" style="margin:.2rem 0 1rem">kt of contained metal; top '+d.rows.length+' shown. Source: '+d.prod_source+' + BACI.</p>';
+    h+='</tbody></table><p class="muted" style="margin:.2rem 0 .3rem">kt of contained metal; top '+d.rows.length+' consumers shown. Source: '+d.prod_source+' + BACI.</p>';
+    if(d.review&&d.review.length){h+='<details style="margin:.1rem 0 1rem"><summary class="muted"><b>'+d.n_review+' net-supplier flags</b> (apparent consumption &le; 0 — not dropped) — a country exporting more refined than production + imports: under-reported output, transit/re-export, or a stage/timing mismatch. Not noise; a review signal.</summary><table class="tidy"><tbody>';
+      d.review.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td></tr>';});
+      h+='</tbody></table></details>';}
+    return h;
   }).join(''):'<p class="muted">No per-country metal built yet.</p>';
   function scTable(d){
     const c=d.checks;
