@@ -89,6 +89,25 @@ for m in d['materials']:
     top = ser[latest][0]
     report.append(f"  {lab:11} {sorted(ser)} · {latest} top {top['c']} {top['v']}%  n={n_rep}  (src '{MAP[lab]}')")
 
+# --- estimate overrides & attributions. Rule: a label does not repair a number that answers a
+# different question. BGS germanium 2024 covers THREE reporters (CN 200 t / US 7 t / RU 5 t), so the
+# computed 94 is 200/212 — a share of reporters, not of world output. The headline therefore shows the
+# documented central estimate (basis.json: credible range 60-94; IEA export-control table 94 vs IEA
+# GCMO p.199 chart ~78; USGS: 'most producers do not publicly report'), and the reporter detail stays
+# as the provenance line. Gallium's 98 is NOT BGS — it is the USGS world figure — and carries its
+# attribution so it is not the only untagged number on the page.
+for m in d['materials']:
+    if m['label'] == 'germanium':
+        m['refined'] = [{'c': 'CN', 'v': 85}]
+        m['refined_source'] = ('central estimate ~85% (credible range 60-94: IEA export-control table 94, '
+                               'IEA GCMO 2026 p.199 chart ~78; USGS publishes no share). Provenance: BGS 2024 '
+                               'covers 3 reporters only - CN 200 t, US 7 t, RU 5 t')
+        m['refined_basis'] = 'estimate'
+        m['mined_source'] = ('estimate - no measured series exists: BGS carries no germanium mine series and '
+                             'USGS publishes no country table (most producers do not report)')
+    elif m['label'] == 'gallium':
+        m['refined_source'] = 'USGS MCS - world estimate, refined gallium (~98%)'
+        m['mined_source'] = 'USGS MCS 2025 - world primary low-purity gallium: China 839/848 t = 98.9% (2024)'
 json.dump(d, open(os.path.join(ROOT, 'out', 'data.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 json.dump(refined_years, open(os.path.join(ROOT, 'out', 'refined_years.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 print('\n'.join(report))
