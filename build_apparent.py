@@ -130,24 +130,30 @@ if os.path.exists(CIN):
         # + imports -> a data flag (under-reported production, transit/re-export, or stage/timing), NOT noise.
         world_ac = round(sum(ac.values()), 1)                          # net total, includes negatives
         closure = round(abs(world_ac - d['world_prod_kt']) / d['world_prod_kt'] * 100, 1)  # on the FULL set
+        HUBS = {'NLD', 'BEL', 'SGP', 'HKG', 'ARE', 'CHE', 'GBR', 'MYS', 'LUX', 'PAN'}
         row = lambda c: {'iso': c, 'prod': prod.get(c, 0), 'net': round(imp.get(c, 0) - exp.get(c, 0), 1),
-                         'ac': ac[c], 'share': round(ac[c] / world_ac * 100, 1)}
+                         'ac': ac[c], 'share': round(ac[c] / world_ac * 100, 1), 'hub': c in HUBS}
         consumers = sorted((row(c) for c in ac if ac[c] > 0), key=lambda r: -r['ac'])
-        review = sorted((row(c) for c in ac if ac[c] <= 0), key=lambda r: r['ac'])   # net-supplier flags
+        # SPLIT the net-supplier flags (X-mgr): a PRODUCER netting negative is a finding (Norway/Elkem);
+        # a ZERO-production country netting negative is a re-export artefact (noise). Do NOT collapse.
+        neg = [row(c) for c in ac if ac[c] <= 0]
+        review = sorted((r for r in neg if r['prod'] > 0), key=lambda r: r['ac'])     # informative
+        transit = [r for r in neg if r['prod'] == 0]                                  # noise
         china = round(ac.get('CHN', 0) / world_ac * 100)
         gap = abs(china - d['china_known'])
         a2 = d.get('anchor2') or {}
         indep = bool(a2.get('independent'))                           # tier A needs an INDEPENDENT 2nd anchor
         tier = 'A' if (gap <= 10 and closure < 15 and indep) else 'B' if (gap <= 15 and closure < 20) else 'C'
         country[m] = {'title': m.capitalize(), 'rows': consumers[:15], 'review': review[:8],
-                      'n_countries': len(consumers), 'n_review': len(review),
+                      'n_countries': len(consumers), 'n_review_prod': len(review), 'n_review_transit': len(transit),
                       'world_ac': world_ac, 'world_prod': d['world_prod_kt'], 'closure_pct': closure,
-                      'china_share': china, 'china_known': d['china_known'], 'tier': tier, 'badge': BADGE[tier],
+                      'china_share': china, 'china_known': d['china_known'], 'share_year': d['trade_year'],
+                      'tier': tier, 'badge': BADGE[tier],
                       'prod_year': d['prod_year'], 'trade_year': d['trade_year'], 'hs': ' + '.join(d['hs']),
                       'anchor2': a2, 'of_what': d.get('of_what', ''), 'hs_note': d.get('hs_note', ''),
-                      'prod_source': d['prod_source']}
-        print(f"  [country] {m:9s} tier {tier}  China {china}% (known {d['china_known']}%)  closure {closure}%  "
-              f"{len(consumers)} consumers + {len(review)} net-supplier flags")
+                      'share_note': d.get('share_note', ''), 'prod_source': d['prod_source']}
+        print(f"  [country] {m:9s} tier {tier}  China {china}% ({d['trade_year']}, known {d['china_known']}%)  "
+              f"closure {closure}%  {len(consumers)} consumers | {len(review)} producing net-suppliers + {len(transit)} transit")
 
 published = [m for m in results if results[m]['tier'] in ('A', 'B')]   # measured
 rejected = [m for m in results if results[m]['tier'] in ('C', 'D')]    # not published as consumption
@@ -279,12 +285,12 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
     const d=CL[m], a=d.anchor2||{};
     let h='<h3 style="margin:1rem 0 .2rem">'+d.title+'<span class="tier '+tc[d.tier]+'">tier '+d.tier+' · '+d.badge+'</span> <span class="muted">per country · '+d.n_countries+' consumers · prod '+d.prod_year+' / trade '+d.trade_year+'</span></h3>'+
       '<p class="muted" style="margin:.1rem 0 .3rem"><b>of_what:</b> '+(d.of_what||'')+'</p>'+
-      '<p class="muted" style="margin:.1rem 0 .3rem">Anchor: China <b>'+d.china_share+'%</b> vs '+a.name+' (~'+d.china_known+'%). <i>'+(a.independent?'independent measurement':'an independent <b>compilation</b>, not an independent measurement — so this agreement checks the arithmetic, not the premise')+'.</i> World closure '+d.closure_pct+'% ('+Math.round(d.world_ac).toLocaleString()+' vs production '+Math.round(d.world_prod).toLocaleString()+' kt) is a <b>data-sanity check that world trade roughly balances — it cannot validate the country allocation</b>. HS '+d.hs+'.</p>'+
+      '<p class="muted" style="margin:.1rem 0 .3rem">Anchor: China <b>'+d.china_share+'% ('+d.share_year+')</b> vs '+a.name+' (~'+d.china_known+'%). <i>'+(a.independent?'independent measurement':'an independent <b>compilation/estimate</b>, not an independent measurement, and it shares its upstream with USGS (our production input) — so this checks the arithmetic, not the premise')+'.</i>'+(d.share_note?' <b>'+d.share_note+'</b>':'')+' World closure '+d.closure_pct+'% ('+Math.round(d.world_ac).toLocaleString()+' vs production '+Math.round(d.world_prod).toLocaleString()+' kt) is a <b>data-sanity check that world trade roughly balances — it cannot validate the country allocation</b>. HS '+d.hs+'.</p>'+
       '<table class="tidy"><thead><tr><th>country</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">refined absorption</th><th class="n">share</th></tr></thead><tbody>';
-    d.rows.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+(r.net>0?'+':'')+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'%</td></tr>';});
-    h+='</tbody></table><p class="muted" style="margin:.2rem 0 .3rem">kt of contained metal; top '+d.rows.length+' consumers shown. Source: '+d.prod_source+' + BACI.</p>';
+    d.rows.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b>'+(r.hub?' <span class="muted" title="entrepot-prone; verified as real consumption where an end-use industry exists">◇hub</span>':'')+'</td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+(r.net>0?'+':'')+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'% ('+d.share_year+')</td></tr>';});
+    h+='</tbody></table><p class="muted" style="margin:.2rem 0 .3rem">kt of contained metal; top '+d.rows.length+' consumers shown, share as of '+d.share_year+'. Source: '+d.prod_source+' + BACI. <b>◇hub</b> = entrepôt-prone (Netherlands, UK, UAE…): apparent consumption self-cancels pure transit (imports − exports), so a hub with a real end-use industry keeps what it uses — the UK (silicones/chemicals) and UAE (aluminium alloying) show genuine consumption, not transit residue; hub flows are annotated, not netted out (netting would delete real use).</p>';
     if(d.hs_note){h+='<p class="muted" style="margin:.1rem 0 .3rem"><b>HS coverage:</b> '+d.hs_note+'</p>';}
-    if(d.review&&d.review.length){h+='<details style="margin:.1rem 0 1rem"><summary class="muted"><b>'+d.n_review+' net-supplier flags</b> (apparent consumption &le; 0 — not dropped) — a country exporting more refined than production + imports: under-reported output, transit/re-export, or a stage/timing mismatch. Not noise; a review signal.</summary><table class="tidy"><tbody>';
+    if(d.review&&d.review.length){h+='<details style="margin:.1rem 0 1rem"><summary class="muted"><b>'+d.n_review_prod+' producing net-suppliers</b> (a country that <i>makes</i> this metal yet nets absorption &le; 0 — a real finding: it supplies others, e.g. Norway/Elkem in silicon) &middot; separately <b>'+d.n_review_transit+' zero-production transit rows</b> (re-export artefacts, noise — not shown). Split by prod&gt;0, not collapsed.</summary><table class="tidy"><tbody>';
       d.review.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td></tr>';});
       h+='</tbody></table></details>';}
     return h;

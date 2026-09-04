@@ -277,10 +277,10 @@
   "anchor2": {
    "name": "industry/USGS silicon-metal consumption (China ~55-60%)",
    "independent": false,
-   "note": "no free independent country-consumption anchor for silicon; USGS is our production input"
+   "note": "the China anchor is a 5-point RANGE (~55-60%), not a point \u2014 almost any plausible build lands inside a 5-point band, so it cannot discriminate a good number from a mediocre one; and USGS is our production input, so there is still no second source with a different upstream. A POINT anchor (a national statistics office publishing silicon consumption, or an independently-built Eurostat PRODCOM EU figure) is what would move silicon toward A."
   },
   "of_what": "METALLURGICAL silicon metal (HS 280469, <99.99% Si) apparent consumption = production + imports - exports. NOT polysilicon (HS 280461, the solar chain) and NOT semiconductors; silicon metal goes mostly to aluminium alloying, silicones, then polysilicon feedstock. Refined absorption only; 2020 snapshot (USGS MYB silicon lags and the industry has grown since); assumes zero stock change.",
-  "hs_note": "280469 is metallurgical/chemical-grade silicon; it still mixes aluminium-alloy, chemical/silicone and some upgraded-metallurgical grades, and ferrosilicon (720221/29) is correctly excluded. Trade carries hub re-export (Netherlands is a top exporter) that is NOT netted, so smaller consumers may be distorted.",
+  "hs_note": "280469 (<99.99% Si) bundles THREE grades in one code \u2014 aluminium-alloy grade, chemical/silicone grade, and some upgraded-metallurgical (UMG) silicon \u2014 different markets and prices, one HS heading. Fine for a tonnage measure of silicon-metal ABSORPTION (all three are silicon metal being absorbed); NOT usable for any end-use claim, and the reason this can never be an A on HS purity. Ferrosilicon (720221/29) correctly excluded. Trade is hub-exposed (44% of flows, 23% of value via entrep\u00f4ts; Netherlands a top exporter) \u2014 but apparent consumption self-cancels transit, so hubs are annotated, not netted.",
   "prod": {
    "AUS": 43.0,
    "BIH": 25.0,
@@ -544,6 +544,7 @@
    "JOR": 0.0,
    "NAM": 0.0
   },
-  "prod_source": "USGS Minerals Yearbook Silicon 2020, Table 7 (silicon metal rows only, world production by country)"
+  "prod_source": "USGS Minerals Yearbook Silicon 2020, Table 7 (silicon metal rows only, world production by country)",
+  "share_note": "China's silicon-metal output roughly DOUBLED after 2020, so the 2020 share has very likely moved \u2014 read 56% as a 2020 figure, not today's."
  }
 }
