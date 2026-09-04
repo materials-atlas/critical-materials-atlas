@@ -144,7 +144,8 @@ if os.path.exists(CIN):
                       'world_ac': world_ac, 'world_prod': d['world_prod_kt'], 'closure_pct': closure,
                       'china_share': china, 'china_known': d['china_known'], 'tier': tier, 'badge': BADGE[tier],
                       'prod_year': d['prod_year'], 'trade_year': d['trade_year'], 'hs': ' + '.join(d['hs']),
-                      'anchor2': a2, 'of_what': d.get('of_what', ''), 'prod_source': d['prod_source']}
+                      'anchor2': a2, 'of_what': d.get('of_what', ''), 'hs_note': d.get('hs_note', ''),
+                      'prod_source': d['prod_source']}
         print(f"  [country] {m:9s} tier {tier}  China {china}% (known {d['china_known']}%)  closure {closure}%  "
               f"{len(consumers)} consumers + {len(review)} net-supplier flags")
 
@@ -282,6 +283,7 @@ fetch('out/apparent.json').then(r=>r.json()).then(S=>{
       '<table class="tidy"><thead><tr><th>country</th><th class="n">refined production</th><th class="n">net trade</th><th class="n">refined absorption</th><th class="n">share</th></tr></thead><tbody>';
     d.rows.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+(r.net>0?'+':'')+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td><td class="n">'+r.share+'%</td></tr>';});
     h+='</tbody></table><p class="muted" style="margin:.2rem 0 .3rem">kt of contained metal; top '+d.rows.length+' consumers shown. Source: '+d.prod_source+' + BACI.</p>';
+    if(d.hs_note){h+='<p class="muted" style="margin:.1rem 0 .3rem"><b>HS coverage:</b> '+d.hs_note+'</p>';}
     if(d.review&&d.review.length){h+='<details style="margin:.1rem 0 1rem"><summary class="muted"><b>'+d.n_review+' net-supplier flags</b> (apparent consumption &le; 0 — not dropped) — a country exporting more refined than production + imports: under-reported output, transit/re-export, or a stage/timing mismatch. Not noise; a review signal.</summary><table class="tidy"><tbody>';
       d.review.forEach(r=>{h+='<tr><td><b>'+r.iso+'</b></td><td class="n">'+r.prod.toLocaleString()+'</td><td class="n">'+r.net.toLocaleString()+'</td><td class="n"><b>'+r.ac.toLocaleString()+'</b></td></tr>';});
       h+='</tbody></table></details>';}

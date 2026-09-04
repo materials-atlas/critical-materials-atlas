@@ -262,6 +262,7 @@
   },
   "prod_source": "USGS Minerals Yearbook Copper 2022, Table 22 (world refinery production by country)",
   "trade_source": "BACI/Comtrade HS 740311",
-  "of_what": "refined-metal apparent consumption = refined production + imports - exports at the stated HS codes; measures refined-metal ABSORPTION only (excludes direct-melt scrap, which is large in fabricator economies) and assumes zero stock change (materially wrong for China in heavy bonded/SRB stocking years)"
+  "of_what": "refined-metal apparent consumption = refined production + imports - exports at the stated HS codes; measures refined-metal ABSORPTION only (excludes direct-melt scrap, which is large in fabricator economies) and assumes zero stock change (materially wrong for China in heavy bonded/SRB stocking years)",
+  "hs_note": "Four-code test (BACI 2024): adding wire-bars/billets/other-refined 740312/313/319 to cathode 740311 moves every top-15 share by <=0.3pp (fabricators Italy/Germany/Korea/Turkey <=0.1pp; China +1.0pp) and leaves world AC unchanged (they net out globally). So cathode 740311 alone is materially adequate. The published figure keeps the atlas pipeline's RECONCILED/hub-deduped 740311 (higher trade quality than raw BACI); the reconciliation gain (~1pp on China) and the four-code completeness gain roughly cancel."
  }
 }
