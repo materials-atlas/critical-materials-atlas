@@ -1,20 +1,33 @@
 {
- "note": "BGS production-concentration (HHI), 1995-2004 vs 2015-2024. Production only \u2014 no trade/AC/model. Lead with the CHANGE (divergence), not the LEVEL: the level gap is partly definitional (criticality lists select on concentration) and the baseline predates the EU CRM 2011 list; the change is not definitional. Coverage confound ruled out IN THE RIGHT DIRECTION: both groups gained reporters, so the criticals' rise is understated. HHI = sum of squared production shares; years with >=5 reporters only.",
+ "note": "BGS production-concentration (HHI of national production shares), 1995-2004 vs 2015-2024. Production only - no trade, no apparent consumption, no model. THE FINDING IS THE MEDIAN, NOT THE MEAN: the critical MEAN (+0.034) is carried almost entirely by lithium (+0.504) and cobalt (+0.310) - remove them and it goes to -0.002. The MEDIAN (+0.046) is robust to that (+0.044 without the two), so the TYPICAL critical material did concentrate modestly, while the often-cited average is really two materials. The LEVEL gap is partly definitional (criticality lists select on concentration) and the baseline predates the EU CRM 2011 list. CONTROL CAVEAT: most \"ordinary minerals\" are transport-sited (deconcentrate for logistics, not a counterfactual); the genuinely comparable, globally-traded controls are gold/silver/potash. SELECTION CAVEAT: critical lists were rewritten 2011-2023, inside the window, and lithium was listed partly because it concentrated - a full ex-ante freeze is the outstanding robustness check; the median's leave-one-out robustness is a partial defence. COVERAGE: reporter counts rose in both groups on average, but that does NOT correct a nonlinear per-row measure and the single biggest mover (lithium) LOST reporters (10->7); so the two largest movers are shown separately, not folded into an averaged coverage claim.",
  "critical": {
   "n": 23,
+  "mean_change": 0.034,
+  "median_change": 0.046,
   "mean_hhi_9504": 0.291,
   "mean_hhi_1524": 0.324,
-  "mean_change": 0.034,
   "n_concentrated": 15,
   "n_deconcentrated": 7,
   "mean_cov_9504": 23,
   "mean_cov_1524": 26
  },
+ "critical_ex_extremes": {
+  "n": 21,
+  "mean_change": -0.002,
+  "median_change": 0.044,
+  "mean_hhi_9504": 0.302,
+  "mean_hhi_1524": 0.3,
+  "n_concentrated": 13,
+  "n_deconcentrated": 7,
+  "mean_cov_9504": 24,
+  "mean_cov_1524": 28
+ },
  "transition": {
   "n": 9,
+  "mean_change": 0.057,
+  "median_change": 0.024,
   "mean_hhi_9504": 0.333,
   "mean_hhi_1524": 0.39,
-  "mean_change": 0.057,
   "n_concentrated": 5,
   "n_deconcentrated": 4,
   "mean_cov_9504": 17,
@@ -22,23 +35,36 @@
  },
  "non_transition": {
   "n": 14,
+  "mean_change": 0.019,
+  "median_change": 0.046,
   "mean_hhi_9504": 0.263,
   "mean_hhi_1524": 0.282,
-  "mean_change": 0.019,
   "n_concentrated": 10,
   "n_deconcentrated": 3,
   "mean_cov_9504": 27,
   "mean_cov_1524": 30
  },
- "control": {
+ "control_all": {
   "n": 13,
+  "mean_change": -0.036,
+  "median_change": -0.026,
   "mean_hhi_9504": 0.187,
   "mean_hhi_1524": 0.15,
-  "mean_change": -0.036,
   "n_concentrated": 3,
   "n_deconcentrated": 10,
   "mean_cov_9504": 44,
   "mean_cov_1524": 47
+ },
+ "control_comparable": {
+  "n": 3,
+  "mean_change": -0.055,
+  "median_change": -0.037,
+  "mean_hhi_9504": 0.239,
+  "mean_hhi_1524": 0.185,
+  "n_concentrated": 1,
+  "n_deconcentrated": 2,
+  "mean_cov_9504": 46,
+  "mean_cov_1524": 58
  },
  "materials": {
   "critical": [
@@ -258,7 +284,8 @@
     "change": 0.04,
     "cov_9504": 22,
     "cov_1524": 19,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "silver",
@@ -267,7 +294,8 @@
     "change": 0.024,
     "cov_9504": 54,
     "cov_1524": 70,
-    "transition": false
+    "transition": false,
+    "comparable": true
    },
    {
     "material": "salt",
@@ -276,7 +304,8 @@
     "change": 0.015,
     "cov_9504": 102,
     "cov_1524": 101,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "mica",
@@ -285,7 +314,8 @@
     "change": -0.017,
     "cov_9504": 21,
     "cov_1524": 21,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "bentonite_and_fuller_s_earth",
@@ -294,7 +324,8 @@
     "change": -0.018,
     "cov_9504": 47,
     "cov_1524": 51,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "aggregates_and_related_materials",
@@ -303,7 +334,8 @@
     "change": -0.022,
     "cov_9504": 24,
     "cov_1524": 28,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "gypsum",
@@ -312,7 +344,8 @@
     "change": -0.026,
     "cov_9504": 81,
     "cov_1524": 84,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "diatomite",
@@ -321,7 +354,8 @@
     "change": -0.026,
     "cov_9504": 28,
     "cov_1524": 27,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "gold",
@@ -330,7 +364,8 @@
     "change": -0.037,
     "cov_9504": 79,
     "cov_1524": 99,
-    "transition": false
+    "transition": false,
+    "comparable": true
    },
    {
     "material": "talc",
@@ -339,7 +374,8 @@
     "change": -0.043,
     "cov_9504": 42,
     "cov_1524": 35,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "vermiculite",
@@ -348,7 +384,8 @@
     "change": -0.104,
     "cov_9504": 11,
     "cov_1524": 13,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "kaolin",
@@ -357,7 +394,8 @@
     "change": -0.109,
     "cov_9504": 56,
     "cov_1524": 58,
-    "transition": false
+    "transition": false,
+    "comparable": false
    },
    {
     "material": "potash",
@@ -366,7 +404,8 @@
     "change": -0.151,
     "cov_9504": 6,
     "cov_1524": 6,
-    "transition": false
+    "transition": false,
+    "comparable": true
    }
   ]
  }
