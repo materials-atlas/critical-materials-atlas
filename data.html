@@ -46,6 +46,22 @@
       <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules</td></tr>
       <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog &mdash; every series we hold or could reach, and whether it is ingested</td></tr>
       <tr><td><span class="endpoint">/out/pairing.json</span></td><td>Cross-source comparison: which figures a second compilation agrees with, and why the rest differ</td></tr>
+      <tr><td><span class="endpoint">/out/sources.json</span></td><td><b>Source metadata</b> &mdash; what each compilation measures, on what basis, and why two of them can report different numbers for the same thing without either being wrong</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">Why two sources report different numbers for the same thing</h3>
+  <p>Each source is documented in <span class="endpoint">/out/sources.json</span>: what it measures, on what
+  basis, its known thin spots, and one line on <i>why it differs from the others</i>. Coverage in that file is
+  computed from the cube so it cannot go stale; the interpretation is written, because what a compilation
+  <i>means</i> by &ldquo;production&rdquo; is not inferable from its rows. In short:</p>
+  <table>
+    <thead><tr><th>Comparison</th><th>Where the difference comes from</th></tr></thead>
+    <tbody>
+      <tr><td><b>BGS vs USGS</b></td><td>BGS sums what countries <i>report</i>; USGS <i>estimates</i> a world total. Where reporting is incomplete USGS is usually larger &mdash; a gap reads as coverage, not error</td></tr>
+      <tr><td><b>BGS vs IEA</b></td><td>BGS often reports ORE at gross weight where IEA reports CONTAINED metal. Lithium is the extreme: roughly a 40&times; ratio, which is a unit difference and not a disagreement</td></tr>
+      <tr><td><b>BGS vs World Mining Data</b></td><td>Genuinely comparable &mdash; both country-level mine production. But WMD <i>estimates</i> where a country is silent and BGS leaves the cell empty</td></tr>
+      <tr><td><b>Production vs BACI trade</b></td><td>Production is of a MATERIAL; trade is of a PRODUCT CLASS (an HS code). They can only be differenced where a crosswalk pairs the form to the code explicitly</td></tr>
     </tbody>
   </table>
 

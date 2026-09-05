@@ -1,0 +1,262 @@
+{
+ "note": "What each compilation measures and why they differ. COVERAGE is computed from the cube and cannot go stale. INTERPRETATION is written by hand, because what a source MEANS by \"production\" is not inferable from its rows - each note is a claim we can be held to.",
+ "golden_rule": "Two numbers are comparable only when code_system, basis, stage and unit agree. Joining on material alone turns a definition difference into a false contradiction.",
+ "pairwise": [
+  {
+   "pair": "BGS vs USGS",
+   "difference": "BGS sums national returns; USGS estimates a world total. Where reporting is incomplete USGS is usually larger - the honest reading of a gap is coverage, not error."
+  },
+  {
+   "pair": "BGS vs IEA",
+   "difference": "BGS often reports ORE at gross weight where IEA reports CONTAINED metal. Lithium is the extreme case (~40x). Always check `basis` before differencing."
+  },
+  {
+   "pair": "BGS vs WMD",
+   "difference": "Both are country-level mine production, so these are genuinely comparable - but WMD estimates where a country is silent and BGS leaves the cell empty."
+  },
+  {
+   "pair": "production vs BACI",
+   "difference": "Production is of a MATERIAL; BACI is of a PRODUCT CLASS (an HS code). They can only be differenced where a crosswalk explicitly pairs the form to the code."
+  }
+ ],
+ "sources": [
+  {
+   "publisher": "British Geological Survey (UK)",
+   "licence": "Open Government Licence",
+   "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS",
+   "edition": "live OGC API, pulled 2026-09-04",
+   "what_it_is": "A compilation of the statistical returns that national statistical offices file. BGS does not measure production; it collects and standardises what states report.",
+   "measures": "production, imports and exports, by commodity FORM",
+   "basis": "Whatever the reporting country used. Mixed across commodities: some series are gross ore weight, some contained metal, and the unit string says which.",
+   "stage": "Carried in the commodity name itself - \"copper, mine\" and \"copper, refined\" are separate series, which is why a stage filter alone can silently sum several forms.",
+   "strengths": [
+    "Longest per-country panel we hold (1970-2024) with trade alongside production",
+    "Form-level granularity: the stage is explicit, not inferred",
+    "Marks a reported NIL distinctly from a missing row"
+   ],
+   "limits": [
+    "A sum over its reporters is NOT a world total. Coverage varies enormously by commodity: 3 reporters for germanium metal against 40+ for refined copper.",
+    "Under-captures output that never enters a national return - its DRC cobalt cell is roughly half what other compilations show, and the gap grows with artisanal mining.",
+    "Cement has ~32 reporters and no China or India, so it is a European sub-panel.",
+    "Trade reporting collapses after 2018 for most commodities."
+   ],
+   "differs_because": "It reports what states report. Where a state under-reports, mis-stages or does not file, BGS inherits that exactly - which is a feature for traceability and a trap for anyone summing it as a world figure.",
+   "source": "BGS World Mineral Statistics",
+   "coverage": {
+    "rows": 275297,
+    "materials": 60,
+    "geographies": 189,
+    "years": [
+     1970,
+     2024
+    ],
+    "measures": [
+     "exports",
+     "imports",
+     "production"
+    ],
+    "stages": [
+     "mine",
+     "processed",
+     "unspecified"
+    ],
+    "units": [
+     "Carats",
+     "kilograms",
+     "kilograms (metal content)",
+     "tonnes (Al2O3 content)",
+     "tonnes (K2O content)",
+     "tonnes (metal content)"
+    ],
+    "series": 341,
+    "pct_convertible_to_tonnes": 97.8
+   }
+  },
+  {
+   "publisher": "CEPII (France), from UN Comtrade",
+   "licence": "Free for research, registration",
+   "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+   "edition": "V202601, HS02 nomenclature, 2002-2024",
+   "what_it_is": "Bilateral trade reconciled by CEPII: every shipment is reported by both the exporter and the importer, and BACI resolves the two into one value per flow.",
+   "measures": "trade quantities and values by HS6 product code",
+   "basis": "Gross shipped weight of a PRODUCT, not contained metal.",
+   "stage": "Whatever the HS code describes - which is a product class, not a material.",
+   "strengths": [
+    "Both sides of each flow already reconciled",
+    "23 years on one nomenclature, so trends are not broken by code revisions"
+   ],
+   "limits": [
+    "An HS code is not a material. Several carry more than one metal, and a code can mix stages. Only the 47 codes mapped in our crosswalk are ingested.",
+    "Re-exports and entrepot trade inflate the countries that handle rather than produce.",
+    "Aggregated here to country-year; the bilateral pairs stay in the trade layer."
+   ],
+   "differs_because": "It measures what crossed a border in a product class, which is not what a country produced of a metal. Differencing it against production requires the form and the code to be paired deliberately.",
+   "source": "CEPII BACI (HS02)",
+   "coverage": {
+    "rows": 178014,
+    "materials": 30,
+    "geographies": 229,
+    "years": [
+     2002,
+     2024
+    ],
+    "measures": [
+     "exports",
+     "imports"
+    ],
+    "stages": [
+     "mine",
+     "processed"
+    ],
+    "units": [
+     "tonnes (metric)"
+    ],
+    "series": 90,
+    "pct_convertible_to_tonnes": 100.0
+   }
+  },
+  {
+   "publisher": "United States Geological Survey",
+   "licence": "US public domain",
+   "url": "https://www.usgs.gov/centers/national-minerals-information-center",
+   "edition": "Data Series 140 workbooks",
+   "what_it_is": "Long-run annual series per commodity: US supply and demand back to 1900, plus a WORLD production column for most commodities.",
+   "measures": "US production (mine/smelter/primary/secondary), imports, exports, stocks, apparent consumption, unit values; and world production totals",
+   "basis": "Metric tons unless the workbook notes otherwise; content vs gross varies by commodity.",
+   "stage": "Named per column (\"mine production\", \"refinery production\").",
+   "strengths": [
+    "Depth no other source here approaches - 1900 onward",
+    "World totals that give a denominator independent of summing national returns",
+    "Marks withheld (company-confidential) cells rather than dropping them"
+   ],
+   "limits": [
+    "Country detail is US-only; the world figures are totals, not country breakdowns.",
+    "Apparent consumption is USGS's own derived series, not an observation - it is stored under measure_family \"derived_by_source\" so it can never be mistaken for one.",
+    "World figures are estimates, and USGS says so where it cannot make a reliable one."
+   ],
+   "differs_because": "USGS estimates a world total; BGS adds up reporters. Where reporting is incomplete the two must differ, and the USGS figure is usually the larger.",
+   "source": "USGS Historical Statistics (DS 140)",
+   "coverage": {
+    "rows": 64856,
+    "materials": 79,
+    "geographies": 2,
+    "years": [
+     1900,
+     2023
+    ],
+    "measures": [
+     "apparent_consumption",
+     "consumption",
+     "exports",
+     "imports",
+     "production",
+     "production_secondary",
+     "shipments",
+     "shipments_government",
+     "stocks",
+     "stocks_government",
+     "stocks_industry",
+     "unit_value_nominal",
+     "unit_value_real98"
+    ],
+    "stages": [
+     "mine",
+     "processed",
+     "unspecified"
+    ],
+    "units": [
+     "1998 USD/t",
+     "USD/t",
+     "metric tons"
+    ],
+    "series": 685,
+    "pct_convertible_to_tonnes": 70.9
+   }
+  },
+  {
+   "publisher": "Austrian Federal Ministry (BMF)",
+   "licence": "Free, attribution",
+   "url": "https://www.world-mining-data.info/",
+   "edition": "6.4 Production by country, 2020-2024",
+   "what_it_is": "An annual world compilation of mine production by country and commodity.",
+   "measures": "mine production",
+   "basis": "Stated per sheet; several are content-basis and the sheet title says so (\"Chromium (Cr2O3)\" is an oxide basis, not contained chromium).",
+   "stage": "Mine only.",
+   "strengths": [
+    "The only source here that marks every cell REPORTED or ESTIMATED",
+    "Broad country coverage for a compact file"
+   ],
+   "limits": [
+    "Recent years only (2020-2024) - no depth",
+    "Mine stage only, no refining, no trade"
+   ],
+   "differs_because": "It estimates where a country does not report, so it fills holes BGS leaves empty. That makes it closer to a world total and further from a pure return.",
+   "source": "World Mining Data",
+   "coverage": {
+    "rows": 5334,
+    "materials": 38,
+    "geographies": 152,
+    "years": [
+     2020,
+     2024
+    ],
+    "measures": [
+     "production"
+    ],
+    "stages": [
+     "mine"
+    ],
+    "units": [
+     "ct",
+     "kg",
+     "metr. t"
+    ],
+    "series": 39,
+    "pct_convertible_to_tonnes": 96.5
+   }
+  },
+  {
+   "publisher": "International Energy Agency",
+   "licence": "CC BY 4.0",
+   "url": "https://www.iea.org/data-and-statistics/data-product/critical-minerals-dataset",
+   "edition": "May 2025 edition (base year 2024). Four editions exist: Jul 2023, May 2024, May 2025, Jul 2026 - we hold ONE.",
+   "what_it_is": "Supply and demand for energy-transition minerals. Mostly projections; the first column of the supply sheet is an observed base year.",
+   "measures": "country-level production at mine and refining stage - OBSERVED base-year column only",
+   "basis": "Contained metal / refined product, in thousand tonnes. NOT gross ore.",
+   "stage": "Explicit: separate mining and refining blocks.",
+   "strengths": [
+    "Refining by country, which is the layer where BGS is thinnest and where the chokepoint argument actually lives",
+    "Covers the energy-transition minerals in most demand for analysis"
+   ],
+   "limits": [
+    "Only 6 minerals, one observed year per edition.",
+    "Everything beyond the base-year column is a SCENARIO and is deliberately not ingested: a forecast must not sit where a query could difference it against measured history and call the result a trend.",
+    "Its published top-1 / top-3 shares are already-computed concentration statistics and are not ingested either - the cube stores observations and computes concentration itself.",
+    "WE HOLD ONE EDITION OF FOUR. Each edition carries its own observed base year, so the other three would turn a single snapshot into a 2022-2025 series AND expose how much the IEA revises between editions. Download needs a free IEA account."
+   ],
+   "differs_because": "It reports contained metal at a stage it names explicitly. Against BGS ore series the ratio can be 40x - lithium as contained metal versus spodumene at gross weight - which is a unit difference, not a disagreement.",
+   "source": "IEA Critical Minerals Dataset",
+   "coverage": {
+    "rows": 57,
+    "materials": 6,
+    "geographies": 23,
+    "years": [
+     2024,
+     2024
+    ],
+    "measures": [
+     "production"
+    ],
+    "stages": [
+     "mine",
+     "processed"
+    ],
+    "units": [
+     "thousand tonnes"
+    ],
+    "series": 10,
+    "pct_convertible_to_tonnes": 100.0
+   }
+  }
+ ]
+}
