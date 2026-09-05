@@ -158,21 +158,6 @@
    "shared": false
   },
   {
-   "label": "germanium",
-   "title": "Germanium",
-   "score": 47,
-   "gross": 47,
-   "recycling": 2,
-   "substitutability": "high",
-   "components": {
-    "production": 68,
-    "refining": 94,
-    "trade": 14.0,
-    "opacity": 0.0
-   },
-   "shared": true
-  },
-  {
    "label": "silicon",
    "title": "Silicon, < 99.99%",
    "score": 47,
@@ -246,6 +231,31 @@
     "opacity": 80.2
    },
    "shared": false
+  },
+  {
+   "label": "germanium",
+   "title": "Germanium",
+   "score": 44,
+   "gross": 44,
+   "recycling": 2,
+   "substitutability": "high",
+   "components": {
+    "production": 68,
+    "refining": 81,
+    "trade": 14.0,
+    "opacity": 0.0
+   },
+   "shared": true,
+   "score_range": [
+    41,
+    47
+   ],
+   "rank_range": [
+    11,
+    19
+   ],
+   "uncertainty": "refining share is an interval (68-94%), not a measurement; the point score uses the midpoint of the dated anchors. Score spans 41-47, rank spans 11-19 of 32.",
+   "refined_source": "Interval 68-94%, both ends dated; no current world total exists. LOW END 68% (2020), printed: USGS Minerals Yearbook 2023, germanium, table 1 - China 95,000 kg of 140,000 kg world refinery production (2020) = 68%; every figure in that table is flagged estimated and 2021-23 are NA, with the text saying reliable estimates could not be made and world output was put at 100,000-200,000 kg. HIGH END 94% (2024): the BGS three-reporter table - a share of reporters, not of world output. Deleting the \"other\" line (Belgium, Canada, Germany; US excluded) from the same 2020 row gives 95,000/100,000 = 95% - which is structurally where a 94% comes from, because the BGS cells have no \"other\" row to carry. BGS 2024 covers 3 reporters only (CN 200 t, US 7 t, RU 5 t) and its China cell alone is 1.4x the whole USGS world estimate, so the numerators are not the same object. USGS publishes no China share of its own. Where a single number is unavoidable (the supply-risk index), 81 is used: the midpoint of the two dated anchors, reproducible from them."
   },
   {
    "label": "cobalt",

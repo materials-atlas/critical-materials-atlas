@@ -66,6 +66,36 @@ def main():
                      'score': score, 'gross': gross, 'recycling': recyc,
                      'substitutability': m.get('substitutability'),
                      'components': c, 'shared': m['label'] in SHARED})
+    # ── uncertainty on materials whose refining share is an interval, not a measurement ──────
+    # A scalar index needs one number, but germanium's refining share has no measured world value:
+    # only two dated anchors (68% USGS world 2020, 94% BGS three-reporter 2024). Publishing the
+    # point alone would launder that interval into a fact. So the score is recomputed at each
+    # anchor and the resulting score AND RANK BAND travel with the row.
+    def score_with(m, ref_override):
+        mm = dict(m); mm['refined'] = [{'c': (m.get('refined') or [{}])[0].get('c'),
+                                        'v': ref_override}]
+        return components(mm)[2]
+    for m in data['materials']:
+        rng = m.get('refined_range')
+        if not rng:
+            continue
+        row = next((r for r in rows if r['label'] == m['label']), None)
+        if not row:
+            continue
+        lo_s, hi_s = score_with(m, rng[0]), score_with(m, rng[1])
+        ranks = []
+        for s_alt in (lo_s, hi_s):
+            others = sorted([r['score'] for r in rows if r['label'] != m['label']] + [s_alt],
+                            reverse=True)
+            ranks.append(others.index(s_alt) + 1)
+        row['score_range'] = sorted([lo_s, hi_s])
+        row['rank_range'] = sorted(ranks)
+        row['uncertainty'] = (
+            f"refining share is an interval ({rng[0]}-{rng[1]}%), not a measurement; the point "
+            f"score uses the midpoint of the dated anchors. Score spans {min(lo_s, hi_s)}-"
+            f"{max(lo_s, hi_s)}, rank spans {min(ranks)}-{max(ranks)} of {len(rows)}.")
+        row['refined_source'] = m.get('refined_source')
+
     rows.sort(key=lambda r: r['score'], reverse=True)
     json.dump({'weights': W, 'year': YEAR, 'materials': rows},
               open(os.path.join(ROOT, 'out', 'risk.json'), 'w', encoding='utf8'), indent=1)

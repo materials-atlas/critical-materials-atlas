@@ -99,19 +99,29 @@ for m in d['materials']:
 # attribution so it is not the only untagged number on the page.
 for m in d['materials']:
     if m['label'] == 'germanium':
-        m['refined'] = [{'c': 'CN', 'v': 85}]
-        m['refined_range'] = [60, 94]
+        # DISPLAY is the interval, both ends dated. A bare 85 fails the standard the atlas argues
+        # for in public exactly as a bare 94 does, only less visibly - neither is a measured
+        # world share and no current world total exists.
+        # SCALAR consumers (the supply-risk index needs one number) get 81: the midpoint of the two
+        # dated anchors, which is reproducible from them. 85 was not.
+        m['refined'] = [{'c': 'CN', 'v': 81}]
+        m['refined_range'] = [68, 94]
+        m['refined_point_note'] = ('81 = midpoint of the dated anchors (68 in 2020, 94 in 2024). '
+                                   'Used only where a scalar is unavoidable; display the interval.')
         m['refined_source'] = (
-            'Central estimate ~85%; credible range 60-94. LOW END, printed: USGS Minerals Yearbook 2023, '
+            'Interval 68-94%, both ends dated; no current world total exists. '
+            'LOW END 68% (2020), printed: USGS Minerals Yearbook 2023, '
             'germanium, table 1 - China 95,000 kg of 140,000 kg world refinery production (2020) = 68%; '
             'every figure in that table is flagged estimated and 2021-23 are NA, with the text saying '
             'reliable estimates could not be made and world output was put at 100,000-200,000 kg. '
-            'HIGH END: IEA export-control table, 94. '
+            'HIGH END 94% (2024): the BGS three-reporter table - a share of reporters, not of world output. '
             'Deleting the "other" line (Belgium, Canada, Germany; US excluded) from the same 2020 row gives '
             '95,000/100,000 = 95% - which is structurally where a 94% comes from, because the BGS cells have '
             'no "other" row to carry. BGS 2024 covers 3 reporters only (CN 200 t, US 7 t, RU 5 t) and its '
             'China cell alone is 1.4x the whole USGS world estimate, so the numerators are not the same '
-            'object. USGS publishes no China share of its own.')
+            'object. USGS publishes no China share of its own. '
+            'Where a single number is unavoidable (the supply-risk index), 81 is used: the midpoint '
+            'of the two dated anchors, reproducible from them.')
         m['refined_basis'] = 'estimate'
         m['mined_basis'] = 'estimate'
         m['mined_source'] = ('Estimate - no measured series exists: BGS carries no germanium mine series and '

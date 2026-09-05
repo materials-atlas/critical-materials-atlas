@@ -387,7 +387,64 @@ def check_anchor_sync():
 
 
 # ---------------------------------------------------------------- run
-CHECKS = [('datasets', check_datasets), ('links', check_links), ('js', check_js),
+
+def check_drift():
+    """Derived outputs must agree with data.json on the shares they COPY.
+
+    The failure this exists to stop: data.json's germanium refining share was corrected, but
+    out/risk.json had been built weeks earlier and kept scoring the old value, so the supply-risk
+    page published a number the rest of the site had already retracted. Nothing was broken -
+    every file was internally valid - which is exactly why a link check or a schema check misses
+    it. The only reliable signal is comparing the copy against the source.
+
+    Also enforced: a material whose share is an INTERVAL must never have its point value shown on
+    a profile page without the interval. A scalar is allowed to exist for an index that needs one;
+    it is not allowed to be displayed as if it were a measurement.
+    """
+    try:
+        d = json.load(open('out/data.json', encoding='utf8'))
+    except Exception:
+        return
+    mats = {m['label']: m for m in d.get('materials', [])}
+
+    # 1. risk.json copies the refining share into its components - it must match
+    if os.path.exists('out/risk.json'):
+        try:
+            r = json.load(open('out/risk.json', encoding='utf8'))
+            for row in r.get('materials', []):
+                m = mats.get(row.get('label'))
+                if not m or not m.get('refined'):
+                    continue
+                src = round(float(m['refined'][0]['v']), 1)
+                got = row.get('components', {}).get('refining')
+                if got is None:
+                    continue
+                if abs(float(got) - src) > 0.55:
+                    fail('drift', f'out/risk.json scores {row["label"]} refining at {got} but '
+                                  f'data.json says {src} - rebuild build_risk.py')
+        except Exception as e:
+            warn('drift', f'could not compare risk.json: {e}')
+
+    # 2. an interval must be displayed as an interval, never as its scalar alone
+    for lab, m in mats.items():
+        rng = m.get('refined_range')
+        if not rng:
+            continue
+        page = f'profile-{lab}.html'
+        if not os.path.exists(page) or not tracked(page):
+            continue
+        html = open(page, encoding='utf8').read()
+        band = f'{rng[0]}–{rng[1]}%'
+        if band not in html:
+            fail('drift', f'{page} does not show the interval {band} for a share that has no '
+                          f'measured value - a point estimate must not stand alone')
+        pt = m['refined'][0]['v']
+        if re.search(rf'lead refiner[^<]{{0,12}}{int(pt)}%', html):
+            fail('drift', f'{page} prints the scalar {int(pt)}% as the lead-refiner share; that '
+                          f'number exists only for the index, not for display')
+
+
+CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
           ('basis', check_basis), ('anchor', check_anchor_sync)]
