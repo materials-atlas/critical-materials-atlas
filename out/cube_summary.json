@@ -19,5 +19,12 @@
  "tonnage_convertible_pct": 97.8,
  "sources": [
   "BGS World Mineral Statistics"
- ]
+ ],
+ "series": 341,
+ "value_flags": {
+  "nil": 4452,
+  "trace": 447
+ },
+ "retrieved_at": "2026-09-04",
+ "join_rule": "NEVER join on material alone. The identity of an observation is (code_system, native_code, measure, stage, basis, unit). material is a convenience label mapped from source_group, not a key."
 }

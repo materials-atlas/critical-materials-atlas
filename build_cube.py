@@ -52,6 +52,18 @@ PROC = ('refined', 'metal', 'smelter', 'alumina', 'oxide', 'ferro', 'unwrought',
         'carbonate', 'hydroxide', '白')  # last is a guard against odd encodings, harmless
 
 
+def value_flag(precision):
+    """BGS ships no 'estimated' marker, but it does distinguish a reported NIL (the country
+    produced nothing - real information) from a trace rounded below 0.5 t, and both differ from a
+    missing row. Keep them as flags rather than letting a true zero look like an absence."""
+    p = (precision or '').lower()
+    if 'nil' in p:
+        return 'nil'
+    if 'less than' in p:
+        return 'trace'
+    return None
+
+
 def stage_of(commodity, sub):
     s = f"{commodity or ''} {sub or ''}".lower()
     if any(k in s for k in MINE):
@@ -77,6 +89,14 @@ UNITS = {
     'tonnes (contained)':       (1.0,   'content'),
 }
 MEASURE = {'Production': 'production', 'Imports': 'imports', 'Exports': 'exports'}
+
+# When the spine was pulled. Kept per row so a later re-pull is distinguishable from this vintage.
+try:
+    import datetime as _dt
+    RETRIEVED = _dt.date.fromtimestamp(
+        os.path.getmtime(os.path.join(PANEL, 'copper.json'))).isoformat()
+except Exception:
+    RETRIEVED = None
 
 
 def build():
@@ -108,18 +128,32 @@ def build():
             factor, basis = UNITS.get(unit, (None, None))
             commodity = r.get('bgs_commodity_trans')
             sub = r.get('bgs_sub_commodity_trans')
+            code = r.get('bgs_commodity_code')
             rows.append((
-                material, group, iso, int(yr), meas,
-                stage_of(commodity, sub), commodity, sub,
-                q, unit, (q * factor) if factor else None, basis,
-                'BGS World Mineral Statistics', r.get('data_precision_description'),
+                material, group, iso, int(yr),
+                'trade' if meas in ('imports', 'exports') else 'production',   # measure_family
+                meas,
+                {'imports': 'in', 'exports': 'out'}.get(meas),                 # flow_direction
+                stage_of(commodity, sub),
+                'BGS commodity', code, commodity, sub,                         # native identity
+                q, unit, (q * factor) if factor else None, factor, basis,
+                'BGS World Mineral Statistics',
+                f'BGS:{code}:{meas}',                                          # series_id
+                r.get('data_precision_description'), value_flag(r.get('data_precision_description')),
             ))
     df = pd.DataFrame(rows, columns=[
-        'material', 'source_group', 'country_iso3', 'year', 'measure', 'stage',
-        'commodity', 'sub_commodity', 'value', 'unit', 'value_t', 'basis',
-        'source', 'precision'])
+        'material', 'source_group', 'country_iso3', 'year',
+        'measure_family', 'measure', 'flow_direction', 'stage',
+        'code_system', 'native_code', 'native_label', 'sub_commodity',
+        'value', 'unit', 'value_t', 'conversion_factor', 'basis',
+        'source', 'series_id', 'precision', 'value_flag'])
+    # value_t is only meaningful alongside its factor and basis - enforce, do not trust discipline
+    bad = df.value_t.notna() & (df.conversion_factor.isna() | df.basis.isna())
+    if bad.any():
+        raise SystemExit(f'{bad.sum()} rows carry value_t without factor/basis - refusing to write')
     # in_atlas marks the 32 headline materials; the rest are controls/drivers, kept on purpose
     df['in_atlas'] = df['material'].isin(ATLAS)
+    df['retrieved_at'] = RETRIEVED
     return df.sort_values(['material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
 
 
@@ -143,6 +177,12 @@ if __name__ == '__main__':
         'by_stage': {k: int(v) for k, v in df['stage'].value_counts().items()},
         'tonnage_convertible_pct': round(100 * df['value_t'].notna().mean(), 1),
         'sources': sorted(df['source'].unique().tolist()),
+        'series': int(df['series_id'].nunique()),
+        'value_flags': {k: int(v) for k, v in df['value_flag'].value_counts().items()},
+        'retrieved_at': RETRIEVED,
+        'join_rule': 'NEVER join on material alone. The identity of an observation is '
+                     '(code_system, native_code, measure, stage, basis, unit). material is a '
+                     'convenience label mapped from source_group, not a key.',
     }
     json.dump(summary, open(os.path.join(ROOT, 'out', 'cube_summary.json'), 'w', encoding='utf-8'),
               indent=1)
