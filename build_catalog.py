@@ -17,6 +17,9 @@ So this builder answers "do we have data for X?" without normalizing a single ex
       on_disk   — the file is downloaded and sitting in raw/, but not parsed into the cube
       reachable — a known public series from an institution we already use, not yet fetched
                   (marked unverified: the URL/scope has NOT been re-checked by this script)
+      driver    — an ACTIVITY series (country-year), not a mineral quantity. Feeds the
+                  consumption model rather than the cube; a non-CC one may be used but never
+                  republished.
       declined  — considered and rejected, with the reason. A catalog that only lists what we
                   might use is half a record: free, well-licensed and adjacent is not the same as
                   relevant, and an unwritten refusal gets re-proposed every few months.
@@ -144,6 +147,36 @@ for inst, ds, fam, geo, note in [
 ]:
     add(institution=inst, dataset=ds, series='(whole dataset)', measure_family=fam, geography=geo,
         status='reachable', note=(note + ' — scope/URL NOT verified by this build').strip(' —'))
+
+# ── 5b. DRIVER CANDIDATES — activity series, not mineral quantities ───────────────────────────
+# These do not belong in the cube and are not rejects either: the consumption model is
+# demand = activity x intensity, so a country-year activity series is a legitimate second intake.
+# Licence is load-bearing here - the atlas publishes its cube, so a non-CC source can be an input
+# but can never be redistributed.
+for ds, fam, geo, yrs, lic, note in [
+    ('Energy and AI annex - data-centre installed capacity', 'activity: data-centre GW',
+     'world + region + US + CN', (2020, 2024), 'CC BY 4.0',
+     'Observed 2020/2023/2024 (projections ignored). The atlas has a data-centre CHAIN but no '
+     'data-centre DRIVER. Blocker: intensities are back-solved from a known world total, and there '
+     'is no published world total of material consumed by data centres - so it can carry a '
+     'narrative but not a calibrated estimate until one exists.'),
+    ('Energy and Emissions per Value Added Database', 'activity: sectoral value added',
+     'OECD + ~100 non-OECD', (2000, 2021), 'NOT CC - Terms of Use for Non-CC Material',
+     'Country-year-sector value added by ISIC Rev.4 division. This is the driver the IEA ITSELF '
+     'uses for non-clean-energy mineral demand, per its own methodology note - the same shape as '
+     'our consumption model. Would reach materials whose end use spreads across manufacturing '
+     'sectors with no physical driver (electronics 26, machinery 28, transport equipment 29-30). '
+     'MUST NOT be redistributed in the published cube.'),
+    ('Energy End-uses and Efficiency Indicators - Highlights', 'activity: value added + population',
+     'IEA members and beyond', (2000, 2024), 'NOT CC - Terms of Use for Non-CC Material',
+     'Its "Activity data" sheet overlaps the Value Added database on a longer window but reduced '
+     'coverage. Compare the two before wiring either in; do not stack them. XLSB format. '
+     'MUST NOT be redistributed.'),
+]:
+    add(institution='IEA', dataset=ds, series='(activity series)', measure_family=fam,
+        geography=geo, year_min=yrs[0], year_max=yrs[1], status='driver',
+        path='raw/iea_drivers/', note=f'LICENCE {lic}. {note}')
+
 
 # ── 6. CONSIDERED AND DECLINED ────────────────────────────────────────────────────────────────
 # A catalog that only lists what we might use is half a record. Free, well-licensed and adjacent is

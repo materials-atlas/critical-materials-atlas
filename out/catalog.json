@@ -1,12 +1,13 @@
 {
  "summary": {
   "note": "Coverage catalog: one row per SERIES (not per observation). Answers \"do we have data for X?\" before any ingestion work. status: in_cube / on_disk / reachable. \"reachable\" rows are named from institutions we already use and are NOT verified by this build \u2014 treat as leads, not facts.",
-  "series": 945,
+  "series": 948,
   "by_status": {
    "in_cube": 839,
    "on_disk": 90,
    "reachable": 12,
-   "declined": 4
+   "declined": 4,
+   "driver": 3
   },
   "institutions": [
    "BGR (DERA)",
@@ -15080,6 +15081,54 @@
    "status": "reachable",
    "path": NaN,
    "note": "scope/URL NOT verified by this build"
+  },
+  {
+   "institution": "IEA",
+   "dataset": "Energy and AI annex - data-centre installed capacity",
+   "series": "(activity series)",
+   "measure_family": "activity: data-centre GW",
+   "geography": "world + region + US + CN",
+   "year_min": 2020.0,
+   "year_max": 2024.0,
+   "n_countries": NaN,
+   "n_rows": NaN,
+   "unit": NaN,
+   "frequency": "annual",
+   "status": "driver",
+   "path": "raw/iea_drivers/",
+   "note": "LICENCE CC BY 4.0. Observed 2020/2023/2024 (projections ignored). The atlas has a data-centre CHAIN but no data-centre DRIVER. Blocker: intensities are back-solved from a known world total, and there is no published world total of material consumed by data centres - so it can carry a narrative but not a calibrated estimate until one exists."
+  },
+  {
+   "institution": "IEA",
+   "dataset": "Energy and Emissions per Value Added Database",
+   "series": "(activity series)",
+   "measure_family": "activity: sectoral value added",
+   "geography": "OECD + ~100 non-OECD",
+   "year_min": 2000.0,
+   "year_max": 2021.0,
+   "n_countries": NaN,
+   "n_rows": NaN,
+   "unit": NaN,
+   "frequency": "annual",
+   "status": "driver",
+   "path": "raw/iea_drivers/",
+   "note": "LICENCE NOT CC - Terms of Use for Non-CC Material. Country-year-sector value added by ISIC Rev.4 division. This is the driver the IEA ITSELF uses for non-clean-energy mineral demand, per its own methodology note - the same shape as our consumption model. Would reach materials whose end use spreads across manufacturing sectors with no physical driver (electronics 26, machinery 28, transport equipment 29-30). MUST NOT be redistributed in the published cube."
+  },
+  {
+   "institution": "IEA",
+   "dataset": "Energy End-uses and Efficiency Indicators - Highlights",
+   "series": "(activity series)",
+   "measure_family": "activity: value added + population",
+   "geography": "IEA members and beyond",
+   "year_min": 2000.0,
+   "year_max": 2024.0,
+   "n_countries": NaN,
+   "n_rows": NaN,
+   "unit": NaN,
+   "frequency": "annual",
+   "status": "driver",
+   "path": "raw/iea_drivers/",
+   "note": "LICENCE NOT CC - Terms of Use for Non-CC Material. Its \"Activity data\" sheet overlaps the Value Added database on a longer window but reduced coverage. Compare the two before wiring either in; do not stack them. XLSB format. MUST NOT be redistributed."
   },
   {
    "institution": "IEA",
