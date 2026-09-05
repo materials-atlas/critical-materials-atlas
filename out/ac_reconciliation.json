@@ -1,0 +1,43 @@
+{
+ "verdict": "RETAIN the per-metal builder. The cube reproduces copper (within 1 point) but cannot compute lithium, which that builder also publishes - so retiring it now would delete a published result and the only other method for it.",
+ "note": "Two apparent-consumption methods compared on the same year: a single query over the harmonized cube vs the dedicated per-metal builder using mirror-reconciled trade. The apparent 4-point disagreement reported earlier was a QUERY ERROR - filtering production on stage summed several BGS copper forms as one series and compared mismatched years. Paired explicitly, the methods agree closely.",
+ "residual_causes": [
+  "Production vintage: the per-metal builder mixes years (it takes each component from the latest source available, e.g. production 2022 with trade 2024) while a cube query can hold one year throughout. The public page discloses the mixed vintage per material.",
+  "Trade source: raw BACI vs mirror-reconciled flows differ by roughly 5% on China net refined copper trade, worth a few tenths of a point on the share."
+ ],
+ "rule_this_broke": "Never select a production series by (material, stage). Name the form. Three BGS copper forms carry stage=\"processed\".",
+ "pipeline_year": 2023,
+ "materials": [
+  {
+   "material": "copper",
+   "pairing": {
+    "form": "copper, refined",
+    "hs": "740311",
+    "stage": "refined metal"
+   },
+   "cube": {
+    "year": 2023,
+    "form": "copper, refined",
+    "hs": "740311",
+    "china_production_kt": 12988.0,
+    "china_net_trade_kt": 3162.7,
+    "china_ac_kt": 16150.7,
+    "world_positive_ac_kt": 28231.3,
+    "china_share_pct": 57.2,
+    "n_countries": 122
+   },
+   "pipeline": {
+    "china_production_kt": 11860,
+    "china_net_trade_kt": 3347.3,
+    "china_ac_kt": 15207.3,
+    "china_share_pct": 56.4
+   },
+   "share_gap_pp": 0.8
+  },
+  {
+   "material": "lithium",
+   "status": "NOT computable from the cube",
+   "reason": "BGS carries lithium only as \"lithium minerals\" - ORE at gross weight - while the mapped trade code 283691 is lithium CARBONATE, a refined chemical. Production and trade therefore sit at different stages on different bases, and differencing them would be the same category error the cross-source map exists to prevent. A cube apparent consumption for lithium needs a refined-lithium production series we do not yet have."
+  }
+ ]
+}
