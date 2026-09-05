@@ -1,12 +1,12 @@
 {
  "summary": {
   "note": "Coverage catalog: one row per SERIES (not per observation). Answers \"do we have data for X?\" before any ingestion work. status: in_cube / on_disk / reachable. \"reachable\" rows are named from institutions we already use and are NOT verified by this build \u2014 treat as leads, not facts.",
-  "series": 944,
+  "series": 945,
   "by_status": {
    "in_cube": 839,
    "on_disk": 90,
    "reachable": 12,
-   "declined": 3
+   "declined": 4
   },
   "institutions": [
    "BGR (DERA)",
@@ -15096,6 +15096,22 @@
    "status": "declined",
    "path": NaN,
    "note": "Out of scope, not out of quality. It estimates electricity ACCESS and DEMAND per BUILDING in sub-Saharan Africa from satellite imagery - a different subject, a different unit of observation and a different geography from mineral production and trade. The only route to relevance would be building-level demand -> grid buildout -> conductor tonnage, which is a speculative modelling chain we do not have and could not defend. Where grid expansion is genuinely needed as a demand driver, IEA network investment series are the direct measure. CC BY 4.0; code at github.com/stephenjlee/beacon and /litldf if that ever changes."
+  },
+  {
+   "institution": "IEA",
+   "dataset": "CCUS Projects Database (2026 edition)",
+   "series": "(whole dataset)",
+   "measure_family": "n/a",
+   "geography": "n/a",
+   "year_min": NaN,
+   "year_max": NaN,
+   "n_countries": NaN,
+   "n_rows": NaN,
+   "unit": NaN,
+   "frequency": "annual",
+   "status": "declined",
+   "path": NaN,
+   "note": "INSPECTED, not judged from the description: 2,034 projects, 30 columns, and NOT ONE material dimension - project name, country, partners, dates, status, CO2 capacity in Mt/yr, sector, fate of carbon, references. Two independent reasons it cannot enter the cube. (a) Its unit of observation is a PROJECT; the cube is country-year. (b) Getting from CO2 capacity to material demand needs tonnes of steel/alloy per Mt of capture capacity, which nobody publishes - and our consumption model calibrates intensities by back-solving from a KNOWN WORLD TOTAL, of which there is none for \"material embodied in CCUS\". We would be inventing the number we then reported. If an energy-infrastructure materials layer is ever built on published intensities, this is a good input to it; until then it is a different subject. CC BY 4.0."
   },
   {
    "institution": "IEA",

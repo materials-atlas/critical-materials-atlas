@@ -158,6 +158,16 @@ for inst, ds, why in [
      'speculative modelling chain we do not have and could not defend. Where grid expansion is '
      'genuinely needed as a demand driver, IEA network investment series are the direct measure. '
      'CC BY 4.0; code at github.com/stephenjlee/beacon and /litldf if that ever changes.'),
+    ('IEA', 'CCUS Projects Database (2026 edition)',
+     'INSPECTED, not judged from the description: 2,034 projects, 30 columns, and NOT ONE material '
+     'dimension - project name, country, partners, dates, status, CO2 capacity in Mt/yr, sector, '
+     'fate of carbon, references. Two independent reasons it cannot enter the cube. (a) Its unit of '
+     'observation is a PROJECT; the cube is country-year. (b) Getting from CO2 capacity to material '
+     'demand needs tonnes of steel/alloy per Mt of capture capacity, which nobody publishes - and '
+     'our consumption model calibrates intensities by back-solving from a KNOWN WORLD TOTAL, of '
+     'which there is none for "material embodied in CCUS". We would be inventing the number we then '
+     'reported. If an energy-infrastructure materials layer is ever built on published intensities, '
+     'this is a good input to it; until then it is a different subject. CC BY 4.0.'),
     ('IEA', 'Demand projections (STEPS / APS / NZE scenarios)',
      'Forecasts. They must not sit in a table of observations where a later query could difference '
      'them against measured history and call the result a trend. Used on the site as cited '
