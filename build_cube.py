@@ -196,6 +196,21 @@ def build():
     except Exception as e:
         print(f'  WMD ingest skipped: {e}')
 
+    # ── fifth ingest: IEA Critical Minerals Dataset, 2024 column only ────────────────────────
+    # A correction, not just an addition. "IEA is scenarios" was too blunt: the Data Explorer's
+    # supply sheet carries an observed 2024 column of country-level production at BOTH mine and
+    # refining stage - and refining-by-country is the layer where BGS is thinnest. The projection
+    # columns (2030/2035/2040) stay out, for the original reason.
+    try:
+        import build_cube_iea
+        i = pd.DataFrame(build_cube_iea.build())
+        if len(i):
+            i['in_atlas'] = i['material'].isin(ATLAS)
+            i['retrieved_at'] = None
+            df = pd.concat([df, i], ignore_index=True, sort=False)
+    except Exception as e:
+        print(f'  IEA ingest skipped: {e}')
+
     # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
     # codes and sources with numeric ones can share the column
     df['native_code'] = df['native_code'].astype('string')

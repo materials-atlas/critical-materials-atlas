@@ -10,9 +10,11 @@ its first source-declared estimate marker, which the pairing map can use to tell
 compilations disagree" apart from "one of them is guessing here".
 
 WHY THE OTHER THREE CITED SOURCES ARE STILL OUT, deliberately and not by omission:
-  * IEA Global Critical Minerals Outlook - scenario projections. A different grain entirely
-    (scenario x technology x year) and forecasts must not sit in a table of observations where a
-    later query could difference them against measured history.
+  * IEA - PARTLY SUPERSEDED, see build_cube_iea.py. Its scenario columns stay out for the reason
+    below, but the Data Explorer's observed 2024 column is country-level production and IS now
+    ingested. The original blanket exclusion was too blunt.
+    (Projections are a different grain - scenario x technology x year - and forecasts must not sit
+    in a table of observations where a later query could difference them against measured history.)
   * EU CRM 2023 - criticality scores and end-use shares. These are indicators ABOUT a material,
     not observations OF one; they belong as dimensions/attributes, not as rows with a tonnage.
   * ECB reference rates - currency, not mineral. It belongs to the trade-value pipeline.
