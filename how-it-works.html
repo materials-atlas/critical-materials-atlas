@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/how-it-works">
+<title>How the atlas works — Critical Materials Atlas</title>
+<meta name="description" content="The mechanism, not the summary: how two conflicting trade reports become one number, how a physical limit repairs a false origin, what each analysis takes in and puts out, and the five checks every figure passes before publication.">
+<meta property="og:title" content="How the atlas works">
+<meta property="og:description" content="The actual mechanism behind each number: inputs, method, outputs, and the checks a figure must survive to be published.">
+<meta property="og:url" content="https://criticalmaterialsatlas.org/how-it-works">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
+<style>
+ article{max-width:1000px}
+ .lead{font-size:1.05rem;line-height:1.6;color:var(--ink-soft);max-width:78ch;margin:.2rem 0 1.2rem}
+ .lead b{color:var(--navy)}
+ .step{display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;padding:1rem 0;border-top:1px solid var(--line)}
+ .step .num{font-weight:800;color:var(--line-strong);font-size:1.5rem;line-height:1}
+ .step h3{margin:0 0 .3rem;font-size:1.02rem;color:var(--navy)}
+ .step p{margin:0 0 .45rem;font-size:.9rem;color:var(--ink-soft);line-height:1.55;max-width:76ch}
+ .formula{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.82rem;background:var(--bg-soft);
+   border:1px solid var(--line);border-radius:8px;padding:.6rem .8rem;color:var(--navy);
+   white-space:pre-wrap;line-height:1.6;overflow-x:auto}
+ .io{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:.6rem 0 0}
+ .io>div{padding:.6rem .8rem;border-left:1px solid var(--line)}
+ .io>div:first-child{border-left:none}
+ .io .k{font-size:.66rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin-bottom:.2rem}
+ .io .v{font-size:.83rem;color:var(--ink-soft);line-height:1.45}
+ @media(max-width:720px){.io{grid-template-columns:1fr}.io>div{border-left:none;border-top:1px solid var(--line)}.io>div:first-child{border-top:none}}
+ .layer{border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;margin:.7rem 0;background:var(--bg)}
+ .layer h3{margin:0;font-size:1rem;color:var(--navy)}
+ .layer .q{font-size:.88rem;color:var(--accent);font-weight:600;margin:.15rem 0 .1rem}
+ .gate{display:grid;grid-template-columns:auto 1fr;gap:.9rem;padding:.75rem 0;border-top:1px solid var(--line);align-items:start}
+ .gate .n{font-size:.7rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--hot);white-space:nowrap;padding-top:.15rem}
+ .gate p{margin:0;font-size:.89rem;color:var(--ink-soft);line-height:1.55;max-width:76ch}
+ .gate b{color:var(--navy)}
+</style>
+</head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+</div></header>
+<main id="main">
+
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method · the mechanism</div>
+  <h1>How the atlas works</h1>
+  <p class="deck">Not a summary of what each page shows &mdash; the actual machinery. How two countries reporting the same shipment differently become one number. How a physical limit catches a false origin. What every analysis takes in and puts out. And the five checks a figure must survive before it is published.</p>
+</div></section>
+
+<article>
+  <p class="lead">Everything here is built from public data by script, and rebuilt from scratch each time. There is no hand-entered spreadsheet anywhere in the chain: if a number appears on this site, a named source and a named calculation produced it, and both are written down below.</p>
+
+  <h2>The engine, step by step</h2>
+  <p class="note" style="max-width:80ch;margin-bottom:.4rem">Five operations turn raw public files into the figures on the site. Each is stated with its actual rule, because &ldquo;we reconcile the data&rdquo; is not a method.</p>
+
+  <div class="step"><div class="num">1</div><div>
+    <h3>Decide who to believe</h3>
+    <p>Every shipment is reported twice &mdash; once by the exporter, once by the importer &mdash; and the two rarely agree. Import values also include freight and insurance that export values do not, so they are not even measuring the same thing. The engine first removes that wedge by estimating the CIF/FOB markup, then combines the two sides. Version 1 uses an <b>equal-weighted geometric mean</b> of the adjusted pair.</p>
+    <p>Reporters are also scored, so that combination can improve. Each country&rsquo;s systematic bias is estimated by <b>robust two-way median centering</b> (removing partner and product effects), and its <b>reliability = 1 / residual variance</b>, shrunk toward the average so a country with few flows cannot look artificially precise.</p>
+    <div class="io"><div><div class="k">Input</div><div class="v">Both sides of each bilateral flow (CEPII BACI, UN Comtrade mirrors)</div></div>
+      <div><div class="k">Method</div><div class="v">CIF/FOB adjustment &rarr; geometric mean of the pair; reporter bias and reliability estimated separately</div></div>
+      <div><div class="k">Output</div><div class="v"><code>flows_reconciled</code> &mdash; one agreed value per flow, plus a quality score per reporter</div></div></div>
+  </div></div>
+
+  <div class="step"><div class="num">2</div><div>
+    <h3>Count each shipment once</h3>
+    <p>Seven sources overlap. The same tonne can appear in a national release, a mirror record and a compilation. Records are matched on flow identity and de-duplicated to a single best row per flow, with the losing rows kept rather than deleted so the choice can be inspected.</p>
+    <div class="io"><div><div class="k">Input</div><div class="v">All source rows for the same flow</div></div>
+      <div><div class="k">Method</div><div class="v">Match on (period, exporter, importer, code); keep the best record, retain the rest</div></div>
+      <div><div class="k">Output</div><div class="v"><code>flows_best</code></div></div></div>
+  </div></div>
+
+  <div class="step"><div class="num">3</div><div>
+    <h3>Apply the physical limit</h3>
+    <p>Trade data says where a shipment came <i>from</i>, which is not the same as where the material was <i>produced</i> &mdash; a hub can export what it never mined. So the atlas imposes a physical constraint: a country cannot ship out more than it produced and did not itself consume.</p>
+    <div class="formula">exportable(c)       = max(0, production(c) − consumption(c))
+exportable_share(c) = exportable(c) / Σ exportable        · the physical prior
+guardrailed(c)      = min(observed_share(c), exportable_share(c))   · HARD limit
+corrected(c)        ≈ w·guardrailed(c) + (1−w)·exportable_share(c)  · w = 0.5</div>
+    <p style="margin-top:.5rem">The weight <b>w</b> is how much we trust the trade record against the physical prior. It is set at 0.5 and documented as a knob, not a discovery &mdash; which means <b>a corrected share is the midpoint of a range, never a point finding</b>, and the pages say so.</p>
+    <div class="io"><div><div class="k">Input</div><div class="v">Reconciled flows + production + the consumption estimate from step 4</div></div>
+      <div><div class="k">Method</div><div class="v">Hard cap at what is physically exportable, then a documented blend</div></div>
+      <div><div class="k">Output</div><div class="v">Corrected origin shares with the size of each correction shown</div></div></div>
+  </div></div>
+
+  <div class="step"><div class="num">4</div><div>
+    <h3>Estimate what a country actually uses</h3>
+    <p>Consumption is mostly unpublished, so it is estimated from what a country visibly <i>does</i> &mdash; how much steel it makes, how many cars, how much construction &mdash; times how much of each material that activity needs. The intensities are not guessed. Each is <b>back-solved from a known world total</b>, so the country cells can be uncertain but the world sum cannot drift:</p>
+    <div class="formula">intensity(m, driver) = KNOWN_WORLD(m) × end_use_share(m, driver) / WORLD_TOTAL(driver)
+demand(c, m)         = Σ over drivers  activity(c, driver) × intensity(m, driver)</div>
+    <p style="margin-top:.5rem">This is deliberately <b>trade-independent</b>: it never looks at imports, which is what lets it be used as an independent check on the trade data in step 3 rather than a restatement of it.</p>
+    <div class="io"><div><div class="k">Input</div><div class="v">National activity series (steel, vehicles, construction, semiconductors&hellip;) + published end-use splits</div></div>
+      <div><div class="k">Method</div><div class="v">Activity &times; self-calibrating intensity, anchored to a known world total</div></div>
+      <div><div class="k">Output</div><div class="v">Demand by country and material &mdash; an order-of-magnitude estimate, labelled as one</div></div></div>
+  </div></div>
+
+  <div class="step"><div class="num">5</div><div>
+    <h3>Turn it into indices</h3>
+    <p>Shares become comparable measures: concentration (HHI of national shares), a weighted supply-risk score, resilience under supplier removal. Where an input is an interval rather than a measurement, the index <b>carries a score band and a rank band</b> instead of pretending to a point.</p>
+    <div class="io"><div><div class="k">Input</div><div class="v">Production, refining and trade shares; recycling rates; origin gaps</div></div>
+      <div><div class="k">Method</div><div class="v">Explicit weights, published and adjustable; uncertainty propagated, not hidden</div></div>
+      <div><div class="k">Output</div><div class="v"><a href="risk-index">the reweightable index</a>, <a href="concentration">concentration</a>, <a href="n1">N&minus;1</a></div></div></div>
+  </div></div>
+
+  <h2>What each analysis takes in, and puts out</h2>
+  <p class="note" style="max-width:80ch;margin-bottom:.6rem">Six analyses, each attacking supply risk from a different side. Same question for each: what goes in, what is done to it, what comes out.</p>
+
+  <div class="layer"><h3>1 · Value chains</h3>
+    <div class="q">Where does this material actually come from, stage by stage?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Production by stage, reconciled trade, published chain literature per material</div></div>
+      <div><div class="k">Method</div><div class="v">Trace mine &rarr; concentrate &rarr; refine &rarr; component; attach the leading producers to each stage</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="value-chains">57 chain pages</a> + 59 material and country profiles, each with a research library</div></div></div></div>
+
+  <div class="layer"><h3>2 · Chokepoint map</h3>
+    <div class="q">Is this a rock problem or a factory problem?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Every chain stage, plus feedstock signatures showing whether a leader mines or imports its input</div></div>
+      <div><div class="k">Method</div><div class="v">Classify each chokepoint by <i>mechanism</i>: geology, processing capability, policy, or furnace physics</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="chokepoint-map">58 chokepoints</a> &mdash; only 4 geological, so 54 are in principle rebuildable</div></div></div></div>
+
+  <div class="layer"><h3>3 · Risk &amp; scenarios</h3>
+    <div class="q">Could the world cope without the dominant supplier?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Mine share, refining share, export concentration, origin gap, recycling rate</div></div>
+      <div><div class="k">Method</div><div class="v">Weighted index with a recyclability discount; N&minus;1 removal; optimal-transport reallocation</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="risk-index">Risk scores</a>, <a href="n1">N&minus;1 coverage</a>, <a href="ot">stress test</a>, <a href="leverage">importer exposure</a></div></div></div></div>
+
+  <div class="layer"><h3>4 · Trade engine + anchor</h3>
+    <div class="q">Which trade numbers do we actually believe?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Both sides of every flow, from seven overlapping sources</div></div>
+      <div><div class="k">Method</div><div class="v">Steps 1&ndash;3 above: reconcile, de-duplicate, then constrain origin by what is physically exportable</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="anchor">The anchor</a> &mdash; corrected origin shares, each with the size of its correction</div></div></div></div>
+
+  <div class="layer"><h3>5 · Concentration</h3>
+    <div class="q">Did supply actually get more concentrated?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">Production tonnages only &mdash; no trade, no model, no forecast</div></div>
+      <div><div class="k">Method</div><div class="v">HHI of national shares per decade, then leave-one-out and a frozen pre-window definition to test whether the result is an artefact</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="concentration">The finding</a>: the story runs two ways, and the cited average is two materials</div></div></div></div>
+
+  <div class="layer"><h3>6 · Cross-source comparison</h3>
+    <div class="q">Does a second compilation report the same numbers we do?</div>
+    <div class="io"><div><div class="k">In</div><div class="v">The cube: BGS national sums against USGS world estimates, paired form by form</div></div>
+      <div><div class="k">Method</div><div class="v">Explicitly declared pairings &mdash; never matched on material name &mdash; then the ratio of the two sums</div></div>
+      <div><div class="k">Out</div><div class="v"><a href="comparison">34 of 53 within 10%</a>, and a recorded reason for every figure that differs</div></div></div></div>
+
+  <h2>The five checks a number passes before it appears</h2>
+  <p class="lead" style="margin-bottom:.2rem">This is the part worth knowing before you use anything here. Most publishing on critical minerals gives you a number. The atlas gives you the number <i>and</i> what it is worth &mdash; and takes numbers down in public when they fail. Every figure runs this gauntlet.</p>
+
+  <div class="gate"><span class="n">1 · Mechanical</span><p>Nothing is published if a link is broken, a dataset a page depends on is missing, or a retracted figure has reappeared. This runs before every single deployment and has <b>never been bypassed</b>.</p></div>
+  <div class="gate"><span class="n">2 · Provenance</span><p>Every estimate carries a clickable basis note naming the source, the quoted row and the computation. <b>Reported, computed and estimated are never silently mixed</b> &mdash; and a figure with no recorded source says so on its face rather than borrowing the authority of the ones that have it.</p></div>
+  <div class="gate"><span class="n">3 · Adversarial</span><p>Findings are attacked before publication, not after. The <a href="concentration">concentration finding</a> went through five review passes and two complete framings were discarded, because a claim that only survives friendly reading is not a finding.</p></div>
+  <div class="gate"><span class="n">4 · Drift</span><p>A corrected source does not correct its copies. Every derived figure is compared against the source it was copied from, so a page cannot keep publishing a number the rest of the site has already retracted.</p></div>
+  <div class="gate"><span class="n">5 · Census</span><p>A sum over a handful of reporting countries is not a world total, however plausible it looks. <b>13 of 53</b> materials fail that test &mdash; including lithium and rare earths &mdash; and the pages that use them say so rather than quietly rounding the limitation away.</p></div>
+
+  <div class="callout" style="margin-top:1.4rem"><b>What this cannot do.</b> The atlas measures public data, so it inherits what public data cannot see: artisanal and informal output that never enters a national return, company-confidential cells, and stockpiles nobody publishes. Consumption is an estimate and is labelled as one. Corrected origin shares are midpoints of a documented range, not measurements. Where two sources disagree we <a href="comparison">show both and explain the difference</a> rather than picking a winner. <a href="limitations">The full limits page</a> states the rest, and <a href="challenge">the challenge page</a> invites you to break any of it.</div>
+
+  <div class="ftr"><a href="method">Method hub</a> &middot; <a href="data">Download the data</a> &middot; <a href="comparison">Cross-source comparison</a> &middot; <a href="limitations">Limits</a></div>
+</article>
+
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div><div><h4>Related</h4><a href="method">Method</a><br><a href="data">Open data</a></div><div class="fineprint">Every figure on this site is produced by a named source and a named calculation, both written down.</div></div></footer>
+</body></html>
