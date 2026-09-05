@@ -92,22 +92,64 @@ for m in d['materials']:
 # --- estimate overrides & attributions. Rule: a label does not repair a number that answers a
 # different question. BGS germanium 2024 covers THREE reporters (CN 200 t / US 7 t / RU 5 t), so the
 # computed 94 is 200/212 — a share of reporters, not of world output. The headline therefore shows the
-# documented central estimate (basis.json: credible range 60-94; IEA export-control table 94 vs IEA
-# GCMO p.199 chart ~78; USGS: 'most producers do not publicly report'), and the reporter detail stays
-# as the provenance line. Gallium's 98 is NOT BGS — it is the USGS world figure — and carries its
+# documented central estimate (range 60-94; low end = USGS Minerals Yearbook 2023 table 1, printed;
+# high end = the IEA export-control table), and the reporter detail stays as the provenance line.
+# An earlier draft cited "IEA GCMO p.199 ~78" - that page is a scatter chart and 78 was an eyeball
+# read, so it was replaced by a printed figure rather than dressed up as one. Gallium's 98 is NOT BGS — it is the USGS world figure — and carries its
 # attribution so it is not the only untagged number on the page.
 for m in d['materials']:
     if m['label'] == 'germanium':
         m['refined'] = [{'c': 'CN', 'v': 85}]
-        m['refined_source'] = ('central estimate ~85% (credible range 60-94: IEA export-control table 94, '
-                               'IEA GCMO 2026 p.199 chart ~78; USGS publishes no share). Provenance: BGS 2024 '
-                               'covers 3 reporters only - CN 200 t, US 7 t, RU 5 t')
+        m['refined_range'] = [60, 94]
+        m['refined_source'] = (
+            'Central estimate ~85%; credible range 60-94. LOW END, printed: USGS Minerals Yearbook 2023, '
+            'germanium, table 1 - China 95,000 kg of 140,000 kg world refinery production (2020) = 68%; '
+            'every figure in that table is flagged estimated and 2021-23 are NA, with the text saying '
+            'reliable estimates could not be made and world output was put at 100,000-200,000 kg. '
+            'HIGH END: IEA export-control table, 94. '
+            'Deleting the "other" line (Belgium, Canada, Germany; US excluded) from the same 2020 row gives '
+            '95,000/100,000 = 95% - which is structurally where a 94% comes from, because the BGS cells have '
+            'no "other" row to carry. BGS 2024 covers 3 reporters only (CN 200 t, US 7 t, RU 5 t) and its '
+            'China cell alone is 1.4x the whole USGS world estimate, so the numerators are not the same '
+            'object. USGS publishes no China share of its own.')
         m['refined_basis'] = 'estimate'
-        m['mined_source'] = ('estimate - no measured series exists: BGS carries no germanium mine series and '
-                             'USGS publishes no country table (most producers do not report)')
+        m['mined_basis'] = 'estimate'
+        m['mined_source'] = ('Estimate - no measured series exists: BGS carries no germanium mine series and '
+                             'USGS publishes no country production table (most producers do not report).')
     elif m['label'] == 'gallium':
-        m['refined_source'] = 'USGS MCS - world estimate, refined gallium (~98%)'
-        m['mined_source'] = 'USGS MCS 2025 - world primary low-purity gallium: China 839/848 t = 98.9% (2024)'
+        m['refined_basis'] = 'estimate'
+        m['mined_basis'] = 'estimate'
+        m['refined_source'] = 'USGS MCS - world estimate, refined gallium (~98%). Estimated, not a measured census.'
+        m['mined_source'] = ('USGS MCS 2025 - world primary low-purity gallium: China 839 t of 848 t = 98.9% '
+                             '(2024). USGS states this as an estimate.')
+# --- fill any remaining unattributed refined/mined share from the source ledger. A share printed
+# with no provenance reads as a measured fact; 12 materials were doing exactly that. The ledger
+# already records where each came from, so wire it through rather than inventing an attribution -
+# and mark the basis 'cited' so the renderer shows the tooltip without implying a reporter census.
+try:
+    _led = json.load(open(os.path.join(ROOT, 'source_ledger.json'), encoding='utf-8'))
+except Exception:
+    _led = {}
+_filled = []
+for m in d['materials']:
+    ent = _led.get(m['label'])
+    if not isinstance(ent, dict):
+        continue
+    src = ent.get('source')
+    if not src:
+        continue
+    prov = src + (f" — {ent['claim']}" if ent.get('claim') else '')
+    if ent.get('conf'):
+        prov += f" [{ent['conf']}]"
+    for layer in ('refined', 'mined'):
+        if m.get(layer) and not m.get(f'{layer}_source'):
+            m[f'{layer}_source'] = prov
+            m[f'{layer}_basis'] = 'cited'
+            _filled.append(f"{m['label']}/{layer}")
+if _filled:
+    print(f"  filled {len(_filled)} unattributed shares from the ledger: {', '.join(_filled[:8])}"
+          + (' …' if len(_filled) > 8 else ''))
+
 json.dump(d, open(os.path.join(ROOT, 'out', 'data.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 json.dump(refined_years, open(os.path.join(ROOT, 'out', 'refined_years.json'), 'w', encoding='utf-8'), separators=(',', ':'), ensure_ascii=False)
 print('\n'.join(report))

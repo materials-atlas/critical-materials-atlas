@@ -357,6 +357,30 @@ def origin_gap(m, label):
     mined = {x['c']: x['v'] for x in (m.get('mined') or [])}
     return te, te_share, te_share - mined.get(te, 0.0), mined
 
+def share_stat(kind, pt, src, basis, rng):
+    """Render a lead-miner / lead-refiner tile so the number cannot be read as a measured world
+    share when it is not one. An estimate shows its RANGE rather than a false point; a BGS figure
+    shows how many countries actually reported. Full provenance rides in the tooltip."""
+    import re as _re
+    if basis == 'estimate':
+        core = f'{rng[0]}–{rng[1]}%' if rng else f'~{pt:.0f}%'
+        label, note = f'{kind} · {core}', 'estimate'
+    else:
+        rep = _re.search(r'share of (\d+) reporting', src or '')
+        label = f'{kind} · {pt:.0f}%'
+        if rep:
+            note = f'of {rep.group(1)} reporters'
+        elif not src:
+            # No recorded provenance. Say so rather than let a bare number read as measured -
+            # an unlabelled share is exactly the failure this whole pass exists to remove.
+            note = 'source not recorded'
+        else:
+            note = ''
+    if note:
+        label += f' <span style="color:var(--faint);font-weight:600">({note})</span>'
+    return label
+
+
 def page(m):
     label = m['label']
     title = m['title'].split(' (')[0]
@@ -396,11 +420,23 @@ def page(m):
     if m.get('export_control'): stats.append(('<span style="color:#e0703c">⚠ controlled</span>', e(m['export_control'])))
     if m.get('net_import_reliance'): stats.append((e(m['net_import_reliance']), 'US import reliance'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))
-    if mi: stats.append((f'{flag(mi["c"])} {cname(mi["c"])}', f'lead miner · {mi["v"]:.0f}%'))
-    if re: stats.append((f'{flag(re["c"])} {cname(re["c"])}', f'lead refiner · {re["v"]:.0f}%'))
+    if mi: stats.append((f'{flag(mi["c"])} {cname(mi["c"])}',
+                         share_stat('lead miner', mi['v'], m.get('mined_source'),
+                                    m.get('mined_basis'), m.get('mined_range')),
+                         m.get('mined_source')))
+    if re: stats.append((f'{flag(re["c"])} {cname(re["c"])}',
+                         share_stat('lead refiner', re['v'], m.get('refined_source'),
+                                    m.get('refined_basis'), m.get('refined_range')),
+                         m.get('refined_source')))
     if texp: stats.append((f'{flag(texp[0])} {cname(texp[0])}', f'top exporter · {texp[1]/etot*100:.0f}%'))
     if texp: stats.append((f'{ehhi:.2f}', 'export concentration (HHI)'))
-    stat_html = ''.join(f'<div class="stat"><div class="n">{s[0]}</div><div class="l">{e(s[1])}</div></div>' for s in stats)
+    def _stat(s):
+        # s = (value, label, [provenance tooltip]); label may carry safe markup from share_stat
+        tip = f' title="{e(s[2])}"' if len(s) > 2 and s[2] else ''
+        cue = '<span style="color:var(--faint);cursor:help"> ⓘ</span>' if len(s) > 2 and s[2] else ''
+        lab = s[1] if '<span' in str(s[1]) else e(s[1])
+        return f'<div class="stat"{tip}><div class="n">{s[0]}</div><div class="l">{lab}{cue}</div></div>'
+    stat_html = ''.join(_stat(s) for s in stats)
 
     host_callout = ''
     if m.get('host'):
