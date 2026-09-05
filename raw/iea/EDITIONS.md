@@ -12,7 +12,7 @@ https://www.iea.org/data-and-statistics/data-product/critical-minerals-dataset
 | July 2023 | 11/07/2023 | ~2022              | NO    | `CM_Data_Explorer_2023-07.xlsx`    |
 | May 2024  | 17/05/2024 | ~2023              | NO    | `CM_Data_Explorer_2024-05.xlsx`    |
 | May 2025  | 21/05/2025 | 2024               | YES   | `CM_Data_Explorer.xlsx` (current)  |
-| July 2026 | 27/07/2026 | ~2025              | NO    | `CM_Data_Explorer_2026-07.xlsx`    |
+| July 2026 | 27/07/2026 | **2025**           | YES   | `CM_Data_Explorer_2026-07.xlsx`    |
 
 Licence: CC BY 4.0, attribution required.
 
@@ -27,6 +27,9 @@ revision, and being able to show it is the point.
 ## Why this is worth doing
 - 2022–2025 of country-level MINE **and REFINING** production for the six energy-transition
   minerals. Refining-by-country is the layer where BGS is thinnest.
-- A measured revision history: how much does a published "observation" move once the next
-  edition restates it? Nobody can answer that from one file, and it bears directly on how much
-  weight any single-year figure should carry.
+- CORRECTION to an earlier claim of mine: editions do NOT restate each other's observed year.
+  Each publishes only its own base year (May-2025 -> 2024, Jul-2026 -> 2025), so there is no
+  overlapping observed column to measure revision against. Successive editions give successive
+  YEARS, not a revision history. Revisions are visible only in the projection columns, which we
+  deliberately do not ingest.
+- Also gained from the Jul-2026 edition: LITHIUM REFINING by country, absent from May-2025.

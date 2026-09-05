@@ -219,7 +219,7 @@
    "publisher": "International Energy Agency",
    "licence": "CC BY 4.0",
    "url": "https://www.iea.org/data-and-statistics/data-product/critical-minerals-dataset",
-   "edition": "May 2025 edition (base year 2024). Four editions exist: Jul 2023, May 2024, May 2025, Jul 2026 - we hold ONE.",
+   "edition": "TWO editions held: May 2025 (observes 2024) and Jul 2026 (observes 2025). Four exist; Jul 2023 and May 2024 are still missing.",
    "what_it_is": "Supply and demand for energy-transition minerals. Mostly projections; the first column of the supply sheet is an observed base year.",
    "measures": "country-level production at mine and refining stage - OBSERVED base-year column only",
    "basis": "Contained metal / refined product, in thousand tonnes. NOT gross ore.",
@@ -232,17 +232,20 @@
     "Only 6 minerals, one observed year per edition.",
     "Everything beyond the base-year column is a SCENARIO and is deliberately not ingested: a forecast must not sit where a query could difference it against measured history and call the result a trend.",
     "Its published top-1 / top-3 shares are already-computed concentration statistics and are not ingested either - the cube stores observations and computes concentration itself.",
-    "WE HOLD ONE EDITION OF FOUR. Each edition carries its own observed base year, so the other three would turn a single snapshot into a 2022-2025 series AND expose how much the IEA revises between editions. Download needs a free IEA account."
+    "Each edition observes only ITS OWN base year, so editions give successive years (2024, 2025) rather than restatements of the same year - there is no overlapping observed column to measure revision against. Revisions are visible only in the PROJECTION columns, which we do not ingest.",
+    "Two editions of four held. Jul 2023 and May 2024 would extend the observed series back to roughly 2022. Download needs a free IEA account.",
+    "The published methodology note we hold is the Jul 2023 first release: it documents the DEMAND model and states that supply projections came later, so it does not define the supply-sheet basis or units. That basis is inferred from the sheet, not from IEA documentation, and is flagged here as such."
    ],
+   "notable": "The IEA models non-clean-energy demand from \"historical consumption by end-use, activity drivers (GDP, industry value added, steel production) and material intensities\" - which is, independently, the same construction as this project own trade-independent consumption model.",
    "differs_because": "It reports contained metal at a stage it names explicitly. Against BGS ore series the ratio can be 40x - lithium as contained metal versus spodumene at gross weight - which is a unit difference, not a disagreement.",
    "source": "IEA Critical Minerals Dataset",
    "coverage": {
-    "rows": 57,
+    "rows": 133,
     "materials": 6,
-    "geographies": 23,
+    "geographies": 29,
     "years": [
      2024,
-     2024
+     2025
     ],
     "measures": [
      "production"
@@ -254,7 +257,7 @@
     "units": [
      "thousand tonnes"
     ],
-    "series": 10,
+    "series": 21,
     "pct_convertible_to_tonnes": 100.0
    }
   }

@@ -6,14 +6,16 @@ been giving - "IEA is scenario projections, and forecasts must not sit in a tabl
 was true of most of it and WRONG about the part that matters.
 
 The Data Explorer's "Total supply for key minerals" sheet is laid out as country x year, and its
-FIRST column is 2024: an observed/current-year figure, not a projection. It gives country-level
+FIRST column is that edition's OBSERVED base year, not a projection. It gives country-level
 supply for copper, cobalt, lithium, nickel, graphite and magnet rare earths at BOTH the mining and
 refining stage - and refining-by-country is precisely the layer where BGS coverage is thinnest and
 where the atlas's chokepoint argument actually lives.
 
 So the rule was right but applied too bluntly. What is ingested and what is not:
-  INGESTED  the 2024 column only - country-level, current, an observation.
-  NOT       2030 / 2035 / 2040 columns. Those are scenario projections; mixing them into a table of
+  INGESTED  each edition's base-year column only - country-level, current, an observation. The
+            base year is DETECTED per file (May-2025 observes 2024; Jul-2026 observes 2025) and the
+            edition travels with the row, so two editions are two vintages rather than a collision.
+  NOT       the 2030 / 2035 / 2040 columns. Those are scenario projections; mixing them into a table of
             observations would let a later query difference a forecast against measured history and
             call the result a trend.
   NOT       the demand-scenario files (STEPS / APS / NZE growth multipliers) for the same reason.
@@ -29,10 +31,15 @@ import os, sys, csv, warnings
 warnings.filterwarnings('ignore')
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
-XLSX = os.path.join(ROOT, 'raw', 'iea', 'CM_Data_Explorer.xlsx')
+import glob as _glob
+XLSX_GLOB = os.path.join(ROOT, 'raw', 'iea', 'CM_Data_Explorer*.xlsx')
 CODES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
 SHEET = '2 Total supply for key minerals'
-OBS_YEAR = 2024                     # the only column that is an observation
+# Each EDITION publishes its own observed base year in the first year column - May-2025 observes
+# 2024, Jul-2026 observes 2025. So the base year is detected per file rather than assumed, and the
+# edition travels with the row: two editions are two vintages of the same series, not a collision.
+EDITION_OF = {'CM_Data_Explorer.xlsx': '2025-05', 'CM_Data_Explorer_2026-07.xlsx': '2026-07',
+              'CM_Data_Explorer_2024-05.xlsx': '2024-05', 'CM_Data_Explorer_2023-07.xlsx': '2023-07'}
 
 IEA_TO_MATERIAL = {
     'copper': 'copper', 'cobalt': 'cobalt', 'lithium': 'lithium', 'nickel': 'nickel',
@@ -61,24 +68,33 @@ def name_to_iso():
         'madagascar': 'MDG', 'new caledonia': 'NCL', 'myanmar': 'MMR', 'malaysia': 'MYS',
         'mozambique': 'MOZ', 'tanzania': 'TZA', 'poland': 'POL', 'kazakhstan': 'KAZ',
         'zambia': 'ZMB', 'turkey': 'TUR', 'vietnam': 'VNM', 'estonia': 'EST', 'norway': 'NOR',
+        "lao people's democratic republic": 'LAO', 'laos': 'LAO',
     })
     return m
 
 
 def build():
+    out = []
+    for path in sorted(_glob.glob(XLSX_GLOB)):
+        out.extend(_build_one(path))
+    return out
+
+
+def _build_one(XLSX):
     import openpyxl
-    if not os.path.exists(XLSX):
-        return []
     n2i = name_to_iso()
+    edition = EDITION_OF.get(os.path.basename(XLSX), 'unknown')
     wb = openpyxl.load_workbook(XLSX, read_only=True, data_only=True)
     rows_x = list(wb[SHEET].iter_rows(max_col=20, values_only=True))
     wb.close()
 
-    # locate the year header row, then every "<mineral> - <stage>" block and its column offset
-    year_row = next((r for r in rows_x if r and any(
-        isinstance(c, (int, float)) and c == OBS_YEAR for c in r)), None)
+    # the year header row, and THIS edition's observed base year = its earliest year column
+    year_row = next((r for r in rows_x if r and sum(
+        1 for c in r if isinstance(c, (int, float)) and 2000 < c < 2100) >= 2), None)
     if year_row is None:
         return []
+    years_present = [int(c) for c in year_row if isinstance(c, (int, float)) and 2000 < c < 2100]
+    OBS_YEAR = min(years_present)
     out, unmapped = [], set()
     for ri, r in enumerate(rows_x):
         for ci, cell in enumerate(r):
@@ -114,18 +130,20 @@ def build():
                 if v <= 0:
                     continue
                 out.append({
-                    'material': material, 'source_group': f'IEA:{head}', 'country_iso3': iso,
+                    'material': material, 'source_group': f'IEA {edition}:{head}',
+                    'country_iso3': iso,
                     'year': OBS_YEAR, 'measure_family': 'production', 'measure': 'production',
                     'flow_direction': None, 'stage': STAGE[stage_key],
-                    'code_system': 'IEA CM Data Explorer', 'native_code': head,
+                    'code_system': f'IEA CM Data Explorer {edition}', 'native_code': head,
                     'native_label': head, 'sub_commodity': None,
                     'value': v, 'unit': 'thousand tonnes',
                     'value_t': v * KT_TO_T, 'conversion_factor': KT_TO_T, 'basis': 'gross',
-                    'source': 'IEA Critical Minerals Dataset', 'series_id': f'IEA:{head}:production',
+                    'source': 'IEA Critical Minerals Dataset', 'series_id': f'IEA {edition}:{head}:production',
                     'precision': None, 'value_flag': None,
                 })
     if unmapped:
-        print(f'  IEA: unmapped labels {sorted(unmapped)[:6]}')
+        print(f'  IEA {edition}: unmapped labels {sorted(unmapped)[:4]}')
+    print(f'  IEA {edition}: base year {OBS_YEAR}, {len(out)} rows')
     return out
 
 
