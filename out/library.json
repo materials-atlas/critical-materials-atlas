@@ -1,0 +1,424 @@
+{
+ "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
+ "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
+ "total_gb": 3.44,
+ "folders": 31,
+ "undocumented": [],
+ "library": [
+  {
+   "folder": "raw/baci",
+   "n_files": 7,
+   "size_mb": 2848.9,
+   "formats": [
+    ".csv",
+    ".zip"
+   ],
+   "newest": "2026-08-16",
+   "dataset": "CEPII BACI bilateral trade, HS02 and HS17 vintages",
+   "licence": "Free for research",
+   "status": "in cube (partly)",
+   "why_we_might_need_it": "HS02 gives 2002-2024 on one nomenclature. Only the 47 mapped codes are ingested; the rest is deliberate ballast left out."
+  },
+  {
+   "folder": "raw/bgs",
+   "n_files": 64,
+   "size_mb": 400.7,
+   "formats": [
+    ".json"
+   ],
+   "newest": "2026-09-04",
+   "dataset": "BGS World Mineral Statistics full panel",
+   "licence": "Open Government Licence",
+   "status": "in cube",
+   "why_we_might_need_it": "The spine: 410k records, production + trade by country, 1970-2024."
+  },
+  {
+   "folder": "raw/_sources",
+   "n_files": 135,
+   "size_mb": 50.8,
+   "formats": [
+    ".pdf",
+    ".xls",
+    ".xlsx"
+   ],
+   "newest": "2026-09-04",
+   "dataset": "Primary PDFs and source-of-record documents",
+   "licence": "various",
+   "status": "reference",
+   "why_we_might_need_it": "Where a cited figure can be re-checked against the document it came from."
+  },
+  {
+   "folder": "raw/iea_drivers",
+   "n_files": 3,
+   "size_mb": 31.5,
+   "formats": [
+    ".xlsb",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "IEA activity datasets: Energy & AI annex, Value Added DB, EEI Highlights",
+   "licence": "MIXED - Energy&AI is CC BY 4.0; Value Added and EEI are NOT CC",
+   "status": "driver candidates",
+   "why_we_might_need_it": "Country-year ACTIVITY series for the consumption model (demand = activity x intensity). Value added by ISIC division is the driver the IEA itself uses. The non-CC two may be used but never redistributed in out/."
+  },
+  {
+   "folder": "raw/usgs_mcs",
+   "n_files": 33,
+   "size_mb": 23.3,
+   "formats": [
+    ".json",
+    ".pdf"
+   ],
+   "newest": "2026-08-09",
+   "dataset": "USGS Mineral Commodity Summaries PDFs",
+   "licence": "US public domain",
+   "status": "partly extracted",
+   "why_we_might_need_it": "RESERVES, refinery output, import reliance and recycling are still unextracted - the largest known unopened box in the library."
+  },
+  {
+   "folder": "raw/comtrade",
+   "n_files": 3,
+   "size_mb": 22.4,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-06-26",
+   "dataset": "UN Comtrade extracts",
+   "licence": "UN, free",
+   "status": "in use",
+   "why_we_might_need_it": "Mirror side of the trade reconciliation."
+  },
+  {
+   "folder": "raw/mrds",
+   "n_files": 1,
+   "size_mb": 16.9,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-11",
+   "dataset": "USGS Mineral Resources Data System",
+   "licence": "US public domain",
+   "status": "reference",
+   "why_we_might_need_it": "Deposit records, site grain."
+  },
+  {
+   "folder": "raw/iea",
+   "n_files": 8,
+   "size_mb": 11.0,
+   "formats": [
+    ".csv",
+    ".pdf",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "IEA Critical Minerals Dataset + report PDFs",
+   "licence": "CC BY 4.0",
+   "status": "in cube (driver too)",
+   "why_we_might_need_it": "Base-year supply by country at mine AND refining stage - the layer where BGS is thinnest. Two editions held, two missing."
+  },
+  {
+   "folder": "raw/geodist",
+   "n_files": 2,
+   "size_mb": 10.2,
+   "formats": [
+    ".xls",
+    ".zip"
+   ],
+   "newest": "2026-06-26",
+   "dataset": "CEPII GeoDist country distances",
+   "licence": "Free for research",
+   "status": "in use",
+   "why_we_might_need_it": "Distance/contiguity for trade-gravity and reallocation work."
+  },
+  {
+   "folder": "raw/iea_rdd",
+   "n_files": 2,
+   "size_mb": 6.6,
+   "formats": [
+    ".zip"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "IEA Energy Technology RD&D Budgets (public + private), 1974-2025",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Country-year-technology R&D SPEND. Money, not an activity a material intensity can multiply, so not a driver. Kept because it is the best public measure of how hard a country is trying on a technology - a possible leading indicator for deployment, and a possible read on SUBSTITUTION effort, which the atlas already has a layer for. Not redistributable."
+  },
+  {
+   "folder": "raw/eucrm",
+   "n_files": 2,
+   "size_mb": 5.9,
+   "formats": [
+    ".pdf",
+    ".txt"
+   ],
+   "newest": "2026-08-13",
+   "dataset": "EU Critical Raw Materials assessment",
+   "licence": "EU, reuse permitted",
+   "status": "reference",
+   "why_we_might_need_it": "Criticality scores and end-use shares - indicators ABOUT materials, so a dimension rather than cube rows. Also the list vintages used for the ex-ante freeze test."
+  },
+  {
+   "folder": "raw/usgs_hist",
+   "n_files": 85,
+   "size_mb": 4.3,
+   "formats": [
+    ".csv",
+    ".xlsx"
+   ],
+   "newest": "2026-07-15",
+   "dataset": "USGS Historical Statistics (DS 140), 84 workbooks",
+   "licence": "US public domain",
+   "status": "in cube",
+   "why_we_might_need_it": "Depth to 1900 and world production totals. Found by the catalog after sitting unused except for its price column."
+  },
+  {
+   "folder": "raw/surveys",
+   "n_files": 1,
+   "size_mb": 3.5,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "National geological survey extracts",
+   "licence": "mixed public",
+   "status": "reference",
+   "why_we_might_need_it": "Country-specific reserves and production where a survey publishes better than the global compilations."
+  },
+  {
+   "folder": "raw/activity",
+   "n_files": 7,
+   "size_mb": 1.7,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-09-02",
+   "dataset": "Activity drivers: steel, vehicles, EV, electricity, solar, wind, cement, population, aerospace, semiconductors...",
+   "licence": "mixed public",
+   "status": "in use",
+   "why_we_might_need_it": "The inputs to the consumption model. Any new driver lands here."
+  },
+  {
+   "folder": "raw/osm",
+   "n_files": 1,
+   "size_mb": 1.5,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-11",
+   "dataset": "OpenStreetMap extracts",
+   "licence": "ODbL",
+   "status": "reference",
+   "why_we_might_need_it": "Infrastructure geometry (ports, rail) for logistics work."
+  },
+  {
+   "folder": "raw/iea_etp",
+   "n_files": 3,
+   "size_mb": 1.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "IEA Energy Technology Perspectives 2017 summaries",
+   "licence": "RESTRICTED - fee required for use in modelling / derived products",
+   "status": "HELD, NOT USABLE",
+   "why_we_might_need_it": "LICENCE-BLOCKED, not merely non-CC: the terms require a paid Licence Agreement to use this data \"in any type of modelling for the purpose of creating derived data or derived products\" - which is exactly what every page here is. Held for reference so the decision is inspectable and nobody re-downloads it to ask again. Also a 2018-vintage scenario set, superseded several times."
+  },
+  {
+   "folder": "raw/apparent",
+   "n_files": 6,
+   "size_mb": 0.9,
+   "formats": [
+    ".json",
+    ".pdf"
+   ],
+   "newest": "2026-09-04",
+   "dataset": "Per-metal apparent-consumption inputs",
+   "licence": "derived",
+   "status": "in use",
+   "why_we_might_need_it": "Feeds build_apparent.py, which is retained because the cube cannot yet do lithium."
+  },
+  {
+   "folder": "raw/pink",
+   "n_files": 1,
+   "size_mb": 0.6,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-06-26",
+   "dataset": "World Bank Pink Sheet commodity prices",
+   "licence": "World Bank, CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Annual public price series - the licence-safe option if a price sidecar is ever built."
+  },
+  {
+   "folder": "raw/icmm",
+   "n_files": 2,
+   "size_mb": 0.4,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "ICMM member and site data",
+   "licence": "ICMM terms",
+   "status": "reference",
+   "why_we_might_need_it": "Industry-side context."
+  },
+  {
+   "folder": "raw/wmd",
+   "n_files": 1,
+   "size_mb": 0.3,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-07-10",
+   "dataset": "World Mining Data 6.4, production by country",
+   "licence": "Free, attribution",
+   "status": "in cube",
+   "why_we_might_need_it": "The only source that marks every cell reported vs estimated."
+  },
+  {
+   "folder": "raw/bottomup",
+   "n_files": 1,
+   "size_mb": 0.2,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-16",
+   "dataset": "Bottom-up capacity compilations",
+   "licence": "derived",
+   "status": "in use",
+   "why_we_might_need_it": "Facility-level buildup behind selected chains."
+  },
+  {
+   "folder": "raw/iea_energy_econ",
+   "n_files": 1,
+   "size_mb": 0.2,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "IEA Fossil Fuel Subsidies Database, 2010-2024",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Consumption subsidies by country-year. Not a material series - but energy price support is one of the real reasons SMELTING locates where it does (aluminium and silicon are power-cost industries). If the chokepoint map is ever pushed from \"where refining is\" to \"why it is there\", this is an input to that argument."
+  },
+  {
+   "folder": "raw/ipis",
+   "n_files": 1,
+   "size_mb": 0.2,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "IPIS artisanal mining site data (DRC)",
+   "licence": "CC BY-SA",
+   "status": "reference",
+   "why_we_might_need_it": "DIRECTLY relevant to the cobalt gap: BGS under-reports DRC precisely because artisanal output does not enter national returns."
+  },
+  {
+   "folder": "raw/refining",
+   "n_files": 1,
+   "size_mb": 0.2,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "Refinery and smelter capacity references",
+   "licence": "mixed",
+   "status": "in use",
+   "why_we_might_need_it": "The midstream layer behind the chokepoint map."
+  },
+  {
+   "folder": "raw/usgs_outlook",
+   "n_files": 2,
+   "size_mb": 0.2,
+   "formats": [
+    ".csv",
+    ".json"
+   ],
+   "newest": "2026-08-13",
+   "dataset": "USGS Outlook tables",
+   "licence": "US public domain",
+   "status": "in use",
+   "why_we_might_need_it": "Refining concentration where USGS measures it directly."
+  },
+  {
+   "folder": "raw/wikidata",
+   "n_files": 1,
+   "size_mb": 0.2,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "Wikidata entity extracts",
+   "licence": "CC0",
+   "status": "reference",
+   "why_we_might_need_it": "Entity reconciliation helper."
+  },
+  {
+   "folder": "raw/usgs_critmin",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-11",
+   "dataset": "USGS critical-minerals deposit map (PP1802)",
+   "licence": "US public domain",
+   "status": "reference",
+   "why_we_might_need_it": "Deposit points, no time dimension. Site-level grain, so not cube material."
+  },
+  {
+   "folder": "raw/au_ozmin",
+   "n_files": 1,
+   "size_mb": 0.0,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "Geoscience Australia OZMIN",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Australian deposits and resources - a strong reserves source if a reserves layer is built."
+  },
+  {
+   "folder": "raw/geopolrisk",
+   "n_files": 1,
+   "size_mb": 0.0,
+   "formats": [
+    ".json"
+   ],
+   "newest": "2026-07-17",
+   "dataset": "GeoPolRisk inputs (governance indicators)",
+   "licence": "mixed",
+   "status": "in use",
+   "why_we_might_need_it": "Governance weighting for the criticality layer."
+  },
+  {
+   "folder": "raw/jasansky",
+   "n_files": 1,
+   "size_mb": 0.0,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-10",
+   "dataset": "Jasansky et al. mine-level dataset",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Asset-level mine production - different grain from the cube, but the best public route to a bottom-up check."
+  },
+  {
+   "folder": "raw/valueshare",
+   "n_files": 1,
+   "size_mb": 0.0,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-07-12",
+   "dataset": "Value-share references",
+   "licence": "derived",
+   "status": "in use",
+   "why_we_might_need_it": "Stage value distribution along chains."
+  }
+ ]
+}
