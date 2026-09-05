@@ -1,0 +1,23 @@
+{
+ "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
+ "rows": 275297,
+ "materials": 60,
+ "materials_in_atlas": 24,
+ "countries": 189,
+ "year_min": 1970,
+ "year_max": 2024,
+ "by_measure": {
+  "production": 105418,
+  "imports": 102859,
+  "exports": 67020
+ },
+ "by_stage": {
+  "unspecified": 99863,
+  "mine": 99811,
+  "processed": 75623
+ },
+ "tonnage_convertible_pct": 97.8,
+ "sources": [
+  "BGS World Mineral Statistics"
+ ]
+}
