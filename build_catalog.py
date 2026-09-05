@@ -17,6 +17,9 @@ So this builder answers "do we have data for X?" without normalizing a single ex
       on_disk   — the file is downloaded and sitting in raw/, but not parsed into the cube
       reachable — a known public series from an institution we already use, not yet fetched
                   (marked unverified: the URL/scope has NOT been re-checked by this script)
+      declined  — considered and rejected, with the reason. A catalog that only lists what we
+                  might use is half a record: free, well-licensed and adjacent is not the same as
+                  relevant, and an unwritten refusal gets re-proposed every few months.
 
 Run:  python build_catalog.py   ->  out/catalog.json + pipeline/data/catalog.parquet
 """
@@ -141,6 +144,30 @@ for inst, ds, fam, geo, note in [
 ]:
     add(institution=inst, dataset=ds, series='(whole dataset)', measure_family=fam, geography=geo,
         status='reachable', note=(note + ' — scope/URL NOT verified by this build').strip(' —'))
+
+# ── 6. CONSIDERED AND DECLINED ────────────────────────────────────────────────────────────────
+# A catalog that only lists what we might use is half a record. Free, well-licensed and adjacent is
+# not the same as relevant, and without writing the refusal down the same dataset gets re-proposed
+# every few months. Each entry names what it is and why it does not belong here.
+for inst, ds, why in [
+    ('IEA', 'Building-level Electricity Access and Demand Model (BEACON / LItLDF)',
+     'Out of scope, not out of quality. It estimates electricity ACCESS and DEMAND per BUILDING in '
+     'sub-Saharan Africa from satellite imagery - a different subject, a different unit of '
+     'observation and a different geography from mineral production and trade. The only route to '
+     'relevance would be building-level demand -> grid buildout -> conductor tonnage, which is a '
+     'speculative modelling chain we do not have and could not defend. Where grid expansion is '
+     'genuinely needed as a demand driver, IEA network investment series are the direct measure. '
+     'CC BY 4.0; code at github.com/stephenjlee/beacon and /litldf if that ever changes.'),
+    ('IEA', 'Demand projections (STEPS / APS / NZE scenarios)',
+     'Forecasts. They must not sit in a table of observations where a later query could difference '
+     'them against measured history and call the result a trend. Used on the site as cited '
+     'projections, never as cube rows.'),
+    ('Commercial', 'S&P / Wood Mackenzie / Benchmark asset-level data',
+     'Not public and not reproducible. The atlas rests on sources a reader can fetch and check.'),
+]:
+    add(institution=inst, dataset=ds, series='(whole dataset)', measure_family='n/a',
+        geography='n/a', status='declined', note=why)
+
 
 if __name__ == '__main__':
     df = pd.DataFrame(rows)

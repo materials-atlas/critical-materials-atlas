@@ -33,3 +33,13 @@ revision, and being able to show it is the point.
   YEARS, not a revision history. Revisions are visible only in the projection columns, which we
   deliberately do not ingest.
 - Also gained from the Jul-2026 edition: LITHIUM REFINING by country, absent from May-2025.
+
+## Also on the IEA site, considered and declined
+**Building-level Electricity Access and Demand Model (BEACON / LItLDF)** — CC BY 4.0, code at
+`github.com/stephenjlee/beacon` and `/litldf`. Good work, wrong subject: it estimates electricity
+access and demand **per building in sub-Saharan Africa** from satellite imagery. Different subject,
+different unit of observation, different geography from mineral production and trade. The only path
+to relevance would be building demand → grid buildout → conductor tonnage, a speculative chain we
+could not defend; where grid expansion is genuinely wanted as a demand driver, IEA network
+investment series measure it directly. Recorded in the catalog as `declined` so it is not
+re-proposed.
