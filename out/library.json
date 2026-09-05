@@ -1,8 +1,8 @@
 {
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
- "total_gb": 3.44,
- "folders": 31,
+ "total_gb": 3.63,
+ "folders": 63,
  "undocumented": [],
  "library": [
   {
@@ -33,6 +33,20 @@
    "why_we_might_need_it": "The spine: 410k records, production + trade by country, 1970-2024."
   },
   {
+   "folder": "raw/iea_bulk/gender-and-energy",
+   "n_files": 5,
+   "size_mb": 81.3,
+   "formats": [
+    ".csv",
+    ".zip"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Gender and Energy",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Workforce and participation indicators for the energy sector. No material dimension; kept for completeness of the collection."
+  },
+  {
    "folder": "raw/_sources",
    "n_files": 135,
    "size_mb": 50.8,
@@ -46,6 +60,19 @@
    "licence": "various",
    "status": "reference",
    "why_we_might_need_it": "Where a cited figure can be re-checked against the document it came from."
+  },
+  {
+   "folder": "raw/iea_bulk/weather-for-energy-tracker",
+   "n_files": 1,
+   "size_mb": 49.6,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Weather for Energy Tracker",
+   "licence": "CC BY 4.0",
+   "status": "reference (underrated)",
+   "why_we_might_need_it": "The one I wrongly dismissed. Drought curtails hydro, and hydro curtailment curtails ALUMINIUM and silicon smelting - Yunnan is the documented case. A weather series is a real explanatory variable for why refined output moves in a year when capacity did not."
   },
   {
    "folder": "raw/iea_drivers",
@@ -102,6 +129,20 @@
    "why_we_might_need_it": "Deposit records, site grain."
   },
   {
+   "folder": "raw/iea_bulk/monthly-electricity-statistics",
+   "n_files": 3,
+   "size_mb": 15.5,
+   "formats": [
+    ".csv",
+    ".zip"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Monthly Electricity Statistics, 47 countries",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "driver",
+   "why_we_might_need_it": "Refreshes the existing `elec` driver, and monthly grain makes it the natural series for testing whether smelting output tracks power availability."
+  },
+  {
    "folder": "raw/iea",
    "n_files": 8,
    "size_mb": 11.0,
@@ -131,6 +172,19 @@
    "why_we_might_need_it": "Distance/contiguity for trade-gravity and reallocation work."
   },
   {
+   "folder": "raw/iea_bulk/world-energy-balances-highlights",
+   "n_files": 1,
+   "size_mb": 7.4,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Balances Highlights",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "driver",
+   "why_we_might_need_it": "Energy balances for 185+ countries. Industrial energy use is a broad activity proxy where no physical output series exists, and the balance structure names the industry sectors."
+  },
+  {
    "folder": "raw/iea_rdd",
    "n_files": 2,
    "size_mb": 6.6,
@@ -142,6 +196,19 @@
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
    "why_we_might_need_it": "Country-year-technology R&D SPEND. Money, not an activity a material intensity can multiply, so not a driver. Kept because it is the best public measure of how hard a country is trying on a technology - a possible leading indicator for deployment, and a possible read on SUBSTITUTION effort, which the atlas already has a layer for. Not redistributable."
+  },
+  {
+   "folder": "raw/iea_bulk/household-energy-expenditure-database",
+   "n_files": 1,
+   "size_mb": 6.4,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Household Energy Expenditure Database",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Energy spend by household. Affordability context, no material link."
   },
   {
    "folder": "raw/eucrm",
@@ -172,6 +239,20 @@
    "why_we_might_need_it": "Depth to 1900 and world production totals. Found by the catalog after sitting unused except for its price column."
   },
   {
+   "folder": "raw/iea_bulk/net-zero-by-2050-scenario",
+   "n_files": 7,
+   "size_mb": 4.2,
+   "formats": [
+    ".csv",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Net Zero by 2050 Scenario data",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference (scenario)",
+   "why_we_might_need_it": "Forecast, so never a cube row. Useful only as a citable demand narrative, and the 2021 vintage is now itself a historical artefact - what the world thought 2050 looked like."
+  },
+  {
    "folder": "raw/surveys",
    "n_files": 1,
    "size_mb": 3.5,
@@ -183,6 +264,32 @@
    "licence": "mixed public",
    "status": "reference",
    "why_we_might_need_it": "Country-specific reserves and production where a survey publishes better than the global compilations."
+  },
+  {
+   "folder": "raw/iea_bulk/global-ev-outlook-2026",
+   "n_files": 1,
+   "size_mb": 2.5,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Global EV Outlook 2026",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "driver (refresh)",
+   "why_we_might_need_it": "The source behind our existing `ev` driver. EV sales and stock by country-year, and the battery chemistry splits that decide whether a marginal EV pulls lithium/cobalt/nickel or LFP."
+  },
+  {
+   "folder": "raw/iea_bulk/greenhouse-gas-emissions-from-energy-highlights",
+   "n_files": 1,
+   "size_mb": 2.0,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "GHG Emissions from Energy Highlights",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Emissions by country-year. Relevant if an embodied-emissions layer is ever built on top of the material flows."
   },
   {
    "folder": "raw/activity",
@@ -198,6 +305,32 @@
    "why_we_might_need_it": "The inputs to the consumption model. Any new driver lands here."
   },
   {
+   "folder": "raw/iea_bulk/monthly-oil-price-statistics-2",
+   "n_files": 1,
+   "size_mb": 1.7,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Monthly Oil Price Statistics",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "End-use energy prices. The nearest public proxy for the energy cost faced by industry, which is what actually decides smelter economics."
+  },
+  {
+   "folder": "raw/iea_bulk/the-implications-of-oil-and-gas-field-decline-rates-dataset",
+   "n_files": 1,
+   "size_mb": 1.7,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Oil and gas field decline rates",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Decline-rate methodology. Directly analogous to ore-grade decline in mining, which is a question the atlas has not yet asked and probably should."
+  },
+  {
    "folder": "raw/osm",
    "n_files": 1,
    "size_mb": 1.5,
@@ -211,6 +344,58 @@
    "why_we_might_need_it": "Infrastructure geometry (ports, rail) for logistics work."
   },
   {
+   "folder": "raw/iea_bulk/hydrogen-production-and-infrastructure-projects-database",
+   "n_files": 2,
+   "size_mb": 1.5,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Hydrogen Production and Infrastructure Projects Database",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Project grain, so not cube material - but electrolysers consume iridium and platinum, so this is the demand side of a PGM story the atlas already tells from the supply side."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2023-datafile-2",
+   "n_files": 1,
+   "size_mb": 1.5,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2023",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Investment by sector and region."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2024-datafile",
+   "n_files": 1,
+   "size_mb": 1.4,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2024",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Investment by sector and region."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2026-datafile",
+   "n_files": 1,
+   "size_mb": 1.2,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2026",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Latest edition. Six editions together give an investment TIME SERIES by sector - a leading indicator for the capacity that later consumes metal, and one of the few places where the older editions are worth keeping rather than superseded."
+  },
+  {
    "folder": "raw/iea_etp",
    "n_files": 3,
    "size_mb": 1.1,
@@ -222,6 +407,34 @@
    "licence": "RESTRICTED - fee required for use in modelling / derived products",
    "status": "HELD, NOT USABLE",
    "why_we_might_need_it": "LICENCE-BLOCKED, not merely non-CC: the terms require a paid Licence Agreement to use this data \"in any type of modelling for the purpose of creating derived data or derived products\" - which is exactly what every page here is. Held for reference so the decision is inspectable and nobody re-downloads it to ask again. Also a 2018-vintage scenario set, superseded several times."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2022-datafile-2",
+   "n_files": 1,
+   "size_mb": 1.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2022",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Investment by sector and region."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-outlook-2025-free-dataset",
+   "n_files": 4,
+   "size_mb": 1.1,
+   "formats": [
+    ".csv",
+    ".xlsb",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Outlook 2025 free dataset",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference (scenario)",
+   "why_we_might_need_it": "Same rule as above: cited, never ingested."
   },
   {
    "folder": "raw/apparent",
@@ -238,6 +451,85 @@
    "why_we_might_need_it": "Feeds build_apparent.py, which is retained because the cube cannot yet do lithium."
   },
   {
+   "folder": "raw/iea_bulk/global-ev-outlook-2025",
+   "n_files": 1,
+   "size_mb": 0.9,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Global EV Outlook 2025",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "driver (prior vintage)",
+   "why_we_might_need_it": "The previous edition. Kept because two editions of the same series show how much the IEA restates EV history - the revision test we could NOT run on the Critical Minerals dataset, because there the editions never share an observed year."
+  },
+  {
+   "folder": "raw/iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset",
+   "n_files": 1,
+   "size_mb": 0.8,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Gas flaring and methane leaks",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "No material link; collection completeness."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2025-datafile",
+   "n_files": 1,
+   "size_mb": 0.8,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2025",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Investment by sector and region."
+  },
+  {
+   "folder": "raw/iea_bulk/household-appliances-database",
+   "n_files": 1,
+   "size_mb": 0.7,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Household Appliances Database, 100+ countries",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Appliance stock by country is an activity series, and appliances are where a lot of copper, steel and rare-earth magnets physically end up. It becomes a driver the moment a published material-per-appliance intensity exists."
+  },
+  {
+   "folder": "raw/iea_bulk/monthly-oil-statistics",
+   "n_files": 2,
+   "size_mb": 0.7,
+   "formats": [
+    ".csv",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Monthly Oil Statistics, OECD",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Energy cost context."
+  },
+  {
+   "folder": "raw/iea_bulk/quarterly-coal-statistics",
+   "n_files": 3,
+   "size_mb": 0.7,
+   "formats": [
+    ".zip"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Quarterly Coal Statistics (world + OECD trade)",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "CUBE CANDIDATE",
+   "why_we_might_need_it": "COKING COAL IS ONE OF OUR 32 MATERIALS. Production and trade by country at quarterly grain - the only bulk download here with a plausible route straight into the cube, once the coking vs thermal split and the annual roll-up are checked."
+  },
+  {
    "folder": "raw/pink",
    "n_files": 1,
    "size_mb": 0.6,
@@ -251,6 +543,19 @@
    "why_we_might_need_it": "Annual public price series - the licence-safe option if a price sidecar is ever built."
   },
   {
+   "folder": "raw/iea_bulk/sdg7-database",
+   "n_files": 4,
+   "size_mb": 0.5,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "SDG7: electricity access and clean cooking",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Access rates by country-year. The material link is indirect but real: closing an access gap means grid, which means conductor - it needs a published km-per-connection intensity to become anything more than a narrative."
+  },
+  {
    "folder": "raw/icmm",
    "n_files": 2,
    "size_mb": 0.4,
@@ -262,6 +567,32 @@
    "licence": "ICMM terms",
    "status": "reference",
    "why_we_might_need_it": "Industry-side context."
+  },
+  {
+   "folder": "raw/iea_bulk/gas-trade-flows",
+   "n_files": 1,
+   "size_mb": 0.4,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Gas Trade Flows, 31 countries",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Entry/exit point flows. Method interest rather than content: it is another bilateral flow dataset where both sides report, the same reconciliation problem the trade engine solves."
+  },
+  {
+   "folder": "raw/iea_bulk/world-energy-investment-2021-datafile",
+   "n_files": 1,
+   "size_mb": 0.4,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "World Energy Investment 2021",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Investment by sector and region."
   },
   {
    "folder": "raw/wmd",
@@ -356,6 +687,20 @@
    "why_we_might_need_it": "Entity reconciliation helper."
   },
   {
+   "folder": "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
+   "n_files": 2,
+   "size_mb": 0.2,
+   "formats": [
+    ".xlsb",
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "GEC Model key input data - macro drivers",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "driver (high value)",
+   "why_we_might_need_it": "GDP, population, industry value added, steel and cement output: the IEA own driver set, and the closest published match to what our consumption model needs. If any single download here changes the consumption layer, it is this one."
+  },
+  {
    "folder": "raw/usgs_critmin",
    "n_files": 1,
    "size_mb": 0.1,
@@ -367,6 +712,71 @@
    "licence": "US public domain",
    "status": "reference",
    "why_we_might_need_it": "Deposit points, no time dimension. Site-level grain, so not cube material."
+  },
+  {
+   "folder": "raw/iea_bulk/global-energy-review-co2-emissions-in-2021",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Global Energy Review: CO2 emissions 2021",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Dated single-year snapshot; superseded by the Global Energy Review dataset."
+  },
+  {
+   "folder": "raw/iea_bulk/monthly-gas-statistics",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Monthly Gas Statistics, OECD",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "Gas price and supply context. Matters to materials only through energy cost, which is a real driver of where smelting happens."
+  },
+  {
+   "folder": "raw/iea_bulk/monthly-reliance-on-russian-oil-for-oecd-countries",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Reliance on Russian oil, OECD",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "A worked example of import-dependence measurement - the same question the atlas asks of minerals, asked of oil by an institution with better data."
+  },
+  {
+   "folder": "raw/iea_bulk/reliance-on-russian-fossil-fuels-in-oecd-and-eu-countries",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Reliance on Russian fossil fuels, OECD/EU",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "As above: dependence methodology worth reading against our own leverage layer."
+  },
+  {
+   "folder": "raw/iea_bulk/the-role-of-critical-minerals-in-clean-energy-transitions-2",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "The Role of Critical Minerals in Clean Energy Transitions (2021 report data)",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "The one dataset on the free list actually ABOUT minerals. Demand by technology and the supply-concentration figures behind the 2021 report - useful as a dated comparator for how the IEA framed concentration before the GCMO series existed."
   },
   {
    "folder": "raw/au_ozmin",
@@ -419,6 +829,19 @@
    "licence": "derived",
    "status": "in use",
    "why_we_might_need_it": "Stage value distribution along chains."
+  },
+  {
+   "folder": "raw/iea_bulk/global-energy-review-dataset",
+   "n_files": 1,
+   "size_mb": 0.0,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Global Energy Review dataset",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Annual world aggregates for supply, generation, technology deployment and CO2. Context and sanity-check numbers rather than an input."
   }
  ]
 }

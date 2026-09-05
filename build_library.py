@@ -57,6 +57,74 @@ NOTES = {
                 'support is one of the real reasons SMELTING locates where it does (aluminium and '
                 'silicon are power-cost industries). If the chokepoint map is ever pushed from '
                 '"where refining is" to "why it is there", this is an input to that argument.'),
+ 'iea_bulk/gas-trade-flows': ('Gas Trade Flows, 31 countries', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Entry/exit point flows. Method interest rather than content: it is another bilateral flow dataset where both sides report, the same reconciliation problem the trade engine solves.'),
+ 'iea_bulk/gender-and-energy': ('Gender and Energy', 'CC BY 4.0', 'reference',
+                'Workforce and participation indicators for the energy sector. No material dimension; kept for completeness of the collection.'),
+ 'iea_bulk/global-energy-and-climate-model-key-input-data': ('GEC Model key input data - macro drivers', 'NOT CC - Terms of Use for Non-CC Material', 'driver (high value)',
+                'GDP, population, industry value added, steel and cement output: the IEA own driver set, and the closest published match to what our consumption model needs. If any single download here changes the consumption layer, it is this one.'),
+ 'iea_bulk/global-energy-review-co2-emissions-in-2021': ('Global Energy Review: CO2 emissions 2021', 'CC BY 4.0', 'reference',
+                'Dated single-year snapshot; superseded by the Global Energy Review dataset.'),
+ 'iea_bulk/global-energy-review-dataset': ('Global Energy Review dataset', 'CC BY 4.0', 'reference',
+                'Annual world aggregates for supply, generation, technology deployment and CO2. Context and sanity-check numbers rather than an input.'),
+ 'iea_bulk/global-ev-outlook-2025': ('Global EV Outlook 2025', 'NOT CC - Terms of Use for Non-CC Material', 'driver (prior vintage)',
+                'The previous edition. Kept because two editions of the same series show how much the IEA restates EV history - the revision test we could NOT run on the Critical Minerals dataset, because there the editions never share an observed year.'),
+ 'iea_bulk/global-ev-outlook-2026': ('Global EV Outlook 2026', 'NOT CC - Terms of Use for Non-CC Material', 'driver (refresh)',
+                'The source behind our existing `ev` driver. EV sales and stock by country-year, and the battery chemistry splits that decide whether a marginal EV pulls lithium/cobalt/nickel or LFP.'),
+ 'iea_bulk/greenhouse-gas-emissions-from-energy-highlights': ('GHG Emissions from Energy Highlights', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Emissions by country-year. Relevant if an embodied-emissions layer is ever built on top of the material flows.'),
+ 'iea_bulk/household-appliances-database': ('Household Appliances Database, 100+ countries', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Appliance stock by country is an activity series, and appliances are where a lot of copper, steel and rare-earth magnets physically end up. It becomes a driver the moment a published material-per-appliance intensity exists.'),
+ 'iea_bulk/household-energy-expenditure-database': ('Household Energy Expenditure Database', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Energy spend by household. Affordability context, no material link.'),
+ 'iea_bulk/hydrogen-production-and-infrastructure-projects-database': ('Hydrogen Production and Infrastructure Projects Database', 'CC BY 4.0', 'reference',
+                'Project grain, so not cube material - but electrolysers consume iridium and platinum, so this is the demand side of a PGM story the atlas already tells from the supply side.'),
+ 'iea_bulk/iea-electricity-access-data-collection-template': ('Electricity Access Data Collection Template', 'CC BY 4.0', 'reference',
+                'A questionnaire template, not data. Kept only so nobody downloads it twice.'),
+ 'iea_bulk/monthly-electricity-statistics': ('Monthly Electricity Statistics, 47 countries', 'NOT CC - Terms of Use for Non-CC Material', 'driver',
+                'Refreshes the existing `elec` driver, and monthly grain makes it the natural series for testing whether smelting output tracks power availability.'),
+ 'iea_bulk/monthly-gas-statistics': ('Monthly Gas Statistics, OECD', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Gas price and supply context. Matters to materials only through energy cost, which is a real driver of where smelting happens.'),
+ 'iea_bulk/monthly-oil-price-statistics-2': ('Monthly Oil Price Statistics', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'End-use energy prices. The nearest public proxy for the energy cost faced by industry, which is what actually decides smelter economics.'),
+ 'iea_bulk/monthly-oil-statistics': ('Monthly Oil Statistics, OECD', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'Energy cost context.'),
+ 'iea_bulk/monthly-reliance-on-russian-oil-for-oecd-countries': ('Reliance on Russian oil, OECD', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'A worked example of import-dependence measurement - the same question the atlas asks of minerals, asked of oil by an institution with better data.'),
+ 'iea_bulk/net-zero-by-2050-scenario': ('Net Zero by 2050 Scenario data', 'NOT CC - Terms of Use for Non-CC Material', 'reference (scenario)',
+                'Forecast, so never a cube row. Useful only as a citable demand narrative, and the 2021 vintage is now itself a historical artefact - what the world thought 2050 looked like.'),
+ 'iea_bulk/quarterly-coal-statistics': ('Quarterly Coal Statistics (world + OECD trade)', 'NOT CC - Terms of Use for Non-CC Material', 'CUBE CANDIDATE',
+                'COKING COAL IS ONE OF OUR 32 MATERIALS. Production and trade by country at quarterly grain - the only bulk download here with a plausible route straight into the cube, once the coking vs thermal split and the annual roll-up are checked.'),
+ 'iea_bulk/reliance-on-russian-fossil-fuels-in-oecd-and-eu-countries': ('Reliance on Russian fossil fuels, OECD/EU', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'As above: dependence methodology worth reading against our own leverage layer.'),
+ 'iea_bulk/sdg7-database': ('SDG7: electricity access and clean cooking', 'CC BY 4.0', 'reference',
+                'Access rates by country-year. The material link is indirect but real: closing an access gap means grid, which means conductor - it needs a published km-per-connection intensity to become anything more than a narrative.'),
+ 'iea_bulk/solid-biofuels-consumption-estimation-model': ('Solid biofuels consumption estimation model', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'An estimation MODEL in a spreadsheet, not observations. Worth one read for its method - it solves the same problem our consumption model does, estimating unmeasured consumption from activity proxies.'),
+ 'iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset': ('Gas flaring and methane leaks', 'CC BY 4.0', 'reference',
+                'No material link; collection completeness.'),
+ 'iea_bulk/the-implications-of-oil-and-gas-field-decline-rates-dataset': ('Oil and gas field decline rates', 'CC BY 4.0', 'reference',
+                'Decline-rate methodology. Directly analogous to ore-grade decline in mining, which is a question the atlas has not yet asked and probably should.'),
+ 'iea_bulk/the-role-of-critical-minerals-in-clean-energy-transitions-2': ('The Role of Critical Minerals in Clean Energy Transitions (2021 report data)', 'NOT CC - Terms of Use for Non-CC Material', 'reference',
+                'The one dataset on the free list actually ABOUT minerals. Demand by technology and the supply-concentration figures behind the 2021 report - useful as a dated comparator for how the IEA framed concentration before the GCMO series existed.'),
+ 'iea_bulk/weather-for-energy-tracker': ('Weather for Energy Tracker', 'CC BY 4.0', 'reference (underrated)',
+                'The one I wrongly dismissed. Drought curtails hydro, and hydro curtailment curtails ALUMINIUM and silicon smelting - Yunnan is the documented case. A weather series is a real explanatory variable for why refined output moves in a year when capacity did not.'),
+ 'iea_bulk/world-energy-balances-highlights': ('World Energy Balances Highlights', 'NOT CC - Terms of Use for Non-CC Material', 'driver',
+                'Energy balances for 185+ countries. Industrial energy use is a broad activity proxy where no physical output series exists, and the balance structure names the industry sectors.'),
+ 'iea_bulk/world-energy-investment-2021-datafile': ('World Energy Investment 2021', 'CC BY 4.0', 'reference',
+                'Investment by sector and region.'),
+ 'iea_bulk/world-energy-investment-2022-datafile-2': ('World Energy Investment 2022', 'CC BY 4.0', 'reference',
+                'Investment by sector and region.'),
+ 'iea_bulk/world-energy-investment-2023-datafile-2': ('World Energy Investment 2023', 'CC BY 4.0', 'reference',
+                'Investment by sector and region.'),
+ 'iea_bulk/world-energy-investment-2024-datafile': ('World Energy Investment 2024', 'CC BY 4.0', 'reference',
+                'Investment by sector and region.'),
+ 'iea_bulk/world-energy-investment-2025-datafile': ('World Energy Investment 2025', 'CC BY 4.0', 'reference',
+                'Investment by sector and region.'),
+ 'iea_bulk/world-energy-investment-2026-datafile': ('World Energy Investment 2026', 'CC BY 4.0', 'reference',
+                'Latest edition. Six editions together give an investment TIME SERIES by sector - a leading indicator for the capacity that later consumes metal, and one of the few places where the older editions are worth keeping rather than superseded.'),
+ 'iea_bulk/world-energy-outlook-2025-free-dataset': ('World Energy Outlook 2025 free dataset', 'NOT CC - Terms of Use for Non-CC Material', 'reference (scenario)',
+                'Same rule as above: cited, never ingested.'),
  'bgs':        ('BGS World Mineral Statistics full panel', 'Open Government Licence', 'in cube',
                 'The spine: 410k records, production + trade by country, 1970-2024.'),
  'baci':       ('CEPII BACI bilateral trade, HS02 and HS17 vintages', 'Free for research',
@@ -129,8 +197,16 @@ NOTES = {
 
 def scan():
     out = []
-    for path in sorted(glob.glob(os.path.join(RAW, '*'))):
+    # iea_bulk holds one subfolder per dataset - list them individually rather than as one blob,
+    # because "31 IEA files" tells a reader nothing and the whole point of this record is that a
+    # future question can find the dataset it needs.
+    roots = sorted(glob.glob(os.path.join(RAW, '*')))
+    bulk = os.path.join(RAW, 'iea_bulk')
+    if os.path.isdir(bulk):
+        roots = [r for r in roots if r != bulk] + sorted(glob.glob(os.path.join(bulk, '*')))
+    for path in roots:
         name = os.path.basename(path)
+        rel = os.path.relpath(path, RAW).replace(os.sep, '/')
         if os.path.isfile(path):
             continue
         files, size, newest = [], 0, 0
@@ -146,9 +222,9 @@ def scan():
                     files.append(os.path.splitext(fn)[1].lower())
         if not files:
             continue
-        note = NOTES.get(name)
+        note = NOTES.get(rel) or NOTES.get(name)
         out.append({
-            'folder': f'raw/{name}', 'n_files': len(files),
+            'folder': f'raw/{rel}', 'n_files': len(files),
             'size_mb': round(size / 1e6, 1),
             'formats': sorted(set(files)),
             'newest': dt.date.fromtimestamp(newest).isoformat() if newest else None,
