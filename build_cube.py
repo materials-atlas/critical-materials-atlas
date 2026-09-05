@@ -168,6 +168,19 @@ def build():
     except Exception as e:
         print(f'  USGS historical ingest skipped: {e}')
 
+    # ── third ingest: CEPII BACI bilateral trade, aggregated to country-year ─────────────────
+    # Mapped HS codes only (the council: full BACI is ballast), and summed over partners because
+    # the cube's grain is country-year - bilateral pairs would double every total silently.
+    try:
+        import build_cube_baci
+        t = pd.DataFrame(build_cube_baci.build())
+        if len(t):
+            t['in_atlas'] = t['material'].isin(ATLAS)
+            t['retrieved_at'] = None
+            df = pd.concat([df, t], ignore_index=True, sort=False)
+    except Exception as e:
+        print(f'  BACI ingest skipped: {e}')
+
     # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
     # codes and sources with numeric ones can share the column
     df['native_code'] = df['native_code'].astype('string')

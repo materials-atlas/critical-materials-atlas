@@ -145,13 +145,13 @@
   {
    "label": "fluorspar",
    "title": "Fluorspar, >97% CaF2",
-   "score": 49,
-   "gross": 50,
+   "score": 51,
+   "gross": 51,
    "recycling": 1,
    "substitutability": "high",
    "components": {
     "production": 65,
-    "refining": 60,
+    "refining": 65,
     "trade": 25.1,
     "opacity": 44.6
    },
@@ -378,6 +378,21 @@
    "shared": false
   },
   {
+   "label": "phosphate",
+   "title": "Phosphate rock",
+   "score": 31,
+   "gross": 34,
+   "recycling": 17,
+   "substitutability": "high",
+   "components": {
+    "production": 41,
+    "refining": 44,
+    "trade": 15.4,
+    "opacity": 32.0
+   },
+   "shared": false
+  },
+  {
    "label": "arsenic",
    "title": "Arsenic",
    "score": 31,
@@ -393,36 +408,6 @@
    "shared": false
   },
   {
-   "label": "phosphate",
-   "title": "Phosphate rock",
-   "score": 30,
-   "gross": 33,
-   "recycling": 17,
-   "substitutability": "high",
-   "components": {
-    "production": 41,
-    "refining": 40,
-    "trade": 15.4,
-    "opacity": 32.0
-   },
-   "shared": false
-  },
-  {
-   "label": "feldspar",
-   "title": "Feldspar",
-   "score": 26,
-   "gross": 26,
-   "recycling": 0,
-   "substitutability": "low",
-   "components": {
-    "production": 23,
-    "refining": 30,
-    "trade": 21.3,
-    "opacity": 30.9
-   },
-   "shared": false
-  },
-  {
    "label": "palladium",
    "title": "Palladium, unwrought",
    "score": 25,
@@ -434,6 +419,21 @@
     "refining": 40,
     "trade": 14.2,
     "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
+   "label": "feldspar",
+   "title": "Feldspar",
+   "score": 25,
+   "gross": 25,
+   "recycling": 0,
+   "substitutability": "low",
+   "components": {
+    "production": 23,
+    "refining": 26,
+    "trade": 21.3,
+    "opacity": 30.9
    },
    "shared": false
   },

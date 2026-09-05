@@ -132,6 +132,38 @@ for m in d['materials']:
         m['refined_source'] = 'USGS MCS - world estimate, refined gallium (~98%). Estimated, not a measured census.'
         m['mined_source'] = ('USGS MCS 2025 - world primary low-purity gallium: China 839 t of 848 t = 98.9% '
                              '(2024). USGS states this as an estimate.')
+# --- audit of the shares that had NO provenance at all. Three of them BGS can source directly,
+# because the mineral is the traded product and coverage is good. Three it cannot, and saying so
+# precisely beats "source not recorded": BGS publishes tantalum+niobium as one ore series and the
+# PGMs as one combined series, so neither can yield a per-metal share. Those keep an explicit
+# no-source flag naming the obstacle, which is what a reader needs in order to challenge it.
+BGS_SOURCEABLE = {
+    'fluorspar': (65, 'CN', 'fluorspar, all grades', 25, 2024),
+    'feldspar':  (26, 'TR', 'feldspar', 52, 2024),
+    'phosphate': (44, 'CN', 'phosphate rock', 36, 2024),
+}
+NO_BGS_EQUIVALENT = {
+    'niobium':   'BGS publishes "tantalum and niobium minerals" as ONE combined ore series (Brazil '
+                 '94% of it, 2024, 7 reporters) - it cannot yield a niobium-only refined share.',
+    'platinum':  'BGS publishes the platinum-group metals as ONE combined mine series (South Africa '
+                 '52%, 2024, 13 reporters) - it cannot yield a platinum-only share.',
+    'palladium': 'BGS publishes the platinum-group metals as ONE combined mine series (South Africa '
+                 '52%, 2024, 13 reporters) - it cannot yield a palladium-only share.',
+}
+for m in d['materials']:
+    lab = m['label']
+    if lab in BGS_SOURCEABLE and not m.get('refined_source'):
+        v, iso, form, n, yr = BGS_SOURCEABLE[lab]
+        m['refined'] = [{'c': iso, 'v': v}]
+        m['refined_basis'] = 'reporters'
+        m['refined_source'] = (f'BGS World Mineral Statistics {yr}, share of {n} reporting countries '
+                               f'({form}). Replaces an unsourced figure carried since the seed data.')
+    elif lab in NO_BGS_EQUIVALENT and not m.get('refined_source'):
+        m['refined_basis'] = 'unsourced'
+        m['refined_source'] = ('No source recorded for this figure, and it cannot be sourced from BGS: '
+                               + NO_BGS_EQUIVALENT[lab]
+                               + ' Treat the share as indicative until a per-metal source is cited.')
+
 # --- fill any remaining unattributed refined/mined share from the source ledger. A share printed
 # with no provenance reads as a measured fact; 12 materials were doing exactly that. The ledger
 # already records where each came from, so wire it through rather than inventing an attribution -

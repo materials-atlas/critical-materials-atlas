@@ -362,6 +362,11 @@ def share_stat(kind, pt, src, basis, rng):
     share when it is not one. An estimate shows its RANGE rather than a false point; a BGS figure
     shows how many countries actually reported. Full provenance rides in the tooltip."""
     import re as _re
+    if basis == 'unsourced':
+        # a figure we inherited and cannot source: say so on the face of the page, not only in
+        # the tooltip, and keep the number visible so a reader can challenge it
+        return (f'{kind} · {pt:.0f}% <span style="color:var(--faint);font-weight:600">'
+                f'(unsourced)</span>')
     if basis == 'estimate':
         core = f'{rng[0]}–{rng[1]}%' if rng else f'~{pt:.0f}%'
         label, note = f'{kind} · {core}', 'estimate'

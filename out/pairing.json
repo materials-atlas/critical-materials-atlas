@@ -1,0 +1,807 @@
+{
+ "note": "Cross-source corroboration of world production. BGS national returns SUMMED vs the USGS world estimate - two independent compilations, neither derived from the other. ratio = median(BGS sum / USGS world) over the overlapping years. corroborated = within ~10%. A \"not_comparable\" row is usually a basis or stage difference, not an error: the pairing is stated explicitly and the reason recorded, because an unexplained ratio invites someone to fix a number that was never wrong.",
+ "method": "Pairings are declared in build_pairing.py, never inferred at run time. Joining on material alone would compare gross ore against contained metal.",
+ "summary": {
+  "corroborated": 34,
+  "not_comparable": 12,
+  "close": 7
+ },
+ "n_materials": 53,
+ "rows": [
+  {
+   "material": "antimony",
+   "bgs_form": "antimony, mine",
+   "usgs_series": "world production",
+   "ratio": 1.011,
+   "ratio_spread_p10_p90": 0.328,
+   "years": [
+    2005,
+    2019
+   ],
+   "n_years": 15,
+   "bgs_reporters_median": 17,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "arsenic",
+   "bgs_form": "arsenic, white",
+   "usgs_series": "world production",
+   "ratio": 1.031,
+   "ratio_spread_p10_p90": 0.326,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 7,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "asbestos",
+   "bgs_form": "asbestos",
+   "usgs_series": "world production",
+   "ratio": 0.973,
+   "ratio_spread_p10_p90": 0.174,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 5,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "baryte",
+   "bgs_form": "barytes",
+   "usgs_series": "world production",
+   "ratio": 1.044,
+   "ratio_spread_p10_p90": 0.155,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 35,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "bauxite",
+   "bgs_form": "bauxite",
+   "usgs_series": "world production",
+   "ratio": 0.99,
+   "ratio_spread_p10_p90": 0.11,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 31,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "beryllium",
+   "bgs_form": "beryl",
+   "usgs_series": "world production",
+   "ratio": 24.977,
+   "ratio_spread_p10_p90": 2.408,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 6,
+   "status": "not_comparable",
+   "reason": "BGS counts BERYL (the ore mineral); USGS counts contained beryllium. Beryl is roughly 4% Be."
+  },
+  {
+   "material": "bismuth",
+   "bgs_form": "bismuth, mine",
+   "usgs_series": "world production",
+   "ratio": 0.248,
+   "ratio_spread_p10_p90": 0.119,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 9,
+   "status": "not_comparable",
+   "reason": "STAGE mismatch: the USGS world series here is refinery production, the BGS form is mine output."
+  },
+  {
+   "material": "boron",
+   "bgs_form": "borates",
+   "usgs_series": "world production",
+   "ratio": 1.281,
+   "ratio_spread_p10_p90": 0.645,
+   "years": [
+    2005,
+    2013
+   ],
+   "n_years": 9,
+   "bgs_reporters_median": 10,
+   "status": "not_comparable",
+   "reason": "BGS counts borate MINERALS (gross); USGS reports boron content."
+  },
+  {
+   "material": "bromine",
+   "bgs_form": "bromine",
+   "usgs_series": "world production",
+   "ratio": 1.596,
+   "ratio_spread_p10_p90": 0.47,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 9,
+   "status": "not_comparable",
+   "reason": "Unresolved: likely a compound-vs-element basis difference."
+  },
+  {
+   "material": "cadmium",
+   "bgs_form": "cadmium",
+   "usgs_series": "world production",
+   "ratio": 0.995,
+   "ratio_spread_p10_p90": 0.111,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 18,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "cement",
+   "bgs_form": "cement, finished",
+   "usgs_series": "world production",
+   "ratio": 0.066,
+   "ratio_spread_p10_p90": 0.058,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 32,
+   "status": "not_comparable",
+   "reason": "Scale mismatch between the two series - unresolved; do not use this pair until the units are reconciled."
+  },
+  {
+   "material": "chromium",
+   "bgs_form": "chromium ores and concentrates",
+   "usgs_series": "world production",
+   "ratio": 2.822,
+   "ratio_spread_p10_p90": 0.86,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 19,
+   "status": "not_comparable",
+   "reason": "BGS counts chromite ORE at gross weight; USGS counts contained chromium."
+  },
+  {
+   "material": "cobalt",
+   "bgs_form": "cobalt, mine",
+   "usgs_series": "world production",
+   "ratio": 0.597,
+   "ratio_spread_p10_p90": 0.312,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 19,
+   "status": "not_comparable",
+   "reason": "Unresolved. Both are nominally mine output on a contained basis, so a 0.6 ratio is a real disagreement rather than a category error - worth investigating."
+  },
+  {
+   "material": "copper",
+   "bgs_form": "copper, mine",
+   "usgs_series": "world production",
+   "ratio": 0.999,
+   "ratio_spread_p10_p90": 0.013,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 54,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "diatomite",
+   "bgs_form": "diatomite",
+   "usgs_series": "world production",
+   "ratio": 0.915,
+   "ratio_spread_p10_p90": 0.123,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 27,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "feldspar",
+   "bgs_form": "feldspar",
+   "usgs_series": "world production",
+   "ratio": 1.146,
+   "ratio_spread_p10_p90": 0.316,
+   "years": [
+    2005,
+    2019
+   ],
+   "n_years": 15,
+   "bgs_reporters_median": 52,
+   "status": "close",
+   "reason": "Within compilation tolerance. No structural basis difference identified; the two bodies revise on different schedules and BGS country coverage varies by year."
+  },
+  {
+   "material": "fluorspar",
+   "bgs_form": "fluorspar",
+   "usgs_series": "world production",
+   "ratio": 0.988,
+   "ratio_spread_p10_p90": 0.193,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 24,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "gallium",
+   "bgs_form": "gallium, primary",
+   "usgs_series": "world production",
+   "ratio": 0.813,
+   "ratio_spread_p10_p90": 0.783,
+   "years": [
+    2007,
+    2021
+   ],
+   "n_years": 15,
+   "bgs_reporters_median": 5,
+   "status": "close",
+   "reason": "BGS gallium coverage is thin and USGS publishes an estimate rather than a census; neither side is a measured world total."
+  },
+  {
+   "material": "germanium",
+   "bgs_form": "germanium metal",
+   "usgs_series": "world production",
+   "ratio": 0.835,
+   "ratio_spread_p10_p90": 0.338,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 3,
+   "status": "close",
+   "reason": "BGS carries only 3-4 reporting countries for germanium metal, so its sum is not a world total; USGS states outright that reliable world estimates cannot be made. The near-agreement here is coincidence, not corroboration - this is the material that prompted the whole check."
+  },
+  {
+   "material": "gold",
+   "bgs_form": "gold, mine",
+   "usgs_series": "world production",
+   "ratio": 1.015,
+   "ratio_spread_p10_p90": 0.044,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 97,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "graphite",
+   "bgs_form": "graphite",
+   "usgs_series": "world production",
+   "ratio": 1.268,
+   "ratio_spread_p10_p90": 1.353,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 16,
+   "status": "not_comparable",
+   "reason": "Unresolved: natural-graphite scope differs between the two."
+  },
+  {
+   "material": "gypsum",
+   "bgs_form": "gypsum and plaster",
+   "usgs_series": "world production",
+   "ratio": 1.031,
+   "ratio_spread_p10_p90": 0.417,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 84,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "indium",
+   "bgs_form": "indium, refinery",
+   "usgs_series": "world production",
+   "ratio": 0.93,
+   "ratio_spread_p10_p90": 0.124,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 11,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "iodine",
+   "bgs_form": "iodine",
+   "usgs_series": "world production",
+   "ratio": 1.066,
+   "ratio_spread_p10_p90": 0.052,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 9,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "iron",
+   "bgs_form": "iron ore",
+   "usgs_series": "world production",
+   "ratio": 0.869,
+   "ratio_spread_p10_p90": 0.175,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 46,
+   "status": "close",
+   "reason": "Iron ore scope differs: crude-ore vs usable-ore reporting is not consistent between the two bodies."
+  },
+  {
+   "material": "lead",
+   "bgs_form": "lead, mine",
+   "usgs_series": "world production",
+   "ratio": 1.007,
+   "ratio_spread_p10_p90": 0.079,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 46,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "lithium",
+   "bgs_form": "lithium minerals",
+   "usgs_series": "world production",
+   "ratio": 0.96,
+   "ratio_spread_p10_p90": 0.372,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 7,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "magnesium",
+   "bgs_form": "magnesite",
+   "usgs_series": "world production",
+   "ratio": 1.066,
+   "ratio_spread_p10_p90": 0.218,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 23,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "manganese",
+   "bgs_form": "manganese ore",
+   "usgs_series": "world production",
+   "ratio": 2.738,
+   "ratio_spread_p10_p90": 0.721,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 27,
+   "status": "not_comparable",
+   "reason": "BGS counts manganese ORE at gross weight; USGS counts CONTAINED manganese. Ore grades ~30-50% Mn, which is the whole ratio."
+  },
+  {
+   "material": "mercury",
+   "bgs_form": "mercury",
+   "usgs_series": "world production",
+   "ratio": 1.012,
+   "ratio_spread_p10_p90": 0.165,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 9,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "mica",
+   "bgs_form": "mica",
+   "usgs_series": "world production",
+   "ratio": 0.794,
+   "ratio_spread_p10_p90": 0.611,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 20,
+   "status": "not_comparable",
+   "reason": "Unresolved: sheet vs scrap/flake mica scope differs."
+  },
+  {
+   "material": "molybdenum",
+   "bgs_form": "molybdenum, mine",
+   "usgs_series": "world production",
+   "ratio": 1.005,
+   "ratio_spread_p10_p90": 0.041,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 15,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "nickel",
+   "bgs_form": "nickel, mine",
+   "usgs_series": "world production",
+   "ratio": 0.974,
+   "ratio_spread_p10_p90": 0.136,
+   "years": [
+    2005,
+    2019
+   ],
+   "n_years": 15,
+   "bgs_reporters_median": 27,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "perlite",
+   "bgs_form": "perlite",
+   "usgs_series": "world production",
+   "ratio": 1.065,
+   "ratio_spread_p10_p90": 0.822,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 19,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "phosphate",
+   "bgs_form": "phosphate rock",
+   "usgs_series": "world production",
+   "ratio": 1.009,
+   "ratio_spread_p10_p90": 0.034,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 36,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "platinum",
+   "bgs_form": "platinum group metals, mine",
+   "usgs_series": "world production",
+   "ratio": 0.99,
+   "ratio_spread_p10_p90": 0.189,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 11,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "potash",
+   "bgs_form": "potash",
+   "usgs_series": "world production",
+   "ratio": 1.006,
+   "ratio_spread_p10_p90": 0.055,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 12,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "rare_earths",
+   "bgs_form": "rare earth oxides",
+   "usgs_series": "world production",
+   "ratio": 1.067,
+   "ratio_spread_p10_p90": 0.263,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 6,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "rhenium",
+   "bgs_form": "rhenium",
+   "usgs_series": "world production",
+   "ratio": 0.975,
+   "ratio_spread_p10_p90": 0.238,
+   "years": [
+    2006,
+    2022
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 7,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "salt",
+   "bgs_form": "salt",
+   "usgs_series": "world production",
+   "ratio": 0.953,
+   "ratio_spread_p10_p90": 0.114,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 101,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "selenium",
+   "bgs_form": "selenium, refined",
+   "usgs_series": "world production",
+   "ratio": 1.169,
+   "ratio_spread_p10_p90": 0.492,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 16,
+   "status": "close",
+   "reason": "Within compilation tolerance; refinery-output coverage differs by year."
+  },
+  {
+   "material": "silver",
+   "bgs_form": "silver, mine",
+   "usgs_series": "world production",
+   "ratio": 1.006,
+   "ratio_spread_p10_p90": 0.105,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 68,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "strontium",
+   "bgs_form": "strontium minerals",
+   "usgs_series": "world production",
+   "ratio": 1.016,
+   "ratio_spread_p10_p90": 0.43,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 6,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "talc",
+   "bgs_form": "talc",
+   "usgs_series": "world production",
+   "ratio": 0.87,
+   "ratio_spread_p10_p90": 0.193,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 36,
+   "status": "close",
+   "reason": "Within compilation tolerance; talc/pyrophyllite scope differs slightly."
+  },
+  {
+   "material": "tantalum",
+   "bgs_form": "tantalum and niobium minerals",
+   "usgs_series": "world production",
+   "ratio": 122.8,
+   "ratio_spread_p10_p90": 171.599,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 6,
+   "status": "not_comparable",
+   "reason": "BGS publishes tantalum AND niobium minerals as one gross-ore series; USGS publishes contained tantalum alone. Different numerator and different basis."
+  },
+  {
+   "material": "tellurium",
+   "bgs_form": "tellurium, refined",
+   "usgs_series": "world production",
+   "ratio": 0.943,
+   "ratio_spread_p10_p90": 0.491,
+   "years": [
+    2013,
+    2020
+   ],
+   "n_years": 8,
+   "bgs_reporters_median": 6,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "tin",
+   "bgs_form": "tin, mine",
+   "usgs_series": "world production",
+   "ratio": 1.028,
+   "ratio_spread_p10_p90": 0.284,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 24,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "titanium",
+   "bgs_form": "titanium minerals",
+   "usgs_series": "world production",
+   "ratio": 1.455,
+   "ratio_spread_p10_p90": 0.425,
+   "years": [
+    2005,
+    2020
+   ],
+   "n_years": 16,
+   "bgs_reporters_median": 19,
+   "status": "not_comparable",
+   "reason": "BGS counts titanium MINERALS (ilmenite + rutile, gross); USGS reports on a TiO2-content basis."
+  },
+  {
+   "material": "tungsten",
+   "bgs_form": "tungsten, mine",
+   "usgs_series": "world production",
+   "ratio": 1.019,
+   "ratio_spread_p10_p90": 0.119,
+   "years": [
+    2005,
+    2019
+   ],
+   "n_years": 15,
+   "bgs_reporters_median": 20,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "vanadium",
+   "bgs_form": "vanadium, mine",
+   "usgs_series": "world production",
+   "ratio": 1.02,
+   "ratio_spread_p10_p90": 0.193,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 4,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "wollastonite",
+   "bgs_form": "wollastonite",
+   "usgs_series": "world production",
+   "ratio": 1.186,
+   "ratio_spread_p10_p90": 0.995,
+   "years": [
+    2005,
+    2023
+   ],
+   "n_years": 19,
+   "bgs_reporters_median": 7,
+   "status": "close",
+   "reason": "Within compilation tolerance; few producers, so one country revision moves the ratio noticeably."
+  },
+  {
+   "material": "zinc",
+   "bgs_form": "zinc, mine",
+   "usgs_series": "world production",
+   "ratio": 1.006,
+   "ratio_spread_p10_p90": 0.104,
+   "years": [
+    2005,
+    2022
+   ],
+   "n_years": 18,
+   "bgs_reporters_median": 51,
+   "status": "corroborated",
+   "reason": null
+  },
+  {
+   "material": "zirconium",
+   "bgs_form": "zirconium minerals",
+   "usgs_series": "world production",
+   "ratio": 0.949,
+   "ratio_spread_p10_p90": 0.189,
+   "years": [
+    2005,
+    2021
+   ],
+   "n_years": 17,
+   "bgs_reporters_median": 16,
+   "status": "corroborated",
+   "reason": null
+  }
+ ]
+}
