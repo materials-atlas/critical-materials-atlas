@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""CROSS-SOURCE CORROBORATION — does a second, independent compilation agree with our number?
+"""CROSS-SOURCE COMPARISON — does a second public compilation report the same thing?
 
 Two bodies count world mineral production by different routes. BGS sums the returns that national
-statistical offices file; USGS publishes its own world estimate. Neither is derived from the other,
-so where they agree, a production figure has genuine corroboration; where they diverge, something is
-wrong with one of them OR - far more often - they are not describing the same object.
+statistical offices file; USGS publishes its own world estimate.
+
+WHAT AGREEMENT DOES AND DOES NOT MEAN. These are independent COMPILATIONS, but they are not
+independent MEASUREMENTS: both ultimately rest in large part on the same national statistical
+returns, and where those returns are wrong or missing, both can be wrong together. So agreement
+raises confidence that we have paired the right forms and read the units correctly - it is not
+proof that a number is true, and disagreement does not make either body wrong. Most disagreement
+here is basis, stage or coverage, not error.
 
 This is the generalised, automated form of the germanium catch. There, BGS's three reporting cells
 summed to 1.4x USGS's entire world estimate, which is only visible if you put the two side by side.
@@ -60,10 +65,17 @@ REASONS = {
                  'TiO2-content basis.',
     'bismuth':   'STAGE mismatch: the USGS world series here is refinery production, the BGS form '
                  'is mine output.',
-    'cement':    'Scale mismatch between the two series - unresolved; do not use this pair until '
-                 'the units are reconciled.',
-    'cobalt':    'Unresolved. Both are nominally mine output on a contained basis, so a 0.6 ratio '
-                 'is a real disagreement rather than a category error - worth investigating.',
+    'cement':    'RESOLVED - not a unit slip: both series are in tonnes. It is a coverage hole. '
+                 'BGS cement has ~33 reporters led by Turkey, Germany, Poland, Italy and Spain; '
+                 'CHINA AND INDIA ARE ABSENT, and China alone is ~2.4 of the ~4.2 billion tonne '
+                 'world total. The BGS cement panel is a Europe-weighted sub-panel, not a world '
+                 'census, so its sum must never be used as a world denominator.',
+    'cobalt':    'RESOLVED - and it is one cell. 100% of the gap is the DRC row: BGS non-DRC '
+                 'reporters reconcile with USGS, while BGS carries DRC flat at ~86-109 kt as USGS '
+                 'world output climbs to 294 kt (2020). The DRC shortfall grows 52 kt (2010) -> '
+                 '77 kt (2015) -> 164 kt (2020), which tracks the rise of artisanal and '
+                 'small-scale output that national returns do not capture. Use USGS for cobalt '
+                 'world totals; BGS DRC understates.',
     'bromine':   'Unresolved: likely a compound-vs-element basis difference.',
     'boron':     'BGS counts borate MINERALS (gross); USGS reports boron content.',
     'graphite':  'Unresolved: natural-graphite scope differs between the two.',
@@ -104,15 +116,28 @@ def build():
         ratios = bs.loc[yrs].values / uu.loc[yrs].values
         r = float(np.median(ratios))
         spread = float(np.percentile(ratios, 90) - np.percentile(ratios, 10))
-        status = ('corroborated' if 0.90 <= r <= 1.11 else
-                  'close' if 0.80 <= r <= 1.25 else 'not_comparable')
+        # NOT called "corroborated": a +/-10% band is wide, and two compilations that share the
+        # same national returns can agree and both still be wrong. The status names what was
+        # measured - how closely the two sums track - and nothing more.
+        status = ('agrees_within_10pct' if 0.90 <= r <= 1.11 else
+                  'agrees_within_25pct' if 0.80 <= r <= 1.25 else 'not_comparable')
         n_rep = int(bb[bb.year.isin(yrs)].groupby('year').country_iso3.nunique().median())
         rows.append({
             'material': mat, 'bgs_form': form, 'usgs_series': 'world production',
             'ratio': round(r, 3), 'ratio_spread_p10_p90': round(spread, 3),
             'years': [int(min(yrs)), int(max(yrs))], 'n_years': len(yrs),
             'bgs_reporters_median': n_rep, 'status': status,
-            'reason': REASONS.get(mat) if status != 'corroborated' else None,
+            # A sum over a handful of reporters cannot be a world census however well the ratio
+            # lands - germanium sits at 3 and its near-agreement is coincidence. This flag is
+            # independent of the ratio, and it outranks it.
+            'census_plausible': bool(n_rep >= 8),
+            'reason': REASONS.get(mat) if status != 'agrees_within_10pct' else None,
+            # the country residual: which reporters BGS actually has. Cement's problem is only
+            # visible here - its top reporters are Turkey and Germany, and China is simply absent.
+            'bgs_top_reporters': [
+                {'iso': i, 'share_of_bgs_sum': round(float(v / bs.loc[yrs].sum()), 3)}
+                for i, v in bb[bb.year.isin(yrs)].groupby('country_iso3').value_t.sum()
+                             .sort_values(ascending=False).head(4).items()],
         })
     return rows
 
@@ -124,7 +149,10 @@ if __name__ == '__main__':
         counts[r['status']] = counts.get(r['status'], 0) + 1
     out = {
         'note': 'Cross-source corroboration of world production. BGS national returns SUMMED vs the '
-                'USGS world estimate - two independent compilations, neither derived from the other. '
+                'USGS world estimate. These are independent COMPILATIONS but NOT independent '
+                'MEASUREMENTS - both rest largely on the same national returns, so agreement raises '
+                'confidence in our pairing and units, not proof that a figure is true; an '
+                'uncorroborated number is not thereby wrong. '
                 'ratio = median(BGS sum / USGS world) over the overlapping years. corroborated = '
                 'within ~10%. A "not_comparable" row is usually a basis or stage difference, not an '
                 'error: the pairing is stated explicitly and the reason recorded, because an '
@@ -137,6 +165,10 @@ if __name__ == '__main__':
     print(f'WROTE out/pairing.json — {len(rows)} materials paired')
     for k, v in sorted(counts.items(), key=lambda kv: -kv[1]):
         print(f'   {k}: {v}')
-    unexplained = [r['material'] for r in rows if r['status'] != 'corroborated' and not r['reason']]
+    thin = [r['material'] for r in rows if not r['census_plausible']]
+    if thin:
+        print(f'   NOT a world census regardless of ratio (<8 reporters): {", ".join(thin)}')
+    unexplained = [r['material'] for r in rows
+                   if r['status'] != 'agrees_within_10pct' and not r['reason']]
     if unexplained:
         print(f'   NO REASON RECORDED (fix or investigate): {", ".join(unexplained)}')

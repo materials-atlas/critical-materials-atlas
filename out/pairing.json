@@ -1,10 +1,10 @@
 {
- "note": "Cross-source corroboration of world production. BGS national returns SUMMED vs the USGS world estimate - two independent compilations, neither derived from the other. ratio = median(BGS sum / USGS world) over the overlapping years. corroborated = within ~10%. A \"not_comparable\" row is usually a basis or stage difference, not an error: the pairing is stated explicitly and the reason recorded, because an unexplained ratio invites someone to fix a number that was never wrong.",
+ "note": "Cross-source corroboration of world production. BGS national returns SUMMED vs the USGS world estimate. These are independent COMPILATIONS but NOT independent MEASUREMENTS - both rest largely on the same national returns, so agreement raises confidence in our pairing and units, not proof that a figure is true; an uncorroborated number is not thereby wrong. ratio = median(BGS sum / USGS world) over the overlapping years. corroborated = within ~10%. A \"not_comparable\" row is usually a basis or stage difference, not an error: the pairing is stated explicitly and the reason recorded, because an unexplained ratio invites someone to fix a number that was never wrong.",
  "method": "Pairings are declared in build_pairing.py, never inferred at run time. Joining on material alone would compare gross ore against contained metal.",
  "summary": {
-  "corroborated": 34,
+  "agrees_within_10pct": 34,
   "not_comparable": 12,
-  "close": 7
+  "agrees_within_25pct": 7
  },
  "n_materials": 53,
  "rows": [
@@ -20,8 +20,27 @@
    ],
    "n_years": 15,
    "bgs_reporters_median": 17,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.755
+    },
+    {
+     "iso": "TJK",
+     "share_of_bgs_sum": 0.076
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.052
+    },
+    {
+     "iso": "BOL",
+     "share_of_bgs_sum": 0.024
+    }
+   ]
   },
   {
    "material": "arsenic",
@@ -35,8 +54,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 7,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.538
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.205
+    },
+    {
+     "iso": "MAR",
+     "share_of_bgs_sum": 0.115
+    },
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.062
+    }
+   ]
   },
   {
    "material": "asbestos",
@@ -50,8 +88,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 5,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.54
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.171
+    },
+    {
+     "iso": "KAZ",
+     "share_of_bgs_sum": 0.149
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.136
+    }
+   ]
   },
   {
    "material": "baryte",
@@ -65,8 +122,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 35,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.411
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.19
+    },
+    {
+     "iso": "MAR",
+     "share_of_bgs_sum": 0.094
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.056
+    }
+   ]
   },
   {
    "material": "bauxite",
@@ -80,8 +156,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 31,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.298
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.16
+    },
+    {
+     "iso": "GIN",
+     "share_of_bgs_sum": 0.13
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.119
+    }
+   ]
   },
   {
    "material": "beryllium",
@@ -96,7 +191,26 @@
    "n_years": 17,
    "bgs_reporters_median": 6,
    "status": "not_comparable",
-   "reason": "BGS counts BERYL (the ore mineral); USGS counts contained beryllium. Beryl is roughly 4% Be."
+   "census_plausible": false,
+   "reason": "BGS counts BERYL (the ore mineral); USGS counts contained beryllium. Beryl is roughly 4% Be.",
+   "bgs_top_reporters": [
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.755
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.173
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.028
+    },
+    {
+     "iso": "MOZ",
+     "share_of_bgs_sum": 0.024
+    }
+   ]
   },
   {
    "material": "bismuth",
@@ -111,7 +225,26 @@
    "n_years": 18,
    "bgs_reporters_median": 9,
    "status": "not_comparable",
-   "reason": "STAGE mismatch: the USGS world series here is refinery production, the BGS form is mine output."
+   "census_plausible": true,
+   "reason": "STAGE mismatch: the USGS world series here is refinery production, the BGS form is mine output.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.39
+    },
+    {
+     "iso": "VNM",
+     "share_of_bgs_sum": 0.2
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.154
+    },
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.112
+    }
+   ]
   },
   {
    "material": "boron",
@@ -126,7 +259,26 @@
    "n_years": 9,
    "bgs_reporters_median": 10,
    "status": "not_comparable",
-   "reason": "BGS counts borate MINERALS (gross); USGS reports boron content."
+   "census_plausible": true,
+   "reason": "BGS counts borate MINERALS (gross); USGS reports boron content.",
+   "bgs_top_reporters": [
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.398
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.227
+    },
+    {
+     "iso": "ARG",
+     "share_of_bgs_sum": 0.111
+    },
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.097
+    }
+   ]
   },
   {
    "material": "bromine",
@@ -141,7 +293,26 @@
    "n_years": 18,
    "bgs_reporters_median": 9,
    "status": "not_comparable",
-   "reason": "Unresolved: likely a compound-vs-element basis difference."
+   "census_plausible": true,
+   "reason": "Unresolved: likely a compound-vs-element basis difference.",
+   "bgs_top_reporters": [
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.362
+    },
+    {
+     "iso": "ISR",
+     "share_of_bgs_sum": 0.274
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.172
+    },
+    {
+     "iso": "JOR",
+     "share_of_bgs_sum": 0.145
+    }
+   ]
   },
   {
    "material": "cadmium",
@@ -155,8 +326,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 18,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.328
+    },
+    {
+     "iso": "KOR",
+     "share_of_bgs_sum": 0.17
+    },
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.086
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.068
+    }
+   ]
   },
   {
    "material": "cement",
@@ -171,7 +361,26 @@
    "n_years": 17,
    "bgs_reporters_median": 32,
    "status": "not_comparable",
-   "reason": "Scale mismatch between the two series - unresolved; do not use this pair until the units are reconciled."
+   "census_plausible": true,
+   "reason": "RESOLVED - not a unit slip: both series are in tonnes. It is a coverage hole. BGS cement has ~33 reporters led by Turkey, Germany, Poland, Italy and Spain; CHINA AND INDIA ARE ABSENT, and China alone is ~2.4 of the ~4.2 billion tonne world total. The BGS cement panel is a Europe-weighted sub-panel, not a world census, so its sum must never be used as a world denominator.",
+   "bgs_top_reporters": [
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.237
+    },
+    {
+     "iso": "DEU",
+     "share_of_bgs_sum": 0.119
+    },
+    {
+     "iso": "ITA",
+     "share_of_bgs_sum": 0.108
+    },
+    {
+     "iso": "ESP",
+     "share_of_bgs_sum": 0.093
+    }
+   ]
   },
   {
    "material": "chromium",
@@ -186,7 +395,26 @@
    "n_years": 18,
    "bgs_reporters_median": 19,
    "status": "not_comparable",
-   "reason": "BGS counts chromite ORE at gross weight; USGS counts contained chromium."
+   "census_plausible": true,
+   "reason": "BGS counts chromite ORE at gross weight; USGS counts contained chromium.",
+   "bgs_top_reporters": [
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.444
+    },
+    {
+     "iso": "KAZ",
+     "share_of_bgs_sum": 0.181
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.122
+    },
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.089
+    }
+   ]
   },
   {
    "material": "cobalt",
@@ -201,7 +429,26 @@
    "n_years": 17,
    "bgs_reporters_median": 19,
    "status": "not_comparable",
-   "reason": "Unresolved. Both are nominally mine output on a contained basis, so a 0.6 ratio is a real disagreement rather than a category error - worth investigating."
+   "census_plausible": true,
+   "reason": "RESOLVED - and it is one cell. 100% of the gap is the DRC row: BGS non-DRC reporters reconcile with USGS, while BGS carries DRC flat at ~86-109 kt as USGS world output climbs to 294 kt (2020). The DRC shortfall grows 52 kt (2010) -> 77 kt (2015) -> 164 kt (2020), which tracks the rise of artisanal and small-scale output that national returns do not capture. Use USGS for cobalt world totals; BGS DRC understates.",
+   "bgs_top_reporters": [
+    {
+     "iso": "COD",
+     "share_of_bgs_sum": 0.605
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.053
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.05
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.048
+    }
+   ]
   },
   {
    "material": "copper",
@@ -215,8 +462,27 @@
    ],
    "n_years": 16,
    "bgs_reporters_median": 54,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.312
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.091
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.08
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.07
+    }
+   ]
   },
   {
    "material": "diatomite",
@@ -230,8 +496,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 27,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.364
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.169
+    },
+    {
+     "iso": "DNK",
+     "share_of_bgs_sum": 0.061
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.047
+    }
+   ]
   },
   {
    "material": "feldspar",
@@ -245,8 +530,27 @@
    ],
    "n_years": 15,
    "bgs_reporters_median": 52,
-   "status": "close",
-   "reason": "Within compilation tolerance. No structural basis difference identified; the two bodies revise on different schedules and BGS country coverage varies by year."
+   "status": "agrees_within_25pct",
+   "census_plausible": true,
+   "reason": "Within compilation tolerance. No structural basis difference identified; the two bodies revise on different schedules and BGS country coverage varies by year.",
+   "bgs_top_reporters": [
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.3
+    },
+    {
+     "iso": "ITA",
+     "share_of_bgs_sum": 0.167
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.096
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.079
+    }
+   ]
   },
   {
    "material": "fluorspar",
@@ -260,8 +564,27 @@
    ],
    "n_years": 16,
    "bgs_reporters_median": 24,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.637
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.152
+    },
+    {
+     "iso": "MNG",
+     "share_of_bgs_sum": 0.041
+    },
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.033
+    }
+   ]
   },
   {
    "material": "gallium",
@@ -275,8 +598,27 @@
    ],
    "n_years": 15,
    "bgs_reporters_median": 5,
-   "status": "close",
-   "reason": "BGS gallium coverage is thin and USGS publishes an estimate rather than a census; neither side is a measured world total."
+   "status": "agrees_within_25pct",
+   "census_plausible": false,
+   "reason": "BGS gallium coverage is thin and USGS publishes an estimate rather than a census; neither side is a measured world total.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.859
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.046
+    },
+    {
+     "iso": "KAZ",
+     "share_of_bgs_sum": 0.028
+    },
+    {
+     "iso": "DEU",
+     "share_of_bgs_sum": 0.022
+    }
+   ]
   },
   {
    "material": "germanium",
@@ -290,8 +632,27 @@
    ],
    "n_years": 16,
    "bgs_reporters_median": 3,
-   "status": "close",
-   "reason": "BGS carries only 3-4 reporting countries for germanium metal, so its sum is not a world total; USGS states outright that reliable world estimates cannot be made. The near-agreement here is coincidence, not corroboration - this is the material that prompted the whole check."
+   "status": "agrees_within_25pct",
+   "census_plausible": false,
+   "reason": "BGS carries only 3-4 reporting countries for germanium metal, so its sum is not a world total; USGS states outright that reliable world estimates cannot be made. The near-agreement here is coincidence, not corroboration - this is the material that prompted the whole check.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.871
+    },
+    {
+     "iso": "FIN",
+     "share_of_bgs_sum": 0.051
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.035
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.034
+    }
+   ]
   },
   {
    "material": "gold",
@@ -305,8 +666,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 97,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.125
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.094
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.08
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.076
+    }
+   ]
   },
   {
    "material": "graphite",
@@ -321,7 +701,26 @@
    "n_years": 18,
    "bgs_reporters_median": 16,
    "status": "not_comparable",
-   "reason": "Unresolved: natural-graphite scope differs between the two."
+   "census_plausible": true,
+   "reason": "Unresolved: natural-graphite scope differs between the two.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.741
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.066
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.049
+    },
+    {
+     "iso": "BIH",
+     "share_of_bgs_sum": 0.029
+    }
+   ]
   },
   {
    "material": "gypsum",
@@ -335,8 +734,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 84,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.16
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.114
+    },
+    {
+     "iso": "IRN",
+     "share_of_bgs_sum": 0.092
+    },
+    {
+     "iso": "THA",
+     "share_of_bgs_sum": 0.068
+    }
+   ]
   },
   {
    "material": "indium",
@@ -350,8 +768,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 11,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.603
+    },
+    {
+     "iso": "KOR",
+     "share_of_bgs_sum": 0.128
+    },
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.089
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.079
+    }
+   ]
   },
   {
    "material": "iodine",
@@ -365,8 +802,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 9,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.6
+    },
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.303
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.044
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.019
+    }
+   ]
   },
   {
    "material": "iron",
@@ -380,8 +836,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 46,
-   "status": "close",
-   "reason": "Iron ore scope differs: crude-ore vs usable-ore reporting is not consistent between the two bodies."
+   "status": "agrees_within_25pct",
+   "census_plausible": true,
+   "reason": "Iron ore scope differs: crude-ore vs usable-ore reporting is not consistent between the two bodies.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.366
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.222
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.138
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.068
+    }
+   ]
   },
   {
    "material": "lead",
@@ -395,8 +870,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 46,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.439
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.133
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.08
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.065
+    }
+   ]
   },
   {
    "material": "lithium",
@@ -410,8 +904,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 7,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.778
+    },
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.084
+    },
+    {
+     "iso": "PRT",
+     "share_of_bgs_sum": 0.036
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.027
+    }
+   ]
   },
   {
    "material": "magnesium",
@@ -425,8 +938,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 23,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.59
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.099
+    },
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.082
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.056
+    }
+   ]
   },
   {
    "material": "manganese",
@@ -441,7 +973,26 @@
    "n_years": 18,
    "bgs_reporters_median": 27,
    "status": "not_comparable",
-   "reason": "BGS counts manganese ORE at gross weight; USGS counts CONTAINED manganese. Ore grades ~30-50% Mn, which is the whole ratio."
+   "census_plausible": true,
+   "reason": "BGS counts manganese ORE at gross weight; USGS counts CONTAINED manganese. Ore grades ~30-50% Mn, which is the whole ratio.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.276
+    },
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.163
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.137
+    },
+    {
+     "iso": "GAB",
+     "share_of_bgs_sum": 0.109
+    }
+   ]
   },
   {
    "material": "mercury",
@@ -455,8 +1006,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 9,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.799
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.051
+    },
+    {
+     "iso": "TJK",
+     "share_of_bgs_sum": 0.047
+    },
+    {
+     "iso": "KGZ",
+     "share_of_bgs_sum": 0.041
+    }
+   ]
   },
   {
    "material": "mica",
@@ -471,7 +1041,26 @@
    "n_years": 18,
    "bgs_reporters_median": 20,
    "status": "not_comparable",
-   "reason": "Unresolved: sheet vs scrap/flake mica scope differs."
+   "census_plausible": true,
+   "reason": "Unresolved: sheet vs scrap/flake mica scope differs.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.275
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.167
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.09
+    },
+    {
+     "iso": "KOR",
+     "share_of_bgs_sum": 0.077
+    }
+   ]
   },
   {
    "material": "molybdenum",
@@ -485,8 +1074,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 15,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.384
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.199
+    },
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.181
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.086
+    }
+   ]
   },
   {
    "material": "nickel",
@@ -500,8 +1108,27 @@
    ],
    "n_years": 15,
    "bgs_reporters_median": 27,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "IDN",
+     "share_of_bgs_sum": 0.229
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.127
+    },
+    {
+     "iso": "PHL",
+     "share_of_bgs_sum": 0.119
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.103
+    }
+   ]
   },
   {
    "material": "perlite",
@@ -515,8 +1142,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 19,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.248
+    },
+    {
+     "iso": "GRC",
+     "share_of_bgs_sum": 0.227
+    },
+    {
+     "iso": "TUR",
+     "share_of_bgs_sum": 0.212
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.115
+    }
+   ]
   },
   {
    "material": "phosphate",
@@ -530,8 +1176,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 36,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.421
+    },
+    {
+     "iso": "MAR",
+     "share_of_bgs_sum": 0.14
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.129
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.055
+    }
+   ]
   },
   {
    "material": "platinum",
@@ -545,8 +1210,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 11,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.567
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.277
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.055
+    },
+    {
+     "iso": "ZWE",
+     "share_of_bgs_sum": 0.048
+    }
+   ]
   },
   {
    "material": "potash",
@@ -560,8 +1244,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 12,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.297
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.176
+    },
+    {
+     "iso": "BLR",
+     "share_of_bgs_sum": 0.15
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.112
+    }
+   ]
   },
   {
    "material": "rare_earths",
@@ -575,8 +1278,27 @@
    ],
    "n_years": 16,
    "bgs_reporters_median": 6,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.855
+    },
+    {
+     "iso": "MMR",
+     "share_of_bgs_sum": 0.049
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.04
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.025
+    }
+   ]
   },
   {
    "material": "rhenium",
@@ -590,8 +1312,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 7,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHL",
+     "share_of_bgs_sum": 0.537
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.156
+    },
+    {
+     "iso": "POL",
+     "share_of_bgs_sum": 0.128
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.048
+    }
+   ]
   },
   {
    "material": "salt",
@@ -605,8 +1346,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 101,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.244
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.135
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.092
+    },
+    {
+     "iso": "DEU",
+     "share_of_bgs_sum": 0.062
+    }
+   ]
   },
   {
    "material": "selenium",
@@ -620,8 +1380,27 @@
    ],
    "n_years": 16,
    "bgs_reporters_median": 16,
-   "status": "close",
-   "reason": "Within compilation tolerance; refinery-output coverage differs by year."
+   "status": "agrees_within_25pct",
+   "census_plausible": true,
+   "reason": "Within compilation tolerance; refinery-output coverage differs by year.",
+   "bgs_top_reporters": [
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.253
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.196
+    },
+    {
+     "iso": "DEU",
+     "share_of_bgs_sum": 0.166
+    },
+    {
+     "iso": "BEL",
+     "share_of_bgs_sum": 0.067
+    }
+   ]
   },
   {
    "material": "silver",
@@ -635,8 +1414,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 68,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.207
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.148
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.13
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.066
+    }
+   ]
   },
   {
    "material": "strontium",
@@ -650,8 +1448,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 6,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "ESP",
+     "share_of_bgs_sum": 0.357
+    },
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.276
+    },
+    {
+     "iso": "IRN",
+     "share_of_bgs_sum": 0.206
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.137
+    }
+   ]
   },
   {
    "material": "talc",
@@ -665,8 +1482,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 36,
-   "status": "close",
-   "reason": "Within compilation tolerance; talc/pyrophyllite scope differs slightly."
+   "status": "agrees_within_25pct",
+   "census_plausible": true,
+   "reason": "Within compilation tolerance; talc/pyrophyllite scope differs slightly.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.283
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.098
+    },
+    {
+     "iso": "KOR",
+     "share_of_bgs_sum": 0.089
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.088
+    }
+   ]
   },
   {
    "material": "tantalum",
@@ -681,7 +1517,26 @@
    "n_years": 18,
    "bgs_reporters_median": 6,
    "status": "not_comparable",
-   "reason": "BGS publishes tantalum AND niobium minerals as one gross-ore series; USGS publishes contained tantalum alone. Different numerator and different basis."
+   "census_plausible": false,
+   "reason": "BGS publishes tantalum AND niobium minerals as one gross-ore series; USGS publishes contained tantalum alone. Different numerator and different basis.",
+   "bgs_top_reporters": [
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.929
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.057
+    },
+    {
+     "iso": "RWA",
+     "share_of_bgs_sum": 0.006
+    },
+    {
+     "iso": "COD",
+     "share_of_bgs_sum": 0.006
+    }
+   ]
   },
   {
    "material": "tellurium",
@@ -695,8 +1550,27 @@
    ],
    "n_years": 8,
    "bgs_reporters_median": 6,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.652
+    },
+    {
+     "iso": "JPN",
+     "share_of_bgs_sum": 0.089
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.087
+    },
+    {
+     "iso": "SWE",
+     "share_of_bgs_sum": 0.076
+    }
+   ]
   },
   {
    "material": "tin",
@@ -710,8 +1584,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 24,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.353
+    },
+    {
+     "iso": "IDN",
+     "share_of_bgs_sum": 0.267
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.089
+    },
+    {
+     "iso": "MMR",
+     "share_of_bgs_sum": 0.076
+    }
+   ]
   },
   {
    "material": "titanium",
@@ -726,7 +1619,26 @@
    "n_years": 16,
    "bgs_reporters_median": 19,
    "status": "not_comparable",
-   "reason": "BGS counts titanium MINERALS (ilmenite + rutile, gross); USGS reports on a TiO2-content basis."
+   "census_plausible": true,
+   "reason": "BGS counts titanium MINERALS (ilmenite + rutile, gross); USGS reports on a TiO2-content basis.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.207
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.183
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.141
+    },
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.1
+    }
+   ]
   },
   {
    "material": "tungsten",
@@ -740,8 +1652,27 @@
    ],
    "n_years": 15,
    "bgs_reporters_median": 20,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.802
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.052
+    },
+    {
+     "iso": "VNM",
+     "share_of_bgs_sum": 0.024
+    },
+    {
+     "iso": "CAN",
+     "share_of_bgs_sum": 0.022
+    }
+   ]
   },
   {
    "material": "vanadium",
@@ -755,8 +1686,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 4,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": false,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.52
+    },
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.229
+    },
+    {
+     "iso": "RUS",
+     "share_of_bgs_sum": 0.213
+    },
+    {
+     "iso": "BRA",
+     "share_of_bgs_sum": 0.03
+    }
+   ]
   },
   {
    "material": "wollastonite",
@@ -770,8 +1720,27 @@
    ],
    "n_years": 19,
    "bgs_reporters_median": 7,
-   "status": "close",
-   "reason": "Within compilation tolerance; few producers, so one country revision moves the ratio noticeably."
+   "status": "agrees_within_25pct",
+   "census_plausible": false,
+   "reason": "Within compilation tolerance; few producers, so one country revision moves the ratio noticeably.",
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.696
+    },
+    {
+     "iso": "IND",
+     "share_of_bgs_sum": 0.134
+    },
+    {
+     "iso": "MEX",
+     "share_of_bgs_sum": 0.08
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.066
+    }
+   ]
   },
   {
    "material": "zinc",
@@ -785,8 +1754,27 @@
    ],
    "n_years": 18,
    "bgs_reporters_median": 51,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "CHN",
+     "share_of_bgs_sum": 0.32
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.112
+    },
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.109
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.062
+    }
+   ]
   },
   {
    "material": "zirconium",
@@ -800,8 +1788,27 @@
    ],
    "n_years": 17,
    "bgs_reporters_median": 16,
-   "status": "corroborated",
-   "reason": null
+   "status": "agrees_within_10pct",
+   "census_plausible": true,
+   "reason": null,
+   "bgs_top_reporters": [
+    {
+     "iso": "AUS",
+     "share_of_bgs_sum": 0.411
+    },
+    {
+     "iso": "ZAF",
+     "share_of_bgs_sum": 0.282
+    },
+    {
+     "iso": "USA",
+     "share_of_bgs_sum": 0.071
+    },
+    {
+     "iso": "IDN",
+     "share_of_bgs_sum": 0.046
+    }
+   ]
   }
  ]
 }

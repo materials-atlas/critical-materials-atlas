@@ -215,6 +215,17 @@ if __name__ == '__main__':
         'series': int(df['series_id'].nunique()),
         'value_flags': {k: int(v) for k, v in df['value_flag'].value_counts().items()},
         'retrieved_at': RETRIEVED,
+        # Country codes are not stable across a 1900-2024 span. These are REAL rows, not errors:
+        # a query filtering on the successor code alone silently loses the predecessor's history.
+        # Zaire is the case that bites - a long DRC cobalt series on COD drops 1970-1991 entirely.
+        'historical_entities': {
+            'note': 'Dissolved states appear under their own ISO codes. They are kept, not merged: '
+                    'merging is a modelling choice a query should make deliberately. Filtering on '
+                    'a successor code alone loses the predecessor.',
+            'successors': {'SUN': 'RUS + 14 others', 'YUG': 'via SCG -> SRB, MNE, HRV, SVN, MKD, BIH',
+                           'CSK': 'CZE + SVK', 'DDR': 'DEU', 'SCG': 'SRB + MNE',
+                           'ZAR': 'COD (Zaire renamed 1997)', 'ANT': 'CUW, SXM, BES'},
+        },
         'join_rule': 'NEVER join on material alone. The identity of an observation is '
                      '(code_system, native_code, measure, stage, basis, unit). material is a '
                      'convenience label mapped from source_group, not a key.',

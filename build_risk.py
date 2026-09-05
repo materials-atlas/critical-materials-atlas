@@ -108,16 +108,26 @@ def main():
             f'style="display:inline-block;height:14px;width:{W[k]*r["components"][k]*0.9:.1f}%;background:{COLORS[k]}"></span>'
             for k in ['production', 'refining', 'trade', 'opacity'])
         sc = r['score']; scol = '#c0392b' if sc >= 60 else '#b35e16' if sc >= 40 else '#3f9b46'
+        sr = r.get('score_range')
+        sc_disp = f'{sr[0]}–{sr[1]}' if sr else f'{sc}'
         rec = r['recycling']
         rcell = (f'<td class="n" style="color:#3f9b46" title="end-of-life recycling input rate (EU CRM 2023); '
                  f'discounts the gross score of {r["gross"]}">{rec}%</td>') if rec else '<td class="n" style="color:#c9d2d0">—</td>'
         sub = r.get('substitutability') or '—'
         subcol = {'high': '#c0392b', 'medium': '#b35e16', 'low': '#3f9b46'}.get(sub, '#c9d2d0')
         scell = f'<td style="color:{subcol};font-weight:600;font-size:.8rem;text-transform:uppercase">{e(sub)}</td>'
+        # A material whose refining share is an interval does not have an identified rank. Both
+        # council engines named publishing the point as the top credibility risk: the midpoint of
+        # two anchors measured in different years on different bases is not a statistic, so the
+        # rank it produces must not be printed as if it were one.
+        rk = r.get('rank_range')
+        rank_cell = (f'<td class="n" style="color:#b35e16" title="{e(r.get("uncertainty",""))}">'
+                     f'{rk[0]}–{rk[1]}<span style="color:#9aa6ad;font-size:.75rem"> ?</span></td>'
+                     if rk else f'<td class="n" style="color:#9aa6ad">{i}</td>')
         body.append(
-            f'<tr><td class="n" style="color:#9aa6ad">{i}</td>'
+            f'<tr>{rank_cell}'
             f'<td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{" ⛓" if r["shared"] else ""}</td>'
-            f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc}</td>'
+            f'<td class="n" style="font-weight:800;color:{scol};font-size:1.05rem">{sc_disp}</td>'
             f'{rcell}{scell}'
             f'<td style="width:34%"><span style="display:flex;background:#eef2f1;border-radius:3px;overflow:hidden">{segs}</span></td></tr>')
     legend = ' &nbsp; '.join(f'<span style="color:{COLORS[k]}">■</span> {k} <span style="color:#9aa6ad">({int(W[k]*100)}%)</span>'
