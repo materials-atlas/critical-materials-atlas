@@ -1,28 +1,60 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 275297,
- "materials": 60,
- "materials_in_atlas": 24,
- "countries": 189,
- "year_min": 1970,
+ "rows": 340153,
+ "materials": 85,
+ "materials_in_atlas": 28,
+ "countries": 190,
+ "year_min": 1900,
  "year_max": 2024,
  "by_measure": {
-  "production": 105418,
-  "imports": 102859,
-  "exports": 67020
+  "production": 120904,
+  "imports": 110978,
+  "exports": 73676,
+  "unit_value_nominal": 8874,
+  "unit_value_real98": 8794,
+  "apparent_consumption": 8405,
+  "stocks": 2842,
+  "shipments": 1689,
+  "production_secondary": 1473,
+  "shipments_government": 767,
+  "consumption": 760,
+  "stocks_government": 526,
+  "stocks_industry": 465
  },
  "by_stage": {
-  "unspecified": 99863,
-  "mine": 99811,
-  "processed": 75623
+  "unspecified": 159999,
+  "mine": 100506,
+  "processed": 79648
  },
- "tonnage_convertible_pct": 97.8,
- "sources": [
-  "BGS World Mineral Statistics"
- ],
- "series": 341,
+ "tonnage_convertible_pct": 92.7,
+ "sources": {
+  "BGS World Mineral Statistics": 275297,
+  "USGS Historical Statistics (DS 140)": 64856
+ },
+ "year_span_by_source": {
+  "BGS World Mineral Statistics": [
+   1970,
+   2024
+  ],
+  "USGS Historical Statistics (DS 140)": [
+   1900,
+   2023
+  ]
+ },
+ "geographies": 190,
+ "world_rows": 6739,
+ "by_measure_family": {
+  "trade": 187110,
+  "production": 122377,
+  "price": 17668,
+  "derived_by_source": 8405,
+  "stocks": 3833,
+  "consumption": 760
+ },
+ "series": 1026,
  "value_flags": {
   "nil": 4452,
+  "withheld": 1225,
   "trace": 447
  },
  "retrieved_at": "2026-09-04",

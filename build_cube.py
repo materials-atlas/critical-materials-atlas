@@ -154,7 +154,24 @@ def build():
     # in_atlas marks the 32 headline materials; the rest are controls/drivers, kept on purpose
     df['in_atlas'] = df['material'].isin(ATLAS)
     df['retrieved_at'] = RETRIEVED
-    return df.sort_values(['material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
+
+    # ── second ingest: USGS Historical Statistics (DS 140) ────────────────────────────────────
+    # Adds 1900-2023 depth and, in 66 workbooks, a WORLD production column the BGS spine has no
+    # equivalent for. Same schema, so nothing downstream changes.
+    try:
+        import build_cube_usgs
+        u = pd.DataFrame(build_cube_usgs.build())
+        if len(u):
+            u['in_atlas'] = u['material'].isin(ATLAS)
+            u['retrieved_at'] = None
+            df = pd.concat([df, u], ignore_index=True, sort=False)
+    except Exception as e:
+        print(f'  USGS historical ingest skipped: {e}')
+
+    # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
+    # codes and sources with numeric ones can share the column
+    df['native_code'] = df['native_code'].astype('string')
+    return df.sort_values(['source', 'material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
 
 
 if __name__ == '__main__':
@@ -176,7 +193,12 @@ if __name__ == '__main__':
         'by_measure': {k: int(v) for k, v in df['measure'].value_counts().items()},
         'by_stage': {k: int(v) for k, v in df['stage'].value_counts().items()},
         'tonnage_convertible_pct': round(100 * df['value_t'].notna().mean(), 1),
-        'sources': sorted(df['source'].unique().tolist()),
+        'sources': {k: int(v) for k, v in df['source'].value_counts().items()},
+        'year_span_by_source': {str(k): [int(g.year.min()), int(g.year.max())]
+                                for k, g in df.groupby('source')},
+        'geographies': int(df['country_iso3'].nunique()),
+        'world_rows': int((df['country_iso3'] == 'WLD').sum()),
+        'by_measure_family': {k: int(v) for k, v in df['measure_family'].value_counts().items()},
         'series': int(df['series_id'].nunique()),
         'value_flags': {k: int(v) for k, v in df['value_flag'].value_counts().items()},
         'retrieved_at': RETRIEVED,
