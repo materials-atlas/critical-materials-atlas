@@ -31,6 +31,44 @@
 <article>
   <p>The atlas is a thin presentation layer over committed, versioned data. Those files <em>are</em> the API: stable URLs, plain JSON, CC-friendly public sources. They update when the pipeline reruns (the same files power the interactive views and the per-material profiles).</p>
 
+  <h2>The cube &mdash; one table behind everything</h2>
+  <p>Most of what the atlas publishes now comes out of a single harmonised fact table. One row is one
+  observation: <b>a material, a country, a year, a measure</b>, plus the identity of the source series it
+  came from. <b>523,501 rows, 89 materials, 242 countries, 1900&ndash;2024</b>, four public compilations
+  in one place.</p>
+  <table>
+    <thead><tr><th>URL</th><th>What</th></tr></thead>
+    <tbody>
+      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The whole cube, 4.7&nbsp;MB &mdash; for pandas, DuckDB, R, Polars</td></tr>
+      <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 5.8&nbsp;MB &mdash; opens anywhere</td></tr>
+      <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules</td></tr>
+      <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog &mdash; every series we hold or could reach, and whether it is ingested</td></tr>
+      <tr><td><span class="endpoint">/out/pairing.json</span></td><td>Cross-source comparison: which figures a second compilation agrees with, and why the rest differ</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">A different definition is a different dimension, not a different table</h3>
+  <p>Sources disagree about what a word means. BGS counts <i>manganese ore at gross weight</i>; USGS counts
+  <i>contained manganese</i>. Those are not rival numbers to be reconciled into one &mdash; they are two
+  different quantities, and the cube stores both, distinguished by the columns that say so:</p>
+  <table>
+    <thead><tr><th>Column</th><th>Why it exists</th></tr></thead>
+    <tbody>
+      <tr><td><span class="endpoint">stage</span></td><td>mine / processed &mdash; where in the chain the quantity sits</td></tr>
+      <tr><td><span class="endpoint">basis</span></td><td>gross weight or contained metal. The single most common cause of two sources &ldquo;disagreeing&rdquo;</td></tr>
+      <tr><td><span class="endpoint">unit</span> + <span class="endpoint">conversion_factor</span></td><td>the native unit and exactly what was applied to reach tonnes. A tonnage is never stored without them</td></tr>
+      <tr><td><span class="endpoint">code_system</span> + <span class="endpoint">native_code</span> + <span class="endpoint">native_label</span></td><td>the source&rsquo;s own identifier, kept forever. <b>Never join on <code>material</code> alone</b> &mdash; that is what turns a definition difference into a false contradiction</td></tr>
+      <tr><td><span class="endpoint">value_flag</span></td><td>nil (produced nothing), trace, withheld (confidential), estimated_by_source. A true zero is not an absence</td></tr>
+      <tr><td><span class="endpoint">source</span> + <span class="endpoint">series_id</span></td><td>which compilation said it, and which of its series</td></tr>
+    </tbody>
+  </table>
+  <p class="note">So the answer to &ldquo;can you merge sources that use different vocabularies?&rdquo; is yes &mdash;
+  by <i>adding</i> the dimension that the vocabularies differ on, never by picking a winner. What the cube
+  refuses to do is <b>aggregate across</b> those dimensions silently: summing gross ore and contained metal
+  produces a number that describes nothing. Historical states (USSR, Yugoslavia, Zaire) are kept under their
+  own codes for the same reason &mdash; merging them into successors is a choice a query should make on
+  purpose, not one the table makes for you.</p>
+
   <h2>Endpoints</h2>
   <table>
     <thead><tr><th>URL</th><th>What</th></tr></thead>

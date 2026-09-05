@@ -181,6 +181,21 @@ def build():
     except Exception as e:
         print(f'  BACI ingest skipped: {e}')
 
+    # ── fourth ingest: World Mining Data ─────────────────────────────────────────────────────
+    # The site cited seven sources while the cube held three. This is the one that belonged in it:
+    # mine production by country, and the only source so far that marks each cell reported vs
+    # estimated. IEA (scenarios), EU CRM (indicators about a material) and ECB (currency) stay out
+    # by design - see build_cube_wmd.py for why each.
+    try:
+        import build_cube_wmd
+        w = pd.DataFrame(build_cube_wmd.build())
+        if len(w):
+            w['in_atlas'] = w['material'].isin(ATLAS)
+            w['retrieved_at'] = None
+            df = pd.concat([df, w], ignore_index=True, sort=False)
+    except Exception as e:
+        print(f'  WMD ingest skipped: {e}')
+
     # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
     # codes and sources with numeric ones can share the column
     df['native_code'] = df['native_code'].astype('string')
@@ -193,6 +208,12 @@ if __name__ == '__main__':
     os.makedirs(outdir, exist_ok=True)
     path = os.path.join(outdir, 'cube.parquet')
     df.to_parquet(path, index=False, compression='zstd')
+
+    # PUBLIC COPIES. The cube is the best data asset the project has and it was invisible to
+    # visitors: the download page offered two JSON files. Parquet for anyone with pandas/DuckDB,
+    # gzipped CSV for anyone without.
+    df.to_parquet(os.path.join(ROOT, 'out', 'cube.parquet'), index=False, compression='zstd')
+    df.to_csv(os.path.join(ROOT, 'out', 'cube.csv.gz'), index=False, compression='gzip')
 
     summary = {
         'note': 'Harmonized long fact table. One row = one (material, country, year, measure, form). '
