@@ -22,6 +22,37 @@ MIN_PAIRS = 8   # fewest matched pairs that may carry a coefficient of its own
 # runs its own CIF/FOB model and so cannot arbitrate this - and buys coherence with the rule
 # the pipeline already lives by: never fabricate an agreement.
 FREIGHT_CEILING = 1.10
+# ============================================================================================
+# READ THIS BEFORE QUOTING ANY DISAGREEMENT RATE FROM THIS TABLE  (6 Sep 2026)
+#
+# The pipeline reports that 51% of two-sided flows disagree by more than 2x, and that the rate
+# survives annual aggregation and the exclusion of entrepot hubs. Put to two independent reviewers,
+# both said: not a finding, run the USA->CAN placebo, because US export statistics to Canada are
+# largely DERIVED from Canadian import data and therefore cannot honestly conflict.
+#
+# The placebo failed, and tracing why found something worse than the corridor.
+#
+#     839 of the 1,039 matched pairs - 81% - are COMTRADE AGAINST COMTRADE.
+#     907 of them are a SINGLE MONTH, December 2024.
+#
+# Because four of the five feeds hold exactly one month each: comtrade 202412, uscensus 202607,
+# eurostat 202606. Only hmrc (25 months) and comexstat (20) have a series. So the "monthly
+# five-source mirror reconciliation" is, today, one preliminary month of one source compared with
+# itself, plus about 105 genuine cross-source pairs (Eurostat<->HMRC).
+#
+# In that month the USA->CAN corridor has an exporter side totalling $129m against an importer
+# side totalling $2.5m, with cells like coal at $74.6m one way and $34.56 the other. That is not
+# two statistical systems disagreeing. It is one incomplete monthly release.
+#
+# SO: the 51% describes preliminary Comtrade, not world trade statistics, and must not be
+# published as the latter. The disagreement FLAG remains useful per flow; the RATE is not a
+# finding until the feeds carry overlapping months from genuinely different compilers.
+#
+# What would make it one, in order: refresh comtrade to a real series (blocked on API quota),
+# add a value floor so tiny cells cannot dominate, report the share of TRADE rather than of cells,
+# and align partner concepts (origin vs consignment vs destination) across feeds.
+# ============================================================================================
+
 HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # entrepot / re-export hubs
 
 SIDES_SQL = """
