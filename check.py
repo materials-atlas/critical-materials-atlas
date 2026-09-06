@@ -444,10 +444,55 @@ def check_drift():
                           f'number exists only for the index, not for display')
 
 
+def check_dim():
+    """The material dimension must stay unique, in-vocabulary, and true to its sources.
+
+    dim_material.parquet is the one table the cube is allowed to join on `material` alone, so it
+    carries the whole burden of that exception. Two failures would be silent: a duplicated
+    (material, attribute) row would FAN OUT every cube row it touches, multiplying tonnages; and a
+    stale parquet would keep serving an EOL-RIR that data.json has since corrected - the same
+    drift class as risk.json's germanium, one table further out.
+    """
+    path = 'pipeline/data/dim_material.parquet'
+    if not os.path.exists(path):
+        return
+    try:
+        import pandas as pd
+    except ImportError:
+        return
+    dim = pd.read_parquet(path)
+
+    dup = dim[dim.duplicated(subset=['material', 'attribute'], keep=False)]
+    if len(dup):
+        pairs = ', '.join(sorted({f"{r.material}/{r.attribute}" for r in dup.itertuples()}))
+        fail('dim', f'dim_material has duplicate (material, attribute) rows - a join would fan out '
+                    f'cube rows and multiply tonnages: {pairs}')
+
+    cube = 'pipeline/data/cube.parquet'
+    if os.path.exists(cube):
+        known = set(pd.read_parquet(cube, columns=['material'])['material'].unique())
+        orphan = sorted(set(dim['material']) - known)
+        if orphan:
+            fail('dim', f'dim_material describes materials the cube does not have, so nothing can '
+                        f'join to them: {", ".join(orphan)}')
+
+    try:
+        d = json.load(open('out/data.json', encoding='utf8'))
+    except Exception:
+        return
+    src = {m['label']: m for m in d.get('materials', [])}
+    live = dim[dim.attribute == 'eol_rir'].set_index('material')['value_num'].to_dict()
+    for lab, v in live.items():
+        want = src.get(lab, {}).get('recycling')
+        if want is not None and abs(float(want) - v) > 0.01:
+            fail('dim', f'dim_material has {lab} eol_rir={v:g} but data.json says {want} - the '
+                        f'dimension is stale; rerun build_cube_dim.py')
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

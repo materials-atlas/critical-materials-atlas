@@ -1,0 +1,41 @@
+{
+ "generated": "2026-09-06",
+ "rule": "A figure that describes a material is a dimension of the material. It joins on material alone - safe precisely because it is defined at material grain, unlike a fact. Uniqueness on (material, attribute) is asserted at build time.",
+ "dim_material": {
+  "rows": 394,
+  "materials": 61,
+  "attributes": 13,
+  "by_attribute": {
+   "bgs_reporters_median": 53,
+   "bgs_usgs_status": 53,
+   "census_plausible": 53,
+   "companionality": 32,
+   "companionality_class": 32,
+   "eol_rir": 32,
+   "eu_crm_2011": 8,
+   "export_control": 4,
+   "host_metals": 17,
+   "in_atlas_32": 32,
+   "net_import_reliance": 28,
+   "reserve_life_years": 18,
+   "substitutability": 32
+  },
+  "by_source": {
+   "EU CRM 2011 (first EU list)": 8,
+   "EU CRM 2023 (EC, DOI 10.2873/725585)": 64,
+   "USGS / Nassar et al. 2015, atlas classification": 81,
+   "USGS MCS": 28,
+   "USGS MCS (reserves / mine production)": 18,
+   "atlas / BGS": 53,
+   "atlas / BGS reporter census": 53,
+   "atlas pairing": 53,
+   "atlas policy ledger": 4,
+   "atlas scope": 32
+  }
+ },
+ "assessment_material_country": {
+  "rows": 31,
+  "materials": 31,
+  "note": "a share, not a quantity - comparable to a computed share, never summable with one"
+ }
+}
