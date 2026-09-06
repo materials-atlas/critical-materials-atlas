@@ -227,7 +227,27 @@ CEPII_2008_COL4 = {
 # twenty years stale, and we do not hold the underlying series. So the SHAPE comes from CEPII and
 # the LEVEL is set here, anchored on 1.071 - our own unit-value median, which independently lands
 # on the Douanes survey's extra-EU rate of 7.0%. Three sources, one number.
-CEPII_ANCHOR = 1.071
+# ANCHOR = 1.049, and the arithmetic behind it, because this is the weakest link in the chain.
+# It is the median of the unit-value ratios - importer price-per-kg over exporter price-per-kg -
+# across the 990 pairs where both sides declared a value AND a quantity, TRIMMED to the same
+# plausible band [0.7, 1.5] used everywhere else in this file.
+#
+# The trim is not cosmetic. Untrimmed the median is 1.071; trimmed it is 1.049, and the raw
+# distribution is wild enough to make the difference real - the middle half alone spans -4% to
+# +48%. An earlier version anchored on the untrimmed 1.071, which was inconsistent: every other
+# estimate here trims, and there is no reason the anchor should not.
+#
+# The trimmed figure is also the better match to the external benchmark, once the benchmark is
+# read properly. The Douanes survey gives 7.0% for EXTRA-EU imports but 1.7% for intra-EU, and
+# 3.3% overall. Our flows are a mix of both - Eurostat and HMRC contribute a lot of intra-EU
+# trade - so the right comparator is not the 7.0% cell, it is somewhere between 1.7% and 7.0%.
+# 4.9% sits there. 7.1% only matched by picking the single most favourable cell in their table,
+# which is how a coincidence gets mistaken for a confirmation.
+#
+# Sensitivity, stated because the anchor moves the output more than anything else here: at 1.02,
+# 47% of route coefficients land on the floor; at 1.10, 43% land on the ceiling. At 1.049 the
+# distribution sits inside its bounds rather than piled against one of them.
+CEPII_ANCHOR = 1.049
 LANDLOCKED = {
     'AFG','AND','ARM','AUT','AZE','BDI','BFA','BLR','BOL','BTN','BWA','CAF','CHE','CZE','ETH',
     'HUN','KAZ','KGZ','LAO','LSO','LUX','MDA','MKD','MLI','MNG','MWI','NER','NPL','PRY','RWA',
