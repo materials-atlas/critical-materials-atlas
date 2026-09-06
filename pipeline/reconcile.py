@@ -248,6 +248,31 @@ CEPII_2008_COL4 = {
 # 47% of route coefficients land on the floor; at 1.10, 43% land on the ceiling. At 1.049 the
 # distribution sits inside its bounds rather than piled against one of them.
 CEPII_ANCHOR = 1.049
+# THE BETTER ANSWER, FOUND 6 SEP 2026: OECD-ITIC. NOT YET INGESTED.
+# Asked to go and find the missing year effect, the search turned up something better than an
+# extrapolation - the maintained successor to the CEPII dataset itself.
+#
+#   OECD "International Transport and Insurance Costs of merchandise trade" (ITIC)
+#   SDMX dataflow OECD.SDD.TPS:DSD_ITIC@DF_ITIC
+#   CIF/FOB margins by REPORTER x PARTNER x HS2017 PRODUCT x YEAR, 200+ economies,
+#   1,200+ products, 1995-2022, and HS6 codes are present (HS17_260200 etc).
+#   Method: reported CIF and FOB from ~30 economies, gravity model for the rest - CEPII's
+#   design, maintained. Published global margin 4.9% in 2022, up from 4.3% in 2015-19.
+#
+# That 4.9% is the number this file already anchors on, arrived at independently from our own
+# trimmed mirror median. Two methods, same figure - which is the confirmation the earlier 7.1%
+# only pretended to have.
+#
+# If ingested, ITIC would replace nearly everything below: no borrowed 2008 coefficients, no
+# locally-set level, no freight ceiling of our own invention. A published margin per
+# product-partner-year, on the same HS2017 nomenclature our BACI data already uses.
+#
+# BLOCKED ON THE API, NOT ON THE DECISION. The OECD SDMX endpoint errors on this dataflow:
+# version 1.0 returns "doesn't contain a mapping set", 1.1 returns "Object reference not set to
+# an instance of an object" across three accept formats, and the unversioned form is ambiguous.
+# Server-side, not query-side. The data is downloadable from the OECD Data Explorer UI, which is
+# the next route to try.
+#
 # CAN THE LEVEL ITSELF BE BORROWED FROM CEPII, INSTEAD OF ANCHORED HERE? Tested, and no - for a
 # structural reason rather than a missing-file one.
 #
