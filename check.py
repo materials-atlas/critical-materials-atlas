@@ -623,10 +623,57 @@ def check_sdmx():
         json.dump(fingerprint, open(stamp, 'w', encoding='utf8'))
 
 
+def check_mirror_independence():
+    """A mirror reconciliation must actually compare TWO compilers. Ours mostly does not.
+
+    This is the check that would have caught the 6 Sep problem years earlier, and it did not exist
+    because nobody had asked the question. The pipeline advertises a five-source monthly mirror
+    reconciliation; in fact 81% of its matched pairs are Comtrade against Comtrade, 907 of 1,039
+    from the single month Comtrade's free endpoint is pinned to. A 51% disagreement rate was
+    computed off that and came within a day of being published as a fact about world trade.
+
+    The invariant: a pair whose two sides come from the SAME source is not independent evidence.
+    At least a quarter of matched pairs should be genuinely cross-source, or the word
+    "reconciliation" is doing work the data cannot support.
+
+    WAIVED UNTIL 2026-10-31, deliberately and with a date attached. Today the figure is ~19% and
+    the fix is a data refresh, not a code change - Comtrade's keyless endpoint serves one month at
+    a time and cache.save now accumulates, so the series has to be built up over repeated runs.
+    A waiver without an expiry is just a disabled check; this one starts failing on its own.
+    """
+    import datetime as _dt
+    path = 'pipeline/data/flows.parquet'
+    if not os.path.exists(path):
+        return
+    try:
+        import pandas as pd
+    except ImportError:
+        return
+    f = pd.read_parquet(path, columns=['source', 'period', 'reporter', 'partner', 'flow', 'hs6'])
+    f = f[f.source.isin(['eurostat', 'comexstat', 'hmrc', 'uscensus', 'comtrade'])]
+    f['e'] = f.reporter.where(f.flow == 'export', f.partner)
+    f['i'] = f.partner.where(f.flow == 'export', f.reporter)
+    f['side'] = f.flow.map(lambda x: 'fob' if x == 'export' else 'cif')
+    g = (f.groupby(['period', 'e', 'i', 'hs6', 'side']).source.first().unstack('side'))
+    both = g.dropna()
+    if not len(both):
+        return
+    cross = (both['fob'] != both['cif']).mean()
+    waiver = _dt.date(2026, 10, 31)
+    msg = (f'only {100*cross:.0f}% of matched mirror pairs come from two DIFFERENT sources - the '
+           f'rest are one compiler compared against itself, which is not a reconciliation. Refresh '
+           f'the single-period feeds (cache.save accumulates now, so repeated runs build a series).')
+    if cross < 0.25:
+        if _dt.date.today() > waiver:
+            fail('mirror', msg)
+        else:
+            print(f'  WAIVED until {waiver}: {msg}')
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
