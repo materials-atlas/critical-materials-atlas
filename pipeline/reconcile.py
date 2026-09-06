@@ -206,6 +206,83 @@ def _markup_table(con, glob):
         "SELECT level, COUNT(*) FROM markup_by_hs6 GROUP BY 1").fetchall()}
 
 
+# Gaulier, Mirza, Turban & Zignago, "International Transportation Costs Around the World: a New
+# CIF/FoB rates Dataset", CEPII, March 2008 - Table 4, COLUMN 4, the specification its authors
+# recommend reusing: "we prefer using the coefficients of column 4 to reproduce a new vector of
+# CIF/FoB for all of the data at hand." Estimated on 1,501,726 observations; dependent variable
+# is the ratio of UNIT values.
+#
+# Why borrow rather than fit. Our own attempt at this regression failed - 517 observations, R2 of
+# 0.012, and two coefficients with the wrong sign: contiguity came out POSITIVE (neighbours dearer
+# to ship to than distant countries) and unit value POSITIVE (expensive goods carrying MORE
+# freight). Both are right in CEPII's fit, because a million and a half observations identify what
+# five hundred cannot. And the slopes are what we actually need: distances between countries do not
+# change, and how freight responds to distance is a relationship, not a vintage.
+CEPII_2008_COL4 = {
+    'dist_log': -0.021, 'dist_log2': 0.004, 'uv_log': -0.032, 'contig': -0.019,
+    'comlang_off': 0.006, 'colony': -0.015, 'landlocked_exp': 0.015, 'landlocked_imp': 0.003,
+}
+# What does NOT transfer, and is therefore omitted: GDP, GDP per capita, infrastructure, the
+# reporting-questionnaire dummies, the year effects and the intercept. Those are level terms,
+# twenty years stale, and we do not hold the underlying series. So the SHAPE comes from CEPII and
+# the LEVEL is set here, anchored on 1.071 - our own unit-value median, which independently lands
+# on the Douanes survey's extra-EU rate of 7.0%. Three sources, one number.
+CEPII_ANCHOR = 1.071
+LANDLOCKED = {
+    'AFG','AND','ARM','AUT','AZE','BDI','BFA','BLR','BOL','BTN','BWA','CAF','CHE','CZE','ETH',
+    'HUN','KAZ','KGZ','LAO','LSO','LUX','MDA','MKD','MLI','MNG','MWI','NER','NPL','PRY','RWA',
+    'SVK','SRB','SSD','SWZ','TCD','TJK','TKM','UGA','UZB','ZMB','ZWE','LIE','SMR'}
+
+
+def _cepii_markup(con):
+    """A freight coefficient per ROUTE, not per product - which is what freight actually is.
+
+    A product median cannot know that Brazil to China is 17,600 km and Singapore to Malaysia is
+    316. The same bauxite on those two journeys does not carry the same freight, and no amount of
+    per-product estimation will ever say so. CEPII's coefficients do, because distance is in them.
+
+    Writes markup_route(exporter, importer, hs6, markup_cepii). Missing distance -> no row, and
+    the per-product median from markup_by_hs6 stands in.
+    """
+    import os
+    import pandas as pd, numpy as np
+    geo = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                       'raw', 'geodist', 'dist_cepii.xls')
+    if not os.path.exists(geo):
+        con.execute("CREATE OR REPLACE TABLE markup_route(exporter VARCHAR, importer VARCHAR, "
+                    "hs6 VARCHAR, markup_cepii DOUBLE)")
+        return 0
+    g = pd.read_excel(geo)
+    g.columns = [c.lower() for c in g.columns]
+    g = g[['iso_o', 'iso_d', 'dist', 'contig', 'comlang_off', 'colony']]
+
+    # the routes we actually need a coefficient for
+    d = con.execute("SELECT DISTINCT exporter, importer, hs6 FROM sides").df()
+    # world unit value per product, from the export side of the raw flows (BACI excluded: it is
+    # already reconciled, and using it here would feed our own benchmark back into the estimate)
+    uv = con.execute("""SELECT hs6, median(value_usd/qty_kg) AS u FROM flows
+                        WHERE flow='export' AND qty_kg>0 AND value_usd>0 AND source<>'baci'
+                        GROUP BY 1""").df()
+    d = d.merge(g, left_on=['exporter', 'importer'], right_on=['iso_o', 'iso_d'], how='left')
+    d = d.merge(uv, on='hs6', how='left').dropna(subset=['dist', 'u'])
+    if not len(d):
+        con.execute("CREATE OR REPLACE TABLE markup_route(exporter VARCHAR, importer VARCHAR, "
+                    "hs6 VARCHAR, markup_cepii DOUBLE)")
+        return 0
+    d = d.rename(columns={'u': 'uv'})
+    B, ln = CEPII_2008_COL4, np.log
+    pred = (B['dist_log'] * ln(d.dist) + B['dist_log2'] * ln(d.dist) ** 2
+            + B['uv_log'] * ln(d.uv) + B['contig'] * d.contig.fillna(0)
+            + B['comlang_off'] * d.comlang_off.fillna(0) + B['colony'] * d.colony.fillna(0)
+            + B['landlocked_exp'] * d.exporter.isin(LANDLOCKED).astype(float)
+            + B['landlocked_imp'] * d.importer.isin(LANDLOCKED).astype(float))
+    d['markup_cepii'] = np.exp(pred - pred.median() + np.log(CEPII_ANCHOR))
+    out = d[['exporter', 'importer', 'hs6', 'markup_cepii']]
+    con.register('_route', out)
+    con.execute("CREATE OR REPLACE TABLE markup_route AS SELECT * FROM _route")
+    return len(out)
+
+
 def reconcile(con):
     """Given a DuckDB connection with a `flows` table, build `flows_reconciled`. Returns (markup, stats).
 
@@ -224,16 +301,24 @@ def reconcile(con):
     and BACI (annual). BACI is kept as an EXTERNAL QA benchmark, never as an input to the estimate."""
     con.execute(SIDES_SQL)
     markup = con.execute("SELECT median(cif/fob) FROM sides WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5").fetchone()[0] or 1.05
-    levels = _markup_table(con, markup)   # BoP-shaped: a coefficient per product, not one for all
+    levels = _markup_table(con, markup)   # per-product fallback
+    n_route = _cepii_markup(con)          # per-ROUTE, from CEPII's published coefficients
     _reporter_quality(con, markup)   # variance-components: de-bias reporter effects + shrinkage-regularized reliabilities
+    cap = FREIGHT_CEILING
     con.execute(f"""CREATE OR REPLACE TABLE flows_reconciled AS
-      WITH s AS (SELECT sides.*, mk.markup, mk.markup_raw, mk.level AS markup_level,
-                        cif/mk.markup AS fob_from_cif
-                 FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6))
+      WITH s AS (SELECT sides.*, mk.markup_raw, mk.level AS markup_level,
+                        -- route coefficient first, product median only where no distance exists
+                        least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap}) AS markup,
+                        CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
+                             ELSE 'product_median' END AS markup_method,
+                        cif / least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap})
+                          AS fob_from_cif
+                 FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6)
+                 LEFT JOIN markup_route rt USING (exporter, importer, hs6))
       SELECT s.period, s.exporter, s.importer, s.hs6, s.material,
         (s.exporter IN {HUBS_SQL} OR s.importer IN {HUBS_SQL}) AS via_entrepot,
         s.fob, s.cif, s.markup AS cif_fob_markup, s.markup_raw AS cif_fob_markup_raw,
-        s.markup_level AS cif_fob_markup_level,
+        s.markup_level AS cif_fob_markup_level, s.markup_method AS cif_fob_method,
         re.reliability AS w_exporter, ri.reliability AS w_importer,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN least(s.fob, s.fob_from_cif) END AS value_lo_fob,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN greatest(s.fob, s.fob_from_cif) END AS value_hi_fob,
@@ -261,4 +346,5 @@ def reconcile(con):
     stats = {r[0]: (r[1], r[2]) for r in con.execute(
         "SELECT basis, COUNT(*), ROUND(SUM(value_recon_fob)/1e9,2) FROM flows_reconciled GROUP BY 1").fetchall()}
     stats["_markup_levels"] = levels
+    stats["_n_route"] = n_route
     return markup, stats
