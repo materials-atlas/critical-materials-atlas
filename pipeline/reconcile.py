@@ -12,6 +12,16 @@ Output table `flows_reconciled` with `basis` = reconciled | exporter_only | impo
 (v1 = equal-weight geomean; reliability-variance weighting is the next refinement.)"""
 
 MIN_PAIRS = 8   # fewest matched pairs that may carry a coefficient of its own
+# Ceiling on the applied coefficient, from the Douanes CAF-FAB survey: nothing it measures
+# reaches 10% - 9.6% for goods from the Americas is the highest cell in the table, 8.4% for
+# extra-EU raw materials, 6.1% by ship. A mirror gap of 20% is therefore not freight, and
+# dividing the importer side by it would remove a real disagreement instead of a transport
+# cost - turning a flow we should FLAG into one we would silently reconcile. So we deflate only
+# by what could plausibly be freight and let the remainder fall through to the disagreement
+# test, which is the whole point of having one. Costs 0.0025 log points against BACI - which
+# runs its own CIF/FOB model and so cannot arbitrate this - and buys coherence with the rule
+# the pipeline already lives by: never fabricate an agreement.
+FREIGHT_CEILING = 1.10
 HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # entrepot / re-export hubs
 
 SIDES_SQL = """
@@ -91,8 +101,36 @@ def _markup_table(con, glob):
 
     Estimated from the matched pairs, falling back up the nomenclature - HS6, then HS4, then HS2,
     then global - taking the first level with at least MIN_PAIRS well-behaved observations. Same
-    shape as a BoP coefficient table, different provenance: BoP estimates the margin from
-    transport statistics, we estimate it from the declarations themselves.
+    HOW THE OFFICIAL VERSION ACTUALLY WORKS, since we got this wrong twice before checking.
+    The compiler does not estimate the coefficient at all. In France the DOUANES produce it and
+    the national central bank applies it ("fabisation"); INSEE computes its own from transport-ministry
+    data and gets a materially lower figure. And customs does not read it off the declaration
+    either: the FAB value of an import is simply not collected, only the CAF value, so the ratio
+    is measured by a dedicated SURVEY of transport and insurance costs - 10,000 representative
+    transactions in the 2015 round - giving a rate of 3.3% (3.2% in 2009).
+    Source: Douanes / DSEE, "Enquete sur les couts de transport et d'assurance", Jan 2016,
+    lekiosque.finances.gouv.fr/fichiers/Etudes/thematiques/Etude_CAF_FAB_2015.pdf
+
+    Two things follow, and both cut against how we do it.
+
+    FIRST, the official rate is applied as ONE AGGREGATE NUMBER, "par souci de simplicite et de
+    robustesse" - so our per-product table is more granular than what the national central bank
+    applies, not less. Granularity here is our choice, not a standard we are catching up to.
+
+    SECOND, and more usefully, the survey DOES measure the variation it declines to apply, and it
+    is an independent, freight-only benchmark for what we estimate from mirror gaps:
+
+        by product   raw materials 2.0%   processed goods 3.4%   equipment 6.9%
+        by mode      ship 6.1%   air 4.8%   road 2.5%   rail 2.3%
+        by origin    neighbouring EU 1.1%   Americas 9.6%   Asia 7.7%
+        by regime    intra-EU (DEB) 1.7%   extra-EU (DAU) 7.0%   raw materials, DAU 8.4%
+
+    Our own coefficients run far above that ceiling: manganese ore 20.1%, tantalum 16.6%, bauxite
+    15.6%, against 8.4% for extra-EU raw materials in the survey. Freight alone does not plausibly
+    reach 20%. So the mirror gap we measure is NOT a freight margin - it is freight plus every
+    reason two customs authorities disagree, and for bulk ores the second part dominates. The
+    below-1.0 coefficients say the same thing from the other side. Treat these numbers as a
+    reconciliation wedge, which is what they are, and never as a transport cost.
 
     That difference has a consequence worth stating rather than hiding. Two HS2 coefficients come
     out BELOW 1.0 - copper (HS74) at 0.964 and nickel (HS75) at 0.960 - and freight cannot do
@@ -114,6 +152,7 @@ def _markup_table(con, glob):
       UNION ALL
       SELECT 'hs2', substr(hs6,1,2), median(cif/fob), COUNT(*) FROM sides
        WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5 GROUP BY 2""")
+    cap = FREIGHT_CEILING
     con.execute(f"""CREATE OR REPLACE TABLE markup_by_hs6 AS
       WITH codes AS (SELECT DISTINCT hs6 FROM sides),
       pick AS (
@@ -126,7 +165,8 @@ def _markup_table(con, glob):
         LEFT JOIN markup_levels h6 ON h6.level='hs6' AND h6.k=c.hs6           AND h6.n >= {MIN_PAIRS}
         LEFT JOIN markup_levels h4 ON h4.level='hs4' AND h4.k=substr(c.hs6,1,4) AND h4.n >= {MIN_PAIRS}
         LEFT JOIN markup_levels h2 ON h2.level='hs2' AND h2.k=substr(c.hs6,1,2) AND h2.n >= {MIN_PAIRS})
-      SELECT hs6, greatest(markup_raw, 1.0) AS markup, markup_raw, level, n_pairs FROM pick""")
+      SELECT hs6, least(greatest(markup_raw, 1.0), {cap}) AS markup, markup_raw, level, n_pairs,
+             (markup_raw > {cap}) AS markup_capped FROM pick""")
     return {r[0]: r[1] for r in con.execute(
         "SELECT level, COUNT(*) FROM markup_by_hs6 GROUP BY 1").fetchall()}
 
