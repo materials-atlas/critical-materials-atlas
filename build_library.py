@@ -127,10 +127,17 @@ NOTES = {
                 'Same rule as above: cited, never ingested.'),
  'bgs':        ('BGS World Mineral Statistics full panel', 'Open Government Licence', 'in cube',
                 'The spine: 410k records, production + trade by country, 1970-2024.'),
- 'baci':       ('CEPII BACI bilateral trade, HS02 and HS17 vintages', 'Free for research',
+ 'baci':       ('CEPII BACI bilateral trade, HS02 and HS17 vintages',
+                'Etalab Open Licence 2.0 (redistribution permitted, attribution required)',
                 'in cube (partly)',
                 'HS02 gives 2002-2024 on one nomenclature. Only the 47 mapped codes are ingested; '
-                'the rest is deliberate ballast left out.'),
+                'the rest is deliberate ballast left out. LICENCE CORRECTED 6 Sep 2026: this was '
+                'recorded as "Free for research", which understated it and would have blocked '
+                'republication. CEPII licenses BACI under Etalab 2.0 - an open licence permitting '
+                'reproduction, redistribution and commercial reuse with attribution, and declared '
+                'compatible with CC BY 4.0 - so the BACI-derived rows in out/cube.csv.gz are '
+                'properly published, not a leak. Required citation: Gaulier, G. and Zignago, S. '
+                '(2010), BACI: International Trade Database at the Product-Level.'),
  'usgs_hist':  ('USGS Historical Statistics (DS 140), 84 workbooks', 'US public domain', 'in cube',
                 'Depth to 1900 and world production totals. Found by the catalog after sitting '
                 'unused except for its price column.'),

@@ -1,0 +1,41 @@
+{
+ "usgs_ds140_repeated_year": {
+  "note": "Rows discarded because the source repeats a year label on two rows of different figures. Nothing is lost - the raw values are here - but they cannot enter a table keyed on (series, year) without inventing a date.",
+  "rows": [
+   {
+    "file": "cadmium.xlsx",
+    "material": "cadmium",
+    "repeated_year": 2021,
+    "row": [
+     "2021",
+     "212",
+     "99",
+     "68",
+     "W",
+     "W",
+     "W",
+     "3420"
+    ],
+    "kept": "the first row carrying this year",
+    "why": "the source repeats a year label on two rows of different figures; the true year of the second cannot be read off the file"
+   },
+   {
+    "file": "nickel.xlsx",
+    "material": "nickel",
+    "repeated_year": 2019,
+    "row": [
+     "2019",
+     "NA",
+     "101000",
+     "137000",
+     "45400",
+     "15600",
+     "195000",
+     "13800"
+    ],
+    "kept": "the first row carrying this year",
+    "why": "the source repeats a year label on two rows of different figures; the true year of the second cannot be read off the file"
+   }
+  ]
+ }
+}

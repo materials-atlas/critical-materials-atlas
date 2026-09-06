@@ -77,6 +77,9 @@ def classify(col):
     return None
 
 
+ANOMALIES = []
+
+
 def rows_for(path):
     import openpyxl
     stem = os.path.basename(path)[:-5]
@@ -85,6 +88,7 @@ def rows_for(path):
     wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
     ws = wb[wb.sheetnames[0]]
     header = None
+    seen_years = set()
     for row in ws.iter_rows(max_col=20, values_only=True):     # ONE pass (read_only)
         if row is None:
             continue
@@ -96,6 +100,22 @@ def rows_for(path):
         if not c0[:4].isdigit():
             continue
         year = int(c0[:4])
+        # Two USGS workbooks repeat their final year LABEL on two rows carrying different
+        # figures: cadmium.xlsx has 2021 twice (241 t and 212 t), nickel.xlsx has 2019 twice.
+        # The second row is almost certainly the following year - the unit value moves the way
+        # the next year's price did - but "almost certainly" is not a year, and writing an
+        # inferred date into a source column is how a guess becomes a fact. So the labelled row
+        # is kept and the repeat is diverted to out/source_anomalies.json with its raw values,
+        # visible and recoverable, rather than silently averaged into the one above it.
+        if year in seen_years:
+            ANOMALIES.append({'file': os.path.basename(path), 'material': material,
+                              'repeated_year': year, 'row': [str(c) for c in row[:8]],
+                              'kept': 'the first row carrying this year',
+                              'why': 'the source repeats a year label on two rows of different '
+                                     'figures; the true year of the second cannot be read off '
+                                     'the file'})
+            continue
+        seen_years.add(year)
         for i, cell in enumerate(row):
             if i == 0 or i >= len(header) or header[i] is None:
                 continue
@@ -140,6 +160,22 @@ def build():
             rows.extend(rows_for(f))
         except Exception as e:
             print(f'  skip {os.path.basename(f)}: {e}')
+    if ANOMALIES:
+        import json as _json
+        path = os.path.join(ROOT, 'out', 'source_anomalies.json')
+        prev = {}
+        if os.path.exists(path):
+            try:
+                prev = _json.load(open(path, encoding='utf-8'))
+            except Exception:
+                prev = {}
+        prev['usgs_ds140_repeated_year'] = {
+            'note': 'Rows discarded because the source repeats a year label on two rows of '
+                    'different figures. Nothing is lost - the raw values are here - but they '
+                    'cannot enter a table keyed on (series, year) without inventing a date.',
+            'rows': ANOMALIES}
+        _json.dump(prev, open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
+        print(f'  {len(ANOMALIES)} repeated-year rows diverted to out/source_anomalies.json')
     return rows
 
 

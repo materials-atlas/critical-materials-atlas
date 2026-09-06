@@ -7,6 +7,7 @@ critical materials, as a class, do not. Control group is what makes it a finding
 """
 import json, os, statistics as st
 from collections import Counter, defaultdict
+from bgs_country import resolve_iso3
 P='raw/bgs/panel'
 CRITICAL=['copper','lead','zinc','tin','cobalt','nickel','manganese','tungsten','molybdenum','vanadium',
  'antimony','graphite','fluorspar','lithium','titanium','magnesite','feldspar','barytes','phosphate_rock',
@@ -31,7 +32,12 @@ def series(m):
     form=Counter(r['erml_commodity'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['erml_commodity']==form]
     unit=Counter(r['units'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['units']==unit]
     byyr=defaultdict(dict)
-    for r in prod: byyr[int(r['year'][:4])][r['country_iso3_code']]=byyr[int(r['year'][:4])].get(r['country_iso3_code'],0)+r['quantity']
+    # resolve_iso3, not r['country_iso3_code']: BGS files the Republic of Congo under DR Congo's
+    # code, and this line SUMS into a per-code dict, so the two countries were being added
+    # together in every HHI. See bgs_country.py.
+    for r in prod:
+        y=int(r['year'][:4]); iso=resolve_iso3(r)
+        byyr[y][iso]=byyr[y].get(iso,0)+r['quantity']
     hhi={y:sum((v/sum(cs.values()))**2 for v in cs.values()) for y,cs in byyr.items() if len(cs)>=5 and sum(cs.values())>0}
     cov={y:len(cs) for y,cs in byyr.items() if len(cs)>=5}
     return hhi,cov

@@ -26,6 +26,39 @@ sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 PANEL = os.path.join(ROOT, 'raw', 'bgs', 'panel')
 
+
+# BGS's own country_iso3_code collapses three pairs of distinct countries onto one code. Found
+# by asking whether any ISO3 in the panel serves two different country names - it serves three.
+#
+#   'Congo' (iso2 CG, Republic of Congo / Brazzaville) is given iso3 COD, which is DR CONGO.
+#      A plain error in the source, and the damaging one: 200 records across gold, copper, salt,
+#      lead, zinc, diamond, potash, tin and magnesium, overlapping DR Congo every year from 1992.
+#      Its effect on DR Congo totals is small (copper +20 kt on 1,713 kt in 2020, about 1%), but
+#      Republic of Congo DISAPPEARS as a producer, which is the worse of the two harms. Cobalt is
+#      not affected - no cobalt records carry the bad code - so nothing published about DRC cobalt
+#      moves.
+#   'German Federal Republic' (1970-1992) and 'Germany' (1989-2024) both take DEU, and both are
+#      present 1989-1992. West Germany is not unified Germany; kept apart as a historical entity.
+#   'Yemen (PDR)' (South Yemen, 1970-1991) and 'Yemen, Republic of' (1992-) both take YEM. They
+#      do not overlap, but PDR is not the same state, so it takes its ISO 3166-3 code.
+#
+# Keyed on (country_trans, iso2) rather than iso3, because iso3 is the field that is wrong.
+COUNTRY_FIX = {
+    ('Congo', 'CG'): 'COG',                       # Republic of Congo, mis-coded as DR Congo
+    ('German Federal Republic', 'DE'): 'DEU_FRG',  # West Germany, distinct from unified Germany
+    ('Yemen (PDR)', 'YD'): 'YMD',                  # Democratic Yemen (ISO 3166-3)
+}
+
+
+NAMES_BY_ISO = {}
+
+
+def resolve_iso3(r):
+    """The country code an observation belongs to, correcting the source where it collides."""
+    return COUNTRY_FIX.get((r.get('country_trans'), r.get('country_iso2_code'))) \
+        or r.get('country_iso3_code')
+
+
 # ── material vocabulary ────────────────────────────────────────────────────────────────────────
 # BGS erml_group (the panel filename) -> the atlas's canonical label. Groups with no atlas material
 # are KEPT (they are the control group and the drivers) and simply carry their own name.
@@ -114,7 +147,9 @@ def build():
             print(f'  skip {group}: {e}')
             continue
         for r in recs:
-            iso = r.get('country_iso3_code')
+            iso = resolve_iso3(r)
+            if iso:
+                NAMES_BY_ISO.setdefault(iso, set()).add(r.get('country_trans'))
             q = r.get('quantity')
             yr = (r.get('year') or '')[:4]
             meas = MEASURE.get(r.get('bgs_statistic_type_trans'))
@@ -141,6 +176,17 @@ def build():
                 f'BGS:{code}:{meas}',                                          # series_id
                 r.get('data_precision_description'), value_flag(r.get('data_precision_description')),
             ))
+    # A code carrying two country names means two countries have been silently added together -
+    # exactly the defect COUNTRY_FIX exists to correct. If a refresh introduces a new one, stop:
+    # the cost of a wrong merge is a country that quietly vanishes into its neighbour's totals.
+    collisions = {i: sorted(n) for i, n in NAMES_BY_ISO.items() if len(n) > 1}
+    if collisions:
+        raise SystemExit(
+            'BGS country codes collide - one ISO3 is serving two countries, so their figures '
+            'would be summed:\n' + '\n'.join(f'    {i}: {", ".join(n)}' for i, n in
+                                              sorted(collisions.items())) +
+            '\nAdd the correction to COUNTRY_FIX, keyed on (country_trans, iso2).')
+
     df = pd.DataFrame(rows, columns=[
         'material', 'source_group', 'country_iso3', 'year',
         'measure_family', 'measure', 'flow_direction', 'stage',
@@ -260,7 +306,17 @@ if __name__ == '__main__':
                     'a successor code alone loses the predecessor.',
             'successors': {'SUN': 'RUS + 14 others', 'YUG': 'via SCG -> SRB, MNE, HRV, SVN, MKD, BIH',
                            'CSK': 'CZE + SVK', 'DDR': 'DEU', 'SCG': 'SRB + MNE',
-                           'ZAR': 'COD (Zaire renamed 1997)', 'ANT': 'CUW, SXM, BES'},
+                           'ZAR': 'COD (Zaire renamed 1997)', 'ANT': 'CUW, SXM, BES',
+                           'DEU_FRG': 'DEU (West Germany, 1970-1992)',
+                           'YMD': 'YEM (Democratic Yemen, 1970-1991)'},
+        },
+        'source_country_corrections': {
+            'note': 'BGS country_iso3_code puts two different countries on one code in three '
+                    'cases. Corrected on (country_trans, iso2), because iso3 is the wrong field. '
+                    'Found by asking whether any ISO3 serves two country names.',
+            'COG': 'Republic of Congo, shipped as COD (DR Congo) - a source error, 200 records',
+            'DEU_FRG': 'West Germany, shipped as DEU alongside unified Germany, overlapping 1989-1992',
+            'YMD': 'Democratic Yemen, shipped as YEM alongside the Republic of Yemen',
         },
         'join_rule': 'NEVER join on material alone. The identity of an observation is '
                      '(code_system, native_code, measure, stage, basis, unit). material is a '

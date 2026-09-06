@@ -520,10 +520,41 @@ def check_dim():
                         f'dimension is stale; rerun build_cube_dim.py')
 
 
+def check_series_key():
+    """Every observation in the cube must be uniquely identified. This is the SDMX requirement,
+    adopted because asking the question found real defects that nothing else caught.
+
+    A key is (source, material, measure, stage, basis, country, year, native_code). When two rows
+    share it, some query somewhere adds them together or picks one at random, and both answers
+    look ordinary. Three causes were found the first time this was asked, and all three were in
+    the SOURCES, not in our code: BGS files the Republic of Congo under DR Congo's ISO code, so
+    two countries were being summed; USGS repeats its final year label on two rows of different
+    figures in cadmium.xlsx and nickel.xlsx; and West Germany shared a code with unified Germany
+    for four overlapping years. 144 rows, one of them wrong by a factor of 6,000.
+    """
+    path = 'pipeline/data/cube.parquet'
+    if not os.path.exists(path):
+        return
+    try:
+        import pandas as pd
+    except ImportError:
+        return
+    key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'year',
+           'native_code']
+    c = pd.read_parquet(path, columns=key)
+    n = c.groupby(key, dropna=False).size()
+    bad = n[n > 1]
+    if len(bad):
+        ex = '; '.join('%s %s %s %s' % (i[1], i[0].split()[0], i[6], i[7])
+                       for i in list(bad.index)[:4])
+        fail('key', f'{len(bad)} observations in the cube share a series key, so a query will '
+                    f'either sum two different things or pick one at random: {ex}')
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
