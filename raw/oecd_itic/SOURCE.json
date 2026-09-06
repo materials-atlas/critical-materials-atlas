@@ -5,14 +5,14 @@
  "measure": "C_F, CIF/FOB margin, unit PT_IM_CIF = percent of import CIF value",
  "grain": "REF_AREA = importer, COUNTERPART_AREA = exporter, COMM_HS2017 = HS2017 HEADING (4-digit; 6-digit returns 404), annual",
  "years": [
-  2018,
-  2022
+  2015,
+  2026
  ],
- "rows": 486945,
+ "rows": 976568,
  "hs4_requested": 22,
  "hs4_missing": [],
  "errors": [],
  "obs_status_note": "I = imputed by the gravity model; reported values are flagged differently. METHODOLOGY_TYPE ME = model estimate, AG = aggregate.",
  "retrieved_at": "2026-09-06",
- "note_8505": "HS17_8505 (magnets) initially returned HTTP 429; recovered on retry with backoff"
+ "rate_limit_note": "The OECD host returns HTTP 429 on the last one or two headings of a full run. Retrying those alone with backoff always succeeds - it is throughput, not a block. Recovered 8112 and 8505 this way."
 }

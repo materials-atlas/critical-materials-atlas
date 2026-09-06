@@ -8,7 +8,7 @@ exists only because we believed no current published series covered it. One does
 
   OECD International Transport and Insurance Costs of merchandise trade (ITIC)
   CIF/FOB margins, % of import CIF value, by REF_AREA (importer) x COUNTERPART_AREA (exporter)
-  x HS2017 heading x year, 200+ economies, 1995-2022.
+  x HS2017 heading x year, 200+ economies, 1995-2024 (check, do not assume: see YEARS below).
   Method: reported CIF and FOB from ~30 economies, gravity model for the rest - CEPII's design,
   maintained eighteen years past the dataset it descends from.
 
@@ -33,7 +33,13 @@ ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'raw', 'oecd_itic')
 BASE = ('https://sdmx.oecd.org/sti-public/rest/data/'
         'OECD.SDD.TPS,DSD_ITIC@DF_ITIC,1.1/')
-YEARS = (2018, 2022)   # ITIC's latest release ends at 2022
+YEARS = (2015, 2026)   # ask for more than exists; the API returns what it has.
+# CORRECTED: an earlier version capped this at 2022 because a 2024 OECD blog post said the
+# release spanned 1995-2022. It has been updated since and now runs to 2024. Trusting a
+# description of a dataset over the dataset cost two years of coverage - and not neutral
+# years: 2022 was the post-COVID container-rate PEAK, so applying it to 2024 flows
+# overstated freight (manganese ore DEU<-BRA: 10.89% in 2022 against 9.56% in 2024).
+# Never bound a query by what the documentation claims the range is; ask and see.
 
 
 def hs4_codes():
