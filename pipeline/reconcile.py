@@ -248,6 +248,27 @@ CEPII_2008_COL4 = {
 # 47% of route coefficients land on the floor; at 1.10, 43% land on the ceiling. At 1.049 the
 # distribution sits inside its bounds rather than piled against one of them.
 CEPII_ANCHOR = 1.049
+# CAN THE LEVEL ITSELF BE BORROWED FROM CEPII, INSTEAD OF ANCHORED HERE? Tested, and no - for a
+# structural reason rather than a missing-file one.
+#
+# Their intercept is not a free-standing number. It sits in an equation with YEAR EFFECTS covering
+# 1995-2004, so the level it implies is the level OF THOSE YEARS. There is no 2024 dummy to apply,
+# and the years since include the most extreme freight episode in modern shipping. The level is
+# precisely the part of that model that is time-varying, so it is precisely the part that cannot
+# travel. Geography could be borrowed because distance does not move; the constant cannot, for the
+# same reason in reverse.
+#
+# Of the four blocks we omit, two ARE obtainable - World Bank GDP and GDP per capita cover 97% of
+# our routes - and adding them was tested with CEPII's own coefficients (GDP_exp -0.005, GDP_imp
+# -0.011, GDPpc_exp -0.047, GDPpc_imp +0.070). Not adopted, for two reasons:
+#   - it pushes 70% of routes onto a bound (35% floor + 35% ceiling, against 58% before), so the
+#     clipping would be doing more of the work than the model;
+#   - the largest of the four, importer GDP per capita at +0.070, is explained by CEPII themselves
+#     as a DEMAND effect, not a transport cost. We are trying to remove freight so two declarations
+#     can be compared. Removing a demand effect is not that.
+# Dropping just that one term and keeping the rest would be cherry-picking inside someone else's
+# specification, which is worse than declining the block. The other two, infrastructure and the
+# reporting-questionnaire dummies, we do not hold at all.
 LANDLOCKED = {
     'AFG','AND','ARM','AUT','AZE','BDI','BFA','BLR','BOL','BTN','BWA','CAF','CHE','CZE','ETH',
     'HUN','KAZ','KGZ','LAO','LSO','LUX','MDA','MKD','MLI','MNG','MWI','NER','NPL','PRY','RWA',
