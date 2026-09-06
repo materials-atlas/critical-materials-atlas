@@ -2,11 +2,11 @@
   "title": "Electricity-grid chain",
   "chokepoint": {
     "product": "Electricity grid",
-    "stage": "Transformers",
-    "mechanism": "diffuse",
-    "physics": "Batch-built equipment; the limit is factory lead-time (years), spread across suppliers",
-    "holder": "—",
-    "share": "—",
+    "stage": "Grain-oriented electrical steel (transformer cores)",
+    "mechanism": "capability",
+    "physics": "Transformer cores need grain-oriented silicon steel, a patented, capital-heavy mill process. The equipment stage downstream is genuinely diffuse (HHI 0.073, 182 exporters) and constrained by factory lead-time, not concentration - but the steel it is built from is the tightest node in the chain, and tightening",
+    "holder": "China · Japan",
+    "share": "53% of exports (CHN 28.8 + JPN 24.3, 2022–24 mean)",
     "control": "—",
     "conf": "measured"
   },
@@ -28,9 +28,9 @@
   "accent": "#8a6a3a",
   "eyebrow": "Product-chain pilot · the wires that carry it all",
   "h1": "The ore is fine — the transformer is the bottleneck",
-  "deck": "The grid is copper, aluminium and electrical steel — abundant, diversified metals. Yet grids are the quiet constraint on the whole energy transition, because the chokepoint is not the material but the equipment: a large power transformer can take up to four years to procure, and the world must roughly double its grid by 2040.",
-  "byline": "copper & aluminium (abundant) ≠ electrical steel ≠ transformers & cables (years-long queues) ≠ the network",
-  "correction": "You cannot mine your way to a working grid. Copper and aluminium are not the binding constraint — the equipment is. Large power transformers can take up to four years to order, HVDC cables more than five, and grain-oriented electrical steel and skilled winding are the real scarcities. Meanwhile ~1,500 GW of renewables sit waiting in connection queues.",
+  "deck": "Copper and aluminium are abundant and diversified, and the equipment queues are real: a large power transformer can take up to four years to procure, and the world must roughly double its grid by 2040. But one material inside that equipment is not diffuse at all. Grain-oriented electrical steel — the transformer core — is the most concentrated node we measure in this chain, more so than the transformers themselves.",
+  "byline": "copper & aluminium (abundant) ≠ grain-oriented electrical steel (HHI 0.164, rising) ≠ transformers & cables (years-long queues) ≠ the network",
+  "correction": "You cannot mine your way to a working grid — but nor is the material question closed. Copper and aluminium are not the binding constraint; large power transformers take up to four years to order and HVDC cables more than five, while ~1,500 GW of renewables sit in connection queues. The correction to our own earlier framing: the core steel is TIGHTER than the equipment it goes into. Grain-oriented electrical steel exports run at HHI 0.164 against 0.073 for transformers, and the gap has been widening since 2019.",
   "stats": [
     {
       "v": "up to 4 yr",
@@ -51,12 +51,17 @@
       "v": "~1,500 GW",
       "l": "of renewables queued waiting for grid connection",
       "conf": "measured"
+    },
+    {
+      "v": "HHI 0.164",
+      "l": "grain-oriented electrical steel exports — the tightest node in this chain, above the transformers it feeds (0.073)",
+      "conf": "measured"
     }
   ],
   "hops": [
     {
       "n": "1 · Metals & steel",
-      "t": "copper, aluminium and grain-oriented electrical steel — abundant, diversified"
+      "t": "copper and aluminium abundant and diversified — grain-oriented electrical steel is neither"
     },
     {
       "n": "2 · Conductors & cores",
@@ -73,7 +78,7 @@
   ],
   "sections": [
     {
-      "h2": "1 · The chokepoint is the equipment, not the ore",
+      "h2": "1 · The chokepoint is the equipment — and the one steel inside it",
       "panels": [
         {
           "kind": "big",
@@ -86,19 +91,29 @@
         {
           "kind": "text",
           "h3": "Why: electrical steel and skilled winding",
-          "text": "Transformer cores need grain-oriented electrical steel, made by a small number of mills, and building a transformer takes skilled winding and testing that cannot be rushed. The bottleneck is specialised manufacturing capacity and order backlogs — a factory-and-workforce problem, the same shape as the grid-connection queue, not a mine problem.",
-          "flag": "grain-oriented steel + skilled labour"
+          "conf": "measured",
+          "text": "Transformer cores need grain-oriented electrical steel, and building a transformer takes skilled winding and testing that cannot be rushed. We had asserted the steel was made by \"a small number of mills\" while the chain diagram filed it with copper and aluminium as abundant. Measured, it is neither abundant nor diffuse: <b>HHI 0.164</b>, China 28.8% and Japan 24.3% — <b>53% from two countries</b>, 61% from three. The transformers built from it score 0.073, copper wire 0.066, high-voltage cable 0.060. The core input is more than twice as concentrated as the equipment.",
+          "note": "Computed from CEPII BACI HS17, codes 722511 + 722611, exporter value shares, 3-year mean 2022–2024 — grid-chain/out/goes.json.",
+          "flag": "the tightest node in the chain is a steel, not a metal"
+        },
+        {
+          "kind": "text",
+          "h3": "And it is tightening",
+          "conf": "measured",
+          "text": "GOES export concentration has risen every year but one since 2019: 0.111, 0.127, 0.122, 0.146, 0.167, <b>0.188</b> in 2024. China went from 27.3% of exports in 2022 to 31.7% in 2024; Russia, at 8%, is sanctions-exposed supply on top. A chain whose tightest node is getting tighter is a different planning problem from one with a stable bottleneck.",
+          "note": "Same series, annual. Trade is not capacity: export shares say who SELLS, not who can MAKE. A producer consuming its own output at home is understated — China notably — so 0.164 is a FLOOR on the real concentration, and the direction of that error is known.",
+          "flag": "0.111 → 0.188 in six years"
         }
       ]
     },
     {
-      "h2": "2 · The metal is genuinely abundant",
+      "h2": "2 · The metals are abundant — the steel is the exception",
       "panels": [
         {
           "kind": "text",
           "h3": "Copper and aluminium are not the wall here",
           "conf": "measured",
-          "text": "Grids run on copper and aluminium, both diversified and recyclable. Aluminium even substitutes for copper in many overhead lines. Copper has its own longer-term tightness — a demand-versus-mine-timeline story told in the copper chain — but for building the grid this decade, the metal is not the binding constraint. The equipment lead time is.",
+          "text": "Grids run on copper and aluminium, both diversified and recyclable. Aluminium even substitutes for copper in many overhead lines. Copper has its own longer-term tightness — a demand-versus-mine-timeline story told in the copper chain — but for building the grid this decade, neither metal is the binding constraint. This holds for the conductors and NOT for the core steel, which is the section above: grouping the three together was our error, and it survived because nobody had measured the third one.",
           "note": "US DOE, Advanced Conductor Report.",
           "flag": "see the copper chain for the metal's own clock"
         }

@@ -1,275 +1,285 @@
 {
-  "_doc": "Source ledger for chokepoint / headline shares. Each entry ties a figure to a NAMED source AND the quoted table row / sentence, so a bare citation cannot hide a misread. Rule: a chokepoint tagged conf=measured MUST have an entry here whose quoted row supports its share; if the source has no computable figure, the tag is estimate/attributed. check.py enforces presence (check_ledger).",
-  "_method": "USGS MCS PDFs fetched with a browser User-Agent (default fetch UA gets 403); extracted with `pdftotext -raw`. USE THE LATEST EDITION (MCS 2026): USGS revises prior-year numbers substantially between editions (e.g. rhenium world 62->81 t; strontium Iran 39->56%; tungsten world 81->85 kt). Shares below are from the MCS 2026 (2025-data) column.",
-  "_verified": "2026-08-26",
-  "phosphate-food": {
-    "claim": "Morocco ~68% of world phosphate-rock reserves",
-    "conf": "measured",
-    "source": "USGS MCS 2025 — Phosphate Rock",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf",
-    "quoted_row": "Morocco 33,000 30,000 50,000,000 | World total (rounded) 233,000 240,000 74,000,000 (cols: 2023 prod, 2024 prod, reserves)",
-    "computed": "50,000,000 / 74,000,000 = 67.6% -> ~68% reserves; Morocco production 30,000/240,000 = 12.5%",
-    "supports": true
-  },
-  "pgm-catalyst": {
-    "claim": "South Africa ~83% of world PGM reserves (platinum ~71%; palladium Russia-led)",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Platinum-Group Metals",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
-    "quoted_row": "South Africa 82,600 70,000 126,000 120,000 63,000,000 | World total 217,000 190,000 179,000 170,000 >76,000,000",
-    "computed": "reserves 63,000,000/>76,000,000 = 82.9% -> ~83% (world reserves revised DOWN 81->76 Mkg between editions; was ~78% on MCS2025). Platinum 120,000/170,000=71%; palladium SA 70,000/190,000=37%.",
-    "supports": true
-  },
-  "steel-alloys": {
-    "claim": "Brazil ~93% niobium (chokepoint); vanadium China ~75%",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Niobium; USGS MCS 2026 — Vanadium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
-    "quoted_row": "'Brazil ... approximately 93% of global production, followed by Canada'; Vanadium China 82,000/110,000",
-    "computed": "niobium 93% verbatim (was 92% on MCS2025); vanadium 75%",
-    "supports": true
-  },
-  "boron": {
-    "claim": "Turkey ~73% of world borate reserves (Eti Maden company estimate)",
-    "conf": "estimate",
-    "source": "USGS MCS 2025 — Boron (no world total); Eti Maden (company claim)",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-boron.pdf",
-    "quoted_row": "'World total4 XX XX XX' + footnote 4: 'World totals cannot be calculated because production and reserves are not reported in a consistent manner by all countries.' The '~70%' had been misread from 'About 70% of all deposits in Turkey are colemanite' (deposit TYPE, not world share).",
-    "computed": "NO world reserves total exists in USGS -> a world % is not computable; ~73% is Eti Maden's own claim, hence estimate",
-    "supports": "estimate only — deliberately not measured"
-  },
-  "tungsten": {
-    "claim": "China ~79% of world tungsten mine production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Tungsten",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
-    "quoted_row": "China 67,000 67,000 2,500,000 | World total (rounded) 82,000 85,000 >4,700,000",
-    "computed": "67,000/85,000 = 78.8% -> ~79% (2025). NOTE: MCS2025 gave 67,000/81,000=83%; USGS revised world up to 85,000 -> back to ~79% (original atlas ~80% was right).",
-    "supports": true
-  },
-  "strontium": {
-    "claim": "Iran ~56% of world celestite production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Strontium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf",
-    "quoted_row": "China 80,000 80,000 | Iran 200,000 250,000 2,000,000 | Spain 100,000 100,000 | World total (rounded) 400,000 450,000",
-    "computed": "Iran 250,000/450,000 = 56% (2025); Spain 100,000 = 22%; China 80,000 = 18%. NOTE: MCS2025 gave Iran 39% (tied Spain); USGS revised -> Iran is the clear leader ~56%. Original atlas ~58% was ~right.",
-    "supports": true
-  },
-  "gallium": {
-    "claim": "China ~99% of world primary low-purity gallium",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Gallium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
-    "quoted_row": "'China accounted for 99% of worldwide primary low-purity gallium production.' + table China 839,000/848,000 (2024) = 98.9%; 900,000/900,000 (2025e).",
-    "computed": "USGS states 99% verbatim (primary low-purity). Was ~98% (that is the REFINED figure); the atlas chokepoint is labelled primary low-purity, so 99% is correct.",
-    "supports": true
-  },
-  "bismuth": {
-    "claim": "China ~88% of world bismuth production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Bismuth",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
-    "quoted_row": "'Estimated world production of bismuth was 16,000 tons in 2025. China accounted for 88% of the bismuth world production in 2025.' + Refinery table: China 14,000 / World total 16,000.",
-    "computed": "USGS states 88% verbatim; refinery table 14,000/16,000 = 87.5% -> ~88%. (Earlier ~85% was an unnecessary midpoint with industry 65-80%; USGS is the primary and states 88%, so it is measured, not estimate.) | NOTE: IEA GCMO 2026 market-share table gives bismuth 73% (vs USGS verbatim 88%); kept measured on the explicit USGS statement + refinery row, but sources disagree by ~15pp.",
-    "supports": true
-  },
-  "germanium": {
-    "claim": "China ~60% of world germanium production (estimate)",
-    "conf": "estimate",
-    "source": "USGS MCS 2025 — Germanium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
-    "quoted_row": "'China continued to be the leading global producer and exporter of germanium metal'; 'most producers do not publicly report germanium' output.",
-    "computed": "USGS publishes NO country production table for germanium -> ~60% is an industry estimate, not measurable; retagged estimate",
-    "supports": "estimate only"
-  },
-  "antimony": {
-    "claim": "China refining chokepoint (mine ~60%; refining/oxide dominance is the binding stage)",
-    "conf": "estimate",
-    "source": "USGS MCS 2026 — Antimony (mine); Reuters + Project Blue (refining)",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf",
-    "quoted_row": "China 40,000 / World total 110,000 (mine, 2025e) = ~36%. US import sources: Oxide China 66%, total metal+oxide China 55%. Reuters (2024-08-15): 'China is the biggest supplier of refined antimony … it is a net importer of concentrates.'",
-    "computed": "Mine ~36% China (2025e; was 48% in 2023 per Reuters) — mine is DIVERSIFYING, not the chokepoint. The chokepoint is REFINING, which Reuters/Project Blue confirm qualitatively; no primary source gives a world refined-antimony %. Page asserts refining dominance as 'refine' (no number), not a false 76%.",
-    "supports": false
-  },
-  "beryllium": {
-    "claim": "United States ~53% of world beryllium production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Beryllium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf",
-    "quoted_row": "United States 230 230 | China e78 77 | Brazil e80 80 | World total (rounded) 433 430",
-    "computed": "US 230/430 = 53% (2025). MCS2025 gave 180/360=50%; USGS revised US up to 230.",
-    "supports": true
-  },
-  "fluorine": {
-    "claim": "China ~60% of world fluorspar mine production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Fluorspar",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf",
-    "quoted_row": "China 6,000 6,000 110,000 | World total (rounded) 10,300 10,000 330,000",
-    "computed": "6,000/10,000 = 60% (2025). MCS2025 gave 62%.",
-    "supports": true
-  },
-  "displays-indium": {
-    "claim": "China ~70% of world indium production",
-    "conf": "measured",
-    "source": "USGS MCS 2025 — Indium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-indium.pdf",
-    "quoted_row": "'China is the leading global producer of Indium, accounting for 70% of the world total.'",
-    "computed": "USGS verbatim 70% — matches atlas exactly | NOTE: IEA GCMO 2026 gives indium 86% (vs USGS verbatim 70%); kept measured on the USGS statement; IEA's own minor-minerals chart (p.199) also reads ~70%, so the 86% table figure is the outlier.",
-    "supports": true
-  },
-  "nickel": {
-    "claim": "Indonesia ~67% of world nickel mine production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Nickel",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
-    "quoted_row": "Indonesia 2,600,000 (2025) | World total (rounded) 3,900,000 (MCS 2026)",
-    "computed": "2,600,000/3,900,000 = 66.7% -> ~67% (2025). Was ~61% off MCS2025 (stale) -> corrected to latest edition. | NOTE: IEA GCMO 2026 annex gives Indonesia ~63% of nickel mining (2,637/4,207 kt) vs USGS ~67% (2,600/3,900) — the gap is the world-total denominator (IEA counts ~300 kt more). Kept measured on the USGS figure; true value ~63-67%.",
-    "supports": true
-  },
-  "cobalt": {
-    "claim": "China refining ~75% (chokepoint); DRC mine 76%",
-    "conf": "estimate",
-    "source": "USGS MCS 2025 — Cobalt (mine); refining share is industry/IEA",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cobalt.pdf",
-    "quoted_row": "Congo (Kinshasa) 226,000 230,000 6,000,000 | Indonesia 35,000 44,000; 'DRC ~73% of world total, Indonesia 14%' (MCS 2026)",
-    "computed": "MCS2026: DRC 'an estimated 73% of world total, followed by Indonesia 14%' (mine). China refine ~75% (USGS-qualitative + industry). Chokepoint is refining.",
-    "supports": "mine measured; refine % pending source"
-  },
-  "molybdenum": {
-    "claim": "China ~40% of world molybdenum mine production (diversified — not a chokepoint)",
-    "conf": "measured",
-    "source": "USGS MCS 2025 — Molybdenum",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-molybdenum.pdf",
-    "quoted_row": "China e96,000 110,000 5,900 | US 34,000 33,000 | Chile 44,100 38,000 (world ~264,000)",
-    "computed": "China ~110,000/~264,000 = ~42% ~ atlas 0.40; diversified",
-    "supports": true
-  },
-  "rhenium": {
-    "claim": "aerospace: world ~81 t rhenium; Chile ~37% (largest single source)",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Rhenium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf",
-    "quoted_row": "Chile9 29,000 30,000 1,300,000 | World total (rounded) 79,800 81,000 Large; 'Estimated world rhenium production in 2025 increased 1% to 81,000 kg'",
-    "computed": "Chile 30,000/81,000 = 37% (2025). '~81 t world' is correct; the atlas's 'Chile 55%' was WRONG -> corrected to ~37%. (Note: MCS2025 listed world 62,000; USGS revised up in the 2026 edition.)",
-    "supports": true
-  },
-  "manganese": {
-    "claim": "China ~90% of battery-grade manganese (sulphate/EMM) — processing, not mine",
-    "conf": "estimate",
-    "source": "USGS MCS 2025 (mine, diversified); battery-grade share is industry/IEA",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-manganese.pdf",
-    "quoted_row": "China 767 770 280,000 | South Africa 7,300 7,400 560,000 | World total 19,600 20,000 1,700,000",
-    "computed": "USGS MINE: China 770/20,000 = 4% (South Africa leads). The ~90% is battery-grade processing (industry/IEA), a different stage — PENDING that source",
-    "supports": "processing % pending source"
-  },
-  "magnesium": {
-    "claim": "China ~87% of world magnesium-metal production",
-    "conf": "estimate",
-    "source": "USGS MCS 2025 — Magnesium Metal",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-magnesium-metal.pdf",
-    "quoted_row": "China [footnote-garbled row] ... 950 | World total (rounded) 900 1,000 2,100",
-    "computed": "row footnote merged in pdftotext; China clearly dominant (~90-95% of ~1,000 kt) — atlas ~87% plausible; PENDING a clean re-extraction",
-    "supports": "pending clean read"
-  },
-  "vanadium": {
-    "claim": "China ~75% of world vanadium production",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Vanadium",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
-    "quoted_row": "China e84,000 82,000 5,800 | World total (rounded) 118,000 110,000 21,000",
-    "computed": "82,000/110,000 = 75% (2025); vanadium-chain chokepoint corrected from ~64%",
-    "supports": true
-  },
-  "tantalum": {
-    "claim": "DRC + Rwanda ~68% of world tantalum production (3TG)",
-    "conf": "measured",
-    "source": "USGS MCS 2026 — Tantalum",
-    "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
-    "quoted_row": "Congo (Kinshasa) 1,270 1,300 | Rwanda 374 400 | World total (rounded) 2,500 2,500",
-    "computed": "DRC 1,300 + Rwanda 400 = 1,700 / world 2,500 = 68% (MCS 2026). Was ~70% (2pp round-up); tightened to ~68%.",
-    "supports": true
-  },
-  "graphite": {
-    "claim": "China ~100% of spherical/coated anode-grade graphite",
-    "conf": "estimate",
-    "source": "Benchmark Mineral Intelligence / IEA (industry — NOT a USGS-style quoted table row)",
-    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
-    "quoted_row": "(industry figure — not a quoted USGS row; IEA/Benchmark: China ~100% of spherical-graphite anode processing)",
-    "computed": "IEA/Benchmark well-established: China dominates spherical/coated anode ~100%; mine ~74% (USGS)",
-    "supports": "per IEA/Benchmark, not a quoted row this pass"
-  },
-  "solar": {
-    "claim": "China ~95% of solar-PV manufacturing (polysilicon/wafer/cell)",
-    "conf": "estimate",
-    "source": "IEA (industry — NOT a USGS-style quoted table row)",
-    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
-    "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China >95% of wafers, ~95% of cells)",
-    "computed": "IEA well-established China ~95%+ across PV manufacturing stages",
-    "supports": "per IEA, not a quoted row"
-  },
-  "rare-earths": {
-    "claim": "China ~90% of rare-earth separation/refining",
-    "conf": "estimate",
-    "source": "IEA / USGS commentary (industry — NOT a USGS-style quoted table row)",
-    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
-    "quoted_row": "(IEA/USGS: China ~90% of REE processing/separation; USGS mine China ~69% is a different stage)",
-    "computed": "IEA/USGS well-established China ~90% of separation; USGS 2026 mine China 270,000 ~69%",
-    "supports": "per IEA, not a quoted row"
-  },
-  "magnet": {
-    "claim": "China ~91% of NdFeB permanent-magnet production",
-    "conf": "estimate",
-    "source": "IEA / Adamas Intelligence (industry — NOT a USGS-style quoted table row)",
-    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
-    "quoted_row": "(IEA/Adamas: China ~90-92% of NdFeB magnet manufacturing)",
-    "computed": "IEA/Adamas well-established China ~90-92%",
-    "supports": "per IEA/Adamas, not a quoted row"
-  },
-  "battery": {
-    "claim": "China ~80% of lithium-ion cell manufacturing",
-    "conf": "estimate",
-    "source": "IEA (industry — NOT a USGS-style quoted table row)",
-    "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
-    "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China ~75-85% of cell manufacturing capacity)",
-    "computed": "IEA well-established China ~80% of cell manufacturing",
-    "supports": "per IEA, not a quoted row"
-  },
-  "semiconductor-inputs": {
-    "claim": "Japan ~90% of advanced photoresist",
-    "conf": "estimate",
-    "source": "SEMI / industry reporting (NOT a USGS-style quoted table row)",
-    "url": "https://www.semi.org/en/products-services/market-data/materials",
-    "quoted_row": "(industry figure — not a quoted row; Japan ~90% of advanced EUV/ArF photoresist)",
-    "computed": "SEMI/industry well-established Japan ~90% advanced resist",
-    "supports": "per SEMI/industry, not a quoted row"
-  },
-  "steel": {
-    "claim": "China ~54% of world crude-steel production",
-    "conf": "estimate",
-    "source": "World Steel Association (NOT a USGS-style quoted table row)",
-    "url": "https://worldsteel.org/data/",
-    "quoted_row": "(worldsteel: China ~54% of world crude steel, ~1,000 of ~1,850 Mt)",
-    "computed": "worldsteel well-established China ~54% of crude steel",
-    "supports": "per worldsteel, not a quoted row (fetchable stat)"
-  },
-  "aluminium": {
-    "claim": "China ~59% of world primary aluminium smelting",
-    "conf": "estimate",
-    "source": "International Aluminium Institute (NOT a USGS-style quoted table row)",
-    "url": "https://international-aluminium.org/statistics/primary-aluminium-production/",
-    "quoted_row": "(IAI: China ~59% of world primary aluminium)",
-    "computed": "IAI well-established China ~59% of primary aluminium smelting",
-    "supports": "per IAI, not a quoted row (fetchable stat)"
-  },
-  "medical-isotopes": {
-    "claim": "~6 ageing research reactors supply most Mo-99/Tc-99m",
-    "conf": "estimate",
-    "source": "OECD-NEA HLG-MR (NOT a USGS-style quoted table row)",
-    "url": "https://www.oecd-nea.org/med-radio/",
-    "quoted_row": "(OECD-NEA: ~6 ageing research reactors — HFR, BR2, Maria, SAFARI, OPAL, LVR-15 — supply most Mo-99)",
-    "computed": "documented fragility fact, not a market %; ~6 reactors, 66h half-life so no stockpile",
-    "supports": false
-  }
+ "_doc": "Source ledger for chokepoint / headline shares. Each entry ties a figure to a NAMED source AND the quoted table row / sentence, so a bare citation cannot hide a misread. Rule: a chokepoint tagged conf=measured MUST have an entry here whose quoted row supports its share; if the source has no computable figure, the tag is estimate/attributed. check.py enforces presence (check_ledger).",
+ "_method": "USGS MCS PDFs fetched with a browser User-Agent (default fetch UA gets 403); extracted with `pdftotext -raw`. USE THE LATEST EDITION (MCS 2026): USGS revises prior-year numbers substantially between editions (e.g. rhenium world 62->81 t; strontium Iran 39->56%; tungsten world 81->85 kt). Shares below are from the MCS 2026 (2025-data) column.",
+ "_verified": "2026-08-26",
+ "phosphate-food": {
+  "claim": "Morocco ~68% of world phosphate-rock reserves",
+  "conf": "measured",
+  "source": "USGS MCS 2025 — Phosphate Rock",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-phosphate.pdf",
+  "quoted_row": "Morocco 33,000 30,000 50,000,000 | World total (rounded) 233,000 240,000 74,000,000 (cols: 2023 prod, 2024 prod, reserves)",
+  "computed": "50,000,000 / 74,000,000 = 67.6% -> ~68% reserves; Morocco production 30,000/240,000 = 12.5%",
+  "supports": true
+ },
+ "pgm-catalyst": {
+  "claim": "South Africa ~83% of world PGM reserves (platinum ~71%; palladium Russia-led)",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Platinum-Group Metals",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+  "quoted_row": "South Africa 82,600 70,000 126,000 120,000 63,000,000 | World total 217,000 190,000 179,000 170,000 >76,000,000",
+  "computed": "reserves 63,000,000/>76,000,000 = 82.9% -> ~83% (world reserves revised DOWN 81->76 Mkg between editions; was ~78% on MCS2025). Platinum 120,000/170,000=71%; palladium SA 70,000/190,000=37%.",
+  "supports": true
+ },
+ "steel-alloys": {
+  "claim": "Brazil ~93% niobium (chokepoint); vanadium China ~75%",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Niobium; USGS MCS 2026 — Vanadium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-niobium.pdf",
+  "quoted_row": "'Brazil ... approximately 93% of global production, followed by Canada'; Vanadium China 82,000/110,000",
+  "computed": "niobium 93% verbatim (was 92% on MCS2025); vanadium 75%",
+  "supports": true
+ },
+ "boron": {
+  "claim": "Turkey ~73% of world borate reserves (Eti Maden company estimate)",
+  "conf": "estimate",
+  "source": "USGS MCS 2025 — Boron (no world total); Eti Maden (company claim)",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-boron.pdf",
+  "quoted_row": "'World total4 XX XX XX' + footnote 4: 'World totals cannot be calculated because production and reserves are not reported in a consistent manner by all countries.' The '~70%' had been misread from 'About 70% of all deposits in Turkey are colemanite' (deposit TYPE, not world share).",
+  "computed": "NO world reserves total exists in USGS -> a world % is not computable; ~73% is Eti Maden's own claim, hence estimate",
+  "supports": "estimate only — deliberately not measured"
+ },
+ "tungsten": {
+  "claim": "China ~79% of world tungsten mine production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Tungsten",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf",
+  "quoted_row": "China 67,000 67,000 2,500,000 | World total (rounded) 82,000 85,000 >4,700,000",
+  "computed": "67,000/85,000 = 78.8% -> ~79% (2025). NOTE: MCS2025 gave 67,000/81,000=83%; USGS revised world up to 85,000 -> back to ~79% (original atlas ~80% was right).",
+  "supports": true
+ },
+ "strontium": {
+  "claim": "Iran ~56% of world celestite production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Strontium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf",
+  "quoted_row": "China 80,000 80,000 | Iran 200,000 250,000 2,000,000 | Spain 100,000 100,000 | World total (rounded) 400,000 450,000",
+  "computed": "Iran 250,000/450,000 = 56% (2025); Spain 100,000 = 22%; China 80,000 = 18%. NOTE: MCS2025 gave Iran 39% (tied Spain); USGS revised -> Iran is the clear leader ~56%. Original atlas ~58% was ~right.",
+  "supports": true
+ },
+ "gallium": {
+  "claim": "China ~99% of world primary low-purity gallium",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Gallium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf",
+  "quoted_row": "'China accounted for 99% of worldwide primary low-purity gallium production.' + table China 839,000/848,000 (2024) = 98.9%; 900,000/900,000 (2025e).",
+  "computed": "USGS states 99% verbatim (primary low-purity). Was ~98% (that is the REFINED figure); the atlas chokepoint is labelled primary low-purity, so 99% is correct.",
+  "supports": true
+ },
+ "bismuth": {
+  "claim": "China ~88% of world bismuth production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Bismuth",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf",
+  "quoted_row": "'Estimated world production of bismuth was 16,000 tons in 2025. China accounted for 88% of the bismuth world production in 2025.' + Refinery table: China 14,000 / World total 16,000.",
+  "computed": "USGS states 88% verbatim; refinery table 14,000/16,000 = 87.5% -> ~88%. (Earlier ~85% was an unnecessary midpoint with industry 65-80%; USGS is the primary and states 88%, so it is measured, not estimate.) | NOTE: IEA GCMO 2026 market-share table gives bismuth 73% (vs USGS verbatim 88%); kept measured on the explicit USGS statement + refinery row, but sources disagree by ~15pp.",
+  "supports": true
+ },
+ "germanium": {
+  "claim": "China ~60% of world germanium production (estimate)",
+  "conf": "estimate",
+  "source": "USGS MCS 2025 — Germanium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-germanium.pdf",
+  "quoted_row": "'China continued to be the leading global producer and exporter of germanium metal'; 'most producers do not publicly report germanium' output.",
+  "computed": "USGS publishes NO country production table for germanium -> ~60% is an industry estimate, not measurable; retagged estimate",
+  "supports": "estimate only"
+ },
+ "antimony": {
+  "claim": "China refining chokepoint (mine ~60%; refining/oxide dominance is the binding stage)",
+  "conf": "estimate",
+  "source": "USGS MCS 2026 — Antimony (mine); Reuters + Project Blue (refining)",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf",
+  "quoted_row": "China 40,000 / World total 110,000 (mine, 2025e) = ~36%. US import sources: Oxide China 66%, total metal+oxide China 55%. Reuters (2024-08-15): 'China is the biggest supplier of refined antimony … it is a net importer of concentrates.'",
+  "computed": "Mine ~36% China (2025e; was 48% in 2023 per Reuters) — mine is DIVERSIFYING, not the chokepoint. The chokepoint is REFINING, which Reuters/Project Blue confirm qualitatively; no primary source gives a world refined-antimony %. Page asserts refining dominance as 'refine' (no number), not a false 76%.",
+  "supports": false
+ },
+ "beryllium": {
+  "claim": "United States ~53% of world beryllium production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Beryllium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf",
+  "quoted_row": "United States 230 230 | China e78 77 | Brazil e80 80 | World total (rounded) 433 430",
+  "computed": "US 230/430 = 53% (2025). MCS2025 gave 180/360=50%; USGS revised US up to 230.",
+  "supports": true
+ },
+ "fluorine": {
+  "claim": "China ~60% of world fluorspar mine production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Fluorspar",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf",
+  "quoted_row": "China 6,000 6,000 110,000 | World total (rounded) 10,300 10,000 330,000",
+  "computed": "6,000/10,000 = 60% (2025). MCS2025 gave 62%.",
+  "supports": true
+ },
+ "displays-indium": {
+  "claim": "China ~70% of world indium production",
+  "conf": "measured",
+  "source": "USGS MCS 2025 — Indium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-indium.pdf",
+  "quoted_row": "'China is the leading global producer of Indium, accounting for 70% of the world total.'",
+  "computed": "USGS verbatim 70% — matches atlas exactly | NOTE: IEA GCMO 2026 gives indium 86% (vs USGS verbatim 70%); kept measured on the USGS statement; IEA's own minor-minerals chart (p.199) also reads ~70%, so the 86% table figure is the outlier.",
+  "supports": true
+ },
+ "nickel": {
+  "claim": "Indonesia ~67% of world nickel mine production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Nickel",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+  "quoted_row": "Indonesia 2,600,000 (2025) | World total (rounded) 3,900,000 (MCS 2026)",
+  "computed": "2,600,000/3,900,000 = 66.7% -> ~67% (2025). Was ~61% off MCS2025 (stale) -> corrected to latest edition. | NOTE: IEA GCMO 2026 annex gives Indonesia ~63% of nickel mining (2,637/4,207 kt) vs USGS ~67% (2,600/3,900) — the gap is the world-total denominator (IEA counts ~300 kt more). Kept measured on the USGS figure; true value ~63-67%.",
+  "supports": true
+ },
+ "cobalt": {
+  "claim": "China refining ~75% (chokepoint); DRC mine 76%",
+  "conf": "estimate",
+  "source": "USGS MCS 2025 — Cobalt (mine); refining share is industry/IEA",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-cobalt.pdf",
+  "quoted_row": "Congo (Kinshasa) 226,000 230,000 6,000,000 | Indonesia 35,000 44,000; 'DRC ~73% of world total, Indonesia 14%' (MCS 2026)",
+  "computed": "MCS2026: DRC 'an estimated 73% of world total, followed by Indonesia 14%' (mine). China refine ~75% (USGS-qualitative + industry). Chokepoint is refining.",
+  "supports": "mine measured; refine % pending source"
+ },
+ "molybdenum": {
+  "claim": "China ~40% of world molybdenum mine production (diversified — not a chokepoint)",
+  "conf": "measured",
+  "source": "USGS MCS 2025 — Molybdenum",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-molybdenum.pdf",
+  "quoted_row": "China e96,000 110,000 5,900 | US 34,000 33,000 | Chile 44,100 38,000 (world ~264,000)",
+  "computed": "China ~110,000/~264,000 = ~42% ~ atlas 0.40; diversified",
+  "supports": true
+ },
+ "rhenium": {
+  "claim": "aerospace: world ~81 t rhenium; Chile ~37% (largest single source)",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Rhenium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf",
+  "quoted_row": "Chile9 29,000 30,000 1,300,000 | World total (rounded) 79,800 81,000 Large; 'Estimated world rhenium production in 2025 increased 1% to 81,000 kg'",
+  "computed": "Chile 30,000/81,000 = 37% (2025). '~81 t world' is correct; the atlas's 'Chile 55%' was WRONG -> corrected to ~37%. (Note: MCS2025 listed world 62,000; USGS revised up in the 2026 edition.)",
+  "supports": true
+ },
+ "manganese": {
+  "claim": "China ~90% of battery-grade manganese (sulphate/EMM) — processing, not mine",
+  "conf": "estimate",
+  "source": "USGS MCS 2025 (mine, diversified); battery-grade share is industry/IEA",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-manganese.pdf",
+  "quoted_row": "China 767 770 280,000 | South Africa 7,300 7,400 560,000 | World total 19,600 20,000 1,700,000",
+  "computed": "USGS MINE: China 770/20,000 = 4% (South Africa leads). The ~90% is battery-grade processing (industry/IEA), a different stage — PENDING that source",
+  "supports": "processing % pending source"
+ },
+ "magnesium": {
+  "claim": "China ~87% of world magnesium-metal production",
+  "conf": "estimate",
+  "source": "USGS MCS 2025 — Magnesium Metal",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-magnesium-metal.pdf",
+  "quoted_row": "China [footnote-garbled row] ... 950 | World total (rounded) 900 1,000 2,100",
+  "computed": "row footnote merged in pdftotext; China clearly dominant (~90-95% of ~1,000 kt) — atlas ~87% plausible; PENDING a clean re-extraction",
+  "supports": "pending clean read"
+ },
+ "vanadium": {
+  "claim": "China ~75% of world vanadium production",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Vanadium",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf",
+  "quoted_row": "China e84,000 82,000 5,800 | World total (rounded) 118,000 110,000 21,000",
+  "computed": "82,000/110,000 = 75% (2025); vanadium-chain chokepoint corrected from ~64%",
+  "supports": true
+ },
+ "tantalum": {
+  "claim": "DRC + Rwanda ~68% of world tantalum production (3TG)",
+  "conf": "measured",
+  "source": "USGS MCS 2026 — Tantalum",
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf",
+  "quoted_row": "Congo (Kinshasa) 1,270 1,300 | Rwanda 374 400 | World total (rounded) 2,500 2,500",
+  "computed": "DRC 1,300 + Rwanda 400 = 1,700 / world 2,500 = 68% (MCS 2026). Was ~70% (2pp round-up); tightened to ~68%.",
+  "supports": true
+ },
+ "graphite": {
+  "claim": "China ~100% of spherical/coated anode-grade graphite",
+  "conf": "estimate",
+  "source": "Benchmark Mineral Intelligence / IEA (industry — NOT a USGS-style quoted table row)",
+  "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+  "quoted_row": "(industry figure — not a quoted USGS row; IEA/Benchmark: China ~100% of spherical-graphite anode processing)",
+  "computed": "IEA/Benchmark well-established: China dominates spherical/coated anode ~100%; mine ~74% (USGS)",
+  "supports": "per IEA/Benchmark, not a quoted row this pass"
+ },
+ "solar": {
+  "claim": "China ~95% of solar-PV manufacturing (polysilicon/wafer/cell)",
+  "conf": "estimate",
+  "source": "IEA (industry — NOT a USGS-style quoted table row)",
+  "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+  "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China >95% of wafers, ~95% of cells)",
+  "computed": "IEA well-established China ~95%+ across PV manufacturing stages",
+  "supports": "per IEA, not a quoted row"
+ },
+ "rare-earths": {
+  "claim": "China ~90% of rare-earth separation/refining",
+  "conf": "estimate",
+  "source": "IEA / USGS commentary (industry — NOT a USGS-style quoted table row)",
+  "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+  "quoted_row": "(IEA/USGS: China ~90% of REE processing/separation; USGS mine China ~69% is a different stage)",
+  "computed": "IEA/USGS well-established China ~90% of separation; USGS 2026 mine China 270,000 ~69%",
+  "supports": "per IEA, not a quoted row"
+ },
+ "magnet": {
+  "claim": "China ~91% of NdFeB permanent-magnet production",
+  "conf": "estimate",
+  "source": "IEA / Adamas Intelligence (industry — NOT a USGS-style quoted table row)",
+  "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+  "quoted_row": "(IEA/Adamas: China ~90-92% of NdFeB magnet manufacturing)",
+  "computed": "IEA/Adamas well-established China ~90-92%",
+  "supports": "per IEA/Adamas, not a quoted row"
+ },
+ "battery": {
+  "claim": "China ~80% of lithium-ion cell manufacturing",
+  "conf": "estimate",
+  "source": "IEA (industry — NOT a USGS-style quoted table row)",
+  "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025",
+  "quoted_row": "(IEA figure in JS chart — not a quoted row; IEA: China ~75-85% of cell manufacturing capacity)",
+  "computed": "IEA well-established China ~80% of cell manufacturing",
+  "supports": "per IEA, not a quoted row"
+ },
+ "semiconductor-inputs": {
+  "claim": "Japan ~90% of advanced photoresist",
+  "conf": "estimate",
+  "source": "SEMI / industry reporting (NOT a USGS-style quoted table row)",
+  "url": "https://www.semi.org/en/products-services/market-data/materials",
+  "quoted_row": "(industry figure — not a quoted row; Japan ~90% of advanced EUV/ArF photoresist)",
+  "computed": "SEMI/industry well-established Japan ~90% advanced resist",
+  "supports": "per SEMI/industry, not a quoted row"
+ },
+ "steel": {
+  "claim": "China ~54% of world crude-steel production",
+  "conf": "estimate",
+  "source": "World Steel Association (NOT a USGS-style quoted table row)",
+  "url": "https://worldsteel.org/data/",
+  "quoted_row": "(worldsteel: China ~54% of world crude steel, ~1,000 of ~1,850 Mt)",
+  "computed": "worldsteel well-established China ~54% of crude steel",
+  "supports": "per worldsteel, not a quoted row (fetchable stat)"
+ },
+ "aluminium": {
+  "claim": "China ~59% of world primary aluminium smelting",
+  "conf": "estimate",
+  "source": "International Aluminium Institute (NOT a USGS-style quoted table row)",
+  "url": "https://international-aluminium.org/statistics/primary-aluminium-production/",
+  "quoted_row": "(IAI: China ~59% of world primary aluminium)",
+  "computed": "IAI well-established China ~59% of primary aluminium smelting",
+  "supports": "per IAI, not a quoted row (fetchable stat)"
+ },
+ "medical-isotopes": {
+  "claim": "~6 ageing research reactors supply most Mo-99/Tc-99m",
+  "conf": "estimate",
+  "source": "OECD-NEA HLG-MR (NOT a USGS-style quoted table row)",
+  "url": "https://www.oecd-nea.org/med-radio/",
+  "quoted_row": "(OECD-NEA: ~6 ageing research reactors — HFR, BR2, Maria, SAFARI, OPAL, LVR-15 — supply most Mo-99)",
+  "computed": "documented fragility fact, not a market %; ~6 reactors, 66h half-life so no stockpile",
+  "supports": false
+ },
+ "grid": {
+  "claim": "Grain-oriented electrical steel exports: China + Japan 53% of world value, HHI 0.164 - tighter than the transformers it feeds (0.073)",
+  "conf": "measured",
+  "source": "CEPII BACI HS17 V202601 (Etalab Open Licence 2.0; cite Gaulier & Zignago 2010), HS 722511 + 722611, exporter value shares",
+  "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37",
+  "quoted_row": "3-year total 2022-2024, exporter value shares: CHN 28.8%, JPN 24.3%, RUS 8.0%, DEU 7.9%; 81 exporters; HHI 0.164. Same basis, liquid-dielectric transformers (850421/22/23): HHI 0.073, top1 17.8%, 182 exporters.",
+  "computed": "Recomputed by grid-chain/build_goes.py -> grid-chain/out/goes.json. CHN 28.8 + JPN 24.3 = 53.1% of export value. Annual HHI 2019-2024: 0.111, 0.127, 0.122, 0.146, 0.167, 0.188 - rising. CAVEAT: trade is not capacity. Export shares say who SELLS, not who can MAKE; a producer consuming its own output at home is understated (China notably), so 0.164 is a FLOOR on real concentration and the sign of the error is known.",
+  "supports": true,
+  "prompted_by": "Amoah, Brown, Simon, Bazilian & Matisek, \"Mineral demand from AI data centers\", Resources Policy 119 (2026) 105970 - reference verified via Crossref, full text paywalled and NOT read. It prompted the check; it is not evidence for the result."
+ }
 }
