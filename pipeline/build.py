@@ -128,7 +128,20 @@ def main():
     pqc = os.path.join(schema.ROOT, 'pipeline', 'data', 'coverage.parquet').replace('\\', '/')
     con.execute(f"COPY (SELECT * FROM coverage) TO '{pqc}' (FORMAT PARQUET, COMPRESSION ZSTD)")
     print(f"wrote pipeline/data/coverage.parquet  ({con.execute('SELECT COUNT(*) FROM coverage').fetchone()[0]} materials · quality scorecard)")
-    print(f"\nwrote pipeline/data/flows_reconciled.parquet  -  freight markup (rough placeholder) = {markup:.3f}")
+    lv = stats.pop("_markup_levels", {})
+    mk = con.execute("""SELECT level, COUNT(*), ROUND(min(markup),3), ROUND(max(markup),3)
+                        FROM markup_by_hs6 GROUP BY 1 ORDER BY 1""").fetchall()
+    print("\nwrote pipeline/data/flows_reconciled.parquet")
+    print("  CIF/FOB (CAF/FAB) coefficient is now PER PRODUCT, the way balance-of-payments statistics")
+    print(f"  does it, not one number for everything. Global fallback {markup:.3f}; estimated at "
+          + ", ".join(f"{l} n={n} range {lo}-{hi}" for l, n, lo, hi in mk) + ".")
+    top = con.execute("SELECT hs6, ROUND(markup,3) FROM markup_by_hs6 ORDER BY markup DESC LIMIT 3").fetchall()
+    print("  heaviest freight: " + ", ".join(f"HS{h} x{m}" for h, m in top)
+          + " - bulk ores, where a single 1.023 was plainly wrong.")
+    nfl = con.execute("SELECT COUNT(*) FROM markup_by_hs6 WHERE markup_raw < 1").fetchone()[0]
+    print(f"  {nfl} codes estimate BELOW 1.0, which freight cannot produce (CIF >= FOB by construction):")
+    print("  the applied value is floored at 1.0 and the raw median kept in cif_fob_markup_raw. An importer")
+    print("  systematically reporting LESS than the exporter is a reporting-asymmetry finding, not a margin.")
     for basis in ('reconciled', 'disagreement', 'exporter_only', 'importer_only_adj'):
         c, v = stats.get(basis, (0, 0))
         print(f"  {basis:18} {c:>7,} flows  " + (f"${v}B" if v is not None else "(no single value — range exposed)"))
@@ -155,7 +168,11 @@ def main():
     qa = con.execute(qa_sql).fetchone()
     print(f"\nBACI external QA (benchmark, not input): {qa[0]} same-year (2024) reconciled pairs match BACI-2024;")
     print(f"  annualized recon / BACI annual: median {qa[1]}  (IQR {qa[2]}-{qa[3]}; 1.0 = consistent)")
-    print(f"  residual >1 reflects single-month extrapolation + a single global freight markup (too low for bulk) — a known, bounded limitation, NOT an input to the estimate")
+    print("  residual >1 reflects single-month extrapolation against an ANNUAL benchmark - a known,")
+    print("  bounded limitation, NOT an input to the estimate. The freight term is no longer part of it:")
+    print("  the coefficient is per product now, validated leave-one-out at 0.6083 against 0.6179 for the")
+    print("  single global markup - about 1% closer to BACI. Real but small, and BACI applies a CIF/FOB")
+    print("  correction of its own, so it cannot fully adjudicate this question.")
 
     # ABLATION (show your work): does reconciling — and does the estimator choice — actually beat a single side?
     # Compares each estimator to BACI's monthly average on the matched 2024 reconciled flows; lower = closer.

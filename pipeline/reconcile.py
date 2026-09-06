@@ -5,11 +5,13 @@ the same month, we reconcile them into one best estimate instead of picking a si
 trusting a raw feed (TDM). Method (a monthly, tractable cousin of CEPII BACI):
   1. canonicalize every row to (exporter, importer, hs6, period) and tag its side (FOB / CIF);
   2. keep the best SOURCE per side (deep national > wide reconciled > mirror), aggregated to HS-6;
-  3. estimate the CIF/FOB freight markup EMPIRICALLY from the matched pairs (median cif/fob);
+  3. estimate the CIF/FOB (CAF/FAB) coefficient EMPIRICALLY from the matched pairs, PER PRODUCT -
+     median cif/fob at HS6, falling back to HS4, HS2, then global, as BoP practice does;
   4. put both on a common FOB basis and take the geometric mean.
 Output table `flows_reconciled` with `basis` = reconciled | exporter_only | importer_only_adj.
 (v1 = equal-weight geomean; reliability-variance weighting is the next refinement.)"""
 
+MIN_PAIRS = 8   # fewest matched pairs that may carry a coefficient of its own
 HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # entrepot / re-export hubs
 
 SIDES_SQL = """
@@ -78,6 +80,57 @@ def _reporter_quality(con, markup):
     con.executemany("INSERT INTO reporter_quality VALUES (?,?,?,?,?)", rows)
 
 
+def _markup_table(con, glob):
+    """A CIF/FOB (CAF/FAB) coefficient PER PRODUCT, not one number for everything.
+
+    Balance-of-payments practice estimates this margin by product and transport mode, because
+    freight is a far larger share of a tonne of ore than of a tonne of wire. We had one global
+    figure, 1.023, and the pipeline's own ablation print already called it "too low for bulk".
+    It was: estimated per HS2 the coefficient runs 1.177 for ores (HS26) against 1.011 for
+    precious metals (HS71). Applying 2.3% to iron ore was never defensible.
+
+    Estimated from the matched pairs, falling back up the nomenclature - HS6, then HS4, then HS2,
+    then global - taking the first level with at least MIN_PAIRS well-behaved observations. Same
+    shape as a BoP coefficient table, different provenance: BoP estimates the margin from
+    transport statistics, we estimate it from the declarations themselves.
+
+    That difference has a consequence worth stating rather than hiding. Two HS2 coefficients come
+    out BELOW 1.0 - copper (HS74) at 0.964 and nickel (HS75) at 0.960 - and freight cannot do
+    that: CIF is FOB plus transport, so the ratio cannot be less than one. What we are estimating
+    is therefore not a pure freight margin; it is freight PLUS reporting asymmetry, and for those
+    two the asymmetry dominates. So the APPLIED coefficient is floored at 1.0 (a coefficient that
+    is impossible as freight should not be used as one), while the RAW median is kept beside it,
+    because "the importer of copper systematically reports less than the exporter" is a finding,
+    not an error to be clipped away.
+
+    Writes markup_by_hs6(hs6, markup, markup_raw, level, n_pairs).
+    """
+    con.execute("""CREATE OR REPLACE TABLE markup_levels AS
+      SELECT 'hs6' AS level, hs6 AS k, median(cif/fob) AS m, COUNT(*) AS n FROM sides
+       WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5 GROUP BY 2
+      UNION ALL
+      SELECT 'hs4', substr(hs6,1,4), median(cif/fob), COUNT(*) FROM sides
+       WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5 GROUP BY 2
+      UNION ALL
+      SELECT 'hs2', substr(hs6,1,2), median(cif/fob), COUNT(*) FROM sides
+       WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5 GROUP BY 2""")
+    con.execute(f"""CREATE OR REPLACE TABLE markup_by_hs6 AS
+      WITH codes AS (SELECT DISTINCT hs6 FROM sides),
+      pick AS (
+        SELECT c.hs6,
+               COALESCE(h6.m, h4.m, h2.m, {glob}) AS markup_raw,
+               CASE WHEN h6.m IS NOT NULL THEN 'hs6' WHEN h4.m IS NOT NULL THEN 'hs4'
+                    WHEN h2.m IS NOT NULL THEN 'hs2' ELSE 'global' END AS level,
+               COALESCE(h6.n, h4.n, h2.n, 0) AS n_pairs
+        FROM codes c
+        LEFT JOIN markup_levels h6 ON h6.level='hs6' AND h6.k=c.hs6           AND h6.n >= {MIN_PAIRS}
+        LEFT JOIN markup_levels h4 ON h4.level='hs4' AND h4.k=substr(c.hs6,1,4) AND h4.n >= {MIN_PAIRS}
+        LEFT JOIN markup_levels h2 ON h2.level='hs2' AND h2.k=substr(c.hs6,1,2) AND h2.n >= {MIN_PAIRS})
+      SELECT hs6, greatest(markup_raw, 1.0) AS markup, markup_raw, level, n_pairs FROM pick""")
+    return {r[0]: r[1] for r in con.execute(
+        "SELECT level, COUNT(*) FROM markup_by_hs6 GROUP BY 1").fetchall()}
+
+
 def reconcile(con):
     """Given a DuckDB connection with a `flows` table, build `flows_reconciled`. Returns (markup, stats).
 
@@ -96,12 +149,16 @@ def reconcile(con):
     and BACI (annual). BACI is kept as an EXTERNAL QA benchmark, never as an input to the estimate."""
     con.execute(SIDES_SQL)
     markup = con.execute("SELECT median(cif/fob) FROM sides WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5").fetchone()[0] or 1.05
+    levels = _markup_table(con, markup)   # BoP-shaped: a coefficient per product, not one for all
     _reporter_quality(con, markup)   # variance-components: de-bias reporter effects + shrinkage-regularized reliabilities
     con.execute(f"""CREATE OR REPLACE TABLE flows_reconciled AS
-      WITH s AS (SELECT *, cif/{markup} AS fob_from_cif FROM sides)
+      WITH s AS (SELECT sides.*, mk.markup, mk.markup_raw, mk.level AS markup_level,
+                        cif/mk.markup AS fob_from_cif
+                 FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6))
       SELECT s.period, s.exporter, s.importer, s.hs6, s.material,
         (s.exporter IN {HUBS_SQL} OR s.importer IN {HUBS_SQL}) AS via_entrepot,
-        s.fob, s.cif, {markup} AS cif_fob_markup,
+        s.fob, s.cif, s.markup AS cif_fob_markup, s.markup_raw AS cif_fob_markup_raw,
+        s.markup_level AS cif_fob_markup_level,
         re.reliability AS w_exporter, ri.reliability AS w_importer,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN least(s.fob, s.fob_from_cif) END AS value_lo_fob,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN greatest(s.fob, s.fob_from_cif) END AS value_hi_fob,
@@ -128,4 +185,5 @@ def reconcile(con):
       FROM s LEFT JOIN reporter_quality re ON s.exporter = re.reporter LEFT JOIN reporter_quality ri ON s.importer = ri.reporter""")
     stats = {r[0]: (r[1], r[2]) for r in con.execute(
         "SELECT basis, COUNT(*), ROUND(SUM(value_recon_fob)/1e9,2) FROM flows_reconciled GROUP BY 1").fetchall()}
+    stats["_markup_levels"] = levels
     return markup, stats
