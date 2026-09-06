@@ -490,6 +490,22 @@ def check_dim():
             fail('dim', f'dim_material describes materials the cube does not have, so nothing can '
                         f'join to them: {", ".join(orphan)}')
 
+    # the manifest is what a query author reads to decide what to pin. If it drifts from the
+    # cube it is worse than absent: it advertises identities that no longer exist, or hides ones
+    # that do, and the query written against it looks perfectly reasonable.
+    if os.path.exists('out/cube_manifest.json') and os.path.exists(cube):
+        try:
+            man = json.load(open('out/cube_manifest.json', encoding='utf8'))
+            c = pd.read_parquet(cube, columns=['material', 'source', 'measure', 'stage',
+                                               'basis', 'unit'])
+            live = len(c.groupby(['material', 'source', 'measure', 'stage', 'basis', 'unit'],
+                                 dropna=False).size())
+            if man.get('n_identities') != live:
+                fail('dim', f'cube_manifest.json advertises {man.get("n_identities")} identities '
+                            f'but the cube has {live} - rerun cube_query.py')
+        except Exception as e:
+            fail('dim', f'cube_manifest.json unreadable: {e}')
+
     try:
         d = json.load(open('out/data.json', encoding='utf8'))
     except Exception:
