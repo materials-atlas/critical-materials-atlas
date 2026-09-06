@@ -141,6 +141,41 @@ def _markup_table(con, glob):
     because "the importer of copper systematically reports less than the exporter" is a finding,
     not an error to be clipped away.
 
+    CEPII'S OWN METHOD, REPLICATED AND PARTLY DECLINED (6 Sep 2026)
+    BACI does not take a median. It regresses the observed CIF/FOB ratio on gravity variables and
+    a product-specific world median unit value, then applies the FITTED rate (Gaulier & Zignago
+    2010); a companion paper computes the ratio from UNIT VALUES, each side normalised by its own
+    declared quantity, which cancels the quantity-mismatch error (Gaulier, Mirza, Turban &
+    Zignago 2008). Their published CIF/FOB dataset covers 1995-2004 only, so it cannot be applied
+    to our window - but the method can be, and was, on our 1,039 matched pairs.
+
+    Result 1, ADOPTED AS EVIDENCE, NOT AS CODE. The unit-value ratio is a far better behaved
+    statistic than the value ratio we use:
+
+                              median   in [1,2]   below 1 (impossible)
+        value  CIF/FOB         1.002      30%          49%
+        unit   CIFu/FOBu       1.071      50%          32%
+
+    Half of our value-based ratios are below 1.0. And the unit-value median, 1.071, lands almost
+    exactly on the Douanes survey's extra-EU rate of 7.0% - two independent methods agreeing, which
+    is the strongest evidence in this whole file that ~7% is the real freight order of magnitude
+    for extra-EU flows.
+
+    Result 2, DECLINED. The gravity regression does not survive our sample size. On 517 usable
+    observations across 30 products: R2 = 0.012, contiguity enters POSITIVE (neighbours should be
+    cheaper to ship to, not dearer) and the unit-value term enters positive too (higher-value goods
+    should carry a LOWER freight share). Two wrong signs and no explanatory power. BACI fits this
+    on millions of flows; we have hundreds. The method is right and our sample cannot carry it.
+
+    Result 3, WHY THE CODE DID NOT CHANGE. Switching the applied coefficient to unit-value ratios
+    scores 0.6127 against BACI versus 0.6108 for the value ratios - marginally worse, though on a
+    benchmark that is itself value-based and runs its own CIF/FOB model, so it cannot really
+    arbitrate. More decisive: after the 1.10 ceiling the two methods barely differ - manganese ore
+    x1.100 either way, bauxite x1.100 either way, copper cathode x1.000 vs x1.028. Threading
+    quantities through the pipeline to move one coefficient by 0.028 is complexity that does not
+    earn its keep, which is the same standard that removed reliability weighting from the
+    estimator. The finding is recorded here because it is worth knowing; the code stays simple.
+
     Writes markup_by_hs6(hs6, markup, markup_raw, level, n_pairs).
     """
     con.execute("""CREATE OR REPLACE TABLE markup_levels AS
