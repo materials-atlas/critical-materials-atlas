@@ -349,6 +349,63 @@ def _cepii_markup(con):
     return len(out)
 
 
+def _itic_markup(con):
+    """The published CIF/FOB margin, per importer-exporter-product, from OECD-ITIC.
+
+    This supersedes everything below it. The per-product medians, the borrowed CEPII 2008
+    coefficients, the locally-anchored level and the freight ceiling of our own invention all
+    existed because we believed no current published series covered this. One does, it is
+    maintained, and it is built the way CEPII built theirs - reported CIF and FOB from ~30
+    economies, gravity model for the rest - eighteen years further on.
+
+    Two of our own numbers do not survive contact with it, and both were wrong in the same
+    direction. We anchored on 4.9%, the OECD's headline GLOBAL margin - but that is across all
+    products, and our basket is not all products. Across the 22 headings our trade actually uses,
+    the 2022 median is 7.4%, and the bulk minerals run to 13%: phosphates 13.0, barytes 12.7,
+    feldspar 12.5, borates 12.4, coal 12.0, bauxite 11.6. Against 3.2% for platinum and 3.7% for
+    nickel. Our 10% ceiling was below the true margin for a whole class of the materials this
+    atlas is about, and we would have gone on quietly clipping them.
+
+    GRAIN: ITIC products are HS2017 HEADINGS. A 6-digit code takes its 4-digit parent's margin -
+    HS17_2602 has data, HS17_260200 returns 404. Fallback order is pair-and-product, then product
+    median across pairs, then the CEPII route model, then the per-product median from mirror data.
+
+    Writes markup_itic(exporter, importer, hs6, markup_itic, itic_status).
+    """
+    import os, csv
+    import pandas as pd
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        'raw', 'oecd_itic', 'itic_margins.csv')
+    if not os.path.exists(path):
+        con.execute("CREATE OR REPLACE TABLE markup_itic(exporter VARCHAR, importer VARCHAR, "
+                    "hs6 VARCHAR, markup_itic DOUBLE, itic_status VARCHAR)")
+        return 0
+    d = pd.read_csv(path)
+    d = d[d.TIME_PERIOD == d.TIME_PERIOD.max()]          # latest year ITIC publishes
+    d['hs4'] = d.COMM_HS2017.str.replace('HS17_', '', regex=False)
+    # ITIC's REF_AREA is the IMPORTER and COUNTERPART_AREA the EXPORTER: the margin is a share of
+    # the importer's CIF value. Getting this backwards would apply Chile's inbound freight to
+    # Chile's exports.
+    pair = (d.groupby(['COUNTERPART_AREA', 'REF_AREA', 'hs4'])
+             .agg(m=('OBS_VALUE', 'median'), st=('OBS_STATUS', 'first')).reset_index()
+             .rename(columns={'COUNTERPART_AREA': 'exporter', 'REF_AREA': 'importer'}))
+    prod = d.groupby('hs4').OBS_VALUE.median().rename('m_prod').reset_index()
+
+    routes = con.execute("SELECT DISTINCT exporter, importer, hs6 FROM sides").df()
+    routes['hs4'] = routes.hs6.astype(str).str[:4]
+    r = routes.merge(pair, on=['exporter', 'importer', 'hs4'], how='left') \
+               .merge(prod, on='hs4', how='left')
+    r['itic_status'] = r.m.notna().map({True: 'itic_pair', False: 'itic_product'})
+    r.loc[r.m.isna() & r.m_prod.isna(), 'itic_status'] = None
+    r['margin'] = r.m.fillna(r.m_prod)
+    r = r.dropna(subset=['margin'])
+    r['markup_itic'] = 1.0 + r.margin / 100.0
+    out = r[['exporter', 'importer', 'hs6', 'markup_itic', 'itic_status']]
+    con.register('_itic', out)
+    con.execute("CREATE OR REPLACE TABLE markup_itic AS SELECT * FROM _itic")
+    return len(out)
+
+
 def reconcile(con):
     """Given a DuckDB connection with a `flows` table, build `flows_reconciled`. Returns (markup, stats).
 
@@ -369,18 +426,26 @@ def reconcile(con):
     markup = con.execute("SELECT median(cif/fob) FROM sides WHERE fob>0 AND cif>0 AND cif/fob BETWEEN 0.7 AND 1.5").fetchone()[0] or 1.05
     levels = _markup_table(con, markup)   # per-product fallback
     n_route = _cepii_markup(con)          # per-ROUTE, from CEPII's published coefficients
+    n_itic = _itic_markup(con)            # PRIMARY: the published OECD-ITIC margin
     _reporter_quality(con, markup)   # variance-components: de-bias reporter effects + shrinkage-regularized reliabilities
     cap = FREIGHT_CEILING
     con.execute(f"""CREATE OR REPLACE TABLE flows_reconciled AS
       WITH s AS (SELECT sides.*, mk.markup_raw, mk.level AS markup_level,
-                        -- route coefficient first, product median only where no distance exists
-                        least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap}) AS markup,
-                        CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
-                             ELSE 'product_median' END AS markup_method,
-                        cif / least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap})
-                          AS fob_from_cif
+                        -- PUBLISHED margin first (OECD-ITIC); our own estimates only where
+                        -- it has no cell. The ceiling applies ONLY to our estimates - a
+                        -- published margin of 13% for phosphate rock is not ours to clip.
+                        COALESCE(it.markup_itic,
+                                 least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0),
+                                       {cap})) AS markup,
+                        COALESCE(it.itic_status,
+                                 CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
+                                      ELSE 'product_median' END) AS markup_method,
+                        cif / COALESCE(it.markup_itic,
+                                       least(greatest(COALESCE(rt.markup_cepii, mk.markup),
+                                             1.0), {cap})) AS fob_from_cif
                  FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6)
-                 LEFT JOIN markup_route rt USING (exporter, importer, hs6))
+                 LEFT JOIN markup_route rt USING (exporter, importer, hs6)
+                 LEFT JOIN markup_itic it USING (exporter, importer, hs6))
       SELECT s.period, s.exporter, s.importer, s.hs6, s.material,
         (s.exporter IN {HUBS_SQL} OR s.importer IN {HUBS_SQL}) AS via_entrepot,
         s.fob, s.cif, s.markup AS cif_fob_markup, s.markup_raw AS cif_fob_markup_raw,
@@ -413,4 +478,5 @@ def reconcile(con):
         "SELECT basis, COUNT(*), ROUND(SUM(value_recon_fob)/1e9,2) FROM flows_reconciled GROUP BY 1").fetchall()}
     stats["_markup_levels"] = levels
     stats["_n_route"] = n_route
+    stats["_n_itic"] = n_itic
     return markup, stats

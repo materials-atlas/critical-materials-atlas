@@ -1,0 +1,18 @@
+{
+ "source": "OECD International Transport and Insurance Costs of merchandise trade (ITIC)",
+ "dataflow": "OECD.SDD.TPS:DSD_ITIC@DF_ITIC(1.1)",
+ "endpoint": "https://sdmx.oecd.org/sti-public/rest/data/OECD.SDD.TPS,DSD_ITIC@DF_ITIC,1.1/  (NOTE: /sti-public/, not the documented /public/ - that path faults on this dataflow)",
+ "measure": "C_F, CIF/FOB margin, unit PT_IM_CIF = percent of import CIF value",
+ "grain": "REF_AREA = importer, COUNTERPART_AREA = exporter, COMM_HS2017 = HS2017 HEADING (4-digit; 6-digit returns 404), annual",
+ "years": [
+  2018,
+  2022
+ ],
+ "rows": 486945,
+ "hs4_requested": 22,
+ "hs4_missing": [],
+ "errors": [],
+ "obs_status_note": "I = imputed by the gravity model; reported values are flagged differently. METHODOLOGY_TYPE ME = model estimate, AG = aggregate.",
+ "retrieved_at": "2026-09-06",
+ "note_8505": "HS17_8505 (magnets) initially returned HTTP 429; recovered on retry with backoff"
+}
