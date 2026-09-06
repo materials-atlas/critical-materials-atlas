@@ -125,6 +125,24 @@ NOTES = {
                 'Latest edition. Six editions together give an investment TIME SERIES by sector - a leading indicator for the capacity that later consumes metal, and one of the few places where the older editions are worth keeping rather than superseded.'),
  'iea_bulk/world-energy-outlook-2025-free-dataset': ('World Energy Outlook 2025 free dataset', 'NOT CC - Terms of Use for Non-CC Material', 'reference (scenario)',
                 'Same rule as above: cited, never ingested.'),
+ 'oecd_itic':  ('OECD International Transport and Insurance Costs of merchandise trade (ITIC)',
+                'OECD Terms and Conditions - redistribution and commercial use permitted with '
+                'attribution; acknowledgment must propagate to sub-licensees',
+                'in use (the CIF/FOB coefficient)',
+                'The published CIF/FOB margin per importer-exporter-HS2017 heading-year, 976,568 '
+                'observations 2015-2024. It REPLACED our own freight estimation entirely: the '
+                'per-product medians, the borrowed CEPII 2008 coefficients, the locally-anchored '
+                'level and our invented 10% ceiling are all now fallback that fires zero times. '
+                'Verbatim from the terms, checked 6 Sep 2026: "you can extract from, download, '
+                'copy, adapt, print, distribute, share and embed Data for any purpose, even for '
+                'commercial use. You must give appropriate credit to the OECD by using the '
+                'citation associated with the relevant Data." Caveat in the same terms: some '
+                'content may be owned by third parties and the user is responsible for checking - '
+                'ITIC is an OECD statistical product built from member reporting, so this is noted '
+                'rather than resolved. Cite as: OECD (2026), International Transport and Insurance '
+                'Costs of merchandise trade (ITIC), OECD Data Explorer, accessed 6 September 2026. '
+                'NOTE 95% of margins are gravity-model imputations (OBS_STATUS I), not reported '
+                'values - published is not the same as observed.'),
  'bgs':        ('BGS World Mineral Statistics full panel', 'Open Government Licence', 'in cube',
                 'The spine: 410k records, production + trade by country, 1970-2024.'),
  'baci':       ('CEPII BACI bilateral trade, HS02 and HS17 vintages',
