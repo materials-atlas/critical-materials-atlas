@@ -551,10 +551,82 @@ def check_series_key():
                     f'either sum two different things or pick one at random: {ex}')
 
 
+def check_sdmx():
+    """The SDMX export must satisfy its own declared structure, read from the published files.
+
+    A structure definition that the data does not obey is worse than none: it invites another
+    agency to load the dataflow, trust the key, and get silently wrong answers. So this reads
+    out/sdmx/ the way a receiving agency would - structure first, then data - and checks that
+    every dimension and coded attribute resolves to a code the structure declares, and that the
+    declared series key actually holds. It also refuses an export carrying a source with no
+    recorded redistribution licence, because an export IS a redistribution channel.
+    """
+    import csv as _csv, gzip as _gzip, hashlib as _hl
+    d = 'out/sdmx'
+    sp, dp = os.path.join(d, 'structure.json'), os.path.join(d, 'mineral_flows.sdmx.csv.gz')
+    if not (os.path.exists(sp) and os.path.exists(dp)):
+        return
+
+    # Reading half a million observations turns this check from 3 seconds into 37, on something
+    # that runs before every push. So the result is cached against the CONTENT of the two files,
+    # never their timestamps: mtime is the signal that failed us on risk.json, where a rebuilt
+    # file looked fresh while serving a retracted number. Same bytes, same verdict; one byte
+    # different anywhere and the full scan runs again.
+    def sha(path):
+        h = _hl.sha256()
+        with open(path, 'rb') as fh:
+            for chunk in iter(lambda: fh.read(1 << 20), b''):
+                h.update(chunk)
+        return h.hexdigest()
+
+    fingerprint = {'structure': sha(sp), 'data': sha(dp)}
+    stamp = os.path.join(d, '.verified.json')
+    if os.path.exists(stamp):
+        try:
+            if json.load(open(stamp, encoding='utf8')) == fingerprint:
+                return
+        except Exception:
+            pass
+    st = json.load(open(sp, encoding='utf8'))
+    dsd = st['data']['dataStructures'][0]
+    flow = st['data']['dataflows'][0]
+    cls = {c['id']: {x['id'] for x in c['codes']} for c in st['data']['codelists']}
+    coded = {x['id']: x['codelist'] for x in dsd['dimensions'] + dsd['attributes']
+             if x.get('codelist')}
+    key = flow['series_key'] + ['TIME_PERIOD']
+
+    seen, bad = set(), {}
+    dups = 0
+    with _gzip.open(dp, 'rt', encoding='utf8') as f:
+        for row in _csv.DictReader(f):
+            k = tuple(row[c] for c in key)
+            if k in seen:
+                dups += 1
+            seen.add(k)
+            for field, cl in coded.items():
+                v = row.get(field, '')
+                if v and v not in cls[cl]:
+                    bad.setdefault((field, v), 0)
+                    bad[(field, v)] += 1
+    if dups:
+        fail('sdmx', f'{dups} observations in the SDMX export share a series key, so the '
+                     f'structure it declares is a lie')
+    if bad:
+        ex = '; '.join(f'{f}={v!r}' for (f, v), _ in list(bad.items())[:3])
+        fail('sdmx', f'{len(bad)} values in the export are not in the code list they declare: {ex}')
+    ok = True
+    for src in flow.get('sources_and_licences', {}):
+        if not flow['sources_and_licences'][src]:
+            fail('sdmx', f'{src} is exported with no recorded redistribution licence')
+            ok = False
+    if ok and not dups and not bad:
+        json.dump(fingerprint, open(stamp, 'w', encoding='utf8'))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

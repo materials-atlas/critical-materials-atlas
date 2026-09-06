@@ -1,0 +1,1734 @@
+{
+ "meta": {
+  "prepared": "2026-09-06",
+  "sender": {
+   "id": "CMA",
+   "name": "Critical Materials Atlas"
+  }
+ },
+ "data": {
+  "codelists": [
+   {
+    "id": "CL_MATERIAL",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Material",
+    "description": "Atlas material labels. No standard code list exists for mineral commodities; this is ours, mapped from each source vocabulary at ingest.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "aggregates",
+      "name": "aggregates"
+     },
+     {
+      "id": "aluminium",
+      "name": "aluminium"
+     },
+     {
+      "id": "antimony",
+      "name": "antimony"
+     },
+     {
+      "id": "arsenic",
+      "name": "arsenic"
+     },
+     {
+      "id": "asbestos",
+      "name": "asbestos"
+     },
+     {
+      "id": "baryte",
+      "name": "baryte"
+     },
+     {
+      "id": "bauxite",
+      "name": "bauxite"
+     },
+     {
+      "id": "bentonite",
+      "name": "bentonite"
+     },
+     {
+      "id": "beryllium",
+      "name": "beryllium"
+     },
+     {
+      "id": "bismuth",
+      "name": "bismuth"
+     },
+     {
+      "id": "boron",
+      "name": "boron"
+     },
+     {
+      "id": "bromine",
+      "name": "bromine"
+     },
+     {
+      "id": "cadmium",
+      "name": "cadmium"
+     },
+     {
+      "id": "cement",
+      "name": "cement"
+     },
+     {
+      "id": "cesium",
+      "name": "cesium"
+     },
+     {
+      "id": "chromium",
+      "name": "chromium"
+     },
+     {
+      "id": "clays",
+      "name": "clays"
+     },
+     {
+      "id": "cobalt",
+      "name": "cobalt"
+     },
+     {
+      "id": "cokingcoal",
+      "name": "cokingcoal"
+     },
+     {
+      "id": "copper",
+      "name": "copper"
+     },
+     {
+      "id": "crushed_stone",
+      "name": "crushed stone"
+     },
+     {
+      "id": "diamond",
+      "name": "diamond"
+     },
+     {
+      "id": "diatomite",
+      "name": "diatomite"
+     },
+     {
+      "id": "dimension_stone",
+      "name": "dimension stone"
+     },
+     {
+      "id": "feldspar",
+      "name": "feldspar"
+     },
+     {
+      "id": "fluorspar",
+      "name": "fluorspar"
+     },
+     {
+      "id": "gallium",
+      "name": "gallium"
+     },
+     {
+      "id": "garnet",
+      "name": "garnet"
+     },
+     {
+      "id": "gemstones",
+      "name": "gemstones"
+     },
+     {
+      "id": "germanium",
+      "name": "germanium"
+     },
+     {
+      "id": "gold",
+      "name": "gold"
+     },
+     {
+      "id": "graphite",
+      "name": "graphite"
+     },
+     {
+      "id": "gypsum",
+      "name": "gypsum"
+     },
+     {
+      "id": "hafnium",
+      "name": "hafnium"
+     },
+     {
+      "id": "helium",
+      "name": "helium"
+     },
+     {
+      "id": "indium",
+      "name": "indium"
+     },
+     {
+      "id": "industrial_diamond",
+      "name": "industrial diamond"
+     },
+     {
+      "id": "iodine",
+      "name": "iodine"
+     },
+     {
+      "id": "iron",
+      "name": "iron"
+     },
+     {
+      "id": "iron_and_steel_scrap",
+      "name": "iron and steel scrap"
+     },
+     {
+      "id": "iron_and_steel_slag",
+      "name": "iron and steel slag"
+     },
+     {
+      "id": "iron_oxide_pigments",
+      "name": "iron oxide pigments"
+     },
+     {
+      "id": "kaolin",
+      "name": "kaolin"
+     },
+     {
+      "id": "kyanite",
+      "name": "kyanite"
+     },
+     {
+      "id": "lead",
+      "name": "lead"
+     },
+     {
+      "id": "lime",
+      "name": "lime"
+     },
+     {
+      "id": "lithium",
+      "name": "lithium"
+     },
+     {
+      "id": "magnesium",
+      "name": "magnesium"
+     },
+     {
+      "id": "magnets",
+      "name": "magnets"
+     },
+     {
+      "id": "manganese",
+      "name": "manganese"
+     },
+     {
+      "id": "manufactured_abrasives",
+      "name": "manufactured abrasives"
+     },
+     {
+      "id": "mercury",
+      "name": "mercury"
+     },
+     {
+      "id": "mica",
+      "name": "mica"
+     },
+     {
+      "id": "molybdenum",
+      "name": "molybdenum"
+     },
+     {
+      "id": "nepheline_syenite",
+      "name": "nepheline syenite"
+     },
+     {
+      "id": "nickel",
+      "name": "nickel"
+     },
+     {
+      "id": "niobium",
+      "name": "niobium"
+     },
+     {
+      "id": "nitrogen",
+      "name": "nitrogen"
+     },
+     {
+      "id": "palladium",
+      "name": "palladium"
+     },
+     {
+      "id": "peat",
+      "name": "peat"
+     },
+     {
+      "id": "perlite",
+      "name": "perlite"
+     },
+     {
+      "id": "phosphate",
+      "name": "phosphate"
+     },
+     {
+      "id": "phosphorus",
+      "name": "phosphorus"
+     },
+     {
+      "id": "platinum",
+      "name": "platinum"
+     },
+     {
+      "id": "potash",
+      "name": "potash"
+     },
+     {
+      "id": "pumice_and_pumicite",
+      "name": "pumice and pumicite"
+     },
+     {
+      "id": "rare_earths",
+      "name": "rare earths"
+     },
+     {
+      "id": "rhenium",
+      "name": "rhenium"
+     },
+     {
+      "id": "salt",
+      "name": "salt"
+     },
+     {
+      "id": "sand_and_gravel",
+      "name": "sand and gravel"
+     },
+     {
+      "id": "selenium",
+      "name": "selenium"
+     },
+     {
+      "id": "silicon",
+      "name": "silicon"
+     },
+     {
+      "id": "sillimanite",
+      "name": "sillimanite"
+     },
+     {
+      "id": "silver",
+      "name": "silver"
+     },
+     {
+      "id": "soda_ash",
+      "name": "soda ash"
+     },
+     {
+      "id": "strontium",
+      "name": "strontium"
+     },
+     {
+      "id": "sulphur",
+      "name": "sulphur"
+     },
+     {
+      "id": "talc",
+      "name": "talc"
+     },
+     {
+      "id": "tantalum",
+      "name": "tantalum"
+     },
+     {
+      "id": "tellurium",
+      "name": "tellurium"
+     },
+     {
+      "id": "thorium",
+      "name": "thorium"
+     },
+     {
+      "id": "tin",
+      "name": "tin"
+     },
+     {
+      "id": "titanium",
+      "name": "titanium"
+     },
+     {
+      "id": "tungsten",
+      "name": "tungsten"
+     },
+     {
+      "id": "vanadium",
+      "name": "vanadium"
+     },
+     {
+      "id": "vermiculite",
+      "name": "vermiculite"
+     },
+     {
+      "id": "wollastonite",
+      "name": "wollastonite"
+     },
+     {
+      "id": "zinc",
+      "name": "zinc"
+     },
+     {
+      "id": "zirconium",
+      "name": "zirconium"
+     }
+    ]
+   },
+   {
+    "id": "CL_MEASURE",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Measure",
+    "description": null,
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "apparent_consumption",
+      "name": "apparent consumption"
+     },
+     {
+      "id": "consumption",
+      "name": "consumption"
+     },
+     {
+      "id": "exports",
+      "name": "exports"
+     },
+     {
+      "id": "imports",
+      "name": "imports"
+     },
+     {
+      "id": "production",
+      "name": "production"
+     },
+     {
+      "id": "production_secondary",
+      "name": "production secondary"
+     },
+     {
+      "id": "shipments",
+      "name": "shipments"
+     },
+     {
+      "id": "shipments_government",
+      "name": "shipments government"
+     },
+     {
+      "id": "stocks",
+      "name": "stocks"
+     },
+     {
+      "id": "stocks_government",
+      "name": "stocks government"
+     },
+     {
+      "id": "stocks_industry",
+      "name": "stocks industry"
+     },
+     {
+      "id": "unit_value_nominal",
+      "name": "unit value nominal"
+     },
+     {
+      "id": "unit_value_real98",
+      "name": "unit value real98"
+     }
+    ]
+   },
+   {
+    "id": "CL_STAGE",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Supply-chain stage",
+    "description": "Where in the chain the quantity is counted. mine and processed are NOT comparable quantities of the same thing.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "mine",
+      "name": "mine"
+     },
+     {
+      "id": "processed",
+      "name": "processed"
+     },
+     {
+      "id": "unspecified",
+      "name": "unspecified"
+     }
+    ]
+   },
+   {
+    "id": "CL_BASIS",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Measurement basis",
+    "description": "gross = whole material weight; content = contained metal. Confusing the two is the largest single error available in this subject.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "content",
+      "name": "content"
+     },
+     {
+      "id": "gross",
+      "name": "gross"
+     }
+    ]
+   },
+   {
+    "id": "CL_SOURCE",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Compilation",
+    "description": "The compilation an observation comes from. A dimension, not an attribute: two compilations counting the same year are two observations, not a conflict.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "BGS World Mineral Statistics",
+      "name": "BGS World Mineral Statistics"
+     },
+     {
+      "id": "CEPII BACI (HS02)",
+      "name": "CEPII BACI (HS02)"
+     },
+     {
+      "id": "IEA Critical Minerals Dataset",
+      "name": "IEA Critical Minerals Dataset"
+     },
+     {
+      "id": "USGS Historical Statistics (DS 140)",
+      "name": "USGS Historical Statistics (DS 140)"
+     },
+     {
+      "id": "World Mining Data",
+      "name": "World Mining Data"
+     }
+    ]
+   },
+   {
+    "id": "CL_UNIT_MEASURE",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Unit of measure",
+    "description": null,
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "1998 USD/t",
+      "name": "1998 USD/t"
+     },
+     {
+      "id": "Carats",
+      "name": "Carats"
+     },
+     {
+      "id": "USD/t",
+      "name": "USD/t"
+     },
+     {
+      "id": "ct",
+      "name": "ct"
+     },
+     {
+      "id": "kg",
+      "name": "kg"
+     },
+     {
+      "id": "kilograms",
+      "name": "kilograms"
+     },
+     {
+      "id": "kilograms (metal content)",
+      "name": "kilograms (metal content)"
+     },
+     {
+      "id": "metr. t",
+      "name": "metr. t"
+     },
+     {
+      "id": "metric tons",
+      "name": "metric tons"
+     },
+     {
+      "id": "thousand tonnes",
+      "name": "thousand tonnes"
+     },
+     {
+      "id": "tonnes (Al2O3 content)",
+      "name": "tonnes (Al2O3 content)"
+     },
+     {
+      "id": "tonnes (K2O content)",
+      "name": "tonnes (K2O content)"
+     },
+     {
+      "id": "tonnes (metal content)",
+      "name": "tonnes (metal content)"
+     },
+     {
+      "id": "tonnes (metric)",
+      "name": "tonnes (metric)"
+     }
+    ]
+   },
+   {
+    "id": "CL_AREA",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Reference area",
+    "description": "ISO 3166-1 alpha-3, plus dissolved states kept under their own codes (SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into successors.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "1A0",
+      "name": "1A0"
+     },
+     {
+      "id": "ABW",
+      "name": "ABW"
+     },
+     {
+      "id": "AFG",
+      "name": "AFG"
+     },
+     {
+      "id": "AGO",
+      "name": "AGO"
+     },
+     {
+      "id": "AIA",
+      "name": "AIA"
+     },
+     {
+      "id": "ALB",
+      "name": "ALB"
+     },
+     {
+      "id": "AND",
+      "name": "AND"
+     },
+     {
+      "id": "ANT",
+      "name": "ANT"
+     },
+     {
+      "id": "ARE",
+      "name": "ARE"
+     },
+     {
+      "id": "ARG",
+      "name": "ARG"
+     },
+     {
+      "id": "ARM",
+      "name": "ARM"
+     },
+     {
+      "id": "ASM",
+      "name": "ASM"
+     },
+     {
+      "id": "ATF",
+      "name": "ATF"
+     },
+     {
+      "id": "ATG",
+      "name": "ATG"
+     },
+     {
+      "id": "AUS",
+      "name": "AUS"
+     },
+     {
+      "id": "AUT",
+      "name": "AUT"
+     },
+     {
+      "id": "AZE",
+      "name": "AZE"
+     },
+     {
+      "id": "BDI",
+      "name": "BDI"
+     },
+     {
+      "id": "BEL",
+      "name": "BEL"
+     },
+     {
+      "id": "BEN",
+      "name": "BEN"
+     },
+     {
+      "id": "BES",
+      "name": "BES"
+     },
+     {
+      "id": "BFA",
+      "name": "BFA"
+     },
+     {
+      "id": "BGD",
+      "name": "BGD"
+     },
+     {
+      "id": "BGR",
+      "name": "BGR"
+     },
+     {
+      "id": "BHR",
+      "name": "BHR"
+     },
+     {
+      "id": "BHS",
+      "name": "BHS"
+     },
+     {
+      "id": "BIH",
+      "name": "BIH"
+     },
+     {
+      "id": "BLM",
+      "name": "BLM"
+     },
+     {
+      "id": "BLR",
+      "name": "BLR"
+     },
+     {
+      "id": "BLZ",
+      "name": "BLZ"
+     },
+     {
+      "id": "BMU",
+      "name": "BMU"
+     },
+     {
+      "id": "BOL",
+      "name": "BOL"
+     },
+     {
+      "id": "BRA",
+      "name": "BRA"
+     },
+     {
+      "id": "BRB",
+      "name": "BRB"
+     },
+     {
+      "id": "BRN",
+      "name": "BRN"
+     },
+     {
+      "id": "BTN",
+      "name": "BTN"
+     },
+     {
+      "id": "BWA",
+      "name": "BWA"
+     },
+     {
+      "id": "CAF",
+      "name": "CAF"
+     },
+     {
+      "id": "CAN",
+      "name": "CAN"
+     },
+     {
+      "id": "CCK",
+      "name": "CCK"
+     },
+     {
+      "id": "CHE",
+      "name": "CHE"
+     },
+     {
+      "id": "CHL",
+      "name": "CHL"
+     },
+     {
+      "id": "CHN",
+      "name": "CHN"
+     },
+     {
+      "id": "CIV",
+      "name": "CIV"
+     },
+     {
+      "id": "CMR",
+      "name": "CMR"
+     },
+     {
+      "id": "COD",
+      "name": "COD"
+     },
+     {
+      "id": "COG",
+      "name": "COG"
+     },
+     {
+      "id": "COK",
+      "name": "COK"
+     },
+     {
+      "id": "COL",
+      "name": "COL"
+     },
+     {
+      "id": "COM",
+      "name": "COM"
+     },
+     {
+      "id": "CPV",
+      "name": "CPV"
+     },
+     {
+      "id": "CRI",
+      "name": "CRI"
+     },
+     {
+      "id": "CSK",
+      "name": "CSK"
+     },
+     {
+      "id": "CUB",
+      "name": "CUB"
+     },
+     {
+      "id": "CUW",
+      "name": "CUW"
+     },
+     {
+      "id": "CXR",
+      "name": "CXR"
+     },
+     {
+      "id": "CYM",
+      "name": "CYM"
+     },
+     {
+      "id": "CYP",
+      "name": "CYP"
+     },
+     {
+      "id": "CZE",
+      "name": "CZE"
+     },
+     {
+      "id": "DDR",
+      "name": "DDR"
+     },
+     {
+      "id": "DEU",
+      "name": "DEU"
+     },
+     {
+      "id": "DEU_FRG",
+      "name": "DEU_FRG"
+     },
+     {
+      "id": "DJI",
+      "name": "DJI"
+     },
+     {
+      "id": "DMA",
+      "name": "DMA"
+     },
+     {
+      "id": "DNK",
+      "name": "DNK"
+     },
+     {
+      "id": "DOM",
+      "name": "DOM"
+     },
+     {
+      "id": "DZA",
+      "name": "DZA"
+     },
+     {
+      "id": "ECU",
+      "name": "ECU"
+     },
+     {
+      "id": "EGY",
+      "name": "EGY"
+     },
+     {
+      "id": "ERI",
+      "name": "ERI"
+     },
+     {
+      "id": "ESP",
+      "name": "ESP"
+     },
+     {
+      "id": "EST",
+      "name": "EST"
+     },
+     {
+      "id": "ETH",
+      "name": "ETH"
+     },
+     {
+      "id": "FIN",
+      "name": "FIN"
+     },
+     {
+      "id": "FJI",
+      "name": "FJI"
+     },
+     {
+      "id": "FLK",
+      "name": "FLK"
+     },
+     {
+      "id": "FRA",
+      "name": "FRA"
+     },
+     {
+      "id": "FRO",
+      "name": "FRO"
+     },
+     {
+      "id": "FSM",
+      "name": "FSM"
+     },
+     {
+      "id": "GAB",
+      "name": "GAB"
+     },
+     {
+      "id": "GBR",
+      "name": "GBR"
+     },
+     {
+      "id": "GEO",
+      "name": "GEO"
+     },
+     {
+      "id": "GHA",
+      "name": "GHA"
+     },
+     {
+      "id": "GIB",
+      "name": "GIB"
+     },
+     {
+      "id": "GIN",
+      "name": "GIN"
+     },
+     {
+      "id": "GMB",
+      "name": "GMB"
+     },
+     {
+      "id": "GNB",
+      "name": "GNB"
+     },
+     {
+      "id": "GNQ",
+      "name": "GNQ"
+     },
+     {
+      "id": "GRC",
+      "name": "GRC"
+     },
+     {
+      "id": "GRD",
+      "name": "GRD"
+     },
+     {
+      "id": "GRL",
+      "name": "GRL"
+     },
+     {
+      "id": "GTM",
+      "name": "GTM"
+     },
+     {
+      "id": "GUF",
+      "name": "GUF"
+     },
+     {
+      "id": "GUM",
+      "name": "GUM"
+     },
+     {
+      "id": "GUY",
+      "name": "GUY"
+     },
+     {
+      "id": "HKG",
+      "name": "HKG"
+     },
+     {
+      "id": "HND",
+      "name": "HND"
+     },
+     {
+      "id": "HRV",
+      "name": "HRV"
+     },
+     {
+      "id": "HTI",
+      "name": "HTI"
+     },
+     {
+      "id": "HUN",
+      "name": "HUN"
+     },
+     {
+      "id": "IDN",
+      "name": "IDN"
+     },
+     {
+      "id": "IND",
+      "name": "IND"
+     },
+     {
+      "id": "IOT",
+      "name": "IOT"
+     },
+     {
+      "id": "IRL",
+      "name": "IRL"
+     },
+     {
+      "id": "IRN",
+      "name": "IRN"
+     },
+     {
+      "id": "IRQ",
+      "name": "IRQ"
+     },
+     {
+      "id": "ISL",
+      "name": "ISL"
+     },
+     {
+      "id": "ISR",
+      "name": "ISR"
+     },
+     {
+      "id": "ITA",
+      "name": "ITA"
+     },
+     {
+      "id": "JAM",
+      "name": "JAM"
+     },
+     {
+      "id": "JOR",
+      "name": "JOR"
+     },
+     {
+      "id": "JPN",
+      "name": "JPN"
+     },
+     {
+      "id": "KAZ",
+      "name": "KAZ"
+     },
+     {
+      "id": "KEN",
+      "name": "KEN"
+     },
+     {
+      "id": "KGZ",
+      "name": "KGZ"
+     },
+     {
+      "id": "KHM",
+      "name": "KHM"
+     },
+     {
+      "id": "KIR",
+      "name": "KIR"
+     },
+     {
+      "id": "KNA",
+      "name": "KNA"
+     },
+     {
+      "id": "KOR",
+      "name": "KOR"
+     },
+     {
+      "id": "KWT",
+      "name": "KWT"
+     },
+     {
+      "id": "LAO",
+      "name": "LAO"
+     },
+     {
+      "id": "LBN",
+      "name": "LBN"
+     },
+     {
+      "id": "LBR",
+      "name": "LBR"
+     },
+     {
+      "id": "LBY",
+      "name": "LBY"
+     },
+     {
+      "id": "LCA",
+      "name": "LCA"
+     },
+     {
+      "id": "LKA",
+      "name": "LKA"
+     },
+     {
+      "id": "LSO",
+      "name": "LSO"
+     },
+     {
+      "id": "LTU",
+      "name": "LTU"
+     },
+     {
+      "id": "LUX",
+      "name": "LUX"
+     },
+     {
+      "id": "LVA",
+      "name": "LVA"
+     },
+     {
+      "id": "MAC",
+      "name": "MAC"
+     },
+     {
+      "id": "MAR",
+      "name": "MAR"
+     },
+     {
+      "id": "MDA",
+      "name": "MDA"
+     },
+     {
+      "id": "MDG",
+      "name": "MDG"
+     },
+     {
+      "id": "MDV",
+      "name": "MDV"
+     },
+     {
+      "id": "MEX",
+      "name": "MEX"
+     },
+     {
+      "id": "MHL",
+      "name": "MHL"
+     },
+     {
+      "id": "MKD",
+      "name": "MKD"
+     },
+     {
+      "id": "MLI",
+      "name": "MLI"
+     },
+     {
+      "id": "MLT",
+      "name": "MLT"
+     },
+     {
+      "id": "MMR",
+      "name": "MMR"
+     },
+     {
+      "id": "MNE",
+      "name": "MNE"
+     },
+     {
+      "id": "MNG",
+      "name": "MNG"
+     },
+     {
+      "id": "MNP",
+      "name": "MNP"
+     },
+     {
+      "id": "MOZ",
+      "name": "MOZ"
+     },
+     {
+      "id": "MRT",
+      "name": "MRT"
+     },
+     {
+      "id": "MSR",
+      "name": "MSR"
+     },
+     {
+      "id": "MTQ",
+      "name": "MTQ"
+     },
+     {
+      "id": "MUS",
+      "name": "MUS"
+     },
+     {
+      "id": "MWI",
+      "name": "MWI"
+     },
+     {
+      "id": "MYS",
+      "name": "MYS"
+     },
+     {
+      "id": "MYT",
+      "name": "MYT"
+     },
+     {
+      "id": "NAM",
+      "name": "NAM"
+     },
+     {
+      "id": "NCL",
+      "name": "NCL"
+     },
+     {
+      "id": "NER",
+      "name": "NER"
+     },
+     {
+      "id": "NFK",
+      "name": "NFK"
+     },
+     {
+      "id": "NGA",
+      "name": "NGA"
+     },
+     {
+      "id": "NIC",
+      "name": "NIC"
+     },
+     {
+      "id": "NIU",
+      "name": "NIU"
+     },
+     {
+      "id": "NLD",
+      "name": "NLD"
+     },
+     {
+      "id": "NOR",
+      "name": "NOR"
+     },
+     {
+      "id": "NPL",
+      "name": "NPL"
+     },
+     {
+      "id": "NRU",
+      "name": "NRU"
+     },
+     {
+      "id": "NZL",
+      "name": "NZL"
+     },
+     {
+      "id": "OMN",
+      "name": "OMN"
+     },
+     {
+      "id": "PAK",
+      "name": "PAK"
+     },
+     {
+      "id": "PAN",
+      "name": "PAN"
+     },
+     {
+      "id": "PCN",
+      "name": "PCN"
+     },
+     {
+      "id": "PER",
+      "name": "PER"
+     },
+     {
+      "id": "PHL",
+      "name": "PHL"
+     },
+     {
+      "id": "PLW",
+      "name": "PLW"
+     },
+     {
+      "id": "PNG",
+      "name": "PNG"
+     },
+     {
+      "id": "POL",
+      "name": "POL"
+     },
+     {
+      "id": "PRK",
+      "name": "PRK"
+     },
+     {
+      "id": "PRT",
+      "name": "PRT"
+     },
+     {
+      "id": "PRY",
+      "name": "PRY"
+     },
+     {
+      "id": "PSE",
+      "name": "PSE"
+     },
+     {
+      "id": "PYF",
+      "name": "PYF"
+     },
+     {
+      "id": "QAT",
+      "name": "QAT"
+     },
+     {
+      "id": "REU",
+      "name": "REU"
+     },
+     {
+      "id": "ROU",
+      "name": "ROU"
+     },
+     {
+      "id": "RUS",
+      "name": "RUS"
+     },
+     {
+      "id": "RWA",
+      "name": "RWA"
+     },
+     {
+      "id": "S19",
+      "name": "S19"
+     },
+     {
+      "id": "SAU",
+      "name": "SAU"
+     },
+     {
+      "id": "SCG",
+      "name": "SCG"
+     },
+     {
+      "id": "SDN",
+      "name": "SDN"
+     },
+     {
+      "id": "SEN",
+      "name": "SEN"
+     },
+     {
+      "id": "SGP",
+      "name": "SGP"
+     },
+     {
+      "id": "SHN",
+      "name": "SHN"
+     },
+     {
+      "id": "SLB",
+      "name": "SLB"
+     },
+     {
+      "id": "SLE",
+      "name": "SLE"
+     },
+     {
+      "id": "SLV",
+      "name": "SLV"
+     },
+     {
+      "id": "SMR",
+      "name": "SMR"
+     },
+     {
+      "id": "SOM",
+      "name": "SOM"
+     },
+     {
+      "id": "SPM",
+      "name": "SPM"
+     },
+     {
+      "id": "SRB",
+      "name": "SRB"
+     },
+     {
+      "id": "SSD",
+      "name": "SSD"
+     },
+     {
+      "id": "STP",
+      "name": "STP"
+     },
+     {
+      "id": "SUN",
+      "name": "SUN"
+     },
+     {
+      "id": "SUR",
+      "name": "SUR"
+     },
+     {
+      "id": "SVK",
+      "name": "SVK"
+     },
+     {
+      "id": "SVN",
+      "name": "SVN"
+     },
+     {
+      "id": "SWE",
+      "name": "SWE"
+     },
+     {
+      "id": "SWZ",
+      "name": "SWZ"
+     },
+     {
+      "id": "SXM",
+      "name": "SXM"
+     },
+     {
+      "id": "SYC",
+      "name": "SYC"
+     },
+     {
+      "id": "SYR",
+      "name": "SYR"
+     },
+     {
+      "id": "TCA",
+      "name": "TCA"
+     },
+     {
+      "id": "TCD",
+      "name": "TCD"
+     },
+     {
+      "id": "TGO",
+      "name": "TGO"
+     },
+     {
+      "id": "THA",
+      "name": "THA"
+     },
+     {
+      "id": "TJK",
+      "name": "TJK"
+     },
+     {
+      "id": "TKL",
+      "name": "TKL"
+     },
+     {
+      "id": "TKM",
+      "name": "TKM"
+     },
+     {
+      "id": "TLS",
+      "name": "TLS"
+     },
+     {
+      "id": "TON",
+      "name": "TON"
+     },
+     {
+      "id": "TTO",
+      "name": "TTO"
+     },
+     {
+      "id": "TUN",
+      "name": "TUN"
+     },
+     {
+      "id": "TUR",
+      "name": "TUR"
+     },
+     {
+      "id": "TUV",
+      "name": "TUV"
+     },
+     {
+      "id": "TWN",
+      "name": "TWN"
+     },
+     {
+      "id": "TZA",
+      "name": "TZA"
+     },
+     {
+      "id": "UGA",
+      "name": "UGA"
+     },
+     {
+      "id": "UKR",
+      "name": "UKR"
+     },
+     {
+      "id": "URY",
+      "name": "URY"
+     },
+     {
+      "id": "USA",
+      "name": "USA"
+     },
+     {
+      "id": "UZB",
+      "name": "UZB"
+     },
+     {
+      "id": "VCT",
+      "name": "VCT"
+     },
+     {
+      "id": "VEN",
+      "name": "VEN"
+     },
+     {
+      "id": "VGB",
+      "name": "VGB"
+     },
+     {
+      "id": "VNM",
+      "name": "VNM"
+     },
+     {
+      "id": "VUT",
+      "name": "VUT"
+     },
+     {
+      "id": "WLD",
+      "name": "WLD"
+     },
+     {
+      "id": "WLF",
+      "name": "WLF"
+     },
+     {
+      "id": "WSM",
+      "name": "WSM"
+     },
+     {
+      "id": "XKX",
+      "name": "XKX"
+     },
+     {
+      "id": "YEM",
+      "name": "YEM"
+     },
+     {
+      "id": "YMD",
+      "name": "YMD"
+     },
+     {
+      "id": "YUG",
+      "name": "YUG"
+     },
+     {
+      "id": "ZAF",
+      "name": "ZAF"
+     },
+     {
+      "id": "ZAR",
+      "name": "ZAR"
+     },
+     {
+      "id": "ZMB",
+      "name": "ZMB"
+     },
+     {
+      "id": "ZWE",
+      "name": "ZWE"
+     }
+    ]
+   },
+   {
+    "id": "CL_OBS_STATUS",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Observation status",
+    "description": "SDMX cross-domain CL_OBS_STATUS (subset used here), verified against the SDMX Global Registry v2.3.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "A",
+      "name": "Normal value"
+     },
+     {
+      "id": "E",
+      "name": "Estimated value"
+     },
+     {
+      "id": "N",
+      "name": "Not significant"
+     },
+     {
+      "id": "O",
+      "name": "Missing value"
+     },
+     {
+      "id": "Q",
+      "name": "Missing value; suppressed"
+     }
+    ]
+   },
+   {
+    "id": "CL_CONF_STATUS",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Confidentiality status",
+    "description": "SDMX cross-domain CL_CONF_STATUS (subset used here), Registry v1.4.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "C",
+      "name": "Confidential statistical information"
+     }
+    ]
+   },
+   {
+    "id": "CL_FREQ",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Frequency",
+    "description": null,
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "A",
+      "name": "Annual"
+     }
+    ]
+   }
+  ],
+  "dataStructures": [
+   {
+    "id": "DSD_MINERAL_FLOWS",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Mineral production, trade and stocks by country and year",
+    "note": "Dimensions identify an observation; attributes describe it. The split is not cosmetic - it is what makes the key checkable. UNIT_MEASURE sits in attributes because it is determined by SOURCE and BASIS and adds nothing to identity; NATIVE_CODE sits in dimensions because without it three BGS copper forms collapse into one meaningless \"processed copper\".",
+    "dimensions": [
+     {
+      "id": "FREQ",
+      "codelist": "CL_FREQ"
+     },
+     {
+      "id": "SOURCE",
+      "codelist": "CL_SOURCE"
+     },
+     {
+      "id": "MATERIAL",
+      "codelist": "CL_MATERIAL"
+     },
+     {
+      "id": "MEASURE",
+      "codelist": "CL_MEASURE"
+     },
+     {
+      "id": "STAGE",
+      "codelist": "CL_STAGE"
+     },
+     {
+      "id": "BASIS",
+      "codelist": "CL_BASIS"
+     },
+     {
+      "id": "NATIVE_CODE",
+      "codelist": null,
+      "note": "the source's own commodity code - the form actually counted"
+     },
+     {
+      "id": "REF_AREA",
+      "codelist": "CL_AREA"
+     },
+     {
+      "id": "TIME_PERIOD",
+      "codelist": null,
+      "role": "time"
+     }
+    ],
+    "measure": {
+     "id": "OBS_VALUE",
+     "note": "in the units of UNIT_MEASURE, as published by the source. Tonnage is derivable via CONVERSION_FACTOR; it is not a second measure."
+    },
+    "attributes": [
+     {
+      "id": "UNIT_MEASURE",
+      "codelist": "CL_UNIT_MEASURE",
+      "attachment": "series"
+     },
+     {
+      "id": "CONVERSION_FACTOR",
+      "codelist": null,
+      "attachment": "series",
+      "note": "multiplier to metric tonnes, absent where no defensible one exists"
+     },
+     {
+      "id": "CODE_SYSTEM",
+      "codelist": null,
+      "attachment": "series"
+     },
+     {
+      "id": "NATIVE_LABEL",
+      "codelist": null,
+      "attachment": "series"
+     },
+     {
+      "id": "OBS_STATUS",
+      "codelist": "CL_OBS_STATUS",
+      "attachment": "observation"
+     },
+     {
+      "id": "CONF_STATUS",
+      "codelist": "CL_CONF_STATUS",
+      "attachment": "observation"
+     }
+    ]
+   }
+  ],
+  "dataflows": [
+   {
+    "id": "DF_MINERAL_FLOWS",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Critical Materials Atlas - mineral flows",
+    "structure": "CMA:DSD_MINERAL_FLOWS(1.0.0)",
+    "sources_and_licences": {
+     "BGS World Mineral Statistics": "Open Government Licence v3.0 (attribution required)",
+     "USGS Historical Statistics (DS 140)": "US Government public domain",
+     "CEPII BACI (HS02)": "Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)",
+     "World Mining Data": "Free with attribution (BMK Austria / WMD)",
+     "IEA Critical Minerals Dataset": "CC BY 4.0"
+    },
+    "observations": 523617,
+    "series_key": [
+     "FREQ",
+     "SOURCE",
+     "MATERIAL",
+     "MEASURE",
+     "STAGE",
+     "BASIS",
+     "NATIVE_CODE",
+     "REF_AREA"
+    ]
+   }
+  ]
+ }
+}

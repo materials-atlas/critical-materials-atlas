@@ -175,6 +175,7 @@ def build():
                 'BGS World Mineral Statistics',
                 f'BGS:{code}:{meas}',                                          # series_id
                 r.get('data_precision_description'), value_flag(r.get('data_precision_description')),
+                r.get('sdmx_code'),      # BGS publishes its own SDMX observation status
             ))
     # A code carrying two country names means two countries have been silently added together -
     # exactly the defect COUNTRY_FIX exists to correct. If a refresh introduces a new one, stop:
@@ -192,7 +193,7 @@ def build():
         'measure_family', 'measure', 'flow_direction', 'stage',
         'code_system', 'native_code', 'native_label', 'sub_commodity',
         'value', 'unit', 'value_t', 'conversion_factor', 'basis',
-        'source', 'series_id', 'precision', 'value_flag'])
+        'source', 'series_id', 'precision', 'value_flag', 'source_obs_status'])
     # value_t is only meaningful alongside its factor and basis - enforce, do not trust discipline
     bad = df.value_t.notna() & (df.conversion_factor.isna() | df.basis.isna())
     if bad.any():
@@ -259,6 +260,28 @@ def build():
 
     # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
     # codes and sources with numeric ones can share the column
+    # ── SDMX cross-domain status codes ──────────────────────────────────────────────────────
+    # Verified against the SDMX Global Registry (CL_OBS_STATUS v2.3, CL_CONF_STATUS v1.4), not
+    # from memory, because one mapping is a trap: USGS prints "W" for WITHHELD, and SDMX's "W"
+    # means "includes data from another category" - the opposite kind of statement. Withheld is
+    # OBS_STATUS Q (missing; suppressed) with CONF_STATUS C (confidential statistical
+    # information). Getting that wrong would publish a suppressed cell as an inclusive one.
+    #
+    # BGS ships its own sdmx_code on every record (A normal, O missing, N not significant) and
+    # its usage matches the standard definitions, so it is carried through rather than re-derived
+    # from the English precision text - which is how our own value_flag came out 41 short on nil.
+    if 'source_obs_status' not in df.columns:
+        df['source_obs_status'] = None
+    obs = df['source_obs_status'].where(df['source_obs_status'].notna())
+    derived = df['value_flag'].map({
+        'withheld': 'Q',              # suppressed for confidentiality (USGS "W"/"XX")
+        'estimated_by_source': 'E',   # estimated value
+        'trace': 'N',                 # not significant: a real value rounding to zero
+        'nil': 'A',                   # nothing produced is a normal observation of zero
+    })
+    df['obs_status'] = obs.fillna(derived).fillna('A')
+    df['conf_status'] = df['value_flag'].map({'withheld': 'C'})
+
     df['native_code'] = df['native_code'].astype('string')
     return df.sort_values(['source', 'material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
 

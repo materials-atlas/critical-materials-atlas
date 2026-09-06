@@ -1,0 +1,36 @@
+{
+ "generated": "2026-09-06",
+ "note": "The cube as SDMX. Dimensions identify, attributes describe, and the series key is checkable - which is the whole reason for adopting the standard.",
+ "structure": "out/sdmx/structure.json",
+ "data": "out/sdmx/mineral_flows.sdmx.csv.gz",
+ "agency": "CMA",
+ "dsd": "DSD_MINERAL_FLOWS",
+ "dataflow": "DF_MINERAL_FLOWS",
+ "version": "1.0.0",
+ "observations": 523617,
+ "codelists": {
+  "CL_MATERIAL": 89,
+  "CL_MEASURE": 13,
+  "CL_STAGE": 3,
+  "CL_BASIS": 2,
+  "CL_SOURCE": 5,
+  "CL_UNIT_MEASURE": 14,
+  "CL_AREA": 244,
+  "CL_OBS_STATUS": 5,
+  "CL_CONF_STATUS": 1,
+  "CL_FREQ": 1
+ },
+ "obs_status_counts": {
+  "A": 520685,
+  "E": 1263,
+  "Q": 1222,
+  "N": 447
+ },
+ "licences": {
+  "BGS World Mineral Statistics": "Open Government Licence v3.0 (attribution required)",
+  "USGS Historical Statistics (DS 140)": "US Government public domain",
+  "CEPII BACI (HS02)": "Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)",
+  "World Mining Data": "Free with attribution (BMK Austria / WMD)",
+  "IEA Critical Minerals Dataset": "CC BY 4.0"
+ }
+}
