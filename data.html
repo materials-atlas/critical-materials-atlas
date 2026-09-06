@@ -34,8 +34,8 @@
   <h2>The cube &mdash; one table behind everything</h2>
   <p>Most of what the atlas publishes now comes out of a single harmonised fact table. One row is one
   observation: <b>a material, a country, a year, a measure</b>, plus the identity of the source series it
-  came from. <b>523,558 rows, 89 materials, 242 countries, 1900&ndash;2024</b>, five public compilations
-  in one place &mdash; BGS, USGS, CEPII BACI, World Mining Data and the IEA&rsquo;s observed 2024 column.
+  came from. <b>523,617 observations, 89 materials, 244 countries, 1900&ndash;2025</b>, five public compilations
+  in one place &mdash; BGS, USGS, CEPII BACI, World Mining Data and the IEA&rsquo;s observed base-year columns.
   IEA <i>projections</i> stay out: a forecast must not sit where a query could difference it against
   measured history and call the result a trend.</p>
   <table>
@@ -49,6 +49,42 @@
       <tr><td><span class="endpoint">/out/sources.json</span></td><td><b>Source metadata</b> &mdash; what each compilation measures, on what basis, and why two of them can report different numbers for the same thing without either being wrong</td></tr>
     </tbody>
   </table>
+
+  <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">The same table as SDMX</h3>
+  <p>SDMX is the format statistical agencies exchange data in &mdash; the ECB, Eurostat, the IMF, the OECD
+  and the UN all publish it. The cube is published that way too, so it can be loaded by anything that
+  already reads SDMX without being told anything about us first.</p>
+  <p>The point of the standard is not the file format. It is that a <b>data structure definition</b> must
+  declare which fields <i>identify</i> an observation and which merely <i>describe</i> it &mdash; and then
+  nothing may be published that fails that key. Ours is
+  <span class="endpoint">FREQ . SOURCE . MATERIAL . MEASURE . STAGE . BASIS . NATIVE_CODE . REF_AREA</span>
+  over <span class="endpoint">TIME_PERIOD</span>. Two compilations counting the same year are two
+  observations, not a conflict; ore and refined metal are different series, not one series to be summed.
+  Asking whether our own data satisfied that key found <b>144 observations that did not</b> &mdash; and all
+  three causes were defects in the sources, not in our code. They are fixed and
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/bgs_country.py">documented</a>;
+  today the answer is zero.</p>
+  <table>
+    <thead><tr><th>URL</th><th>What</th></tr></thead>
+    <tbody>
+      <tr><td><span class="endpoint">/out/sdmx/structure.json</span></td><td>The structure: 10 code lists, one data structure definition, one dataflow. Read this first &mdash; it says what may be pinned</td></tr>
+      <tr><td><span class="endpoint">/out/sdmx/mineral_flows.sdmx.csv.gz</span></td><td>523,617 observations as <b>SDMX-CSV</b>, 3.8&nbsp;MB</td></tr>
+      <tr><td><span class="endpoint">/out/cube_manifest.json</span></td><td>Every one of the <b>942 identities</b> in the cube, with its years, country count and units &mdash; the menu to choose from before writing a filter</td></tr>
+      <tr><td><span class="endpoint">/out/sdmx.json</span></td><td>Summary: code list sizes, observation-status counts, and the licence of every source in the export</td></tr>
+    </tbody>
+  </table>
+  <p><b>Observation status</b> uses the SDMX cross-domain code list, not our own words:
+  <span class="endpoint">A</span> normal (520,685), <span class="endpoint">E</span> estimated by the source
+  (1,263), <span class="endpoint">Q</span> missing because suppressed for confidentiality (1,222),
+  <span class="endpoint">N</span> not significant &mdash; a real value that rounds to zero (447). Where a
+  source publishes its own status codes, as BGS does, they are carried through rather than re-derived.
+  One warning if you are mapping these yourself: USGS prints <b>W</b> for <i>withheld</i>, while SDMX&rsquo;s
+  <b>W</b> means <i>&ldquo;includes data from another category&rdquo;</i> &mdash; nearly the opposite claim.</p>
+  <p class="deck" style="font-size:.9rem">Every source in the export is redistributable with attribution
+  &mdash; BGS under the Open Government Licence, USGS as US public domain, CEPII BACI under Etalab 2.0
+  (cite Gaulier &amp; Zignago 2010), World Mining Data free with attribution, and the IEA Critical Minerals
+  Dataset under CC&nbsp;BY&nbsp;4.0. The exporter refuses to write a dataflow containing a source whose
+  terms are not recorded.</p>
 
   <h3 style="font-size:1rem;color:var(--navy);margin:1.4rem 0 .3rem">Why two sources report different numbers for the same thing</h3>
   <p>Each source is documented in <span class="endpoint">/out/sources.json</span>: what it measures, on what
