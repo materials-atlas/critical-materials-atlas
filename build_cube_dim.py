@@ -12,12 +12,30 @@ They do not have to stay outside. A figure that DESCRIBES a material is a dimens
 material, and a dimension joins. This writes them as one tidy table keyed on the atlas material
 label, so any cube query can group, filter or sort by them.
 
-THE GOLDEN RULE, AND WHY THIS IS NOT A BREACH
-"Never join facts on material alone" - because a fact also carries stage, basis, unit and code
-system, and joining on the label alone silently mixes ore with metal. That rule protects FACTS.
-An attribute is defined at material grain by construction: cobalt has one EOL-RIR, not one per
-stage. So the join key IS the whole key. The guard is uniqueness, asserted below: one row per
-(material, attribute), so a join can never fan out a cube row.
+THE KEY, AND WHY IT CARRIES THE SOURCE
+An earlier draft keyed this table on (material, attribute) alone and REFUSED a second value, so
+cobalt could hold the EU 2023 recycling rate or an older one, never both. That was the wrong fix.
+Two published values of the same indicator are not a corruption to forbid; they are a revision,
+or two definitions, and seeing the difference is the point. The field has several: the EU
+publishes EOL-RIR, UNEP/IRP defines EOL-RR, recycled content and old-scrap ratio, and the IEA
+2024 recycling report is the current benchmark. A uniqueness rule on the bare label would have
+locked all of them out permanently.
+
+So WHO published it and WHEN are dimensions, exactly as basis, stage and the IEA edition are
+dimensions of a fact. The key is (material, attribute, source, vintage), and one material may
+carry as many values of an attribute as there are sources and vintages.
+
+WHAT THAT MOVES, RATHER THAN REMOVES
+The fan-out danger is real and does not disappear: match cobalt tonnages against two cobalt
+recycling rates and every tonnage comes out twice, silently doubling world production. The extra
+dimension does not prevent that - it moves the discipline to where the cube already keeps it. The
+cube rule is "pin the identity before you join". This table inherits the same sentence:
+
+    JOIN WITH A VINTAGE PINNED, OR ON is_current - NEVER ON THE BARE LABEL.
+
+is_current marks the newest vintage of each (material, attribute), so a caller with no opinion
+about editions still gets exactly one row and cannot fan out. Both properties are asserted at
+build time: the full key is unique, and exactly one row per (material, attribute) is current.
 
 Two tables, because two grains:
   dim_material.parquet                 material x attribute        -> joins to the cube on material
@@ -123,11 +141,29 @@ for r in load('pairing.json')['rows']:
 
 dim = pd.DataFrame(rows)
 
-# -- the guard that makes the join safe ---------------------------------------
-dup = dim.duplicated(subset=['material', 'attribute'], keep=False)
+# -- is_current: the row a caller gets when it does not name a vintage --------
+# Newest vintage wins; source breaks a tie deterministically so the choice never depends on
+# dictionary order. This is what a join filters on when it has no opinion about editions.
+dim = dim.sort_values(['material', 'attribute', 'vintage', 'source'],
+                      na_position='first').reset_index(drop=True)
+dim['is_current'] = False
+dim.loc[dim.groupby(['material', 'attribute']).tail(1).index, 'is_current'] = True
+
+# -- the two guards that make the join safe -----------------------------------
+# 1. the full key must be unique, or one source-and-vintage has been recorded twice
+dup = dim.duplicated(subset=['material', 'attribute', 'source', 'vintage'], keep=False)
 if dup.any():
-    bad = dim[dup][['material', 'attribute', 'source']].to_string()
-    raise SystemExit('DIMENSION IS NOT UNIQUE - a join on material would fan out cube rows:\n' + bad)
+    raise SystemExit('DIMENSION KEY IS NOT UNIQUE - one source and vintage appears twice:\n'
+                     + dim[dup][['material', 'attribute', 'source', 'vintage']].to_string())
+
+# 2. exactly one CURRENT row per (material, attribute). This is the fan-out guard, and it is
+#    the one that survives holding several vintages: extra vintages are welcome, two of them
+#    claiming to be current is what would double a tonnage.
+n_cur = dim[dim.is_current].groupby(['material', 'attribute']).size()
+if (n_cur != 1).any():
+    raise SystemExit('MORE THAN ONE CURRENT ROW - a join on is_current would fan out cube rows '
+                     'and multiply tonnages:\n' + n_cur[n_cur != 1].to_string())
+
 
 # every material must exist in the cube, or the dimension describes something unqueryable
 cube_materials = set(pd.read_parquet(os.path.join(DATA, 'cube.parquet'))['material'].unique())
@@ -151,14 +187,19 @@ assess.to_parquet(os.path.join(DATA, 'assessment_material_country.parquet'), ind
 
 summary = {
     'generated': TODAY,
-    'rule': ('A figure that describes a material is a dimension of the material. It joins on '
-             'material alone - safe precisely because it is defined at material grain, unlike a '
-             'fact. Uniqueness on (material, attribute) is asserted at build time.'),
+    'rule': ('A figure that describes a material is a dimension of the material - and so are the '
+             'source that published it and the vintage it belongs to. The key is (material, '
+             'attribute, source, vintage), so one material may hold several values of one '
+             'attribute. A join must pin a vintage or filter is_current, never match on the bare '
+             'label.'),
     'dim_material': {
         'rows': int(len(dim)), 'materials': int(dim['material'].nunique()),
         'attributes': int(dim['attribute'].nunique()),
         'by_attribute': {k: int(v) for k, v in dim.groupby('attribute').size().items()},
         'by_source': {k: int(v) for k, v in dim.groupby('source').size().items()},
+        'vintages_per_attribute': {k: int(v) for k, v in
+                                   dim.groupby('attribute')['vintage'].nunique().items()},
+        'current_rows': int(dim['is_current'].sum()),
     },
     'assessment_material_country': {
         'rows': int(len(assess)), 'materials': int(assess['material'].nunique()),

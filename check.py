@@ -447,11 +447,14 @@ def check_drift():
 def check_dim():
     """The material dimension must stay unique, in-vocabulary, and true to its sources.
 
-    dim_material.parquet is the one table the cube is allowed to join on `material` alone, so it
-    carries the whole burden of that exception. Two failures would be silent: a duplicated
-    (material, attribute) row would FAN OUT every cube row it touches, multiplying tonnages; and a
-    stale parquet would keep serving an EOL-RIR that data.json has since corrected - the same
-    drift class as risk.json's germanium, one table further out.
+    The table is keyed on (material, attribute, source, vintage), so a material may legitimately
+    hold several values of one attribute - two editions of a report, or two definitions of
+    recycling. What must never happen is two of them claiming to be CURRENT: a join on is_current
+    would then match every cube row twice and silently double the tonnage. Extra vintages are
+    welcome; extra current rows are the fan-out.
+
+    Also caught here: a stale parquet still serving an EOL-RIR that data.json has since corrected
+    - the same drift class as risk.json's germanium, one table further out.
     """
     path = 'pipeline/data/dim_material.parquet'
     if not os.path.exists(path):
@@ -462,11 +465,22 @@ def check_dim():
         return
     dim = pd.read_parquet(path)
 
-    dup = dim[dim.duplicated(subset=['material', 'attribute'], keep=False)]
+    key = ['material', 'attribute', 'source', 'vintage']
+    dup = dim[dim.duplicated(subset=key, keep=False)]
     if len(dup):
         pairs = ', '.join(sorted({f"{r.material}/{r.attribute}" for r in dup.itertuples()}))
-        fail('dim', f'dim_material has duplicate (material, attribute) rows - a join would fan out '
-                    f'cube rows and multiply tonnages: {pairs}')
+        fail('dim', f'dim_material records the same source and vintage twice for: {pairs}')
+
+    if 'is_current' not in dim.columns:
+        fail('dim', 'dim_material has no is_current column, so a join has no way to pick one row '
+                    'per material and would fan out across vintages')
+    else:
+        n_cur = dim[dim.is_current].groupby(['material', 'attribute']).size()
+        bad = n_cur[n_cur != 1]
+        if len(bad):
+            pairs = ', '.join(f'{m}/{a} ({n})' for (m, a), n in bad.items())
+            fail('dim', f'more than one CURRENT row - a join on is_current would fan out cube '
+                        f'rows and multiply tonnages: {pairs}')
 
     cube = 'pipeline/data/cube.parquet'
     if os.path.exists(cube):
@@ -481,7 +495,8 @@ def check_dim():
     except Exception:
         return
     src = {m['label']: m for m in d.get('materials', [])}
-    live = dim[dim.attribute == 'eol_rir'].set_index('material')['value_num'].to_dict()
+    cur = dim[(dim.attribute == 'eol_rir') & dim.get('is_current', True)]
+    live = cur.set_index('material')['value_num'].to_dict()
     for lab, v in live.items():
         want = src.get(lab, {}).get('recycling')
         if want is not None and abs(float(want) - v) > 0.01:
