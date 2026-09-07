@@ -58,10 +58,16 @@ def read_cache():
 def fetch_batch(period, n_reporters=1):
     """Pull one rotation of n_reporters and APPEND to the cache. Called by the standalone pull_comtrade.py
     (occasional / cron), NOT by build.py — this is the slow, rate-limited part, kept out of the build."""
-    state = json.load(open(STATE)) if os.path.exists(STATE) else {'idx': 0}
+    state = json.load(open(STATE)) if os.path.exists(STATE) else {'idx': 0, 'month_idx': 0}
     idx = state.get('idx', 0)
     batch = [REPORTERS[(idx + i) % len(REPORTERS)] for i in range(n_reporters)]
-    state['idx'] = (idx + n_reporters) % len(REPORTERS)
+    nxt = idx + n_reporters
+    state['idx'] = nxt % len(REPORTERS)
+    # When the reporter rotation wraps, step to the next month. Coverage therefore grows in two
+    # directions instead of one, which is what a mirror comparison needs: more countries widens
+    # the panel, more months makes it a series.
+    if nxt >= len(REPORTERS):
+        state['month_idx'] = state.get('month_idx', 0) + 1
     codes = sorted(concordance.tracked_hs6_set())
     pulled = 0
     with open(CACHE, 'a', encoding='utf8') as f:
@@ -93,7 +99,30 @@ class ComtradeAdapter(Adapter):
     key = 'comtrade'
     freq = 'M'
     note = 'UN Comtrade free preview — HS-6, monthly, keyless (rate-limited, rotating calendar)'
-    MONTH = 202412   # Comtrade monthly lags; this month has broad coverage
+    MONTH = 202412   # the month build.py reads; kept for the cache's canonical period
+
+    @staticmethod
+    def calendar(n=18, lag=8):
+        """The months worth asking for, newest first.
+
+        Comtrade lags: a month is thin for a while after it ends, so the newest `lag` months are
+        skipped rather than pulled half-empty and then trusted. Everything before that is fair
+        game, and the rotation walks it.
+
+        This exists because MONTH was a single hardcoded constant. The scheduled job has run 18
+        times since early September and never gained a second month - it rotated REPORTERS inside
+        one fixed month, while cache.save() overwrote on every run. All three had to change before
+        a series could accumulate; this is the third.
+        """
+        import datetime
+        d = datetime.date.today().replace(day=1)
+        for _ in range(lag):
+            d = (d - datetime.timedelta(days=1)).replace(day=1)
+        out = []
+        for _ in range(n):
+            out.append(d.year * 100 + d.month)
+            d = (d - datetime.timedelta(days=1)).replace(day=1)
+        return out
     BATCH = 1        # reporters pulled per run (conservative for the strict free-tier rate limit)
 
     def discover(self):

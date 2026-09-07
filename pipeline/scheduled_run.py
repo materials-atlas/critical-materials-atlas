@@ -25,8 +25,11 @@ def _run(args):
 def main():
     stamp = datetime.datetime.now().isoformat(timespec='seconds')
     parts = [f"\n===== scheduled run {stamp} =====",
-             _run(['pipeline/pull_comtrade.py', '2']),   # widen Comtrade coverage a bit
-             _run(['pipeline/refresh.py', 'all']),        # refresh all source caches (+ manifest)
+             _run(['pipeline/pull_comtrade.py', '3']),   # widen Comtrade: 3 reporters, rotating month
+             # --periods 3: refresh used to take only the newest period a source offered, which
+             # with an overwriting cache meant the caches could never hold more than one month.
+             # Both are fixed; asking for several is what actually builds the series.
+             _run(['pipeline/refresh.py', 'all', '--periods', '3']),
              _run(['pipeline/build.py'])]                 # assemble flows / flows_best / flows_reconciled
     with open(LOG, 'a', encoding='utf8') as f:
         f.write('\n'.join(parts) + '\n')

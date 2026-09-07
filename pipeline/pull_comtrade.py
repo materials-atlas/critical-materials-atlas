@@ -12,7 +12,16 @@ import adapter_comtrade as ct
 
 def main():
     n = int(sys.argv[1]) if len(sys.argv) > 1 else 1
-    month = ct.ComtradeAdapter.MONTH
+    # Walk the calendar rather than re-pulling one hardcoded month forever. The cursor advances
+    # each time the reporter rotation wraps, so repeated scheduled runs widen the panel AND
+    # lengthen the series. An explicit month can still be forced: pull_comtrade.py 2 202409
+    import json as _json
+    cal = ct.ComtradeAdapter.calendar()
+    if len(sys.argv) > 2:
+        month = int(sys.argv[2])
+    else:
+        st = _json.load(open(ct.STATE)) if os.path.exists(ct.STATE) else {}
+        month = cal[st.get('month_idx', 0) % len(cal)]
     before = len(ct.read_cache())
     print(f"growing Comtrade cache: {n} reporter(s), month {month} (this is slow — rate-limited)...")
     ct.fetch_batch(month, n_reporters=n)
