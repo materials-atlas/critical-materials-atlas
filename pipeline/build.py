@@ -61,7 +61,12 @@ def main():
         SELECT * REPLACE({_code('reporter')} AS reporter, {_code('partner')} AS partner,
                          {_name('reporter','reporter_name')} AS reporter_name,
                          {_name('partner','partner_name')} AS partner_name)
-        FROM read_parquet('{glob_path}'))
+        -- union_by_name: the source caches do NOT all have the same columns. A cache written
+        -- before a column existed lacks it, and read_parquet over a glob otherwise takes the
+        -- FIRST file's schema and silently drops the rest - which is how value_basis reached
+        -- the caches and never reached flows. Matching on name and filling absent columns
+        -- with NULL is the only safe way to union caches that evolve at different times.
+        FROM read_parquet('{glob_path}', union_by_name=true))
       SELECT *,   -- ... then derive flags from the CANONICAL values (so resolved Taiwan isn't re-flagged)
         (reporter IN {hubs} OR partner IN {hubs}) AS via_entrepot,
         -- PROVENANCE: the counterparty is SUPPRESSED (customs confidentiality) — origin/destination is hidden

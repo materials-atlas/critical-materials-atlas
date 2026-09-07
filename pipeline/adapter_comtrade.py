@@ -145,8 +145,19 @@ class ComtradeAdapter(Adapter):
             if not rep or not par or not cc or not concordance.hs6_tracked(cc):
                 continue                                 # unmapped codes / World aggregate / untracked
             k = (r.get('period'), rep, par, cc, r.get('flowCode'))
+            # Rank on (value, does-this-row-carry-the-new-fields). The JSONL accumulates, so a
+            # cell can appear both as an old 7-field row and a new wide one with identical value.
+            # Comparing on value alone let the OLD row win every tie simply by being written
+            # first, and the declared basis never reached a single flow. Ties now go to the row
+            # that knows more.
             v = num(r.get('primaryValue')) or 0
-            if k not in best or v > (num(best[k].get('primaryValue')) or 0):
+            informative = 1 if (r.get('fobvalue') is not None or r.get('cifvalue') is not None) else 0
+            rank_new = (v, informative)
+            cur = best.get(k)
+            rank_cur = ((num(cur.get('primaryValue')) or 0),
+                        1 if (cur.get('fobvalue') is not None or cur.get('cifvalue') is not None)
+                        else 0) if cur else (-1, -1)
+            if rank_new > rank_cur:
                 best[k] = r
         for r in best.values():
             rep = schema.NUM2ISO3[str(r['reporterCode'])]
