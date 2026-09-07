@@ -49,6 +49,17 @@ REPORTERS = [124, 392, 699, 360, 152, 710, 410, 36, 484, 792, 704, 764, 156, 643
 #  fresh two-sided pairs to reconcile wherever its counterparty already reports.
 
 
+class QuotaExceeded(Exception):
+    """The API says we are out of calls for the day.
+
+    This has to be its own exception because it is the one failure that must STOP a long run
+    rather than be retried or skipped. It was previously flattened into `return None` alongside
+    every other HTTP error, so a backfill could not tell "this block has no data" from "you are
+    not allowed to ask" - and spent 150 calls of a 150-call remainder marking blocks permanently
+    complete on the strength of 403s.
+    """
+
+
 def _get(url, tries=5):
     for _ in range(tries):
         try:
@@ -60,6 +71,14 @@ def _get(url, tries=5):
         except urllib.error.HTTPError as e:
             if e.code == 429:
                 time.sleep(_BACKOFF); continue
+            if e.code == 403:
+                # "Out of call volume quota. Quota will be replenished in HH:MM:SS."
+                try:
+                    body = e.read().decode('utf8', 'replace')
+                except Exception:
+                    body = ''
+                if 'quota' in body.lower():
+                    raise QuotaExceeded(body.strip())
             return None
         except Exception:
             time.sleep(_PAUSE); continue

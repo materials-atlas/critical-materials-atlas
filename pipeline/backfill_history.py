@@ -26,6 +26,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import adapter_comtrade as ct
 import concordance
 
+
+NL = chr(10)   # the escape survives every quoting layer this file has been edited through
 HERE = os.path.dirname(os.path.abspath(__file__))
 PARTS = os.path.join(HERE, 'data', 'comtrade_history')
 STATE = os.path.join(HERE, 'data', 'comtrade_history_state.json')
@@ -48,7 +50,9 @@ def load_state():
 
 
 def save_state(s):
-    out = {'done': sorted(list(x) for x in s['done']), 'calls': s['calls']}
+    out = {'done': sorted(list(x) for x in s['done']),
+           'empty': sorted(list(x) for x in s.get('empty', ())),
+           'calls': s['calls']}
     with open(STATE, 'w', encoding='utf8') as f:
         json.dump(out, f)
 
@@ -103,6 +107,26 @@ def main():
     codes = ','.join(sorted(concordance.tracked_hs6_set()))
     rblocks = [reps[i:i + REPS_PER_CALL] for i in range(0, len(reps), REPS_PER_CALL)]
     mblocks = [cal[i:i + MONTHS_PER_CALL] for i in range(0, len(cal), MONTHS_PER_CALL)]
+    # STATE REPAIR. `done` used to mean "we called this block", not "we got an answer". A run that
+    # hit the daily quota therefore marked 150 blocks permanently complete on the strength of 150
+    # HTTP 403s, and they would never have been fetched again - a silent hole in the history that
+    # no later run could find.
+    #
+    # A block is only genuinely finished if we know its outcome: it wrote a part file, or we
+    # recorded that it legitimately holds no rows. Anything else goes back in the queue, which
+    # also repairs state written under the old, wrong definition.
+    st['empty'] = set(tuple(x) for x in st.get('empty', []))
+    proven = set()
+    for mi in range(len(mblocks)):
+        for ri in range(len(rblocks)):
+            if (mi, ri) in st['empty'] or os.path.exists(
+                    os.path.join(PARTS, 'p_%d_%d.parquet' % (mblocks[mi][0], rblocks[ri][0]))):
+                proven.add((mi, ri))
+    lost = len(st['done'] - proven)
+    if lost:
+        print('  state repair: %d blocks were marked done with no data and no recorded reason '
+              '- re-queued' % lost)
+    st['done'] = proven
     todo = [(mi, ri) for mi in range(len(mblocks)) for ri in range(len(rblocks))
             if (mi, ri) not in st['done']]
     print('span %d..%d = %d months | %d reporters | %d calls total, %d already done, %d left'
@@ -111,7 +135,8 @@ def main():
     print('budget today: %d of %d already spent, %d available' % (spent, budget, max(0, budget - spent)))
 
     import pandas as pd
-    made = rows = 0
+    made = rows = failed = 0
+    quota_hit = False
     for mi, ri in todo:
         if spent >= budget:
             print('daily budget reached - stopping cleanly. Re-run tomorrow to continue.')
@@ -119,15 +144,34 @@ def main():
         mb, rb = mblocks[mi], rblocks[ri]
         q = (f"{ct.BASE}?reporterCode={','.join(str(r) for r in rb)}"
              f"&period={','.join(str(m) for m in mb)}&cmdCode={codes}&flowCode=M,X")
-        data = ct._get(q)
+        try:
+            data = ct._get(q)
+        except ct.QuotaExceeded as e:
+            # The API's own count decides, not ours. Ours read 300 of 450 while the server had
+            # already cut us off - our counter cannot see the retries inside _get, and each of
+            # those is a real call. Believe the server and stop.
+            print(NL + '  API refused: %s' % e)
+            print('  our local count said %d of %d spent. The server disagrees, and the server '
+                  'is right - stopping so nothing is marked done on a refusal.' % (spent, budget))
+            quota_hit = True
+            break
         spent += 1
         st['calls'][today] = spent
-        recs = [{k: r.get(k) for k in FIELDS} for r in (data or {}).get('data', [])]
+        if data is None:
+            # A failed call proves nothing about the block. Leave it in the queue.
+            failed += 1
+            time.sleep(ct._PAUSE)
+            continue
+        recs = [{k: r.get(k) for k in FIELDS} for r in data.get('data', [])]
         if recs:
             path = os.path.join(PARTS, 'p_%d_%d.parquet' % (mb[0], rb[0]))
             pd.DataFrame(recs).to_parquet(path, index=False, compression='zstd')
             rows += len(recs)
             made += 1
+        else:
+            # A successful call returning nothing IS an answer: this block holds no rows for our
+            # HS6 set. Record it, so it is not re-fetched on every run for the rest of time.
+            st['empty'].add((mi, ri))
         st['done'].add((mi, ri))
         if spent % 20 == 0:
             save_state(st)
@@ -136,11 +180,12 @@ def main():
         time.sleep(ct._PAUSE)
 
     save_state(st)
-    print('\nthis run: %d calls, %d parts written, %d rows -> %s'
-          % (spent - st['calls'].get(today, spent) + spent - (spent - made), made, rows,
-             os.path.relpath(PARTS, os.path.dirname(HERE))))
-    print('progress: %d of %d call-blocks complete'
-          % (len(st['done']), len(mblocks) * len(rblocks)))
+    print(NL + 'this run: %d parts written, %d rows, %d calls failed'
+          % (made, rows, failed))
+    if quota_hit:
+        print('STOPPED ON QUOTA - nothing was marked complete on a refusal.')
+    print('progress: %d of %d call-blocks answered (%d confirmed empty)'
+          % (len(st['done']), len(mblocks) * len(rblocks), len(st['empty'])))
     return 0
 
 
