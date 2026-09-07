@@ -25,7 +25,10 @@ def _run(args):
 def main():
     stamp = datetime.datetime.now().isoformat(timespec='seconds')
     parts = [f"\n===== scheduled run {stamp} =====",
-             _run(['pipeline/pull_comtrade.py', '3']),   # widen Comtrade: 3 reporters, rotating month
+             # ALL reporters, one month per run. The goal is maximum country coverage, and with
+             # the measured pause that is ~19 minutes at 3am rather than 3 minutes - which buys
+             # a whole month of the BACI gap per night instead of an eighth of one.
+             _run(['pipeline/pull_comtrade.py', 'all']),
              # --periods 3: refresh used to take only the newest period a source offered, which
              # with an overwriting cache meant the caches could never hold more than one month.
              # Both are fixed; asking for several is what actually builds the series.

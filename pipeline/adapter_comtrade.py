@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """WIDE-monthly upgrade: UN Comtrade free 'preview' endpoint — HS-6, monthly, KEYLESS (no auth) but
-under a strict Fair-Usage rate limit. So this is a ROTATING CALENDAR: each run pulls a small BATCH of
-reporters (ones not covered by a national adapter), chunks commodities under the 500-row preview cap,
+under a Fair-Usage rate limit that turned out to be far looser than we assumed. So this is a ROTATING
+CALENDAR: each run pulls EVERY reporter for ONE month (ones not covered by a national adapter), chunks commodities under the 500-row preview cap,
 sleeps between calls, backs off on 429, and APPENDS to an incremental cache. Coverage accumulates over
 many runs. primaryValue = USD, netWgt = kg; codes are M49 -> ISO3 via BACI's numeric table."""
 import os, json, time, urllib.request, urllib.error
@@ -11,7 +11,17 @@ from adapter_base import Adapter, num
 BASE = "https://comtradeapi.un.org/public/v1/preview/C/M/HS"
 CACHE = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_cache.jsonl')
 STATE = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_state.json')
-_PAUSE = 18   # seconds between calls (fair-usage); 429 -> longer backoff
+# MEASURED, not guessed. 18 seconds was a cautious invention and it set the pace of the whole
+# project: at 8 calls per reporter it meant 3 minutes per country, so a run could afford three
+# countries and filling the 18-month gap would have taken 33 weeks. Tested against the live
+# endpoint at 1-second spacing: 12 consecutive calls, zero rejections. 4 seconds is therefore
+# still four times more cautious than what the service demonstrably tolerates, and it turns three
+# countries per run into all thirty-six.
+_PAUSE = 4
+# The 429 backoff is deliberately NOT derived from _PAUSE any more. It used to be _PAUSE * 2, so
+# lowering the pace would have quietly weakened the retry at exactly the moment it started to
+# matter. Rate-limit recovery should be slow regardless of how fast we are going when it hits.
+_BACKOFF = 45
 
 # reporters to grow coverage with (M49 codes); rotated a few per run
 REPORTERS = [124, 392, 699, 360, 152, 710, 410, 36, 484, 792, 704, 764, 156, 643,   # CAN JPN IND IDN CHL ZAF KOR AUS MEX TUR VNM THA CHN RUS
@@ -31,7 +41,7 @@ def _get(url, tries=5):
                 urllib.request.Request(url, headers={'User-Agent': 'critical-materials-atlas/phase3'}), timeout=60))
         except urllib.error.HTTPError as e:
             if e.code == 429:
-                time.sleep(_PAUSE * 2); continue
+                time.sleep(_BACKOFF); continue
             return None
         except Exception:
             time.sleep(_PAUSE); continue
@@ -101,26 +111,38 @@ class ComtradeAdapter(Adapter):
     note = 'UN Comtrade free preview — HS-6, monthly, keyless (rate-limited, rotating calendar)'
     MONTH = 202412   # the month build.py reads; kept for the cache's canonical period
 
+    # The gap this whole monthly layer exists to fill. BACI is reconciled, excellent, and ANNUAL -
+    # and it stops at 2024. Everything after that is unreconciled until CEPII catches up, which
+    # takes about two years. That gap is the only space a monthly product occupies.
+    BACI_LAST_YEAR = 2024
+    LAG_MONTHS = 3     # measured, not assumed: Comtrade served 202606 when tested in Sep 2026
+
     @staticmethod
-    def calendar(n=18, lag=8):
-        """The months worth asking for, newest first.
+    def calendar():
+        """The months we actually need, newest first.
 
-        Comtrade lags: a month is thin for a while after it ends, so the newest `lag` months are
-        skipped rather than pulled half-empty and then trusted. Everything before that is fair
-        game, and the rotation walks it.
+        CORRECTED 7 Sep 2026, after the user asked what span we were even targeting. The first
+        version took "18 months ending 8 months ago", which was wrong in both directions: it
+        reached back to 202408, re-fetching months BACI already covers reconciled and better, and
+        it stopped at 202601, discarding the five most recent months - the fresher-than-BACI
+        months that are the entire reason for doing this.
 
-        This exists because MONTH was a single hardcoded constant. The scheduled job has run 18
-        times since early September and never gained a second month - it rotated REPORTERS inside
-        one fixed month, while cache.save() overwrote on every run. All three had to change before
-        a series could accumulate; this is the third.
+        The right window starts the month after BACI's last year and runs to the newest month the
+        source actually serves. Probed before changing it: 202602 through 202606 all return data,
+        so the real lag is about three months, not eight.
         """
         import datetime
+        # +1: BACI covers THROUGH its last year, so the gap starts the January after it.
+        first = (ComtradeAdapter.BACI_LAST_YEAR + 1) * 100 + 1     # 2024 -> 202501
         d = datetime.date.today().replace(day=1)
-        for _ in range(lag):
+        for _ in range(ComtradeAdapter.LAG_MONTHS):
             d = (d - datetime.timedelta(days=1)).replace(day=1)
         out = []
-        for _ in range(n):
-            out.append(d.year * 100 + d.month)
+        while True:
+            p = d.year * 100 + d.month
+            if p < first:
+                break
+            out.append(p)
             d = (d - datetime.timedelta(days=1)).replace(day=1)
         return out
     BATCH = 1        # reporters pulled per run (conservative for the strict free-tier rate limit)

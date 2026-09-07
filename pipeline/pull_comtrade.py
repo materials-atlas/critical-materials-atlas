@@ -11,7 +11,10 @@ import adapter_comtrade as ct
 
 
 def main():
-    n = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    # 'all' rather than a literal count: the reporter list grows, and a hardcoded 36 would
+    # silently stop covering the last few the moment someone appends to it.
+    arg = sys.argv[1] if len(sys.argv) > 1 else '1'
+    n = len(ct.REPORTERS) if arg == 'all' else int(arg)
     # Walk the calendar rather than re-pulling one hardcoded month forever. The cursor advances
     # each time the reporter rotation wraps, so repeated scheduled runs widen the panel AND
     # lengthen the series. An explicit month can still be forced: pull_comtrade.py 2 202409
