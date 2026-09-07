@@ -33,18 +33,26 @@ _NAME2ISO.update({
 })
 
 
-def _get(url, tries=4):
-    for _ in range(tries):
+def _get(url, tries=5):
+    """Fetch with backoff. Widening WINDOW to 6 turned ~60 calls into ~372, and the first run at
+    that volume died on RemoteDisconnected - which is neither an HTTPError nor a URLError, so the
+    retry loop below never saw it and the whole refresh aborted after one failure. Catching only
+    the two urllib exception types is a common way for a retry to look present and not be.
+    Pacing added for the same reason: Census cannot batch, so the old code fired hundreds of
+    requests back to back with no gap at all."""
+    import http.client
+    for attempt in range(tries):
         try:
             resp = urllib.request.urlopen(
                 urllib.request.Request(url, headers={'User-Agent': 'critical-materials-atlas/phase2'}), timeout=60)
         except urllib.error.HTTPError as e:
             if e.code in (429, 503):
-                time.sleep(4); continue
+                time.sleep(4 * (attempt + 1)); continue
             return None                      # 400/404 etc. -> treat as no data
-        except urllib.error.URLError:
-            time.sleep(4); continue
+        except (urllib.error.URLError, http.client.HTTPException, OSError):
+            time.sleep(4 * (attempt + 1)); continue
         raw = resp.read()
+        time.sleep(0.4)                      # pacing: hundreds of un-batchable calls in a row
         if not raw:                          # HTTP 204 = no data for that month/commodity
             return None
         try:
