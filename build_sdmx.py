@@ -114,7 +114,9 @@ def build():
                  'Global Registry v2.3.'),
         codelist('CL_CONF_STATUS', 'Confidentiality status', sorted(CONF_STATUS.items()),
                  'SDMX cross-domain CL_CONF_STATUS (subset used here), Registry v1.4.'),
-        codelist('CL_FREQ', 'Frequency', [('A', 'Annual')]),
+        codelist('CL_FREQ', 'Frequency',
+                 [(f, {'A': 'Annual', 'M': 'Monthly'}.get(f, f)) for f in uniq('freq')],
+                 'SDMX cross-domain CL_FREQ. Read from the data, never asserted: this list said Annual only while the file already carried monthly observations.'),
     ]
 
     dsd = {
@@ -168,7 +170,15 @@ def build():
 
     # ── SDMX-CSV ────────────────────────────────────────────────────────────────────────────
     d = c.copy()
-    d['FREQ'] = 'A'
+    # FREQ AND TIME_PERIOD COME FROM THE DATA. Both were hardcoded to the annual case, and once
+    # monthly rows arrived that published 557,121 observations labelled 'A' with a bare year in
+    # TIME_PERIOD - so June and July 2026 became the same period and collided. Nothing was
+    # malformed and every value sat in its code list, which is why a structural check passed it.
+    # An SDMX consumer would have loaded it, trusted the key, and got silently wrong answers.
+    d['FREQ'] = d['freq']
+    # SDMX-TS period format: annual is YYYY, monthly is YYYY-MM.
+    per = d['period'].astype('int64').astype(str)
+    d['year'] = per.where(d['freq'] != 'M', per.str[:4] + '-' + per.str[4:6])
     d['STRUCTURE'] = 'dataflow'
     d['STRUCTURE_ID'] = f'{AGENCY}:DF_MINERAL_FLOWS({VERSION})'
     d['ACTION'] = 'I'

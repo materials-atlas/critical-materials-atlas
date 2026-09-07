@@ -125,6 +125,10 @@
       "name": "gallium"
      },
      {
+      "id": "gallium+germanium",
+      "name": "gallium+germanium"
+     },
+     {
       "id": "garnet",
       "name": "garnet"
      },
@@ -395,8 +399,16 @@
       "name": "exports"
      },
      {
+      "id": "exports_value",
+      "name": "exports value"
+     },
+     {
       "id": "imports",
       "name": "imports"
+     },
+     {
+      "id": "imports_value",
+      "name": "imports value"
      },
      {
       "id": "production",
@@ -493,6 +505,10 @@
       "name": "CEPII BACI (HS02)"
      },
      {
+      "id": "CMA two-sided reconciliation",
+      "name": "CMA two-sided reconciliation"
+     },
+     {
       "id": "IEA Critical Minerals Dataset",
       "name": "IEA Critical Minerals Dataset"
      },
@@ -521,6 +537,10 @@
      {
       "id": "Carats",
       "name": "Carats"
+     },
+     {
+      "id": "USD",
+      "name": "USD"
      },
      {
       "id": "USD/t",
@@ -1607,12 +1627,16 @@
     "agencyID": "CMA",
     "version": "1.0.0",
     "name": "Frequency",
-    "description": null,
+    "description": "SDMX cross-domain CL_FREQ. Read from the data, never asserted: this list said Annual only while the file already carried monthly observations.",
     "isFinal": true,
     "codes": [
      {
       "id": "A",
       "name": "Annual"
+     },
+     {
+      "id": "M",
+      "name": "Monthly"
      }
     ]
    }
@@ -1715,9 +1739,10 @@
      "USGS Historical Statistics (DS 140)": "US Government public domain",
      "CEPII BACI (HS02)": "Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)",
      "World Mining Data": "Free with attribution (BMK Austria / WMD)",
-     "IEA Critical Minerals Dataset": "CC BY 4.0"
+     "IEA Critical Minerals Dataset": "CC BY 4.0",
+     "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
     },
-    "observations": 523617,
+    "observations": 557121,
     "series_key": [
      "FREQ",
      "SOURCE",

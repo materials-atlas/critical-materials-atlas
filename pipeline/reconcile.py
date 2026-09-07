@@ -74,7 +74,7 @@ HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # e
 SIDES_SQL = """
 CREATE OR REPLACE TABLE sides AS
 WITH canon AS (
-  SELECT period, hs6, material, value_usd,
+  SELECT period, hs6, material, value_usd, qty_kg,
     CASE WHEN flow='export' THEN reporter ELSE partner END AS exporter,
     CASE WHEN flow='export' THEN partner  ELSE reporter END AS importer,
     CASE WHEN flow='export' THEN 'fob' ELSE 'cif' END AS side,
@@ -90,6 +90,10 @@ WITH canon AS (
 agg AS (                                   -- collapse CN8/HS10 to HS-6 per (flow, side, source-tier)
   SELECT period, exporter, importer, hs6, side, rank,
          any_value(material) AS material, SUM(value_usd) AS v,
+         -- WEIGHT. Summing a partial set of sub-lines silently understates the total, so a
+         -- group gets a weight only when EVERY line in it declared one. A missing weight must
+         -- read as "we don't know", never as a smaller shipment.
+         CASE WHEN COUNT(*) = COUNT(qty_kg) THEN SUM(qty_kg) END AS q,
          -- one basis per (flow, side): if a side mixes bases the aggregate is not trustworthy,
          -- so MIN/MAX disagreeing is itself the signal and we keep only an unambiguous one.
          CASE WHEN MIN(value_basis) = MAX(value_basis) THEN MIN(value_basis) END AS basis
@@ -106,7 +110,13 @@ SELECT period, exporter, importer, hs6, any_value(material) AS material,
        -- What the importer actually declared. NULL = the source does not say, and then the old
        -- convention (imports are CIF) applies. Canada declares imports FOB and China CIF, so
        -- assuming for everyone was wrong in both directions.
-       MAX(CASE WHEN side='cif' THEN basis END) AS cif_basis
+       MAX(CASE WHEN side='cif' THEN basis END) AS cif_basis,
+       -- The two declared weights of the SAME physical shipment. Unlike value, these need no
+       -- CIF/FOB correction: freight is a cost, not a mass. So a gap here cannot be explained
+       -- away by valuation convention - it is a reporting error, and that makes weight the
+       -- cleaner of the two agreement tests.
+       MAX(CASE WHEN side='fob' THEN q END) AS qty_exp,
+       MAX(CASE WHEN side='cif' THEN q END) AS qty_imp
 FROM best WHERE rn=1 GROUP BY 1,2,3,4
 """
 
@@ -521,6 +531,20 @@ def reconcile(con):
              WHEN s.fob_from_cif/s.fob BETWEEN 0.5 AND 2                             -- agree -> SIMPLE geometric mean of the two FOB-basis sides
                THEN sqrt(s.fob * s.fob_from_cif)                                     -- ABLATION-DRIVEN: equal-weight beats the reliability-weighted
              ELSE NULL END AS value_recon_fob,                                       --   version against BACI on ~180 flows; weights kept only as exposed diagnostics. disagree -> NULL.
+        -- ── WEIGHT, reconciled the same way and on the same evidence ──────────────────
+        s.qty_exp, s.qty_imp,
+        CASE WHEN s.qty_exp IS NOT NULL AND s.qty_imp IS NOT NULL
+             THEN ROUND(least(s.qty_exp, s.qty_imp) / greatest(s.qty_exp, s.qty_imp), 3)
+             END AS qty_agreement,
+        CASE WHEN s.qty_exp IS NULL THEN s.qty_imp
+             WHEN s.qty_imp IS NULL THEN s.qty_exp
+             WHEN s.qty_imp / s.qty_exp BETWEEN 0.5 AND 2 THEN sqrt(s.qty_exp * s.qty_imp)
+             ELSE NULL END AS qty_recon_kg,
+        CASE WHEN s.qty_exp IS NULL AND s.qty_imp IS NULL THEN 'no_weight_declared'
+             WHEN s.qty_exp IS NULL THEN 'importer_only'
+             WHEN s.qty_imp IS NULL THEN 'exporter_only'
+             WHEN s.qty_imp / s.qty_exp BETWEEN 0.5 AND 2 THEN 'reconciled'
+             ELSE 'disagreement' END AS qty_basis,
         CASE WHEN s.fob IS NULL THEN 'importer_only_adj'
              WHEN s.cif IS NULL THEN 'exporter_only'
              WHEN s.fob_from_cif/s.fob BETWEEN 0.5 AND 2 THEN 'reconciled'

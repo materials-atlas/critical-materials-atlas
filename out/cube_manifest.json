@@ -14,7 +14,7 @@
   "vintage"
  ],
  "join_rule": "Facts: pin the full identity. Attributes: name a vintage or take is_current. Never match on the material label alone.",
- "n_identities": 1008,
+ "n_identities": 1206,
  "n_materials": 90,
  "materials": {
   "aggregates": {
@@ -282,18 +282,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 600,
+     "rows": 580,
      "countries": 65,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -310,6 +310,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 112,
+     "countries": 22,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "exports",
      "stage": "unspecified",
@@ -322,6 +336,34 @@
      "rows": 105,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 587,
+     "countries": 65,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 121,
+     "countries": 23,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -366,18 +408,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 918,
-     "countries": 88,
-     "tonnage_convertible": false
+     "rows": 885,
+     "countries": 87,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -394,6 +436,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 134,
+     "countries": 34,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "imports",
      "stage": "unspecified",
@@ -406,6 +462,34 @@
      "rows": 120,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 902,
+     "countries": 88,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 149,
+     "countries": 34,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -674,18 +758,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 259,
+     "rows": 237,
      "countries": 27,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -700,6 +784,48 @@
      "rows": 94,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 51,
+     "countries": 10,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 246,
+     "countries": 27,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 65,
+     "countries": 12,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -730,18 +856,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 555,
-     "countries": 83,
-     "tonnage_convertible": false
+     "rows": 492,
+     "countries": 82,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -756,6 +882,48 @@
      "rows": 123,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 79,
+     "countries": 20,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 518,
+     "countries": 83,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 99,
+     "countries": 22,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1072,18 +1240,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1083,
+     "rows": 1006,
      "countries": 86,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 323,
+     "countries": 40,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1114,6 +1296,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1018,
+     "countries": 86,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 337,
+     "countries": 40,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -1128,18 +1338,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1811,
+     "rows": 1740,
      "countries": 155,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 687,
+     "countries": 71,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1168,6 +1392,34 @@
      "rows": 122,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1754,
+     "countries": 155,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 699,
+     "countries": 71,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1356,18 +1608,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 918,
+     "rows": 882,
      "countries": 85,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 262,
+     "countries": 30,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -1382,6 +1648,34 @@
      "rows": 110,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 896,
+     "countries": 85,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 262,
+     "countries": 31,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1426,18 +1720,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1239,
+     "rows": 1207,
      "countries": 104,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 419,
+     "countries": 51,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -1452,6 +1760,34 @@
      "rows": 122,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1218,
+     "countries": 104,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 409,
+     "countries": 51,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -1735,18 +2071,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 126,
-     "countries": 31,
-     "tonnage_convertible": false
+     "rows": 88,
+     "countries": 28,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -1763,6 +2099,48 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2025
+     ],
+     "rows": 2,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 125,
+     "countries": 31,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2025
+     ],
+     "rows": 5,
+     "countries": 2,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -1777,18 +2155,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 156,
-     "countries": 45,
-     "tonnage_convertible": false
+     "rows": 108,
+     "countries": 40,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -1803,6 +2181,48 @@
      "rows": 86,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2025
+     ],
+     "rows": 2,
+     "countries": 2,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 150,
+     "countries": 45,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2025
+     ],
+     "rows": 7,
+     "countries": 5,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -2169,18 +2589,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 638,
-     "countries": 67,
-     "tonnage_convertible": false
+     "rows": 614,
+     "countries": 64,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 120,
+     "countries": 20,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -2197,8 +2631,8 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
-     "measure": "imports",
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -2206,9 +2640,51 @@
       2024,
       2026
      ],
-     "rows": 1151,
-     "countries": 118,
+     "rows": 623,
+     "countries": 67,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 139,
+     "countries": 20,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1078,
+     "countries": 116,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 212,
+     "countries": 38,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -2223,6 +2699,34 @@
      "rows": 111,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1107,
+     "countries": 118,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 225,
+     "countries": 39,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3343,18 +3847,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 641,
+     "rows": 611,
      "countries": 65,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 149,
+     "countries": 24,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3399,6 +3917,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 623,
+     "countries": 65,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 178,
+     "countries": 25,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -3441,18 +3987,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1051,
-     "countries": 112,
-     "tonnage_convertible": false
+     "rows": 993,
+     "countries": 111,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 235,
+     "countries": 44,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3495,6 +4055,34 @@
      "rows": 117,
      "countries": 18,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1003,
+     "countries": 111,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 275,
+     "countries": 45,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3757,8 +4345,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 820,
+     "countries": 85,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 272,
+     "countries": 26,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -3766,8 +4382,22 @@
       2024,
       2026
      ],
-     "rows": 860,
+     "rows": 835,
      "countries": 88,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 284,
+     "countries": 26,
      "tonnage_convertible": false
     },
     {
@@ -3785,8 +4415,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1582,
+     "countries": 139,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 452,
+     "countries": 47,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -3794,8 +4452,22 @@
       2024,
       2026
      ],
-     "rows": 1692,
-     "countries": 140,
+     "rows": 1621,
+     "countries": 139,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 482,
+     "countries": 48,
      "tonnage_convertible": false
     }
    ],
@@ -3905,18 +4577,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1218,
-     "countries": 89,
-     "tonnage_convertible": false
+     "rows": 1167,
+     "countries": 88,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3933,6 +4605,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 406,
+     "countries": 42,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "exports",
      "stage": "unspecified",
@@ -3945,6 +4631,34 @@
      "rows": 121,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1172,
+     "countries": 89,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 426,
+     "countries": 42,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -3989,18 +4703,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1268,
-     "countries": 117,
-     "tonnage_convertible": false
+     "rows": 1198,
+     "countries": 114,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 522,
+     "countries": 45,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -4029,6 +4757,34 @@
      "rows": 121,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1217,
+     "countries": 117,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 546,
+     "countries": 47,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -4716,18 +5472,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1057,
+     "rows": 1012,
      "countries": 88,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 302,
+     "countries": 34,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -4742,6 +5512,34 @@
      "rows": 74,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1016,
+     "countries": 88,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 331,
+     "countries": 34,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -4772,8 +5570,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1580,
+     "countries": 127,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 661,
+     "countries": 65,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -4781,8 +5607,22 @@
       2024,
       2026
      ],
-     "rows": 1690,
+     "rows": 1600,
      "countries": 127,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 680,
+     "countries": 67,
      "tonnage_convertible": false
     },
     {
@@ -4972,18 +5812,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 427,
+     "rows": 406,
      "countries": 52,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 113,
+     "countries": 15,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -4998,6 +5852,34 @@
      "rows": 100,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 416,
+     "countries": 52,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 126,
+     "countries": 15,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -5028,18 +5910,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 761,
-     "countries": 86,
-     "tonnage_convertible": false
+     "rows": 696,
+     "countries": 84,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 206,
+     "countries": 30,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -5054,6 +5950,34 @@
      "rows": 112,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 702,
+     "countries": 86,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 219,
+     "countries": 30,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -5246,18 +6170,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 34,
+     "rows": 33,
      "countries": 7,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -5272,6 +6196,48 @@
      "rows": 7,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 4,
+     "countries": 3,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 26,
+     "countries": 7,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 11,
+     "countries": 5,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -5302,8 +6268,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 33,
+     "countries": 12,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 3,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -5311,8 +6305,22 @@
       2024,
       2026
      ],
-     "rows": 33,
+     "rows": 28,
      "countries": 12,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 8,
+     "countries": 2,
      "tonnage_convertible": false
     },
     {
@@ -5458,8 +6466,36 @@
   "gallium+germanium": {
    "facts": [
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 609,
+     "countries": 61,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 169,
+     "countries": 23,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -5467,13 +6503,13 @@
       2024,
       2026
      ],
-     "rows": 654,
+     "rows": 646,
      "countries": 61,
      "tonnage_convertible": false
     },
     {
-     "source": "CMA monthly mirror reconciliation",
-     "measure": "imports",
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -5481,8 +6517,64 @@
       2024,
       2026
      ],
-     "rows": 930,
+     "rows": 196,
+     "countries": 25,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 864,
+     "countries": 74,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 215,
+     "countries": 37,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 898,
      "countries": 75,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 289,
+     "countries": 40,
      "tonnage_convertible": false
     }
    ],
@@ -5711,18 +6803,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 37,
-     "countries": 11,
-     "tonnage_convertible": false
+     "rows": 30,
+     "countries": 10,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -5737,6 +6829,48 @@
      "rows": 22,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 9,
+     "countries": 3,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 29,
+     "countries": 10,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 13,
+     "countries": 5,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -5767,8 +6901,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 30,
+     "countries": 11,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 8,
+     "countries": 2,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -5776,8 +6938,22 @@
       2024,
       2026
      ],
-     "rows": 35,
+     "rows": 28,
      "countries": 11,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2025,
+      2026
+     ],
+     "rows": 11,
+     "countries": 4,
      "tonnage_convertible": false
     },
     {
@@ -6157,18 +7333,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 645,
+     "rows": 616,
      "countries": 75,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6183,6 +7359,48 @@
      "rows": 111,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 80,
+     "countries": 13,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 642,
+     "countries": 75,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 104,
+     "countries": 15,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -6213,18 +7431,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1035,
-     "countries": 113,
-     "tonnage_convertible": false
+     "rows": 974,
+     "countries": 112,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 125,
+     "countries": 26,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6239,6 +7471,34 @@
      "rows": 123,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 996,
+     "countries": 112,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 174,
+     "countries": 34,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -6609,8 +7869,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 283,
+     "countries": 38,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 41,
+     "countries": 12,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -6618,13 +7906,13 @@
       2024,
       2026
      ],
-     "rows": 306,
+     "rows": 288,
      "countries": 38,
      "tonnage_convertible": false
     },
     {
-     "source": "CMA monthly mirror reconciliation",
-     "measure": "imports",
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -6632,9 +7920,23 @@
       2024,
       2026
      ],
-     "rows": 329,
-     "countries": 49,
+     "rows": 56,
+     "countries": 12,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 317,
+     "countries": 49,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6649,6 +7951,48 @@
      "rows": 58,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 43,
+     "countries": 11,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 319,
+     "countries": 49,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 53,
+     "countries": 12,
+     "tonnage_convertible": false
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6797,18 +8141,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1393,
+     "rows": 1334,
      "countries": 104,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 511,
+     "countries": 53,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6825,6 +8183,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1356,
+     "countries": 104,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 601,
+     "countries": 54,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -6839,18 +8225,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 2542,
-     "countries": 190,
-     "tonnage_convertible": false
+     "rows": 2409,
+     "countries": 188,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 718,
+     "countries": 75,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -6865,6 +8265,34 @@
      "rows": 38,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 2474,
+     "countries": 190,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 934,
+     "countries": 88,
+     "tonnage_convertible": false
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -8438,18 +9866,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 706,
+     "rows": 686,
      "countries": 56,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -8463,6 +9891,20 @@
      ],
      "rows": 585,
      "countries": 22,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 234,
+     "countries": 30,
      "tonnage_convertible": true
     },
     {
@@ -8480,6 +9922,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 688,
+     "countries": 56,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 247,
+     "countries": 30,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -8494,18 +9964,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1207,
+     "rows": 1158,
      "countries": 108,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -8522,6 +9992,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 336,
+     "countries": 44,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "imports",
      "stage": "unspecified",
@@ -8534,6 +10018,34 @@
      "rows": 62,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1170,
+     "countries": 108,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 361,
+     "countries": 47,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -8742,18 +10254,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 616,
-     "countries": 59,
-     "tonnage_convertible": false
+     "rows": 588,
+     "countries": 58,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 170,
+     "countries": 22,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -8768,6 +10294,34 @@
      "rows": 161,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 589,
+     "countries": 58,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 173,
+     "countries": 24,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -8798,18 +10352,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1222,
+     "rows": 1192,
      "countries": 112,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -8824,6 +10378,48 @@
      "rows": 225,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 162,
+     "countries": 36,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1207,
+     "countries": 112,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 171,
+     "countries": 38,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -9054,8 +10650,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1818,
+     "countries": 155,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 750,
+     "countries": 59,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -9063,8 +10687,22 @@
       2024,
       2026
      ],
-     "rows": 1845,
+     "rows": 1842,
      "countries": 155,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 784,
+     "countries": 58,
      "tonnage_convertible": false
     },
     {
@@ -9096,8 +10734,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 3193,
+     "countries": 209,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1035,
+     "countries": 85,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -9105,8 +10771,22 @@
       2024,
       2026
      ],
-     "rows": 3239,
+     "rows": 3233,
      "countries": 209,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1117,
+     "countries": 87,
      "tonnage_convertible": false
     }
    ],
@@ -9208,18 +10888,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 813,
-     "countries": 81,
-     "tonnage_convertible": false
+     "rows": 776,
+     "countries": 79,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -9236,6 +10916,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 169,
+     "countries": 25,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "exports",
      "stage": "unspecified",
@@ -9248,6 +10942,34 @@
      "rows": 123,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 786,
+     "countries": 80,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 189,
+     "countries": 26,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -9292,18 +11014,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1105,
-     "countries": 109,
-     "tonnage_convertible": false
+     "rows": 1046,
+     "countries": 107,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -9320,6 +11042,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 273,
+     "countries": 43,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "imports",
      "stage": "unspecified",
@@ -9332,6 +11068,34 @@
      "rows": 123,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1072,
+     "countries": 109,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 303,
+     "countries": 45,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -10252,18 +12016,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 991,
+     "rows": 970,
      "countries": 77,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -10277,6 +12041,20 @@
      ],
      "rows": 378,
      "countries": 25,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 359,
+     "countries": 35,
      "tonnage_convertible": true
     },
     {
@@ -10306,6 +12084,34 @@
      "rows": 120,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 980,
+     "countries": 77,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 368,
+     "countries": 34,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -10350,18 +12156,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1499,
+     "rows": 1456,
      "countries": 104,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -10375,6 +12181,20 @@
      ],
      "rows": 621,
      "countries": 27,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 563,
+     "countries": 59,
      "tonnage_convertible": true
     },
     {
@@ -10404,6 +12224,34 @@
      "rows": 120,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1468,
+     "countries": 104,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 558,
+     "countries": 58,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -10688,18 +12536,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 487,
+     "rows": 465,
      "countries": 60,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 116,
+     "countries": 18,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -10714,6 +12576,34 @@
      "rows": 58,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 472,
+     "countries": 60,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 120,
+     "countries": 19,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -10744,18 +12634,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1024,
-     "countries": 77,
-     "tonnage_convertible": false
+     "rows": 947,
+     "countries": 76,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 207,
+     "countries": 38,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -10770,6 +12674,34 @@
      "rows": 58,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 947,
+     "countries": 76,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 204,
+     "countries": 37,
+     "tonnage_convertible": false
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -11035,8 +12967,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 797,
+     "countries": 64,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 233,
+     "countries": 30,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -11044,8 +13004,22 @@
       2024,
       2026
      ],
-     "rows": 835,
-     "countries": 67,
+     "rows": 811,
+     "countries": 66,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 257,
+     "countries": 32,
      "tonnage_convertible": false
     },
     {
@@ -11063,8 +13037,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 950,
+     "countries": 72,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 307,
+     "countries": 36,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -11072,8 +13074,22 @@
       2024,
       2026
      ],
-     "rows": 1041,
+     "rows": 983,
      "countries": 72,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 346,
+     "countries": 42,
      "tonnage_convertible": false
     },
     {
@@ -11418,18 +13434,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 692,
-     "countries": 80,
-     "tonnage_convertible": false
+     "rows": 640,
+     "countries": 78,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -11444,6 +13460,48 @@
      "rows": 123,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 76,
+     "countries": 17,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 672,
+     "countries": 80,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 84,
+     "countries": 17,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -11474,18 +13532,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 859,
-     "countries": 99,
-     "tonnage_convertible": false
+     "rows": 819,
+     "countries": 98,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -11500,6 +13558,48 @@
      "rows": 115,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 82,
+     "countries": 20,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 845,
+     "countries": 98,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 89,
+     "countries": 23,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -11638,8 +13738,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 389,
+     "countries": 47,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 94,
+     "countries": 15,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -11647,8 +13775,22 @@
       2024,
       2026
      ],
-     "rows": 416,
-     "countries": 51,
+     "rows": 402,
+     "countries": 50,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 108,
+     "countries": 16,
      "tonnage_convertible": false
     },
     {
@@ -11666,8 +13808,36 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 787,
+     "countries": 92,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 150,
+     "countries": 24,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -11675,8 +13845,22 @@
       2024,
       2026
      ],
-     "rows": 828,
+     "rows": 791,
      "countries": 94,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 178,
+     "countries": 26,
      "tonnage_convertible": false
     }
    ],
@@ -11784,18 +13968,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 920,
-     "countries": 74,
-     "tonnage_convertible": false
+     "rows": 870,
+     "countries": 72,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 267,
+     "countries": 32,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -11810,6 +14008,34 @@
      "rows": 102,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 894,
+     "countries": 73,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 326,
+     "countries": 36,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -11840,18 +14066,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1103,
-     "countries": 86,
-     "tonnage_convertible": false
+     "rows": 977,
+     "countries": 72,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 321,
+     "countries": 37,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -11866,6 +14106,34 @@
      "rows": 120,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1051,
+     "countries": 86,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 381,
+     "countries": 42,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -13140,18 +15408,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1050,
+     "rows": 1025,
      "countries": 91,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 341,
+     "countries": 36,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -13168,6 +15450,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1044,
+     "countries": 91,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 381,
+     "countries": 38,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -13182,18 +15492,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1655,
-     "countries": 146,
-     "tonnage_convertible": false
+     "rows": 1607,
+     "countries": 145,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 406,
+     "countries": 48,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -13208,6 +15532,34 @@
      "rows": 100,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1630,
+     "countries": 146,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 430,
+     "countries": 52,
+     "tonnage_convertible": false
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -13776,18 +16128,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 338,
-     "countries": 44,
-     "tonnage_convertible": false
+     "rows": 315,
+     "countries": 43,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 44,
+     "countries": 9,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -13804,6 +16170,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 324,
+     "countries": 43,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 56,
+     "countries": 15,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -13818,18 +16212,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 620,
-     "countries": 83,
-     "tonnage_convertible": false
+     "rows": 594,
+     "countries": 81,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -13844,6 +16238,48 @@
      "rows": 105,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 54,
+     "countries": 15,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 610,
+     "countries": 83,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 66,
+     "countries": 18,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -14355,18 +16791,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 461,
-     "countries": 56,
-     "tonnage_convertible": false
+     "rows": 414,
+     "countries": 55,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 92,
+     "countries": 15,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -14395,6 +16845,34 @@
      "rows": 15,
      "countries": 2,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 437,
+     "countries": 56,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 109,
+     "countries": 16,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -14439,18 +16917,32 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 605,
-     "countries": 66,
-     "tonnage_convertible": false
+     "rows": 579,
+     "countries": 65,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 155,
+     "countries": 18,
+     "tonnage_convertible": true
     },
     {
      "source": "USGS Historical Statistics (DS 140)",
@@ -14465,6 +16957,34 @@
      "rows": 59,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 596,
+     "countries": 66,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 173,
+     "countries": 22,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15244,18 +17764,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 828,
-     "countries": 71,
-     "tonnage_convertible": false
+     "rows": 795,
+     "countries": 70,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15286,6 +17806,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 242,
+     "countries": 32,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "exports",
      "stage": "unspecified",
@@ -15298,6 +17832,34 @@
      "rows": 125,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 808,
+     "countries": 70,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 284,
+     "countries": 35,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15342,18 +17904,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1230,
-     "countries": 113,
-     "tonnage_convertible": false
+     "rows": 1160,
+     "countries": 110,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15384,6 +17946,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 346,
+     "countries": 44,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "imports",
      "stage": "unspecified",
@@ -15396,6 +17972,34 @@
      "rows": 224,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1217,
+     "countries": 113,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 414,
+     "countries": 47,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15688,18 +18292,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 552,
-     "countries": 56,
-     "tonnage_convertible": false
+     "rows": 532,
+     "countries": 55,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15716,6 +18320,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 118,
+     "countries": 18,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "exports",
      "stage": "unspecified",
@@ -15728,6 +18346,34 @@
      "rows": 103,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 541,
+     "countries": 55,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 131,
+     "countries": 20,
+     "tonnage_convertible": false
     },
     {
      "source": "CEPII BACI (HS02)",
@@ -15772,18 +18418,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 993,
+     "rows": 957,
      "countries": 101,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -15814,6 +18460,20 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 164,
+     "countries": 31,
+     "tonnage_convertible": true
+    },
+    {
      "source": "USGS Historical Statistics (DS 140)",
      "measure": "imports",
      "stage": "unspecified",
@@ -15826,6 +18486,34 @@
      "rows": 110,
      "countries": 1,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 974,
+     "countries": 101,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 196,
+     "countries": 33,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -16060,18 +18748,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 638,
+     "rows": 605,
      "countries": 61,
-     "tonnage_convertible": false
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -16085,6 +18773,20 @@
      ],
      "rows": 432,
      "countries": 19,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 180,
+     "countries": 25,
      "tonnage_convertible": true
     },
     {
@@ -16116,6 +18818,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 608,
+     "countries": 61,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 195,
+     "countries": 26,
+     "tonnage_convertible": false
+    },
+    {
      "source": "CEPII BACI (HS02)",
      "measure": "imports",
      "stage": "processed",
@@ -16130,18 +18860,18 @@
      "tonnage_convertible": true
     },
     {
-     "source": "CMA monthly mirror reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "imports",
      "stage": "unspecified",
-     "basis": null,
-     "unit": "USD",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
      "years": [
       2024,
       2026
      ],
-     "rows": 1067,
-     "countries": 86,
-     "tonnage_convertible": false
+     "rows": 1033,
+     "countries": 85,
+     "tonnage_convertible": true
     },
     {
      "source": "BGS World Mineral Statistics",
@@ -16155,6 +18885,20 @@
      ],
      "rows": 768,
      "countries": 30,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 245,
+     "countries": 41,
      "tonnage_convertible": true
     },
     {
@@ -16184,6 +18928,34 @@
      "rows": 38,
      "countries": 7,
      "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 1036,
+     "countries": 85,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "unspecified",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2024,
+      2026
+     ],
+     "rows": 253,
+     "countries": 42,
+     "tonnage_convertible": false
     },
     {
      "source": "BGS World Mineral Statistics",
