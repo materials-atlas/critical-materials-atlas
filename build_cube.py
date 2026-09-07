@@ -21,6 +21,7 @@ Run:  python build_cube.py        ->  pipeline/data/cube.parquet + out/cube_summ
 """
 import os, sys, json, glob
 import pandas as pd
+import licences
 
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
@@ -282,6 +283,40 @@ def build():
     df['obs_status'] = obs.fillna(derived).fillna('A')
     df['conf_status'] = df['value_flag'].map({'withheld': 'C'})
 
+    # ── sixth ingest: our own monthly mirror reconciliation ─────────────────────────────────
+    # The two halves of the project have never met - 8 builders read the cube, 4 read the trade
+    # pipeline, 0 read both. This is what joins them, at the cube's grain, without flattening the
+    # bilateral detail that stays in flows_reconciled.
+    try:
+        import build_cube_trade
+        m = pd.DataFrame(build_cube_trade.build())
+        if len(m):
+            m['in_atlas'] = m['material'].isin(ATLAS)
+            m['retrieved_at'] = None
+            df = pd.concat([df, m], ignore_index=True, sort=False)
+            print(f'  monthly reconciliation: {len(m):,} rows, '
+                  f'{m.period.min()}-{m.period.max()}')
+    except Exception as e:
+        print(f'  monthly trade ingest skipped: {e}')
+
+    # FREQUENCY - and it must sit HERE, after every ingest, not after the first one.
+    # It was placed above the second ingest and the result was 14,268 collided series keys: the
+    # five later sources appended rows with no freq/period column at all, pandas filled NaN, and
+    # NaN compares equal to NaN in a duplicate check, so every CEPII antimony row looked like the
+    # same series. The cube had a frequency dimension that only the first source carried.
+    #
+    # Every annual row is 'A' with period = year; monthly trade is 'M' with period = YYYYMM. The
+    # SDMX structure we published already declared a FREQ dimension and had only ever contained
+    # 'A' - declaring it before there was a use for it is what a standard is for.
+    if 'freq' not in df.columns:
+        df['freq'] = 'A'
+    df['freq'] = df['freq'].fillna('A')
+    if 'period' not in df.columns:
+        df['period'] = df['year']
+    df['period'] = df['period'].fillna(df['year']).astype('int64')
+    if df['freq'].isna().any() or df['period'].isna().any():
+        raise SystemExit('freq/period must be set on every row - a null makes keys collide')
+
     df['native_code'] = df['native_code'].astype('string')
     return df.sort_values(['source', 'material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
 
@@ -293,11 +328,13 @@ if __name__ == '__main__':
     path = os.path.join(outdir, 'cube.parquet')
     df.to_parquet(path, index=False, compression='zstd')
 
-    # PUBLIC COPIES. The cube is the best data asset the project has and it was invisible to
-    # visitors: the download page offered two JSON files. Parquet for anyone with pandas/DuckDB,
-    # gzipped CSV for anyone without.
-    df.to_parquet(os.path.join(ROOT, 'out', 'cube.parquet'), index=False, compression='zstd')
-    df.to_csv(os.path.join(ROOT, 'out', 'cube.csv.gz'), index=False, compression='gzip')
+    # PUBLIC COPIES - and they go through the licence gate, which they did not before. The SDMX
+    # exporter refused to publish the monthly reconciliation while these two lines wrote the same
+    # rows to a file served off the website. Same rule, one place, both exporters.
+    pub = licences.public(df)
+    pub.to_parquet(os.path.join(ROOT, 'out', 'cube.parquet'), index=False, compression='zstd')
+    pub.to_csv(os.path.join(ROOT, 'out', 'cube.csv.gz'), index=False, compression='gzip')
+    print('  public copies: %d of %d rows' % (len(pub), len(df)))
 
     summary = {
         'note': 'Harmonized long fact table. One row = one (material, country, year, measure, form). '

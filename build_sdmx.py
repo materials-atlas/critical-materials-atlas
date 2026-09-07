@@ -56,13 +56,7 @@ OBS_STATUS = {
 CONF_STATUS = {'C': 'Confidential statistical information'}
 
 # Sources, and the licence that lets this file exist at all.
-LICENCES = {
-    'BGS World Mineral Statistics': 'Open Government Licence v3.0 (attribution required)',
-    'USGS Historical Statistics (DS 140)': 'US Government public domain',
-    'CEPII BACI (HS02)': 'Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)',
-    'World Mining Data': 'Free with attribution (BMK Austria / WMD)',
-    'IEA Critical Minerals Dataset': 'CC BY 4.0',
-}
+from licences import LICENCES, WITHHELD  # one table, read by every exporter
 
 
 def codelist(cid, name, codes, desc=None):
@@ -75,12 +69,20 @@ def build():
     c = pd.read_parquet(os.path.join(DATA, 'cube.parquet'))
     os.makedirs(OUT, exist_ok=True)
 
+    # Three states, not two. A source is either redistributable (LICENCES), deliberately held
+    # back (WITHHELD), or unrecorded - and unrecorded still stops the build.
+    held = sorted(set(c["source"].unique()) & set(WITHHELD))
+    for h in held:
+        print("  WITHHELD from the export: %s - %s" % (h, WITHHELD[h]))
+    if held:
+        c = c[~c["source"].isin(WITHHELD)]
+
     unlicensed = sorted(set(c['source'].unique()) - set(LICENCES))
     if unlicensed:
         raise SystemExit(
             'a source in the cube has no recorded redistribution licence, so this export cannot '
             'be written: ' + ', '.join(unlicensed) + '\nAdd it to LICENCES with its terms, or '
-            'exclude it from the dataflow.')
+            'add it to WITHHELD with the reason it cannot be redistributed.')
 
     def uniq(col):
         return sorted(x for x in c[col].dropna().unique())

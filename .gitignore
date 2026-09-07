@@ -143,3 +143,7 @@ out/data.json.bak
 !out/consumption_series.json
 !out/two_stage.json
 pipeline/.comtrade_key
+
+# raw Comtrade history parts: input we may read, not data we may republish
+pipeline/data/comtrade_history/
+pipeline/data/comtrade_history_state.json

@@ -539,7 +539,10 @@ def check_series_key():
         import pandas as pd
     except ImportError:
         return
-    key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'year',
+    # freq and period joined the key when monthly trade arrived: Chile copper exports in 2025 and
+    # in March 2025 are different observations, and without freq they collide on `year` and look
+    # like a duplicate. period carries YYYY for annual rows and YYYYMM for monthly ones.
+    key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'freq', 'period',
            'native_code']
     c = pd.read_parquet(path, columns=key)
     n = c.groupby(key, dropna=False).size()
@@ -665,10 +668,52 @@ def check_mirror_independence():
                        + ' — re-save those sources; span is how a one-month feed becomes visible')
 
 
+def check_withheld():
+    """No source we may not redistribute appears in anything served off the website.
+
+    This exists because the rule was enforced in one exporter out of two. build_sdmx.py refused to
+    publish our monthly reconciliation - correctly, it is 79% UN Comtrade - while the four lines
+    that write out/cube.parquet and out/cube.csv.gz had no gate at all and wrote the same 59,577
+    rows to files anyone can download. The SDMX export was clean and the plain download was not,
+    and nothing would have told us.
+
+    So the check does not ask whether the exporters INTEND to withhold. It opens the published
+    files and looks.
+    """
+    import licences
+    import pandas as pd   # check.py has no module-level pandas; the injection test found this
+    if not licences.WITHHELD:
+        return
+    targets = [('out/cube.parquet', 'source'), ('out/cube.csv.gz', 'source')]
+    for rel, col in targets:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            continue
+        try:
+            d = (pd.read_parquet(p, columns=[col]) if rel.endswith('.parquet')
+                 else pd.read_csv(p, usecols=[col], compression='gzip'))
+        except Exception as e:
+            fail('withheld', '%s could not be read to verify it: %s' % (rel, e))
+            continue
+        leaked = sorted(set(d[col].dropna().unique()) & set(licences.WITHHELD))
+        if leaked:
+            n = int(d[col].isin(leaked).sum())
+            fail('withheld', '%s publishes %d rows from a source we may not redistribute: %s'
+                 % (rel, n, ', '.join(leaked)))
+    g = os.path.join(ROOT, 'out', 'sdmx', 'mineral_flows.sdmx.csv.gz')
+    if os.path.exists(g):
+        import gzip
+        head = gzip.open(g, 'rt', encoding='utf-8').read(2_000_000)
+        for w in licences.WITHHELD:
+            if w in head:
+                fail('withheld', 'the SDMX export contains withheld source ' + w)
+
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
