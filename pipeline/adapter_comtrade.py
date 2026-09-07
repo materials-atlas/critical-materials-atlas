@@ -158,4 +158,10 @@ class ComtradeAdapter(Adapter):
                 partner=par, partner_name=schema.ISO3_NAME.get(par, par),
                 flow='import' if r.get('flowCode') == 'M' else 'export',
                 hs6=cc, native_code=cc, code_level=6, material=concordance.material_for(cc, 6),
-                value_usd=num(r.get('primaryValue')), qty_kg=num(r.get('netWgt')), is_mirror=False)
+                value_usd=num(r.get('primaryValue')), qty_kg=num(r.get('netWgt')), is_mirror=False,
+                # The reporter's OWN valuation, straight off the record. Comtrade populates
+                # fobvalue and/or cifvalue according to what the country actually filed, so this
+                # is read rather than assumed. Rows cached before these fields were kept return
+                # None, which the reconciliation treats as "unknown, use the convention".
+                value_basis=('cif' if r.get('cifvalue') is not None
+                             else 'fob' if r.get('fobvalue') is not None else None))

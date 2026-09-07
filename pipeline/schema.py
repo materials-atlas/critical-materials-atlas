@@ -16,13 +16,22 @@ except ImportError:
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # --- the canonical flow record ---
+# value_basis: what the REPORTER declared, not what we assume. 'fob' | 'cif' | None.
+# Added 7 Sep 2026. Every import was being treated as CIF and deflated by a freight margin, but
+# the convention is not universal and Comtrade says so per row: Canada files imports FOB, China
+# files CIF, the USA files both. Deflating an already-FOB import understates it by the whole
+# margin, and estimating a margin the reporter handed us directly is worse than unnecessary.
+# None means unknown, and unknown falls back to the old convention rather than silently claiming
+# knowledge we do not have.
 COLUMNS = ['source', 'freq', 'period', 'reporter', 'reporter_name', 'partner', 'partner_name',
-           'flow', 'hs6', 'native_code', 'code_level', 'material', 'value_usd', 'qty_kg', 'is_mirror']
+           'flow', 'hs6', 'native_code', 'code_level', 'material', 'value_usd', 'qty_kg',
+           'is_mirror', 'value_basis']
 DDL = """CREATE TABLE flows(
   source VARCHAR, freq VARCHAR, period INTEGER,
   reporter VARCHAR, reporter_name VARCHAR, partner VARCHAR, partner_name VARCHAR,
   flow VARCHAR, hs6 VARCHAR, native_code VARCHAR, code_level INTEGER,
-  material VARCHAR, value_usd DOUBLE, qty_kg DOUBLE, is_mirror BOOLEAN)"""
+  material VARCHAR, value_usd DOUBLE, qty_kg DOUBLE, is_mirror BOOLEAN,
+  value_basis VARCHAR)"""
 
 # FX: EUR->USD. TODO(phase-2): replace the constant with monthly ECB reference rates keyed by period.
 EUR_USD = 1.09

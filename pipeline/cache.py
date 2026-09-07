@@ -59,10 +59,18 @@ def save(source, rows, accumulate=True):
 
     existing = path(source)
     if accumulate and os.path.exists(existing):
+        # SCHEMA EVOLUTION. A cache written before a column existed does not have it, and naming
+        # it in the merge fails outright. Adding value_basis broke every held cache exactly this
+        # way. So read what the file actually has and fill the rest with NULL - a row from before
+        # a field was collected genuinely does not know its value, and NULL says so.
+        held_cols = {r[0] for r in duckdb.connect().execute(
+            "DESCRIBE SELECT * FROM read_parquet('%s')"
+            % existing.replace(chr(92), '/')).fetchall()}
+        held_sel = ', '.join(c if c in held_cols else 'NULL AS ' + c for c in schema.COLUMNS)
         cols = ', '.join(schema.COLUMNS)
         con.execute(f"""CREATE OR REPLACE TABLE merged AS
           WITH incoming AS (SELECT {cols}, 1 AS vintage FROM t),
-               held     AS (SELECT {cols}, 0 AS vintage
+               held     AS (SELECT {held_sel}, 0 AS vintage
                             FROM read_parquet('{existing.replace(chr(92), '/')}')),
                allrows  AS (SELECT * FROM incoming UNION ALL SELECT * FROM held),
                ranked   AS (SELECT *, ROW_NUMBER() OVER (

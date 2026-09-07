@@ -79,7 +79,8 @@ WITH canon AS (
     CASE WHEN flow='export' THEN partner  ELSE reporter END AS importer,
     CASE WHEN flow='export' THEN 'fob' ELSE 'cif' END AS side,
     CASE source WHEN 'eurostat' THEN 1 WHEN 'comexstat' THEN 1 WHEN 'hmrc' THEN 1 WHEN 'uscensus' THEN 1
-                WHEN 'baci' THEN 2 WHEN 'comtrade' THEN 2 WHEN 'mirror' THEN 3 ELSE 9 END AS rank
+                WHEN 'baci' THEN 2 WHEN 'comtrade' THEN 2 WHEN 'mirror' THEN 3 ELSE 9 END AS rank,
+    value_basis
   FROM flows
   WHERE value_usd IS NOT NULL AND value_usd > 0
     -- only RAW one-sided customs declarations can be reconciled against each other.
@@ -88,7 +89,10 @@ WITH canon AS (
 ),
 agg AS (                                   -- collapse CN8/HS10 to HS-6 per (flow, side, source-tier)
   SELECT period, exporter, importer, hs6, side, rank,
-         any_value(material) AS material, SUM(value_usd) AS v
+         any_value(material) AS material, SUM(value_usd) AS v,
+         -- one basis per (flow, side): if a side mixes bases the aggregate is not trustworthy,
+         -- so MIN/MAX disagreeing is itself the signal and we keep only an unambiguous one.
+         CASE WHEN MIN(value_basis) = MAX(value_basis) THEN MIN(value_basis) END AS basis
   FROM canon GROUP BY 1,2,3,4,5,6
 ),
 best AS (                                  -- keep the best source per (flow, side)
@@ -97,8 +101,12 @@ best AS (                                  -- keep the best source per (flow, si
   FROM agg
 )
 SELECT period, exporter, importer, hs6, any_value(material) AS material,
-       MAX(CASE WHEN side='fob' THEN v END) AS fob,   -- exporter-reported (FOB)
-       MAX(CASE WHEN side='cif' THEN v END) AS cif    -- importer-reported (CIF)
+       MAX(CASE WHEN side='fob' THEN v END) AS fob,   -- exporter-reported (FOB by convention)
+       MAX(CASE WHEN side='cif' THEN v END) AS cif,   -- importer-reported: basis DECLARED below
+       -- What the importer actually declared. NULL = the source does not say, and then the old
+       -- convention (imports are CIF) applies. Canada declares imports FOB and China CIF, so
+       -- assuming for everyone was wrong in both directions.
+       MAX(CASE WHEN side='cif' THEN basis END) AS cif_basis
 FROM best WHERE rn=1 GROUP BY 1,2,3,4
 """
 
@@ -487,9 +495,13 @@ def reconcile(con):
                         COALESCE(it.itic_status,
                                  CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
                                       ELSE 'product_median' END) AS markup_method,
-                        cif / COALESCE(it.markup_itic,
-                                       least(greatest(COALESCE(rt.markup_cepii, mk.markup),
-                                             1.0), {cap})) AS fob_from_cif
+                        -- THE FIX. An import the reporter already declared FOB carries no
+                        -- freight to remove; dividing it by a margin understates it by that
+                        -- margin. Only deflate when the basis is CIF or unknown.
+                        CASE WHEN sides.cif_basis = 'fob' THEN cif
+                             ELSE cif / COALESCE(it.markup_itic,
+                                        least(greatest(COALESCE(rt.markup_cepii, mk.markup),
+                                              1.0), {cap})) END AS fob_from_cif
                  FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6)
                  LEFT JOIN markup_route rt USING (exporter, importer, hs6)
                  LEFT JOIN markup_itic it USING (exporter, importer, hs6))
@@ -497,6 +509,7 @@ def reconcile(con):
         (s.exporter IN {HUBS_SQL} OR s.importer IN {HUBS_SQL}) AS via_entrepot,
         s.fob, s.cif, s.markup AS cif_fob_markup, s.markup_raw AS cif_fob_markup_raw,
         s.markup_level AS cif_fob_markup_level, s.markup_method AS cif_fob_method,
+        s.cif_basis AS importer_declared_basis,
         re.reliability AS w_exporter, ri.reliability AS w_importer,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN least(s.fob, s.fob_from_cif) END AS value_lo_fob,
         CASE WHEN s.fob IS NOT NULL AND s.cif IS NOT NULL THEN greatest(s.fob, s.fob_from_cif) END AS value_hi_fob,
