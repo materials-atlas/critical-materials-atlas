@@ -71,8 +71,21 @@ def _chunks(lst, n):
         yield lst[i:i + n]
 
 
+HISTORY = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_history')
+
+
 def read_cache():
-    """All rows accumulated so far (what build.py reads — no network)."""
+    """All rows accumulated so far (what build.py reads - no network).
+
+    Two stores, for a reason. The JSONL grew from the keyless era, when a run collected a few
+    hundred rows and appending a line at a time was fine; it is already 119 MB for eighteen months
+    of thirty-eight reporters and is re-parsed in full on every refresh. The long historical
+    backfill - 198 months x 255 reporters - would put that past a gigabyte, so it writes PARQUET
+    PARTS instead: columnar, compressed, and readable without parsing the lot.
+
+    Both are read here so the transition needs no migration and no flag day. Duplicates across the
+    two stores are harmless: normalize() keys every cell and keeps one row per key.
+    """
     rows = []
     if os.path.exists(CACHE):
         for line in open(CACHE, encoding='utf8'):
@@ -80,6 +93,14 @@ def read_cache():
                 rows.append(json.loads(line))
             except ValueError:
                 pass
+    if os.path.isdir(HISTORY):
+        import glob
+        try:
+            import pandas as pd
+            for f in sorted(glob.glob(os.path.join(HISTORY, '*.parquet'))):
+                rows.extend(pd.read_parquet(f).to_dict('records'))
+        except ImportError:
+            pass
     return rows
 
 
