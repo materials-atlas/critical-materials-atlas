@@ -93,7 +93,31 @@ class ComtradeAdapter(Adapter):
         return read_cache()   # READ-ONLY in the build; growing the cache is pull_comtrade.py's job
 
     def normalize(self, raw, period):
-        seen = set()
+        """One cell, several rows: keep the TOTAL, not whichever arrived first.
+
+        THE BUG THIS FIXES (found 7 Sep 2026, and it was expensive). Comtrade's preview endpoint
+        returns a (reporter, partner, commodity, flow, period) cell MORE THAN ONCE - broken out by
+        fields we do not request and therefore cannot see, such as customs procedure or mode of
+        transport - and it returns the aggregate alongside its own components. Canada's December
+        2024 coal imports from the USA came back as four rows:
+
+            34.563  +  134,675.909  +  67,717,507.625  =  67,852,218.097
+
+        The first three are components; the fourth is their exact total. This method used a
+        first-seen `seen` set, so it kept 34.563 - $34 for a shipment of 417,000 tonnes - and
+        discarded the real figure. The US side reported $74.6m for the same coal, so the pipeline
+        recorded a 2,000,000x "disagreement" between two countries that actually agree to within
+        10%.
+
+        That single defect is a large part of why 51% of matched flows appeared to disagree, and
+        the number was one day from being published as a finding about world trade statistics.
+
+        Summing is WRONG here - the components are already inside the total, so summing would
+        double it. Taking the maximum is right, and provably so on this cell: the largest row
+        equals the sum of the others to the cent. Where a cell genuinely arrives only once, max is
+        that row, so the rule is safe everywhere.
+        """
+        best = {}
         for r in raw:
             rep = schema.NUM2ISO3.get(str(r.get('reporterCode')))
             par = schema.NUM2ISO3.get(str(r.get('partnerCode')))
@@ -101,9 +125,13 @@ class ComtradeAdapter(Adapter):
             if not rep or not par or not cc or not concordance.hs6_tracked(cc):
                 continue                                 # unmapped codes / World aggregate / untracked
             k = (r.get('period'), rep, par, cc, r.get('flowCode'))
-            if k in seen:
-                continue
-            seen.add(k)
+            v = num(r.get('primaryValue')) or 0
+            if k not in best or v > (num(best[k].get('primaryValue')) or 0):
+                best[k] = r
+        for r in best.values():
+            rep = schema.NUM2ISO3[str(r['reporterCode'])]
+            par = schema.NUM2ISO3[str(r['partnerCode'])]
+            cc = r['cmdCode']
             yield schema.row(
                 source=self.key, freq=self.freq, period=int(r['period']),
                 reporter=rep, reporter_name=schema.ISO3_NAME.get(rep, rep),
