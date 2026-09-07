@@ -147,3 +147,12 @@ pipeline/.comtrade_key
 # raw Comtrade history parts: input we may read, not data we may republish
 pipeline/data/comtrade_history/
 pipeline/data/comtrade_history_state.json
+
+# --- holder records: input we may read, not data we may republish (see licences.py) ---
+# These four carry raw national customs declarations (or one-sided passthroughs of them).
+# The DERIVED products stay tracked and published: out/cube.parquet is the licence-gated public
+# copy, and pipeline/data/trade.parquet, catalog, dim_material, reporter_quality etc. are ours.
+pipeline/data/cube.parquet
+pipeline/data/flows.parquet
+pipeline/data/flows_best.parquet
+pipeline/data/flows_reconciled.parquet

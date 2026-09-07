@@ -700,6 +700,41 @@ def check_withheld():
             n = int(d[col].isin(leaked).sum())
             fail('withheld', '%s publishes %d rows from a source we may not redistribute: %s'
                  % (rel, n, ', '.join(leaked)))
+    # AND NOW THE PART THAT ACTUALLY MATTERED. The version of this check above looked at three
+    # files I had thought of. Meanwhile pipeline/data/flows_best.parquet - 144,188 raw Comtrade
+    # declarations - had been tracked on the PUBLIC remote for weeks, because nobody had thought
+    # of it. A gate you have to remember to apply is not a gate.
+    #
+    # So this asks git what it is actually publishing, and opens every one of them. A new file
+    # carrying holder records is caught the first time it is staged, whether or not anyone
+    # remembered it exists.
+    RAW_DECLARATIONS = {'comtrade', 'eurostat', 'hmrc', 'uscensus', 'comexstat', 'mirror'}
+    try:
+        tracked = subprocess.run(['git', 'ls-files', '*.parquet'], cwd=ROOT,
+                                 capture_output=True, text=True, timeout=60).stdout.split()
+    except Exception:
+        tracked = []
+    for rel in tracked:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            continue
+        try:
+            cols = pd.read_parquet(p).columns
+            if 'source' not in cols:
+                continue
+            vals = set(pd.read_parquet(p, columns=['source']).source.dropna().unique())
+        except Exception:
+            continue
+        raw = sorted(v for v in vals if str(v).lower() in RAW_DECLARATIONS)
+        wh = sorted(vals & set(licences.WITHHELD))
+        if raw:
+            fail('withheld', 'git tracks %s, which holds raw national customs declarations we may '
+                             'not republish (%s). Untrack it and add it to .gitignore.'
+                 % (rel, ', '.join(raw)))
+        if wh:
+            fail('withheld', 'git tracks %s, which holds a withheld source (%s).'
+                 % (rel, ', '.join(wh)))
+
     g = os.path.join(ROOT, 'out', 'sdmx', 'mineral_flows.sdmx.csv.gz')
     if os.path.exists(g):
         import gzip
