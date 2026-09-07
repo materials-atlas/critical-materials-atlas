@@ -195,3 +195,127 @@ living in git, so cadence is a publishing decision and not a repository-size one
    read `extract → builder → out`. That is fine and intended. This document should be re-measured,
    not re-remembered — the table in §1 is regenerated, and if it stops matching the prose, the
    prose is wrong.
+
+---
+
+## 9. The schema, drawn
+
+### 9.1 Today
+
+Every edge below was measured. The cube is a product with 11 readers, not a hub, and the diagram
+says so.
+
+```mermaid
+flowchart LR
+  RAW[("raw/<br>35 datasets · 3.7 GB")]
+  ZIP{{"raw/baci/*.zip"}}
+  CUBE[("cube.parquet<br>671,582 rows")]
+  B78["78 builders"]
+  B1["1 family<br>(consumption)"]
+  OUT[("out/<br>107 JSON")]
+  PAGES["355 pages"]
+
+  RAW --> ZIP
+  ZIP -->|"53 builders open the zips<br>52 re-implement country codes"| B78
+  RAW --> CUBE
+  RAW --> B78
+  CUBE -->|"11 readers"| B1
+  B78 --> OUT
+  B1 --> OUT
+  OUT -->|"85 builder-to-builder edges<br>germanium was one of these"| OUT
+  OUT --> PAGES
+
+  classDef bad stroke:#d94a5f,stroke-width:2px
+  classDef ok stroke:#0e7c74,stroke-width:2px
+  class ZIP,OUT bad
+  class CUBE ok
+```
+
+The two red boxes are the two proven failures. `raw/baci/*.zip` is opened 53 times with 52 copies
+of the same country-code logic — that is the Congo bug's surface. The `out/ → out/` self-loop is
+the germanium incident: a copy that nothing rebuilt.
+
+### 9.2 After the plan
+
+Note what does **not** change: most families still go `extract → builder → out`. The cube does not
+become the spine, because it should not be. What changes is that every edge is *known*, every raw
+open goes through one door per source, and a changed input rebuilds what depends on it.
+
+```mermaid
+flowchart LR
+  RAW[("raw/<br>immutable, vintage in filename")]
+  EX[["extract/<br>one writer per source"]]
+  CUBE[("cube.parquet<br>32 tracked materials")]
+  BLD["builders"]
+  OUT[("out/")]
+  PAGES["pages"]
+  REL[("release/v2026-Q4<br>immutable, citable")]
+  REC{{"the recorder<br>sys.addaudithook"}}
+  RUN{{"the runner<br>topological rebuild"}}
+
+  RAW -->|"only an extractor may open raw/"| EX
+  EX --> CUBE
+  EX -->|"baci_full_usd<br>whole basket, for product space"| BLD
+  CUBE -->|"baci_crm_tonnes etc."| BLD
+  BLD --> OUT
+  OUT --> PAGES
+  PAGES --> REL
+
+  REC -.->|"observes every read and write"| RUN
+  RUN -.->|"rebuilds what a change invalidates"| BLD
+
+  classDef new stroke:#f0b429,stroke-width:2px,stroke-dasharray:4 3
+  classDef ok stroke:#0e7c74,stroke-width:2px
+  class EX,REC,RUN,REL new
+  class CUBE,RAW ok
+```
+
+Yellow dashed = does not exist yet. The recorder and the runner are the same object seen twice:
+the recorder learns the graph by watching builders run, and the runner uses that graph to rebuild
+in dependency order. Neither requires a daemon, a scheduler, or a vendor.
+
+### 9.3 Why the recorder can work where a manifest cannot
+
+```mermaid
+flowchart TB
+  subgraph DECL["a DECLARED manifest — what both reviewers rejected, correctly"]
+    D1["builder opens a file"] --> D2{"did someone<br>write it down?"}
+    D2 -->|yes| D3["edge known"]
+    D2 -->|"glob · computed path<br>pandas C-level open"| D4["edge INVISIBLE<br>green check on a lie"]
+  end
+
+  subgraph OBS["an OBSERVED graph — measured here"]
+    O1["builder opens a file"] --> O2["sys.addaudithook fires"]
+    O2 --> O3["edge recorded<br>pandas ✓ zipfile ✓ json ✓ writes ✓"]
+  end
+
+  classDef bad stroke:#d94a5f,stroke-width:2px
+  classDef ok stroke:#0e7c74,stroke-width:2px
+  class D4 bad
+  class O3 ok
+```
+
+Nobody declares anything, so nobody can forget to. This is why the invariants in §5 are
+enforceable rather than aspirational.
+
+### 9.4 Order of work
+
+Sequenced by proven harm over cost. Phase 1 is pure measurement and cannot break anything.
+
+```mermaid
+flowchart LR
+  P1["1 · record the graph<br><small>measure only</small>"]
+  P2["2 · BACI extract<br><small>fixes the Congo class</small>"]
+  P3["3 · the runner<br><small>fixes the germanium class</small>"]
+  P4["4 · finish the register<br><small>derived from the graph</small>"]
+  P5["5 · vintages<br><small>only once the graph is true</small>"]
+  P6["6 · selective migration"]
+  P1 --> P2 --> P3 --> P4 --> P5 --> P6
+
+  classDef first stroke:#3ddc97,stroke-width:2px
+  class P1 first
+```
+
+The first draft of this document had **5** first, because it was small and felt like a product win.
+Freezing a citable release before the graph is true would publish a bag of undeclared edges and
+call it discipline.
