@@ -70,8 +70,18 @@ def fetch_batch(period, n_reporters=1):
                 for chunk in _chunks(codes, 10):     # keep each response under the 500-row preview cap
                     d = _get(f"{BASE}?reporterCode={m49}&period={period}&cmdCode={','.join(chunk)}&flowCode={flow}")
                     for r in (d or {}).get('data', []):
+                        # KEEP THE FIELDS THAT DECIDE WHICH ROW IS WHICH, and the declared
+                        # basis. Storing only seven fields is what made one cell look like it
+                        # arrived four times with four different values: motCode splits it by
+                        # mode of transport and motCode=0 is the all-modes TOTAL. And
+                        # fobvalue/cifvalue say what the reporter actually declared - Canada
+                        # files imports FOB, China files CIF, the USA files both - which we had
+                        # been guessing at by assuming every import is CIF and deflating it.
                         f.write(json.dumps({k: r.get(k) for k in
-                                ('reporterCode', 'partnerCode', 'cmdCode', 'flowCode', 'period', 'primaryValue', 'netWgt')}) + '\n')
+                                ('reporterCode', 'partnerCode', 'partner2Code', 'cmdCode',
+                                 'flowCode', 'period', 'primaryValue', 'netWgt',
+                                 'motCode', 'customsCode', 'isAggregate', 'isReported',
+                                 'fobvalue', 'cifvalue')}) + '\n')
                         pulled += 1
                     time.sleep(_PAUSE)
     json.dump(state, open(STATE, 'w'))
@@ -119,6 +129,16 @@ class ComtradeAdapter(Adapter):
         """
         best = {}
         for r in raw:
+            # Prefer the all-modes total explicitly where the field is present: motCode=0 IS
+            # the aggregate. The max-value rule below was a lucky proxy for it - the total
+            # happens to be the largest row - and stays only for rows cached before this
+            # field was kept.
+            mot = r.get('motCode')
+            if mot is not None and str(mot) != '0':
+                continue
+            p2 = r.get('partner2Code')
+            if p2 is not None and str(p2) not in ('0', str(r.get('partnerCode'))):
+                continue
             rep = schema.NUM2ISO3.get(str(r.get('reporterCode')))
             par = schema.NUM2ISO3.get(str(r.get('partnerCode')))
             cc = r.get('cmdCode')
