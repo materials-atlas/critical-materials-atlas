@@ -8,7 +8,22 @@ import os, json, time, urllib.request, urllib.error
 import schema, concordance
 from adapter_base import Adapter, num
 
-BASE = "https://comtradeapi.un.org/public/v1/preview/C/M/HS"
+# THE KEYLESS ENDPOINT WAS TRUNCATING EVERY CALL AT 500 ROWS, silently. Measured 7 Sep 2026:
+# the same query (Canada, 31 codes, one month, one flow) returns exactly 500 rows without a key
+# and 1,111 with one. Everything Comtrade has contributed to this project so far is therefore
+# incomplete by construction - not wrong, but cut off at an arbitrary line with no error and no
+# flag. That is very likely part of what looked like two countries disagreeing.
+#
+# With a free subscription key the limit is 100,000 records per call, which changes the shape of
+# the job entirely: 31 codes x 6 months x both flows came back as 10,435 rows in ONE call. The
+# whole 18-month backfill is ~114 calls against a 500/day allowance, so it fits in a single run
+# instead of three weeks of nightly rotation.
+KEYFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.comtrade_key')
+API_KEY = open(KEYFILE).read().strip() if os.path.exists(KEYFILE) else None
+BASE = ("https://comtradeapi.un.org/data/v1/get/C/M/HS" if API_KEY
+        else "https://comtradeapi.un.org/public/v1/preview/C/M/HS")
+MONTHS_PER_CALL = 6      # measured: 6 months of 31 codes, both flows = 10,435 rows, well inside
+                         # the 100k ceiling. Kept modest so one slow call cannot stall a run.
 CACHE = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_cache.jsonl')
 STATE = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_state.json')
 # MEASURED, not guessed. 18 seconds was a cautious invention and it set the pace of the whole
@@ -37,8 +52,11 @@ REPORTERS = [124, 392, 699, 360, 152, 710, 410, 36, 484, 792, 704, 764, 156, 643
 def _get(url, tries=5):
     for _ in range(tries):
         try:
+            hdr = {'User-Agent': 'critical-materials-atlas/phase3'}
+            if API_KEY:
+                hdr['Ocp-Apim-Subscription-Key'] = API_KEY
             return json.load(urllib.request.urlopen(
-                urllib.request.Request(url, headers={'User-Agent': 'critical-materials-atlas/phase3'}), timeout=60))
+                urllib.request.Request(url, headers=hdr), timeout=180))
         except urllib.error.HTTPError as e:
             if e.code == 429:
                 time.sleep(_BACKOFF); continue
@@ -80,10 +98,17 @@ def fetch_batch(period, n_reporters=1):
         state['month_idx'] = state.get('month_idx', 0) + 1
     codes = sorted(concordance.tracked_hs6_set())
     pulled = 0
+    # With a key: ALL codes and BOTH flows in one call, and `period` may be a comma-separated list
+    # of months. Without one: the old chunk-of-10, single-flow shape, because the preview endpoint
+    # truncates at 500 rows and chunking is the only way to stay under it.
+    if API_KEY:
+        code_groups, flows = [codes], ['M,X']
+    else:
+        code_groups, flows = list(_chunks(codes, 10)), ['M', 'X']
     with open(CACHE, 'a', encoding='utf8') as f:
         for m49 in batch:
-            for flow in ('M', 'X'):
-                for chunk in _chunks(codes, 10):     # keep each response under the 500-row preview cap
+            for flow in flows:
+                for chunk in code_groups:
                     d = _get(f"{BASE}?reporterCode={m49}&period={period}&cmdCode={','.join(chunk)}&flowCode={flow}")
                     for r in (d or {}).get('data', []):
                         # KEEP THE FIELDS THAT DECIDE WHICH ROW IS WHICH, and the declared
