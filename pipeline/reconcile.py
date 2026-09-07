@@ -48,9 +48,25 @@ FREIGHT_CEILING = 1.10
 # published as the latter. The disagreement FLAG remains useful per flow; the RATE is not a
 # finding until the feeds carry overlapping months from genuinely different compilers.
 #
-# What would make it one, in order: refresh comtrade to a real series (blocked on API quota),
-# add a value floor so tiny cells cannot dominate, report the share of TRADE rather than of cells,
-# and align partner concepts (origin vs consignment vs destination) across feeds.
+# THE COUNCIL'S CHECKLIST, AND WHERE EACH ITEM STANDS
+#   [DONE ] run the USA->CAN placebo            - failed, and tracing it found the cause above
+#   [DONE ] report share of TRADE, not of cells - 49% of cells but 30% of value; build.py now
+#                                                 prints both and says which to quote
+#   [TESTED, PREDICTION WRONG] "tiny cells dominate, the 428x tail is unit errors" - it does not.
+#           The rate is 51% at every value floor up to $100k and still 46% above $1m. The
+#           disagreements sit in mid-sized flows, not dust. Worth recording BECAUSE the reviewers
+#           were confident about it and the data disagreed.
+#   [DONE ] cache overwrote periods              - cache.save now merges; check_mirror_independence
+#                                                  added, waived to 2026-10-31
+#   [OPEN ] refresh comtrade to a real series    - the binding constraint. One month per call.
+#   [OPEN ] align partner concepts across feeds  - origin vs consignment vs destination
+#   [OPEN ] domestic vs total exports (re-exports) on the exporter side
+#   [OPEN ] tonnes-vs-dollars test: recompute on kg after a unit-value filter. If tonnes agree
+#           where dollars do not, the story is valuation, not missing trade.
+#   [OPEN ] HS4-vs-HS6 collapse: if HS4 agrees where HS6 does not, it is classification shuffle
+#   [NOTED] the blank rule is missing-not-at-random for anything consuming value_recon_fob alone.
+#           We keep both legs, the range, the agreement score and a reason on every row, so the
+#           bias is avoidable - but only by a consumer who uses them.
 # ============================================================================================
 
 HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # entrepot / re-export hubs

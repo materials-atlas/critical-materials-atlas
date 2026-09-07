@@ -145,6 +145,20 @@ def main():
     for basis in ('reconciled', 'disagreement', 'exporter_only', 'importer_only_adj'):
         c, v = stats.get(basis, (0, 0))
         print(f"  {basis:18} {c:>7,} flows  " + (f"${v}B" if v is not None else "(no single value — range exposed)"))
+    # Report the share of TRADE, not just the share of CELLS. Put to two reviewers, both said an
+    # unweighted cell count is not a statement about trade - one big corridor and one rounding-error
+    # cell count the same. They were right: 51% of cells but 30% of value. (They also predicted tiny
+    # cells were driving it; that one was WRONG - the rate is 51% at every floor up to $100k and
+    # only 46% above $1m. The disagreements are in mid-sized flows, not dust.)
+    wt = con.execute("""SELECT
+        ROUND(100.0*SUM(CASE WHEN basis='disagreement' THEN greatest(fob,cif) ELSE 0 END)
+              / NULLIF(SUM(greatest(fob,cif)),0), 0) AS pct_value,
+        ROUND(100.0*AVG(CASE WHEN basis='disagreement' THEN 1.0 ELSE 0 END), 0) AS pct_cells
+        FROM flows_reconciled WHERE basis IN ('reconciled','disagreement')""").fetchone()
+    print(f"  of the two-sided flows: {wt[1]:.0f}% of CELLS disagree but {wt[0]:.0f}% of VALUE - "
+          f"quote the second, never the first")
+    print("  BOTH figures describe THIS cache, not world trade: see the warning at the top of "
+          "reconcile.py before repeating either.")
     disagree = ("SELECT exporter, importer, material, ROUND(fob/1e6,1), ROUND(cif/1e6,1), ROUND(cif/fob,2) "
                 "FROM flows_reconciled WHERE basis='disagreement' AND greatest(fob,cif)>1e6 "
                 "ORDER BY greatest(fob,cif) DESC LIMIT 5")
