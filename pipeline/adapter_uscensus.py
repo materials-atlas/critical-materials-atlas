@@ -58,7 +58,12 @@ class USCensusAdapter(Adapter):
     key = 'uscensus'
     freq = 'M'
     note = 'US Census — HS-6, monthly, needs free API key'
-    WINDOW = 1   # latest month (widen later; Census can't batch, so calls = 31 codes x window x 2 flows)
+    # WIDENED from 1 on 7 Sep 2026. The old comment said "widen later"; later arrived when we
+    # found that a one-month feed cannot mirror-reconcile against anything. HMRC has always
+    # been WINDOW=24 and is the only source with a real series, which is why 81% of our
+    # matched pairs were Comtrade talking to itself. Cost is 31 codes x window x 2 flows in
+    # un-batchable calls, so this is deliberately modest rather than 24.
+    WINDOW = 6
     PROBE = '282200'   # cobalt: reliably traded, used to find the latest published month
 
     def _months(self, latest, n):
