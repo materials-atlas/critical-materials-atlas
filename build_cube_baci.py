@@ -38,6 +38,11 @@ def load_maps():
             code2mat.setdefault(str(c), []).append((mat, 'mine'))
         for c in (v.get('refined_hs') or []):
             code2mat.setdefault(str(c), []).append((mat, 'processed'))
+        # COMPOUND: the traded chemical one step from the metal (antimony oxides, lithium
+        # hydroxide, nickel sulphate...). Its own stage, because a tonne of oxide is not a tonne
+        # of metal and must never be summed with one. Added 9 Sep 2026; see build_crosswalk.py.
+        for c in (v.get('compound_hs') or []):
+            code2mat.setdefault(str(c), []).append((mat, 'compound'))
     num2iso = {}
     with _baci.country_file() as f:
         for row in csv.DictReader(f):

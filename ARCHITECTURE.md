@@ -257,6 +257,22 @@ Namibia is the world's third cobalt exporter ($119m; $73m to China, its top supp
 tracked codes), and its arsenic-trioxide exports cut China's world arsenic share by 20-33 points in
 several years. A two-letter coincidence hid a country for weeks.
 
+**A compound stage - 9 Sep, at the owner's decision.** A reader found no 2825xx anywhere in the
+cube. For several materials the real trade is one chemical step from the metal, and a shift from
+importing metal to importing oxide would collapse the metal series with nothing changing downstream.
+Sized from the extract before anything was added (BACI 2024): antimony oxides $932m against $772m of
+metal; lithium oxide/hydroxide $2.7bn; nickel sulphate and oxides $1.7bn; titanium oxides $0.8bn;
+vanadium oxides $0.45bn. Six codes enter `crosswalk.json` as `compound_hs` and the cube as stage
+`compound` - a tonne of oxide is never summed with a tonne of metal. The seventh, 283329, is
+*Sulphates n.e.c.* - a basket, because cobalt sulphate has no dedicated HS6; it is included and
+flagged `basket_compound`, exactly as 811292 is for gallium/germanium, so the gap is visible and
+never read as clean. Descriptions checked against CEPII's product table, not assumed.
+
+The annual rows cost nothing - the extract holds every HS6. The monthly history does: the backfill
+marks a block done by (period, reporter) regardless of codes asked, so a new code set gets its own
+namespace (`--codes ... --tag compound`: own state file, own part suffix) rather than silently
+skipping every finished block. 765 blocks, about two days of quota, queued behind the 2000s pull.
+
 **Phase 3 — the runner.** Topological rebuild from the recorded graph, then I2, I3, I4. This is
 what actually prevents another germanium.
 

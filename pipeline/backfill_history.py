@@ -99,12 +99,27 @@ def main():
     hi = int(a[a.index('--to') + 1]) if '--to' in a else d.year * 100 + d.month
 
     os.makedirs(PARTS, exist_ok=True)
+    reps = reporters()
+    cal = months(lo, hi)
+    # --codes a,b,c pulls ONLY those codes, into its own namespace. Needed because the state marks a
+    # block done by (period, reporter) regardless of which codes were asked: adding seven compound
+    # codes to the concordance would otherwise skip every finished 2010-2024 block for them, and a
+    # part written for the new codes would overwrite the part holding the old ones. Tagged runs get
+    # their own state file and a part suffix; read_cache() globs both and normalize() keys by cell.
+    if '--codes' in a:
+        only_codes = sorted(c.strip() for c in a[a.index('--codes') + 1].split(',') if c.strip())
+        codes = ','.join(only_codes)
+        tag = a[a.index('--tag') + 1].strip() if '--tag' in a else 'x' + str(abs(hash(codes)) % 10**6)
+    else:
+        codes = ','.join(sorted(concordance.tracked_hs6_set()))
+        tag = ''
+    suffix = ('_' + tag) if tag else ''
+    global STATE
+    STATE = STATE if not tag else STATE.replace('.json', '_%s.json' % tag)
     st = load_state()
     today = datetime.date.today().isoformat()
     spent = st['calls'].get(today, 0)
-    reps = reporters()
-    cal = months(lo, hi)
-    codes = ','.join(sorted(concordance.tracked_hs6_set()))
+    print('code set: %d codes%s' % (codes.count(',') + 1, ' | namespace %r (state %s)' % (tag, os.path.basename(STATE)) if tag else ''))
     rblocks = [reps[i:i + REPS_PER_CALL] for i in range(0, len(reps), REPS_PER_CALL)]
     mblocks = [cal[i:i + MONTHS_PER_CALL] for i in range(0, len(cal), MONTHS_PER_CALL)]
     # STATE REPAIR. `done` used to mean "we called this block", not "we got an answer". A run that
@@ -126,7 +141,7 @@ def main():
     for mi in range(len(mblocks)):
         for ri in range(len(rblocks)):
             if key(mi, ri) in st['empty'] or os.path.exists(
-                    os.path.join(PARTS, 'p_%d_%d.parquet' % (mblocks[mi][0], rblocks[ri][0]))):
+                    os.path.join(PARTS, 'p_%d_%d%s.parquet' % (mblocks[mi][0], rblocks[ri][0], suffix))):
                 proven.add(key(mi, ri))
     # Only blocks INSIDE this run's range can be judged here. A block from another range - the
     # 2010-2024 history while running 2000-2009 - is not "lost" because this run did not look at
@@ -175,7 +190,7 @@ def main():
             continue
         recs = [{k: r.get(k) for k in FIELDS} for r in data.get('data', [])]
         if recs:
-            path = os.path.join(PARTS, 'p_%d_%d.parquet' % (mb[0], rb[0]))
+            path = os.path.join(PARTS, 'p_%d_%d%s.parquet' % (mb[0], rb[0], suffix))
             pd.DataFrame(recs).to_parquet(path, index=False, compression='zstd')
             rows += len(recs)
             made += 1

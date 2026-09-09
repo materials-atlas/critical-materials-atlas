@@ -210,7 +210,7 @@ def code_maps():
 def crm_codes():
     cw = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
     return frozenset(str(c) for v in cw.values()
-                     for c in (v.get('ore_hs') or []) + (v.get('refined_hs') or []))
+                     for c in (v.get('ore_hs') or []) + (v.get('refined_hs') or []) + (v.get('compound_hs') or []))
 
 
 def year(y, columns=None, codes=None, iso=None, nom=None):

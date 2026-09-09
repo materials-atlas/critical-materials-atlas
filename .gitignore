@@ -147,6 +147,8 @@ pipeline/.comtrade_key
 # raw Comtrade history parts: input we may read, not data we may republish
 pipeline/data/comtrade_history/
 pipeline/data/comtrade_history_state.json
+# --tag namespaces of the backfill (compound, ...): own state, same licence
+pipeline/data/comtrade_history_state_*.json
 
 # --- holder records: input we may read, not data we may republish (see licences.py) ---
 # These four carry raw national customs declarations (or one-sided passthroughs of them).

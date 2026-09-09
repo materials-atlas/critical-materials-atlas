@@ -32,6 +32,23 @@ MINE_ONLY = {'baryte', 'cokingcoal', 'helium'}
 BYPRODUCT = {'arsenic', 'hafnium'}                 # + gallium/germanium (flagged shared_refined instead)
 MAGNET_ORE = ['280530', '284690']
 
+# COMPOUND stage, added 9 Sep 2026 after a reader found there was no 2825xx anywhere in the cube.
+# For several materials the real trade is one chemical step from the metal, and a shift from
+# importing the metal to importing the compound would collapse the metal series with nothing
+# changing downstream. Sized from BACI 2024 before adding: antimony oxides $932m against $772m of
+# metal; lithium oxide/hydroxide $2.7bn; nickel sulphate + oxides $1.7bn; titanium oxides $0.8bn;
+# vanadium oxides $0.45bn. Descriptions checked against CEPII's product table, not assumed.
+# 283329 is "Sulphates n.e.c." - a BASKET, because cobalt sulphate has no dedicated HS6. It is
+# included so the gap is visible and flagged so it is never read as a clean cobalt signal, exactly
+# as 811292 is for gallium/germanium.
+COMPOUND = {'antimony': ['282580'],            # antimony oxides
+            'lithium':  ['282520'],            # lithium oxide and hydroxide
+            'nickel':   ['283324', '282540'],  # nickel sulphates; nickel oxides and hydroxides
+            'titanium': ['282300'],            # titanium oxides
+            'vanadium': ['282530'],            # vanadium oxides and hydroxides
+            'cobalt':   ['283329']}            # sulphates n.e.c. - BASKET
+BASKET_COMPOUND = {'cobalt': ['283329']}
+
 out = {}
 for m in d['materials']:
     lab = m['label']; title_code = hs6(m['title'])
@@ -49,7 +66,10 @@ for m in d['materials']:
         ore, ref = [], [title_code]; flags = ['byproduct']
     else:
         ore, ref = [], [title_code]; flags = ['refined_only']
-    out[lab] = {'ore_hs': ore, 'refined_hs': ref, 'title_code': title_code, 'flags': flags}
+    comp = COMPOUND.get(lab, [])
+    if lab in BASKET_COMPOUND:
+        flags = flags + ['basket_compound']
+    out[lab] = {'ore_hs': ore, 'refined_hs': ref, 'compound_hs': comp, 'title_code': title_code, 'flags': flags}
 
 json.dump(out, open(os.path.join(ROOT, 'out', 'crosswalk.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)

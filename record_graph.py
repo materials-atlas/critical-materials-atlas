@@ -214,7 +214,7 @@ def _redact(text):
 
 def main():
     a = sys.argv[1:]
-    only = a[a.index('--only') + 1] if '--only' in a else None
+    only = a[a.index('--only') + 1].strip() if '--only' in a else None   # a trailing CR is not a name
     timeout = int(a[a.index('--timeout') + 1]) if '--timeout' in a else 240
     limit = int(a[a.index('--limit') + 1]) if '--limit' in a else None
 

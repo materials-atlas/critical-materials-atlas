@@ -50,7 +50,7 @@
  },
  "build_breakout.py": {
   "exit": 0,
-  "secs": 0.2,
+  "secs": 1.3,
   "outputs": {
    "breakout.html": "40ee98e9bd9d1d07bc89",
    "out/breakout.json": "204c0e8a9758c73fd70a"
@@ -120,23 +120,23 @@
  },
  "build_consumption_scan.py": {
   "exit": 0,
-  "secs": 0.5,
+  "secs": 2.5,
   "outputs": {}
  },
  "build_cube.py": {
   "exit": 0,
-  "secs": 180.8,
+  "secs": 109.5,
   "outputs": {
-   "out/cube.csv.gz": "0a2f4261805e0505da31",
-   "out/cube.parquet": "5586b2c7a4ceb909a30f",
-   "out/cube_summary.json": "9eac33ef16ff79a22eb0",
+   "out/cube.csv.gz": "b5a2faee213c872f1515",
+   "out/cube.parquet": "40ef1e1fb8082a6df731",
+   "out/cube_summary.json": "5ea033570d552087df03",
    "out/source_anomalies.json": "93399ee1672a093e9b43",
-   "pipeline/data/cube.parquet": "4195958337d82592251e"
+   "pipeline/data/cube.parquet": "d1990832906b33e2b4e3"
   }
  },
  "build_cube_baci.py": {
   "exit": 0,
-  "secs": 193.6,
+  "secs": 21.4,
   "outputs": {}
  },
  "build_cube_iea.py": {
@@ -151,9 +151,9 @@
  },
  "build_exposure.py": {
   "exit": 0,
-  "secs": 6.0,
+  "secs": 2.6,
   "outputs": {
-   "out/exposure.json": "9362df79c24dd34ccb4b"
+   "out/exposure.json": "3817e6ae5fe90c196c54"
   }
  },
  "build_feedstock.py": {
@@ -186,7 +186,7 @@
  },
  "build_freight_model.py": {
   "exit": 0,
-  "secs": 0.7,
+  "secs": 2.1,
   "outputs": {}
  },
  "build_harvard.py": {
@@ -198,10 +198,10 @@
  },
  "build_leverage.py": {
   "exit": 0,
-  "secs": 7.4,
+  "secs": 5.9,
   "outputs": {
-   "leverage.html": "aebd8a4784b356034b22",
-   "out/leverage.json": "c672fac8dd44fbc67f94"
+   "leverage.html": "59a188f6c8130afd2672",
+   "out/leverage.json": "e0bacfa64b0e8d5c2d88"
   }
  },
  "build_library.py": {
@@ -230,10 +230,10 @@
  },
  "build_ot.py": {
   "exit": 0,
-  "secs": 6.7,
+  "secs": 4.0,
   "outputs": {
-   "ot.html": "5367a588b2fde97311b5",
-   "out/ot.json": "5c13ae38710b4894b420"
+   "ot.html": "0608054b6ab9d5ebf537",
+   "out/ot.json": "ac389cac69dec39b7178"
   }
  },
  "build_production.py": {
@@ -262,7 +262,7 @@
  },
  "build_recon_envelope.py": {
   "exit": 0,
-  "secs": 0.9,
+  "secs": 2.8,
   "outputs": {
    "out/recon_envelope.json": "8bccff7ba28f02678967"
   }
@@ -284,14 +284,14 @@
  },
  "build_scenario.py": {
   "exit": 0,
-  "secs": 5.5,
+  "secs": 1.8,
   "outputs": {
    "out/scenario.json": "7059d812f02b2bf129d7"
   }
  },
  "build_trend_robustness.py": {
   "exit": 0,
-  "secs": 1.3,
+  "secs": 3.1,
   "outputs": {
    "out/trend_robustness.json": "47abcf268e673300182b"
   }
@@ -447,6 +447,35 @@
   "secs": 102.9,
   "outputs": {
    "wind-chain/out/wind_trade.json": "fee6bed5bc304c31de38"
+  }
+ },
+ "build_commodity_status.py": {
+  "exit": 0,
+  "secs": 0.2,
+  "outputs": {
+   "out/commodity_status.json": "d0df5078f9ad1c98e77a",
+   "out/commodity_status_tbody.html": "e40d8a058426e3411f91"
+  }
+ },
+ "build_hhi_correction.py": {
+  "exit": 0,
+  "secs": 0.4,
+  "outputs": {
+   "out/hhi_correction.json": "c0a66ae059a6ddf20b4d"
+  }
+ },
+ "build_provenance.py": {
+  "exit": 0,
+  "secs": 0.1,
+  "outputs": {
+   "out/code_provenance.json": "cd39a49fac4e4ea4a251"
+  }
+ },
+ "build_thinness_screen.py": {
+  "exit": 0,
+  "secs": 0.2,
+  "outputs": {
+   "out/thinness_screen.json": "0836e6e9867d4f09b771"
   }
  }
 }

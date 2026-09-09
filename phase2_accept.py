@@ -64,7 +64,10 @@ def run_all(readers, timeout):
 def main():
     a = sys.argv[1:]
     baseline = '--baseline' in a
-    only = a[a.index('--only') + 1] if '--only' in a else None
+    # .strip(): a name read from a file written on Windows carries a trailing CR, and a loop that
+    # fed 23 such names once recorded one builder while reporting success. Whitespace is never
+    # part of a builder's name.
+    only = a[a.index('--only') + 1].strip() if '--only' in a else None
     timeout = int(a[a.index('--timeout') + 1]) if '--timeout' in a else 900
 
     scope = json.load(io.open(SCOPE, encoding='utf-8'))
