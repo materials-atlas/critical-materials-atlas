@@ -59,6 +59,10 @@ NEVER_RUN = (
     'backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph',
     'check.py',            # the gate itself; it reads everything and would drown the graph
     'scheduled_run',
+    'build_bgs_panel',     # a network fetcher wearing a builder's name: seven minutes against
+                           # the BGS API, and its 63 outputs are the cube's spine. Not for a
+                           # recorder to re-run - and it was, and the old restore() then
+                           # deleted what it fetched.
 )
 
 PROBE = r'''
@@ -138,14 +142,27 @@ def tracked(path):
     return git('ls-files', '--error-unmatch', '--', path).strip() != ''
 
 
+def ignored(path):
+    return subprocess.run(['git', 'check-ignore', '-q', '--', path], cwd=ROOT).returncode == 0
+
+
 def restore(paths):
-    """Undo whatever a builder just wrote. Tracked files revert; new files are removed."""
-    undone, orphaned = 0, []
+    """Undo whatever a builder just wrote. Tracked files revert; NEW stray files are removed.
+
+    A gitignored path is a DATA STORE and is never touched. The first version of this function
+    treated "not tracked" as "stray" and deleted the 63-file BGS panel - the cube's spine - right
+    after build_bgs_panel.py had spent seven minutes fetching it from the API. The cube then
+    rebuilt on the wreckage and lost 105,000 production rows without a single error.
+    Gitignored means "regenerable and deliberately outside git", not "disposable".
+    """
+    undone, orphaned, kept = 0, [], 0
     for p in paths:
         full = os.path.join(ROOT, p)
         if tracked(p):
             git('checkout', '--', p)
             undone += 1
+        elif ignored(p):
+            kept += 1                      # a data store: leave it exactly as the builder left it
         elif os.path.exists(full):
             try:
                 os.remove(full)
