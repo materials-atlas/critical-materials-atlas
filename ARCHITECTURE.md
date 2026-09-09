@@ -2,8 +2,9 @@
 
 How data moves through this project, what is enforced, and what is deliberately not built.
 
-Written 7 Sep 2026 after two adversarial reviews. Every number here was measured, not estimated;
-the commands that produce them are in `check.py`.
+Written 7 Sep 2026 after two adversarial reviews; numbers re-measured 9 Sep from the recorded
+graph. Every number here is observed, not estimated: `record_graph.py` runs each builder under
+`sys.addaudithook` and writes what it actually opened to `out/graph.json`.
 
 ---
 
@@ -14,38 +15,45 @@ and called the cube the spine. That diagram was aspiration. Measured:
 
 | | |
 |---|---|
-| builders | 286 |
-| builders that open `cube.parquet` | **11** |
-| analysis families that read the cube | **1 of 13** |
-| builders that open raw BACI archives themselves | **53** |
-| ...that separately re-implement the country-code mapping | **52** |
-| builders that read another builder's JSON | **85** |
-| `out/` paths with more than one writer | 0 |
+| builders recorded / ran clean | 277 / 272 |
+| builders that open `cube.parquet` | **7** |
+| analysis families that read the cube | **0 of 13** |
+| builders that open raw BACI archives themselves | **56** |
+| ...that separately read the country-code file | **53** |
+| builders that read another builder's `out/` | **107** (395 edges) |
+| artifacts with more than one writer | **13** |
 | raw datasets on disk / read by something | 35 / 29 |
 | held datasets in the register / undocumented | 64 / 0 |
 | published outputs carrying a version | **0** |
+
+These replaced an earlier set taken from `grep`. Every one moved, and every one moved toward
+worse: grep counted a builder that *mentions* `cube.parquet` as a reader, and `build_apparent.py`
+mentions it without ever opening it. The seven that do open it are all infrastructure *for the
+cube* - its catalog, dimension table, SDMX export, query manifest, source ledger. **No analysis
+reads the cube.** It is a closed subsystem: built, validated, exported, and consumed by nothing
+that produces a finding.
 
 So the real shape is:
 
 ```
 raw/  ──────────────┬──────────────────────────► builder ──► out/*.json ──┐
-  (35 datasets)     │                             (78 of them)            │
+  (35 datasets)     │                             (71 of them)            │
                     │                                                     ├──► pages
-                    └──► cube.parquet ──► builder ──────────────────────► │
-                          (11 readers)    (1 family)                      │
+                    └──► cube.parquet ──► its own catalog / SDMX / manifest│
+                          (7 readers)     (0 analysis families)           │
                                                                           │
                     out/*.json ──────────────────────────────────────────►┘
-                     (85 edges, builder to builder)
+                     (395 edges from 107 builders, builder to builder)
 ```
 
-The cube is **a product with 11 readers**, not a hub. Drawing it as the spine is how this becomes a
+The cube is **a product with 7 readers and no analytical consumer**, not a hub. Drawing it as the spine is how this becomes a
 platform nobody uses. It is the right home for the 32 tracked materials and the wrong home for a
 country's whole export basket — and both statements stay true after this plan.
 
 ## 2. Two proven failures, one latent
 
 **Proven — duplicated source logic.** A country-code correction (Republic of Congo filed under DR
-Congo's ISO code) had to be applied in two places independently. There are 52 places it could have
+Congo's ISO code) had to be applied in two places independently. There are 53 places it could have
 been needed.
 
 **Proven — stale derived copies.** `risk.json` served a retracted germanium score for three weeks
@@ -95,7 +103,8 @@ extract/        one writer per source. Normalized parquet: canonical ISO3, decla
 cube.parquet    the harmonized fact table for the 32 tracked materials. One consumer of
                 extracts among several. Deliberately narrow.
 
-out/            page and view models. Terminal by intent, and 85 edges currently violate that.
+out/            page and view models. Terminal by intent, and 395 edges from 107 builders
+                currently violate that.
                 The target is not "declare the 85 and move on" - a declared copy is still a
                 copy, and germanium was an out/ -> out/ edge. The graph exists to shrink them.
 
@@ -118,7 +127,7 @@ fail is not a guard.
 | # | invariant | mechanism | status |
 |---|---|---|---|
 | I1 | only an extractor may open `raw/<source>/` | observed graph + a per-source allowlist | **needs the allowlist** |
-| I2 | one writer per artifact | observed graph | holds today (0 violations) |
+| I2 | one writer per artifact | observed graph | **13 violations** - see below |
 | I3 | every builder-to-builder edge is in the recorded graph | observed graph | recording first, enforcing later |
 | I4 | an output whose inputs or producer changed is stale **and gets rebuilt** | content hashes + topological rebuild | not built |
 | I5 | nothing reaches a public path without a licence decision | `licences.py`, injection-tested | **live** |
@@ -128,6 +137,20 @@ On I1: it is global, and only one source (BACI) can be extracted first. Turning 
 other 28 are extracted would break the repository. So I1 ships **per source**, with an explicit
 allowlist naming every source not yet migrated. The allowlist is the honest form of "we know, and
 here is the list" — and it shrinks. A blanket rule that must be disabled is not a rule.
+
+On I2: `grep` said zero double-writers. The graph found thirteen, in three kinds:
+
+- **Eight are one defect.** `build_chain_trade.py` and a per-chain `extract_baci.py` both write
+  `<chain>/out/<chain>_trade.json` - and they write *different content*. Tested on `wind-chain`:
+  the committed file matches `build_chain_trade.py`, so the eight per-chain scripts are dead code
+  that will silently win if they are ever run last. Whichever ran last wins, and nothing says so.
+- **Three are post-processing by design.** `add_canonicals.py` rewrites pages after their builders;
+  `build_cube.py` and `build_cube_usgs.py` share `source_anomalies.json`. These are ordering
+  dependencies wearing the costume of a violation. The runner (phase 3) turns them into a
+  declared order; until then they are the exact mechanism by which phase 1's first run degraded
+  129 pages.
+- **Two are unclear** (`record_magnet.py` vs `record_magnets.py`; `add_tonnes.py` vs
+  `build_flows_fix.py`) and must be resolved by reading, not guessed at.
 
 On I4: hashing is over the **inputs and the producer's code**, never the output, and never mtime.
 `build_cube.py` currently derives `retrieved_at` from a file's modification time, which a fresh
@@ -155,9 +178,22 @@ The failure mode at this scale is schema drift and licence amnesia, not missing 
 
 Ordered by proven harm over cost.
 
-**Phase 1 — record the graph.** Run every builder under the audit hook; write the observed
-reads/writes and content hashes. Nothing is enforced yet. This is pure measurement and it is the
-prerequisite for everything else, including knowing what Phase 2 breaks.
+**Phase 1 — record the graph. DONE 9 Sep.** `record_graph.py`, 272 of 277 builders recorded (the
+five that fail are two scratch scripts, two social-post scripts wanting images that do not exist,
+one genuinely broken). Three things it found that grep had not:
+
+1. No analysis family reads the cube. Zero, not one.
+2. Thirteen double-writers, eight of them one race between `build_chain_trade.py` and dead
+   per-chain extractors.
+3. **The repository has a build order that nothing encodes.** The recorder's first pass ran the
+   builders alphabetically, which put `add_canonicals.py` first and let 200 page builders
+   overwrite its work: 129 pages silently lost their canonical tags, favicons and clean URLs.
+   Nothing errored and `check.py` stayed green. That is the strongest argument for phase 3 this
+   document has, and it was found by accident.
+
+The recorder now reverts every builder's writes before running the next, so observation leaves
+no trace. It also refuses a `--only` that matches nothing, after a retry loop fed it names with
+Windows line endings and reported success having recorded one builder out of 23.
 
 **Phase 2 — the BACI extract.** One extractor writes `baci_crm_tonnes` (cube grain) and
 `baci_full_usd` (whole basket). Migrate all 53 readers **in one sweep, not lazily** — lazy
@@ -210,19 +246,19 @@ flowchart LR
   RAW[("raw/<br>35 datasets · 3.7 GB")]
   ZIP{{"raw/baci/*.zip"}}
   CUBE[("cube.parquet<br>671,582 rows")]
-  B78["78 builders"]
-  B1["1 family<br>(consumption)"]
+  B78["71 builders"]
+  B1["0 families<br>(only the cube&#39;s own catalog / export)"]
   OUT[("out/<br>107 JSON")]
   PAGES["355 pages"]
 
   RAW --> ZIP
-  ZIP -->|"53 builders open the zips<br>52 re-implement country codes"| B78
+  ZIP -->|"56 builders open the zips<br>53 read the country-code file themselves"| B78
   RAW --> CUBE
   RAW --> B78
-  CUBE -->|"11 readers"| B1
+  CUBE -->|"7 readers"| B1
   B78 --> OUT
   B1 --> OUT
-  OUT -->|"85 builder-to-builder edges<br>germanium was one of these"| OUT
+  OUT -->|"395 builder-to-builder edges<br>germanium was one of these"| OUT
   OUT --> PAGES
 
   classDef bad stroke:#d94a5f,stroke-width:2px
@@ -231,7 +267,7 @@ flowchart LR
   class CUBE ok
 ```
 
-The two red boxes are the two proven failures. `raw/baci/*.zip` is opened 53 times with 52 copies
+The two red boxes are the two proven failures. `raw/baci/*.zip` is opened 56 times with 53 copies
 of the same country-code logic — that is the Congo bug's surface. The `out/ → out/` self-loop is
 the germanium incident: a copy that nothing rebuilt.
 

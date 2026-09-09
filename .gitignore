@@ -156,3 +156,6 @@ pipeline/data/cube.parquet
 pipeline/data/flows.parquet
 pipeline/data/flows_best.parquet
 pipeline/data/flows_reconciled.parquet
+
+# the observed dependency graph (record_graph.py) - a record, committed like the register
+!out/graph.json
