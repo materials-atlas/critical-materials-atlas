@@ -562,6 +562,35 @@ def reconcile(con):
                   ELSE 'unexplained (likely HS-code ambiguity or monthly timing mismatch)' END
         END AS disagree_reason
       FROM s LEFT JOIN reporter_quality re ON s.exporter = re.reporter LEFT JOIN reporter_quality ri ON s.importer = ri.reporter""")
+    # UNIT-VALUE SANITY, flagged not dropped. A reader found Belgium importing unwrought tungsten
+    # at $1,123/t in Q1-2025 against ~$50,000/t everywhere else. Traced: GBR->BEL, Feb 2025,
+    # $1,694 for 4,000 kg, identical in HMRC and in Comtrade (which is HMRC's data) - a filer
+    # weight-unit error, faithfully ingested. It is real in the source and wrong in the world, and
+    # it drags a value-weighted aggregate 3x. So every two-sided flow carries its USD/t and a
+    # flag when it sits outside [median/20, median*20] of its own HS6 that period-year. The row
+    # stays; the flag lets a page exclude it and say so. 20 of 485 tungsten rows in that quarter
+    # fell below $5,000/t.
+    con.execute("""CREATE OR REPLACE TABLE _uv_med AS
+      SELECT hs6, CAST(period AS INTEGER) // 100 AS yr,
+             median(value_recon_fob / (qty_recon_kg / 1000.0)) AS med_usd_t, count(*) AS n
+      FROM flows_reconciled
+      WHERE basis = 'reconciled' AND qty_basis = 'reconciled' AND qty_recon_kg > 0 AND value_recon_fob > 0
+      GROUP BY 1, 2""")
+    con.execute("""CREATE OR REPLACE TABLE _fr AS
+      SELECT r.*,
+             CASE WHEN r.qty_recon_kg > 0 AND r.value_recon_fob > 0
+                  THEN r.value_recon_fob / (r.qty_recon_kg / 1000.0) END AS usd_per_t,
+             CASE WHEN m.n >= 10 AND r.qty_recon_kg > 0 AND r.value_recon_fob > 0
+                       AND (r.value_recon_fob / (r.qty_recon_kg / 1000.0) < m.med_usd_t / 20
+                            OR r.value_recon_fob / (r.qty_recon_kg / 1000.0) > m.med_usd_t * 20)
+                  THEN 'implausible' END AS uv_flag
+      FROM flows_reconciled r
+      LEFT JOIN _uv_med m ON m.hs6 = r.hs6 AND m.yr = CAST(r.period AS INTEGER) // 100""")
+    con.execute("DROP TABLE flows_reconciled")
+    con.execute("ALTER TABLE _fr RENAME TO flows_reconciled")
+    con.execute("DROP TABLE _uv_med")
+    n_uv = con.execute("SELECT count(*) FROM flows_reconciled WHERE uv_flag IS NOT NULL").fetchone()[0]
+    print("  unit-value flags: %d two-sided flows outside [median/20, median*20] of their HS6-year" % n_uv)
     stats = {r[0]: (r[1], r[2]) for r in con.execute(
         "SELECT basis, COUNT(*), ROUND(SUM(value_recon_fob)/1e9,2) FROM flows_reconciled GROUP BY 1").fetchall()}
     stats["_markup_levels"] = levels
