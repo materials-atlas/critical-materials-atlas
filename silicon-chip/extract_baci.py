@@ -14,6 +14,7 @@ Does not touch out/ or the 32.
 Run from repo root:  python silicon-chip/extract_baci.py
 """
 from __future__ import annotations
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 import csv
 import io
@@ -120,46 +121,30 @@ def extract():
     bag = {y: {c: empty_cell() for c in CODES} for y in years}
 
     for batch in BATCHES:
-        with zipfile.ZipFile(batch["zip"]) as z:
-            for year in batch["years"]:
-                name = batch["member"].format(year=year)
-                print(f"reading {name} …", flush=True)
-                with z.open(name) as raw:
-                    fh = io.TextIOWrapper(raw, encoding="utf-8", newline="")
-                    header = next(fh)
-                    if not header.startswith("t,"):
-                        raise SystemExit(f"unexpected header in {name}: {header!r}")
-                    for line in fh:
-                        p = line.split(",")
-                        if len(p) < 6:
-                            continue
-                        k = p[3]
-                        if k not in bag[year]:
-                            continue
-                        exp = iso_map.get(p[1])
-                        imp = iso_map.get(p[2])
-                        if not exp or not imp or exp == imp:
-                            continue
-                        try:
-                            usd = float(p[4]) * 1000.0
-                        except ValueError:
-                            continue
-                        if usd <= 0:
-                            continue
-                        try:
-                            tonnes = float(p[5]) if p[5].strip() not in ("", "NA", "nan") else 0.0
-                        except ValueError:
-                            tonnes = 0.0
-                        cell = bag[year][k]
-                        cell["exp_usd"][exp] += usd
-                        cell["imp_usd"][imp] += usd
-                        cell["usd"] += usd
-                        cell["n"] += 1
-                        if tonnes > 0:
-                            cell["exp_t"][exp] += tonnes
-                            cell["imp_t"][imp] += tonnes
-                            cell["tonnes"] += tonnes
-                print(f"  {year} {batch['hs']} done", flush=True)
+        for year in batch["years"]:
+            print(f"reading {year} {batch['hs']} …", flush=True)
+            for p in _baci.year(year, columns=["i", "j", "k", "v", "q"], codes=set(CODES)).itertuples(index=False):
+                k = p.k
+                exp = iso_map.get(str(p.i))
+                imp = iso_map.get(str(p.j))
+                if not exp or not imp or exp == imp:
+                    continue
+                if p.v != p.v:
+                    continue
+                usd = p.v * 1000.0
+                if usd <= 0:
+                    continue
+                tonnes = p.q if p.q == p.q else 0.0
+                cell = bag[year][k]
+                cell["exp_usd"][exp] += usd
+                cell["imp_usd"][imp] += usd
+                cell["usd"] += usd
+                cell["n"] += 1
+                if tonnes > 0:
+                    cell["exp_t"][exp] += tonnes
+                    cell["imp_t"][imp] += tonnes
+                    cell["tonnes"] += tonnes
+        print(f"  {year} {batch['hs']} done", flush=True)
 
     out = {
         "source": "UN Comtrade via CEPII BACI V202601 (HS02 2002–2016, HS17 2017–2024)",

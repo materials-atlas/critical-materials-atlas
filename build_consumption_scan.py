@@ -16,6 +16,7 @@ form (refined metals), and muddied for compounds/ores. The scan tells us which m
 Run: python build_consumption_scan.py
 """
 import csv, json, os, statistics
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -23,7 +24,7 @@ xw = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8
 name2code = {n: e['title_code'] for n, e in xw.items() if e.get('title_code')}
 prod = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'production.json'), encoding='utf8'))['rows']}
 M2 = {}
-for r in csv.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')):
+for r in csv.DictReader(_baci.country_file()):
     try: M2[int(r['country_code'])] = r['country_iso2']
     except (ValueError, KeyError): pass
 fold = lambda c: '811292' if c == '811231' else c

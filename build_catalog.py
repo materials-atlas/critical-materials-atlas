@@ -27,6 +27,7 @@ So this builder answers "do we have data for X?" without normalizing a single ex
 Run:  python build_catalog.py   ->  out/catalog.json + pipeline/data/catalog.parquet
 """
 import os, sys, json, glob, zipfile
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 
 sys.stdout.reconfigure(encoding='utf-8')
@@ -94,11 +95,11 @@ except ImportError:
     pass
 
 # ── 3. ON DISK, partially used: BACI trade vintages ────────────────────────────────────────────
-for z in sorted(glob.glob(os.path.join(ROOT, 'raw', 'baci', '*.zip'))):
+for nom, yrs in _baci.NOMENCLATURE.items():
+    z = os.path.join(ROOT, 'raw', 'baci', 'BACI_%s_%s.zip' % (nom, _baci.VINTAGE))
     try:
-        names = zipfile.ZipFile(z).namelist()
-        yrs = sorted({int(n.split('_Y')[1][:4]) for n in names if '_Y' in n})
-        vint = os.path.basename(z).replace('BACI_', '').replace('.zip', '')
+        yrs = sorted(yrs)
+        vint = '%s_%s' % (nom, _baci.VINTAGE)
         add(institution='CEPII', dataset=f'BACI {vint}', series='bilateral trade, all HS6',
             measure_family='trade', geography='global (bilateral)', year_min=min(yrs),
             year_max=max(yrs), n_rows=len(yrs), unit='tonnes + USD', status='on_disk',

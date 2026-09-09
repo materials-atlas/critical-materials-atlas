@@ -14,6 +14,7 @@ A material is a SINGLE POINT OF FAILURE if the leader holds >=50% of output AND 
 more than a third of the leader's export volume. Writes out/scenario.json. Run: python build_scenario.py
 """
 import os, sys, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2023
@@ -35,7 +36,7 @@ SHARED_CONTEXT = {
                   'note': 'Concentrated, but real alternative refiners exist: Umicore (Belgium recycling), '
                           'Teck (Canada, zinc-to-Ge), Russia — invisible in the shared trade code.'},
 }
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 num2iso[490] = 'TW'; num2name[490] = 'Taiwan'   # CEPII leaves Taiwan ISO-2 blank -> would be dropped
 num2iso[516] = 'NA'; num2name[516] = 'Namibia'  # Namibia ISO-2 'NA' reads as NaN in pandas -> dropped
@@ -71,9 +72,7 @@ for m in d['materials']:
                         'phys_source': m.get('refined_source')}   # BGS shares are of reporting countries
 CODES = sorted({c for v in MATS.values() for c in v['codes']})
 
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'k', 'v'])
 raw = raw[raw.k.isin(CODES)].copy(); raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
 xpo = raw.groupby(['i', 'k']).v.sum()
 

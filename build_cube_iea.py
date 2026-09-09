@@ -28,12 +28,13 @@ Licence: IEA Critical Minerals Dataset, CC BY 4.0, attribution required.
 Run:  python build_cube_iea.py     (invoked by build_cube.py; standalone for inspection)
 """
 import os, sys, csv, warnings
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 warnings.filterwarnings('ignore')
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 import glob as _glob
 XLSX_GLOB = os.path.join(ROOT, 'raw', 'iea', 'CM_Data_Explorer*.xlsx')
-CODES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
+CODES = None  # served by _baci.country_file()
 SHEET = '2 Total supply for key minerals'
 # Each EDITION publishes its own observed base year in the first year column - May-2025 observes
 # 2024, Jul-2026 observes 2025. So the base year is detected per file rather than assumed, and the
@@ -53,7 +54,7 @@ KT_TO_T = 1000.0
 
 def name_to_iso():
     m = {}
-    with open(CODES, encoding='utf-8-sig') as f:
+    with _baci.country_file() as f:
         for row in csv.DictReader(f):
             n, iso = row.get('country_name'), row.get('country_iso3')
             if n and iso and len(iso) == 3:

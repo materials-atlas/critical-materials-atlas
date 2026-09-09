@@ -47,7 +47,7 @@ def _fwd(p):
 
 def extract_one(con, zf, nom, year):
     member = MEMBER % (nom, year, baci.VINTAGE)
-    out = baci.path(year)
+    out = baci.path(year, nom)          # both nomenclatures hold 2017-2024; each gets its own file
     os.makedirs(os.path.dirname(out), exist_ok=True)
     t0 = time.time()
     tmp = os.path.join(tempfile.gettempdir(), member)
@@ -116,13 +116,16 @@ def main():
         zpath = os.path.join(baci.RAW, ARCHIVE[nom])
         with zipfile.ZipFile(zpath) as zf:
             for y in want:
-                if os.path.exists(baci.path(y)) and not force:
+                if os.path.exists(baci.path(y, nom)) and not force:
                     print('  %s %d  already extracted (--force to redo)' % (nom, y))
                     continue
                 total += extract_one(con, zf, nom, y)
     av = baci.available()
-    print('\nextract/baci: %d years present (%s..%s)  %d rows written this run  %.0f min'
-          % (len(av), av[0] if av else '-', av[-1] if av else '-', total, (time.time() - t0) / 60))
+    print('\nextract/baci: %d (nomenclature, year) members present  %d rows written this run  %.0f min'
+          % (len(av), total, (time.time() - t0) / 60))
+    for nom in baci.NOMENCLATURE:
+        ys = [y for n, y in av if n == nom]
+        print('  %s: %s' % (nom, ('%d..%d (%d)' % (ys[0], ys[-1], len(ys))) if ys else 'NONE'))
 
 
 if __name__ == '__main__':

@@ -28,6 +28,7 @@ which sees area, not tonnes.
 Public data; deterministic. Run: python build_production.py
 """
 import json, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import openpyxl
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -186,7 +187,7 @@ try:
     _sat = json.load(open(os.path.join(ROOT, 'out', 'satellite.json'), encoding='utf8'))
     _foot = {iso: d['area_km2'] for iso, d in _sat['countries'].items() if d.get('area_km2')}
     _i2 = {}
-    for _r in _csv2.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf8')):
+    for _r in _csv2.DictReader(_baci.country_file()):
         if _r.get('country_iso2') and _r.get('country_iso3'):
             _i2[_r['country_iso2']] = _r['country_iso3']
     _WT = {r['label']: r['world_tonnes'] for r in rows_out if r.get('world_tonnes')}

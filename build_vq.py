@@ -11,6 +11,7 @@ or value-China-share sit well above their volume counterparts, the apparent conc
 Writes out/volume.json + volume.html.  Public data; deterministic.  Run: python build_vq.py
 """
 import json, os, re, csv, zipfile, io
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 RAW = os.path.join(ROOT, 'raw', 'baci')
@@ -28,7 +29,7 @@ for m in data['materials']:
 
 # BACI numeric country code -> ISO2
 num2iso = {}
-with open(os.path.join(RAW, 'country_codes_V202601.csv'), encoding='utf8') as f:
+with _baci.country_file() as f:
     for r in csv.DictReader(f):
         iso = r.get('country_iso2') or ''
         if iso and iso != 'NA':
@@ -50,27 +51,17 @@ def process(hs, year):
     zpath = os.path.join(RAW, f'BACI_{hs}_V202601.zip')
     c2l = codes_for(hs); codes = set(c2l)
     acc = {}                                              # label -> {iso2: [value, qty]}
-    with zipfile.ZipFile(zpath).open(name) as fh:
-        next(fh)
-        for line in io.TextIOWrapper(fh, encoding='utf8'):
-            p = line.rstrip('\n').split(',')
-            if len(p) < 6 or p[3] not in codes:
-                continue
-            frm = num2iso.get(p[1])
-            if not frm:
-                continue
-            try:
-                v = float(p[4]) * 1000.0
-            except ValueError:
-                continue
-            qs = p[5].strip()
-            try:
-                qv = float(qs) if qs and qs != 'NA' else 0.0
-            except ValueError:
-                qv = 0.0
-            for lab in c2l[p[3]]:
-                e = acc.setdefault(lab, {}).setdefault(frm, [0.0, 0.0])
-                e[0] += v; e[1] += qv
+    for p in _baci.year(year, columns=['i', 'k', 'v', 'q'], codes=codes, nom=hs).itertuples(index=False):
+        frm = num2iso.get(str(p.i))
+        if not frm:
+            continue
+        if p.v != p.v:
+            continue
+        v = p.v * 1000.0
+        qv = p.q if p.q == p.q else 0.0
+        for lab in c2l[p.k]:
+            e = acc.setdefault(lab, {}).setdefault(frm, [0.0, 0.0])
+            e[0] += v; e[1] += qv
     out = {}
     for lab, exps in acc.items():
         vtot = sum(e[0] for e in exps.values())

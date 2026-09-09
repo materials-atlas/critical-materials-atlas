@@ -27,6 +27,7 @@ the real thing, and the direction of the error is known.
 Run:  python build_goes.py
 """
 import csv, io, os, json, zipfile, collections, datetime
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -48,7 +49,7 @@ ALL = set().union(*(c for _, c, _ in GROUPS.values()))
 
 def iso_map():
     m = {}
-    with open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8') as f:
+    with _baci.country_file() as f:
         for row in csv.DictReader(f):
             c = (row.get('country_iso3') or '').strip()
             if c and c != 'NA':
@@ -60,20 +61,16 @@ def iso_map():
 def build():
     iso = iso_map()
     per_year = {g: {y: collections.Counter() for y in YEARS} for g in GROUPS}
-    with zipfile.ZipFile(os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')) as z:
-        for y in YEARS:
-            with z.open('BACI_HS17_Y%d_V202601.csv' % y) as raw:
-                for row in csv.DictReader(io.TextIOWrapper(raw, encoding='utf-8')):
-                    k = row['k'].strip()
-                    if k not in ALL:
-                        continue
-                    e = iso.get(row['i'].strip())
-                    if not e:
-                        continue
-                    v = float(row['v'] or 0)
-                    for g, (_, codes, _) in GROUPS.items():
-                        if k in codes:
-                            per_year[g][y][e] += v
+    for y in YEARS:
+        for row in _baci.year(y, columns=['i', 'k', 'v'], codes=ALL).itertuples(index=False):
+            k = row.k
+            e = iso.get(str(row.i))
+            if not e:
+                continue
+            v = row.v if row.v == row.v else 0.0
+            for g, (_, codes, _) in GROUPS.items():
+                if k in codes:
+                    per_year[g][y][e] += v
 
     def stats(counter):
         t = sum(counter.values())

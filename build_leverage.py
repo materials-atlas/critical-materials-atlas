@@ -16,6 +16,7 @@ Reads the committed BACI zip + out/crosswalk.json + names from out/flows_2024.js
 Run:  python build_leverage.py [year]
 """
 import os, sys, io, json, zipfile
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 try:
     sys.stdout.reconfigure(encoding='utf-8')
@@ -27,14 +28,12 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 
 CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
 NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['names']
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 
 REF = {lab: (m.get('refined_hs') or []) for lab, m in CW.items() if m.get('refined_hs')}
 ALLCODES = sorted({c for v in REF.values() for c in v})
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'j', 'k', 'v'])
 raw = raw[raw.k.isin(ALLCODES)].copy()
 raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0) * 1000.0   # BACI v is thousands USD -> USD
 raw['ei'] = raw.i.map(NUM2ISO); raw['ej'] = raw.j.map(NUM2ISO)

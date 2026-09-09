@@ -30,6 +30,7 @@ Reads out/{crosswalk,capability,mine_refine,usgs_outlook,pipeline,scenario}.json
 writes out/breakout.json.  Run:  python build_breakout.py
 """
 import os, json, sys
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 try:
     sys.stdout.reconfigure(encoding='utf-8')
 except Exception:
@@ -64,7 +65,7 @@ for rows in cap.values():
 # fill any ISO2 gaps (countries in USGS/scenario but not in capability) from the BACI table
 try:
     import csv
-    with open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8') as fh:
+    with _baci.country_file() as fh:
         for row in csv.DictReader(fh):
             iso, nm2 = row.get('country_iso2'), row.get('country_name')
             if iso and iso not in ISO2NAME and nm2 and '(' not in nm2:

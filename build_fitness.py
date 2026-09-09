@@ -29,6 +29,7 @@ complexity layer is build_productspace.py (full HS6, share floor, ECI/PCI, phi).
 Run:  python build_fitness.py [year]
 """
 import os, sys, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2022
@@ -43,9 +44,7 @@ for m in d['materials']:
     code_labels.setdefault(hs6(m['title']), []).append(m['label'])
 codes = sorted(code_labels)
 
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'k', 'v'])
 raw = raw[raw.k.isin(codes)].copy(); raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
 X = raw.groupby(['i', 'k']).v.sum().reset_index()
 M = X.pivot(index='i', columns='k', values='v').reindex(columns=codes).fillna(0.0)
@@ -60,7 +59,7 @@ share = np.divide(M.values, Xm, out=np.zeros_like(M.values), where=Xm > 0)   # w
 Mb = ((rca >= 1) & (share >= 0.001) & (M.values >= 500)).astype(float)
 ok = Mb.sum(1) > 0
 Mb = Mb[ok]
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 countries = [int(c) for c in np.array(M.index)[ok]]
 

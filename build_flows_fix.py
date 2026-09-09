@@ -8,6 +8,7 @@ USD, centroids [lat,lon]. Attaches qty (tonnes) for 2024 only, matching the prio
 Run: python build_flows_fix.py
 """
 import os, io, zipfile, json, re
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 
 ROOT = '.'
@@ -30,7 +31,7 @@ if '811231' in code2labels:
 CODES = set(code2labels)
 
 # numeric country code -> ISO-2  (keep_default_na=False so Namibia 'NA' is NOT read as NaN; CSV now has 490->TW)
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', f'country_codes_{VER}.csv'), keep_default_na=False)
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False)
 num2iso = {int(r.country_code): r.country_iso2 for r in cc.itertuples() if r.country_iso2}
 iso_map = {str(int(r.country_code)): r.country_iso2 for r in cc.itertuples() if r.country_iso2}
 # CEPII leaves these ISO-2 blank ('Other Asia, nes'=Taiwan) or as 'NA' (Namibia, read as NaN); without
@@ -47,8 +48,7 @@ CEN.setdefault('NA', [-22.9576, 18.4904]); NMS['NA'] = 'Namibia'
 def build_year(year):
     member = f'BACI_{HS}_Y{year}_{VER}.csv'
     cols = ['i', 'j', 'k', 'v'] + (['q'] if year == 2024 else [])
-    with zipfile.ZipFile(BACI) as z:
-        raw = pd.read_csv(io.TextIOWrapper(z.open(member), encoding='utf-8'), dtype={'k': str}, usecols=cols)
+    raw = _baci.year(year, columns=cols, nom=HS)
     raw['k'] = raw.k.str.zfill(6)
     raw = raw[raw.k.isin(CODES)].copy()
     raw['fr'] = raw.i.map(num2iso); raw['to'] = raw.j.map(num2iso)

@@ -1,16 +1,16 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 1723668,
+ "rows": 2187702,
  "materials": 90,
  "materials_in_atlas": 32,
  "countries": 247,
  "year_min": 1900,
  "year_max": 2026,
  "by_measure": {
-  "imports": 573069,
-  "imports_value": 379151,
-  "exports": 370109,
-  "exports_value": 240386,
+  "imports": 711072,
+  "imports_value": 520655,
+  "exports": 461305,
+  "exports_value": 333717,
   "production": 126368,
   "unit_value_nominal": 8872,
   "unit_value_real98": 8792,
@@ -24,14 +24,14 @@
   "stocks_industry": 465
  },
  "by_stage": {
-  "unspecified": 1360034,
+  "unspecified": 1824068,
   "processed": 216814,
   "mine": 146820
  },
- "tonnage_convertible_pct": 62.6,
+ "tonnage_convertible_pct": 59.8,
  "sources": {
-  "CMA single-declaration passthrough": 883109,
-  "CMA two-sided reconciliation": 316942,
+  "CMA single-declaration passthrough": 1231754,
+  "CMA two-sided reconciliation": 432331,
   "BGS World Mineral Statistics": 275297,
   "CEPII BACI (HS02)": 178014,
   "USGS Historical Statistics (DS 140)": 64839,
@@ -48,11 +48,11 @@
    2024
   ],
   "CMA single-declaration passthrough": [
-   2010,
+   2000,
    2026
   ],
   "CMA two-sided reconciliation": [
-   2010,
+   2000,
    2026
   ],
   "IEA Critical Minerals Dataset": [
@@ -71,14 +71,14 @@
  "geographies": 247,
  "world_rows": 6754,
  "by_measure_family": {
-  "trade": 1565170,
+  "trade": 2029204,
   "production": 127840,
   "price": 17664,
   "derived_by_source": 8403,
   "stocks": 3831,
   "consumption": 760
  },
- "series": 17878,
+ "series": 18646,
  "value_flags": {
   "nil": 4452,
   "estimated_by_source": 1263,

@@ -23,10 +23,11 @@ with it. Never treat an HS-mapped tonnage as a measurement of the metal itself.
 Run:  python build_cube_baci.py     (invoked by build_cube.py; standalone for inspection)
 """
 import os, sys, json, zipfile, csv, io
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS02_V202601.zip')
-CODES_CSV = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
+CODES_CSV = None  # served by _baci.country_file()
 
 
 def load_maps():
@@ -38,7 +39,7 @@ def load_maps():
         for c in (v.get('refined_hs') or []):
             code2mat.setdefault(str(c), []).append((mat, 'processed'))
     num2iso = {}
-    with open(CODES_CSV, encoding='utf-8-sig') as f:
+    with _baci.country_file() as f:
         for row in csv.DictReader(f):
             code = row.get('country_code') or row.get('code')
             iso = row.get('country_iso3') or row.get('iso_3digit_alpha') or row.get('iso3')
@@ -51,38 +52,24 @@ def build(years=None):
     code2mat, num2iso = load_maps()
     wanted = set(code2mat)
     agg = {}                                          # (mat, stage, iso, year, measure) -> tonnes
-    z = zipfile.ZipFile(ZIP)
-    files = sorted(n for n in z.namelist() if n.endswith('.csv') and '_Y' in n)
-    for name in files:
-        yr = int(name.split('_Y')[1][:4])
+    for yr in _baci.NOMENCLATURE['HS02']:          # 2002-2024, all in HS02 - as the archive loop always did
         if years and yr not in years:
             continue
-        with z.open(name) as fh:
-            rdr = csv.reader(io.TextIOWrapper(fh, encoding='utf-8'))
-            next(rdr, None)                           # header t,i,j,k,v,q
-            for row in rdr:
-                if len(row) < 6:
-                    continue
-                k = row[3].strip()
-                if k not in wanted:
-                    continue
-                q = row[5].strip()
-                if q in ('', 'NA'):
-                    continue                          # value-only row: no tonnage to record
-                try:
-                    q = float(q)
-                except ValueError:
-                    continue
-                if q <= 0:
-                    continue
-                ex, im = num2iso.get(row[1].strip()), num2iso.get(row[2].strip())
-                for mat, stage in code2mat[k]:
-                    if ex:
-                        key = (mat, stage, ex, yr, 'exports', k)
-                        agg[key] = agg.get(key, 0.0) + q
-                    if im:
-                        key = (mat, stage, im, yr, 'imports', k)
-                        agg[key] = agg.get(key, 0.0) + q
+        for row in _baci.year(yr, columns=['i', 'j', 'k', 'q'], codes=wanted, nom='HS02').itertuples(index=False):
+            k = row.k
+            q = row.q
+            if q != q:
+                continue                          # value-only row: no tonnage to record
+            if q <= 0:
+                continue
+            ex, im = num2iso.get(str(row.i)), num2iso.get(str(row.j))
+            for mat, stage in code2mat[k]:
+                if ex:
+                    key = (mat, stage, ex, yr, 'exports', k)
+                    agg[key] = agg.get(key, 0.0) + q
+                if im:
+                    key = (mat, stage, im, yr, 'imports', k)
+                    agg[key] = agg.get(key, 0.0) + q
     rows = []
     for (mat, stage, iso, yr, meas, k), tonnes in agg.items():
         rows.append({

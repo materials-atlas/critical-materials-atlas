@@ -12,13 +12,14 @@ raw [exporter-only, importer-only] bracket.
 Run: python reconcile/operator_test.py
 """
 import os, csv, math, statistics
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 YEAR = 2024
 
 M49 = {}
-for r in csv.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')):
+for r in csv.DictReader(_baci.country_file()):
     try:
         M49[int(r['country_code'])] = r['country_iso3']
     except (ValueError, KeyError):

@@ -221,6 +221,33 @@ that test is written before the migration, not after.
   because eight chain files have two writers producing different bytes. One hash per file would
   average the race away; the pair keeps it visible.
 
+**Phase 2 — outcome, 9 Sep.** Applied in one sweep: 46 readers patched, 9 dead chain extractors
+deleted, `baci.py` the only door, `check_baci_door` the ratchet (opens, not mentions). The
+acceptance harness refused the first pass - 98 identical, 10 changed, 1 missing, 1 failing - and
+every one of the twelve was run to ground rather than waved through:
+
+- **Four were the nomenclature.** CEPII publishes every classification for every year since it
+  began, so 2017-2024 exist in BOTH HS02 and HS17 and are different tables. The accessor had
+  mapped year -> nomenclature and served HS17 to readers that had always read HS02; `build_avalidate`
+  moved 37%. `baci.year(y, nom=...)` now takes the nomenclature as the READER'S choice; the
+  extract holds both archives in full (31 members, 228M rows). All four are identical again.
+- **Two were the originals' own nondeterminism** (`build_ot`: dict order from a set; 
+  `build_network_sensitivity`: betweenness rank ties). Proven by running each original twice and the
+  migrated version twice - the migrated-vs-migrated spread is the same size as original-vs-migrated.
+  Accepted by name, and logged as defects in those builders.
+- **Two moved with the data, by design**: the Comtrade cache refresh closed the 2021-2024 hole
+  between baseline and compare, so `build_cube` and `build_catalog` changed. The BACI ingest was
+  compared directly instead: all 23 years, 178,014 rows, identical sets, identical order - and
+  20x faster (212 s -> 11 s).
+- One was my import injector putting the import inside a docstring; one an unpatched archive
+  loop in `build_chain_trade` (48 outputs, identical after the patch); one a harness ordering
+  artefact in `add_canonicals`; one a script that was already broken.
+
+Also found and fixed on the way: the shipped monthly layer was missing 2021-2024 because
+`build.py` reads a cache only `refresh.py` fills, and I had run build directly - a build order
+nothing encoded. It is encoded now: the cache carries a content fingerprint of its stores and
+`build.py` refuses a cache that is behind them.
+
 **Phase 3 — the runner.** Topological rebuild from the recorded graph, then I2, I3, I4. This is
 what actually prevents another germanium.
 

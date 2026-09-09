@@ -4,11 +4,12 @@ Trade context only: refined metal and recycled flows move through refining/tradi
 (UK, Switzerland, Germany) that are not the mine base. Read exporters as hubs, not mines.
 """
 from __future__ import annotations
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import csv, io, json, os, zipfile
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-COUNTRIES = os.path.join(ROOT, "raw", "baci", "country_codes_V202601.csv")
+COUNTRIES = None  # served by _baci.country_file()
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "out", "pgm_trade.json")
 BATCHES = [
     ("HS02", range(2002, 2017), "BACI_HS02_V202601.zip", "BACI_HS02_Y{year}_V202601.csv"),
@@ -26,7 +27,7 @@ FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
 
 def country_maps():
     iso, names = {}, {}
-    with open(COUNTRIES, encoding="utf-8") as handle:
+    with _baci.country_file() as handle:
         for row in csv.DictReader(handle):
             key, code = row["country_code"].strip(), (row.get("country_iso2") or "").strip()
             if code and code != "NA":
@@ -53,32 +54,21 @@ def extract():
             bag[year] = {code: empty() for code in CODES}
             vintage[year] = hs
     for hs, years, archive, member in BATCHES:
-        with zipfile.ZipFile(os.path.join(ROOT, "raw", "baci", archive)) as zipped:
-            for year in years:
-                print("reading", year, hs, flush=True)
-                with zipped.open(member.format(year=year)) as raw:
-                    handle = io.TextIOWrapper(raw, encoding="utf-8", newline="")
-                    next(handle)
-                    for line in handle:
-                        p = line.split(",")
-                        if len(p) < 6 or p[3] not in CODES:
-                            continue
-                        exporter, importer = iso_map.get(p[1]), iso_map.get(p[2])
-                        if not exporter or not importer or exporter == importer:
-                            continue
-                        try:
-                            usd = float(p[4]) * 1000
-                        except ValueError:
-                            continue
-                        if usd <= 0:
-                            continue
-                        try:
-                            tonnes = float(p[5]) if p[5].strip() not in ("", "NA", "nan") else 0.0
-                        except ValueError:
-                            tonnes = 0.0
-                        row = bag[year][p[3]]
-                        row["exp"][exporter] += usd; row["imp"][importer] += usd
-                        row["usd"] += usd; row["tonnes"] += max(0, tonnes); row["flows"] += 1
+        for year in years:
+            print("reading", year, hs, flush=True)
+            for p in _baci.year(year, columns=["i", "j", "k", "v", "q"], codes=CODES).itertuples(index=False):
+                exporter, importer = iso_map.get(str(p.i)), iso_map.get(str(p.j))
+                if not exporter or not importer or exporter == importer:
+                    continue
+                if p.v != p.v:
+                    continue          # value NA -> the old float() raised and skipped the row
+                usd = p.v * 1000
+                if usd <= 0:
+                    continue
+                tonnes = p.q if p.q == p.q else 0.0
+                row = bag[year][p.k]
+                row["exp"][exporter] += usd; row["imp"][importer] += usd
+                row["usd"] += usd; row["tonnes"] += max(0, tonnes); row["flows"] += 1
     years = sorted(bag)
     out = {"source": "CEPII BACI V202601, based on UN Comtrade", "years": years,
            "vintage": {str(y): vintage[y] for y in years}, "codes": CODES, "years_data": {}, "series": {}}

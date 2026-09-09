@@ -13,6 +13,7 @@ Writes out/exposure.json (per-material, for the refiners.html cards + the all-ma
 Run:  python build_exposure.py [year]
 """
 import os, sys, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2023
@@ -20,7 +21,7 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 MAGNET_DOWN = '850511'
 EPS = 1e-9
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 iso2num = {v: k for k, v in num2iso.items()}
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
@@ -61,9 +62,7 @@ cap = json.load(open(os.path.join(ROOT, 'out', 'capability.json'), encoding='utf
 cap_lat = {stage: {r['iso']: r['cap'] for r in rows} for stage, rows in cap.items()}
 CAP_KEY = {'magnets': 'magnet (NdFeB)'}   # capability-map key for the magnet material
 
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'j', 'k', 'v'])
 raw = raw[raw.k.isin(REF_CODES)].copy(); raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
 exp = raw.groupby(['j', 'k']).v.sum()   # importer j
 xpo = raw.groupby(['i', 'k']).v.sum()   # exporter i

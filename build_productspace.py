@@ -8,6 +8,7 @@ any material claim is trusted). Reads the committed BACI HS17 zip; no API key.
 Run:  python build_productspace.py [year]   (default 2022 — recent complete)
 """
 import os, sys, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2022
@@ -23,14 +24,12 @@ MAT = {m['label']: hs6(m['title']) for m in d['materials']}
 mat_codes = sorted(set(MAT.values()))
 
 print(f'reading BACI HS17 {YEAR} …', flush=True)
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'j', 'k', 'v'])
 raw['v'] = pd.to_numeric(raw['v'], errors='coerce')
 X = raw.groupby(['i', 'k'], as_index=False).v.sum()          # exporter i, product k -> value
 X = X[X.v >= MIN_VALUE]
 M = X.pivot(index='i', columns='k', values='v').fillna(0.0)  # country x product value matrix
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso2 = dict(zip(cc.country_code, cc.country_iso2))
 M.index = [str(num2iso2.get(int(c), c)) for c in M.index]     # BACI numeric code -> ISO2
 print(f'matrix: {M.shape[0]} countries x {M.shape[1]} products', flush=True)

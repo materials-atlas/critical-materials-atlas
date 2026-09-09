@@ -16,6 +16,7 @@ verdict on whether the gravity approach is recoverable here or whether the robus
 Run: python build_freight_model.py
 """
 import os, csv, math, json, statistics
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 from collections import defaultdict
 import numpy as np
 
@@ -24,7 +25,7 @@ xw = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8
 CODES = {e['title_code'] for e in xw.values() if e.get('title_code')}
 CENT = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['centroids']  # iso2 -> [lat,lon]
 M2 = {}
-for r in csv.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')):
+for r in csv.DictReader(_baci.country_file()):
     try: M2[int(r['country_code'])] = r['country_iso2']
     except (ValueError, KeyError): pass
 

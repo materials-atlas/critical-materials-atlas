@@ -11,6 +11,7 @@ richer hover (PCI, phi-to-twin, physical refiners), CVD-safer role encoding, a m
 Run:  python build_ps_network.py [year]
 """
 import os, sys, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd, networkx as nx
 from scipy.sparse import csr_matrix
 from scipy.sparse.csgraph import minimum_spanning_tree
@@ -55,9 +56,7 @@ CHAIN_CODES = [(o, r, lab) for lab, (o, r) in CROSSWALK.items()] + \
               [('284690', '280530', 'rare earths'), ('280530', '850511', 'rare earths')]
 
 print(f'reading BACI HS17 {YEAR} ...', flush=True)
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'k', 'v'])
 raw['v'] = pd.to_numeric(raw['v'], errors='coerce')
 Xik = raw.groupby(['i', 'k'], as_index=False).v.sum()
 Xik = Xik[Xik.v >= MIN_VALUE]                                    # <-- value floor (was missing)
@@ -107,7 +106,7 @@ pos = nx.spring_layout(G, seed=42, k=1.4 / np.sqrt(n), iterations=260, weight='w
 px = np.array([pos[a][0] for a in range(n)]); py = np.array([pos[a][1] for a in range(n)])
 px = (px - px.mean()) / (px.std() + 1e-9) * 460; py = (py - py.mean()) / (py.std() + 1e-9) * 300
 
-pc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'product_codes_HS17_V202601.csv'), dtype={'code': str})
+pc = pd.read_csv(_baci.product_file('HS17'), dtype={'code': str})
 name = dict(zip(pc.code, pc.description))
 def short(desc):
     d = str(desc).split(';')[0]; return (d[:52] + '…') if len(d) > 53 else d
@@ -183,7 +182,7 @@ sectors = sorted({(nd['sector'], nd['color']) for nd in nodes}, key=lambda x: x[
 print(f'network: {n} nodes, {len(links)} edges, {len(chain_links)} chain edges; layout frozen', flush=True)
 
 # per-country RCA>=1 membership + featured presets
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 _PREF = {'DE': 'Germany', 'TR': 'Türkiye', 'RU': 'Russia', 'KR': 'South Korea', 'CD': 'DR Congo',
          'US': 'United States', 'GB': 'United Kingdom', 'CZ': 'Czechia', 'VN': 'Viet Nam', 'IR': 'Iran',

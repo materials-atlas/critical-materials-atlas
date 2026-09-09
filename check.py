@@ -745,10 +745,55 @@ def check_withheld():
 
 
 
+def check_baci_door():
+    """I1 for BACI: only the one door opens raw/baci/. ARCHITECTURE.md phase 2.
+
+    Before the sweep, 56 builders opened raw/baci/ themselves and 53 held their own copy of the
+    country mapping. A correction to that mapping would have had to be made in 53 places, which
+    is how the Congo fix had to be made twice. After the sweep, every reader goes through
+    baci.py, and this check is the ratchet that stops the number growing back from zero.
+
+    Static, deliberately: it scans source text, so a builder that merely MENTIONS the archive in
+    a comment is fine, but one that builds a path to it is caught the moment it is written -
+    before it is ever run, and whether or not anyone remembers the rule.
+    """
+    import re
+    allow = {'baci.py', 'extract_baci.py', 'build_library.py', 'record_graph.py', 'migrate_baci.py',
+             'phase2_accept.py', 'check.py', 'check_baci_release.py'}
+    # The invariant is about OPENING, not mentioning. A dead constant like BACI_ZIP = ... that
+    # nothing reads any more is untidy, not a door; build_catalog builds the archive's path as a
+    # STRING for the holdings record and never opens it. So: flag a ZipFile() anywhere (the only
+    # legitimate one on BACI is extract_baci.py), and an open()/read_csv() whose argument text
+    # names a raw/baci file. Both are how a door looks in source.
+    door = re.compile(r"ZipFile[(]|(?:open|read_csv|read_parquet)[(][^)]*(?:raw['\"]?[ ]*,[ ]*['\"]baci|raw/baci|country_codes_V202601|product_codes_HS)")
+    pat = door
+    offenders = []
+    for dirpath, dirnames, files in os.walk(ROOT):
+        dirnames[:] = [d for d in dirnames if d not in ('.git', 'raw', 'extract', 'pipeline', '__pycache__', 'node_modules')]
+        for f in files:
+            if not f.endswith('.py'):
+                continue
+            rel = os.path.relpath(os.path.join(dirpath, f), ROOT).replace(os.sep, '/')
+            if rel in allow or rel.split('/')[-1] in allow:
+                continue
+            try:
+                lines = open(os.path.join(dirpath, f), encoding='utf-8', errors='replace').read().splitlines()
+            except OSError:
+                continue
+            for i, l in enumerate(lines, 1):
+                code = l.split('#', 1)[0]
+                if pat.search(code) and 'served by _baci' not in l:
+                    offenders.append('%s:%d' % (rel, i))
+                    break
+    if offenders:
+        fail('baci_door', '%d builders still open raw/baci/ themselves instead of going through baci.py: %s'
+             % (len(offenders), ', '.join(offenders[:8]) + (' ...' if len(offenders) > 8 else '')))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

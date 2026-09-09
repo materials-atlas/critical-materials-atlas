@@ -1,0 +1,452 @@
+{
+ "add_canonicals.py": {
+  "exit": 0,
+  "secs": 8.0,
+  "outputs": {
+   "project-scheme.html": "d2254fd7b2be091209dd"
+  }
+ },
+ "add_tonnes.py": {
+  "exit": 0,
+  "secs": 0.2,
+  "outputs": {
+   "out/flows_2024.json": "8c3119aea5d77b5e0f3d"
+  }
+ },
+ "aerospace-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 92.1,
+  "outputs": {
+   "aerospace-chain/out/aerospace_trade.json": "65a828d34d606285266d"
+  }
+ },
+ "aluminium-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 94.2,
+  "outputs": {
+   "aluminium-chain/out/aluminium_trade.json": "d19e502d973caba03e7a"
+  }
+ },
+ "battery-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 37.5,
+  "outputs": {
+   "battery-chain/out/battery_trade.json": "6bcf0626d4010831aff1"
+  }
+ },
+ "build_anchor.py": {
+  "exit": 0,
+  "secs": 0.1,
+  "outputs": {
+   "out/anchor.json": "7163242f23a660464d2d"
+  }
+ },
+ "build_avalidate.py": {
+  "exit": 0,
+  "secs": 17.0,
+  "outputs": {
+   "out/avalidate.json": "01d6601bc522e41d6c9a"
+  }
+ },
+ "build_breakout.py": {
+  "exit": 0,
+  "secs": 0.2,
+  "outputs": {
+   "breakout.html": "40ee98e9bd9d1d07bc89",
+   "out/breakout.json": "204c0e8a9758c73fd70a"
+  }
+ },
+ "build_catalog.py": {
+  "exit": 0,
+  "secs": 5.7,
+  "outputs": {
+   "out/catalog.json": "3f7afc02e0a7e9dea5b0",
+   "pipeline/data/catalog.parquet": "83fe7e8e97566e47df7e"
+  }
+ },
+ "build_chain_trade.py": {
+  "exit": 0,
+  "secs": 107.5,
+  "outputs": {
+   "ammonia-chain/out/ammonia_trade.json": "bddf69b6de493cae2aa1",
+   "antimony-chain/out/antimony_trade.json": "c59c20fcce3e7c5da491",
+   "arsenic-chain/out/arsenic_trade.json": "a5cfc062a6b3332636db",
+   "baryte-chain/out/baryte_trade.json": "3c69a7effbdd911ee154",
+   "battery-chain/out/battery_trade.json": "f75054c2b049613fcc53",
+   "beryllium-chain/out/beryllium_trade.json": "4b39e0969544b87c38af",
+   "bismuth-chain/out/bismuth_trade.json": "18358c5e7262f88d3b84",
+   "boron-chain/out/boron_trade.json": "6eb07d3b77f855356c8d",
+   "cement-chain/out/cement_trade.json": "3fd1ea802c8c2fa7efc4",
+   "chromium-chain/out/chromium_trade.json": "846560a31c5ba0bd2170",
+   "cobalt-chain/out/cobalt_trade.json": "c3ee05ba8c63a7b576f9",
+   "data-centre-chain/out/data_centre_trade.json": "6bb7b00d18cc9ed306d2",
+   "electrolyser-chain/out/electrolyser_trade.json": "0d679c29c6e124179b45",
+   "ev-chain/out/ev_trade.json": "54586151d961d18652ac",
+   "fluorine-chain/out/fluorine_trade.json": "73dc05ce866d5c55ec8e",
+   "gallium-chain/out/gallium_trade.json": "4922ff083ca18586d19b",
+   "germanium-chain/out/germanium_trade.json": "eab8e27188f59d9a7a03",
+   "graphite-chain/out/graphite_trade.json": "268168ef7df13fd6f0ae",
+   "grid-chain/out/grid_trade.json": "d1064968d9b08852e362",
+   "heat-pump-chain/out/heat_pump_trade.json": "f754986d3602624a5f05",
+   "helium-chain/out/helium_trade.json": "d11bf4e5b82d264301f9",
+   "lead-chain/out/lead_trade.json": "311027b8f6dfe20a8a56",
+   "lithium-chain/out/lithium_trade.json": "75c8b0ddee8f4fea619f",
+   "magnesium-chain/out/magnesium_trade.json": "f96792d718dc25d17737",
+   "magnet-chain/out/magnet_trade.json": "2e3995624b67b7a86498",
+   "manganese-chain/out/manganese_trade.json": "c473df3bc77c63b33e17",
+   "medical-isotopes-chain/out/medical_isotopes_trade.json": "42391b3bceddc068816c",
+   "molybdenum-chain/out/molybdenum_trade.json": "f41c0629952b1195049a",
+   "neon-chain/out/neon_trade.json": "b6bb988bb9c47bb7f520",
+   "nickel-chain/out/nickel_trade.json": "5e0a01a1457af1a6b62c",
+   "nuclear-chain/out/nuclear_trade.json": "d6f767985d91da7b60ac",
+   "rare-earths-chain/out/rare_earths_trade.json": "2af638966569d43a37bf",
+   "rhenium-chain/out/rhenium_trade.json": "7057aa795f8c75a186a2",
+   "semiconductor-inputs-chain/out/semiconductor_inputs_trade.json": "1859b62958365b474539",
+   "silver-chain/out/silver_trade.json": "d742ed93856571bebe40",
+   "solar-chain/out/solar_trade.json": "7ba8474087c6823222cd",
+   "steel-chain/out/steel_trade.json": "e9a9ad0da9da238fcc7a",
+   "strontium-chain/out/strontium_trade.json": "734a6408fecb398475f2",
+   "sulfur-chain/out/sulfur_trade.json": "03bac5c0833020cc7d92",
+   "tantalum-chain/out/tantalum_trade.json": "3c3cf5f87223eaa07d71",
+   "tellurium-chain/out/tellurium_trade.json": "46d57012ed0afa999523",
+   "tin-chain/out/tin_trade.json": "f442543734c5023530d5",
+   "titanium-chain/out/titanium_trade.json": "f3ee397fa8f384091991",
+   "tungsten-chain/out/tungsten_trade.json": "b61c9039570c851f265b",
+   "vanadium-chain/out/vanadium_trade.json": "83e9bfdbb314b08eb4cd",
+   "wind-chain/out/wind_trade.json": "73960a0305a3bff05b28",
+   "zinc-chain/out/zinc_trade.json": "bd88efc04a6a61907608",
+   "zirconium-chain/out/zirconium_trade.json": "92bcbc49d8e5e6dbc650"
+  }
+ },
+ "build_consumption_scan.py": {
+  "exit": 0,
+  "secs": 0.5,
+  "outputs": {}
+ },
+ "build_cube.py": {
+  "exit": 0,
+  "secs": 180.8,
+  "outputs": {
+   "out/cube.csv.gz": "0a2f4261805e0505da31",
+   "out/cube.parquet": "5586b2c7a4ceb909a30f",
+   "out/cube_summary.json": "9eac33ef16ff79a22eb0",
+   "out/source_anomalies.json": "93399ee1672a093e9b43",
+   "pipeline/data/cube.parquet": "4195958337d82592251e"
+  }
+ },
+ "build_cube_baci.py": {
+  "exit": 0,
+  "secs": 193.6,
+  "outputs": {}
+ },
+ "build_cube_iea.py": {
+  "exit": 0,
+  "secs": 0.7,
+  "outputs": {}
+ },
+ "build_cube_wmd.py": {
+  "exit": 0,
+  "secs": 0.8,
+  "outputs": {}
+ },
+ "build_exposure.py": {
+  "exit": 0,
+  "secs": 6.0,
+  "outputs": {
+   "out/exposure.json": "9362df79c24dd34ccb4b"
+  }
+ },
+ "build_feedstock.py": {
+  "exit": 0,
+  "secs": 39.7,
+  "outputs": {
+   "out/capability.json": "5919d54e136dabde00cd",
+   "out/capability_years.json": "fe69f1d289c50b05347b"
+  }
+ },
+ "build_fitness.py": {
+  "exit": 0,
+  "secs": 5.6,
+  "outputs": {
+   "out/fitness.json": "c7809a62c6b4bcdf73e7"
+  }
+ },
+ "build_flows_fix.py": {
+  "exit": 0,
+  "secs": 70.1,
+  "outputs": {
+   "out/flows_2018.json": "7d36830cd2dddc1dc01b",
+   "out/flows_2019.json": "3ce63fb8427e3e929f58",
+   "out/flows_2020.json": "ee5846ac4a5f84041124",
+   "out/flows_2021.json": "89ca99034c5296a7afb5",
+   "out/flows_2022.json": "7af011fa88c8d0a8e3c4",
+   "out/flows_2023.json": "05a5eaf0507fef5cb49a",
+   "out/flows_2024.json": "8c3119aea5d77b5e0f3d"
+  }
+ },
+ "build_freight_model.py": {
+  "exit": 0,
+  "secs": 0.7,
+  "outputs": {}
+ },
+ "build_harvard.py": {
+  "exit": 0,
+  "secs": 11.8,
+  "outputs": {
+   "out/harvard.json": "5c94cc5cf4d702d361d5"
+  }
+ },
+ "build_leverage.py": {
+  "exit": 0,
+  "secs": 7.4,
+  "outputs": {
+   "leverage.html": "aebd8a4784b356034b22",
+   "out/leverage.json": "c672fac8dd44fbc67f94"
+  }
+ },
+ "build_library.py": {
+  "exit": 0,
+  "secs": 0.1,
+  "outputs": {
+   "DATA_LIBRARY.md": "16f9bb97841942f193ba",
+   "out/library.json": "ef66dd728669298ccb1b"
+  }
+ },
+ "build_mining_expansion.py": {
+  "exit": 0,
+  "secs": 0.3,
+  "outputs": {
+   "mining-expansion.html": "fd7cbe58cb1df2074094",
+   "out/mining_expansion.json": "6bcc69f1f6e83573275a"
+  }
+ },
+ "build_network_sensitivity.py": {
+  "exit": 0,
+  "secs": 7.4,
+  "outputs": {
+   "network-sensitivity.html": "f3f6f8eff951db714a96",
+   "out/network_sensitivity.json": "528d550243e80ddc9062"
+  }
+ },
+ "build_ot.py": {
+  "exit": 0,
+  "secs": 6.7,
+  "outputs": {
+   "ot.html": "5367a588b2fde97311b5",
+   "out/ot.json": "5c13ae38710b4894b420"
+  }
+ },
+ "build_production.py": {
+  "exit": 0,
+  "secs": 6.9,
+  "outputs": {
+   "out/production.json": "9a41229ed4b2e0fff63a",
+   "production.html": "87860f60fbf2f033c482"
+  }
+ },
+ "build_productspace.py": {
+  "exit": 0,
+  "secs": 46.6,
+  "outputs": {
+   "out/mine_refine.json": "9a1f0b6e9505147b4054",
+   "out/opportunity.json": "737fca8ec31c7abc0224",
+   "out/productspace.json": "dc5cea3abc7bdc897bfc"
+  }
+ },
+ "build_ps_network.py": {
+  "exit": 0,
+  "secs": 11.6,
+  "outputs": {
+   "product-space.html": "c5b2c19601228f01a401"
+  }
+ },
+ "build_recon_envelope.py": {
+  "exit": 0,
+  "secs": 0.9,
+  "outputs": {
+   "out/recon_envelope.json": "8bccff7ba28f02678967"
+  }
+ },
+ "build_robustness.py": {
+  "exit": 0,
+  "secs": 5.5,
+  "outputs": {
+   "out/robustness.json": "233d066c5582e6fdf355"
+  }
+ },
+ "build_satellite.py": {
+  "exit": 0,
+  "secs": 0.4,
+  "outputs": {
+   "out/satellite.json": "e4275b82c04bd61cd041",
+   "satellite.html": "a78496b4ad990b620867"
+  }
+ },
+ "build_scenario.py": {
+  "exit": 0,
+  "secs": 5.5,
+  "outputs": {
+   "out/scenario.json": "7059d812f02b2bf129d7"
+  }
+ },
+ "build_trend_robustness.py": {
+  "exit": 0,
+  "secs": 1.3,
+  "outputs": {
+   "out/trend_robustness.json": "47abcf268e673300182b"
+  }
+ },
+ "build_two_stage.py": {
+  "exit": 0,
+  "secs": 8.3,
+  "outputs": {
+   "out/two_stage.json": "8b427b2f4255b46c5f22"
+  }
+ },
+ "build_vq.py": {
+  "exit": 0,
+  "secs": 97.1,
+  "outputs": {
+   "out/volume.json": "9015fe2af79455f3f73a",
+   "volume.html": "1bd6557209c80cb93d71"
+  }
+ },
+ "copper-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 95.1,
+  "outputs": {
+   "copper-chain/out/copper_trade.json": "371fb0d296de71265a68"
+  }
+ },
+ "data-centre-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 110.0,
+  "outputs": {
+   "data-centre-chain/out/data_centre_trade.json": "3228c51d96c0de5837d7"
+  }
+ },
+ "defence-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 99.4,
+  "outputs": {
+   "defence-chain/out/defence_trade.json": "36a5a13bcc78fd105e60"
+  }
+ },
+ "displays-indium-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 103.4,
+  "outputs": {
+   "displays-indium-chain/out/indium_trade.json": "b31f45aa3604964b88ef"
+  }
+ },
+ "electrolyser-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 150.4,
+  "outputs": {
+   "electrolyser-chain/out/electrolyser_trade.json": "0a61855c9e00ac72b378"
+  }
+ },
+ "ev-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 270.0,
+  "outputs": {
+   "ev-chain/out/ev_trade.json": "a3744dac9d617fb1cf89"
+  }
+ },
+ "fibre-optics-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 210.2,
+  "outputs": {
+   "fibre-optics-chain/out/fibre_trade.json": "c61f4072a72cb8db8570"
+  }
+ },
+ "grid-chain/build_goes.py": {
+  "exit": 0,
+  "secs": 110.2,
+  "outputs": {
+   "grid-chain/out/goes.json": "44d177981d9d1ebafc31"
+  }
+ },
+ "grid-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 114.0,
+  "outputs": {
+   "grid-chain/out/grid_trade.json": "a37f021909027bf5e6ad"
+  }
+ },
+ "heat-pump-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 145.7,
+  "outputs": {
+   "heat-pump-chain/out/heat_pump_trade.json": "61151ad38e3d2ce1b303"
+  }
+ },
+ "magnet-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 167.8,
+  "outputs": {
+   "magnet-chain/out/magnet_trade.json": "fb9ca4093ecc86a83c81"
+  }
+ },
+ "nuclear-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 224.7,
+  "outputs": {
+   "nuclear-chain/out/nuclear_trade.json": "ab1d43cd3b350da0d621"
+  }
+ },
+ "pgm-catalyst-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 117.3,
+  "outputs": {
+   "pgm-catalyst-chain/out/pgm_trade.json": "3d9b8925ce60e952545c"
+  }
+ },
+ "phosphate-food-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 108.7,
+  "outputs": {
+   "phosphate-food-chain/out/phosphate_trade.json": "a0a156a5447eff27d4f7"
+  }
+ },
+ "reconcile/extract_baci.py": {
+  "exit": 0,
+  "secs": 8.6,
+  "outputs": {
+   "reconcile/baci_2024.csv": "d07a571d64fbcf5e9689"
+  }
+ },
+ "reconcile/operator_test.py": {
+  "exit": 0,
+  "secs": 0.7,
+  "outputs": {}
+ },
+ "reconcile/reconcile.py": {
+  "exit": 0,
+  "secs": 13.3,
+  "outputs": {
+   "reconcile/recon_2024.csv": "b16d480496a2a0729d92"
+  }
+ },
+ "silicon-chip/extract_baci.py": {
+  "exit": 0,
+  "secs": 133.4,
+  "outputs": {
+   "silicon-chip/out/silicon_stages.json": "4ae9a4972158a72ea86e"
+  }
+ },
+ "steel-alloys-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 100.9,
+  "outputs": {
+   "steel-alloys-chain/out/steel_trade.json": "0a1defb685856c456405"
+  }
+ },
+ "wind-chain/extract_baci.py": {
+  "exit": 0,
+  "secs": 102.9,
+  "outputs": {
+   "wind-chain/out/wind_trade.json": "fee6bed5bc304c31de38"
+  }
+ }
+}

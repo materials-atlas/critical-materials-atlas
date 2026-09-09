@@ -12,13 +12,14 @@ Streams the full BACI 2023 file (raw/baci/BACI_HS17_Y2023...csv inside the zip),
 stage code, and reports the export-origin share at each stage beside the mine leader. Run: python build_two_stage.py
 """
 import csv, io, json, os, zipfile
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 Z = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 MEMBER = 'BACI_HS17_Y2023_V202601.csv'
 prod = {r['label']: r for r in json.load(open(os.path.join(ROOT, 'out', 'production.json'), encoding='utf8'))['rows']}
 I2ISO = {}
-for r in csv.DictReader(open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')):
+for r in csv.DictReader(_baci.country_file()):
     try: I2ISO[r['country_code']] = r['country_iso3']
     except KeyError: pass
 
@@ -31,22 +32,13 @@ STAGES = {
 WANT = {c for m in STAGES for st in STAGES[m].values() for c in st}
 
 exp = {c: {} for c in WANT}   # exp[code][iso] = qty (tonnes)
-with zipfile.ZipFile(Z) as z:
-    with z.open(MEMBER) as fh:
-        rdr = csv.reader(io.TextIOWrapper(fh, encoding='utf-8'))
-        header = next(rdr)                      # t,i,j,k,v,q
-        ix = {name: i for i, name in enumerate(h.strip() for h in header)}
-        ki, ii, qi, vi = ix['k'], ix['i'], ix['q'], ix['v']
-        for row in rdr:
-            k = row[ki].strip().zfill(6)
-            if k not in WANT: continue
-            iso = I2ISO.get(row[ii].strip())
-            if not iso: continue
-            try: q = float(row[qi])
-            except ValueError:
-                try: q = float(row[vi])       # fall back to value if quantity missing
-                except ValueError: continue
-            exp[k][iso] = exp[k].get(iso, 0.0) + q
+for row in _baci.year(2023, columns=['i', 'k', 'v', 'q'], codes=WANT).itertuples(index=False):
+    k = row.k
+    iso = I2ISO.get(str(row.i))
+    if not iso: continue
+    q = row.q if row.q == row.q else row.v      # NULL q -> fall back to value, as before
+    if q != q: continue
+    exp[k][iso] = exp[k].get(iso, 0.0) + q
 
 def top_shares(codes, n=6):
     agg = {}

@@ -35,6 +35,7 @@ import record_graph as rg
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SCOPE = os.path.join(ROOT, '_phase2_scope.json')
 HASHES = os.path.join(ROOT, '_phase2_hashes.json')
+ACCEPTED = os.path.join(ROOT, '_phase2_accepted.json')   # {reader: {output: reason}}
 
 
 def sha(path):
@@ -72,6 +73,13 @@ def main():
         raise SystemExit('--only %r matched no reader in scope' % only)
     print('%s %d BACI readers (timeout %ds)\n' % ('BASELINING' if baseline else 'COMPARING', len(readers), timeout))
 
+    # The sweep DELETES the nine chain extractors superseded by build_chain_trade.py. A reader
+    # that is gone by design is reported as such, not as a failure - and never silently skipped.
+    gone = [r for r in readers if not os.path.exists(os.path.join(ROOT, r))]
+    readers = [r for r in readers if r not in gone]
+    for r in gone:
+        print('  xx %-42s deleted (superseded; see migrate_baci.DEAD)' % r)
+
     got = run_all(readers, timeout)
 
     if baseline:
@@ -87,7 +95,12 @@ def main():
     if not os.path.exists(HASHES):
         raise SystemExit('no baseline - run with --baseline first, BEFORE migrating anything')
     base = json.load(io.open(HASHES, encoding='utf-8'))
-    same = changed = missing = newfail = 0
+    # A difference that is KNOWN and CORRECT is accepted by name, with its reason, never by
+    # loosening the comparison. The first dry run found one: pandas.read_csv reads Namibia's
+    # ISO2 "NA" as missing, so every legacy reader silently dropped Namibia; baci.countries()
+    # does not. That is a fix, and it must be recorded as one, per (reader, output).
+    accepted = json.load(io.open(ACCEPTED, encoding='utf-8')) if os.path.exists(ACCEPTED) else {}
+    same = changed = missing = newfail = acc = 0
     for b, v in got.items():
         was = base.get(b)
         if was is None:
@@ -97,13 +110,17 @@ def main():
             print('  !! %-42s ran clean before, now fails: %s' % (b, str(v['exit'])[:60])); continue
         for path, h in was['outputs'].items():
             now = v['outputs'].get(path)
+            reason = accepted.get(b, {}).get(path)
             if now is None:
                 missing += 1; print('  -- %-42s no longer writes %s' % (b, path))
+            elif now != h and reason:
+                acc += 1; print('  ok %-42s changed, ACCEPTED: %s' % (b, reason))
             elif now != h:
                 changed += 1; print('  != %-42s CHANGED %s' % (b, path))
             else:
                 same += 1
-    print('\nidentical %d | changed %d | missing %d | newly failing %d' % (same, changed, missing, newfail))
+    print('\nidentical %d | accepted %d | changed %d | missing %d | newly failing %d'
+          % (same, acc, changed, missing, newfail))
     if changed or missing or newfail:
         print('MIGRATION NOT ACCEPTED. A different byte is a different number until shown otherwise.')
         return 1

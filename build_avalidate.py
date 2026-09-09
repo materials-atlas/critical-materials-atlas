@@ -26,6 +26,7 @@ and per tier. Still exploratory (few entrants per product) -- it BOUNDS trust in
 Writes out/avalidate.json.  Run: python build_avalidate.py
 """
 import os, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS02_V202601.zip')   # HS2002 vintage: 2002-2024 consistent
@@ -49,7 +50,7 @@ TARGETS = {
     '720221': ('Ferro-silicon', 'silicon', 'com'),
     '720230': ('Ferro-silico-manganese', 'manganese · silicon', 'com'),
     '720219': ('Ferro-manganese', 'manganese', 'com')}
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['names']
 
@@ -57,9 +58,7 @@ _MB_CACHE = {}
 def binary_matrix(year):
     if year in _MB_CACHE:
         return _MB_CACHE[year]
-    with zipfile.ZipFile(BACI_ZIP) as z:
-        raw = pd.read_csv(io.TextIOWrapper(z.open(FILE.format(year)), encoding='utf-8'),
-                          dtype={'k': str}, usecols=['i', 'k', 'v'])
+    raw = _baci.year(year, columns=['i', 'k', 'v'], nom='HS02')
     raw['v'] = pd.to_numeric(raw['v'], errors='coerce')
     X = raw.groupby(['i', 'k'], as_index=False).v.sum()
     X = X[X.v >= MIN_VALUE]

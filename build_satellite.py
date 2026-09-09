@@ -16,6 +16,7 @@ label, so country footprint = total mining intensity, not critical-material-spec
 supply the material-specific view. Imagery vintage ~2019. Public data; deterministic. Run: python build_satellite.py
 """
 import sqlite3, struct, json, os, csv, math
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 GPKG = os.path.join(ROOT, 'raw', 'maus', 'maus_v2.gpkg')
@@ -23,7 +24,7 @@ data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 
 # ISO3 <-> ISO2 bridge (BACI country table)
 iso3to2, iso2to3 = {}, {}
-with open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf8') as f:
+with _baci.country_file() as f:
     for r in csv.DictReader(f):
         a2, a3 = r.get('country_iso2'), r.get('country_iso3')
         if a2 and a3 and a2 != 'NA' and a3 != 'NA':

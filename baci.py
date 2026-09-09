@@ -43,9 +43,13 @@ RAW = os.path.join(ROOT, 'raw', 'baci')
 EXTRACT = os.path.join(ROOT, 'extract', 'baci')
 VINTAGE = 'V202601'
 
-# Which nomenclature holds which years. HS02 stops at 2016 and HS17 begins there, and nothing
-# in this repository should ever have to know that again.
-NOMENCLATURE = {'HS02': range(2002, 2017), 'HS17': range(2017, 2025)}
+# Which years each nomenclature archive holds. NOT a partition: CEPII publishes every nomenclature
+# for all years since it began, so 2017-2024 exist in BOTH HS02 and HS17, and they are different
+# tables - the same shipment coded under a 2002 classification and a 2017 one. The first version
+# of this file mapped year -> nomenclature and served HS17 to a reader that had always read HS02;
+# the acceptance harness caught it as a 37% change in build_avalidate. Which nomenclature to read
+# is the READER'S choice, and year() takes it as `nom`.
+NOMENCLATURE = {'HS02': range(2002, 2025), 'HS17': range(2017, 2025)}
 
 # The two overrides that twenty files carried separately. Taiwan is not in CEPII's ISO table;
 # Namibia's ISO2 is the string "NA", which every csv reader on earth treats as missing.
@@ -60,14 +64,20 @@ class NotExtracted(Exception):
 
 
 def nomenclature(year):
-    for nom, yrs in NOMENCLATURE.items():
-        if year in yrs:
+    """The DEFAULT nomenclature for a year when the caller does not say: the newest that holds it.
+    A reader that always read HS02 - the cube ingest, the anchor validation, the trend work -
+    must pass nom='HS02' explicitly; that is a property of the reader, not of the year."""
+    for nom in ('HS17', 'HS02'):
+        if year in NOMENCLATURE[nom]:
             return nom
     raise ValueError('BACI %s has no year %s' % (VINTAGE, year))
 
 
-def path(year):
-    return os.path.join(EXTRACT, nomenclature(year), 'Y%d.parquet' % year)
+def path(year, nom=None):
+    nom = nom or nomenclature(year)
+    if year not in NOMENCLATURE[nom]:
+        raise ValueError('BACI %s %s has no year %s' % (VINTAGE, nom, year))
+    return os.path.join(EXTRACT, nom, 'Y%d.parquet' % year)
 
 
 def _extracted(p):
@@ -79,13 +89,15 @@ def _extracted(p):
         return False
 
 
-def available():
-    """Years actually present in extract/, so a caller can plan rather than crash."""
+def available(nom=None):
+    """Years actually present in extract/ for one nomenclature (or all), so a caller can plan."""
     out = []
-    for nom, yrs in NOMENCLATURE.items():
+    for n, yrs in NOMENCLATURE.items():
+        if nom and n != nom:
+            continue
         for y in yrs:
-            if _extracted(path(y)):
-                out.append(y)
+            if _extracted(path(y, n)):
+                out.append((n, y))
     return out
 
 
@@ -111,6 +123,80 @@ def countries():
     return df.set_index('code', drop=False)
 
 
+@functools.lru_cache(maxsize=1)
+def _country_text():
+    p = os.path.join(RAW, 'country_codes_%s.csv' % VINTAGE)
+    with open(p, encoding='utf-8-sig') as fh:
+        return fh.read()
+
+
+def country_file():
+    """The country table as an in-memory CSV, VERBATIM from disk. No overrides.
+
+    This is the migration's safety valve. A legacy reader did open(country_codes_V202601.csv)
+    and then its own csv.DictReader or pd.read_csv with its own filters and its own NA handling.
+    Handing it the same text lets it keep every one of those choices unchanged - including
+    pd.read_csv turning Namibia's 'NA' into NaN (wrong, but what it did) and CEPII's 'S19'
+    placeholder for Taiwan (wrong, but what it said). The migration must change NOTHING; the
+    corrected views are countries(), code_maps() and country_frame(), and moving a reader onto
+    them is a separate, deliberate change with its own accepted diff.
+    """
+    import io as _io
+    return _io.StringIO(_country_text())
+
+
+@functools.lru_cache(maxsize=4)
+def _product_text(nom):
+    p = os.path.join(RAW, 'product_codes_%s_%s.csv' % (nom, VINTAGE))
+    with open(p, encoding='utf-8-sig') as fh:
+        return fh.read()
+
+
+def product_file(nom='HS17'):
+    """CEPII's product-code table for one nomenclature, verbatim, as an in-memory CSV.
+    Same safety valve as country_file(): a reader that did pd.read_csv(product_codes_HS17...)
+    keeps its own dtype and parsing choices unchanged."""
+    import io as _io
+    return _io.StringIO(_product_text(nom))
+
+
+class _NoArchive:
+    """A context manager that opens nothing.
+
+    build_trend_robustness.py wraps its year loop in `with zipfile.ZipFile(ZIP) as zf:` and passes
+    zf down to a function that no longer needs it. Replacing the archive with this keeps the
+    block's shape - and its indentation - intact while opening no file. It yields None so any
+    surviving use of zf fails loudly instead of quietly reading the zip."""
+    def __enter__(self):
+        return None
+
+    def __exit__(self, *a):
+        return False
+
+
+def no_archive():
+    return _NoArchive()
+
+
+def country_rows():
+    """csv.DictReader over the verbatim table: dicts keyed country_code, country_name,
+    country_iso2, country_iso3, exactly as the file gives them. No overrides."""
+    return list(csv.DictReader(country_file()))
+
+
+def country_frame():
+    """Same table as a DataFrame with the CSV's column names, for readers that did pd.read_csv.
+    One deliberate difference: pd.read_csv turned Namibia's 'NA' into NaN and every such reader
+    silently dropped the country. Here it is a real code. The acceptance harness records that as
+    an accepted change, by name, per reader."""
+    c = countries()
+    df = pd.DataFrame({'country_code': c['code'].astype(int).values,
+                       'country_name': c['name'].values,
+                       'country_iso2': c['iso2'].values,
+                       'country_iso3': c['iso3'].values})
+    return df.reset_index(drop=True)
+
+
 def code_maps():
     """The dicts the old readers built by hand: num->iso2, num->iso3, iso2->name."""
     c = countries()
@@ -127,12 +213,15 @@ def crm_codes():
                      for c in (v.get('ore_hs') or []) + (v.get('refined_hs') or []))
 
 
-def year(y, columns=None, codes=None, iso=None):
+def year(y, columns=None, codes=None, iso=None, nom=None):
     """One year of BACI. columns: subset of t,i,j,k,v,q. codes: keep only these HS6.
-    iso: None (numeric i/j), 'iso3' or 'iso2' - adds i_iso / j_iso columns."""
-    p = path(y)
+    iso: None (numeric i/j), 'iso3' or 'iso2' - adds i_iso / j_iso columns.
+    nom: 'HS02' or 'HS17'. None = the newest nomenclature holding the year. A reader that has
+    always read HS02 must say so: for 2017-2024 the two are different tables."""
+    nom = nom or nomenclature(y)
+    p = path(y, nom)
     if not _extracted(p):
-        raise NotExtracted('BACI %d is not in extract/ - run: python extract_baci.py' % y)
+        raise NotExtracted('BACI %s %d is not in extract/ - run: python extract_baci.py' % (nom, y))
     want = list(columns) if columns else ['t', 'i', 'j', 'k', 'v', 'q']
     need = set(want) | ({'k'} if codes else set()) | ({'i', 'j'} if iso else set())
     df = pd.read_parquet(p, columns=sorted(need, key=['t', 'i', 'j', 'k', 'v', 'q'].index))
@@ -152,8 +241,9 @@ def years(ys, **kw):
 
 
 if __name__ == '__main__':
-    av = available()
-    print('BACI %s  extracted years: %s' % (VINTAGE, ('%d..%d (%d)' % (av[0], av[-1], len(av))) if av else 'NONE'))
+    for nom in NOMENCLATURE:
+        ys = [y for n, y in available(nom)]
+        print('BACI %s %s  extracted years: %s' % (VINTAGE, nom, ('%d..%d (%d)' % (ys[0], ys[-1], len(ys))) if ys else 'NONE'))
     c = countries()
     print('countries: %d codes | with iso3: %d | forced: %s' % (len(c), c['iso3'].notna().sum(), ', '.join(FORCE)))
     print('CRM codes: %d' % len(crm_codes()))

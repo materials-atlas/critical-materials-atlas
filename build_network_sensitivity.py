@@ -15,6 +15,7 @@ Deps: networkx (already used by build_network) + stdlib. Streams raw/baci/BACI_H
 Writes out/network_sensitivity.json + network-sensitivity.html. Run: python build_network_sensitivity.py
 """
 import json, os, zipfile, io, csv
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import networkx as nx
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +35,7 @@ if '811231' in c2l:
 CODES = set(c2l)
 
 num2iso = {}
-with open(os.path.join(RAW, 'country_codes_V202601.csv'), encoding='utf8') as f:
+with _baci.country_file() as f:
     for r in csv.DictReader(f):
         if r.get('country_iso2') and r['country_iso2'] != 'NA':
             num2iso[r['country_code']] = r['country_iso2']
@@ -42,23 +43,17 @@ with open(os.path.join(RAW, 'country_codes_V202601.csv'), encoding='utf8') as f:
 # stream BACI HS17 2024 -> per-material directed edges
 edges = {}                                            # label -> {(frm,to): value}
 zp = os.path.join(RAW, 'BACI_HS17_V202601.zip')
-with zipfile.ZipFile(zp).open('BACI_HS17_Y2024_V202601.csv') as fh:
-    next(fh)
-    for line in io.TextIOWrapper(fh, encoding='utf8'):
-        p = line.rstrip('\n').split(',')
-        if len(p) < 6 or p[3] not in CODES:
-            continue
-        frm, to = num2iso.get(p[1]), num2iso.get(p[2])
-        if not frm or not to or frm == to:
-            continue
-        try:
-            v = float(p[4])
-        except ValueError:
-            continue
-        for lab in c2l[p[3]]:
-            d = edges.setdefault(lab, {})
-            k = (frm, to)
-            d[k] = d.get(k, 0.0) + v
+for p in _baci.year(2024, columns=['i', 'j', 'k', 'v'], codes=set(CODES)).itertuples(index=False):
+    frm, to = num2iso.get(str(p.i)), num2iso.get(str(p.j))
+    if not frm or not to or frm == to:
+        continue
+    if p.v != p.v:
+        continue
+    v = p.v
+    for lab in c2l[p.k]:
+        d = edges.setdefault(lab, {})
+        k = (frm, to)
+        d[k] = d.get(k, 0.0) + v
 
 def build_graph(emap, cap):
     """Directed weighted graph; cap = keep edges among the top-`cap` nodes by total throughput (None=full)."""

@@ -15,6 +15,7 @@ under-mapped (dips below 2023) so 2023 is the robust recent endpoint. Public dat
 Run: python build_mining_expansion.py
 """
 import sqlite3, json, os, csv, re
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 GPKG = os.path.join(ROOT, 'raw', 'sepin', 'sepin_precise.gpkg')
@@ -24,7 +25,7 @@ YEARS = [str(y) for y in range(2016, 2025)]
 
 # ISO3<->ISO2 + critical-material production role (mirrors build_satellite.py)
 iso3to2 = {}
-with open(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf8') as f:
+with _baci.country_file() as f:
     for r in csv.DictReader(f):
         if r.get('country_iso2') and r.get('country_iso3') and r['country_iso2'] != 'NA' and r['country_iso3'] != 'NA':
             iso3to2[r['country_iso3']] = r['country_iso2']

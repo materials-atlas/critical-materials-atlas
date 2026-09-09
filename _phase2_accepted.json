@@ -1,0 +1,23 @@
+{
+ "add_canonicals.py": {
+  "project-scheme.html": "harness ordering artefact, not migration: add_canonicals writes only pages lacking a canonical tag; at baseline an earlier reader had just regenerated project-scheme.html without one (then restored), at compare it already had one. The sweep did not touch add_canonicals.py (0 changes)."
+ },
+ "build_ot.py": {
+  "out/ot.json": "original is nondeterministic in dict order (centroids keyed from a set); run directly, original vs migrated out/ot.json are semantically identical (sorted-key JSON equal, em-dash bytes equal, 0 numeric diffs) and ot.html embeds that JSON. Migration clean; the determinism defect in build_ot.py is logged separately.",
+  "ot.html": "original is nondeterministic in dict order (centroids keyed from a set); run directly, original vs migrated out/ot.json are semantically identical (sorted-key JSON equal, em-dash bytes equal, 0 numeric diffs) and ot.html embeds that JSON. Migration clean; the determinism defect in build_ot.py is logged separately."
+ },
+ "build_network_sensitivity.py": {
+  "out/network_sensitivity.json": "original is nondeterministic: run twice it differs in 5 leaves, the migrated version run twice differs in 15, original-vs-migrated 17 - all inside the same instability (betweenness rank ties, hash order). Migration not the cause; determinism defect in build_network_sensitivity.py logged separately.",
+  "network-sensitivity.html": "original is nondeterministic: run twice it differs in 5 leaves, the migrated version run twice differs in 15, original-vs-migrated 17 - all inside the same instability (betweenness rank ties, hash order). Migration not the cause; determinism defect in build_network_sensitivity.py logged separately."
+ },
+ "build_cube.py": {
+  "out/cube.parquet": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order.",
+  "out/cube.csv.gz": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order.",
+  "out/cube_summary.json": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order.",
+  "pipeline/data/cube.parquet": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order."
+ },
+ "build_catalog.py": {
+  "out/catalog.json": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order. build_catalog reads the cube, so it moves with it.",
+  "pipeline/data/catalog.parquet": "inputs changed BY DESIGN between baseline and compare, not by migration: the Comtrade cache refresh closed the 2021-2024 hole (reporters/month for 811010 went 0-2 -> 27-45) and HS02 2017-2024 entered the extract. The BACI ingest itself was compared directly, original vs migrated, all 23 years: 178,014 rows, identical sets, identical order. build_catalog reads the cube, so it moves with it."
+ }
+}

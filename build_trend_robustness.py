@@ -15,6 +15,7 @@ rate and name every commodity where the correction would FLIP the trend sign or 
 Run: python build_trend_robustness.py   ->  writes out/trend_robustness.json   (needs pandas, scipy)
 """
 import os, io, json, zipfile
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 from scipy.stats import kendalltau
 
@@ -31,7 +32,7 @@ CODES.add('811231')
 XW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
 CODE2NAME = {e['title_code']: n for n, e in XW.items() if e.get('title_code')}
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso3))
 
 def fold(s):
@@ -42,8 +43,7 @@ def baci_hhi_year(zf, year):
     member = f'BACI_HS02_Y{year}_V202601.csv'
     if member not in zf.namelist():
         return {}
-    raw = pd.read_csv(io.TextIOWrapper(zf.open(member), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'k', 'v'])
+    raw = _baci.year(year, columns=['i', 'k', 'v'], nom='HS02')
     raw['k'] = raw.k.str.zfill(6)
     raw = raw[raw.k.isin(CODES)]
     if raw.empty:
@@ -85,7 +85,7 @@ if os.path.exists(CACHE):
     engine_series = {cmd: {int(y): v for y, v in d.items()} for cmd, d in c['engine'].items()}
     print('loaded series from cache', flush=True)
 else:
-    with zipfile.ZipFile(ZIP) as zf:
+    with _baci.no_archive() as zf:
         for y in YEARS:
             for cmd, h in baci_hhi_year(zf, y).items():
                 baci_series.setdefault(cmd, {})[y] = h

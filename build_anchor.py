@@ -26,6 +26,7 @@ the naive comparison mis-signals, so they are flagged 'divergent' and reported b
 they need two-stage (ore vs refined) handling. Run: python build_anchor.py -> out/anchor.json
 """
 import csv, json, os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -62,7 +63,7 @@ CONF = _cj.get('conf', {})          # per-material confidence in the end-use spl
 fj = json.load(open(os.path.join(ROOT,'out','flows_2024.json'),encoding='utf8'))
 flows, NAMES = fj['materials'], fj['names']
 I2to3 = {}
-for r in csv.DictReader(open(os.path.join(ROOT,'raw','baci','country_codes_V202601.csv'),encoding='utf-8')):
+for r in csv.DictReader(_baci.country_file()):
     if r.get('country_iso2') and r.get('country_iso3'): I2to3[r['country_iso2']] = r['country_iso3']
 
 def consumption_t(iso2, mat):

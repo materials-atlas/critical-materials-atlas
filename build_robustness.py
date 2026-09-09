@@ -6,12 +6,13 @@ and compare leaders + HHI. If they agree, the chokepoint figures are not an arti
 Reads the committed raw Comtrade + BACI (2022); writes out/robustness.json.  Run: python build_robustness.py
 """
 import os, io, csv, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = 2022
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 COMTRADE = os.path.join(ROOT, 'raw', 'comtrade', f'comtrade_{YEAR}.csv')
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2))
 
 # refined codes we report concentration on (present in both sources)
@@ -36,9 +37,7 @@ with open(COMTRADE, encoding='utf-8-sig') as f:
                 pass
 
 # --- BACI: exporter totals over all partners ---
-with zipfile.ZipFile(BACI_ZIP) as z:
-    baci = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                       dtype={'k': str}, usecols=['i', 'k', 'v'])
+baci = _baci.year(YEAR, columns=['i', 'k', 'v'])
 baci = baci[baci.k.isin(CODES)]
 baci['v'] = pd.to_numeric(baci['v'], errors='coerce').fillna(0.0)
 bac = {c: dict(g.groupby('i').v.sum()) for c, g in baci.groupby('k')}

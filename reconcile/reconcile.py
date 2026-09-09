@@ -11,6 +11,7 @@ Output: reconcile/recon_<year>.csv  (i_iso3, j_iso3, cmd, value)  + diagnostics 
 Usage:  python reconcile.py 2024
 """
 import os, sys
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 import statsmodels.formula.api as smf
 
@@ -18,7 +19,7 @@ ROOT = os.environ.get('ATLAS_ROOT', '.')
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2024
 
 # ---- country crosswalk: Comtrade M49 -> ISO3 (BACI table) ----
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 m49_iso3 = dict(zip(cc.country_code, cc.country_iso3))
 
 # ---- geography (CEPII dist_cepii) — OPTIONAL: kept for diagnostics only; the CIF/FOB markup below uses

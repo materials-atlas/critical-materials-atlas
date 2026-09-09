@@ -23,11 +23,12 @@ Each is catalogued rather than ingested, which is what the coverage catalog is f
 Run:  python build_cube_wmd.py     (invoked by build_cube.py; standalone for inspection)
 """
 import os, sys, re, csv, glob, warnings
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 warnings.filterwarnings('ignore')
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 XLSX = os.path.join(ROOT, 'raw', 'wmd', 'wmd_6.4_production_by_country.xlsx')
-CODES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
+CODES = None  # served by _baci.country_file()
 
 # WMD sheet name -> atlas material. The sheet carries the reporting basis in brackets, which is
 # information we must keep: "Chromium (Cr2O3)" is an oxide basis, not contained chromium.
@@ -51,7 +52,7 @@ FLAG_COL = None
 
 def name_to_iso():
     m = {}
-    with open(CODES, encoding='utf-8-sig') as f:
+    with _baci.country_file() as f:
         for row in csv.DictReader(f):
             n, iso = row.get('country_name'), row.get('country_iso3')
             if n and iso and len(iso) == 3:

@@ -17,6 +17,7 @@ Outputs:  out/capability.json (latest year, for the map tooltip) and out/capabil
 Run:  python build_feedstock.py
 """
 import os, io, zipfile, json
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
@@ -41,7 +42,7 @@ CROSSWALK = {
 }
 MAGNET_UP, MAGNET_DOWN = ['280530', '284690'], ['850511']    # REE metal + oxide -> NdFeB magnet
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 cur_ref = {m['label']: {x['c']: x['v'] for x in (m.get('refined') or [])} for m in d['materials']}
@@ -138,9 +139,7 @@ def stage_rows(exp, imp, up_codes, down_codes, phys_ref_d, phys_mine_d, magnet=F
 
 
 def compute_year(year):
-    with zipfile.ZipFile(BACI_ZIP) as z:
-        raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{year}_V202601.csv'), encoding='utf-8'),
-                          dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+    raw = _baci.year(year, columns=['i', 'j', 'k', 'v'])
     raw = raw[raw.k.isin(CODES)].copy()
     raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
     exp = raw.groupby(['i', 'k']).v.sum(); imp = raw.groupby(['j', 'k']).v.sum()

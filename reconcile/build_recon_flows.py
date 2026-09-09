@@ -1,4 +1,5 @@
 import os
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 """Convert a reconciled HS6 flow file (recon_<year>.csv) into the atlas flows_<year>.json schema.
 Levels are calibrated per-material to BACI's 2024 scale (recon runs ~1.6x high vs BACI, a consistent
 multiple that doesn't affect shares); shares are unchanged. Keeps top-6 suppliers/customers per country.
@@ -17,7 +18,7 @@ for m in d['materials']:
     c = hs6(m); c = '811292' if c == '811231' else c
     code2lab.setdefault(c, []).append(m['label'])
 
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 i3_i2 = dict(zip(cc.country_iso3, cc.country_iso2))
 ref = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf8'))   # reuse country reference
 cen, nm, isomap = ref['centroids'], ref['names'], ref['iso']

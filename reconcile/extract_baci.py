@@ -9,6 +9,7 @@ code 811231 folded into 811292 exactly as validate.py folds the reconciled side.
 Usage:  ATLAS_ROOT=/path/to/atlas python extract_baci.py 2024
 """
 import os, sys, zipfile, io
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import pandas as pd
 
 ROOT = os.environ.get('ATLAS_ROOT', '.')
@@ -26,13 +27,11 @@ codes.add('811231')  # keep the shared-code raw rows so we can fold them into 81
 print(f'tracking {len(codes)} HS6 codes', flush=True)
 
 # BACI numeric country code -> ISO3
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 num2iso3 = dict(zip(cc.country_code, cc.country_iso3))
 
 # stream the year member, keep only tracked codes
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(MEMBER), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'j', 'k', 'v'])
 raw['k'] = raw.k.str.zfill(6)
 raw = raw[raw.k.isin(codes)].copy()
 print(f'raw rows in tracked codes: {len(raw)}', flush=True)

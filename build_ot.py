@@ -25,6 +25,7 @@ Reads the committed BACI zip + out/crosswalk.json + centroids/names from out/flo
 Writes out/ot.json.  Run:  python build_ot.py [year]
 """
 import os, sys, io, json, zipfile
+import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
 import numpy as np, pandas as pd
 try:
     sys.stdout.reconfigure(encoding='utf-8')
@@ -38,13 +39,11 @@ CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8
 flows = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))
 CENT = flows['centroids']                 # iso2 -> [lat, lon]
 NAMES = flows['names']                    # iso2 -> country name
-cc = pd.read_csv(os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv'), encoding='utf-8')
+cc = pd.read_csv(_baci.country_file())
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 
 REF_CODES = sorted({c for m in CW.values() for c in (m.get('refined_hs') or [])})
-with zipfile.ZipFile(BACI_ZIP) as z:
-    raw = pd.read_csv(io.TextIOWrapper(z.open(f'BACI_HS17_Y{YEAR}_V202601.csv'), encoding='utf-8'),
-                      dtype={'k': str}, usecols=['i', 'j', 'k', 'v'])
+raw = _baci.year(YEAR, columns=['i', 'j', 'k', 'v'])
 raw = raw[raw.k.isin(REF_CODES)].copy()
 raw['v'] = pd.to_numeric(raw['v'], errors='coerce').fillna(0.0)
 raw['ei'] = raw.i.map(NUM2ISO); raw['ej'] = raw.j.map(NUM2ISO)
