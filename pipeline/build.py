@@ -2,7 +2,8 @@
 """Orchestrator: run every registered adapter, gate each through validation, and write ONE unified
 surface (pipeline/data/flows.parquet). Wide + deep + (later) mirror coexist in a single table that
 the static browser page queries. Adding a source = append one adapter to ADAPTERS below."""
-import os, sys
+import os
+import json, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import duckdb
 import schema, cache, reconcile, concordance
@@ -40,8 +41,38 @@ SELECT * EXCLUDE(rn, src_rank) FROM (
 """
 
 
+def comtrade_cache_current(manifest=None, live=None):
+    """Is the Comtrade cache built from the stores as they are NOW? Returns (ok, message).
+
+    The cache is what build.py reads; refresh.py is what fills it. On 9 Sep the history parts
+    landed after the last refresh, build.py was run directly, and the cube shipped missing
+    2021-2024 - the years every export-control date sits in - with nothing erroring. A required
+    order that nothing encoded. This encodes it, by content: the manifest carries a fingerprint
+    of the stores at refresh time and it must equal the stores at build time.
+    """
+    if manifest is None:
+        try:
+            manifest = json.load(open(cache.MANIFEST, encoding='utf-8'))
+        except (OSError, ValueError):
+            manifest = {}
+    stamp = (manifest.get('comtrade') or {}).get('fingerprint')
+    if not stamp or 'error' in stamp:
+        return True, 'WARNING: comtrade cache carries no store fingerprint - run refresh.py comtrade once to stamp it'
+    if live is None:
+        from adapter_comtrade import source_fingerprint
+        live = source_fingerprint()
+    if stamp != live:
+        return False, ('REFUSING TO BUILD: the comtrade cache is behind its stores (cache built from %s, stores now %s). '
+                       'Run:  python pipeline/refresh.py comtrade   then build again.' % (stamp, live))
+    return True, 'comtrade cache matches its stores'
+
+
 def main():
     files = cache.files()
+    ok, msg = comtrade_cache_current()
+    print('  ' + msg)
+    if not ok:
+        raise SystemExit(msg)
     if not files:
         print("no source caches yet — run:  python pipeline/refresh.py all")
         return

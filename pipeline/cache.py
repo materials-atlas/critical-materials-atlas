@@ -28,6 +28,14 @@ def _stamp(source, rows):
                  # looks perfectly fresh by refreshed_at while being useless for reconciliation.
                  'earliest_period': min(periods) if periods else None,
                  'n_periods': len(set(periods)) if periods else 0}
+    if source == 'comtrade':
+        # Content fingerprint of the stores this cache was built from. build.py compares it to the
+        # live stores and refuses a cache that is behind them - the 9 Sep hole, encoded.
+        try:
+            import adapter_comtrade as _ct
+            m[source]['fingerprint'] = _ct.source_fingerprint()
+        except Exception as e:
+            m[source]['fingerprint'] = {'error': str(e)[:80]}
     json.dump(m, open(MANIFEST, 'w'), indent=2, sort_keys=True)
 
 

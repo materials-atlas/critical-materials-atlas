@@ -93,6 +93,28 @@ def _chunks(lst, n):
 HISTORY = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_history')
 
 
+def source_fingerprint():
+    """What the two stores hold, by CONTENT not by clock: part count, part rows from parquet
+    metadata (no data read), and the JSONL size in bytes. cache.save stamps this into the
+    manifest; build.py refuses a cache whose stamp no longer matches the stores.
+
+    Why: on 9 Sep the 2016-2024 history landed AFTER refresh had last run, build.py was run
+    directly, and the cube shipped with a hole across exactly the years the export-control dates
+    sit in. Nothing errored. A required order that nothing encoded. This encodes it.
+    """
+    import glob
+    parts = sorted(glob.glob(os.path.join(HISTORY, '*.parquet'))) if os.path.isdir(HISTORY) else []
+    rows = 0
+    try:
+        import pyarrow.parquet as pq
+        for f in parts:
+            rows += pq.read_metadata(f).num_rows
+    except ImportError:
+        rows = -1
+    return {'history_parts': len(parts), 'history_rows': rows,
+            'jsonl_bytes': os.path.getsize(CACHE) if os.path.exists(CACHE) else 0}
+
+
 def read_cache():
     """All rows accumulated so far (what build.py reads - no network).
 
