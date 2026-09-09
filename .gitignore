@@ -159,3 +159,6 @@ pipeline/data/flows_reconciled.parquet
 
 # the observed dependency graph (record_graph.py) - a record, committed like the register
 !out/graph.json
+
+# extract/ - normalized per-source parquet, one writer per source (ARCHITECTURE.md phase 2). Regenerable from raw/.
+extract/

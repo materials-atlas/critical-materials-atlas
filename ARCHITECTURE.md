@@ -201,6 +201,26 @@ migration keeps a proven bug class alive for months by choice. Then I1 for BACI 
 other 28 sources on the allowlist. The concentration finding is live and must reproduce exactly;
 that test is written before the migration, not after.
 
+**Phase 2 — status, 9 Sep.** Scoped from the recorded graph, not from grep:
+
+- 56 readers. **39** unzip an archive (36 open HS17, 24 open HS02), **15** read only the
+  country-code file, 2 only list the directory. So there are two accessors to serve, not one:
+  `baci.year(y)` for the basket and `baci.countries()` for the lookup.
+- **Two key systems in one repository.** The twenty chain extractors map BACI codes to ISO2 and
+  carry a hand-written override dict (`490 -> TW`, `516 -> NA` - Namibia, whose ISO2 is the
+  missing-value sentinel). The cube ingest maps to ISO3. All twenty override dicts are identical
+  today, which is luck; `baci.FORCE` makes it design.
+- **Two CRM code lists.** `out/crosswalk.json` (47 HS6, the cube's) is a strict superset of
+  `concordance.tracked_hs6_set()` (31, the pipeline's). The extract filters on the superset.
+- **Three things inference gets wrong**, found on the first member: HS codes need VARCHAR or
+  `010121` becomes `10121`; in this vintage `q` is sometimes the empty string, not `NA`; and DuckDB
+  creates its output before it fails, so a 0-byte parquet can exist and an accessor that tests
+  existence will believe it. All three are handled in `extract_baci.py` and `baci.py`, and the
+  extractor deletes its output on any failure rather than leave a second door.
+- The acceptance harness (`phase2_accept.py`) is keyed per **(reader, output)**, not per output,
+  because eight chain files have two writers producing different bytes. One hash per file would
+  average the race away; the pair keeps it visible.
+
 **Phase 3 — the runner.** Topological rebuild from the recorded graph, then I2, I3, I4. This is
 what actually prevents another germanium.
 
