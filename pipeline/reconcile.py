@@ -74,7 +74,11 @@ HUBS_SQL = "('NLD','BEL','SGP','HKG','ARE','CHE','GBR','LUX','PAN','MYS')"   # e
 SIDES_SQL = """
 CREATE OR REPLACE TABLE sides AS
 WITH canon AS (
-  SELECT period, hs6, material, value_usd, qty_kg,
+  -- A weight of ZERO is not a weight. US Census returns 0 where it has no quantity, and
+  -- treating that as a declaration scored 43,067 two-sided flows (11.6%) as weight
+  -- disagreements against a side that had said nothing. NULL means 'not declared';
+  -- 0 kg of a shipment that was valued at real money is the same statement.
+  SELECT period, hs6, material, value_usd, CASE WHEN qty_kg > 0 THEN qty_kg END AS qty_kg,
     CASE WHEN flow='export' THEN reporter ELSE partner END AS exporter,
     CASE WHEN flow='export' THEN partner  ELSE reporter END AS importer,
     CASE WHEN flow='export' THEN 'fob' ELSE 'cif' END AS side,

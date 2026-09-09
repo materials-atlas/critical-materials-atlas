@@ -1,0 +1,254 @@
+{
+  "flows_dir": "out",
+  "measured_years": [
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
+    2012,
+    2013,
+    2014,
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "method": "persistence: shares_T_hat = shares_{T-1}",
+  "overall": {
+    "pairs_scored": 22,
+    "material_year_obs": 704,
+    "top1_persistence_rate": 0.868,
+    "share_mae_pp_mean": 0.4,
+    "top1_abs_err_pp_mean": 4.58,
+    "hhi_abs_err_mean": 0.032,
+    "bands_top1_abs_err_pp": {
+      "p50": 3.32,
+      "p90": 10.37,
+      "p95": 13.36
+    },
+    "bands_share_mae_pp": {
+      "p50": 0.29,
+      "p90": 0.72
+    },
+    "most_predictable": [
+      {
+        "material": "cokingcoal",
+        "mean_share_mae_pp": 0.1
+      },
+      {
+        "material": "magnets",
+        "mean_share_mae_pp": 0.1
+      },
+      {
+        "material": "feldspar",
+        "mean_share_mae_pp": 0.17
+      },
+      {
+        "material": "helium",
+        "mean_share_mae_pp": 0.17
+      },
+      {
+        "material": "silicon",
+        "mean_share_mae_pp": 0.18
+      },
+      {
+        "material": "boron",
+        "mean_share_mae_pp": 0.19
+      }
+    ],
+    "least_predictable": [
+      {
+        "material": "beryllium",
+        "mean_share_mae_pp": 1.69
+      },
+      {
+        "material": "arsenic",
+        "mean_share_mae_pp": 0.95
+      },
+      {
+        "material": "tungsten",
+        "mean_share_mae_pp": 0.62
+      },
+      {
+        "material": "tantalum",
+        "mean_share_mae_pp": 0.59
+      },
+      {
+        "material": "hafnium",
+        "mean_share_mae_pp": 0.57
+      },
+      {
+        "material": "germanium",
+        "mean_share_mae_pp": 0.57
+      }
+    ]
+  },
+  "per_pair": {
+    "2002->2003": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.49,
+      "top1_abs_err_pp": 4.37,
+      "hhi_abs_err": 0.022
+    },
+    "2003->2004": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.58,
+      "top1_abs_err_pp": 5.96,
+      "hhi_abs_err": 0.044
+    },
+    "2004->2005": {
+      "n": 32,
+      "top1_hit_rate": 0.938,
+      "share_mae_pp": 0.46,
+      "top1_abs_err_pp": 4.87,
+      "hhi_abs_err": 0.04
+    },
+    "2005->2006": {
+      "n": 32,
+      "top1_hit_rate": 0.938,
+      "share_mae_pp": 0.37,
+      "top1_abs_err_pp": 2.8,
+      "hhi_abs_err": 0.022
+    },
+    "2006->2007": {
+      "n": 32,
+      "top1_hit_rate": 0.938,
+      "share_mae_pp": 0.41,
+      "top1_abs_err_pp": 6.68,
+      "hhi_abs_err": 0.044
+    },
+    "2007->2008": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.4,
+      "top1_abs_err_pp": 5.31,
+      "hhi_abs_err": 0.04
+    },
+    "2008->2009": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.51,
+      "top1_abs_err_pp": 6.06,
+      "hhi_abs_err": 0.042
+    },
+    "2009->2010": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.5,
+      "top1_abs_err_pp": 5.32,
+      "hhi_abs_err": 0.026
+    },
+    "2010->2011": {
+      "n": 32,
+      "top1_hit_rate": 0.906,
+      "share_mae_pp": 0.37,
+      "top1_abs_err_pp": 4.77,
+      "hhi_abs_err": 0.032
+    },
+    "2011->2012": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.46,
+      "top1_abs_err_pp": 5.58,
+      "hhi_abs_err": 0.038
+    },
+    "2012->2013": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.39,
+      "top1_abs_err_pp": 4.31,
+      "hhi_abs_err": 0.032
+    },
+    "2013->2014": {
+      "n": 32,
+      "top1_hit_rate": 0.906,
+      "share_mae_pp": 0.32,
+      "top1_abs_err_pp": 3.24,
+      "hhi_abs_err": 0.025
+    },
+    "2014->2015": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.35,
+      "top1_abs_err_pp": 4.83,
+      "hhi_abs_err": 0.036
+    },
+    "2015->2016": {
+      "n": 32,
+      "top1_hit_rate": 0.75,
+      "share_mae_pp": 0.3,
+      "top1_abs_err_pp": 3.82,
+      "hhi_abs_err": 0.03
+    },
+    "2016->2017": {
+      "n": 32,
+      "top1_hit_rate": 0.906,
+      "share_mae_pp": 0.37,
+      "top1_abs_err_pp": 3.98,
+      "hhi_abs_err": 0.037
+    },
+    "2017->2018": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.31,
+      "top1_abs_err_pp": 2.89,
+      "hhi_abs_err": 0.021
+    },
+    "2018->2019": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.33,
+      "top1_abs_err_pp": 3.8,
+      "hhi_abs_err": 0.029
+    },
+    "2019->2020": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.36,
+      "top1_abs_err_pp": 4.7,
+      "hhi_abs_err": 0.038
+    },
+    "2020->2021": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.32,
+      "top1_abs_err_pp": 4.77,
+      "hhi_abs_err": 0.026
+    },
+    "2021->2022": {
+      "n": 32,
+      "top1_hit_rate": 0.844,
+      "share_mae_pp": 0.38,
+      "top1_abs_err_pp": 4.87,
+      "hhi_abs_err": 0.036
+    },
+    "2022->2023": {
+      "n": 32,
+      "top1_hit_rate": 0.812,
+      "share_mae_pp": 0.36,
+      "top1_abs_err_pp": 4.14,
+      "hhi_abs_err": 0.029
+    },
+    "2023->2024": {
+      "n": 32,
+      "top1_hit_rate": 0.875,
+      "share_mae_pp": 0.38,
+      "top1_abs_err_pp": 3.79,
+      "hhi_abs_err": 0.026
+    }
+  }
+}
