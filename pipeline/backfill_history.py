@@ -115,20 +115,26 @@ def main():
     # A block is only genuinely finished if we know its outcome: it wrote a part file, or we
     # recorded that it legitimately holds no rows. Anything else goes back in the queue, which
     # also repairs state written under the old, wrong definition.
+    # STATE IS KEYED ON WHAT A BLOCK IS, NOT WHERE IT SITS. It used to be (month-index, reporter-
+    # index), both computed from --from and the reporter list of the day. Change --from to reach
+    # further back and every index shifts: block 0 stops meaning 2010 and starts meaning 2000, and
+    # the state would have skipped the new decade as done. The part files were always named by
+    # (first month, first reporter); the state now is too, so any range can be added later.
+    key = lambda mi, ri: (mblocks[mi][0], rblocks[ri][0])
     st['empty'] = set(tuple(x) for x in st.get('empty', []))
     proven = set()
     for mi in range(len(mblocks)):
         for ri in range(len(rblocks)):
-            if (mi, ri) in st['empty'] or os.path.exists(
+            if key(mi, ri) in st['empty'] or os.path.exists(
                     os.path.join(PARTS, 'p_%d_%d.parquet' % (mblocks[mi][0], rblocks[ri][0]))):
-                proven.add((mi, ri))
+                proven.add(key(mi, ri))
     lost = len(st['done'] - proven)
     if lost:
         print('  state repair: %d blocks were marked done with no data and no recorded reason '
               '- re-queued' % lost)
     st['done'] = proven
     todo = [(mi, ri) for mi in range(len(mblocks)) for ri in range(len(rblocks))
-            if (mi, ri) not in st['done']]
+            if key(mi, ri) not in st['done']]
     print('span %d..%d = %d months | %d reporters | %d calls total, %d already done, %d left'
           % (lo, hi, len(cal), len(reps), len(mblocks) * len(rblocks),
              len(st['done']), len(todo)))
@@ -171,8 +177,8 @@ def main():
         else:
             # A successful call returning nothing IS an answer: this block holds no rows for our
             # HS6 set. Record it, so it is not re-fetched on every run for the rest of time.
-            st['empty'].add((mi, ri))
-        st['done'].add((mi, ri))
+            st['empty'].add(key(mi, ri))
+        st['done'].add(key(mi, ri))
         if spent % 20 == 0:
             save_state(st)
             print('  %d calls spent, %d parts, %d rows (%s..%s)'
