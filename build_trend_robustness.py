@@ -32,7 +32,7 @@ CODES.add('811231')
 XW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
 CODE2NAME = {e['title_code']: n for n, e in XW.items() if e.get('title_code')}
 
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso3))
 
 def fold(s):

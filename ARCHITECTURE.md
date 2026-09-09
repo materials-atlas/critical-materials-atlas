@@ -248,6 +248,15 @@ Also found and fixed on the way: the shipped monthly layer was missing 2021-2024
 nothing encoded. It is encoded now: the cache carries a content fingerprint of its stores and
 `build.py` refuses a cache that is behind them.
 
+**Namibia, restored - 9 Sep, its own change.** Namibia's ISO2 is `NA`; `pd.read_csv` reads that as
+missing, and five readers filtered it out explicitly, so every per-country result silently dropped
+the country. Fixed at twenty sites (`keep_default_na=False, na_values=['']`; the filters removed),
+AFTER the migration and separately from it, so the two could never be confused. Twelve readers
+changed; every diff was walked to Namibia. Two are findings, verified directly in BACI 2024:
+Namibia is the world's third cobalt exporter ($119m; $73m to China, its top supplier for the two
+tracked codes), and its arsenic-trioxide exports cut China's world arsenic share by 20-33 points in
+several years. A two-letter coincidence hid a country for weeks.
+
 **Phase 3 — the runner.** Topological rebuild from the recorded graph, then I2, I3, I4. This is
 what actually prevents another germanium.
 

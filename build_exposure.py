@@ -21,7 +21,7 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 MAGNET_DOWN = '850511'
 EPS = 1e-9
 
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 iso2num = {v: k for k, v in num2iso.items()}
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))

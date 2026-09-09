@@ -12,7 +12,7 @@ ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = 2022
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 COMTRADE = os.path.join(ROOT, 'raw', 'comtrade', f'comtrade_{YEAR}.csv')
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso = dict(zip(cc.country_code, cc.country_iso2))
 
 # refined codes we report concentration on (present in both sources)

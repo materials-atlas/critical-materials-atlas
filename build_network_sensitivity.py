@@ -37,7 +37,7 @@ CODES = set(c2l)
 num2iso = {}
 with _baci.country_file() as f:
     for r in csv.DictReader(f):
-        if r.get('country_iso2') and r['country_iso2'] != 'NA':
+        if r.get('country_iso2'):   # 'NA' is Namibia, not missing
             num2iso[r['country_code']] = r['country_iso2']
 
 # stream BACI HS17 2024 -> per-material directed edges

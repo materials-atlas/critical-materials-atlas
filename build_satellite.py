@@ -27,7 +27,7 @@ iso3to2, iso2to3 = {}, {}
 with _baci.country_file() as f:
     for r in csv.DictReader(f):
         a2, a3 = r.get('country_iso2'), r.get('country_iso3')
-        if a2 and a3 and a2 != 'NA' and a3 != 'NA':
+        if a2 and a3:   # 'NA' is Namibia, not missing
             iso3to2[a3] = a2; iso2to3[a2] = a3
 
 # critical-material production role per country (ISO2) from data.json mine shares

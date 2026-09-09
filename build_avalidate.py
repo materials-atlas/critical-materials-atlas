@@ -50,7 +50,7 @@ TARGETS = {
     '720221': ('Ferro-silicon', 'silicon', 'com'),
     '720230': ('Ferro-silico-manganese', 'manganese · silicon', 'com'),
     '720219': ('Ferro-manganese', 'manganese', 'com')}
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['names']
 

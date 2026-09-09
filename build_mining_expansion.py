@@ -27,7 +27,7 @@ YEARS = [str(y) for y in range(2016, 2025)]
 iso3to2 = {}
 with _baci.country_file() as f:
     for r in csv.DictReader(f):
-        if r.get('country_iso2') and r.get('country_iso3') and r['country_iso2'] != 'NA' and r['country_iso3'] != 'NA':
+        if r.get('country_iso2') and r.get('country_iso3') and r['country_iso3'] != 'NA':   # 'NA' is Namibia, not missing
             iso3to2[r['country_iso3']] = r['country_iso2']
 role = {}
 for m in data['materials']:

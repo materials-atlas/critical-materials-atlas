@@ -42,7 +42,7 @@ CROSSWALK = {
 }
 MAGNET_UP, MAGNET_DOWN = ['280530', '284690'], ['850511']    # REE metal + oxide -> NdFeB magnet
 
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 cur_ref = {m['label']: {x['c']: x['v'] for x in (m.get('refined') or [])} for m in d['materials']}

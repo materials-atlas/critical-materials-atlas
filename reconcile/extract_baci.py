@@ -27,7 +27,7 @@ codes.add('811231')  # keep the shared-code raw rows so we can fold them into 81
 print(f'tracking {len(codes)} HS6 codes', flush=True)
 
 # BACI numeric country code -> ISO3
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso3 = dict(zip(cc.country_code, cc.country_iso3))
 
 # stream the year member, keep only tracked codes

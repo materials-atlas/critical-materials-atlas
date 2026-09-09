@@ -32,7 +32,7 @@ num2iso = {}
 with _baci.country_file() as f:
     for r in csv.DictReader(f):
         iso = r.get('country_iso2') or ''
-        if iso and iso != 'NA':
+        if iso:   # 'NA' is Namibia, not missing
             num2iso[r['country_code']] = iso
 
 def codes_for(hs):

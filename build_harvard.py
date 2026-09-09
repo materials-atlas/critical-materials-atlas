@@ -10,7 +10,7 @@ import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 YEAR = int(sys.argv[1]) if len(sys.argv) > 1 else 2022
 API = "https://atlas.hks.harvard.edu/api/graphql"
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso = dict(zip(cc.country_code, cc.country_iso2))       # Atlas countryId = M49 = BACI country_code
 
 # refined HS6 -> Atlas HS12 product IDs (from productHs12(productLevel:6))

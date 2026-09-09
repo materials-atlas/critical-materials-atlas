@@ -28,7 +28,7 @@ BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 
 CW = json.load(open(os.path.join(ROOT, 'out', 'crosswalk.json'), encoding='utf-8'))
 NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf-8'))['names']
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 NUM2ISO = dict(zip(cc.country_code, cc.country_iso2))
 
 REF = {lab: (m.get('refined_hs') or []) for lab, m in CW.items() if m.get('refined_hs')}

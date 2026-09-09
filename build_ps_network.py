@@ -182,7 +182,7 @@ sectors = sorted({(nd['sector'], nd['color']) for nd in nodes}, key=lambda x: x[
 print(f'network: {n} nodes, {len(links)} edges, {len(chain_links)} chain edges; layout frozen', flush=True)
 
 # per-country RCA>=1 membership + featured presets
-cc = pd.read_csv(_baci.country_file())
+cc = pd.read_csv(_baci.country_file(), keep_default_na=False, na_values=[''])  # 'NA' is Namibia, not missing
 num2iso = dict(zip(cc.country_code, cc.country_iso2)); num2name = dict(zip(cc.country_code, cc.country_name))
 _PREF = {'DE': 'Germany', 'TR': 'Türkiye', 'RU': 'Russia', 'KR': 'South Korea', 'CD': 'DR Congo',
          'US': 'United States', 'GB': 'United Kingdom', 'CZ': 'Czechia', 'VN': 'Viet Nam', 'IR': 'Iran',
