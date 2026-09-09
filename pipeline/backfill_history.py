@@ -128,11 +128,16 @@ def main():
             if key(mi, ri) in st['empty'] or os.path.exists(
                     os.path.join(PARTS, 'p_%d_%d.parquet' % (mblocks[mi][0], rblocks[ri][0]))):
                 proven.add(key(mi, ri))
-    lost = len(st['done'] - proven)
+    # Only blocks INSIDE this run's range can be judged here. A block from another range - the
+    # 2010-2024 history while running 2000-2009 - is not "lost" because this run did not look at
+    # it; it is kept exactly as recorded. The first version dropped all 765 of them.
+    in_range = {key(mi, ri) for mi in range(len(mblocks)) for ri in range(len(rblocks))}
+    outside = {k for k in st['done'] if k not in in_range}
+    lost = len((st['done'] & in_range) - proven)
     if lost:
         print('  state repair: %d blocks were marked done with no data and no recorded reason '
               '- re-queued' % lost)
-    st['done'] = proven
+    st['done'] = proven | outside
     todo = [(mi, ri) for mi in range(len(mblocks)) for ri in range(len(rblocks))
             if key(mi, ri) not in st['done']]
     print('span %d..%d = %d months | %d reporters | %d calls total, %d already done, %d left'
