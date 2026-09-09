@@ -38,7 +38,7 @@ import os
 
 import pandas as pd
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))  # same convention as build_*.py; CI sets ATLAS_ROOT=fixtures
 RAW = os.path.join(ROOT, 'raw', 'baci')
 EXTRACT = os.path.join(ROOT, 'extract', 'baci')
 VINTAGE = 'V202601'
