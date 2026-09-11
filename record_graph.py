@@ -259,7 +259,9 @@ def main():
             held = json.load(io.open(OUT, encoding='utf-8')).get('builders', {})
         except Exception:
             held = {}
-    merged = dict(held)
+    # A builder that no longer exists is not an edge. The merge kept the nine chain extractors
+    # deleted by the BACI sweep, so the graph reported nine zip openers in a one-door world.
+    merged = {b: v for b, v in held.items() if os.path.exists(os.path.join(ROOT, b))}
     merged.update(graph)
     with io.open(OUT, 'w', encoding='utf-8') as fh:
         fh.write(json.dumps({'note': 'Observed, not declared. See ARCHITECTURE.md section 3.',

@@ -1,6 +1,6 @@
 {
  "note": "Observed, not declared. See ARCHITECTURE.md section 3.",
- "recorded_at": "2026-09-09",
+ "recorded_at": "2026-09-11",
  "builders": {
   "add_canonicals.py": {
    "reads": [
@@ -3734,7 +3734,7 @@
     "out/flows_2024.json"
    ],
    "exit": 0,
-   "secs": 0.6,
+   "secs": 0.7,
    "code_sha": "62403b90e5471b93",
    "restored": 1
   },
@@ -3871,18 +3871,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "9a3de992099afb07"
-  },
-  "battery-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "battery-chain/out/battery_trade.json"
-   ],
-   "exit": 0,
-   "secs": 63.6,
-   "code_sha": "0b401d8318bbddc7"
   },
   "battery-chain/record_battery.py": {
    "reads": [],
@@ -6731,20 +6719,6 @@
    "secs": 4.9,
    "code_sha": "bf72efc41586e1cd"
   },
-  "data-centre-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "data-centre-chain/out/data_centre_trade.json"
-   ],
-   "exit": 0,
-   "secs": 140.6,
-   "code_sha": "5f78247cefc119d7",
-   "restored": 1
-  },
   "data-centre-chain/record_data_centre.py": {
    "reads": [],
    "writes": [
@@ -6846,19 +6820,6 @@
    "secs": 0.3,
    "code_sha": "7911fa630d8e2e91"
   },
-  "electrolyser-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "electrolyser-chain/out/electrolyser_trade.json"
-   ],
-   "exit": 0,
-   "secs": 183.1,
-   "code_sha": "70e4a0b7b7902b3e"
-  },
   "electrolyser-chain/record_electrolyser.py": {
    "reads": [],
    "writes": [
@@ -6867,19 +6828,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "d4216637e8a87d7d"
-  },
-  "ev-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "ev-chain/out/ev_trade.json"
-   ],
-   "exit": 0,
-   "secs": 140.4,
-   "code_sha": "e6240820a10205d9"
   },
   "ev-chain/record_ev.py": {
    "reads": [],
@@ -7036,20 +6984,6 @@
    "code_sha": "e233cff77fd9877e",
    "restored": 1
   },
-  "grid-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "grid-chain/out/grid_trade.json"
-   ],
-   "exit": 0,
-   "secs": 150.1,
-   "code_sha": "f2b7932e5fa73c9c",
-   "restored": 1
-  },
   "grid-chain/record_grid.py": {
    "reads": [],
    "writes": [
@@ -7058,20 +6992,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "4cdedc693c642401"
-  },
-  "heat-pump-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "heat-pump-chain/out/heat_pump_trade.json"
-   ],
-   "exit": 0,
-   "secs": 152.7,
-   "code_sha": "4a34b5fc2196e03c",
-   "restored": 1
   },
   "heat-pump-chain/record_heat_pump.py": {
    "reads": [],
@@ -7128,20 +7048,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "3914f0d714f62500"
-  },
-  "magnet-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "magnet-chain/out/magnet_trade.json"
-   ],
-   "exit": 0,
-   "secs": 144.4,
-   "code_sha": "19bc7495c82f0912",
-   "restored": 1
   },
   "magnet-chain/record_magnet.py": {
    "reads": [],
@@ -7214,20 +7120,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "79d61774ee496207"
-  },
-  "nuclear-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "nuclear-chain/out/nuclear_trade.json"
-   ],
-   "exit": 0,
-   "secs": 408.9,
-   "code_sha": "f196a445b63dc1b4",
-   "restored": 1
   },
   "nuclear-chain/record_nuclear.py": {
    "reads": [],
@@ -8195,20 +8087,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "2692c68413205eaf"
-  },
-  "wind-chain/extract_baci.py": {
-   "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
-    "raw/baci/country_codes_V202601.csv"
-   ],
-   "writes": [
-    "wind-chain/out/wind_trade.json"
-   ],
-   "exit": 0,
-   "secs": 180.1,
-   "code_sha": "a7dc8e7fab9761bb",
-   "restored": 1
   },
   "wind-chain/record_wind.py": {
    "reads": [],
