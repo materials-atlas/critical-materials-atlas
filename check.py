@@ -790,10 +790,49 @@ def check_baci_door():
              % (len(offenders), ', '.join(offenders[:8]) + (' ...' if len(offenders) > 8 else '')))
 
 
+def check_stale():
+    """An output whose inputs or producer changed must be rebuilt. Invariant I4.
+
+    This is the germanium guard in its general form. The drift check above compares two specific
+    files because that specific pair burned us; this one compares every builder against the
+    content of everything it reads, so the next pair does not need to burn us first.
+
+    It asks runner.py, which fingerprints each builder from its own source, the content of every
+    input nothing else produces, and - recursively - the fingerprints of its producers. Content,
+    never mtime: a fresh clone resets every timestamp and must not read as stale.
+
+    Going red here is not a bug in the gate. It means a file changed and something that reads it
+    did not rebuild, which is precisely the state that shipped a retracted germanium score for
+    three weeks. Clear it with `python runner.py --run`, or - if the change genuinely cannot move
+    any output - `python runner.py --accept`, which records that judgement instead of hiding it.
+    """
+    if not os.path.exists('runner.py'):
+        return
+    if not os.path.exists('_runner_state.json'):
+        warn('stale', 'no _runner_state.json - run `python runner.py --accept` to set the baseline')
+        return
+    r = subprocess.run([sys.executable, 'runner.py'], capture_output=True, text=True)
+    out = (r.stdout or '') + (r.stderr or '')
+    if 'CYCLE among' in out:
+        fail('stale', 'the builder graph has an undeclared cycle - a rebuild order cannot exist: '
+                      + out.strip().splitlines()[-1][:160])
+        return
+    if r.returncode != 0:
+        warn('stale', 'runner.py could not report: %s' % out.strip()[-160:])
+        return
+    if 'nothing is stale' in out:
+        return
+    names = [ln.strip().split()[0] for ln in out.splitlines()
+             if ln.strip().endswith('never built') or ln.strip().endswith('inputs or code changed')]
+    head = ', '.join(names[:6]) + (' and %d more' % (len(names) - 6) if len(names) > 6 else '')
+    fail('stale', '%d builder(s) have inputs or code newer than their last build: %s '
+                  '- run `python runner.py --run`' % (len(names), head))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door), ('stale', check_stale)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

@@ -164,3 +164,7 @@ pipeline/data/flows_reconciled.parquet
 
 # extract/ - normalized per-source parquet, one writer per source (ARCHITECTURE.md phase 2). Regenerable from raw/.
 extract/
+
+# runner.py stat cache: (size, mtime) keys are per-machine. The BASELINE (_runner_state.json)
+# is committed; this is not.
+_runner_cache.json

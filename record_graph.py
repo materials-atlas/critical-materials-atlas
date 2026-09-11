@@ -58,6 +58,7 @@ OUT = os.path.join(ROOT, 'out', 'graph.json')
 NEVER_RUN = (
     'backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph',
     'check.py',            # the gate itself; it reads everything and would drown the graph
+    'runner.py',           # reads the graph it would be recorded into, and rebuilds from it
     'scheduled_run',
     'build_bgs_panel',     # a network fetcher wearing a builder's name: seven minutes against
                            # the BGS API, and its 63 outputs are the cube's spine. Not for a

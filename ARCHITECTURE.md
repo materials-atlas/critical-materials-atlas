@@ -129,7 +129,7 @@ fail is not a guard.
 | I1 | only an extractor may open `raw/<source>/` | observed graph + a per-source allowlist | **needs the allowlist** |
 | I2 | one writer per artifact | observed graph | **13 violations** - see below |
 | I3 | every builder-to-builder edge is in the recorded graph | observed graph | recording first, enforcing later |
-| I4 | an output whose inputs or producer changed is stale **and gets rebuilt** | content hashes + topological rebuild | not built |
+| I4 | an output whose inputs or producer changed is stale **and gets rebuilt** | content hashes + topological rebuild | **live** - `runner.py`, gated by `check_stale` |
 | I5 | nothing reaches a public path without a licence decision | `licences.py`, injection-tested | **live** |
 | I6 | a published page names the vintage it was built from | string check over `out/*.html` | not built |
 
@@ -152,10 +152,19 @@ On I2: `grep` said zero double-writers. The graph found thirteen, in three kinds
 - **Two are unclear** (`record_magnet.py` vs `record_magnets.py`; `add_tonnes.py` vs
   `build_flows_fix.py`) and must be resolved by reading, not guessed at.
 
-On I4: hashing is over the **inputs and the producer's code**, never the output, and never mtime.
-`build_cube.py` currently derives `retrieved_at` from a file's modification time, which a fresh
-clone resets — the same defect class as the drift check this project has already been bitten by.
-That must move to content.
+On I4 — **live since 11 Sep.** Hashing is over the **inputs and the producer's code**, never the
+output and never mtime: a builder's fingerprint is its own source, the content of every input
+nothing else produces, and recursively the fingerprints of the builders that produce its other
+inputs. A fresh clone resets every timestamp and must not read as stale, so mtime appears in
+exactly one place — as a *cache key* for a content hash, where a wrong stat costs a re-read and
+never a wrong answer. (`build_cube.py` still derives `retrieved_at` from mtime. That is a separate
+defect, unfixed, and it is not load-bearing for staleness.)
+
+Proven the way this project requires — by breaking it. Editing `out/data.json`'s germanium
+refining share, the exact incident, marks **115 of 268** builders stale including `build_risk.py`,
+and `runner.py --explain build_risk.py` names the changed producers. Restoring the file from git
+clears it and leaves `data.json` byte-identical. Editing a builder's *source* instead
+(`build_risk.py`) marks 11 — itself and its ten consumers — and `check.py` goes red with the list.
 
 On I6: you cannot mechanically make a chart *mean* its citation, but you can refuse to publish a
 page that does not contain the vintage string of the data it read. That is checkable and it is
@@ -273,8 +282,33 @@ marks a block done by (period, reporter) regardless of codes asked, so a new cod
 namespace (`--codes ... --tag compound`: own state file, own part suffix) rather than silently
 skipping every finished block. 765 blocks, about two days of quota, queued behind the 2000s pull.
 
-**Phase 3 — the runner.** Topological rebuild from the recorded graph, then I2, I3, I4. This is
-what actually prevents another germanium.
+**Phase 3 — the runner. DONE 11 Sep.** `runner.py`: topological rebuild from the recorded graph,
+with I4 enforced by `check_stale`. Three things had to be settled before a rebuild order could
+exist at all, and each was measured rather than argued:
+
+- **Is the graph even a DAG?** Almost. Two cycles in 268 builders, both size two, and both were
+  already on the I2 suspect list above.
+- **`build_cube.py` ↔ `build_cube_usgs.py` is not a cycle.** It is *composition*: `build_cube.py`
+  does `import build_cube_usgs` and calls `.build()`, so the audit hook attributes the callee's
+  reads and writes to the caller as well. Parsing imports across all 268 finds exactly two such
+  composers (the other is `build_nowcast_bootstrap.py`), six contained builders in total. Their
+  internal edges are dropped, and the pair is one program again.
+- **`add_tonnes.py` ↔ `build_flows_fix.py` is the one real cycle, and it has converged.** Both
+  read and both write `out/flows_2024.json`. Run alone, and run in either order, each produces the
+  byte-identical committed file (`8c3119ae`): the rebuilder attaches the tonnage the attacher would
+  have attached. So the order is declared — rebuild the file, then attach to it — and the harness
+  sees any future divergence as a changed hash rather than as a coin toss. This is the I2 pair
+  listed above as "unclear"; it is no longer unclear, and `add_tonnes.py` is now redundant on 2024,
+  which is a deletion to make deliberately rather than as a side effect of this work.
+
+What the runner refuses to do is as important as what it does. It will not run a builder that
+fetches from the network or spends API quota: a stale one of those is reported and the run
+**stops**, because building on a cache that is behind its source is precisely the hole `build.py`
+now refuses. And it will not route around an undeclared cycle — `toposort` raises, and `check.py`
+fails, because a rebuild order that cannot exist is a finding.
+
+One measured consequence worth stating plainly: a single edit to `out/data.json` makes 115 of 268
+builders stale. That file is a hub, and until now nothing in the repository could have told you so.
 
 **Phase 4 — finish the register.** `read_by`, `in_cube`, `last_refreshed` are **derived from the
 graph**, not typed and not stored twice. The register answers *what do we hold*; the graph answers
