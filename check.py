@@ -869,10 +869,26 @@ def check_stale():
     if 'nothing is stale' in out:
         return
     names = [ln.strip().split()[0] for ln in out.splitlines()
-             if ln.strip().endswith('never built') or ln.strip().endswith('inputs or code changed')]
+             if 'never built' in ln or 'inputs or code changed' in ln]
     head = ', '.join(names[:6]) + (' and %d more' % (len(names) - 6) if len(names) > 6 else '')
-    fail('stale', '%d builder(s) have inputs or code newer than their last build: %s '
-                  '- run `python runner.py --run`' % (len(names), head))
+    # Do not send anybody to a command that will refuse them. Some builders are BEHIND the page
+    # they publish (measured; see _regressing_builders.json), and runner.py will not overwrite a
+    # published page with less than it has. For those the fix is to bring the builder up to its
+    # page, or to accept the current tree deliberately - never to force the rebuild.
+    reg = set()
+    rp = os.path.join(ROOT, '_regressing_builders.json')
+    if os.path.exists(rp):
+        try:
+            reg = set(json.load(open(rp, encoding='utf8'))['unsafe_to_run'])
+        except Exception:
+            reg = set()
+    held = [n for n in names if n in reg]
+    fix = ('run `python runner.py --run`' if not held else
+           '%d of them are BEHIND their published page (%s) and runner.py refuses to overwrite it; '
+           'bring the builder up to the page, or `python runner.py --accept` to record the tree '
+           'as-is' % (len(held), ', '.join(sorted(held)[:3])))
+    fail('stale', '%d builder(s) have inputs or code newer than their last build: %s - %s'
+                  % (len(names), head, fix))
 
 
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),

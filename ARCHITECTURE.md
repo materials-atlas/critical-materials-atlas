@@ -51,7 +51,7 @@ The cube is **a product with 7 readers and no analytical consumer**, not a hub. 
 platform nobody uses. It is the right home for the 32 tracked materials and the wrong home for a
 country's whole export basket — and both statements stay true after this plan.
 
-## 2. Two proven failures, one latent
+## 2. Three proven failures, one latent
 
 **Proven — duplicated source logic.** A country-code correction (Republic of Congo filed under DR
 Congo's ISO code) had to be applied in two places independently. There are 53 places it could have
@@ -59,6 +59,36 @@ been needed.
 
 **Proven — stale derived copies.** `risk.json` served a retracted germanium score for three weeks
 after `data.json` was corrected. A corrected source does not correct its copies.
+
+**Proven — the builders are behind what they publish. Measured 11 Sep, and the largest of the
+three.** The runner's first real use rebuilt eighteen builders correctly and produced eight pages
+that were *worse* than the ones on the site. `repro_audit.py` then ran every builder that writes a
+tracked file, hashed each output against the committed blob, and restored. Of **327 published
+outputs, 115 do not reproduce**:
+
+| | |
+|---|---|
+| pages that reproduce once `add_canonicals.py` runs | 35 of 106 — the rest of the first count was the test's own fault |
+| pages whose **body** is behind the published page | **70** |
+| pages differing only in chrome the builder cannot emit | 1 |
+| data files: stale, i.e. an input moved and nothing rebuilt | **20** |
+| data files: builder disagrees with *itself* across two runs | 3 |
+| data files: timestamp or key order only | 15 |
+
+The page half is not drift, it is *history*: one commit on 28 Aug added favicons to 244 files and
+added no script; a skip-link arrived the same way; headlines and sentences have been rewritten by
+hand; the five-hub navigation replaced a two-item one. And at least one builder still emits the
+repository's **previous name** in its footer, so rebuilding that page would put it back on the site.
+None of this is recoverable from any builder, and 93 of 287 pages never received the favicon block
+at all because they were built after the bulk edit.
+
+The data half is the germanium class, twenty times over, with real numbers in it: a capture share
+published as 0.216 that the builder now computes as 0.0; a capability value of 0.03 against 0.81;
+China's apparent-consumption figure moving 16,151 → 19,137 kt; the cube catalog still describing the
+cube from before the compound stage; and Namibia still `null` in four files two days after the fix.
+
+**A difference does not say which side is right**, and nothing here was "corrected" on the strength
+of one. The measurement is the deliverable; the choice is the owner's.
 
 **Latent — nothing published can be cited.** Every rebuild replaces the last, so a chart cannot name
 the table behind it.
@@ -151,6 +181,7 @@ fail is not a guard.
 | I2 | one writer per artifact | observed graph | **13 violations** - see below |
 | I3 | every builder-to-builder edge is in the recorded graph | observed graph | recording first, enforcing later |
 | I4 | an output whose inputs or producer changed is stale **and gets rebuilt** | content hashes + topological rebuild | **live** - `runner.py`, gated by `check_stale` |
+| I7 | a builder reproduces the output it publishes | `repro_audit.py` vs the committed blob | **measured, 115 of 327 fail** - 37 builders refused by the runner |
 | I5 | nothing reaches a public path without a licence decision | `licences.py`, injection-tested | **live** |
 | I6 | a published page names the vintage it was built from | string check over `out/*.html` | not built |
 

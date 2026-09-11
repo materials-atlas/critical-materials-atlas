@@ -1,0 +1,282 @@
+{
+ "all": {
+  "beryllium-chain/record_beryllium.py": {
+   "beryllium-chain/out/beryllium_chain.json": "cosmetic"
+  },
+  "build_ac_reconcile.py": {
+   "out/ac_reconciliation.json": "stale-output"
+  },
+  "build_avalidate.py": {
+   "out/avalidate.json": "stale-output"
+  },
+  "build_bloc_demand.py": {
+   "bloc-demand.html": "content"
+  },
+  "build_breakout.py": {
+   "breakout.html": "content"
+  },
+  "build_brief.py": {
+   "brief.html": "content"
+  },
+  "build_capability_physical.py": {
+   "out/capability_physical.json": "nondeterministic"
+  },
+  "build_casestudies.py": {
+   "casestudies.html": "chrome"
+  },
+  "build_catalog.py": {
+   "out/catalog.json": "stale-output",
+   "pipeline/data/catalog.parquet": "differs"
+  },
+  "build_commodity_attribution.py": {
+   "commodity-attribution.html": "content"
+  },
+  "build_companionality.py": {
+   "companionality.html": "content"
+  },
+  "build_complexity.py": {
+   "complexity.html": "content"
+  },
+  "build_consumption_series.py": {
+   "out/consumption_series.json": "stale-output"
+  },
+  "build_cube.py": {
+   "out/cube.csv.gz": "differs"
+  },
+  "build_cube_dim.py": {
+   "out/dim_material.json": "cosmetic",
+   "pipeline/data/assessment_material_country.parquet": "differs",
+   "pipeline/data/dim_material.parquet": "differs"
+  },
+  "build_demand.py": {
+   "demand.html": "content"
+  },
+  "build_exposure.py": {
+   "out/exposure.json": "stale-output"
+  },
+  "build_feedstock.py": {
+   "out/capability.json": "stale-output",
+   "out/capability_years.json": "stale-output"
+  },
+  "build_fitness.py": {
+   "out/fitness.json": "stale-output"
+  },
+  "build_gallium.py": {
+   "gallium.html": "content"
+  },
+  "build_geopolrisk.py": {
+   "geopolrisk.html": "content",
+   "out/geopolrisk.json": "cosmetic"
+  },
+  "build_harvard.py": {
+   "out/harvard.json": "stale-output"
+  },
+  "build_host_coupling.py": {
+   "host-coupling.html": "content"
+  },
+  "build_host_shock.py": {
+   "host-shock.html": "content",
+   "out/host_shock.json": "stale-output"
+  },
+  "build_insights.py": {
+   "insights.html": "content"
+  },
+  "build_leverage.py": {
+   "leverage.html": "content",
+   "out/leverage.json": "stale-output"
+  },
+  "build_library.py": {
+   "DATA_LIBRARY.md": "differs",
+   "out/library.json": "stale-output"
+  },
+  "build_mining_expansion.py": {
+   "mining-expansion.html": "content",
+   "out/mining_expansion.json": "stale-output"
+  },
+  "build_net_demand.py": {
+   "net-demand.html": "content",
+   "out/net_demand.json": "cosmetic"
+  },
+  "build_network.py": {
+   "network.html": "content"
+  },
+  "build_network_sensitivity.py": {
+   "network-sensitivity.html": "content",
+   "out/network_sensitivity.json": "nondeterministic"
+  },
+  "build_nowcast_backtest.py": {
+   "nowcast-backtest.html": "content"
+  },
+  "build_origin.py": {
+   "origin.html": "content"
+  },
+  "build_ot.py": {
+   "ot.html": "content",
+   "out/ot.json": "stale-output"
+  },
+  "build_pairing.py": {
+   "out/pairing.json": "cosmetic"
+  },
+  "build_price_squeeze.py": {
+   "out/price_squeeze.json": "cosmetic",
+   "price-squeeze.html": "content"
+  },
+  "build_price_volatility.py": {
+   "price-volatility.html": "content"
+  },
+  "build_production.py": {
+   "production.html": "content"
+  },
+  "build_productspace.py": {
+   "out/productspace.json": "stale-output"
+  },
+  "build_profiles.py": {
+   "countries.html": "content",
+   "profile-country-BE.html": "content",
+   "profile-country-BR.html": "content",
+   "profile-country-CA.html": "content",
+   "profile-country-CH.html": "content",
+   "profile-country-CN.html": "content",
+   "profile-country-DE.html": "content",
+   "profile-country-EG.html": "content",
+   "profile-country-ES.html": "content",
+   "profile-country-FR.html": "content",
+   "profile-country-GB.html": "content",
+   "profile-country-ID.html": "content",
+   "profile-country-IN.html": "content",
+   "profile-country-IT.html": "content",
+   "profile-country-JP.html": "content",
+   "profile-country-KR.html": "content",
+   "profile-country-MK.html": "content",
+   "profile-country-MX.html": "content",
+   "profile-country-MY.html": "content",
+   "profile-country-NL.html": "content",
+   "profile-country-PL.html": "content",
+   "profile-country-SA.html": "content",
+   "profile-country-SE.html": "content",
+   "profile-country-TH.html": "content",
+   "profile-country-TR.html": "content",
+   "profile-country-TW.html": "content",
+   "profile-country-US.html": "content",
+   "profile-country-VN.html": "content",
+   "profile-feldspar.html": "content",
+   "profile-fluorspar.html": "content",
+   "profile-phosphate.html": "content"
+  },
+  "build_ps_network.py": {
+   "product-space.html": "content"
+  },
+  "build_recycling.py": {
+   "recycling.html": "content"
+  },
+  "build_refining.py": {
+   "refining.html": "content"
+  },
+  "build_risk_adjusted.py": {
+   "out/risk_adjusted.json": "stale-output",
+   "risk-adjusted.html": "content"
+  },
+  "build_riskmethods.py": {
+   "out/riskmethods.json": "cosmetic",
+   "riskmethods.html": "content"
+  },
+  "build_satellite.py": {
+   "out/satellite.json": "stale-output",
+   "satellite.html": "content"
+  },
+  "build_scenarios.py": {
+   "scenarios.html": "content"
+  },
+  "build_sdmx.py": {
+   "out/sdmx.json": "cosmetic",
+   "out/sdmx/mineral_flows.sdmx.csv.gz": "differs",
+   "out/sdmx/structure.json": "stale-output"
+  },
+  "build_search_index.py": {
+   "out/search-index.json": "cosmetic"
+  },
+  "build_share.py": {
+   "share/card1.html": "content",
+   "share/card2.html": "content",
+   "share/card3.html": "content",
+   "share/card4.html": "content",
+   "share/card5.html": "content"
+  },
+  "build_sources.py": {
+   "out/sources.json": "cosmetic"
+  },
+  "build_synthesis.py": {
+   "synthesis.html": "content"
+  },
+  "build_trends.py": {
+   "out/trends.json": "nondeterministic",
+   "trends.html": "content"
+  },
+  "build_uncertainty.py": {
+   "uncertainty.html": "content"
+  },
+  "build_vq.py": {
+   "out/volume.json": "stale-output",
+   "volume.html": "content"
+  },
+  "grid-chain/build_goes.py": {
+   "grid-chain/out/goes.json": "cosmetic"
+  },
+  "helium-chain/record_helium.py": {
+   "helium-chain/out/helium_chain.json": "cosmetic"
+  },
+  "magnet-chain/record_magnets.py": {
+   "magnet-chain/out/magnet_chain.json": "stale-output"
+  },
+  "medical-isotopes-chain/record_medical_isotopes.py": {
+   "medical-isotopes-chain/out/medical_isotopes_chain.json": "cosmetic"
+  },
+  "nuclear-chain/record_nuclear.py": {
+   "nuclear-chain/out/nuclear_chain.json": "cosmetic"
+  },
+  "vanadium-chain/record_vanadium.py": {
+   "vanadium-chain/out/vanadium_chain.json": "cosmetic"
+  }
+ },
+ "measured": "2026-09-11",
+ "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these.",
+ "unsafe_to_run": [
+  "build_bloc_demand.py",
+  "build_breakout.py",
+  "build_brief.py",
+  "build_casestudies.py",
+  "build_commodity_attribution.py",
+  "build_companionality.py",
+  "build_complexity.py",
+  "build_demand.py",
+  "build_gallium.py",
+  "build_geopolrisk.py",
+  "build_host_coupling.py",
+  "build_host_shock.py",
+  "build_insights.py",
+  "build_leverage.py",
+  "build_mining_expansion.py",
+  "build_net_demand.py",
+  "build_network.py",
+  "build_network_sensitivity.py",
+  "build_nowcast_backtest.py",
+  "build_origin.py",
+  "build_ot.py",
+  "build_price_squeeze.py",
+  "build_price_volatility.py",
+  "build_production.py",
+  "build_profiles.py",
+  "build_ps_network.py",
+  "build_recycling.py",
+  "build_refining.py",
+  "build_risk_adjusted.py",
+  "build_riskmethods.py",
+  "build_satellite.py",
+  "build_scenarios.py",
+  "build_share.py",
+  "build_synthesis.py",
+  "build_trends.py",
+  "build_uncertainty.py",
+  "build_vq.py"
+ ]
+}

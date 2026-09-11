@@ -28,6 +28,15 @@ only - it never decides staleness, and a wrong stat costs a re-read, not a wrong
 WHAT IT REFUSES TO DO
 - It will not run a builder that fetches from the network or costs API quota (NEVER_RUN below).
   A stale one of those is REPORTED and the run stops. A silent skip is how a stale cache ships.
+- IT WILL NOT REBUILD A PAGE THE BUILDER IS BEHIND. Its first real run rebuilt eighteen builders
+  correctly and produced eight pages that were WORSE than the published ones: no favicons, no
+  skip-link, the old two-item navigation, and in one case a footer still carrying the repository's
+  previous name. None of that lives in any builder - one commit on 28 Aug edited 244 pages and
+  added no script, and headlines have been rewritten by hand since. So a rebuild is not obviously
+  an improvement, and for 37 builders it is measurably a regression. Those are listed by name in
+  _regressing_builders.json, measured by repro_audit.py, and refused here unless --force says
+  otherwise. The list shrinks as builders are brought up to their pages; it is not a permanent
+  exemption, it is a debt with names on it.
 - It will not guess at a cycle. The graph has one real cycle and it is declared below, with the
   measurement that settles it.
 
@@ -49,6 +58,7 @@ import time
 ROOT = os.path.dirname(os.path.abspath(__file__))
 GRAPH = os.path.join(ROOT, 'out', 'graph.json')
 STATE = os.path.join(ROOT, '_runner_state.json')     # the baseline: committed, shared
+REGRESS = os.path.join(ROOT, '_regressing_builders.json')   # builders that no longer reproduce their page
 CACHE = os.path.join(ROOT, '_runner_cache.json')     # (size, mtime) -> content hash: local, gitignored
 #
 # The two are separate on purpose. The fingerprints say WHICH TREE WAS BUILT and belong in git,
@@ -298,16 +308,33 @@ def main():
         return 0
 
     blocked = [b for b in stale if never_run(b)]
+    regress = []
+    if os.path.exists(REGRESS):
+        try:
+            regress = [b for b in stale
+                       if b in set(json.load(io.open(REGRESS, encoding='utf-8'))['unsafe_to_run'])]
+        except Exception:
+            regress = []
     print('\n%d stale, in rebuild order:' % len(stale))
     for b in stale:
         why = 'never built' if b not in was else 'inputs or code changed'
-        print('   %-46s %s%s' % (b, why, '   [WILL NOT RUN: network/quota]' if never_run(b) else ''))
+        tag = ('   [WILL NOT RUN: network/quota]' if never_run(b)
+               else '   [WILL NOT RUN: behind its published page]' if b in regress else '')
+        print('   %-46s %s%s' % (b, why, tag))
 
     if not do_run:
         print('\nnothing was run. `python runner.py --run` rebuilds these in this order.')
         save_state(st, hasher, fp)
         return 0
 
+    if regress and '--force' not in a:
+        print('\n REFUSING to run: %d of these are behind the page they publish, and rebuilding'
+              ' would overwrite it with less than it has now:' % len(regress))
+        for b in regress:
+            print('   %s' % b)
+        print('See _regressing_builders.json for what differs, and repro_audit.py to re-measure.')
+        print('`--force` overrides, and you should expect to lose published work if you use it.')
+        return 3
     if blocked:
         # A fetcher cannot be rebuilt by a rebuilder. Saying so and stopping is the whole point:
         # the alternative is building on a cache that is behind its source, which this repository
