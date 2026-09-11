@@ -8,10 +8,12 @@
     "__pycache__/",
     "about.html",
     "aerospace-chain/",
+    "aerospace-chain/__pycache__/",
     "aerospace-chain/aerospace-chain.html",
     "aerospace-chain/library.html",
     "aerospace-chain/out/",
     "aluminium-chain/",
+    "aluminium-chain/__pycache__/",
     "aluminium-chain/aluminium-chain.html",
     "aluminium-chain/library.html",
     "aluminium-chain/out/",
@@ -82,6 +84,7 @@
     "consumption.html",
     "controls.html",
     "copper-chain/",
+    "copper-chain/__pycache__/",
     "copper-chain/copper-chain.html",
     "copper-chain/library.html",
     "copper-chain/out/",
@@ -94,11 +97,13 @@
     "data-centre-chain/out/",
     "data.html",
     "defence-chain/",
+    "defence-chain/__pycache__/",
     "defence-chain/defence-chain.html",
     "defence-chain/library.html",
     "defence-chain/out/",
     "demand.html",
     "displays-indium-chain/",
+    "displays-indium-chain/__pycache__/",
     "displays-indium-chain/displays-indium-chain.html",
     "displays-indium-chain/library.html",
     "displays-indium-chain/out/",
@@ -112,7 +117,12 @@
     "ev-chain/library.html",
     "ev-chain/out/",
     "explorer.html",
+    "extract/",
+    "extract/baci/",
+    "extract/baci/HS02/",
+    "extract/baci/HS17/",
     "fibre-optics-chain/",
+    "fibre-optics-chain/__pycache__/",
     "fibre-optics-chain/fibre-optics-chain.html",
     "fibre-optics-chain/library.html",
     "fibre-optics-chain/out/",
@@ -136,6 +146,7 @@
     "graphite-chain/library.html",
     "graphite-chain/out/",
     "grid-chain/",
+    "grid-chain/__pycache__/",
     "grid-chain/grid-chain.html",
     "grid-chain/library.html",
     "grid-chain/out/",
@@ -211,6 +222,7 @@
     "out/sdmx/",
     "out/social/",
     "out/social/_an_frames/",
+    "out/social/_ant_frames/",
     "out/social/_bnb/",
     "out/social/_bnb/c0/",
     "out/social/_bnb/c0/ActorSafetyLists/",
@@ -3413,11 +3425,13 @@
     "out/social/out/social/_probe/nn/hyphen-data/",
     "out/social/out/social/_probe/nn/segmentation_platform/",
     "pgm-catalyst-chain/",
+    "pgm-catalyst-chain/__pycache__/",
     "pgm-catalyst-chain/library.html",
     "pgm-catalyst-chain/out/",
     "pgm-catalyst-chain/pgm-catalyst-chain.html",
     "pgm.html",
     "phosphate-food-chain/",
+    "phosphate-food-chain/__pycache__/",
     "phosphate-food-chain/library.html",
     "phosphate-food-chain/out/",
     "phosphate-food-chain/phosphate-food-chain.html",
@@ -3582,6 +3596,7 @@
     "raw/wikidata/",
     "raw/wmd/",
     "reconcile/",
+    "reconcile/__pycache__/",
     "reconcile/fixtures/",
     "reconcile/fixtures/out/",
     "reconcile/fixtures/raw/",
@@ -3622,6 +3637,7 @@
     "shock-builder.html",
     "shock-methods.html",
     "silicon-chip/",
+    "silicon-chip/__pycache__/",
     "silicon-chip/library.html",
     "silicon-chip/out/",
     "silicon-chip/silicon-chain.html",
@@ -3637,6 +3653,7 @@
     "sources/",
     "sources/iea_gcmo_2026/",
     "steel-alloys-chain/",
+    "steel-alloys-chain/__pycache__/",
     "steel-alloys-chain/library.html",
     "steel-alloys-chain/out/",
     "steel-alloys-chain/steel-alloys-chain.html",
@@ -3700,15 +3717,15 @@
     "zirconium-chain/out/",
     "zirconium-chain/zirconium-chain.html"
    ],
-   "writes": [
-    "apparent-consumption.html"
-   ],
+   "writes": [],
    "exit": 0,
-   "secs": 9.5,
-   "code_sha": "fc2a6bf4d264f1f0"
+   "secs": 0.5,
+   "code_sha": "fc2a6bf4d264f1f0",
+   "restored": 0
   },
   "add_tonnes.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/data.json",
     "out/flows_2024.json",
     "raw/baci/country_codes_V202601.csv"
@@ -3717,21 +3734,45 @@
     "out/flows_2024.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "c5b5dcf8b39ab804"
+   "secs": 0.6,
+   "code_sha": "62403b90e5471b93",
+   "restored": 1
   },
   "aerospace-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "aerospace-chain/out/aerospace_trade.json"
    ],
    "exit": 0,
-   "secs": 163.7,
-   "code_sha": "9d7b45267bf11d7c"
+   "secs": 13.6,
+   "code_sha": "a35265ee9042c9bd",
+   "restored": 1
   },
   "aerospace-chain/record_aerospace.py": {
    "reads": [],
@@ -3744,16 +3785,39 @@
   },
   "aluminium-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "aluminium-chain/out/aluminium_trade.json"
    ],
    "exit": 0,
-   "secs": 146.4,
-   "code_sha": "de155d5e7bd84049"
+   "secs": 16.4,
+   "code_sha": "ab58dea7fe64a081",
+   "restored": 1
   },
   "aluminium-chain/record_aluminium.py": {
    "reads": [
@@ -3879,6 +3943,7 @@
   },
   "build_anchor.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/consumption.json",
     "out/flows_2024.json",
     "out/production.json",
@@ -3888,8 +3953,9 @@
     "out/anchor.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "1a1c1960c651e93f"
+   "secs": 0.7,
+   "code_sha": "23be355ea5d21805",
+   "restored": 1
   },
   "build_apparent.py": {
    "reads": [
@@ -3906,16 +3972,20 @@
   },
   "build_avalidate.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS02/Y2024.parquet",
     "out/flows_2024.json",
-    "raw/baci/BACI_HS02_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/avalidate.json"
    ],
    "exit": 0,
-   "secs": 28.0,
-   "code_sha": "691320fcbc33d0b2"
+   "secs": 5.5,
+   "code_sha": "3d3403c40891b302",
+   "restored": 1
   },
   "build_bgs_concentration.py": {
    "reads": [
@@ -4088,6 +4158,7 @@
   },
   "build_breakout.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/capability.json",
     "out/crosswalk.json",
     "out/mine_refine.json",
@@ -4101,8 +4172,8 @@
     "out/breakout.json"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "9ec021deeff88566",
+   "secs": 0.6,
+   "code_sha": "fac3a0a618d84d26",
    "restored": 2
   },
   "build_brief.py": {
@@ -4164,10 +4235,8 @@
   },
   "build_catalog.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "pipeline/data/cube.parquet",
-    "raw/baci/",
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/bgs/panel/",
     "raw/usgs_critmin/",
     "raw/usgs_hist/",
@@ -4263,13 +4332,36 @@
     "pipeline/data/catalog.parquet"
    ],
    "exit": 0,
-   "secs": 7.6,
-   "code_sha": "48a0c9db9ee91ef2"
+   "secs": 3.9,
+   "code_sha": "71be36e83e4955db",
+   "restored": 2
   },
   "build_chain_trade.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -4323,8 +4415,9 @@
     "zirconium-chain/out/zirconium_trade.json"
    ],
    "exit": 0,
-   "secs": 170.2,
-   "code_sha": "59fb6fa35988bd4c"
+   "secs": 15.6,
+   "code_sha": "326aa9a875873cd7",
+   "restored": 48
   },
   "build_chokepoint_map.py": {
    "reads": [
@@ -4496,8 +4589,9 @@
     "out/commodity_status_tbody.html"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "6498eb2bca025ec3"
+   "secs": 0.1,
+   "code_sha": "6498eb2bca025ec3",
+   "restored": 0
   },
   "build_companionality.py": {
    "reads": [
@@ -4549,6 +4643,7 @@
   },
   "build_consumption_scan.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/crosswalk.json",
     "out/production.json",
     "raw/baci/country_codes_V202601.csv",
@@ -4557,7 +4652,8 @@
    "writes": [],
    "exit": 0,
    "secs": 0.9,
-   "code_sha": "9313f4c5aba518fd"
+   "code_sha": "842b203d6ca56d6e",
+   "restored": 0
   },
   "build_consumption_series.py": {
    "reads": [
@@ -4604,19 +4700,103 @@
   },
   "build_cube.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "__pycache__/build_cube_baci.cpython-311.pyc",
     "__pycache__/build_cube_iea.cpython-311.pyc",
     "__pycache__/build_cube_trade.cpython-311.pyc",
     "__pycache__/build_cube_usgs.cpython-311.pyc",
     "__pycache__/build_cube_wmd.cpython-311.pyc",
     "__pycache__/licences.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS02/Y2017.parquet",
+    "extract/baci/HS02/Y2018.parquet",
+    "extract/baci/HS02/Y2019.parquet",
+    "extract/baci/HS02/Y2020.parquet",
+    "extract/baci/HS02/Y2021.parquet",
+    "extract/baci/HS02/Y2022.parquet",
+    "extract/baci/HS02/Y2023.parquet",
+    "extract/baci/HS02/Y2024.parquet",
     "out/crosswalk.json",
     "out/data.json",
     "out/source_anomalies.json",
     "pipeline/data/flows_reconciled.parquet",
-    "raw/baci/BACI_HS02_V202601.zip",
     "raw/baci/country_codes_V202601.csv",
     "raw/bgs/panel/",
+    "raw/bgs/panel/aggregates_and_related_materials.json",
+    "raw/bgs/panel/antimony.json",
+    "raw/bgs/panel/arsenic.json",
+    "raw/bgs/panel/asbestos.json",
+    "raw/bgs/panel/barytes.json",
+    "raw/bgs/panel/bauxite__alumina_and_aluminium.json",
+    "raw/bgs/panel/bentonite_and_fuller_s_earth.json",
+    "raw/bgs/panel/beryllium.json",
+    "raw/bgs/panel/bismuth.json",
+    "raw/bgs/panel/borates.json",
+    "raw/bgs/panel/bromine.json",
+    "raw/bgs/panel/cadmium.json",
+    "raw/bgs/panel/cement.json",
+    "raw/bgs/panel/chromium.json",
+    "raw/bgs/panel/cobalt.json",
+    "raw/bgs/panel/copper.json",
+    "raw/bgs/panel/diamond.json",
+    "raw/bgs/panel/diatomite.json",
+    "raw/bgs/panel/feldspar.json",
+    "raw/bgs/panel/fluorspar.json",
+    "raw/bgs/panel/gallium.json",
+    "raw/bgs/panel/germanium.json",
+    "raw/bgs/panel/gold.json",
+    "raw/bgs/panel/graphite.json",
+    "raw/bgs/panel/gypsum.json",
+    "raw/bgs/panel/indium.json",
+    "raw/bgs/panel/iodine.json",
+    "raw/bgs/panel/iron_and_steel.json",
+    "raw/bgs/panel/kaolin.json",
+    "raw/bgs/panel/lead.json",
+    "raw/bgs/panel/lithium.json",
+    "raw/bgs/panel/magnesite.json",
+    "raw/bgs/panel/magnesium.json",
+    "raw/bgs/panel/manganese.json",
+    "raw/bgs/panel/mercury.json",
+    "raw/bgs/panel/mica.json",
+    "raw/bgs/panel/molybdenum.json",
+    "raw/bgs/panel/nepheline_syenite.json",
+    "raw/bgs/panel/nickel.json",
+    "raw/bgs/panel/perlite.json",
+    "raw/bgs/panel/phosphate_rock.json",
+    "raw/bgs/panel/platinum_group_metals.json",
+    "raw/bgs/panel/potash.json",
+    "raw/bgs/panel/rare_earths.json",
+    "raw/bgs/panel/rhenium.json",
+    "raw/bgs/panel/salt.json",
+    "raw/bgs/panel/selenium.json",
+    "raw/bgs/panel/sillimanite_and_related_minerals.json",
+    "raw/bgs/panel/silver.json",
+    "raw/bgs/panel/strontium.json",
+    "raw/bgs/panel/talc.json",
+    "raw/bgs/panel/tantalum_and_niobium.json",
+    "raw/bgs/panel/tellurium.json",
+    "raw/bgs/panel/tin.json",
+    "raw/bgs/panel/titanium.json",
+    "raw/bgs/panel/tungsten.json",
+    "raw/bgs/panel/vanadium.json",
+    "raw/bgs/panel/vermiculite.json",
+    "raw/bgs/panel/wollastonite.json",
+    "raw/bgs/panel/zinc.json",
+    "raw/bgs/panel/zirconium.json",
     "raw/iea/",
     "raw/iea/CM_Data_Explorer.xlsx",
     "raw/iea/CM_Data_Explorer_2026-07.xlsx",
@@ -4715,20 +4895,43 @@
     "pipeline/data/cube.parquet"
    ],
    "exit": 0,
-   "secs": 257.9,
+   "secs": 68.7,
    "code_sha": "1d3a979b84cd5d57",
-   "restored": 5
+   "restored": 4
   },
   "build_cube_baci.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS02/Y2017.parquet",
+    "extract/baci/HS02/Y2018.parquet",
+    "extract/baci/HS02/Y2019.parquet",
+    "extract/baci/HS02/Y2020.parquet",
+    "extract/baci/HS02/Y2021.parquet",
+    "extract/baci/HS02/Y2022.parquet",
+    "extract/baci/HS02/Y2023.parquet",
+    "extract/baci/HS02/Y2024.parquet",
     "out/crosswalk.json",
-    "raw/baci/BACI_HS02_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [],
    "exit": 0,
-   "secs": 250.1,
-   "code_sha": "70aed641018993b0",
+   "secs": 12.2,
+   "code_sha": "97196c55961370f4",
    "restored": 0
   },
   "build_cube_dim.py": {
@@ -4750,6 +4953,7 @@
   },
   "build_cube_iea.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "raw/baci/country_codes_V202601.csv",
     "raw/iea/",
     "raw/iea/CM_Data_Explorer.xlsx",
@@ -4757,8 +4961,9 @@
    ],
    "writes": [],
    "exit": 0,
-   "secs": 1.4,
-   "code_sha": "b211c80d154b0cd2"
+   "secs": 0.8,
+   "code_sha": "eb6afa005660b822",
+   "restored": 0
   },
   "build_cube_trade.py": {
    "reads": [
@@ -4867,13 +5072,15 @@
   },
   "build_cube_wmd.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "raw/baci/country_codes_V202601.csv",
     "raw/wmd/wmd_6.4_production_by_country.xlsx"
    ],
    "writes": [],
    "exit": 0,
-   "secs": 1.3,
-   "code_sha": "47a1a8fc2ee15df2"
+   "secs": 0.9,
+   "code_sha": "db7f2f77e3806d9a",
+   "restored": 0
   },
   "build_demand.py": {
    "reads": [
@@ -4913,23 +5120,32 @@
   },
   "build_exposure.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2023.parquet",
     "out/capability.json",
     "out/crosswalk.json",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/exposure.json"
    ],
    "exit": 0,
-   "secs": 10.2,
-   "code_sha": "015dc1d0540302ae"
+   "secs": 1.3,
+   "code_sha": "b07f575bd0961642",
+   "restored": 1
   },
   "build_feedstock.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -4937,27 +5153,37 @@
     "out/capability_years.json"
    ],
    "exit": 0,
-   "secs": 63.3,
-   "code_sha": "6253076fa75d22e4"
+   "secs": 7.6,
+   "code_sha": "44bff0eac3759269",
+   "restored": 2
   },
   "build_fitness.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2022.parquet",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/fitness.json"
    ],
    "exit": 0,
-   "secs": 8.7,
-   "code_sha": "f477f105ced81f27"
+   "secs": 1.1,
+   "code_sha": "f9cd2714e9828af2",
+   "restored": 1
   },
   "build_flows_fix.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "out/data.json",
     "out/flows_2024.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -4970,11 +5196,13 @@
     "out/flows_2024.json"
    ],
    "exit": 0,
-   "secs": 112.0,
-   "code_sha": "ee7af9c3a945fac9"
+   "secs": 38.6,
+   "code_sha": "1848687ac36c5528",
+   "restored": 7
   },
   "build_freight_model.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/crosswalk.json",
     "out/flows_2024.json",
     "raw/baci/country_codes_V202601.csv",
@@ -4982,8 +5210,9 @@
    ],
    "writes": [],
    "exit": 0,
-   "secs": 1.2,
-   "code_sha": "4d814d726ba6ea26"
+   "secs": 1.1,
+   "code_sha": "0fd28d3d6b98a72a",
+   "restored": 0
   },
   "build_gallium.py": {
    "reads": [
@@ -5018,14 +5247,16 @@
   },
   "build_harvard.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/harvard.json"
    ],
    "exit": 0,
-   "secs": 12.6,
-   "code_sha": "daa5db93aa009d97"
+   "secs": 11.0,
+   "code_sha": "fbfc50961ffbbd22",
+   "restored": 1
   },
   "build_hhi_correction.py": {
    "reads": [
@@ -5039,8 +5270,9 @@
     "out/hhi_correction.json"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "6b8938657f91c6ca"
+   "secs": 0.2,
+   "code_sha": "6b8938657f91c6ca",
+   "restored": 0
   },
   "build_hhi_divergence.py": {
    "reads": [
@@ -5107,9 +5339,10 @@
   },
   "build_leverage.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2024.parquet",
     "out/crosswalk.json",
     "out/flows_2024.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -5117,8 +5350,9 @@
     "out/leverage.json"
    ],
    "exit": 0,
-   "secs": 12.6,
-   "code_sha": "f2847643a0dfd2e0"
+   "secs": 3.2,
+   "code_sha": "920c6e0539b45c3f",
+   "restored": 2
   },
   "build_library.py": {
    "reads": [
@@ -5211,11 +5445,13 @@
     "out/library.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "a5368d3873a14742"
+   "secs": 0.1,
+   "code_sha": "a5368d3873a14742",
+   "restored": 2
   },
   "build_mining_expansion.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/data.json",
     "raw/baci/country_codes_V202601.csv"
    ],
@@ -5224,8 +5460,9 @@
     "out/mining_expansion.json"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "06e9854bd1da3342"
+   "secs": 0.7,
+   "code_sha": "dc38aba0d8865520",
+   "restored": 2
   },
   "build_net_demand.py": {
    "reads": [
@@ -5285,8 +5522,9 @@
   "build_network_sensitivity.py": {
    "reads": [
     "./",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2024.parquet",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -5294,8 +5532,9 @@
     "out/network_sensitivity.json"
    ],
    "exit": 0,
-   "secs": 11.0,
-   "code_sha": "604576fd1897169b"
+   "secs": 3.2,
+   "code_sha": "9a4395d70667e147",
+   "restored": 2
   },
   "build_nowcast_backtest.py": {
    "reads": [
@@ -5442,9 +5681,10 @@
   },
   "build_ot.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2024.parquet",
     "out/crosswalk.json",
     "out/flows_2024.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -5452,8 +5692,9 @@
     "out/ot.json"
    ],
    "exit": 0,
-   "secs": 25.2,
-   "code_sha": "5da414b2f32afabd"
+   "secs": 2.0,
+   "code_sha": "95b43e8cb9ce984b",
+   "restored": 2
   },
   "build_ot_capacity.py": {
    "reads": [
@@ -5538,6 +5779,7 @@
   "build_production.py": {
    "reads": [
     "./",
+    "__pycache__/baci.cpython-311.pyc",
     "out/data.json",
     "out/flows_2024.json",
     "out/satellite.json",
@@ -5550,13 +5792,15 @@
     "production.html"
    ],
    "exit": 0,
-   "secs": 5.1,
-   "code_sha": "4e08d01e624eb59d"
+   "secs": 11.2,
+   "code_sha": "465d32dff7cf135b",
+   "restored": 2
   },
   "build_productspace.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2022.parquet",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -5565,8 +5809,9 @@
     "out/productspace.json"
    ],
    "exit": 0,
-   "secs": 127.0,
-   "code_sha": "1e1ced89deef450e"
+   "secs": 44.7,
+   "code_sha": "4c9559ed46b743e5",
+   "restored": 3
   },
   "build_profiles.py": {
    "reads": [
@@ -5680,17 +5925,19 @@
     "out/code_provenance.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "8f108de8cecca367"
+   "secs": 0.1,
+   "code_sha": "8f108de8cecca367",
+   "restored": 1
   },
   "build_ps_network.py": {
    "reads": [
     "./",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2022.parquet",
     "out/avalidate.json",
     "out/capability.json",
     "out/mine_refine.json",
     "out/productspace.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv",
     "raw/baci/product_codes_HS17_V202601.csv",
     "vendor/d3.v7.min.js"
@@ -5699,11 +5946,13 @@
     "product-space.html"
    ],
    "exit": 0,
-   "secs": 36.2,
-   "code_sha": "e7dcd082f409ed33"
+   "secs": 6.8,
+   "code_sha": "ff5a912d7d084a8a",
+   "restored": 1
   },
   "build_recon_envelope.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/crosswalk.json",
     "raw/baci/country_codes_V202601.csv",
     "raw/comtrade/comtrade_2022.csv",
@@ -5717,8 +5966,9 @@
     "out/recon_envelope.json"
    ],
    "exit": 0,
-   "secs": 3.0,
-   "code_sha": "de772943cfb6703c"
+   "secs": 1.6,
+   "code_sha": "0b4daec62c37eb9f",
+   "restored": 0
   },
   "build_recycling.py": {
    "reads": [
@@ -5835,8 +6085,9 @@
   },
   "build_robustness.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2022.parquet",
     "out/harvard.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv",
     "raw/comtrade/comtrade_2022.csv"
    ],
@@ -5844,11 +6095,13 @@
     "out/robustness.json"
    ],
    "exit": 0,
-   "secs": 21.3,
-   "code_sha": "80d2fbed682eeaeb"
+   "secs": 1.3,
+   "code_sha": "d6d40e09f5bc4e1b",
+   "restored": 1
   },
   "build_satellite.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "out/data.json",
     "raw/baci/country_codes_V202601.csv"
    ],
@@ -5857,23 +6110,26 @@
     "satellite.html"
    ],
    "exit": 0,
-   "secs": 1.8,
-   "code_sha": "423e6513b6574b33"
+   "secs": 1.0,
+   "code_sha": "a8b01a8d377e67d3",
+   "restored": 2
   },
   "build_scenario.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2023.parquet",
     "out/crosswalk.json",
     "out/data.json",
     "out/eucrm.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/scenario.json"
    ],
    "exit": 0,
-   "secs": 21.4,
-   "code_sha": "a01b80b58ad4df60"
+   "secs": 1.1,
+   "code_sha": "cf699bca639ff9f5",
+   "restored": 1
   },
   "build_scenarios.py": {
    "reads": [
@@ -6238,12 +6494,14 @@
     "out/thinness_screen.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "c8996c922a8174f3"
+   "secs": 0.1,
+   "code_sha": "c8996c922a8174f3",
+   "restored": 0
   },
   "build_trend_robustness.py": {
    "reads": [
     "./",
+    "__pycache__/baci.cpython-311.pyc",
     "out/crosswalk.json",
     "out/data.json",
     "out/trend_series.json",
@@ -6253,8 +6511,9 @@
     "out/trend_robustness.json"
    ],
    "exit": 0,
-   "secs": 6.1,
-   "code_sha": "f3d3e1efad5d9e4e"
+   "secs": 1.4,
+   "code_sha": "686f500a91b3c365",
+   "restored": 0
   },
   "build_trends.py": {
    "reads": [
@@ -6297,16 +6556,18 @@
   },
   "build_two_stage.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2023.parquet",
     "out/production.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "out/two_stage.json"
    ],
    "exit": 0,
-   "secs": 34.9,
-   "code_sha": "557f2d9dd907c6c8"
+   "secs": 1.1,
+   "code_sha": "f6544fa179f9e7c2",
+   "restored": 1
   },
   "build_uncertainty.py": {
    "reads": [
@@ -6337,10 +6598,32 @@
   },
   "build_vq.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "out/data.json",
     "out/flows_2024.json",
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
@@ -6348,8 +6631,8 @@
     "volume.html"
    ],
    "exit": 0,
-   "secs": 161.9,
-   "code_sha": "289a8c71e3dcba76",
+   "secs": 12.5,
+   "code_sha": "0a66bb077d6d0b5d",
    "restored": 2
   },
   "cement-chain/record_cement.py": {
@@ -6391,16 +6674,38 @@
   },
   "copper-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "copper-chain/out/copper_trade.json"
    ],
    "exit": 0,
-   "secs": 137.8,
-   "code_sha": "33d12ee4f6f50f8a",
+   "secs": 8.9,
+   "code_sha": "fe1a77852f5440da",
    "restored": 1
   },
   "copper-chain/record_copper.py": {
@@ -6451,16 +6756,38 @@
   },
   "defence-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "defence-chain/out/defence_trade.json"
    ],
    "exit": 0,
-   "secs": 137.0,
-   "code_sha": "2db476d7acc701f4",
+   "secs": 9.3,
+   "code_sha": "e2f0c1437b41dd56",
    "restored": 1
   },
   "defence-chain/record_defence.py": {
@@ -6476,16 +6803,38 @@
   },
   "displays-indium-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "displays-indium-chain/out/indium_trade.json"
    ],
    "exit": 0,
-   "secs": 137.1,
-   "code_sha": "3f1286410e858f6b",
+   "secs": 8.6,
+   "code_sha": "5ee3eab052b2929f",
    "restored": 1
   },
   "displays-indium-chain/record_indium.py": {
@@ -6596,16 +6945,38 @@
   },
   "fibre-optics-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "fibre-optics-chain/out/fibre_trade.json"
    ],
    "exit": 0,
-   "secs": 135.5,
-   "code_sha": "b6154cc0a922f716",
+   "secs": 9.0,
+   "code_sha": "19dc2816dafb96c5",
    "restored": 1
   },
   "fibre-optics-chain/record_fibre.py": {
@@ -6648,15 +7019,21 @@
   },
   "grid-chain/build_goes.py": {
    "reads": [
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "grid-chain/out/goes.json"
    ],
    "exit": 0,
-   "secs": 148.3,
-   "code_sha": "b12a6b477bb3a889",
+   "secs": 3.1,
+   "code_sha": "e233cff77fd9877e",
    "restored": 1
   },
   "grid-chain/extract_baci.py": {
@@ -7373,16 +7750,38 @@
   },
   "pgm-catalyst-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "pgm-catalyst-chain/out/pgm_trade.json"
    ],
    "exit": 0,
-   "secs": 392.3,
-   "code_sha": "18626d524e799f82",
+   "secs": 8.8,
+   "code_sha": "642aacca934d77e7",
    "restored": 1
   },
   "pgm-catalyst-chain/record_pgm.py": {
@@ -7398,16 +7797,38 @@
   },
   "phosphate-food-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "phosphate-food-chain/out/phosphate_trade.json"
    ],
    "exit": 0,
-   "secs": 404.8,
-   "code_sha": "8857a4ac4badb1b0",
+   "secs": 9.1,
+   "code_sha": "da6e081df52106f7",
    "restored": 1
   },
   "phosphate-food-chain/record_phosphate.py": {
@@ -7483,16 +7904,18 @@
   },
   "reconcile/extract_baci.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS17/Y2024.parquet",
     "out/data.json",
-    "raw/baci/BACI_HS17_V202601.zip",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "reconcile/baci_2024.csv"
    ],
    "exit": 0,
-   "secs": 16.6,
-   "code_sha": "7da2de68de3421e8"
+   "secs": 3.0,
+   "code_sha": "5ac6aa4a9790a57f",
+   "restored": 0
   },
   "reconcile/findings.py": {
    "reads": [
@@ -7509,18 +7932,21 @@
   },
   "reconcile/operator_test.py": {
    "reads": [
+    "__pycache__/baci.cpython-311.pyc",
     "raw/baci/country_codes_V202601.csv",
     "raw/comtrade/comtrade_2024.csv",
     "reconcile/baci_2024.csv"
    ],
    "writes": [],
    "exit": 0,
-   "secs": 0.6,
-   "code_sha": "794fb37010a94c98"
+   "secs": 1.1,
+   "code_sha": "5be33bfe1572bfd8",
+   "restored": 0
   },
   "reconcile/reconcile.py": {
    "reads": [
     "./",
+    "__pycache__/baci.cpython-311.pyc",
     "raw/baci/country_codes_V202601.csv",
     "raw/comtrade/comtrade_2024.csv",
     "raw/geodist/dist_cepii.xls"
@@ -7529,8 +7955,9 @@
     "reconcile/recon_2024.csv"
    ],
    "exit": 0,
-   "secs": 4.6,
-   "code_sha": "fc8e6f2a07cc8685"
+   "secs": 3.5,
+   "code_sha": "209e13a0794c0ade",
+   "restored": 0
   },
   "reconcile/validate.py": {
    "reads": [
@@ -7563,16 +7990,38 @@
   },
   "silicon-chip/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "silicon-chip/out/silicon_stages.json"
    ],
    "exit": 0,
-   "secs": 412.7,
-   "code_sha": "3b0127bb73591d13",
+   "secs": 9.1,
+   "code_sha": "9116503a577064d0",
    "restored": 1
   },
   "silicon-chip/record_iea_pv.py": {
@@ -7613,16 +8062,38 @@
   },
   "steel-alloys-chain/extract_baci.py": {
    "reads": [
-    "raw/baci/BACI_HS02_V202601.zip",
-    "raw/baci/BACI_HS17_V202601.zip",
+    "__pycache__/baci.cpython-311.pyc",
+    "extract/baci/HS02/Y2002.parquet",
+    "extract/baci/HS02/Y2003.parquet",
+    "extract/baci/HS02/Y2004.parquet",
+    "extract/baci/HS02/Y2005.parquet",
+    "extract/baci/HS02/Y2006.parquet",
+    "extract/baci/HS02/Y2007.parquet",
+    "extract/baci/HS02/Y2008.parquet",
+    "extract/baci/HS02/Y2009.parquet",
+    "extract/baci/HS02/Y2010.parquet",
+    "extract/baci/HS02/Y2011.parquet",
+    "extract/baci/HS02/Y2012.parquet",
+    "extract/baci/HS02/Y2013.parquet",
+    "extract/baci/HS02/Y2014.parquet",
+    "extract/baci/HS02/Y2015.parquet",
+    "extract/baci/HS02/Y2016.parquet",
+    "extract/baci/HS17/Y2017.parquet",
+    "extract/baci/HS17/Y2018.parquet",
+    "extract/baci/HS17/Y2019.parquet",
+    "extract/baci/HS17/Y2020.parquet",
+    "extract/baci/HS17/Y2021.parquet",
+    "extract/baci/HS17/Y2022.parquet",
+    "extract/baci/HS17/Y2023.parquet",
+    "extract/baci/HS17/Y2024.parquet",
     "raw/baci/country_codes_V202601.csv"
    ],
    "writes": [
     "steel-alloys-chain/out/steel_trade.json"
    ],
    "exit": 0,
-   "secs": 379.5,
-   "code_sha": "4c2a453e799af95a",
+   "secs": 8.7,
+   "code_sha": "f4ca73b462711482",
    "restored": 1
   },
   "steel-alloys-chain/record_steel.py": {
