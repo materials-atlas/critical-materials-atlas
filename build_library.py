@@ -13,6 +13,24 @@ asset; it is clutter that looks like an asset. This builder writes the record.
   WRITTEN   what the source is, its licence, and WHY WE MIGHT NEED IT LATER. A script cannot
             infer that, so anything not written up is reported as UNDOCUMENTED rather than
             quietly omitted - which is the pressure that keeps this honest.
+  DERIVED   read_by, reaches_cube - taken from out/graph.json, the OBSERVED dependency graph.
+            ONE SCOPE LIMIT, stated because it changes what "unread" means: the recorder does not
+            run pipeline/, which has its own entry point and whose scripts spend API quota. So a
+            folder only the pipeline opens would read as unread. Those are found by SEARCHING THE
+            PIPELINE'S SOURCE for the folder name - grep, which is exactly the weaker evidence
+            this project rejected for the main graph - and are labelled as such, never merged in
+            with the observed readers. Two folders (raw/oecd_itic, raw/_sources) are in that state
+            today, and the honest fix is to record the pipeline, not to widen this word.
+            Phase 4 of ARCHITECTURE.md: the register answers *what do we hold*, the graph answers
+            *what feeds what*, and licences.py answers *what may leave*. Three questions, three
+            files, no overlap - so these are never typed here and never stored twice.
+
+WHY DERIVING THIS IS WORTH THE TROUBLE
+The `status` column is a human claim ("in cube", "driver", "reference"). The graph is a
+measurement. Where they disagree the register now says so: a folder marked *in cube* that no
+builder reads is either a stale claim or a deleted reader, and either way somebody should know.
+That comparison is the point - a register that only repeats what someone typed cannot catch the
+thing a register exists to catch.
 
 Output: DATA_LIBRARY.md (committed - the record survives even though the files do not) and
 out/library.json.
@@ -24,7 +42,14 @@ import os, sys, json, glob, datetime as dt
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, 'raw')
-DATA_EXT = {'.xlsx', '.xlsb', '.xls', '.csv', '.zip', '.json', '.pdf', '.parquet', '.txt', '.tsv'}
+DATA_EXT = {'.xlsx', '.xlsb', '.xls', '.csv', '.zip', '.json', '.pdf', '.parquet', '.txt', '.tsv',
+            '.gpkg', '.xlsm'}
+# .gpkg and .xlsm added 11 Sep 2026. Their absence did not shrink the table - it DELETED ROWS.
+# A folder whose files are all unrecognised was skipped silently, so raw/maus (24.7 MB of
+# mining-footprint polygons, read by build_commodity_attribution.py) and raw/sepin (97.3 MB,
+# read by build_mining_expansion.py) were held, used, and absent from the record of what we
+# hold. A filter that drops data without saying so is the defect this whole file exists
+# against, and it was sitting inside it.
 
 # ── written notes, keyed by folder under raw/. `use` answers "why might we need this later?" ────
 NOTES = {
@@ -209,8 +234,17 @@ NOTES = {
  'osm':        ('OpenStreetMap extracts', 'ODbL', 'reference',
                 'Infrastructure geometry (ports, rail) for logistics work.'),
  'wikidata':   ('Wikidata entity extracts', 'CC0', 'reference', 'Entity reconciliation helper.'),
- 'sepin':      ('SEPIN / substitution references', 'mixed', 'reference',
-                'Substitution potential inputs.'),
+ 'sepin':      ('Machine-learning mine-area predictions, "mine-predictions-precise-v1"',
+                'UNVERIFIED - no licence file shipped with the download; check before republishing',
+                'in use (mining expansion)',
+                'CORRECTED 11 Sep 2026. This was written up as "SEPIN / substitution references - '
+                'substitution potential inputs", which is not what the file is; nobody caught it '
+                'because .gpkg was outside DATA_EXT and the row never appeared in the table. '
+                'Measured from the file itself: one layer, 109,517 polygons, columns iso_a3, '
+                'country_name, year (2016-2024), area - PREDICTED mining areas per country-year, '
+                'and build_mining_expansion.py reads it. Predictions are not observations: this '
+                'measures where a model thinks mining is, which is the right input for a trend in '
+                'disturbed area and the wrong input for any statement about output.'),
  'bottomup':   ('Bottom-up capacity compilations', 'derived', 'in use',
                 'Facility-level buildup behind selected chains.'),
  'valueshare': ('Value-share references', 'derived', 'in use',
@@ -218,6 +252,9 @@ NOTES = {
  '_sources':   ('Primary PDFs and source-of-record documents', 'various', 'reference',
                 'Where a cited figure can be re-checked against the document it came from.'),
 }
+
+
+SKIPPED = []          # folders holding files whose extensions DATA_EXT does not recognise
 
 
 def scan():
@@ -246,6 +283,14 @@ def scan():
                         continue
                     files.append(os.path.splitext(fn)[1].lower())
         if not files:
+            # LOUD, not silent. A folder with files but none we recognise is exactly how two used
+            # datasets went missing from the register; it is now reported and the extension named,
+            # so the fix is to widen DATA_EXT deliberately rather than to never find out.
+            other = []
+            for dirpath, _, fnames in os.walk(path):
+                other += [os.path.splitext(fn)[1].lower() for fn in fnames]
+            if other:
+                SKIPPED.append((f'raw/{rel}', sorted(set(e for e in other if e))))
             continue
         note = NOTES.get(rel) or NOTES.get(name)
         out.append({
@@ -261,8 +306,110 @@ def scan():
     return sorted(out, key=lambda r: -r['size_mb'])
 
 
+# ── derived from the observed graph, never typed ────────────────────────────────────────────────
+CUBE_FILES = ('pipeline/data/cube.parquet', 'out/cube.parquet')
+
+
+def pipeline_mentions(folders):
+    """{folder: [pipeline scripts naming it]}. GREP, not observation - see the scope limit above."""
+    out = {f: [] for f in folders}
+    for sub in ('pipeline', 'reconcile'):
+        d = os.path.join(ROOT, sub)
+        if not os.path.isdir(d):
+            continue
+        for fn in sorted(os.listdir(d)):
+            if not fn.endswith('.py'):
+                continue
+            try:
+                txt = open(os.path.join(d, fn), encoding='utf-8', errors='replace').read()
+            except OSError:
+                continue
+            for f in folders:
+                name = f.split('/', 1)[1] if '/' in f else f
+                if name and name in txt:
+                    out[f].append(f'{sub}/{fn}')
+    return out
+
+
+def graph_facts(folders):
+    """{folder: (readers, reaches_cube)} from out/graph.json.
+
+    reaches_cube is transitive: a folder reaches the cube if some builder reads it and that
+    builder, or something downstream of it, writes a cube file. Direct-reader-only would have
+    said no for every source that arrives through an intermediate JSON, which is most of them.
+    Absent graph => every field is None, and the register says "not measured" rather than "no".
+    """
+    gp = os.path.join(ROOT, 'out', 'graph.json')
+    if not os.path.exists(gp):
+        return {f: (None, None) for f in folders}
+    try:
+        g = json.load(open(gp, encoding='utf-8'))['builders']
+    except Exception:
+        return {f: (None, None) for f in folders}
+
+    prod = {}
+    for b, v in g.items():
+        for w in v.get('writes', ()):
+            prod.setdefault(w, set()).add(b)
+    edges = {}
+    for b, v in g.items():
+        for r in v.get('reads', ()):
+            for p in prod.get(r, ()):
+                if p != b:
+                    edges.setdefault(p, set()).add(b)
+
+    cube_writers = {b for f in CUBE_FILES for b in prod.get(f, ())}
+    # walk BACKWARDS from the cube's writers: everything that can reach them reaches the cube
+    rev = {}
+    for p, cs in edges.items():
+        for c in cs:
+            rev.setdefault(c, set()).add(p)
+    reaches, work = set(cube_writers), list(cube_writers)
+    while work:
+        n = work.pop()
+        for p in rev.get(n, ()):
+            if p not in reaches:
+                reaches.add(p)
+                work.append(p)
+
+    facts = {}
+    for f in folders:
+        pre = f.rstrip('/') + '/'
+        # A DIRECTORY LISTING IS NOT A READER. The audit hook records os.scandir as a read with a
+        # trailing slash, and this very builder scans every folder under raw/ to size it - so the
+        # first version of this line reported all 64 folders as read by something, including the
+        # ones nothing opens. Only an actual file open counts.
+        readers = sorted(b for b, v in g.items()
+                         if any(not r.endswith('/') and (r == f or r.startswith(pre))
+                                for r in v.get('reads', ())))
+        facts[f] = (readers, bool(set(readers) & reaches))
+    return facts
+
+
 if __name__ == '__main__':
     rows = scan()
+    facts = graph_facts([r['folder'] for r in rows])
+    mentions = pipeline_mentions([r['folder'] for r in rows])
+    for r in rows:
+        readers, reaches = facts[r['folder']]
+        r['read_by'] = readers
+        r['n_readers'] = None if readers is None else len(readers)
+        r['reaches_cube'] = reaches
+        r['named_in_pipeline_source'] = mentions.get(r['folder']) or []
+    # The claim against the measurement. A folder the register calls "in cube" that nothing reads
+    # is the drift this file now exists to surface; it is reported, never silently reconciled.
+    # A CANDIDATE is not a claim. 'CUBE CANDIDATE' means somebody thinks it should be ingested,
+    # not that it is - and the first version of this line reported it as a contradiction with
+    # the graph, which would have taught the reader to ignore this section.
+    def claims_cube(r):
+        st = (r.get('status') or '').lower()
+        return 'cube' in st and 'candidate' not in st
+    contested = [r for r in rows if r['n_readers'] is not None
+                 and (claims_cube(r) != bool(r['reaches_cube']))]
+    unread = [r['folder'] for r in rows
+              if r.get('n_readers') == 0 and not r['named_in_pipeline_source']]
+    only_pipeline = [r for r in rows
+                     if r.get('n_readers') == 0 and r['named_in_pipeline_source']]
     undoc = [r['folder'] for r in rows if r['status'] == 'UNDOCUMENTED']
     total = round(sum(r['size_mb'] for r in rows) / 1000, 2)
     doc = {
@@ -274,7 +421,17 @@ if __name__ == '__main__':
                 '(mineral quantity per country-year), driver (activity series per country-year), '
                 'reference (everything a question might need later). A non-CC licence permits use '
                 'but never redistribution in out/.',
-        'total_gb': total, 'folders': len(rows), 'undocumented': undoc, 'library': rows,
+        'derived': 'read_by and reaches_cube come from out/graph.json, the OBSERVED dependency '
+                   'graph - never typed here. status is a human claim; where the two disagree the '
+                   'folder is listed under contested, because that disagreement is the point.',
+        'total_gb': total, 'folders': len(rows), 'undocumented': undoc,
+        'unread': unread, 'contested': [r['folder'] for r in contested],
+        'skipped_unrecognised': [{'folder': f, 'extensions': e} for f, e in SKIPPED],
+        'only_named_in_pipeline_source': [r['folder'] for r in only_pipeline],
+        'scope_limit': 'The recorder does not run pipeline/, so a folder only the pipeline opens '
+                       'would read as unread. Those are found by searching the pipeline source for '
+                       'the folder name - grep, weaker evidence - and listed separately.',
+        'library': rows,
     }
     json.dump(doc, open(os.path.join(ROOT, 'out', 'library.json'), 'w', encoding='utf-8'), indent=1)
 
@@ -289,14 +446,43 @@ if __name__ == '__main__':
           '| **driver** | an activity series per country-year that an intensity can apply to |',
           '| **reference** | everything a future question might need |', '',
           '**A non-CC licence permits use but never redistribution in `out/`.**', '',
-          '| Folder | Dataset | Licence | Status | Files | MB | Why we might need it |',
-          '|---|---|---|---|---|---|---|']
+          '| Folder | Dataset | Licence | Status | Read by | Files | MB | Why we might need it |',
+          '|---|---|---|---|---|---|---|---|']
     for r in rows:
+        n = r.get('n_readers')
+        rb = '?' if n is None else (('pipeline only' if r['named_in_pipeline_source'] else '**nothing**') if n == 0 else
+                                    f"{n} builder{'s' if n != 1 else ''}"
+                                    + (' &rarr; cube' if r.get('reaches_cube') else ''))
         md.append(f"| `{r['folder']}` | {r['dataset'] or '**UNDOCUMENTED**'} | {r['licence'] or '?'} "
-                  f"| {r['status']} | {r['n_files']} | {r['size_mb']} | "
+                  f"| {r['status']} | {rb} | {r['n_files']} | {r['size_mb']} | "
                   f"{r['why_we_might_need_it'] or '—'} |")
     if undoc:
         md += ['', f'**Undocumented folders needing a note: {", ".join(undoc)}**']
+    if unread:
+        md += ['', '## Held, and read by nothing', '',
+               'Measured from the observed dependency graph, not from grep. This is not a list of',
+               'mistakes - a reference dataset is kept precisely so a future question can reach it -',
+               'but a folder here is costing disk and attention for a use that has not happened yet.',
+               '']
+        for f in unread:
+            r = next(x for x in rows if x['folder'] == f)
+            md.append(f"- `{f}` &mdash; {r['size_mb']} MB, {r['n_files']} files, status *{r['status']}*")
+        if only_pipeline:
+            md += ['', 'Excluded from that list, and worth stating rather than hiding: the recorder does',
+                   'not run `pipeline/`, which has its own entry point. These folders show no observed',
+                   'reader but are NAMED IN THE PIPELINE SOURCE, which is grep - weaker evidence than',
+                   'the rest of this table rests on. Recording the pipeline is the real fix.', '']
+            for r in only_pipeline:
+                md.append(f"- `{r['folder']}` &mdash; named in {', '.join('`%s`' % x for x in r['named_in_pipeline_source'])}")
+    if contested:
+        md += ['', '## The register and the graph disagree', '',
+               'The **status** column is written by a person; **read by** is measured. Where one says',
+               'a folder feeds the cube and the other does not, both cannot be right, and neither is',
+               'quietly corrected here.', '']
+        for r in contested:
+            md.append(f"- `{r['folder']}` &mdash; written up as *{r['status']}*, but the graph says "
+                      f"{r['n_readers']} reader(s) and "
+                      f"{'a path to' if r['reaches_cube'] else 'NO path to'} the cube.")
     md += ['', '---', '',
            '*Generated by `build_library.py`. Sizes and file counts are scanned from disk; the',
            'dataset, licence and reason are written by hand, because a script cannot infer why a',
@@ -304,7 +490,24 @@ if __name__ == '__main__':
     open(os.path.join(ROOT, 'DATA_LIBRARY.md'), 'w', encoding='utf-8').write('\n'.join(md) + '\n')
 
     print(f'WROTE DATA_LIBRARY.md + out/library.json — {len(rows)} sources, {total} GB')
+    if SKIPPED:
+        print(f'   SKIPPED - files held, extension not recognised ({len(SKIPPED)}):')
+        for f, exts in SKIPPED:
+            print(f'      {f}  {" ".join(exts)}')
     if undoc:
         print(f'   UNDOCUMENTED ({len(undoc)}): {", ".join(undoc)}')
     else:
         print('   every folder documented')
+    if rows and rows[0].get('n_readers') is None:
+        print('   graph absent - read_by/reaches_cube not measured this run')
+    else:
+        print(f'   read by something: {sum(1 for r in rows if r["n_readers"])} of {len(rows)}'
+              f' | reaching the cube: {sum(1 for r in rows if r["reaches_cube"])}')
+        if only_pipeline:
+            print(f'   pipeline-only, unobserved ({len(only_pipeline)}): '
+                  f'{", ".join(r["folder"] for r in only_pipeline)}')
+        if unread:
+            print(f'   READ BY NOTHING ({len(unread)}): {", ".join(unread)}')
+        if contested:
+            print(f'   STATUS CONTESTED BY THE GRAPH ({len(contested)}): '
+                  f'{", ".join(r["folder"] for r in contested)}')

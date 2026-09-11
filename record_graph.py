@@ -7,9 +7,33 @@ because a hand-written manifest always misses an edge: a glob, a path built from
 pandas call that opens its file in C rather than through Python. They are right about DECLARED
 manifests, and that objection has killed this idea in other projects.
 
-It does not apply here. sys.addaudithook fires on every file access in the process, including from
-compiled extensions - measured against pandas.read_parquet, zipfile and json/open before this file
+It mostly does not apply here. sys.addaudithook fires on every file access that goes through
+CPython's own open() - measured against pandas.read_parquet, zipfile and json/open before this file
 was written. So nobody writes the graph down, and nobody can forget to.
+
+WHERE THAT CLAIM WAS TOO STRONG, AND WHAT IT COST
+"Including from compiled extensions" is what this file used to say, and it is false. A C library
+that does its own I/O never calls CPython's open() and the hook never fires. Found on 11 Sep by
+building the register's `read_by` column out of this graph and noticing that raw/maus and raw/sepin
+- 122 MB of mining-footprint polygons that two builders demonstrably read - had no reader at all.
+
+  sqlite3   raises its OWN audit event, "sqlite3.connect", and no "open". Three builders read
+            GeoPackages (which are SQLite files) through it, and all three edges were missing.
+            Fixed below by listening for that event: complete, and as cheap as the rest.
+  duckdb    raises NOTHING identifiable. It fires "open" for its own libraries and never for the
+            parquet it reads or writes - measured directly, not assumed. Worse, the obvious repair
+            does not work either: DuckDBPyConnection.execute is a read-only C attribute, so the
+            probe cannot wrap it, and a proxy object standing in for the connection would change
+            what the builder runs - which a recorder must never do. Module-level entry points
+            (duckdb.sql, duckdb.read_parquet) ARE wrapped, because those are patchable and free.
+
+SO ONE EDGE IS DECLARED RATHER THAN OBSERVED, AND SAYS SO
+Measured, so the size of the hole is known rather than feared: of 268 builders exactly one imports
+duckdb - extract_baci.py - and it opens the BACI archive with Python's own zipfile, so its INPUTS
+are observed normally. Only its output is invisible: it writes each member with COPY ... TO. That
+single edge is in DECLARED below, is merged into the graph marked `declared` rather than observed,
+and is the only edge in this repository that anybody had to write down. The whole point of the
+distinction is that it stays visible instead of dissolving into the rest.
 
 WHAT THIS DOES NOT DO
 It changes no output and enforces no rule. It runs builders and watches. That is the whole of
@@ -59,6 +83,7 @@ NEVER_RUN = (
     'backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph',
     'check.py',            # the gate itself; it reads everything and would drown the graph
     'runner.py',           # reads the graph it would be recorded into, and rebuilds from it
+    'repro_audit.py',      # runs every builder itself; recording it would recurse
     'scheduled_run',
     'build_bgs_panel',     # a network fetcher wearing a builder's name: seven minutes against
                            # the BGS API, and its 63 outputs are the cube's spine. Not for a
@@ -66,8 +91,18 @@ NEVER_RUN = (
                            # deleted what it fetched.
 )
 
+# The only edges nobody can observe, with the reason each one is here. An entry is a confession,
+# not a convenience: anything added here is a place where this file stopped being a measurement.
+DECLARED = {
+    'extract_baci.py': {
+        'writes': ['extract/baci/'],
+        'why': 'writes every member with DuckDB COPY ... TO, which does its own I/O and raises no '
+               'audit event; its inputs ARE observed, because it opens the archive with zipfile',
+    },
+}
+
 PROBE = r'''
-import sys, os, json, runpy
+import sys, os, json, re, runpy, builtins
 ROOT = os.path.abspath(%(root)r)
 R, W = set(), set()
 def _rel(p):
@@ -76,9 +111,83 @@ def _rel(p):
     except (ValueError, OSError):
         return None
     return None if rp.startswith('..') else rp.replace(os.sep, '/')
+# DuckDB does its own I/O and raises no usable audit event, so the only place left to stand is
+# the query. Wrapping connect() lets us read the SQL that actually ran and pull the file paths out
+# of it - read_parquet('x'), FROM 'x', COPY ... TO 'x'. Installed by overriding __import__ so it
+# costs nothing in the builders that never import duckdb, which is 264 of 268.
+_PATHY = re.compile(r"['\"]([^'\"]+\.(?:parquet|csv|json|zip|gpkg|db|tsv|txt|xlsx))['\"]", re.I)
+_COPYTO = re.compile(r"\bCOPY\b.*?\bTO\b\s*['\"]([^'\"]+)['\"]", re.I | re.S)
+
+
+def _sql_paths(sql):
+    try:
+        text = sql if isinstance(sql, str) else ''
+    except Exception:
+        return
+    for m in _COPYTO.finditer(text):
+        r = _rel(m.group(1))
+        if r is not None:
+            W.add(r)
+    written = set()
+    for m in _COPYTO.finditer(text):
+        written.add(m.group(1))
+    for m in _PATHY.finditer(text):
+        if m.group(1) in written:
+            continue
+        r = _rel(m.group(1))
+        if r is not None:
+            R.add(r)
+
+
+def _wrap_duckdb(mod):
+    # Module-level entry points only. The CONNECTION is deliberately left alone: its execute is a
+    # read-only C attribute, and standing a proxy object in its place would change what the builder
+    # runs. A recorder that alters the program it measures is worse than one with a known gap, so
+    # the gap is declared instead - see DECLARED.
+    if mod is None or getattr(mod, '_graph_wrapped', False):
+        return
+    try:
+        for name in ('sql', 'query', 'read_parquet', 'read_csv_auto', 'from_parquet'):
+            fn = getattr(mod, name, None)
+            if callable(fn):
+                setattr(mod, name, _record(fn))
+        mod._graph_wrapped = True
+    except Exception:
+        pass
+
+
+def _record(fn):
+    def inner(*a, **k):
+        for x in a[:2]:
+            if isinstance(x, str):
+                _sql_paths(x)
+        return fn(*a, **k)
+    return inner
+
+
+_real_import = builtins.__import__
+
+
+def _imp(name, *a, **k):
+    m = _real_import(name, *a, **k)
+    if name.split('.')[0] == 'duckdb':
+        _wrap_duckdb(sys.modules.get('duckdb'))
+    return m
+
+
+builtins.__import__ = _imp
+
+
 def hook(event, args):
     try:
-        if event == 'open':
+        if event == 'sqlite3.connect':
+            # sqlite3 raises this INSTEAD of open(). Every GeoPackage in raw/ is a SQLite file,
+            # and without this line three builders read 122 MB with no edge recorded.
+            if args and isinstance(args[0], str):
+                r = _rel(args[0])
+                if r is not None:
+                    R.add(r)
+        elif event == 'open':
             p, mode = args[0], args[1]
             if not isinstance(p, str):
                 return
@@ -235,6 +344,17 @@ def main():
     for n, b in enumerate(bs, 1):
         r = run(b, timeout)
         r['code_sha'] = sha(os.path.join(ROOT, b))
+        d = DECLARED.get(b)
+        if d:
+            # Merged, and LABELLED. A reader of graph.json can tell an observed edge from a written
+            # one without reading this file, which is the only reason declaring anything is tolerable.
+            r['declared'] = d
+            for w in d.get('writes', ()):
+                if w not in r['writes']:
+                    r['writes'].append(w)
+            for x in d.get('reads', ()):
+                if x not in r['reads']:
+                    r['reads'].append(x)
         r['reads'] = [x for x in r['reads'] if x != b]      # a script reading itself is not an edge
         # OBSERVATION LEAVES NO TRACE. Undo the builder's writes before running the next one.
         n_undone, orphaned = restore(r['writes'])

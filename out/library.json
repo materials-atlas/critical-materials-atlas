@@ -1,9 +1,58 @@
 {
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
- "total_gb": 3.68,
- "folders": 64,
+ "derived": "read_by and reaches_cube come from out/graph.json, the OBSERVED dependency graph - never typed here. status is a human claim; where the two disagree the folder is listed under contested, because that disagreement is the point.",
+ "total_gb": 3.81,
+ "folders": 68,
  "undocumented": [],
+ "unread": [
+  "raw/iea_bulk/gender-and-energy",
+  "raw/iea_bulk/weather-for-energy-tracker",
+  "raw/iea_drivers",
+  "raw/iea_bulk/monthly-electricity-statistics",
+  "raw/iea_bulk/world-energy-balances-highlights",
+  "raw/iea_rdd",
+  "raw/iea_bulk/household-energy-expenditure-database",
+  "raw/iea_bulk/solid-biofuels-consumption-estimation-model",
+  "raw/iea_bulk/net-zero-by-2050-scenario",
+  "raw/iea_bulk/global-ev-outlook-2026",
+  "raw/iea_bulk/iea-electricity-access-data-collection-template",
+  "raw/iea_bulk/greenhouse-gas-emissions-from-energy-highlights",
+  "raw/iea_bulk/monthly-oil-price-statistics-2",
+  "raw/iea_bulk/the-implications-of-oil-and-gas-field-decline-rates-dataset",
+  "raw/iea_bulk/hydrogen-production-and-infrastructure-projects-database",
+  "raw/iea_bulk/world-energy-investment-2023-datafile-2",
+  "raw/iea_bulk/world-energy-investment-2024-datafile",
+  "raw/iea_bulk/world-energy-investment-2026-datafile",
+  "raw/iea_etp",
+  "raw/iea_bulk/world-energy-investment-2022-datafile-2",
+  "raw/iea_bulk/world-energy-outlook-2025-free-dataset",
+  "raw/iea_bulk/global-ev-outlook-2025",
+  "raw/iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset",
+  "raw/iea_bulk/world-energy-investment-2025-datafile",
+  "raw/iea_bulk/household-appliances-database",
+  "raw/iea_bulk/monthly-oil-statistics",
+  "raw/iea_bulk/quarterly-coal-statistics",
+  "raw/iea_bulk/sdg7-database",
+  "raw/iea_bulk/gas-trade-flows",
+  "raw/iea_bulk/world-energy-investment-2021-datafile",
+  "raw/bottomup",
+  "raw/iea_energy_econ",
+  "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
+  "raw/iea_bulk/global-energy-review-co2-emissions-in-2021",
+  "raw/iea_bulk/monthly-gas-statistics",
+  "raw/iea_bulk/monthly-reliance-on-russian-oil-for-oecd-countries",
+  "raw/iea_bulk/reliance-on-russian-fossil-fuels-in-oecd-and-eu-countries",
+  "raw/iea_bulk/the-role-of-critical-minerals-in-clean-energy-transitions-2",
+  "raw/iea_bulk/global-energy-review-dataset"
+ ],
+ "contested": [],
+ "skipped_unrecognised": [],
+ "only_named_in_pipeline_source": [
+  "raw/oecd_itic",
+  "raw/_sources"
+ ],
+ "scope_limit": "The recorder does not run pipeline/, so a folder only the pipeline opens would read as unread. Those are found by searching the pipeline source for the folder name - grep, weaker evidence - and listed separately.",
  "library": [
   {
    "folder": "raw/baci",
@@ -17,7 +66,71 @@
    "dataset": "CEPII BACI bilateral trade, HS02 and HS17 vintages",
    "licence": "Etalab Open Licence 2.0 (redistribution permitted, attribution required)",
    "status": "in cube (partly)",
-   "why_we_might_need_it": "HS02 gives 2002-2024 on one nomenclature. Only the 47 mapped codes are ingested; the rest is deliberate ballast left out. LICENCE CORRECTED 6 Sep 2026: this was recorded as \"Free for research\", which understated it and would have blocked republication. CEPII licenses BACI under Etalab 2.0 - an open licence permitting reproduction, redistribution and commercial reuse with attribution, and declared compatible with CC BY 4.0 - so the BACI-derived rows in out/cube.csv.gz are properly published, not a leak. Required citation: Gaulier, G. and Zignago, S. (2010), BACI: International Trade Database at the Product-Level."
+   "why_we_might_need_it": "HS02 gives 2002-2024 on one nomenclature. Only the 47 mapped codes are ingested; the rest is deliberate ballast left out. LICENCE CORRECTED 6 Sep 2026: this was recorded as \"Free for research\", which understated it and would have blocked republication. CEPII licenses BACI under Etalab 2.0 - an open licence permitting reproduction, redistribution and commercial reuse with attribution, and declared compatible with CC BY 4.0 - so the BACI-derived rows in out/cube.csv.gz are properly published, not a leak. Required citation: Gaulier, G. and Zignago, S. (2010), BACI: International Trade Database at the Product-Level.",
+   "read_by": [
+    "add_tonnes.py",
+    "aerospace-chain/extract_baci.py",
+    "aluminium-chain/extract_baci.py",
+    "build_anchor.py",
+    "build_avalidate.py",
+    "build_breakout.py",
+    "build_chain_trade.py",
+    "build_consumption_scan.py",
+    "build_cube.py",
+    "build_cube_baci.py",
+    "build_cube_iea.py",
+    "build_cube_wmd.py",
+    "build_exposure.py",
+    "build_feedstock.py",
+    "build_fitness.py",
+    "build_flows_fix.py",
+    "build_freight_model.py",
+    "build_harvard.py",
+    "build_leverage.py",
+    "build_mining_expansion.py",
+    "build_network_sensitivity.py",
+    "build_ot.py",
+    "build_production.py",
+    "build_productspace.py",
+    "build_ps_network.py",
+    "build_recon_envelope.py",
+    "build_robustness.py",
+    "build_satellite.py",
+    "build_scenario.py",
+    "build_trend_robustness.py",
+    "build_two_stage.py",
+    "build_vq.py",
+    "copper-chain/extract_baci.py",
+    "defence-chain/extract_baci.py",
+    "displays-indium-chain/extract_baci.py",
+    "fibre-optics-chain/extract_baci.py",
+    "grid-chain/build_goes.py",
+    "pgm-catalyst-chain/extract_baci.py",
+    "phosphate-food-chain/extract_baci.py",
+    "reconcile/extract_baci.py",
+    "reconcile/operator_test.py",
+    "reconcile/reconcile.py",
+    "silicon-chip/extract_baci.py",
+    "steel-alloys-chain/extract_baci.py"
+   ],
+   "n_readers": 44,
+   "reaches_cube": true,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_baci.py",
+    "pipeline/adapter_base.py",
+    "pipeline/adapter_mirror.py",
+    "pipeline/build.py",
+    "pipeline/dossier.py",
+    "pipeline/make_parquet.py",
+    "pipeline/pull_eurostat.py",
+    "pipeline/reconcile.py",
+    "pipeline/schema.py",
+    "reconcile/build_recon_flows.py",
+    "reconcile/extract_baci.py",
+    "reconcile/operator_test.py",
+    "reconcile/reconcile.py",
+    "reconcile/validate.py"
+   ]
   },
   {
    "folder": "raw/bgs",
@@ -26,11 +139,37 @@
    "formats": [
     ".json"
    ],
-   "newest": "2026-09-04",
+   "newest": "2026-09-09",
    "dataset": "BGS World Mineral Statistics full panel",
    "licence": "Open Government Licence",
    "status": "in cube",
-   "why_we_might_need_it": "The spine: 410k records, production + trade by country, 1970-2024."
+   "why_we_might_need_it": "The spine: 410k records, production + trade by country, 1970-2024.",
+   "read_by": [
+    "build_bgs_concentration.py",
+    "build_cube.py"
+   ],
+   "n_readers": 2,
+   "reaches_cube": true,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/sepin",
+   "n_files": 1,
+   "size_mb": 97.3,
+   "formats": [
+    ".gpkg"
+   ],
+   "newest": "2026-06-29",
+   "dataset": "Machine-learning mine-area predictions, \"mine-predictions-precise-v1\"",
+   "licence": "UNVERIFIED - no licence file shipped with the download; check before republishing",
+   "status": "in use (mining expansion)",
+   "why_we_might_need_it": "CORRECTED 11 Sep 2026. This was written up as \"SEPIN / substitution references - substitution potential inputs\", which is not what the file is; nobody caught it because .gpkg was outside DATA_EXT and the row never appeared in the table. Measured from the file itself: one layer, 109,517 polygons, columns iso_a3, country_name, year (2016-2024), area - PREDICTED mining areas per country-year, and build_mining_expansion.py reads it. Predictions are not observations: this measures where a model thinks mining is, which is the right input for a trend in disturbed area and the wrong input for any statement about output.",
+   "read_by": [
+    "build_mining_expansion.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/gender-and-energy",
@@ -44,7 +183,11 @@
    "dataset": "Gender and Energy",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Workforce and participation indicators for the energy sector. No material dimension; kept for completeness of the collection."
+   "why_we_might_need_it": "Workforce and participation indicators for the energy sector. No material dimension; kept for completeness of the collection.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/oecd_itic",
@@ -58,7 +201,14 @@
    "dataset": "OECD International Transport and Insurance Costs of merchandise trade (ITIC)",
    "licence": "OECD Terms and Conditions - redistribution and commercial use permitted with attribution; acknowledgment must propagate to sub-licensees",
    "status": "in use (the CIF/FOB coefficient)",
-   "why_we_might_need_it": "The published CIF/FOB margin per importer-exporter-HS2017 heading-year, 976,568 observations 2015-2024. It REPLACED our own freight estimation entirely: the per-product medians, the borrowed CEPII 2008 coefficients, the locally-anchored level and our invented 10% ceiling are all now fallback that fires zero times. Verbatim from the terms, checked 6 Sep 2026: \"you can extract from, download, copy, adapt, print, distribute, share and embed Data for any purpose, even for commercial use. You must give appropriate credit to the OECD by using the citation associated with the relevant Data.\" Caveat in the same terms: some content may be owned by third parties and the user is responsible for checking - ITIC is an OECD statistical product built from member reporting, so this is noted rather than resolved. Cite as: OECD (2026), International Transport and Insurance Costs of merchandise trade (ITIC), OECD Data Explorer, accessed 6 September 2026. NOTE 95% of margins are gravity-model imputations (OBS_STATUS I), not reported values - published is not the same as observed."
+   "why_we_might_need_it": "The published CIF/FOB margin per importer-exporter-HS2017 heading-year, 976,568 observations 2015-2024. It REPLACED our own freight estimation entirely: the per-product medians, the borrowed CEPII 2008 coefficients, the locally-anchored level and our invented 10% ceiling are all now fallback that fires zero times. Verbatim from the terms, checked 6 Sep 2026: \"you can extract from, download, copy, adapt, print, distribute, share and embed Data for any purpose, even for commercial use. You must give appropriate credit to the OECD by using the citation associated with the relevant Data.\" Caveat in the same terms: some content may be owned by third parties and the user is responsible for checking - ITIC is an OECD statistical product built from member reporting, so this is noted rather than resolved. Cite as: OECD (2026), International Transport and Insurance Costs of merchandise trade (ITIC), OECD Data Explorer, accessed 6 September 2026. NOTE 95% of margins are gravity-model imputations (OBS_STATUS I), not reported values - published is not the same as observed.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/fetch_itic.py",
+    "pipeline/reconcile.py"
+   ]
   },
   {
    "folder": "raw/_sources",
@@ -73,7 +223,13 @@
    "dataset": "Primary PDFs and source-of-record documents",
    "licence": "various",
    "status": "reference",
-   "why_we_might_need_it": "Where a cited figure can be re-checked against the document it came from."
+   "why_we_might_need_it": "Where a cited figure can be re-checked against the document it came from.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/build.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/weather-for-energy-tracker",
@@ -86,7 +242,11 @@
    "dataset": "Weather for Energy Tracker",
    "licence": "CC BY 4.0",
    "status": "reference (underrated)",
-   "why_we_might_need_it": "The one I wrongly dismissed. Drought curtails hydro, and hydro curtailment curtails ALUMINIUM and silicon smelting - Yunnan is the documented case. A weather series is a real explanatory variable for why refined output moves in a year when capacity did not."
+   "why_we_might_need_it": "The one I wrongly dismissed. Drought curtails hydro, and hydro curtailment curtails ALUMINIUM and silicon smelting - Yunnan is the documented case. A weather series is a real explanatory variable for why refined output moves in a year when capacity did not.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_drivers",
@@ -100,7 +260,31 @@
    "dataset": "IEA activity datasets: Energy & AI annex, Value Added DB, EEI Highlights",
    "licence": "MIXED - Energy&AI is CC BY 4.0; Value Added and EEI are NOT CC",
    "status": "driver candidates",
-   "why_we_might_need_it": "Country-year ACTIVITY series for the consumption model (demand = activity x intensity). Value added by ISIC division is the driver the IEA itself uses. The non-CC two may be used but never redistributed in out/."
+   "why_we_might_need_it": "Country-year ACTIVITY series for the consumption model (demand = activity x intensity). Value added by ISIC division is the driver the IEA itself uses. The non-CC two may be used but never redistributed in out/.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/maus",
+   "n_files": 1,
+   "size_mb": 24.7,
+   "formats": [
+    ".gpkg"
+   ],
+   "newest": "2026-06-29",
+   "dataset": "Maus et al. global mining land use",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Satellite-derived mine footprints; a physical cross-check on where mining is.",
+   "read_by": [
+    "build_commodity_attribution.py",
+    "build_satellite.py"
+   ],
+   "n_readers": 2,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/usgs_mcs",
@@ -110,11 +294,17 @@
     ".json",
     ".pdf"
    ],
-   "newest": "2026-08-09",
+   "newest": "2026-09-07",
    "dataset": "USGS Mineral Commodity Summaries PDFs",
    "licence": "US public domain",
    "status": "partly extracted",
-   "why_we_might_need_it": "RESERVES, refinery output, import reliance and recycling are still unextracted - the largest known unopened box in the library."
+   "why_we_might_need_it": "RESERVES, refinery output, import reliance and recycling are still unextracted - the largest known unopened box in the library.",
+   "read_by": [
+    "extract_usgs.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/comtrade",
@@ -127,7 +317,32 @@
    "dataset": "UN Comtrade extracts",
    "licence": "UN, free",
    "status": "in use",
-   "why_we_might_need_it": "Mirror side of the trade reconciliation."
+   "why_we_might_need_it": "Mirror side of the trade reconciliation.",
+   "read_by": [
+    "build_consumption_scan.py",
+    "build_freight_model.py",
+    "build_recon_envelope.py",
+    "build_robustness.py",
+    "reconcile/operator_test.py",
+    "reconcile/reconcile.py"
+   ],
+   "n_readers": 6,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "pipeline/backfill_all_reporters.py",
+    "pipeline/backfill_comtrade.py",
+    "pipeline/backfill_history.py",
+    "pipeline/build.py",
+    "pipeline/cache.py",
+    "pipeline/pull_comtrade.py",
+    "pipeline/reconcile.py",
+    "pipeline/scheduled_run.py",
+    "reconcile/build_2026_nowcast.py",
+    "reconcile/operator_test.py",
+    "reconcile/pull_comtrade.py",
+    "reconcile/reconcile.py"
+   ]
   },
   {
    "folder": "raw/mrds",
@@ -140,7 +355,13 @@
    "dataset": "USGS Mineral Resources Data System",
    "licence": "US public domain",
    "status": "reference",
-   "why_we_might_need_it": "Deposit records, site grain."
+   "why_we_might_need_it": "Deposit records, site grain.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/monthly-electricity-statistics",
@@ -154,7 +375,11 @@
    "dataset": "Monthly Electricity Statistics, 47 countries",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver",
-   "why_we_might_need_it": "Refreshes the existing `elec` driver, and monthly grain makes it the natural series for testing whether smelting output tracks power availability."
+   "why_we_might_need_it": "Refreshes the existing `elec` driver, and monthly grain makes it the natural series for testing whether smelting output tracks power availability.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea",
@@ -169,7 +394,17 @@
    "dataset": "IEA Critical Minerals Dataset + report PDFs",
    "licence": "CC BY 4.0",
    "status": "in cube (driver too)",
-   "why_we_might_need_it": "Base-year supply by country at mine AND refining stage - the layer where BGS is thinnest. Two editions held, two missing."
+   "why_we_might_need_it": "Base-year supply by country at mine AND refining stage - the layer where BGS is thinnest. Two editions held, two missing.",
+   "read_by": [
+    "build_cube.py",
+    "build_cube_iea.py",
+    "build_demand.py",
+    "build_refiners.py",
+    "build_refining.py"
+   ],
+   "n_readers": 5,
+   "reaches_cube": true,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/geodist",
@@ -183,7 +418,16 @@
    "dataset": "CEPII GeoDist country distances",
    "licence": "Free for research",
    "status": "in use",
-   "why_we_might_need_it": "Distance/contiguity for trade-gravity and reallocation work."
+   "why_we_might_need_it": "Distance/contiguity for trade-gravity and reallocation work.",
+   "read_by": [
+    "reconcile/reconcile.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/reconcile.py",
+    "reconcile/reconcile.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/world-energy-balances-highlights",
@@ -196,7 +440,11 @@
    "dataset": "World Energy Balances Highlights",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver",
-   "why_we_might_need_it": "Energy balances for 185+ countries. Industrial energy use is a broad activity proxy where no physical output series exists, and the balance structure names the industry sectors."
+   "why_we_might_need_it": "Energy balances for 185+ countries. Industrial energy use is a broad activity proxy where no physical output series exists, and the balance structure names the industry sectors.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_rdd",
@@ -209,7 +457,11 @@
    "dataset": "IEA Energy Technology RD&D Budgets (public + private), 1974-2025",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Country-year-technology R&D SPEND. Money, not an activity a material intensity can multiply, so not a driver. Kept because it is the best public measure of how hard a country is trying on a technology - a possible leading indicator for deployment, and a possible read on SUBSTITUTION effort, which the atlas already has a layer for. Not redistributable."
+   "why_we_might_need_it": "Country-year-technology R&D SPEND. Money, not an activity a material intensity can multiply, so not a driver. Kept because it is the best public measure of how hard a country is trying on a technology - a possible leading indicator for deployment, and a possible read on SUBSTITUTION effort, which the atlas already has a layer for. Not redistributable.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/household-energy-expenditure-database",
@@ -222,7 +474,11 @@
    "dataset": "Household Energy Expenditure Database",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Energy spend by household. Affordability context, no material link."
+   "why_we_might_need_it": "Energy spend by household. Affordability context, no material link.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/eucrm",
@@ -236,7 +492,30 @@
    "dataset": "EU Critical Raw Materials assessment",
    "licence": "EU, reuse permitted",
    "status": "reference",
-   "why_we_might_need_it": "Criticality scores and end-use shares - indicators ABOUT materials, so a dimension rather than cube rows. Also the list vintages used for the ex-ante freeze test."
+   "why_we_might_need_it": "Criticality scores and end-use shares - indicators ABOUT materials, so a dimension rather than cube rows. Also the list vintages used for the ex-ante freeze test.",
+   "read_by": [
+    "build_eucrm.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/iea_bulk/solid-biofuels-consumption-estimation-model",
+   "n_files": 1,
+   "size_mb": 5.2,
+   "formats": [
+    ".xlsm"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Solid biofuels consumption estimation model",
+   "licence": "NOT CC - Terms of Use for Non-CC Material",
+   "status": "reference",
+   "why_we_might_need_it": "An estimation MODEL in a spreadsheet, not observations. Worth one read for its method - it solves the same problem our consumption model does, estimating unmeasured consumption from activity proxies.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/usgs_hist",
@@ -250,7 +529,18 @@
    "dataset": "USGS Historical Statistics (DS 140), 84 workbooks",
    "licence": "US public domain",
    "status": "in cube",
-   "why_we_might_need_it": "Depth to 1900 and world production totals. Found by the catalog after sitting unused except for its price column."
+   "why_we_might_need_it": "Depth to 1900 and world production totals. Found by the catalog after sitting unused except for its price column.",
+   "read_by": [
+    "build_catalog.py",
+    "build_cube.py",
+    "build_cube_usgs.py",
+    "build_host_coupling.py",
+    "build_price_volatility.py",
+    "magnet-chain/record_magnets.py"
+   ],
+   "n_readers": 6,
+   "reaches_cube": true,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/net-zero-by-2050-scenario",
@@ -264,7 +554,11 @@
    "dataset": "Net Zero by 2050 Scenario data",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference (scenario)",
-   "why_we_might_need_it": "Forecast, so never a cube row. Useful only as a citable demand narrative, and the 2021 vintage is now itself a historical artefact - what the world thought 2050 looked like."
+   "why_we_might_need_it": "Forecast, so never a cube row. Useful only as a citable demand narrative, and the 2021 vintage is now itself a historical artefact - what the world thought 2050 looked like.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/surveys",
@@ -277,7 +571,13 @@
    "dataset": "National geological survey extracts",
    "licence": "mixed public",
    "status": "reference",
-   "why_we_might_need_it": "Country-specific reserves and production where a survey publishes better than the global compilations."
+   "why_we_might_need_it": "Country-specific reserves and production where a survey publishes better than the global compilations.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/global-ev-outlook-2026",
@@ -290,7 +590,28 @@
    "dataset": "Global EV Outlook 2026",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver (refresh)",
-   "why_we_might_need_it": "The source behind our existing `ev` driver. EV sales and stock by country-year, and the battery chemistry splits that decide whether a marginal EV pulls lithium/cobalt/nickel or LFP."
+   "why_we_might_need_it": "The source behind our existing `ev` driver. EV sales and stock by country-year, and the battery chemistry splits that decide whether a marginal EV pulls lithium/cobalt/nickel or LFP.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/iea_bulk/iea-electricity-access-data-collection-template",
+   "n_files": 1,
+   "size_mb": 2.2,
+   "formats": [
+    ".xlsm"
+   ],
+   "newest": "2026-09-05",
+   "dataset": "Electricity Access Data Collection Template",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "A questionnaire template, not data. Kept only so nobody downloads it twice.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/greenhouse-gas-emissions-from-energy-highlights",
@@ -303,7 +624,11 @@
    "dataset": "GHG Emissions from Energy Highlights",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Emissions by country-year. Relevant if an embodied-emissions layer is ever built on top of the material flows."
+   "why_we_might_need_it": "Emissions by country-year. Relevant if an embodied-emissions layer is ever built on top of the material flows.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/activity",
@@ -316,7 +641,14 @@
    "dataset": "Activity drivers: steel, vehicles, EV, electricity, solar, wind, cement, population, aerospace, semiconductors...",
    "licence": "mixed public",
    "status": "in use",
-   "why_we_might_need_it": "The inputs to the consumption model. Any new driver lands here."
+   "why_we_might_need_it": "The inputs to the consumption model. Any new driver lands here.",
+   "read_by": [
+    "build_consumption.py",
+    "build_consumption_series.py"
+   ],
+   "n_readers": 2,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/monthly-oil-price-statistics-2",
@@ -329,7 +661,11 @@
    "dataset": "Monthly Oil Price Statistics",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "End-use energy prices. The nearest public proxy for the energy cost faced by industry, which is what actually decides smelter economics."
+   "why_we_might_need_it": "End-use energy prices. The nearest public proxy for the energy cost faced by industry, which is what actually decides smelter economics.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/the-implications-of-oil-and-gas-field-decline-rates-dataset",
@@ -342,7 +678,11 @@
    "dataset": "Oil and gas field decline rates",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Decline-rate methodology. Directly analogous to ore-grade decline in mining, which is a question the atlas has not yet asked and probably should."
+   "why_we_might_need_it": "Decline-rate methodology. Directly analogous to ore-grade decline in mining, which is a question the atlas has not yet asked and probably should.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/osm",
@@ -355,7 +695,15 @@
    "dataset": "OpenStreetMap extracts",
    "licence": "ODbL",
    "status": "reference",
-   "why_we_might_need_it": "Infrastructure geometry (ports, rail) for logistics work."
+   "why_we_might_need_it": "Infrastructure geometry (ports, rail) for logistics work.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/reconcile.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/hydrogen-production-and-infrastructure-projects-database",
@@ -368,7 +716,11 @@
    "dataset": "Hydrogen Production and Infrastructure Projects Database",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Project grain, so not cube material - but electrolysers consume iridium and platinum, so this is the demand side of a PGM story the atlas already tells from the supply side."
+   "why_we_might_need_it": "Project grain, so not cube material - but electrolysers consume iridium and platinum, so this is the demand side of a PGM story the atlas already tells from the supply side.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2023-datafile-2",
@@ -381,7 +733,11 @@
    "dataset": "World Energy Investment 2023",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Investment by sector and region."
+   "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2024-datafile",
@@ -394,7 +750,11 @@
    "dataset": "World Energy Investment 2024",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Investment by sector and region."
+   "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2026-datafile",
@@ -407,7 +767,11 @@
    "dataset": "World Energy Investment 2026",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Latest edition. Six editions together give an investment TIME SERIES by sector - a leading indicator for the capacity that later consumes metal, and one of the few places where the older editions are worth keeping rather than superseded."
+   "why_we_might_need_it": "Latest edition. Six editions together give an investment TIME SERIES by sector - a leading indicator for the capacity that later consumes metal, and one of the few places where the older editions are worth keeping rather than superseded.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_etp",
@@ -420,7 +784,11 @@
    "dataset": "IEA Energy Technology Perspectives 2017 summaries",
    "licence": "RESTRICTED - fee required for use in modelling / derived products",
    "status": "HELD, NOT USABLE",
-   "why_we_might_need_it": "LICENCE-BLOCKED, not merely non-CC: the terms require a paid Licence Agreement to use this data \"in any type of modelling for the purpose of creating derived data or derived products\" - which is exactly what every page here is. Held for reference so the decision is inspectable and nobody re-downloads it to ask again. Also a 2018-vintage scenario set, superseded several times."
+   "why_we_might_need_it": "LICENCE-BLOCKED, not merely non-CC: the terms require a paid Licence Agreement to use this data \"in any type of modelling for the purpose of creating derived data or derived products\" - which is exactly what every page here is. Held for reference so the decision is inspectable and nobody re-downloads it to ask again. Also a 2018-vintage scenario set, superseded several times.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2022-datafile-2",
@@ -433,7 +801,11 @@
    "dataset": "World Energy Investment 2022",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Investment by sector and region."
+   "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-outlook-2025-free-dataset",
@@ -448,7 +820,11 @@
    "dataset": "World Energy Outlook 2025 free dataset",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference (scenario)",
-   "why_we_might_need_it": "Same rule as above: cited, never ingested."
+   "why_we_might_need_it": "Same rule as above: cited, never ingested.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/apparent",
@@ -462,7 +838,13 @@
    "dataset": "Per-metal apparent-consumption inputs",
    "licence": "derived",
    "status": "in use",
-   "why_we_might_need_it": "Feeds build_apparent.py, which is retained because the cube cannot yet do lithium."
+   "why_we_might_need_it": "Feeds build_apparent.py, which is retained because the cube cannot yet do lithium.",
+   "read_by": [
+    "build_apparent.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/global-ev-outlook-2025",
@@ -475,7 +857,11 @@
    "dataset": "Global EV Outlook 2025",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver (prior vintage)",
-   "why_we_might_need_it": "The previous edition. Kept because two editions of the same series show how much the IEA restates EV history - the revision test we could NOT run on the Critical Minerals dataset, because there the editions never share an observed year."
+   "why_we_might_need_it": "The previous edition. Kept because two editions of the same series show how much the IEA restates EV history - the revision test we could NOT run on the Critical Minerals dataset, because there the editions never share an observed year.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset",
@@ -488,7 +874,11 @@
    "dataset": "Gas flaring and methane leaks",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "No material link; collection completeness."
+   "why_we_might_need_it": "No material link; collection completeness.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2025-datafile",
@@ -501,7 +891,31 @@
    "dataset": "World Energy Investment 2025",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Investment by sector and region."
+   "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/jasansky",
+   "n_files": 2,
+   "size_mb": 0.7,
+   "formats": [
+    ".csv",
+    ".gpkg"
+   ],
+   "newest": "2026-07-10",
+   "dataset": "Jasansky et al. mine-level dataset",
+   "licence": "CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Asset-level mine production - different grain from the cube, but the best public route to a bottom-up check.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/household-appliances-database",
@@ -514,7 +928,11 @@
    "dataset": "Household Appliances Database, 100+ countries",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Appliance stock by country is an activity series, and appliances are where a lot of copper, steel and rare-earth magnets physically end up. It becomes a driver the moment a published material-per-appliance intensity exists."
+   "why_we_might_need_it": "Appliance stock by country is an activity series, and appliances are where a lot of copper, steel and rare-earth magnets physically end up. It becomes a driver the moment a published material-per-appliance intensity exists.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/monthly-oil-statistics",
@@ -528,7 +946,11 @@
    "dataset": "Monthly Oil Statistics, OECD",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Energy cost context."
+   "why_we_might_need_it": "Energy cost context.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/quarterly-coal-statistics",
@@ -541,7 +963,11 @@
    "dataset": "Quarterly Coal Statistics (world + OECD trade)",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "CUBE CANDIDATE",
-   "why_we_might_need_it": "COKING COAL IS ONE OF OUR 32 MATERIALS. Production and trade by country at quarterly grain - the only bulk download here with a plausible route straight into the cube, once the coking vs thermal split and the annual roll-up are checked."
+   "why_we_might_need_it": "COKING COAL IS ONE OF OUR 32 MATERIALS. Production and trade by country at quarterly grain - the only bulk download here with a plausible route straight into the cube, once the coking vs thermal split and the annual roll-up are checked.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/pink",
@@ -554,7 +980,15 @@
    "dataset": "World Bank Pink Sheet commodity prices",
    "licence": "World Bank, CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Annual public price series - the licence-safe option if a price sidecar is ever built."
+   "why_we_might_need_it": "Annual public price series - the licence-safe option if a price sidecar is ever built.",
+   "read_by": [
+    "build_host_coupling.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "reconcile/build_2026_nowcast.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/sdg7-database",
@@ -567,7 +1001,11 @@
    "dataset": "SDG7: electricity access and clean cooking",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Access rates by country-year. The material link is indirect but real: closing an access gap means grid, which means conductor - it needs a published km-per-connection intensity to become anything more than a narrative."
+   "why_we_might_need_it": "Access rates by country-year. The material link is indirect but real: closing an access gap means grid, which means conductor - it needs a published km-per-connection intensity to become anything more than a narrative.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/icmm",
@@ -580,7 +1018,14 @@
    "dataset": "ICMM member and site data",
    "licence": "ICMM terms",
    "status": "reference",
-   "why_we_might_need_it": "Industry-side context."
+   "why_we_might_need_it": "Industry-side context.",
+   "read_by": [
+    "build_commodity_attribution.py",
+    "build_companionality.py"
+   ],
+   "n_readers": 2,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/gas-trade-flows",
@@ -593,7 +1038,11 @@
    "dataset": "Gas Trade Flows, 31 countries",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Entry/exit point flows. Method interest rather than content: it is another bilateral flow dataset where both sides report, the same reconciliation problem the trade engine solves."
+   "why_we_might_need_it": "Entry/exit point flows. Method interest rather than content: it is another bilateral flow dataset where both sides report, the same reconciliation problem the trade engine solves.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2021-datafile",
@@ -606,7 +1055,11 @@
    "dataset": "World Energy Investment 2021",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Investment by sector and region."
+   "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/wmd",
@@ -619,7 +1072,16 @@
    "dataset": "World Mining Data 6.4, production by country",
    "licence": "Free, attribution",
    "status": "in cube",
-   "why_we_might_need_it": "The only source that marks every cell reported vs estimated."
+   "why_we_might_need_it": "The only source that marks every cell reported vs estimated.",
+   "read_by": [
+    "build_cube.py",
+    "build_cube_wmd.py",
+    "build_geopolrisk.py",
+    "build_production.py"
+   ],
+   "n_readers": 4,
+   "reaches_cube": true,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/bottomup",
@@ -632,7 +1094,11 @@
    "dataset": "Bottom-up capacity compilations",
    "licence": "derived",
    "status": "in use",
-   "why_we_might_need_it": "Facility-level buildup behind selected chains."
+   "why_we_might_need_it": "Facility-level buildup behind selected chains.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_energy_econ",
@@ -645,7 +1111,11 @@
    "dataset": "IEA Fossil Fuel Subsidies Database, 2010-2024",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Consumption subsidies by country-year. Not a material series - but energy price support is one of the real reasons SMELTING locates where it does (aluminium and silicon are power-cost industries). If the chokepoint map is ever pushed from \"where refining is\" to \"why it is there\", this is an input to that argument."
+   "why_we_might_need_it": "Consumption subsidies by country-year. Not a material series - but energy price support is one of the real reasons SMELTING locates where it does (aluminium and silicon are power-cost industries). If the chokepoint map is ever pushed from \"where refining is\" to \"why it is there\", this is an input to that argument.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/ipis",
@@ -658,7 +1128,13 @@
    "dataset": "IPIS artisanal mining site data (DRC)",
    "licence": "CC BY-SA",
    "status": "reference",
-   "why_we_might_need_it": "DIRECTLY relevant to the cobalt gap: BGS under-reports DRC precisely because artisanal output does not enter national returns."
+   "why_we_might_need_it": "DIRECTLY relevant to the cobalt gap: BGS under-reports DRC precisely because artisanal output does not enter national returns.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/refining",
@@ -671,7 +1147,15 @@
    "dataset": "Refinery and smelter capacity references",
    "licence": "mixed",
    "status": "in use",
-   "why_we_might_need_it": "The midstream layer behind the chokepoint map."
+   "why_we_might_need_it": "The midstream layer behind the chokepoint map.",
+   "read_by": [
+    "build_refining.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py"
+   ]
   },
   {
    "folder": "raw/usgs_outlook",
@@ -685,7 +1169,13 @@
    "dataset": "USGS Outlook tables",
    "licence": "US public domain",
    "status": "in use",
-   "why_we_might_need_it": "Refining concentration where USGS measures it directly."
+   "why_we_might_need_it": "Refining concentration where USGS measures it directly.",
+   "read_by": [
+    "build_usgs_outlook.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/wikidata",
@@ -698,7 +1188,13 @@
    "dataset": "Wikidata entity extracts",
    "licence": "CC0",
    "status": "reference",
-   "why_we_might_need_it": "Entity reconciliation helper."
+   "why_we_might_need_it": "Entity reconciliation helper.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
@@ -712,7 +1208,11 @@
    "dataset": "GEC Model key input data - macro drivers",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver (high value)",
-   "why_we_might_need_it": "GDP, population, industry value added, steel and cement output: the IEA own driver set, and the closest published match to what our consumption model needs. If any single download here changes the consumption layer, it is this one."
+   "why_we_might_need_it": "GDP, population, industry value added, steel and cement output: the IEA own driver set, and the closest published match to what our consumption model needs. If any single download here changes the consumption layer, it is this one.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/usgs_critmin",
@@ -725,7 +1225,13 @@
    "dataset": "USGS critical-minerals deposit map (PP1802)",
    "licence": "US public domain",
    "status": "reference",
-   "why_we_might_need_it": "Deposit points, no time dimension. Site-level grain, so not cube material."
+   "why_we_might_need_it": "Deposit points, no time dimension. Site-level grain, so not cube material.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/global-energy-review-co2-emissions-in-2021",
@@ -738,7 +1244,11 @@
    "dataset": "Global Energy Review: CO2 emissions 2021",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Dated single-year snapshot; superseded by the Global Energy Review dataset."
+   "why_we_might_need_it": "Dated single-year snapshot; superseded by the Global Energy Review dataset.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/monthly-gas-statistics",
@@ -751,7 +1261,11 @@
    "dataset": "Monthly Gas Statistics, OECD",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "Gas price and supply context. Matters to materials only through energy cost, which is a real driver of where smelting happens."
+   "why_we_might_need_it": "Gas price and supply context. Matters to materials only through energy cost, which is a real driver of where smelting happens.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/monthly-reliance-on-russian-oil-for-oecd-countries",
@@ -764,7 +1278,11 @@
    "dataset": "Reliance on Russian oil, OECD",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "A worked example of import-dependence measurement - the same question the atlas asks of minerals, asked of oil by an institution with better data."
+   "why_we_might_need_it": "A worked example of import-dependence measurement - the same question the atlas asks of minerals, asked of oil by an institution with better data.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/reliance-on-russian-fossil-fuels-in-oecd-and-eu-countries",
@@ -777,7 +1295,11 @@
    "dataset": "Reliance on Russian fossil fuels, OECD/EU",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "As above: dependence methodology worth reading against our own leverage layer."
+   "why_we_might_need_it": "As above: dependence methodology worth reading against our own leverage layer.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/the-role-of-critical-minerals-in-clean-energy-transitions-2",
@@ -790,7 +1312,11 @@
    "dataset": "The Role of Critical Minerals in Clean Energy Transitions (2021 report data)",
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "reference",
-   "why_we_might_need_it": "The one dataset on the free list actually ABOUT minerals. Demand by technology and the supply-concentration figures behind the 2021 report - useful as a dated comparator for how the IEA framed concentration before the GCMO series existed."
+   "why_we_might_need_it": "The one dataset on the free list actually ABOUT minerals. Demand by technology and the supply-concentration figures behind the 2021 report - useful as a dated comparator for how the IEA framed concentration before the GCMO series existed.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/au_ozmin",
@@ -803,7 +1329,13 @@
    "dataset": "Geoscience Australia OZMIN",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Australian deposits and resources - a strong reserves source if a reserves layer is built."
+   "why_we_might_need_it": "Australian deposits and resources - a strong reserves source if a reserves layer is built.",
+   "read_by": [
+    "build_commodity_attribution.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/geopolrisk",
@@ -816,20 +1348,13 @@
    "dataset": "GeoPolRisk inputs (governance indicators)",
    "licence": "mixed",
    "status": "in use",
-   "why_we_might_need_it": "Governance weighting for the criticality layer."
-  },
-  {
-   "folder": "raw/jasansky",
-   "n_files": 1,
-   "size_mb": 0.0,
-   "formats": [
-    ".csv"
+   "why_we_might_need_it": "Governance weighting for the criticality layer.",
+   "read_by": [
+    "build_geopolrisk.py"
    ],
-   "newest": "2026-07-10",
-   "dataset": "Jasansky et al. mine-level dataset",
-   "licence": "CC BY 4.0",
-   "status": "reference",
-   "why_we_might_need_it": "Asset-level mine production - different grain from the cube, but the best public route to a bottom-up check."
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/valueshare",
@@ -842,7 +1367,13 @@
    "dataset": "Value-share references",
    "licence": "derived",
    "status": "in use",
-   "why_we_might_need_it": "Stage value distribution along chains."
+   "why_we_might_need_it": "Stage value distribution along chains.",
+   "read_by": [
+    "build_risk_adjusted.py"
+   ],
+   "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   },
   {
    "folder": "raw/iea_bulk/global-energy-review-dataset",
@@ -855,7 +1386,11 @@
    "dataset": "Global Energy Review dataset",
    "licence": "CC BY 4.0",
    "status": "reference",
-   "why_we_might_need_it": "Annual world aggregates for supply, generation, technology deployment and CO2. Context and sanity-check numbers rather than an input."
+   "why_we_might_need_it": "Annual world aggregates for supply, generation, technology deployment and CO2. Context and sanity-check numbers rather than an input.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
   }
  ]
 }

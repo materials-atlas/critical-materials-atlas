@@ -22,8 +22,9 @@ and called the cube the spine. That diagram was aspiration. Measured:
 | ...that separately read the country-code file | **53** |
 | builders that read another builder's `out/` | **107** (395 edges) |
 | artifacts with more than one writer | **13** |
-| raw datasets on disk / read by something | 35 / 29 |
-| held datasets in the register / undocumented | 64 / 0 |
+| raw datasets on disk / read by something | 68 / 27 |
+| held datasets in the register / undocumented | 68 / 0 |
+| held datasets reaching the cube | **5** |
 | published outputs carrying a version | **0** |
 
 These replaced an earlier set taken from `grep`. Every one moved, and every one moved toward
@@ -90,6 +91,26 @@ And once the true graph exists, it can be **topologically sorted**, which turns 
 from a report into an action. A checker that says "stale" without rebuilding is, correctly, a guilt
 dashboard: `check.py` would have been red for the germanium score for three weeks and the number
 would still have been wrong.
+
+**What the audit hook cannot see — found 11 Sep, by using the graph for something new.**
+Building the register's `read_by` column out of `out/graph.json` produced an answer that was
+obviously wrong: `raw/maus` and `raw/sepin`, which two builders demonstrably read, had no reader at
+all. The cause is a claim in `record_graph.py` that was too strong. `sys.addaudithook` fires on
+everything that goes through CPython's `open()`; a C library doing its own I/O never calls it.
+
+| library | what it raises | consequence |
+|---|---|---|
+| `sqlite3` | `sqlite3.connect`, and **no** `open` | 3 builders read 122 MB of GeoPackages with no edge recorded. **Fixed** — the probe listens for that event. |
+| `duckdb` | nothing identifiable | Its reads and writes are invisible, and `DuckDBPyConnection.execute` is a read-only C attribute, so the probe cannot wrap it either. |
+
+The duckdb hole was then *sized* rather than feared: of 268 builders exactly one imports it
+(`extract_baci.py`), and that one opens the archive with Python's `zipfile`, so its **inputs are
+observed normally**. Only its output is invisible, because it writes each member with `COPY … TO`.
+That single edge now sits in `record_graph.DECLARED`, is merged into the graph labelled `declared`
+rather than observed, and is the only edge in this repository anybody had to write down.
+
+A proxy object standing in for the duckdb connection would have closed it. It was rejected: a
+recorder that alters the program it measures is worse than one with a gap it names.
 
 ## 4. Layers
 
@@ -310,10 +331,32 @@ fails, because a rebuild order that cannot exist is a finding.
 One measured consequence worth stating plainly: a single edit to `out/data.json` makes 115 of 268
 builders stale. That file is a hub, and until now nothing in the repository could have told you so.
 
-**Phase 4 — finish the register.** `read_by`, `in_cube`, `last_refreshed` are **derived from the
-graph**, not typed and not stored twice. The register answers *what do we hold*; the graph answers
-*what feeds what*; `licences.py` answers *what may leave*. Three questions, three files, no
-overlap. `check.py` fails on a `raw/` folder with no register row.
+**Phase 4 — the register. DONE 11 Sep.** `read_by` and `reaches_cube` are now **derived from the
+graph** in `build_library.py`, never typed and never stored twice. The register answers *what do we
+hold*; the graph answers *what feeds what*; `licences.py` answers *what may leave*. Three
+questions, three files, no overlap. `check_register` fails on a `raw/` folder with no register row,
+and was verified by creating one.
+
+Deriving it was worth more than the field. Three things fell out that nobody had asked about:
+
+- **The register was hiding four datasets from itself.** A folder whose files were all of an
+  unrecognised extension was skipped *silently*, so `raw/maus` (24.7 MB of mining-footprint
+  polygons) and `raw/sepin` (97.3 MB) were held on disk, read by builders, and absent from the
+  record of what we hold. `.gpkg` and `.xlsm` are in `DATA_EXT` now, the skip is loud, and the
+  count went 64 → 68 sources, 3.68 → 3.81 GB. A filter that drops data without saying so is the
+  defect this whole file exists against, and it was sitting inside it.
+- **One note was simply wrong**, and could not be caught while the row was invisible. `raw/sepin`
+  was written up as "SEPIN / substitution references — substitution potential inputs". Measured
+  from the file: one layer, 109,517 polygons, `iso_a3 / country_name / year / area` — *predicted*
+  mining areas per country-year, read by `build_mining_expansion.py`. Corrected, with the
+  distinction that matters kept in the note: predictions are not observations.
+- **The recorder could not see two whole I/O libraries.** See §3.
+
+Measured, and stated because it is uncomfortable: of 68 held datasets, **27 are read by something
+and 5 reach the cube**. The other 41 are reference and driver candidates. That is not a list of
+mistakes — a reference dataset is kept precisely so a future question can reach it — but it is the
+first time the ratio has been visible, and it is not checked by the gate, because turning it into a
+gate would reward deleting reference data to get a green tick.
 
 **Phase 5 — vintages.** Cut `release/v2026-Q4` once the graph is true, and only then. A frozen bag
 of undeclared edges is not a vintage; `BACI V202601` means *these source bytes plus this method*,

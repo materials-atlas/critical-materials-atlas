@@ -790,6 +790,52 @@ def check_baci_door():
              % (len(offenders), ', '.join(offenders[:8]) + (' ...' if len(offenders) > 8 else '')))
 
 
+def check_register():
+    """Every folder under raw/ has a row in the register. Invariant for phase 4.
+
+    raw/ is gitignored - 3.7 GB, all re-downloadable - so the repository's only knowledge of what
+    was collected, under what licence, and why, is DATA_LIBRARY.md. A folder that arrives without a
+    note is a file on a disk that nobody can account for, and the whole point of the register is
+    that it cannot silently happen.
+
+    The register also derives `read_by` and `reaches_cube` from the observed graph. Those are not
+    checked here: a dataset read by nothing is a judgement about priorities, not an error, and
+    turning it into a gate would push people to delete reference data to get a green tick.
+    """
+    lp = os.path.join(ROOT, 'out', 'library.json')
+    if not os.path.exists(lp):
+        warn('register', 'out/library.json missing - run `python build_library.py`')
+        return
+    try:
+        lib = json.load(open(lp, encoding='utf8'))
+    except Exception as e:
+        fail('register', f'library.json unreadable: {e}'); return
+    undoc = lib.get('undocumented') or []
+    if undoc:
+        fail('register', '%d raw/ folder(s) held with no register row: %s - add a note in '
+                         'build_library.NOTES' % (len(undoc), ', '.join(undoc[:6])))
+    known = {r['folder'] for r in lib.get('library', ())}
+    rawdir = os.path.join(ROOT, 'raw')
+    if not os.path.isdir(rawdir):
+        return                              # a clone without the data: the record still stands
+    # The register's own unit is a DIRECT CHILD of raw/, with raw/iea_bulk expanded one level
+    # because it holds one folder per IEA dataset. Walking every directory instead would report
+    # raw/ itself and every nested subfolder as missing, which is noise, not a finding.
+    seen = set()
+    for name in sorted(os.listdir(rawdir)):
+        p = os.path.join(rawdir, name)
+        if not os.path.isdir(p):
+            continue
+        kids = [os.path.join(p, k) for k in sorted(os.listdir(p))] if name == 'iea_bulk' else []
+        for q in (kids or [p]):
+            if os.path.isdir(q) and any(True for _, _, fs in os.walk(q) for _ in fs):
+                seen.add(os.path.relpath(q, ROOT).replace(os.sep, '/'))
+    missing = sorted(f for f in seen if f not in known)
+    if missing:
+        fail('register', '%d folder(s) on disk under raw/ are absent from the register: %s - run '
+                         '`python build_library.py`' % (len(missing), ', '.join(missing[:6])))
+
+
 def check_stale():
     """An output whose inputs or producer changed must be rebuilt. Invariant I4.
 
@@ -832,7 +878,7 @@ def check_stale():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door), ('stale', check_stale)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
