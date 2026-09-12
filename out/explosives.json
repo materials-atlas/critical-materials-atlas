@@ -1,7 +1,28 @@
 {
- "code_choice_why": "detonators (HS 3603), not ammonium nitrate (HS 3102.30): 8.5 Mt of ammonium nitrate trades annually against 0.44 Mt of prepared explosives, because ammonium nitrate is overwhelmingly a fertiliser",
+ "corrections": [
+  {
+   "why": "the end-use split is measured only in the United States, which is an unusually coal-heavy mining economy; nothing was shown for any other country",
+   "withdrawn": "Explosives are a coal business (as a general claim)"
+  },
+  {
+   "why": "HS 3603 is \"detonators, safety fuses and detonating fuses\" - detonating cord is sold by the metre and dominates the traded mass, so tonnes track product mix rather than blast count",
+   "withdrawn": "correlations are on tonnage, so price inflation cannot create the result"
+  },
+  {
+   "why": "the Fisher intervals at lag 0 and lag -1 overlap, and a lead of three to nine months would appear at lag 0 in annual data anyway, so annual resolution cannot distinguish the two",
+   "withdrawn": "explosives coincide with mining rather than lead it"
+  },
+  {
+   "why": "the claim is about explosives PRICES; this page measures import tonnage of one HS code against copper output, and never tested a price at all",
+   "withdrawn": "the post's central claim is not supported"
+  }
+ ],
  "countries": [
   {
+   "ci_growth": [
+    0.42,
+    0.87
+   ],
    "copper_kt_2024": 5506,
    "detonators_usd_m_2024": 59.0,
    "iso": "CHL",
@@ -9,13 +30,16 @@
    "name": "Chile",
    "r_growth_tonnes": 0.71,
    "r_level_tonnes": 0.78,
-   "r_level_usd": 0.72,
    "years": [
     2002,
     2024
    ]
   },
   {
+   "ci_growth": [
+    -0.12,
+    0.65
+   ],
    "copper_kt_2024": 567,
    "detonators_usd_m_2024": 23.9,
    "iso": "KAZ",
@@ -23,41 +47,16 @@
    "name": "Kazakhstan",
    "r_growth_tonnes": 0.32,
    "r_level_tonnes": 0.71,
-   "r_level_usd": 0.66,
    "years": [
     2002,
     2024
    ]
   },
   {
-   "copper_kt_2024": 352,
-   "detonators_usd_m_2024": 6.6,
-   "iso": "MNG",
-   "n_years": 23,
-   "name": "Mongolia",
-   "r_growth_tonnes": -0.14,
-   "r_level_tonnes": 0.69,
-   "r_level_usd": 0.67,
-   "years": [
-    2002,
-    2024
-   ]
-  },
-  {
-   "copper_kt_2024": 379,
-   "detonators_usd_m_2024": 36.0,
-   "iso": "BRA",
-   "n_years": 23,
-   "name": "Brazil",
-   "r_growth_tonnes": -0.05,
-   "r_level_tonnes": 0.58,
-   "r_level_usd": 0.72,
-   "years": [
-    2002,
-    2024
-   ]
-  },
-  {
+   "ci_growth": [
+    -0.21,
+    0.6
+   ],
    "copper_kt_2024": 821,
    "detonators_usd_m_2024": 26.0,
    "iso": "ZMB",
@@ -65,41 +64,16 @@
    "name": "Zambia",
    "r_growth_tonnes": 0.24,
    "r_level_tonnes": 0.57,
-   "r_level_usd": 0.81,
    "years": [
     2002,
     2024
    ]
   },
   {
-   "copper_kt_2024": 64,
-   "detonators_usd_m_2024": 28.9,
-   "iso": "PHL",
-   "n_years": 23,
-   "name": "Philippines",
-   "r_growth_tonnes": -0.01,
-   "r_level_tonnes": 0.52,
-   "r_level_usd": 0.63,
-   "years": [
-    2002,
-    2024
-   ]
-  },
-  {
-   "copper_kt_2024": 3158,
-   "detonators_usd_m_2024": 10.2,
-   "iso": "COD",
-   "n_years": 23,
-   "name": "DR Congo",
-   "r_growth_tonnes": 0.01,
-   "r_level_tonnes": 0.26,
-   "r_level_usd": 0.78,
-   "years": [
-    2002,
-    2024
-   ]
-  },
-  {
+   "ci_growth": [
+    -0.3,
+    0.53
+   ],
    "copper_kt_2024": 2736,
    "detonators_usd_m_2024": 23.9,
    "iso": "PER",
@@ -107,13 +81,67 @@
    "name": "Peru",
    "r_growth_tonnes": 0.14,
    "r_level_tonnes": 0.17,
-   "r_level_usd": 0.6,
    "years": [
     2002,
     2024
    ]
   },
   {
+   "ci_growth": [
+    -0.41,
+    0.43
+   ],
+   "copper_kt_2024": 3158,
+   "detonators_usd_m_2024": 10.2,
+   "iso": "COD",
+   "n_years": 23,
+   "name": "DR Congo",
+   "r_growth_tonnes": 0.01,
+   "r_level_tonnes": 0.26,
+   "years": [
+    2002,
+    2024
+   ]
+  },
+  {
+   "ci_growth": [
+    -0.43,
+    0.41
+   ],
+   "copper_kt_2024": 64,
+   "detonators_usd_m_2024": 28.9,
+   "iso": "PHL",
+   "n_years": 23,
+   "name": "Philippines",
+   "r_growth_tonnes": -0.01,
+   "r_level_tonnes": 0.52,
+   "years": [
+    2002,
+    2024
+   ]
+  },
+  {
+   "ci_growth": [
+    -0.46,
+    0.38
+   ],
+   "copper_kt_2024": 379,
+   "detonators_usd_m_2024": 36.0,
+   "iso": "BRA",
+   "n_years": 23,
+   "name": "Brazil",
+   "r_growth_tonnes": -0.05,
+   "r_level_tonnes": 0.58,
+   "years": [
+    2002,
+    2024
+   ]
+  },
+  {
+   "ci_growth": [
+    -0.51,
+    0.32
+   ],
    "copper_kt_2024": 717,
    "detonators_usd_m_2024": 60.6,
    "iso": "MEX",
@@ -121,13 +149,33 @@
    "name": "Mexico",
    "r_growth_tonnes": -0.12,
    "r_level_tonnes": -0.57,
-   "r_level_usd": -0.26,
    "years": [
     2002,
     2024
    ]
   },
   {
+   "ci_growth": [
+    -0.53,
+    0.3
+   ],
+   "copper_kt_2024": 352,
+   "detonators_usd_m_2024": 6.6,
+   "iso": "MNG",
+   "n_years": 23,
+   "name": "Mongolia",
+   "r_growth_tonnes": -0.14,
+   "r_level_tonnes": 0.69,
+   "years": [
+    2002,
+    2024
+   ]
+  },
+  {
+   "ci_growth": [
+    -0.61,
+    0.19
+   ],
    "copper_kt_2024": 1029,
    "detonators_usd_m_2024": 76.6,
    "iso": "IDN",
@@ -135,7 +183,6 @@
    "name": "Indonesia",
    "r_growth_tonnes": -0.25,
    "r_level_tonnes": -0.6,
-   "r_level_usd": -0.49,
    "years": [
     2002,
     2024
@@ -148,25 +195,53 @@
   "RUS",
   "CAN"
  ],
- "excluded_why": "they manufacture their own explosives, so imports are not a measure of consumption",
- "lead_lag": {
-  "CHL": {
-   "-1": 0.13,
-   "-2": 0.16,
-   "0": 0.71,
-   "1": 0.25,
-   "2": -0.21
+ "excluded_why": "they manufacture their own explosives, so imports are not consumption",
+ "lead_lag_caveat": "annual data cannot separate \"coincides\" from \"leads by one to three quarters\": both print at lag 0",
+ "lead_lag_chile": {
+  "-1": {
+   "ci": [
+    -0.32,
+    0.53
+   ],
+   "n": 21,
+   "r": 0.13
   },
-  "PER": {
-   "-1": 0.04,
-   "-2": -0.09,
-   "0": 0.14,
-   "1": -0.43,
-   "2": -0.12
+  "-2": {
+   "ci": [
+    -0.31,
+    0.56
+   ],
+   "n": 20,
+   "r": 0.16
+  },
+  "0": {
+   "ci": [
+    0.42,
+    0.87
+   ],
+   "n": 22,
+   "r": 0.71
+  },
+  "1": {
+   "ci": [
+    -0.2,
+    0.62
+   ],
+   "n": 21,
+   "r": 0.25
+  },
+  "2": {
+   "ci": [
+    -0.6,
+    0.25
+   ],
+   "n": 20,
+   "r": -0.21
   }
  },
- "lead_lag_convention": "shift -1 pairs a year of output with the PREVIOUS year of explosives trade, so a negative shift means trade LEADS output; +1 means trade follows it.",
- "note": "Is explosives trade an indicator of mining activity? Measured, not assumed.",
+ "n_countries_ci_above_zero": 1,
+ "note": "Is explosives trade an indicator of mining activity? Mostly no. Revised 12 Sep 2026 after adversarial review; see corrections.",
+ "reviewed_by": "two independent language models, run separately on the same brief, 12 Sep 2026; they converged on the same four objections without seeing each other's answers",
  "us_detonators": {
   "2015": {
    "mining": 37900000,
@@ -204,7 +279,7 @@
    "use": "All other purposes"
   }
  ],
- "us_end_use_source": "USGS Minerals Yearbook 2019, Explosives (Lori E. Apodaca, published March 2024), table 3; survey data collected by the Institute of Makers of Explosives. United States only. Industrial explosives only - military explosives are a different survey and are not in it.",
+ "us_end_use_source": "USGS Minerals Yearbook 2019, Explosives (Lori E. Apodaca, published March 2024), table 3; survey collected by the Institute of Makers of Explosives. UNITED STATES ONLY, industrial explosives only.",
  "world_trade_2024": {
   "310230": {
    "kt_2024": 8496,
@@ -218,7 +293,7 @@
   },
   "360300": {
    "kt_2024": 50,
-   "label": "detonators and fuses",
+   "label": "detonators, safety fuses and detonating fuses",
    "usd_m_2024": 2307
   }
  }
