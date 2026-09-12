@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""The post-pass that should have existed since 28 August. Idempotent, dry-run by default.
+"""The post-pass that should have existed since 28 August. Idempotent, and it writes.
 
 WHAT IT IS FIXING
 On 28 Aug a commit edited 244 published pages to add the Google-recommended favicon set, and added
@@ -8,11 +8,18 @@ that regenerates its page emits none of it, so re-running any of those builders 
 work. That is the same defect as the 129 pages the recorder degraded in phase 1 - a build step that
 exists only as an action somebody once took.
 
-Measured 11 Sep across 287 published pages:
-  194 carry the favicon block, 93 do not
-  191 carry the skip-link,    96 do not
-The gap is not random. Pages built after the bulk edit never received it, so the newest work on the
-site is the least equipped for search results and for keyboard navigation.
+Measured 11 Sep across 287 published pages: 194 carried the favicon block and 93 did not; 191
+carried the skip-link and 96 did not. The gap was not random - pages built after the bulk edit never
+received it, so the newest work on the site was the least equipped for search results and for
+keyboard navigation. Run 12 Sep with the owner's go: favicons now on 285 of 287, skip-links on 195.
+
+THE FIRST RUN IMMEDIATELY PROVED WHY THIS MUST BE A BUILD STEP.
+Applying it changed 92 pages. Then the runner rebuilt three builders whose inputs those pages are,
+one of them build_scheme.py - and project-scheme.html came back out WITHOUT the favicon block,
+because its builder does not emit one and this post-pass had already run. One page, undone within
+the minute, by exactly the mechanism that lost 129 pages in phase 1: a step that exists only as
+something somebody runs at the right moment. So it is in the recorded graph now, and runner.py
+orders it after the page builders instead of trusting anyone to remember.
 
 WHAT IT DOES, AND WHAT IT DELIBERATELY DOES NOT
   favicons     inserted straight after <meta charset>, in the same order and form as the 244 pages
@@ -27,15 +34,13 @@ they are CONTENT: which links belong in the nav is an editorial decision, and a 
 at it would be inventing rather than restoring.
 
 Run it as a post-pass, after the page builders and beside add_canonicals.py:
-    python add_head.py            # report what would change, touch nothing
-    python add_head.py --apply    # write
+    python add_head.py            # writes, like add_canonicals.py does
+    python add_head.py --dry-run  # report what would change, touch nothing
 
-DRY-RUN IS A TEMPORARY DEFAULT, NOT THE DESIGN. add_canonicals.py, the post-pass this sits beside,
-writes when you run it - and so must this one, or the runner (which invokes builders with no
-arguments) will call it on every rebuild and change nothing, which is the worst of both worlds: a
-step that looks present and does nothing. It starts dry because its first run edits 93 live pages
-and that is the owner's call to make once, not a side effect of a refactor. Flip the default the
-moment that call is made.
+It writes by default DELIBERATELY. runner.py invokes builders with no arguments, so a post-pass
+that needed a flag would be called on every rebuild and change nothing - a step that looks present
+and does nothing, which is this project's most persistent defect. It was dry only until the owner
+approved its first run over 92 live pages, which happened on 12 Sep.
 """
 import glob
 import io
@@ -79,7 +84,7 @@ def pages():
 
 
 def main():
-    apply = '--apply' in sys.argv
+    apply = '--dry-run' not in sys.argv
     added_fav = added_skip = 0
     no_target = []
     no_anchor = []
@@ -133,7 +138,7 @@ def main():
         print('  NO INSERTION POINT (no <meta charset> or no <body>): %d  %s'
               % (len(no_anchor), ', '.join(sorted(set(no_anchor))[:5])))
     if not apply:
-        print('\nnothing was written. `python add_head.py --apply` writes.')
+        print('\n--dry-run: nothing was written.')
     return 0
 
 
