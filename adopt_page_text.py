@@ -74,10 +74,15 @@ def main():
             if '{' in have or '}' in have:
                 skipped.append((b, '%s is composed, not a literal: %s' % (name, have[:60])))
                 continue
-            if src.count(have) != 1:
-                skipped.append((b, '%s appears %d times in the source' % (name, src.count(have))))
+            # Replace the ELEMENT, never the bare text. build_demand.py's h1 said "The squeeze",
+            # which is also a substring of its <title> and its og:title - both of which already
+            # match the page. A plain text replace would have rewritten two correct tags to fix one
+            # stale one, and the count-based refusal that caught it was hiding a fixable case.
+            whole = bm.group(0)
+            if src.count(whole) != 1:
+                skipped.append((b, '%s element appears %d times in the source' % (name, src.count(whole))))
                 continue
-            edits.append((name, have, want))
+            edits.append((name, whole, whole.replace(have, want, 1)))
         if not edits:
             continue
         new = src
@@ -92,7 +97,7 @@ def main():
                 io.open(b, 'w', encoding='utf-8', newline='').write(src)
                 skipped.append((b, 'REVERTED, would not parse: %s' % str(e)[:60]))
                 continue
-        done.append((b, [(n, h[:50], w[:50]) for n, h, w in edits]))
+        done.append((b, [(n, h[:70], w[:70]) for n, h, w in edits]))
 
     print('builders that can adopt their page text: %d' % len(done))
     for b, edits in done:

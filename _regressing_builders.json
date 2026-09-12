@@ -39,9 +39,6 @@
    "pipeline/data/assessment_material_country.parquet": "differs",
    "pipeline/data/dim_material.parquet": "differs"
   },
-  "build_demand.py": {
-   "demand.html": "content"
-  },
   "build_exposure.py": {
    "out/exposure.json": "stale-output"
   },
@@ -55,15 +52,8 @@
   "build_gallium.py": {
    "gallium.html": "content"
   },
-  "build_geopolrisk.py": {
-   "geopolrisk.html": "content",
-   "out/geopolrisk.json": "cosmetic"
-  },
   "build_harvard.py": {
    "out/harvard.json": "stale-output"
-  },
-  "build_host_coupling.py": {
-   "host-coupling.html": "content"
   },
   "build_host_shock.py": {
    "host-shock.html": "content",
@@ -98,12 +88,6 @@
   },
   "build_ps_network.py": {
    "product-space.html": "content"
-  },
-  "build_recycling.py": {
-   "recycling.html": "content"
-  },
-  "build_refining.py": {
-   "refining.html": "content"
   },
   "build_riskmethods.py": {
    "out/riskmethods.json": "cosmetic",
@@ -169,6 +153,9 @@
   "build_casestudies.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_companionality.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
   "build_complexity.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
+  "build_demand.py": "CLEARED 12 Sep 2026. Same story as the others: the page carried a headline and/or deck improved on the page and never carried back. The builder adopted the page text, then only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset. NOTE the near-miss: the first pass refused these because the headline text also appears inside <title> and og:title, which already matched the page - a bare text replace would have rewritten two correct tags to fix one stale one. The fix was to replace the ELEMENT, not the text.",
+  "build_geopolrisk.py": "CLEARED 12 Sep 2026. Same story as the others: the page carried a headline and/or deck improved on the page and never carried back. The builder adopted the page text, then only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset. NOTE the near-miss: the first pass refused these because the headline text also appears inside <title> and og:title, which already matched the page - a bare text replace would have rewritten two correct tags to fix one stale one. The fix was to replace the ELEMENT, not the text.",
+  "build_host_coupling.py": "CLEARED 12 Sep 2026. Same story as the others: the page carried a headline and/or deck improved on the page and never carried back. The builder adopted the page text, then only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset. NOTE the near-miss: the first pass refused these because the headline text also appears inside <title> and og:title, which already matched the page - a bare text replace would have rewritten two correct tags to fix one stale one. The fix was to replace the ELEMENT, not the text.",
   "build_mining_expansion.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
   "build_net_demand.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_network.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
@@ -177,6 +164,8 @@
   "build_price_squeeze.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_price_volatility.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_profiles.py": "CLEARED 12 Sep 2026. It publishes 61 pages and was behind them in three ways, all now closed: the menu (it emitted an older six-item bar nothing else on the site used), the ORDER of rows inside the country pages (it sorted a set by a score that ties six ways, so the order changed every run), and the numbers (stale against the grown cube). Re-measured after fixing all three: 61 pages, nothing lost - identical text-token multisets, three numbers updated per country page, and countries.html a pure reordering. Verified stable across three consecutive runs.",
+  "build_recycling.py": "CLEARED 12 Sep 2026. Same story as the others: the page carried a headline and/or deck improved on the page and never carried back. The builder adopted the page text, then only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset. NOTE the near-miss: the first pass refused these because the headline text also appears inside <title> and og:title, which already matched the page - a bare text replace would have rewritten two correct tags to fix one stale one. The fix was to replace the ELEMENT, not the text.",
+  "build_refining.py": "CLEARED 12 Sep 2026. Same story as the others: the page carried a headline and/or deck improved on the page and never carried back. The builder adopted the page text, then only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset. NOTE the near-miss: the first pass refused these because the headline text also appears inside <title> and og:title, which already matched the page - a bare text replace would have rewritten two correct tags to fix one stale one. The fix was to replace the ELEMENT, not the text.",
   "build_risk_adjusted.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
   "build_satellite.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
   "build_synthesis.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
@@ -189,10 +178,7 @@
   "build_breakout.py",
   "build_brief.py",
   "build_commodity_attribution.py",
-  "build_demand.py",
   "build_gallium.py",
-  "build_geopolrisk.py",
-  "build_host_coupling.py",
   "build_host_shock.py",
   "build_insights.py",
   "build_leverage.py",
@@ -200,8 +186,6 @@
   "build_ot.py",
   "build_production.py",
   "build_ps_network.py",
-  "build_recycling.py",
-  "build_refining.py",
   "build_riskmethods.py",
   "build_scenarios.py",
   "build_share.py"
