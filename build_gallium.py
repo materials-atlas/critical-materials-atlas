@@ -131,7 +131,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Deep dive · one metal, followed to the bottom</div>
   <h1>Gallium, end to end</h1>
-  <p class="deck">Every other page compares metals. This one follows just <b>one</b> &mdash; physically, from the bauxite it hides in to the chip it ends up in &mdash; and puts hard numbers, with bounds, on the claim the whole atlas rests on: that a by-product <a href="companionality.html" style="color:#fff;text-decoration:underline">can&rsquo;t scale to its own price</a>. Gallium is where that claim is provable, not asserted.</p>
+  <p class="deck">Every other page compares metals. This one follows just <b>one</b> &mdash; physically, from the bauxite it hides in to the chip it ends up in &mdash; and puts hard numbers, with bounds, on the claim the whole atlas rests on: that a by-product <a href="companionality" style="color:#fff;text-decoration:underline">can&rsquo;t scale to its own price</a>. Gallium is where that claim is provable, not asserted.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout"><span id="lead"></span>

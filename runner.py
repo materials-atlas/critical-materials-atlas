@@ -71,7 +71,7 @@ CACHE = os.path.join(ROOT, '_runner_cache.json')     # (size, mtime) -> content 
 # for the same reason - except that here a stale one is a HARD STOP, not an omission. Rebuilding
 # from a cache that is behind its source is exactly the hole build.py now refuses.
 NEVER_RUN = ('backfill_', 'fetch_', 'refresh', 'pull_', 'download', 'record_graph',
-             'check.py', 'scheduled_run', 'build_bgs_panel', 'runner.py', 'repro_audit.py', 'repro_triage.py')
+             'check.py', 'scheduled_run', 'build_bgs_panel', 'runner.py', 'repro_audit.py', 'repro_triage.py', 'repro_worklist.py')
 
 # COMPOSITION, not dependency. build_cube.py does `import build_cube_usgs` and calls .build(), so
 # the audit hook attributes the callee's reads and writes to the caller as well. That makes the

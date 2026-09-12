@@ -133,8 +133,8 @@ out = f'''<!doctype html>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · economic complexity</div>
-  <h1>What only a few countries can export</h1>
-  <p class="deck">Revealed comparative advantage (Balassa) asks who is a genuinely competitive exporter of each material. <i>Ubiquity</i> — how few countries clear that bar — is a market-revealed strategic signal, and <i>relatedness</i> shows which materials the same countries tend to command together.</p>
+  <h1>The competitiveness lens fails exactly where it matters</h1>
+  <p class="deck">Economic-complexity analysis (Balassa revealed comparative advantage) ranks who <i>competitively exports</i> each material. The count ranges from ~8 countries (lithium, beryllium, strontium) to <b>52</b> — and that top score is the warning: <b>rare-earth magnets</b>, among the most China-refined materials on Earth, have the <b>highest</b> export-ubiquity of all, because dozens of countries re-export them. RCA counts shippers, not refiners, so it reads the most concentrated chains as the most diverse. Economic complexity is the wrong instrument for supply-chain risk — and this page shows precisely where it breaks, which is the point of running it.</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout">Some materials have many competitive exporters; a few have almost none. This measures how many countries can genuinely compete in each &mdash; a market-revealed signal of scarcity, beside the mine-concentration story.
