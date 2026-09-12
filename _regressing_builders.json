@@ -130,39 +130,6 @@
   "build_productspace.py": {
    "out/productspace.json": "stale-output"
   },
-  "build_profiles.py": {
-   "countries.html": "content",
-   "profile-country-BE.html": "content",
-   "profile-country-BR.html": "content",
-   "profile-country-CA.html": "content",
-   "profile-country-CH.html": "content",
-   "profile-country-CN.html": "content",
-   "profile-country-DE.html": "content",
-   "profile-country-EG.html": "content",
-   "profile-country-ES.html": "content",
-   "profile-country-FR.html": "content",
-   "profile-country-GB.html": "content",
-   "profile-country-ID.html": "content",
-   "profile-country-IN.html": "content",
-   "profile-country-IT.html": "content",
-   "profile-country-JP.html": "content",
-   "profile-country-KR.html": "content",
-   "profile-country-MK.html": "content",
-   "profile-country-MX.html": "content",
-   "profile-country-MY.html": "content",
-   "profile-country-NL.html": "content",
-   "profile-country-PL.html": "content",
-   "profile-country-SA.html": "content",
-   "profile-country-SE.html": "content",
-   "profile-country-TH.html": "content",
-   "profile-country-TR.html": "content",
-   "profile-country-TW.html": "content",
-   "profile-country-US.html": "content",
-   "profile-country-VN.html": "content",
-   "profile-feldspar.html": "content",
-   "profile-fluorspar.html": "content",
-   "profile-phosphate.html": "content"
-  },
   "build_ps_network.py": {
    "product-space.html": "content"
   },
@@ -240,6 +207,9 @@
  },
  "measured": "2026-09-11",
  "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these.",
+ "resolved": {
+  "build_profiles.py": "CLEARED 12 Sep 2026. It publishes 61 pages and was behind them in three ways, all now closed: the menu (it emitted an older six-item bar nothing else on the site used), the ORDER of rows inside the country pages (it sorted a set by a score that ties six ways, so the order changed every run), and the numbers (stale against the grown cube). Re-measured after fixing all three: 61 pages, nothing lost - identical text-token multisets, three numbers updated per country page, and countries.html a pure reordering. Verified stable across three consecutive runs."
+ },
  "unsafe_to_run": [
   "build_bloc_demand.py",
   "build_breakout.py",
@@ -265,7 +235,6 @@
   "build_price_squeeze.py",
   "build_price_volatility.py",
   "build_production.py",
-  "build_profiles.py",
   "build_ps_network.py",
   "build_recycling.py",
   "build_refining.py",

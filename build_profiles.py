@@ -114,7 +114,7 @@ def side(label, key):
         tot += fl['value']
     if not tot:
         return None, [], 0.0, tot
-    ranked = sorted(o.items(), key=lambda kv: kv[1], reverse=True)
+    ranked = sorted(o.items(), key=lambda kv: (-kv[1], kv[0]))   # partner breaks a tied value
     hhi = sum((v / tot) ** 2 for v in o.values())
     return ranked[0], ranked, hhi, tot   # (top (iso,val)), full ranked, hhi, total
 
@@ -582,7 +582,7 @@ def index_page():
         elif og:
             gaptxt = f'top exporter {flag(og[0])} {cname(og[0])} ({og[1]:.0f}%)'
         rows.append((gv, m['title'].split(' (')[0], label, gaptxt))
-    rows.sort(key=lambda r: r[0], reverse=True)
+    rows.sort(key=lambda r: (-r[0], r[1]))        # title breaks a tied gap value
     for gv, title, label, gaptxt in rows:
         cards.append(f'<a class="card" href="profile-{e(label)}.html"><div class="ct">{e(title)}</div>'
                      f'<div class="cg">{gaptxt}</div></a>')
@@ -629,7 +629,7 @@ def country_imports(iso):
                      'hhi': sum((v / tot) ** 2 for v in o.values()),
                      'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': ml,
                      'risk': RISK.get(m['label'], {}).get('score', 0)})
-    rows.sort(key=lambda r: r['topshare'], reverse=True)
+    rows.sort(key=lambda r: (-r['topshare'], r['m']['label']))   # material breaks a tied share
     return rows
 
 def country_vuln(rows):
@@ -740,7 +740,8 @@ def country_page(iso, rows):
 </body></html>'''
 
 def countries_index(items):
-    items.sort(key=lambda t: t[3], reverse=True)   # by import-vulnerability index
+    # (-score, iso): the ISO code breaks ties. Arbitrary, but the same arbitrary every run.
+    items.sort(key=lambda t: (-t[3], t[0]))          # by import-vulnerability index
     cards = []
     for iso, rows, total, score in items:
         cd = sum(1 for r in rows if r['top'] == 'CN' or r['cn'] > 45)
@@ -785,7 +786,10 @@ def main():
         for fl in (flows.get('materials', {}).get(mm['label']) or []):
             isos.add(fl['to'])
     citems = []
-    for iso in isos:
+    # SORTED: isos is a set, and a set iterates in a different order in every process. The country
+    # cards are then sorted by a score that ties six ways at 15/100, and a stable sort keeps the
+    # input order among ties - so countries.html came out shuffled from one run to the next.
+    for iso in sorted(isos):
         if iso in HUBS:
             continue
         rows = country_imports(iso)
