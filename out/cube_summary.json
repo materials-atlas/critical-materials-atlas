@@ -1,16 +1,16 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 2217057,
+ "rows": 2563747,
  "materials": 90,
  "materials_in_atlas": 32,
  "countries": 247,
  "year_min": 1900,
  "year_max": 2026,
  "by_measure": {
-  "imports": 730097,
-  "imports_value": 520655,
-  "exports": 471635,
-  "exports_value": 333717,
+  "imports": 832306,
+  "imports_value": 625243,
+  "exports": 540899,
+  "exports_value": 404346,
   "production": 126368,
   "unit_value_nominal": 8872,
   "unit_value_real98": 8792,
@@ -24,15 +24,15 @@
   "stocks_industry": 465
  },
  "by_stage": {
-  "unspecified": 1824068,
+  "unspecified": 2170758,
   "processed": 216814,
   "mine": 146820,
   "compound": 29355
  },
- "tonnage_convertible_pct": 60.3,
+ "tonnage_convertible_pct": 58.9,
  "sources": {
-  "CMA single-declaration passthrough": 1231754,
-  "CMA two-sided reconciliation": 432331,
+  "CMA single-declaration passthrough": 1546626,
+  "CMA two-sided reconciliation": 464149,
   "BGS World Mineral Statistics": 275297,
   "CEPII BACI (HS02)": 207369,
   "USGS Historical Statistics (DS 140)": 64839,
@@ -72,14 +72,14 @@
  "geographies": 247,
  "world_rows": 6754,
  "by_measure_family": {
-  "trade": 2058559,
+  "trade": 2405249,
   "production": 127840,
   "price": 17664,
   "derived_by_source": 8403,
   "stocks": 3831,
   "consumption": 760
  },
- "series": 18660,
+ "series": 21351,
  "value_flags": {
   "nil": 4452,
   "estimated_by_source": 1263,

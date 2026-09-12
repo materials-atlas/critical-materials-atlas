@@ -21,6 +21,60 @@
  ],
  "sources": [
   {
+   "source": "CMA single-declaration passthrough",
+   "coverage": {
+    "rows": 1546626,
+    "materials": 33,
+    "geographies": 232,
+    "years": [
+     2000,
+     2026
+    ],
+    "measures": [
+     "exports",
+     "exports_value",
+     "imports",
+     "imports_value"
+    ],
+    "stages": [
+     "unspecified"
+    ],
+    "units": [
+     "USD",
+     "tonnes (metric)"
+    ],
+    "series": 20125,
+    "pct_convertible_to_tonnes": 49.4
+   }
+  },
+  {
+   "source": "CMA two-sided reconciliation",
+   "coverage": {
+    "rows": 464149,
+    "materials": 33,
+    "geographies": 153,
+    "years": [
+     2000,
+     2026
+    ],
+    "measures": [
+     "exports",
+     "exports_value",
+     "imports",
+     "imports_value"
+    ],
+    "stages": [
+     "unspecified"
+    ],
+    "units": [
+     "USD",
+     "tonnes (metric)"
+    ],
+    "series": 8514,
+    "pct_convertible_to_tonnes": 46.8
+   }
+  },
+  {
    "publisher": "British Geological Survey (UK)",
    "licence": "Open Government Licence",
    "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS",
@@ -45,7 +99,7 @@
    "coverage": {
     "rows": 275297,
     "materials": 60,
-    "geographies": 189,
+    "geographies": 192,
     "years": [
      1970,
      2024
@@ -93,7 +147,7 @@
    "differs_because": "It measures what crossed a border in a product class, which is not what a country produced of a metal. Differencing it against production requires the form and the code to be paired deliberately.",
    "source": "CEPII BACI (HS02)",
    "coverage": {
-    "rows": 178014,
+    "rows": 207369,
     "materials": 30,
     "geographies": 229,
     "years": [
@@ -105,13 +159,14 @@
      "imports"
     ],
     "stages": [
+     "compound",
      "mine",
      "processed"
     ],
     "units": [
      "tonnes (metric)"
     ],
-    "series": 90,
+    "series": 104,
     "pct_convertible_to_tonnes": 100.0
    }
   },
@@ -137,7 +192,7 @@
    "differs_because": "USGS estimates a world total; BGS adds up reporters. Where reporting is incomplete the two must differ, and the USGS figure is usually the larger.",
    "source": "USGS Historical Statistics (DS 140)",
    "coverage": {
-    "rows": 64856,
+    "rows": 64839,
     "materials": 79,
     "geographies": 2,
     "years": [
