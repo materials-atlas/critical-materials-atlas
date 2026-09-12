@@ -88,7 +88,32 @@ CONTAINS = {
 # rebuild attaches the tonnage the attacher would have attached - so the cycle is harmless today
 # and would not stay harmless silently: any divergence changes that hash and the harness sees it.
 # Order declared the way the data flows: rebuild the file, then attach to it.
-BREAK = [('add_tonnes.py', 'build_flows_fix.py')]   # (from, to) edges removed from the graph
+BREAK = [('add_tonnes.py', 'build_flows_fix.py'),   # (from, to) edges removed from the graph
+         # add_head writes pages add_canonicals reads, so the recorder sees add_head ->
+         # add_canonicals. The reverse is what reproduces the published head order (see ORDER
+         # below), and both together are a cycle. The observed edge is the one to drop: these
+         # two post-passes do not depend on each other's CONTENT at all - each inserts a tag
+         # the other ignores - so the edge carries no information beyond 'they touch the same
+         # files', while the declared one carries the reason.
+         ('add_head.py', 'add_canonicals.py')]
+
+# EDGES THE GRAPH CANNOT OBSERVE, because an idempotent post-pass with nothing to do writes nothing
+# and therefore has no recorded outputs to build an edge from.
+#
+# add_canonicals.py and add_head.py both anchor on `<meta charset="utf-8">` and insert immediately
+# after it, so whichever runs LAST ends up closest to the charset. The published pages have the
+# favicon block first and the canonical after it - which is what history produced: canonicals were
+# injected first, then the 28 Aug favicon edit pushed them along. To reproduce a published page the
+# rebuild has to make the same choice, so add_head runs last.
+#
+# Measured, not assumed: with add_head first, 34 pages that otherwise reproduce exactly came back
+# byte-for-byte the same LENGTH and a different head order. Nothing was wrong with them; they simply
+# were not the published file, and "not the published file" is the whole question I7 asks.
+#
+# This is a real weakness of an observed graph and is written here rather than hidden: a builder
+# that DID something on the day it was recorded gets an edge, and one that found nothing to do does
+# not. Only ordering is declared - never a read or a write.
+ORDER = [('add_canonicals.py', 'add_head.py')]     # (first, second)
 
 
 def sha_bytes(b):
@@ -156,6 +181,10 @@ def graph_edges(g):
                     continue
                 edges.setdefault(p, set()).add(b)
                 via.setdefault((p, b), []).append(r)
+    for first, second in ORDER:
+        if first in g and second in g:
+            edges.setdefault(first, set()).add(second)
+            via.setdefault((first, second), []).append('<declared order>')
     return prod, edges, via, dropped
 
 
