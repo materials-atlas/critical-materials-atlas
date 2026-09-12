@@ -32,7 +32,7 @@
 <header>
   <div class="eyebrow">Reconciled · harmonized · monthly · public-data only</div>
   <h1>Critical-materials trade database</h1>
-  <div class="eyebrow" style="margin:6px 0 10px"><a href="dossier.html" style="color:#9fd3ff;font-weight:600;text-decoration:none">▸ Open the corridor validation dossier</a> — the full evidence chain &amp; explicit call for 22 key corridors</div>
+  <div class="eyebrow" style="margin:6px 0 10px"><a href="dossier" style="color:#9fd3ff;font-weight:600;text-decoration:none">▸ Open the corridor validation dossier</a> — the full evidence chain &amp; explicit call for 22 key corridors</div>
   <p><b>DuckDB-WASM</b> over one Parquet file, SQL <b>client-side</b>, no server, no key. <b>One canonical table</b> — every source normalized into the same shape, so wide, deep and (later) mirror layers coexist:<br>
   &nbsp;&nbsp;<code>flows(source, freq, period, reporter, partner, flow, hs6, native_code, code_level, material, value_usd, qty_kg, is_mirror)</code><br>
   Seven sources: <code>baci</code> (world · HS-6 · annual · reconciled) · <code>eurostat</code> (EU · CN-8) · <code>comexstat</code> (Brazil · NCM-8 · <b>Jun 2026</b>) · <code>hmrc</code> (UK · CN-8) · <code>uscensus</code> (US · HS-6) · <code>comtrade</code> (world · HS-6 · rotating) · <code>mirror</code> (China/Russia/DRC via partners). Monthly, USD at <b>real ECB rates</b>. Adding a country = one more adapter.<br>
