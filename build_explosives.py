@@ -16,6 +16,31 @@ So mining of all kinds is 79% of the US INDUSTRIAL market, which supports that h
 Within it, US demand is overwhelmingly coal. What this table cannot do is settle the civil-military
 split, because military explosives are a separate survey and are not in it.
 
+THE SECOND REVIEW ASKED FOR A GATE, AND THE GATE SETTLES IT
+Asked to improve the study rather than kill it, both reviewers gave the same first instruction:
+before estimating anything, check whether imported explosives could even BE the input. Compare what
+a country imports against what its mines must consume.
+
+Calibrated on the USGS survey itself rather than on assumed engineering constants. US metal mining
+of every kind consumed 155 kt of explosives in 2019 (table 3); US copper mine output was 1,260 kt
+contained. Attributing EVERY kilogram to copper - deliberately generous, since that 155 kt also
+blasted gold, iron and everything else - gives at most 0.123 kt of explosive per kt of contained
+copper. Applied to 2024:
+
+    Chile   5,506 kt Cu -> at most 677 kt of explosives needed; imported 2.9 kt  =  0.4%
+    Peru    2,736 kt Cu -> at most 337 kt needed;              imported 117.3 kt = 34.9%
+
+And the number that ends the argument: WORLD TRADE IN PREPARED EXPLOSIVES WAS 445 kt IN 2024 -
+less than what Chile's copper mines alone consume. Explosives are not a traded commodity in any
+meaningful sense. ANFO is mixed on site from ammonium nitrate and diesel, and bulk emulsion is
+manufactured at the mine gate, so the thing that moves across a border is the feedstock, not the
+explosive.
+
+That is fatal to the design and it is also the most interesting thing here. The one country with a
+statistically real correlation, Chile, imports 0.4% of the relevant flow - so that correlation was
+measuring an import residual, not blasting. The one country where imports are a serious share of
+consumption, Peru at 35%, shows no correlation at all (+0.14, interval [-0.30, 0.53]).
+
 THE FIRST VERSION OF THIS PAGE OVERREACHED, AND TWO REVIEWERS SAID SO
 It was published on 12 Sep 2026 titled "Explosives are a coal business" and concluded that
 explosives coincide with mining rather than lead it, so the post's central claim failed. An
@@ -143,6 +168,39 @@ def load_production():
     return {(i3, int(y)): float(t) for i3, y, t in con.execute(q).fetchall() if t}
 
 
+# USGS Minerals Yearbook 2019 table 3: US METAL MINING of every kind consumed this much.
+US_METAL_EXPLOSIVES_KT_2019 = 155.0
+
+
+def coverage(trade, prod):
+    """Could imports even be the input? A ceiling, built to be generous to the hypothesis.
+
+    The intensity comes from the USGS survey, not from an assumed powder factor: US metal mining's
+    total explosives consumption divided by US contained copper, attributing every kilogram to
+    copper even though the same explosives blasted gold and iron. That makes the resulting need a
+    CEILING, so any country whose imports fall far below it fails the test conclusively rather than
+    arguably.
+    """
+    us_cu = prod.get(('USA', 2019))
+    if not us_cu:
+        return None, []
+    intensity = US_METAL_EXPLOSIVES_KT_2019 / (us_cu / 1000.0)     # kt explosive per kt Cu
+    out = []
+    for i3 in TEST:
+        cu = prod.get((i3, 2024))
+        if not cu:
+            continue
+        ceiling = (cu / 1000.0) * intensity
+        imp = trade.get((i3, 2024), {}).get('360200', {}).get('t', 0) / 1000.0
+        an = trade.get((i3, 2024), {}).get('310230', {}).get('t', 0) / 1000.0
+        out.append({'iso': i3, 'name': NAMES.get(i3, i3), 'cu_kt': round(cu / 1000.0),
+                    'ceiling_kt': round(ceiling), 'imp_3602_kt': round(imp, 1),
+                    'imp_an_kt': round(an, 1),
+                    'pct_of_ceiling': round(100.0 * imp / ceiling, 1) if ceiling else None})
+    out.sort(key=lambda r: -(r['pct_of_ceiling'] or 0))
+    return round(intensity, 3), out
+
+
 def main():
     trade, prod = load_trade(), load_production()
     rows = []
@@ -200,6 +258,9 @@ def main():
         world[code] = {'label': CODES[code], 'usd_m_2024': round(v / 1000.0),
                        'kt_2024': round(t / 1000.0)}
 
+    intensity, cov = coverage(trade, prod)
+    world_3602_kt = round(sum(d.get('360200', {}).get('t', 0)
+                              for (i3, y), d in trade.items() if y == 2024) / 1000.0)
     n_pos = sum(1 for r in rows if (r['ci_growth'] or [0, 0])[0] > 0)
     doc = {
         'note': ('Is explosives trade an indicator of mining activity? Mostly no. Revised 12 Sep '
@@ -230,6 +291,20 @@ def main():
                               'Explosives. UNITED STATES ONLY, industrial explosives only.'),
         'us_detonators': USGS_DET,
         'world_trade_2024': world,
+        'coverage_gate': {
+            'question': 'could imported explosives even be the input?',
+            'intensity_kt_per_kt_cu': intensity,
+            'intensity_source': ('USGS Minerals Yearbook 2019 table 3: US metal mining of every kind '
+                                 'consumed 155 kt of explosives in 2019, divided by US contained '
+                                 'copper that year, attributing every kilogram to copper - a '
+                                 'deliberately generous CEILING'),
+            'world_prepared_explosives_traded_kt_2024': world_3602_kt,
+            'rows': cov,
+            'verdict': ('world trade in prepared explosives is smaller than the consumption ceiling '
+                        'of Chile alone, so explosives are not meaningfully traded: ANFO is mixed on '
+                        'site and bulk emulsion is made at the mine gate. Trade data cannot measure '
+                        'blasting.'),
+        },
         'countries': rows,
         'n_countries_ci_above_zero': n_pos,
         'lead_lag_chile': shifts,
@@ -243,6 +318,11 @@ def main():
     io.open(os.path.join(ROOT, 'explosives.html'), 'w', encoding='utf-8',
             newline='\n').write(page(doc))
     print('out/explosives.json + explosives.html')
+    print('  COVERAGE GATE: %.3f kt explosive per kt Cu (USGS-calibrated ceiling)' % intensity)
+    print('  world prepared-explosives trade 2024: %d kt' % world_3602_kt)
+    for r in cov:
+        print('   %-12s %5d kt Cu | ceiling %5d kt | imported %6.1f kt = %5s%% of ceiling'
+              % (r['name'], r['cu_kt'], r['ceiling_kt'], r['imp_3602_kt'], r['pct_of_ceiling']))
     print('  countries whose growth interval excludes zero: %d of %d' % (n_pos, len(rows)))
     for r in rows:
         print('   %-12s growth r %5s  CI %s' % (r['name'], r['r_growth_tonnes'], r['ci_growth']))
@@ -282,108 +362,109 @@ CSS = """
 TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>What explosives can and cannot tell you about mining &mdash; Critical Materials Atlas</title>
-<meta name="description" content="Mining takes 79% of US industrial explosives and coal is 56% of that. But detonator trade is a poor proxy for blasting, only one of ten copper economies shows a correlation whose interval excludes zero, and annual data cannot tell a coincident signal from a two-quarter lead. Revised after adversarial review.">
+<title>Explosives don&rsquo;t travel &mdash; Critical Materials Atlas</title>
+<meta name="description" content="World trade in prepared explosives was 445 kt in 2024 - less than Chile's copper mines alone consume. Explosives are mixed at the mine, not shipped, so trade data cannot measure blasting. Chile's apparently strong correlation rests on 0.4% of the flow.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>@@CSS@@</style></head><body>
 @@NAV@@
 <section class="hero"><div class="wrap">
-  <div class="eyebrow">Upstream &middot; a test that mostly failed</div>
-  <h1>What explosives can and cannot tell you about mining</h1>
+  <div class="eyebrow">Upstream &middot; a question answered by arithmetic, not regression</div>
+  <h1>Explosives don&rsquo;t travel</h1>
   <p class="deck">Blasting sits further upstream than anything else this atlas tracks, so a
-  bottleneck there would sit above <i>every</i> mined material at once. That is worth measuring. The
-  end-use data is solid and surprising: in the United States, mining takes <b>@@MINEPCT@@%</b> of
-  industrial explosives and <b>coal is 56%</b> of it. The trade test is not. One country of ten
-  shows a correlation whose interval excludes zero, the proxy is weaker than it looks, and annual
-  data cannot answer the question that was actually asked. This page was <b>revised after
-  review</b>, and what was withdrawn is listed below rather than quietly deleted.</p>
+  bottleneck there would sit above <i>every</i> mined material at once. Whether trade data can see it
+  turns out to be settled by one number. <b>World trade in prepared explosives was @@WORLD3602@@
+  kilotonnes in 2024</b> &mdash; less than the consumption ceiling of <b>Chile&rsquo;s copper mines
+  alone</b>. Explosives are mixed on site from ammonium nitrate and diesel, or made at the mine
+  gate; what crosses a border is the feedstock, not the explosive. So the customs data cannot
+  measure blasting, and the correlation this page originally reported was built on
+  <b>0.4%</b> of the relevant flow.</p>
 </div></section>
 
 <section class="wrap xp">
+  <h2>Could imported explosives even be the input?</h2>
+  <p>This is the test that should come before any regression, and it is arithmetic. The intensity is
+  calibrated on the USGS survey rather than an assumed engineering constant: US metal mining of
+  every kind consumed 155 kt of explosives in 2019, and US copper mine output was 1,260 kt
+  contained. Attributing <i>every kilogram</i> to copper &mdash; generous, since the same explosives
+  blasted gold and iron &mdash; gives at most <b>@@INTENSITY@@ kt of explosive per kt of contained
+  copper</b>. That makes the resulting figure a ceiling, so a country falling far below it fails
+  conclusively rather than arguably.</p>
+  <table><thead><tr><th>Country</th><th class="n">copper 2024</th>
+  <th class="n">explosives ceiling</th><th class="n">prepared explosives imported</th>
+  <th class="n">share of ceiling</th></tr></thead><tbody>@@COVROWS@@</tbody></table>
+  <div class="corr"><b>Eight of ten import under 5% of what their mines must consume.</b> The
+  explosives are made where they are used. That is not a data problem to work around; it is the
+  physical fact that ANFO is two commodity inputs mixed in a truck at the pit.</div>
+</section>
+
+<section class="wrap xp">
+  <h2>What that does to the correlation</h2>
+  <p>The original version of this page reported that detonator imports track copper output in Chile,
+  and that Chile was the one country whose confidence interval excluded zero. Both statements are
+  still arithmetically true. Set beside the coverage test they invert.</p>
+  <table><thead><tr><th>Country</th><th class="n">imports as share of ceiling</th>
+  <th class="n">year-on-year r</th><th class="n">95% interval</th></tr></thead>
+  <tbody>@@INVROWS@@</tbody></table>
+  <div class="corr"><b>The country with the signal has almost no imports; the country with the
+  imports has no signal.</b> Chile buys 0.4% of its prepared explosives abroad and shows r = +0.71.
+  Peru buys about a third of its requirement abroad &mdash; the one case where the proxy is
+  defensible &mdash; and shows +0.14, an interval straddling zero. A correlation computed on a 0.4%
+  residual is measuring import substitution, not blasting.</div>
+</section>
+
+<section class="wrap xp">
   <h2>What explosives are actually used for</h2>
-  <p>United States, 2019, industrial explosives and blasting agents sold for consumption, thousand
-  metric tons. The United States is the only country that surveys the end-use split &mdash; which is
-  also the reason this table cannot be turned into a global statement.</p>
+  <p>The one piece of this that stands on its own. United States, 2019, industrial explosives and
+  blasting agents sold for consumption, thousand metric tons. The United States is the only country
+  that surveys the end-use split, which is also why it cannot be turned into a global statement.</p>
   <table><thead><tr><th>Use</th><th class="n">kt</th><th class="n">share</th><th></th></tr></thead>
   <tbody>@@USEROWS@@</tbody></table>
-  <div class="note"><b>Mining is 79%, and within it coal is the bulk.</b> That supports the first
-  half of the original claim. It does not support extending it: the United States is an unusually
-  coal-heavy mining economy, and in Chile or Peru the mix must be almost entirely metal. Nothing
-  here measures that. The table also cannot settle the civil-military split, because military
-  explosives are a separate survey and are not in it &mdash; and the market-research figures that
-  claim to disagree with each other by nearly a factor of two, so none is quoted.</div>
-</section>
-
-<section class="wrap xp">
-  <h2>Does explosives trade track mining? In one country of ten.</h2>
-  <p>Detonator imports against copper mine production, 2002&ndash;2024, for copper economies that
-  <i>import</i> their explosives; the United States, Australia, Russia and Canada are excluded
-  because they manufacture their own. The column that matters is year-on-year growth, with its 95%
-  interval. The levels column is shown last and greyed for a reason: two series that both trend
-  upward for twenty-three years will correlate whatever the mechanism.</p>
-  <table><thead><tr><th>Country</th><th class="n">year-on-year r</th><th class="n">95% interval</th>
-  <th class="n">copper 2024</th><th class="n">levels r</th></tr></thead>
-  <tbody>@@TRS@@</tbody></table>
-  <div class="note"><b>@@NPOS@@ of ten intervals exclude zero.</b> Chile is the one, and it is the
-  largest copper producer in the set, so it is the case with the most rock behind it. Everywhere
-  else the year-on-year relationship is indistinguishable from nothing, and in Mexico and Indonesia
-  it points the other way. That is a null result for any general link between explosives trade and
-  metal output, and it is reported as one.</div>
-</section>
-
-<section class="wrap xp">
-  <h2>Can it tell you what is coming? Not at this resolution.</h2>
-  <p>Chile, year-on-year growth, correlation at each shift with its 95% interval. A negative shift
-  means trade leads output.</p>
-  <table><thead><tr><th>Shift</th><th class="n">r</th><th class="n">95% interval</th>
-  <th class="n">n</th></tr></thead><tbody>@@LLROWS@@</tbody></table>
-  <div class="corr"><b>What this cannot show.</b> The interval at lag 0 is @@CI0@@ and at lag
-  &minus;1 is @@CIM1@@. They overlap, so the ranking between them may be noise. And a procurement
-  lead of three to nine months would appear at <i>lag 0</i> in annual data, so this test cannot
-  separate &ldquo;coincides&rdquo; from &ldquo;leads by two quarters&rdquo; even in principle. The
-  first version of this page concluded that explosives coincide with mining rather than lead it.
-  That conclusion is withdrawn.</div>
-  <p>One measured fact that stands on its own, from the same survey: detonators sold for mining and
-  quarrying in the United States <b>fell from @@DET15M@@ million to @@DET19M@@ million</b> units
-  between 2015 and 2019, while detonators for oil and gas rose from @@DET15O@@ to @@DET19O@@
-  million.</p>
+  <div class="note"><b>Mining of all kinds is @@MINEPCT@@%, and within it coal is the bulk.</b> That
+  supports the first half of the original argument. It does not license extending it: the United
+  States is an unusually coal-heavy mining economy, and nothing here measures the mix anywhere else.
+  The table also cannot settle the civil-military split, because military explosives are a separate
+  survey and are not in it. Detonators sold for mining and quarrying <b>fell from @@DET15M@@ to
+  @@DET19M@@ million units</b> between 2015 and 2019 while oil-and-gas detonators rose from
+  @@DET15O@@ to @@DET19O@@ million.</div>
 </section>
 
 <section class="wrap xp">
   <h2>What was withdrawn, and why</h2>
   <div class="corr">
-  <p>This page was published on 12 September 2026 and revised the same day after an adversarial
-  review by two independent language models, run separately on the same brief. They converged on the
-  same objections without seeing each other's answers.</p>
+  <p>This page was published on 12 September 2026, reviewed adversarially by two independent
+  language models run separately on the same brief, and rewritten twice. The first review found the
+  claims below unsupported. The second was asked to improve the design rather than dismiss it, and
+  its first instruction &mdash; test whether imports could be the input before estimating anything
+  &mdash; produced the arithmetic at the top of this page, which is a better answer than the
+  regression it replaced.</p>
   <ul>@@CORRS@@</ul>
-  <p>The sharpest point was made by both: the original argument is about explosives <b>prices</b>
-  leading a supply surge. This page measures annual import <b>tonnage</b> of one customs code
-  against copper output. It was never a test of the price claim, and saying it was is the error
-  this revision exists to correct.</p>
+  <p>The deepest error was never a statistical one. The original argument concerns explosives
+  <b>prices</b> leading a supply surge; this page measured annual import <b>tonnage</b> of one
+  customs code. It was not a test of that claim, and it should not have been presented as one.</p>
   </div>
 </section>
 
 <section class="wrap xp">
   <h2>What a real test would need</h2>
   <ul>
-    <li><b>Consumption, not trade.</b> Production plus imports minus exports, per country, which
-    would put the four excluded manufacturing economies back in.</li>
-    <li><b>Unit counts, not tonnes.</b> Customs data reports mass, and in this code the mass is
-    dominated by detonating cord rather than by the caps that correspond to blast holes.</li>
-    <li><b>Prices.</b> Nothing here touches a price. Bulk blasting agents are ammonium nitrate, so
-    their price is mostly an ammonia and gas price &mdash; which is a strong argument on its own
-    against reading explosives prices as a clean mining signal.</li>
-    <li><b>Monthly data.</b> The monthly trade layer behind this atlas runs to 2026 and is the only
-    thing here that could see a lead shorter than a year.</li>
+    <li><b>Consumption, not trade.</b> Domestic production plus imports minus exports. Without it
+    the only observable countries are the ones that barely import, and they are not representative.</li>
+    <li><b>Ammonium nitrate split by grade.</b> Blasting-grade and fertiliser-grade share one
+    customs code, and 8.5 Mt of it trades annually against 0.44 Mt of prepared explosives.</li>
+    <li><b>Unit counts, not tonnes.</b> Customs data reports mass, and in the detonator code the
+    mass is dominated by detonating cord rather than by the caps that correspond to blast holes.</li>
+    <li><b>Prices.</b> Nothing here touches one. Bulk blasting agents are ammonium nitrate, so their
+    price is mostly an ammonia and gas price &mdash; a strong argument in itself against reading
+    explosives prices as a clean mining signal.</li>
   </ul>
-  <p class="howto-src"><b>Sources.</b> End use and detonator counts: USGS Minerals Yearbook 2019,
-  <i>Explosives</i>, by Lori E. Apodaca, published March 2024, tables 2 and 3; survey collected by
-  the Institute of Makers of Explosives; PDF archived in the repository. Trade: CEPII BACI (Etalab
-  Open Licence 2.0). Copper mine production: BGS World Mineral Statistics, mine stage only &mdash;
-  the cube holds three organisations' estimates of the same quantity and summing them overstates
-  Chile by half. Built by <code>build_explosives.py</code>; figures in
-  <code>out/explosives.json</code>, including the withdrawn claims.</p>
+  <p class="howto-src"><b>Sources.</b> End use, detonator counts and the intensity calibration: USGS
+  Minerals Yearbook 2019, <i>Explosives</i>, by Lori E. Apodaca, published March 2024, tables 2 and
+  3; survey collected by the Institute of Makers of Explosives; PDF archived in the repository.
+  Trade: CEPII BACI (Etalab Open Licence 2.0). Copper mine production: BGS World Mineral Statistics,
+  mine stage only &mdash; the cube holds three organisations' estimates of the same quantity and
+  summing them overstates Chile by half. Built by <code>build_explosives.py</code>; every figure,
+  including the withdrawn claims, is in <code>out/explosives.json</code>.</p>
 </section>
 @@FOOT@@
 </body></html>
@@ -420,12 +501,21 @@ def page(doc):
         '<td><span class="bar" style="width:' + format(u['pct'] / 100.0 * 14, '.2f') +
         'rem"></span></td></tr>' for u in use)
 
-    LAB = {'-2': 'trade leads 2 years', '-1': 'trade leads 1 year', '0': 'same year',
-           '1': 'trade follows 1 year', '2': 'trade follows 2 years'}
-    llrows = ''.join(
-        '<tr><td>' + LAB[k] + '</td><td class="n">' + rspan(ll[k]['r'], ll[k]['ci']) +
-        '</td><td class="n ci">' + ci(ll[k]['ci']) + '</td><td class="n">' + str(ll[k]['n']) +
-        '</td></tr>' for k in ('-2', '-1', '0', '1', '2'))
+    gate = doc['coverage_gate']
+    byiso = {r['iso']: r for r in rows}
+    covrows = ''.join(
+        '<tr><td>' + g['name'] + '</td><td class="n">' + format(g['cu_kt'], ',') +
+        ' kt</td><td class="n">' + format(g['ceiling_kt'], ',') + ' kt</td><td class="n">' +
+        format(g['imp_3602_kt'], '.1f') + ' kt</td><td class="n"><span class="' +
+        ('pos' if (g['pct_of_ceiling'] or 0) >= 10 else 'neg') + '">' +
+        format(g['pct_of_ceiling'] or 0, '.1f') + '%</span></td></tr>'
+        for g in gate['rows'])
+    invrows = ''.join(
+        '<tr><td>' + g['name'] + '</td><td class="n">' + format(g['pct_of_ceiling'] or 0, '.1f') +
+        '%</td><td class="n">' + rspan(byiso[g['iso']]['r_growth_tonnes'],
+                                       byiso[g['iso']]['ci_growth']) +
+        '</td><td class="n ci">' + ci(byiso[g['iso']]['ci_growth']) + '</td></tr>'
+        for g in gate['rows'] if g['iso'] in byiso)
 
     corrs = ''.join('<li><span class="w">Withdrawn:</span> &ldquo;' + c['withdrawn'] +
                     '&rdquo; &mdash; ' + c['why'] + '.</li>' for c in doc['corrections'])
@@ -434,9 +524,9 @@ def page(doc):
     for token, value in (
             ('CSS', CSS), ('NAV', NAV), ('FOOT', FOOT),
             ('MINEPCT', format(mine_pct, '.1f')), ('USEROWS', userows), ('TRS', trs),
-            ('LLROWS', llrows), ('CORRS', corrs),
-            ('NPOS', str(doc['n_countries_ci_above_zero'])),
-            ('CI0', ci(ll['0']['ci'])), ('CIM1', ci(ll['-1']['ci'])),
+            ('COVROWS', covrows), ('INVROWS', invrows), ('CORRS', corrs),
+            ('WORLD3602', format(gate['world_prepared_explosives_traded_kt_2024'], ',')),
+            ('INTENSITY', format(gate['intensity_kt_per_kt_cu'], '.3f')),
             ('DET15M', format(det[2015]['mining'] / 1e6, '.1f')),
             ('DET19M', format(det[2019]['mining'] / 1e6, '.1f')),
             ('DET15O', format(det[2015]['oilgas'] / 1e6, '.1f')),

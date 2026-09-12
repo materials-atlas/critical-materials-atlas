@@ -189,6 +189,105 @@
    ]
   }
  ],
+ "coverage_gate": {
+  "intensity_kt_per_kt_cu": 0.123,
+  "intensity_source": "USGS Minerals Yearbook 2019 table 3: US metal mining of every kind consumed 155 kt of explosives in 2019, divided by US contained copper that year, attributing every kilogram to copper - a deliberately generous CEILING",
+  "question": "could imported explosives even be the input?",
+  "rows": [
+   {
+    "ceiling_kt": 337,
+    "cu_kt": 2736,
+    "imp_3602_kt": 117.3,
+    "imp_an_kt": 473.9,
+    "iso": "PER",
+    "name": "Peru",
+    "pct_of_ceiling": 34.8
+   },
+   {
+    "ceiling_kt": 8,
+    "cu_kt": 64,
+    "imp_3602_kt": 1.4,
+    "imp_an_kt": 28.9,
+    "iso": "PHL",
+    "name": "Philippines",
+    "pct_of_ceiling": 17.3
+   },
+   {
+    "ceiling_kt": 70,
+    "cu_kt": 567,
+    "imp_3602_kt": 3.2,
+    "imp_an_kt": 331.4,
+    "iso": "KAZ",
+    "name": "Kazakhstan",
+    "pct_of_ceiling": 4.6
+   },
+   {
+    "ceiling_kt": 101,
+    "cu_kt": 821,
+    "imp_3602_kt": 3.7,
+    "imp_an_kt": 143.0,
+    "iso": "ZMB",
+    "name": "Zambia",
+    "pct_of_ceiling": 3.6
+   },
+   {
+    "ceiling_kt": 127,
+    "cu_kt": 1029,
+    "imp_3602_kt": 3.0,
+    "imp_an_kt": 45.0,
+    "iso": "IDN",
+    "name": "Indonesia",
+    "pct_of_ceiling": 2.4
+   },
+   {
+    "ceiling_kt": 88,
+    "cu_kt": 717,
+    "imp_3602_kt": 1.6,
+    "imp_an_kt": 256.7,
+    "iso": "MEX",
+    "name": "Mexico",
+    "pct_of_ceiling": 1.9
+   },
+   {
+    "ceiling_kt": 388,
+    "cu_kt": 3158,
+    "imp_3602_kt": 4.6,
+    "imp_an_kt": 49.7,
+    "iso": "COD",
+    "name": "DR Congo",
+    "pct_of_ceiling": 1.2
+   },
+   {
+    "ceiling_kt": 677,
+    "cu_kt": 5506,
+    "imp_3602_kt": 2.9,
+    "imp_an_kt": 125.1,
+    "iso": "CHL",
+    "name": "Chile",
+    "pct_of_ceiling": 0.4
+   },
+   {
+    "ceiling_kt": 43,
+    "cu_kt": 352,
+    "imp_3602_kt": 0.1,
+    "imp_an_kt": 0.1,
+    "iso": "MNG",
+    "name": "Mongolia",
+    "pct_of_ceiling": 0.2
+   },
+   {
+    "ceiling_kt": 47,
+    "cu_kt": 379,
+    "imp_3602_kt": 0.0,
+    "imp_an_kt": 1161.7,
+    "iso": "BRA",
+    "name": "Brazil",
+    "pct_of_ceiling": 0.0
+   }
+  ],
+  "verdict": "world trade in prepared explosives is smaller than the consumption ceiling of Chile alone, so explosives are not meaningfully traded: ANFO is mixed on site and bulk emulsion is made at the mine gate. Trade data cannot measure blasting.",
+  "world_prepared_explosives_traded_kt_2024": 445
+ },
  "excluded": [
   "USA",
   "AUS",
