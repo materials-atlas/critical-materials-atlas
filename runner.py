@@ -96,7 +96,8 @@ BREAK = [('add_tonnes.py', 'build_flows_fix.py'),   # (from, to) edges removed f
          # two post-passes do not depend on each other's CONTENT at all - each inserts a tag
          # the other ignores - so the edge carries no information beyond 'they touch the same
          # files', while the declared one carries the reason.
-         ('add_head.py', 'add_canonicals.py')]
+         ('add_head.py', 'add_canonicals.py'),
+         ('clean_links.py', 'add_canonicals.py'), ('clean_links.py', 'add_head.py')]
 
 # EDGES THE GRAPH CANNOT OBSERVE, because an idempotent post-pass with nothing to do writes nothing
 # and therefore has no recorded outputs to build an edge from.
@@ -114,7 +115,10 @@ BREAK = [('add_tonnes.py', 'build_flows_fix.py'),   # (from, to) edges removed f
 # This is a real weakness of an observed graph and is written here rather than hidden: a builder
 # that DID something on the day it was recorded gets an edge, and one that found nothing to do does
 # not. Only ordering is declared - never a read or a write.
-ORDER = [('add_canonicals.py', 'add_head.py')]     # (first, second)
+ORDER = [('add_canonicals.py', 'add_head.py'),     # (first, second)
+         # clean_links only rewrites hrefs, so it competes with neither of the other two for the
+         # charset anchor; it is pinned last simply so the order is stated rather than emergent.
+         ('add_head.py', 'clean_links.py')]
 
 # The post-passes. They read every page and write every page, so they are downstream of EVERY page
 # builder - including the held ones - and --skip-held's "do not rebuild anything fed by a held
@@ -125,7 +129,7 @@ ORDER = [('add_canonicals.py', 'add_head.py')]     # (first, second)
 # bakes a stale NUMBER into a fresh output. These two read no numbers. They insert a tag and leave
 # everything else alone, so a held builder's staleness cannot reach their output - and skipping
 # them does active harm, which no other skip does.
-POST_PASSES = ('add_canonicals.py', 'add_head.py')
+POST_PASSES = ('add_canonicals.py', 'add_head.py', 'clean_links.py')
 
 
 def sha_bytes(b):
