@@ -502,9 +502,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="demand.html">The squeeze</a><a href="price-squeeze.html">Price test</a>
-  <a href="companionality.html" class="hideable">Hostage metals</a><a href="limitations.html" class="hideable">Limitations</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method &middot; falsification &middot; regression</div>
@@ -576,7 +574,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="price-squeeze.html">The price test</a><br><a href="companionality.html">Hostage metals</a><br><a href="risk-adjusted.html">Risk re-weighted</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>USGS Historical Statistics for Mineral and Material Commodities (Data Series 140), constant 1998 US$ &middot; public domain</div>
   <div class="fineprint">n=33 metals over 24 years &mdash; roughly the whole population of metals with a published price series, not a sample of a larger one. HC3 errors, plus permutation and rank-based tests that assume neither normality nor large n. A null is not proof of absence &mdash; but here the control does not merely weaken the effect, it replaces it.</div>
 </div></footer>

@@ -168,9 +168,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="risk.html">Risk</a><a href="criticality.html">Criticality</a>
-  <a href="commodity-attribution.html" class="hideable">Attribution</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · supply structure</div>
@@ -206,7 +204,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="commodity-attribution.html">Commodity attribution</a><br><a href="risk.html">Supply risk</a><br><a href="criticality.html">Criticality</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>USGS MCS 2024 · Nassar et al. 2015 (Sci. Adv.) · Comtrade/BACI (concentration)</div>
   <div class="fineprint">Companionality is a round, literature-based estimate of by-product share; treat the axis as tiers, not precise percentages.</div>
 </div></footer>

@@ -151,9 +151,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="host-shock.html">Host shock</a>
-  <a href="risk.html" class="hideable">Risk</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · secondary supply</div>
@@ -187,7 +185,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="host-shock.html">Host shock</a><br><a href="risk-adjusted.html">Adjusted risk</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>EU CRM 2023 (EOL-RIR) · UNEP/IRP 2011 &amp; IEA 2024 (recycling metrics) · dissipation from Ciacci/Reck/Graedel &ldquo;Lost by Design&rdquo; 2015 &amp; Nature Sustainability 2022 · companionality (USGS · Nassar 2015)</div>
   <div class="fineprint">EOL recycling is an EU-centric end-of-life estimate; the dissipative/recoverable split is a literature-based classification of dominant end-use.</div>
 </div></footer>

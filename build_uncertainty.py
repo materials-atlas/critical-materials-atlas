@@ -284,9 +284,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="synthesis.html">Hardest cases</a><a href="robustness.html">Robustness</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Rigor · uncertainty propagation</div>
@@ -326,7 +324,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="synthesis.html">Hardest cases</a><br><a href="robustness.html">Robustness</a><br><a href="limitations.html">Limitations</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Monte-Carlo (20,000 draws) over the five scorecard axes</div>
   <div class="fineprint">The five input spreads are explicit judgement calls; the aim is the ranking's shape and what survives perturbation, not a precise probability.</div>
 </div></footer>

@@ -188,9 +188,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="risk.html">Risk</a>
-  <a href="recycling.html" class="hideable">Secondary supply</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · the squeeze</div>
@@ -227,7 +225,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="companionality.html">Hostage metals</a><br><a href="recycling.html">Secondary supply</a><br><a href="risk.html">Supply risk</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>IEA Global Critical Minerals Outlook 2024 · USGS 2024 end-use × companionality</div>
   <div class="fineprint">Forward demand is scenario-dependent; figures are round mid-scenario tiers, not forecasts.</div>
 </div></footer>

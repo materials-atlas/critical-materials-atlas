@@ -142,9 +142,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="risk.html">Risk</a><a href="companionality.html">Hostage metals</a>
-  <a href="riskmethods.html" class="hideable">Risk methods</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · risk · supply elasticity</div>
@@ -174,7 +172,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="risk.html">Supply-risk index</a><br><a href="companionality.html">Hostage metals</a><br><a href="scenarios.html">Shock scenarios</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Risk index (USGS/IEA/trade) × companionality (USGS MCS 2024 · Nassar et al. 2015)</div>
   <div class="fineprint">A re-ordering lens: the supply-response amplitude (0.5) is a legible choice grounded in the elasticity literature (short-run supply inelastic for all minerals; long-run response low for by-products), not a per-material estimated elasticity.</div>
 </div></footer>

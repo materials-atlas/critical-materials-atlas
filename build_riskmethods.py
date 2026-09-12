@@ -172,9 +172,7 @@ out = f'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="risk.html">Risk index</a>
-  <a href="network.html" class="hideable">Network</a><a href="scenarios.html" class="hideable">Scenarios</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <div class="eyebrow">Method · risk assessment</div>
@@ -203,7 +201,7 @@ out = f'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="risk.html">Supply-risk index</a><br><a href="criticality.html">Governance-weighted criticality</a><br><a href="scenarios.html">Shock scenarios</a><br><a href="technical-note.html">Technical note</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Methods</h4>Entropy-TOPSIS (Hwang &amp; Yoon)<br>GeoPolRisk (Gemechu 2016)<br>Monte-Carlo VaR/CVaR</div>
   <div class="fineprint">Established risk-assessment methods on public data; a screening panel, not forecasts. Disruption probabilities are governance-derived assumptions.</div>
 </div></footer>

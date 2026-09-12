@@ -319,7 +319,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="methodology.html">Methodology</a><br><a href="casestudies.html">Case studies</a><br><a href="cascade.html">Cascade</a><br><a href="findings.html">Findings</a></div>
+  <div><h4>Navigate</h4><a href="methodology">Methodology</a><br><a href="casestudies">Case studies</a><br><a href="cascade">Cascade</a><br><a href="findings">Findings</a></div>
   <div><h4>Sources</h4>USGS shares (data.json) × World Mining Data 2026 (tonnes) × BGS World Mineral Statistics</div>
   <div class="fineprint">Two sources define commodities slightly differently; small share gaps are expected, genuine disagreements are flagged.</div>
 </div></footer>

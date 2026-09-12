@@ -171,9 +171,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="bloc-demand.html">Demand by bloc</a><a href="origin.html">Origin trace</a>
-  <a href="demand.html" class="hideable">The squeeze</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · net trade</div>
@@ -203,7 +201,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="bloc-demand.html">Demand by bloc</a><br><a href="origin.html">Origin trace</a><br><a href="demand.html">The squeeze</a><br><a href="methodology.html">Methodology</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Reconciled net trade (imports − exports) × USGS mine-production shares</div>
   <div class="fineprint">Net trade removes re-export hubs but is not consumption: apparent consumption misattributes by-products via mine tonnage, and demand embodied in finished goods needs a material-footprint/RME model that public MRIO resolves only by sector.</div>
 </div></footer>

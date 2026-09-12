@@ -165,9 +165,7 @@ def main():
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="findings.html">Findings</a><a href="risk.html" class="hideable">Risk</a>
-  <a href="profiles.html" class="hideable">Profiles</a><a href="countries.html" class="hideable">Countries</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero">{MOTIF}<div class="wrap">
   <div class="eyebrow">Synthesis · {YEAR}</div>
@@ -233,7 +231,7 @@ def main():
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="./">Atlas home</a><br><a href="explorer.html">Explore the data</a><br><a href="findings.html">The origin gap</a><br><a href="breakout.html">Break the chokepoint</a><br><a href="ot.html">Reallocation stress test</a><br><a href="leverage.html">Leverage map</a><br><a href="risk.html">Supply-risk index</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI<br>USGS · IEA · EU CRM · World Bank</div>
   <div class="fineprint">A synthesis of public-data layers. Not an official criticality assessment.</div>
 </div></footer>

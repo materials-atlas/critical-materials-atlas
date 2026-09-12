@@ -148,10 +148,7 @@ def topbar(active=''):
             # used any more. Checked before dropping the Profiles link: explorer.html links
             # to profiles.html and to individual profiles, so the index stays one click away
             # via Explore and nothing becomes unreachable.
-            '<nav class="topnav">'
-            f'{a("./","Atlas")}{a("explorer","Explore")}{a("value-chains","Value Chains")}'
-            f'{a("analysis","Analysis")}{a("reports","Reports")}{a("method","Method")}'
-            '</nav></div></header>')
+            '<nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>')
 
 FOOTER = ('<footer class="siteftr"><div class="wrap">'
  '<div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw '

@@ -156,9 +156,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="demand.html">The squeeze</a><a href="volume.html">Prices</a>
-  <a href="companionality.html" class="hideable">Hostage metals</a><a href="limitations.html" class="hideable">Limitations</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · falsification</div>
@@ -190,7 +188,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="price-volatility.html">Volatility, retested</a><br><a href="demand.html">The squeeze</a><br><a href="volume.html">Value vs volume</a><br><a href="host-shock.html">Host shock</a><br><a href="limitations.html">Limitations</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>Implied trade unit values (BACI) × squeeze index (IEA/USGS × companionality)</div>
   <div class="fineprint">Trade unit values are nominal, noisy proxies for price; a directional corroboration test, not a price model.</div>
 </div></footer>
