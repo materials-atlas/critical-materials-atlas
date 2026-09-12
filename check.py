@@ -916,15 +916,26 @@ def check_stale():
 
     if 'nothing is stale' in out:
         return
-    names = [ln.strip().split()[0] for ln in out.splitlines()
+    lines = [ln.strip() for ln in out.splitlines()
              if 'never built' in ln or 'inputs or code changed' in ln]
+    names = [ln.split()[0] for ln in lines]
+    # The runner marks what it will not run and why. A builder fed by a held one is blocked through
+    # no fault of its own and clears itself when the upstream debt is paid, so it warns rather than
+    # failing - otherwise the gate is permanently red for a queue nobody can jump.
+    blocked_by_upstream = [ln.split()[0] for ln in lines if 'fed by a held builder' in ln]
     head = ', '.join(names[:6]) + (' and %d more' % (len(names) - 6) if len(names) > 6 else '')
     # Do not send anybody to a command that will refuse them. Some builders are BEHIND the page
     # they publish (measured; see _regressing_builders.json), and runner.py will not overwrite a
     # published page with less than it has. For those the fix is to bring the builder up to its
     # page, or to accept the current tree deliberately - never to force the rebuild.
     held = [n for n in names if n in reg]
-    fresh = [n for n in names if n not in reg]
+    fresh = [n for n in names if n not in reg and n not in set(blocked_by_upstream)]
+    if blocked_by_upstream:
+        warn('stale', '%d builder(s) cannot be rebuilt because an input of theirs is behind its '
+                      'page: %s%s - they clear when the upstream debt is paid'
+                      % (len(blocked_by_upstream), ', '.join(sorted(blocked_by_upstream)[:4]),
+                         ' and %d more' % (len(blocked_by_upstream) - 4)
+                         if len(blocked_by_upstream) > 4 else ''))
     # KNOWN DEBT WARNS, NEW DRIFT FAILS. The held builders are behind the page they publish; that is
     # recorded in _regressing_builders.json with what differs, and runner.py refuses to overwrite
     # those pages. Failing the gate on them forever would make it useless and teach people to

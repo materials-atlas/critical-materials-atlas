@@ -365,18 +365,29 @@ def main():
         return 0
 
     blocked = [b for b in stale if never_run(b)]
-    regress = []
+    regress, fed_by_held = [], []
     if os.path.exists(REGRESS):
         try:
-            regress = [b for b in stale
-                       if b in set(json.load(io.open(REGRESS, encoding='utf-8'))['unsafe_to_run'])]
+            unsafe = set(json.load(io.open(REGRESS, encoding='utf-8'))['unsafe_to_run'])
+            regress = [b for b in stale if b in unsafe]
+            # Downstream of a held builder is ALSO blocked, and for a sharper reason than the held
+            # one: its input is a file we know is behind, so rebuilding it would bake a stale number
+            # into a fresh output and look like progress. Naming it separately matters - "behind its
+            # page" is a debt someone has to pay, "fed by a held builder" clears itself the moment
+            # the upstream one is paid.
+            poisoned = set()
+            for b in regress:
+                poisoned |= downstream(edges, b)
+            poisoned -= set(POST_PASSES) | set(regress)
+            fed_by_held = [b for b in stale if b in poisoned]
         except Exception:
-            regress = []
+            regress, fed_by_held = [], []
     print('\n%d stale, in rebuild order:' % len(stale))
     for b in stale:
         why = 'never built' if b not in was else 'inputs or code changed'
         tag = ('   [WILL NOT RUN: network/quota]' if never_run(b)
-               else '   [WILL NOT RUN: behind its published page]' if b in regress else '')
+               else '   [WILL NOT RUN: behind its published page]' if b in regress
+               else '   [WILL NOT RUN: fed by a held builder]' if b in fed_by_held else '')
         print('   %-46s %s%s' % (b, why, tag))
 
     if not do_run:
