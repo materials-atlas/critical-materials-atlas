@@ -24,10 +24,18 @@ orders it after the page builders instead of trusting anyone to remember.
 WHAT IT DOES, AND WHAT IT DELIBERATELY DOES NOT
   favicons     inserted straight after <meta charset>, in the same order and form as the 244 pages
                that already have them, so a page cannot be told apart from one edited by hand.
-  skip-link    inserted as the first element of <body> - but ONLY where the page actually has an
-               element with id="main" to skip to. A skip-link pointing at nothing is worse than no
+  skip-link    inserted as the first element of <body> - but ONLY where the page has something
+               with id="main" to skip to. A skip-link pointing at nothing is worse than no
                skip-link: it announces an accessibility feature to a screen reader and then does
-               not work. Pages without a target are reported, not patched.
+               not work.
+  landmark     so it makes the target. Measured 12 Sep across 286 pages: 197 carry BOTH a <main
+               id="main"> and a skip-link, 89 carry NEITHER - a clean split, because both arrived
+               together in the same bulk edit and every page built since has had neither. The
+               landmark goes in only where both boundaries are unambiguous: the page must close its
+               header with </div></header> and open a <footer class="siteftr">, and the <main> is
+               wrapped between exactly those. 66 of the 89 qualify. The other 23 are reported and
+               left alone: guessing where a page's main content begins is how a machine silently
+               restructures a document.
 
 It does not touch navigation, footers or headlines. Those also drift from what builders emit, but
 they are CONTENT: which links belong in the nav is an editorial decision, and a script that guesses
@@ -63,6 +71,10 @@ FAVICONS = ('<link rel="icon" href="/favicon.svg" type="image/svg+xml">'
             '<link rel="icon" href="/favicon.ico" sizes="any">'
             '<link rel="apple-touch-icon" href="/apple-touch-icon.png">')
 SKIPLINK = '<a class="skip" href="#main">Skip to content</a>'
+# Verbatim from the 197 pages that already have it: <main> opens straight after the header closes
+# and closes straight before the site footer.
+HDR_CLOSE = '</div></header>'
+FTR_OPEN = '<footer class="siteftr">'
 
 HAS_FAV = re.compile(r'<link[^>]+href="/favicon-192\.png"', re.I)
 HAS_SKIP = re.compile(r'<a[^>]+class="skip"', re.I)
@@ -85,7 +97,7 @@ def pages():
 
 def main():
     apply = '--dry-run' not in sys.argv
-    added_fav = added_skip = 0
+    added_fav = added_skip = added_main = 0
     no_target = []
     no_anchor = []
     touched = []
@@ -105,6 +117,14 @@ def main():
                 added_fav += 1
             else:
                 no_anchor.append(rel)
+        # The landmark FIRST, so the skip-link rule below finds its target on this same pass.
+        if not MAIN_TARGET.search(text) and HDR_CLOSE in text and FTR_OPEN in text:
+            i = text.index(HDR_CLOSE) + len(HDR_CLOSE)
+            j = text.index(FTR_OPEN)
+            if j > i:
+                text = (text[:i] + '\n<main id="main">' + text[i:j]
+                        + '</main>\n' + text[j:])
+                added_main += 1
         if not HAS_SKIP.search(text):
             if MAIN_TARGET.search(text):
                 m = BODY.search(text)
@@ -126,10 +146,11 @@ def main():
     n = len(pages())
     print('%d published pages scanned' % n)
     print('  favicons added   : %d' % added_fav)
+    print('  landmarks added  : %d' % added_main)
     print('  skip-links added : %d' % added_skip)
     print('  pages changed    : %d' % len(touched))
     if no_target:
-        print('  NO SKIP TARGET (left alone, they have no id="main"): %d' % len(no_target))
+        print('  NO SKIP TARGET - no id="main" and no unambiguous place to put one: %d' % len(no_target))
         for r in no_target[:8]:
             print('      %s' % r)
         if len(no_target) > 8:

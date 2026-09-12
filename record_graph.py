@@ -84,6 +84,7 @@ NEVER_RUN = (
     'check.py',            # the gate itself; it reads everything and would drown the graph
     'runner.py',           # reads the graph it would be recorded into, and rebuilds from it
     'repro_audit.py',      # runs every builder itself; recording it would recurse
+    'repro_triage.py',     # same: it runs the held builders to price them
     'scheduled_run',
     'build_bgs_panel',     # a network fetcher wearing a builder's name: seven minutes against
                            # the BGS API, and its 63 outputs are the cube's spine. Not for a
