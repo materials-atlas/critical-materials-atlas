@@ -425,7 +425,37 @@ def check_drift():
         except Exception as e:
             warn('drift', f'could not compare risk.json: {e}')
 
-    # 2. an interval must be displayed as an interval, never as its scalar alone
+    # 2. capability.json copies the same share into phys_ref - and it had drifted TOO
+    #
+    # Found 12 Sep, by a reproducibility audit rather than by this check. out/capability.json was
+    # serving germanium at 0.94 - the RETRACTED value, the very number this function exists because
+    # of - three weeks after data.json was corrected to 81 (interval 68-94). Fluorspar sat at 0.60
+    # against a corrected 0.65, feldspar at 0.30 against 0.26. The guard was written for the file
+    # that burned us and stopped there, so a second copy of the same number drifted unwatched.
+    #
+    # The lesson is not "add a third file when a third one burns us". It is that a copy is a copy:
+    # anything holding a number data.json owns gets compared against data.json.
+    if os.path.exists('out/capability.json'):
+        try:
+            cap = json.load(open('out/capability.json', encoding='utf8'))
+            for lab, rows in cap.items():
+                m = mats.get(lab)
+                if not m or not m.get('refined') or not isinstance(rows, list):
+                    continue
+                src = {r['c']: float(r['v']) / 100.0 for r in m['refined']}
+                for row in rows:
+                    got = row.get('phys_ref')
+                    want = src.get(row.get('iso'))
+                    if got is None or want is None:
+                        continue
+                    if abs(float(got) - want) > 0.006:      # 0.5pp, past any rounding
+                        fail('drift', f'out/capability.json has {lab}/{row.get("iso")} phys_ref '
+                                      f'{got} but data.json says {round(want, 3)} - rebuild '
+                                      f'build_feedstock.py')
+        except Exception as e:
+            warn('drift', f'could not compare capability.json: {e}')
+
+    # 3. an interval must be displayed as an interval, never as its scalar alone
     for lab, m in mats.items():
         rng = m.get('refined_range')
         if not rng:

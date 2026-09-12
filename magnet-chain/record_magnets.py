@@ -2,6 +2,23 @@
 
 Production, processing, magnet manufacturing and customs trade remain separate.
 Run from the repository root: python magnet-chain/record_magnets.py
+
+IT WROTE OVER THE LIVE CHAIN RECORD UNTIL 12 SEP 2026.
+This file and record_magnet.py - singular, one letter apart - both wrote out/magnet_chain.json, and
+they produce COMPLETELY DIFFERENT documents. record_magnet.py builds the published chain page
+(h1, deck, sections, hops, chokepoint) and build_chokepoint_map.py reads it. This one builds a
+pilot's evidence tables (bgs_mine_production, usgs_world_production, global_trade). Whichever ran
+last won, and nothing said so.
+
+It was found by running it: the chokepoint map immediately failed with "map rows with no record:
+['magnet']", because the row it needed had been replaced by a table of mine production. The map
+check caught the damage, which is the one piece of luck in the story - had those two documents
+shared a few key names, it would have failed silently instead.
+
+The listed defect was real: ARCHITECTURE.md's invariant I2 named record_magnet.py vs
+record_magnets.py as one of two double-writer pairs that were "unclear and must be resolved by
+reading, not guessed at". This is that resolution. The pilot now writes its own file, so the two
+can coexist and the live record cannot be clobbered by running the wrong script.
 """
 from __future__ import annotations
 
@@ -16,7 +33,8 @@ import openpyxl
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "magnet_chain.json")
+# NOT magnet_chain.json - that belongs to record_magnet.py and is read by build_chokepoint_map.
+OUT = os.path.join(HERE, "out", "magnet_pilot_evidence.json")
 EU27 = {"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "EL", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE"}
 
 SOURCES = {
