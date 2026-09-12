@@ -896,6 +896,24 @@ def check_stale():
     if r.returncode != 0:
         warn('stale', 'runner.py could not report: %s' % out.strip()[-160:])
         return
+    reg = set()
+    rp = os.path.join(ROOT, '_regressing_builders.json')
+    if os.path.exists(rp):
+        try:
+            reg = set(json.load(open(rp, encoding='utf8'))['unsafe_to_run'])
+        except Exception:
+            reg = set()
+    # The debt is reported from the FILE THAT RECORDS IT, not from fingerprints. A builder that is
+    # behind its published page is behind it whether or not its inputs have moved since, and the
+    # runner blesses fingerprints when it runs - so keying the warning on staleness would let the
+    # whole debt vanish the moment some unrelated builder was rebuilt. It is a standing warning
+    # until the list itself shrinks.
+    if reg:
+        warn('stale', '%d builder(s) are BEHIND the page they publish and the runner will not '
+                      'rebuild them: %s and %d more - see _regressing_builders.json; the list '
+                      'shrinks only by bringing a builder up to its page, never by overwriting it'
+                      % (len(reg), ', '.join(sorted(reg)[:4]), max(0, len(reg) - 4)))
+
     if 'nothing is stale' in out:
         return
     names = [ln.strip().split()[0] for ln in out.splitlines()
@@ -905,20 +923,18 @@ def check_stale():
     # they publish (measured; see _regressing_builders.json), and runner.py will not overwrite a
     # published page with less than it has. For those the fix is to bring the builder up to its
     # page, or to accept the current tree deliberately - never to force the rebuild.
-    reg = set()
-    rp = os.path.join(ROOT, '_regressing_builders.json')
-    if os.path.exists(rp):
-        try:
-            reg = set(json.load(open(rp, encoding='utf8'))['unsafe_to_run'])
-        except Exception:
-            reg = set()
     held = [n for n in names if n in reg]
-    fix = ('run `python runner.py --run`' if not held else
-           '%d of them are BEHIND their published page (%s) and runner.py refuses to overwrite it; '
-           'bring the builder up to the page, or `python runner.py --accept` to record the tree '
-           'as-is' % (len(held), ', '.join(sorted(held)[:3])))
-    fail('stale', '%d builder(s) have inputs or code newer than their last build: %s - %s'
-                  % (len(names), head, fix))
+    fresh = [n for n in names if n not in reg]
+    # KNOWN DEBT WARNS, NEW DRIFT FAILS. The held builders are behind the page they publish; that is
+    # recorded in _regressing_builders.json with what differs, and runner.py refuses to overwrite
+    # those pages. Failing the gate on them forever would make it useless and teach people to
+    # ignore it; passing silently would be the green-gate-on-a-lie this file exists against. So they
+    # are named, loudly, on every run, and the gate fails only for staleness nobody has accounted
+    # for yet.
+    if fresh:
+        h = ', '.join(fresh[:6]) + (' and %d more' % (len(fresh) - 6) if len(fresh) > 6 else '')
+        fail('stale', '%d builder(s) have inputs or code newer than their last build: %s - run '
+                      '`python runner.py --run` (or --run --skip-held)' % (len(fresh), h))
 
 
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),

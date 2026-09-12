@@ -333,7 +333,12 @@ if __name__ == '__main__':
     # rows to a file served off the website. Same rule, one place, both exporters.
     pub = licences.public(df)
     pub.to_parquet(os.path.join(ROOT, 'out', 'cube.parquet'), index=False, compression='zstd')
-    pub.to_csv(os.path.join(ROOT, 'out', 'cube.csv.gz'), index=False, compression='gzip')
+    # mtime=0: gzip writes the current time into its header, so rebuilding an IDENTICAL table
+    # produced a different file every single time - churning a multi-megabyte binary in git and
+    # counting as a reproducibility failure that was never about the data. Found 12 Sep by
+    # decompressing both sides and finding them equal.
+    pub.to_csv(os.path.join(ROOT, 'out', 'cube.csv.gz'), index=False,
+               compression={'method': 'gzip', 'mtime': 0})
     print('  public copies: %d of %d rows' % (len(pub), len(df)))
 
     summary = {

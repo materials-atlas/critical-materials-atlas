@@ -45,6 +45,7 @@ Run:  python runner.py                 what is stale, in the order it would rebu
       python runner.py --run           rebuild the stale ones, in order
       python runner.py --from X        treat X as changed; show/run everything downstream
       python runner.py --accept        record the current tree as fresh, running nothing
+      python runner.py --run --skip-held   rebuild only what is safe, and nothing fed by a held one
 Out:  _runner_state.json (the baseline, committed) and _runner_cache.json (local, gitignored)
 """
 import hashlib
@@ -114,6 +115,17 @@ BREAK = [('add_tonnes.py', 'build_flows_fix.py'),   # (from, to) edges removed f
 # that DID something on the day it was recorded gets an edge, and one that found nothing to do does
 # not. Only ordering is declared - never a read or a write.
 ORDER = [('add_canonicals.py', 'add_head.py')]     # (first, second)
+
+# The post-passes. They read every page and write every page, so they are downstream of EVERY page
+# builder - including the held ones - and --skip-held's "do not rebuild anything fed by a held
+# builder" rule therefore skipped them. It cost three live pages their favicon and their canonical
+# within one run, which is the 129-page failure in miniature and was caught only by checking.
+#
+# The rule is right and the exception is right: it exists because a rebuild fed by a stale input
+# bakes a stale NUMBER into a fresh output. These two read no numbers. They insert a tag and leave
+# everything else alone, so a held builder's staleness cannot reach their output - and skipping
+# them does active harm, which no other skip does.
+POST_PASSES = ('add_canonicals.py', 'add_head.py')
 
 
 def sha_bytes(b):
@@ -214,10 +226,23 @@ def toposort(nodes, edges):
 
 
 def fingerprints(g, prod, edges, order, hasher):
-    """fp(b) = its code + the content of inputs nothing produces + fp of every producer it reads.
+    """fp(b) = its code + the content of EVERY input + fp of every producer it reads.
 
     Computed in topological order, so a producer's fingerprint is always ready before its
     consumer asks for it. That is the whole reason the order is computed first.
+
+    WHY THE PRODUCED FILES ARE HASHED TOO, AND NOT JUST THE PRODUCER'S FINGERPRINT
+    The first version took a producer's fingerprint as a complete summary of its output, and that
+    is false whenever a file on disk is older than the code that makes it. Found 12 Sep, on the
+    germanium share again: out/capability_years.json had been stale for weeks, the baseline had
+    been accepted with it stale, and re-running build_feedstock.py by hand fixed the FILE while
+    changing nothing about its inputs or its code - so its fingerprint did not move, so
+    build_refiners.py never learned, so refiners.html went on publishing the retracted 0.94.
+
+    Both terms are kept because they catch different moments. The producer's fingerprint fires
+    BEFORE it runs (its code or inputs changed, so everything downstream is about to change), and
+    the content hash fires AFTER (the file on disk is not what the consumer last saw, however it
+    got that way - a hand-run, a partial build, a checkout). Either alone leaves a hole.
     """
     fp, detail = {}, {}
     contained = {c: owner for owner, cs in CONTAINS.items() for c in cs}
@@ -234,8 +259,10 @@ def fingerprints(g, prod, edges, order, hasher):
                 for p in sorted(owners):
                     if p in fp:
                         ups.append((p, fp[p]))
-                    else:
-                        ins.append((r, hasher.file(r)))   # producer outside the order: hash the file
+                # AND the file itself: a producer's fingerprint describes its inputs, not the bytes
+                # currently on disk, and those two disagree exactly when something was rebuilt out
+                # of band. See the docstring.
+                ins.append((r, hasher.file(r)))
             else:
                 ins.append((r, hasher.file(r)))
         for r, h in sorted(set(ins)):
@@ -286,6 +313,7 @@ def downstream(edges, start):
 def main():
     a = sys.argv[1:]
     do_run = '--run' in a
+    skip_held = '--skip-held' in a
     accept = '--accept' in a
     explain = a[a.index('--explain') + 1].strip() if '--explain' in a else None
     frm = a[a.index('--from') + 1].strip() if '--from' in a else None
@@ -356,7 +384,29 @@ def main():
         save_state(st, hasher, fp)
         return 0
 
-    if regress and '--force' not in a:
+    if regress and skip_held:
+        # Rebuild what is safe and leave the rest alone - but do NOT rebuild anything DOWNSTREAM of
+        # a held builder. Its input would be the old file, so the rebuild would bake a stale number
+        # into a fresh output and look like progress. Refusing to run is honest; running with one
+        # input knowingly wrong is not.
+        poisoned = set()
+        for b in regress:
+            poisoned |= downstream(edges, b)
+        poisoned -= set(POST_PASSES)
+        held_all = sorted((set(regress) | (poisoned & set(stale))) - set(POST_PASSES))
+        stale = [b for b in stale if b not in held_all]
+        print('\n --skip-held: leaving %d builder(s) alone (%d behind their page, %d downstream '
+              'of one):' % (len(held_all), len(regress), len(held_all) - len(regress)))
+        for b in held_all:
+            why = 'behind its published page' if b in regress else 'fed by a held builder'
+            print('   %-46s %s' % (b, why))
+        held_names = set(held_all)
+        if not stale:
+            print('\nnothing left to rebuild.')
+            save_state(st, hasher, fp)
+            return 0
+        print('\n rebuilding the %d that are safe:' % len(stale))
+    elif regress and '--force' not in a:
         print('\n REFUSING to run: %d of these are behind the page they publish, and rebuilding'
               ' would overwrite it with less than it has now:' % len(regress))
         for b in regress:
@@ -394,7 +444,12 @@ def main():
     # everything downstream have moved and the stored fingerprint must describe the new tree.
     hasher2 = Hasher(hasher.cache)
     fp2, _ = fingerprints(g, prod, edges, order, hasher2)
-    st['fingerprints'] = fp2
+    # A builder that was SKIPPED keeps its old fingerprint, so it stays stale. Blessing it here
+    # would mean a run that deliberately did not rebuild something reported it as rebuilt - and the
+    # gate would go green over a page we know is behind its builder. The debt has names; it does
+    # not get to disappear because a different builder ran.
+    held_names = locals().get('held_names') or set()
+    st['fingerprints'] = {b: (was.get(b, v) if b in held_names else v) for b, v in fp2.items()}
     save_state(st, hasher2, fp2)
     print('\nrebuilt %d in dependency order.' % ok)
     return 0

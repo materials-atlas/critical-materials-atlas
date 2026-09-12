@@ -34,7 +34,7 @@ name rather than by anyone remembering.
 
 Run:  python build_sdmx.py
 """
-import json, os, gzip, csv, datetime
+import json, os, gzip, csv, datetime, io
 import pandas as pd
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -199,7 +199,12 @@ def build():
     d = d[cols]
 
     path = os.path.join(OUT, 'mineral_flows.sdmx.csv.gz')
-    with gzip.open(path, 'wt', encoding='utf-8', newline='') as f:
+    # mtime=0: gzip writes the current time into its header, so rebuilding an IDENTICAL table
+    # produced a different file every single time - churning a multi-megabyte binary in git and
+    # counting as a reproducibility failure that was never about the data. Found 12 Sep by
+    # decompressing both sides and finding them equal.
+    with gzip.GzipFile(path, 'wb', mtime=0) as _raw, \
+            io.TextIOWrapper(_raw, encoding='utf-8', newline='') as f:
         w = csv.writer(f)
         w.writerow(cols)
         for row in d.itertuples(index=False):
