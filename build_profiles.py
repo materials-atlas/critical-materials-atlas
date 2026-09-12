@@ -143,10 +143,14 @@ def topbar(active=''):
         return '<a href="' + href + '"' + cattr + '>' + label + '</a>'
     return ('<header class="topbar"><div class="wrap">'
             '<a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>'
+            # The SAME six items as the other 192 pages. These 61 carried an older menu
+            # (Methodology/Findings/Profiles/Note/Engine) that nothing else on the site
+            # used any more. Checked before dropping the Profiles link: explorer.html links
+            # to profiles.html and to individual profiles, so the index stays one click away
+            # via Explore and nothing becomes unreachable.
             '<nav class="topnav">'
-            f'{a("./","Atlas")}{a("methodology.html","Methodology")}{a("findings.html","Findings")}'
-            f'{a("profiles.html","Profiles")}{a("technical-note.html","Note","hideable")}'
-            '<a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a>'
+            f'{a("./","Atlas")}{a("explorer","Explore")}{a("value-chains","Value Chains")}'
+            f'{a("analysis","Analysis")}{a("reports","Reports")}{a("method","Method")}'
             '</nav></div></header>')
 
 FOOTER = ('<footer class="siteftr"><div class="wrap">'
