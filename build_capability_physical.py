@@ -18,6 +18,16 @@ d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))
 def nicename(m):
     t = m['title']; return t[:t.find('(')].strip() if '(' in t else t
 
+def leader(share):
+    """(winner, everyone level with it). The winner is picked alphabetically among ties so it is
+    the same on every run; the list is returned so a tie is never presented as a result."""
+    if not share:
+        return None, []
+    top = max(share.values())
+    tied = sorted(c for c, v in share.items() if v == top)
+    return tied[0], tied
+
+
 def typ(mine, ref):
     if ref < 3:
         return 'raw exporter' if mine >= 8 else 'minor'
@@ -33,7 +43,13 @@ for m in d['materials']:
     ref = {x['c']: x['v'] for x in (m.get('refined') or [])}
     if not mine and not ref:
         continue                              # nothing to show at all
-    countries = sorted(set(mine) | set(ref), key=lambda c: -max(mine.get(c, 0), ref.get(c, 0)))
+    # THE TIEBREAK IS NOT DECORATION. Sorting a set by value alone leaves tied countries in
+    # whatever order the set happened to iterate, which changes between processes because string
+    # hashing is randomised - so this file used to produce two different orderings from identical
+    # data, and the reproducibility audit caught it by running the builder twice. The ISO code is
+    # the tiebreak: arbitrary, but the SAME arbitrary every time, which is the whole requirement.
+    countries = sorted(set(mine) | set(ref),
+                       key=lambda c: (-max(mine.get(c, 0), ref.get(c, 0)), c))
     rows = []
     for c in countries:
         mm, rr = mine.get(c, 0), ref.get(c, 0)
@@ -41,11 +57,29 @@ for m in d['materials']:
         if t == 'minor':
             continue
         rows.append({'iso': c, 'mine': round(mm, 1), 'refine': round(rr, 1), 'type': t})
+    mlead, mtied = leader(mine)
+    rlead, rtied = leader(ref)
+    # Is the 7-row cut splitting a tie? Compare the last row shown with the first one dropped, on
+    # the same quantity the ordering used.
+    def _key(r):
+        return max(r['mine'], r['refine'])
+    cut_tie = bool(len(rows) > 7 and _key(rows[6]) == _key(rows[7]))
     out[m['label']] = {
         'name': nicename(m),
-        'mine_leader': max(mine, key=mine.get) if mine else None,
-        'refine_leader': max(ref, key=ref.get) if ref else None,
+        # max() over a dict returns the first key it meets at the highest value, and "first" is
+        # not defined when two countries are level. sorted() first makes the winner reproducible.
+        'mine_leader': mlead,
+        'refine_leader': rlead,
+        # A tie is reported, not resolved. Iran and Spain both mine 38% of world strontium; naming
+        # one of them the leader and dropping the other is a claim the data does not support.
+        'mine_leader_tied': mtied if len(mtied) > 1 else None,
+        'refine_leader_tied': rtied if len(rtied) > 1 else None,
         'refine_source': m.get('refined_source', ''),
+        # The card shows seven rows. Where the eighth is level with the seventh the cut is a coin
+        # toss, and the page must be able to say so: four countries refine 3% of world nickel and
+        # only three of them fit.
+        'rows_total': len(rows),
+        'cut_inside_tie': cut_tie,
         'rows': rows[:7]}
 
 json.dump(out, open(os.path.join(ROOT, 'out', 'capability_physical.json'), 'w', encoding='utf-8'),
