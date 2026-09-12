@@ -57,8 +57,20 @@ country's whole export basket — and both statements stay true after this plan.
 Congo's ISO code) had to be applied in two places independently. There are 53 places it could have
 been needed.
 
-**Proven — stale derived copies.** `risk.json` served a retracted germanium score for three weeks
-after `data.json` was corrected. A corrected source does not correct its copies.
+**Proven — stale derived copies. Twice, and the second time was found by accident.** `risk.json`
+served a retracted germanium score for three weeks after `data.json` was corrected, and `check_drift`
+was written to compare that one copy against its source. On **12 Sep** the reproducibility audit
+found `capability.json` serving the same retracted germanium figure — **0.94, against a corrected
+0.81** — five weeks on, plus a USA row the source no longer has, fluorspar at 0.60 against 0.65 and
+feldspar at 0.30 against 0.26. The guard had been aimed at the file that burned us and stopped
+there. A corrected source does not correct its copies, and a guard written for one copy does not
+guard the next one.
+
+*And the runner could not have caught it.* `runner.py --accept` records the committed tree as the
+baseline, which blesses whatever staleness is already in it; it detects change **from that point**.
+`repro_audit.py` asks the other question — does the builder still reproduce what is published — and
+that is the one that finds pre-existing drift. Neither tool subsumes the other, and this is the case
+that proves it.
 
 **Proven — the builders are behind what they publish. Measured 11 Sep, and the largest of the
 three.** The runner's first real use rebuilt eighteen builders correctly and produced eight pages
@@ -181,7 +193,7 @@ fail is not a guard.
 | I2 | one writer per artifact | observed graph | **13 violations** - see below |
 | I3 | every builder-to-builder edge is in the recorded graph | observed graph | recording first, enforcing later |
 | I4 | an output whose inputs or producer changed is stale **and gets rebuilt** | content hashes + topological rebuild | **live** - `runner.py`, gated by `check_stale` |
-| I7 | a builder reproduces the output it publishes | `repro_audit.py` vs the committed blob | **measured, 115 of 327 fail** - 37 builders refused by the runner |
+| I7 | a builder reproduces the output it publishes | `repro_audit.py` vs the committed blob | **136 of 327 when a builder is run ALONE** (was 150 on 11 Sep); the fair test adds the documented post-passes and is measured separately - 37 builders refused by the runner |
 | I5 | nothing reaches a public path without a licence decision | `licences.py`, injection-tested | **live** |
 | I6 | a published page names the vintage it was built from | string check over `out/*.html` | not built |
 
@@ -201,8 +213,18 @@ On I2: `grep` said zero double-writers. The graph found thirteen, in three kinds
   dependencies wearing the costume of a violation. The runner (phase 3) turns them into a
   declared order; until then they are the exact mechanism by which phase 1's first run degraded
   129 pages.
-- **Two are unclear** (`record_magnet.py` vs `record_magnets.py`; `add_tonnes.py` vs
-  `build_flows_fix.py`) and must be resolved by reading, not guessed at.
+- **Two were unclear, and both are now resolved — by running them, not by reading them.**
+  `add_tonnes.py` vs `build_flows_fix.py` have **converged**: alone and in either order each
+  produces the byte-identical committed `flows_2024.json` (`8c3119ae`), so the order is declared in
+  `runner.BREAK` with that measurement attached.
+  `record_magnet.py` vs `record_magnets.py` — one letter apart — was a **real bug**. Both wrote
+  `magnet-chain/out/magnet_chain.json` with *completely different documents*: the singular builds
+  the published chain page (`h1`, `deck`, `sections`, `hops`, `chokepoint`) and
+  `build_chokepoint_map.py` reads it; the plural builds a pilot's evidence tables
+  (`bgs_mine_production`, `usgs_world_production`, `global_trade`). Whichever ran last won. Running
+  the plural broke the chokepoint map inside a second — *map rows with no record: ['magnet']* —
+  which is the only luck in the story: had the two documents shared a few key names it would have
+  failed silently. The pilot now writes `magnet_pilot_evidence.json`. **11 double-writers left.**
 
 On I4 — **live since 11 Sep.** Hashing is over the **inputs and the producer's code**, never the
 output and never mtime: a builder's fingerprint is its own source, the content of every input
@@ -388,6 +410,25 @@ and 5 reach the cube**. The other 41 are reference and driver candidates. That i
 mistakes — a reference dataset is kept precisely so a future question can reach it — but it is the
 first time the ratio has been visible, and it is not checked by the gate, because turning it into a
 gate would reward deleting reference data to get a green tick.
+
+**The missing post-pass — 12 Sep.** The page half of I7 had a mechanical component and an
+editorial one, and only the mechanical one can be fixed by a machine. On 28 Aug a commit added the
+Google-recommended icon set to 244 pages and added *no script*, so every page built afterwards went
+out without it: 93 of 287 had no favicon, 96 no skip-link. `add_head.py` is that step, written down
+at last. Applied with the owner's go: 92 pages changed, favicons now on **286 of 286** publishable
+pages, skip-links 191 → 195, every changed file larger and none smaller.
+
+Its first run proved within the minute why it had to be a *build step* rather than a habit: the
+runner rebuilt `build_scheme.py` and `project-scheme.html` came straight back **without** the block.
+One page, undone immediately, by exactly the mechanism that cost 129 pages in phase 1. It is in the
+recorded graph now, ordered at position 115 of 269 — after every page builder — and it *writes by
+default*, because the runner invokes builders with no arguments and a post-pass that needed a flag
+would run on every rebuild and do nothing.
+
+Skip-links went only where there is something to skip **to**. 89 pages have no `id="main"` landmark
+and were left alone and named: a skip-link pointing at nothing announces an accessibility feature to
+a screen reader and then does not work, which is worse than not having one. Those 89 need their
+builders to emit a `<main>`, which is a separate job and is not quietly half-done.
 
 **Phase 5 — vintages.** Cut `release/v2026-Q4` once the graph is true, and only then. A frozen bag
 of undeclared edges is not a vintage; `BACI V202601` means *these source bytes plus this method*,
