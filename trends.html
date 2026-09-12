@@ -1,7 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/trends">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/trends">
 <title>Trends — 22 years of critical-material trade — Critical Materials Atlas</title>
 <meta name="description" content="The two-decade evolution of critical-material trade: export-share trend lines and concentration (HHI) for 32 materials, 2002-2024, and the rise of China across the marquee chains.">
 <meta property="og:title" content="Trends — 22 years of critical-material trade">
@@ -126,7 +125,7 @@ fetch('out/trends.json').then(r=>r.json()).then(T=>{
     .sort((a,b)=>b[1].stats.hhi.sen-a[1].stats.hhi.sen)
     .forEach(e=>{const k=e[0],m=e[1],s=m.stats.hhi,d=m.stats.dhhi,sig=s.mk_p_fdr<0.05&&s.sen>0;
       const tr=document.createElement('tr');
-      tr.innerHTML='<td><a href="profile-'+k+'">'+m.title+'</a></td>'+
+      tr.innerHTML='<td><a href="profile-'+k+'.html">'+m.title+'</a></td>'+
         '<td class="n" style="font-weight:600;color:'+(s.sen>0?'#c0392b':s.sen<0?'#3f9b46':'#9aa6ad')+'">'+(s.sen>=0?'+':'')+s.sen.toFixed(3)+'</td>'+
         '<td class="n"'+(sig?' style="font-weight:700"':'')+'>'+s.mk_p_fdr+'</td>'+
         '<td class="n">'+(s.brk_year||'—')+'</td>'+

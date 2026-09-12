@@ -1,7 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/network-sensitivity">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/network-sensitivity">
 <title>Does the chokepoint survive an uncapped graph? — Critical Materials Atlas</title>
 <meta name="description" content="A truncation-sensitivity test of the trade-network findings: China's throughput share, betweenness rank and node-removal fragility recomputed at top-6, top-10, top-20 and the full uncapped 2024 graph for 32 critical materials.">
 <meta property="og:title" content="Is China's network centrality a truncation artifact? (No.)">
@@ -65,7 +64,7 @@ fetch('out/network_sensitivity.json').then(r=>r.json()).then(S=>{
   S.rows.slice().sort((x,y)=>(y.full?y.full.cn_share:0)-(x.full?x.full.cn_share:0)).forEach(r=>{
     if(!r.top6||!r.full)return; const tr=document.createElement('tr');
     const rk=(r.top6.cn_bet_rank||'–')+'→'+(r.full.cn_bet_rank||'–');
-    tr.innerHTML='<td><a href="profile-'+r.lab+'">'+r.title+'</a></td>'+
+    tr.innerHTML='<td><a href="profile-'+r.lab+'.html">'+r.title+'</a></td>'+
       '<td class="n">'+r.top6.cn_share+'%</td><td class="n" style="font-weight:600">'+r.full.cn_share+'%</td>'+
       '<td class="n">'+rk+'</td><td class="n">'+r.top6.frag+'%→'+r.full.frag+'%</td>';
     tb.appendChild(tr);});

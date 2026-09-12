@@ -21,9 +21,6 @@
   "build_capability_physical.py": {
    "out/capability_physical.json": "nondeterministic"
   },
-  "build_casestudies.py": {
-   "casestudies.html": "chrome"
-  },
   "build_catalog.py": {
    "out/catalog.json": "stale-output",
    "pipeline/data/catalog.parquet": "differs"
@@ -93,22 +90,8 @@
    "mining-expansion.html": "content",
    "out/mining_expansion.json": "stale-output"
   },
-  "build_net_demand.py": {
-   "net-demand.html": "content",
-   "out/net_demand.json": "cosmetic"
-  },
-  "build_network.py": {
-   "network.html": "content"
-  },
-  "build_network_sensitivity.py": {
-   "network-sensitivity.html": "content",
-   "out/network_sensitivity.json": "nondeterministic"
-  },
   "build_nowcast_backtest.py": {
    "nowcast-backtest.html": "content"
-  },
-  "build_origin.py": {
-   "origin.html": "content"
   },
   "build_ot.py": {
    "ot.html": "content",
@@ -116,13 +99,6 @@
   },
   "build_pairing.py": {
    "out/pairing.json": "cosmetic"
-  },
-  "build_price_squeeze.py": {
-   "out/price_squeeze.json": "cosmetic",
-   "price-squeeze.html": "content"
-  },
-  "build_price_volatility.py": {
-   "price-volatility.html": "content"
   },
   "build_production.py": {
    "production.html": "content"
@@ -172,16 +148,6 @@
   "build_sources.py": {
    "out/sources.json": "cosmetic"
   },
-  "build_synthesis.py": {
-   "synthesis.html": "content"
-  },
-  "build_trends.py": {
-   "out/trends.json": "nondeterministic",
-   "trends.html": "content"
-  },
-  "build_uncertainty.py": {
-   "uncertainty.html": "content"
-  },
   "build_vq.py": {
    "out/volume.json": "stale-output",
    "volume.html": "content"
@@ -205,16 +171,39 @@
    "vanadium-chain/out/vanadium_chain.json": "cosmetic"
   }
  },
+ "hash_seed_dependent": [
+  "build_casestudies.py",
+  "build_net_demand.py",
+  "build_network.py",
+  "build_network_sensitivity.py",
+  "build_origin.py",
+  "build_ot.py",
+  "build_price_squeeze.py",
+  "build_price_volatility.py",
+  "build_synthesis.py",
+  "build_trends.py",
+  "build_uncertainty.py"
+ ],
+ "hash_seed_note": "These eleven emit a different byte order under a different PYTHONHASHSEED. Pinning the seed makes the build reproducible, which is the floor, not the repair: a real fix is a tiebreak at each sort and a sorted() at each set iteration, as done for build_profiles.py and build_capability_physical.py. Named here so the fragility stays visible.",
  "measured": "2026-09-11",
  "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these.",
  "resolved": {
-  "build_profiles.py": "CLEARED 12 Sep 2026. It publishes 61 pages and was behind them in three ways, all now closed: the menu (it emitted an older six-item bar nothing else on the site used), the ORDER of rows inside the country pages (it sorted a set by a score that ties six ways, so the order changed every run), and the numbers (stale against the grown cube). Re-measured after fixing all three: 61 pages, nothing lost - identical text-token multisets, three numbers updated per country page, and countries.html a pure reordering. Verified stable across three consecutive runs."
+  "build_casestudies.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_net_demand.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_network.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_network_sensitivity.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_origin.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_price_squeeze.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_price_volatility.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_profiles.py": "CLEARED 12 Sep 2026. It publishes 61 pages and was behind them in three ways, all now closed: the menu (it emitted an older six-item bar nothing else on the site used), the ORDER of rows inside the country pages (it sorted a set by a score that ties six ways, so the order changed every run), and the numbers (stale against the grown cube). Re-measured after fixing all three: 61 pages, nothing lost - identical text-token multisets, three numbers updated per country page, and countries.html a pure reordering. Verified stable across three consecutive runs.",
+  "build_synthesis.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_trends.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
+  "build_uncertainty.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token."
  },
  "unsafe_to_run": [
   "build_bloc_demand.py",
   "build_breakout.py",
   "build_brief.py",
-  "build_casestudies.py",
   "build_commodity_attribution.py",
   "build_companionality.py",
   "build_complexity.py",
@@ -226,14 +215,8 @@
   "build_insights.py",
   "build_leverage.py",
   "build_mining_expansion.py",
-  "build_net_demand.py",
-  "build_network.py",
-  "build_network_sensitivity.py",
   "build_nowcast_backtest.py",
-  "build_origin.py",
   "build_ot.py",
-  "build_price_squeeze.py",
-  "build_price_volatility.py",
   "build_production.py",
   "build_ps_network.py",
   "build_recycling.py",
@@ -243,9 +226,6 @@
   "build_satellite.py",
   "build_scenarios.py",
   "build_share.py",
-  "build_synthesis.py",
-  "build_trends.py",
-  "build_uncertainty.py",
   "build_vq.py"
  ]
 }

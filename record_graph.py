@@ -293,12 +293,27 @@ def snapshot_data():
     return keep
 
 
+# A BUILD IS NOT REPRODUCIBLE WHILE SET ITERATION IS RANDOM.
+# Python randomises string hashing per process, so any builder that iterates a set - or sorts by a
+# value that ties and lets the input order decide - emits a different file every run. Measured, not
+# assumed: build_trends.py and build_ot.py each produce three byte-identical outputs with the seed
+# pinned, and a different output under a different seed. Eleven builders behave this way.
+#
+# This is the same fix as pinning gzip's mtime earlier today: the output was never about the data,
+# and a build that cannot reproduce itself cannot be checked against anything. It is a floor, not
+# an excuse - the eleven are named in _regressing_builders.json under `hash_seed_dependent`, so the
+# fragility stays visible. A builder that needs a fixed seed to be stable would still shuffle under
+# a different Python, and the real repair is a tiebreak at each site.
+_ENV = dict(os.environ)
+_ENV['PYTHONHASHSEED'] = '0'
+
+
 def run(script, timeout):
     probe = PROBE % {'root': ROOT, 'script': script}
     t0 = time.time()
     try:
         p = subprocess.run([sys.executable, '-c', probe], capture_output=True, text=True,
-                           timeout=timeout, cwd=ROOT)
+                           timeout=timeout, cwd=ROOT, env=_ENV)
         err = p.stderr or ''
     except subprocess.TimeoutExpired:
         return {'exit': 'TIMEOUT', 'reads': [], 'writes': [], 'secs': round(time.time() - t0, 1)}

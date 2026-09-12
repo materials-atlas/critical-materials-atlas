@@ -132,6 +132,21 @@ ORDER = [('add_canonicals.py', 'add_head.py'),     # (first, second)
 POST_PASSES = ('add_canonicals.py', 'add_head.py', 'clean_links.py')
 
 
+# A BUILD IS NOT REPRODUCIBLE WHILE SET ITERATION IS RANDOM.
+# Python randomises string hashing per process, so any builder that iterates a set - or sorts by a
+# value that ties and lets the input order decide - emits a different file every run. Measured, not
+# assumed: build_trends.py and build_ot.py each produce three byte-identical outputs with the seed
+# pinned, and a different output under a different seed. Eleven builders behave this way.
+#
+# This is the same fix as pinning gzip's mtime earlier today: the output was never about the data,
+# and a build that cannot reproduce itself cannot be checked against anything. It is a floor, not
+# an excuse - the eleven are named in _regressing_builders.json under `hash_seed_dependent`, so the
+# fragility stays visible. A builder that needs a fixed seed to be stable would still shuffle under
+# a different Python, and the real repair is a tiebreak at each site.
+_ENV = dict(os.environ)
+_ENV['PYTHONHASHSEED'] = '0'
+
+
 def sha_bytes(b):
     return hashlib.sha256(b).hexdigest()[:20]
 
@@ -442,7 +457,8 @@ def main():
     ok = 0
     for n, b in enumerate(stale, 1):
         t0 = time.time()
-        p = subprocess.run([sys.executable, b], cwd=ROOT, capture_output=True, text=True)
+        p = subprocess.run([sys.executable, b], cwd=ROOT, capture_output=True, text=True,
+                           env=_ENV)
         secs = time.time() - t0
         if p.returncode != 0:
             print(' ! [%2d/%2d] %-44s FAILED in %.1fs' % (n, len(stale), b, secs))
