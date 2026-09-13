@@ -71,6 +71,18 @@ FLOWS = os.path.join(ROOT, 'pipeline', 'data', 'flows_reconciled.parquet')
 TWO_SIDED = 'CMA two-sided reconciliation'
 ONE_SIDED = 'CMA single-declaration passthrough'
 
+# STAGE COMES FROM THE CODE LIST, NOT A CONSTANT. Every monthly row used to be written with
+# stage='unspecified'. That was harmless while the monthly layer held only metal and ore codes, and
+# it silently broke the compound stage the day the seven compound codes arrived (13 Sep 2026):
+# 503,751 monthly rows of lithium hydroxide, nickel sulphate and the oxides landed in the cube as
+# 'unspecified', sitting next to the metals - which is exactly the tonne-of-oxide-summed-with-a-
+# tonne-of-metal error the compound stage exists to prevent. The annual BACI rows were right all
+# along; only this path hard-coded the stage. Codes the list does not stage keep 'unspecified', so
+# no existing row changes.
+import json as _json
+_CODES = _json.load(open(os.path.join(ROOT, 'pipeline', 'critical_codes.json'), encoding='utf-8'))['codes']
+STAGE_BY_HS6 = {str(c['hs6']): c['stage'] for c in _CODES if c.get('stage')}
+
 
 def build():
     if not os.path.exists(FLOWS):
@@ -98,7 +110,7 @@ def build():
                     'freq': 'M', 'period': per,
                     'measure_family': 'trade', 'measure': measure,
                     'flow_direction': 'out' if direction == 'exports' else 'in',
-                    'stage': 'unspecified', 'code_system': 'HS6', 'native_code': str(r.hs6),
+                    'stage': STAGE_BY_HS6.get(str(r.hs6), 'unspecified'), 'code_system': 'HS6', 'native_code': str(r.hs6),
                     'native_label': str(r.hs6), 'sub_commodity': None,
                     'value': v * (to_tonnes or 1.0), 'unit': unit,
                     # A weight is a real tonnage and carries its factor and basis. Money is not a
