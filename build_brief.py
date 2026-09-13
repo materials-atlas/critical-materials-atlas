@@ -104,7 +104,7 @@ out = f'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Key findings · one page</div>
   <h1>Where critical materials really come from — and how the squeeze tightened</h1>
-  <p>32 critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Varcolacus · public data only · {yrs[0]}–{yrs[-1]}</p>
+  <p>32 critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Critical Materials Atlas · public data only · {yrs[0]}–{yrs[-1]}</p>
 </div></section>
 <main>
   <div class="f"><div class="k">Finding 1 · the origin gap</div>
