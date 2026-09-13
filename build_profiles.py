@@ -151,16 +151,12 @@ def topbar(active=''):
             '<nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>')
 
 FOOTER = ('<footer class="siteftr"><div class="wrap">'
- '<div><h4>Critical Materials Atlas</h4>An independent demonstration from public data: where 32 critical raw '
- 'materials are mined, refined, traded and held in reserve — and why import-origin statistics misidentify the '
- 'real source. Not affiliated with, nor representing, any institution.</div>'
- '<div><h4>Navigate</h4><a href="./">Interactive atlas</a><br><a href="insights.html">State of supply</a><br>'
- '<a href="profiles.html">Material profiles</a><br><a href="countries.html">By country</a><br>'
- '<a href="findings.html">The origin gap</a><br>'
- '<a href="risk.html">Supply-risk index</a><br><a href="scenarios.html">Supply-shock scenarios</a><br>'
- '<a href="methodology.html">Methodology</a><br><a href="data.html">Data &amp; API</a></div>'
- '<div><h4>Sources</h4>USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>'
- 'UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank</div>'
+ '<div><h4>Critical Materials Atlas</h4>An independent, public-data demonstration of the critical '
+ 'raw-materials value chain. Not affiliated with, nor representing, any institution.</div>'
+ '<div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br>'
+ '<a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>'
+ '<div><h4>Sources</h4>USGS · BGS World Mineral Statistics<br>IEA · EU CRM 2023<br>'
+ 'UN Comtrade · CEPII BACI · Eurostat</div>'
  f'<div class="fineprint">Figures computed from public data (trade year {YEAR}, reconciled CEPII BACI; '
  'mine/refine/reserves USGS &amp; IEA, approximate). An overlay of distinct measures, not one observed pipeline. '
  f'Data updated {e(STAMP)}.</div></div></footer>')

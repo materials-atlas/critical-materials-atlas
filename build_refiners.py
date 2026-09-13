@@ -151,11 +151,10 @@ HTML = '''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-  <a href="product-space.html" class="hideable">Product space</a><a href="complexity.html" class="hideable">Complexity</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="product-space">Product space</a><a href="complexity">Complexity</a></nav>
   <div class="eyebrow">Method · capability, not exports</div>
   <h1>Who actually refines</h1>
   <p class="deck">The refiner is not the miner &mdash; but the exporter is not always the refiner either. This is a <b>capability map</b>: for each material it fuses two lenses to show who genuinely turns ore into refined metal. The <b>trade feedstock signature</b> (a country that <i>imports ore and exports refined</i> is transforming it &mdash; a fingerprint that survives export controls) plus <b>BGS/USGS physical output</b>, which catches the <i>domestic-absorbing</i> refiner &mdash; a giant like China that refines enormous volumes but consumes them at home, so it never shows up in refined exports.</p>

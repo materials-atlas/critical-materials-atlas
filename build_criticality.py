@@ -182,11 +182,10 @@ out = f'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-  <a href="risk.html" class="hideable">Risk</a><a href="network.html" class="hideable">Network</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="risk">Risk</a><a href="network">Network</a></nav>
   <div class="eyebrow">Method · established frameworks</div>
   <h1>Concentration in risky places</h1>
   <p class="deck">The official criticality methods (EU/SCRREEN, Graedel/Yale) add the ingredient our index leaves out: <i>governance</i>. The same concentration is more dangerous in a fragile state than in a stable democracy. Weighting by World Bank governance scores reorders the risk list — and shows exactly which materials move.</p>

@@ -279,11 +279,10 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="casestudies.html">Validation</a>
-  <a href="cascade.html" class="hideable">Cascade</a><a href="findings.html" class="hideable">Findings</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="casestudies">Validation</a><a href="cascade">Cascade</a><a href="findings">Findings</a></nav>
   <div class="eyebrow">Method · production · cross-source validation</div>
   <h1>The atlas in real tonnes</h1>
   <p class="deck">Every other page works in shares or trade value. This one brings in absolute physical production &mdash; and <i>two more independently compiled</i> sources. World Mining Data (Austrian ministry) gives mine output in metric tonnes; the British Geological Survey&rsquo;s World Mineral Statistics adds a third count. Laid beside the atlas&rsquo;s USGS-derived shares they do two things at once: show the <b>scale</b> nobody sees, and <b>triangulate</b> whether the producer geography holds up when two other compilations count it separately &mdash; and, where they disagree, let the two independents adjudicate.</p>

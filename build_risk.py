@@ -146,11 +146,10 @@ def main():
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="methodology.html">Methodology</a><a href="findings.html">Findings</a>
-  <a href="profiles.html" class="hideable">Profiles</a><a href="scenarios.html" class="hideable">Scenarios</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="profiles">Profiles</a><a href="scenarios">Scenarios</a></nav>
   <div class="eyebrow">Index · supply risk</div>
   <h1>Supply-risk index</h1>
   <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>

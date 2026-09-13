@@ -198,11 +198,10 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="companionality.html">Hostage metals</a><a href="scenarios.html">Scenarios</a>
-  <a href="host-shock.html" class="hideable">Host shock</a><a href="methodology.html" class="hideable">Methodology</a>
-  <a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="companionality">Hostage metals</a><a href="scenarios">Scenarios</a><a href="host-shock">Host shock</a><a href="methodology">Methodology</a></nav>
   <div class="eyebrow">Method · systemic · cascade</div>
   <h1>The shock, and its echo</h1>
   <p class="deck">A shock to a producer country doesn&rsquo;t stop at what it mines. Where a lost material is a <a href="host-shock.html" style="color:#fff;text-decoration:underline">host</a>, the by-product <a href="companionality.html" style="color:#fff;text-decoration:underline">companions</a> riding on it fall too &mdash; Congo&rsquo;s copper is also a cobalt shock. This capstone cascades a country&rsquo;s shock through production, the companion web, and trade, and scores who is the real single point of failure.</p>

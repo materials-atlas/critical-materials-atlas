@@ -255,10 +255,10 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="bloc-demand.html">Demand by bloc</a><a href="net-demand.html">Net demand</a>
-  <a href="limitations.html" class="hideable">Limitations</a><a href="https://github.com/materials-atlas/critical-materials-atlas" class="hideable">Engine</a></nav>
+  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
+  <nav class="related" aria-label="Related pages"><span>Related</span><a href="bloc-demand">Demand by bloc</a><a href="net-demand">Net demand</a><a href="limitations">Limitations</a></nav>
   <div class="eyebrow">Method · demand · apparent consumption</div>
   <h1>Who actually <i>uses</i> each metal?</h1>
   <p class="deck">Imports show who buys a metal; <a href="net-demand.html" style="color:#fff;text-decoration:underline">net trade</a> shows who keeps it — but both erase the metal a country refines and consumes <b>at home</b>. Apparent consumption adds domestic production back in. It is the textbook measure, and every metal is <b>graded A–D on a scorecard</b> — only the ones that earn it are published as measured.</p>
