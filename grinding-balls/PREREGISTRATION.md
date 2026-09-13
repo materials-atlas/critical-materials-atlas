@@ -1,0 +1,103 @@
+# Pre-registration — grinding balls as a public proxy for ore milled
+
+**Filed 2026-09-13, before any regression has been run.** Only size, scope and data-hygiene facts
+were measured before this was written (listed below). Everything that decides pass or fail is fixed
+here first, so the result cannot be tuned to the data.
+
+The design was drafted with two independent language models acting as advisors, run separately on
+the same brief, and reconciled by hand. Where they disagreed, the stricter choice was kept.
+
+## The question
+
+Grinding balls are the steel media that wear away inside SAG and ball mills. Consumption should scale
+with **tonnes of rock milled**, not with tonnes of metal produced. If customs data sees them, two things
+follow:
+
+1. **Throughput.** A country's ball consumption tracks its ore milled.
+2. **Grade.** Balls per tonne of contained metal rise as ore grade falls (more rock per tonne of copper).
+
+This is a *contemporaneous* proxy test. It is not a leading-indicator test.
+
+## What was measured before filing (and only this)
+
+- Two customs codes: **732611** forged or stamped balls, **732591** cast balls.
+- 732611 world trade (CEPII BACI HS02, quantity): 422 kt (2002) → 1,547 kt (2024). China supplies 72%.
+  Largest 2024 importers: Chile 227, Brazil 148, Peru 140, Kazakhstan 124, Australia 71 kt.
+- 732591 world trade: ~300–600 kt a year, with a 2012 outlier of 1,372 kt. The outlier is one flow,
+  Bahrain → Qatar, 783 kt at **$174/t** against a world unit value of $1,100–1,450/t in adjacent
+  years. It is not grinding balls. Smaller flows of the same kind exist (Ghana → India 2011, $110/t).
+- Chile imports 227 kt and exports 83 kt of forged balls. It, like Peru, Australia, South Africa, the
+  United States and Canada, makes balls domestically, and no public series gives that output.
+
+## Data rules (fixed)
+
+- **Primary code: 732611, quantity only.** Values follow Chinese export prices and are not used.
+  732591 is contaminated by cement mills and enters robustness checks only.
+- **Unit-value screen.** A bilateral flow is dropped when its unit value lies outside **0.4×–3×** the
+  quantity-weighted world median unit value of that code and year. The tonnes dropped are reported.
+- **Apparent consumption** AC = screened imports − screened exports, floored at zero.
+- **Ore milled, Q.** Q = Σ contained metal ÷ (head grade × recovery), over copper, gold, and lead + zinc,
+  from BGS World Mineral Statistics mine production. Where no country grade series exists, fixed
+  global constants are used, declared now: copper 0.60% at 85% recovery; gold 1.5 g/t at 88%; lead + zinc
+  6% combined at 85%. Iron ore is **excluded**: most of it is direct-shipping ore that is never milled.
+- **Intensity band** (kg of media per tonne of ore milled): copper 0.4–1.4, gold 0.8–2.5, lead-zinc
+  0.4–1.2. Both advisors gave overlapping ranges from the comminution literature (Wills; SME handbook;
+  Napier-Munn et al.). **These ranges are to be verified against a primary source before publication;
+  if the verified band differs, the gate is re-run with it and the change is logged below.**
+
+## Sample (fixed before seeing any AC-Q relationship)
+
+Countries whose estimated Q exceeds **20 Mt of ore in 2024**, years 2002–2024.
+
+## Step 1 — the coverage gate
+
+For each country, the 2022–24 mean AC divided by the mid-band ball demand (Q × band midpoint):
+
+| Ratio | Tier | Use |
+|---|---|---|
+| ≥ 0.5 | **A — import-dependent** | enters the tests |
+| 0.1 – 0.5 | **B — domestic supply dominates** | reported, never decides a test |
+| < 0.1 | excluded | imports are not the input |
+| > 2 × upper band | flagged | re-export or misclassification; excluded |
+
+If fewer than **6** countries reach tier A, the study stops at the gate and publishes the gate. That is
+a finding in its own right (as it was for explosives).
+
+## Step 2 — throughput test (tier A)
+
+`Δlog AC_it = β · Δlog Q_it + α_i + γ_t + ε_it`, standard errors clustered by country, Driscoll–Kraay
+as robustness.
+
+**Pass only if all hold:**
+1. β ∈ **[0.4, 1.5]** and p < 0.05.
+2. Leave-one-country-out: every β stays within **[0.3, 1.7]**.
+3. **Horse race.** Adding cement production growth does not push β out of band, and Q stays the
+   stronger regressor. If no cement series can be obtained for tier A, the pass is labelled
+   *incomplete*, not a pass.
+4. **Placebo code.** The same regression on **731815** (threaded screws and bolts of iron or steel: a
+   general industrial steel import) gives a β outside the band or insignificant.
+5. **Negative control.** In Australia, direct-shipping iron ore tonnage does not predict ball
+   consumption: its coefficient's 95% interval includes zero.
+
+**Automatic fail:** β identified only in levels, only in values, or only when 732591 is pooled in.
+
+## Step 3 — grade test (conditional)
+
+`log(AC_it / contained Cu_it) = δ · log(1 / (grade_it × recovery)) + α_i + γ_t + u_it`
+
+Run only for tier-A countries with a public **mill head grade** series (COCHILCO for Chile, MINEM for
+Peru, or equivalent). Pass if δ ∈ **[0.5, 1.5]** and the same ratio does not rise equally in
+countries with no grade decline. Tier-B countries (Chile is expected to be one) are shown descriptively
+and cannot pass the test. **If no tier-A country has a grade series, the page says the grade question
+is not testable from public data.** No proxy grade will be substituted.
+
+## Commitments
+
+1. No edits to this file's rules after this commit; any deviation is appended below with its date and
+   reason.
+2. The result is published whatever it is: gate only, pass, or fail.
+3. Every figure, including flows dropped by the screen, is written to `out/grinding_balls.json`.
+
+## Deviations log
+
+*(none)*
