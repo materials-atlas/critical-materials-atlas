@@ -14,7 +14,7 @@
   "vintage"
  ],
  "join_rule": "Facts: pin the full identity. Attributes: name a vintage or take is_current. Never match on the material label alone.",
- "n_identities": 1218,
+ "n_identities": 1266,
  "n_materials": 90,
  "materials": {
   "aggregates": {
@@ -242,6 +242,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 8375,
+     "countries": 88,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports",
      "stage": "unspecified",
      "basis": "gross",
      "unit": "tonnes (metric)",
@@ -249,8 +263,22 @@
       2002,
       2026
      ],
-     "rows": 8690,
-     "countries": 113,
+     "rows": 6911,
+     "countries": 112,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 2892,
+     "countries": 48,
      "tonnage_convertible": true
     },
     {
@@ -260,10 +288,10 @@
      "basis": "gross",
      "unit": "tonnes (metric)",
      "years": [
-      2002,
+      2003,
       2026
      ],
-     "rows": 1857,
+     "rows": 1560,
      "countries": 44,
      "tonnage_convertible": true
     },
@@ -354,6 +382,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 8457,
+     "countries": 89,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -361,8 +403,22 @@
       2002,
       2026
      ],
-     "rows": 8841,
-     "countries": 114,
+     "rows": 7015,
+     "countries": 113,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 3096,
+     "countries": 48,
      "tonnage_convertible": false
     },
     {
@@ -375,9 +431,23 @@
       2002,
       2026
      ],
-     "rows": 2083,
+     "rows": 1779,
      "countries": 45,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 13296,
+     "countries": 149,
+     "tonnage_convertible": true
     },
     {
      "source": "CMA single-declaration passthrough",
@@ -389,22 +459,22 @@
       2002,
       2026
      ],
-     "rows": 12955,
-     "countries": 151,
+     "rows": 10208,
+     "countries": 146,
      "tonnage_convertible": true
     },
     {
      "source": "CMA two-sided reconciliation",
      "measure": "imports",
-     "stage": "unspecified",
+     "stage": "compound",
      "basis": "gross",
      "unit": "tonnes (metric)",
      "years": [
       2002,
       2026
      ],
-     "rows": 2289,
-     "countries": 72,
+     "rows": 5975,
+     "countries": 85,
      "tonnage_convertible": true
     },
     {
@@ -447,6 +517,20 @@
      ],
      "rows": 2016,
      "countries": 157,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2003,
+      2026
+     ],
+     "rows": 1852,
+     "countries": 70,
      "tonnage_convertible": true
     },
     {
@@ -494,6 +578,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 13507,
+     "countries": 150,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -501,8 +599,22 @@
       2002,
       2026
      ],
-     "rows": 13225,
-     "countries": 152,
+     "rows": 10428,
+     "countries": 146,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 6320,
+     "countries": 86,
      "tonnage_convertible": false
     },
     {
@@ -515,8 +627,8 @@
       2002,
       2026
      ],
-     "rows": 2742,
-     "countries": 77,
+     "rows": 2309,
+     "countries": 76,
      "tonnage_convertible": false
     },
     {
@@ -865,7 +977,7 @@
       2000,
       2026
      ],
-     "rows": 6224,
+     "rows": 6225,
      "countries": 143,
      "tonnage_convertible": true
     },
@@ -935,7 +1047,7 @@
       2000,
       2026
      ],
-     "rows": 6811,
+     "rows": 6812,
      "countries": 148,
      "tonnage_convertible": false
     },
@@ -1263,7 +1375,7 @@
       2000,
       2026
      ],
-     "rows": 13199,
+     "rows": 13207,
      "countries": 144,
      "tonnage_convertible": true
     },
@@ -1333,7 +1445,7 @@
       2000,
       2026
      ],
-     "rows": 13314,
+     "rows": 13321,
      "countries": 145,
      "tonnage_convertible": false
     },
@@ -1361,7 +1473,7 @@
       2000,
       2026
      ],
-     "rows": 22781,
+     "rows": 22784,
      "countries": 204,
      "tonnage_convertible": true
     },
@@ -1431,7 +1543,7 @@
       2000,
       2026
      ],
-     "rows": 22987,
+     "rows": 22990,
      "countries": 204,
      "tonnage_convertible": false
     },
@@ -1603,7 +1715,7 @@
       2000,
       2026
      ],
-     "rows": 12399,
+     "rows": 12406,
      "countries": 165,
      "tonnage_convertible": true
     },
@@ -1687,7 +1799,7 @@
       2000,
       2026
      ],
-     "rows": 12612,
+     "rows": 12615,
      "countries": 165,
      "tonnage_convertible": false
     },
@@ -1715,7 +1827,7 @@
       2000,
       2026
      ],
-     "rows": 16427,
+     "rows": 16436,
      "countries": 182,
      "tonnage_convertible": true
     },
@@ -1799,7 +1911,7 @@
       2000,
       2026
      ],
-     "rows": 16636,
+     "rows": 16643,
      "countries": 182,
      "tonnage_convertible": false
     },
@@ -2626,7 +2738,7 @@
       2012,
       2026
      ],
-     "rows": 5622,
+     "rows": 5624,
      "countries": 110,
      "tonnage_convertible": true
     },
@@ -2668,7 +2780,7 @@
       2012,
       2026
      ],
-     "rows": 5723,
+     "rows": 5724,
      "countries": 111,
      "tonnage_convertible": false
     },
@@ -2696,7 +2808,7 @@
       2012,
       2026
      ],
-     "rows": 9917,
+     "rows": 9924,
      "countries": 182,
      "tonnage_convertible": true
     },
@@ -2738,7 +2850,7 @@
       2012,
       2026
      ],
-     "rows": 10147,
+     "rows": 10153,
      "countries": 182,
      "tonnage_convertible": false
     },
@@ -3835,19 +3947,19 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
-     "stage": "unspecified",
+     "stage": "compound",
      "basis": "gross",
      "unit": "tonnes (metric)",
      "years": [
-      2000,
+      2002,
       2026
      ],
-     "rows": 12686,
-     "countries": 127,
+     "rows": 16257,
+     "countries": 175,
      "tonnage_convertible": true
     },
     {
-     "source": "CMA two-sided reconciliation",
+     "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
      "basis": "gross",
@@ -3856,8 +3968,22 @@
       2000,
       2026
      ],
-     "rows": 2804,
-     "countries": 54,
+     "rows": 8843,
+     "countries": 112,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 7743,
+     "countries": 81,
      "tonnage_convertible": true
     },
     {
@@ -3872,6 +3998,20 @@
      ],
      "rows": 2405,
      "countries": 191,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2000,
+      2026
+     ],
+     "rows": 2146,
+     "countries": 52,
      "tonnage_convertible": true
     },
     {
@@ -3961,6 +4101,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 16503,
+     "countries": 176,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -3968,8 +4122,22 @@
       2000,
       2026
      ],
-     "rows": 12942,
-     "countries": 128,
+     "rows": 8995,
+     "countries": 112,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 8268,
+     "countries": 83,
      "tonnage_convertible": false
     },
     {
@@ -3982,9 +4150,23 @@
       2000,
       2026
      ],
-     "rows": 3157,
-     "countries": 55,
+     "rows": 2488,
+     "countries": 53,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 32272,
+     "countries": 217,
+     "tonnage_convertible": true
     },
     {
      "source": "CMA single-declaration passthrough",
@@ -3996,22 +4178,22 @@
       2000,
       2026
      ],
-     "rows": 20866,
-     "countries": 190,
+     "rows": 13921,
+     "countries": 175,
      "tonnage_convertible": true
     },
     {
      "source": "CMA two-sided reconciliation",
      "measure": "imports",
-     "stage": "unspecified",
+     "stage": "compound",
      "basis": "gross",
      "unit": "tonnes (metric)",
      "years": [
-      2000,
+      2002,
       2026
      ],
-     "rows": 4427,
-     "countries": 93,
+     "rows": 12645,
+     "countries": 135,
      "tonnage_convertible": true
     },
     {
@@ -4026,6 +4208,20 @@
      ],
      "rows": 4192,
      "countries": 220,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2000,
+      2026
+     ],
+     "rows": 3605,
+     "countries": 88,
      "tonnage_convertible": true
     },
     {
@@ -4115,6 +4311,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 32686,
+     "countries": 217,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -4122,8 +4332,22 @@
       2000,
       2026
      ],
-     "rows": 21345,
-     "countries": 193,
+     "rows": 14250,
+     "countries": 177,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 13781,
+     "countries": 138,
      "tonnage_convertible": false
     },
     {
@@ -4136,8 +4360,8 @@
       2000,
       2026
      ],
-     "rows": 5038,
-     "countries": 96,
+     "rows": 4148,
+     "countries": 92,
      "tonnage_convertible": false
     },
     {
@@ -4396,7 +4620,7 @@
       2000,
       2026
      ],
-     "rows": 13121,
+     "rows": 13125,
      "countries": 170,
      "tonnage_convertible": true
     },
@@ -4438,7 +4662,7 @@
       2000,
       2026
      ],
-     "rows": 13337,
+     "rows": 13341,
      "countries": 170,
      "tonnage_convertible": false
     },
@@ -4466,7 +4690,7 @@
       2000,
       2026
      ],
-     "rows": 19244,
+     "rows": 19248,
      "countries": 192,
      "tonnage_convertible": true
     },
@@ -4508,7 +4732,7 @@
       2000,
       2026
      ],
-     "rows": 19778,
+     "rows": 19782,
      "countries": 192,
      "tonnage_convertible": false
     },
@@ -4600,7 +4824,7 @@
       2000,
       2026
      ],
-     "rows": 15775,
+     "rows": 15779,
      "countries": 161,
      "tonnage_convertible": true
     },
@@ -4698,7 +4922,7 @@
       2000,
       2026
      ],
-     "rows": 15900,
+     "rows": 15904,
      "countries": 162,
      "tonnage_convertible": false
     },
@@ -4726,7 +4950,7 @@
       2000,
       2026
      ],
-     "rows": 17038,
+     "rows": 17042,
      "countries": 185,
      "tonnage_convertible": true
     },
@@ -4824,7 +5048,7 @@
       2000,
       2026
      ],
-     "rows": 17282,
+     "rows": 17285,
      "countries": 185,
      "tonnage_convertible": false
     },
@@ -5509,7 +5733,7 @@
       2000,
       2026
      ],
-     "rows": 12419,
+     "rows": 12423,
      "countries": 134,
      "tonnage_convertible": true
     },
@@ -5579,7 +5803,7 @@
       2000,
       2026
      ],
-     "rows": 12528,
+     "rows": 12532,
      "countries": 135,
      "tonnage_convertible": false
     },
@@ -5607,7 +5831,7 @@
       2000,
       2026
      ],
-     "rows": 20771,
+     "rows": 20775,
      "countries": 174,
      "tonnage_convertible": true
     },
@@ -5621,7 +5845,7 @@
       2000,
       2026
      ],
-     "rows": 9405,
+     "rows": 9406,
      "countries": 107,
      "tonnage_convertible": true
     },
@@ -5663,7 +5887,7 @@
       2000,
       2026
      ],
-     "rows": 20894,
+     "rows": 20898,
      "countries": 174,
      "tonnage_convertible": false
     },
@@ -5677,7 +5901,7 @@
       2000,
       2026
      ],
-     "rows": 9863,
+     "rows": 9864,
      "countries": 104,
      "tonnage_convertible": false
     },
@@ -5849,7 +6073,7 @@
       2000,
       2026
      ],
-     "rows": 6586,
+     "rows": 6589,
      "countries": 91,
      "tonnage_convertible": true
     },
@@ -5919,7 +6143,7 @@
       2000,
       2026
      ],
-     "rows": 6638,
+     "rows": 6641,
      "countries": 91,
      "tonnage_convertible": false
     },
@@ -5947,7 +6171,7 @@
       2000,
       2026
      ],
-     "rows": 10498,
+     "rows": 10500,
      "countries": 140,
      "tonnage_convertible": true
     },
@@ -6017,7 +6241,7 @@
       2000,
       2026
      ],
-     "rows": 10610,
+     "rows": 10612,
      "countries": 141,
      "tonnage_convertible": false
     },
@@ -6235,7 +6459,7 @@
       2024,
       2026
      ],
-     "rows": 17,
+     "rows": 19,
      "countries": 6,
      "tonnage_convertible": true
     },
@@ -6263,8 +6487,8 @@
       2024,
       2025
      ],
-     "rows": 3,
-     "countries": 2,
+     "rows": 4,
+     "countries": 3,
      "tonnage_convertible": true
     },
     {
@@ -6277,7 +6501,7 @@
       2024,
       2026
      ],
-     "rows": 17,
+     "rows": 18,
      "countries": 5,
      "tonnage_convertible": false
     },
@@ -6291,8 +6515,8 @@
       2024,
       2026
      ],
-     "rows": 7,
-     "countries": 4,
+     "rows": 6,
+     "countries": 3,
      "tonnage_convertible": false
     },
     {
@@ -6333,8 +6557,8 @@
       2024,
       2026
      ],
-     "rows": 22,
-     "countries": 10,
+     "rows": 24,
+     "countries": 11,
      "tonnage_convertible": true
     },
     {
@@ -6361,8 +6585,8 @@
       2024,
       2026
      ],
-     "rows": 22,
-     "countries": 10,
+     "rows": 23,
+     "countries": 11,
      "tonnage_convertible": false
     },
     {
@@ -6375,7 +6599,7 @@
       2024,
       2026
      ],
-     "rows": 7,
+     "rows": 6,
      "countries": 3,
      "tonnage_convertible": false
     },
@@ -6531,7 +6755,7 @@
       2002,
       2026
      ],
-     "rows": 8366,
+     "rows": 8367,
      "countries": 110,
      "tonnage_convertible": true
     },
@@ -6545,7 +6769,7 @@
       2002,
       2026
      ],
-     "rows": 1997,
+     "rows": 1998,
      "countries": 43,
      "tonnage_convertible": true
     },
@@ -6559,7 +6783,7 @@
       2002,
       2026
      ],
-     "rows": 8633,
+     "rows": 8632,
      "countries": 113,
      "tonnage_convertible": false
     },
@@ -6573,7 +6797,7 @@
       2002,
       2026
      ],
-     "rows": 2429,
+     "rows": 2427,
      "countries": 44,
      "tonnage_convertible": false
     },
@@ -6587,7 +6811,7 @@
       2002,
       2026
      ],
-     "rows": 10789,
+     "rows": 10790,
      "countries": 147,
      "tonnage_convertible": true
     },
@@ -6601,7 +6825,7 @@
       2002,
       2026
      ],
-     "rows": 2530,
+     "rows": 2529,
      "countries": 62,
      "tonnage_convertible": true
     },
@@ -6615,7 +6839,7 @@
       2002,
       2026
      ],
-     "rows": 11477,
+     "rows": 11476,
      "countries": 151,
      "tonnage_convertible": false
     },
@@ -6629,7 +6853,7 @@
       2002,
       2026
      ],
-     "rows": 3781,
+     "rows": 3778,
      "countries": 65,
      "tonnage_convertible": false
     }
@@ -6868,7 +7092,7 @@
       2024,
       2026
      ],
-     "rows": 28,
+     "rows": 31,
      "countries": 10,
      "tonnage_convertible": true
     },
@@ -6896,8 +7120,8 @@
       2024,
       2026
      ],
-     "rows": 8,
-     "countries": 3,
+     "rows": 10,
+     "countries": 4,
      "tonnage_convertible": true
     },
     {
@@ -6910,8 +7134,8 @@
       2024,
       2026
      ],
-     "rows": 20,
-     "countries": 8,
+     "rows": 22,
+     "countries": 9,
      "tonnage_convertible": false
     },
     {
@@ -6924,8 +7148,8 @@
       2024,
       2026
      ],
-     "rows": 14,
-     "countries": 4,
+     "rows": 17,
+     "countries": 7,
      "tonnage_convertible": false
     },
     {
@@ -6967,7 +7191,7 @@
       2026
      ],
      "rows": 29,
-     "countries": 11,
+     "countries": 12,
      "tonnage_convertible": true
     },
     {
@@ -6980,8 +7204,8 @@
       2024,
       2026
      ],
-     "rows": 8,
-     "countries": 2,
+     "rows": 10,
+     "countries": 3,
      "tonnage_convertible": true
     },
     {
@@ -6994,7 +7218,7 @@
       2024,
       2026
      ],
-     "rows": 24,
+     "rows": 26,
      "countries": 11,
      "tonnage_convertible": false
     },
@@ -7009,7 +7233,7 @@
       2026
      ],
      "rows": 14,
-     "countries": 3,
+     "countries": 4,
      "tonnage_convertible": false
     },
     {
@@ -7370,7 +7594,7 @@
       2000,
       2026
      ],
-     "rows": 9587,
+     "rows": 9588,
      "countries": 150,
      "tonnage_convertible": true
     },
@@ -7440,7 +7664,7 @@
       2000,
       2026
      ],
-     "rows": 9843,
+     "rows": 9844,
      "countries": 151,
      "tonnage_convertible": false
     },
@@ -7468,7 +7692,7 @@
       2000,
       2026
      ],
-     "rows": 13835,
+     "rows": 13840,
      "countries": 194,
      "tonnage_convertible": true
     },
@@ -7538,7 +7762,7 @@
       2000,
       2026
      ],
-     "rows": 14375,
+     "rows": 14380,
      "countries": 195,
      "tonnage_convertible": false
     },
@@ -7934,7 +8158,7 @@
       2022,
       2026
      ],
-     "rows": 646,
+     "rows": 650,
      "countries": 49,
      "tonnage_convertible": true
     },
@@ -7962,7 +8186,7 @@
       2022,
       2026
      ],
-     "rows": 665,
+     "rows": 666,
      "countries": 51,
      "tonnage_convertible": false
     },
@@ -7990,7 +8214,7 @@
       2022,
       2026
      ],
-     "rows": 950,
+     "rows": 954,
      "countries": 58,
      "tonnage_convertible": true
     },
@@ -8032,7 +8256,7 @@
       2022,
       2026
      ],
-     "rows": 1002,
+     "rows": 1005,
      "countries": 60,
      "tonnage_convertible": false
     },
@@ -8192,7 +8416,7 @@
       2000,
       2026
      ],
-     "rows": 17568,
+     "rows": 17578,
      "countries": 176,
      "tonnage_convertible": true
     },
@@ -8248,7 +8472,7 @@
       2000,
       2026
      ],
-     "rows": 18204,
+     "rows": 18212,
      "countries": 178,
      "tonnage_convertible": false
     },
@@ -8276,7 +8500,7 @@
       2000,
       2026
      ],
-     "rows": 31936,
+     "rows": 31944,
      "countries": 222,
      "tonnage_convertible": true
     },
@@ -8332,7 +8556,7 @@
       2000,
       2026
      ],
-     "rows": 33572,
+     "rows": 33577,
      "countries": 223,
      "tonnage_convertible": false
     },
@@ -8346,7 +8570,7 @@
       2000,
       2026
      ],
-     "rows": 14026,
+     "rows": 14027,
      "countries": 151,
      "tonnage_convertible": false
     },
@@ -9917,8 +10141,22 @@
       2000,
       2026
      ],
-     "rows": 9716,
-     "countries": 115,
+     "rows": 8348,
+     "countries": 108,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 6891,
+     "countries": 102,
      "tonnage_convertible": true
     },
     {
@@ -9931,8 +10169,22 @@
       2000,
       2026
      ],
-     "rows": 2798,
+     "rows": 2745,
      "countries": 51,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1612,
+     "countries": 42,
      "tonnage_convertible": true
     },
     {
@@ -10001,8 +10253,22 @@
       2000,
       2026
      ],
-     "rows": 9795,
-     "countries": 115,
+     "rows": 8393,
+     "countries": 108,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 7034,
+     "countries": 103,
      "tonnage_convertible": false
     },
     {
@@ -10015,8 +10281,22 @@
       2000,
       2026
      ],
-     "rows": 3072,
+     "rows": 3004,
      "countries": 54,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1856,
+     "countries": 43,
      "tonnage_convertible": false
     },
     {
@@ -10029,8 +10309,22 @@
       2000,
       2026
      ],
-     "rows": 16803,
-     "countries": 173,
+     "rows": 14816,
+     "countries": 172,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 12214,
+     "countries": 165,
      "tonnage_convertible": true
     },
     {
@@ -10043,8 +10337,22 @@
       2000,
       2026
      ],
-     "rows": 4782,
-     "countries": 83,
+     "rows": 4726,
+     "countries": 82,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 2850,
+     "countries": 79,
      "tonnage_convertible": true
     },
     {
@@ -10113,8 +10421,22 @@
       2000,
       2026
      ],
-     "rows": 17019,
-     "countries": 173,
+     "rows": 14966,
+     "countries": 172,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 12604,
+     "countries": 167,
      "tonnage_convertible": false
     },
     {
@@ -10127,8 +10449,22 @@
       2000,
       2026
      ],
-     "rows": 5286,
+     "rows": 5216,
      "countries": 92,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 3305,
+     "countries": 81,
      "tonnage_convertible": false
     },
     {
@@ -10319,7 +10655,7 @@
       2000,
       2026
      ],
-     "rows": 8802,
+     "rows": 8804,
      "countries": 143,
      "tonnage_convertible": true
     },
@@ -10333,7 +10669,7 @@
       2000,
       2026
      ],
-     "rows": 1771,
+     "rows": 1772,
      "countries": 40,
      "tonnage_convertible": true
     },
@@ -10389,7 +10725,7 @@
       2000,
       2026
      ],
-     "rows": 8884,
+     "rows": 8886,
      "countries": 143,
      "tonnage_convertible": false
     },
@@ -10403,7 +10739,7 @@
       2000,
       2026
      ],
-     "rows": 2124,
+     "rows": 2125,
      "countries": 42,
      "tonnage_convertible": false
     },
@@ -10417,7 +10753,7 @@
       2000,
       2026
      ],
-     "rows": 13518,
+     "rows": 13520,
      "countries": 165,
      "tonnage_convertible": true
     },
@@ -10431,7 +10767,7 @@
       2000,
       2026
      ],
-     "rows": 3722,
+     "rows": 3723,
      "countries": 89,
      "tonnage_convertible": true
     },
@@ -10487,7 +10823,7 @@
       2000,
       2026
      ],
-     "rows": 13737,
+     "rows": 13739,
      "countries": 166,
      "tonnage_convertible": false
     },
@@ -10501,7 +10837,7 @@
       2000,
       2026
      ],
-     "rows": 4028,
+     "rows": 4029,
      "countries": 91,
      "tonnage_convertible": false
     },
@@ -10715,7 +11051,7 @@
       2000,
       2026
      ],
-     "rows": 21628,
+     "rows": 21639,
      "countries": 209,
      "tonnage_convertible": true
     },
@@ -10771,7 +11107,7 @@
       2000,
       2026
      ],
-     "rows": 22062,
+     "rows": 22069,
      "countries": 211,
      "tonnage_convertible": false
     },
@@ -10785,7 +11121,7 @@
       2000,
       2026
      ],
-     "rows": 9314,
+     "rows": 9315,
      "countries": 91,
      "tonnage_convertible": false
     },
@@ -10799,7 +11135,7 @@
       2000,
       2026
      ],
-     "rows": 39011,
+     "rows": 39034,
      "countries": 229,
      "tonnage_convertible": true
     },
@@ -10855,7 +11191,7 @@
       2000,
       2026
      ],
-     "rows": 39514,
+     "rows": 39520,
      "countries": 229,
      "tonnage_convertible": false
     },
@@ -10869,7 +11205,7 @@
       2000,
       2026
      ],
-     "rows": 14735,
+     "rows": 14736,
      "countries": 143,
      "tonnage_convertible": false
     }
@@ -10939,7 +11275,7 @@
       2000,
       2026
      ],
-     "rows": 11459,
+     "rows": 11462,
      "countries": 148,
      "tonnage_convertible": true
     },
@@ -11037,7 +11373,7 @@
       2000,
       2026
      ],
-     "rows": 11656,
+     "rows": 11658,
      "countries": 148,
      "tonnage_convertible": false
     },
@@ -11065,7 +11401,7 @@
       2000,
       2026
      ],
-     "rows": 14941,
+     "rows": 14943,
      "countries": 175,
      "tonnage_convertible": true
     },
@@ -11163,7 +11499,7 @@
       2000,
       2026
      ],
-     "rows": 15235,
+     "rows": 15237,
      "countries": 176,
      "tonnage_convertible": false
     },
@@ -12060,6 +12396,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 15258,
+     "countries": 126,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports",
      "stage": "unspecified",
      "basis": "gross",
      "unit": "tonnes (metric)",
@@ -12067,8 +12417,22 @@
       2000,
       2026
      ],
-     "rows": 16107,
+     "rows": 12760,
      "countries": 167,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 4958,
+     "countries": 48,
      "tonnage_convertible": true
     },
     {
@@ -12081,8 +12445,8 @@
       2000,
       2026
      ],
-     "rows": 4802,
-     "countries": 59,
+     "rows": 4567,
+     "countries": 57,
      "tonnage_convertible": true
     },
     {
@@ -12186,6 +12550,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 15416,
+     "countries": 128,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -12193,8 +12571,22 @@
       2000,
       2026
      ],
-     "rows": 16251,
+     "rows": 12840,
      "countries": 167,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 5491,
+     "countries": 51,
      "tonnage_convertible": false
     },
     {
@@ -12207,9 +12599,23 @@
       2000,
       2026
      ],
-     "rows": 4923,
-     "countries": 60,
+     "rows": 4650,
+     "countries": 58,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 23893,
+     "countries": 161,
+     "tonnage_convertible": true
     },
     {
      "source": "CMA single-declaration passthrough",
@@ -12221,8 +12627,22 @@
       2000,
       2026
      ],
-     "rows": 23917,
-     "countries": 152,
+     "rows": 19975,
+     "countries": 150,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 7985,
+     "countries": 89,
      "tonnage_convertible": true
     },
     {
@@ -12235,7 +12655,7 @@
       2000,
       2026
      ],
-     "rows": 8113,
+     "rows": 7821,
      "countries": 90,
      "tonnage_convertible": true
     },
@@ -12340,6 +12760,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 24140,
+     "countries": 162,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -12347,8 +12781,22 @@
       2000,
       2026
      ],
-     "rows": 24066,
-     "countries": 153,
+     "rows": 20048,
+     "countries": 151,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 9179,
+     "countries": 97,
      "tonnage_convertible": false
     },
     {
@@ -12361,7 +12809,7 @@
       2000,
       2026
      ],
-     "rows": 8287,
+     "rows": 7951,
      "countries": 90,
      "tonnage_convertible": false
     },
@@ -12629,7 +13077,7 @@
       2000,
       2026
      ],
-     "rows": 7143,
+     "rows": 7146,
      "countries": 146,
      "tonnage_convertible": true
     },
@@ -12699,7 +13147,7 @@
       2000,
       2026
      ],
-     "rows": 7166,
+     "rows": 7169,
      "countries": 146,
      "tonnage_convertible": false
     },
@@ -12727,7 +13175,7 @@
       2000,
       2026
      ],
-     "rows": 11596,
+     "rows": 11597,
      "countries": 109,
      "tonnage_convertible": true
     },
@@ -12797,7 +13245,7 @@
       2000,
       2026
      ],
-     "rows": 11599,
+     "rows": 11600,
      "countries": 108,
      "tonnage_convertible": false
     },
@@ -13074,7 +13522,7 @@
       2000,
       2026
      ],
-     "rows": 9233,
+     "rows": 9240,
      "countries": 92,
      "tonnage_convertible": true
     },
@@ -13116,7 +13564,7 @@
       2000,
       2026
      ],
-     "rows": 9604,
+     "rows": 9606,
      "countries": 93,
      "tonnage_convertible": false
     },
@@ -13144,7 +13592,7 @@
       2000,
       2026
      ],
-     "rows": 11371,
+     "rows": 11384,
      "countries": 110,
      "tonnage_convertible": true
     },
@@ -13186,7 +13634,7 @@
       2000,
       2026
      ],
-     "rows": 11988,
+     "rows": 11993,
      "countries": 113,
      "tonnage_convertible": false
     },
@@ -13845,7 +14293,7 @@
       2000,
       2026
      ],
-     "rows": 5968,
+     "rows": 5969,
      "countries": 94,
      "tonnage_convertible": true
     },
@@ -13915,7 +14363,7 @@
       2000,
       2026
      ],
-     "rows": 10240,
+     "rows": 10241,
      "countries": 166,
      "tonnage_convertible": true
     },
@@ -14061,7 +14509,7 @@
       2000,
       2026
      ],
-     "rows": 9930,
+     "rows": 9937,
      "countries": 119,
      "tonnage_convertible": true
     },
@@ -14131,7 +14579,7 @@
       2000,
       2026
      ],
-     "rows": 10698,
+     "rows": 10703,
      "countries": 130,
      "tonnage_convertible": false
     },
@@ -14159,7 +14607,7 @@
       2000,
       2026
      ],
-     "rows": 12005,
+     "rows": 12022,
      "countries": 127,
      "tonnage_convertible": true
     },
@@ -14229,7 +14677,7 @@
       2000,
       2026
      ],
-     "rows": 13029,
+     "rows": 13035,
      "countries": 147,
      "tonnage_convertible": false
     },
@@ -15515,7 +15963,7 @@
       2000,
       2026
      ],
-     "rows": 14059,
+     "rows": 14068,
      "countries": 168,
      "tonnage_convertible": true
     },
@@ -15571,7 +16019,7 @@
       2000,
       2026
      ],
-     "rows": 14227,
+     "rows": 14233,
      "countries": 170,
      "tonnage_convertible": false
     },
@@ -15599,7 +16047,7 @@
       2000,
       2026
      ],
-     "rows": 22462,
+     "rows": 22470,
      "countries": 209,
      "tonnage_convertible": true
     },
@@ -15655,7 +16103,7 @@
       2000,
       2026
      ],
-     "rows": 22773,
+     "rows": 22781,
      "countries": 210,
      "tonnage_convertible": false
     },
@@ -16235,7 +16683,7 @@
       2000,
       2026
      ],
-     "rows": 4385,
+     "rows": 4386,
      "countries": 75,
      "tonnage_convertible": true
     },
@@ -16291,7 +16739,7 @@
       2000,
       2026
      ],
-     "rows": 4513,
+     "rows": 4514,
      "countries": 75,
      "tonnage_convertible": false
     },
@@ -16319,7 +16767,7 @@
       2000,
       2026
      ],
-     "rows": 8541,
+     "rows": 8542,
      "countries": 134,
      "tonnage_convertible": true
     },
@@ -16870,7 +17318,7 @@
       2002,
       2026
      ],
-     "rows": 4796,
+     "rows": 4799,
      "countries": 80,
      "tonnage_convertible": true
     },
@@ -16968,7 +17416,7 @@
       2002,
       2026
      ],
-     "rows": 4914,
+     "rows": 4915,
      "countries": 85,
      "tonnage_convertible": false
     },
@@ -16996,7 +17444,7 @@
       2002,
       2026
      ],
-     "rows": 6178,
+     "rows": 6182,
      "countries": 113,
      "tonnage_convertible": true
     },
@@ -17080,7 +17528,7 @@
       2002,
       2026
      ],
-     "rows": 6395,
+     "rows": 6398,
      "countries": 117,
      "tonnage_convertible": false
     },
@@ -17836,6 +18284,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 14296,
+     "countries": 162,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports",
      "stage": "unspecified",
      "basis": "gross",
      "unit": "tonnes (metric)",
@@ -17843,8 +18305,22 @@
       2002,
       2026
      ],
-     "rows": 12627,
-     "countries": 132,
+     "rows": 9000,
+     "countries": 114,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 4475,
+     "countries": 75,
      "tonnage_convertible": true
     },
     {
@@ -17857,8 +18333,8 @@
       2002,
       2026
      ],
-     "rows": 2903,
-     "countries": 45,
+     "rows": 2548,
+     "countries": 41,
      "tonnage_convertible": true
     },
     {
@@ -17962,6 +18438,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 14412,
+     "countries": 163,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -17969,8 +18459,22 @@
       2002,
       2026
      ],
-     "rows": 12898,
-     "countries": 133,
+     "rows": 9223,
+     "countries": 115,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 4822,
+     "countries": 78,
      "tonnage_convertible": false
     },
     {
@@ -17983,9 +18487,23 @@
       2002,
       2026
      ],
-     "rows": 3414,
-     "countries": 47,
+     "rows": 3019,
+     "countries": 42,
      "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 27737,
+     "countries": 199,
+     "tonnage_convertible": true
     },
     {
      "source": "CMA single-declaration passthrough",
@@ -17997,22 +18515,22 @@
       2002,
       2026
      ],
-     "rows": 19204,
-     "countries": 190,
+     "rows": 12751,
+     "countries": 171,
      "tonnage_convertible": true
     },
     {
      "source": "CMA two-sided reconciliation",
      "measure": "imports",
-     "stage": "unspecified",
+     "stage": "compound",
      "basis": "gross",
      "unit": "tonnes (metric)",
      "years": [
       2002,
       2026
      ],
-     "rows": 4384,
-     "countries": 83,
+     "rows": 8709,
+     "countries": 129,
      "tonnage_convertible": true
     },
     {
@@ -18027,6 +18545,20 @@
      ],
      "rows": 3872,
      "countries": 209,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 3736,
+     "countries": 80,
      "tonnage_convertible": true
     },
     {
@@ -18116,6 +18648,20 @@
     {
      "source": "CMA single-declaration passthrough",
      "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 28126,
+     "countries": 200,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
      "stage": "unspecified",
      "basis": null,
      "unit": "USD",
@@ -18123,8 +18669,22 @@
       2002,
       2026
      ],
-     "rows": 19764,
-     "countries": 190,
+     "rows": 13178,
+     "countries": 173,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 9522,
+     "countries": 128,
      "tonnage_convertible": false
     },
     {
@@ -18137,8 +18697,8 @@
       2002,
       2026
      ],
-     "rows": 5557,
-     "countries": 91,
+     "rows": 4890,
+     "countries": 88,
      "tonnage_convertible": false
     },
     {
@@ -18385,7 +18945,7 @@
       2002,
       2026
      ],
-     "rows": 7460,
+     "rows": 7462,
      "countries": 102,
      "tonnage_convertible": true
     },
@@ -18497,7 +19057,7 @@
       2002,
       2026
      ],
-     "rows": 7583,
+     "rows": 7585,
      "countries": 103,
      "tonnage_convertible": false
     },
@@ -18525,7 +19085,7 @@
       2002,
       2026
      ],
-     "rows": 11671,
+     "rows": 11681,
      "countries": 155,
      "tonnage_convertible": true
     },
@@ -18637,7 +19197,7 @@
       2002,
       2026
      ],
-     "rows": 12076,
+     "rows": 12084,
      "countries": 155,
      "tonnage_convertible": false
     },
@@ -18883,8 +19443,22 @@
       2000,
       2026
      ],
-     "rows": 9528,
-     "countries": 137,
+     "rows": 8472,
+     "countries": 135,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 5514,
+     "countries": 87,
      "tonnage_convertible": true
     },
     {
@@ -18897,8 +19471,22 @@
       2000,
       2026
      ],
-     "rows": 2642,
+     "rows": 2618,
      "countries": 44,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1261,
+     "countries": 27,
      "tonnage_convertible": true
     },
     {
@@ -18981,8 +19569,22 @@
       2000,
       2026
      ],
-     "rows": 9574,
-     "countries": 138,
+     "rows": 8504,
+     "countries": 136,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 5568,
+     "countries": 87,
      "tonnage_convertible": false
     },
     {
@@ -18995,8 +19597,22 @@
       2000,
       2026
      ],
-     "rows": 2766,
+     "rows": 2717,
      "countries": 46,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "exports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1390,
+     "countries": 30,
      "tonnage_convertible": false
     },
     {
@@ -19009,8 +19625,22 @@
       2000,
       2026
      ],
-     "rows": 12654,
-     "countries": 143,
+     "rows": 11579,
+     "countries": 139,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 8763,
+     "countries": 144,
      "tonnage_convertible": true
     },
     {
@@ -19023,8 +19653,8 @@
       2000,
       2026
      ],
-     "rows": 3648,
-     "countries": 83,
+     "rows": 3623,
+     "countries": 82,
      "tonnage_convertible": true
     },
     {
@@ -19053,6 +19683,20 @@
      ],
      "rows": 1937,
      "countries": 155,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports",
+     "stage": "compound",
+     "basis": "gross",
+     "unit": "tonnes (metric)",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1570,
+     "countries": 56,
      "tonnage_convertible": true
     },
     {
@@ -19107,8 +19751,22 @@
       2000,
       2026
      ],
-     "rows": 12773,
-     "countries": 143,
+     "rows": 11674,
+     "countries": 139,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA single-declaration passthrough",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 9033,
+     "countries": 144,
      "tonnage_convertible": false
     },
     {
@@ -19121,8 +19779,22 @@
       2000,
       2026
      ],
-     "rows": 3763,
-     "countries": 83,
+     "rows": 3712,
+     "countries": 82,
+     "tonnage_convertible": false
+    },
+    {
+     "source": "CMA two-sided reconciliation",
+     "measure": "imports_value",
+     "stage": "compound",
+     "basis": null,
+     "unit": "USD",
+     "years": [
+      2002,
+      2026
+     ],
+     "rows": 1794,
+     "countries": 64,
      "tonnage_convertible": false
     },
     {
