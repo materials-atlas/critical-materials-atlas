@@ -20,7 +20,7 @@ a:hover{text-decoration:underline}
 .topnav a{color:var(--ink-soft);font-size:.86rem;font-weight:600}
 .topnav a:hover{color:var(--navy);text-decoration:none}
 .topnav a.active{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:2px}
-@media(max-width:760px){ .topnav{gap:1rem} .topnav a.hideable{display:none} }
+@media(max-width:760px){ .topbar .wrap{flex-wrap:wrap;height:auto;row-gap:0;padding-top:.55rem} .topnav{order:3;flex:1 0 100%;gap:1.15rem;overflow-x:auto;white-space:nowrap;padding:.5rem 0 .6rem;scrollbar-width:none;-webkit-overflow-scrolling:touch} .topnav::-webkit-scrollbar{display:none} .topnav a{flex:0 0 auto} }
 
 /* hero */
 .hero{background:linear-gradient(160deg,#12272c 0%,#173a42 58%,#1d4751 100%);color:#fff;padding:2.6rem 0 2.1rem;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
@@ -106,3 +106,4 @@ footer.siteftr .fineprint{grid-column:1/-1;border-top:1px solid rgba(255,255,255
 
 .dist{display:block;margin-top:.5rem;font-size:.85rem;color:var(--faint,#8a9a97)}
 .hero .dist{color:#9fc0bc}
+@media(max-width:760px){ main{overflow-wrap:anywhere} .bgrid{grid-template-columns:1fr!important} .grid2{grid-template-columns:1fr!important} .preview{flex-wrap:wrap} #fby{display:flex;flex-wrap:wrap;gap:.5rem} }
