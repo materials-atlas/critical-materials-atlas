@@ -100,4 +100,30 @@ is not testable from public data.** No proxy grade will be substituted.
 
 ## Deviations log
 
-*(none)*
+**2026-09-14 — intensity band replaced by verified figures (the rule above required it).**
+Made before the coverage gate or any AC–Q comparison was computed. Twelve operations with a
+published media rate were read off the primary documents (mine technical reports and feasibility
+studies); every figure, page and verbatim line is in `intensity_sources.csv`. The advisors' ranges
+were too high:
+
+| Commodity | Filed band (kg/t) | Verified points | Verified band (kg/t) | Midpoint |
+|---|---|---|---|---|
+| Copper | 0.4–1.4 | 7 (Constancia 0.88, Mantos Blancos 0.66, Vizcachitas 0.60, Cobre Panamá 0.57, Chapada 0.54, Kamoa-Kakula 0.37, Aranzazu 0.33) | **0.33–0.88** | 0.605 |
+| Gold | 0.8–2.5 | 3 (Fekola 1.01, Lafigué 0.66, Springpole 0.46) | **0.46–1.01** | 0.735 |
+| Lead-zinc | 0.4–1.2 | 2 (Kipushi 0.74, Zinkgruvan 0.36) | **0.36–0.74** | 0.55 |
+
+Consequences, stated before seeing them: lower intensity means lower implied ball demand, so every
+coverage ratio rises and tier A can only grow. That makes the gate *easier* to pass, which is the
+direction that needs guarding against. Nothing else changes: the tier thresholds, the tests and the
+pass bands stay as filed. The gold and lead-zinc bands rest on 3 and 2 operations and are reported
+as thin. HPGR and autogenous circuits sit at the low end, so a country dominated by them will look
+better covered than it is.
+
+Two facts found in the same search, recorded for the tier-B discussion: Molycop states a nominal
+capacity above 472 kt of balls a year in Chile (exhibitor news item, company-supplied, Expomin,
+6 Sep 2021), three times Chile's 2024 apparent imports. ME Elecmetal's grinding-media plants are in
+China, Zambia and Indonesia; its Chilean and Peruvian plants make liners, not balls (company plants
+page).
+
+A research agent first read the Kamoa-Kakula table as 0.80 kg/t of steel. Checked against the
+tonnage column on the same rows, the 0.450 kg/t line is 3 mm ceramic media; steel is 0.367 kg/t.
