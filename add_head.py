@@ -81,6 +81,12 @@ HAS_SKIP = re.compile(r'<a[^>]+class="skip"', re.I)
 CHARSET = re.compile(r'(<meta charset="?utf-8"?\s*/?>)', re.I)
 BODY = re.compile(r'(<body[^>]*>)', re.I)
 MAIN_TARGET = re.compile(r'id="main"', re.I)
+# A skip-link is off-screen only where a stylesheet says so. Pages that do not load assets/site.css
+# carry no such rule, so the link printed visibly at the top of 6 of them (and of their PDFs).
+SKIP_CSS = ('<style>.skip{position:absolute;left:-9999px;top:0;background:#0e7c74;color:#fff;'
+            'padding:.6rem 1rem;border-radius:0 0 8px 0;z-index:200;font-weight:700;text-decoration:none}'
+            '.skip:focus{left:0}</style>')
+HAS_SKIP_RULE = re.compile(r'\.skip\s*\{|assets/site\.css', re.I)
 
 
 def pages():
@@ -97,7 +103,7 @@ def pages():
 
 def main():
     apply = '--dry-run' not in sys.argv
-    added_fav = added_skip = added_main = 0
+    added_fav = added_skip = added_main = added_skip_css = 0
     no_target = []
     no_anchor = []
     touched = []
@@ -135,6 +141,10 @@ def main():
                     no_anchor.append(rel)
             else:
                 no_target.append(rel)
+        if HAS_SKIP.search(text) and not HAS_SKIP_RULE.search(text) and '</head>' in text:
+            i = text.index('</head>')
+            text = text[:i] + SKIP_CSS + text[i:]
+            added_skip_css += 1
         if text != before:
             touched.append(rel)
             if apply:
@@ -147,6 +157,7 @@ def main():
     print('%d published pages scanned' % n)
     print('  favicons added   : %d' % added_fav)
     print('  landmarks added  : %d' % added_main)
+    print('  skip-link css    : %d' % added_skip_css)
     print('  skip-links added : %d' % added_skip)
     print('  pages changed    : %d' % len(touched))
     if no_target:
