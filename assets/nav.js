@@ -27,7 +27,11 @@
     '.topnav .navresults .rg{font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;color:#9aa6ad;font-weight:700;margin-left:.4rem}',
     '.topnav .navresults .rd{display:block;font-size:.74rem;color:var(--mut,#5a6b68);line-height:1.3;margin-top:.1rem}',
     '.topnav .navresults .rnone{padding:.6rem;color:var(--mut,#5a6b68);font-size:.82rem}',
-    '@media(max-width:760px){.topnav .navsearch{display:none}}'
+    '@media(max-width:760px){.topnav .navsearch{display:none}'
+    + '.topbar .wrap{flex-wrap:wrap;height:auto;row-gap:0;padding-top:.55rem}'
+    + '.topnav{order:3;flex:1 0 100%;gap:1.15rem;overflow-x:auto;white-space:nowrap;padding:.5rem 0 .6rem;scrollbar-width:none}'
+    + '.topnav::-webkit-scrollbar{display:none}.topnav a{flex:0 0 auto}.topnav a.hideable{display:inline}'
+    + '.tscroll{overflow-x:auto;max-width:100%;-webkit-overflow-scrolling:touch}code{overflow-wrap:anywhere}}'
   ].join('');
 
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
@@ -103,6 +107,18 @@
       if (a.getAttribute('href') === here) a.classList.add('active');
     });
     wireSearch();
+    scrollTables();
+  }
+
+  // On a phone a table wider than its column scrolls inside its own box, never the page.
+  function scrollTables() {
+    if (window.innerWidth > 760) return;
+    document.querySelectorAll('table').forEach(function (t) {
+      var p = t.parentElement;
+      if (!p || p.classList.contains('tscroll') || t.offsetWidth <= p.clientWidth + 1) return;
+      var w = document.createElement('div'); w.className = 'tscroll';
+      p.insertBefore(w, t); w.appendChild(t);
+    });
   }
 
   if (document.readyState !== 'loading') init();

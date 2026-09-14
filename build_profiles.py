@@ -275,7 +275,7 @@ def layer_para(m, layer, nm):
                 mit += f", while the US imports {e(nir)} of what it consumes." if nir else "."
                 b += mit
     return (f'<p class="note" style="margin:.15rem 0 .7rem;line-height:1.55">{b} '
-            f'<span style="color:var(--faint);font-weight:600;white-space:nowrap">{src}</span></p>')
+            f'<span style="color:var(--faint);font-weight:600">{src}</span></p>')
 
 def year_slider(uid, items, default_i, accent='#2f6f4f'):
     """A clean year slider: drag the range to scrub years; a bold label shows the current year and the

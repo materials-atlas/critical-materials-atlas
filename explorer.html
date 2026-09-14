@@ -201,6 +201,7 @@
   /* sticky top navigation */
   .topbar{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.94);-webkit-backdrop-filter:saturate(140%) blur(8px);backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:1rem;height:58px}
+  @media(max-width:760px){ .topbar .wrap{flex-wrap:wrap;height:auto;row-gap:0;padding-top:.55rem} .topnav{order:3;flex:1 0 100%;gap:1.15rem;overflow-x:auto;white-space:nowrap;padding:.5rem 0 .6rem;scrollbar-width:none} .topnav::-webkit-scrollbar{display:none} .topnav a{flex:0 0 auto} }
   a.wordmark{text-decoration:none}
   a.wordmark:hover{text-decoration:none}
   .topnav{display:flex;align-items:center;gap:1.5rem}
