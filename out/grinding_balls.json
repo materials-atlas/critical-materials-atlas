@@ -651,6 +651,26 @@
    "tier": "B"
   },
   {
+   "iso3": "BGR",
+   "ore_milled_2024_mt": 22.8,
+   "ore_milled_mean_mt": {
+    "copper": 16.4,
+    "gold": 6.6,
+    "leadzinc": 0.5
+   },
+   "ore_years_missing": [],
+   "ball_demand_kt": {
+    "low": 8.6,
+    "mid": 15.0,
+    "high": 21.4
+   },
+   "imports_kt": 10.5,
+   "exports_kt": 10.0,
+   "apparent_consumption_kt": 2.1,
+   "ratio_to_mid": 0.14,
+   "tier": "B"
+  },
+  {
    "iso3": "ARG",
    "ore_milled_2024_mt": 31.1,
    "ore_milled_mean_mt": {
@@ -691,6 +711,26 @@
    "tier": "B"
   },
   {
+   "iso3": "IND",
+   "ore_milled_2024_mt": 27.4,
+   "ore_milled_mean_mt": {
+    "copper": 5.3,
+    "gold": 1.2,
+    "leadzinc": 21.0
+   },
+   "ore_years_missing": [],
+   "ball_demand_kt": {
+    "low": 9.8,
+    "mid": 15.6,
+    "high": 21.4
+   },
+   "imports_kt": 3.9,
+   "exports_kt": 4.6,
+   "apparent_consumption_kt": 1.0,
+   "ratio_to_mid": 0.062,
+   "tier": "excluded"
+  },
+  {
    "iso3": "SDN",
    "ore_milled_2024_mt": 49.2,
    "ore_milled_mean_mt": {
@@ -728,26 +768,6 @@
    "exports_kt": 5.8,
    "apparent_consumption_kt": 4.9,
    "ratio_to_mid": 0.052,
-   "tier": "excluded"
-  },
-  {
-   "iso3": "BGR",
-   "ore_milled_2024_mt": 22.8,
-   "ore_milled_mean_mt": {
-    "copper": 16.4,
-    "gold": 6.6,
-    "leadzinc": 0.5
-   },
-   "ore_years_missing": [],
-   "ball_demand_kt": {
-    "low": 8.6,
-    "mid": 15.0,
-    "high": 21.4
-   },
-   "imports_kt": 10.5,
-   "exports_kt": 10.0,
-   "apparent_consumption_kt": 0.5,
-   "ratio_to_mid": 0.034,
    "tier": "excluded"
   },
   {
@@ -791,6 +811,26 @@
    "tier": "excluded"
   },
   {
+   "iso3": "POL",
+   "ore_milled_2024_mt": 79.4,
+   "ore_milled_mean_mt": {
+    "copper": 84.2,
+    "gold": 0.4,
+    "leadzinc": 0.7
+   },
+   "ore_years_missing": [],
+   "ball_demand_kt": {
+    "low": 28.2,
+    "mid": 51.6,
+    "high": 75.0
+   },
+   "imports_kt": 11.3,
+   "exports_kt": 12.1,
+   "apparent_consumption_kt": 0.7,
+   "ratio_to_mid": 0.014,
+   "tier": "excluded"
+  },
+  {
    "iso3": "IDN",
    "ore_milled_2024_mt": 278.8,
    "ore_milled_mean_mt": {
@@ -806,8 +846,8 @@
    },
    "imports_kt": 17.4,
    "exports_kt": 17.3,
-   "apparent_consumption_kt": 0.1,
-   "ratio_to_mid": 0.001,
+   "apparent_consumption_kt": 2.1,
+   "ratio_to_mid": 0.013,
    "tier": "excluded"
   },
   {
@@ -851,26 +891,6 @@
    "tier": "excluded"
   },
   {
-   "iso3": "IND",
-   "ore_milled_2024_mt": 27.4,
-   "ore_milled_mean_mt": {
-    "copper": 5.3,
-    "gold": 1.2,
-    "leadzinc": 21.0
-   },
-   "ore_years_missing": [],
-   "ball_demand_kt": {
-    "low": 9.8,
-    "mid": 15.6,
-    "high": 21.4
-   },
-   "imports_kt": 3.9,
-   "exports_kt": 4.6,
-   "apparent_consumption_kt": 0.0,
-   "ratio_to_mid": 0.0,
-   "tier": "excluded"
-  },
-  {
    "iso3": "IRN",
    "ore_milled_2024_mt": 74.2,
    "ore_milled_mean_mt": {
@@ -886,26 +906,6 @@
    },
    "imports_kt": 0.0,
    "exports_kt": 3.8,
-   "apparent_consumption_kt": 0.0,
-   "ratio_to_mid": 0.0,
-   "tier": "excluded"
-  },
-  {
-   "iso3": "POL",
-   "ore_milled_2024_mt": 79.4,
-   "ore_milled_mean_mt": {
-    "copper": 84.2,
-    "gold": 0.4,
-    "leadzinc": 0.7
-   },
-   "ore_years_missing": [],
-   "ball_demand_kt": {
-    "low": 28.2,
-    "mid": 51.6,
-    "high": 75.0
-   },
-   "imports_kt": 11.3,
-   "exports_kt": 12.1,
    "apparent_consumption_kt": 0.0,
    "ratio_to_mid": 0.0,
    "tier": "excluded"
@@ -973,8 +973,8 @@
  ],
  "tier_counts": {
   "A": 10,
-  "B": 16,
-  "excluded": 14,
+  "B": 17,
+  "excluded": 13,
   "flagged": 0
  },
  "decision": "continue to the throughput test",

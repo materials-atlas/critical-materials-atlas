@@ -167,7 +167,7 @@ Run by `throughput.py` (committed before its first run); every number is in `out
 | 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; three below 0.3. **Fail** |
 | 3. Cement horse race | β in band, Q the stronger regressor | β = 0.34 (out of band); Q t = 1.72 vs cement t = 0.16. **Fail** on the band |
 | 4. Placebo, HS 731815 | outside band or not significant | β = −0.29, p = 0.26. **Pass** |
-| 5. Australia, iron ore | iron-ore CI includes zero | Not informative: Australia was a net *exporter* of forged balls until 2017, so only 7 annual changes exist. Reported, not counted either way. |
+| 5. Australia, iron ore | iron-ore CI includes zero | Iron-ore β = −50.3, 95% CI [−85.6, −15.0], which excludes zero. **Fail as filed.** It rests on 7 annual changes: Australia was a net *exporter* of forged balls until 2017, so the control was unusable, and the filing did not anticipate that. |
 
 Automatic-fail checks, as filed: the relationship **is** strong in levels with country and year
 effects (β = 1.19, p = 0.003) and becomes significant only when cast balls are pooled in
@@ -175,12 +175,29 @@ effects (β = 1.19, p = 0.003) and becomes significant only when cast balls are 
 relationship says countries that mill more import more over the long run, not that imports follow
 throughput year to year.
 
-**What the result says.** Across the ten countries where imports can physically be the input,
-year-to-year growth in forged-ball imports moves with ore milled only about a third as much as
-the physics predicts, and the estimate cannot be told apart from zero. Imported grinding balls
-are not a usable annual proxy for ore throughput.
+**What the result says.** In the ten countries where imports can physically be the input,
+forged-ball imports did not pass as an annual proxy for ore milled. The point estimate is about a
+third of a one-for-one response (β = 0.35 against the physical expectation of about 1); the 95%
+interval runs from −0.10 to 0.79, so the estimate is close to, but not decisively, zero.
+
+What it does **not** say. It is not evidence that grinding balls are unrelated to milling: the
+levels relationship is strong, and several features of the data pull an annual estimate toward
+zero. Ore milled is measured with fixed global grades, so grade, recovery and leach-versus-mill
+shifts enter as noise; purchases are lumpy and stocked; customs tonnages are noisy. For a true
+one-for-one response to show up as 0.35, the noise in measured ore growth would need to be about
+twice its true variation, which is plausible for annual public data. The claim is therefore
+narrow: *not validated as a contemporaneous annual proxy from public data*. Nothing here tests
+Chile, Peru or any other tier-B country, or domestic ball consumption.
 
 **Step 3 (grade) is not run.** The filing allows it only for a tier-A country with a public mill
 head-grade series. The two it names, COCHILCO and MINEM, cover Chile and Peru, both tier B. No such
 series has been located for any of the ten tier-A countries; that search was not exhaustive, and
 this line will change if one is found.
+
+**2026-09-15 — corrections after an adversarial review of the result (one engine: the second was
+unavailable).** None changes the verdict. (a) The Australia control was first written up as "not
+counted either way" after it had failed; that was a post-hoc waiver and is withdrawn above.
+(b) The gate floored the 2022–24 *mean* net imports at zero; the filed rule floors each year, then
+averages. Corrected: Bulgaria moves from excluded to tier B, tier A is unchanged. (c) Pass
+conditions were evaluated on rounded estimates; they now use unrounded values. Every condition and
+estimate is identical after (b) and (c).
