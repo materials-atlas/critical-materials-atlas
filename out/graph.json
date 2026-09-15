@@ -1,6 +1,6 @@
 {
  "note": "Observed, not declared. See ARCHITECTURE.md section 3.",
- "recorded_at": "2026-09-12",
+ "recorded_at": "2026-09-15",
  "builders": {
   "add_canonicals.py": {
    "reads": [
@@ -15603,6 +15603,19 @@
    "secs": 2.2,
    "code_sha": "55d5da58a1dc4c33",
    "restored": 2
+  },
+  "build_grinding_balls.py": {
+   "reads": [
+    "grinding-balls/intensity_sources.csv",
+    "out/grinding_balls.json"
+   ],
+   "writes": [
+    "grinding.html"
+   ],
+   "exit": 0,
+   "secs": 0.1,
+   "code_sha": "3b208041f2aa5b71",
+   "restored": 1
   }
  }
 }
