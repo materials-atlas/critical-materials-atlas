@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/grinding">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grinding balls don&rsquo;t track mining year by year &mdash; Critical Materials Atlas</title>
+<meta name="description" content="A pre-registered test of whether imports of steel grinding balls track how much ore a country mills. In the ten countries where imports cover at least half of what the mills need, they did not pass as a year-by-year proxy.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.xp{max-width:60rem}
+.xp table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+.xp th,.xp td{padding:.38rem .55rem;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}
+.xp td.n,.xp th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tA{color:#0e7c74;font-weight:600}.tB{color:#15323a}.tX{color:#8b857b}
+.ok{color:#0e7c74;font-weight:700}.no{color:#b3384b;font-weight:700}
+.note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
+.corr{background:#fdf6f2;border-left:3px solid #b3384b;padding:.8rem 1.1rem;margin:1.1rem 0;font-size:.93rem}
+.corr li{margin:.35rem 0}
+.verdict{display:inline-block;background:#b3384b;color:#fff;font-weight:700;letter-spacing:.08em;
+ padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Upstream &middot; a pre-registered test that failed</div>
+  <h1>Grinding balls don&rsquo;t track mining year by year</h1>
+  <p class="deck">Mills grind ore with steel balls that wear away as the rock passes through, so a
+  country that mills more ore should use more balls. If customs data could see that, it would be a
+  public, near-real-time measure of mining activity. We wrote the rules of the test down first and
+  then ran it. In the <b>10 countries</b> where imports cover at least half of what the mills need, imports did not move
+  with ore milled closely enough to use: the estimated response was <b>0.35</b> against an
+  expected one-for-one, and it could not be told apart from zero.</p>
+</div></section>
+
+<section class="wrap xp">
+  <h2>Result <span class="verdict">FAIL</span></h2>
+  <p>Year-to-year growth in forged-ball imports (customs code 7326.11, tonnes, imports minus exports)
+  against growth in ore milled, with country and year effects, 2003&ndash;2024. Every threshold below
+  was committed before the test ran.</p>
+  <table><thead><tr><th>Check</th><th>Rule set in advance</th><th>Result</th><th></th></tr></thead>
+  <tbody><tr><td>Imports follow ore milled</td><td>response between 0.4 and 1.5, p &lt; 0.05</td><td>response 0.35 (95% interval -0.10 to 0.79), p = 0.11</td><td><span class="no">fail</span></td></tr><tr><td>Not driven by one country</td><td>dropping any one country keeps it between 0.3 and 1.7</td><td>ranges 0.19 to 0.42</td><td><span class="no">fail</span></td></tr><tr><td>Not cement</td><td>still in band with cement output added, and stronger than cement</td><td>response 0.34; cement shows no link (t = 0.16)</td><td><span class="no">fail</span></td></tr><tr><td>Placebo: screws and bolts</td><td>no link to ore milled</td><td>response -0.29, p = 0.26</td><td><span class="ok">pass</span></td></tr><tr><td>Australia: iron ore</td><td>iron ore, which is not milled, shows no link</td><td>failed on only 7 years: Australia exported more balls than it imported until 2017</td><td><span class="no">fail</span></td></tr></tbody></table>
+  <div class="note"><b>In the long run the link is real.</b> Across years, countries that mill more ore
+  do import more balls (with country and year effects: response 1.19, p = 0.003). The rules said in advance that a
+  relationship visible only in levels does not count, because it says nothing about whether imports
+  follow mining from one year to the next, which is what a proxy has to do.</div>
+</section>
+
+<section class="wrap xp">
+  <h2>What this does not say</h2>
+  <ul>
+    <li><b>Not that balls are unrelated to mining.</b> Several features of public data pull a
+    year-to-year estimate toward zero. Ore milled has to be estimated from metal output with fixed
+    global ore grades, so changes in grade, recovery or the share of ore that is leached rather than
+    milled show up as noise. Mines buy balls in lumps and hold stock. Customs tonnages are noisy. For a
+    true one-for-one response to appear as 0.35, the noise in measured ore growth would need to be
+    about twice its real variation, which is plausible for annual data.</li>
+    <li><b>Nothing about Chile, Peru, Australia or Canada.</b> Their net imports cover well under half
+    of what their mills are estimated to need (Chile, for one, has large domestic ball plants), so
+    imports cannot stand for their mills, and they were never in the test.</li>
+    <li><b>Nothing about ore grades.</b> The planned grade test needs a public series of the grade of
+    ore entering the mills for one of the ten countries. None was found, so it was not run.</li>
+  </ul>
+</section>
+
+<section class="wrap xp">
+  <h2>Where imports could be the input</h2>
+  <p>Before any regression, a coverage check: could a country&rsquo;s net ball imports physically
+  supply its mills? Ball demand is ore milled times a consumption rate taken from 12 mine
+  technical reports (copper 0.33&ndash;0.88, gold 0.46&ndash;1.01, lead-zinc 0.36&ndash;0.74 kg of steel
+  per tonne of ore). Countries milling more than 20 Mt of ore in 2024; imports and demand averaged
+  over 2022&ndash;24. A country enters the test if net imports cover at least half of mid-range demand.</p>
+  <table><thead><tr><th>Country</th><th class="n">ore milled 2024</th><th class="n">ball demand</th>
+  <th class="n">net imports</th><th class="n">coverage</th><th>group</th></tr></thead>
+  <tbody><tr><td>Brazil</td><td class="n">128 Mt</td><td class="n">78 kt</td><td class="n">122 kt</td><td class="n">158%</td><td class="tA">imports cover half or more</td></tr><tr><td>Ecuador</td><td class="n">35 Mt</td><td class="n">24 kt</td><td class="n">31 kt</td><td class="n">128%</td><td class="tA">imports cover half or more</td></tr><tr><td>Mongolia</td><td class="n">80 Mt</td><td class="n">46 kt</td><td class="n">47 kt</td><td class="n">101%</td><td class="tA">imports cover half or more</td></tr><tr><td>Saudi Arabia</td><td class="n">27 Mt</td><td class="n">17 kt</td><td class="n">15 kt</td><td class="n">90%</td><td class="tA">imports cover half or more</td></tr><tr><td>Kazakhstan</td><td class="n">217 Mt</td><td class="n">145 kt</td><td class="n">124 kt</td><td class="n">85%</td><td class="tA">imports cover half or more</td></tr><tr><td>Bolivia</td><td class="n">30 Mt</td><td class="n">30 kt</td><td class="n">22 kt</td><td class="n">73%</td><td class="tA">imports cover half or more</td></tr><tr><td>Ghana</td><td class="n">114 Mt</td><td class="n">72 kt</td><td class="n">48 kt</td><td class="n">67%</td><td class="tA">imports cover half or more</td></tr><tr><td>Burkina Faso</td><td class="n">46 Mt</td><td class="n">33 kt</td><td class="n">21 kt</td><td class="n">63%</td><td class="tA">imports cover half or more</td></tr><tr><td>Philippines</td><td class="n">34 Mt</td><td class="n">24 kt</td><td class="n">14 kt</td><td class="n">57%</td><td class="tA">imports cover half or more</td></tr><tr><td>C&ocirc;te d&rsquo;Ivoire</td><td class="n">39 Mt</td><td class="n">28 kt</td><td class="n">16 kt</td><td class="n">55%</td><td class="tA">imports cover half or more</td></tr><tr><td>Serbia</td><td class="n">64 Mt</td><td class="n">33 kt</td><td class="n">17 kt</td><td class="n">49%</td><td class="tB">imports cover under half</td></tr><tr><td>Tanzania</td><td class="n">49 Mt</td><td class="n">33 kt</td><td class="n">16 kt</td><td class="n">49%</td><td class="tB">imports cover under half</td></tr><tr><td>Mali</td><td class="n">50 Mt</td><td class="n">39 kt</td><td class="n">17 kt</td><td class="n">42%</td><td class="tB">imports cover under half</td></tr><tr><td>Guinea</td><td class="n">55 Mt</td><td class="n">43 kt</td><td class="n">14 kt</td><td class="n">33%</td><td class="tB">imports cover under half</td></tr><tr><td>Zimbabwe</td><td class="n">32 Mt</td><td class="n">22 kt</td><td class="n">7.1 kt</td><td class="n">32%</td><td class="tB">imports cover under half</td></tr><tr><td>Mexico</td><td class="n">248 Mt</td><td class="n">177 kt</td><td class="n">50 kt</td><td class="n">28%</td><td class="tB">imports cover under half</td></tr><tr><td>T&uuml;rkiye</td><td class="n">54 Mt</td><td class="n">36 kt</td><td class="n">8.1 kt</td><td class="n">22%</td><td class="tB">imports cover under half</td></tr><tr><td>Papua New Guinea</td><td class="n">56 Mt</td><td class="n">35 kt</td><td class="n">7.9 kt</td><td class="n">22%</td><td class="tB">imports cover under half</td></tr><tr><td>Chile</td><td class="n">1,109 Mt</td><td class="n">655 kt</td><td class="n">140 kt</td><td class="n">21%</td><td class="tB">imports cover under half</td></tr><tr><td>Peru</td><td class="n">649 Mt</td><td class="n">388 kt</td><td class="n">73 kt</td><td class="n">18%</td><td class="tB">imports cover under half</td></tr><tr><td>Venezuela</td><td class="n">23 Mt</td><td class="n">17 kt</td><td class="n">2.8 kt</td><td class="n">16%</td><td class="tB">imports cover under half</td></tr><tr><td>Australia</td><td class="n">396 Mt</td><td class="n">275 kt</td><td class="n">43 kt</td><td class="n">15%</td><td class="tB">imports cover under half</td></tr><tr><td>Canada</td><td class="n">254 Mt</td><td class="n">172 kt</td><td class="n">25 kt</td><td class="n">14%</td><td class="tB">imports cover under half</td></tr><tr><td>Colombia</td><td class="n">44 Mt</td><td class="n">33 kt</td><td class="n">4.7 kt</td><td class="n">14%</td><td class="tB">imports cover under half</td></tr><tr><td>Bulgaria</td><td class="n">23 Mt</td><td class="n">15 kt</td><td class="n">2.1 kt</td><td class="n">14%</td><td class="tB">imports cover under half</td></tr><tr><td>Argentina</td><td class="n">31 Mt</td><td class="n">23 kt</td><td class="n">3.0 kt</td><td class="n">13%</td><td class="tB">imports cover under half</td></tr><tr><td>DR Congo</td><td class="n">649 Mt</td><td class="n">372 kt</td><td class="n">39 kt</td><td class="n">10%</td><td class="tB">imports cover under half</td></tr><tr><td>India</td><td class="n">27 Mt</td><td class="n">16 kt</td><td class="n">1.0 kt</td><td class="n">6%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Sudan</td><td class="n">49 Mt</td><td class="n">25 kt</td><td class="n">1.6 kt</td><td class="n">6%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Zambia</td><td class="n">163 Mt</td><td class="n">93 kt</td><td class="n">4.9 kt</td><td class="n">5%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Sweden</td><td class="n">25 Mt</td><td class="n">17 kt</td><td class="n">0.5 kt</td><td class="n">3%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Uzbekistan</td><td class="n">118 Mt</td><td class="n">78 kt</td><td class="n">1.3 kt</td><td class="n">1%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Poland</td><td class="n">79 Mt</td><td class="n">52 kt</td><td class="n">0.7 kt</td><td class="n">1%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Indonesia</td><td class="n">279 Mt</td><td class="n">165 kt</td><td class="n">2.1 kt</td><td class="n">1%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>China</td><td class="n">762 Mt</td><td class="n">493 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Spain</td><td class="n">26 Mt</td><td class="n">16 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Iran</td><td class="n">74 Mt</td><td class="n">47 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>Russia</td><td class="n">457 Mt</td><td class="n">291 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>United States</td><td class="n">349 Mt</td><td class="n">240 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr><tr><td>South Africa</td><td class="n">82 Mt</td><td class="n">60 kt</td><td class="n">0.0 kt</td><td class="n">0%</td><td class="tX">imports cover under a tenth</td></tr></tbody></table>
+  <div class="note">Two known weak spots. Brazil&rsquo;s balls also grind iron ore, which is not
+  counted, so Brazil looks better covered than it is. DR Congo&rsquo;s ore is rich and much of its
+  copper is leached, not milled, so a fixed global grade overstates the rock it mills.</div>
+</section>
+
+<section class="wrap xp">
+  <h2>How it was done, and reviewed</h2>
+  <p>The design was drafted with two independent language models acting as advisors, and the rules,
+  bands and controls were committed to the repository before any result existed: the
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/grinding-balls/PREREGISTRATION.md">pre-registration</a>, with a dated log of every change made
+  afterwards. Consumption rates come from primary mine reports, each with page and quotation
+  (<a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/grinding-balls/intensity_sources.csv">sources</a>); cement output from seven editions of the USGS
+  <i>Minerals Yearbook</i>.</p>
+  <div class="corr">
+  <p><b>Reviewed by one engine only.</b> This atlas&rsquo;s studies are normally reviewed adversarially
+  by two independent language models run separately. For this result only one of the two was
+  available; it was given the rules, the code and every number before publication. It found three
+  errors; none changed the verdict:</p>
+  <ul>
+    <li>A failed control (Australia) had been written up as &ldquo;not counted&rdquo; after the result
+    was seen. It is now reported as failed, with the reason it was unusable.</li>
+    <li>The coverage check set net imports to zero after averaging three years instead of before, as
+    the rules said. Corrected: Bulgaria moves up a group; the ten test countries are unchanged.</li>
+    <li>Pass/fail was judged on rounded numbers. It now uses exact values; nothing changes.</li>
+  </ul>
+  </div>
+  <p class="howto-src"><b>Sources.</b> Trade: CEPII BACI HS 2002, V202601 (Etalab Open Licence 2.0),
+  with flows priced outside 0.4&ndash;3&times; the year&rsquo;s median dropped. Mine production: BGS
+  World Mineral Statistics. Cement: USGS Minerals Yearbook, <i>Cement</i>, table 22. Consumption
+  rates: mine technical reports listed in the sources file. Built by
+  <code>build_grinding_balls.py</code> from <code>out/grinding_balls.json</code>, which holds every
+  figure on this page.</p>
+</section>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Sources</h4>CEPII BACI &middot; BGS World Mineral Statistics<br>USGS Minerals Yearbook &middot; mine technical reports</div><div class="fineprint">Independent public-data research; figures approximate and rounded.</div></div></footer>
+</body></html>
