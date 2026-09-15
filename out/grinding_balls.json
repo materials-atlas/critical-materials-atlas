@@ -982,5 +982,142 @@
   "CEPII BACI HS02 V202601 (Etalab Open Licence 2.0)",
   "BGS World Mineral Statistics, mine production (via out/cube.parquet)",
   "grinding-balls/intensity_sources.csv"
- ]
+ ],
+ "throughput_test": {
+  "tier_a": [
+   "BRA",
+   "ECU",
+   "MNG",
+   "SAU",
+   "KAZ",
+   "BOL",
+   "GHA",
+   "BFA",
+   "PHL",
+   "CIV"
+  ],
+  "years": [
+   2003,
+   2024
+  ],
+  "dropped_zero_ac_country_years": 14,
+  "main": {
+   "beta": 0.346,
+   "se_cluster": 0.198,
+   "p_cluster": 0.1139,
+   "ci95_cluster": [
+    -0.101,
+    0.794
+   ],
+   "t_cluster": 1.75,
+   "se_driscoll_kraay": 0.16,
+   "p_driscoll_kraay": 0.0592,
+   "n": 206,
+   "countries": 10
+  },
+  "leave_one_out_beta": {
+   "BRA": 0.271,
+   "ECU": 0.336,
+   "MNG": 0.384,
+   "SAU": 0.423,
+   "KAZ": 0.422,
+   "BOL": 0.323,
+   "GHA": 0.345,
+   "BFA": 0.332,
+   "PHL": 0.416,
+   "CIV": 0.19
+  },
+  "horse_race_cement_2003_2023": {
+   "beta": 0.343,
+   "se_cluster": 0.199,
+   "p_cluster": 0.1187,
+   "ci95_cluster": [
+    -0.107,
+    0.792
+   ],
+   "t_cluster": 1.72,
+   "se_driscoll_kraay": 0.152,
+   "p_driscoll_kraay": 0.0503,
+   "n": 196,
+   "countries": 10,
+   "beta_cement": 0.02,
+   "t_cement": 0.16,
+   "p_cement": 0.8802
+  },
+  "placebo_731815": {
+   "beta": -0.292,
+   "se_cluster": 0.243,
+   "p_cluster": 0.2602,
+   "ci95_cluster": [
+    -0.842,
+    0.258
+   ],
+   "t_cluster": -1.2,
+   "se_driscoll_kraay": 0.593,
+   "p_driscoll_kraay": 0.6341,
+   "n": 196,
+   "countries": 10
+  },
+  "negative_control_australia": {
+   "beta_iron": -50.327,
+   "ci95_hc1": [
+    -85.645,
+    -15.009
+   ],
+   "beta_q": 12.971,
+   "n": 7
+  },
+  "robustness": {
+   "levels_with_fe": {
+    "beta": 1.192,
+    "se_cluster": 0.291,
+    "p_cluster": 0.0027,
+    "ci95_cluster": [
+     0.534,
+     1.849
+    ],
+    "t_cluster": 4.1,
+    "se_driscoll_kraay": 0.292,
+    "p_driscoll_kraay": 0.0027,
+    "n": 220,
+    "countries": 10
+   },
+   "values_not_tonnes": {
+    "beta": 0.275,
+    "se_cluster": 0.193,
+    "p_cluster": 0.1889,
+    "ci95_cluster": [
+     -0.162,
+     0.712
+    ],
+    "t_cluster": 1.42,
+    "se_driscoll_kraay": 0.14,
+    "p_driscoll_kraay": 0.0805,
+    "n": 206,
+    "countries": 10
+   },
+   "pooled_with_732591": {
+    "beta": 0.397,
+    "se_cluster": 0.169,
+    "p_cluster": 0.0435,
+    "ci95_cluster": [
+     0.014,
+     0.78
+    ],
+    "t_cluster": 2.35,
+    "se_driscoll_kraay": 0.198,
+    "p_driscoll_kraay": 0.0758,
+    "n": 207,
+    "countries": 10
+   }
+  },
+  "conditions": {
+   "1_beta_in_band_and_significant": false,
+   "2_leave_one_out_in_band": false,
+   "3_horse_race_cement": false,
+   "4_placebo_731815_fails": true,
+   "5_australia_iron_ore_ci_includes_zero": false
+  },
+  "result": "FAIL"
+ }
 }
