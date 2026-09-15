@@ -156,3 +156,27 @@ threshold was 6, so the study continues. Details the filing did not pin down, fi
 
 A research agent first read the Kamoa-Kakula table as 0.80 kg/t of steel. Checked against the
 tonnage column on the same rows, the 0.450 kg/t line is 3 mm ceramic media; steel is 0.367 kg/t.
+
+## Result — throughput test, run 2026-09-15: **FAIL**
+
+Run by `throughput.py` (committed before its first run); every number is in `out/grinding_balls.json`.
+
+| Condition | Filed rule | Result |
+|---|---|---|
+| 1. Main effect | β in [0.4, 1.5], p < 0.05 | β = 0.35, 95% CI [−0.10, 0.79], p = 0.11 (Driscoll–Kraay p = 0.06); 206 country-years, 10 countries. **Fail** |
+| 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; three below 0.3. **Fail** |
+| 3. Cement horse race | β in band, Q the stronger regressor | β = 0.34 (out of band); Q t = 1.72 vs cement t = 0.16. **Fail** on the band |
+| 4. Placebo, HS 731815 | outside band or not significant | β = −0.29, p = 0.26. **Pass** |
+| 5. Australia, iron ore | iron-ore CI includes zero | Not informative: Australia was a net *exporter* of forged balls until 2017, so only 7 annual changes exist. Reported, not counted either way. |
+
+Automatic-fail checks, as filed: the relationship **is** strong in levels with country and year
+effects (β = 1.19, p = 0.003) and becomes significant only when cast balls are pooled in
+(β = 0.40, p = 0.04). The filing names both as grounds for failure, not rescue: a levels
+relationship says countries that mill more import more over the long run, not that imports follow
+throughput year to year.
+
+**What the result says.** Across the ten countries where imports can physically be the input,
+year-to-year growth in forged-ball imports moves with ore milled only about a third as much as
+the physics predicts, and the estimate cannot be told apart from zero. Imported grinding balls
+are not a usable annual proxy for ore throughput. Step 3 (grade) was conditional on a proxy
+worth using and is not run.
