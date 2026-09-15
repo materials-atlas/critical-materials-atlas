@@ -178,5 +178,9 @@ throughput year to year.
 **What the result says.** Across the ten countries where imports can physically be the input,
 year-to-year growth in forged-ball imports moves with ore milled only about a third as much as
 the physics predicts, and the estimate cannot be told apart from zero. Imported grinding balls
-are not a usable annual proxy for ore throughput. Step 3 (grade) was conditional on a proxy
-worth using and is not run.
+are not a usable annual proxy for ore throughput.
+
+**Step 3 (grade) is not run.** The filing allows it only for a tier-A country with a public mill
+head-grade series. The two it names, COCHILCO and MINEM, cover Chile and Peru, both tier B. No such
+series has been located for any of the ten tier-A countries; that search was not exhaustive, and
+this line will change if one is found.
