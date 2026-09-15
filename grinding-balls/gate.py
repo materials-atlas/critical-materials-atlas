@@ -119,7 +119,9 @@ def main():
         demand_lo = sum(mean_ore[g] * BAND[g][0] for g in BAND) / 1e6
         imp = sum(tr.get(iso, {}).get(y, [0, 0])[0] for y in YEARS) / len(YEARS) / 1000
         exp = sum(tr.get(iso, {}).get(y, [0, 0])[1] for y in YEARS) / len(YEARS) / 1000
-        acv = max(0.0, imp - exp)
+        # filed rule: AC is floored at zero each year, then averaged (not the floor of the mean)
+        acv = sum(max(0.0, tr.get(iso, {}).get(y, [0, 0])[0] - tr.get(iso, {}).get(y, [0, 0])[1])
+                  for y in YEARS) / len(YEARS) / 1000
         ratio = acv / demand_mid if demand_mid else None
         if acv > 2 * demand_hi:
             tier = 'flagged'

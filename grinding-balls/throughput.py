@@ -97,7 +97,7 @@ def fit(df, formula, var='dq'):
     m_dk = smf.ols(formula, d).fit(cov_type='hac-groupsum', cov_kwds={'time': tcode.values, 'maxlags': 2}, use_t=True)
     b = m_cl.params[var]
     ci = m_cl.conf_int().loc[var].tolist()
-    return {'beta': round(b, 3), 'se_cluster': round(m_cl.bse[var], 3), 'p_cluster': round(m_cl.pvalues[var], 4),
+    return {'_raw': {'beta': float(b), 'p': float(m_cl.pvalues[var]), 't': float(m_cl.tvalues[var])},'beta': round(b, 3), 'se_cluster': round(m_cl.bse[var], 3), 'p_cluster': round(m_cl.pvalues[var], 4),
             'ci95_cluster': [round(ci[0], 3), round(ci[1], 3)], 't_cluster': round(m_cl.tvalues[var], 2),
             'se_driscoll_kraay': round(m_dk.bse[var], 3), 'p_driscoll_kraay': round(m_dk.pvalues[var], 4),
             'n': int(m_cl.nobs), 'countries': int(d['iso'].nunique()), '_model': m_cl}
@@ -116,12 +116,12 @@ def main():
     base = panel(ac, q, tier_a)
     dropped = int((~base['ok']).sum())
     main_fit = fit(base[base['ok']], 'dac ~ dq' + FE)
-    cond1 = BETA_BAND[0] <= main_fit['beta'] <= BETA_BAND[1] and main_fit['p_cluster'] < 0.05
+    cond1 = BETA_BAND[0] <= main_fit['_raw']['beta'] <= BETA_BAND[1] and main_fit['_raw']['p'] < 0.05
 
     loo = {}
     for iso in tier_a:
         sub = base[base['ok'] & (base['iso'] != iso)]
-        loo[iso] = fit(sub, 'dac ~ dq' + FE)['beta']
+        loo[iso] = fit(sub, 'dac ~ dq' + FE)['_raw']['beta']
     cond2 = all(LOO_BAND[0] <= b <= LOO_BAND[1] for b in loo.values())
 
     cem = json.load(open(os.path.join(HERE, 'cement_usgs_kt.json'), encoding='utf-8'))['kt']
@@ -130,15 +130,16 @@ def main():
     hr = hr[hr['ok'] & (hr['year'] <= 2023)]
     hr_fit = fit(hr, 'dac ~ dq + dx' + FE)
     m = hr_fit.pop('_model')
-    t_cem = round(float(m.tvalues['dx']), 2)
+    t_cem_raw = float(m.tvalues['dx'])
+    t_cem = round(t_cem_raw, 2)
     hr_fit.update({'beta_cement': round(float(m.params['dx']), 3), 't_cement': t_cem,
                    'p_cement': round(float(m.pvalues['dx']), 4)})
-    cond3 = (BETA_BAND[0] <= hr_fit['beta'] <= BETA_BAND[1]) and abs(hr_fit['t_cluster']) > abs(t_cem)
+    cond3 = (BETA_BAND[0] <= hr_fit['_raw']['beta'] <= BETA_BAND[1]) and abs(hr_fit['_raw']['t']) > abs(t_cem_raw)
 
     ac_pl = apparent(con, ['731815'], num2iso)
     pl = panel(ac_pl, q, tier_a)
     pl_fit = fit(pl[pl['ok']], 'dac ~ dq' + FE)
-    cond4 = not (BETA_BAND[0] <= pl_fit['beta'] <= BETA_BAND[1]) or pl_fit['p_cluster'] >= 0.05
+    cond4 = not (BETA_BAND[0] <= pl_fit['_raw']['beta'] <= BETA_BAND[1]) or pl_fit['_raw']['p'] >= 0.05
 
     iron = {(iso, yr): t for iso, yr, mat, t in series(con, "'iron'") if t}
     au = panel(ac, q, ['AUS'], extra=iron)
@@ -163,8 +164,9 @@ def main():
     acp = apparent(con, ['732611', '732591'], num2iso)
     pp = panel(acp, q, tier_a)
     pp_fit = fit(pp[pp['ok']], 'dac ~ dq' + FE)
-    for f in (main_fit, lv_fit, v_fit, pp_fit, pl_fit):
+    for f in (main_fit, lv_fit, v_fit, pp_fit, pl_fit, hr_fit):
         f.pop('_model', None)
+        f.pop('_raw', None)
 
     conds = {'1_beta_in_band_and_significant': bool(cond1), '2_leave_one_out_in_band': bool(cond2),
              '3_horse_race_cement': bool(cond3), '4_placebo_731815_fails': bool(cond4),
