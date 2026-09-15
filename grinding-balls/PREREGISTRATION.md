@@ -135,5 +135,24 @@ page).
 Ore milled uses BGS mine production in contained metal (gold converted from kilograms); lead and
 zinc are summed before applying the lead-zinc constant.
 
+**2026-09-15 — gate result, then the throughput test's open details fixed before running it.**
+The gate (`gate.py`, `out/grinding_balls.json`) put 10 countries in tier A: Brazil, Ecuador,
+Mongolia, Saudi Arabia, Kazakhstan, Bolivia, Ghana, Burkina Faso, Philippines, Côte d'Ivoire. The
+threshold was 6, so the study continues. Details the filing did not pin down, fixed now:
+1. **Panel.** Tier A only, annual first differences 2003–2024 (levels 2002–2024), each year's trade
+   screened with that year's median. A country-year with AC = 0 has no logarithm and is dropped;
+   the count is reported.
+2. **Inference.** Standard errors clustered by country, p from a t distribution with G − 1 = 9
+   degrees of freedom (few clusters). Driscoll–Kraay (maximum lag 2) reported alongside.
+3. **Horse race.** BGS reports cement only for Europe, so the series is USGS Minerals Yearbook
+   *Cement*, Table 22, seven editions, saved with URLs as `cement_usgs_kt.json`. USGS ends in 2023,
+   so the horse race runs on 2003–2023. "Q stays the stronger regressor" means a larger absolute
+   t-statistic than cement growth in the joint regression.
+4. **Placebo.** HS 731815 apparent consumption for the same tier-A countries, same screen, same
+   regression.
+5. **Negative control.** Australia alone, 2003–2024: Δlog AC of forged balls on Δlog BGS iron-ore
+   mine production, with Δlog Q as a second regressor; the iron-ore coefficient's 95% interval must
+   include zero.
+
 A research agent first read the Kamoa-Kakula table as 0.80 kg/t of steel. Checked against the
 tonnage column on the same rows, the 0.450 kg/t line is 3 mm ceramic media; steel is 0.367 kg/t.
