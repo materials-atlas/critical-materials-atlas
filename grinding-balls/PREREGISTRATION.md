@@ -125,5 +125,15 @@ capacity above 472 kt of balls a year in Chile (exhibitor news item, company-sup
 China, Zambia and Indonesia; its Chilean and Peruvian plants make liners, not balls (company plants
 page).
 
+**2026-09-15 — three details the filing left open, fixed before the gate was computed.**
+1. The gate ratio compares 2022–24 mean AC with ball demand from ore milled averaged over the
+   *same* 2022–24 years (the filing named years only for AC). Sample membership stays on 2024 ore.
+2. BACI flows with no reported quantity carry no tonnes, so they cannot enter AC; they are dropped
+   and their value share is reported.
+3. "Quantity-weighted world median unit value" = the median of bilateral unit values (value ÷
+   quantity) across every flow of that code and year, each flow weighted by its tonnes.
+Ore milled uses BGS mine production in contained metal (gold converted from kilograms); lead and
+zinc are summed before applying the lead-zinc constant.
+
 A research agent first read the Kamoa-Kakula table as 0.80 kg/t of steel. Checked against the
 tonnage column on the same rows, the 0.450 kg/t line is 3 mm ceramic media; steel is 0.367 kg/t.
