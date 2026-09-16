@@ -65,6 +65,19 @@ COLMAP = {
 }
 
 
+
+# Rows whose repeated year label USGS itself contradicts. Not a rule - a list, each entry carrying
+# the publication that fixes the date, so no other repeated year is ever relabelled on a guess.
+# Checked 16 Sep 2026 against the Mineral Commodity Summaries PDFs.
+RELABEL = {
+    ('nickel.xlsx', 2019): (2020, 'USGS Mineral Commodity Summaries 2022, Nickel: world mine production '
+                                  '2020 = 2,510,000 t (this row: 2,510,000); LME cash 2020 = $13,772/t '
+                                  '(this row: 13,800). https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-nickel.pdf'),
+    ('cadmium.xlsx', 2021): (2022, 'USGS Mineral Commodity Summaries 2024, Cadmium: 2022 refined production '
+                                   '212 t, imports 99 t, exports 68 t, price $3.42/kg (this row: 212, 99, 68, '
+                                   '3420). https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-cadmium.pdf'),
+}
+
 def classify(col):
     c = ' '.join(str(col).split()).lower().strip()
     if 'unit value' in c:
@@ -107,7 +120,16 @@ def rows_for(path):
         # inferred date into a source column is how a guess becomes a fact. So the labelled row
         # is kept and the repeat is diverted to out/source_anomalies.json with its raw values,
         # visible and recoverable, rather than silently averaged into the one above it.
-        if year in seen_years:
+        fix = RELABEL.get((os.path.basename(path), year))
+        if year in seen_years and fix and fix[0] not in seen_years:
+            # Evidence-backed, per row: the repeat IS the following year (see RELABEL).
+            ANOMALIES.append({'file': os.path.basename(path), 'material': material,
+                              'repeated_year': year, 'row': [str(c) for c in row[:8]],
+                              'kept': 'RELABELLED as %d' % fix[0], 'evidence': fix[1],
+                              'why': 'the source repeats a year label; a later USGS publication '
+                                     'prints these exact figures under the following year'})
+            year = fix[0]
+        elif year in seen_years:
             ANOMALIES.append({'file': os.path.basename(path), 'material': material,
                               'repeated_year': year, 'row': [str(c) for c in row[:8]],
                               'kept': 'the first row carrying this year',
@@ -170,12 +192,13 @@ def build():
             except Exception:
                 prev = {}
         prev['usgs_ds140_repeated_year'] = {
-            'note': 'Rows discarded because the source repeats a year label on two rows of '
-                    'different figures. Nothing is lost - the raw values are here - but they '
-                    'cannot enter a table keyed on (series, year) without inventing a date.',
+            'note': 'Rows where the source repeats a year label on two rows of different '
+                    'figures. A row is RELABELLED only where a later USGS publication prints those '
+                    'exact figures under the following year (the evidence is on the row); any other '
+                    'repeat is discarded here, raw values kept, rather than given an invented date.',
             'rows': ANOMALIES}
         _json.dump(prev, open(path, 'w', encoding='utf-8'), indent=1, ensure_ascii=False)
-        print(f'  {len(ANOMALIES)} repeated-year rows diverted to out/source_anomalies.json')
+        print(f'  {len(ANOMALIES)} repeated-year rows recorded in out/source_anomalies.json')
     return rows
 
 
