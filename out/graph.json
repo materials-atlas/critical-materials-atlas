@@ -3920,14 +3920,15 @@
   "build_ac_reconcile.py": {
    "reads": [
     "out/apparent.json",
-    "pipeline/data/cube.parquet"
+    "out/cube.parquet"
    ],
    "writes": [
     "out/ac_reconciliation.json"
    ],
    "exit": 0,
-   "secs": 5.7,
-   "code_sha": "8e03746432619134"
+   "secs": 0.9,
+   "code_sha": "14201ccf6e716c99",
+   "restored": 1
   },
   "build_anchor.py": {
    "reads": [
@@ -15531,15 +15532,22 @@
    "reads": [
     "./",
     "__pycache__/baci.cpython-311.pyc",
-    "raw/baci/country_codes_V202601.csv"
+    "raw/baci/country_codes_V202601.csv",
+    "out/cube.parquet"
    ],
    "writes": [
     "explosives.html",
     "out/explosives.json"
    ],
    "exit": 0,
-   "secs": 2.0,
+   "secs": 2.2,
    "code_sha": "ec23ec185586a4fa",
+   "declared": {
+    "reads": [
+     "out/cube.parquet"
+    ],
+    "why": "queries the harmonised cube through DuckDB, which does its own I/O and raises no audit event; every other input of this builder IS observed"
+   },
    "restored": 2
   },
   "build_grinding_balls.py": {
