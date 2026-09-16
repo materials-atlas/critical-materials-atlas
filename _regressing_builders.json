@@ -161,7 +161,8 @@
   "build_synthesis.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_trends.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_uncertainty.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
-  "build_vq.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained."
+  "build_vq.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
+  "build_ps_network.py": "16 Sep 2026: the builder emitted no site footer and an old home link, so its page looked hand-edited. Footer and link added to the builder; page text then matched exactly and the rebuild additionally restored Namibia, which the published page predated. Page adopted from the builder."
  },
  "unsafe_to_run": [
   "build_bloc_demand.py",
@@ -175,7 +176,6 @@
   "build_nowcast_backtest.py",
   "build_ot.py",
   "build_production.py",
-  "build_ps_network.py",
   "build_riskmethods.py",
   "build_scenarios.py",
   "build_share.py"
