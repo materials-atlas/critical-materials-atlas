@@ -1,10 +1,9 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/gallium">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/gallium">
 <title>Gallium, followed end to end — one metal, one mass balance · Critical Materials Atlas</title>
 <meta name="description" content="A single-metal deep dive: gallium traced physically from bauxite through alumina refining to recovery and export, with explicit bias bounds. ~94% of the gallium passing through the world's alumina refineries is discarded — supply is capped by refinery retrofits, not price. 'Can't scale', quantified.">
-<meta property="og:title" content="Gallium end to end: why most of the gallium in bauxite is never recovered, and supply can't answer price">
+<meta property="og:title" content="Gallium end to end: why 94% is thrown away, and supply can't answer price">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -79,7 +78,7 @@
 <script>
 fetch('out/gallium.json').then(r=>r.json()).then(S=>{
   const f=n=>Number(Math.round(n)).toLocaleString();
-  document.getElementById('lead').innerHTML='<b>The number:</b> about <b>'+f(S.through_t.central)+' tonnes</b> of gallium are <i>contained in</i> the bauxite passing through the world&rsquo;s alumina refineries each year. Only <b>~'+S.gallium_world_t+' tonnes</b> are recovered as metal. Measured against that contained total, <b>~'+S.discard_pct.central+'%</b> is not recovered &mdash; but that is gallium <i>in the feed</i>, not gallium that was ever recoverable: much never dissolves into the Bayer liquor, so the truly recoverable pool is smaller than this implies. (This share uses the <i>highest</i> published production estimate, so it is the conservative, low end of the range.) Supply is capped upstream, by aluminium&rsquo;s economics, not gallium&rsquo;s price.';
+  document.getElementById('lead').innerHTML='<b>The number:</b> about <b>'+f(S.through_t.central)+' tonnes</b> of gallium pass through the world&rsquo;s alumina refineries each year, embedded in the bauxite. Only <b>~'+S.gallium_world_t+' tonnes</b> are recovered. The other <b>~'+S.discard_pct.central+'%</b> is discarded to red mud &mdash; not because the gallium isn&rsquo;t there, but because the recovery step is built at only a few plants. Supply is capped upstream, by aluminium&rsquo;s economics, not gallium&rsquo;s price.';
   const st=[
     {v:'~'+f(S.through_t.central)+' t',l:'gallium passing through alumina refineries each year'},
     {v:S.gallium_world_t+' t',l:'actually recovered as primary gallium (WMD 2024)'},
