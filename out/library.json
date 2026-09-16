@@ -9,12 +9,14 @@
   "raw/iea_bulk/gender-and-energy",
   "raw/iea_bulk/weather-for-energy-tracker",
   "raw/iea_drivers",
+  "raw/mrds",
   "raw/iea_bulk/monthly-electricity-statistics",
   "raw/iea_bulk/world-energy-balances-highlights",
   "raw/iea_rdd",
   "raw/iea_bulk/household-energy-expenditure-database",
   "raw/iea_bulk/solid-biofuels-consumption-estimation-model",
   "raw/iea_bulk/net-zero-by-2050-scenario",
+  "raw/surveys",
   "raw/iea_bulk/global-ev-outlook-2026",
   "raw/iea_bulk/iea-electricity-access-data-collection-template",
   "raw/iea_bulk/greenhouse-gas-emissions-from-energy-highlights",
@@ -30,6 +32,7 @@
   "raw/iea_bulk/global-ev-outlook-2025",
   "raw/iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset",
   "raw/iea_bulk/world-energy-investment-2025-datafile",
+  "raw/jasansky",
   "raw/iea_bulk/household-appliances-database",
   "raw/iea_bulk/monthly-oil-statistics",
   "raw/iea_bulk/quarterly-coal-statistics",
@@ -38,19 +41,24 @@
   "raw/iea_bulk/world-energy-investment-2021-datafile",
   "raw/bottomup",
   "raw/iea_energy_econ",
+  "raw/ipis",
+  "raw/wikidata",
   "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
+  "raw/usgs_critmin",
   "raw/iea_bulk/global-energy-review-co2-emissions-in-2021",
   "raw/iea_bulk/monthly-gas-statistics",
   "raw/iea_bulk/monthly-reliance-on-russian-oil-for-oecd-countries",
   "raw/iea_bulk/reliance-on-russian-fossil-fuels-in-oecd-and-eu-countries",
   "raw/iea_bulk/the-role-of-critical-minerals-in-clean-energy-transitions-2",
+  "raw/au_ozmin",
   "raw/iea_bulk/global-energy-review-dataset"
  ],
  "contested": [],
  "skipped_unrecognised": [],
  "only_named_in_pipeline_source": [
   "raw/oecd_itic",
-  "raw/_sources"
+  "raw/_sources",
+  "raw/osm"
  ],
  "scope_limit": "The recorder does not run pipeline/, so a folder only the pipeline opens would read as unread. Those are found by searching the pipeline source for the folder name - grep, weaker evidence - and listed separately.",
  "library": [
@@ -80,6 +88,7 @@
     "build_cube_baci.py",
     "build_cube_iea.py",
     "build_cube_wmd.py",
+    "build_explosives.py",
     "build_exposure.py",
     "build_feedstock.py",
     "build_fitness.py",
@@ -113,7 +122,7 @@
     "silicon-chip/extract_baci.py",
     "steel-alloys-chain/extract_baci.py"
    ],
-   "n_readers": 44,
+   "n_readers": 45,
    "reaches_cube": true,
    "named_in_pipeline_source": [
     "pipeline/adapter_baci.py",
@@ -212,14 +221,14 @@
   },
   {
    "folder": "raw/_sources",
-   "n_files": 135,
-   "size_mb": 50.8,
+   "n_files": 136,
+   "size_mb": 51.1,
    "formats": [
     ".pdf",
     ".xls",
     ".xlsx"
    ],
-   "newest": "2026-09-04",
+   "newest": "2026-09-12",
    "dataset": "Primary PDFs and source-of-record documents",
    "licence": "various",
    "status": "reference",
@@ -279,10 +288,9 @@
    "status": "reference",
    "why_we_might_need_it": "Satellite-derived mine footprints; a physical cross-check on where mining is.",
    "read_by": [
-    "build_commodity_attribution.py",
     "build_satellite.py"
    ],
-   "n_readers": 2,
+   "n_readers": 1,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -356,10 +364,8 @@
    "licence": "US public domain",
    "status": "reference",
    "why_we_might_need_it": "Deposit records, site grain.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -572,10 +578,8 @@
    "licence": "mixed public",
    "status": "reference",
    "why_we_might_need_it": "Country-specific reserves and production where a survey publishes better than the global compilations.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -696,10 +700,8 @@
    "licence": "ODbL",
    "status": "reference",
    "why_we_might_need_it": "Infrastructure geometry (ports, rail) for logistics work.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": [
     "pipeline/reconcile.py"
@@ -910,10 +912,8 @@
    "licence": "CC BY 4.0",
    "status": "reference",
    "why_we_might_need_it": "Asset-level mine production - different grain from the cube, but the best public route to a bottom-up check.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -1020,10 +1020,9 @@
    "status": "reference",
    "why_we_might_need_it": "Industry-side context.",
    "read_by": [
-    "build_commodity_attribution.py",
     "build_companionality.py"
    ],
-   "n_readers": 2,
+   "n_readers": 1,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -1129,10 +1128,8 @@
    "licence": "CC BY-SA",
    "status": "reference",
    "why_we_might_need_it": "DIRECTLY relevant to the cobalt gap: BGS under-reports DRC precisely because artisanal output does not enter national returns.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -1189,10 +1186,8 @@
    "licence": "CC0",
    "status": "reference",
    "why_we_might_need_it": "Entity reconciliation helper.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -1226,10 +1221,8 @@
    "licence": "US public domain",
    "status": "reference",
    "why_we_might_need_it": "Deposit points, no time dimension. Site-level grain, so not cube material.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -1330,10 +1323,8 @@
    "licence": "CC BY 4.0",
    "status": "reference",
    "why_we_might_need_it": "Australian deposits and resources - a strong reserves source if a reserves layer is built.",
-   "read_by": [
-    "build_commodity_attribution.py"
-   ],
-   "n_readers": 1,
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
