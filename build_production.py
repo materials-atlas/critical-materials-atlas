@@ -74,14 +74,11 @@ N2I = {
  'Eritrea': 'ER', 'Nepal': 'NP', 'Bhutan': 'BT', 'Cambodia': 'KH', 'Belgium': 'BE', 'Netherlands': 'NL',
 }
 
-# third source: BGS World Mineral Statistics (cached by build_bgs_production.py from the BGS OGC API)
-BGS_PATH = os.path.join(ROOT, 'raw', 'bgs_production_shares.json')
-BGS = {}
-try:
-    _bgs = json.load(open(BGS_PATH, encoding='utf8'))
-    BGS = _bgs.get('materials', {})
-except Exception:
-    BGS = {}
+# third source: BGS World Mineral Statistics, from the published cube (bgs_cube.py). It replaced a
+# separate OGC API pull (raw/bgs_production_shares.json, 28 Aug) that was older than the cube's BGS
+# panel (9 Sep) and summed Chile's lithium carbonate into lithium-mineral tonnes.
+import bgs_cube
+BGS = {lab: rec for lab, rec in ((lab, bgs_cube.top_shares(c)) for lab, c in bgs_cube.FORMS.items()) if rec}
 
 YEAR_WMD = 2024
 
@@ -205,7 +202,7 @@ except Exception as _ex:
 out = {
     'generated': data.get('generated'), 'year': 2024,
     'source': 'World Mining Data 6.4 (2026 ed., Austrian Federal Ministry of Finance) — production in metric tonnes.',
-    'bgs_source': 'British Geological Survey, World Mineral Statistics (OGC API), latest year per commodity.',
+    'bgs_source': 'British Geological Survey, World Mineral Statistics (via the atlas cube), latest year per commodity.',
     'n': len(rows_out),
     'n_checkable': len(checkable),
     'n_agree_top': len(agree_top),

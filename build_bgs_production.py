@@ -13,19 +13,8 @@ API = "https://ogcapi.bgs.ac.uk/collections/world-mineral-statistics/items"
 UA = "Mozilla/5.0"
 PREFER = [2024, 2023, 2022, 2021, 2020]   # newest first; use the newest recent year with enough countries
 
-# atlas label -> BGS bgs_commodity_trans candidates (first that returns a usable year wins)
-MAP = {
-    'antimony': ['antimony, mine'], 'arsenic': ['arsenic, white', 'arsenic'], 'baryte': ['barytes'],
-    'bauxite': ['bauxite'], 'beryllium': ['beryl'], 'boron': ['boron minerals', 'borates', 'boron'],
-    'cobalt': ['cobalt, mine'], 'copper': ['copper, mine'], 'fluorspar': ['fluorspar'],
-    'gallium': ['gallium'], 'germanium': ['germanium'], 'graphite': ['graphite'],
-    'lithium': ['lithium minerals'], 'magnesium': ['magnesite'], 'magnets': ['rare earth minerals'],
-    'manganese': ['manganese ore'], 'nickel': ['nickel, mine'], 'niobium': ['niobium', 'columbium'],
-    'phosphate': ['phosphate rock'], 'phosphorus': ['phosphate rock'],
-    'platinum': ['platinum'], 'palladium': ['palladium'],
-    'strontium': ['strontium minerals'], 'tantalum': ['tantalum'],
-    'titanium': ['titanium minerals', 'ilmenite'], 'tungsten': ['tungsten, mine'], 'vanadium': ['vanadium'],
-}
+# atlas label -> BGS commodity candidates: defined once, in bgs_cube.py
+from bgs_cube import FORMS as MAP
 
 def fetch(commodity):
     url = f"{API}?bgs_commodity_trans={urllib.parse.quote(commodity, safe='')}&limit=6000&f=json"
