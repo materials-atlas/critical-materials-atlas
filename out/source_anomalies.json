@@ -1,6 +1,6 @@
 {
  "usgs_ds140_repeated_year": {
-  "note": "Rows discarded because the source repeats a year label on two rows of different figures. Nothing is lost - the raw values are here - but they cannot enter a table keyed on (series, year) without inventing a date.",
+  "note": "Rows where the source repeats a year label on two rows of different figures. A row is RELABELLED only where a later USGS publication prints those exact figures under the following year (the evidence is on the row); any other repeat is discarded here, raw values kept, rather than given an invented date.",
   "rows": [
    {
     "file": "cadmium.xlsx",
@@ -16,8 +16,9 @@
      "W",
      "3420"
     ],
-    "kept": "the first row carrying this year",
-    "why": "the source repeats a year label on two rows of different figures; the true year of the second cannot be read off the file"
+    "kept": "RELABELLED as 2022",
+    "evidence": "USGS Mineral Commodity Summaries 2024, Cadmium: 2022 refined production 212 t, imports 99 t, exports 68 t, price $3.42/kg (this row: 212, 99, 68, 3420). https://pubs.usgs.gov/periodicals/mcs2024/mcs2024-cadmium.pdf",
+    "why": "the source repeats a year label; a later USGS publication prints these exact figures under the following year"
    },
    {
     "file": "nickel.xlsx",
@@ -33,8 +34,9 @@
      "195000",
      "13800"
     ],
-    "kept": "the first row carrying this year",
-    "why": "the source repeats a year label on two rows of different figures; the true year of the second cannot be read off the file"
+    "kept": "RELABELLED as 2020",
+    "evidence": "USGS Mineral Commodity Summaries 2022, Nickel: world mine production 2020 = 2,510,000 t (this row: 2,510,000); LME cash 2020 = $13,772/t (this row: 13,800). https://pubs.usgs.gov/periodicals/mcs2022/mcs2022-nickel.pdf",
+    "why": "the source repeats a year label; a later USGS publication prints these exact figures under the following year"
    }
   ]
  }
