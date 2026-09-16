@@ -80,6 +80,75 @@ def build():
     out = []
     for path in sorted(_glob.glob(XLSX_GLOB)):
         out.extend(_build_one(path))
+        out.extend(_build_demand(path))
+    return out
+
+
+DEMAND_SHEET = '1 Total demand for key minerals'
+# IEA demand-sheet mineral heading -> atlas material (the supply map above plus the demand spellings)
+DEMAND_MINERAL = {'copper': 'copper', 'cobalt': 'cobalt', 'lithium': 'lithium', 'nickel': 'nickel',
+                  'magnet rare earth elements': 'rare_earths',
+                  'graphite (all grades: natural and synthetic)': 'graphite'}
+SCENARIO = {'stated policies scenario': 'STEPS', 'announced pledges scenario': 'APS',
+            'net zero emissions by 2050 scenario': 'NZE'}
+
+
+def _build_demand(XLSX):
+    """Demand for key minerals, by technology, base year and each scenario's projection years.
+
+    Base year rows are measure 'demand'; projections are 'demand_projection' with the scenario in
+    the native code, so a projection can never be summed into an observation by accident."""
+    import openpyxl
+    edition = EDITION_OF.get(os.path.basename(XLSX), 'unknown')
+    wb = openpyxl.load_workbook(XLSX, read_only=True, data_only=True)
+    if DEMAND_SHEET not in wb.sheetnames:
+        wb.close()
+        return []
+    rows_x = list(wb[DEMAND_SHEET].iter_rows(max_col=40, values_only=True))
+    wb.close()
+    yr_i = next(i for i, r in enumerate(rows_x) if r and sum(
+        1 for c in r if isinstance(c, (int, float)) and 2000 < c < 2100) >= 4)
+    year_row, scen_row = rows_x[yr_i], rows_x[yr_i - 1]
+    # each scenario label sits above its first projection column; the base year column has none
+    col_scen, current = {}, None
+    base_col = next(i for i, v in enumerate(year_row) if isinstance(v, (int, float)) and 2000 < v < 2100)
+    for i, v in enumerate(year_row):
+        if i < len(scen_row) and isinstance(scen_row[i], str) and scen_row[i].strip():
+            current = SCENARIO.get(scen_row[i].strip().lower())
+        if isinstance(v, (int, float)) and 2000 < v < 2100 and i != base_col:
+            col_scen[i] = current
+    base_year = int(year_row[base_col])
+    out, material = [], None
+    for r in rows_x[yr_i + 1:]:
+        if not r or r[0] in (None, ''):
+            continue
+        label = str(r[0]).strip()
+        numeric = [c for c in r[1:] if isinstance(c, (int, float))]
+        if not numeric:                                   # a mineral heading
+            material = DEMAND_MINERAL.get(label.lower())
+            continue
+        if material is None or label.lower().startswith('share of'):
+            continue
+        tech = label
+        cells = [(base_col, 'base', 'demand', base_year)] + [
+            (i, col_scen[i], 'demand_projection', int(year_row[i])) for i in sorted(col_scen)]
+        for ci, scen, measure, yr in cells:
+            if ci >= len(r) or not isinstance(r[ci], (int, float)) or scen is None:
+                continue
+            v = float(r[ci])
+            code = f'IEA {edition}:demand:{material}:{tech}:{scen}'
+            out.append({
+                'material': material, 'source_group': f'IEA {edition}:{DEMAND_SHEET}',
+                'country_iso3': 'WLD', 'year': yr, 'measure_family': 'demand', 'measure': measure,
+                'flow_direction': None, 'stage': 'unspecified',
+                'code_system': f'IEA CM Data Explorer {edition}', 'native_code': code,
+                'native_label': f'{tech} ({scen})', 'sub_commodity': tech,
+                'value': v, 'unit': 'thousand tonnes', 'value_t': v * KT_TO_T,
+                'conversion_factor': KT_TO_T, 'basis': 'gross',
+                'source': 'IEA Critical Minerals Dataset', 'series_id': code,
+                'precision': None, 'value_flag': 'projection' if measure == 'demand_projection' else None,
+            })
+    print(f'  IEA {edition}: demand {len(out)} rows (base year {base_year})')
     return out
 
 
