@@ -173,11 +173,11 @@
   "build_leverage.py": "16 Sep 2026: the builder emitted no site footer, so a rebuild stripped it. Footer added; page text then matches exactly.",
   "build_breakout.py": "16 Sep 2026: the builder lacked the site footer and one hand-written sentence (flagship-project capex and first-production year). Both adopted into the builder; with the footer back, add_head can place the landmark again, so the skip-link returns. Reproduces word for word.",
   "build_share.py": "16 Sep 2026: card5 quoted 17 materials where out/leverage.json now says 15 - the published card was stale, not the builder. Rebuilt cards adopted.",
-  "build_gallium.py": "16 Sep 2026: the most dangerous of the held builders. The published page carried CORRECTED, weakened claims ('discards most of the gallium in its feedstock', 'consistent with', 'a consistency check on shared constants, not an independent measurement') while the builder still held the original overclaims ('is 94% waste', 'independently reproduced by'). Re-running would have republished retracted wording - the germanium failure class. Three paragraphs adopted into the builder; it now reproduces the page word for word."
+  "build_gallium.py": "16 Sep 2026: the most dangerous of the held builders. The published page carried CORRECTED, weakened claims ('discards most of the gallium in its feedstock', 'consistent with', 'a consistency check on shared constants, not an independent measurement') while the builder still held the original overclaims ('is 94% waste', 'independently reproduced by'). Re-running would have republished retracted wording - the germanium failure class. Three paragraphs adopted into the builder; it now reproduces the page word for word.",
+  "build_production.py": "16 Sep 2026: page and builder each held something the other lacked. The page had the 'of reporters' table note and the national-returns caveat (adopted into the builder); the builder had a correction the page lacked. Checking BGS itself, BOTH were wrong: BGS does publish gallium ('Production of primary gallium') and germanium ('Germanium metal'), but as refinery output, not mine, and niobium shares a panel with tantalum. Replaced by one verified sentence (62 BGS panels; 25 of the atlas's 32 with a recent BGS mine series; silicon and helium have no panel)."
  },
  "unsafe_to_run": [
   "build_nowcast_backtest.py",
-  "build_ot.py",
-  "build_production.py"
+  "build_ot.py"
  ]
 }
