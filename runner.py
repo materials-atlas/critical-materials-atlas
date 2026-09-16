@@ -444,6 +444,22 @@ def main():
         print('See _regressing_builders.json for what differs, and repro_audit.py to re-measure.')
         print('`--force` overrides, and you should expect to lose published work if you use it.')
         return 3
+    # A page builder rewrites its page from scratch, so the post-passes that put back the
+    # favicons, the skip-link, the main landmark and the clean URLs have to run AFTER it. Staleness
+    # is computed before anything runs, so when only a page builder is stale the post-passes are not
+    # in the list - and the rebuilt page silently loses that chrome. It cost explosives.html its
+    # skip-link and landmark once. Add them, last, whenever a rebuilt builder writes HTML.
+    if stale and not set(POST_PASSES) <= set(stale):
+        def _writes_html(b):
+            return any(str(w).lower().endswith('.html') for w in (g.get(b) or {}).get('writes', ()))
+        if any(_writes_html(b) for b in stale):
+            added = [q for q in POST_PASSES if q in fp and q not in stale]
+            stale = [b for b in stale if b not in POST_PASSES] + [q for q in POST_PASSES if q in fp]
+            if added:
+                print('
+ post-passes appended (a rebuilt builder writes HTML): %s'
+                      % ', '.join(added))
+
     if blocked:
         # A fetcher cannot be rebuilt by a rebuilder. Saying so and stopping is the whole point:
         # the alternative is building on a cache that is behind its source, which this repository
