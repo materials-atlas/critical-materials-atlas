@@ -1,5 +1,5 @@
 {
- "generated": "2026-09-13",
+ "generated": "2026-09-16",
  "note": "The cube as SDMX. Dimensions identify, attributes describe, and the series key is checkable - which is the whole reason for adopting the standard.",
  "structure": "out/sdmx/structure.json",
  "data": "out/sdmx/mineral_flows.sdmx.csv.gz",
@@ -7,22 +7,22 @@
  "dsd": "DSD_MINERAL_FLOWS",
  "dataflow": "DF_MINERAL_FLOWS",
  "version": "1.0.0",
- "observations": 1140523,
+ "observations": 1144371,
  "codelists": {
-  "CL_MATERIAL": 90,
+  "CL_MATERIAL": 98,
   "CL_MEASURE": 15,
   "CL_STAGE": 4,
   "CL_BASIS": 2,
   "CL_SOURCE": 6,
-  "CL_UNIT_MEASURE": 15,
+  "CL_UNIT_MEASURE": 16,
   "CL_AREA": 244,
   "CL_OBS_STATUS": 5,
   "CL_CONF_STATUS": 1,
   "CL_FREQ": 2
  },
  "obs_status_counts": {
-  "A": 1137591,
-  "E": 1263,
+  "A": 1140548,
+  "E": 2154,
   "Q": 1222,
   "N": 447
  },

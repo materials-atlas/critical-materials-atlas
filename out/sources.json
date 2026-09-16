@@ -250,9 +250,9 @@
    "differs_because": "It estimates where a country does not report, so it fills holes BGS leaves empty. That makes it closer to a world total and further from a pure return.",
    "source": "World Mining Data",
    "coverage": {
-    "rows": 5334,
-    "materials": 38,
-    "geographies": 152,
+    "rows": 9182,
+    "materials": 64,
+    "geographies": 166,
     "years": [
      2020,
      2024
@@ -261,15 +261,17 @@
      "production"
     ],
     "stages": [
-     "mine"
+     "mine",
+     "processed"
     ],
     "units": [
+     "Mio m3",
      "ct",
      "kg",
      "metr. t"
     ],
-    "series": 39,
-    "pct_convertible_to_tonnes": 96.5
+    "series": 65,
+    "pct_convertible_to_tonnes": 93.0
    }
   },
   {
