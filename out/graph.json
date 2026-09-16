@@ -3979,50 +3979,15 @@
   "build_bgs_concentration.py": {
    "reads": [
     "__pycache__/bgs_country.cpython-311.pyc",
-    "raw/bgs/panel/aggregates_and_related_materials.json",
-    "raw/bgs/panel/antimony.json",
-    "raw/bgs/panel/barytes.json",
-    "raw/bgs/panel/bentonite_and_fuller_s_earth.json",
-    "raw/bgs/panel/bismuth.json",
-    "raw/bgs/panel/chromium.json",
-    "raw/bgs/panel/cobalt.json",
-    "raw/bgs/panel/copper.json",
-    "raw/bgs/panel/diatomite.json",
-    "raw/bgs/panel/feldspar.json",
-    "raw/bgs/panel/fluorspar.json",
-    "raw/bgs/panel/gold.json",
-    "raw/bgs/panel/graphite.json",
-    "raw/bgs/panel/gypsum.json",
-    "raw/bgs/panel/iron_and_steel.json",
-    "raw/bgs/panel/kaolin.json",
-    "raw/bgs/panel/lead.json",
-    "raw/bgs/panel/lithium.json",
-    "raw/bgs/panel/magnesite.json",
-    "raw/bgs/panel/manganese.json",
-    "raw/bgs/panel/mica.json",
-    "raw/bgs/panel/molybdenum.json",
-    "raw/bgs/panel/nickel.json",
-    "raw/bgs/panel/perlite.json",
-    "raw/bgs/panel/phosphate_rock.json",
-    "raw/bgs/panel/platinum_group_metals.json",
-    "raw/bgs/panel/potash.json",
-    "raw/bgs/panel/rare_earths.json",
-    "raw/bgs/panel/salt.json",
-    "raw/bgs/panel/silver.json",
-    "raw/bgs/panel/talc.json",
-    "raw/bgs/panel/tin.json",
-    "raw/bgs/panel/titanium.json",
-    "raw/bgs/panel/tungsten.json",
-    "raw/bgs/panel/vanadium.json",
-    "raw/bgs/panel/vermiculite.json",
-    "raw/bgs/panel/zinc.json"
+    "out/cube.parquet"
    ],
    "writes": [
     "out/concentration.json"
    ],
    "exit": 0,
-   "secs": 4.3,
-   "code_sha": "a5543dbe47c3855e"
+   "secs": 0.9,
+   "code_sha": "44d1af0a416f17ff",
+   "restored": 1
   },
   "build_bgs_mined.py": {
    "reads": [
