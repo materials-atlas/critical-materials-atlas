@@ -52,10 +52,15 @@ def cube_ac(c, material, form, hs, year):
             .groupby('country_iso3').value_t.sum())
     if prod.empty:
         return None
+    # ONE trade source. The cube carries the same flow from several: annual BACI and the two-sided
+    # reconciliation both hold 740311 for 2023, and summing them double-counted China's net trade
+    # (6,149 kt where BACI alone says 3,163). The pipeline cube also carried a single-declaration
+    # passthrough, which made it a triple count. Same rule as the production leg: name the source.
+    TRADE_SOURCE = 'CEPII BACI (HS02)'
     imp = (c[(c.material == material) & (c.measure == 'imports') & (c.native_code == hs)
-             & (c.year == year)].groupby('country_iso3').value_t.sum())
+             & (c.year == year) & (c.source == TRADE_SOURCE)].groupby('country_iso3').value_t.sum())
     exp = (c[(c.material == material) & (c.measure == 'exports') & (c.native_code == hs)
-             & (c.year == year)].groupby('country_iso3').value_t.sum())
+             & (c.year == year) & (c.source == TRADE_SOURCE)].groupby('country_iso3').value_t.sum())
     if imp.empty and exp.empty:
         return None
     idx = prod.index.union(imp.index).union(exp.index)
@@ -74,7 +79,7 @@ def cube_ac(c, material, form, hs, year):
 
 
 def main():
-    c = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'cube.parquet'))
+    c = pd.read_parquet(os.path.join(ROOT, 'out', 'cube.parquet'))
     old = json.load(open(os.path.join(ROOT, 'out', 'apparent.json'), encoding='utf-8'))
     old_year = old.get('year')
     rows = []
