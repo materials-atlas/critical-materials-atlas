@@ -29,7 +29,7 @@ Public data; deterministic. Run: python build_production.py
 """
 import json, os
 import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import baci as _baci  # the one door for BACI (ARCHITECTURE.md phase 2)
-import openpyxl
+# (openpyxl no longer needed: WMD is read from the cube)
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
@@ -83,29 +83,21 @@ try:
 except Exception:
     BGS = {}
 
-wb = openpyxl.load_workbook(WMD, read_only=True, data_only=True)
+YEAR_WMD = 2024
+
+import pandas as _pd
+# World Mining Data now comes out of the published cube, which ingests every WMD sheet and keeps
+# WMD's own country spelling (native_country), so this page shows the names WMD prints.
+_WMD = _pd.read_parquet(os.path.join(ROOT, 'out', 'cube.parquet'),
+                        columns=['source', 'source_group', 'measure', 'year', 'value', 'native_country'])
+_WMD = _WMD[(_WMD.source == 'World Mining Data') & (_WMD.measure == 'production')
+            & (_WMD.year == YEAR_WMD) & (_WMD.value > 0)]
+WMD_SHEETS = {g[len('WMD:'):] for g in _WMD.source_group.unique()}
+
 
 def parse_sheet(sheet):
-    ws = wb[sheet]
-    # header row: find the row whose first cell == 'Country'
-    rows = list(ws.iter_rows(values_only=True))
-    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == 'Country'), 1)
-    cols = rows[hdr]
-    try:
-        c24 = cols.index('2024')
-    except ValueError:
-        c24 = 6
-    out = {}
-    for r in rows[hdr + 1:]:
-        if not r or not r[0]:
-            continue
-        name = str(r[0]).strip()
-        if name.lower() in ('total', 'world', 'total world', 'others'):
-            continue
-        v = r[c24] if c24 < len(r) else None
-        if isinstance(v, (int, float)) and v > 0:
-            out[name] = float(v)
-    return out
+    rows = _WMD[_WMD.source_group == 'WMD:' + sheet]
+    return {str(n): float(v) for n, v in rows.groupby('native_country').value.sum().items()}
 
 # WMD reports 'production' at different STAGES by commodity: mine production for most, but refinery/primary
 # recovery for the non-mined by-products (gallium, germanium) and produced-metal for magnesium (Pidgeon).
@@ -116,7 +108,7 @@ WMD_STAGE = {'gallium': 'refinery', 'germanium': 'refinery', 'magnesium': 'metal
 rows_out = []
 unmapped = set()
 for lab, sheet in SHEET.items():
-    if sheet not in wb.sheetnames:
+    if sheet not in WMD_SHEETS:
         continue
     prod = parse_sheet(sheet)
     if not prod:
