@@ -63,19 +63,15 @@ REASONS = {
                  'publishes contained tantalum alone. Different numerator and different basis.',
     'titanium':  'BGS counts titanium MINERALS (ilmenite + rutile, gross); USGS reports on a '
                  'TiO2-content basis.',
-    'bismuth':   'STAGE mismatch: the USGS world series here is refinery production, the BGS form '
-                 'is mine output.',
+    'bismuth':   'Unresolved. Both sides are now MINE output (the USGS world mine series entered the '
+                 'cube on 16 Sep 2026; it ends in 2013, so only 2005-2013 overlap), and BGS national '
+                 'returns sum to about half of it. The earlier note blamed a stage mismatch - true '
+                 'only while the USGS side was refinery production.',
     'cement':    'RESOLVED - not a unit slip: both series are in tonnes. It is a coverage hole. '
                  'BGS cement has ~33 reporters led by Turkey, Germany, Poland, Italy and Spain; '
                  'CHINA AND INDIA ARE ABSENT, and China alone is ~2.4 of the ~4.2 billion tonne '
                  'world total. The BGS cement panel is a Europe-weighted sub-panel, not a world '
                  'census, so its sum must never be used as a world denominator.',
-    'cobalt':    'RESOLVED - and it is one cell. 100% of the gap is the DRC row: BGS non-DRC '
-                 'reporters reconcile with USGS, while BGS carries DRC flat at ~86-109 kt as USGS '
-                 'world output climbs to 294 kt (2020). The DRC shortfall grows 52 kt (2010) -> '
-                 '77 kt (2015) -> 164 kt (2020), which tracks the rise of artisanal and '
-                 'small-scale output that national returns do not capture. Use USGS for cobalt '
-                 'world totals; BGS DRC understates.',
     'bromine':   'Unresolved: likely a compound-vs-element basis difference.',
     'boron':     'BGS counts borate MINERALS (gross); USGS reports boron content.',
     'graphite':  'Unresolved: natural-graphite scope differs between the two.',
@@ -98,10 +94,36 @@ REASONS = {
 }
 
 
+# Where the default world series is the wrong OBJECT for the BGS form paired above, the USGS series
+# is named. magnesium: BGS pairs MAGNESITE (a mineral, ~20 Mt), so the USGS series is the compounds
+# workbook's gross weight, not magnesium metal (~1 Mt).
+USGS_SERIES = {'magnesium': ('magnesium-compounds', 'World production (gross weight)')}
+
+# Explanations this page once published and has withdrawn, with the reason. Shown on the page.
+CORRECTIONS = [
+    {'material': 'cobalt', 'withdrawn_on': '2026-09-16',
+     'was': 'Not comparable (ratio 0.60), "resolved" as DR Congo artisanal output missing from BGS, '
+            'with USGS world output said to climb to 294 kt in 2020.',
+     'why': 'The USGS side summed two world series: mine production and refinery production, each '
+            '147 kt in 2020. Compared with mine production alone, the BGS sum agrees within 10% '
+            '(ratio 1.05). The DR Congo explanation was built on the doubled figure and is withdrawn.'},
+]
+
 def build():
     c = pd.read_parquet(CUBE)
     b = c[c.source.str.startswith('BGS')]
     u = c[(c.source.str.startswith('USGS')) & (c.country_iso3 == 'WLD') & (c.measure == 'production')]
+    # ONE USGS world series per material. Summing them was harmless while each workbook exposed a
+    # single world column; once lithium's content and carbonate-equivalent series entered the cube
+    # beside its gross-weight series, the sum tripled-counted lithium and flipped it from
+    # 'agrees within 10%' to 'not comparable'. Same ranking as usgs_cube.WORLD_ORDER.
+    from usgs_cube import WORLD_ORDER
+    u = u[u.native_label.isin(WORLD_ORDER)].copy()
+    u['rank'] = u.native_label.map({n: i for i, n in enumerate(WORLD_ORDER)})
+    pinned = u.apply(lambda r: USGS_SERIES.get(r.material) == (r.source_group, r.native_label), axis=1)
+    has_pin = u.material.isin(USGS_SERIES)
+    u = pd.concat([u[has_pin & pinned],
+                   u[~has_pin & (u['rank'] == u.material.map(u.groupby('material')['rank'].min()))]])
     rows = []
     for mat, form in sorted(PAIRS.items()):
         uu = u[u.material == mat].groupby('year').value_t.sum()
@@ -160,6 +182,7 @@ if __name__ == '__main__':
         'method': 'Pairings are declared in build_pairing.py, never inferred at run time. Joining on '
                   'material alone would compare gross ore against contained metal.',
         'summary': counts, 'n_materials': len(rows), 'rows': sorted(rows, key=lambda r: r['material']),
+        'corrections': CORRECTIONS,
     }
     json.dump(out, open(os.path.join(ROOT, 'out', 'pairing.json'), 'w', encoding='utf-8'), indent=1)
     print(f'WROTE out/pairing.json — {len(rows)} materials paired')

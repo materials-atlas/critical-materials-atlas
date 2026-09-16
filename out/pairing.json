@@ -2,8 +2,8 @@
  "note": "Cross-source corroboration of world production. BGS national returns SUMMED vs the USGS world estimate. These are independent COMPILATIONS but NOT independent MEASUREMENTS - both rest largely on the same national returns, so agreement raises confidence in our pairing and units, not proof that a figure is true; an uncorroborated number is not thereby wrong. ratio = median(BGS sum / USGS world) over the overlapping years. corroborated = within ~10%. A \"not_comparable\" row is usually a basis or stage difference, not an error: the pairing is stated explicitly and the reason recorded, because an unexplained ratio invites someone to fix a number that was never wrong.",
  "method": "Pairings are declared in build_pairing.py, never inferred at run time. Joining on material alone would compare gross ore against contained metal.",
  "summary": {
-  "agrees_within_10pct": 34,
-  "not_comparable": 12,
+  "agrees_within_10pct": 35,
+  "not_comparable": 11,
   "agrees_within_25pct": 7
  },
  "n_materials": 53,
@@ -216,33 +216,33 @@
    "material": "bismuth",
    "bgs_form": "bismuth, mine",
    "usgs_series": "world production",
-   "ratio": 0.248,
-   "ratio_spread_p10_p90": 0.119,
+   "ratio": 0.563,
+   "ratio_spread_p10_p90": 0.472,
    "years": [
     2005,
-    2022
+    2013
    ],
-   "n_years": 18,
-   "bgs_reporters_median": 9,
+   "n_years": 9,
+   "bgs_reporters_median": 8,
    "status": "not_comparable",
    "census_plausible": true,
-   "reason": "STAGE mismatch: the USGS world series here is refinery production, the BGS form is mine output.",
+   "reason": "Unresolved. Both sides are now MINE output (the USGS world mine series entered the cube on 16 Sep 2026; it ends in 2013, so only 2005-2013 overlap), and BGS national returns sum to about half of it. The earlier note blamed a stage mismatch - true only while the USGS side was refinery production.",
    "bgs_top_reporters": [
     {
      "iso": "CHN",
-     "share_of_bgs_sum": 0.39
-    },
-    {
-     "iso": "VNM",
-     "share_of_bgs_sum": 0.2
+     "share_of_bgs_sum": 0.422
     },
     {
      "iso": "MEX",
-     "share_of_bgs_sum": 0.154
+     "share_of_bgs_sum": 0.25
+    },
+    {
+     "iso": "PER",
+     "share_of_bgs_sum": 0.131
     },
     {
      "iso": "JPN",
-     "share_of_bgs_sum": 0.112
+     "share_of_bgs_sum": 0.115
     }
    ]
   },
@@ -420,17 +420,17 @@
    "material": "cobalt",
    "bgs_form": "cobalt, mine",
    "usgs_series": "world production",
-   "ratio": 0.597,
-   "ratio_spread_p10_p90": 0.312,
+   "ratio": 1.048,
+   "ratio_spread_p10_p90": 0.562,
    "years": [
     2005,
     2021
    ],
    "n_years": 17,
    "bgs_reporters_median": 19,
-   "status": "not_comparable",
+   "status": "agrees_within_10pct",
    "census_plausible": true,
-   "reason": "RESOLVED - and it is one cell. 100% of the gap is the DRC row: BGS non-DRC reporters reconcile with USGS, while BGS carries DRC flat at ~86-109 kt as USGS world output climbs to 294 kt (2020). The DRC shortfall grows 52 kt (2010) -> 77 kt (2015) -> 164 kt (2020), which tracks the rise of artisanal and small-scale output that national returns do not capture. Use USGS for cobalt world totals; BGS DRC understates.",
+   "reason": null,
    "bgs_top_reporters": [
     {
      "iso": "COD",
@@ -930,8 +930,8 @@
    "material": "magnesium",
    "bgs_form": "magnesite",
    "usgs_series": "world production",
-   "ratio": 1.066,
-   "ratio_spread_p10_p90": 0.218,
+   "ratio": 1.104,
+   "ratio_spread_p10_p90": 0.25,
    "years": [
     2005,
     2022
@@ -1809,6 +1809,14 @@
      "share_of_bgs_sum": 0.046
     }
    ]
+  }
+ ],
+ "corrections": [
+  {
+   "material": "cobalt",
+   "withdrawn_on": "2026-09-16",
+   "was": "Not comparable (ratio 0.60), \"resolved\" as DR Congo artisanal output missing from BGS, with USGS world output said to climb to 294 kt in 2020.",
+   "why": "The USGS side summed two world series: mine production and refinery production, each 147 kt in 2020. Compared with mine production alone, the BGS sum agrees within 10% (ratio 1.05). The DR Congo explanation was built on the doubled figure and is withdrawn."
   }
  ]
 }
