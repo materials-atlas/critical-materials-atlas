@@ -5209,17 +5209,19 @@
   "build_host_coupling.py": {
    "reads": [
     "./",
+    "__pycache__/usgs_cube.cpython-311.pyc",
     "out/companionality.json",
-    "raw/pink/pink.xlsx",
-    "raw/usgs_hist/usgs_prices_slim.csv"
+    "out/cube.parquet",
+    "raw/pink/pink.xlsx"
    ],
    "writes": [
     "host-coupling.html",
     "out/host_coupling.json"
    ],
    "exit": 0,
-   "secs": 8.0,
-   "code_sha": "bb1ceae27bce4adc"
+   "secs": 1.9,
+   "code_sha": "40c08bd49ff350a4",
+   "restored": 2
   },
   "build_insights.py": {
    "reads": [
@@ -5619,14 +5621,16 @@
   },
   "build_pairing.py": {
    "reads": [
+    "__pycache__/usgs_cube.cpython-311.pyc",
     "pipeline/data/cube.parquet"
    ],
    "writes": [
     "out/pairing.json"
    ],
    "exit": 0,
-   "secs": 4.8,
-   "code_sha": "17936f68764113df"
+   "secs": 2.0,
+   "code_sha": "d7d19e7117c276a8",
+   "restored": 1
   },
   "build_pgm.py": {
    "reads": [
@@ -5674,17 +5678,19 @@
   "build_price_volatility.py": {
    "reads": [
     "./",
+    "__pycache__/usgs_cube.cpython-311.pyc",
     "out/companionality.json",
-    "out/price_squeeze.json",
-    "raw/usgs_hist/usgs_prices_slim.csv"
+    "out/cube.parquet",
+    "out/price_squeeze.json"
    ],
    "writes": [
     "out/price_volatility.json",
     "price-volatility.html"
    ],
    "exit": 0,
-   "secs": 5.4,
-   "code_sha": "b0983e53022c29a2"
+   "secs": 1.8,
+   "code_sha": "7c10747c9e6d91f8",
+   "restored": 2
   },
   "build_production.py": {
    "reads": [
