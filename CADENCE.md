@@ -34,7 +34,6 @@ python build_origin.py                         # -> out/origin_trace.json + orig
 python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_trends.py                         # -> out/trends.json + trends.html (22-year evolution charts)
 python build_robustness.py                     # -> out/robustness.json + robustness.html (Hamed-Rao autocorr-robust MK + splice sub-period check; reads trends.json)
-python build_scenarios.py                      # -> scenarios.html (supply-shock stress tests)
 python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
 python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)
 

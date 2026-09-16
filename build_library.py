@@ -46,7 +46,7 @@ DATA_EXT = {'.xlsx', '.xlsb', '.xls', '.csv', '.zip', '.json', '.pdf', '.parquet
             '.gpkg', '.xlsm'}
 # .gpkg and .xlsm added 11 Sep 2026. Their absence did not shrink the table - it DELETED ROWS.
 # A folder whose files are all unrecognised was skipped silently, so raw/maus (24.7 MB of
-# mining-footprint polygons, read by build_commodity_attribution.py) and raw/sepin (97.3 MB,
+# mining-footprint polygons, read by build_commodity_attribution.py until it was retired on 16 Sep 2026) and raw/sepin (97.3 MB,
 # read by build_mining_expansion.py) were held, used, and absent from the record of what we
 # hold. A filter that drops data without saying so is the defect this whole file exists
 # against, and it was sitting inside it.
