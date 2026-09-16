@@ -46,7 +46,9 @@ IEA_TO_MATERIAL = {
     'copper': 'copper', 'cobalt': 'cobalt', 'lithium': 'lithium', 'nickel': 'nickel',
     'graphite': 'graphite', 'magnet rare earth elements': 'rare_earths',
 }
-STAGE = {'mining': 'mine', 'refining': 'processed'}
+# IEA names the processing stage per mineral: lithium 'Chemicals', graphite 'Battery grade'.
+STAGE = {'mining': 'mine', 'refining': 'processed', 'chemicals': 'processed',
+         'battery grade': 'processed'}
 # IEA units differ per mineral; the sheet is in kt for the base metals and kt for the minor ones
 # as published. Values are used as given, in thousand tonnes, and converted to tonnes.
 KT_TO_T = 1000.0
@@ -113,9 +115,15 @@ def _build_one(XLSX):
             if col is None:
                 continue
             for rr in rows_x[ri + 1:]:
+                # A block is: country rows, a BLANK row, 'Rest of world', 'Total', 'Top 3 share'.
+                # Stopping at the first blank dropped the 'Total' row - the world figure - for 7 of
+                # the 12 supply blocks (found 16 Sep 2026 reproducing iea_supply_concentration.csv).
+                # So skip blanks, and stop at the next block header or once the total is read.
                 if not rr or ci >= len(rr) or rr[ci] in (None, ''):
-                    break                                  # block ends at the first blank label
+                    continue
                 label = str(rr[ci]).strip()
+                if ' - ' in label or label.lower().startswith('top 3'):
+                    break
                 if col >= len(rr) or rr[col] in (None, ''):
                     continue
                 try:
@@ -125,7 +133,11 @@ def _build_one(XLSX):
                 low = label.lower()
                 if low.startswith('rest of world'):
                     continue                               # a residual, not a country
-                iso = 'WLD' if low == 'total' else n2i.get(low)
+                # 'Total clean technologies' is how the 2025-05 file labels the Cobalt - Refining
+                # total (250.15 kt, the same figure its summary tables print): a label slip, not a
+                # different quantity, and inside a supply block it can only be the block total.
+                is_total = low in ('total', 'total clean technologies')
+                iso = 'WLD' if is_total else n2i.get(low)
                 if not iso:
                     unmapped.add(label); continue
                 if v <= 0:
@@ -142,6 +154,8 @@ def _build_one(XLSX):
                     'source': 'IEA Critical Minerals Dataset', 'series_id': f'IEA {edition}:{head}:production',
                     'precision': None, 'value_flag': None,
                 })
+                if is_total:
+                    break
     if unmapped:
         print(f'  IEA {edition}: unmapped labels {sorted(unmapped)[:4]}')
     print(f'  IEA {edition}: base year {OBS_YEAR}, {len(out)} rows')
