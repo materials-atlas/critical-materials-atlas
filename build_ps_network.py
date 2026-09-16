@@ -272,6 +272,7 @@ DATA = json.dumps({'nodes': nodes, 'links': links, 'chain_links': chain_links, '
 D3JS = open(os.path.join(ROOT, 'vendor', 'd3.v7.min.js'), encoding='utf-8').read()
 
 HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <title>The Product Space</title><script>D3_INLINE</script>
 <style>
  *{margin:0;padding:0;box-sizing:border-box} html,body{width:100%;height:100%;overflow:hidden}
@@ -307,7 +308,7 @@ HTML = r'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name
  @media(max-width:760px){#panel{position:static;width:auto;margin:150px 12px 0}#hd p{max-width:none}#legend{display:none}}
 </style></head><body>
 <svg id="svg"></svg>
-<div id="hd"><a id="back" href="index.html">&lsaquo; Critical Materials Atlas</a>
+<div id="hd"><a id="back" href="./">&lsaquo; Critical Materials Atlas</a>
 <h1>Few countries climb from ore to refined — and the product space barely predicts who</h1>
 <p>Every dot is a product in world trade; two are linked when the same countries competitively export both. The <b>chain</b> for each critical material — <b style="color:#E69F00">ore ◆</b> in the raw periphery, <b style="color:#CC79A7">refined ●</b> pulled toward the complex core, <b style="color:#009E73">permanent magnet ■</b> (HS 850511, all types) deepest in — is drawn as a dashed line. Pick a <b>material</b> to trace it, or a <b>country</b> to see what it competitively exports.</p></div>
 <div id="panel">
@@ -558,7 +559,12 @@ function syncURL(){ const p=new URLSearchParams(); const m=msel.property("value"
 (function initURL(){ const p=new URLSearchParams(location.search);
   if(p.get("m")){ msel.property("value",p.get("m")); showMaterial(p.get("m")); }
   else if(p.get("c")){ csel.property("value",p.get("c")); if(p.get("v"))vsel.property("value",p.get("v")); routeCountry(); } })();
-</script></body></html>'''
+</script><footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
+  <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
+</div></footer></body></html>'''
 out = os.path.join(ROOT, 'product-space.html')
 open(out, 'w', encoding='utf-8').write(HTML.replace('D3_INLINE', D3JS).replace('DATA_PLACEHOLDER', DATA))
 print('WROTE', out)
