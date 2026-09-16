@@ -5004,18 +5004,19 @@
   },
   "build_demand.py": {
    "reads": [
+    "__pycache__/iea_cube.cpython-311.pyc",
     "out/companionality.json",
-    "out/data.json",
-    "raw/iea/iea_demand_by_tech.csv",
-    "raw/iea/iea_demand_scenarios.csv"
+    "out/cube.parquet",
+    "out/data.json"
    ],
    "writes": [
     "demand.html",
     "out/demand.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "8f6aea9d02e88002"
+   "secs": 1.2,
+   "code_sha": "3f03e5f9cb449e0d",
+   "restored": 2
   },
   "build_energy_footprint.py": {
    "reads": [],
@@ -5902,9 +5903,11 @@
   },
   "build_refiners.py": {
    "reads": [
+    "__pycache__/iea_cube.cpython-311.pyc",
     "out/capability_physical.json",
     "out/capability_years.json",
     "out/code_provenance.json",
+    "out/cube.parquet",
     "out/data.json",
     "out/eucrm.json",
     "out/exposure.json",
@@ -5912,19 +5915,20 @@
     "out/pipeline.json",
     "out/robustness.json",
     "out/scenario.json",
-    "out/usgs_outlook.json",
-    "raw/iea/iea_supply_concentration.csv"
+    "out/usgs_outlook.json"
    ],
    "writes": [
     "refiners.html"
    ],
    "exit": 0,
-   "secs": 0.6,
-   "code_sha": "43cd3758bd70ae5d"
+   "secs": 1.1,
+   "code_sha": "38adb8fbc8241735",
+   "restored": 1
   },
   "build_refining.py": {
    "reads": [
-    "raw/iea/iea_supply_concentration.csv",
+    "__pycache__/iea_cube.cpython-311.pyc",
+    "out/cube.parquet",
     "raw/refining/refining_flows_slim.csv"
    ],
    "writes": [
@@ -5932,8 +5936,9 @@
     "refining.html"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "5355704b34711531"
+   "secs": 1.1,
+   "code_sha": "2bf77f26e80c6337",
+   "restored": 2
   },
   "build_retrieval.py": {
    "reads": [
