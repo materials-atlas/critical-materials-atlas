@@ -71,9 +71,21 @@ def extract_one(con, zf, nom, year):
         if strict:
             raise SystemExit('%s %d: %d values in v/q are neither numeric, empty nor NA - refusing'
                              % (nom, year, strict))
+        # Quantity repairs (baci.QUANTITY_REPAIRS): an explicit, evidenced list, applied here so
+        # every reader sees the same figure, and marked in q_flag so none can mistake it for
+        # CEPII's own.
+        reps = [(k_, i_, j_, q_) for (n_, y_, k_, i_, j_), (q_, _) in baci.QUANTITY_REPAIRS.items()
+                if n_ == nom and y_ == year]
+        qexpr = "TRY_CAST(NULLIF(NULLIF(trim(q), 'NA'), '') AS DOUBLE)"
+        flag = "CAST(NULL AS VARCHAR)"
+        if reps:
+            cond = ' OR '.join("(k = '%s' AND i = %d AND j = %d)" % (k_, i_, j_) for k_, i_, j_, _ in reps)
+            qexpr = ('CASE ' + ' '.join("WHEN k = '%s' AND i = %d AND j = %d THEN %r" % (k_, i_, j_, q_)
+                                         for k_, i_, j_, q_ in reps) + ' ELSE ' + qexpr + ' END')
+            flag = "CASE WHEN %s THEN 'repaired_see_baci.QUANTITY_REPAIRS' END" % cond
         con.execute("COPY (SELECT t, i, j, k, "
                     "TRY_CAST(NULLIF(trim(v), 'NA') AS DOUBLE) AS v, "
-                    "TRY_CAST(NULLIF(NULLIF(trim(q), 'NA'), '') AS DOUBLE) AS q "
+                    + qexpr + " AS q, " + flag + " AS q_flag "
                     "FROM %s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (src, _fwd(out)))
     except BaseException:
         # DuckDB creates the target before it fails. A 0-byte parquet is not "not extracted",

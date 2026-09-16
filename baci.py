@@ -51,6 +51,26 @@ VINTAGE = 'V202601'
 # is the READER'S choice, and year() takes it as `nom`.
 NOMENCLATURE = {'HS02': range(2002, 2025), 'HS17': range(2017, 2025)}
 
+# QUANTITY REPAIRS. CEPII's published file carries a few flows whose tonnage breaks from the flow's
+# own history while its value does not - the unit value jumps several-fold for one year. Found by
+# scanning every critical code for large flows (>5% of a code-year's value) whose unit value moved
+# >3x against the same flow's neighbouring years with value roughly unchanged. A flow is repaired
+# ONLY when an independent source confirms the repaired level; the rest are listed, not changed.
+# The repair is applied by extract_baci.py (the one writer), so every reader sees it, and the
+# extract marks the row in q_flag. The repaired q is the flow's value divided by its median unit
+# value in the surrounding years (2021, 2022, 2024).
+QUANTITY_REPAIRS = {
+    # (nomenclature, year, hs6, exporter, importer): (repaired q in tonnes, evidence)
+    ('HS02', 2023, '260600', 324, 156): (
+        99890928.0,
+        'Guinea -> China bauxite 2023: BACI V202601 has 13,785,076 t for $6.39bn ($464/t against '
+        '$64/t in 2022 and $69/t in 2024). China imported 141.6 Mt of bauxite in 2023, about 70% '
+        'from Guinea (GlobalData, via Mining Technology, 2024) - i.e. ~99 Mt, which the repaired '
+        '99.9 Mt matches. Without the repair, world bauxite trade reads 72.6 Mt in 2023 between '
+        '155.8 Mt (2022) and 183.3 Mt (2024).'),
+    ('HS17', 2023, '260600', 324, 156): (99890928.0, 'same flow in the HS17 file; see HS02'),
+}
+
 # The two overrides that twenty files carried separately. Taiwan is not in CEPII's ISO table;
 # Namibia's ISO2 is the string "NA", which every csv reader on earth treats as missing.
 FORCE = {
