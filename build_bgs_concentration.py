@@ -20,24 +20,36 @@ TRANSITION={'lithium','cobalt','nickel','graphite','rare_earths','copper','plati
 # iodine/bromine (thin, geologically concentrated -> diamond-like noise).
 CONTROL=['salt','silver','gypsum','gold','kaolin','talc','potash','diatomite','iron_and_steel:iron ore',
  'aggregates_and_related_materials','mica','perlite','vermiculite','bentonite_and_fuller_s_earth']
+_CUBE = None
+def _cube():
+    # The published extract of the harmonised cube, which holds every BGS panel - the control group
+    # included - so this study reads the same door as the rest of the atlas instead of 37 raw files.
+    global _CUBE
+    if _CUBE is None:
+        import pandas as pd
+        _CUBE = pd.read_parquet(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'out', 'cube.parquet'),
+                                columns=['source', 'source_group', 'measure', 'native_label', 'native_group',
+                                         'unit', 'country_iso3', 'year', 'value'])
+        _CUBE = _CUBE[(_CUBE.source == 'BGS World Mineral Statistics') & (_CUBE.measure == 'production')
+                      & (_CUBE.value > 0) & _CUBE.country_iso3.notna()]
+    return _CUBE
 def series(m):
     # 'group:commodity' selects one bgs commodity inside a group file (iron ore sits in iron_and_steel
     # beside crude steel and pig iron, which would win the dominant-form pick)
-    fn=f"{P}/{m.split(':')[0]}.json"
-    if not os.path.exists(fn): return None,None
-    d=json.load(open(fn)); prod=[r for r in d if r['bgs_statistic_type_trans']=='Production' and r['quantity'] and r['quantity']>0 and r['country_iso3_code']]
+    c = _cube()
+    prod = c[c.source_group == m.split(':')[0]]
     if ':' in m:
-        want=m.split(':',1)[1]; prod=[r for r in prod if (r['bgs_commodity_trans'] or '')==want]
-    if not prod: return None,None
-    form=Counter(r['erml_commodity'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['erml_commodity']==form]
-    unit=Counter(r['units'] for r in prod).most_common(1)[0][0]; prod=[r for r in prod if r['units']==unit]
-    byyr=defaultdict(dict)
-    # resolve_iso3, not r['country_iso3_code']: BGS files the Republic of Congo under DR Congo's
-    # code, and this line SUMS into a per-code dict, so the two countries were being added
-    # together in every HHI. See bgs_country.py.
-    for r in prod:
-        y=int(r['year'][:4]); iso=resolve_iso3(r)
-        byyr[y][iso]=byyr[y].get(iso,0)+r['quantity']
+        prod = prod[prod.native_label == m.split(':', 1)[1]]
+    if prod.empty: return None,None
+    # dominant FORM by BGS's own grouping (native_group = erml_commodity), then dominant UNIT - the same
+    # two picks as before. native_group is what keeps lithium carbonate out of lithium minerals.
+    form = Counter(prod.native_group).most_common(1)[0][0]; prod = prod[prod.native_group == form]
+    unit = Counter(prod.unit).most_common(1)[0][0]; prod = prod[prod.unit == unit]
+    byyr = defaultdict(dict)
+    # country_iso3 in the cube is already resolved (Republic of Congo is no longer filed under DR
+    # Congo's code - see bgs_country.py / COUNTRY_FIX), so per-country sums stay separate.
+    for iso, y, q in zip(prod.country_iso3, prod.year, prod.value):
+        y = int(y); byyr[y][iso] = byyr[y].get(iso, 0) + float(q)
     hhi={y:sum((v/sum(cs.values()))**2 for v in cs.values()) for y,cs in byyr.items() if len(cs)>=5 and sum(cs.values())>0}
     cov={y:len(cs) for y,cs in byyr.items() if len(cs)>=5}
     return hhi,cov
