@@ -109,6 +109,15 @@ def build():
 
     path = os.path.join(HERE, 'out', 'goes.json')
     os.makedirs(os.path.dirname(path), exist_ok=True)
+    # Keep the previous date when nothing else changed: a date stamp alone made every rebuild on a
+    # new day a "different" file, which the reproducibility checks cannot tell from a real change.
+    try:
+        with open(path, encoding='utf-8') as f:
+            prev = json.load(f)
+        if {k: v for k, v in prev.items() if k != 'generated'} ==                 {k: v for k, v in out.items() if k != 'generated'}:
+            out['generated'] = prev.get('generated', out['generated'])
+    except (OSError, ValueError):
+        pass
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(out, f, indent=1, ensure_ascii=False)
 
