@@ -435,6 +435,16 @@ of undeclared edges is not a vintage; `BACI V202601` means *these source bytes p
 and until Phase 3 we cannot say either. Releases attach to GitHub Releases / Zenodo rather than
 living in git, so cadence is a publishing decision and not a repository-size one.
 
+*Decided 16 Sep 2026.* The graph is now true enough to vintage: every builder reproduces its page and
+none depends on the hash seed. Releases are GitHub releases archived to Zenodo under the concept DOI
+(10.5281/zenodo.21948855), versioned `vMAJOR.MINOR`. A new minor release is cut when **any** of these
+happens, and at least once a quarter otherwise:
+- the published cube changes shape (new sources, materials, columns or measures);
+- a published finding, figure or explanation is corrected or withdrawn;
+- a new study is published, whatever its result.
+Every release note lists its corrections first. A major version is reserved for a change a reader
+must act on (a removed dataset, a renamed identifier, a new licence).
+
 **Phase 6 — selective cube migration.** Only where the cube serves better than raw.
 
 ## 8. Risks
