@@ -62,6 +62,14 @@ COLMAP = {
     'world mine production': ('production', 'production', 'mine', 'WLD'),
     'world refinery production': ('production', 'production', 'processed', 'WLD'),
     'world production (gross weight)': ('production', 'production', 'unspecified', 'WLD'),
+    # Added 16 Sep 2026: world headers that carried a qualifier or a footnote digit, so the exact
+    # match above dropped them silently - bismuth lost its world MINE series back to 1912 and
+    # vermiculite its world series entirely. Each column keeps its own native_code, so lithium's
+    # three world series stay three series.
+    'world mine production (metal content)': ('production', 'production', 'mine', 'WLD'),
+    'world production (lithium content)': ('production', 'production', 'unspecified', 'WLD'),
+    'world production (lithium carbonate equivalent)': ('production', 'production', 'unspecified', 'WLD'),
+    'world production2': ('production', 'production', 'unspecified', 'WLD'),
 }
 
 
