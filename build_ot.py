@@ -178,7 +178,9 @@ CENT = flows['centroids']
 usediso = {r['leader'] for r in out.values()} | {r['new_leader'] for r in out.values()}
 for r in out.values():
     usediso |= {a['to'] for a in r['before']} | {a['f'] for a in r['after']} | {a['t'] for a in r['after']}
-cent_used = {i: CENT[i] for i in usediso if i in CENT}
+# usediso is a set: iterate it sorted, or the map payload comes out in a different order
+# under a different PYTHONHASHSEED (this builder was the last one on that list)
+cent_used = {i: CENT[i] for i in sorted(usediso) if i in CENT}
 payload = {'year': YEAR, 'kappas': KAPPAS, 'summary': summary, 'centroids': cent_used,
            'note': ('Shock = loss of the leader’s EXPORTS (the redirectable supply). Export-based '
                     'by construction: a domestic-consuming refiner’s output was never available to '
@@ -263,8 +265,31 @@ PAGE = r'''<!doctype html>
   <div class="callout"><b>Why &ldquo;is there a fallback?&rdquo; is the wrong question.</b> A fallback exporter is not free capacity — it is already serving its own customers. The real questions are whether the <i>spare</i> capacity, scaled to a plausible ceiling, can cover the cut; whether removing the leader <b>de-concentrates or just shifts</b> the chokepoint to a runner-up (sometimes it makes concentration <i>worse</i>); and whether the spare sits <i>near</i> the stranded buyers or far away. Optimal transport answers all three on the actual flow matrix. The materials flagged <i>structurally uncoverable</i> here are deliberately <b>not</b> the same set as the export-fallback <a href="refiners.html">single points of failure</a> — this is the stricter capacity test, so it names a different list.
   <details class="howto"><summary>Method &amp; caveats</summary>
   <p><b>N−1 stress</b> = 1/(1−f), where f is the leader&rsquo;s share of world <i>exports</i>: the factor by which every other exporter must scale to cover the same demand. <b>Concentration</b> is the export HHI before, and after the leader is removed and survivors are renormalised (the runner-up&rsquo;s new share). <b>Coverage@κ</b> assumes each surviving exporter can scale its exports up to κ× current; spare = (κ−1)×current, coverage = min(1, Σspare / freed). <b>Reshuffle &amp; friction</b>: entropic optimal transport (Sinkhorn) reallocates the leader&rsquo;s freed demand onto survivors at minimum great-circle cost between country centroids; friction = mean distance the reshuffled supply travels ÷ the leader&rsquo;s original mean shipping distance (&gt;1 = spare sits farther away).</p>
-  <p class="howto-src"><b>Caveats.</b> This is <b>export-based by construction</b> — it models the loss of what the leader <i>ships</i>, which is the correct frame for reallocation (a domestic-consuming refiner&rsquo;s output was never available to importers), but it means the leader&rsquo;s share here is an <i>export</i> share, not a production share. The κ scale-up ceiling is an explicit assumption, not a forecast — read coverage as &ldquo;how much slack exists at ceiling κ,&rdquo; not a prediction. Distance is a crude friction proxy (centroid great-circle, not shipping cost or capability). <b>Shared HS codes</b> (gallium/germanium 811292) mix metals, so those rows are a basket. This is a stress test of <i>today&rsquo;s</i> trade structure, not the post-diversification world the <a href="breakout.html">Break the chokepoint</a> page tracks. Built by <code>build_ot.py</code> on CEPII BACI. <b>See also</b> <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="scenarios.html">shock scenarios</a>, <a href="cascade.html">the supply-shock cascade</a>, and <a href="breakout.html">the decision layer</a>.</p>
+  <p class="howto-src"><b>Caveats.</b> This is <b>export-based by construction</b> — it models the loss of what the leader <i>ships</i>, which is the correct frame for reallocation (a domestic-consuming refiner&rsquo;s output was never available to importers), but it means the leader&rsquo;s share here is an <i>export</i> share, not a production share. The κ scale-up ceiling is an explicit assumption, not a forecast — read coverage as &ldquo;how much slack exists at ceiling κ,&rdquo; not a prediction; where USGS publishes real forward capacity we <b>ground it in the data</b> (see &ldquo;Under real capacity plans&rdquo; below), and it shows the abstract κ flatters the real plans. Distance is a crude friction proxy (centroid great-circle, not shipping cost or capability). <b>Shared HS codes</b> (gallium/germanium 811292) mix metals, so those rows are a basket. This is a stress test of <i>today&rsquo;s</i> trade structure, not the post-diversification world the <a href="breakout.html">Break the chokepoint</a> page tracks. Built by <code>build_ot.py</code> on CEPII BACI. <b>See also</b> <a href="leverage.html">the leverage map</a> (how exposed is each importing country), <a href="scenarios.html">shock scenarios</a>, <a href="cascade.html">the supply-shock cascade</a>, and <a href="breakout.html">the decision layer</a>.</p>
   </details></div>
+
+  <div style="margin:1.4rem 0">
+  <h2 style="font-size:1.3rem;color:#15323a;margin:0 0 .3rem;letter-spacing:-.01em">Under real capacity plans, not just an assumption</h2>
+  <p style="color:#42514f;font-size:.95rem;line-height:1.55;max-width:74ch;margin:.2rem 0 .8rem">The coverage above rests on an explicit assumption &mdash; that survivors could scale to <b>κ×</b> current output. For the 8 commodities where the <b>USGS World Minerals Outlook</b> publishes actual forward capacity (to 2029), we ground it in the real number, on a consistent <b>production</b> basis: the dominant producer&rsquo;s share of world capacity, and the capacity actually projected to be built. The &ldquo;real coverage&rdquo; column is a <b>generous upper bound</b> &mdash; it assumes every projected new tonne of capacity is spare, exportable and outside the cut country, ignoring baseline demand growth &mdash; so the true figure is lower still. Even so, two failure modes fall out, and only lithium escapes both.</p>
+  <div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px">
+  <thead><tr style="border-bottom:2px solid #15323a;text-align:left">
+    <th style="padding:.4rem .5rem">Material (dominant producer)</th>
+    <th style="padding:.4rem .5rem;text-align:right">USGS capacity growth to 2029</th>
+    <th style="padding:.4rem .5rem;text-align:right">Real coverage of a producer cut</th>
+    <th style="padding:.4rem .5rem;text-align:right">If everyone else doubled</th>
+  </tr></thead><tbody>
+<tr><td><b>Magnesium</b> <span style="color:#9aa6ad;font-size:.85em">(China 89%)</span></td><td class="n">-3% <span style="color:#c0392b">▼</span></td><td class="n"><b style="color:#c0392b">0%</b></td><td class="n" style="color:#9aa6ad">13%</td></tr>
+<tr><td><b>Platinum</b> <span style="color:#9aa6ad;font-size:.85em">(South Africa 72%)</span></td><td class="n">+0%</td><td class="n"><b style="color:#c0392b">0%</b></td><td class="n" style="color:#9aa6ad">39%</td></tr>
+<tr><td><b>Palladium</b> <span style="color:#9aa6ad;font-size:.85em">(South Africa 41%)</span></td><td class="n">+1%</td><td class="n"><b style="color:#c0392b">2%</b></td><td class="n" style="color:#9aa6ad">100%</td></tr>
+<tr><td><b>Gallium</b> <span style="color:#9aa6ad;font-size:.85em">(China 87%)</span></td><td class="n">+12%</td><td class="n"><b style="color:#c0392b">14%</b></td><td class="n" style="color:#9aa6ad">14%</td></tr>
+<tr><td><b>Cobalt</b> <span style="color:#9aa6ad;font-size:.85em">(DR Congo 75%)</span></td><td class="n">+27%</td><td class="n"><b style="color:#b8860b">36%</b></td><td class="n" style="color:#9aa6ad">33%</td></tr>
+<tr><td><b>Helium</b> <span style="color:#9aa6ad;font-size:.85em">(United States 55%)</span></td><td class="n">+23%</td><td class="n"><b style="color:#b8860b">42%</b></td><td class="n" style="color:#9aa6ad">80%</td></tr>
+<tr><td><b>Titanium</b> <span style="color:#9aa6ad;font-size:.85em">(China 66%)</span></td><td class="n">+34%</td><td class="n"><b style="color:#b8860b">52%</b></td><td class="n" style="color:#9aa6ad">52%</td></tr>
+<tr><td><b>Lithium</b> <span style="color:#9aa6ad;font-size:.85em">(Australia 41%)</span></td><td class="n">+111%</td><td class="n"><b style="color:#1f7a4d">100%</b></td><td class="n" style="color:#9aa6ad">100%</td></tr>
+  </tbody></table></div>
+  <p style="color:#42514f;font-size:.9rem;line-height:1.55;max-width:74ch;margin:.6rem 0 0">Two ways a cut stays uncovered. <b>(1) Concentration too high:</b> gallium (87%), magnesium (89%) and cobalt (75%) are so dominated that even if <i>everyone else doubled</i> it would barely dent the gap (14&ndash;33%) &mdash; and reality (12&ndash;27% growth) matches. <b>(2) The capacity isn&rsquo;t being built:</b> palladium and platinum have leaders under 75%, so doubling <i>would</i> cover a cut (39&ndash;100%) &mdash; but USGS projects their capacity <b>flat or shrinking</b>, so real coverage is <b style="color:#c0392b">0&ndash;2%</b>. Only <b>lithium</b> (+111% capacity) genuinely escapes. True <i>per-country</i> ceilings don&rsquo;t exist in public data for the rest, so the κ sweep stays for them &mdash; but where USGS data does exist, real plans are far bleaker than any &ldquo;survivors could scale&rdquo; hope. real coverage = min(1, capacity-growth ÷ producer-share); reproducible: <code>build_ot_capacity.py</code>.</p>
+  </div>
+
   <div class="mappanel">
     <div class="mapctl">
       <span class="lbl" style="margin-right:2px">Reshuffle map</span>
@@ -381,6 +406,13 @@ function drawMap(){
 }
 drawMap();
 </script>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer.html">Explore</a><br><a href="value-chains.html">Value Chains</a><br><a href="analysis.html">Analysis</a><br><a href="reports.html">Reports</a><br><a href="method.html">Method</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
+  <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
+</div></footer>
 </body></html>'''
 PAGE = PAGE.replace('__DATA__', json.dumps(payload, ensure_ascii=False))
 open(os.path.join(ROOT, 'ot.html'), 'w', encoding='utf-8').write(PAGE)
