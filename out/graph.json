@@ -4130,20 +4130,6 @@
    "secs": 6.6,
    "code_sha": "adec740135f0223c"
   },
-  "build_bloc_demand.py": {
-   "reads": [
-    "out/companionality.json",
-    "out/demand.json",
-    "out/flows_2024.json"
-   ],
-   "writes": [
-    "bloc-demand.html",
-    "out/bloc_demand.json"
-   ],
-   "exit": 0,
-   "secs": 0.2,
-   "code_sha": "b8e1949df4a774b6"
-  },
   "build_breakout.py": {
    "reads": [
     "__pycache__/baci.cpython-311.pyc",
@@ -4544,29 +4530,6 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "a65d2480fd13d4e1"
-  },
-  "build_commodity_attribution.py": {
-   "reads": [
-    "out/data.json",
-    "raw/au_ozmin/au_operating_mines.csv",
-    "raw/icmm/icmm_slim.csv",
-    "raw/ipis/ipis_asm_sites.csv",
-    "raw/jasansky/facilities.gpkg",
-    "raw/maus/maus_v2.gpkg",
-    "raw/mrds/mrds_slim.csv",
-    "raw/osm/osm_mines_slim.csv",
-    "raw/surveys/national_surveys.csv",
-    "raw/usgs_critmin/pp1802_critmin_pts.csv",
-    "raw/wikidata/wikidata_mines.csv"
-   ],
-   "writes": [
-    "commodity-attribution.html",
-    "out/commodity_attribution.json"
-   ],
-   "exit": 0,
-   "secs": 12.9,
-   "code_sha": "0443219956fb5b1e",
-   "restored": 2
   },
   "build_commodity_status.py": {
    "reads": [
@@ -5289,19 +5252,6 @@
    "exit": 0,
    "secs": 8.0,
    "code_sha": "bb1ceae27bce4adc"
-  },
-  "build_host_shock.py": {
-   "reads": [
-    "out/companionality.json",
-    "out/risk.json"
-   ],
-   "writes": [
-    "host-shock.html",
-    "out/host_shock.json"
-   ],
-   "exit": 0,
-   "secs": 0.2,
-   "code_sha": "7f06e2ef42b92a17"
   },
   "build_insights.py": {
    "reads": [
@@ -6123,18 +6073,6 @@
    "secs": 1.1,
    "code_sha": "cf699bca639ff9f5",
    "restored": 1
-  },
-  "build_scenarios.py": {
-   "reads": [
-    "out/data.json",
-    "out/flows_2024.json"
-   ],
-   "writes": [
-    "scenarios.html"
-   ],
-   "exit": 0,
-   "secs": 0.4,
-   "code_sha": "2c1c9945e724b9ca"
   },
   "build_scheme.py": {
    "reads": [
