@@ -44,7 +44,24 @@ SHEET_TO_MATERIAL = {
     'boron': 'boron', 'diamonds': 'diamond', 'mercury': 'mercury', 'selenium': 'selenium',
     'tellurium': 'tellurium', 'zirconium': 'zirconium', 'beryllium': 'beryllium',
     'rare earths': 'rare_earths', 'platinum': 'platinum', 'palladium': 'palladium',
+    # Added 16 Sep 2026, when the cube stopped being "the atlas's 32 materials": every WMD sheet now
+    # enters. The atlas labels are reused where one exists, so a join by material still lands.
+    'aluminium': 'aluminium', 'gallium': 'gallium', 'germanium': 'germanium', 'indium': 'indium',
+    'rhenium': 'rhenium', 'rhodium': 'rhodium', 'asbestos': 'asbestos', 'bentonite': 'bentonite',
+    'boron minerals': 'boron', 'diatomite': 'diatomite', 'feldspar': 'feldspar',
+    'gypsum and anhydrite': 'gypsum', 'kaolin': 'kaolin', 'perlite': 'perlite',
+    'phosphate rock': 'phosphate', 'talc, steatite & pyrophyllite': 'talc',
+    'vermiculite': 'vermiculite', 'zircon': 'zirconium', 'steam coal': 'steamcoal',
+    'coking coal': 'cokingcoal', 'lignite': 'lignite', 'natural gas': 'naturalgas',
+    'petroleum': 'petroleum', 'oil sands': 'oilsands', 'oil shales': 'oilshales',
+    'uranium': 'uranium',
 }
+# WMD reports most sheets as mine output, but not all. Aluminium is smelter output; gallium,
+# germanium, indium and rhenium are recovered in refineries as by-products. Tagging them 'mine'
+# would let a mine-stage query read a refinery share as a mining one - the conflation the
+# production page's own WMD_STAGE table already guards against.
+STAGE = {'aluminium': 'processed', 'gallium': 'processed', 'germanium': 'processed',
+         'indium': 'processed', 'rhenium': 'processed'}
 # WMD marks each cell: r = reported by the country, e = estimated by WMD.
 FLAG = {'r': None, 'e': 'estimated_by_source'}
 FLAG_COL = None
@@ -135,7 +152,7 @@ def build():
                 rows.append({
                     'material': material, 'source_group': f'WMD:{sheet}', 'country_iso3': iso,
                     'year': yr, 'measure_family': 'production', 'measure': 'production',
-                    'flow_direction': None, 'stage': 'mine',
+                    'flow_direction': None, 'stage': STAGE.get(material, 'mine'),
                     'code_system': 'WMD sheet', 'native_code': sheet, 'native_label': sheet,
                     'sub_commodity': basis_note, 'value': v, 'unit': unit,
                     'value_t': tonnes, 'conversion_factor': (1.0 if tonnes == v else
