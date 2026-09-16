@@ -161,7 +161,7 @@ def load_trade():
 def load_production():
     con = duckdb.connect()
     q = ("select country_iso3, year, sum(value_t) from '"
-         + os.path.join(ROOT, 'pipeline', 'data', 'cube.parquet').replace('\\', '/')
+         + os.path.join(ROOT, 'out', 'cube.parquet').replace('\\', '/')
          + "' where measure='production' and material='copper' and stage='mine' "
            "and source='BGS World Mineral Statistics' and country_iso3 is not null "
            "and year between 2002 and 2024 group by 1,2")
