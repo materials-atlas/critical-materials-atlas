@@ -177,6 +177,11 @@ def build():
                 f'BGS:{code}:{meas}',                                          # series_id
                 r.get('data_precision_description'), value_flag(r.get('data_precision_description')),
                 r.get('sdmx_code'),      # BGS publishes its own SDMX observation status
+                # BGS's own grouping of commodity forms. Not part of the series key: it is the field
+                # the concentration study picks its dominant form by, and without it lithium's
+                # carbonate rows (code 707, erml 'Lithium') cannot be told from its mineral rows
+                # (erml 'Lithium minerals') - same name, same unit.
+                r.get('erml_commodity'),
             ))
     # A code carrying two country names means two countries have been silently added together -
     # exactly the defect COUNTRY_FIX exists to correct. If a refresh introduces a new one, stop:
@@ -194,7 +199,7 @@ def build():
         'measure_family', 'measure', 'flow_direction', 'stage',
         'code_system', 'native_code', 'native_label', 'sub_commodity',
         'value', 'unit', 'value_t', 'conversion_factor', 'basis',
-        'source', 'series_id', 'precision', 'value_flag', 'source_obs_status'])
+        'source', 'series_id', 'precision', 'value_flag', 'source_obs_status', 'native_group'])
     # value_t is only meaningful alongside its factor and basis - enforce, do not trust discipline
     bad = df.value_t.notna() & (df.conversion_factor.isna() | df.basis.isna())
     if bad.any():
