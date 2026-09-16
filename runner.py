@@ -456,8 +456,7 @@ def main():
             added = [q for q in POST_PASSES if q in fp and q not in stale]
             stale = [b for b in stale if b not in POST_PASSES] + [q for q in POST_PASSES if q in fp]
             if added:
-                print('
- post-passes appended (a rebuilt builder writes HTML): %s'
+                print('\n post-passes appended (a rebuilt builder writes HTML): %s'
                       % ', '.join(added))
 
     if blocked:
