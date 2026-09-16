@@ -133,12 +133,10 @@
    "vanadium-chain/out/vanadium_chain.json": "cosmetic"
   }
  },
- "hash_seed_dependent": [
-  "build_ot.py"
- ],
- "hash_seed_note": "Re-measured 16 Sep 2026 by running each builder under four PYTHONHASHSEEDs (0, 1, 7, 4242) and comparing the bytes it writes. Eight of the eleven were already stable - earlier sorted()/tiebreak work had fixed them and the list was stale. build_trends.py (five tiebreaks) and build_network_sensitivity.py (tie-aware betweenness ranking) are repaired and verified stable. build_ot.py remains: it is also behind its published page, so it cannot be re-run to test. PYTHONHASHSEED=0 stays pinned as the floor, not the repair.",
+ "hash_seed_dependent": [],
+ "hash_seed_note": "CLEARED 16 Sep 2026. All eleven re-measured under four PYTHONHASHSEEDs: eight were already stable, build_trends.py and build_network_sensitivity.py were repaired with tiebreaks, and build_ot.py's centroid set is now sorted. PYTHONHASHSEED=0 stays pinned as a floor, but nothing now depends on it.",
  "measured": "2026-09-11",
- "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these.",
+ "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these. CLEARED 16 Sep 2026: the list went 15 -> 0. Four builders were deleted as obsolete (their pages are 'moved to' notices), one was never broken (the audit compared raw builder output against a post-passed page), three pages were STALE rather than ahead, and the rest were missing page chrome or hand-written text, now adopted.",
  "resolved": {
   "build_casestudies.py": "CLEARED 12 Sep 2026. Its page differed from the builder only in ORDER - identical text as a multiset, nothing lost or gained - because the builder iterates sets and Python randomises string hashing per process. PYTHONHASHSEED is pinned where builders are invoked (runner.py and record_graph.py), the page was rebuilt once onto the defined order, and the text was verified unchanged token for token.",
   "build_companionality.py": "CLEARED 12 Sep 2026. Its page carried a headline and/or deck that had been improved on the page and never carried back into the builder - the builder was OLD, not wrong. The builder adopted the page text (adopt_page_text.py), after which only ORDER differed; rebuilt once on the pinned hash seed and verified text-identical as a multiset, nothing lost or gained.",
@@ -175,9 +173,8 @@
   "build_share.py": "16 Sep 2026: card5 quoted 17 materials where out/leverage.json now says 15 - the published card was stale, not the builder. Rebuilt cards adopted.",
   "build_gallium.py": "16 Sep 2026: the most dangerous of the held builders. The published page carried CORRECTED, weakened claims ('discards most of the gallium in its feedstock', 'consistent with', 'a consistency check on shared constants, not an independent measurement') while the builder still held the original overclaims ('is 94% waste', 'independently reproduced by'). Re-running would have republished retracted wording - the germanium failure class. Three paragraphs adopted into the builder; it now reproduces the page word for word.",
   "build_production.py": "16 Sep 2026: page and builder each held something the other lacked. The page had the 'of reporters' table note and the national-returns caveat (adopted into the builder); the builder had a correction the page lacked. Checking BGS itself, BOTH were wrong: BGS does publish gallium ('Production of primary gallium') and germanium ('Germanium metal'), but as refinery output, not mine, and niobium shares a panel with tantalum. Replaced by one verified sentence (62 BGS panels; 25 of the atlas's 32 with a recent BGS mine series; silicon and helium have no panel).",
-  "build_nowcast_backtest.py": "16 Sep 2026: the page's verdict block had been rewritten to be blunter - 'no model clearly dominates persistence', the Bayesian model's edge 'half a point, on 32 materials, well inside the noise', plus the block-bootstrap paragraph - while the builder still said the clever models 'do beat naive persistence, but only modestly'. The page's block (3,126 chars vs the builder's 1,304) adopted whole."
+  "build_nowcast_backtest.py": "16 Sep 2026: the page's verdict block had been rewritten to be blunter - 'no model clearly dominates persistence', the Bayesian model's edge 'half a point, on 32 materials, well inside the noise', plus the block-bootstrap paragraph - while the builder still said the clever models 'do beat naive persistence, but only modestly'. The page's block (3,126 chars vs the builder's 1,304) adopted whole.",
+  "build_ot.py": "16 Sep 2026: the last one, and it was both problems at once. Missing from the builder: the site footer, a longer callout and caveats paragraph, and the whole 'Under real capacity plans, not just an assumption' section that grounds the kappa ceiling in USGS forward capacity. Its map centroids were also built by iterating a set, which is what made it hash-seed dependent; now sorted. All adopted; reproduces word for word and is stable across four seeds."
  },
- "unsafe_to_run": [
-  "build_ot.py"
- ]
+ "unsafe_to_run": []
 }
