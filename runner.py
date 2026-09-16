@@ -189,6 +189,26 @@ def never_run(b):
     return any(k in b for k in NEVER_RUN)
 
 
+_PYC = None
+
+
+def _source_of(r):
+    """An imported module is recorded as the BYTECODE the interpreter opened
+    (__pycache__/build_cube_wmd.cpython-311.pyc), not its source. Python refreshes that file only
+    when the module is next imported, so editing build_cube_wmd.py left build_cube.py's fingerprint
+    unchanged and the cube was not rebuilt - found 16 Sep 2026. Hash the source instead: it is what
+    a person edits, and it changes the moment they do."""
+    global _PYC
+    if _PYC is None:
+        import re as _re
+        _PYC = _re.compile(r'^(?P<dir>(?:.*/)?)__pycache__/(?P<mod>[^/.]+)\.cpython-\d+(?:\.opt-\d)?\.pyc$')
+    m = _PYC.match(r.replace(os.sep, '/'))
+    if not m:
+        return r
+    src = m.group('dir') + m.group('mod') + '.py'
+    return src if os.path.isfile(os.path.join(ROOT, src)) else r
+
+
 def graph_edges(g):
     """(producers, edges, back_edges_removed). A file's producer set drives every edge."""
     prod = {}
@@ -271,6 +291,7 @@ def fingerprints(g, prod, edges, order, hasher):
         for r in sorted(set(g[b].get('reads', []))):
             if r.endswith('/') or r == b:
                 continue
+            r = _source_of(r)
             owners = {p for p in prod.get(r, ()) if p != b
                       and contained.get(p) != b and contained.get(b) != p
                       and (p, b) not in BREAK}
