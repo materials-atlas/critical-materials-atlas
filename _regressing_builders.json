@@ -170,14 +170,14 @@
   "build_riskmethods.py": "16 Sep 2026: nothing was wrong. The 11 Sep audit compared the builder's raw output with the PUBLISHED page, which has been through the post-passes. Run builder + post-passes and it is byte-identical.",
   "build_insights.py": "16 Sep 2026: the published page was STALE, not ahead - it showed risk 65 for lithium and 58 for gallium where out/risk.json says 64 and 57. Rebuilt page adopted; the drift class this atlas guards against.",
   "build_brief.py": "16 Sep 2026: the builder emitted <main> without an id, so a rebuild dropped the skip-link. Landmark given an id; the only remaining change is the citation line, now the institution.",
-  "build_leverage.py": "16 Sep 2026: the builder emitted no site footer, so a rebuild stripped it. Footer added; page text then matches exactly."
+  "build_leverage.py": "16 Sep 2026: the builder emitted no site footer, so a rebuild stripped it. Footer added; page text then matches exactly.",
+  "build_breakout.py": "16 Sep 2026: the builder lacked the site footer and one hand-written sentence (flagship-project capex and first-production year). Both adopted into the builder; with the footer back, add_head can place the landmark again, so the skip-link returns. Reproduces word for word.",
+  "build_share.py": "16 Sep 2026: card5 quoted 17 materials where out/leverage.json now says 15 - the published card was stale, not the builder. Rebuilt cards adopted."
  },
  "unsafe_to_run": [
-  "build_breakout.py",
   "build_gallium.py",
   "build_nowcast_backtest.py",
   "build_ot.py",
-  "build_production.py",
-  "build_share.py"
+  "build_production.py"
  ]
 }
