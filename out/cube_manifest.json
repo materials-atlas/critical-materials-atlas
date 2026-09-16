@@ -14,7 +14,7 @@
   "vintage"
  ],
  "join_rule": "Facts: pin the full identity. Attributes: name a vintage or take is_current. Never match on the material label alone.",
- "n_identities": 1292,
+ "n_identities": 1294,
  "n_materials": 98,
  "materials": {
   "aggregates": {
@@ -2659,6 +2659,20 @@
       2022
      ],
      "rows": 123,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "USGS Historical Statistics (DS 140)",
+     "measure": "production",
+     "stage": "mine",
+     "basis": "gross",
+     "unit": "metric tons",
+     "years": [
+      1912,
+      2013
+     ],
+     "rows": 87,
      "countries": 1,
      "tonnage_convertible": true
     },
@@ -10678,7 +10692,7 @@
       1900,
       2021
      ],
-     "rows": 219,
+     "rows": 263,
      "countries": 2,
      "tonnage_convertible": true
     },
@@ -20396,6 +20410,20 @@
       2022
      ],
      "rows": 99,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "USGS Historical Statistics (DS 140)",
+     "measure": "production",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "metric tons",
+     "years": [
+      1948,
+      2022
+     ],
+     "rows": 75,
      "countries": 1,
      "tonnage_convertible": true
     },

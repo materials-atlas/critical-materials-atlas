@@ -25,6 +25,12 @@ NAMES = {'rare_earths': 'rare earths', 'iron': 'iron ore'}
 disp = lambda m: NAMES.get(m, m).replace('_', ' ')
 
 d = json.load(open(os.path.join(ROOT, 'out', 'pairing.json'), encoding='utf-8'))
+corr_html = ''
+if d.get('corrections'):
+    corr_html = ('<div class="callout" style="border-left-color:#b3384b"><b>Withdrawn.</b><ul>' +
+                 ''.join('<li><b>%s</b> (%s): %s <i>%s</i></li>' % (e(c['material']), e(c['withdrawn_on']),
+                                                                 e(c['was']), e(c['why']))
+                         for c in d['corrections']) + '</ul></div>')
 rows = d['rows']
 S = d['summary']
 n_thin = sum(1 for r in rows if not r['census_plausible'])
@@ -36,7 +42,8 @@ LABEL = {'not_comparable': 'not comparable', 'agrees_within_25pct': 'within 25%'
 COLOR = {'not_comparable': '#b4532b', 'agrees_within_25pct': '#b35e16',
          'agrees_within_10pct': '#0e7c5a'}
 
-# the two that were mysteries this morning and are now explained - the page's real content
+# the mystery that is now explained - the page's real content. Cobalt was the second case until
+# 16 Sep 2026; its explanation rested on our own double count and is withdrawn (see pairing.py).
 CASES = [
     ('Cement', 0.066, 'China and India are absent',
      'BGS cement has ~32 reporting countries, led by Turkey, Germany, Italy and Spain. China alone '
@@ -44,12 +51,6 @@ CASES = [
      'The panel is a Europe-weighted subset, not a world census — so its sum must never be used '
      'as a world denominator. Nothing here is a data error; the series simply does not mean what a '
      'reader would assume it means.'),
-    ('Cobalt', 0.597, 'one country, and the gap is growing',
-     'The entire shortfall is the DRC row. Every other BGS reporter reconciles with USGS. BGS holds '
-     'the DRC roughly flat at 86–109 kt while the USGS world total climbs to 294 kt, so the gap '
-     'widens from 52 kt (2010) to 77 kt (2015) to 164 kt (2020) — which is the shape of '
-     'artisanal and small-scale output that national statistical returns do not capture. For cobalt '
-     'world totals, USGS is the source to use.'),
 ]
 
 trs = []
@@ -122,7 +123,7 @@ HTML = f"""<!doctype html>
   <p class="lead">We compare the sum of <b>BGS World Mineral Statistics</b> national returns against the <b>USGS</b> world-production estimate for the same material, over the years both cover. <b>These are independent compilations, but not independent measurements</b> &mdash; both rest largely on the same national statistical returns, so they can agree and still both be wrong. Agreement therefore tells you we have paired the right forms and read the units correctly. It is not evidence that a number is true, and a disagreement does not make either body wrong. Most disagreement here is definitional.</p>
 
   <h2>The disagreements are the content</h2>
-  <p class="note" style="margin:.2rem 0 .4rem;max-width:80ch">Two were unexplained until this week. Neither turned out to be an error in anyone&rsquo;s data.</p>
+  <p class="note" style="margin:.2rem 0 .4rem;max-width:80ch">One was unexplained until recently, and it turned out not to be an error in anyone&rsquo;s data. A second, cobalt, was &ldquo;explained&rdquo; here and has been withdrawn: the gap was our own double count, not the data (see below).</p>
   {cases_html}
 
   <div class="callout"><b>The limit that outranks the ratio.</b> A sum over a handful of reporting countries cannot be a world census, however neatly the ratio lands. <b>{n_thin} of {d['n_materials']}</b> materials here rest on fewer than eight reporting countries &mdash; including lithium and rare earths. Germanium is the clearest case: its two figures happen to sit close together, but BGS carries only three reporting countries for it, so that agreement is coincidence rather than confirmation. Those rows are marked <span style="color:#b4532b;font-weight:700">&dagger;</span> below, and the mark should be read before the number.</p></div>
@@ -135,6 +136,7 @@ HTML = f"""<!doctype html>
     <tbody>{''.join(trs)}</tbody>
   </table></div>
 
+  {corr_html}
   <div class="notclaim">
     <h3>What this page does not claim</h3>
     <ul>
