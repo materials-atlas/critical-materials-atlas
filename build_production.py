@@ -85,19 +85,14 @@ except Exception:
 
 YEAR_WMD = 2024
 
-import pandas as _pd
-# World Mining Data now comes out of the published cube, which ingests every WMD sheet and keeps
-# WMD's own country spelling (native_country), so this page shows the names WMD prints.
-_WMD = _pd.read_parquet(os.path.join(ROOT, 'out', 'cube.parquet'),
-                        columns=['source', 'source_group', 'measure', 'year', 'value', 'native_country'])
-_WMD = _WMD[(_WMD.source == 'World Mining Data') & (_WMD.measure == 'production')
-            & (_WMD.year == YEAR_WMD) & (_WMD.value > 0)]
-WMD_SHEETS = {g[len('WMD:'):] for g in _WMD.source_group.unique()}
+import wmd_cube
+# World Mining Data comes out of the published cube (wmd_cube.py), which ingests every WMD sheet
+# and keeps WMD's own country spelling, so this page shows the names WMD prints.
+WMD_SHEETS = wmd_cube.sheets(YEAR_WMD)
 
 
 def parse_sheet(sheet):
-    rows = _WMD[_WMD.source_group == 'WMD:' + sheet]
-    return {str(n): float(v) for n, v in rows.groupby('native_country').value.sum().items()}
+    return wmd_cube.parse_sheet(sheet, YEAR_WMD)
 
 # WMD reports 'production' at different STAGES by commodity: mine production for most, but refinery/primary
 # recovery for the non-mined by-products (gallium, germanium) and produced-metal for magnesium (Pidgeon).
