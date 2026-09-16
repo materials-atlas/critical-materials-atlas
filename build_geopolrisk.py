@@ -21,7 +21,6 @@ Then compare HHI_prod against the atlas's trade-VALUE HHI (data.json) and trade-
 Public data; deterministic. Run: python build_geopolrisk.py
 """
 import json, os
-import openpyxl
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 data = {m['label']: m for m in json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))['materials']}
@@ -70,24 +69,18 @@ def grisk(iso):
     w = WGI.get(iso, WGI_MEDIAN)
     return max(0.0, min(1.0, (2.5 - w) / 5.0))   # 0 = best governed, 1 = worst
 
-wb = openpyxl.load_workbook(WMD, read_only=True, data_only=True)
+import wmd_cube
+# WMD from the published cube (wmd_cube.py) instead of the spreadsheet - same sheet, same year,
+# same country spelling.
+WMD_SHEETS = wmd_cube.sheets(2024)
+
+
 def parse_sheet(sheet):
-    ws = wb[sheet]; rows = list(ws.iter_rows(values_only=True))
-    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == 'Country'), 1)
-    try: c24 = rows[hdr].index('2024')
-    except ValueError: c24 = 6
-    out = {}
-    for r in rows[hdr + 1:]:
-        if not r or not r[0]: continue
-        name = str(r[0]).strip()
-        if name.lower() in ('total', 'world', 'total world', 'others'): continue
-        v = r[c24] if c24 < len(r) else None
-        if isinstance(v, (int, float)) and v > 0: out[name] = float(v)
-    return out
+    return wmd_cube.parse_sheet(sheet, 2024)
 
 rows = []
 for lab, sheet in SHEET.items():
-    if sheet not in wb.sheetnames: continue
+    if sheet not in WMD_SHEETS: continue
     prod = parse_sheet(sheet)
     world = sum(prod.values())
     if world <= 0: continue
