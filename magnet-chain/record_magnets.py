@@ -67,44 +67,61 @@ SOURCES = {
 }
 
 
+# Both series come from the published cube (checked 16 Sep 2026: the USGS world column matches
+# rare-earths.xlsx for all 121 years, and the BGS panel matches the separate rare-earth-oxide
+# download for all 272 country-years). The download's descriptive header is kept here verbatim.
+BGS_REO_META = {
+    "units": "tonnes (metric)",
+    "measure": "Mine production reported or calculated as rare-earth-oxide equivalent",
+    "source_notes": [
+        "All the figures in this table are either reported as rare earth oxides or are calculated to rare earth oxide equivalent.",
+        "Although rare earth minerals are believed to be extracted  in other countries, there is insufficient evidence to suggest that  rare earth oxides are produced in those countries.",
+        "In addition to the countries listed, the USA are known to be producing rare earth oxides from existing stockpiles. Best available estimates suggest this is in the order of 2000 tonnes per year.",
+        "Previous editions of this book included a table for production of 'rare earth minerals' rather than the current 'rare eath oxides'. Users should exercise caution when comparing statistics over longer time periods."
+    ]
+}
+
+
+def _cube(columns):
+    import pandas as pd
+    return pd.read_parquet(os.path.join(ROOT, "out", "cube.parquet"), columns=columns)
+
+
 def usgs_world():
-    path = os.path.join(ROOT, "raw", "usgs_hist", "rare-earths.xlsx")
-    sheet = openpyxl.load_workbook(path, data_only=True, read_only=True)["Rare earths"]
-    rows = []
-    for row in sheet.iter_rows(min_row=6, values_only=True):
-        year, world = row[0], row[7]
-        if isinstance(year, int) and isinstance(world, (int, float)):
-            rows.append({"year": year, "world_tonnes_reo": round(world)})
+    c = _cube(["source", "source_group", "measure", "country_iso3", "native_label", "year", "value"])
+    c = c[(c.source == "USGS Historical Statistics (DS 140)") & (c.source_group == "rare-earths")
+          & (c.measure == "production") & (c.country_iso3 == "WLD") & (c.native_label == "World production")]
+    rows = [{"year": int(y), "world_tonnes_reo": round(v)} for y, v in sorted(zip(c.year, c.value))]
     if (rows[0]["year"], rows[-1]["year"]) != (1900, 2020):
         raise SystemExit("Unexpected USGS historical coverage")
     return rows
 
 
 def bgs_panel():
-    path = os.path.join(ROOT, "raw", "bgs_rare_earth_oxides_1992_2024.json")
-    with open(path, encoding="utf-8") as handle:
-        raw = json.load(handle)
+    c = _cube(["source", "source_group", "measure", "country_iso3", "native_country", "year", "value"])
+    c = c[(c.source == "BGS World Mineral Statistics") & (c.source_group == "rare_earths")
+          & (c.measure == "production") & c.value.notna() & c.country_iso3.notna()]
     grouped = defaultdict(lambda: defaultdict(float))
     names = {}
-    for row in raw["rows"]:
-        if row["quantity"] is None or not row["country_iso3_code"]:
-            continue
-        year = int(row["year"][:4])
-        iso = row["country_iso3_code"]
-        grouped[year][iso] += float(row["quantity"])
-        names[iso] = row["country_trans"]
+    for year, iso, name, q in zip(c.year, c.country_iso3, c.native_country, c.value):
+        grouped[int(year)][iso] += float(q)
+        names[iso] = name
     series = []
     for year in sorted(grouped):
         countries, world = grouped[year], sum(grouped[year].values())
+        # A country that produced nothing is not a top producer, and equal tonnages are ordered by
+        # country code - the raw download's row order is not something to depend on.
         top = [{"iso": iso, "name": names.get(iso, iso), "tonnes_reo": round(value), "share": round(value / world, 4)}
-               for iso, value in sorted(countries.items(), key=lambda item: -item[1])[:8]]
+               for iso, value in sorted(countries.items(), key=lambda item: (-item[1], item[0]))
+               if value > 0][:8]
         series.append({
             "year": year, "world_tonnes_reo": round(world),
             "china_tonnes_reo": round(countries.get("CHN", 0)),
             "china_share": round(countries.get("CHN", 0) / world, 4) if world else None,
             "top_producers": top,
         })
-    return {"unit": raw["units"], "measure": raw["measure"], "source_notes": raw["source_notes"], "series": series}
+    return {"unit": BGS_REO_META["units"], "measure": BGS_REO_META["measure"],
+            "source_notes": BGS_REO_META["source_notes"], "series": series}
 
 
 def is_aggregate(code):
