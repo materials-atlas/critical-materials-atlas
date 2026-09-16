@@ -63,7 +63,8 @@ def build_graph(emap, cap):
             G.add_edge(a, b, w=w, dist=1.0 / w)
     if cap is not None and G.number_of_nodes() > cap:
         thr = {n: G.in_degree(n, weight='w') + G.out_degree(n, weight='w') for n in G}
-        keep = set(sorted(thr, key=thr.get, reverse=True)[:cap])
+        # tie broken by node name: equal-throughput nodes must not depend on dict order
+        keep = set(sorted(thr, key=lambda n: (-thr[n], n))[:cap])
         G = G.subgraph(keep).copy()
     return G
 
@@ -74,8 +75,15 @@ def metrics(G, node='CN'):
     tot = sum(thr.values()) or 1
     cn_share = thr.get(node, 0.0) / tot
     bet = nx.betweenness_centrality(G, weight='dist', normalized=True)
-    order = sorted(bet, key=bet.get, reverse=True)
-    cn_rank = (order.index(node) + 1) if node in bet else None
+    # Betweenness ties are common in a small capped graph - most nodes broker nothing and score 0.
+    # An ordinary sort then hands the top slot and the rank to whichever node the dict happened to
+    # list first, which is how this page came to name a "top broker" that a different hash seed
+    # would have replaced. Rank ties equally (competition ranking), and report a tied top as tied.
+    TOL = 1e-12
+    order = sorted(bet, key=lambda n: (-bet[n], n))
+    cn_rank = (1 + sum(1 for v in bet.values() if v > bet[node] + TOL)) if node in bet else None
+    best = max(bet.values()) if bet else None
+    winners = sorted(n for n in bet if bet[n] >= best - TOL) if bet else []
     # node-removal fragility: fraction of reachable ordered pairs lost when `node` is removed
     def reach(g):
         c = 0
@@ -89,7 +97,11 @@ def metrics(G, node='CN'):
         r1 = reach(H)
         frag = (r0 - r1) / r0 if r0 else 0.0
     return {'cn_share': round(cn_share * 100, 1), 'cn_bet_rank': cn_rank,
-            'top_broker': order[0] if order else None, 'frag': round((frag or 0) * 100, 1),
+            'cn_bet': round(bet.get(node, 0.0), 4),
+            'cn_bet_ties': (sum(1 for v in bet.values() if abs(v - bet[node]) <= TOL) - 1) if node in bet else None,
+            'top_broker': (winners[0] if len(winners) == 1 else None),
+            'top_broker_tied': (len(winners) if len(winners) > 1 else 0),
+            'frag': round((frag or 0) * 100, 1),
             'n': G.number_of_nodes(), 'e': G.number_of_edges()}
 
 CAPS = [('top6', 6), ('top10', 10), ('top20', 20), ('full', None)]
@@ -113,7 +125,11 @@ agg = {}
 for name, _ in CAPS:
     agg[name] = {'cn_share': avg(name, 'cn_share'), 'frag': avg(name, 'frag'),
                  'cn_top_broker': sum(1 for r in rows if r.get(name) and r[name]['top_broker'] == 'CN'),
-                 'cn_top3_bet': sum(1 for r in rows if r.get(name) and r[name].get('cn_bet_rank') and r[name]['cn_bet_rank'] <= 3)}
+                 'top_broker_tied': sum(1 for r in rows if r.get(name) and r[name].get('top_broker_tied')),
+                 # a node that brokers nothing is not a broker: a zero score cannot be "top-3",
+                 # however many other nodes share the zero
+                 'cn_top3_bet': sum(1 for r in rows if r.get(name) and r[name].get('cn_bet_rank')
+                                    and r[name]['cn_bet_rank'] <= 3 and (r[name].get('cn_bet') or 0) > 0)}
 out = {'year': 2024, 'caps': [c[0] for c in CAPS], 'agg': agg, 'rows': rows}
 json.dump(out, open(os.path.join(ROOT, 'out', 'network_sensitivity.json'), 'w', encoding='utf8'), indent=1)
 
