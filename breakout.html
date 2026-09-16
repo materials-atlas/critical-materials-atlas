@@ -1,7 +1,6 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/breakout">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="canonical" href="https://criticalmaterialsatlas.org/breakout">
 <title>Break the chokepoint — Critical Materials Atlas</title>
 <meta name="description" content="From finding to decision: for every critical-material chokepoint, which kind of moat holds it (import-fed vs by-product capability), who could realistically break it (product-space capability-adjacency), and who is actually building alternative capacity.">
 <meta property="og:title" content="Break the chokepoint — the decision layer">
@@ -112,8 +111,6 @@ function gapMsg(kind){
   return `<div class="gap">No public diversification project tracked for this concentrated stage — either a real sourcing gap, or a supplier the market hasn&rsquo;t moved to replace (e.g. a well-supplied ally).</div>`;
 }
 function bar(width,color){ return `<span class="cf" style="width:${Math.max(3,Math.min(100,width))}%;background:${color}"></span>`; }
-let SPECS={};
-function specOf(n){ for(const k in SPECS){ if(n && n.indexOf(k)>=0) return SPECS[k]; } return null; }
 function card(r){
   const p=r.problem, mo=MOAT[p.moat_type]||MOAT['refining capability'];
   const spof = p.spof?`<span class="spofb">single point</span>`:'';
@@ -133,7 +130,7 @@ function card(r){
   // who is
   const wi=r.who_is; let is='';
   if(wi.projects && wi.projects.length){
-    is = wi.projects.slice(0,4).map(pr=>{const sp=specOf(pr.name); const spec=sp?` <span style="color:#0b6f66;font-weight:700;font-size:.72rem">${[sp.capex,sp.online?'online '+sp.online:'',sp.capacity].filter(Boolean).join(' · ')}</span>`:''; return `<div class="proj"><span class="pf">${flag(pr.iso)}</span><span><b>${pr.name}</b> <span class="ps">${pr.stage||''}${pr.status?' · '+pr.status:''}</span>${spec}</span></div>`;}).join('');
+    is = wi.projects.slice(0,4).map(pr=>`<div class="proj"><span class="pf">${flag(pr.iso)}</span><span><b>${pr.name}</b> <span class="ps">${pr.stage||''}${pr.status?' · '+pr.status:''}</span></span></div>`).join('');
   }
   if(wi.forward){ is += `<div class="fwd">USGS capacity ${wi.forward.stage||''}: ${wi.forward.from}&rarr;${wi.forward.to} kt by 2029 (${wi.forward.growth_pct>=0?'+':''}${wi.forward.growth_pct}%)</div>`; }
   if(wi.gap && !is){ is = gapMsg(wi.gap_kind); }
@@ -163,7 +160,7 @@ function render(){
   const g=document.getElementById('grid');
   g.innerHTML = rows.length ? rows.map(card).join('') : `<div class="empty">No materials match — widen the filters or clear the search.</div>`;
 }
-fetch('out/pipeline_specs.json').then(r=>r.json()).then(s=>{SPECS=s.specs||{};render();}).catch(()=>render());
+render();
 </script>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -171,5 +168,4 @@ fetch('out/pipeline_specs.json').then(r=>r.json()).then(s=>{SPECS=s.specs||{};re
   <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
   <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
-</div></footer>
-</body></html>
+</div></footer></body></html>
