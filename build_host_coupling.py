@@ -50,14 +50,15 @@ MIN_N = 12
 
 # ---- real USGS prices + world production ------------------------------------
 P, W, NOM = collections.defaultdict(dict), collections.defaultdict(dict), collections.defaultdict(dict)
-for r in csv.DictReader(open(os.path.join(ROOT, 'raw', 'usgs_hist', 'usgs_prices_slim.csv'), encoding='utf8')):
-    y = int(r['year'])
-    if r['uv_98']:
-        P[r['commodity']][y] = float(r['uv_98'])
-    if r['uv_nominal']:
-        NOM[r['commodity']][y] = float(r['uv_nominal'])
-    if r['world_production']:
-        W[r['commodity']][y] = float(r['world_production'])
+import usgs_cube   # USGS DS-140 prices from the published cube (replaces usgs_prices_slim.csv)
+for r in usgs_cube.rows():
+    y = r['year']
+    if r['uv_98'] is not None:
+        P[r['commodity']][y] = r['uv_98']
+    if r['uv_nominal'] is not None:
+        NOM[r['commodity']][y] = r['uv_nominal']
+    if r['world_production'] is not None:
+        W[r['commodity']][y] = r['world_production']
 
 # USGS publishes each series in nominal AND constant-1998 dollars, so their ratio IS the deflator.
 # Take the median across commodities per year — that lets us put Pink Sheet (nominal) on the same basis.
