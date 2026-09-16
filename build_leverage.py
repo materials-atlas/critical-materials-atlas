@@ -246,7 +246,12 @@ document.getElementById('m-cap').onclick=()=>{ MODE='capture'; document.getEleme
 document.getElementById('m-cn').onclick=()=>{ MODE='cn'; document.getElementById('m-cn').classList.add('on'); document.getElementById('m-cap').classList.remove('on'); build(); };
 build(); detail();
 </script>
-</body></html>'''
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
+  <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
+</div></footer></body></html>'''
 PAGE = PAGE.replace('__DATA__', json.dumps(page_data, ensure_ascii=False))
 open(os.path.join(ROOT, 'leverage.html'), 'w', encoding='utf-8').write(PAGE)
 

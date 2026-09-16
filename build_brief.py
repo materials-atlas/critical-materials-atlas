@@ -106,7 +106,7 @@ out = f'''<!doctype html>
   <h1>Where critical materials really come from — and how the squeeze tightened</h1>
   <p>32 critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Critical Materials Atlas · public data only · {yrs[0]}–{yrs[-1]}</p>
 </div></section>
-<main>
+<main id="main">
   <div class="f"><div class="k">Finding 1 · the origin gap</div>
     <h2>The country that exports a critical material usually isn't the one that mines it</h2>
     <p>In <span class="big">{mismatch} of {len(MATS)}</span> materials the top exporter is not the top miner — customs records the refiner or shipping hub, not the source, so import-origin statistics overstate how diversified supply really is. {ex}.</p></div>

@@ -166,18 +166,18 @@
   "build_bloc_demand.py": "16 Sep 2026: DELETED. Its page is a hand-written notice saying the analysis moved to apparent consumption; the builder existed only to overwrite that notice with the retired analysis. Its committed JSON output stays as a frozen input (build_net_demand.py still reads out/bloc_demand.json).",
   "build_commodity_attribution.py": "16 Sep 2026: DELETED. Its page is a hand-written notice saying the analysis moved to the satellite cross-check; the builder existed only to overwrite that notice with the retired analysis. Its committed JSON output stays as a frozen input (build_net_demand.py still reads out/bloc_demand.json).",
   "build_host_shock.py": "16 Sep 2026: DELETED. Its page is a hand-written notice saying the analysis moved to the supply-shock cascade; the builder existed only to overwrite that notice with the retired analysis. Its committed JSON output stays as a frozen input (build_net_demand.py still reads out/bloc_demand.json).",
-  "build_scenarios.py": "16 Sep 2026: DELETED. Its page is a hand-written notice saying the analysis moved to the shock builder; the builder existed only to overwrite that notice with the retired analysis. Its committed JSON output stays as a frozen input (build_net_demand.py still reads out/bloc_demand.json)."
+  "build_scenarios.py": "16 Sep 2026: DELETED. Its page is a hand-written notice saying the analysis moved to the shock builder; the builder existed only to overwrite that notice with the retired analysis. Its committed JSON output stays as a frozen input (build_net_demand.py still reads out/bloc_demand.json).",
+  "build_riskmethods.py": "16 Sep 2026: nothing was wrong. The 11 Sep audit compared the builder's raw output with the PUBLISHED page, which has been through the post-passes. Run builder + post-passes and it is byte-identical.",
+  "build_insights.py": "16 Sep 2026: the published page was STALE, not ahead - it showed risk 65 for lithium and 58 for gallium where out/risk.json says 64 and 57. Rebuilt page adopted; the drift class this atlas guards against.",
+  "build_brief.py": "16 Sep 2026: the builder emitted <main> without an id, so a rebuild dropped the skip-link. Landmark given an id; the only remaining change is the citation line, now the institution.",
+  "build_leverage.py": "16 Sep 2026: the builder emitted no site footer, so a rebuild stripped it. Footer added; page text then matches exactly."
  },
  "unsafe_to_run": [
   "build_breakout.py",
-  "build_brief.py",
   "build_gallium.py",
-  "build_insights.py",
-  "build_leverage.py",
   "build_nowcast_backtest.py",
   "build_ot.py",
   "build_production.py",
-  "build_riskmethods.py",
   "build_share.py"
  ]
 }
