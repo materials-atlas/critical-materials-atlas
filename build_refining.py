@@ -53,13 +53,12 @@ CRITICAL = {'nickel', 'cobalt', 'bauxite', 'chromium', 'tungsten', 'titanium', '
 # capacity concentration directly rather than curate it — including lithium/graphite/magnets, whose refined
 # stage has no clean HS pair and is therefore invisible to the trade wedge entirely.
 import csv as _csv
-_IEA_SUP = os.path.join(ROOT, 'raw', 'iea', 'iea_supply_concentration.csv')
+import iea_cube   # IEA supply concentration from the published cube (replaces iea_supply_concentration.csv)
 IEA_CAP = {}
-if os.path.exists(_IEA_SUP):
-    for _r in _csv.DictReader(open(_IEA_SUP, encoding='utf-8')):
-        IEA_CAP.setdefault(_r['material'], {})[_r['stage']] = {
-            'iso3': _r['top1_country'], 'top1': float(_r['top1_share']),
-            'top3': float(_r['top3_share']), 'total': float(_r['total_2024'])}
+for _r in iea_cube.supply_concentration():
+    IEA_CAP.setdefault(_r['material'], {})[_r['stage']] = {
+        'iso3': _r['top1_country'], 'top1': _r['top1_share'],
+        'top3': _r['top3_share'], 'total': _r['total_2024']}
 # capacity wedge = top-3 refining share - top-3 mining share (pp). Top-3 avoids the "Rest of world" lump
 # distorting an HHI, and is the concentration measure the IEA itself reports.
 CAP_WEDGE = {m: round(v['refining']['top3'] - v['mining']['top3'], 1)

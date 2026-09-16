@@ -29,25 +29,21 @@ TITLE = {m['label']: CO.get(m['label'], {}).get('title', m['title'].split(' (')[
 # the minerals it covers we COMPUTE g = total demand 2040 / 2024 in each scenario and carry the whole band
 # (STEPS = low, APS = central, NZE = high) instead of a curated point. Only 6 minerals have a total-demand
 # series; sheet 3.2 covers ~37 but clean-tech demand only (a different metric), so it is not used for g.
-import csv as _csv
-IEA_F = os.path.join(ROOT, 'raw', 'iea', 'iea_demand_scenarios.csv')
+import iea_cube   # IEA demand from the published cube (replaces the hand-derived iea_demand_*.csv)
 IEA_G = {}
-if os.path.exists(IEA_F):
-    for _r in _csv.DictReader(open(IEA_F, encoding='utf-8')):
-        IEA_G[_r['material']] = {'low': float(_r['g_steps']), 'central': float(_r['g_aps']),
-                                 'high': float(_r['g_nze']), 'base_2024': float(_r['base_2024'])}
+for _r in iea_cube.demand_scenarios():
+    IEA_G[_r['material']] = {'low': _r['g_steps'], 'central': _r['g_aps'],
+                             'high': _r['g_nze'], 'base_2024': _r['base_2024']}
 
 # ---- bottom-up: WHICH technology pulls each metal (IEA demand by technology, 2024 vs APS-2040) ----
 # A demand multiple says how much more; it doesn't say what is doing the pulling. The IEA breaks demand down by
 # end-use technology, so we can decompose the growth: biggest use by 2040, and the technology adding the most
 # absolute demand between 2024 and 2040 (the growth driver). This is the dMFA question answered with the
 # modeller's own output rather than us rebuilding their model with worse inputs.
-IEA_TECH_F = os.path.join(ROOT, 'raw', 'iea', 'iea_demand_by_tech.csv')
 IEA_TECH = {}
-if os.path.exists(IEA_TECH_F):
-    for _r in _csv.DictReader(open(IEA_TECH_F, encoding='utf-8')):
-        IEA_TECH.setdefault(_r['material'], []).append(
-            {'tech': _r['technology'], 'd2024': float(_r['d2024']), 'd2040': float(_r['d2040_aps'])})
+for _r in iea_cube.demand_by_tech():
+    IEA_TECH.setdefault(_r['material'], []).append(
+        {'tech': _r['technology'], 'd2024': _r['d2024'], 'd2040': _r['d2040_aps']})
 TECH_BREAKDOWN = []
 for _m, _ts in IEA_TECH.items():
     _tot40 = sum(t['d2040'] for t in _ts) or 1.0

@@ -16,15 +16,13 @@ SCN = json.load(open(os.path.join(ROOT, 'out', 'scenario.json'), encoding='utf-8
 PHYS = json.load(open(os.path.join(ROOT, 'out', 'capability_physical.json'), encoding='utf-8'))
 # IEA Critical Minerals Dataset (CC BY 4.0): authoritative REFINING concentration by country, catches the
 # trade-blind domestic-absorbers (lithium/graphite/magnets). Local slim has top-1/top-3 refining shares.
-import csv as _csv
+import iea_cube   # IEA supply concentration from the published cube (replaces iea_supply_concentration.csv)
 IEA = {}
-_iea_path = os.path.join(ROOT, 'raw', 'iea', 'iea_supply_concentration.csv')
-if os.path.exists(_iea_path):
-    _i3to2 = {'CHN': 'CN', 'IDN': 'ID', 'COD': 'CD', 'AUS': 'AU', 'CHL': 'CL', 'USA': 'US', 'RUS': 'RU'}
-    for _r in _csv.DictReader(open(_iea_path, encoding='utf-8')):
-        if _r['stage'] == 'refining':
-            IEA[_r['material']] = {'top1': _i3to2.get(_r['top1_country'], _r['top1_country']),
-                                   'top1_share': float(_r['top1_share']), 'top3_share': float(_r['top3_share'])}
+_i3to2 = {'CHN': 'CN', 'IDN': 'ID', 'COD': 'CD', 'AUS': 'AU', 'CHL': 'CL', 'USA': 'US', 'RUS': 'RU'}
+for _r in iea_cube.supply_concentration():
+    if _r['stage'] == 'refining':
+        IEA[_r['material']] = {'top1': _i3to2.get(_r['top1_country'], _r['top1_country']),
+                               'top1_share': _r['top1_share'], 'top3_share': _r['top3_share']}
 # EU CRM 2023 (EC official): top global supplier + bottleneck stage for ~31 materials -- the one public
 # source with a per-country processing figure for specialty metals.
 _eucrm_path = os.path.join(ROOT, 'out', 'eucrm.json')
