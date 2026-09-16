@@ -69,6 +69,18 @@ QUANTITY_REPAIRS = {
         '99.9 Mt matches. Without the repair, world bauxite trade reads 72.6 Mt in 2023 between '
         '155.8 Mt (2022) and 183.3 Mt (2024).'),
     ('HS17', 2023, '260600', 324, 156): (99890928.0, 'same flow in the HS17 file; see HS02'),
+    # WITHHELD (q = None): tonnage that cannot be right and has no history to repair from. The value
+    # is kept; only the tonnes are blanked, so no share or unit value is built on them.
+    ('HS02', 2024, '284690', 792, 204): (None, _REE_BENIN := (
+        'Rare-earth compounds (284690) at ~$50/t: Turkey -> Benin 2024 carries 40,700 t for $2.15m, '
+        'and Turkmenistan -> Benin 2019 27,500 t for $1.27m, against a line average of ~$14,200/t in '
+        '2024. Round tonnages, a destination with no rare-earth industry, and neither exporter had '
+        'shipped more than 65 t of the line before. Unblanked, Turkey becomes the second-largest exporter from nothing (24% of 2024 world tonnage).')),
+    ('HS17', 2024, '284690', 792, 204): (None, _REE_BENIN),
+    ('HS02', 2019, '284690', 795, 204): (None, _REE_BENIN),
+    ('HS17', 2019, '284690', 795, 204): (None, _REE_BENIN),
+    ('HS02', 2004, '284690', 842, 484): (None, 'USA -> Mexico 2004: 30,384 t of rare-earth compounds for '
+                                               '$3.42m ($112/t) - the same order of error, 2% of the line price.'),
 }
 
 # The two overrides that twenty files carried separately. Taiwan is not in CEPII's ISO table;
@@ -81,6 +93,20 @@ FORCE = {
 
 class NotExtracted(Exception):
     """The year exists in the archive but not in extract/. Run extract_baci.py."""
+
+
+# MISCLASSIFIED FLOWS: the value is real but it is not the product the code names. Flagged at
+# extraction in every year and nomenclature; year() leaves them out unless asked, so every reader of
+# the code sees the same line. The tonnes and dollars are kept in the extract for anyone who wants them.
+MISCLASSIFIED = {
+    # (hs6, exporter, importer): evidence
+    ('280530', 36, 458): (
+        'Australia -> Malaysia on "rare-earth metals, scandium and yttrium" is Mt Weld concentrate for '
+        "Lynas's Malaysian separation plant, not metal: every tonne goes to Malaysia, at $2,500-5,200/t "
+        '(2017-2024), where metal on the same line sells at $12,000-118,000/t (China, Japan, USA). '
+        'Australia makes no rare-earth metal at this scale. Included, it made Australia a quarter of '
+        'world rare-earth METAL exports by value and 65-70% by tonnage.'),
+}
 
 
 def nomenclature(year):
@@ -233,7 +259,7 @@ def crm_codes():
                      for c in (v.get('ore_hs') or []) + (v.get('refined_hs') or []) + (v.get('compound_hs') or []))
 
 
-def year(y, columns=None, codes=None, iso=None, nom=None):
+def year(y, columns=None, codes=None, iso=None, nom=None, keep_misclassified=False):
     """One year of BACI. columns: subset of t,i,j,k,v,q. codes: keep only these HS6.
     iso: None (numeric i/j), 'iso3' or 'iso2' - adds i_iso / j_iso columns.
     nom: 'HS02' or 'HS17'. None = the newest nomenclature holding the year. A reader that has
@@ -244,7 +270,10 @@ def year(y, columns=None, codes=None, iso=None, nom=None):
         raise NotExtracted('BACI %s %d is not in extract/ - run: python extract_baci.py' % (nom, y))
     want = list(columns) if columns else ['t', 'i', 'j', 'k', 'v', 'q']
     need = set(want) | ({'k'} if codes else set()) | ({'i', 'j'} if iso else set())
-    df = pd.read_parquet(p, columns=sorted(need, key=['t', 'i', 'j', 'k', 'v', 'q'].index))
+    df = pd.read_parquet(p, columns=sorted(need, key=['t', 'i', 'j', 'k', 'v', 'q'].index) + ['q_flag'])
+    if not keep_misclassified:
+        df = df[~df['q_flag'].fillna('').str.startswith('misclassified')]
+    df = df.drop(columns=['q_flag'])
     if codes:
         df = df[df['k'].isin(set(codes))]
     if iso:

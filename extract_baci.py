@@ -78,11 +78,18 @@ def extract_one(con, zf, nom, year):
                 if n_ == nom and y_ == year]
         qexpr = "TRY_CAST(NULLIF(NULLIF(trim(q), 'NA'), '') AS DOUBLE)"
         flag = "CAST(NULL AS VARCHAR)"
+        mis = ' '.join("WHEN k = '%s' AND i = %d AND j = %d THEN 'misclassified_see_baci.MISCLASSIFIED'"
+                       % (k_, i_, j_) for (k_, i_, j_) in baci.MISCLASSIFIED)
+        if mis:
+            flag = 'CASE ' + mis + ' END'
         if reps:
-            cond = ' OR '.join("(k = '%s' AND i = %d AND j = %d)" % (k_, i_, j_) for k_, i_, j_, _ in reps)
-            qexpr = ('CASE ' + ' '.join("WHEN k = '%s' AND i = %d AND j = %d THEN %r" % (k_, i_, j_, q_)
+            qexpr = ('CASE ' + ' '.join("WHEN k = '%s' AND i = %d AND j = %d THEN %s"
+                                         % (k_, i_, j_, 'CAST(NULL AS DOUBLE)' if q_ is None else repr(q_))
                                          for k_, i_, j_, q_ in reps) + ' ELSE ' + qexpr + ' END')
-            flag = "CASE WHEN %s THEN 'repaired_see_baci.QUANTITY_REPAIRS' END" % cond
+            flag = ('CASE ' + mis + ' ' + ' '.join("WHEN k = '%s' AND i = %d AND j = %d THEN '%s'"
+                                        % (k_, i_, j_, 'withheld_see_baci.QUANTITY_REPAIRS' if q_ is None
+                                           else 'repaired_see_baci.QUANTITY_REPAIRS')
+                                        for k_, i_, j_, q_ in reps) + ' END')
         con.execute("COPY (SELECT t, i, j, k, "
                     "TRY_CAST(NULLIF(trim(v), 'NA') AS DOUBLE) AS v, "
                     + qexpr + " AS q, " + flag + " AS q_flag "
