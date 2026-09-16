@@ -5149,21 +5149,23 @@
   },
   "build_geopolrisk.py": {
    "reads": [
+    "__pycache__/wmd_cube.cpython-311.pyc",
     "out/companionality.json",
+    "out/cube.parquet",
     "out/data.json",
     "out/flows_2024.json",
     "out/volume.json",
     "out/wgi.json",
-    "raw/geopolrisk/bilateral_imports_2023.json",
-    "raw/wmd/wmd_6.4_production_by_country.xlsx"
+    "raw/geopolrisk/bilateral_imports_2023.json"
    ],
    "writes": [
     "geopolrisk.html",
     "out/geopolrisk.json"
    ],
    "exit": 0,
-   "secs": 0.8,
-   "code_sha": "34562d7e9eb4f405"
+   "secs": 0.7,
+   "code_sha": "95383edc57cf7917",
+   "restored": 2
   },
   "build_harvard.py": {
    "reads": [
@@ -5688,6 +5690,7 @@
    "reads": [
     "./",
     "__pycache__/baci.cpython-311.pyc",
+    "__pycache__/wmd_cube.cpython-311.pyc",
     "out/cube.parquet",
     "out/data.json",
     "out/flows_2024.json",
@@ -5701,7 +5704,7 @@
    ],
    "exit": 0,
    "secs": 1.6,
-   "code_sha": "31fd40f5b60bd29e",
+   "code_sha": "38267139d8bb3084",
    "restored": 2
   },
   "build_productspace.py": {
