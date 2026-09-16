@@ -172,10 +172,10 @@
   "build_brief.py": "16 Sep 2026: the builder emitted <main> without an id, so a rebuild dropped the skip-link. Landmark given an id; the only remaining change is the citation line, now the institution.",
   "build_leverage.py": "16 Sep 2026: the builder emitted no site footer, so a rebuild stripped it. Footer added; page text then matches exactly.",
   "build_breakout.py": "16 Sep 2026: the builder lacked the site footer and one hand-written sentence (flagship-project capex and first-production year). Both adopted into the builder; with the footer back, add_head can place the landmark again, so the skip-link returns. Reproduces word for word.",
-  "build_share.py": "16 Sep 2026: card5 quoted 17 materials where out/leverage.json now says 15 - the published card was stale, not the builder. Rebuilt cards adopted."
+  "build_share.py": "16 Sep 2026: card5 quoted 17 materials where out/leverage.json now says 15 - the published card was stale, not the builder. Rebuilt cards adopted.",
+  "build_gallium.py": "16 Sep 2026: the most dangerous of the held builders. The published page carried CORRECTED, weakened claims ('discards most of the gallium in its feedstock', 'consistent with', 'a consistency check on shared constants, not an independent measurement') while the builder still held the original overclaims ('is 94% waste', 'independently reproduced by'). Re-running would have republished retracted wording - the germanium failure class. Three paragraphs adopted into the builder; it now reproduces the page word for word."
  },
  "unsafe_to_run": [
-  "build_gallium.py",
   "build_nowcast_backtest.py",
   "build_ot.py",
   "build_production.py"
