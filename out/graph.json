@@ -6983,17 +6983,16 @@
   },
   "magnet-chain/record_magnets.py": {
    "reads": [
-    "raw/bgs_rare_earth_oxides_1992_2024.json",
+    "out/cube.parquet",
     "raw/magnets_85051110_qty.csv",
-    "raw/magnets_85051110_value.csv",
-    "raw/usgs_hist/rare-earths.xlsx"
+    "raw/magnets_85051110_value.csv"
    ],
    "writes": [
     "magnet-chain/out/magnet_pilot_evidence.json"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "93eec71cedf63b5d",
+   "secs": 1.5,
+   "code_sha": "fbcffc75214f62d0",
    "restored": 1
   },
   "manganese-chain/record_manganese.py": {
