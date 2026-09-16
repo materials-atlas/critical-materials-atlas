@@ -96,6 +96,11 @@ NEVER_RUN = (
 # The only edges nobody can observe, with the reason each one is here. An entry is a confession,
 # not a convenience: anything added here is a place where this file stopped being a measurement.
 DECLARED = {
+    'build_explosives.py': {
+        'reads': ['out/cube.parquet'],
+        'why': 'queries the harmonised cube through DuckDB, which does its own I/O and raises no '
+               'audit event; every other input of this builder IS observed',
+    },
     'extract_baci.py': {
         'writes': ['extract/baci/'],
         'why': 'writes every member with DuckDB COPY ... TO, which does its own I/O and raises no '
