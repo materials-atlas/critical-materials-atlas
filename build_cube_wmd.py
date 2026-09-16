@@ -90,7 +90,7 @@ def name_to_iso():
         'united kingdom': 'GBR', 'great britain': 'GBR', 'macedonia': 'MKD',
         'bosnia and herzegovina': 'BIH', 'brunei': 'BRN', 'cape verde': 'CPV',
         'korea, north': 'PRK', 'korea, south': 'KOR', 'kosovo': 'XKX',
-        'solomon islands': 'SLB',
+        'solomon islands': 'SLB', 'christmas island': 'CXR',
     })
     return m
 
@@ -154,6 +154,8 @@ def build():
                     'year': yr, 'measure_family': 'production', 'measure': 'production',
                     'flow_direction': None, 'stage': STAGE.get(material, 'mine'),
                     'code_system': 'WMD sheet', 'native_code': sheet, 'native_label': sheet,
+                    # WMD's own spelling of the country: pages that quote WMD show its names
+                    'native_country': c0,
                     'sub_commodity': basis_note, 'value': v, 'unit': unit,
                     'value_t': tonnes, 'conversion_factor': (1.0 if tonnes == v else
                                                              (0.001 if tonnes else None)),
