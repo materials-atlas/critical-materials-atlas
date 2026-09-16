@@ -1,33 +1,35 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 2986722,
+ "rows": 2987644,
  "materials": 98,
  "materials_in_atlas": 32,
  "countries": 247,
  "year_min": 1900,
- "year_max": 2026,
+ "year_max": 2050,
  "by_measure": {
   "imports": 964927,
   "imports_value": 763231,
   "exports": 613898,
   "exports_value": 479641,
-  "production": 130430,
+  "production": 130450,
   "unit_value_nominal": 8874,
   "unit_value_real98": 8794,
   "apparent_consumption": 8405,
   "stocks": 2842,
   "shipments": 1689,
   "production_secondary": 1473,
+  "demand_projection": 820,
   "shipments_government": 767,
   "consumption": 760,
   "stocks_government": 526,
-  "stocks_industry": 465
+  "stocks_industry": 465,
+  "demand": 82
  },
  "by_stage": {
-  "unspecified": 2086041,
+  "unspecified": 2086943,
   "compound": 533106,
-  "processed": 217138,
-  "mine": 150437
+  "processed": 217157,
+  "mine": 150438
  },
  "tonnage_convertible_pct": 57.5,
  "sources": {
@@ -37,7 +39,7 @@
   "CEPII BACI (HS02)": 207369,
   "USGS Historical Statistics (DS 140)": 65062,
   "World Mining Data": 9187,
-  "IEA Critical Minerals Dataset": 133
+  "IEA Critical Minerals Dataset": 1055
  },
  "year_span_by_source": {
   "BGS World Mineral Statistics": [
@@ -58,7 +60,7 @@
   ],
   "IEA Critical Minerals Dataset": [
    2024,
-   2025
+   2050
   ],
   "USGS Historical Statistics (DS 140)": [
    1900,
@@ -70,20 +72,22 @@
   ]
  },
  "geographies": 247,
- "world_rows": 6962,
+ "world_rows": 7871,
  "by_measure_family": {
   "trade": 2824153,
-  "production": 131903,
+  "production": 131923,
   "price": 17668,
   "derived_by_source": 8405,
   "stocks": 3833,
+  "demand": 902,
   "consumption": 760
  },
- "series": 22928,
+ "series": 23177,
  "value_flags": {
   "nil": 4452,
   "estimated_by_source": 2154,
   "withheld": 1225,
+  "projection": 820,
   "trace": 447
  },
  "retrieved_at": "2026-09-09",

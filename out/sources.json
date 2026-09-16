@@ -299,24 +299,27 @@
    "differs_because": "It reports contained metal at a stage it names explicitly. Against BGS ore series the ratio can be 40x - lithium as contained metal versus spodumene at gross weight - which is a unit difference, not a disagreement.",
    "source": "IEA Critical Minerals Dataset",
    "coverage": {
-    "rows": 133,
+    "rows": 1055,
     "materials": 6,
-    "geographies": 29,
+    "geographies": 30,
     "years": [
      2024,
-     2025
+     2050
     ],
     "measures": [
+     "demand",
+     "demand_projection",
      "production"
     ],
     "stages": [
      "mine",
-     "processed"
+     "processed",
+     "unspecified"
     ],
     "units": [
      "thousand tonnes"
     ],
-    "series": 21,
+    "series": 270,
     "pct_convertible_to_tonnes": 100.0
    }
   }
