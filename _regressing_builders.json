@@ -134,19 +134,9 @@
   }
  },
  "hash_seed_dependent": [
-  "build_casestudies.py",
-  "build_net_demand.py",
-  "build_network.py",
-  "build_network_sensitivity.py",
-  "build_origin.py",
-  "build_ot.py",
-  "build_price_squeeze.py",
-  "build_price_volatility.py",
-  "build_synthesis.py",
-  "build_trends.py",
-  "build_uncertainty.py"
+  "build_ot.py"
  ],
- "hash_seed_note": "These eleven emit a different byte order under a different PYTHONHASHSEED. Pinning the seed makes the build reproducible, which is the floor, not the repair: a real fix is a tiebreak at each sort and a sorted() at each set iteration, as done for build_profiles.py and build_capability_physical.py. Named here so the fragility stays visible.",
+ "hash_seed_note": "Re-measured 16 Sep 2026 by running each builder under four PYTHONHASHSEEDs (0, 1, 7, 4242) and comparing the bytes it writes. Eight of the eleven were already stable - earlier sorted()/tiebreak work had fixed them and the list was stale. build_trends.py (five tiebreaks) and build_network_sensitivity.py (tie-aware betweenness ranking) are repaired and verified stable. build_ot.py remains: it is also behind its published page, so it cannot be re-run to test. PYTHONHASHSEED=0 stays pinned as the floor, not the repair.",
  "measured": "2026-09-11",
  "note": "Builders whose committed output they no longer reproduce. Measured by repro_audit.py + the page re-test, both run 11 Sep 2026. `unsafe` means re-running the builder would overwrite a PUBLISHED PAGE with a body that is behind it - runner.py refuses these.",
  "resolved": {

@@ -78,7 +78,8 @@ for lab in LABELS:
     for y in YEARS:
         for c, s in yr_sh[y].items():
             maxsh[c] = max(maxsh.get(c, 0), s)
-    top = [c for c, _ in sorted(maxsh.items(), key=lambda kv: kv[1], reverse=True)[:6]]
+    # ties broken by ISO code, so the pick cannot depend on dict order
+    top = [c for c, _ in sorted(maxsh.items(), key=lambda kv: (-kv[1], kv[0]))[:6]]
     lines = {c: [round(yr_sh[y].get(c, 0.0), 1) for y in YEARS] for c in top}
     hhi = [round(sum((s / 100.0) ** 2 for s in yr_sh[y].values()), 3) for y in YEARS]
     china = [round(yr_sh[y].get('CN', 0.0), 1) for y in YEARS]
@@ -86,7 +87,8 @@ for lab in LABELS:
     gap = []
     for y in YEARS:
         s = yr_sh[y]
-        g = (s[max(s, key=s.get)] - MINE[lab].get(max(s, key=s.get), 0.0)) if s else 0.0
+        lead = max(sorted(s), key=s.get) if s else None
+        g = (s[lead] - MINE[lab].get(lead, 0.0)) if s else 0.0
         gap.append(round(g, 1))
     for i, y in enumerate(YEARS):
         gacc[y].append(max(0.0, gap[i]))
@@ -98,13 +100,13 @@ for lab in LABELS:
     contrib = {c: ((s1.get(c, 0) / 100.0) ** 2 - (s0.get(c, 0) / 100.0) ** 2) for c in cs}
     dh = sum(contrib.values())
     if contrib:
-        topc = max(contrib, key=lambda c: abs(contrib[c]))
+        topc = max(sorted(contrib), key=lambda c: abs(contrib[c]))
         stats['dhhi'] = {'c': topc, 'pct': (round(contrib[topc] / dh * 100) if dh else None), 'dhhi': round(dh, 3)}
     else:
         stats['dhhi'] = None
     # full country decomposition of the 2002->2024 HHI change (top contributors by |contribution|, x100)
-    decomp = sorted(({'c': c, 'v': round(contrib[c] * 100, 1)} for c in contrib),
-                    key=lambda x: abs(x['v']), reverse=True)[:6]
+    decomp = sorted(({'c': c, 'v': round(contrib[c] * 100, 1)} for c in sorted(contrib)),
+                    key=lambda x: (-abs(x['v']), x['c']))[:6]
     used_iso.update(d['c'] for d in decomp)
     used_iso.update(top)
     mats[lab] = {'title': TITLES[lab], 'top': top, 'lines': lines, 'hhi': hhi, 'china': china,
@@ -118,7 +120,7 @@ for ind in ('hhi', 'china', 'gap'):
         mats[l]['stats'][ind]['mk_p_fdr'] = round(float(a), 3)
 gap_index = [round(sum(gacc[y]) / len(gacc[y]), 1) if gacc[y] else 0.0 for y in YEARS]
 
-names = {c: NAMES.get(c, c) for c in used_iso}
+names = {c: NAMES.get(c, c) for c in sorted(used_iso)}
 json.dump({'years': YEARS, 'names': names, 'gap_index': gap_index, 'materials': mats},
           open(os.path.join(ROOT, 'out', 'trends.json'), 'w', encoding='utf8'), indent=1)
 print(f'wrote out/trends.json — {len(YEARS)} years ({YEARS[0]}-{YEARS[-1]}), {len(mats)} materials')
