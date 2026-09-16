@@ -14,7 +14,7 @@
   "vintage"
  ],
  "join_rule": "Facts: pin the full identity. Attributes: name a vintage or take is_current. Never match on the material label alone.",
- "n_identities": 1294,
+ "n_identities": 1307,
  "n_materials": 98,
  "materials": {
   "aggregates": {
@@ -4015,6 +4015,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 14,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 140,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "compound",
@@ -4507,20 +4535,6 @@
     {
      "source": "IEA Critical Minerals Dataset",
      "measure": "production",
-     "stage": "mine",
-     "basis": "gross",
-     "unit": "thousand tonnes",
-     "years": [
-      2024,
-      2025
-     ],
-     "rows": 11,
-     "countries": 7,
-     "tonnage_convertible": true
-    },
-    {
-     "source": "IEA Critical Minerals Dataset",
-     "measure": "production",
      "stage": "processed",
      "basis": "gross",
      "unit": "thousand tonnes",
@@ -4528,8 +4542,22 @@
       2024,
       2025
      ],
-     "rows": 11,
-     "countries": 6,
+     "rows": 13,
+     "countries": 7,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "production",
+     "stage": "mine",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 12,
+     "countries": 7,
      "tonnage_convertible": true
     },
     {
@@ -4899,6 +4927,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 20,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 200,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
@@ -5244,7 +5300,7 @@
       2024,
       2025
      ],
-     "rows": 12,
+     "rows": 13,
      "countries": 7,
      "tonnage_convertible": true
     },
@@ -7725,6 +7781,34 @@
      "tonnage_convertible": true
     },
     {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 10,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 100,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
@@ -7973,6 +8057,20 @@
       2025
      ],
      "rows": 14,
+     "countries": 7,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "production",
+     "stage": "processed",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 11,
      "countries": 7,
      "tonnage_convertible": true
     },
@@ -10333,6 +10431,34 @@
   "lithium": {
    "facts": [
     {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 10,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 100,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
      "source": "CMA single-declaration passthrough",
      "measure": "exports",
      "stage": "unspecified",
@@ -10731,10 +10857,10 @@
      "basis": "gross",
      "unit": "thousand tonnes",
      "years": [
-      2025,
+      2024,
       2025
      ],
-     "rows": 7,
+     "rows": 12,
      "countries": 7,
      "tonnage_convertible": true
     },
@@ -12610,6 +12736,34 @@
       2020
      ],
      "rows": 121,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 18,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 180,
      "countries": 1,
      "tonnage_convertible": true
     },
@@ -15490,6 +15644,34 @@
       2020
      ],
      "rows": 120,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2024,
+      2025
+     ],
+     "rows": 10,
+     "countries": 1,
+     "tonnage_convertible": true
+    },
+    {
+     "source": "IEA Critical Minerals Dataset",
+     "measure": "demand_projection",
+     "stage": "unspecified",
+     "basis": "gross",
+     "unit": "thousand tonnes",
+     "years": [
+      2030,
+      2050
+     ],
+     "rows": 100,
      "countries": 1,
      "tonnage_convertible": true
     },
