@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Grinding balls don't track mining year by year: the published page for a pre-registered FAIL.
+"""Grinding-ball imports failed as a yearly mining gauge: the published page for a pre-registered FAIL.
 
 Reads out/grinding_balls.json (written by grinding-balls/gate.py and grinding-balls/throughput.py,
 whose rules are in grinding-balls/PREREGISTRATION.md) and writes grinding.html. This builder only
@@ -59,21 +59,22 @@ CSS = """
 TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grinding balls don&rsquo;t track mining year by year &mdash; Critical Materials Atlas</title>
-<meta name="description" content="A pre-registered test of whether imports of steel grinding balls track how much ore a country mills. In the ten countries where imports cover at least half of what the mills need, they did not pass as a year-by-year proxy.">
+<title>Grinding-ball imports failed as a yearly mining gauge &mdash; Critical Materials Atlas</title>
+<meta name="description" content="A pre-registered test of whether imports of steel grinding balls can gauge how much ore a country mills. In the ten countries where imports cover at least half of what the mills need, they did not pass as a year-by-year gauge.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>@@CSS@@</style></head><body>
 @@NAV@@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Upstream &middot; a pre-registered test that failed</div>
-  <h1>Grinding balls don&rsquo;t track mining year by year</h1>
+  <h1>Grinding-ball imports failed as a yearly mining gauge</h1>
   <p class="deck">Mills grind ore with steel balls that wear away as the rock passes through, so a
   country that mills more ore should use more balls. If customs data could see that, it would be a
   public, near-real-time measure of mining activity. We wrote the rules of the test down first and
-  then ran it. In the <b>@@NA@@ countries</b> where imports cover at least half of what the mills need, imports did not move
-  with ore milled closely enough to use: the estimated response was <b>@@BETA@@</b> against an
-  expected one-for-one, and it could not be told apart from zero.</p>
+  then ran it. In the <b>@@NA@@ countries</b> where imports cover at least half of what the mills need, imports did not pass as
+  a year-by-year gauge of ore milled: the estimated response was <b>@@BETA@@</b> against an expected
+  one-for-one, with a 95% interval from @@CILO@@ to @@CIHI@@. That interval takes in zero and most of the
+  range the rules would have accepted, so the test could neither confirm the link nor rule it out.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -83,26 +84,32 @@ TEMPLATE = """<!doctype html>
   was committed before the test ran.</p>
   <table><thead><tr><th>Check</th><th>Rule set in advance</th><th>Result</th><th></th></tr></thead>
   <tbody>@@CONDROWS@@</tbody></table>
-  <div class="note"><b>In the long run the link is real.</b> Across years, countries that mill more ore
-  do import more balls (with country and year effects: @@LEVELS@@). The rules said in advance that a
-  relationship visible only in levels does not count, because it says nothing about whether imports
-  follow mining from one year to the next, which is what a proxy has to do.</div>
+  <div class="note"><b>In levels, a link shows up.</b> Comparing levels rather than yearly changes,
+  with country and year effects, a country imports more balls in the years it mills more ore
+  (@@LEVELS@@). That is an association that shared trends alone can produce, and the rules said in
+  advance that a relationship visible only in levels does not count, because it says nothing about
+  whether imports follow mining from one year to the next, which is what a gauge has to do. The same
+  rules discount a link that appears only when cast balls (customs code 7325.91, which cement mills
+  also use) are pooled in: pooled, the response is @@POOLED@@, still below the 0.4 floor.</div>
 </section>
 
 <section class="wrap xp">
   <h2>What this does not say</h2>
   <ul>
-    <li><b>Not that balls are unrelated to mining.</b> Several features of public data pull a
+    <li><b>Not that balls are unrelated to mining.</b> Errors in measured ore milled pull a
     year-to-year estimate toward zero. Ore milled has to be estimated from metal output with fixed
     global ore grades, so changes in grade, recovery or the share of ore that is leached rather than
-    milled show up as noise. Mines buy balls in lumps and hold stock. Customs tonnages are noisy. For a
-    true one-for-one response to appear as @@BETA@@, the noise in measured ore growth would need to be
-    about twice its real variation, which is plausible for annual data.</li>
-    <li><b>Nothing about Chile, Peru, Australia or Canada.</b> Their net imports cover well under half
-    of what their mills are estimated to need (Chile, for one, has large domestic ball plants), so
-    imports cannot stand for their mills, and they were never in the test.</li>
-    <li><b>Nothing about ore grades.</b> The planned grade test needs a public series of the grade of
-    ore entering the mills for one of the ten countries. None was found, so it was not run.</li>
+    milled show up as noise. For a true one-for-one response to appear as @@BETA@@, that noise would
+    need to be about twice the real variation in ore growth, which is plausible for annual data. Noise
+    on the import side (mines buy balls in lumps and hold stock; customs tonnages are noisy) does not
+    bias the estimate in that way, but it widens the interval.</li>
+    <li><b>Nothing about Chile, Peru or Canada.</b> Their net imports cover well under half of what
+    their mills are estimated to need (Chile, for one, has large domestic ball plants), so imports
+    cannot stand for their mills, and they were never in the test. Australia is in the same position
+    and appears only as the negative control above.</li>
+    <li><b>Ore grades: not testable from public data.</b> The planned grade test needs a public series
+    of the grade of ore entering the mills for one of the ten countries. None was located (the search
+    was not exhaustive), so it was not run.</li>
   </ul>
 </section>
 
@@ -130,16 +137,29 @@ TEMPLATE = """<!doctype html>
   (<a href="@@REPO@@intensity_sources.csv">sources</a>); cement output from seven editions of the USGS
   <i>Minerals Yearbook</i>.</p>
   <div class="corr">
-  <p><b>Reviewed by one engine only.</b> This atlas&rsquo;s studies are normally reviewed adversarially
-  by two independent language models run separately. For this result only one of the two was
-  available; it was given the rules, the code and every number before publication. It found three
-  errors; none changed the verdict:</p>
+  <p><b>Reviewed by two engines, one before and one after publication.</b> This atlas&rsquo;s studies
+  are reviewed adversarially by two independent language models run separately, each given the rules,
+  the code and every number. When this result was first published (15 Sep 2026), only the first was
+  available. It found three errors; none changed the verdict:</p>
   <ul>
     <li>A failed control (Australia) had been written up as &ldquo;not counted&rdquo; after the result
     was seen. It is now reported as failed, with the reason it was unusable.</li>
     <li>The coverage check set net imports to zero after averaging three years instead of before, as
     the rules said. Corrected: Bulgaria moves up a group; the ten test countries are unchanged.</li>
     <li>Pass/fail was judged on rounded numbers. It now uses exact values; nothing changes.</li>
+  </ul>
+  <p>The second review (17 Sep 2026) found no error in the code or the verdict, but found that this
+  page said more than the test shows. Corrected:</p>
+  <ul>
+    <li>The title and opening said imports &ldquo;don&rsquo;t track&rdquo; mining. The test only
+    failed to validate them as a gauge; the opening now gives both ends of the interval.</li>
+    <li>A levels association was headed &ldquo;in the long run the link is real&rdquo;. It is an
+    association, and is now described as one; the pooled cast-ball result is now shown.</li>
+    <li>Noise in imports was said to pull the estimate toward zero. It widens the interval instead;
+    only noise in measured ore milled pulls toward zero.</li>
+    <li>Australia was said never to have been in the test. It was the negative control.</li>
+    <li>In the pre-registration&rsquo;s result section, two countries fell below 0.3 when one was left
+    out, not three, and the pooled estimate is 0.397, not 0.40, which had looked inside the band.</li>
   </ul>
   </div>
   <p class="howto-src"><b>Sources.</b> Trade: CEPII BACI HS 2002, V202601 (Etalab Open Licence 2.0),
@@ -164,6 +184,7 @@ def page(doc):
     loo = t['leave_one_out_beta']
     hr, pl, neg = t['horse_race_cement_2003_2023'], t['placebo_731815'], t['negative_control_australia']
     lv = t['robustness']['levels_with_fe']
+    po = t['robustness']['pooled_with_732591']
 
     def res(ok):
         return '<span class="ok">pass</span>' if ok else '<span class="no">fail</span>'
@@ -211,6 +232,9 @@ def page(doc):
             ('NA', str(doc['tier_counts']['A'])), ('BETA', format(m['beta'], '.2f')),
             ('Y0', str(t['years'][0])), ('Y1', str(t['years'][1])),
             ('CONDROWS', condrows), ('GATEROWS', gaterows), ('NSRC', str(nsrc)),
+            ('CILO', ('%.2f' % m['ci95_cluster'][0]).replace('-', '&minus;')),
+            ('CIHI', '%.2f' % m['ci95_cluster'][1]),
+            ('POOLED', '%.3f, p = %s' % (po['beta'], fmt_p(po['p_cluster']))),
             ('LEVELS', 'response %.2f, p = %s' % (lv['beta'], fmt_p(lv['p_cluster'])))):
         html = html.replace('@@' + token + '@@', value)
     assert '@@' not in html, 'unfilled token'
