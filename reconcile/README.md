@@ -51,9 +51,8 @@ Validated on **what matters downstream — exporter- and importer-side shares an
 a global level correlation. As reported in `results/` for the settled year 2022 and the still-settling
 2024, the reconstruction reproduces BACI's top-1 exporters, top-3 overlap, share MAE and HHI closely
 (exporter top-1 **25/30** with share MAE ~3.5% in 2024; **22/30** with ~3.9% in 2022), while the level
-runs a near-constant multiple above BACI. Both years reproduce **key-free from committed fixtures** —
-`ATLAS_ROOT=fixtures python reconcile.py <year> && python validate.py <year>` — and the CI runs both on
-every push. Validating a *new* year needs only its raw Comtrade CSV in `raw/comtrade/` (already pulled
+runs a near-constant multiple above BACI. Both years reproduce from raw Comtrade with
+`python validate_fixtures.py`, which runs before every release (see Quick start for why it is not in CI). Validating a *new* year needs only its raw Comtrade CSV in `raw/comtrade/` (already pulled
 when the nowcast for that year was built) plus BACI having released it; neither step needs an extra pull.
 
 ### The level offset — diagnosed honestly
@@ -89,33 +88,40 @@ to BACI's scale per material; shares are untouched.
   nowcast will be scored when it does (`python validate.py 2025`), with numeric thresholds — so the test
   is genuinely out-of-sample and the result will be published pass or fail.
 
-## Quick start — reproduce end-to-end, no key
+## Quick start — reproduce end-to-end
 
-Runs on a fresh clone with **no API key**. Raw UN Comtrade for 2024 is committed (gzipped, columns
-trimmed, ~0.9 MB) under [`fixtures/raw/`](fixtures/raw/), so the reconciliation **regenerates from raw**
-and is then scored against official BACI — only the initial network pull (`pull_comtrade.py`) needs a key.
-Pure Python; cross-platform (paths use `os.path.join`; run on Linux CI and Windows).
+Raw UN Comtrade declarations are the holder's record, and we do not redistribute them. Until
+17 Sep 2026 two trimmed years sat under `fixtures/raw/`; they were removed from the repository
+for that reason, together with the reconciliations built from them (which pass one-sided
+declarations through unchanged). What stays committed is open data: official BACI for 2022 and
+2024 and the atlas outputs.
+
+**What CI still proves on every push, with no key:** the out-of-sample backtest and the origin-gap
+finding.
 
 ```bash
 pip install -r requirements.txt
-ATLAS_ROOT=fixtures python reconcile.py 2024   # raw Comtrade fixture -> reconcile/recon_2024.csv (the engine)
-ATLAS_ROOT=fixtures python validate.py 2024    # regenerated recon vs official BACI 2024
-python backtest.py                             # out-of-sample persistence bands  -> results/backtest.json
-python findings.py                             # the origin-gap finding           -> results/findings.json
+python backtest.py      # out-of-sample persistence bands  -> results/backtest.json
+python findings.py      # the origin-gap finding           -> results/findings.json
 ```
 
-On **Windows PowerShell**, set the env var separately:
+**The raw leg (raw Comtrade -> reconciliation -> scored against BACI)** runs on the maintainer's
+machine before every release, through `python validate_fixtures.py`; its scores are committed in
+[`results/validation_2022.txt`](results/validation_2022.txt) and
+[`results/validation_2024.txt`](results/validation_2024.txt).
 
-```powershell
-pip install -r requirements.txt
-$env:ATLAS_ROOT = 'fixtures'
-python reconcile.py 2024 ; python validate.py 2024
-python backtest.py ; python findings.py
-```
+**To run it yourself** you need the raw data, which takes a free key:
+1. Register at <https://comtradeplus.un.org> and create a free API subscription key
+   (Comtrade's own terms apply to what you download).
+2. Pull the years: `COMTRADE_KEY=<key> ATLAS_ROOT=/path/to/critical-materials-atlas python pull_comtrade.py 2022 2024`.
+   This is one call per HS code and flow (31 codes x 2 flows = 62 calls per year). It writes
+   `raw/comtrade/comtrade_<year>.csv` under `ATLAS_ROOT`.
+3. Copy those files (plain or gzipped) to `fixtures/raw/comtrade/` and run
+   `python validate_fixtures.py`. The bar is top-1 exporter and importer match on at least 20 of 30
+   codes, both years.
 
-The `reconcile.py → validate.py` chain above is **exactly what CI runs on every push** (badge above), so
-the green badge proves the code *regenerates* the reconciliation from raw and that it matches BACI — not
-merely that a pre-committed file does.
+A fresh pull will not match our scores to the decimal: Comtrade revises its declarations, which is
+and our fixtures were pulled in summer 2026 (committed 7 and 10 Aug 2026).
 
 ## Refresh from live Comtrade (needs a key + the atlas data tree)
 

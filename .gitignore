@@ -124,10 +124,15 @@ pipeline/data/comtrade_state.json
 pipeline/data/*.log
 pipeline/**/__pycache__/
 
-# engine (reconcile/) ships committed PUBLIC-DATA fixtures for reproducible CI — keep them tracked
+# engine (reconcile/) fixtures: the BACI and atlas-output fixtures are open data and stay tracked.
+# The raw UN Comtrade declarations, and the reconciliation built from them (which passes one-sided
+# declarations through), are the holder's record and are NOT redistributed (17 Sep 2026). They stay
+# on the maintainer's machine; reconcile/validate_fixtures.py runs the full check from them.
 !reconcile/fixtures/
 !reconcile/fixtures/raw/
 !reconcile/fixtures/**
+reconcile/fixtures/raw/comtrade/
+reconcile/fixtures/reconcile/recon_*.csv
 pipeline/data/comext_tmp/
 
 # internal scratch / private planning (never commit)
