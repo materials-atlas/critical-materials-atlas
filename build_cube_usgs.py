@@ -70,6 +70,34 @@ COLMAP = {
     'world production (lithium content)': ('production', 'production', 'unspecified', 'WLD'),
     'world production (lithium carbonate equivalent)': ('production', 'production', 'unspecified', 'WLD'),
     'world production2': ('production', 'production', 'unspecified', 'WLD'),
+    # Added 17 Sep 2026: the US domestic detail the exact match was dropping. Components that sit
+    # inside a total get their OWN measure name, so summing a measure can never double-count them.
+    'producer shipments': ('shipments', 'trade', 'unspecified', 'USA'),
+    'mine shipments': ('shipments', 'trade', 'mine', 'USA'),
+    'production (sold or used)': ('production', 'production', 'unspecified', 'USA'),
+    'sold or used': ('production', 'production', 'unspecified', 'USA'),
+    'production (sales)': ('production', 'production', 'unspecified', 'USA'),
+    'crushed and ground - sold or used by producers': ('production', 'production', 'processed', 'USA'),
+    'refined garnet production': ('production', 'production', 'processed', 'USA'),
+    'secondary production old scrap': ('production_secondary_old_scrap', 'production', 'processed', 'USA'),
+    'secondary production new scrap': ('production_secondary_new_scrap', 'production', 'processed', 'USA'),
+    'secondary production toll-refined': ('production_secondary_toll', 'production', 'processed', 'USA'),
+    'new scrap': ('scrap_new', 'production', 'processed', 'USA'),
+    'refinery scrap': ('scrap_refinery', 'production', 'processed', 'USA'),
+    'recycled': ('production_secondary', 'production', 'processed', 'USA'),
+    'total stocks': ('stocks', 'stocks', 'unspecified', 'USA'),
+    'lme stocks': ('stocks_lme', 'stocks', 'unspecified', 'USA'),
+    'estimated consumption': ('consumption', 'consumption', 'unspecified', 'USA'),
+    'reported chromite ore consumption': ('consumption', 'consumption', 'mine', 'USA'),
+    'reported chromium ferroalloy and metal consumption': ('consumption', 'consumption', 'processed', 'USA'),
+    'reported consumption mn ore': ('consumption', 'consumption', 'mine', 'USA'),
+    'reported consumption mn alloys': ('consumption', 'consumption', 'processed', 'USA'),
+    'imports (feldspar and nepheline syenite)': ('imports', 'trade', 'unspecified', 'USA'),
+    'imports (nepheline syenite)': ('imports_nepheline_syenite', 'trade', 'unspecified', 'USA'),
+    # not tonnes: kept with their own unit, never converted
+    'employment': ('employment', 'labour', 'unspecified', 'USA', 'employees'),
+    'net import reliance (%)': ('net_import_reliance', 'derived_by_source', 'unspecified', 'USA', 'percent'),
+    'production value ($)': ('production_value', 'price', 'unspecified', 'USA', 'USD'),
 }
 
 
@@ -94,7 +122,7 @@ def classify(col):
                 'unspecified', 'USA', '1998 USD/t' if real else 'USD/t')
     hit = COLMAP.get(c)
     if hit:
-        return hit + ('metric tons',)
+        return hit if len(hit) == 5 else hit + ('metric tons',)
     return None
 
 
