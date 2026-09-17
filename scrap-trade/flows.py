@@ -230,10 +230,16 @@ def main():
             for m, y in zip(px.metal, px.year)]
     c['placebo_other_metal'] = {'pairs': pairs, 'fit': fit(px, 'dx', ['dpx0', 'dpx1', 'dpx2'], True)}
 
-    c['leave_one_metal_out'] = {}
-    for m in HEADLINE_METALS:
-        f = fit(head[head.metal != m], 'dx', lags3, True)
-        c['leave_one_metal_out'][m] = {'cumulative': f['cumulative'], 'p': f['p']} if f else None
+    # Both specifications: the filed check was first run only on the year-effects estimate, which is
+    # the one the filing's automatic fail refuses. A check that does not cover the claimed estimate
+    # is not a check.
+    for lab, fe in (('leave_one_metal_out_with_year_effects', True),
+                    ('leave_one_metal_out_without_year_effects', False)):
+        c[lab] = {}
+        for m in HEADLINE_METALS:
+            f = fit(head[head.metal != m], 'dx', lags3, fe)
+            c[lab][m] = {'cumulative': f['cumulative'], 'p': f['p'],
+                         'mde': f['mde_80pct_power']} if f else None
 
     c['by_metal'] = {}
     for m in HEADLINE_METALS:

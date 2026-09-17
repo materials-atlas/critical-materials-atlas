@@ -109,7 +109,7 @@ only in value and not in tonnes, or only with large exporters included.
 - **Nothing about the newer critical materials.** Lithium, cobalt and rare-earth scrap have no
   distinct customs code over this period.
 
-## Result - run 2026-09-17: **scrap moves within the year, and not after it**
+## Result - run 2026-09-17: **same-year comovement, and nothing after it**
 
 Run by `flows.py` (committed before its first run); every number is in `out/scrap_trade.json`.
 Sample: 575 country-metal pairs pass the filed rule; the headline uses the
@@ -118,44 +118,49 @@ Sample: 575 country-metal pairs pass the filed rule; the headline uses the
 | Headline (same year + two lags) | Cumulative | 95% interval | p | Smallest it could see |
 |---|---|---|---|---|
 | with year effects | +0.28 | -0.01 to +0.57 | 0.0613 | 0.42 |
-| without year effects | +0.58 | +0.42 to +0.75 | 0.0 | 0.23 |
+| without year effects | +0.58 | +0.42 to +0.75 | <0.001 | 0.23 |
 
 **The whole response is in the same year.** Dropping the same-year term leaves nothing:
 -0.031 (p 0.6609) without year effects and -0.055 (p 0.7025) with them. Term by term, without year
-effects: same year +0.51 (p 0.0), first lag -0.01 (p 0.8949), second lag +0.08 (p 0.1211).
+effects: same year +0.51 (p < 0.001), first lag -0.01 (p 0.8949), second lag +0.08 (p 0.1211).
 
-**The year-effects specification trips the filed automatic fail.** Its terms are +0.25 (p 0.0203),
-then -0.24 (p 0.0158), then +0.27 (p 0.0255) - a same-year response that reverses at the first lag, which
-the filing named in advance as grounds for refusing the estimate. Its cumulative +0.28 is therefore
-**not claimed**. What survives is the specification that keeps the common cycle, and that one cannot
+**The year-effects specification is not claimed.** Its terms are +0.25 (p 0.0203),
+then -0.24 (p 0.0158), then +0.27 (p 0.0255) - a same-year response that reverses at the first lag and then returns. The filing
+named a same-year response that reverses at the first lag as grounds for refusing an estimate; this
+one also has a significant second lag, so it is not a clean match to that rule, but between the
+oscillation, a cumulative p of 0.06 and a detectable size of 0.42 there is nothing here to claim, and
+its cumulative +0.28 is **not claimed**. What survives is the specification that keeps the common cycle, and that one cannot
 separate a price response from a world boom in which prices and shipments rise together.
 
 **So the honest headline is narrow:** in a year when a metal's real price is higher, the small
 exporters of that metal's scrap ship more of it, by roughly 0.6% per 1% of price in the
-cycle-inclusive estimate. Nothing carries into the following two years.
+cycle-inclusive estimate. That is comovement within the year, not a demonstrated supply response: a
+world boom raises prices and shipments together, and this specification keeps exactly that variation.
+Nothing is shown at one or two years' distance.
 
 ### The filed checks
 
 | Check | Result | Reading |
 |---|---|---|
-| Imports as the dependent variable | +0.91 (p 0.0) | Imports rise with price too, and by more than exports. Both sides of the same flows rising in the same year is what a demand boom looks like, not a reallocation from one country to another. |
-| Value instead of tonnes | +1.46 (p 0.0) | Expected and not independent evidence: scrap unit values track the metal price (log correlation 0.54 to 0.89), so value carries the price as well as the tonnage. |
+| Imports as the dependent variable | +0.91 (p < 0.001) | Imports rise with price too, and by more than exports. Both sides of the same flows rising in the same year is what a demand boom looks like, not a reallocation from one country to another. |
+| Value instead of tonnes | +1.46 (p < 0.001) | Expected and not independent evidence: scrap unit values track the metal price (log correlation 0.54 to 0.89), so value carries the price as well as the tonnage. |
 | Placebo, future prices | +0.17 (p 0.2319) | Passes. |
 | Placebo, another metal's price | +0.09 (p 0.5595) | Passes. |
 | Large exporters, separately | +0.25 (p 0.4078) | Nothing shown, on 13 clusters. |
 | Before 2018 | +0.19 (p 0.1864) | |
 | From 2018 | +1.11 (p 0.1704, could only see 2.3) | China's scrap import restrictions fall in this split, but the later period is too short to say anything. |
-| Leave one metal out | +0.19 to +0.39 on the year-effects specification | Significance comes and goes with the metal dropped, which is another reason that specification is not claimed. |
+| Leave one metal out, claimed specification | +0.53 to +0.66, every p < 0.001 | The same-year comovement does not depend on any one metal. |
+| Leave one metal out, year-effects specification | +0.19 to +0.39, p from 0.04 to 0.20 | Significance comes and goes with the metal dropped, another reason that estimate is not claimed. |
 
 ### By metal, without year effects
 
 | Metal | Cumulative | 95% interval | p | Exporters | Reading |
 |---|---|---|---|---|---|
-| aluminium | +0.84 | +0.48 to +1.20 | 0.0 | 118 | follows price |
+| aluminium | +0.84 | +0.48 to +1.20 | <0.001 | 118 | follows price |
 | lead | +0.65 | +0.22 to +1.07 | 0.0037 | 37 | follows price |
-| copper | +0.52 | +0.34 to +0.71 | 0.0 | 116 | follows price |
+| copper | +0.52 | +0.34 to +0.71 | <0.001 | 116 | follows price |
 | nickel | +0.49 | +0.07 to +0.91 | 0.0259 | 18 | modest |
-| zinc | +0.04 | -0.33 to +0.41 | 0.8327 | 30 | nothing shown |
+| zinc | +0.04 | -0.33 to +0.41 | 0.8327 | 30 | untestable: these 30 exporters could only have seen 0.53 |
 | tin | +3.05 | +0.77 to +5.34 | 0.0149 | 9 | not reliable: the estimate is about the size of what these nine exporters could detect (3.2) |
 
 ### Read with the companion study
@@ -170,10 +175,12 @@ and the same two-lag shape:
   (p 0.011), +0.12 for lead (p 0.006), +0.23 for nickel (p 0.005) - exploratory, run for this comparison
   and not filed.
 
-The scrap system, as far as open data can see it, adjusts immediately and mildly and then stops. A
-price spike does not call out a growing stream of recycled metal over the following two years, either
-by creating it or by moving it. Same-year comovement cannot be read as a supply response: within a
-year, shipments and price are determined together.
+As far as open data can see it, both sides of the scrap system move with price within the year and
+neither is shown to move afterwards. The same-year figures cannot be read as supply responses -
+within a year, quantities and prices are determined together, and that is why the companion study put
+its contemporaneous term outside the headline. What can be said is narrow and still useful: no
+evidence was found, on either measure, that a price rise brings a growing stream of recycled metal
+over the following two years, whether by creating it or by moving it.
 
 ## What this result does not license
 
