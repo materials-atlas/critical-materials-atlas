@@ -25,7 +25,12 @@
    "codes": [
     "854231",
     "854232",
-    "854239",
+    "854239"
+   ]
+  },
+  {
+   "title": "Often counted as chips, and not",
+   "codes": [
     "854140"
    ]
   },
@@ -181,7 +186,7 @@
      "share": 0.066
     }
    ],
-   "caveat": "Includes solar cells, which are most of the value, so this line follows solar more than it follows computing."
+   "caveat": "Solar cells are most of this line, and light-emitting diodes are much of the rest, so it follows solar far more than it follows computing. It is shown because it is routinely read as a semiconductor line; it is not one."
   },
   "280461": {
    "label": "Silicon, 99.99% pure and above",
@@ -250,7 +255,7 @@
    "caveat": "Dominated by helium, not the neon used in lithography: the top exporters are Qatar, Algeria and the United States. The code cannot separate the two gases."
   },
   "811292": {
-   "label": "Gallium, germanium, indium, hafnium (one basket line)",
+   "label": "Niobium, gallium, indium, vanadium, germanium (one line)",
    "value_musd": {
     "2019": 611.6,
     "2020": 506.4,
@@ -280,7 +285,7 @@
      "share": 0.084
     }
    ],
-   "caveat": "One customs line for several metals at once, so a change here cannot be attributed to gallium or germanium alone."
+   "caveat": "One customs line covering unwrought niobium, gallium, indium, vanadium and germanium together, with their powders and scrap, so a change here cannot be attributed to any one of them. The metals in the line also differ between nomenclature vintages."
   },
   "810320": {
    "label": "Tantalum, unwrought and powder",
@@ -349,7 +354,7 @@
    "caveat": "Liquid-dielectric (oil-filled) transformers only; dry-type transformers sit in other customs lines and are not counted here."
   },
   "850422": {
-   "label": "Liquid-dielectric transformers, 650 to 10,000 kVA",
+   "label": "Liquid-dielectric transformers, over 650 up to 10,000 kVA",
    "value_musd": {
     "2019": 1773.7,
     "2020": 1787.2,
@@ -415,7 +420,7 @@
    "caveat": null
   },
   "722511": {
-   "label": "Grain-oriented electrical steel, wide",
+   "label": "Grain-oriented electrical steel, 600 mm or wider",
    "value_musd": {
     "2019": 2154.3,
     "2020": 1900.1,
@@ -512,6 +517,113 @@
     }
    ],
    "caveat": "Copper wire has many uses beyond data centres and grids."
+  }
+ },
+ "chip_cycle": {
+  "280461": {
+   "label": "Silicon, 99.99% pure and above",
+   "elasticity": 0.487,
+   "p": 0.3804,
+   "ci95": [
+    -0.645,
+    1.619
+   ],
+   "mde_80pct_power": 1.599,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "280429": {
+   "label": "Rare gases (helium, neon, krypton, xenon)",
+   "elasticity": 0.393,
+   "p": 0.0066,
+   "ci95": [
+    0.122,
+    0.663
+   ],
+   "mde_80pct_power": 0.382,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "811292": {
+   "label": "Niobium, gallium, indium, vanadium, germanium (one line)",
+   "elasticity": 0.503,
+   "p": 0.5183,
+   "ci95": [
+    -1.092,
+    2.098
+   ],
+   "mde_80pct_power": 2.253,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "810320": {
+   "label": "Tantalum, unwrought and powder",
+   "elasticity": 0.812,
+   "p": 0.0523,
+   "ci95": [
+    -0.009,
+    1.634
+   ],
+   "mde_80pct_power": 1.16,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "722511": {
+   "label": "Grain-oriented electrical steel, 600 mm or wider",
+   "elasticity": 0.441,
+   "p": 0.0715,
+   "ci95": [
+    -0.042,
+    0.924
+   ],
+   "mde_80pct_power": 0.682,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "850422": {
+   "label": "Liquid-dielectric transformers, over 650 up to 10,000 kVA",
+   "elasticity": 0.273,
+   "p": 0.3504,
+   "ci95": [
+    -0.322,
+    0.867
+   ],
+   "mde_80pct_power": 0.84,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
+  },
+  "740811": {
+   "label": "Copper wire, refined",
+   "elasticity": 0.91,
+   "p": 0.1066,
+   "ci95": [
+    -0.213,
+    2.033
+   ],
+   "mde_80pct_power": 1.586,
+   "n": 22,
+   "years": [
+    2003,
+    2024
+   ]
   }
  },
  "sources": [

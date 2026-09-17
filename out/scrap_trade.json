@@ -383,30 +383,68 @@
     "country_metal_pairs": 328
    }
   },
-  "leave_one_metal_out": {
+  "leave_one_metal_out_with_year_effects": {
    "aluminium": {
     "cumulative": 0.2781,
-    "p": 0.1742
+    "p": 0.1742,
+    "mde": 0.5747
    },
    "copper": {
     "cumulative": 0.3882,
-    "p": 0.0928
+    "p": 0.0928,
+    "mde": 0.6473
    },
    "lead": {
     "cumulative": 0.2501,
-    "p": 0.0437
+    "p": 0.0437,
+    "mde": 0.3467
    },
    "nickel": {
     "cumulative": 0.3352,
-    "p": 0.039
+    "p": 0.039,
+    "mde": 0.4538
    },
    "tin": {
     "cumulative": 0.1934,
-    "p": 0.1965
+    "p": 0.1965,
+    "mde": 0.4204
    },
    "zinc": {
     "cumulative": 0.3238,
-    "p": 0.0655
+    "p": 0.0655,
+    "mde": 0.492
+   }
+  },
+  "leave_one_metal_out_without_year_effects": {
+   "aluminium": {
+    "cumulative": 0.525,
+    "p": 0.0,
+    "mde": 0.2414
+   },
+   "copper": {
+    "cumulative": 0.657,
+    "p": 0.0,
+    "mde": 0.3472
+   },
+   "lead": {
+    "cumulative": 0.577,
+    "p": 0.0,
+    "mde": 0.2448
+   },
+   "nickel": {
+    "cumulative": 0.6003,
+    "p": 0.0,
+    "mde": 0.2393
+   },
+   "tin": {
+    "cumulative": 0.5361,
+    "p": 0.0,
+    "mde": 0.2148
+   },
+   "zinc": {
+    "cumulative": 0.6443,
+    "p": 0.0,
+    "mde": 0.2447
    }
   },
   "by_metal": {
