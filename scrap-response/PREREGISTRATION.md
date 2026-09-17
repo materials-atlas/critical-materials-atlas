@@ -223,6 +223,35 @@ by how differently materials move, not by how many years there are. What would: 
 a market price rather than a unit value; scrap collected *and* exported as the dependent variable; and
 identification from named supply shocks rather than from the price itself.
 
+## Amendment A, 2026-09-17: the same question, tested per metal on market prices
+
+Filed after the first run and before the second, with the first result standing above, unchanged.
+
+**Why.** The first design pooled 16 materials and clustered on material, so its precision came from 15
+clusters while a century of annual observations per metal went unused; and its price was a USGS unit
+value, which carries product mix as well as price. Both are fixable without new data.
+
+**What changes.**
+1. **One estimate per metal, not a pooled one.** Each metal is its own time series: 1960-2022, up to 63
+   annual changes, Newey-West standard errors with three lags.
+2. **The price is the World Bank Pink Sheet market price** (monthly, averaged to the year, deflated onto
+   the USGS 1998 basis by the deflator implied by USGS's own nominal/real pair), for the seven metals it
+   covers that also have US secondary production: aluminium, copper, lead, nickel, tin, zinc, gold.
+3. **The unit-value version is run beside it**, on the same metals and years, so that the effect of
+   changing the price measure is visible rather than assumed.
+4. **Summary across metals** is the mean of the seven cumulative responses with its standard error from
+   their spread (six degrees of freedom), reported as a summary and never as the headline. Each metal is
+   reported with its own interval and its own smallest detectable effect.
+
+**Unchanged:** the dependent variables (secondary tonnes, and secondary as a share of apparent
+consumption in points), two lags of the price, lags only, the 50%-price-rise reading, the decision
+table, and every "what this cannot say" line. Gold keeps no share equation.
+
+**Decided now, before the run:** a metal counts as responding if its cumulative two-year elasticity is
+at least 0.2 with p < 0.05 - the threshold the first filing used - and the page must print, for each
+metal, the smallest response that metal's own series could have detected. Where a metal cannot detect
+0.2, it is reported as untestable rather than as a null.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
