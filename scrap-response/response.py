@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from scipy import stats
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(HERE))
@@ -125,13 +126,17 @@ def fit(df, dv, regs, year_fe, cluster='material'):
     se = math.sqrt(v) if v > 0 else float('nan')
     df_t = d[cluster].nunique() - 1
     t = cum / se if se == se and se > 0 else float('nan')
-    from scipy import stats
     p = float(2 * stats.t.sf(abs(t), df_t)) if t == t else float('nan')
     crit = float(stats.t.ppf(0.975, df_t))
     out = {'dv': dv, 'regressors': regs, 'year_fe': bool(year_fe),
            'cumulative': round(cum, 4), 'se': round(se, 4), 't': round(t, 2), 'p': round(p, 4),
            'ci95': [round(cum - crit * se, 4), round(cum + crit * se, 4)],
-           'per_lag': {r: round(float(m.params[r]), 4) for r in regs},
+           'per_lag': {r: {'beta': round(float(m.params[r]), 4), 'se': round(float(m.bse[r]), 4),
+                            'p': round(float(m.pvalues[r]), 4)} for r in regs},
+           # what this specification could have SEEN: the smallest true effect it would reject zero
+           # for 95% of the time at 5% with 80% power, in the same units as 'cumulative'
+           'mde_80pct_power': round(float((stats.t.ppf(0.975, df_t) + stats.t.ppf(0.80, df_t)) * se), 4)
+           if se == se and se > 0 else None,
            'n': int(m.nobs), 'materials': int(d[cluster].nunique()), 'df_t': df_t,
            '_raw': {'cumulative': cum, 'p': p}}
     if dk is not None:

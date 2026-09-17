@@ -1,0 +1,805 @@
+{
+ "filing": "scrap-response/PREREGISTRATION.md",
+ "window": [
+  1953,
+  2022
+ ],
+ "materials": [
+  "aluminium",
+  "antimony",
+  "chromium",
+  "cobalt",
+  "copper",
+  "gold",
+  "industrial_diamond",
+  "lead",
+  "magnesium",
+  "mercury",
+  "nickel",
+  "platinum",
+  "silver",
+  "tin",
+  "tungsten",
+  "zinc"
+ ],
+ "n_material_years": 1104,
+ "dropped_no_log": 87,
+ "headline": {
+  "with_year_effects": {
+   "share_points_per_50pct": -0.711,
+   "share": {
+    "dv": "dsh",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": true,
+    "cumulative": -1.7532,
+    "se": 2.1618,
+    "t": -0.81,
+    "p": 0.4309,
+    "ci95": [
+     -6.3897,
+     2.8834
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 1.7588,
+      "se": 2.2887,
+      "p": 0.455
+     },
+     "dp2": {
+      "beta": -3.512,
+      "se": 0.8477,
+      "p": 0.001
+     }
+    },
+    "mde_80pct_power": 6.5131,
+    "n": 959,
+    "materials": 15,
+    "df_t": 14,
+    "_raw": {
+     "cumulative": -1.7531878160309355,
+     "p": 0.430941732377177
+    },
+    "se_driscoll_kraay": 2.7591,
+    "p_driscoll_kraay": 0.5354
+   },
+   "elasticity": {
+    "dv": "ds",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": true,
+    "cumulative": -0.0897,
+    "se": 0.144,
+    "t": -0.62,
+    "p": 0.5429,
+    "ci95": [
+     -0.3967,
+     0.2173
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": -0.0131,
+      "se": 0.091,
+      "p": 0.8872
+     },
+     "dp2": {
+      "beta": -0.0766,
+      "se": 0.0632,
+      "p": 0.2446
+     }
+    },
+    "mde_80pct_power": 0.4318,
+    "n": 1017,
+    "materials": 16,
+    "df_t": 15,
+    "_raw": {
+     "cumulative": -0.08968922900342897,
+     "p": 0.5428720372390123
+    },
+    "se_driscoll_kraay": 0.1155,
+    "p_driscoll_kraay": 0.4495
+   },
+   "verdict": "not_demonstrated"
+  },
+  "without_year_effects": {
+   "share_points_per_50pct": 0.234,
+   "share": {
+    "dv": "dsh",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": false,
+    "cumulative": 0.5773,
+    "se": 1.8855,
+    "t": 0.31,
+    "p": 0.764,
+    "ci95": [
+     -3.4667,
+     4.6213
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 2.6989,
+      "se": 1.5936,
+      "p": 0.1125
+     },
+     "dp2": {
+      "beta": -2.1216,
+      "se": 1.0425,
+      "p": 0.0612
+     }
+    },
+    "mde_80pct_power": 5.6807,
+    "n": 959,
+    "materials": 15,
+    "df_t": 14,
+    "_raw": {
+     "cumulative": 0.5773081392151669,
+     "p": 0.7639715944039739
+    },
+    "se_driscoll_kraay": 2.0046,
+    "p_driscoll_kraay": 0.7776
+   },
+   "elasticity": {
+    "dv": "ds",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": false,
+    "cumulative": -0.0528,
+    "se": 0.0894,
+    "t": -0.59,
+    "p": 0.5632,
+    "ci95": [
+     -0.2433,
+     0.1376
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 0.0044,
+      "se": 0.0559,
+      "p": 0.9377
+     },
+     "dp2": {
+      "beta": -0.0573,
+      "se": 0.0489,
+      "p": 0.2594
+     }
+    },
+    "mde_80pct_power": 0.2679,
+    "n": 1017,
+    "materials": 16,
+    "df_t": 15,
+    "_raw": {
+     "cumulative": -0.052832513757648775,
+     "p": 0.5631716096440322
+    },
+    "se_driscoll_kraay": 0.0652,
+    "p_driscoll_kraay": 0.4305
+   },
+   "verdict": "not_demonstrated"
+  }
+ },
+ "secondary_share_by_material": {
+  "aluminium": {
+   "median_secondary_share_pct": 39.5,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 81.0,
+   "years": 69
+  },
+  "antimony": {
+   "median_secondary_share_pct": 46.0,
+   "latest_year": 2019,
+   "latest_secondary_share_pct": 15.6,
+   "years": 67
+  },
+  "chromium": {
+   "median_secondary_share_pct": 29.6,
+   "latest_year": 2022,
+   "latest_secondary_share_pct": 16.0,
+   "years": 61
+  },
+  "cobalt": {
+   "median_secondary_share_pct": 13.0,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 27.1,
+   "years": 69
+  },
+  "copper": {
+   "median_secondary_share_pct": 21.5,
+   "latest_year": 2020,
+   "latest_secondary_share_pct": 9.6,
+   "years": 68
+  },
+  "industrial_diamond": {
+   "median_secondary_share_pct": 7.4,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 0.4,
+   "years": 67
+  },
+  "lead": {
+   "median_secondary_share_pct": 59.2,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 64.2,
+   "years": 69
+  },
+  "magnesium": {
+   "median_secondary_share_pct": 2.2,
+   "latest_year": 2022,
+   "latest_secondary_share_pct": 2.9,
+   "years": 70
+  },
+  "mercury": {
+   "median_secondary_share_pct": 19.0,
+   "latest_year": 1997,
+   "latest_secondary_share_pct": 112.4,
+   "years": 45
+  },
+  "nickel": {
+   "median_secondary_share_pct": 26.4,
+   "latest_year": 2020,
+   "latest_secondary_share_pct": 51.8,
+   "years": 68
+  },
+  "platinum": {
+   "median_secondary_share_pct": 8.2,
+   "latest_year": 2022,
+   "latest_secondary_share_pct": 60.0,
+   "years": 47
+  },
+  "silver": {
+   "median_secondary_share_pct": 21.6,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 8.7,
+   "years": 67
+  },
+  "tin": {
+   "median_secondary_share_pct": 19.4,
+   "latest_year": 2021,
+   "latest_secondary_share_pct": 18.9,
+   "years": 69
+  },
+  "tungsten": {
+   "median_secondary_share_pct": 19.4,
+   "latest_year": 2013,
+   "latest_secondary_share_pct": 58.9,
+   "years": 58
+  },
+  "zinc": {
+   "median_secondary_share_pct": 7.6,
+   "latest_year": 2022,
+   "latest_secondary_share_pct": 11.3,
+   "years": 70
+  }
+ },
+ "checks": {
+  "primary_supply": {
+   "with_year_effects": {
+    "dv": "dprim",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": true,
+    "cumulative": 0.2055,
+    "se": 0.1127,
+    "t": 1.82,
+    "p": 0.0882,
+    "ci95": [
+     -0.0347,
+     0.4457
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 0.0702,
+      "se": 0.0577,
+      "p": 0.2429
+     },
+     "dp2": {
+      "beta": 0.1353,
+      "se": 0.1154,
+      "p": 0.2594
+     }
+    },
+    "mde_80pct_power": 0.3378,
+    "n": 801,
+    "materials": 16,
+    "df_t": 15,
+    "_raw": {
+     "cumulative": 0.20547987916906918,
+     "p": 0.08821881529729698
+    },
+    "se_driscoll_kraay": 0.1192,
+    "p_driscoll_kraay": 0.1053
+   },
+   "without_year_effects": {
+    "dv": "dprim",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": false,
+    "cumulative": 0.2038,
+    "se": 0.13,
+    "t": 1.57,
+    "p": 0.1378,
+    "ci95": [
+     -0.0733,
+     0.4808
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 0.0866,
+      "se": 0.0725,
+      "p": 0.2511
+     },
+     "dp2": {
+      "beta": 0.1172,
+      "se": 0.094,
+      "p": 0.2316
+     }
+    },
+    "mde_80pct_power": 0.3897,
+    "n": 801,
+    "materials": 16,
+    "df_t": 15,
+    "_raw": {
+     "cumulative": 0.2037743246148513,
+     "p": 0.1378248760767692
+    },
+    "se_driscoll_kraay": 0.1079,
+    "p_driscoll_kraay": 0.0785
+   }
+  },
+  "placebo_future_prices": {
+   "with_year_effects": {
+    "dv": "dsh",
+    "regressors": [
+     "dpf1",
+     "dpf2"
+    ],
+    "year_fe": true,
+    "cumulative": 0.056,
+    "se": 2.5777,
+    "t": 0.02,
+    "p": 0.983,
+    "ci95": [
+     -5.4728,
+     5.5847
+    ],
+    "per_lag": {
+     "dpf1": {
+      "beta": 0.6256,
+      "se": 2.0066,
+      "p": 0.7598
+     },
+     "dpf2": {
+      "beta": -0.5697,
+      "se": 1.5027,
+      "p": 0.7103
+     }
+    },
+    "mde_80pct_power": 7.7663,
+    "n": 933,
+    "materials": 15,
+    "df_t": 14,
+    "_raw": {
+     "cumulative": 0.05595425949239985,
+     "p": 0.9829883010903633
+    },
+    "se_driscoll_kraay": 2.5827,
+    "p_driscoll_kraay": 0.983
+   },
+   "without_year_effects": {
+    "dv": "dsh",
+    "regressors": [
+     "dpf1",
+     "dpf2"
+    ],
+    "year_fe": false,
+    "cumulative": -0.2398,
+    "se": 2.0211,
+    "t": -0.12,
+    "p": 0.9072,
+    "ci95": [
+     -4.5746,
+     4.095
+    ],
+    "per_lag": {
+     "dpf1": {
+      "beta": 0.5133,
+      "se": 1.698,
+      "p": 0.7668
+     },
+     "dpf2": {
+      "beta": -0.7531,
+      "se": 0.9146,
+      "p": 0.424
+     }
+    },
+    "mde_80pct_power": 6.0892,
+    "n": 933,
+    "materials": 15,
+    "df_t": 14,
+    "_raw": {
+     "cumulative": -0.239786862516439,
+     "p": 0.9072438795421036
+    },
+    "se_driscoll_kraay": 1.8276,
+    "p_driscoll_kraay": 0.8975
+   }
+  },
+  "placebo_other_material": {
+   "pairs": {
+    "aluminium": "antimony",
+    "antimony": "chromium",
+    "chromium": "cobalt",
+    "cobalt": "gold",
+    "copper": "industrial_diamond",
+    "gold": "industrial_diamond",
+    "industrial_diamond": "lead",
+    "lead": "magnesium",
+    "magnesium": "mercury",
+    "mercury": "nickel",
+    "nickel": "silver",
+    "platinum": "silver",
+    "silver": "tin",
+    "tin": "tungsten",
+    "tungsten": "zinc",
+    "zinc": "aluminium"
+   },
+   "with_year_effects": {
+    "dv": "dsh",
+    "regressors": [
+     "dp1x",
+     "dp2x"
+    ],
+    "year_fe": true,
+    "cumulative": 2.1085,
+    "se": 1.5519,
+    "t": 1.36,
+    "p": 0.1957,
+    "ci95": [
+     -1.22,
+     5.4369
+    ],
+    "per_lag": {
+     "dp1x": {
+      "beta": -0.3186,
+      "se": 1.1713,
+      "p": 0.7896
+     },
+     "dp2x": {
+      "beta": 2.427,
+      "se": 1.3354,
+      "p": 0.0906
+     }
+    },
+    "mde_80pct_power": 4.6755,
+    "n": 949,
+    "materials": 15,
+    "df_t": 14,
+    "_raw": {
+     "cumulative": 2.108482002175966,
+     "p": 0.19574030375889603
+    },
+    "se_driscoll_kraay": 2.0803,
+    "p_driscoll_kraay": 0.328
+   }
+  },
+  "leave_one_out": {
+   "aluminium": {
+    "points_per_50pct": -0.675,
+    "p": 0.4601
+   },
+   "antimony": {
+    "points_per_50pct": -0.299,
+    "p": 0.7471
+   },
+   "chromium": {
+    "points_per_50pct": -1.127,
+    "p": 0.1773
+   },
+   "cobalt": {
+    "points_per_50pct": -0.613,
+    "p": 0.5787
+   },
+   "copper": {
+    "points_per_50pct": -0.699,
+    "p": 0.4464
+   },
+   "gold": {
+    "points_per_50pct": -0.711,
+    "p": 0.4309
+   },
+   "industrial_diamond": {
+    "points_per_50pct": -0.447,
+    "p": 0.638
+   },
+   "lead": {
+    "points_per_50pct": -0.771,
+    "p": 0.4209
+   },
+   "magnesium": {
+    "points_per_50pct": -0.704,
+    "p": 0.4516
+   },
+   "mercury": {
+    "points_per_50pct": -0.77,
+    "p": 0.4442
+   },
+   "nickel": {
+    "points_per_50pct": -0.744,
+    "p": 0.4467
+   },
+   "platinum": {
+    "points_per_50pct": -0.348,
+    "p": 0.701
+   },
+   "silver": {
+    "points_per_50pct": -1.301,
+    "p": 0.072
+   },
+   "tin": {
+    "points_per_50pct": -0.718,
+    "p": 0.4462
+   },
+   "tungsten": {
+    "points_per_50pct": -0.61,
+    "p": 0.5198
+   },
+   "zinc": {
+    "points_per_50pct": -0.761,
+    "p": 0.4188
+   }
+  },
+  "excluding_investment_metals": {
+   "with_year_effects": {
+    "dv": "dsh",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": true,
+    "cumulative": -2.3904,
+    "se": 1.6023,
+    "t": -1.49,
+    "p": 0.1615,
+    "ci95": [
+     -5.8815,
+     1.1007
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 0.9475,
+      "se": 2.1716,
+      "p": 0.6703
+     },
+     "dp2": {
+      "beta": -3.3379,
+      "se": 0.9302,
+      "p": 0.0037
+     }
+    },
+    "mde_80pct_power": 4.8893,
+    "n": 847,
+    "materials": 13,
+    "df_t": 12,
+    "_raw": {
+     "cumulative": -2.3904220475268763,
+     "p": 0.1615461641176601
+    },
+    "se_driscoll_kraay": 2.6508,
+    "p_driscoll_kraay": 0.3849
+   },
+   "without_year_effects": {
+    "dv": "dsh",
+    "regressors": [
+     "dp1",
+     "dp2"
+    ],
+    "year_fe": false,
+    "cumulative": 0.164,
+    "se": 1.9178,
+    "t": 0.09,
+    "p": 0.9333,
+    "ci95": [
+     -4.0146,
+     4.3426
+    ],
+    "per_lag": {
+     "dp1": {
+      "beta": 1.8406,
+      "se": 1.6017,
+      "p": 0.2729
+     },
+     "dp2": {
+      "beta": -1.6766,
+      "se": 1.0309,
+      "p": 0.1298
+     }
+    },
+    "mde_80pct_power": 5.8522,
+    "n": 847,
+    "materials": 13,
+    "df_t": 12,
+    "_raw": {
+     "cumulative": 0.16399359619684173,
+     "p": 0.9332667747333446
+    },
+    "se_driscoll_kraay": 2.1124,
+    "p_driscoll_kraay": 0.9394
+   }
+  },
+  "excluding_recessions": {
+   "dv": "dsh",
+   "regressors": [
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": -3.2596,
+   "se": 2.6689,
+   "t": -1.22,
+   "p": 0.2421,
+   "ci95": [
+    -8.9839,
+    2.4646
+   ],
+   "per_lag": {
+    "dp1": {
+     "beta": 0.891,
+     "se": 2.1358,
+     "p": 0.6829
+    },
+    "dp2": {
+     "beta": -4.1506,
+     "se": 1.1636,
+     "p": 0.0031
+    }
+   },
+   "mde_80pct_power": 8.041,
+   "n": 846,
+   "materials": 15,
+   "df_t": 14,
+   "_raw": {
+    "cumulative": -3.2596490708633516,
+    "p": 0.24212795023620282
+   },
+   "se_driscoll_kraay": 2.7599,
+   "p_driscoll_kraay": 0.2572
+  },
+  "contemporaneous": {
+   "dv": "dsh",
+   "regressors": [
+    "dp0",
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": -0.3724,
+   "se": 4.1917,
+   "t": -0.09,
+   "p": 0.9305,
+   "ci95": [
+    -9.3627,
+    8.6179
+   ],
+   "per_lag": {
+    "dp0": {
+     "beta": 1.1606,
+     "se": 2.5036,
+     "p": 0.6501
+    },
+    "dp1": {
+     "beta": 1.7121,
+     "se": 2.2801,
+     "p": 0.4651
+    },
+    "dp2": {
+     "beta": -3.2452,
+     "se": 1.0267,
+     "p": 0.0069
+    }
+   },
+   "mde_80pct_power": 12.6289,
+   "n": 959,
+   "materials": 15,
+   "df_t": 14,
+   "_raw": {
+    "cumulative": -0.3724210682308895,
+    "p": 0.9304615615143842
+   },
+   "se_driscoll_kraay": 3.6252,
+   "p_driscoll_kraay": 0.9196
+  },
+  "window_1973_2022": {
+   "dv": "dsh",
+   "regressors": [
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": -0.0531,
+   "se": 2.645,
+   "t": -0.02,
+   "p": 0.9843,
+   "ci95": [
+    -5.7261,
+    5.62
+   ],
+   "per_lag": {
+    "dp1": {
+     "beta": 2.7891,
+     "se": 2.6742,
+     "p": 0.3147
+    },
+    "dp2": {
+     "beta": -2.8421,
+     "se": 1.2079,
+     "p": 0.0338
+    }
+   },
+   "mde_80pct_power": 7.9691,
+   "n": 676,
+   "materials": 15,
+   "df_t": 14,
+   "_raw": {
+    "cumulative": -0.05308688901893799,
+    "p": 0.9842704793632543
+   },
+   "se_driscoll_kraay": 2.9235,
+   "p_driscoll_kraay": 0.9858
+  },
+  "window_1953_1990": {
+   "dv": "dsh",
+   "regressors": [
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": -1.7996,
+   "se": 2.5888,
+   "t": -0.7,
+   "p": 0.4983,
+   "ci95": [
+    -7.3519,
+    3.7528
+   ],
+   "per_lag": {
+    "dp1": {
+     "beta": 0.2488,
+     "se": 2.812,
+     "p": 0.9308
+    },
+    "dp2": {
+     "beta": -2.0483,
+     "se": 1.4317,
+     "p": 0.1745
+    }
+   },
+   "mde_80pct_power": 7.7995,
+   "n": 553,
+   "materials": 15,
+   "df_t": 14,
+   "_raw": {
+    "cumulative": -1.7995752863463346,
+    "p": 0.49833803902758567
+   },
+   "se_driscoll_kraay": 3.1903,
+   "p_driscoll_kraay": 0.5816
+  },
+  "poisson_levels_keeps_zeros": {
+   "beta_logp": -0.562,
+   "p": 0.0426,
+   "n": 1023,
+   "zeros_kept": 0
+  }
+ }
+}
