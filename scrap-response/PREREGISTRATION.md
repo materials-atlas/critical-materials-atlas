@@ -153,6 +153,66 @@ response, all before the test was run:
 6. Dropping zero years was discarding the collapses that identify a response; a Poisson-on-levels line
    is filed.
 
+## Result — run 2026-09-17: **NOT DEMONSTRATED**
+
+Run by `response.py` (committed before its first run); every number is in `out/scrap_response.json`.
+Sample after the filed window and the log requirement: **16 materials, 1,104 material-years**
+(1953–2022); 87 material-years have no annual change because a year is missing from the source.
+
+| Equation | Response to a +50% real price, two years | p | Row of the filed table |
+|---|---|---|---|
+| Share of consumption, with year effects | -0.711 points | 0.4309 | not demonstrated |
+| Share of consumption, without year effects | 0.234 points | 0.764 | not demonstrated |
+| Elasticity, with year effects | -0.0897% per 1% | 0.5429 | — |
+| Elasticity, without year effects | -0.0528% per 1% | 0.5632 | — |
+
+Both headline specifications agree, which is the one case the filing said would not need a bracket:
+whether or not common price movements are removed, US secondary production does not follow a price
+rise within two years at any scale this panel can detect.
+
+**The supporting checks, as filed.**
+
+| Check | Result | Reading |
+|---|---|---|
+| Primary supply, same specification | 0.2055 (p = 0.0882) with year effects | New material responds *more* than scrap, weakly and not significantly. |
+| Placebo, future prices | 0.023 (p = 0.983) | Passes: no anticipation or trend effect. |
+| Placebo, another material's price | 0.854 (p = 0.1957) | Passes. |
+| Leave one material out | −0.30 to −1.30 points, every p > 0.07 | The null is not one material's doing. |
+| Excluding gold, silver, platinum | -0.968 (p = 0.1615) | Same row. |
+| Excluding recessions | -1.32 (p = 0.2421) | Same row. |
+| Contemporaneous price added | -0.151 (p = 0.9305) | Same row. |
+| Window 1973–2022 | -0.022 (p = 0.9843) | Same row. |
+| Window 1953–1990 | -0.729 (p = 0.4983) | Same row. |
+| Poisson on levels | log price -0.562 (p = 0.0426) | See the deviation below: there were no zero years to keep. |
+
+**What the result says.** On US data, 1953–2022, a rise in a material's real price is not followed by
+more scrap-derived supply within two years, either in tonnes or as a share of consumption. The same
+panel and the same specification give a weakly positive response for primary production (0.2055, p = 0.0882),
+so the machinery does detect a supply response where one exists. Raw means say the same thing: sorting
+material-years into five bins by the previous year's price move, secondary production growth is flat
+across the bins while primary production growth rises from −7.3% in the biggest price falls to +3.2%
+in the biggest rises.
+
+**What it does not say.** Not that recycling is useless: these materials already meet a median 19.4%
+of US consumption from scrap (lead 59%, antimony 46%, aluminium 40%), and the test is about the
+*change* within two years, not the level. Not that no price would ever bring out scrap; the panel can
+rule out only responses large enough for it to see. Not anything about scrap that is collected and
+exported rather than recovered in the United States, which is the margin most likely to move on a US
+price rise. And not a causal statement: this is a predictive regression, as filed.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+**2026-09-17 — three details the filing left open or got wrong, recorded after the run.**
+1. **The zeros check had nothing to keep.** The filing added a Poisson-on-levels line so that years
+   with zero secondary production would not be dropped. There are none in the sample: the 87 dropped
+   material-years are years missing from the source, not zeros. The Poisson line is reported as what
+   it actually is — a contemporaneous levels association (log price -0.562, p = 0.0426) — and carries no
+   weight.
+2. **Gold is not in the share equation.** DS 140 gives it no apparent-consumption series, as the
+   filing noted; leaving it out therefore changes nothing (its leave-one-out row equals the baseline).
+   It stays in the tonnage equation.
+3. **The by-product-skipping placebo pairing** resolved to the alphabetical successor for every
+   material except where a by-product partner was skipped; the pairs are listed in
+   `out/scrap_response.json` under `checks.placebo_other_material.pairs`.
