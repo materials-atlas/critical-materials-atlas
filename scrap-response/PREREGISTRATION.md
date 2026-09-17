@@ -166,9 +166,9 @@ Sample after the filed window and the log requirement: **16 materials, 1,104 mat
 | Elasticity, with year effects | -0.0897% per 1% | 0.5429 | — |
 | Elasticity, without year effects | -0.0528% per 1% | 0.5632 | — |
 
-Both headline specifications agree, which is the one case the filing said would not need a bracket:
-whether or not common price movements are removed, US secondary production does not follow a price
-rise within two years at any scale this panel can detect.
+Both headline specifications land on the same row of the filed table, so the bracket the filing
+promised is not needed to read the result: whether or not common price movements are removed, US
+secondary production does not follow a price rise within two years at any scale this panel can see.
 
 **The supporting checks, as filed.**
 
