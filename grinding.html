@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/grinding">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Grinding balls don&rsquo;t track mining year by year &mdash; Critical Materials Atlas</title>
-<meta name="description" content="A pre-registered test of whether imports of steel grinding balls track how much ore a country mills. In the ten countries where imports cover at least half of what the mills need, they did not pass as a year-by-year proxy.">
+<title>Grinding-ball imports failed as a yearly mining gauge &mdash; Critical Materials Atlas</title>
+<meta name="description" content="A pre-registered test of whether imports of steel grinding balls can gauge how much ore a country mills. In the ten countries where imports cover at least half of what the mills need, they did not pass as a year-by-year gauge.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>
@@ -18,18 +18,17 @@
 .verdict{display:inline-block;background:#b3384b;color:#fff;font-weight:700;letter-spacing:.08em;
  padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
 </style></head><body>
-<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>
-<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Upstream &middot; a pre-registered test that failed</div>
-  <h1>Grinding balls don&rsquo;t track mining year by year</h1>
+  <h1>Grinding-ball imports failed as a yearly mining gauge</h1>
   <p class="deck">Mills grind ore with steel balls that wear away as the rock passes through, so a
   country that mills more ore should use more balls. If customs data could see that, it would be a
   public, near-real-time measure of mining activity. We wrote the rules of the test down first and
-  then ran it. In the <b>10 countries</b> where imports cover at least half of what the mills need, imports did not move
-  with ore milled closely enough to use: the estimated response was <b>0.35</b> against an
-  expected one-for-one, and it could not be told apart from zero.</p>
+  then ran it. In the <b>10 countries</b> where imports cover at least half of what the mills need, imports did not pass as
+  a year-by-year gauge of ore milled: the estimated response was <b>0.35</b> against an expected
+  one-for-one, with a 95% interval from &minus;0.10 to 0.79. That interval takes in zero and most of the
+  range the rules would have accepted, so the test could neither confirm the link nor rule it out.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -39,26 +38,32 @@
   was committed before the test ran.</p>
   <table><thead><tr><th>Check</th><th>Rule set in advance</th><th>Result</th><th></th></tr></thead>
   <tbody><tr><td>Imports follow ore milled</td><td>response between 0.4 and 1.5, p &lt; 0.05</td><td>response 0.35 (95% interval -0.10 to 0.79), p = 0.11</td><td><span class="no">fail</span></td></tr><tr><td>Not driven by one country</td><td>dropping any one country keeps it between 0.3 and 1.7</td><td>ranges 0.19 to 0.42</td><td><span class="no">fail</span></td></tr><tr><td>Not cement</td><td>still in band with cement output added, and stronger than cement</td><td>response 0.34; cement shows no link (t = 0.16)</td><td><span class="no">fail</span></td></tr><tr><td>Placebo: screws and bolts</td><td>no link to ore milled</td><td>response -0.29, p = 0.26</td><td><span class="ok">pass</span></td></tr><tr><td>Australia: iron ore</td><td>iron ore, which is not milled, shows no link</td><td>failed on only 7 years: Australia exported more balls than it imported until 2017</td><td><span class="no">fail</span></td></tr></tbody></table>
-  <div class="note"><b>In the long run the link is real.</b> Across years, countries that mill more ore
-  do import more balls (with country and year effects: response 1.19, p = 0.003). The rules said in advance that a
-  relationship visible only in levels does not count, because it says nothing about whether imports
-  follow mining from one year to the next, which is what a proxy has to do.</div>
+  <div class="note"><b>In levels, a link shows up.</b> Comparing levels rather than yearly changes,
+  with country and year effects, a country imports more balls in the years it mills more ore
+  (response 1.19, p = 0.003). That is an association that shared trends alone can produce, and the rules said in
+  advance that a relationship visible only in levels does not count, because it says nothing about
+  whether imports follow mining from one year to the next, which is what a gauge has to do. The same
+  rules discount a link that appears only when cast balls (customs code 7325.91, which cement mills
+  also use) are pooled in: pooled, the response is 0.397, p = 0.04, still below the 0.4 floor.</div>
 </section>
 
 <section class="wrap xp">
   <h2>What this does not say</h2>
   <ul>
-    <li><b>Not that balls are unrelated to mining.</b> Several features of public data pull a
+    <li><b>Not that balls are unrelated to mining.</b> Errors in measured ore milled pull a
     year-to-year estimate toward zero. Ore milled has to be estimated from metal output with fixed
     global ore grades, so changes in grade, recovery or the share of ore that is leached rather than
-    milled show up as noise. Mines buy balls in lumps and hold stock. Customs tonnages are noisy. For a
-    true one-for-one response to appear as 0.35, the noise in measured ore growth would need to be
-    about twice its real variation, which is plausible for annual data.</li>
-    <li><b>Nothing about Chile, Peru, Australia or Canada.</b> Their net imports cover well under half
-    of what their mills are estimated to need (Chile, for one, has large domestic ball plants), so
-    imports cannot stand for their mills, and they were never in the test.</li>
-    <li><b>Nothing about ore grades.</b> The planned grade test needs a public series of the grade of
-    ore entering the mills for one of the ten countries. None was found, so it was not run.</li>
+    milled show up as noise. For a true one-for-one response to appear as 0.35, that noise would
+    need to be about twice the real variation in ore growth, which is plausible for annual data. Noise
+    on the import side (mines buy balls in lumps and hold stock; customs tonnages are noisy) does not
+    bias the estimate in that way, but it widens the interval.</li>
+    <li><b>Nothing about Chile, Peru or Canada.</b> Their net imports cover well under half of what
+    their mills are estimated to need (Chile, for one, has large domestic ball plants), so imports
+    cannot stand for their mills, and they were never in the test. Australia is in the same position
+    and appears only as the negative control above.</li>
+    <li><b>Ore grades: not testable from public data.</b> The planned grade test needs a public series
+    of the grade of ore entering the mills for one of the ten countries. None was located (the search
+    was not exhaustive), so it was not run.</li>
   </ul>
 </section>
 
@@ -86,16 +91,29 @@
   (<a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/grinding-balls/intensity_sources.csv">sources</a>); cement output from seven editions of the USGS
   <i>Minerals Yearbook</i>.</p>
   <div class="corr">
-  <p><b>Reviewed by one engine only.</b> This atlas&rsquo;s studies are normally reviewed adversarially
-  by two independent language models run separately. For this result only one of the two was
-  available; it was given the rules, the code and every number before publication. It found three
-  errors; none changed the verdict:</p>
+  <p><b>Reviewed by two engines, one before and one after publication.</b> This atlas&rsquo;s studies
+  are reviewed adversarially by two independent language models run separately, each given the rules,
+  the code and every number. When this result was first published (15 Sep 2026), only the first was
+  available. It found three errors; none changed the verdict:</p>
   <ul>
     <li>A failed control (Australia) had been written up as &ldquo;not counted&rdquo; after the result
     was seen. It is now reported as failed, with the reason it was unusable.</li>
     <li>The coverage check set net imports to zero after averaging three years instead of before, as
     the rules said. Corrected: Bulgaria moves up a group; the ten test countries are unchanged.</li>
     <li>Pass/fail was judged on rounded numbers. It now uses exact values; nothing changes.</li>
+  </ul>
+  <p>The second review (17 Sep 2026) found no error in the code or the verdict, but found that this
+  page said more than the test shows. Corrected:</p>
+  <ul>
+    <li>The title and opening said imports &ldquo;don&rsquo;t track&rdquo; mining. The test only
+    failed to validate them as a gauge; the opening now gives both ends of the interval.</li>
+    <li>A levels association was headed &ldquo;in the long run the link is real&rdquo;. It is an
+    association, and is now described as one; the pooled cast-ball result is now shown.</li>
+    <li>Noise in imports was said to pull the estimate toward zero. It widens the interval instead;
+    only noise in measured ore milled pulls toward zero.</li>
+    <li>Australia was said never to have been in the test. It was the negative control.</li>
+    <li>In the pre-registration&rsquo;s result section, two countries fell below 0.3 when one was left
+    out, not three, and the pooled estimate is 0.397, not 0.40, which had looked inside the band.</li>
   </ul>
   </div>
   <p class="howto-src"><b>Sources.</b> Trade: CEPII BACI HS 2002, V202601 (Etalab Open Licence 2.0),
@@ -105,6 +123,5 @@
   <code>build_grinding_balls.py</code> from <code>out/grinding_balls.json</code>, which holds every
   figure on this page.</p>
 </section>
-</main>
 <footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Sources</h4>CEPII BACI &middot; BGS World Mineral Statistics<br>USGS Minerals Yearbook &middot; mine technical reports</div><div class="fineprint">Independent public-data research; figures approximate and rounded.</div></div></footer>
 </body></html>

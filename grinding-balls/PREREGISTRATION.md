@@ -164,16 +164,16 @@ Run by `throughput.py` (committed before its first run); every number is in `out
 | Condition | Filed rule | Result |
 |---|---|---|
 | 1. Main effect | β in [0.4, 1.5], p < 0.05 | β = 0.35, 95% CI [−0.10, 0.79], p = 0.11 (Driscoll–Kraay p = 0.06); 206 country-years, 10 countries. **Fail** |
-| 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; three below 0.3. **Fail** |
+| 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; two below 0.3 (Côte d'Ivoire, Brazil). **Fail** |
 | 3. Cement horse race | β in band, Q the stronger regressor | β = 0.34 (out of band); Q t = 1.72 vs cement t = 0.16. **Fail** on the band |
 | 4. Placebo, HS 731815 | outside band or not significant | β = −0.29, p = 0.26. **Pass** |
 | 5. Australia, iron ore | iron-ore CI includes zero | Iron-ore β = −50.3, 95% CI [−85.6, −15.0], which excludes zero. **Fail as filed.** It rests on 7 annual changes: Australia was a net *exporter* of forged balls until 2017, so the control was unusable, and the filing did not anticipate that. |
 
 Automatic-fail checks, as filed: the relationship **is** strong in levels with country and year
 effects (β = 1.19, p = 0.003) and becomes significant only when cast balls are pooled in
-(β = 0.40, p = 0.04). The filing names both as grounds for failure, not rescue: a levels
-relationship says countries that mill more import more over the long run, not that imports follow
-throughput year to year.
+(β = 0.397, p = 0.04; still below the 0.4 floor). The filing names both as grounds for failure, not rescue: a levels
+relationship is an association that shared trends alone can produce, and says nothing about whether
+imports follow throughput year to year.
 
 **What the result says.** In the ten countries where imports can physically be the input,
 forged-ball imports did not pass as an annual proxy for ore milled. The point estimate is about a
@@ -183,9 +183,10 @@ interval runs from −0.10 to 0.79, so the estimate is close to, but not decisiv
 What it does **not** say. It is not evidence that grinding balls are unrelated to milling: the
 levels relationship is strong, and several features of the data pull an annual estimate toward
 zero. Ore milled is measured with fixed global grades, so grade, recovery and leach-versus-mill
-shifts enter as noise; purchases are lumpy and stocked; customs tonnages are noisy. For a true
-one-for-one response to show up as 0.35, the noise in measured ore growth would need to be about
-twice its true variation, which is plausible for annual public data. The claim is therefore
+shifts enter as noise in the regressor, which biases β toward zero. For a true one-for-one response
+to show up as 0.35, that noise would need to be about twice the true variation in ore growth, which
+is plausible for annual public data. Lumpy, stocked purchases and noisy customs tonnages are noise
+in the dependent variable: they widen the interval but do not by themselves bias β toward zero. The claim is therefore
 narrow: *not validated as a contemporaneous annual proxy from public data*. Nothing here tests
 Chile, Peru or any other tier-B country, or domestic ball consumption.
 
@@ -201,3 +202,13 @@ counted either way" after it had failed; that was a post-hoc waiver and is withd
 averages. Corrected: Bulgaria moves from excluded to tier B, tier A is unchanged. (c) Pass
 conditions were evaluated on rounded estimates; they now use unrounded values. Every condition and
 estimate is identical after (b) and (c).
+
+**2026-09-17 — second adversarial review (the second engine, after publication).** No error in the
+code or the verdict. Corrected in the result section above: (a) leave-one-out has two estimates below
+0.3, not three; (b) the pooled-with-cast estimate is 0.397, which had been rounded to 0.40 and looked
+in band; (c) the levels relationship is described as an association, not a long-run link; (d) noise
+in imports widens the interval and does not bias β toward zero; only noise in ore milled does. The
+published page was corrected on the same points, plus: its title said imports "don't track" mining
+(the test only failed to validate them), it gave only the lower end of the interval, and it said
+Australia was never in the test (it was the negative control). The rules, the data and every
+number are unchanged.
