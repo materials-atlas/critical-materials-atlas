@@ -153,52 +153,75 @@ response, all before the test was run:
 6. Dropping zero years was discarding the collapses that identify a response; a Poisson-on-levels line
    is filed.
 
-## Result — run 2026-09-17: **NOT DEMONSTRATED**
+## Result - run 2026-09-17: **NOT DEMONSTRATED, and the test cannot tell the filed outcomes apart**
 
 Run by `response.py` (committed before its first run); every number is in `out/scrap_response.json`.
-Sample after the filed window and the log requirement: **16 materials, 1,104 material-years**
-(1953–2022); 87 material-years have no annual change because a year is missing from the source.
+The panel is 16 materials and 1,104 material-years (1953-2022). The **headline share equation
+estimates on 959 of them, over 15 materials** - gold has no apparent-consumption series - so its t
+distribution has 14 degrees of freedom, not the 15 the filing assumed.
 
-| Equation | Response to a +50% real price, two years | p | Row of the filed table |
+| Share of consumption, +50% real price over two years | Estimate | 95% interval | p |
 |---|---|---|---|
-| Share of consumption, with year effects | -0.711 points | 0.4309 | not demonstrated |
-| Share of consumption, without year effects | 0.234 points | 0.764 | not demonstrated |
-| Elasticity, with year effects | -0.0897% per 1% | 0.5429 | — |
-| Elasticity, without year effects | -0.0528% per 1% | 0.5632 | — |
+| with year effects | -0.71 points | -2.59 to +1.17 | 0.4309 |
+| without year effects | +0.23 points | -1.41 to +1.87 | 0.764 |
 
-Both headline specifications land on the same row of the filed table, so the bracket the filing
-promised is not needed to read the result: whether or not common price movements are removed, US
-secondary production does not follow a price rise within two years at any scale this panel can see.
+| Elasticity of secondary tonnes | Estimate | 95% interval | p |
+|---|---|---|---|
+| with year effects | -0.090 | -0.40 to +0.22 | 0.5429 |
+| without year effects | -0.053 | -0.24 to +0.14 | 0.5632 |
+
+**Both land on the filed "not demonstrated" row - but the decisive fact is that this design could
+never have landed anywhere else without a very large effect.** With these standard errors, the
+smallest response the share equation would detect four times in five is **2.6 points** with year
+effects and **2.3 points** without. The filing's own thresholds - 1.0 point matters, 0.2 points
+is negligible - sit far inside that. The 95% interval with year effects, -2.59 to +1.17 points, contains
+**both** the "answers at scale" cutoff and zero. The honest verdict is therefore not "scrap does not
+respond" but: **seventy years of the best public US data cannot tell a useful scrap response from
+none.** The elasticity equation is sharper - it would detect 0.43 with year effects, 0.27 without -
+and still shows nothing.
+
+**The two lags cancel, and the second one is not noise.** With year effects the first lag is
++0.71 points (p = 0.455) and the second is -1.42 points (p = 0.001). A share that falls two
+years after a price rise is as likely to be the denominator moving - consumption recovering faster
+than scrap recovery - as anything about scrap supply. It is reported because it is there, not because
+this design can interpret it.
 
 **The supporting checks, as filed.**
 
 | Check | Result | Reading |
 |---|---|---|
-| Primary supply, same specification | 0.2055 (p = 0.0882) with year effects | New material responds *more* than scrap, weakly and not significantly. |
-| Placebo, future prices | 0.023 (p = 0.983) | Passes: no anticipation or trend effect. |
-| Placebo, another material's price | 0.854 (p = 0.1957) | Passes. |
-| Leave one material out | −0.30 to −1.30 points, every p > 0.07 | The null is not one material's doing. |
-| Excluding gold, silver, platinum | -0.968 (p = 0.1615) | Same row. |
-| Excluding recessions | -1.32 (p = 0.2421) | Same row. |
-| Contemporaneous price added | -0.151 (p = 0.9305) | Same row. |
-| Window 1973–2022 | -0.022 (p = 0.9843) | Same row. |
-| Window 1953–1990 | -0.729 (p = 0.4983) | Same row. |
-| Poisson on levels | log price -0.562 (p = 0.0426) | See the deviation below: there were no zero years to keep. |
+| Primary supply, same specification | elasticity +0.21, 95% interval -0.03 to +0.45, p = 0.0882 | Positive but **not significant** on the filed 5% rule, and its difference from the scrap elasticity (-0.090) was never tested. It cannot carry a claim that new material responds more. |
+| Placebo, future prices | +0.02 points, -2.22 to +2.26, p = 0.983 | Nothing shows - but with an interval this wide that is weak evidence, not a pass. |
+| Placebo, another material's price | +0.85 points, p = 0.1957 | Larger than the headline itself. It cannot be called a pass. |
+| Leave one material out | -0.30 to -1.30 points, every p > 0.07 | No single material drives the result. |
+| Excluding gold, silver, platinum | -0.97 points, p = 0.1615 | Same row. |
+| Excluding recessions | -1.32 points, p = 0.2421 | Same row. |
+| Contemporaneous price added | -0.15 points, p = 0.9305 | Same row. |
+| Window 1973-2022 | -0.02 points, p = 0.9843 | Same row. |
+| Window 1953-1990 | -0.73 points, p = 0.4983 | Same row. |
+| Poisson on levels | log price -0.562, p = 0.0426 | Not the filed check: there were no zero years to keep, and this is a contemporaneous levels association. It carries no weight. |
 
-**What the result says.** On US data, 1953–2022, a rise in a material's real price is not followed by
-more scrap-derived supply within two years, either in tonnes or as a share of consumption. The same
-panel and the same specification give a weakly positive response for primary production (0.2055, p = 0.0882),
-so the machinery does detect a supply response where one exists. Raw means say the same thing: sorting
+**What the result says.** On US data for 16 mature metals, 1953-2022, a rise in a material's real
+price is **not shown to be followed** by more scrap-derived supply within two years, in tonnes or as a
+share of consumption. It says nothing stronger, because the design cannot: a response of the size
+that would matter to a ministry sits inside the interval. Raw means agree with the estimate - sorting
 material-years into five bins by the previous year's price move, secondary production growth is flat
-across the bins while primary production growth rises from −7.3% in the biggest price falls to +3.2%
-in the biggest rises.
+across the bins while primary production growth runs from -7.3% in the biggest price falls to +3.2%
+in the biggest rises - but that contrast is suggestive, not significant.
 
-**What it does not say.** Not that recycling is useless: these materials already meet a median 19.4%
-of US consumption from scrap (lead 59%, antimony 46%, aluminium 40%), and the test is about the
-*change* within two years, not the level. Not that no price would ever bring out scrap; the panel can
-rule out only responses large enough for it to see. Not anything about scrap that is collected and
-exported rather than recovered in the United States, which is the margin most likely to move on a US
-price rise. And not a causal statement: this is a predictive regression, as filed.
+**What it does not say.** Not that recycling does not respond to price. Not that scrap supply is
+price-inelastic. Not that responses of 0.2 to 1.0 points of consumption are ruled out; they are not.
+Not that primary supply is more responsive; that was not established. Not anything causal: this is a
+predictive regression. Not anything about scrap collected and exported rather than recovered in the
+United States, about new versus old scrap, about recycling *capacity*, about non-US markets, or about
+the newer critical materials, which have no such series. And these metals already meet a median 19.4%
+of US consumption from scrap (lead 59%, antimony 46%, aluminium 40%): the test is about the change
+within two years, not the level.
+
+**What would answer the question.** More materials would not help much - the standard error is driven
+by how differently materials move, not by how many years there are. What would: a price series that is
+a market price rather than a unit value; scrap collected *and* exported as the dependent variable; and
+identification from named supply shocks rather than from the price itself.
 
 ## Deviations log
 
@@ -216,3 +239,11 @@ Every change made after this filing goes here, dated, with its reason.
 3. **The by-product-skipping placebo pairing** resolved to the alphabetical successor for every
    material except where a by-product partner was skipped; the pairs are listed in
    `out/scrap_response.json` under `checks.placebo_other_material.pairs`.
+4. **Power was not filed, and it should have been.** The review after the run showed the design's
+   smallest detectable response is about 2.6 points of consumption, far above the filing's own
+   1.0-point threshold, so the decision table was unreachable in practice. The result is reported
+   with its interval and that detectable size, and no filed threshold is claimed to be ruled out.
+   Per-lag standard errors and the detectable size were added to `response.py` after the run; that
+   adds output only and changes no estimate.
+5. **The estimation sample is 959 material-years over 15 materials** for the share equation (gold has
+   no consumption series), so its t distribution has 14 degrees of freedom, not the filed 15.
