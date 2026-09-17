@@ -1,6 +1,6 @@
 {
  "meta": {
-  "prepared": "2026-09-16",
+  "prepared": "2026-09-17",
   "sender": {
    "id": "CMA",
    "name": "Critical Materials Atlas"
@@ -435,6 +435,10 @@
       "name": "demand projection"
      },
      {
+      "id": "employment",
+      "name": "employment"
+     },
+     {
       "id": "exports",
       "name": "exports"
      },
@@ -447,8 +451,16 @@
       "name": "imports"
      },
      {
+      "id": "imports_nepheline_syenite",
+      "name": "imports nepheline syenite"
+     },
+     {
       "id": "imports_value",
       "name": "imports value"
+     },
+     {
+      "id": "net_import_reliance",
+      "name": "net import reliance"
      },
      {
       "id": "production",
@@ -457,6 +469,30 @@
      {
       "id": "production_secondary",
       "name": "production secondary"
+     },
+     {
+      "id": "production_secondary_new_scrap",
+      "name": "production secondary new scrap"
+     },
+     {
+      "id": "production_secondary_old_scrap",
+      "name": "production secondary old scrap"
+     },
+     {
+      "id": "production_secondary_toll",
+      "name": "production secondary toll"
+     },
+     {
+      "id": "production_value",
+      "name": "production value"
+     },
+     {
+      "id": "scrap_new",
+      "name": "scrap new"
+     },
+     {
+      "id": "scrap_refinery",
+      "name": "scrap refinery"
      },
      {
       "id": "shipments",
@@ -477,6 +513,10 @@
      {
       "id": "stocks_industry",
       "name": "stocks industry"
+     },
+     {
+      "id": "stocks_lme",
+      "name": "stocks lme"
      },
      {
       "id": "unit_value_nominal",
@@ -599,6 +639,10 @@
       "name": "ct"
      },
      {
+      "id": "employees",
+      "name": "employees"
+     },
+     {
       "id": "kg",
       "name": "kg"
      },
@@ -617,6 +661,10 @@
      {
       "id": "metric tons",
       "name": "metric tons"
+     },
+     {
+      "id": "percent",
+      "name": "percent"
      },
      {
       "id": "thousand tonnes",
@@ -1790,7 +1838,7 @@
      "IEA Critical Minerals Dataset": "CC BY 4.0",
      "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
     },
-    "observations": 1145518,
+    "observations": 1147540,
     "series_key": [
      "FREQ",
      "SOURCE",

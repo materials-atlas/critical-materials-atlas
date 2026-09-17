@@ -194,7 +194,7 @@
    "differs_because": "USGS estimates a world total; BGS adds up reporters. Where reporting is incomplete the two must differ, and the USGS figure is usually the larger.",
    "source": "USGS Historical Statistics (DS 140)",
    "coverage": {
-    "rows": 65062,
+    "rows": 67084,
     "materials": 79,
     "geographies": 2,
     "years": [
@@ -204,15 +204,25 @@
     "measures": [
      "apparent_consumption",
      "consumption",
+     "employment",
      "exports",
      "imports",
+     "imports_nepheline_syenite",
+     "net_import_reliance",
      "production",
      "production_secondary",
+     "production_secondary_new_scrap",
+     "production_secondary_old_scrap",
+     "production_secondary_toll",
+     "production_value",
+     "scrap_new",
+     "scrap_refinery",
      "shipments",
      "shipments_government",
      "stocks",
      "stocks_government",
      "stocks_industry",
+     "stocks_lme",
      "unit_value_nominal",
      "unit_value_real98"
     ],
@@ -223,11 +233,14 @@
     ],
     "units": [
      "1998 USD/t",
+     "USD",
      "USD/t",
-     "metric tons"
+     "employees",
+     "metric tons",
+     "percent"
     ],
-    "series": 686,
-    "pct_convertible_to_tonnes": 71.0
+    "series": 707,
+    "pct_convertible_to_tonnes": 71.5
    }
   },
   {
