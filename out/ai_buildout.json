@@ -1,0 +1,521 @@
+{
+ "note": "World trade in the lines a data-centre build-out runs on. Measurement only: this is what crossed borders, not what was produced, consumed or installed, and no part of it is attributed to AI rather than to electrification generally.",
+ "years": [
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024
+ ],
+ "deflator": {
+  "source": "World Bank FP.CPI.TOTL, United States, 2010 = 100",
+  "values": {
+   "2019": 117.244,
+   "2020": 118.691,
+   "2021": 124.266,
+   "2022": 134.211,
+   "2023": 139.736,
+   "2024": 143.857
+  }
+ },
+ "groups": [
+  {
+   "title": "The chips",
+   "codes": [
+    "854231",
+    "854232",
+    "854239",
+    "854140"
+   ]
+  },
+  {
+   "title": "What goes into them",
+   "codes": [
+    "280461",
+    "280429",
+    "811292",
+    "810320"
+   ]
+  },
+  {
+   "title": "What carries power to them",
+   "codes": [
+    "850421",
+    "850422",
+    "850423",
+    "722511",
+    "722611",
+    "740811"
+   ]
+  }
+ ],
+ "lines": {
+  "854231": {
+   "label": "Processors and controllers",
+   "value_musd": {
+    "2019": 228441.5,
+    "2020": 263319.1,
+    "2021": 327174.9,
+    "2022": 356360.8,
+    "2023": 303616.9,
+    "2024": 389412.0
+   },
+   "real_growth_pct": 38.9,
+   "nominal_growth_pct": 70.5,
+   "hhi_latest": 0.112,
+   "exporters_latest": 202,
+   "top3_latest": [
+    {
+     "iso3": "TWN",
+     "name": "Taiwan",
+     "share": 0.206
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.147
+    },
+    {
+     "iso3": "MYS",
+     "name": "Malaysia",
+     "share": 0.116
+    }
+   ],
+   "caveat": null
+  },
+  "854232": {
+   "label": "Memory",
+   "value_musd": {
+    "2019": 145488.4,
+    "2020": 155926.6,
+    "2021": 205782.1,
+    "2022": 191764.6,
+    "2023": 152868.7,
+    "2024": 202330.9
+   },
+   "real_growth_pct": 13.3,
+   "nominal_growth_pct": 39.1,
+   "hhi_latest": 0.248,
+   "exporters_latest": 156,
+   "top3_latest": [
+    {
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "share": 0.375
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.278
+    },
+    {
+     "iso3": "TWN",
+     "name": "Taiwan",
+     "share": 0.137
+    }
+   ],
+   "caveat": null
+  },
+  "854239": {
+   "label": "Other integrated circuits",
+   "value_musd": {
+    "2019": 214892.6,
+    "2020": 228284.5,
+    "2021": 285238.8,
+    "2022": 340685.9,
+    "2023": 300994.3,
+    "2024": 300167.2
+   },
+   "real_growth_pct": 13.8,
+   "nominal_growth_pct": 39.7,
+   "hhi_latest": 0.187,
+   "exporters_latest": 201,
+   "top3_latest": [
+    {
+     "iso3": "TWN",
+     "name": "Taiwan",
+     "share": 0.369
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.172
+    },
+    {
+     "iso3": "SGP",
+     "name": "Singapore",
+     "share": 0.076
+    }
+   ],
+   "caveat": null
+  },
+  "854140": {
+   "label": "Photosensitive semiconductor devices",
+   "value_musd": {
+    "2019": 55919.8,
+    "2020": 57675.8,
+    "2021": 72802.8,
+    "2022": 87201.3,
+    "2023": 95492.6,
+    "2024": 77980.0
+   },
+   "real_growth_pct": 13.7,
+   "nominal_growth_pct": 39.4,
+   "hhi_latest": 0.247,
+   "exporters_latest": 179,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.473
+    },
+    {
+     "iso3": "VNM",
+     "name": "Viet Nam",
+     "share": 0.095
+    },
+    {
+     "iso3": "MYS",
+     "name": "Malaysia",
+     "share": 0.066
+    }
+   ],
+   "caveat": "Includes solar cells, which are most of the value, so this line follows solar more than it follows computing."
+  },
+  "280461": {
+   "label": "Silicon, 99.99% pure and above",
+   "value_musd": {
+    "2019": 3219.5,
+    "2020": 2691.2,
+    "2021": 4501.6,
+    "2022": 5859.5,
+    "2023": 4440.1,
+    "2024": 3625.7
+   },
+   "real_growth_pct": -8.2,
+   "nominal_growth_pct": 12.6,
+   "hhi_latest": 0.226,
+   "exporters_latest": 62,
+   "top3_latest": [
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.324
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.301
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.126
+    }
+   ],
+   "caveat": null
+  },
+  "280429": {
+   "label": "Rare gases (helium, neon, krypton, xenon)",
+   "value_musd": {
+    "2019": 1767.0,
+    "2020": 2112.3,
+    "2021": 2228.2,
+    "2022": 3483.6,
+    "2023": 3464.6,
+    "2024": 3334.2
+   },
+   "real_growth_pct": 53.8,
+   "nominal_growth_pct": 88.7,
+   "hhi_latest": 0.161,
+   "exporters_latest": 116,
+   "top3_latest": [
+    {
+     "iso3": "QAT",
+     "name": "Qatar",
+     "share": 0.309
+    },
+    {
+     "iso3": "DZA",
+     "name": "Algeria",
+     "share": 0.166
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.156
+    }
+   ],
+   "caveat": "Dominated by helium, not the neon used in lithography: the top exporters are Qatar, Algeria and the United States. The code cannot separate the two gases."
+  },
+  "811292": {
+   "label": "Gallium, germanium, indium, hafnium (one basket line)",
+   "value_musd": {
+    "2019": 611.6,
+    "2020": 506.4,
+    "2021": 599.2,
+    "2022": 789.6,
+    "2023": 1306.6,
+    "2024": 1105.9
+   },
+   "real_growth_pct": 47.4,
+   "nominal_growth_pct": 80.8,
+   "hhi_latest": 0.139,
+   "exporters_latest": 69,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.289
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.173
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.084
+    }
+   ],
+   "caveat": "One customs line for several metals at once, so a change here cannot be attributed to gallium or germanium alone."
+  },
+  "810320": {
+   "label": "Tantalum, unwrought and powder",
+   "value_musd": {
+    "2019": 461.5,
+    "2020": 444.8,
+    "2021": 484.5,
+    "2022": 697.6,
+    "2023": 385.7,
+    "2024": 340.2
+   },
+   "real_growth_pct": -39.9,
+   "nominal_growth_pct": -26.3,
+   "hhi_latest": 0.161,
+   "exporters_latest": 37,
+   "top3_latest": [
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.212
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.202
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.191
+    }
+   ],
+   "caveat": null
+  },
+  "850421": {
+   "label": "Liquid-dielectric transformers, up to 650 kVA",
+   "value_musd": {
+    "2019": 1681.4,
+    "2020": 1627.0,
+    "2021": 1741.7,
+    "2022": 2348.1,
+    "2023": 3327.7,
+    "2024": 4078.5
+   },
+   "real_growth_pct": 97.7,
+   "nominal_growth_pct": 142.6,
+   "hhi_latest": 0.071,
+   "exporters_latest": 127,
+   "top3_latest": [
+    {
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "share": 0.13
+    },
+    {
+     "iso3": "MEX",
+     "name": "Mexico",
+     "share": 0.126
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.125
+    }
+   ],
+   "caveat": "Liquid-dielectric (oil-filled) transformers only; dry-type transformers sit in other customs lines and are not counted here."
+  },
+  "850422": {
+   "label": "Liquid-dielectric transformers, 650 to 10,000 kVA",
+   "value_musd": {
+    "2019": 1773.7,
+    "2020": 1787.2,
+    "2021": 1983.8,
+    "2022": 2503.4,
+    "2023": 3690.9,
+    "2024": 4730.1
+   },
+   "real_growth_pct": 117.3,
+   "nominal_growth_pct": 166.7,
+   "hhi_latest": 0.086,
+   "exporters_latest": 122,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.187
+    },
+    {
+     "iso3": "MEX",
+     "name": "Mexico",
+     "share": 0.145
+    },
+    {
+     "iso3": "TUR",
+     "name": "T\u00fcrkiye",
+     "share": 0.116
+    }
+   ],
+   "caveat": null
+  },
+  "850423": {
+   "label": "Liquid-dielectric transformers, over 10,000 kVA",
+   "value_musd": {
+    "2019": 4311.3,
+    "2020": 4514.2,
+    "2021": 4308.1,
+    "2022": 4626.7,
+    "2023": 6852.0,
+    "2024": 9046.3
+   },
+   "real_growth_pct": 71.0,
+   "nominal_growth_pct": 109.8,
+   "hhi_latest": 0.091,
+   "exporters_latest": 87,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.227
+    },
+    {
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "share": 0.101
+    },
+    {
+     "iso3": "TUR",
+     "name": "T\u00fcrkiye",
+     "share": 0.095
+    }
+   ],
+   "caveat": null
+  },
+  "722511": {
+   "label": "Grain-oriented electrical steel, wide",
+   "value_musd": {
+    "2019": 2154.3,
+    "2020": 1900.1,
+    "2021": 2571.9,
+    "2022": 4201.5,
+    "2023": 4118.2,
+    "2024": 3267.7
+   },
+   "real_growth_pct": 23.6,
+   "nominal_growth_pct": 51.7,
+   "hhi_latest": 0.232,
+   "exporters_latest": 47,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.359
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.294
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.073
+    }
+   ],
+   "caveat": null
+  },
+  "722611": {
+   "label": "Grain-oriented electrical steel, narrow",
+   "value_musd": {
+    "2019": 514.2,
+    "2020": 482.3,
+    "2021": 730.9,
+    "2022": 959.5,
+    "2023": 991.1,
+    "2024": 757.2
+   },
+   "real_growth_pct": 20.0,
+   "nominal_growth_pct": 47.3,
+   "hhi_latest": 0.082,
+   "exporters_latest": 55,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.137
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.132
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.117
+    }
+   ],
+   "caveat": null
+  },
+  "740811": {
+   "label": "Copper wire, refined",
+   "value_musd": {
+    "2019": 13840.7,
+    "2020": 13370.2,
+    "2021": 20932.3,
+    "2022": 19943.8,
+    "2023": 20393.9,
+    "2024": 23916.6
+   },
+   "real_growth_pct": 40.8,
+   "nominal_growth_pct": 72.8,
+   "hhi_latest": 0.063,
+   "exporters_latest": 92,
+   "top3_latest": [
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.137
+    },
+    {
+     "iso3": "ARE",
+     "name": "United Arab Emirates",
+     "share": 0.104
+    },
+    {
+     "iso3": "BEL",
+     "name": "Belgium",
+     "share": 0.087
+    }
+   ],
+   "caveat": "Copper wire has many uses beyond data centres and grids."
+  }
+ },
+ "sources": [
+  "CEPII BACI (HS02) via baci.py",
+  "World Bank, US consumer price index"
+ ]
+}
