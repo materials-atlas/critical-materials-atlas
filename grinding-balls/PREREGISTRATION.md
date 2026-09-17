@@ -164,7 +164,7 @@ Run by `throughput.py` (committed before its first run); every number is in `out
 | Condition | Filed rule | Result |
 |---|---|---|
 | 1. Main effect | β in [0.4, 1.5], p < 0.05 | β = 0.35, 95% CI [−0.10, 0.79], p = 0.11 (Driscoll–Kraay p = 0.06); 206 country-years, 10 countries. **Fail** |
-| 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; two below 0.3 (Côte d'Ivoire, Brazil). **Fail** |
+| 2. Leave one country out | every β in [0.3, 1.7] | 0.19 (without Côte d'Ivoire) to 0.42; two below 0.3 (without Côte d'Ivoire, 0.19; without Brazil, 0.27). **Fail** |
 | 3. Cement horse race | β in band, Q the stronger regressor | β = 0.34 (out of band); Q t = 1.72 vs cement t = 0.16. **Fail** on the band |
 | 4. Placebo, HS 731815 | outside band or not significant | β = −0.29, p = 0.26. **Pass** |
 | 5. Australia, iron ore | iron-ore CI includes zero | Iron-ore β = −50.3, 95% CI [−85.6, −15.0], which excludes zero. **Fail as filed.** It rests on 7 annual changes: Australia was a net *exporter* of forged balls until 2017, so the control was unusable, and the filing did not anticipate that. |
@@ -205,8 +205,8 @@ estimate is identical after (b) and (c).
 
 **2026-09-17 — second adversarial review (the second engine, after publication).** No error in the
 code or the verdict. Corrected in the result section above: (a) leave-one-out has two estimates below
-0.3, not three; (b) the pooled-with-cast estimate is 0.397, which had been rounded to 0.40 and looked
-in band; (c) the levels relationship is described as an association, not a long-run link; (d) noise
+0.3, not three; (b) the pooled-with-cast estimate is 0.397; it was displayed as 0.40, which hid that it
+is below the 0.4 floor; (c) the levels relationship is described as an association, not a long-run link; (d) noise
 in imports widens the interval and does not bias β toward zero; only noise in ore milled does. The
 published page was corrected on the same points, plus: its title said imports "don't track" mining
 (the test only failed to validate them), it gave only the lower end of the interval, and it said
