@@ -442,6 +442,9 @@ happens, and at least once a quarter otherwise:
 - the published cube changes shape (new sources, materials, columns or measures);
 - a published finding, figure or explanation is corrected or withdrawn;
 - a new study is published, whatever its result.
+Before a release, `python reconcile/validate_fixtures.py` must pass on the maintainer's machine: it
+re-runs the trade engine from the raw UN Comtrade fixtures, which are not redistributed and so cannot
+run in public CI.
 Every release note lists its corrections first. A major version is reserved for a change a reader
 must act on (a removed dataset, a renamed identifier, a new licence).
 

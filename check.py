@@ -765,6 +765,27 @@ def check_withheld():
             fail('withheld', 'git tracks %s, which holds a withheld source (%s).'
                  % (rel, ', '.join(wh)))
 
+    # Same question for tracked text tables. The parquet scan above could not see
+    # reconcile/fixtures/raw/comtrade/*.csv.gz - 330k raw Comtrade declarations, public and inside
+    # every Zenodo archive v1.1-v1.4 - because they were gzipped CSV (untracked 17 Sep 2026). Raw
+    # declarations carry no 'source' column, so recognise them by shape: reporter + partner.
+    try:
+        tables = subprocess.run(['git', 'ls-files', '*.csv', '*.csv.gz', '*.tsv', '*.tsv.gz'],
+                                cwd=ROOT, capture_output=True, text=True, timeout=60).stdout.split()
+    except Exception:
+        tables = []
+    for rel in tables:
+        p = os.path.join(ROOT, rel)
+        if not os.path.exists(p):
+            continue
+        try:
+            cols = {str(c).lower() for c in pd.read_csv(p, nrows=2, sep=None, engine='python').columns}
+        except Exception:
+            continue
+        if {'reporter', 'partner'} <= cols or {'reportercode', 'partnercode'} <= cols or 'netwgt' in cols:
+            fail('withheld', 'git tracks %s, which has the shape of raw customs declarations '
+                             '(reporter/partner/netwgt). Untrack it and add it to .gitignore.' % rel)
+
     g = os.path.join(ROOT, 'out', 'sdmx', 'mineral_flows.sdmx.csv.gz')
     if os.path.exists(g):
         import gzip
@@ -773,6 +794,22 @@ def check_withheld():
             if w in head:
                 fail('withheld', 'the SDMX export contains withheld source ' + w)
 
+
+
+def check_engine():
+    """The trade engine still reproduces BACI from raw Comtrade (reconcile/validate_fixtures.py).
+
+    This leg ran in public CI until 17 Sep 2026. The raw fixtures are no longer redistributed, so it
+    runs here, where they live. On a clone without them it is skipped with a warning, not failed.
+    """
+    raw = os.path.join(ROOT, 'reconcile', 'fixtures', 'raw', 'comtrade', 'comtrade_2024.csv.gz')
+    if not os.path.exists(raw):
+        WARN.append('engine: raw Comtrade fixtures absent (public clone) - engine gate skipped')
+        return
+    r = subprocess.run([sys.executable, os.path.join('reconcile', 'validate_fixtures.py')], cwd=ROOT,
+                       capture_output=True, text=True, encoding='utf-8', timeout=600)
+    if r.returncode:
+        fail('engine', (r.stdout + r.stderr).strip().splitlines()[-1])
 
 
 def check_baci_door():
@@ -951,7 +988,7 @@ def check_stale():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld_src', check_withheld), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
