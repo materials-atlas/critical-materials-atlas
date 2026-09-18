@@ -23,6 +23,7 @@ REPO = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/bu
 DOC = os.path.join(ROOT, 'out', 'buildout_study.json')
 EXPL = os.path.join(ROOT, 'buildout-study', 'exploratory_electrical_boom.json')
 EU = os.path.join(ROOT, 'out', 'buildout_eu.json')                    # amendment B
+US = os.path.join(ROOT, 'out', 'buildout_us.json')                    # amendment C
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -156,9 +157,11 @@ def main():
     d = json.load(io.open(DOC, encoding='utf-8'))
     x = json.load(io.open(EXPL, encoding='utf-8'))
     eud = json.load(io.open(EU, encoding='utf-8'))
+    usd = json.load(io.open(US, encoding='utf-8'))
     _collect(d)
     _collect(x)
     _collect(eud)
+    _collect(usd)
     D, C = d['designs'], d['checks']
     B, Cn, Cg = D['B_transformers'], D['C_net_of_materials'], D['C_goes_only']
     bp2, pp2, vp2 = coef(B['price'], 'TxP2')
@@ -245,6 +248,19 @@ def main():
     eu_years = ', '.join('%s %s (p&nbsp;%s)' % (y, pct(evc[y]['beta']), fp(evc[y]['p_wild_line']))
                          for y in ('2023', '2024', '2025', '2026'))
 
+    UT, UC = usd['tests'], usd['checks']
+    us_rows = ''.join(eurow(lab, UT[k]) for lab, k in (
+        ('vs motors, pumps, compressors &mdash; value per unit', 'c_vs_motors_pumps_compressors_per_unit'),
+        ('vs the filed comparison machinery &mdash; value per unit', 'a_vs_filed_machinery_per_unit')))
+    ug = UC['goes_us_imports']
+    us_goes = ''.join('<tr><td>%s</td><td class="n">$%.0fm</td><td class="n">%s</td><td>%s</td></tr>'
+                      % (y + (' (Jan&ndash;Jul)' if y == '2026' else ''), v['value_musd'],
+                         '%.1f%%' % (100 * v['china_value_share']),
+                         ', '.join('%s %s' % (c.title().replace('Korea, South', 'South Korea'), sh(x)) for c, x in v['top3_value']))
+                      for y, v in ug.items())
+    uo = UC['own_value_per_unit_rel_2019']
+    ucmax = max(v['china_value_share'] for y, v in ug.items() if int(y) >= 2021)
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -290,6 +306,11 @@ def main():
         'CHN23Vp': fp(coef(C['exporter_China']['B_volume'], 'TxP2')[1]),
         'COMDE': '%.2f' % C['contaminated_controls']['price']['coefs']['TxP2']['mde_80'],
         'MDEPCT': pct_raw(vp2['mde_80']),
+        'USROWS': us_rows, 'USGOES': us_goes, 'USNFY': format(usd['sample_flow_years'], ','),
+        'USCMAX': '%.1f%%' % (100 * ucmax),
+        'USOWNT25': pct_raw(uo['transformers']['2025']),
+        'USOWNM24': pct_raw(uo['motors_pumps_compressors']['2024']),
+        'USOWNM25': pct_raw(uo['motors_pumps_compressors']['2025']),
         'EUROWS': eu_rows, 'EUGOES': eu_goes, 'EUYEARS': eu_years,
         'EUMONTHS': str(eud['months_on_disk']), 'EUNFY': format(eud['sample_flow_years'], ','),
         'EUC19': sh(eg['2019']['china_share']), 'EUC25': sh(eg['2025']['china_share']),
@@ -388,7 +409,9 @@ not prices; they track the US transformer producer price index only moderately. 
 records, which run to July 2026, show the transformer rise relative to heavy machinery continuing through
 2025 and January&ndash;July 2026, still not distinguishable from other electrical goods, with no sign that
 transformers shifted to heavier units; and China's share of the value of EU imports of grain-oriented
-electrical steel from outside the EU rising from @@EUC19@@ in 2019 to @@EUC25@@ in 2025.</div>
+electrical steel from outside the EU rising from @@EUC19@@ in 2019 to @@EUC25@@ in 2025. US imports, also
+to July 2026, show the same lack of a transformer-specific signal, and almost none of their electrical
+steel from China: Japan and South Korea supply most of it.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -538,6 +561,28 @@ and 2023, third in 2022, and first from 2024. The three largest partners' share 
 that year; in 2019 they were Japan, Russia and the United States &mdash; rose from @@EUT19@@ to @@EUT25@@.
 This is the EU's view of its own imports by value, not world exports and not EU consumption.</p>
 
+<h3>4.7 US imports to July 2026</h3>
+<p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
+Bureau, January 2012 to July 2026, at the ten-digit level: @@USNFY@@ origin&ndash;line flow-years. The
+comparison goods are recorded only as counts of units, so the US test is value per unit. A count weighs a
+small distribution transformer and a large power transformer alike, which makes the series noisy, and the
+pre-trend rule fails for every US comparison.</p>
+<div class="tbl"><table><thead><tr><th>Transformers, US imports</th><th class="n">2021&ndash;22</th>
+<th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
+<tbody>@@USROWS@@</tbody></table></div>
+<p>Nothing is distinguishable from the comparison goods. Within flows, transformers' own value per unit
+was @@USOWNT25@@ in 2025 relative to 2019, and motors, pumps and compressors' own value per unit was
+@@USOWNM24@@ in 2024 and @@USOWNM25@@ in 2025: in US imports, too, electrical goods rose together. The filed
+weight test could not be run, because the Census records the kilograms of transformer imports only from
+2026.</p>
+<div class="tbl"><table><thead><tr><th>Value of US imports of GOES</th><th class="n">value</th><th class="n">China</th>
+<th>three largest origins</th></tr></thead>
+<tbody>@@USGOES@@</tbody></table></div>
+<p>Almost none of the grain-oriented electrical steel the United States imports comes from China &mdash;
+at most @@USCMAX@@ of the value in any year since 2021 &mdash; and most of it comes from Japan and South
+Korea. This is imports only; the United States also makes some of its own. The
+concentration of world exports in China, and of the EU's imports, does not reach US imports.</p>
+
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
 lay outside &plusmn;0.05 log points of 2019 (for transformer unit values, every year from 2014 to 2017).
@@ -586,7 +631,8 @@ headline procedure, the electrical-steel figures were widened to both customs li
 variant was added, and the comparison with other electrical goods was moved into the main text. That
 version was checked again by all three, and the EU extension in section 4.6 was reviewed by all three
 before this version; their review withdrew its first reading that transformers had become heavier. Eleven dated deviations are logged in the filing. The EU extension was filed separately, before its
-data were downloaded, and records eight further dated entries.</p>
+data were downloaded, and records eight further dated entries; the US extension was filed before its
+data were pulled and records two, including a weight test that turned out not to be runnable.</p>
 
 <h2>References</h2>
 <ol class="refs">@@REFS@@</ol>
