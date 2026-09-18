@@ -832,7 +832,9 @@ def check_baci_door():
     # STRING for the holdings record and never opens it. So: flag a ZipFile() anywhere (the only
     # legitimate one on BACI is extract_baci.py), and an open()/read_csv() whose argument text
     # names a raw/baci file. Both are how a door looks in source.
-    door = re.compile(r"ZipFile[(]|(?:open|read_csv|read_parquet)[(][^)]*(?:raw['\"]?[ ]*,[ ]*['\"]baci|raw/baci|country_codes_V202601|product_codes_HS)")
+    door = re.compile(r"(?<!Seven)ZipFile[(]|(?:open|read_csv|read_parquet)[(][^)]*(?:raw['\"]?[ ]*,[ ]*['\"]baci|raw/baci|country_codes_V202601|product_codes_HS)")
+    # (?<!Seven): py7zr.SevenZipFile opens Eurostat's 7z archives (buildout-study/fetch_comext.py),
+    # never BACI's zips; without the lookbehind the substring 'ZipFile(' flagged it.
     pat = door
     offenders = []
     for dirpath, dirnames, files in os.walk(ROOT):
