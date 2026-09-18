@@ -157,6 +157,16 @@ def main():
     tr = p6[p6.k.isin(T)]
     C['kg_coverage_transformers'] = {int(y): round(float((g.kg > 0).mean()), 3) for y, g in tr.groupby('year')}
     C['goes_us_imports'] = goes(d)
+    # Deviation 5: the composition-break check the filing carried over from amendment B, in the code.
+    # Which ten-digit codes and which first-quantity units each study line reports, by year.
+    brk = {}
+    for k6, g in d.groupby('k'):
+        codes = g.groupby('year').I_COMMODITY.apply(lambda x: sorted(set(x)))
+        units = g.groupby('year').UNIT_QY1.apply(lambda x: sorted(set(x)))
+        changes = [int(y) for y, prev in zip(codes.index[1:], codes.values[:-1]) if codes[y] != prev]
+        brk[k6] = {'code_changes_in_years': changes, 'n_codes_first_last': [len(codes.iloc[0]), len(codes.iloc[-1])],
+                   'unit_changes_in_years': [int(y) for y, prev in zip(units.index[1:], units.values[:-1]) if units[y] != prev]}
+    C['composition_breaks'] = brk
     # Deviation 4, descriptive, after review: where US transformer imports come from, because most GOES
     # used in the US is not imported as steel but arrives inside imported cores and transformers.
     tt = d[d.k.isin(T) & (d.year >= 2019)]
