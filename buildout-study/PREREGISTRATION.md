@@ -157,6 +157,37 @@ literature review. Changes:
    transformer size classes are estimated separately.
 10. **No suppression.** The draft's "not significant, not shown" became: every estimate is printed.
 
+## Result - run 2026-09-18
+
+Run by `analysis.py` (committed before its first run on real data); every number is in
+`out/buildout_study.json`, and the full exposition is the paper built from it. Sample: 283,029
+flow-years; 4,425 dropped by the unit-value band.
+
+| Design | Price gap 2021-22 | Price gap 2023-24 | Volume gap 2021-22 | Volume gap 2023-24 |
+|---|---|---|---|---|
+| B. Transformers vs heavy capital goods | +0.028 (+3%, p = 0.106) | +0.178 (+20%, p = 0.011) | +0.025 (+3%, p = 0.500) | +0.160 (+17%, p = 0.011) |
+| C. Transformers net of GOES and copper | -0.070 (-7%, p = 0.015) | +0.116 (+12%, p = 0.018) | - | - |
+| A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.514) | +0.109 (+12%, p = 0.074) | -0.068 (-7%, p = 0.173) | -0.035 (-4%, p = 0.648) |
+| A. Copper wire vs cathode (exporter-clustered, deviation 1) | -0.041 (-4%, p = 0.023) | -0.015 (-1%, p = 0.414) | +0.032 (+3%, p = 0.752) | +0.153 (+17%, p = 0.267) |
+
+**Reading, by the filed table.** For transformers in 2023-24, price and volume both rose relative to the
+controls: demand rose along an upward-sloping traded supply, with the price gap about
+1.1 times the volume gap. In 2021-22 neither moved. Net of steel and copper, the 2023-24
+gap keeps 65% of its size, so by the filed rule it is **not explained by those two materials
+alone**; in 2021-22 the net gap is negative, so over that period materials more than account for it.
+
+**The filed pre-trend rule failed for every design** (years outside ±0.05 log points: see
+`checks.pretrend_rule`), so difference-in-differences language is withdrawn. The transformer result is
+described as a relative pattern: transformer unit values relative to the controls fell from
++0.15 in 2012 to 0 in 2019 and then rose to +0.26 in 2024; relative volumes were
+-0.16 in 2012, flat from 2018, and +0.17 in 2024. That is a reversal of a decline, and the
+average-gap coefficients above understate the size of the turn and overstate how clean it is.
+
+The GOES placebo fails (+0.221, p = 0.024 in the fake 2015-16 period), so the GOES price
+series moves this much in ordinary years and its 2023-24 gap is not read as a signature. The unit
+values of US transformer imports track the BLS producer price index only moderately (correlation of
+annual changes 0.43); every price result carries that weakness.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
@@ -172,3 +203,14 @@ Every change made after this filing goes here, dated, with its reason.
    residuals, Webb six-point weights) and compares the absolute estimated coefficient with the
    distribution of bootstrap coefficients; the reported interval inverts the same distribution. The
    smallest detectable effect is 2.8 times the bootstrap standard error.
+
+1. **2026-09-18 - copper wire could not take the line bootstrap.** Design A's copper comparison is one
+   treated line against one control line; a wild cluster bootstrap by line needs more than two
+   clusters. It is estimated with the same equation and exporter-clustered errors only, labelled as
+   such everywhere it appears. Found on the first real run, when the estimator returned nothing.
+2. **2026-09-18 - exporter-clustered errors with one exporter.** The China-only exporter split has one
+   exporter, so exporter clustering is undefined; those errors are reported as unavailable and the
+   line bootstrap stands alone there. A crash fix, found on the first real run.
+3. **2026-09-18 - the pre-trend rule was tested on synthetic data before the real run** and shown to be
+   crossed by noise alone at realistic line-year shocks. It was kept as filed rather than loosened,
+   and it failed on the real data; see the result above.
