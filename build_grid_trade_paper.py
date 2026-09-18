@@ -257,6 +257,10 @@ def main():
         'CHIPTOP': ', '.join('%s (%s)' % (NAMES.get(i, i), sh(s)) for i, s in chip['2024']['top3']),
         'CHN21V': pct(coef(C['exporter_China']['B_volume'], 'TxP1')[0]),
         'CHN21Vp': fp(coef(C['exporter_China']['B_volume'], 'TxP1')[1]),
+        'CHN23V': pct(coef(C['exporter_China']['B_volume'], 'TxP2')[0]),
+        'CHN23Vp': fp(coef(C['exporter_China']['B_volume'], 'TxP2')[1]),
+        'COMDE': '%.2f' % C['contaminated_controls']['price']['coefs']['TxP2']['mde_80'],
+        'MDEPCT': pct_raw(vp2['mde_80']),
         'REFS': refs, 'REPO': REPO,
     }
     for k in REFNUM:
@@ -328,15 +332,14 @@ TEMPLATE = """<!doctype html>
 <div class="abstract"><b>Abstract.</b> Official sources record transformer lead times rising from under
 a year before 2020 to about three years by 2024. We set out to test, in world trade data, whether the
 build-out showed up in transformer prices or volumes. The test was pre-registered; its pre-trend rule
-failed, and review showed that the result is not specific to transformers, so this is a descriptive
-note. From @@NFY@@ exporter&ndash;importer&ndash;product flow-years (CEPII BACI, 2012&ndash;2024), four things
-can be said. <b>Goods that share the demand of electrification</b> &mdash; transformers, and electric
-motors, pumps and compressors &mdash; rose in unit value and in tonnes relative to a set of heavy machinery
-(lifts, cranes, crushers, concrete mixers and welding machines) after 2020. <b>Transformers rose more than
-motors, pumps and compressors taken together</b>: in 2023&ndash;24 their unit values stood @@BP2@@ and their
-tonnes @@BV2@@ above that machinery, against @@ELP@@ and @@ELV@@; but the part specific to transformers
-(@@COP@@ in unit value, p&nbsp;=&nbsp;@@COPp@@) is at the edge of what these data can detect. <b>How much is the
-cost of steel and copper</b> cannot be settled here. And <b>world exports of grain-oriented electrical
+failed, and review showed that the result could not be shown to be specific to transformers, so this
+is a descriptive note. From @@NFY@@ exporter&ndash;importer&ndash;product flow-years (CEPII BACI, 2012&ndash;2024): relative
+to a filed set of heavy machinery (lifts, cranes, crushers, concrete mixers and welding machines),
+transformer unit values in 2023&ndash;24 stood @@BP2@@ and tonnes @@BV2@@ above their 2012&ndash;2020 average,
+against a design that could reliably detect only gaps of about @@MDEPCT@@. Against electric motors, pumps
+and compressors, which share the demand of electrification, the transformer gap is @@COP@@ and its
+interval includes zero, so the data cannot say whether any of the rise is specific to transformers. How
+much of it is the cost of steel and copper cannot be settled here either. And <b>world exports of grain-oriented electrical
 steel</b>, the core of every transformer, concentrated: China's share of export value rose from @@G19C@@ to
 @@G24C@@ and the three largest exporters' from @@G19T@@ to @@G24T@@ between 2019 and 2024. Unit values are
 not prices; they track the US transformer producer price index only moderately.</div>
@@ -415,8 +418,8 @@ to answer the referees' question directly and are labelled wherever they appear.
 also rose relative to the filed comparison machinery: @@ELP@@ in unit value (p&nbsp;=&nbsp;@@ELPp@@) and
 @@ELV@@ in tonnes (p&nbsp;=&nbsp;@@ELVp@@). Transformers rose about twice as much as those goods taken
 together. Measured directly against them, the transformer gap is @@COP@@ in unit value
-(p&nbsp;=&nbsp;@@COPp@@) and @@COV@@ in tonnes (p&nbsp;=&nbsp;@@COVp@@), with intervals that include zero. The
-honest reading is that goods sharing the demand of electrification gained on other heavy machinery after
+(p&nbsp;=&nbsp;@@COPp@@) and @@COV@@ in tonnes (p&nbsp;=&nbsp;@@COVp@@), with intervals that include zero; that comparison could reliably detect only a gap of about
+@@COMDE@@ log points, larger than the estimate. The honest reading is that goods sharing the demand of electrification gained on other heavy machinery after
 2020, transformers more than the others, and that nine customs lines cannot establish how much of the
 transformer excess is specific to transformers.
 The three transformer size classes point the same way (@@PL21@@) but none is distinguishable from zero on
@@ -440,7 +443,7 @@ and delivery, which means 2023&ndash;24 shipments may have been priced on earlie
 <p>This is the clearest fact in the trade record, and it does not depend on unit values or on any
 comparison group; the shares are shares of export value. Between 2019 and 2024 China's share of world GOES
 exports rose from @@G19C@@ to @@G24C@@, Russia's fell
-from @@G19R@@ to @@G24R@@ after sanctions, and Japan's stayed near a quarter (@@G19J@@ and @@G24J@@). The
+from @@G19R@@ to @@G24R@@ (its GOES exports have been under sanctions@@C_IEA2023@@), and Japan's stayed near a quarter (@@G19J@@ and @@G24J@@). The
 number of exporters with more than 1% of the market fell from @@G19N@@ to @@G24N@@ and the three largest
 went from @@G19T@@ to @@G24T@@. The price of GOES in trade, by contrast, cannot be read: in a placebo
 period, 2015&ndash;16, its unit value moved by @@GPL@@ (p&nbsp;=&nbsp;@@GPLp@@) relative to other alloy steel,
@@ -451,8 +454,9 @@ so its post-2021 movements are within its normal swings.</p>
 <tbody>@@IMPROWS@@</tbody></table></div>
 <p>The intervals for single importing regions are wide; the US tonnage estimate in particular runs from
 @@USVL@@ to @@USVH@@. They are shown as heterogeneity, not as findings. One exporter
-result is also worth recording: flows from China fell in tonnes in 2021&ndash;22 (@@CHN21V@@,
-p&nbsp;=&nbsp;@@CHN21Vp@@).</p>
+result is also worth recording: relative to the comparison machinery, transformer tonnes from China were
+@@CHN21V@@ in 2021&ndash;22 (p&nbsp;=&nbsp;@@CHN21Vp@@) and @@CHN23V@@ in 2023&ndash;24
+(p&nbsp;=&nbsp;@@CHN23Vp@@).</p>
 
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
@@ -480,10 +484,8 @@ electrical goods, so none bears on the transformer-specific question.</li>
 <li>Nothing about domestic production: a country that builds its own transformers never appears in trade.</li>
 <li>Not whether supply was constrained, or by what &mdash; factories, electrical steel, labour or permitting.</li>
 <li>Not causal.</li>
-<li>Chip-making equipment was never tested (its value per tonne measures which machines were shipped). For
-the record, world exports of machines for making semiconductor devices (8486.20) were $@@CHIP17@@bn in
-2017 and $@@CHIP24@@bn in 2024, read in the HS 2017 nomenclature because the code does not exist in HS
-2002; the largest exporters in 2024 were @@CHIPTOP@@.</li>
+<li>Nothing about chip-making equipment, which was dropped from the design because its value per tonne
+measures which machines were shipped rather than their price.</li>
 </ul>
 
 <h2>7. What would settle it</h2>
