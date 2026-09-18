@@ -76,6 +76,7 @@ def one(line, year):
                 'time': 'from %d-01 to %d-%02d' % (year, year, last_m), 'key': key()})
     if rows:
         d = pd.DataFrame(rows[1:], columns=rows[0])
+        d = d.loc[:, ~d.columns.duplicated()]                 # the API echoes filter fields as columns
         d['month'] = d['time'].str.replace('-', '')
     else:
         d = pd.DataFrame(columns=FIELDS + ['time', 'month'])
