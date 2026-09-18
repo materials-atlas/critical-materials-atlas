@@ -55,7 +55,7 @@ Customs value excludes duties, so tariff changes enter only through what exporte
 policy changed repeatedly over the period and is not separated from anything else. Counts of units say
 nothing about rating within a ten-digit code. Not causal. 2026 is seven months.
 
-## Result - run 2026-09-18 (after deviations 1-4)
+## Result - run 2026-09-18 (after deviations 1-5)
 
 Run by `analysis_us.py`; every number is in `out/buildout_us.json`. 175 months, January 2012 to
 2026-07; US general imports from 190 origin countries;
@@ -120,6 +120,18 @@ reported beside it (deviation 4, descriptive):
 | 2025 | 7491 | Mexico 29%, Korea, South 22%, Brazil 9% | 3.5% |
 | 2026 | 4507 | Mexico 30%, Korea, South 18%, Brazil 9% | 4.5% |
 
+By weight the picture is the same: China's share of the kilograms of direct US GOES imports was at most
+1.1% in any year from 2021. Direct GOES imports in 2025 (64 million dollars,
+19933 tonnes) were about half their 2023-24 level; this report does not say why.
+
+**Composition check (deviation 5).** Across 2012-2026 no study line changes its ten-digit codes or its unit
+of quantity, except 8504.23, which was split from one ten-digit code into two in 2013-14, inside the
+pre-period; the transformer lines therefore run on ten ten-digit codes, not the nine the filing stated.
+
+**In hindsight.** A count of units was a weak basis for the headline: the filing could have made value per
+unit within ten-digit rating classes the headline and kept the six-digit version as the sensitivity. That
+is recorded here rather than changed, because the filing came first.
+
 Nothing here says why China's share of direct GOES imports is so small - tariffs, trade remedies, supply
 relationships and domestic supply are all candidates and none is tested.
 
@@ -143,3 +155,7 @@ Every change made after this filing goes here, dated, with its reason.
    0.15 Mt; the single domestic producer meets 12-20% of demand). Most GOES used in the US therefore
    arrives inside imported cores and transformers. The origins of US transformer imports (8504.21-.23) are
    now reported so that the GOES table is not read as the whole of US exposure. Descriptive, unfiled.
+5. **2026-09-18, after review - the composition-break check put in the code.** The filing said it carried
+   over amendment B's check for composition breaks; the first run did not contain one (the fact-checker
+   ran it by hand). It is now in `analysis_us.py` (`checks.composition_breaks`) and finds one change, the
+   2013-14 split of 8504.23, inside the pre-period. The filing's "nine ten-digit codes" is corrected to ten.
