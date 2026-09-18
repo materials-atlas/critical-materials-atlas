@@ -160,3 +160,15 @@ literature review. Changes:
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+**2026-09-18, before any estimate - two details the filing left open, fixed now.**
+1. **Design C uses real input prices.** Year effects absorb general inflation for every flow, so
+   subtracting nominal steel and copper prices from treated flows alone would also subtract a quarter
+   of general inflation from them twice over. The GOES world unit value and the copper price are
+   therefore deflated by the US consumer price index (World Bank FP.CPI.TOTL, saved in
+   `buildout-study/inputs/us_cpi_worldbank.csv`) before the adjustment, so it removes only input-cost movement
+   relative to prices in general.
+2. **The bootstrap statistic.** The wild cluster bootstrap by line imposes the null (restricted
+   residuals, Webb six-point weights) and compares the absolute estimated coefficient with the
+   distribution of bootstrap coefficients; the reported interval inverts the same distribution. The
+   smallest detectable effect is 2.8 times the bootstrap standard error.

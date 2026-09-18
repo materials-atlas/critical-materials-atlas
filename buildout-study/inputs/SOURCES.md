@@ -1,0 +1,2 @@
+- bls_wpu117409_annual.csv: BLS PPI WPU117409, power and distribution transformers except parts, Dec 1999=100; mean of 12 monthly values; fetched 2026-09-18 from api.bls.gov (v1, POST). US government work, public domain.
+- us_cpi_worldbank.csv: World Bank FP.CPI.TOTL, United States, 2010=100; fetched 2026-09-18 from api.worldbank.org. CC BY 4.0.
