@@ -60,8 +60,9 @@ def panel(d, level='k'):
     g['flow'] = g.CTY_CODE + '|' + g[level]
     g['exp'] = g.CTY_CODE                                         # cluster: origin country
     g['lpu'] = np.log(g.pu)
-    g['lkpu'] = np.where(g.kg > 0, np.log(g.kg / g.n), np.nan)
-    g['lvkg'] = np.where(g.kg > 0, np.log(g.v / g.kg), np.nan)
+    with np.errstate(divide='ignore', invalid='ignore'):
+        g['lkpu'] = np.where(g.kg > 0, np.log(g.kg / g.n), np.nan)
+        g['lvkg'] = np.where(g.kg > 0, np.log(g.v / g.kg), np.nan)
     return g.reset_index(drop=True)
 
 
@@ -131,8 +132,13 @@ def main():
     C['transformers_own_kg_per_unit_rel_2019_hs10'] = own_path(p10, t10, 'lkpu')
     C['transformers_own_value_per_kg_rel_2019_hs10'] = own_path(p10, t10, 'lvkg')
     kp = C['transformers_own_kg_per_unit_rel_2019_hs10']
-    C['test2_reading'] = ('partly heavier units' if max(kp.get('2025', 0), kp.get('2026', 0)) > 0.10
-                          else 'heavier units do not explain it')
+    # Deviation 2: never read a rule off a missing path. Census reports the kilograms of transformer
+    # imports only from 2026, so a 2019-based path cannot exist and the filed weight test cannot run.
+    if '2025' in kp and '2026' in kp:
+        C['test2_reading'] = ('partly heavier units' if max(kp['2025'], kp['2026']) > 0.10
+                              else 'heavier units do not explain it')
+    else:
+        C['test2_reading'] = 'not runnable: kilograms reported only from 2026'
     C['event_study'] = {
         'c_per_unit': an.event_study(p6, 'lpu', {'lines': T, 'controls': CON}, None, label='US ev c'),
         'a_per_unit': an.event_study(p6, 'lpu', {'lines': T, 'controls': CAP}, None, label='US ev a'),

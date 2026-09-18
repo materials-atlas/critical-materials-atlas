@@ -58,3 +58,11 @@ nothing about rating within a ten-digit code. Not causal. 2026 is seven months.
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+1. **2026-09-18, after the first run - the weight test cannot be run.** The Census API reports the
+   second quantity (kilograms) for transformer imports only from January 2026; every month from 2012 to
+   2025 carries zero. The filed test of transformers' own kilograms per unit therefore has no 2019 base
+   and no 2025, and cannot be run. Found on the first run.
+2. **2026-09-18, after the first run - a default reading removed.** The first run's code turned the
+   missing path into the reading "heavier units do not explain it". A rule must never be read off data
+   that do not exist; the code now reports the test as not runnable. No other number depended on it.
