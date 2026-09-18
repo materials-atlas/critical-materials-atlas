@@ -74,6 +74,64 @@ years, and the count is reported with each result.
 US Census monthly imports and UN Comtrade monthly data for other reporters are left for a later
 amendment, filed before they are pulled.
 
+## Result - run 2026-09-18
+
+Run by `analysis_eu.py` (committed before its first run on the downloaded data); every number is in
+`out/buildout_eu.json`. 175 months, January 2012 to 2026-07;
+92,422 extra-EU flow-years after the filed sample rules.
+
+| Comparison | 2021-22 | 2023-24 | 2025 | 2026 Jan-Jul |
+|---|---|---|---|---|
+| (c) vs motors, pumps, compressors - unit value per tonne **(headline)** | +0.007 (+1%, p = 0.846) | +0.135 (+14%, p = 0.111) | +0.176 (+19%, p = 0.079) | +0.133 (+14%, p = 0.169) |
+| (c) vs motors, pumps, compressors - tonnes | -0.095 (-9%, p = 0.079) | +0.100 (+11%, p = 0.418) | +0.120 (+13%, p = 0.514) | +0.380 (+46%, p = 0.111) |
+| (c) vs motors, pumps, compressors - value per item | +0.250 (+28%, p = 0.081) | +0.465 (+59%, p = 0.064) | +0.497 (+64%, p = 0.068) | +0.565 (+76%, p = 0.059) |
+| (a) vs filed machinery - unit value per tonne | +0.004 (+0%, p = 0.881) | +0.180 (+20%, p = 0.040) | +0.250 (+28%, p = 0.042) | +0.249 (+28%, p = 0.037) |
+| (a) vs filed machinery - tonnes | +0.021 (+2%, p = 0.643) | +0.241 (+27%, p = 0.042) | +0.309 (+36%, p = 0.029) | +0.486 (+63%, p = 0.044) |
+| (b) vs construction only - unit value per tonne | +0.018 (+2%, p = 0.515) | +0.204 (+23%, p = 0.028) | +0.279 (+32%, p = 0.036) | +0.285 (+33%, p = 0.025) |
+| (b) vs construction only - tonnes | +0.024 (+2%, p = 0.650) | +0.237 (+27%, p = 0.047) | +0.315 (+37%, p = 0.032) | +0.460 (+58%, p = 0.071) |
+| (c) at eight digits - unit value per tonne | +0.025 (+2%, p = 0.384) | +0.147 (+16%, p = 0.037) | +0.194 (+21%, p = 0.033) | +0.143 (+15%, p = 0.069) |
+| (c) at eight digits - value per item | +0.167 (+18%, p = 0.039) | +0.362 (+44%, p = 0.035) | +0.359 (+43%, p = 0.031) | +0.446 (+56%, p = 0.036) |
+
+**Test 1, by the filed reading: still not distinguishable.** Against motors, pumps and compressors, the
+transformer unit-value gap is positive in every post period after 2022, but no period's interval
+excludes zero. Year by year: 2023 +0.16 (p 0.088), 2024 +0.16 (p 0.075), 2025 +0.20 (p 0.069), 2026 +0.16 (p 0.101). The filed pre-trend rule **passes** for this comparison (no year from
+2014 to 2018 outside +/-0.05), as it does for comparison (a) - unlike in the world data - so these are
+clean relative comparisons; they are simply not precise enough to clear the filed bar with seven customs
+lines. Against the filed machinery and against construction machinery alone, the transformer rise
+continued and grew into 2025 and 2026, in unit value and in tonnes, and all but one of those gaps
+clear it (construction-only tonnes in 2026: p = 0.071).
+
+**Test 2, by the filed rule: product mix is moving.** Against the same electrical goods, value per
+transformer rose far more than value per tonne (+0.46 against +0.14 in 2023-24). The two differ
+materially, so the per-tonne gap is not read as price: the average transformer the EU trades became
+heavier - larger units - and part of what looked like a price rise per tonne is a shift in what is
+shipped. The filed "less than half" rule was written for the opposite case (per-item rising less) and
+does not apply; the general rule in the same paragraph does. Item counts are reported for 97% to 100% of
+transformer flow-years in every year (`checks.per_item_coverage`).
+
+**Test 3: the EU's electrical-steel imports from outside the EU.**
+
+| Year | EUR m | China | Japan | Russia | Korea | top 3 | partners >1% |
+|---|---|---|---|---|---|---|---|
+| 2019 | 162 | 9% | 34% | 19% | 16% | 71% | 6 |
+| 2020 | 151 | 16% | 36% | 19% | 19% | 74% | 7 |
+| 2021 | 194 | 27% | 36% | 18% | 11% | 81% | 6 |
+| 2022 | 410 | 27% | 29% | 28% | 8% | 84% | 6 |
+| 2023 | 458 | 36% | 47% | 3% | 4% | 87% | 8 |
+| 2024 | 418 | 52% | 33% | 0% | 9% | 93% | 5 |
+| 2025 | 547 | 57% | 32% | 0% | 5% | 94% | 5 |
+| 2026 | 336 | 52% | 33% | 0% | 11% | 96% | 4 |
+
+China replaced Russia as the EU's second source and then became its first: from 9% of the value of EU
+GOES imports from outside the EU in 2019 to 52% in 2024 and 57% in 2025, while Russia went from 19% to
+none. This is the EU's view of its own imports, and 2026 is January to July.
+
+**Intra-EU sensitivity (filed).** On trade between member states, the transformer gap against motors,
+pumps and compressors is +0.327 (p = 0.039) in 2023-24,
++0.387 (p = 0.039) in 2025 and +0.406
+(p = 0.040) in 2026. It is a sensitivity, not the headline: intra-EU
+quantities are reported under different rules and thresholds, which is why the filing kept them out.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
