@@ -43,6 +43,7 @@ def load(trade_type='E'):
              sum(case when SUPPL_UNIT <> 'NO_SU' then try_cast(QUANTITY_SUPPL_UNIT as double) end) as n_items,
              count(distinct PERIOD) as months
       from read_parquet(?) where TRADE_TYPE = ? and FLOW in ('1','2')
+        and cast(substr(PERIOD,5,2) as int) between 1 and 12   -- never the YYYY52 yearly totals
       group by all"""
     d = con.execute(q, [DATA.replace('\\', '/'), trade_type]).df()
     months = con.execute("select count(distinct PERIOD) from read_parquet(?)", [DATA.replace('\\', '/')]).fetchone()[0]

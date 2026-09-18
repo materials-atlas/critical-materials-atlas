@@ -180,3 +180,7 @@ extract/
 # runner.py stat cache: (size, mtime) keys are per-machine. The BASELINE (_runner_state.json)
 # is committed; this is not.
 _runner_cache.json
+
+# amendment B: filtered Eurostat months, rebuilt by buildout-study/fetch_comext.py (75 MB)
+buildout-study/eu_data/
+buildout-study/_comext_tmp/

@@ -62,7 +62,9 @@ def fetch(url, path=None, tries=5):
 
 def months_available():
     listing = fetch(DIR_URL).decode('utf-8', 'replace')
-    return sorted(set(re.findall(r'full_v2_(\d{6})\.7z', listing)))
+    # Months only. Eurostat also publishes yearly totals as period YYYY52; they match the same
+    # six-digit pattern and, read alongside the months, would double-count every year.
+    return sorted(m for m in set(re.findall(r'full_v2_(\d{6})\.7z', listing)) if 1 <= int(m[4:]) <= 12)
 
 
 def one_month(ym):
