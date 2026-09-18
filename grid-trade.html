@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grid equipment in world trade, 2012&ndash;2024 &mdash; Critical Materials Atlas</title>
+<meta name="description" content="A pre-registered study of world trade in transformers, grain-oriented electrical steel and copper wire: after 2021, did the build-out show up in prices or in volumes, and how much of the transformer price rise is the cost of steel and copper?">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.paper{max-width:46rem}
+.paper p,.paper li{line-height:1.62}
+.paper h2{margin-top:2.2rem}
+.paper h3{margin-top:1.4rem;font-size:1.05rem}
+.abstract{background:#f4f7f6;border-left:3px solid #0e7c74;padding:1rem 1.2rem;margin:1.2rem 0}
+.meta{color:#5a6468;font-size:.9rem}
+.cite{font-size:.72rem}.cite a{text-decoration:none}
+.tbl{overflow-x:auto;margin:.8rem 0}
+.tbl table{border-collapse:collapse;width:100%;font-size:.86rem;min-width:40rem}
+.tbl th,.tbl td{padding:.36rem .5rem;border-bottom:1px solid #e3e6e5;text-align:left;vertical-align:top}
+.tbl td.n,.tbl th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mut{color:#6b7478}
+.fig{margin:1.2rem 0}.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.4rem}
+.fig .grid{stroke:#e3e6e5;stroke-width:1}.fig .zero{stroke:#8b9396;stroke-width:1}
+.fig .post{fill:#0e7c74;opacity:.06}
+.fig .ax{font:11px Inter,system-ui,sans-serif;fill:#5a6468}
+.fig .ln{fill:none;stroke-width:2}.fig .ln.p{stroke:#0e7c74}.fig .ln.v{stroke:#15323a}
+.fig .ci{stroke-width:1.5;opacity:.35}.fig .ci.p{stroke:#0e7c74}.fig .ci.v{stroke:#15323a}
+.fig .pt{stroke:#fff;stroke-width:2}.fig .pt.p{fill:#0e7c74}.fig .pt.v{fill:#15323a}
+.fig .lab{font:600 12px Inter,system-ui,sans-serif}.fig .lab.p{fill:#0e7c74}.fig .lab.v{fill:#15323a}
+.box{background:#f7f7f5;border-left:3px solid #15323a;padding:.8rem 1.1rem;margin:1rem 0;font-size:.93rem}
+.refs li{margin:.3rem 0;font-size:.88rem}
+</style></head><body>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Research paper &middot; pre-registered &middot; 18 September 2026</div>
+  <h1>Grid equipment in world trade, 2012&ndash;2024: did prices or volumes carry the build-out?</h1>
+  <p class="meta">Critical Materials Atlas. Pre-registration, code, data and review record:
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/buildout-study/">buildout-study</a>.</p>
+</div></section>
+
+<section class="wrap paper">
+<div class="abstract"><b>Abstract.</b> Transformers, the grain-oriented electrical steel in their cores
+and the copper in their windings are bought by every part of the electricity build-out. Official
+sources record transformer lead times rising from under a year before 2020 to three years by 2024. We
+ask what world trade shows, using 283,029 exporter&ndash;importer&ndash;product flow-years from CEPII BACI,
+2012&ndash;2024, in a design fixed before any estimate. Relative to heavy capital goods, transformer
+trade showed no price or volume gap in 2021&ndash;22, when producer prices rose most, and in
+2023&ndash;24 both rose: unit values by +19% and tonnes by +17%. Traded supply rose with demand but
+at a rising price. Net of the cost of electrical steel and copper, 65% of the 2023&ndash;24 price gap
+remains. The comparison is a relative pattern, not a clean before-and-after: transformer unit values
+had been falling relative to the controls through 2012&ndash;2019, so what the data show is a reversal.
+Meanwhile world exports of grain-oriented electrical steel concentrated sharply: China's share rose
+from 14% to 36% and the three largest exporters from 55% to 72%.</div>
+
+<h2>1. Introduction</h2>
+<p>Public discussion of the investment wave in computing and electrification concentrates on chips.
+The equipment that carries electricity to them has had a harder run. Before the pandemic a large power
+transformer could be ordered with a lead time of under a year; by 2024, "36-month lead times" were
+"commonly quoted", with a maximum of 60 months<sup class="cite">[<a href="#ref-DOE2024">1</a>]</sup>. Average lead times for large transformers
+almost doubled from 2021&ndash;22 to 2023&ndash;24 and prices rose by around 75% in real terms, according
+to the International Energy Agency's industry survey<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>. The US producer price index for power
+and distribution transformers went from 195 in 2019 to 313 in 2022 and 343 in
+2024<sup class="cite">[<a href="#ref-BLS">8</a>]</sup>.</p>
+<p>Those sources are national, or surveys. This paper asks what the <b>world trade</b> record shows, and
+asks it in a form that separates two stories. A demand boom met by expanding supply raises the value of
+trade through volumes. Demand meeting supply that cannot expand quickly raises it through prices. Prices
+and volumes rising together is demand moving along an upward-sloping supply curve<sup class="cite">[<a href="#ref-Shapiro2022">15</a>]</sup><sup class="cite">[<a href="#ref-KM2012">14</a>]</sup>,
+and the ratio of the two says how steep that curve was. We therefore measure <b>how elastic traded supply
+was</b>, relative to comparable goods, and how much of any transformer price rise is simply the cost of
+the steel and copper inside it.</p>
+<p>Four findings. <b>First</b>, in 2021&ndash;22, when the US producer price index rose most, transformer
+trade showed no gap relative to heavy capital goods (unit value +3%, p&nbsp;=&nbsp;0.106; tonnes
++3%, p&nbsp;=&nbsp;0.500); the cost pressure of those years hit the control goods too. <b>Second</b>, in
+2023&ndash;24 both unit values (+19%, p&nbsp;=&nbsp;0.011) and tonnes (+17%, p&nbsp;=&nbsp;0.011)
+rose relative to the controls. <b>Third</b>, net of electrical-steel and copper costs, 65% of that
+price gap remains, so materials alone do not explain it. <b>Fourth</b>, the trade in grain-oriented
+electrical steel became far more concentrated, mostly in China. Section 7 states what none of this can
+show.</p>
+
+<h2>2. Background</h2>
+<p><b>Lead times and prices.</b> The official record agrees on the direction and disagrees on
+magnitudes. One large US utility's lead times went from 12&ndash;18 months to 18&ndash;36
+months<sup class="cite">[<a href="#ref-GAO2023">4</a>]</sup>. Manufacturing a transformer with materials in hand takes only weeks; the delay is
+the order queue<sup class="cite">[<a href="#ref-DOE2022">2</a>]</sup>. Manufacturers reported record order backlogs in 2024<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>.</p>
+<p><b>Cost structure.</b> Grain-oriented electrical steel (GOES) and the copper conductor "each account
+for roughly 25 percent of final LPT production costs"<sup class="cite">[<a href="#ref-DOE2024">1</a>]</sup><sup class="cite">[<a href="#ref-BIS2020">3</a>]</sup>. GOES "prices have
+doubled between 2021 and mid-2023"<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>. Copper is different: "from 2021 to 2023, supply grew at
+a faster pace than demand, leading to a decline and stabilisation of prices"<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>. The United
+States has one GOES producer, which can meet 12&ndash;20% of domestic demand<sup class="cite">[<a href="#ref-DOE2024">1</a>]</sup>.</p>
+<p><b>Evidence against a pure equipment story.</b> US large-transformer plants raised capacity
+utilisation from 40% to 78% between 2011 and 2023, as reported by a national laboratory citing the US
+International Trade Commission<sup class="cite">[<a href="#ref-NLR2026">7</a>]</sup>: domestic output did respond. And "the primary cause of
+delays in transmission projects remains permitting, particularly in advanced economies"<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>.</p>
+
+<h2>3. Data</h2>
+<p>Trade flows are CEPII BACI<sup class="cite">[<a href="#ref-GZ2010">9</a>]</sup>, read in the HS 2002 nomenclature for every year so that no
+code changes under the series. A <b>flow</b> is one exporter&ndash;importer pair in one six-digit customs
+line. A flow-year enters if it is worth at least USD 100,000 and reports a positive tonnage; unit value is
+value over tonnes, and flow-years more than ten times above or below their line's median in that year are
+dropped as unit errors. The sample is 283,029 flow-years.</p>
+<div class="tbl"><table><thead><tr><th>Design</th><th>Treated lines</th><th>Control lines</th></tr></thead><tbody>
+<tr><td>A. Inputs</td><td>GOES 7225.11, 7226.11; copper wire 7408.11</td><td>Other alloy flat steel 7225.30/.40/.50/.99; copper cathode 7403.11</td></tr>
+<tr><td>B. Transformers</td><td>Liquid-dielectric transformers 8504.21 (&le;650 kVA), 8504.22 (650&ndash;10,000 kVA), 8504.23 (&gt;10,000 kVA)</td><td>Lifts 8428.10, cranes 8426.49, crushers 8474.20, concrete mixers 8474.31, welding machines 8515.31/.39</td></tr>
+<tr><td>C. Transformers net of materials</td><td>As B, unit value minus 0.25 &times; real GOES unit value and 0.25 &times; real copper price</td><td>As B</td></tr>
+</tbody></table></div>
+<p>The controls are heavy capital goods containing steel and copper but with no grid, motor or vehicle
+function; electric motors, pumps and compressors share the electrification demand and appear only as a
+labelled robustness check. The copper price is the World Bank Pink Sheet; both it and the GOES unit
+value are deflated by the US consumer price index before the adjustment in design C, so that only
+relative input-cost movement is removed. The external benchmark is the BLS transformer producer price
+index<sup class="cite">[<a href="#ref-BLS">8</a>]</sup>.</p>
+
+<h2>4. Method</h2>
+<p>For flow <i>f</i> in line <i>l</i> and year <i>t</i>, in levels,</p>
+<p style="text-align:center"><i>y</i><sub>ft</sub> = &beta;<sub>1</sub>(T<sub>l</sub> &times; 2021&ndash;22) + &beta;<sub>2</sub>(T<sub>l</sub> &times; 2023&ndash;24) + &alpha;<sub>f</sub> + &gamma;<sub>t</sub> + &epsilon;<sub>ft</sub>,</p>
+<p>where <i>y</i> is the log unit value or log tonnes, T marks the treated lines, &alpha; are flow effects
+and &gamma; year effects. Holding the flow fixed removes most of the product-mix change that makes
+aggregate unit values unreliable<sup class="cite">[<a href="#ref-Schott2004">10</a>]</sup><sup class="cite">[<a href="#ref-HS2011">11</a>]</sup><sup class="cite">[<a href="#ref-Silver2007">12</a>]</sup>, though not mix within a
+flow. Because the treatment is a shock to a product market, inference is by a <b>wild cluster bootstrap
+at the level of the customs line</b> (Webb weights, 9,999 draws, null imposed); exporter-clustered
+errors are reported beside it. With 9 lines, this is deliberately conservative: the smallest
+2023&ndash;24 price gap the transformer design could detect with 80% power is 0.22 log points.</p>
+<p>The design, thresholds and checks were filed before any estimate, after two independent language
+models reviewed a first draft as referees; the draft, the filing, three dated deviations and the code
+are in the <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/buildout-study/">study folder</a>. One filed rule failed and is reported as such: section 6.</p>
+
+<h2>5. Results</h2>
+<h3>5.1 Transformers: both price and volume, and only after 2022</h3>
+<div class="tbl"><table><thead><tr><th rowspan="2">Comparison</th><th colspan="3">2021&ndash;22</th><th colspan="3">2023&ndash;24</th></tr>
+<tr><th class="n">gap</th><th class="n">p</th><th class="n">95% interval</th><th class="n">gap</th><th class="n">p</th><th class="n">95% interval</th></tr></thead>
+<tbody><tr><td>Transformers vs heavy capital goods &mdash; unit value</td><td class="n">+0.028 <span class="mut">(+3%)</span></td><td class="n">0.106</td><td class="n mut">-0.00 to +0.06</td><td class="n">+0.178 <span class="mut">(+19%)</span></td><td class="n">0.011</td><td class="n mut">+0.03 to +0.33</td></tr><tr><td>Transformers vs heavy capital goods &mdash; tonnes</td><td class="n">+0.025 <span class="mut">(+3%)</span></td><td class="n">0.500</td><td class="n mut">-0.02 to +0.07</td><td class="n">+0.160 <span class="mut">(+17%)</span></td><td class="n">0.011</td><td class="n mut">+0.02 to +0.30</td></tr><tr><td>Transformers net of steel and copper cost &mdash; unit value</td><td class="n">-0.070 <span class="mut">(-7%)</span></td><td class="n">0.015</td><td class="n mut">-0.13 to -0.01</td><td class="n">+0.116 <span class="mut">(+12%)</span></td><td class="n">0.018</td><td class="n mut">+0.01 to +0.22</td></tr><tr><td>Grain-oriented electrical steel vs other alloy steel &mdash; unit value</td><td class="n">+0.027 <span class="mut">(+3%)</span></td><td class="n">0.514</td><td class="n mut">-0.05 to +0.10</td><td class="n">+0.109 <span class="mut">(+12%)</span></td><td class="n">0.074</td><td class="n mut">-0.01 to +0.22</td></tr><tr><td>Grain-oriented electrical steel vs other alloy steel &mdash; tonnes</td><td class="n">-0.068 <span class="mut">(-7%)</span></td><td class="n">0.173</td><td class="n mut">-0.16 to +0.03</td><td class="n">-0.035 <span class="mut">(-3%)</span></td><td class="n">0.648</td><td class="n mut">-0.16 to +0.09</td></tr><tr><td>Copper wire vs copper cathode &mdash; unit value</td><td class="n">-0.041 <span class="mut">(-4%)</span></td><td class="n">0.023</td><td class="n mut">exporter-clustered</td><td class="n">-0.015 <span class="mut">(-1%)</span></td><td class="n">0.414</td><td class="n mut">exporter-clustered</td></tr><tr><td>Copper wire vs copper cathode &mdash; tonnes</td><td class="n">+0.032 <span class="mut">(+3%)</span></td><td class="n">0.752</td><td class="n mut">exporter-clustered</td><td class="n">+0.153 <span class="mut">(+17%)</span></td><td class="n">0.267</td><td class="n mut">exporter-clustered</td></tr></tbody></table></div>
+<p class="meta">Gaps are log points relative to each design's 2012&ndash;2020 average, with the percent in brackets.
+p-values and intervals are from the line-level wild bootstrap, except copper wire (one treated line
+against one control line, where a line bootstrap cannot run: exporter-clustered).</p>
+<p>In 2023&ndash;24 the value of transformer trade grew, relative to the controls, through prices and
+volumes in about equal measure. In the language of section 1, demand rose along an upward-sloping traded
+supply: not a price squeeze with frozen volumes, and not a volume boom at stable prices.</p>
+
+<h3>5.2 A reversal, not a step</h3>
+<figure class="fig"><svg viewBox="0 0 720 300" role="img" aria-label="Year-by-year gap between transformers and heavy capital goods, in log points relative to 2019, for unit values and tonnes"><rect x="441.6" y="18" width="168.4" height="246" class="post"/><line x1="52" x2="602" y1="264.0" y2="264.0" class="grid"/><text x="46" y="268.0" class="ax" text-anchor="end">-0.4</text><line x1="52" x2="602" y1="228.9" y2="228.9" class="grid"/><text x="46" y="232.9" class="ax" text-anchor="end">-0.3</text><line x1="52" x2="602" y1="193.7" y2="193.7" class="grid"/><text x="46" y="197.7" class="ax" text-anchor="end">-0.2</text><line x1="52" x2="602" y1="158.6" y2="158.6" class="grid"/><text x="46" y="162.6" class="ax" text-anchor="end">-0.1</text><line x1="52" x2="602" y1="123.4" y2="123.4" class="zero"/><text x="46" y="127.4" class="ax" text-anchor="end">+0.0</text><line x1="52" x2="602" y1="88.3" y2="88.3" class="grid"/><text x="46" y="92.3" class="ax" text-anchor="end">+0.1</text><line x1="52" x2="602" y1="53.1" y2="53.1" class="grid"/><text x="46" y="57.1" class="ax" text-anchor="end">+0.2</text><line x1="52" x2="602" y1="18.0" y2="18.0" class="grid"/><text x="46" y="22.0" class="ax" text-anchor="end">+0.3</text><text x="52.0" y="282" class="ax" text-anchor="middle">2012</text><text x="143.7" y="282" class="ax" text-anchor="middle">2014</text><text x="235.3" y="282" class="ax" text-anchor="middle">2016</text><text x="327.0" y="282" class="ax" text-anchor="middle">2018</text><text x="372.8" y="282" class="ax" text-anchor="middle">2019</text><text x="418.7" y="282" class="ax" text-anchor="middle">2020</text><text x="510.3" y="282" class="ax" text-anchor="middle">2022</text><text x="602.0" y="282" class="ax" text-anchor="middle">2024</text><text x="521.8" y="30" class="ax" text-anchor="middle">2021&ndash;24</text><line x1="49.0" x2="49.0" y1="100.8" y2="39.2" class="ci p"/><line x1="94.8" x2="94.8" y1="108.5" y2="56.2" class="ci p"/><line x1="140.7" x2="140.7" y1="112.3" y2="64.4" class="ci p"/><line x1="186.5" x2="186.5" y1="113.7" y2="75.9" class="ci p"/><line x1="232.3" x2="232.3" y1="106.2" y2="78.3" class="ci p"/><line x1="278.2" x2="278.2" y1="114.0" y2="82.5" class="ci p"/><line x1="324.0" x2="324.0" y1="136.2" y2="119.4" class="ci p"/><line x1="369.8" x2="369.8" y1="123.4" y2="123.4" class="ci p"/><line x1="415.7" x2="415.7" y1="114.2" y2="88.8" class="ci p"/><line x1="461.5" x2="461.5" y1="115.5" y2="89.2" class="ci p"/><line x1="507.3" x2="507.3" y1="96.4" y2="54.0" class="ci p"/><line x1="553.2" x2="553.2" y1="51.5" y2="27.9" class="ci p"/><line x1="599.0" x2="599.0" y1="43.3" y2="19.8" class="ci p"/><polyline points="49.0,70.0 94.8,82.4 140.7,88.3 186.5,94.8 232.3,92.2 278.2,98.2 324.0,127.8 369.8,123.4 415.7,101.5 461.5,102.4 507.3,75.2 553.2,39.8 599.0,31.6" class="ln p"/><circle cx="49.0" cy="70.0" r="4" class="pt p"/><circle cx="94.8" cy="82.4" r="4" class="pt p"/><circle cx="140.7" cy="88.3" r="4" class="pt p"/><circle cx="186.5" cy="94.8" r="4" class="pt p"/><circle cx="232.3" cy="92.2" r="4" class="pt p"/><circle cx="278.2" cy="98.2" r="4" class="pt p"/><circle cx="324.0" cy="127.8" r="4" class="pt p"/><circle cx="369.8" cy="123.4" r="4" class="pt p"/><circle cx="415.7" cy="101.5" r="4" class="pt p"/><circle cx="461.5" cy="102.4" r="4" class="pt p"/><circle cx="507.3" cy="75.2" r="4" class="pt p"/><circle cx="553.2" cy="39.8" r="4" class="pt p"/><circle cx="599.0" cy="31.6" r="4" class="pt p"/><text x="609.0" y="35.6" class="lab p">unit value +0.26</text><line x1="55.0" x2="55.0" y1="238.2" y2="117.8" class="ci v"/><line x1="100.8" x2="100.8" y1="212.8" y2="108.7" class="ci v"/><line x1="146.7" x2="146.7" y1="196.9" y2="119.1" class="ci v"/><line x1="192.5" x2="192.5" y1="189.9" y2="135.4" class="ci v"/><line x1="238.3" x2="238.3" y1="187.3" y2="113.2" class="ci v"/><line x1="284.2" x2="284.2" y1="187.0" y2="130.7" class="ci v"/><line x1="330.0" x2="330.0" y1="142.0" y2="100.0" class="ci v"/><line x1="375.8" x2="375.8" y1="123.4" y2="123.4" class="ci v"/><line x1="421.7" x2="421.7" y1="128.9" y2="101.4" class="ci v"/><line x1="467.5" x2="467.5" y1="171.7" y2="124.2" class="ci v"/><line x1="513.3" x2="513.3" y1="144.9" y2="108.6" class="ci v"/><line x1="559.2" x2="559.2" y1="133.8" y2="96.7" class="ci v"/><line x1="605.0" x2="605.0" y1="100.3" y2="27.4" class="ci v"/><polyline points="55.0,178.0 100.8,160.8 146.7,158.0 192.5,162.6 238.3,150.2 284.2,158.9 330.0,121.0 375.8,123.4 421.7,115.2 467.5,147.9 513.3,126.8 559.2,115.2 605.0,63.9" class="ln v"/><circle cx="55.0" cy="178.0" r="4" class="pt v"/><circle cx="100.8" cy="160.8" r="4" class="pt v"/><circle cx="146.7" cy="158.0" r="4" class="pt v"/><circle cx="192.5" cy="162.6" r="4" class="pt v"/><circle cx="238.3" cy="150.2" r="4" class="pt v"/><circle cx="284.2" cy="158.9" r="4" class="pt v"/><circle cx="330.0" cy="121.0" r="4" class="pt v"/><circle cx="375.8" cy="123.4" r="4" class="pt v"/><circle cx="421.7" cy="115.2" r="4" class="pt v"/><circle cx="467.5" cy="147.9" r="4" class="pt v"/><circle cx="513.3" cy="126.8" r="4" class="pt v"/><circle cx="559.2" cy="115.2" r="4" class="pt v"/><circle cx="605.0" cy="63.9" r="4" class="pt v"/><text x="615.0" y="67.9" class="lab v">tonnes +0.17</text></svg>
+<figcaption><b>Transformers relative to heavy capital goods, by year.</b> Log points relative to 2019;
+teal = unit value, navy = tonnes; whiskers are 95% line-bootstrap intervals; the shaded band is
+2021&ndash;24.</figcaption></figure>
+<p>The year-by-year gaps change how the table should be read. Transformer unit values were falling
+relative to the controls for most of the decade, from +0.15 in 2012 to zero in 2019, and then rose to
++0.26 in 2024. Relative tonnes were -0.16 in 2012, level from 2018, and +0.17 in 2024. The
+average-gap coefficients compare 2023&ndash;24 with a pre-period that was itself drifting, so they
+understate the size of the turn and overstate how clean it is.</p>
+
+<h3>5.3 How much is steel and copper</h3>
+<p>Taking out a quarter of the real change in the GOES unit value and a quarter of the real change in the
+copper price leaves a 2021&ndash;22 gap of -7% (p&nbsp;=&nbsp;0.015) and a 2023&ndash;24 gap of
++12% (p&nbsp;=&nbsp;0.018). In the earlier period, material costs more than account for the
+transformer unit values; in the later one, 65% of the gap remains (a net gap of +14% with cost shares of 20% each,
++11% with 30% each). By the filed rule, the 2023&ndash;24 rise is not explained by those two
+materials alone. Tank steel, oil and labour are not netted out; no verified source gives their shares.</p>
+
+<h3>5.4 The inputs</h3>
+<p><b>Copper wire</b> shows no build-out signature: its premium over copper cathode moved by
+-4% (p&nbsp;=&nbsp;0.023) in 2021&ndash;22 and was flat afterwards (-1%), as the IEA's
+account of copper supply outrunning demand would predict<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>. <b>Grain-oriented electrical
+steel</b> shows a 2023&ndash;24 unit-value gap of +12% (p&nbsp;=&nbsp;0.074), but its placebo fails:
+in a fake 2015&ndash;16 post period it moves by +0.22 (p&nbsp;=&nbsp;0.024). Its prices swing that much in
+ordinary years, so the trade data cannot distinguish its post-2021 movement from its normal volatility.</p>
+
+<h3>5.5 Who supplied it</h3>
+<div class="tbl"><table><thead><tr><th rowspan="2">Line</th><th colspan="3">2019</th><th colspan="3">2024</th></tr>
+<tr><th class="n">exporters &gt;1%</th><th class="n">China</th><th class="n">top 3</th><th class="n">exporters &gt;1%</th><th class="n">China</th><th class="n">top 3</th></tr></thead>
+<tbody><tr><td>Grain-oriented electrical steel, 600 mm+</td><td class="n">13</td><td class="n">14%</td><td class="n">55%</td><td class="n">9</td><td class="n">36%</td><td class="n">72%</td></tr><tr><td>Transformers over 10,000 kVA</td><td class="n">19</td><td class="n">24%</td><td class="n">40%</td><td class="n">19</td><td class="n">22%</td><td class="n">42%</td></tr><tr><td>Transformers 650&ndash;10,000 kVA</td><td class="n">23</td><td class="n">12%</td><td class="n">32%</td><td class="n">22</td><td class="n">19%</td><td class="n">45%</td></tr><tr><td>Transformers up to 650 kVA</td><td class="n">24</td><td class="n">12%</td><td class="n">31%</td><td class="n">19</td><td class="n">13%</td><td class="n">38%</td></tr><tr><td>Copper wire</td><td class="n">19</td><td class="n">1%</td><td class="n">34%</td><td class="n">21</td><td class="n">2%</td><td class="n">32%</td></tr></tbody></table></div>
+<p>The price and volume of GOES trade are hard to read; its structure is not. Between 2019 and 2024 the
+number of exporters above 1% of world GOES exports fell from 13 to 9, the three largest went
+from 55% to 72% of the market, and China's share rose from 14% to 36%, as Russian
+exports, about a tenth of world capacity, fell under sanctions<sup class="cite">[<a href="#ref-IEA2023">5</a>]</sup>. The transformer lines
+themselves stayed broadly supplied.</p>
+
+<h3>5.6 Where it landed</h3>
+<div class="tbl"><table><thead><tr><th>Importer, 2023&ndash;24</th><th class="n">unit value</th><th class="n">p</th><th class="n">tonnes</th><th class="n">p</th><th class="n">net of materials</th><th class="n">p</th></tr></thead>
+<tbody><tr><td>United States</td><td class="n">+0.12 <span class="mut">(+12%)</span></td><td class="n">0.110</td><td class="n">+0.91 <span class="mut">(+148%)</span></td><td class="n">0.027</td><td class="n">+0.05 <span class="mut">(+6%)</span></td><td class="n">0.361</td></tr><tr><td>European Union (27)</td><td class="n">+0.24 <span class="mut">(+28%)</span></td><td class="n">0.012</td><td class="n">+0.30 <span class="mut">(+35%)</span></td><td class="n">0.022</td><td class="n">+0.18 <span class="mut">(+20%)</span></td><td class="n">0.018</td></tr><tr><td>Rest of the world</td><td class="n">+0.15 <span class="mut">(+17%)</span></td><td class="n">0.017</td><td class="n">+0.08 <span class="mut">(+8%)</span></td><td class="n">0.080</td><td class="n">+0.09 <span class="mut">(+10%)</span></td><td class="n">0.033</td></tr></tbody></table></div>
+<p>The United States and the European Union tell different stories. Into the United States, tonnes rose
+by +148% relative to the controls (p&nbsp;=&nbsp;0.027) while the unit-value gap net of materials was
++6% (p&nbsp;=&nbsp;0.361): the US adjustment ran through volume, consistent with the rise in US
+transformer imports the national laboratories record<sup class="cite">[<a href="#ref-NLR2026">7</a>]</sup>. Into the European Union both moved,
+prices by +28% and tonnes by +35%, and a gap of +20% remained after materials
+(p&nbsp;=&nbsp;0.018).</p>
+
+<h2>6. Robustness, and the rule that failed</h2>
+<div class="box"><b>The pre-trend rule failed.</b> The filing required every pre-period year from 2014
+to 2018 to lie within &plusmn;0.05 log points of 2019 before difference-in-differences language could be
+used. No design met it. The results above are therefore described as relative patterns, and the
+reversal in section 5.2 is the honest reading.</div>
+<ul>
+<li><b>Placebo period.</b> Transformers in a fake 2015&ndash;16 post period: -0.041 (p&nbsp;=&nbsp;0.140),
+consistent with the pre-2019 decline and not with a spurious rise.</li>
+<li><b>Unit-value band.</b> The 2023&ndash;24 price gap is +0.18 with the band at 0.2&ndash;5 times the
+median and +0.20 with no band.</li>
+<li><b>Leave one line out.</b> Dropping any single treated or control line leaves the 2023&ndash;24 price
+gap between +0.16 and +0.19.</li>
+<li><b>Freight.</b> Heavy, low-value flows, where freight costs bite: +0.13 (p&nbsp;=&nbsp;0.036);
+light, high-value flows: +0.01 (p&nbsp;=&nbsp;0.822). The gap sits in the heavier flows, but in
+2023&ndash;24, after the 2021&ndash;22 freight spike had passed.</li>
+<li><b>Exporters.</b> The 2023&ndash;24 price gap is +0.23 for flows from China and +0.17 for all other
+exporters.</li>
+<li><b>Contaminated controls.</b> Against motors, pumps and compressors, which share the electrification
+demand, the gap shrinks to +0.10 (p&nbsp;=&nbsp;0.051), as it should if those goods rose too.</li>
+<li><b>Are unit values prices?</b> The annual change in the unit value of US transformer imports
+correlates with the change in the BLS producer price index at only 0.43 (levels: 0.53). Unit values
+carry product mix as well as price, and every price result here inherits that weakness.</li>
+</ul>
+
+<h2>7. What this cannot say</h2>
+<ul>
+<li><b>Nothing about AI or data centres specifically.</b> Every buyer of grid equipment is in these
+flows: utilities, renewable developers, factories, vehicle makers.</li>
+<li><b>Nothing about domestic production.</b> A country that builds its own transformers never appears
+in trade. US plants' rising utilisation is outside these data.</li>
+<li><b>Unit values are not prices.</b> Within a six-digit line, a shift towards larger or more efficient
+transformers raises unit value without any price change; the price gaps are upper bounds.</li>
+<li><b>Not causal, and silent on why.</b> The data show that traded supply rose at a rising price; they
+do not show whether factories, electrical steel, skilled labour or permitting was the constraint, and the
+IEA names permitting as the main cause of transmission delays in advanced economies<sup class="cite">[<a href="#ref-IEA2025">6</a>]</sup>.</li>
+<li><b>Chip-making equipment is not tested.</b> Its unit values per tonne measure which machines were
+shipped. Its trade grew from $0bn in 2012 to $0bn in 2024; the largest exporters in 2024
+were .</li>
+</ul>
+
+<h2>8. Conclusion</h2>
+<p>World trade in transformers carried the electricity build-out through both prices and volumes, and
+only from 2023: traded supply expanded, but at a rising price, after a decade in which transformers had
+been getting cheaper relative to comparable capital goods. The cost of steel and copper explains the
+2021&ndash;22 movement and 35% of the later one. The part of the chain that became genuinely
+more concentrated is the steel inside the transformer, where one country now supplies over a third of
+world exports and the three largest over two-thirds. For a buyer, the practical reading is that
+transformer supply did respond to demand, but through the order book and the price; for a policy
+maker, the concentration in electrical steel, not in transformers, is the exposure the trade data can
+see.</p>
+
+<h2>Review record</h2>
+<p>The design was reviewed before filing by two independent language models acting as journal referees;
+both named input costs, weak controls and over-claiming as the main problems, and the filing records
+what changed. The literature was assembled by a research agent under a rule that every source be
+opened and quoted before use; sources it could not open are listed as such. The result will be reviewed
+by the same two referees before this page is published.</p>
+
+<h2>References</h2>
+<ol class="refs"><li id="ref-DOE2024">U.S. Department of Energy (2024). <i>Large Power Transformer Resilience: Report to Congress</i>. July 2024. <a href="https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%20signed%20by%20Secretary%20Granholm%20on%207-10-24.pdf">www.energy.gov</a></li><li id="ref-DOE2022">U.S. Department of Energy (2022). <i>Electric Grid Supply Chain Review: Large Power Transformers and High Voltage Direct Current Systems</i>. February 2022. <a href="https://www.energy.gov/sites/default/files/2022-02/Electric%20Grid%20Supply%20Chain%20Report%20-%20Final.pdf">www.energy.gov</a></li><li id="ref-BIS2020">U.S. Department of Commerce, Bureau of Industry and Security (2020). <i>The Effect of Imports of Transformers and Transformer Components on the National Security</i>. Final report, 15 October 2020. <a href="https://www.bis.gov/media/documents/redacted-goes-report-updated-10-26-21.pdf">www.bis.gov</a></li><li id="ref-GAO2023">U.S. Government Accountability Office (2023). <i>Electricity Grid: DOE Could Better Support Industry Efforts to Ensure Adequate Transformer Reserves</i>. GAO-23-106180. <a href="https://www.gao.gov/products/gao-23-106180">www.gao.gov</a></li><li id="ref-IEA2023">International Energy Agency (2023). <i>Electricity Grids and Secure Energy Transitions</i>. Paris. <a href="https://www.iea.org/reports/electricity-grids-and-secure-energy-transitions">www.iea.org</a></li><li id="ref-IEA2025">International Energy Agency (2025). <i>Building the Future Transmission Grid: Strategies to Navigate Supply Chain Challenges</i>. Paris, February 2025. <a href="https://www.iea.org/reports/building-the-future-transmission-grid">www.iea.org</a></li><li id="ref-NLR2026">Ramasamy, V., Cooperman, A., Jayswal, R. and Seward, M. (2026). <i>Large Power Transformer Supply Chain Gap Analysis and Domestic Content Strategies for Hydropower Rehabilitation</i>. NLR/TP-5700-96742, National Laboratory of the Rockies. <a href="https://docs.nlr.gov/docs/fy26osti/96742.pdf">docs.nlr.gov</a></li><li id="ref-BLS">U.S. Bureau of Labor Statistics. Producer Price Index by Commodity: Power and Distribution Transformers, Except Parts (WPU117409). <a href="https://fred.stlouisfed.org/series/WPU117409">fred.stlouisfed.org</a></li><li id="ref-GZ2010">Gaulier, G. and Zignago, S. (2010). "BACI: International Trade Database at the Product-Level." CEPII Working Paper 2010-23. <a href="http://www.cepii.fr/PDF_PUB/wp/2010/wp2010-23.pdf">http:</a></li><li id="ref-Schott2004">Schott, P. K. (2004). "Across-Product Versus Within-Product Specialization in International Trade." <i>Quarterly Journal of Economics</i> 119(2): 647-678. <a href="https://doi.org/10.1162/0033553041382201">doi.org</a></li><li id="ref-HS2011">Hallak, J. C. and Schott, P. K. (2011). "Estimating Cross-Country Differences in Product Quality." <i>Quarterly Journal of Economics</i> 126(1): 417-474. <a href="https://doi.org/10.1093/qje/qjq003">doi.org</a></li><li id="ref-Silver2007">Silver, M. (2007). "Do Unit Value Export, Import, and Terms of Trade Indices Represent or Misrepresent Price Indices?" IMF Working Paper 07/121. <a href="https://doi.org/10.5089/9781451866858.001">doi.org</a></li><li id="ref-Kilian2009">Kilian, L. (2009). "Not All Oil Price Shocks Are Alike: Disentangling Demand and Supply Shocks in the Crude Oil Market." <i>American Economic Review</i> 99(3): 1053-1069. <a href="https://doi.org/10.1257/aer.99.3.1053">doi.org</a></li><li id="ref-KM2012">Kilian, L. and Murphy, D. P. (2012). "Why Agnostic Sign Restrictions Are Not Enough." <i>Journal of the European Economic Association</i> 10(5): 1166-1188. <a href="https://doi.org/10.1111/j.1542-4774.2012.01080.x">doi.org</a></li><li id="ref-Shapiro2022">Shapiro, A. H. (2022). "Decomposing Supply and Demand Driven Inflation." Federal Reserve Bank of San Francisco Working Paper 2022-18. <a href="https://doi.org/10.24148/wp2022-18">doi.org</a></li></ol>
+<p class="meta">Data: CEPII BACI (Etalab Open Licence 2.0), World Bank Pink Sheet and CPI (CC BY 4.0),
+BLS (public domain). Built by <code>build_grid_trade_paper.py</code> from <code>out/buildout_study.json</code>.
+Cite as: Critical Materials Atlas (2026). Zenodo. https://doi.org/10.5281/zenodo.21948855</p>
+</section>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Sources</h4>CEPII BACI &middot; BLS &middot; World Bank</div><div class="fineprint">Independent public-data research.</div></div></footer>
+</body></html>
