@@ -230,7 +230,6 @@ def main():
         return '<tr><td>%s</td>%s</tr>' % (label, ''.join(cells))
     eu_rows = ''.join([
         eurow('vs motors, pumps, compressors &mdash; value per tonne', ET['c_vs_motors_pumps_compressors']['price']),
-        eurow('vs motors, pumps, compressors &mdash; value per transformer', ET['c_per_item']),
         eurow('vs motors, pumps, compressors &mdash; tonnes', ET['c_vs_motors_pumps_compressors']['volume']),
         eurow('vs the filed comparison machinery &mdash; value per tonne', ET['a_vs_filed_machinery']['price']),
         eurow('vs the filed comparison machinery &mdash; tonnes', ET['a_vs_filed_machinery']['volume']),
@@ -241,6 +240,8 @@ def main():
                       % (y + (' (Jan&ndash;Jul)' if y == '2026' else ''), v['value_meur'], sh(v['china_share']),
                          sh(v['japan_share']), sh(v['russia_share']), sh(v['top3_share'])) for y, v in eg.items())
     evc = EC['event_study']['c_price']
+    own = EC['own_kg_per_item_rel_2019']
+    ecp = ET['c_vs_motors_pumps_compressors']['price']['coefs']
     eu_years = ', '.join('%s %s (p&nbsp;%s)' % (y, pct(evc[y]['beta']), fp(evc[y]['p_wild_line']))
                          for y in ('2023', '2024', '2025', '2026'))
 
@@ -294,8 +295,11 @@ def main():
         'EUC19': sh(eg['2019']['china_share']), 'EUC25': sh(eg['2025']['china_share']),
         'EUR19': sh(eg['2019']['russia_share']),
         'EUT19': sh(eg['2019']['top3_share']), 'EUT25': sh(eg['2025']['top3_share']),
-        'EUCP2': pct(ET['c_vs_motors_pumps_compressors']['price']['coefs']['TxP2']['beta']),
-        'EUCI2': pct(ET['c_per_item']['coefs']['TxP2']['beta']),
+        'EUMDE': '%.2f&ndash;%.2f' % (min(ecp[n]['mde_80'] for n in ('TxP2', 'TxP3', 'TxP4')),
+                                     max(ecp[n]['mde_80'] for n in ('TxP2', 'TxP3', 'TxP4'))),
+        'EUOWNT': pct_raw(own['transformers']['2025']), 'EUOWNT26': pct_raw(own['transformers']['2026']),
+        'EUOWNM': pct_raw(own['motors_pumps_compressors']['2025']),
+        'EUN8T': str(len(eud['cn8_lines']['transformers'])), 'EUN8C': str(len(eud['cn8_lines']['motors_pumps_compressors'])),
         'REFS': refs, 'REPO': REPO,
     }
     for k in REFNUM:
@@ -378,9 +382,10 @@ much of it is the cost of steel and copper cannot be settled here either. And <b
 steel</b>, the core of every transformer, concentrated: China's share of export value rose from @@G19C@@ to
 @@G24C@@ and the three largest exporters' from @@G19T@@ to @@G24T@@ between 2019 and 2024. Unit values are
 not prices; they track the US transformer producer price index only moderately. The EU's own customs
-records, which run to July 2026, show the transformer rise relative to heavy machinery continuing
-through 2025 and 2026, a shift towards heavier units, and China supplying @@EUC25@@ of the EU's electrical-steel imports from outside the
-EU in 2025, against @@EUC19@@ in 2019.</div>
+records, which run to July 2026, show the transformer rise relative to heavy machinery continuing through
+2025 and January&ndash;July 2026, still not distinguishable from other electrical goods, with no sign that
+transformers shifted to heavier units; and China's share of the value of EU imports of grain-oriented
+electrical steel from outside the EU rising from @@EUC19@@ in 2019 to @@EUC25@@ in 2025.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -499,26 +504,35 @@ result is also worth recording: relative to the comparison machinery, transforme
 <h3>4.6 The EU record to July 2026</h3>
 <p>The world data stop in 2024. The EU's customs records run monthly to July 2026, at the eight-digit
 level, and record the number of transformers as well as their weight. A second filing, made before those
-records were downloaded, applied the same method to the EU's trade with countries outside the EU:
-@@EUMONTHS@@ months, @@EUNFY@@ flow-years. Gaps are relative to 2012&ndash;2020; 2026 is January to July.</p>
+records were downloaded, applied the same method to the EU's trade with countries outside the EU, in
+both directions, with the United Kingdom left out of every year so that "outside the EU" means the same
+partners throughout: @@EUMONTHS@@ months, @@EUNFY@@ flow-years. Gaps in the table are relative to
+2012&ndash;2020; 2026 is January to July.</p>
 <div class="tbl"><table><thead><tr><th>Transformers, EU trade outside the EU</th><th class="n">2021&ndash;22</th>
 <th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
 <tbody>@@EUROWS@@</tbody></table></div>
-<p><b>Against motors, pumps and compressors, still not established.</b> The transformer gap in value
-per tonne was positive in every year from 2023: @@EUYEARS@@. On this comparison, unlike in the world
-data, the pre-trend rule passes, so the comparison is clean; it is not precise enough, with seven customs
-lines, for any year to clear the filed bar.</p>
-<p><b>The average transformer got heavier.</b> Against the same electrical goods, value per transformer
-rose far more than value per tonne (@@EUCI2@@ against @@EUCP2@@ in 2023&ndash;24). When value per
-piece rises much faster than value per tonne, each piece weighs more: the units traded became heavier,
-most likely larger ratings. By the filed rule, that means
-product mix is moving, and the per-tonne rise is not read as a price rise.</p>
-<div class="tbl"><table><thead><tr><th>EU imports of GOES from outside the EU</th><th class="n">value</th><th class="n">China</th>
+<p><b>Against motors, pumps and compressors: still not distinguishable from electrical goods
+generally.</b> The transformer gap in value per tonne was positive in every year from 2023 &mdash; relative
+to 2019: @@EUYEARS@@ &mdash; but no period's interval excludes zero, and the smallest gap the comparison
+could reliably detect is @@EUMDE@@ log points, more than it estimates. The pre-trend rule passes for value
+per tonne here, unlike in the world data, though with seven lines passing it is weak evidence. Two filed
+sensitivities do exclude zero &mdash; the same comparison at eight digits (@@EUN8T@@ transformer and
+@@EUN8C@@ comparison lines) in 2023&ndash;24 and 2025, and trade between EU members from 2023&ndash;24 on
+&mdash; but the filing made the six-digit comparison the headline, and it stays the headline.</p>
+<p><b>No sign that transformers got heavier.</b> Because the EU counts transformers as well as weighing
+them, the records can test whether the rise per tonne came from heavier units. It did not: within the
+same trade flows, transformers' weight per unit was @@EUOWNT@@ in 2025 and @@EUOWNT26@@ in 2026 relative
+to 2019, roughly level. A first reading of these records said the opposite; it came from comparing
+transformers with motors, pumps and compressors, which became lighter per unit (@@EUOWNM@@ in 2025), and it
+is withdrawn. Other kinds of mix, such as higher efficiency at a similar weight, are not ruled out.</p>
+<div class="tbl"><table><thead><tr><th>Value of EU imports of GOES from outside the EU</th><th class="n">value</th><th class="n">China</th>
 <th class="n">Japan</th><th class="n">Russia</th><th class="n">top 3</th></tr></thead>
 <tbody>@@EUGOES@@</tbody></table></div>
-<p>In the EU's own imports of electrical steel, China went from @@EUC19@@ of the value in 2019 to
-@@EUC25@@ in 2025, and Russia from @@EUR19@@ to none. This is the EU's view of its own suppliers, not
-world exports. The three largest suppliers' share rose too, from @@EUT19@@ to @@EUT25@@.</p>
+<p>In the value of the EU's imports of grain-oriented electrical steel from outside the EU, China went
+from @@EUC19@@ in 2019 to @@EUC25@@ in 2025, and Russia from @@EUR19@@ to none; China was second in 2021
+and 2023, third in 2022, and first from 2024. The three largest partners' share &mdash; whoever they were
+that year; in 2019 they were Japan, Russia and the United States &mdash; rose from @@EUT19@@ to @@EUT25@@.
+This is the EU's view of its own imports by value, not world exports and not EU consumption.</p>
 
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
@@ -565,9 +579,10 @@ a rule that every source be opened and quoted. Result: an earlier version was re
 agent, which traced every number to the results file and every quotation to the verified literature.
 Their reports turned the paper into this note: the event-study intervals were recomputed with the
 headline procedure, the electrical-steel figures were widened to both customs lines, a material-netting
-variant was added, and the comparison with other electrical goods was moved into the main text. This
-version was then checked again by all three. Eleven dated deviations are logged in the filing. The EU extension was filed separately, before its
-data were downloaded, and records four further dated details.</p>
+variant was added, and the comparison with other electrical goods was moved into the main text. That
+version was checked again by all three, and the EU extension in section 4.6 was reviewed by all three
+before this version; their review withdrew its first reading that transformers had become heavier. Eleven dated deviations are logged in the filing. The EU extension was filed separately, before its
+data were downloaded, and records eight further dated entries.</p>
 
 <h2>References</h2>
 <ol class="refs">@@REFS@@</ol>
