@@ -77,3 +77,10 @@ amendment, filed before they are pulled.
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+**2026-09-18, before any estimate - details the amendment left open, fixed now.**
+1. **The minimum flow size** is the filing's USD 100,000 applied in euros (EUR 100,000), and for 2026,
+   which has seven months, EUR 100,000 x 7/12, so that part-year flows are not dropped for being part-year.
+2. **The value-per-item test** can only run against comparison (c): the machinery lines have no
+   supplementary unit, while motors, pumps and compressors are counted in pieces, as transformers are.
+3. **Periods** are coded exactly as filed: 2021-22, 2023-24, 2025, 2026 (January-July).
