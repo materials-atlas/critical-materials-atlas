@@ -175,7 +175,7 @@ def estimate(df, yvar, treated, label, rng, draws=DRAWS, years=None, post=(P1, P
         se_boot = float(np.std(bstar, ddof=1))
         crit = float(np.quantile(np.abs(bstar - base), 0.95))
         out['coefs'][n] = {
-            'beta': round(b, 4), 'pct': round(100 * (math.exp(b) - 1), 1),
+            'beta': round(b, 4), 'pct': round(100 * (math.exp(b) - 1), 2),
             'p_wild_line': round(p_boot, 4), 'se_wild_line': round(se_boot, 4),
             'ci95_wild_line': [round(b - crit, 4), round(b + crit, 4)],
             'mde_80': round(2.8 * se_boot, 4),
@@ -247,7 +247,7 @@ def two_line_design(df, yvar, spec):
     se = np.sqrt(np.diag(Xi @ meat @ Xi * G / (G - 1)))
     return {'note': 'one treated and one control line: exporter-clustered only (deviation 1)',
             'y': yvar, 'n': int(len(d)), 'exporters': int(G), 'coefs': {
-                n: {'beta': round(float(b[i]), 4), 'pct': round(100 * (math.exp(b[i]) - 1), 1),
+                n: {'beta': round(float(b[i]), 4), 'pct': round(100 * (math.exp(b[i]) - 1), 2),
                     'se_cluster_exporter': round(float(se[i]), 4),
                     'p_cluster_exporter': round(float(2 * stats.t.sf(abs(b[i] / se[i]), G - 1)), 4)}
                 for i, n in enumerate(names)}}

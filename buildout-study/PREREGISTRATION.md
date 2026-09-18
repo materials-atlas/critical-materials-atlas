@@ -165,9 +165,9 @@ flow-years; 4,425 dropped by the unit-value band.
 
 | Design | Price gap 2021-22 | Price gap 2023-24 | Volume gap 2021-22 | Volume gap 2023-24 |
 |---|---|---|---|---|
-| B. Transformers vs heavy capital goods | +0.028 (+3%, p = 0.106) | +0.178 (+20%, p = 0.011) | +0.025 (+3%, p = 0.500) | +0.160 (+17%, p = 0.011) |
+| B. Transformers vs heavy capital goods | +0.028 (+3%, p = 0.106) | +0.178 (+19%, p = 0.011) | +0.025 (+3%, p = 0.500) | +0.160 (+17%, p = 0.011) |
 | C. Transformers net of GOES and copper | -0.070 (-7%, p = 0.015) | +0.116 (+12%, p = 0.018) | - | - |
-| A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.514) | +0.109 (+12%, p = 0.074) | -0.068 (-7%, p = 0.173) | -0.035 (-4%, p = 0.648) |
+| A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.514) | +0.109 (+12%, p = 0.074) | -0.068 (-7%, p = 0.173) | -0.035 (-3%, p = 0.648) |
 | A. Copper wire vs cathode (exporter-clustered, deviation 1) | -0.041 (-4%, p = 0.023) | -0.015 (-1%, p = 0.414) | +0.032 (+3%, p = 0.752) | +0.153 (+17%, p = 0.267) |
 
 **Reading, by the filed table.** For transformers in 2023-24, price and volume both rose relative to the
@@ -214,3 +214,7 @@ Every change made after this filing goes here, dated, with its reason.
 3. **2026-09-18 - the pre-trend rule was tested on synthetic data before the real run** and shown to be
    crossed by noise alone at realistic line-year shocks. It was kept as filed rather than loosened,
    and it failed on the real data; see the result above.
+4. **2026-09-18 - percents were rounded twice.** The analysis stored each percent to one decimal and
+   the reports rounded again, so +19.48% printed as +20% and -3.49% as -4%. Percents are now stored to
+   two decimals; no coefficient, p-value or reading changed. The two affected figures above are
+   corrected.
