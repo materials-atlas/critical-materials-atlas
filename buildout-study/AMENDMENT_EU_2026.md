@@ -84,3 +84,7 @@ Every change made after this filing goes here, dated, with its reason.
 2. **The value-per-item test** can only run against comparison (c): the machinery lines have no
    supplementary unit, while motors, pumps and compressors are counted in pieces, as transformers are.
 3. **Periods** are coded exactly as filed: 2021-22, 2023-24, 2025, 2026 (January-July).
+4. **Yearly totals excluded.** The download picked up Eurostat's fourteen yearly-total files (period
+   YYYY52) alongside the 175 months, because they share the file-name pattern. Read together they would
+   have double-counted every year. Found by counting files before any estimate; the yearly files were
+   moved aside, and both the fetcher and the analysis now refuse periods outside 01-12.
