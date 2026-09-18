@@ -146,3 +146,19 @@ Every change made after this filing goes here, dated, with its reason.
    YYYY52) alongside the 175 months, because they share the file-name pattern. Read together they would
    have double-counted every year. Found by counting files before any estimate; the yearly files were
    moved aside, and both the fetcher and the analysis now refuse periods outside 01-12.
+5. **2026-09-18, after the first result - the UK removed from both sides, all years.** The UK was a
+   declaring member until January 2020 and an extra-EU partner from 2020, so the "extra-EU" sample
+   changed composition exactly at the treatment boundary. Found by Codex and the fact-checker. The UK is
+   now excluded as declarant and as partner in every year, so "outside the EU" means the same partners
+   throughout. The earlier numbers are superseded.
+6. **2026-09-18, after the first result - value per item cleaned.** Value per item was value over all
+   months divided by the count over months that report one, so a month with value and no count inflated
+   it; and no outlier band was applied to it. Now value, weight and count are all summed over months that
+   report a count, and the filed 0.1-10x band applies to value per item as to value per tonne.
+7. **2026-09-18, exploratory, after the first result - whose weight moved.** The fact-checker showed that
+   a relative per-item gap can come from either side: its rough check found transformer weight per item
+   flat and motors, pumps and compressors lighter. Each group's own weight per item is now traced over
+   time (flow effects only, relative to 2019), and the relative kg-per-item gap is estimated with the
+   filed method. Exploratory: the filing named neither.
+8. **2026-09-18 - pre-trend rule run for every comparison and measure.** The first run applied it only
+   to four of them.
