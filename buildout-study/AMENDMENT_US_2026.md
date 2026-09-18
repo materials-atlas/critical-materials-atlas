@@ -116,3 +116,7 @@ Every change made after this filing goes here, dated, with its reason.
 2. **2026-09-18, after the first run - a default reading removed.** The first run's code turned the
    missing path into the reading "heavier units do not explain it". A rule must never be read off data
    that do not exist; the code now reports the test as not runnable. No other number depended on it.
+3. **2026-09-18, after review - the pre-trend rule run on the ten-digit sensitivity, and empty paths
+   reported as such.** The first run dismissed the ten-digit result "on a comparison whose pre-trend
+   rule fails" without running the rule on that comparison; it is now run. A path with no observations
+   is now reported as not runnable instead of carrying a dummy 2019 = 0.

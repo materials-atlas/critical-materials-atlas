@@ -78,6 +78,10 @@ def own_path(df, lines, y):
     """Filed test 2: a group's own measure over time, within flows, relative to 2019."""
     q = df[df.k.isin(lines)].dropna(subset=[y]).copy()
     q = q[q.groupby('flow').year.transform('size') > 1]
+    if q.empty or 2019 not in set(q.year):
+        # deviation 3: an empty path is reported as such, never as a dummy 2019 = 0 base
+        return {'not_runnable': 'no within-flow observations with this measure and a 2019 base',
+                'flow_years': int(len(q))}
     yrs = sorted(q.year.unique())
     for yy in yrs:
         if yy != 2019:
@@ -143,6 +147,8 @@ def main():
         'c_per_unit': an.event_study(p6, 'lpu', {'lines': T, 'controls': CON}, None, label='US ev c'),
         'a_per_unit': an.event_study(p6, 'lpu', {'lines': T, 'controls': CAP}, None, label='US ev a'),
         'b_per_unit': an.event_study(p6, 'lpu', {'lines': T, 'controls': CONSTRUCTION}, None, label='US ev b'),
+        # deviation 3: the filed rule applies to every measure, including the ten-digit sensitivity
+        'c_per_unit_hs10': an.event_study(p10, 'lpu', {'lines': t10, 'controls': c10}, None, label='US ev c hs10'),
     }
     C['pretrend_rule'] = {k: {'years_outside_0.05': [y for y in range(2014, 2019) if y in ev and abs(ev[y]['beta']) > 0.05]}
                           for k, ev in C['event_study'].items()}
