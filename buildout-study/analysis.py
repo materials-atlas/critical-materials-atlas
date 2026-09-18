@@ -14,6 +14,7 @@ Usage:  python buildout-study/analysis.py
 """
 import csv
 import collections
+import zlib
 import json
 import math
 import os
@@ -108,8 +109,15 @@ def demean_within(df, cols, group):
     return df[cols] - g
 
 
+def own_rng(label):
+    """Deviation 10: each estimate draws from its own stream, seeded by the study seed and its label,
+    so a p-value does not change when another estimate is added earlier in the run."""
+    return np.random.default_rng([SEED, zlib.crc32(label.encode('utf-8'))])
+
+
 def estimate(df, yvar, treated, label, rng, draws=DRAWS, years=None, post=(P1, P2)):
     """Two-way FE by within-transformation; line-level wild bootstrap (null imposed) for each b."""
+    rng = own_rng(label + '|' + yvar)
     d = df[df.k.isin(treated['lines'] + treated['controls'])].copy()
     if years is not None:
         d = d[d.year.isin(years)]
@@ -184,12 +192,13 @@ def estimate(df, yvar, treated, label, rng, draws=DRAWS, years=None, post=(P1, P
     return out
 
 
-def event_study(df, yvar, treated, rng, draws=DRAWS):
+def event_study(df, yvar, treated, rng, draws=DRAWS, label='event'):
     """Year-by-year treated gaps, base 2019. Deviation 5: the intervals use the SAME procedure as the
     headline estimates - null imposed for each year's coefficient (restricted residuals), Webb
     weights by line, 9,999 draws. The first version used unrestricted residuals and 2,999 draws,
     which drew intervals far narrower than the headline test's and made the chart look more
     certain than the result."""
+    rng = own_rng(label + '|' + yvar + '|' + ','.join(treated['lines']))
     d = df[df.k.isin(treated['lines'] + treated['controls'])].copy()
     d['T'] = d.k.isin(treated['lines']).astype(float)
     yrs = sorted(d.year.unique())
@@ -396,11 +405,11 @@ def main():
 
     C = res['checks']
     C['event_study'] = {
-        'A_goes_price': event_study(s, 'luv', A_goes, rng),
-        'A_goes_volume': event_study(s, 'lq', A_goes, rng),
-        'B_price': event_study(s, 'luv', B, rng),
-        'B_volume': event_study(s, 'lq', B, rng),
-        'C_price': event_study(adj(s, SHARE_GOES, SHARE_CU), 'luv', B, rng),
+        'A_goes_price': event_study(s, 'luv', A_goes, rng, label='ev A_goes'),
+        'A_goes_volume': event_study(s, 'lq', A_goes, rng, label='ev A_goes'),
+        'B_price': event_study(s, 'luv', B, rng, label='ev B'),
+        'B_volume': event_study(s, 'lq', B, rng, label='ev B'),
+        'C_price': event_study(adj(s, SHARE_GOES, SHARE_CU), 'luv', B, rng, label='ev C'),
     }
     pre = {}
     for k, ev in C['event_study'].items():
@@ -443,6 +452,20 @@ def main():
         'price': estimate(s, 'luv', {'lines': TRANSFORMERS, 'controls': CONTAMINATED}, 'B vs contaminated', rng),
         'volume': estimate(s, 'lq', {'lines': TRANSFORMERS, 'controls': CONTAMINATED}, 'B vs contaminated vol', rng)}
     res['chip_equipment_described_only'] = describe_chip_equipment()
+
+    # Deviation 9 - EXPLORATORY, NOT FILED, run after the referees asked it: did other electrical
+    # equipment rise against the same construction machinery? And transformers against the
+    # construction-only controls (welding machines, which are electrical, removed). Written to a
+    # separate file so it can never be mistaken for a filed result.
+    cons = ['842810', '842649', '847420', '847431']
+    ex = {'note': 'exploratory, not filed; see deviation 9 in PREREGISTRATION.md'}
+    for yv in ('luv', 'lq'):
+        ex[yv] = estimate(s, yv, {'lines': CONTAMINATED, 'controls': CAPITAL_CTL},
+                          'exploratory electrical vs construction', rng)['coefs']
+        ex['transformers_vs_construction_only_' + yv] = estimate(
+            s, yv, {'lines': TRANSFORMERS, 'controls': cons}, 'exploratory transformers vs construction only', rng)['coefs']
+    with open(os.path.join(HERE, 'exploratory_electrical_boom.json'), 'w', encoding='utf-8') as f:
+        json.dump(ex, f, indent=1, default=float)
 
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(res, f, indent=1, default=float)
