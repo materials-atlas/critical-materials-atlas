@@ -40,10 +40,16 @@ def load(trade_type='E'):
       select REPORTER as rep, PARTNER as par, FLOW as fl, substr(PRODUCT_NC,1,6) as k,
              PRODUCT_NC as cn8, cast(substr(PERIOD,1,4) as int) as year,
              sum(try_cast(VALUE_EUR as double)) as v, sum(try_cast(QUANTITY_KG as double)) as kg,
-             sum(case when SUPPL_UNIT <> 'NO_SU' then try_cast(QUANTITY_SUPPL_UNIT as double) end) as n_items,
+             sum(case when SUPPL_UNIT <> 'NO_SU' and try_cast(QUANTITY_SUPPL_UNIT as double) > 0
+                      then try_cast(QUANTITY_SUPPL_UNIT as double) end) as n_items,
+             sum(case when SUPPL_UNIT <> 'NO_SU' and try_cast(QUANTITY_SUPPL_UNIT as double) > 0
+                      then try_cast(VALUE_EUR as double) end) as v_items,
+             sum(case when SUPPL_UNIT <> 'NO_SU' and try_cast(QUANTITY_SUPPL_UNIT as double) > 0
+                      then try_cast(QUANTITY_KG as double) end) as kg_items,
              count(distinct PERIOD) as months
       from read_parquet(?) where TRADE_TYPE = ? and FLOW in ('1','2')
         and cast(substr(PERIOD,5,2) as int) between 1 and 12   -- never the YYYY52 yearly totals
+        and REPORTER <> 'GB' and PARTNER not in ('GB', 'XI')   -- deviation 5: EU27 on both sides, all years
       group by all"""
     d = con.execute(q, [DATA.replace('\\', '/'), trade_type]).df()
     months = con.execute("select count(distinct PERIOD) from read_parquet(?)", [DATA.replace('\\', '/')]).fetchone()[0]
@@ -54,7 +60,8 @@ def load(trade_type='E'):
 def panel(d, level='k'):
     """One row per flow-year at the six-digit (or eight-digit) level, with the filed sample rules."""
     g = d.groupby(['rep', 'par', 'fl', level, 'year'], as_index=False).agg(
-        v=('v', 'sum'), kg=('kg', 'sum'), n_items=('n_items', 'sum'))
+        v=('v', 'sum'), kg=('kg', 'sum'), n_items=('n_items', 'sum'), v_items=('v_items', 'sum'),
+        kg_items=('kg_items', 'sum'))
     thr = np.where(g.year == 2026, MIN_EUR * 7 / 12, MIN_EUR)
     g = g[(g.v >= thr) & (g.kg > 0)].copy()
     g['uv'] = g.v / (g.kg / 1000.0)                            # EUR per tonne
@@ -64,7 +71,14 @@ def panel(d, level='k'):
     g['flow'] = g.rep + '|' + g.par + '|' + g.fl + '|' + g[level]
     g['exp'] = g.rep                                           # cluster: declaring member state
     g['luv'], g['lq'] = np.log(g.uv), np.log(g.kg)
-    g['lpi'] = np.where(g.n_items > 0, np.log(g.v / g.n_items.where(g.n_items > 0)), np.nan)
+    ok = (g.n_items > 0) & (g.v_items > 0) & (g.kg_items > 0)
+    g['pi'] = np.where(ok, g.v_items / g.n_items.where(ok), np.nan)
+    g['kpi'] = np.where(ok, g.kg_items / g.n_items.where(ok), np.nan)
+    # deviation 6: the filed 0.1-10x band, applied to value per item as it is to value per tonne
+    pmed = g.groupby([level, 'year']).pi.transform('median')
+    band = (g.pi >= 0.1 * pmed) & (g.pi <= 10 * pmed)
+    g['lpi'] = np.where(ok & band, np.log(g.pi), np.nan)
+    g['lkpi'] = np.where(ok & band, np.log(g.kpi), np.nan)
     return g.reset_index(drop=True)
 
 
@@ -122,6 +136,29 @@ def main():
         'c_per_item': an.event_study(p6.dropna(subset=['lpi']), 'lpi', {'lines': T, 'controls': CON}, None, label='EU ev c item'),
         'a_price': an.event_study(p6, 'luv', {'lines': T, 'controls': CAP}, None, label='EU ev a'),
     }
+    for tag, ctrl in (('a', CAP), ('b', CONSTRUCTION)):
+        C['event_study'][tag + '_volume'] = an.event_study(p6, 'lq', {'lines': T, 'controls': ctrl}, None, label='EU ev ' + tag)
+    C['event_study']['b_price'] = an.event_study(p6, 'luv', {'lines': T, 'controls': CONSTRUCTION}, None, label='EU ev b')
+    C['event_study']['c_kg_per_item'] = an.event_study(p6.dropna(subset=['lkpi']), 'lkpi', {'lines': T, 'controls': CON}, None, label='EU ev c kg')
+    R['c_kg_per_item'] = est(p6, 'lkpi', T, CON, 'EU c kg per item')
+    # Deviation 7, exploratory: each group's OWN weight per item over time, flow effects only (no
+    # comparison group), relative to 2019 - so a relative per-item gap can be traced to its side.
+    own = {}
+    for name, lines in (('transformers', T), ('motors_pumps_compressors', CON)):
+        q = p6[p6.k.isin(lines)].dropna(subset=['lkpi']).copy()
+        q = q[q.groupby('flow').year.transform('size') > 1]
+        yrs = sorted(q.year.unique())
+        for y in yrs:
+            if y != 2019:
+                q['d%d' % y] = (q.year == y).astype(float)
+        cols = ['lkpi'] + ['d%d' % y for y in yrs if y != 2019]
+        w = an.demean_within(q, cols, 'flow')
+        X, Y = w[cols[1:]].values, w['lkpi'].values
+        b = np.linalg.pinv(X.T @ X) @ X.T @ Y
+        own[name] = {str(y): round(float(v), 4) for y, v in zip([y for y in yrs if y != 2019], b)}
+        own[name]['2019'] = 0.0
+        own[name]['flow_years'] = int(len(q))
+    C['own_kg_per_item_rel_2019'] = own
     C['pretrend_rule'] = {k: {'years_outside_0.05': [y for y in range(2014, 2019) if y in ev and abs(ev[y]['beta']) > 0.05]}
                           for k, ev in C['event_study'].items()}
     for k in C['pretrend_rule']:
