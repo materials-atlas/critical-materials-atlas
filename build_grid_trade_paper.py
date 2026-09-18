@@ -22,6 +22,7 @@ ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 REPO = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/buildout-study/'
 DOC = os.path.join(ROOT, 'out', 'buildout_study.json')
 EXPL = os.path.join(ROOT, 'buildout-study', 'exploratory_electrical_boom.json')
+EU = os.path.join(ROOT, 'out', 'buildout_eu.json')                    # amendment B
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -154,8 +155,10 @@ def event_chart(price, volume):
 def main():
     d = json.load(io.open(DOC, encoding='utf-8'))
     x = json.load(io.open(EXPL, encoding='utf-8'))
+    eud = json.load(io.open(EU, encoding='utf-8'))
     _collect(d)
     _collect(x)
+    _collect(eud)
     D, C = d['designs'], d['checks']
     B, Cn, Cg = D['B_transformers'], D['C_net_of_materials'], D['C_goes_only']
     bp2, pp2, vp2 = coef(B['price'], 'TxP2')
@@ -216,6 +219,31 @@ def main():
            sh(gc[y]['japan_share']), sh(gc[y]['russia_share']), sh(gc[y]['top3_share']))
         for y in ('2019', '2022', '2024'))
 
+    ET, EC = eud['tests'], eud['checks']
+    EP = ['TxP1', 'TxP2', 'TxP3', 'TxP4']
+
+    def eurow(label, e):
+        cells = []
+        for n in EP:
+            b, p, v = coef(e, n)
+            cells.append('<td class="n">%s <span class="mut">p&nbsp;%s</span></td>' % (pct(b), fp(p)))
+        return '<tr><td>%s</td>%s</tr>' % (label, ''.join(cells))
+    eu_rows = ''.join([
+        eurow('vs motors, pumps, compressors &mdash; value per tonne', ET['c_vs_motors_pumps_compressors']['price']),
+        eurow('vs motors, pumps, compressors &mdash; value per transformer', ET['c_per_item']),
+        eurow('vs motors, pumps, compressors &mdash; tonnes', ET['c_vs_motors_pumps_compressors']['volume']),
+        eurow('vs the filed comparison machinery &mdash; value per tonne', ET['a_vs_filed_machinery']['price']),
+        eurow('vs the filed comparison machinery &mdash; tonnes', ET['a_vs_filed_machinery']['volume']),
+    ])
+    eg = EC['goes_eu_import_shares']
+    eu_goes = ''.join('<tr><td>%s</td><td class="n">&euro;%.0fm</td><td class="n">%s</td><td class="n">%s</td>'
+                      '<td class="n">%s</td><td class="n">%s</td></tr>'
+                      % (y + (' (Jan&ndash;Jul)' if y == '2026' else ''), v['value_meur'], sh(v['china_share']),
+                         sh(v['japan_share']), sh(v['russia_share']), sh(v['top3_share'])) for y, v in eg.items())
+    evc = EC['event_study']['c_price']
+    eu_years = ', '.join('%s %s (p&nbsp;%s)' % (y, pct(evc[y]['beta']), fp(evc[y]['p_wild_line']))
+                         for y in ('2023', '2024', '2025', '2026'))
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -261,6 +289,13 @@ def main():
         'CHN23Vp': fp(coef(C['exporter_China']['B_volume'], 'TxP2')[1]),
         'COMDE': '%.2f' % C['contaminated_controls']['price']['coefs']['TxP2']['mde_80'],
         'MDEPCT': pct_raw(vp2['mde_80']),
+        'EUROWS': eu_rows, 'EUGOES': eu_goes, 'EUYEARS': eu_years,
+        'EUMONTHS': str(eud['months_on_disk']), 'EUNFY': format(eud['sample_flow_years'], ','),
+        'EUC19': sh(eg['2019']['china_share']), 'EUC25': sh(eg['2025']['china_share']),
+        'EUR19': sh(eg['2019']['russia_share']),
+        'EUT19': sh(eg['2019']['top3_share']), 'EUT25': sh(eg['2025']['top3_share']),
+        'EUCP2': pct(ET['c_vs_motors_pumps_compressors']['price']['coefs']['TxP2']['beta']),
+        'EUCI2': pct(ET['c_per_item']['coefs']['TxP2']['beta']),
         'REFS': refs, 'REPO': REPO,
     }
     for k in REFNUM:
@@ -342,7 +377,10 @@ interval includes zero, so the data cannot say whether any of the rise is specif
 much of it is the cost of steel and copper cannot be settled here either. And <b>world exports of grain-oriented electrical
 steel</b>, the core of every transformer, concentrated: China's share of export value rose from @@G19C@@ to
 @@G24C@@ and the three largest exporters' from @@G19T@@ to @@G24T@@ between 2019 and 2024. Unit values are
-not prices; they track the US transformer producer price index only moderately.</div>
+not prices; they track the US transformer producer price index only moderately. The EU's own customs
+records, which run to July 2026, show the transformer rise continuing through 2025 and 2026 and a shift
+towards heavier units, and China supplying @@EUC25@@ of the EU's electrical-steel imports from outside the
+EU in 2025, against @@EUC19@@ in 2019.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -458,6 +496,29 @@ result is also worth recording: relative to the comparison machinery, transforme
 @@CHN21V@@ in 2021&ndash;22 (p&nbsp;=&nbsp;@@CHN21Vp@@) and @@CHN23V@@ in 2023&ndash;24
 (p&nbsp;=&nbsp;@@CHN23Vp@@).</p>
 
+<h3>4.6 The EU record to July 2026</h3>
+<p>The world data stop in 2024. The EU's customs records run monthly to July 2026, at the eight-digit
+level, and record the number of transformers as well as their weight. A second filing, made before those
+records were downloaded, applied the same method to the EU's trade with countries outside the EU:
+@@EUMONTHS@@ months, @@EUNFY@@ flow-years. Gaps are relative to 2012&ndash;2020; 2026 is January to July.</p>
+<div class="tbl"><table><thead><tr><th>Transformers, EU trade outside the EU</th><th class="n">2021&ndash;22</th>
+<th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
+<tbody>@@EUROWS@@</tbody></table></div>
+<p><b>Against motors, pumps and compressors, still not established.</b> The transformer gap in value
+per tonne was positive in every year from 2023: @@EUYEARS@@. On this comparison, unlike in the world
+data, the pre-trend rule passes, so the comparison is clean; it is not precise enough, with seven customs
+lines, for any year to clear the filed bar.</p>
+<p><b>The average transformer got heavier.</b> Against the same electrical goods, value per transformer
+rose far more than value per tonne (@@EUCI2@@ against @@EUCP2@@ in 2023&ndash;24). A unit that costs more
+per piece but not per tonne is a heavier unit, most likely a larger rating. By the filed rule, that means
+product mix is moving, and the per-tonne rise is not read as a price rise.</p>
+<div class="tbl"><table><thead><tr><th>EU imports of GOES from outside the EU</th><th class="n">value</th><th class="n">China</th>
+<th class="n">Japan</th><th class="n">Russia</th><th class="n">top 3</th></tr></thead>
+<tbody>@@EUGOES@@</tbody></table></div>
+<p>In the EU's own imports of electrical steel, China went from @@EUC19@@ of the value in 2019 to
+@@EUC25@@ in 2025, and Russia from @@EUR19@@ to none. This is the EU's view of its own suppliers, not
+world exports. The three largest suppliers' share rose too, from @@EUT19@@ to @@EUT25@@.</p>
+
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
 lay outside &plusmn;0.05 log points of 2019 (for transformer unit values, every year from 2014 to 2017).
@@ -489,8 +550,9 @@ measures which machines were shipped rather than their price.</li>
 </ul>
 
 <h2>7. What would settle it</h2>
-<p>Monthly national trade data at eight or ten digits, which split transformers by rating finely enough to
-hold product mix fixed; producer price series by rating from more than one country; and order and
+<p>The EU records in section 4.6 show that counting units, not only weighing them, changes the
+reading; the same records for the United States and for large importers elsewhere would extend it.
+Beyond that: producer price series by rating from more than one country; and order and
 capacity data from manufacturers, which trade data cannot see. The concentration of electrical-steel
 exports, by contrast, is already visible and needs no further identification: it is a fact about who
 exported the core material of transformers in 2024, though not about who could produce it.</p>
@@ -503,7 +565,8 @@ agent, which traced every number to the results file and every quotation to the 
 Their reports turned the paper into this note: the event-study intervals were recomputed with the
 headline procedure, the electrical-steel figures were widened to both customs lines, a material-netting
 variant was added, and the comparison with other electrical goods was moved into the main text. This
-version was then checked again by all three. Eleven dated deviations are logged in the filing.</p>
+version was then checked again by all three. Eleven dated deviations are logged in the filing. The EU extension was filed separately, before its
+data were downloaded, and records four further dated details.</p>
 
 <h2>References</h2>
 <ol class="refs">@@REFS@@</ol>
