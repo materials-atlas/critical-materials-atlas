@@ -184,8 +184,12 @@ def estimate(df, yvar, treated, label, rng, draws=DRAWS, years=None, post=(P1, P
     return out
 
 
-def event_study(df, yvar, treated, rng, draws=2999):
-    """Year-by-year treated gaps, base 2019, line-level wild bootstrap intervals."""
+def event_study(df, yvar, treated, rng, draws=DRAWS):
+    """Year-by-year treated gaps, base 2019. Deviation 5: the intervals use the SAME procedure as the
+    headline estimates - null imposed for each year's coefficient (restricted residuals), Webb
+    weights by line, 9,999 draws. The first version used unrestricted residuals and 2,999 draws,
+    which drew intervals far narrower than the headline test's and made the chart look more
+    certain than the result."""
     d = df[df.k.isin(treated['lines'] + treated['controls'])].copy()
     d['T'] = d.k.isin(treated['lines']).astype(float)
     yrs = sorted(d.year.unique())
@@ -202,19 +206,26 @@ def event_study(df, yvar, treated, rng, draws=2999):
     X, Y = w[ev + ydum].values, w[yvar].values
     XtX_inv = np.linalg.pinv(X.T @ X)
     beta = XtX_inv @ X.T @ Y
-    res = Y - X @ beta
     ulines = np.unique(d.k.values)
     li = np.searchsorted(ulines, d.k.values)
     out = {}
     for ci, n in enumerate(ev):
+        keep = [c for c in range(X.shape[1]) if c != ci]
+        Xr = X[:, keep]
+        br = np.linalg.pinv(Xr.T @ Xr) @ Xr.T @ Y
+        fit_r = Xr @ br
+        res_r = Y - fit_r
         row = XtX_inv[ci] @ X.T
-        contrib = np.bincount(li, weights=row * res, minlength=len(ulines))
+        base = float(row @ fit_r)
+        contrib = np.bincount(li, weights=row * res_r, minlength=len(ulines))
         W = WEBB[rng.integers(0, 6, size=(draws, len(ulines)))]
         dev = np.abs(W @ contrib)
         crit = float(np.quantile(dev, 0.95))
         b = float(beta[ci])
-        out[int(n[1:])] = {'beta': round(b, 4), 'ci95': [round(b - crit, 4), round(b + crit, 4)]}
-    out[BASE_YEAR] = {'beta': 0.0, 'ci95': [0.0, 0.0]}
+        p = float((dev >= abs(b - base)).mean())
+        out[int(n[1:])] = {'beta': round(b, 4), 'ci95': [round(b - crit, 4), round(b + crit, 4)],
+                           'p_wild_line': round(p, 4)}
+    out[BASE_YEAR] = {'beta': 0.0, 'ci95': [0.0, 0.0], 'p_wild_line': None}
     return dict(sorted(out.items()))
 
 
@@ -281,8 +292,9 @@ def suppliers(d, lines):
             sh = (ex / ex.sum()).sort_values(ascending=False)
             out[k][y] = {'value_musd': round(float(t.v.sum()) / 1000.0, 1),
                          'exporters_above_1pct': int((sh > 0.01).sum()),
-                         'china_share': round(float(sh.get('CHN', 0.0)), 3),
-                         'top3_share': round(float(sh.head(3).sum()), 3),
+                         'china_share': round(float(sh.get('CHN', 0.0)), 4),
+                         'russia_share': round(float(sh.get('RUS', 0.0)), 4),
+                         'top3_share': round(float(sh.head(3).sum()), 4),
                          'top3': [[i, round(float(x), 3)] for i, x in sh.head(3).items()]}
     return out
 
@@ -303,17 +315,41 @@ def bls_validation(d, ppi):
             'ppi': {y: ppi[y] for y in lev}}
 
 
-def describe_chip_equipment(d):
+def describe_chip_equipment():
+    """Deviation 6: HS 8486 was created in HS 2007, so it does not exist in the HS 2002 panel and the
+    filed description returned zeros. It is read in HS 2017, where the codes exist, for 2017 and
+    2024 only. Description, not a test."""
+    iso = baci.countries().set_index('code')['iso3'].to_dict()
     out = {}
-    for k in DESCRIBE_ONLY:
-        out[k] = {}
-        for y in (2012, 2019, 2024):
-            t = d[(d.k == k) & (d.year == y)]
-            ex = t.groupby('exp').v.sum()
+    for y in (2017, 2024):
+        t = baci.year(y, nom='HS17')
+        t['k'] = t.k.astype(str).str.zfill(6)
+        for k in DESCRIBE_ONLY:
+            g = t[t.k == k]
+            ex = g.groupby('i').v.sum()
             sh = (ex / ex.sum()).sort_values(ascending=False)
-            out[k][y] = {'value_musd': round(float(t.v.sum()) / 1000.0, 1),
-                         'hhi': round(float((sh ** 2).sum()), 3),
-                         'top3': [[i, round(float(x), 3)] for i, x in sh.head(3).items()]}
+            out.setdefault(k, {})[y] = {
+                'value_musd': round(float(g.v.sum()) / 1000.0, 1),
+                'hhi': round(float((sh ** 2).sum()), 3),
+                'top3': [[iso.get(str(i), str(i)), round(float(x), 4)] for i, x in sh.head(3).items()]}
+    return out
+
+
+def suppliers_combined(d, lines, label):
+    """Deviation 7: supplier structure for a group of lines taken together (GOES = 7225.11 + 7226.11),
+    because the study defines GOES as both lines and one line alone overstated its concentration."""
+    out = {'lines': lines}
+    for y in (2019, 2022, 2024):
+        t = d[d.k.isin(lines) & (d.year == y)]
+        ex = t.groupby('exp').v.sum()
+        sh = (ex / ex.sum()).sort_values(ascending=False)
+        out[y] = {'value_musd': round(float(t.v.sum()) / 1000.0, 1),
+                  'exporters_above_1pct': int((sh > 0.01).sum()),
+                  'china_share': round(float(sh.get('CHN', 0.0)), 4),
+                  'russia_share': round(float(sh.get('RUS', 0.0)), 4),
+                  'japan_share': round(float(sh.get('JPN', 0.0)), 4),
+                  'top3_share': round(float(sh.head(3).sum()), 4),
+                  'top3': [[i, round(float(x), 4)] for i, x in sh.head(3).items()]}
     return out
 
 
@@ -351,6 +387,11 @@ def main():
     D['C_net_of_materials'] = {'price': estimate(adj(s, SHARE_GOES, SHARE_CU), 'luv', B, 'C price', rng)}
     for sh in (0.20, 0.30):
         D['C_shares_%.2f' % sh] = {'price': estimate(adj(s, sh, sh), 'luv', B, 'C price %.2f' % sh, rng)}
+    # Deviation 8 (added after referee review): the filed design C nets copper and GOES from the
+    # treated lines only, although the controls contain copper and ordinary steel too. GOES is the
+    # one input the controls do not use, so netting GOES alone is the cleaner variant; reported
+    # beside the filed one as a sensitivity.
+    D['C_goes_only'] = {'price': estimate(adj(s, SHARE_GOES, 0.0), 'luv', B, 'C price, GOES only', rng)}
     res['material_series'] = {k: {int(y): round(v, 4) for y, v in d.items()} for k, d in series.items()}
 
     C = res['checks']
@@ -374,6 +415,7 @@ def main():
     C['uv_band_none'] = estimate(sample(raw, None)[0], 'luv', B, 'B price no band', rng)
     C['bls_validation'] = bls_validation(raw, ppi)
     C['suppliers'] = suppliers(raw, TRANSFORMERS + GOES + CU_WIRE)
+    C['suppliers_goes_combined'] = suppliers_combined(raw, GOES, 'GOES')
 
     for name, m in (('USA', s.imp == 'USA'), ('EU27', s.imp.isin(EU27)),
                     ('rest', ~(s.imp == 'USA') & ~s.imp.isin(EU27))):
@@ -400,7 +442,7 @@ def main():
     C['contaminated_controls'] = {
         'price': estimate(s, 'luv', {'lines': TRANSFORMERS, 'controls': CONTAMINATED}, 'B vs contaminated', rng),
         'volume': estimate(s, 'lq', {'lines': TRANSFORMERS, 'controls': CONTAMINATED}, 'B vs contaminated vol', rng)}
-    res['chip_equipment_described_only'] = describe_chip_equipment(raw)
+    res['chip_equipment_described_only'] = describe_chip_equipment()
 
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(res, f, indent=1, default=float)
