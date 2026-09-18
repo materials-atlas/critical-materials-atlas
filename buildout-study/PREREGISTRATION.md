@@ -32,8 +32,8 @@ not production or installation.
 - **External benchmark.** US producer price index for power and distribution transformers, BLS
   WPU117409, annual mean.
 - **Cost shares.** GOES about 25% and copper conductor about 25% of a large power transformer's
-  production cost (US Department of Commerce, Section 232 report on GOES, 2020, survey figures, as
-  recorded in `literature.md`). Used as filed below and varied from 20% to 30% each.
+  production cost (DOE 2024, citing the 2020 Commerce survey; the Commerce report itself gives GOES only.
+  Attribution corrected 2026-09-18 after the fact-check; the shares are unchanged). Used as filed below and varied from 20% to 30% each.
 
 ## Sample rules, fixed now
 
@@ -165,9 +165,9 @@ flow-years; 4,425 dropped by the unit-value band.
 
 | Design | Price gap 2021-22 | Price gap 2023-24 | Volume gap 2021-22 | Volume gap 2023-24 |
 |---|---|---|---|---|
-| B. Transformers vs heavy capital goods | +0.028 (+3%, p = 0.106) | +0.178 (+19%, p = 0.011) | +0.025 (+3%, p = 0.500) | +0.160 (+17%, p = 0.011) |
-| C. Transformers net of GOES and copper | -0.070 (-7%, p = 0.015) | +0.116 (+12%, p = 0.018) | - | - |
-| A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.514) | +0.109 (+12%, p = 0.074) | -0.068 (-7%, p = 0.173) | -0.035 (-3%, p = 0.648) |
+| B. Transformers vs heavy capital goods | +0.028 (+3%, p = 0.105) | +0.178 (+19%, p = 0.011) | +0.025 (+3%, p = 0.497) | +0.160 (+17%, p = 0.011) |
+| C. Transformers net of GOES and copper | -0.070 (-7%, p = 0.015) | +0.116 (+12%, p = 0.019) | - | - |
+| A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.520) | +0.109 (+12%, p = 0.073) | -0.068 (-7%, p = 0.180) | -0.035 (-3%, p = 0.639) |
 | A. Copper wire vs cathode (exporter-clustered, deviation 1) | -0.041 (-4%, p = 0.023) | -0.015 (-1%, p = 0.414) | +0.032 (+3%, p = 0.752) | +0.153 (+17%, p = 0.267) |
 
 **Reading, by the filed table.** For transformers in 2023-24, price and volume both rose relative to the
@@ -176,7 +176,7 @@ controls: demand rose along an upward-sloping traded supply, with the price gap 
 gap keeps 65% of its size, so by the filed rule it is **not explained by those two materials
 alone**; in 2021-22 the net gap is negative, so over that period materials more than account for it.
 
-**The filed pre-trend rule failed for every design** (years outside ±0.05 log points: see
+**The filed pre-trend rule failed for all five designs it was applied to** (years outside ±0.05 log points: see
 `checks.pretrend_rule`), so difference-in-differences language is withdrawn. The transformer result is
 described as a relative pattern: transformer unit values relative to the controls fell from
 +0.15 in 2012 to 0 in 2019 and then rose to +0.26 in 2024; relative volumes were
@@ -215,6 +215,33 @@ Every change made after this filing goes here, dated, with its reason.
    crossed by noise alone at realistic line-year shocks. It was kept as filed rather than loosened,
    and it failed on the real data; see the result above.
 4. **2026-09-18 - percents were rounded twice.** The analysis stored each percent to one decimal and
-   the reports rounded again, so +19.48% printed as +20% and -3.49% as -4%. Percents are now stored to
+   the reports rounded again, so +19.46% printed as +20% and -3.49% as -4%. Percents are now stored to
    two decimals; no coefficient, p-value or reading changed. The two affected figures above are
    corrected.
+5. **2026-09-18 - event-study intervals.** The first version drew the year-by-year intervals from
+   unrestricted residuals with 2,999 draws, while the headline estimates impose the null with 9,999; the
+   chart looked far more certain than the test. Both now use the headline procedure. No coefficient changed.
+6. **2026-09-18 - chip equipment.** HS 8486 was created in HS 2007 and does not exist in the HS 2002
+   panel, so the filed description returned zeros. It is described in HS 2017 for 2017 and 2024 only.
+7. **2026-09-18 - GOES supplier structure.** The first report gave 7225.11 alone as "GOES"; the filing
+   defines GOES as 7225.11 and 7226.11. Supplier shares are now reported for both together (China 12% to
+   32%, top three 48% to 67%, 2019 to 2024), which is less concentrated than the single line suggested.
+8. **2026-09-18 - design C sensitivity.** Both referees showed that netting copper and GOES from the
+   treated lines only can mechanically move the gaps, because the controls contain copper and ordinary
+   steel. A variant netting GOES alone, the input the controls do not use, is reported beside the filed one.
+   Design C is now a sensitivity, not a headline.
+9. **2026-09-18 - exploratory, unfiled: electrical equipment against construction machinery.** Asked by
+   both referees, run after the result, in `exploratory_electrical_boom.json`: motors, pumps and
+   compressors (the filed contaminated set) against the filed capital-goods controls rose too (unit value
+   +9%, tonnes +8%, 2023-24), and transformers against construction-only controls (welding machines
+   removed) give +22% unit value and +15% tonnes. Labelled exploratory wherever used.
+
+**Consequence for the publication (2026-09-18).** With the pre-trend rule failed and the filed
+contaminated-control check showing the transformer gap is not clearly separate from a broad rise in
+electrical equipment (+0.095, p = 0.055), the study is published as a descriptive research note, not as
+a test result. The note says so in its first section.
+
+10. **2026-09-18 - order-independent bootstrap streams.** Every estimate drew from one random stream,
+    so adding an estimate earlier in the run moved later p-values in the third decimal (one went from
+    0.051 to 0.057). Each estimate is now seeded from the study seed and its own label. Coefficients are
+    unchanged; p-values above are from this run.
