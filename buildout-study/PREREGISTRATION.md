@@ -170,7 +170,7 @@ flow-years; 4,425 dropped by the unit-value band.
 | A. GOES vs other alloy flat steel | +0.027 (+3%, p = 0.520) | +0.109 (+12%, p = 0.073) | -0.068 (-7%, p = 0.180) | -0.035 (-3%, p = 0.639) |
 | A. Copper wire vs cathode (exporter-clustered, deviation 1) | -0.041 (-4%, p = 0.023) | -0.015 (-1%, p = 0.414) | +0.032 (+3%, p = 0.752) | +0.153 (+17%, p = 0.267) |
 
-**Reading, by the filed table.** For transformers in 2023-24, price and volume both rose relative to the
+**Reading, by the filed table - applied mechanically, and not the published reading; see the Consequence paragraph and deviations 8-9 for why the study is published as a descriptive note.** For transformers in 2023-24, price and volume both rose relative to the
 controls: demand rose along an upward-sloping traded supply, with the price gap about
 1.1 times the volume gap. In 2021-22 neither moved. Net of steel and copper, the 2023-24
 gap keeps 65% of its size, so by the filed rule it is **not explained by those two materials
@@ -180,7 +180,7 @@ alone**; in 2021-22 the net gap is negative, so over that period materials more 
 `checks.pretrend_rule`), so difference-in-differences language is withdrawn. The transformer result is
 described as a relative pattern: transformer unit values relative to the controls fell from
 +0.15 in 2012 to 0 in 2019 and then rose to +0.26 in 2024; relative volumes were
--0.16 in 2012, flat from 2018, and +0.17 in 2024. That is a reversal of a decline, and the
+-0.16 in 2012, rose to about 0 between 2017 and 2018, stayed roughly level to 2023, and were +0.17 in 2024. That is a reversal of a decline, and the
 average-gap coefficients above understate the size of the turn and overstate how clean it is.
 
 The GOES placebo fails (+0.221, p = 0.024 in the fake 2015-16 period), so the GOES price
@@ -242,6 +242,9 @@ electrical equipment (+0.095, p = 0.055), the study is published as a descriptiv
 a test result. The note says so in its first section.
 
 10. **2026-09-18 - order-independent bootstrap streams.** Every estimate drew from one random stream,
-    so adding an estimate earlier in the run moved later p-values in the third decimal (one went from
-    0.051 to 0.057). Each estimate is now seeded from the study seed and its own label. Coefficients are
+    so adding an estimate earlier in the run moved later p-values in the third decimal (the transformer-versus-electrical-goods p-value went
+    from 0.051 to 0.055). Each estimate is now seeded from the study seed and its own label. Coefficients are
     unchanged; p-values above are from this run.
+11. **2026-09-18 - the Data section was edited in place** to correct the attribution of the two 25%
+    cost shares (DOE 2024, citing the 2020 Commerce survey; the Commerce report gives GOES only). The
+    shares themselves did not change. Recorded here because the log is where changes after filing belong.

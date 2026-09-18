@@ -71,6 +71,11 @@ def pct(b):
     return ('%+d%%' % r0(v)) if r0(v) != 0 else '0%'
 
 
+def pct_raw(b):
+    """A log-point bound shown as a percent, so an interval sits in the same unit as its estimate."""
+    return '%+d%%' % r0(100 * (math.exp(b) - 1))
+
+
 def sh(x):
     return '%d%%' % r0(100 * x)
 
@@ -80,8 +85,12 @@ def fp(p):
 
 
 def num(x, fmt='%+.2f'):
+    """Signed number. Where two decimals would print 0.00 for a value that is not zero, three are
+    used, so an interval that crosses zero never loses its minus sign."""
     s = fmt % x
-    return s.replace('-0.00', '0.00').replace('+0.00', '0.00')
+    if s in ('-0.00', '+0.00'):
+        return '0' if x == 0 else '%+.3f' % x
+    return s
 
 
 def _collect(o):
@@ -173,16 +182,20 @@ def main():
                                                     ('%s to %s' % (num(ci[0]), num(ci[1]))) if ci else 'exporter-clustered'))
 
     core_rows = ''.join([
-        trow('Transformers vs construction and handling machinery &mdash; unit value', B['price']),
-        trow('Transformers vs construction and handling machinery &mdash; tonnes', B['volume']),
-        trow('Motors, pumps, compressors vs the same machinery &mdash; unit value <span class="tag">exploratory</span>', x['luv']),
-        trow('Motors, pumps, compressors vs the same machinery &mdash; tonnes <span class="tag">exploratory</span>', x['lq']),
+        trow('Transformers vs the filed comparison machinery &mdash; unit value', B['price']),
+        trow('Transformers vs the filed comparison machinery &mdash; tonnes', B['volume']),
+        trow('Transformers vs construction machinery only (welding machines removed) &mdash; unit value <span class="tag">exploratory</span>',
+             x['transformers_vs_construction_only_luv']),
+        trow('Transformers vs construction machinery only &mdash; tonnes <span class="tag">exploratory</span>',
+             x['transformers_vs_construction_only_lq']),
+        trow('Motors, pumps, compressors vs the filed comparison machinery &mdash; unit value <span class="tag">exploratory</span>', x['luv']),
+        trow('Motors, pumps, compressors vs the filed comparison machinery &mdash; tonnes <span class="tag">exploratory</span>', x['lq']),
         trow('Transformers vs motors, pumps, compressors &mdash; unit value', C['contaminated_controls']['price']),
         trow('Transformers vs motors, pumps, compressors &mdash; tonnes', C['contaminated_controls']['volume']),
     ])
     mat_rows = ''.join([
         trow('Unit value, no netting (as above)', B['price']),
-        trow('Net of electrical steel only (the input the comparison goods do not use)', Cg['price']),
+        trow('Net of electrical steel only (an input most of the comparison goods do not use)', Cg['price']),
         trow('Net of electrical steel and copper, 25% each (as filed)', Cn['price']),
     ])
 
@@ -191,7 +204,8 @@ def main():
         for k in ('B_price', 'B_volume'):
             b, p, v = coef(e[k], 'TxP2')
             ci = v['ci95_wild_line']
-            cells.append('<td class="n">%s</td><td class="n mut">%s to %s</td>' % (pct(b), num(ci[0]), num(ci[1])))
+            cells.append('<td class="n">%s</td><td class="n mut">%s to %s</td>'
+                         % (pct(b), pct_raw(ci[0]), pct_raw(ci[1])))
         return '<tr><td>%s</td>%s</tr>' % (name, ''.join(cells))
     imp_rows = imp_row('United States', us) + imp_row('European Union (27)', eu) + imp_row('Rest of the world', rest)
 
@@ -212,6 +226,16 @@ def main():
         'COP': pct(cont_p), 'COPp': fp(cont_pp), 'COV': pct(cont_v), 'COVp': fp(cont_vp),
         'EV22': num(ev_p['2022']['beta']), 'EV23': num(ev_p['2023']['beta']), 'EV24': num(ev_p['2024']['beta']),
         'EV12': num(ev_p['2012']['beta']), 'EVV23': num(ev_v['2023']['beta']), 'EVV24': num(ev_v['2024']['beta']),
+        'EVV17': num(ev_v['2017']['beta']), 'EVV18': num(ev_v['2018']['beta']),
+        'CO2P': pct(x['transformers_vs_construction_only_luv']['TxP2']['beta']),
+        'CO2V': pct(x['transformers_vs_construction_only_lq']['TxP2']['beta']),
+        'LOWUV': pct(C['freight_heavy_low_uv']['coefs']['TxP2']['beta']),
+        'LOWUVp': fp(C['freight_heavy_low_uv']['coefs']['TxP2']['p_wild_line']),
+        'HIUV': pct(C['freight_light_high_uv']['coefs']['TxP2']['beta']),
+        'HIUVp': fp(C['freight_light_high_uv']['coefs']['TxP2']['p_wild_line']),
+        'RESULTS': 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/buildout_study.json',
+        'USVL': pct_raw(C['importer_USA']['B_volume']['coefs']['TxP2']['ci95_wild_line'][0]),
+        'USVH': pct_raw(C['importer_USA']['B_volume']['coefs']['TxP2']['ci95_wild_line'][1]),
         'EVV24L': num(ev_v['2024']['ci95'][0]), 'EVV24H': num(ev_v['2024']['ci95'][1]),
         'EV24L': num(ev_p['2024']['ci95'][0]), 'EV24H': num(ev_p['2024']['ci95'][1]),
         'CHART': event_chart(ev_p, ev_v),
@@ -306,15 +330,16 @@ a year before 2020 to about three years by 2024. We set out to test, in world tr
 build-out showed up in transformer prices or volumes. The test was pre-registered; its pre-trend rule
 failed, and review showed that the result is not specific to transformers, so this is a descriptive
 note. From @@NFY@@ exporter&ndash;importer&ndash;product flow-years (CEPII BACI, 2012&ndash;2024), four things
-can be said. <b>Electrical equipment as a group</b> &mdash; transformers, motors, pumps, compressors &mdash;
-rose in unit value and in tonnes relative to construction and handling machinery after 2020.
-<b>Transformers rose most</b>: in 2023&ndash;24 their unit values stood @@BP2@@ and their tonnes @@BV2@@ above
-that machinery, against @@ELP@@ and @@ELV@@ for the other electrical goods; but the part that is specific
-to transformers (@@COP@@ in unit value, p&nbsp;=&nbsp;@@COPp@@) is at the edge of what these data can detect.
-<b>How much is the cost of steel and copper</b> cannot be settled here. And <b>the supply of grain-oriented
-electrical steel</b>, the core of every transformer, concentrated: China's share of world exports rose from
-@@G19C@@ to @@G24C@@ and the three largest exporters' from @@G19T@@ to @@G24T@@ between 2019 and 2024.
-Unit values are not prices; they track the US transformer producer price index only moderately.</div>
+can be said. <b>Goods that share the demand of electrification</b> &mdash; transformers, and electric
+motors, pumps and compressors &mdash; rose in unit value and in tonnes relative to a set of heavy machinery
+(lifts, cranes, crushers, concrete mixers and welding machines) after 2020. <b>Transformers rose more than
+motors, pumps and compressors taken together</b>: in 2023&ndash;24 their unit values stood @@BP2@@ and their
+tonnes @@BV2@@ above that machinery, against @@ELP@@ and @@ELV@@; but the part specific to transformers
+(@@COP@@ in unit value, p&nbsp;=&nbsp;@@COPp@@) is at the edge of what these data can detect. <b>How much is the
+cost of steel and copper</b> cannot be settled here. And <b>world exports of grain-oriented electrical
+steel</b>, the core of every transformer, concentrated: China's share of export value rose from @@G19C@@ to
+@@G24C@@ and the three largest exporters' from @@G19T@@ to @@G24T@@ between 2019 and 2024. Unit values are
+not prices; they track the US transformer producer price index only moderately.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -357,8 +382,10 @@ under the series. A flow is one exporter&ndash;importer pair in one six-digit li
 USD 100,000 or more with a positive tonnage, and unit values more than ten times above or below the
 line's median that year are dropped. The transformer lines are liquid-dielectric transformers 8504.21
 (up to 650 kVA), 8504.22 (over 650 up to 10,000 kVA) and 8504.23 (over 10,000 kVA). The filed comparison
-goods are lifts, cranes, crushers, concrete mixers and electric welding machines; motors (8501.52/53),
-pumps (8413.70) and compressors (8414.80) were filed as a check on shared electrification demand.</p>
+goods are lifts, cranes, crushers, concrete mixers and electric welding machines. Welding machines are
+themselves electrical equipment, so a construction-only version without them is reported beside the
+filed one. Electric motors (8501.52/53), pumps (8413.70) and compressors (8414.80) were filed as a check
+on shared electrification demand.</p>
 <p>Each estimate compares a flow with itself over time (flow and year effects), which removes some of
 the product-mix change that makes aggregate unit values unreliable@@C_Schott2004@@@@C_Silver2007@@ but
 not mix within a flow. The gaps below are averages over 2023&ndash;24 against 2012&ndash;2020. Because the
@@ -367,27 +394,31 @@ shock is to product markets, inference is a wild bootstrap clustered by customs 
 the main comparison could reliably detect is @@MDE@@ log points.</p>
 
 <h2>4. What the trade record shows</h2>
-<h3>4.1 Transformers rose, gradually in value and late in tonnes</h3>
+<h3>4.1 Transformers rose: first in unit value, late in tonnes</h3>
 <figure class="fig">@@CHART@@
-<figcaption><b>Transformers relative to construction and handling machinery, by year.</b> Log points
+<figcaption><b>Transformers relative to the filed comparison machinery, by year.</b> Log points
 relative to 2019; teal = unit value, navy = tonnes; whiskers are 95% intervals from the same
 line-level bootstrap as the tables; shaded: 2021&ndash;24.</figcaption></figure>
 <p>Relative to the comparison machinery, transformer unit values fell from @@EV12@@ in 2012 to zero in
 2019, were already @@EV22@@ in 2022, and reached @@EV23@@ in 2023 and @@EV24@@ in 2024 (interval
-@@EV24L@@ to @@EV24H@@). Relative tonnes barely moved until 2024: @@EVV23@@ in 2023, then @@EVV24@@
-(@@EVV24L@@ to @@EVV24H@@). The rise in value is mostly unit value, and the rise in tonnes is one year old.</p>
+@@EV24L@@ to @@EV24H@@). Relative tonnes rose from @@EVV17@@ in 2017 to @@EVV18@@ in 2018, stayed roughly
+level through 2023 (@@EVV23@@), and reached @@EVV24@@ in 2024 (@@EVV24L@@ to @@EVV24H@@). The relative rise
+appears in unit values first and in tonnes only in the last year.</p>
 
 <h3>4.2 Not only transformers</h3>
 <div class="tbl"><table><thead><tr><th>2023&ndash;24, relative to 2012&ndash;2020</th><th class="n">gap</th><th class="n">p</th><th class="n">95% interval</th></tr></thead>
 <tbody>@@COREROWS@@</tbody></table></div>
 <p class="meta"><span class="tag">exploratory</span> rows were not in the filing; they were run after review
 to answer the referees' question directly and are labelled wherever they appear.</p>
-<p>Motors, pumps and compressors also rose relative to construction and handling machinery: @@ELP@@ in
-unit value (p&nbsp;=&nbsp;@@ELPp@@) and @@ELV@@ in tonnes (p&nbsp;=&nbsp;@@ELVp@@). Transformers rose about
-twice as much. Measured directly against those electrical goods, the transformer gap is @@COP@@ in unit
-value (p&nbsp;=&nbsp;@@COPp@@) and @@COV@@ in tonnes (p&nbsp;=&nbsp;@@COVp@@). The honest reading is that
-electrical equipment as a group gained on other heavy machinery after 2020, transformers most of all, and
-that nine customs lines cannot establish how much of the transformer excess is specific to transformers.
+<p>Against construction machinery alone, without the welding machines, the transformer gaps are
+@@CO2P@@ in unit value and @@CO2V@@ in tonnes, close to the filed comparison. Motors, pumps and compressors
+also rose relative to the filed comparison machinery: @@ELP@@ in unit value (p&nbsp;=&nbsp;@@ELPp@@) and
+@@ELV@@ in tonnes (p&nbsp;=&nbsp;@@ELVp@@). Transformers rose about twice as much as those goods taken
+together. Measured directly against them, the transformer gap is @@COP@@ in unit value
+(p&nbsp;=&nbsp;@@COPp@@) and @@COV@@ in tonnes (p&nbsp;=&nbsp;@@COVp@@), with intervals that include zero. The
+honest reading is that goods sharing the demand of electrification gained on other heavy machinery after
+2020, transformers more than the others, and that nine customs lines cannot establish how much of the
+transformer excess is specific to transformers.
 The three transformer size classes point the same way (@@PL21@@) but none is distinguishable from zero on
 its own (p = @@PLP@@).</p>
 
@@ -397,17 +428,18 @@ its own (p = @@PLP@@).</p>
 <p>The filed adjustment nets a quarter of the real change in the GOES unit value and a quarter of the real
 change in the copper price from transformers only. The referees showed why that is fragile: the comparison
 machinery also contains copper and ordinary steel, and because both input prices peaked in 2021&ndash;22,
-netting them from one side alone pushes the earlier gap down (@@CN1@@) and the later one up almost
-mechanically. Netting only electrical steel, which the comparison goods do not use, leaves @@CG1@@ in
-2021&ndash;22 and @@CG2@@ in 2023&ndash;24. Neither version accounts for labour, about a third of cost, or
-for the long lag between order and delivery, which means 2023&ndash;24 shipments were largely priced on
-earlier inputs. How much of the transformer rise is materials is not settled by these data.</p>
+netting them from one side alone pushes the earlier gap down (@@CN1@@) and so widens the rise from
+2021&ndash;22 to 2023&ndash;24 almost mechanically. Netting only electrical steel, which most of the
+comparison goods do not use, leaves @@CG1@@ in 2021&ndash;22 and @@CG2@@ in 2023&ndash;24. Neither version
+accounts for labour, about 36% of manufacturing cost for large units, or for the long lag between order
+and delivery, which means 2023&ndash;24 shipments may have been priced on earlier inputs. How much of the transformer rise is materials is not settled by these data.</p>
 
-<h3>4.4 The steel inside the transformer concentrated</h3>
+<h3>4.4 World exports of electrical steel concentrated</h3>
 <div class="tbl"><table><thead><tr><th>GOES, 7225.11 + 7226.11</th><th class="n">world exports</th><th class="n">exporters &gt;1%</th><th class="n">China</th><th class="n">Japan</th><th class="n">Russia</th><th class="n">top 3</th></tr></thead>
 <tbody>@@GOESROWS@@</tbody></table></div>
-<p>This is the clearest finding, and it does not depend on unit values or on any comparison group.
-Between 2019 and 2024 China's share of world GOES exports rose from @@G19C@@ to @@G24C@@, Russia's fell
+<p>This is the clearest fact in the trade record, and it does not depend on unit values or on any
+comparison group; the shares are shares of export value. Between 2019 and 2024 China's share of world GOES
+exports rose from @@G19C@@ to @@G24C@@, Russia's fell
 from @@G19R@@ to @@G24R@@ after sanctions, and Japan's stayed near a quarter (@@G19J@@ and @@G24J@@). The
 number of exporters with more than 1% of the market fell from @@G19N@@ to @@G24N@@ and the three largest
 went from @@G19T@@ to @@G24T@@. The price of GOES in trade, by contrast, cannot be read: in a placebo
@@ -417,8 +449,8 @@ so its post-2021 movements are within its normal swings.</p>
 <h3>4.5 Where the transformers went</h3>
 <div class="tbl"><table><thead><tr><th>Importer, 2023&ndash;24</th><th class="n">unit value</th><th class="n">95% interval</th><th class="n">tonnes</th><th class="n">95% interval</th></tr></thead>
 <tbody>@@IMPROWS@@</tbody></table></div>
-<p>The intervals for single importing regions are wide; the US tonnage estimate in particular spans from
-barely positive to more than five times. They are shown as heterogeneity, not as findings. One exporter
+<p>The intervals for single importing regions are wide; the US tonnage estimate in particular runs from
+@@USVL@@ to @@USVH@@. They are shown as heterogeneity, not as findings. One exporter
 result is also worth recording: flows from China fell in tonnes in 2021&ndash;22 (@@CHN21V@@,
 p&nbsp;=&nbsp;@@CHN21Vp@@).</p>
 
@@ -433,10 +465,13 @@ mix; the direction of that bias is not known, so the unit-value gaps are neither
 price change.</li>
 <li><b>Copper wire</b> (7408.11, wire over 6 mm across, largely rod rather than transformer winding wire)
 showed no gap relative to copper cathode after 2022; it says little about transformers either way.</li>
+<li><b>Where the gap sits.</b> Split at the median unit value, the 2023&ndash;24 transformer gap is
+@@LOWUV@@ in the lower half (p&nbsp;=&nbsp;@@LOWUVp@@) and @@HIUV@@ in the upper half
+(p&nbsp;=&nbsp;@@HIUVp@@): it sits in the lower-value flows.</li>
 <li><b>Other checks</b> filed in advance &mdash; a placebo period for transformers, alternative unit-value
-bands, leaving out each line, and splits by exporter and by unit value &mdash; are reported in the
-<a href="@@REPO@@">study folder</a>. None changes the reading above; none rescues the transformer-specific
-claim.</li>
+bands, leaving out each line, and splits by exporter &mdash; are in the <a href="@@RESULTS@@">results
+file</a>. All of them use the filed comparison machinery; none compares transformers with other
+electrical goods, so none bears on the transformer-specific question.</li>
 </ul>
 
 <h2>6. What this cannot say</h2>
@@ -455,18 +490,18 @@ the record, world exports of machines for making semiconductor devices (8486.20)
 <p>Monthly national trade data at eight or ten digits, which split transformers by rating finely enough to
 hold product mix fixed; producer price series by rating from more than one country; and order and
 capacity data from manufacturers, which trade data cannot see. The concentration of electrical-steel
-exports, by contrast, is already visible and needs no further identification: it is a fact about who can
-supply the core of the next transformer.</p>
+exports, by contrast, is already visible and needs no further identification: it is a fact about who
+exported the core material of transformers in 2024, though not about who could produce it.</p>
 
 <h2>Review record</h2>
 <p>Design: reviewed before filing by two independent language models as journal referees, which changed
 the question, the controls, the inference and the claims. Literature: assembled by a research agent under
-a rule that every source be opened and quoted. Result: reviewed by the same two referees and by a separate
-fact-checking agent, which traced every number to the results file and every quotation to the verified
-literature. Their reports led to this version: the event-study intervals were recomputed with the
+a rule that every source be opened and quoted. Result: an earlier version was reviewed by the same two referees and by a separate fact-checking
+agent, which traced every number to the results file and every quotation to the verified literature.
+Their reports turned the paper into this note: the event-study intervals were recomputed with the
 headline procedure, the electrical-steel figures were widened to both customs lines, a material-netting
-variant was added, the electrical-equipment comparison was moved into the main text, and every claim that
-the data could not carry was cut. Ten dated deviations are logged in the filing.</p>
+variant was added, and the comparison with other electrical goods was moved into the main text. This
+version was then checked again by all three. Eleven dated deviations are logged in the filing.</p>
 
 <h2>References</h2>
 <ol class="refs">@@REFS@@</ol>
