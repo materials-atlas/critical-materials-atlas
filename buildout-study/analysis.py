@@ -144,6 +144,8 @@ def estimate(df, yvar, treated, label, rng, draws=DRAWS, years=None, post=(P1, P
             s = X[m].T @ resid[m]
             meat += np.outer(s, s)
         G = len(np.unique(groups))
+        if G < 2:                                            # one exporter (the China-only split)
+            return np.full(X.shape[1], np.nan), G
         n, k = X.shape
         adj = G / (G - 1) * (n - 1) / max(n - k - d.flow.nunique(), 1)
         V = XtX_inv @ meat @ XtX_inv * adj
