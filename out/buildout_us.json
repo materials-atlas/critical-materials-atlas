@@ -426,11 +426,11 @@
    }
   },
   "transformers_own_kg_per_unit_rel_2019_hs10": {
-   "2019": 0.0,
+   "not_runnable": "no within-flow observations with this measure and a 2019 base",
    "flow_years": 0
   },
   "transformers_own_value_per_kg_rel_2019_hs10": {
-   "2019": 0.0,
+   "not_runnable": "no within-flow observations with this measure and a 2019 base",
    "flow_years": 0
   },
   "test2_reading": "not runnable: kilograms reported only from 2026",
@@ -800,6 +800,128 @@
      ],
      "p_wild_line": 0.6226
     }
+   },
+   "c_per_unit_hs10": {
+    "2012": {
+     "beta": -0.1471,
+     "ci95": [
+      -0.3902,
+      0.0961
+     ],
+     "p_wild_line": 0.2399
+    },
+    "2013": {
+     "beta": -0.236,
+     "ci95": [
+      -0.5823,
+      0.1104
+     ],
+     "p_wild_line": 0.1851
+    },
+    "2014": {
+     "beta": -0.1402,
+     "ci95": [
+      -0.4532,
+      0.1728
+     ],
+     "p_wild_line": 0.4189
+    },
+    "2015": {
+     "beta": -0.1226,
+     "ci95": [
+      -0.4336,
+      0.1884
+     ],
+     "p_wild_line": 0.4615
+    },
+    "2016": {
+     "beta": 0.0646,
+     "ci95": [
+      -0.1986,
+      0.3278
+     ],
+     "p_wild_line": 0.6475
+    },
+    "2017": {
+     "beta": 0.0168,
+     "ci95": [
+      -0.2527,
+      0.2863
+     ],
+     "p_wild_line": 0.9194
+    },
+    "2018": {
+     "beta": -0.1539,
+     "ci95": [
+      -0.4412,
+      0.1334
+     ],
+     "p_wild_line": 0.3175
+    },
+    "2019": {
+     "beta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "p_wild_line": null
+    },
+    "2020": {
+     "beta": -0.2512,
+     "ci95": [
+      -0.5745,
+      0.072
+     ],
+     "p_wild_line": 0.1502
+    },
+    "2021": {
+     "beta": -0.0869,
+     "ci95": [
+      -0.2833,
+      0.1095
+     ],
+     "p_wild_line": 0.392
+    },
+    "2022": {
+     "beta": -0.1261,
+     "ci95": [
+      -0.3963,
+      0.1441
+     ],
+     "p_wild_line": 0.3887
+    },
+    "2023": {
+     "beta": -0.0632,
+     "ci95": [
+      -0.2877,
+      0.1613
+     ],
+     "p_wild_line": 0.624
+    },
+    "2024": {
+     "beta": 0.0679,
+     "ci95": [
+      -0.213,
+      0.3487
+     ],
+     "p_wild_line": 0.642
+    },
+    "2025": {
+     "beta": 0.2869,
+     "ci95": [
+      -0.0179,
+      0.5917
+     ],
+     "p_wild_line": 0.0665
+    },
+    "2026": {
+     "beta": 0.0962,
+     "ci95": [
+      -0.1841,
+      0.3765
+     ],
+     "p_wild_line": 0.5101
+    }
    }
   },
   "pretrend_rule": {
@@ -829,6 +951,15 @@
      2015,
      2016,
      2017,
+     2018
+    ],
+    "did_language_allowed": false
+   },
+   "c_per_unit_hs10": {
+    "years_outside_0.05": [
+     2014,
+     2015,
+     2016,
      2018
     ],
     "did_language_allowed": false
@@ -1131,6 +1262,152 @@
     ],
     "china_value_share": 0.003,
     "china_kg_share": 0.0047
+   }
+  },
+  "transformer_import_origins": {
+   "2019": {
+    "value_musd": 1531.5,
+    "top3": [
+     [
+      "MEXICO",
+      0.4094
+     ],
+     [
+      "AUSTRIA",
+      0.1423
+     ],
+     [
+      "CANADA",
+      0.1103
+     ]
+    ],
+    "china_share": 0.0122
+   },
+   "2020": {
+    "value_musd": 1809.6,
+    "top3": [
+     [
+      "MEXICO",
+      0.4384
+     ],
+     [
+      "CANADA",
+      0.1044
+     ],
+     [
+      "AUSTRIA",
+      0.1007
+     ]
+    ],
+    "china_share": 0.0279
+   },
+   "2021": {
+    "value_musd": 1796.4,
+    "top3": [
+     [
+      "MEXICO",
+      0.4363
+     ],
+     [
+      "CANADA",
+      0.1176
+     ],
+     [
+      "KOREA, SOUTH",
+      0.0962
+     ]
+    ],
+    "china_share": 0.0072
+   },
+   "2022": {
+    "value_musd": 2425.6,
+    "top3": [
+     [
+      "MEXICO",
+      0.492
+     ],
+     [
+      "CANADA",
+      0.1005
+     ],
+     [
+      "KOREA, SOUTH",
+      0.0863
+     ]
+    ],
+    "china_share": 0.02
+   },
+   "2023": {
+    "value_musd": 3976.2,
+    "top3": [
+     [
+      "MEXICO",
+      0.3963
+     ],
+     [
+      "KOREA, SOUTH",
+      0.1384
+     ],
+     [
+      "CANADA",
+      0.0805
+     ]
+    ],
+    "china_share": 0.0255
+   },
+   "2024": {
+    "value_musd": 5922.4,
+    "top3": [
+     [
+      "MEXICO",
+      0.3126
+     ],
+     [
+      "KOREA, SOUTH",
+      0.1992
+     ],
+     [
+      "BRAZIL",
+      0.0736
+     ]
+    ],
+    "china_share": 0.0336
+   },
+   "2025": {
+    "value_musd": 7491.3,
+    "top3": [
+     [
+      "MEXICO",
+      0.2878
+     ],
+     [
+      "KOREA, SOUTH",
+      0.2151
+     ],
+     [
+      "BRAZIL",
+      0.0867
+     ]
+    ],
+    "china_share": 0.0354
+   },
+   "2026": {
+    "value_musd": 4506.7,
+    "top3": [
+     [
+      "MEXICO",
+      0.2966
+     ],
+     [
+      "KOREA, SOUTH",
+      0.1801
+     ],
+     [
+      "BRAZIL",
+      0.0937
+     ]
+    ],
+    "china_share": 0.045
    }
   }
  },
