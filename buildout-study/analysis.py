@@ -218,6 +218,41 @@ def event_study(df, yvar, treated, rng, draws=2999):
     return dict(sorted(out.items()))
 
 
+def two_line_design(df, yvar, spec):
+    """Deviation 1: one treated line against one control line cannot support a line-level
+    bootstrap (two clusters). Same equation, exporter-clustered only, labelled as such."""
+    from scipy import stats
+    d = df[df.k.isin(spec['lines'] + spec['controls'])].copy()
+    d['T'] = d.k.isin(spec['lines']).astype(float)
+    names = ['TxP1', 'TxP2']
+    for n, per in zip(names, (P1, P2)):
+        d[n] = d['T'] * d.year.isin(per).astype(float)
+    yrs = sorted(d.year.unique())
+    yd = ['y%d' % y for y in yrs[1:]]
+    for y in yrs[1:]:
+        d['y%d' % y] = (d.year == y).astype(float)
+    d = d[d.groupby('flow').year.transform('size') > 1].reset_index(drop=True)
+    w = demean_within(d, [yvar] + names + yd, 'flow')
+    X, Y = w[names + yd].values, w[yvar].values
+    Xi = np.linalg.pinv(X.T @ X)
+    b = Xi @ X.T @ Y
+    r = Y - X @ b
+    meat = np.zeros((X.shape[1], X.shape[1]))
+    ex = d.exp.values
+    for g in np.unique(ex):
+        m = ex == g
+        sc = X[m].T @ r[m]
+        meat += np.outer(sc, sc)
+    G = len(np.unique(ex))
+    se = np.sqrt(np.diag(Xi @ meat @ Xi * G / (G - 1)))
+    return {'note': 'one treated and one control line: exporter-clustered only (deviation 1)',
+            'y': yvar, 'n': int(len(d)), 'exporters': int(G), 'coefs': {
+                n: {'beta': round(float(b[i]), 4), 'pct': round(100 * (math.exp(b[i]) - 1), 1),
+                    'se_cluster_exporter': round(float(se[i]), 4),
+                    'p_cluster_exporter': round(float(2 * stats.t.sf(abs(b[i] / se[i]), G - 1)), 4)}
+                for i, n in enumerate(names)}}
+
+
 # ----------------------------------------------------------------------------- design C
 def material_adjusted(s, cpi, copper):
     """Subtract 0.25 x real GOES world UV and 0.25 x real copper price from transformer log UVs."""
@@ -302,9 +337,11 @@ def main():
            'designs': {}, 'checks': {}}
 
     D = res['designs']
-    for tag, spec in (('A_goes', A_goes), ('A_copper_wire', A_cu), ('B_transformers', B)):
+    for tag, spec in (('A_goes', A_goes), ('B_transformers', B)):
         D[tag] = {'price': estimate(s, 'luv', spec, tag + ' price', rng),
                   'volume': estimate(s, 'lq', spec, tag + ' volume', rng)}
+    D['A_copper_wire'] = {'price': two_line_design(s, 'luv', A_cu),
+                          'volume': two_line_design(s, 'lq', A_cu)}
     for k in TRANSFORMERS:
         spec = {'lines': [k], 'controls': CAPITAL_CTL}
         D['B_' + k] = {'price': estimate(s, 'luv', spec, k + ' price', rng),
@@ -374,8 +411,9 @@ def main():
             return
         c = e['coefs']
         print('%-26s ' % tag + '  '.join(
-            '%s %+.3f (%+.0f%%) p=%.3f mde=%.3f' % (n, v['beta'], v['pct'], v['p_wild_line'], v['mde_80'])
-            for n, v in c.items()) + '  [n %d, lines %d]' % (e['n'], list(c.values())[0]['lines_in_bootstrap']))
+            '%s %+.3f (%+.0f%%) p=%.3f' % (n, v['beta'], v['pct'],
+                                          v.get('p_wild_line', v.get('p_cluster_exporter')))
+            for n, v in c.items()) + '  [n %d]' % e['n'])
     for tag, v in D.items():
         for side, e in v.items():
             show('%s %s' % (tag, side), e)
