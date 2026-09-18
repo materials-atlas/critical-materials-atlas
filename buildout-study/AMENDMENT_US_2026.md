@@ -55,55 +55,73 @@ Customs value excludes duties, so tariff changes enter only through what exporte
 policy changed repeatedly over the period and is not separated from anything else. Counts of units say
 nothing about rating within a ten-digit code. Not causal. 2026 is seven months.
 
-## Result - run 2026-09-18 (after deviations 1-2)
+## Result - run 2026-09-18 (after deviations 1-4)
 
 Run by `analysis_us.py`; every number is in `out/buildout_us.json`. 175 months, January 2012 to
 2026-07; US general imports from 190 origin countries;
 4,332 origin-line flow-years with a count of units after the filed sample rules. Gaps are
-in value per unit, relative to 2012-2020.
+in value per unit, relative to 2012-2020, with the smallest gap each estimate could reliably detect.
 
 | Comparison, value per unit | 2021-22 | 2023-24 | 2025 | 2026 Jan-Jul |
 |---|---|---|---|---|
-| (c) vs motors, pumps, compressors **(headline)** | +0.134 (+14%, p = 0.139) | +0.072 (+8%, p = 0.586) | +0.256 (+29%, p = 0.229) | +0.230 (+26%, p = 0.704) |
-| (a) vs filed machinery | +0.178 (+20%, p = 0.505) | +0.092 (+10%, p = 0.783) | +0.350 (+42%, p = 0.314) | +0.080 (+8%, p = 0.868) |
-| (b) vs construction only | +0.145 (+16%, p = 0.680) | +0.227 (+25%, p = 0.589) | +0.463 (+59%, p = 0.339) | +0.135 (+14%, p = 0.829) |
-| (c) at ten digits (filed sensitivity) | +0.001 (+0%, p = 0.994) | +0.113 (+12%, p = 0.359) | +0.396 (+49%, p = 0.010) | +0.206 (+23%, p = 0.231) |
+| (c) vs motors, pumps, compressors **(headline)** | +0.134 (+14%, p = 0.139, detectable 0.25) | +0.072 (+8%, p = 0.586, detectable 0.31) | +0.256 (+29%, p = 0.229, detectable 0.56) | +0.230 (+26%, p = 0.704, detectable 0.96) |
+| (a) vs filed machinery | +0.178 (+20%, p = 0.505, detectable 0.67) | +0.092 (+10%, p = 0.783, detectable 0.86) | +0.350 (+42%, p = 0.314, detectable 0.91) | +0.080 (+8%, p = 0.868, detectable 1.24) |
+| (b) vs construction only | +0.145 (+16%, p = 0.680, detectable 0.93) | +0.227 (+25%, p = 0.589, detectable 1.22) | +0.463 (+59%, p = 0.339, detectable 1.22) | +0.135 (+14%, p = 0.829, detectable 1.49) |
+| (c) at ten digits (filed sensitivity) | +0.001 (+0%, p = 0.994, detectable 0.26) | +0.113 (+12%, p = 0.359, detectable 0.33) | +0.396 (+49%, p = 0.010, detectable 0.45) | +0.206 (+23%, p = 0.231, detectable 0.46) |
 
-**Test 1, by the filed reading: still not distinguishable from electrical goods generally, in US imports
-either.** No headline interval excludes zero. The pre-trend rule fails for all three comparisons (every
-year 2014-2018 outside +/-0.05), so these are relative patterns at best, and noisy ones: a count of
-transformers weighs a 10 kVA unit and a 200 MVA unit the same. The ten-digit sensitivity excludes zero in
-2025 only (p = 0.010), which, on a comparison whose
-pre-trend rule fails, is not read.
+**Test 1: no headline interval excludes zero, and the test has little power.** The smallest detectable
+gap on the headline comparison is 0.31 to 0.96 log points over the post periods, so
+a gap the size of the one estimated in the EU would go undetected. This is not evidence of absence. Value
+per unit is also mostly a product-mix index here: one unit can be a small distribution transformer or a
+large power transformer, and a small pump or a large compressor. The filed reading ("still not
+distinguishable") is applied, with the power stated beside it. The ten-digit sensitivity excludes zero in
+2025 (+0.396, p = 0.010); the pre-trend rule, now run on it too (deviation 3), fails
+for it as for every US comparison, so it is reported and not read. The US evidence on transformers is
+unstable rather than null.
 
 **Test 2, the filed per-side paths.** Each group's own value per unit, within flows, relative to 2019:
 
-- transformers: 2021 -0.19, 2022 +0.01, 2023 +0.03, 2024 +0.03, 2025 +0.21, 2026 +0.08;
-- motors pumps compressors: 2021 +0.04, 2022 -0.04, 2023 +0.07, 2024 +0.28, 2025 +0.17, 2026 +0.07;
-- filed machinery: 2021 -0.16, 2022 -0.31, 2023 -0.08, 2024 +0.01, 2025 -0.12, 2026 +0.02;
+- transformers: 2018 -0.43, 2021 -0.19, 2022 +0.01, 2023 +0.03, 2024 +0.03, 2025 +0.21, 2026 +0.08;
+- motors pumps compressors: 2018 +0.04, 2021 +0.04, 2022 -0.04, 2023 +0.07, 2024 +0.28, 2025 +0.17, 2026 +0.07;
+- filed machinery: 2018 -0.07, 2021 -0.16, 2022 -0.31, 2023 -0.08, 2024 +0.01, 2025 -0.12, 2026 +0.02;
 
-Transformers' own value per unit rose in 2025, and so did the comparison electrical goods' in 2024-25: the
-US record, like the EU's, shows electrical goods rising together rather than transformers alone. The filed
-weight test **could not be run**: the Census reports kilograms for transformer imports only from 2026
+Both groups' own value per unit rose in some years after 2022, but not in the same years: the comparison
+goods mainly in 2024, transformers mainly in 2025. These paths carry no intervals and rest on the same
+mix-sensitive denominator; they are not read as a common movement. The filed weight test could not be run
 (deviation 1).
 
-**Test 3: US imports of GOES (7225.11, 7226.11), by origin.**
+**Test 3: direct US imports of GOES (7225.11, 7226.11), by origin.**
 
-| Year | USD m | tonnes | China, share of value | three largest origins, share of value | their share |
-|---|---|---|---|---|---|
-| 2019 | 53.0 | 27896 | 4.2% | Korea, South 49%, Japan 26%, Brazil 8% | 83% |
-| 2020 | 48.6 | 25169 | 2.3% | Korea, South 51%, Japan 34%, Russia 6% | 91% |
-| 2021 | 89.7 | 41991 | 1.2% | Japan 57%, Korea, South 38%, Russia 3% | 97% |
-| 2022 | 67.6 | 20055 | 0.7% | Japan 50%, Korea, South 28%, Canada 14% | 92% |
-| 2023 | 125.6 | 31609 | 0.6% | Japan 43%, Korea, South 41%, Canada 7% | 90% |
-| 2024 | 117.8 | 36065 | 0.6% | Korea, South 44%, Japan 42%, Czech Republic 4% | 91% |
-| 2025 | 64.0 | 19933 | 0.7% | Japan 59%, Korea, South 21%, Czech Republic 5% | 86% |
-| 2026 | 51.7 | 16382 | 0.3% | Japan 73%, Germany 12%, Korea, South 10% | 95% |
+| Year | USD m | tonnes | China, share of value | three largest origins, share of value |
+|---|---|---|---|---|
+| 2019 | 53.0 | 27896 | 4.2% | Korea, South 49%, Japan 26%, Brazil 8% |
+| 2020 | 48.6 | 25169 | 2.3% | Korea, South 51%, Japan 34%, Russia 6% |
+| 2021 | 89.7 | 41991 | 1.2% | Japan 57%, Korea, South 38%, Russia 3% |
+| 2022 | 67.6 | 20055 | 0.7% | Japan 50%, Korea, South 28%, Canada 14% |
+| 2023 | 125.6 | 31609 | 0.6% | Japan 43%, Korea, South 41%, Canada 7% |
+| 2024 | 117.8 | 36065 | 0.6% | Korea, South 44%, Japan 42%, Czech Republic 4% |
+| 2025 | 64.0 | 19933 | 0.7% | Japan 59%, Korea, South 21%, Czech Republic 5% |
+| 2026 | 51.7 | 16382 | 0.3% | Japan 73%, Germany 12%, Korea, South 10% |
 
-China's share of the value of US GOES imports was between 0.3% and 1.2% in every year from
-2021; Japan and South Korea supplied most of it. The concentration of world GOES exports in China does not
-reach US imports. This is US imports only, not US consumption or production, and the report does not say
-why.
+China's share of the value of direct US GOES imports was between 0.3% and 1.2% in every year from
+2021; Japan and South Korea supplied most of it. **This is direct imports of GOES as steel only.** They are
+a small part of US use (deviation 4): most GOES used in the United States arrives inside imported cores and
+transformers, whose steel is not observed. For that reason the origins of US transformer imports are
+reported beside it (deviation 4, descriptive):
+
+| Year | US transformer imports, USD m | three largest origins | China |
+|---|---|---|---|
+| 2019 | 1532 | Mexico 41%, Austria 14%, Canada 11% | 1.2% |
+| 2020 | 1810 | Mexico 44%, Canada 10%, Austria 10% | 2.8% |
+| 2021 | 1796 | Mexico 44%, Canada 12%, Korea, South 10% | 0.7% |
+| 2022 | 2426 | Mexico 49%, Canada 10%, Korea, South 9% | 2.0% |
+| 2023 | 3976 | Mexico 40%, Korea, South 14%, Canada 8% | 2.5% |
+| 2024 | 5922 | Mexico 31%, Korea, South 20%, Brazil 7% | 3.4% |
+| 2025 | 7491 | Mexico 29%, Korea, South 22%, Brazil 9% | 3.5% |
+| 2026 | 4507 | Mexico 30%, Korea, South 18%, Brazil 9% | 4.5% |
+
+Nothing here says why China's share of direct GOES imports is so small - tariffs, trade remedies, supply
+relationships and domestic supply are all candidates and none is tested.
 
 ## Deviations log
 

@@ -260,6 +260,13 @@ def main():
                       for y, v in ug.items())
     uo = UC['own_value_per_unit_rel_2019']
     ucmax = max(v['china_value_share'] for y, v in ug.items() if int(y) >= 2021)
+    ucm = UT['c_vs_motors_pumps_compressors_per_unit']['coefs']
+    uh10 = UT['c_per_unit_hs10_lines']['coefs']['TxP3']
+    uto = UC['transformer_import_origins']
+    us_tor = ''.join('<tr><td>%s</td><td class="n">$%.1fbn</td><td>%s</td><td class="n">%s</td></tr>'
+                     % (y + (' (Jan&ndash;Jul)' if y == '2026' else ''), v['value_musd'] / 1000.0,
+                        ', '.join('%s %s' % (c.title().replace('Korea, South', 'South Korea'), sh(x)) for c, x in v['top3']),
+                        '%.1f%%' % (100 * v['china_share'])) for y, v in uto.items())
 
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
@@ -309,6 +316,10 @@ def main():
         'USROWS': us_rows, 'USGOES': us_goes, 'USNFY': format(usd['sample_flow_years'], ','),
         'USCMAX': '%.1f%%' % (100 * ucmax),
         'USOWNT25': pct_raw(uo['transformers']['2025']),
+        'USGT20': '%.0f' % (ug['2020']['tonnes'] / 1000.0),
+        'USMDELO': '%.2f' % ucm['TxP2']['mde_80'], 'USMDEHI': '%.2f' % ucm['TxP4']['mde_80'],
+        'USH10': pct(uh10['beta']), 'USH10p': fp(uh10['p_wild_line']), 'USTOR': us_tor,
+        'UST19': '%.1f' % (uto['2019']['value_musd'] / 1000.0), 'UST25': '%.1f' % (uto['2025']['value_musd'] / 1000.0),
         'USOWNM24': pct_raw(uo['motors_pumps_compressors']['2024']),
         'USOWNM25': pct_raw(uo['motors_pumps_compressors']['2025']),
         'EUROWS': eu_rows, 'EUGOES': eu_goes, 'EUYEARS': eu_years,
@@ -409,9 +420,10 @@ not prices; they track the US transformer producer price index only moderately. 
 records, which run to July 2026, show the transformer rise relative to heavy machinery continuing through
 2025 and January&ndash;July 2026, still not distinguishable from other electrical goods, with no sign that
 transformers shifted to heavier units; and China's share of the value of EU imports of grain-oriented
-electrical steel from outside the EU rising from @@EUC19@@ in 2019 to @@EUC25@@ in 2025. US imports, also
-to July 2026, show the same lack of a transformer-specific signal, and almost none of their electrical
-steel from China: Japan and South Korea supply most of it.</div>
+electrical steel from outside the EU rising from @@EUC19@@ in 2019 to @@EUC25@@ in 2025. US import records to July
+2026 allow only a noisy check by value per unit, which cannot detect a gap of the EU's size; direct US
+imports of that steel come mostly from Japan and South Korea, with China at about 1% since 2021, though
+most of the steel the US uses arrives inside imported transformers, whose steel is not observed.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -565,23 +577,36 @@ This is the EU's view of its own imports by value, not world exports and not EU 
 <p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
 Bureau, January 2012 to July 2026, at the ten-digit level: @@USNFY@@ origin&ndash;line flow-years. The
 comparison goods are recorded only as counts of units, so the US test is value per unit. A count weighs a
-small distribution transformer and a large power transformer alike, which makes the series noisy, and the
-pre-trend rule fails for every US comparison.</p>
+small distribution transformer and a large power transformer alike, so value per unit is mostly a measure
+of what is shipped, not of price; the pre-trend rule fails for every US comparison; and the smallest gap the
+headline comparison could reliably detect is @@USMDELO@@ to @@USMDEHI@@ log points.</p>
 <div class="tbl"><table><thead><tr><th>Transformers, US imports</th><th class="n">2021&ndash;22</th>
 <th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
 <tbody>@@USROWS@@</tbody></table></div>
-<p>Nothing is distinguishable from the comparison goods. Within flows, transformers' own value per unit
-was @@USOWNT25@@ in 2025 relative to 2019, and motors, pumps and compressors' own value per unit was
-@@USOWNM24@@ in 2024 and @@USOWNM25@@ in 2025: in US imports, too, electrical goods rose together. The filed
-weight test could not be run, because the Census records the kilograms of transformer imports only from
-2026.</p>
+<p>No headline interval excludes zero, but with this little power that is not evidence of absence: a gap
+the size of the one estimated in the EU would go undetected. The ten-digit version of the same comparison
+does exclude zero in 2025 (@@USH10@@, p&nbsp;=&nbsp;@@USH10p@@), on a comparison that also fails the pre-trend
+rule. The US evidence on transformers is unstable rather than null. Within flows, transformers' own value
+per unit rose mainly in 2025 (@@USOWNT25@@ relative to 2019) and the comparison goods' mainly in 2024
+(@@USOWNM24@@); the two did not move in the same years. The filed weight test could not be run, because the
+Census records the kilograms of transformer imports only from 2026.</p>
 <div class="tbl"><table><thead><tr><th>Value of US imports of GOES</th><th class="n">value</th><th class="n">China</th>
 <th>three largest origins</th></tr></thead>
 <tbody>@@USGOES@@</tbody></table></div>
-<p>Almost none of the grain-oriented electrical steel the United States imports comes from China &mdash;
-at most @@USCMAX@@ of the value in any year since 2021 &mdash; and most of it comes from Japan and South
-Korea. This is imports only; the United States also makes some of its own. The
-concentration of world exports in China, and of the EU's imports, does not reach US imports.</p>
+<p>Almost none of the grain-oriented electrical steel the United States imports <i>as steel</i> comes
+from China &mdash; at most @@USCMAX@@ of the value in any year since 2021 &mdash; and most of it comes from
+Japan and South Korea. But direct imports are a small part of what the US uses: about @@USGT20@@ thousand
+tonnes in 2020, against US consumption the IEA puts at 0.15 million tonnes that year@@C_IEA2023@@, of which the
+one US producer meets 12&ndash;20%@@C_DOE2024@@. The arithmetic leaves most of US use arriving inside imported
+cores and transformers.
+Those imports grew from $@@UST19@@bn in 2019 to $@@UST25@@bn in 2025:</p>
+<div class="tbl"><table><thead><tr><th>US imports of transformers (8504.21&ndash;.23)</th><th class="n">value</th>
+<th>three largest origins</th><th class="n">China</th></tr></thead>
+<tbody>@@USTOR@@</tbody></table></div>
+<p>The steel inside them is not observed. So the concentration of world GOES exports in China does not
+appear in the origins of direct US GOES imports, but these data cannot say whether it reaches the US inside
+transformers made in Mexico, South Korea or elsewhere. Nor do they say why China's direct share is so small;
+tariffs, trade remedies and supply relationships are all candidates, and none is tested.</p>
 
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
