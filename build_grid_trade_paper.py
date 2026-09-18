@@ -299,7 +299,10 @@ def main():
                                      max(ecp[n]['mde_80'] for n in ('TxP2', 'TxP3', 'TxP4'))),
         'EUOWNT': pct_raw(own['transformers']['2025']), 'EUOWNT26': pct_raw(own['transformers']['2026']),
         'EUOWNM': pct_raw(own['motors_pumps_compressors']['2025']),
-        'EUN8T': str(len(eud['cn8_lines']['transformers'])), 'EUN8C': str(len(eud['cn8_lines']['motors_pumps_compressors'])),
+        'EUN8T': str(len(ET['c_price_cn8_lines']['lines_treated'])),
+        'EUN8C': str(len(ET['c_price_cn8_lines']['lines_control'])),
+        'EUCOVLO': '%d%%' % r0(100 * min(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
+        'EUCOVHI': '%d%%' % r0(100 * max(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
         'REFS': refs, 'REPO': REPO,
     }
     for k in REFNUM:
@@ -522,7 +525,8 @@ sensitivities do exclude zero &mdash; the same comparison at eight digits (@@EUN
 <p><b>No sign that transformers got heavier.</b> Because the EU counts transformers as well as weighing
 them, the records can test whether the rise per tonne came from heavier units. It did not: within the
 same trade flows, transformers' weight per unit was @@EUOWNT@@ in 2025 and @@EUOWNT26@@ in 2026 relative
-to 2019, roughly level. A first reading of these records said the opposite; it came from comparing
+to 2019, and within 10% of 2019 in every year since (point values from an exploratory check, without
+intervals; unit counts are usable for @@EUCOVLO@@&ndash;@@EUCOVHI@@ of transformer flow-years). A first reading of these records said the opposite; it came from comparing
 transformers with motors, pumps and compressors, which became lighter per unit (@@EUOWNM@@ in 2025), and it
 is withdrawn. Other kinds of mix, such as higher efficiency at a similar weight, are not ruled out.</p>
 <div class="tbl"><table><thead><tr><th>Value of EU imports of GOES from outside the EU</th><th class="n">value</th><th class="n">China</th>

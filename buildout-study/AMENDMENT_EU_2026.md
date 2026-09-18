@@ -100,7 +100,7 @@ run, whose numbers and "heavier units" reading are withdrawn (deviations 5-7).
 either.** No post period's interval on the headline comparison excludes zero. The smallest gap it could
 reliably detect is 2021-22 0.10, 2023-24 0.24, 2025 0.29, 2026 Jan-Jul 0.27 log points, larger than the estimates, so the design cannot see a gap of the size
 it estimates. Year by year, relative to 2019 (not to 2012-2020): 2023 +0.15 (p 0.095), 2024 +0.15 (p 0.075), 2025 +0.19 (p 0.072), 2026 +0.14 (p 0.135). The filed sensitivities point the
-other way - at eight digits (5 transformer and 31 comparison lines) the gap excludes zero in 2023-24 and
+other way - at eight digits (4 transformer and 31 comparison lines) the gap excludes zero in 2023-24 and
 2025, and on intra-EU trade from 2023-24 on - but the filing made the six-digit extra-EU comparison
 the headline, and it stays the headline. Against the filed machinery and construction machinery alone,
 the gaps in value per tonne exclude zero in every post period from 2023; in tonnes, all but construction
@@ -120,12 +120,15 @@ per item, relative to 2019, within flows:
 - transformers: 2021 +0.04, 2022 +0.10, 2023 +0.06, 2024 +0.04, 2025 -0.03, 2026 +0.06;
 - motors, pumps and compressors: 2021 -0.15, 2022 -0.20, 2023 -0.20, 2024 -0.21, 2025 -0.24, 2026 -0.25.
 
-Transformers' weight per item stayed roughly level; the comparison goods became about a fifth lighter per
+Transformers' weight per item stayed within about 10% of 2019 in every year (point values, no intervals); the comparison goods became about a fifth lighter per
 item. The relative "per item" gap is therefore a fact about motors, pumps and compressors, not about
 transformers, and the first run's reading - that the average transformer became heavier - is withdrawn.
 What the decomposition does say about transformers is narrower: in EU trade, the per-tonne rise was not
 accompanied by heavier units, so heavier units do not explain it. Other kinds of mix - higher efficiency
 or higher specification at similar weight - are not ruled out.
+
+Value per item is usable, after the cleaning of deviation 6, for 89% to 94% of transformer
+flow-years each year (`checks.per_item_coverage`).
 
 **Test 3: the value of EU imports of GOES (7225.11, 7226.11) from outside the EU.**
 
