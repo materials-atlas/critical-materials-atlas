@@ -50,9 +50,19 @@ GROUPS = [
         ('722611', 'Grain-oriented electrical steel, narrow'),
         ('740811', 'Copper wire, refined'),
     ]),
+    ('What a new chip factory buys', [
+        ('848620', 'Machines for making semiconductor devices and integrated circuits'),
+        ('848610', 'Machines for making boules and wafers'),
+        ('848690', 'Parts of chip- and wafer-making machines'),
+        ('381800', 'Wafers: chemical elements doped for electronics'),
+        ('370790', 'Photographic chemical preparations, including photoresists'),
+        ('903082', 'Instruments for testing semiconductor wafers and devices'),
+    ]),
 ]
 CODES = {c: lab for _, items in GROUPS for c, lab in items}
 CYCLE = {}
+NAMES = {'NLD': 'the Netherlands', 'JPN': 'Japan', 'SGP': 'Singapore', 'USA': 'the United States',
+         'KOR': 'South Korea', 'TWN': 'Taiwan', 'CHN': 'China', 'DEU': 'Germany', 'MYS': 'Malaysia'}
 
 # Lines whose HS code is wider than the name suggests. Printed on the page, next to the line.
 CAVEATS = {
@@ -67,6 +77,12 @@ CAVEATS = {
     '740811': 'Copper wire has many uses beyond data centres and grids.',
     '850421': 'Liquid-dielectric (oil-filled) transformers only; dry-type transformers sit in other '
               'customs lines and are not counted here.',
+    '848620': 'Lithography, etching and deposition tools are all inside this one line; customs data '
+              'cannot separate them. Singapore is partly a regional hub, so some of its share is '
+              'equipment made elsewhere and shipped on.',
+    '370790': 'US Customs classifies photoresists here (ruling HQ 085914), but the line also holds '
+              'other chemical preparations for photographic uses, so not all of it is photoresist.',
+    '381800': 'Mostly silicon wafers, but any doped element or compound in wafer or disc form counts.',
 }
 
 
@@ -293,6 +309,18 @@ def page(doc):
 </section>
 
 <section class="wrap xp">
+  <h2>What &ldquo;building your own fab&rdquo; buys</h2>
+  <p>A company that decides to make its own chips does not escape the supply chain; it moves to the
+  part of it that sells the factory. The machines that make integrated circuits were a
+  $@@FABBN@@bn line in @@Y1@@, up @@FABG@@% in constant dollars since @@Y0@@, and its three largest
+  exporters &mdash; @@FABTOP@@ &mdash; ship @@FAB3@@% of it. The customs line that carries photoresists
+  (along with other photographic chemicals) is narrower still: one country, @@PRTOP@@, ships
+  @@PRSH@@% of it. None of this says anything about any particular
+  company&rsquo;s chip, its cost or its schedule, which customs data cannot see. It says who a new
+  fab would be buying from.</p>
+</section>
+
+<section class="wrap xp">
   <h2>Which of these actually move with the chip cycle?</h2>
   <p>A second question, and a harder one: when world trade in integrated circuits rises, does trade in
   each input rise with it? The table gives the elasticity from twenty-two annual observations
@@ -339,7 +367,13 @@ def page(doc):
    .replace('@@CHIPBN@@', format(chip_bn, '.0f')).replace('@@TRBN@@', format(tr_bn, '.0f')) \
    .replace('@@GOESBN@@', format(L['722511']['value_musd'][str(YEARS[-1])] / 1000.0, '.1f')) \
    .replace('@@GOESN@@', str(L['722511']['exporters_latest'])) \
-   .replace('@@GOES2@@', str(round(100 * sum(t['share'] for t in L['722511']['top3_latest'][:2]))))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn))
+   .replace('@@GOES2@@', str(round(100 * sum(t['share'] for t in L['722511']['top3_latest'][:2]))))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn)) \
+   .replace('@@FABBN@@', format(L['848620']['value_musd'][str(YEARS[-1])] / 1000.0, '.0f')) \
+   .replace('@@FABG@@', str(round(L['848620']['real_growth_pct']))) \
+   .replace('@@FABTOP@@', ', '.join(NAMES.get(t['iso3'], t['iso3']) for t in L['848620']['top3_latest'])) \
+   .replace('@@FAB3@@', str(round(100 * sum(t['share'] for t in L['848620']['top3_latest'])))) \
+   .replace('@@PRTOP@@', NAMES.get(L['370790']['top3_latest'][0]['iso3'], L['370790']['top3_latest'][0]['iso3'])) \
+   .replace('@@PRSH@@', str(round(100 * L['370790']['top3_latest'][0]['share'])))
 
 
 def main():
