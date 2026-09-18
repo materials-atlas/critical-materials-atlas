@@ -53,6 +53,17 @@
     "722611",
     "740811"
    ]
+  },
+  {
+   "title": "What a new chip factory buys",
+   "codes": [
+    "848620",
+    "848610",
+    "848690",
+    "381800",
+    "370790",
+    "903082"
+   ]
   }
  ],
  "lines": {
@@ -517,6 +528,204 @@
     }
    ],
    "caveat": "Copper wire has many uses beyond data centres and grids."
+  },
+  "848620": {
+   "label": "Machines for making semiconductor devices and integrated circuits",
+   "value_musd": {
+    "2019": 41619.7,
+    "2020": 47112.7,
+    "2021": 69824.2,
+    "2022": 73218.1,
+    "2023": 70639.4,
+    "2024": 77483.3
+   },
+   "real_growth_pct": 51.7,
+   "nominal_growth_pct": 86.2,
+   "hhi_latest": 0.174,
+   "exporters_latest": 85,
+   "top3_latest": [
+    {
+     "iso3": "NLD",
+     "name": "Netherlands",
+     "share": 0.257
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.251
+    },
+    {
+     "iso3": "SGP",
+     "name": "Singapore",
+     "share": 0.146
+    }
+   ],
+   "caveat": "Lithography, etching and deposition tools are all inside this one line; customs data cannot separate them. Singapore is partly a regional hub, so some of its share is equipment made elsewhere and shipped on."
+  },
+  "848610": {
+   "label": "Machines for making boules and wafers",
+   "value_musd": {
+    "2019": 2317.5,
+    "2020": 2128.8,
+    "2021": 3121.1,
+    "2022": 3901.7,
+    "2023": 3862.8,
+    "2024": 3984.2
+   },
+   "real_growth_pct": 40.1,
+   "nominal_growth_pct": 71.9,
+   "hhi_latest": 0.258,
+   "exporters_latest": 67,
+   "top3_latest": [
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.437
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.185
+    },
+    {
+     "iso3": "SGP",
+     "name": "Singapore",
+     "share": 0.115
+    }
+   ],
+   "caveat": null
+  },
+  "848690": {
+   "label": "Parts of chip- and wafer-making machines",
+   "value_musd": {
+    "2019": 22213.9,
+    "2020": 24907.4,
+    "2021": 30085.1,
+    "2022": 33646.9,
+    "2023": 28755.0,
+    "2024": 33587.3
+   },
+   "real_growth_pct": 23.2,
+   "nominal_growth_pct": 51.2,
+   "hhi_latest": 0.135,
+   "exporters_latest": 150,
+   "top3_latest": [
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.258
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.176
+    },
+    {
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "share": 0.105
+    }
+   ],
+   "caveat": null
+  },
+  "381800": {
+   "label": "Wafers: chemical elements doped for electronics",
+   "value_musd": {
+    "2019": 15315.7,
+    "2020": 15137.7,
+    "2021": 18233.3,
+    "2022": 21861.3,
+    "2023": 20832.2,
+    "2024": 17805.7
+   },
+   "real_growth_pct": -5.2,
+   "nominal_growth_pct": 16.3,
+   "hhi_latest": 0.158,
+   "exporters_latest": 88,
+   "top3_latest": [
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.281
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.223
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.104
+    }
+   ],
+   "caveat": "Mostly silicon wafers, but any doped element or compound in wafer or disc form counts."
+  },
+  "370790": {
+   "label": "Photographic chemical preparations, including photoresists",
+   "value_musd": {
+    "2019": 6004.0,
+    "2020": 5775.9,
+    "2021": 6557.1,
+    "2022": 6377.9,
+    "2023": 5793.5,
+    "2024": 6210.4
+   },
+   "real_growth_pct": -15.7,
+   "nominal_growth_pct": 3.4,
+   "hhi_latest": 0.347,
+   "exporters_latest": 124,
+   "top3_latest": [
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.566
+    },
+    {
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "share": 0.111
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.085
+    }
+   ],
+   "caveat": "US Customs classifies photoresists here (ruling HQ 085914), but the line also holds other chemical preparations for photographic uses, so not all of it is photoresist."
+  },
+  "903082": {
+   "label": "Instruments for testing semiconductor wafers and devices",
+   "value_musd": {
+    "2019": 4992.7,
+    "2020": 5607.5,
+    "2021": 6707.9,
+    "2022": 7429.3,
+    "2023": 6320.6,
+    "2024": 6993.1
+   },
+   "real_growth_pct": 14.2,
+   "nominal_growth_pct": 40.1,
+   "hhi_latest": 0.191,
+   "exporters_latest": 91,
+   "top3_latest": [
+    {
+     "iso3": "MYS",
+     "name": "Malaysia",
+     "share": 0.361
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.193
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.102
+    }
+   ],
+   "caveat": null
   }
  },
  "chip_cycle": {
