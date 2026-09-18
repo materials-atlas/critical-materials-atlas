@@ -157,6 +157,16 @@ def main():
     tr = p6[p6.k.isin(T)]
     C['kg_coverage_transformers'] = {int(y): round(float((g.kg > 0).mean()), 3) for y, g in tr.groupby('year')}
     C['goes_us_imports'] = goes(d)
+    # Deviation 4, descriptive, after review: where US transformer imports come from, because most GOES
+    # used in the US is not imported as steel but arrives inside imported cores and transformers.
+    tt = d[d.k.isin(T) & (d.year >= 2019)]
+    C['transformer_import_origins'] = {}
+    for y, g in tt.groupby('year'):
+        by = g.groupby('CTY_NAME').v.sum().sort_values(ascending=False)
+        C['transformer_import_origins'][int(y)] = {
+            'value_musd': round(float(by.sum()) / 1e6, 1),
+            'top3': [[c, round(float(x), 4)] for c, x in (by / by.sum()).head(3).items()],
+            'china_share': round(float((by / by.sum()).get('CHINA', 0.0)), 4)}
 
     with open(OUT, 'w', encoding='utf-8') as f:
         json.dump(res, f, indent=1, default=float)
