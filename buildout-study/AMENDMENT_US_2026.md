@@ -120,3 +120,8 @@ Every change made after this filing goes here, dated, with its reason.
    reported as such.** The first run dismissed the ten-digit result "on a comparison whose pre-trend
    rule fails" without running the rule on that comparison; it is now run. A path with no observations
    is now reported as not runnable instead of carrying a dummy 2019 = 0.
+4. **2026-09-18, descriptive, after review - where US transformer imports come from.** Direct US imports
+   of GOES are a small part of US use (about 25,000 tonnes in 2020 against consumption the IEA puts at
+   0.15 Mt; the single domestic producer meets 12-20% of demand). Most GOES used in the US therefore
+   arrives inside imported cores and transformers. The origins of US transformer imports (8504.21-.23) are
+   now reported so that the GOES table is not read as the whole of US exposure. Descriptive, unfiled.
