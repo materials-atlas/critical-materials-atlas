@@ -1,0 +1,1664 @@
+{
+ "filing": "buildout-study/AMENDMENT_EU_2026.md",
+ "source": "Eurostat Comext monthly CN8, extra-EU",
+ "months_on_disk": 175,
+ "last_period": "202607",
+ "post_periods": [
+  "2021-22",
+  "2023-24",
+  "2025",
+  "2026 (Jan-Jul)"
+ ],
+ "sample_flow_years": 92422,
+ "tests": {
+  "c_vs_motors_pumps_compressors": {
+   "price": {
+    "label": "EU c_vs_motors_pumps_compressors price",
+    "y": "luv",
+    "n": 55836,
+    "flows": 7174,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "841370",
+     "841480",
+     "850152",
+     "850153"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": 0.0072,
+      "pct": 0.73,
+      "p_wild_line": 0.8457,
+      "se_wild_line": 0.0336,
+      "ci95_wild_line": [
+       -0.0571,
+       0.0716
+      ],
+      "mde_80": 0.0941,
+      "se_cluster_exporter": 0.0254,
+      "lines_in_bootstrap": 7
+     },
+     "TxP2": {
+      "beta": 0.1353,
+      "pct": 14.49,
+      "p_wild_line": 0.1113,
+      "se_wild_line": 0.084,
+      "ci95_wild_line": [
+       -0.0269,
+       0.2976
+      ],
+      "mde_80": 0.2351,
+      "se_cluster_exporter": 0.0318,
+      "lines_in_bootstrap": 7
+     },
+     "TxP3": {
+      "beta": 0.1759,
+      "pct": 19.23,
+      "p_wild_line": 0.0793,
+      "se_wild_line": 0.1014,
+      "ci95_wild_line": [
+       -0.0161,
+       0.3679
+      ],
+      "mde_80": 0.2838,
+      "se_cluster_exporter": 0.0466,
+      "lines_in_bootstrap": 7
+     },
+     "TxP4": {
+      "beta": 0.1331,
+      "pct": 14.24,
+      "p_wild_line": 0.1693,
+      "se_wild_line": 0.0943,
+      "ci95_wild_line": [
+       -0.0408,
+       0.307
+      ],
+      "mde_80": 0.2639,
+      "se_cluster_exporter": 0.0475,
+      "lines_in_bootstrap": 7
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   },
+   "volume": {
+    "label": "EU c_vs_motors_pumps_compressors volume",
+    "y": "lq",
+    "n": 55836,
+    "flows": 7174,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "841370",
+     "841480",
+     "850152",
+     "850153"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": -0.0954,
+      "pct": -9.1,
+      "p_wild_line": 0.0793,
+      "se_wild_line": 0.0561,
+      "ci95_wild_line": [
+       -0.1975,
+       0.0067
+      ],
+      "mde_80": 0.157,
+      "se_cluster_exporter": 0.0695,
+      "lines_in_bootstrap": 7
+     },
+     "TxP2": {
+      "beta": 0.1002,
+      "pct": 10.53,
+      "p_wild_line": 0.4178,
+      "se_wild_line": 0.0978,
+      "ci95_wild_line": [
+       -0.043,
+       0.2433
+      ],
+      "mde_80": 0.274,
+      "se_cluster_exporter": 0.0964,
+      "lines_in_bootstrap": 7
+     },
+     "TxP3": {
+      "beta": 0.1197,
+      "pct": 12.71,
+      "p_wild_line": 0.5142,
+      "se_wild_line": 0.1322,
+      "ci95_wild_line": [
+       -0.0911,
+       0.3305
+      ],
+      "mde_80": 0.3703,
+      "se_cluster_exporter": 0.1164,
+      "lines_in_bootstrap": 7
+     },
+     "TxP4": {
+      "beta": 0.3802,
+      "pct": 46.26,
+      "p_wild_line": 0.1109,
+      "se_wild_line": 0.2554,
+      "ci95_wild_line": [
+       -0.0304,
+       0.7909
+      ],
+      "mde_80": 0.715,
+      "se_cluster_exporter": 0.0922,
+      "lines_in_bootstrap": 7
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   }
+  },
+  "a_vs_filed_machinery": {
+   "price": {
+    "label": "EU a_vs_filed_machinery price",
+    "y": "luv",
+    "n": 37251,
+    "flows": 5812,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "842649",
+     "842810",
+     "847420",
+     "847431",
+     "851531",
+     "851539"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": 0.0042,
+      "pct": 0.42,
+      "p_wild_line": 0.8807,
+      "se_wild_line": 0.0259,
+      "ci95_wild_line": [
+       -0.0458,
+       0.0541
+      ],
+      "mde_80": 0.0726,
+      "se_cluster_exporter": 0.0215,
+      "lines_in_bootstrap": 9
+     },
+     "TxP2": {
+      "beta": 0.1803,
+      "pct": 19.76,
+      "p_wild_line": 0.0396,
+      "se_wild_line": 0.0894,
+      "ci95_wild_line": [
+       0.005,
+       0.3557
+      ],
+      "mde_80": 0.2504,
+      "se_cluster_exporter": 0.0386,
+      "lines_in_bootstrap": 9
+     },
+     "TxP3": {
+      "beta": 0.2502,
+      "pct": 28.43,
+      "p_wild_line": 0.0418,
+      "se_wild_line": 0.1264,
+      "ci95_wild_line": [
+       0.0074,
+       0.4931
+      ],
+      "mde_80": 0.354,
+      "se_cluster_exporter": 0.0643,
+      "lines_in_bootstrap": 9
+     },
+     "TxP4": {
+      "beta": 0.2487,
+      "pct": 28.23,
+      "p_wild_line": 0.0375,
+      "se_wild_line": 0.1252,
+      "ci95_wild_line": [
+       0.0123,
+       0.4851
+      ],
+      "mde_80": 0.3506,
+      "se_cluster_exporter": 0.0585,
+      "lines_in_bootstrap": 9
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   },
+   "volume": {
+    "label": "EU a_vs_filed_machinery volume",
+    "y": "lq",
+    "n": 37251,
+    "flows": 5812,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "842649",
+     "842810",
+     "847420",
+     "847431",
+     "851531",
+     "851539"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": 0.0213,
+      "pct": 2.16,
+      "p_wild_line": 0.6434,
+      "se_wild_line": 0.0374,
+      "ci95_wild_line": [
+       -0.0472,
+       0.0899
+      ],
+      "mde_80": 0.1048,
+      "se_cluster_exporter": 0.0705,
+      "lines_in_bootstrap": 9
+     },
+     "TxP2": {
+      "beta": 0.2415,
+      "pct": 27.32,
+      "p_wild_line": 0.0415,
+      "se_wild_line": 0.1484,
+      "ci95_wild_line": [
+       0.0045,
+       0.4785
+      ],
+      "mde_80": 0.4155,
+      "se_cluster_exporter": 0.1028,
+      "lines_in_bootstrap": 9
+     },
+     "TxP3": {
+      "beta": 0.3086,
+      "pct": 36.15,
+      "p_wild_line": 0.0291,
+      "se_wild_line": 0.1921,
+      "ci95_wild_line": [
+       0.0126,
+       0.6046
+      ],
+      "mde_80": 0.5379,
+      "se_cluster_exporter": 0.1205,
+      "lines_in_bootstrap": 9
+     },
+     "TxP4": {
+      "beta": 0.486,
+      "pct": 62.58,
+      "p_wild_line": 0.044,
+      "se_wild_line": 0.2817,
+      "ci95_wild_line": [
+       0.0074,
+       0.9646
+      ],
+      "mde_80": 0.7888,
+      "se_cluster_exporter": 0.1134,
+      "lines_in_bootstrap": 9
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   }
+  },
+  "b_vs_construction_only": {
+   "price": {
+    "label": "EU b_vs_construction_only price",
+    "y": "luv",
+    "n": 30347,
+    "flows": 4835,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "842649",
+     "842810",
+     "847420",
+     "847431"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": 0.0181,
+      "pct": 1.83,
+      "p_wild_line": 0.5148,
+      "se_wild_line": 0.0264,
+      "ci95_wild_line": [
+       -0.0315,
+       0.0677
+      ],
+      "mde_80": 0.074,
+      "se_cluster_exporter": 0.025,
+      "lines_in_bootstrap": 7
+     },
+     "TxP2": {
+      "beta": 0.2036,
+      "pct": 22.58,
+      "p_wild_line": 0.0275,
+      "se_wild_line": 0.0955,
+      "ci95_wild_line": [
+       0.0131,
+       0.3941
+      ],
+      "mde_80": 0.2674,
+      "se_cluster_exporter": 0.0401,
+      "lines_in_bootstrap": 7
+     },
+     "TxP3": {
+      "beta": 0.2786,
+      "pct": 32.13,
+      "p_wild_line": 0.0359,
+      "se_wild_line": 0.1357,
+      "ci95_wild_line": [
+       0.0142,
+       0.543
+      ],
+      "mde_80": 0.3801,
+      "se_cluster_exporter": 0.0652,
+      "lines_in_bootstrap": 7
+     },
+     "TxP4": {
+      "beta": 0.2846,
+      "pct": 32.92,
+      "p_wild_line": 0.0245,
+      "se_wild_line": 0.136,
+      "ci95_wild_line": [
+       0.0268,
+       0.5423
+      ],
+      "mde_80": 0.3807,
+      "se_cluster_exporter": 0.0541,
+      "lines_in_bootstrap": 7
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   },
+   "volume": {
+    "label": "EU b_vs_construction_only volume",
+    "y": "lq",
+    "n": 30347,
+    "flows": 4835,
+    "lines_treated": [
+     "850421",
+     "850422",
+     "850423"
+    ],
+    "lines_control": [
+     "842649",
+     "842810",
+     "847420",
+     "847431"
+    ],
+    "exporters": 28,
+    "coefs": {
+     "TxP1": {
+      "beta": 0.024,
+      "pct": 2.43,
+      "p_wild_line": 0.6499,
+      "se_wild_line": 0.0328,
+      "ci95_wild_line": [
+       -0.0284,
+       0.0764
+      ],
+      "mde_80": 0.0917,
+      "se_cluster_exporter": 0.0777,
+      "lines_in_bootstrap": 7
+     },
+     "TxP2": {
+      "beta": 0.237,
+      "pct": 26.74,
+      "p_wild_line": 0.0468,
+      "se_wild_line": 0.144,
+      "ci95_wild_line": [
+       0.0019,
+       0.472
+      ],
+      "mde_80": 0.4032,
+      "se_cluster_exporter": 0.11,
+      "lines_in_bootstrap": 7
+     },
+     "TxP3": {
+      "beta": 0.3152,
+      "pct": 37.05,
+      "p_wild_line": 0.0324,
+      "se_wild_line": 0.1894,
+      "ci95_wild_line": [
+       0.0141,
+       0.6162
+      ],
+      "mde_80": 0.5304,
+      "se_cluster_exporter": 0.1223,
+      "lines_in_bootstrap": 7
+     },
+     "TxP4": {
+      "beta": 0.4603,
+      "pct": 58.45,
+      "p_wild_line": 0.0709,
+      "se_wild_line": 0.2723,
+      "ci95_wild_line": [
+       -0.0218,
+       0.9424
+      ],
+      "mde_80": 0.7624,
+      "se_cluster_exporter": 0.1113,
+      "lines_in_bootstrap": 7
+     }
+    },
+    "period_names": {
+     "TxP1": "2021-22",
+     "TxP2": "2023-24",
+     "TxP3": "2025",
+     "TxP4": "2026 (Jan-Jul)"
+    }
+   }
+  },
+  "c_per_item": {
+   "label": "EU c per item",
+   "y": "lpi",
+   "n": 55811,
+   "flows": 7172,
+   "lines_treated": [
+    "850421",
+    "850422",
+    "850423"
+   ],
+   "lines_control": [
+    "841370",
+    "841480",
+    "850152",
+    "850153"
+   ],
+   "exporters": 28,
+   "coefs": {
+    "TxP1": {
+     "beta": 0.2496,
+     "pct": 28.35,
+     "p_wild_line": 0.0808,
+     "se_wild_line": 0.1447,
+     "ci95_wild_line": [
+      -0.025,
+      0.5242
+     ],
+     "mde_80": 0.4051,
+     "se_cluster_exporter": 0.0555,
+     "lines_in_bootstrap": 7
+    },
+    "TxP2": {
+     "beta": 0.4645,
+     "pct": 59.13,
+     "p_wild_line": 0.0642,
+     "se_wild_line": 0.2559,
+     "ci95_wild_line": [
+      -0.0191,
+      0.9481
+     ],
+     "mde_80": 0.7164,
+     "se_cluster_exporter": 0.0736,
+     "lines_in_bootstrap": 7
+    },
+    "TxP3": {
+     "beta": 0.497,
+     "pct": 64.38,
+     "p_wild_line": 0.0678,
+     "se_wild_line": 0.2788,
+     "ci95_wild_line": [
+      -0.0241,
+      1.0181
+     ],
+     "mde_80": 0.7807,
+     "se_cluster_exporter": 0.092,
+     "lines_in_bootstrap": 7
+    },
+    "TxP4": {
+     "beta": 0.5649,
+     "pct": 75.92,
+     "p_wild_line": 0.0595,
+     "se_wild_line": 0.301,
+     "ci95_wild_line": [
+      -0.0136,
+      1.1434
+     ],
+     "mde_80": 0.8428,
+     "se_cluster_exporter": 0.0963,
+     "lines_in_bootstrap": 7
+    }
+   },
+   "period_names": {
+    "TxP1": "2021-22",
+    "TxP2": "2023-24",
+    "TxP3": "2025",
+    "TxP4": "2026 (Jan-Jul)"
+   }
+  },
+  "c_price_cn8_lines": {
+   "label": "EU c price cn8",
+   "y": "luv",
+   "n": 107078,
+   "flows": 15488,
+   "lines_treated": [
+    "85042100",
+    "85042210",
+    "85042290",
+    "85042300"
+   ],
+   "lines_control": [
+    "84137021",
+    "84137029",
+    "84137030",
+    "84137035",
+    "84137045",
+    "84137051",
+    "84137059",
+    "84137065",
+    "84137075",
+    "84137081",
+    "84137089",
+    "841370XX",
+    "84148011",
+    "84148019",
+    "84148022",
+    "84148028",
+    "84148051",
+    "84148059",
+    "84148073",
+    "84148075",
+    "84148078",
+    "84148080",
+    "841480XX",
+    "85015220",
+    "85015230",
+    "85015290",
+    "85015350",
+    "85015381",
+    "85015394",
+    "85015399",
+    "850153XX"
+   ],
+   "exporters": 28,
+   "coefs": {
+    "TxP1": {
+     "beta": 0.0245,
+     "pct": 2.48,
+     "p_wild_line": 0.3838,
+     "se_wild_line": 0.024,
+     "ci95_wild_line": [
+      -0.0159,
+      0.0649
+     ],
+     "mde_80": 0.0671,
+     "se_cluster_exporter": 0.025,
+     "lines_in_bootstrap": 35
+    },
+    "TxP2": {
+     "beta": 0.1474,
+     "pct": 15.89,
+     "p_wild_line": 0.0368,
+     "se_wild_line": 0.0735,
+     "ci95_wild_line": [
+      0.006,
+      0.2889
+     ],
+     "mde_80": 0.2058,
+     "se_cluster_exporter": 0.0333,
+     "lines_in_bootstrap": 35
+    },
+    "TxP3": {
+     "beta": 0.1942,
+     "pct": 21.43,
+     "p_wild_line": 0.033,
+     "se_wild_line": 0.0999,
+     "ci95_wild_line": [
+      0.0096,
+      0.3788
+     ],
+     "mde_80": 0.2798,
+     "se_cluster_exporter": 0.0507,
+     "lines_in_bootstrap": 35
+    },
+    "TxP4": {
+     "beta": 0.1435,
+     "pct": 15.43,
+     "p_wild_line": 0.069,
+     "se_wild_line": 0.0871,
+     "ci95_wild_line": [
+      -0.0067,
+      0.2937
+     ],
+     "mde_80": 0.2437,
+     "se_cluster_exporter": 0.0481,
+     "lines_in_bootstrap": 35
+    }
+   },
+   "period_names": {
+    "TxP1": "2021-22",
+    "TxP2": "2023-24",
+    "TxP3": "2025",
+    "TxP4": "2026 (Jan-Jul)"
+   }
+  },
+  "c_per_item_cn8_lines": {
+   "label": "EU c per item cn8",
+   "y": "lpi",
+   "n": 107029,
+   "flows": 15478,
+   "lines_treated": [
+    "85042100",
+    "85042210",
+    "85042290",
+    "85042300"
+   ],
+   "lines_control": [
+    "84137021",
+    "84137029",
+    "84137030",
+    "84137035",
+    "84137045",
+    "84137051",
+    "84137059",
+    "84137065",
+    "84137075",
+    "84137081",
+    "84137089",
+    "84148011",
+    "84148019",
+    "84148022",
+    "84148028",
+    "84148051",
+    "84148059",
+    "84148073",
+    "84148075",
+    "84148078",
+    "84148080",
+    "85015220",
+    "85015230",
+    "85015290",
+    "85015350",
+    "85015381",
+    "85015394",
+    "85015399"
+   ],
+   "exporters": 28,
+   "coefs": {
+    "TxP1": {
+     "beta": 0.1667,
+     "pct": 18.14,
+     "p_wild_line": 0.0394,
+     "se_wild_line": 0.0843,
+     "ci95_wild_line": [
+      0.0055,
+      0.3279
+     ],
+     "mde_80": 0.2361,
+     "se_cluster_exporter": 0.0538,
+     "lines_in_bootstrap": 32
+    },
+    "TxP2": {
+     "beta": 0.3625,
+     "pct": 43.7,
+     "p_wild_line": 0.0352,
+     "se_wild_line": 0.1761,
+     "ci95_wild_line": [
+      0.0203,
+      0.7047
+     ],
+     "mde_80": 0.4932,
+     "se_cluster_exporter": 0.0807,
+     "lines_in_bootstrap": 32
+    },
+    "TxP3": {
+     "beta": 0.3595,
+     "pct": 43.27,
+     "p_wild_line": 0.0313,
+     "se_wild_line": 0.1742,
+     "ci95_wild_line": [
+      0.0218,
+      0.6973
+     ],
+     "mde_80": 0.4876,
+     "se_cluster_exporter": 0.0947,
+     "lines_in_bootstrap": 32
+    },
+    "TxP4": {
+     "beta": 0.4459,
+     "pct": 56.18,
+     "p_wild_line": 0.0357,
+     "se_wild_line": 0.2221,
+     "ci95_wild_line": [
+      0.0195,
+      0.8722
+     ],
+     "mde_80": 0.6219,
+     "se_cluster_exporter": 0.0883,
+     "lines_in_bootstrap": 32
+    }
+   },
+   "period_names": {
+    "TxP1": "2021-22",
+    "TxP2": "2023-24",
+    "TxP3": "2025",
+    "TxP4": "2026 (Jan-Jul)"
+   }
+  }
+ },
+ "checks": {
+  "event_study": {
+   "c_price": {
+    "2012": {
+     "beta": 0.0862,
+     "ci95": [
+      -0.0117,
+      0.1842
+     ],
+     "p_wild_line": 0.0921
+    },
+    "2013": {
+     "beta": 0.0171,
+     "ci95": [
+      -0.0449,
+      0.0791
+     ],
+     "p_wild_line": 0.6203
+    },
+    "2014": {
+     "beta": 0.0098,
+     "ci95": [
+      -0.0535,
+      0.073
+     ],
+     "p_wild_line": 0.7723
+    },
+    "2015": {
+     "beta": 0.0354,
+     "ci95": [
+      -0.0068,
+      0.0776
+     ],
+     "p_wild_line": 0.1137
+    },
+    "2016": {
+     "beta": 0.0281,
+     "ci95": [
+      -0.0133,
+      0.0694
+     ],
+     "p_wild_line": 0.197
+    },
+    "2017": {
+     "beta": 0.0391,
+     "ci95": [
+      -0.0089,
+      0.0871
+     ],
+     "p_wild_line": 0.1339
+    },
+    "2018": {
+     "beta": -0.0063,
+     "ci95": [
+      -0.0517,
+      0.0392
+     ],
+     "p_wild_line": 0.7882
+    },
+    "2019": {
+     "beta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "p_wild_line": null
+    },
+    "2020": {
+     "beta": 0.0112,
+     "ci95": [
+      -0.0246,
+      0.0469
+     ],
+     "p_wild_line": 0.5649
+    },
+    "2021": {
+     "beta": 0.0285,
+     "ci95": [
+      -0.0489,
+      0.1059
+     ],
+     "p_wild_line": 0.5666
+    },
+    "2022": {
+     "beta": 0.0317,
+     "ci95": [
+      -0.0362,
+      0.0995
+     ],
+     "p_wild_line": 0.3894
+    },
+    "2023": {
+     "beta": 0.1568,
+     "ci95": [
+      -0.0182,
+      0.3317
+     ],
+     "p_wild_line": 0.0881
+    },
+    "2024": {
+     "beta": 0.1606,
+     "ci95": [
+      -0.0139,
+      0.3352
+     ],
+     "p_wild_line": 0.0747
+    },
+    "2025": {
+     "beta": 0.1994,
+     "ci95": [
+      -0.0103,
+      0.4091
+     ],
+     "p_wild_line": 0.0691
+    },
+    "2026": {
+     "beta": 0.1562,
+     "ci95": [
+      -0.0224,
+      0.3347
+     ],
+     "p_wild_line": 0.1013
+    }
+   },
+   "c_volume": {
+    "2012": {
+     "beta": 0.0713,
+     "ci95": [
+      -0.2154,
+      0.3581
+     ],
+     "p_wild_line": 0.6924
+    },
+    "2013": {
+     "beta": 0.1611,
+     "ci95": [
+      -0.1034,
+      0.4257
+     ],
+     "p_wild_line": 0.3057
+    },
+    "2014": {
+     "beta": 0.1346,
+     "ci95": [
+      -0.0937,
+      0.3629
+     ],
+     "p_wild_line": 0.4201
+    },
+    "2015": {
+     "beta": 0.0771,
+     "ci95": [
+      -0.0744,
+      0.2287
+     ],
+     "p_wild_line": 0.3951
+    },
+    "2016": {
+     "beta": 0.0518,
+     "ci95": [
+      -0.1195,
+      0.223
+     ],
+     "p_wild_line": 0.6543
+    },
+    "2017": {
+     "beta": 0.0057,
+     "ci95": [
+      -0.1408,
+      0.1523
+     ],
+     "p_wild_line": 0.9309
+    },
+    "2018": {
+     "beta": 0.0319,
+     "ci95": [
+      -0.1028,
+      0.1667
+     ],
+     "p_wild_line": 0.7297
+    },
+    "2019": {
+     "beta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "p_wild_line": null
+    },
+    "2020": {
+     "beta": 0.0369,
+     "ci95": [
+      -0.0657,
+      0.1394
+     ],
+     "p_wild_line": 0.5552
+    },
+    "2021": {
+     "beta": -0.0627,
+     "ci95": [
+      -0.189,
+      0.0636
+     ],
+     "p_wild_line": 0.5747
+    },
+    "2022": {
+     "beta": -0.0102,
+     "ci95": [
+      -0.1008,
+      0.0804
+     ],
+     "p_wild_line": 0.8522
+    },
+    "2023": {
+     "beta": 0.1089,
+     "ci95": [
+      0.0012,
+      0.2167
+     ],
+     "p_wild_line": 0.0458
+    },
+    "2024": {
+     "beta": 0.2122,
+     "ci95": [
+      0.0025,
+      0.4219
+     ],
+     "p_wild_line": 0.0448
+    },
+    "2025": {
+     "beta": 0.1824,
+     "ci95": [
+      -0.0144,
+      0.3792
+     ],
+     "p_wild_line": 0.0882
+    },
+    "2026": {
+     "beta": 0.4419,
+     "ci95": [
+      0.0128,
+      0.871
+     ],
+     "p_wild_line": 0.0359
+    }
+   },
+   "c_per_item": {
+    "2012": {
+     "beta": -0.2427,
+     "ci95": [
+      -0.5199,
+      0.0345
+     ],
+     "p_wild_line": 0.0988
+    },
+    "2013": {
+     "beta": -0.1054,
+     "ci95": [
+      -0.2852,
+      0.0744
+     ],
+     "p_wild_line": 0.3006
+    },
+    "2014": {
+     "beta": -0.0059,
+     "ci95": [
+      -0.1373,
+      0.1256
+     ],
+     "p_wild_line": 0.9356
+    },
+    "2015": {
+     "beta": 0.0015,
+     "ci95": [
+      -0.087,
+      0.0901
+     ],
+     "p_wild_line": 0.9781
+    },
+    "2016": {
+     "beta": 0.0439,
+     "ci95": [
+      -0.1977,
+      0.2854
+     ],
+     "p_wild_line": 0.6955
+    },
+    "2017": {
+     "beta": 0.1489,
+     "ci95": [
+      -0.104,
+      0.4019
+     ],
+     "p_wild_line": 0.4387
+    },
+    "2018": {
+     "beta": -0.0006,
+     "ci95": [
+      -0.1701,
+      0.1689
+     ],
+     "p_wild_line": 0.9909
+    },
+    "2019": {
+     "beta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "p_wild_line": null
+    },
+    "2020": {
+     "beta": 0.1596,
+     "ci95": [
+      -0.0269,
+      0.3462
+     ],
+     "p_wild_line": 0.1542
+    },
+    "2021": {
+     "beta": 0.1917,
+     "ci95": [
+      -0.0431,
+      0.4265
+     ],
+     "p_wild_line": 0.1772
+    },
+    "2022": {
+     "beta": 0.3192,
+     "ci95": [
+      -0.0176,
+      0.656
+     ],
+     "p_wild_line": 0.0727
+    },
+    "2023": {
+     "beta": 0.4636,
+     "ci95": [
+      -0.0069,
+      0.9341
+     ],
+     "p_wild_line": 0.057
+    },
+    "2024": {
+     "beta": 0.4822,
+     "ci95": [
+      -0.0018,
+      0.9661
+     ],
+     "p_wild_line": 0.0515
+    },
+    "2025": {
+     "beta": 0.5045,
+     "ci95": [
+      -0.0114,
+      1.0204
+     ],
+     "p_wild_line": 0.0571
+    },
+    "2026": {
+     "beta": 0.5743,
+     "ci95": [
+      -0.0027,
+      1.1512
+     ],
+     "p_wild_line": 0.0519
+    }
+   },
+   "a_price": {
+    "2012": {
+     "beta": 0.1308,
+     "ci95": [
+      0.0084,
+      0.2532
+     ],
+     "p_wild_line": 0.0322
+    },
+    "2013": {
+     "beta": 0.0372,
+     "ci95": [
+      -0.0221,
+      0.0965
+     ],
+     "p_wild_line": 0.2354
+    },
+    "2014": {
+     "beta": 0.0253,
+     "ci95": [
+      -0.0382,
+      0.0888
+     ],
+     "p_wild_line": 0.493
+    },
+    "2015": {
+     "beta": 0.0139,
+     "ci95": [
+      -0.0203,
+      0.0481
+     ],
+     "p_wild_line": 0.4521
+    },
+    "2016": {
+     "beta": 0.0128,
+     "ci95": [
+      -0.0284,
+      0.054
+     ],
+     "p_wild_line": 0.5749
+    },
+    "2017": {
+     "beta": 0.0187,
+     "ci95": [
+      -0.0146,
+      0.0521
+     ],
+     "p_wild_line": 0.2819
+    },
+    "2018": {
+     "beta": -0.0262,
+     "ci95": [
+      -0.0812,
+      0.0288
+     ],
+     "p_wild_line": 0.4111
+    },
+    "2019": {
+     "beta": 0.0,
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "p_wild_line": null
+    },
+    "2020": {
+     "beta": -0.0006,
+     "ci95": [
+      -0.026,
+      0.0248
+     ],
+     "p_wild_line": 0.9632
+    },
+    "2021": {
+     "beta": 0.0034,
+     "ci95": [
+      -0.0594,
+      0.0663
+     ],
+     "p_wild_line": 0.9054
+    },
+    "2022": {
+     "beta": 0.0451,
+     "ci95": [
+      -0.0136,
+      0.1038
+     ],
+     "p_wild_line": 0.1647
+    },
+    "2023": {
+     "beta": 0.1701,
+     "ci95": [
+      0.0127,
+      0.3275
+     ],
+     "p_wild_line": 0.0214
+    },
+    "2024": {
+     "beta": 0.2342,
+     "ci95": [
+      0.0184,
+      0.4499
+     ],
+     "p_wild_line": 0.0217
+    },
+    "2025": {
+     "beta": 0.2731,
+     "ci95": [
+      0.021,
+      0.5252
+     ],
+     "p_wild_line": 0.0258
+    },
+    "2026": {
+     "beta": 0.2707,
+     "ci95": [
+      0.0238,
+      0.5177
+     ],
+     "p_wild_line": 0.0234
+    }
+   }
+  },
+  "pretrend_rule": {
+   "c_price": {
+    "years_outside_0.05": [],
+    "did_language_allowed": true
+   },
+   "c_volume": {
+    "years_outside_0.05": [
+     2014,
+     2015,
+     2016
+    ],
+    "did_language_allowed": false
+   },
+   "c_per_item": {
+    "years_outside_0.05": [
+     2017
+    ],
+    "did_language_allowed": false
+   },
+   "a_price": {
+    "years_outside_0.05": [],
+    "did_language_allowed": true
+   }
+  },
+  "per_item_coverage": {
+   "2012": {
+    "flow_years": 783,
+    "with_item_counts": 762
+   },
+   "2013": {
+    "flow_years": 788,
+    "with_item_counts": 783
+   },
+   "2014": {
+    "flow_years": 735,
+    "with_item_counts": 735
+   },
+   "2015": {
+    "flow_years": 739,
+    "with_item_counts": 739
+   },
+   "2016": {
+    "flow_years": 662,
+    "with_item_counts": 662
+   },
+   "2017": {
+    "flow_years": 676,
+    "with_item_counts": 675
+   },
+   "2018": {
+    "flow_years": 658,
+    "with_item_counts": 658
+   },
+   "2019": {
+    "flow_years": 665,
+    "with_item_counts": 665
+   },
+   "2020": {
+    "flow_years": 616,
+    "with_item_counts": 615
+   },
+   "2021": {
+    "flow_years": 523,
+    "with_item_counts": 523
+   },
+   "2022": {
+    "flow_years": 581,
+    "with_item_counts": 581
+   },
+   "2023": {
+    "flow_years": 623,
+    "with_item_counts": 623
+   },
+   "2024": {
+    "flow_years": 638,
+    "with_item_counts": 638
+   },
+   "2025": {
+    "flow_years": 683,
+    "with_item_counts": 683
+   },
+   "2026": {
+    "flow_years": 584,
+    "with_item_counts": 584
+   }
+  },
+  "goes_eu_import_shares": {
+   "2019": {
+    "value_meur": 162.1,
+    "china_share": 0.0924,
+    "russia_share": 0.1905,
+    "japan_share": 0.3371,
+    "korea_share": 0.1596,
+    "top3_share": 0.7096,
+    "top3": [
+     [
+      "JP",
+      0.3371
+     ],
+     [
+      "RU",
+      0.1905
+     ],
+     [
+      "US",
+      0.182
+     ]
+    ],
+    "partners_above_1pct": 6
+   },
+   "2020": {
+    "value_meur": 150.8,
+    "china_share": 0.1648,
+    "russia_share": 0.188,
+    "japan_share": 0.357,
+    "korea_share": 0.1904,
+    "top3_share": 0.7353,
+    "top3": [
+     [
+      "JP",
+      0.357
+     ],
+     [
+      "KR",
+      0.1904
+     ],
+     [
+      "RU",
+      0.188
+     ]
+    ],
+    "partners_above_1pct": 7
+   },
+   "2021": {
+    "value_meur": 193.5,
+    "china_share": 0.2685,
+    "russia_share": 0.1794,
+    "japan_share": 0.3633,
+    "korea_share": 0.1103,
+    "top3_share": 0.8111,
+    "top3": [
+     [
+      "JP",
+      0.3633
+     ],
+     [
+      "CN",
+      0.2685
+     ],
+     [
+      "RU",
+      0.1794
+     ]
+    ],
+    "partners_above_1pct": 6
+   },
+   "2022": {
+    "value_meur": 409.5,
+    "china_share": 0.2723,
+    "russia_share": 0.2805,
+    "japan_share": 0.2866,
+    "korea_share": 0.0773,
+    "top3_share": 0.8395,
+    "top3": [
+     [
+      "JP",
+      0.2866
+     ],
+     [
+      "RU",
+      0.2805
+     ],
+     [
+      "CN",
+      0.2723
+     ]
+    ],
+    "partners_above_1pct": 6
+   },
+   "2023": {
+    "value_meur": 457.7,
+    "china_share": 0.3617,
+    "russia_share": 0.0334,
+    "japan_share": 0.4667,
+    "korea_share": 0.0444,
+    "top3_share": 0.8729,
+    "top3": [
+     [
+      "JP",
+      0.4667
+     ],
+     [
+      "CN",
+      0.3617
+     ],
+     [
+      "KR",
+      0.0444
+     ]
+    ],
+    "partners_above_1pct": 8
+   },
+   "2024": {
+    "value_meur": 418.3,
+    "china_share": 0.5185,
+    "russia_share": 0.0,
+    "japan_share": 0.3255,
+    "korea_share": 0.0907,
+    "top3_share": 0.9348,
+    "top3": [
+     [
+      "CN",
+      0.5185
+     ],
+     [
+      "JP",
+      0.3255
+     ],
+     [
+      "KR",
+      0.0907
+     ]
+    ],
+    "partners_above_1pct": 5
+   },
+   "2025": {
+    "value_meur": 547.3,
+    "china_share": 0.5696,
+    "russia_share": 0.0,
+    "japan_share": 0.3204,
+    "korea_share": 0.0544,
+    "top3_share": 0.9445,
+    "top3": [
+     [
+      "CN",
+      0.5696
+     ],
+     [
+      "JP",
+      0.3204
+     ],
+     [
+      "KR",
+      0.0544
+     ]
+    ],
+    "partners_above_1pct": 5
+   },
+   "2026": {
+    "value_meur": 336.2,
+    "china_share": 0.5221,
+    "russia_share": 0.0,
+    "japan_share": 0.3262,
+    "korea_share": 0.1145,
+    "top3_share": 0.9628,
+    "top3": [
+     [
+      "CN",
+      0.5221
+     ],
+     [
+      "JP",
+      0.3262
+     ],
+     [
+      "KR",
+      0.1145
+     ]
+    ],
+    "partners_above_1pct": 4
+   }
+  },
+  "intra_eu_sensitivity_c_price": {
+   "label": "EU intra c price",
+   "y": "luv",
+   "n": 47697,
+   "flows": 4907,
+   "lines_treated": [
+    "850421",
+    "850422",
+    "850423"
+   ],
+   "lines_control": [
+    "841370",
+    "841480",
+    "850152",
+    "850153"
+   ],
+   "exporters": 28,
+   "coefs": {
+    "TxP1": {
+     "beta": 0.0623,
+     "pct": 6.43,
+     "p_wild_line": 0.2909,
+     "se_wild_line": 0.057,
+     "ci95_wild_line": [
+      -0.0469,
+      0.1715
+     ],
+     "mde_80": 0.1595,
+     "se_cluster_exporter": 0.0349,
+     "lines_in_bootstrap": 7
+    },
+    "TxP2": {
+     "beta": 0.327,
+     "pct": 38.68,
+     "p_wild_line": 0.0389,
+     "se_wild_line": 0.1669,
+     "ci95_wild_line": [
+      0.0119,
+      0.6421
+     ],
+     "mde_80": 0.4672,
+     "se_cluster_exporter": 0.0464,
+     "lines_in_bootstrap": 7
+    },
+    "TxP3": {
+     "beta": 0.3869,
+     "pct": 47.24,
+     "p_wild_line": 0.0389,
+     "se_wild_line": 0.1892,
+     "ci95_wild_line": [
+      0.0156,
+      0.7582
+     ],
+     "mde_80": 0.5299,
+     "se_cluster_exporter": 0.045,
+     "lines_in_bootstrap": 7
+    },
+    "TxP4": {
+     "beta": 0.4063,
+     "pct": 50.12,
+     "p_wild_line": 0.0401,
+     "se_wild_line": 0.2019,
+     "ci95_wild_line": [
+      0.0139,
+      0.7986
+     ],
+     "mde_80": 0.5652,
+     "se_cluster_exporter": 0.0496,
+     "lines_in_bootstrap": 7
+    }
+   },
+   "period_names": {
+    "TxP1": "2021-22",
+    "TxP2": "2023-24",
+    "TxP3": "2025",
+    "TxP4": "2026 (Jan-Jul)"
+   }
+  }
+ },
+ "cn8_lines": {
+  "transformers": [
+   "85042100",
+   "850421XX",
+   "85042210",
+   "85042290",
+   "85042300"
+  ],
+  "motors_pumps_compressors": [
+   "84137021",
+   "84137029",
+   "84137030",
+   "84137035",
+   "84137045",
+   "84137051",
+   "84137059",
+   "84137065",
+   "84137075",
+   "84137081",
+   "84137089",
+   "841370XX",
+   "84148011",
+   "84148019",
+   "84148022",
+   "84148028",
+   "84148051",
+   "84148059",
+   "84148073",
+   "84148075",
+   "84148078",
+   "84148080",
+   "841480XX",
+   "85015220",
+   "85015230",
+   "85015290",
+   "85015350",
+   "85015381",
+   "85015394",
+   "85015399",
+   "850153XX"
+  ]
+ }
+}
