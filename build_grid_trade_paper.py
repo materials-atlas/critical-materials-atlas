@@ -153,6 +153,124 @@ def event_chart(price, volume):
             'intervals">%s</svg>' % (W, H, ''.join(g)))
 
 
+FONT = 'font:11px Inter,system-ui,sans-serif'
+GH = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/'
+# Where each figure and table comes from: the raw source, then the file on this site that holds the
+# computed numbers. Printed under every table and figure.
+SOURCES = {
+    'baci': ('CEPII BACI, release V202601, HS 2002', 'https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37'),
+    'comext': ('Eurostat Comext, monthly bulk files (CN8)',
+               'https://ec.europa.eu/eurostat/api/dissemination/files?dir=comext%2FCOMEXT_DATA%2FPRODUCTS'),
+    'census': ('US Census Bureau, international trade API, imports by HS10',
+               'https://api.census.gov/data/timeseries/intltrade/imports/hs'),
+    'bls': ('US Bureau of Labor Statistics, PPI WPU117409', 'https://fred.stlouisfed.org/series/WPU117409'),
+    'pink': ('World Bank commodity prices (Pink Sheet), copper', 'https://www.worldbank.org/en/research/commodity-markets'),
+}
+RESULT_FILES = {
+    'study': 'out/buildout_study.json', 'expl': 'buildout-study/exploratory_electrical_boom.json',
+    'eu': 'out/buildout_eu.json', 'us': 'out/buildout_us.json',
+}
+
+
+def src(sources, results, note=''):
+    s = ' &middot; '.join('<a href="%s">%s</a>' % (SOURCES[k][1], SOURCES[k][0]) for k in sources)
+    r = ', '.join('<a href="%s%s"><code>%s</code></a>' % (GH, RESULT_FILES[k], RESULT_FILES[k]) for k in results)
+    return '<p class="src"><b>Source:</b> %s. Computed values: %s.%s</p>' % (s, r, (' ' + note) if note else '')
+
+
+def line_chart(series, x0, x1, lo, hi, step, fmt, label, shade=None, W=720, H=280):
+    """series: list of (name, css class, {year: value} or {year: (value, lo, hi)}, open_years)."""
+    L, R, T, B = 52, 150, 16, 34
+
+    def x(y):
+        return L + (y - x0) / float(x1 - x0) * (W - L - R)
+
+    def yv(v):
+        return T + (hi - v) / float(hi - lo) * (H - T - B)
+    g = []
+    if shade:
+        g.append('<rect x="%.1f" y="%d" width="%.1f" height="%d" class="post"/>'
+                 % (x(shade[0]), T, x(shade[1]) - x(shade[0]), H - T - B))
+    t = lo
+    while t <= hi + 1e-9:
+        g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" class="%s"/>'
+                 % (L, W - R, yv(t), yv(t), 'zero' if abs(t) < 1e-9 else 'grid'))
+        g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">%s</text>' % (L - 6, yv(t) + 4, fmt(t)))
+        t = round(t + step, 10)
+    for y in range(x0, x1 + 1):
+        if (x1 - x0) <= 8 or y % 2 == 0:
+            g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%d</text>' % (x(y), H - B + 18, y))
+    labs = []
+    for name, cls, data, open_years in series:
+        ys = sorted(int(k) for k in data)
+        pts = []
+        for y in ys:
+            v = data[str(y)]
+            if isinstance(v, tuple):
+                g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="ci %s"/>'
+                         % (x(y), x(y), yv(v[1]), yv(v[2]), cls))
+                v = v[0]
+            pts.append((x(y), yv(v), y))
+        g.append('<polyline points="%s" class="ln %s"/>' % (' '.join('%.1f,%.1f' % p[:2] for p in pts), cls))
+        for X, Y, y in pts:
+            g.append('<circle cx="%.1f" cy="%.1f" r="4" class="pt %s%s"/>' % (X, Y, cls, ' open' if y in open_years else ''))
+        labs.append([pts[-1][1] + 4, pts[-1][0] + 10, cls, name])
+    labs.sort()                                        # direct labels, nudged apart so they never overlap
+    for i in range(1, len(labs)):
+        labs[i][0] = max(labs[i][0], labs[i - 1][0] + 14)
+    for Y, X, cls, name in labs:
+        g.append('<text x="%.1f" y="%.1f" class="lab %s">%s</text>' % (X, Y, cls, name))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, label, ''.join(g))
+
+
+def forest(rows, label, W=720):
+    """rows: (text, estimate %, low %, high %, css class). One horizontal interval per row."""
+    L, R, T, rh = 370, 20, 22, 30
+    H = T + rh * len(rows) + 26
+    lo = min(r[2] for r in rows)
+    hi = max(r[3] for r in rows)
+    lo, hi = math.floor(lo / 10.0) * 10, math.ceil(hi / 10.0) * 10
+
+    def x(v):
+        return L + (v - lo) / float(hi - lo) * (W - L - R)
+    g = []
+    t = lo
+    while t <= hi:
+        g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="%s"/>' % (x(t), x(t), T - 6, H - 26, 'zero' if t == 0 else 'grid'))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>' % (x(t), H - 8, '0' if t == 0 else '%+d%%' % t))
+        t += 10
+    for i, (txt, est, a, b, cls) in enumerate(rows):
+        Y = T + rh * i + 8
+        g.append('<text x="%d" y="%.1f" class="ax row">%s</text>' % (8, Y + 4, txt))
+        g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="ci %s" style="opacity:.6"/>' % (x(a), x(b), Y, Y, cls))
+        g.append('<circle cx="%.1f" cy="%.1f" r="5" class="pt %s"/>' % (x(est), Y, cls))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, label, ''.join(g))
+
+
+def bar_chart(data, open_years, label, W=720, H=260):
+    """data: {year: value in USD bn}."""
+    L, R, T, B = 52, 20, 16, 34
+    ys = sorted(int(k) for k in data)
+    hi = math.ceil(max(data.values()))
+    bw = (W - L - R) / float(len(ys))
+
+    def yv(v):
+        return T + (hi - v) / float(hi) * (H - T - B)
+    g = []
+    for t in range(0, int(hi) + 1, 2 if hi > 6 else 1):
+        g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" class="%s"/>' % (L, W - R, yv(t), yv(t), 'zero' if t == 0 else 'grid'))
+        g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">$%dbn</text>' % (L - 6, yv(t) + 4, t))
+    for i, y in enumerate(ys):
+        v = data[str(y)]
+        X = L + i * bw + bw * 0.18
+        g.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="3" class="bar%s"/>'
+                 % (X, yv(v), bw * 0.64, yv(0) - yv(v), ' open' if y in open_years else ''))
+        g.append('<text x="%.1f" y="%.1f" class="ax val" text-anchor="middle">%.1f</text>' % (X + bw * 0.32, yv(v) - 5, v))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>'
+                 % (X + bw * 0.32, H - B + 18, '%d (Jan&ndash;Jul)' % y if y in open_years else y))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, label, ''.join(g))
+
+
 def main():
     d = json.load(io.open(DOC, encoding='utf-8'))
     x = json.load(io.open(EXPL, encoding='utf-8'))
@@ -268,6 +386,38 @@ def main():
                         ', '.join('%s %s' % (c.title().replace('Korea, South', 'South Korea'), sh(x)) for c, x in v['top3']),
                         '%.1f%%' % (100 * v['china_share'])) for y, v in uto.items())
 
+    # --- figures: every point read from the same result files as the tables ---
+    def frow(text, e, cls):
+        b, p, v = coef(e, 'TxP2')
+        ci = v['ci95_wild_line']
+        return (text, 100 * (math.exp(b) - 1), 100 * (math.exp(ci[0]) - 1), 100 * (math.exp(ci[1]) - 1), cls)
+    forest_svg = forest([
+        frow('Transformers vs heavy machinery, unit value', B['price'], 'p'),
+        frow('Transformers vs heavy machinery, tonnes', B['volume'], 'v'),
+        frow('Motors, pumps, compressors vs heavy machinery, unit value', x['luv'], 'p'),
+        frow('Motors, pumps, compressors vs heavy machinery, tonnes', x['lq'], 'v'),
+        frow('Transformers vs motors, pumps, compressors, unit value', C['contaminated_controls']['price'], 'p'),
+        frow('Transformers vs motors, pumps, compressors, tonnes', C['contaminated_controls']['volume'], 'v'),
+    ], 'Gaps in 2023-24 relative to 2012-2020 with 95% intervals, for transformers and for motors, pumps '
+       'and compressors against heavy machinery, and for transformers against motors, pumps and compressors')
+    pctf = lambda t: '%d%%' % round(100 * t)
+    goes_svg = line_chart([
+        ('EU imports', 'p', {y: v['china_share'] for y, v in eg.items()}, {2026}),
+        ('world exports', 'v', {y: gc[y]['china_share'] for y in ('2019', '2022', '2024')}, set()),
+        ('US direct imports', 'u', {y: v['china_value_share'] for y, v in ug.items()}, {2026}),
+    ], 2019, 2026, 0.0, 0.6, 0.1, pctf,
+        "China's share of the value of grain-oriented electrical steel in EU imports from outside the EU, "
+        'world exports and direct US imports, 2019 to 2026')
+    eu_ev_svg = line_chart([
+        ('value per tonne', 'p', {y: (v['beta'], v['ci95'][0], v['ci95'][1]) for y, v in evc.items()}, {2026}),
+    ], int(min(evc)), int(max(evc)), math.floor(min(v['ci95'][0] for v in evc.values()) * 10) / 10,
+        math.ceil(max(v['ci95'][1] for v in evc.values()) * 10) / 10, 0.1,
+        lambda t: '0' if abs(t) < 1e-9 else '%+.1f' % t,
+        'EU trade outside the EU: transformer value per tonne relative to motors, pumps and compressors, by '
+        'year, relative to 2019, with 95% intervals', shade=(2020.5, int(max(evc)) + 0.3))
+    us_bar_svg = bar_chart({y: v['value_musd'] / 1000.0 for y, v in uto.items()}, {2026},
+                           'US imports of liquid-dielectric transformers by year, in billions of US dollars')
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -337,6 +487,17 @@ def main():
         'EUCOVLO': '%d%%' % r0(100 * min(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
         'EUCOVHI': '%d%%' % r0(100 * max(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
         'REFS': refs, 'REPO': REPO,
+        'FOREST': forest_svg, 'GOESCHART': goes_svg, 'EUCHART': eu_ev_svg, 'USBARS': us_bar_svg,
+        'SRC_FIG1': src(['baci'], ['study']),
+        'SRC_CORE': src(['baci'], ['study', 'expl']),
+        'SRC_MAT': src(['baci', 'pink'], ['study']),
+        'SRC_GOES': src(['baci'], ['study']),
+        'SRC_GOES3': src(['baci', 'comext', 'census'], ['study', 'eu', 'us'],
+                         'World exports are available for three years only; 2026 is January to July (open points).'),
+        'SRC_IMP': src(['baci'], ['study']),
+        'SRC_EU': src(['comext'], ['eu']),
+        'SRC_US': src(['census'], ['us']),
+        'SRC_BLS': src(['bls', 'baci'], ['study']),
     }
     for k in REFNUM:
         subs['C_' + k] = cite(k)
@@ -394,6 +555,12 @@ TEMPLATE = """<!doctype html>
 .fig .lab{font:600 12px Inter,system-ui,sans-serif}.fig .lab.p{fill:#0e7c74}.fig .lab.v{fill:#15323a}
 .box{background:#f7f7f5;border-left:3px solid #15323a;padding:.8rem 1.1rem;margin:1rem 0;font-size:.93rem}
 .refs li{margin:.3rem 0;font-size:.88rem}
+.src{font-size:.78rem;color:#6b7478;margin:-.2rem 0 1.1rem;line-height:1.5}
+.src code{font-size:.74rem}
+.fig .ln.u{stroke:#8b857b}.fig .pt.u{fill:#8b857b}.fig .lab.u{fill:#6b675f}.fig .ci.u{stroke:#8b857b}
+.fig .pt.open{fill:#fff;stroke-width:2}.fig .pt.p.open{stroke:#0e7c74}.fig .pt.u.open{stroke:#8b857b}
+.fig .bar{fill:#15323a}.fig .bar.open{fill:#15323a;opacity:.45}
+.fig .val{font-weight:600;fill:#15323a}.fig .row{font-size:12px;fill:#15323a}
 </style></head><body>
 @@NAV@@
 <section class="hero"><div class="wrap">
@@ -492,6 +659,7 @@ the main comparison could reliably detect is @@MDE@@ log points.</p>
 <figcaption><b>Transformers relative to the filed comparison machinery, by year.</b> Log points
 relative to 2019; teal = unit value, navy = tonnes; whiskers are 95% intervals from the same
 line-level bootstrap as the tables; shaded: 2021&ndash;24.</figcaption></figure>
+@@SRC_FIG1@@
 <p>Relative to the comparison machinery, transformer unit values fell from @@EV12@@ in 2012 to zero in
 2019, were already @@EV22@@ in 2022, and reached @@EV23@@ in 2023 and @@EV24@@ in 2024 (interval
 @@EV24L@@ to @@EV24H@@). Relative tonnes rose from @@EVV17@@ in 2017 to @@EVV18@@ in 2018, stayed roughly
@@ -499,8 +667,14 @@ level through 2023 (@@EVV23@@), and reached @@EVV24@@ in 2024 (@@EVV24L@@ to @@E
 appears in unit values first and in tonnes only in the last year.</p>
 
 <h3>4.2 Not only transformers</h3>
+<figure class="fig">@@FOREST@@
+<figcaption><b>The comparison that decides it.</b> Gaps in 2023&ndash;24 relative to 2012&ndash;2020, with
+95% intervals; teal = unit value, navy = tonnes. Transformers gained on heavy machinery, but so did motors,
+pumps and compressors, and against those the transformer gaps cross zero. The middle two rows are
+exploratory (below).</figcaption></figure>
 <div class="tbl"><table><thead><tr><th>2023&ndash;24, relative to 2012&ndash;2020</th><th class="n">gap</th><th class="n">p</th><th class="n">95% interval</th></tr></thead>
 <tbody>@@COREROWS@@</tbody></table></div>
+@@SRC_CORE@@
 <p class="meta"><span class="tag">exploratory</span> rows were not in the filing; they were run after review
 to answer the referees' question directly and are labelled wherever they appear.</p>
 <p>Against construction machinery alone, without the welding machines, the transformer gaps are
@@ -518,6 +692,7 @@ its own (p = @@PLP@@).</p>
 <h3>4.3 Steel and copper: unsettled</h3>
 <div class="tbl"><table><thead><tr><th>Transformer unit value, 2023&ndash;24</th><th class="n">gap</th><th class="n">p</th><th class="n">95% interval</th></tr></thead>
 <tbody>@@MATROWS@@</tbody></table></div>
+@@SRC_MAT@@
 <p>The filed adjustment nets a quarter of the real change in the GOES unit value and a quarter of the real
 change in the copper price from transformers only. The referees showed why that is fragile: the comparison
 machinery also contains copper and ordinary steel, and because both input prices peaked in 2021&ndash;22,
@@ -528,8 +703,15 @@ accounts for labour, about 36% of manufacturing cost for large units, or for the
 and delivery, which means 2023&ndash;24 shipments may have been priced on earlier inputs. How much of the transformer rise is materials is not settled by these data.</p>
 
 <h3>4.4 World exports of electrical steel concentrated</h3>
+<figure class="fig">@@GOESCHART@@
+<figcaption><b>China's share of grain-oriented electrical steel, in three records.</b> Share of value:
+EU imports from outside the EU (Eurostat, to July 2026), world exports (BACI, 2019, 2022 and 2024) and
+direct US imports (Census, to July 2026). Open points: January&ndash;July 2026. Sections 4.6 and 4.7 give
+the EU and US tables.</figcaption></figure>
+@@SRC_GOES3@@
 <div class="tbl"><table><thead><tr><th>GOES, 7225.11 + 7226.11</th><th class="n">world exports</th><th class="n">exporters &gt;1%</th><th class="n">China</th><th class="n">Japan</th><th class="n">Russia</th><th class="n">top 3</th></tr></thead>
 <tbody>@@GOESROWS@@</tbody></table></div>
+@@SRC_GOES@@
 <p>This is the clearest fact in the trade record, and it does not depend on unit values or on any
 comparison group; the shares are shares of export value. Between 2019 and 2024 China's share of world GOES
 exports rose from @@G19C@@ to @@G24C@@, Russia's fell
@@ -542,6 +724,7 @@ so its post-2021 movements are within its normal swings.</p>
 <h3>4.5 Where the transformers went</h3>
 <div class="tbl"><table><thead><tr><th>Importer, 2023&ndash;24</th><th class="n">unit value</th><th class="n">95% interval</th><th class="n">tonnes</th><th class="n">95% interval</th></tr></thead>
 <tbody>@@IMPROWS@@</tbody></table></div>
+@@SRC_IMP@@
 <p>The intervals for single importing regions are wide; the US tonnage estimate in particular runs from
 @@USVL@@ to @@USVH@@. They are shown as heterogeneity, not as findings. One exporter
 result is also worth recording: relative to the comparison machinery, transformer tonnes from China were
@@ -558,6 +741,12 @@ partners throughout: @@EUMONTHS@@ months, @@EUNFY@@ flow-years. Gaps in the tabl
 <div class="tbl"><table><thead><tr><th>Transformers, EU trade outside the EU</th><th class="n">2021&ndash;22</th>
 <th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
 <tbody>@@EUROWS@@</tbody></table></div>
+@@SRC_EU@@
+<figure class="fig">@@EUCHART@@
+<figcaption><b>EU: transformers against motors, pumps and compressors, by year.</b> Value per tonne,
+log points relative to 2019, with 95% intervals; open point: January&ndash;July 2026; shaded: 2021 on.
+Positive since 2023, but every interval includes zero.</figcaption></figure>
+@@SRC_EU@@
 <p><b>Against motors, pumps and compressors: still not distinguishable from electrical goods
 generally.</b> The transformer gap in value per tonne was positive in every year from 2023 &mdash; relative
 to 2019: @@EUYEARS@@ &mdash; but no period's interval excludes zero, and the smallest gap the comparison
@@ -576,6 +765,7 @@ is withdrawn. Other kinds of mix, such as higher efficiency at a similar weight,
 <div class="tbl"><table><thead><tr><th>Value of EU imports of GOES from outside the EU</th><th class="n">value</th><th class="n">China</th>
 <th class="n">Japan</th><th class="n">Russia</th><th class="n">top 3</th></tr></thead>
 <tbody>@@EUGOES@@</tbody></table></div>
+@@SRC_EU@@
 <p>In the value of the EU's imports of grain-oriented electrical steel from outside the EU, China went
 from @@EUC19@@ in 2019 to @@EUC25@@ in 2025, and Russia from @@EUR19@@ to none; China was second in 2021
 and 2023, third in 2022, and first from 2024. The three largest partners' share &mdash; whoever they were
@@ -592,6 +782,7 @@ headline comparison could reliably detect is @@USMDELO@@ to @@USMDEHI@@ log poin
 <div class="tbl"><table><thead><tr><th>Transformers, US imports</th><th class="n">2021&ndash;22</th>
 <th class="n">2023&ndash;24</th><th class="n">2025</th><th class="n">2026</th></tr></thead>
 <tbody>@@USROWS@@</tbody></table></div>
+@@SRC_US@@
 <p>No headline interval excludes zero, but with this little power that is not evidence of absence: a gap
 the size of the one estimated in the EU would go undetected. The ten-digit version of the same comparison
 does exclude zero in 2025 (@@USH10@@, p&nbsp;=&nbsp;@@USH10p@@), on a comparison that also fails the pre-trend
@@ -602,6 +793,7 @@ Census records the kilograms of transformer imports only from 2026.</p>
 <div class="tbl"><table><thead><tr><th>Value of US imports of GOES</th><th class="n">value</th><th class="n">China</th>
 <th>three largest origins</th></tr></thead>
 <tbody>@@USGOES@@</tbody></table></div>
+@@SRC_US@@
 <p>Almost none of the grain-oriented electrical steel the United States imports <i>as steel</i> comes
 from China &mdash; at most @@USCMAX@@ of the value in any year since 2021 &mdash; and most of it comes from
 Japan and South Korea. But direct imports are a small part of what the US uses: about @@USGT20@@ thousand
@@ -612,6 +804,11 @@ Those imports grew from $@@UST19@@bn in 2019 to $@@UST25@@bn in 2025:</p>
 <div class="tbl"><table><thead><tr><th>US imports of transformers (8504.21&ndash;.23)</th><th class="n">value</th>
 <th>three largest origins</th><th class="n">China</th></tr></thead>
 <tbody>@@USTOR@@</tbody></table></div>
+@@SRC_US@@
+<figure class="fig">@@USBARS@@
+<figcaption><b>US imports of liquid-dielectric transformers (8504.21&ndash;.23), by year.</b> Billions of
+current US dollars, customs value, not adjusted for inflation; the lighter bar is January&ndash;July 2026 only.</figcaption></figure>
+@@SRC_US@@
 <p>The steel inside them is not observed. So the concentration of world GOES exports in China does not
 appear in the origins of direct US GOES imports, but these data cannot say whether it reaches the US inside
 transformers made in Mexico, South Korea or elsewhere. Nor do they say why China's direct share is so small;
@@ -623,7 +820,8 @@ lay outside &plusmn;0.05 log points of 2019 (for transformer unit values, every 
 Difference-in-differences language was withdrawn as the filing required.</div>
 <ul>
 <li><b>Unit values are not prices.</b> The annual change in the unit value of US transformer imports
-correlates with the change in the BLS producer price index at only @@BLSC@@. Unit values carry product
+correlates with the change in the BLS producer price index at only @@BLSC@@ (source:
+<a href="https://fred.stlouisfed.org/series/WPU117409">BLS WPU117409</a>). Unit values carry product
 mix; the direction of that bias is not known, so the unit-value gaps are neither upper nor lower bounds on
 price change.</li>
 <li><b>Copper wire</b> (7408.11, wire over 6 mm across, largely rod rather than transformer winding wire)
