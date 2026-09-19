@@ -76,7 +76,8 @@ NAMES = {'NLD': 'the Netherlands', 'JPN': 'Japan', 'SGP': 'Singapore', 'USA': 't
 # Lines whose HS code is wider than the name suggests. Printed on the page, next to the line.
 CAVEATS = {
     '280429': 'Dominated by helium, not the neon used in lithography: the top exporters are Qatar, '
-              'Algeria and the United States. The code cannot separate the two gases.',
+              'Algeria and the United States. At six digits the code cannot separate the two gases; '
+              'the US record can, at ten (below).',
     '811292': 'One customs line covering unwrought niobium, gallium, indium, vanadium and germanium '
               'together, with their powders and scrap, so a change here cannot be attributed to any '
               'one of them. The metals in the line also differ between nomenclature vintages.',
@@ -234,8 +235,124 @@ CSS = """
 .up{color:#0e7c74;font-weight:600}.dn{color:#b3384b;font-weight:600}
 .note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
 .cav{color:#6b675f;font-size:.86rem}
+.src{font-size:.78rem;color:#6b675f;margin:.2rem 0 1rem}.src code{font-size:.74rem}
+.tbl{overflow-x:auto}.tbl table{min-width:46rem}
+.xp th.grph{text-align:center;border-bottom:2px solid #0e7c74}
 .bar{display:inline-block;height:.55rem;background:#0e7c74;border-radius:2px;vertical-align:middle}
 """
+
+
+EXT_JSON = os.path.join(ROOT, 'out', 'ai_buildout_ext.json')     # ai-buildout/extend.py
+EXT_KEY = {'854140': '85414'}          # HS 2022 split 8541.40 into 8541.41-.49; kept together
+
+
+def ext_section():
+    """After 2024: the page's lines in the EU's and the US's own customs records, to July 2026."""
+    with io.open(EXT_JSON, encoding='utf-8') as f:
+        E = json.load(f)
+    eu, us = E['eu']['lines'], E['us']['lines']
+
+    def money(v, cur):
+        sym = '&euro;' if cur == 'EUR' else '$'
+        return '%s%.1fbn' % (sym, v / 1000.0) if v >= 1000 else '%s%.0fm' % (sym, v)
+
+    from decimal import Decimal, ROUND_HALF_UP
+
+    def r0(x):                                        # round once, half up: 198.52 -> 199, never 198
+        return int(Decimal(str(x)).quantize(Decimal('1'), rounding=ROUND_HALF_UP))
+
+    def ch(x):
+        if x is None:
+            return '&ndash;'
+        return '0%' if r0(x) == 0 else '%+d%%' % r0(x)
+
+    def cn(x):
+        if x is None:
+            return '&ndash;'
+        return ('%.1f%%' if 100 * x < 1 else '%.0f%%') % (100 * x)
+
+    def mag(x, sign):                                 # the size of a change; its direction is in the words
+        assert (x > 0) == (sign > 0), 'direction word no longer matches the data: %s' % x
+        return '%d%%' % r0(abs(x))
+    rows = []
+    for title, items in GROUPS:
+        rows.append('<tr class="grp"><td colspan="9">%s</td></tr>' % title)
+        for code, lab in items:
+            k = EXT_KEY.get(code, code)
+            a, b = eu.get(k), us.get(k)
+            if not a or not b:
+                continue
+            rows.append('<tr><td>%s<div class="cav">HS %s</div></td>'
+                        '<td class="n">%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td>'
+                        '<td class="n">%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td></tr>'
+                        % (lab, code if k == code else '8541.41&ndash;.49',
+                           money(a['value_2025_m'], 'EUR'), ch(a['change_2025_vs_2024_pct']),
+                           ch(a['change_2026_vs_2025_same_months_pct']), cn(a['china_share_2025']),
+                           money(b['value_2025_m'], 'USD'), ch(b['change_2025_vs_2024_pct']),
+                           ch(b['change_2026_vs_2025_same_months_pct']), cn(b['china_share_2025'])))
+    rg = E['us']['rare_gases_2025_split']
+    lm = E['eu']['last_month']
+    month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+             'October', 'November', 'December'][int(lm[4:]) - 1]
+    ytd = 'January&ndash;%s' % month
+    t = {
+        'MONTH': month, 'YTD': ytd, 'YTDS': 'Jan&ndash;%s %s' % (month[:3], lm[:4]), 'YR': lm[:4], 'ROWS': '\n'.join(rows),
+        'MEMEU': mag(eu['854232']['change_2026_vs_2025_same_months_pct'], +1),
+        'MEMUS': mag(us['854232']['change_2026_vs_2025_same_months_pct'], +1),
+        'T23EU25': mag(eu['850423']['change_2025_vs_2024_pct'], +1),
+        'T23EU26': mag(eu['850423']['change_2026_vs_2025_same_months_pct'], +1),
+        'T23EUCN': cn(eu['850423']['china_share_2025']),
+        'T22US25': mag(us['850422']['change_2025_vs_2024_pct'], +1), 'T23US25': mag(us['850423']['change_2025_vs_2024_pct'], +1),
+        'T22USCN': cn(us['850422']['china_share_2025']), 'T23USCN': cn(us['850423']['china_share_2025']),
+        'GOEU': cn(eu['722511']['china_share_2025']), 'GOUS': cn(us['722511']['china_share_2025']),
+        'NEON': '%.1f%%' % (100 * rg['neon']), 'HELIUM': '%.0f%%' % (100 * rg['helium']),
+        'SOLUS': mag(us['85414']['change_2025_vs_2024_pct'], -1),
+    }
+    html = """
+<section class="wrap xp">
+  <h2>After 2024: the EU and US records, to @@MONTH@@ @@YR@@</h2>
+  <p>World trade in the table above ends in 2024, the last year of the newest BACI release. The EU and
+  the United States publish their own customs records monthly, and those run to @@YTD@@ @@YR@@. They show
+  the same lines from one side only: <b>what the EU imports from outside the EU</b>, in euros, and
+  <b>what the US imports</b>, in dollars. Neither is world trade, and neither is adjusted for inflation.
+  2026 is compared with the same months of 2025; the latest months are first releases and may be
+  revised.</p>
+  <div class="tbl"><table><thead>
+  <tr><th rowspan="2">Customs line</th><th colspan="4" class="grph">EU imports from outside the EU</th>
+  <th colspan="4" class="grph">US imports</th></tr>
+  <tr><th class="n">2025</th><th class="n">vs 2024</th><th class="n">@@YTDS@@ vs same months 2025</th>
+  <th class="n">China, 2025</th><th class="n">2025</th><th class="n">vs 2024</th>
+  <th class="n">@@YTDS@@ vs same months 2025</th><th class="n">China, 2025</th></tr></thead>
+  <tbody>@@ROWS@@</tbody></table></div>
+  <p class="src"><b>Source:</b> <a href="https://ec.europa.eu/eurostat/api/dissemination/files?dir=comext%2FCOMEXT_DATA%2FPRODUCTS">Eurostat
+  Comext, monthly bulk files (CN8)</a> &middot; <a href="https://api.census.gov/data/timeseries/intltrade/imports/hs">US
+  Census Bureau, international trade API (HS10)</a>. Computed values:
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_ext.json"><code>out/ai_buildout_ext.json</code></a>.</p>
+  <p>What the newer months add, line by line and without attributing any of it to AI:</p>
+  <ul>
+  <li><b>Memory chips.</b> In @@YTD@@ @@YR@@ the value of memory imports was up @@MEMEU@@ on the same months
+  of 2025 in the EU and up @@MEMUS@@ in the US. These are values, so the records alone cannot say how much of
+  that is price and how much is quantity.</li>
+  <li><b>Large transformers kept rising.</b> EU imports of the largest units (over 10,000 kVA) rose
+  @@T23EU25@@ in 2025 and @@T23EU26@@ in @@YTD@@ @@YR@@, and China supplied @@T23EUCN@@ of them in 2025.
+  US imports of the two larger classes rose @@T22US25@@ and @@T23US25@@ in 2025, with China at @@T22USCN@@
+  and @@T23USCN@@: the two markets buy from different places.</li>
+  <li><b>Electrical steel.</b> China supplied @@GOEU@@ of the EU's imports of the wide line in 2025 and
+  @@GOUS@@ of the US's, the same split the <a href="grid-trade">research note</a> traces.</li>
+  <li><b>Neon, in the US record.</b> The US record splits the rare-gas line at ten digits (the EU's
+  splits out helium but not neon). In 2025 neon,
+  the gas used in chip lithography, was @@NEON@@ of the value of US rare-gas imports, and helium
+  @@HELIUM@@. The line&rsquo;s value says almost nothing about neon.</li>
+  <li><b>Photosensitive devices and LEDs</b>, mostly solar cells and modules: US imports fell @@SOLUS@@ in
+  2025.</li>
+  </ul>
+  <p class="cav">Lines made of a few large shipments, such as chip-making machines, swing widely from
+  one period to the next; a single year's change there is not a trend.</p>
+</section>
+"""
+    for k, v in t.items():
+        html = html.replace('@@%s@@' % k, v)
+    return html
 
 
 def page(doc):
@@ -292,7 +409,7 @@ def page(doc):
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The AI build-out in customs data &mdash; Critical Materials Atlas</title>
-<meta name="description" content="World trade in the lines a data-centre build-out runs on, 2019 to 2024, in constant dollars: chips, the materials that go into them, and the transformers, electrical steel and copper wire that carry power to them.">
+<meta name="description" content="World trade in the lines a data-centre build-out runs on, 2019 to 2024 in constant dollars, with EU and US imports to July 2026: chips, the materials that go into them, and the transformers, electrical steel and copper wire that carry power to them.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>@@CSS@@</style></head><body>
@@ -335,6 +452,7 @@ def page(doc):
   wider than its name.</div>
 </section>
 
+@@EXT@@
 <section class="wrap xp">
   <h2>What &ldquo;building your own fab&rdquo; buys</h2>
   <p>A company that decides to make its own chips does not escape the supply chain; it moves to the
@@ -393,7 +511,7 @@ def page(doc):
 </section>
 @@FOOT@@
 </body></html>
-""".replace('@@CSS@@', CSS).replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT) \
+""".replace('@@EXT@@', ext_section()).replace('@@CSS@@', CSS).replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT) \
    .replace('@@ROWS@@', tbl).replace('@@Y0@@', str(YEARS[0])).replace('@@Y1@@', str(YEARS[-1])) \
    .replace('@@TRMIN@@', str(round(min(tr)))).replace('@@TRMAX@@', str(round(max(tr)))) \
    .replace('@@CHMIN@@', str(round(min(ch)))).replace('@@CHMAX@@', str(round(max(ch)))) \
