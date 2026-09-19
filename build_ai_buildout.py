@@ -21,6 +21,9 @@ import baci                                            # the one door for BACI
 
 OUT_JSON = os.path.join(ROOT, 'out', 'ai_buildout.json')
 OUT_HTML = os.path.join(ROOT, 'ai-buildout.html')
+# The research note's figures for grain-oriented electrical steel, both customs lines together.
+# Read, not recomputed, so the two pages cannot disagree.
+STUDY_JSON = os.path.join(ROOT, 'out', 'buildout_study.json')
 YEARS = [2019, 2020, 2021, 2022, 2023, 2024]
 
 # US consumer price index, 2010 = 100. World Bank indicator FP.CPI.TOTL, United States,
@@ -50,6 +53,12 @@ GROUPS = [
         ('722611', 'Grain-oriented electrical steel, narrow'),
         ('740811', 'Copper wire, refined'),
     ]),
+    ('Other electrical machinery, for comparison', [
+        ('850152', 'AC motors, multi-phase, 750 W to 75 kW'),
+        ('850153', 'AC motors, multi-phase, over 75 kW'),
+        ('841370', 'Centrifugal pumps for liquids'),
+        ('841480', 'Other air and gas pumps and compressors'),
+    ]),
     ('What a new chip factory buys', [
         ('848620', 'Machines for making semiconductor devices and integrated circuits'),
         ('848610', 'Machines for making boules and wafers'),
@@ -75,6 +84,8 @@ CAVEATS = {
               'it follows solar far more than it follows computing. It is shown because it is routinely '
               'read as a semiconductor line; it is not one.',
     '740811': 'Copper wire has many uses beyond data centres and grids.',
+    '850152': 'The comparison set the research note uses: electrical goods bought by the same '
+              'electrification, but not transformers.',
     '850421': 'Liquid-dielectric (oil-filled) transformers only; dry-type transformers sit in other '
               'customs lines and are not counted here.',
     '848620': 'Lithography, etching and deposition tools are all inside this one line; customs data '
@@ -267,6 +278,13 @@ def page(doc):
     ch = [L[c]['real_growth_pct'] for c in ('854231', '854232', '854239')]
     chip_bn = sum(L[c]['value_musd'][str(YEARS[-1])] for c in ('854231', '854232', '854239')) / 1000.0
     tr_bn = sum(L[c]['value_musd'][str(YEARS[-1])] for c in ('850421', '850422', '850423')) / 1000.0
+    mo = [L[c]['real_growth_pct'] for c in ('850152', '850153', '841370', '841480')]
+    with io.open(STUDY_JSON, encoding='utf-8') as f:
+        st = json.load(f)
+    sg = st['checks']['suppliers_goes_combined']
+    cc = st['checks']['contaminated_controls']           # the note's 2023-24 gap vs electrical goods
+    note_uv, note_q = cc['price']['coefs']['TxP2']['pct'], cc['volume']['coefs']['TxP2']['pct']
+    g0, g1 = sg[str(YEARS[0])], sg[str(YEARS[-1])]
 
     return """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
@@ -284,9 +302,13 @@ def page(doc):
   asks something customs data can actually answer: over the last five years, which of the things a
   data centre is made of grew fastest in world trade? Deflated by US consumer prices, trade in
   <b>transformers grew @@TRMIN@@&ndash;@@TRMAX@@%</b> between @@Y0@@ and @@Y1@@ while trade in
-  <b>integrated circuits grew @@CHMIN@@&ndash;@@CHMAX@@%</b>. The chips are far the larger market
-  &mdash; $@@CHIPBN@@bn against $@@TRBN@@bn, about @@RATIO@@ times &mdash; so the growth is happening
-  in the small lines.</p>
+  <b>integrated circuits grew @@CHMIN@@&ndash;@@CHMAX@@%</b>, and electric motors, pumps and
+  compressors, which the same electrification buys, @@MOMIN@@&ndash;@@MOMAX@@%. Total trade value
+  mixes price, volume and new trade routes, so that is not yet a transformer-specific signal. Our
+  <a href="grid-trade">research note</a> tests it route by route, and against motors, pumps and
+  compressors the transformer rise in unit value (+@@NOTEUV@@%) and in tonnes (+@@NOTEQ@@%) cannot be
+  told apart from zero. What stands out more clearly is one step upstream: the steel inside
+  transformers is becoming a Chinese export.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -303,7 +325,8 @@ def page(doc):
   <div class="note">Three things this table does not say. It does not say the AI build-out
   caused any of this: transformers and electrical steel are bought by every kind of electrification,
   from grid replacement to electric vehicles, and the data cannot separate a data centre's
-  transformer from a substation's. It does not measure production or installation, only what crossed
+  transformer from a substation's. The comparison lines at the bottom of the table are the goods
+  the research note tests transformers against. It does not measure production or installation, only what crossed
   a border. And a customs line is not a product: the notes under each line say where the code is
   wider than its name.</div>
 </section>
@@ -345,16 +368,19 @@ def page(doc):
   <p>Two things are true at once, and only one of them is about concentration. The transformer lines
   are small and growing fast, but they are <i>less</i> concentrated than the chip lines, not more:
   their largest exporters hold 13&ndash;23% of world exports against 21&ndash;38% for processors and
-  memory. The line that is both small and concentrated is
-  <b>grain-oriented electrical steel</b>, the core of a transformer: a $@@GOESBN@@bn line with
-  @@GOESN@@ exporters, whose two largest, China and Japan, are @@GOES2@@% of it. That makes it a
-  candidate to watch, which is not the same as a demonstrated constraint &mdash; nothing on this page
-  measures whether anyone was actually short of it.</p>
+  memory. What is both small and becoming more concentrated is
+  <b>grain-oriented electrical steel</b>, the core of a transformer. Taking its two customs lines
+  together, world exports were $@@GOESBN@@bn in @@Y1@@; China's share of them rose from @@GOESCN0@@%
+  in @@Y0@@ to @@GOESCN1@@%, and the three largest exporters' from @@GOES30@@% to @@GOES31@@%. The
+  <a href="grid-trade">research note</a> follows this to July 2026 in EU and US customs records. That
+  makes it a material to watch, which is not the same as a demonstrated constraint &mdash; nothing on this
+  page measures whether anyone was actually short of it.</p>
   <p class="howto-src"><b>Sources.</b> Trade: CEPII BACI, release V202601 (Etalab Open Licence 2.0),
   read through the atlas's single BACI reader, which applies the atlas's own quantity repairs. The
   @@Y0@@ and @@Y1@@ table is read in the HS 2017 nomenclature, in which those six-digit codes exist;
   the chip-cycle series is read in HS 2002 for every year, so that no code changes underneath it.
-  Deflator: World Bank, US consumer price index (FP.CPI.TOTL). Built by
+  Deflator: World Bank, US consumer price index (FP.CPI.TOTL). The electrical-steel figures are read
+  from the research note's output, <code>out/buildout_study.json</code>. Built by
   <code>build_ai_buildout.py</code> from <code>out/ai_buildout.json</code>, which holds every figure
   on this page.</p>
 </section>
@@ -365,9 +391,11 @@ def page(doc):
    .replace('@@TRMIN@@', str(round(min(tr)))).replace('@@TRMAX@@', str(round(max(tr)))) \
    .replace('@@CHMIN@@', str(round(min(ch)))).replace('@@CHMAX@@', str(round(max(ch)))) \
    .replace('@@CHIPBN@@', format(chip_bn, '.0f')).replace('@@TRBN@@', format(tr_bn, '.0f')) \
-   .replace('@@GOESBN@@', format(L['722511']['value_musd'][str(YEARS[-1])] / 1000.0, '.1f')) \
-   .replace('@@GOESN@@', str(L['722511']['exporters_latest'])) \
-   .replace('@@GOES2@@', str(round(100 * sum(t['share'] for t in L['722511']['top3_latest'][:2]))))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn)) \
+   .replace('@@GOESBN@@', format(g1['value_musd'] / 1000.0, '.1f')) \
+   .replace('@@GOESCN0@@', str(round(100 * g0['china_share']))).replace('@@GOESCN1@@', str(round(100 * g1['china_share']))) \
+   .replace('@@GOES30@@', str(round(100 * g0['top3_share']))).replace('@@GOES31@@', str(round(100 * g1['top3_share']))) \
+   .replace('@@MOMIN@@', str(round(min(mo)))).replace('@@MOMAX@@', str(round(max(mo)))) \
+   .replace('@@NOTEUV@@', str(round(note_uv))).replace('@@NOTEQ@@', str(round(note_q)))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn)) \
    .replace('@@FABBN@@', format(L['848620']['value_musd'][str(YEARS[-1])] / 1000.0, '.0f')) \
    .replace('@@FABG@@', str(round(L['848620']['real_growth_pct']))) \
    .replace('@@FABTOP@@', ', '.join(NAMES.get(t['iso3'], t['iso3']) for t in L['848620']['top3_latest'])) \

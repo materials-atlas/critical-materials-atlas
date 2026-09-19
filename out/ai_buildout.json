@@ -55,6 +55,15 @@
    ]
   },
   {
+   "title": "Other electrical machinery, for comparison",
+   "codes": [
+    "850152",
+    "850153",
+    "841370",
+    "841480"
+   ]
+  },
+  {
    "title": "What a new chip factory buys",
    "codes": [
     "848620",
@@ -528,6 +537,138 @@
     }
    ],
    "caveat": "Copper wire has many uses beyond data centres and grids."
+  },
+  "850152": {
+   "label": "AC motors, multi-phase, 750 W to 75 kW",
+   "value_musd": {
+    "2019": 7702.3,
+    "2020": 7353.7,
+    "2021": 9660.4,
+    "2022": 10830.8,
+    "2023": 10777.1,
+    "2024": 10287.7
+   },
+   "real_growth_pct": 8.9,
+   "nominal_growth_pct": 33.6,
+   "hhi_latest": 0.094,
+   "exporters_latest": 165,
+   "top3_latest": [
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.187
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.185
+    },
+    {
+     "iso3": "JPN",
+     "name": "Japan",
+     "share": 0.084
+    }
+   ],
+   "caveat": "The comparison set the research note uses: electrical goods bought by the same electrification, but not transformers."
+  },
+  "850153": {
+   "label": "AC motors, multi-phase, over 75 kW",
+   "value_musd": {
+    "2019": 4583.4,
+    "2020": 4966.7,
+    "2021": 5560.1,
+    "2022": 6485.6,
+    "2023": 8703.7,
+    "2024": 9377.9
+   },
+   "real_growth_pct": 66.8,
+   "nominal_growth_pct": 104.6,
+   "hhi_latest": 0.077,
+   "exporters_latest": 140,
+   "top3_latest": [
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.163
+    },
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.134
+    },
+    {
+     "iso3": "MEX",
+     "name": "Mexico",
+     "share": 0.098
+    }
+   ],
+   "caveat": null
+  },
+  "841370": {
+   "label": "Centrifugal pumps for liquids",
+   "value_musd": {
+    "2019": 14727.0,
+    "2020": 14133.9,
+    "2021": 16735.3,
+    "2022": 16323.6,
+    "2023": 17317.7,
+    "2024": 18264.9
+   },
+   "real_growth_pct": 1.1,
+   "nominal_growth_pct": 24.0,
+   "hhi_latest": 0.1,
+   "exporters_latest": 175,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.26
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.103
+    },
+    {
+     "iso3": "ITA",
+     "name": "Italy",
+     "share": 0.075
+    }
+   ],
+   "caveat": null
+  },
+  "841480": {
+   "label": "Other air and gas pumps and compressors",
+   "value_musd": {
+    "2019": 20898.9,
+    "2020": 19277.2,
+    "2021": 22580.9,
+    "2022": 23548.6,
+    "2023": 25446.4,
+    "2024": 26544.0
+   },
+   "real_growth_pct": 3.5,
+   "nominal_growth_pct": 27.0,
+   "hhi_latest": 0.08,
+   "exporters_latest": 200,
+   "top3_latest": [
+    {
+     "iso3": "CHN",
+     "name": "China",
+     "share": 0.193
+    },
+    {
+     "iso3": "DEU",
+     "name": "Germany",
+     "share": 0.126
+    },
+    {
+     "iso3": "USA",
+     "name": "USA",
+     "share": 0.097
+    }
+   ],
+   "caveat": null
   },
   "848620": {
    "label": "Machines for making semiconductor devices and integrated circuits",
