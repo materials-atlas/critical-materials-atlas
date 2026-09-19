@@ -280,7 +280,8 @@ small positive responses, and "not shown to respond" is the strongest reading th
 so a common response above about 0.15 is ruled out.
 
 **The price measure barely matters.** Running the same tests on the USGS unit values the first design
-used moves no estimate by more than 0.04, and changes no reading. On these seven metals, then,
+used moves no estimate by more than 0.05 and changes one reading (corrected 2026-09-19, deviation 7): on
+unit values lead could only have seen 0.22, so it would read as untestable rather than as not responding. On these seven metals, then,
 measuring price by a unit value rather than a market price does not explain the result - which is
 weaker than saying measurement error has been ruled out in general, and is all seven comparisons can
 support.
@@ -352,3 +353,8 @@ Every change made after this filing goes here, dated, with its reason.
    Amendment A result were not filed. They were run only after the filed share and tonnage equations
    disagreed, to find out which side of the ratio was moving, and they are labelled exploratory
    wherever they appear. The primary-production equation was filed (check 1).
+7. **2026-09-19 - a sentence in the Amendment A result corrected, after a fact-check.** The result said
+   the unit-value run "moves no estimate by more than 0.04, and changes no reading". The largest move is
+   0.05 (aluminium, +0.013 on market prices against -0.033 on unit values), and lead's reading changes:
+   its detectable size on unit values is 0.22, so it reads as untestable at 0.2
+   (`out/scrap_response_per_metal.json`, `metals.lead.unit_value.reading`). No estimate changed.

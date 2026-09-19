@@ -82,6 +82,7 @@ def page():
     pooled = {'est': hy['cumulative'] * HALF, 'lo': hy['ci95'][0] * HALF, 'hi': hy['ci95'][1] * HALF,
               'p': hy['p'], 'mde': hy['mde_80pct_power'] * HALF, 'n': hy['n'], 'k': hy['materials']}
     sh = R['secondary_share_by_material']
+    qy = R['headline']['without_year_effects']['share']
 
     # study 1, per metal (Amendment A)
     order = sorted(M['metals'], key=lambda m: M['metals'][m]['pink']['elasticity']['mde_80pct_power'])
@@ -135,6 +136,14 @@ def page():
         'TYCUM': sgn(ty['fit']['cumulative']), 'TYP': pv(ty['fit']['p']),
         'TIMP': sgn(imp), 'TPL': sgn(pl['cumulative']), 'TPLP': pv(pl['p']),
         'TRROWS': '\n'.join(tr_rows),
+        'QEST': sgn(qy['cumulative'] * HALF), 'QLO': sgn(qy['ci95'][0] * HALF), 'QHI': sgn(qy['ci95'][1] * HALF),
+        'QP': pv(qy['p']), 'QMDE': '%.1f' % (qy['mde_80pct_power'] * HALF),
+        'UVMAX': '%.2f' % max(abs(v['pink']['elasticity']['cumulative'] - v['unit_value']['elasticity']['cumulative'])
+                              for v in M['metals'].values()),
+        'LEADUV': '%.2f' % M['metals']['lead']['unit_value']['elasticity']['mde_80pct_power'],
+        'LEADSHP': pv(M['metals']['lead']['pink']['share']['p']),
+        'ALSHP': pv(M['metals']['aluminium']['pink']['share']['p']),
+        'TYMDE': '%.2f' % ty['fit']['mde_80pct_power'],
         'NUNT': word(len(M['metals']) - len(testable)), 'NMETW': word(len(M['metals'])),
         'TINN': word(T['checks']['by_metal']['tin']['countries']), 'TNMET': word(len(T['headline_metals'])),
     }
@@ -169,8 +178,9 @@ TEMPLATE = """<!doctype html>
   <p>The first design pooled @@NMAT@@ metals from the US Geological Survey&rsquo;s historical statistics,
   @@PY0@@&ndash;@@PY1@@, and asked whether scrap-derived supply, as a share of US consumption, rises in the
   two years after a 50% real price rise. On @@PN@@ metal-years over @@PK@@ metals, the answer was
-  @@PEST@@ points of consumption (95% interval @@PLO@@ to @@PHI@@, p&nbsp;=&nbsp;@@PP@@). But the smallest
-  response this design could reliably detect was @@PMDE@@ points, and the filing had said 1 point
+  @@PEST@@ points of consumption with year effects (95% interval @@PLO@@ to @@PHI@@, p&nbsp;=&nbsp;@@PP@@)
+  and @@QEST@@ points without them (@@QLO@@ to @@QHI@@, p&nbsp;=&nbsp;@@QP@@). But the smallest response
+  this design could reliably detect was @@PMDE@@ and @@QMDE@@ points, and the filing had said 1 point
   would matter. So that first result could not tell a useful response from none, and we said so.</p>
   <p>A second design, filed before it was run, took each metal on its own, @@Y0@@&ndash;@@Y1@@, on
   World Bank market prices, and asked whether a metal&rsquo;s scrap tonnes rise by at least @@THR@@% per 1%
@@ -184,9 +194,12 @@ TEMPLATE = """<!doctype html>
   detect @@TSTMDE@@; both estimates are close to zero and their intervals exclude @@THR@@. These are the
   metals where recycling is already largest (median share of US consumption from scrap:
   @@TSTSHARE@@). Across all @@NMETW@@ metals the mean response is @@AMEAN@@ (95% interval @@ALO@@ to
-  @@AHI@@). Using a unit value instead of a market price changes no reading.</p>
+  @@AHI@@). Using the USGS unit value instead of a market price moves no estimate by more than
+  @@UVMAX@@, but it is noisier: on it, lead could only have seen @@LEADUV@@ and would read as
+  untestable.</p>
   <div class="note">One exploratory result, not filed and not built on: after a price rise, the
-  recycled <i>share</i> of consumption rose for aluminium and lead while recycled <i>tonnes</i> did not.
+  recycled <i>share</i> of consumption rose for lead (p&nbsp;=&nbsp;@@LEADSHP@@) and, not significantly,
+  for aluminium (p&nbsp;=&nbsp;@@ALSHP@@), while recycled <i>tonnes</i> did not.
   Unfiled regressions on the same data suggest the reason is that consumption fell. If so, a higher
   share would mean less demand, not more recycling. It is a hypothesis for a separate test on other
   countries; the figures are in the <a href="@@REPO@@scrap-response/PREREGISTRATION.md">filing</a>.</div>
@@ -200,13 +213,13 @@ TEMPLATE = """<!doctype html>
   @@TY0@@&ndash;@@TY1@@, for @@TPAIRS@@ country&ndash;metal pairs among the small exporters of each
   (@@TCTY@@ countries), with the same two-year shape.</p>
   <p>Scrap exports rise with price by @@TCUM@@% per 1% (95% interval @@TLO@@ to @@THI@@), but
-  <b>all of it is in the same year</b> (@@TSAME@@% per 1%). The two following years add nothing: @@TLAG@@
-  (p&nbsp;=&nbsp;@@TLAGP@@), where the design could have seen @@TLAGMDE@@. Within a year prices and
+  <b>almost all of it is in the same year</b> (@@TSAME@@% per 1%). The two following years add nothing
+  measurable: @@TLAG@@ (p&nbsp;=&nbsp;@@TLAGP@@), where the design could have seen about @@TLAGMDE@@. Within a year prices and
   shipments are set together, so this is movement with the cycle, not a demonstrated supply response.
-  Imports of the same scrap rise too (@@TIMP@@% per 1%), which is what a boom that lifts everything looks
-  like, not scrap being redirected. Once the common cycle is removed with year effects, the estimate
-  (@@TYCUM@@, p&nbsp;=&nbsp;@@TYP@@) swings from year to year in a way the filing said would disqualify it,
-  and it is not claimed. A placebo on future prices shows nothing (@@TPL@@, p&nbsp;=&nbsp;@@TPLP@@).</p>
+  Imports of the same scrap rise too (@@TIMP@@% per 1%, without year effects), which looks more like a
+  boom than a redirection; the design cannot rule out either, nor a drawdown of stocks. Once the
+  common cycle is removed with year effects, the estimate (@@TYCUM@@, p&nbsp;=&nbsp;@@TYP@@) oscillates
+  from year to year, the smallest effect it could see is @@TYMDE@@, and it is not claimed. A placebo on future prices shows nothing (@@TPL@@, p&nbsp;=&nbsp;@@TPLP@@).</p>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see</th>
   <th class="n">exporters</th><th>reading</th></tr></thead>
@@ -217,12 +230,13 @@ TEMPLATE = """<!doctype html>
 
 <section class="wrap xp">
   <h2>What the two say together</h2>
-  <p>As far as open data can see, both sides of the scrap system move with price within the year, and
-  neither is shown to move in the two years afterwards. No evidence was found that a price rise
+  <p>As far as open data can see, neither US recovery nor scrap trade is shown to rise in the two years
+  after a price rise. Scrap trade moves with price within the year; whether US recovery does was not
+  part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise
   brings a growing stream of recycled metal, whether by recovering more of it or by moving it.</p>
   <p>That is narrower than &ldquo;recycling does not respond to price&rdquo;. It is US recovery and
   world trade only; the tests are predictive, not causal; @@NUNT@@ of the @@NMETW@@ metals in the first study
-  cannot see the threshold at all; and nothing here covers the newer critical materials, which have
+  cannot see the threshold; and nothing here covers the newer critical materials, which have
   no such series. For a policy that counts on scrap to cushion a price shock within a couple of years,
   it is still the relevant evidence: on the metals where it can be checked, it did not.</p>
   <p class="howto-src"><b>Filings and code.</b> Each design was committed before its first run and each
