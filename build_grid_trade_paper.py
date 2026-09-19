@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Research note for buildout-study/: transformers and electrical steel in trade: world 2012-2024, EU and US to July 2026.
+"""Research note for buildout-study/: grid transformers rose with all electrical equipment, and their steel moved to China.
 
 Every number on the page is read from out/buildout_study.json (written by buildout-study/analysis.py,
 committed before its first run) or from buildout-study/exploratory_electrical_boom.json (an unfiled,
@@ -425,6 +425,8 @@ def main():
         'NFY': format(d['sample']['flow_years'], ','),
         'BP2': pct(bp2), 'BV2': pct(bv2),
         'ELP': pct(ele_p), 'ELV': pct(ele_v), 'ELPp': fp(ele_pp), 'ELVp': fp(ele_vp),
+        'COPHI': pct_raw(C['contaminated_controls']['price']['coefs']['TxP2']['ci95_wild_line'][1]),
+        'COVHI': pct_raw(C['contaminated_controls']['volume']['coefs']['TxP2']['ci95_wild_line'][1]),
         'COP': pct(cont_p), 'COPp': fp(cont_pp), 'COV': pct(cont_v), 'COVp': fp(cont_vp),
         'EV22': num(ev_p['2022']['beta']), 'EV23': num(ev_p['2023']['beta']), 'EV24': num(ev_p['2024']['beta']),
         'EV12': num(ev_p['2012']['beta']), 'EVV23': num(ev_v['2023']['beta']), 'EVV24': num(ev_v['2024']['beta']),
@@ -526,8 +528,8 @@ FOOT = ('<footer class="siteftr"><div class="wrap">'
 TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Transformers and electrical steel in trade, 2012 to mid-2026 &mdash; Critical Materials Atlas</title>
-<meta name="description" content="A research note from a pre-registered study of trade in transformers and grain-oriented electrical steel, world to 2024 and EU and US to July 2026: what the customs record shows after 2021, what it cannot separate, and how the supply of electrical steel concentrated.">
+<title>Grid transformers rose with all electrical equipment, and their steel moved to China &mdash; Critical Materials Atlas</title>
+<meta name="description" content="A research note from a pre-registered study, world trade to 2024 and EU and US customs records to July 2026: transformer trade rose as part of a wider electrical-equipment boom, and the grain-oriented electrical steel inside transformers concentrated in China.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
 <style>
@@ -565,37 +567,40 @@ TEMPLATE = """<!doctype html>
 @@NAV@@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Research note &middot; from a pre-registered study &middot; 18 September 2026</div>
-  <h1>Transformers and electrical steel in trade, 2012 to mid-2026</h1>
+  <h1>Grid transformers rose with all electrical equipment, and their steel moved to China</h1>
+  <p class="meta">Trade in transformers and grain-oriented electrical steel: world 2012&ndash;2024, EU and US to July 2026.</p>
   <p class="meta">Critical Materials Atlas. Filing, code, data, deviations and review record:
   <a href="@@REPO@@">buildout-study</a>.</p>
 </div></section>
 
 <section class="wrap paper">
 <div class="abstract"><b>Abstract.</b> Official sources record transformer lead times rising from under
-a year before 2020 to about three years by 2024. We asked whether the build-out shows in the customs
-record, and read it as far as it goes: world trade from CEPII BACI, 2012&ndash;2024 (its newest release;
-2025 is not yet published), and the EU's and the United States' own monthly customs records to July
-2026. The test was pre-registered; its pre-trend rule failed, and review showed the result could not be
-shown to be specific to transformers, so this is a descriptive note. Three findings, each on the latest
-data that carries it.
-<b>First, transformers rose, but so did other electrical goods.</b> In EU imports to July 2026, the
-transformer rise relative to heavy machinery continues through 2025 and January&ndash;July 2026, still not
-distinguishable from electric motors, pumps and compressors, with no sign that transformers shifted to
-heavier units. In world trade (@@NFY@@ exporter&ndash;importer&ndash;product flow-years), transformer unit
-values in 2023&ndash;24 stood @@BP2@@ and tonnes @@BV2@@ above their 2012&ndash;2020 average relative to a
-filed set of heavy machinery (lifts, cranes, crushers, concrete mixers and welding machines), against a
-design that could reliably detect only gaps of about @@MDEPCT@@; against motors, pumps and compressors
-the gap is @@COP@@ and its interval includes zero. US records to July 2026 allow only a noisy check by
-value per unit, which cannot detect a gap of the EU's size.
-<b>Second, how much of the rise is the cost of steel and copper cannot be settled here.</b> Unit values
-are not prices; they track the US transformer producer price index only moderately.
-<b>Third, the supply of grain-oriented electrical steel, the core of every transformer, concentrated in
-China.</b> China's share of the value of EU imports of it from outside the EU rose from @@EUC19@@ in 2019
-to @@EUC25@@ in 2025 (@@EUC26@@ in January&ndash;July 2026); its share of world exports rose from
-@@G19C@@ to @@G24C@@, and the three largest exporters' from @@G19T@@ to @@G24T@@, between 2019 and 2024.
-Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1% since
-2021, though most of the steel the US uses arrives inside imported transformers, whose steel is not
-observed.</div>
+a year before 2020 to about three years by 2024. We read
+the customs record as far as it goes &mdash; world trade from CEPII BACI, 2012&ndash;2024 (its newest
+release; 2025 is not yet published), and the EU's and the United States' own monthly customs records to
+July 2026 &mdash; in a study filed before any estimate. Two findings.
+<b>First, transformers rose as part of a wider electrical-equipment boom, not on their own.</b> In world
+trade (@@NFY@@ exporter&ndash;importer&ndash;product flow-years), transformer unit values in 2023&ndash;24
+stood @@BP2@@ and tonnes @@BV2@@ above their 2012&ndash;2020 average, relative to a filed set of heavy
+machinery (lifts, cranes, crushers, concrete mixers and welding machines). But electric motors, pumps and
+compressors, which the same electrification buys, rose too, and against them the transformer excess is
+@@COP@@ in unit value and @@COV@@ in tonnes, with 95% intervals running from about zero to @@COPHI@@ and @@COVHI@@.
+The data allow a rise specific to transformers of up to about a fifth, and allow none. The
+EU's records to July 2026 say the same through 2025 and January&ndash;July 2026, with no sign that
+transformers shifted to heavier units. So the trade record does not show a transformer-specific shock, and it
+cannot single out data centres; it shows electrification pulling on electrical machinery as a whole.
+<b>Second, the steel inside transformers concentrated in China.</b> China's share of the value of the
+EU's imports of grain-oriented electrical steel from outside the EU rose from @@EUC19@@ in 2019 to
+@@EUC25@@ in 2025 (@@EUC26@@ in January&ndash;July 2026), while Russia's went from @@EUR19@@ to none;
+China's share of world exports rose from @@G19C@@ to @@G24C@@, and the three largest exporters' from
+@@G19T@@ to @@G24T@@, between 2019 and 2024. These are imports, not EU consumption; EU production is not
+observed here. Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
+since 2021, though most of the steel the US uses arrives inside imported transformers, whose steel is
+not observed.
+<b>What is not settled:</b> how much of the transformer rise is the cost of steel and copper, and whether
+unit values track prices (they follow the US transformer producer price index only moderately). The
+filed pre-trend rule failed, so none of the gaps is read as a causal effect, and the US records allow
+only a noisy check that cannot detect a gap of the EU's size.</div>
 
 <h2>1. What we set out to test, and why this is a note</h2>
 <p>Before the pandemic a large power transformer could be ordered with a lead time of under a year; by
@@ -614,8 +619,9 @@ that every source be opened before use.</p>
 unit values were drifting relative to the controls long before 2021, so the before-and-after comparisons
 cannot be read as effects. And the referees' objection that <b>the pattern may be a boom in electrical
 equipment generally</b> turned out to be right: against motors, pumps and compressors, the transformer
-gap is no longer clearly different from zero. What follows reports what the trade record shows, labels
-what could not be separated, and says what would settle it.</p>
+gap is no longer clearly different from zero. That second point is itself the first finding: the rise
+belongs to electrical equipment broadly. What follows reports what the trade record shows, labels what
+could not be separated, and says what would settle it.</p>
 
 <h2>2. Background</h2>
 <p>A utility's lead times for large transformers went from 12&ndash;18 months to 18&ndash;36
