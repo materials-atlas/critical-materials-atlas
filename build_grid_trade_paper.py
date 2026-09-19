@@ -759,8 +759,8 @@ to 2019: @@EUYEARS@@ &mdash; but no period's interval excludes zero, and the sma
 could reliably detect is @@EUMDE@@ log points, more than it estimates. The pre-trend rule passes for value
 per tonne here, unlike in the world data, though with seven lines passing it is weak evidence. Two filed
 sensitivities do exclude zero &mdash; the same comparison at eight digits (@@EUN8T@@ transformer and
-@@EUN8C@@ comparison lines) in 2023&ndash;24 and 2025, and trade between EU members from 2023&ndash;24 on
-&mdash; but the filing made the six-digit comparison the headline, and it stays the headline.</p>
+@@EUN8C@@ comparison lines) in 2023&ndash;24 and 2025, and trade between EU members in 2023&ndash;24 and
+2025 (its 2026 value rests on July records that were incomplete when downloaded) &mdash; but the filing made the six-digit comparison the headline, and it stays the headline.</p>
 <p><b>No sign that transformers got heavier.</b> Because the EU counts transformers as well as weighing
 them, the records can test whether the rise per tonne came from heavier units. It did not: within the
 same trade flows, transformers' weight per unit was @@EUOWNT@@ in 2025 and @@EUOWNT26@@ in 2026 relative

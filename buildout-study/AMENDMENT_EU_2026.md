@@ -178,3 +178,10 @@ Every change made after this filing goes here, dated, with its reason.
    filed method. Exploratory: the filing named neither.
 8. **2026-09-18 - pre-trend rule run for every comparison and measure.** The first run applied it only
    to four of them.
+9. **2026-09-19 - July 2026 trade between EU members was incomplete when downloaded.** Found while
+   fetching the same months for another page: in the July 2026 file, records of trade between EU members
+   are about a quarter of a normal month (4,434 rows for the study's lines against 17,294 in June), because
+   intra-EU declarations arrive later; trade with countries outside the EU is complete (all 27 reporters,
+   a normal count and value). The headline and every table in the result use trade outside the EU and are
+   unaffected. Only the intra-EU sensitivity's 2026 period is, and it is understated by an unknown
+   amount. Not re-run; the sensitivity's 2026 value is not read.
