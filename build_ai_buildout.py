@@ -84,8 +84,8 @@ CAVEATS = {
               'it follows solar far more than it follows computing. It is shown because it is routinely '
               'read as a semiconductor line; it is not one.',
     '740811': 'Copper wire has many uses beyond data centres and grids.',
-    '850152': 'The comparison set the research note uses: electrical goods bought by the same '
-              'electrification, but not transformers.',
+    '850152': 'Electrical goods bought by the same electrification; the research note uses these '
+              'four lines as a robustness comparison for transformers.',
     '850421': 'Liquid-dielectric (oil-filled) transformers only; dry-type transformers sit in other '
               'customs lines and are not counted here.',
     '848620': 'Lithography, etching and deposition tools are all inside this one line; customs data '
@@ -284,6 +284,8 @@ def page(doc):
     sg = st['checks']['suppliers_goes_combined']
     cc = st['checks']['contaminated_controls']           # the note's 2023-24 gap vs electrical goods
     note_uv, note_q = cc['price']['coefs']['TxP2']['pct'], cc['volume']['coefs']['TxP2']['pct']
+    bt = st['designs']['B_transformers']                 # the note's filed comparison, heavy machinery
+    note_buv, note_bq = bt['price']['coefs']['TxP2']['pct'], bt['volume']['coefs']['TxP2']['pct']
     g0, g1 = sg[str(YEARS[0])], sg[str(YEARS[-1])]
 
     return """<!doctype html>
@@ -303,12 +305,14 @@ def page(doc):
   data centre is made of grew fastest in world trade? Deflated by US consumer prices, trade in
   <b>transformers grew @@TRMIN@@&ndash;@@TRMAX@@%</b> between @@Y0@@ and @@Y1@@ while trade in
   <b>integrated circuits grew @@CHMIN@@&ndash;@@CHMAX@@%</b>, and electric motors, pumps and
-  compressors, which the same electrification buys, @@MOMIN@@&ndash;@@MOMAX@@%. Total trade value
-  mixes price, volume and new trade routes, so that is not yet a transformer-specific signal. Our
-  <a href="grid-trade">research note</a> tests it route by route, and against motors, pumps and
-  compressors the transformer rise in unit value (+@@NOTEUV@@%) and in tonnes (+@@NOTEQ@@%) cannot be
-  told apart from zero. What stands out more clearly is one step upstream: the steel inside
-  transformers is becoming a Chinese export.</p>
+  compressors, which the same electrification buys, @@MOMIN@@&ndash;@@MOMAX@@%. Growth in trade value
+  is not a test. Our <a href="grid-trade">research note</a> tests transformers flow by flow, 2023&ndash;24
+  against their 2012&ndash;2020 average: against its filed comparison of heavy machinery, transformer
+  unit values stood +@@NOTEBUV@@% and tonnes +@@NOTEBQ@@% higher, but against motors, pumps and
+  compressors the gaps (+@@NOTEUV@@% and +@@NOTEQ@@%) cannot be told apart from zero. The rise may
+  belong to electrification generally, not to transformers, let alone to data centres. What stands out
+  more clearly is one step upstream: China is now the largest exporter of the steel inside
+  transformers.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -325,8 +329,8 @@ def page(doc):
   <div class="note">Three things this table does not say. It does not say the AI build-out
   caused any of this: transformers and electrical steel are bought by every kind of electrification,
   from grid replacement to electric vehicles, and the data cannot separate a data centre's
-  transformer from a substation's. The comparison lines at the bottom of the table are the goods
-  the research note tests transformers against. It does not measure production or installation, only what crossed
+  transformer from a substation's. The four lines under &ldquo;other electrical machinery&rdquo; are
+  the goods the research note uses as a robustness comparison, because they share that demand. It does not measure production or installation, only what crossed
   a border. And a customs line is not a product: the notes under each line say where the code is
   wider than its name.</div>
 </section>
@@ -355,11 +359,11 @@ def page(doc):
   <table><thead><tr><th>Customs line</th><th class="n">moves with chips by</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see</th></tr></thead>
   <tbody>@@CYROWS@@</tbody></table>
-  <div class="note"><b>No line here is readable, including the one with a small p-value.</b> Rare
-  gases comes in at @@NEON@@ per 1% of chip trade with p = @@NEONP@@, but that estimate is almost
-  exactly the smallest effect twenty-two observations could detect, so it is not evidence of a
-  chip-driven relationship; and that line is mostly helium, which follows industry at large. Seven
-  lines were tested with no correction for testing seven. Treat this table as a list of things to
+  <div class="note"><b>No line here is readable, including the one with a small p-value.</b> Seven
+  lines were tested with no correction for testing seven, and a common price cycle can move both
+  sides together. Rare gases comes in at @@NEON@@ per 1% of chip trade with p = @@NEONP@@, close to
+  the smallest effect twenty-two observations could detect; and that line is mostly helium, which
+  follows industry at large. Treat this table as a list of things to
   measure properly with monthly data, not as a result.</div>
 </section>
 
@@ -370,9 +374,12 @@ def page(doc):
   their largest exporters hold 13&ndash;23% of world exports against 21&ndash;38% for processors and
   memory. What is both small and becoming more concentrated is
   <b>grain-oriented electrical steel</b>, the core of a transformer. Taking its two customs lines
-  together, world exports were $@@GOESBN@@bn in @@Y1@@; China's share of them rose from @@GOESCN0@@%
-  in @@Y0@@ to @@GOESCN1@@%, and the three largest exporters' from @@GOES30@@% to @@GOES31@@%. The
-  <a href="grid-trade">research note</a> follows this to July 2026 in EU and US customs records. That
+  together (read in the 2002 nomenclature, as in the note), world exports were $@@GOESBN@@bn in
+  @@Y1@@; China's share of them rose from @@GOESCN0@@% in @@Y0@@ to @@GOESCN1@@%, and the three largest
+  exporters' from @@GOES30@@% to @@GOES31@@%, partly replacing Russian exports. The
+  <a href="grid-trade">research note</a> follows this to July 2026: in the EU's imports the shift to
+  China continued, while direct US imports of the steel still come mostly from Japan and South Korea.
+  That
   makes it a material to watch, which is not the same as a demonstrated constraint &mdash; nothing on this
   page measures whether anyone was actually short of it.</p>
   <p class="howto-src"><b>Sources.</b> Trade: CEPII BACI, release V202601 (Etalab Open Licence 2.0),
@@ -395,7 +402,8 @@ def page(doc):
    .replace('@@GOESCN0@@', str(round(100 * g0['china_share']))).replace('@@GOESCN1@@', str(round(100 * g1['china_share']))) \
    .replace('@@GOES30@@', str(round(100 * g0['top3_share']))).replace('@@GOES31@@', str(round(100 * g1['top3_share']))) \
    .replace('@@MOMIN@@', str(round(min(mo)))).replace('@@MOMAX@@', str(round(max(mo)))) \
-   .replace('@@NOTEUV@@', str(round(note_uv))).replace('@@NOTEQ@@', str(round(note_q)))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn)) \
+   .replace('@@NOTEUV@@', str(round(note_uv))).replace('@@NOTEQ@@', str(round(note_q))) \
+   .replace('@@NOTEBUV@@', str(round(note_buv))).replace('@@NOTEBQ@@', str(round(note_bq)))    .replace('@@CYROWS@@', cyrows).replace('@@CY0@@', str(cy0)).replace('@@CY1@@', str(cy1))    .replace('@@NEON@@', neon).replace('@@NEONP@@', neonp).replace('@@RATIO@@', '%.0f' % (chip_bn / tr_bn)) \
    .replace('@@FABBN@@', format(L['848620']['value_musd'][str(YEARS[-1])] / 1000.0, '.0f')) \
    .replace('@@FABG@@', str(round(L['848620']['real_growth_pct']))) \
    .replace('@@FABTOP@@', ', '.join(NAMES.get(t['iso3'], t['iso3']) for t in L['848620']['top3_latest'])) \
