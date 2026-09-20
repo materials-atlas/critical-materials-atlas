@@ -244,6 +244,7 @@ CSS = """
 
 EXT_JSON = os.path.join(ROOT, 'out', 'ai_buildout_ext.json')     # ai-buildout/extend.py
 EXT_KEY = {'854140': '85414'}          # HS 2022 split 8541.40 into 8541.41-.49; kept together
+CT_JSON = os.path.join(ROOT, 'out', 'ai_buildout_comtrade.json')   # ai-buildout/comtrade_extend.py
 
 
 def ext_section():
@@ -251,6 +252,9 @@ def ext_section():
     with io.open(EXT_JSON, encoding='utf-8') as f:
         E = json.load(f)
     eu, us = E['eu']['lines'], E['us']['lines']
+    with io.open(CT_JSON, encoding='utf-8') as f:
+        W = json.load(f)
+    wy, wh = W['year_2025_vs_2024'], W['h1_2026_vs_h1_2025']
 
     def money(v, cur):
         sym = '&euro;' if cur == 'EUR' else '$'
@@ -290,6 +294,19 @@ def ext_section():
                            ch(a['change_2026_vs_2025_same_months_pct']), cn(a['china_share_2025']),
                            money(b['value_2025_m'], 'USD'), ch(b['change_2025_vs_2024_pct']),
                            ch(b['change_2026_vs_2025_same_months_pct']), cn(b['china_share_2025'])))
+    wrows = []
+    for title, items in GROUPS:
+        wrows.append('<tr class="grp"><td colspan="5">%s</td></tr>' % title)
+        for code, lab in items:
+            k = EXT_KEY.get(code, code)
+            y, h = wy.get(k), wh.get(k)
+            if not y:
+                continue
+            wrows.append('<tr><td>%s<div class="cav">HS %s</div></td><td class="n">%s</td>'
+                         '<td class="n">%s</td><td class="n">%s</td><td class="n">%s</td></tr>'
+                         % (lab, code if k == code else '8541.41&ndash;.49', ch(y['value_change_pct']),
+                            ch(h['value_change_pct']) if h else '&ndash;',
+                            cn(y['suppliers_b']['china']), cn(y['coverage_of_2024_world_imports'])))
     rg = E['us']['rare_gases_2025_split']
     lm = E['eu']['last_month']
     month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -307,6 +324,10 @@ def ext_section():
         'GOEU': cn(eu['722511']['china_share_2025']), 'GOUS': cn(us['722511']['china_share_2025']),
         'NEON': '%.1f%%' % (100 * rg['neon']), 'HELIUM': '%.0f%%' % (100 * rg['helium']),
         'SOLUS': mag(us['85414']['change_2025_vs_2024_pct'], -1),
+        'WROWS': '\n'.join(wrows), 'WN': str(wy['850423']['importers']),
+        'WHN': str(wh['850423']['importers']),
+        'WLAST': '%s-%s' % (W['last_month'][:4], W['last_month'][4:]),
+        'WMEM': mag(wh['854232']['value_change_pct'], +1), 'WMEMCOV': cn(wh['854232']['coverage_of_2024_world_imports']),
     }
     html = """
 <section class="wrap xp">
@@ -348,6 +369,28 @@ def ext_section():
   </ul>
   <p class="cav">Lines made of a few large shipments, such as chip-making machines, swing widely from
   one period to the next; a single year's change there is not a trend.</p>
+
+  <h3>And the world, as importers report it</h3>
+  <p>Countries also file monthly reports to UN Comtrade, which carry a near-world view past 2024.
+  Each line below is the trade of the importers that filed every month of both periods compared
+  (@@WN@@ of them for 2024 against 2025, @@WHN@@ for the half-years, because fewer have filed 2026), and
+  each row says what share of that line's 2024 world imports those countries held, so a thin panel is
+  visible rather than hidden. China, India and Taiwan do not file monthly, so they are missing as
+  buyers &mdash; which matters most for the chip lines &mdash; but are counted as suppliers, because the
+  panel's members report where their goods came from. Data to @@WLAST@@.</p>
+  <div class="tbl"><table><thead><tr><th>Customs line</th><th class="n">2025 vs 2024</th>
+  <th class="n">Jan&ndash;Jun 2026 vs 2025</th><th class="n">China, 2025</th>
+  <th class="n">panel's share of 2024 world imports</th></tr></thead>
+  <tbody>@@WROWS@@</tbody></table></div>
+  <p class="src"><b>Source:</b> <a href="https://comtradeplus.un.org/">UN Comtrade, monthly imports as
+  reported by importers</a>. Computed values:
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_comtrade.json"><code>out/ai_buildout_comtrade.json</code></a>.
+  The same pull answers two questions filed for the <a href="grid-trade">research note</a>, in
+  <code>buildout-study/AMENDMENT_COMTRADE_2026.md</code>.</p>
+  <p>The world panel tells the same story as the two national records: memory up @@WMEM@@ in the first
+  half of 2026 (on a panel holding @@WMEMCOV@@ of that line's world imports), transformers up in 2025,
+  and China's share of the electrical-steel lines higher again. Values are in current dollars, so a
+  rise mixes price and quantity.</p>
 </section>
 """
     for k, v in t.items():
