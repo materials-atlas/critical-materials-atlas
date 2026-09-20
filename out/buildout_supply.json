@@ -1,0 +1,198 @@
+{
+ "filing": "buildout-study/AMENDMENT_SUPPLY_2026.md",
+ "sources": {
+  "production": "Eurostat Prodcom DS-059358, PRODVAL, EU27_2020",
+  "trade": "Eurostat Comext, extra-EU imports and exports, UK excluded"
+ },
+ "note": "Values in million euro. Apparent supply = sold production + imports - exports. Production is at the factory gate and imports include freight, so the sum mixes price bases; sold production excludes what a maker uses itself.",
+ "groups": {
+  "transformers": {
+   "label": "Liquid-dielectric transformers",
+   "prodcom": [
+    "27114120",
+    "27114150",
+    "27114180"
+   ],
+   "hs6": [
+    "850421",
+    "850422",
+    "850423"
+   ],
+   "years": {
+    "2019": {
+     "production_meur": 3346.3,
+     "production_missing_codes": [],
+     "imports_meur": 289.9,
+     "exports_meur": 1085.5,
+     "imports_from_china_meur": 13.4,
+     "china_share_of_imports": 0.0462,
+     "apparent_supply_meur": 2550.7,
+     "china_share_of_supply": 0.0053,
+     "import_share_of_supply": 0.1137
+    },
+    "2020": {
+     "production_meur": 3415.7,
+     "production_missing_codes": [],
+     "imports_meur": 312.7,
+     "exports_meur": 1163.9,
+     "imports_from_china_meur": 13.3,
+     "china_share_of_imports": 0.0425,
+     "apparent_supply_meur": 2564.5,
+     "china_share_of_supply": 0.0052,
+     "import_share_of_supply": 0.1219
+    },
+    "2021": {
+     "production_meur": 3562.6,
+     "production_missing_codes": [],
+     "imports_meur": 400.9,
+     "exports_meur": 958.7,
+     "imports_from_china_meur": 35.2,
+     "china_share_of_imports": 0.0878,
+     "apparent_supply_meur": 3004.8,
+     "china_share_of_supply": 0.0117,
+     "import_share_of_supply": 0.1334
+    },
+    "2022": {
+     "production_meur": 4400.6,
+     "production_missing_codes": [],
+     "imports_meur": 584.9,
+     "exports_meur": 1071.4,
+     "imports_from_china_meur": 55.3,
+     "china_share_of_imports": 0.0946,
+     "apparent_supply_meur": 3914.1,
+     "china_share_of_supply": 0.0141,
+     "import_share_of_supply": 0.1494
+    },
+    "2023": {
+     "production_meur": 5263.9,
+     "production_missing_codes": [],
+     "imports_meur": 1205.9,
+     "exports_meur": 1576.7,
+     "imports_from_china_meur": 320.0,
+     "china_share_of_imports": 0.2654,
+     "apparent_supply_meur": 4893.1,
+     "china_share_of_supply": 0.0654,
+     "import_share_of_supply": 0.2464
+    },
+    "2024": {
+     "production_meur": 6160.0,
+     "production_missing_codes": [],
+     "imports_meur": 1576.3,
+     "exports_meur": 1829.6,
+     "imports_from_china_meur": 539.2,
+     "china_share_of_imports": 0.3421,
+     "apparent_supply_meur": 5906.7,
+     "china_share_of_supply": 0.0913,
+     "import_share_of_supply": 0.2669
+    },
+    "2025": {
+     "production_meur": null,
+     "production_missing_codes": [
+      "27114120",
+      "27114150",
+      "27114180"
+     ],
+     "imports_meur": 2073.9,
+     "exports_meur": 1566.5,
+     "imports_from_china_meur": 956.6,
+     "china_share_of_imports": 0.4612
+    }
+   },
+   "reading_year": 2024,
+   "reading": "the import share overstates dependence; the supply share is the number to use",
+   "supply_to_import_share_ratio": 0.267
+  },
+  "goes": {
+   "label": "Grain-oriented electrical steel",
+   "prodcom": [
+    "24105310",
+    "24105410"
+   ],
+   "hs6": [
+    "722511",
+    "722611"
+   ],
+   "years": {
+    "2019": {
+     "production_meur": 502.9,
+     "production_missing_codes": [],
+     "imports_meur": 162.0,
+     "exports_meur": 207.5,
+     "imports_from_china_meur": 15.0,
+     "china_share_of_imports": 0.0925,
+     "apparent_supply_meur": 457.4,
+     "china_share_of_supply": 0.0327,
+     "import_share_of_supply": 0.3542
+    },
+    "2020": {
+     "production_meur": null,
+     "production_missing_codes": [
+      "24105410"
+     ],
+     "imports_meur": 150.1,
+     "exports_meur": 117.8,
+     "imports_from_china_meur": 24.8,
+     "china_share_of_imports": 0.1655
+    },
+    "2021": {
+     "production_meur": 649.5,
+     "production_missing_codes": [],
+     "imports_meur": 193.4,
+     "exports_meur": 242.8,
+     "imports_from_china_meur": 52.0,
+     "china_share_of_imports": 0.2686,
+     "apparent_supply_meur": 600.1,
+     "china_share_of_supply": 0.0866,
+     "import_share_of_supply": 0.3223
+    },
+    "2022": {
+     "production_meur": 1139.0,
+     "production_missing_codes": [],
+     "imports_meur": 409.3,
+     "exports_meur": 453.6,
+     "imports_from_china_meur": 111.5,
+     "china_share_of_imports": 0.2724,
+     "apparent_supply_meur": 1094.7,
+     "china_share_of_supply": 0.1019,
+     "import_share_of_supply": 0.3739
+    },
+    "2023": {
+     "production_meur": 1064.8,
+     "production_missing_codes": [],
+     "imports_meur": 457.5,
+     "exports_meur": 363.3,
+     "imports_from_china_meur": 165.6,
+     "china_share_of_imports": 0.3618,
+     "apparent_supply_meur": 1159.0,
+     "china_share_of_supply": 0.1428,
+     "import_share_of_supply": 0.3947
+    },
+    "2024": {
+     "production_meur": 796.5,
+     "production_missing_codes": [],
+     "imports_meur": 418.2,
+     "exports_meur": 316.9,
+     "imports_from_china_meur": 216.9,
+     "china_share_of_imports": 0.5187,
+     "apparent_supply_meur": 897.8,
+     "china_share_of_supply": 0.2416,
+     "import_share_of_supply": 0.4658
+    },
+    "2025": {
+     "production_meur": null,
+     "production_missing_codes": [
+      "24105310",
+      "24105410"
+     ],
+     "imports_meur": 547.2,
+     "exports_meur": 325.2,
+     "imports_from_china_meur": 311.8,
+     "china_share_of_imports": 0.5697
+    }
+   },
+   "reading_year": 2024,
+   "reading": "the import share overstates dependence; the supply share is the number to use",
+   "supply_to_import_share_ratio": 0.466
+  }
+ }
+}

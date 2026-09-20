@@ -26,6 +26,7 @@ EU = os.path.join(ROOT, 'out', 'buildout_eu.json')                    # amendmen
 US = os.path.join(ROOT, 'out', 'buildout_us.json')                    # amendment C
 CT = os.path.join(ROOT, 'out', 'buildout_comtrade.json')              # amendment D
 OR = os.path.join(ROOT, 'out', 'buildout_origins.json')               # descriptive, B and C
+SUP = os.path.join(ROOT, 'out', 'buildout_supply.json')               # amendment E
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -167,6 +168,8 @@ SOURCES = {
                'https://api.census.gov/data/timeseries/intltrade/imports/hs'),
     'comtrade': ('UN Comtrade, monthly imports as reported by importers',
                  'https://comtradeplus.un.org/'),
+    'prodcom': ('Eurostat Prodcom, sold production (DS-059358)',
+                'https://ec.europa.eu/eurostat/web/prodcom/database'),
     'bls': ('US Bureau of Labor Statistics, PPI WPU117409', 'https://fred.stlouisfed.org/series/WPU117409'),
     'pink': ('World Bank commodity prices (Pink Sheet), copper', 'https://www.worldbank.org/en/research/commodity-markets'),
 }
@@ -174,6 +177,7 @@ RESULT_FILES = {
     'study': 'out/buildout_study.json', 'expl': 'buildout-study/exploratory_electrical_boom.json',
     'eu': 'out/buildout_eu.json', 'us': 'out/buildout_us.json',
     'comtrade': 'out/buildout_comtrade.json', 'origins': 'out/buildout_origins.json',
+    'supply': 'out/buildout_supply.json',
 }
 
 
@@ -283,6 +287,7 @@ def main():
     usd = json.load(io.open(US, encoding='utf-8'))
     ctd = json.load(io.open(CT, encoding='utf-8'))
     ord_ = json.load(io.open(OR, encoding='utf-8'))
+    sup = json.load(io.open(SUP, encoding='utf-8'))
     _collect(d)
     _collect(x)
     _collect(eud)
@@ -451,6 +456,28 @@ def main():
     ur = ord_['us_transformers_rolling12_musd']
     er_k, ur_k = sorted(er), sorted(ur)
 
+    SG = sup['groups']
+
+    def sh1(x):                                   # a share under 10% keeps a decimal: 0.5% is not 1%
+        return ('%.1f%%' % (100 * x)) if x is not None and 100 * x < 10 else sh(x)
+
+    def sup_rows(g):
+        out = []
+        for y, r in g['years'].items():
+            out.append('<tr><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td>'
+                       '<td class="n">%s</td><td class="n">%s</td></tr>'
+                       % (y,
+                          ('&euro;%.1fbn' % (r['production_meur'] / 1000.0)) if r['production_meur'] is not None
+                          else 'not published',
+                          '&euro;%.1fbn' % (r['imports_meur'] / 1000.0),
+                          ('&euro;%.1fbn' % (r['apparent_supply_meur'] / 1000.0))
+                          if r.get('apparent_supply_meur') is not None else '&ndash;',
+                          sh(r['china_share_of_imports']) if r['china_share_of_imports'] else '&ndash;',
+                          ('<b>%s</b>' % sh1(r['china_share_of_supply'])) if r.get('china_share_of_supply') else '&ndash;'))
+        return ''.join(out)
+    st, sgo = SG['transformers'], SG['goes']
+    sty, sgy = str(st['reading_year']), str(sgo['reading_year'])
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -539,6 +566,13 @@ def main():
         'USROLL': '%.1f' % (ur[ur_k[-1]] / 1000.0), 'USROLLM': ur_k[-1],
         'EUROLL19': '%.1f' % (er['201912'] / 1000.0), 'USROLL19': '%.1f' % (ur['201912'] / 1000.0),
         'SRC_OR': src(['comext', 'census'], ['origins']),
+        'SUPT': sup_rows(st), 'SUPG': sup_rows(sgo), 'SUPY': sty,
+        'STIMP': sh(st['years'][sty]['china_share_of_imports']), 'STSUP': sh1(st['years'][sty]['china_share_of_supply']),
+        'SGIMP': sh(sgo['years'][sgy]['china_share_of_imports']), 'SGSUP': sh1(sgo['years'][sgy]['china_share_of_supply']),
+        'SG19': sh1(sgo['years']['2019']['china_share_of_supply']),
+        'ST19': sh1(st['years']['2019']['china_share_of_supply']),
+        'STPROD': '%.1f' % (st['years'][sty]['production_meur'] / 1000.0),
+        'SRC_SUP': src(['prodcom', 'comext'], ['supply']),
         'FOREST': forest_svg, 'GOESCHART': goes_svg, 'EUCHART': eu_ev_svg, 'USBARS': us_bar_svg,
         'SRC_FIG1': src(['baci'], ['study']),
         'SRC_CORE': src(['baci'], ['study', 'expl']),
@@ -645,8 +679,9 @@ EU's imports of grain-oriented electrical steel from outside the EU rose from @@
 China's share of world exports rose from @@G19C@@ to @@G24C@@, and the three largest exporters' from
 @@G19T@@ to @@G24T@@, between 2019 and 2024. Importers' own monthly reports carry it one year further:
 on a panel of @@CTN@@ importers holding @@CTCOV@@ of 2024 world imports, China's share rose from @@CTC24@@ in
-2024 to @@CTC25@@ in 2025. These are imports, not EU consumption; EU production is not
-observed here. Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
+2024 to @@CTC25@@ in 2025. <b>These are shares of imports, and imports are not supply:</b> counting EU
+production, China supplied @@SGSUP@@ of the EU's electrical steel and @@STSUP@@ of its transformers in
+@@SUPY@@, against @@SG19@@ and @@ST19@@ in 2019 (section 4.6b). Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
 since 2021, though most of the steel the US uses arrives inside imported transformers, whose steel is
 not observed.
 <b>What is not settled:</b> how much of the transformer rise is the cost of steel and copper, and whether
@@ -849,6 +884,30 @@ makers supply part of both.</figcaption></figure>
 EU from outside it, against &euro;@@EUROLL19@@bn in the twelve months to December 2019; the same measure
 for US imports runs from $@@USROLL19@@bn to $@@USROLL@@bn in the twelve months to @@USROLLM@@. Both
 records are in current prices, and neither says what was installed.</p>
+
+<h3>4.6b Imports are not supply: what the EU actually uses</h3>
+<p>Every share above is a share of <i>imports</i>, and the EU makes much of both goods itself. A fifth
+filing, made before these production figures were read, put the obvious question to Eurostat's
+production statistics: <b>how much of what the EU uses comes from China?</b> Apparent supply is EU sold
+production plus imports from outside the EU minus exports to outside it, and the answer changes the
+size of the finding without changing its direction.</p>
+<div class="tbl"><table><thead><tr><th>Transformers, EU</th><th class="n">sold production</th>
+<th class="n">imports</th><th class="n">apparent supply</th><th class="n">China, share of imports</th>
+<th class="n">China, share of supply</th></tr></thead><tbody>@@SUPT@@</tbody></table></div>
+<div class="tbl"><table><thead><tr><th>Grain-oriented electrical steel, EU</th><th class="n">sold production</th>
+<th class="n">imports</th><th class="n">apparent supply</th><th class="n">China, share of imports</th>
+<th class="n">China, share of supply</th></tr></thead><tbody>@@SUPG@@</tbody></table></div>
+@@SRC_SUP@@
+<p>In @@SUPY@@, China supplied @@STIMP@@ of the EU's transformer imports but <b>@@STSUP@@ of its supply</b>,
+because EU makers sold &euro;@@STPROD@@bn of transformers that year; for electrical steel the two numbers
+are @@SGIMP@@ and <b>@@SGSUP@@</b>. The filing set the rule in advance: where the supply share is less
+than half the import share, the import share is not read as dependence, and the supply share is the
+number to use. That is the case for both.</p>
+<p>What the supply share does show is a steep climb from a very low base: China went from @@ST19@@ of EU
+transformer supply in 2019 to @@STSUP@@ in @@SUPY@@, and from @@SG19@@ to @@SGSUP@@ of electrical-steel
+supply. Production is valued at the factory gate and imports include freight, so the two sides of the
+sum sit on different price bases; sold production also excludes what a maker uses itself, and Eurostat
+has published no 2025 production yet, which is why these tables stop a year before the trade tables.</p>
 
 <h3>4.7 US imports to July 2026</h3>
 <p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
