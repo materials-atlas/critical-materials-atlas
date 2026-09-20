@@ -42,6 +42,7 @@ CSS = """
 .tbl{overflow-x:auto}
 .note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
 .dim{color:#6b675f}
+.tag{font-size:.72rem;background:#eef2f1;color:#15323a;padding:.05rem .35rem;border-radius:3px;white-space:nowrap}
 .src{font-size:.78rem;color:#6b7478;margin:-.1rem 0 1rem;line-height:1.5}.src code{font-size:.74rem}
 .fig{margin:1.2rem 0}.fig svg{width:100%;height:auto;display:block}
 .fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.4rem;max-width:44rem}
@@ -62,8 +63,8 @@ CSS = """
 # Literature, assembled 2026-09-20 under the atlas's rule that every source is opened before use.
 REFS = [
     ('Soderholm2019',
-     'S&ouml;derholm, P. and Ekvall, T. (2019). "Metal markets and recycling policies: impacts and '
-     'challenges." <i>Mineral Economics</i> 33(1&ndash;2): 257&ndash;272.',
+     'S&ouml;derholm, P. and Ekvall, T. (2020). "Metal markets and recycling policies: impacts and '
+     'challenges." <i>Mineral Economics</i> 33(1&ndash;2): 257&ndash;272 (published online 2019).',
      'https://doi.org/10.1007/s13563-019-00184-5'),
     ('Blomberg2009',
      'Blomberg, J. and S&ouml;derholm, P. (2009). "The economics of secondary aluminium supply: an '
@@ -144,8 +145,10 @@ RECOVERY_READING = {'not_shown_to_respond': 'not shown to respond',
 # not read as responses even though their p-values are below 0.05.
 def trade_reading(v):
     if abs(v['cumulative']) >= v['mde']:
-        return 'moves with price'
-    return 'below what its exporters could reliably detect'
+        return 'same-year comovement; lags not shown'
+    if v['p'] < 0.05:
+        return 'positive, but below the filed power bar, so not read'
+    return 'not distinguishable from zero'
 
 
 # Validated for colour-vision separation against the page surface (dataviz validator, 20 Sep 2026).
@@ -183,12 +186,12 @@ def ci_chart(rows, lo, hi, step, title, threshold=None, W=720, rh=30,
         g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="ci" stroke="%s"/>'
                  % (x(clo), x(chi), y, y, col))
         g.append('<circle cx="%.1f" cy="%.1f" r="5" class="dot" fill="%s"><title>%s: %+.2f (%+.2f to %+.2f), '
-                 'anything smaller than %.2f is too small for this series to tell from zero</title></circle>'
+                 'a response smaller than %.2f would not have been detected with 80%% certainty</title></circle>'
                  % (x(est), y, col, label, est, clo, chi, mde))
     w0 = 26 + 6 * len(legend[0])
     leg = ('<circle cx="%d" cy="%d" r="5" fill="%s"/><text x="%d" y="%d" class="ax">%s</text>'
            '<circle cx="%d" cy="%d" r="5" fill="%s"/><text x="%d" y="%d" class="ax">%s</text>'
-           '<line x1="%d" x2="%d" y1="%d" y2="%d" class="reach"/><text x="%d" y="%d" class="ax">too small for this design to see</text>'
+           '<line x1="%d" x2="%d" y1="%d" y2="%d" class="reach"/><text x="%d" y="%d" class="ax">not detectable with 80%% certainty</text>'
            % (6, 12, CAN_SEE, 16, 16, legend[0], w0, 12, CANNOT, w0 + 10, 16, legend[1],
               w0 + 24 + 6 * len(legend[1]), w0 + 54 + 6 * len(legend[1]), 12, 12,
               w0 + 60 + 6 * len(legend[1]), 16))
@@ -238,7 +241,7 @@ def share_chart(pairs, title, W=720, rh=22):
     for i, (lab, v) in enumerate(pairs):
         y = T + rh * i + 4
         g.append('<text x="0" y="%.1f" class="ax row">%s</text>' % (y + 11, lab))
-        g.append('<rect x="%d" y="%.1f" width="%.1f" height="12" rx="3" class="sharebar"><title>%s: %.1f%% of US consumption</title></rect>'
+        g.append('<rect x="%d" y="%.1f" width="%.1f" height="12" rx="3" class="sharebar"><title>%s: a median of %.1f%% of US consumption over the study years</title></rect>'
                  % (L, y + 2, max(x(v) - L, 1), lab, v))
         g.append('<text x="%.1f" y="%.1f" class="ax val">%.0f%%</text>' % (x(v) + 6, y + 12, v))
     return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, title, ''.join(g))
@@ -316,10 +319,10 @@ def page():
                     T['checks']['by_metal'][m]['mde'],
                     abs(T['checks']['by_metal'][m]['cumulative']) > T['checks']['by_metal'][m]['mde'])
                    for m in tr_order]
-    tr_fig = ci_chart(tr_rows_fig, -1.0, 5.5, 1.0,
+    tr_fig = ci_chart(tr_rows_fig, -3.5, 5.5, 1.0,
                       'Response of scrap exports to price, same year and two years, by metal, with '
                       '95% intervals and the smallest response each could detect',
-                      legend=('estimate larger than that', 'estimate within it'))
+                      legend=('estimate above its detectable size', 'estimate below it'))
     pl = fw['per_lag']
     lag_fig = lag_chart([('same year', pl['dp0']['beta'], pv(pl['dp0']['p'])),
                          ('one year later', pl['dp1']['beta'], pv(pl['dp1']['p'])),
@@ -343,7 +346,9 @@ def page():
                  % tuple(RC['primary_supply']['with_year_effects']['ci95'])),
         chk('Placebo: future prices', RC['placebo_future_prices']['with_year_effects'], scale=HALF,
             fmt='%+.2f points',
-            note='nothing shows, but with an interval this wide that is weak evidence, not a pass'),
+            note='nothing shows, and this check could only have seen %.1f points, so it is weak '
+                 'evidence rather than a pass'
+                 % (RC['placebo_future_prices']['with_year_effects']['mde_80pct_power'] * HALF)),
         chk('Placebo: another material&rsquo;s price', RC['placebo_other_material']['with_year_effects'],
             scale=HALF, fmt='%+.2f points', note='larger than the headline itself; not a pass'),
         chk('Excluding gold, silver and platinum', RC['excluding_investment_metals']['with_year_effects'],
@@ -352,11 +357,18 @@ def page():
         chk('Adding the same year&rsquo;s price', RC['contemporaneous'], scale=HALF, fmt='%+.2f points'),
         chk('1973&ndash;2022 only', RC['window_1973_2022'], scale=HALF, fmt='%+.2f points'),
         chk('1953&ndash;1990 only', RC['window_1953_1990'], scale=HALF, fmt='%+.2f points'),
+        ('<tr><td>Poisson on levels, to keep years with no secondary production '
+         '<span class="tag">not the filed check</span></td><td class="n">%+.3f</td><td class="n">%s</td>'
+         '<td>the filing added it to keep zero years; there are none in the sample, so this is a '
+         'contemporaneous levels association and carries no weight</td></tr>'
+         % (RC['poisson_levels_keeps_zeros']['beta_logp'], pv(RC['poisson_levels_keeps_zeros']['p']))),
     ])
     loo = R['checks']['leave_one_out']
     loo_lo = min(v['points_per_50pct'] for v in loo.values())
     loo_hi = max(v['points_per_50pct'] for v in loo.values())
     TC = T['checks']
+    uvc = [v['log_corr_with_metal_price'] for v in TC['unit_value_sanity'].values()
+           if v['log_corr_with_metal_price'] is not None]
     tr_checks = ''.join([
         chk('Imports instead of exports', TC['imports_as_dv']['without_year_effects'],
             note='both sides of the same flows rise together, which looks more like a boom than a '
@@ -364,16 +376,30 @@ def page():
         chk('Value instead of tonnes', TC['value_not_tonnes']['without_year_effects'],
             note='not independent evidence: scrap unit values track the metal price, and a unit value is '
                  'a value per tonne whose product mix shifts, not a price@@C_Silver2007@@@@C_Gaulier2008@@'),
-        chk('Placebo: future prices', TC['placebo_future_prices'], note='passes'),
-        chk('Placebo: another metal&rsquo;s price', TC['placebo_other_metal']['fit'], note='passes'),
+        chk('Placebo: future prices', TC['placebo_future_prices'],
+            note='nothing shows, and this check could have seen %.2f, so it is a pass'
+                 % TC['placebo_future_prices']['mde_80pct_power']),
+        chk('Placebo: another metal&rsquo;s price', TC['placebo_other_metal']['fit'],
+            note='nothing shows, and this check could have seen %.2f, so it is a pass'
+                 % TC['placebo_other_metal']['fit']['mde_80pct_power']),
         chk('Large exporters, separately', TC['large_exporters'],
             note='underpowered rather than empty: 13 clusters, and it could only have seen %.2f'
                  % TC['large_exporters']['mde_80pct_power']),
         chk('Before 2018', TC['before_2018']),
+        ('<tr><td>Leave one metal out (claimed specification)</td><td class="n">%+.2f to %+.2f</td>'
+         '<td class="n">%s</td><td>the same-year comovement does not depend on any one metal</td></tr>'
+         % (min(v['cumulative'] for v in TC['leave_one_metal_out_without_year_effects'].values()),
+            max(v['cumulative'] for v in TC['leave_one_metal_out_without_year_effects'].values()),
+            'all &lt;0.001')),
+        ('<tr><td>Scrap unit values against the metal price</td><td class="n">%.2f to %.2f</td>'
+         '<td class="n">&ndash;</td><td>log correlation, for the seven lines with a price series '
+         '(steel has none): scrap prices track the metal price, which is why the value check above is '
+         'not independent evidence</td></tr>'
+         % (min(uvc), max(uvc))),
         chk('From 2018', TC['from_2018'],
             note='China&rsquo;s scrap import restrictions fall here &mdash; its Category 7 copper-scrap ban '
-                 'took effect in December 2018 and redirected flows through Malaysia, South Korea and '
-                 'Taiwan@@C_Ryter2021@@ &mdash; and the period is too short to say anything'),
+                 'took effect in December 2018 and redirected flows through Malaysia, South Korea, '
+                 'Taiwan and others@@C_Ryter2021@@ &mdash; and the period is too short to say anything'),
     ])
     imp = T['checks']['imports_as_dv']['without_year_effects']['cumulative']
     pl = T['checks']['placebo_future_prices']
@@ -385,13 +411,17 @@ def page():
         'NMAT': str(len(R['materials'])), 'PK': str(pooled['k']), 'PN': '{:,}'.format(pooled['n']),
         'PEST': sgn(pooled['est']), 'PLO': sgn(pooled['lo']), 'PHI': sgn(pooled['hi']),
         'PP': pv(pooled['p']), 'PMDE': '%.1f' % pooled['mde'],
+        'PL1': '%+.2f' % (hy['per_lag']['dp1']['beta'] * HALF),
+        'PL2': '%+.2f' % (hy['per_lag']['dp2']['beta'] * HALF),
+        'PL2P': pv(hy['per_lag']['dp2']['p']),
         'NMET': str(len(M['metals'])), 'THR': '%.1f' % thr, 'RECROWS': '\n'.join(rec_rows),
         'TST': tst, 'TSTC': tst[:1].upper() + tst[1:], 'TSTSHARE': tst_share, 'TSTMDE': tst_mde,
         'AMEAN': sgn(am['mean_cumulative']), 'ALO': sgn(am['ci95'][0]), 'AHI': sgn(am['ci95'][1]),
         'TY0': str(T['years'][0]), 'TY1': str(T['years'][1]),
         'TPAIRS': str(T['pairs_headline']), 'TCTY': str(T['countries_headline']),
         'TCUM': sgn(fw['cumulative']), 'TLO': sgn(fw['ci95'][0]), 'THI': sgn(fw['ci95'][1]),
-        'TSAME': sgn(fw['per_lag']['dp0']['beta']), 'TLAG': sgn(lw['cumulative']), 'TLAGP': pv(lw['p']),
+        'TSAME': sgn(fw['per_lag']['dp0']['beta']),
+        'TL1': sgn(fw['per_lag']['dp1']['beta']), 'TL2': sgn(fw['per_lag']['dp2']['beta']), 'TLAG': sgn(lw['cumulative']), 'TLAGP': pv(lw['p']),
         'TLAGMDE': '%.2f' % lw['mde_80pct_power'],
         'TYCUM': sgn(ty['fit']['cumulative']), 'TYP': pv(ty['fit']['p']),
         'TIMP': sgn(imp), 'TPL': sgn(pl['cumulative']), 'TPLP': pv(pl['p']),
@@ -404,6 +434,8 @@ def page():
         'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
         'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
         'LOOLO': '%+.2f' % (loo_lo), 'LOOHI': '%+.2f' % (loo_hi),
+        'EXINV_Y': '%+.2f' % (RC['excluding_investment_metals']['with_year_effects']['cumulative'] * HALF),
+        'EXINV_N': '%+.2f' % (RC['excluding_investment_metals']['without_year_effects']['cumulative'] * HALF),
         'TRROWS': '\n'.join(tr_rows),
         'QEST': sgn(qy['cumulative'] * HALF), 'QLO': sgn(qy['ci95'][0] * HALF), 'QHI': sgn(qy['ci95'][1] * HALF),
         'QP': pv(qy['p']), 'QMDE': '%.1f' % (qy['mde_80pct_power'] * HALF),
@@ -440,7 +472,9 @@ TEMPLATE = """<!doctype html>
   recycling fills part of the gap. We tested it twice, each time filing the design before running it:
   on US recovery of scrap, and on world trade in scrap. <b>Neither shows a detectable increase in recycled metal in
   the two years after a price rise.</b> In the recovery study only two metals had the power to see a
-  response at the size the filing said would matter, and in those two it was not there.</p>
+  response at the size the filing said would matter, and in those two the tonnes were not there. For
+  lead, the other filed equation &mdash; the recycled <i>share</i> of consumption &mdash; does show a
+  rise; the two disagree, and both are below.</p>
 </div></section>
 
 <section class="wrap xp">
@@ -454,40 +488,45 @@ TEMPLATE = """<!doctype html>
   @@PEST@@ points of consumption with year effects (95% interval @@PLO@@ to @@PHI@@, p&nbsp;=&nbsp;@@PP@@)
   and @@QEST@@ points without them (@@QLO@@ to @@QHI@@, p&nbsp;=&nbsp;@@QP@@). But the smallest response
   this design could reliably detect was @@PMDE@@ and @@QMDE@@ points, and the filing had said 1 point
-  would matter. So that first result could not tell a useful response from none, and we said so.</p>
+  would matter. So that first result could not tell a useful response from none, and we said so. Within it the two
+  lags point opposite ways &mdash; @@PL1@@ points after one year and @@PL2@@ after two
+  (p&nbsp;=&nbsp;@@PL2P@@) &mdash; and a share that falls two years after a price rise is as easily the
+  denominator moving, consumption recovering faster than scrap, as anything about scrap supply.</p>
   <p>A second design, filed before it was run, took each metal on its own, @@Y0@@&ndash;@@Y1@@, on
-  World Bank market prices, and asked whether a metal&rsquo;s scrap tonnes rise by at least @@THR@@% per 1%
-  of price within two years. That threshold sits at the bottom of the published range: surveys of the
-  econometric literature put the own-price elasticity of secondary supply at roughly 0.20 to
-  0.39@@C_Soderholm2019@@, with 0.21 estimated for European secondary aluminium@@C_Blomberg2009@@. The
-  prices are London Metal Exchange quotations for <i>refined</i> metal@@C_WorldBank2026@@, not the price
-  a scrap collector is paid, which is a gap between the regressor and the decision it stands for. Each metal is reported with the smallest response its own series could
+  World Bank market prices &mdash; which is why it covers @@NMETW@@ metals and not sixteen: only those have
+  both a Pink Sheet price and a US secondary-production series &mdash; and asked whether a metal&rsquo;s
+  scrap tonnes rise by at least @@THR@@% per 1%
+  of price within two years. The threshold came from the first filing, not from the
+  literature, but it happens to sit at the bottom of the published range: a survey of the econometric
+  estimates puts the own-price elasticity of secondary supply at roughly 0.20 to 0.39@@C_Soderholm2019@@,
+  with 0.21 estimated for European secondary aluminium@@C_Blomberg2009@@. For
+  the six base metals the prices are London Metal Exchange cash quotations for primary or refined
+  metal, and for gold a spot bullion price@@C_WorldBank2026@@ &mdash; in no case the price a scrap
+  collector is paid, which is a gap between the regressor and the decision it stands for. Each metal is reported with the smallest response its own series could
   have seen; a metal that could not see @@THR@@ is called untestable, not a null.</p>
   <figure class="fig">@@RECFIG@@
   <figcaption><b>Which metals could answer, and what they answered.</b> Each metal's two-year response
-  of scrap tonnes to price, with its 95% interval; the faint band behind it is what that metal's own
-  series is blind to &mdash; any response inside it is too small to tell from zero. Teal: the series could see a response at the filed threshold. Violet: it could
+  of scrap tonnes to price, with its 95% interval; the faint band is the bar the filing set before the estimates
+  &mdash; a response inside it would not have been detected with 80% certainty by that metal's series. Teal: the series could see a response at the filed threshold. Violet: it could
   not, so its estimate is untestable rather than a null.</figcaption></figure>
-  @@SRC_REC@@
   <div class="tbl"><table><thead><tr><th>Metal</th><th class="n">two-year elasticity</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see (80% power)</th>
   <th class="n">on USGS unit values</th><th>reading</th></tr></thead>
   <tbody>@@RECROWS@@</tbody></table></div>
   @@SRC_REC@@
   <p><b>@@TSTC@@ could have seen a response at the filed threshold, and show none that large.</b> Their series could
-  detect @@TSTMDE@@; both estimates are close to zero and their intervals exclude @@THR@@. These are the metals where recycling is already largest (median share of US consumption from scrap:
+  detect @@TSTMDE@@; both estimates are close to zero and their intervals exclude @@THR@@. Among the seven tested, these are the metals where recycling is largest (median share of US consumption from scrap:
   @@TSTSHARE@@). The lead result depends on which price is used: on the USGS unit value its series
   could only have seen @@LEADUV@@, which would make it untestable too, so aluminium is the one metal
   whose reading holds on both price measures. As a descriptive summary across all @@NMETW@@ metals, five of them untestable at the threshold, the
-  unweighted mean of the seven responses is @@AMEAN@@, with a 95% interval of @@ALO@@ to
-  @@AHI@@ taken from their spread, not from any one metal's precision. Using the USGS unit value instead of a market price moves no estimate by more than
-  @@UVMAX@@, but it is noisier: on it, lead could only have seen @@LEADUV@@ and would read as
-  untestable.</p>
+  unweighted mean of the seven responses is @@AMEAN@@, and their spread puts a descriptive 95% band of
+  @@ALO@@ to @@AHI@@ around it &mdash; a summary of seven estimates, not an inferential interval. Using the USGS unit value instead of a market price moves no estimate by more
+  than @@UVMAX@@.</p>
   <figure class="fig">@@SHAREFIG@@
   <figcaption><b>Why aluminium and lead matter most.</b> The median share of US consumption met by
   scrap over the study years, for the ten metals with the largest shares (mercury's rests on a series
   that ends in 1997). The two metals whose data can see the filed threshold are also among
-  those where recycling is largest, so a response there would have been worth the most.</figcaption></figure>
+  those where recycling is largest, so a response there would have mattered most for policy.</figcaption></figure>
   @@SRC_SHARE@@
   <h3>The filed checks</h3>
   <div class="tbl"><table><thead><tr><th>Check (points of consumption per +50% price, unless noted)</th>
@@ -495,11 +534,16 @@ TEMPLATE = """<!doctype html>
   <tbody>@@RECCHECKS@@</tbody></table></div>
   @@SRC_POOL@@
   <p class="dim">Leaving out one metal at a time moves the headline between @@LOOLO@@ and @@LOOHI@@ points, and
-  no version is significant: no single metal drives it.</p>
+  no version is significant: no single metal drives it. Four of these checks carry year effects and
+  four do not; where they differ the difference is large &mdash; excluding gold, silver and platinum
+  gives @@EXINV_Y@@ points with year effects and @@EXINV_N@@ without.</p>
+  <p class="dim">The per-metal share results quoted below come from the second design, on market
+  prices: <a href="@@REPO@@scrap-response/PREREGISTRATION.md">Amendment A</a> and
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/scrap_response_per_metal.json"><code>out/scrap_response_per_metal.json</code></a>.</p>
   <div class="note">One thing the filed equations disagree about. The filed share equation says the
   recycled <i>share</i> of consumption rose after a price rise &mdash; for lead (p&nbsp;=&nbsp;@@LEADSHP@@)
   and, not significantly, for aluminium (p&nbsp;=&nbsp;@@ALSHP@@) &mdash; while the filed tonnage equation
-  says the tonnes did not move.
+  shows no matching rise in the tonnes.
   Unfiled regressions on the same data suggest the reason is that consumption fell. If so, a higher
   share would mean less demand, not more recycling. It is a hypothesis for a separate test on other
   countries; the figures are in the <a href="@@REPO@@scrap-response/PREREGISTRATION.md">filing</a>.</div>
@@ -517,8 +561,9 @@ TEMPLATE = """<!doctype html>
   of each metal</b>, where a response is easiest to see; the large exporters, who ship most of the
   tonnes, are a separate check below and it is underpowered.</p>
   <p>Keeping the common cycle in, scrap exports rise with price by @@TCUM@@% per 1% (95% interval @@TLO@@ to @@THI@@), but
-  <b>almost all of it is in the same year</b> (@@TSAME@@% per 1%). The two following years add nothing
-  measurable: @@TLAG@@ (p&nbsp;=&nbsp;@@TLAGP@@), where the design could have seen about @@TLAGMDE@@. Within a year prices and
+  <b>almost all of it is in the same year</b>: the three terms of that estimate are @@TSAME@@ in the same
+  year, @@TL1@@ a year later and @@TL2@@ two years later. Estimated on its own, without the same-year term,
+  the two-year response is @@TLAG@@ (p&nbsp;=&nbsp;@@TLAGP@@), where the design could have seen about @@TLAGMDE@@. Within a year prices and
   shipments are set together, so this is movement with the cycle, not a demonstrated supply response.
   Imports of the same scrap rise too (@@TIMP@@% per 1%, without year effects), which looks more like a
   boom than a redirection; the design cannot rule out either, nor a drawdown of stocks. Once the
@@ -532,10 +577,17 @@ TEMPLATE = """<!doctype html>
   @@SRC_TRADE@@
   <figure class="fig">@@TRFIG@@
   <figcaption><b>By metal, with what each could detect.</b> Cumulative response of scrap exports to
-  price, 95% intervals, and the faint band each metal's exporters are blind to &mdash; a response
-  inside it could not be told from zero.
+  price, 95% intervals, and the faint band each metal's exporters could not have detected with 80%
+  certainty.
   Tin's estimate is about the size of what its nine exporters could see, so it is not read.</figcaption></figure>
-  @@SRC_TRADE@@
+  <div class="note"><b>Three checks this filing promised and this run does not contain.</b> The filing
+  named a leave-one-year-out check for the two largest world price moves, a separate steel line using
+  the unit value of T&uuml;rkiye's own scrap imports, and a separate gold line (7112, refining
+  residues). None is in the code that produced these results. They are recorded here and in the
+  filing's deviations log rather than quietly dropped; until they are run, the two studies rest on the
+  checks shown.</div>
+  <p class="dim">Both the chart above and the table below are the cycle-inclusive specification, without
+  year effects, and the elasticity is cumulative over the same year and the two that follow.</p>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see (80% power)</th>
   <th class="n">exporters</th><th>reading</th></tr></thead>
@@ -545,27 +597,46 @@ TEMPLATE = """<!doctype html>
   <div class="tbl"><table><thead><tr><th>Check</th><th class="n">estimate</th><th class="n">p</th>
   <th>reading</th></tr></thead><tbody>@@TRCHECKS@@</tbody></table></div>
   @@SRC_TRADE@@
-  <p class="dim">The first two rows are the claimed specification, which keeps the common cycle; the
+  <p class="dim">The first two checks keep the headline's specification, which leaves the common cycle in; the
   placebos, the exporter split and the two period splits carry year effects, which remove it.</p>
-  <p class="dim">A reading of &ldquo;moves
-  with price&rdquo; means only that the estimate is larger than the smallest effect that metal's
-  exporters could reliably detect; lead clears its own bar narrowly (+0.65 against 0.60). Tin rests on @@TINN@@
+  <p class="dim">The last column applies the rule the filings set: an estimate smaller than what its own
+  exporters could have detected with 80% power is not read as a response, even where its p-value is below
+  0.05 &mdash; that bar was set before the estimates, and a realised sample can still put a significant
+  coefficient inside it. A reading of &ldquo;same-year
+  comovement&rdquo; means the cumulative estimate is larger than the smallest effect that metal's
+  exporters could have detected, and &mdash; as the chart above shows for the six together &mdash; that
+  the mass of it sits in the same year rather than in the two that follow; lead clears its own bar
+  narrowly (+0.65 against 0.60). Tin rests on @@TINN@@
   exporters and an estimate about the size of the smallest they could detect, so it is not read.</p>
 </section>
 
 <section class="wrap xp">
   <h2>What the two say together</h2>
-  <p>As far as open data can see, neither US recovery nor scrap trade is shown to rise in the two years
-  after a price rise. Neither result is novel: the US Geological Survey found no relationship between
-  price and recycling rate across twenty-five metals@@C_Sibley2011@@, and an autoregressive model of
-  recycled copper supply found industrial activity, not price, carrying the series@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
-  part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings an
-  additional stream of recycled metal over the following two years, by recovering more of it or by
-  moving it; scrap trade does move with price within the year.</p>
+  <p>As far as open data can see, neither US recovery nor the scrap exports of the smaller exporters,
+  the sample the trade headline rests on, is shown to rise in the two years
+  after a price rise. Neither result is novel: the US Geological Survey plotted price against old-scrap
+  recycling efficiency for twenty-five metals and found no relationship (R&sup2;&nbsp;=&nbsp;0.05), a
+  cross-metal comparison at three base years rather than a within-metal response@@C_Sibley2011@@, and an autoregressive model of
+  recycled copper supply found industrial activity and world output carrying the series, with limited
+  dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
+  part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
+  more recovered metal, or more cross-border shipments of scrap, over the following two years; within
+  the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
+  both sides, or with stocks being drawn down, as with metal being redirected.</p>
+  <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
+  mixed: the US statistics separate them only for aluminium, so a rise in "scrap" can be a factory
+  off-cut returning faster rather than an old product being collected. Prompt scrap from fabrication
+  rarely crosses a border and home scrap never does, so the trade study sees merchant scrap only.
+  Neither study sees capacity: they see the supply that appeared, not what could have been recovered.
+  BACI's tonnages are estimated for many flows, and the trade study's dependent variable is tonnes.
+  And policy moves this market as much as price does &mdash; export licences, import bans and duties
+  all act on the same flows.</p>
   <p>That is narrower than &ldquo;recycling does not respond to price&rdquo;. It is US recovery and
   world trade only; the tests are predictive, not causal; @@NUNT@@ of the @@NMETW@@ metals in the first study
   cannot see the threshold &mdash; and underpowered designs are the rule rather than the exception in
-  empirical economics, which is why a null of this kind is weak evidence on its own@@C_Ioannidis2017@@;
+  empirical economics, which is why an unpowered null is weak evidence on its own@@C_Ioannidis2017@@ &mdash;
+  the two metals that were powered are the exception, and their intervals do exclude a response at the
+  filed size;
   and nothing here covers the newer critical materials, which have no such series. For a policy that counts on scrap to cushion a price shock within a couple of years,
   it is still the relevant evidence: on the metals where it can be checked, no response of that size
   was detected in the two years after. Within the shock year itself, scrap does move between countries,
