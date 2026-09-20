@@ -42,6 +42,17 @@ CSS = """
 .tbl{overflow-x:auto}
 .note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
 .dim{color:#6b675f}
+.fig{margin:1.2rem 0}.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.4rem;max-width:44rem}
+.fig .grid{stroke:#e3e6e5;stroke-width:1}.fig .zero{stroke:#8b9396;stroke-width:1}
+.fig .thr{stroke:#b3384b;stroke-width:1;stroke-dasharray:3 3}.fig .thrlab{fill:#b3384b}
+.fig .reach{stroke:#e8e6e1;stroke-width:12;stroke-linecap:round}
+.fig .ci{stroke-width:2.5;opacity:.55}.fig .dot{stroke:#fcfcfb;stroke-width:2}
+.fig .ax{font:11px Inter,system-ui,sans-serif;fill:#5a6468}
+.fig .ax.row{font-size:12px;fill:#15323a}.fig .val{font-weight:600;fill:#15323a}
+.fig .lagbar{fill:#15323a}.fig .sharebar{fill:#009287}
+.refs{max-width:46rem;padding-left:1.1rem}.refs li{margin:.45rem 0;font-size:.9rem;line-height:1.55}
+.xp h3{margin-top:1.6rem;font-size:1.02rem}
 .verdict{display:inline-block;background:#15323a;color:#fff;font-weight:700;letter-spacing:.08em;
  padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
 """
@@ -54,6 +65,101 @@ TRADE_READING = {'follows_price_strongly': 'moves with price', 'follows_price_mo
 # scrap-trade deviation 2: tin is reported but not read (nine exporters; the estimate is about the
 # size of the smallest effect they could detect).
 TRADE_NOT_READ = {'tin'}
+
+
+# Validated for colour-vision separation against the page surface (dataviz validator, 20 Sep 2026).
+CAN_SEE, CANNOT = '#009287', '#7d5ba6'
+
+
+def ci_chart(rows, lo, hi, step, title, threshold=None, W=720, rh=30,
+             legend=('can see the threshold', 'cannot')):
+    """One row per metal: estimate, its 95% interval, and the smallest effect it could detect."""
+    L, R, T = 190, 24, 34
+    H = T + rh * len(rows) + 34
+
+    def x(v):
+        return L + (min(max(v, lo), hi) - lo) / float(hi - lo) * (W - L - R)
+    g = []
+    t = lo
+    while t <= hi + 1e-9:
+        g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="%s"/>'
+                 % (x(t), x(t), T - 10, H - 30, 'zero' if abs(t) < 1e-9 else 'grid'))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>'
+                 % (x(t), H - 12, ('%+.1f' % t) if t else '0'))
+        t = round(t + step, 10)
+    if threshold is not None:
+        for v in (threshold, -threshold):
+            if lo <= v <= hi:
+                g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="thr"/>' % (x(v), x(v), T - 10, H - 30))
+        g.append('<text x="%.1f" y="%d" class="ax thrlab" text-anchor="middle">filed threshold %.1f</text>'
+                 % (x(threshold), T - 18, threshold))
+    for i, (label, est, clo, chi, mde, can) in enumerate(rows):
+        y = T + rh * i + 10
+        col = CAN_SEE if can else CANNOT
+        g.append('<text x="0" y="%.1f" class="ax row">%s</text>' % (y + 4, label))
+        # the reach of the design: what it could have detected, drawn faintly behind the estimate
+        g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="reach"/>' % (x(-mde), x(mde), y, y))
+        g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="ci" stroke="%s"/>'
+                 % (x(clo), x(chi), y, y, col))
+        g.append('<circle cx="%.1f" cy="%.1f" r="5" class="dot" fill="%s"><title>%s: %+.2f (%+.2f to %+.2f), '
+                 'smallest detectable %.2f</title></circle>' % (x(est), y, col, label, est, clo, chi, mde))
+    w0 = 26 + 6 * len(legend[0])
+    leg = ('<circle cx="%d" cy="%d" r="5" fill="%s"/><text x="%d" y="%d" class="ax">%s</text>'
+           '<circle cx="%d" cy="%d" r="5" fill="%s"/><text x="%d" y="%d" class="ax">%s</text>'
+           '<line x1="%d" x2="%d" y1="%d" y2="%d" class="reach"/><text x="%d" y="%d" class="ax">what the design could detect</text>'
+           % (6, 12, CAN_SEE, 16, 16, legend[0], w0, 12, CANNOT, w0 + 10, 16, legend[1],
+              w0 + 24 + 6 * len(legend[1]), w0 + 54 + 6 * len(legend[1]), 12, 12,
+              w0 + 60 + 6 * len(legend[1]), 16))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s%s</svg>' % (W, H, title, leg, ''.join(g))
+
+
+def lag_chart(terms, title, W=720, H=210):
+    """The shape of the response in time: same year, one year later, two years later."""
+    L, R, T, B = 60, 20, 24, 40
+    vals = [v for _, v, _ in terms]
+    hi = max(0.6, max(vals) * 1.15)
+    lo = min(-0.2, min(vals) * 1.15)
+    bw = (W - L - R) / float(len(terms))
+
+    def y(v):
+        return T + (hi - v) / (hi - lo) * (H - T - B)
+    g = []
+    for t in (-0.2, 0.0, 0.2, 0.4, 0.6):
+        if lo <= t <= hi:
+            g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" class="%s"/>'
+                     % (L, W - R, y(t), y(t), 'zero' if abs(t) < 1e-9 else 'grid'))
+            g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">%+.1f</text>' % (L - 6, y(t) + 4, t))
+    for i, (lab, v, pv) in enumerate(terms):
+        X = L + i * bw + bw * 0.22
+        top, bot = (y(max(v, 0)), y(min(v, 0)))
+        g.append('<rect x="%.1f" y="%.1f" width="%.1f" height="%.1f" rx="3" class="lagbar"><title>%s: %+.2f, p %s</title></rect>'
+                 % (X, top, bw * 0.56, max(bot - top, 1), lab, v, pv))
+        g.append('<text x="%.1f" y="%.1f" class="ax val" text-anchor="middle">%+.2f</text>'
+                 % (X + bw * 0.28, top - 6 if v >= 0 else bot + 14, v))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>' % (X + bw * 0.28, H - B + 20, lab))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, title, ''.join(g))
+
+
+def share_chart(pairs, title, W=720, rh=22):
+    """How much of US consumption each metal already gets from scrap."""
+    L, R, T = 190, 40, 14
+    H = T + rh * len(pairs) + 26
+    hi = max(v for _, v in pairs)
+    hi = 10 * (int(hi / 10) + 1)
+
+    def x(v):
+        return L + v / float(hi) * (W - L - R)
+    g = []
+    for t in range(0, hi + 1, 10):
+        g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="grid"/>' % (x(t), x(t), T, H - 22))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%d%%</text>' % (x(t), H - 6, t))
+    for i, (lab, v) in enumerate(pairs):
+        y = T + rh * i + 4
+        g.append('<text x="0" y="%.1f" class="ax row">%s</text>' % (y + 11, lab))
+        g.append('<rect x="%d" y="%.1f" width="%.1f" height="12" rx="3" class="sharebar"><title>%s: %.1f%% of US consumption</title></rect>'
+                 % (L, y + 2, max(x(v) - L, 1), lab, v))
+        g.append('<text x="%.1f" y="%.1f" class="ax val">%.0f%%</text>' % (x(v) + 6, y + 12, v))
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, title, ''.join(g))
 
 
 def load(name):
@@ -115,6 +221,67 @@ def page():
                        '<td class="n">%.2f</td><td class="n">%d</td><td>%s</td></tr>'
                        % (m.capitalize(), sgn(v['cumulative']), sgn(v['ci95'][0]), sgn(v['ci95'][1]), pv(v['p']),
                           v['mde'], v['countries'], rd))
+    rec_fig_rows = [(m.capitalize(), M['metals'][m]['pink']['elasticity']['cumulative'],
+                 M['metals'][m]['pink']['elasticity']['ci95'][0], M['metals'][m]['pink']['elasticity']['ci95'][1],
+                 M['metals'][m]['pink']['elasticity']['mde_80pct_power'],
+                 M['metals'][m]['pink']['reading'] == 'not_shown_to_respond') for m in order]
+    rec_fig = ci_chart(rec_fig_rows, -0.8, 0.8, 0.4,
+                       'Two-year response of US scrap recovery to price, by metal, with 95% intervals and '
+                       'the smallest response each metal could detect', threshold=thr)
+    tr_order = sorted(T['checks']['by_metal'], key=lambda m: -T['checks']['by_metal'][m]['countries'])
+    tr_rows_fig = [(m.capitalize(), T['checks']['by_metal'][m]['cumulative'],
+                    T['checks']['by_metal'][m]['ci95'][0], T['checks']['by_metal'][m]['ci95'][1],
+                    T['checks']['by_metal'][m]['mde'],
+                    abs(T['checks']['by_metal'][m]['cumulative']) > T['checks']['by_metal'][m]['mde'])
+                   for m in tr_order]
+    tr_fig = ci_chart(tr_rows_fig, -1.0, 3.5, 1.0,
+                      'Response of scrap exports to price, same year and two years, by metal, with '
+                      '95% intervals and the smallest response each could detect',
+                      legend=('estimate larger than that', 'estimate within it'))
+    pl = fw['per_lag']
+    lag_fig = lag_chart([('same year', pl['dp0']['beta'], pv(pl['dp0']['p'])),
+                         ('one year later', pl['dp1']['beta'], pv(pl['dp1']['p'])),
+                         ('two years later', pl['dp2']['beta'], pv(pl['dp2']['p']))],
+                        'The response of scrap exports to price by year: all of it is in the same year')
+    share_pairs = sorted(((m.capitalize(), sh[m]['median_secondary_share_pct'])
+                          for m in sh if m in M['metals'] or sh[m]['median_secondary_share_pct'] >= 19),
+                         key=lambda kv: -kv[1])[:10]
+    share_fig = share_chart(share_pairs,
+                            'Median share of US consumption met by scrap, by metal, over the study years')
+
+    def chk(label, d, fmt='%+.2f', scale=1.0, note=''):
+        return ('<tr><td>%s</td><td class="n">%s</td><td class="n">%s</td><td>%s</td></tr>'
+                % (label, fmt % (d['cumulative'] * scale), pv(d['p']), note))
+    RC = R['checks']
+    rec_checks = ''.join([
+        chk('Primary (newly mined) supply, same equation', RC['primary_supply']['with_year_effects'],
+            note='positive but not significant; its difference from the scrap estimate was never tested'),
+        chk('Placebo: future prices', RC['placebo_future_prices']['with_year_effects'], scale=HALF,
+            fmt='%+.2f points', note='passes, but the interval is wide'),
+        chk('Placebo: another material&rsquo;s price', RC['placebo_other_material']['with_year_effects'],
+            scale=HALF, fmt='%+.2f points', note='larger than the headline itself; not a pass'),
+        chk('Excluding gold, silver and platinum', RC['excluding_investment_metals']['with_year_effects'],
+            scale=HALF, fmt='%+.2f points'),
+        chk('Excluding recession years', RC['excluding_recessions'], scale=HALF, fmt='%+.2f points'),
+        chk('Adding the same year&rsquo;s price', RC['contemporaneous'], scale=HALF, fmt='%+.2f points'),
+        chk('1973&ndash;2022 only', RC['window_1973_2022'], scale=HALF, fmt='%+.2f points'),
+        chk('1953&ndash;1990 only', RC['window_1953_1990'], scale=HALF, fmt='%+.2f points'),
+    ])
+    loo = R['checks']['leave_one_out']
+    loo_lo = min(v['points_per_50pct'] for v in loo.values())
+    loo_hi = max(v['points_per_50pct'] for v in loo.values())
+    TC = T['checks']
+    tr_checks = ''.join([
+        chk('Imports instead of exports', TC['imports_as_dv']['without_year_effects'],
+            note='both sides of the same flows rise together: a boom, not a redirection'),
+        chk('Value instead of tonnes', TC['value_not_tonnes']['without_year_effects'],
+            note='not independent evidence: scrap unit values track the metal price'),
+        chk('Placebo: future prices', TC['placebo_future_prices'], note='passes'),
+        chk('Placebo: another metal&rsquo;s price', TC['placebo_other_metal']['fit'], note='passes'),
+        chk('Large exporters, separately', TC['large_exporters'], note='nothing shown, on 13 clusters'),
+        chk('Before 2018', TC['before_2018']),
+        chk('From 2018', TC['from_2018'], note='China&rsquo;s scrap import restrictions fall here; too short to say anything'),
+    ])
     imp = T['checks']['imports_as_dv']['without_year_effects']['cumulative']
     pl = T['checks']['placebo_future_prices']
 
@@ -135,6 +302,9 @@ def page():
         'TLAGMDE': '%.2f' % lw['mde_80pct_power'],
         'TYCUM': sgn(ty['fit']['cumulative']), 'TYP': pv(ty['fit']['p']),
         'TIMP': sgn(imp), 'TPL': sgn(pl['cumulative']), 'TPLP': pv(pl['p']),
+        'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
+        'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
+        'LOOLO': '%+.2f' % (loo_lo), 'LOOHI': '%+.2f' % (loo_hi),
         'TRROWS': '\n'.join(tr_rows),
         'QEST': sgn(qy['cumulative'] * HALF), 'QLO': sgn(qy['ci95'][0] * HALF), 'QHI': sgn(qy['ci95'][1] * HALF),
         'QP': pv(qy['p']), 'QMDE': '%.1f' % (qy['mde_80pct_power'] * HALF),
@@ -186,6 +356,11 @@ TEMPLATE = """<!doctype html>
   World Bank market prices, and asked whether a metal&rsquo;s scrap tonnes rise by at least @@THR@@% per 1%
   of price within two years. Each metal is reported with the smallest response its own series could
   have seen; a metal that could not see @@THR@@ is called untestable, not a null.</p>
+  <figure class="fig">@@RECFIG@@
+  <figcaption><b>Which metals could answer, and what they answered.</b> Each metal's two-year response
+  of scrap tonnes to price, with its 95% interval; the faint bar behind it is the range the design
+  could have detected. Teal: the series could see a response at the filed threshold. Violet: it could
+  not, so its estimate is untestable rather than a null.</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Metal</th><th class="n">two-year elasticity</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see</th>
   <th class="n">on USGS unit values</th><th>reading</th></tr></thead>
@@ -197,6 +372,16 @@ TEMPLATE = """<!doctype html>
   @@AHI@@). Using the USGS unit value instead of a market price moves no estimate by more than
   @@UVMAX@@, but it is noisier: on it, lead could only have seen @@LEADUV@@ and would read as
   untestable.</p>
+  <figure class="fig">@@SHAREFIG@@
+  <figcaption><b>Why aluminium and lead matter most.</b> The median share of US consumption met by
+  scrap over the study years. The two metals whose data can see the filed threshold are also among
+  those where recycling is largest, so a response there would have been worth the most.</figcaption></figure>
+  <h3>The filed checks</h3>
+  <div class="tbl"><table><thead><tr><th>Check (points of consumption per +50% price, unless noted)</th>
+  <th class="n">estimate</th><th class="n">p</th><th>reading</th></tr></thead>
+  <tbody>@@RECCHECKS@@</tbody></table></div>
+  <p class="dim">Leaving out one metal at a time moves the headline between @@LOOLO@@ and @@LOOHI@@ points, and
+  no version is significant: no single metal drives it.</p>
   <div class="note">One exploratory result, not filed and not built on: after a price rise, the
   recycled <i>share</i> of consumption rose for lead (p&nbsp;=&nbsp;@@LEADSHP@@) and, not significantly,
   for aluminium (p&nbsp;=&nbsp;@@ALSHP@@), while recycled <i>tonnes</i> did not.
@@ -220,10 +405,22 @@ TEMPLATE = """<!doctype html>
   boom than a redirection; the design cannot rule out either, nor a drawdown of stocks. Once the
   common cycle is removed with year effects, the estimate (@@TYCUM@@, p&nbsp;=&nbsp;@@TYP@@) oscillates
   from year to year, the smallest effect it could see is @@TYMDE@@, and it is not claimed. A placebo on future prices shows nothing (@@TPL@@, p&nbsp;=&nbsp;@@TPLP@@).</p>
+  <figure class="fig">@@LAGFIG@@
+  <figcaption><b>All of the response is in the same year.</b> The three terms of the claimed
+  specification: a price rise and scrap shipments move together within the year, and nothing follows
+  in the next two. Within a year, prices and quantities are set together, so this is comovement, not a
+  demonstrated supply response.</figcaption></figure>
+  <figure class="fig">@@TRFIG@@
+  <figcaption><b>By metal, with what each could detect.</b> Cumulative response of scrap exports to
+  price, 95% intervals, and the faint bar for the range each metal's exporters could have detected.
+  Tin's estimate is about the size of what its nine exporters could see, so it is not read.</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see</th>
   <th class="n">exporters</th><th>reading</th></tr></thead>
   <tbody>@@TRROWS@@</tbody></table></div>
+  <h3>The filed checks</h3>
+  <div class="tbl"><table><thead><tr><th>Check</th><th class="n">estimate</th><th class="n">p</th>
+  <th>reading</th></tr></thead><tbody>@@TRCHECKS@@</tbody></table></div>
   <p class="dim">Without year effects, so every row carries the common cycle. Tin rests on @@TINN@@
   exporters and an estimate about the size of the smallest they could detect, so it is not read.</p>
 </section>
@@ -239,6 +436,19 @@ TEMPLATE = """<!doctype html>
   cannot see the threshold; and nothing here covers the newer critical materials, which have
   no such series. For a policy that counts on scrap to cushion a price shock within a couple of years,
   it is still the relevant evidence: on the metals where it can be checked, it did not.</p>
+  <h3>Sources</h3>
+  <ol class="refs">
+  <li><b>US production, consumption and recovery.</b> US Geological Survey, <i>Historical Statistics for
+  Mineral and Material Commodities in the United States</i>, Data Series 140 (a US government work).
+  <a href="https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities">usgs.gov</a>.</li>
+  <li><b>Market prices.</b> World Bank commodity price data (the &ldquo;Pink Sheet&rdquo;), monthly,
+  averaged to the year and deflated to 1998 dollars by the deflator implied by the USGS nominal and
+  real pair. <a href="https://www.worldbank.org/en/research/commodity-markets">worldbank.org</a>.</li>
+  <li><b>Scrap trade.</b> CEPII BACI, release V202601, under the Etalab Open Licence 2.0.
+  <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">cepii.fr</a>. Method:
+  Gaulier, G. and Zignago, S. (2010), CEPII Working Paper 2010-23.
+  <a href="http://www.cepii.fr/PDF_PUB/wp/2010/wp2010-23.pdf">wp2010-23</a>.</li>
+  </ol>
   <p class="howto-src"><b>Filings and code.</b> Each design was committed before its first run and each
   deviation is logged with its date:
   <a href="@@REPO@@scrap-response/PREREGISTRATION.md">scrap recovery</a> (with Amendment A, the per-metal
