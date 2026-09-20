@@ -209,3 +209,9 @@ Every change made after filing goes here, dated, with its reason.
    the design's detectable size is not read as a response - so nickel and tin read as "below what its
    exporters could reliably detect" and lead is flagged as clearing its own bar narrowly (+0.65 against
    0.60). No estimate changed; the JSON keeps the original labels beside the numbers.
+5. **2026-09-20, found in an adversarial re-check - three filed checks were never run.** The filing
+   named (a) a leave-one-year-out check for the two years with the largest world price moves, (b) a
+   separate steel line using the unit value of Tuerkiye's own 7204 imports, and (c) a separate gold
+   line (7112, refining residues). None of the three is in `flows.py`, so none was in the result, and
+   neither this log nor the page had said so. Both now do: the page carries a box naming all three.
+   The published results rest on the checks that were run; these remain outstanding.
