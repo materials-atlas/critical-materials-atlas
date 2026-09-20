@@ -42,6 +42,7 @@ CSS = """
 .tbl{overflow-x:auto}
 .note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
 .dim{color:#6b675f}
+.src{font-size:.78rem;color:#6b7478;margin:-.1rem 0 1rem;line-height:1.5}.src code{font-size:.74rem}
 .fig{margin:1.2rem 0}.fig svg{width:100%;height:auto;display:block}
 .fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.4rem;max-width:44rem}
 .fig .grid{stroke:#e3e6e5;stroke-width:1}.fig .zero{stroke:#8b9396;stroke-width:1}
@@ -56,6 +57,28 @@ CSS = """
 .verdict{display:inline-block;background:#15323a;color:#fff;font-weight:700;letter-spacing:.08em;
  padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
 """
+
+GH = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/'
+# Where each table and figure comes from: the raw source, then the file holding the computed numbers.
+SOURCES = {
+    'usgs': ('US Geological Survey, historical statistics (DS 140)',
+             'https://www.usgs.gov/centers/national-minerals-information-center/'
+             'historical-statistics-mineral-and-material-commodities'),
+    'pink': ('World Bank commodity prices (Pink Sheet)',
+             'https://www.worldbank.org/en/research/commodity-markets'),
+    'baci': ('CEPII BACI, release V202601',
+             'https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37'),
+}
+RESULTS = {'pooled': 'out/scrap_response.json', 'per_metal': 'out/scrap_response_per_metal.json',
+           'trade': 'out/scrap_trade.json'}
+
+
+def src(sources, results, note=''):
+    a = ' &middot; '.join('<a href="%s">%s</a>' % (SOURCES[k][1], SOURCES[k][0]) for k in sources)
+    b = ', '.join('<a href="%s%s"><code>%s</code></a>' % (GH, RESULTS[k], RESULTS[k]) for k in results)
+    return ('<p class="src"><b>Source:</b> %s. Computed values: %s.%s</p>'
+            % (a, b, (' ' + note) if note else ''))
+
 
 # The per-metal readings as the filings word them.
 RECOVERY_READING = {'not_shown_to_respond': 'not shown to respond',
@@ -313,6 +336,11 @@ def page():
         'TLAGMDE': '%.2f' % lw['mde_80pct_power'],
         'TYCUM': sgn(ty['fit']['cumulative']), 'TYP': pv(ty['fit']['p']),
         'TIMP': sgn(imp), 'TPL': sgn(pl['cumulative']), 'TPLP': pv(pl['p']),
+        'SRC_REC': src(['usgs', 'pink'], ['per_metal'],
+                       'Market prices for the estimates, USGS unit values for the comparison column.'),
+        'SRC_POOL': src(['usgs'], ['pooled'], 'The pooled design uses USGS unit values as the price.'),
+        'SRC_SHARE': src(['usgs'], ['pooled']),
+        'SRC_TRADE': src(['baci', 'pink'], ['trade']),
         'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
         'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
         'LOOLO': '%+.2f' % (loo_lo), 'LOOHI': '%+.2f' % (loo_hi),
@@ -373,10 +401,12 @@ TEMPLATE = """<!doctype html>
   of scrap tonnes to price, with its 95% interval; the faint band behind it is what that metal's own
   series is blind to &mdash; any response inside it is too small to tell from zero. Teal: the series could see a response at the filed threshold. Violet: it could
   not, so its estimate is untestable rather than a null.</figcaption></figure>
+  @@SRC_REC@@
   <div class="tbl"><table><thead><tr><th>Metal</th><th class="n">two-year elasticity</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see (80% power)</th>
   <th class="n">on USGS unit values</th><th>reading</th></tr></thead>
   <tbody>@@RECROWS@@</tbody></table></div>
+  @@SRC_REC@@
   <p><b>@@TSTC@@ could have seen a response at the filed threshold, and show none that large.</b> Their series could
   detect @@TSTMDE@@; both estimates are close to zero and their intervals exclude @@THR@@. These are the metals where recycling is already largest (median share of US consumption from scrap:
   @@TSTSHARE@@). The lead result depends on which price is used: on the USGS unit value its series
@@ -391,10 +421,12 @@ TEMPLATE = """<!doctype html>
   scrap over the study years, for the ten metals with the largest shares (mercury's rests on a series
   that ends in 1997). The two metals whose data can see the filed threshold are also among
   those where recycling is largest, so a response there would have been worth the most.</figcaption></figure>
+  @@SRC_SHARE@@
   <h3>The filed checks</h3>
   <div class="tbl"><table><thead><tr><th>Check (points of consumption per +50% price, unless noted)</th>
   <th class="n">estimate</th><th class="n">p</th><th>reading</th></tr></thead>
   <tbody>@@RECCHECKS@@</tbody></table></div>
+  @@SRC_POOL@@
   <p class="dim">Leaving out one metal at a time moves the headline between @@LOOLO@@ and @@LOOHI@@ points, and
   no version is significant: no single metal drives it.</p>
   <div class="note">One thing the filed equations disagree about. The filed share equation says the
@@ -428,18 +460,22 @@ TEMPLATE = """<!doctype html>
   specification: a price rise and scrap shipments move together within the year, and nothing
   detectable follows in the next two (the design could have seen about @@TLAGMDE@@ there). Within a year, prices and quantities are set together, so this is comovement, not a
   demonstrated supply response.</figcaption></figure>
+  @@SRC_TRADE@@
   <figure class="fig">@@TRFIG@@
   <figcaption><b>By metal, with what each could detect.</b> Cumulative response of scrap exports to
   price, 95% intervals, and the faint band each metal's exporters are blind to &mdash; a response
   inside it could not be told from zero.
   Tin's estimate is about the size of what its nine exporters could see, so it is not read.</figcaption></figure>
+  @@SRC_TRADE@@
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
   <th class="n">95% interval</th><th class="n">p</th><th class="n">smallest it could see (80% power)</th>
   <th class="n">exporters</th><th>reading</th></tr></thead>
   <tbody>@@TRROWS@@</tbody></table></div>
+  @@SRC_TRADE@@
   <h3>The filed checks</h3>
   <div class="tbl"><table><thead><tr><th>Check</th><th class="n">estimate</th><th class="n">p</th>
   <th>reading</th></tr></thead><tbody>@@TRCHECKS@@</tbody></table></div>
+  @@SRC_TRADE@@
   <p class="dim">The first two rows are the claimed specification, which keeps the common cycle; the
   placebos, the exporter split and the two period splits carry year effects, which remove it.</p>
   <p class="dim">A reading of &ldquo;moves
