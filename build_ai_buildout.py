@@ -238,6 +238,13 @@ CSS = """
 .src{font-size:.78rem;color:#6b675f;margin:.2rem 0 1rem}.src code{font-size:.74rem}
 .tbl{overflow-x:auto}.tbl table{min-width:46rem}
 .xp th.grph{text-align:center;border-bottom:2px solid #0e7c74}
+.fig{margin:1.3rem 0}.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.45rem;max-width:44rem}
+.fig .grid{stroke:#e3e6e5;stroke-width:1}.fig .zero{stroke:#8b9396;stroke-width:1}
+.fig .rowline{stroke:#eff1f0;stroke-width:1}
+.fig .ax{font:11px Inter,system-ui,sans-serif;fill:#5a6468}
+.fig .ax.row{font-size:12px;fill:#15323a}.fig .ax.grp{font-size:11px;font-weight:700;fill:#0e7c74;letter-spacing:.04em}
+.fig .dot{stroke:#fcfcfb;stroke-width:2}
 .bar{display:inline-block;height:.55rem;background:#0e7c74;border-radius:2px;vertical-align:middle}
 """
 
@@ -245,6 +252,61 @@ CSS = """
 EXT_JSON = os.path.join(ROOT, 'out', 'ai_buildout_ext.json')     # ai-buildout/extend.py
 EXT_KEY = {'854140': '85414'}          # HS 2022 split 8541.40 into 8541.41-.49; kept together
 CT_JSON = os.path.join(ROOT, 'out', 'ai_buildout_comtrade.json')   # ai-buildout/comtrade_extend.py
+
+
+# Short row labels for the charts: the table carries the full name and the code.
+SHORT = {
+    '854231': 'Processors and controllers', '854232': 'Memory', '854239': 'Other integrated circuits',
+    '854140': 'Photosensitive devices and LEDs', '280461': 'Silicon, 99.99% and purer',
+    '280429': 'Rare gases (mostly helium)', '811292': 'Gallium, germanium, niobium line',
+    '810320': 'Tantalum', '850421': 'Transformers, up to 650 kVA',
+    '850422': 'Transformers, 650 to 10,000 kVA', '850423': 'Transformers, over 10,000 kVA',
+    '722511': 'Electrical steel, wide', '722611': 'Electrical steel, narrow',
+    '740811': 'Copper wire', '850152': 'AC motors, 0.75 to 75 kW', '850153': 'AC motors, over 75 kW',
+    '841370': 'Centrifugal pumps', '841480': 'Other pumps and compressors',
+    '848620': 'Chip-making machines', '848610': 'Boule and wafer machines',
+    '848690': 'Parts of those machines', '381800': 'Doped wafers',
+    '370790': 'Photoresists and photo chemicals', '903082': 'Wafer and chip test instruments',
+}
+SERIES = [('EU imports', 'eu', '#009287'), ('US imports', 'us', '#us'.replace('#us', '#c2701c')),
+          ('world panel', 'wd', '#7d5ba6')]
+
+
+def dot_strip(rows, lo, hi, step, fmt, title, unit, W=720):
+    """One row per customs line, one dot per record. Rows: (label, [(series key, value or None)])."""
+    L, R, T, rh = 300, 96, 26, 20
+    H = T + rh * len(rows) + 30
+    colour = {k: c for _, k, c in SERIES}
+    name = {k: n for n, k, _ in SERIES}
+
+    def x(v):
+        return L + (min(max(v, lo), hi) - lo) / float(hi - lo) * (W - L - R)
+    g = []
+    t = lo
+    while t <= hi + 1e-9:
+        g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="%s"/>'
+                 % (x(t), x(t), T - 8, H - 28, 'zero' if abs(t) < 1e-9 else 'grid'))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>' % (x(t), H - 10, fmt(t)))
+        t = round(t + step, 10)
+    y = T
+    for label, vals in rows:
+        if vals is None:                                   # a group heading
+            g.append('<text x="0" y="%.1f" class="ax grp">%s</text>' % (y + 12, label))
+            y += rh
+            continue
+        g.append('<line x1="%d" x2="%.1f" y1="%.1f" y2="%.1f" class="rowline"/>' % (L, W - R, y + 8, y + 8))
+        g.append('<text x="8" y="%.1f" class="ax row">%s</text>' % (y + 12, label))
+        for k, v in vals:
+            if v is None:
+                continue
+            g.append('<circle cx="%.1f" cy="%.1f" r="5" class="dot" fill="%s"><title>%s: %s %s</title></circle>'
+                     % (x(v), y + 8, colour[k], name[k], fmt(v), unit))
+        y += rh
+    leg = ''.join('<circle cx="%d" cy="%d" r="5" fill="%s"/><text x="%d" y="%d" class="ax">%s</text>'
+                  % (L + 12 + i * 150, T - 20, c, L + 22 + i * 150, T - 16, n)
+                  for i, (n, k, c) in enumerate(SERIES))
+    return ('<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s%s</svg>'
+            % (W, H, title, leg, ''.join(g)))
 
 
 def ext_section():
@@ -307,6 +369,30 @@ def ext_section():
                          % (lab, code if k == code else '8541.41&ndash;.49', ch(y['value_change_pct']),
                             ch(h['value_change_pct']) if h else '&ndash;',
                             cn(y['suppliers_b']['china']), cn(y['coverage_of_2024_world_imports'])))
+    growth, share = [], []
+    for title, items in GROUPS:
+        growth.append((title, None))
+        share.append((title, None))
+        for code, lab in items:
+            k = EXT_KEY.get(code, code)
+            a, b, w = eu.get(k), us.get(k), wy.get(k)
+            if not a or not b or not w:
+                continue
+            short = SHORT[code]
+            growth.append((short, [('eu', a['change_2025_vs_2024_pct']), ('us', b['change_2025_vs_2024_pct']),
+                                   ('wd', w['value_change_pct'])]))
+            share.append((short, [('eu', 100 * a['china_share_2025'] if a['china_share_2025'] is not None else None),
+                                  ('us', 100 * b['china_share_2025'] if b['china_share_2025'] is not None else None),
+                                  ('wd', 100 * w['suppliers_b']['china'] if w['suppliers_b']['china'] is not None else None)]))
+    gl = [v for _, vals in growth if vals for _, v in vals if v is not None]
+    glo = math.floor(min(gl) / 20.0) * 20
+    ghi = math.ceil(max(gl) / 20.0) * 20
+    growth_svg = dot_strip(growth, glo, ghi, 20, lambda t: '%+d%%' % t if t else '0%',
+                           'Change in the value of imports from 2024 to 2025, by customs line, in the '
+                           'EU record, the US record and the world panel', '')
+    share_svg = dot_strip(share, 0, 90, 15, lambda t: '%d%%' % t,
+                          "China's share of the value of imports in 2025, by customs line, in the EU "
+                          'record, the US record and the world panel', 'of import value')
     rg = E['us']['rare_gases_2025_split']
     lm = E['eu']['last_month']
     month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -324,7 +410,8 @@ def ext_section():
         'GOEU': cn(eu['722511']['china_share_2025']), 'GOUS': cn(us['722511']['china_share_2025']),
         'NEON': '%.1f%%' % (100 * rg['neon']), 'HELIUM': '%.0f%%' % (100 * rg['helium']),
         'SOLUS': mag(us['85414']['change_2025_vs_2024_pct'], -1),
-        'WROWS': '\n'.join(wrows), 'WN': str(wy['850423']['importers']),
+        'WROWS': '\n'.join(wrows), 'GROWTHFIG': growth_svg, 'SHAREFIG': share_svg,
+        'WN': str(wy['850423']['importers']),
         'WHN': str(wh['850423']['importers']),
         'WLAST': '%s-%s' % (W['last_month'][:4], W['last_month'][4:]),
         'WMEM': mag(wh['854232']['value_change_pct'], +1), 'WMEMCOV': cn(wh['854232']['coverage_of_2024_world_imports']),
@@ -349,6 +436,12 @@ def ext_section():
   Comext, monthly bulk files (CN8)</a> &middot; <a href="https://api.census.gov/data/timeseries/intltrade/imports/hs">US
   Census Bureau, international trade API (HS10)</a>. Computed values:
   <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_ext.json"><code>out/ai_buildout_ext.json</code></a>.</p>
+  <figure class="fig">@@GROWTHFIG@@
+  <figcaption><b>What grew in 2025, in three records.</b> Change in the value of imports from 2024 to
+  2025. The EU and US records are those countries' own imports; the world panel is the importers that
+  filed every month of both years to UN Comtrade (see below). Current euros and dollars, so a change
+  mixes price and quantity. Lines are cut off at the ends of the axis where a change runs past
+  it.</figcaption></figure>
   <p>What the newer months add, line by line and without attributing any of it to AI:</p>
   <ul>
   <li><b>Memory chips.</b> In @@YTD@@ @@YR@@ the value of memory imports was up @@MEMEU@@ on the same months
@@ -387,6 +480,10 @@ def ext_section():
   <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_comtrade.json"><code>out/ai_buildout_comtrade.json</code></a>.
   The same pull answers two questions filed for the <a href="grid-trade">research note</a>, in
   <code>buildout-study/AMENDMENT_COMTRADE_2026.md</code>.</p>
+  <figure class="fig">@@SHAREFIG@@
+  <figcaption><b>Who buys from China, and who does not.</b> China's share of the value of each line's
+  imports in 2025. The same line can be a Chinese-supplied market in the EU and almost none of the US's
+  &mdash; electrical steel is the clearest case.</figcaption></figure>
   <p>The world panel tells the same story as the two national records: memory up @@WMEM@@ in the first
   half of 2026 (on a panel holding @@WMEMCOV@@ of that line's world imports), transformers up in 2025,
   and China's share of the electrical-steel lines higher again. Values are in current dollars, so a
