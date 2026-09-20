@@ -516,7 +516,9 @@ def ext_section():
   US imports of the two larger classes rose @@T22US25@@ and @@T23US25@@ in 2025, with China at @@T22USCN@@
   and @@T23USCN@@: the two markets buy from different places.</li>
   <li><b>Electrical steel.</b> China supplied @@GOEU@@ of the EU's imports of the wide line in 2025 and
-  @@GOUS@@ of the US's, the same split the <a href="grid-trade">research note</a> traces.</li>
+  @@GOUS@@ of the US's, the same split the <a href="grid-trade">research note</a> traces. Imports are not
+  supply: counting what EU mills make, China was about a quarter of the EU's electrical steel and a
+  tenth of its transformers in 2024 (see the note, section 4.6b).</li>
   <li><b>Neon, in the US record.</b> The US record splits the rare-gas line at ten digits (the EU's
   splits out helium but not neon). In 2025 neon,
   the gas used in chip lithography, was @@NEON@@ of the value of US rare-gas imports, and helium
