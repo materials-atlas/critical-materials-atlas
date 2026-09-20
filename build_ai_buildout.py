@@ -235,6 +235,9 @@ CSS = """
 .up{color:#0e7c74;font-weight:600}.dn{color:#b3384b;font-weight:600}
 .note{background:#f7f7f5;border-left:3px solid #0e7c74;padding:.7rem 1rem;margin:1rem 0;font-size:.93rem}
 .cav{color:#6b675f;font-size:.86rem}
+.refs{max-width:46rem;padding-left:1.1rem}.refs li{margin:.45rem 0;font-size:.9rem;line-height:1.55}
+.fig .hdot{stroke:#fcfcfb;stroke-width:2}.fig .hdot.pw{fill:#009287}.fig .hdot.ch{fill:#7d5ba6}
+.fig .lbl{font-size:11px}.fig .lbl.pw{fill:#00695f}.fig .lbl.ch{fill:#5b4080}
 .src{font-size:.78rem;color:#6b675f;margin:.2rem 0 1rem}.src code{font-size:.74rem}
 .tbl{overflow-x:auto}.tbl table{min-width:46rem}
 .xp th.grph{text-align:center;border-bottom:2px solid #0e7c74}
@@ -268,7 +271,68 @@ SHORT = {
     '848690': 'Parts of those machines', '381800': 'Doped wafers',
     '370790': 'Photoresists and photo chemicals', '903082': 'Wafer and chip test instruments',
 }
-SERIES = [('EU imports', 'eu', '#009287'), ('US imports', 'us', '#us'.replace('#us', '#c2701c')),
+POWER = {'850421', '850422', '850423', '722511', '722611', '740811'}
+LABEL_IN_HERO = {'854231', '854232', '848620', '850422', '850423', '722511', '740811', '810320',
+                 '280429', '370790'}
+
+
+def hero_chart(L_lines):
+    """Where the money is against where the growth is: one dot per customs line."""
+    W, H, L, R, T, B = 720, 360, 58, 20, 30, 46
+    xs = [v['value_musd']['2024'] for v in L_lines.values()]
+    ys = [v['real_growth_pct'] for v in L_lines.values()]
+    x0 = math.floor(math.log10(min(xs)) * 2) / 2
+    x1 = math.ceil(math.log10(max(xs)) * 2) / 2
+    y0 = math.floor(min(ys) / 20) * 20
+    y1 = math.ceil(max(ys) / 20) * 20
+
+    def x(v):
+        return L + (math.log10(v) - x0) / (x1 - x0) * (W - L - R)
+
+    def y(v):
+        return T + (y1 - v) / (y1 - y0) * (H - T - B)
+    g = []
+    t = y0
+    while t <= y1 + 1e-9:
+        g.append('<line x1="%d" x2="%d" y1="%.1f" y2="%.1f" class="%s"/>'
+                 % (L, W - R, y(t), y(t), 'zero' if abs(t) < 1e-9 else 'grid'))
+        g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">%s</text>'
+                 % (L - 6, y(t) + 4, ('%+d%%' % t) if t else '0%'))
+        t += 20
+    for dec, lab in ((300.0, '$300m'), (1000.0, '$1bn'), (10000.0, '$10bn'), (100000.0, '$100bn')):
+        if x0 <= math.log10(dec) <= x1:
+            g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%.1f" class="grid"/>' % (x(dec), x(dec), T, y(y0)))
+            g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%s</text>' % (x(dec), H - B + 18, lab))
+    g.append('<text x="%d" y="%d" class="ax" text-anchor="middle">world exports in 2024 (log scale)</text>'
+             % ((L + W - R) / 2, H - 10))
+    placed = []
+    for code, v in sorted(L_lines.items(), key=lambda kv: -kv[1]['value_musd']['2024']):
+        X, Y = x(v['value_musd']['2024']), y(v['real_growth_pct'])
+        cls = 'pw' if code in POWER else 'ch'
+        g.append('<circle cx="%.1f" cy="%.1f" r="6" class="hdot %s"><title>%s: $%.1fbn in 2024, %+d%% since 2019</title></circle>'
+                 % (X, Y, cls, SHORT[code], v['value_musd']['2024'] / 1000.0, round(v['real_growth_pct'])))
+        if code in LABEL_IN_HERO:
+            anchor, dx = ('end', -9) if X > W - R - 150 else ('start', 9)
+            w = 6.2 * len(SHORT[code])                    # a label's width at 11px, near enough
+            x_lo = (X + dx - w) if anchor == 'end' else (X + dx)
+            for dy in (4, -12, 16, -24, 28):              # first slot that does not overlap one placed
+                box = (x_lo, x_lo + w, Y + dy)
+                if all(b[2] != box[2] or b[1] < box[0] or box[1] < b[0]
+                       for b in placed if abs(b[2] - box[2]) < 12):
+                    break
+            placed.append(box)
+            g.append('<text x="%.1f" y="%.1f" class="ax lbl %s" text-anchor="%s">%s</text>'
+                     % (X + dx, Y + dy, cls, anchor, SHORT[code]))
+    leg = ('<circle cx="%d" cy="%d" r="6" class="hdot pw"/><text x="%d" y="%d" class="ax">power equipment</text>'
+           '<circle cx="%d" cy="%d" r="6" class="hdot ch"/><text x="%d" y="%d" class="ax">chips, their inputs, and the machines that make them</text>'
+           % (L + 6, T - 14, L + 16, T - 10, L + 176, T - 14, L + 186, T - 10))
+    return ('<svg viewBox="0 0 %d %d" role="img" aria-label="World exports in 2024 against growth since '
+            '2019, one dot per customs line: the chip lines are the largest markets and the transformer '
+            'lines the fastest-growing">%s%s</svg>' % (W, H, leg, ''.join(g)))
+
+
+# Validated for colour-vision separation against the page's surface (dataviz validator, 20 Sep 2026).
+SERIES = [('EU imports', 'eu', '#009287'), ('US imports', 'us', '#c2701c'),
           ('world panel', 'wd', '#7d5ba6')]
 
 
@@ -545,6 +609,7 @@ def page(doc):
     note_buv, note_bq = bt['price']['coefs']['TxP2']['pct'], bt['volume']['coefs']['TxP2']['pct']
     g0, g1 = sg[str(YEARS[0])], sg[str(YEARS[-1])]
 
+    hero_svg = hero_chart(L)
     return """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -573,6 +638,12 @@ def page(doc):
 </div></section>
 
 <section class="wrap xp">
+  <figure class="fig">@@HERO@@
+  <figcaption><b>Where the money is, and where the growth is.</b> Each dot is one customs line: world
+  exports in @@Y1@@ against the change since @@Y0@@ in constant dollars. The chip lines are the large
+  markets; the transformer lines are small and fast. Nothing here says the build-out caused that &mdash;
+  this page and the <a href="grid-trade">research note</a> take it apart below.</figcaption></figure>
+
   <h2>World trade, @@Y0@@ and @@Y1@@</h2>
   <p>Values are world exports in current dollars; the growth column divides them by the US consumer
   price index, which puts the changes in constant dollars. That is not a measure of volume: if
@@ -649,9 +720,43 @@ def page(doc):
   <code>build_ai_buildout.py</code> from <code>out/ai_buildout.json</code>, which holds every figure
   on this page.</p>
 </section>
+<section class="wrap xp">
+  <h2>Sources</h2>
+  <ol class="refs">
+  <li><b>Trade, world.</b> CEPII, <i>BACI: International Trade Database at the Product Level</i>,
+  release V202601, used under the Etalab Open Licence 2.0.
+  <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">cepii.fr</a>. Method:
+  Gaulier, G. and Zignago, S. (2010), CEPII Working Paper 2010-23.
+  <a href="http://www.cepii.fr/PDF_PUB/wp/2010/wp2010-23.pdf">wp2010-23</a>.</li>
+  <li><b>Trade, the EU.</b> Eurostat, Comext monthly bulk files (CN8), imports from outside the EU,
+  reused under the Commission&rsquo;s reuse policy.
+  <a href="https://ec.europa.eu/eurostat/api/dissemination/files?dir=comext%2FCOMEXT_DATA%2FPRODUCTS">ec.europa.eu</a>.</li>
+  <li><b>Trade, the United States.</b> US Census Bureau, international trade API, general imports at
+  ten digits (a US government work, public domain).
+  <a href="https://api.census.gov/data/timeseries/intltrade/imports/hs">api.census.gov</a>.</li>
+  <li><b>Trade, the world panel after 2024.</b> UN Comtrade, monthly imports as reported by importers.
+  <a href="https://comtradeplus.un.org/">comtradeplus.un.org</a>. Only derived totals and shares appear
+  here; the records themselves are not redistributed.</li>
+  <li><b>Deflator.</b> World Bank, consumer price index, United States (FP.CPI.TOTL), fetched
+  17 September 2026. <a href="https://data.worldbank.org/indicator/FP.CPI.TOTL">data.worldbank.org</a>.</li>
+  <li><b>Photoresists in 3707.90.</b> US Customs and Border Protection, HQ 085914, <i>Photoresists</i>
+  (29 January 1990), classified in 3707.90.30, and its reconsideration HQ 087315 (10 September 1991),
+  same heading; neither revoked, checked 20 September 2026.
+  <a href="https://rulings.cbp.gov/ruling/085914">rulings.cbp.gov</a>.</li>
+  <li><b>The transformer study this page draws on.</b> Critical Materials Atlas,
+  <a href="grid-trade">Grid transformers rose with all electrical equipment, and their steel moved to
+  China</a>, with its pre-registration and amendments in
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/tree/main/buildout-study"><code>buildout-study/</code></a>.</li>
+  </ol>
+  <p class="cav">Every figure on this page is in
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout.json"><code>out/ai_buildout.json</code></a>,
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_ext.json"><code>out/ai_buildout_ext.json</code></a> and
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/ai_buildout_comtrade.json"><code>out/ai_buildout_comtrade.json</code></a>,
+  built by <code>build_ai_buildout.py</code>.</p>
+</section>
 @@FOOT@@
 </body></html>
-""".replace('@@EXT@@', ext_section()).replace('@@CSS@@', CSS).replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT) \
+""".replace('@@EXT@@', ext_section()).replace('@@HERO@@', hero_svg).replace('@@CSS@@', CSS).replace('@@NAV@@', NAV).replace('@@FOOT@@', FOOT) \
    .replace('@@ROWS@@', tbl).replace('@@Y0@@', str(YEARS[0])).replace('@@Y1@@', str(YEARS[-1])) \
    .replace('@@TRMIN@@', str(round(min(tr)))).replace('@@TRMAX@@', str(round(max(tr)))) \
    .replace('@@CHMIN@@', str(round(min(ch)))).replace('@@CHMAX@@', str(round(max(ch)))) \
