@@ -159,3 +159,8 @@ Every change made after this filing goes here, dated, with its reason.
    over amendment B's check for composition breaks; the first run did not contain one (the fact-checker
    ran it by hand). It is now in `analysis_us.py` (`checks.composition_breaks`) and finds one change, the
    2013-14 split of 8504.23, inside the pre-period. The filing's "nine ten-digit codes" is corrected to ten.
+6. **2026-09-20, descriptive, after the result - the monthly series.** A twelve-month rolling total
+   of US transformer imports (8504.21-.23) was added beside the EU's, from the same download, by
+   `origins_monthly.py` (`out/buildout_origins.json`): USD 1.3bn in the twelve months to December 2019
+   against USD 7.7bn in the twelve months to July 2026. Descriptive, unfiled; it exists so that 2026
+   can be read without comparing a part-year with a year. No estimate changed.
