@@ -201,3 +201,11 @@ Every change made after filing goes here, dated, with its reason.
    secondary production on the same three terms). It is exploratory and labelled so wherever it
    appears; it was run because the trade result turned out to be entirely same-year, and the
    comparison is only fair if the recovery test is given the same shape.
+4. **2026-09-20, after an adversarial review of the page - the per-metal readings now follow the power
+   rule, not the p-value.** The stored readings in `out/scrap_trade.json` were decided on significance:
+   nickel (+0.49, p 0.03) was labelled "real but modest" although its 18 exporters could only reliably
+   detect 0.60, and tin was already excluded by hand for the same reason (deviation 2). The published
+   page now derives every reading from the rule the companion study filed - an estimate smaller than
+   the design's detectable size is not read as a response - so nickel and tin read as "below what its
+   exporters could reliably detect" and lead is flagged as clearing its own bar narrowly (+0.65 against
+   0.60). No estimate changed; the JSON keeps the original labels beside the numbers.
