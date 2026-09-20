@@ -52,11 +52,66 @@ CSS = """
 .fig .ax{font:11px Inter,system-ui,sans-serif;fill:#5a6468}
 .fig .ax.row{font-size:12px;fill:#15323a}.fig .val{font-weight:600;fill:#15323a}
 .fig .lagbar{fill:#15323a}.fig .sharebar{fill:#009287}
+.cite{font-size:.72rem}.cite a{text-decoration:none}
 .refs{max-width:46rem;padding-left:1.1rem}.refs li{margin:.45rem 0;font-size:.9rem;line-height:1.55}
 .xp h3{margin-top:1.6rem;font-size:1.02rem}
 .verdict{display:inline-block;background:#15323a;color:#fff;font-weight:700;letter-spacing:.08em;
  padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
 """
+
+# Literature, assembled 2026-09-20 under the atlas's rule that every source is opened before use.
+REFS = [
+    ('Soderholm2019',
+     'S&ouml;derholm, P. and Ekvall, T. (2019). "Metal markets and recycling policies: impacts and '
+     'challenges." <i>Mineral Economics</i> 33(1&ndash;2): 257&ndash;272.',
+     'https://doi.org/10.1007/s13563-019-00184-5'),
+    ('Blomberg2009',
+     'Blomberg, J. and S&ouml;derholm, P. (2009). "The economics of secondary aluminium supply: an '
+     'econometric analysis based on European data." <i>Resources, Conservation and Recycling</i> '
+     '53(8): 455&ndash;463.', 'https://doi.org/10.1016/j.resconrec.2009.03.001'),
+    ('Fu2017',
+     'Fu, X., Ueland, S. M. and Olivetti, E. (2017). "Econometric modeling of recycled copper supply." '
+     '<i>Resources, Conservation and Recycling</i> 122: 219&ndash;226.',
+     'https://doi.org/10.1016/j.resconrec.2017.02.012'),
+    ('Sibley2011',
+     'Sibley, S. F. (2011). "Overview of flow studies for recycling metal commodities in the United '
+     'States." US Geological Survey Circular 1196-AA.', 'https://pubs.usgs.gov/circ/circ1196-AA/'),
+    ('Ryter2021',
+     'Ryter, J., Fu, X., Bhuwalka, K., Roth, R. and Olivetti, E. A. (2021). "Emission impacts of '
+     "China's solid waste import ban and COVID-19 in the copper supply chain.\" <i>Nature "
+     'Communications</i> 12: 3753.', 'https://doi.org/10.1038/s41467-021-23874-7'),
+    ('Ioannidis2017',
+     'Ioannidis, J. P. A., Stanley, T. D. and Doucouliagos, H. (2017). "The power of bias in economics '
+     'research." <i>The Economic Journal</i> 127(605): F236&ndash;F265.',
+     'https://doi.org/10.1111/ecoj.12461'),
+    ('Kelly2014',
+     'Kelly, T. D. and Matos, G. R., comps. (2014). <i>Historical statistics for mineral and material '
+     'commodities in the United States</i>. US Geological Survey Data Series 140.',
+     'https://www.usgs.gov/centers/national-minerals-information-center/'
+     'historical-statistics-mineral-and-material-commodities'),
+    ('WorldBank2026',
+     'World Bank (2026). <i>World Bank Commodities Price Data (The Pink Sheet)</i>, with its '
+     '"Description of Price Series" annex. Prospects Group, Washington, DC.',
+     'https://www.worldbank.org/en/research/commodity-markets'),
+    ('Gaulier2010',
+     'Gaulier, G. and Zignago, S. (2010). "BACI: International Trade Database at the Product-Level." '
+     'CEPII Working Paper 2010-23.', 'https://www.cepii.fr/pdf_pub/wp/2010/wp2010-23.pdf'),
+    ('Silver2007',
+     'Silver, M. (2007). "Do unit value export, import, and terms of trade indices represent or '
+     'misrepresent price indices?" IMF Working Paper WP/07/121.',
+     'https://www.imf.org/en/Publications/WP/Issues/2016/12/31/'
+     'Do-Unit-Value-Export-Import-and-Terms-of-Trade-Indices-Represent-or-Misrepresent-Price-20943'),
+    ('Gaulier2008',
+     'Gaulier, G., Martin, J., M&eacute;jean, I. and Zignago, S. (2008). "International trade price '
+     'indices." CEPII Working Paper 2008-10.', 'https://www.cepii.fr/baci_data/tradeprices_wp.pdf'),
+]
+REFNUM = {k: i + 1 for i, (k, _, _) in enumerate(REFS)}
+
+
+def cite(*keys):
+    return ('<sup class="cite">[%s]</sup>'
+            % ','.join('<a href="#ref-%s">%d</a>' % (k, REFNUM[k]) for k in keys))
+
 
 GH = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/'
 # Where each table and figure comes from: the raw source, then the file holding the computed numbers.
@@ -307,14 +362,18 @@ def page():
             note='both sides of the same flows rise together, which looks more like a boom than a '
                  'redirection; the design cannot rule out either'),
         chk('Value instead of tonnes', TC['value_not_tonnes']['without_year_effects'],
-            note='not independent evidence: scrap unit values track the metal price'),
+            note='not independent evidence: scrap unit values track the metal price, and a unit value is '
+                 'a value per tonne whose product mix shifts, not a price@@C_Silver2007@@@@C_Gaulier2008@@'),
         chk('Placebo: future prices', TC['placebo_future_prices'], note='passes'),
         chk('Placebo: another metal&rsquo;s price', TC['placebo_other_metal']['fit'], note='passes'),
         chk('Large exporters, separately', TC['large_exporters'],
             note='underpowered rather than empty: 13 clusters, and it could only have seen %.2f'
                  % TC['large_exporters']['mde_80pct_power']),
         chk('Before 2018', TC['before_2018']),
-        chk('From 2018', TC['from_2018'], note='China&rsquo;s scrap import restrictions fall here; too short to say anything'),
+        chk('From 2018', TC['from_2018'],
+            note='China&rsquo;s scrap import restrictions fall here &mdash; its Category 7 copper-scrap ban '
+                 'took effect in December 2018 and redirected flows through Malaysia, South Korea and '
+                 'Taiwan@@C_Ryter2021@@ &mdash; and the period is too short to say anything'),
     ])
     imp = T['checks']['imports_as_dv']['without_year_effects']['cumulative']
     pl = T['checks']['placebo_future_prices']
@@ -336,6 +395,7 @@ def page():
         'TLAGMDE': '%.2f' % lw['mde_80pct_power'],
         'TYCUM': sgn(ty['fit']['cumulative']), 'TYP': pv(ty['fit']['p']),
         'TIMP': sgn(imp), 'TPL': sgn(pl['cumulative']), 'TPLP': pv(pl['p']),
+        'REFLIST': ''.join('<li id="ref-%s">%s <a href="%s">link</a></li>' % (k, t, u) for k, t, u in REFS),
         'SRC_REC': src(['usgs', 'pink'], ['per_metal'],
                        'Market prices for the estimates, USGS unit values for the comparison column.'),
         'SRC_POOL': src(['usgs'], ['pooled'], 'The pooled design uses USGS unit values as the price.'),
@@ -356,6 +416,8 @@ def page():
         'NUNT': word(len(M['metals']) - len(testable)), 'NMETW': word(len(M['metals'])),
         'TINN': word(T['checks']['by_metal']['tin']['countries']), 'TNMET': word(len(T['headline_metals'])),
     }
+    for k in REFNUM:
+        tok['C_' + k] = cite(k)
     html = TEMPLATE
     for k, v in tok.items():
         html = html.replace('@@%s@@' % k, v)
@@ -386,7 +448,8 @@ TEMPLATE = """<!doctype html>
   <p><span class="verdict">NOT SHOWN</span></p>
   <p>The first design pooled @@NMAT@@ metals from the US Geological Survey&rsquo;s historical statistics,
   @@PY0@@&ndash;@@PY1@@, and asked whether scrap-derived supply, as a share of US consumption, rises in the
-  two years after a 50% rise in that metal's real price, measured by the USGS unit value. Sixteen metals are in scope; @@PK@@ have an apparent-consumption series, so the share equation
+  two years after a 50% rise in that metal's real price, measured by the USGS unit value &mdash; which
+  is value per tonne of apparent consumption, not a market price@@C_Kelly2014@@. Sixteen metals are in scope; @@PK@@ have an apparent-consumption series, so the share equation
   estimates on @@PN@@ metal-years over those @@PK@@ (gold has none). The answer was
   @@PEST@@ points of consumption with year effects (95% interval @@PLO@@ to @@PHI@@, p&nbsp;=&nbsp;@@PP@@)
   and @@QEST@@ points without them (@@QLO@@ to @@QHI@@, p&nbsp;=&nbsp;@@QP@@). But the smallest response
@@ -394,7 +457,11 @@ TEMPLATE = """<!doctype html>
   would matter. So that first result could not tell a useful response from none, and we said so.</p>
   <p>A second design, filed before it was run, took each metal on its own, @@Y0@@&ndash;@@Y1@@, on
   World Bank market prices, and asked whether a metal&rsquo;s scrap tonnes rise by at least @@THR@@% per 1%
-  of price within two years. Each metal is reported with the smallest response its own series could
+  of price within two years. That threshold sits at the bottom of the published range: surveys of the
+  econometric literature put the own-price elasticity of secondary supply at roughly 0.20 to
+  0.39@@C_Soderholm2019@@, with 0.21 estimated for European secondary aluminium@@C_Blomberg2009@@. The
+  prices are London Metal Exchange quotations for <i>refined</i> metal@@C_WorldBank2026@@, not the price
+  a scrap collector is paid, which is a gap between the regressor and the decision it stands for. Each metal is reported with the smallest response its own series could
   have seen; a metal that could not see @@THR@@ is called untestable, not a null.</p>
   <figure class="fig">@@RECFIG@@
   <figcaption><b>Which metals could answer, and what they answered.</b> Each metal's two-year response
@@ -444,7 +511,9 @@ TEMPLATE = """<!doctype html>
   <p>If recovery is not shown to rise, scrap might still move: collected in one country and shipped to where
   prices pay. The second study took world trade in @@TNMET@@ metals&rsquo; scrap from CEPII BACI,
   @@TY0@@&ndash;@@TY1@@, for @@TPAIRS@@ country&ndash;metal pairs among the small exporters of each
-  (@@TCTY@@ countries), with the same two-year shape. <b>The headline is therefore the small exporters
+  (@@TCTY@@ countries), with the same two-year shape. BACI values are reconciled from both sides of each
+  flow, weighted by how reliably each country reports@@C_Gaulier2010@@, so an export figure here is not
+  one country's declaration. <b>The headline is therefore the small exporters
   of each metal</b>, where a response is easiest to see; the large exporters, who ship most of the
   tonnes, are a separate check below and it is underpowered.</p>
   <p>Keeping the common cycle in, scrap exports rise with price by @@TCUM@@% per 1% (95% interval @@TLO@@ to @@THI@@), but
@@ -487,18 +556,24 @@ TEMPLATE = """<!doctype html>
 <section class="wrap xp">
   <h2>What the two say together</h2>
   <p>As far as open data can see, neither US recovery nor scrap trade is shown to rise in the two years
-  after a price rise. Scrap trade moves with price within the year; whether US recovery does was not
+  after a price rise. Neither result is novel: the US Geological Survey found no relationship between
+  price and recycling rate across twenty-five metals@@C_Sibley2011@@, and an autoregressive model of
+  recycled copper supply found industrial activity, not price, carrying the series@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings an
   additional stream of recycled metal over the following two years, by recovering more of it or by
   moving it; scrap trade does move with price within the year.</p>
   <p>That is narrower than &ldquo;recycling does not respond to price&rdquo;. It is US recovery and
   world trade only; the tests are predictive, not causal; @@NUNT@@ of the @@NMETW@@ metals in the first study
-  cannot see the threshold; and nothing here covers the newer critical materials, which have
-  no such series. For a policy that counts on scrap to cushion a price shock within a couple of years,
+  cannot see the threshold &mdash; and underpowered designs are the rule rather than the exception in
+  empirical economics, which is why a null of this kind is weak evidence on its own@@C_Ioannidis2017@@;
+  and nothing here covers the newer critical materials, which have no such series. For a policy that counts on scrap to cushion a price shock within a couple of years,
   it is still the relevant evidence: on the metals where it can be checked, no response of that size
   was detected in the two years after. Within the shock year itself, scrap does move between countries,
   which may reallocate metal even where it creates none.</p>
-  <h3>Sources</h3>
+  <h3>References</h3>
+  <ol class="refs">@@REFLIST@@</ol>
+
+  <h3>Data</h3>
   <ol class="refs">
   <li><b>US production, consumption and recovery.</b> US Geological Survey, <i>Historical Statistics for
   Mineral and Material Commodities in the United States</i>, Data Series 140 (a US government work).
