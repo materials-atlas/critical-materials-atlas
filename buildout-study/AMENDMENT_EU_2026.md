@@ -185,3 +185,11 @@ Every change made after this filing goes here, dated, with its reason.
    a normal count and value). The headline and every table in the result use trade outside the EU and are
    unaffected. Only the intra-EU sensitivity's 2026 period is, and it is understated by an unknown
    amount. Not re-run; the sensitivity's 2026 value is not read.
+10. **2026-09-20, descriptive, after the result - where the EU buys its transformers, and the monthly
+   series.** The filing compared periods; it did not ask who supplies the EU. The US amendment reports
+   that for the United States, so the same question is now asked of this download by
+   `origins_monthly.py` (`out/buildout_origins.json`): EU imports of 8504.21-.23 from outside the EU
+   rose from EUR 334m in 2019 to EUR 2.07bn in 2025, and China's share of them from 4% to 46%, passing
+   Tuerkiye. A twelve-month rolling total of the same imports is reported beside it, because part-years
+   cannot be compared with years. Descriptive, unfiled, no estimate changed; the United Kingdom is
+   excluded in every year here too (deviation 5).

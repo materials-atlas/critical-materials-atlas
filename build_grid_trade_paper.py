@@ -25,6 +25,7 @@ EXPL = os.path.join(ROOT, 'buildout-study', 'exploratory_electrical_boom.json')
 EU = os.path.join(ROOT, 'out', 'buildout_eu.json')                    # amendment B
 US = os.path.join(ROOT, 'out', 'buildout_us.json')                    # amendment C
 CT = os.path.join(ROOT, 'out', 'buildout_comtrade.json')              # amendment D
+OR = os.path.join(ROOT, 'out', 'buildout_origins.json')               # descriptive, B and C
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -172,7 +173,7 @@ SOURCES = {
 RESULT_FILES = {
     'study': 'out/buildout_study.json', 'expl': 'buildout-study/exploratory_electrical_boom.json',
     'eu': 'out/buildout_eu.json', 'us': 'out/buildout_us.json',
-    'comtrade': 'out/buildout_comtrade.json',
+    'comtrade': 'out/buildout_comtrade.json', 'origins': 'out/buildout_origins.json',
 }
 
 
@@ -281,6 +282,7 @@ def main():
     eud = json.load(io.open(EU, encoding='utf-8'))
     usd = json.load(io.open(US, encoding='utf-8'))
     ctd = json.load(io.open(CT, encoding='utf-8'))
+    ord_ = json.load(io.open(OR, encoding='utf-8'))
     _collect(d)
     _collect(x)
     _collect(eud)
@@ -433,6 +435,22 @@ def main():
                                      ('The filed comparison machinery', 'heavy_machinery'),
                                      ('Motors, pumps, compressors', 'motors_pumps_compressors')))
 
+    eo = ord_['eu_transformer_origins']
+    eo_rows = ''.join('<tr><td>%s</td><td class="n">&euro;%s</td><td>%s</td><td class="n">%s</td></tr>'
+                      % (y + (' (Jan&ndash;Jul)' if y == '2026' else ''),
+                         ('%.1fbn' % (v['value_m'] / 1000.0)) if v['value_m'] >= 1000 else ('%.0fm' % v['value_m']),
+                         ', '.join('%s %s' % (w, sh(x)) for w, x in v['top3']), sh(v['china_share']))
+                      for y, v in eo.items())
+    china_fig = line_chart([
+        ('transformers', 'p', {y: v['china_share'] for y, v in eo.items()}, {2026}),
+        ('their steel', 'v', {y: v['china_share'] for y, v in eg.items()}, {2026}),
+    ], 2019, 2026, 0.0, 0.6, 0.1, lambda t: '%d%%' % round(100 * t),
+        "China's share of the value of EU imports of transformers and of grain-oriented electrical "
+        'steel from outside the EU, 2019 to 2026')
+    er = ord_['eu_transformers_rolling12_meur']
+    ur = ord_['us_transformers_rolling12_musd']
+    er_k, ur_k = sorted(er), sorted(ur)
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -513,6 +531,14 @@ def main():
         'CTH25': sh(ct2['suppliers_a']['china']), 'CTH26': sh(ct2['suppliers_b']['china']),
         'CTLAST': '%s-%s' % (ctd['last_month'][:4], ctd['last_month'][4:]),
         'SRC_CT': src(['comtrade'], ['comtrade']),
+        'EOROWS': eo_rows, 'CHINAFIG': china_fig,
+        'EOV19': '%.0f' % eo['2019']['value_m'], 'EOV25': '%.1f' % (eo['2025']['value_m'] / 1000.0),
+        'EOC19': sh(eo['2019']['china_share']), 'EOC25': sh(eo['2025']['china_share']),
+        'EOT25': sh(dict(eo['2025']['top3']).get('T\u00fcrkiye', 0.0)),
+        'EUROLL': '%.1f' % (er[er_k[-1]] / 1000.0), 'EUROLLM': er_k[-1],
+        'USROLL': '%.1f' % (ur[ur_k[-1]] / 1000.0), 'USROLLM': ur_k[-1],
+        'EUROLL19': '%.1f' % (er['201912'] / 1000.0), 'USROLL19': '%.1f' % (ur['201912'] / 1000.0),
+        'SRC_OR': src(['comext', 'census'], ['origins']),
         'FOREST': forest_svg, 'GOESCHART': goes_svg, 'EUCHART': eu_ev_svg, 'USBARS': us_bar_svg,
         'SRC_FIG1': src(['baci'], ['study']),
         'SRC_CORE': src(['baci'], ['study', 'expl']),
@@ -804,6 +830,25 @@ from @@EUC19@@ in 2019 to @@EUC25@@ in 2025, and Russia from @@EUR19@@ to none; 
 and 2023, third in 2022, and first from 2024. The three largest partners' share &mdash; whoever they were
 that year; in 2019 they were Japan, Russia and the United States &mdash; rose from @@EUT19@@ to @@EUT25@@.
 This is the EU's view of its own imports by value, not world exports and not EU consumption.</p>
+<p><b>The finished transformers moved the same way.</b> The note's US section reports where US
+transformer imports come from; the same question of the EU record, added here descriptively, gives a
+sharper answer. EU imports of transformers from outside the EU grew from &euro;@@EOV19@@m in 2019 to
+&euro;@@EOV25@@bn in 2025, and China's share of them went from @@EOC19@@ to @@EOC25@@, passing T&uuml;rkiye
+(@@EOT25@@ in 2025) to become the largest supplier:</p>
+<div class="tbl"><table><thead><tr><th>EU imports of transformers (8504.21&ndash;.23) from outside the EU</th>
+<th class="n">value</th><th>three largest origins</th><th class="n">China</th></tr></thead>
+<tbody>@@EOROWS@@</tbody></table></div>
+@@SRC_OR@@
+<figure class="fig">@@CHINAFIG@@
+<figcaption><b>For the EU, the transformers and their steel became Chinese together.</b> China's share
+of the value of EU imports from outside the EU, by year; open points are January&ndash;July 2026. The
+two lines are different goods one step apart in the same chain, and neither is EU consumption: EU
+makers supply part of both.</figcaption></figure>
+@@SRC_OR@@
+<p>Month by month, the twelve months to @@EUROLLM@@ brought &euro;@@EUROLL@@bn of transformers into the
+EU from outside it, against &euro;@@EUROLL19@@bn in the twelve months to December 2019; the same measure
+for US imports runs from $@@USROLL19@@bn to $@@USROLL@@bn in the twelve months to @@USROLLM@@. Both
+records are in current prices, and neither says what was installed.</p>
 
 <h3>4.7 US imports to July 2026</h3>
 <p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
