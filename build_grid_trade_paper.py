@@ -24,6 +24,7 @@ DOC = os.path.join(ROOT, 'out', 'buildout_study.json')
 EXPL = os.path.join(ROOT, 'buildout-study', 'exploratory_electrical_boom.json')
 EU = os.path.join(ROOT, 'out', 'buildout_eu.json')                    # amendment B
 US = os.path.join(ROOT, 'out', 'buildout_us.json')                    # amendment C
+CT = os.path.join(ROOT, 'out', 'buildout_comtrade.json')              # amendment D
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -163,12 +164,15 @@ SOURCES = {
                'https://ec.europa.eu/eurostat/api/dissemination/files?dir=comext%2FCOMEXT_DATA%2FPRODUCTS'),
     'census': ('US Census Bureau, international trade API, imports by HS10',
                'https://api.census.gov/data/timeseries/intltrade/imports/hs'),
+    'comtrade': ('UN Comtrade, monthly imports as reported by importers',
+                 'https://comtradeplus.un.org/'),
     'bls': ('US Bureau of Labor Statistics, PPI WPU117409', 'https://fred.stlouisfed.org/series/WPU117409'),
     'pink': ('World Bank commodity prices (Pink Sheet), copper', 'https://www.worldbank.org/en/research/commodity-markets'),
 }
 RESULT_FILES = {
     'study': 'out/buildout_study.json', 'expl': 'buildout-study/exploratory_electrical_boom.json',
     'eu': 'out/buildout_eu.json', 'us': 'out/buildout_us.json',
+    'comtrade': 'out/buildout_comtrade.json',
 }
 
 
@@ -276,6 +280,7 @@ def main():
     x = json.load(io.open(EXPL, encoding='utf-8'))
     eud = json.load(io.open(EU, encoding='utf-8'))
     usd = json.load(io.open(US, encoding='utf-8'))
+    ctd = json.load(io.open(CT, encoding='utf-8'))
     _collect(d)
     _collect(x)
     _collect(eud)
@@ -418,6 +423,16 @@ def main():
     us_bar_svg = bar_chart({y: v['value_musd'] / 1000.0 for y, v in uto.items()}, {2026},
                            'US imports of liquid-dielectric transformers by year, in billions of US dollars')
 
+    ct1, ct2 = ctd['goes']['2025_vs_2024'], ctd['goes']['h1_2026_vs_h1_2025']
+    CG = ctd['groups_2025_vs_2024']
+    ct_rows = ''.join('<tr><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td></tr>'
+                      % (lab, pct_raw(math.log1p(CG[k]['value_change_pct'] / 100.0)),
+                         pct_raw(math.log1p(CG[k]['value_per_kg_change_pct'] / 100.0)),
+                         sh(CG[k]['coverage_of_2024_world_imports']))
+                      for lab, k in (('Transformers 8504.21&ndash;.23', 'transformers'),
+                                     ('The filed comparison machinery', 'heavy_machinery'),
+                                     ('Motors, pumps, compressors', 'motors_pumps_compressors')))
+
     refs = ''.join('<li id="ref-%s">%s <a href="%s">%s</a></li>'
                    % (k, t, u, u.replace('https://', '').replace('http://', '').split('/')[0]) for k, t, u in REFS)
 
@@ -489,6 +504,15 @@ def main():
         'EUCOVLO': '%d%%' % r0(100 * min(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
         'EUCOVHI': '%d%%' % r0(100 * max(v['with_item_counts'] / v['flow_years'] for v in EC['per_item_coverage'].values())),
         'REFS': refs, 'REPO': REPO,
+        'CTROWS': ct_rows, 'CTN': str(ct1['importers']), 'CTCOV': sh(ct1['coverage_of_2024_world_imports']),
+        'CTTCOV': sh(CG['transformers']['coverage_of_2024_world_imports']),
+        'CTC24': sh(ct1['suppliers_a']['china']), 'CTC25': sh(ct1['suppliers_b']['china']),
+        'CTT24': sh(ct1['suppliers_a']['top3_share']), 'CTT25': sh(ct1['suppliers_b']['top3_share']),
+        'CTJ25': sh(ct1['suppliers_b']['japan']), 'CTR25': '%.1f%%' % (100 * ct1['suppliers_b']['russia']),
+        'CTHN': str(ct2['importers']), 'CTHCOV': sh(ct2['coverage_of_2024_world_imports']),
+        'CTH25': sh(ct2['suppliers_a']['china']), 'CTH26': sh(ct2['suppliers_b']['china']),
+        'CTLAST': '%s-%s' % (ctd['last_month'][:4], ctd['last_month'][4:]),
+        'SRC_CT': src(['comtrade'], ['comtrade']),
         'FOREST': forest_svg, 'GOESCHART': goes_svg, 'EUCHART': eu_ev_svg, 'USBARS': us_bar_svg,
         'SRC_FIG1': src(['baci'], ['study']),
         'SRC_CORE': src(['baci'], ['study', 'expl']),
@@ -593,7 +617,9 @@ cannot single out data centres; it shows electrification pulling on electrical m
 EU's imports of grain-oriented electrical steel from outside the EU rose from @@EUC19@@ in 2019 to
 @@EUC25@@ in 2025 (@@EUC26@@ in January&ndash;July 2026), while Russia's went from @@EUR19@@ to none;
 China's share of world exports rose from @@G19C@@ to @@G24C@@, and the three largest exporters' from
-@@G19T@@ to @@G24T@@, between 2019 and 2024. These are imports, not EU consumption; EU production is not
+@@G19T@@ to @@G24T@@, between 2019 and 2024. Importers' own monthly reports carry it one year further:
+on a panel of @@CTN@@ importers holding @@CTCOV@@ of 2024 world imports, China's share rose from @@CTC24@@ in
+2024 to @@CTC25@@ in 2025. These are imports, not EU consumption; EU production is not
 observed here. Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
 since 2021, though most of the steel the US uses arrives inside imported transformers, whose steel is
 not observed.
@@ -640,7 +666,8 @@ particularly in advanced economies"@@C_IEA2025@@.</p>
 
 <h2>3. Data and method</h2>
 <p><b>Coverage.</b> The world record is CEPII BACI, which ends in 2024: its newest release (V202601)
-has no 2025, and the atlas watches for the next one. The EU record (Eurostat Comext, section 4.6) and
+has no 2025, and the atlas watches for the next one. Section 4.8 carries the world picture one year
+further with importers' own monthly reports to UN Comtrade, descriptively. The EU record (Eurostat Comext, section 4.6) and
 the US record (US Census Bureau, section 4.7) are monthly and run to July 2026. Sections 4.1 to 4.5 are
 the world record and the filed test; the two later sections extend it with the same design.</p>
 <p>Trade flows are CEPII BACI@@C_GZ2010@@ in the HS 2002 nomenclature for every year, so no code changes
@@ -819,6 +846,29 @@ current US dollars, customs value, not adjusted for inflation; the lighter bar i
 appear in the origins of direct US GOES imports, but these data cannot say whether it reaches the US inside
 transformers made in Mexico, South Korea or elsewhere. Nor do they say why China's direct share is so small;
 tariffs, trade remedies and supply relationships are all candidates, and none is tested.</p>
+
+<h3>4.8 World trade in 2025, from importers' own monthly reports</h3>
+<p>BACI ends in 2024, but countries file monthly reports to UN Comtrade, and those run into 2026. A
+fourth filing, made before this pull, asked two descriptive questions of them. The panel is the
+<b>@@CTN@@ importers that filed every month of 2024 and of 2025</b>, which held @@CTCOV@@ of 2024 world imports
+of the two electrical-steel lines and @@CTTCOV@@ of the transformer lines. China, India and Taiwan do not
+file monthly and are therefore absent as buyers; as suppliers they are counted, because the panel's
+members report where their goods came from. Importers value imports including freight, BACI does not,
+so levels are not compared with the rest of this note &mdash; only each series with itself.</p>
+<p><b>The concentration continued into 2025.</b> China supplied @@CTC24@@ of the panel's imports of
+grain-oriented electrical steel in 2024 and @@CTC25@@ in 2025; the three largest suppliers went from
+@@CTT24@@ to @@CTT25@@ (Japan @@CTJ25@@, Russia @@CTR25@@ in 2025). On the thinner panel that filed every
+month of both half-years (@@CTHN@@ importers, @@CTHCOV@@ of 2024 world imports), China's share was @@CTH25@@ in
+January&ndash;June 2025 and @@CTH26@@ in January&ndash;June 2026, with Japan first. That is recorded, not read
+as a turn: the half-year panel is half the size of the annual one and its months are first releases.</p>
+<p><b>Transformers rose faster than both comparison groups in 2025</b>, on the same panel:</p>
+<div class="tbl"><table><thead><tr><th>Panel imports, 2024 to 2025</th><th class="n">value</th>
+<th class="n">value per kg</th><th class="n">coverage of 2024 world imports</th></tr></thead>
+<tbody>@@CTROWS@@</tbody></table></div>
+@@SRC_CT@@
+<p>This is one year against one year: no flow-level design, no interval, no pre-period. It is
+consistent with the gap in section 4.1 continuing into 2025, and it cannot establish that. Data to
+@@CTLAST@@.</p>
 
 <h2>5. What failed, and what the checks say</h2>
 <div class="box"><b>The pre-trend rule failed</b> for all five designs it was applied to: pre-period years
