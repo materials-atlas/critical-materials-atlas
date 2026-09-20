@@ -43,6 +43,52 @@ with the rest of the note and are not compared. China, India and Taiwan do not r
 data on disk, so their imports are missing from the panel; as suppliers they are visible through their
 partners. Not causal. The latest months are first releases and will be revised.
 
+## Result - run 2026-09-20
+
+Run by `ai-buildout/comtrade_extend.py`; every number is in `out/buildout_comtrade.json`. The pull
+covers January 2024 to 2026-06. **The panel is 83 importers** - those that filed every
+month of 2024 and of 2025 - and it holds 86% of 2024 world imports of the steel lines and
+83% of the transformer lines in BACI. China, India and Taiwan do not file every month and are
+therefore outside the panel as importers; as suppliers they are counted, because the panel's members
+report where their imports came from.
+
+**Question 1: the concentration continued into 2025.** Of the panel's imports of grain-oriented
+electrical steel, China supplied 36% in 2024 and 39% in 2025; the three largest suppliers
+went from 70% to 72% (China 39%, Japan 26%, Germany 6% in 2025). Russia went from
+5.1% to 5.0%, Japan from 25.8% to 26.4%. The filed reading applies: the concentration
+continued into 2025, as reported by importers.
+
+**The first half of 2026 does not extend it.** On the panel that filed every month of both half-years
+(52 importers, 57% of 2024 world imports), China's share was 29% in January-June 2025 and
+28% in January-June 2026, with Japan first (Japan 29%, China 28%, the United States 11%). That panel is much
+thinner than the annual one and its months are first releases, so this is recorded, not read as a turn.
+
+**Question 2: transformers rose faster than both comparison groups in 2025.** Change from 2024 to
+2025, on the panel that filed every month of both years:
+
+| Panel imports, 2024 to 2025 | value | value per kg | importers | coverage of 2024 world imports |
+|---|---|---|---|---|
+| Transformers (8504.21-.23) | +28.5% | +5.5% | 83 | 83% |
+| The filed heavy machinery | +3.6% | -4.1% | 83 | 74% |
+| Motors, pumps, compressors | +7.0% | +2.8% | 83 | 79% |
+
+Transformer import value rose +28.5% against +3.6% for the filed heavy machinery and
++7.0% for motors, pumps and compressors, and transformers' value per kilogram rose
++5.5% while the heavy machinery's fell 4.1% and the motors' rose 2.8%. This is one
+year against one year, with no flow-level design, no interval and no baseline: it is consistent with
+the note's earlier gap continuing into 2025, and it cannot establish that, exactly as this amendment
+said before the data were pulled.
+
+**Not part of either question, recorded because the same pull answers it:** memory chips (8542.32)
+were up 224% in January-June 2026 against the same months of 2025 on a 34% panel, which is the
+same movement the EU's and the United States' own records show.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+1. **2026-09-20 - the half-year panel is much thinner than the annual one.** The filing said the panel
+   would be importers that reported every month compared, and it is; it did not anticipate how many
+   countries have not yet filed 2026. The annual comparison rests on 83 importers and 86% of world
+   imports, the half-year one on 52 and 57%. Both are reported, with their sizes; the half-year
+   result is not read as a change of direction.
