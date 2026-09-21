@@ -159,18 +159,16 @@
   <p>The filing named three more checks that the first run did not contain. They were written and
   committed before they touched the data, and run on the same sample, prices and estimator.</p>
   <div class="tbl"><table><thead><tr><th>Check</th><th class="n">with year effects</th>
-  <th class="n">without year effects</th><th>reading</th></tr></thead><tbody><tr><td>Leave out 2006</td><td class="n">+0.30 <span class="dim">(0.09)</span></td><td class="n">+0.69 <span class="dim">(&lt;0.001)</span></td><td>claimed estimate still above its detectable size</td></tr><tr><td>Leave out 2004</td><td class="n">+0.30 <span class="dim">(0.06)</span></td><td class="n">+0.60 <span class="dim">(&lt;0.001)</span></td><td>claimed estimate still above its detectable size</td></tr><tr><td>Steel (7204), on T&uuml;rkiye&rsquo;s import unit value <span class="dim">176 pairs</span></td><td class="n">+0.75 <span class="dim">(&lt;0.001)</span></td><td class="n">+0.79 <span class="dim">(&lt;0.001)</span></td><td>not read: endogenous price</td></tr><tr><td>Gold (7112), on the Pink Sheet price <span class="dim">30 pairs</span></td><td class="n">+0.11 <span class="dim">(0.05)</span></td><td class="n">+0.32 <span class="dim">(0.07)</span></td><td>nothing readable</td></tr></tbody></table></div>
+  <th class="n">without year effects</th><th>reading</th></tr></thead><tbody><tr><td>Leave out 2006</td><td class="n">+0.30 <span class="dim">(0.09)</span></td><td class="n">+0.69 <span class="dim">(&lt;0.001)</span></td><td>claimed estimate still above its detectable size</td></tr><tr><td>Leave out 2004</td><td class="n">+0.30 <span class="dim">(0.06)</span></td><td class="n">+0.60 <span class="dim">(&lt;0.001)</span></td><td>claimed estimate still above its detectable size</td></tr><tr><td>Steel (7204), on T&uuml;rkiye&rsquo;s import unit value <span class="dim">176 pairs</span></td><td class="n">not identified</td><td class="n">+0.79 <span class="dim">(&lt;0.001)</span></td><td>same-year only, like the other metals</td></tr><tr><td>Gold (7112), on the Pink Sheet price <span class="dim">30 pairs</span></td><td class="n">not identified</td><td class="n">+0.32 <span class="dim">(0.07)</span></td><td>nothing readable</td></tr></tbody></table></div>
   <p class="src"><b>Source:</b> <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI, release V202601</a> &middot; <a href="https://www.worldbank.org/en/research/commodity-markets">World Bank commodity prices (Pink Sheet)</a>. Computed values: <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/scrap_trade_extras.json"><code>out/scrap_trade_extras.json</code></a>.</p>
   <p class="dim">Leaving out the two years with the largest world price moves (2006 and 2004,
   defined in the code before the run) leaves the claimed estimate, without year effects, above its
-  detectable size either time, so it is not one episode. Gold shows nothing readable. <b>Steel is the one line whose later terms
-  are both positive</b> once year effects remove the common cycle &mdash; +0.20 a year later
-  (p&nbsp;0.07) and +0.17 two years later (p&nbsp;0.04); the headline's own year-effects
-  fit also has a significant term two years out, but its terms swing sign (+0.25, -0.24, +0.27).
-  Steel clears its detectable size and would otherwise count; it is not read: its
-  price is the unit value of T&uuml;rkiye&rsquo;s own scrap imports, the marginal buyer, so it moves with
-  the same shocks as the exports it is meant to explain, and a unit value is not a
-  price<sup class="cite">[<a href="#ref-Silver2007">10</a>]</sup>. It is the one place where a better price series would be worth having.</p>
+  detectable size either time, so it is not one episode. Gold shows nothing readable. <b>Steel looks like the other metals:</b> the response is in the same year
+  (+0.72) and nothing follows (0.00 a year later, +0.07 two years later). With one price per
+  year for a single metal, every exporter faces the same price, so year effects absorb the price terms
+  completely and the year-effects version cannot be estimated for steel or gold on their own &mdash; an
+  earlier version of this page reported one in error, and its apparent later response was an artefact
+  of that.</p>
   <p class="dim">Both the chart above and the table below are the cycle-inclusive specification, without
   year effects, and the elasticity is cumulative over the same year and the two that follow.</p>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
@@ -210,8 +208,7 @@
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price<sup class="cite">[<a href="#ref-Fu2017">3</a>]</sup>. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel's year-later terms
-  are both positive on an endogenous price, reported above and not read); within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are

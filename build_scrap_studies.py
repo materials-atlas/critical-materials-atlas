@@ -381,9 +381,9 @@ def page():
                      ('Gold (7112), on the Pink Sheet price', 'gold_line')):
         a, b = X[key]['with_year_effects'], X[key]['without_year_effects']
         ex_rows.append('<tr><td>%s <span class="dim">%d pairs</span></td><td class="n">%s</td><td class="n">%s</td><td>%s</td></tr>'
-                       % (lab, X[key]['pairs'], xc(a), xc(b),
-                          'not read: endogenous price' if key == 'steel_line' else 'nothing readable'))
-    STW = X['steel_line']['with_year_effects']['per_lag']
+                       % (lab, X[key]['pairs'], 'not identified' if a is None else xc(a), xc(b),
+                          'same-year only, like the other metals' if key == 'steel_line' else 'nothing readable'))
+    STN = X['steel_line']['without_year_effects']['per_lag']
     uvc = [v['log_corr_with_metal_price'] for v in TC['unit_value_sanity'].values()
            if v['log_corr_with_metal_price'] is not None]
     tr_checks = ''.join([
@@ -450,10 +450,8 @@ def page():
         'SRC_TRADE': src(['baci', 'pink'], ['trade']),
         'SRC_EXTRAS': src(['baci', 'pink'], ['extras']),
         'EXROWS': ''.join(ex_rows), 'EXY1': str(XL['years'][0]), 'EXY2': str(XL['years'][1]),
-        'STL1P': pv(STW['dp1']['p']),
-        'HY0': '%+.2f' % ty['fit']['per_lag']['dp0']['beta'], 'HY1': '%+.2f' % ty['fit']['per_lag']['dp1']['beta'],
-        'HY2': '%+.2f' % ty['fit']['per_lag']['dp2']['beta'],
-        'STL1': '%+.2f' % STW['dp1']['beta'], 'STL2': '%+.2f' % STW['dp2']['beta'], 'STL2P': pv(STW['dp2']['p']),
+        'STN0': sgn(STN['dp0']['beta']), 'STN1': ('0.00' if abs(STN['dp1']['beta']) < 0.005 else sgn(STN['dp1']['beta'])),
+        'STN2': sgn(STN['dp2']['beta']),
         'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
         'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
         'LOOLO': '%+.2f' % (loo_lo), 'LOOHI': '%+.2f' % (loo_hi),
@@ -612,14 +610,12 @@ TEMPLATE = """<!doctype html>
   @@SRC_EXTRAS@@
   <p class="dim">Leaving out the two years with the largest world price moves (@@EXY1@@ and @@EXY2@@,
   defined in the code before the run) leaves the claimed estimate, without year effects, above its
-  detectable size either time, so it is not one episode. Gold shows nothing readable. <b>Steel is the one line whose later terms
-  are both positive</b> once year effects remove the common cycle &mdash; @@STL1@@ a year later
-  (p&nbsp;@@STL1P@@) and @@STL2@@ two years later (p&nbsp;@@STL2P@@); the headline's own year-effects
-  fit also has a significant term two years out, but its terms swing sign (@@HY0@@, @@HY1@@, @@HY2@@).
-  Steel clears its detectable size and would otherwise count; it is not read: its
-  price is the unit value of T&uuml;rkiye&rsquo;s own scrap imports, the marginal buyer, so it moves with
-  the same shocks as the exports it is meant to explain, and a unit value is not a
-  price@@C_Silver2007@@. It is the one place where a better price series would be worth having.</p>
+  detectable size either time, so it is not one episode. Gold shows nothing readable. <b>Steel looks like the other metals:</b> the response is in the same year
+  (@@STN0@@) and nothing follows (@@STN1@@ a year later, @@STN2@@ two years later). With one price per
+  year for a single metal, every exporter faces the same price, so year effects absorb the price terms
+  completely and the year-effects version cannot be estimated for steel or gold on their own &mdash; an
+  earlier version of this page reported one in error, and its apparent later response was an artefact
+  of that.</p>
   <p class="dim">Both the chart above and the table below are the cycle-inclusive specification, without
   year effects, and the elasticity is cumulative over the same year and the two that follow.</p>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
@@ -654,8 +650,7 @@ TEMPLATE = """<!doctype html>
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel's year-later terms
-  are both positive on an endogenous price, reported above and not read); within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
