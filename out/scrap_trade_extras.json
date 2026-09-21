@@ -182,42 +182,8 @@
   }
  },
  "steel_line": {
-  "with_year_effects": {
-   "label": "steel",
-   "dv": "dx",
-   "regressors": [
-    "dp0",
-    "dp1",
-    "dp2"
-   ],
-   "year_fe": true,
-   "cumulative": 0.7548,
-   "se": 0.2066,
-   "p": 0.0003,
-   "ci95": [
-    0.347,
-    1.1625
-   ],
-   "mde_80pct_power": 0.5821,
-   "per_lag": {
-    "dp0": {
-     "beta": 0.3848,
-     "p": 0.0
-    },
-    "dp1": {
-     "beta": 0.1991,
-     "p": 0.0717
-    },
-    "dp2": {
-     "beta": 0.1709,
-     "p": 0.0396
-    }
-   },
-   "n": 3087,
-   "countries": 176,
-   "country_metal_pairs": 176,
-   "reading": "above its detectable size"
-  },
+  "with_year_effects": null,
+  "with_year_effects_identified": false,
   "without_year_effects": {
    "label": "steel",
    "dv": "dx",
@@ -260,42 +226,8 @@
   "caveat": "endogenous: Tuerkiye is the marginal buyer, so its import price and world scrap exports move with the same shocks"
  },
  "gold_line": {
-  "with_year_effects": {
-   "label": "gold",
-   "dv": "dx",
-   "regressors": [
-    "dp0",
-    "dp1",
-    "dp2"
-   ],
-   "year_fe": true,
-   "cumulative": 0.1134,
-   "se": 0.0549,
-   "p": 0.048,
-   "ci95": [
-    0.001,
-    0.2257
-   ],
-   "mde_80pct_power": 0.1593,
-   "per_lag": {
-    "dp0": {
-     "beta": 0.158,
-     "p": 0.1837
-    },
-    "dp1": {
-     "beta": 0.0204,
-     "p": 0.8405
-    },
-    "dp2": {
-     "beta": -0.065,
-     "p": 0.7498
-    }
-   },
-   "n": 600,
-   "countries": 30,
-   "country_metal_pairs": 30,
-   "reading": "positive, but below the filed power bar, so not read"
-  },
+  "with_year_effects": null,
+  "with_year_effects_identified": false,
   "without_year_effects": {
    "label": "gold",
    "dv": "dx",

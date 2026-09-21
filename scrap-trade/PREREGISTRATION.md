@@ -206,19 +206,16 @@ The claimed estimate does not rest on either episode: it stays above its detecta
 either year, against +0.58 with all years.
 
 **(b) Steel (7204), on the unit value of Tuerkiye's own scrap imports**, 176 small-exporter
-country-steel pairs: with year effects +0.75 (p <0.001, 95% +0.35 to +1.16, detectable 0.58); without +0.79 (p <0.001, 95% +0.44 to +1.14, detectable 0.50).
-Without year effects steel looks like the other metals - the response is in the same year (+0.72),
-nothing after. **With year effects it is the one line whose later terms are both positive** (a year later
-+0.20, p 0.07; two years later +0.17, p 0.04); the headline's own year-effects fit also has a
-significant term two years out (+0.27, p 0.026), but its terms swing sign (+0.25, -0.24, +0.27). Steel
-clears its detectable size (+0.75 against 0.58) and would otherwise count. It is not read, for the
-reason the filing gave in advance: the price is the unit value of the marginal buyer's own imports,
-so it moves with the same shocks as the exports it is meant to explain, and a unit value is not a
-price. It is the one place where a better price series would be worth having.
+country-steel pairs, without year effects: +0.79 (p <0.001, 95% +0.44 to +1.14, detectable 0.50).
+Steel looks like the other metals: the response is in the same year (+0.72) and nothing follows
+(0.00 a year later, +0.07 two years later). **The specification with year effects cannot be
+estimated for a single metal** - every exporter faces the same price in a year, so the three price
+terms are an exact linear combination of the year effects (deviation 8). The first run reported one
+anyway; it was an artefact.
 
-**(c) Gold (7112), on the Pink Sheet gold price**, 30 pairs: with year effects
-+0.11 (p 0.048, 95% +0.00 to +0.23, detectable 0.16), which is below the filed power bar and not read; without year effects
-+0.32 (p 0.072, 95% -0.03 to +0.67, detectable 0.50), not distinguishable from zero.
+**(c) Gold (7112), on the Pink Sheet gold price**, 30 pairs, without year effects: +0.32 (p 0.072,
+95% -0.03 to +0.67, detectable 0.50), not distinguishable from zero. With year effects it cannot be
+estimated, for the same reason as steel (deviation 8).
 
 ## Deviations log
 
@@ -262,3 +259,15 @@ Every change made after filing goes here, dated, with its reason.
    year"; the headline's own year-effects fit has a significant second-year term too (+0.27, p 0.026).
    What sets steel apart is that both its later terms are positive. Corrected above. No estimate
    changed.
+8. **2026-09-21, found in a design review for the next study - the single-metal year-effects fits
+   were not identified, and the "steel exception" was an artefact.** The steel and gold lines each use
+   one price series, so in a given year every exporter faces the same price and the three price terms
+   are an exact linear combination of the year effects (the regressor matrix has rank 18 of 21 for
+   steel). The solver returned a minimum-norm split instead of failing, and the first run reported it:
+   steel "+0.75, later terms +0.20 and +0.17", gold "+0.11". Neither is an estimate. `filed_extras.py`
+   now checks the rank and reports the year-effects version as not identified; only the version
+   without year effects is estimable for one metal, and on it steel is same-year only, like the other
+   metals. The six-metal headline and the leave-one-year-out fits are identified, because the six
+   metals' prices differ within a year. The page and deviation 7's wording about steel are superseded
+   by this entry. Found by an engine reviewing the steel-scrap design, which had rested on the same
+   artefact.

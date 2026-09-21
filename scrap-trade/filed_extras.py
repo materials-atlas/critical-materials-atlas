@@ -135,9 +135,18 @@ def main():
     lines = {}
     for m in ('steel', 'gold'):
         sub = p2[p2.small & (p2.metal == m)]
-        lines[m] = {k: clean(F.fit(sub, 'dx', L3, fe, m)) for k, fe in
-                    (('with_year_effects', True), ('without_year_effects', False))}
-        for k in lines[m]:
+        # Deviation 8: one price series per line means every exporter faces the same price in a year,
+        # so the three price terms are an exact linear combination of the year effects. With year
+        # effects the coefficients are NOT IDENTIFIED (the solver returns an arbitrary split rather
+        # than an error). Only the specification without year effects is estimable for one metal.
+        full = sub.dropna(subset=['dx'] + L3)
+        yd = pd.get_dummies(full.year.astype(str)).astype(float).values
+        mat = np.column_stack([full[L3].values, yd])
+        identified = bool(np.linalg.matrix_rank(mat) == mat.shape[1])
+        lines[m] = {'with_year_effects': None if not identified else clean(F.fit(sub, 'dx', L3, True, m)),
+                    'with_year_effects_identified': identified,
+                    'without_year_effects': clean(F.fit(sub, 'dx', L3, False, m))}
+        for k in ('with_year_effects', 'without_year_effects'):
             if lines[m][k]:
                 lines[m][k]['reading'] = read(lines[m][k])
         lines[m]['pairs'] = int(sub.cm.nunique())
