@@ -68,8 +68,8 @@ CONTROLS = [
     ('C6', 'EU', 'bismuth', 'magnesium', '202502', '202502', None, 'bismuth'),
     ('C6', 'US', 'bismuth', 'magnesium', '202502', '202502', None, 'bismuth'),
 ]
-# deviation 3: US imports of magnesium FROM CHINA fell about 90% across the window (2.6 Mt in 2021 to
-# 0.2 Mt in 2025), so they cannot serve as the comparison for the China-origin outcome in the US; that
+# deviation 3: US imports of magnesium FROM CHINA fell about 90% across the window (2.6 kt in 2021 to
+# 0.2 kt in 2025), so they cannot serve as the comparison for the China-origin outcome in the US; that
 # outcome is reported as not interpretable wherever the US comparison is magnesium. Total kilograms and
 # unit values use all origins, where US magnesium imports are stable, and are kept.
 BROKEN_CHINA_COMPARISON = {('US', 'magnesium')}

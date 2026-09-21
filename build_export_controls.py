@@ -290,6 +290,19 @@ def page():
         price_rows.append((LABEL[r['control']], mult(r), mult(r, 'comparison')))
 
     n_untest = sum(1 for r in eu if r['reading_as_filed'].startswith('untestable'))
+
+    def win(r, a, b):
+        # mean China tonnes and all-origin unit value over months a..b (inclusive), from the monthly series
+        ms = [m for m in r['monthly'] if a <= m['ym'] <= b]
+        tot = sum(m['total_t'] for m in ms)
+        val = sum(m['total_t'] * m['uv'] for m in ms if m['uv'] is not None)
+        return sum(m['china_t'] for m in ms) / len(ms), val / tot
+    sb_ann, bi_eff = sb['announced'], bi['in_force']
+    sb_late = win(sb, shift(sb_ann, -4), shift(sb_ann, -1))
+    sb_early = win(sb, sb['window'][0], shift(sb_ann, -5))
+    bi_a = win(bi, shift(bi_eff, 4), shift(bi_eff, 8))
+    bi_b = win(bi, shift(bi_eff, 9), shift(bi_eff, 12))
+    spike = max(sb['monthly'], key=lambda m: m['china_t'] if m['ym'] >= sb['in_force'] else -1)
     tok = {
         'CSS': CSS, 'NAV': NAV, 'FOOT': FOOT, 'REPO': REPO,
         'FIG_SB': month_chart(sb, 'EU imports of antimony from China, tonnes a month'),
@@ -315,6 +328,13 @@ def page():
         'GA_M': '%.1f' % mult(R['C1']), 'GA_REL': '%+.0f' % R['C1']['outcomes']['y_price']['pct'],
         'SRC': src(), 'SRC_US': src(us=True),
         'LAST': ym_label(e['last_month']),
+        'SB_LATE': '%.0f' % sb_late[0], 'SB_LATE_UV': '%.0f' % sb_late[1], 'SB_EARLY': '%.0f' % sb_early[0],
+        'SB_EARLY_UV': '%.0f' % sb_early[1], 'SB_LATE_FROM': ym_label(shift(sb_ann, -4)),
+        'SB_LATE_TO': ym_label(shift(sb_ann, -1)),
+        'SPIKE_M': ym_label(spike['ym']), 'SPIKE_T': '%.0f' % spike['china_t'],
+        'BI_A': '%.0f' % bi_a[0], 'BI_A_UV': '%.0f' % bi_a[1], 'BI_B': '%.0f' % bi_b[0], 'BI_B_UV': '%.0f' % bi_b[1],
+        'BI_A_FROM': ym_label(shift(bi_eff, 4)), 'BI_A_TO': ym_label(shift(bi_eff, 8)),
+        'BI_B_FROM': ym_label(shift(bi_eff, 9)), 'BI_B_TO': ym_label(shift(bi_eff, 12)),
     }
     for k in REFNUM:
         tok['C_' + k] = cite(k)
@@ -342,25 +362,31 @@ TEMPLATE = """<!doctype html>
   antimony, bismuth and seven rare earths. We filed a test before pulling the data: in the EU's and the
   United States' own monthly import records, did less arrive from China, did the price rise, did less
   arrive in total? <b>As filed, none of the six is shown to bite</b>: the monthly series are too thin
-  for the test to have reliably seen the 30% fall it asked for. Two did not need a test to be seen.
-  <b>EU imports of antimony from China fell from @@SB_PRE@@ to @@SB_POST@@ tonnes a month and its
-  price rose @@SB_M@@-fold; bismuth from China fell by @@BI_FALL@@% and its price rose @@BI_M@@-fold.</b>
-  Reading those as a bite came from a rule corrected after the data, so it is exploratory.</p>
+  for the test to have reliably seen the 30% fall it asked for. Two show large movements in the raw
+  record. <b>EU imports of antimony from China fell from @@SB_PRE@@ to @@SB_POST@@ tonnes a month and the
+  unit value of all antimony imports rose @@SB_M@@-fold; bismuth from China fell by @@BI_FALL@@% and the
+  unit value of all bismuth imports rose @@BI_M@@-fold.</b> Antimony's fall had begun months before the
+  control was announced, and reading either as a bite comes from a rule corrected after the data, so
+  both are exploratory.</p>
 </div></section>
 
 <section class="wrap xp">
   <div class="small2">
   <figure class="fig">@@FIG_SB@@<figcaption><b>Antimony from China, tonnes a month.</b> EU imports from
   outside the EU. Red line: the control took effect (15 Sep 2024)@@C_M33@@; dashed: the mean before it
-  was announced; shaded: months 7&ndash;12, the period the test reads.</figcaption></figure>
+  was announced; shaded: months 7&ndash;12, the period the test reads. The fall had started by spring
+  2024, before the announcement. The @@SPIKE_M@@ peak (@@SPIKE_T@@ t, all unwrought antimony, into four
+  member states) came after the control took effect, most likely the first licensed or contracted
+  shipments; it lies outside both periods the test compares.</figcaption></figure>
   <figure class="fig">@@FIG_BI@@<figcaption><b>Bismuth from China, tonnes a month.</b> The control took
-  effect on announcement (4 Feb 2025)@@C_M10@@; same marks.</figcaption></figure>
+  effect on announcement (4 Feb 2025)@@C_M10@@; same marks. A burst of shipments in the first months,
+  a trough from mid-2025, and a partial recovery by early 2026.</figcaption></figure>
   </div>
   @@SRC@@
 
   <h2>1. The six controls</h2>
   <p>Each was checked against the announcement itself, in the Chinese original. The October 2025
-  expansions were suspended within a month and are not tested; nor is anything announced since.</p>
+  expansions were suspended on 7 November 2025 and are not tested. The import data end in @@LAST@@.</p>
   <div class="tbl"><table><thead><tr><th></th><th>Control</th><th>Announced</th><th>In force</th>
   <th>Tested in the EU as</th></tr></thead><tbody>
   <tr><td>C1</td><td>Gallium and germanium@@C_M23@@</td><td>3 Jul 2023</td><td>1 Aug 2023</td><td>unwrought gallium and germanium, and their powders</td></tr>
@@ -375,12 +401,13 @@ TEMPLATE = """<!doctype html>
 
   <h2>2. The test, as filed</h2>
   <p><span class="verdict">NONE SHOWN TO BITE</span></p>
-  <p>Each controlled good was set against a comparison good that China also dominates but did not
-  control &mdash; unwrought magnesium for the metals, talc and baryte for graphite, ferrite magnets for
-  rare-earth magnets, lanthanum and cerium compounds for the heavy rare earths &mdash; and the monthly
-  gap between the two was compared before and after, with an anticipation window between announcement
-  and entry into force, errors robust to autocorrelation@@C_NW1987@@, and a correction for testing six
-  controls at once (Holm&rsquo;s). The filing read months 7&ndash;12 after entry into force. A control
+  <p>Each controlled good was set against a comparison good that China also dominates and that no
+  control we found covers &mdash; unwrought magnesium for the metals, talc and baryte for graphite,
+  ferrite magnets for rare-earth magnets, lanthanum and cerium compounds for the heavy rare earths. These
+  are coarse comparisons: each has its own market and can move for its own reasons (magnesium's price
+  swung widely in 2021&ndash;2022). The monthly gap between the two was compared before and after, with an
+  anticipation window between announcement and entry into force, errors robust to
+  autocorrelation@@C_NW1987@@, and a correction for running six tests at once (Holm&rsquo;s). The filing read months 7&ndash;12 after entry into force. A control
   <i>bit</i> if imports from China fell by at least 30% against the comparison and either the total fell
   by 20% or the price rose by 20%. And the filing said to check first whether the design could have
   seen a 30% fall at all: if not, the control is <i>untestable</i>, not a null.</p>
@@ -391,7 +418,7 @@ TEMPLATE = """<!doctype html>
   <figcaption><b>Imports from China against the comparison, months 7&ndash;12.</b> Each dot is the
   estimate with its 95% interval; the faint band is what the series could not have told from zero with
   80% certainty. Teal: the design could see the filed 30% fall. Violet: it could not. The scale is the
-  inverse hyperbolic sine of tonnes, not a percentage (see below).</figcaption></figure>
+  difference in the inverse hyperbolic sine of kilograms, not a percentage (see below).</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Control</th><th>compared with</th><th class="n">from China</th>
   <th class="n">all origins</th><th class="n">unit value</th><th class="n">could see (80%)</th>
   <th>reading as filed</th><th>corrected order (exploratory)</th></tr></thead>
@@ -412,40 +439,60 @@ TEMPLATE = """<!doctype html>
   <th class="n">price multiple</th><th class="n">comparison's price multiple</th></tr></thead>
   <tbody>@@LVROWS@@</tbody></table></div>
   @@SRC@@
+  <p class="dim">These are before-and-after means, not effects. Buyers can stock up before a control and
+  draw down afterwards, and a customs unit value moves with the mix of grades shipped as well as with the
+  price.</p>
   <figure class="fig">@@PRICE@@
   <figcaption><b>Prices after the controls, as a multiple of before.</b> Unit value of all EU imports of
   each controlled good, and of its comparison, months 7&ndash;12 against the pre-period. Log scale.
-  Antimony, bismuth and the heavy rare earths more than doubled; the comparisons barely moved or fell.</figcaption></figure>
+  Antimony and bismuth more than doubled, and so did the heavy rare earths, whose monthly unit value is
+  too erratic (small, mixed shipments) to read; the comparisons fell or, for lanthanum and cerium
+  compounds, rose far less. Customs unit values, not transaction prices.</figcaption></figure>
   @@SRC@@
 
-  <h3>Antimony: China's supply went, Europe's did not</h3>
+  <h3>Antimony: imports from China all but stopped; total imports did not fall</h3>
   <p><span class="verdict x">EXPLORATORY</span></p>
-  <p>EU imports of antimony from China fell from @@SB_PRE@@ tonnes a month to @@SB_POST@@ &mdash; they
-  all but stopped &mdash; while antimony from all origins went from @@SB_TPRE@@ to @@SB_TPOST@@ tonnes a
-  month: other suppliers replaced China. What changed was the price. The unit value of EU antimony
-  imports rose from &euro;@@SB_UV0@@ to &euro;@@SB_UV1@@ a kilogram, @@SB_M@@-fold. The estimate against
-  magnesium (&times;@@SB_REL@@) is larger because magnesium itself got cheaper over the same months
-  (&times;@@MG_SB@@). So if the control bit in Europe, it bit on price, not on quantity.</p>
-  <h3>Bismuth: less from China, less in total, dearer</h3>
+  <p>EU imports of antimony from China fell from @@SB_PRE@@ tonnes a month to @@SB_POST@@, while antimony
+  from all origins went from @@SB_TPRE@@ to @@SB_TPOST@@ tonnes a month: imports from other origins made up
+  the difference. The unit value of all EU antimony imports rose from &euro;@@SB_UV0@@ to
+  &euro;@@SB_UV1@@ a kilogram, @@SB_M@@-fold. The estimate against magnesium (&times;@@SB_REL@@) is larger
+  because magnesium itself got cheaper over the same months (&times;@@MG_SB@@).</p>
+  <p><b>Much of this began before the control.</b> Imports from China averaged @@SB_EARLY@@ tonnes a
+  month at a unit value of &euro;@@SB_EARLY_UV@@ over most of the pre-period, but only @@SB_LATE@@ tonnes a
+  month at &euro;@@SB_LATE_UV@@ in the four months before the announcement (@@SB_LATE_FROM@@ to
+  @@SB_LATE_TO@@). The squeeze was under way before August 2024, and the announcement formalised it; this
+  design cannot separate the two. If there was a bite in Europe, it shows in imports from China and in
+  the price, not in total import volume.</p>
+  <h3>Bismuth: less from China and less in total, at a higher unit value</h3>
   <p><span class="verdict x">EXPLORATORY</span></p>
-  <p>Bismuth from China fell from @@BI_PRE@@ to @@BI_POST@@ tonnes a month, and in total from
-  @@BI_TPRE@@ to @@BI_TPOST@@: here other origins did not fill the gap. The unit value rose @@BI_M@@-fold
-  (&times;@@BI_REL@@ against magnesium). Of the six, bismuth is the one where the tonnes, the total and
-  the price all moved the way a bite would move them.</p>
+  <p>Bismuth from China fell from @@BI_PRE@@ to @@BI_POST@@ tonnes a month in months 7&ndash;12, and total
+  imports from @@BI_TPRE@@ to @@BI_TPOST@@: here other origins did not fill the gap. The unit value of all
+  bismuth imports rose @@BI_M@@-fold (&times;@@BI_REL@@ against magnesium). Of the six, bismuth is the only
+  one where all three outcomes &mdash; imports from China, total imports and the unit value &mdash;
+  passed the filed thresholds against its comparison, each with its interval excluding zero. The squeeze eased late in the window:
+  imports from China averaged @@BI_A@@ tonnes a month at &euro;@@BI_A_UV@@ a kilogram from @@BI_A_FROM@@ to
+  @@BI_A_TO@@, and @@BI_B@@ tonnes at &euro;@@BI_B_UV@@ from @@BI_B_FROM@@ to @@BI_B_TO@@.</p>
   <h3>The rest</h3>
   <p><b>Gallium and germanium</b> are too thin to test: a few tonnes a month, with the unit value up
-  @@GA_M@@-fold (@@GA_REL@@% against magnesium, about half of which is magnesium getting cheaper).
+  @@GA_M@@-fold (@@GA_REL@@% against magnesium, more than half of which is magnesium getting cheaper). The
+  customs lines cover the unwrought metals and powders, not the oxides and other compounds the control
+  also covers.
   <b>Natural graphite</b> from China did not fall; the synthetic and spherical graphite the control also
   covers is not in the customs lines the filing locked, so this says nothing about them. <b>Rare-earth
   magnet</b> imports from China rose relative to ferrite magnets, which rules out a 30% fall against
-  ferrite, not any effect. <b>The heavy rare earths</b> &mdash; gadolinium, terbium, dysprosium metals
-  and compounds &mdash; halved in total and their unit value rose @@HR_M@@-fold, but the China-origin
-  series is too small to say whose supply moved.</p>
+  ferrite, not any effect; the customs line holds every neodymium, praseodymium, dysprosium and samarium
+  magnet, while the control covers only samarium-cobalt and terbium- or dysprosium-containing magnets, so
+  an effect on those would be diluted. <b>The heavy rare earths</b> &mdash; gadolinium, terbium,
+  dysprosium metals and compounds &mdash; halved in total, but the China-origin series is a few tonnes a
+  month and the unit value jumps by factors of ten from month to month, so neither says whose supply
+  moved.</p>
 
   <h2>4. The United States: no answer</h2>
-  <p>The same test was filed for US imports, and it does not work. US imports of magnesium from China
-  fell by about 90% over the window, so any good compared with it looks as if its China imports rose; US
-  talc changed how it is recorded in 2023; and US ferrite magnets are counted in pieces, not kilograms.
+  <p>The same test was filed for US imports, and the comparisons filed for it do not support a reading.
+  US imports of magnesium from China fell by about 90% between 2021 and 2025, so any good compared with it
+  looks as if its China imports rose; US talc imports jumped six-fold in recorded kilograms in 2023 with
+  their value flat, which looks like a change in recording; and US ferrite magnets are counted in pieces,
+  not kilograms.
   Each of these was found in the data after the first run and is logged in the filing. No replacement
   comparisons were chosen after seeing the data, so the US half has no reading, including the outright
   ban on gallium, germanium and antimony to the United States (C3)@@C_M46@@.</p>
@@ -457,17 +504,20 @@ TEMPLATE = """<!doctype html>
 <section class="wrap xp">
   <h2>What this can and cannot say</h2>
   <p>It is the EU's import record, to @@LAST@@, against coarse comparison goods, not a causal estimate.
-  Magnesium is bought almost entirely from China, and its EU price tripled in 2021&ndash;2022 before
-  falling back, inside the years the test uses as &ldquo;before&rdquo;; every price estimate against it
-  carries that slide, which is why the raw multiples are shown beside it. Customs value is not a
+  Magnesium is bought almost entirely from China, and its EU unit value roughly tripled between early
+  2021 and mid-2022 before falling back; the years the test uses as &ldquo;before&rdquo; contain parts of
+  that swing, so every price estimate against it carries some of it, which is why the raw multiples are
+  shown beside it. Customs value is not a
   contract price, and a unit value of a small-volume good can move with the mix of what was shipped.
   Material shipped ahead of a control shows up as anticipation, licences granted are not observed, and
   routing through a third country is inferred from the pattern, not seen.</p>
-  <p>What it does say: in Europe's own customs record, China's controls on antimony and bismuth are
-  visible to the naked eye &mdash; in the tonnes that stopped coming from China and in the price paid
-  for what came instead &mdash; while the filed test, built to guard against reading noise as effects,
-  could not certify either. The two readings are both reported because a pre-registered test that
-  cannot see what the raw series show is a finding about the test as much as about the controls.</p>
+  <p>What it does say: in Europe's customs record, antimony and bismuth show large movements around
+  their controls &mdash; imports from China fell, antimony's to almost nothing, and the unit value of
+  all imports rose several-fold &mdash; while the filed test, built to guard against reading noise as
+  effects, could not certify either as a bite. For antimony the fall began before the control, so the
+  record cannot say how much of it the control caused. Both readings are reported because a
+  pre-registered test that cannot see what the raw series show is a finding about the test as much as
+  about the controls.</p>
 
   <h3>References</h3>
   <ol class="refs">@@REFLIST@@</ol>
