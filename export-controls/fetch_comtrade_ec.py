@@ -48,5 +48,23 @@ def main():
     print('rows', len(rows))
 
 
+def korea_exports():
+    """Amendment A deviation 7 (added after review): Korea's bismuth exports to the world and by
+    partner, to tell new output from sales diverted from other buyers."""
+    rows = []
+    for b in BLOCKS:
+        q = ('%s?reporterCode=410&period=%s&cmdCode=%s&flowCode=X&motCode=0&customsCode=C00&partner2Code=0'
+             % (ct.BASE, ','.join(b), ','.join(CANDIDATES[410])))
+        data = ct._get(q)
+        time.sleep(ct._PAUSE)
+        recs = (data or {}).get('data', []) or []
+        print('KR exports', b[0], b[-1], 'rows', len(recs) if data is not None else 'FAILED', flush=True)
+        rows += [{f: r.get(f) for f in FIELDS} for r in recs]
+    pd.DataFrame(rows).to_parquet(os.path.join(OUTDIR, 'korea_bismuth_exports.parquet'), index=False)
+
+
 if __name__ == '__main__':
-    main()
+    if '--korea-exports' in sys.argv:
+        korea_exports()
+    else:
+        main()
