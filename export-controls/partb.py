@@ -57,6 +57,29 @@ def main():
                 'last_month_reported': span_end, 'reading': reading}
             print(cid, par, o['part_b']['%s_%s' % (cid, par)])
     o['part_b_last_month_in_file'] = last
+    # Amendment A deviation 7 (added after review): Korea's bismuth exports, world and by partner, pre-period
+    # (24 months before the bismuth announcement) against months 0-10 after entry into force (Feb-Dec 2025,
+    # the months Korea has reported). Months with no record inside the span count as zero.
+    kx = os.path.join(HERE, 'comtrade', 'korea_bismuth_exports.parquet')
+    if os.path.exists(kx):
+        _, _, _, _, ann, eff, _, _ = ctl['C6']
+        x = pd.read_parquet(kx)
+        x['t'] = pd.to_numeric(x.netWgt, errors='coerce') / 1000
+        x['p'] = x.period.astype(str)
+        rep = sorted(set(x.p))
+        pre = [m for m in months(shift(ann, -24), shift(ann, -1))]
+        post = [m for m in months(eff, shift(eff, 12)) if m <= rep[-1]]
+        EU27 = {40, 56, 100, 191, 196, 203, 208, 233, 246, 251, 276, 300, 348, 372, 380, 428, 440, 442, 470, 528,
+                616, 620, 642, 703, 705, 724, 752}
+        def mean(sel, ms):
+            return float(x[sel].groupby('p').t.sum().reindex(ms).fillna(0).mean())
+        o['korea_bismuth_exports'] = {
+            'pre': [pre[0], pre[-1]], 'post': [post[0], post[-1]], 'post_months': len(post),
+            'world_t_month': [round(mean(x.partnerCode == 0, pre), 1), round(mean(x.partnerCode == 0, post), 1)],
+            'usa_t_month': [round(mean(x.partnerCode == 842, pre), 1), round(mean(x.partnerCode == 842, post), 1)],
+            'eu27_t_month': [round(mean(x.partnerCode.isin(EU27), pre), 1), round(mean(x.partnerCode.isin(EU27), post), 1)],
+            'china_t_month': [round(mean(x.partnerCode == 156, pre), 1), round(mean(x.partnerCode == 156, post), 1)]}
+        print('korea exports', o['korea_bismuth_exports'])
     json.dump(o, open(OUT, 'w', encoding='utf-8'), indent=1)
 
 

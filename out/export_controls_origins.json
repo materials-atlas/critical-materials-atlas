@@ -78,6 +78,12 @@
      "gallium": 0.962,
      "germanium": 0.94
     },
+    "china_share_world_production_wmd": {
+     "gallium": 0.981,
+     "germanium": 0.937
+    },
+    "china_share_usgs_mcs2025": null,
+    "bgs_china_series_flat": false,
     "other_countries_5pct": {
      "gallium": 0,
      "germanium": 0
@@ -171,6 +177,11 @@
     "china_share_world_production": {
      "graphite": 0.696
     },
+    "china_share_world_production_wmd": {
+     "graphite": 0.704
+    },
+    "china_share_usgs_mcs2025": null,
+    "bgs_china_series_flat": false,
     "other_countries_5pct": {
      "graphite": 3
     },
@@ -250,6 +261,11 @@
     "china_share_world_production": {
      "rare_earths": 0.696
     },
+    "china_share_world_production_wmd": {
+     "rare_earths": 0.657
+    },
+    "china_share_usgs_mcs2025": null,
+    "bgs_china_series_flat": false,
     "other_countries_5pct": {
      "rare_earths": 3
     },
@@ -316,6 +332,11 @@
     "china_share_world_production": {
      "rare_earths": 0.696
     },
+    "china_share_world_production_wmd": {
+     "rare_earths": 0.657
+    },
+    "china_share_usgs_mcs2025": null,
+    "bgs_china_series_flat": false,
     "other_countries_5pct": {
      "rare_earths": 3
     },
@@ -423,6 +444,17 @@
     "china_share_world_production": {
      "antimony": 0.379
     },
+    "china_share_world_production_wmd": {
+     "antimony": 0.403
+    },
+    "china_share_usgs_mcs2025": {
+     "stage": "mine",
+     "china_t": 62300,
+     "world_t": 106000,
+     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf",
+     "share": 0.588
+    },
+    "bgs_china_series_flat": false,
     "other_countries_5pct": {
      "antimony": 3
     },
@@ -504,6 +536,17 @@
     "china_share_world_production": {
      "bismuth": 0.395
     },
+    "china_share_world_production_wmd": {
+     "bismuth": 0.748
+    },
+    "china_share_usgs_mcs2025": {
+     "stage": "refinery",
+     "china_t": 13300,
+     "world_t": 16200,
+     "url": "https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bismuth.pdf",
+     "share": 0.821
+    },
+    "bgs_china_series_flat": true,
     "other_countries_5pct": {
      "bismuth": 3
     },
@@ -539,5 +582,32 @@
    "reading": "not consistent"
   }
  },
- "part_b_last_month_in_file": "202602"
+ "part_b_last_month_in_file": "202602",
+ "korea_bismuth_exports": {
+  "pre": [
+   "202302",
+   "202501"
+  ],
+  "post": [
+   "202502",
+   "202512"
+  ],
+  "post_months": 11,
+  "world_t_month": [
+   67.6,
+   81.2
+  ],
+  "usa_t_month": [
+   60.8,
+   33.0
+  ],
+  "eu27_t_month": [
+   0.0,
+   26.3
+  ],
+  "china_t_month": [
+   5.8,
+   0.0
+  ]
+ }
 }

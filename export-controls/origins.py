@@ -28,6 +28,15 @@ BGS = {'antimony': ('antimony', 'mine'), 'bismuth': ('bismuth', 'mine'), 'graphi
        'gage': [('gallium', 'processed'), ('germanium', 'processed')], 'magnets': ('rare_earths', 'processed'),
        'hree': ('rare_earths', 'processed')}
 PROD_YEARS = (2021, 2022, 2023)
+# Amendment A deviation 6: the same share from World Mining Data (also in the cube), and USGS Mineral
+# Commodity Summaries 2025 for the two controls that moved, read from the published PDFs (2023 values)
+WMD = {'antimony': 'antimony', 'bismuth': 'bismuth', 'graphite': 'graphite', 'gage': ['gallium', 'germanium'],
+       'magnets': 'rare_earths', 'hree': 'rare_earths'}
+USGS_MCS2025 = {
+    'antimony': {'stage': 'mine', 'china_t': 62300, 'world_t': 106000,
+                 'url': 'https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf'},
+    'bismuth': {'stage': 'refinery', 'china_t': 13300, 'world_t': 16200,
+                'url': 'https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bismuth.pdf'}}
 CAND_MIN_T = 10.0                   # tonnes a month
 CAND_MULT = 3.0
 
@@ -59,6 +68,18 @@ def prod_table(P, spec):
         recent = set(s[s.year.between(2021, 2024)].country_iso3)
         m = s[s.year.isin(PROD_YEARS)].groupby('country_iso3').value_t.sum() / len(PROD_YEARS)
         out[mat] = {'mean_t': m, 'recorded': recent}
+    return out
+
+
+def wmd_share(mats):
+    c = pd.read_parquet(os.path.join(ROOT, 'out', 'cube.parquet'),
+                        columns=['source', 'measure', 'material', 'country_iso3', 'year', 'value_t'])
+    c = c[(c.source == 'World Mining Data') & (c.measure == 'production') & c.country_iso3.notna() &
+          (c.value_t > 0) & c.year.isin(PROD_YEARS)]
+    out = {}
+    for m in (mats if isinstance(mats, list) else [mats]):
+        s = c[c.material == m]
+        out[m] = round(float(s[s.country_iso3 == 'CHN'].value_t.sum()) / float(s.value_t.sum()), 3) if len(s) else None
     return out
 
 
@@ -122,6 +143,12 @@ def main():
                               for par, v in ch[ch < 0].sort_values().head(3).items()],
             'comparison': {
                 'china_share_world_production': {m: round(cn[m] / world[m], 3) for m in world if world[m] > 0},
+                'china_share_world_production_wmd': wmd_share(WMD[tr]),
+                'china_share_usgs_mcs2025': ({k: v for k, v in USGS_MCS2025[tr].items()} |
+                                             {'share': round(USGS_MCS2025[tr]['china_t'] / USGS_MCS2025[tr]['world_t'], 3)})
+                if tr in USGS_MCS2025 else None,
+                # BGS records China's bismuth mine output as 1,804 t (2019-2021) and 1,800 t (2022-2024): flat
+                'bgs_china_series_flat': (tr == 'bismuth'),
                 'other_countries_5pct': n5,
                 'china_share_eu_imports_pre': round(lvl['pre']['china_t_per_month'] / lvl['pre']['total_t_per_month'], 3),
                 'china_tonnes_after_over_before': round(lvl['post']['china_t_per_month'] / lvl['pre']['china_t_per_month'], 3)
