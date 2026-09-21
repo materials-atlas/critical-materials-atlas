@@ -44,7 +44,9 @@ EU = {
 }
 US = {
     'gage': ['8112921000', '8112926000', '8112926500'],
-    'graphite': ['2504101000', '2504105000', '3801105010'],
+    # deviation 2: 3801105000 split into 3801105010 (spherical) and 3801105090 inside the window; the
+    # filing's rule sums code changes back to the stem, so the whole of 38011050 is used throughout
+    'graphite': ['2504101000', '2504105000', '38011050*'],
     'magnets': ['8505110050', '8505110070'],
     'antimony': ['8110100000', '8110200000', '8110900000'],
     'bismuth': ['8106100000', '8106900000'],
@@ -66,6 +68,11 @@ CONTROLS = [
     ('C6', 'EU', 'bismuth', 'magnesium', '202502', '202502', None, 'bismuth'),
     ('C6', 'US', 'bismuth', 'magnesium', '202502', '202502', None, 'bismuth'),
 ]
+# deviation 3: US imports of magnesium FROM CHINA fell about 90% across the window (2.6 Mt in 2021 to
+# 0.2 Mt in 2025), so they cannot serve as the comparison for the China-origin outcome in the US; that
+# outcome is reported as not interpretable wherever the US comparison is magnesium. Total kilograms and
+# unit values use all origins, where US magnesium imports are stable, and are kept.
+BROKEN_CHINA_COMPARISON = {('US', 'magnesium')}
 # the filing's overlap rule: C3's pre-period starts when C1's control on the same goods took effect
 PRE_START = {'C3': '202308'}
 
@@ -159,6 +166,10 @@ def estimate(ctrl, data):
     res['post_bin'] = post_bin
     res['post_months'] = int(ev[post_bin].sum())
     for out in ('y_china', 'y_total', 'y_price'):
+        if out == 'y_china' and (imp, cp) in BROKEN_CHINA_COMPARISON:
+            res['outcomes'][out] = None
+            res['china_outcome_not_interpretable'] = 'comparison broken: China-origin magnesium collapsed (deviation 3)'
+            continue
         D = (T[out] - C[out]).rename('D')
         X = ev[['antic'] + bins].astype(float)
         dd = pd.concat([D, X], axis=1).dropna()
@@ -170,7 +181,10 @@ def estimate(ctrl, data):
         dfree = int(m.df_resid)
         crit = float(stats.t.ppf(0.975, dfree))
         res['outcomes'][out] = {
-            'estimate': round(b, 4), 'pct': round(100 * (math.exp(b) - 1), 1), 'se': round(se, 4),
+            'estimate': round(b, 4),
+            # deviation 4: a percentage is meaningful for the log unit value, not for asinh quantities
+            # whose series touch zero; those are reported in log points only
+            'pct': round(100 * (math.exp(b) - 1), 1) if out == 'y_price' else None, 'se': round(se, 4),
             'p': round(float(2 * stats.t.sf(abs(b / se), dfree)), 4) if se > 0 else None,
             'ci95': [round(b - crit * se, 4), round(b + crit * se, 4)],
             'mde_80': round(float((crit + stats.t.ppf(0.80, dfree)) * se), 4),
@@ -195,6 +209,24 @@ def read(r, p_adj):
     return 'inconclusive'
 
 
+def read_corrected(r, p_adj):
+    """Deviation 5, post-hoc and labelled: the filed rule checks 'untestable' first, so a 98% fall with
+    a tight interval reads 'untestable at a 30% fall'. The precedence a reader would expect: an
+    interval that already clears the threshold decides the reading whatever the design's power."""
+    c, t, pr = (r['outcomes'].get(k) for k in ('y_china', 'y_total', 'y_price'))
+    if not c:
+        return 'not interpretable' if r.get('china_outcome_not_interpretable') else 'no estimate'
+    tot = bool(t and t['estimate'] <= THR_TOTAL and t['ci95'][1] < 0)
+    pri = bool(pr and pr['estimate'] >= THR_PRICE and pr['ci95'][0] > 0)
+    if c['ci95'][1] < THR_CHINA and p_adj is not None and p_adj < 0.05:
+        return 'bit' if (tot or pri) else 'diverted'
+    if c['ci95'][0] > THR_CHINA:
+        return 'no visible effect'
+    if c['mde_80'] > abs(THR_CHINA):
+        return 'untestable at a 30% fall'
+    return 'inconclusive'
+
+
 def holm(ps):
     idx = sorted(range(len(ps)), key=lambda i: ps[i] if ps[i] is not None else 2)
     adj, run = [None] * len(ps), 0.0
@@ -214,7 +246,8 @@ def main():
     adj = holm(ps)
     for r, a in zip(results, adj):
         r['p_china_holm'] = a
-        r['reading'] = read(r, a)
+        r['reading_as_filed'] = read(r, a)
+        r['reading_corrected_precedence'] = read_corrected(r, a)
     out = {'filing': 'export-controls/PREREGISTRATION.md', 'last_month': LAST,
            'thresholds': {'china_kg_fall': '30%', 'total_kg_fall': '20%', 'unit_value_rise': '20%'},
            'results': results}
@@ -224,9 +257,10 @@ def main():
         c = r['outcomes'].get('y_china')
         t = r['outcomes'].get('y_total')
         p = r['outcomes'].get('y_price')
-        f = lambda o: ('%+6.0f%% [%+.2f,%+.2f] mde %.2f' % (o['pct'], o['ci95'][0], o['ci95'][1], o['mde_80'])) if o else '   n/a'
-        print('%-3s %s %-32s %s | China %s | total %s | price %s | holm %s -> %s' % (
-            r['control'], r['importer'], r['label'][:32], r['post_bin'], f(c), f(t), f(p), r['p_china_holm'], r['reading']))
+        f = lambda o: ('%+.2f [%+.2f,%+.2f] mde %.2f' % (o['estimate'], o['ci95'][0], o['ci95'][1], o['mde_80'])) if o else '      n/a'
+        print('%-3s %s %-26s | China %s | total %s | price %s | holm %s | filed: %s | corrected: %s' % (
+            r['control'], r['importer'], r['label'][:26], f(c), f(t), f(p), r['p_china_holm'],
+            r['reading_as_filed'], r['reading_corrected_precedence']))
     print('wrote', OUT)
 
 
