@@ -110,45 +110,73 @@ Two independent language models reviewed `DESIGN.md` (committed before review). 
    code changes summed to the stem.
 6. Two more controls, verified in the announcements: antimony (C5) and bismuth (C6).
 
-## Result - run 2026-09-21 (after deviations 1-7)
+## Result - run 2026-09-21 (after deviations 1-10)
 
 Run by `analysis.py`; every number is in `out/export_controls.json`. Post-period: months 7-12 after
-entry into force, except the US ban (C3), whose post-period ends when it was suspended. Estimates are
-differences against the comparison, relative to the pre-period: China and total kilograms in log
-points of the inverse hyperbolic sine, unit value in log points with its percentage.
+entry into force. Rewritten after two independent language models and a fact-check reviewed the first
+draft of this section (deviation 10); no estimate changed.
 
-| | importer | control | China kg | total kg | unit value | reading as filed | reading, corrected order (dev. 5) |
-|---|---|---|---|---|---|---|---|
-| C1 | EU | gallium and germanium | -0.40 [-0.83, +0.04] | -0.10 [-0.42, +0.23] | +0.78 [+0.42, +1.13] (+117%) | untestable at a 30% fall | untestable at a 30% fall |
-| C1 | US | gallium and germanium | n/a | +0.72 [+0.25, +1.19] | +0.28 [+0.08, +0.47] (+32%) | no estimate | not interpretable |
-| C2 | EU | graphite | +0.00 [-0.32, +0.33] | -0.10 [-0.30, +0.11] | -0.04 [-0.19, +0.12] (-4%) | untestable at a 30% fall | no visible effect |
-| C2 | US | graphite | n/a | n/a | n/a | no estimate | not interpretable |
-| C3 | US | ban on Ga, Ge to the US | n/a | -0.14 [-0.41, +0.12] | +0.36 [-0.04, +0.76] (+43%) | no estimate | not interpretable |
-| C4 | EU | rare-earth magnets | +0.25 [+0.16, +0.34] | +0.21 [+0.10, +0.32] | -0.00 [-0.09, +0.08] (-0%) | no visible effect | no visible effect |
-| C4 | US | rare-earth magnets | n/a | n/a | n/a | no estimate | not interpretable |
-| C4r | EU | Gd, Tb, Dy metals and compounds | +0.06 [-0.97, +1.08] | -0.80 [-1.15, -0.44] | +1.09 [+0.57, +1.61] (+197%) | untestable at a 30% fall | untestable at a 30% fall |
-| C5 | EU | antimony | -4.04 [-4.93, -3.15] | +0.20 [+0.05, +0.36] | +1.83 [+1.67, +2.00] (+526%) | untestable at a 30% fall | bit |
-| C5 | US | antimony | n/a | -0.16 [-0.31, -0.02] | +1.76 [+1.53, +1.99] (+484%) | no estimate | not interpretable |
-| C6 | EU | bismuth | -0.94 [-1.29, -0.59] | -0.41 [-0.78, -0.03] | +1.31 [+1.06, +1.56] (+270%) | untestable at a 30% fall | bit |
-| C6 | US | bismuth | n/a | -1.07 [-1.47, -0.68] | +1.37 [+1.06, +1.68] (+293%) | no estimate | not interpretable |
+**As filed, no EU control reads "bit".** Five of the six EU controls read "untestable at a 30% fall"
+and the magnets read "no visible effect". The filed rule checks power before the estimate, and the
+monthly China-origin series are thin enough that the design could not reliably have seen a 30% fall.
+**The US half of the study does not work** with the comparisons filed for it (deviations 3 and 7) and
+has no reading; its numbers are in the output file and are not reported here.
 
-**The EU half answers; the US half does not.**
+### The estimates (EU, against the filed comparison)
 
-- **Antimony and bismuth bit, in the EU.** China-origin antimony imports collapsed (-4.0 log points,
-  the series going to near zero) and the unit value rose about six-fold (+1.83); China-origin bismuth
-  fell by about 0.9 log points, total bismuth imports fell, and the unit value rose about 3.7-fold
-  (+1.31). Both clear the corrected reading and the Holm correction.
-- **Graphite and rare-earth magnets show no visible effect in the EU** by months 7-12: China-origin
-  magnet imports were *higher* relative to ferrite magnets. The early bins are in the output file; a
-  dip in the first months followed by recovery would not be caught by the post-period this filing chose.
-- **Gallium and germanium, and the heavy rare earths, are untestable** at a 30% fall in the EU: the
-  estimates are large (gallium and germanium -0.40, with the unit value up 118%) but the monthly
-  series are too thin to separate them from zero.
-- **The US results are not interpretable** with the comparisons filed for them (deviations 3 and 7).
-  The US unit-value and total-quantity rows against magnesium are shown, but carry no reading.
+China and total quantities are differences of the inverse hyperbolic sine of kilograms. They are not
+percentages, and where a series approaches zero they are not log changes either (deviation 4). The unit
+value is a true log difference, with its percentage.
 
-**Read the "as filed" column too.** By the rule as written, every EU control but the magnets reads
-"untestable", including the two that collapsed; the corrected order is post-hoc (deviation 5).
+| | control | China quantity | total quantity | unit value | reading as filed | corrected order (dev. 5, exploratory) |
+|---|---|---|---|---|---|---|
+| C1 | gallium and germanium | -0.40 [-0.83, +0.04] | -0.10 [-0.42, +0.23] | +0.78 [+0.42, +1.13] (+117%) | untestable at a 30% fall | untestable at a 30% fall |
+| C2 | graphite | +0.00 [-0.32, +0.33] | -0.10 [-0.30, +0.11] | -0.04 [-0.19, +0.12] (-4%) | untestable at a 30% fall | no visible effect |
+| C4 | rare-earth magnets | +0.25 [+0.16, +0.34] | +0.21 [+0.10, +0.32] | -0.00 [-0.09, +0.08] (-0%) | no visible effect | no visible effect |
+| C4r | Gd, Tb, Dy metals and compounds | +0.06 [-0.97, +1.08] | -0.80 [-1.15, -0.44] | +1.09 [+0.57, +1.61] (+197%) | untestable at a 30% fall | untestable at a 30% fall |
+| C5 | antimony | -4.04 [-4.93, -3.15] | +0.20 [+0.05, +0.36] | +1.83 [+1.67, +2.00] (+526%) | untestable at a 30% fall | bit |
+| C6 | bismuth | -0.94 [-1.29, -0.59] | -0.41 [-0.78, -0.03] | +1.31 [+1.06, +1.56] (+270%) | untestable at a 30% fall | bit |
+
+### What the raw series show (EU, before and after)
+
+Pre-period mean against months 7-12, per month; unit value in euro per kilogram, all origins.
+
+| | control | from China, t | all origins, t | unit value, treated | unit value, comparison |
+|---|---|---|---|---|---|
+| C1 | gallium and germanium | 4.8 → 3.5 | 5.3 → 4.3 | 494.3 → 702.0 (×1.4) | 4.68 → 2.90 (×0.62) |
+| C2 | graphite | 2495.9 → 2859.3 | 8359.5 → 7586.3 | 1.4 → 1.3 (×0.9) | 0.26 → 0.25 (×0.98) |
+| C4 | rare-earth magnets | 1532.1 → 2009.3 | 1649.1 → 2127.3 | 41.3 → 37.4 (×0.9) | 4.50 → 4.06 (×0.90) |
+| C4r | Gd, Tb, Dy metals and compounds | 5.6 → 2.3 | 22.4 → 11.5 | 124.5 → 400.0 (×3.2) | 2.26 → 2.66 (×1.18) |
+| C5 | antimony | 190.3 → 8.4 | 1663.7 → 1718.8 | 11.4 → 47.0 (×4.1) | 3.63 → 2.35 (×0.65) |
+| C6 | bismuth | 131.5 → 56.9 | 144.8 → 102.3 | 9.9 → 25.5 (×2.6) | 3.09 → 2.28 (×0.74) |
+
+### Reading
+
+- **Antimony and bismuth are consistent with a bite, as an exploratory reading only.** Under the
+  reading order corrected after the data (deviation 5) both read "bit", with Holm-adjusted p below 0.05
+  over any family of the filed size. The raw series are unambiguous about what happened: EU imports of
+  antimony from China fell from 190 to 8.4 tonnes a month and the unit value of all antimony imports
+  rose 4.1-fold; bismuth from China fell from 132 to 57 tonnes a month and its unit value rose
+  2.6-fold. The larger multiples in the estimates (about six-fold and 3.7-fold) are relative to
+  magnesium, whose own unit value fell over the same months. **Antimony was not a supply shortfall:**
+  total EU antimony imports did not fall (other origins replaced China), so its "bit" rests on price.
+  Total bismuth imports did fall.
+- **Rare-earth magnets show no visible fall in China-origin imports** by months 7-12, as filed;
+  **graphite** is untestable as filed and shows no visible fall only under the exploratory order. The
+  EU graphite code is natural graphite only (25041000); the synthetic and spherical graphite the control
+  also covers is not in the locked codes, so this says nothing about them. Magnet imports from China
+  rose relative to ferrite magnets; that rules out a 30% fall relative to ferrite, not any effect.
+- **Gallium and germanium, and the heavy rare earths, are untestable.** The heavy rare earths' secondary
+  outcomes did move: total imports fell and the unit value rose roughly three-fold; with China-origin
+  untestable, that is a price and volume move, not a bite attributed to China-origin supply.
+
+### What limits this
+
+Magnesium, the comparison for the metal controls, is itself bought almost entirely from China and its
+EU unit value rose from about 2 euro per kilogram in early 2021 to above 6 in 2022 before falling back,
+inside the pre-periods; every unit-value estimate against it carries that slide. Talc and baryte are coarse
+comparisons for graphite; ferrite magnets are the closest, and a switch toward ferrite would move the
+comparison. These are differences against coarse, uncontrolled, China-exposed goods, not causal effects.
 
 ## Deviations log
 
@@ -192,3 +220,24 @@ Every change made after this filing goes here, dated, with its reason.
    the comparisons filed for it**; no replacement comparisons are chosen after seeing the data. Every
    EU series passes the same screen (the 2025 unit-value jumps for antimony and bismuth are the price
    rises that followed the controls, with quantities steady).
+
+8. **2026-09-21, after the council review of the results - raw levels added; empty anticipation column
+   dropped.** The output now carries, for every control, the pre-period and months 7-12 means of tonnes
+   from China, tonnes from all origins and the unit value, for treated and comparison goods, so that no
+   multiple in the text rests on an asinh gap. Where entry into force is the month of announcement
+   (C4, C6) the anticipation column was all zeros and was left to the pseudo-inverse; it is now dropped.
+   No estimate or reading changed (checked against the previous output).
+9. **2026-09-21 - the Holm family changed and is stated.** The filing adjusts across "six controls, up
+   to two importers each". After deviations 3 and 7 no US China-origin estimate exists, so the adjustment
+   runs over the six EU tests. Antimony and bismuth have unadjusted p below 0.0001 and would survive
+   adjustment over all twelve.
+10. **2026-09-21 - result wording rewritten after review.** Two independent language models and a
+   fact-check reviewed the first draft of the result section. Accepted: the filed reading leads and the
+   corrected order is exploratory; asinh quantities are not described as percentages or log points;
+   raw tonnes and unit values are shown; unit-value multiples are given raw, with the magnesium-relative
+   figure named as such; antimony's total imports rose, so its reading rests on price; EU graphite is
+   natural graphite only; the heavy rare earths' secondary outcomes are reported; US numbers are removed
+   from the result table. Deviation 7's "quantities steady" meant no break in recording, not no change in
+   supply. The first draft also gave the gallium and germanium unit-value rise as 118%; it is 117%.
+   One inconsistency in the filing, noted and without effect: C3's pre-period (August 2023 to November
+   2024) contains C1's post-period, which the overlap rule meant to exclude; the US rows carry no reading.
