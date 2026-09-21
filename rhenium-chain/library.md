@@ -5,7 +5,7 @@ Rhenium is a by-product of a by-product — recovered from the flue dust of roas
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Rhenium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf) — USGS (2026). The two-page rhenium synopsis: production, reserves, uses, salient statistics.
 - [Industry / NRC — rhenium in single-crystal superalloys](https://www.nrel.gov/) — cited in the chain record as general industry/NRC context on rhenium in superalloys (2024).
-- [BGS, World Mineral Statistics — rhenium](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). World production statistics database, including rhenium.
+- [BGS, World Mineral Statistics — rhenium](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). World production statistics database, including rhenium.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonized bilateral trade database used for the chain's trade layer.
 
 ## Government & agency reports

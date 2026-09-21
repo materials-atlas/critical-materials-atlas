@@ -10,7 +10,7 @@ OUT = os.path.join(HERE, "out", "titanium_chain.json")
 SRC = {
     "usgs_ti_sponge": {"title": "USGS Mineral Commodity Summaries 2026 — Titanium Sponge", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-sponge.pdf"},
     "usgs_ti_mineral": {"title": "USGS Mineral Commodity Summaries 2026 — Titanium Mineral Concentrates", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-mineral.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — titanium minerals", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — titanium minerals", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 

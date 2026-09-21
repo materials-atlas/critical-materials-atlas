@@ -4,7 +4,7 @@ The rare critical mineral where the US, not China, is the chokepoint — a singl
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Beryllium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf) — USGS (2026). Annual mine production, reserves, US/world shares.
-- [BGS World Mineral Statistics — beryllium](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series by country.
+- [BGS World Mineral Statistics — beryllium](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series by country.
 - [USGS Historical Statistics for Mineral and Material Commodities](https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities) — USGS (2024). Long-run US/world production history.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Bilateral trade database used for the chain's trade panel.
 

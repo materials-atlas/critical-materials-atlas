@@ -5,7 +5,7 @@ One obscure mineral quietly gates chips, batteries and cooling at once: fluorspa
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Fluorspar](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-fluorspar.pdf) — USGS (2026). Annual US and world fluorspar production, reserves and salient statistics.
 - [IEA, Global Critical Minerals Outlook 2025](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Flagship annual critical-minerals demand/supply outlook.
-- [BGS World Mineral Statistics — fluorspar mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Historical world mine-production database used for the chain's China-share history chart.
+- [BGS World Mineral Statistics — fluorspar mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Historical world mine-production database used for the chain's China-share history chart.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonised bilateral trade database used for the atlas's own reconciliation.
 
 ## Government & agency reports
@@ -28,7 +28,7 @@ One obscure mineral quietly gates chips, batteries and cooling at once: fluorspa
 
 ## Databases & data sources
 - [Mineral Commodity Summaries 2025 — FLUORSPAR Data Release](https://data.usgs.gov/datacatalog/data/USGS:6797fd4ad34ea8c18376e188) — USGS Science Data Catalog. Machine-readable companion dataset to the MCS fluorspar sheet.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. World mine-production time series (source of the atlas's own history chart).
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. World mine-production time series (source of the atlas's own history chart).
 - [Critical Mineral Resources: National Policy and Critical Minerals List](https://www.congress.gov/crs_external_products/R/PDF/R47982/R47982.15.pdf) — Congressional Research Service (2025). Tracks fluorspar's status on the US critical minerals list (confirmed on the Final 2025 List, published Nov 7 2025).
 
 ## Industry & trade associations

@@ -16,7 +16,7 @@ def hist_points(material, country):
 
 SRC = {
     "usgs_magnesium": {"title": "USGS Mineral Commodity Summaries 2026 — Magnesium Metal", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-metal.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — magnesium metal production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — magnesium metal production", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "ec_crm": {"title": "European Commission, Study on the Critical Raw Materials for the EU 2023", "year": 2023, "url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }

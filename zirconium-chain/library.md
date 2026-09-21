@@ -5,7 +5,7 @@ The chokepoint isn't zircon sand (abundant, a titanium-mineral-sands by-product)
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Zirconium and Hafnium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-zirconium.pdf) — USGS (2026). Production, reserves, US import reliance for zirconium and hafnium.
 - [IAEA — Cinq choses à savoir sur le zirconium](https://www.iaea.org/fr/newscenter/news/le-zirconium) — IAEA (2024). Short explainer on zirconium's role as nuclear fuel cladding.
-- [BGS World Mineral Statistics — zircon](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). World production/trade statistics database, includes zircon.
+- [BGS World Mineral Statistics — zircon](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). World production/trade statistics database, includes zircon.
 - [CEPII BACI, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonised bilateral trade dataset used for the chain's zircon/zirconium trade figures.
 
 ## Government & agency reports
@@ -28,7 +28,7 @@ The chokepoint isn't zircon sand (abundant, a titanium-mineral-sands by-product)
 
 ## Databases & data sources
 - [USGS National Minerals Information Center — Zirconium and Hafnium](https://www.usgs.gov/centers/national-minerals-information-center/zirconium-and-hafnium-statistics-and-information) — USGS. Primary US source for production, trade and price statistics.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Global production/trade database covering zircon.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Global production/trade database covering zircon.
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade. Bilateral trade flows at HS6, used for zircon ore (261510) and unwrought zirconium (810920).
 - [EU Raw Materials Information System (RMIS)](https://rmis.jrc.ec.europa.eu/) — European Commission JRC. Material/country profile and trade platform (no standalone zirconium profile located).
 - [Zirconium — Wikipedia](https://en.wikipedia.org/wiki/Zirconium) — general reference confirming production-country shares (Australia + South Africa ≈ half of global zircon), the 1–3% hafnium content of commercial zirconium, and that cladding consumes ~1% of zirconium supply.

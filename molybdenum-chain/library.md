@@ -5,7 +5,7 @@ Molybdenum hardens and heat-proofs steel and enables refinery desulfurisation ca
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Molybdenum](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-molybdenum.pdf) — USGS (2026). Mine production, reserves, world output by country.
 - [International Molybdenum Association — uses and supply](https://www.imoa.info/) — IMOA (2024). Trade-association overview of molybdenum uses and supply.
-- [BGS, World Mineral Statistics — molybdenum](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS (2024). Long-run mine-production series by country.
+- [BGS, World Mineral Statistics — molybdenum](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the atlas's own flows.
 
 ## Government & agency reports

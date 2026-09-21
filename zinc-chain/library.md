@@ -22,7 +22,7 @@ Zinc is the invisible host that gates half the atlas's by-product metals — gal
 
 ## Databases & data sources
 - [ILZSG statistics](https://www.ilzsg.org/) — ILZSG. Monthly/annual zinc supply-demand balances.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS. Long-run zinc mine-production series.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS. Long-run zinc mine-production series.
 - [UN Comtrade](https://comtradeplus.un.org/) — UN. Bilateral zinc ore and unwrought-zinc trade by HS code.
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Mirror-reconciled HS6 trade flows.
 

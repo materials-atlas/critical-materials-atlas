@@ -4,7 +4,7 @@ There is no stainless steel without chromium — and the ferrochrome smelting st
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Chromium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf) — USGS (2026). Annual chromite mine and ferrochrome production, reserves.
-- [BGS World Mineral Statistics — chromium (chromite)](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series.
+- [BGS World Mineral Statistics — chromium (chromite)](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series.
 - International Chromium Development Association — uses and supply — cited as `https://www.icdachromium.com/` in the chain's own sources, but that domain no longer resolves to the association (see Gaps below).
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Bilateral trade database used for the chain's trade panel.
 

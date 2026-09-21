@@ -5,7 +5,7 @@ One of the rarest metals recovered industrially, tellurium comes almost entirely
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Tellurium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tellurium.pdf) — USGS (2026). Annual by-product recovery volumes, US import sources and events for tellurium.
 - [First Solar / NREL — Cadmium-Telluride (CdTe) Solar Cells](https://www.nrel.gov/pv/cadmium-telluride-solar-cells.html) — NREL (2024). Technical overview of CdTe thin-film PV, the chain's largest end use.
-- [BGS, World Mineral Statistics — tellurium](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). World tellurium production data.
+- [BGS, World Mineral Statistics — tellurium](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). World tellurium production data.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Bilateral trade database used for the chain's trade-flow layer.
 
 ## Government & agency reports

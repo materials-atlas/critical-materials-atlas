@@ -4,7 +4,7 @@ The rare-earth mine is the least concentrated step (~60% China); separation (~91
 
 ## Core references (already cited in the chain)
 - [IEA, Global Critical Minerals Outlook 2025 — Executive summary (rare earths & magnets)](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Stage-by-stage China share: mine/separation/magnet.
-- [BGS, World Mineral Statistics — rare-earth mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS (2024). Long-run mine-production series by country.
+- [BGS, World Mineral Statistics — rare-earth mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country.
 - [USGS Mineral Commodity Summaries 2026 — Rare Earths](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf) — USGS (2026). Reserves, production, US import reliance on China.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the atlas's own flows.
 

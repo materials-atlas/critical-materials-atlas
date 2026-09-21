@@ -17,7 +17,7 @@ def hist_points(material, country):
 
 SRC = {
     "usgs_beryllium": {"title": "USGS Mineral Commodity Summaries 2026 — Beryllium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-beryllium.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — beryllium", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — beryllium", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "usgs_history": {"title": "USGS, Historical Statistics for Mineral and Material Commodities", "year": 2024, "url": "https://www.usgs.gov/centers/national-minerals-information-center/historical-statistics-mineral-and-material-commodities"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }

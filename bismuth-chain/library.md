@@ -4,7 +4,7 @@ The non-toxic heavy metal that replaces lead — and China makes and refines rou
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Bismuth](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf) — USGS (2026). Annual production, reserves, US import reliance.
-- [BGS World Mineral Statistics — bismuth](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series.
+- [BGS World Mineral Statistics — bismuth](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series.
 - [European Commission, Critical Raw Materials 2023 — bismuth](https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en) — European Commission (2023). EU criticality assessment.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Bilateral trade database used for the chain's trade panel.
 

@@ -5,7 +5,7 @@ Two countries hold the world's boron — and Turkey holds roughly 70% of world b
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Boron](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-boron.pdf) — USGS (2026). Annual production, reserves, US/world shares.
 - [Eti Maden (Turkey) — world boron reserves & production](https://www.etimaden.gov.tr/en) — Eti Maden (2024). Turkey's state borate producer, the ~70%-of-reserves holder.
-- [BGS World Mineral Statistics — borates](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series by country.
+- [BGS World Mineral Statistics — borates](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series by country.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Bilateral trade database used for the chain's trade panel.
 
 ## Government & agency reports
@@ -21,7 +21,7 @@ Two countries hold the world's boron — and Turkey holds roughly 70% of world b
 
 ## Databases & data sources
 - [Boron Statistics and Information](https://www.usgs.gov/centers/national-minerals-information-center/boron-statistics-and-information) — USGS. Also the primary data portal: links to full historical Mineral Commodity Summaries and Minerals Yearbook tables/spreadsheets.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Downloadable long-run borate production dataset (already core).
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Downloadable long-run borate production dataset (already core).
 
 ## Industry & trade associations
 - [Eti Maden](https://www.etimaden.gov.tr/en) — Turkey's state-owned borate producer (already core); the primary industry source for Turkish reserve and production figures.

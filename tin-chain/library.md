@@ -5,7 +5,7 @@ About half of world tin demand is solder, the joint in every circuit board — a
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Tin](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tin.pdf) — USGS (2026). Two-page global mine/refine production, reserves and trends synopsis for tin.
 - [International Tin Association — tin use survey](https://www.internationaltin.org/tin-use-survey/) — ITA (2025). Annual end-use survey; source for the "~half is solder" figure.
-- [BGS World Mineral Statistics — tin mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Country-level mine production time series.
+- [BGS World Mineral Statistics — tin mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Country-level mine production time series.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the chain's trade layer.
 
 ## Government & agency reports
@@ -29,7 +29,7 @@ About half of world tin demand is solder, the joint in every circuit board — a
 
 ## Databases & data sources
 - [USGS National Minerals Information Center — Tin Statistics and Information](https://www.usgs.gov/centers/national-minerals-information-center/tin-statistics-and-information) — USGS. Long-run US and world tin production/consumption/trade statistics.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Free searchable global mineral production database, including tin.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Free searchable global mineral production database, including tin.
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised, cleaned bilateral trade database derived from UN Comtrade (tin ores 2609, unwrought tin 800110 used in this chain).
 - [RMIS — Raw Materials Information System](https://rmis.jrc.ec.europa.eu/eu-critical-raw-materials) — EU JRC. EU-side raw-materials data and criticality-assessment portal.
 

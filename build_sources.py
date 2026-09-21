@@ -25,7 +25,7 @@ ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 META = {
  'BGS World Mineral Statistics': {
    'publisher': 'British Geological Survey (UK)', 'licence': 'Open Government Licence',
-   'url': 'https://www2.bgs.ac.uk/mineralsuk/statistics/wms.cfc?method=searchWMS',
+   'url': 'https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/',
    'edition': 'live OGC API, pulled 2026-09-04',
    'what_it_is': 'A compilation of the statistical returns that national statistical offices file. '
                  'BGS does not measure production; it collects and standardises what states report.',

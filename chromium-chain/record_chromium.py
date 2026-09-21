@@ -9,7 +9,7 @@ OUT = os.path.join(HERE, "out", "chromium_chain.json")
 
 SRC = {
     "usgs_chromium": {"title": "USGS Mineral Commodity Summaries 2026 — Chromium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-chromium.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — chromium (chromite)", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — chromium (chromite)", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "icda": {"title": "International Chromium Development Association — uses and supply", "year": 2024, "url": "https://www.icdachromium.com/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }

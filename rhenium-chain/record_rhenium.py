@@ -10,7 +10,7 @@ OUT = os.path.join(HERE, "out", "rhenium_chain.json")
 SRC = {
     "usgs_rhenium": {"title": "USGS Mineral Commodity Summaries 2026 — Rhenium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rhenium.pdf"},
     "roskill_context": {"title": "Industry / NRC — rhenium in single-crystal superalloys", "year": 2024, "url": "https://www.nrel.gov/"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — rhenium", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — rhenium", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 

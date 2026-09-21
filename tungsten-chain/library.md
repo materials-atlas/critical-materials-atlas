@@ -4,7 +4,7 @@ You can't machine metal without tungsten — China has mined ~80% for decades an
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Tungsten](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tungsten.pdf) — USGS (2026). Annual world mine production, reserves, uses and prices; China ~80% of mine output.
-- [BGS World Mineral Statistics — tungsten](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS (2024). Long-run mine-production series by country.
+- [BGS World Mineral Statistics — tungsten](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country.
 - [International Tungsten Industry Association (ITIA)](https://www.itia.info/) — ITIA (2024). Uses, supply and the APT/carbide value chain.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral HS6 trade flows (ore 261100, APT 284180, unwrought 810194).
 
@@ -21,7 +21,7 @@ You can't machine metal without tungsten — China has mined ~80% for decades an
 
 ## Databases & data sources
 - [USGS Mineral Commodity Summaries series](https://pubs.usgs.gov/periodicals/mcs2026/) — USGS. Annual by-commodity production/reserves/trade data.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS. Long-run mine-production database.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS. Long-run mine-production database.
 - [UN Comtrade](https://comtradeplus.un.org/) — UN. Bilateral trade in tungsten ores, APT and unwrought tungsten by HS code.
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Mirror-reconciled HS6 trade flows built from Comtrade.
 

@@ -5,7 +5,7 @@ Cobalt has a mine problem in one country and a refining problem in another: roug
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Cobalt](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-cobalt.pdf) — USGS (2026). Annual mine production, reserves, US/world shares.
 - [IEA, Global Critical Minerals Outlook 2025](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Refining-concentration and demand-outlook analysis.
-- [BGS World Mineral Statistics — cobalt mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series by country.
+- [BGS World Mineral Statistics — cobalt mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series by country.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Bilateral trade database used for the chain's trade panel.
 
 ## Government & agency reports

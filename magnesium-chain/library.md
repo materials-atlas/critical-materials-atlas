@@ -4,7 +4,7 @@ China makes roughly 87% of the world's primary magnesium, mostly via the coal-fi
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Magnesium Metal](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-magnesium-metal.pdf) — USGS (2026). China's production share, world supply/demand.
-- [BGS, World Mineral Statistics — magnesium metal production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS (2024). Long-run production series by country.
+- [BGS, World Mineral Statistics — magnesium metal production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run production series by country.
 - [European Commission, Study on the Critical Raw Materials for the EU 2023](https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en) — European Commission (2023). Criticality assessment including magnesium.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the atlas's own flows.
 

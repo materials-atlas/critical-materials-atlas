@@ -5,7 +5,7 @@ Gallium's twin — the infrared metal China controls with the same lever: german
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Germanium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf) — USGS (2026). Latest production/use/price data.
 - [CSIS, China's gallium and germanium export controls](https://www.csis.org/analysis/chinas-gallium-and-germanium-export-controls) — CSIS (2023). Explainer on the July 2023 licensing measures.
-- [BGS, World Mineral Statistics — germanium](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). World mine/refined production series.
+- [BGS, World Mineral Statistics — germanium](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). World mine/refined production series.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Trade data underlying the atlas.
 
 ## Government & agency reports
@@ -28,7 +28,7 @@ Gallium's twin — the infrared metal China controls with the same lever: german
 
 ## Databases & data sources
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Trade database (germanium sits in the shared 811292 basket).
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. World mine-production time series.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. World mine-production time series.
 
 ## Industry & trade associations
 - [SEMI Europe Comments on the Export Controls on Gallium and Germanium](https://www.semi.org/sites/semi.org/files/2024-04/SEMI%20Europe%20Comments%20on%20the%20Export%20Controls%20on%20Gallium%20and%20Germanium.pdf) — SEMI (2024). Semiconductor-industry association response to the licensing regime.

@@ -5,7 +5,7 @@ Indonesia rewrote the nickel map with a single policy: banning raw-ore exports p
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Nickel](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf) — USGS (2026). Two-page nickel synopsis: production, reserves, salient statistics.
 - [IEA, Global Critical Minerals Outlook 2025 — Executive summary](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Annual outlook covering nickel supply concentration and demand growth.
-- [BGS, World Mineral Statistics — nickel mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Country-level mine production time series used for the atlas's own history chart.
+- [BGS, World Mineral Statistics — nickel mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Country-level mine production time series used for the atlas's own history chart.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Reconciled bilateral trade database used for the chain's trade figures.
 
 ## Government & agency reports
