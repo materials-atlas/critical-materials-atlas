@@ -22,6 +22,7 @@ import urllib.request
 
 import duckdb
 import numpy as np
+import patsy
 import openpyxl
 import pandas as pd
 import statsmodels.formula.api as smf
@@ -129,11 +130,12 @@ def reading(f):
 
 
 def rank_ok(df, regs, year_fe):
+    # the full design matrix of the fit - price terms, country-metal effects and year effects - as
+    # patsy builds it for the regression (extended after the council review: the first version checked
+    # the price terms and year dummies only)
     d = df.dropna(subset=['dx'] + regs)
-    cols = [d[regs].values]
-    if year_fe:
-        cols.append(pd.get_dummies(d.year.astype(str)).astype(float).values)
-    mat = np.column_stack(cols)
+    rhs = '%s + C(cm)%s' % (' + '.join(regs), ' + C(year)' if year_fe else '')
+    mat = np.asarray(patsy.dmatrix(rhs, d))
     return int(np.linalg.matrix_rank(mat)), int(mat.shape[1])
 
 

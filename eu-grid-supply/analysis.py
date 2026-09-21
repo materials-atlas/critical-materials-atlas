@@ -25,6 +25,7 @@ ROOT = os.path.dirname(HERE)
 OUT = os.path.join(ROOT, 'out', 'eu_grid_supply.json')
 CACHE = os.path.join(HERE, 'prodcom_cache.json')
 EU_DATA = os.path.join(ROOT, 'export-controls', 'eu_data')
+EU_DATA_INV = os.path.join(HERE, 'eu_data_inverters')      # fetch_inverters.py (deviation 1)
 API = ('https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-059358'
        '?format=JSON&lang=EN&freq=A&reporter=EU27_2020&indicators=PRODVAL&product=%s')
 YEARS = list(range(2019, 2025))
@@ -37,7 +38,8 @@ COMPONENTS = [
     ('switchgear', 'Switchgear above 1,000 V', ['27121010', '27121020', '27121030', '27121041', '27121090'],
      ['85351000', '85352100', '85352900', '85353010', '85353090', '85354000', '85359000']),
     ('switchboards', 'Switchboards above 1,000 V', ['27123203', '27123205'], ['85372091', '85372099']),
-    ('inverters', 'Inverters above 7.5 kVA', ['27904155'], ['85044086']),
+    # 85044086 exists 2023-2025 only; before 2023 the same line was 85044088 (deviation 1)
+    ('inverters', 'Inverters above 7.5 kVA', ['27904155'], ['85044086', '85044088']),
     ('meters', 'Electricity meters (incl. household smart meters)', ['26516370'],
      ['90283011', '90283019', '90283090']),
 ]
@@ -63,7 +65,8 @@ def prodcom():
 
 
 def trade():
-    files = sorted(glob.glob(os.path.join(EU_DATA, 'comext_*.parquet')))
+    files = sorted(glob.glob(os.path.join(EU_DATA, 'comext_*.parquet')) +
+                   glob.glob(os.path.join(EU_DATA_INV, 'comext_*.parquet')))
     con = duckdb.connect()
     return con.execute("""select PRODUCT_NC as code, substr(PERIOD, 1, 4) as year, FLOW as fl,
                                  case when PARTNER = 'CN' then 'CN' else 'other' end as who,
@@ -119,6 +122,14 @@ def main():
                                                'ratio': round(ratio, 3) if ratio is not None else None,
                                                'ratio_reading': ratio_reading(ratio),
                                                'supply_band': band(s)}}
+    # deviation 2: from 2026 CN splits inverters by function, not power: 85044084 with maximum power
+    # point tracking (solar) and 85044087 without, at any power. Jan-Jul 2026 imports, as context for
+    # what the inverter line holds; not part of the filed measure.
+    t26 = tr[(tr.year == '2026') & (tr.fl == '1')]
+    res['inverters_2026_by_function'] = {
+        k: {'imports_meur': round(float(t26[t26.code == c].v.sum()) / 1e6, 1),
+            'from_china_meur': round(float(t26[(t26.code == c) & (t26.who == 'CN')].v.sum()) / 1e6, 1)}
+        for k, c in (('solar_mppt_85044084', '85044084'), ('other_85044087', '85044087'))}
     json.dump(res, open(OUT, 'w', encoding='utf-8'), indent=1, default=float)
     print('%-16s %9s %8s %8s %6s  %s' % ('component', 'prod', 'imports', 'CN imp', 'ratio', 'reading'))
     for k, c in res['components'].items():

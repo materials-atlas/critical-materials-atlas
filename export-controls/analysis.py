@@ -173,6 +173,18 @@ def estimate(ctrl, data):
     post_bin = 'b7_12' if 'b7_12' in bins else bins[-1]
     res['post_bin'] = post_bin
     res['post_months'] = int(ev[post_bin].sum())
+    # added after the council review of the results: raw levels behind each difference, so a reader
+    # can see the tonnes and the unit values themselves, not only asinh gaps against the comparison
+    pre_m = [m for m in span if m < ann]
+    post_m = [m for m in span if ev.loc[m, post_bin]]
+
+    def lv(S, ms):
+        s = S.loc[ms]
+        return {'china_t_per_month': round(float(s.kg_cn.mean()) / 1000, 2),
+                'total_t_per_month': round(float(s.kg.mean()) / 1000, 2),
+                'unit_value_per_kg': round(float(s.v.sum() / s.kg.sum()), 3) if s.kg.sum() > 0 else None}
+    res['levels'] = {'treated': {'pre': lv(T, pre_m), 'post': lv(T, post_m)},
+                     'comparison': {'pre': lv(C, pre_m), 'post': lv(C, post_m)}}
     for out in ('y_china', 'y_total', 'y_price'):
         if (imp, cp) in BROKEN_COMPARISON:
             res['outcomes'][out] = None
@@ -183,12 +195,15 @@ def estimate(ctrl, data):
             res['china_outcome_not_interpretable'] = 'comparison broken: China-origin magnesium collapsed (deviation 3)'
             continue
         D = (T[out] - C[out]).rename('D')
-        X = ev[['antic'] + bins].astype(float)
+        # when entry into force is the month of announcement there is no anticipation window; the empty
+        # column is dropped rather than left to the pseudo-inverse (same estimates, cleaner fit)
+        cols = (['antic'] if ev['antic'].any() else []) + bins
+        X = ev[cols].astype(float)
         dd = pd.concat([D, X], axis=1).dropna()
         if len(dd) < 18 or dd[post_bin].sum() == 0:
             res['outcomes'][out] = None
             continue
-        m = sm.OLS(dd.D, sm.add_constant(dd[['antic'] + bins])).fit(cov_type='HAC', cov_kwds={'maxlags': 6})
+        m = sm.OLS(dd.D, sm.add_constant(dd[cols])).fit(cov_type='HAC', cov_kwds={'maxlags': 6})
         b, se = float(m.params[post_bin]), float(m.bse[post_bin])
         dfree = int(m.df_resid)
         crit = float(stats.t.ppf(0.975, dfree))
@@ -201,7 +216,7 @@ def estimate(ctrl, data):
             'ci95': [round(b - crit * se, 4), round(b + crit * se, 4)],
             'mde_80': round(float((crit + stats.t.ppf(0.80, dfree)) * se), 4),
             'months': int(len(dd)),
-            'bins': {k: round(float(m.params[k]), 4) for k in ['antic'] + bins}}
+            'bins': {k: round(float(m.params[k]), 4) for k in cols}}
     return res
 
 

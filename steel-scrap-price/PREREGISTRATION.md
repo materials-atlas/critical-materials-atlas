@@ -70,15 +70,15 @@ causal.
 
 ## Result - run 2026-09-21
 
-Run by `analysis.py`; every number is in `out/steel_scrap_price.json`. The regressor matrix is full
-rank (28 of 28), so steel's terms are identified. 172 small-exporter country-steel pairs among
+Run by `analysis.py`; every number is in `out/steel_scrap_price.json`. The full design matrix (price
+terms, country-metal effects and year effects) is full rank, 527 of 527, so steel's terms are identified. 172 small-exporter country-steel pairs among
 500 in the pooled panel. The price series was taken from the BLS public API rather than FRED's CSV
 endpoint, which timed out (deviation 1); it is the same series.
 
 | | estimate |
 |---|---|
-| **Primary: steel's later response (one- plus two-year terms), errors by country** | +0.34 (95% +0.05 to +0.63, p 0.023, detectable 0.41) - **responds after the same year** |
-| Same, errors clustered by year | +0.34 (95% -0.03 to +0.70, p 0.068, detectable 0.51) - inconclusive |
+| Primary: steel's later response (one- plus two-year terms), errors by country | +0.34 (95% +0.05 to +0.63, p 0.023, detectable 0.41) - responds after the same year |
+| **Same, errors clustered by year** | **+0.34 (95% -0.03 to +0.70, p 0.068, detectable 0.51) - inconclusive** |
 | Steel's same-year term | +0.78 (95% +0.57 to +0.99, p 0.000, detectable 0.30) |
 | Placebo, future prices | +0.10 (95% -0.23 to +0.43, p 0.548, detectable 0.47) - inconclusive |
 | Without 2021 | +0.32 (95% +0.02 to +0.61, p 0.035, detectable 0.42) - responds after the same year |
@@ -88,13 +88,26 @@ endpoint, which timed out (deviation 1); it is the same series.
 Steel's three terms: same year +0.78, a year later +0.27 (p 0.010), two years later +0.07
 (p 0.434).
 
-**By the filed rule the primary reads "responds after the same year"**: the later response is +0.34
-with its interval above zero, carried by the one-year term. **It does not survive the stricter errors
-the filing asked for beside it**: clustered by year, which respects that the price is common to every
-exporter in a year, the interval reaches zero and the reading is inconclusive. The placebo does not
-respond, as it must not; the result holds without 2021 and on real prices; the large exporters show
-nothing. This is the first sign in either scrap study of a response after the same year, and it is
-fragile: reported, not a finding to build on.
+**Inconclusive.** Steel scrap exports rise with the US scrap price in the same year (+0.78), as all
+scrap trade does. Whether they also respond a year or two later cannot be settled: the later response is
++0.34, but its interval reaches zero once errors are clustered by year, which the filing asked for
+beside the primary because the price is common to every exporter in a year. With errors clustered by
+country only, the filed rule reads "responds after the same year"; those errors are too small for a
+common price, so that reading is not the result. The estimate is also below the smallest effect the
+design could reliably see (0.41 by country, 0.51 by year).
+
+The checks do not strengthen it. The future-price placebo is inconclusive, not a clean non-response: its
+one-year-ahead term alone is +0.23 (p 0.038), about the size of the one-year lag (+0.27), which points to
+serially correlated prices rather than a delayed reaction. Large exporters show nothing (+0.01). The
+result is about the same without 2021 and on real prices to 2022 (the two rows round alike by
+coincidence; they are different samples, 10,218 and 9,731 observations).
+
+What the fit identifies is limited. Full rank (527 of 527, the whole design matrix; the first run checked
+only the price terms and year effects, 28 of 28) shows only that steel's price is not a copy of the
+year effects and the other prices. Year effects remove shocks common to all seven metals; demand from
+Türkiye and China's scrap import rules are steel-specific, move the price and the exports together, and
+are not removed. At most this is an association between small exporters' steel scrap shipments and a US
+price index, not a delayed response of the scrap market.
 
 ## Deviations log
 
@@ -103,3 +116,9 @@ Every change made after this filing goes here, dated, with its reason.
    CSV endpoint timed out repeatedly; WPU1012 is the BLS series FRED republishes, so it was taken from
    the BLS public API (320 months, January 2000 to August 2026; the August 2026 value, 580.548, matches
    FRED's). Same series, different route.
+2. **2026-09-21, after the council review of the results - result wording rewritten.** Two independent
+   language models and a fact-check reviewed the first draft. Accepted: the year-clustered reading leads,
+   as the filing's own reason for reporting it implies; the placebo is described as inconclusive, with
+   its one-year-ahead term; the rank check now covers the whole design
+   matrix, including the country-metal effects (527 of 527, full rank); the interpretation is limited to an
+   association. The filed rule and every estimate are unchanged.
