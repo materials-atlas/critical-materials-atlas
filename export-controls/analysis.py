@@ -140,7 +140,7 @@ def series(s, span):
 def estimate(ctrl, data):
     cid, imp, tr, cp, ann, eff, post_end, label = ctrl
     pre_start = PRE_START.get(cid, shift(ann, -24))
-    end = min(post_end or LAST, shift(eff, 11), LAST)
+    end = min(post_end or LAST, shift(eff, 12), LAST)          # the filed 7-12 bin ends at month 12
     span = months(pre_start, end)
     T, C = series(data[imp][tr], span), series(data[imp][cp], span)
     res = {'control': cid, 'importer': imp, 'label': label, 'treated': tr, 'comparison': cp,
