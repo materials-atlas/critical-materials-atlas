@@ -145,7 +145,8 @@ def main():
 
     res = {'filing': 'scrap-trade/PREREGISTRATION.md, deviation 5 (the three checks never run)',
            'rule_for_world_price_moves': 'mean |dp0| across the six headline metals, by year; top two',
-           'world_price_move_by_year': {str(int(y)): round(v, 4) for y, v in moves.items()},
+           'world_price_move_by_year': {str(int(y)): (round(v, 4) if v == v else None)
+                                        for y, v in moves.items()},
            'leave_one_year_out': {'years': top2, 'fits': loo},
            'steel_line': dict(lines['steel'], price='unit value of Tuerkiye 7204 imports, 1998 USD/t',
                               caveat='endogenous: Tuerkiye is the marginal buyer, so its import price '

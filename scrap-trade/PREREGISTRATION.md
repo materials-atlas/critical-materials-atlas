@@ -208,8 +208,10 @@ either year, against +0.58 with all years.
 **(b) Steel (7204), on the unit value of Tuerkiye's own scrap imports**, 176 small-exporter
 country-steel pairs: with year effects +0.75 (p <0.001, 95% +0.35 to +1.16, detectable 0.58); without +0.79 (p <0.001, 95% +0.44 to +1.14, detectable 0.50).
 Without year effects steel looks like the other metals - the response is in the same year (+0.72),
-nothing after. **With year effects it is the one line in either study to show a response after the
-same year** (a year later +0.20, p 0.07; two years later +0.17, p 0.04). It is not read, for the
+nothing after. **With year effects it is the one line whose later terms are both positive** (a year later
++0.20, p 0.07; two years later +0.17, p 0.04); the headline's own year-effects fit also has a
+significant term two years out (+0.27, p 0.026), but its terms swing sign (+0.25, -0.24, +0.27). Steel
+clears its detectable size (+0.75 against 0.58) and would otherwise count. It is not read, for the
 reason the filing gave in advance: the price is the unit value of the marginal buyer's own imports,
 so it moves with the same shocks as the exports it is meant to explain, and a unit value is not a
 price. It is the one place where a better price series would be worth having.
@@ -250,3 +252,13 @@ Every change made after filing goes here, dated, with its reason.
    years with the largest world price moves" is the mean absolute same-year change in log real price
    across the six headline metals (2006 and 2004). Results are in the section above. No published
    estimate changed.
+7. **2026-09-21, found in review of the three checks - the estimates rest on 2003-2022, not
+   2002-2024, and one sentence above overstated steel.** The real prices are deflated by the
+   USGS-implied deflator the recovery study also uses, and it ends in 2022. Every price change after
+   2022 is therefore missing, so the trade rows for 2023 and 2024 drop out of every fit, in the
+   published result as in the new checks; the trade data run to 2024 but the estimates stop in 2022.
+   Neither the result section nor the page had said so; both now do. Separately, the result of the
+   three checks first said steel was "the one line in either study to show a response after the same
+   year"; the headline's own year-effects fit has a significant second-year term too (+0.27, p 0.026).
+   What sets steel apart is that both its later terms are positive. Corrected above. No estimate
+   changed.
