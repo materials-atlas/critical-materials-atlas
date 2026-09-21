@@ -185,6 +185,11 @@ def estimate(ctrl, data):
                 'unit_value_per_kg': round(float(s.v.sum() / s.kg.sum()), 3) if s.kg.sum() > 0 else None}
     res['levels'] = {'treated': {'pre': lv(T, pre_m), 'post': lv(T, post_m)},
                      'comparison': {'pre': lv(C, pre_m), 'post': lv(C, post_m)}}
+    # the monthly series behind every estimate, derived (tonnes and euro or dollars per kg), for the page's charts
+    res['monthly'] = [{'ym': m, 'china_t': round(float(T.kg_cn[m]) / 1000, 3), 'total_t': round(float(T.kg[m]) / 1000, 3),
+                       'uv': round(float(T.v[m] / T.kg[m]), 3) if T.kg[m] > 0 and T.v[m] > 0 else None,
+                       'cmp_uv': round(float(C.v[m] / C.kg[m]), 3) if C.kg[m] > 0 and C.v[m] > 0 else None}
+                      for m in span]
     for out in ('y_china', 'y_total', 'y_price'):
         if (imp, cp) in BROKEN_COMPARISON:
             res['outcomes'][out] = None
