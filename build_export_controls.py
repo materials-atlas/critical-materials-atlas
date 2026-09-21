@@ -311,6 +311,7 @@ def page():
         'PRICE': price_chart(price_rows, 'Unit value after the control, as a multiple of before'),
         'ESTROWS': ''.join(rows_est), 'LVROWS': ''.join(rows_lv),
         'NUNT': {5: 'Five', 4: 'Four', 6: 'All six', 3: 'Three'}.get(n_untest, str(n_untest)),
+        'NUNTL': {5: 'five', 4: 'four', 6: 'all six', 3: 'three'}.get(n_untest, str(n_untest)),
         'SB_PRE': tn(lv(sb, 'treated', 'pre', 'china_t_per_month')), 'SB_POST': tn(lv(sb, 'treated', 'post', 'china_t_per_month')),
         'SB_TPRE': '{:,.0f}'.format(lv(sb, 'treated', 'pre', 'total_t_per_month')),
         'SB_TPOST': '{:,.0f}'.format(lv(sb, 'treated', 'post', 'total_t_per_month')),
@@ -328,6 +329,9 @@ def page():
         'GA_M': '%.1f' % mult(R['C1']), 'GA_REL': '%+.0f' % R['C1']['outcomes']['y_price']['pct'],
         'SRC': src(), 'SRC_US': src(us=True),
         'LAST': ym_label(e['last_month']),
+        'SB_CNSH': '%.0f' % (100 * lv(sb, 'treated', 'pre', 'china_t_per_month') / lv(sb, 'treated', 'pre', 'total_t_per_month')),
+        'BI_OTH0': '%.0f' % (lv(bi, 'treated', 'pre', 'total_t_per_month') - lv(bi, 'treated', 'pre', 'china_t_per_month')),
+        'BI_OTH1': '%.0f' % (lv(bi, 'treated', 'post', 'total_t_per_month') - lv(bi, 'treated', 'post', 'china_t_per_month')),
         'SB_LATE': '%.0f' % sb_late[0], 'SB_LATE_UV': '%.0f' % sb_late[1], 'SB_EARLY': '%.0f' % sb_early[0],
         'SB_EARLY_UV': '%.0f' % sb_early[1], 'SB_LATE_FROM': ym_label(shift(sb_ann, -4)),
         'SB_LATE_TO': ym_label(shift(sb_ann, -1)),
@@ -361,9 +365,10 @@ TEMPLATE = """<!doctype html>
   <p class="deck">Between 2023 and 2025 China put export licences on gallium and germanium, graphite,
   antimony, bismuth and seven rare earths. We filed a test before pulling the data: in the EU's and the
   United States' own monthly import records, did less arrive from China, did the price rise, did less
-  arrive in total? <b>As filed, none of the six is shown to bite</b>: the monthly series are too thin
-  for the test to have reliably seen the 30% fall it asked for. Two show large movements in the raw
-  record. <b>EU imports of antimony from China fell from @@SB_PRE@@ to @@SB_POST@@ tonnes a month and the
+  arrive in total? <b>As filed, no control is shown to bite.</b> In the EU, @@NUNTL@@ of the six series are
+  too thin for the test to have reliably seen the 30% fall it asked for, and rare-earth magnets, the one
+  series that could have seen it, show none; in the United States the filed comparisons fail and there
+  is no reading. Two EU series show large movements in the raw record. <b>EU imports of antimony from China fell from @@SB_PRE@@ to @@SB_POST@@ tonnes a month and the
   unit value of all antimony imports rose @@SB_M@@-fold; bismuth from China fell by @@BI_FALL@@% and the
   unit value of all bismuth imports rose @@BI_M@@-fold.</b> Antimony's fall had begun months before the
   control was announced, and reading either as a bite comes from a rule corrected after the data, so
@@ -400,12 +405,14 @@ TEMPLATE = """<!doctype html>
   customs codes for each line are in the <a href="@@REPO@@export-controls/PREREGISTRATION.md">filing</a>.</p>
 
   <h2>2. The test, as filed</h2>
-  <p><span class="verdict">NONE SHOWN TO BITE</span></p>
+  <p><span class="verdict">NO CONTROL SHOWN TO BITE, AS FILED</span></p>
   <p>Each controlled good was set against a comparison good that China also dominates and that no
   control we found covers &mdash; unwrought magnesium for the metals, talc and baryte for graphite,
   ferrite magnets for rare-earth magnets, lanthanum and cerium compounds for the heavy rare earths. These
   are coarse comparisons: each has its own market and can move for its own reasons (magnesium's price
-  swung widely in 2021&ndash;2022). The monthly gap between the two was compared before and after, with an
+  swung widely in 2021&ndash;2022), and a comparison bought almost entirely from China, like magnesium,
+  also nets out anything that hit all Chinese exports at once, which pushes towards finding no effect.
+  Ferrite magnets are a substitute for rare-earth magnets, so a switch between them moves both sides. The monthly gap between the two was compared before and after, with an
   anticipation window between announcement and entry into force, errors robust to
   autocorrelation@@C_NW1987@@, and a correction for running six tests at once (Holm&rsquo;s). The filing read months 7&ndash;12 after entry into force. A control
   <i>bit</i> if imports from China fell by at least 30% against the comparison and either the total fell
@@ -429,7 +436,9 @@ TEMPLATE = """<!doctype html>
   approaches zero it is not a log change either@@C_BW2020@@@@C_CR2024@@. The unit value is a true log
   difference and its percentage is shown. The last column reverses the order of the filed rule so that
   an interval already beyond the threshold decides the reading whatever the power; that correction was
-  made after the estimates were seen, and it is reported beside the filed reading, not in place of it.</p>
+  made after the estimates were seen, and it is reported beside the filed reading, not in place of it.
+  It also reads the quantity gaps against a 30% line drawn for logs, which is least valid for antimony,
+  whose China series has months with almost nothing arriving.</p>
 
   <h2>3. What the series show</h2>
   <p>Leave the comparison aside and look at the tonnes and the prices themselves: the mean month in the
@@ -454,19 +463,24 @@ TEMPLATE = """<!doctype html>
   <p><span class="verdict x">EXPLORATORY</span></p>
   <p>EU imports of antimony from China fell from @@SB_PRE@@ tonnes a month to @@SB_POST@@, while antimony
   from all origins went from @@SB_TPRE@@ to @@SB_TPOST@@ tonnes a month: imports from other origins made up
-  the difference. The unit value of all EU antimony imports rose from &euro;@@SB_UV0@@ to
-  &euro;@@SB_UV1@@ a kilogram, @@SB_M@@-fold. The estimate against magnesium (&times;@@SB_REL@@) is larger
+  the difference. China supplied only about @@SB_CNSH@@% of EU antimony tonnes even
+  before, so the price below is mostly that of antimony from elsewhere. The unit value of all EU antimony
+  imports rose from &euro;@@SB_UV0@@ to &euro;@@SB_UV1@@ a kilogram, @@SB_M@@-fold, and not because the mix
+  changed: unwrought antimony, most of the tonnage, rose about as much on its own, and ores and
+  concentrates rose too. The estimate against magnesium (&times;@@SB_REL@@) is larger
   because magnesium itself got cheaper over the same months (&times;@@MG_SB@@).</p>
   <p><b>Much of this began before the control.</b> Imports from China averaged @@SB_EARLY@@ tonnes a
   month at a unit value of &euro;@@SB_EARLY_UV@@ over most of the pre-period, but only @@SB_LATE@@ tonnes a
   month at &euro;@@SB_LATE_UV@@ in the four months before the announcement (@@SB_LATE_FROM@@ to
   @@SB_LATE_TO@@). The squeeze was under way before August 2024, and the announcement formalised it; this
-  design cannot separate the two. If there was a bite in Europe, it shows in imports from China and in
+  design cannot separate the two, nor the EU price from China's December 2024 ban on antimony exports to
+  the United States, which fell inside the same window. If there was a bite in Europe, it shows in imports from China and in
   the price, not in total import volume.</p>
   <h3>Bismuth: less from China and less in total, at a higher unit value</h3>
   <p><span class="verdict x">EXPLORATORY</span></p>
   <p>Bismuth from China fell from @@BI_PRE@@ to @@BI_POST@@ tonnes a month in months 7&ndash;12, and total
-  imports from @@BI_TPRE@@ to @@BI_TPOST@@: here other origins did not fill the gap. The unit value of all
+  imports from @@BI_TPRE@@ to @@BI_TPOST@@. Bismuth from other origins rose, from about @@BI_OTH0@@ to
+  @@BI_OTH1@@ tonnes a month, and filled part of the gap, not all of it. The unit value of all
   bismuth imports rose @@BI_M@@-fold (&times;@@BI_REL@@ against magnesium). Of the six, bismuth is the only
   one where all three outcomes &mdash; imports from China, total imports and the unit value &mdash;
   passed the filed thresholds against its comparison, each with its interval excluding zero. The squeeze eased late in the window:
@@ -477,8 +491,10 @@ TEMPLATE = """<!doctype html>
   @@GA_M@@-fold (@@GA_REL@@% against magnesium, more than half of which is magnesium getting cheaper). The
   customs lines cover the unwrought metals and powders, not the oxides and other compounds the control
   also covers.
-  <b>Natural graphite</b> from China did not fall; the synthetic and spherical graphite the control also
-  covers is not in the customs lines the filing locked, so this says nothing about them. <b>Rare-earth
+  <b>Natural graphite</b> from China rose in tonnes, and as filed the reading is untestable; the synthetic
+  and spherical graphite the control also covers is not in the customs lines the filing locked, so this
+  says nothing about them. The 2023 announcement also revised controls on graphite in place since 2006,
+  so the years before it are not an uncontrolled baseline. <b>Rare-earth
   magnet</b> imports from China rose relative to ferrite magnets, which rules out a 30% fall against
   ferrite, not any effect; the customs line holds every neodymium, praseodymium, dysprosium and samarium
   magnet, while the control covers only samarium-cobalt and terbium- or dysprosium-containing magnets, so
@@ -493,7 +509,9 @@ TEMPLATE = """<!doctype html>
   looks as if its China imports rose; US talc imports jumped six-fold in recorded kilograms in 2023 with
   their value flat, which looks like a change in recording; and US ferrite magnets are counted in pieces,
   not kilograms.
-  Each of these was found in the data after the first run and is logged in the filing. No replacement
+  Magnesium was found after the first run and the other two after the second, each logged in the
+  filing. There is no clean US customs line for the heavy rare earths, and US general imports include
+  goods later re-exported. No replacement
   comparisons were chosen after seeing the data, so the US half has no reading, including the outright
   ban on gallium, germanium and antimony to the United States (C3)@@C_M46@@.</p>
   <p class="src"><b>Source:</b> <a href="@@REPO@@export-controls/PREREGISTRATION.md">filing,
