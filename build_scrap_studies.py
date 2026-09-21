@@ -487,6 +487,8 @@ def page():
         'STP_F1': sgn(S['placebo_future_prices']['terms']['s_f1']['beta']),
         'STP_F1P': pv(S['placebo_future_prices']['terms']['s_f1']['p']),
         'STP_LG': sgn(S['large_exporters']['estimate']),
+        'STP_PL': sgn(S['placebo_future_prices']['estimate']), 'STP_PLP': pv(S['placebo_future_prices']['p']),
+        'STP_READ': sp['reading'],
         'STP_PAIRS': str(S['pairs_steel']), 'STP_RANK': '%d of %d' % (S['rank_check']['rank'], S['rank_check']['columns']),
         'SRC_STEEL': src(['bls', 'pink', 'baci'], ['steel']),
     })
@@ -666,26 +668,34 @@ TEMPLATE = """<!doctype html>
   the index was read</a>, put steel into the six-metal panel on that price, with year effects and a
   separate set of steel terms &mdash; identified this time, because steel's price moves differently from
   the other metals' within a year (the full design matrix is full rank, @@STP_RANK@@), on
-  @@STP_PAIRS@@ small-exporter pairs for carbon-steel scrap. It read a three-way rule set in advance: a
-  later response only if the interval of the one- and two-year terms together lies above zero and the
-  estimate is at least 0.20.</p>
+  @@STP_PAIRS@@ small-exporter pairs for iron and carbon-steel scrap (stainless and alloy scrap left out,
+  which is why the count differs from the 176 pairs of all steel scrap in the table above). It read a
+  three-way rule set in advance for the one- and two-year terms together: <i>responds after the same
+  year</i> if the interval lies above zero and the estimate is at least 0.20; <i>no response of that
+  size</i> if the interval's upper end is below 0.20; <i>inconclusive</i> otherwise.</p>
   <figure class="fig">@@STPFIG@@
   <figcaption><b>Steel scrap exports and the steel scrap price.</b> Elasticity of small exporters' steel
-  scrap exports to the US steel scrap price index, by year after the price move, with year effects,
-  alongside the six other metals.</figcaption></figure>
+  scrap exports to the US steel scrap price index, by year after the price move, estimated with year
+  effects in a panel with the six other metals. The p-values in the tooltips use errors grouped by
+  exporter; grouped by year, as the text explains, they are larger.</figcaption></figure>
   @@SRC_STEEL@@
   <p><b>Inconclusive.</b> Steel scrap moves with its price in the same year (@@STP_S0@@), like the other
-  metals. The later response is @@STP_EST@@, carried by the year after (@@STP_S1@@). With errors grouped
-  by exporter its interval (@@STP_CLO@@ to @@STP_CHI@@) clears zero; but the price is the same for every
-  exporter in a year, which the filing said makes those errors too small, and grouped by year the
-  interval runs from @@STP_YLO@@ to @@STP_YHI@@ (p&nbsp;=&nbsp;@@STP_YP@@). The estimate is also below what the
-  design could reliably detect (@@STP_MDE@@, or @@STP_YMDE@@ by year). The checks do not help: a placebo on
-  the <i>next</i> year's price has a term of @@STP_F1@@ (p&nbsp;=&nbsp;@@STP_F1P@@), about as large as the
-  real one-year term, which points to prices that persist rather than to exporters responding late, and
+  metals. The later response is @@STP_EST@@, carried by the year after (@@STP_S1@@). The filed primary,
+  with errors grouped by exporter, puts its interval at @@STP_CLO@@ to @@STP_CHI@@, and by the rule it
+  reads &ldquo;@@STP_READ@@&rdquo;. But the price is the same for every exporter in a year, which the
+  filing itself said makes those errors too small and why it asked for errors grouped by year beside
+  them; grouped by year, the interval runs from @@STP_YLO@@ to @@STP_YHI@@ (p&nbsp;=&nbsp;@@STP_YP@@) and
+  the reading is inconclusive. Leading with the stricter reading was decided after the result, on review,
+  and is logged in the filing (its deviation 2). The estimate is also below what the
+  design could reliably detect (@@STP_MDE@@, or @@STP_YMDE@@ by year). The checks do not help: the placebo on
+  future prices is inconclusive overall (@@STP_PL@@, p&nbsp;=&nbsp;@@STP_PLP@@), but its one-year-ahead term
+  is @@STP_F1@@ (p&nbsp;=&nbsp;@@STP_F1P@@), about as large as the real one-year term, which points to prices
+  that persist rather than to exporters responding late, and
   the large exporters show nothing (@@STP_LG@@). The US index is a US price, and demand from T&uuml;rkiye
   and China's scrap import rules move steel's price and exports together, which year effects shared
-  with the other metals cannot remove. On the T&uuml;rkiye unit value used above, nothing followed the
-  same year; on the US index something may, but it does not survive the stricter errors.</p>
+  with the other metals cannot remove. On the T&uuml;rkiye import unit value, the scrap-trade study's
+  own check above, nothing followed the same year; on the US index something may, but it does not survive
+  the stricter errors.</p>
 </section>
 
 <section class="wrap xp">
@@ -697,9 +707,9 @@ TEMPLATE = """<!doctype html>
   cross-metal comparison at three base years rather than a within-metal response@@C_Sibley2011@@, and an autoregressive model of
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
-  part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
+  part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No conclusive evidence was found that a price rise brings
   more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included: its later
-  response on the US steel scrap index does not survive the stricter errors); within
+  response on the US steel scrap index is positive but inconclusive under the stricter errors); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
@@ -739,11 +749,15 @@ TEMPLATE = """<!doctype html>
   <p class="howto-src"><b>Filings and code.</b> Each design was committed before its first run and each
   deviation is logged with its date:
   <a href="@@REPO@@scrap-response/PREREGISTRATION.md">scrap recovery</a> (with Amendment A, the per-metal
-  design) and <a href="@@REPO@@scrap-trade/PREREGISTRATION.md">scrap trade</a>.
+  design), <a href="@@REPO@@scrap-trade/PREREGISTRATION.md">scrap trade</a> and
+  <a href="@@REPO@@steel-scrap-price/PREREGISTRATION.md">steel scrap on its own price</a>.
   <b>Sources.</b> US Geological Survey, historical statistics for mineral and material commodities
   (DS&nbsp;140); World Bank commodity prices (Pink Sheet); CEPII BACI, release V202601 (Etalab Open
   Licence 2.0). Built by <code>build_scrap_studies.py</code> from <code>out/scrap_response.json</code>,
-  <code>out/scrap_response_per_metal.json</code> and <code>out/scrap_trade.json</code>.</p>
+  <code>out/scrap_response_per_metal.json</code>, <code>out/scrap_trade.json</code>,
+  <code>out/scrap_trade_extras.json</code> and <code>out/steel_scrap_price.json</code>; the steel price is
+  the US Bureau of Labor Statistics producer price index WPU1012, iron and steel scrap
+  (<a href="https://data.bls.gov/timeseries/WPU1012">bls.gov</a>).</p>
 </section>
 @@FOOT@@
 </body></html>
