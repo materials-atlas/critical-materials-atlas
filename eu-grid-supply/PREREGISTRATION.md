@@ -71,6 +71,30 @@ Kingdom is excluded throughout for consistency across Brexit.
    aggregate is used for every year.
 5. No summing across components; no trend read from 2019-2023.
 
+## Result - run 2026-09-21
+
+Run by `analysis.py`; every number is in `out/eu_grid_supply.json`. 2024, million euro.
+
+| Component | EU sold production | imports | from China | China, share of imports | China, share of supply | ratio | reading | supply band |
+|---|---|---|---|---|---|---|---|---|
+| Liquid-dielectric transformers | 6160 | 1576 | 539 | 34% | 9% | 0.27 | the import share overstates dependence | low |
+| Grain-oriented electrical steel | 796 | 418 | 217 | 52% | 24% | 0.47 | the import share overstates dependence | material |
+| Insulated conductors above 1,000 V | 7758 | 1049 | 187 | 18% | 3% | 0.15 | the import share overstates dependence | low |
+| Switchgear above 1,000 V | 5455 | 745 | 167 | 22% | 4% | 0.20 | the import share overstates dependence | low |
+| Switchboards above 1,000 V | 4593 | 692 | 198 | 29% | 6% | 0.20 | the import share overstates dependence | low |
+| Inverters above 7.5 kVA | 3000 | 2324 | 1912 | 82% | 73% | 0.89 | the import share is a fair guide | critical |
+| Electricity meters (incl. household smart meters) | 1033 | 528 | 323 | 61% | 24% | 0.39 | the import share overstates dependence | material |
+
+**One component is a real dependence: inverters above 7.5 kVA.** China supplied 82% of EU imports
+and 73% of EU supply in 2024; the import share is a fair guide there. For every other component the
+import share overstates dependence, by a factor of two to seven: EU makers supply most of the
+transformers, cables, switchgear and switchboards Europe uses. Electrical steel and meters sit in the
+"material" band, at about a quarter of supply. Components are not summed, and no trend is read from
+2019-2023.
+
+Suppressed production cells: goes have at least one missing year. Where a component's Prodcom value was missing in any year, its
+supply share for that year is given only as an upper bound.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
