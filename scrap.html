@@ -201,8 +201,9 @@
   World Bank price. It has one from the US Bureau of Labor Statistics, the producer price index for iron
   and steel scrap. A follow-up study, <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/steel-scrap-price/PREREGISTRATION.md">filed before
   the index was read</a>, put steel into the six-metal panel on that price, with year effects and a
-  separate set of steel terms &mdash; identified this time, because steel's price moves differently from
-  the other metals' within a year (the full design matrix is full rank, 527 of 527), on
+  separate set of steel terms &mdash; estimable this time, because steel's price moves differently from
+  the other metals' within a year (the full design matrix is full rank, 527 of 527, which rules out
+  collinearity and nothing more), on
   172 small-exporter pairs for iron and carbon-steel scrap (stainless and alloy scrap left out,
   which is why the count differs from the 176 pairs of all steel scrap in the table above). It read a
   three-way rule set in advance for the one- and two-year terms together: <i>responds after the same
@@ -225,11 +226,13 @@
   design could reliably detect (0.41, or 0.51 by year). The checks do not help: the placebo on
   future prices is inconclusive overall (+0.10, p&nbsp;=&nbsp;0.55), but its one-year-ahead term
   is +0.23 (p&nbsp;=&nbsp;0.04), about as large as the real one-year term, which points to prices
-  that persist rather than to exporters responding late, and
-  the large exporters show nothing (+0.01). The US index is a US price, and demand from T&uuml;rkiye
-  and China's scrap import rules move steel's price and exports together, which year effects shared
-  with the other metals cannot remove. On the T&uuml;rkiye import unit value, the scrap-trade study's
-  own check above, nothing followed the same year; on the US index something may, but it does not survive
+  that persist rather than to exporters responding late, though it does not rule a delayed response out;
+  with errors grouped by exporter, the later response stays at +0.32 without 2021 and +0.32 on
+  real prices to 2022; and
+  for the large exporters it is inconclusive (+0.01, interval -0.49 to +0.52). The US index is a US price, and the steel-mill price, demand
+  from T&uuml;rkiye and China's scrap import rules can move steel's scrap price and its exports together;
+  year effects shared with the other metals remove such shocks only in part. On the T&uuml;rkiye import unit value, the scrap-trade study's
+  own check above, nothing followed after the same year; on the US index something may, but it does not survive
   the stricter errors.</p>
 </section>
 

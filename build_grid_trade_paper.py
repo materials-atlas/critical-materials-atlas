@@ -326,6 +326,7 @@ def grid_tokens(g):
         'GSOLALL': '%.0f%%' % (100 * sol['imports_meur'] / (sol['imports_meur'] + oth['imports_meur'])),
         'GINVX': '%.0f%%' % (100 * inv[hy]['exports_meur'] / inv[hy]['production_meur']),
         'GINVR': '%.2f' % C['inverters']['headline']['ratio'],
+        'GGOESR': '%.2f' % C['goes']['headline']['ratio'],
     }
 
 
@@ -1010,8 +1011,9 @@ uses, and the import share overstates dependence on China. The gap between the t
 two to seven. The filing's rule: where China's share of supply is under half its share of imports, the
 import share is not read as dependence; from 0.5 to 0.8 it partly overstates it; above 0.8 it is a fair
 guide. Supply shares are banded as low (under 10%), material (10&ndash;25%), high (25&ndash;50%) and
-critical (over 50%). EU
-makers supply most of the transformers, high-voltage cable, switchgear and switchboards Europe uses;
+critical (over 50%). Grain-oriented electrical steel, at a ratio of @@GGOESR@@, is the borderline case. EU
+makers account for most of the apparent supply of transformers, high-voltage cable, switchgear and
+switchboards;
 China's share of their supply is @@GLOLO@@ to @@GLOHI@@. Electrical steel and meters (@@GMET@@) sit at about
 a quarter.</p>
 <p><b>Large inverters are the exception, and they are not shown to be grid equipment.</b> China
