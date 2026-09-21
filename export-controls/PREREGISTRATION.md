@@ -140,3 +140,15 @@ Every change made after this filing goes here, dated, with its reason.
    The reading as filed is still reported for every control. Beside it, labelled as post-hoc, a
    reading with the expected order: an interval that clears the threshold (with Holm-adjusted p below
    0.05) decides the reading whatever the power; only otherwise does low power make it untestable.
+6. **2026-09-21, after the second run - US quantities in tonnes were dropped.** Several US codes
+   (baryte, crushed talc) report quantity in metric tonnes; the code read only kilograms and silently
+   left them out. Tonnes are now converted to kilograms. An implementation error.
+7. **2026-09-21, after the second run - two more US comparisons fail on the data.** A screen of every
+   series for breaks in recorded quantity and unit value found: US uncrushed talc (2526100000) jumping
+   six-fold in recorded kilograms in 2023 with its value flat, a recording change, which breaks the US
+   graphite comparison; and US ferrite magnets (8505193000) recorded only as a count of pieces, never
+   in kilograms, so the US magnets comparison has no quantity at all. Both US comparisons are declared
+   not interpretable for every outcome. With deviation 3, **the US half of this study does not work with
+   the comparisons filed for it**; no replacement comparisons are chosen after seeing the data. Every
+   EU series passes the same screen (the 2025 unit-value jumps for antimony and bismuth are the price
+   rises that followed the controls, with quantities steady).

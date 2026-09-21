@@ -73,6 +73,11 @@ CONTROLS = [
 # outcome is reported as not interpretable wherever the US comparison is magnesium. Total kilograms and
 # unit values use all origins, where US magnesium imports are stable, and are kept.
 BROKEN_CHINA_COMPARISON = {('US', 'magnesium')}
+# deviation 7: two more US comparisons fail on the data itself, for every outcome. Talc and baryte:
+# uncrushed talc (2526100000) jumps six-fold in recorded kilograms in 2023 with its value flat, a
+# recording change. Ferrite magnets (8505193000): recorded only as a count of pieces, never in kg,
+# so the comparison has no quantity at all.
+BROKEN_COMPARISON = {('US', 'talc_baryte'), ('US', 'ferrite')}
 # the filing's overlap rule: C3's pre-period starts when C1's control on the same goods took effect
 PRE_START = {'C3': '202308'}
 
@@ -120,7 +125,10 @@ def us_monthly():
     d = d[(d.SUMMARY_LVL == 'DET') & d.CTY_CODE.astype(str).str.match(REAL_COUNTRY)].copy()
     d['v'] = pd.to_numeric(d.GEN_VAL_MO, errors='coerce')
     q1, q2 = pd.to_numeric(d.GEN_QY1_MO, errors='coerce'), pd.to_numeric(d.GEN_QY2_MO, errors='coerce')
-    d['kg'] = np.where(d.UNIT_QY1 == 'KG', q1, np.where(d.UNIT_QY2 == 'KG', q2, np.nan))
+    # deviation 6: some codes report quantity in metric tonnes ('T'); those are converted to kg rather
+    # than dropped, which the first two runs did
+    d['kg'] = np.where(d.UNIT_QY1 == 'KG', q1, np.where(d.UNIT_QY2 == 'KG', q2,
+                       np.where(d.UNIT_QY1 == 'T', 1000.0 * q1, np.where(d.UNIT_QY2 == 'T', 1000.0 * q2, np.nan))))
     d['ym'] = d.month
     d['code'] = d.I_COMMODITY.astype(str)
     d['china'] = d.CTY_NAME == 'CHINA'
@@ -166,6 +174,10 @@ def estimate(ctrl, data):
     res['post_bin'] = post_bin
     res['post_months'] = int(ev[post_bin].sum())
     for out in ('y_china', 'y_total', 'y_price'):
+        if (imp, cp) in BROKEN_COMPARISON:
+            res['outcomes'][out] = None
+            res['china_outcome_not_interpretable'] = 'comparison broken on the data (deviation 7)'
+            continue
         if out == 'y_china' and (imp, cp) in BROKEN_CHINA_COMPARISON:
             res['outcomes'][out] = None
             res['china_outcome_not_interpretable'] = 'comparison broken: China-origin magnesium collapsed (deviation 3)'
