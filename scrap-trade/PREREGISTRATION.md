@@ -188,6 +188,36 @@ Everything in "what this cannot say" above still holds, and one more: the same-y
 comovement. It is consistent with a supply response, with a demand boom pulling both, and with stocks
 being drawn down, and this design cannot separate them.
 
+## Result of the three checks named in deviation 5 - run 2026-09-21
+
+Run by `filed_extras.py` (committed before its first run, reusing `flows.py` unchanged); every number
+is in `out/scrap_trade_extras.json`.
+
+**(a) Leave one year out.** The filing did not define the two years with "the largest world price
+moves"; the code defined it before the run as the mean absolute same-year change in log real price
+across the six headline metals, and the top two are **2006 and 2004**. Dropping each in turn:
+
+| Dropped | with year effects | without year effects (the claimed specification) |
+|---|---|---|
+| 2006 | +0.30 (p 0.093, 95% -0.05 to +0.65, detectable 0.50) | +0.69 (p <0.001, 95% +0.49 to +0.88, detectable 0.28) |
+| 2004 | +0.30 (p 0.062, 95% -0.02 to +0.61, detectable 0.44) | +0.60 (p <0.001, 95% +0.44 to +0.76, detectable 0.23) |
+
+The claimed estimate does not rest on either episode: it stays above its detectable size without
+either year, against +0.58 with all years.
+
+**(b) Steel (7204), on the unit value of Tuerkiye's own scrap imports**, 176 small-exporter
+country-steel pairs: with year effects +0.75 (p <0.001, 95% +0.35 to +1.16, detectable 0.58); without +0.79 (p <0.001, 95% +0.44 to +1.14, detectable 0.50).
+Without year effects steel looks like the other metals - the response is in the same year (+0.72),
+nothing after. **With year effects it is the one line in either study to show a response after the
+same year** (a year later +0.20, p 0.07; two years later +0.17, p 0.04). It is not read, for the
+reason the filing gave in advance: the price is the unit value of the marginal buyer's own imports,
+so it moves with the same shocks as the exports it is meant to explain, and a unit value is not a
+price. It is the one place where a better price series would be worth having.
+
+**(c) Gold (7112), on the Pink Sheet gold price**, 30 pairs: with year effects
++0.11 (p 0.048, 95% +0.00 to +0.23, detectable 0.16), which is below the filed power bar and not read; without year effects
++0.32 (p 0.072, 95% -0.03 to +0.67, detectable 0.50), not distinguishable from zero.
+
 ## Deviations log
 
 Every change made after filing goes here, dated, with its reason.
@@ -215,3 +245,8 @@ Every change made after filing goes here, dated, with its reason.
    line (7112, refining residues). None of the three is in `flows.py`, so none was in the result, and
    neither this log nor the page had said so. Both now do: the page carries a box naming all three.
    The published results rest on the checks that were run; these remain outstanding.
+6. **2026-09-21 - the three checks of deviation 5 were run**, by `filed_extras.py`, committed before
+   its first run. One choice the filing left open was fixed in that code before the run: "the two
+   years with the largest world price moves" is the mean absolute same-year change in log real price
+   across the six headline metals (2006 and 2004). Results are in the section above. No published
+   estimate changed.
