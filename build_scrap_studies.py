@@ -122,11 +122,14 @@ SOURCES = {
              'historical-statistics-mineral-and-material-commodities'),
     'pink': ('World Bank commodity prices (Pink Sheet)',
              'https://www.worldbank.org/en/research/commodity-markets'),
+    'bls': ('US Bureau of Labor Statistics, producer price index WPU1012, iron and steel scrap',
+            'https://data.bls.gov/timeseries/WPU1012'),
     'baci': ('CEPII BACI, release V202601',
              'https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37'),
 }
 RESULTS = {'pooled': 'out/scrap_response.json', 'per_metal': 'out/scrap_response_per_metal.json',
-           'trade': 'out/scrap_trade.json', 'extras': 'out/scrap_trade_extras.json'}
+           'trade': 'out/scrap_trade.json', 'extras': 'out/scrap_trade_extras.json',
+           'steel': 'out/steel_scrap_price.json'}
 
 
 def src(sources, results, note=''):
@@ -469,6 +472,24 @@ def page():
         'NUNT': word(len(M['metals']) - len(testable)), 'NMETW': word(len(M['metals'])),
         'TINN': word(T['checks']['by_metal']['tin']['countries']), 'TNMET': word(len(T['headline_metals'])),
     }
+    S = load('steel_scrap_price.json')
+    sp, sy = S['primary'], S['primary_clustered_by_year']
+    st = sp['terms']
+    tok.update({
+        'STPFIG': lag_chart([('same year', st['s_dp0']['beta'], pv(st['s_dp0']['p'])),
+                             ('a year later', st['s_dp1']['beta'], pv(st['s_dp1']['p'])),
+                             ('two years later', st['s_dp2']['beta'], pv(st['s_dp2']['p']))],
+                            'Steel scrap exports and the US steel scrap price, by year after the price move'),
+        'STP_EST': sgn(sp['estimate']), 'STP_CLO': sgn(sp['ci95'][0]), 'STP_CHI': sgn(sp['ci95'][1]),
+        'STP_YLO': sgn(sy['ci95'][0]), 'STP_YHI': sgn(sy['ci95'][1]), 'STP_YP': pv(sy['p']),
+        'STP_MDE': '%.2f' % sp['mde_80pct_power'], 'STP_YMDE': '%.2f' % sy['mde_80pct_power'],
+        'STP_S0': sgn(st['s_dp0']['beta']), 'STP_S1': sgn(st['s_dp1']['beta']),
+        'STP_F1': sgn(S['placebo_future_prices']['terms']['s_f1']['beta']),
+        'STP_F1P': pv(S['placebo_future_prices']['terms']['s_f1']['p']),
+        'STP_LG': sgn(S['large_exporters']['estimate']),
+        'STP_PAIRS': str(S['pairs_steel']), 'STP_RANK': '%d of %d' % (S['rank_check']['rank'], S['rank_check']['columns']),
+        'SRC_STEEL': src(['bls', 'pink', 'baci'], ['steel']),
+    })
     for k in REFNUM:
         tok['C_' + k] = cite(k)
     html = TEMPLATE
@@ -638,6 +659,33 @@ TEMPLATE = """<!doctype html>
   the mass of it sits in the same year rather than in the two that follow; lead clears its own bar
   narrowly (+0.65 against 0.60). Tin rests on @@TINN@@
   exporters and an estimate about the size of the smallest they could detect, so it is not read.</p>
+  <h3>Steel on its own price: a later response, but not one that holds up</h3>
+  <p>That left the question the trade study could not ask: steel scrap, the largest scrap market, has no
+  World Bank price. It has one from the US Bureau of Labor Statistics, the producer price index for iron
+  and steel scrap. A follow-up study, <a href="@@REPO@@steel-scrap-price/PREREGISTRATION.md">filed before
+  the index was read</a>, put steel into the six-metal panel on that price, with year effects and a
+  separate set of steel terms &mdash; identified this time, because steel's price moves differently from
+  the other metals' within a year (the full design matrix is full rank, @@STP_RANK@@), on
+  @@STP_PAIRS@@ small-exporter pairs for carbon-steel scrap. It read a three-way rule set in advance: a
+  later response only if the interval of the one- and two-year terms together lies above zero and the
+  estimate is at least 0.20.</p>
+  <figure class="fig">@@STPFIG@@
+  <figcaption><b>Steel scrap exports and the steel scrap price.</b> Elasticity of small exporters' steel
+  scrap exports to the US steel scrap price index, by year after the price move, with year effects,
+  alongside the six other metals.</figcaption></figure>
+  @@SRC_STEEL@@
+  <p><b>Inconclusive.</b> Steel scrap moves with its price in the same year (@@STP_S0@@), like the other
+  metals. The later response is @@STP_EST@@, carried by the year after (@@STP_S1@@). With errors grouped
+  by exporter its interval (@@STP_CLO@@ to @@STP_CHI@@) clears zero; but the price is the same for every
+  exporter in a year, which the filing said makes those errors too small, and grouped by year the
+  interval runs from @@STP_YLO@@ to @@STP_YHI@@ (p&nbsp;=&nbsp;@@STP_YP@@). The estimate is also below what the
+  design could reliably detect (@@STP_MDE@@, or @@STP_YMDE@@ by year). The checks do not help: a placebo on
+  the <i>next</i> year's price has a term of @@STP_F1@@ (p&nbsp;=&nbsp;@@STP_F1P@@), about as large as the
+  real one-year term, which points to prices that persist rather than to exporters responding late, and
+  the large exporters show nothing (@@STP_LG@@). The US index is a US price, and demand from T&uuml;rkiye
+  and China's scrap import rules move steel's price and exports together, which year effects shared
+  with the other metals cannot remove. On the T&uuml;rkiye unit value used above, nothing followed the
+  same year; on the US index something may, but it does not survive the stricter errors.</p>
 </section>
 
 <section class="wrap xp">
@@ -650,7 +698,8 @@ TEMPLATE = """<!doctype html>
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included); within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included: its later
+  response on the US steel scrap index does not survive the stricter errors); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are

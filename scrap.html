@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/scrap">
+<html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Does scrap answer price? &mdash; Critical Materials Atlas</title>
 <meta name="description" content="Two pre-registered tests of whether recycled metal responds to price, on seventy years of US data and on world scrap trade: nothing is shown in the two years after a price rise.">
@@ -30,9 +30,7 @@
 .verdict{display:inline-block;background:#15323a;color:#fff;font-weight:700;letter-spacing:.08em;
  padding:.15rem .6rem;border-radius:4px;font-size:.8rem}
 </style></head><body>
-<a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>
-<main id="main">
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Secondary supply &middot; two pre-registered tests</div>
   <h1>Does scrap answer price?</h1>
@@ -196,6 +194,33 @@
   the mass of it sits in the same year rather than in the two that follow; lead clears its own bar
   narrowly (+0.65 against 0.60). Tin rests on nine
   exporters and an estimate about the size of the smallest they could detect, so it is not read.</p>
+  <h3>Steel on its own price: a later response, but not one that holds up</h3>
+  <p>That left the question the trade study could not ask: steel scrap, the largest scrap market, has no
+  World Bank price. It has one from the US Bureau of Labor Statistics, the producer price index for iron
+  and steel scrap. A follow-up study, <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/steel-scrap-price/PREREGISTRATION.md">filed before
+  the index was read</a>, put steel into the six-metal panel on that price, with year effects and a
+  separate set of steel terms &mdash; identified this time, because steel's price moves differently from
+  the other metals' within a year (the full design matrix is full rank, 527 of 527), on
+  172 small-exporter pairs for carbon-steel scrap. It read a three-way rule set in advance: a
+  later response only if the interval of the one- and two-year terms together lies above zero and the
+  estimate is at least 0.20.</p>
+  <figure class="fig"><svg viewBox="0 0 720 210" role="img" aria-label="Steel scrap exports and the US steel scrap price, by year after the price move"><line x1="60" x2="700" y1="170.0" y2="170.0" class="grid"/><text x="54" y="174.0" class="ax" text-anchor="end">-0.2</text><line x1="60" x2="700" y1="143.4" y2="143.4" class="zero"/><text x="54" y="147.4" class="ax" text-anchor="end">+0.0</text><line x1="60" x2="700" y1="116.8" y2="116.8" class="grid"/><text x="54" y="120.8" class="ax" text-anchor="end">+0.2</text><line x1="60" x2="700" y1="90.2" y2="90.2" class="grid"/><text x="54" y="94.2" class="ax" text-anchor="end">+0.4</text><line x1="60" x2="700" y1="63.6" y2="63.6" class="grid"/><text x="54" y="67.6" class="ax" text-anchor="end">+0.6</text><rect x="106.9" y="39.6" width="119.5" height="103.8" rx="3" class="lagbar"><title>same year: +0.78, p &lt;0.001</title></rect><text x="166.7" y="33.6" class="ax val" text-anchor="middle">+0.78</text><text x="166.7" y="190" class="ax" text-anchor="middle">same year</text><rect x="320.3" y="108.1" width="119.5" height="35.3" rx="3" class="lagbar"><title>a year later: +0.27, p 0.01</title></rect><text x="380.0" y="102.1" class="ax val" text-anchor="middle">+0.27</text><text x="380.0" y="190" class="ax" text-anchor="middle">a year later</text><rect x="533.6" y="133.9" width="119.5" height="9.5" rx="3" class="lagbar"><title>two years later: +0.07, p 0.43</title></rect><text x="593.3" y="127.9" class="ax val" text-anchor="middle">+0.07</text><text x="593.3" y="190" class="ax" text-anchor="middle">two years later</text></svg>
+  <figcaption><b>Steel scrap exports and the steel scrap price.</b> Elasticity of small exporters' steel
+  scrap exports to the US steel scrap price index, by year after the price move, with year effects,
+  alongside the six other metals.</figcaption></figure>
+  <p class="src"><b>Source:</b> <a href="https://data.bls.gov/timeseries/WPU1012">US Bureau of Labor Statistics, producer price index WPU1012, iron and steel scrap</a> &middot; <a href="https://www.worldbank.org/en/research/commodity-markets">World Bank commodity prices (Pink Sheet)</a> &middot; <a href="https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37">CEPII BACI, release V202601</a>. Computed values: <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/steel_scrap_price.json"><code>out/steel_scrap_price.json</code></a>.</p>
+  <p><b>Inconclusive.</b> Steel scrap moves with its price in the same year (+0.78), like the other
+  metals. The later response is +0.34, carried by the year after (+0.27). With errors grouped
+  by exporter its interval (+0.05 to +0.63) clears zero; but the price is the same for every
+  exporter in a year, which the filing said makes those errors too small, and grouped by year the
+  interval runs from -0.03 to +0.70 (p&nbsp;=&nbsp;0.07). The estimate is also below what the
+  design could reliably detect (0.41, or 0.51 by year). The checks do not help: a placebo on
+  the <i>next</i> year's price has a term of +0.23 (p&nbsp;=&nbsp;0.04), about as large as the
+  real one-year term, which points to prices that persist rather than to exporters responding late, and
+  the large exporters show nothing (+0.01). The US index is a US price, and demand from T&uuml;rkiye
+  and China's scrap import rules move steel's price and exports together, which year effects shared
+  with the other metals cannot remove. On the T&uuml;rkiye unit value used above, nothing followed the
+  same year; on the US index something may, but it does not survive the stricter errors.</p>
 </section>
 
 <section class="wrap xp">
@@ -208,7 +233,8 @@
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price<sup class="cite">[<a href="#ref-Fu2017">3</a>]</sup>. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included); within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel included: its later
+  response on the US steel scrap index does not survive the stricter errors); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
@@ -254,6 +280,5 @@
   Licence 2.0). Built by <code>build_scrap_studies.py</code> from <code>out/scrap_response.json</code>,
   <code>out/scrap_response_per_metal.json</code> and <code>out/scrap_trade.json</code>.</p>
 </section>
-</main>
 <footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Sources</h4>USGS historical statistics (DS 140) &middot; World Bank Pink Sheet<br>CEPII BACI</div><div class="fineprint">Independent public-data research; figures approximate and rounded.</div></div></footer>
 </body></html>

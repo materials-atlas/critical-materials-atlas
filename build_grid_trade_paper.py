@@ -27,6 +27,8 @@ US = os.path.join(ROOT, 'out', 'buildout_us.json')                    # amendmen
 CT = os.path.join(ROOT, 'out', 'buildout_comtrade.json')              # amendment D
 OR = os.path.join(ROOT, 'out', 'buildout_origins.json')               # descriptive, B and C
 SUP = os.path.join(ROOT, 'out', 'buildout_supply.json')               # amendment E
+GRID = os.path.join(ROOT, 'out', 'eu_grid_supply.json')               # separate filing: eu-grid-supply/
+GRID_FILING = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/eu-grid-supply/PREREGISTRATION.md'
 OUT = os.path.join(ROOT, 'grid-trade.html')
 
 NAMES = {'CHN': 'China', 'JPN': 'Japan', 'RUS': 'Russia', 'DEU': 'Germany', 'KOR': 'South Korea',
@@ -178,6 +180,7 @@ RESULT_FILES = {
     'eu': 'out/buildout_eu.json', 'us': 'out/buildout_us.json',
     'comtrade': 'out/buildout_comtrade.json', 'origins': 'out/buildout_origins.json',
     'supply': 'out/buildout_supply.json',
+    'grid': 'out/eu_grid_supply.json',
 }
 
 
@@ -280,6 +283,73 @@ def bar_chart(data, open_years, label, W=720, H=260):
     return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s</svg>' % (W, H, label, ''.join(g))
 
 
+GRID_LABEL = {'transformers': 'Liquid-dielectric transformers', 'goes': 'Grain-oriented electrical steel',
+              'cables': 'Insulated cable above 1,000 V', 'switchgear': 'Switchgear above 1,000 V',
+              'switchboards': 'Switchboards above 1,000 V', 'inverters': 'Inverters above 7.5 kVA',
+              'meters': 'Electricity meters'}
+
+
+def grid_tokens(g):
+    hy = str(g['headline_year'])
+    C = g['components']
+    rows, pairs = [], []
+    order = sorted(C, key=lambda k: -C[k]['headline']['import_share'])
+    for k in order:
+        c, r = C[k], C[k]['years'][hy]
+        h = c['headline']
+        rows.append('<tr%s><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td>'
+                    '<td class="n">%s</td><td class="n">%.0f%%</td><td class="n"><b>%.0f%%</b></td><td>%s</td></tr>' % (
+                        ' class="hl"' if k == 'inverters' else '', GRID_LABEL[k],
+                        '{:,.0f}'.format(r['production_meur']), '{:,.0f}'.format(r['imports_meur']),
+                        '{:,.0f}'.format(r['imports_from_china_meur']), '{:,.0f}'.format(r['exports_meur']),
+                        100 * h['import_share'], 100 * h['supply_share'], h['supply_band']))
+        pairs.append((GRID_LABEL[k], h['import_share'], h['supply_share']))
+    inv = C['inverters']['years']
+    ss = [v['china_share_of_supply'] for v in inv.values() if v['china_share_of_supply'] is not None]
+    si = [v['china_share_of_imports'] for v in inv.values() if v['china_share_of_imports'] is not None]
+    f = g['inverters_2026_by_function']
+    sol, oth = f['solar_mppt_85044084'], f['other_85044087']
+    low = [GRID_LABEL[k].lower().replace('liquid-dielectric ', '') for k in ('transformers', 'cables', 'switchgear', 'switchboards')]
+    lows = [C[k]['headline']['supply_share'] for k in ('transformers', 'cables', 'switchgear', 'switchboards')]
+    return {
+        'GRIDROWS': ''.join(rows), 'GRIDY': hy,
+        'GRIDFIG': share_pair_chart(pairs, 'China, share of EU imports and of EU supply, by grid component, %s' % hy),
+        'GLOLO': '%.0f%%' % (100 * min(lows)), 'GLOHI': '%.0f%%' % (100 * max(lows)),
+        'GMET': '%.0f%%' % (100 * C['meters']['headline']['supply_share']),
+        'GINVI': '%.0f%%' % (100 * C['inverters']['headline']['import_share']),
+        'GINVS': '%.0f%%' % (100 * C['inverters']['headline']['supply_share']),
+        'GINVSLO': '%.0f%%' % (100 * min(ss)), 'GINVSHI': '%.0f%%' % (100 * max(ss)),
+        'GINVILO': '%.0f%%' % (100 * min(si)), 'GINVIHI': '%.0f%%' % (100 * max(si)),
+        'GSOL': '%.0f%%' % (100 * sol['from_china_meur'] / (sol['from_china_meur'] + oth['from_china_meur'])),
+        'GSOLCN': '%.0f%%' % (100 * sol['from_china_meur'] / sol['imports_meur']),
+        'GOTHCN': '%.0f%%' % (100 * oth['from_china_meur'] / oth['imports_meur']),
+    }
+
+
+def share_pair_chart(rows, label, W=720, rh=30):
+    """China's share of EU imports (violet) and of EU apparent supply (teal), one row per component."""
+    L, R, T = 300, 30, 30
+    H = T + rh * len(rows) + 28
+
+    def x(v):
+        return L + v * (W - L - R)
+    g = []
+    for k in range(0, 101, 20):
+        g.append('<line x1="%.1f" x2="%.1f" y1="%d" y2="%d" class="grid"/>' % (x(k / 100.0), x(k / 100.0), T - 8, H - 22))
+        g.append('<text x="%.1f" y="%d" class="ax" text-anchor="middle">%d%%</text>' % (x(k / 100.0), H - 6, k))
+    for i, (lab, imp, sup) in enumerate(rows):
+        y = T + rh * i + 6
+        g.append('<text x="0" y="%.1f" class="ax row">%s</text>' % (y + 4, lab))
+        g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" stroke="#c9ccc9" stroke-width="2"/>' % (x(sup), x(imp), y, y))
+        g.append('<circle cx="%.1f" cy="%.1f" r="5" fill="#7d5ba6" stroke="#fcfcfb" stroke-width="2"><title>%s: China %.0f%% of EU imports</title></circle>'
+                 % (x(imp), y, lab, 100 * imp))
+        g.append('<circle cx="%.1f" cy="%.1f" r="6" fill="#009287" stroke="#fcfcfb" stroke-width="2"><title>%s: China %.0f%% of EU supply</title></circle>'
+                 % (x(sup), y, lab, 100 * sup))
+    leg = ('<circle cx="6" cy="10" r="5" fill="#009287"/><text x="16" y="14" class="ax">share of EU supply</text>'
+           '<circle cx="150" cy="10" r="5" fill="#7d5ba6"/><text x="160" y="14" class="ax">share of EU imports</text>')
+    return '<svg viewBox="0 0 %d %d" role="img" aria-label="%s">%s%s</svg>' % (W, H, label, leg, ''.join(g))
+
+
 def main():
     d = json.load(io.open(DOC, encoding='utf-8'))
     x = json.load(io.open(EXPL, encoding='utf-8'))
@@ -288,6 +358,7 @@ def main():
     ctd = json.load(io.open(CT, encoding='utf-8'))
     ord_ = json.load(io.open(OR, encoding='utf-8'))
     sup = json.load(io.open(SUP, encoding='utf-8'))
+    grid = json.load(io.open(GRID, encoding='utf-8'))
     _collect(d)
     _collect(x)
     _collect(eud)
@@ -573,6 +644,9 @@ def main():
         'ST19': sh1(st['years']['2019']['china_share_of_supply']),
         'STPROD': '%.1f' % (st['years'][sty]['production_meur'] / 1000.0),
         'SRC_SUP': src(['prodcom', 'comext'], ['supply']),
+        'SRC_GRID': src(['prodcom', 'comext'], ['grid']),
+        'GRID_FILING': GRID_FILING,
+        **grid_tokens(grid),
         'FOREST': forest_svg, 'GOESCHART': goes_svg, 'EUCHART': eu_ev_svg, 'USBARS': us_bar_svg,
         'SRC_FIG1': src(['baci'], ['study']),
         'SRC_CORE': src(['baci'], ['study', 'expl']),
@@ -641,6 +715,7 @@ TEMPLATE = """<!doctype html>
 .fig .lab{font:600 12px Inter,system-ui,sans-serif}.fig .lab.p{fill:#0e7c74}.fig .lab.v{fill:#15323a}
 .box{background:#f7f7f5;border-left:3px solid #15323a;padding:.8rem 1.1rem;margin:1rem 0;font-size:.93rem}
 .refs li{margin:.3rem 0;font-size:.88rem}
+tr.hl td{background:#f1f6f5}
 .src{font-size:.78rem;color:#6b7478;margin:-.2rem 0 1.1rem;line-height:1.5}
 .src code{font-size:.74rem}
 .fig .ln.u{stroke:#8b857b}.fig .pt.u{fill:#8b857b}.fig .lab.u{fill:#6b675f}.fig .ci.u{stroke:#8b857b}
@@ -681,7 +756,8 @@ China's share of world exports rose from @@G19C@@ to @@G24C@@, and the three lar
 on a panel of @@CTN@@ importers holding @@CTCOV@@ of 2024 world imports, China's share rose from @@CTC24@@ in
 2024 to @@CTC25@@ in 2025. <b>These are shares of imports, and imports are not supply:</b> counting EU
 production, China supplied @@SGSUP@@ of the EU's electrical steel and @@STSUP@@ of its transformers in
-@@SUPY@@, against @@SG19@@ and @@ST19@@ in 2019 (section 4.6b). Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
+@@SUPY@@, against @@SG19@@ and @@ST19@@ in 2019 (section 4.6b). Across seven grid components the only
+line where China is most of EU supply is large inverters, most of which are solar (section 4.6c). Direct US imports of the steel come mostly from Japan and South Korea, with China at about 1%
 since 2021, though most of the steel the US uses arrives inside imported transformers, whose steel is
 not observed.
 <b>What is not settled:</b> how much of the transformer rise is the cost of steel and copper, and whether
@@ -909,6 +985,39 @@ supply. Production is valued at the factory gate and imports include freight, so
 sum sit on different price bases; sold production also excludes what a maker uses itself, and Eurostat
 has published no 2025 production yet, which is why these tables stop a year before the trade tables.</p>
 
+<h3>4.6c The rest of the grid: five more components</h3>
+<p>Transformers and their steel are two parts of a grid. A separate study, <a href="@@GRID_FILING@@">filed
+before its data were read</a> and reviewed like this note, applied the same measure to seven components,
+keeping only customs and production lines that are high-voltage or grid-scale by their own description,
+so that phone chargers and household fuses are not counted.</p>
+<figure class="fig">@@GRIDFIG@@
+<figcaption><b>China's share of what the EU imports, and of what it uses.</b> @@GRIDY@@, by value. The
+gap between the two dots is EU production: where it is wide, European makers supply most of what Europe
+uses, and the import share overstates dependence on China.</figcaption></figure>
+<div class="tbl"><table><thead><tr><th>Component, EU, @@GRIDY@@</th><th class="n">sold production, &euro;m</th>
+<th class="n">imports</th><th class="n">from China</th><th class="n">exports</th>
+<th class="n">China, share of imports</th><th class="n">China, share of supply</th><th>band</th></tr></thead>
+<tbody>@@GRIDROWS@@</tbody></table></div>
+@@SRC_GRID@@
+<p><b>For six of the seven the import share overstates dependence</b>, by a factor of two to seven. EU
+makers supply most of the transformers, high-voltage cable, switchgear and switchboards Europe uses;
+China's share of their supply is @@GLOLO@@ to @@GLOHI@@. Electrical steel and meters (@@GMET@@) sit at about
+a quarter.</p>
+<p><b>Large inverters are the exception, and they are mostly not grid equipment.</b> China supplied
+@@GINVI@@ of EU imports and @@GINVS@@ of EU supply in @@GRIDY@@, but the customs line holds every
+inverter above 7.5 kVA, commercial and utility solar and battery storage as well as grid converters.
+From 2026 the EU splits inverters by function rather than size: in January&ndash;July 2026, at any size,
+@@GSOL@@ of the inverters Europe bought from China were solar inverters, and China supplied @@GSOLCN@@ of
+EU solar-inverter imports and @@GOTHCN@@ of the rest. The supply share is also unsteady: China's share of
+EU inverter imports is @@GINVILO@@&ndash;@@GINVIHI@@ in every year from 2019, but its share of supply swings
+from @@GINVSLO@@ to @@GINVSHI@@, because EU production enters as round figures (&euro;2.0bn, &euro;3.0bn,
+&euro;6.0bn) that look like Eurostat estimates, and because exports are nearly as large as production.
+Read the inverter row as a solar-equipment dependence with an imprecise size, not a grid one.</p>
+<p class="dim">Components are not summed: transformers contain the steel. Suppressed production cells are
+given only as an upper bound. The first run of that study missed a customs code that changed in 2023
+and printed zero inverter trade for 2019&ndash;2022; a fact-check caught it, and the corrected series is
+the one shown (its deviation 1).</p>
+
 <h3>4.7 US imports to July 2026</h3>
 <p>A third filing, made before the US data were pulled, applied the method to US imports from the Census
 Bureau, January 2012 to July 2026, at the ten-digit level: @@USNFY@@ origin&ndash;line flow-years. The
@@ -1024,7 +1133,9 @@ variant was added, and the comparison with other electrical goods was moved into
 version was checked again by all three, and the EU extension in section 4.6 was reviewed by all three
 before this version; their review withdrew its first reading that transformers had become heavier. Eleven dated deviations are logged in the filing. The EU extension was filed separately, before its
 data were downloaded, and records eight further dated entries; the US extension was filed before its
-data were pulled and records two, including a weight test that turned out not to be runnable.</p>
+data were pulled and records two, including a weight test that turned out not to be runnable. The seven-component supply study in
+section 4.6c was filed on its own, reviewed by the same two referees and a fact-check before its result
+was written, and records three dated deviations.</p>
 
 <h2>References</h2>
 <ol class="refs">@@REFS@@</ol>
