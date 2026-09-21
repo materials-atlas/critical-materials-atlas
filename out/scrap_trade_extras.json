@@ -1,0 +1,340 @@
+{
+ "filing": "scrap-trade/PREREGISTRATION.md, deviation 5 (the three checks never run)",
+ "rule_for_world_price_moves": "mean |dp0| across the six headline metals, by year; top two",
+ "world_price_move_by_year": {
+  "2003": 0.1305,
+  "2004": 0.3657,
+  "2005": 0.1331,
+  "2006": 0.4214,
+  "2007": 0.2685,
+  "2008": 0.2944,
+  "2009": 0.285,
+  "2010": 0.3071,
+  "2011": 0.0875,
+  "2012": 0.1906,
+  "2013": 0.078,
+  "2014": 0.0607,
+  "2015": 0.2128,
+  "2016": 0.1008,
+  "2017": 0.1745,
+  "2018": 0.0624,
+  "2019": 0.1173,
+  "2020": 0.0717,
+  "2021": 0.3178,
+  "2022": 0.114,
+  "2023": NaN,
+  "2024": NaN
+ },
+ "leave_one_year_out": {
+  "years": [
+   2006,
+   2004
+  ],
+  "fits": {
+   "2006": {
+    "with_year_effects": {
+     "label": "",
+     "dv": "dx",
+     "regressors": [
+      "dp0",
+      "dp1",
+      "dp2"
+     ],
+     "year_fe": true,
+     "cumulative": 0.3009,
+     "se": 0.1781,
+     "p": 0.0935,
+     "ci95": [
+      -0.0514,
+      0.6532
+     ],
+     "mde_80pct_power": 0.5027,
+     "per_lag": {
+      "dp0": {
+       "beta": 0.2681,
+       "p": 0.0125
+      },
+      "dp1": {
+       "beta": -0.2328,
+       "p": 0.0285
+      },
+      "dp2": {
+       "beta": 0.2656,
+       "p": 0.0408
+      }
+     },
+     "n": 6120,
+     "countries": 131,
+     "country_metal_pairs": 328,
+     "reading": "not distinguishable from zero"
+    },
+    "without_year_effects": {
+     "label": "",
+     "dv": "dx",
+     "regressors": [
+      "dp0",
+      "dp1",
+      "dp2"
+     ],
+     "year_fe": false,
+     "cumulative": 0.688,
+     "se": 0.0976,
+     "p": 0.0,
+     "ci95": [
+      0.495,
+      0.881
+     ],
+     "mde_80pct_power": 0.2754,
+     "per_lag": {
+      "dp0": {
+       "beta": 0.5659,
+       "p": 0.0
+      },
+      "dp1": {
+       "beta": 0.0,
+       "p": 0.9992
+      },
+      "dp2": {
+       "beta": 0.1221,
+       "p": 0.0328
+      }
+     },
+     "n": 6120,
+     "countries": 131,
+     "country_metal_pairs": 328,
+     "reading": "above its detectable size"
+    }
+   },
+   "2004": {
+    "with_year_effects": {
+     "label": "",
+     "dv": "dx",
+     "regressors": [
+      "dp0",
+      "dp1",
+      "dp2"
+     ],
+     "year_fe": true,
+     "cumulative": 0.2967,
+     "se": 0.1576,
+     "p": 0.062,
+     "ci95": [
+      -0.0151,
+      0.6085
+     ],
+     "mde_80pct_power": 0.4448,
+     "per_lag": {
+      "dp0": {
+       "beta": 0.273,
+       "p": 0.0227
+      },
+      "dp1": {
+       "beta": -0.2413,
+       "p": 0.0183
+      },
+      "dp2": {
+       "beta": 0.265,
+       "p": 0.0233
+      }
+     },
+     "n": 6125,
+     "countries": 131,
+     "country_metal_pairs": 328,
+     "reading": "not distinguishable from zero"
+    },
+    "without_year_effects": {
+     "label": "",
+     "dv": "dx",
+     "regressors": [
+      "dp0",
+      "dp1",
+      "dp2"
+     ],
+     "year_fe": false,
+     "cumulative": 0.5979,
+     "se": 0.0814,
+     "p": 0.0,
+     "ci95": [
+      0.4367,
+      0.759
+     ],
+     "mde_80pct_power": 0.2299,
+     "per_lag": {
+      "dp0": {
+       "beta": 0.5204,
+       "p": 0.0
+      },
+      "dp1": {
+       "beta": -0.0066,
+       "p": 0.8887
+      },
+      "dp2": {
+       "beta": 0.0841,
+       "p": 0.1122
+      }
+     },
+     "n": 6125,
+     "countries": 131,
+     "country_metal_pairs": 328,
+     "reading": "above its detectable size"
+    }
+   }
+  }
+ },
+ "steel_line": {
+  "with_year_effects": {
+   "label": "steel",
+   "dv": "dx",
+   "regressors": [
+    "dp0",
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": 0.7548,
+   "se": 0.2066,
+   "p": 0.0003,
+   "ci95": [
+    0.347,
+    1.1625
+   ],
+   "mde_80pct_power": 0.5821,
+   "per_lag": {
+    "dp0": {
+     "beta": 0.3848,
+     "p": 0.0
+    },
+    "dp1": {
+     "beta": 0.1991,
+     "p": 0.0717
+    },
+    "dp2": {
+     "beta": 0.1709,
+     "p": 0.0396
+    }
+   },
+   "n": 3087,
+   "countries": 176,
+   "country_metal_pairs": 176,
+   "reading": "above its detectable size"
+  },
+  "without_year_effects": {
+   "label": "steel",
+   "dv": "dx",
+   "regressors": [
+    "dp0",
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": false,
+   "cumulative": 0.7866,
+   "se": 0.1777,
+   "p": 0.0,
+   "ci95": [
+    0.4359,
+    1.1374
+   ],
+   "mde_80pct_power": 0.5007,
+   "per_lag": {
+    "dp0": {
+     "beta": 0.7158,
+     "p": 0.0
+    },
+    "dp1": {
+     "beta": -0.0019,
+     "p": 0.982
+    },
+    "dp2": {
+     "beta": 0.0727,
+     "p": 0.3124
+    }
+   },
+   "n": 3087,
+   "countries": 176,
+   "country_metal_pairs": 176,
+   "reading": "above its detectable size"
+  },
+  "pairs": 176,
+  "price_years": 21,
+  "price": "unit value of Tuerkiye 7204 imports, 1998 USD/t",
+  "caveat": "endogenous: Tuerkiye is the marginal buyer, so its import price and world scrap exports move with the same shocks"
+ },
+ "gold_line": {
+  "with_year_effects": {
+   "label": "gold",
+   "dv": "dx",
+   "regressors": [
+    "dp0",
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": true,
+   "cumulative": 0.1134,
+   "se": 0.0549,
+   "p": 0.048,
+   "ci95": [
+    0.001,
+    0.2257
+   ],
+   "mde_80pct_power": 0.1593,
+   "per_lag": {
+    "dp0": {
+     "beta": 0.158,
+     "p": 0.1837
+    },
+    "dp1": {
+     "beta": 0.0204,
+     "p": 0.8405
+    },
+    "dp2": {
+     "beta": -0.065,
+     "p": 0.7498
+    }
+   },
+   "n": 600,
+   "countries": 30,
+   "country_metal_pairs": 30,
+   "reading": "positive, but below the filed power bar, so not read"
+  },
+  "without_year_effects": {
+   "label": "gold",
+   "dv": "dx",
+   "regressors": [
+    "dp0",
+    "dp1",
+    "dp2"
+   ],
+   "year_fe": false,
+   "cumulative": 0.3203,
+   "se": 0.1717,
+   "p": 0.0722,
+   "ci95": [
+    -0.0308,
+    0.6714
+   ],
+   "mde_80pct_power": 0.4977,
+   "per_lag": {
+    "dp0": {
+     "beta": 0.6894,
+     "p": 0.0056
+    },
+    "dp1": {
+     "beta": -0.2223,
+     "p": 0.5219
+    },
+    "dp2": {
+     "beta": -0.1468,
+     "p": 0.5529
+    }
+   },
+   "n": 600,
+   "countries": 30,
+   "country_metal_pairs": 30,
+   "reading": "not distinguishable from zero"
+  },
+  "pairs": 30,
+  "price_years": 63,
+  "price": "Pink Sheet gold, spot bullion, 1998 USD",
+  "caveat": "7112 is refining residues as much as scrap"
+ }
+}

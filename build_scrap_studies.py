@@ -126,7 +126,7 @@ SOURCES = {
              'https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37'),
 }
 RESULTS = {'pooled': 'out/scrap_response.json', 'per_metal': 'out/scrap_response_per_metal.json',
-           'trade': 'out/scrap_trade.json'}
+           'trade': 'out/scrap_trade.json', 'extras': 'out/scrap_trade_extras.json'}
 
 
 def src(sources, results, note=''):
@@ -367,6 +367,23 @@ def page():
     loo_lo = min(v['points_per_50pct'] for v in loo.values())
     loo_hi = max(v['points_per_50pct'] for v in loo.values())
     TC = T['checks']
+    X = load('scrap_trade_extras.json')
+    XL = X['leave_one_year_out']
+
+    def xc(f):
+        return ('%+.2f <span class="dim">(%s)</span>' % (f['cumulative'], pv(f['p']))) if f else '&ndash;'
+    ex_rows = []
+    for y in XL['years']:
+        a, b = XL['fits'][str(y)]['with_year_effects'], XL['fits'][str(y)]['without_year_effects']
+        ex_rows.append('<tr><td>Leave out %d</td><td class="n">%s</td><td class="n">%s</td><td>%s</td></tr>'
+                       % (y, xc(a), xc(b), 'claimed estimate still above its detectable size'))
+    for lab, key in (('Steel (7204), on T&uuml;rkiye&rsquo;s import unit value', 'steel_line'),
+                     ('Gold (7112), on the Pink Sheet price', 'gold_line')):
+        a, b = X[key]['with_year_effects'], X[key]['without_year_effects']
+        ex_rows.append('<tr><td>%s <span class="dim">%d pairs</span></td><td class="n">%s</td><td class="n">%s</td><td>%s</td></tr>'
+                       % (lab, X[key]['pairs'], xc(a), xc(b),
+                          'not read: endogenous price' if key == 'steel_line' else 'nothing readable'))
+    STW = X['steel_line']['with_year_effects']['per_lag']
     uvc = [v['log_corr_with_metal_price'] for v in TC['unit_value_sanity'].values()
            if v['log_corr_with_metal_price'] is not None]
     tr_checks = ''.join([
@@ -431,6 +448,9 @@ def page():
         'SRC_POOL': src(['usgs'], ['pooled'], 'The pooled design uses USGS unit values as the price.'),
         'SRC_SHARE': src(['usgs'], ['pooled']),
         'SRC_TRADE': src(['baci', 'pink'], ['trade']),
+        'SRC_EXTRAS': src(['baci', 'pink'], ['extras']),
+        'EXROWS': ''.join(ex_rows), 'EXY1': str(XL['years'][0]), 'EXY2': str(XL['years'][1]),
+        'STL1': '%+.2f' % STW['dp1']['beta'], 'STL2': '%+.2f' % STW['dp2']['beta'], 'STL2P': pv(STW['dp2']['p']),
         'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
         'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
         'LOOLO': '%+.2f' % (loo_lo), 'LOOHI': '%+.2f' % (loo_hi),
@@ -580,12 +600,20 @@ TEMPLATE = """<!doctype html>
   price, 95% intervals, and the faint band each metal's exporters could not have detected with 80%
   certainty.
   Tin's estimate is about the size of what its nine exporters could see, so it is not read.</figcaption></figure>
-  <div class="note"><b>Three checks this filing promised and this run does not contain.</b> The filing
-  named a leave-one-year-out check for the two largest world price moves, a separate steel line using
-  the unit value of T&uuml;rkiye's own scrap imports, and a separate gold line (7112, refining
-  residues). None is in the code that produced these results. They are recorded here and in the
-  filing's deviations log rather than quietly dropped; until they are run, the two studies rest on the
-  checks shown.</div>
+  <h3>Three checks the filing promised, run afterwards</h3>
+  <p>The filing named three more checks that the first run did not contain. They were written and
+  committed before they touched the data, and run on the same sample, prices and estimator.</p>
+  <div class="tbl"><table><thead><tr><th>Check</th><th class="n">with year effects</th>
+  <th class="n">without year effects</th><th>reading</th></tr></thead><tbody>@@EXROWS@@</tbody></table></div>
+  @@SRC_EXTRAS@@
+  <p class="dim">Leaving out the two years with the largest world price moves (@@EXY1@@ and @@EXY2@@,
+  defined in the code before the run) leaves the claimed estimate above its detectable size either
+  way, so it is not one episode. Gold shows nothing readable. <b>Steel is the one line in either study
+  with a response after the same year</b> once year effects remove the common cycle &mdash;
+  @@STL1@@ a year later and @@STL2@@ two years later (p&nbsp;@@STL2P@@) &mdash; but it is not read: its
+  price is the unit value of T&uuml;rkiye&rsquo;s own scrap imports, the marginal buyer, so it moves with
+  the same shocks as the exports it is meant to explain, and a unit value is not a
+  price@@C_Silver2007@@. It is the one place where a better price series would be worth having.</p>
   <p class="dim">Both the chart above and the table below are the cycle-inclusive specification, without
   year effects, and the elasticity is cumulative over the same year and the two that follow.</p>
   <div class="tbl"><table><thead><tr><th>Scrap of</th><th class="n">elasticity, same year + two</th>
@@ -620,7 +648,8 @@ TEMPLATE = """<!doctype html>
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years; within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (the one
+  exception, steel on an endogenous price, is reported above and not read); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
