@@ -450,6 +450,9 @@ def page():
         'SRC_TRADE': src(['baci', 'pink'], ['trade']),
         'SRC_EXTRAS': src(['baci', 'pink'], ['extras']),
         'EXROWS': ''.join(ex_rows), 'EXY1': str(XL['years'][0]), 'EXY2': str(XL['years'][1]),
+        'STL1P': pv(STW['dp1']['p']),
+        'HY0': '%+.2f' % ty['fit']['per_lag']['dp0']['beta'], 'HY1': '%+.2f' % ty['fit']['per_lag']['dp1']['beta'],
+        'HY2': '%+.2f' % ty['fit']['per_lag']['dp2']['beta'],
         'STL1': '%+.2f' % STW['dp1']['beta'], 'STL2': '%+.2f' % STW['dp2']['beta'], 'STL2P': pv(STW['dp2']['p']),
         'RECFIG': rec_fig, 'TRFIG': tr_fig, 'LAGFIG': lag_fig, 'SHAREFIG': share_fig,
         'RECCHECKS': rec_checks, 'TRCHECKS': tr_checks,
@@ -574,7 +577,8 @@ TEMPLATE = """<!doctype html>
   <p><span class="verdict">SAME YEAR ONLY</span></p>
   <p>If recovery is not shown to rise, scrap might still move: collected in one country and shipped to where
   prices pay. The second study took world trade in @@TNMET@@ metals&rsquo; scrap from CEPII BACI,
-  @@TY0@@&ndash;@@TY1@@, for @@TPAIRS@@ country&ndash;metal pairs among the small exporters of each
+  @@TY0@@&ndash;@@TY1@@ &mdash; though the real prices stop in 2022, where the deflator they share with
+  the recovery study ends, so every estimate here rests on the years 2003&ndash;2022 &mdash; for @@TPAIRS@@ country&ndash;metal pairs among the small exporters of each
   (@@TCTY@@ countries), with the same two-year shape. BACI values are reconciled from both sides of each
   flow, weighted by how reliably each country reports@@C_Gaulier2010@@, so an export figure here is not
   one country's declaration. <b>The headline is therefore the small exporters
@@ -607,10 +611,12 @@ TEMPLATE = """<!doctype html>
   <th class="n">without year effects</th><th>reading</th></tr></thead><tbody>@@EXROWS@@</tbody></table></div>
   @@SRC_EXTRAS@@
   <p class="dim">Leaving out the two years with the largest world price moves (@@EXY1@@ and @@EXY2@@,
-  defined in the code before the run) leaves the claimed estimate above its detectable size either
-  way, so it is not one episode. Gold shows nothing readable. <b>Steel is the one line in either study
-  with a response after the same year</b> once year effects remove the common cycle &mdash;
-  @@STL1@@ a year later and @@STL2@@ two years later (p&nbsp;@@STL2P@@) &mdash; but it is not read: its
+  defined in the code before the run) leaves the claimed estimate, without year effects, above its
+  detectable size either time, so it is not one episode. Gold shows nothing readable. <b>Steel is the one line whose later terms
+  are both positive</b> once year effects remove the common cycle &mdash; @@STL1@@ a year later
+  (p&nbsp;@@STL1P@@) and @@STL2@@ two years later (p&nbsp;@@STL2P@@); the headline's own year-effects
+  fit also has a significant term two years out, but its terms swing sign (@@HY0@@, @@HY1@@, @@HY2@@).
+  Steel clears its detectable size and would otherwise count; it is not read: its
   price is the unit value of T&uuml;rkiye&rsquo;s own scrap imports, the marginal buyer, so it moves with
   the same shocks as the exports it is meant to explain, and a unit value is not a
   price@@C_Silver2007@@. It is the one place where a better price series would be worth having.</p>
@@ -648,8 +654,8 @@ TEMPLATE = """<!doctype html>
   recycled copper supply found industrial activity and world output carrying the series, with limited
   dependence on the copper price@@C_Fu2017@@. Scrap trade moves with price within the year; whether US recovery does was not
   part of either filed test (an exploratory run, in the scrap-trade filing, suggests it does). No evidence was found that a price rise brings
-  more recovered metal, or more cross-border shipments of scrap, over the following two years (the one
-  exception, steel on an endogenous price, is reported above and not read); within
+  more recovered metal, or more cross-border shipments of scrap, over the following two years (steel's year-later terms
+  are both positive on an endogenous price, reported above and not read); within
   the year itself, shipments do move with price &mdash; which is as consistent with a boom that lifts
   both sides, or with stocks being drawn down, as with metal being redirected.</p>
   <p><b>What neither study can say, as both filings require it to be said.</b> New and old scrap are
