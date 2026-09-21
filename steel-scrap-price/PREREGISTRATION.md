@@ -68,6 +68,38 @@ causal.
 4. **Grade:** WPU1012 is carbon scrap; stainless and alloy scrap are excluded.
 5. **Deflation:** nominal prices with year effects, rather than a consumer-price deflator.
 
+## Result - run 2026-09-21
+
+Run by `analysis.py`; every number is in `out/steel_scrap_price.json`. The regressor matrix is full
+rank (28 of 28), so steel's terms are identified. 172 small-exporter country-steel pairs among
+500 in the pooled panel. The price series was taken from the BLS public API rather than FRED's CSV
+endpoint, which timed out (deviation 1); it is the same series.
+
+| | estimate |
+|---|---|
+| **Primary: steel's later response (one- plus two-year terms), errors by country** | +0.34 (95% +0.05 to +0.63, p 0.023, detectable 0.41) - **responds after the same year** |
+| Same, errors clustered by year | +0.34 (95% -0.03 to +0.70, p 0.068, detectable 0.51) - inconclusive |
+| Steel's same-year term | +0.78 (95% +0.57 to +0.99, p 0.000, detectable 0.30) |
+| Placebo, future prices | +0.10 (95% -0.23 to +0.43, p 0.548, detectable 0.47) - inconclusive |
+| Without 2021 | +0.32 (95% +0.02 to +0.61, p 0.035, detectable 0.42) - responds after the same year |
+| Large exporters | +0.01 (95% -0.49 to +0.52, p 0.956, detectable 0.71) - inconclusive |
+| Real prices, to 2022 | +0.32 (95% +0.02 to +0.61, p 0.035, detectable 0.42) - responds after the same year |
+
+Steel's three terms: same year +0.78, a year later +0.27 (p 0.010), two years later +0.07
+(p 0.434).
+
+**By the filed rule the primary reads "responds after the same year"**: the later response is +0.34
+with its interval above zero, carried by the one-year term. **It does not survive the stricter errors
+the filing asked for beside it**: clustered by year, which respects that the price is common to every
+exporter in a year, the interval reaches zero and the reading is inconclusive. The placebo does not
+respond, as it must not; the result holds without 2021 and on real prices; the large exporters show
+nothing. This is the first sign in either scrap study of a response after the same year, and it is
+fragile: reported, not a finding to build on.
+
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+1. **2026-09-21, before the first estimate - the price series came from the BLS API, not FRED.** FRED's
+   CSV endpoint timed out repeatedly; WPU1012 is the BLS series FRED republishes, so it was taken from
+   the BLS public API (320 months, January 2000 to August 2026; the August 2026 value, 580.548, matches
+   FRED's). Same series, different route.
