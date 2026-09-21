@@ -95,9 +95,13 @@ REFS = [
     ('M58', 'Ministry of Commerce and General Administration of Customs of China (2025). Announcement '
      '2025 No. 58 on export controls on lithium batteries and artificial-graphite anode materials (in '
      'Chinese).', 'https://www.mofcom.gov.cn/zcfb/blgg/gg/2025/art/2025/art_8ef8c6bf57e3437e826fcdf1c469aff8.html'),
-    ('SED2026', 'Seoul Economic Daily (2026). "Korea Zinc\'s Onsan smelter produces 10 tons daily of '
-     'defense-critical antimony," 8 March 2026.',
+    ('SED2026', 'Seoul Economic Daily (2026). "Korea Zinc\'s Onsan Smelter Produces 10 Tons of Antimony '
+     'Daily for U.S. Defense," 8 March 2026.',
      'https://en.sedaily.com/finance/2026/03/08/korea-zincs-onsan-smelter-produces-10-tons-daily-of-defense'),
+    ('USGS_SB', 'US Geological Survey (2025). "Antimony." <i>Mineral Commodity Summaries 2025</i>.',
+     'https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-antimony.pdf'),
+    ('USGS_BI', 'US Geological Survey (2025). "Bismuth." <i>Mineral Commodity Summaries 2025</i>.',
+     'https://pubs.usgs.gov/periodicals/mcs2025/mcs2025-bismuth.pdf'),
     ('NW1987', 'Newey, W. K. and West, K. D. (1987). "A simple, positive semi-definite, heteroskedasticity '
      'and autocorrelation consistent covariance matrix." <i>Econometrica</i> 55(3): 703&ndash;708.',
      'https://doi.org/10.2307/1913610'),
@@ -355,7 +359,7 @@ def page():
         rows = [('China', c['china_t_month'][1] - c['china_t_month'][0], 'china')]
         named = 0.0
         for r in c['origins']:
-            tag = ' (candidate)' if r['transit_candidate'] else '' if r['class'] == 'producer' else ' (refiner?)'
+            tag = ' (candidate)' if r['transit_candidate'] else '' if r['class'] == 'producer' else ' (fails mine screen)'
             rows.append((NAME.get(r['origin'], r['name']) + tag, r['change_t_month'], 'gain'))
             named += r['change_t_month']
         rows.append(('all other origins, net', (c['others_t_month'][1] - c['others_t_month'][0]) - named, 'net'))
@@ -367,13 +371,19 @@ def page():
     for cid in ('C1', 'C2', 'C4', 'C4r', 'C5', 'C6'):
         cp = O['controls'][cid]['comparison']
         ws = cp['china_share_world_production']
-        cmp_rows.append('<tr%s><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%.0f%%</td>'
+        wm = cp['china_share_world_production_wmd']
+        us = cp['china_share_usgs_mcs2025']
+        cmp_rows.append('<tr%s><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td>'
+                        '<td class="n">%s</td><td class="n">%.0f%%</td>'
                         '<td class="n">%.2f</td><td class="n">&times;%.1f</td></tr>' % (
                             ' class="hl"' if cid in ('C5', 'C6') else '', LABEL[cid],
-                            ' / '.join('%.0f%%' % (100 * v) for v in ws.values()),
+                            ' / '.join('%.0f%%' % (100 * v) for v in ws.values()) + ('*' if cp['bgs_china_series_flat'] else ''),
+                            ' / '.join('%.0f%%' % (100 * v) for v in wm.values() if v is not None),
+                            ('%.0f%% (%s)' % (100 * us['share'], us['stage'])) if us else '&ndash;',
                             ' / '.join(str(v) for v in cp['other_countries_5pct'].values()),
                             100 * cp['china_share_eu_imports_pre'], cp['china_tonnes_after_over_before'],
                             cp['unit_value_multiple']))
+    KX = O['korea_bismuth_exports']
     B = O['part_b']
     kr, my = B['C6_KR'], B['C5_MY']
     kr_o = [r for r in O['controls']['C6']['origins'] if r['origin'] == 'KR'][0]
@@ -423,6 +433,8 @@ def page():
         'CMPROWS': ''.join(cmp_rows), 'SRC_O': src2([BGSSRC]), 'SRC_B': src2([COMTRADE]),
         'SRC_C': src2([BGSSRC]),
         'SB_PRODSH': '%.0f' % (100 * sbo['replacement_share_from_producers']),
+        'SB_REPL': '%.0f' % sbo['replacement_t_month'],
+        'SB_LOST': '%.0f' % (sbo['china_t_month'][0] - sbo['china_t_month'][1]),
         'SB_FALLS': ', '.join('%s (%+.0f tonnes a month)' % (f['name'].replace('Türkiye', 'T&uuml;rkiye'), f['change_t_month'])
                               for f in sbo['largest_falls']),
         'MY_POST': '%.0f' % my_o['post_t_month'], 'MY_CN0': '%.2f' % my['imports_from_china_t_month_pre'],
@@ -430,6 +442,14 @@ def page():
         'KR_PRE': '%.1f' % kr_o['pre_t_month'], 'KR_POST': '%.0f' % kr_o['post_t_month'],
         'KR_CN0': '%.1f' % kr['imports_from_china_t_month_pre'], 'KR_CN1': '%.1f' % kr['imports_from_china_t_month_0_12'],
         'KR_MON': '%d of %d' % (kr['post_months_available'], kr['post_months_filed']),
+        'KX_W0': '%.0f' % KX['world_t_month'][0], 'KX_W1': '%.0f' % KX['world_t_month'][1],
+        'KX_U0': '%.0f' % KX['usa_t_month'][0], 'KX_U1': '%.0f' % KX['usa_t_month'][1],
+        'KX_E0': '%.0f' % KX['eu27_t_month'][0], 'KX_E1': '%.0f' % KX['eu27_t_month'][1],
+        'KX_N': str(KX['post_months']),
+        'SB_WMD': '%.0f' % (100 * O['controls']['C5']['comparison']['china_share_world_production_wmd']['antimony']),
+        'BI_WMD': '%.0f' % (100 * O['controls']['C6']['comparison']['china_share_world_production_wmd']['bismuth']),
+        'SB_US': '%.0f' % (100 * O['controls']['C5']['comparison']['china_share_usgs_mcs2025']['share']),
+        'BI_US': '%.0f' % (100 * O['controls']['C6']['comparison']['china_share_usgs_mcs2025']['share']),
         'SB_WS': '%.0f' % (100 * O['controls']['C5']['comparison']['china_share_world_production']['antimony']),
         'BI_WS': '%.0f' % (100 * O['controls']['C6']['comparison']['china_share_world_production']['bismuth']),
         'SB_CNSH': '%.0f' % (100 * lv(sb, 'treated', 'pre', 'china_t_per_month') / lv(sb, 'treated', 'pre', 'total_t_per_month')),
@@ -607,59 +627,80 @@ TEMPLATE = """<!doctype html>
   moved.</p>
 
   <h2>4. Who replaced China?</h2>
-  <p>A follow-up, filed as an amendment before its data were read, asked where the replacement came from:
-  from countries that produce the metal, or from countries that might be passing Chinese material on.
-  Each origin that added to EU imports was classed as a <i>producer</i> if its own output, in the British
-  Geological Survey's world statistics, covers at least a year of what it now ships to the EU, and
-  otherwise a <i>non-producer</i>. A non-producer whose shipments at least tripled, by 10 tonnes a month
+  <p>A follow-up asked where the replacement came from: from countries that produce the metal, or from
+  countries that might be passing Chinese material on. It was chosen after the results above were
+  known, and filed as an amendment before any origin-level figure was read. The origins that together
+  supplied at least 80% of the gross increase were each classed as a <i>producer</i> if their own mine or
+  processing output, in the British Geological Survey's world statistics, covers at least a year of what
+  they now ship to the EU, and otherwise a <i>non-producer</i>. A non-producer whose shipments at least tripled, by 10 tonnes a month
   or more, became a <i>transit candidate</i>, and its own imports from China were then checked in the
   UN Comtrade records it reports.</p>
   <figure class="fig">@@GAP_SB@@
   <figcaption><b>Antimony: who filled the gap.</b> Change in EU imports, tonnes a month, months 7&ndash;12
   after the control against the two years before announcement. Violet: China. Teal: the origins that
-  together supplied at least 80% of the increase. &ldquo;Refiner?&rdquo; marks a non-producer on the
-  screen, which counts only mine output.</figcaption></figure>
+  together supplied at least 80% of the gross increase; &ldquo;fails mine screen&rdquo; means the
+  country's own mine output does not cover a year of its EU shipments, which says nothing about whether
+  it refines, recovers or re-exports.</figcaption></figure>
   @@SRC_O@@
-  <p><b>Antimony: re-sourced, mostly from South-East Asia.</b> The reshuffle ran both ways: @@SB_FALLS@@
-  also shipped less. Myanmar, which mines antimony, supplied the largest part of the increase; Viet Nam and Thailand, which the screen reads as non-producers but which may refine ore
-  mined elsewhere, and Malaysia, which had shipped none before, supplied most of the rest. Only
-  @@SB_PRODSH@@% of the increase came from countries whose own mines cover it. Malaysia is the one
-  transit candidate (0 to @@MY_POST@@ tonnes a month), but its own records show almost no unwrought
-  antimony from China, before or after (@@MY_CN0@@ and @@MY_CN1@@ tonnes a month): <b>not consistent with
-  rerouting</b>. In the three months checked, what Malaysia imported was antimony ore, from Myanmar,
-  T&uuml;rkiye, Thailand and elsewhere.</p>
+  <p><b>Antimony: re-sourced, mostly from South-East Asia.</b> The named rises are gross gains, not a
+  one-for-one replacement of Chinese metal: other origins added @@SB_REPL@@ tonnes a month against the
+  @@SB_LOST@@ China lost, while @@SB_FALLS@@ shipped less. Myanmar, which mines antimony, is the largest
+  gainer and the only one whose mine output covers its later EU shipments: @@SB_PRODSH@@% of the gross
+  gain. Viet Nam and Thailand fail the mine screen; the screen cannot say whether they refine ore mined
+  elsewhere or re-export. Malaysia, which had shipped none before, is the one transit candidate
+  (@@MY_POST@@ tonnes a month after). By the filed check it is <b>not consistent with rerouting</b>: the
+  unwrought antimony it reports importing from China was @@MY_CN0@@ tonnes a month before and
+  @@MY_CN1@@ in months 0&ndash;12 after (a month with no record counts as none). That rules out a large
+  rise in direct imports of Chinese metal on that line, not stocks, processing elsewhere or other customs
+  lines. A side look at three months, not a test, found Malaysia importing antimony ore from Myanmar,
+  T&uuml;rkiye, Thailand and a partner recorded as the United Kingdom.</p>
   <figure class="fig">@@GAP_BI@@
   <figcaption><b>Bismuth: who filled the gap.</b> Same measure. Other origins made up less than half of what
   China stopped sending, and total imports fell.</figcaption></figure>
   @@SRC_O@@
-  <p><b>Bismuth: South Korea, from its own smelters.</b> Korea's shipments to the EU rose from
-  @@KR_PRE@@ to @@KR_POST@@ tonnes a month, which made it a transit candidate, since it mines no bismuth.
-  But its own imports of bismuth from China <i>fell</i>, from @@KR_CN0@@ to @@KR_CN1@@ tonnes a month
-  (@@KR_MON@@ months reported): <b>not consistent with rerouting</b>. Korea Zinc recovers bismuth, with
-  antimony and indium, from the by-products of its zinc, lead and copper smelting@@C_SED2026@@, so the rise
-  is most plausibly Korean refined output that a mine-based screen cannot see.</p>
+  <p><b>Bismuth: South Korea, largely redirected from American buyers.</b> Korea's shipments to the EU
+  rose from @@KR_PRE@@ to @@KR_POST@@ tonnes a month, which made it a transit candidate, since it mines no
+  bismuth. By the filed check it is <b>not consistent with rerouting</b>: the bismuth it reports
+  importing from China fell, from @@KR_CN0@@ to @@KR_CN1@@ tonnes a month (@@KR_MON@@ months reported), and
+  was too small even before to cover the extra EU sales. A check added after review, on Korea's own
+  export records, shows where the metal came from: Korea's bismuth exports to the world rose modestly,
+  from @@KX_W0@@ to @@KX_W1@@ tonnes a month, while its exports to the United States fell from @@KX_U0@@ to
+  @@KX_U1@@ and those to EU countries rose from @@KX_E0@@ to @@KX_E1@@ (February to December 2025, the
+  @@KX_N@@ months Korea has reported). The fall in shipments to the United States is about the size of
+  the rise to Europe. Korea refines bismuth as a by-product of zinc smelting &mdash; about 1,000
+  tonnes a year, among the largest outside China@@C_USGS_BI@@@@C_SED2026@@ &mdash; so that metal is Korean output;
+  more of the change was in where it was sold than in how much was made.</p>
   @@SRC_B@@
   <p class="dim">Neither check is proof: material can be processed in a third country, declared under
-  another customs line, or come from stocks. What the records show is that neither candidate was buying
-  more from China.</p>
+  another customs line, or come from stocks. What the records show is that neither candidate's reported
+  imports from China rose on the line checked.</p>
 
   <h2>5. Why these two?</h2>
-  <p>If controls bite where China matters most, antimony and bismuth should stand out on China's share of
-  world production, on the scarcity of other producers, or on Europe's reliance on China before the
-  control. The same amendment set the question before reading the production figures, and said the
-  answer would be reported whichever way it fell. With six controls it is a description, not a test.</p>
-  <div class="tbl"><table><thead><tr><th>Control</th><th class="n">China's share of world production,
-  2021&ndash;23</th><th class="n">other countries with 5%+</th><th class="n">China's share of EU imports
-  before</th><th class="n">tonnes from China, after &divide; before</th><th class="n">unit value
-  multiple</th></tr></thead><tbody>@@CMPROWS@@</tbody></table></div>
+  <p>One simple prior is that controls move trade most where China holds the largest share of world
+  output, where there are fewest other producers, or where Europe relied on China most. These are crude
+  proxies, not a supply-chain model. The same amendment set the question before reading the production
+  figures and said the answer would be reported whichever way it fell; with six rows it is a
+  description, not a test.</p>
+  <div class="tbl"><table><thead><tr><th>Control</th><th class="n">China's share of world output, BGS
+  2021&ndash;23 (filed)</th><th class="n">same, World Mining Data</th><th class="n">same, USGS 2023</th>
+  <th class="n">other countries with 5%+ (BGS)</th><th class="n">China's share of EU imports before</th>
+  <th class="n">tonnes from China, after &divide; before</th><th class="n">unit value multiple</th></tr></thead>
+  <tbody>@@CMPROWS@@</tbody></table></div>
   @@SRC_C@@
-  <p><b>They stand out on none of the three.</b> Antimony (@@SB_WS@@%) and bismuth (@@BI_WS@@%) have the
-  <i>lowest</i> Chinese share of world mine production of the six; every series but gallium and germanium
-  has three other producers above 5%; and Europe's reliance on China before the control was the lowest
-  of the six for antimony and among the highest for bismuth. The measure may be at the wrong stage: the
-  British statistics record where antimony and bismuth are <i>mined</i>, but China's controls cover the
-  refined metal, and the open data do not give a clean world series for refining. A rule of thumb of
-  the form &ldquo;controls bite where China mines most&rdquo; does not survive this table.</p>
+  <p class="dim">Mine output for antimony, bismuth and graphite; processed output for gallium, germanium and
+  rare earths (both rare-earth rows use the same rare-earth figure, not magnet making). USGS gives mine
+  output for antimony@@C_USGS_SB@@ and refinery output for bismuth@@C_USGS_BI@@. *The British statistics
+  record China's bismuth output as 1,804 tonnes in 2019&ndash;2021 and exactly 1,800 in 2022&ndash;2024, a
+  flat figure that looks like a placeholder; the other two sources put China at three-quarters or more.</p>
+  <p><b>The two that moved sit at opposite ends.</b> Antimony has the lowest Chinese share of the six on
+  both the filed BGS figures (@@SB_WS@@%) and World Mining Data (@@SB_WMD@@%), and the USGS summary's @@SB_US@@%
+  is still below every other row. Bismuth looks lowest only on the flat BGS figure; on World Mining Data (@@BI_WMD@@%) it is
+  third of six, and on USGS refinery output (@@BI_US@@%) it is high, though still below gallium and
+  germanium. On Europe's own reliance they also split: 11% for antimony, 91% for bismuth. No single
+  column picks out these two, and gallium and germanium, which the simple prior would pick first, were
+  too thin to test. The table describes six rows; it does not reject the idea that controls bite where
+  China's position is strongest, especially at the refining stage the controls actually cover, which the
+  open data measure for bismuth but not for antimony.</p>
 
   <h2>6. The United States: no answer</h2>
   <p>The same test was filed for US imports, and the comparisons filed for it do not support a reading.
@@ -679,22 +720,24 @@ TEMPLATE = """<!doctype html>
 
 <section class="wrap xp">
   <h2>What to watch</h2>
-  <p>Two suspensions end within weeks of this page. China's October 2025 announcements &mdash; among them
-  further medium and heavy rare earths@@C_M57@@ and lithium batteries and artificial-graphite anode
-  material@@C_M58@@ &mdash; are suspended until <b>10 November 2026</b>@@C_M70@@, and the ban in principle
-  on gallium, germanium and antimony to the United States until <b>27 November 2026</b>@@C_M72@@. If they
-  return, the EU record will show it first in the lines this page follows: a fall in tonnes from China,
-  a rise in the unit value of all imports, and new origins whose own imports should be checked. Eurostat's
-  monthly figures run about two months behind (July 2026 was the latest month available on 21 September),
-  so a change in November 2026 would show in the data in early 2027.</p>
-  <p>Three things this study suggests for anyone who buys these metals. <b>Price moved more reliably than
-  supply</b>: in both cases where something happened, the unit value of all imports rose two- to
-  four-fold, while total tonnes held for antimony. <b>Replacement did not come only from mines</b>:
-  much of the gap was filled by countries that mine little or none of the metal &mdash; South Korea
-  recovers bismuth at its smelters, and Malaysia imports antimony ore &mdash; which a mine-based view of
-  supply misses. <b>The public record cannot certify a bite month by month</b> for
-  thin, lumpy trade: a filed test built to avoid reading noise as an effect could not confirm what the
-  raw series show, and a buyer watching for the next control should watch the series themselves.</p>
+  <p>Two suspensions end in November 2026. China's October 2025 announcements &mdash; among them five more
+  medium and heavy rare earths (holmium, erbium, thulium, europium, ytterbium)@@C_M57@@ and lithium
+  batteries and artificial-graphite anode material@@C_M58@@ &mdash; are suspended until <b>10 November
+  2026</b>@@C_M70@@, and the ban in principle on gallium, germanium and antimony to the United States until
+  <b>27 November 2026</b>@@C_M72@@. They cover goods this page does not follow: other rare earths, battery
+  anodes, and a ban on shipments to the United States that EU records do not see. What carries over is
+  the method: in the customs lines those goods fall under, a fall in tonnes from China, a rise in the
+  unit value of all imports, and new origins whose own records should be checked. Eurostat's monthly
+  figures run about two months behind (July 2026 was the latest on 21 September), so a change in November
+  2026 would show in early 2027.</p>
+  <p><b>What the record can and cannot tell a buyer.</b> In the two cases where something moved, the unit
+  value of all EU imports rose (four-fold for antimony, 2.6-fold for bismuth) more clearly than total
+  tonnes fell: antimony tonnes held, bismuth tonnes fell by about a third. These are customs averages, not
+  contract prices, and not clean effects of the licences. Replacement came from countries whose own mines
+  do not cover what they ship, and in bismuth's case largely from metal redirected away from other
+  buyers, so a mine-based view of supply would have missed where it came from. And monthly public customs
+  data lag and are noisy: they are a warning signal alongside supplier licences, inventories and
+  contract prices, not a substitute for them.</p>
 </section>
 
 <section class="wrap xp">

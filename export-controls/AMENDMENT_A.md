@@ -156,3 +156,26 @@ Every change made after this filing goes here, dated, with its reason.
    imports. For antimony, other origins also fell (net 117 tonnes a month once the named gainers are
    counted), so the three largest falls among other origins are now written to the output and shown,
    descriptively. No class or reading depends on them.
+6. **2026-09-21, part C - the filed production source is unreliable for bismuth.** The review found BGS
+   records China's bismuth mine output as 1,804 t (2019-2021) and exactly 1,800 t (2022-2024), a flat
+   series that looks like a placeholder, against world totals of about 4,000-4,900 t. World Mining Data,
+   also in the cube, gives China 72-80% of world bismuth mine output; USGS Mineral Commodity Summaries
+   2025 gives China 13,300 of 16,200 t of refinery output in 2023 (82%) and 62,300 of 106,000 t of
+   antimony mine output (59%), read from the published PDFs. Both are now written beside the filed BGS
+   share. The part C answer changes in its detail: antimony is lowest of the six on every source; bismuth
+   is lowest only on the BGS figure and third of six on World Mining Data. The two that moved sit at
+   opposite ends, so no column picks them out; the filed "on none of them" stands, for a different reason.
+   Also logged: graphite production is the BGS stage held ("unspecified"), and gallium and germanium
+   production are summed for the producer test; neither changes a class.
+7. **2026-09-21, part B - Korea's exports, added after review.** A referee noted that Korea's EU sales
+   could be new output or sales diverted from other buyers, which the filed check cannot tell apart.
+   Korea's own bismuth export records (UN Comtrade, February-December 2025, the months reported) were
+   fetched: exports to the world rose from about 68 to 81 t a month, to the United States fell from 61 to
+   33, and to the EU27 rose from 0 to 26. Descriptive, not a filed test. The Malaysian reporting span
+   is taken from the months with records on the line, which a check of Malaysia's total imports supports
+   for three months only (deviation 2); the reading would not change.
+8. **2026-09-21 - page wording after the second review.** Two independent language models and a fact-check
+   reviewed the page sections built on this amendment. Accepted: gross gains are called gross; the filed
+   meaning of "not consistent with rerouting" is stated where it is used; the Korean smelter is context,
+   not the explanation; the part C conclusion no longer rejects a rule about refining; the suspended
+   controls cover goods this page does not follow; the buyer notes are limited to what the record shows.
