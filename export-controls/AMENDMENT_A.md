@@ -152,3 +152,7 @@ Every change made after this filing goes here, dated, with its reason.
    Stated beside the result; the filed class is unchanged.
 4. **2026-09-21, part C - stage.** The atlas holds BGS mine production for antimony and bismuth and no
    refined series; the controls cover refined metal. The comparison is reported at the stage filed.
+5. **2026-09-21, part A - falls reported too.** The filing names only the origins that added to EU
+   imports. For antimony, other origins also fell (net 117 tonnes a month once the named gainers are
+   counted), so the three largest falls among other origins are now written to the output and shown,
+   descriptively. No class or reading depends on them.

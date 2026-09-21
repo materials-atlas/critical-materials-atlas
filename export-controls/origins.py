@@ -117,6 +117,9 @@ def main():
             'replacement_share_from_producers': round(from_prod / repl, 3) if repl > 0 else None,
             'origins': rows,
             'transit_candidates': [r['origin'] for r in rows if r['transit_candidate']],
+            # Amendment A deviation 5: the three largest falls among other origins, descriptive only
+            'largest_falls': [{'origin': par, 'name': i3name.get(i2to3.get(par), par), 'change_t_month': round(float(v), 2)}
+                              for par, v in ch[ch < 0].sort_values().head(3).items()],
             'comparison': {
                 'china_share_world_production': {m: round(cn[m] / world[m], 3) for m in world if world[m] > 0},
                 'other_countries_5pct': n5,
