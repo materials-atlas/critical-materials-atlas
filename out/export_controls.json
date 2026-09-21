@@ -1,0 +1,759 @@
+{
+ "filing": "export-controls/PREREGISTRATION.md",
+ "last_month": "202607",
+ "thresholds": {
+  "china_kg_fall": "30%",
+  "total_kg_fall": "20%",
+  "unit_value_rise": "20%"
+ },
+ "results": [
+  {
+   "control": "C1",
+   "importer": "EU",
+   "label": "gallium and germanium",
+   "treated": "gage",
+   "comparison": "magnesium",
+   "announced": "202307",
+   "in_force": "202308",
+   "window": [
+    "202107",
+    "202408"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": -0.3954,
+     "pct": null,
+     "se": 0.2153,
+     "p": 0.0753,
+     "ci95": [
+      -0.8333,
+      0.0426
+     ],
+     "mde_80": 0.6215,
+     "months": 38,
+     "bins": {
+      "antic": -0.8212,
+      "b0_3": -2.0861,
+      "b4_6": -0.0297,
+      "b7_12": -0.3954
+     }
+    },
+    "y_total": {
+     "estimate": -0.0964,
+     "pct": null,
+     "se": 0.1596,
+     "p": 0.5499,
+     "ci95": [
+      -0.4211,
+      0.2283
+     ],
+     "mde_80": 0.4608,
+     "months": 38,
+     "bins": {
+      "antic": -0.8579,
+      "b0_3": -1.5721,
+      "b4_6": 0.3858,
+      "b7_12": -0.0964
+     }
+    },
+    "y_price": {
+     "estimate": 0.7763,
+     "pct": 117.3,
+     "se": 0.1729,
+     "p": 0.0001,
+     "ci95": [
+      0.4245,
+      1.1281
+     ],
+     "mde_80": 0.4993,
+     "months": 38,
+     "bins": {
+      "antic": 0.7305,
+      "b0_3": 0.878,
+      "b4_6": 0.709,
+      "b7_12": 0.7763
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 0.2259,
+   "reading_as_filed": "untestable at a 30% fall",
+   "reading_corrected_precedence": "untestable at a 30% fall"
+  },
+  {
+   "control": "C1",
+   "importer": "US",
+   "label": "gallium and germanium",
+   "treated": "gage",
+   "comparison": "magnesium",
+   "announced": "202307",
+   "in_force": "202308",
+   "window": [
+    "202107",
+    "202408"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": null,
+    "y_total": {
+     "estimate": 0.7193,
+     "pct": null,
+     "se": 0.233,
+     "p": 0.0041,
+     "ci95": [
+      0.2452,
+      1.1933
+     ],
+     "mde_80": 0.6727,
+     "months": 38,
+     "bins": {
+      "antic": 0.2848,
+      "b0_3": 0.3513,
+      "b4_6": 0.1502,
+      "b7_12": 0.7193
+     }
+    },
+    "y_price": {
+     "estimate": 0.2764,
+     "pct": 31.8,
+     "se": 0.0967,
+     "p": 0.0073,
+     "ci95": [
+      0.0796,
+      0.4732
+     ],
+     "mde_80": 0.2793,
+     "months": 38,
+     "bins": {
+      "antic": 0.1348,
+      "b0_3": -0.1233,
+      "b4_6": -0.3446,
+      "b7_12": 0.2764
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "china_outcome_not_interpretable": "comparison broken: China-origin magnesium collapsed (deviation 3)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  },
+  {
+   "control": "C2",
+   "importer": "EU",
+   "label": "graphite",
+   "treated": "graphite",
+   "comparison": "talc_baryte",
+   "announced": "202310",
+   "in_force": "202312",
+   "window": [
+    "202110",
+    "202412"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": 0.0049,
+     "pct": null,
+     "se": 0.1612,
+     "p": 0.9761,
+     "ci95": [
+      -0.3228,
+      0.3325
+     ],
+     "mde_80": 0.4651,
+     "months": 39,
+     "bins": {
+      "antic": -0.7594,
+      "b0_3": 0.1902,
+      "b4_6": 0.3202,
+      "b7_12": 0.0049
+     }
+    },
+    "y_total": {
+     "estimate": -0.0951,
+     "pct": null,
+     "se": 0.1024,
+     "p": 0.3598,
+     "ci95": [
+      -0.3032,
+      0.1131
+     ],
+     "mde_80": 0.2955,
+     "months": 39,
+     "bins": {
+      "antic": -0.3971,
+      "b0_3": -0.2636,
+      "b4_6": 0.2395,
+      "b7_12": -0.0951
+     }
+    },
+    "y_price": {
+     "estimate": -0.0372,
+     "pct": -3.7,
+     "se": 0.0759,
+     "p": 0.6267,
+     "ci95": [
+      -0.1914,
+      0.1169
+     ],
+     "mde_80": 0.2188,
+     "months": 39,
+     "bins": {
+      "antic": 0.2805,
+      "b0_3": -0.1114,
+      "b4_6": -0.1012,
+      "b7_12": -0.0372
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 1.0,
+   "reading_as_filed": "untestable at a 30% fall",
+   "reading_corrected_precedence": "no visible effect"
+  },
+  {
+   "control": "C2",
+   "importer": "US",
+   "label": "graphite",
+   "treated": "graphite",
+   "comparison": "talc_baryte",
+   "announced": "202310",
+   "in_force": "202312",
+   "window": [
+    "202110",
+    "202412"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": null,
+    "y_total": null,
+    "y_price": null
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "china_outcome_not_interpretable": "comparison broken on the data (deviation 7)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  },
+  {
+   "control": "C3",
+   "importer": "US",
+   "label": "ban on Ga, Ge to the US",
+   "treated": "gage",
+   "comparison": "magnesium",
+   "announced": "202412",
+   "in_force": "202412",
+   "window": [
+    "202308",
+    "202510"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 15,
+   "outcomes": {
+    "y_china": null,
+    "y_total": {
+     "estimate": -0.1449,
+     "pct": null,
+     "se": 0.1274,
+     "p": 0.2672,
+     "ci95": [
+      -0.4084,
+      0.1187
+     ],
+     "mde_80": 0.3728,
+     "months": 27,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": 0.3657,
+      "b4_6": -0.6813,
+      "b7_12": -0.1449
+     }
+    },
+    "y_price": {
+     "estimate": 0.3584,
+     "pct": 43.1,
+     "se": 0.1938,
+     "p": 0.0773,
+     "ci95": [
+      -0.0425,
+      0.7593
+     ],
+     "mde_80": 0.5671,
+     "months": 27,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": 0.6476,
+      "b4_6": 0.3001,
+      "b7_12": 0.3584
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 4,
+   "china_outcome_not_interpretable": "comparison broken: China-origin magnesium collapsed (deviation 3)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  },
+  {
+   "control": "C4",
+   "importer": "EU",
+   "label": "rare-earth magnets",
+   "treated": "magnets",
+   "comparison": "ferrite",
+   "announced": "202504",
+   "in_force": "202504",
+   "window": [
+    "202304",
+    "202604"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": 0.2497,
+     "pct": null,
+     "se": 0.0431,
+     "p": 0.0,
+     "ci95": [
+      0.162,
+      0.3375
+     ],
+     "mde_80": 0.1245,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": -0.1707,
+      "b4_6": 0.1704,
+      "b7_12": 0.2497
+     }
+    },
+    "y_total": {
+     "estimate": 0.2105,
+     "pct": null,
+     "se": 0.054,
+     "p": 0.0004,
+     "ci95": [
+      0.1007,
+      0.3203
+     ],
+     "mde_80": 0.1558,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": -0.2041,
+      "b4_6": 0.1205,
+      "b7_12": 0.2105
+     }
+    },
+    "y_price": {
+     "estimate": -0.0024,
+     "pct": -0.2,
+     "se": 0.0423,
+     "p": 0.9556,
+     "ci95": [
+      -0.0885,
+      0.0838
+     ],
+     "mde_80": 0.1222,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": -0.0113,
+      "b4_6": -0.0036,
+      "b7_12": -0.0024
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 0.0,
+   "reading_as_filed": "no visible effect",
+   "reading_corrected_precedence": "no visible effect"
+  },
+  {
+   "control": "C4",
+   "importer": "US",
+   "label": "rare-earth magnets",
+   "treated": "magnets",
+   "comparison": "ferrite",
+   "announced": "202504",
+   "in_force": "202504",
+   "window": [
+    "202304",
+    "202604"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": null,
+    "y_total": null,
+    "y_price": null
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "china_outcome_not_interpretable": "comparison broken on the data (deviation 7)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  },
+  {
+   "control": "C4r",
+   "importer": "EU",
+   "label": "Gd, Tb, Dy metals and compounds",
+   "treated": "hree",
+   "comparison": "lree",
+   "announced": "202504",
+   "in_force": "202504",
+   "window": [
+    "202304",
+    "202604"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": 0.0551,
+     "pct": null,
+     "se": 0.5038,
+     "p": 0.9137,
+     "ci95": [
+      -0.97,
+      1.0801
+     ],
+     "mde_80": 1.4546,
+     "months": 37,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": 1.1786,
+      "b4_6": -0.6582,
+      "b7_12": 0.0551
+     }
+    },
+    "y_total": {
+     "estimate": -0.7963,
+     "pct": null,
+     "se": 0.1745,
+     "p": 0.0001,
+     "ci95": [
+      -1.1514,
+      -0.4412
+     ],
+     "mde_80": 0.5039,
+     "months": 37,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": -0.5236,
+      "b4_6": -1.6815,
+      "b7_12": -0.7963
+     }
+    },
+    "y_price": {
+     "estimate": 1.0889,
+     "pct": 197.1,
+     "se": 0.2538,
+     "p": 0.0001,
+     "ci95": [
+      0.5726,
+      1.6053
+     ],
+     "mde_80": 0.7327,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": 0.6262,
+      "b4_6": 2.1488,
+      "b7_12": 1.0889
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 1.0,
+   "reading_as_filed": "untestable at a 30% fall",
+   "reading_corrected_precedence": "untestable at a 30% fall"
+  },
+  {
+   "control": "C5",
+   "importer": "EU",
+   "label": "antimony",
+   "treated": "antimony",
+   "comparison": "magnesium",
+   "announced": "202408",
+   "in_force": "202409",
+   "window": [
+    "202208",
+    "202509"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": -4.0385,
+     "pct": null,
+     "se": 0.4379,
+     "p": 0.0,
+     "ci95": [
+      -4.9295,
+      -3.1475
+     ],
+     "mde_80": 1.2644,
+     "months": 38,
+     "bins": {
+      "antic": -1.5722,
+      "b0_3": -1.048,
+      "b4_6": -1.8677,
+      "b7_12": -4.0385
+     }
+    },
+    "y_total": {
+     "estimate": 0.2039,
+     "pct": null,
+     "se": 0.0781,
+     "p": 0.0134,
+     "ci95": [
+      0.0451,
+      0.3627
+     ],
+     "mde_80": 0.2254,
+     "months": 38,
+     "bins": {
+      "antic": 0.0248,
+      "b0_3": -0.0322,
+      "b4_6": 0.0194,
+      "b7_12": 0.2039
+     }
+    },
+    "y_price": {
+     "estimate": 1.835,
+     "pct": 526.5,
+     "se": 0.0813,
+     "p": 0.0,
+     "ci95": [
+      1.6696,
+      2.0004
+     ],
+     "mde_80": 0.2347,
+     "months": 38,
+     "bins": {
+      "antic": 0.7695,
+      "b0_3": 0.9886,
+      "b4_6": 1.447,
+      "b7_12": 1.835
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 0.0,
+   "reading_as_filed": "untestable at a 30% fall",
+   "reading_corrected_precedence": "bit"
+  },
+  {
+   "control": "C5",
+   "importer": "US",
+   "label": "antimony",
+   "treated": "antimony",
+   "comparison": "magnesium",
+   "announced": "202408",
+   "in_force": "202409",
+   "window": [
+    "202208",
+    "202509"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 21,
+   "outcomes": {
+    "y_china": null,
+    "y_total": {
+     "estimate": -0.1613,
+     "pct": null,
+     "se": 0.0717,
+     "p": 0.0314,
+     "ci95": [
+      -0.3072,
+      -0.0153
+     ],
+     "mde_80": 0.2071,
+     "months": 38,
+     "bins": {
+      "antic": 0.2752,
+      "b0_3": 0.3011,
+      "b4_6": -0.0129,
+      "b7_12": -0.1613
+     }
+    },
+    "y_price": {
+     "estimate": 1.7639,
+     "pct": 483.5,
+     "se": 0.113,
+     "p": 0.0,
+     "ci95": [
+      1.534,
+      1.9938
+     ],
+     "mde_80": 0.3263,
+     "months": 38,
+     "bins": {
+      "antic": 0.7603,
+      "b0_3": 1.1819,
+      "b4_6": 1.5676,
+      "b7_12": 1.7639
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "china_outcome_not_interpretable": "comparison broken: China-origin magnesium collapsed (deviation 3)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  },
+  {
+   "control": "C6",
+   "importer": "EU",
+   "label": "bismuth",
+   "treated": "bismuth",
+   "comparison": "magnesium",
+   "announced": "202502",
+   "in_force": "202502",
+   "window": [
+    "202302",
+    "202602"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": {
+     "estimate": -0.9392,
+     "pct": null,
+     "se": 0.1701,
+     "p": 0.0,
+     "ci95": [
+      -1.2853,
+      -0.5931
+     ],
+     "mde_80": 0.4911,
+     "months": 37,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": -0.3718,
+      "b4_6": -2.3641,
+      "b7_12": -0.9392
+     }
+    },
+    "y_total": {
+     "estimate": -0.4052,
+     "pct": null,
+     "se": 0.1823,
+     "p": 0.0332,
+     "ci95": [
+      -0.7762,
+      -0.0342
+     ],
+     "mde_80": 0.5265,
+     "months": 37,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": -0.1252,
+      "b4_6": -0.9043,
+      "b7_12": -0.4052
+     }
+    },
+    "y_price": {
+     "estimate": 1.3089,
+     "pct": 270.2,
+     "se": 0.1211,
+     "p": 0.0,
+     "ci95": [
+      1.0624,
+      1.5554
+     ],
+     "mde_80": 0.3498,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": 1.0002,
+      "b4_6": 1.5606,
+      "b7_12": 1.3089
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "p_china_holm": 0.0,
+   "reading_as_filed": "untestable at a 30% fall",
+   "reading_corrected_precedence": "bit"
+  },
+  {
+   "control": "C6",
+   "importer": "US",
+   "label": "bismuth",
+   "treated": "bismuth",
+   "comparison": "magnesium",
+   "announced": "202502",
+   "in_force": "202502",
+   "window": [
+    "202302",
+    "202602"
+   ],
+   "treated_kg_unreported_share": 0.0,
+   "treated_months_with_china_imports_pre": 24,
+   "outcomes": {
+    "y_china": null,
+    "y_total": {
+     "estimate": -1.075,
+     "pct": null,
+     "se": 0.1929,
+     "p": 0.0,
+     "ci95": [
+      -1.4675,
+      -0.6824
+     ],
+     "mde_80": 0.557,
+     "months": 37,
+     "bins": {
+      "antic": 0.0,
+      "b0_3": -0.1618,
+      "b4_6": -1.545,
+      "b7_12": -1.075
+     }
+    },
+    "y_price": {
+     "estimate": 1.3695,
+     "pct": 293.3,
+     "se": 0.1527,
+     "p": 0.0,
+     "ci95": [
+      1.0587,
+      1.6803
+     ],
+     "mde_80": 0.441,
+     "months": 37,
+     "bins": {
+      "antic": -0.0,
+      "b0_3": 1.3866,
+      "b4_6": 1.6355,
+      "b7_12": 1.3695
+     }
+    }
+   },
+   "post_bin": "b7_12",
+   "post_months": 6,
+   "china_outcome_not_interpretable": "comparison broken: China-origin magnesium collapsed (deviation 3)",
+   "p_china_holm": null,
+   "reading_as_filed": "no estimate",
+   "reading_corrected_precedence": "not interpretable"
+  }
+ ]
+}

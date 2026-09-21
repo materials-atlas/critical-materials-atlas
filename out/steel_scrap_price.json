@@ -1,0 +1,264 @@
+{
+ "filing": "steel-scrap-price/PREREGISTRATION.md",
+ "price": "FRED WPU1012, annual mean, nominal",
+ "rank_check": {
+  "rank": 28,
+  "columns": 28
+ },
+ "years_with_steel_price": [
+  2000,
+  2001,
+  2002,
+  2003,
+  2004,
+  2005,
+  2006,
+  2007,
+  2008,
+  2009,
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "pairs_steel": 172,
+ "pairs_total": 500,
+ "primary": {
+  "target": [
+   "s_dp1",
+   "s_dp2"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.3368,
+  "se": 0.1467,
+  "p": 0.0229,
+  "ci95": [
+   0.0472,
+   0.6263
+  ],
+  "mde_80pct_power": 0.4134,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.7803,
+    "p": 0.0
+   },
+   "s_dp1": {
+    "beta": 0.265,
+    "p": 0.0101
+   },
+   "s_dp2": {
+    "beta": 0.0717,
+    "p": 0.4342
+   }
+  },
+  "n": 10715,
+  "clusters": 181,
+  "reading": "responds after the same year"
+ },
+ "primary_clustered_by_year": {
+  "target": [
+   "s_dp1",
+   "s_dp2"
+  ],
+  "year_fe": true,
+  "cluster": "year",
+  "estimate": 0.3368,
+  "se": 0.1747,
+  "p": 0.0676,
+  "ci95": [
+   -0.0266,
+   0.7001
+  ],
+  "mde_80pct_power": 0.5135,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.7803,
+    "p": 0.0
+   },
+   "s_dp1": {
+    "beta": 0.265,
+    "p": 0.1328
+   },
+   "s_dp2": {
+    "beta": 0.0717,
+    "p": 0.5468
+   }
+  },
+  "n": 10715,
+  "clusters": 22,
+  "reading": "inconclusive"
+ },
+ "same_year_term": {
+  "target": [
+   "s_dp0"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.7803,
+  "se": 0.1056,
+  "p": 0.0,
+  "ci95": [
+   0.5718,
+   0.9888
+  ],
+  "mde_80pct_power": 0.2976,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.7803,
+    "p": 0.0
+   },
+   "s_dp1": {
+    "beta": 0.265,
+    "p": 0.0101
+   },
+   "s_dp2": {
+    "beta": 0.0717,
+    "p": 0.4342
+   }
+  },
+  "n": 10715,
+  "clusters": 181
+ },
+ "placebo_future_prices": {
+  "target": [
+   "s_f1",
+   "s_f2"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.1002,
+  "se": 0.1663,
+  "p": 0.5478,
+  "ci95": [
+   -0.228,
+   0.4284
+  ],
+  "mde_80pct_power": 0.4685,
+  "terms": {
+   "s_f1": {
+    "beta": 0.2304,
+    "p": 0.0381
+   },
+   "s_f2": {
+    "beta": -0.1302,
+    "p": 0.2227
+   }
+  },
+  "n": 10392,
+  "clusters": 181,
+  "reading": "inconclusive"
+ },
+ "without_2021": {
+  "target": [
+   "s_dp1",
+   "s_dp2"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.3169,
+  "se": 0.1491,
+  "p": 0.0349,
+  "ci95": [
+   0.0228,
+   0.611
+  ],
+  "mde_80pct_power": 0.4199,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.8051,
+    "p": 0.0
+   },
+   "s_dp1": {
+    "beta": 0.2614,
+    "p": 0.0121
+   },
+   "s_dp2": {
+    "beta": 0.0555,
+    "p": 0.5556
+   }
+  },
+  "n": 10218,
+  "clusters": 181,
+  "reading": "responds after the same year"
+ },
+ "large_exporters": {
+  "target": [
+   "s_dp1",
+   "s_dp2"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.0131,
+  "se": 0.2346,
+  "p": 0.9562,
+  "ci95": [
+   -0.4937,
+   0.52
+  ],
+  "mde_80pct_power": 0.711,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.1993,
+    "p": 0.2665
+   },
+   "s_dp1": {
+    "beta": -0.178,
+    "p": 0.0741
+   },
+   "s_dp2": {
+    "beta": 0.1912,
+    "p": 0.2557
+   }
+  },
+  "n": 814,
+  "clusters": 14,
+  "reading": "inconclusive"
+ },
+ "real_prices_to_2022": {
+  "target": [
+   "s_dp1",
+   "s_dp2"
+  ],
+  "year_fe": true,
+  "cluster": "iso",
+  "estimate": 0.3165,
+  "se": 0.1488,
+  "p": 0.0348,
+  "ci95": [
+   0.0228,
+   0.6101
+  ],
+  "mde_80pct_power": 0.4192,
+  "terms": {
+   "s_dp0": {
+    "beta": 0.756,
+    "p": 0.0
+   },
+   "s_dp1": {
+    "beta": 0.2872,
+    "p": 0.007
+   },
+   "s_dp2": {
+    "beta": 0.0292,
+    "p": 0.7642
+   }
+  },
+  "n": 9731,
+  "clusters": 181,
+  "reading": "responds after the same year"
+ }
+}
