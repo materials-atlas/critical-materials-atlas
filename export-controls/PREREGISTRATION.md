@@ -113,3 +113,8 @@ Two independent language models reviewed `DESIGN.md` (committed before review). 
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+1. **2026-09-21, before the first run - quantities in inverse hyperbolic sine, not logs.** The filing
+   says monthly log outcomes. A month with no imports from China at all is the strongest possible bite,
+   and a log would drop it. The two quantity outcomes therefore use asinh(kg), which behaves like a log
+   for large values and keeps zeros; the unit-value outcome stays in logs, with months of missing or
+   zero kilograms dropped as filed. Decided and committed before any estimate.
