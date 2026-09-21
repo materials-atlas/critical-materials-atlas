@@ -17,7 +17,7 @@ def hist_points(material, country):
 SRC = {
     "usgs_nickel": {"title": "USGS Mineral Commodity Summaries 2026 — Nickel", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf"},
     "iea_minerals_2025": {"title": "IEA, Global Critical Minerals Outlook 2025", "year": 2025, "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — nickel mine production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — nickel mine production", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 

@@ -9,7 +9,7 @@ OUT = os.path.join(HERE, "out", "bismuth_chain.json")
 
 SRC = {
     "usgs_bismuth": {"title": "USGS Mineral Commodity Summaries 2026 — Bismuth", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-bismuth.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — bismuth", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — bismuth", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "ec_crm": {"title": "European Commission, Critical Raw Materials 2023 — bismuth", "year": 2023, "url": "https://single-market-economy.ec.europa.eu/sectors/raw-materials/areas-specific-interest/critical-raw-materials_en"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }

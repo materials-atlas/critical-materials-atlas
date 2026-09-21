@@ -4,7 +4,7 @@ The cheap magnet's metal and the red in every firework: strontium (mined as cele
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Strontium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-strontium.pdf) — USGS (2026). Annual mine production, reserves, US import sources, and events for strontium/celestite.
-- [BGS, World Mineral Statistics — strontium (celestine)](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run world mine production series used for the atlas's history chart.
+- [BGS, World Mineral Statistics — strontium (celestine)](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run world mine production series used for the atlas's history chart.
 - [IEA, Global Critical Minerals Outlook 2025 — Executive Summary](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2024/2025). Broader critical-minerals context; notes ferrite vs rare-earth permanent magnet trade-offs.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Bilateral trade database used for the chain's trade-flow layer.
 

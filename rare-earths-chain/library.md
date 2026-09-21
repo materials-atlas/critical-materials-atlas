@@ -5,7 +5,7 @@ Rare earths are not scarce in the ground — separating the 17 chemically-alike 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Rare Earths](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf) — USGS (2026). Two-page synopsis: world mine production, reserves, China's April/October 2025 export-control timeline.
 - [IEA, Global Critical Minerals Outlook 2025 — rare earths](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Executive summary covering mine/processing/separation shares and demand outlook.
-- [BGS, World Mineral Statistics — rare-earth production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Country-level rare-earth mine production series.
+- [BGS, World Mineral Statistics — rare-earth production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Country-level rare-earth mine production series.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonised bilateral trade database used for the chain's HS-code trade extract.
 
 ## Government & agency reports

@@ -5,7 +5,7 @@ The lithium mine diversified to Australia's hard-rock spodumene, but turning spo
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Lithium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf) — USGS (2026). Mine production, reserves, world output by country.
 - [IEA, Global Critical Minerals Outlook 2025 — Executive summary](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Refining concentration, China's conversion share.
-- [BGS, World Mineral Statistics — lithium mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS (2024). Long-run mine-production series by country.
+- [BGS, World Mineral Statistics — lithium mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the atlas's own flows.
 
 ## Government & agency reports
@@ -29,7 +29,7 @@ The lithium mine diversified to Australia's hard-rock spodumene, but turning spo
 ## Databases & data sources
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. See Core references above.
 - [USGS interactive critical-minerals data visualization](https://apps.usgs.gov/critical-minerals/mineral-commodities-2026.html) — USGS. See Government section above.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — BGS. See Core references above.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS. See Core references above.
 
 ## Industry & trade associations
 - [International Lithium Association (ILiA)](https://lithium.org/) — ILiA. Global lithium value-chain trade body, founded 2021, ~60 members/20 countries.

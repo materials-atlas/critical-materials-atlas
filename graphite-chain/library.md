@@ -5,7 +5,7 @@ Every lithium battery has a graphite anode — and China makes almost all of it:
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Graphite (Natural)](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-graphite.pdf) — USGS (2026). Latest production/trade/tariff data.
 - [IEA, Global Critical Minerals Outlook 2025 — Executive summary](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Graphite demand and processing-concentration analysis.
-- [BGS, World Mineral Statistics — graphite mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Historical mine-production series (China/Madagascar/Brazil).
+- [BGS, World Mineral Statistics — graphite mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Historical mine-production series (China/Madagascar/Brazil).
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Trade data underlying the atlas.
 
 ## Government & agency reports
@@ -26,7 +26,7 @@ Every lithium battery has a graphite anode — and China makes almost all of it:
 ## Databases & data sources
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Trade database (natural graphite HS2504, artificial graphite HS380110).
 - [Graphite Statistics and Information](https://www.usgs.gov/centers/national-minerals-information-center/graphite-statistics-and-information) — USGS. Mine-production and consumption time series.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Mine-production series used for the chain's history chart.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Mine-production series used for the chain's history chart.
 
 ## Industry & trade associations
 - [Natural Graphite | Benchmark Mineral Intelligence](https://www.benchmarkminerals.com/natural-graphite) and [Anode | Benchmark Mineral Intelligence](https://www.benchmarkminerals.com/anode) — Benchmark Mineral Intelligence. Dedicated graphite/anode market-intelligence service (price, capacity, forecast data).

@@ -4,7 +4,7 @@ Antimony's mine map is diversifying (China's mine share fell from ~84% to ~43% a
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Antimony](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf) — USGS (2026). Latest annual US/world antimony production, reserves, and trade data.
-- [BGS, World Mineral Statistics — antimony mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Country-level mine-production time series used for the chain's history chart.
+- [BGS, World Mineral Statistics — antimony mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Country-level mine-production time series used for the chain's history chart.
 - [CSIS, China's antimony export restrictions and the impact on U.S. national security](https://www.csis.org/analysis/chinas-antimony-export-restrictions-impact-us-national-security) — CSIS (2024). Analysis of the 2024 export-control episode and its defence-supply implications.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Bilateral trade database used for the chain's unwrought antimony and antimony oxide flows.
 
@@ -28,7 +28,7 @@ Antimony's mine map is diversifying (China's mine share fell from ~84% to ~43% a
 ## Databases & data sources
 - [USGS National Minerals Information Center — Data and Tools](https://www.usgs.gov/centers/national-minerals-information-center/data) — USGS. Portal to all USGS mineral commodity datasets, including antimony.
 - [Mineral Commodity Summaries 2023 — Antimony Data Release](https://data.usgs.gov/datacatalog/data/USGS:63d1a2a2d34e06fef1500631) — USGS Science Data Catalog. Structured data release accompanying the 2023 MCS.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Also listed under core references; primary alternative mine-production dataset to USGS.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Also listed under core references; primary alternative mine-production dataset to USGS.
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Also listed under core references; harmonised bilateral trade data built on UN Comtrade.
 
 ## Industry & trade associations

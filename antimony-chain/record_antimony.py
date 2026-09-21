@@ -16,7 +16,7 @@ def hist_points(material, country):
 
 SRC = {
     "usgs_antimony": {"title": "USGS Mineral Commodity Summaries 2026 — Antimony", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — antimony mine production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — antimony mine production", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "usgs_sb_mcs": {"title": "USGS Mineral Commodity Summaries 2026 — Antimony", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-antimony.pdf"},
     "reuters_sb": {"title": "Reuters, China to limit antimony exports in latest critical mineral curbs", "year": 2024, "url": "https://www.reuters.com/markets/commodities/china-limit-antimony-exports-latest-critical-mineral-curbs-2024-08-15/"},
     "csis_antimony": {"title": "CSIS, China's antimony export controls", "year": 2024, "url": "https://www.csis.org/analysis/critical-minerals-gambit"},

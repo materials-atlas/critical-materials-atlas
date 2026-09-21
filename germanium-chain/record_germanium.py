@@ -10,7 +10,7 @@ OUT = os.path.join(HERE, "out", "germanium_chain.json")
 SRC = {
     "usgs_germanium": {"title": "USGS Mineral Commodity Summaries 2026 — Germanium", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-germanium.pdf"},
     "csis_gege": {"title": "CSIS, China's gallium and germanium export controls", "year": 2023, "url": "https://www.csis.org/analysis/chinas-gallium-and-germanium-export-controls"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — germanium", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — germanium", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 

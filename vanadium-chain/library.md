@@ -7,7 +7,7 @@ Note on method: the WebSearch tool was unavailable for this session (budget exha
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Vanadium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-vanadium.pdf) — USGS (2026). Annual mine-production and reserves data by country, the atlas's primary source line.
 - [IEA, Grid-scale storage & long-duration technologies](https://www.iea.org/energy-system/electricity/grid-scale-storage) — IEA (2024). Long-duration storage technology landscape, including flow batteries.
-- [BGS, World Mineral Statistics — vanadium](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Historical mine-production series used for the 2000→2024 China/South Africa/Russia chart.
+- [BGS, World Mineral Statistics — vanadium](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Historical mine-production series used for the 2000→2024 China/South Africa/Russia chart.
 - [CEPII BACI, V202601 (based on UN Comtrade)](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonised bilateral trade dataset behind the ferro-vanadium/oxide trade figures.
 
 ## Government & agency reports

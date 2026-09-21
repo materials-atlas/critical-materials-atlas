@@ -4,7 +4,7 @@ The capacitor metal inside phones, cars, aircraft and implants comes about 70% f
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Tantalum](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-tantalum.pdf) — USGS (2026). Annual mine production, reserves, US import sources and events for tantalum.
-- [BGS, World Mineral Statistics — tantalum mine production](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run world mine production series used for the atlas's history chart.
+- [BGS, World Mineral Statistics — tantalum mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run world mine production series used for the atlas's history chart.
 - [OECD Due Diligence Guidance for Responsible Mineral Supply Chains](https://www.oecd.org/corporate/mne/mining.htm) — OECD (2016). The governance framework behind 3TG conflict-mineral due diligence, cited directly in the chain's "traceability, not tonnage" argument.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Bilateral trade database used for the chain's trade-flow layer.
 

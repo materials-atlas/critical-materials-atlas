@@ -5,7 +5,7 @@ Ninety percent of titanium is white paint — the other tenth flies and fights: 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Titanium Sponge](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-sponge.pdf) — USGS (2026). Annual sponge production/reserves/trade data by country.
 - [USGS Mineral Commodity Summaries 2026 — Titanium Mineral Concentrates](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-titanium-mineral.pdf) — USGS (2026). Ilmenite/rutile ore production and pigment feedstock data.
-- [BGS World Mineral Statistics — titanium minerals](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). Long-run mine-production series by country.
+- [BGS World Mineral Statistics — titanium minerals](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). Long-run mine-production series by country.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Bilateral trade database used for the chain's ore/unwrought-metal trade panel.
 
 ## Government & agency reports

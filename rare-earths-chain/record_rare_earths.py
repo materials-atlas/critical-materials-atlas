@@ -10,7 +10,7 @@ OUT = os.path.join(HERE, "out", "rare_earths_chain.json")
 SRC = {
     "usgs_ree": {"title": "USGS Mineral Commodity Summaries 2026 — Rare Earths", "year": 2026, "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf"},
     "iea_ree": {"title": "IEA, Global Critical Minerals Outlook 2025 — rare earths", "year": 2025, "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"},
-    "bgs_wms": {"title": "BGS, World Mineral Statistics — rare-earth production", "year": 2024, "url": "https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html"},
+    "bgs_wms": {"title": "BGS, World Mineral Statistics — rare-earth production", "year": 2024, "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
 }
 

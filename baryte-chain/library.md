@@ -4,7 +4,7 @@ You can't drill an oil or gas well without this invisible mineral: baryte (bariu
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Barite](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-barite.pdf) — USGS (2026). Annual two-page synopsis: production, reserves, import sources, salient statistics.
-- [BGS World Mineral Statistics — barytes](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). World mine production data series used for the chain's history chart.
+- [BGS World Mineral Statistics — barytes](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). World mine production data series used for the chain's history chart.
 - [American Petroleum Institute — drilling-fluid (mud) specifications](https://www.api.org/) — API (2024). Industry specifications governing drilling-grade barite density/purity.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII (2026). Harmonized bilateral trade database used for the chain's trade panel (HS 251110/251120).
 
@@ -28,7 +28,7 @@ You can't drill an oil or gas well without this invisible mineral: baryte (bariu
 ## Databases & data sources
 - [CEPII BACI](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Bilateral trade database (HS-coded), built from UN Comtrade, harmonized for mirror-flow reconciliation.
 - [USGS National Minerals Information Center — Commodity Statistics and Information](https://www.usgs.gov/centers/national-minerals-information-center/commodity-statistics-and-information) — USGS. Portal to historical time series (Minerals Yearbook, MCS) across all mineral commodities including barite.
-- [BGS World Mineral Statistics](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey. Free searchable world production/trade statistics database.
+- [BGS World Mineral Statistics](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey. Free searchable world production/trade statistics database.
 
 ## Industry & trade associations
 - [Barytes (barytes.org) — About us](https://www.barytes.org/about-us/) — Barytes Association. Industry association representing barytes/barite producers; links page connects to IMA-North America.

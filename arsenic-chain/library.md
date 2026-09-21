@@ -4,7 +4,7 @@ The poison that's also a semiconductor: arsenic is not mined for itself but capt
 
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Arsenic](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-arsenic.pdf) — USGS (2026). Latest annual production/reserves/uses summary for arsenic.
-- [BGS, World Mineral Statistics — arsenic](https://www2.bgs.ac.uk/mineralsuk/statistics/worldStatistics.html) — British Geological Survey (2024). UK/world mine production statistics portal.
+- [BGS, World Mineral Statistics — arsenic](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — British Geological Survey (2024). UK/world mine production statistics portal.
 - [USGS Mineral Commodity Summaries 2026 — Gallium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-gallium.pdf) — USGS (2026). Gallium/GaAs semiconductor context, paired chain.
 - [CEPII BACI V202601](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII, based on UN Comtrade (2026). Harmonised bilateral trade database used for the chain's trade view.
 
