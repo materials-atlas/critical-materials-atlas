@@ -1,0 +1,414 @@
+{
+ "filing": "export-controls/AMENDMENT_A.md",
+ "production_years": [
+  2021,
+  2022,
+  2023
+ ],
+ "controls": {
+  "C1": {
+   "label": "gallium and germanium",
+   "treated": "gage",
+   "pre": [
+    "202107",
+    "202306"
+   ],
+   "post": [
+    "202403",
+    "202408"
+   ],
+   "china_t_month": [
+    4.83,
+    3.55
+   ],
+   "others_t_month": [
+    0.48,
+    0.76
+   ],
+   "replacement_t_month": 0.32,
+   "replacement_share_from_producers": 0.279,
+   "origins": [
+    {
+     "origin": "CA",
+     "iso3": "CAN",
+     "name": "Canada",
+     "pre_t_month": 0.16,
+     "post_t_month": 0.36,
+     "change_t_month": 0.2,
+     "share_of_replacement": 0.621,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "KR",
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "pre_t_month": 0.03,
+     "post_t_month": 0.12,
+     "change_t_month": 0.09,
+     "share_of_replacement": 0.291,
+     "production_t_year_mean_2021_23": 2.0,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [],
+   "comparison": {
+    "china_share_world_production": {
+     "gallium": 0.962,
+     "germanium": 0.94
+    },
+    "other_countries_5pct": {
+     "gallium": 0,
+     "germanium": 0
+    },
+    "china_share_eu_imports_pre": 0.91,
+    "china_tonnes_after_over_before": 0.735,
+    "unit_value_multiple": 1.42
+   }
+  },
+  "C2": {
+   "label": "graphite",
+   "treated": "graphite",
+   "pre": [
+    "202110",
+    "202309"
+   ],
+   "post": [
+    "202407",
+    "202412"
+   ],
+   "china_t_month": [
+    2495.91,
+    2859.26
+   ],
+   "others_t_month": [
+    5863.64,
+    4727.04
+   ],
+   "replacement_t_month": 334.34,
+   "replacement_share_from_producers": 0.717,
+   "origins": [
+    {
+     "origin": "CA",
+     "iso3": "CAN",
+     "name": "Canada",
+     "pre_t_month": 61.95,
+     "post_t_month": 212.71,
+     "change_t_month": 150.76,
+     "share_of_replacement": 0.451,
+     "production_t_year_mean_2021_23": 5873.3,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "TR",
+     "iso3": "TUR",
+     "name": "T\u00fcrkiye",
+     "pre_t_month": 95.89,
+     "post_t_month": 184.98,
+     "change_t_month": 89.09,
+     "share_of_replacement": 0.266,
+     "production_t_year_mean_2021_23": 28008.3,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "US",
+     "iso3": "USA",
+     "name": "USA",
+     "pre_t_month": 121.29,
+     "post_t_month": 202.13,
+     "change_t_month": 80.84,
+     "share_of_replacement": 0.242,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [],
+   "comparison": {
+    "china_share_world_production": {
+     "graphite": 0.696
+    },
+    "other_countries_5pct": {
+     "graphite": 3
+    },
+    "china_share_eu_imports_pre": 0.299,
+    "china_tonnes_after_over_before": 1.146,
+    "unit_value_multiple": 0.944
+   }
+  },
+  "C4": {
+   "label": "rare-earth magnets",
+   "treated": "magnets",
+   "pre": [
+    "202304",
+    "202503"
+   ],
+   "post": [
+    "202511",
+    "202604"
+   ],
+   "china_t_month": [
+    1532.1,
+    2009.28
+   ],
+   "others_t_month": [
+    117.04,
+    118.02
+   ],
+   "replacement_t_month": 25.46,
+   "replacement_share_from_producers": 0.675,
+   "origins": [
+    {
+     "origin": "VN",
+     "iso3": "VNM",
+     "name": "Viet Nam",
+     "pre_t_month": 16.92,
+     "post_t_month": 34.1,
+     "change_t_month": 17.18,
+     "share_of_replacement": 0.675,
+     "production_t_year_mean_2021_23": 646.7,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "CH",
+     "iso3": "CHE",
+     "name": "Switzerland",
+     "pre_t_month": 7.36,
+     "post_t_month": 14.0,
+     "change_t_month": 6.64,
+     "share_of_replacement": 0.261,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [],
+   "comparison": {
+    "china_share_world_production": {
+     "rare_earths": 0.696
+    },
+    "other_countries_5pct": {
+     "rare_earths": 3
+    },
+    "china_share_eu_imports_pre": 0.929,
+    "china_tonnes_after_over_before": 1.311,
+    "unit_value_multiple": 0.906
+   }
+  },
+  "C4r": {
+   "label": "Gd, Tb, Dy metals and compounds",
+   "treated": "hree",
+   "pre": [
+    "202304",
+    "202503"
+   ],
+   "post": [
+    "202511",
+    "202604"
+   ],
+   "china_t_month": [
+    5.59,
+    2.34
+   ],
+   "others_t_month": [
+    16.76,
+    9.19
+   ],
+   "replacement_t_month": 2.44,
+   "replacement_share_from_producers": 0.97,
+   "origins": [
+    {
+     "origin": "IN",
+     "iso3": "IND",
+     "name": "India",
+     "pre_t_month": 0.26,
+     "post_t_month": 2.63,
+     "change_t_month": 2.37,
+     "share_of_replacement": 0.971,
+     "production_t_year_mean_2021_23": 4200.0,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [],
+   "comparison": {
+    "china_share_world_production": {
+     "rare_earths": 0.696
+    },
+    "other_countries_5pct": {
+     "rare_earths": 3
+    },
+    "china_share_eu_imports_pre": 0.25,
+    "china_tonnes_after_over_before": 0.419,
+    "unit_value_multiple": 3.212
+   }
+  },
+  "C5": {
+   "label": "antimony",
+   "treated": "antimony",
+   "pre": [
+    "202208",
+    "202407"
+   ],
+   "post": [
+    "202504",
+    "202509"
+   ],
+   "china_t_month": [
+    190.32,
+    8.44
+   ],
+   "others_t_month": [
+    1473.35,
+    1710.34
+   ],
+   "replacement_t_month": 391.56,
+   "replacement_share_from_producers": 0.346,
+   "origins": [
+    {
+     "origin": "MM",
+     "iso3": "MMR",
+     "name": "Myanmar",
+     "pre_t_month": 47.56,
+     "post_t_month": 182.98,
+     "change_t_month": 135.42,
+     "share_of_replacement": 0.346,
+     "production_t_year_mean_2021_23": 4166.7,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "VN",
+     "iso3": "VNM",
+     "name": "Viet Nam",
+     "pre_t_month": 177.94,
+     "post_t_month": 264.16,
+     "change_t_month": 86.22,
+     "share_of_replacement": 0.22,
+     "production_t_year_mean_2021_23": 334.3,
+     "production_recorded_2021_24": true,
+     "class": "non-producer",
+     "transit_candidate": false
+    },
+    {
+     "origin": "MY",
+     "iso3": "MYS",
+     "name": "Malaysia",
+     "pre_t_month": 0.0,
+     "post_t_month": 67.44,
+     "change_t_month": 67.44,
+     "share_of_replacement": 0.172,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": true
+    },
+    {
+     "origin": "TH",
+     "iso3": "THA",
+     "name": "Thailand",
+     "pre_t_month": 80.57,
+     "post_t_month": 145.87,
+     "change_t_month": 65.3,
+     "share_of_replacement": 0.167,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [
+    "MY"
+   ],
+   "comparison": {
+    "china_share_world_production": {
+     "antimony": 0.379
+    },
+    "other_countries_5pct": {
+     "antimony": 3
+    },
+    "china_share_eu_imports_pre": 0.114,
+    "china_tonnes_after_over_before": 0.044,
+    "unit_value_multiple": 4.122
+   }
+  },
+  "C6": {
+   "label": "bismuth",
+   "treated": "bismuth",
+   "pre": [
+    "202302",
+    "202501"
+   ],
+   "post": [
+    "202509",
+    "202602"
+   ],
+   "china_t_month": [
+    131.53,
+    56.9
+   ],
+   "others_t_month": [
+    13.24,
+    45.38
+   ],
+   "replacement_t_month": 34.01,
+   "replacement_share_from_producers": 0.251,
+   "origins": [
+    {
+     "origin": "KR",
+     "iso3": "KOR",
+     "name": "Rep. of Korea",
+     "pre_t_month": 1.46,
+     "post_t_month": 25.92,
+     "change_t_month": 24.46,
+     "share_of_replacement": 0.719,
+     "production_t_year_mean_2021_23": 0.0,
+     "production_recorded_2021_24": false,
+     "class": "non-producer",
+     "transit_candidate": true
+    },
+    {
+     "origin": "KZ",
+     "iso3": "KAZ",
+     "name": "Kazakhstan",
+     "pre_t_month": 0.0,
+     "post_t_month": 8.52,
+     "change_t_month": 8.52,
+     "share_of_replacement": 0.251,
+     "production_t_year_mean_2021_23": 183.3,
+     "production_recorded_2021_24": true,
+     "class": "producer",
+     "transit_candidate": false
+    }
+   ],
+   "transit_candidates": [
+    "KR"
+   ],
+   "comparison": {
+    "china_share_world_production": {
+     "bismuth": 0.395
+    },
+    "other_countries_5pct": {
+     "bismuth": 3
+    },
+    "china_share_eu_imports_pre": 0.909,
+    "china_tonnes_after_over_before": 0.433,
+    "unit_value_multiple": 2.566
+   }
+  }
+ }
+}
