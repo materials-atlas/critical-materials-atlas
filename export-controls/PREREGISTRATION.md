@@ -118,3 +118,25 @@ Every change made after this filing goes here, dated, with its reason.
    and a log would drop it. The two quantity outcomes therefore use asinh(kg), which behaves like a log
    for large values and keeps zeros; the unit-value outcome stays in logs, with months of missing or
    zero kilograms dropped as filed. Decided and committed before any estimate.
+2. **2026-09-21, after the first run - the US artificial-graphite code split was not summed to its
+   stem.** US 3801105000 splits into 3801105010 (spherical) and 3801105090 inside the window. The
+   filing's rule sums code changes back to the stem; the first run used only 3801105010, which starts
+   mid-window and faked a collapse and a price jump. The whole of 38011050 is now used throughout. An
+   implementation error against the filed rule, not a change of design.
+3. **2026-09-21, after the first run - US magnesium cannot be the comparison for the China-origin
+   outcome.** US imports of magnesium from China fell by about 90% across the window (2.6 Mt in 2021,
+   0.2 Mt in 2025), so any treated good's China-origin imports look like they rose against it (the
+   first run printed +626,203% for antimony). The China-origin outcome is therefore reported as not
+   interpretable wherever the US comparison is magnesium (C1, C3, C5, C6 in the US). No substitute
+   comparison is chosen after seeing the data. Total kilograms and unit values use all origins, where
+   US magnesium imports are stable, and are kept. In the EU, magnesium comes almost entirely from
+   China throughout, and the comparison stands.
+4. **2026-09-21, after the first run - no percentages for the quantity outcomes.** A percentage of an
+   inverse-hyperbolic-sine difference is not meaningful where a series touches zero; quantities are
+   reported in log points. The unit value, a true log, keeps its percentage.
+5. **2026-09-21, after the first run - the reading rule's order was wrong.** As filed, "untestable"
+   is checked first, so an estimate whose whole interval lies far beyond the threshold (a 98% fall)
+   reads "untestable at a 30% fall" because the design could not reliably have seen a 30% fall.
+   The reading as filed is still reported for every control. Beside it, labelled as post-hoc, a
+   reading with the expected order: an interval that clears the threshold (with Holm-adjusted p below
+   0.05) decides the reading whatever the power; only otherwise does low power make it untestable.
