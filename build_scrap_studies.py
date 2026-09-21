@@ -489,6 +489,8 @@ def page():
         'STP_LG': sgn(S['large_exporters']['estimate']),
         'STP_PL': sgn(S['placebo_future_prices']['estimate']), 'STP_PLP': pv(S['placebo_future_prices']['p']),
         'STP_READ': sp['reading'],
+        'STP_LGLO': sgn(S['large_exporters']['ci95'][0]), 'STP_LGHI': sgn(S['large_exporters']['ci95'][1]),
+        'STP_W21': sgn(S['without_2021']['estimate']), 'STP_REAL': sgn(S['real_prices_to_2022']['estimate']),
         'STP_PAIRS': str(S['pairs_steel']), 'STP_RANK': '%d of %d' % (S['rank_check']['rank'], S['rank_check']['columns']),
         'SRC_STEEL': src(['bls', 'pink', 'baci'], ['steel']),
     })
@@ -666,8 +668,9 @@ TEMPLATE = """<!doctype html>
   World Bank price. It has one from the US Bureau of Labor Statistics, the producer price index for iron
   and steel scrap. A follow-up study, <a href="@@REPO@@steel-scrap-price/PREREGISTRATION.md">filed before
   the index was read</a>, put steel into the six-metal panel on that price, with year effects and a
-  separate set of steel terms &mdash; identified this time, because steel's price moves differently from
-  the other metals' within a year (the full design matrix is full rank, @@STP_RANK@@), on
+  separate set of steel terms &mdash; estimable this time, because steel's price moves differently from
+  the other metals' within a year (the full design matrix is full rank, @@STP_RANK@@, which rules out
+  collinearity and nothing more), on
   @@STP_PAIRS@@ small-exporter pairs for iron and carbon-steel scrap (stainless and alloy scrap left out,
   which is why the count differs from the 176 pairs of all steel scrap in the table above). It read a
   three-way rule set in advance for the one- and two-year terms together: <i>responds after the same
@@ -690,11 +693,13 @@ TEMPLATE = """<!doctype html>
   design could reliably detect (@@STP_MDE@@, or @@STP_YMDE@@ by year). The checks do not help: the placebo on
   future prices is inconclusive overall (@@STP_PL@@, p&nbsp;=&nbsp;@@STP_PLP@@), but its one-year-ahead term
   is @@STP_F1@@ (p&nbsp;=&nbsp;@@STP_F1P@@), about as large as the real one-year term, which points to prices
-  that persist rather than to exporters responding late, and
-  the large exporters show nothing (@@STP_LG@@). The US index is a US price, and demand from T&uuml;rkiye
-  and China's scrap import rules move steel's price and exports together, which year effects shared
-  with the other metals cannot remove. On the T&uuml;rkiye import unit value, the scrap-trade study's
-  own check above, nothing followed the same year; on the US index something may, but it does not survive
+  that persist rather than to exporters responding late, though it does not rule a delayed response out;
+  with errors grouped by exporter, the later response stays at @@STP_W21@@ without 2021 and @@STP_REAL@@ on
+  real prices to 2022; and
+  for the large exporters it is inconclusive (@@STP_LG@@, interval @@STP_LGLO@@ to @@STP_LGHI@@). The US index is a US price, and the steel-mill price, demand
+  from T&uuml;rkiye and China's scrap import rules can move steel's scrap price and its exports together;
+  year effects shared with the other metals remove such shocks only in part. On the T&uuml;rkiye import unit value, the scrap-trade study's
+  own check above, nothing followed after the same year; on the US index something may, but it does not survive
   the stricter errors.</p>
 </section>
 
