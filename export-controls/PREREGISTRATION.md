@@ -160,7 +160,10 @@ Pre-period mean against months 7-12, per month; unit value in euro per kilogram,
   2.6-fold. The larger multiples in the estimates (about six-fold and 3.7-fold) are relative to
   magnesium, whose own unit value fell over the same months. **Antimony was not a supply shortfall:**
   total EU antimony imports did not fall (other origins replaced China), so its "bit" rests on price.
-  Total bismuth imports did fall.
+  Total bismuth imports did fall. **Antimony's fall began before the announcement**: imports from China
+  averaged about 221 t a month from August 2022 to March 2024 but about 36 t in April-July 2024, with the
+  unit value already rising; the before-after comparison credits the control with a squeeze that was
+  under way (deviation 11). Bismuth imports from China recovered partly from November 2025.
 - **Rare-earth magnets show no visible fall in China-origin imports** by months 7-12, as filed;
   **graphite** is untestable as filed and shows no visible fall only under the exploratory order. The
   EU graphite code is natural graphite only (25041000); the synthetic and spherical graphite the control
@@ -192,8 +195,8 @@ Every change made after this filing goes here, dated, with its reason.
    mid-window and faked a collapse and a price jump. The whole of 38011050 is now used throughout. An
    implementation error against the filed rule, not a change of design.
 3. **2026-09-21, after the first run - US magnesium cannot be the comparison for the China-origin
-   outcome.** US imports of magnesium from China fell by about 90% across the window (2.6 Mt in 2021,
-   0.2 Mt in 2025), so any treated good's China-origin imports look like they rose against it (the
+   outcome.** US imports of magnesium from China fell by about 90% across the window (2.6 kt in 2021,
+   0.2 kt in 2025; first written as Mt, corrected under deviation 11), so any treated good's China-origin imports look like they rose against it (the
    first run printed +626,203% for antimony). The China-origin outcome is therefore reported as not
    interpretable wherever the US comparison is magnesium (C1, C3, C5, C6 in the US). No substitute
    comparison is chosen after seeing the data. Total kilograms and unit values use all origins, where
@@ -241,3 +244,11 @@ Every change made after this filing goes here, dated, with its reason.
    supply. The first draft also gave the gallium and germanium unit-value rise as 118%; it is 117%.
    One inconsistency in the filing, noted and without effect: C3's pre-period (August 2023 to November
    2024) contains C1's post-period, which the overlap rule meant to exclude; the US rows carry no reading.
+11. **2026-09-21 - findings of the review of the public page.** A fact-check of the page against the
+   raw Comext files, and a referee report, found: China-origin antimony was already falling, and its unit
+   value rising, in the four months before the August 2024 announcement, which the result section did not
+   say (now added); the peak of 310 t in November 2024 is unwrought antimony shipped after entry into
+   force, inside months 0-3 and outside both compared periods; bismuth from China recovered partly from
+   November 2025; the heavy rare earths' monthly unit value is too erratic to read. Deviation 3 and the
+   code gave US magnesium in Mt; the Census figures are 2.57 kt (2021) and 0.21 kt (2025), and the 90%
+   fall stands. No estimate or reading changed.
