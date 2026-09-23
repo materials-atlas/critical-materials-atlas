@@ -240,12 +240,15 @@ def parse_edition(path, commodity, edition_year):
                          if -2 <= s['x0'] - k['x1'] < 8 or -2 <= k['x0'] - s['x1'] < 8]
                 if mark:
                     notes = notes + [mark]
+                # a small 'e' against the value is the estimate marker, not a footnote code
+                cell_est = 'e' in notes
+                notes = [n for n in notes if n != 'e']
                 rows.append({
                     'commodity': commodity, 'country_name_raw': label, 'year': col['year'],
                     'measure': col['measure'], 'value': v, 'unit': unit_text,
                     'value_t': (v * factor) if (v is not None and factor and col['measure'] in
                                                 ('mine', 'refinery', 'smelter')) else None,
-                    'is_estimate': bool(col['is_estimate']) or s['text'].strip().endswith('e'),
+                    'is_estimate': bool(col['is_estimate']) or s['text'].strip().endswith('e') or cell_est,
                     'flag': flag, 'edition_year': edition_year, 'page': pno + 1,
                     'footnote_codes': ','.join(notes) if notes else None,
                     'table_caption': caption, 'row_kind': kind})
