@@ -52,7 +52,11 @@ USGS_NAMES = {
     'slovakia': 'SVK', 'venezuela': 'VEN', 'syria': 'SYR', 'cote d’ivoire': 'CIV',
     "cote d'ivoire": 'CIV', 'united kingdom': 'GBR', 'south africa': 'ZAF', 'germany': 'DEU',
 }
-UNIT_LINE = re.compile(r'\(Data in ([^)]*?)(?: unless otherwise noted)?\)', re.I)
+# the unit line is parenthesised in most chapters and bracketed in others ("[Data in metric tons,
+# rare-earth-oxide (REO) equivalent, unless otherwise specified]"), which is why rare earths had no
+# unit at all from 2010 on and so no tonnes
+UNIT_LINE = re.compile(r'\[Data in (?P<b>[^\]]*?)(?:,? unless otherwise \w+)?\]'
+                       r'|\(Data in (?P<p>[^)]*?)(?:,? unless otherwise \w+)?\)', re.I | re.S)
 TONNES = [(re.compile(r'thousand metric tons', re.I), 1000.0),
           (re.compile(r'metric tons', re.I), 1.0),
           (re.compile(r'million metric tons', re.I), 1e6)]
@@ -131,15 +135,17 @@ def parse_edition(path, commodity, edition_year):
         L = lines(spans(page))
         base = body_size(L)
         if unit_text is None:
-            for ln in L:
-                m = UNIT_LINE.search(line_text(ln))
-                if m:
-                    unit_text = m.group(1).strip()
-                    for rx, f in TONNES:
-                        if rx.search(unit_text):
-                            factor = f
-                            break
-                    break
+            # searched across the whole page, not line by line: the rare-earth chapters wrap the unit
+            # line ("(Data in metric tons of rare-earth-oxide (REO) equivalent unless otherwise
+            # noted)") and a per-line search missed it, leaving those editions with no tonnes at all
+            page_text = ' '.join(line_text(ln) for ln in L)
+            m = UNIT_LINE.search(page_text)
+            if m:
+                unit_text = re.sub(r'\s+', ' ', m.group('b') or m.group('p') or '').strip()
+                for rx, f in TONNES:
+                    if rx.search(unit_text):
+                        factor = f
+                        break
         # find the table caption
         start = None
         for i, ln in enumerate(L):
