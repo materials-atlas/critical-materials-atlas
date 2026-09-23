@@ -55,9 +55,9 @@ before comparison, so a unit change is not read as a revision.
 
 ## Result - run 2026-09-23
 
-Run by `analysis.py`; every number is in `out/usgs_revisions.json`. 1596 series (commodity, country or
-world total, measure, year) have at least two editions and a usable first value; 692 were dropped
-because the first edition to report them printed a dash, a W or nothing. The newest data year in each
+Run by `analysis.py`; every number is in `out/usgs_revisions.json`. 1596 series (commodity, country or world total, measure, year) can be
+measured; 692 cannot: 481 because only one edition reports them and 211 because a dash, a W or an NA left
+fewer than two usable printings (deviation 6). The newest data year in each
 chapter has been published once and cannot be measured yet.
 
 ### How far the first published figure moves
@@ -120,19 +120,22 @@ alone misses where the leverage sits.
 Both count the same thing; neither is a correction of the other. The gap is the median absolute
 difference in the world total (and China), USGS over BGS, on the years both cover.
 
-| Commodity | measure | years | world gap | China gap |
-|---|---|---|---|---|
+| Commodity | USGS measure | BGS series | years | BGS reporters | world gap | China gap |
+|---|---|---|---|---|---|---|
+| graphite | mine | graphite | 2002-2024 | 17 | 30.7% | 31.0% |
+| antimony | mine | antimony, mine | 2002-2024 | 15 | 13.1% | 15.5% |
+| cobalt | mine | cobalt, mine | 2002-2024 | 19 | 12.7% | 25.0% |
+| rare earths | mine | rare earth oxides | 2003-2024 | 7 | 7.0% | 3.5% |
+| tungsten | mine | tungsten, mine | 2002-2024 | 21 | 6.9% | 8.6% |
+| copper | refinery | copper, refined | 2019-2024 | 40 | 1.2% | 0.2% |
+| copper | mine | copper, mine | 2002-2024 | 54 | 0.6% | 1.2% |
 
-| graphite | mine | 2002-2024 | 31.6% | 31.0% |
-| antimony | mine | 2002-2024 | 13.1% | 15.5% |
-| cobalt | mine | 2002-2024 | 12.7% | 25.0% |
-| tungsten | mine | 2002-2024 | 6.9% | 8.6% |
-| copper | refinery | 2019-2024 | 1.2% | 0.2% |
-| copper | mine | 2002-2024 | 0.6% | 1.2% |
-
-Copper is the close case (0.6% on mine, 1.2% on refined). Graphite is the far one (31.6%), and the
-two are not measuring the same basket there: the BGS series carries the forms it collects, the USGS
-chapter is natural graphite. A page that quotes a graphite share should say which source it used.
+Copper is the close case (0.6% on mine over 2002-2024, 1.2% on refined over the six years the USGS
+has printed a refinery world total). Graphite is the far one at 30.7%, and not because the baskets
+differ - both series are natural graphite and exclude synthetic material. It is China: BGS put Chinese
+output at 1,800,000 t in 2010 against the USGS's 600,000, and by 2024 both print 1,270,000 t, leaving a
+world gap of 10%. Rare earths compare at 7.0% on a BGS series carried by about seven reporters, so
+coverage may be doing the work there.
 
 ## Deviations log
 
@@ -166,4 +169,27 @@ Every change made after this filing goes here, dated, with its reason.
    parenthesise it, and the search ran line by line while the line wraps. With no unit there were no
    tonnes, and the agency comparison silently stopped at 2008. The parser now reads the unit from the
    whole page and accepts either bracket; every row in the store now carries a unit.
+6. **2026-09-23, after the council review - the dropped series were reported under one reason, and it
+   was the wrong one.** The result said 692 series were dropped because the first edition printed a
+   dash, a W or nothing. A fact-check recomputed it: 481 of them appear in only ONE edition at all (the
+   newest data year, and years either side of a gap in the editions held), and 211 lost a printing to a
+   flag. None was dropped for a zero first value. Both counts are now reported.
+7. **2026-09-23 - the BGS comparison summed production, imports and exports.** The panel carries all
+   three under the same commodity form and the code did not filter on the statistic type. It changed
+   only graphite, whose BGS "world production" was the sum of all three: its median gap falls from 31.6%
+   to 30.7% and the pre-2012 rows change materially. Production rows only, from now on.
+8. **2026-09-23 - a 1,000x error inside the published comparison.** The USGS world total was converted
+   to tonnes with a factor taken from another edition's country row. Graphite changed unit (thousand
+   tonnes to tonnes) at the 2019 edition, so the 2017 row was multiplied by 1,000 and printed a 74,579%
+   gap in the output file. The world total is now read in tonnes from the row that printed it. No
+   headline moved, because the median absorbed it - which is why it survived the first reading.
+9. **2026-09-23 - the parser filed an estimate marker as a footnote.** Where the superscript "e" is a
+   separate span before the value (rather than attached to the column header), `is_estimate` came out
+   False and the marker was stored as a footnote code. Fixed; 2,039 of 7,349 rows are now marked
+   estimates. No published number depended on the field.
+10. **2026-09-23 - page-level corrections from the same review.** The mine-against-refinery figure
+   selected its rows after sorting by refinery share, which silently dropped Peru and Zambia, two of the
+   largest miners; it now takes the leaders on both measures. A dash in the printed table is shown as a
+   dash rather than a computed zero. Both bands (filed and recent-decade) are shown, not only the
+   recent one.
 

@@ -40,15 +40,23 @@ def store():
 
 def revisions(d):
     """One row per commodity, series and year with at least two editions reporting it."""
-    rows, dropped = [], 0
+    rows, dropped, one_edition, flagged = [], 0, 0, 0
     keys = ['commodity', 'measure', 'row_kind', 'iso3', 'country_name_raw', 'year']
     for k, g in d.groupby(keys, dropna=False):
         if k[2] not in ('country', 'world_printed'):
             continue
         g = g.sort_values('edition_year')
+        n_all = g.edition_year.nunique()
         g = g[g.v.notna() & (g.flag.isna())]
         if len(g) < 2 or not g.v.iloc[0]:
             dropped += 1
+            # the two reasons are different and were reported as one: a series printed in only one
+            # edition (the newest data year, or a year either side of a gap in the cached editions)
+            # could never have been measured; a flagged one lost its printings to a dash, W or NA
+            if n_all < 2:
+                one_edition += 1
+            else:
+                flagged += 1
             continue
         first, latest = float(g.v.iloc[0]), float(g.v.iloc[-1])
         second = float(g.v.iloc[1])
@@ -58,7 +66,8 @@ def revisions(d):
                      'first': first, 'latest': latest,
                      'revision': (latest - first) / first,
                      'after_first_revision': (latest - second) / second if second else None})
-    return pd.DataFrame(rows), dropped
+    return pd.DataFrame(rows), {'total': dropped, 'only_one_edition': one_edition,
+                                'lost_to_a_flag': flagged}
 
 
 def band(x):
@@ -84,6 +93,8 @@ def summarise(r):
             'china_years': int(len(cn)),
             'country_median_abs_revision': float(g[g.row_kind == 'country'].revision.abs().median()),
             'share_revised_up': up,
+            'share_revised_up_over': 'every mine series in the commodity: each country and the '
+                                     'printed world total',
             'direction': ('revised up more often than down' if up is not None and up >= UP_SHARE else
                           'revised down more often than up' if up is not None and up <= 1 - UP_SHARE else
                           'no consistent direction'),
@@ -126,15 +137,21 @@ def mine_vs_refine(d):
         for iso in sorted(set(p_mine[p_mine.year == year].iso3) | set(p_ref[p_ref.year == year].iso3)):
             if not iso:
                 continue
-            m = p_mine[(p_mine.year == year) & (p_mine.iso3 == iso)].value
-            r = p_ref[(p_ref.year == year) & (p_ref.iso3 == iso)].value
+            mrow = p_mine[(p_mine.year == year) & (p_mine.iso3 == iso)]
+            rrow = p_ref[(p_ref.year == year) & (p_ref.iso3 == iso)]
+            m, r = mrow.value, rrow.value
+            # the chapter prints a dash, not a zero, where a country does not mine at all
+            mine_flag = mrow.flag.iloc[0] if len(mrow) and pd.notna(mrow.flag.iloc[0]) else None
+            ref_flag = rrow.flag.iloc[0] if len(rrow) and pd.notna(rrow.flag.iloc[0]) else None
             rows.append({'iso3': iso,
                          'country': (p_ref[(p_ref.year == year) & (p_ref.iso3 == iso)].country_name_raw.iloc[0]
                                      if len(r) else p_mine[(p_mine.year == year) & (p_mine.iso3 == iso)].country_name_raw.iloc[0]),
                          'mine': float(m.iloc[0]) if len(m) else None,
                          'refinery': float(r.iloc[0]) if len(r) else None,
                          'mine_share': float(m.iloc[0]) / tm if len(m) else None,
-                         'refinery_share': float(r.iloc[0]) / tr if len(r) else None})
+                         'refinery_share': float(r.iloc[0]) / tr if len(r) else None,
+                         'mine_printed': 'dash' if mine_flag == 'zero' else None,
+                         'refinery_printed': 'dash' if ref_flag == 'zero' else None})
         out[c] = {'year': year, 'world_mine': tm, 'world_refinery': tr,
                   'rows': sorted(rows, key=lambda x: -(x['refinery_share'] or 0))}
     return out
@@ -154,7 +171,10 @@ def bgs_compare(d):
         for measure, form in (('mine', mine_form), ('refinery', ref_form)):
             if not form:
                 continue
-            bb = b[b.bgs_commodity_trans == form]
+            # production only: the BGS panel carries Imports and Exports rows under the same form,
+            # and summing them made graphite's "world production" the sum of all three
+            bb = b[(b.bgs_commodity_trans == form) &
+                   (b.bgs_statistic_type_trans.str.lower() == 'production')]
             if bb.empty:
                 continue
             w = U.world(c, measure)
@@ -168,18 +188,16 @@ def bgs_compare(d):
                 bw = float(bb[bb.year == y].quantity.sum())
                 n_rep = int(bb[(bb.year == y) & (bb.quantity > 0)].country_iso3_code.nunique())
                 uw = float(w[w.year == y].world_printed.iloc[0])
+                # in tonnes, from the very row that printed it: deriving a factor from another
+                # edition applied 1,000 to a graphite figure already in tonnes (a 1000x error in the
+                # 2017 row of the published output)
+                wr = d[(d.commodity == c) & (d.measure == measure) & (d.year == y) &
+                       (d.row_kind == 'world_printed')].sort_values('edition_year')
+                uw_t = float(wr.v.iloc[-1]) if len(wr) and pd.notna(wr.v.iloc[-1]) else None
                 bc = float(bb[(bb.year == y) & (bb.country_iso3_code == 'CHN')].quantity.sum())
                 uc = p[(p.year == y) & (p.iso3 == 'CHN')]
                 uc_v = float(uc.value_t.iloc[0]) if len(uc) and pd.notna(uc.value_t.iloc[0]) else (
                     float(uc.value.iloc[0]) if len(uc) else None)
-                # the world total is printed in the chapter's unit; convert with the same factor a
-                # country row used, so both sides are tonnes
-                f = None
-                cc = d[(d.commodity == c) & (d.measure == measure) & (d.year == y) &
-                       d.value_t.notna() & (d.value != 0)]
-                if len(cc):
-                    f = float(cc.value_t.iloc[0]) / float(cc.value.iloc[0])
-                uw_t = uw * f if f else None
                 if uw_t and bw:
                     recs.append({'year': int(y), 'bgs_countries_reporting': n_rep,
                                  'usgs_world_t': uw_t, 'bgs_world_t': bw,
@@ -193,6 +211,7 @@ def bgs_compare(d):
                     'bgs_median_countries_reporting': med_rep,
                     # a BGS form with almost no reporters is a residual category, not the same basket:
                     # 'rare earths' carries one country while 'rare earth oxides' carries nine
+                    'bgs_rows': 'production only',
                     'like_for_like': bool(med_rep >= 3),
                     'median_abs_world_gap': float(np.median([abs(r['world_gap']) for r in recs])),
                     'median_abs_china_gap': float(np.median([abs(r['china_gap']) for r in recs
@@ -207,7 +226,7 @@ def main():
     r, dropped = revisions(d)
     res = {'filing': 'usgs-revisions/PREREGISTRATION.md',
            'store': 'pipeline/data/usgs_mcs_history.parquet',
-           'editions': U.editions(), 'series_dropped_for_missing_first_value': dropped,
+           'editions': U.editions(), 'series_dropped': dropped,
            'measurable_series': int(len(r)),
            'latest_year_excluded': {c: int(g.year.max()) + 1 for c, g in r.groupby('commodity')},
            'by_commodity': summarise(r),
@@ -219,7 +238,8 @@ def main():
                                      float(v) if isinstance(v, (np.floating,)) else v)
                                  for k, v in row.items()} for row in big.to_dict('records')]
     json.dump(res, open(OUT, 'w', encoding='utf-8'), indent=1, default=float)
-    print('measurable series %d (dropped %d)' % (len(r), dropped))
+    print('measurable series %d (dropped %d: %d one edition, %d lost to a flag)'
+          % (len(r), dropped['total'], dropped['only_one_edition'], dropped['lost_to_a_flag']))
     for c, s in res['by_commodity'].items():
         print('%-12s world median |rev| %5.1f%% over %2d years (max %5.1f%%), China %5.1f%%, up %3.0f%% -> %s [%s]'
               % (c, 100 * (s['world_median_abs_revision'] or 0), s['world_years'],
