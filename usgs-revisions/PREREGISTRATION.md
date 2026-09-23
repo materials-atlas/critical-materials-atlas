@@ -146,4 +146,24 @@ Every change made after this filing goes here, dated, with its reason.
    tonnes between the 1996 and 1997 editions), which would make a caution drawn from the whole period
    too harsh for figures published now. The filed headline over all years is reported unchanged, with
    the recent-decade median beside it, and the band is given on both.
+3. **2026-09-23, after the first result - the filed settling check cannot be computed, and the
+   comparison is equal-exposure.** The filing asked for the movement between the second edition to
+   report a year and the latest. There is none: an MCS edition prints last year as an estimate and the
+   year before it revised, so **every data year appears in exactly two editions** (139 of the measurable
+   world-total years have two, none has three). "First against latest" is therefore "the estimate
+   against its single revision", and every year carries the same exposure - the objection that older
+   years have more chances to move does not apply here. The check is reported as not computable rather
+   than as a zero.
+4. **2026-09-23 - the BGS rare-earth comparison used the wrong form twice.** The comparison first
+   looked for a BGS form named "rare earth minerals", which does not exist, so the row was dropped
+   without a message. The next attempt used "rare earths", which is a residual category carrying ONE
+   reporting country (925 t in 2024) against "rare earth oxides" with nine (360,714 t); it produced a
+   meaningless 89% gap. The comparison now uses "rare earth oxides", names the BGS form in the output
+   and carries the median number of BGS reporting countries, so a residual basket cannot pass as a
+   disagreement again.
+5. **2026-09-23 - the parser missed the unit line in every rare-earth chapter from 2010.** Those
+   chapters bracket it ("[Data in metric tons, rare-earth-oxide (REO) equivalent...]") where others
+   parenthesise it, and the search ran line by line while the line wraps. With no unit there were no
+   tonnes, and the agency comparison silently stopped at 2008. The parser now reads the unit from the
+   whole page and accepts either bracket; every row in the store now carries a unit.
 

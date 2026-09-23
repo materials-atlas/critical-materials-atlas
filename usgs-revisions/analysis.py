@@ -26,7 +26,7 @@ BANDS = [(0.02, 'firm'), (0.05, 'soft'), (float('inf'), 'weak')]
 UP_SHARE = 0.60
 BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimony, mine', 'antimony, refined'),
              'cobalt': ('cobalt, mine', 'cobalt, refined'), 'graphite': ('graphite', None),
-             'tungsten': ('tungsten, mine', None), 'rare_earths': ('rare earth minerals', None)}
+             'tungsten': ('tungsten, mine', None), 'rare_earths': ('rare earth oxides', None)}
 
 
 def store():
@@ -88,7 +88,12 @@ def summarise(r):
                           'revised down more often than up' if up is not None and up <= 1 - UP_SHARE else
                           'no consistent direction'),
             'band': band(med_w) if med_w is not None else None,
-            'median_abs_change_after_first_revision': float(settle.median()) if settle.notna().any() else None,
+            # deviation 3: not computable. Each data year is printed exactly twice in this series, so
+            # there is no third printing to settle towards; the count of years with three or more
+            # editions is reported instead of a number that would always be zero.
+            'years_with_three_or_more_editions': int((g[(g.row_kind == 'world_printed') &
+                                                        (g.measure == 'mine')].editions >= 3).sum()),
+            'editions_per_measurable_year': 2,
             # deviation 2: the same medians over the last ten data years, added after seeing that the
             # largest revisions are from the 1990s. Descriptive; the filed headline is unchanged.
             'world_median_abs_revision_recent': (float(w[w.year >= w.year.max() - 9].revision.abs().median())
@@ -161,6 +166,7 @@ def bgs_compare(d):
                 if y < 2002:
                     continue
                 bw = float(bb[bb.year == y].quantity.sum())
+                n_rep = int(bb[(bb.year == y) & (bb.quantity > 0)].country_iso3_code.nunique())
                 uw = float(w[w.year == y].world_printed.iloc[0])
                 bc = float(bb[(bb.year == y) & (bb.country_iso3_code == 'CHN')].quantity.sum())
                 uc = p[(p.year == y) & (p.iso3 == 'CHN')]
@@ -175,13 +181,19 @@ def bgs_compare(d):
                     f = float(cc.value_t.iloc[0]) / float(cc.value.iloc[0])
                 uw_t = uw * f if f else None
                 if uw_t and bw:
-                    recs.append({'year': int(y), 'usgs_world_t': uw_t, 'bgs_world_t': bw,
+                    recs.append({'year': int(y), 'bgs_countries_reporting': n_rep,
+                                 'usgs_world_t': uw_t, 'bgs_world_t': bw,
                                  'world_gap': uw_t / bw - 1,
                                  'usgs_china_t': uc_v, 'bgs_china_t': bc if bc else None,
                                  'china_gap': (uc_v / bc - 1) if (uc_v and bc) else None})
             if recs:
+                med_rep = float(np.median([r['bgs_countries_reporting'] for r in recs]))
                 out['%s_%s' % (c, measure)] = {
                     'bgs_form': form, 'years': [recs[0]['year'], recs[-1]['year']],
+                    'bgs_median_countries_reporting': med_rep,
+                    # a BGS form with almost no reporters is a residual category, not the same basket:
+                    # 'rare earths' carries one country while 'rare earth oxides' carries nine
+                    'like_for_like': bool(med_rep >= 3),
                     'median_abs_world_gap': float(np.median([abs(r['world_gap']) for r in recs])),
                     'median_abs_china_gap': float(np.median([abs(r['china_gap']) for r in recs
                                                              if r['china_gap'] is not None])) if any(
