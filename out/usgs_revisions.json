@@ -1,0 +1,1641 @@
+{
+ "filing": "usgs-revisions/PREREGISTRATION.md",
+ "store": "pipeline/data/usgs_mcs_history.parquet",
+ "editions": [
+  1996,
+  1997,
+  1998,
+  1999,
+  2000,
+  2001,
+  2002,
+  2003,
+  2004,
+  2005,
+  2006,
+  2007,
+  2008,
+  2009,
+  2010,
+  2011,
+  2012,
+  2013,
+  2014,
+  2015,
+  2016,
+  2017,
+  2018,
+  2019,
+  2020,
+  2021,
+  2022,
+  2023,
+  2024,
+  2025,
+  2026
+ ],
+ "series_dropped_for_missing_first_value": 692,
+ "measurable_series": 1596,
+ "latest_year_excluded": {
+  "antimony": 2025,
+  "cobalt": 2025,
+  "copper": 2025,
+  "graphite": 2025,
+  "rare_earths": 2025,
+  "tungsten": 2025
+ },
+ "by_commodity": {
+  "antimony": {
+   "world_median_abs_revision": 0.11256410256410257,
+   "world_years": 22,
+   "world_max_abs_revision": 0.4253521126760563,
+   "china_median_abs_revision": 0.10954545454545454,
+   "china_years": 22,
+   "country_median_abs_revision": 0.2,
+   "share_revised_up": 0.41346153846153844,
+   "direction": "no consistent direction",
+   "band": "weak",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.11256410256410257,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
+  "cobalt": {
+   "world_median_abs_revision": 0.05714285714285714,
+   "world_years": 21,
+   "world_max_abs_revision": 0.17391304347826086,
+   "china_median_abs_revision": 0.04727047146401985,
+   "china_years": 14,
+   "country_median_abs_revision": 0.06896551724137931,
+   "share_revised_up": 0.4880952380952381,
+   "direction": "no consistent direction",
+   "band": "weak",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.03581235697940503,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "copper": {
+   "world_median_abs_revision": 0.014150160910387843,
+   "world_years": 22,
+   "world_max_abs_revision": 0.03608247422680412,
+   "china_median_abs_revision": 0.05,
+   "china_years": 22,
+   "country_median_abs_revision": 0.029343480934809346,
+   "share_revised_up": 0.5178571428571429,
+   "direction": "no consistent direction",
+   "band": "firm",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.0206951871657754,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "graphite": {
+   "world_median_abs_revision": 0.06543162719633308,
+   "world_years": 22,
+   "world_max_abs_revision": 0.29894179894179895,
+   "china_median_abs_revision": 0.022415795586527294,
+   "china_years": 22,
+   "country_median_abs_revision": 0.0625,
+   "share_revised_up": 0.25076452599388377,
+   "direction": "revised down more often than up",
+   "band": "weak",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.0827840909090909,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
+  "rare_earths": {
+   "world_median_abs_revision": 0.023809523809523808,
+   "world_years": 21,
+   "world_max_abs_revision": 0.17142857142857143,
+   "china_median_abs_revision": 0.0,
+   "china_years": 21,
+   "country_median_abs_revision": 0.07692307692307693,
+   "share_revised_up": 0.3941176470588235,
+   "direction": "revised down more often than up",
+   "band": "soft",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.030677655677655676,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "tungsten": {
+   "world_median_abs_revision": 0.05339805825242718,
+   "world_years": 29,
+   "world_max_abs_revision": 0.55,
+   "china_median_abs_revision": 0.05574033013057403,
+   "china_years": 30,
+   "country_median_abs_revision": 0.08333333333333333,
+   "share_revised_up": 0.41605839416058393,
+   "direction": "no consistent direction",
+   "band": "weak",
+   "median_abs_change_after_first_revision": 0.0,
+   "world_median_abs_revision_recent": 0.023631066411238827,
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  }
+ },
+ "mine_vs_refine": {
+  "copper": {
+   "year": 2025,
+   "world_mine": 23000.0,
+   "world_refinery": 29000.0,
+   "rows": [
+    {
+     "iso3": "CHN",
+     "country": "China",
+     "mine": 1800.0,
+     "refinery": 14000.0,
+     "mine_share": 0.0782608695652174,
+     "refinery_share": 0.4827586206896552
+    },
+    {
+     "iso3": "COD",
+     "country": "Congo (Kinshasa)",
+     "mine": 3200.0,
+     "refinery": 2800.0,
+     "mine_share": 0.1391304347826087,
+     "refinery_share": 0.09655172413793103
+    },
+    {
+     "iso3": "CHL",
+     "country": "Chile",
+     "mine": 5300.0,
+     "refinery": 1700.0,
+     "mine_share": 0.23043478260869565,
+     "refinery_share": 0.05862068965517241
+    },
+    {
+     "iso3": "JPN",
+     "country": "Japan",
+     "mine": 0.0,
+     "refinery": 1400.0,
+     "mine_share": 0.0,
+     "refinery_share": 0.04827586206896552
+    },
+    {
+     "iso3": "RUS",
+     "country": "Russia",
+     "mine": 1300.0,
+     "refinery": 950.0,
+     "mine_share": 0.05652173913043478,
+     "refinery_share": 0.032758620689655175
+    },
+    {
+     "iso3": "USA",
+     "country": "United States",
+     "mine": 1000.0,
+     "refinery": 850.0,
+     "mine_share": 0.043478260869565216,
+     "refinery_share": 0.029310344827586206
+    },
+    {
+     "iso3": "IND",
+     "country": "India",
+     "mine": 23.0,
+     "refinery": 620.0,
+     "mine_share": 0.001,
+     "refinery_share": 0.021379310344827585
+    },
+    {
+     "iso3": "DEU",
+     "country": "Germany",
+     "mine": 0.0,
+     "refinery": 610.0,
+     "mine_share": 0.0,
+     "refinery_share": 0.02103448275862069
+    },
+    {
+     "iso3": "KOR",
+     "country": "Korea, Republic of",
+     "mine": 0.0,
+     "refinery": 610.0,
+     "mine_share": 0.0,
+     "refinery_share": 0.02103448275862069
+    },
+    {
+     "iso3": "POL",
+     "country": "Poland",
+     "mine": 410.0,
+     "refinery": 560.0,
+     "mine_share": 0.017826086956521738,
+     "refinery_share": 0.019310344827586208
+    },
+    {
+     "iso3": "KAZ",
+     "country": "Kazakhstan",
+     "mine": 710.0,
+     "refinery": 500.0,
+     "mine_share": 0.030869565217391304,
+     "refinery_share": 0.017241379310344827
+    },
+    {
+     "iso3": "MEX",
+     "country": "Mexico",
+     "mine": 690.0,
+     "refinery": 480.0,
+     "mine_share": 0.03,
+     "refinery_share": 0.016551724137931035
+    },
+    {
+     "iso3": "AUS",
+     "country": "Australia",
+     "mine": 730.0,
+     "refinery": 460.0,
+     "mine_share": 0.03173913043478261,
+     "refinery_share": 0.015862068965517243
+    },
+    {
+     "iso3": "IDN",
+     "country": "Indonesia",
+     "mine": 710.0,
+     "refinery": 400.0,
+     "mine_share": 0.030869565217391304,
+     "refinery_share": 0.013793103448275862
+    },
+    {
+     "iso3": "PER",
+     "country": "Peru",
+     "mine": 2700.0,
+     "refinery": 340.0,
+     "mine_share": 0.11739130434782609,
+     "refinery_share": 0.011724137931034483
+    },
+    {
+     "iso3": "CAN",
+     "country": "Canada",
+     "mine": 500.0,
+     "refinery": 320.0,
+     "mine_share": 0.021739130434782608,
+     "refinery_share": 0.011034482758620689
+    },
+    {
+     "iso3": "ZMB",
+     "country": "Zambia",
+     "mine": 940.0,
+     "refinery": 270.0,
+     "mine_share": 0.0408695652173913,
+     "refinery_share": 0.009310344827586206
+    }
+   ]
+  }
+ },
+ "usgs_vs_bgs": {
+  "copper_mine": {
+   "bgs_form": "copper, mine",
+   "years": [
+    2002,
+    2024
+   ],
+   "median_abs_world_gap": 0.006154856406165754,
+   "median_abs_china_gap": 0.011817409438479975,
+   "rows": [
+    {
+     "year": 2002,
+     "usgs_world_t": 13600000.0,
+     "bgs_world_t": 13516806.0,
+     "world_gap": 0.006154856406165754,
+     "usgs_china_t": 585000.0,
+     "bgs_china_t": 578100.0,
+     "china_gap": 0.011935651271406389
+    },
+    {
+     "year": 2003,
+     "usgs_world_t": 13600000.0,
+     "bgs_world_t": 13637685.0,
+     "world_gap": -0.0027632989030029753,
+     "usgs_china_t": 610000.0,
+     "bgs_china_t": 614400.0,
+     "china_gap": -0.00716145833333337
+    },
+    {
+     "year": 2004,
+     "usgs_world_t": 14600000.0,
+     "bgs_world_t": 14524162.0,
+     "world_gap": 0.0052215060669249524,
+     "usgs_china_t": 620000.0,
+     "bgs_china_t": 754200.0,
+     "china_gap": -0.1779368867674357
+    },
+    {
+     "year": 2005,
+     "usgs_world_t": 15000000.0,
+     "bgs_world_t": 14958386.0,
+     "world_gap": 0.002781984633903667,
+     "usgs_china_t": 755000.0,
+     "bgs_china_t": 776000.0,
+     "china_gap": -0.027061855670103108
+    },
+    {
+     "year": 2006,
+     "usgs_world_t": 15100000.0,
+     "bgs_world_t": 15066687.0,
+     "world_gap": 0.0022110368390875212,
+     "usgs_china_t": 890000.0,
+     "bgs_china_t": 889000.0,
+     "china_gap": 0.0011248593925758943
+    },
+    {
+     "year": 2007,
+     "usgs_world_t": 15400000.0,
+     "bgs_world_t": 15502548.0,
+     "world_gap": -0.0066149125937232656,
+     "usgs_china_t": 946000.0,
+     "bgs_china_t": 946200.0,
+     "china_gap": -0.00021137180300145886
+    },
+    {
+     "year": 2008,
+     "usgs_world_t": 15400000.0,
+     "bgs_world_t": 15602463.0,
+     "world_gap": -0.012976348670078575,
+     "usgs_china_t": 950000.0,
+     "bgs_china_t": 1092700.0,
+     "china_gap": -0.13059394161251947
+    },
+    {
+     "year": 2009,
+     "usgs_world_t": 15900000.0,
+     "bgs_world_t": 15804210.0,
+     "world_gap": 0.00606104322835499,
+     "usgs_china_t": 995000.0,
+     "bgs_china_t": 1062000.0,
+     "china_gap": -0.0630885122410546
+    },
+    {
+     "year": 2010,
+     "usgs_world_t": 15900000.0,
+     "bgs_world_t": 16102544.0,
+     "world_gap": -0.012578385129703773,
+     "usgs_china_t": 1190000.0,
+     "bgs_china_t": 1155800.0,
+     "china_gap": 0.02958989444540583
+    },
+    {
+     "year": 2011,
+     "usgs_world_t": 16100000.0,
+     "bgs_world_t": 15989628.0,
+     "world_gap": 0.00690272469128117,
+     "usgs_china_t": 1310000.0,
+     "bgs_china_t": 1294700.0,
+     "china_gap": 0.011817409438479975
+    },
+    {
+     "year": 2012,
+     "usgs_world_t": 16900000.0,
+     "bgs_world_t": 16753334.0,
+     "world_gap": 0.008754436579608615,
+     "usgs_china_t": 1630000.0,
+     "bgs_china_t": 1576800.0,
+     "china_gap": 0.03373921867072549
+    },
+    {
+     "year": 2013,
+     "usgs_world_t": 18300000.0,
+     "bgs_world_t": 18289350.0,
+     "world_gap": 0.0005823060961707149,
+     "usgs_china_t": 1600000.0,
+     "bgs_china_t": 1715150.0,
+     "china_gap": -0.06713698510334376
+    },
+    {
+     "year": 2014,
+     "usgs_world_t": 18500000.0,
+     "bgs_world_t": 18566941.0,
+     "world_gap": -0.0036053865846830124,
+     "usgs_china_t": 1760000.0,
+     "bgs_china_t": 1776794.0,
+     "china_gap": -0.009451855420493316
+    },
+    {
+     "year": 2015,
+     "usgs_world_t": 19100000.0,
+     "bgs_world_t": 19308689.0,
+     "world_gap": -0.010808035698332552,
+     "usgs_china_t": 1710000.0,
+     "bgs_china_t": 1712065.0,
+     "china_gap": -0.0012061457946982435
+    },
+    {
+     "year": 2016,
+     "usgs_world_t": 20100000.0,
+     "bgs_world_t": 20412608.0,
+     "world_gap": -0.015314456633860773,
+     "usgs_china_t": 1900000.0,
+     "bgs_china_t": 1900188.0,
+     "china_gap": -9.893757880796716e-05
+    },
+    {
+     "year": 2017,
+     "usgs_world_t": 20000000.0,
+     "bgs_world_t": 20038790.0,
+     "world_gap": -0.0019357456213673352,
+     "usgs_china_t": 1710000.0,
+     "bgs_china_t": 1706400.0,
+     "china_gap": 0.0021097046413502962
+    },
+    {
+     "year": 2018,
+     "usgs_world_t": 20400000.0,
+     "bgs_world_t": 20611538.0,
+     "world_gap": -0.010263086626529305,
+     "usgs_china_t": 1590000.0,
+     "bgs_china_t": 1615234.0,
+     "china_gap": -0.015622504231585066
+    },
+    {
+     "year": 2019,
+     "usgs_world_t": 20400000.0,
+     "bgs_world_t": 20622651.0,
+     "world_gap": -0.010796429615183789,
+     "usgs_china_t": 1680000.0,
+     "bgs_china_t": 1683700.0,
+     "china_gap": -0.0021975411296549785
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 20600000.0,
+     "bgs_world_t": 20831432.0,
+     "world_gap": -0.011109749920216738,
+     "usgs_china_t": 1720000.0,
+     "bgs_china_t": 1723100.0,
+     "china_gap": -0.0017990830479949205
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 21200000.0,
+     "bgs_world_t": 21285012.0,
+     "world_gap": -0.0039939841236641405,
+     "usgs_china_t": 1910000.0,
+     "bgs_china_t": 1818000.0,
+     "china_gap": 0.050605060506050625
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 21900000.0,
+     "bgs_world_t": 22092190.0,
+     "world_gap": -0.008699454422581021,
+     "usgs_china_t": 1940000.0,
+     "bgs_china_t": 1899200.0,
+     "china_gap": 0.02148272957034547
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 22600000.0,
+     "bgs_world_t": 22698062.0,
+     "world_gap": -0.004320280735861992,
+     "usgs_china_t": 1820000.0,
+     "bgs_china_t": 1815010.0,
+     "china_gap": 0.0027492961471287103
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 23000000.0,
+     "bgs_world_t": 22908790.0,
+     "world_gap": 0.003981441184802925,
+     "usgs_china_t": 1840000.0,
+     "bgs_china_t": 1842920.0,
+     "china_gap": -0.0015844420810452453
+    }
+   ]
+  },
+  "copper_refinery": {
+   "bgs_form": "copper, refined",
+   "years": [
+    2019,
+    2024
+   ],
+   "median_abs_world_gap": 0.012444124948887691,
+   "median_abs_china_gap": 0.001938058614190108,
+   "rows": [
+    {
+     "year": 2019,
+     "usgs_world_t": 24500000.0,
+     "bgs_world_t": 24429451.0,
+     "world_gap": 0.0028878667801417457,
+     "usgs_china_t": 9780000.0,
+     "bgs_china_t": 9784238.0,
+     "china_gap": -0.000433145636890675
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 25300000.0,
+     "bgs_world_t": 24828925.0,
+     "world_gap": 0.01897283108310166,
+     "usgs_china_t": 10000000.0,
+     "bgs_china_t": 10025059.0,
+     "china_gap": -0.0024996361617423135
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 25300000.0,
+     "bgs_world_t": 25151220.0,
+     "world_gap": 0.005915418814673723,
+     "usgs_china_t": 10500000.0,
+     "bgs_china_t": 10486700.0,
+     "china_gap": 0.0012682731459849883
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 25900000.0,
+     "bgs_world_t": 25845879.0,
+     "world_gap": 0.0020939895292397814,
+     "usgs_china_t": 11100000.0,
+     "bgs_china_t": 11115300.0,
+     "china_gap": -0.0013764810666379024
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 27000000.0,
+     "bgs_world_t": 27588772.0,
+     "world_gap": -0.02134100060705857,
+     "usgs_china_t": 12000000.0,
+     "bgs_china_t": 12988000.0,
+     "china_gap": -0.0760702186633816
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 27600000.0,
+     "bgs_world_t": 28774464.0,
+     "world_gap": -0.04081619035544848,
+     "usgs_china_t": 12400000.0,
+     "bgs_china_t": 13644000.0,
+     "china_gap": -0.09117560832600413
+    }
+   ]
+  },
+  "antimony_mine": {
+   "bgs_form": "antimony, mine",
+   "years": [
+    2002,
+    2024
+   ],
+   "median_abs_world_gap": 0.13070578845349856,
+   "median_abs_china_gap": 0.15534810638445373,
+   "rows": [
+    {
+     "year": 2002,
+     "usgs_world_t": 148000.0,
+     "bgs_world_t": 142672.0,
+     "world_gap": 0.03734439834024905,
+     "usgs_china_t": 130000.0,
+     "bgs_china_t": 121547.0,
+     "china_gap": 0.06954511423564558
+    },
+    {
+     "year": 2003,
+     "usgs_world_t": 81600.0,
+     "bgs_world_t": 118788.0,
+     "world_gap": -0.31306192544701483,
+     "usgs_china_t": 70000.0,
+     "bgs_china_t": 100000.0,
+     "china_gap": -0.30000000000000004
+    },
+    {
+     "year": 2004,
+     "usgs_world_t": 113000.0,
+     "bgs_world_t": 145265.0,
+     "world_gap": -0.22211131380580318,
+     "usgs_china_t": 100000.0,
+     "bgs_china_t": 125433.0,
+     "china_gap": -0.2027616337008602
+    },
+    {
+     "year": 2005,
+     "usgs_world_t": 137000.0,
+     "bgs_world_t": 174024.0,
+     "world_gap": -0.2127522640555326,
+     "usgs_china_t": 120000.0,
+     "bgs_china_t": 151457.0,
+     "china_gap": -0.20769591369167484
+    },
+    {
+     "year": 2006,
+     "usgs_world_t": 134000.0,
+     "bgs_world_t": 176490.0,
+     "world_gap": -0.24075018414641058,
+     "usgs_china_t": 110000.0,
+     "bgs_china_t": 156200.0,
+     "china_gap": -0.295774647887324
+    },
+    {
+     "year": 2007,
+     "usgs_world_t": 170000.0,
+     "bgs_world_t": 181900.0,
+     "world_gap": -0.06542056074766356,
+     "usgs_china_t": 150000.0,
+     "bgs_china_t": 163000.0,
+     "china_gap": -0.07975460122699385
+    },
+    {
+     "year": 2008,
+     "usgs_world_t": 197000.0,
+     "bgs_world_t": 118213.0,
+     "world_gap": 0.6664833816923688,
+     "usgs_china_t": 180000.0,
+     "bgs_china_t": 100230.0,
+     "china_gap": 0.7958695001496559
+    },
+    {
+     "year": 2009,
+     "usgs_world_t": 155000.0,
+     "bgs_world_t": 129101.0,
+     "world_gap": 0.2006103748228132,
+     "usgs_china_t": 140000.0,
+     "bgs_china_t": 112000.0,
+     "china_gap": 0.25
+    },
+    {
+     "year": 2010,
+     "usgs_world_t": 167000.0,
+     "bgs_world_t": 163231.0,
+     "world_gap": 0.023089976781371258,
+     "usgs_china_t": 150000.0,
+     "bgs_china_t": 129831.0,
+     "china_gap": 0.15534810638445373
+    },
+    {
+     "year": 2011,
+     "usgs_world_t": 178000.0,
+     "bgs_world_t": 158449.0,
+     "world_gap": 0.12338986045983247,
+     "usgs_china_t": 150000.0,
+     "bgs_china_t": 123900.0,
+     "china_gap": 0.21065375302663436
+    },
+    {
+     "year": 2012,
+     "usgs_world_t": 174000.0,
+     "bgs_world_t": 176118.0,
+     "world_gap": -0.012026028003951916,
+     "usgs_china_t": 145000.0,
+     "bgs_china_t": 135629.0,
+     "china_gap": 0.06909289311282985
+    },
+    {
+     "year": 2013,
+     "usgs_world_t": 154000.0,
+     "bgs_world_t": 193091.0,
+     "world_gap": -0.20244858641780306,
+     "usgs_china_t": 120000.0,
+     "bgs_china_t": 152104.0,
+     "china_gap": -0.21106611265975916
+    },
+    {
+     "year": 2014,
+     "usgs_world_t": 158000.0,
+     "bgs_world_t": 179435.0,
+     "world_gap": -0.1194582996628305,
+     "usgs_china_t": 120000.0,
+     "bgs_china_t": 140389.0,
+     "china_gap": -0.14523217631010976
+    },
+    {
+     "year": 2015,
+     "usgs_world_t": 142000.0,
+     "bgs_world_t": 162124.0,
+     "world_gap": -0.12412721127038562,
+     "usgs_china_t": 110000.0,
+     "bgs_china_t": 120732.0,
+     "china_gap": -0.08889109763774306
+    },
+    {
+     "year": 2016,
+     "usgs_world_t": 148000.0,
+     "bgs_world_t": 167414.0,
+     "world_gap": -0.11596401734621953,
+     "usgs_china_t": 108000.0,
+     "bgs_china_t": 107535.0,
+     "china_gap": 0.004324173524898889
+    },
+    {
+     "year": 2017,
+     "usgs_world_t": 137000.0,
+     "bgs_world_t": 162688.0,
+     "world_gap": -0.1578973249409913,
+     "usgs_china_t": 98000.0,
+     "bgs_china_t": 97683.0,
+     "china_gap": 0.003245191077260179
+    },
+    {
+     "year": 2018,
+     "usgs_world_t": 147000.0,
+     "bgs_world_t": 173841.0,
+     "world_gap": -0.1543997100799006,
+     "usgs_china_t": 89600.0,
+     "bgs_china_t": 95286.0,
+     "china_gap": -0.059672984488802094
+    },
+    {
+     "year": 2019,
+     "usgs_world_t": 162000.0,
+     "bgs_world_t": 128547.0,
+     "world_gap": 0.26023944549464395,
+     "usgs_china_t": 89000.0,
+     "bgs_china_t": 60229.0,
+     "china_gap": 0.4776934699231268
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 111000.0,
+     "bgs_world_t": 124715.0,
+     "world_gap": -0.1099707332718598,
+     "usgs_china_t": 61000.0,
+     "bgs_china_t": 60995.0,
+     "china_gap": 8.19739322894808e-05
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 112000.0,
+     "bgs_world_t": 100284.0,
+     "world_gap": 0.11682820788959347,
+     "usgs_china_t": 61000.0,
+     "bgs_china_t": 42622.0,
+     "china_gap": 0.4311857726056967
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 83100.0,
+     "bgs_world_t": 105556.0,
+     "world_gap": -0.21274015688354997,
+     "usgs_china_t": 40000.0,
+     "bgs_china_t": 39000.0,
+     "china_gap": 0.02564102564102555
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 106000.0,
+     "bgs_world_t": 117804.0,
+     "world_gap": -0.1002003327561034,
+     "usgs_china_t": 62300.0,
+     "bgs_china_t": 41000.0,
+     "china_gap": 0.5195121951219512
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 119000.0,
+     "bgs_world_t": 105244.0,
+     "world_gap": 0.13070578845349856,
+     "usgs_china_t": 40000.0,
+     "bgs_china_t": 45000.0,
+     "china_gap": -0.11111111111111116
+    }
+   ]
+  },
+  "cobalt_mine": {
+   "bgs_form": "cobalt, mine",
+   "years": [
+    2002,
+    2024
+   ],
+   "median_abs_world_gap": 0.12732712765957444,
+   "median_abs_china_gap": 0.25,
+   "rows": [
+    {
+     "year": 2002,
+     "usgs_world_t": 47600.0,
+     "bgs_world_t": 47389.0,
+     "world_gap": 0.0044525100761780845,
+     "usgs_china_t": null,
+     "bgs_china_t": 1004.0,
+     "china_gap": null
+    },
+    {
+     "year": 2003,
+     "usgs_world_t": 48400.0,
+     "bgs_world_t": 46465.0,
+     "world_gap": 0.04164424835897984,
+     "usgs_china_t": null,
+     "bgs_china_t": 707.0,
+     "china_gap": null
+    },
+    {
+     "year": 2004,
+     "usgs_world_t": 52400.0,
+     "bgs_world_t": 52256.0,
+     "world_gap": 0.0027556644213104775,
+     "usgs_china_t": null,
+     "bgs_china_t": 1253.0,
+     "china_gap": null
+    },
+    {
+     "year": 2005,
+     "usgs_world_t": 57900.0,
+     "bgs_world_t": 59592.0,
+     "world_gap": -0.028393072895690707,
+     "usgs_china_t": 1300.0,
+     "bgs_china_t": 2104.0,
+     "china_gap": -0.3821292775665399
+    },
+    {
+     "year": 2006,
+     "usgs_world_t": 67500.0,
+     "bgs_world_t": 62971.0,
+     "world_gap": 0.07192199583935466,
+     "usgs_china_t": 2300.0,
+     "bgs_china_t": 1840.0,
+     "china_gap": 0.25
+    },
+    {
+     "year": 2007,
+     "usgs_world_t": 65500.0,
+     "bgs_world_t": 57968.0,
+     "world_gap": 0.1299337565553409,
+     "usgs_china_t": 2000.0,
+     "bgs_china_t": 6100.0,
+     "china_gap": -0.6721311475409837
+    },
+    {
+     "year": 2008,
+     "usgs_world_t": 75900.0,
+     "bgs_world_t": 82059.0,
+     "world_gap": -0.07505575256827401,
+     "usgs_china_t": 6000.0,
+     "bgs_china_t": 6630.0,
+     "china_gap": -0.09502262443438914
+    },
+    {
+     "year": 2009,
+     "usgs_world_t": 72300.0,
+     "bgs_world_t": 87210.0,
+     "world_gap": -0.17096663226694186,
+     "usgs_china_t": 6000.0,
+     "bgs_china_t": 6003.0,
+     "china_gap": -0.0004997501249375258
+    },
+    {
+     "year": 2010,
+     "usgs_world_t": 89500.0,
+     "bgs_world_t": 137965.0,
+     "world_gap": -0.35128474613126515,
+     "usgs_china_t": 6500.0,
+     "bgs_china_t": 6382.0,
+     "china_gap": 0.018489501723597535
+    },
+    {
+     "year": 2011,
+     "usgs_world_t": 109000.0,
+     "bgs_world_t": 145182.0,
+     "world_gap": -0.24921822264468052,
+     "usgs_china_t": 6800.0,
+     "bgs_china_t": 6843.0,
+     "china_gap": -0.006283793657752446
+    },
+    {
+     "year": 2012,
+     "usgs_world_t": 103000.0,
+     "bgs_world_t": 136225.0,
+     "world_gap": -0.2438979629289778,
+     "usgs_china_t": 7000.0,
+     "bgs_china_t": 7498.0,
+     "china_gap": -0.06641771138970387
+    },
+    {
+     "year": 2013,
+     "usgs_world_t": 110000.0,
+     "bgs_world_t": 137850.0,
+     "world_gap": -0.2020311933260791,
+     "usgs_china_t": 7200.0,
+     "bgs_china_t": 8580.0,
+     "china_gap": -0.16083916083916083
+    },
+    {
+     "year": 2014,
+     "usgs_world_t": 123000.0,
+     "bgs_world_t": 140022.0,
+     "world_gap": -0.12156661096113464,
+     "usgs_china_t": 7200.0,
+     "bgs_china_t": 9619.0,
+     "china_gap": -0.25148144297744046
+    },
+    {
+     "year": 2015,
+     "usgs_world_t": 126000.0,
+     "bgs_world_t": 144384.0,
+     "world_gap": -0.12732712765957444,
+     "usgs_china_t": 7700.0,
+     "bgs_china_t": 10093.0,
+     "china_gap": -0.23709501634796393
+    },
+    {
+     "year": 2016,
+     "usgs_world_t": 111000.0,
+     "bgs_world_t": 131423.0,
+     "world_gap": -0.1553989788697564,
+     "usgs_china_t": 7700.0,
+     "bgs_china_t": 9293.0,
+     "china_gap": -0.171419347896266
+    },
+    {
+     "year": 2017,
+     "usgs_world_t": 120000.0,
+     "bgs_world_t": 134141.0,
+     "world_gap": -0.10541892486264448,
+     "usgs_china_t": 3100.0,
+     "bgs_china_t": 10237.0,
+     "china_gap": -0.6971769072970597
+    },
+    {
+     "year": 2018,
+     "usgs_world_t": 148000.0,
+     "bgs_world_t": 153621.0,
+     "world_gap": -0.036590049537498115,
+     "usgs_china_t": 2000.0,
+     "bgs_china_t": 2241.0,
+     "china_gap": -0.10754127621597498
+    },
+    {
+     "year": 2019,
+     "usgs_world_t": 144000.0,
+     "bgs_world_t": 119072.0,
+     "world_gap": 0.20935232464391285,
+     "usgs_china_t": 2500.0,
+     "bgs_china_t": 1742.0,
+     "china_gap": 0.4351320321469576
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 142000.0,
+     "bgs_world_t": 130163.0,
+     "world_gap": 0.09093982160829106,
+     "usgs_china_t": 2200.0,
+     "bgs_china_t": 1750.0,
+     "china_gap": 0.2571428571428571
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 165000.0,
+     "bgs_world_t": 133809.0,
+     "world_gap": 0.23310091249467524,
+     "usgs_china_t": 2200.0,
+     "bgs_china_t": 1750.0,
+     "china_gap": 0.2571428571428571
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 197000.0,
+     "bgs_world_t": 165711.0,
+     "world_gap": 0.18881667481337994,
+     "usgs_china_t": 2200.0,
+     "bgs_china_t": 1750.0,
+     "china_gap": 0.2571428571428571
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 238000.0,
+     "bgs_world_t": 203130.0,
+     "world_gap": 0.17166346674543398,
+     "usgs_china_t": null,
+     "bgs_china_t": 1500.0,
+     "china_gap": null
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 302000.0,
+     "bgs_world_t": 268547.0,
+     "world_gap": 0.12457037315628172,
+     "usgs_china_t": 2000.0,
+     "bgs_china_t": 1500.0,
+     "china_gap": 0.33333333333333326
+    }
+   ]
+  },
+  "graphite_mine": {
+   "bgs_form": "graphite",
+   "years": [
+    2002,
+    2024
+   ],
+   "median_abs_world_gap": 0.31623104129540935,
+   "median_abs_china_gap": 0.31034482758620685,
+   "rows": [
+    {
+     "year": 2002,
+     "usgs_world_t": 810000.0,
+     "bgs_world_t": 2467496.0,
+     "world_gap": -0.6717319906496302,
+     "usgs_china_t": 450000.0,
+     "bgs_china_t": 1642536.0,
+     "china_gap": -0.7260334020076272
+    },
+    {
+     "year": 2003,
+     "usgs_world_t": 742000.0,
+     "bgs_world_t": 1843751.0,
+     "world_gap": -0.59755954030669,
+     "usgs_china_t": 450000.0,
+     "bgs_china_t": 1400000.0,
+     "china_gap": -0.6785714285714286
+    },
+    {
+     "year": 2004,
+     "usgs_world_t": 982000.0,
+     "bgs_world_t": 1982741.0,
+     "world_gap": -0.5047260333044004,
+     "usgs_china_t": 700000.0,
+     "bgs_china_t": 1450000.0,
+     "china_gap": -0.5172413793103448
+    },
+    {
+     "year": 2005,
+     "usgs_world_t": 1060000.0,
+     "bgs_world_t": 2184033.0,
+     "world_gap": -0.5146593480959307,
+     "usgs_china_t": 720000.0,
+     "bgs_china_t": 1650000.0,
+     "china_gap": -0.5636363636363637
+    },
+    {
+     "year": 2006,
+     "usgs_world_t": 1030000.0,
+     "bgs_world_t": 2270619.0,
+     "world_gap": -0.5463792032040602,
+     "usgs_china_t": 720000.0,
+     "bgs_china_t": 1730000.0,
+     "china_gap": -0.5838150289017341
+    },
+    {
+     "year": 2007,
+     "usgs_world_t": 1110000.0,
+     "bgs_world_t": 2827222.0,
+     "world_gap": -0.6073884541079547,
+     "usgs_china_t": 800000.0,
+     "bgs_china_t": 1800000.0,
+     "china_gap": -0.5555555555555556
+    },
+    {
+     "year": 2008,
+     "usgs_world_t": 1120000.0,
+     "bgs_world_t": 2676610.0,
+     "world_gap": -0.581560257190999,
+     "usgs_china_t": 810000.0,
+     "bgs_china_t": 1800000.0,
+     "china_gap": -0.55
+    },
+    {
+     "year": 2009,
+     "usgs_world_t": 1100000.0,
+     "bgs_world_t": 2366019.0,
+     "world_gap": -0.5350840377866788,
+     "usgs_china_t": 800000.0,
+     "bgs_china_t": 1800000.0,
+     "china_gap": -0.5555555555555556
+    },
+    {
+     "year": 2010,
+     "usgs_world_t": 925000.0,
+     "bgs_world_t": 2362889.0,
+     "world_gap": -0.6085300663721402,
+     "usgs_china_t": 600000.0,
+     "bgs_china_t": 1800000.0,
+     "china_gap": -0.6666666666666667
+    },
+    {
+     "year": 2011,
+     "usgs_world_t": 1150000.0,
+     "bgs_world_t": 1798144.0,
+     "world_gap": -0.36045166571753984,
+     "usgs_china_t": 800000.0,
+     "bgs_china_t": 1200000.0,
+     "china_gap": -0.33333333333333337
+    },
+    {
+     "year": 2012,
+     "usgs_world_t": 1170000.0,
+     "bgs_world_t": 1341608.0,
+     "world_gap": -0.12791217702935587,
+     "usgs_china_t": 800000.0,
+     "bgs_china_t": 800000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2013,
+     "usgs_world_t": 1110000.0,
+     "bgs_world_t": 1394350.0,
+     "world_gap": -0.20393014666331988,
+     "usgs_china_t": 750000.0,
+     "bgs_china_t": 840000.0,
+     "china_gap": -0.1071428571428571
+    },
+    {
+     "year": 2014,
+     "usgs_world_t": 1190000.0,
+     "bgs_world_t": 1469621.0,
+     "world_gap": -0.19026742268925112,
+     "usgs_china_t": 780000.0,
+     "bgs_china_t": 900000.0,
+     "china_gap": -0.1333333333333333
+    },
+    {
+     "year": 2015,
+     "usgs_world_t": 1190000.0,
+     "bgs_world_t": 1275415.0,
+     "world_gap": -0.06697035866757095,
+     "usgs_china_t": 780000.0,
+     "bgs_china_t": 725000.0,
+     "china_gap": 0.07586206896551717
+    },
+    {
+     "year": 2016,
+     "usgs_world_t": 1150000.0,
+     "bgs_world_t": 1127954.0,
+     "world_gap": 0.019545123294035127,
+     "usgs_china_t": 780000.0,
+     "bgs_china_t": 625000.0,
+     "china_gap": 0.248
+    },
+    {
+     "year": 2017,
+     "usgs_world_t": 897000000.0,
+     "bgs_world_t": 1201147.0,
+     "world_gap": 745.7861968601678,
+     "usgs_china_t": 625000.0,
+     "bgs_china_t": 625000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2018,
+     "usgs_world_t": 1120000.0,
+     "bgs_world_t": 1328790.0,
+     "world_gap": -0.15712791336479048,
+     "usgs_china_t": 693000.0,
+     "bgs_china_t": 693000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2019,
+     "usgs_world_t": 1100000.0,
+     "bgs_world_t": 1606896.0,
+     "world_gap": -0.31545040873833774,
+     "usgs_china_t": 700000.0,
+     "bgs_china_t": 1185000.0,
+     "china_gap": -0.4092827004219409
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 966000.0,
+     "bgs_world_t": 1403271.0,
+     "world_gap": -0.3116083778543133,
+     "usgs_china_t": 762000.0,
+     "bgs_china_t": 1090000.0,
+     "china_gap": -0.30091743119266057
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 1130000.0,
+     "bgs_world_t": 1652605.0,
+     "world_gap": -0.31623104129540935,
+     "usgs_china_t": 820000.0,
+     "bgs_china_t": 1189000.0,
+     "china_gap": -0.31034482758620685
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 1680000.0,
+     "bgs_world_t": 1817401.0,
+     "world_gap": -0.07560301771595812,
+     "usgs_china_t": 1210000.0,
+     "bgs_china_t": 1212000.0,
+     "china_gap": -0.0016501650165016146
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 1530000.0,
+     "bgs_world_t": 1745837.0,
+     "world_gap": -0.12362952555135442,
+     "usgs_china_t": 1210000.0,
+     "bgs_china_t": 1210000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 1550000.0,
+     "bgs_world_t": 1726628.0,
+     "world_gap": -0.10229649930384543,
+     "usgs_china_t": 1270000.0,
+     "bgs_china_t": 1270000.0,
+     "china_gap": 0.0
+    }
+   ]
+  },
+  "tungsten_mine": {
+   "bgs_form": "tungsten, mine",
+   "years": [
+    2002,
+    2024
+   ],
+   "median_abs_world_gap": 0.06877507250886217,
+   "median_abs_china_gap": 0.08551131845411652,
+   "rows": [
+    {
+     "year": 2002,
+     "usgs_world_t": 59100.0,
+     "bgs_world_t": 45419.0,
+     "world_gap": 0.3012175521257623,
+     "usgs_china_t": 49500.0,
+     "bgs_china_t": 35927.0,
+     "china_gap": 0.3777938597712027
+    },
+    {
+     "year": 2003,
+     "usgs_world_t": 62100.0,
+     "bgs_world_t": 48031.0,
+     "world_gap": 0.29291499240074126,
+     "usgs_china_t": 52000.0,
+     "bgs_china_t": 36185.0,
+     "china_gap": 0.4370595550642531
+    },
+    {
+     "year": 2004,
+     "usgs_world_t": 73700.0,
+     "bgs_world_t": 66912.0,
+     "world_gap": 0.1014466762314683,
+     "usgs_china_t": 67000.0,
+     "bgs_china_t": 59947.0,
+     "china_gap": 0.11765392763607863
+    },
+    {
+     "year": 2005,
+     "usgs_world_t": 70100.0,
+     "bgs_world_t": 60619.0,
+     "world_gap": 0.15640310793645562,
+     "usgs_china_t": 61000.0,
+     "bgs_china_t": 51200.0,
+     "china_gap": 0.19140625
+    },
+    {
+     "year": 2006,
+     "usgs_world_t": 90800.0,
+     "bgs_world_t": 60347.0,
+     "world_gap": 0.5046315475500025,
+     "usgs_china_t": 79000.0,
+     "bgs_china_t": 45000.0,
+     "china_gap": 0.7555555555555555
+    },
+    {
+     "year": 2007,
+     "usgs_world_t": 54500.0,
+     "bgs_world_t": 58360.0,
+     "world_gap": -0.0661411925976696,
+     "usgs_china_t": 41000.0,
+     "bgs_china_t": 41000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2008,
+     "usgs_world_t": 55900.0,
+     "bgs_world_t": 66737.0,
+     "world_gap": -0.16238368521210123,
+     "usgs_china_t": 43500.0,
+     "bgs_china_t": 50000.0,
+     "china_gap": -0.13
+    },
+    {
+     "year": 2009,
+     "usgs_world_t": 61300.0,
+     "bgs_world_t": 63310.0,
+     "world_gap": -0.0317485389353972,
+     "usgs_china_t": 51000.0,
+     "bgs_china_t": 49432.0,
+     "china_gap": 0.03172034309758853
+    },
+    {
+     "year": 2010,
+     "usgs_world_t": 68800.0,
+     "bgs_world_t": 63412.0,
+     "world_gap": 0.08496814483063142,
+     "usgs_china_t": 59000.0,
+     "bgs_china_t": 51287.0,
+     "china_gap": 0.1503889874627098
+    },
+    {
+     "year": 2011,
+     "usgs_world_t": 73100.0,
+     "bgs_world_t": 73021.0,
+     "world_gap": 0.0010818805549088761,
+     "usgs_china_t": 61800.0,
+     "bgs_china_t": 61802.0,
+     "china_gap": -3.2361412252046584e-05
+    },
+    {
+     "year": 2012,
+     "usgs_world_t": 75700.0,
+     "bgs_world_t": 74012.0,
+     "world_gap": 0.022807112360157866,
+     "usgs_china_t": 64000.0,
+     "bgs_china_t": 61994.0,
+     "china_gap": 0.03235797012614117
+    },
+    {
+     "year": 2013,
+     "usgs_world_t": 81400.0,
+     "bgs_world_t": 76640.0,
+     "world_gap": 0.062108559498956106,
+     "usgs_china_t": 68000.0,
+     "bgs_china_t": 64895.0,
+     "china_gap": 0.04784652130364431
+    },
+    {
+     "year": 2014,
+     "usgs_world_t": 86800.0,
+     "bgs_world_t": 81254.0,
+     "world_gap": 0.06825510128732115,
+     "usgs_china_t": 71000.0,
+     "bgs_china_t": 65369.0,
+     "china_gap": 0.08614174914714923
+    },
+    {
+     "year": 2015,
+     "usgs_world_t": 89400.0,
+     "bgs_world_t": 83435.0,
+     "world_gap": 0.07149277880985205,
+     "usgs_china_t": 73000.0,
+     "bgs_china_t": 66545.0,
+     "china_gap": 0.09700202870238184
+    },
+    {
+     "year": 2016,
+     "usgs_world_t": 88100.0,
+     "bgs_world_t": 80486.0,
+     "world_gap": 0.09460030315831314,
+     "usgs_china_t": 72000.0,
+     "bgs_china_t": 63956.0,
+     "china_gap": 0.12577396960410292
+    },
+    {
+     "year": 2017,
+     "usgs_world_t": 82100.0,
+     "bgs_world_t": 83816.0,
+     "world_gap": -0.02047341796315738,
+     "usgs_china_t": 67000.0,
+     "bgs_china_t": 67472.0,
+     "china_gap": -0.00699549442731795
+    },
+    {
+     "year": 2018,
+     "usgs_world_t": 81100.0,
+     "bgs_world_t": 81768.0,
+     "world_gap": -0.008169455043537832,
+     "usgs_china_t": 65000.0,
+     "bgs_china_t": 64938.0,
+     "china_gap": 0.0009547568449905786
+    },
+    {
+     "year": 2019,
+     "usgs_world_t": 83800.0,
+     "bgs_world_t": 89989.0,
+     "world_gap": -0.06877507250886217,
+     "usgs_china_t": 69000.0,
+     "bgs_china_t": 75452.0,
+     "china_gap": -0.08551131845411652
+    },
+    {
+     "year": 2020,
+     "usgs_world_t": 78400.0,
+     "bgs_world_t": 85908.0,
+     "world_gap": -0.08739581878288405,
+     "usgs_china_t": 66000.0,
+     "bgs_china_t": 71450.0,
+     "china_gap": -0.07627711686494054
+    },
+    {
+     "year": 2021,
+     "usgs_world_t": 83800.0,
+     "bgs_world_t": 83548.0,
+     "world_gap": 0.0030162301910279243,
+     "usgs_china_t": 71000.0,
+     "bgs_china_t": 68660.0,
+     "china_gap": 0.03408097873579963
+    },
+    {
+     "year": 2022,
+     "usgs_world_t": 79800.0,
+     "bgs_world_t": 82160.0,
+     "world_gap": -0.028724440116845162,
+     "usgs_china_t": 66000.0,
+     "bgs_china_t": 65620.0,
+     "china_gap": 0.005790917403230678
+    },
+    {
+     "year": 2023,
+     "usgs_world_t": 79500.0,
+     "bgs_world_t": 82338.0,
+     "world_gap": -0.03446768199373318,
+     "usgs_china_t": 66000.0,
+     "bgs_china_t": 66000.0,
+     "china_gap": 0.0
+    },
+    {
+     "year": 2024,
+     "usgs_world_t": 82000.0,
+     "bgs_world_t": 75816.0,
+     "world_gap": 0.0815658963807111,
+     "usgs_china_t": 67000.0,
+     "bgs_china_t": 59000.0,
+     "china_gap": 0.13559322033898313
+    }
+   ]
+  }
+ },
+ "largest_revisions": [
+  {
+   "commodity": "antimony",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "KGZ",
+   "country": "Kyrgyzstan",
+   "year": 2024,
+   "editions": 2,
+   "first_edition": 2025,
+   "latest_edition": 2026,
+   "first": 20.0,
+   "latest": 700.0,
+   "revision": 34.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "rare_earths",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "BRA",
+   "country": "Brazil",
+   "year": 2024,
+   "editions": 2,
+   "first_edition": 2025,
+   "latest_edition": 2026,
+   "first": 20.0,
+   "latest": 560.0,
+   "revision": 27.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "antimony",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "KAZ",
+   "country": "Kazakhstan",
+   "year": 2024,
+   "editions": 2,
+   "first_edition": 2025,
+   "latest_edition": 2026,
+   "first": 40.0,
+   "latest": 800.0,
+   "revision": 19.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "rare_earths",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "MYS",
+   "country": "Malaysia",
+   "year": 2011,
+   "editions": 2,
+   "first_edition": 2012,
+   "latest_edition": 2013,
+   "first": 30.0,
+   "latest": 280.0,
+   "revision": 8.333333333333334,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "graphite",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "TUR",
+   "country": "Turkey",
+   "year": 2005,
+   "editions": 2,
+   "first_edition": 2006,
+   "latest_edition": 2007,
+   "first": 1000.0,
+   "latest": 6000.0,
+   "revision": 5.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "graphite",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "MDG",
+   "country": "Madagascar",
+   "year": 2018,
+   "editions": 2,
+   "first_edition": 2019,
+   "latest_edition": 2020,
+   "first": 9000.0,
+   "latest": 46900.0,
+   "revision": 4.211111111111111,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "graphite",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "MOZ",
+   "country": "Mozambique",
+   "year": 2018,
+   "editions": 2,
+   "first_edition": 2019,
+   "latest_edition": 2020,
+   "first": 20000.0,
+   "latest": 104000.0,
+   "revision": 4.2,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "tungsten",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "PRT",
+   "country": "Portugal",
+   "year": 1995,
+   "editions": 2,
+   "first_edition": 1996,
+   "latest_edition": 1997,
+   "first": 100.0,
+   "latest": 500.0,
+   "revision": 4.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "graphite",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "VNM",
+   "country": "Vietnam",
+   "year": 2023,
+   "editions": 2,
+   "first_edition": 2024,
+   "latest_edition": 2025,
+   "first": 500.0,
+   "latest": 2500.0,
+   "revision": 4.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "tungsten",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "MMR",
+   "country": "Burma",
+   "year": 1995,
+   "editions": 2,
+   "first_edition": 1996,
+   "latest_edition": 1997,
+   "first": 100.0,
+   "latest": 500.0,
+   "revision": 4.0,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "antimony",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "TUR",
+   "country": "Turkey",
+   "year": 2022,
+   "editions": 2,
+   "first_edition": 2023,
+   "latest_edition": 2024,
+   "first": 1300.0,
+   "latest": 5800.0,
+   "revision": 3.4615384615384617,
+   "after_first_revision": 0.0
+  },
+  {
+   "commodity": "graphite",
+   "measure": "mine",
+   "row_kind": "country",
+   "iso3": "NOR",
+   "country": "Norway",
+   "year": 2014,
+   "editions": 2,
+   "first_edition": 2015,
+   "latest_edition": 2016,
+   "first": 2000.0,
+   "latest": 8000.0,
+   "revision": 3.0,
+   "after_first_revision": 0.0
+  }
+ ]
+}
