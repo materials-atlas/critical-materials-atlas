@@ -207,6 +207,9 @@ def page():
         'GRDOWN': '%.0f' % (100 * B['graphite']['share_revised_down']),
         'GRSAME': '%.0f' % (100 * B['graphite']['share_unchanged']),
         'REESAME': '%.0f' % (100 * B['rare_earths']['share_unchanged']),
+        'NCHAP': str(d['chapters_read']), 'NCSER': '{:,}'.format(d['country_series']),
+        'REEREP': '%.0f' % d['usgs_vs_bgs']['rare_earths_mine']['bgs_median_countries_reporting'],
+        'REEUSGS': '%d&ndash;%d' % tuple(d['usgs_vs_bgs']['rare_earths_mine']['usgs_countries_with_output']),
         'ED0': str(min(d['editions'])), 'ED1': str(max(d['editions'])),
         'CU': '%.1f' % (100 * B['copper']['world_median_abs_revision']),
         'CUR': '%.1f' % (100 * B['copper']['world_median_abs_revision_recent']),
@@ -242,7 +245,7 @@ TEMPLATE = """<!doctype html>
   <p class="deck">Every chart that shows the latest year shows an estimate, and the next edition
   quietly revises it. How big those revisions are is not published anywhere, because finding out takes
   every edition ever printed. We read @@ED0@@&ndash;@@ED1@@ of the US Geological Survey's annual
-  summaries &mdash; 150 chapters &mdash; and kept every edition's figure side by side. <b>Across the
+  summaries &mdash; @@NCHAP@@ chapters &mdash; and kept every edition's figure side by side. <b>Across the
   years that have been printed twice, the world total ended up a median @@CU@@% away from its first
   estimate for copper and @@SB@@% for antimony, which once moved @@SBMAX@@%.</b> That is a record of
   completed revisions, not a bound on this year's figure. The same reading answers two more questions:
@@ -252,7 +255,7 @@ TEMPLATE = """<!doctype html>
 <section class="wrap xp">
   <h2>1. How far the first published figure moves</h2>
   <p>Each edition prints two years: last year as an estimate, and the year before it, revised. <b>No
-  series in this store is printed three times</b> &mdash; not one of the 2,065 country series, and none
+  series in this store is printed three times</b> &mdash; not one of the @@NCSER@@ country series, and none
   of the world totals &mdash; so where a year is measurable, the revision is that estimate against its
   single revision, as a percentage of the estimate, and every measurable year carries the same one
   chance to move. @@NSERIES@@ series (commodity, country or world total, measure, year) are measurable;
@@ -277,9 +280,11 @@ TEMPLATE = """<!doctype html>
   @@SRC@@
   <p class="dim">Each median is over that commodity's measurable world-total years, counted in the
   second column. &ldquo;Largest world revision&rdquo; is the biggest single move of the printed world
-  total, not of a country. &ldquo;Revised up&rdquo; is the share of upward revisions across every mine
-  series in that commodity, countries and world total together &mdash; a wider denominator than the
-  other columns, as the filing defines it.</p>
+  total, not of a country. The up / down / unchanged column is the share of revisions in each
+  direction across every mine series in that commodity, countries and world total together &mdash; a
+  wider denominator than the other columns, as the filing defines it, and each small country counts
+  the same as the world total. A reprint that does not move counts as unchanged, not as a revision
+  down.</p>
   <p><b>Copper's figure has moved least; antimony's most.</b> Copper's world total ends up @@CU@@%
   from its estimate over the whole period and @@CUR@@% over the last ten years &mdash; @@CUBAND@@ on the
   filed reading, soft on the recent one, which is how much a label can depend on a window. Antimony's
@@ -314,7 +319,8 @@ TEMPLATE = """<!doctype html>
   &mdash; bearing in mind that @@YEAR@@ is a first printing, the kind of figure section 1 is about.</p>
   <figure class="fig">@@MRFIG@@
   <figcaption><b>Where copper is mined, and where it is refined.</b> @@YEAR@@ estimates, share of the
-  printed world total, for the leaders on either measure. The gap between the two dots is the distance
+  printed world total, for the eight largest on each measure (two countries tie on refining and only
+  one is shown). The gap between the two dots is the distance
   between reported mine output and reported refinery output &mdash; not ownership, and not
   control.</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Country, @@YEAR@@</th><th class="n">mine, kt</th>
@@ -357,9 +363,9 @@ TEMPLATE = """<!doctype html>
   @@GRCN24@@ tonnes. But the world totals still sit @@GRGAP24@@% apart in that year, so the rest is
   other countries, coverage or rounding, and @@GRGAP@@% is the median over @@CUMINEY@@, not today's
   gap.</p>
-  <p class="dim">Rare earths compare at @@REEGAP@@%, but on a BGS series carried by about seven
-  reporters against a USGS table of nine or ten countries, so coverage rather than measurement may be
-  doing the work. Whether both sides use the same contained-metal definition is not checked here for
+  <p class="dim">Rare earths compare at @@REEGAP@@%, but on a BGS series carried by a median of
+  @@REEREP@@ reporting countries against a USGS table that carries @@REEUSGS@@ countries with output
+  over the same years, so coverage rather than measurement may be doing the work. Whether both sides use the same contained-metal definition is not checked here for
   cobalt or antimony.</p>
 
   <h2>What we do with this</h2>
@@ -394,8 +400,9 @@ TEMPLATE = """<!doctype html>
   revision was computed, then changed in eleven dated deviations &mdash; among them the production-only
   filter on the BGS comparison, a graphite world total that had been multiplied by 1,000, the
   rare-earth series and unit line, and the separation of unchanged reprints from revisions down. One
-  discarded row was wrong by three orders of magnitude and no headline median moved, which is what a
-  median does and why the log, not the median, is the check:
+  discarded row was wrong by three orders of magnitude; the median contained it rather than ignoring
+  it &mdash; the graphite gap would have printed 31.1% instead of 30.7% &mdash; which is why the log,
+  not a calm median, is the check:
   <a href="@@REPO@@usgs-revisions/PREREGISTRATION.md">usgs-revisions/PREREGISTRATION.md</a>.</li>
   </ol>
   <p class="howto-src">Built by <code>build_revisions.py</code> from <code>out/usgs_revisions.json</code>,

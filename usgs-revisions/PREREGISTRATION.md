@@ -108,15 +108,21 @@ USGS publishes a refinery table by country for copper only, so this is copper, 2
 | China | 1,800 | 8% | 14,000 | 48% |
 | Congo (Kinshasa) | 3,200 | 14% | 2,800 | 10% |
 | Chile | 5,300 | 23% | 1,700 | 6% |
-| Japan | 0 | 0% | 1,400 | 5% |
+| Japan | - | - | 1,400 | 5% |
 | Russia | 1,300 | 6% | 950 | 3% |
 | United States | 1,000 | 4% | 850 | 3% |
 | India | 23 | 0% | 620 | 2% |
-| Germany | 0 | 0% | 610 | 2% |
+| Germany | - | - | 610 | 2% |
+| Australia | 730 | 3% | 460 | 2% |
+| Peru | 2,700 | 12% | 340 | 1% |
+| Zambia | 940 | 4% | 270 | 1% |
 
-**China mines 8% of the world's copper and refines 48% of it.** The atlas's argument in one line, from
-a single table: mine shares and refinery shares are different maps, and a dependence read off mining
-alone misses where the leverage sits.
+**In this table China accounts for 8% of reported world mine production and 48% of reported refinery
+production.** Mine shares and refinery shares are different maps, and a dependence read off mining alone
+misses where the smelting and refining sit. A dash is printed where the chapter prints one, not a zero;
+the rows are the eight largest on each measure. These are reported production, not ownership: a
+Chinese-owned mine abroad counts in its host country, refined output includes scrap, and cathode won by
+leaching at the mine counts in both columns.
 
 ### Where USGS and BGS disagree
 
@@ -133,12 +139,15 @@ difference in the world total (and China), USGS over BGS, on the years both cove
 | copper | refinery | copper, refined | 2019-2024 | 40 | 1.2% | 0.2% |
 | copper | mine | copper, mine | 2002-2024 | 54 | 0.6% | 1.2% |
 
-Copper is the close case (0.6% on mine over 2002-2024, 1.2% on refined over the six years the USGS
-has printed a refinery world total). Graphite is the far one at 30.7%, and not because the baskets
-differ - both series are natural graphite and exclude synthetic material. It is China: BGS put Chinese
-output at 1,800,000 t in 2010 against the USGS's 600,000, and by 2024 both print 1,270,000 t, leaving a
-world gap of 10%. Rare earths compare at 7.0% on a BGS series carried by about seven reporters, so
-coverage may be doing the work there.
+Copper is the close case (0.6% on mine over 2002-2024; 1.2% on refined, where the comparison covers
+2019-2024 because BGS stops at 2024, though the USGS has printed a refinery world total since 2019).
+Graphite is the far one at 30.7%, and not because the baskets differ - both series are natural graphite
+and exclude synthetic material. China accounts for much of the early distance (BGS 1,800,000 t in 2010
+against the USGS's 600,000) and that difference has closed: both print 1,270,000 t in 2024. But the
+world totals are still 10% apart in that year, so the remainder is other countries, coverage or
+rounding, and 30.7% is a median over 2002-2024, not today's gap. Rare earths compare at 7.0% on a BGS
+series with a median of 7 reporting countries against a USGS table carrying 3-13 countries with output,
+so coverage may be doing the work there.
 
 ## Deviations log
 
@@ -156,7 +165,9 @@ Every change made after this filing goes here, dated, with its reason.
    comparison is equal-exposure.** The filing asked for the movement between the second edition to
    report a year and the latest. There is none: an MCS edition prints last year as an estimate and the
    year before it revised, so **no series in this store is printed three times**: 144 world-total
-   series have two editions (139 mine, 5 copper refinery) and 24 have one, and none of the 2,065
+   series have two editions (139 mine, 5 copper refinery) and 24 have one, counting a world row by its
+   measure and year rather than by its printed label (the chapters spell it "World total (rounded)" and
+   "World total (may be rounded)"; on the raw label it is 142 and 28), and none of the 2,065
    country series has three. An earlier draft of this entry said 139 and described it as every data
    year, which was the mine count only. "First against latest" is therefore "the estimate
    against its single revision", and every year carries the same exposure - the objection that older
@@ -188,10 +199,12 @@ Every change made after this filing goes here, dated, with its reason.
    tonnes to tonnes) at the 2019 edition, so the 2017 row was multiplied by 1,000 and printed a 74,579%
    gap in the output file. The world total is now read in tonnes from the row that printed it. No
    headline moved, because the median absorbed it - which is why it survived the first reading.
-9. **2026-09-23 - the parser filed an estimate marker as a footnote.** Where the superscript "e" is a
-   separate span before the value (rather than attached to the column header), `is_estimate` came out
-   False and the marker was stored as a footnote code. Fixed; 2,039 of 7,349 rows are now marked
-   estimates. No published number depended on the field.
+9. **2026-09-23 - the parser missed the estimate marker in two different places.** Where the
+   superscript "e" is a separate span before the value, it was stored as a footnote code and
+   `is_estimate` came out False. Fixed first; a second fact-check then found the other case, an "e" on
+   the group-header line above the year row (29 of the 150 chapters print it there, which left those
+   chapters with no estimate flag at all). Both are read now: 2,426 of 7,349 rows are marked estimates,
+   against 2,039 after the first fix. No published number depended on the field.
 10. **2026-09-23 - page-level corrections from the same review.** The mine-against-refinery figure
    selected its rows after sorting by refinery share, which silently dropped Peru and Zambia, two of the
    largest miners; it now takes the leaders on both measures. A dash in the printed table is shown as a
@@ -204,4 +217,10 @@ Every change made after this filing goes here, dated, with its reason.
    reading (at 60%) and leaves everything else as "no consistent direction"; the code had added a
    symmetric downward reading that the filing does not define, and the earlier result text repeated it.
    Removed: under the filed rule no commodity here has a direction.
+12. **2026-09-23, second fact-check - prose numbers that were not computed.** The page carried "150
+   chapters", "2,065 country series" and, for rare earths, "a USGS table of nine or ten countries". The
+   first two were right but hardcoded; the third was wrong - over the compared years the USGS rare-earth
+   table carries 3 to 13 countries with output, and "nine" had been carried over from the count of BGS
+   reporters in 2024. All three now come from the output file, and the comparison records how many
+   countries each side carries.
 

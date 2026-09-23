@@ -155,7 +155,7 @@ def parse_edition(path, commodity, edition_year):
         if start is None:
             continue
         # group headers and the year row
-        groups, year_cells, hdr_end = [], [], None
+        groups, year_cells, hdr_end, est_marks = [], [], None, []
         for i in range(start, min(start + 12, len(L))):
             txt = line_text(L[i])
             for s in L[i]:
@@ -165,6 +165,10 @@ def parse_edition(path, commodity, edition_year):
                     if rx.match(s['text'].strip()):
                         groups.append({'measure': name, 'x': (s['x0'] + s['x1']) / 2})
                         break
+            # an estimate marker can sit on a header line ABOVE the year row, over its column
+            # ("Mine production" then a superscript e); 29 chapters print it that way
+            est_marks += [(s['x0'] + s['x1']) / 2 for s in L[i]
+                          if s['size'] < base - 0.6 and s['text'].strip() == 'e']
             ys = [s for s in L[i] if YEAR.match(s['text'].rstrip('e'))]
             if ys and len(ys) >= 1 and not re.search(r'[A-Za-z]{4}', txt.replace('e', '')):
                 for s in ys:
@@ -172,8 +176,9 @@ def parse_edition(path, commodity, edition_year):
                     if not est:  # a superscript 'e' sits in its own small span just after
                         est = any(abs(o['x0'] - s['x1']) < 6 and o['size'] < base and o['text'].strip() == 'e'
                                   for o in L[i])
-                    year_cells.append({'year': int(s['text'].rstrip('e')), 'x': (s['x0'] + s['x1']) / 2,
-                                       'is_estimate': est})
+                    xc = (s['x0'] + s['x1']) / 2
+                    est = est or any(abs(m - xc) < 25 for m in est_marks)
+                    year_cells.append({'year': int(s['text'].rstrip('e')), 'x': xc, 'is_estimate': est})
                 hdr_end = i
                 break
         if hdr_end is None or not year_cells:
