@@ -62,21 +62,24 @@ chapter has been published once and cannot be measured yet.
 
 ### How far the first published figure moves
 
-| Commodity | world, median abs revision | same, last 10 years | largest | China, median | revised up | direction | band (last 10) |
+| Commodity | world, median abs revision | same, last 10 years | largest | China, median | up / down / unchanged | direction | band: filed / last 10 |
 |---|---|---|---|---|---|---|---|
-| antimony | 11.3% | 11.3% | 42.5% | 11.0% | 41% | no consistent direction | **weak** |
-| graphite | 6.5% | 8.3% | 29.9% | 2.2% | 25% | revised down more often than up | **weak** |
-| cobalt | 5.7% | 3.6% | 17.4% | 4.7% | 49% | no consistent direction | **soft** |
-| tungsten | 5.3% | 2.4% | 55.0% | 5.6% | 42% | no consistent direction | **soft** |
-| rare earths | 2.4% | 3.1% | 17.1% | 0.0% | 39% | revised down more often than up | **soft** |
-| copper | 1.4% | 2.1% | 3.6% | 5.0% | 52% | no consistent direction | **soft** |
+| antimony | 11.3% | 11.3% | 42.5% | 11.0% | 41% / 39% / 19% | no consistent direction | **weak** / **weak** |
+| graphite | 6.5% | 8.3% | 29.9% | 2.2% | 25% / 35% / 40% | no consistent direction | **weak** / **weak** |
+| cobalt | 5.7% | 3.6% | 17.4% | 4.7% | 49% / 38% / 13% | no consistent direction | **weak** / **soft** |
+| tungsten | 5.3% | 2.4% | 55.0% | 5.6% | 42% / 43% / 15% | no consistent direction | **weak** / **soft** |
+| rare earths | 2.4% | 3.1% | 17.1% | 0.0% | 39% / 29% / 32% | no consistent direction | **soft** / **soft** |
+| copper | 1.4% | 2.1% | 3.6% | 5.0% | 52% / 43% / 5% | no consistent direction | **firm** / **soft** |
 
 **A current-year figure is worth about what its commodity's band says.** Copper's world total is the firmest: it
 moves 1.4% between its first and its latest printing over the whole period, 2.1% over the last ten
 years, which is the difference between the filed "firm" and "soft" bands.
 Antimony's moves 11.3%, and has moved 42.5%. Graphite's 6.5% gets worse in the recent decade, not
-better (8.3%). The direction is not systematic: only graphite and rare earths are revised down more
-often than up, and no commodity is revised up more often than down at the 60% bar set in the filing. China's rare-earth
+better (8.3%). The direction is not systematic. Under the filed rule - which licenses only an upward reading, at
+60% - no commodity has a direction. Separating unchanged reprints from downward ones (deviation 11)
+shows why an earlier draft of this result was wrong to call graphite and rare earths "revised down more
+often than up": graphite's mine series are 25% up, 35% down and 40% UNCHANGED, and rare earths 39% up,
+29% down, 32% unchanged. China's rare-earth
 figure is the one that never moves: its median revision is 0.0%, which fits a number set by quota and
 reported rather than measured.
 
@@ -152,8 +155,10 @@ Every change made after this filing goes here, dated, with its reason.
 3. **2026-09-23, after the first result - the filed settling check cannot be computed, and the
    comparison is equal-exposure.** The filing asked for the movement between the second edition to
    report a year and the latest. There is none: an MCS edition prints last year as an estimate and the
-   year before it revised, so **every data year appears in exactly two editions** (139 of the measurable
-   world-total years have two, none has three). "First against latest" is therefore "the estimate
+   year before it revised, so **no series in this store is printed three times**: 144 world-total
+   series have two editions (139 mine, 5 copper refinery) and 24 have one, and none of the 2,065
+   country series has three. An earlier draft of this entry said 139 and described it as every data
+   year, which was the mine count only. "First against latest" is therefore "the estimate
    against its single revision", and every year carries the same exposure - the objection that older
    years have more chances to move does not apply here. The check is reported as not computable rather
    than as a zero.
@@ -192,4 +197,11 @@ Every change made after this filing goes here, dated, with its reason.
    largest miners; it now takes the leaders on both measures. A dash in the printed table is shown as a
    dash rather than a computed zero. Both bands (filed and recent-decade) are shown, not only the
    recent one.
+11. **2026-09-23, second council round - unchanged reprints were being counted as revisions down, and
+   the downward reading was never filed.** The share revised up was reported alone, so its complement
+   read as "down"; in fact graphite's mine series are 25% up, 35% down and 40% unchanged, and rare
+   earths 39/29/32. The three shares are now reported separately. The filing licenses only an upward
+   reading (at 60%) and leaves everything else as "no consistent direction"; the code had added a
+   symmetric downward reading that the filing does not define, and the earlier result text repeated it.
+   Removed: under the filed rule no commodity here has a direction.
 

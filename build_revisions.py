@@ -140,12 +140,13 @@ def page():
         s = B[c]
         band_rows.append('<tr%s><td>%s</td><td class="n">%d</td><td class="n">%.1f%%</td>'
                          '<td class="n">%.1f%%</td><td class="n">%.1f%%</td><td class="n">%.1f%%</td>'
-                         '<td class="n">%.0f%%</td><td><span class="band %s">%s</span> / '
+                         '<td class="n">%.0f%% / %.0f%% / %.0f%%</td><td><span class="band %s">%s</span> / '
                          '<span class="band %s">%s</span></td></tr>'
                          % (' class="hl"' if c == 'copper' else '', label(c), s['world_years'],
                             100 * s['world_median_abs_revision'], 100 * s['world_median_abs_revision_recent'],
                             100 * s['world_max_abs_revision'], 100 * s['china_median_abs_revision'],
-                            100 * s['share_revised_up'], s['band'], s['band'],
+                            100 * s['share_revised_up'], 100 * s['share_revised_down'],
+                            100 * s['share_unchanged'], s['band'], s['band'],
                             s['band_recent'], s['band_recent']))
         chart_rows.append((label(c), s['world_median_abs_revision'], s['world_median_abs_revision_recent']))
     big = [r for r in d['largest_revisions']][:6]
@@ -202,7 +203,10 @@ def page():
         'CUREFY': '%d&ndash;%d' % tuple(d['usgs_vs_bgs']['copper_refinery']['years']),
         'CUMINEY': '%d&ndash;%d' % tuple(d['usgs_vs_bgs']['copper_mine']['years']),
         'CUBAND': B['copper']['band'], 'SBBAND': B['antimony']['band'],
-        'GRUP': '%.0f' % (100 * (1 - B['graphite']['share_revised_up'])),
+        'GRUP': '%.0f' % (100 * B['graphite']['share_revised_up']),
+        'GRDOWN': '%.0f' % (100 * B['graphite']['share_revised_down']),
+        'GRSAME': '%.0f' % (100 * B['graphite']['share_unchanged']),
+        'REESAME': '%.0f' % (100 * B['rare_earths']['share_unchanged']),
         'ED0': str(min(d['editions'])), 'ED1': str(max(d['editions'])),
         'CU': '%.1f' % (100 * B['copper']['world_median_abs_revision']),
         'CUR': '%.1f' % (100 * B['copper']['world_median_abs_revision_recent']),
@@ -247,14 +251,14 @@ TEMPLATE = """<!doctype html>
 
 <section class="wrap xp">
   <h2>1. How far the first published figure moves</h2>
-  <p>Each edition prints two years: last year as an estimate, and the year before it, revised.
-  <b>Every data year is therefore printed exactly twice</b> &mdash; no year in this store appears in
-  three editions &mdash; so the revision is the distance between that estimate and its single revision,
-  as a percentage of the estimate, and every year is measured on the same footing. @@NSERIES@@ series
-  (commodity, country or world total, measure, year) can be measured; @@NDROP@@ cannot: @@NDROP1@@
-  because only one edition reports them (the newest data year, and years either side of a gap in the
-  editions we hold) and @@NDROPF@@ because a dash, a "W" for withheld or an "NA" left fewer than two
-  usable printings. The measure, the thresholds and the direction rule were
+  <p>Each edition prints two years: last year as an estimate, and the year before it, revised. <b>No
+  series in this store is printed three times</b> &mdash; not one of the 2,065 country series, and none
+  of the world totals &mdash; so where a year is measurable, the revision is that estimate against its
+  single revision, as a percentage of the estimate, and every measurable year carries the same one
+  chance to move. @@NSERIES@@ series (commodity, country or world total, measure, year) are measurable;
+  @@NDROP@@ are not: @@NDROP1@@ appear in only one edition (the newest data year, and years either side
+  of a gap in the editions we hold) and @@NDROPF@@ lost a printing to a dash, a "W" for withheld or an
+  "NA". Those do not enter any median. The measure, the thresholds and the direction rule were
   <a href="@@REPO@@usgs-revisions/PREREGISTRATION.md">filed before any revision was computed</a>; the
   last-ten-years column was added afterwards and is logged there as a dated deviation, as is the fact
   that the filing's &ldquo;settling&rdquo; check cannot be computed at all, there being no third
@@ -268,7 +272,7 @@ TEMPLATE = """<!doctype html>
   <div class="tbl"><table><thead><tr><th>Commodity</th><th class="n">years measured</th>
   <th class="n">world, all years</th><th class="n">world, last 10 years</th>
   <th class="n">largest world revision</th><th class="n">China</th>
-  <th class="n">revised up</th><th>band: all years / last 10</th></tr></thead>
+  <th class="n">up / down / unchanged</th><th>band: all years / last 10</th></tr></thead>
   <tbody>@@BANDROWS@@</tbody></table></div>
   @@SRC@@
   <p class="dim">Each median is over that commodity's measurable world-total years, counted in the
@@ -281,10 +285,12 @@ TEMPLATE = """<!doctype html>
   filed reading, soft on the recent one, which is how much a label can depend on a window. Antimony's
   moves @@SB@@%, and once moved @@SBMAX@@%. Graphite gets <i>worse</i> in the recent decade, not better:
   @@GR@@% over the whole period, @@GRR@@% over the last ten.</p>
-  <p>The direction is not uniform. No commodity clears the filed 60% bar for &ldquo;revised up more
-  often than down&rdquo;, so there is no upward bias to subtract. But graphite and rare earths do go the
-  other way: graphite's mine series were revised <i>down</i> in @@GRUP@@% of cases. A reader wanting one
-  rule of thumb will not find it here.</p>
+  <p>There is no direction to correct for. The filing licenses one reading, &ldquo;revised up more
+  often than down&rdquo; at 60%, and no commodity reaches it. Nor is the rest downward: a reprint that
+  does not move is not a revision down, and unchanged reprints are common. Graphite's mine series are
+  @@GRUP@@% up, @@GRDOWN@@% down and @@GRSAME@@% unchanged; rare earths are @@REESAME@@% unchanged. An
+  earlier version of this page read those as a downward bias, which is wrong on both counts &mdash; the
+  filing never defined a downward reading, and the unchanged share was being counted as down.</p>
   <p>China's rare-earth figure is the one that moves least: its median revision is @@REEC@@%, meaning at
   least half of its measurable years were reprinted unchanged. That is consistent with a quota figure
   being copied across editions, and equally with a rounded official number being reprinted; this design
@@ -317,20 +323,22 @@ TEMPLATE = """<!doctype html>
   @@SRC@@
   <p><b>In the @@YEAR@@ table China accounts for @@CNMINE@@% of reported world mine production and
   @@CNREF@@% of reported refinery production.</b> Chile is the mirror image: nearly a quarter of world
-  mining, a small share of refining. Japan, Germany and South Korea refine copper they do not mine at
-  all; Peru and Zambia mine copper they barely refine. A dependence read off mining alone misses where
+  mining, a small share of refining. Japan and Germany appear in the refinery column with a dash in
+  the mine column, not a zero; Peru and Zambia mine copper they barely refine. A dependence read off mining alone misses where
   the smelting and refining sit &mdash; the argument this atlas is built on, here from a single table
   rather than a chain of inferences.</p>
   <p class="dim">What these two columns are not: refinery output is where metal is produced, not who
   owns it, so a Chinese-owned mine abroad counts in its host country's mine column. Refined output
-  includes metal made from scrap, which no mine column can show. Cathode produced by leaching at the
-  mine, which matters in Chile and Congo, is counted as mine production. And neither column says
-  anything about semi-fabrication, where another map again applies.</p>
+  includes metal made from scrap, which no mine column can show. Cathode won by leaching at the mine is
+  counted in both columns, so the two are not disjoint. Chile's gap is concentrate shipped out to be
+  smelted and refined elsewhere. And neither column says anything about semi-fabrication, where another
+  map again applies.</p>
 
   <h2>3. Where the two agencies disagree</h2>
   <p>The US Geological Survey and the British Geological Survey both publish world production. The gap
-  below is the median absolute difference between their world totals, USGS over BGS, on the years both
-  cover, using BGS production rows only. Neither series is a correction of the other, and a gap can be
+  below is the median, over the years both cover, of |USGS world total &minus; BGS world total| divided
+  by the BGS total, using BGS production rows only. It is unsigned and says nothing about which agency
+  is right. Neither series is a correction of the other, and a gap can be
   measurement, definition, coverage or vintage; the number of countries reporting each BGS series is
   shown, because a series carried by few reporters is a different animal from one carried by many.</p>
   <div class="tbl"><table><thead><tr><th>Commodity</th><th>USGS measure</th><th>BGS series</th>
@@ -342,28 +350,35 @@ TEMPLATE = """<!doctype html>
   <a href="@@REPO@@out/usgs_revisions.json"><code>out/usgs_revisions.json</code></a>.</p>
   <p>Copper is the close case: @@CUGAP@@% apart on mining over @@CUMINEY@@, and @@CURGAP@@% on refining
   &mdash; though the refining comparison rests on @@CUREFY@@ alone, because the USGS chapter has printed
-  a refinery world total only since then. Graphite is the far one at @@GRGAP@@%, and the reason is not a
-  different basket: both series are natural graphite and both exclude synthetic material. It is China.
-  In 2010 BGS put Chinese output at @@GRCN10@@ tonnes against the USGS's @@GRCNU10@@; by 2024 the two
-  print the same figure (@@GRCN24@@ tonnes) and the world gap is down to @@GRGAP24@@%. The disagreement
-  was about one country's estimate, and it has largely closed.</p>
+  a refinery world total only since then. Graphite is the far one at @@GRGAP@@%, and not because
+  the baskets differ: both series are natural graphite and both exclude synthetic material. China
+  accounts for much of the early distance &mdash; in 2010 BGS put Chinese output at @@GRCN10@@ tonnes
+  against the USGS's @@GRCNU10@@ &mdash; and that difference has closed: by 2024 both print
+  @@GRCN24@@ tonnes. But the world totals still sit @@GRGAP24@@% apart in that year, so the rest is
+  other countries, coverage or rounding, and @@GRGAP@@% is the median over @@CUMINEY@@, not today's
+  gap.</p>
   <p class="dim">Rare earths compare at @@REEGAP@@%, but on a BGS series carried by about seven
   reporters against a USGS table of nine or ten countries, so coverage rather than measurement may be
   doing the work. Whether both sides use the same contained-metal definition is not checked here for
   cobalt or antimony.</p>
 
   <h2>What we do with this</h2>
-  <p>Three things, on this site. A current-year figure for a commodity outside the <b>firm</b> band is
-  quoted with that band beside it, not as a bare point. A claim that turns on a difference about the
-  size of the commodity's own past revisions is checked against this record before it is made, rather
-  than taken at face value &mdash; for antimony, a change of a few per cent sits inside the noise of the
-  source, though a median of past revisions is a description and not a confidence interval. And where
-  the two agencies differ by more than a little, the page says which one it used and what the other
-  says.</p>
+  <p>Three things, on this site. A current-year figure is quoted with both revision medians beside it,
+  the whole period and the last ten years, and never with the band presented as its precision: firm,
+  soft and weak are labels for a past record, not error bars. A claim that turns on a change about the
+  size of that record is checked against the revision history before it is made rather than taken at
+  face value &mdash; for antimony that means a change of a few per cent is no larger than what the
+  source has moved on its own. And when the other agency is cited, the page names it and names the
+  years.</p>
   <p class="dim">What this cannot say: it measures how the published figure moved, not how close either
   version is to the truth &mdash; both could be wrong in the same direction. Revisions within a year are
-  not independent across countries, since the world total is revised with its parts. A country that
-  falls into "Other countries" in a later edition drops out of the count for that year.</p>
+  not independent across countries, since the world total is revised with its parts, and successive
+  years share a method, so they are not independent draws either. A country that falls into "Other
+  countries" in a later edition drops out of the count for that year. The medians cover six chosen
+  commodities over unequal windows &mdash; tungsten 29 years, cobalt and rare earths 21 &mdash; and the
+  copper median in section 1 is mine production, not the refinery series section 2 reads. The agency
+  gaps are differences, not a reconciliation: whether both sides use the same contained-metal or
+  concentrate basis is unchecked for every commodity here.</p>
 
   <h3>Method and data</h3>
   <ol class="refs">
@@ -375,8 +390,12 @@ TEMPLATE = """<!doctype html>
   text "7100,000" cannot be told from a number, while on the page the marker is smaller type.</li>
   <li><b>The comparison.</b> British Geological Survey, World Mineral Statistics, as held in the atlas.
   <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/">bgs.ac.uk</a>.</li>
-  <li><b>The filing.</b> The measure, the bands and the direction rule, committed before any revision
-  was computed, with two dated deviations:
+  <li><b>The filing.</b> The measure, the thresholds and the direction rule, committed before any
+  revision was computed, then changed in eleven dated deviations &mdash; among them the production-only
+  filter on the BGS comparison, a graphite world total that had been multiplied by 1,000, the
+  rare-earth series and unit line, and the separation of unchanged reprints from revisions down. One
+  discarded row was wrong by three orders of magnitude and no headline median moved, which is what a
+  median does and why the log, not the median, is the check:
   <a href="@@REPO@@usgs-revisions/PREREGISTRATION.md">usgs-revisions/PREREGISTRATION.md</a>.</li>
   </ol>
   <p class="howto-src">Built by <code>build_revisions.py</code> from <code>out/usgs_revisions.json</code>,
