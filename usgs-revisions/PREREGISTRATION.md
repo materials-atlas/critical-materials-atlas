@@ -197,8 +197,12 @@ Every change made after this filing goes here, dated, with its reason.
 8. **2026-09-23 - a 1,000x error inside the published comparison.** The USGS world total was converted
    to tonnes with a factor taken from another edition's country row. Graphite changed unit (thousand
    tonnes to tonnes) at the 2019 edition, so the 2017 row was multiplied by 1,000 and printed a 74,579%
-   gap in the output file. The world total is now read in tonnes from the row that printed it. No
-   headline moved, because the median absorbed it - which is why it survived the first reading.
+   gap in the output file. The world total is now read in tonnes from the row that printed it. The
+   median contained the error rather than ignoring it: graphite's published gap would have been 31.1%
+   instead of 30.7%, a 0.4-point difference, which is why a calm median is not evidence of a clean file
+   and why this survived the first reading. The output now carries, for every comparison, the median it
+   would have had under the old conversion (`median_abs_world_gap_before_unit_fix`), so the size of the
+   fault is recorded rather than remembered.
 9. **2026-09-23 - the parser missed the estimate marker in two different places.** Where the
    superscript "e" is a separate span before the value, it was stored as a footnote code and
    `is_estimate` came out False. Fixed first; a second fact-check then found the other case, an "e" on
