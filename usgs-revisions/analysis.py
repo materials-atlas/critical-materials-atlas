@@ -211,9 +211,14 @@ def bgs_compare(d):
                                  'china_gap': (uc_v / bc - 1) if (uc_v and bc) else None})
             if recs:
                 med_rep = float(np.median([r['bgs_countries_reporting'] for r in recs]))
+                # how many countries the USGS table itself carries with a positive figure, so the page
+                # can compare like with like instead of quoting a remembered number
+                up = U.panel(c, measure)
+                usgs_rep = [int(((up.year == r['year']) & (up.value > 0)).sum()) for r in recs]
                 out['%s_%s' % (c, measure)] = {
                     'bgs_form': form, 'years': [recs[0]['year'], recs[-1]['year']],
                     'bgs_median_countries_reporting': med_rep,
+                    'usgs_countries_with_output': [int(min(usgs_rep)), int(max(usgs_rep))],
                     # a BGS form with almost no reporters is a residual category, not the same basket:
                     # 'rare earths' carries one country while 'rare earth oxides' carries nine
                     'bgs_rows': 'production only',
@@ -229,7 +234,11 @@ def bgs_compare(d):
 def main():
     d = store()
     r, dropped = revisions(d)
+    full = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
     res = {'filing': 'usgs-revisions/PREREGISTRATION.md',
+           'chapters_read': int(full.groupby(['commodity', 'edition_year']).ngroups),
+           'country_series': int(full[(full.row_kind == 'country') & full.iso3.notna() & full.year.notna()]
+                                 .groupby(['commodity', 'measure', 'iso3', 'year']).ngroups),
            'store': 'pipeline/data/usgs_mcs_history.parquet',
            'editions': U.editions(), 'series_dropped': dropped,
            'measurable_series': int(len(r)),
