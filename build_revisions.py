@@ -131,6 +131,16 @@ def pair_chart(rows, W=720, rh=30):
     return '<svg viewBox="0 0 %d %d" role="img" aria-label="Mine share against refinery share">%s%s</svg>' % (W, H, leg, ''.join(g))
 
 
+def deviation_count():
+    """Read the number off the filing, so the page cannot drift from it."""
+    import re
+    with io.open(os.path.join(ROOT, 'usgs-revisions', 'PREREGISTRATION.md'), encoding='utf-8') as f:
+        return len(re.findall(r'(?m)^\d+\. \*\*2026', f.read()))
+
+
+WORDS = {10: 'ten', 11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen'}
+
+
 def page():
     d = json.load(io.open(os.path.join(ROOT, RESULT), encoding='utf-8'))
     B = d['by_commodity']
@@ -207,6 +217,8 @@ def page():
         'GRDOWN': '%.0f' % (100 * B['graphite']['share_revised_down']),
         'GRSAME': '%.0f' % (100 * B['graphite']['share_unchanged']),
         'REESAME': '%.0f' % (100 * B['rare_earths']['share_unchanged']),
+        'NDEV': WORDS.get(deviation_count(), str(deviation_count())),
+        'GRPRE': '%.1f' % (100 * d['usgs_vs_bgs']['graphite_mine']['median_abs_world_gap_before_unit_fix']),
         'NCHAP': str(d['chapters_read']), 'NCSER': '{:,}'.format(d['country_series']),
         'REEREP': '%.0f' % d['usgs_vs_bgs']['rare_earths_mine']['bgs_median_countries_reporting'],
         'REEUSGS': '%d&ndash;%d' % tuple(d['usgs_vs_bgs']['rare_earths_mine']['usgs_countries_with_output']),
@@ -369,7 +381,8 @@ TEMPLATE = """<!doctype html>
   cobalt or antimony.</p>
 
   <h2>What we do with this</h2>
-  <p>Three things, on this site. A current-year figure is quoted with both revision medians beside it,
+  <p>Three rules, adopted with this page and applied from here on rather than claimed of what is
+  already published. A current-year figure is quoted with both revision medians beside it,
   the whole period and the last ten years, and never with the band presented as its precision: firm,
   soft and weak are labels for a past record, not error bars. A claim that turns on a change about the
   size of that record is checked against the revision history before it is made rather than taken at
@@ -397,11 +410,11 @@ TEMPLATE = """<!doctype html>
   <li><b>The comparison.</b> British Geological Survey, World Mineral Statistics, as held in the atlas.
   <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/">bgs.ac.uk</a>.</li>
   <li><b>The filing.</b> The measure, the thresholds and the direction rule, committed before any
-  revision was computed, then changed in eleven dated deviations &mdash; among them the production-only
+  revision was computed, then changed in @@NDEV@@ dated deviations &mdash; among them the production-only
   filter on the BGS comparison, a graphite world total that had been multiplied by 1,000, the
   rare-earth series and unit line, and the separation of unchanged reprints from revisions down. One
   discarded row was wrong by three orders of magnitude; the median contained it rather than ignoring
-  it &mdash; the graphite gap would have printed 31.1% instead of 30.7% &mdash; which is why the log,
+  it &mdash; the graphite gap would have printed @@GRPRE@@% instead of @@GRGAP@@% &mdash; which is why the log,
   not a calm median, is the check:
   <a href="@@REPO@@usgs-revisions/PREREGISTRATION.md">usgs-revisions/PREREGISTRATION.md</a>.</li>
   </ol>
