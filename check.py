@@ -859,6 +859,79 @@ def check_baci_door():
              % (len(offenders), ', '.join(offenders[:8]) + (' ...' if len(offenders) > 8 else '')))
 
 
+def check_usgs_mcs():
+    """The stitched USGS Mineral Commodity Summaries panel (pipeline/data/usgs_mcs_history.parquet).
+
+    The parser reads the tables geometrically, so the way it fails is silent: a value lands in the
+    wrong column. Three invariants catch that, plus fixed anchors read off the printed page.
+      1. reserves and reserve-base cells belong to no year (they are a stock, printed without one);
+         the first version of the parser put a refinery estimate there, which this would have caught.
+      2. the countries must sum to the printed world total up to rounding (2%), per edition and year.
+      3. anchors: what MCS 2026 prints for copper, which no future parser change may alter.
+    Skipped when the store is absent, so a clone without the raw PDFs still checks out."""
+    store = os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet')
+    if not os.path.exists(store):
+        return
+    try:
+        import pandas as pd
+        d = pd.read_parquet(store)
+    except Exception as e:
+        fail('usgs_mcs', f'store unreadable: {e}'); return
+    stock = d[d.measure.isin(['reserves', 'reserve_base']) & d.year.notna()]
+    if len(stock):
+        r = stock.iloc[0]
+        fail('usgs_mcs', f"{len(stock)} reserve cells carry a year (e.g. {r.commodity} {r.edition_year} "
+                         f"{r.country_name_raw} {r.measure}={r.value} year={r.year}) - reserves are printed "
+                         f"without a year, so a value landed in the wrong column")
+    flows = d[d.measure.isin(['mine', 'refinery', 'smelter']) & d.year.notna()]
+    for (c, ed, m, y), g in flows.groupby(['commodity', 'edition_year', 'measure', 'year']):
+        pr = g[g.row_kind == 'world_printed'].value
+        cs = g[g.row_kind == 'world_computed'].value
+        if pr.empty or not float(pr.iloc[0]):
+            continue
+        # recomputed here, not read from the stored world_computed row: the guard has to see the
+        # country values themselves, or a corrupted one hides behind a stale total
+        parts = g[g.row_kind.isin(['country', 'other_countries'])].value.sum()
+        if not cs.empty and abs(float(cs.iloc[0]) - float(parts)) > 0.5:
+            fail('usgs_mcs', f"{c} {m} {int(y)} (edition {ed}): the stored world sum {cs.iloc[0]:,.0f} is not the "
+                             f"sum of the country rows ({parts:,.0f}) - the store was edited or half-rebuilt")
+        cs = pd.Series([parts])
+        # The printed world total is rounded, sometimes to two significant figures (17,000 where the
+        # countries sum to 16,615), so the tolerance is that number's own last place, not a flat percent.
+        P, S = float(pr.iloc[0]), float(cs.iloc[0])
+        # Every printed figure is rounded, the world total and each country alike, so the gap the
+        # arithmetic allows is half the world's last place plus half of each country's.
+        def half_last_place(v):
+            if not v or v != v:
+                return 0.0
+            return 0.5 * (10 ** len(re.search(r'(0*)$', format(int(round(abs(v))), 'd')).group(1)))
+        tol = half_last_place(P) + sum(half_last_place(v) for v in
+                                       g[g.row_kind.isin(['country', 'other_countries'])].value)
+        if abs(S - P) > tol:
+            fail('usgs_mcs', f"{c} {m} {int(y)} (edition {ed}): the countries sum to {S:,.0f} against a printed "
+                             f"world total of {P:,.0f}, a gap of {abs(S - P):,.0f} - more than the {tol:,.0f} the "
+                             f"printed rounding allows, so a value is probably in the wrong column")
+    anchors = [('CHN', 'mine', 2024, 1840), ('CHN', 'mine', 2025, 1800),
+               ('CHN', 'refinery', 2024, 12400), ('CHN', 'refinery', 2025, 14000)]
+    e = d[(d.commodity == 'copper') & (d.edition_year == 2026)]
+    if not e.empty:
+        for iso, m, y, want in anchors:
+            got = e[(e.iso3 == iso) & (e.measure == m) & (e.year == y)].value
+            if got.empty or float(got.iloc[0]) != want:
+                fail('usgs_mcs', f"MCS 2026 copper {iso} {m} {y} should be {want:,} as printed, store has "
+                                 f"{'nothing' if got.empty else format(float(got.iloc[0]), ',.0f')}")
+        for m, y, want in [('mine', 2024, 23000), ('mine', 2025, 23000),
+                           ('refinery', 2024, 27600), ('refinery', 2025, 29000)]:
+            got = e[(e.row_kind == 'world_printed') & (e.measure == m) & (e.year == y)].value
+            if got.empty or float(got.iloc[0]) != want:
+                fail('usgs_mcs', f"MCS 2026 copper world {m} {y} should be {want:,} as printed, store has "
+                                 f"{'nothing' if got.empty else format(float(got.iloc[0]), ',.0f')}")
+    tracked = subprocess.run(['git', 'ls-files', 'raw/usgs_mcs'], cwd=ROOT, capture_output=True, text=True).stdout.split()
+    if tracked:
+        fail('usgs_mcs', f"{len(tracked)} USGS MCS source PDFs are tracked by git (e.g. {tracked[0]}) - they are the "
+                         f"publisher's files; keep them in raw/ and publish only derived figures")
+
+
 def check_register():
     """Every folder under raw/ has a row in the register. Invariant for phase 4.
 
@@ -990,7 +1063,7 @@ def check_stale():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
