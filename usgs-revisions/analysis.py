@@ -83,7 +83,12 @@ def summarise(r):
         w = g[(g.row_kind == 'world_printed') & (g.measure == 'mine')]
         cn = g[(g.iso3 == 'CHN') & (g.measure == 'mine')]
         med_w = float(w.revision.abs().median()) if len(w) else None
-        up = float((g[g.measure == 'mine'].revision > 0).mean()) if len(g[g.measure == 'mine']) else None
+        mine = g[g.measure == 'mine']
+        # up, down and UNCHANGED are three different things: a reprint that does not move is not a
+        # revision down, and unchanged reprints are common here (China's rare earths)
+        up = float((mine.revision > 0).mean()) if len(mine) else None
+        down = float((mine.revision < 0).mean()) if len(mine) else None
+        same = float((mine.revision == 0).mean()) if len(mine) else None
         settle = g[(g.row_kind == 'world_printed') & (g.measure == 'mine')].after_first_revision.abs()
         out[c] = {
             'world_median_abs_revision': med_w,
@@ -92,11 +97,11 @@ def summarise(r):
             'china_median_abs_revision': float(cn.revision.abs().median()) if len(cn) else None,
             'china_years': int(len(cn)),
             'country_median_abs_revision': float(g[g.row_kind == 'country'].revision.abs().median()),
-            'share_revised_up': up,
+            'share_revised_up': up, 'share_revised_down': down, 'share_unchanged': same,
             'share_revised_up_over': 'every mine series in the commodity: each country and the '
                                      'printed world total',
             'direction': ('revised up more often than down' if up is not None and up >= UP_SHARE else
-                          'revised down more often than up' if up is not None and up <= 1 - UP_SHARE else
+                          'revised down more often than up' if down is not None and down >= UP_SHARE else
                           'no consistent direction'),
             'band': band(med_w) if med_w is not None else None,
             # deviation 3: not computable. Each data year is printed exactly twice in this series, so
