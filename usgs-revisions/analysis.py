@@ -89,6 +89,14 @@ def summarise(r):
                           'no consistent direction'),
             'band': band(med_w) if med_w is not None else None,
             'median_abs_change_after_first_revision': float(settle.median()) if settle.notna().any() else None,
+            # deviation 2: the same medians over the last ten data years, added after seeing that the
+            # largest revisions are from the 1990s. Descriptive; the filed headline is unchanged.
+            'world_median_abs_revision_recent': (float(w[w.year >= w.year.max() - 9].revision.abs().median())
+                                                 if len(w[w.year >= w.year.max() - 9]) else None),
+            'recent_years': ([int(w[w.year >= w.year.max() - 9].year.min()),
+                              int(w.year.max())] if len(w) else None),
+            'band_recent': (band(float(w[w.year >= w.year.max() - 9].revision.abs().median()))
+                            if len(w[w.year >= w.year.max() - 9]) else None),
         }
     return out
 
@@ -161,7 +169,8 @@ def bgs_compare(d):
                 # the world total is printed in the chapter's unit; convert with the same factor a
                 # country row used, so both sides are tonnes
                 f = None
-                cc = d[(d.commodity == c) & (d.measure == measure) & (d.year == y) & d.value_t.notna()]
+                cc = d[(d.commodity == c) & (d.measure == measure) & (d.year == y) &
+                       d.value_t.notna() & (d.value != 0)]
                 if len(cc):
                     f = float(cc.value_t.iloc[0]) / float(cc.value.iloc[0])
                 uw_t = uw * f if f else None
