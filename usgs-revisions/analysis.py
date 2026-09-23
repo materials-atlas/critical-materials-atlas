@@ -211,6 +211,20 @@ def bgs_compare(d):
                                  'china_gap': (uc_v / bc - 1) if (uc_v and bc) else None})
             if recs:
                 med_rep = float(np.median([r['bgs_countries_reporting'] for r in recs]))
+                # what the median would have been under the conversion this code used before
+                # deviation 8: a factor taken from an arbitrary country row of another edition. Kept so
+                # the size of that fault is on the record rather than asserted from memory.
+                old = []
+                for r in recs:
+                    cc = d[(d.commodity == c) & (d.measure == measure) & (d.year == r['year']) &
+                           d.value_t.notna() & (d.value != 0)]
+                    wr = d[(d.commodity == c) & (d.measure == measure) & (d.year == r['year']) &
+                           (d.row_kind == 'world_printed')].sort_values('edition_year')
+                    if len(cc) and len(wr):
+                        f = float(cc.value_t.iloc[0]) / float(cc.value.iloc[0])
+                        old.append(abs(float(wr.value.iloc[-1]) * f / r['bgs_world_t'] - 1))
+                    else:
+                        old.append(abs(r['world_gap']))
                 # how many countries the USGS table itself carries with a positive figure, so the page
                 # can compare like with like instead of quoting a remembered number
                 up = U.panel(c, measure)
@@ -219,6 +233,7 @@ def bgs_compare(d):
                     'bgs_form': form, 'years': [recs[0]['year'], recs[-1]['year']],
                     'bgs_median_countries_reporting': med_rep,
                     'usgs_countries_with_output': [int(min(usgs_rep)), int(max(usgs_rep))],
+                    'median_abs_world_gap_before_unit_fix': float(np.median(old)),
                     # a BGS form with almost no reporters is a residual category, not the same basket:
                     # 'rare earths' carries one country while 'rare earth oxides' carries nine
                     'bgs_rows': 'production only',
