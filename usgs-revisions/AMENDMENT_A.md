@@ -157,3 +157,13 @@ germanium as the lowest; that was true of the numbers before deviation 8's retri
 wrong now.) The escape clause that did fire is the direction rule: read on the filing's denominator it is
 reached by gallium and indium, so "no commodity has a direction" is true of the filed six and not of the
 wider set.
+
+**2026-09-24 -- deviation 10: tin's missing chapters were in the yearly volumes after all.**
+Deviation 8 recorded that tin's 1996 and 2004-2007 chapters "are not served under any of the three
+naming schemes (403 on all), so tin stands at 21 years". That was true of the commodity page, which
+links nothing before its 2008 edition, and wrong as a conclusion: the full yearly volumes for 2004-2007
+exist on the same path as the 2000-2003 ones already used, and carry the chapter. Cut from there, tin
+moves from 21 measurable years to 25 and its median from 4.3% to 4.5%; its band and its rank of fifteen
+do not change. 1996-1999 remain out, being scans. No other commodity gained a year from the wider
+volume range -- their pages already link those editions. This is the fourth retrieval fault in the
+study and the second time a "not served anywhere" conclusion was drawn from one route having failed.

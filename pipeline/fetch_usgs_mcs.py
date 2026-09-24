@@ -146,7 +146,9 @@ def editions(commodity):
 
 
 VOLUMES = {y: 'https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/'
-              'mineral-pubs/mcs/mcs%d.pdf' % y for y in range(2000, 2004)}
+              'mineral-pubs/mcs/mcs%d.pdf' % y for y in range(2000, 2008)}
+# 2004-2007 are here too, not only 2000-2003: the tin page links no chapter before its 2008 edition,
+# and neither do a few others, but the full volume for each of those years carries them.
 # The 1996-1999 volumes exist only as scans (mcs-YYYYocr.pdf). Their OCR breaks both the words
 # ("Kaza ks tan") and the column order, and they carry no superscript tier, which is what tells a
 # footnote marker from a digit here. They are left out rather than parsed badly.
