@@ -33,12 +33,22 @@ SLUG = {'copper': 'copper', 'tungsten': 'tungsten', 'antimony': 'antimony', 'gra
         'rare_earths': 'rare-earths', 'cobalt': 'cobalt', 'bismuth': 'bismuth',
         'gallium': 'gallium', 'germanium': 'germanium', 'lithium': 'lithium', 'nickel': 'nickel',
         'manganese': 'manganese', 'tin': 'tin', 'indium': 'indium', 'tellurium': 'tellurium',
-        'magnesium': 'magnesium', 'titanium': 'titanium', 'vanadium': 'vanadium', 'zinc': 'zinc'}
+        'magnesium': 'magnesium-metal', 'titanium': 'titanium', 'vanadium': 'vanadium', 'zinc': 'zinc',
+        'tellurium': 'tellurium'}
+# Where the commodity's page is not named after it: tellurium shares selenium's page, and magnesium
+# metal's page is plain "magnesium" while its files are "magnesium-metal".
+PAGE_SLUG = {'tellurium': 'selenium-and-tellurium', 'magnesium': 'magnesium'}
 # the file-name stem each commodity's pre-2008 chapters use (USGS abbreviations, not ours)
 # Only where the page carries several commodities' chapters and the stem cannot be inferred safely
 # (rare earths sits beside scandium and yttrium). Everything else is read off the page's own links.
 STEM = {'copper': 'coppe', 'tungsten': 'tungs', 'antimony': 'antim', 'graphite': 'graph',
-        'rare_earths': 'raree', 'cobalt': 'cobal', 'bismuth': 'bismu'}
+        'rare_earths': 'raree', 'cobalt': 'cobal', 'bismuth': 'bismu',
+        'tellurium': 'tellu', 'magnesium': 'mgmet'}
+
+
+# Extra old-era stems a page uses beside its main one: the 2004 rare-earth chapter is remcs04.pdf,
+# not rareemcs04.pdf, so the panel was missing that edition.
+ALT_STEM = {'rare_earths': ['re']}
 
 
 def infer_stem(names, commodity):
@@ -67,9 +77,49 @@ def get(url, timeout=60):
         return r.read(), r.geturl()
 
 
+S3 = 'https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/'
+
+
+def candidates(href):
+    """The href, then the same file under its canonical paths.
+
+    Several of the commodity pages carry hrefs with a duplicated path segment
+    (".../indium/490399.pdf/production/mineral-pubs/indium/indiumcs04.pdf"), which 403s. The basename
+    is right, so the file is retried under the two paths the USGS actually serves. Eleven indium
+    chapters and the 2004 rare-earth chapter were missing from the panel for this reason alone.
+    """
+    out = [href]
+    parts = href.rstrip('/').split('/')
+    base = parts[-1]
+    out.append(S3 + 's3fs-public/atoms/files/' + base)
+    if len(parts) >= 2:
+        out.append(S3 + 'mineral-pubs/' + parts[-2] + '/' + base)
+    seen, uniq = set(), []
+    for u in out:
+        if u not in seen:
+            seen.add(u)
+            uniq.append(u)
+    return uniq
+
+
+def get_any(href, timeout=60):
+    """Fetch a chapter, trying the canonical paths if the page's own href fails."""
+    last = None
+    for u in candidates(href):
+        try:
+            body, final = get(u, timeout=timeout)
+        except Exception as e:                      # 403 on a corrupted path, 404 on a guess
+            last = e
+            continue
+        if body.startswith(b'%PDF'):
+            return body, final
+        last = 'not a PDF (%s)' % final
+    raise IOError(str(last))
+
+
 def editions(commodity):
     """Every MCS chapter link on the commodity page, as {edition_year: url}."""
-    html, _ = get(PAGE % SLUG[commodity])
+    html, _ = get(PAGE % PAGE_SLUG.get(commodity, SLUG[commodity]))
     html = html.decode('utf-8', 'replace')
     out = {}
     names = [h.rsplit('/', 1)[-1].lower() for h in re.findall(r'href="([^"]+\.pdf)"', html)]
@@ -79,12 +129,16 @@ def editions(commodity):
         name = href.rsplit('/', 1)[-1].lower()
         # the commodity's own chapter only: a page like rare earths also links mcs-2010-scand.pdf and
         # mcs-2010-yttri.pdf, and matching on the year alone silently downloaded yttrium instead
-        m = re.fullmatch(r'mcs-(\d{4})-' + re.escape(stem) + r'\.pdf', name) or             re.fullmatch(r'mcs(\d{4})-' + re.escape(slug) + r'\.pdf', name)
+        m = re.fullmatch(r'mcs-(\d{4})-' + re.escape(stem) + r'(?:_\d)?\.pdf', name) or             re.fullmatch(r'mcs(\d{4})-' + re.escape(slug) + r'(?:_\d)?\.pdf', name)
         if m:
             out[int(m.group(1))] = href
             continue
         # 1996-2007: coppemcs96.pdf .. coppemcs07.pdf
-        m = re.match(re.escape(stem) + r'mcs(\d{2})\.pdf$', name)
+        m = None
+        for st in [stem] + ALT_STEM.get(commodity, []):
+            m = re.match(re.escape(st) + r'mcs(\d{2})(?:_\d)?\.pdf$', name)
+            if m:
+                break
         if m:
             yy = int(m.group(1))
             out[1900 + yy if yy >= 90 else 2000 + yy] = href
@@ -98,11 +152,16 @@ VOLUMES = {y: 'https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/produ
 # footnote marker from a digit here. They are left out rather than parsed badly.
 
 
+# The chapter's own printed title, where a volume carries a neighbour whose title starts with the same
+# word: cutting on "MAGNESIUM" alone took MAGNESIUM COMPOUNDS (magnesite) out of the 2000-2003 volumes,
+# a different commodity from MAGNESIUM METAL.
+CHAPTER_TITLE = {'magnesium': 'MAGNESIUM METAL', 'rare_earths': 'RARE EARTHS'}
+
+
 def chapter_pages(doc, commodity):
     """The pages of one commodity's chapter inside a full volume."""
-    want = commodity.replace('_', ' ').upper()
-    alt = {'RARE EARTHS': 'RARE EARTHS', 'GRAPHITE': 'GRAPHITE'}.get(want, want)
-    head = re.compile(r'^\s*\d*\s*(%s|%s)\b' % (re.escape(want), re.escape(alt)), re.M)
+    want = alt = CHAPTER_TITLE.get(commodity, commodity.replace('_', ' ').upper())
+    head = re.compile(r'^\s*\d*\s*(%s|%s)(?!\s+[A-Z]{2,})' % (re.escape(want), re.escape(alt)), re.M)
     other = re.compile(r'^\s*\d*\s*[A-Z][A-Z \-()]{3,}$', re.M)
     pages = []
     for i in range(len(doc)):
@@ -174,13 +233,9 @@ def main():
         if os.path.exists(path) and not a.refresh:
             continue
         try:
-            body, final = get(url)
+            body, final = get_any(url)
         except Exception as e:
             print('  %d FAILED %s' % (y, e))
-            continue
-        if not body.startswith(b'%PDF'):
-            # the old minerals.usgs.gov paths redirect to an HTML landing page
-            print('  %d not a PDF (redirected to %s)' % (y, final))
             continue
         # confirm the chapter is the commodity asked for, not a neighbour on the same page
         head = ''

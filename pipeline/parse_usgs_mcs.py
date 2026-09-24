@@ -93,6 +93,21 @@ def line_text(ln):
     return ' '.join(s['text'] for s in ln).strip()
 
 
+def caption_text(ln, base):
+    """The line's text without a leading superscript footnote marker.
+
+    The caption often carries the previous paragraph's footnote reference ahead of it, so the line
+    reads "8 World Refinery Production and Reserves:" and a match on "World" fails. Four chapters
+    (germanium 2021, nickel 2017, manganese 1996, magnesium 2004) were dropped whole for that reason.
+    The marker is identified by its type size, as everywhere else in this parser, never by stripping
+    digits.
+    """
+    ss = list(ln)
+    while ss and ss[0]['size'] < base - 0.6:
+        ss = ss[1:]
+    return ' '.join(s['text'] for s in ss).strip()
+
+
 def body_size(page_lines):
     """The modal font size: anything smaller in a table row is a footnote marker."""
     c = {}
@@ -153,8 +168,9 @@ def parse_edition(path, commodity, edition_year):
         # find the table caption
         start = None
         for i, ln in enumerate(L):
-            if CAPTION.match(line_text(ln)):
-                start, caption = i, line_text(ln).split(':')[0]
+            ct = caption_text(ln, base)
+            if CAPTION.match(ct):
+                start, caption = i, ct.split(':')[0]
                 break
         if start is None:
             continue
