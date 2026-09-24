@@ -1,0 +1,75 @@
+name: zenodo-archive-watch
+# A release can be published, delivered, accepted by Zenodo with a 202 - and never archived. That
+# happened to v1.8 on 2026-09-24 during a Zenodo outage, and nothing alerted: the site was correct and
+# the repo was pushed, while the citable record silently lagged a published correction by hours. The
+# failed event could not even be retried ("The release has already been received"). This runs daily and
+# opens an issue when the newest GitHub release is still missing from Zenodo the next day.
+on:
+  schedule:
+    - cron: '0 8 * * *'   # daily, 08:00 UTC
+  workflow_dispatch:
+permissions:
+  issues: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.11'
+      - id: probe
+        name: Is the newest GitHub release archived on Zenodo?
+        run: |
+          set +e
+          python check_zenodo_archive.py > probe.txt 2>&1
+          code=$?
+          cat probe.txt
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+        # exit 0 = archived, 1 = not yet, 2 = cannot tell (Zenodo down, or the API changed)
+      - name: How old is the newest release?
+        id: age
+        if: steps.probe.outputs.code == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const rel = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner, repo: context.repo.repo });
+            const hours = (Date.now() - Date.parse(rel.data.published_at)) / 3600000;
+            core.setOutput('hours', Math.round(hours));
+            core.setOutput('tag', rel.data.tag_name);
+            return hours;
+      - name: Open an issue when a release stays unarchived, or when the check itself breaks
+        # a release minutes old is not a problem; one still missing a day later is
+        if: steps.probe.outputs.code == '2' || (steps.probe.outputs.code == '1' && steps.age.outputs.hours > 24)
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const out = fs.readFileSync('probe.txt', 'utf8');
+            const broke = '${{ steps.probe.outputs.code }}' === '2';
+            const tag = '${{ steps.age.outputs.tag }}';
+            const title = broke
+              ? 'zenodo-archive-watch could not tell (Zenodo down, or the API changed)'
+              : `Release ${tag} is still not archived on Zenodo`;
+            const existing = await github.rest.issues.listForRepo({
+              owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'zenodo-watch',
+            });
+            if (existing.data.some(i => i.title === title)) return;
+            const body = broke
+              ? ['The daily check could not answer.', '', '```', out, '```', '',
+                 'Usually Zenodo is degraded. If it persists, the API or the concept record moved and',
+                 'check_zenodo_archive.py needs updating.'].join('\n')
+              : [`${tag} has been published for more than a day and Zenodo holds no matching version.`,
+                 '', '```', out, '```', '',
+                 'Repair (check_zenodo_archive.py header):',
+                 '1. Look at https://zenodo.org/me/uploads for a stuck draft of that version.',
+                 '2. If there is none, the event cannot be retried - Zenodo refuses it as already',
+                 '   received. Publish a new patch release from the same commit instead.',
+                 '3. Say in those release notes that the previous tag failed to archive, so the gap in',
+                 '   the version history is documented rather than mysterious.',
+                 '4. The concept DOI keeps resolving to the last version that DID archive, so until',
+                 '   this is fixed, anything citing the DOI cites superseded content.'].join('\n')
+            await github.rest.issues.create({
+              owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['zenodo-watch'],
+            });
