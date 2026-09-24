@@ -35,6 +35,14 @@ EXCLUSION_REASON = {
     'bismuth': 'same reserve-column fault as magnesite in the 2022 edition - our limit, not a gap in '
                'the source',
 }
+# the seven materials the EU called critical BEFORE the change window, from build_bgs_concentration.py
+EU_CRM_2011 = {'antimony', 'cobalt', 'fluorspar', 'graphite', 'platinum_group_metals', 'rare_earths',
+               'tungsten'}
+# the study's stated honest finding: cobalt concentrated while the older export-controlled materials
+# came off monopoly highs
+DIVERGENCE_UP = 'cobalt'
+DIVERGENCE_DOWN = ('antimony', 'graphite', 'rare_earths')
+
 DRAWS = 2000
 SEED = 20260924
 EARLY, LATE = (1995, 2004), (2015, 2024)
@@ -348,7 +356,36 @@ def main():
                 'stratified_verdict': verdict(float(np.mean(np.sign(strat_med) == np.sign(base_med))))}
         sims = None
 
+    # deviation 5: the claims the concentration study actually stands behind, on the same draws
+    claims = {}
+    if rows:
+        per = {r['material']: per_material[r['material']] for r in rows}
+        ex = [m for m in per if m in EU_CRM_2011]
+        if ex:
+            base_ex = float(np.median([next(r['recomputed_change'] for r in rows if r['material'] == m)
+                                       for m in ex]))
+            draws_ex = np.median(np.vstack([per[m] for m in ex]), axis=0)
+            claims['ex_ante_2011'] = {
+                'materials': sorted(ex), 'n_tested': len(ex), 'n_in_claim': len(EU_CRM_2011),
+                'published_median_change': round(base_ex, 4),
+                'share_same_sign': round(float(np.mean(np.sign(draws_ex) == np.sign(base_ex))), 4),
+                'p05': round(float(np.percentile(draws_ex, 5)), 4),
+                'p95': round(float(np.percentile(draws_ex, 95)), 4),
+                'verdict': verdict(float(np.mean(np.sign(draws_ex) == np.sign(base_ex))))}
+        down = [m for m in DIVERGENCE_DOWN if m in per]
+        if DIVERGENCE_UP in per and down:
+            up_draws = per[DIVERGENCE_UP]
+            down_draws = np.median(np.vstack([per[m] for m in down]), axis=0)
+            both = float(np.mean((up_draws > 0) & (down_draws < 0)))
+            claims['divergence'] = {
+                'up': DIVERGENCE_UP, 'down': sorted(down),
+                'share_both_hold': round(both, 4),
+                'share_up_holds': round(float(np.mean(up_draws > 0)), 4),
+                'share_down_holds': round(float(np.mean(down_draws < 0)), 4),
+                'verdict': verdict(both)}
+
     res = {'filing': 'self-audit/PREREGISTRATION.md', 'draws': DRAWS, 'seed': SEED,
+           'claims': claims,
            'windows': {'early': list(EARLY), 'late': list(LATE)},
            'proxy': 'BGS production tested against USGS-measured revisions; every row is a proxy row',
            'headline': head, 'materials': rows, 'excluded': excluded,
@@ -364,6 +401,8 @@ def main():
               '[%+.3f, %+.3f] -> %s' % (head['published_median_change'], head['n_materials'],
                                         100 * head['share_same_sign'], head['p05'], head['p95'],
                                         head['verdict'].upper()))
+    for k, v in claims.items():
+        print('%-14s %s' % (k, {kk: vv for kk, vv in v.items() if kk != 'materials'}))
     print('tested %d, excluded %d' % (len(rows), len(excluded)))
 
 
