@@ -128,3 +128,29 @@ fails even under an optimistic noise model.
 USGS editions, so every row here is a proxy row in the sense the filing defines, and the result is
 reported as proxy-dependent throughout. A material with no counterpart in the fifteen-commodity panel
 is excluded and counted.
+
+**2026-09-24 — deviation 2: the headline claim turns out not to be testable, and the subset that is
+testable is not a sample of it.** Logged immediately on seeing the coverage, before any verdict was
+written up.
+
+The concentration study covers 23 critical materials. Only 10 have a counterpart in the
+fifteen-commodity revision panel, so only 10 have a measured revision pool to resample from. The other
+13 - fluorspar, lead, vanadium, phosphate rock, magnesite, bismuth, feldspar, chromium, zinc,
+molybdenum, titanium, barytes and the platinum-group metals - are untestable here.
+
+The selection is not neutral. The median change across the 10 testable materials is **-0.003**; across
+the 13 untestable ones it is **+0.060**; across all 23 it is the published **+0.046**. The materials we
+can test are almost exactly the ones that did not concentrate. Any statement of the form "the headline
+is fragile under revision noise" computed on those 10 would therefore be a statement about a different
+population, and the filing's own rule 2 - counts are reported as N of M with M defined - exists to stop
+precisely that.
+
+**So the headline is reported as UNTESTED, not as passed or failed**, and the per-material verdicts
+stand on their own. Two consequences, decided now rather than after seeing what they do to the result:
+
+1. The per-material table is published as it is, with the selection printed beside it.
+2. The panel is widened to cover the missing 13 where the USGS publishes a chapter for them, and the
+   headline is retested once it is. That widening is a change to the revision study's panel, so it is
+   logged there as well, and the retest uses this same filed design with no changes to it. If the
+   widened test then fails the headline, it is published as a failure - that commitment is made here,
+   before the wider panel exists.
