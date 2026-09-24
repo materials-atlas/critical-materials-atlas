@@ -102,7 +102,9 @@
     document.getElementById('chain').innerHTML = (D.hops || []).map(function (h) { return '<div class="hop"><div class="n">' + esc(h.n) + '</div><div class="t">' + esc(h.t) + '</div></div>'; }).join('');
     if (D.history && D.history.series && D.history.series.length) {
       var wrap = document.getElementById('history-wrap');
-      wrap.innerHTML = '<h2>' + esc(D.history.title) + conf(D.history.conf) + '</h2><div class="panel">' + historyChart(D.history) + '<p class="note">' + esc(D.history.note || '') + '</p></div>';
+      wrap.innerHTML = '<h2>' + esc(D.history.title) + conf(D.history.conf) + '</h2><div class="panel">' + historyChart(D.history) + '<p class="note">' + esc(D.history.note || '') + '</p>' +
+      (D.history.revision ? '<p class="note">' + esc(D.history.revision) +
+        ' <a href="/revisions">How firm is a current-year figure?</a></p>' : '') + '</div>';
     }
     _sources = D.sources || {};
     document.getElementById('sections').innerHTML = (D.sections || []).map(function (sec) {
