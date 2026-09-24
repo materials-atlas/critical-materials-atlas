@@ -34,6 +34,11 @@ PANEL = {
     'tin': 'tin', 'magnesium': 'magnesium', 'gallium': 'gallium', 'germanium': 'germanium',
     'indium': 'indium', 'tellurium': 'tellurium', 'rare_earths': 'rare_earths',
     'rare earths': 'rare_earths',
+    # added 2026-09-24 with the widened panel (deviation 3), so the headline can be tested
+    'lead': 'lead', 'chromium': 'chromium', 'molybdenum': 'molybdenum', 'fluorspar': 'fluorspar',
+    'phosphate rock': 'phosphate_rock', 'phosphate_rock': 'phosphate_rock',
+    'barytes': 'barite', 'barite': 'barite', 'feldspar': 'feldspar', 'titanium': 'titanium',
+    'vanadium': 'vanadium', 'zinc': 'zinc',
 }
 
 

@@ -34,6 +34,11 @@ SLUG = {'copper': 'copper', 'tungsten': 'tungsten', 'antimony': 'antimony', 'gra
         'gallium': 'gallium', 'germanium': 'germanium', 'lithium': 'lithium', 'nickel': 'nickel',
         'manganese': 'manganese', 'tin': 'tin', 'indium': 'indium', 'tellurium': 'tellurium',
         'magnesium': 'magnesium-metal', 'titanium': 'titanium', 'vanadium': 'vanadium', 'zinc': 'zinc',
+        # added 2026-09-24 so the concentration finding's own materials can be tested against a
+        # measured revision record (self-audit/PREREGISTRATION.md, deviation 2)
+        'lead': 'lead', 'chromium': 'chromium', 'molybdenum': 'molybdenum', 'fluorspar': 'fluorspar',
+        'phosphate_rock': 'phosphate-rock', 'barite': 'barite', 'feldspar': 'feldspar',
+        'platinum': 'platinum-group-metals', 'magnesite': 'magnesium-compounds',
         'tellurium': 'tellurium'}
 # Where the commodity's page is not named after it: tellurium shares selenium's page, and magnesium
 # metal's page is plain "magnesium" while its files are "magnesium-metal".

@@ -181,8 +181,12 @@ def parse_edition(path, commodity, edition_year):
             for s in L[i]:
                 if len(s['text'].strip()) > 28:
                     continue
+                # a column header can carry a parenthesised qualifier -- "Mine production
+                # (Feldspar)" -- which no stage pattern matches, leaving the year columns to
+                # fall through to whatever group IS present, usually Reserves
+                label = re.sub(r'\s*\([^)]*\)\s*$', '', s['text'].strip())
                 for name, rx in GROUPS:
-                    if rx.match(s['text'].strip()):
+                    if rx.match(label):
                         groups.append({'measure': name, 'x': (s['x0'] + s['x1']) / 2})
                         break
             # an estimate marker can sit on a header line ABOVE the year row, over its column
@@ -190,7 +194,13 @@ def parse_edition(path, commodity, edition_year):
             est_marks += [(s['x0'] + s['x1']) / 2 for s in L[i]
                           if s['size'] < base - 0.6 and s['text'].strip() == 'e']
             ys = [s for s in L[i] if YEAR.match(s['text'].rstrip('e'))]
-            if ys and len(ys) >= 1 and not re.search(r'[A-Za-z]{4}', txt.replace('e', '')):
+            # A year row carries short column headers beside its years - "Reserves", "Sponge",
+            # "(shipping grade)" - while prose arrives as one long span. Testing the line for a
+            # four-letter word could not tell those apart and dropped whole chapters (chromium,
+            # molybdenum, vanadium, titanium, magnesite); span length can.
+            header_like = (all(len(s['text'].strip()) <= 28 for s in L[i])
+                           and len(txt) <= 80)
+            if ys and header_like:
                 for s in ys:
                     est = s['text'].endswith('e')
                     if not est:  # a superscript 'e' sits in its own small span just after
