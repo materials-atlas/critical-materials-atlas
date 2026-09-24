@@ -68,14 +68,14 @@ chapter has been published once and cannot be measured yet.
 | graphite | 6.9% | 8.3% | 29.9% | 5.7% | 26% / 36% / 39% | no consistent direction | **weak** / **weak** |
 | cobalt | 5.7% | 3.6% | 29.0% | 4.7% | 49% / 38% / 13% | no consistent direction | **weak** / **soft** |
 | tungsten | 5.3% | 2.4% | 55.0% | 5.6% | 42% / 43% / 15% | no consistent direction | **weak** / **soft** |
-| rare earths | 2.5% | 3.1% | 17.1% | 0.0% | 38% / 27% / 36% | no consistent direction | **soft** / **soft** |
+| rare earths | 2.8% | 3.1% | 17.1% | 0.4% | 38% / 26% / 37% | no consistent direction | **soft** / **soft** |
 | copper | 1.5% | 2.1% | 3.8% | 5.0% | 53% / 42% / 5% | no consistent direction | **firm** / **soft** |
 
 **A current-year figure is worth about what its commodity's band says.** Copper's world total is the
 firmest: 1.5% between its first and its latest printing over the whole period, 2.1% over the last ten
 years, which straddles the filed "firm" and "soft" bands. Antimony's moves 11.6%, and has moved 42.5%.
 Graphite's 6.9% gets worse in the recent decade, not better (8.3%). The direction is not systematic:
-under the filed rule - which licenses only an upward reading, at 60% - no commodity has one.
+under the filed rule - which licenses only an upward reading, at 60% - no commodity has one, on either denominator: the filing says "the share of revisions that are upward", and whether unchanged reprints sit in that share or are excluded from it, the highest of the six is rare earths at 59% (Amendment A, deviation 5).
 Separating unchanged reprints from downward ones (deviation 11) shows why an earlier draft was wrong to
 call graphite and rare earths "revised down more often than up": graphite's mine series are 26% up,
 36% down and 39% UNCHANGED, and rare earths 38% / 27% / 36%. China's rare-earth figure moves
@@ -137,8 +137,8 @@ difference in the world total (and China), USGS over BGS, on the years both cove
 | graphite | mine | graphite | 2002-2024 | 17 | 30.7% | 31.0% |
 | antimony | mine | antimony, mine | 2002-2024 | 15 | 13.1% | 15.5% |
 | cobalt | mine | cobalt, mine | 2002-2024 | 19 | 12.7% | 25.0% |
-| rare earths | mine | rare earth oxides | 2003-2024 | 7 | 7.0% | 3.5% |
 | tungsten | mine | tungsten, mine | 2002-2024 | 21 | 6.9% | 8.6% |
+| rare earths | mine | rare earth oxides | 2002-2024 | 7 | 5.7% | 3.4% |
 | copper | refinery | copper, refined | 2019-2024 | 40 | 1.2% | 0.2% |
 | copper | mine | copper, mine | 2002-2024 | 54 | 0.6% | 1.2% |
 
@@ -148,7 +148,7 @@ Graphite is the far one at 30.7%, and not because the baskets differ - both seri
 and exclude synthetic material. China accounts for much of the early distance (BGS 1,800,000 t in 2010
 against the USGS's 600,000) and that difference has closed: both print 1,270,000 t in 2024. But the
 world totals are still 10% apart in that year, so the remainder is other countries, coverage or
-rounding, and 30.7% is a median over 2002-2024, not today's gap. Rare earths compare at 7.0% on a BGS
+rounding, and 30.7% is a median over 2002-2024, not today's gap. Rare earths compare at 5.7% on a BGS
 series with a median of 7 reporting countries against a USGS table carrying 3-13 countries with output,
 so coverage may be doing the work there.
 
@@ -240,3 +240,22 @@ Every change made after this filing goes here, dated, with its reason.
    The store itself now holds thirteen commodities, but this study keeps the six it filed; widening it
    is a scope change that belongs in an amendment.
 
+14. **2026-09-24, third fact-check - two chapters that exist had never been fetched, and one of them
+   changes a published figure.** The 2004 rare-earth chapter is linked from its USGS page with a
+   duplicated path segment, which returns 403; the fetcher took the failure and moved on. With that
+   edition in the panel, rare earths moves from the published **2.5% over 24 measurable years to 2.8%
+   over 26**, and its China median from 0.0% to 0.4%. Its band does not change, and no other filed
+   commodity moves: their editions were already complete. (The same fault had cost the wider panel eleven
+   indium chapters, the germanium 2019 chapter - published as `mcs-2019-germa_0.pdf`, a trailing `_0` the
+   pattern did not allow - and the 2003 germanium, tellurium and indium chapters, which sit inside the
+   yearly volume; see Amendment A, deviation 8.) The fetcher now retries a failed href under the two
+   paths the USGS actually serves, accepts the `_0` suffix, and knows the 2004 rare-earth chapter's own
+   stem (`remcs04.pdf`, not `rareemcs04.pdf`). **This is the third time a number here was wrong because of
+   what had not been retrieved rather than what had been computed**, which is the pattern worth carrying
+   to the rest of the atlas: a fetch that fails silently is a data error with no symptom.
+15. **2026-09-24, third fact-check - section 1's counts were two populations.** "1,752 series are
+   measurable; 1,469 are not" put the filed six on one side and all fifteen commodities on the other,
+   because the panel grew under the study. Both sides now count the six the study measures (1,763
+   measurable, 746 dropped), and the wider panel's counts are reported separately in the output file.
+   The chapter and country-series counts in the same paragraph were mixed the same way and are now the
+   six as well.

@@ -21,7 +21,8 @@ sys.path.insert(0, ROOT)
 import usgs_mcs_cube as U                                     # noqa: E402
 
 OUT = os.path.join(ROOT, 'out', 'usgs_revisions.json')
-FLOWS = ('mine', 'refinery', 'smelter')
+FLOWS = ('mine', 'refinery', 'smelter', 'production')
+MERGED = []   # filled by store(): tables the USGS renamed mid-series
 # The six the filing names. The panel behind it now holds more (the store is a general layer), but
 # widening the study is a scope change and belongs in an amendment, not in a quiet rerun.
 FILED = ('copper', 'tungsten', 'antimony', 'graphite', 'cobalt', 'rare_earths')
@@ -35,9 +36,38 @@ BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimo
              'tungsten': ('tungsten, mine', None), 'rare_earths': ('rare earth oxides', None)}
 
 
+def merge_renamed(d):
+    """One table whose row label the USGS rewrote reads as two measures and splits its own series.
+
+    Magnesium's "World Primary Production and Reserves" table is parsed as `production` through the
+    2020 edition and as `smelter` from 2021, so the two halves never meet and the later years drop out
+    of the comparison entirely. Merged only where the evidence says it is one table: the same printed
+    caption, and no edition printing both. Copper's mine and refinery tables fail that second test (six
+    editions print both) and are left alone.
+    """
+    merged = []
+    for c, g in d[d.row_kind == 'world_printed'].groupby('commodity'):
+        ms = sorted(g.measure.unique())
+        for i, a in enumerate(ms):
+            for b in ms[i + 1:]:
+                ga, gb = g[g.measure == a], g[g.measure == b]
+                if set(ga.table_caption) & set(gb.table_caption) and not (
+                        set(ga.edition_year) & set(gb.edition_year)):
+                    keep, drop = (a, b) if len(ga) >= len(gb) else (b, a)
+                    # the data years printed under both labels: their two printings straddle the rename
+                    joins = sorted(int(y) for y in set(ga.year) & set(gb.year))
+                    d.loc[(d.commodity == c) & (d.measure == drop), 'measure'] = keep
+                    merged.append({'commodity': c, 'kept': keep, 'folded_in': drop,
+                                   'join_years': joins,
+                                   'caption': sorted(set(ga.table_caption) & set(gb.table_caption))[0]})
+    return d, merged
+
+
 def store():
     d = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
     d = d[d.measure.isin(FLOWS) & d.year.notna()].copy()
+    d, merged = merge_renamed(d)
+    MERGED[:] = merged
     # compare in tonnes: a chapter that switched from thousand tonnes to tonnes is not a revision
     d['v'] = d.value_t.where(d.value_t.notna(), d.value)
     d['year'] = d.year.astype(int)
@@ -83,29 +113,76 @@ def band(x):
     return 'weak'
 
 
+def primary_measure(g):
+    """The stage a commodity's chapter actually tabulates: mine for most, refinery for germanium,
+    tellurium and indium, plain production for gallium. Reading 'mine' for all of them scored those
+    chapters as having no measurable years at all."""
+    w = g[g.row_kind == 'world_printed']
+    if w.empty:
+        return 'mine'
+    return w.measure.value_counts().idxmax()
+
+
+def join_sensitivity(r):
+    """A merged table's join year is the one pair printed across the rename, so it is the only place a
+    definition change could be read as a revision. Reported: that year's own revision, and the
+    commodity's world median with it dropped."""
+    out = {}
+    for m in MERGED:
+        c = m['commodity']
+        g = r[(r.commodity == c) & (r.row_kind == 'world_printed')]
+        if g.empty or not m['join_years']:
+            continue
+        keep = g[~g.year.isin(m['join_years'])]
+        out[c] = {'kept': m['kept'], 'folded_in': m['folded_in'],
+                  'join_years': m['join_years'],
+                  'join_revisions': {int(y): float(g[g.year == y].revision.iloc[0])
+                                     for y in m['join_years'] if len(g[g.year == y])},
+                  'world_median_abs': float(g.revision.abs().median()),
+                  'world_median_abs_without_join': (float(keep.revision.abs().median())
+                                                    if len(keep) else None)}
+    return out
+
+
 def summarise(r):
     out = {}
     for c, g in r.groupby('commodity'):
-        w = g[(g.row_kind == 'world_printed') & (g.measure == 'mine')]
-        cn = g[(g.iso3 == 'CHN') & (g.measure == 'mine')]
+        m = primary_measure(g)
+        w = g[(g.row_kind == 'world_printed') & (g.measure == m)]
+        cn = g[(g.iso3 == 'CHN') & (g.measure == m)]
         med_w = float(w.revision.abs().median()) if len(w) else None
-        mine = g[g.measure == 'mine']
+        mine = g[g.measure == m]
         # up, down and UNCHANGED are three different things: a reprint that does not move is not a
         # revision down, and unchanged reprints are common here (China's rare earths)
         up = float((mine.revision > 0).mean()) if len(mine) else None
         down = float((mine.revision < 0).mean()) if len(mine) else None
         same = float((mine.revision == 0).mean()) if len(mine) else None
-        settle = g[(g.row_kind == 'world_printed') & (g.measure == 'mine')].after_first_revision.abs()
+        settle = g[(g.row_kind == 'world_printed') & (g.measure == m)].after_first_revision.abs()
         out[c] = {
             'world_median_abs_revision': med_w,
             'world_years': int(len(w)),
             'world_max_abs_revision': float(w.revision.abs().max()) if len(w) else None,
+            # the year and levels behind that maximum, so a page can name it without re-deriving it
+            'world_max': ({'year': int(w.loc[w.revision.abs().idxmax()].year),
+                           'first': float(w.loc[w.revision.abs().idxmax()].first),
+                           'latest': float(w.loc[w.revision.abs().idxmax()].latest),
+                           'editions': [int(w.loc[w.revision.abs().idxmax()].first_edition),
+                                        int(w.loc[w.revision.abs().idxmax()].latest_edition)]}
+                          if len(w) else None),
             'china_median_abs_revision': float(cn.revision.abs().median()) if len(cn) else None,
             'china_years': int(len(cn)),
             'country_median_abs_revision': float(g[g.row_kind == 'country'].revision.abs().median()),
             'share_revised_up': up, 'share_revised_down': down, 'share_unchanged': same,
-            'share_revised_up_over': 'every mine series in the commodity: each country and the '
-                                     'printed world total',
+            # The filing says "the share of REVISIONS that are upward"; this code had divided by every
+            # printing, unchanged reprints included. Both denominators are reported, and the direction
+            # is read on the filing's own wording (third council round, 2026-09-24).
+            'share_up_of_revisions': (up / (up + down) if up is not None and (up + down) else None),
+            'direction_of_revisions': (
+                'revised up more often than down' if up is not None and (up + down)
+                and up / (up + down) >= UP_SHARE else 'no consistent direction'),
+            'measure': m,
+            'share_revised_up_over': 'every series in the commodity at its primary measure: each '
+                                     'country and the printed world total',
             'direction': ('revised up more often than down' if up is not None and up >= UP_SHARE else
                           'revised down more often than up' if down is not None and down >= UP_SHARE else
                           'no consistent direction'),
@@ -114,12 +191,13 @@ def summarise(r):
             # there is no third printing to settle towards; the count of years with three or more
             # editions is reported instead of a number that would always be zero.
             'years_with_three_or_more_editions': int((g[(g.row_kind == 'world_printed') &
-                                                        (g.measure == 'mine')].editions >= 3).sum()),
+                                                        (g.measure == m)].editions >= 3).sum()),
             'editions_per_measurable_year': 2,
             # deviation 2: the same medians over the last ten data years, added after seeing that the
             # largest revisions are from the 1990s. Descriptive; the filed headline is unchanged.
             'world_median_abs_revision_recent': (float(w[w.year >= w.year.max() - 9].revision.abs().median())
                                                  if len(w[w.year >= w.year.max() - 9]) else None),
+            'recent_window': ([int(w.year.max()) - 9, int(w.year.max())] if len(w) else None),
             'recent_years': ([int(w[w.year >= w.year.max() - 9].year.min()),
                               int(w.year.max())] if len(w) else None),
             'band_recent': (band(float(w[w.year >= w.year.max() - 9].revision.abs().median()))
@@ -255,22 +333,35 @@ def bgs_compare(d):
 
 def main():
     d = store()
-    r_all, dropped = revisions(d)
+    r_all, dropped_all = revisions(d)
+    # section 1 quotes measurable-against-dropped as one pair, so both sides must be the same
+    # population: the six filed commodities. The wider panel's counts are reported separately.
+    # (Third council round: the two had drifted apart once the panel grew.)
+    _, dropped = revisions(d[d.commodity.isin(FILED)])
     r = r_all[r_all.commodity.isin(FILED)]
     r_amend = r_all[~r_all.commodity.isin(FILED)]
     full = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
     res = {'filing': 'usgs-revisions/PREREGISTRATION.md',
            # counted over the commodities this study measures, not the whole store: the panel now
            # holds more commodities than the study covers, and the page quotes these numbers
-           'chapters_read': int(full[full.commodity.isin(d.commodity.unique())]
+           'chapters_read': int(full[full.commodity.isin(FILED)]
                                 .groupby(['commodity', 'edition_year']).ngroups),
+           'chapters_read_all_commodities': int(full[full.commodity.isin(d.commodity.unique())]
+                                                .groupby(['commodity', 'edition_year']).ngroups),
            'country_series': int(full[(full.row_kind == 'country') & full.iso3.notna() & full.year.notna() &
-                                      full.commodity.isin(d.commodity.unique())]
+                                      full.commodity.isin(FILED)]
                                  .groupby(['commodity', 'measure', 'iso3', 'year']).ngroups),
+           'country_series_all_commodities': int(
+               full[(full.row_kind == 'country') & full.iso3.notna() & full.year.notna() &
+                    full.commodity.isin(d.commodity.unique())]
+               .groupby(['commodity', 'measure', 'iso3', 'year']).ngroups),
            'commodities_measured': sorted(d.commodity.unique().tolist()),
            'store_commodities': sorted(full.commodity.unique().tolist()),
            'store': 'pipeline/data/usgs_mcs_history.parquet',
+           'renamed_tables_merged': MERGED,
+           'renamed_join_years': join_sensitivity(r_amend),
            'editions': U.editions(), 'series_dropped': dropped,
+           'series_dropped_all_commodities': dropped_all,
            'measurable_series': int(len(r)),
            'latest_year_excluded': {c: int(g.year.max()) + 1 for c, g in r.groupby('commodity')},
            'by_commodity': summarise(r),
