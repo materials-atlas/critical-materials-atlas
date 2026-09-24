@@ -131,6 +131,12 @@ def main():
     con.execute(f"COPY (SELECT * FROM flows_reconciled ORDER BY value_recon_fob DESC NULLS LAST) TO '{pqr}' (FORMAT PARQUET, COMPRESSION ZSTD)")
     pqq = os.path.join(schema.ROOT, 'pipeline', 'data', 'reporter_quality.parquet').replace('\\', '/')
     con.execute(f"COPY (SELECT * FROM reporter_quality ORDER BY n_flows DESC) TO '{pqq}' (FORMAT PARQUET, COMPRESSION ZSTD)")
+    # v2's variance components and the weights they imply. ORDER BY on the KEY, not on a value: the
+    # file has to be identical for identical inputs, and a tie in n_pairs must not decide row order.
+    pqrel = os.path.join(schema.ROOT, 'pipeline', 'data', 'reporter_reliability.parquet').replace('\\', '/')
+    con.execute(f"COPY (SELECT * FROM reporter_reliability ORDER BY fold, role, reporter, hs2) TO '{pqrel}' (FORMAT PARQUET, COMPRESSION ZSTD)")
+    pqw = os.path.join(schema.ROOT, 'pipeline', 'data', 'reliability_weights.parquet').replace('\\', '/')
+    con.execute(f"COPY (SELECT * FROM reliability_weights ORDER BY exporter, importer, hs6) TO '{pqw}' (FORMAT PARQUET, COMPRESSION ZSTD)")
 
     # concordance-confidence layer: honest identity grade of each material's customs code (exact/dominant/proxy)
     con.execute("CREATE OR REPLACE TABLE material_confidence(material VARCHAR, confidence VARCHAR, form VARCHAR, caveat VARCHAR)")
@@ -234,6 +240,55 @@ def main():
         WHERE r.basis='reconciled' AND r.period BETWEEN 202401 AND 202412 AND b.bmo>0 AND r.fob>0 AND r.cif>0""").fetchone()
     print(f"  ablation vs BACI ({abl[3]} flows, median |ln(est/BACI)|, lower=closer): exporter-only {abl[0]} · importer-only {abl[1]} · geomean(both) {abl[2]}")
     print(f"    -> exporter(FOB) & geomean are ~tied and both beat the importer(CIF) side. Reconciliation's value is MONTHLY frequency + disagreement flagging, NOT a lower central error vs annual BACI; we publish the equal-weight geomean (uses both declarations).")
+
+    # v2 IN THE SAME ABLATION - same flows, same BACI-monthly benchmark, same |ln| metric, and the
+    # same cif/markup construction of the importer side, so the only thing that differs between the
+    # two columns is where the weight sits. Four decimals, because three hid the difference; and a
+    # PAIRED comparison beside the medians, because two medians a thousandth apart say nothing on
+    # their own - what matters is on what share of flows the weighted estimate is actually closer.
+    # VALUE basis (USD) throughout: this says nothing about the tonnage reconciliation, which is a
+    # separate measure and is NOT weighted.
+    w2 = con.execute("""WITH b AS (SELECT reporter AS exporter, partner AS importer, hs6, SUM(value_usd)/12 AS bmo
+        FROM flows WHERE source='baci' GROUP BY 1,2,3),
+        e AS (SELECT abs(ln(r.fob/b.bmo)) AS e_exp,
+                     abs(ln((r.cif/r.cif_fob_markup)/b.bmo)) AS e_imp,
+                     abs(ln(sqrt(r.fob*r.cif/r.cif_fob_markup)/b.bmo)) AS e_v1,
+                     abs(ln(exp(r.w_exp_share*ln(r.fob)
+                              + r.w_imp_share*ln(r.cif/r.cif_fob_markup))/b.bmo)) AS e_v2,
+                     r.w_exp_share AS w
+              FROM flows_reconciled r JOIN b USING(exporter,importer,hs6)
+              WHERE r.basis='reconciled' AND r.period BETWEEN 202401 AND 202412
+                AND b.bmo>0 AND r.fob>0 AND r.cif>0)
+        SELECT COUNT(*), ROUND(median(e_exp),4), ROUND(median(e_imp),4), ROUND(median(e_v1),4),
+               ROUND(median(e_v2),4),
+               ROUND(100.0*AVG(CASE WHEN e_v2<e_v1 THEN 1.0 WHEN e_v2>e_v1 THEN 0.0 END),1),
+               ROUND(median(e_v2-e_v1),5),
+               ROUND(min(w),2), ROUND(median(w),2), ROUND(max(w),2),
+               ROUND(100.0*AVG(CASE WHEN abs(w-0.5)<0.01 THEN 1.0 ELSE 0.0 END),1)
+        FROM e""").fetchone()
+    print(f"  v1 vs v2 on the SAME {w2[0]} flows (median |ln(est/BACI)|, 4dp, VALUE basis):")
+    print(f"    exporter-only {w2[1]} · importer-only {w2[2]} · v1 equal-weight geomean {w2[3]} · "
+          f"v2 reliability-weighted {w2[4]}")
+    print(f"    paired: v2 closer on {w2[5]}% of flows (ties dropped), median(|err v2| - |err v1|) {w2[6]:+}")
+    print(f"    applied exporter weight: min {w2[7]} median {w2[8]} max {w2[9]}, "
+          f"{w2[10]}% of flows within 0.01 of equal weighting")
+    # The verdict reads BOTH columns, because the median and the paired test are free to disagree
+    # and on this data they do. Printing only the one that flatters the new estimator is exactly
+    # how a refinement gets adopted on a benchmark that cannot separate it from the old one.
+    med_v2, paired_v2 = w2[4] < w2[3], w2[5] > 50.0
+    verdict = ("v2 beats v1 on BOTH the median and the paired test" if med_v2 and paired_v2
+               else "v2 LOSES on both the median and the paired test" if not med_v2 and not paired_v2
+               else "SPLIT: the median prefers %s, the paired test prefers %s - this benchmark "
+                    "cannot separate them, so the default does not move"
+                    % ('v2' if med_v2 else 'v1', 'v2' if paired_v2 else 'v1'))
+    print(f"    -> {verdict}. PUBLISHED estimator: "
+          f"{'v2 (reliability-weighted)' if reconcile.RELIABILITY_WEIGHTED else 'v1 (equal-weight geomean)'}"
+          f" — reconcile.RELIABILITY_WEIGHTED = {reconcile.RELIABILITY_WEIGHTED}.")
+    print(f"    Both columns ship on every row (value_recon_fob, value_recon_fob_wv2) with the weights"
+          f" beside them; {stats.get('_n_rel', 0):,} corridors carry a fitted weight.")
+    print("    The benchmark is ANNUAL BACI over 12 - its own noise is ~1.16 log points, three orders")
+    print("    of magnitude above the gap between these estimators. It can refuse a refinement; it")
+    print("    cannot certify one. Read it as 'not demonstrably better', not as 'proven worse'.")
 
     print("\n--- the unified surface at work: HS-6 811292, wide (BACI) vs deep (Eurostat), one query ---")
     for r in con.execute("""SELECT source, code_level AS lvl, material, ROUND(SUM(value_usd)) AS usd
