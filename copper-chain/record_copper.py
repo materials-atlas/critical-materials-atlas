@@ -48,7 +48,7 @@ CHAIN = {
                 "matured, while the DR Congo climbed from ~0% to ~14% and Peru rose. Copper mining is getting LESS "
                 "concentrated — which is exactly why its chokepoint is not a country but the clock: total new supply, "
                 "not who owns it.",
-        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world copper total ends up a median 1.4% from its first printing (2.1% over the last ten years; the largest move was 3.6%), with no consistent direction.",
+        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world copper total ends up a median 1.5% from its first printing (2.1% over the last ten years; the largest move was 3.8%), with no consistent direction.",
         "series": [
             {"label": "Chile", "points": hist_points("copper", "CL")},
             {"label": "DR Congo", "points": hist_points("copper", "CD")},

@@ -22,6 +22,9 @@ import usgs_mcs_cube as U                                     # noqa: E402
 
 OUT = os.path.join(ROOT, 'out', 'usgs_revisions.json')
 FLOWS = ('mine', 'refinery', 'smelter')
+# The six the filing names. The panel behind it now holds more (the store is a general layer), but
+# widening the study is a scope change and belongs in an amendment, not in a quiet rerun.
+FILED = ('copper', 'tungsten', 'antimony', 'graphite', 'cobalt', 'rare_earths')
 BANDS = [(0.02, 'firm'), (0.05, 'soft'), (float('inf'), 'weak')]
 UP_SHARE = 0.60
 BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimony, mine', 'antimony, refined'),
@@ -31,7 +34,7 @@ BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimo
 
 def store():
     d = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
-    d = d[d.measure.isin(FLOWS) & d.year.notna()].copy()
+    d = d[d.measure.isin(FLOWS) & d.year.notna() & d.commodity.isin(FILED)].copy()
     # compare in tonnes: a chapter that switched from thousand tonnes to tonnes is not a revision
     d['v'] = d.value_t.where(d.value_t.notna(), d.value)
     d['year'] = d.year.astype(int)
@@ -127,7 +130,8 @@ def mine_vs_refine(d):
     out = {}
     for c in sorted(d.commodity.unique()):
         p_mine, p_ref = U.panel(c, 'mine'), U.panel(c, 'refinery')
-        if p_ref.empty:
+        # both stages, with years, or the pair says nothing: indium is refinery-only here
+        if p_ref.empty or p_mine.empty or p_ref.year.isna().all() or p_mine.year.isna().all():
             continue
         year = int(min(p_mine.year.max(), p_ref.year.max()))
         w_mine, w_ref = U.world(c, 'mine'), U.world(c, 'refinery')
@@ -251,9 +255,15 @@ def main():
     r, dropped = revisions(d)
     full = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
     res = {'filing': 'usgs-revisions/PREREGISTRATION.md',
-           'chapters_read': int(full.groupby(['commodity', 'edition_year']).ngroups),
-           'country_series': int(full[(full.row_kind == 'country') & full.iso3.notna() & full.year.notna()]
+           # counted over the commodities this study measures, not the whole store: the panel now
+           # holds more commodities than the study covers, and the page quotes these numbers
+           'chapters_read': int(full[full.commodity.isin(d.commodity.unique())]
+                                .groupby(['commodity', 'edition_year']).ngroups),
+           'country_series': int(full[(full.row_kind == 'country') & full.iso3.notna() & full.year.notna() &
+                                      full.commodity.isin(d.commodity.unique())]
                                  .groupby(['commodity', 'measure', 'iso3', 'year']).ngroups),
+           'commodities_measured': sorted(d.commodity.unique().tolist()),
+           'store_commodities': sorted(full.commodity.unique().tolist()),
            'store': 'pipeline/data/usgs_mcs_history.parquet',
            'editions': U.editions(), 'series_dropped': dropped,
            'measurable_series': int(len(r)),

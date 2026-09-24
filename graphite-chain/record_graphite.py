@@ -52,7 +52,7 @@ CHAIN = {
                 "from ~65% to a peak near 84% (2023) before easing to ~80% in 2025 as Mozambique and Tanzania restarted, while Madagascar and Brazil grew as small "
                 "alternative sources. But the mine is the LESS concentrated stage — the ~95% grip is downstream, at "
                 "the spherical-anode step, which no country series captures.",
-        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world graphite total ends up a median 6.5% from its first printing (8.3% over the last ten years; the largest move was 29.9%), with no consistent direction.",
+        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world graphite total ends up a median 6.9% from its first printing (8.3% over the last ten years; the largest move was 29.9%), with no consistent direction.",
         "series": [
             {"label": "China", "points": hist_points("graphite", "CN")},
             {"label": "Madagascar", "points": hist_points("graphite", "MG")},
