@@ -180,3 +180,33 @@ stands - if the widened test fails the headline, it is published as a failure.
 One comparability note, stated before the result: the USGS chapter behind titanium is *titanium
 mineral concentrates*, and the atlas has already found that titanium splits three ways on the
 ilmenite-versus-slag definition. Its row is therefore the weakest of the twenty and is flagged.
+
+**2026-09-24 — deviation 4: the pool is not exchangeable across producer size, and the filed
+asymmetry claim does not survive it.** Raised by both review engines independently; the design below is
+written before it is run, and the filed test is kept and published beside it rather than replaced.
+
+The filed test draws each country-year's revision from one pool covering every country and year of that
+commodity. Both reviewers objected that small producers revise proportionally more than large ones,
+while an HHI is driven by the large ones, so the test puts too much noise where it matters most.
+Measured on the panel, pooling all commodities, the median absolute revision by producer size is:
+smallest quartile **9.1%**, 25-50% **7.7%**, 50-75% **5.6%**, 75-90% **6.0%**, largest decile **5.5%**.
+The gradient is real and about 1.7x from the smallest quartile to the largest decile; within tungsten it
+is 10.8% against 5.1%, within antimony 21.5% against 10.4%, within copper 3.5% against 1.9%.
+
+**Consequence for what was filed.** Deviation 1 argued that independent draws understate uncertainty,
+so a pass is weak and a failure is strong. That asymmetry is now withdrawn. Two biases run in opposite
+directions: revisions are persistent and correlated in reality, which this design ignores and which
+makes the test too easy; and the unweighted pool puts small-producer revision magnitudes on dominant
+producers, which makes it too hard. Their net direction is unknown, so **neither a pass nor a failure
+here is a bound**, and the page must not claim one. The fragile verdicts in particular are no longer
+described as failures "even under a noise model that flatters the finding".
+
+**The sensitivity that is added, specified now.** The same test, with the draw stratified by producer
+size: each country-year is assigned to a share quantile bucket (0-25, 25-50, 50-75, 75-90, 90-100,
+the same cuts as the diagnostic above), and its revision is drawn only from revisions observed in that
+commodity at that bucket - falling back to the commodity's whole pool where a bucket holds fewer than
+30 revisions, which is recorded per material. Same 2,000 draws, same seed, same bands.
+
+**How both are reported.** The filed, unstratified test remains the headline number, because it is what
+was pre-registered. The stratified run is published beside it and labelled post-hoc. If the two
+disagree on any verdict, both are printed and the disagreement is the finding for that material.
