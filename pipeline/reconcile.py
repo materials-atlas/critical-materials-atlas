@@ -9,7 +9,9 @@ trusting a raw feed (TDM). Method (a monthly, tractable cousin of CEPII BACI):
      median cif/fob at HS6, falling back to HS4, HS2, then global, as BoP practice does;
   4. put both on a common FOB basis and take the geometric mean.
 Output table `flows_reconciled` with `basis` = reconciled | exporter_only | importer_only_adj.
-(v1 = equal-weight geomean; reliability-variance weighting is the next refinement.)"""
+(v1 = equal-weight geomean and STILL THE DEFAULT. v2 - an out-of-sample reliability-variance
+weighting - is implemented below, was measured against the same BACI ablation build.py already ran,
+and did not beat v1. See RELIABILITY_WEIGHTED for the numbers and the decision.)"""
 
 MIN_PAIRS = 8   # fewest matched pairs that may carry a coefficient of its own
 # Ceiling on the applied coefficient, from the Douanes CAF-FAB survey: nothing it measures
@@ -157,6 +159,246 @@ def _reporter_quality(con, markup):
              1.0 / ((len(es)*float(np.var(es)) + K*var_g) / (len(es)+K) + 0.02))
             for rep, es in byR.items()]
     con.executemany("INSERT INTO reporter_quality VALUES (?,?,?,?,?)", rows)
+
+
+# == RELIABILITY-VARIANCE WEIGHTING (v2) ======================================================
+# The equal-weight geomean says every declarant is equally good. Two customs services are not: some
+# track their partner to within a per cent month after month, some are out by a factor. Weighting
+# each declaration by 1/(the variance of its own error) is the textbook answer, and the geomean is
+# its w=0.5 special case - so v2 NESTS v1 and can differ from it only through the estimated
+# variances. Three things make it harder than the textbook version, and each is a decision recorded
+# here rather than a line of code to be taken on trust.
+#
+# 1. WE NEVER OBSERVE ONE SIDE'S ERROR. A mirror pair gives the DIFFERENCE of two errors,
+#    d = ln(fob) - ln(fob_from_cif), whose variance is v_exporter + v_importer. The per-side
+#    variances have to be DECOMPOSED out of the pair variances - a two-way variance-components
+#    problem - and cannot be read off any single reporter's rows. _reporter_quality already did the
+#    lite version of this and then charged the whole pair variance to BOTH reporters, which is
+#    exactly the step that makes a noisy reporter's partner look noisy too.
+# 2. A VARIANCE FITTED ON A FLOW MUST NOT WEIGHT THAT FLOW. Fit on everything and the weights have
+#    already seen the disagreement they are about to adjudicate - which flatters v2 on precisely the
+#    comparison we want to run, and is how a refinement gets "validated" by its own training data.
+#    So the fit runs REL_FOLDS times, each time holding out one fifth of the CORRIDORS
+#    (exporter x importer x hs6), and a flow is only ever weighted by a fit that never saw its
+#    corridor. The fold is md5 of the corridor key - not a random draw - so the folds are identical
+#    on every machine and every rerun, with no hash seed anywhere in them.
+# 3. SQUARED RESIDUALS HAVE A TAIL THAT EATS THE MEAN. A single 400x mirror gap contributes a
+#    squared log-residual of ~36 against a typical 0.5, and one such flow can halve a reporter's
+#    weight on its own. So squares are winsorized at REL_WINSOR before any averaging, and thin
+#    cells are shrunk toward the level above them (chapter -> reporter -> global) instead of being
+#    trusted. Robustness chosen on the shape of the residuals - not on the benchmark score.
+#
+# A weight is a SHARE of a declaration, never a licence to drop one: both weights stay strictly
+# inside (0,1) by construction (a variance floor, and a prior fallback), and a missing reliability
+# falls back to 0.5/0.5 rather than to zero. Same rule as the qty_kg zero at the top of SIDES_SQL:
+# "we don't know" must never be read as "nothing".
+#
+# NOT THE FIRST WEIGHTING IN THIS REPO, and the difference is the point. The ANNUAL engine that
+# reproduces BACI (reconcile/reconcile.py, step 3) already inverse-variance weights: it regresses
+# squared mirror discrepancies on reporter dummies, averages each country's two roles into one
+# variance, and weights with it - fitted on the same flows it then weights, one variance per
+# reporter, no product grain. This is that idea done for the MONTHLY engine and done more
+# carefully: roles kept apart, a chapter grain where the data carries one, and the fit held out of
+# the corridors it is applied to. Which is also why the two cannot be compared on their scores.
+REL_FOLDS = 5             # out-of-sample folds, by CORRIDOR: no flow is weighted by its own corridor
+MIN_REL_PAIRS = 30        # fewest pairs before a reporter-role cell may carry a variance of its own
+MIN_REL_PAIRS_HS2 = 100   # ... and per reporter x HS2 chapter, where the failure modes differ most
+REL_K = 5.0               # shrinkage pseudo-count toward the level above (chapter -> reporter -> global)
+REL_WINSOR = 0.95         # squared residuals above this quantile are pulled back to it before averaging
+REL_FLOOR = 1e-4          # variance floor: no declarant is exact, and 1/0 is not a weight
+# -- THE VERDICT: MEASURED, AND NOT ADOPTED (24 Sep 2026) -------------------------------------
+# Scored through build.py's OWN ablation, unchanged: median |ln(estimate / BACI monthly average)| on
+# the 23,467 matched 2024 reconciled flows, VALUE basis (USD), same protocol, same flows and the same
+# importer-side construction as the equal-weight figure it is compared with. One run, with the
+# constants above fixed BEFORE it; nothing here was tuned on this benchmark.
+#
+#     exporter-only 1.164581   importer-only 1.169377   v1 equal-weight 1.165602   v2 weighted 1.165197
+#
+# TWO READINGS OF THE SAME BENCHMARK, POINTING OPPOSITE WAYS, which is the whole finding:
+#   - the HEADLINE median is 0.000406 log points LOWER for v2 (0.03% of an error of 1.166), and a
+#     seeded 1,000-resample bootstrap puts that difference's 95% interval at [-0.0029, +0.0028].
+#     It straddles zero by a factor of seven. On this statistic the two estimators are the same.
+#   - the PAIRED comparison, which is the more powerful test because it holds the flow fixed, says
+#     v1: v1 is closer on 12,064 flows against v2's 11,389 (v2 wins 48.6%, binomial p = 1.1e-05,
+#     Wilcoxon p = 0.003), and the median per-flow difference is +0.00013 in v1's favour.
+# So v2 does NOT beat v1. Where the benchmark can distinguish them at all it prefers v1, and where
+# it cannot it says nothing. RELIABILITY_WEIGHTED therefore stays False: value_recon_fob remains the
+# equal-weight geomean, and the weighted estimate ships BESIDE it in value_recon_fob_wv2 with the
+# weights and variances that produced it, so a reader can check this instead of believing a comment.
+#
+# THE FAILURE IS NOT A DEGENERATE-WEIGHT ARTEFACT. The weights bite: the applied exporter share runs
+# 0.01 to 0.99 with a median of 0.502, only 4.7% of the benchmark flows (4.9% of all reconciled
+# flows) land within 0.01 of equal weighting, and v2 moves the published number by a median 1.4%
+# (p95 11%). Three post-hoc probes, run AFTER the
+# verdict and recorded as probes rather than as a search for a winner, all land in the same place:
+# reporter-level cells only (v2-v1 -0.0013, paired 48.3%), heavier shrinkage K=50 (-0.0002, 48.6%),
+# and weights clamped to [0.25, 0.75] (-0.0010, 48.6%). Not one of them reverses the paired test.
+#
+# WHY, as far as the data can say. Weighting moves the estimate toward the side with the smaller
+# mirror-residual variance, which is a ~1% effect; against an ANNUAL benchmark divided by twelve the
+# error is ~1.166 log points - a factor of 3.2 - and that is the lumpiness of one month against a
+# twelfth of a year, not the choice of side. The benchmark's own noise is three orders of magnitude
+# above the thing being tested. It can REFUSE a refinement; it cannot certify one.
+# Flip this to True only with a benchmark that can tell the two apart - a MONTHLY external series,
+# not an annual one - and only with the ablation rerun and this block rewritten to its numbers.
+#
+# WHAT THE WEIGHTS ARE WORTH ANYWAY, and why they ship. The variance components rediscover, from
+# nothing but mirror gaps, exactly the structure the rest of this file had to be told about: the
+# noisiest exporters are NLD 3.27, HKG 4.40, LUX 3.86, IRL 3.09, HUN 3.19 - the entrepot and
+# processing hubs already hard-coded in HUBS_SQL - and the tightest are MKD 0.15, URY 0.17, BOL 0.39
+# (fold 0, reporter-level residual variance, >=500 pairs). A per-reporter noise measure that finds
+# the re-export problem on its own is a data-quality instrument worth publishing even when it is not
+# a better estimator.
+RELIABILITY_WEIGHTED = False
+
+
+def _reliability_weights(con):
+    """Per-declarant inverse-variance weights, estimated OUT OF SAMPLE. Writes two tables.
+
+    reporter_reliability(fold, role, reporter, hs2, n_pairs, var_resid) - the variance components:
+      what one declaration by this reporter, in this role (exporter / importer), in this chapter,
+      contributes to a mirror disagreement. hs2='' is the reporter-level cell, reporter='' the
+      fold's global prior. Every row is fitted WITHOUT the corridors of its own fold.
+    reliability_weights(exporter, importer, hs6, fold, var_exp, var_imp, w_exp, w_imp, rel_level) -
+      one row per corridor: the weights actually applied, and which level of cell supplied them.
+
+    Method. d = ln(fob) - ln(fob_from_cif) over the two-sided pairs, on the freight-adjusted sides
+    (sides_adj), so the residual is disagreement AFTER the CIF/FOB correction - which is what the
+    weights are about. Systematic level bias comes out first, by alternating robust two-way median
+    centering (a reporter that is always 3% high is BIASED, not noisy, and only the noise belongs in
+    a variance); then E[resid^2] = var_exp[i] + var_imp[j] is solved by Gauss-Seidel on winsorized
+    squares with shrinkage. A side's weight is its reliability over the sum of the two, and with
+    reliability = 1/variance that is w_exp = var_imp / (var_exp + var_imp).
+    """
+    import hashlib
+    import numpy as np, pandas as pd
+
+    con.execute("CREATE OR REPLACE TABLE reporter_reliability(fold INTEGER, role VARCHAR, "
+                "reporter VARCHAR, hs2 VARCHAR, n_pairs INTEGER, var_resid DOUBLE)")
+    con.execute("CREATE OR REPLACE TABLE reliability_weights(exporter VARCHAR, importer VARCHAR, "
+                "hs6 VARCHAR, fold INTEGER, var_exp DOUBLE, var_imp DOUBLE, w_exp DOUBLE, "
+                "w_imp DOUBLE, rel_level VARCHAR)")
+    # ORDER BY, not because the fit needs it - medians and bincounts do not care about row order -
+    # but because an unordered DuckDB scan may hand back a different order on another machine, and
+    # a pinned weight that depends on that is not a pinned weight.
+    d = con.execute("""SELECT exporter, importer, hs6, ln(fob) - ln(fob_from_cif) AS d
+                       FROM sides_adj WHERE fob > 0 AND fob_from_cif > 0
+                       ORDER BY exporter, importer, hs6, period""").df()
+    corridors = con.execute("""SELECT DISTINCT exporter, importer, hs6 FROM sides_adj
+                               ORDER BY exporter, importer, hs6""").df()
+    if not len(d) or not len(corridors):
+        return 0
+
+    def _fold(frame):
+        """md5 of the corridor key mod REL_FOLDS - hashed once per DISTINCT corridor. Python's own
+        hash() is seeded per process and must never decide which data trains which weight."""
+        key = (frame.exporter.astype(str) + '|' + frame.importer.astype(str) + '|'
+               + frame.hs6.astype(str))
+        uniq = {k: int(hashlib.md5(k.encode('utf-8')).hexdigest()[:8], 16) % REL_FOLDS
+                for k in sorted(set(key))}
+        return key.map(uniq).to_numpy()
+
+    d['fold'] = _fold(d)
+    corridors['fold'] = _fold(corridors)
+    # factorize with sort=True: a reporter's integer code is a function of its NAME, not of which
+    # row happened to arrive first.
+    ecode, exps = pd.factorize(d.exporter.astype(str), sort=True)
+    icode, imps = pd.factorize(d.importer.astype(str), sort=True)
+    hcode, hs2s = pd.factorize(d.hs6.astype(str).str[:2], sort=True)
+    dv = d.d.to_numpy(dtype=float)
+    fold = d.fold.to_numpy()
+    n_e, n_i, n_h = len(exps), len(imps), len(hs2s)
+
+    def _median_by(x, code, n):
+        out = np.zeros(n)
+        s = pd.Series(x).groupby(code, sort=True).median()
+        out[np.asarray(s.index, dtype=int)] = s.to_numpy()
+        return out
+
+    def _shrunk_mean_by(x, code, n, prior, floor_n):
+        """Cell mean of x shrunk toward `prior` with REL_K pseudo-observations. A cell thinner than
+        floor_n is not trusted with a value of its own at all - it returns NaN and the caller falls
+        back to the level above."""
+        tot = np.bincount(code, weights=x, minlength=n)
+        cnt = np.bincount(code, minlength=n).astype(float)
+        val = (tot + REL_K * prior) / (cnt + REL_K)
+        return np.where(cnt >= floor_n, np.maximum(val, REL_FLOOR), np.nan), cnt
+
+    rows, wrows = [], []
+    for k in range(REL_FOLDS):
+        fit = fold != k                  # <- the hold-out: this fold's corridors are NOT fitted
+        if fit.sum() < MIN_REL_PAIRS:
+            continue
+        ec, ic, hc, x = ecode[fit], icode[fit], hcode[fit], dv[fit]
+        a = np.zeros(n_e); b = np.zeros(n_i)
+        for _ in range(5):               # robust two-way median centering: BIAS out, noise left in
+            a = _median_by(x - b[ic], ec, n_e)
+            b = _median_by(x - a[ec], ic, n_i)
+        resid = x - a[ec] - b[ic]
+        sq = resid ** 2
+        sq = np.minimum(sq, float(np.quantile(sq, REL_WINSOR)))   # the tail does not set a weight
+        prior = max(float(sq.mean()) / 2.0, REL_FLOOR)            # ONE side's share of a pair variance
+        v_imp_r = np.full(n_i, prior)
+        v_exp_c = v_imp_c = None
+        for _ in range(4):               # Gauss-Seidel on E[resid^2] = var_exp[i] + var_imp[j]
+            t_e = np.maximum(sq - v_imp_r[ic], REL_FLOOR)
+            v_exp_c, cnt_e = _shrunk_mean_by(t_e, ec, n_e, prior, MIN_REL_PAIRS)
+            v_exp_r = np.where(np.isnan(v_exp_c), prior, v_exp_c)
+            t_i = np.maximum(sq - v_exp_r[ec], REL_FLOOR)
+            v_imp_c, cnt_i = _shrunk_mean_by(t_i, ic, n_i, prior, MIN_REL_PAIRS)
+            v_imp_r = np.where(np.isnan(v_imp_c), prior, v_imp_c)
+        # per reporter x CHAPTER where there is enough data for it: freight and misreporting are not
+        # the same problem for ore as for wire, and a reporter can be sound on one and not the
+        # other. Shrunk toward its OWN reporter-level cell, so a thin chapter stays close to it.
+        veh, cnt_eh = _shrunk_mean_by(t_e, ec * n_h + hc, n_e * n_h,
+                                      np.repeat(v_exp_r, n_h), MIN_REL_PAIRS_HS2)
+        vih, cnt_ih = _shrunk_mean_by(t_i, ic * n_h + hc, n_i * n_h,
+                                      np.repeat(v_imp_r, n_h), MIN_REL_PAIRS_HS2)
+        rows.append((k, 'exp', '', '', int(fit.sum()), prior))
+        rows.append((k, 'imp', '', '', int(fit.sum()), prior))
+        for idx in np.nonzero(~np.isnan(v_exp_c))[0]:
+            rows.append((k, 'exp', str(exps[idx]), '', int(cnt_e[idx]), float(v_exp_c[idx])))
+        for idx in np.nonzero(~np.isnan(v_imp_c))[0]:
+            rows.append((k, 'imp', str(imps[idx]), '', int(cnt_i[idx]), float(v_imp_c[idx])))
+        for idx in np.nonzero(~np.isnan(veh))[0]:
+            rows.append((k, 'exp', str(exps[idx // n_h]), str(hs2s[idx % n_h]),
+                         int(cnt_eh[idx]), float(veh[idx])))
+        for idx in np.nonzero(~np.isnan(vih))[0]:
+            rows.append((k, 'imp', str(imps[idx // n_h]), str(hs2s[idx % n_h]),
+                         int(cnt_ih[idx]), float(vih[idx])))
+
+        def _pick(reporter_cell, chapter_cell, ridx, hidx):
+            """chapter cell -> reporter cell -> fold prior, and a level label for each. A reporter
+            this fit never saw (all of its corridors held out) gets the PRIOR, not a zero: unknown
+            reliability is not zero reliability, and a zero weight would delete a declaration from
+            the estimate exactly the way a 0 kg quantity once deleted one from the weight test."""
+            v = np.full(len(ridx), np.nan)
+            lvl = np.full(len(ridx), 'prior', dtype=object)
+            safe_r = np.maximum(ridx, 0)
+            rv = np.where(ridx >= 0, reporter_cell[safe_r], np.nan)
+            lvl = np.where(~np.isnan(rv), 'reporter', lvl)
+            v = np.where(~np.isnan(rv), rv, v)
+            safe_h = np.maximum(hidx, 0)
+            hv = np.where((ridx >= 0) & (hidx >= 0), chapter_cell[safe_r * n_h + safe_h], np.nan)
+            lvl = np.where(~np.isnan(hv), 'chapter', lvl)
+            v = np.where(~np.isnan(hv), hv, v)
+            return np.maximum(np.where(np.isnan(v), prior, v), REL_FLOOR), lvl
+
+        cw = corridors[corridors.fold == k]   # held OUT of this fit = the corridors it may weight
+        if not len(cw):
+            continue
+        hidx = pd.Index(hs2s).get_indexer(cw.hs6.astype(str).str[:2])
+        ve, lve = _pick(v_exp_c, veh, pd.Index(exps).get_indexer(cw.exporter.astype(str)), hidx)
+        vi, lvi = _pick(v_imp_c, vih, pd.Index(imps).get_indexer(cw.importer.astype(str)), hidx)
+        w_exp = vi / (ve + vi)       # reliability = 1/variance, so a side's share is the OTHER variance
+        wrows.extend(zip(cw.exporter.astype(str), cw.importer.astype(str), cw.hs6.astype(str),
+                         [int(k)] * len(cw), ve.tolist(), vi.tolist(), w_exp.tolist(),
+                         (1.0 - w_exp).tolist(),
+                         [f'{p}/{q}' for p, q in zip(lve, lvi)]))
+
+    con.executemany("INSERT INTO reporter_reliability VALUES (?,?,?,?,?,?)", rows)
+    con.executemany("INSERT INTO reliability_weights VALUES (?,?,?,?,?,?,?,?,?)", wrows)
+    return len(wrows)
 
 
 def _markup_table(con, glob):
@@ -475,18 +717,49 @@ def _itic_markup(con):
     return len(out)
 
 
+# The freight-adjusted sides, materialized ONCE. It used to be an inline CTE inside the
+# flows_reconciled statement; the reliability fit needs exactly the same fob_from_cif that the
+# estimator uses, and the way two copies of a COALESCE chain go wrong is that one of them is
+# updated. One table, two readers, no drift. (Same columns, same values as the CTE it replaces -
+# v1's output is unchanged by this move, and the check pins that.)
+SIDES_ADJ_SQL = """
+CREATE OR REPLACE TABLE sides_adj AS
+SELECT sides.*, mk.markup_raw, mk.level AS markup_level,
+       -- PUBLISHED margin first (OECD-ITIC); our own estimates only where
+       -- it has no cell. The ceiling applies ONLY to our estimates - a
+       -- published margin of 13% for phosphate rock is not ours to clip.
+       COALESCE(it.markup_itic,
+                least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap})) AS markup,
+       COALESCE(it.itic_status,
+                CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
+                     ELSE 'product_median' END) AS markup_method,
+       -- THE FIX. An import the reporter already declared FOB carries no
+       -- freight to remove; dividing it by a margin understates it by that
+       -- margin. Only deflate when the basis is CIF or unknown.
+       CASE WHEN sides.cif_basis = 'fob' THEN cif
+            ELSE cif / COALESCE(it.markup_itic,
+                       least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0), {cap}))
+            END AS fob_from_cif
+FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6)
+LEFT JOIN markup_route rt USING (exporter, importer, hs6)
+LEFT JOIN markup_itic it USING (exporter, importer, hs6)
+"""
+
+
 def reconcile(con):
     """Given a DuckDB connection with a `flows` table, build `flows_reconciled`. Returns (markup, stats).
 
     Robust + HONEST (per an adversarial review): a single global freight markup is a ROUGH PLACEHOLDER
     (real CIF/FOB is route/commodity/mode-specific). It's estimated only from well-behaved pairs (cif/fob
     in 0.7-1.5) so asymmetries don't distort it. Each two-sided flow is CLASSIFIED: if the two FOB-basis
-    estimates agree (within 2x) -> reconcile with a SIMPLE geometric mean of the two sides. (We PREVIOUSLY
-    used a reliability-inverse-variance-weighted geomean, but an ablation against the BACI benchmark showed
-    equal weighting is marginally BETTER on ~180 flows — the weighting was complexity that didn't earn its
-    keep at this sample size. The reliability metrics w_exporter/w_importer and exp_bias/imp_bias are STILL
-    computed and EXPOSED as diagnostics of reporter behaviour; they just no longer drive the point estimate.
-    Revisit weighting once the two-sided set is large enough for it to help.) If they DISAGREE we DO NOT fabricate a number (no 'keep-larger', which biases up and
+    estimates agree (within 2x) -> reconcile with a SIMPLE geometric mean of the two sides. (Reliability-variance weighting - v2 - was
+    tried a first time on ~180 flows, lost to equal weighting, and was left as an exposed diagnostic. It has
+    now been rebuilt properly on 712,413 two-sided pairs: variance components decomposed per reporter and
+    per reporter x HS2 chapter, fitted OUT OF SAMPLE on five corridor folds, in _reliability_weights. It
+    lost again - see RELIABILITY_WEIGHTED for the numbers - so the published estimate is still the
+    equal-weight geomean, and the weighted one rides beside it in value_recon_fob_wv2 with the weights and
+    variances that produced it. A missing weight means EQUAL weights, never a zero: an unknown reliability
+    must not delete a declaration.) If they DISAGREE we DO NOT fabricate a number (no 'keep-larger', which biases up and
     rewards misreporting): value_recon_fob = NULL, and both sides + the [lo,hi] range stay exposed with
     basis='disagreement'. For critical materials these conflicts are mostly HS ambiguity / re-exports /
     confidentiality, not freight — so exposing them (not smoothing them) is the actual value vs TDM (raw)
@@ -496,29 +769,17 @@ def reconcile(con):
     levels = _markup_table(con, markup)   # per-product fallback
     n_route = _cepii_markup(con)          # per-ROUTE, from CEPII's published coefficients
     n_itic = _itic_markup(con)            # PRIMARY: the published OECD-ITIC margin
-    _reporter_quality(con, markup)   # variance-components: de-bias reporter effects + shrinkage-regularized reliabilities
     cap = FREIGHT_CEILING
+    con.execute(SIDES_ADJ_SQL.format(cap=cap))   # the freight-adjusted sides, once, for both readers
+    _reporter_quality(con, markup)   # variance-components: de-bias reporter effects + shrinkage-regularized reliabilities
+    n_rel = _reliability_weights(con)  # v2: OUT-OF-SAMPLE inverse-variance weights, per corridor
+    # ONE line decides which estimator is PUBLISHED, and it is the same expression the ablation in
+    # build.py scores. COALESCE(...,0.5) is the zero rule again in another costume: a corridor with
+    # no fitted weight is reconciled 50/50, never by dropping the side we know less about.
+    recon_expr = ("exp(COALESCE(rw.w_exp,0.5)*ln(s.fob) + COALESCE(rw.w_imp,0.5)*ln(s.fob_from_cif))"
+                  if RELIABILITY_WEIGHTED else "sqrt(s.fob * s.fob_from_cif)")
     con.execute(f"""CREATE OR REPLACE TABLE flows_reconciled AS
-      WITH s AS (SELECT sides.*, mk.markup_raw, mk.level AS markup_level,
-                        -- PUBLISHED margin first (OECD-ITIC); our own estimates only where
-                        -- it has no cell. The ceiling applies ONLY to our estimates - a
-                        -- published margin of 13% for phosphate rock is not ours to clip.
-                        COALESCE(it.markup_itic,
-                                 least(greatest(COALESCE(rt.markup_cepii, mk.markup), 1.0),
-                                       {cap})) AS markup,
-                        COALESCE(it.itic_status,
-                                 CASE WHEN rt.markup_cepii IS NOT NULL THEN 'cepii_route'
-                                      ELSE 'product_median' END) AS markup_method,
-                        -- THE FIX. An import the reporter already declared FOB carries no
-                        -- freight to remove; dividing it by a margin understates it by that
-                        -- margin. Only deflate when the basis is CIF or unknown.
-                        CASE WHEN sides.cif_basis = 'fob' THEN cif
-                             ELSE cif / COALESCE(it.markup_itic,
-                                        least(greatest(COALESCE(rt.markup_cepii, mk.markup),
-                                              1.0), {cap})) END AS fob_from_cif
-                 FROM sides LEFT JOIN markup_by_hs6 mk USING (hs6)
-                 LEFT JOIN markup_route rt USING (exporter, importer, hs6)
-                 LEFT JOIN markup_itic it USING (exporter, importer, hs6))
+      WITH s AS (SELECT * FROM sides_adj)
       SELECT s.period, s.exporter, s.importer, s.hs6, s.material,
         (s.exporter IN {HUBS_SQL} OR s.importer IN {HUBS_SQL}) AS via_entrepot,
         s.fob, s.cif, s.markup AS cif_fob_markup, s.markup_raw AS cif_fob_markup_raw,
@@ -532,9 +793,23 @@ def reconcile(con):
              THEN ROUND(least(s.fob, s.fob_from_cif) / greatest(s.fob, s.fob_from_cif), 3) END AS agreement,
         CASE WHEN s.fob IS NULL THEN s.fob_from_cif
              WHEN s.cif IS NULL THEN s.fob
-             WHEN s.fob_from_cif/s.fob BETWEEN 0.5 AND 2                             -- agree -> SIMPLE geometric mean of the two FOB-basis sides
-               THEN sqrt(s.fob * s.fob_from_cif)                                     -- ABLATION-DRIVEN: equal-weight beats the reliability-weighted
-             ELSE NULL END AS value_recon_fob,                                       --   version against BACI on ~180 flows; weights kept only as exposed diagnostics. disagree -> NULL.
+             WHEN s.fob_from_cif/s.fob BETWEEN 0.5 AND 2                             -- agree -> the PUBLISHED estimator (RELIABILITY_WEIGHTED picks it)
+               THEN {recon_expr}                                                     -- ABLATION-DRIVEN: equal-weight geomean, because the
+             ELSE NULL END AS value_recon_fob,                                       --   out-of-sample weighted version does not beat it. disagree -> NULL.
+        -- v2 BESIDE v1 on every row, whichever is published: this is the reliability-weighted
+        -- estimate, exp(w_exp*ln(fob) + w_imp*ln(fob_from_cif)), which is the same geometric mean
+        -- with the weights moved off 0.5. Equal when the two variances are equal, so a reader can
+        -- see how far the weighting actually moves a number instead of taking a claim about it.
+        CASE WHEN s.fob IS NULL THEN s.fob_from_cif
+             WHEN s.cif IS NULL THEN s.fob
+             WHEN s.fob_from_cif/s.fob BETWEEN 0.5 AND 2
+               THEN exp(COALESCE(rw.w_exp,0.5)*ln(s.fob) + COALESCE(rw.w_imp,0.5)*ln(s.fob_from_cif))
+             ELSE NULL END AS value_recon_fob_wv2,
+        -- ... and the weights themselves, with the variance each came from and which level of cell
+        -- supplied it (chapter / reporter / prior), so the estimate above is auditable per flow.
+        COALESCE(rw.w_exp, 0.5) AS w_exp_share, COALESCE(rw.w_imp, 0.5) AS w_imp_share,
+        rw.var_exp AS rel_var_exporter, rw.var_imp AS rel_var_importer,
+        rw.rel_level AS rel_level, rw.fold AS rel_fold,
         -- ── WEIGHT, reconciled the same way and on the same evidence ──────────────────
         s.qty_exp, s.qty_imp,
         CASE WHEN s.qty_exp IS NOT NULL AND s.qty_imp IS NOT NULL
@@ -561,7 +836,12 @@ def reconcile(con):
                   WHEN COALESCE(re.n_flows,0) < 5 OR COALESCE(ri.n_flows,0) < 5 THEN 'thin / low-reliability reporter'
                   ELSE 'unexplained (likely HS-code ambiguity or monthly timing mismatch)' END
         END AS disagree_reason
-      FROM s LEFT JOIN reporter_quality re ON s.exporter = re.reporter LEFT JOIN reporter_quality ri ON s.importer = ri.reporter""")
+      FROM s LEFT JOIN reporter_quality re ON s.exporter = re.reporter LEFT JOIN reporter_quality ri ON s.importer = ri.reporter
+      -- reliability_weights holds exactly ONE row per (exporter, importer, hs6), so this LEFT JOIN
+      -- can only annotate rows, never multiply them. Never a sum across sources, never a fan-out:
+      -- the row count of flows_reconciled must equal the row count of sides, and check.py asserts it.
+      LEFT JOIN reliability_weights rw ON s.exporter = rw.exporter AND s.importer = rw.importer
+                                      AND s.hs6 = rw.hs6""")
     # UNIT-VALUE SANITY, flagged not dropped. A reader found Belgium importing unwrought tungsten
     # at $1,123/t in Q1-2025 against ~$50,000/t everywhere else. Traced: GBR->BEL, Feb 2025,
     # $1,694 for 4,000 kg, identical in HMRC and in Comtrade (which is HMRC's data) - a filer
@@ -596,4 +876,5 @@ def reconcile(con):
     stats["_markup_levels"] = levels
     stats["_n_route"] = n_route
     stats["_n_itic"] = n_itic
+    stats["_n_rel"] = n_rel
     return markup, stats
