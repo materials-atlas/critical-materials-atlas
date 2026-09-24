@@ -157,6 +157,7 @@ HTML = '''<!doctype html>
   <h1>Who actually refines</h1>
   <p class="deck">The refiner is not the miner &mdash; but the exporter is not always the refiner either. This is a <b>capability map</b>: for each material it fuses two lenses to show who genuinely turns ore into refined metal. The <b>trade feedstock signature</b> (a country that <i>imports ore and exports refined</i> is transforming it &mdash; a fingerprint that survives export controls) plus <b>BGS/USGS physical output</b>, which catches the <i>domestic-absorbing</i> refiner &mdash; a giant like China that refines enormous volumes but consumes them at home, so it never shows up in refined exports.</p>
 </div></section>
+<main id="main">
 <article style="max-width:1180px">
   <div class="callout"><b>A chokepoint</b> is a stage of the supply chain where so few countries hold the capacity that everyone else depends on them &mdash; a point where one supplier&rsquo;s decision (an export ban, an accident, a policy) can squeeze the whole world. We measure it at the <i>refining</i> stage with the <b>HHI</b> (Herfindahl index, the sum of squared national shares): 0 = perfectly spread, 1 = a single country. Above 0.25 is concentrated, above 0.5 extreme.
   <br><br>A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
@@ -360,6 +361,7 @@ if(PT&&D.prov){
     D.prov.map(r=>`<tr style="border-bottom:1px solid var(--bg-soft)"><td>${r.name}</td><td>${r.ore||'—'}</td><td>${r.refined}</td><td style="color:var(--mut)">${r.refined_stage}</td><td style="color:${pc(r.flag)};font-weight:600">${r.flag}</td></tr>`).join('');
 }
 </script>
+</main>
 </body></html>'''
 
 out = os.path.join(ROOT, 'refiners.html')

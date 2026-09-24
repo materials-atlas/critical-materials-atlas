@@ -932,6 +932,35 @@ def check_usgs_mcs():
                          f"publisher's files; keep them in raw/ and publish only derived figures")
 
 
+def check_head():
+    """Every published page must keep the markup the post-passes add: the canonical link that stops
+    the clean URL and the .html twin competing, the favicons, and the skip-link with the <main> it
+    points at. This is the guard that was missing when two live pages lost all of it in a rebuild and
+    every other check still passed - the builders write a page, the post-passes dress it, and nothing
+    was checking that the second step had run."""
+    import glob
+    need = [('canonical link', re.compile(r'<link[^>]+rel="canonical"', re.I)),
+            ('favicon', re.compile(r'rel="apple-touch-icon"', re.I)),
+            ('main landmark', re.compile(r'<main[^>]+id="main"', re.I)),
+            ('skip link', re.compile(r'<a[^>]+class="skip"', re.I))]
+    tracked = set(subprocess.run(['git', 'ls-files', '*.html'], cwd=ROOT, capture_output=True,
+                                 text=True).stdout.split())
+    for f in sorted(glob.glob(os.path.join(ROOT, '*.html')) + glob.glob(os.path.join(ROOT, '*', '*.html'))):
+        rel = os.path.relpath(f, ROOT).replace(os.sep, '/')
+        if rel not in tracked or rel == '404.html':
+            continue
+        try:
+            html = open(f, encoding='utf8', errors='replace').read()
+        except Exception as e:
+            fail('head', f'{rel}: unreadable ({e})'); continue
+        if 'class="topbar"' not in html:            # not a site page (a fragment or an export)
+            continue
+        missing = [name for name, rx in need if not rx.search(html)]
+        if missing:
+            fail('head', f'{rel} is missing {", ".join(missing)} - run the post-passes '
+                         f'(add_canonicals.py, add_head.py) after rebuilding it')
+
+
 def check_register():
     """Every folder under raw/ has a row in the register. Invariant for phase 4.
 
@@ -1063,7 +1092,7 @@ def check_stale():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('head', check_head)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
