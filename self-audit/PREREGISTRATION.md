@@ -80,3 +80,51 @@ claim is true either — only that revision noise is not a sufficient explanatio
 ## Deviations log
 
 Every change made after this filing goes here, dated, with its reason.
+
+**2026-09-24 — deviation 1: the population is smaller than the filing implied, and the test changes
+shape for the claims that survive it.** Filed before any comparison was run; the reasons are structural
+and visible in the files themselves, not in any result.
+
+*Exclusions, with the rule each one fails.* `out/mine_refine.json` rests on trade codes and
+product-space distances, not production (rule 2). `out/risk.json` publishes scores, not changes (rule
+3). `out/production.json` states differences between three sources for the same year, which is a
+cross-source difference and not a change between years, vintages or a share across years (rule 3); that
+question is already answered elsewhere, by the measured agency gap now printed on the page itself.
+`out/capability_years.json` moves its year slider on the trade signal only - its physical share is a
+single recent vintage, as the refining page's own caveat states - so it publishes no production change
+either (rule 3). What remains is `out/concentration.json`.
+
+*Why the band test cannot be applied as written.* The filing compares "the change claimed" against a
+median revision expressed as a percentage of a production figure. The concentration finding is not
+stated in those units: it is a change in an HHI, a number between 0 and 1 computed from country shares.
+Comparing 0.046 HHI points against 11.6% is a category error, and no rescaling of one into the other is
+honest.
+
+*The test that replaces it, specified here before it is run.* Propagate the measured revisions into the
+finding instead of comparing to them:
+
+1. Rebuild each material's country-by-year production vectors from `out/cube.parquet`, exactly as
+   `build_bgs_concentration.py` does (BGS production rows, dominant form, dominant unit).
+2. For each country-year value, draw a signed revision at random, with replacement, from the EMPIRICAL
+   pool of that commodity's measured country-series revisions in the USGS panel - the actual observed
+   revisions, not a fitted distribution - and multiply the value by (1 + that revision).
+3. Recompute the HHI per year, average over 1995-2004 and 2015-2024 as the study does, and take the
+   change.
+4. 2,000 draws, seed 20260924, so the result is reproducible and the guard can pin it.
+5. Report, per material and for the headline median across materials: the share of draws in which the
+   published change keeps its SIGN, and the 5th-95th percentile band of the perturbed change.
+
+*Verdicts, fixed now.* ROBUST if the sign survives in at least 95% of draws; FRAGILE if 50-95%; NOT
+SUPPORTED below 50%.
+
+*The limitation that must travel with every verdict.* The draws are independent across countries and
+years. Real revisions are not: the world total is revised together with its parts, and successive
+editions share a method, so genuine revisions are correlated and persistent. Independent draws largely
+cancel inside a share, so this test UNDERSTATES the uncertainty and a ROBUST verdict is a weak pass,
+not a certificate. A FRAGILE or NOT SUPPORTED verdict, by contrast, is strong: it means the finding
+fails even under an optimistic noise model.
+
+*Proxy status.* The concentration finding rests on BGS production and the revision pool is measured on
+USGS editions, so every row here is a proxy row in the sense the filing defines, and the result is
+reported as proxy-dependent throughout. A material with no counterpart in the fifteen-commodity panel
+is excluded and counted.
