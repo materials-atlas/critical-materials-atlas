@@ -239,3 +239,36 @@ Three things are therefore tested, with the design unchanged (same draws, seed, 
 
 If the ex-ante result is fragile and the full-set result robust, that is published plainly: it would
 mean revision noise cannot erase a number the atlas does not lean on, and can erase one it does.
+
+**2026-09-24 — deviation 6: second review round. Three claims of strength come down; two numbers are
+added to support what is left.** Filed before the added numbers were computed.
+
+1. **The ex-ante result is a threshold pass and will be printed as one.** 96.3% clears the filed 95%
+   line by more than Monte Carlo error, so the filed label stands - but the band runs to -0.003 and the
+   six tested materials split 3-3 (antimony -0.344, graphite -0.190, rare earths -0.182 down; tungsten
+   +0.046, fluorspar +0.158, cobalt +0.310 up). The median is negative because it averages a large
+   stable decline with tungsten, whose own sign survives only 87.1%. "Mostly diversified" is not what
+   six materials splitting evenly show, and the page will say so.
+2. **The claim that excluding the platinum-group metals makes the test conservative is withdrawn.**
+   With seven materials the published median IS the fourth ordered value, and that value is the
+   platinum-group change (-0.095). Removing it does not stress the published number; it tests the
+   midpoint of rare earths and tungsten instead, which is a different and closer-to-zero statistic. The
+   page will state that plainly rather than claiming conservatism.
+3. **The divergence test is not demanding, and "joint" oversells it.** "Down" was defined as the median
+   of antimony, graphite and rare earths, which holds unless two of the three turn - so the joint rate
+   equals each marginal rate and the constraint never binds. The stricter version - all three down AND
+   cobalt up in the same draw - is computed and reported instead, and the claim is described by its
+   distance from the sign boundary rather than by a percentage.
+4. **The coda reinstated the asymmetry that deviation 4 withdrew** ("robust means revision noise is not
+   sufficient to explain it away"). Rewritten. Likewise "a revision common to every country cancels
+   exactly" becomes "a strictly proportional common-year revision", which is the only case that
+   cancels; a persistent country-specific revision does not cancel in the change between two windows,
+   and that is the structure this design most understates.
+5. **Two numbers added**: the measured USGS-against-BGS world gap beside every row where the atlas has
+   one, because a proxy result on graphite (gap 30.7%) is not the same evidence as one on copper (gap
+   0.6%); and the published change of every excluded material, so the selection is checkable.
+6. **Corrections of record.** The median of the ten originally testable materials is -0.004, not the
+   -0.003 written in deviation 2. Deviation 3 said the widening made 20 of 23 testable; the stage check
+   added afterwards excluded lead, so the count is 19 of 23 and lead's exclusion is a consequence of a
+   rule, not of its result. A sign share of 0.9995 is 1,999 of 2,000 draws and will be printed as
+   99.95%, not rounded to 100%.
