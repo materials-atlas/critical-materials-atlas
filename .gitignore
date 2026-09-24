@@ -181,6 +181,12 @@ pipeline/data/cube.parquet
 pipeline/data/flows.parquet
 pipeline/data/flows_best.parquet
 pipeline/data/flows_reconciled.parquet
+# ... and the per-corridor reliability weights, keyed exactly like flows_reconciled (exporter,
+# importer, hs6). The reporter-level variances they are built from ARE derived statistics and stay
+# tracked (pipeline/data/reporter_reliability.parquet); a corridor-by-corridor file keyed on the
+# holder's records gets the same treatment as its siblings above. check.py pins the weighting from a
+# FIXTURE, so nothing about reviewing a change to it depends on this file.
+pipeline/data/reliability_weights.parquet
 
 # the observed dependency graph (record_graph.py) - a record, committed like the register
 !out/graph.json
