@@ -919,6 +919,18 @@ def check_self_audit():
             fail('self_audit', '%s: the audit says the published change is %+.3f, the concentration '
                                'study now says %+.3f - the audit is stale and its verdict with it'
                                % (r['material'], r['published_change'], p))
+        # the assertion the fact-check found missing: the audit must have RECOMPUTED the same series
+        # the finding is built from, not merely copied its published number. If series_matrix() ever
+        # drifts from build_bgs_concentration.series(), the audit would silently audit something else
+        # and every check above would still pass.
+        # the study publishes 3 dp, so half a last place is the only legitimate difference; the
+        # comparison is a tolerance rather than a re-round because several materials sit exactly on
+        # the .0005 boundary, where the two roundings can disagree
+        if abs(r['recomputed_change'] - r['published_change']) > 5.1e-4:
+            fail('self_audit', '%s: the audit recomputed %+.4f where the study publishes %+.4f - it is '
+                               'no longer rebuilding the same series, so its verdict is about '
+                               'something else' % (r['material'], r['recomputed_change'],
+                                                   r['published_change']))
         want = ('robust' if r['share_same_sign'] >= 0.95
                 else 'fragile' if r['share_same_sign'] >= 0.50 else 'not supported')
         if r['verdict'] != want:
