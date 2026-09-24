@@ -33,3 +33,4 @@ House rules every brief inherits, and repeats so it stands alone:
 | `review-revisions.md` | adversarial review of the USGS revision study and its amendment |
 | `guard-derived-drift.md` | widen the guards against derived-output drift |
 | `clean-routes.md` | the clean-route restructure |
+| `reconcile-monthly-benchmark.md` | a benchmark that could actually separate reconciliation v1 from v2 |
