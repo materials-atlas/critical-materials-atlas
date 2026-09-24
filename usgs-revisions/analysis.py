@@ -25,6 +25,9 @@ FLOWS = ('mine', 'refinery', 'smelter')
 # The six the filing names. The panel behind it now holds more (the store is a general layer), but
 # widening the study is a scope change and belongs in an amendment, not in a quiet rerun.
 FILED = ('copper', 'tungsten', 'antimony', 'graphite', 'cobalt', 'rare_earths')
+# Amendment A: the same measure on every other commodity the panel holds, with at least this many
+# measurable world-total years. The floor was set in the amendment, before the counts were seen.
+MIN_YEARS_AMENDMENT = 5
 BANDS = [(0.02, 'firm'), (0.05, 'soft'), (float('inf'), 'weak')]
 UP_SHARE = 0.60
 BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimony, mine', 'antimony, refined'),
@@ -34,7 +37,7 @@ BGS_FORMS = {'copper': ('copper, mine', 'copper, refined'), 'antimony': ('antimo
 
 def store():
     d = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
-    d = d[d.measure.isin(FLOWS) & d.year.notna() & d.commodity.isin(FILED)].copy()
+    d = d[d.measure.isin(FLOWS) & d.year.notna()].copy()
     # compare in tonnes: a chapter that switched from thousand tonnes to tonnes is not a revision
     d['v'] = d.value_t.where(d.value_t.notna(), d.value)
     d['year'] = d.year.astype(int)
@@ -252,7 +255,9 @@ def bgs_compare(d):
 
 def main():
     d = store()
-    r, dropped = revisions(d)
+    r_all, dropped = revisions(d)
+    r = r_all[r_all.commodity.isin(FILED)]
+    r_amend = r_all[~r_all.commodity.isin(FILED)]
     full = pd.read_parquet(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet'))
     res = {'filing': 'usgs-revisions/PREREGISTRATION.md',
            # counted over the commodities this study measures, not the whole store: the panel now
@@ -269,6 +274,12 @@ def main():
            'measurable_series': int(len(r)),
            'latest_year_excluded': {c: int(g.year.max()) + 1 for c, g in r.groupby('commodity')},
            'by_commodity': summarise(r),
+           # Amendment A, kept separate so the filed six stay identifiable
+           'amendment_a': {c: s for c, s in summarise(r_amend).items()
+                           if s['world_years'] >= MIN_YEARS_AMENDMENT},
+           'amendment_a_too_few_years': {c: s['world_years'] for c, s in summarise(r_amend).items()
+                                         if s['world_years'] < MIN_YEARS_AMENDMENT},
+           'amendment_a_min_years': MIN_YEARS_AMENDMENT,
            'mine_vs_refine': mine_vs_refine(d),
            'usgs_vs_bgs': bgs_compare(d)}
     # the biggest single revisions, for the page to name
