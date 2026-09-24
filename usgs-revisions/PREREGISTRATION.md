@@ -71,17 +71,17 @@ chapter has been published once and cannot be measured yet.
 | rare earths | 2.5% | 3.1% | 17.1% | 0.0% | 38% / 27% / 36% | no consistent direction | **soft** / **soft** |
 | copper | 1.5% | 2.1% | 3.8% | 5.0% | 53% / 42% / 5% | no consistent direction | **firm** / **soft** |
 
-**A current-year figure is worth about what its commodity's band says.** Copper's world total is the firmest: it
-moves 1.4% between its first and its latest printing over the whole period, 2.1% over the last ten
-years, which is the difference between the filed "firm" and "soft" bands.
-Antimony's moves 11.3%, and has moved 42.5%. Graphite's 6.5% gets worse in the recent decade, not
-better (8.3%). The direction is not systematic. Under the filed rule - which licenses only an upward reading, at
-60% - no commodity has a direction. Separating unchanged reprints from downward ones (deviation 11)
-shows why an earlier draft of this result was wrong to call graphite and rare earths "revised down more
-often than up": graphite's mine series are 25% up, 35% down and 40% UNCHANGED, and rare earths 39% up,
-29% down, 32% unchanged. China's rare-earth
-figure is the one that never moves: its median revision is 0.0%, which fits a number set by quota and
-reported rather than measured.
+**A current-year figure is worth about what its commodity's band says.** Copper's world total is the
+firmest: 1.5% between its first and its latest printing over the whole period, 2.1% over the last ten
+years, which straddles the filed "firm" and "soft" bands. Antimony's moves 11.6%, and has moved 42.5%.
+Graphite's 6.9% gets worse in the recent decade, not better (8.3%). The direction is not systematic:
+under the filed rule - which licenses only an upward reading, at 60% - no commodity has one.
+Separating unchanged reprints from downward ones (deviation 11) shows why an earlier draft was wrong to
+call graphite and rare earths "revised down more often than up": graphite's mine series are 26% up,
+36% down and 39% UNCHANGED, and rare earths 38% / 27% / 36%. China's rare-earth figure moves
+least: its median revision is 0.0%, meaning at least half of its measurable years were reprinted
+unchanged - consistent with a quota figure being copied, and equally with a rounded official number
+being reprinted.
 
 The largest revisions are not the 1990s alone, but the single biggest are: tungsten's world total for
 1995 went from 20,000 to 31,000 tonnes between the 1996 and 1997 editions (+55%), and China's from
@@ -96,8 +96,11 @@ The largest revisions are not the 1990s alone, but the single biggest are: tungs
 | graphite | Turkey | 2005 | 1,000 | 6,000 | +500% | 2006 -> 2007 |
 | graphite | Madagascar | 2018 | 9,000 | 46,900 | +421% | 2019 -> 2020 |
 
-Those are small producers newly measured rather than errors corrected: Kyrgyzstan's antimony is
-printed as 20 tonnes in the 2025 edition and 700 in the 2026 one, both marked estimates.
+These rank by percentage of a small first figure, so they list small series rather than the changes
+that move a world total: Kyrgyzstan's antimony is printed as 20 tonnes in the 2025 edition and 700 in
+the 2026 one, both marked estimates. The chapters attribute such changes to new reporting - the 2026
+antimony chapter names company, Government or third-party reports - which is re-estimation, not
+necessarily a first measurement.
 
 ### Mine against refinery, from one source
 
