@@ -859,6 +859,34 @@ def check_baci_door():
              % (len(offenders), ', '.join(offenders[:8]) + (' ...' if len(offenders) > 8 else '')))
 
 
+# Chapters that are cached but carry no country table, so the parser is right to yield nothing.
+# Anything else cached-but-unparsed is a silent drop, which is how four chapters (and one published
+# figure) went wrong on 2026-09-24: a fetch or a caption test fails, the store is quietly short, and
+# every median downstream is computed on less data with no symptom.
+NO_TABLE = {('gallium', y) for y in range(1996, 2019)} | {('germanium', y) for y in (2024, 2025, 2026)}
+
+
+def check_usgs_mcs_coverage(store):
+    """Every cached MCS chapter must appear in the panel, or be declared as printing no table."""
+    import pandas as pd
+    raw = os.path.join(ROOT, 'raw', 'usgs_mcs')
+    if not os.path.isdir(raw):
+        return                                    # a clone without the raw PDFs cannot check this
+    d = pd.read_parquet(store, columns=['commodity', 'edition_year'])
+    for c in sorted(d.commodity.unique()):
+        folder = os.path.join(raw, c)
+        if not os.path.isdir(folder):
+            continue
+        cached = {int(f[3:7]) for f in os.listdir(folder)
+                  if f.startswith('mcs') and f.endswith('.pdf')}
+        parsed = set(d[d.commodity == c].edition_year.astype(int))
+        missing = sorted(y for y in cached - parsed if (c, y) not in NO_TABLE)
+        if missing:
+            fail('usgs_mcs', '%s: %d cached chapter(s) yielded no rows: %s - either the parser is '
+                             'dropping them or they print no table, in which case declare them in '
+                             'NO_TABLE with a reason' % (c, len(missing), missing))
+
+
 def check_usgs_mcs():
     """The stitched USGS Mineral Commodity Summaries panel (pipeline/data/usgs_mcs_history.parquet).
 
@@ -872,6 +900,7 @@ def check_usgs_mcs():
     store = os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet')
     if not os.path.exists(store):
         return
+    check_usgs_mcs_coverage(store)
     try:
         import pandas as pd
         d = pd.read_parquet(store)
