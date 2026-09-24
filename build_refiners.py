@@ -8,6 +8,8 @@ with a 2018-2024 year slider showing capability migrating. Includes the downstre
 (trade-only). Matches the atlas chrome (assets/site.css).
 """
 import os, json
+
+import revision_note
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 CAP = json.load(open(os.path.join(ROOT, 'out', 'capability_years.json'), encoding='utf-8'))
 EXP = json.load(open(os.path.join(ROOT, 'out', 'exposure.json'), encoding='utf-8'))
@@ -163,6 +165,7 @@ HTML = '''<!doctype html>
   <br><br>A country scores as capable if <i>either</i> lens sees it: <code>cap = max(physical share, trade score)</code>. Colour marks the class that matters most &mdash; can the trade data even see it? <span class="ct-refiner"><b>Teal</b></span> = a refiner visible in trade (it exports refined). <span class="ct-absorb"><b>Amber</b></span> = a domestic-absorbing refiner only physical data catches. <span class="ct-raw"><b>Grey</b></span> = a raw exporter (ships ore, no refining). The sub-type on each bar says <i>how</i>: integrated (mines + refines), import-fed (refines imported ore), or mine-to-metal.
   <details class="howto"><summary>How it&rsquo;s measured &amp; caveats</summary>
   <p>From the BACI bilateral matrix, per country &times; material: <code>net_down = (refined_exp &minus; refined_imp)/(refined_exp + refined_imp)</code> (&gt;0 = net exporter of refined), <code>feedstock_import = ore_imp/(ore_imp+ore_exp)</code> (~1 = sources ore by import), and <code>trade_score = refined_world_share &times; max(net_down,0)</code> &mdash; a robust, re-export-penalised, export-control-proof marker. Physical refined share is BGS/USGS from the atlas data. <code>cap = max(physical, trade_score)</code>.</p>
+  @@REVPOINTER@@
   <p class="howto-src"><b>Caveats:</b> the <b>physical share is a single recent vintage</b>, so the year slider moves the <i>trade</i> signal, not the physical one &mdash; migration is clearest where trade carries the story (e.g. the magnet stage). The <b>NdFeB magnet stage is trade-only</b> (no physical magnet series), so premium magnet makers that net-import magnets (Japan, Germany) are undercounted &mdash; the same trade-blindness, now without a physical rescue. REE feedstock codes (2805.30 / 2846.90) are aggregated. Refining concentration is cross-checked against two authoritative sources: the <b>IEA Critical Minerals Dataset</b> (CC BY 4.0) &mdash; refining <i>capacity</i> by country for the energy-transition minerals &mdash; and the <b>EU Critical Raw Materials 2023 study</b> (European Commission), which gives the top global supplier and bottleneck stage (extraction vs processing) for ~31 materials, including the specialty metals where trade and USGS/BGS fall silent (tungsten, gallium, germanium, PGMs). A third, <i>forward</i> layer &mdash; the <b>USGS World Minerals Outlook to 2029</b> (SIR 2025-5021, CC0) &mdash; adds 2024 capacity concentration and world capacity growth for 8 commodities (lithium capacity is set to roughly double; magnesium contracts). A final <b>diversification pipeline</b> overlay names representative publicly announced projects building capacity outside the dominant producer (Lynas, MP Materials, Iluka, Rio Tinto Rincón, Umicore…), with the IEA&rsquo;s aggregate finding that refining/downstream capacity still lags mining to 2035 &mdash; curated, not exhaustive (the IEA&rsquo;s project-level list is not public). The capability score <code>cap = max(physical share, trade score)</code> mixes two units, so read it as a <i>detector and a class</i> (integrated / import-fed / …), not a cardinal 0–1 measure — the bar length is indicative, the type is the finding. The IEA / EU-CRM / USGS cross-check lines are different <i>vintages and stages</i>, so they can disagree with the bar and with each other (that&rsquo;s expected, not an error). &ldquo;Most product-space-adjacent non-refiners&rdquo;: raw density is ~95–98% just a country&rsquo;s overall <i>diversity</i> (big diversified economies are close to everything — a control-test finding), so the list is ranked on density with breadth (diversity + ECI) <b>regressed out</b> — proximity to <i>this</i> stage beyond what size alone buys. Even so, read them as <i>plausible</i>, not destined. Built by <code>build_feedstock.py</code>. <b>See also</b> <a href="breakout.html">Break the chokepoint</a> (the decision layer: what kind of moat, who could break it, who is building it), <a href="refining.html">The refining wedge</a> (does concentration rise from ore to metal? + IEA capacity), the <a href="product-space.html">product-space map</a> and <a href="complexity.html">complexity</a>.</p>
   </details></div>
 
@@ -365,5 +368,9 @@ if(PT&&D.prov){
 </body></html>'''
 
 out = os.path.join(ROOT, 'refiners.html')
+# this page mixes physical and trade sources, so the caution that applies is how much the
+# underlying current-year production figure moves, not the USGS-against-BGS gap
+HTML = HTML.replace('@@REVPOINTER@@', revision_note.pointer())
+assert '@@' not in HTML, 'unfilled token'
 open(out, 'w', encoding='utf-8').write(HTML.replace('DATA_PLACEHOLDER', DATA))
 print('WROTE', out)
