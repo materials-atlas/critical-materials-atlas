@@ -887,6 +887,51 @@ def check_usgs_mcs_coverage(store):
                              'NO_TABLE with a reason' % (c, len(missing), missing))
 
 
+def check_self_audit():
+    """The self-audit (out/self_audit.json) against the finding it audits and its own filing.
+
+    The audit copies each material's published change out of out/concentration.json. A copy is exactly
+    what goes stale: rebuild the concentration study and the audit still reports the old numbers as
+    "published", with verdicts attached to them. So the copy is compared to its source, not to a
+    timestamp - the same rule that the germanium-94 drift taught this project.
+
+    Also pinned: the draws and seed the filing fixed, and the band thresholds, so a verdict cannot be
+    softened by moving the line instead of the number.
+    """
+    sa_path = os.path.join(ROOT, 'out', 'self_audit.json')
+    conc_path = os.path.join(ROOT, 'out', 'concentration.json')
+    if not (os.path.exists(sa_path) and os.path.exists(conc_path)):
+        return
+    with open(sa_path, encoding='utf-8') as f:
+        sa = json.load(f)
+    with open(conc_path, encoding='utf-8') as f:
+        conc = json.load(f)
+    if sa.get('draws') != 2000 or sa.get('seed') != 20260924:
+        fail('self_audit', 'draws/seed differ from the filed values (2000, 20260924): %s, %s'
+                           % (sa.get('draws'), sa.get('seed')))
+    published = {r['material']: r['change'] for r in conc['materials']['critical']}
+    for r in sa.get('materials', []):
+        p = published.get(r['material'])
+        if p is None:
+            fail('self_audit', '%s is audited but no longer appears in the concentration study'
+                               % r['material'])
+        elif abs(p - r['published_change']) > 1e-9:
+            fail('self_audit', '%s: the audit says the published change is %+.3f, the concentration '
+                               'study now says %+.3f - the audit is stale and its verdict with it'
+                               % (r['material'], r['published_change'], p))
+        want = ('robust' if r['share_same_sign'] >= 0.95
+                else 'fragile' if r['share_same_sign'] >= 0.50 else 'not supported')
+        if r['verdict'] != want:
+            fail('self_audit', '%s: sign survives %.1f%% but the verdict reads %r, not %r - the filed '
+                               'bands are 95%% and 50%%'
+                               % (r['material'], 100 * r['share_same_sign'], r['verdict'], want))
+    n = sa.get('n_tested', 0) + sa.get('n_excluded', 0)
+    if n != len(published):
+        fail('self_audit', 'the audit accounts for %d materials, the concentration study has %d - '
+                           'every material is tested or excluded with a reason, never dropped'
+                           % (n, len(published)))
+
+
 def check_usgs_mcs():
     """The stitched USGS Mineral Commodity Summaries panel (pipeline/data/usgs_mcs_history.parquet).
 
@@ -1325,7 +1370,7 @@ def check_reliability_weights():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('head', check_head), ('weights', check_reliability_weights)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
