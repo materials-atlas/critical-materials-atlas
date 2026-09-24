@@ -17,6 +17,8 @@ Run:  python build_comparison.py
 """
 import os, sys, json, html
 
+import revision_note
+
 sys.stdout.reconfigure(encoding='utf-8')
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 e = lambda s: html.escape(str(s), quote=True)
@@ -148,6 +150,7 @@ HTML = f"""<!doctype html>
     </ul>
   </div>
 
+  @@AGENCYGAP@@
   <div class="callout"><b>Method.</b> Pairings are <b>declared explicitly</b> in <code>build_pairing.py</code>, never inferred by matching material names: a ratio between &ldquo;manganese ore, gross weight&rdquo; and &ldquo;manganese, contained metal&rdquo; is a category error, not a disagreement. Both series are read from the atlas&rsquo;s harmonised cube, which keeps every source&rsquo;s native codes and units alongside the common labels. Data: <a href="https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/">BGS World Mineral Statistics</a> and USGS Historical Statistics &rarr; <a href="out/pairing.json">pairing.json</a>.</div>
 
   <div class="ftr"><a href="concentration">Concentration over time</a> &middot; <a href="production">The three-source production cross-check</a> &middot; <a href="analysis">All analysis</a></div>
@@ -158,6 +161,10 @@ HTML = f"""<!doctype html>
 </body></html>
 """
 
+# the agency-disagreement note, from the revision measurement (revision_note.py): this page is BGS,
+# so the USGS-against-BGS gap is the caution that applies, not the USGS self-revision band
+HTML = HTML.replace('@@AGENCYGAP@@', revision_note.note())
+assert '@@' not in HTML, 'unfilled token'
 open(os.path.join(ROOT, 'comparison.html'), 'w', encoding='utf-8').write(HTML)
 print(f'wrote comparison.html — {d["n_materials"]} materials, {S["agrees_within_10pct"]} within 10%, '
       f'{n_thin} below the census threshold')
