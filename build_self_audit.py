@@ -59,6 +59,15 @@ TEAL, AMBER, NAVY = '#0e7c74', '#c2701c', '#15323a'
 NAME = {'rare_earths': 'Rare earths', 'phosphate_rock': 'Phosphate rock', 'barytes': 'Barytes'}
 
 
+def pct(share):
+    """A sign-survival share as text. 100% is reserved for a share that really is 1 - 0.9995 is 1,999
+    draws of 2,000 and prints as 99.95%, because rounding it up is how "no failures" gets claimed for a
+    run that had one."""
+    if share >= 1.0:
+        return '100%'
+    return ('%.2f%%' % (100 * share)) if 100 * share > 99.9 else ('%.1f%%' % (100 * share))
+
+
 def label(c):
     return NAME.get(c, c.replace('_', ' ').capitalize())
 
@@ -121,18 +130,22 @@ def page():
     trows = ''.join(
         '<tr%s><td>%s</td><td class="n">%+.3f</td><td class="n">%+.3f to %+.3f</td>'
         '<td>%s</td>'
-        '<td class="n">%.1f%%</td><td class="n">%.1f%%</td><td class="n">%d</td>'
+        '<td class="n">%s</td><td class="n">%.1f%%</td><td class="n">%d</td><td class="n">%s</td>'
         '<td><span class="vd %s">%s</span></td></tr>'
         % (' class="hl"' if r['verdict'] != 'robust' else '', label(r['material']),
            r['published_change'], r['p05'], r['p95'],
            '%s <span class="dim">(%s)</span>' % (r.get('stage', '?'), r.get('bgs_form', '')),
-           100 * r['share_same_sign'],
+           pct(r['share_same_sign']),
            100 * r['revision_pool_median_abs'], r['revision_pool_n'],
+           ('%.1f%%' % (100 * r['usgs_bgs_world_gap'])) if r.get('usgs_bgs_world_gap') else
+           '<span class="dim">not measured</span>',
            'fragile' if r['verdict'] == 'fragile' else ('robust' if r['verdict'] == 'robust' else 'no'),
            r['verdict'])
         for r in rows)
-    exrows = ''.join('<tr><td>%s</td><td>%s</td></tr>' % (label(e['material']), e['reason'])
-                     for e in d['excluded'])
+    exrows = ''.join('<tr><td>%s</td><td class="n">%s</td><td>%s</td></tr>'
+                     % (label(e['material']),
+                        ('%+.3f' % e['published_change']) if e.get('published_change') is not None else '&mdash;',
+                        e['reason']) for e in d['excluded'])
     C = d.get('claims', {})
     ex, dv = C.get('ex_ante_2011', {}), C.get('divergence', {})
     tok = {
@@ -147,34 +160,44 @@ def page():
         'HEADMED': '%+.3f' % head['published_median_change'],
         'HEADPUB': '%+.3f' % conc['critical']['median_change'],
         'HEADN': str(conc['critical']['n']),
-        'HEADSIGN': '%.1f' % (100 * head['share_same_sign']),
+        'HEADSIGN': pct(head['share_same_sign']).rstrip('%'),
         'HEADP05': '%+.3f' % head['p05'], 'HEADP95': '%+.3f' % head['p95'],
         'HEADVERDICT': head['verdict'],
         'DRAWS': '{:,}'.format(d['draws']), 'SEED': str(d['seed']),
         'NDEV': WORDS.get(deviation_count(), str(deviation_count())),
         'TUNGV': '%+.3f' % next(r['published_change'] for r in rows if r['material'] == 'tungsten'),
-        'TUNGS': '%.1f' % (100 * next(r['share_same_sign'] for r in rows if r['material'] == 'tungsten')),
-        'CHRS': '%.1f' % (100 * next((r['share_same_sign'] for r in rows if r['material'] == 'chromium'), 0)),
+        'TUNGS': pct(next(r['share_same_sign'] for r in rows if r['material'] == 'tungsten')).rstrip('%'),
+        'CHRS': pct(next((r['share_same_sign'] for r in rows if r['material'] == 'chromium'), 0)).rstrip('%'),
         'TIV': '%+.3f' % next((r['published_change'] for r in rows if r['material'] == 'titanium'), 0),
         'POOLMIN': '{:,}'.format(min(r['revision_pool_n'] for r in rows)),
         'POOLMAX': '{:,}'.format(max(r['revision_pool_n'] for r in rows)),
         'EXMED': '%+.3f' % ex.get('published_median_change', 0),
-        'EXSIGN': '%.1f' % (100 * ex.get('share_same_sign', 0)),
+        'EXSIGN': pct(ex.get('share_same_sign', 0)).rstrip('%'),
         'EXP05': '%+.3f' % ex.get('p05', 0), 'EXP95': '%+.3f' % ex.get('p95', 0),
         'EXVERDICT': ex.get('verdict', '?'), 'EXN': str(ex.get('n_tested', 0)),
+        'EXSTRAT': '%.2f' % (100 * ex.get('stratified_share_same_sign', 0)),
+        'EXSP05': '%+.3f' % ex.get('stratified_p05', 0),
+        'EXSP95': '%+.3f' % ex.get('stratified_p95', 0),
+        'DVSTRICT': '%.2f' % (100 * dv.get('share_strict_all_down', 0)),
+        'PGMV': '%+.3f' % conc['materials']['critical'][
+            [r['material'] for r in conc['materials']['critical']].index('platinum_group_metals')]['change'],
+        'GRGAP': '%.1f' % (100 * (next((r['usgs_bgs_world_gap'] for r in rows
+                                        if r['material'] == 'graphite' and r.get('usgs_bgs_world_gap')), 0))),
+        'CUGAP': '%.1f' % (100 * (next((r['usgs_bgs_world_gap'] for r in rows
+                                        if r['material'] == 'copper' and r.get('usgs_bgs_world_gap')), 0))),
         'EXALL': str(ex.get('n_in_claim', 0)),
         'EXPUB': '%+.3f' % conc['ex_ante_2011']['median_change'],
         'DVSIGN': '%.1f' % (100 * dv.get('share_both_hold', 0)),
         'DVVERDICT': dv.get('verdict', '?'),
         'DVDOWN': ', '.join(label(m).lower() for m in dv.get('down', [])),
-        'STRATSIGN': '%.1f' % (100 * head.get('stratified_share_same_sign', 0)),
+        'STRATSIGN': pct(head.get('stratified_share_same_sign', 0)).rstrip('%'),
         'STRATP05': '%+.3f' % head.get('stratified_p05', 0),
         'STRATP95': '%+.3f' % head.get('stratified_p95', 0),
         'NSTRATSAME': str(sum(1 for r in rows if r['verdict'] == r.get('stratified_verdict'))),
-        'MOSTRAT': '%.1f' % (100 * next((r.get('stratified_share_same_sign', 0) for r in rows
-                                         if r['material'] == 'molybdenum'), 0)),
-        'TUNGSTRAT': '%.1f' % (100 * next((r.get('stratified_share_same_sign', 0) for r in rows
-                                           if r['material'] == 'tungsten'), 0)),
+        'MOSTRAT': pct(next((r.get('stratified_share_same_sign', 0) for r in rows
+                                         if r['material'] == 'molybdenum'), 0)).rstrip('%'),
+        'TUNGSTRAT': pct(next((r.get('stratified_share_same_sign', 0) for r in rows
+                                           if r['material'] == 'tungsten'), 0)).rstrip('%'),
         'SRC': ('<p class="src"><b>Source:</b> the atlas\'s own published figures '
                 '(<a href="concentration">the concentration measurement</a>, from BGS World Mineral '
                 'Statistics) tested against the revision record measured at '
@@ -227,25 +250,43 @@ TEMPLATE = """<!doctype html>
 
   <h2>The three claims, and what noise does to them</h2>
   <div class="verdictbox"><b>1. The materials already critical before the window mostly diversified.
-  This survives, but only just.</b> Across the @@EXN@@ of @@EXALL@@ materials on the EU's 2011 list that
-  can be tested, the median change is @@EXMED@@ (the study publishes @@EXPUB@@ for all @@EXALL@@) and it
-  stays negative in <b>@@EXSIGN@@%</b> of draws, band @@EXP05@@ to @@EXP95@@ &mdash; a band whose upper
-  end all but touches zero. Verdict: <b>@@EXVERDICT@@</b>, and the closest of the three to failing. The
-  one member we cannot test, the platinum-group metals, published &minus;0.095 and would pull the median
-  further from zero, so this test is conservative about a claim it is close to losing.</div>
-  <div class="verdictbox"><b>2. Cobalt concentrated while the older export-controlled materials came off
-  monopoly highs. This is the sturdiest thing the study says.</b> Tested jointly, in the same draw
-  &mdash; cobalt's rise and the fall across @@DVDOWN@@ have to hold together, not one at a time &mdash;
-  the pattern survives <b>@@DVSIGN@@%</b> of draws. Verdict: <b>@@DVVERDICT@@</b>. The study calls this
-  its honest, control-free finding, and of the three claims it is the one revision noise comes nowhere
-  near erasing.</div>
-  <div class="verdictbox"><b>3. The full-set median, the number most often quoted, keeps its sign
-  &mdash; and that is the least interesting of the three results.</b> Across the @@NTEST@@ testable
-  materials of @@NALLMAT@@ the median is @@HEADMED@@ (published @@HEADPUB@@ across @@HEADN@@), positive
-  in @@HEADSIGN@@% of draws, band @@HEADP05@@ to @@HEADP95@@. But the concentration study's own note
-  says this number "is substantially an artifact of materials ADDED to lists during the window", which
-  is a selection problem that no amount of revision noise speaks to. <b>A number can be immovable under
-  measurement error and still be the wrong number to quote.</b></div>
+  This is a threshold pass, not a survival.</b> Across the @@EXN@@ of @@EXALL@@ materials on the EU's
+  2011 list that can be tested, the median change is @@EXMED@@ and stays negative in @@EXSIGN@@% of
+  draws &mdash; clearing the filed 95% line by more than the noise in 2,000 draws, so the label holds
+  &mdash; but the band runs @@EXP05@@ to <b>@@EXP95@@</b>, which is as good as zero. And the six split
+  <b>three and three</b>: antimony, graphite and rare earths down; tungsten, fluorspar and cobalt up.
+  The median is negative because it averages a large, stable decline with tungsten, whose own sign
+  survives only @@TUNGS@@%. <b>"Mostly diversified" is not what an even split shows.</b> Under the
+  size-stratified draw the same claim runs @@EXSTRAT@@% with a band of @@EXSP05@@ to @@EXSP95@@, well
+  clear of zero &mdash; so which test you believe decides how strong this claim looks, which is itself
+  the finding.</div>
+  <p class="dim">One correction to an earlier draft of this page, because it flattered the result: it
+  said that excluding the platinum-group metals made this a conservative test. It does not. With seven
+  materials the published median <i>is</i> the fourth ordered value, and that value is the
+  platinum-group change (@@PGMV@@). Removing it does not stress the published @@EXPUB@@ at all &mdash;
+  it tests the midpoint of rare earths and tungsten instead, a different and closer-to-zero statistic.
+  The reviewers caught that; it was not caught here.</p>
+
+  <div class="verdictbox"><b>2. Cobalt concentrated while the older export-controlled materials came
+  off monopoly highs. This is the claim furthest from its sign boundary.</b> Requiring all three of
+  @@DVDOWN@@ to stay negative <i>and</i> cobalt to stay positive in the same draw, the pattern holds in
+  <b>@@DVSTRICT@@%</b> of draws. That is not because the test is demanding &mdash; it is because the
+  margins are wide: cobalt's band starts at +0.269 and antimony's ends at &minus;0.185, so these bands
+  never come close to meeting. An earlier version of this page reported the weaker version of this test
+  (the <i>median</i> of the three, which holds unless two of them turn) and called it joint. It was not.
+  <span class="dim">Caveat this one carries: graphite is inside it, and graphite is where the two
+  agencies disagree most &mdash; a median @@GRGAP@@% apart on the world total against @@CUGAP@@% for
+  copper. This test perturbs BGS figures with USGS-measured revisions; it cannot speak to the two
+  agencies disagreeing about who produces.</span></div>
+
+  <div class="verdictbox"><b>3. The full-set median keeps its sign &mdash; which is informative about
+  measurement error and says nothing about selection.</b> Across the @@NTEST@@ testable materials of
+  @@NALLMAT@@ the median is @@HEADMED@@ (published @@HEADPUB@@ across @@HEADN@@), positive in
+  @@HEADSIGN@@% of draws, band @@HEADP05@@ to @@HEADP95@@. Revision noise does not explain this number
+  away. But the concentration study's own note says it "is substantially an artifact of materials ADDED
+  to lists during the window", and that is a selection problem which no perturbation of the measurements
+  can address. <b>The audit clears this number of one charge and leaves the more serious one
+  untouched.</b></div>
 
   <p><b>Why the sign test is a weak bar, stated plainly.</b> "Keeps its sign" is what was filed, and it
   is a low bar for a median across materials: lithium (+0.504) and cobalt (+0.310) cannot plausibly
@@ -279,8 +320,8 @@ TEMPLATE = """<!doctype html>
   95% threshold.</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Material</th><th class="n">published change</th>
   <th class="n">5&ndash;95 band under noise</th><th class="n">sign survives</th>
-  <th>stage read</th><th class="n">median |revision| in its pool</th>
-  <th class="n">revisions in the pool</th>
+  <th>stage read</th><th class="n">pool median absolute revision</th>
+  <th class="n">revisions in the pool</th><th class="n">USGS&ndash;BGS world gap</th>
   <th>verdict</th></tr></thead><tbody>@@TROWS@@</tbody></table></div>
   @@SRC@@
   <p><b>@@NROBUST@@ of @@NTEST@@ materials are robust. @@NFRAGILE@@ are not: @@FRAGILELIST@@.</b> Those
@@ -289,7 +330,8 @@ TEMPLATE = """<!doctype html>
   @@TUNGV@@, the same rounded size as the full-set median, and its sign survives only @@TUNGS@@% of
   draws &mdash; while chromium, whose published change is also @@TUNGV@@ and whose revision pool is no
   quieter, survives @@CHRS@@%. The difference is in the share vector, not the size of the number.
-  <b>How big a change is says nothing about whether the evidence carries it.</b></p>
+  <b>Size is not sufficient: everything at 0.06 or more here is robust, but among the smaller changes
+  the published number does not tell you which survive.</b></p>
   <p class="dim">Titanium's row is the weakest of the @@NTEST@@ and was flagged as such before it was
   run: the atlas series is BGS titanium minerals while the USGS chapter prints mineral concentrates,
   and the atlas has already found that titanium splits three ways on the ilmenite-versus-slag
@@ -298,7 +340,8 @@ TEMPLATE = """<!doctype html>
   overturned.</p>
 
   <h2>What we could not test, and why that matters</h2>
-  <div class="tbl"><table><thead><tr><th>Material</th><th>why it is not tested</th></tr></thead>
+  <div class="tbl"><table><thead><tr><th>Material</th><th class="n">published change</th>
+  <th>why it is not tested</th></tr></thead>
   <tbody>@@EXROWS@@</tbody></table></div>
   <p class="dim">An earlier run of this audit could test only 10 of the @@HEADN@@ materials, and those
   10 had a median change of &minus;0.004 against +0.060 for the 13 it could not reach. In other words
@@ -309,9 +352,11 @@ TEMPLATE = """<!doctype html>
   records the whole sequence.</p>
 
   <h2>What this cannot say</h2>
-  <p class="dim">A robust verdict does not make a claim true; it means revision noise is not sufficient
-  to explain it away. A fragile verdict does not make a claim false; it means our evidence cannot
-  separate it from the source's own movement. <b>Every row here is a proxy row:</b> the concentration
+  <p class="dim">Neither verdict is a bound, and this page has already had to withdraw the argument
+  that one of them was. A robust verdict means the sign held up under <i>this</i> perturbation, which
+  is too harsh in one respect (it shocks dominant producers with small producers' revision magnitudes)
+  and too gentle in another (it draws independently across years, while real revisions persist).
+  A fragile verdict means the sign did not hold up under the same imperfect model. <b>Every row here is a proxy row:</b> the concentration
   finding rests on BGS production, while the revision record is measured on USGS editions, because no
   BGS vintage history exists to measure &mdash; the two agencies' world totals themselves differ by a
   median 0.6% for copper and 30.7% for graphite. The audit covers production-based claims only; the

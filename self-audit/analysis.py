@@ -43,6 +43,7 @@ EU_CRM_2011 = {'antimony', 'cobalt', 'fluorspar', 'graphite', 'platinum_group_me
 DIVERGENCE_UP = 'cobalt'
 DIVERGENCE_DOWN = ('antimony', 'graphite', 'rare_earths')
 
+AGENCY_GAP = {}
 DRAWS = 2000
 SEED = 20260924
 EARLY, LATE = (1995, 2004), (2015, 2024)
@@ -268,7 +269,24 @@ def verdict(share_same_sign):
     return 'not supported'
 
 
+def agency_gaps():
+    """The measured USGS-against-BGS world-total gap, where the revision study has one.
+
+    A proxy result on graphite, whose agencies differ by 30.7%, is not the same evidence as one on
+    copper, where they differ by 0.6%. The filing required this beside every proxy row.
+    """
+    path = os.path.join(ROOT, 'out', 'usgs_revisions.json')
+    if not os.path.exists(path):
+        return {}
+    with io.open(path, encoding='utf-8') as f:
+        d = json.load(f)
+    return {(k.rsplit('_', 1)[0], k.rsplit('_', 1)[1]): v['median_abs_world_gap']
+            for k, v in d.get('usgs_vs_bgs', {}).items()}
+
+
 def main():
+    global AGENCY_GAP
+    AGENCY_GAP = agency_gaps()
     pools, by_size = revision_pools()
     c = cube()
     published = json.load(io.open(os.path.join(ROOT, 'out', 'concentration.json'), encoding='utf-8'))
@@ -281,24 +299,27 @@ def main():
         m = r['material']
         panel = PANEL.get(m.split(':')[0].replace('_', ' ')) or PANEL.get(m.split(':')[0])
         if not panel:
-            excluded.append({'material': m, 'reason': EXCLUSION_REASON.get(
-                m, 'no counterpart in the revision panel')})
+            excluded.append({'material': m, 'published_change': r['change'],
+                             'reason': EXCLUSION_REASON.get(
+                                 m, 'no counterpart in the revision panel')})
             continue
         byyr, form = series_matrix(c, m, want_form=True)
         stage = bgs_stage(form)
         pool, pool_measure = pool_for(panel, stage, pools)
         if pool is None:
-            excluded.append({'material': m, 'reason':
+            excluded.append({'material': m, 'published_change': r['change'], 'reason':
                              'the atlas series is %s (BGS %r) and the USGS chapter prints no %s table '
                              'to measure revisions on - perturbing one stage with another would be a '
                              'category error' % (stage, form, stage)})
             continue
         if not byyr:
-            excluded.append({'material': m, 'reason': 'no usable BGS series in the cube'})
+            excluded.append({'material': m, 'published_change': r['change'],
+                             'reason': 'no usable BGS series in the cube'})
             continue
         base = hhi_change(byyr)
         if base is None:
-            excluded.append({'material': m, 'reason': 'one of the two windows is empty'})
+            excluded.append({'material': m, 'published_change': r['change'],
+                             'reason': 'one of the two windows is empty'})
             continue
         sims = perturbed_changes(byyr, pool, rng)
         same = float(np.mean(np.sign(sims) == np.sign(base)))
@@ -312,6 +333,7 @@ def main():
             'p95': round(float(np.percentile(sims, 95)), 4),
             'median_sim': round(float(np.median(sims)), 4),
             'bgs_form': form, 'stage': stage, 'pool_measure': pool_measure,
+            'usgs_bgs_world_gap': AGENCY_GAP.get((panel, pool_measure)),
             'revision_pool_n': int(len(pool)),
             'revision_pool_median_abs': round(float(np.median(np.abs(pool))), 4),
             'verdict': verdict(same),
@@ -365,8 +387,21 @@ def main():
             base_ex = float(np.median([next(r['recomputed_change'] for r in rows if r['material'] == m)
                                        for m in ex]))
             draws_ex = np.median(np.vstack([per[m] for m in ex]), axis=0)
+            # the same on the stratified draws, since this is the claim nearest its threshold
+            strat_ex = []
+            for m in ex:
+                byyr_m = series_matrix(c, m)
+                rr = next(r for r in rows if r['material'] == m)
+                pl, pm = pool_for(rr['panel_commodity'], rr['stage'], pools)
+                s_, _ = perturbed_changes_stratified(byyr_m, rr['panel_commodity'], pm, pl, by_size,
+                                                     np.random.default_rng(SEED + 3))
+                strat_ex.append(s_)
+            ex_strat = np.median(np.vstack(strat_ex), axis=0)
             claims['ex_ante_2011'] = {
                 'materials': sorted(ex), 'n_tested': len(ex), 'n_in_claim': len(EU_CRM_2011),
+                'stratified_share_same_sign': round(float(np.mean(np.sign(ex_strat) == np.sign(base_ex))), 4),
+                'stratified_p05': round(float(np.percentile(ex_strat, 5)), 4),
+                'stratified_p95': round(float(np.percentile(ex_strat, 95)), 4),
                 'published_median_change': round(base_ex, 4),
                 'share_same_sign': round(float(np.mean(np.sign(draws_ex) == np.sign(base_ex))), 4),
                 'p05': round(float(np.percentile(draws_ex, 5)), 4),
@@ -375,11 +410,16 @@ def main():
         down = [m for m in DIVERGENCE_DOWN if m in per]
         if DIVERGENCE_UP in per and down:
             up_draws = per[DIVERGENCE_UP]
-            down_draws = np.median(np.vstack([per[m] for m in down]), axis=0)
+            down_stack = np.vstack([per[m] for m in down])
+            down_draws = np.median(down_stack, axis=0)
             both = float(np.mean((up_draws > 0) & (down_draws < 0)))
+            # the version that actually binds: every one of the three down, not their median
+            strict = float(np.mean((up_draws > 0) & (down_stack < 0).all(axis=0)))
             claims['divergence'] = {
                 'up': DIVERGENCE_UP, 'down': sorted(down),
                 'share_both_hold': round(both, 4),
+                'share_strict_all_down': round(strict, 4),
+                'verdict_strict': verdict(strict),
                 'share_up_holds': round(float(np.mean(up_draws > 0)), 4),
                 'share_down_holds': round(float(np.mean(down_draws < 0)), 4),
                 'verdict': verdict(both)}
