@@ -1103,10 +1103,192 @@ def check_stale():
                       '`python runner.py --run` (or --run --skip-held)' % (len(fresh), h))
 
 
+# --------------------------------------------------------- the reconciliation weights (v2)
+# The pinned values below are produced by the FIXTURE in this check, not by the live cache. A
+# data-dependent pin would fail every night for the right reason and teach everyone to ignore it.
+RELIABILITY_CONSTANTS = {'REL_FOLDS': 5, 'MIN_REL_PAIRS': 30, 'MIN_REL_PAIRS_HS2': 100,
+                         'REL_K': 5.0, 'REL_WINSOR': 0.95, 'REL_FLOOR': 0.0001}
+RELIABILITY_PIN = {
+    'n_corridors': 72, 'n_cells': 189,
+    'sha256': '043f6b5c26eaf54c',
+    'w_exp': {'AAA|MMM|260200': 0.506512, 'CCC|OOO|740311': 0.554829, 'FFF|RRR|260200': 0.560671},
+    'min': 0.052287, 'max': 0.963549,
+}
+
+
+def check_reliability_weights():
+    """The v2 reliability weights: pinned, and the two rules they could break asserted.
+
+    Three layers, in the order they survive a fresh clone.
+
+    1. THE SOURCE RULES, always. A weight is a SHARE of a declaration and must never become a
+       licence to drop one, so the fallback for a corridor with no fitted weight has to be 0.5/0.5
+       and not 0 - the same rule as the qty_kg zero at the top of SIDES_SQL, which once scored
+       43,067 flows (11.6%) as weight disagreements against a side that had said nothing. And the
+       weights are attached by a LEFT JOIN on the whole corridor key, because a reconciliation that
+       SUMS two sources for one flow is the bug that hit build_ac_reconcile. Both are text
+       invariants: they fail the moment someone writes the other thing, run or not run.
+    2. THE PIN, always. check.py cannot recompute the live weights - the caches are private and the
+       numbers move with every refresh - so the pin is computed on a FIXTURE built here from a
+       fixed integer generator: a known set of reporters with known injected noise. If the
+       weighting maths changes at all, the fixture weights change and this fails; if the data
+       changes, it does not. It also asserts the fixture RECOVERS what was injected (the quiet
+       reporter gets the bigger weight), so a change that keeps the hash but inverts the logic
+       cannot pass either.
+    3. THE BUILT TABLES, where they exist. On a machine that has run the pipeline: weights strictly
+       inside (0,1) and summing to 1, one row per corridor (a duplicate would multiply flows), and
+       flows_reconciled still carrying exactly one row per (period, exporter, importer, hs6).
+    """
+    rec = os.path.join(ROOT, 'pipeline', 'reconcile.py')
+    if not os.path.exists(rec):
+        fail('weights', 'pipeline/reconcile.py is missing - the reconciliation engine is the moat')
+        return
+    text = open(rec, encoding='utf-8').read()
+
+    # ---- 1. source rules -------------------------------------------------------------------
+    if 'CASE WHEN qty_kg > 0 THEN qty_kg END' not in text:
+        fail('weights', 'the ZERO-IS-NOT-A-WEIGHT rule is gone from SIDES_SQL (a 0 kg declaration '
+                        'must read as NULL) - it mis-scored 43,067 flows the last time it was absent')
+    for side in ('w_exp', 'w_imp'):
+        if 'COALESCE(rw.%s,0.5)' % side not in text:
+            fail('weights', 'the equal-weight fallback COALESCE(rw.%s,0.5) is gone: a corridor with '
+                            'no fitted weight must be reconciled 50/50, never by zeroing a side' % side)
+    if re.search(r'COALESCE\(rw\.w_(exp|imp)\s*,\s*0(\.0+)?\)', text):
+        fail('weights', 'a weight falls back to ZERO somewhere - that deletes a declaration from the '
+                        'estimate instead of admitting we do not know how good it is')
+    if ('LEFT JOIN reliability_weights rw ON s.exporter = rw.exporter AND s.importer = rw.importer'
+            not in text) or ('AND s.hs6 = rw.hs6' not in text):
+        fail('weights', 'the weights are no longer attached by a LEFT JOIN on the whole corridor key '
+                        '(exporter, importer, hs6) - anything else can multiply or mismatch rows')
+    i = text.find('CREATE OR REPLACE TABLE flows_reconciled AS')
+    stmt = text[i:text.find('"""', i + 10)] if i > 0 else ''
+    if not stmt:
+        fail('weights', 'could not find the flows_reconciled statement to check it for aggregation')
+    elif 'GROUP BY' in stmt.upper() or 'SUM(' in stmt.upper():
+        fail('weights', 'flows_reconciled now AGGREGATES (GROUP BY / SUM) - one physical flow is '
+                        'reconciled from two declarations, never summed across sources')
+    if 'fit = fold != k' not in text or 'hashlib.md5' not in text:
+        fail('weights', 'the out-of-sample fit (corridor folds, md5-assigned) is no longer what the '
+                        'weights are estimated on - an in-sample weight flatters itself on the benchmark')
+    # by AST, not by grep: this file DISCUSSES hash() in its own comments, and a checker that
+    # cannot tell a mention from a call is a checker nobody trusts twice.
+    import ast
+    try:
+        tree = ast.parse(text)
+    except SyntaxError as e:
+        fail('weights', 'pipeline/reconcile.py does not parse: %s' % e)
+        return
+    if any(isinstance(n, ast.Call) and isinstance(n.func, ast.Name) and n.func.id == 'hash'
+           for n in ast.walk(tree)):
+        fail('weights', "reconcile.py CALLS Python's hash(), which is seeded per process: the folds "
+                        'would differ between runs and no pinned weight could exist')
+
+    # ---- 2. the fixture pin ----------------------------------------------------------------
+    try:
+        import duckdb, hashlib, importlib.util
+    except ImportError as e:
+        WARN.append('weights: %s absent - the fixture pin was not checked' % e.name)
+        return
+    spec = importlib.util.spec_from_file_location('_pipeline_reconcile', rec)
+    rc = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(rc)
+    except Exception as e:
+        fail('weights', 'pipeline/reconcile.py does not import: %s' % e)
+        return
+    for k, v in RELIABILITY_CONSTANTS.items():
+        if getattr(rc, k, None) != v:
+            fail('weights', '%s is now %r, pinned at %r - the weights move with it, so rerun the BACI '
+                            'ablation (pipeline/build.py prints it) and update RELIABILITY_PIN' % (k, getattr(rc, k, None), v))
+    if getattr(rc, 'RELIABILITY_WEIGHTED', None) is not False:
+        fail('weights', 'RELIABILITY_WEIGHTED is True: the PUBLISHED estimate is no longer the '
+                        'equal-weight geomean. That is a real decision and needs the ablation rerun '
+                        'and the verdict block in reconcile.py rewritten to the new numbers, not a flag flip')
+    # a fixture with KNOWN injected noise: three quiet reporters, three loud ones, two chapters, 60
+    # periods. The generator is an integer LCG, so the fixture is bit-identical on every machine -
+    # no RNG version, no hash seed, no float parsing of a stored file.
+    rows, x = [], 20260924
+    exp_s = {'AAA': 0.10, 'BBB': 0.20, 'CCC': 0.30, 'DDD': 0.60, 'EEE': 0.90, 'FFF': 1.30}
+    imp_s = {'MMM': 0.15, 'NNN': 0.25, 'OOO': 0.35, 'PPP': 0.70, 'QQQ': 1.00, 'RRR': 1.40}
+    for period in range(202101, 202101 + 60):
+        for e, se in sorted(exp_s.items()):
+            for m, si in sorted(imp_s.items()):
+                for hs6 in ('260200', '740311'):
+                    x = (1103515245 * x + 12345) % (2 ** 31)
+                    z1 = x / (2 ** 31) - 0.5
+                    x = (1103515245 * x + 12345) % (2 ** 31)
+                    z2 = x / (2 ** 31) - 0.5
+                    d = se * z1 - si * z2
+                    rows.append((period, e, m, hs6, 1000.0, 1000.0 * (2.718281828459045 ** -d)))
+    con = duckdb.connect()
+    con.execute('CREATE TABLE sides_adj(period BIGINT, exporter VARCHAR, importer VARCHAR, '
+                'hs6 VARCHAR, fob DOUBLE, fob_from_cif DOUBLE)')
+    con.executemany('INSERT INTO sides_adj VALUES (?,?,?,?,?,?)', rows)
+    rc._reliability_weights(con)
+    w = con.execute('SELECT exporter, importer, hs6, ROUND(w_exp, 6) AS w FROM reliability_weights '
+                    'ORDER BY exporter, importer, hs6').fetchall()
+    cells = con.execute('SELECT COUNT(*) FROM reporter_reliability').fetchone()[0]
+    blob = ';'.join('%s|%s|%s=%.6f' % r for r in w).encode()
+    got = {'n_corridors': len(w), 'n_cells': cells, 'sha256': hashlib.sha256(blob).hexdigest()[:16],
+           'w_exp': {'%s|%s|%s' % (a, b, c): v for a, b, c, v in w
+                     if '%s|%s|%s' % (a, b, c) in RELIABILITY_PIN['w_exp']},
+           'min': round(min(r[3] for r in w), 6), 'max': round(max(r[3] for r in w), 6)}
+    for k in ('n_corridors', 'n_cells', 'sha256', 'min', 'max'):
+        if got[k] != RELIABILITY_PIN[k]:
+            fail('weights', 'the fixture weights CHANGED: %s = %r, pinned %r. If the change is '
+                            'intended, rerun the BACI ablation, rewrite the verdict block in '
+                            'reconcile.py and repin here.' % (k, got[k], RELIABILITY_PIN[k]))
+    for k, v in RELIABILITY_PIN['w_exp'].items():
+        if abs(got['w_exp'].get(k, -9) - v) > 1e-6:
+            fail('weights', 'fixture corridor %s now weights the exporter %r, pinned %r'
+                 % (k, got['w_exp'].get(k), v))
+    # ... and that the weights still MEAN what they claim: the fixture injects six times more noise
+    # into FFF than into AAA, so AAA's declaration must carry more weight than FFF's. A pin on
+    # numbers alone would survive the two being swapped.
+    q = con.execute("""SELECT AVG(CASE WHEN exporter='AAA' THEN w_exp END),
+                              AVG(CASE WHEN exporter='FFF' THEN w_exp END) FROM reliability_weights""").fetchone()
+    if not (q[0] and q[1] and q[0] > q[1] + 0.1):
+        fail('weights', 'the fixture no longer recovers what it injects: the quiet exporter AAA '
+                        'averages %r against the loud FFF %r - inverse-variance weighting must '
+                        'prefer the quiet one' % (q[0], q[1]))
+    con.close()
+
+    # ---- 3. the built tables, if this machine has them --------------------------------------
+    wp = os.path.join(ROOT, 'pipeline', 'data', 'reliability_weights.parquet')
+    fr = os.path.join(ROOT, 'pipeline', 'data', 'flows_reconciled.parquet')
+    if not (os.path.exists(wp) and os.path.exists(fr)):
+        WARN.append('weights: built tables absent (public clone) - fixture pin checked, live '
+                    'invariants skipped')
+        return
+    con = duckdb.connect()
+    bad = con.execute("""SELECT COUNT(*) FILTER (WHERE w_exp IS NULL OR w_imp IS NULL
+                                OR w_exp <= 0 OR w_exp >= 1 OR abs(w_exp + w_imp - 1) > 1e-9),
+                                COUNT(*) - COUNT(DISTINCT (exporter, importer, hs6)), COUNT(*)
+                         FROM read_parquet(?)""", [wp.replace('\\', '/')]).fetchone()
+    if bad[0]:
+        fail('weights', '%d corridor weights are not shares strictly inside (0,1) summing to 1 - a 0 '
+                        'or a 1 drops one side\'s declaration outright' % bad[0])
+    if bad[1]:
+        fail('weights', '%d duplicate corridors in reliability_weights - the LEFT JOIN would '
+                        'MULTIPLY reconciled flows, which is the fan-out the no-summing rule forbids' % bad[1])
+    fan = con.execute("""SELECT COUNT(*), COUNT(DISTINCT (period, exporter, importer, hs6))
+                         FROM read_parquet(?)""", [fr.replace('\\', '/')]).fetchone()
+    if fan[0] != fan[1]:
+        fail('weights', 'flows_reconciled has %d rows for %d distinct (period, exporter, importer, '
+                        'hs6) keys - one physical flow has been multiplied' % (fan[0], fan[1]))
+    z = con.execute("SELECT COUNT(*) FROM read_parquet(?) WHERE qty_exp = 0 OR qty_imp = 0",
+                    [fr.replace('\\', '/')]).fetchone()[0]
+    if z:
+        fail('weights', '%d flows carry a 0 kg declaration as if it were a declaration - the zero '
+                        'rule has been reintroduced downstream of SIDES_SQL' % z)
+    con.close()
+
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('head', check_head)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('head', check_head), ('weights', check_reliability_weights)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
