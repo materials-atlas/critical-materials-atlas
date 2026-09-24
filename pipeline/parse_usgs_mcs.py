@@ -28,17 +28,21 @@ ROOT = os.path.dirname(HERE)
 RAW = os.path.join(ROOT, 'raw', 'usgs_mcs')
 OUT = os.path.join(HERE, 'data', 'usgs_mcs_history.parquet')
 
-CAPTION = re.compile(r'^World\s+(Mine|Refinery|Smelter|Mine and Refinery|Production)[^:]*:', re.I)
+CAPTION = re.compile(r'^World\s+[A-Za-z\- ]{0,34}Production[^:]*:', re.I)   # mine, refinery, smelter, low-purity, or plain production
 YEAR = re.compile(r'^(19|20)\d{2}$')
 # the measure each column-group header names
 # A column header is a span that is ONLY the header text (with an optional footnote digit): the
 # caption wraps into sentences like "Reserves for Canada, Chile, ..." that would otherwise be read as
 # a Reserves column sitting on top of a data column.
-GROUPS = [('mine', re.compile(r'mine production\s*\d*\s*$', re.I)),
+GROUPS = [('capacity', re.compile(r'(\w+ )?capacity\s*\d*\s*$', re.I)),
+          ('mine', re.compile(r'mine production\s*\d*\s*$', re.I)),
           ('refinery', re.compile(r'refinery production\s*\d*\s*$', re.I)),
           ('smelter', re.compile(r'smelter production\s*\d*\s*$', re.I)),
           ('reserve_base', re.compile(r'reserve base\s*\d*\s*$', re.I)),
-          ('reserves', re.compile(r'reserves\s*\d*\s*$', re.I))]
+          ('reserves', re.compile(r'reserves\s*\d*\s*$', re.I)),
+          # a chapter with no stage in its header ("World Production and Reserves", gallium's older
+          # tables) still names a production column; it is kept as plain production, not as mine
+          ('production', re.compile(r'(low-purity |refinery |primary )?production\s*\d*\s*$', re.I))]
 # rows that are not countries
 WORLD = re.compile(r'^world\s+total', re.I)
 OTHER = re.compile(r'^other\s+countr', re.I)
@@ -252,7 +256,7 @@ def parse_edition(path, commodity, edition_year):
                     'commodity': commodity, 'country_name_raw': label, 'year': col['year'],
                     'measure': col['measure'], 'value': v, 'unit': unit_text,
                     'value_t': (v * factor) if (v is not None and factor and col['measure'] in
-                                                ('mine', 'refinery', 'smelter')) else None,
+                                                ('mine', 'refinery', 'smelter', 'production')) else None,
                     'is_estimate': bool(col['is_estimate']) or s['text'].strip().endswith('e') or cell_est,
                     'flag': flag, 'edition_year': edition_year, 'page': pno + 1,
                     'footnote_codes': ','.join(notes) if notes else None,

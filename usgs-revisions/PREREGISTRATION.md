@@ -55,8 +55,8 @@ before comparison, so a unit change is not read as a revision.
 
 ## Result - run 2026-09-23
 
-Run by `analysis.py`; every number is in `out/usgs_revisions.json`. 1596 series (commodity, country or world total, measure, year) can be
-measured; 692 cannot: 481 because only one edition reports them and 211 because a dash, a W or an NA left
+Run by `analysis.py`; every number is in `out/usgs_revisions.json`. 1,752 series (commodity, country or world total, measure, year) can be
+measured; 752 cannot: 519 because only one edition reports them and 233 because a dash, a W or an NA left
 fewer than two usable printings (deviation 6). The newest data year in each
 chapter has been published once and cannot be measured yet.
 
@@ -64,12 +64,12 @@ chapter has been published once and cannot be measured yet.
 
 | Commodity | world, median abs revision | same, last 10 years | largest | China, median | up / down / unchanged | direction | band: filed / last 10 |
 |---|---|---|---|---|---|---|---|
-| antimony | 11.3% | 11.3% | 42.5% | 11.0% | 41% / 39% / 19% | no consistent direction | **weak** / **weak** |
-| graphite | 6.5% | 8.3% | 29.9% | 2.2% | 25% / 35% / 40% | no consistent direction | **weak** / **weak** |
-| cobalt | 5.7% | 3.6% | 17.4% | 4.7% | 49% / 38% / 13% | no consistent direction | **weak** / **soft** |
+| antimony | 11.6% | 11.3% | 42.5% | 11.0% | 41% / 40% / 18% | no consistent direction | **weak** / **weak** |
+| graphite | 6.9% | 8.3% | 29.9% | 5.7% | 26% / 36% / 39% | no consistent direction | **weak** / **weak** |
+| cobalt | 5.7% | 3.6% | 29.0% | 4.7% | 49% / 38% / 13% | no consistent direction | **weak** / **soft** |
 | tungsten | 5.3% | 2.4% | 55.0% | 5.6% | 42% / 43% / 15% | no consistent direction | **weak** / **soft** |
-| rare earths | 2.4% | 3.1% | 17.1% | 0.0% | 39% / 29% / 32% | no consistent direction | **soft** / **soft** |
-| copper | 1.4% | 2.1% | 3.6% | 5.0% | 52% / 43% / 5% | no consistent direction | **firm** / **soft** |
+| rare earths | 2.5% | 3.1% | 17.1% | 0.0% | 38% / 27% / 36% | no consistent direction | **soft** / **soft** |
+| copper | 1.5% | 2.1% | 3.8% | 5.0% | 53% / 42% / 5% | no consistent direction | **firm** / **soft** |
 
 **A current-year figure is worth about what its commodity's band says.** Copper's world total is the firmest: it
 moves 1.4% between its first and its latest printing over the whole period, 2.1% over the last ten
@@ -227,4 +227,13 @@ Every change made after this filing goes here, dated, with its reason.
    table carries 3 to 13 countries with output, and "nine" had been carried over from the count of BGS
    reporters in 2024. All three now come from the output file, and the comparison records how many
    countries each side carries.
+13. **2026-09-24 - the panel gained the 2000-2003 editions, so every median was recomputed.** Those
+   editions are not linked from the commodity pages; they were cut out of the full yearly volumes
+   (pipeline/fetch_usgs_mcs.py --volumes), which adds the data years 1998-2002 for five of the six
+   commodities. Nothing about the measure changed. The medians move a little: copper 1.4% to 1.5%,
+   antimony 11.3% to 11.6%, graphite 6.5% to 6.9%, rare earths 2.4% to 2.5%; cobalt's largest world
+   revision rises from 17.4% to 29.0% and graphite's China median from 2.2% to 5.7%. The 1996-1999
+   volumes are scans whose OCR breaks the columns and carries no superscript tier, so they are left out.
+   The store itself now holds thirteen commodities, but this study keeps the six it filed; widening it
+   is a scope change that belongs in an amendment.
 

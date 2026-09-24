@@ -53,7 +53,7 @@ CHAIN = {
                 "note that the DRC's 2025 export quota cut its MARKETED supply further (IEA reports ~two-thirds sold). "
                 "Older producers (Canada, Russia, Zambia) had faded as Congolese copper-cobalt output surged. The mine "
                 "concentration is real — but so is the second one, in refining, which no mine-side chart shows.",
-        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world cobalt total ends up a median 5.7% from its first printing (3.6% over the last ten years; the largest move was 17.4%), with no consistent direction.",
+        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world cobalt total ends up a median 5.7% from its first printing (3.6% over the last ten years; the largest move was 29.0%), with no consistent direction.",
         "series": [
             {"label": "DR Congo", "points": hist_points("cobalt", "CD")},
             {"label": "Indonesia", "points": hist_points("cobalt", "ID")},
