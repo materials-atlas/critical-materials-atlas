@@ -154,3 +154,29 @@ stand on their own. Two consequences, decided now rather than after seeing what 
    logged there as well, and the retest uses this same filed design with no changes to it. If the
    widened test then fails the headline, it is published as a failure - that commitment is made here,
    before the wider panel exists.
+
+**2026-09-24 — deviation 3: the panel was widened, and the retest is run with the design unchanged.**
+Logged before the widened test was run, as deviation 2 promised.
+
+Ten of the thirteen missing materials now have a measured revision record: lead, chromium, molybdenum,
+fluorspar, phosphate rock, barite, feldspar, titanium, vanadium and zinc. Getting them there cost four
+parser repairs, all found by the store guard rather than by reading output, and all logged in the
+revision study's own amendment. **No figure for the six filed commodities moves**, which was checked
+against the published output before this was written.
+
+Three remain untestable and are named rather than quietly dropped:
+
+- **the platinum-group metals**, because that chapter prints two metals side by side (platinum and
+  palladium, each with its own pair of years), so a naive read doubles the world total. It needs its
+  own handling and gets none here.
+- **magnesite** and **bismuth**, whose older editions put the reserve column headers in a place the
+  parser reads as a year, so reserve values would enter the panel carrying years. Rather than publish a
+  store with known column errors, both are left out.
+
+With ten of thirteen added, the headline becomes testable, on 20 of 23 materials. The design is
+**unchanged**: same draws, same seed, same bands, same proxy caveat. The commitment from deviation 2
+stands - if the widened test fails the headline, it is published as a failure.
+
+One comparability note, stated before the result: the USGS chapter behind titanium is *titanium
+mineral concentrates*, and the atlas has already found that titanium splits three ways on the
+ilmenite-versus-slag definition. Its row is therefore the weakest of the twenty and is flagged.

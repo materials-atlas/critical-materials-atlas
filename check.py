@@ -921,7 +921,15 @@ def check_usgs_mcs():
     # tin output as 71,000 t where its own world total implies about 38,000, the figure the 2001 column
     # carries; MCS 2002 prints copper's 2001 world total as 13,200, the same figure it prints for 2000,
     # while its rows sum to 13,500.
-    SOURCE_DEFECTS = {('copper', 2002, 'mine', 2001), ('tin', 2003, 'mine', 2002)}
+    # Chapters whose own printed arithmetic does not add up - each one read off the page before
+    # being listed here, never whitelisted to silence the guard:
+    #   chromium 2016 ed, 2015: India 3,500 + Kazakhstan 3,800 + South Africa 15,000 + Turkey
+    #     3,600 + other 4,600 = 30,500, printed world total 27,000 (US is NA).
+    #   chromium 2002 ed, 2001: 1,500 + 2,300 + 5,400 + 500 + 2,300 = 12,000, printed 12,400.
+    #   barite 2003 ed, 2001: the seventeen listed countries sum to 6,368, printed 6,700.
+    SOURCE_DEFECTS = {('copper', 2002, 'mine', 2001), ('tin', 2003, 'mine', 2002),
+                      ('chromium', 2016, 'mine', 2015), ('chromium', 2002, 'mine', 2001),
+                      ('barite', 2003, 'mine', 2001)}
     flows = d[d.measure.isin(['mine', 'refinery', 'smelter']) & d.year.notna()]
     for (c, ed, m, y), g in flows.groupby(['commodity', 'edition_year', 'measure', 'year']):
         pr = g[g.row_kind == 'world_printed'].value
