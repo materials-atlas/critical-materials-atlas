@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="canonical" href="https://criticalmaterialsatlas.org/self-audit">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditing our own headline &mdash; Critical Materials Atlas</title>
+<meta name="description" content="We measured how much the USGS revises its own production figures. Then we pushed those revisions back through our own concentration finding to see whether it survives them. It does - and three of its materials do not.">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+.xp{max-width:60rem}
+.xp table{border-collapse:collapse;width:100%;font-size:.9rem;margin:.6rem 0}
+.xp th,.xp td{padding:.38rem .55rem;border-bottom:1px solid #e5e7eb;text-align:left;vertical-align:top}
+.xp td.n,.xp th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tbl{overflow-x:auto}
+.dim{color:#6b675f}
+.src{font-size:.78rem;color:#6b7478;margin:-.1rem 0 1rem;line-height:1.5}.src code{font-size:.74rem}
+.fig{margin:1.2rem 0}.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:.86rem;color:#5a6468;margin-top:.4rem;max-width:44rem}
+.fig .grid{stroke:#e3e6e5;stroke-width:1}.fig .zero{stroke:#15323a;stroke-width:1.5}
+.fig .ax{font:11px Inter,system-ui,sans-serif;fill:#5a6468}
+.fig .ax.row{font-size:12px;fill:#15323a}
+.fig .band{stroke-width:2;stroke-linecap:round}
+.refs{max-width:46rem;padding-left:1.1rem}.refs li{margin:.45rem 0;font-size:.9rem;line-height:1.55}
+.xp h3{margin-top:1.6rem;font-size:1.02rem}
+.vd{display:inline-block;font-weight:700;letter-spacing:.06em;padding:.05rem .45rem;border-radius:3px;
+ font-size:.74rem;color:#fff}
+.vd.robust{background:#0e7c74}.vd.fragile{background:#c2701c}.vd.no{background:#b3384b}
+tr.hl td{background:#fdf4ec}
+.verdictbox{border-left:3px solid #0e7c74;background:#f1f6f5;padding:.7rem .9rem;margin:1rem 0;
+ max-width:46rem;font-size:.95rem}
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Method &middot; testing our own work</div>
+  <h1>Auditing our own headline</h1>
+  <p class="deck">The atlas measured how far the US Geological Survey moves its own production figures
+  between the first printing and the revision: a median 1.5% for copper's world total, 11.6% for
+  antimony's. That measurement was about other people's numbers. This page turns it on ours. <b>We push
+  those measured revisions back through our own concentration finding &mdash; the claim that the typical
+  critical material became more concentrated &mdash; and ask whether it survives them.</b> It does, across
+  the 20 of 23 materials we can test. But three of those materials, taken on
+  their own, do not &mdash; and one of them states a change exactly the size of the headline.</p>
+</div></section>
+
+<section class="wrap xp">
+  <h2>What the test is</h2>
+  <p>The concentration finding says that between 1995&ndash;2004 and 2015&ndash;2024, the typical
+  critical material's production became more concentrated &mdash; a median rise of +0.046 in the
+  Herfindahl index across 23 materials. Every number behind it is a country's reported
+  production, and every such figure is an estimate that its source later revises.</p>
+  <p>So the test is not a comparison, it is a propagation. For each material we rebuild the
+  country-by-year production the finding is computed from, multiply every value by
+  <i>(1&nbsp;+&nbsp;a revision drawn at random from that commodity's own measured revisions)</i>, and
+  recompute the finding. Not a modelled distribution &mdash; the actual revisions observed in the USGS
+  editions, resampled. 2,000 draws, seed 20260924, both fixed in
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/self-audit/PREREGISTRATION.md">the filing</a> before the test ran, along with the
+  verdicts: <b>robust</b> if the finding keeps its sign in at least 95% of draws, <b>fragile</b> between
+  50% and 95%, <b>not supported</b> below.</p>
+
+  <div class="verdictbox"><b>The headline survives.</b> Across the 20 testable materials the
+  median change is +0.045 (the published figure is +0.046 across all 23), and it keeps
+  its sign in <b>100%</b> of draws, with a 5&ndash;95 band of +0.026 to +0.051.
+  Verdict: <b>robust</b>. Read the next paragraph before taking that as reassurance.</div>
+
+  <p><b>Why this pass is weak and the failures are strong.</b> The draws are independent across
+  countries and years. Real revisions are not: a world total is revised together with its parts, and
+  successive editions share a method, so genuine revisions are correlated and persistent. Independent
+  draws largely cancel inside a share, so this test <i>understates</i> the uncertainty. A robust verdict
+  here is therefore a floor, not a certificate &mdash; while a fragile verdict means the claim fails even
+  under a noise model that flatters it. That asymmetry was written into the filing before the numbers
+  existed, precisely so it could not be discovered afterwards.</p>
+
+  <h2>Material by material</h2>
+  <figure class="fig"><svg viewBox="0 0 720 584" role="img" aria-label="Concentration change and its band under revision noise, by material"><circle cx="6" cy="10" r="4.5" fill="#0e7c74"/><text x="15" y="14" class="ax">robust</text><circle cx="76" cy="10" r="4.5" fill="#c2701c"/><text x="85" y="14" class="ax">fragile</text><text x="718" y="14" class="ax" text-anchor="end">sign survives</text><line x1="142.0" x2="142.0" y1="22" y2="558" class="grid"/><text x="142.0" y="574" class="ax" text-anchor="middle">-0.40</text><line x1="195.1" x2="195.1" y1="22" y2="558" class="grid"/><text x="195.1" y="574" class="ax" text-anchor="middle">-0.30</text><line x1="248.2" x2="248.2" y1="22" y2="558" class="grid"/><text x="248.2" y="574" class="ax" text-anchor="middle">-0.20</text><line x1="301.4" x2="301.4" y1="22" y2="558" class="grid"/><text x="301.4" y="574" class="ax" text-anchor="middle">-0.10</text><line x1="354.5" x2="354.5" y1="22" y2="558" class="zero"/><text x="354.5" y="574" class="ax" text-anchor="middle">-0.00</text><line x1="407.6" x2="407.6" y1="22" y2="558" class="grid"/><text x="407.6" y="574" class="ax" text-anchor="middle">+0.10</text><line x1="460.8" x2="460.8" y1="22" y2="558" class="grid"/><text x="460.8" y="574" class="ax" text-anchor="middle">+0.20</text><line x1="513.9" x2="513.9" y1="22" y2="558" class="grid"/><text x="513.9" y="574" class="ax" text-anchor="middle">+0.30</text><line x1="567.0" x2="567.0" y1="22" y2="558" class="grid"/><text x="567.0" y="574" class="ax" text-anchor="middle">+0.40</text><line x1="620.2" x2="620.2" y1="22" y2="558" class="grid"/><text x="620.2" y="574" class="ax" text-anchor="middle">+0.50</text><line x1="673.3" x2="673.3" y1="22" y2="558" class="grid"/><text x="673.3" y="574" class="ax" text-anchor="middle">+0.60</text><text x="0" y="40.0" class="ax row">Lithium</text><line x1="562.1" x2="645.0" y1="36.0" y2="36.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="622.3" cy="36.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Lithium: published +0.504, 5-95% band +0.391 to +0.547, sign survives 100% of draws</title></circle><text x="718" y="40.0" class="ax" text-anchor="end">100%</text><text x="0" y="66.0" class="ax row">Cobalt</text><line x1="498.3" x2="532.9" y1="62.0" y2="62.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="519.2" cy="62.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Cobalt: published +0.310, 5-95% band +0.271 to +0.336, sign survives 100% of draws</title></circle><text x="718" y="66.0" class="ax" text-anchor="end">100%</text><text x="0" y="92.0" class="ax row">Fluorspar</text><line x1="412.7" x2="459.6" y1="88.0" y2="88.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="438.4" cy="88.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Fluorspar: published +0.158, 5-95% band +0.110 to +0.198, sign survives 100% of draws</title></circle><text x="718" y="92.0" class="ax" text-anchor="end">100%</text><text x="0" y="118.0" class="ax row">Lead</text><line x1="411.4" x2="435.1" y1="114.0" y2="114.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="423.6" cy="114.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Lead: published +0.130, 5-95% band +0.107 to +0.152, sign survives 100% of draws</title></circle><text x="718" y="118.0" class="ax" text-anchor="end">100%</text><text x="0" y="144.0" class="ax row">Vanadium</text><line x1="387.4" x2="421.9" y1="140.0" y2="140.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="407.6" cy="140.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Vanadium: published +0.100, 5-95% band +0.062 to +0.127, sign survives 100% of draws</title></circle><text x="718" y="144.0" class="ax" text-anchor="end">100%</text><text x="0" y="170.0" class="ax row">Phosphate rock</text><line x1="391.7" x2="411.3" y1="166.0" y2="166.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="401.8" cy="166.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Phosphate rock: published +0.089, 5-95% band +0.070 to +0.107, sign survives 100% of draws</title></circle><text x="718" y="170.0" class="ax" text-anchor="end">100%</text><text x="0" y="196.0" class="ax row">Nickel</text><line x1="386.9" x2="401.9" y1="192.0" y2="192.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="394.9" cy="192.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Nickel: published +0.076, 5-95% band +0.061 to +0.089, sign survives 100% of draws</title></circle><text x="718" y="196.0" class="ax" text-anchor="end">100%</text><text x="0" y="222.0" class="ax row">Feldspar</text><line x1="377.0" x2="397.5" y1="218.0" y2="218.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="386.4" cy="218.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Feldspar: published +0.060, 5-95% band +0.042 to +0.081, sign survives 100% of draws</title></circle><text x="718" y="222.0" class="ax" text-anchor="end">100%</text><text x="0" y="248.0" class="ax row">Tungsten</text><line x1="343.3" x2="409.1" y1="244.0" y2="244.0" class="band" stroke="#c2701c" opacity=".45"/><circle cx="378.9" cy="244.0" r="4.5" fill="#c2701c" stroke="#fcfcfb" stroke-width="1.5"><title>Tungsten: published +0.046, 5-95% band -0.021 to +0.103, sign survives 88% of draws</title></circle><text x="718" y="248.0" class="ax" text-anchor="end">88%</text><text x="0" y="274.0" class="ax row">Chromium</text><line x1="364.9" x2="392.0" y1="270.0" y2="270.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="378.9" cy="270.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Chromium: published +0.046, 5-95% band +0.019 to +0.071, sign survives 100% of draws</title></circle><text x="718" y="274.0" class="ax" text-anchor="end">100%</text><text x="0" y="300.0" class="ax row">Zinc</text><line x1="374.4" x2="380.9" y1="296.0" y2="296.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="377.9" cy="296.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Zinc: published +0.044, 5-95% band +0.037 to +0.050, sign survives 100% of draws</title></circle><text x="718" y="300.0" class="ax" text-anchor="end">100%</text><text x="0" y="326.0" class="ax row">Manganese</text><line x1="358.1" x2="375.8" y1="322.0" y2="322.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="367.2" cy="322.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Manganese: published +0.024, 5-95% band +0.007 to +0.040, sign survives 99% of draws</title></circle><text x="718" y="326.0" class="ax" text-anchor="end">99%</text><text x="0" y="352.0" class="ax row">Molybdenum</text><line x1="339.2" x2="377.2" y1="348.0" y2="348.0" class="band" stroke="#c2701c" opacity=".45"/><circle cx="359.8" cy="348.0" r="4.5" fill="#c2701c" stroke="#fcfcfb" stroke-width="1.5"><title>Molybdenum: published +0.010, 5-95% band -0.029 to +0.043, sign survives 70% of draws</title></circle><text x="718" y="352.0" class="ax" text-anchor="end">70%</text><text x="0" y="378.0" class="ax row">Titanium</text><line x1="334.5" x2="366.8" y1="374.0" y2="374.0" class="band" stroke="#c2701c" opacity=".45"/><circle cx="352.4" cy="374.0" r="4.5" fill="#c2701c" stroke="#fcfcfb" stroke-width="1.5"><title>Titanium: published -0.004, 5-95% band -0.038 to +0.023, sign survives 72% of draws</title></circle><text x="718" y="378.0" class="ax" text-anchor="end">72%</text><text x="0" y="404.0" class="ax row">Copper</text><line x1="334.6" x2="341.0" y1="400.0" y2="400.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="338.0" cy="400.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Copper: published -0.031, 5-95% band -0.037 to -0.025, sign survives 100% of draws</title></circle><text x="718" y="404.0" class="ax" text-anchor="end">100%</text><text x="0" y="430.0" class="ax row">Tin</text><line x1="311.9" x2="350.3" y1="426.0" y2="426.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="331.1" cy="426.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Tin: published -0.044, 5-95% band -0.080 to -0.008, sign survives 98% of draws</title></circle><text x="718" y="430.0" class="ax" text-anchor="end">98%</text><text x="0" y="456.0" class="ax row">Barytes</text><line x1="298.5" x2="334.1" y1="452.0" y2="452.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="313.6" cy="452.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Barytes: published -0.077, 5-95% band -0.105 to -0.038, sign survives 100% of draws</title></circle><text x="718" y="456.0" class="ax" text-anchor="end">100%</text><text x="0" y="482.0" class="ax row">Rare earths</text><line x1="216.1" x2="307.6" y1="478.0" y2="478.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="257.8" cy="478.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Rare earths: published -0.182, 5-95% band -0.260 to -0.088, sign survives 100% of draws</title></circle><text x="718" y="482.0" class="ax" text-anchor="end">100%</text><text x="0" y="508.0" class="ax row">Graphite</text><line x1="218.2" x2="312.2" y1="504.0" y2="504.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="253.5" cy="504.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Graphite: published -0.190, 5-95% band -0.257 to -0.080, sign survives 100% of draws</title></circle><text x="718" y="508.0" class="ax" text-anchor="end">100%</text><text x="0" y="534.0" class="ax row">Antimony</text><line x1="161.0" x2="254.7" y1="530.0" y2="530.0" class="band" stroke="#0e7c74" opacity=".45"/><circle cx="171.7" cy="530.0" r="4.5" fill="#0e7c74" stroke="#fcfcfb" stroke-width="1.5"><title>Antimony: published -0.344, 5-95% band -0.364 to -0.188, sign survives 100% of draws</title></circle><text x="718" y="534.0" class="ax" text-anchor="end">100%</text></svg>
+  <figcaption><b>What revision noise does to each material's change.</b> The dot is the published
+  change in the concentration index; the bar is the 5th to 95th percentile of that change once measured
+  revisions are resampled into the underlying production; the number at the right is the share of draws
+  in which the change keeps its sign. Amber marks the materials whose sign does not survive at the filed
+  95% threshold.</figcaption></figure>
+  <div class="tbl"><table><thead><tr><th>Material</th><th class="n">published change</th>
+  <th class="n">5&ndash;95 band under noise</th><th class="n">sign survives</th>
+  <th class="n">median revision drawn on</th><th class="n">revisions in the pool</th>
+  <th>verdict</th></tr></thead><tbody><tr><td>Lithium</td><td class="n">+0.504</td><td class="n">+0.391 to +0.547</td><td class="n">100%</td><td class="n">8.2%</td><td class="n">201</td><td><span class="vd robust">robust</span></td></tr><tr><td>Cobalt</td><td class="n">+0.310</td><td class="n">+0.271 to +0.336</td><td class="n">100%</td><td class="n">6.7%</td><td class="n">259</td><td><span class="vd robust">robust</span></td></tr><tr><td>Fluorspar</td><td class="n">+0.158</td><td class="n">+0.110 to +0.198</td><td class="n">100%</td><td class="n">8.3%</td><td class="n">272</td><td><span class="vd robust">robust</span></td></tr><tr><td>Lead</td><td class="n">+0.130</td><td class="n">+0.107 to +0.152</td><td class="n">100%</td><td class="n">5.3%</td><td class="n">303</td><td><span class="vd robust">robust</span></td></tr><tr><td>Vanadium</td><td class="n">+0.100</td><td class="n">+0.062 to +0.127</td><td class="n">100%</td><td class="n">6.1%</td><td class="n">91</td><td><span class="vd robust">robust</span></td></tr><tr><td>Phosphate rock</td><td class="n">+0.089</td><td class="n">+0.070 to +0.107</td><td class="n">100%</td><td class="n">5.8%</td><td class="n">320</td><td><span class="vd robust">robust</span></td></tr><tr><td>Nickel</td><td class="n">+0.076</td><td class="n">+0.061 to +0.089</td><td class="n">100%</td><td class="n">6.2%</td><td class="n">344</td><td><span class="vd robust">robust</span></td></tr><tr><td>Feldspar</td><td class="n">+0.060</td><td class="n">+0.042 to +0.081</td><td class="n">100%</td><td class="n">5.0%</td><td class="n">454</td><td><span class="vd robust">robust</span></td></tr><tr class="hl"><td>Tungsten</td><td class="n">+0.046</td><td class="n">-0.021 to +0.103</td><td class="n">88%</td><td class="n">8.3%</td><td class="n">245</td><td><span class="vd fragile">fragile</span></td></tr><tr><td>Chromium</td><td class="n">+0.046</td><td class="n">+0.019 to +0.071</td><td class="n">100%</td><td class="n">7.5%</td><td class="n">105</td><td><span class="vd robust">robust</span></td></tr><tr><td>Zinc</td><td class="n">+0.044</td><td class="n">+0.037 to +0.050</td><td class="n">100%</td><td class="n">4.2%</td><td class="n">229</td><td><span class="vd robust">robust</span></td></tr><tr><td>Manganese</td><td class="n">+0.024</td><td class="n">+0.007 to +0.040</td><td class="n">99%</td><td class="n">10.4%</td><td class="n">255</td><td><span class="vd robust">robust</span></td></tr><tr class="hl"><td>Molybdenum</td><td class="n">+0.010</td><td class="n">-0.029 to +0.043</td><td class="n">70%</td><td class="n">6.5%</td><td class="n">327</td><td><span class="vd fragile">fragile</span></td></tr><tr class="hl"><td>Titanium</td><td class="n">-0.004</td><td class="n">-0.038 to +0.023</td><td class="n">72%</td><td class="n">8.9%</td><td class="n">211</td><td><span class="vd fragile">fragile</span></td></tr><tr><td>Copper</td><td class="n">-0.031</td><td class="n">-0.037 to -0.025</td><td class="n">100%</td><td class="n">3.0%</td><td class="n">386</td><td><span class="vd robust">robust</span></td></tr><tr><td>Tin</td><td class="n">-0.044</td><td class="n">-0.080 to -0.008</td><td class="n">98%</td><td class="n">11.1%</td><td class="n">325</td><td><span class="vd robust">robust</span></td></tr><tr><td>Barytes</td><td class="n">-0.077</td><td class="n">-0.105 to -0.038</td><td class="n">100%</td><td class="n">9.8%</td><td class="n">316</td><td><span class="vd robust">robust</span></td></tr><tr><td>Rare earths</td><td class="n">-0.182</td><td class="n">-0.260 to -0.088</td><td class="n">100%</td><td class="n">5.0%</td><td class="n">179</td><td><span class="vd robust">robust</span></td></tr><tr><td>Graphite</td><td class="n">-0.190</td><td class="n">-0.257 to -0.080</td><td class="n">100%</td><td class="n">6.7%</td><td class="n">327</td><td><span class="vd robust">robust</span></td></tr><tr><td>Antimony</td><td class="n">-0.344</td><td class="n">-0.364 to -0.188</td><td class="n">100%</td><td class="n">20.0%</td><td class="n">209</td><td><span class="vd robust">robust</span></td></tr></tbody></table></div>
+  <p class="src"><b>Source:</b> the atlas's own published figures (<a href="concentration">the concentration measurement</a>, from BGS World Mineral Statistics) tested against the revision record measured at <a href="revisions">how firm is this year's production figure?</a> (USGS Mineral Commodity Summaries, 1996&ndash;2026). Computed values: <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/out/self_audit.json"><code>out/self_audit.json</code></a>.</p>
+  <p><b>seventeen of 20 materials are robust. three are not: molybdenum (70%), titanium (72%), tungsten (88%).</b> Those
+  three state changes that the revision record alone could erase, and this page is the reason to stop
+  quoting them without that caveat. Tungsten is the instructive one: its published change is
+  +0.046, the same size as the headline median, and its sign survives only 88% of draws
+  &mdash; because tungsten's own figures move far more than copper's do. <b>The size of a number says
+  nothing about whether the evidence carries it.</b></p>
+
+  <h2>What we could not test, and why that matters</h2>
+  <div class="tbl"><table><thead><tr><th>Material</th><th>why it is not tested</th></tr></thead>
+  <tbody><tr><td>Magnesite</td><td>no counterpart in the revision panel</td></tr><tr><td>Bismuth</td><td>no counterpart in the revision panel</td></tr><tr><td>Platinum group metals</td><td>no counterpart in the revision panel</td></tr></tbody></table></div>
+  <p class="dim">An earlier run of this audit could test only 10 of the 23 materials, and those
+  10 had a median change of &minus;0.003 against +0.060 for the 13 it could not reach. In other words
+  the testable half was almost exactly the half that had not concentrated, and any verdict computed on
+  it would have been a verdict about a different population. That is why the panel behind
+  <a href="revisions">the revision measurement</a> was widened from fifteen commodities to
+  twenty-five before this page was written, rather than publishing the convenient number. The filing
+  records the whole sequence.</p>
+
+  <h2>What this cannot say</h2>
+  <p class="dim">A robust verdict does not make a claim true; it means revision noise is not sufficient
+  to explain it away. A fragile verdict does not make a claim false; it means our evidence cannot
+  separate it from the source's own movement. <b>Every row here is a proxy row:</b> the concentration
+  finding rests on BGS production, while the revision record is measured on USGS editions, because no
+  BGS vintage history exists to measure &mdash; the two agencies' world totals themselves differ by a
+  median 0.6% for copper and 30.7% for graphite. The audit covers production-based claims only; the
+  atlas's trade-based findings rest on sources whose revision behaviour has not been measured, and are
+  listed as out of scope in the filing rather than quietly passed. And the revision pools are unequal:
+  the number behind each material's draw is printed in the table, and a pool of a few hundred
+  revisions is not the same evidence as a pool of a few thousand.</p>
+
+  <h3>Method and filing</h3>
+  <ol class="refs">
+  <li><b>The filing.</b> Measure, population, bands and pre-commitments, committed before any
+  comparison was computed, then changed in three dated deviations &mdash; among them the discovery
+  that the headline was not testable on the original panel, and the decision to widen the panel rather
+  than report the subset:
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/self-audit/PREREGISTRATION.md">self-audit/PREREGISTRATION.md</a>.</li>
+  <li><b>The code</b>, committed before it was run:
+  <a href="https://github.com/materials-atlas/critical-materials-atlas/blob/main/self-audit/analysis.py"><code>self-audit/analysis.py</code></a>.</li>
+  <li><b>The finding under test.</b> <a href="concentration">Concentration over time</a>, from BGS
+  World Mineral Statistics as held in the atlas's harmonised cube.</li>
+  <li><b>The revision record.</b> <a href="revisions">How firm is this year's production figure?</a>,
+  from USGS Mineral Commodity Summaries 1996&ndash;2026.</li>
+  </ol>
+  <p class="howto-src">Built by <code>build_self_audit.py</code> from <code>out/self_audit.json</code>,
+  written by <code>self-audit/analysis.py</code>. Guarded by <code>check.py</code>, which fails if the
+  audit's copy of a published figure stops matching the study it came from.</p>
+</section>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div><div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div><div><h4>Sources</h4>BGS World Mineral Statistics<br>USGS Mineral Commodity Summaries 1996&ndash;2026</div><div class="fineprint">Independent public-data research; figures approximate and rounded.</div></div></footer>
+</body></html>
