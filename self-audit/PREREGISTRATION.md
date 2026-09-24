@@ -210,3 +210,32 @@ commodity at that bucket - falling back to the commodity's whole pool where a bu
 **How both are reported.** The filed, unstratified test remains the headline number, because it is what
 was pre-registered. The stratified run is published beside it and labelled post-hoc. If the two
 disagree on any verdict, both are printed and the disagreement is the finding for that material.
+
+**2026-09-24 — deviation 5: audit the claims the concentration study actually stands behind, not the
+number a reader quotes.** Filed before these are computed. Raised by the fact-checking pass, and it is
+the most important correction to this study.
+
+The concentration study's own note says the full-set median (+0.046 across 23) "is substantially an
+artifact of materials ADDED to lists during the window", that frozen to the EU CRM 2011 list - the
+seven of our materials that were critical BEFORE the window - the median is **-0.095** and the
+pre-window criticals mostly diversified, and that "the honest, robust, control-free finding is the
+DIVERGENCE WITHIN criticals". The first version of this page took +0.046, the number the study
+qualifies, and reported that it survives noise. That is validating a claim the atlas does not make.
+
+Three things are therefore tested, with the design unchanged (same draws, seed, bands, pools):
+
+1. **The ex-ante 2011 subset.** Median change across the seven materials critical before the window;
+   six are testable (the platinum-group metals are not, for the reason already logged). Its published
+   value is -0.095, so the question is whether the DIVERSIFICATION of pre-window criticals survives
+   revision noise.
+2. **The divergence within criticals.** The study's stated honest finding: cobalt concentrated while
+   the older export-controlled materials came off monopoly highs. Tested jointly, in the same draw: the
+   share of draws in which cobalt's change stays positive AND the median change across antimony,
+   graphite and rare earths stays negative. A joint test is the right one, because the claim is about
+   the two moving in opposite directions, not about either alone.
+3. **The full-set median**, kept, but reported as what it is: a number its own study says is
+   substantially a selection artifact. Whatever this audit says about it, the page repeats that caveat
+   in the same breath rather than in a footnote.
+
+If the ex-ante result is fragile and the full-set result robust, that is published plainly: it would
+mean revision noise cannot erase a number the atlas does not lean on, and can erase one it does.
