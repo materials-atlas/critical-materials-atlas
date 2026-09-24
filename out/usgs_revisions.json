@@ -1,42 +1,62 @@
 {
  "filing": "usgs-revisions/PREREGISTRATION.md",
  "chapters_read": 171,
- "chapters_read_all_commodities": 399,
+ "chapters_read_all_commodities": 665,
  "country_series": 2254,
- "country_series_all_commodities": 4581,
+ "country_series_all_commodities": 8011,
  "commodities_measured": [
   "antimony",
+  "barite",
+  "chromium",
   "cobalt",
   "copper",
+  "feldspar",
+  "fluorspar",
   "gallium",
   "germanium",
   "graphite",
   "indium",
+  "lead",
   "lithium",
   "magnesium",
   "manganese",
+  "molybdenum",
   "nickel",
+  "phosphate_rock",
   "rare_earths",
   "tellurium",
   "tin",
-  "tungsten"
+  "titanium",
+  "tungsten",
+  "vanadium",
+  "zinc"
  ],
  "store_commodities": [
   "antimony",
+  "barite",
+  "chromium",
   "cobalt",
   "copper",
+  "feldspar",
+  "fluorspar",
   "gallium",
   "germanium",
   "graphite",
   "indium",
+  "lead",
   "lithium",
   "magnesium",
   "manganese",
+  "molybdenum",
   "nickel",
+  "phosphate_rock",
   "rare_earths",
   "tellurium",
   "tin",
-  "tungsten"
+  "titanium",
+  "tungsten",
+  "vanadium",
+  "zinc"
  ],
  "store": "pipeline/data/usgs_mcs_history.parquet",
  "renamed_tables_merged": [
@@ -103,9 +123,9 @@
   "lost_to_a_flag": 239
  },
  "series_dropped_all_commodities": {
-  "total": 1440,
-  "only_one_edition": 976,
-  "lost_to_a_flag": 464
+  "total": 2313,
+  "only_one_edition": 1702,
+  "lost_to_a_flag": 611
  },
  "measurable_series": 1763,
  "latest_year_excluded": {
@@ -347,6 +367,158 @@
   }
  },
  "amendment_a": {
+  "barite": {
+   "world_median_abs_revision": 0.04927536231884058,
+   "world_years": 25,
+   "world_max_abs_revision": 0.13768115942028986,
+   "world_max": {
+    "year": 2010,
+    "first": 6900000.0,
+    "latest": 7850000.0,
+    "editions": [
+     2011,
+     2012
+    ]
+   },
+   "china_median_abs_revision": 0.039968652037617555,
+   "china_years": 26,
+   "country_median_abs_revision": 0.098125,
+   "share_revised_up": 0.4222873900293255,
+   "share_revised_down": 0.3782991202346041,
+   "share_unchanged": 0.19941348973607037,
+   "share_up_of_revisions": 0.5274725274725275,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.04749069247952345,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "chromium": {
+   "world_median_abs_revision": 0.06944444444444445,
+   "world_years": 26,
+   "world_max_abs_revision": 0.19722222222222222,
+   "world_max": {
+    "year": 2018,
+    "first": 36000000.0,
+    "latest": 43100000.0,
+    "editions": [
+     2019,
+     2020
+    ]
+   },
+   "china_median_abs_revision": null,
+   "china_years": 0,
+   "country_median_abs_revision": 0.075,
+   "share_revised_up": 0.549618320610687,
+   "share_revised_down": 0.35877862595419846,
+   "share_unchanged": 0.0916030534351145,
+   "share_up_of_revisions": 0.6050420168067226,
+   "direction_of_revisions": "revised up more often than down",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "weak",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.0651595744680851,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
+  "feldspar": {
+   "world_median_abs_revision": 0.06531850353892821,
+   "world_years": 24,
+   "world_max_abs_revision": 0.23703703703703705,
+   "world_max": {
+    "year": 2023,
+    "first": 27000000.0,
+    "latest": 33400000.0,
+    "editions": [
+     2024,
+     2025
+    ]
+   },
+   "china_median_abs_revision": 0.04006410256410256,
+   "china_years": 18,
+   "country_median_abs_revision": 0.05,
+   "share_revised_up": 0.3577405857740586,
+   "share_revised_down": 0.3138075313807531,
+   "share_unchanged": 0.3284518828451883,
+   "share_up_of_revisions": 0.5327102803738318,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "weak",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.05922266139657444,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
+  "fluorspar": {
+   "world_median_abs_revision": 0.06571428571428571,
+   "world_years": 25,
+   "world_max_abs_revision": 0.2129032258064516,
+   "world_max": {
+    "year": 2011,
+    "first": 6200000.0,
+    "latest": 7520000.0,
+    "editions": [
+     2012,
+     2013
+    ]
+   },
+   "china_median_abs_revision": 0.054093567251461985,
+   "china_years": 26,
+   "country_median_abs_revision": 0.08333333333333333,
+   "share_revised_up": 0.4983164983164983,
+   "share_revised_down": 0.4006734006734007,
+   "share_unchanged": 0.10101010101010101,
+   "share_up_of_revisions": 0.5543071161048689,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "weak",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.07031875,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
   "gallium": {
    "world_median_abs_revision": 0.09,
    "world_years": 7,
@@ -451,6 +623,44 @@
    "years_with_three_or_more_editions": 0,
    "editions_per_measurable_year": 2,
    "world_median_abs_revision_recent": 0.021673254281949935,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "lead": {
+   "world_median_abs_revision": 0.02553191489361702,
+   "world_years": 25,
+   "world_max_abs_revision": 0.10805860805860806,
+   "world_max": {
+    "year": 2014,
+    "first": 5460000.0,
+    "latest": 4870000.0,
+    "editions": [
+     2015,
+     2016
+    ]
+   },
+   "china_median_abs_revision": 0.04047619047619047,
+   "china_years": 26,
+   "country_median_abs_revision": 0.05263157894736842,
+   "share_revised_up": 0.47865853658536583,
+   "share_revised_down": 0.42073170731707316,
+   "share_unchanged": 0.10060975609756098,
+   "share_up_of_revisions": 0.5322033898305084,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.03262626262626263,
    "recent_window": [
     2015,
     2024
@@ -575,6 +785,44 @@
    ],
    "band_recent": "soft"
   },
+  "molybdenum": {
+   "world_median_abs_revision": 0.036,
+   "world_years": 25,
+   "world_max_abs_revision": 0.2290748898678414,
+   "world_max": {
+    "year": 2016,
+    "first": 227000.0,
+    "latest": 279000.0,
+    "editions": [
+     2017,
+     2018
+    ]
+   },
+   "china_median_abs_revision": 0.06762391817466562,
+   "china_years": 26,
+   "country_median_abs_revision": 0.06451612903225806,
+   "share_revised_up": 0.42613636363636365,
+   "share_revised_down": 0.38920454545454547,
+   "share_unchanged": 0.1846590909090909,
+   "share_up_of_revisions": 0.5226480836236933,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.019761273209549072,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "firm"
+  },
   "nickel": {
    "world_median_abs_revision": 0.020906177156177156,
    "world_years": 26,
@@ -610,6 +858,44 @@
    "recent_years": [
     2015,
     2024
+   ],
+   "band_recent": "soft"
+  },
+  "phosphate_rock": {
+   "world_median_abs_revision": 0.022813688212927757,
+   "world_years": 19,
+   "world_max_abs_revision": 0.08071748878923767,
+   "world_max": {
+    "year": 2015,
+    "first": 223000000.0,
+    "latest": 241000000.0,
+    "editions": [
+     2016,
+     2017
+    ]
+   },
+   "china_median_abs_revision": 0.07078651685393259,
+   "china_years": 19,
+   "country_median_abs_revision": 0.05773809523809524,
+   "share_revised_up": 0.40117994100294985,
+   "share_revised_down": 0.4247787610619469,
+   "share_unchanged": 0.17404129793510326,
+   "share_up_of_revisions": 0.4857142857142857,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.03087121212121212,
+   "recent_window": [
+    2008,
+    2017
+   ],
+   "recent_years": [
+    2008,
+    2017
    ],
    "band_recent": "soft"
   },
@@ -679,6 +965,120 @@
    "years_with_three_or_more_editions": 0,
    "editions_per_measurable_year": 2,
    "world_median_abs_revision_recent": 0.024014336917562724,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "titanium": {
+   "world_median_abs_revision": 0.04502688172043011,
+   "world_years": 20,
+   "world_max_abs_revision": 0.1875,
+   "world_max": {
+    "year": 2024,
+    "first": 320000.0,
+    "latest": 380000.0,
+    "editions": [
+     2025,
+     2026
+    ]
+   },
+   "china_median_abs_revision": 0.09090909090909091,
+   "china_years": 19,
+   "country_median_abs_revision": 0.08928571428571429,
+   "share_revised_up": 0.46320346320346323,
+   "share_revised_down": 0.3463203463203463,
+   "share_unchanged": 0.19047619047619047,
+   "share_up_of_revisions": 0.572192513368984,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.09931245225362872,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "weak"
+  },
+  "vanadium": {
+   "world_median_abs_revision": 0.06025641025641026,
+   "world_years": 25,
+   "world_max_abs_revision": 0.36941176470588233,
+   "world_max": {
+    "year": 2005,
+    "first": 42500.0,
+    "latest": 58200.0,
+    "editions": [
+     2006,
+     2007
+    ]
+   },
+   "china_median_abs_revision": 0.055303030303030305,
+   "china_years": 26,
+   "country_median_abs_revision": 0.06060606060606061,
+   "share_revised_up": 0.4827586206896552,
+   "share_revised_down": 0.3706896551724138,
+   "share_unchanged": 0.14655172413793102,
+   "share_up_of_revisions": 0.5656565656565657,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "weak",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.042727272727272725,
+   "recent_window": [
+    2015,
+    2024
+   ],
+   "recent_years": [
+    2015,
+    2024
+   ],
+   "band_recent": "soft"
+  },
+  "zinc": {
+   "world_median_abs_revision": 0.0297029702970297,
+   "world_years": 25,
+   "world_max_abs_revision": 0.09125,
+   "world_max": {
+    "year": 2000,
+    "first": 8000000.0,
+    "latest": 8730000.0,
+    "editions": [
+     2001,
+     2002
+    ]
+   },
+   "china_median_abs_revision": 0.036904761904761905,
+   "china_years": 26,
+   "country_median_abs_revision": 0.04155844155844156,
+   "share_revised_up": 0.4881889763779528,
+   "share_revised_down": 0.4409448818897638,
+   "share_unchanged": 0.07086614173228346,
+   "share_up_of_revisions": 0.5254237288135594,
+   "direction_of_revisions": "no consistent direction",
+   "measure": "mine",
+   "share_revised_up_over": "every series in the commodity at its primary measure: each country and the printed world total",
+   "direction": "no consistent direction",
+   "band": "soft",
+   "years_with_three_or_more_editions": 0,
+   "editions_per_measurable_year": 2,
+   "world_median_abs_revision_recent": 0.03076923076923077,
    "recent_window": [
     2015,
     2024
