@@ -1,0 +1,302 @@
+{
+ "filing": "self-audit/PREREGISTRATION.md",
+ "draws": 2000,
+ "seed": 20260924,
+ "windows": {
+  "early": [
+   1995,
+   2004
+  ],
+  "late": [
+   2015,
+   2024
+  ]
+ },
+ "proxy": "BGS production tested against USGS-measured revisions; every row is a proxy row",
+ "headline": {
+  "published_median_change": 0.0446,
+  "share_same_sign": 1.0,
+  "p05": 0.0257,
+  "p95": 0.0506,
+  "verdict": "robust",
+  "n_materials": 20
+ },
+ "materials": [
+  {
+   "material": "lithium",
+   "panel_commodity": "lithium",
+   "published_change": 0.504,
+   "recomputed_change": 0.5042,
+   "share_same_sign": 1.0,
+   "p05": 0.3907,
+   "p95": 0.5467,
+   "median_sim": 0.4743,
+   "revision_pool_n": 201,
+   "revision_pool_median_abs": 0.0818,
+   "verdict": "robust"
+  },
+  {
+   "material": "cobalt",
+   "panel_commodity": "cobalt",
+   "published_change": 0.31,
+   "recomputed_change": 0.3104,
+   "share_same_sign": 1.0,
+   "p05": 0.2707,
+   "p95": 0.3357,
+   "median_sim": 0.2987,
+   "revision_pool_n": 259,
+   "revision_pool_median_abs": 0.0667,
+   "verdict": "robust"
+  },
+  {
+   "material": "fluorspar",
+   "panel_commodity": "fluorspar",
+   "published_change": 0.158,
+   "recomputed_change": 0.1578,
+   "share_same_sign": 1.0,
+   "p05": 0.1095,
+   "p95": 0.1979,
+   "median_sim": 0.1539,
+   "revision_pool_n": 272,
+   "revision_pool_median_abs": 0.0833,
+   "verdict": "robust"
+  },
+  {
+   "material": "lead",
+   "panel_commodity": "lead",
+   "published_change": 0.13,
+   "recomputed_change": 0.1299,
+   "share_same_sign": 1.0,
+   "p05": 0.1071,
+   "p95": 0.1517,
+   "median_sim": 0.1269,
+   "revision_pool_n": 303,
+   "revision_pool_median_abs": 0.0526,
+   "verdict": "robust"
+  },
+  {
+   "material": "vanadium",
+   "panel_commodity": "vanadium",
+   "published_change": 0.1,
+   "recomputed_change": 0.1004,
+   "share_same_sign": 1.0,
+   "p05": 0.0619,
+   "p95": 0.1268,
+   "median_sim": 0.0935,
+   "revision_pool_n": 91,
+   "revision_pool_median_abs": 0.0606,
+   "verdict": "robust"
+  },
+  {
+   "material": "phosphate_rock",
+   "panel_commodity": "phosphate_rock",
+   "published_change": 0.089,
+   "recomputed_change": 0.0891,
+   "share_same_sign": 1.0,
+   "p05": 0.07,
+   "p95": 0.107,
+   "median_sim": 0.0876,
+   "revision_pool_n": 320,
+   "revision_pool_median_abs": 0.0577,
+   "verdict": "robust"
+  },
+  {
+   "material": "nickel",
+   "panel_commodity": "nickel",
+   "published_change": 0.076,
+   "recomputed_change": 0.0761,
+   "share_same_sign": 1.0,
+   "p05": 0.061,
+   "p95": 0.0892,
+   "median_sim": 0.0746,
+   "revision_pool_n": 344,
+   "revision_pool_median_abs": 0.0625,
+   "verdict": "robust"
+  },
+  {
+   "material": "feldspar",
+   "panel_commodity": "feldspar",
+   "published_change": 0.06,
+   "recomputed_change": 0.0597,
+   "share_same_sign": 1.0,
+   "p05": 0.0423,
+   "p95": 0.0809,
+   "median_sim": 0.0584,
+   "revision_pool_n": 454,
+   "revision_pool_median_abs": 0.05,
+   "verdict": "robust"
+  },
+  {
+   "material": "tungsten",
+   "panel_commodity": "tungsten",
+   "published_change": 0.046,
+   "recomputed_change": 0.046,
+   "share_same_sign": 0.8785,
+   "p05": -0.0211,
+   "p95": 0.1028,
+   "median_sim": 0.0428,
+   "revision_pool_n": 245,
+   "revision_pool_median_abs": 0.0833,
+   "verdict": "fragile"
+  },
+  {
+   "material": "chromium",
+   "panel_commodity": "chromium",
+   "published_change": 0.046,
+   "recomputed_change": 0.0457,
+   "share_same_sign": 0.997,
+   "p05": 0.0195,
+   "p95": 0.0706,
+   "median_sim": 0.0445,
+   "revision_pool_n": 105,
+   "revision_pool_median_abs": 0.075,
+   "verdict": "robust"
+  },
+  {
+   "material": "zinc",
+   "panel_commodity": "zinc",
+   "published_change": 0.044,
+   "recomputed_change": 0.0435,
+   "share_same_sign": 1.0,
+   "p05": 0.0374,
+   "p95": 0.0497,
+   "median_sim": 0.0432,
+   "revision_pool_n": 229,
+   "revision_pool_median_abs": 0.0416,
+   "verdict": "robust"
+  },
+  {
+   "material": "manganese",
+   "panel_commodity": "manganese",
+   "published_change": 0.024,
+   "recomputed_change": 0.0237,
+   "share_same_sign": 0.986,
+   "p05": 0.0068,
+   "p95": 0.0401,
+   "median_sim": 0.0232,
+   "revision_pool_n": 255,
+   "revision_pool_median_abs": 0.1045,
+   "verdict": "robust"
+  },
+  {
+   "material": "molybdenum",
+   "panel_commodity": "molybdenum",
+   "published_change": 0.01,
+   "recomputed_change": 0.0098,
+   "share_same_sign": 0.6995,
+   "p05": -0.0288,
+   "p95": 0.0428,
+   "median_sim": 0.0083,
+   "revision_pool_n": 327,
+   "revision_pool_median_abs": 0.0645,
+   "verdict": "fragile"
+  },
+  {
+   "material": "titanium",
+   "panel_commodity": "titanium",
+   "published_change": -0.004,
+   "recomputed_change": -0.0044,
+   "share_same_sign": 0.717,
+   "p05": -0.0377,
+   "p95": 0.0231,
+   "median_sim": -0.0084,
+   "revision_pool_n": 211,
+   "revision_pool_median_abs": 0.0893,
+   "verdict": "fragile"
+  },
+  {
+   "material": "copper",
+   "panel_commodity": "copper",
+   "published_change": -0.031,
+   "recomputed_change": -0.0315,
+   "share_same_sign": 1.0,
+   "p05": -0.0375,
+   "p95": -0.0254,
+   "median_sim": -0.0314,
+   "revision_pool_n": 386,
+   "revision_pool_median_abs": 0.0301,
+   "verdict": "robust"
+  },
+  {
+   "material": "tin",
+   "panel_commodity": "tin",
+   "published_change": -0.044,
+   "recomputed_change": -0.044,
+   "share_same_sign": 0.978,
+   "p05": -0.0801,
+   "p95": -0.0079,
+   "median_sim": -0.0419,
+   "revision_pool_n": 325,
+   "revision_pool_median_abs": 0.1105,
+   "verdict": "robust"
+  },
+  {
+   "material": "barytes",
+   "panel_commodity": "barite",
+   "published_change": -0.077,
+   "recomputed_change": -0.0769,
+   "share_same_sign": 1.0,
+   "p05": -0.1053,
+   "p95": -0.0384,
+   "median_sim": -0.0704,
+   "revision_pool_n": 316,
+   "revision_pool_median_abs": 0.0981,
+   "verdict": "robust"
+  },
+  {
+   "material": "rare_earths",
+   "panel_commodity": "rare_earths",
+   "published_change": -0.182,
+   "recomputed_change": -0.1822,
+   "share_same_sign": 1.0,
+   "p05": -0.2604,
+   "p95": -0.0883,
+   "median_sim": -0.1807,
+   "revision_pool_n": 179,
+   "revision_pool_median_abs": 0.05,
+   "verdict": "robust"
+  },
+  {
+   "material": "graphite",
+   "panel_commodity": "graphite",
+   "published_change": -0.19,
+   "recomputed_change": -0.19,
+   "share_same_sign": 0.9965,
+   "p05": -0.2565,
+   "p95": -0.0796,
+   "median_sim": -0.174,
+   "revision_pool_n": 327,
+   "revision_pool_median_abs": 0.0667,
+   "verdict": "robust"
+  },
+  {
+   "material": "antimony",
+   "panel_commodity": "antimony",
+   "published_change": -0.344,
+   "recomputed_change": -0.3439,
+   "share_same_sign": 1.0,
+   "p05": -0.3641,
+   "p95": -0.1878,
+   "median_sim": -0.2843,
+   "revision_pool_n": 209,
+   "revision_pool_median_abs": 0.2,
+   "verdict": "robust"
+  }
+ ],
+ "excluded": [
+  {
+   "material": "magnesite",
+   "reason": "no counterpart in the revision panel"
+  },
+  {
+   "material": "bismuth",
+   "reason": "no counterpart in the revision panel"
+  },
+  {
+   "material": "platinum_group_metals",
+   "reason": "no counterpart in the revision panel"
+  }
+ ],
+ "n_tested": 20,
+ "n_excluded": 3
+}
