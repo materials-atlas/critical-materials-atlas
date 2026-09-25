@@ -272,3 +272,26 @@ added to support what is left.** Filed before the added numbers were computed.
    added afterwards excluded lead, so the count is 19 of 23 and lead's exclusion is a consequence of a
    rule, not of its result. A sign share of 0.9995 is 1,999 of 2,000 draws and will be printed as
    99.95%, not rounded to 100%.
+
+**2026-09-25 — deviation 7: the platinum-group metals can now be tested, on a declared proxy pool.**
+Filed before the result was computed.
+
+Deviation 3 excluded the platinum-group metals because the USGS chapter prints platinum and palladium
+side by side, each with its own pair of years, and reading it naively doubled the world total. The
+parser now splits such a table into its metals, so the chapter yields two commodities with their own
+world totals (platinum 147,000 and palladium 193,000 kg for 2014, matching the printed page), and the
+store guard's sum-to-world-total invariant passes on both.
+
+**The remaining mismatch, stated rather than hidden.** The atlas's concentration series for this
+material is BGS "Platinum group metals (mine production, metal content)" - a total across all six
+metals. The USGS prints no PGM total, only the individual metals. So the revision pool here is built
+by pooling the platinum and palladium country revisions: same chapter, same reporting countries, same
+mine stage, and the two metals that make up the bulk of the total by mass. That is a **proxy within a
+proxy**, and the row is flagged twice on the page: once as BGS-tested-with-USGS-revisions like every
+other row, and once as a total tested with its components' revisions.
+
+**Why it is worth doing anyway.** With seven materials the published ex-ante median IS the
+platinum-group value, so the six-material test could not stress the published number at all - the
+weakest point in the result as published. Testing 7 of 7 resolves it. Whatever it does to the claim is
+published: if including the platinum-group row turns the ex-ante result fragile, that is the finding,
+and this paragraph is on the record before the number exists.

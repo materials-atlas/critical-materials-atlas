@@ -34,6 +34,8 @@ YEAR = re.compile(r'^(19|20)\d{2}$')
 # A column header is a span that is ONLY the header text (with an optional footnote digit): the
 # caption wraps into sentences like "Reserves for Canada, Chile, ..." that would otherwise be read as
 # a Reserves column sitting on top of a data column.
+# metals a chapter may tabulate beside each other, each with its own year pair
+PRODUCT = re.compile(r'^(platinum|palladium|rhodium|iridium|ruthenium|osmium)\s*\d*$', re.I)
 GROUPS = [('capacity', re.compile(r'(\w+ )?capacity\s*\d*\s*$', re.I)),
           ('mine', re.compile(r'mine production\s*\d*\s*$', re.I)),
           ('refinery', re.compile(r'refinery production\s*\d*\s*$', re.I)),
@@ -175,7 +177,7 @@ def parse_edition(path, commodity, edition_year):
         if start is None:
             continue
         # group headers and the year row
-        groups, year_cells, hdr_end, est_marks = [], [], None, []
+        groups, year_cells, hdr_end, est_marks, products = [], [], None, [], []
         for i in range(start, min(start + 12, len(L))):
             txt = line_text(L[i])
             for s in L[i]:
@@ -185,6 +187,11 @@ def parse_edition(path, commodity, edition_year):
                 # (Feldspar)" -- which no stage pattern matches, leaving the year columns to
                 # fall through to whatever group IS present, usually Reserves
                 label = re.sub(r'\s*\([^)]*\)\s*$', '', s['text'].strip())
+                # a metal name in the header, not a stage: the platinum-group chapter prints
+                # "Platinum" and "Palladium" over their own year pairs, and reading both as one
+                # commodity doubles the world total
+                if (PRODUCT.match(label) and not any(rx.match(label) for _, rx in GROUPS)):
+                    products.append({'name': label.lower(), 'x': (s['x0'] + s['x1']) / 2})
                 for name, rx in GROUPS:
                     if rx.match(label):
                         groups.append({'measure': name, 'x': (s['x0'] + s['x1']) / 2})
@@ -216,12 +223,19 @@ def parse_edition(path, commodity, edition_year):
         # columns: the year cells, plus reserve-type groups that have no year of their own
         cols = []
         for yc in year_cells:
-            g = min(groups, key=lambda g: abs(g['x'] - yc['x'])) if groups else {'measure': 'mine'}
+            # a column that carries a year is a production column: reserves are printed without one.
+            # Nearest-group alone put palladium's 2015 column under Reserves, because the reserves
+            # header sits closer to it than the shared "Mine production" header does.
+            stages = [g for g in groups if g['measure'] not in ('reserves', 'reserve_base')] or groups
+            g = min(stages, key=lambda g: abs(g['x'] - yc['x'])) if stages else {'measure': 'mine'}
+            prod = (min(products, key=lambda q: abs(q['x'] - yc['x']))['name']
+                    if len(products) >= 2 else None)
             cols.append({'x': yc['x'], 'measure': g['measure'], 'year': yc['year'],
-                         'is_estimate': yc['is_estimate']})
+                         'is_estimate': yc['is_estimate'], 'product': prod})
         for g in groups:
             if g['measure'] in ('reserves', 'reserve_base') and all(abs(g['x'] - c['x']) > 12 for c in cols):
-                cols.append({'x': g['x'], 'measure': g['measure'], 'year': None, 'is_estimate': False})
+                cols.append({'x': g['x'], 'measure': g['measure'], 'year': None,
+                             'is_estimate': False, 'product': None})
         # data rows
         for ln in L[hdr_end + 1:]:
             label_spans = [s for s in ln if s['size'] >= base - 0.6 and not NUM.match(s['text'].rstrip('e'))
@@ -279,7 +293,8 @@ def parse_edition(path, commodity, edition_year):
                 cell_est = 'e' in notes
                 notes = [n for n in notes if n != 'e']
                 rows.append({
-                    'commodity': commodity, 'country_name_raw': label, 'year': col['year'],
+                    'commodity': col.get('product') or commodity,
+                    'country_name_raw': label, 'year': col['year'],
                     'measure': col['measure'], 'value': v, 'unit': unit_text,
                     'value_t': (v * factor) if (v is not None and factor and col['measure'] in
                                                 ('mine', 'refinery', 'smelter', 'production')) else None,
