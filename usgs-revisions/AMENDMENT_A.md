@@ -167,3 +167,18 @@ moves from 21 measurable years to 25 and its median from 4.3% to 4.5%; its band 
 do not change. 1996-1999 remain out, being scans. No other commodity gained a year from the wider
 volume range -- their pages already link those editions. This is the fourth retrieval fault in the
 study and the second time a "not served anywhere" conclusion was drawn from one route having failed.
+
+**2026-09-25 — deviation 11: the panel grew again, to twenty-five, and the page had drifted from it.**
+The self-audit needed a measured revision record for the concentration study's own materials, so ten
+more commodities were added to the panel (lead, chromium, molybdenum, fluorspar, phosphate rock,
+barite, feldspar, titanium, vanadium, zinc). Amendment A covers every commodity in the panel, so its
+table grows with it and no new filing is needed for the set - but the page did not rebuild, because
+`build_revisions.py` raised on a number it had no word for, and a builder that crashes leaves the last
+good page in place with no symptom. For a day the published page described fifteen commodities while
+the output file held twenty-five, and one sentence on it was wrong: tellurium was named as rank 4 when
+the wider panel puts it at 8.
+
+Fixed at the root rather than by editing the sentence: every rank, count and "of fifteen" on that page
+is now computed from the panel, so the same drift cannot recur silently. **The endpoints and the filed
+six are unchanged by the widening** - antimony still moves most and copper least, and the six now rank
+1, 5, 10, 11, 21 and 25 of twenty-five, with four of the six largest movers being added commodities.
