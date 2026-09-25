@@ -98,12 +98,12 @@ def interval_chart(rows, W=720, rh=26):
         g.append('<line x1="%.1f" x2="%.1f" y1="%.1f" y2="%.1f" class="band" stroke="%s" opacity=".45"/>'
                  % (x(r['p05']), x(r['p95']), y, y, col))
         g.append('<circle cx="%.1f" cy="%.1f" r="4.5" fill="%s" stroke="#fcfcfb" stroke-width="1.5">'
-                 '<title>%s: published %+.3f, 5-95%% band %+.3f to %+.3f, sign survives %.0f%% of draws'
+                 '<title>%s: published %+.3f, 5-95%% band %+.3f to %+.3f, sign survives %s of draws'
                  '</title></circle>'
                  % (x(r['published_change']), y, col, label(r['material']), r['published_change'],
-                    r['p05'], r['p95'], 100 * r['share_same_sign']))
-        g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">%.1f%%</text>'
-                 % (W - 2, y + 4, 100 * r['share_same_sign']))
+                    r['p05'], r['p95'], pct(r['share_same_sign'])))
+        g.append('<text x="%d" y="%.1f" class="ax" text-anchor="end">%s</text>'
+                 % (W - 2, y + 4, pct(r['share_same_sign'])))
     leg = ('<circle cx="6" cy="10" r="4.5" fill="%s"/><text x="15" y="14" class="ax">robust</text>'
            '<circle cx="76" cy="10" r="4.5" fill="%s"/><text x="85" y="14" class="ax">fragile</text>'
            '<text x="%d" y="14" class="ax" text-anchor="end">sign survives</text>' % (TEAL, AMBER, W - 2))
@@ -214,7 +214,7 @@ def page():
 TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Auditing our own headline &mdash; Critical Materials Atlas</title>
+<title>Auditing our own claims &mdash; Critical Materials Atlas</title>
 <meta name="description" content="We measured how much the USGS revises its own production figures. Then we pushed those revisions back through our own concentration finding to see whether it survives them. It does - and three of its materials do not.">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css">
