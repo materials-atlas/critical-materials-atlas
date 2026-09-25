@@ -145,7 +145,10 @@ def deviation_count():
 
 
 WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven',
-         8: 'eight', 9: 'nine', 10: 'ten', 11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen'}
+         8: 'eight', 9: 'nine', 10: 'ten', 16: 'sixteen', 17: 'seventeen', 18: 'eighteen',
+         19: 'nineteen', 20: 'twenty', 21: 'twenty-one', 22: 'twenty-two', 23: 'twenty-three',
+         24: 'twenty-four', 25: 'twenty-five', 26: 'twenty-six', 27: 'twenty-seven',
+         28: 'twenty-eight', 11: 'eleven', 12: 'twelve', 13: 'thirteen', 14: 'fourteen', 15: 'fifteen'}
 
 
 def page():
@@ -272,6 +275,12 @@ def page():
         'AMDROWS': amd_rows, 'AMDFIG': amd_fig,
         'NADD': WORDS.get(len(A), str(len(A))), 'NALL': WORDS.get(len(allc), str(len(allc))),
         'TOPC': label(rank[0]), 'BOTC': label(rank[-1]),
+        'ADDTOPRANKS': ', '.join(str(i + 1) for i, c in enumerate(rank[:6]) if c in A) or 'none',
+        'NADDTOP': WORDS.get(sum(1 for c in rank[:6] if c in A),
+                             str(sum(1 for c in rank[:6] if c in A))),
+        'NONMINETOP': ' and '.join(
+            label(c).capitalize() + (', ranked %d,' % (rank.index(c) + 1))
+            for c in rank[:8] if allc[c]['measure'] != 'mine') or 'None of the top rows',
         'FILEDRANKS': ', '.join('%s %d' % (label(c).lower(), rank.index(c) + 1)
                                 for c in sorted(B, key=lambda c: rank.index(c))),
         'GEMED': '%.1f' % (100 * A['germanium']['world_median_abs_revision']),
@@ -426,8 +435,9 @@ TEMPLATE = """<!doctype html>
   numbers were computed</a> &mdash; which fixed the floor at @@AMDMIN@@ measurable years and committed in
   advance to reporting the ranks either way. <b>The endpoints hold: @@TOPC@@ still moves most and
   @@BOTC@@ least, and no added commodity falls outside that range. The six do not sit together at the
-  extremes, though.</b> Their ranks of @@NALL@@ are @@FILEDRANKS@@, and three added commodities take
-  ranks 2 to 4 &mdash; so the added set does not simply fill the middle.</p>
+  extremes, though.</b> Their ranks of @@NALL@@ are @@FILEDRANKS@@, and @@NADDTOP@@ of the six
+  largest are commodities the amendment added (ranks @@ADDTOPRANKS@@) &mdash; so the added set does not
+  simply fill the middle.</p>
   <figure class="fig">@@AMDFIG@@
   <figcaption><b>All @@NALL@@ commodities, ranked.</b> Median absolute revision of the printed world
   total: every measurable year (violet) against the last ten printed (navy, printed at the right). Names
@@ -446,15 +456,14 @@ TEMPLATE = """<!doctype html>
   all: the USGS tabulates germanium, indium and tellurium at the refinery stage, and gallium and
   magnesium as a single production line. Each commodity is therefore read at the stage its own chapter
   prints, named in the second column &mdash; but a refinery revision and a mine revision are not the same
-  quantity, so a single list of fifteen is a list of "each chapter's primary-stage world total", not of
+  quantity, so a single list of @@NALL@@ is a list of "each chapter's primary-stage world total", not of
   comparable things. The @@NMINE@@ mine chapters ranked on their own: @@MINETXT@@. On that same-stage
   reading the filed six still hold both ends, and the commodity worth naming is <b>@@MINE2@@, second at
   @@MINE2V@@% on @@MINE2N@@ measurable years</b> &mdash; the same window as copper, and above three of the
-  six that were filed. Gallium and tellurium, ranked 2 and 4 in the table above, are not in that list at
-  all: gallium is a production line read over @@GAY@@ years and tellurium a refinery series read over 13,
-  and neither belongs in an order with mine figures.</p>
+  six that were filed. @@NONMINETOP@@ are not in that list at all &mdash; they are refinery or
+  single-production-line chapters, and none of them belongs in an order with mine figures.</p>
   <p><b>Second, copper keeps its place on the recent window but loses its label.</b> Copper is still the
-  lowest of the fifteen over the last ten printed years, at @@CURECV@@% &mdash; but that is above the 2%
+  lowest of the @@NALL@@ over the last ten printed years, at @@CURECV@@% &mdash; but that is above the 2%
   cut, so on that window it is @@CURECBAND@@, not firm, and the next commodity, @@RECLOW2@@ at
   @@RECLOW2V@@%, is a tenth of a point behind it. The amendment said that if copper stopped being the
   firmest the page would say so: it has not stopped being the lowest, and it has stopped being firm.
@@ -470,7 +479,7 @@ TEMPLATE = """<!doctype html>
   <p class="dim">The &ldquo;last 10&rdquo; window is the ten years to each commodity's own last
   measurable year, and the dates printed beside it are the first and last measurable year inside that
   window &mdash; so a span shorter than ten years means years inside the window that could not be
-  measured, not a different rule. It is 2015&ndash;2024 for @@NWIN@@ of the fifteen; the @@NODD@@
+  measured, not a different rule. It is 2015&ndash;2024 for @@NWIN@@ of the @@NALL@@; the @@NODD@@
   exceptions are @@ODDWIN@@. Germanium is the one whose window <i>ends</i> early, and for two reasons
   that are both in the source: the 2023 edition prints its country table with every cell "NA" or "W", so
   2021 and 2022 have no usable second printing, and from the 2024 edition the chapter prints no world
@@ -589,6 +598,11 @@ TEMPLATE = """<!doctype html>
   copper median in section 1 is mine production, not the refinery series section 2 reads. The agency
   gaps are differences, not a reconciliation: whether both sides use the same contained-metal or
   concentrate basis is unchecked for every commodity here.</p>
+
+  <p><b>What we did with this measurement.</b> It was turned on the atlas's own work: the
+  concentration study's claims were recomputed with these revisions resampled into the production
+  behind them, and one of them turns out to sit close to the noise. <a href="self-audit">Auditing our
+  own claims</a>.</p>
 
   <h3>Method and data</h3>
   <ol class="refs">
