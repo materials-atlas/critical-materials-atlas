@@ -61,7 +61,12 @@ PANEL = {
     'phosphate rock': 'phosphate_rock', 'phosphate_rock': 'phosphate_rock',
     'barytes': 'barite', 'barite': 'barite', 'feldspar': 'feldspar', 'titanium': 'titanium',
     'vanadium': 'vanadium', 'zinc': 'zinc',
+    # deviation 7: the atlas series is an all-PGM total and the USGS prints no such total, so this one
+    # draws on its components' revisions - declared as a proxy within a proxy
+    'platinum_group_metals': 'platinum_group_metals',
 }
+# commodities whose revision pool is assembled from other commodities' pools
+COMPOSITE_POOL = {'platinum_group_metals': ('platinum', 'palladium')}
 
 
 SHARE_CUTS = [0.0, 0.25, 0.50, 0.75, 0.90, 1.0]   # producer-size buckets, deviation 4
@@ -149,6 +154,12 @@ def bgs_stage(form):
 
 def pool_for(commodity, stage, pools):
     """The revision pool for a commodity at a stage, or None if the chapter does not print it."""
+    if commodity in COMPOSITE_POOL:
+        parts = [pools.get((c, 'mine')) for c in COMPOSITE_POOL[commodity]]
+        parts = [p for p in parts if p is not None]
+        if parts:
+            return np.concatenate(parts), 'mine (components pooled)'
+        return None, None
     order = ('mine', 'production') if stage == 'mine' else ('refinery', 'smelter', 'production')
     for m in order:
         p = pools.get((commodity, m))
@@ -243,7 +254,7 @@ def perturbed_changes_stratified(byyr, commodity, measure, pool, by_size, rng):
     # which pool each bucket actually draws from, so the fallbacks can be reported
     draw_from, fell_back = {}, 0
     for b in range(len(SHARE_CUTS) - 1):
-        p = by_size.get((commodity, measure, b))
+        p = None if commodity in COMPOSITE_POOL else by_size.get((commodity, measure, b))
         if p is None or len(p) < MIN_BUCKET:
             draw_from[b] = pool
             fell_back += 1
