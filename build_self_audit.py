@@ -116,7 +116,8 @@ def deviation_count():
         return len(re.findall(r'(?m)^\*\*2026-\d\d-\d\d — deviation', f.read()))
 
 
-WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 17: 'seventeen', 20: 'twenty'}
+WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven',
+         17: 'seventeen', 20: 'twenty'}
 
 
 def page():
@@ -148,6 +149,17 @@ def page():
                         e['reason']) for e in d['excluded'])
     C = d.get('claims', {})
     ex, dv = C.get('ex_ante_2011', {}), C.get('divergence', {})
+    # the up/down split of the ex-ante set is computed, not written: the prose once said "the six split
+    # three and three" and stayed on the page after deviation 7 put the platinum-group metals back in
+    exrow = [r for r in rows if r['material'] in set(ex.get('materials', []))]
+    exdown = sorted((r for r in exrow if r['published_change'] < 0), key=lambda r: r['published_change'])
+    exup = sorted((r for r in exrow if r['published_change'] >= 0), key=lambda r: r['published_change'])
+    pgm = next((r for r in rows if r['material'] == 'platinum_group_metals'), {})
+
+    def names(rs):
+        """'a, b and c' - a comma-joined list reads as a splice next to a second list."""
+        n = [label(r['material']).lower().replace('platinum group metals', 'the platinum-group metals') for r in rs]
+        return n[0] if len(n) == 1 else '%s and %s' % (', '.join(n[:-1]), n[-1])
     tok = {
         'CSS': CSS, 'NAV': NAV, 'FOOT': FOOT, 'REPO': REPO,
         'FIG': interval_chart(rows), 'TROWS': trows, 'EXROWS': exrows,
@@ -186,6 +198,16 @@ def page():
         'CUGAP': '%.1f' % (100 * (next((r['usgs_bgs_world_gap'] for r in rows
                                         if r['material'] == 'copper' and r.get('usgs_bgs_world_gap')), 0))),
         'EXALL': str(ex.get('n_in_claim', 0)),
+        'EXDOWN': names(exdown), 'EXUP': names(exup),
+        # "7 of 7" reads as a leftover; say "all seven" when nothing in the claim is untestable
+        'EXSET': ('all %s materials' % WORDS.get(ex.get('n_tested', 0), ex.get('n_tested', 0)))
+                 if ex.get('n_tested') == ex.get('n_in_claim')
+                 else ('the %s of %s materials' % (ex.get('n_tested', 0), ex.get('n_in_claim', 0))),
+        'EXNDOWN': WORDS.get(len(exdown), str(len(exdown))),
+        'EXNUP': WORDS.get(len(exup), str(len(exup))),
+        'PGMSIGN': pct(pgm.get('share_same_sign', 0)).rstrip('%'),
+        'PGMP05': '%+.3f' % pgm.get('p05', 0), 'PGMP95': '%+.3f' % pgm.get('p95', 0),
+        'PGMPOOLN': '{:,}'.format(pgm.get('revision_pool_n', 0)),
         'EXPUB': '%+.3f' % conc['ex_ante_2011']['median_change'],
         'DVSIGN': '%.1f' % (100 * dv.get('share_both_hold', 0)),
         'DVVERDICT': dv.get('verdict', '?'),
@@ -250,22 +272,27 @@ TEMPLATE = """<!doctype html>
 
   <h2>The three claims, and what noise does to them</h2>
   <div class="verdictbox"><b>1. The materials already critical before the window mostly diversified.
-  This is a threshold pass, not a survival.</b> Across the @@EXN@@ of @@EXALL@@ materials on the EU's
-  2011 list that can be tested, the median change is @@EXMED@@ and stays negative in @@EXSIGN@@% of
+  This is a threshold pass, not a survival.</b> Across @@EXSET@@ on the EU's 2011 list that
+  this test can reach, the median change is @@EXMED@@ and stays negative in @@EXSIGN@@% of
   draws &mdash; clearing the filed 95% line by more than the noise in 2,000 draws, so the label holds
-  &mdash; but the band runs @@EXP05@@ to <b>@@EXP95@@</b>, which is as good as zero. And the six split
-  <b>three and three</b>: antimony, graphite and rare earths down; tungsten, fluorspar and cobalt up.
-  The median is negative because it averages a large, stable decline with tungsten, whose own sign
-  survives only @@TUNGS@@%. <b>"Mostly diversified" is not what an even split shows.</b> Under the
-  size-stratified draw the same claim runs @@EXSTRAT@@% with a band of @@EXSP05@@ to @@EXSP95@@, well
-  clear of zero &mdash; so which test you believe decides how strong this claim looks, which is itself
-  the finding.</div>
-  <p class="dim">One correction to an earlier draft of this page, because it flattered the result: it
-  said that excluding the platinum-group metals made this a conservative test. It does not. With seven
-  materials the published median <i>is</i> the fourth ordered value, and that value is the
-  platinum-group change (@@PGMV@@). Removing it does not stress the published @@EXPUB@@ at all &mdash;
-  it tests the midpoint of rare earths and tungsten instead, a different and closer-to-zero statistic.
-  The reviewers caught that; it was not caught here.</p>
+  &mdash; but the band runs @@EXP05@@ to <b>@@EXP95@@</b>, and the set splits <b>@@EXNDOWN@@ down,
+  @@EXNUP@@ up</b>: @@EXDOWN@@ fell; @@EXUP@@ rose. That is a majority, not a
+  tendency, and one of the @@EXNUP@@ risers &mdash; tungsten &mdash; keeps its own sign in only
+  @@TUNGS@@% of draws.
+  <b>"Mostly diversified" is more than this split supports.</b> Under the size-stratified draw the same
+  claim runs @@EXSTRAT@@% with a band of @@EXSP05@@ to @@EXSP95@@, clear of zero &mdash; so which test
+  you believe decides how strong this claim looks, which is itself the finding.</div>
+  <p class="dim">Where this claim's weight actually rests, stated because it is not obvious from the
+  percentage. With seven materials the published median <i>is</i> the fourth ordered value, and that
+  value is the platinum-group change (@@PGMV@@). So the whole claim turns on how the platinum-group
+  metals are perturbed &mdash; and they are the one row in this test whose revision pool is not the
+  commodity's own. The USGS prints no all-PGM production total, while the atlas series is exactly that
+  total, so this row draws on platinum's and palladium's measured revisions pooled (@@PGMPOOLN@@
+  revisions; @@PGMSIGN@@% sign retention, band @@PGMP05@@ to @@PGMP95@@). That is a proxy inside a
+  proxy, filed as deviation 7 rather than left implicit. An earlier draft of this page instead
+  <i>excluded</i> the platinum-group metals and called the exclusion conservative; it was not &mdash;
+  dropping the median's own value does not stress the median, it replaces the statistic. The reviewers
+  caught that; it was not caught here.</p>
 
   <div class="verdictbox"><b>2. Cobalt concentrated while the older export-controlled materials came
   off monopoly highs. This is the claim furthest from its sign boundary.</b> Requiring all three of
