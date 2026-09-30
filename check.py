@@ -22,7 +22,7 @@ WHAT IT DOES CATCH is the mechanical failure that actually bit us, repeatedly, o
 
 Exit code 0 = all green. Non-zero = something is broken. Public data; deterministic.
 """
-import base64, json, os, re, subprocess, sys, tempfile
+import base64, datetime, io, json, os, re, subprocess, sys, tempfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
@@ -1379,10 +1379,81 @@ def check_reliability_weights():
 
 
 
+
+def check_refresh():
+    """Is the nightly data refresh actually running, and did the last run finish?
+
+    WHY THIS IS A CHECK AND NOT A MEMORY. The scheduled run is the only thing that keeps the
+    Comtrade months moving past BACI's cutoff, and it fails in a way that leaves the site looking
+    perfectly healthy: Task Scheduler killed eleven consecutive nightly runs in September 2026 at
+    the old 30-minute limit and nothing anywhere said so. The log is now written step by step, so a
+    killed run leaves a START with no END - but a trace nobody reads is not an alert. 25 Sep 2026
+    died mid-refresh and 27 Sep never ran at all, and both were found only by reading the log by
+    hand a week later.
+
+    WARN, never FAIL: a stalled refresh is a reason to look at the machine, not a reason to refuse
+    a push. The site in the tree is still internally consistent; it is just ageing.
+    """
+    log = os.path.join('pipeline', 'data', 'scheduled.log')
+    if not os.path.exists(log):
+        warn('refresh', 'no pipeline/data/scheduled.log - the nightly refresh has never run here')
+        return
+    starts, ends, steps = [], [], []
+    with io.open(log, encoding='utf8', errors='replace') as fh:
+        for line in fh:
+            m = re.match(r'===== scheduled run (\d{4}-\d\d-\d\dT[\d:]+) =====', line.strip())
+            if m:
+                starts.append(m.group(1))
+                steps.append([])
+                continue
+            if line.startswith('===== scheduled run finished, exits'):
+                ends.append(len(starts) - 1)
+                continue
+            m = re.match(r'--- END (.*?)  exit (-?\d+)', line.strip())
+            if m and steps:
+                steps[-1].append((m.group(1).strip(), int(m.group(2))))
+            m = re.match(r'--- \S+  START (.*)', line.strip())
+            if m and steps:
+                steps[-1].append((m.group(1).strip(), None))     # None = started, no END seen yet
+    if not starts:
+        warn('refresh', 'pipeline/data/scheduled.log holds no run records')
+        return
+
+    last = datetime.datetime.fromisoformat(starts[-1])
+    age_h = (datetime.datetime.now() - last).total_seconds() / 3600.0
+    # the task is daily, so a gap over two days means it is not running, not that it ran late
+    if age_h > 48:
+        warn('refresh', 'the nightly refresh last STARTED %s (%.0f days ago) - the scheduled task '
+                        'is not running: check `Get-ScheduledTaskInfo -TaskName CMA-trade-refresh`'
+                        % (starts[-1], age_h / 24))
+
+    # a run that started a step and never ended it was killed - shut down, slept, or hit the limit
+    if (len(starts) - 1) not in ends:
+        died = [nm for nm, code in steps[-1] if code is None
+                and not any(n2 == nm and c2 is not None for n2, c2 in steps[-1])]
+        if age_h > 6:      # under 6h it may simply still be running
+            warn('refresh', 'the run of %s never finished%s - killed, not failed (a failure would '
+                            'record a non-zero exit). Usually the machine slept or shut down '
+                            'mid-run.' % (starts[-1], (' and died in: ' + died[0]) if died else ''))
+    bad = [(nm, c) for nm, c in steps[-1] if c not in (None, 0)]
+    if bad:
+        warn('refresh', 'the last run reported non-zero exits: %s'
+                        % ', '.join('%s -> %d' % (nm, c) for nm, c in bad))
+
+    # how many of the last seven nights completed, which is the number that shows a slow bleed
+    cutoff = datetime.datetime.now() - datetime.timedelta(days=7)
+    recent = [i for i, t in enumerate(starts) if datetime.datetime.fromisoformat(t) >= cutoff]
+    done = [i for i in recent if i in ends]
+    if recent and len(done) < 6:
+        warn('refresh', 'only %d of the last 7 nights completed a refresh (%d started) - a run that '
+                        'dies leaves the caches a day older with no other symptom'
+                        % (len(done), len(recent)))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
@@ -1417,7 +1488,9 @@ if __name__ == '__main__':
             continue
         fn()
         n = sum(1 for f in FAIL if f.startswith(name + ':'))
-        print(f'  {"FAIL" if n else "ok  "}  {name}')
+        w = sum(1 for x in WARN if x.startswith(name + ':'))
+        # "ok" beside a warning of its own is how a check hides; say warn, and let the reason print
+        print(f'  {"FAIL" if n else ("warn" if w else "ok  ")}  {name}')
     print()
     for w in WARN:
         print(f'  warn  {w}')
