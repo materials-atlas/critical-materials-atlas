@@ -24,7 +24,12 @@ def main():
         month = int(sys.argv[2])
     else:
         st = _json.load(open(ct.STATE)) if os.path.exists(ct.STATE) else {}
-        month = cal[st.get('month_idx', 0) % len(cal)]
+        # The cursor is a month, not an index into cal - see fetch_batch. One-time migration for
+        # states written by the index version: read the index against today's calendar and keep
+        # the month it lands on, so the walk resumes where it was rather than restarting.
+        month = st.get('month')
+        if month not in cal:
+            month = cal[st.get('month_idx', 0) % len(cal)] if 'month_idx' in st else cal[0]
     before = len(ct.read_cache())
     print(f"growing Comtrade cache: {n} reporter(s), month {month} (this is slow — rate-limited)...")
     ct.fetch_batch(month, n_reporters=n)

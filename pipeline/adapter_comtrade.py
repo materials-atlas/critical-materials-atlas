@@ -145,10 +145,77 @@ def read_cache():
     return rows
 
 
+def reporters_per_period():
+    """How many distinct reporters have filed each period, from the JSONL store.
+
+    Reporters, not rows. A row count cannot measure completeness here because the cache is
+    append-only and a re-pulled month accumulates duplicate LINES, so re-pulling a month would
+    make it look more complete - the signal would improve because we looked at it again. A
+    reporter either filed or did not, and pulling twice adds no new reporter code.
+
+    It is also the signal that matches the thing being measured: a month is incomplete because
+    reporters file late, and it rises monotonically with age. Measured 2026-09-30 - 45 reporters
+    for the newest month in the window against 98 for the oldest.
+
+    Only the JSONL: the calendar window is what this rotation writes. The parquet parts hold the
+    pre-2025 historical backfill, outside the window.
+    """
+    per = {}
+    if not os.path.exists(CACHE):
+        return per
+    with open(CACHE, encoding='utf8') as f:
+        for line in f:
+            try:
+                d = json.loads(line)
+            except ValueError:
+                continue
+            # the cache stores period as a STRING ('202412'); the calendar is ints, and comparing
+            # the two silently reports every month as empty, which would pin the rotation
+            try:
+                p = int(d.get('period'))
+            except (TypeError, ValueError):
+                continue
+            per.setdefault(p, set()).add(str(d.get('reporterCode')))
+    return dict((k, len(v)) for k, v in per.items())
+
+
+def next_month(period, state=None):
+    """The month to pull next. Alternates between the least-filed month and a plain sweep.
+
+    Why not just the least-filed month: completeness rises monotonically with age, so the
+    least-filed month is always the newest one. A pure neediness rule therefore locks onto the two
+    newest months and never returns to the middle of the window - and 202601-202604 sat at 72-83
+    reporters against 90-98 for 2025, still filling. Why not just a sweep: the newest months are
+    the entire reason this layer exists, they are the part BACI cannot supply, and they are the
+    most incomplete. Alternating serves both, and cannot stall, because the sweep half reaches
+    every month in the calendar regardless of what the other half chooses.
+
+    The cursors are MONTHS, not indices. calendar() is pinned at its old end (the January after
+    BACI's last year) and GROWS at the front as the clock advances, so every existing month's
+    index shifts by +1 whenever a new month appears: under the index cursor this replaces, index 5
+    meant 202601 on 2026-09-30 and 202604 by December. It still swept everything over a long
+    horizon, but where it stood on a given night was the accident of two unrelated increments and
+    it could not be resumed.
+    """
+    cal = ComtradeAdapter.calendar()
+    st = state if state is not None else {}
+    st['turn'] = (st.get('turn', 0) + 1) % 2
+    if st['turn'] == 0:
+        sw = st.get('sweep')
+        i = (cal.index(sw) + 1) if sw in cal else 0
+        st['sweep'] = cal[i % len(cal)]
+        return st['sweep']
+    filed = reporters_per_period()
+    # exclude the month just pulled so the two halves cannot both sit on the same month
+    pool = [m for m in cal if m != period] or cal
+    # fewest filers first; among equals prefer the newer month (-m), which is the fresher data
+    return min(pool, key=lambda m: (filed.get(m, 0), -m))
+
+
 def fetch_batch(period, n_reporters=1):
     """Pull one rotation of n_reporters and APPEND to the cache. Called by the standalone pull_comtrade.py
     (occasional / cron), NOT by build.py — this is the slow, rate-limited part, kept out of the build."""
-    state = json.load(open(STATE)) if os.path.exists(STATE) else {'idx': 0, 'month_idx': 0}
+    state = json.load(open(STATE)) if os.path.exists(STATE) else {'idx': 0}
     idx = state.get('idx', 0)
     batch = [REPORTERS[(idx + i) % len(REPORTERS)] for i in range(n_reporters)]
     nxt = idx + n_reporters
@@ -156,8 +223,12 @@ def fetch_batch(period, n_reporters=1):
     # When the reporter rotation wraps, step to the next month. Coverage therefore grows in two
     # directions instead of one, which is what a mirror comparison needs: more countries widens
     # the panel, more months makes it a series.
+    #
+    # The cursor stores the MONTH, not an index into the calendar, and next_month picks by how
+    # incomplete each month is rather than by position - see next_month for why both matter.
     if nxt >= len(REPORTERS):
-        state['month_idx'] = state.get('month_idx', 0) + 1
+        state['month'] = next_month(period, state)
+        state.pop('month_idx', None)
     codes = sorted(concordance.tracked_hs6_set())
     pulled = 0
     # With a key: ALL codes and BOTH flows in one call, and `period` may be a comma-separated list
