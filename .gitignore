@@ -218,3 +218,6 @@ export-controls/comtrade/
 !out/usgs_revisions.json
 !out/self_audit.json
 raw/usgs_mcs/_volumes/
+
+# machine-local: this machine's last nightly-refresh verdict, written by pipeline/refresh_watch.py
+pipeline/data/refresh_status.txt
