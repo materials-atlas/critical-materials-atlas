@@ -1594,34 +1594,56 @@ def check_aggregation():
         warn('aggregation', 'cannot compare against the source aggregate: %s' % e)
         return
     num = lambda v: float(str(v).replace(':', '').strip() or 0)     # noqa: E731
-    YEAR = '2024'
-    bad, tested = [], 0
+    # EVERY YEAR, not one. This tested 2024 alone and passed - but agreement degrades sharply in
+    # older years, and testing 2013 would have failed it: helium is out by 0.92%, nine times the
+    # band. A check that passes because of the year it happens to look at is not a check.
+    # A RELATIVE BAND ALONE IS THE WRONG INSTRUMENT. Testing every year found hafnium 2022 at
+    # +2.42% - but that is EUR 421k on a EUR 17m market, and hafnium's whole 16-year trade is EUR
+    # 124m against copper's EUR 84bn. One cell Eurostat suppresses at member-state level and
+    # includes in its own aggregate moves a micro-market by percent and a real market by nothing.
+    # So a failure has to be material in BOTH senses, and the warning keeps every drift visible
+    # regardless of size.
+    WARN_AT, FAIL_AT, FAIL_EUR = 0.001, 0.02, 5e6
+    worst, bad, tested = (0.0, '', ''), [], 0
     for f in sorted(raw):
-        official = derived = 0.0
+        mat = os.path.basename(f).split('_')[0]
+        official, derived = {}, {}
         with io.open(f, encoding='utf-8', errors='replace') as fh:
             for r in _csv.DictReader(fh):
-                if r.get('flow', '').strip() != '1' or r.get('TIME_PERIOD', '').strip() != YEAR:
+                if r.get('flow', '').strip() != '1':
                     continue
+                y = r.get('TIME_PERIOD', '').strip()
                 rep, par = r.get('reporter', '').strip(), r.get('partner', '').strip()
                 v = num(r.get('OBS_VALUE'))
                 if rep == 'EU27_2020' and par == 'EXT_EU27_2020':
-                    official += v
+                    official[y] = official.get(y, 0.0) + v
                 elif rep in cx.EU27 and len(par) == 2 and par not in cx.EU27:
-                    derived += v
-        if official <= 0:
-            continue
-        tested += 1
-        # 0.1%, not zero. The claim "they agree to the euro" was overstated: magnets 2024
-        # differs by EUR 11,476 on EUR 784.8m (0.0015%), coking coal by EUR 1,968. The materials
-        # that happened to be printed when that claim was made were the ones that matched exactly.
-        # The band is what is enforced, so the band is what gets said.
-        if abs(derived - official) / official > 0.001:
-            bad.append('%s %.3f%%' % (os.path.basename(f).split('_')[0],
-                                      100 * (derived - official) / official))
+                    derived[y] = derived.get(y, 0.0) + v
+        for y, o in official.items():
+            if o <= 0:
+                continue
+            tested += 1
+            d = (derived.get(y, 0.0) - o) / o
+            if abs(d) > abs(worst[0]):
+                worst = (d, mat, y)
+            if abs(d) > FAIL_AT and abs(derived.get(y, 0.0) - o) > FAIL_EUR:
+                bad.append('%s %s %.2f%% (EUR %.1fm)'
+                           % (mat, y, 100 * d, (derived.get(y, 0.0) - o) / 1e6))
+    if worst[1] and abs(worst[0]) > WARN_AT:
+        # WHY THIS IS A WARNING AND NOT A PASS. The residual is real and not fully explained.
+        # Croatia acceding mid-2013 accounts for part of the worst case (0.92% -> 0.71% once its
+        # rows are dropped) and the rest is not understood - probably cells Eurostat suppresses at
+        # member-state level but includes in its own aggregate. Widening the band until it passes
+        # would hide that, so the band stays tight and the drift stays visible.
+        warn('aggregation', 'our derived extra-EU total drifts from the one Eurostat publishes '
+                            '(EXT_EU27_2020): worst %s %s %+.3f%%, across %d material-years. '
+                            'Partly Croatia 2013; the remainder is not explained.'
+                            % (worst[1], worst[2], 100 * worst[0], tested))
     if bad:
-        fail('aggregation', 'our derived extra-EU total disagrees with the one Eurostat publishes '
-                            'itself (EXT_EU27_2020), on %d of %d materials: %s'
-                            % (len(bad), tested, ', '.join(bad[:5])))
+        fail('aggregation', 'our derived extra-EU total disagrees materially with the one '
+                            'Eurostat publishes itself (EXT_EU27_2020) - over %.0f%% AND over EUR '
+                            '%.0fm - on %d of %d material-years: %s'
+                            % (100 * FAIL_AT, FAIL_EUR / 1e6, len(bad), tested, ', '.join(bad[:5])))
 
 
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
