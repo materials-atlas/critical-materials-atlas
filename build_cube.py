@@ -341,6 +341,22 @@ def build():
     if df['freq'].isna().any() or df['period'].isna().any():
         raise SystemExit('freq/period must be set on every row - a null makes keys collide')
 
+    # CURRENCY_DENOM - the BPM6 dimension, pulled forward 2026-10-02 because it became a live
+    # hazard the day Comext arrived. An engine review found `imports_value` carrying 769,861 USD
+    # rows (CMA, BACI) and 71,691 EUR rows (Comext) under ONE measure name: the unit column told
+    # them apart, the measure name did not, so a query filtering only on measure summed dollars
+    # and euros together.
+    #
+    # This is the atlas's own "money and tonnes are separate measures" rule meeting its sharper
+    # cousin - two MONIES are also separate measures - and it gets a coded dimension rather than a
+    # convention. _T marks an observation with no currency at all, which is every tonnage row.
+    if 'currency_denom' not in df.columns:
+        df['currency_denom'] = None
+    _cur = df['unit'].astype('string').str.upper()
+    df['currency_denom'] = (df['currency_denom']
+                            .fillna(_cur.where(_cur.isin(['USD', 'EUR', 'GBP']), '_T'))
+                            .astype('string'))
+
     # COUNTERPART_AREA - the BPM6 dimension, added 2026-10-02 (see DSD_BPM6.md).
     #
     # Every row that existed before this change is a country total against ALL partners, which in

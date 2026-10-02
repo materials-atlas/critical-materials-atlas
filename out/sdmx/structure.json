@@ -1205,6 +1205,10 @@
       "name": "LCA"
      },
      {
+      "id": "LIE",
+      "name": "LIE"
+     },
+     {
       "id": "LKA",
       "name": "LKA"
      },
@@ -1657,6 +1661,10 @@
       "name": "WSM"
      },
      {
+      "id": "XKV",
+      "name": "XKV"
+     },
+     {
       "id": "XKX",
       "name": "XKX"
      },
@@ -1808,6 +1816,11 @@
       "note": "BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 code = that bilateral partner. A total and its own components must never be summed together."
      },
      {
+      "id": "CURRENCY_DENOM",
+      "codelist": null,
+      "note": "currency the observation is denominated in; _T where it is physical (a tonnage has no currency). USD and EUR rows share measure names, so this is what tells them apart."
+     },
+     {
       "id": "TIME_PERIOD",
       "codelist": null,
       "role": "time"
@@ -1868,7 +1881,7 @@
      "Eurostat Comext (CN8)": "CC BY 4.0 (© European Union, Eurostat). Re-use permitted including commercially, with source acknowledgement and an indication of changes made.",
      "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
     },
-    "observations": 1290141,
+    "observations": 1295800,
     "series_key": [
      "FREQ",
      "SOURCE",
@@ -1878,7 +1891,8 @@
      "BASIS",
      "NATIVE_CODE",
      "REF_AREA",
-     "COUNTERPART_AREA"
+     "COUNTERPART_AREA",
+     "CURRENCY_DENOM"
     ]
    }
   ]

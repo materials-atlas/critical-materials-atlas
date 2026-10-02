@@ -154,6 +154,12 @@ def build():
              'note': 'BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 '
                      'code = that bilateral partner. A total and its own components must never '
                      'be summed together.'},
+            # CURRENCY_DENOM: BPM6 again. Two monies under one measure name is the same fault as
+            # money under a tonnage measure, and it arrived the day a EUR source joined USD ones.
+            {'id': 'CURRENCY_DENOM', 'codelist': None,
+             'note': 'currency the observation is denominated in; _T where it is physical '
+                     '(a tonnage has no currency). USD and EUR rows share measure names, so '
+                     'this is what tells them apart.'},
             {'id': 'TIME_PERIOD', 'codelist': None, 'role': 'time'},
         ],
         'measure': {'id': 'OBS_VALUE',
@@ -201,7 +207,7 @@ def build():
     d['ACTION'] = 'I'
     ren = {'source': 'SOURCE', 'material': 'MATERIAL', 'measure': 'MEASURE', 'stage': 'STAGE',
            'basis': 'BASIS', 'native_code': 'NATIVE_CODE', 'country_iso3': 'REF_AREA',
-           'counterpart_area': 'COUNTERPART_AREA',
+           'counterpart_area': 'COUNTERPART_AREA', 'currency_denom': 'CURRENCY_DENOM',
            'year': 'TIME_PERIOD', 'value': 'OBS_VALUE', 'unit': 'UNIT_MEASURE',
            'conversion_factor': 'CONVERSION_FACTOR', 'code_system': 'CODE_SYSTEM',
            'native_label': 'NATIVE_LABEL', 'obs_status': 'OBS_STATUS',
