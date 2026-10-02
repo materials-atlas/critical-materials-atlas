@@ -50,7 +50,10 @@ FLOW = {'import', 'export'}
 # lets the SAME physical flow from two sources dedupe/reconcile instead of splitting on a code mismatch.
 # S19->TWN follows standard practice (it is overwhelmingly Taiwan) and calls the entity by its real name.
 COUNTRY_FIX = {'TW': 'TWN', 'XS': 'SRB', 'LI': 'LIE', 'NA': 'NAM', 'XU': 'GBR', 'XI': 'GBR',
-               'EL': 'GRC', 'UK': 'GBR', 'XK': 'XKV', 'S19': 'TWN'}
+               'EL': 'GRC', 'UK': 'GBR', 'XK': 'XKV', 'S19': 'TWN',
+               # genuine territories BACI's iso2 table omits, found when Eurostat's partner column
+               # left them unmapped and they would otherwise have been filed as "not specified"
+               'FO': 'FRO', 'VA': 'VAT', 'VI': 'VIR'}
 ISO3_NAME.setdefault('TWN', 'Taiwan')
 ISO3_NAME.setdefault('XKV', 'Kosovo')
 

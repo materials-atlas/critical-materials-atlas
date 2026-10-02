@@ -73,6 +73,21 @@ AGGREGATES = {'EU', 'EU27_2020', 'EU28', 'EA', 'EA21', 'EXT_EU', 'EXT_EU27_2020'
 
 
 
+# Eurostat's residual partner codes, KEPT VERBATIM rather than collapsed.
+#
+# They are not one class. QV and QY are INTRA-EU "not specified"; QZ and the rest are EXTRA-EU.
+# Flattening them all into _Z threw that distinction away, and because _Z then failed the
+# "is it an EU27 member" test, every intra-EU residual was counted as extra-EU. Proven exactly:
+# across all 454 material-years, our derived extra-EU total minus Eurostat's published
+# EXT_EU27_2020 equals QV + QY to the euro, in every single case.
+#
+# That is also the real answer to a residual this file previously blamed on Croatia's 2013
+# accession. It was not Croatia. Helium 2013's EUR 1,097,172 gap is QY, exactly. With QV and QY
+# classified as intra, the fixed EU27_2020 composition reproduces Eurostat in every year 2010-2025,
+# 2013 included. Found by an engine review; the Croatia story was mine and it was wrong.
+INTRA_RESIDUALS = frozenset({'QV', 'QY'})
+
+
 def _area(code):
     """Comext ISO2 -> canonical ISO3, through the repo's one door.
 
@@ -87,7 +102,11 @@ def _area(code):
     under the non-allocated code rather than discarded.
     """
     out = schema.iso3(code)
-    return out if (len(out) == 3 and out.isalpha() and out.isupper()) else NOT_ALLOCATED
+    if len(out) == 3 and out.isalpha() and out.isupper():
+        return out
+    # a Eurostat residual: keep its own code so intra/extra survives - see INTRA_RESIDUALS
+    c = (code or '').strip().upper()
+    return c if (len(c) == 2 and c.isalpha()) else NOT_ALLOCATED
 
 
 def _rows(path):

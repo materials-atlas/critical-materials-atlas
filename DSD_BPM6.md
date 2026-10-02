@@ -114,12 +114,23 @@ they mean.
 And because the source publishes those aggregates, our arithmetic can be checked against them
 rather than merely asserted. The adapter filters the aggregate rows out, as it must — which leaves
 them free to serve as an independent test of what we compute in their place. `check_aggregation`
-compares our derived extra-EU total against Eurostat's own published `EXT_EU27_2020`, per material,
-**within 0.1%**. An earlier draft of this document said "to the euro"; that was overstated — the
-materials that happened to be printed when the claim was made were the ones that matched exactly,
-while magnets 2024 differs by €11,476 on €784.8m and coking coal by €1,968. The band the check
-enforces is the band that gets claimed. Verified by injection — removing one country from the EU-27
-definition fails it on 23 of 32.
+compares our derived extra-EU total against Eurostat's own published `EXT_EU27_2020`, **every year,
+454 material-years**, and they now agree to **exactly zero** difference.
+
+Getting there took two corrections, both from review rather than from design. The check first tested
+only 2024 — passing because of the year it happened to look at; widened, it failed on 2013 helium by
+0.92%. I then diagnosed that residual as Croatia's mid-2013 accession, **and that was wrong**. The
+whole discrepancy was Eurostat's intra-EU "not specified" partner codes `QV` and `QY`: the adapter
+collapsed every residual into `_Z`, `_Z` failed the "is it a member state" test, and so every
+intra-EU residual was counted as extra-EU. Proven exactly — derived minus official equalled
+`QV + QY` to the euro on all 454 material-years, with helium 2013's €1,097,172 being `QY` precisely.
+
+The residual codes are now kept under their own Eurostat names rather than flattened, because they
+are not one class: `QV`/`QY` are intra-EU, `QZ`/`QW`/`QP`/`XL` extra-EU. Three real territories the
+ISO2 table omitted (`FO`, `VA`, `VI`) went into `schema.COUNTRY_FIX` where they belong.
+
+Verified by injection — removing one country from the EU-27 definition fails it on 75 of 454
+material-years.
 
 Verified on 2024 Comext: `EXT_EU27_2020` returns 784,821,501 for magnets, which is
 `out/data.json`'s published figure to the euro, while `WORLD` returns 982,873,293. The gap is the intra-EU
