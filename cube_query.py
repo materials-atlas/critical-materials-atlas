@@ -127,7 +127,22 @@ def _eu27():
     return frozenset(_schema.iso3(c) for c in _cx.EU27)
 
 
-SCOPES = ('world', 'all_partners', 'extra_eu', 'intra_eu')
+# THE SCOPE NAMES ARE THE SOURCES' OWN CODES, not names invented here.
+#
+# The first version of this used 'world' / 'all_partners' / 'extra_eu' / 'intra_eu' - a private
+# vocabulary for concepts that every statistical agency has already codified. The owner asked
+# whether the rules of aggregation are not written in the official metadata. They are, and the
+# source ships them: Eurostat's geonomenclature publishes EXT_EU27_2020, INT_EU27_2020 and WORLD
+# as partner codes IN THE DATA, and BPM6 publishes W1. Using their codes means a reader who knows
+# Eurostat or the IMF already knows what these mean.
+#
+#   W1              BPM6 'world'. SELECTS rows already stored as a total against all partners.
+#                   Nothing is summed. Every non-bilateral source in the cube carries this.
+#   WORLD           Eurostat's all-partners code. DERIVED here by summing every component.
+#   EXT_EU27_2020   Eurostat: partners outside the EU-27. Verified to reproduce Eurostat's own
+#                   published EXT_EU27_2020 aggregate to the euro - see check_aggregation.
+#   INT_EU27_2020   Eurostat: partners inside the EU-27.
+SCOPES = ('W1', 'WORLD', 'EXT_EU27_2020', 'INT_EU27_2020')
 
 
 def totals(material, measure, scope, source=None, years=None, by='year'):
@@ -144,14 +159,12 @@ def totals(material, measure, scope, source=None, years=None, by='year'):
     scope is the whole protection, and it is the same move facts() makes when it refuses an
     ambiguous identity instead of picking one.
 
-        world         rows already stored as a total against all partners (counterpart W1).
-                      Nothing is summed; this is what every non-bilateral source carries.
-        all_partners  sum the components, every counterpart. The world figure for a bilateral
-                      source.
-        extra_eu      sum the components whose counterpart is OUTSIDE the EU-27. This is the
-                      "where does Europe's supply enter the bloc from" question, and the scope
-                      out/data.json publishes.
-        intra_eu      sum the components whose counterpart is INSIDE the EU-27.
+        W1              select stored world totals; nothing is summed
+        WORLD           sum every component
+        EXT_EU27_2020   sum components outside the EU-27 (what out/data.json publishes)
+        INT_EU27_2020   sum components inside the EU-27
+
+    The names are the sources' own codes, not ours - see SCOPES above.
 
     It refuses to mix a stored W1 total with components, which would double count.
     """
@@ -169,13 +182,13 @@ def totals(material, measure, scope, source=None, years=None, by='year'):
         raise Ambiguous('no rows for %s / %s under that filter' % (material, measure))
 
     is_w1 = c.counterpart_area == 'W1'
-    if scope == 'world':
+    if scope == 'W1':
         c = c[is_w1]
     else:
         c = c[~is_w1]
-        if scope != 'all_partners':
+        if scope != 'WORLD':
             inside = c.counterpart_area.isin(_eu27())
-            c = c[inside if scope == 'intra_eu' else ~inside]
+            c = c[inside if scope == 'INT_EU27_2020' else ~inside]
     if not len(c):
         raise Ambiguous('no %s rows for %s / %s - this source may not carry that scope '
                         '(a W1-only source has no components, and vice versa)'
