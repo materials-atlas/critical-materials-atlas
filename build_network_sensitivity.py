@@ -144,7 +144,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Does the chokepoint survive an uncapped graph? — Critical Materials Atlas</title>
-<meta name="description" content="A truncation-sensitivity test of the trade-network findings: China's throughput share, betweenness rank and node-removal fragility recomputed at top-6, top-10, top-20 and the full uncapped 2024 graph for 32 critical materials.">
+<meta name="description" content="A truncation-sensitivity test of the trade-network findings: China's throughput share, betweenness rank and node-removal fragility recomputed at top-6, top-10, top-20 and the full uncapped 2024 graph for critical materials.">
 <meta property="og:title" content="Is China's network centrality a truncation artifact? (No.)">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

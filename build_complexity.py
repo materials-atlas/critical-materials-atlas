@@ -120,7 +120,7 @@ out = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Economic complexity of critical-materials trade — Critical Materials Atlas</title>
-<meta name="description" content="Revealed comparative advantage, complexity and relatedness for 32 critical materials: which are exported competitively by the fewest countries (the strategic ones), which cluster together, and who the complex exporters are.">
+<meta name="description" content="Revealed comparative advantage, complexity and relatedness for critical materials: which are exported competitively by the fewest countries (the strategic ones), which cluster together, and who the complex exporters are.">
 <meta property="og:title" content="Economic complexity of critical-materials trade">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

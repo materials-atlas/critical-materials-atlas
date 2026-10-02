@@ -208,7 +208,7 @@ def main():
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Trade-network chokepoints — Critical Materials Atlas</title>
-<meta name="description" content="The supply chokepoints that concentration misses: a directed-network analysis of who controls the trade routes for 32 critical materials — brokers, processing hubs and re-export transit, validated by a node-removal fragmentation test.">
+<meta name="description" content="The supply chokepoints that concentration misses: a directed-network analysis of who controls the trade routes for critical materials — brokers, processing hubs and re-export transit, validated by a node-removal fragmentation test.">
 <meta property="og:title" content="Trade-network chokepoints">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -11,7 +11,7 @@ on the bipartite country x material network:
 makes a mineral 'critical' when only low-fitness countries can competitively export it -- the opposite of
 ECI's linear averaging, and better on nested miner/refiner structures.
 
-M is the binary RCA>=1 matrix over the atlas's 32 critical materials (RCA computed within the critical-
+M is the binary RCA>=1 matrix over the atlas's critical materials (RCA computed within the critical-
 materials basket, as on the complexity page). Reads the committed BACI zip; writes out/fitness.json.
 
 WHY THIS IS EXPERIMENTAL AND UNPUBLISHED (a documented failed experiment, not a bug). Two independent

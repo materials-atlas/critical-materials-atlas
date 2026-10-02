@@ -1,6 +1,6 @@
 # Materials crosswalk
 
-The 32 critical raw materials this atlas tracks, with the HS6 trade code used, the stage that code represents, and the headline figure from each data layer.
+The critical raw materials this atlas tracks, with the HS6 trade code used, the stage that code represents, and the headline figure from each data layer.
 
 The canonical machine-readable version is [`out/crosswalk.json`](out/crosswalk.json) (ore + refined HS codes
 + data-quality flags); this table is an illustrative snapshot — for current figures see the published JSON.
