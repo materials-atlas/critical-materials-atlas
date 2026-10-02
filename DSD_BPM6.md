@@ -95,11 +95,16 @@ never share the column, so `check_counterpart` stays a simple rule that cannot b
 no stored aggregate can ever drift from the rows it claims to summarise.
 
 That leaves the forgetting failure, so it is answered in code rather than in prose.
-`cube_query.totals()` is the one way to aggregate, and **`scope` is a required argument with no
-default**: `world` (rows already stored as a W1 total), `all_partners`, `extra_eu`, `intra_eu`. A
-default would hide the one decision that matters, so there is none — the same move `facts()` makes
-when it refuses an ambiguous identity instead of picking one. It also refuses to mix a stored W1
-total with components.
+`cube_query.totals()` is the one way to aggregate, and it requires a scope for **both** area
+dimensions, neither defaulting to a sum: `scope` for the counterpart (`W1`, `WORLD`,
+`EXT_EU27_2020`, `INT_EU27_2020`) and `ref` for the reporter (`each` — do not sum across reporters
+— or `EU27_2020`, `WLD`, or one ISO3). A default would hide the decision that matters, so there is
+none, which is the same move `facts()` makes when it refuses an ambiguous identity.
+
+Both are needed because **both area columns carry aggregates**. The counterpart case was the
+obvious one; the reporter case was found by review: USGS files a `WLD` world row beside the `USA`
+row it contains, so an unrestricted sum over reporters read bauxite 1900 as 111,600 against a true
+world 88,000. `totals()` refuses that mix and names the way out.
 
 **The scope names are the sources' own codes**, not a private vocabulary: `W1` is BPM6's world,
 and `EXT_EU27_2020`, `INT_EU27_2020` and `WORLD` are Eurostat's geonomenclature codes, published as
@@ -109,8 +114,11 @@ they mean.
 And because the source publishes those aggregates, our arithmetic can be checked against them
 rather than merely asserted. The adapter filters the aggregate rows out, as it must — which leaves
 them free to serve as an independent test of what we compute in their place. `check_aggregation`
-compares our derived extra-EU total against Eurostat's own published `EXT_EU27_2020`, per material:
-**they agree to the euro on all 32**. Verified by injection — removing one country from the EU-27
+compares our derived extra-EU total against Eurostat's own published `EXT_EU27_2020`, per material,
+**within 0.1%**. An earlier draft of this document said "to the euro"; that was overstated — the
+materials that happened to be printed when the claim was made were the ones that matched exactly,
+while magnets 2024 differs by €11,476 on €784.8m and coking coal by €1,968. The band the check
+enforces is the band that gets claimed. Verified by injection — removing one country from the EU-27
 definition fails it on 23 of 32.
 
 Verified on 2024 Comext: `EXT_EU27_2020` returns 784,821,501 for magnets, which is

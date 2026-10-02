@@ -1711,6 +1711,28 @@
     ]
    },
    {
+    "id": "CL_CURRENCY",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Currency denominator",
+    "description": "ISO 4217 alpha-3 where the observation is monetary; _T where it is physical. Added because imports_value carried both USD and EUR rows under one measure name and only the unit told them apart.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "EUR",
+      "name": "Euro"
+     },
+     {
+      "id": "USD",
+      "name": "US dollar"
+     },
+     {
+      "id": "_T",
+      "name": "Not applicable (physical observation)"
+     }
+    ]
+   },
+   {
     "id": "CL_OBS_STATUS",
     "agencyID": "CMA",
     "version": "1.0.0",
@@ -1817,11 +1839,11 @@
      {
       "id": "COUNTERPART_AREA",
       "codelist": "CL_AREA",
-      "note": "BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 code = that bilateral partner. A total and its own components must never be summed together."
+      "note": "BPM6 counterpart area. W1 = world (a total against all partners); an ISO3 code = that bilateral partner. A total and its own components must never be summed together."
      },
      {
       "id": "CURRENCY_DENOM",
-      "codelist": null,
+      "codelist": "CL_CURRENCY",
       "note": "currency the observation is denominated in; _T where it is physical (a tonnage has no currency). USD and EUR rows share measure names, so this is what tells them apart."
      },
      {

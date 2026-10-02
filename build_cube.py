@@ -369,10 +369,13 @@ def build():
     # convention. _T marks an observation with no currency at all, which is every tonnage row.
     if 'currency_denom' not in df.columns:
         df['currency_denom'] = None
-    _cur = df['unit'].astype('string').str.upper()
-    df['currency_denom'] = (df['currency_denom']
-                            .fillna(_cur.where(_cur.isin(['USD', 'EUR', 'GBP']), '_T'))
-                            .astype('string'))
+    # Read the currency OUT OF the unit rather than matching the whole string. The first version
+    # tested `unit in ('USD','EUR','GBP')`, which marked a PRICE as having no currency: unit values
+    # are 'USD/t' and '1998 USD/t', so 17,668 monetary observations were tagged _T. A unit value is
+    # denominated in dollars however it is scaled. Found by an engine review.
+    _u = df['unit'].astype('string').str.upper()
+    _iso = _u.str.extract(r'(?:^| )(USD|EUR|GBP)(?:$|[ /])', expand=False)
+    df['currency_denom'] = df['currency_denom'].fillna(_iso.fillna('_T')).astype('string')
 
     # COUNTERPART_AREA - the BPM6 dimension, added 2026-10-02 (see DSD_BPM6.md).
     #

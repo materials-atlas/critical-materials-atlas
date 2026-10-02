@@ -117,6 +117,17 @@ def build():
                  '(SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into '
                  'successors. Also carries the BPM6 counterpart codes W1 (world) and _Z (not '
                  'allocated), which are areas in the key but not countries.'),
+        # A DIMENSION WITHOUT A CODE LIST CANNOT BE VALIDATED, which is the point of declaring one.
+        # CURRENCY_DENOM shipped uncoded in the commit that introduced it - the dimension was right
+        # and the omission was mine. ISO 4217 alpha-3 for real currencies, plus the SDMX _T for an
+        # observation that has no currency because it is physical.
+        codelist('CL_CURRENCY', 'Currency denominator',
+                 sorted(set([(c, {'USD': 'US dollar', 'EUR': 'Euro', 'GBP': 'Pound sterling',
+                                  '_T': 'Not applicable (physical observation)'}.get(c, c))
+                             for c in uniq('currency_denom')])),
+                 'ISO 4217 alpha-3 where the observation is monetary; _T where it is physical. '
+                 'Added because imports_value carried both USD and EUR rows under one measure '
+                 'name and only the unit told them apart.'),
         codelist('CL_OBS_STATUS', 'Observation status', sorted(OBS_STATUS.items()),
                  'SDMX cross-domain CL_OBS_STATUS (subset used here), verified against the SDMX '
                  'Global Registry v2.3.'),
@@ -151,12 +162,12 @@ def build():
             # universe the observation covers. W1 is world, i.e. a country total against all
             # partners, which is what every row in this cube meant before the dimension existed.
             {'id': 'COUNTERPART_AREA', 'codelist': 'CL_AREA',
-             'note': 'BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 '
+             'note': 'BPM6 counterpart area. W1 = world (a total against all partners); an ISO3 '
                      'code = that bilateral partner. A total and its own components must never '
                      'be summed together.'},
             # CURRENCY_DENOM: BPM6 again. Two monies under one measure name is the same fault as
             # money under a tonnage measure, and it arrived the day a EUR source joined USD ones.
-            {'id': 'CURRENCY_DENOM', 'codelist': None,
+            {'id': 'CURRENCY_DENOM', 'codelist': 'CL_CURRENCY',
              'note': 'currency the observation is denominated in; _T where it is physical '
                      '(a tonnage has no currency). USD and EUR rows share measure names, so '
                      'this is what tells them apart.'},
