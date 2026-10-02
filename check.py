@@ -526,10 +526,13 @@ def check_dim():
     if os.path.exists('out/cube_manifest.json') and os.path.exists(cube):
         try:
             man = json.load(open('out/cube_manifest.json', encoding='utf8'))
-            # kept in step with cube_query.IDENTITY - the two drifting apart is what this
-            # check is for, and they did drift when the BPM6 dimensions arrived
-            idcols = ['material', 'source', 'measure', 'stage', 'basis', 'unit',
-                      'counterpart_area', 'currency_denom']
+            # IMPORTED, not copied. This list was duplicated here "kept in step with
+            # cube_query.IDENTITY" and drifted within the hour, the moment native_code joined the
+            # identity - which this check then caught, correctly, as a manifest disagreeing with
+            # the cube. A check whose own constant can fall out of date with the thing it checks
+            # is a check with a second job nobody is doing, so it now reads the one definition.
+            import cube_query as _cq
+            idcols = ['material'] + list(_cq.IDENTITY)
             c = pd.read_parquet(cube, columns=idcols)
             live = len(c.groupby(idcols, dropna=False).size())
             if man.get('n_identities') != live:
@@ -1543,6 +1546,23 @@ def check_counterpart():
                             'components, so any sum that omits counterpart_area double counts '
                             'them: %s' % (len(both), ex))
 
+    # THE SAME FAULT IN THE OTHER AREA COLUMN, which this check did not watch until a review
+    # pointed at it. REF_AREA carries aggregates too: USGS files a WLD world row beside the USA row
+    # it contains, so a sum over reporters counts the United States twice - bauxite 1900 came out
+    # 111,600 against a true world 88,000. Reported, not failed: unlike the counterpart case this
+    # is how the source publishes, it is legitimate data, and the protection belongs in the query
+    # layer (cube_query.totals refuses the mix). The warning exists so nobody rediscovers it.
+    c2 = pd.read_parquet(path, columns=['source', 'country_iso3'])
+    agg = {'WLD', 'W1', 'EU27_2020', 'EU', 'WORLD'}
+    mixed = [(src, sorted(set(d['country_iso3']) & agg))
+             for src, d in c2.groupby('source')
+             if (set(d['country_iso3']) & agg) and len(set(d['country_iso3'])) > 1]
+    if mixed:
+        warn('counterpart', '%d source(s) file an aggregate REF_AREA beside the countries it '
+                            'contains, so a sum over reporters double counts: %s. Use '
+                            'cube_query.totals(..., ref=...), which refuses the mix.'
+                            % (len(mixed), '; '.join('%s %s' % (s.split()[0], a) for s, a in mixed[:3])))
+
 
 
 def check_aggregation():
@@ -1591,6 +1611,10 @@ def check_aggregation():
         if official <= 0:
             continue
         tested += 1
+        # 0.1%, not zero. The claim "they agree to the euro" was overstated: magnets 2024
+        # differs by EUR 11,476 on EUR 784.8m (0.0015%), coking coal by EUR 1,968. The materials
+        # that happened to be printed when that claim was made were the ones that matched exactly.
+        # The band is what is enforced, so the band is what gets said.
         if abs(derived - official) / official > 0.001:
             bad.append('%s %.3f%%' % (os.path.basename(f).split('_')[0],
                                       100 * (derived - official) / official))

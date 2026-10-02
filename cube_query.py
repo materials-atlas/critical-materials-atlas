@@ -39,7 +39,8 @@ OUT = os.path.join(ROOT, 'out')
 # EUR series looked like a USD one. An engine review caught this still listing the old five while
 # the cube had already grown both columns - the manifest was describing a cube that no longer
 # existed, which is the derived-copy drift this repo keeps meeting.
-IDENTITY = ['source', 'measure', 'stage', 'basis', 'unit', 'counterpart_area', 'currency_denom']
+IDENTITY = ['source', 'measure', 'stage', 'basis', 'unit', 'native_code',
+            'counterpart_area', 'currency_denom']
 _cube = _dim = None
 
 
@@ -143,43 +144,71 @@ def _eu27():
 #                   published EXT_EU27_2020 aggregate to the euro - see check_aggregation.
 #   INT_EU27_2020   Eurostat: partners inside the EU-27.
 SCOPES = ('W1', 'WORLD', 'EXT_EU27_2020', 'INT_EU27_2020')
+# Codes that live in REF_AREA but are not countries. WLD is a world aggregate filed
+# beside the countries it contains, which is why ref='each' refuses to sum over it.
+AREA_AGGREGATES = frozenset({'WLD', 'W1', 'EU27_2020', 'EU', 'WORLD', '_Z'})
 
 
-def totals(material, measure, scope, source=None, years=None, by='year'):
-    """Aggregate the cube to a total, with the scope named out loud.
+def totals(material, measure, scope, ref='each', source=None, years=None):
+    """Aggregate the cube to a total, with BOTH area scopes named out loud.
 
-    WHY `scope` IS REQUIRED AND HAS NO DEFAULT. The cube stores bilateral COMPONENTS - one row per
-    counterpart - and derives every aggregate from them. That decision keeps totals and parts from
-    ever sitting in one column, so they can never be double counted. The cost is the opposite
-    failure: a sum written without thinking about which counterparts belong in it. Measured on
-    2024 Comext, forgetting to exclude intra-EU partners inflates strontium 12.8x, cobalt 6.6x and
-    vanadium 3.5x.
+    `scope` applies to COUNTERPART_AREA (the partner), `ref` to REF_AREA (the reporter). Neither has
+    a silent default that sums, because a sum over either one can double count, and in exactly the
+    same way: a total and its own components share the column.
 
-    A default would hide exactly the decision the caller has to make, so there is none. Naming the
-    scope is the whole protection, and it is the same move facts() makes when it refuses an
-    ambiguous identity instead of picking one.
-
-        W1              select stored world totals; nothing is summed
-        WORLD           sum every component
+    counterpart scopes (`scope`, required):
+        W1              rows stored against all partners; nothing is summed
+        WORLD           sum every bilateral component
         EXT_EU27_2020   sum components outside the EU-27 (what out/data.json publishes)
         INT_EU27_2020   sum components inside the EU-27
 
-    The names are the sources' own codes, not ours - see SCOPES above.
+    reporter scopes (`ref`, default 'each'):
+        each            DO NOT sum across reporters - return one row per reporter. The default,
+                        because summing reporters is the operation that needs a decision.
+        EU27_2020       the 27 member states, summed. Excludes GB, which reported until 2020 and
+                        is a real reporter in the data but not a member of this bloc.
+        WLD             the stored world-aggregate row, selected not summed
+        <ISO3>          that one reporter
 
-    It refuses to mix a stored W1 total with components, which would double count.
+    THREE FAULTS THIS SHAPE EXISTS TO PREVENT, all found by review rather than by design:
+
+      REF_AREA carries aggregates too. USGS files a WLD row beside its USA row, so an unrestricted
+      sum over reporters counts the United States twice - bauxite 1900 came out 111,600 against a
+      true world 88,000. The counterpart guard never saw it because it watches the other column.
+
+      The EU scopes used to filter only the counterpart. After GB was restored as a reporter
+      (correctly - it reported until 2020) every historical EU total silently gained it: 272
+      material-years contaminated, EUR 22.7bn, platinum 2011 reading 3.171bn against an official
+      1.377bn. Fixing one bug exposed another.
+
+      The identity used to omit native_code, so three different USGS phosphate series - US
+      production, US sold-or-used, and world production - looked like one.
     """
     if scope not in SCOPES:
-        raise Ambiguous('scope is required and must be one of %s - there is no default, because a '
-                        'default would hide the one decision that matters. See totals.__doc__.'
-                        % (SCOPES,))
+        raise Ambiguous('scope is required and must be one of %s - no default, because a default '
+                        'would hide the decision. See totals.__doc__.' % (SCOPES,))
     c = cube()
     c = c[(c.material == material) & (c.measure == measure)]
     if source is not None:
         c = c[c.source == source]
     if years is not None:
         c = c[c.year.between(*years)]
+
+    # reporter scope first: it decides whether an aggregate REF_AREA is in play at all
+    eu = _eu27()
+    if ref == 'EU27_2020':
+        c = c[c.country_iso3.isin(eu)]
+    elif ref != 'each':
+        c = c[c.country_iso3 == ref]
     if not len(c):
-        raise Ambiguous('no rows for %s / %s under that filter' % (material, measure))
+        raise Ambiguous('no rows for %s / %s under ref=%r' % (material, measure, ref))
+    if ref == 'each':
+        agg_ref = sorted(set(c.country_iso3) & AREA_AGGREGATES)
+        if agg_ref and len(set(c.country_iso3)) > len(agg_ref):
+            raise Ambiguous(
+                'this selection mixes aggregate reporters %s with individual countries, and '
+                'summing them would double count. Pass ref=%r for the aggregate, or ref=<ISO3> / '
+                'ref="EU27_2020" for the parts.' % (agg_ref, agg_ref[0]))
 
     is_w1 = c.counterpart_area == 'W1'
     if scope == 'W1':
@@ -187,21 +216,24 @@ def totals(material, measure, scope, source=None, years=None, by='year'):
     else:
         c = c[~is_w1]
         if scope != 'WORLD':
-            inside = c.counterpart_area.isin(_eu27())
+            inside = c.counterpart_area.isin(eu)
             c = c[inside if scope == 'INT_EU27_2020' else ~inside]
     if not len(c):
         raise Ambiguous('no %s rows for %s / %s - this source may not carry that scope '
                         '(a W1-only source has no components, and vice versa)'
                         % (scope, material, measure))
 
-    # one identity at a time, for the same reason facts() insists on it
-    seen = c.groupby([x for x in IDENTITY if x != 'counterpart_area'], dropna=False).size()
+    pin = [x for x in IDENTITY if x != 'counterpart_area']
+    seen = c.groupby(pin, dropna=False).size()
     if len(seen) > 1:
         raise Ambiguous('%s / %s: %d identities match and they are different measurements - pin '
-                        'source/stage/basis/unit before aggregating. Call identities(%r).'
-                        % (material, measure, len(seen), material))
+                        'source/stage/basis/unit/native_code before aggregating. Call '
+                        'identities(%r).' % (material, measure, len(seen), material))
+
+    by = ['year'] if ref != 'each' else ['country_iso3', 'year']
     g = c.groupby(by, dropna=False)['value'].sum().reset_index()
     g['scope'] = scope
+    g['ref'] = ref
     g['n_counterparts'] = c.groupby(by, dropna=False)['counterpart_area'].nunique().values
     return g
 

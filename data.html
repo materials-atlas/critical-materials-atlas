@@ -42,7 +42,7 @@
   <table>
     <thead><tr><th>URL</th><th>What</th></tr></thead>
     <tbody>
-      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The whole cube, 4.7&nbsp;MB &mdash; for pandas, DuckDB, R, Polars</td></tr>
+      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The whole cube, 16.2&nbsp;MB &mdash; for pandas, DuckDB, R, Polars</td></tr>
       <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 5.8&nbsp;MB &mdash; opens anywhere</td></tr>
       <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules</td></tr>
       <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog &mdash; every series we hold or could reach, and whether it is ingested</td></tr>
@@ -69,8 +69,8 @@
     <thead><tr><th>URL</th><th>What</th></tr></thead>
     <tbody>
       <tr><td><span class="endpoint">/out/sdmx/structure.json</span></td><td>The structure: 10 code lists, one data structure definition, one dataflow. Read this first &mdash; it says what may be pinned</td></tr>
-      <tr><td><span class="endpoint">/out/sdmx/mineral_flows.sdmx.csv.gz</span></td><td>523,617 observations as <b>SDMX-CSV</b>, 3.8&nbsp;MB</td></tr>
-      <tr><td><span class="endpoint">/out/cube_manifest.json</span></td><td>Every one of the <b>942 identities</b> in the cube, with its years, country count and units &mdash; the menu to choose from before writing a filter</td></tr>
+      <tr><td><span class="endpoint">/out/sdmx/mineral_flows.sdmx.csv.gz</span></td><td>1,664,638 observations as <b>SDMX-CSV</b>, 16.5&nbsp;MB</td></tr>
+      <tr><td><span class="endpoint">/out/cube_manifest.json</span></td><td>Every one of the <b>13,814 identities</b> in the cube, with its years, country count and units &mdash; the menu to choose from before writing a filter</td></tr>
       <tr><td><span class="endpoint">/out/sdmx.json</span></td><td>Summary: code list sizes, observation-status counts, and the licence of every source in the export</td></tr>
     </tbody>
   </table>
