@@ -22,11 +22,16 @@ extra-EU imports, BACI filtered to extra-EU imports says 90.3%. That closeness i
 of a shared source, not independent confirmation. Same fault as the USA->CAN placebo, and the same
 reason reconcile.py refuses to pair BACI with the mirror feed.
 
-THE UNIVERSE PROBLEM, and why these rows carry a `universe` tag. Every other trade row in the cube
-is world-scope: a country's imports from anywhere. These rows are EXTRA-EU IMPORTS ONLY - intra-EU
-trade is excluded, because the question this source was built to answer is where Europe's supply
-enters the bloc from. Without a tag saying so, a row here looks like a world row and a later
-GROUP BY would silently mix the two universes. The tag is what makes the key honest.
+BILATERAL, AND WHY THERE IS NO `universe` COLUMN. An earlier version of this adapter aggregated
+partners away and carried a non-standard `universe='eu27_extra'` tag to record that the rows covered
+extra-EU imports only. Both were wrong, and BPM6 says why (see DSD_BPM6.md): a COUNTERPART_AREA need
+not be a country. ECB publishes W1 for world and I9/J9 for inside/outside the euro area, so SCOPE IS
+A COUNTERPART CODE. These rows therefore keep the partner they were reported against, intra-EU
+included, and "extra-EU" becomes a filter on that column rather than a property of the table.
+
+That also makes the rows COMPONENTS, never totals. A total and its own components must never be
+summed together - the fault this repo has hit twice, and which cost this very adapter a 4.6x error
+on its first run.
 
 Run:  python build_cube_comext.py     (invoked by build_cube.py; standalone for inspection)
 """
@@ -36,11 +41,17 @@ import io
 import os
 import sys
 
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'pipeline'))
+import schema  # the repo's one ISO mapping - do not grow a second one here
+
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 RAW = os.path.join(ROOT, 'raw')
 SOURCE = 'Eurostat Comext (CN8)'
-UNIVERSE = 'eu27_extra'          # extra-EU imports only - see the header
 CODE_SYSTEM = 'CN8'
+# SDMX's standard 'not allocated / not applicable' code. Comext's QV/QW/QY/QZ/XS
+# residuals land here rather than being thrown away; exact Comext definitions are
+# worth confirming against the geonomenclature before anyone analyses this slice.
+NOT_ALLOCATED = '_Z'
 
 # The reporting bloc. A partner inside it is intra-EU trade and is excluded, which is the whole
 # point of the "extra" in extra-EU. Kept explicit rather than inferred so an enlargement is a
@@ -84,32 +95,56 @@ def build():
         material, code = base.rsplit('_', 1)
         qpath = vpath[:-len('_value.csv')] + '_qty.csv'
 
-        # (reporter, year) -> [euros, hundred-kg]
+        # (reporter, partner, year) -> [euros, hundred-kg]
         agg = {}
         for path, slot in ((vpath, 0), (qpath, 1)):
             for r in _rows(path):
                 partner = (r.get('partner') or '').strip()
-                # imports only (flow 1), real partners only, outside the bloc only
+                # imports only (flow 1), real partners only. Intra-EU partners are KEPT: scope is a
+                # counterpart code, so excluding them here would hide it instead of encoding it.
                 if (r.get('flow') or '').strip() != '1':
                     continue
-                if partner in EU27 or partner in AGGREGATES or len(partner) != 2:
+                if partner in AGGREGATES or len(partner) != 2:
                     continue
                 reporter = (r.get('reporter') or '').strip()
                 if reporter not in EU27:        # excludes EU / EU27_2020 / EA / EA21 aggregates
                     continue
-                key = (reporter, (r.get('TIME_PERIOD') or '').strip())
-                if not key[1].isdigit():
+                # Map areas BEFORE keying. _Z is a BUCKET - several Comext residual codes land in
+                # it - so mapping after aggregation produced one _Z row per original code, all
+                # sharing a series key. 86 collisions, caught by the SDMX structure check.
+                rep3 = schema.ISO2_ISO3.get(reporter)
+                if not rep3:
+                    continue
+                par3 = schema.ISO2_ISO3.get(partner, NOT_ALLOCATED)
+                key = (rep3, par3, (r.get('TIME_PERIOD') or '').strip())
+                if not key[2].isdigit():
                     continue
                 cell = agg.setdefault(key, [0.0, 0.0])
                 cell[slot] += _num(r.get('OBS_VALUE'))
 
-        for (reporter, year), (eur, hkg) in sorted(agg.items()):
-            common = dict(material=material, country_iso3=reporter, year=int(year),
+        for (rep3, par3, year), (eur, hkg) in sorted(agg.items()):
+            # Comext codes areas in ISO2; every area column in the cube and in CL_AREA is ISO3.
+            # Writing the ISO2 straight through produced rows that passed the key check and failed
+            # the codelist check - the structure caught what the uniqueness test could not.
+            #
+            # DO NOT DROP WHAT DOES NOT MAP. The first version skipped any unmapped code, which
+            # silently discarded EUR 36.9 billion - QZ alone was EUR 28bn - because Comext's
+            # partner column carries NON-COUNTRY codes (QV, QW, QY, QZ, XS: not-specified and
+            # confidential residuals) beside real ones, and the repo's ISO2 table is also missing
+            # a few genuine small territories (LI, FO, VI, VA, XK). Dropping both kinds together
+            # is the silent-loss fault this project exists to avoid, and it would have shown up
+            # only as totals that no longer matched data.json.
+            #
+            # BPM6 practice is to keep such flows under a non-allocated counterpart rather than
+            # discard them - the ECB publishes exactly this, and the Banque de France key carries
+            # non-allocated codes in the same position. So anything without an ISO3 goes to _Z.
+            common = dict(material=material, country_iso3=rep3, counterpart_area=par3,
+                          year=int(year),
                           measure_family='trade', flow_direction='in', stage=None,
                           code_system=CODE_SYSTEM, native_code=code, native_label=None,
-                          sub_commodity=None, basis='gross', source=SOURCE, universe=UNIVERSE,
+                          sub_commodity=None, basis='gross', source=SOURCE,
                           freq='A', period=int(year), precision=None, value_flag=None,
-                          source_obs_status=None, native_group=None, native_country=reporter)
+                          source_obs_status=None, native_group=None, native_country=rep3)
             if hkg:
                 # Comext quantity is in 100 kg; the cube's trade rows are metric tonnes
                 t = hkg / 10.0
@@ -133,4 +168,5 @@ if __name__ == '__main__':
     print('  reporters   %d' % len(reps))
     print('  years       %s - %s (%d)' % (yrs[0], yrs[-1], len(yrs)) if yrs else '  years  none')
     print('  measures    %s' % sorted(set(r['measure'] for r in rows)))
-    print('  universe    %s  (intra-EU trade excluded by construction)' % UNIVERSE)
+    print('  partners    %d  (intra-EU kept; scope is a counterpart filter)'
+          % len(set(r['counterpart_area'] for r in rows)))

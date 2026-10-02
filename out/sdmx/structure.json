@@ -593,6 +593,10 @@
       "name": "CMA two-sided reconciliation"
      },
      {
+      "id": "Eurostat Comext (CN8)",
+      "name": "Eurostat Comext (CN8)"
+     },
+     {
       "id": "IEA Critical Minerals Dataset",
       "name": "IEA Critical Minerals Dataset"
      },
@@ -621,6 +625,10 @@
      {
       "id": "Carats",
       "name": "Carats"
+     },
+     {
+      "id": "EUR",
+      "name": "EUR"
      },
      {
       "id": "Mio m3",
@@ -693,7 +701,7 @@
     "agencyID": "CMA",
     "version": "1.0.0",
     "name": "Reference area",
-    "description": "ISO 3166-1 alpha-3, plus dissolved states kept under their own codes (SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into successors.",
+    "description": "ISO 3166-1 alpha-3, plus dissolved states kept under their own codes (SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into successors. Also carries the BPM6 counterpart codes W1 (world) and _Z (not allocated), which are areas in the key but not countries.",
     "isFinal": true,
     "codes": [
      {
@@ -1629,6 +1637,14 @@
       "name": "VUT"
      },
      {
+      "id": "W1",
+      "name": "W1"
+     },
+     {
+      "id": "W1",
+      "name": "World (all partners)"
+     },
+     {
       "id": "WLD",
       "name": "WLD"
      },
@@ -1671,6 +1687,14 @@
      {
       "id": "ZWE",
       "name": "ZWE"
+     },
+     {
+      "id": "_Z",
+      "name": "Not allocated / not specified"
+     },
+     {
+      "id": "_Z",
+      "name": "_Z"
      }
     ]
    },
@@ -1779,6 +1803,11 @@
       "codelist": "CL_AREA"
      },
      {
+      "id": "COUNTERPART_AREA",
+      "codelist": "CL_AREA",
+      "note": "BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 code = that bilateral partner. A total and its own components must never be summed together."
+     },
+     {
       "id": "TIME_PERIOD",
       "codelist": null,
       "role": "time"
@@ -1836,9 +1865,10 @@
      "CEPII BACI (HS02)": "Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)",
      "World Mining Data": "Free with attribution (BMK Austria / WMD)",
      "IEA Critical Minerals Dataset": "CC BY 4.0",
+     "Eurostat Comext (CN8)": "CC BY 4.0 (© European Union, Eurostat). Re-use permitted including commercially, with source acknowledgement and an indication of changes made.",
      "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
     },
-    "observations": 1150953,
+    "observations": 1290141,
     "series_key": [
      "FREQ",
      "SOURCE",
@@ -1847,7 +1877,8 @@
      "STAGE",
      "BASIS",
      "NATIVE_CODE",
-     "REF_AREA"
+     "REF_AREA",
+     "COUNTERPART_AREA"
     ]
    }
   ]

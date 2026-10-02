@@ -104,11 +104,19 @@ def build():
                  'The compilation an observation comes from. A dimension, not an attribute: two '
                  'compilations counting the same year are two observations, not a conflict.'),
         codelist('CL_UNIT_MEASURE', 'Unit of measure', [(u, u) for u in uniq('unit')]),
+        # CL_AREA serves BOTH REF_AREA and COUNTERPART_AREA, so it must carry the counterpart
+        # codes that are not countries: W1 (world - a total against all partners, which is what
+        # every row meant before the cube went bilateral) and _Z (not allocated - Comext's
+        # QV/QW/QY/QZ/XS residuals, kept rather than discarded; see build_cube_comext.py).
         codelist('CL_AREA', 'Reference area',
-                 [(a, a) for a in uniq('country_iso3')],
+                 sorted(set([(a, a) for a in uniq('country_iso3')]
+                            + [(a, a) for a in uniq('counterpart_area')]
+                            + [('W1', 'World (all partners)'),
+                               ('_Z', 'Not allocated / not specified')])),
                  'ISO 3166-1 alpha-3, plus dissolved states kept under their own codes '
                  '(SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into '
-                 'successors.'),
+                 'successors. Also carries the BPM6 counterpart codes W1 (world) and _Z (not '
+                 'allocated), which are areas in the key but not countries.'),
         codelist('CL_OBS_STATUS', 'Observation status', sorted(OBS_STATUS.items()),
                  'SDMX cross-domain CL_OBS_STATUS (subset used here), verified against the SDMX '
                  'Global Registry v2.3.'),
@@ -137,6 +145,15 @@ def build():
             {'id': 'NATIVE_CODE', 'codelist': None,
              'note': "the source's own commodity code - the form actually counted"},
             {'id': 'REF_AREA', 'codelist': 'CL_AREA'},
+            # COUNTERPART_AREA is BPM6's, taken deliberately rather than invented (DSD_BPM6.md).
+            # It carries TWO things at once, which is why the ECB and IMF both model scope this
+            # way: who the partner is, and - because a counterpart need not be a country - what
+            # universe the observation covers. W1 is world, i.e. a country total against all
+            # partners, which is what every row in this cube meant before the dimension existed.
+            {'id': 'COUNTERPART_AREA', 'codelist': 'CL_AREA',
+             'note': 'BPM6 counterpart area. W1 = world (a total against all partners); an ISO2 '
+                     'code = that bilateral partner. A total and its own components must never '
+                     'be summed together.'},
             {'id': 'TIME_PERIOD', 'codelist': None, 'role': 'time'},
         ],
         'measure': {'id': 'OBS_VALUE',
@@ -184,6 +201,7 @@ def build():
     d['ACTION'] = 'I'
     ren = {'source': 'SOURCE', 'material': 'MATERIAL', 'measure': 'MEASURE', 'stage': 'STAGE',
            'basis': 'BASIS', 'native_code': 'NATIVE_CODE', 'country_iso3': 'REF_AREA',
+           'counterpart_area': 'COUNTERPART_AREA',
            'year': 'TIME_PERIOD', 'value': 'OBS_VALUE', 'unit': 'UNIT_MEASURE',
            'conversion_factor': 'CONVERSION_FACTOR', 'code_system': 'CODE_SYSTEM',
            'native_label': 'NATIVE_LABEL', 'obs_status': 'OBS_STATUS',
