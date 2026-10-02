@@ -22,7 +22,7 @@ WHAT IT DOES CATCH is the mechanical failure that actually bit us, repeatedly, o
 
 Exit code 0 = all green. Non-zero = something is broken. Public data; deterministic.
 """
-import base64, datetime, io, json, os, re, subprocess, sys, tempfile
+import base64, datetime, glob, io, json, os, re, subprocess, sys, tempfile
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
@@ -1544,10 +1544,66 @@ def check_counterpart():
                             'them: %s' % (len(both), ex))
 
 
+
+def check_aggregation():
+    """Does our derived aggregate equal the one the source publishes itself?
+
+    WHY THIS EXISTS, and why it was nearly missed. The cube stores bilateral components and derives
+    every total from them (DSD_BPM6.md). That makes the aggregation rule OURS, and an aggregation
+    rule nobody checks is an assumption. The owner asked whether the rules of aggregation are not
+    already written in the official metadata - they are, and better still, Eurostat SHIPS THE
+    ANSWER: its geonomenclature publishes EXT_EU27_2020, INT_EU27_2020 and WORLD as partner codes
+    in the same files we read. The adapter filters those aggregate rows out, as it must, so they
+    are free to use as an independent check of the arithmetic we put in their place.
+
+    So this compares our derived extra-EU total against Eurostat's own published extra-EU total,
+    per material, for the newest year. They agreed to the euro on every material tested when this
+    was written. If they ever stop agreeing, either our counterpart filter is wrong or Eurostat has
+    changed a definition - and both are things to find out from a check rather than from a reader.
+
+    Skipped when raw/ is absent: those files are gitignored, so this runs locally before a push,
+    which is where it matters, and stays quiet in a clean checkout.
+    """
+    raw = glob.glob(os.path.join('raw', '*_value.csv'))
+    if not raw:
+        return
+    try:
+        import csv as _csv
+        import build_cube_comext as cx
+    except Exception as e:                      # noqa: BLE001 - a broken import is not this check
+        warn('aggregation', 'cannot compare against the source aggregate: %s' % e)
+        return
+    num = lambda v: float(str(v).replace(':', '').strip() or 0)     # noqa: E731
+    YEAR = '2024'
+    bad, tested = [], 0
+    for f in sorted(raw):
+        official = derived = 0.0
+        with io.open(f, encoding='utf-8', errors='replace') as fh:
+            for r in _csv.DictReader(fh):
+                if r.get('flow', '').strip() != '1' or r.get('TIME_PERIOD', '').strip() != YEAR:
+                    continue
+                rep, par = r.get('reporter', '').strip(), r.get('partner', '').strip()
+                v = num(r.get('OBS_VALUE'))
+                if rep == 'EU27_2020' and par == 'EXT_EU27_2020':
+                    official += v
+                elif rep in cx.EU27 and len(par) == 2 and par not in cx.EU27:
+                    derived += v
+        if official <= 0:
+            continue
+        tested += 1
+        if abs(derived - official) / official > 0.001:
+            bad.append('%s %.3f%%' % (os.path.basename(f).split('_')[0],
+                                      100 * (derived - official) / official))
+    if bad:
+        fail('aggregation', 'our derived extra-EU total disagrees with the one Eurostat publishes '
+                            'itself (EXT_EU27_2020), on %d of %d materials: %s'
+                            % (len(bad), tested, ', '.join(bad[:5])))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

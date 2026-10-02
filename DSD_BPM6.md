@@ -101,8 +101,20 @@ default would hide the one decision that matters, so there is none — the same 
 when it refuses an ambiguous identity instead of picking one. It also refuses to mix a stored W1
 total with components.
 
-Verified on 2024 Comext: `extra_eu` returns 784,821,501 for magnets, which is `out/data.json`'s
-published figure to the euro, while `all_partners` returns 982,873,293. The gap is the intra-EU
+**The scope names are the sources' own codes**, not a private vocabulary: `W1` is BPM6's world,
+and `EXT_EU27_2020`, `INT_EU27_2020` and `WORLD` are Eurostat's geonomenclature codes, published as
+partner codes in the very files we read. A reader who knows Eurostat or the IMF already knows what
+they mean.
+
+And because the source publishes those aggregates, our arithmetic can be checked against them
+rather than merely asserted. The adapter filters the aggregate rows out, as it must — which leaves
+them free to serve as an independent test of what we compute in their place. `check_aggregation`
+compares our derived extra-EU total against Eurostat's own published `EXT_EU27_2020`, per material:
+**they agree to the euro on all 32**. Verified by injection — removing one country from the EU-27
+definition fails it on 23 of 32.
+
+Verified on 2024 Comext: `EXT_EU27_2020` returns 784,821,501 for magnets, which is
+`out/data.json`'s published figure to the euro, while `WORLD` returns 982,873,293. The gap is the intra-EU
 trade, and it is what forgetting costs — 1.25× for magnets, 2.42× for copper, 3.45× for vanadium,
 6.63× for cobalt, **12.84× for strontium**.
 
