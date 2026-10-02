@@ -137,7 +137,7 @@ def main():
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Supply-risk index — Critical Materials Atlas</title>
-<meta name="description" content="A transparent 0-100 supply-risk score for 32 critical materials, built from visible components: production, refining and trade concentration, and origin opacity.">
+<meta name="description" content="A transparent 0-100 supply-risk score for critical materials, built from visible components: production, refining and trade concentration, and origin opacity.">
 <meta property="og:title" content="Critical-material supply-risk index">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

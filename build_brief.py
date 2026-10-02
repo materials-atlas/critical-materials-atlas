@@ -73,7 +73,7 @@ out = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Key findings — Critical Materials Atlas</title>
-<meta name="description" content="A one-page brief: where 32 critical materials really come from, how concentration has intensified since 2002, and the materials with no way out — from reconciled public trade data, validated against CEPII BACI.">
+<meta name="description" content="A one-page brief: where critical materials really come from, how concentration has intensified since 2002, and the materials with no way out — from reconciled public trade data, validated against CEPII BACI.">
 <meta property="og:title" content="Critical Materials Atlas — key findings">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -104,7 +104,7 @@ out = f'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Key findings · one page</div>
   <h1>Where critical materials really come from — and how the squeeze tightened</h1>
-  <p>32 critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Critical Materials Atlas · public data only · {yrs[0]}–{yrs[-1]}</p>
+  <p>critical raw materials, mine → refine → trade, reconciled from public data and tested over two decades. Critical Materials Atlas · public data only · {yrs[0]}–{yrs[-1]}</p>
 </div></section>
 <main id="main">
   <div class="f"><div class="k">Finding 1 · the origin gap</div>

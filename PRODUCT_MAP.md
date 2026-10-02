@@ -264,10 +264,16 @@ pages; `build_insights.py` eight.
 
 ### Reachability and search — two measured defects
 
-A crawl from `/` reaches **214 of 217** routes. The three unreachable ones are
-the internal diagrams `/project-scheme`, `/project-map` and `/project-formulas`: they are in the
-public sitemap but nothing links to them. Either link them deliberately or drop them from the
-sitemap.
+A crawl from `/` reached **214 of 217** routes, the three gaps being the internal diagrams
+`/project-scheme`, `/project-map` and `/project-formulas`.
+
+**Resolved 2 October, and the diagnosis changed on inspection.** They were not merely unlinked:
+all three are **gitignored** (`.gitignore` lines 112-114, "local project map (not published)") and
+returned **HTTP 404 on the live site**. So the sitemap was advertising three dead URLs to search
+engines and to anyone who found them. The first attempt here was to link them from
+`/how-it-works` as transparency assets — which would have published three links to 404s. Reverted;
+they are now **removed from the sitemap**, which is 214 entries and matches the search index
+exactly. The pages stay as local build diagrams, which is what they were always meant to be.
 
 The site search held **203 entries against 217 routes**, and the gap turned out to be two different
 things — worth separating, because the first draft of this document called both of them bugs and one
@@ -293,6 +299,7 @@ Verified by injection.
 
 Separately, four retired pages (`/bloc-demand`, `/commodity-attribution`, `/host-shock`,
 `/scenarios`) are "moved" notices whose builders were deleted, yet they remain sitemap routes.
+These ones do at least exist and resolve, so they are untidy rather than broken.
 
 ---
 
@@ -389,15 +396,27 @@ not computed).
 2. **Cut `ARCHITECTURE.md` line 20 and the `DATA_SOURCES.md` phantom sources.** Both read as fact.
 3. **Release v1.9.** The concept DOI currently resolves to a version without the self-audit or the
    widened panel.
-4. **The "32" sweep** — 71 pages still assert a count that no external list supports.
+4. ~~The "32" sweep.~~ **Done 2 Oct**, and it needed splitting in two, because only one half was
+   false:
+   - **97 instances in 60 files** said "32 critical raw materials" or "32 critical materials" —
+     the number qualifying the *category*, which reads as though 32 were a canonical list. No
+     external list says 32 (the EU's 2023 CRM list has 34, and ours splits the PGMs, counts
+     "magnets", and omits bismuth, scandium and both rare-earth entries). All 97 removed.
+   - **~175 instances are denominators about our own panel** — "17 of 32 materials", "all 32",
+     "avg (all 32)" in chart legends. **These are left alone, because they are true**: the panel
+     does contain 32 materials, and "17 of 32" is honest arithmetic about our own coverage. What
+     was wrong was presenting 32 as an external standard, not counting our own set.
+   Where a count met the overclaim ("17 of 32 critical materials") the count is kept and the set is
+   named as ours: "17 of the critical materials tracked here".
 5. **Rare earths are not in the material set at all.** No wording fix addresses this, and it is the
    substantive gap behind the "32" question.
 6. ~~Fix the site search.~~ **Done 2 Oct** — cards out, country profiles in, and a `search` guard
    added so it cannot drift again (§7).
 7. **Consolidate the three source docs into one**, and mark `FINDINGS*`, `MATERIALS`, `VALIDATION`
    and `README` as historical rather than current.
-8. **Decide about the orphans** — link the three `project-*` diagrams or drop them from the sitemap,
-   and drop the four retired stubs from it.
+8. ~~Decide about the orphans.~~ **Done 2 Oct** — the three `project-*` diagrams were gitignored
+   and 404 on the live site, so they are out of the sitemap (§7). The four retired stubs resolve,
+   so they are still listed and still untidy.
 9. **Add a filing→page index**, because ten pre-registrations presenting as seven pages makes the
    research look smaller than it is.
 

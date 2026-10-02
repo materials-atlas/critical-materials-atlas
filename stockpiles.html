@@ -3,8 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/stockpiles">
 <title>Strategic stockpiles — the buffer no one publishes · Critical Materials Atlas</title>
-<meta name="description" content="For 27 of 32 critical materials, no country publishes a per-material days-of-cover figure — only Japan (JOGMEC) does, for 5. The US National Defense Stockpile holds ~28 commodities but not on a disclosed days-of-cover basis (~6% of its own identified $15bn shortfall); China's reserves are held but secret. The honest gap is transparency, not just tonnage.">
-<meta property="og:title" content="Strategic stockpiles: for 27 of 32 critical materials, no country publishes days-of-cover">
+<meta name="description" content="For 27 of the critical materials tracked here, no country publishes a per-material days-of-cover figure — only Japan (JOGMEC) does, for 5. The US National Defense Stockpile holds ~28 commodities but not on a disclosed days-of-cover basis (~6% of its own identified $15bn shortfall); China's reserves are held but secret. The honest gap is transparency, not just tonnage.">
+<meta property="og:title" content="Strategic stockpiles: for 27 of the critical materials tracked here, no country publishes days-of-cover">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/stockpiles">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -80,7 +80,7 @@ fetch('out/stockpiles.json').then(r=>r.json()).then(S=>{
     '<div class="chips">'+quant.map(m=>'<span class="chip quantified">'+cap(m.label)+'</span>').join('')+'</div>'+
     '<p style="margin:.7rem 0 .2rem;font-weight:700;color:#8a5a1e">No published days-of-cover ('+unq.length+') — held-but-undisclosed (US NDS) or no reserve; not &ldquo;spot-market dependent&rdquo; by default</p>'+
     '<div class="chips">'+unq.map(m=>'<span class="chip unquantified">'+cap(m.label)+'</span>').join('')+'</div>';
-  document.getElementById('keyline').innerHTML='<b>For 27 of 32 critical materials, no country publishes a per-material days-of-cover figure.</b> Only five &mdash; cobalt, nickel, tungsten, manganese, vanadium &mdash; have one, and only because Japan (JOGMEC) publishes it. That is <i>not</i> the same as &ldquo;no reserve&rdquo;: the US NDS holds ~28 commodities and China&rsquo;s SRB holds more, but neither discloses per-material cover. The honest gap is <b>transparency</b> as much as tonnage &mdash; you cannot plan against a buffer whose size is secret.';
+  document.getElementById('keyline').innerHTML='<b>For 27 of the critical materials tracked here, no country publishes a per-material days-of-cover figure.</b> Only five &mdash; cobalt, nickel, tungsten, manganese, vanadium &mdash; have one, and only because Japan (JOGMEC) publishes it. That is <i>not</i> the same as &ldquo;no reserve&rdquo;: the US NDS holds ~28 commodities and China&rsquo;s SRB holds more, but neither discloses per-material cover. The honest gap is <b>transparency</b> as much as tonnage &mdash; you cannot plan against a buffer whose size is secret.';
 });
 </script>
 </body></html>
