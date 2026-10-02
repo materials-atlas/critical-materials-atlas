@@ -39,8 +39,32 @@ FREIGHT_CEILING = 1.10
 #
 # Because four of the five feeds hold exactly one month each: comtrade 202412, uscensus 202607,
 # eurostat 202606. Only hmrc (25 months) and comexstat (20) have a series. So the "monthly
-# five-source mirror reconciliation" is, today, one preliminary month of one source compared with
-# itself, plus about 105 genuine cross-source pairs (Eurostat<->HMRC).
+# five-source mirror reconciliation" was, in September, one preliminary month of one source compared
+# with itself, plus about 105 genuine cross-source pairs (Eurostat<->HMRC).
+#
+# -------------------------------------------------------------------------------------------
+# RE-MEASURED 2026-10-02, AND THE PARAGRAPH ABOVE NOW UNDERSTATES THE LAYER BY ABOUT NINETY-FOLD.
+# It is kept because it is the reason the disagreement RATE is still not publishable (below), and
+# because a caveat that quietly disappears is worse than one that is dated. But do not read it as
+# the current state of the feeds.
+#
+# Measured against pipeline/data/flows.parquet:
+#     724,409 matched two-sided pairs, of which 98.4% are STILL Comtrade against Comtrade - that
+#             part of the warning holds, and it is now the historical backfill rather than one
+#             December.
+#     11,926  cross-source pairs; less baci<->mirror (not independent, so not a cross-check)
+#     ~9,060  genuinely cross-compiler, spread over ~20 months:
+#             HMRC<->Comtrade 5,284 · US Census<->Comtrade 1,584 · Comexstat<->Comtrade 1,168 ·
+#             Eurostat<->HMRC 489
+# The feeds now hold: comtrade 318 periods (200001-202606), hmrc 28 (202404-202607), comexstat 20
+# (202501-202608), uscensus 6 (202602-202607), eurostat 4 (202604-202607).
+#
+# What changed it: the nightly refresh walking the Comtrade calendar instead of re-pulling one
+# month, plus the cache switching from overwrite to merge. So the condition the last line of this
+# block sets - "until the feeds carry overlapping months from genuinely different compilers" - is
+# now PARTLY met, on about 9,000 pairs over 20 months. Partly, not fully: it is still not a world
+# panel, and the rate across THIS cache is still not a finding about world trade statistics.
+# -------------------------------------------------------------------------------------------
 #
 # In that month the USA->CAN corridor has an exporter side totalling $129m against an importer
 # side totalling $2.5m, with cells like coal at $74.6m one way and $34.56 the other. That is not
