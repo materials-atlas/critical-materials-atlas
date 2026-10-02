@@ -121,11 +121,18 @@ def facts(material, measure=None, source=None, stage=None, basis=None, unit=None
 
 # The EU-27 as ISO3, derived from the one declared list rather than written a second time.
 def _eu27():
+    """The intra-EU counterpart set: the 27 member states PLUS Eurostat's intra-EU residual codes.
+
+    QV and QY are "not specified" partners WITHIN intra-EU trade. Leaving them out put every one of
+    them on the extra-EU side, and the error was exactly measurable: across all 454 material-years,
+    derived extra-EU minus Eurostat's published EXT_EU27_2020 equalled QV + QY to the euro, every
+    time. Found by an engine review.
+    """
     import build_cube_comext as _cx
     import sys as _s, os as _o
     _s.path.insert(0, _o.path.join(ROOT, 'pipeline'))
     import schema as _schema
-    return frozenset(_schema.iso3(c) for c in _cx.EU27)
+    return frozenset(_schema.iso3(c) for c in _cx.EU27) | _cx.INTRA_RESIDUALS
 
 
 # THE SCOPE NAMES ARE THE SOURCES' OWN CODES, not names invented here.

@@ -112,7 +112,17 @@ def build():
                  sorted(set([(a, a) for a in uniq('country_iso3')]
                             + [(a, a) for a in uniq('counterpart_area')]
                             + [('W1', 'World (all partners)'),
-                               ('_Z', 'Not allocated / not specified')])),
+                               ('_Z', 'Not allocated / not specified'),
+                               # Eurostat residual partners, kept under their own codes because
+                               # they are NOT one class: QV and QY are intra-EU "not specified",
+                               # the rest extra-EU. Collapsing them lost that and put every
+                               # intra-EU residual on the extra-EU side.
+                               ('QV', 'Not specified, intra-EU (Eurostat)'),
+                               ('QY', 'Not specified for commercial or military reasons, intra-EU'),
+                               ('QZ', 'Not specified for commercial or military reasons, extra-EU'),
+                               ('QP', 'High seas (Eurostat)'),
+                               ('QW', 'Not specified, extra-EU (Eurostat)'),
+                               ('XL', 'Not specified (Eurostat)')])),
                  'ISO 3166-1 alpha-3, plus dissolved states kept under their own codes '
                  '(SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into '
                  'successors. Also carries the BPM6 counterpart codes W1 (world) and _Z (not '

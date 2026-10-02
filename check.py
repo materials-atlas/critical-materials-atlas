@@ -1617,7 +1617,8 @@ def check_aggregation():
                 v = num(r.get('OBS_VALUE'))
                 if rep == 'EU27_2020' and par == 'EXT_EU27_2020':
                     official[y] = official.get(y, 0.0) + v
-                elif rep in cx.EU27 and len(par) == 2 and par not in cx.EU27:
+                elif (rep in cx.EU27 and len(par) == 2
+                      and par not in cx.EU27 and par not in cx.INTRA_RESIDUALS):
                     derived[y] = derived.get(y, 0.0) + v
         for y, o in official.items():
             if o <= 0:
@@ -1630,14 +1631,15 @@ def check_aggregation():
                 bad.append('%s %s %.2f%% (EUR %.1fm)'
                            % (mat, y, 100 * d, (derived.get(y, 0.0) - o) / 1e6))
     if worst[1] and abs(worst[0]) > WARN_AT:
-        # WHY THIS IS A WARNING AND NOT A PASS. The residual is real and not fully explained.
-        # Croatia acceding mid-2013 accounts for part of the worst case (0.92% -> 0.71% once its
-        # rows are dropped) and the rest is not understood - probably cells Eurostat suppresses at
-        # member-state level but includes in its own aggregate. Widening the band until it passes
-        # would hide that, so the band stays tight and the drift stays visible.
+        # THE RESIDUAL IS NOW EXPLAINED AND FIXED, so this should be silent. It used to fire
+        # because Eurostat's intra-EU "not specified" partners QV and QY were being counted as
+        # extra-EU. An earlier version of this comment blamed Croatia's 2013 accession; that was
+        # wrong - helium 2013's EUR 1,097,172 gap is QY exactly, and with QV/QY classified as
+        # intra the fixed EU27_2020 composition reproduces Eurostat in every year including 2013.
+        # If this warns again, something new has drifted.
         warn('aggregation', 'our derived extra-EU total drifts from the one Eurostat publishes '
                             '(EXT_EU27_2020): worst %s %s %+.3f%%, across %d material-years. '
-                            'Partly Croatia 2013; the remainder is not explained.'
+                            'This was silent when last verified, so a reappearance is new.'
                             % (worst[1], worst[2], 100 * worst[0], tested))
     if bad:
         fail('aggregation', 'our derived extra-EU total disagrees materially with the one '
