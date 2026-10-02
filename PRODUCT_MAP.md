@@ -171,14 +171,19 @@ measured against the same BACI ablation, lost, and ships *beside* the published 
   HMRC ↔ Comtrade (5,284), US Census ↔ Comtrade (1,584), Comexstat ↔ Comtrade (1,168),
   Eurostat ↔ HMRC (489).
 
-**This matters and is an action item.** The big warning comment at the top of `reconcile.py` says
-the layer is "one preliminary month of one source compared with itself, plus about 105 genuine
-cross-source pairs." That was true on 6 September. It is now ~9,060 pairs over ~20 months. **The
-comment understates the asset by about ninety-fold and should be updated.**
+**Corrected in the code on 2 October.** The big warning comment at the top of `reconcile.py` said
+the layer was "one preliminary month of one source compared with itself, plus about 105 genuine
+cross-source pairs." True on 6 September; it understated the layer about ninety-fold by October. The
+September paragraph is **kept and dated** rather than deleted — a caveat that quietly disappears is
+worse than one that is marked historical — with the re-measurement beside it.
 
-The same comment's other warning is still binding and should stay: the **51% disagreement rate is
-not a finding about world trade statistics** — it describes preliminary Comtrade. Quote share of
-value (30%), not share of cells (49%), and say which cache.
+What changed it: the nightly refresh walking the Comtrade calendar instead of re-pulling one month,
+and the cache switching from overwrite to merge.
+
+Two parts of that warning still stand and must stay. **98.4% of matched pairs are still Comtrade
+against Comtrade** — now the historical backfill rather than one December. And the **51%
+disagreement rate is still not a finding about world trade statistics**: it describes this cache.
+Quote share of value (30%), not share of cells (49%), and say which cache.
 
 ### The derived measures
 
@@ -264,13 +269,27 @@ the internal diagrams `/project-scheme`, `/project-map` and `/project-formulas`:
 public sitemap but nothing links to them. Either link them deliberately or drop them from the
 sitemap.
 
-The site search is worse, and this is verified here, not inferred:
+The site search held **203 entries against 217 routes**, and the gap turned out to be two different
+things — worth separating, because the first draft of this document called both of them bugs and one
+of them was not:
 
-- `out/search-index.json` holds **203 entries against 217 routes**.
-- **All 27 country profiles are missing from it.** They are in the sitemap and reachable through
-  `/countries`, but a visitor searching for "France" or "Japan" on the site will not find them.
-- **16 entries are not pages at all** — the `share/card-*.html` social-card templates. They are
-  indexed and can surface as search results.
+- **A bug.** 16 `share/card-*.html` Open Graph templates were *indexed as pages*. They have no
+  `<title>`, so the search box offered "card-r01" and "card1" as results that land the visitor on a
+  bare image template. They are not in the sitemap and never were pages.
+- **A stale decision, not a bug.** All 27 country profiles were excluded *deliberately* — this
+  builder's own docstring said "kept lean". The exclusion dates from when the index replaced a
+  58-link mega-menu. But the profiles are in the sitemap, reachable through `/countries`, and are
+  what a visitor is most likely to search by name, so "France" returning nothing was the worse
+  outcome.
+
+**Both fixed on 2 October**, and the index is now 214 entries (88 Page · 59 Value chain · 32 Profile
+· 27 Country · 8 Report). The remaining three are the `project-*` diagrams above.
+
+The real defect underneath was that **nothing compared the index to the sitemap**, which is how a
+bug and an expired decision both survived. `check.py` now has a `search` check that compares them
+both ways: an indexed URL that is not a published page **fails** (search must not send a visitor to
+a non-page); a published page missing from the index **warns**, since that can be deliberate.
+Verified by injection.
 
 Separately, four retired pages (`/bloc-demand`, `/commodity-attribution`, `/host-shock`,
 `/scenarios`) are "moved" notices whose builders were deleted, yet they remain sitemap routes.
@@ -282,9 +301,9 @@ Separately, four retired pages (`/bloc-demand`, `/commodity-attribution`, `/host
 - **`runner.py`** — dependency-ordered rebuild. Fingerprints imported modules by *source*, not
   bytecode. Runs post-passes (canonicals, head tags, search index) after any page rebuild.
   **Never run it with `--force`.**
-- **`check.py`** — 26 mechanical guards: `drift, datasets, links, js, scrub, etapes, withdrawn,
+- **`check.py`** — 27 mechanical guards: `drift, datasets, links, js, scrub, etapes, withdrawn,
   builders, chokepoint, ledger, basis, anchor, dim, key, sdmx, mirror, withheld, engine, baci_door,
-  stale, register, usgs_mcs, self_audit, head, weights, refresh`. It must pass before a push, and it
+  stale, register, usgs_mcs, self_audit, head, weights, refresh, search`. It must pass before a push, and it
   says of itself that it proves nothing about whether the claims are *true*.
 - **Scheduled, on this machine:** `CMA-trade-refresh` (daily 03:00, 3h limit — pull Comtrade,
   refresh all caches, rebuild parquets; takes ~2h); `CMA-refresh-watch` (daily 13:00 — toasts when
@@ -365,16 +384,16 @@ not computed).
 
 **Open items, in the order I would take them:**
 
-1. **Update the `reconcile.py` warning comment.** It understates the cross-source asset ninety-fold
-   (§5). Anyone reading the code — including you in a month — will conclude the moat is 105 pairs.
+1. ~~Update the `reconcile.py` warning comment.~~ **Done 2 Oct** — the September paragraph is kept
+   and dated, with the re-measurement beside it (§5).
 2. **Cut `ARCHITECTURE.md` line 20 and the `DATA_SOURCES.md` phantom sources.** Both read as fact.
 3. **Release v1.9.** The concept DOI currently resolves to a version without the self-audit or the
    widened panel.
 4. **The "32" sweep** — 71 pages still assert a count that no external list supports.
 5. **Rare earths are not in the material set at all.** No wording fix addresses this, and it is the
    substantive gap behind the "32" question.
-6. **Fix the site search** — 27 country profiles are unsearchable and 16 social-card templates are
-   indexed as if they were pages. This is the cheapest visible win on the list.
+6. ~~Fix the site search.~~ **Done 2 Oct** — cards out, country profiles in, and a `search` guard
+   added so it cannot drift again (§7).
 7. **Consolidate the three source docs into one**, and mark `FINDINGS*`, `MATERIALS`, `VALIDATION`
    and `README` as historical rather than current.
 8. **Decide about the orphans** — link the three `project-*` diagrams or drop them from the sitemap,

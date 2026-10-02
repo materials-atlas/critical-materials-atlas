@@ -1450,10 +1450,52 @@ def check_refresh():
                         % (len(done), len(recent)))
 
 
+
+def check_search():
+    """Does the site's own search cover the site?
+
+    WHY. Measured 2026-10-02: out/search-index.json held 203 entries against 217 sitemap routes,
+    and the gap was invisible because nothing compared the two. Two different faults hid in it -
+    16 share/card-*.html Open Graph templates were indexed as pages (a bug: the search box offered
+    "card-r01" and landed the visitor on a bare image), and all 27 country profiles were absent (a
+    deliberate "kept lean" exclusion whose reason had expired, so searching "France" returned
+    nothing). One was a bug and one was a stale decision, and a single count comparison would have
+    surfaced both.
+
+    An indexed URL that is not a published page FAILS - it sends a visitor somewhere that is not a
+    page. A published page missing from the index WARNS, because that can be a deliberate omission
+    and is not a reason to refuse a push; it just must not be silent.
+    """
+    index_path = os.path.join('out', 'search-index.json')
+    if not os.path.exists(index_path) or not os.path.exists('sitemap.xml'):
+        warn('search', 'no out/search-index.json or no sitemap.xml to compare it against')
+        return
+    try:
+        rows = json.load(io.open(index_path, encoding='utf8'))
+    except ValueError as e:
+        fail('search', 'out/search-index.json is not readable JSON: %s' % e)
+        return
+    sm = re.findall(r'<loc>(.*?)</loc>', io.open('sitemap.xml', encoding='utf8').read())
+    routes = set((u.split('criticalmaterialsatlas.org/', 1)[-1]).strip('/') for u in sm)
+    indexed = set(str(r.get('u', '')).strip('/') for r in rows)
+    # the homepage is '' in the index and may be absent from the sitemap; it is not a drift case
+    routes.discard(''); indexed.discard('')
+
+    phantom = sorted(indexed - routes)
+    if phantom:
+        fail('search', '%d indexed URL(s) are not published pages, so search sends visitors to a '
+                       'non-page: %s' % (len(phantom), ', '.join(phantom[:6])))
+    missing = sorted(routes - indexed)
+    if missing:
+        warn('search', '%d published page(s) are not searchable: %s%s'
+                       % (len(missing), ', '.join(missing[:6]),
+                          ' and %d more' % (len(missing) - 6) if len(missing) > 6 else ''))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

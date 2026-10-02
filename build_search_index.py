@@ -1,15 +1,33 @@
 #!/usr/bin/env python3
 """Build out/search-index.json — the header-search index (Phase-2 IA). One record per user-facing
 page: clean URL, title, short description, and a group tag. Powers the persistent search box in
-assets/nav.js, the real replacement for a 58-link mega-menu. Excludes 404, per-chain library dumps,
-and the ~28 country-profile pages (kept lean). Run: python build_search_index.py
+assets/nav.js, the real replacement for a 58-link mega-menu. Run: python build_search_index.py
+
+WHAT COUNTS AS A PAGE, and two corrections made 2026-10-02 after the index was measured against
+sitemap.xml (203 entries against 217 routes):
+
+1. The 16 share/card-*.html files were being INDEXED. They are Open Graph card templates - no
+   <title>, so the leaf name was used, and the search box offered "card-r01" and "card1" as
+   results that land on a bare image template. They are not in the sitemap and are not pages.
+   That was a straightforward bug.
+
+2. The ~27 country profiles were EXCLUDED, and that was deliberate - this file used to say "kept
+   lean". Reversed, because the reason no longer holds: the exclusion dates from when this index
+   replaced a 58-link mega-menu and leanness was the point, but the country profiles are in the
+   sitemap, are reachable through /countries, and are the pages a visitor is most likely to search
+   for by name. Searching "France" returning nothing is worse than 27 extra rows in a 200-row
+   index. If leanness ever matters again, the fix is ranking, not absence.
+
+check.py's `search` check now compares this index against sitemap.xml in BOTH directions, so a
+page class cannot silently fall out again - which is how both faults above survived.
 """
 import subprocess, re, json, os, html
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 os.chdir(ROOT)
+# share/ holds Open Graph card templates, not pages - see the header
 pages = [p for p in subprocess.run(['git', 'ls-files', '*.html'], capture_output=True, text=True).stdout.split()
-         if not p.startswith(('pipeline/', 'reconcile/'))]
+         if not p.startswith(('pipeline/', 'reconcile/', 'share/'))]
 
 def clean_url(p):
     r = p[:-5]
@@ -18,7 +36,7 @@ def clean_url(p):
 idx, seen = [], set()
 for p in pages:
     leaf = p.rsplit('/', 1)[-1][:-5]
-    if leaf == '404' or p.endswith('/library.html') or leaf.startswith('profile-country-'):
+    if leaf == '404' or p.endswith('/library.html'):
         continue
     s = open(p, encoding='utf8').read()
     mt = re.search(r'<title>(.*?)</title>', s, re.S)
@@ -42,6 +60,8 @@ for p in pages:
         elif title.lower() not in desc.lower():
             desc = title + ' — ' + desc
         title = pretty
+    elif leaf.startswith('profile-country-'):
+        g = 'Country'
     elif leaf.startswith('profile-'):
         g = 'Profile'
     elif leaf.startswith('report-') or leaf == 'reports':
