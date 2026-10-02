@@ -129,8 +129,23 @@ The residual codes are now kept under their own Eurostat names rather than flatt
 are not one class: `QV`/`QY` are intra-EU, `QZ`/`QW`/`QP`/`XL` extra-EU. Three real territories the
 ISO2 table omitted (`FO`, `VA`, `VI`) went into `schema.COUNTRY_FIX` where they belong.
 
-Verified by injection — removing one country from the EU-27 definition fails it on 75 of 454
-material-years.
+The check now covers **all four sides** — value and quantity, extra and intra, 1,816 material-years.
+They were unchecked when only extra-EU value was tested, and they share the arithmetic, so a break in
+the counterpart classification surfaces in all four at once. Verified by injection: moving `QY` back
+to the extra-EU side reproduces exactly the helium 2013 +0.917% that started this.
+
+### Still open: the evolving-composition EU series
+
+Everything above uses `EU27_2020`, a **fixed** composition applied to every year. Eurostat also
+publishes an **evolving** series — reporter `EU` against partner `EXT_EU` — where the bloc is
+whatever it was at the time. The two agree from 2021 on and diverge before: in 2019 the evolving
+series is **€1,242,478,303 higher** across these files, which is exactly the UK's own extra-EU
+imports minus EU27 imports from the UK.
+
+`totals()` has no scope for it, so the atlas can currently answer "what did today's EU-27 import
+from outside, back then" but not "what did the EU of the day import from outside". Both are
+legitimate questions and they have different answers for every year before 2021. Implementing it
+needs membership-by-year, which nothing in the repo holds yet.
 
 Verified on 2024 Comext: `EXT_EU27_2020` returns 784,821,501 for magnets, which is
 `out/data.json`'s published figure to the euro, while `WORLD` returns 982,873,293. The gap is the intra-EU
