@@ -118,6 +118,81 @@ def facts(material, measure=None, source=None, stage=None, basis=None, unit=None
     return c
 
 
+# The EU-27 as ISO3, derived from the one declared list rather than written a second time.
+def _eu27():
+    import build_cube_comext as _cx
+    import sys as _s, os as _o
+    _s.path.insert(0, _o.path.join(ROOT, 'pipeline'))
+    import schema as _schema
+    return frozenset(_schema.iso3(c) for c in _cx.EU27)
+
+
+SCOPES = ('world', 'all_partners', 'extra_eu', 'intra_eu')
+
+
+def totals(material, measure, scope, source=None, years=None, by='year'):
+    """Aggregate the cube to a total, with the scope named out loud.
+
+    WHY `scope` IS REQUIRED AND HAS NO DEFAULT. The cube stores bilateral COMPONENTS - one row per
+    counterpart - and derives every aggregate from them. That decision keeps totals and parts from
+    ever sitting in one column, so they can never be double counted. The cost is the opposite
+    failure: a sum written without thinking about which counterparts belong in it. Measured on
+    2024 Comext, forgetting to exclude intra-EU partners inflates strontium 12.8x, cobalt 6.6x and
+    vanadium 3.5x.
+
+    A default would hide exactly the decision the caller has to make, so there is none. Naming the
+    scope is the whole protection, and it is the same move facts() makes when it refuses an
+    ambiguous identity instead of picking one.
+
+        world         rows already stored as a total against all partners (counterpart W1).
+                      Nothing is summed; this is what every non-bilateral source carries.
+        all_partners  sum the components, every counterpart. The world figure for a bilateral
+                      source.
+        extra_eu      sum the components whose counterpart is OUTSIDE the EU-27. This is the
+                      "where does Europe's supply enter the bloc from" question, and the scope
+                      out/data.json publishes.
+        intra_eu      sum the components whose counterpart is INSIDE the EU-27.
+
+    It refuses to mix a stored W1 total with components, which would double count.
+    """
+    if scope not in SCOPES:
+        raise Ambiguous('scope is required and must be one of %s - there is no default, because a '
+                        'default would hide the one decision that matters. See totals.__doc__.'
+                        % (SCOPES,))
+    c = cube()
+    c = c[(c.material == material) & (c.measure == measure)]
+    if source is not None:
+        c = c[c.source == source]
+    if years is not None:
+        c = c[c.year.between(*years)]
+    if not len(c):
+        raise Ambiguous('no rows for %s / %s under that filter' % (material, measure))
+
+    is_w1 = c.counterpart_area == 'W1'
+    if scope == 'world':
+        c = c[is_w1]
+    else:
+        c = c[~is_w1]
+        if scope != 'all_partners':
+            inside = c.counterpart_area.isin(_eu27())
+            c = c[inside if scope == 'intra_eu' else ~inside]
+    if not len(c):
+        raise Ambiguous('no %s rows for %s / %s - this source may not carry that scope '
+                        '(a W1-only source has no components, and vice versa)'
+                        % (scope, material, measure))
+
+    # one identity at a time, for the same reason facts() insists on it
+    seen = c.groupby([x for x in IDENTITY if x != 'counterpart_area'], dropna=False).size()
+    if len(seen) > 1:
+        raise Ambiguous('%s / %s: %d identities match and they are different measurements - pin '
+                        'source/stage/basis/unit before aggregating. Call identities(%r).'
+                        % (material, measure, len(seen), material))
+    g = c.groupby(by, dropna=False)['value'].sum().reset_index()
+    g['scope'] = scope
+    g['n_counterparts'] = c.groupby(by, dropna=False)['counterpart_area'].nunique().values
+    return g
+
+
 def attach(df, attribute, source=None, vintage=None, column=None):
     """Join a material attribute onto fact rows without ever fanning them out.
 
