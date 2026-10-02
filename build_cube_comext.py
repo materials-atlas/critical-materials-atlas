@@ -53,9 +53,10 @@ CODE_SYSTEM = 'CN8'
 # worth confirming against the geonomenclature before anyone analyses this slice.
 NOT_ALLOCATED = '_Z'
 
-# The reporting bloc. A partner inside it is intra-EU trade and is excluded, which is the whole
-# point of the "extra" in extra-EU. Kept explicit rather than inferred so an enlargement is a
-# visible edit rather than a silent change of denominator.
+# The current EU-27. Used ONLY to express "extra-EU" when filtering counterparts - never to decide
+# who may report, because membership changes and the data is historical (see the GB note below).
+# Kept explicit rather than inferred so an enlargement is a visible edit, not a silent change of
+# denominator.
 EU27 = {'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT',
         'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE'}
 # Comext mixes AGGREGATE codes in with real countries, in BOTH the partner and the reporter column:
@@ -69,6 +70,24 @@ EU27 = {'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 
 # sum to the EU aggregate row exactly, to the euro.
 AGGREGATES = {'EU', 'EU27_2020', 'EU28', 'EA', 'EA21', 'EXT_EU', 'EXT_EU27_2020',
               'WORLD', 'TOTAL', 'EXTRA_EU'}
+
+
+
+def _area(code):
+    """Comext ISO2 -> canonical ISO3, through the repo's one door.
+
+    An engine review caught this reaching into schema.ISO2_ISO3 directly and sending every miss to
+    _Z. That bypassed schema.COUNTRY_FIX, which already knows the codes a national source invents -
+    XS is Serbia, LI Liechtenstein, XK Kosovo - so EUR 2.02bn of Serbian trade was being filed as
+    "not allocated". schema.iso3() applies the fixes first and the ISO2 table second, which is
+    exactly why it exists.
+
+    iso3() returns an unknown code unchanged, so the _Z decision is made here: anything that does
+    not come back as a plausible ISO3 is a Comext residual (QV/QW/QY/QZ and friends) and is kept
+    under the non-allocated code rather than discarded.
+    """
+    out = schema.iso3(code)
+    return out if (len(out) == 3 and out.isalpha() and out.isupper()) else NOT_ALLOCATED
 
 
 def _rows(path):
@@ -107,15 +126,22 @@ def build():
                 if partner in AGGREGATES or len(partner) != 2:
                     continue
                 reporter = (r.get('reporter') or '').strip()
-                if reporter not in EU27:        # excludes EU / EU27_2020 / EA / EA21 aggregates
+                # A REPORTER IS ANY REAL REPORTING COUNTRY, NOT ANY CURRENT MEMBER STATE.
+                # This said `reporter not in EU27` and silently dropped GB: the United Kingdom
+                # reported to Comext until it left, so these files carry 4,793 GB rows worth
+                # EUR 142.8 BILLION across 2010-2019, and a present-tense membership test threw
+                # away sixteen years of it. Caught by an engine review, not by any check here.
+                # Aggregates are excluded by the same two rules as partners: the blocklist, and
+                # having to resolve to a real ISO3.
+                if reporter in AGGREGATES:
                     continue
                 # Map areas BEFORE keying. _Z is a BUCKET - several Comext residual codes land in
                 # it - so mapping after aggregation produced one _Z row per original code, all
                 # sharing a series key. 86 collisions, caught by the SDMX structure check.
-                rep3 = schema.ISO2_ISO3.get(reporter)
-                if not rep3:
-                    continue
-                par3 = schema.ISO2_ISO3.get(partner, NOT_ALLOCATED)
+                rep3 = _area(reporter)
+                if rep3 == NOT_ALLOCATED:
+                    continue                   # a reporter must resolve to a real member state
+                par3 = _area(partner)
                 key = (rep3, par3, (r.get('TIME_PERIOD') or '').strip())
                 if not key[2].isdigit():
                     continue

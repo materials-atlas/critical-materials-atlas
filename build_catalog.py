@@ -50,13 +50,25 @@ def add(**kw):
 cube_path = os.path.join(ROOT, 'pipeline', 'data', 'cube.parquet')
 if os.path.exists(cube_path):
     c = pd.read_parquet(cube_path)
+    # The institution, unit and family are READ FROM THE ROWS, not assumed.
+    #
+    # They used to be hard-coded: every cube series was catalogued as "BGS / World Mineral
+    # Statistics / production / tonnes (harmonized)" unless its measure was exactly imports or
+    # exports. So out/catalog.json published, as fact, that `antimony · imports_value` was a BGS
+    # production series in tonnes - when those rows are CMA dollars and Eurostat euros. The
+    # Comext ingest did not cause this; it made it visible, because a EUR source finally made the
+    # wrong unit impossible to miss. Found by an engine review.
     g = c.groupby(['source', 'material', 'measure'])
     for (src, mat, meas), d in g:
-        add(institution='BGS', dataset='World Mineral Statistics', series=f'{mat} · {meas}',
-            measure_family='trade' if meas in ('imports', 'exports') else 'production',
+        units = sorted(u for u in d['unit'].dropna().unique())
+        fam = d['measure_family'].dropna()
+        add(institution=src.split('(')[0].strip(), dataset=src, series=f'{mat} · {meas}',
+            measure_family=(fam.iloc[0] if len(fam) else
+                            ('trade' if meas.startswith(('imports', 'exports')) else 'production')),
             geography='global', year_min=int(d.year.min()), year_max=int(d.year.max()),
             n_countries=int(d.country_iso3.nunique()), n_rows=int(len(d)),
-            unit='tonnes (harmonized)', status='in_cube', path='pipeline/data/cube.parquet')
+            unit=' / '.join(units) if units else 'unspecified',
+            status='in_cube', path='pipeline/data/cube.parquet')
 
 # ── 2. ON DISK but not parsed: USGS Historical Statistics (the big one) ────────────────────────
 # 84 workbooks of US series running from ~1900 — mine/smelter/primary/secondary production,
