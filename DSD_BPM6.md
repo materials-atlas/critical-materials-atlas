@@ -59,14 +59,37 @@ publishes `W1` for world, `I9`/`J9` for inside/outside the euro area, `B5`, `D5`
 
 | Observation | `REF_AREA` | `COUNTERPART_AREA` |
 |---|---|---|
-| Germany's imports of magnets from China | `DE` | `CN` |
-| Germany's imports of magnets from outside the EU | `DE` | *extra-EU aggregate* |
-| Germany's imports of magnets, all partners | `DE` | `W1` |
+| Germany's imports of magnets from China | `DEU` | `CHN` |
+| Germany's imports of magnets, all partners | `DEU` | `W1` |
+| Comext flows with no usable partner code | `DEU` | `_Z` |
 | World mine production of cobalt in the DRC | `COD` | `W1` |
+
+Both area columns are **ISO3**, and the codelist `CL_AREA` is shared between them. An earlier draft
+of this table wrote `DE` and `CN`; the cube writes `DEU` and `CHN`, and Comext's own ISO2 codes are
+converted on the way in through `schema.iso3()`. Caught by an engine review.
+
+There is deliberately **no extra-EU aggregate row**. Scope is expressed by filtering the counterpart
+column, not by storing a second total — see the open question below.
 
 **So the `universe` column I proposed is unnecessary and should be dropped before it ships.** Scope
 is a counterpart-area code, which is what BoP has always done. That is a better design than the one
 I proposed, and it comes directly from the BPM6 suggestion.
+
+### The open question this leaves: should we store the aggregates?
+
+Right now the cube stores only COMPONENTS for Comext — one row per partner — and an EU total is got
+by filtering out intra-EU partners and summing. That is safe against double counting and unsafe
+against forgetting: an EU aggregate computed without the filter is inflated, and measured on 2024
+the inflation is **12.8x for strontium**, 6.6x for cobalt, 3.5x for vanadium.
+
+BPM6 practice is the opposite: the ECB and the IMF **publish the aggregate as its own observation**,
+under its own counterpart code, so a user never sums partners at all — they select the code they
+want. That removes the forgetting failure entirely, and replaces it with the coexistence failure
+(`check_counterpart` would have to permit declared aggregates while still refusing accidental ones).
+
+The honest trade: storing aggregates protects the careless reader and needs a smarter guard; storing
+only components protects the guard and needs a careful reader. BPM6 chose the first. We have not
+chosen yet.
 
 One rule follows and must be guarded: a total and its own components are both legitimate
 observations, and summing them double counts. This is the exact fault already found twice in this

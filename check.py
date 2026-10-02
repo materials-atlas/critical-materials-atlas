@@ -526,10 +526,12 @@ def check_dim():
     if os.path.exists('out/cube_manifest.json') and os.path.exists(cube):
         try:
             man = json.load(open('out/cube_manifest.json', encoding='utf8'))
-            c = pd.read_parquet(cube, columns=['material', 'source', 'measure', 'stage',
-                                               'basis', 'unit'])
-            live = len(c.groupby(['material', 'source', 'measure', 'stage', 'basis', 'unit'],
-                                 dropna=False).size())
+            # kept in step with cube_query.IDENTITY - the two drifting apart is what this
+            # check is for, and they did drift when the BPM6 dimensions arrived
+            idcols = ['material', 'source', 'measure', 'stage', 'basis', 'unit',
+                      'counterpart_area', 'currency_denom']
+            c = pd.read_parquet(cube, columns=idcols)
+            live = len(c.groupby(idcols, dropna=False).size())
             if man.get('n_identities') != live:
                 fail('dim', f'cube_manifest.json advertises {man.get("n_identities")} identities '
                             f'but the cube has {live} - rerun cube_query.py')

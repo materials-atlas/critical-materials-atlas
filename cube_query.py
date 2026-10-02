@@ -32,7 +32,14 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA = os.path.join(ROOT, 'pipeline', 'data')
 OUT = os.path.join(ROOT, 'out')
 
-IDENTITY = ['source', 'measure', 'stage', 'basis', 'unit']
+# What makes two series different things rather than two readings of one thing.
+#
+# counterpart_area and currency_denom joined on 2026-10-02 with the BPM6 dimensions. Without them,
+# Germany's imports FROM CHINA and Germany's imports FROM JAPAN looked like one identity, and a
+# EUR series looked like a USD one. An engine review caught this still listing the old five while
+# the cube had already grown both columns - the manifest was describing a cube that no longer
+# existed, which is the derived-copy drift this repo keeps meeting.
+IDENTITY = ['source', 'measure', 'stage', 'basis', 'unit', 'counterpart_area', 'currency_denom']
 _cube = _dim = None
 
 
