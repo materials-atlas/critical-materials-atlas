@@ -1497,10 +1497,55 @@ def check_search():
                           ' and %d more' % (len(missing) - 6) if len(missing) > 6 else ''))
 
 
+
+def check_counterpart():
+    """A total and its own components must never sit in one sum.
+
+    WHY. When the cube went bilateral (BPM6, 2026-10-02) the counterpart_area column started
+    carrying both kinds of row: W1 means a country total against all partners, an ISO3 code means
+    one bilateral partner, _Z means not allocated. Both are legitimate observations and both are
+    needed - but adding them together counts the same trade twice.
+
+    This repo has now met that fault three times and it has never once announced itself: UN
+    Comtrade returning an all-modes total beside its own transport-mode components; Eurostat Comext
+    returning an EU aggregate beside its 27 member states, which inflated the first Comext ingest
+    4.6x; and now a cube where both live in one column. The first two were caught by someone
+    checking a total against a published figure. That is not a method.
+
+    WHAT IT CHECKS: that no source reports the same observation BOTH as a W1 total and as
+    bilateral components. If one ever does, a GROUP BY that omits counterpart_area silently
+    doubles it. Today no source does - Comext is bilateral throughout, every other source is W1
+    throughout - so this check is a tripwire for the next ingest rather than a live failure.
+
+    It cannot check what a builder does with the data; that needs reading SQL. It checks the one
+    thing that makes the mistake possible at all.
+    """
+    path = os.path.join('pipeline', 'data', 'cube.parquet')
+    if not os.path.exists(path):
+        return
+    try:
+        import pandas as pd
+    except ImportError:
+        return
+    cols = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3',
+            'freq', 'period', 'native_code', 'counterpart_area']
+    c = pd.read_parquet(path, columns=cols)
+    c['is_w1'] = c['counterpart_area'] == 'W1'
+    key = [x for x in cols if x != 'counterpart_area']
+    g = c.groupby(key, dropna=False)['is_w1'].agg(['min', 'max'])
+    both = g[(g['min'] == False) & (g['max'] == True)]      # noqa: E712 - pandas truth test
+    if len(both):
+        ex = '; '.join('%s %s %s %s' % (i[0].split()[0], i[1], i[2], i[7])
+                       for i in list(both.index)[:3])
+        fail('counterpart', '%d observation(s) exist BOTH as a W1 total and as bilateral '
+                            'components, so any sum that omits counterpart_area double counts '
+                            'them: %s' % (len(both), ex))
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'
