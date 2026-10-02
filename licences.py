@@ -24,6 +24,15 @@ LICENCES = {
     'CEPII BACI (HS02)': 'Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)',
     'World Mining Data': 'Free with attribution (BMK Austria / WMD)',
     'IEA Critical Minerals Dataset': 'CC BY 4.0',
+    # Verified against Eurostat's own copyright notice on 2026-10-02
+    # (ec.europa.eu/eurostat/web/main/help/copyright-notice): re-use is permitted, including for
+    # commercial purposes, provided the source is acknowledged and any changes are indicated.
+    # Changes we make and therefore must state: aggregation to (reporter, counterpart, year),
+    # 100 kg converted to metric tonnes, and Comext's own aggregate reporter codes (EU, EU27_2020,
+    # EA, EA21) dropped so that a column sum cannot add the bloc to its own member states.
+    'Eurostat Comext (CN8)':
+        'CC BY 4.0 (© European Union, Eurostat). Re-use permitted including commercially, with '
+        'source acknowledgement and an indication of changes made.',
     # OUR OWN derived statistic. Two independent customs declarations of the same shipment, put
     # through our freight correction, our agreement test and our geometric mean. Nobody else
     # publishes this number, and it is not a copy of anything.

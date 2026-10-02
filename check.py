@@ -572,13 +572,18 @@ def check_series_key():
     # freq and period joined the key when monthly trade arrived: Chile copper exports in 2025 and
     # in March 2025 are different observations, and without freq they collide on `year` and look
     # like a duplicate. period carries YYYY for annual rows and YYYYMM for monthly ones.
-    key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'freq', 'period',
-           'native_code']
+    #
+    # counterpart_area joined it when the cube went bilateral (BPM6, 2026-10-02). Germany's magnet
+    # imports from China and from Japan are two observations, not one; without it the 139,284
+    # Comext rows collapsed onto 16,980 colliding keys. This check caught that the same day the
+    # dimension was added, which is the whole reason it exists.
+    key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'counterpart_area',
+           'freq', 'period', 'native_code']
     c = pd.read_parquet(path, columns=key)
     n = c.groupby(key, dropna=False).size()
     bad = n[n > 1]
     if len(bad):
-        ex = '; '.join('%s %s %s %s' % (i[1], i[0].split()[0], i[6], i[7])
+        ex = '; '.join('%s %s %s->%s %s' % (i[1], i[0].split()[0], i[5], i[6], i[8])
                        for i in list(bad.index)[:4])
         fail('key', f'{len(bad)} observations in the cube share a series key, so a query will '
                     f'either sum two different things or pick one at random: {ex}')

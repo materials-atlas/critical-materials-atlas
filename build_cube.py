@@ -306,6 +306,23 @@ def build():
     except Exception as e:
         print(f'  monthly trade ingest skipped: {e}')
 
+    # ── Eurostat Comext (CN 8-digit), the source family the cube never had ───────────────────
+    # The atlas began as a Comext study - the first commit, 22 Jun 2026 - and this layer still
+    # feeds out/data.json and the homepage HHI, yet it was the one source never harmonized here.
+    # It is BILATERAL and CN-8: finer than the HS-6 everything else carries, which is what splits
+    # gallium from germanium (811292 bundles them; 81129289 / 81129295 do not).
+    try:
+        import build_cube_comext
+        cxr = pd.DataFrame(build_cube_comext.build())
+        if len(cxr):
+            cxr['in_atlas'] = cxr['material'].isin(ATLAS)
+            cxr['retrieved_at'] = None
+            df = pd.concat([df, cxr], ignore_index=True, sort=False)
+            print(f'  Eurostat Comext: {len(cxr):,} rows, {cxr.year.min()}-{cxr.year.max()}, '
+                  f'{cxr.counterpart_area.nunique()} counterpart areas')
+    except Exception as e:
+        print(f'  Comext ingest skipped: {e}')
+
     # FREQUENCY - and it must sit HERE, after every ingest, not after the first one.
     # It was placed above the second ingest and the result was 14,268 collided series keys: the
     # five later sources appended rows with no freq/period column at all, pandas filled NaN, and
@@ -323,6 +340,24 @@ def build():
     df['period'] = df['period'].fillna(df['year']).astype('int64')
     if df['freq'].isna().any() or df['period'].isna().any():
         raise SystemExit('freq/period must be set on every row - a null makes keys collide')
+
+    # COUNTERPART_AREA - the BPM6 dimension, added 2026-10-02 (see DSD_BPM6.md).
+    #
+    # Every row that existed before this change is a country total against ALL partners, which in
+    # BPM6 is the counterpart code W1 (world). Defaulting them to W1 is not a placeholder: it is
+    # what they have always meant, now said out loud. Today's queries keep returning today's
+    # answers because today's queries are W1 queries.
+    #
+    # It also retires the `universe` column I nearly shipped. Scope is a counterpart code - ECB
+    # publishes I9/J9 for inside/outside the euro area - so "extra-EU imports" is a filter on this
+    # column, not a property of the table.
+    #
+    # THE OBLIGATION THIS CREATES: W1 totals and the bilateral components of the same flow now sit
+    # in one column, and summing across both double counts. That is the Comtrade all-modes fault
+    # and the Comext EU-aggregate fault in a third place, so it needs a guard, not a convention.
+    if 'counterpart_area' not in df.columns:
+        df['counterpart_area'] = 'W1'
+    df['counterpart_area'] = df['counterpart_area'].fillna('W1').astype('string')
 
     df['native_code'] = df['native_code'].astype('string')
     return df.sort_values(['source', 'material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
