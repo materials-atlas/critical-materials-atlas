@@ -592,7 +592,7 @@ def index_page():
 </head><body>
 {topbar('profiles')}
 <section class="hero">{MOTIF}<div class="wrap">
-  <div class="eyebrow">Reference · {len(MATS)} critical materials</div>
+  <div class="eyebrow">Reference · {len(MATS)} materials tracked here</div>
   <h1>Material profiles</h1>
   <p class="deck">One page per material — where it is mined, refined, traded and held in reserve, and how far its trade origin sits from its mine. Sorted by origin gap.</p>
 </div></section>
@@ -691,7 +691,7 @@ def country_page(iso, rows):
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(name)} — critical-material dependency · Critical Materials Atlas</title>
-<meta name="description" content="{e(name)}'s import dependency across {len(rows)} critical raw materials: top source, concentration, China exposure, and where the supplier is not the mine.">
+<meta name="description" content="{e(name)}'s import dependency across the critical raw materials this atlas tracks: top source, concentration, China exposure, and where the supplier is not the mine.">
 <meta property="og:title" content="{e(name)} — critical-material dependency">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
