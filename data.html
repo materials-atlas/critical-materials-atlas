@@ -33,8 +33,9 @@
 
   <h2>The cube &mdash; one table behind everything</h2>
   <p>Most of what the atlas publishes now comes out of a single harmonised fact table. One row is one
-  observation: <b>a material, a country, a year, a measure</b>, plus the identity of the source series it
-  came from. <b>523,617 observations, 89 materials, 244 countries, 1900&ndash;2025</b>, five public compilations
+  observation: <b>a material, a country, a counterpart area, a year, a measure</b>, plus the identity of the
+  source series it
+  came from. <b>1,290,141 observations, 98 materials, 244 countries, 1900&ndash;2050</b>, seven public compilations
   in one place &mdash; BGS, USGS, CEPII BACI, World Mining Data and the IEA&rsquo;s observed base-year columns.
   IEA <i>projections</i> stay out: a forecast must not sit where a query could difference it against
   measured history and call the result a trend.</p>
@@ -108,6 +109,7 @@
   <table>
     <thead><tr><th>Column</th><th>Why it exists</th></tr></thead>
     <tbody>
+      <tr><td><span class="endpoint">counterpart_area</span></td><td><b>Read this before summing anything.</b> The partner, following BPM6: <span class="endpoint">W1</span> is a total against all partners, an ISO3 code is that one bilateral partner, <span class="endpoint">_Z</span> is not allocated. A total and its own components both live in this column, so <b>a sum across it double counts</b> &mdash; filter to <span class="endpoint">W1</span> for country totals, or to named partners for bilateral work, never both</td></tr>
       <tr><td><span class="endpoint">stage</span></td><td>mine / processed &mdash; where in the chain the quantity sits</td></tr>
       <tr><td><span class="endpoint">basis</span></td><td>gross weight or contained metal. The single most common cause of two sources &ldquo;disagreeing&rdquo;</td></tr>
       <tr><td><span class="endpoint">unit</span> + <span class="endpoint">conversion_factor</span></td><td>the native unit and exactly what was applied to reach tonnes. A tonnage is never stored without them</td></tr>
