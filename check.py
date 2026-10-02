@@ -1604,32 +1604,40 @@ def check_aggregation():
     # So a failure has to be material in BOTH senses, and the warning keeps every drift visible
     # regardless of size.
     WARN_AT, FAIL_AT, FAIL_EUR = 0.001, 0.02, 5e6
+    # ALL FOUR SIDES, not one. This tested value/extra-EU only. An engine review pointed out that
+    # intra, and both quantity sides, were unchecked - and they share the arithmetic, so a break in
+    # the counterpart classification shows up in all four at once. They agree exactly today; the
+    # point of checking all four is that the next break cannot hide in the three nobody reads.
+    intra = cx.EU27 | cx.INTRA_RESIDUALS
+    SIDES = [('value', 'EXT_EU27_2020', False), ('value', 'INT_EU27_2020', True),
+             ('qty', 'EXT_EU27_2020', False), ('qty', 'INT_EU27_2020', True)]
     worst, bad, tested = (0.0, '', ''), [], 0
-    for f in sorted(raw):
-        mat = os.path.basename(f).split('_')[0]
-        official, derived = {}, {}
-        with io.open(f, encoding='utf-8', errors='replace') as fh:
-            for r in _csv.DictReader(fh):
-                if r.get('flow', '').strip() != '1':
+    for kind, official_partner, want_intra in SIDES:
+        for f in sorted(glob.glob(os.path.join('raw', '*_%s.csv' % kind))):
+            mat = os.path.basename(f).split('_')[0]
+            official, derived = {}, {}
+            with io.open(f, encoding='utf-8', errors='replace') as fh:
+                for r in _csv.DictReader(fh):
+                    if r.get('flow', '').strip() != '1':
+                        continue
+                    y = r.get('TIME_PERIOD', '').strip()
+                    rep, par = r.get('reporter', '').strip(), r.get('partner', '').strip()
+                    v = num(r.get('OBS_VALUE'))
+                    if rep == 'EU27_2020' and par == official_partner:
+                        official[y] = official.get(y, 0.0) + v
+                    elif (rep in cx.EU27 and len(par) == 2
+                          and ((par in intra) == want_intra)):
+                        derived[y] = derived.get(y, 0.0) + v
+            for y, o in official.items():
+                if o <= 0:
                     continue
-                y = r.get('TIME_PERIOD', '').strip()
-                rep, par = r.get('reporter', '').strip(), r.get('partner', '').strip()
-                v = num(r.get('OBS_VALUE'))
-                if rep == 'EU27_2020' and par == 'EXT_EU27_2020':
-                    official[y] = official.get(y, 0.0) + v
-                elif (rep in cx.EU27 and len(par) == 2
-                      and par not in cx.EU27 and par not in cx.INTRA_RESIDUALS):
-                    derived[y] = derived.get(y, 0.0) + v
-        for y, o in official.items():
-            if o <= 0:
-                continue
-            tested += 1
-            d = (derived.get(y, 0.0) - o) / o
-            if abs(d) > abs(worst[0]):
-                worst = (d, mat, y)
-            if abs(d) > FAIL_AT and abs(derived.get(y, 0.0) - o) > FAIL_EUR:
-                bad.append('%s %s %.2f%% (EUR %.1fm)'
-                           % (mat, y, 100 * d, (derived.get(y, 0.0) - o) / 1e6))
+                tested += 1
+                gap = derived.get(y, 0.0) - o
+                d = gap / o
+                if abs(d) > abs(worst[0]):
+                    worst = (d, '%s %s/%s' % (mat, kind, 'intra' if want_intra else 'extra'), y)
+                if abs(d) > FAIL_AT and abs(gap) > FAIL_EUR:
+                    bad.append('%s %s %s %.2f%%' % (mat, kind, y, 100 * d))
     if worst[1] and abs(worst[0]) > WARN_AT:
         # THE RESIDUAL IS NOW EXPLAINED AND FIXED, so this should be silent. It used to fire
         # because Eurostat's intra-EU "not specified" partners QV and QY were being counted as
