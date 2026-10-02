@@ -88,8 +88,23 @@ want. That removes the forgetting failure entirely, and replaces it with the coe
 (`check_counterpart` would have to permit declared aggregates while still refusing accidental ones).
 
 The honest trade: storing aggregates protects the careless reader and needs a smarter guard; storing
-only components protects the guard and needs a careful reader. BPM6 chose the first. We have not
-chosen yet.
+only components protects the guard and needs a careful reader. BPM6 chose the first.
+
+**DECIDED 2026-10-02: store the parts, derive every aggregate from them.** Totals and components
+never share the column, so `check_counterpart` stays a simple rule that cannot be argued with, and
+no stored aggregate can ever drift from the rows it claims to summarise.
+
+That leaves the forgetting failure, so it is answered in code rather than in prose.
+`cube_query.totals()` is the one way to aggregate, and **`scope` is a required argument with no
+default**: `world` (rows already stored as a W1 total), `all_partners`, `extra_eu`, `intra_eu`. A
+default would hide the one decision that matters, so there is none — the same move `facts()` makes
+when it refuses an ambiguous identity instead of picking one. It also refuses to mix a stored W1
+total with components.
+
+Verified on 2024 Comext: `extra_eu` returns 784,821,501 for magnets, which is `out/data.json`'s
+published figure to the euro, while `all_partners` returns 982,873,293. The gap is the intra-EU
+trade, and it is what forgetting costs — 1.25× for magnets, 2.42× for copper, 3.45× for vanadium,
+6.63× for cobalt, **12.84× for strontium**.
 
 One rule follows and must be guarded: a total and its own components are both legitimate
 observations, and summing them double counts. This is the exact fault already found twice in this
