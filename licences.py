@@ -39,6 +39,28 @@ LICENCES = {
     'CMA two-sided reconciliation':
         'CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: '
         'computed from two independent national declarations, neither of which it reproduces.',
+    # THE ANNUAL ENGINE, AND AN INCONSISTENCY THIS ENTRY DOES NOT RESOLVE.
+    #
+    # out/flows_2002..2025.json are ALREADY PUBLIC - tracked in the repo and served from the site -
+    # so ingesting them into the cube redistributes nothing new, and this entry records what they
+    # are rather than granting anything.
+    #
+    # What they are is a MIXTURE. reconcile/reconcile.py reconciles two-sided flows by
+    # inverse-variance averaging (our derivation) and, in the same pass, KEEPS ONE-SIDED FLOWS
+    # (line 8). The published files carry only from/to/value/qty, so the two are indistinguishable
+    # in the output.
+    #
+    # That sits badly beside WITHHELD below, which holds back the MONTHLY single-declaration rows
+    # on the grounds that a one-sided figure is "that service - mostly UN Comtrade - at most
+    # deflated by our freight markup", and that publishing it "would be republishing Comtrade under
+    # our name". The annual one-sided flows are the same object by the same reasoning, and they are
+    # published. Either they should be withheld too, or the monthly ones should be released; both
+    # cannot be right. Flagged for the owner rather than settled here, because it is a policy call
+    # about already-published material, not a bug.
+    'CMA annual world reconciliation':
+        'CC BY 4.0 (Critical Materials Atlas) for the two-sided reconciled flows, which are '
+        'derived. Attribution: UN Comtrade, since one-sided flows are passed through and are not '
+        'separable in this output. Already published as out/flows_YYYY.json.',
 }
 
 # Held back from every public artefact ON PURPOSE - not an oversight, not a missing licence.

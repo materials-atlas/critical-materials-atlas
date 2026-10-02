@@ -7,13 +7,13 @@
  "dsd": "DSD_MINERAL_FLOWS",
  "dataflow": "DF_MINERAL_FLOWS",
  "version": "1.0.0",
- "observations": 1295800,
+ "observations": 1664638,
  "codelists": {
   "CL_MATERIAL": 98,
   "CL_MEASURE": 27,
   "CL_STAGE": 4,
   "CL_BASIS": 2,
-  "CL_SOURCE": 7,
+  "CL_SOURCE": 8,
   "CL_UNIT_MEASURE": 19,
   "CL_AREA": 250,
   "CL_OBS_STATUS": 5,
@@ -21,8 +21,8 @@
   "CL_FREQ": 2
  },
  "obs_status_counts": {
-  "A": 1147122,
-  "E": 2154,
+  "A": 1502846,
+  "E": 15268,
   "Q": 1230,
   "N": 447
  },
@@ -33,6 +33,7 @@
   "World Mining Data": "Free with attribution (BMK Austria / WMD)",
   "IEA Critical Minerals Dataset": "CC BY 4.0",
   "Eurostat Comext (CN8)": "CC BY 4.0 (© European Union, Eurostat). Re-use permitted including commercially, with source acknowledgement and an indication of changes made.",
-  "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
+  "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces.",
+  "CMA annual world reconciliation": "CC BY 4.0 (Critical Materials Atlas) for the two-sided reconciled flows, which are derived. Attribution: UN Comtrade, since one-sided flows are passed through and are not separable in this output. Already published as out/flows_YYYY.json."
  }
 }

@@ -323,6 +323,23 @@ def build():
     except Exception as e:
         print(f'  Comext ingest skipped: {e}')
 
+    # ── the annual world reconciliation, bilateral ───────────────────────────────────────────
+    # out/flows_*.json is what the world maps and the origin gap actually run on, and the cube
+    # could not see it: it held BACI as country totals and the only bilateral rows were Eurostat's,
+    # which stop at the EU border. This makes the cube world-bilateral. 2026 is excluded because it
+    # is a projection, not an observation - the rule this repo already set for IEA scenarios.
+    try:
+        import build_cube_flows
+        fl = pd.DataFrame(build_cube_flows.build())
+        if len(fl):
+            fl['in_atlas'] = fl['material'].isin(ATLAS)
+            fl['retrieved_at'] = None
+            df = pd.concat([df, fl], ignore_index=True, sort=False)
+            print(f'  annual world reconciliation: {len(fl):,} rows, '
+                  f'{fl.year.min()}-{fl.year.max()}, {fl.counterpart_area.nunique()} importers')
+    except Exception as e:
+        print(f'  annual flows ingest skipped: {e}')
+
     # FREQUENCY - and it must sit HERE, after every ingest, not after the first one.
     # It was placed above the second ingest and the result was 14,268 collided series keys: the
     # five later sources appended rows with no freq/period column at all, pandas filled NaN, and
