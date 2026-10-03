@@ -40,7 +40,7 @@ OUT = os.path.join(ROOT, 'out')
 # the cube had already grown both columns - the manifest was describing a cube that no longer
 # existed, which is the derived-copy drift this repo keeps meeting.
 IDENTITY = ['source', 'measure', 'stage', 'basis', 'unit', 'native_code',
-            'counterpart_area', 'currency_denom']
+            'counterpart_area', 'currency_denom', 'flow_stock', 'valuation']
 _cube = _dim = None
 
 

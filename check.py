@@ -583,7 +583,7 @@ def check_series_key():
     # Comext rows collapsed onto 16,980 colliding keys. This check caught that the same day the
     # dimension was added, which is the whole reason it exists.
     key = ['source', 'material', 'measure', 'stage', 'basis', 'country_iso3', 'counterpart_area',
-           'currency_denom', 'freq', 'period', 'native_code']
+           'currency_denom', 'flow_stock', 'valuation', 'freq', 'period', 'native_code']
     c = pd.read_parquet(path, columns=key)
     n = c.groupby(key, dropna=False).size()
     bad = n[n > 1]

@@ -358,6 +358,42 @@ def build():
     if df['freq'].isna().any() or df['period'].isna().any():
         raise SystemExit('freq/period must be set on every row - a null makes keys collide')
 
+    # FLOW_STOCK_ENTRY - BPM6, added 2026-10-03. Separates a POSITION from a TRANSACTION.
+    #
+    # Stocks and reserves are a quantity held AT a date; production, trade and consumption are a
+    # quantity that moved DURING a period. Both sat in `measure` undifferentiated, so nothing
+    # stopped a query differencing a stockpile against a year's output and calling the result a
+    # change. 3,938 rows here are positions - LME stocks, government and industry stockpiles.
+    #
+    # Codes are BPM6's: LE for a position (stock/level), T for a transaction (flow). A ratio that
+    # is neither - net import reliance, employment - is _Z rather than forced into one.
+    _m = df['measure'].astype('string')
+    _pos = _m.str.startswith('stocks')
+    _neither = _m.isin(['net_import_reliance', 'employment',
+                        'unit_value_nominal', 'unit_value_real98'])
+    df['flow_stock'] = 'T'
+    df.loc[_pos, 'flow_stock'] = 'LE'
+    df.loc[_neither, 'flow_stock'] = '_Z'
+    df['flow_stock'] = df['flow_stock'].astype('string')
+
+    # VALUATION - BPM6, added 2026-10-03, and deliberately THIN.
+    #
+    # It records FOB only where a source documents it, and _Z everywhere else. Our own
+    # reconciliations qualify: pipeline/reconcile.py puts the importer side on an FOB basis before
+    # averaging, so every value they publish is FOB by construction - a property that until now
+    # lived only inside that file, invisible to anyone comparing our numbers against a CIF source.
+    #
+    # Eurostat Comext is _Z, NOT CIF. Extra-EU import value is conventionally CIF at the frontier,
+    # but neither this repo nor its adapter records that, and guessing a valuation is exactly the
+    # kind of assertion that has had to be retracted twice this week. _Z means "we have not
+    # established it", which is true, and it can be upgraded the day somebody checks.
+    FOB_SOURCES = {'CMA two-sided reconciliation', 'CMA annual world reconciliation',
+                   'CMA single-declaration passthrough'}
+    _monetary = df['currency_denom'].isin(['USD', 'EUR', 'GBP'])
+    df['valuation'] = '_Z'
+    df.loc[_monetary & df['source'].isin(FOB_SOURCES), 'valuation'] = 'FOB'
+    df['valuation'] = df['valuation'].astype('string')
+
     # CURRENCY_DENOM - the BPM6 dimension, pulled forward 2026-10-02 because it became a live
     # hazard the day Comext arrived. An engine review found `imports_value` carrying 769,861 USD
     # rows (CMA, BACI) and 71,691 EUR rows (Comext) under ONE measure name: the unit column told

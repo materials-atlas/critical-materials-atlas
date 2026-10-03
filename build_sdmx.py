@@ -131,6 +131,18 @@ def build():
         # CURRENCY_DENOM shipped uncoded in the commit that introduced it - the dimension was right
         # and the omission was mine. ISO 4217 alpha-3 for real currencies, plus the SDMX _T for an
         # observation that has no currency because it is physical.
+        codelist('CL_FSENTRY', 'Flows and stocks indicator',
+                 [('LE', 'Position (stock / level) held at a date'),
+                  ('T', 'Transaction (flow) during a period'),
+                  ('_Z', 'Not applicable')],
+                 'BPM6 flows-and-stocks indicator. Keeps a stockpile from being differenced '
+                 'against a year of production as though both measured the same kind of thing.'),
+        codelist('CL_VALUATION', 'Valuation',
+                 [('FOB', 'Free on board'), ('_Z', 'Not established')],
+                 'FOB only where a source documents it. _Z is deliberately "not established" '
+                 'rather than "not applicable": Eurostat import value is conventionally CIF at '
+                 'the frontier, but this repo has not verified that, and a guessed valuation is '
+                 'worse than an absent one.'),
         codelist('CL_CURRENCY', 'Currency denominator',
                  sorted(set([(c, {'USD': 'US dollar', 'EUR': 'Euro', 'GBP': 'Pound sterling',
                                   '_T': 'Not applicable (physical observation)'}.get(c, c))
@@ -177,6 +189,15 @@ def build():
                      'be summed together.'},
             # CURRENCY_DENOM: BPM6 again. Two monies under one measure name is the same fault as
             # money under a tonnage measure, and it arrived the day a EUR source joined USD ones.
+            # FLOW_STOCK_ENTRY and VALUATION, BPM6, 2026-10-03. A position and a transaction are
+            # different observations; so are the same money on an FOB and a CIF basis.
+            {'id': 'FLOW_STOCK_ENTRY', 'codelist': 'CL_FSENTRY',
+             'note': 'LE = a position held at a date (stocks, reserves); T = a transaction during '
+                     'a period (production, trade, consumption); _Z = neither, e.g. a ratio.'},
+            {'id': 'VALUATION', 'codelist': 'CL_VALUATION',
+             'note': 'FOB where the source establishes it - our reconciliations put the importer '
+                     'side on an FOB basis before averaging. _Z means not established, which is '
+                     'not the same as not applicable.'},
             {'id': 'CURRENCY_DENOM', 'codelist': 'CL_CURRENCY',
              'note': 'currency the observation is denominated in; _T where it is physical '
                      '(a tonnage has no currency). USD and EUR rows share measure names, so '
@@ -229,6 +250,7 @@ def build():
     ren = {'source': 'SOURCE', 'material': 'MATERIAL', 'measure': 'MEASURE', 'stage': 'STAGE',
            'basis': 'BASIS', 'native_code': 'NATIVE_CODE', 'country_iso3': 'REF_AREA',
            'counterpart_area': 'COUNTERPART_AREA', 'currency_denom': 'CURRENCY_DENOM',
+           'flow_stock': 'FLOW_STOCK_ENTRY', 'valuation': 'VALUATION',
            'year': 'TIME_PERIOD', 'value': 'OBS_VALUE', 'unit': 'UNIT_MEASURE',
            'conversion_factor': 'CONVERSION_FACTOR', 'code_system': 'CODE_SYSTEM',
            'native_label': 'NATIVE_LABEL', 'obs_status': 'OBS_STATUS',
