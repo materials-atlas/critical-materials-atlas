@@ -15,6 +15,32 @@ A derived statistic does not launder the terms of the data it was derived from. 
 reconciling and re-basing UN Comtrade values at HS6 x month x country produces something close
 enough to its input that publishing it is redistribution in all but name. Our method is public and
 our code is public; those particular numbers are not ours to hand out.
+
+THE TEST, stated because the principle above was here all along and still got misread - by me,
+2026-10-02, when I argued the opposite to the owner and had to retract it.
+
+    Collect everything. Publish what cannot SUBSTITUTE for someone else's product.
+
+Not "did we transform it". Transformation does not shrink granularity, and granularity is what
+makes an output a substitute. An index, a chart, a model coefficient, a country total - nobody
+rebuilds Comtrade from those. A bilateral table at material x country-pair x year largely IS their
+product, however much work went into it.
+
+Two consequences that are easy to get backwards:
+
+  * THE CONSTRAINT IS PER SOURCE, NOT PER SHAPE. Eurostat Comext is CC BY 4.0 and explicitly
+    permits commercial re-use with attribution, so OUR BILATERAL COMEXT ROWS ARE FINE. "Bilateral
+    is risky" is the wrong rule; "Comtrade-derived bilateral is risky" is the right one.
+
+  * THE THRESHOLD IS PER DOWNLOAD. UN Comtrade's published terms (shop.un.org, read 2026-10-02)
+    charge for re-dissemination but exempt "a small number of records (up to 100,000)" and
+    public free-of-charge visualization/analytics, which they define as limiting 100,000 records
+    per download. So twenty-five yearly files of ~17,000 rows each, drawing maps on a free site,
+    sit inside the exemption. One parquet carrying all 368,838 of them at once does not.
+
+That is a reading of a terms page, not legal advice, and whether N files count as N downloads is a
+question for subscriptions@un.org. Where it is ambiguous this file takes the reading least
+favourable to us.
 """
 
 # Sources we may redistribute, with the terms that allow it.
@@ -39,32 +65,24 @@ LICENCES = {
     'CMA two-sided reconciliation':
         'CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: '
         'computed from two independent national declarations, neither of which it reproduces.',
-    # THE ANNUAL ENGINE, AND AN INCONSISTENCY THIS ENTRY DOES NOT RESOLVE.
-    #
-    # out/flows_2002..2025.json are ALREADY PUBLIC - tracked in the repo and served from the site -
-    # so ingesting them into the cube redistributes nothing new, and this entry records what they
-    # are rather than granting anything.
-    #
-    # What they are is a MIXTURE. reconcile/reconcile.py reconciles two-sided flows by
-    # inverse-variance averaging (our derivation) and, in the same pass, KEEPS ONE-SIDED FLOWS
-    # (line 8). The published files carry only from/to/value/qty, so the two are indistinguishable
-    # in the output.
-    #
-    # That sits badly beside WITHHELD below, which holds back the MONTHLY single-declaration rows
-    # on the grounds that a one-sided figure is "that service - mostly UN Comtrade - at most
-    # deflated by our freight markup", and that publishing it "would be republishing Comtrade under
-    # our name". The annual one-sided flows are the same object by the same reasoning, and they are
-    # published. Either they should be withheld too, or the monthly ones should be released; both
-    # cannot be right. Flagged for the owner rather than settled here, because it is a policy call
-    # about already-published material, not a bug.
-    'CMA annual world reconciliation':
-        'CC BY 4.0 (Critical Materials Atlas) for the two-sided reconciled flows, which are '
-        'derived. Attribution: UN Comtrade, since one-sided flows are passed through and are not '
-        'separable in this output. Already published as out/flows_YYYY.json.',
 }
 
 # Held back from every public artefact ON PURPOSE - not an oversight, not a missing licence.
 WITHHELD = {
+    # Withheld from the BULK EXTRACT ONLY, and that distinction is the whole point. The same flows
+    # stay public as out/flows_YYYY.json - twenty-five files, largest 17,258 rows - because each
+    # one is a free public visualization under the holder's own threshold. What is withheld is
+    # bundling all 368,838 into a single parquet, which is extraction by their definition.
+    #
+    # It is a mixture and that is why it cannot be published whole: reconcile/reconcile.py
+    # reconciles two-sided flows (ours) and KEEPS ONE-SIDED FLOWS (line 8, Comtrade's), and the
+    # output carries only from/to/value/qty, so the two cannot be separated after the fact. If
+    # they could, the derived half would be ours to give.
+    'CMA annual world reconciliation':
+        'a mixture we cannot split: two-sided reconciliation of ours beside one-sided UN Comtrade '
+        'flows passed through, indistinguishable in the output. Bundling 368,838 of them in one '
+        'download is re-dissemination by the terms of the holder itself. The same rows remain '
+        'public per year at out/flows_YYYY.json, each far under the 100,000-record threshold.',
     'CMA single-declaration passthrough':
         'only one customs service declared these shipments, so the figure is that service - '
         'mostly UN Comtrade - at most deflated by our freight markup. Calling it our derivation '
@@ -76,6 +94,23 @@ WITHHELD = {
 # the exact recipe to fetch the same rows first-hand - endpoint, parameters, the account needed and
 # what it costs - so the refusal costs the customer an afternoon, not the analysis.
 RETRIEVAL = {
+    # The friendliest refusal in this file: the data is not behind a paywall, it is on our own site
+    # one year at a time. Only the single-file bundle is withheld.
+    'CMA annual world reconciliation': {
+        'holder': 'Critical Materials Atlas (derived) over United Nations - UN Comtrade (source)',
+        'why_not': 'the two-sided reconciliation is ours, but one-sided Comtrade flows are passed '
+                   'through in the same table and cannot be separated after the fact. Bundling '
+                   'them all in one download is re-dissemination under UN Comtrade terms.',
+        'cost': 'Free, and no account needed.',
+        'register': 'not required',
+        'endpoint': 'https://criticalmaterialsatlas.org/out/flows_YYYY.json',
+        'parameters': {
+            'YYYY': '2002 through 2025, one file per year',
+        },
+        'note': 'Identical rows, one year per request - largest file 17,258 records, well inside '
+                'the 100,000-per-download exemption set by the holder. Concatenate them yourself if you '
+                'need the panel; what we may not do is hand you the concatenation.',
+    },
     'CMA single-declaration passthrough': {
         'holder': 'United Nations Statistics Division - UN Comtrade',
         'why_not': 'Comtrade free-tier terms permit use and analysis but not bulk '
