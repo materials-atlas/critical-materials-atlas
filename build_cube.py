@@ -436,6 +436,67 @@ def build():
     return df.sort_values(['source', 'material', 'measure', 'year', 'country_iso3']).reset_index(drop=True)
 
 
+
+# ── the published extract carries the monthly layer as totals, not parts ───────────────────────
+# The private cube stores the PARTS: since 3 Oct 2026 the monthly reconciliation is bilateral,
+# 8.1M rows at reporter x partner x month. That is the right shape for a store, and the rule this
+# repository settled on - store the parts, derive the aggregates - is satisfied by storing them.
+#
+# The PUBLISHED extract derives the aggregate instead, for one measured reason: out/cube.parquet is
+# tracked in git, and parquet does not delta-compress, so every rebuild writes a near-whole new
+# blob. 32 versions of this file already account for 350.6 MB of a 1.1 GB .git. Publishing the
+# bilateral monthly layer takes the file from 13.5 MB to 38.8 MB, so the next 32 rebuilds would add
+# about 1.24 GB and triple a repository that also serves the website.
+#
+# So this is the derivation step, done once, at the gate - not a second store with its own grain.
+# The bilateral monthly detail stays available in pipeline/data/cube.parquet and in
+# pipeline/data/flows_reconciled.parquet, and the retrieval recipe in licences.py says so.
+#
+# THE INTERVAL DOES NOT COME WITH THE AGGREGATE, for a reason that is not weight.
+# Summing value_lo and value_hi across partners is arithmetically the interval of the sum, so the
+# first version of this did it. But that band is far wider than any single flow's uncertainty - it
+# is the sum of per-flow bands, which overstates the uncertainty of a total whenever the per-flow
+# errors are partly independent. A reader meeting value_lo/value_hi on a reporter-month total would
+# read it as "the uncertainty of this total", which is not what it measures. An interval belongs at
+# the grain where it was computed, so it stays in pipeline/data/cube.parquet on the 8.1M bilateral
+# rows and is dropped here. It also happens to be 8.0 MB of the 21.4 MB file, every rebuild.
+_MONTHLY_GROUP = 'CMA monthly reconciliation'
+_INTERVAL = ('value_lo', 'value_hi')
+
+
+def _publish_monthly_as_totals(pub):
+    if 'source_group' not in pub.columns or not len(pub):
+        return pub
+    m = pub['source_group'] == _MONTHLY_GROUP
+    if not m.any():
+        return pub
+    rest, mon = pub[~m], pub[m]
+    keys = ['material', 'source_group', 'country_iso3', 'year', 'measure_family', 'measure',
+            'flow_direction', 'stage', 'code_system', 'native_code', 'native_label',
+            'sub_commodity', 'unit', 'conversion_factor', 'basis', 'source', 'freq', 'period',
+            'currency_denom', 'flow_stock', 'valuation', 'obs_status', 'in_atlas', 'retrieved_at']
+    keys = [k for k in keys if k in mon.columns]
+    sums = {c: 'sum' for c in ('value', 'value_t') if c in mon.columns}
+    g = mon.groupby(keys, as_index=False, dropna=False).agg(
+        **{c: (c, f) for c, f in sums.items()},
+        _partners=('counterpart_area', 'nunique'))
+    g['counterpart_area'] = 'W1'
+    g['precision'] = g.pop('_partners').map(lambda n: '%d partners reconciled' % n)
+    for c in pub.columns:
+        if c not in g.columns:
+            g[c] = pd.NA
+    out = pd.concat([rest, g[pub.columns]], ignore_index=True, sort=False)
+    print('  published monthly layer derived as totals: %d parts -> %d totals'
+          % (int(m.sum()), len(g)))
+    # Drop the interval columns if nothing outside the monthly parts ever populated them, so the
+    # published schema does not advertise an attribute that is null in every row.
+    dead = [c for c in _INTERVAL if c in out.columns and not out[c].notna().any()]
+    if dead:
+        out = out.drop(columns=dead)
+        print('  dropped from the published extract (interval belongs with the parts): %s'
+              % ', '.join(dead))
+    return out
+
 if __name__ == '__main__':
     df = build()
     outdir = os.path.join(ROOT, 'pipeline', 'data')
@@ -447,6 +508,7 @@ if __name__ == '__main__':
     # exporter refused to publish the monthly reconciliation while these two lines wrote the same
     # rows to a file served off the website. Same rule, one place, both exporters.
     pub = licences.public(df)
+    pub = _publish_monthly_as_totals(pub)
     pub.to_parquet(os.path.join(ROOT, 'out', 'cube.parquet'), index=False, compression='zstd')
     # mtime=0: gzip writes the current time into its header, so rebuilding an IDENTICAL table
     # produced a different file every single time - churning a multi-megabyte binary in git and
