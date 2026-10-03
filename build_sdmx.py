@@ -122,7 +122,11 @@ def build():
                                ('QZ', 'Not specified for commercial or military reasons, extra-EU'),
                                ('QP', 'High seas (Eurostat)'),
                                ('QW', 'Not specified, extra-EU (Eurostat)'),
-                               ('XL', 'Not specified (Eurostat)')])),
+                               ('XL', 'Not specified (Eurostat)'),
+                               # the evolving-composition bloc: whoever was a member at the time
+                               ('EU', 'European Union (composition of the reference year)'),
+                               ('EXT_EU', 'Outside the EU of the reference year'),
+                               ('INT_EU', 'Inside the EU of the reference year')])),
                  'ISO 3166-1 alpha-3, plus dissolved states kept under their own codes '
                  '(SUN, YUG, CSK, DDR, SCG, ANT, ZAR, DEU_FRG, YMD) rather than merged into '
                  'successors. Also carries the BPM6 counterpart codes W1 (world) and _Z (not '

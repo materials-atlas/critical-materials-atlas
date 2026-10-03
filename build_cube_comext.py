@@ -201,9 +201,73 @@ def build():
     return out
 
 
+# The EVOLVING-composition bloc series, which is the one thing here that CANNOT be derived.
+#
+# Everything else in this adapter is components, and every aggregate is computed from them - the
+# owner's rule, and a good one. This is the exception that proves it. EU27_2020 is a FIXED
+# composition applied to every year, so "extra-EU" under it is derivable by filtering counterparts.
+# The EVOLVING series - reporter EU against partner EXT_EU, where the bloc is whoever was in it at
+# the time - is not derivable from our rows: it needs membership by year, and the transition years
+# are where it matters and where a reconstruction would be wrong. Croatia acceded on 1 July 2013
+# and the UK left on 31 January 2020; both are part-years with a compiler convention we would be
+# guessing at.
+#
+# So we read Eurostat's own answer instead of inventing one. The two series agree from 2021 and
+# diverge before: 2019 differs by EUR 1.24bn, which is the UK's own extra-EU imports minus EU27
+# imports from the UK.
+#
+# These rows ARE aggregates in both area columns, deliberately, and the guards know it:
+# check_counterpart warns that an aggregate reporter sits beside the countries it contains, and
+# cube_query.totals(ref='each') refuses to sum across the mix. That is the protection working, not
+# a defect. Store what cannot be derived; derive what can.
+BLOC_SERIES = {
+    ('EU', 'EXT_EU'): ('EU', 'EXT_EU'),
+    ('EU', 'INT_EU'): ('EU', 'INT_EU'),
+}
+
+
+def bloc_rows():
+    """Eurostat's published evolving-composition bloc totals, as cube rows."""
+    out = []
+    for vpath in sorted(glob.glob(os.path.join(RAW, '*_value.csv'))):
+        base = os.path.basename(vpath)[:-len('_value.csv')]
+        if '_' not in base:
+            continue
+        material, code = base.rsplit('_', 1)
+        qpath = vpath[:-len('_value.csv')] + '_qty.csv'
+        agg = {}
+        for path, slot in ((vpath, 0), (qpath, 1)):
+            for r in _rows(path):
+                if (r.get('flow') or '').strip() != '1':
+                    continue
+                key = ((r.get('reporter') or '').strip(), (r.get('partner') or '').strip())
+                if key not in BLOC_SERIES:
+                    continue
+                y = (r.get('TIME_PERIOD') or '').strip()
+                if not y.isdigit():
+                    continue
+                cell = agg.setdefault((BLOC_SERIES[key], y), [0.0, 0.0])
+                cell[slot] += _num(r.get('OBS_VALUE'))
+        for ((ref, cp), year), (eur, hkg) in sorted(agg.items()):
+            common = dict(material=material, country_iso3=ref, counterpart_area=cp,
+                          year=int(year), measure_family='trade', flow_direction='in', stage=None,
+                          code_system=CODE_SYSTEM, native_code=code, native_label=None,
+                          sub_commodity=None, basis='gross', source=SOURCE,
+                          freq='A', period=int(year), precision=None, value_flag=None,
+                          source_obs_status=None, native_group=None, native_country=ref)
+            if hkg:
+                t = hkg / 10.0
+                out.append(dict(common, measure='imports', value=t,
+                                unit='tonnes (metric)', value_t=t, conversion_factor=1.0))
+            if eur:
+                out.append(dict(common, measure='imports_value', value=eur, unit='EUR',
+                                value_t=None, conversion_factor=None))
+    return out
+
+
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8')
-    rows = build()
+    rows = build() + bloc_rows()
     mats = sorted(set(r['material'] for r in rows))
     yrs = sorted(set(r['year'] for r in rows))
     reps = sorted(set(r['country_iso3'] for r in rows))
