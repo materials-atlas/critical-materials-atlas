@@ -53,6 +53,18 @@ DATA_EXT = {'.xlsx', '.xlsb', '.xls', '.csv', '.zip', '.json', '.pdf', '.parquet
 
 # ── written notes, keyed by folder under raw/. `use` answers "why might we need this later?" ────
 NOTES = {
+ 'comtrade_full': ('UN Comtrade, FULL product universe, monthly, all reporters',
+                'UN Comtrade terms - re-dissemination limited; see licences.py',
+                'crawl in progress, not yet in the cube',
+                'The gravity CIF/FOB model BACI uses was declined here because on our 31-code '
+                'slice distance is unidentified (R^2 = 0.01, reconcile/reconcile.py step 2). '
+                'That is a fact about the slice, not the method, so this crawl fetches the '
+                'whole universe - ~5,384 HS6 codes, monthly, newest year first - to settle '
+                'whether the CEPII method beats our per-product median on our own data. '
+                'Written by reconcile/pull_comtrade_full.py at 380 calls/day, leaving ~120 of '
+                'the 500/day allowance for pipeline/refresh.py, which shares the key. '
+                'Exporter and importer filings are stored APART and never merged here: which '
+                'side a number came from decides whether it is ours to publish.'),
  'iea':        ('IEA Critical Minerals Dataset + report PDFs', 'CC BY 4.0', 'in cube (driver too)',
                 'Base-year supply by country at mine AND refining stage - the layer where BGS is '
                 'thinnest. Two editions held, two missing.'),
