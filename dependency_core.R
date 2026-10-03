@@ -14,9 +14,14 @@ eu27 <- c("AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","EL","GR","HU",
 is_aggregate <- function(x) grepl("EU|EA|EXT|INT|WORLD|TOTAL|_", x)
 
 # Read a Comext SDMX-CSV file; coerce OBS_VALUE numeric; drop non-numeric (": " etc).
+# na.strings = "" because Comext's code for NAMIBIA is "NA", and R's default na.strings reads it
+# as missing: the partner column went blank and aggregate() dropped the row without a warning.
+# That silently removed EUR 464.8m of extra-EU imports over 2010-2025 and overstated the
+# fluorspar 2010 HHI at 0.2450 against a true 0.1985 - Namibia was 23.4% of that year's imports.
+# Nine Python readers in this repo already carry the same fix; this path never got it.
 read_comext <- function(p) {
   if (!file.exists(p)) return(NULL)
-  z <- read.csv(p, stringsAsFactors = FALSE)
+  z <- read.csv(p, stringsAsFactors = FALSE, na.strings = "")
   z$OBS_VALUE <- suppressWarnings(as.numeric(z$OBS_VALUE))
   z[!is.na(z$OBS_VALUE), ]
 }
