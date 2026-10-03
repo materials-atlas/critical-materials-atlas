@@ -1759,6 +1759,46 @@
     ]
    },
    {
+    "id": "CL_FSENTRY",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Flows and stocks indicator",
+    "description": "BPM6 flows-and-stocks indicator. Keeps a stockpile from being differenced against a year of production as though both measured the same kind of thing.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "LE",
+      "name": "Position (stock / level) held at a date"
+     },
+     {
+      "id": "T",
+      "name": "Transaction (flow) during a period"
+     },
+     {
+      "id": "_Z",
+      "name": "Not applicable"
+     }
+    ]
+   },
+   {
+    "id": "CL_VALUATION",
+    "agencyID": "CMA",
+    "version": "1.0.0",
+    "name": "Valuation",
+    "description": "FOB only where a source documents it. _Z is deliberately \"not established\" rather than \"not applicable\": Eurostat import value is conventionally CIF at the frontier, but this repo has not verified that, and a guessed valuation is worse than an absent one.",
+    "isFinal": true,
+    "codes": [
+     {
+      "id": "FOB",
+      "name": "Free on board"
+     },
+     {
+      "id": "_Z",
+      "name": "Not established"
+     }
+    ]
+   },
+   {
     "id": "CL_CURRENCY",
     "agencyID": "CMA",
     "version": "1.0.0",
@@ -1890,6 +1930,16 @@
       "note": "BPM6 counterpart area. W1 = world (a total against all partners); an ISO3 code = that bilateral partner. A total and its own components must never be summed together."
      },
      {
+      "id": "FLOW_STOCK_ENTRY",
+      "codelist": "CL_FSENTRY",
+      "note": "LE = a position held at a date (stocks, reserves); T = a transaction during a period (production, trade, consumption); _Z = neither, e.g. a ratio."
+     },
+     {
+      "id": "VALUATION",
+      "codelist": "CL_VALUATION",
+      "note": "FOB where the source establishes it - our reconciliations put the importer side on an FOB basis before averaging. _Z means not established, which is not the same as not applicable."
+     },
+     {
       "id": "CURRENCY_DENOM",
       "codelist": "CL_CURRENCY",
       "note": "currency the observation is denominated in; _T where it is physical (a tonnage has no currency). USD and EUR rows share measure names, so this is what tells them apart."
@@ -1966,6 +2016,8 @@
      "NATIVE_CODE",
      "REF_AREA",
      "COUNTERPART_AREA",
+     "FLOW_STOCK_ENTRY",
+     "VALUATION",
      "CURRENCY_DENOM"
     ]
    }
