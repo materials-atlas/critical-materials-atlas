@@ -142,10 +142,27 @@ whatever it was at the time. The two agree from 2021 on and diverge before: in 2
 series is **€1,242,478,303 higher** across these files, which is exactly the UK's own extra-EU
 imports minus EU27 imports from the UK.
 
-`totals()` has no scope for it, so the atlas can currently answer "what did today's EU-27 import
-from outside, back then" but not "what did the EU of the day import from outside". Both are
-legitimate questions and they have different answers for every year before 2021. Implementing it
-needs membership-by-year, which nothing in the repo holds yet.
+**Closed 2026-10-03, and more simply than this said.** The claim that it "needs membership-by-year,
+which nothing in the repo holds" was wrong: **Eurostat publishes the evolving series itself**, as
+bloc rows in the same files we already read — reporter `EU` against partner `EXT_EU`. There was
+nothing to reconstruct, only something to read.
+
+So it is stored rather than derived, and that is the one deliberate exception to "store the parts,
+derive the aggregates". It is the exception that proves the rule: the evolving series genuinely
+cannot be computed from our rows, because the transition years are where it matters and where a
+reconstruction would be guessing at a compiler's convention — Croatia acceded on 1 July 2013 and
+the UK left on 31 January 2020, both part-years. Reading the compiler's own answer beats inventing
+one.
+
+`totals()` gains the scopes `EXT_EU` and `INT_EU`, which **select** a stored row rather than
+summing components. Measured for 2019: copper's extra-EU imports are €4.66bn under today's EU-27
+and €4.59bn under the EU of the day, nickel €2.24bn against €2.09bn — lower each time, because the
+UK was then inside the bloc and its trade was intra-EU.
+
+These rows are aggregates in both area columns, deliberately, and the guards know it:
+`check_counterpart` now names Eurostat alongside IEA and USGS as a source filing an aggregate
+beside the countries it contains, and `totals(ref='each')` refuses to sum across the mix. That is
+the protection working rather than a defect.
 
 Verified on 2024 Comext: `EXT_EU27_2020` returns 784,821,501 for magnets, which is
 `out/data.json`'s published figure to the euro, while `WORLD` returns 982,873,293. The gap is the intra-EU

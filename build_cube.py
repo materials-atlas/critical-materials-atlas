@@ -313,7 +313,8 @@ def build():
     # gallium from germanium (811292 bundles them; 81129289 / 81129295 do not).
     try:
         import build_cube_comext
-        cxr = pd.DataFrame(build_cube_comext.build())
+        # components + the one aggregate that cannot be derived (the evolving-composition bloc)
+        cxr = pd.DataFrame(build_cube_comext.build() + build_cube_comext.bloc_rows())
         if len(cxr):
             cxr['in_atlas'] = cxr['material'].isin(ATLAS)
             cxr['retrieved_at'] = None

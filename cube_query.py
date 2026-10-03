@@ -150,7 +150,11 @@ def _eu27():
 #   EXT_EU27_2020   Eurostat: partners outside the EU-27. Verified to reproduce Eurostat's own
 #                   published EXT_EU27_2020 aggregate to the euro - see check_aggregation.
 #   INT_EU27_2020   Eurostat: partners inside the EU-27.
-SCOPES = ('W1', 'WORLD', 'EXT_EU27_2020', 'INT_EU27_2020')
+SCOPES = ('W1', 'WORLD', 'EXT_EU27_2020', 'INT_EU27_2020', 'EXT_EU', 'INT_EU')
+# Scopes that SELECT a stored aggregate row instead of summing components. W1 is BPM6's world
+# total; EXT_EU / INT_EU are Eurostat's EVOLVING-composition bloc, which cannot be derived from
+# our rows because it needs membership by year - so the compiler's own figure is stored and read.
+SELECT_SCOPES = frozenset({'W1', 'EXT_EU', 'INT_EU'})
 # Codes that live in REF_AREA but are not countries. WLD is a world aggregate filed
 # beside the countries it contains, which is why ref='each' refuses to sum over it.
 AREA_AGGREGATES = frozenset({'WLD', 'W1', 'EU27_2020', 'EU', 'WORLD', '_Z'})
@@ -166,8 +170,13 @@ def totals(material, measure, scope, ref='each', source=None, years=None):
     counterpart scopes (`scope`, required):
         W1              rows stored against all partners; nothing is summed
         WORLD           sum every bilateral component
-        EXT_EU27_2020   sum components outside the EU-27 (what out/data.json publishes)
-        INT_EU27_2020   sum components inside the EU-27
+        EXT_EU27_2020   sum components outside the EU-27, FIXED composition (what
+                        out/data.json publishes)
+        INT_EU27_2020   sum components inside the EU-27, fixed composition
+        EXT_EU          select Eurostat's EVOLVING-composition bloc total - the EU as it was in
+                        that year. Not derivable from our rows; stored because the compiler
+                        publishes it. Differs from the fixed series before 2021.
+        INT_EU          the same, inside the bloc of the day
 
     reporter scopes (`ref`, default 'each'):
         each            DO NOT sum across reporters - return one row per reporter. The default,
@@ -217,11 +226,11 @@ def totals(material, measure, scope, ref='each', source=None, years=None):
                 'summing them would double count. Pass ref=%r for the aggregate, or ref=<ISO3> / '
                 'ref="EU27_2020" for the parts.' % (agg_ref, agg_ref[0]))
 
-    is_w1 = c.counterpart_area == 'W1'
-    if scope == 'W1':
-        c = c[is_w1]
+    if scope in SELECT_SCOPES:
+        # select the stored aggregate; nothing is summed over counterparts
+        c = c[c.counterpart_area == scope]
     else:
-        c = c[~is_w1]
+        c = c[~c.counterpart_area.isin(SELECT_SCOPES)]
         if scope != 'WORLD':
             inside = c.counterpart_area.isin(eu)
             c = c[inside if scope == 'INT_EU27_2020' else ~inside]
