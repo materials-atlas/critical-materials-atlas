@@ -10,12 +10,12 @@
   {
    "label": "beryllium",
    "title": "Beryllium, unwrought",
-   "score": 74,
-   "gross": 74,
+   "score": 76,
+   "gross": 76,
    "recycling": 0,
    "substitutability": "high",
    "components": {
-    "production": 58,
+    "production": 65,
     "refining": 65,
     "trade": 79.9,
     "opacity": 100.0
@@ -25,12 +25,12 @@
   {
    "label": "niobium",
    "title": "Ferro-niobium",
-   "score": 64,
-   "gross": 64,
+   "score": 63,
+   "gross": 63,
    "recycling": 0,
    "substitutability": "medium",
    "components": {
-    "production": 90,
+    "production": 88,
     "refining": 88,
     "trade": 59.1,
     "opacity": 0.0
@@ -40,27 +40,42 @@
   {
    "label": "lithium",
    "title": "Lithium carbonate",
-   "score": 64,
-   "gross": 64,
+   "score": 62,
+   "gross": 62,
    "recycling": 0,
    "substitutability": "high",
    "components": {
-    "production": 48,
+    "production": 37,
     "refining": 74,
     "trade": 58.8,
-    "opacity": 84.3
+    "opacity": 90.9
+   },
+   "shared": false
+  },
+  {
+   "label": "phosphorus",
+   "title": "Phosphorus",
+   "score": 62,
+   "gross": 62,
+   "recycling": 0,
+   "substitutability": "high",
+   "components": {
+    "production": 70,
+    "refining": 78,
+    "trade": 35.5,
+    "opacity": 61.7
    },
    "shared": false
   },
   {
    "label": "magnesium",
    "title": "Magnesium, unwrought",
-   "score": 60,
-   "gross": 63,
+   "score": 61,
+   "gross": 64,
    "recycling": 13,
    "substitutability": "medium",
    "components": {
-    "production": 88,
+    "production": 90,
     "refining": 94,
     "trade": 53.8,
     "opacity": 0.0
@@ -85,30 +100,15 @@
   {
    "label": "strontium",
    "title": "Strontium carbonate",
-   "score": 57,
-   "gross": 57,
+   "score": 55,
+   "gross": 55,
    "recycling": 0,
    "substitutability": "medium",
    "components": {
-    "production": 38,
+    "production": 30,
     "refining": 60,
     "trade": 43.6,
     "opacity": 100.0
-   },
-   "shared": false
-  },
-  {
-   "label": "phosphorus",
-   "title": "Phosphorus",
-   "score": 57,
-   "gross": 57,
-   "recycling": 0,
-   "substitutability": "high",
-   "components": {
-    "production": 41,
-    "refining": 78,
-    "trade": 35.5,
-    "opacity": 80.1
    },
    "shared": false
   },
@@ -130,13 +130,13 @@
   {
    "label": "graphite",
    "title": "Natural graphite",
-   "score": 51,
-   "gross": 52,
+   "score": 52,
+   "gross": 53,
    "recycling": 3,
    "substitutability": "high",
    "components": {
-    "production": 77,
-    "refining": 94,
+    "production": 78,
+    "refining": 95,
     "trade": 21.6,
     "opacity": 0.0
    },
@@ -145,30 +145,30 @@
   {
    "label": "fluorspar",
    "title": "Fluorspar, >97% CaF2",
-   "score": 51,
-   "gross": 51,
+   "score": 48,
+   "gross": 48,
    "recycling": 1,
    "substitutability": "high",
    "components": {
-    "production": 65,
+    "production": 60,
     "refining": 65,
     "trade": 25.1,
-    "opacity": 44.6
+    "opacity": 38.0
    },
    "shared": false
   },
   {
-   "label": "silicon",
-   "title": "Silicon, < 99.99%",
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
    "score": 47,
-   "gross": 47,
-   "recycling": 0,
-   "substitutability": "high",
+   "gross": 48,
+   "recycling": 2,
+   "substitutability": "medium",
    "components": {
-    "production": 73,
-    "refining": 79,
-    "trade": 20.4,
-    "opacity": 0.0
+    "production": 68,
+    "refining": 70,
+    "trade": 12.8,
+    "opacity": 33.6
    },
    "shared": false
   },
@@ -176,13 +176,28 @@
    "label": "tungsten",
    "title": "Tungsten, unwrought",
    "score": 46,
-   "gross": 56,
+   "gross": 55,
    "recycling": 42,
    "substitutability": "high",
    "components": {
-    "production": 81,
-    "refining": 86,
+    "production": 80,
+    "refining": 83,
     "trade": 40.1,
+    "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
+   "label": "silicon",
+   "title": "Silicon, < 99.99%",
+   "score": 46,
+   "gross": 46,
+   "recycling": 0,
+   "substitutability": "high",
+   "components": {
+    "production": 70,
+    "refining": 79,
+    "trade": 20.4,
     "opacity": 0.0
    },
    "shared": false
@@ -203,32 +218,17 @@
    "shared": false
   },
   {
-   "label": "vanadium",
-   "title": "Ferro-vanadium",
-   "score": 45,
-   "gross": 46,
-   "recycling": 2,
-   "substitutability": "medium",
-   "components": {
-    "production": 68,
-    "refining": 62,
-    "trade": 12.8,
-    "opacity": 33.6
-   },
-   "shared": false
-  },
-  {
    "label": "bauxite",
    "title": "Aluminium ores / bauxite",
-   "score": 45,
+   "score": 46,
    "gross": 52,
    "recycling": 32,
    "substitutability": "high",
    "components": {
-    "production": 24,
+    "production": 27,
     "refining": 60,
     "trade": 54.8,
-    "opacity": 80.2
+    "opacity": 78.5
    },
    "shared": false
   },
@@ -252,38 +252,23 @@
    ],
    "rank_range": [
     11,
-    19
+    18
    ],
-   "uncertainty": "refining share is an interval (68-94%), not a measurement; the point score uses the midpoint of the dated anchors. Score spans 41-47, rank spans 11-19 of 32.",
+   "uncertainty": "refining share is an interval (68-94%), not a measurement; the point score uses the midpoint of the dated anchors. Score spans 41-47, rank spans 11-18 of 32.",
    "refined_source": "Interval 68-94%, both ends dated; no current world total exists. LOW END 68% (2020), printed: USGS Minerals Yearbook 2023, germanium, table 1 - China 95,000 kg of 140,000 kg world refinery production (2020) = 68%; every figure in that table is flagged estimated and 2021-23 are NA, with the text saying reliable estimates could not be made and world output was put at 100,000-200,000 kg. HIGH END 94% (2024): the BGS three-reporter table - a share of reporters, not of world output. Deleting the \"other\" line (Belgium, Canada, Germany; US excluded) from the same 2020 row gives 95,000/100,000 = 95% - which is structurally where a 94% comes from, because the BGS cells have no \"other\" row to carry. BGS 2024 covers 3 reporters only (CN 200 t, US 7 t, RU 5 t) and its China cell alone is 1.4x the whole USGS world estimate, so the numerators are not the same object. USGS publishes no China share of its own. Where a single number is unavoidable (the supply-risk index), 81 is used: the midpoint of the two dated anchors, reproducible from them."
   },
   {
    "label": "cobalt",
    "title": "Cobalt oxides & hydroxides",
    "score": 43,
-   "gross": 47,
+   "gross": 48,
    "recycling": 22,
    "substitutability": "high",
    "components": {
-    "production": 74,
+    "production": 76,
     "refining": 82,
     "trade": 17.1,
     "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
-   "label": "titanium",
-   "title": "Titanium, unwrought",
-   "score": 43,
-   "gross": 47,
-   "recycling": 19,
-   "substitutability": "medium",
-   "components": {
-    "production": 67,
-    "refining": 67,
-    "trade": 18.4,
-    "opacity": 26.9
    },
    "shared": false
   },
@@ -305,12 +290,12 @@
   {
    "label": "platinum",
    "title": "Platinum, unwrought",
-   "score": 39,
-   "gross": 42,
+   "score": 40,
+   "gross": 43,
    "recycling": 14,
    "substitutability": "high",
    "components": {
-    "production": 67,
+    "production": 70,
     "refining": 70,
     "trade": 16.7,
     "opacity": 0.0
@@ -318,17 +303,77 @@
    "shared": false
   },
   {
+   "label": "titanium",
+   "title": "Titanium, unwrought",
+   "score": 39,
+   "gross": 42,
+   "recycling": 19,
+   "substitutability": "medium",
+   "components": {
+    "production": 32,
+    "refining": 67,
+    "trade": 18.4,
+    "opacity": 56.9
+   },
+   "shared": false
+  },
+  {
    "label": "antimony",
    "title": "Antimony, unwrought",
-   "score": 35,
-   "gross": 40,
+   "score": 38,
+   "gross": 42,
    "recycling": 28,
    "substitutability": "medium",
    "components": {
     "production": 48,
     "refining": 75,
     "trade": 17.0,
-    "opacity": 10.5
+    "opacity": 25.5
+   },
+   "shared": false
+  },
+  {
+   "label": "nickel",
+   "title": "Nickel, unwrought",
+   "score": 35,
+   "gross": 37,
+   "recycling": 16,
+   "substitutability": "medium",
+   "components": {
+    "production": 60,
+    "refining": 45,
+    "trade": 9.2,
+    "opacity": 27.6
+   },
+   "shared": false
+  },
+  {
+   "label": "phosphate",
+   "title": "Phosphate rock",
+   "score": 34,
+   "gross": 36,
+   "recycling": 17,
+   "substitutability": "high",
+   "components": {
+    "production": 44,
+    "refining": 44,
+    "trade": 15.4,
+    "opacity": 40.3
+   },
+   "shared": false
+  },
+  {
+   "label": "hafnium",
+   "title": "Hafnium, unwrought",
+   "score": 34,
+   "gross": 34,
+   "recycling": 0,
+   "substitutability": "high",
+   "components": {
+    "production": 40,
+    "refining": 49,
+    "trade": 14.0,
+    "opacity": 31.7
    },
    "shared": false
   },
@@ -340,7 +385,7 @@
    "recycling": 1,
    "substitutability": "high",
    "components": {
-    "production": 41,
+    "production": 40,
     "refining": 40,
     "trade": 16.1,
     "opacity": 35.3
@@ -348,77 +393,17 @@
    "shared": false
   },
   {
-   "label": "hafnium",
-   "title": "Hafnium, unwrought",
-   "score": 32,
-   "gross": 32,
-   "recycling": 0,
-   "substitutability": "high",
-   "components": {
-    "production": 31,
-    "refining": 49,
-    "trade": 14.0,
-    "opacity": 33.4
-   },
-   "shared": false
-  },
-  {
-   "label": "nickel",
-   "title": "Nickel, unwrought",
-   "score": 32,
-   "gross": 34,
-   "recycling": 16,
-   "substitutability": "medium",
-   "components": {
-    "production": 50,
-    "refining": 45,
-    "trade": 9.2,
-    "opacity": 27.6
-   },
-   "shared": false
-  },
-  {
-   "label": "phosphate",
-   "title": "Phosphate rock",
-   "score": 31,
-   "gross": 34,
-   "recycling": 17,
-   "substitutability": "high",
-   "components": {
-    "production": 41,
-    "refining": 44,
-    "trade": 15.4,
-    "opacity": 32.0
-   },
-   "shared": false
-  },
-  {
    "label": "arsenic",
    "title": "Arsenic",
-   "score": 31,
-   "gross": 31,
+   "score": 28,
+   "gross": 28,
    "recycling": 0,
    "substitutability": "medium",
    "components": {
-    "production": 45,
+    "production": 28,
     "refining": 50,
     "trade": 18.1,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
-   "label": "palladium",
-   "title": "Palladium, unwrought",
-   "score": 25,
-   "gross": 27,
-   "recycling": 14,
-   "substitutability": "medium",
-   "components": {
-    "production": 44,
-    "refining": 40,
-    "trade": 14.2,
-    "opacity": 0.0
+    "opacity": 13.8
    },
    "shared": false
   },
@@ -430,10 +415,25 @@
    "recycling": 0,
    "substitutability": "low",
    "components": {
-    "production": 23,
+    "production": 28,
     "refining": 26,
     "trade": 21.3,
-    "opacity": 30.9
+    "opacity": 22.6
+   },
+   "shared": false
+  },
+  {
+   "label": "palladium",
+   "title": "Palladium, unwrought",
+   "score": 24,
+   "gross": 26,
+   "recycling": 14,
+   "substitutability": "medium",
+   "components": {
+    "production": 40,
+    "refining": 40,
+    "trade": 14.2,
+    "opacity": 0.0
    },
    "shared": false
   },
@@ -456,14 +456,14 @@
    "label": "copper",
    "title": "Refined copper cathodes",
    "score": 23,
-   "gross": 25,
+   "gross": 24,
    "recycling": 17,
    "substitutability": "medium",
    "components": {
     "production": 23,
     "refining": 47,
     "trade": 10.7,
-    "opacity": 18.8
+    "opacity": 15.5
    },
    "shared": false
   },
@@ -485,15 +485,15 @@
   {
    "label": "baryte",
    "title": "Baryte",
-   "score": 15,
-   "gross": 15,
+   "score": 16,
+   "gross": 16,
    "recycling": 1,
    "substitutability": "medium",
    "components": {
-    "production": 32,
+    "production": 30,
     "refining": 11.1,
     "trade": 11.1,
-    "opacity": 0.0
+    "opacity": 6.6
    },
    "shared": false
   }
