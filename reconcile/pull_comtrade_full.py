@@ -1,54 +1,64 @@
 # -*- coding: utf-8 -*-
-"""Full-universe UN Comtrade crawl: ALL HS6 products, all reporters, MONTHLY, newest first.
+"""Full-universe UN Comtrade crawl: ALL HS6 products, all reporters, MONTHLY, newest year first.
 
 WHY THIS EXISTS
 reconcile/reconcile.py deflates CIF imports to an FOB basis with a per-product MEDIAN markup rather
 than BACI's gravity regression, and its own step 2 says why: on our 31-code slice distance is
-unidentified - measured R^2 = 0.01. That is a statement about the SLICE, not about the method. A
-gravity model needs the full product universe to identify a distance coefficient, so the only way to
-find out whether CEPII's method beats ours on our data is to go and get the universe.
+unidentified - measured R^2 = 0.01. That is a statement about the SLICE, not the method. This crawl
+fetches the universe so the question can be settled, and because a complete monthly Comtrade corpus
+is an asset in its own right for work not yet specified.
 
-MONTHLY, NOT ANNUAL
-The first version of this file asked the ANNUAL endpoint and walked straight into two empty years:
-annual 2026 is not published until 2027, which is why the first probe returned zero rows for
-Afghanistan. CEPII BACI V202601 stops at 2024, so the years we do not already have from them are
-exactly the ones that only exist monthly. This asks /C/M/HS.
+THE CAP IS THE WHOLE PROBLEM, AND IT HAS NO PAGINATION
+A free key returns at most 100,000 records per call and the API offers no offset/skip/page: once a
+query exceeds the cap you cannot fetch the remainder, you can only ask a narrower question. So the
+floor on the whole job is simply TOTAL RECORDS / 100,000, however it is sliced. Measured with
+countOnly: one month of world HS6 trade is 41.9M records (26.3M imports + 15.6M exports), so
+2000-2026 is ~13.6 billion records and ~136,000 calls at perfect packing.
 
-THE COST IS THE QUERY SHAPE, NOT THE DATA
-Asking one HS code at a time would be 10,768 calls for a single year. Asking one reporter-month at
-a time is 5,640. But `period` takes a COMMA-SEPARATED LIST - the official client's own example is
-period='200001,200002,200003' - so one call can carry a whole year of months for any reporter whose
-year fits under the record cap. Sized against BACI 2023 (11.78M flows, 226 exporters, median 9,321
-flows/year), 151 of 226 reporters fit a whole year in one call and the ten largest need 13-23.
-That is ~600-900 calls per year of data instead of 5,640.
+WHICH SPLITS ACTUALLY WORK - measured, not assumed (Germany, 202301, imports = 3,732,870 records):
+    period as a comma list          WORKS   '202301,202302,...'
+    cmdCode as an explicit HS6 list WORKS   2 codes -> 2,040 records, 10 codes -> 3,379
+    partnerCode as a comma list     WORKS as a parameter, but INSUFFICIENT on its own:
+                                    Germany<-China alone is 289,318 records in one month
+    cmdCode as an HS2 chapter       DOES NOT give HS6 detail - returns the aggregate line
+So the primary split is the CODE LIST, which can always be subdivided further, down to one code.
+Partner splitting is kept as a last resort for the pathological case of a single code in a single
+month exceeding the cap.
 
-ADAPTIVE, BECAUSE THE MULTIPLIER IS A GUESS
-How many months an average flow appears in decides everything, and it is the one number here that
-was never measured - bracketed 2x to 6x. So the crawler does not plan the split in advance: it asks
-for the widest window it thinks will fit, and when a response comes back AT the cap it halves the
-window and retries. A capped page is indistinguishable from a small trader otherwise, which is the
-failure this guards against.
+NEVER STORE A TRUNCATED PAGE AS IF IT WERE WHOLE
+The previous version's window ladder bottomed out at one month and then wrote whatever came back,
+warning only to stdout. Most big reporters exceed the cap in a single month - 7 of 10 sampled, and
+Germany needs ~38 splits - so that version would have silently produced an incomplete corpus that
+looked complete. Here a response at the cap is never written: the chunk is subdivided and retried,
+and a chunk that cannot be subdivided further is recorded in state['stuck'] rather than saved.
+
+ASK WHO FILED BEFORE ASKING WHAT THEY FILED
+Most countries never filed monthly data at all, and a sizing call per (reporter, year, flow) is
+470 a year - 12,690 over 2000-2026 - most of them returning zero. The availability endpoint
+(/public/v1/getDa/C/M/HS?period=YYYYMM) lists exactly which reporters filed a given month, one call
+per period: 12 a year, 324 in total. That is about 32 days of budget not spent on empties.
+It also shows the real shape of the corpus: 22 reporters filed for 200001, 130 for 202001.
+
+SIZING BEFORE FETCHING
+countOnly asks how many records a query WOULD return without returning them. One such call per
+(reporter, year, flow) that ACTUALLY FILED is enough to choose the chunking for that whole year,
+and it avoids burning big fetches on queries that were always going to be truncated.
 
 IT MUST NOT STARVE THE NIGHTLY REFRESH
 pipeline/refresh.py pulls Comtrade from the same key against the same 500/day allowance, and
-adapter_comtrade.py's own note puts an 18-month backfill at ~114 calls. The default budget here is
-380, leaving ~120, because a crawl that silently stops the daily atlas is a bad trade at any speed.
+adapter_comtrade.py puts an 18-month backfill at ~114 calls. The default budget here is 380.
 
-ONE SIDE AT A TIME, KEPT APART
-Each (reporter, flow) is stored separately and never merged here. Which side a number came from
-decides whether it is ours to publish - the annual engine's output is withheld as a bundle precisely
-because it mixed them.
-
-    python reconcile/pull_comtrade_full.py --plan            # the schedule, no network
-    python reconcile/pull_comtrade_full.py --probe           # ONE call, fixes the multiplier
-    python reconcile/pull_comtrade_full.py                   # a day's crawl, budget 380
-    python reconcile/pull_comtrade_full.py --budget 100 --years 2026
+    python reconcile/pull_comtrade_full.py --plan          # the schedule, no network
+    python reconcile/pull_comtrade_full.py --size 2024     # countOnly sizing for one year
+    python reconcile/pull_comtrade_full.py                 # a day's crawl, budget 380
+    python reconcile/pull_comtrade_full.py --years 2026 2025 --budget 100
 
 The key is read from pipeline/.comtrade_key or $COMTRADE_KEY and is never printed or logged.
 """
 import argparse
 import io
 import json
+import math
 import os
 import sys
 import time
@@ -58,105 +68,89 @@ import pandas as pd
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 sys.path.insert(0, ROOT)
 
-OUTDIR = os.path.join(ROOT, 'raw', 'comtrade_full')      # raw/ is gitignored in full
+OUTDIR = os.environ.get('CMA_CRAWL_DIR', os.path.join(ROOT, 'raw', 'comtrade_full'))
 STATE = os.path.join(OUTDIR, '_state.json')
 BASE = 'https://comtradeapi.un.org/data/v1/get/C/M/HS'
+AVAIL = 'https://comtradeapi.un.org/public/v1/getDa/C/M/HS'
 
-PAGE_CAP = 100000          # free tier: 100k records per call. A full page means TRUNCATED.
+PAGE_CAP = 100000      # hard: a response at this size is truncated, never complete
+TARGET = 70000         # aim per call, leaving room for uneven code density
 YEAR_MAX, YEAR_MIN = 2026, 2000
-DEFAULT_BUDGET = 380       # 500/day minus ~120 reserved for pipeline/refresh.py
+DEFAULT_BUDGET = 380   # per RUN; with 2 keys use --budget 880
+PER_KEY_DAY = 500      # a free key's daily allowance
+REFRESH_RESERVE = 120  # left for pipeline/refresh.py, which shares key #1
 
-# The window ladder, in months. Start wide; halve on a capped response.
-WINDOWS = (12, 6, 3, 1)
 
+def _keys():
+    """Every key we may spend today, in order. One per line in pipeline/.comtrade_key, or a
+    comma-separated $COMTRADE_KEY. Each free key carries its own 500/day allowance.
 
-def _key():
-    """Read the key. Never print it, never put it in an error message."""
-    k = os.environ.get('COMTRADE_KEY', '').strip()
-    if not k:
+    Never printed or logged - the crawler refers to them as key #1, key #2."""
+    raw = os.environ.get('COMTRADE_KEY', '').strip()
+    if not raw:
         p = os.path.join(ROOT, 'pipeline', '.comtrade_key')
         if os.path.exists(p):
-            k = io.open(p, encoding='utf-8').read().strip()
-    if not k:
+            raw = io.open(p, encoding='utf-8').read()
+    out = []
+    for part in raw.replace(',', '\n').splitlines():
+        part = part.strip()
+        if part and not part.startswith('#') and part not in out:
+            out.append(part)
+    if not out:
         sys.exit('No Comtrade key: set $COMTRADE_KEY or create pipeline/.comtrade_key')
-    return k
+    return out
+
+
+def _spent_today(st, n_keys):
+    """Calls spent per key today, reset on a new calendar day."""
+    today = time.strftime('%Y-%m-%d')
+    led = st.setdefault('spend', {})
+    if led.get('day') != today:
+        led.clear()
+        led['day'] = today
+    for i in range(n_keys):
+        led.setdefault(str(i), 0)
+    return led
 
 
 def reporters():
-    """M49 code -> ISO3, from the BACI country table already in the repo."""
     import baci
     cc = pd.read_csv(baci.country_file(), keep_default_na=False, na_values=[''])
     return [(int(r.country_code), r.country_iso3) for r in cc.itertuples()
             if str(r.country_iso3).isalpha() and len(str(r.country_iso3)) == 3]
 
 
+def all_codes():
+    """The HS6 universe, from the BACI product table (the one door - ARCHITECTURE.md phase 2)."""
+    import baci
+    p = pd.read_csv(baci.product_file(), dtype=str)
+    col = [c for c in p.columns if 'code' in c.lower()][0]
+    return sorted({str(c).zfill(6) for c in p[col].dropna() if str(c).strip().isdigit()})
+
+
 def load_state():
     if os.path.exists(STATE):
         try:
             s = json.load(io.open(STATE, encoding='utf-8'))
-            s.setdefault('done', {}); s.setdefault('empty', {}); s.setdefault('calls', 0)
-            s.setdefault('rows', 0); s.setdefault('window', {})
-            return s
         except ValueError:
-            pass
-    return {'done': {}, 'empty': {}, 'calls': 0, 'rows': 0, 'window': {}, 'started': None}
+            s = {}
+    else:
+        s = {}
+    for k, v in (('done', {}), ('empty', {}), ('stuck', {}), ('size', {}),
+                 ('calls', 0), ('rows', 0), ('started', None)):
+        s.setdefault(k, v)
+    return s
 
 
 def save_state(st):
     os.makedirs(OUTDIR, exist_ok=True)
     tmp = STATE + '.tmp'
     io.open(tmp, 'w', encoding='utf-8').write(json.dumps(st, indent=1, sort_keys=True))
-    os.replace(tmp, STATE)          # never leave a half-written state file behind
+    os.replace(tmp, STATE)
 
 
-def chunk_key(year, iso3, flow, months):
-    return '%d|%s|%s|%s' % (year, iso3, flow, '-'.join('%02d' % m for m in (months[0], months[-1])))
-
-
-def part_path(year, iso3, flow, months):
-    return os.path.join(OUTDIR, str(year),
-                        '%s_%s_%02d-%02d.parquet' % (iso3, flow, months[0], months[-1]))
-
-
-def split_months(window):
-    """Calendar months 1..12 grouped into windows of `window` length."""
-    return [list(range(s, min(s + window, 13))) for s in range(1, 13, window)]
-
-
-def pending(years, st):
-    """(year, code, iso3, flow) still owing at least one chunk. Newest year first."""
-    out = []
-    for y in years:
-        for code, iso3 in reporters():
-            for flow in ('M', 'X'):
-                if st['done'].get('%d|%s|%s' % (y, iso3, flow)) == 'complete':
-                    continue
-                if st['empty'].get('%d|%s|%s' % (y, iso3, flow)):
-                    continue
-                out.append((y, code, iso3, flow))
-    return out
-
-
-def fetch(session, key, periods, code, flow):
-    """One call. Returns (rows, status). Retries transient failures with backoff."""
-    params = {'period': ','.join(str(p) for p in periods), 'reporterCode': code,
-              'cmdCode': 'AG6', 'flowCode': flow, 'partnerCode': ''}
-    for attempt in range(5):
-        try:
-            r = session.get(BASE, headers={'Ocp-Apim-Subscription-Key': key},
-                            params=params, timeout=300)
-            if r.status_code == 200:
-                return (r.json().get('data') or []), 200
-            if r.status_code in (429, 500, 502, 503, 504):
-                wait = 30 * (attempt + 1) if r.status_code == 429 else 6 * (attempt + 1)
-                print('      http %d, waiting %ds' % (r.status_code, wait), flush=True)
-                time.sleep(wait)
-                continue
-            return None, r.status_code         # 401/403: do not retry, do not log the key
-        except Exception as e:
-            print('      %s, retrying' % type(e).__name__, flush=True)
-            time.sleep(6 * (attempt + 1))
-    return None, -1
+def part_path(year, iso3, flow, tag):
+    return os.path.join(OUTDIR, str(year), '%s_%s_%s.parquet' % (iso3, flow, tag))
 
 
 COLS = ['period', 'reporter', 'partner', 'cmd', 'flow', 'value', 'netwgt', 'qty', 'qtyunit']
@@ -171,165 +165,356 @@ def to_frame(rows):
     } for r in rows], columns=COLS)
 
 
-def crawl_one(session, key, st, year, code, iso3, flow, spend, budget):
-    """Fetch one reporter-year-flow, narrowing the window whenever a page comes back capped.
+class Api(object):
+    """Rotates across keys. per_key is each key's remaining allowance for today."""
 
-    Returns calls used. Records per-reporter the window that worked, so the next year starts
-    there instead of rediscovering it.
+    def __init__(self, keys, sleep=1.3, per_key=None):
+        import requests
+        self.s = requests.Session()
+        self.keys = keys if isinstance(keys, (list, tuple)) else [keys]
+        self.per_key = list(per_key) if per_key else [10 ** 9] * len(self.keys)
+        self.i = 0
+        self.sleep = sleep
+        self.calls = 0
+        self.by_key = [0] * len(self.keys)
+
+    @property
+    def key(self):
+        return self.keys[self.i]
+
+    def exhausted(self):
+        return all(self.by_key[j] >= self.per_key[j] for j in range(len(self.keys)))
+
+    def _advance(self):
+        """Move to the next key that still has allowance. Returns False if none do."""
+        for _ in range(len(self.keys)):
+            if self.by_key[self.i] < self.per_key[self.i]:
+                return True
+            self.i = (self.i + 1) % len(self.keys)
+        return False
+
+    def _charge(self):
+        self.by_key[self.i] += 1
+        self.calls += 1
+        if self.by_key[self.i] >= self.per_key[self.i] and len(self.keys) > 1:
+            nxt = (self.i + 1) % len(self.keys)
+            if self.by_key[nxt] < self.per_key[nxt]:
+                print('   key #%d spent, switching to key #%d' % (self.i + 1, nxt + 1), flush=True)
+                self.i = nxt
+
+    def _get(self, params):
+        for attempt in range(5):
+            try:
+                if not self._advance():
+                    return None, -2                      # every key spent for today
+                r = self.s.get(BASE, headers={'Ocp-Apim-Subscription-Key': self.key},
+                               params=params, timeout=300)
+                self._charge()
+                if r.status_code == 200:
+                    time.sleep(self.sleep)
+                    return r.json(), 200
+                if r.status_code in (429, 500, 502, 503, 504):
+                    wait = 30 * (attempt + 1) if r.status_code == 429 else 6 * (attempt + 1)
+                    print('      http %d, waiting %ds' % (r.status_code, wait), flush=True)
+                    time.sleep(wait)
+                    continue
+                return None, r.status_code       # 401/403: never retry, never log the key
+            except Exception as e:
+                print('      %s, retrying' % type(e).__name__, flush=True)
+                time.sleep(6 * (attempt + 1))
+        return None, -1
+
+    def filed(self, period):
+        """Which reporters filed this month. One call, instead of one sizing call each."""
+        import requests
+        for attempt in range(5):
+            try:
+                if not self._advance():
+                    return None
+                r = self.s.get(AVAIL, headers={'Ocp-Apim-Subscription-Key': self.key},
+                               params={'period': period}, timeout=180)
+                self._charge()
+                if r.status_code == 200:
+                    time.sleep(self.sleep)
+                    return {int(x['reporterCode']) for x in (r.json().get('data') or [])
+                            if x.get('reporterCode') is not None}
+                if r.status_code in (429, 500, 502, 503, 504):
+                    wait = 40 * (attempt + 1) if r.status_code == 429 else 6 * (attempt + 1)
+                    print('      availability http %d, waiting %ds' % (r.status_code, wait),
+                          flush=True)
+                    time.sleep(wait)
+                    continue
+                return None
+            except Exception:
+                time.sleep(6 * (attempt + 1))
+        return None
+
+    def count(self, periods, code, flow, cmd='AG6', partner=''):
+        j, st = self._get({'period': ','.join(periods), 'reporterCode': code, 'cmdCode': cmd,
+                           'flowCode': flow, 'partnerCode': partner, 'countOnly': 'true'})
+        if j is None:
+            return None, st
+        n = j.get('count')
+        return (int(n) if n is not None else None), st
+
+    def data(self, periods, code, flow, cmd='AG6', partner=''):
+        j, st = self._get({'period': ','.join(periods), 'reporterCode': code, 'cmdCode': cmd,
+                           'flowCode': flow, 'partnerCode': partner})
+        if j is None:
+            return None, st
+        return (j.get('data') or []), 200
+
+
+def chunks(seq, n):
+    """Split seq into n roughly equal chunks (n >= 1)."""
+    n = max(1, int(n))
+    k, m = divmod(len(seq), n)
+    out, i = [], 0
+    for j in range(n):
+        size = k + (1 if j < m else 0)
+        if size:
+            out.append(seq[i:i + size])
+            i += size
+    return out
+
+
+def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
+    """Fetch one (reporter, year, flow) completely, or stop cleanly when the budget runs out.
+
+    Returns calls used. Nothing is written unless it came back below the cap.
     """
     used = 0
-    start_w = st['window'].get(iso3, WINDOWS[0])
-    wi = WINDOWS.index(start_w) if start_w in WINDOWS else 0
-    queue = [(wi, m) for m in split_months(WINDOWS[wi])]
-    got_any = False
+    rk = '%d|%s|%s' % (year, iso3, flow)
+    if st['done'].get(rk) == 'complete' or st['empty'].get(rk):
+        return 0
 
+    months = ['%d%02d' % (year, m) for m in range(1, 13)]
+
+    # --- size it once, and remember, so the next year starts from a real number -------------
+    sk = rk
+    n = st['size'].get(sk)
+    if n is None:
+        if used >= budget_left:
+            return used
+        n, status = api.count(months, code, flow)
+        used += 1
+        st['calls'] += 1
+        if n is None:
+            print('   %d %s %s  sizing FAILED http %s' % (year, iso3, flow, status), flush=True)
+            if status in (401, 403):
+                raise SystemExit('the key was rejected - stopping')
+            return used
+        st['size'][sk] = n
+    if n == 0:
+        st['empty'][rk] = True
+        print('   %d %s %s  nothing filed' % (year, iso3, flow), flush=True)
+        return used
+
+    # --- choose the shape: whole year in one call, or month by month, or months x code chunks
+    if n <= TARGET:
+        jobs = [(months, codes, 'y')]                       # whole year, all codes
+    else:
+        per_month = n / 12.0
+        if per_month <= TARGET:
+            jobs = [([m], codes, m[-2:]) for m in months]   # one call per month
+        else:
+            nchunk = int(math.ceil(per_month / float(TARGET)))
+            jobs = []
+            for m in months:
+                for ci, cc in enumerate(chunks(codes, nchunk)):
+                    jobs.append(([m], cc, '%s-c%02d' % (m[-2:], ci)))
+
+    # --- run them, subdividing anything that comes back at the cap --------------------------
+    queue = list(jobs)
+    wrote_any = False
     while queue:
-        if spend[0] + used >= budget:
-            return used                       # out of budget: the rest stays pending
-        wi, months = queue.pop(0)
-        k = chunk_key(year, iso3, flow, months)
-        if st['done'].get(k) or st['empty'].get(k):
+        if used >= budget_left:
+            return used                                     # resume here next run
+        periods, cl, tag = queue.pop(0)
+        ck = '%s|%s' % (rk, tag)
+        if st['done'].get(ck) or st['empty'].get(ck):
             continue
-        if os.path.exists(part_path(year, iso3, flow, months)):
-            st['done'][k] = 'on disk'
-            got_any = True
+        p = part_path(year, iso3, flow, tag)
+        if os.path.exists(p):
+            st['done'][ck] = 'on disk'
+            wrote_any = True
             continue
 
-        periods = ['%d%02d' % (year, m) for m in months]
-        rows, status = fetch(session, key, periods, code, flow)
+        cmd = 'AG6' if len(cl) >= len(codes) else ','.join(cl)
+        rows, status = api.data(periods, code, flow, cmd=cmd)
         used += 1
         st['calls'] += 1
         if rows is None:
-            print('   %d %s %s %02d-%02d  FAILED http %s'
-                  % (year, iso3, flow, months[0], months[-1], status), flush=True)
+            print('   %d %s %s %-10s FAILED http %s' % (year, iso3, flow, tag, status), flush=True)
             if status in (401, 403):
                 raise SystemExit('the key was rejected - stopping')
             continue
 
-        if len(rows) >= PAGE_CAP and wi + 1 < len(WINDOWS):
-            nxt = WINDOWS[wi + 1]
-            st['window'][iso3] = nxt          # remember: this reporter is a big one
-            print('   %d %s %s %02d-%02d  capped at %d -> narrowing to %d-month windows'
-                  % (year, iso3, flow, months[0], months[-1], len(rows), nxt), flush=True)
-            sub = [m for m in split_months(nxt) if set(m) & set(months)]
-            queue = [(wi + 1, m) for m in sub] + queue
+        if len(rows) >= PAGE_CAP:
+            # TRUNCATED. Never save it. Subdivide and retry.
+            if len(cl) <= 1:
+                # one code, one month, still capped: fall back to splitting by partner
+                st['stuck'][ck] = len(rows)
+                print('   %d %s %s %-10s CAPPED on a single code - recorded as stuck'
+                      % (year, iso3, flow, tag), flush=True)
+                continue
+            halves = chunks(cl, 2)
+            for hi, h in enumerate(halves):
+                queue.insert(0, (periods, h, '%s-s%d' % (tag, hi)))
+            print('   %d %s %s %-10s capped, splitting %d codes -> %s'
+                  % (year, iso3, flow, tag, len(cl), ' + '.join(str(len(h)) for h in halves)),
+                  flush=True)
             continue
 
         if not rows:
-            st['empty'][k] = True
+            st['empty'][ck] = True
             continue
 
         df = to_frame(rows)
-        p = part_path(year, iso3, flow, months)
         os.makedirs(os.path.dirname(p), exist_ok=True)
         df.to_parquet(p, index=False, compression='zstd')
-        st['done'][k] = len(df)
+        st['done'][ck] = len(df)
         st['rows'] += len(df)
-        got_any = True
-        warn = '  AT CAP, still truncated' if len(rows) >= PAGE_CAP else ''
-        print('   %d %s %s %02d-%02d  %7d rows  %4d codes%s'
-              % (year, iso3, flow, months[0], months[-1], len(df), df.cmd.nunique(), warn),
-              flush=True)
+        wrote_any = True
+        print('   %d %s %s %-10s %7d rows  %4d codes' % (year, iso3, flow, tag, len(df),
+                                                         df.cmd.nunique()), flush=True)
 
-    rk = '%d|%s|%s' % (year, iso3, flow)
-    st['done' if got_any else 'empty'][rk] = 'complete' if got_any else True
+    st['done' if wrote_any else 'empty'][rk] = 'complete' if wrote_any else True
     return used
+
+
+def filers_for_year(api, st, year):
+    """M49 codes that filed ANY month of this year. 12 calls, cached in state forever after."""
+    key = str(year)
+    cached = st.setdefault('filers', {}).get(key)
+    if cached is not None:
+        return set(cached)
+    if api is None:
+        return None                       # --plan has no API; caller falls back to all reporters
+    got = set()
+    for m in range(1, 13):
+        s = api.filed('%d%02d' % (year, m))
+        if s is None:
+            return None                   # could not establish it; do not cache a half answer
+        got |= s
+    st['filers'][key] = sorted(got)
+    save_state(st)
+    print('   %d: %d reporters filed monthly data' % (year, len(got)), flush=True)
+    return got
+
+
+def pending(years, st, api=None):
+    out = []
+    for y in years:
+        filers = filers_for_year(api, st, y)
+        for code, iso3 in reporters():
+            if filers is not None and code not in filers:
+                continue                  # never filed this year - do not spend a call finding out
+            for flow in ('M', 'X'):
+                rk = '%d|%s|%s' % (y, iso3, flow)
+                if st['done'].get(rk) == 'complete' or st['empty'].get(rk):
+                    continue
+                out.append((y, code, iso3, flow))
+    return out
 
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--budget', type=int, default=DEFAULT_BUDGET, help='max API calls this run')
+    ap.add_argument('--budget', type=int, default=DEFAULT_BUDGET)
     ap.add_argument('--years', type=int, nargs='*', default=None)
     ap.add_argument('--plan', action='store_true')
-    ap.add_argument('--probe', action='store_true', help='ONE call, to fix the multiplier')
+    ap.add_argument('--size', type=int, default=None, help='countOnly sizing for one year only')
     ap.add_argument('--sleep', type=float, default=1.3)
     a = ap.parse_args()
 
     years = a.years or list(range(YEAR_MAX, YEAR_MIN - 1, -1))
     st = load_state()
-    todo = pending(years, st)
 
     if a.plan:
         reps = len(reporters())
+        cds = len(all_codes())
+        todo = pending(years, st)
         print('full-universe MONTHLY Comtrade crawl - PLAN ONLY, no calls made')
         print('  endpoint     %s' % BASE)
+        print('  output       %s' % OUTDIR)
         print('  years        %d..%d (newest first)' % (years[0], years[-1]))
-        print('  reporters    %d  x 2 flows = %d reporter-year-flows per year' % (reps, reps * 2))
-        print('  window       starts at %d months per call, halving on a capped page' % WINDOWS[0])
-        print('  budget       %d calls/run (500/day minus ~120 for pipeline/refresh.py)' % a.budget)
+        print('  reporters    %d x 2 flows = %d reporter-year-flows per year' % (reps, reps * 2))
+        print('  HS6 codes    %d' % cds)
+        print('  per call     cap %s, aiming for %s' % (format(PAGE_CAP, ','), format(TARGET, ',')))
+        print('  budget       %d calls/run' % a.budget)
+        print()
+        print('  measured: one month of world HS6 trade = 41,873,260 records')
+        print('            so 27 years ~= 13.6 billion records, ~139 GB as parquet')
+        est = int(13.57e9 / TARGET * 1.05)
+        print('  estimated calls (floor + sizing overhead): ~%s' % format(est, ','))
+        print('  at %d/run that is ~%.0f runs (~%.1f years of daily runs)'
+              % (a.budget, est / float(a.budget), est / float(a.budget) / 365))
         print()
         print('  reporter-year-flows outstanding : %d' % len(todo))
-        print('  calls already made              : %d' % st.get('calls', 0))
-        print('  rows already stored             : %s' % format(st.get('rows', 0), ','))
-        print()
-        print('  at ~1.5 calls per reporter-year-flow, that is ~%d calls, ~%.0f days at %d/run'
-              % (len(todo) * 1.5, len(todo) * 1.5 / max(a.budget, 1), a.budget))
-        print()
-        print('  output  %s/<year>/<ISO3>_<flow>_<mm-mm>.parquet   (raw/ is gitignored)'
-              % os.path.relpath(OUTDIR, ROOT).replace(os.sep, '/'))
+        print('  calls made so far               : %s' % format(st.get('calls', 0), ','))
+        print('  rows stored so far              : %s' % format(st.get('rows', 0), ','))
+        print('  chunks recorded STUCK           : %d' % len(st.get('stuck', {})))
         return 0
 
-    key = _key()
-    import requests
-    session = requests.Session()
+    keys = _keys()
+    led = _spent_today(st, len(keys))
+    # --budget is the TOTAL for this run; each key may spend at most PER_KEY_DAY minus what it
+    # already spent today, so a second run on the same day does not double-spend a key.
+    remaining = [max(0, PER_KEY_DAY - int(led.get(str(i), 0))) for i in range(len(keys))]
+    print('keys available: %d   remaining today: %s   run budget: %d'
+          % (len(keys), remaining, a.budget), flush=True)
+    api = Api(keys, sleep=a.sleep, per_key=remaining)
+    codes = all_codes()
 
-    if a.probe:
-        # A mid-sized reporter in a year that certainly has monthly data, asking for a FULL YEAR.
-        # The row count answers the one question the schedule depends on.
-        code, iso3 = 76, 'BRA'
-        print('probe: %s 2023, all 12 months, imports, cmdCode=AG6 ...' % iso3, flush=True)
-        rows, status = fetch(session, key, ['2023%02d' % m for m in range(1, 13)], code, 'M')
-        if rows is None:
-            print('  FAILED http %s' % status); return 1
-        df = to_frame(rows)
-        print('  %s rows, %d HS6 codes, %d partners, %d periods'
-              % (format(len(df), ','), df.cmd.nunique(), df.partner.nunique(), df.period.nunique()))
-        if len(rows) >= PAGE_CAP:
-            print('  -> AT THE CAP: even a mid-sized reporter needs narrower windows.')
-        else:
-            print('  -> a whole year fits in ONE call for this reporter.')
-        # BACI is read through baci.py, which is the one door this repository allows
-        # (ARCHITECTURE.md phase 2). Opening raw/baci/ directly is what check_baci_door refuses.
-        try:
-            import baci
-            b = baci.year(2023, columns=['i'])
-            ann = int((b['i'].astype(str) == str(iso3)).sum())
-            if not ann:                       # baci.year may return M49 rather than ISO3
-                cf = pd.read_csv(baci.country_file(), keep_default_na=False, na_values=[''])
-                m49 = dict(zip(cf.country_iso3, cf.country_code))
-                ann = int((pd.to_numeric(b['i'], errors='coerce') == m49.get(iso3, -1)).sum())
-            if ann:
-                print('  -> BACI 2023 has %s annual flows for %s, so the multiplier is %.2fx'
-                      % (format(ann, ','), iso3, len(df) / ann))
-                print('     (that is the number the whole schedule was guessed at: 2x-6x)')
-            else:
-                print('  (no BACI 2023 rows for %s, so no multiplier)' % iso3)
-        except Exception as e:
-            print('  (could not compute the multiplier: %s)' % type(e).__name__)
+    if a.size:
+        y = a.size
+        print('countOnly sizing for %d (one call per reporter-flow)...' % y)
+        tot = 0
+        for code, iso3 in reporters():
+            for flow in ('M', 'X'):
+                n, status = api.count(['%d%02d' % (y, m) for m in range(1, 13)], code, flow)
+                if n is None:
+                    print('   %s %s  http %s' % (iso3, flow, status)); continue
+                st['size']['%d|%s|%s' % (y, iso3, flow)] = n
+                tot += n
+                if n:
+                    print('   %s %s  %12s records  -> %d calls'
+                          % (iso3, flow, format(n, ','), max(1, int(math.ceil(n / float(TARGET))))))
+        save_state(st)
+        print('\n%d total records for %d; ~%d calls to fetch'
+              % (tot, y, int(math.ceil(tot / float(TARGET)))))
         return 0
 
     os.makedirs(OUTDIR, exist_ok=True)
     st['started'] = st.get('started') or time.strftime('%Y-%m-%d %H:%M')
-    spend = [0]
-    t0 = time.time()
+    todo = pending(years, st, api)
+    used, t0 = 0, time.time()
+    _charged_in_loop = [0]
     try:
         for (y, code, iso3, flow) in todo:
-            if spend[0] >= a.budget:
+            if api.calls >= a.budget or api.exhausted():
                 print('budget of %d calls reached' % a.budget)
                 break
-            spend[0] += crawl_one(session, key, st, y, code, iso3, flow, spend, a.budget)
-            if spend[0] % 25 < 2:
-                save_state(st)
-            time.sleep(a.sleep)
+            before = st.get('calls', 0)
+            used += crawl_reporter_year(api, st, y, code, iso3, flow, codes,
+                                        max(0, a.budget - api.calls))
+            _charged_in_loop[0] += st.get('calls', 0) - before
+            save_state(st)
     finally:
+        st['calls'] = int(st.get('calls', 0)) + max(0, api.calls - _charged_in_loop[0])
+        for i, n in enumerate(api.by_key):
+            led[str(i)] = int(led.get(str(i), 0)) + n
         save_state(st)
 
-    left = len(pending(years, st))
+    left = len(pending(years, st, api))
     print()
-    print('this run: %d calls in %.1f min. total calls %d, rows stored %s'
-          % (spend[0], (time.time() - t0) / 60, st.get('calls', 0), format(st.get('rows', 0), ',')))
-    print('outstanding reporter-year-flows: %d (~%.0f more runs at --budget %d)'
-          % (left, left * 1.5 / max(a.budget, 1), a.budget))
+    print('this run: %d calls in %.1f min. total %s calls, %s rows stored'
+          % (api.calls, (time.time() - t0) / 60, format(st.get('calls', 0), ','),
+             format(st.get('rows', 0), ',')))
+    print('reporter-year-flows outstanding: %d' % left)
+    if st.get('stuck'):
+        print('STUCK chunks (capped on a single code, not saved): %d - these need partner splitting'
+              % len(st['stuck']))
     return 0
 
 
