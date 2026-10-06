@@ -43,10 +43,16 @@ if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
 
 $action  = New-ScheduledTaskAction -Execute $Pythonw -Argument "`"$Script`"" -WorkingDirectory $Root
 $trigger = New-ScheduledTaskTrigger -Daily -At 05:00
-# 8 hours, raised from 4 after MEASURING the first armed run on 6 Oct 2026: 120 calls took 42
-# minutes, i.e. ~21s per call, not the ~1.3s the sleep alone suggested - the time goes in the
-# response, and a full 880-call day is therefore ~5 hours, not one. A 4-hour limit would have been
-# hit around call 690 and killed the run mid-day with no END line: precisely the silent death that
+# 8 hours. The first armed run, 6 Oct 2026, finished in 131 minutes: 881 calls at ~8.2s each.
+#
+# Mid-run I read the first 42 minutes (120 calls, ~21s each) and projected ~5 hours from it. That
+# was wrong - the opening is slow because the crawl starts at 2026, where almost nothing is filed
+# yet and the sizing calls earn little, and it speeds up markedly once it reaches years with data.
+# A 42-minute sample of a 2-hour job is not a measurement of that job. The number here is from a
+# completed run, not an extrapolation.
+#
+# So 4 hours would in fact have been enough. 8 stays anyway: the cost of spare headroom is zero,
+# and the cost of being wrong is a run killed mid-day with no END line - the silent death that
 # cost this repository eleven nights of refresh in September 2026.
 # StartWhenAvailable catches up after a day the machine was off.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 8) `
