@@ -458,9 +458,22 @@ def main():
 
     keys = _keys()
     led = _spent_today(st, len(keys))
-    # --budget is the TOTAL for this run; each key may spend at most PER_KEY_DAY minus what it
+    # --budget is the TOTAL for this run; each key may spend at most its own cap minus what it
     # already spent today, so a second run on the same day does not double-spend a key.
-    remaining = [max(0, PER_KEY_DAY - int(led.get(str(i), 0))) for i in range(len(keys))]
+    #
+    # KEY #1 IS CAPPED LOWER, and this is the line that actually enforces REFRESH_RESERVE.
+    # It did not, until 6 Oct 2026: the reserve was subtracted from the run TOTAL (880 = 380+500)
+    # while every key was still capped at the full PER_KEY_DAY, so the rotation spent key #1 to
+    # 500 and only then moved to key #2 - the ledger after the first armed run read 500 and 381,
+    # exactly backwards from the intent. The refresh survived purely because it runs at 03:00,
+    # two hours ahead of the crawl: protected by the timetable, not by this code. On a day the
+    # refresh ran late or needed more, they would have collided and the crawl would have spent
+    # its morning absorbing 429s on an exhausted key.
+    #
+    # Key #1 is the one pipeline/adapter_comtrade.py uses (it reads line 1 of .comtrade_key), so
+    # key #1 is the one that has to keep something back.
+    caps = [PER_KEY_DAY - (REFRESH_RESERVE if i == 0 else 0) for i in range(len(keys))]
+    remaining = [max(0, caps[i] - int(led.get(str(i), 0))) for i in range(len(keys))]
     print('keys available: %d   remaining today: %s   run budget: %d'
           % (len(keys), remaining, a.budget), flush=True)
     api = Api(keys, sleep=a.sleep, per_key=remaining)
