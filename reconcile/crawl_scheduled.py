@@ -10,8 +10,14 @@ at the end, and on the way out of an exception - and the heartbeat line is writt
 begins, so an empty tail means "killed", not "idle".
 
 BUDGET
-380 calls, leaving ~120 of the 500/day allowance for pipeline/refresh.py, which pulls Comtrade from
-the same key. A crawl that silently stops the daily atlas is a bad trade at any speed.
+880 calls across TWO keys. Key #1 (Toma) gives 500 minus the ~120 that pipeline/refresh.py needs
+from the same key, so 380; key #2 (a second free account, added 6 Oct 2026 with its holder's agreement) carries no
+such reserve and gives its full 500. A crawl that silently stops the daily atlas is a bad trade at
+any speed, which is why the reserve stays on key #1 rather than being spent.
+
+If a key is ever removed from pipeline/.comtrade_key, drop this back to 380 - the puller caps each
+key at its own remaining allowance, so an over-large budget is not spent twice, but it does make the
+run stop early and look like a failure.
 
     python reconcile/crawl_scheduled.py            # one day's worth
     python reconcile/crawl_scheduled.py --budget 50
@@ -37,7 +43,7 @@ def log(msg):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--budget', type=int, default=380)
+    ap.add_argument('--budget', type=int, default=880)
     a = ap.parse_args()
 
     # Written BEFORE any work: if the process is killed, this line is what proves it started.
