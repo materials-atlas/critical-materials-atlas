@@ -56,6 +56,7 @@ adapter_comtrade.py puts an 18-month backfill at ~114 calls. The default budget 
 The key is read from pipeline/.comtrade_key or $COMTRADE_KEY and is never printed or logged.
 """
 import argparse
+import datetime
 import io
 import json
 import math
@@ -285,10 +286,12 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
     """
     used = 0
     rk = '%d|%s|%s' % (year, iso3, flow)
-    if st['done'].get(rk) == 'complete' or st['empty'].get(rk):
+    if st['done'].get(rk) == 'complete' or is_empty(st, rk, year):
         return 0
 
-    months = ['%d%02d' % (year, m) for m in range(1, 13)]
+    months = months_of(year)
+    if not months:
+        return 0
 
     # --- size it once, and remember, so the next year starts from a real number -------------
     sk = rk
@@ -306,7 +309,7 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             return used
         st['size'][sk] = n
     if n == 0:
-        st['empty'][rk] = True
+        mark_empty(st, rk, year)
         print('   %d %s %s  nothing filed' % (year, iso3, flow), flush=True)
         return used
 
@@ -332,7 +335,7 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             return used                                     # resume here next run
         periods, cl, tag = queue.pop(0)
         ck = '%s|%s' % (rk, tag)
-        if st['done'].get(ck) or st['empty'].get(ck):
+        if st['done'].get(ck) or is_empty(st, ck, year):
             continue
         p = part_path(year, iso3, flow, tag)
         if os.path.exists(p):
@@ -367,7 +370,7 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             continue
 
         if not rows:
-            st['empty'][ck] = True
+            mark_empty(st, ck, year)
             continue
 
         df = to_frame(rows)
@@ -383,6 +386,66 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
     return used
 
 
+# An "empty" for an old year is a fact; for a recent one it is only today's reading. Comtrade is
+# filed with a lag of months to years, so a reporter that has not filed 2026 yet will file it later
+# - and this crawl marks empties PERMANENTLY, so without this distinction the newest and most
+# valuable years would be written off during the first week and never looked at again.
+EMPTY_PROVISIONAL_YEARS = 2     # the current year and the one before it
+EMPTY_RECHECK_DAYS = 30
+
+
+def _recent(year):
+    return year >= datetime.date.today().year - (EMPTY_PROVISIONAL_YEARS - 1)
+
+
+def mark_empty(st, key, year):
+    """Record an empty. Recent years carry the date they were read, older ones are just True."""
+    st['empty'][key] = datetime.date.today().isoformat() if _recent(year) else True
+
+
+def is_empty(st, key, year):
+    """True only if this empty can still be trusted.
+
+    A dated empty on a recent year expires after EMPTY_RECHECK_DAYS so the reporter is asked
+    again. A bare True on a recent year predates this logic and is treated as expired, once.
+    """
+    v = st['empty'].get(key)
+    if not v:
+        return False
+    if not _recent(year):
+        return True
+    if v is True:
+        return False
+    try:
+        when = datetime.date.fromisoformat(v)
+    except Exception:
+        return False
+    return (datetime.date.today() - when).days < EMPTY_RECHECK_DAYS
+
+
+def months_of(year):
+    """The months of `year` that can possibly hold data: never one in the future.
+
+    Measured 6 Oct 2026, on the second run of the first armed day: 119 calls spent, ZERO rows
+    stored. The crawl works newest-first, so it opens on 2026 and was asking for 202611 and
+    202612 - November and December of a year that is still in October. Those cannot be filed by
+    anyone, yet each one costs a call to establish as empty, and at 235 reporters x 2 flows that
+    is ~940 calls, a full day of the two-key budget, spent proving that the future has not
+    happened yet.
+
+    The current month is kept rather than dropped: a month that has just ended is sometimes filed
+    by the fastest reporters, and the availability endpoint settles that cheaply. Only strictly
+    future months are removed, which is a claim that needs no judgement.
+    """
+    last = 12
+    now = datetime.date.today()
+    if year > now.year:
+        return []
+    if year == now.year:
+        last = now.month
+    return ['%d%02d' % (year, m) for m in range(1, last + 1)]
+
+
 def filers_for_year(api, st, year):
     """M49 codes that filed ANY month of this year. 12 calls, cached in state forever after."""
     key = str(year)
@@ -392,8 +455,8 @@ def filers_for_year(api, st, year):
     if api is None:
         return None                       # --plan has no API; caller falls back to all reporters
     got = set()
-    for m in range(1, 13):
-        s = api.filed('%d%02d' % (year, m))
+    for period in months_of(year):
+        s = api.filed(period)
         if s is None:
             return None                   # could not establish it; do not cache a half answer
         got |= s
@@ -412,7 +475,7 @@ def pending(years, st, api=None):
                 continue                  # never filed this year - do not spend a call finding out
             for flow in ('M', 'X'):
                 rk = '%d|%s|%s' % (y, iso3, flow)
-                if st['done'].get(rk) == 'complete' or st['empty'].get(rk):
+                if st['done'].get(rk) == 'complete' or is_empty(st, rk, y):
                     continue
                 out.append((y, code, iso3, flow))
     return out
@@ -485,7 +548,7 @@ def main():
         tot = 0
         for code, iso3 in reporters():
             for flow in ('M', 'X'):
-                n, status = api.count(['%d%02d' % (y, m) for m in range(1, 13)], code, flow)
+                n, status = api.count(months_of(y), code, flow)
                 if n is None:
                     print('   %s %s  http %s' % (iso3, flow, status)); continue
                 st['size']['%d|%s|%s' % (y, iso3, flow)] = n
