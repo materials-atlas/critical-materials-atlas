@@ -103,8 +103,17 @@ def _keys():
 
 
 def _spent_today(st, n_keys):
-    """Calls spent per key today, reset on a new calendar day."""
-    today = time.strftime('%Y-%m-%d')
+    """Calls spent per key today, reset on a new calendar day.
+
+    UTC, not local. The allowance is the service's to reset, and Azure API Management - which is
+    what Comtrade runs on - counts its quota windows in UTC. Keyed on the local date instead, the
+    ledger clears at local midnight: at UTC+2 that is 22:00 UTC the previous day, so a run in the
+    first two hours of the morning would believe it had a fresh 880 while the UN still charged it
+    to yesterday, and would spend the difference collecting 429s. The scheduled 05:00 run is clear
+    of that window either way, but a manual one is not, and the local date also drags the reset
+    time back and forth with daylight saving twice a year.
+    """
+    today = time.strftime('%Y-%m-%d', time.gmtime())
     led = st.setdefault('spend', {})
     if led.get('day') != today:
         led.clear()
