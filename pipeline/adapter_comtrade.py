@@ -4,7 +4,7 @@ under a Fair-Usage rate limit that turned out to be far looser than we assumed. 
 CALENDAR: each run pulls EVERY reporter for ONE month (ones not covered by a national adapter), chunks commodities under the 500-row preview cap,
 sleeps between calls, backs off on 429, and APPENDS to an incremental cache. Coverage accumulates over
 many runs. primaryValue = USD, netWgt = kg; codes are M49 -> ISO3 via BACI's numeric table."""
-import os, json, time, urllib.request, urllib.error
+import io, os, json, time, urllib.request, urllib.error
 import schema, concordance
 from adapter_base import Adapter, num
 
@@ -19,7 +19,31 @@ from adapter_base import Adapter, num
 # whole 18-month backfill is ~114 calls against a 500/day allowance, so it fits in a single run
 # instead of three weeks of nightly rotation.
 KEYFILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.comtrade_key')
-API_KEY = open(KEYFILE).read().strip() if os.path.exists(KEYFILE) else None
+
+
+def _first_key(path):
+    """The FIRST key in the file, and only the first.
+
+    The file became multi-line on 6 Oct 2026 when a second free key was added for the
+    full-universe crawl (reconcile/pull_comtrade_full.py rotates over all of them). This read
+    used to be open(path).read().strip(), which returns BOTH keys joined by a newline the moment
+    there is more than one - a 65-character value that urllib rejects outright as an invalid
+    header, so the nightly refresh would have died on its next run with a ValueError and no
+    obvious connection to the key file at all.
+
+    Line 1 is deliberately the key this adapter uses: the crawl reserves REFRESH_RESERVE calls on
+    key #1 precisely so the refresh keeps working, so the refresh must take key #1 and no other.
+    """
+    if not os.path.exists(path):
+        return None
+    for line in io.open(path, encoding='utf-8'):
+        line = line.strip()
+        if line and not line.startswith('#'):
+            return line
+    return None
+
+
+API_KEY = _first_key(KEYFILE)
 BASE = ("https://comtradeapi.un.org/data/v1/get/C/M/HS" if API_KEY
         else "https://comtradeapi.un.org/public/v1/preview/C/M/HS")
 MONTHS_PER_CALL = 6      # measured: 6 months of 31 codes, both flows = 10,435 rows, well inside
