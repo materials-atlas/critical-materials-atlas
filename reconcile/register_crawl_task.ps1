@@ -7,7 +7,10 @@
 #   powershell -ExecutionPolicy Bypass -File reconcile\register_crawl_task.ps1 -Unregister
 #
 # 05:00 is deliberate: CMA-trade-refresh runs at 03:00 with a 3-hour limit and pulls Comtrade from
-# the SAME key against the same 500/day allowance. The crawl takes 380 and leaves it ~120.
+# the SAME key (#1) against the same 500/day allowance. The crawl leaves it ~120 there.
+#
+# Two keys since 6 Oct 2026: 880/day = 380 on key #1 (500 less the refresh reserve) + 500 on key #2.
+# That is 2.3x the one-key rate, not 2x, because only key #1 carries the reserve.
 #
 # pythonw.exe is used to match the existing tasks (no console window). It has no stdout, which is
 # why the work goes through crawl_scheduled.py and the log is a file.
@@ -40,14 +43,14 @@ if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
 
 $action  = New-ScheduledTaskAction -Execute $Pythonw -Argument "`"$Script`"" -WorkingDirectory $Root
 $trigger = New-ScheduledTaskTrigger -Daily -At 05:00
-# 4 hours: 380 calls at ~1.3s plus response time is well under an hour, but a slow day must not be
+# 4 hours: 880 calls at ~1.3s plus response time is around an hour, but a slow day must not be
 # killed mid-write. StartWhenAvailable catches up after a day the machine was off.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 4) `
               -MultipleInstances IgnoreNew -StartWhenAvailable `
               -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
 
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
-  -Settings $settings -Description 'Full-universe UN Comtrade monthly crawl, 380 calls/day' | Out-Null
+  -Settings $settings -Description 'Full-universe UN Comtrade monthly crawl, 880 calls/day across 2 keys' | Out-Null
 
-Write-Output "registered $TaskName - daily 05:00, 380 calls, log at raw\comtrade_full\_crawl.log"
+Write-Output "registered $TaskName - daily 05:00, 880 calls, log at raw\comtrade_full\_crawl.log"
 Write-Output "first run: tomorrow 05:00. To start one now:  python reconcile\crawl_scheduled.py --budget 50"
