@@ -43,9 +43,13 @@ if (Get-ScheduledTask -TaskName $TaskName -ErrorAction SilentlyContinue) {
 
 $action  = New-ScheduledTaskAction -Execute $Pythonw -Argument "`"$Script`"" -WorkingDirectory $Root
 $trigger = New-ScheduledTaskTrigger -Daily -At 05:00
-# 4 hours: 880 calls at ~1.3s plus response time is around an hour, but a slow day must not be
-# killed mid-write. StartWhenAvailable catches up after a day the machine was off.
-$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 4) `
+# 8 hours, raised from 4 after MEASURING the first armed run on 6 Oct 2026: 120 calls took 42
+# minutes, i.e. ~21s per call, not the ~1.3s the sleep alone suggested - the time goes in the
+# response, and a full 880-call day is therefore ~5 hours, not one. A 4-hour limit would have been
+# hit around call 690 and killed the run mid-day with no END line: precisely the silent death that
+# cost this repository eleven nights of refresh in September 2026.
+# StartWhenAvailable catches up after a day the machine was off.
+$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 8) `
               -MultipleInstances IgnoreNew -StartWhenAvailable `
               -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
 
