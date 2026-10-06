@@ -36,6 +36,7 @@ OUTDIR = os.environ.get('CMA_CRAWL_DIR', os.path.join(REPO, 'raw', 'comtrade_ful
 LOG = os.path.join(OUTDIR, '_crawl.log')
 STATE = os.path.join(OUTDIR, '_state.json')
 STATUS = os.path.join(OUTDIR, '_crawl_status.txt')
+HISTORY = os.path.join(OUTDIR, '_crawl_progress.tsv')
 TASK = 'CMA-comtrade-universe'
 
 # A run is expected daily. 28 hours, not 24: a run that starts late, or a day the machine was off
@@ -147,23 +148,93 @@ def check():
     return warns
 
 
-def summary():
-    """One line of where the crawl has got to."""
+def reading():
+    """Today's numbers: (files, bytes, calls, rows, done)."""
+    st = json.load(io.open(STATE, encoding='utf-8'))
+    n = 0
+    size = 0
+    for d, _, fs in os.walk(OUTDIR):
+        for f in fs:
+            if f.endswith('.parquet'):
+                n += 1
+                size += os.path.getsize(os.path.join(d, f))
+    return n, size, int(st.get('calls', 0)), int(st.get('rows', 0)), len(st.get('done', {}))
+
+
+def history(calls, rows, files):
+    """Append today's reading and return the rows, oldest first.
+
+    One line per watcher run. This is the only record of the RATE: the state file knows how far the
+    crawl has got but not how fast, and a projected finish date computed from the planner's
+    assumptions rather than from what the machine actually achieves is a guess dressed as a fact.
+    """
+    today = datetime.date.today().isoformat()
+    rows_out = []
     try:
-        st = json.load(io.open(STATE, encoding='utf-8'))
-        n = 0
-        size = 0
-        for d, _, fs in os.walk(OUTDIR):
-            for f in fs:
-                if f.endswith('.parquet'):
-                    n += 1
-                    size += os.path.getsize(os.path.join(d, f))
-        calls = int(st.get('calls', 0))
-        pct = 100.0 * calls / float(TOTAL_CALLS_EST)
-        return ('  %s parquet files, %.2f GB, %s calls spent (~%.2f%% of the estimated job)'
-                % (format(n, ','), size / (1024.0 ** 3), format(calls, ','), pct))
+        if os.path.exists(HISTORY):
+            with io.open(HISTORY, encoding='utf-8') as fh:
+                for ln in fh:
+                    parts = ln.rstrip('\n').split('\t')
+                    if len(parts) == 4 and parts[0] != 'date':
+                        rows_out.append((parts[0], int(parts[1]), int(parts[2]), int(parts[3])))
     except Exception:
-        return '  (could not summarise progress)'
+        rows_out = []
+    # one row per day: a second run on the same day replaces the first rather than doubling it
+    rows_out = [r for r in rows_out if r[0] != today]
+    rows_out.append((today, calls, rows, files))
+    rows_out.sort()
+    try:
+        with io.open(HISTORY, 'w', encoding='utf-8') as fh:
+            fh.write('date\tcalls\trows\tfiles\n')
+            for r in rows_out:
+                fh.write('%s\t%d\t%d\t%d\n' % r)
+    except Exception:
+        pass
+    return rows_out
+
+
+def project(hist, calls):
+    """(calls_per_day, days_left, finish_date) from the MEASURED rate, or None while unknown."""
+    if len(hist) < 2:
+        return None
+    first, last = hist[0], hist[-1]
+    try:
+        d0 = datetime.date.fromisoformat(first[0])
+        d1 = datetime.date.fromisoformat(last[0])
+    except Exception:
+        return None
+    span = (d1 - d0).days
+    gained = last[1] - first[1]
+    if span < 1 or gained <= 0:
+        return None
+    rate = gained / float(span)
+    left = max(0, TOTAL_CALLS_EST - calls)
+    days = int(round(left / rate))
+    return rate, days, (datetime.date.today() + datetime.timedelta(days=days))
+
+
+def summary():
+    """Two lines of where the crawl has got to and when it is due to finish."""
+    try:
+        n, size, calls, rows, done = reading()
+    except Exception:
+        return ['  (could not summarise progress)'], None
+    pct = 100.0 * calls / float(TOTAL_CALLS_EST)
+    lines = ['  %s files, %.2f GB, %s rows, %s reporter-months'
+             % (format(n, ','), size / (1024.0 ** 3), format(rows, ','), format(done, ',')),
+             '  %s of ~%s calls spent - %.2f%% of the job'
+             % (format(calls, ','), format(TOTAL_CALLS_EST, ','), pct)]
+    hist = history(calls, rows, n)
+    pr = project(hist, calls)
+    if pr:
+        rate, days, when = pr
+        lines.append('  measured %s calls/day -> ~%d days left, finishing about %s'
+                     % (format(int(rate), ','), days, when.strftime('%d %b %Y')))
+        head = '%.1f%% done, ~%d days left (about %s)' % (pct, days, when.strftime('%d %b %Y'))
+    else:
+        lines.append('  rate not measurable yet - needs a second daily reading')
+        head = '%.2f%% done, %s rows stored so far' % (pct, format(rows, ','))
+    return lines, head
 
 
 def toast(title, body):
@@ -181,16 +252,21 @@ def main():
     quiet = '--quiet' in sys.argv
     warns = check()
     stamp = datetime.datetime.now().isoformat(timespec='seconds')
+    sumlines, progress = summary()
+    # A toast goes up EVERY day, not only on trouble. "Keep me informed" is not satisfied by a
+    # status that only speaks when something breaks: an eight-month job that is quietly healthy
+    # still needs to say how far it has got, or the only way to know is to come and ask.
     if warns:
         head = 'NOT HEALTHY - %d warning(s)' % len(warns)
-        shown = toast('Atlas Comtrade crawl', warns[0]) if not quiet else False
+        body = warns[0]
     else:
         head = 'healthy'
-        shown = False
+        body = progress or 'running'
+    shown = toast('Atlas Comtrade crawl', body) if not quiet else False
     lines = ['%s  comtrade universe crawl: %s' % (stamp, head)]
     lines += ['  - ' + w for w in warns]
-    lines.append(summary())
-    if warns and not quiet:
+    lines += sumlines
+    if not quiet:
         lines.append('  (toast %s)' % ('shown' if shown else 'could NOT be raised'))
     lines.append('  log: raw/comtrade_full/_crawl.log'
                  '   plan: python reconcile/pull_comtrade_full.py --plan')
