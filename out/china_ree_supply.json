@@ -1,0 +1,174 @@
+{
+ "unit": "tonnes rare-earth-oxide (REO) equivalent",
+ "factors": {
+  "oxide": [
+   1.0,
+   1.0,
+   1.0
+  ],
+  "metal": [
+   1.15,
+   1.17,
+   1.27
+  ],
+  "hydroxide": [
+   0.65,
+   0.83,
+   0.9
+  ],
+  "carbonate": [
+   0.42,
+   0.52,
+   0.72
+  ],
+  "chloride": [
+   0.37,
+   0.46,
+   0.67
+  ],
+  "fluoride": [
+   0.8,
+   0.83,
+   0.86
+  ],
+  "ore": [
+   0.55,
+   0.6,
+   0.7
+  ],
+  "monazite": [
+   0.45,
+   0.55,
+   0.65
+  ],
+  "other": [
+   0.4,
+   0.55,
+   0.85
+  ]
+ },
+ "mine_source": "USGS MCS",
+ "years": [
+  {
+   "year": 2023,
+   "mine_reo_t": 255000,
+   "imports_net_t": 223572,
+   "imports_by_kind_net_t": {
+    "ore": 66364,
+    "monazite": 47716,
+    "oxide": 44712,
+    "other": 43990,
+    "carbonate": 17850,
+    "chloride": 2679,
+    "metal": 255,
+    "fluoride": 6,
+    "hydroxide": 0
+   },
+   "imports_reo_t": {
+    "low": 129067,
+    "central": 145787,
+    "high": 174550
+   },
+   "import_share_pct": {
+    "low": 33.6,
+    "central": 36.4,
+    "high": 40.6
+   },
+   "imports_reo_by_partner_central_t": {
+    "MM": 58396,
+    "US": 40004,
+    "MG": 14453,
+    "MY": 10983,
+    "NG": 6555,
+    "LA": 6327,
+    "other": 3490,
+    "TH": 3408,
+    "VN": 2171
+   }
+  },
+  {
+   "year": 2024,
+   "mine_reo_t": 270000,
+   "imports_net_t": 181278,
+   "imports_by_kind_net_t": {
+    "ore": 55612,
+    "oxide": 49738,
+    "monazite": 48350,
+    "other": 12253,
+    "carbonate": 12023,
+    "chloride": 2883,
+    "metal": 346,
+    "hydroxide": 70,
+    "fluoride": 4
+   },
+   "imports_reo_t": {
+    "low": 113546,
+    "central": 124481,
+    "high": 141602
+   },
+   "import_share_pct": {
+    "low": 29.6,
+    "central": 31.6,
+    "high": 34.4
+   },
+   "imports_reo_by_partner_central_t": {
+    "MM": 39919,
+    "US": 33266,
+    "NG": 14802,
+    "LA": 10692,
+    "MY": 10458,
+    "MG": 8591,
+    "other": 2765,
+    "TH": 2047,
+    "VN": 1941
+   }
+  },
+  {
+   "year": 2025,
+   "mine_reo_t": 270000,
+   "imports_net_t": 171884,
+   "imports_by_kind_net_t": {
+    "monazite": 70824,
+    "oxide": 57065,
+    "ore": 24333,
+    "carbonate": 9965,
+    "other": 7390,
+    "chloride": 2127,
+    "metal": 159,
+    "hydroxide": 19,
+    "fluoride": 3
+   },
+   "imports_reo_t": {
+    "low": 110444,
+    "central": 121046,
+    "high": 135236
+   },
+   "import_share_pct": {
+    "low": 29.0,
+    "central": 31.0,
+    "high": 33.4
+   },
+   "imports_reo_by_partner_central_t": {
+    "MM": 38275,
+    "NG": 19543,
+    "LA": 16625,
+    "MG": 14311,
+    "US": 14295,
+    "MY": 10119,
+    "TH": 4659,
+    "other": 1904,
+    "VN": 1316
+   }
+  }
+ ],
+ "definition": "domestic mine output (USGS, quota-based) plus customs imports converted to REO; not consumption",
+ "caveats": [
+  "exports, re-exports and stocks are not removed, so this is not apparent consumption",
+  "the USGS China figure follows the mining quota; above-quota output would lower the import share",
+  "low/central/high are factor-sensitivity bounds, not a confidence interval",
+  "one REO tonne counts lanthanum and dysprosium alike; no heavy/light split",
+  "HS 2612.20 (thorium ores and concentrates) is treated as monazite feed by inference from the heading, the origins (Nigeria, Madagascar, Thailand) and unit values of $3-4/kg; the code does not name monazite",
+  "US bastnaesite concentrate (25309020) is included; other headings and chemical preparations are not",
+  "null net weights count as zero"
+ ]
+}
