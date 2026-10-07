@@ -126,6 +126,71 @@ for r in sorted(mat_rows, key=lambda x: x['emb_hhi'] - x['app_hhi'], reverse=Tru
         f'<td>{flag(r["top_origin"])} {e(cname(r["top_origin"]))} <span style="color:#9aa6ad">HHI {r["emb_hhi"]:.2f}</span></td>'
         f'<td class="n" style="color:#c0392b">+{(r["emb_hhi"]-r["app_hhi"]):.2f}</td></tr>')
 
+# ---- second layer: China's own imported feed (out/origin_feed.json, written by build_origin_feed.py) ----
+feed_html = ''
+feed_path = os.path.join(ROOT, 'out', 'origin_feed.json')
+if os.path.exists(feed_path):
+    feed = json.load(open(feed_path, encoding='utf8'))
+    def pct(x):
+        return int(x + 0.5)                     # whole percents, halves rounded up
+    def tons(x, ref=None):
+        ref = x if ref is None else ref        # one unit per row: chosen from the row's smallest figure
+        return f'{x/1e6:,.1f} Mt' if ref >= 1e6 else f'{x/1e3:,.0f} kt' if ref >= 1e3 else f'{x:,.0f} t'
+    frows = []
+    for m in feed['materials']:
+        s0, s1 = m['series'][0], m['series'][-1]
+        ol = m['origins_last']
+        part = lambda o: f'{flag(o["c"])} {e(cname(o["c"]))}'
+        sup = ', '.join(f'{part(o)} <span style="color:#9aa6ad">{pct(o["share"])}%</span>' for o in ol[:2])
+        # third place: every partner that rounds to the same whole percent as the third is shown with it, unranked
+        tie = [o for o in ol[2:] if pct(o['share']) == pct(ol[2]['share']) and abs(o['share'] - ol[2]['share']) < 1.0] if len(ol) >= 3 else []
+        if len(tie) > 1:
+            sup += ', ' + ', '.join(part(o) for o in tie[:-1]) + f' and {part(tie[-1])} <span style="color:#9aa6ad">{pct(ol[2]["share"])}% each</span>'
+        elif tie:
+            sup += f', {part(ol[2])} <span style="color:#9aa6ad">{pct(ol[2]["share"])}%</span>'
+        frows.append(
+            f'<tr><td><a href="profile-{e(m["label"])}.html">{e(m["name"])}</a><br><span style="color:#9aa6ad;font-size:.85em">{e(m["feed"])} · HS {e(", ".join(m["hs"]))}</span></td>'
+            f'<td class="n">{m["cn_mine_share"]:.0f}%</td>'
+            f'<td class="n" style="white-space:nowrap">{tons(s0["t"], min(s0["t"], s1["t"]))}</td><td class="n" style="font-weight:700;white-space:nowrap">{tons(s1["t"], min(s0["t"], s1["t"]))}</td>'
+            f'<td>{sup}</td></tr>')
+    y0, y1 = feed['years'][0], feed['years'][-1]
+    brk = []
+    for m in feed['materials']:
+        ser = {x['y']: x['t'] for x in m['series']}
+        for y in m.get('suspect_years', []):
+            r = min(ser[y - 1], ser[y], ser[y + 1])
+            est = '; weights estimated by Comtrade' if y in m.get('suspect_mostly_estimated', []) else ''
+            brk.append(f'the {y} record for {e(m["name"].lower())} ({tons(ser[y], r)}; neighbours {tons(ser[y-1], r)} in {y-1} and {tons(ser[y+1], r)} in {y+1}{est})')
+    breaks = ('These records fall below half of both neighbouring years; treat them as suspect: ' + '; '.join(brk) + '.') if brk else ''
+    agree = [m for m in feed['materials'] if m.get('baci_gap_pct') is not None and abs(m['baci_gap_pct']) <= 2.5]
+    off = sorted([m for m in feed['materials'] if m.get('baci_gap_pct') is not None and abs(m['baci_gap_pct']) > 2.5], key=lambda m: m['baci_gap_pct'])
+    xcheck = (f'CEPII BACI, which reconciles exporter and importer declarations, is within 2.5% of China&rsquo;s own total for {len(agree)} of {len(feed["materials"])} rows in {y1}. '
+              + ('It differs, BACI relative to China&rsquo;s total, for ' + '; '.join(f'{e(m["name"].lower())} ({m["baci_gap_pct"]:+.0f}%)' for m in off) + '. ' if off else '')
+              + ' '.join(f'For {e(m["name"].lower())} BACI also leads with {e(cname(m["baci_origins_last"][0]["c"]))} ({pct(m["baci_origins_last"][0]["share"])}%), where China&rsquo;s record leads with {e(cname(m["origins_last"][0]["c"]))}.'
+                         for m in off if m.get('baci_origins_last') and m['baci_origins_last'][0]['c'] != m['origins_last'][0]['c'])
+              + ' '.join(f' For {e(m["name"].lower())} BACI puts {e(cname(m["origins_last"][0]["c"]))} at {pct(m["baci_origins_last"][0]["share"])}%, against {pct(m["origins_last"][0]["share"])}% in China&rsquo;s record.'
+                         for m in off if m.get('baci_origins_last') and m['baci_origins_last'][0]['c'] == m['origins_last'][0]['c']
+                         and abs(m['baci_origins_last'][0]['share'] - m['origins_last'][0]['share']) >= 10)
+              + ' Partner shares also differ in places; BACI&rsquo;s leading partners for every row are in the JSON.'
+              + ' The table uses China&rsquo;s own record because the question is where China&rsquo;s imported feed comes from. '
+              + (lambda big: f'Comtrade flags estimated weights on some of China&rsquo;s {y1} rows by partner and customs code; the most are on ' + ' and '.join(f'{e(m["name"].lower())} ({m["estimated_weight_rows_last"]} rows)' for m in big) + '.' if big else '')(
+                  sorted([m for m in feed['materials'] if m.get('estimated_weight_rows_last', 0) >= 10], key=lambda m: -m['estimated_weight_rows_last'])))
+    nocode = '; '.join(f'{e(TITLES.get(k, k))}: {e(v)}' for k, v in feed['no_code'].items())
+    feed_html = f'''
+  <h2 id="china-feed" style="margin:2rem 0 .5rem">Where the trace stops at China: its own imported feed</h2>
+  <p class="note" style="margin-top:0">Suppliers with at least {feed["miner_min"]:.0f}% of world mine output are kept as the origin, so for these materials the trace above stops at China. But China also imports ores, concentrates and intermediates for them, and the trade records then name China as the exporter of what it makes from them. This table shows that imported feed for the selected materials where China mines at least {feed["miner_min"]:.0f}% of world output and the feed has a dedicated customs code.</p>
+  <table>
+    <thead><tr><th>Material and imported feed</th><th class="n" title="China's share of world mine output, atlas mined list (USGS/IEA, approximate)">China mines</th><th class="n">China&rsquo;s imports {y0}</th><th class="n">{y1}</th><th>Top partner countries {y1}, share of tonnes</th></tr></thead>
+    <tbody>{''.join(frows)}</tbody>
+  </table>
+  <details class="howto"><summary>How to read it, and what it cannot show</summary>
+  <p><b>Gross tonnes, not content.</b> Tonnages are gross weights as traded, not contained metal, so they cannot be set against mine output or turned into a share of China&rsquo;s supply. Rows differ in what they count: rare earths are compounds and metals (HS 2805.30 also includes scandium and yttrium), not ore; hafnium is measured as zircon tonnage, which says nothing about hafnium content; fluorspar adds both acid and metallurgical grades.</p>
+  <p><b>Partner, not mine.</b> The partner is the country China&rsquo;s customs declarations record, which may be a miner, a processor or a transit country &mdash; for example Malaysia (rare-earth processing), Thailand (antimony ores) or Lebanon (phosphate rock) may not be where the material was mined. Several partners are sanctions-relevant: North Korea and Russia supply tungsten ores, and Myanmar appears in rare earths, antimony, tungsten and baryte; trade with North Korea rests on China&rsquo;s declarations alone.</p>
+  <p><b>Cross-check.</b> {xcheck}</p>
+  <p><b>Two endpoints.</b> {y0} and {y1} are endpoints of a series that is not smooth; the full {y0}&ndash;{y1} series is in the JSON. {breaks}</p>
+  <p class="howto-src">Not shown: {nocode}. Import tonnes and partner shares: China&rsquo;s own import declarations, UN Comtrade annual data (HS 2017 codes), net weight; cross-check: CEPII BACI V202601. &ldquo;China mines&rdquo; is the atlas mined list (USGS/IEA, approximate), a separate source not comparable with these tonnes. Computed by <code>build_origin_feed.py</code> &rarr; <a href="out/origin_feed.json">origin_feed.json</a>. Sorted by {y1} tonnage.</p>
+  </details>'''
+
 out = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -167,6 +232,7 @@ out = f'''<!doctype html>
     <tbody>{''.join(drows)}</tbody>
   </table>
   <p class="note">Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + <a href="out/data.json">data.json</a> → <a href="out/origin_trace.json">origin_trace.json</a>.</p>
+{feed_html}
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
