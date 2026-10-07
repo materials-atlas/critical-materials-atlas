@@ -14,10 +14,22 @@ and a one-line status file either way that can be read without running anything.
     python reconcile/crawl_watch.py             # toast on trouble, always write the status file
     python reconcile/crawl_watch.py --quiet     # status file only, no toast
 
-Register (daily 07:30 - after a 05:00 run, which takes about an hour at 880 calls, has finished, and
-late enough that StartWhenAvailable has also caught up a run the machine missed overnight):
-  schtasks /create /tn "CMA-crawl-watch" /tr "<pythonw.exe> <repo>\reconcile\crawl_watch.py" /sc daily /st 07:30 /f
-Remove:  schtasks /delete /tn "CMA-crawl-watch" /f
+Register (daily 07:30 - after a 05:00 run, which takes about two hours at 880 calls, has finished,
+and late enough that StartWhenAvailable has also caught up a run the machine missed overnight).
+
+DO NOT register this with a bare `schtasks /create`. Its defaults are AC-power-only with no
+catch-up, and on 7 Oct 2026 that is exactly how this watcher failed: the machine moved to battery
+at 00:47, the task was refused with 0x800710E0, StartWhenAvailable was False so it never retried,
+and the one job whose whole purpose is to report trouble was the only thing that reported nothing.
+
+  $s = New-ScheduledTaskSettingsSet -StartWhenAvailable -DontStopIfGoingOnBatteries `
+         -AllowStartIfOnBatteries -ExecutionTimeLimit (New-TimeSpan -Minutes 30) `
+         -MultipleInstances IgnoreNew
+  $a = New-ScheduledTaskAction -Execute '<pythonw.exe>' -Argument '"<repo>\reconcile\crawl_watch.py"'
+  Register-ScheduledTask -TaskName 'CMA-crawl-watch' -Action $a -Settings $s `
+         -Trigger (New-ScheduledTaskTrigger -Daily -At 07:30)
+
+Remove:  Unregister-ScheduledTask -TaskName 'CMA-crawl-watch' -Confirm:$false
 Status:  type raw\comtrade_full\_crawl_status.txt
 
 It always exits 0. A watcher whose own failure needs watching is not worth having.
@@ -193,24 +205,43 @@ def history(calls, rows, files):
     return rows_out
 
 
+NOMINAL_CALLS_PER_DAY = 880      # the run budget: 380 on key #1 (the rest is the refresh
+                                 # reserve) + 500 on key #2
+
+
 def project(hist, calls):
-    """(calls_per_day, days_left, finish_date) from the MEASURED rate, or None while unknown."""
-    if len(hist) < 2:
-        return None
-    first, last = hist[0], hist[-1]
-    try:
-        d0 = datetime.date.fromisoformat(first[0])
-        d1 = datetime.date.fromisoformat(last[0])
-    except Exception:
-        return None
-    span = (d1 - d0).days
-    gained = last[1] - first[1]
-    if span < 1 or gained <= 0:
-        return None
-    rate = gained / float(span)
+    """(calls_per_day, days_left, finish_date, basis) - or None while nothing can be said.
+
+    The rate is NOT the difference between the last two readings. Each reading is a snapshot taken
+    whenever the watcher happened to run, and a run takes about two hours: comparing yesterday
+    mid-afternoon with today ten minutes into a run gave "150 calls/day -> finishing June 2030",
+    off by nearly four years, because 150 was simply how far into today's run the reading landed.
+
+    So full days only. Today's row is always partial and is excluded, and two complete days are
+    needed before anything is measured. Until then the budget is quoted as what it is - a planned
+    rate, labelled as such - rather than dressed up as an observation.
+    """
+    import datetime as _dt
+    today = _dt.date.today().isoformat()
+    full = [r for r in hist if r[0] != today]
     left = max(0, TOTAL_CALLS_EST - calls)
+
+    if len(full) >= 2:
+        try:
+            d0 = _dt.date.fromisoformat(full[0][0])
+            d1 = _dt.date.fromisoformat(full[-1][0])
+        except Exception:
+            return None
+        span = (d1 - d0).days
+        gained = full[-1][1] - full[0][1]
+        if span >= 1 and gained > 0:
+            rate = gained / float(span)
+            days = int(round(left / rate))
+            return rate, days, _dt.date.today() + _dt.timedelta(days=days), 'measured over %d full days' % span
+
+    rate = float(NOMINAL_CALLS_PER_DAY)
     days = int(round(left / rate))
-    return rate, days, (datetime.date.today() + datetime.timedelta(days=days))
+    return rate, days, _dt.date.today() + _dt.timedelta(days=days), 'planned rate, not yet measured'
 
 
 def summary():
@@ -227,12 +258,12 @@ def summary():
     hist = history(calls, rows, n)
     pr = project(hist, calls)
     if pr:
-        rate, days, when = pr
-        lines.append('  measured %s calls/day -> ~%d days left, finishing about %s'
-                     % (format(int(rate), ','), days, when.strftime('%d %b %Y')))
+        rate, days, when, basis = pr
+        lines.append('  %s calls/day (%s) -> ~%d days left, finishing about %s'
+                     % (format(int(rate), ','), basis, days, when.strftime('%d %b %Y')))
         head = '%.1f%% done, ~%d days left (about %s)' % (pct, days, when.strftime('%d %b %Y'))
     else:
-        lines.append('  rate not measurable yet - needs a second daily reading')
+        lines.append('  not enough history to project yet')
         head = '%.2f%% done, %s rows stored so far' % (pct, format(rows, ','))
     return lines, head
 

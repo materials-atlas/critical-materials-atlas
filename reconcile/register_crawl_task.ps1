@@ -55,8 +55,13 @@ $trigger = New-ScheduledTaskTrigger -Daily -At 05:00
 # and the cost of being wrong is a run killed mid-day with no END line - the silent death that
 # cost this repository eleven nights of refresh in September 2026.
 # StartWhenAvailable catches up after a day the machine was off.
+# WakeToRun because "never sleep" is not enough on a modern laptop: this machine entered Modern
+# Standby (connected standby, S0ix) at 00:51 on 7 Oct 2026 with the sleep timeout set to Never, and
+# the 05:00 trigger simply did not fire. StartWhenAvailable caught it up at 08:38 when the lid was
+# opened, so nothing was lost that day - but a day nobody opens the laptop loses its whole
+# allowance, and unused calls do not carry over.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 8) `
-              -MultipleInstances IgnoreNew -StartWhenAvailable `
+              -MultipleInstances IgnoreNew -StartWhenAvailable -WakeToRun `
               -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
 
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
