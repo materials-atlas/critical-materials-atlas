@@ -44,7 +44,8 @@ def kind(c):
 # REO content per tonne of product: (low, central, high)
 F = {'oxide': (1.0, 1.0, 1.0), 'metal': (1.15, 1.17, 1.27), 'hydroxide': (0.65, 0.83, 0.90),
      'carbonate': (0.42, 0.52, 0.72), 'chloride': (0.37, 0.46, 0.67), 'fluoride': (0.80, 0.83, 0.86),
-     'ore': (0.55, 0.60, 0.70), 'monazite': (0.45, 0.55, 0.65), 'other': (0.40, 0.55, 0.85)}
+     'ore': (0.55, 0.60, 0.70), 'monazite': (0.45, 0.55, 0.65), 'monazite_low': (0.06, 0.10, 0.15),
+     'other': (0.40, 0.55, 0.85)}
 # factor bands from formula weights (reviewed 7 Oct 2026): hydrated vs anhydrous salts bound each band;
 # 'other' cannot reach 1.0 because oxides have their own lines; ore = US bastnaesite flotation concentrate
 PARTNER = {104: 'MM', 418: 'LA', 458: 'MY', 704: 'VN', 840: 'US', 566: 'NG', 450: 'MG', 764: 'TH'}
@@ -55,15 +56,46 @@ out = {'unit': 'tonnes rare-earth-oxide (REO) equivalent', 'factors': F, 'mine_s
                    'the USGS China figure follows the mining quota; above-quota output would lower the import share',
                    'low/central/high are factor-sensitivity bounds, not a confidence interval',
                    'one REO tonne counts lanthanum and dysprosium alike; no heavy/light split',
-                   'HS 2612.20 (thorium ores and concentrates) is treated as monazite feed by inference from the heading, the origins (Nigeria, Madagascar, Thailand) and unit values of $3-4/kg; the code does not name monazite',
+                   'HS 2612.20 (thorium ores and concentrates) is treated as monazite feed by inference from the heading and the origins; the code does not name monazite. Unit values form two clusters: about $5,000-6,000/t (Nigeria, Thailand, Indonesia, Vietnam; market-grade 54% monazite sold near $5,500/t in 2025) and about $800/t (Madagascar)',
                    'US bastnaesite concentrate (25309020) is included; other headings and chemical preparations are not',
-                   'null net weights count as zero']}
+                   'null net weights count as zero',
+                   'a monazite partner-year priced under 30% of the median unit value of the other partners is treated as low-grade monazite-bearing sand at 6-15% REO (in 2023-2025 only Madagascar trips it; USGS 2025 Madagascar 2,700 t REO from about 26,000 t shipped agrees); market-priced lots, Nigeria included, stay at 45-65%',
+                   'Myanmar (38,300 t REO here vs USGS mine estimate 22,000 t) and Laos (16,600 t, not listed by USGS) are imports as recorded by China; they may include transit and informal output and are not reconciled to mine estimates']}
+def monazite_low_grade():
+    """Partner-years whose HS 2612.20 unit value is under 30% of the tonnage-weighted median unit value of the
+    OTHER partners that year (comparing a partner with itself would hide it when it dominates the tonnage).
+    Market-grade monazite (54% REO) sold near $5,500/t in 2025 (Asian Metal); Nigeria and Thailand were paid
+    about that, Madagascar about $840/t, i.e. monazite-bearing sand near 10% REO - which is also what the USGS
+    Madagascar mine estimate (2,700 t REO from about 26,000 t shipped, built from China's import data) implies."""
+    low = set()
+    for y in sorted({r['period'] for r in MONAZ}):
+        agg = collections.defaultdict(lambda: [0.0, 0.0])
+        for r in MONAZ:
+            if r['period'] == y:
+                agg[r['partnerCode']][0] += r['netWgt'] or 0; agg[r['partnerCode']][1] += r['primaryValue'] or 0
+        for p, (w, v) in agg.items():
+            if not w:
+                continue
+            uv = sorted((vv / ww, ww) for q, (ww, vv) in agg.items() if q != p and ww)
+            if not uv:
+                continue
+            half, acc, med = sum(x for _, x in uv) / 2, 0.0, None
+            for u, x in uv:
+                acc += x
+                if acc >= half: med = u; break
+            if v / w < 0.3 * med:
+                low.add((y, p))
+    return low
+LOW = monazite_low_grade()
+
 for y in sorted(MINE):
     by_kind, by_partner = collections.Counter(), collections.defaultdict(collections.Counter)
     for r in COMP + ORE + MONAZ:
         if r['period'] != y:
             continue
         k, w = kind(r['cmdCode']), (r['netWgt'] or 0) / 1000.0
+        if k == 'monazite' and (y, r['partnerCode']) in LOW:
+            k = 'monazite_low'
         by_kind[k] += w
         by_partner[PARTNER.get(r['partnerCode'], 'other')][k] += w
     imp = [sum(by_kind[k] * F[k][i] for k in by_kind) for i in range(3)]
