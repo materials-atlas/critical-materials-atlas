@@ -41,6 +41,26 @@ def log(msg):
         f.flush()
 
 
+def _report():
+    """Raise the progress notification NOW, because the run has just finished.
+
+    CMA-crawl-watch also runs on a daily clock, but a clock cannot know when the crawl ends: on
+    8 Oct 2026 it fired at 07:43:45, five seconds AFTER that day's run began, and so reported the
+    previous day's totals. The day before, the run ended at 12:12 and the watcher had already
+    spoken at 07:43. Every notification was therefore a day stale, which is indistinguishable from
+    the crawl having stopped.
+
+    The clock watcher stays: it is the only thing that can report a run that never started at all.
+    This one reports what a run actually did, the moment it did it.
+    """
+    try:
+        subprocess.run([sys.executable, os.path.join(ROOT, 'reconcile', 'crawl_watch.py')],
+                       cwd=ROOT, capture_output=True, text=True, timeout=180)
+        log('   progress notification raised')
+    except Exception as e:
+        log('   progress notification FAILED: %s' % type(e).__name__)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--budget', type=int, default=880)
@@ -60,9 +80,11 @@ def main():
         if p.returncode != 0:
             log('   stderr: %s' % (p.stderr or '')[-400:].replace('\n', ' | '))
         log('END    exit=%d  %.1f min' % (p.returncode, (time.time() - t0) / 60))
+        _report()
         return p.returncode
     except Exception as e:
         log('CRASH  %s: %s  after %.1f min' % (type(e).__name__, e, (time.time() - t0) / 60))
+        _report()
         return 1
 
 
