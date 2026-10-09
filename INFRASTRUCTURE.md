@@ -1,4 +1,4 @@
-# The three-machine system
+# The two-machine system
 
 Written 4 Oct 2026, to be built once Ubuntu is on the Lenovo.
 
@@ -23,8 +23,8 @@ duplicates, up to 26x over for Germany. The full 35-column schema stores 25.1 by
 (8 Oct 2026). That route is ~280 GB of compressed files over ~76,000 downloads, which at the
 measured 46-54 MB/s of this connection is hours rather than months. It does not change the storage
 requirement, which is why the Lenovo is still the plan. That is not work for a machine that travels in a bag and gets
-closed at night. So there are three pieces now, and they need to behave as one system rather than
-three computers that happen to belong to the same person.
+closed at night. So there are two machines now, and they need to behave as one system rather than
+two computers that happen to belong to the same person.
 
 ## The pieces, and why each one has the job it has
 
@@ -45,7 +45,7 @@ pile of USB drives.
 
 ### 1. Tailscale — reachability
 
-Free for personal use. Puts all three on one private network that works **anywhere**, not just on
+Free for personal use. Puts both on one private network that works **anywhere**, not just on
 the home LAN, so the Lenovo stays reachable when the Zenbook is out of the house. Install per
 machine, sign in with the same account, done. Everything below assumes it.
 
@@ -90,14 +90,14 @@ pass, plug in.
 ## The shape
 
 ```
-Tailscale ── all three mutually reachable, anywhere
+Tailscale ── both mutually reachable, anywhere
    ├── Zenbook   analysis          32 GB RAM, DuckDB, the repo
    └── Lenovo    crawler+storage   always on, SSH + Samba, 1 TB SSD (the only big disk)
 ```
 
 ## What this is not
 
-**Not a cluster.** Three computers do not give three times the speed; that needs software to split
+**Not a cluster.** Two computers do not give twice the speed; that needs software to split
 work across machines and a fast interconnect, and at 139 GB the coordination would cost more than
 it saved. One decent machine with DuckDB beats a small cluster at this scale.
 
@@ -106,7 +106,7 @@ it saved. One decent machine with DuckDB beats a small cluster at this scale.
 machines still get 500. The levers are more keys, more patience, or the granted premium bulk
 access - which is a different route entirely, not a faster version of this one.
 
-**Not a backup.** Three machines on one network, in one flat, is one fire. Anything irreplaceable
+**Not a backup.** Two machines on one network, in one flat, is one fire. Anything irreplaceable
 still belongs in the cloud — which is why 184 GB of photographs went to OneDrive before the Lenovo
 was wiped.
 
@@ -117,7 +117,7 @@ Tailscale ~10 min · SSH ~5 min · Syncthing ~15 min · Samba ~30 min. An evenin
 ## Order
 
 1. Ubuntu 26.04 LTS on the Lenovo (supported to April 2031; Windows 10 support ended 14 Oct 2025)
-2. Tailscale on all three
+2. Tailscale on both
 3. SSH — **do this before anything else that needs typing on the Lenovo**
 4. Samba for the crawl folder
 5. Syncthing for the repo and notes
