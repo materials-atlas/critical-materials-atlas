@@ -154,10 +154,47 @@ def check():
             warns.append('%d chunk(s) recorded STUCK - unsplittable, needs a look' % stuck)
         if not st.get('done'):
             warns.append('state records no completed reporter-months')
+        # The comment above has always described the right failure; the test under it never
+        # performed one. `done` has been non-empty since the first day, so that line cannot fail
+        # again, and a run that spends its whole budget storing nothing sails through as healthy.
+        # On 9 Oct 2026 one did: 880 calls, 0 new rows, 0 new files, exit 0, no stuck chunks.
+        # Compare the live totals against the last reading from an EARLIER day instead.
+        prev = _reading_before_today()
+        if prev:
+            d_calls = int(st.get('calls', 0)) - prev[1]
+            d_rows = int(st.get('rows', 0)) - prev[2]
+            if d_calls >= BARREN_CALLS and d_rows <= 0:
+                warns.append('%s calls since %s stored NO new rows - the budget is going on '
+                             'empty responses, not data' % (format(d_calls, ','), prev[0]))
     except Exception as e:
         warns.append('could not read %s: %s' % (os.path.basename(STATE), type(e).__name__))
 
     return warns
+
+
+BARREN_CALLS = 200       # calls spent since the last earlier-day reading that, with no rows to
+                         # show for them, mean the crawl is busy but not collecting
+
+
+def _reading_before_today():
+    """The most recent (date, calls, rows, files) row logged on a day before today.
+
+    Not simply the last row: the watcher writes today's reading itself, and on its second run of
+    the day it would otherwise compare today against today and see no progress at all.
+    """
+    today = datetime.date.today().isoformat()
+    best = None
+    try:
+        with io.open(HISTORY, encoding='utf-8') as fh:
+            for ln in fh:
+                parts = ln.rstrip('\n').split('\t')
+                if len(parts) == 4 and parts[0] != 'date' and parts[0] < today:
+                    r = (parts[0], int(parts[1]), int(parts[2]), int(parts[3]))
+                    if best is None or r[0] > best[0]:
+                        best = r
+    except Exception:
+        return None
+    return best
 
 
 def reading():
