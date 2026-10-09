@@ -62,9 +62,10 @@ STALE_HOURS = 28
 # that estimate read 1.81% done when the true figure against records was 0.04%.
 WORLD_RECORDS = 13.57e9
 
-# Rows actually delivered per call, measured 9 Oct 2026 on the partner axis: 604,274 rows in 14
-# calls. Lower than TARGET because a response that comes back at the cap is split and refetched.
-ROWS_PER_CALL = 43162
+# Rows actually delivered per call. Re-measured 9 Oct 2026 on the FULL 35-column schema:
+# 239,137 rows in 10 calls. The earlier 43,162 counted rows that were being collapsed by the
+# nine-column schema. PROVISIONAL, and only used until two full days give a measured rate.
+ROWS_PER_CALL = 23914
 
 # The toast has to be attributed to a registered AppID or Windows drops it silently.
 APPID = 'Microsoft.WindowsTerminal_8wekyb3d8bbwe!App'
@@ -210,7 +211,11 @@ def reading():
     st = json.load(io.open(STATE, encoding='utf-8'))
     n = 0
     size = 0
-    for d, _, fs in os.walk(OUTDIR):
+    for d, dirs, fs in os.walk(OUTDIR):
+        # Skip the underscore folders: _archive_9col_schema holds what the nine-column schema
+        # collected, kept for reference but not progress, and counting it would report data we
+        # have deliberately set aside as though it were still the crawl's output.
+        dirs[:] = [x for x in dirs if not x.startswith('_')]
         for f in fs:
             if f.endswith('.parquet'):
                 n += 1
