@@ -441,6 +441,15 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             # TRUNCATED. Never save it. Subdivide on the cheapest axis that is still open:
             # months first, then partners (a few characters each), and only then codes - in
             # groups small enough to keep the query string legal, which is the lesson of the 414.
+            #
+            # KNOWN COST, accepted: the split is not persisted, only its children's files are.
+            # A later run rebuilds the job list from scratch, re-requests this parent, gets the
+            # cap again and re-derives the same children - then finds their parquet on disk and
+            # skips them. So each previously-split parent costs one wasted call, and one capped
+            # 100,000-row response, per run that touches its reporter-year. Bounded and small
+            # against ~314,000 calls, and the alternative is persisting the queue: the children
+            # are only derivable by replaying the parent's own partner list, so skipping the
+            # parent without storing those lists would drop the children entirely.
             if len(periods) > 1:
                 for m in periods:
                     queue.insert(0, ([m], pl, cl, m[-2:]))
