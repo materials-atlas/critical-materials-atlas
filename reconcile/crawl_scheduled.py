@@ -66,10 +66,14 @@ def _report():
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--budget', type=int, default=880)
+    # Passed through for a MANUAL re-run of a day whose budget went on refusals. The scheduled
+    # task never passes it: a daily job that re-armed its own allowance would defeat the ledger.
+    ap.add_argument('--reset-ledger', action='store_true')
     a = ap.parse_args()
 
     # Written BEFORE any work: if the process is killed, this line is what proves it started.
-    log('START  budget=%d  pid=%d' % (a.budget, os.getpid()))
+    log('START  budget=%d  pid=%d%s'
+        % (a.budget, os.getpid(), '  (ledger reset)' if a.reset_ledger else ''))
     t0 = time.time()
     try:
         # The full output goes to a per-day file, STREAMED, and only a short tail is copied
@@ -86,9 +90,12 @@ def main():
             rf.write('===== START %s  budget=%d =====\n'
                      % (time.strftime('%Y-%m-%dT%H:%M:%S'), a.budget))
             rf.flush()
+            cmd = [sys.executable, os.path.join(ROOT, 'reconcile', 'pull_comtrade_full.py'),
+                   '--budget', str(a.budget)]
+            if a.reset_ledger:
+                cmd.append('--reset-ledger')
             p = subprocess.Popen(
-                [sys.executable, os.path.join(ROOT, 'reconcile', 'pull_comtrade_full.py'),
-                 '--budget', str(a.budget)],
+                cmd,
                 cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                 text=True, encoding='utf-8', errors='replace', bufsize=1)
             for line in p.stdout:
