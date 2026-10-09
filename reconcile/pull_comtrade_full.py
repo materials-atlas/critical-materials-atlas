@@ -527,6 +527,9 @@ def main():
     ap.add_argument('--plan', action='store_true')
     ap.add_argument('--size', type=int, default=None, help='countOnly sizing for one year only')
     ap.add_argument('--sleep', type=float, default=1.3)
+    ap.add_argument('--reset-ledger', action='store_true',
+                    help="clear today's per-key spend before starting, to re-arm a day whose "
+                         "budget went on refusals rather than data")
     a = ap.parse_args()
 
     years = a.years or list(range(YEAR_MAX, YEAR_MIN - 1, -1))
@@ -560,6 +563,15 @@ def main():
 
     keys = _keys()
     led = _spent_today(st, len(keys))
+    if a.reset_ledger:
+        # A day's budget can go entirely on refusals - 9 Oct 2026 charged 880 calls and stored
+        # nothing - and the ledger cannot tell a throttled request from one that delivered rows.
+        # This re-arms the day, through save_state so the write stays atomic. It spends a real
+        # allowance against a public service, so it is never the default and never automatic.
+        for i in range(len(keys)):
+            led[str(i)] = 0
+        save_state(st)
+        print('ledger cleared for today', flush=True)
     # --budget is the TOTAL for this run; each key may spend at most its own cap minus what it
     # already spent today, so a second run on the same day does not double-spend a key.
     #
