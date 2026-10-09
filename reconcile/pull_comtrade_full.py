@@ -83,6 +83,10 @@ PARTNER_REF = 'https://comtradeapi.un.org/files/v1/app/reference/partnerAreas.js
 MAX_CMD_CHARS = 1800
 CODES_PER_CALL = MAX_CMD_CHARS // 7        # 6 digits and a comma
 
+# Rows actually delivered per call, measured 9 Oct 2026 on the partner axis: 604,274 rows in 14
+# calls. Below TARGET because a response that comes back at the cap is split and refetched.
+ROWS_PER_CALL = 43162
+
 PAGE_CAP = 100000      # hard: a response at this size is truncated, never complete
 TARGET = 70000         # aim per call, leaving room for uneven code density
 YEAR_MAX, YEAR_MIN = 2026, 2000
@@ -623,8 +627,13 @@ def main():
         print()
         print('  measured: one month of world HS6 trade = 41,873,260 records')
         print('            so 27 years ~= 13.6 billion records, ~139 GB as parquet')
-        est = int(13.57e9 / TARGET * 1.05)
-        print('  estimated calls (floor + sizing overhead): ~%s' % format(est, ','))
+        # Not 13.57e9 / TARGET: that assumes every response comes back packed to TARGET, which
+        # none do - a response at the cap is split and refetched, so the realised figure measured
+        # on the partner axis is ROWS_PER_CALL. The TARGET version read 203,550 and was the reason
+        # the watcher once reported 1.81% done when it was 0.04%.
+        est = int(13.57e9 / ROWS_PER_CALL)
+        print('  estimated calls at the measured %s rows/call: ~%s'
+              % (format(ROWS_PER_CALL, ','), format(est, ',')))
         print('  at %d/run that is ~%.0f runs (~%.1f years of daily runs)'
               % (a.budget, est / float(a.budget), est / float(a.budget) / 365))
         print()

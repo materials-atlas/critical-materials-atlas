@@ -55,8 +55,16 @@ TASK = 'CMA-comtrade-universe'
 # and StartWhenAvailable caught it up in the morning, is not a fault.
 STALE_HOURS = 28
 
-# The planner's estimate for the whole universe, from pull_comtrade_full.py --plan.
-TOTAL_CALLS_EST = 203550
+# The size of the job, in RECORDS. Measured: one month of world HS6 trade is 41,873,260 records,
+# and the crawl covers 27 years of months. Records are the honest denominator - a call estimate
+# has to assume how full each response comes back, and TOTAL_CALLS_EST = 203,550 assumed every one
+# would carry a clean TARGET of 70,000. Under the partner axis the realised figure is 43,162, so
+# that estimate read 1.81% done when the true figure against records was 0.04%.
+WORLD_RECORDS = 13.57e9
+
+# Rows actually delivered per call, measured 9 Oct 2026 on the partner axis: 604,274 rows in 14
+# calls. Lower than TARGET because a response that comes back at the cap is split and refetched.
+ROWS_PER_CALL = 43162
 
 # The toast has to be attributed to a registered AppID or Windows drops it silently.
 APPID = 'Microsoft.WindowsTerminal_8wekyb3d8bbwe!App'
@@ -244,10 +252,11 @@ def history(calls, rows, files):
 
 NOMINAL_CALLS_PER_DAY = 880      # the run budget: 380 on key #1 (the rest is the refresh
                                  # reserve) + 500 on key #2
+NOMINAL_ROWS_PER_DAY = NOMINAL_CALLS_PER_DAY * ROWS_PER_CALL
 
 
-def project(hist, calls):
-    """(calls_per_day, days_left, finish_date, basis) - or None while nothing can be said.
+def project(hist, rows):
+    """(rows_per_day, days_left, finish_date, basis) - or None while nothing can be said.
 
     The rate is NOT the difference between the last two readings. Each reading is a snapshot taken
     whenever the watcher happened to run, and a run takes about two hours: comparing yesterday
@@ -261,7 +270,7 @@ def project(hist, calls):
     import datetime as _dt
     today = _dt.date.today().isoformat()
     full = [r for r in hist if r[0] != today]
-    left = max(0, TOTAL_CALLS_EST - calls)
+    left = max(0, WORLD_RECORDS - rows)
 
     if len(full) >= 2:
         try:
@@ -270,15 +279,17 @@ def project(hist, calls):
         except Exception:
             return None
         span = (d1 - d0).days
-        gained = full[-1][1] - full[0][1]
+        gained = full[-1][2] - full[0][2]          # index 2 is rows: the thing being collected
         if span >= 1 and gained > 0:
             rate = gained / float(span)
             days = int(round(left / rate))
-            return rate, days, _dt.date.today() + _dt.timedelta(days=days), 'measured over %d full days' % span
+            return (rate, days, _dt.date.today() + _dt.timedelta(days=days),
+                    'measured over %d full days' % span)
 
-    rate = float(NOMINAL_CALLS_PER_DAY)
+    rate = float(NOMINAL_ROWS_PER_DAY)
     days = int(round(left / rate))
-    return rate, days, _dt.date.today() + _dt.timedelta(days=days), 'planned rate, not yet measured'
+    return (rate, days, _dt.date.today() + _dt.timedelta(days=days),
+            'planned rate, not yet measured')
 
 
 def summary():
@@ -287,18 +298,18 @@ def summary():
         n, size, calls, rows, done = reading()
     except Exception:
         return ['  (could not summarise progress)'], None
-    pct = 100.0 * calls / float(TOTAL_CALLS_EST)
+    pct = 100.0 * rows / WORLD_RECORDS
     lines = ['  %s files, %.2f GB, %s rows, %s reporter-months'
              % (format(n, ','), size / (1024.0 ** 3), format(rows, ','), format(done, ',')),
-             '  %s of ~%s calls spent - %.2f%% of the job'
-             % (format(calls, ','), format(TOTAL_CALLS_EST, ','), pct)]
+             '  %s of ~%s records - %.2f%% of the job   (%s calls spent)'
+             % (format(rows, ','), format(int(WORLD_RECORDS), ','), pct, format(calls, ','))]
     hist = history(calls, rows, n)
-    pr = project(hist, calls)
+    pr = project(hist, rows)
     if pr:
         rate, days, when, basis = pr
-        lines.append('  %s calls/day (%s) -> ~%d days left, finishing about %s'
+        lines.append('  %s rows/day (%s) -> ~%d days left, finishing about %s'
                      % (format(int(rate), ','), basis, days, when.strftime('%d %b %Y')))
-        head = '%.1f%% done, ~%d days left (about %s)' % (pct, days, when.strftime('%d %b %Y'))
+        head = '%.2f%% done, ~%d days left (about %s)' % (pct, days, when.strftime('%d %b %Y'))
     else:
         lines.append('  not enough history to project yet')
         head = '%.2f%% done, %s rows stored so far' % (pct, format(rows, ','))
