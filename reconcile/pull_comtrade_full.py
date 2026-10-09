@@ -187,6 +187,7 @@ class Api(object):
         self.sleep = sleep
         self.calls = 0
         self.by_key = [0] * len(self.keys)
+        self.dry = 0
 
     @property
     def key(self):
@@ -213,6 +214,22 @@ class Api(object):
                 self.i = nxt
 
     def _get(self, params):
+        """_get_once, plus a count of how many requests in a row have come back with no data.
+
+        The streak is kept out here rather than inside _get_once because that method wraps its
+        body in `except Exception`, which would swallow the Throttled it is supposed to raise.
+        """
+        j, status = self._get_once(params)
+        if status == 200:
+            self.dry = 0
+        elif status != -2:                 # -2 is the budget ending, which is not a failure
+            self.dry += 1
+            if self.dry >= DRY_GIVEUP:
+                raise Throttled('%d requests in a row returned no data (last http %s)'
+                                % (self.dry, status))
+        return j, status
+
+    def _get_once(self, params):
         for attempt in range(5):
             try:
                 if not self._advance():
@@ -399,6 +416,19 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
 # filed with a lag of months to years, so a reporter that has not filed 2026 yet will file it later
 # - and this crawl marks empties PERMANENTLY, so without this distinction the newest and most
 # valuable years would be written off during the first week and never looked at again.
+DRY_GIVEUP = 30          # consecutive requests that returned no data before giving up on
+                         # the run. A throttled request is charged to the budget like any other,
+                         # and _get retries a 429 five times, so a service-side throttle costs
+                         # five calls per chunk and delivers nothing. On 9 Oct 2026 that spent the
+                         # entire 880-call day: 0 rows, 0 files, exit 0, and the run still looked
+                         # healthy. Stopping early leaves the budget for a day the service is
+                         # willing to answer.
+
+
+class Throttled(Exception):
+    """The service is refusing in bulk. Stop; do not spend the rest of the day proving it."""
+
+
 EMPTY_PROVISIONAL_YEARS = 2     # the current year and the one before it
 EMPTY_RECHECK_DAYS = 30
 
@@ -575,6 +605,24 @@ def main():
     todo = pending(years, st, api)
     used, t0 = 0, time.time()
     _charged_in_loop = [0]
+    _charged_by_key = [0] * len(keys)
+
+    def _charge_keys():
+        """Write each key's spend to the ledger NOW, not when the run ends.
+
+        Only the run total reached the ledger, in the finally block below, so a run that never
+        got there - the task's time limit, a reboot, a kill - left the ledger reading zero for
+        the rest of the day while the UN had already charged every call made. The next run then
+        saw a full allowance on a drained key and spent it collecting 429s, which is the very
+        thing _spent_today and REFRESH_RESERVE exist to prevent. Idempotent: it charges only the
+        delta since the last call, so the finally block can run it again safely.
+        """
+        for i, n in enumerate(api.by_key):
+            d = n - _charged_by_key[i]
+            if d:
+                led[str(i)] = int(led.get(str(i), 0)) + d
+                _charged_by_key[i] = n
+
     try:
         for (y, code, iso3, flow) in todo:
             if api.calls >= a.budget or api.exhausted():
@@ -584,11 +632,15 @@ def main():
             used += crawl_reporter_year(api, st, y, code, iso3, flow, codes,
                                         max(0, a.budget - api.calls))
             _charged_in_loop[0] += st.get('calls', 0) - before
+            _charge_keys()
             save_state(st)
+    except Throttled as e:
+        print('STOPPING: %s' % e, flush=True)
+        print('the service is throttling; the remaining budget is kept for the next run',
+              flush=True)
     finally:
         st['calls'] = int(st.get('calls', 0)) + max(0, api.calls - _charged_in_loop[0])
-        for i, n in enumerate(api.by_key):
-            led[str(i)] = int(led.get(str(i), 0)) + n
+        _charge_keys()
         save_state(st)
 
     left = len(pending(years, st, api))

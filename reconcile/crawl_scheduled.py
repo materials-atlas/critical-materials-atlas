@@ -23,6 +23,7 @@ run stop early and look like a failure.
     python reconcile/crawl_scheduled.py --budget 50
 """
 import argparse
+import collections
 import io
 import os
 import subprocess
@@ -31,6 +32,7 @@ import time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOG = os.path.join(ROOT, 'raw', 'comtrade_full', '_crawl.log')
+RUNDIR = os.path.join(ROOT, 'raw', 'comtrade_full', 'runs')
 
 
 def log(msg):
@@ -70,16 +72,45 @@ def main():
     log('START  budget=%d  pid=%d' % (a.budget, os.getpid()))
     t0 = time.time()
     try:
-        p = subprocess.run(
-            [sys.executable, os.path.join(ROOT, 'reconcile', 'pull_comtrade_full.py'),
-             '--budget', str(a.budget)],
-            cwd=ROOT, capture_output=True, text=True, encoding='utf-8', errors='replace')
-        tail = (p.stdout or '').strip().splitlines()
-        for line in tail[-6:]:
+        # The full output goes to a per-day file, STREAMED, and only a short tail is copied
+        # into the summary log. It used to be capture_output plus tail[-6:], which threw the run
+        # away: on 9 Oct 2026 the crawl printed a sizing failure for every reporter it tried and
+        # the log kept two lines, both stamped with the end time, so a day of 429s was
+        # indistinguishable from a quiet success. Streaming also means the file can be read while
+        # the run is still going, which capture_output made impossible.
+        os.makedirs(RUNDIR, exist_ok=True)
+        runlog = os.path.join(RUNDIR, time.strftime('%Y-%m-%d') + '.log')
+        tail = collections.deque(maxlen=6)
+        counts = collections.Counter()
+        with io.open(runlog, 'a', encoding='utf-8') as rf:
+            rf.write('===== START %s  budget=%d =====\n'
+                     % (time.strftime('%Y-%m-%dT%H:%M:%S'), a.budget))
+            rf.flush()
+            p = subprocess.Popen(
+                [sys.executable, os.path.join(ROOT, 'reconcile', 'pull_comtrade_full.py'),
+                 '--budget', str(a.budget)],
+                cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                text=True, encoding='utf-8', errors='replace', bufsize=1)
+            for line in p.stdout:
+                line = line.rstrip('\n')
+                rf.write('%s  %s\n' % (time.strftime('%H:%M:%S'), line))
+                rf.flush()
+                if line.strip():
+                    tail.append(line.strip())
+                    if 'FAILED http' in line:
+                        counts['failed'] += 1
+                    elif 'rows' in line and 'codes' in line:
+                        counts['stored'] += 1
+                    elif 'nothing filed' in line:
+                        counts['empty'] += 1
+            p.wait()
+            rf.write('===== END exit=%d =====\n' % p.returncode)
+        for line in tail:
             log('   %s' % line)
-        if p.returncode != 0:
-            log('   stderr: %s' % (p.stderr or '')[-400:].replace('\n', ' | '))
-        log('END    exit=%d  %.1f min' % (p.returncode, (time.time() - t0) / 60))
+        if counts:
+            log('   lines: %s' % ', '.join('%s=%d' % kv for kv in sorted(counts.items())))
+        log('END    exit=%d  %.1f min   full log: runs/%s'
+            % (p.returncode, (time.time() - t0) / 60, os.path.basename(runlog)))
         _report()
         return p.returncode
     except Exception as e:
