@@ -63,6 +63,7 @@ import math
 import os
 import sys
 import time
+import urllib.parse
 import urllib.request
 
 import pandas as pd
@@ -78,10 +79,18 @@ AVAIL = 'https://comtradeapi.un.org/public/v1/getDa/C/M/HS'
 UA = 'Mozilla/5.0'     # the reference files are served to a browser agent
 PARTNER_REF = 'https://comtradeapi.un.org/files/v1/app/reference/partnerAreas.json'
 
-# A cmdCode list of 18,843 characters was refused outright with HTTP 414 on 9 Oct 2026. Codes are
-# now only ever a LAST-resort axis, and never in groups big enough to put the query string at risk.
-MAX_CMD_CHARS = 1800
-CODES_PER_CALL = MAX_CMD_CHARS // 7        # 6 digits and a comma
+# MEASURED 9 Oct 2026, not guessed: a 1,923-character request URL was served and a 2,436-character
+# one returned 414, so the gateway's ceiling is the usual 2,048 bytes. The limit applies to the
+# WHOLE query string, which matters because a partner list alone can be 1,200 characters - the
+# first attempt at this capped cmdCode at 1,800 and still got a 414, because the rest of the query
+# pushed it over. 1,800 for everything leaves room for the longest base parameters.
+MAX_URL_CHARS = 1800
+
+# The axes an over-large request can be cut along, in the order they are tried: partner first
+# because it is the broadest, commodity code last because its values are six characters each and
+# it is the only axis that can push a URL back into a 414.
+SPLIT_ORDER = ('partnerCode', 'customsCode', 'motCode', 'cmdCode')
+AXIS_TAG = {'partnerCode': 'p', 'customsCode': 'u', 'motCode': 'm', 'cmdCode': 'k'}
 
 # Rows actually delivered per call, measured 9 Oct 2026 on the partner axis: 604,274 rows in 14
 # calls. Below TARGET because a response that comes back at the cap is split and refetched.
@@ -175,6 +184,71 @@ def partner_areas(st):
     return list(got)
 
 
+def _reference_codes(st, key, filename, label):
+    """A Comtrade reference list, cached in state. Keyless, and charged to no quota."""
+    cached = st.setdefault('refs', {}).get(key)
+    if cached:
+        return list(cached)
+    url = 'https://comtradeapi.un.org/files/v1/app/reference/%s.json' % filename
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': UA})
+        j = json.load(urllib.request.urlopen(req, timeout=120))
+        rows = j.get('results') if isinstance(j, dict) else j
+        got = sorted({str(r['id']) for r in rows if str(r.get('id', '')).strip() != ''})
+    except Exception as e:
+        raise SystemExit('cannot read the %s reference list (%s: %s) - splitting on that axis '
+                         'without it could omit values, so the run stops here'
+                         % (label, type(e).__name__, e))
+    st['refs'][key] = got
+    save_state(st)
+    print('   %s: %d codes (reference file, no key, no quota)' % (label, len(got)), flush=True)
+    return list(got)
+
+
+def axis_values(st, axis, codes):
+    """Every value of one split axis, so a partition over it cannot silently omit anything."""
+    if axis == 'partnerCode':
+        return partner_areas(st)
+    if axis == 'customsCode':
+        return _reference_codes(st, 'customs', 'CustomsCodes', 'customs procedures')
+    if axis == 'motCode':
+        return _reference_codes(st, 'mot', 'ModeOfTransportCodes', 'modes of transport')
+    if axis == 'cmdCode':
+        return list(codes)
+    raise KeyError(axis)
+
+
+def job_params(code, flow, periods, filt):
+    """The query for one job. An axis missing from `filt` is left unrestricted."""
+    p = {'period': ','.join(periods), 'reporterCode': code, 'flowCode': flow}
+    p['cmdCode'] = ','.join(filt['cmdCode']) if filt.get('cmdCode') else 'AG6'
+    for axis in ('partnerCode', 'customsCode', 'motCode'):
+        v = filt.get(axis)
+        p[axis] = ','.join(str(x) for x in v) if v else ''
+    return p
+
+
+def query_chars(code, flow, periods, filt):
+    """How long the request URL will be, so an over-long one is cut before a call is spent."""
+    return len(BASE) + 1 + len(urllib.parse.urlencode(job_params(code, flow, periods, filt)))
+
+
+def split_job(st, codes, periods, filt, tag):
+    """Cut one job along the first axis that can still be cut. [] means nothing is left to cut."""
+    if len(periods) > 1:
+        return [([m], dict(filt), m[-2:]) for m in periods]
+    for axis in SPLIT_ORDER:
+        cur = filt.get(axis)
+        vals = list(cur) if cur else None
+        if vals is None:
+            vals = axis_values(st, axis, codes)
+        if len(vals) > 1:
+            return [(periods, dict(filt, **{axis: list(h)}),
+                     '%s-%s%d' % (tag, AXIS_TAG[axis], i))
+                    for i, h in enumerate(chunks(vals, 2))]
+    return []
+
+
 def all_codes():
     """The HS6 universe, from the BACI product table (the one door - ARCHITECTURE.md phase 2)."""
     import baci
@@ -208,16 +282,39 @@ def part_path(year, iso3, flow, tag):
     return os.path.join(OUTDIR, str(year), '%s_%s_%s.parquet' % (iso3, flow, tag))
 
 
-COLS = ['period', 'reporter', 'partner', 'cmd', 'flow', 'value', 'netwgt', 'qty', 'qtyunit']
+# Every field the API returns that carries data. The ISO and description columns are left out:
+# they come back null unless separately requested, and they are lookups we already hold locally.
+COLS = ['typeCode', 'freqCode', 'refPeriodId', 'refYear', 'refMonth', 'period',
+        'reporterCode', 'flowCode', 'partnerCode', 'partner2Code',
+        'classificationCode', 'classificationSearchCode', 'isOriginalClassification',
+        'cmdCode', 'aggrLevel', 'isLeaf',
+        'customsCode', 'mosCode', 'motCode',
+        'qtyUnitCode', 'qty', 'isQtyEstimated',
+        'altQtyUnitCode', 'altQty', 'isAltQtyEstimated',
+        'netWgt', 'isNetWgtEstimated', 'grossWgt', 'isGrossWgtEstimated',
+        'cifvalue', 'fobvalue', 'primaryValue',
+        'legacyEstimationFlag', 'isReported', 'isAggregate']
 
 
 def to_frame(rows):
-    return pd.DataFrame([{
-        'period': r.get('period'), 'reporter': r.get('reporterCode'),
-        'partner': r.get('partnerCode'), 'cmd': str(r.get('cmdCode')),
-        'flow': r.get('flowCode'), 'value': r.get('primaryValue'),
-        'netwgt': r.get('netWgt'), 'qty': r.get('qty'), 'qtyunit': r.get('qtyUnitCode'),
-    } for r in rows], columns=COLS)
+    """All 35 data-carrying fields, in a fixed column order.
+
+    The nine-column schema this replaces dropped customsCode, motCode and partner2Code, so rows
+    differing only in those - a free-zone entry against a home-use one, air against road, China
+    via the UK against China via the USA - were written to parquet as byte-identical rows.
+    Measured on one stored file: 544 rows, 62 distinct on the five keys that survived. The detail
+    was not merely lost; the file became unsummable, because adding those rows multiplies the
+    trade by the number of collapsed combinations - up to 26x for Germany.
+
+    `isAggregate`, kept here, is what separates a total from its components; so do partnerCode 0
+    (World), customsCode C00 and motCode 0, which are all TOTAL rows sitting beside their parts.
+    Nothing downstream may sum across a dimension without first picking one level of it.
+    """
+    df = pd.DataFrame(rows)
+    for c in COLS:
+        if c not in df.columns:
+            df[c] = None
+    return df[COLS]
 
 
 class Api(object):
@@ -290,7 +387,17 @@ class Api(object):
                     print('      http %d, waiting %ds' % (r.status_code, wait), flush=True)
                     time.sleep(wait)
                     continue
-                return None, r.status_code       # 401/403: never retry, never log the key
+                if r.status_code in (401, 403):
+                    # Retire this key for the run and carry on with the rotation. Raising instead
+                    # is what ended the 9 Oct afternoon run at 13:05 - key #1 was refused and the
+                    # whole crawl stopped while key #2 was still answering 200.
+                    print('      key #%d refused (http %d) - retiring it for this run'
+                          % (self.i + 1, r.status_code), flush=True)
+                    self.per_key[self.i] = self.by_key[self.i]
+                    if not self.exhausted():
+                        self._advance()
+                        continue
+                return None, r.status_code       # never log the key itself
             except Exception as e:
                 print('      %s, retrying' % type(e).__name__, flush=True)
                 time.sleep(6 * (attempt + 1))
@@ -329,6 +436,13 @@ class Api(object):
         n = j.get('count')
         return (int(n) if n is not None else None), st
 
+    def data_params(self, params):
+        """A data request from a ready-made parameter dict, so the caller owns the filters."""
+        j, status = self._get(params)
+        if j is None:
+            return None, status
+        return (j.get('data') or []), 200
+
     def data(self, periods, code, flow, cmd='AG6', partner=''):
         j, st = self._get({'period': ','.join(periods), 'reporterCode': code, 'cmdCode': cmd,
                            'flowCode': flow, 'partnerCode': partner})
@@ -354,6 +468,10 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
     """Fetch one (reporter, year, flow) completely, or stop cleanly when the budget runs out.
 
     Returns calls used. Nothing is written unless it came back below the cap.
+
+    A job is (periods, filt, tag), where filt maps a split axis to the values it is restricted to
+    and an absent axis means no restriction. Anything too big - or too long to send - is cut by
+    split_job along partner, then customs procedure, then mode of transport, then commodity code.
     """
     used = 0
     rk = '%d|%s|%s' % (year, iso3, flow)
@@ -365,8 +483,7 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
         return 0
 
     # --- size it once, and remember, so the next year starts from a real number -------------
-    sk = rk
-    n = st['size'].get(sk)
+    n = st['size'].get(rk)
     if n is None:
         if used >= budget_left:
             return used
@@ -375,48 +492,39 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
         st['calls'] += 1
         if n is None:
             print('   %d %s %s  sizing FAILED http %s' % (year, iso3, flow, status), flush=True)
-            if status in (401, 403):
-                raise SystemExit('the key was rejected - stopping')
+            if api.exhausted():
+                raise SystemExit('every key has been refused or spent - stopping')
             return used
-        st['size'][sk] = n
+        st['size'][rk] = n
     if n == 0:
         mark_empty(st, rk, year)
         print('   %d %s %s  nothing filed' % (year, iso3, flow), flush=True)
         return used
 
-    # --- choose the shape: the split axis is PARTNER, not commodity code -------------------
-    #
-    # It was code until 9 Oct 2026: a chunk went out as cmdCode=<comma-separated HS6 list>, and
-    # with 5,384 codes in the universe even a two-way split is 2,692 codes = 18,843 characters of
-    # query string, against a gateway ceiling of a few thousand. Every chunked request could only
-    # ever return HTTP 414, so no reporter filing more than TARGET records a month was reachable -
-    # and the measured average reporter files 178,184. The crawl could complete only the small
-    # reporters, which is all the first 3,666 calls bought.
-    #
-    # A partner code is three or four characters: all 310 partner areas together are 1,203, so the
-    # URL is no longer the binding constraint. A job carries (periods, partners, codes, tag), where
-    # None means "no restriction on this axis".
-    partners = partner_areas(st)
+    # --- the opening shape: whole year, or per month, or per month x partner group ----------
     if n <= TARGET:
-        jobs = [(months, None, None, 'y')]                  # whole year, every partner, all codes
+        jobs = [(months, {}, 'y')]
     else:
         per_month = n / 12.0
         if per_month <= TARGET:
-            jobs = [([m], None, None, m[-2:]) for m in months]
+            jobs = [([m], {}, m[-2:]) for m in months]
         else:
             nchunk = int(math.ceil(per_month / float(TARGET)))
-            jobs = []
-            for m in months:
-                for ci, pg in enumerate(chunks(partners, nchunk)):
-                    jobs.append(([m], pg, None, '%s-p%02d' % (m[-2:], ci)))
+            partners = partner_areas(st)
+            jobs = [([m], {'partnerCode': list(pg)}, '%s-p%02d' % (m[-2:], ci))
+                    for m in months for ci, pg in enumerate(chunks(partners, nchunk))]
 
-    # --- run them, subdividing anything that comes back at the cap --------------------------
     queue = list(jobs)
     wrote_any = False
+
+    def push(children):
+        for kid in reversed(children):
+            queue.insert(0, kid)
+
     while queue:
         if used >= budget_left:
             return used                                     # resume here next run
-        periods, pl, cl, tag = queue.pop(0)
+        periods, filt, tag = queue.pop(0)
         ck = '%s|%s' % (rk, tag)
         if st['done'].get(ck) or is_empty(st, ck, year):
             continue
@@ -426,59 +534,41 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             wrote_any = True
             continue
 
-        cmd = 'AG6' if not cl else ','.join(cl)
-        partner = '' if not pl else ','.join(str(x) for x in pl)
-        rows, status = api.data(periods, code, flow, cmd=cmd, partner=partner)
+        # Too long to send? Cut it now. This costs no call, and it is the check whose absence
+        # made every chunked request a certain 414.
+        if query_chars(code, flow, periods, filt) > MAX_URL_CHARS:
+            kids = split_job(st, codes, periods, filt, tag)
+            if not kids:
+                st['stuck'][ck] = 'url too long with nothing left to split'
+                print('   %d %s %s %-22s STUCK: url too long, no axis left'
+                      % (year, iso3, flow, tag), flush=True)
+                continue
+            push(kids)
+            continue
+
+        rows, status = api.data_params(job_params(code, flow, periods, filt))
         used += 1
         st['calls'] += 1
         if rows is None:
-            print('   %d %s %s %-10s FAILED http %s' % (year, iso3, flow, tag, status), flush=True)
-            if status in (401, 403):
-                raise SystemExit('the key was rejected - stopping')
+            print('   %d %s %s %-22s FAILED http %s' % (year, iso3, flow, tag, status), flush=True)
+            if api.exhausted():
+                raise SystemExit('every key has been refused or spent - stopping')
             continue
 
         if len(rows) >= PAGE_CAP:
-            # TRUNCATED. Never save it. Subdivide on the cheapest axis that is still open:
-            # months first, then partners (a few characters each), and only then codes - in
-            # groups small enough to keep the query string legal, which is the lesson of the 414.
-            #
-            # KNOWN COST, accepted: the split is not persisted, only its children's files are.
-            # A later run rebuilds the job list from scratch, re-requests this parent, gets the
-            # cap again and re-derives the same children - then finds their parquet on disk and
-            # skips them. So each previously-split parent costs one wasted call, and one capped
-            # 100,000-row response, per run that touches its reporter-year. Bounded and small
-            # against ~314,000 calls, and the alternative is persisting the queue: the children
-            # are only derivable by replaying the parent's own partner list, so skipping the
-            # parent without storing those lists would drop the children entirely.
-            if len(periods) > 1:
-                for m in periods:
-                    queue.insert(0, ([m], pl, cl, m[-2:]))
-                print('   %d %s %s %-10s capped, splitting the year into %d months'
-                      % (year, iso3, flow, tag, len(periods)), flush=True)
-            elif pl is None or len(pl) > 1:
-                halves = chunks(pl if pl else partner_areas(st), 2)
-                for hi, h in enumerate(halves):
-                    queue.insert(0, (periods, h, cl, '%s-p%d' % (tag, hi)))
-                print('   %d %s %s %-10s capped, splitting partners -> %s'
-                      % (year, iso3, flow, tag,
-                         ' + '.join(str(len(h)) for h in halves)), flush=True)
-            elif cl is None:
-                groups = chunks(codes, int(math.ceil(len(codes) / float(CODES_PER_CALL))))
-                for gi, g in enumerate(groups):
-                    queue.insert(0, (periods, pl, g, '%s-c%02d' % (tag, gi)))
-                print('   %d %s %s %-10s capped on one partner, splitting codes into %d groups '
-                      'of <=%d' % (year, iso3, flow, tag, len(groups), CODES_PER_CALL), flush=True)
-            elif len(cl) > 1:
-                halves = chunks(cl, 2)
-                for hi, h in enumerate(halves):
-                    queue.insert(0, (periods, pl, h, '%s-s%d' % (tag, hi)))
-                print('   %d %s %s %-10s capped, splitting %d codes -> %s'
-                      % (year, iso3, flow, tag, len(cl),
-                         ' + '.join(str(len(h)) for h in halves)), flush=True)
-            else:
+            # TRUNCATED. Never save it: subdivide and come back to the parts.
+            kids = split_job(st, codes, periods, filt, tag)
+            if not kids:
                 st['stuck'][ck] = len(rows)
-                print('   %d %s %s %-10s CAPPED on one partner and one code - recorded as stuck'
+                print('   %d %s %s %-22s CAPPED with no axis left to split - stuck'
                       % (year, iso3, flow, tag), flush=True)
+                continue
+            axis = [a for a in SPLIT_ORDER
+                    if kids[0][1].get(a) != filt.get(a)] or ['period']
+            print('   %d %s %s %-22s capped, splitting %s -> %s'
+                  % (year, iso3, flow, tag, axis[0],
+                     ' + '.join(str(len(k[1].get(axis[0]) or k[0])) for k in kids)), flush=True)
+            push(kids)
             continue
 
         if not rows:
@@ -491,8 +581,8 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
         st['done'][ck] = len(df)
         st['rows'] += len(df)
         wrote_any = True
-        print('   %d %s %s %-10s %7d rows  %4d codes' % (year, iso3, flow, tag, len(df),
-                                                         df.cmd.nunique()), flush=True)
+        print('   %d %s %s %-22s %7d rows  %4d codes' % (year, iso3, flow, tag, len(df),
+                                                         df.cmdCode.nunique()), flush=True)
 
     st['done' if wrote_any else 'empty'][rk] = 'complete' if wrote_any else True
     return used
