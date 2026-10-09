@@ -92,9 +92,12 @@ MAX_URL_CHARS = 1800
 SPLIT_ORDER = ('partnerCode', 'customsCode', 'motCode', 'cmdCode')
 AXIS_TAG = {'partnerCode': 'p', 'customsCode': 'u', 'motCode': 'm', 'cmdCode': 'k'}
 
-# Rows actually delivered per call, measured 9 Oct 2026 on the partner axis: 604,274 rows in 14
-# calls. Below TARGET because a response that comes back at the cap is split and refetched.
-ROWS_PER_CALL = 43162
+# Rows actually delivered per call. Re-measured 9 Oct 2026 on the FULL 35-column schema:
+# 239,137 rows in 10 calls. The earlier 43,162 was taken while customsCode, motCode and
+# partner2Code were being dropped, so it counted collapsed rows as delivered. PROVISIONAL - it
+# comes from ten calls on small reporters, and crawl_watch replaces it with the real rate once
+# two full days have run.
+ROWS_PER_CALL = 23914
 
 PAGE_CAP = 100000      # hard: a response at this size is truncated, never complete
 TARGET = 70000         # aim per call, leaving room for uneven code density
