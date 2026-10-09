@@ -63,6 +63,7 @@ import math
 import os
 import sys
 import time
+import urllib.request
 
 import pandas as pd
 
@@ -73,6 +74,14 @@ OUTDIR = os.environ.get('CMA_CRAWL_DIR', os.path.join(ROOT, 'raw', 'comtrade_ful
 STATE = os.path.join(OUTDIR, '_state.json')
 BASE = 'https://comtradeapi.un.org/data/v1/get/C/M/HS'
 AVAIL = 'https://comtradeapi.un.org/public/v1/getDa/C/M/HS'
+
+UA = 'Mozilla/5.0'     # the reference files are served to a browser agent
+PARTNER_REF = 'https://comtradeapi.un.org/files/v1/app/reference/partnerAreas.json'
+
+# A cmdCode list of 18,843 characters was refused outright with HTTP 414 on 9 Oct 2026. Codes are
+# now only ever a LAST-resort axis, and never in groups big enough to put the query string at risk.
+MAX_CMD_CHARS = 1800
+CODES_PER_CALL = MAX_CMD_CHARS // 7        # 6 digits and a comma
 
 PAGE_CAP = 100000      # hard: a response at this size is truncated, never complete
 TARGET = 70000         # aim per call, leaving room for uneven code density
@@ -128,6 +137,38 @@ def reporters():
     cc = pd.read_csv(baci.country_file(), keep_default_na=False, na_values=[''])
     return [(int(r.country_code), r.country_iso3) for r in cc.itertuples()
             if str(r.country_iso3).isalpha() and len(str(r.country_iso3)) == 3]
+
+
+def partner_areas(st):
+    """Every partner area Comtrade recognises, cached in state after one keyless fetch.
+
+    Proven exhaustive 9 Oct 2026, by countOnly on one reporter-month: partnerCode='' returned
+    195,412 and the explicit list of all 310 codes returned the identical 195,412, so a partition
+    over this list loses nothing.
+
+    World (0) MUST stay in the list. The same call without it returned 128,682, because
+    partnerCode='' includes the World aggregate alongside the bilateral rows - which also means
+    the stored files carry both, and nothing downstream may sum over partner without excluding 0.
+    """
+    cached = st.get('partners')
+    if cached:
+        return list(cached)
+    try:
+        req = urllib.request.Request(PARTNER_REF, headers={'User-Agent': UA})
+        rows = json.load(urllib.request.urlopen(req, timeout=120))['results']
+        got = sorted({int(r['PartnerCode']) for r in rows
+                      if str(r.get('PartnerCode', '')).strip() != ''})
+    except Exception as e:
+        raise SystemExit('cannot read the partner reference list (%s: %s) - without it a split '
+                         'by partner could silently omit partners, so the run stops here'
+                         % (type(e).__name__, e))
+    if 0 not in got:
+        raise SystemExit('the partner reference list came back without World (0); refusing to '
+                         'split on an incomplete partition')
+    st['partners'] = got
+    save_state(st)
+    print('   partner areas: %d (reference file, no key, no quota)' % len(got), flush=True)
+    return list(got)
 
 
 def all_codes():
@@ -339,19 +380,31 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
         print('   %d %s %s  nothing filed' % (year, iso3, flow), flush=True)
         return used
 
-    # --- choose the shape: whole year in one call, or month by month, or months x code chunks
+    # --- choose the shape: the split axis is PARTNER, not commodity code -------------------
+    #
+    # It was code until 9 Oct 2026: a chunk went out as cmdCode=<comma-separated HS6 list>, and
+    # with 5,384 codes in the universe even a two-way split is 2,692 codes = 18,843 characters of
+    # query string, against a gateway ceiling of a few thousand. Every chunked request could only
+    # ever return HTTP 414, so no reporter filing more than TARGET records a month was reachable -
+    # and the measured average reporter files 178,184. The crawl could complete only the small
+    # reporters, which is all the first 3,666 calls bought.
+    #
+    # A partner code is three or four characters: all 310 partner areas together are 1,203, so the
+    # URL is no longer the binding constraint. A job carries (periods, partners, codes, tag), where
+    # None means "no restriction on this axis".
+    partners = partner_areas(st)
     if n <= TARGET:
-        jobs = [(months, codes, 'y')]                       # whole year, all codes
+        jobs = [(months, None, None, 'y')]                  # whole year, every partner, all codes
     else:
         per_month = n / 12.0
         if per_month <= TARGET:
-            jobs = [([m], codes, m[-2:]) for m in months]   # one call per month
+            jobs = [([m], None, None, m[-2:]) for m in months]
         else:
             nchunk = int(math.ceil(per_month / float(TARGET)))
             jobs = []
             for m in months:
-                for ci, cc in enumerate(chunks(codes, nchunk)):
-                    jobs.append(([m], cc, '%s-c%02d' % (m[-2:], ci)))
+                for ci, pg in enumerate(chunks(partners, nchunk)):
+                    jobs.append(([m], pg, None, '%s-p%02d' % (m[-2:], ci)))
 
     # --- run them, subdividing anything that comes back at the cap --------------------------
     queue = list(jobs)
@@ -359,7 +412,7 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
     while queue:
         if used >= budget_left:
             return used                                     # resume here next run
-        periods, cl, tag = queue.pop(0)
+        periods, pl, cl, tag = queue.pop(0)
         ck = '%s|%s' % (rk, tag)
         if st['done'].get(ck) or is_empty(st, ck, year):
             continue
@@ -369,8 +422,9 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             wrote_any = True
             continue
 
-        cmd = 'AG6' if len(cl) >= len(codes) else ','.join(cl)
-        rows, status = api.data(periods, code, flow, cmd=cmd)
+        cmd = 'AG6' if not cl else ','.join(cl)
+        partner = '' if not pl else ','.join(str(x) for x in pl)
+        rows, status = api.data(periods, code, flow, cmd=cmd, partner=partner)
         used += 1
         st['calls'] += 1
         if rows is None:
@@ -380,19 +434,38 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
             continue
 
         if len(rows) >= PAGE_CAP:
-            # TRUNCATED. Never save it. Subdivide and retry.
-            if len(cl) <= 1:
-                # one code, one month, still capped: fall back to splitting by partner
+            # TRUNCATED. Never save it. Subdivide on the cheapest axis that is still open:
+            # months first, then partners (a few characters each), and only then codes - in
+            # groups small enough to keep the query string legal, which is the lesson of the 414.
+            if len(periods) > 1:
+                for m in periods:
+                    queue.insert(0, ([m], pl, cl, m[-2:]))
+                print('   %d %s %s %-10s capped, splitting the year into %d months'
+                      % (year, iso3, flow, tag, len(periods)), flush=True)
+            elif pl is None or len(pl) > 1:
+                halves = chunks(pl if pl else partner_areas(st), 2)
+                for hi, h in enumerate(halves):
+                    queue.insert(0, (periods, h, cl, '%s-p%d' % (tag, hi)))
+                print('   %d %s %s %-10s capped, splitting partners -> %s'
+                      % (year, iso3, flow, tag,
+                         ' + '.join(str(len(h)) for h in halves)), flush=True)
+            elif cl is None:
+                groups = chunks(codes, int(math.ceil(len(codes) / float(CODES_PER_CALL))))
+                for gi, g in enumerate(groups):
+                    queue.insert(0, (periods, pl, g, '%s-c%02d' % (tag, gi)))
+                print('   %d %s %s %-10s capped on one partner, splitting codes into %d groups '
+                      'of <=%d' % (year, iso3, flow, tag, len(groups), CODES_PER_CALL), flush=True)
+            elif len(cl) > 1:
+                halves = chunks(cl, 2)
+                for hi, h in enumerate(halves):
+                    queue.insert(0, (periods, pl, h, '%s-s%d' % (tag, hi)))
+                print('   %d %s %s %-10s capped, splitting %d codes -> %s'
+                      % (year, iso3, flow, tag, len(cl),
+                         ' + '.join(str(len(h)) for h in halves)), flush=True)
+            else:
                 st['stuck'][ck] = len(rows)
-                print('   %d %s %s %-10s CAPPED on a single code - recorded as stuck'
+                print('   %d %s %s %-10s CAPPED on one partner and one code - recorded as stuck'
                       % (year, iso3, flow, tag), flush=True)
-                continue
-            halves = chunks(cl, 2)
-            for hi, h in enumerate(halves):
-                queue.insert(0, (periods, h, '%s-s%d' % (tag, hi)))
-            print('   %d %s %s %-10s capped, splitting %d codes -> %s'
-                  % (year, iso3, flow, tag, len(cl), ' + '.join(str(len(h)) for h in halves)),
-                  flush=True)
             continue
 
         if not rows:
