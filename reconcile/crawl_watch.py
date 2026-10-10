@@ -206,6 +206,24 @@ def _reading_before_today():
     return best
 
 
+def work_units(st):
+    """(settled, total) reporter-year-flows - the unit the crawl actually works through.
+
+    Progress in records runs against 13.57e9, which is one measured month of world trade
+    extrapolated over 27 years of months. Trade and reporting detail both grew over that period,
+    so older years hold fewer records than the measured one and that denominator almost certainly
+    overstates the job - which makes the records percentage the conservative one. This counts the
+    thing the crawl ticks off instead: a reporter, a year and a flow, either fetched or
+    established as never filed. The total comes from the cached filer lists, so it excludes
+    reporter-years nobody ever filed.
+    """
+    total = sum(len(f) * 2 for f in (st.get('filers') or {}).values())
+    settled = (sum(1 for k, v in (st.get('done') or {}).items()
+                   if k.count('|') == 2 and v == 'complete')
+               + sum(1 for k in (st.get('empty') or {}) if k.count('|') == 2))
+    return settled, total
+
+
 def reading():
     """Today's numbers: (files, bytes, calls, rows, done)."""
     st = json.load(io.open(STATE, encoding='utf-8'))
@@ -315,6 +333,16 @@ def summary():
              % (format(n, ','), size / (1024.0 ** 3), format(rows, ','), format(done, ',')),
              '  %s of ~%s records - %.2f%% of the job   (%s calls spent)'
              % (format(rows, ','), format(int(WORLD_RECORDS), ','), pct, format(calls, ','))]
+    try:
+        st_now = json.load(io.open(STATE, encoding='utf-8'))
+        settled, total_u = work_units(st_now)
+        if total_u:
+            lines.append('  %s of %s reporter-year-flows settled - %.2f%% of the work units'
+                         % (format(settled, ','), format(total_u, ','),
+                            100.0 * settled / total_u))
+    except Exception:
+        pass
+
     if gained is not None:
         # The sign is written out: '%+s' silently drops the flag, because + is only honoured for
         # numeric conversions, and a bare number here reads as a total rather than a gain.
