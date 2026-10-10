@@ -707,8 +707,9 @@ def main():
     ap.add_argument('--size', type=int, default=None, help='countOnly sizing for one year only')
     ap.add_argument('--sleep', type=float, default=1.3)
     ap.add_argument('--reset-ledger', action='store_true',
-                    help="clear today's per-key spend before starting, to re-arm a day whose "
-                         "budget went on refusals rather than data")
+                    help="clear today's per-key spend before starting. DANGEROUS: the UN charges "
+                         "refused requests too, so a reset overspends the real allowance and "
+                         "earns 403s. Measured 9 Oct 2026 - see the note at the use site")
     a = ap.parse_args()
 
     years = a.years or list(range(YEAR_MAX, YEAR_MIN - 1, -1))
@@ -748,14 +749,23 @@ def main():
     keys = _keys()
     led = _spent_today(st, len(keys))
     if a.reset_ledger:
-        # A day's budget can go entirely on refusals - 9 Oct 2026 charged 880 calls and stored
-        # nothing - and the ledger cannot tell a throttled request from one that delivered rows.
-        # This re-arms the day, through save_state so the write stays atomic. It spends a real
-        # allowance against a public service, so it is never the default and never automatic.
+        # DANGEROUS, and the premise it was written on turned out to be false.
+        #
+        # It was added on 9 Oct 2026 believing that a day spent on 414s and 429s had not really
+        # cost the allowance, because both keys answered 200 to a probe afterwards. That probe
+        # proved only that some allowance remained, not how much. The ledger was cleared, the
+        # crawl ran on, and a few hundred calls later BOTH keys returned 403 - the UN had been
+        # counting every refused request all along. So a reset does not recover a wasted day; it
+        # overspends a real allowance against a public service and buys 403s for the rest of it.
+        #
+        # The case it was meant for - a run killed before its spend was persisted - no longer
+        # exists either: the ledger is now written as the run goes. Keep this for a genuine
+        # emergency, never as routine, and never from the scheduled task.
         for i in range(len(keys)):
             led[str(i)] = 0
         save_state(st)
-        print('ledger cleared for today', flush=True)
+        print('WARNING: ledger cleared. The UN charges refused requests too, so this may '
+              'overspend today and earn 403s.', flush=True)
     # --budget is the TOTAL for this run; each key may spend at most its own cap minus what it
     # already spent today, so a second run on the same day does not double-spend a key.
     #
