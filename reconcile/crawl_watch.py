@@ -304,20 +304,35 @@ def summary():
     except Exception:
         return ['  (could not summarise progress)'], None
     pct = 100.0 * rows / WORLD_RECORDS
+
+    # The movement, not just the position. A cumulative percentage of 13.57 billion crawls from
+    # 0.06 to 0.12 in a day, which reads as a job standing still even on a day that collected
+    # eight million rows. What a daily notification has to answer first is "did it move".
+    prev = _reading_before_today()
+    gained = (rows - prev[2]) if prev else None
+
     lines = ['  %s files, %.2f GB, %s rows, %s reporter-months'
              % (format(n, ','), size / (1024.0 ** 3), format(rows, ','), format(done, ',')),
              '  %s of ~%s records - %.2f%% of the job   (%s calls spent)'
              % (format(rows, ','), format(int(WORLD_RECORDS), ','), pct, format(calls, ','))]
+    if gained is not None:
+        # The sign is written out: '%+s' silently drops the flag, because + is only honoured for
+        # numeric conversions, and a bare number here reads as a total rather than a gain.
+        lines.append('  %s%s rows since %s'
+                     % ('+' if gained >= 0 else '-', format(abs(gained), ','), prev[0]))
+
     hist = history(calls, rows, n)
     pr = project(hist, rows)
+    moved = ('+%s rows' % format(gained, ',')) if gained else 'no new rows'
     if pr:
         rate, days, when, basis = pr
         lines.append('  %s rows/day (%s) -> ~%d days left, finishing about %s'
                      % (format(int(rate), ','), basis, days, when.strftime('%d %b %Y')))
-        head = '%.2f%% done, ~%d days left (about %s)' % (pct, days, when.strftime('%d %b %Y'))
+        head = '%s today, %.2f%% done, ~%d days left (%s)' % (
+            moved, pct, days, when.strftime('%d %b %Y'))
     else:
         lines.append('  not enough history to project yet')
-        head = '%.2f%% done, %s rows stored so far' % (pct, format(rows, ','))
+        head = '%s today, %.2f%% done, %s rows in all' % (moved, pct, format(rows, ','))
     return lines, head
 
 
