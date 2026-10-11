@@ -54,18 +54,32 @@ $trigger = New-ScheduledTaskTrigger -Daily -At 05:00
 # So 4 hours would in fact have been enough. 8 stays anyway: the cost of spare headroom is zero,
 # and the cost of being wrong is a run killed mid-day with no END line - the silent death that
 # cost this repository eleven nights of refresh in September 2026.
-# StartWhenAvailable catches up after a day the machine was off.
-# WakeToRun because "never sleep" is not enough on a modern laptop: this machine entered Modern
-# Standby (connected standby, S0ix) at 00:51 on 7 Oct 2026 with the sleep timeout set to Never, and
-# the 05:00 trigger simply did not fire. StartWhenAvailable caught it up at 08:38 when the lid was
-# opened, so nothing was lost that day - but a day nobody opens the laptop loses its whole
-# allowance, and unused calls do not carry over.
+# StartWhenAvailable is what actually runs this task, and WakeToRun has been REMOVED.
+#
+# WakeToRun was added believing that "never sleep" is not enough on a modern laptop. True, but the
+# mitigation did not work either: in the five scheduled runs between 6 and 11 Oct 2026 the crawl
+# started at 08:38, 07:43, 07:11, 08:44 and 10:19 - every one of them on waking, and not once at
+# its 05:00 trigger. `powercfg /a` says this machine offers only "Standby (S0 Low Power Idle)",
+# so it is a Modern Standby laptop, where a timer wake is unreliable and a woken session returns
+# to sleep regardless of the idle timeout: STANDBYIDLE is already 0 here, and the nightly refresh
+# still took Kernel-Power event 109 at 03:42:53 on 11 Oct, 27 minutes into a 2.5-hour step, while
+# holding an ES_AWAYMODE_REQUIRED lock. Away mode is not honoured under S0ix.
+#
+# So waking the machine for a long job is the worst arrangement available: it wakes, starts, and
+# is cut off. The task now runs when the machine is genuinely awake. A day nobody opens the laptop
+# loses its allowance, and unused calls do not carry over - that is the real cost, and the answer
+# to it is an always-on machine, which is what INFRASTRUCTURE.md is for.
+#
+# StopOnIdleEnd is turned off explicitly: it defaults to true, and although it is documented to
+# apply only to idle-triggered tasks, there is no reason to leave a "stop when the user comes
+# back" flag set on a job that is meant to run while the machine is in use.
 $settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Hours 8) `
-              -MultipleInstances IgnoreNew -StartWhenAvailable -WakeToRun `
+              -MultipleInstances IgnoreNew -StartWhenAvailable `
               -DontStopIfGoingOnBatteries -AllowStartIfOnBatteries
+$settings.IdleSettings.StopOnIdleEnd = $false
 
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger $trigger `
   -Settings $settings -Description 'Full-universe UN Comtrade monthly crawl, 880 calls/day across 2 keys' | Out-Null
 
-Write-Output "registered $TaskName - daily 05:00, 880 calls, log at raw\comtrade_full\_crawl.log"
+Write-Output "registered $TaskName - daily 05:00 (runs on next wake), 880 calls, log at raw\comtrade_full\_crawl.log"
 Write-Output "first run: tomorrow 05:00. To start one now:  python reconcile\crawl_scheduled.py --budget 50"
