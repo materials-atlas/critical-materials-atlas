@@ -200,7 +200,7 @@ NOTES = {
                 'RESERVES, refinery output, import reliance and recycling are still unextracted - '
                 'the largest known unopened box in the library.'),
  'usgs_myb':   ('USGS Minerals Yearbook, volume I (Metals and Minerals), chapter PDFs',
-                'US public domain', 'held, not yet extracted',
+                'US public domain', 'extracted (by-country production)',
                 'The chapter behind each MCS entry, and the layer the atlas has had to approximate: '
                 'refinery and smelter output, and plant capacity, by country. Fetched 12 Oct 2026 '
                 'after the council verdict on the UN pointer: Industrial Statistics (UNSD ICS) '
@@ -210,7 +210,15 @@ NOTES = {
                 'to both trade data and ICS, and its 2022 chapter is 12 pages with 25 tables, '
                 'including world production and by-country tables. The MCS gallium entry is two '
                 'pages. Index-driven (pubs.usgs.gov/myb/vol1/<year>/), because the chapter set '
-                'differs by year - 83 in 2019, 32 in 2021, 26 in 2022. Recipe: fetch_usgs_yearbook.py.'),
+                'differs by year - 83 in 2019, 32 in 2021, 26 in 2022; only 2016 onward exists '
+                'at this URL shape, so earlier editions are still missing. EXTRACTED 12 Oct 2026 '
+                'by pipeline/parse_usgs_myb.py: 54,838 rows, 79 commodities, 2017-2023, of which '
+                '5,617 country-year REFINING and SMELTING observations over 9 commodities and 124 '
+                'countries (bismuth, cadmium, cobalt, copper, indium, lead, selenium-tellurium, '
+                'tin, zinc). Validated against the tables own printed grand totals: 93.0% of 455 '
+                'agree within 0.5%, median deviation 0.086%. Residue named rather than hidden: 11 '
+                'tables over 10% off, led by silicon 2020, and 34 chapters parsed to nothing. '
+                'Recipe: fetch_usgs_yearbook.py, then parse_usgs_myb.py --validate.'),
  'usgs_critmin': ('USGS critical-minerals deposit map (PP1802)', 'US public domain', 'reference',
                 'Deposit points, no time dimension. Site-level grain, so not cube material.'),
  'usgs_outlook': ('USGS Outlook tables', 'US public domain', 'in use',
