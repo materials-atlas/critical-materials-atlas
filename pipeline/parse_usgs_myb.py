@@ -73,9 +73,15 @@ YEAR = re.compile(r'^(19|20)\d{2}$')
 # country list. Only a KNOWN qualifier is stripped: real country names contain commas too
 # ("Korea, Republic of", "Bolivia, Plurinational State of"), and splitting on the comma would
 # quietly rename them.
-QUALIFIER = re.compile(r',\s*(primary\s+and\s+secondary|primary|secondary|concentrates?|'
-                       r'leaching,?\s*electrowon|refined|metal|smelter|mine|'
-                       r'direct\s+shipping\s+ores?|ores?\s+and\s+concentrates?)\s*$', re.I)
+# A comma followed by a LOWERCASE word is a product qualifier; a comma followed by an uppercase
+# one is part of the country's name. Measured against the real values: "Iran, undifferentiated",
+# "South Africa, anode slimes", "Belgium, metal powder, oxide, and hydroxide" are all products,
+# while "Korea, Republic of", "Korea, North" and "Bolivia, Plurinational State of" are countries.
+# A fixed list of qualifiers was tried first and missed 19 of them, which left bismuth and indium
+# - the minor metals this source was fetched for - unable to resolve to a country at all.
+QUALIFIER = re.compile(r',\s+[a-z].*$')
+# Page furniture that reaches the row reader on some chapters, e.g. "copper-2017 [ADVANCE RELEASE]".
+FURNITURE = re.compile(r'\[ADVANCE\s+RELEASE\]|^\s*\S+\s*[—-]\s*(19|20)\d{2}\s*$', re.I)
 NUM = re.compile(r'^\(?-?[\d,]+(\.\d+)?\)?$')
 # Values that are not numbers but are meaningful, straight from the USGS conventions.
 NOTVALUE = {'--': 'nil', 'NA': 'not available', 'W': 'withheld', '(3)': 'see footnote'}
@@ -152,6 +158,27 @@ def header_of(rows):
     return {}
 
 
+def to_tonnes(value, unit):
+    """The value in metric tonnes, or None where the unit is not a mass.
+
+    The unit lives in the caption and the scale changes between chapters: "Metric tons",
+    "Thousand metric tons", "Thousands metric tons, gross weight", "Kilograms". Comparing the raw
+    number against the atlas cube put zinc out by a factor of 1,000, because a filter for
+    "metric tons" also matches "THOUSAND metric tons". Carats and cubic metres are left null
+    rather than coerced.
+    """
+    if value is None or unit is None:
+        return None
+    u = unit.lower()
+    if 'carat' in u or 'cubic' in u or 'dollar' in u:
+        return None
+    if 'kilogram' in u or u.startswith('gram'):
+        return value / 1000.0
+    if 'metric ton' in u or 'metric tons' in u:
+        return value * 1000.0 if re.match(r'^thousands?\s+metric', u) else value
+    return None
+
+
 def stage_of(subject):
     up = subject.upper()
     for needle, name in STAGE:
@@ -184,6 +211,8 @@ def page_rows(rows, years):
             continue                                     # the header itself
         if re.match(r'^\d+\s*[A-Z(]', label) or len(label) > 70:
             continue                                     # a footnote paragraph, not a row
+        if FURNITURE.search(label):
+            continue                                     # a running page header, not a row
         out.append((min(x for x, _ in label_parts), label, values, markers))
     return out
 
@@ -383,8 +412,10 @@ def main():
     if df.empty:
         print('nothing extracted')
         return 1
+    df['value_t'] = [to_tonnes(v, u) for v, u in zip(df.value, df.unit)]
     df = df[['commodity', 'edition', 'table', 'stage', 'unit', 'kind', 'country',
-             'parent', 'label', 'year', 'value', 'note', 'markers', 'page', 'subject']]
+             'parent', 'label', 'year', 'value', 'value_t', 'note', 'markers',
+             'page', 'subject']]
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     df.to_parquet(OUT, index=False)
 
