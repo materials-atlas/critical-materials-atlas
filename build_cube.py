@@ -266,6 +266,28 @@ def build():
     except Exception as e:
         print(f'  IEA ingest skipped: {e}')
 
+    # -- sixth ingest: USGS Minerals Yearbook by-country production ---------------------------
+    # The refining layer, from the source that prints it outright. The MCS we already read is two
+    # pages a commodity; the Yearbook is the chapter behind it, with world mine, SMELTER and
+    # REFINERY production by country. 443 of its rows are refined bismuth, cadmium, indium,
+    # selenium and tellurium - minor metals the cube had little or nothing for, and the layer the
+    # atlas had been approximating from industry estimates.
+    #
+    # It brings a NEW stage value, 'smelter'. audit_myb_vs_cube.py is why: the existing
+    # 'processed' stage behaves as refinery output (copper median ratio 1.000 against the
+    # Yearbook's refinery tables, 0.957 against its smelter tables, and where a country-year
+    # carries both the cube sits closer to refinery 71% of the time). Folding smelter into
+    # 'processed' would have erased that distinction at the moment it was established.
+    try:
+        import build_cube_myb
+        yb = pd.DataFrame(build_cube_myb.build())
+        if len(yb):
+            yb['in_atlas'] = yb['material'].isin(ATLAS)
+            yb['retrieved_at'] = None
+            df = pd.concat([df, yb], ignore_index=True, sort=False)
+    except Exception as e:
+        print(f'  MYB ingest skipped: {e}')
+
     # a code is an identifier, never a quantity - keep it textual so sources with alphanumeric
     # codes and sources with numeric ones can share the column
     # ── SDMX cross-domain status codes ──────────────────────────────────────────────────────

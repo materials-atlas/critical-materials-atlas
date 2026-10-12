@@ -57,6 +57,15 @@ USGS_NAMES = {
     'vietnam': 'VNM', 'russia': 'RUS', 'united states': 'USA', 'czechia': 'CZE', 'czech republic': 'CZE',
     'slovakia': 'SVK', 'venezuela': 'VEN', 'syria': 'SYR', 'cote d’ivoire': 'CIV',
     "cote d'ivoire": 'CIV', 'united kingdom': 'GBR', 'south africa': 'ZAF', 'germany': 'DEU',
+    # Added 12 Oct 2026 from the Minerals Yearbook, which uses the same country naming as the MCS
+    # but in more chapters, and so exposes names the MCS set never reached. Each of these was
+    # being dropped by to_iso3 and taking its production with it - the DRC above all, which the
+    # Yearbook writes "Congo, Kinshasa" in some chapters and "Congo (Kinshasa)" in others, and
+    # which is one of the largest cobalt and copper producers in the data.
+    'congo, kinshasa': 'COD', 'congo, brazzaville': 'COG',
+    'bosnia and herzegovina': 'BIH', 'central african republic': 'CAF',
+    'dominican republic': 'DOM', 'french guiana': 'GUF', 'kosovo': 'XKX',
+    'solomon islands': 'SLB',
 }
 # the unit line is parenthesised in most chapters and bracketed in others ("[Data in metric tons,
 # rare-earth-oxide (REO) equivalent, unless otherwise specified]"), which is why rare earths had no
@@ -320,7 +329,11 @@ def iso3_map():
 def to_iso3(name, m):
     n = re.sub(r'\s+', ' ', name).strip().lower().strip(' .')
     n = re.sub(r'\d+$', '', n).strip()
-    return m.get(n) or m.get(n.replace('the ', ''))
+    # PDFs carry typographic punctuation: the Yearbook prints Cote d<U+2019>Ivoire with a curly
+    # apostrophe, which never matched an ASCII key however many aliases were added.
+    n = n.replace('’', "'").replace('‘', "'").replace('–', '-')
+    return (m.get(n) or m.get(n.replace('the ', ''))
+            or m.get(n.replace("'", '’')))
 
 
 def main():
