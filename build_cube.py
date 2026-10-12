@@ -312,7 +312,7 @@ def build():
     df['obs_status'] = obs.fillna(derived).fillna('A')
     df['conf_status'] = df['value_flag'].map({'withheld': 'C'})
 
-    # ── sixth ingest: our own monthly mirror reconciliation ─────────────────────────────────
+    # ── seventh ingest: our own monthly mirror reconciliation ─────────────────────────────────
     # The two halves of the project have never met - 8 builders read the cube, 4 read the trade
     # pipeline, 0 read both. This is what joins them, at the cube's grain, without flattening the
     # bilateral detail that stays in flows_reconciled.
