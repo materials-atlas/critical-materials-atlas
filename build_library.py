@@ -199,6 +199,18 @@ NOTES = {
  'usgs_mcs':   ('USGS Mineral Commodity Summaries PDFs', 'US public domain', 'partly extracted',
                 'RESERVES, refinery output, import reliance and recycling are still unextracted - '
                 'the largest known unopened box in the library.'),
+ 'usgs_myb':   ('USGS Minerals Yearbook, volume I (Metals and Minerals), chapter PDFs',
+                'US public domain', 'held, not yet extracted',
+                'The chapter behind each MCS entry, and the layer the atlas has had to approximate: '
+                'refinery and smelter output, and plant capacity, by country. Fetched 12 Oct 2026 '
+                'after the council verdict on the UN pointer: Industrial Statistics (UNSD ICS) '
+                'is fullest exactly where USGS, BGS, ICSG, the IAI and ILZSG already cover us and '
+                'empty where we approximate, so it adds nothing; the Yearbook does. Checked on the '
+                'hard case: gallium is a byproduct of alumina refining with no ore trade, invisible '
+                'to both trade data and ICS, and its 2022 chapter is 12 pages with 25 tables, '
+                'including world production and by-country tables. The MCS gallium entry is two '
+                'pages. Index-driven (pubs.usgs.gov/myb/vol1/<year>/), because the chapter set '
+                'differs by year - 83 in 2019, 32 in 2021, 26 in 2022. Recipe: fetch_usgs_yearbook.py.'),
  'usgs_critmin': ('USGS critical-minerals deposit map (PP1802)', 'US public domain', 'reference',
                 'Deposit points, no time dimension. Site-level grain, so not cube material.'),
  'usgs_outlook': ('USGS Outlook tables', 'US public domain', 'in use',

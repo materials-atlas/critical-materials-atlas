@@ -2,11 +2,16 @@
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
  "derived": "read_by and reaches_cube come from out/graph.json, the OBSERVED dependency graph - never typed here. status is a human claim; where the two disagree the folder is listed under contested, because that disagreement is the point.",
- "total_gb": 3.93,
- "folders": 69,
- "undocumented": [],
+ "total_gb": 4.96,
+ "folders": 73,
+ "undocumented": [
+  "raw/usgs",
+  "raw/sec",
+  "raw/census"
+ ],
  "unread": [
   "raw/iea_bulk/gender-and-energy",
+  "raw/usgs_myb",
   "raw/iea_bulk/weather-for-energy-tracker",
   "raw/iea_drivers",
   "raw/mrds",
@@ -58,10 +63,13 @@
  ],
  "skipped_unrecognised": [],
  "only_named_in_pipeline_source": [
+  "raw/comtrade_full",
   "raw/oecd_itic",
   "raw/_sources",
   "raw/osm",
-  "raw/comtrade_full"
+  "raw/usgs",
+  "raw/sec",
+  "raw/census"
  ],
  "scope_limit": "The recorder does not run pipeline/, so a folder only the pipeline opens would read as unread. Those are found by searching the pipeline source for the folder name - grep, weaker evidence - and listed separately.",
  "library": [
@@ -148,6 +156,32 @@
    ]
   },
   {
+   "folder": "raw/comtrade_full",
+   "n_files": 1220,
+   "size_mb": 967.2,
+   "formats": [
+    ".json",
+    ".parquet",
+    ".tsv",
+    ".txt"
+   ],
+   "newest": "2026-10-12",
+   "dataset": "UN Comtrade, FULL product universe, monthly, all reporters",
+   "licence": "UN Comtrade terms - re-dissemination limited; see licences.py",
+   "status": "crawl in progress, not yet in the cube",
+   "why_we_might_need_it": "The gravity CIF/FOB model BACI uses was declined here because on our 31-code slice distance is unidentified (R^2 = 0.01, reconcile/reconcile.py step 2). That is a fact about the slice, not the method, so this crawl fetches the whole universe - ~5,384 HS6 codes, monthly, newest year first - to settle whether the CEPII method beats our per-product median on our own data. Written by reconcile/pull_comtrade_full.py at 380 calls/day, leaving ~120 of the 500/day allowance for pipeline/refresh.py, which shares the key. Exporter and importer filings are stored APART and never merged here: which side a number came from decides whether it is ours to publish.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "reconcile/crawl_scheduled.py",
+    "reconcile/crawl_watch.py",
+    "reconcile/pull_comtrade_full.py",
+    "reconcile/un_watch.py"
+   ]
+  },
+  {
    "folder": "raw/bgs",
    "n_files": 64,
    "size_mb": 400.7,
@@ -227,6 +261,24 @@
    "named_in_pipeline_source": []
   },
   {
+   "folder": "raw/usgs_myb",
+   "n_files": 152,
+   "size_mb": 57.7,
+   "formats": [
+    ".pdf",
+    ".tsv"
+   ],
+   "newest": "2026-10-12",
+   "dataset": "USGS Minerals Yearbook, volume I (Metals and Minerals), chapter PDFs",
+   "licence": "US public domain",
+   "status": "held, not yet extracted",
+   "why_we_might_need_it": "The chapter behind each MCS entry, and the layer the atlas has had to approximate: refinery and smelter output, and plant capacity, by country. Fetched 12 Oct 2026 after the council verdict on the UN pointer: Industrial Statistics (UNSD ICS) is fullest exactly where USGS, BGS, ICSG, the IAI and ILZSG already cover us and empty where we approximate, so it adds nothing; the Yearbook does. Checked on the hard case: gallium is a byproduct of alumina refining with no ore trade, invisible to both trade data and ICS, and its 2022 chapter is 12 pages with 25 tables, including world production and by-country tables. The MCS gallium entry is two pages. Index-driven (pubs.usgs.gov/myb/vol1/<year>/), because the chapter set differs by year - 83 in 2019, 32 in 2021, 26 in 2022. Recipe: fetch_usgs_yearbook.py.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
    "folder": "raw/oecd_itic",
    "n_files": 2,
    "size_mb": 54.1,
@@ -286,6 +338,51 @@
    "named_in_pipeline_source": []
   },
   {
+   "folder": "raw/comtrade",
+   "n_files": 79,
+   "size_mb": 32.8,
+   "formats": [
+    ".csv",
+    ".json",
+    ".xlsx"
+   ],
+   "newest": "2026-10-11",
+   "dataset": "UN Comtrade extracts",
+   "licence": "UN, free",
+   "status": "in use",
+   "why_we_might_need_it": "Mirror side of the trade reconciliation.",
+   "read_by": [
+    "build_consumption_scan.py",
+    "build_freight_model.py",
+    "build_recon_envelope.py",
+    "build_robustness.py",
+    "reconcile/operator_test.py",
+    "reconcile/reconcile.py"
+   ],
+   "n_readers": 6,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "pipeline/backfill_all_reporters.py",
+    "pipeline/backfill_comtrade.py",
+    "pipeline/backfill_history.py",
+    "pipeline/build.py",
+    "pipeline/cache.py",
+    "pipeline/pull_comtrade.py",
+    "pipeline/reconcile.py",
+    "pipeline/scheduled_run.py",
+    "reconcile/build_2026_nowcast.py",
+    "reconcile/crawl_scheduled.py",
+    "reconcile/crawl_watch.py",
+    "reconcile/operator_test.py",
+    "reconcile/pull_comtrade.py",
+    "reconcile/pull_comtrade_full.py",
+    "reconcile/reconcile.py",
+    "reconcile/un_watch.py",
+    "reconcile/validate_fixtures.py"
+   ]
+  },
+  {
    "folder": "raw/iea_drivers",
    "n_files": 3,
    "size_mb": 31.5,
@@ -321,47 +418,6 @@
    "n_readers": 1,
    "reaches_cube": false,
    "named_in_pipeline_source": []
-  },
-  {
-   "folder": "raw/comtrade",
-   "n_files": 3,
-   "size_mb": 22.4,
-   "formats": [
-    ".csv"
-   ],
-   "newest": "2026-06-26",
-   "dataset": "UN Comtrade extracts",
-   "licence": "UN, free",
-   "status": "in use",
-   "why_we_might_need_it": "Mirror side of the trade reconciliation.",
-   "read_by": [
-    "build_consumption_scan.py",
-    "build_freight_model.py",
-    "build_recon_envelope.py",
-    "build_robustness.py",
-    "reconcile/operator_test.py",
-    "reconcile/reconcile.py"
-   ],
-   "n_readers": 6,
-   "reaches_cube": false,
-   "named_in_pipeline_source": [
-    "pipeline/adapter_comtrade.py",
-    "pipeline/backfill_all_reporters.py",
-    "pipeline/backfill_comtrade.py",
-    "pipeline/backfill_history.py",
-    "pipeline/build.py",
-    "pipeline/cache.py",
-    "pipeline/pull_comtrade.py",
-    "pipeline/reconcile.py",
-    "pipeline/scheduled_run.py",
-    "reconcile/build_2026_nowcast.py",
-    "reconcile/crawl_scheduled.py",
-    "reconcile/operator_test.py",
-    "reconcile/pull_comtrade.py",
-    "reconcile/pull_comtrade_full.py",
-    "reconcile/reconcile.py",
-    "reconcile/validate_fixtures.py"
-   ]
   },
   {
    "folder": "raw/mrds",
@@ -855,6 +911,26 @@
    "named_in_pipeline_source": []
   },
   {
+   "folder": "raw/usgs",
+   "n_files": 3,
+   "size_mb": 0.9,
+   "formats": [
+    ".pdf"
+   ],
+   "newest": "2026-10-10",
+   "dataset": null,
+   "licence": null,
+   "status": "UNDOCUMENTED",
+   "why_we_might_need_it": null,
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/fetch_usgs_mcs.py",
+    "pipeline/parse_usgs_mcs.py"
+   ]
+  },
+  {
    "folder": "raw/iea_bulk/global-ev-outlook-2025",
    "n_files": 1,
    "size_mb": 0.9,
@@ -870,6 +946,39 @@
    "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/sec",
+   "n_files": 3,
+   "size_mb": 0.8,
+   "formats": [
+    ".txt"
+   ],
+   "newest": "2026-10-07",
+   "dataset": null,
+   "licence": null,
+   "status": "UNDOCUMENTED",
+   "why_we_might_need_it": null,
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "pipeline/backfill_all_reporters.py",
+    "pipeline/build.py",
+    "pipeline/cache.py",
+    "pipeline/dossier.py",
+    "pipeline/panel.py",
+    "pipeline/reconcile.py",
+    "pipeline/refresh.py",
+    "pipeline/refresh_watch.py",
+    "pipeline/scheduled_run.py",
+    "reconcile/backtest.py",
+    "reconcile/build_2026_nowcast.py",
+    "reconcile/crawl_scheduled.py",
+    "reconcile/crawl_watch.py",
+    "reconcile/pull_comtrade_full.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/the-energy-security-case-for-tackling-gas-flaring-and-methane-leaks-dataset",
@@ -1012,6 +1121,27 @@
    "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/census",
+   "n_files": 4,
+   "size_mb": 0.4,
+   "formats": [
+    ".json"
+   ],
+   "newest": "2026-10-11",
+   "dataset": null,
+   "licence": null,
+   "status": "UNDOCUMENTED",
+   "why_we_might_need_it": null,
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_uscensus.py",
+    "pipeline/build.py",
+    "pipeline/reconcile.py"
+   ]
   },
   {
    "folder": "raw/icmm",
@@ -1331,26 +1461,6 @@
    "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
-  },
-  {
-   "folder": "raw/comtrade_full",
-   "n_files": 1,
-   "size_mb": 0.0,
-   "formats": [
-    ".json"
-   ],
-   "newest": "2026-10-04",
-   "dataset": "UN Comtrade, FULL product universe, monthly, all reporters",
-   "licence": "UN Comtrade terms - re-dissemination limited; see licences.py",
-   "status": "crawl in progress, not yet in the cube",
-   "why_we_might_need_it": "The gravity CIF/FOB model BACI uses was declined here because on our 31-code slice distance is unidentified (R^2 = 0.01, reconcile/reconcile.py step 2). That is a fact about the slice, not the method, so this crawl fetches the whole universe - ~5,384 HS6 codes, monthly, newest year first - to settle whether the CEPII method beats our per-product median on our own data. Written by reconcile/pull_comtrade_full.py at 380 calls/day, leaving ~120 of the 500/day allowance for pipeline/refresh.py, which shares the key. Exporter and importer filings are stored APART and never merged here: which side a number came from decides whether it is ours to publish.",
-   "read_by": [],
-   "n_readers": 0,
-   "reaches_cube": false,
-   "named_in_pipeline_source": [
-    "reconcile/crawl_scheduled.py",
-    "reconcile/pull_comtrade_full.py"
-   ]
   },
   {
    "folder": "raw/geopolrisk",
