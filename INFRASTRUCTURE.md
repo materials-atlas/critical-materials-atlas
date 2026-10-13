@@ -57,6 +57,11 @@ Ubuntu runs `openssh-server`; Windows 11 ships the client. Then from the Zenbook
 ssh toma@lenovo
 ```
 
+**The Lenovo already HAS its assistant session**, set up on 4 October and still there - so
+nothing needs installing on it to drive work by hand; it is opened, not installed. Written down
+because I twice gave install instructions from scratch, having read the sentence below and taken
+it as history rather than as current state.
+
 **This is the layer that matters most, and the reason this document exists.** On 4 October the
 Lenovo had to be set up by relaying every instruction between two separate assistant sessions, one
 per machine — each step typed by hand, screenshots carried back, decisions re-confirmed twice
