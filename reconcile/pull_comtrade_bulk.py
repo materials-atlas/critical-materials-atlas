@@ -266,6 +266,14 @@ def main():
                 if a.max_files and files >= a.max_files:
                     log('stopping: --max-files %d reached' % a.max_files)
                     raise KeyboardInterrupt
+                # Check the disk on EVERY file, not only at startup. This runs unattended for
+                # the better part of a day on a machine nobody is watching, and the archives it
+                # streams through are up to a gigabyte each; a full disk part-way through would
+                # otherwise show up as a pile of unreadable half files.
+                if shutil.disk_usage(OUTDIR).free / 1e9 < MIN_FREE_GB:
+                    log('stopping: only %.1f GB free, below the %.1f GB floor'
+                        % (shutil.disk_usage(OUTDIR).free / 1e9, MIN_FREE_GB))
+                    raise KeyboardInterrupt
                 n, got = fetch_one(s, headers, period, rep, keep, OUTDIR)
                 if n is None:
                     continue
