@@ -47,6 +47,11 @@ favourable to us.
 LICENCES = {
     'BGS World Mineral Statistics': 'Open Government Licence v3.0 (attribution required)',
     'USGS Historical Statistics (DS 140)': 'US Government public domain',
+    # Same footing as the other two USGS sources: a work of the US Government, so not
+    # subject to domestic copyright. Added 12 Oct 2026 - build_cube.py refused to write the
+    # public export until it was, which is the licence guard doing its job on a source
+    # whose reader had been wired up before its terms were recorded.
+    'USGS Minerals Yearbook': 'US Government public domain',
     'CEPII BACI (HS02)': 'Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)',
     'World Mining Data': 'Free with attribution (BMK Austria / WMD)',
     'IEA Critical Minerals Dataset': 'CC BY 4.0',
