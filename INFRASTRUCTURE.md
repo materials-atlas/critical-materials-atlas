@@ -31,7 +31,14 @@ two computers that happen to belong to the same person.
 | | what it is | its job | why it suits |
 |---|---|---|---|
 | **Zenbook** | ASUS UX3404VC, i9-13900H, 14 cores / 20 threads, **31.6 GB RAM soldered**, 475 GB NVMe | analysis | the only machine with the memory for it. DuckDB over the corpus wants 8–16 GB of working set. It has **31 GB free**, so it cannot hold the corpus and does not need to - it reads it over the network |
-| **Lenovo** | Y520-15IKBN, i5-7300HQ 4 cores, **8 GB RAM** (2 slots, takes 32), 1 TB SanDisk SSD | crawler + primary storage | it only has to be **on**. 500 API calls a day with sleeps between them is nothing. The 1 TB SSD holds the whole ~341 GB corpus with room to spare - it is the only disk in the house that can |
+| **Lenovo** | Y520-15IKBN, i5-7300HQ 4 cores, **8 GB RAM** (2 slots, takes 32), 1 TB SanDisk SSD | crawler + primary storage | it only has to be **on**. 500 API calls a day with sleeps between them is nothing. The 1 TB SSD is real - SanDisk SSD PLUS, 931.5 GB - but it is FULL, measured on the machine 13 Oct 2026: C: 500.8 GB with 13.9 free, D: 430.2 GB with 106.4 free, one physical disk in two partitions. D: holds family photographs and video. So the claim this row used to make, that it holds the corpus with room to spare, was never checked on the machine and is false as things stand |
+
+**Space, measured rather than assumed (13 Oct 2026).** The corpus is ~232 GB unfiltered and the
+Lenovo has ~120 GB free across both partitions, so it does not fit today. Emptying D:'s recycle
+bin returns 23.5 GB; the rest of D: is family media and is not ours to reclaim. What DOES fit as
+things stand: the full 27 years filtered to the atlas's own 54 product codes (0.4 GB), and the
+recent five years unfiltered (~100 GB) - together, the whole product history plus a full-detail
+recent window. The full universe needs an external disk.
 
 The Toshiba is **out of the plan**: it failed for good on 7 Oct 2026 and was returned to its owner.
 Everything below that referred to it as a third pool has been removed - there is no spare disk, so
