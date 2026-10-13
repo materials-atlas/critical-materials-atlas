@@ -134,6 +134,18 @@ Tailscale ~10 min · SSH ~5 min · Syncthing ~15 min · Samba ~30 min. An evenin
 4. Samba for the crawl folder
 5. Syncthing for the repo and notes
 
-Before any of it: the Lenovo needs a **charger** (its own is dead) and a **USB stick** for the
-Ubuntu installer. Those two are the whole shopping list - the 1 TB SSD it already has is the
-storage, so no disk needs buying.
+**That shopping list was wrong on all three counts (measured on the machine, 13 Oct 2026).**
+
+The charger is NOT dead: the Lenovo reports PowerOnline=True, BatteryStatus=2 and a battery at
+100%, so whatever is plugged in works. That sentence cost hours of planning around a machine
+believed unpowerable. The USB stick is not needed either - an SD card in a USB reader boots the
+same way. And the 1 TB SSD it already has is exactly what DOES need buying: it is failing, with
+14 files already unreadable with CRC errors, 1,568 bad blocks and SMART attribute 187 at 6.96M.
+
+What the machine actually takes, read from it: 2 RAM slots, one holding 8 GB DDR4-2400, the other
+EMPTY, board maximum 32 GB. One physical disk, the SanDisk SSD PLUS 1 TB on SATA; the M.2 slot is
+probably empty but only opening the cover confirms it. CPU i5-7300HQ, 4 cores and 4 threads, no
+hyper-threading - so about 3 parallel decodes at most, and 2 while RAM is 8 GB.
+
+The real list: a 1 TB 2.5" SATA SSD and one 8 GB DDR4-2400 SODIMM. NVMe buys little here, because
+the bottleneck is CPU decode and not disk throughput.
