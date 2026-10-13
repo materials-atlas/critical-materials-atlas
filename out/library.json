@@ -2,7 +2,7 @@
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
  "derived": "read_by and reaches_cube come from out/graph.json, the OBSERVED dependency graph - never typed here. status is a human claim; where the two disagree the folder is listed under contested, because that disagreement is the point.",
- "total_gb": 4.96,
+ "total_gb": 5.02,
  "folders": 73,
  "undocumented": [
   "raw/usgs",
@@ -11,7 +11,6 @@
  ],
  "unread": [
   "raw/iea_bulk/gender-and-energy",
-  "raw/usgs_myb",
   "raw/iea_bulk/weather-for-energy-tracker",
   "raw/iea_drivers",
   "raw/mrds",
@@ -64,6 +63,7 @@
  "skipped_unrecognised": [],
  "only_named_in_pipeline_source": [
   "raw/comtrade_full",
+  "raw/usgs_myb",
   "raw/oecd_itic",
   "raw/_sources",
   "raw/osm",
@@ -157,8 +157,8 @@
   },
   {
    "folder": "raw/comtrade_full",
-   "n_files": 1220,
-   "size_mb": 967.2,
+   "n_files": 1249,
+   "size_mb": 987.4,
    "formats": [
     ".json",
     ".parquet",
@@ -220,7 +220,8 @@
    "reaches_cube": false,
    "named_in_pipeline_source": [
     "pipeline/fetch_usgs_mcs.py",
-    "pipeline/parse_usgs_mcs.py"
+    "pipeline/parse_usgs_mcs.py",
+    "pipeline/parse_usgs_myb.py"
    ]
   },
   {
@@ -243,6 +244,26 @@
    "named_in_pipeline_source": []
   },
   {
+   "folder": "raw/usgs_myb",
+   "n_files": 250,
+   "size_mb": 93.6,
+   "formats": [
+    ".pdf",
+    ".tsv"
+   ],
+   "newest": "2026-10-12",
+   "dataset": "USGS Minerals Yearbook, volume I (Metals and Minerals), chapter PDFs",
+   "licence": "US public domain",
+   "status": "extracted (by-country production)",
+   "why_we_might_need_it": "The chapter behind each MCS entry, and the layer the atlas has had to approximate: refinery and smelter output, and plant capacity, by country. Fetched 12 Oct 2026 after the council verdict on the UN pointer: Industrial Statistics (UNSD ICS) is fullest exactly where USGS, BGS, ICSG, the IAI and ILZSG already cover us and empty where we approximate, so it adds nothing; the Yearbook does. Checked on the hard case: gallium is a byproduct of alumina refining with no ore trade, invisible to both trade data and ICS, and its 2022 chapter is 12 pages with 25 tables, including world production and by-country tables. The MCS gallium entry is two pages. Index-driven (pubs.usgs.gov/myb/vol1/<year>/), because the chapter set differs by year - 83 in 2019, 32 in 2021, 26 in 2022; only 2016 onward exists at this URL shape, so earlier editions are still missing. EXTRACTED 12 Oct 2026 by pipeline/parse_usgs_myb.py: 54,838 rows, 79 commodities, 2017-2023, of which 5,617 country-year REFINING and SMELTING observations over 9 commodities and 124 countries (bismuth, cadmium, cobalt, copper, indium, lead, selenium-tellurium, tin, zinc). Validated against the tables own printed grand totals: 93.0% of 455 agree within 0.5%, median deviation 0.086%. Residue named rather than hidden: 11 tables over 10% off, led by silicon 2020, and 34 chapters parsed to nothing. Recipe: fetch_usgs_yearbook.py, then parse_usgs_myb.py --validate.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/parse_usgs_myb.py"
+   ]
+  },
+  {
    "folder": "raw/iea_bulk/gender-and-energy",
    "n_files": 5,
    "size_mb": 81.3,
@@ -255,24 +276,6 @@
    "licence": "CC BY 4.0",
    "status": "reference",
    "why_we_might_need_it": "Workforce and participation indicators for the energy sector. No material dimension; kept for completeness of the collection.",
-   "read_by": [],
-   "n_readers": 0,
-   "reaches_cube": false,
-   "named_in_pipeline_source": []
-  },
-  {
-   "folder": "raw/usgs_myb",
-   "n_files": 152,
-   "size_mb": 57.7,
-   "formats": [
-    ".pdf",
-    ".tsv"
-   ],
-   "newest": "2026-10-12",
-   "dataset": "USGS Minerals Yearbook, volume I (Metals and Minerals), chapter PDFs",
-   "licence": "US public domain",
-   "status": "held, not yet extracted",
-   "why_we_might_need_it": "The chapter behind each MCS entry, and the layer the atlas has had to approximate: refinery and smelter output, and plant capacity, by country. Fetched 12 Oct 2026 after the council verdict on the UN pointer: Industrial Statistics (UNSD ICS) is fullest exactly where USGS, BGS, ICSG, the IAI and ILZSG already cover us and empty where we approximate, so it adds nothing; the Yearbook does. Checked on the hard case: gallium is a byproduct of alumina refining with no ore trade, invisible to both trade data and ICS, and its 2022 chapter is 12 pages with 25 tables, including world production and by-country tables. The MCS gallium entry is two pages. Index-driven (pubs.usgs.gov/myb/vol1/<year>/), because the chapter set differs by year - 83 in 2019, 32 in 2021, 26 in 2022. Recipe: fetch_usgs_yearbook.py.",
    "read_by": [],
    "n_readers": 0,
    "reaches_cube": false,
@@ -927,7 +930,8 @@
    "reaches_cube": false,
    "named_in_pipeline_source": [
     "pipeline/fetch_usgs_mcs.py",
-    "pipeline/parse_usgs_mcs.py"
+    "pipeline/parse_usgs_mcs.py",
+    "pipeline/parse_usgs_myb.py"
    ]
   },
   {
@@ -969,6 +973,7 @@
     "pipeline/cache.py",
     "pipeline/dossier.py",
     "pipeline/panel.py",
+    "pipeline/parse_usgs_myb.py",
     "pipeline/reconcile.py",
     "pipeline/refresh.py",
     "pipeline/refresh_watch.py",
@@ -1285,7 +1290,8 @@
    "n_readers": 1,
    "reaches_cube": false,
    "named_in_pipeline_source": [
-    "pipeline/adapter_comtrade.py"
+    "pipeline/adapter_comtrade.py",
+    "pipeline/parse_usgs_myb.py"
    ]
   },
   {

@@ -1,17 +1,17 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 9208781,
+ "rows": 9222606,
  "materials": 98,
  "materials_in_atlas": 32,
  "countries": 248,
  "year_min": 1900,
  "year_max": 2050,
  "by_measure": {
-  "exports_value": 2447915,
-  "imports": 2287628,
-  "imports_value": 2164540,
-  "exports": 2140827,
-  "production": 130972,
+  "exports_value": 2449923,
+  "imports": 2289076,
+  "imports_value": 2166548,
+  "exports": 2142275,
+  "production": 137885,
   "unit_value_nominal": 8874,
   "unit_value_real98": 8794,
   "apparent_consumption": 8405,
@@ -36,21 +36,23 @@
   "stocks_lme": 31
  },
  "by_stage": {
-  "unspecified": 6408497,
-  "compound": 1916059,
-  "processed": 218004,
-  "mine": 150659
+  "unspecified": 6411465,
+  "compound": 1920003,
+  "processed": 219402,
+  "mine": 155392,
+  "smelter": 782
  },
- "tonnage_convertible_pct": 49.6,
+ "tonnage_convertible_pct": 49.7,
  "sources": {
-  "CMA single-declaration passthrough": 6725100,
-  "CMA two-sided reconciliation": 1408130,
+  "CMA single-declaration passthrough": 6731346,
+  "CMA two-sided reconciliation": 1408796,
   "CMA annual world reconciliation": 368838,
   "BGS World Mineral Statistics": 275297,
   "CEPII BACI (HS02)": 207366,
   "Eurostat Comext (CN8)": 146724,
   "USGS Historical Statistics (DS 140)": 67084,
   "World Mining Data": 9187,
+  "USGS Minerals Yearbook": 6913,
   "IEA Critical Minerals Dataset": 1055
  },
  "year_span_by_source": {
@@ -86,16 +88,20 @@
    1900,
    2023
   ],
+  "USGS Minerals Yearbook": [
+   2013,
+   2023
+  ],
   "World Mining Data": [
    2020,
    2024
   ]
  },
  "geographies": 248,
- "world_rows": 7871,
+ "world_rows": 7956,
  "by_measure_family": {
-  "trade": 9043520,
-  "production": 132934,
+  "trade": 9050432,
+  "production": 139847,
   "price": 17777,
   "derived_by_source": 8448,
   "stocks": 3938,
@@ -103,10 +109,10 @@
   "demand": 902,
   "labour": 58
  },
- "series": 324728,
+ "series": 325717,
  "value_flags": {
   "nil": 4452,
-  "estimated_by_source": 2154,
+  "estimated_by_source": 3489,
   "withheld": 1230,
   "projection": 820,
   "trace": 447
