@@ -236,8 +236,17 @@ def query_chars(code, flow, periods, filt):
     return len(BASE) + 1 + len(urllib.parse.urlencode(job_params(code, flow, periods, filt)))
 
 
-def split_job(st, codes, periods, filt, tag):
-    """Cut one job along the first axis that can still be cut. [] means nothing is left to cut."""
+def split_job(st, codes, periods, filt, tag, parts=2):
+    """Cut one job along the first axis that can still be cut. [] means nothing is left to cut.
+
+    `parts` is how many pieces to make. Halving was the original behaviour and it is what made
+    large reporters unaffordable: reaching K leaves by repeated halving costs about K-1 CAPPED
+    responses, each a 100,000-row download fetched and thrown away, because an internal node of a
+    binary tree is as numerous as its leaves. Measured on 11-12 Oct, 36-38% of the day's calls
+    went on those discoveries, and Germany alone - whose customs and transport cross-product is
+    26x - took 531 of the 795 log lines on 12 Oct and still did not finish. Sizing the chunk once
+    and cutting it straight to the right number of parts replaces that whole chain with one call.
+    """
     if len(periods) > 1:
         return [([m], dict(filt), m[-2:]) for m in periods]
     for axis in SPLIT_ORDER:
@@ -246,9 +255,10 @@ def split_job(st, codes, periods, filt, tag):
         if vals is None:
             vals = axis_values(st, axis, codes)
         if len(vals) > 1:
+            k = max(2, min(int(parts), len(vals)))
             return [(periods, dict(filt, **{axis: list(h)}),
-                     '%s-%s%d' % (tag, AXIS_TAG[axis], i))
-                    for i, h in enumerate(chunks(vals, 2))]
+                     '%s-%s%02d' % (tag, AXIS_TAG[axis], i))
+                    for i, h in enumerate(chunks(vals, k))]
     return []
 
 
@@ -439,6 +449,16 @@ class Api(object):
         n = j.get('count')
         return (int(n) if n is not None else None), st
 
+    def count_params(self, params):
+        """countOnly for a ready-made filter: how many records this exact chunk holds."""
+        p = dict(params)
+        p['countOnly'] = 'true'
+        j, status = self._get(p)
+        if j is None:
+            return None, status
+        n = j.get('count')
+        return (int(n) if n is not None else None), 200
+
     def data_params(self, params):
         """A data request from a ready-made parameter dict, so the caller owns the filters."""
         j, status = self._get(params)
@@ -560,7 +580,20 @@ def crawl_reporter_year(api, st, year, code, iso3, flow, codes, budget_left):
 
         if len(rows) >= PAGE_CAP:
             # TRUNCATED. Never save it: subdivide and come back to the parts.
-            kids = split_job(st, codes, periods, filt, tag)
+            #
+            # Ask how big it actually is first. That costs one call and tells us how many pieces
+            # to make, instead of learning it by halving - which costs one discarded 100,000-row
+            # response per level and is why a reporter like Germany could occupy entire days.
+            # If the count fails we fall back to halving, which is only slow, never wrong.
+            parts = 2
+            n_exact, _st = api.count_params(job_params(code, flow, periods, filt))
+            used += 1
+            st['calls'] += 1
+            if n_exact:
+                parts = max(2, int(math.ceil(n_exact / float(TARGET))))
+                print('   %d %s %s %-22s capped; sized %s records -> %d parts'
+                      % (year, iso3, flow, tag, format(n_exact, ','), parts), flush=True)
+            kids = split_job(st, codes, periods, filt, tag, parts)
             if not kids:
                 st['stuck'][ck] = len(rows)
                 print('   %d %s %s %-22s CAPPED with no axis left to split - stuck'
