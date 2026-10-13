@@ -10,10 +10,12 @@ somebody thinks to ask rather than when the mail does.
 
 Where it looks, and why two places:
 
-  Yahoo, through classic Outlook  the address given to the UN for the premium account is
-                                 a personal address, so the provisioning mail lands THERE, not
-                                 in the company mailbox. Outlook COM reads it with no browser and
-                                 no session to keep alive, which makes it the reliable half.
+  Yahoo, through classic Outlook  the address registered with the UN for the premium account is
+                                 a personal one, not the company mailbox, so the provisioning mail
+                                 lands THERE. Outlook COM reads it with no browser and no session
+                                 to keep alive, which makes it the reliable half. The address
+                                 itself is deliberately not written here: this repository is
+                                 public.
   contact@, through robot Edge    a reply to the request thread goes to the company mailbox, which
                                  is not in the Outlook profile. This half needs Edge up on CDP
                                  9222, so it is best-effort: when Edge is away the run still
@@ -231,7 +233,8 @@ def main():
                      % (len(hits), DAYS_BACK))
     for n in notes:
         lines.append('  note: %s' % n)
-    lines.append('  waiting on: premium account provisioning (registered to a personal address)')
+    lines.append('  waiting on: premium account provisioning '
+                 '(registered to the personal address, read via Outlook)')
     text = '\n'.join(lines) + '\n'
 
     if fresh and not quiet:
