@@ -16,8 +16,8 @@
 $ErrorActionPreference = 'Stop'
 
 $TaskName = 'CMA-un-watch'
-$Pythonw  = 'C:\Users\tomas\AppData\Local\Programs\Python\Python311\pythonw.exe'
-$Root     = 'C:\Toma\critical-materials-atlas'
+$Pythonw  = (Join-Path $env:LOCALAPPDATA 'Programs\Python\Python311\pythonw.exe')
+$Root     = Split-Path -Parent $PSScriptRoot
 $Script   = Join-Path $Root 'reconcile\un_watch.py'
 
 if (-not (Test-Path $Pythonw)) { throw "pythonw not found at $Pythonw" }

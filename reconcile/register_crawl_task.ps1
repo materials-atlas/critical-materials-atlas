@@ -20,7 +20,7 @@ param([switch]$Unregister)
 $ErrorActionPreference = 'Stop'
 $TaskName = 'CMA-comtrade-universe'
 $Root     = Split-Path -Parent $PSScriptRoot
-$Pythonw  = 'C:\Users\tomas\AppData\Local\Programs\Python\Python311\pythonw.exe'
+$Pythonw  = (Join-Path $env:LOCALAPPDATA 'Programs\Python\Python311\pythonw.exe')
 $Script   = Join-Path $Root 'reconcile\crawl_scheduled.py'
 
 if ($Unregister) {
