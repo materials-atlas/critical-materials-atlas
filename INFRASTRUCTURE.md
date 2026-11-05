@@ -149,3 +149,18 @@ hyper-threading - so about 3 parallel decodes at most, and 2 while RAM is 8 GB.
 
 The real list: a 1 TB 2.5" SATA SSD and one 8 GB DDR4-2400 SODIMM. NVMe buys little here, because
 the bottleneck is CPU decode and not disk throughput.
+
+## Bought (27 Oct 2026)
+
+The **Crucial BX500 1 TB** (2.5", 7 mm, SATA III) was ordered on 27 Oct and arrives **28 Oct**. Same
+form factor and interface as the failing SanDisk it replaces, so it drops into the same bay. The
+**8 GB DDR4-2400 SODIMM** for the empty second slot is scheduled for **15 Nov 2026**.
+
+The RAM is not a prerequisite for the corpus pull. `pull_comtrade_bulk.py` reads one reporter-month
+at a time and the largest file measured (France 202506, 112.6 MB gzip, 5.08M rows) decodes inside
+8 GB. So the order of work is: new SSD in, Ubuntu on it, pull running - then RAM on 15 Nov, which
+buys parallel decodes (2 -> 3) and the headroom for DuckDB queries over the finished corpus.
+
+The old SanDisk comes out rather than being wiped in place: D:'s family media is already verified
+in the OneDrive backup (10,278 of 10,278 files per the rclone logs), and a disk with
+1,568 bad blocks has no second job. Keep it in a drawer, do not reuse it.
