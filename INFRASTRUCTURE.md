@@ -231,6 +231,32 @@ Traps met:
 - The Windows `ssh-keyscan` (OpenSSH 9.5) fails against this server (OpenSSH 10.2) with an
   unsupported key-exchange error. `ssh` itself connects fine; the error is not a network fault.
 
-**Not done yet:** Tailscale sign-in on both machines, Samba, Syncthing, the corpus pull, the RAM
-(15 Nov). The Lenovo is on Wi-Fi; its ethernet port is unplugged, and a pull of this size wants
-the cable.
+**Not done yet:** Tailscale sign-in on both machines, Samba, Syncthing, the RAM (15 Nov). The
+Lenovo is on Wi-Fi; its ethernet port is unplugged, and a pull of this size wants the cable.
+
+## The corpus pull is running (started 9 Nov 2026, 20:04)
+
+`reconcile/pull_comtrade_bulk.py --all-codes` runs on the Lenovo as a **systemd user service**,
+`comtrade-bulk.service`, from `~/comtrade/` (the script, the key file, a `.venv` with `requests`
+and `pyarrow`). Output goes to `~/comtrade/raw/comtrade_bulk/<year>/<period>_<reporter>.parquet`,
+with `_bulk.log`, `_state.json` and `_manifest.tsv` beside it. The plan check saw 323 periods
+(200001 .. 202611) and "ALL products".
+
+- **It survives everything short of a dead disk.** Linger is on, the unit is enabled, and it
+  restarts hourly whatever the exit code, so a restart of the machine, a network outage or a
+  crash all resume from the state file with nobody logged in. Once the pull is complete that
+  hourly run costs a few listing calls.
+- **To look:** `tail ~/comtrade/raw/comtrade_bulk/_bulk.log`, or
+  `systemctl --user status comtrade-bulk`. **To stop:** `systemctl --user stop comtrade-bulk`
+  (and `disable` to keep it stopped across restarts).
+
+Two faults the script had, both invisible on Windows, fixed in the repo the same evening:
+
+- The start-up disk check measured `ROOT[:3]`, which is the drive letter on Windows and a path
+  that does not exist on Linux. It now measures the output folder.
+- It imported `pandas` without using it, so the documented two-package install
+  (`requests`, `pyarrow`) failed on a clean machine.
+
+One limit to know about: a period's listing is cached in the state file the first time it comes
+back non-empty. The most recent months were listed with a handful of reporters (202609: 6), and
+reporters that publish later will **not** be fetched until those cached listings are cleared.
