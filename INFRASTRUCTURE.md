@@ -217,6 +217,11 @@ Done the same evening, in this order, because step 3 of the Order section remove
   (`/etc/systemd/logind.conf.d/50-server.conf`) so that **closing the lid no longer suspends**;
   linger for the user, so its background services run with nobody logged in; Tailscale 1.104.5
   installed. Checked after the restart: no updates pending, lid switch reads `ignore`, linger on.
+- **It cannot sleep.** `sleep.target`, `suspend.target`, `hibernate.target` and
+  `hybrid-sleep.target` are masked, and the desktop session is set never to blank, dim or lock
+  the screen, so the machine can be looked at without typing the password. The one report of
+  "it switches off by itself" was the screen blanking after five minutes: the journal showed no
+  suspend and the pull never paused. Check the journal before believing in a sleep.
 - **Measured on the machine:** 857 GB free of 915 GB; 7.1 GiB of RAM visible; no NVMe device, so
   the M.2 slot is empty as far as the system can see. Idle suspend on mains is already off by
   default. The Wi-Fi profile is system-wide with its key stored, so it reconnects at start.
