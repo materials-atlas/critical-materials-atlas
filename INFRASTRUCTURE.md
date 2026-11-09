@@ -164,3 +164,24 @@ buys parallel decodes (2 -> 3) and the headroom for DuckDB queries over the fini
 The old SanDisk comes out rather than being wiped in place: D:'s family media is already verified
 in the OneDrive backup (10,278 of 10,278 files per the rclone logs), and a disk with
 1,568 bad blocks has no second job. Keep it in a drawer, do not reuse it.
+
+## Installed (9 Nov 2026)
+
+The BX500 is in the Lenovo's 2.5" bay and the SanDisk is out. **Not yet booted**: the new disk is
+empty, so the machine does not start on its own. Ubuntu is the next step, from the installer card
+written on 27 Oct.
+
+What the swap involves on this machine, because the generic guides leave most of it out:
+
+- The drive sits in a metal frame held to the chassis by **four** screws: two beside the SATA
+  socket, two at the far end next to the I/O-board ribbon. With only the socket-end pair out it
+  does not move, and it looks as though it should.
+- Frame and drive come out together, sliding away from the socket. Four more screws on the two
+  long sides hold the drive in the frame. The foil flap belongs to the frame and marks the
+  connector end, so the new drive goes in label up with its connector under the flap.
+- The green tape on the drive only holds the fan wires down. It peels off the drive and presses
+  back onto the new one.
+- The battery connector (printed `BATT` on the board, beside the bay) was **left plugged in**: its
+  plug would not come out without force. Machine fully off and charger out instead.
+- The fans and heat pipes were thick with dust when the cover came off. Worth clearing before the
+  machine runs day and night.
