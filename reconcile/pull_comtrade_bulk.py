@@ -44,7 +44,6 @@ import shutil
 import sys
 import time
 
-import pandas as pd
 import requests
 
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -240,11 +239,13 @@ def main():
         save_state(st)
         return 0
 
-    free = shutil.disk_usage(ROOT[:3]).free / 1e9
+    # Measure the disk the output lands on. ROOT[:3] was the drive letter on Windows and a path
+    # that does not exist on anything else, so the run died here before fetching a file.
+    os.makedirs(OUTDIR, exist_ok=True)
+    free = shutil.disk_usage(OUTDIR).free / 1e9
     if free < MIN_FREE_GB:
         raise SystemExit('only %.1f GB free, need %.1f - refusing to start' % (free, MIN_FREE_GB))
 
-    os.makedirs(OUTDIR, exist_ok=True)
     log('START  periods=%d  filter=%s  free=%.1f GB'
         % (len(pers), 'all' if keep is None else '%d codes' % len(keep), free))
     t0 = time.time()
