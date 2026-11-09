@@ -236,8 +236,23 @@ Traps met:
 - The Windows `ssh-keyscan` (OpenSSH 9.5) fails against this server (OpenSSH 10.2) with an
   unsupported key-exchange error. `ssh` itself connects fine; the error is not a network fault.
 
-**Not done yet:** Tailscale sign-in on both machines, Samba, Syncthing, the RAM (15 Nov). The
-Lenovo is on Wi-Fi; its ethernet port is unplugged, and a pull of this size wants the cable.
+**Tailscale is up on both machines (9 Nov 2026, late evening).** `ssh toma@lenovo` now works from
+the Zenbook by name, from anywhere, and the DHCP address no longer matters. Both signed in through
+the same GitHub identity. Traps met on the way:
+
+- `tailscale up` prints its link and then **blocks until the browser confirms**. Started over
+  plain SSH with `nohup ... &`, it dies when that SSH session ends, and the link dies with it: the
+  browser then says "Login successful" while the machine still says "Logged out". Start it with
+  `setsid nohup ... </dev/null &`, or keep the SSH window open until the machine says Running.
+- Two `tailscale up` processes waiting at once each regenerate the link, and the sign-in cannot
+  complete. Check `pgrep -af "tailscale up"` before starting another.
+- The confirm page returned a 500 on the first "Connect" click; reloading it and clicking again
+  worked.
+- On the Windows side, `winget install Tailscale.Tailscale` cannot show the elevation prompt from
+  a non-interactive shell (exit 1602 "cancelled"); the signed MSI run by hand installs fine.
+
+**Not done yet:** Samba, Syncthing, the RAM (15 Nov). The Lenovo is on Wi-Fi; its ethernet port
+is unplugged, and a pull of this size wants the cable.
 
 ## The corpus pull is running (started 9 Nov 2026, 20:04)
 
