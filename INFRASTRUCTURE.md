@@ -203,5 +203,34 @@ swap. The installer card written on 27 Oct worked at the first attempt.
   come back on its own after a power cut.
 - **Result:** `CT1000BX500SSD1` as `sda`, with `sda1` FAT32 on `/boot/efi` and `sda2` ext4 on `/`.
   User `toma`, host `lenovo`, which is what the `ssh toma@lenovo` line above expects.
-- **Not done yet:** system updates, and everything from step 2 of the Order section. Whether the
-  network was up during the install was not checked.
+
+## Server setup (9 Nov 2026)
+
+Done the same evening, in this order, because step 3 of the Order section removes the typing:
+
+- **SSH first.** `openssh-server` installed by hand on the Lenovo (the only two commands typed
+  there). A key made on the Zenbook (`~/.ssh/id_ed25519`, no passphrase) went into
+  `~/.ssh/authorized_keys`, and key login works. Until Tailscale gives the machine a name it is
+  reached at its DHCP address on the home network, which can change.
+- **One root script,** `server_setup.sh`, kept in the kit folder outside this repo: the 105 waiting
+  updates; `python3-venv`, `pip`, `git`, `curl`, `tmux`, `htop`, `smartmontools`; a logind drop-in
+  (`/etc/systemd/logind.conf.d/50-server.conf`) so that **closing the lid no longer suspends**;
+  linger for the user, so its background services run with nobody logged in; Tailscale 1.104.5
+  installed. Checked after the restart: no updates pending, lid switch reads `ignore`, linger on.
+- **Measured on the machine:** 857 GB free of 915 GB; 7.1 GiB of RAM visible; no NVMe device, so
+  the M.2 slot is empty as far as the system can see. Idle suspend on mains is already off by
+  default. The Wi-Fi profile is system-wide with its key stored, so it reconnects at start.
+
+Traps met:
+
+- **Root still needs the password.** There is no passwordless `sudo`. Anything needing root is
+  put in a script and started from the Zenbook with `ssh -t`, so the password is typed once, by
+  hand, in that window.
+- `tailscale set --operator` inside the script did not take, so `tailscale up` still asked for
+  root. Pass `--operator` to `tailscale up` itself.
+- The Windows `ssh-keyscan` (OpenSSH 9.5) fails against this server (OpenSSH 10.2) with an
+  unsupported key-exchange error. `ssh` itself connects fine; the error is not a network fault.
+
+**Not done yet:** Tailscale sign-in on both machines, Samba, Syncthing, the corpus pull, the RAM
+(15 Nov). The Lenovo is on Wi-Fi; its ethernet port is unplugged, and a pull of this size wants
+the cable.
