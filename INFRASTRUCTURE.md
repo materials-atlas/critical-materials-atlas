@@ -69,6 +69,10 @@ nothing needs installing on it to drive work by hand; it is opened, not installe
 because I twice gave install instructions from scratch, having read the sentence below and taken
 it as history rather than as current state.
 
+**Superseded 9 Nov 2026.** That session lived on the old disk, under Windows, and went out with
+it. The Ubuntu install starts with none, so until SSH is up every command on the Lenovo is typed
+by hand there.
+
 **This is the layer that matters most, and the reason this document exists.** On 4 October the
 Lenovo had to be set up by relaying every instruction between two separate assistant sessions, one
 per machine — each step typed by hand, screenshots carried back, decisions re-confirmed twice
@@ -129,6 +133,7 @@ Tailscale ~10 min · SSH ~5 min · Syncthing ~15 min · Samba ~30 min. An evenin
 ## Order
 
 1. Ubuntu 26.04 LTS on the Lenovo (supported to April 2031; Windows 10 support ended 14 Oct 2025)
+   - **done 9 Nov 2026**, see "Ubuntu installed" at the end
 2. Tailscale on both
 3. SSH — **do this before anything else that needs typing on the Lenovo**
 4. Samba for the crawl folder
@@ -167,9 +172,8 @@ in the OneDrive backup (10,278 of 10,278 files per the rclone logs), and a disk 
 
 ## Installed (9 Nov 2026)
 
-The BX500 is in the Lenovo's 2.5" bay and the SanDisk is out. **Not yet booted**: the new disk is
-empty, so the machine does not start on its own. Ubuntu is the next step, from the installer card
-written on 27 Oct.
+The BX500 is in the Lenovo's 2.5" bay and the SanDisk is out. Ubuntu went onto it the same evening
+(next section).
 
 What the swap involves on this machine, because the generic guides leave most of it out:
 
@@ -185,3 +189,19 @@ What the swap involves on this machine, because the generic guides leave most of
   plug would not come out without force. Machine fully off and charger out instead.
 - The fans and heat pipes were thick with dust when the cover came off. Worth clearing before the
   machine runs day and night.
+
+## Ubuntu installed (9 Nov 2026)
+
+Ubuntu 26.04.1 LTS desktop is on the BX500 and the Lenovo boots from it, the same evening as the
+swap. The installer card written on 27 Oct worked at the first attempt.
+
+- **Booting the card.** In the Novo Button Menu, Boot Menu lists the card as **"Linpus lite
+  (Flash)"**. Nothing in that list says Ubuntu, USB or SD.
+- **Choices made in the installer:** English, French keyboard, interactive installation, default
+  selection, neither of the two proprietary-software boxes, erase disk and install, **no
+  encryption**. An encrypted disk asks for a passphrase at every start, and this machine has to
+  come back on its own after a power cut.
+- **Result:** `CT1000BX500SSD1` as `sda`, with `sda1` FAT32 on `/boot/efi` and `sda2` ext4 on `/`.
+  User `toma`, host `lenovo`, which is what the `ssh toma@lenovo` line above expects.
+- **Not done yet:** system updates, and everything from step 2 of the Order section. Whether the
+  network was up during the install was not checked.
