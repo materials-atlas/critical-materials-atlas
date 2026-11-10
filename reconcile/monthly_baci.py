@@ -29,10 +29,15 @@ different reliability model, and is in the git history):
    corridor one or two months later, nearest first, and the importer's value is brought onto the
    exporter's month. Yearly data never needed this.
 3. RELIABILITY (paper section 2.4). Reporting distance RD = |ln(Vx/Vm_fob)| on two-sided flows,
-   regressed on exporter, importer, time and product fixed effects (product by within
-   transformation), each observation weighted by ln of the sum of the two reports; the exporter
-   and importer least-square means LS_RD give sigma_i = (pi/2) (LS_RD_i - min LS_RD - 2 stderr_i),
-   floored. Their equation (3) turns the two sigmas into the weight of the exporter's report.
+   regressed on exporter, importer, time and product fixed effects by weighted backfitting that
+   keeps the effects, each observation weighted by ln of the sum of the two reports; the exporter
+   and importer least-square means give sigma_i = (pi/2)(LS_RD_i - min LS_RD - 2 stderr_i), their
+   footnote 22. Equation (3) turns the two sigmas into the weight of the exporter's report.
+   The same regression is run on the two reported quantities, and quantities are reconciled with
+   their own weights (the paper assesses values and quantities separately). The paper trims
+   nothing here; --rd-trim is an explicit adaptation for monthly data.
+   --annual runs the whole procedure on the months summed to calendar years: the paper's own
+   frequency on our own raw data, which separates what is method from what is monthly.
 4. RECONCILIATION. Weighted arithmetic mean of the two FOB values; a flow declared once is that
    declaration; quantities (net weight) with the same weights.
 
@@ -105,7 +110,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work):
+def load_totals(con, periods, slice_path, work, annual=False):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -122,12 +127,12 @@ def load_totals(con, periods, slice_path, work):
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
     con.execute("COPY (%s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (' UNION ALL '.join(parts), tot))
     con.execute("""CREATE OR REPLACE TABLE tot AS
-        SELECT t.period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
+        SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
                t.hs6, t.flow, SUM(t.v) AS v, SUM(t.q) AS q, COUNT(*) = COUNT(t.q) AS q_full
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
         WHERE (t.par = %d OR p.iso3 IS NOT NULL)
-        GROUP BY 1, 2, 3, 4, 5""" % (NES, tot, NES))
+        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, tot, NES))
     n = con.execute("SELECT count(*), count(*) FILTER (WHERE partner = 'NES') FROM tot").fetchall()[0]
     log('totals: %s declarations, %s of them to "areas nes"' % (format(n[0], ','), format(n[1], ',')))
 
@@ -191,22 +196,27 @@ def fit_freight(con, geo, work):
     exactly - leverage per observation from (X'WX)^-1, D_i > 4/n dropped - before a second
     solve. Nothing leaves the database but the moments."""
     con.register('geo', geo)
+    # UV_k in the paper is the product's world median unit value, one per product: here the median
+    # over the whole window of the exporter-declared unit values (a product-month median moved with
+    # whoever happened to report that month - the council's point)
     con.execute("""CREATE OR REPLACE TABLE uv AS
-        SELECT period, hs6, median(vx / qx) AS uv FROM pairs WHERE qx > 0 AND vx > 0 GROUP BY 1, 2""")
+        SELECT hs6, median(vx / qx) AS uv FROM pairs WHERE qx > 0 AND vx > 0 GROUP BY 1""")
     ll = pd.DataFrame({'iso3': sorted(LANDLOCKED)}); con.register('ll', ll)
     con.execute("""CREATE OR REPLACE TABLE fobs AS
         SELECT p.period, ln((vm / qm) / (vx / qx)) AS y, LEAST(qx, qm) / GREATEST(qx, qm) AS w,
                ln(g.d) AS c1, ln(g.d) * ln(g.d) AS c2, COALESCE(g.contig, 0) AS c3,
                CASE WHEN le.iso3 IS NULL THEN 0 ELSE 1 END AS c4, CASE WHEN li.iso3 IS NULL THEN 0 ELSE 1 END AS c5,
                ln(u.uv) AS c6, TRUE AS keep
-        FROM pairs p JOIN geo g ON g.iso_o = p.exporter AND g.iso_d = p.importer JOIN uv u USING (period, hs6)
+        FROM pairs p JOIN geo g ON g.iso_o = p.exporter AND g.iso_d = p.importer JOIN uv u USING (hs6)
              LEFT JOIN ll le ON le.iso3 = p.exporter LEFT JOIN ll li ON li.iso3 = p.importer
         WHERE vx > 0 AND vm > 0 AND qx > 0 AND qm > 0 AND u.uv > 0 AND NOT p.importer IN (%s)""" % (
         ','.join("'%s'" % c for c in FOB_IMPORTERS)))
     n_all = con.execute("SELECT count(*) FROM fobs").fetchall()[0][0]
     if n_all < 1000:
-        log('freight: only %d usable pairs - falling back to a flat 3.3%% rate' % n_all)
-        return {'flat': 1.033, 'n': int(n_all)}
+        log('freight: only %d usable pairs - falling back to a flat 3.3%% rate (the paper\'s mean), applied with the same exceptions' % n_all)
+        return {'coef': {'intercept': float(np.log(1.033)), 'ln_dist': 0.0, 'ln_dist2': 0.0, 'contig': 0.0,
+                         'landlocked_exp': 0.0, 'landlocked_imp': 0.0, 'ln_uv': 0.0},
+                'time_fe': {}, 'n': int(n_all), 'dropped': 0, 'mean_cif_rate': 0.033, 'resid_sd': float('nan')}
     periods = [r[0] for r in con.execute("SELECT DISTINCT period FROM fobs ORDER BY 1").fetchall()]
     T = len(periods); K = 7 + T - 1
     cols = ['1', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6']
@@ -280,11 +290,9 @@ def fit_freight(con, geo, work):
 
 def apply_freight(con, geo, fit):
     """vm_fob for every import declaration: the predicted rate, the paper's exceptions."""
-    if 'flat' in fit:
-        con.execute("CREATE OR REPLACE TABLE adj AS SELECT *, %f AS rate, vm / %f AS vm_fob FROM pairs" % (fit['flat'], fit['flat']))
-        return
     c = fit['coef']
-    tfe = pd.DataFrame({'period': [int(k) for k in fit['time_fe']], 'tfe': list(fit['time_fe'].values())})
+    tfe = pd.DataFrame({'period': pd.Series([int(k) for k in fit['time_fe']], dtype='int64'),
+                        'tfe': pd.Series(list(fit['time_fe'].values()), dtype='float64')})
     con.register('tfe', tfe)
     ll = pd.DataFrame({'iso3': sorted(LANDLOCKED)}); con.register('ll', ll)
     con.execute("""CREATE OR REPLACE TABLE adj AS
@@ -292,7 +300,7 @@ def apply_freight(con, geo, fit):
                           CASE WHEN le.iso3 IS NOT NULL THEN 1 ELSE 0 END AS lle,
                           CASE WHEN li.iso3 IS NOT NULL THEN 1 ELSE 0 END AS lli
                    FROM pairs p LEFT JOIN geo g ON g.iso_o = p.exporter AND g.iso_d = p.importer
-                        LEFT JOIN uv u USING (period, hs6) LEFT JOIN tfe t USING (period)
+                        LEFT JOIN uv u USING (hs6) LEFT JOIN tfe t USING (period)
                         LEFT JOIN ll le ON le.iso3 = p.exporter LEFT JOIN ll li ON li.iso3 = p.importer),
              e AS (SELECT *, CASE WHEN d IS NOT NULL AND uv > 0 THEN
                         exp(%f + %f * ln(d) + %f * ln(d) * ln(d) + %f * COALESCE(contig, 0) + %f * lle + %f * lli + %f * ln(uv) + tfe)
@@ -323,7 +331,7 @@ def align_timing(con, lags, work):
     other - and the importer's value is brought onto the exporter's month. Nearest lag first, each
     orphan used once. Nothing is smoothed and nothing is moved that already agrees."""
     con.execute("""CREATE OR REPLACE TABLE adj2 AS
-        SELECT *, (period // 100) * 12 + period % 100 AS m, vm_fob AS vm_al, qm AS qm_al,
+        SELECT *, CASE WHEN period > 9999 THEN (period // 100) * 12 + period % 100 ELSE period END AS m, vm_fob AS vm_al, qm AS qm_al,
                CAST(NULL AS INTEGER) AS matched_lag FROM adj""")
     moved = 0
     for l in range(1, max(lags, 0) + 1):
@@ -331,7 +339,9 @@ def align_timing(con, lags, work):
             SELECT x.exporter, x.importer, x.hs6, x.m AS mx, y.m AS my
             FROM adj2 x JOIN adj2 y ON y.exporter = x.exporter AND y.importer = x.importer AND y.hs6 = x.hs6 AND y.m = x.m + %d
             WHERE x.vx IS NOT NULL AND x.vm_al IS NULL AND x.matched_lag IS NULL
-              AND y.vm_al IS NOT NULL AND y.vx IS NULL AND y.matched_lag IS NULL""" % l)
+              AND y.vm_al IS NOT NULL AND y.vx IS NULL AND y.matched_lag IS NULL
+              -- compatible values only: presence alone would pair a 10k declaration with a 10m one
+              AND x.vx / y.vm_al BETWEEN %f AND %f""" % (l, TRIM_LO, TRIM_HI))
         n = con.execute("SELECT count(*) FROM mt").fetchall()[0][0]
         if not n:
             continue
@@ -353,99 +363,136 @@ def align_timing(con, lags, work):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def fit_reliability(con, work):
-    # every two-sided pair: the paper trims nothing here
-    d = con.execute("""SELECT exporter, importer, period, hs6, abs(ln(vx) - ln(vm_al)) AS rd,
-                              ln((vx + vm_al) / 1000.0) AS w
-                       FROM adj2 WHERE vx > 0 AND vm_al > 0
-                       ORDER BY exporter, importer, period, hs6""").df()
+def _fe_backfit(y, w, factors, tol=1e-9, max_iter=400):
+    """Weighted additive fixed-effects fit y = sum_f effect_f[level] + r by backfitting, KEEPING the
+    effects (the previous version kept only the residual and then read each country's raw mean
+    as its effect, which is exactly the composition the regression is meant to remove). Each
+    factor's effects are centred to a weighted mean of zero; the grand mean is returned apart.
+    Returns (effects dict, grand mean, residual)."""
+    sw = w.sum()
+    mu = float((w * y).sum() / sw)
+    eff = {k: np.zeros(n) for k, (codes, n) in factors.items()}
+    r = y - mu
+    for it in range(max_iter):
+        delta = 0.0
+        for k, (codes, n) in factors.items():
+            partial = r + eff[k][codes]                      # y minus everything but this factor
+            num = np.bincount(codes, weights=w * partial, minlength=n)
+            den = np.maximum(np.bincount(codes, weights=w, minlength=n), 1e-12)
+            new = num / den
+            new -= float((w * new[codes]).sum() / sw)        # centre
+            delta = max(delta, float(np.max(np.abs(new - eff[k]))))
+            r = partial - new[codes]
+            eff[k] = new
+        mu_shift = float((w * r).sum() / sw)
+        mu += mu_shift; r -= mu_shift
+        if delta < tol:
+            break
+    return eff, mu, r, it + 1
+
+
+def fit_reliability(con, work, kind='value', trim=None):
+    """Paper section 2.4 for values (kind='value') and, separately, for quantities. RD is the
+    absolute log ratio of the two reports; the regression has exporter, importer, period and
+    product effects, each observation weighted by ln of the sum of the two reports (thousand USD,
+    or tons); LS_RD_i is the exporter's (importer's) effect at a common reference, i.e. the
+    effect plus the grand mean; sigma_i = (pi/2)(LS_RD_i - min_h LS_RD_h - 2 stderr_i), footnote
+    22 exactly, floored at 0.01. stderr_i is the WLS standard error of a level effect with the
+    other effects held fixed, s / sqrt(sum of its weights): an approximation of the paper's
+    regression standard error, and said so. `trim` = None follows the paper (no trimming); a
+    (lo, hi) ratio band is an explicit adaptation for monthly data and is reported as such."""
+    if kind == 'value':
+        q = """SELECT exporter, importer, period, hs6, abs(ln(vx) - ln(vm_al)) AS rd,
+                      ln((vx + vm_al) / 1000.0) AS w, vx / vm_al AS ratio
+               FROM adj2 WHERE vx > 0 AND vm_al > 0"""
+    else:
+        q = """SELECT exporter, importer, period, hs6, abs(ln(qx) - ln(qm_al)) AS rd,
+                      ln((qx + qm_al) / 1000.0) AS w, qx / qm_al AS ratio
+               FROM adj2 WHERE qx > 0 AND qm_al > 0"""
+    if trim:
+        q += " AND (%s) BETWEEN %f AND %f" % ('vx / vm_al' if kind == 'value' else 'qx / qm_al', trim[0], trim[1])
+    d = con.execute(q + " ORDER BY exporter, importer, period, hs6").df()
     d = d[d.w > 0]
     n = len(d)
+    cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma', 'kind']
     if n < 500:
-        log('reliability: only %d two-sided pairs - equal weights' % n)
-        return pd.DataFrame(columns=['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma'])
+        log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n))
+        return pd.DataFrame(columns=cols)
     y = d.rd.to_numpy(dtype=float); w = d.w.to_numpy(dtype=float)
-    fac = {}
+    factors = {}; uniq = {}
     for k in ('exporter', 'importer', 'period', 'hs6'):
-        codes, uniq = pd.factorize(d[k], sort=True)
-        fac[k] = (codes, len(uniq), uniq)
-    # weighted alternating projections: y and the dummies demeaned within each factor until
-    # convergence, which is the within estimator with four sets of fixed effects
-    r = y.copy()
-    for it in range(60):
-        r_old = r.copy()
-        for k in fac:
-            codes, n_k, _ = fac[k]
-            m = np.bincount(codes, weights=w * r, minlength=n_k) / np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
-            r = r - m[codes]
-        if np.max(np.abs(r - r_old)) < 1e-9:
-            break
-    resid_var = float(np.average(r ** 2, weights=w))
-    gmean = float(np.average(y, weights=w))
+        codes, u = pd.factorize(d[k], sort=True)
+        factors[k] = (codes, len(u)); uniq[k] = u
+    eff, mu, r, iters = _fe_backfit(y, w, factors)
+    s2 = float(np.average(r ** 2, weights=w))
     out = []
     for role in ('exporter', 'importer'):
-        codes, n_k, uniq = fac[role]
-        # the factor's effect = weighted mean of (y - all other effects): recovered as the within
-        # mean of y minus the residual, by factor
-        eff_num = np.bincount(codes, weights=w * (y - r), minlength=n_k)
-        eff_den = np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
-        ls = eff_num / eff_den                              # least-square mean of RD for the reporter
-        cnt = np.bincount(codes, minlength=n_k)
-        stderr = np.sqrt(resid_var / np.maximum(cnt, 1))
-        base = np.min(ls - 2 * stderr)
-        sigma = (np.pi / 2) * np.maximum(ls - base - 2 * stderr, 0.0)
+        codes, n_k = factors[role]
+        ls = mu + eff[role]                                   # LS mean at the common reference
+        sw_k = np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
+        stderr = np.sqrt(s2 / sw_k)
+        sigma = (np.pi / 2) * (ls - ls.min() - 2 * stderr)    # footnote 22
         sigma = np.maximum(sigma, 0.01)
-        out.append(pd.DataFrame({'role': role, 'reporter': uniq, 'n': cnt, 'ls_rd': ls, 'stderr': stderr, 'sigma': sigma}))
+        out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': np.bincount(codes, minlength=n_k),
+                                 'ls_rd': ls, 'stderr': stderr, 'sigma': sigma, 'kind': kind}))
     rel = pd.concat(out, ignore_index=True)
-    rel.to_parquet(os.path.join(work, 'reliability.parquet'), index=False)
-    log('reliability on %s pairs: mean RD %.3f, residual sd %.3f; sigma exporter median %.3f [%.3f..%.3f], '
-        'importer median %.3f' % (format(n, ','), gmean, np.sqrt(resid_var),
-                                   rel[rel.role == 'exporter'].sigma.median(), rel[rel.role == 'exporter'].sigma.min(),
-                                   rel[rel.role == 'exporter'].sigma.max(), rel[rel.role == 'importer'].sigma.median()))
+    rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
+    e = rel[rel.role == 'exporter'].sigma; i = rel[rel.role == 'importer'].sigma
+    log('reliability (%s) on %s pairs%s, %d backfit iterations: mean RD %.3f, residual sd %.3f; sigma exporter '
+        'median %.3f [%.2f..%.2f], importer median %.3f [%.2f..%.2f]' % (
+            kind, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else ' (untrimmed, as the paper)', iters,
+            mu, np.sqrt(s2), e.median(), e.min(), e.max(), i.median(), i.min(), i.max()))
     return rel
 
 
-def weight_expr():
-    """The paper's equation (3): w = Vj / (Vi + Vj) with V = e^s2 (e^s2 - 1), the log-normal variance
-    of a report's error. Unknown sigma -> the median of the known ones."""
-    return ("(exp(si2) * (exp(si2) - 1)) / ((exp(se2) * (exp(se2) - 1)) + (exp(si2) * (exp(si2) - 1)))")
+def weight_expr(se2='se2', si2='si2'):
+    """The paper's equation (3): w = Vi / (Ve + Vi), V(s) = e^(s^2) (e^(s^2) - 1), the variance of a
+    log-normal report error; written as 1 / (1 + exp(ln Ve - ln Vi)) with ln V = s^2 + ln(e^(s^2)-1)
+    so that large sigmas neither overflow nor cancel."""
+    lnv = lambda x: "(%s + ln(exp(%s) - 1))" % (x, x)
+    return "1.0 / (1.0 + exp(LEAST(GREATEST(%s - %s, -700), 700)))" % (lnv(se2), lnv(si2))
 
 
 # ----------------------------------------------------------------------------------------------
 # 4. reconcile and write
 # ----------------------------------------------------------------------------------------------
-def reconcile(con, rel, out_dir, periods):
-    if len(rel):
-        re_ = rel[rel.role == 'exporter'][['reporter', 'sigma']].rename(columns={'reporter': 'exporter', 'sigma': 'se'})
-        ri_ = rel[rel.role == 'importer'][['reporter', 'sigma']].rename(columns={'reporter': 'importer', 'sigma': 'si'})
-        med_e = float(re_.se.median()); med_i = float(ri_.si.median())
-    else:
-        re_ = pd.DataFrame({'exporter': [], 'se': []}); ri_ = pd.DataFrame({'importer': [], 'si': []})
-        med_e = med_i = 0.5
-    con.register('re_', re_); con.register('ri_', ri_)
+def reconcile(con, rel_v, rel_q, out_dir, periods):
+    def sig(rel, role, col):
+        if len(rel):
+            r = rel[rel.role == role][['reporter', 'sigma']].rename(columns={'reporter': role, 'sigma': col})
+            return r, float(r[col].median())
+        return pd.DataFrame({role: pd.Series(dtype='str'), col: pd.Series(dtype='float64')}), 0.5
+    rev, mev = sig(rel_v, 'exporter', 'sev'); riv, miv = sig(rel_v, 'importer', 'siv')
+    req, meq = sig(rel_q, 'exporter', 'seq'); riq, miq = sig(rel_q, 'importer', 'siq')
+    for name, df in (('rev', rev), ('riv', riv), ('req', req), ('riq', riq)):
+        con.register(name, df)
     con.execute("""CREATE OR REPLACE TABLE recon AS
         SELECT period, exporter, importer, hs6,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN w * vx + (1 - w) * vm_al
                     WHEN vx IS NOT NULL THEN vx ELSE vm_al END AS v,
-               CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN w * qx + (1 - w) * qm_al
+               CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN wq * qx + (1 - wq) * qm_al
                     WHEN qx IS NOT NULL THEN qx ELSE qm_al END AS q,
-               vx, vm, vm_fob, vm_al, qx, qm, rate AS markup, matched_lag,
+               vx, vm, vm_fob, vm_al, qx, qm, qm_al, rate AS markup, matched_lag,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN w END AS w_x,
+               CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN wq END AS w_xq,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN 'both'
                     WHEN vx IS NOT NULL THEN 'x_only' ELSE 'm_only' END AS basis
-        FROM (SELECT a.*, %s AS w
-              FROM (SELECT a0.*, POWER(COALESCE(e.se, %f), 2) AS se2, POWER(COALESCE(i.si, %f), 2) AS si2
-                    FROM adj2 a0 LEFT JOIN re_ e USING (exporter) LEFT JOIN ri_ i USING (importer)) a)
-        WHERE vx IS NOT NULL OR vm_al IS NOT NULL""" % (weight_expr(), med_e, med_i))
+        FROM (SELECT a.*, %s AS w, %s AS wq
+              FROM (SELECT a0.*, POWER(COALESCE(e.sev, %f), 2) AS se2, POWER(COALESCE(i.siv, %f), 2) AS si2,
+                           POWER(COALESCE(eq.seq, %f), 2) AS seq2, POWER(COALESCE(iq.siq, %f), 2) AS siq2
+                    FROM adj2 a0 LEFT JOIN rev e USING (exporter) LEFT JOIN riv i USING (importer)
+                         LEFT JOIN req eq USING (exporter) LEFT JOIN riq iq USING (importer)) a)
+        WHERE vx IS NOT NULL OR vm_al IS NOT NULL""" % (weight_expr('se2', 'si2'), weight_expr('seq2', 'siq2'),
+                                                         mev, miv, meq, miq))
     os.makedirs(out_dir, exist_ok=True)
     for p in periods:
         dest = os.path.join(out_dir, '%s.parquet' % p).replace(chr(92), '/')
         con.execute("COPY (SELECT * FROM recon WHERE period = %d ORDER BY exporter, importer, hs6) TO '%s.part' (FORMAT PARQUET, COMPRESSION ZSTD)" % (int(p), dest))
         os.replace(dest + '.part', dest)
     s = con.execute("""SELECT count(*), count(*) FILTER (WHERE basis = 'both'), round(sum(v) / 1e9, 1),
-                              avg(w_x), count(DISTINCT period) FROM recon""").fetchall()[0]
-    log('reconciled: %s flows over %d periods, %s two-sided (mean exporter weight %.3f), %s bn USD -> %s' % (
-        format(s[0], ','), s[4], format(s[1], ','), s[3] or 0, s[2], out_dir))
+                              avg(w_x), avg(w_xq), count(DISTINCT period) FROM recon""").fetchall()[0]
+    log('reconciled: %s flows over %d periods, %s two-sided (mean exporter weight %.3f on values, %.3f on quantities), '
+        '%s bn USD -> %s' % (format(s[0], ','), s[5], format(s[1], ','), s[3] or 0, s[4] or 0, s[2], out_dir))
 
 
 def main():
@@ -455,6 +502,10 @@ def main():
     ap.add_argument('--out', default=os.environ.get('CMA_MONTHLY_DIR', os.path.join(ROOT, 'raw', 'monthly_baci')))
     ap.add_argument('--lags', type=int, default=2, help='importer lag window in months for the timing step (0 = off)')
     ap.add_argument('--no-nes', action='store_true', help='skip the areas-nes reallocation')
+    ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
+                    help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
+    ap.add_argument('--annual', action='store_true',
+                    help='control run: the months summed to calendar years before anything else, the paper\'s own frequency')
     a = ap.parse_args()
     work = os.path.join(a.out, '_fit'); os.makedirs(work, exist_ok=True)
     con = duckdb.connect()
@@ -473,9 +524,16 @@ def main():
             pers = [p for p in pers if a.periods[0] <= p <= a.periods[1]]
         else:
             pers = [p for p in pers if p in set(a.periods)]
-    log('monthly BACI v2: %d period(s) %s..%s, lags %d -> %s' % (len(pers), pers[0], pers[-1], a.lags, a.out))
+    if not pers:
+        log('no periods selected'); return
+    if a.annual:
+        a.lags = 0
+    log('monthly BACI v2.1: %d period(s) %s..%s, lags %d%s -> %s' % (
+        len(pers), pers[0], pers[-1], a.lags, ', ANNUAL control' if a.annual else '', a.out))
     t0 = time.time()
-    load_totals(con, pers, a.slice, work)
+    load_totals(con, pers, a.slice, work, annual=a.annual)
+    if a.annual:
+        pers = sorted({p[:4] for p in pers})
     if not a.no_nes:
         reallocate_nes(con)
     build_pairs(con)
@@ -483,8 +541,10 @@ def main():
     fit = fit_freight(con, geo, work)
     apply_freight(con, geo, fit)
     align_timing(con, a.lags, work)
-    rel = fit_reliability(con, work)
-    reconcile(con, rel, a.out, pers)
+    trim = tuple(a.rd_trim) if a.rd_trim else None
+    rel_v = fit_reliability(con, work, 'value', trim)
+    rel_q = fit_reliability(con, work, 'quantity', trim)
+    reconcile(con, rel_v, rel_q, a.out, pers)
     log('done in %.0f s' % (time.time() - t0))
 
 
