@@ -556,6 +556,21 @@ def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
     return rel
 
 
+def cepii_reliability(path, kind):
+    """CEPII published its reporter (un)reliabilities with the 2019-2021 releases: columns c (the
+    UN country code), v_unreliability_i / _j (as exporter / importer), q_unreliability_i / _j.
+    Returned in the shape fit_reliability produces, for a like-for-like diagnostic run."""
+    d = pd.read_csv(path)
+    cm = country_map()
+    d = d.merge(cm, left_on='c', right_on='code')
+    pre = 'v' if kind == 'value' else 'q'
+    out = []
+    for role, col in (('exporter', pre + '_unreliability_i'), ('importer', pre + '_unreliability_j')):
+        out.append(pd.DataFrame({'role': role, 'reporter': d.iso3, 'n': 0, 'ls_rd': np.nan, 'stderr': np.nan,
+                                 'sigma': np.maximum(d[col].to_numpy(dtype=float), 0.01), 'well_estimated': True, 'kind': kind}))
+    return pd.concat(out, ignore_index=True)
+
+
 def weight_expr(se2='se2', si2='si2'):
     """The paper's equation (3): w = Vi / (Ve + Vi), V(s) = e^(s^2) (e^(s^2) - 1), the variance of a
     log-normal report error; written as 1 / (1 + exp(ln Ve - ln Vi)) with ln V = s^2 + ln(e^(s^2)-1)
@@ -618,6 +633,7 @@ def main():
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
     ap.add_argument('--fob-rule', choices=['observed', 'paper'], default='observed',
                     help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
+    ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
     ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
     ap.add_argument('--annual', action='store_true',
@@ -661,6 +677,13 @@ def main():
     trim = tuple(a.rd_trim) if a.rd_trim else None
     rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs)
     rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs)
+    if a.cepii_reliability:
+        ours = rel_v
+        rel_v = cepii_reliability(a.cepii_reliability, 'value'); rel_q = cepii_reliability(a.cepii_reliability, 'quantity')
+        m = ours[ours.well_estimated].merge(rel_v, on=['role', 'reporter'], suffixes=('_ours', '_cepii'))
+        log('DIAGNOSTIC: reconciling with CEPII\'s published reliabilities (%d countries). Against ours, well-estimated reporters: '
+            'rank correlation %.2f; median sigma ours %.2f, CEPII %.2f' % (
+                rel_v.reporter.nunique(), m.sigma_ours.corr(m.sigma_cepii, method='spearman'), m.sigma_ours.median(), m.sigma_cepii.median()))
     reconcile(con, rel_v, rel_q, a.out, pers)
     log('done in %.0f s' % (time.time() - t0))
 
