@@ -32,6 +32,19 @@ disks, so it is a flag and not a default. See INFRASTRUCTURE.md.
 Usage:
   python reconcile/pull_comtrade_bulk.py --plan
   python reconcile/pull_comtrade_bulk.py [--years 2026 2025] [--all-codes] [--max-files N]
+  python reconcile/pull_comtrade_bulk.py --freq A --cl HS --year-min 1988 --all-codes   # yearly series
+  python reconcile/pull_comtrade_bulk.py --freq A --cl S1 --year-min 1962 --all-codes   # SITC rev.1
+
+Two things learned on the server (10 Nov 2026):
+
+- The key has a DAILY QUOTA OF CALLS, and every listing call counts against it (file downloads
+  do not). Over the quota the server answers 403 "Out of call volume quota. Quota will be
+  replenished in HH:MM:SS", and this script sleeps that out and carries on. Do not spend the
+  quota on anything else while a pull is running: a sizing pass of 300 listings stopped the
+  monthly pull for sixteen hours.
+- Whole-file decoding of a 275 MB archive (Spain, 11M rows) peaked at 6.5 GB of memory on an
+  8 GB machine. Files above --stream-above-mb are therefore decoded in batches with an explicit
+  schema, in constant memory, and the output schema is the same either way.
 """
 import argparse
 import csv
@@ -55,8 +68,25 @@ MANIFEST = os.path.join(OUTDIR, '_manifest.tsv')
 LOG = os.path.join(OUTDIR, '_bulk.log')
 KEYFILE = os.path.join(ROOT, 'pipeline', '.comtrade_key')
 
-LIST = 'https://comtradeapi.un.org/bulk/v1/get/C/M/HS'
+LIST = 'https://comtradeapi.un.org/bulk/v1/get/C/%s/%s'      # freq, classification
 YEAR_MAX, YEAR_MIN = 2026, 2000
+QUOTA = re.compile(r'replenished in (\d+):(\d+):(\d+)')
+
+# The 34 columns of a bulk file as the whole-file reader infers them, so that the batch reader
+# writes the same schema. CIFValue is the one the whole-file reader gets wrong: a file where it
+# is entirely empty comes out typed null instead of double.
+SCHEMA = [('datasetCode', 'int64'), ('typeCode', 'string'), ('freqCode', 'string'),
+          ('refPeriodId', 'int64'), ('refYear', 'int64'), ('refMonth', 'int64'), ('period', 'int64'),
+          ('reporterCode', 'int64'), ('flowCode', 'string'), ('partnerCode', 'int64'),
+          ('partner2Code', 'int64'), ('classificationSearchCode', 'string'),
+          ('classificationCode', 'string'), ('isOriginalClassification', 'int64'),
+          ('cmdCode', 'string'), ('customsCode', 'string'), ('mosCode', 'int64'), ('motCode', 'int64'),
+          ('qtyUnitCode', 'int64'), ('qty', 'double'), ('isQtyEstimated', 'int64'),
+          ('altQtyUnitCode', 'int64'), ('altQty', 'double'), ('isAltQtyEstimated', 'int64'),
+          ('netWgt', 'double'), ('isNetWgtEstimated', 'int64'), ('grossWgt', 'double'),
+          ('isGrossWgtEstimated', 'int64'), ('CIFValue', 'double'), ('FOBValue', 'double'),
+          ('primaryValue', 'double'), ('legacyEstimationFlag', 'int64'), ('isReported', 'int64'),
+          ('isAggregate', 'int64')]
 MIN_FREE_GB = 5.0            # refuse to start below this: an archive is deleted after each file,
                              # but a 1 GB reporter-month still has to land somewhere first
 SIZE = re.compile(r'([\d.]+)\s*(KB|MB|GB)', re.I)
@@ -92,6 +122,18 @@ def log(msg):
         pass                 # pythonw has no stdout; a working run must not report failure
 
 
+def quota_wait(r):
+    """403 'Out of call volume quota. Quota will be replenished in HH:MM:SS.' Sleep it out and
+    say so, instead of skipping every remaining period in six minutes."""
+    m = QUOTA.search(getattr(r, 'text', '') or '')
+    if r.status_code == 403 and m:
+        secs = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3)) + 120
+        log('   daily call quota exhausted - sleeping %.1f h until it is replenished' % (secs / 3600.0))
+        time.sleep(secs)
+        return True
+    return False
+
+
 def load_state():
     if os.path.exists(STATE):
         try:
@@ -108,9 +150,12 @@ def save_state(st):
     os.replace(tmp, STATE)
 
 
-def periods(years):
-    """Monthly periods, newest first, never one in the future."""
+def periods(years, freq='M'):
+    """Periods newest first, never one in the future: YYYYMM for the monthly series, YYYY for
+    the yearly one."""
     now = time.gmtime()
+    if freq == 'A':
+        return ['%d' % y for y in years if y <= now.tm_year]
     out = []
     for y in years:
         last = 12 if y < now.tm_year else (now.tm_mon if y == now.tm_year else 0)
@@ -119,45 +164,61 @@ def periods(years):
     return out
 
 
-def listing(session, headers, period, st):
+def listing(session, headers, period, st, url=LIST % ('M', 'HS')):
     """Every reporter's file for one period, in ONE call. Cached: the listing rarely changes,
     and re-listing 324 periods on each resume would be the only expensive part of a restart."""
     hit = st.setdefault('listings', {}).get(period)
     if hit:
         return hit
-    for attempt in range(4):
+    # An EMPTY listing is cached too, for a week: the listing calls are what the daily quota
+    # counts, and an hourly restart re-listing every empty period would burn it on nothing.
+    if hit == [] and time.time() - st.setdefault('listed_at', {}).get(period, 0) < 7 * 86400:
+        return hit
+    attempt = 0
+    while attempt < 4:
+        attempt += 1
         try:
-            r = session.get(LIST, headers=headers, params={'period': period}, timeout=180)
+            r = session.get(url, headers=headers, params={'period': period}, timeout=180)
+            if quota_wait(r):
+                attempt -= 1
+                continue
             if r.status_code == 200:
                 rows = [{'reporterCode': d.get('reporterCode'), 'fileUrl': d.get('fileUrl'),
                          'fileSize': d.get('fileSize'),
                          'publicationDate': d.get('publicationDate')}
                         for d in (r.json().get('data') or []) if d.get('fileUrl')]
                 st['listings'][period] = rows
+                st.setdefault('listed_at', {})[period] = time.time()
                 return rows
             if r.status_code in (429, 500, 502, 503, 504):
-                time.sleep(20 * (attempt + 1))
+                time.sleep(20 * attempt)
                 continue
             log('   %s listing http %s' % (period, r.status_code))
             return []
         except Exception as e:
-            time.sleep(10 * (attempt + 1))
+            time.sleep(10 * attempt)
     log('   %s listing unreachable' % period)
     return []
 
 
-def fetch_one(session, headers, period, rep, keep, outdir):
+def fetch_one(session, headers, period, rep, keep, outdir, stream_above_mb=150.0):
     """Download, filter, write parquet, delete the archive. Returns (rows_kept, bytes_in)."""
     tmp = os.path.join(outdir, '_tmp_%s_%s.txt.gz' % (period, rep['reporterCode']))
+    tmp_p = None
     got = 0
-    with session.get(rep['fileUrl'], headers=headers, timeout=1800, stream=True) as resp:
-        if resp.status_code != 200:
-            log('   %s %-5s download http %s' % (period, rep['reporterCode'], resp.status_code))
-            return None, 0
-        with io.open(tmp, 'wb') as fh:
-            for chunk in resp.iter_content(1 << 20):
-                fh.write(chunk)
-                got += len(chunk)
+    for attempt in range(2):
+        got = 0
+        with session.get(rep['fileUrl'], headers=headers, timeout=1800, stream=True) as resp:
+            if resp.status_code != 200:
+                if quota_wait(resp) and attempt == 0:
+                    continue
+                log('   %s %-5s download http %s' % (period, rep['reporterCode'], resp.status_code))
+                return None, 0
+            with io.open(tmp, 'wb') as fh:
+                for chunk in resp.iter_content(1 << 20):
+                    fh.write(chunk)
+                    got += len(chunk)
+        break
     try:
         # pyarrow, not the csv module: measured on France 202506, 13.1 s against 38.8 s for
         # the identical 6,670 rows and all 34 columns. The job is decode-bound, not
@@ -166,6 +227,40 @@ def fetch_one(session, headers, period, rep, keep, outdir):
         import pyarrow.csv as pv
         import pyarrow.compute as pc
         import pyarrow.parquet as pq
+        d = os.path.join(outdir, period[:4])
+        os.makedirs(d, exist_ok=True)
+        dest = os.path.join(d, '%s_%s.parquet' % (period, rep['reporterCode']))
+        tmp_p = dest + '.part'
+        keep_arr = pa.array(sorted(keep)) if keep is not None else None
+        types = {k: (pa.float64() if v == 'double' else getattr(pa, v)()) for k, v in SCHEMA}
+        if got / 1e6 >= stream_above_mb:
+            # Batch decoding, constant memory, explicit schema. A 275 MB archive read whole
+            # peaked at 6.5 GB on the 8 GB server; yearly files of the big reporters are larger.
+            n = 0
+            writer = None
+            with gzip.open(tmp, 'rb') as fh:
+                reader = pv.open_csv(
+                    fh,
+                    parse_options=pv.ParseOptions(delimiter='\t'),
+                    read_options=pv.ReadOptions(block_size=1 << 26),
+                    convert_options=pv.ConvertOptions(strings_can_be_null=False,
+                                                      column_types=types))
+                if 'cmdCode' not in reader.schema.names:
+                    log('   %s %-5s no cmdCode column - skipped' % (period, rep['reporterCode']))
+                    return None, got
+                for batch in reader:
+                    if keep_arr is not None:
+                        batch = batch.filter(pc.is_in(batch['cmdCode'], value_set=keep_arr))
+                    if batch.num_rows == 0:
+                        continue
+                    if writer is None:
+                        writer = pq.ParquetWriter(tmp_p, batch.schema, compression='zstd')
+                    writer.write_batch(batch)
+                    n += batch.num_rows
+            if writer is not None:
+                writer.close()
+                os.replace(tmp_p, dest)
+            return n, got
         with gzip.open(tmp, 'rb') as fh:
             tbl = pv.read_csv(
                 fh,
@@ -173,28 +268,30 @@ def fetch_one(session, headers, period, rep, keep, outdir):
                 read_options=pv.ReadOptions(block_size=1 << 24),
                 # cmdCode must stay TEXT. Inferred as an integer it loses its leading zero
                 # and '010121' stops matching the code list, silently keeping nothing.
+                # The value columns are pinned to float64 too: inferred, an all-empty column
+                # comes out null and an all-integral one int64, and the files stop sharing a
+                # schema. Code and flag columns stay inferred; they are always integral.
                 convert_options=pv.ConvertOptions(
                     strings_can_be_null=False,
-                    column_types={'cmdCode': pa.string()}))
+                    column_types=dict({k: pa.float64() for k, v in SCHEMA if v == 'double'},
+                                      cmdCode=pa.string())))
         if 'cmdCode' not in tbl.column_names:
             log('   %s %-5s no cmdCode column - skipped' % (period, rep['reporterCode']))
             return None, got
         if keep is not None:
-            tbl = tbl.filter(pc.is_in(tbl['cmdCode'], value_set=pa.array(sorted(keep))))
+            tbl = tbl.filter(pc.is_in(tbl['cmdCode'], value_set=keep_arr))
         n = tbl.num_rows
         if n:
-            d = os.path.join(outdir, period[:4])
-            os.makedirs(d, exist_ok=True)
-            dest = os.path.join(d, '%s_%s.parquet' % (period, rep['reporterCode']))
-            tmp_p = dest + '.part'
             pq.write_table(tbl, tmp_p, compression='zstd')
             os.replace(tmp_p, dest)    # never leave a half file looking complete
         return n, got
     finally:
-        try:
-            os.remove(tmp)             # the archive is never kept: 263 GB against 26 GB free
-        except OSError:
-            pass
+        for f in (tmp, tmp_p):         # the archive is never kept, nor a half-written output
+            try:
+                if f:
+                    os.remove(f)
+            except OSError:
+                pass
 
 
 def main():
@@ -204,22 +301,34 @@ def main():
                     help='keep every product, not just the 54 the atlas maps (needs ~300 GB)')
     ap.add_argument('--max-files', type=int, default=0, help='stop after N files (a smoke test)')
     ap.add_argument('--plan', action='store_true')
+    ap.add_argument('--freq', choices=['M', 'A'], default='M', help='M monthly (default), A yearly')
+    ap.add_argument('--cl', default='HS', help='classification: HS (default), S1, S2, S3, S4 ...')
+    ap.add_argument('--year-min', type=int, default=YEAR_MIN, help='oldest year (default 2000)')
+    ap.add_argument('--stream-above-mb', type=float, default=150.0,
+                    help='decode archives above this size in batches (constant memory)')
     a = ap.parse_args()
+    global OUTDIR, STATE, MANIFEST, LOG
+    url = LIST % (a.freq, a.cl)
+    if (a.freq, a.cl) != ('M', 'HS') and 'CMA_BULK_DIR' not in os.environ:
+        OUTDIR = os.path.join(ROOT, 'raw', 'comtrade_bulk_%s_%s' % (a.freq, a.cl))
+        STATE = os.path.join(OUTDIR, '_state.json')
+        MANIFEST = os.path.join(OUTDIR, '_manifest.tsv')
+        LOG = os.path.join(OUTDIR, '_bulk.log')
 
     keep = None
     if not a.all_codes:
         import baci
         keep = set(baci.crm_codes())
 
-    years = a.years or list(range(YEAR_MAX, YEAR_MIN - 1, -1))
-    pers = periods(years)
+    years = a.years or list(range(YEAR_MAX, a.year_min - 1, -1))
+    pers = periods(years, a.freq)
     st = load_state()
     headers = {'Ocp-Apim-Subscription-Key': _key()}
     s = requests.Session()
 
     if a.plan:
-        print('BULK monthly HS6 pull - PLAN ONLY')
-        print('  endpoint   %s' % LIST)
+        print('BULK %s %s pull - PLAN ONLY' % ('monthly' if a.freq == 'M' else 'yearly', a.cl))
+        print('  endpoint   %s' % url)
         print('  output     %s' % OUTDIR)
         print('  periods    %d (%s .. %s)' % (len(pers), pers[-1], pers[0]))
         print('  filter     %s' % ('ALL products' if keep is None
@@ -229,7 +338,7 @@ def main():
         sample = pers[:3]
         tot = 0.0
         for p in sample:
-            rows = listing(s, headers, p, st)
+            rows = listing(s, headers, p, st, url)
             g = sum(mb(x['fileSize']) for x in rows) / 1000.0
             print('    %s  %3d reporters  %.2f GB' % (p, len(rows), g))
             tot += g
@@ -253,7 +362,7 @@ def main():
     bytes_in = 0
     try:
         for period in pers:
-            reps = listing(s, headers, period, st)
+            reps = listing(s, headers, period, st, url)
             if not reps:
                 continue
             todo = [r for r in reps
@@ -275,7 +384,16 @@ def main():
                     log('stopping: only %.1f GB free, below the %.1f GB floor'
                         % (shutil.disk_usage(OUTDIR).free / 1e9, MIN_FREE_GB))
                     raise KeyboardInterrupt
-                n, got = fetch_one(s, headers, period, rep, keep, OUTDIR)
+                try:
+                    n, got = fetch_one(s, headers, period, rep, keep, OUTDIR, a.stream_above_mb)
+                except KeyboardInterrupt:
+                    raise
+                except Exception as e:
+                    # One bad file must not end a day-long run; it is not marked done, so the
+                    # next run tries it again, and the log says which one and why.
+                    log('   %s %-5s FAILED %s: %s' % (period, rep['reporterCode'],
+                                                      type(e).__name__, str(e)[:160]))
+                    continue
                 if n is None:
                     continue
                 files += 1

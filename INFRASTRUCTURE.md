@@ -280,3 +280,38 @@ Two faults the script had, both invisible on Windows, fixed in the repo the same
 One limit to know about: a period's listing is cached in the state file the first time it comes
 back non-empty. The most recent months were listed with a handful of reporters (202609: 6), and
 reporters that publish later will **not** be fetched until those cached listings are cleared.
+
+## Day two of the pull (10 Nov 2026): the quota, the memory, and the yearly series
+
+**Overnight:** 118 GB and 6.3 billion rows by 07:07, no errors, Aug 2020 reached. Five files
+(reporter 180, 2022) answered 404 and are left for a later run.
+
+**The quota.** The key has a **daily quota of API calls, and every bulk LISTING call counts**
+against it; file downloads do not (5,000 files came down in one day). A sizing pass of ~300
+listing calls, made to measure the yearly series while the pull was running, spent the day's
+quota at 09:01, and the pull then skipped its remaining 264 periods in six minutes with
+`listing http 403` and ended. The server's answer carries the wait: `Out of call volume quota.
+Quota will be replenished in HH:MM:SS` (about 01:00 Paris). The script now reads that and sleeps
+it out, caches empty listings for a week so an hourly restart costs nothing, and the rule is: no
+other use of the key while a pull runs.
+
+**The memory.** `systemctl --user show comtrade-bulk -p MemoryPeak` read **6.5 GB** on an 8 GB
+machine, from decoding one 275 MB archive whole (Spain, 11M rows). Archives above 150 MB are now
+decoded in batches with an explicit 34-column schema, in constant memory; tested on a 9M-row file,
+the output is identical. The value columns are pinned to float64 on both paths, because inference
+had already produced one file with `CIFValue` typed null. One failing file no longer ends the run:
+it is logged with its error and retried next time.
+
+**The yearly series, measured before the quota ran out** (listing sizes, nothing downloaded):
+
+| series | files | download | reporters | years |
+|---|---|---|---|---|
+| goods yearly, HS | 6,054 | 50.7 GB | 221 | 1988-2025 |
+| goods yearly, SITC rev.1 | 8,857 | 21.8 GB | 234 | 1962-2025 |
+| goods yearly, SITC rev.2 | 2,303 | 1.6 GB | 191 | 1976-1998 (later years not measured) |
+| SITC rev.3, rev.4, services | not measured: those calls came after the quota was gone, and a 403 there means nothing | | | |
+
+Against the disk: monthly ~232 GB + yearly ~65 GB on disk, out of 915 GB. The service now runs
+`pull_all.sh`: monthly, then yearly HS, SITC1, SITC2, each resumable, each a no-op once complete,
+into `raw/comtrade_bulk_A_HS/`, `_A_S1/`, `_A_S2/`. Services trade and SITC3/4 are to be measured
+on a fresh quota, a few calls at a time, after the pulls are done.
