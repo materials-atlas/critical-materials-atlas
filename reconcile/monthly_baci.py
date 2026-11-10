@@ -370,8 +370,15 @@ def fit_freight(con, geo, work):
     return out
 
 
-def apply_freight(con, geo, fit):
-    """vm_fob for every import declaration: the predicted rate, the paper's exceptions."""
+def apply_freight(con, geo, fit, rule='observed'):
+    """The importer's FOB value. rate_pred is the gravity prediction for every import declaration
+    (1 for importers that declare FOB). Which declarations it is applied to:
+
+    rule='observed' (default) - what BACI's output shows (diagnose_vs_baci.py): a flow only the
+        importer declared keeps its declared value, and where both sides declared the strip is
+        applied only if it brings the two reports closer (the paper's "never worsen").
+    rule='paper' - the 2010 text read literally: every CIF import is stripped, one-sided ones
+        included (its footnote 23), Canada only where it narrows the gap."""
     c = fit['coef']
     tfe = pd.DataFrame({'period': pd.Series([int(k) for k in fit['time_fe']], dtype='int64'),
                         'tfe': pd.Series(list(fit['time_fe'].values()), dtype='float64')})
@@ -386,26 +393,32 @@ def apply_freight(con, geo, fit):
                         LEFT JOIN ll le ON le.iso3 = p.exporter LEFT JOIN ll li ON li.iso3 = p.importer),
              e AS (SELECT *, CASE WHEN d IS NOT NULL AND uv > 0 THEN
                         exp(%f + %f * ln(d) + %f * ln(d) * ln(d) + %f * COALESCE(contig, 0) + %f * lle + %f * lli + %f * ln(uv) + tfe)
-                      ELSE %f END AS rate_raw FROM r)
-        SELECT * EXCLUDE (d, contig, uv, tfe, lle, lli, rate_raw),
-               CASE WHEN importer IN (%s) THEN 1.0
-                    WHEN importer IN (%s) AND vx IS NOT NULL AND abs(ln(vx) - ln(vm / rate_raw)) > abs(ln(vx) - ln(vm)) THEN 1.0
-                    ELSE GREATEST(rate_raw, 1.0) END AS rate,
-               vm / (CASE WHEN importer IN (%s) THEN 1.0
-                          WHEN importer IN (%s) AND vx IS NOT NULL AND abs(ln(vx) - ln(vm / rate_raw)) > abs(ln(vx) - ln(vm)) THEN 1.0
-                          ELSE GREATEST(rate_raw, 1.0) END) AS vm_fob
-        FROM e""" % (c['intercept'], c['ln_dist'], c['ln_dist2'], c['contig'], c['landlocked_exp'], c['landlocked_imp'],
-                     c['ln_uv'], 1.0 + fit['mean_cif_rate'],
-                     ','.join("'%s'" % x for x in FOB_IMPORTERS), ','.join("'%s'" % x for x in FAS_IMPORTERS),
-                     ','.join("'%s'" % x for x in FOB_IMPORTERS), ','.join("'%s'" % x for x in FAS_IMPORTERS)))
-    s = con.execute("SELECT avg(rate), median(rate), count(*) FILTER (WHERE vm IS NOT NULL) FROM adj").fetchall()[0]
-    log('freight applied: mean rate %.3f, median %.3f over %s import declarations' % (s[0], s[1], format(s[2], ',')))
+                      ELSE %f END AS rate_raw FROM r),
+             f AS (SELECT * EXCLUDE (d, contig, uv, tfe, lle, lli, rate_raw),
+                       CASE WHEN importer IN (%s) THEN 1.0 ELSE GREATEST(rate_raw, 1.0) END AS rate_pred FROM e)
+        SELECT *, %s AS rate, vm / (%s) AS vm_fob FROM f""" % (
+        c['intercept'], c['ln_dist'], c['ln_dist2'], c['contig'], c['landlocked_exp'], c['landlocked_imp'],
+        c['ln_uv'], 1.0 + fit['mean_cif_rate'], ','.join("'%s'" % x for x in FOB_IMPORTERS),
+        _applied_rate(rule), _applied_rate(rule)))
+    s = con.execute("""SELECT avg(rate_pred) FILTER (WHERE vm IS NOT NULL), count(*) FILTER (WHERE vm IS NOT NULL),
+                              count(*) FILTER (WHERE vm IS NOT NULL AND rate > 1), count(*) FILTER (WHERE vm IS NOT NULL AND vx IS NOT NULL)
+                       FROM adj""").fetchall()[0]
+    log('freight (%s rule): predicted rate %.3f on average; applied to %s of %s import declarations (%s are two-sided)' % (
+        rule, s[0], format(s[2], ','), format(s[1], ','), format(s[3], ',')))
+
+
+def _applied_rate(rule, vx='vx', vm='vm', pred='rate_pred'):
+    narrows = "abs(ln(%s) - ln(%s / %s)) < abs(ln(%s) - ln(%s))" % (vx, vm, pred, vx, vm)
+    if rule == 'paper':
+        return ("CASE WHEN %s IS NULL THEN 1.0 WHEN importer IN (%s) AND %s IS NOT NULL AND NOT (%s) THEN 1.0 ELSE %s END"
+                % (vm, ','.join("'%s'" % x for x in FAS_IMPORTERS), vx, narrows, pred))
+    return "CASE WHEN %s IS NOT NULL AND %s IS NOT NULL AND %s > 1 AND %s THEN %s ELSE 1.0 END" % (vx, vm, pred, narrows, pred)
 
 
 # ----------------------------------------------------------------------------------------------
 # 2. timing: the importer's lag profile per route, and the importer's series on the exporter's month
 # ----------------------------------------------------------------------------------------------
-def align_timing(con, lags, work):
+def align_timing(con, lags, work, rule='observed'):
     """Shipment matching at the level the data allow. A month where both sides declared the
     corridor is a matched month and is left alone. An exporter's declaration with no importer
     counterpart that month (an orphan) is matched with an importer's orphan on the same corridor
@@ -428,9 +441,12 @@ def align_timing(con, lags, work):
         if not n:
             continue
         # move the importer's orphan onto the exporter's month, and retire the importer's month
-        con.execute("""UPDATE adj2 SET vm_al = y.vm_fob, qm_al = y.qm, matched_lag = %d
+        # the import now has a counterpart: the strip applies to it by the same rule as any two-sided flow
+        moved_val = ("y.vm / (%s)" % _applied_rate(rule, 'adj2.vx', 'y.vm', 'y.rate_pred').replace('importer IN', 'adj2.importer IN')
+                     if rule == 'observed' else "y.vm_fob")
+        con.execute("""UPDATE adj2 SET vm_al = %s, qm_al = y.qm, matched_lag = %d
                        FROM mt JOIN adj2 y ON y.exporter = mt.exporter AND y.importer = mt.importer AND y.hs6 = mt.hs6 AND y.m = mt.my
-                       WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.mx""" % l)
+                       WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.mx""" % (moved_val, l))
         con.execute("""UPDATE adj2 SET vm_al = NULL, qm_al = NULL, matched_lag = -%d
                        FROM mt WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.my""" % l)
         moved += n
@@ -473,7 +489,7 @@ def _fe_backfit(y, w, factors, tol=1e-9, max_iter=400):
     return eff, mu, r, it + 1
 
 
-def fit_reliability(con, work, kind='value', trim=None):
+def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
     """Paper section 2.4 for values (kind='value') and, separately, for quantities. RD is the
     absolute log ratio of the two reports; the regression has exporter, importer, period and
     product effects, each observation weighted by ln of the sum of the two reports (thousand USD,
@@ -482,7 +498,14 @@ def fit_reliability(con, work, kind='value', trim=None):
     22 exactly, floored at 0.01. stderr_i is the WLS standard error of a level effect with the
     other effects held fixed, s / sqrt(sum of its weights): an approximation of the paper's
     regression standard error, and said so. `trim` = None follows the paper (no trimming); a
-    (lo, hi) ratio band is an explicit adaptation for monthly data and is reported as such."""
+    (lo, hi) ratio band is an explicit adaptation for monthly data and is reported as such.
+
+    The baseline min LS_RD is taken over reporters with at least `min_pairs` two-sided pairs. In
+    CEPII's sample every reporter has millions; in a monthly or partial one a reporter with
+    eighteen pairs and a mean distance of 0.01 would set the floor and push everyone else's sigma
+    up by one - which is what made every weight 0 or 1 here until CEPII's published
+    reliabilities (median 0.3) were set beside ours (median 1.4). Reporters below the threshold
+    are not trusted with a sigma of their own: they get the median of the estimated ones."""
     if kind == 'value':
         q = """SELECT exporter, importer, period, hs6, abs(ln(vx) - ln(vm_al)) AS rd,
                       ln((vx + vm_al) / 1000.0) AS w, vx / vm_al AS ratio
@@ -496,7 +519,7 @@ def fit_reliability(con, work, kind='value', trim=None):
     d = con.execute(q + " ORDER BY exporter, importer, period, hs6").df()
     d = d[d.w > 0]
     n = len(d)
-    cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma', 'kind']
+    cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma', 'well_estimated', 'kind']
     if n < 500:
         log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n))
         return pd.DataFrame(columns=cols)
@@ -513,10 +536,16 @@ def fit_reliability(con, work, kind='value', trim=None):
         ls = mu + eff[role]                                   # LS mean at the common reference
         sw_k = np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
         stderr = np.sqrt(s2 / sw_k)
-        sigma = (np.pi / 2) * (ls - ls.min() - 2 * stderr)    # footnote 22
+        cnt = np.bincount(codes, minlength=n_k)
+        well = cnt >= min_pairs
+        if not well.any():
+            well = cnt >= np.quantile(cnt, 0.75)
+        base = ls[well].min()
+        sigma = (np.pi / 2) * (ls - base - 2 * stderr)        # footnote 22, baseline among the well-estimated
         sigma = np.maximum(sigma, 0.01)
-        out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': np.bincount(codes, minlength=n_k),
-                                 'ls_rd': ls, 'stderr': stderr, 'sigma': sigma, 'kind': kind}))
+        sigma = np.where(well, sigma, np.median(sigma[well]))
+        out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': cnt, 'ls_rd': ls, 'stderr': stderr,
+                                 'sigma': sigma, 'well_estimated': well, 'kind': kind}))
     rel = pd.concat(out, ignore_index=True)
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
     e = rel[rel.role == 'exporter'].sigma; i = rel[rel.role == 'importer'].sigma
@@ -587,6 +616,9 @@ def main():
     ap.add_argument('--nes-both-sides', action='store_true', help='also reallocate importers\' NES origins (not in the paper)')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
+    ap.add_argument('--fob-rule', choices=['observed', 'paper'], default='observed',
+                    help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
+    ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
     ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
     ap.add_argument('--annual', action='store_true',
                     help='control run: the months summed to calendar years before anything else, the paper\'s own frequency')
@@ -624,11 +656,11 @@ def main():
     build_pairs(con)
     geo = geodist()
     fit = fit_freight(con, geo, work)
-    apply_freight(con, geo, fit)
-    align_timing(con, a.lags, work)
+    apply_freight(con, geo, fit, a.fob_rule)
+    align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim)
-    rel_q = fit_reliability(con, work, 'quantity', trim)
+    rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs)
     reconcile(con, rel_v, rel_q, a.out, pers)
     log('done in %.0f s' % (time.time() - t0))
 
