@@ -65,3 +65,46 @@ Guinea...), for which BACI works from partners alone and the yearly series will 
 Still ahead: the full universe (after the download), which is what the method is for and where
 the freight equation and the reliabilities get their proper sample; HS-revision harmonisation
 (needed for product comparisons across 2022); quantity-unit conversion to tons.
+
+## Version 2.1 (10 Nov 2026, evening): the council's corrections
+
+A second engine reviewed the code against the paper's text (the first engine never answered).
+Its findings, and what was done with each:
+
+| finding | verdict | done |
+|---|---|---|
+| the reliability step read each country's RAW mean reporting distance as its effect, not the effect adjusted for its partners, products and months | right, and the most serious | the fixed effects are now kept during the backfit and the least-square means are the effect at a common reference |
+| the sigma baseline was min(LS - 2 se) instead of footnote 22's min(LS) then - 2 se_i | right | footnote 22 exactly |
+| quantities were reconciled with the value weights; the paper assesses values and quantities separately | right | a second reporting-distance regression on the quantities, own weights |
+| the freight step sampled 4 million pairs and trimmed by residual; the paper uses every pair and Cook's distance | right | normal equations accumulated in the database over every pair; Cook's distance with D > 4/n, one refit |
+| the unit-value covariate was per product-month; the paper's UV_k is per product | right | per product over the window |
+| the orphan matching paired on presence only, and the end of the window is censored | right | a match now needs the two values within the plausibility band; the last months stay provisional by construction |
+| the paper does not trim before the reliability regression; the ratio band removed the most informative observations | right in principle | the band is off by default (`--rd-trim` keeps it as a declared adaptation) |
+| equation (3) and the squared-distance term are implemented correctly | - | kept; the weights are computed in log space so large sigmas cannot overflow |
+| not done, and named: HS-revision harmonisation, historical geography (BACI's consistent country set), quantity-unit conversion to tons, the NES residual stage, the Hong Kong / US re-export rule, a revision policy for recent months | right | listed below as the next items, in that order of weight |
+
+The engine also proposed an **annual control**: the same code on the months summed to calendar
+years, which is the paper's own frequency on our own raw data. `--annual` does that.
+
+### Slice, 2020-2024, against BACI, after the corrections
+
+| run | yearly total, ours / BACI | median flow ratio | within 10% | within 25% |
+|---|---|---|---|---|
+| v2.1 to the letter (no trim), matching 2 months | 1.00-1.06 | 0.994-1.000 | 57-61% | 76-77% |
+| v2.1 with the ratio band in the reliability step | 1.00-1.05 | 0.993-1.000 | 57-61% | 77-78% |
+| **v2.1 annual control** (months summed to years first) | 0.96-1.01 | 0.97-0.99 | 54-59% | 75% |
+| v2 of the afternoon (biased reliabilities, band, matching) | 0.97-1.03 | 0.986-0.997 | 59-62% | 79-80% |
+
+Two things the table says. First, **the annual control agrees with BACI no better than the
+monthly runs**: the distance that remains to CEPII is not caused by working monthly, it comes
+from what is still missing on the data side (classification harmonisation, the historical
+country set, quantity conversion, the NES residual stage) and from choices the paper leaves
+open. Second, the corrected reliabilities moved the weights from the importers (0.14 of the
+weight to exporters before) to the exporters (0.64-0.82 now): the raw means had been charging
+exporters with the quality of their partners. On bulk ores and concentrates the exporting
+customs (Chile, Australia, Peru...) being the better reporter is plausible; the universe will say.
+
+The afternoon's v2 agreed with BACI slightly better than the corrected v2.1. Agreement with
+BACI is not the criterion when the better-agreeing version was wrong about the paper; the
+reference is v2.1 to the letter, the band a reported sensitivity.
+
