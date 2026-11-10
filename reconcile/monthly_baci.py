@@ -378,7 +378,10 @@ def apply_freight(con, geo, fit, rule='observed'):
         importer declared keeps its declared value, and where both sides declared the strip is
         applied only if it brings the two reports closer (the paper's "never worsen").
     rule='paper' - the 2010 text read literally: every CIF import is stripped, one-sided ones
-        included (its footnote 23), Canada only where it narrows the gap."""
+        included (its footnote 23), Canada only where it narrows the gap.
+    rule='none' - nothing is removed. This is what BACI V202601 does on the flows we could check
+        (recover_baci_weights.py: BACI = a*export + b*import with a + b = 1.0000 on the raw import
+        value; flow by flow the implied factor is centred on 1.0006)."""
     c = fit['coef']
     tfe = pd.DataFrame({'period': pd.Series([int(k) for k in fit['time_fe']], dtype='int64'),
                         'tfe': pd.Series(list(fit['time_fe'].values()), dtype='float64')})
@@ -409,6 +412,8 @@ def apply_freight(con, geo, fit, rule='observed'):
 
 def _applied_rate(rule, vx='vx', vm='vm', pred='rate_pred'):
     narrows = "abs(ln(%s) - ln(%s / %s)) < abs(ln(%s) - ln(%s))" % (vx, vm, pred, vx, vm)
+    if rule == 'none':
+        return "1.0"
     if rule == 'paper':
         return ("CASE WHEN %s IS NULL THEN 1.0 WHEN importer IN (%s) AND %s IS NOT NULL AND NOT (%s) THEN 1.0 ELSE %s END"
                 % (vm, ','.join("'%s'" % x for x in FAS_IMPORTERS), vx, narrows, pred))
@@ -443,7 +448,7 @@ def align_timing(con, lags, work, rule='observed'):
         # move the importer's orphan onto the exporter's month, and retire the importer's month
         # the import now has a counterpart: the strip applies to it by the same rule as any two-sided flow
         moved_val = ("y.vm / (%s)" % _applied_rate(rule, 'adj2.vx', 'y.vm', 'y.rate_pred').replace('importer IN', 'adj2.importer IN')
-                     if rule == 'observed' else "y.vm_fob")
+                     if rule == 'observed' else "y.vm_fob")   # 'none' and 'paper': vm_fob already is what applies
         con.execute("""UPDATE adj2 SET vm_al = %s, qm_al = y.qm, matched_lag = %d
                        FROM mt JOIN adj2 y ON y.exporter = mt.exporter AND y.importer = mt.importer AND y.hs6 = mt.hs6 AND y.m = mt.my
                        WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.mx""" % (moved_val, l))
@@ -582,7 +587,7 @@ def weight_expr(se2='se2', si2='si2'):
 # ----------------------------------------------------------------------------------------------
 # 4. reconcile and write
 # ----------------------------------------------------------------------------------------------
-def reconcile(con, rel_v, rel_q, out_dir, periods):
+def reconcile(con, rel_v, rel_q, out_dir, periods, baci_weights=None):
     def sig(rel, role, col):
         if len(rel):
             r = rel[rel.role == role][['reporter', 'sigma']].rename(columns={'reporter': role, 'sigma': col})
@@ -592,6 +597,14 @@ def reconcile(con, rel_v, rel_q, out_dir, periods):
     req, meq = sig(rel_q, 'exporter', 'seq'); riq, miq = sig(rel_q, 'importer', 'siq')
     for name, df in (('rev', rev), ('riv', riv), ('req', req), ('riq', riq)):
         con.register(name, df)
+    # BACI's own country constants, where recovered: w = 1 / (1 + exp(lnV_exporter - lnV_importer))
+    if baci_weights:
+        bw = pd.read_csv(baci_weights)
+        con.register('bwe', bw.dropna(subset=['lnV_exporter'])[['country', 'lnV_exporter']].rename(columns={'country': 'exporter'}))
+        con.register('bwi', bw.dropna(subset=['lnV_importer'])[['country', 'lnV_importer']].rename(columns={'country': 'importer'}))
+    else:
+        con.register('bwe', pd.DataFrame({'exporter': pd.Series(dtype='str'), 'lnV_exporter': pd.Series(dtype='float64')}))
+        con.register('bwi', pd.DataFrame({'importer': pd.Series(dtype='str'), 'lnV_importer': pd.Series(dtype='float64')}))
     con.execute("""CREATE OR REPLACE TABLE recon AS
         SELECT period, exporter, importer, hs6,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN w * vx + (1 - w) * vm_al
@@ -603,11 +616,13 @@ def reconcile(con, rel_v, rel_q, out_dir, periods):
                CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN wq END AS w_xq,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN 'both'
                     WHEN vx IS NOT NULL THEN 'x_only' ELSE 'm_only' END AS basis
-        FROM (SELECT a.*, %s AS w, %s AS wq
+        FROM (SELECT a.*, CASE WHEN lve IS NOT NULL AND lvi IS NOT NULL THEN 1.0 / (1.0 + exp(lve - lvi)) ELSE %s END AS w, %s AS wq
               FROM (SELECT a0.*, POWER(COALESCE(e.sev, %f), 2) AS se2, POWER(COALESCE(i.siv, %f), 2) AS si2,
-                           POWER(COALESCE(eq.seq, %f), 2) AS seq2, POWER(COALESCE(iq.siq, %f), 2) AS siq2
+                           POWER(COALESCE(eq.seq, %f), 2) AS seq2, POWER(COALESCE(iq.siq, %f), 2) AS siq2,
+                           be.lnV_exporter AS lve, bi.lnV_importer AS lvi
                     FROM adj2 a0 LEFT JOIN rev e USING (exporter) LEFT JOIN riv i USING (importer)
-                         LEFT JOIN req eq USING (exporter) LEFT JOIN riq iq USING (importer)) a)
+                         LEFT JOIN req eq USING (exporter) LEFT JOIN riq iq USING (importer)
+                         LEFT JOIN bwe be USING (exporter) LEFT JOIN bwi bi USING (importer)) a)
         WHERE vx IS NOT NULL OR vm_al IS NOT NULL""" % (weight_expr('se2', 'si2'), weight_expr('seq2', 'siq2'),
                                                          mev, miv, meq, miq))
     os.makedirs(out_dir, exist_ok=True)
@@ -615,6 +630,10 @@ def reconcile(con, rel_v, rel_q, out_dir, periods):
         dest = os.path.join(out_dir, '%s.parquet' % p).replace(chr(92), '/')
         con.execute("COPY (SELECT * FROM recon WHERE period = %d ORDER BY exporter, importer, hs6) TO '%s.part' (FORMAT PARQUET, COMPRESSION ZSTD)" % (int(p), dest))
         os.replace(dest + '.part', dest)
+    if baci_weights:
+        cov = con.execute("""SELECT count(*) FILTER (WHERE be.exporter IS NOT NULL AND bi.importer IS NOT NULL), count(*)
+                             FROM recon r LEFT JOIN bwe be USING (exporter) LEFT JOIN bwi bi USING (importer) WHERE basis = 'both'""").fetchall()[0]
+        log('BACI\'s recovered constants weight %s of %s two-sided flows; the rest use the estimated reliabilities' % (format(cov[0], ','), format(cov[1], ',')))
     s = con.execute("""SELECT count(*), count(*) FILTER (WHERE basis = 'both'), round(sum(v) / 1e9, 1),
                               avg(w_x), avg(w_xq), count(DISTINCT period) FROM recon""").fetchall()[0]
     log('reconciled: %s flows over %d periods, %s two-sided (mean exporter weight %.3f on values, %.3f on quantities), '
@@ -631,8 +650,9 @@ def main():
     ap.add_argument('--nes-both-sides', action='store_true', help='also reallocate importers\' NES origins (not in the paper)')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
-    ap.add_argument('--fob-rule', choices=['observed', 'paper'], default='observed',
+    ap.add_argument('--fob-rule', choices=['none', 'observed', 'paper'], default='observed',
                     help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
+    ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
     ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
@@ -684,7 +704,7 @@ def main():
         log('DIAGNOSTIC: reconciling with CEPII\'s published reliabilities (%d countries). Against ours, well-estimated reporters: '
             'rank correlation %.2f; median sigma ours %.2f, CEPII %.2f' % (
                 rel_v.reporter.nunique(), m.sigma_ours.corr(m.sigma_cepii, method='spearman'), m.sigma_ours.median(), m.sigma_cepii.median()))
-    reconcile(con, rel_v, rel_q, a.out, pers)
+    reconcile(con, rel_v, rel_q, a.out, pers, a.baci_weights)
     log('done in %.0f s' % (time.time() - t0))
 
 
