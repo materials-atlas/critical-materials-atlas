@@ -547,28 +547,31 @@ def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
     up by one - which is what made every weight 0 or 1 here until CEPII's published
     reliabilities (median 0.3) were set beside ours (median 1.4). Reporters below the threshold
     are not trusted with a sigma of their own: they get the median of the estimated ones."""
-    if kind == 'value':
-        q = """SELECT exporter, importer, period, hs6, abs(ln(vx) - ln(vm_al)) AS rd,
-                      ln((vx + vm_al) / 1000.0) AS w, vx / vm_al AS ratio
-               FROM adj2 WHERE vx > 0 AND vm_al > 0"""
-    else:
-        q = """SELECT exporter, importer, period, hs6, abs(ln(qx) - ln(qm_al)) AS rd,
-                      ln((qx + qm_al) / 1000.0) AS w, qx / qm_al AS ratio
-               FROM adj2 WHERE qx > 0 AND qm_al > 0"""
+    vx_, vm_ = ('vx', 'vm_al') if kind == 'value' else ('qx', 'qm_al')
+    cond = "%s > 0 AND %s > 0 AND ln((%s + %s) / 1000.0) > 0" % (vx_, vm_, vx_, vm_)
     if trim:
-        q += " AND (%s) BETWEEN %f AND %f" % ('vx / vm_al' if kind == 'value' else 'qx / qm_al', trim[0], trim[1])
-    d = con.execute(q + " ORDER BY exporter, importer, period, hs6").df()
-    d = d[d.w > 0]
-    n = len(d)
+        cond += " AND %s / %s BETWEEN %f AND %f" % (vx_, vm_, trim[0], trim[1])
     cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma', 'well_estimated', 'kind']
+    n = con.execute("SELECT count(*) FROM adj2 WHERE %s" % cond).fetchall()[0][0]
     if n < 500:
         log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n))
         return pd.DataFrame(columns=cols)
-    y = d.rd.to_numpy(dtype=float); w = d.w.to_numpy(dtype=float)
+    # the four factors as dense integer codes, built in the database: 23 million pairs of all
+    # products as text columns in pandas is what ran an 8 GB machine out of memory
     factors = {}; uniq = {}
     for k in ('exporter', 'importer', 'period', 'hs6'):
-        codes, u = pd.factorize(d[k], sort=True)
-        factors[k] = (codes, len(u)); uniq[k] = u
+        con.execute("CREATE OR REPLACE TEMP TABLE dim_%s AS SELECT %s AS v, (row_number() OVER (ORDER BY %s) - 1)::INTEGER AS id "
+                    "FROM (SELECT DISTINCT %s FROM adj2 WHERE %s)" % (k, k, k, k, cond))
+        uniq[k] = np.array([r_[0] for r_ in con.execute("SELECT v FROM dim_%s ORDER BY id" % k).fetchall()], dtype=object)
+    arr = con.execute("""SELECT de.id AS e, di.id AS i, dp.id AS p, dh.id AS h,
+                                abs(ln(%s) - ln(%s)) AS rd, ln((%s + %s) / 1000.0) AS w
+                         FROM adj2 a JOIN dim_exporter de ON de.v = a.exporter JOIN dim_importer di ON di.v = a.importer
+                              JOIN dim_period dp ON dp.v = a.period JOIN dim_hs6 dh ON dh.v = a.hs6
+                         WHERE %s ORDER BY 1, 2, 3, 4""" % (vx_, vm_, vx_, vm_, cond)).fetchnumpy()
+    y = np.asarray(arr['rd'], dtype=np.float64); w = np.asarray(arr['w'], dtype=np.float64)
+    for k, c in (('exporter', 'e'), ('importer', 'i'), ('period', 'p'), ('hs6', 'h')):
+        factors[k] = (np.asarray(arr[c], dtype=np.int32), len(uniq[k]))
+    del arr
     eff, mu, r, iters = _fe_backfit(y, w, factors)
     s2 = float(np.average(r ** 2, weights=w))
     out = []
@@ -694,12 +697,19 @@ def main():
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
     ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
+    ap.add_argument('--reuse', action='store_true', help='restart from the saved work database at the reliability step (after a crash there)')
     ap.add_argument('--annual', action='store_true',
                     help='control run: the months summed to calendar years before anything else, the paper\'s own frequency')
     a = ap.parse_args()
     work = os.path.join(a.out, '_fit'); os.makedirs(work, exist_ok=True)
-    con = duckdb.connect()
-    con.execute("SET memory_limit = '%s'" % os.environ.get('CMA_DUCK_MEM', '3GB'))
+    dbfile = os.path.join(work, 'work.duckdb')
+    reuse = a.reuse and os.path.exists(dbfile)
+    if not reuse:
+        for f in (dbfile, dbfile + '.wal'):
+            if os.path.exists(f):
+                os.remove(f)
+    con = duckdb.connect(dbfile)            # on disk: the tables of an all-products run do not fit in 8 GB
+    con.execute("SET memory_limit = '%s'" % os.environ.get('CMA_DUCK_MEM', '2500MB'))
     con.execute("SET threads = %d" % int(os.environ.get('CMA_DUCK_THREADS', '3')))
     con.execute("SET temp_directory = '%s'" % os.path.join(work, 'duck_tmp').replace(chr(92), '/'))
     con.execute("SET preserve_insertion_order = false")
@@ -721,17 +731,22 @@ def main():
     log('monthly BACI v2.1: %d period(s) %s..%s, lags %d%s -> %s' % (
         len(pers), pers[0], pers[-1], a.lags, ', ANNUAL control' if a.annual else '', a.out))
     t0 = time.time()
-    load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target)
-    if a.annual:
-        pers = sorted({p[:4] for p in pers})
-    if not a.no_nes:
-        reallocate_nes(con, ('X', 'M') if a.nes_both_sides else ('X',))
-    convert_units(con)
-    build_pairs(con, window_fill=(a.timing == 'window'))
-    geo = geodist()
-    fit = fit_freight(con, geo, work)
-    apply_freight(con, geo, fit, a.fob_rule)
-    align_timing(con, a.lags, work, a.fob_rule)
+    if reuse:
+        log('reusing the saved work database: straight to the reliability step')
+        if a.annual:
+            pers = sorted({p[:4] for p in pers})
+    else:
+        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target)
+        if a.annual:
+            pers = sorted({p[:4] for p in pers})
+        if not a.no_nes:
+            reallocate_nes(con, ('X', 'M') if a.nes_both_sides else ('X',))
+        convert_units(con)
+        build_pairs(con, window_fill=(a.timing == 'window'))
+        geo = geodist()
+        fit = fit_freight(con, geo, work)
+        apply_freight(con, geo, fit, a.fob_rule)
+        align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
     rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs)
     rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs)
