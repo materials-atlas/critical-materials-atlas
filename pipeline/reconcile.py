@@ -166,7 +166,11 @@ def _reporter_quality(con, markup):
     correctable systematic bias from its irreducible noise — the right basis for inverse-variance weights.
     Writes reporter_quality(reporter, n_flows, exp_bias, imp_bias, reliability)."""
     import numpy as np, collections
-    pr = con.execute(f"SELECT exporter, importer, ln(fob)-ln(cif/{markup}) AS d FROM sides WHERE fob>0 AND cif>0").fetchall()
+    # ORDER BY so that numpy sums the same numbers in the same order on every run: without it the
+    # reliabilities differed by 1e-16 between two runs, which is noise, but noise that made every
+    # weight downstream fail a byte comparison (measured 10 Nov 2026).
+    pr = con.execute(f"SELECT exporter, importer, ln(fob)-ln(cif/{markup}) AS d FROM sides "
+                     f"WHERE fob>0 AND cif>0 ORDER BY exporter, importer, hs6, period").fetchall()
     con.execute("CREATE OR REPLACE TABLE reporter_quality(reporter VARCHAR, n_flows INTEGER, exp_bias DOUBLE, imp_bias DOUBLE, reliability DOUBLE)")
     if not pr:
         return
