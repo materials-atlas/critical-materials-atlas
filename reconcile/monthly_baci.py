@@ -3,7 +3,17 @@
 month, to the latest published period.
 
 CEPII's BACI (Gaulier & Zignago, CEPII WP 2010-23) makes one number of the two declarations of
-a bilateral flow - the exporter's, FOB, and the importer's, CIF. Their procedure, and what this
+a bilateral flow - the exporter's, FOB, and the importer's, CIF.
+
+READ FIRST (10 Nov 2026, night). The 2010 paper and today's BACI are not the same thing. Read off
+BACI V202601's own output against the raw annual declarations (diagnose_vs_baci.py,
+recover_baci_weights.py): (1) nothing is removed from import values - BACI = a*export + b*import
+with a + b = 1.0000, and a flow only the importer declared is in BACI to the dollar; (2) the
+weight is exactly a ratio of two country constants, a = V_j / (V_i + V_j), the paper's equation
+(3); (3) those constants can be recovered from the output. The defaults below therefore are
+--fob-rule none and --timing window, and --baci-weights takes the recovered constants; with them
+the slice is within 10% of BACI on 82-84% of flows. The paper's own reading stays available
+(--fob-rule paper) and is 20 points worse. Their procedure, and what this
 script does with it (version 2, 10 Nov 2026; version 1 used published coefficients and a
 different reliability model, and is in the git history):
 
@@ -394,7 +404,7 @@ def fit_freight(con, geo, work):
     return out
 
 
-def apply_freight(con, geo, fit, rule='observed'):
+def apply_freight(con, geo, fit, rule='none'):
     """The importer's FOB value. rate_pred is the gravity prediction for every import declaration
     (1 for importers that declare FOB). Which declarations it is applied to:
 
@@ -448,7 +458,7 @@ def _applied_rate(rule, vx='vx', vm='vm', pred='rate_pred'):
 # ----------------------------------------------------------------------------------------------
 # 2. timing: the importer's lag profile per route, and the importer's series on the exporter's month
 # ----------------------------------------------------------------------------------------------
-def align_timing(con, lags, work, rule='observed'):
+def align_timing(con, lags, work, rule='none'):
     """Shipment matching at the level the data allow. A month where both sides declared the
     corridor is a matched month and is left alone. An exporter's declaration with no importer
     counterpart that month (an orphan) is matched with an importer's orphan on the same corridor
@@ -677,7 +687,7 @@ def main():
     ap.add_argument('--nes-both-sides', action='store_true', help='also reallocate importers\' NES origins (not in the paper)')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
-    ap.add_argument('--fob-rule', choices=['none', 'observed', 'paper'], default='observed',
+    ap.add_argument('--fob-rule', choices=['none', 'observed', 'paper'], default='none',
                     help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
