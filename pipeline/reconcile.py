@@ -119,7 +119,11 @@ WITH canon AS (
 ),
 agg AS (                                   -- collapse CN8/HS10 to HS-6 per (flow, side, source-tier)
   SELECT period, exporter, importer, hs6, side, rank,
-         any_value(material) AS material, SUM(value_usd) AS v,
+         -- MIN, not any_value: a code that maps to several materials (811292 is gallium,
+         -- germanium and gallium+germanium) must get the same label on every run and every
+         -- machine. any_value took whichever row the scan produced first, and that changed
+         -- between two runs on one machine (measured 10 Nov 2026: 12 corridors relabelled).
+         MIN(material) AS material, SUM(value_usd) AS v,
          -- WEIGHT. Summing a partial set of sub-lines silently understates the total, so a
          -- group gets a weight only when EVERY line in it declared one. A missing weight must
          -- read as "we don't know", never as a smaller shipment.
@@ -130,11 +134,15 @@ agg AS (                                   -- collapse CN8/HS10 to HS-6 per (flo
   FROM canon GROUP BY 1,2,3,4,5,6
 ),
 best AS (                                  -- keep the best source per (flow, side)
+  -- The ORDER BY is a TOTAL order. On (rank, v) alone two sources with the same value tied,
+  -- and the window picked either - 3,000 flows and every reliability weight downstream moved
+  -- from one run to the next (measured 10 Nov 2026).
   SELECT *, ROW_NUMBER() OVER (PARTITION BY period, exporter, importer, hs6, side
-                               ORDER BY rank, v DESC) AS rn
+                               ORDER BY rank, v DESC, q DESC NULLS LAST, basis NULLS LAST,
+                                        material) AS rn
   FROM agg
 )
-SELECT period, exporter, importer, hs6, any_value(material) AS material,
+SELECT period, exporter, importer, hs6, MIN(material) AS material,
        MAX(CASE WHEN side='fob' THEN v END) AS fob,   -- exporter-reported (FOB by convention)
        MAX(CASE WHEN side='cif' THEN v END) AS cif,   -- importer-reported: basis DECLARED below
        -- What the importer actually declared. NULL = the source does not say, and then the old
