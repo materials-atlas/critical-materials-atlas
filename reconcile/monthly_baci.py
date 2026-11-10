@@ -141,7 +141,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
                                flowCode AS flow, primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q,
                                CASE WHEN qty > 0 THEN qty END AS qty, qtyUnitCode AS unit
                         FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
-                          AND partnerCode <> 0 AND flowCode IN ('M', 'X', 'RX') AND primaryValue > 0""" % src)
+                          AND partnerCode <> 0 AND flowCode IN ('M', 'X', 'RX') AND primaryValue > 0
+                          AND length(cmdCode) = 6""" % src)   # the corpus also carries the 2- and 4-digit aggregates
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
     con.execute("COPY (%s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (' UNION ALL '.join(parts), tot))
     # one HS edition: the target's own codes pass through, newer editions convert uniquely,
