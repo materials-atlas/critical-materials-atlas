@@ -32,7 +32,8 @@ DIR = os.path.join(ROOT, 'raw', 'concordance')
 YEAR = {'H0': 1992, 'H1': 1996, 'H2': 2002, 'H3': 2007, 'H4': 2012, 'H5': 2017, 'H6': 2022}
 FILES = {(2022, 2017): 'HS2022toHS2017.xlsx', (2022, 2012): 'HS2022toHS2012.xlsx',
          (2022, 1992): 'HS2022toHS1992.xlsx', (2017, 2012): 'HS2017toHS2012.xlsx',
-         (2017, 1992): 'HS2017toHS1992.xlsx', (2012, 2007): 'HS2012toHS2007.xls',
+         (2017, 1992): 'HS2017toHS1992.xlsx', (2017, 2007): 'HS2017toHS2007.xlsx',
+         (2017, 2002): 'HS2017toHS2002.xlsx', (2017, 1996): 'HS2017toHS1996.xlsx', (2012, 2007): 'HS2012toHS2007.xls',
          (2012, 2002): 'HS2012toHS2002.xls', (2012, 1996): 'HS2012toHS1996.xls',
          (2012, 1992): 'HS2012toHS1992.xls'}
 _CODE = re.compile(r'^\d{5,6}$')
@@ -96,7 +97,7 @@ def mapping_table(target='H4'):
         if y == ty:
             continue
         if y > ty:
-            if (y, ty) not in FILES:
+            if (y, ty) not in FILES or not os.path.exists(os.path.join(DIR, FILES[(y, ty)])):
                 continue
             for a, b in conversion(y, ty).items():
                 rows.append((ver, a, b, 1.0, 'down'))
