@@ -24,12 +24,14 @@ different reliability model, and is in the git history):
    Cook's distance filter (D > 4/n) applied exactly before a second solve. The importer's value divided by the predicted rate is its FOB
    value; not applied to countries that report imports FOB (their footnote 17: Algeria, Georgia,
    South Africa and the SACU), and to Canada only where it narrows the gap.
-2. TIMING (ours, the owner's choice (c)). The two sides book one shipment in different months,
-   departure on one side and arrival on the other, and a per-month reconciliation then counts it
-   twice. A month declared by both sides is left alone. An exporter's declaration with no
-   counterpart in its month is matched with an unmatched importer's declaration on the same
-   corridor one or two months later, nearest first, and the importer's value is brought onto the
-   exporter's month. Yearly data never needed this.
+2. TIMING (ours; yearly data never needed it). The two sides book one shipment in different
+   months. BACI's arithmetic settles it: it weights the two sides' YEAR totals, and the monthly
+   series that adds up to exactly that is w*x_t + (1-w)*m_t over every month, a month in which
+   one side booked nothing counting as its zero when that side filed the month and declares the
+   corridor somewhere in the year (--timing window, the default). A side that did not file, or
+   never declares the corridor that year, is missing, and the flow is the other declaration, as
+   in BACI. --timing match is the earlier treatment (pair orphan declarations one or two months
+   apart); it left flows with alternating sides 17% above BACI and is kept for comparison.
 3. RELIABILITY (paper section 2.4). Reporting distance RD = |ln(Vx/Vm_fob)| on two-sided flows,
    regressed on exporter, importer, time and product fixed effects by weighted backfitting that
    keeps the effects, each observation weighted by ln of the sum of the two reports; the exporter
@@ -254,18 +256,40 @@ def convert_units(con, min_pairs=10, max_sd=2.5):
         s_[0], format(s_[1], ','), s_[2]))
 
 
-def build_pairs(con):
+def build_pairs(con, window_fill=True):
+    con.execute("CREATE OR REPLACE TABLE filed AS SELECT DISTINCT period, reporter, flow FROM tot")
     con.execute("""CREATE OR REPLACE TABLE pairs AS
         WITH x AS (SELECT period, reporter AS exporter, partner AS importer, hs6, v AS vx,
                           CASE WHEN q_full THEN q END AS qx FROM tot WHERE flow = 'X'),
              m AS (SELECT period, partner AS exporter, reporter AS importer, hs6, v AS vm,
                           CASE WHEN q_full THEN q END AS qm FROM tot WHERE flow = 'M')
         SELECT COALESCE(x.period, m.period) AS period, COALESCE(x.exporter, m.exporter) AS exporter,
-               COALESCE(x.importer, m.importer) AS importer, COALESCE(x.hs6, m.hs6) AS hs6, vx, qx, vm, qm
+               COALESCE(x.importer, m.importer) AS importer, COALESCE(x.hs6, m.hs6) AS hs6, vx, qx, vm, qm,
+               FALSE AS zero_filled
         FROM x FULL JOIN m ON x.period = m.period AND x.exporter = m.exporter AND x.importer = m.importer AND x.hs6 = m.hs6
         WHERE COALESCE(x.exporter, m.exporter) <> COALESCE(x.importer, m.importer)""")
     n = con.execute("SELECT count(*), count(*) FILTER (WHERE vx IS NOT NULL AND vm IS NOT NULL) FROM pairs").fetchall()[0]
-    log('pairs: %s flows, %s declared by both sides' % (format(n[0], ','), format(n[1], ',')))
+    log('pairs: %s flows, %s declared by both sides in the same period' % (format(n[0], ','), format(n[1], ',')))
+    monthly = con.execute("SELECT max(period) FROM pairs").fetchall()[0][0] > 9999
+    if window_fill and monthly:
+        # BACI weights the two sides' YEAR totals. The monthly series that adds up to exactly that
+        # treats a month in which one side booked nothing as that side's zero - when that side
+        # filed the month and declares the corridor somewhere in the year. Otherwise it is missing.
+        con.execute("""CREATE OR REPLACE TABLE pairs AS
+            WITH win AS (SELECT exporter, importer, hs6, period // 100 AS y, count(vx) AS nx, count(vm) AS nm
+                         FROM pairs GROUP BY 1, 2, 3, 4)
+            SELECT p.period, p.exporter, p.importer, p.hs6,
+                   CASE WHEN p.vx IS NULL AND w.nx > 0 AND fx.reporter IS NOT NULL THEN 0.0 ELSE p.vx END AS vx,
+                   CASE WHEN p.vx IS NULL AND w.nx > 0 AND fx.reporter IS NOT NULL THEN 0.0 ELSE p.qx END AS qx,
+                   CASE WHEN p.vm IS NULL AND w.nm > 0 AND fm.reporter IS NOT NULL THEN 0.0 ELSE p.vm END AS vm,
+                   CASE WHEN p.vm IS NULL AND w.nm > 0 AND fm.reporter IS NOT NULL THEN 0.0 ELSE p.qm END AS qm,
+                   (p.vx IS NULL AND w.nx > 0 AND fx.reporter IS NOT NULL) OR (p.vm IS NULL AND w.nm > 0 AND fm.reporter IS NOT NULL) AS zero_filled
+            FROM pairs p JOIN win w ON w.exporter = p.exporter AND w.importer = p.importer AND w.hs6 = p.hs6 AND w.y = p.period // 100
+                 LEFT JOIN filed fx ON fx.period = p.period AND fx.reporter = p.exporter AND fx.flow = 'X'
+                 LEFT JOIN filed fm ON fm.period = p.period AND fm.reporter = p.importer AND fm.flow = 'M'""")
+        n2 = con.execute("SELECT count(*) FILTER (WHERE zero_filled), count(*) FILTER (WHERE vx IS NOT NULL AND vm IS NOT NULL) FROM pairs").fetchall()[0]
+        log('year window: %s one-sided months are the other side\'s zero (it filed the month and declares the corridor that year); '
+            '%s flows now carry both sides' % (format(n2[0], ','), format(n2[1], ',')))
 
 
 # ----------------------------------------------------------------------------------------------
@@ -411,7 +435,8 @@ def apply_freight(con, geo, fit, rule='observed'):
 
 
 def _applied_rate(rule, vx='vx', vm='vm', pred='rate_pred'):
-    narrows = "abs(ln(%s) - ln(%s / %s)) < abs(ln(%s) - ln(%s))" % (vx, vm, pred, vx, vm)
+    narrows = "(%s > 0 AND %s > 0 AND abs(ln(GREATEST(%s, 1e-9)) - ln(GREATEST(%s, 1e-9) / %s)) < abs(ln(GREATEST(%s, 1e-9)) - ln(GREATEST(%s, 1e-9))))" % (
+        vx, vm, vx, vm, pred, vx, vm)
     if rule == 'none':
         return "1.0"
     if rule == 'paper':
@@ -611,7 +636,7 @@ def reconcile(con, rel_v, rel_q, out_dir, periods, baci_weights=None):
                     WHEN vx IS NOT NULL THEN vx ELSE vm_al END AS v,
                CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN wq * qx + (1 - wq) * qm_al
                     WHEN qx IS NOT NULL THEN qx ELSE qm_al END AS q,
-               vx, vm, vm_fob, vm_al, qx, qm, qm_al, rate AS markup, matched_lag,
+               vx, vm, vm_fob, vm_al, qx, qm, qm_al, rate AS markup, matched_lag, zero_filled,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN w END AS w_x,
                CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN wq END AS w_xq,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN 'both'
@@ -645,7 +670,9 @@ def main():
     ap.add_argument('--periods', nargs='*', help='YYYYMM ... or FROM TO (inclusive); default: all in the source')
     ap.add_argument('--slice', help='a single parquet of raw lines (development), instead of the corpus')
     ap.add_argument('--out', default=os.environ.get('CMA_MONTHLY_DIR', os.path.join(ROOT, 'raw', 'monthly_baci')))
-    ap.add_argument('--lags', type=int, default=2, help='importer lag window in months for the timing step (0 = off)')
+    ap.add_argument('--timing', choices=['window', 'match', 'none'], default='window',
+                    help="'window': a month one side left empty is its zero when it filed the month and declares the corridor that year (BACI's annual arithmetic, month by month); 'match': pair orphan declarations across months; 'none'")
+    ap.add_argument('--lags', type=int, default=2, help="months of lag searched by --timing match")
     ap.add_argument('--no-nes', action='store_true', help='skip the areas-nes reallocation')
     ap.add_argument('--nes-both-sides', action='store_true', help='also reallocate importers\' NES origins (not in the paper)')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
@@ -678,7 +705,7 @@ def main():
             pers = [p for p in pers if p in set(a.periods)]
     if not pers:
         log('no periods selected'); return
-    if a.annual:
+    if a.annual or a.timing != 'match':
         a.lags = 0
     log('monthly BACI v2.1: %d period(s) %s..%s, lags %d%s -> %s' % (
         len(pers), pers[0], pers[-1], a.lags, ', ANNUAL control' if a.annual else '', a.out))
@@ -689,7 +716,7 @@ def main():
     if not a.no_nes:
         reallocate_nes(con, ('X', 'M') if a.nes_both_sides else ('X',))
     convert_units(con)
-    build_pairs(con)
+    build_pairs(con, window_fill=(a.timing == 'window'))
     geo = geodist()
     fit = fit_freight(con, geo, work)
     apply_freight(con, geo, fit, a.fob_rule)
