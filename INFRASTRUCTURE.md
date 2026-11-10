@@ -355,5 +355,5 @@ Two more things from the same test:
   settings do not apply. Auto-login for the user is now on (`/etc/gdm3/custom.conf`), so a
   restart lands in the session with its settings, and nothing needs typing at the machine.
 - `loginctl list-sessions` shows a seat0 session even when nobody is logged in: it is the
-  login screen's own session, user `gdm`. Check the user column before concluding anyone is in.
+  login screen's own session, user `gdm-greeter`. Check the user column before concluding anyone is in.
 
