@@ -154,8 +154,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
                COALESCE(h.code_to, t.hs6) AS hs6, t.flow,
                SUM(t.v * COALESCE(h.share, 1.0)) AS v, SUM(t.q * COALESCE(h.share, 1.0)) AS q,
                COUNT(*) = COUNT(t.q) AS q_full,
-               CASE WHEN COUNT(DISTINCT t.unit) = 1 THEN MAX(t.unit) END AS unit,
-               CASE WHEN COUNT(DISTINCT t.unit) = 1 AND COUNT(*) = COUNT(t.qty) THEN SUM(t.qty * COALESCE(h.share, 1.0)) END AS qty
+               CASE WHEN MIN(t.unit) = MAX(t.unit) THEN MAX(t.unit) END AS unit,
+               CASE WHEN MIN(t.unit) = MAX(t.unit) AND COUNT(*) = COUNT(t.qty) THEN SUM(t.qty * COALESCE(h.share, 1.0)) END AS qty
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
@@ -226,8 +226,8 @@ def reallocate_nes(con, sides=('X',)):
             SELECT period, reporter, partner, hs6, '%s', add_v, NULL, FALSE, NULL, NULL FROM alloc WHERE add_v > 0""" % flow)
         con.execute("""CREATE OR REPLACE TABLE tot AS
             SELECT period, reporter, partner, hs6, flow, SUM(v) AS v, SUM(q) AS q, BOOL_AND(q_full) AS q_full,
-                   CASE WHEN COUNT(DISTINCT unit) = 1 THEN MAX(unit) END AS unit,
-                   CASE WHEN COUNT(DISTINCT unit) = 1 AND COUNT(*) = COUNT(qty) THEN SUM(qty) END AS qty
+                   CASE WHEN MIN(unit) = MAX(unit) THEN MAX(unit) END AS unit,
+                   CASE WHEN MIN(unit) = MAX(unit) AND COUNT(*) = COUNT(qty) THEN SUM(qty) END AS qty
             FROM tot GROUP BY 1, 2, 3, 4, 5""")
         log('areas nes, %s side: stage 1 topped up %s named-partner flows with %.2f bn USD; residual %.2f bn, of which '
             '%.2f bn taken as included in unnamed partners\' declarations and %.2f bn unexplained' % (
