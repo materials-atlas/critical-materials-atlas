@@ -46,9 +46,10 @@ Estimation steps 1-3 pool every period in the run, as BACI pools its years; step
     python reconcile/monthly_baci.py --slice raw/crm_monthly.parquet --out raw/monthly_baci_slice
     python reconcile/monthly_baci.py --periods 201908 202609 --out raw/monthly_baci     # corpus
 
-Not done yet, and known: quantity-unit conversion to tons (the corpus carries net weight, which
-BACI's step would complete for flows reported in other units); harmonisation of HS revisions,
-which the full universe needs before 2022 and after can be compared product by product.
+Every declaration is first brought to one HS edition (hs_concordance.py: HS 2012 by default,
+the edition both HS 2017 and HS 2022 convert to uniquely). Not done yet, and known: quantity-unit
+conversion to tons (the corpus carries net weight, which BACI's step would complete for flows
+reported in other units).
 """
 import argparse
 import json
@@ -59,6 +60,9 @@ import time
 import duckdb
 import numpy as np
 import pandas as pd
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hs_concordance import mapping_table   # one HS edition for every declaration
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -110,7 +114,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work, annual=False):
+def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -120,19 +124,32 @@ def load_totals(con, periods, slice_path, work, annual=False):
         else:
             src = "read_parquet('%s/%s/%s_*.parquet', union_by_name=true) WHERE 1=1" % (
                 BULK.replace(chr(92), '/'), str(p)[:4], p)
-        parts.append("""SELECT period, reporterCode AS rep, partnerCode AS par, cmdCode AS hs6, flowCode AS flow,
-                               primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q
+        parts.append("""SELECT period, reporterCode AS rep, partnerCode AS par, cmdCode AS hs6, classificationCode AS ver,
+                               flowCode AS flow, primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q
                         FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
                           AND partnerCode <> 0 AND flowCode IN ('M', 'X') AND primaryValue > 0""" % src)
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
     con.execute("COPY (%s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (' UNION ALL '.join(parts), tot))
+    # one HS edition: the target's own codes pass through, newer editions convert uniquely,
+    # older ones go up (split equally where the UN table lists several candidates)
+    hm = mapping_table(hs_target)
+    con.register('hsmap', hm[['ver', 'code_from', 'code_to', 'share']])
     con.execute("""CREATE OR REPLACE TABLE tot AS
         SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
-               t.hs6, t.flow, SUM(t.v) AS v, SUM(t.q) AS q, COUNT(*) = COUNT(t.q) AS q_full
+               COALESCE(h.code_to, t.hs6) AS hs6, t.flow,
+               SUM(t.v * COALESCE(h.share, 1.0)) AS v, SUM(t.q * COALESCE(h.share, 1.0)) AS q,
+               COUNT(*) = COUNT(t.q) AS q_full
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
-        WHERE (t.par = %d OR p.iso3 IS NOT NULL)
-        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, tot, NES))
+             LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
+        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND t.ver <> '%s' OR (t.ver = '%s' AND (t.par = %d OR p.iso3 IS NOT NULL))
+        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, tot, NES, hs_target, hs_target, NES))
+    hs = con.execute("""SELECT t.ver, count(*) AS lines, round(100.0 * sum(t.v) / (SELECT sum(v) FROM read_parquet('%s')), 2) AS pct_value,
+                               count(*) FILTER (WHERE t.ver <> '%s' AND h.code_to IS NULL) AS unmapped
+                        FROM read_parquet('%s') t LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
+                        GROUP BY 1 ORDER BY 3 DESC""" % (tot, hs_target, tot)).fetchall()
+    log('HS editions in the input (target %s): %s' % (hs_target, '; '.join('%s %.1f%% of value, %s lines%s' % (
+        v, pv, format(n_, ','), ', %s unmapped kept as is' % format(u, ',') if u else '') for v, n_, pv, u in hs)))
     n = con.execute("SELECT count(*), count(*) FILTER (WHERE partner = 'NES') FROM tot").fetchall()[0]
     log('totals: %s declarations, %s of them to "areas nes"' % (format(n[0], ','), format(n[1], ',')))
 
@@ -504,6 +521,7 @@ def main():
     ap.add_argument('--no-nes', action='store_true', help='skip the areas-nes reallocation')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
+    ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
     ap.add_argument('--annual', action='store_true',
                     help='control run: the months summed to calendar years before anything else, the paper\'s own frequency')
     a = ap.parse_args()
@@ -531,7 +549,7 @@ def main():
     log('monthly BACI v2.1: %d period(s) %s..%s, lags %d%s -> %s' % (
         len(pers), pers[0], pers[-1], a.lags, ', ANNUAL control' if a.annual else '', a.out))
     t0 = time.time()
-    load_totals(con, pers, a.slice, work, annual=a.annual)
+    load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target)
     if a.annual:
         pers = sorted({p[:4] for p in pers})
     if not a.no_nes:

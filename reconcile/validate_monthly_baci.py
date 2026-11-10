@@ -20,6 +20,9 @@ import zipfile
 import duckdb
 import pandas as pd
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from hs_concordance import conversion
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
@@ -31,7 +34,9 @@ def main():
     ap.add_argument('--monthly', required=True)
     ap.add_argument('--years', nargs=2, type=int, default=[2019, 2024])
     ap.add_argument('--codes', nargs='*', help='HS6 codes to restrict BACI to (default: the codes present in the monthly output)')
+    ap.add_argument('--hs-target', default='H4', help='the edition the monthly output is in; BACI (HS 2017) is converted to it')
     a = ap.parse_args()
+    conv = conversion(2017, 2012) if a.hs_target == 'H4' else None
     con = duckdb.connect()
     con.execute("SET memory_limit = '3GB'")
     mon = a.monthly.replace(chr(92), '/')
@@ -52,8 +57,11 @@ def main():
             continue
         with z.open(name) as fh:
             for chunk in pd.read_csv(fh, dtype={'k': str}, chunksize=2_000_000):
+                if conv:
+                    chunk['k'] = chunk.k.map(conv).fillna(chunk.k)      # BACI's HS 2017 code -> the target edition
                 frames.append(chunk[chunk.k.isin(codes)])
     b = pd.concat(frames, ignore_index=True)
+    b = b.groupby(['t', 'i', 'j', 'k'], as_index=False)[['v', 'q']].sum()   # merged codes add up
     con.register('baci_raw', b)
     con.execute("""CREATE TABLE baci AS
         SELECT t, e.country_iso3 AS exporter, i.country_iso3 AS importer, k AS hs6, v AS v_baci, q AS q_baci
