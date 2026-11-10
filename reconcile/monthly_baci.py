@@ -49,9 +49,8 @@ Estimation steps 1-3 pool every period in the run, as BACI pools its years; step
     python reconcile/monthly_baci.py --periods 201908 202609 --out raw/monthly_baci     # corpus
 
 Every declaration is first brought to one HS edition (hs_concordance.py: HS 2012 by default,
-the edition both HS 2017 and HS 2022 convert to uniquely). Not done yet, and known: quantity-unit
-conversion to tons (the corpus carries net weight, which BACI's step would complete for flows
-reported in other units).
+the edition both HS 2017 and HS 2022 convert to uniquely). Quantities declared in other units get
+a weight from mirror-implied rates (section 2.2). Weights are in kilograms throughout.
 """
 import argparse
 import json
@@ -127,7 +126,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
             src = "read_parquet('%s/%s/%s_*.parquet', union_by_name=true) WHERE 1=1" % (
                 BULK.replace(chr(92), '/'), str(p)[:4], p)
         parts.append("""SELECT period, reporterCode AS rep, partnerCode AS par, cmdCode AS hs6, classificationCode AS ver,
-                               flowCode AS flow, primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q
+                               flowCode AS flow, primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q,
+                               CASE WHEN qty > 0 THEN qty END AS qty, qtyUnitCode AS unit
                         FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
                           AND partnerCode <> 0 AND flowCode IN ('M', 'X', 'RX') AND primaryValue > 0""" % src)
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
@@ -140,7 +140,9 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
         SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
                COALESCE(h.code_to, t.hs6) AS hs6, t.flow,
                SUM(t.v * COALESCE(h.share, 1.0)) AS v, SUM(t.q * COALESCE(h.share, 1.0)) AS q,
-               COUNT(*) = COUNT(t.q) AS q_full
+               COUNT(*) = COUNT(t.q) AS q_full,
+               CASE WHEN COUNT(DISTINCT t.unit) = 1 THEN MAX(t.unit) END AS unit,
+               CASE WHEN COUNT(DISTINCT t.unit) = 1 AND COUNT(*) = COUNT(t.qty) THEN SUM(t.qty * COALESCE(h.share, 1.0)) END AS qty
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
@@ -153,7 +155,7 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
         SELECT t.period, t.reporter, t.partner, t.hs6, t.flow,
                CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL THEN GREATEST(t.v - rx.v_rx, 0) ELSE t.v END AS v,
                CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL AND t.q IS NOT NULL AND rx.q_rx IS NOT NULL THEN GREATEST(t.q - rx.q_rx, 0) ELSE t.q END AS q,
-               t.q_full
+               t.q_full, t.unit, t.qty
         FROM tot t LEFT JOIN rx ON rx.period = t.period AND rx.reporter = t.reporter AND rx.partner = t.partner AND rx.hs6 = t.hs6
         WHERE t.flow IN ('M', 'X')""")
     con.execute("DELETE FROM tot WHERE v <= 0")
@@ -208,15 +210,48 @@ def reallocate_nes(con, sides=('X',)):
                                   SUM(CASE WHEN GREATEST(v_nes - COALESCE(added, 0), 0) >= unnamed THEN GREATEST(v_nes - COALESCE(added, 0), 0) - unnamed ELSE 0 END) AS unexplained
                            FROM g LEFT JOIN s1 USING (period, reporter, hs6)""").fetchall()[0]
         con.execute("""INSERT INTO tot
-            SELECT period, reporter, partner, hs6, '%s', add_v, NULL, FALSE FROM alloc WHERE add_v > 0""" % flow)
+            SELECT period, reporter, partner, hs6, '%s', add_v, NULL, FALSE, NULL, NULL FROM alloc WHERE add_v > 0""" % flow)
         con.execute("""CREATE OR REPLACE TABLE tot AS
-            SELECT period, reporter, partner, hs6, flow, SUM(v) AS v, SUM(q) AS q, BOOL_AND(q_full) AS q_full
+            SELECT period, reporter, partner, hs6, flow, SUM(v) AS v, SUM(q) AS q, BOOL_AND(q_full) AS q_full,
+                   CASE WHEN COUNT(DISTINCT unit) = 1 THEN MAX(unit) END AS unit,
+                   CASE WHEN COUNT(DISTINCT unit) = 1 AND COUNT(*) = COUNT(qty) THEN SUM(qty) END AS qty
             FROM tot GROUP BY 1, 2, 3, 4, 5""")
         log('areas nes, %s side: stage 1 topped up %s named-partner flows with %.2f bn USD; residual %.2f bn, of which '
             '%.2f bn taken as included in unnamed partners\' declarations and %.2f bn unexplained' % (
                 'export' if flow == 'X' else 'import', format(n[0] or 0, ','), (n[1] or 0) / 1e9,
                 (r[0] or 0) / 1e9, (r[1] or 0) / 1e9, (r[2] or 0) / 1e9))
     con.execute("DELETE FROM tot WHERE partner = 'NES'")
+
+
+def convert_units(con, min_pairs=10, max_sd=2.5):
+    """Paper section 2.2. A declaration with no weight but a quantity in another unit (pieces,
+    litres, m2...) gets a weight from the rate implied by mirror flows: for each product and
+    unit, the pairs where one side declared weight and the other that unit give rates
+    weight/quantity; the median rate is kept if at least min_pairs pairs exist and the standard
+    deviation of their logs is below max_sd (the paper says "standard deviation inferior to 2.5"
+    without the scale; the log scale is our reading, the only one that is unit-free). Unknown
+    units (-1) and kWh (code 11) are not converted, as the paper does."""
+    con.execute("""CREATE OR REPLACE TEMP TABLE rates AS
+        WITH x AS (SELECT period, reporter AS e, partner AS i, hs6, q, unit, qty FROM tot WHERE flow = 'X'),
+             m AS (SELECT period, partner AS e, reporter AS i, hs6, q, unit, qty FROM tot WHERE flow = 'M'),
+             pr AS (SELECT x.hs6, m.unit AS unit, x.q / m.qty AS rate FROM x JOIN m USING (period, e, i, hs6)
+                    WHERE x.q > 0 AND m.qty > 0 AND m.q IS NULL AND m.unit NOT IN (-1, 11, 8)
+                    UNION ALL
+                    SELECT m.hs6, x.unit, m.q / x.qty FROM x JOIN m USING (period, e, i, hs6)
+                    WHERE m.q > 0 AND x.qty > 0 AND x.q IS NULL AND x.unit NOT IN (-1, 11, 8))
+        SELECT hs6, unit, median(rate) AS rate, count(*) AS n, stddev_samp(ln(rate)) AS sd
+        FROM pr WHERE rate > 0 GROUP BY 1, 2 HAVING count(*) >= %d AND stddev_samp(ln(rate)) < %f""" % (min_pairs, max_sd))
+    con.execute("""CREATE OR REPLACE TABLE tot AS
+        SELECT t.period, t.reporter, t.partner, t.hs6, t.flow, t.v,
+               CASE WHEN t.q IS NULL AND t.qty > 0 AND r.rate IS NOT NULL THEN t.qty * r.rate ELSE t.q END AS q,
+               CASE WHEN t.q IS NULL AND t.qty > 0 AND r.rate IS NOT NULL THEN TRUE ELSE t.q_full END AS q_full,
+               t.unit, t.qty,
+               CASE WHEN t.q IS NULL AND t.qty > 0 AND r.rate IS NOT NULL THEN TRUE ELSE FALSE END AS q_converted
+        FROM tot t LEFT JOIN rates r ON r.hs6 = t.hs6 AND r.unit = t.unit""")
+    s_ = con.execute("""SELECT (SELECT count(*) FROM rates), count(*) FILTER (WHERE q_converted),
+                               round(100.0 * sum(v) FILTER (WHERE q IS NOT NULL) / sum(v), 1) FROM tot""").fetchall()[0]
+    log('units: %d product-unit rates from mirrors; %s declarations given a weight; value with a weight now %.1f%%' % (
+        s_[0], format(s_[1], ','), s_[2]))
 
 
 def build_pairs(con):
@@ -585,6 +620,7 @@ def main():
         pers = sorted({p[:4] for p in pers})
     if not a.no_nes:
         reallocate_nes(con, ('X', 'M') if a.nes_both_sides else ('X',))
+    convert_units(con)
     build_pairs(con)
     geo = geodist()
     fit = fit_freight(con, geo, work)
