@@ -22,10 +22,12 @@ different reliability model, and is in the git history):
    then residuals beyond 3 sigma). The importer's value divided by the predicted rate is its FOB
    value; not applied to countries that report imports FOB (their footnote 17: Algeria, Georgia,
    South Africa and the SACU), and to Canada only where it narrows the gap.
-2. TIMING (ours, the owner's choice (c)). Monthly declarations of one shipment fall in different
-   months on the two sides. Per route the importer's lag profile over 0..L months is estimated
-   on all products by non-negative least squares, and the importer's series is brought onto the
-   exporter's month before anything is compared. Yearly data never needed this.
+2. TIMING (ours, the owner's choice (c)). The two sides book one shipment in different months,
+   departure on one side and arrival on the other, and a per-month reconciliation then counts it
+   twice. A month declared by both sides is left alone. An exporter's declaration with no
+   counterpart in its month is matched with an unmatched importer's declaration on the same
+   corridor one or two months later, nearest first, and the importer's value is brought onto the
+   exporter's month. Yearly data never needed this.
 3. RELIABILITY (paper section 2.4). Reporting distance RD = |ln(Vx/Vm_fob)| on two-sided flows,
    regressed on exporter, importer, time and product fixed effects (product by within
    transformation), each observation weighted by ln of the sum of the two reports; the exporter
@@ -266,85 +268,39 @@ def apply_freight(con, geo, fit):
 # ----------------------------------------------------------------------------------------------
 # 2. timing: the importer's lag profile per route, and the importer's series on the exporter's month
 # ----------------------------------------------------------------------------------------------
-def _nnls(A, b):
-    try:
-        from scipy.optimize import nnls
-        x, _ = nnls(A, b)
-        return x
-    except Exception:
-        x, *_ = np.linalg.lstsq(A, b, rcond=None)
-        return np.maximum(x, 0)
-
-
-def align_timing(con, lags, work, min_months=12, min_pairs=60):
-    """theta_l = share of the exporter's month-t shipments the importer records in month t+l.
-    Estimated per route on the product-level series of the two sides (both-sided corridors), by
-    NNLS with theta >= 0 and sum theta = 1. The aligned importer value for exporter month t is
-    sum_l theta_l * vm_fob(t+l), renormalised over the lags that exist in the data."""
-    if lags <= 0:
-        con.execute("CREATE OR REPLACE TABLE adj2 AS SELECT *, vm_fob AS vm_al, qm AS qm_al, 1.0 AS theta0 FROM adj")
-        return {}
-    d = con.execute("""SELECT exporter, importer, hs6, period, vx, vm_fob FROM adj
-                       WHERE vx > 0 OR vm_fob > 0 ORDER BY exporter, importer, hs6, period""").df()
-    d['m'] = (d.period // 100) * 12 + d.period % 100
-    thetas = {}
-    for (e, i), g in d.groupby(['exporter', 'importer'], sort=True):
-        if g.m.nunique() < min_months:
-            continue
-        # per corridor: exporter series and the importer series shifted by 0..lags
-        rows_x, rows_m = [], []
-        for _, h in g.groupby('hs6', sort=True):
-            if h.period.nunique() < 3:
-                continue
-            mi = pd.Series(h.vm_fob.to_numpy(dtype=float), index=h.m.to_numpy()).fillna(0)
-            xi = pd.Series(h.vx.to_numpy(dtype=float), index=h.m.to_numpy()).fillna(0)
-            months = xi[xi > 0].index.to_numpy()
-            months = months[months + lags <= mi.index.max()]     # the whole lag window must exist
-            if not len(months):
-                continue
-            rows_x.append(xi.reindex(months).to_numpy())
-            rows_m.append(np.column_stack([mi.reindex(months + l, fill_value=0).to_numpy() for l in range(lags + 1)]))
-        if not rows_x:
-            continue
-        y = np.concatenate(rows_x); A = np.vstack(rows_m)
-        if len(y) < min_pairs or A.sum() == 0:
-            continue
-        sc = y.mean() or 1.0
-        th = _nnls(A / sc, y / sc)
-        if th.sum() <= 0:
-            continue
-        thetas[(e, i)] = (th / th.sum()).tolist()
-    tdf = pd.DataFrame([(e, i, l, t) for (e, i), ths in thetas.items() for l, t in enumerate(ths)],
-                       columns=['exporter', 'importer', 'lag', 'theta'])
-    if not len(tdf):
-        con.execute("CREATE OR REPLACE TABLE adj2 AS SELECT *, vm_fob AS vm_al, qm AS qm_al, 1.0 AS theta0 FROM adj")
-        log('timing: no route had enough data; importer series left as declared')
-        return {}
-    tdf.to_parquet(os.path.join(work, 'route_lags.parquet'), index=False)
-    con.register('lagsT', tdf)
+def align_timing(con, lags, work):
+    """Shipment matching at the level the data allow. A month where both sides declared the
+    corridor is a matched month and is left alone. An exporter's declaration with no importer
+    counterpart that month (an orphan) is matched with an importer's orphan on the same corridor
+    1..lags months LATER - the goods were booked on departure by one side and on arrival by the
+    other - and the importer's value is brought onto the exporter's month. Nearest lag first, each
+    orphan used once. Nothing is smoothed and nothing is moved that already agrees."""
     con.execute("""CREATE OR REPLACE TABLE adj2 AS
-        WITH base AS (SELECT *, (period // 100) * 12 + period % 100 AS m FROM adj),
-             mser AS (SELECT exporter, importer, hs6, m, vm_fob, qm FROM base WHERE vm_fob IS NOT NULL),
-             maxm AS (SELECT exporter, importer, MAX(m) AS mmax FROM base GROUP BY 1, 2),
-             al AS (SELECT b.exporter, b.importer, b.hs6, b.m,
-                           SUM(t.theta * s.vm_fob) AS vm_num, SUM(t.theta * s.qm) AS qm_num,
-                           SUM(t.theta) FILTER (WHERE b.m + t.lag <= x.mmax) AS th_avail,
-                           SUM(t.theta) FILTER (WHERE s.vm_fob IS NOT NULL) AS th_hit
-                    FROM base b JOIN lagsT t USING (exporter, importer) JOIN maxm x USING (exporter, importer)
-                         LEFT JOIN mser s ON s.exporter = b.exporter AND s.importer = b.importer AND s.hs6 = b.hs6 AND s.m = b.m + t.lag
-                    GROUP BY 1, 2, 3, 4)
-        SELECT b.* EXCLUDE (m),
-               CASE WHEN a.exporter IS NULL OR a.th_avail IS NULL OR a.th_avail <= 0 THEN b.vm_fob
-                    WHEN a.th_hit IS NULL OR a.th_hit = 0 THEN NULL
-                    ELSE a.vm_num / a.th_avail END AS vm_al,
-               CASE WHEN a.exporter IS NULL OR a.th_avail IS NULL OR a.th_avail <= 0 THEN b.qm
-                    WHEN a.th_hit IS NULL OR a.th_hit = 0 THEN NULL
-                    ELSE a.qm_num / a.th_avail END AS qm_al,
-               COALESCE((SELECT theta FROM lagsT t WHERE t.exporter = b.exporter AND t.importer = b.importer AND t.lag = 0), 1.0) AS theta0
-        FROM base b LEFT JOIN al a USING (exporter, importer, hs6, m)""")
-    share0 = float(tdf[tdf.lag == 0].theta.mean())
-    log('timing: lag profiles for %d routes (mean share recorded the same month %.2f); importer series aligned' % (len(thetas), share0))
-    return thetas
+        SELECT *, (period // 100) * 12 + period % 100 AS m, vm_fob AS vm_al, qm AS qm_al,
+               CAST(NULL AS INTEGER) AS matched_lag FROM adj""")
+    moved = 0
+    for l in range(1, max(lags, 0) + 1):
+        con.execute("""CREATE OR REPLACE TEMP TABLE mt AS
+            SELECT x.exporter, x.importer, x.hs6, x.m AS mx, y.m AS my
+            FROM adj2 x JOIN adj2 y ON y.exporter = x.exporter AND y.importer = x.importer AND y.hs6 = x.hs6 AND y.m = x.m + %d
+            WHERE x.vx IS NOT NULL AND x.vm_al IS NULL AND x.matched_lag IS NULL
+              AND y.vm_al IS NOT NULL AND y.vx IS NULL AND y.matched_lag IS NULL""" % l)
+        n = con.execute("SELECT count(*) FROM mt").fetchall()[0][0]
+        if not n:
+            continue
+        # move the importer's orphan onto the exporter's month, and retire the importer's month
+        con.execute("""UPDATE adj2 SET vm_al = y.vm_fob, qm_al = y.qm, matched_lag = %d
+                       FROM mt JOIN adj2 y ON y.exporter = mt.exporter AND y.importer = mt.importer AND y.hs6 = mt.hs6 AND y.m = mt.my
+                       WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.mx""" % l)
+        con.execute("""UPDATE adj2 SET vm_al = NULL, qm_al = NULL, matched_lag = -%d
+                       FROM mt WHERE adj2.exporter = mt.exporter AND adj2.importer = mt.importer AND adj2.hs6 = mt.hs6 AND adj2.m = mt.my""" % l)
+        moved += n
+        log('timing: lag %d - %s importer orphans matched to an exporter month' % (l, format(n, ',')))
+    con.execute("DELETE FROM adj2 WHERE vx IS NULL AND vm_al IS NULL")
+    con.execute("ALTER TABLE adj2 DROP COLUMN m")
+    s = con.execute("SELECT count(*), count(*) FILTER (WHERE vx IS NOT NULL AND vm_al IS NOT NULL) FROM adj2").fetchall()[0]
+    log('timing: %s flows after matching, %s two-sided (%s moved)' % (format(s[0], ','), format(s[1], ','), format(moved, ',')))
+    return moved
 
 
 # ----------------------------------------------------------------------------------------------
@@ -425,7 +381,7 @@ def reconcile(con, rel, out_dir, periods):
                     WHEN vx IS NOT NULL THEN vx ELSE vm_al END AS v,
                CASE WHEN qx IS NOT NULL AND qm_al IS NOT NULL THEN w * qx + (1 - w) * qm_al
                     WHEN qx IS NOT NULL THEN qx ELSE qm_al END AS q,
-               vx, vm, vm_fob, vm_al, qx, qm, rate AS markup, theta0,
+               vx, vm, vm_fob, vm_al, qx, qm, rate AS markup, matched_lag,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN w END AS w_x,
                CASE WHEN vx IS NOT NULL AND vm_al IS NOT NULL THEN 'both'
                     WHEN vx IS NOT NULL THEN 'x_only' ELSE 'm_only' END AS basis
