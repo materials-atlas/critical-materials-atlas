@@ -10,10 +10,12 @@ different reliability model, and is in the git history):
 0. DATA. Only the total line of a declaration is a flow (customs 'C00', transport 0, second
    partner 0); flows 'M' and 'X'; partner "World" dropped; the UN's numeric codes mapped to
    ISO3 with the country table BACI ships, codes it does not know dropped. "Areas not elsewhere
-   specified" (partner 899) are reallocated to identified partners by the rule in the paper's
-   appendix: when the exporter's declared partner total falls short of what its partners
+   specified" (partner 899) are reallocated by the rule in the paper's appendix, exporter side:
+   when the exporter's declared total to named partners falls short of what those partners
    declare, the NES value fills that gap in proportion to the shortfalls; what is left is set
-   against partners the exporter never named.
+   against the partners the exporter never named and reported (nothing identified changes
+   there). Hong Kong's and the United States' re-exports are taken out of their exports, as BACI
+   does, because their destination is not known.
 1. FREIGHT (paper section 2.3). The CIF rate of a flow is predicted from a gravity equation
    ESTIMATED ON THE DATA: ln(UVm/UVx) on ln distance, ln distance squared, contiguity, exporter
    landlocked, importer landlocked, ln world median unit value of the product, and time dummies
@@ -127,7 +129,7 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
         parts.append("""SELECT period, reporterCode AS rep, partnerCode AS par, cmdCode AS hs6, classificationCode AS ver,
                                flowCode AS flow, primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q
                         FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
-                          AND partnerCode <> 0 AND flowCode IN ('M', 'X') AND primaryValue > 0""" % src)
+                          AND partnerCode <> 0 AND flowCode IN ('M', 'X', 'RX') AND primaryValue > 0""" % src)
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
     con.execute("COPY (%s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (' UNION ALL '.join(parts), tot))
     # one HS edition: the target's own codes pass through, newer editions convert uniquely,
@@ -144,6 +146,17 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
         WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND t.ver <> '%s' OR (t.ver = '%s' AND (t.par = %d OR p.iso3 IS NOT NULL))
         GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, tot, NES, hs_target, hs_target, NES))
+    # BACI: "re-exportations for Hong Kong and USA are also dropped since there is no way to know the
+    # final destination". Their X total includes re-exports; the RX line is taken out of it.
+    con.execute("""CREATE OR REPLACE TABLE tot AS
+        WITH rx AS (SELECT period, reporter, partner, hs6, v AS v_rx, q AS q_rx FROM tot WHERE flow = 'RX' AND reporter IN ('HKG', 'USA'))
+        SELECT t.period, t.reporter, t.partner, t.hs6, t.flow,
+               CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL THEN GREATEST(t.v - rx.v_rx, 0) ELSE t.v END AS v,
+               CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL AND t.q IS NOT NULL AND rx.q_rx IS NOT NULL THEN GREATEST(t.q - rx.q_rx, 0) ELSE t.q END AS q,
+               t.q_full
+        FROM tot t LEFT JOIN rx ON rx.period = t.period AND rx.reporter = t.reporter AND rx.partner = t.partner AND rx.hs6 = t.hs6
+        WHERE t.flow IN ('M', 'X')""")
+    con.execute("DELETE FROM tot WHERE v <= 0")
     hs = con.execute("""SELECT t.ver, count(*) AS lines, round(100.0 * sum(t.v) / (SELECT sum(v) FROM read_parquet('%s')), 2) AS pct_value,
                                count(*) FILTER (WHERE t.ver <> '%s' AND h.code_to IS NULL) AS unmapped
                         FROM read_parquet('%s') t LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
@@ -154,11 +167,18 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
     log('totals: %s declarations, %s of them to "areas nes"' % (format(n[0], ','), format(n[1], ',')))
 
 
-def reallocate_nes(con):
-    """The paper's appendix, for the exporter side (NES destinations) and, mirrored, the importer
-    side (NES origins). Only ever moves value toward identified partners; never invents a flow."""
-    for role, flow, mflow in (('reporter', 'X', 'M'), ('reporter', 'M', 'X')):
-        # own declared total to identified partners, the mirror total those partners declare, the NES value
+def reallocate_nes(con, sides=('X',)):
+    """The paper's appendix, written for the exporter's "Area nes" flows (the importer side is
+    available but off: the appendix does not do it, and doing both can assign one gap twice).
+    Stage 1: if the exporter's declared total to named partners falls short of what those
+    partners declare from it, min(V_nes, shortfall) goes to them in proportion to the
+    per-partner shortfalls. Stage 2: what is left of V_nes is set against the partners' flows
+    the exporter never named: if the residual is smaller it is taken as included in them (set
+    to zero), else those flows are subtracted from it. Either way no identified flow changes in
+    stage 2; it is reported so the size of the unexplained NES value is known."""
+    for flow, mflow in (('X', 'M'), ('M', 'X')):
+        if flow not in sides:
+            continue
         con.execute("""CREATE OR REPLACE TEMP TABLE nes AS
             WITH own AS (SELECT period, reporter, hs6, SUM(v) FILTER (WHERE partner <> 'NES') AS v_own,
                                 MAX(v) FILTER (WHERE partner = 'NES') AS v_nes
@@ -167,25 +187,35 @@ def reallocate_nes(con):
                          FROM tot WHERE flow = '%s' AND partner <> 'NES'),
                  ownp AS (SELECT period, reporter, hs6, partner, v AS v_ownp FROM tot WHERE flow = '%s' AND partner <> 'NES')
             SELECT o.period, o.reporter, o.hs6, m.partner, m.v_mir, p.v_ownp, o.v_nes, o.v_own,
-                   SUM(m.v_mir) OVER w AS v_mir_tot,
-                   GREATEST(m.v_mir - COALESCE(p.v_ownp, 0), 0) AS shortfall
+                   SUM(m.v_mir) FILTER (WHERE p.v_ownp IS NOT NULL) OVER w AS v_mir_named,
+                   SUM(m.v_mir) FILTER (WHERE p.v_ownp IS NULL) OVER w AS v_mir_unnamed,
+                   CASE WHEN p.v_ownp IS NOT NULL THEN GREATEST(m.v_mir - p.v_ownp, 0) ELSE 0 END AS shortfall
             FROM own o JOIN mir m USING (period, reporter, hs6)
                  LEFT JOIN ownp p ON p.period = o.period AND p.reporter = o.reporter AND p.hs6 = o.hs6 AND p.partner = m.partner
             WINDOW w AS (PARTITION BY o.period, o.reporter, o.hs6)""" % (flow, mflow, flow))
-        # allocate min(v_nes, mirror total - own total) in proportion to the shortfalls
+        # stage 1: named partners only, in proportion to their shortfalls
         con.execute("""CREATE OR REPLACE TEMP TABLE alloc AS
             SELECT period, reporter, hs6, partner,
-                   LEAST(v_nes, GREATEST(v_mir_tot - COALESCE(v_own, 0), 0))
+                   LEAST(v_nes, GREATEST(COALESCE(v_mir_named, 0) - COALESCE(v_own, 0), 0))
                    * shortfall / NULLIF(SUM(shortfall) OVER (PARTITION BY period, reporter, hs6), 0) AS add_v
             FROM nes WHERE shortfall > 0""")
         n = con.execute("SELECT count(*), SUM(add_v) FROM alloc WHERE add_v > 0").fetchall()[0]
+        # stage 2: the residual against the unnamed partners' declarations
+        r = con.execute("""WITH s1 AS (SELECT period, reporter, hs6, SUM(add_v) AS added FROM alloc GROUP BY 1, 2, 3),
+                                 g AS (SELECT DISTINCT period, reporter, hs6, v_nes, COALESCE(v_mir_unnamed, 0) AS unnamed FROM nes)
+                           SELECT SUM(GREATEST(v_nes - COALESCE(added, 0), 0)) AS residual,
+                                  SUM(CASE WHEN GREATEST(v_nes - COALESCE(added, 0), 0) < unnamed THEN GREATEST(v_nes - COALESCE(added, 0), 0) ELSE 0 END) AS covered,
+                                  SUM(CASE WHEN GREATEST(v_nes - COALESCE(added, 0), 0) >= unnamed THEN GREATEST(v_nes - COALESCE(added, 0), 0) - unnamed ELSE 0 END) AS unexplained
+                           FROM g LEFT JOIN s1 USING (period, reporter, hs6)""").fetchall()[0]
         con.execute("""INSERT INTO tot
             SELECT period, reporter, partner, hs6, '%s', add_v, NULL, FALSE FROM alloc WHERE add_v > 0""" % flow)
         con.execute("""CREATE OR REPLACE TABLE tot AS
             SELECT period, reporter, partner, hs6, flow, SUM(v) AS v, SUM(q) AS q, BOOL_AND(q_full) AS q_full
             FROM tot GROUP BY 1, 2, 3, 4, 5""")
-        log('areas nes, %s side: %s partner flows topped up with %.2f bn USD' % (
-            'export' if flow == 'X' else 'import', format(n[0] or 0, ','), (n[1] or 0) / 1e9))
+        log('areas nes, %s side: stage 1 topped up %s named-partner flows with %.2f bn USD; residual %.2f bn, of which '
+            '%.2f bn taken as included in unnamed partners\' declarations and %.2f bn unexplained' % (
+                'export' if flow == 'X' else 'import', format(n[0] or 0, ','), (n[1] or 0) / 1e9,
+                (r[0] or 0) / 1e9, (r[1] or 0) / 1e9, (r[2] or 0) / 1e9))
     con.execute("DELETE FROM tot WHERE partner = 'NES'")
 
 
@@ -519,6 +549,7 @@ def main():
     ap.add_argument('--out', default=os.environ.get('CMA_MONTHLY_DIR', os.path.join(ROOT, 'raw', 'monthly_baci')))
     ap.add_argument('--lags', type=int, default=2, help='importer lag window in months for the timing step (0 = off)')
     ap.add_argument('--no-nes', action='store_true', help='skip the areas-nes reallocation')
+    ap.add_argument('--nes-both-sides', action='store_true', help='also reallocate importers\' NES origins (not in the paper)')
     ap.add_argument('--rd-trim', type=float, nargs=2, metavar=('LO', 'HI'),
                     help='ratio band kept in the reliability regressions (the paper trims nothing; monthly data may need it)')
     ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
@@ -553,7 +584,7 @@ def main():
     if a.annual:
         pers = sorted({p[:4] for p in pers})
     if not a.no_nes:
-        reallocate_nes(con)
+        reallocate_nes(con, ('X', 'M') if a.nes_both_sides else ('X',))
     build_pairs(con)
     geo = geodist()
     fit = fit_freight(con, geo, work)
