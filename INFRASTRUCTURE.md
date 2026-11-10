@@ -357,3 +357,35 @@ Two more things from the same test:
 - `loginctl list-sessions` shows a seat0 session even when nobody is logged in: it is the
   login screen's own session, user `gdm-greeter`. Check the user column before concluding anyone is in.
 
+## Moving the nightly refresh to the server (prepared 10 Nov 2026, switch pending)
+
+The nightly job (`pipeline/scheduled_run.py`: the Comtrade API pull, the six-source refresh, the
+build) has died on the laptop whenever the laptop slept or was shut. The server never sleeps, so
+it is the right home. Prepared on 10 Nov:
+
+- The repository is cloned on the server with its own venv (`duckdb pandas numpy pyarrow requests
+  py7zr pymupdf python-calamine openpyxl xlrd`), the 1.3 GB of pipeline caches and both key files
+  copied over, and the few files outside the repository that the build reads: `raw/baci/`
+  country and product codes, `BACI_HS17_V202601.zip`, `raw/geodist/dist_cepii.xls`,
+  `raw/oecd_itic/itic_margins.csv`. Without them the build dies at import.
+- `pipeline/build.py` runs there in **60 s** against 204-337 s on the laptop.
+- The laptop's task `CMA-trade-refresh` and its watcher `CMA-refresh-watch` are **disabled** for
+  now: the Comtrade API step draws on the same daily quota as the bulk pull.
+
+**What the comparison found: the build did not reproduce itself, on either machine.** Four of the
+seven output tables differed between two runs of the same code on the same caches: `flows_best`
+(3,000 rows), `flows_reconciled` (most rows), `coverage` (14 of 38), `reporter_quality`
+(100 of 157). Three causes, all "take any row when several tie": `any_value(material)` for a
+code that maps to several materials (811292), a `ROW_NUMBER` ranking with ties on
+(rank, value), the same in `flows_best`, and finally the rows feeding the reliability fit
+arriving in a different order so that numpy summed them differently (1e-16, but every weight
+inherits it). Fixed in three commits the same day: total orders in both windows, `MIN(material)`,
+and an `ORDER BY` before the fit. Proof: two runs on the server now agree **exactly** on all
+seven tables, and the laptop agrees with the server to 2e-16 (the two CPUs sum differently in
+the last bit). The cube was never affected.
+
+**The switch itself waits** for the bulk pull to finish, and changes the job's shape: the Comtrade
+API step is dropped (the bulk corpus is what it was slowly rebuilding) and the Comtrade adapter
+reads the corpus instead of `comtrade_cache.jsonl`. Then a systemd timer on the server runs the
+six-source refresh and the build nightly, and the laptop pulls the outputs it needs.
+
