@@ -323,7 +323,7 @@ def align_timing(con, lags, work, min_months=12, min_pairs=60):
     tdf.to_parquet(os.path.join(work, 'route_lags.parquet'), index=False)
     con.register('lagsT', tdf)
     con.execute("""CREATE OR REPLACE TABLE adj2 AS
-        WITH base AS (SELECT *, (period // 100) * 12 + period %% 100 AS m FROM adj),
+        WITH base AS (SELECT *, (period // 100) * 12 + period % 100 AS m FROM adj),
              mser AS (SELECT exporter, importer, hs6, m, vm_fob, qm FROM base WHERE vm_fob IS NOT NULL),
              maxm AS (SELECT exporter, importer, MAX(m) AS mmax FROM base GROUP BY 1, 2),
              al AS (SELECT b.exporter, b.importer, b.hs6, b.m,
