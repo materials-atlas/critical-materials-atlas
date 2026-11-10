@@ -242,3 +242,26 @@ baseline, right for the test bench, lets micro-reporters set it when the sample 
 pairs. The threshold has to scale with the sample. Until then the reference run uses BACI's
 recovered constants, and the own-estimate run is the one to repair.
 
+## The same run with BACI's product list, and the order of work from here (10 Nov 2026, 22:34)
+
+Listing the flows present on one side of the comparison only showed two faults of ours, not of
+the method: BACI carries refined petroleum as ONE product (271000; the UN's five 2710
+subheadings merged), and has no chapter 99 ("commodities not specified"). We had 736 bn USD of
+petroleum under other codes and 571 bn of code 999999. The engine now targets BACI's own
+edition (HS 2017) and product list (v2.5). The rest of what BACI has and we lack, 1.07 million
+flows, is small (median 1,900 USD) and involves a country that does not report monthly in 2023
+(UAE, Russia, Taiwan, Iraq, Austria, Peru...).
+
+All products, 2023, v2.5, BACI's recovered weights: 86.1 million declarations, 62.3 million
+flows, **22.76 trillion USD** (BACI: 22.94); 10.71 million flows in both; **80.6% within 10%,
+86.7% within 25%**, median 1.000, total on matched flows 1.007, correlation of logs 0.985.
+
+**The owner's decision on what comes next.** The weights are to be calculated by us, with
+CEPII's method; the constants recovered from BACI are a check on that calculation, not its
+replacement. And the test is made in the right order, once the whole corpus is down, the yearly
+series included: first CEPII's own exercise - yearly declarations, all products, our weights -
+against BACI, which must land almost flow for flow if the ingredients and the method are the
+same; then, and only if that holds, the monthly series with the same recipe. No further
+partial experiments before the data is complete. One repair is owed before that test: the
+baseline of the reliability calculation must scale with the sample.
+
