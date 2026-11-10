@@ -68,7 +68,7 @@ the freight equation and the reliabilities get their proper sample; HS-revision 
 
 ## Version 2.1 (10 Nov 2026, evening): the council's corrections
 
-A second engine reviewed the code against the paper's text (the first engine never answered).
+Two engines reviewed the code against the paper's text; they agreed with each other on every point below.
 Its findings, and what was done with each:
 
 | finding | verdict | done |
@@ -107,4 +107,39 @@ customs (Chile, Australia, Peru...) being the better reporter is plausible; the 
 The afternoon's v2 agreed with BACI slightly better than the corrected v2.1. Agreement with
 BACI is not the criterion when the better-agreeing version was wrong about the paper; the
 reference is v2.1 to the letter, the band a reported sensitivity.
+
+## The data-side items (10 Nov 2026, night)
+
+Done, in the order the annual control pointed to:
+
+- **One HS edition** (`hs_concordance.py`). The corpus mixes editions: in the 54-code slice 68%
+  of value is declared in HS 2022, 31% in HS 2017, 1% in HS 2012, a trace in HS 2007 and 2002.
+  The UN Statistics Division's conversion tables bring every declaration to **HS 2012**, the
+  edition both HS 2017 (263 codes change number) and HS 2022 (621) convert to uniquely; the few
+  older-edition reporters go up through the correlation tables, split equally where the UN lists
+  several candidates (and counted). BACI's HS 2017 is converted the same way for the validation.
+  The long history will take HS 1992. Tables in `raw/concordance/`, fetched from
+  unstats.un.org/unsd/classifications/Econ.
+- **Areas nes as the appendix writes it**: exporter side, named partners first in proportion to
+  their shortfalls, then the residual set against the partners the exporter never named and
+  reported. On the slice: 1.4 bn USD reallocated, 18 bn of residual, 6.8 bn taken as included
+  in partners' declarations, 3.7 bn unexplained. The earlier version also did the importer side
+  and used the whole mirror gap as the pot; both engines objected, and it was right to: 14 bn
+  had been moved.
+- **Hong Kong and US re-exports** taken out of their exports (BACI drops them: destination
+  unknown).
+- **Quantities in other units** converted to weight with mirror-implied rates (section 2.2:
+  at least ten mirrors, dispersion of the log rates below 2.5). Nothing to convert on the ores
+  slice (99.6% of value carries a weight); the universe has 12% of value without one.
+- **The country set** is BACI's own table for the modern window; the historical geography
+  (merged and split entities) is a long-history item, with HS 1992.
+
+Slice after all of it, 2020-2024 against BACI in HS 2012: yearly totals 1.00-1.05, median flow
+ratio 0.993-1.000, 57-61% of flows within 10%, **77%** within 25%, correlation of logs 0.98.
+
+Still open: a revision policy for the last months (recompute the trailing three months on every
+run; the matched orphans at the window's end are provisional by construction) - it belongs to
+the runner that will drive the full-corpus job; the full-corpus run itself, after the download;
+and the memory the reliability regression needs on the universe (the two-sided pairs are loaded
+whole), which waits for the RAM or a sampling rule.
 
