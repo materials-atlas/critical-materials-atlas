@@ -184,50 +184,97 @@ def build_pairs(con):
 # ----------------------------------------------------------------------------------------------
 # 1. freight: the gravity equation estimated on the data, model II
 # ----------------------------------------------------------------------------------------------
-def fit_freight(con, geo, work, max_obs=4_000_000):
+def fit_freight(con, geo, work):
+    """The paper's model II on EVERY usable pair, not a sample: the normal equations X'WX and
+    X'Wy are accumulated inside DuckDB (per-period sums of weighted cross-products, which is all
+    the month dummies need), solved in numpy, and the paper's Cook's-distance filter is applied
+    exactly - leverage per observation from (X'WX)^-1, D_i > 4/n dropped - before a second
+    solve. Nothing leaves the database but the moments."""
     con.register('geo', geo)
     con.execute("""CREATE OR REPLACE TABLE uv AS
         SELECT period, hs6, median(vx / qx) AS uv FROM pairs WHERE qx > 0 AND vx > 0 GROUP BY 1, 2""")
-    d = con.execute("""SELECT p.period, p.exporter, p.importer, p.hs6,
-                              ln((vm / qm) / (vx / qx)) AS y, LEAST(qx, qm) / GREATEST(qx, qm) AS w,
-                              ln(g.d) AS ld, g.contig, ln(u.uv) AS luv
-                       FROM pairs p JOIN geo g ON g.iso_o = p.exporter AND g.iso_d = p.importer
-                            JOIN uv u USING (period, hs6)
-                       WHERE vx > 0 AND vm > 0 AND qx > 0 AND qm > 0 AND u.uv > 0
-                         AND vm / vx BETWEEN %f AND %f AND (vm / qm) / (vx / qx) BETWEEN %f AND %f
-                         AND NOT importer IN (%s)
-                       USING SAMPLE reservoir(%d ROWS) REPEATABLE (7)""" % (
-        TRIM_LO, TRIM_HI, TRIM_LO, TRIM_HI, ','.join("'%s'" % c for c in FOB_IMPORTERS), max_obs)).df()
-    if len(d) < 1000:
-        log('freight: only %d usable pairs - falling back to a flat 3.3%% rate' % len(d))
-        return {'flat': 1.033, 'n': int(len(d))}
-    periods = sorted(d.period.unique())
-    pcode = pd.Categorical(d.period, categories=periods).codes
-    X = np.column_stack([np.ones(len(d)), d.ld, d.ld ** 2, d.contig.fillna(0),
-                         d.exporter.isin(LANDLOCKED).astype(float), d.importer.isin(LANDLOCKED).astype(float), d.luv])
-    T = np.zeros((len(d), len(periods) - 1))
-    T[np.arange(len(d))[pcode > 0], pcode[pcode > 0] - 1] = 1.0   # first period is the reference
-    X = np.hstack([X, T])
-    y = d.y.to_numpy(dtype=float); w = d.w.to_numpy(dtype=float)
-    keep = np.ones(len(y), dtype=bool)
-    for _ in range(2):                                   # two passes stand in for Cook's distance
-        sw = np.sqrt(w[keep])
-        beta, *_ = np.linalg.lstsq(X[keep] * sw[:, None], y[keep] * sw, rcond=None)
-        r = y - X @ beta
-        s = np.sqrt(np.average(r[keep] ** 2, weights=w[keep]))
-        keep = np.abs(r) <= 3 * s
+    ll = pd.DataFrame({'iso3': sorted(LANDLOCKED)}); con.register('ll', ll)
+    con.execute("""CREATE OR REPLACE TABLE fobs AS
+        SELECT p.period, ln((vm / qm) / (vx / qx)) AS y, LEAST(qx, qm) / GREATEST(qx, qm) AS w,
+               ln(g.d) AS c1, ln(g.d) * ln(g.d) AS c2, COALESCE(g.contig, 0) AS c3,
+               CASE WHEN le.iso3 IS NULL THEN 0 ELSE 1 END AS c4, CASE WHEN li.iso3 IS NULL THEN 0 ELSE 1 END AS c5,
+               ln(u.uv) AS c6, TRUE AS keep
+        FROM pairs p JOIN geo g ON g.iso_o = p.exporter AND g.iso_d = p.importer JOIN uv u USING (period, hs6)
+             LEFT JOIN ll le ON le.iso3 = p.exporter LEFT JOIN ll li ON li.iso3 = p.importer
+        WHERE vx > 0 AND vm > 0 AND qx > 0 AND qm > 0 AND u.uv > 0 AND NOT p.importer IN (%s)""" % (
+        ','.join("'%s'" % c for c in FOB_IMPORTERS)))
+    n_all = con.execute("SELECT count(*) FROM fobs").fetchall()[0][0]
+    if n_all < 1000:
+        log('freight: only %d usable pairs - falling back to a flat 3.3%% rate' % n_all)
+        return {'flat': 1.033, 'n': int(n_all)}
+    periods = [r[0] for r in con.execute("SELECT DISTINCT period FROM fobs ORDER BY 1").fetchall()]
+    T = len(periods); K = 7 + T - 1
+    cols = ['1', 'c1', 'c2', 'c3', 'c4', 'c5', 'c6']
+
+    def moments():
+        """per period: sum w, sum w*c_a, sum w*c_a*c_b, sum w*y, sum w*c_a*y, sum w*y*y, count"""
+        terms = ['SUM(w) AS sw', 'SUM(w*y) AS swy', 'SUM(w*y*y) AS swyy', 'COUNT(*) AS cnt']
+        for i, ca in enumerate(cols):
+            terms.append('SUM(w*%s) AS m%d' % (ca, i))
+            terms.append('SUM(w*%s*y) AS my%d' % (ca, i))
+            for j, cb in enumerate(cols):
+                if j >= i:
+                    terms.append('SUM(w*%s*%s) AS m%d_%d' % (ca, cb, i, j))
+        return con.execute("SELECT period, %s FROM fobs WHERE keep GROUP BY period ORDER BY period" % ', '.join(terms)).df().set_index('period')
+
+    def solve(M):
+        XtWX = np.zeros((K, K)); XtWy = np.zeros(K)
+        for t, p in enumerate(periods):
+            if p not in M.index:
+                continue
+            r = M.loc[p]
+            for i in range(7):
+                XtWy[i] += r['my%d' % i]
+                for j in range(7):
+                    XtWX[i, j] += r['m%d_%d' % (min(i, j), max(i, j))]
+            if t > 0:                                   # the period's dummy column
+                d = 7 + t - 1
+                XtWX[d, d] += r['sw']; XtWy[d] += r['swy']
+                for i in range(7):
+                    XtWX[i, d] += r['m%d' % i]; XtWX[d, i] += r['m%d' % i]
+        beta = np.linalg.solve(XtWX, XtWy)
+        rss = float(M['swyy'].sum() - 2 * beta @ XtWy + beta @ XtWX @ beta)
+        n = int(M['cnt'].sum())
+        return beta, XtWX, rss / max(n - K, 1), n
+
+    beta, XtWX, s2, n = solve(moments())
+    # Cook's distance: D = r^2 h / (K s2 (1-h)^2), h = w x'(X'WX)^-1 x, per observation in SQL
+    A = np.linalg.inv(XtWX)
+    cc = ' + '.join('%r*%s*%s' % (A[i, j] * (1 if i == j else 2), cols[i], cols[j]) for i in range(7) for j in range(i, 7))
+    per = pd.DataFrame({'period': periods, 'tdiag': [0.0] + [A[7 + t - 1, 7 + t - 1] for t in range(1, T)],
+                        **{'tc%d' % i: [0.0] + [2 * A[i, 7 + t - 1] for t in range(1, T)] for i in range(7)}})
+    con.register('per', per)
+    bexpr = ' + '.join('%r*%s' % (beta[i], cols[i]) for i in range(7))
+    tfe = pd.DataFrame({'period': periods, 'tfe': [0.0] + beta[7:].tolist()}); con.register('tfe0', tfe)
+    con.execute("""CREATE OR REPLACE TABLE fobs2 AS
+        SELECT f.* EXCLUDE (keep),
+               (f.w * ((%s) + per.tdiag + %s)) AS h,
+               (f.y - (%s) - t.tfe) AS r
+        FROM fobs f JOIN per USING (period) JOIN tfe0 t USING (period)""" % (
+        cc, ' + '.join('per.tc%d*%s' % (i, cols[i]) for i in range(7)), bexpr))
+    con.execute("""CREATE OR REPLACE TABLE fobs AS
+        SELECT * EXCLUDE (h, r), (r*r*h / (%d * %r * (1 - h) * (1 - h))) <= %r AS keep FROM fobs2""" % (K, s2, 4.0 / n))
+    con.execute("DROP TABLE fobs2")
+    beta, XtWX, s2, n2 = solve(moments())
     names = ['intercept', 'ln_dist', 'ln_dist2', 'contig', 'landlocked_exp', 'landlocked_imp', 'ln_uv']
     coef = dict(zip(names, beta[:7].tolist()))
     tfe = dict(zip(periods, [0.0] + beta[7:].tolist()))
-    pred = X @ beta
-    out = {'coef': coef, 'time_fe': {str(k): v for k, v in tfe.items()}, 'n': int(keep.sum()),
-           'dropped': int((~keep).sum()), 'mean_cif_rate': float(np.exp(pred[keep]).mean() - 1),
-           'resid_sd': float(s)}
+    tfe_df = pd.DataFrame({'period': periods, 'tfe': [0.0] + beta[7:].tolist()}); con.register('tfe1', tfe_df)
+    mean_rate = con.execute("""SELECT avg(exp((%s) + t.tfe)) - 1 FROM fobs f JOIN tfe1 t USING (period) WHERE keep""" % (
+        ' + '.join('%r*%s' % (beta[i], cols[i]) for i in range(7)))).fetchall()[0][0]
+    out = {'coef': coef, 'time_fe': {str(k): v for k, v in tfe.items()}, 'n': int(n2), 'dropped': int(n - n2),
+           'mean_cif_rate': float(mean_rate), 'resid_sd': float(np.sqrt(s2))}
     json.dump(out, open(os.path.join(work, 'freight_fit.json'), 'w'), indent=1)
-    log('freight fit on %s pairs (%s outliers out): mean CIF rate %.1f%%, ln dist %.3f, ln dist2 %.4f, '
+    log('freight fit on %s pairs (%s out by Cook distance > 4/n): mean CIF rate %.1f%%, ln dist %.3f, ln dist2 %.4f, '
         'contig %.3f, landlocked exp %.3f imp %.3f, ln uv %.3f' % (
             format(out['n'], ','), format(out['dropped'], ','), 100 * out['mean_cif_rate'], coef['ln_dist'],
             coef['ln_dist2'], coef['contig'], coef['landlocked_exp'], coef['landlocked_imp'], coef['ln_uv']))
+    con.execute("DROP TABLE fobs")
     return out
 
 
@@ -307,10 +354,11 @@ def align_timing(con, lags, work):
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
 def fit_reliability(con, work):
+    # every two-sided pair: the paper trims nothing here
     d = con.execute("""SELECT exporter, importer, period, hs6, abs(ln(vx) - ln(vm_al)) AS rd,
                               ln((vx + vm_al) / 1000.0) AS w
-                       FROM adj2 WHERE vx > 0 AND vm_al > 0 AND vx / vm_al BETWEEN %f AND %f
-                       ORDER BY exporter, importer, period, hs6""" % (TRIM_LO, TRIM_HI)).df()
+                       FROM adj2 WHERE vx > 0 AND vm_al > 0
+                       ORDER BY exporter, importer, period, hs6""").df()
     d = d[d.w > 0]
     n = len(d)
     if n < 500:
