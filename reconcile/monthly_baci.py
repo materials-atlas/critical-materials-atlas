@@ -85,6 +85,8 @@ def geodist():
     g = pd.read_excel(GEO, engine='calamine') if _has_calamine() else pd.read_excel(GEO)
     g.columns = [x.lower() for x in g.columns]
     g = g[['iso_o', 'iso_d', 'dist', 'distw', 'contig']].copy()
+    for c in ('dist', 'distw', 'contig'):            # the xls holds '..' for missing, read as text
+        g[c] = pd.to_numeric(g[c], errors='coerce')
     # the paper uses population-weighted distances where available
     g['d'] = g.distw.where(g.distw.notna() & (g.distw > 0), g.dist)
     return g[['iso_o', 'iso_d', 'd', 'contig']].dropna(subset=['d'])

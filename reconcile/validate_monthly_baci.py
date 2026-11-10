@@ -37,7 +37,7 @@ def main():
     mon = a.monthly.replace(chr(92), '/')
     con.execute("""CREATE TABLE ours AS
         SELECT period // 100 AS t, exporter, importer, hs6, SUM(v) / 1000.0 AS v_ours, SUM(q) / 1000.0 AS q_ours,
-               COUNT(*) AS months, SUM(CASE WHEN basis = 'both' THEN 1 ELSE 0 END) AS months_both
+               COUNT(*) AS n_months, SUM(CASE WHEN basis = 'both' THEN 1 ELSE 0 END) AS months_both
         FROM read_parquet('%s/2*.parquet') WHERE period // 100 BETWEEN %d AND %d
         GROUP BY 1, 2, 3, 4""" % (mon, a.years[0], a.years[1]))
     codes = a.codes or [r[0] for r in con.execute("SELECT DISTINCT hs6 FROM ours").fetchall()]
@@ -78,7 +78,7 @@ def main():
     print()
     print('by basis (how the flow was reconciled), all years, flows in both:')
     for r in con.execute("""
-        SELECT CASE WHEN o.months_both = o.months THEN 'both every month' WHEN o.months_both = 0 THEN 'one side only' ELSE 'mixed' END AS basis,
+        SELECT CASE WHEN o.months_both = o.n_months THEN 'both every month' WHEN o.months_both = 0 THEN 'one side only' ELSE 'mixed' END AS basis,
                count(*), median(v_ours / v_baci), avg(CASE WHEN abs(v_ours / v_baci - 1) <= 0.25 THEN 1.0 ELSE 0.0 END)
         FROM ours o JOIN baci b USING (t, exporter, importer, hs6) GROUP BY 1 ORDER BY 2 DESC""").fetchall():
         print('  %-18s n=%-9s median ratio %.3f   within 25%%: %.1f%%' % (r[0], format(r[1], ','), r[2], 100 * r[3]))
