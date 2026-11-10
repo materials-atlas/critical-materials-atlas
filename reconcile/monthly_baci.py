@@ -237,14 +237,14 @@ def fit_freight(con, geo, work):
                 XtWX[d, d] += r['sw']; XtWy[d] += r['swy']
                 for i in range(7):
                     XtWX[i, d] += r['m%d' % i]; XtWX[d, i] += r['m%d' % i]
-        beta = np.linalg.solve(XtWX, XtWy)
+        beta = np.linalg.lstsq(XtWX, XtWy, rcond=None)[0]   # a period emptied by the filter leaves a zero column
         rss = float(M['swyy'].sum() - 2 * beta @ XtWy + beta @ XtWX @ beta)
         n = int(M['cnt'].sum())
         return beta, XtWX, rss / max(n - K, 1), n
 
     beta, XtWX, s2, n = solve(moments())
     # Cook's distance: D = r^2 h / (K s2 (1-h)^2), h = w x'(X'WX)^-1 x, per observation in SQL
-    A = np.linalg.inv(XtWX)
+    A = np.linalg.pinv(XtWX)
     cc = ' + '.join('%r*%s*%s' % (float(A[i, j]) * (1 if i == j else 2), cols[i], cols[j]) for i in range(7) for j in range(i, 7))
     per = pd.DataFrame({'period': periods, 'tdiag': [0.0] + [A[7 + t - 1, 7 + t - 1] for t in range(1, T)],
                         **{'tc%d' % i: [0.0] + [2 * A[i, 7 + t - 1] for t in range(1, T)] for i in range(7)}})
