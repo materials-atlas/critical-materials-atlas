@@ -336,3 +336,24 @@ drop-in on the Lenovo, and an allow rule for `ssh lenovo` on the Zenbook side, s
 longer goes through a launcher window. Still open: a network cable, the BIOS setting for power
 on after a power cut, and the RAM on 15 Nov.
 
+## Power cut: the machine turns itself back on (tested 10 Nov 2026)
+
+The BIOS (4KCN40WW, 2017) could not be read from the running system and no documentation
+answers whether it offers "power on after AC loss", so the question was settled by test: an
+alarm set in the clock chip (`rtcwake -m no -s 200`), then `systemctl poweroff`. The machine
+started by itself 7 seconds after the alarm time, with nobody touching it, and every service
+came back (Wi-Fi, Tailscale, the pull in its quota sleep). So RTC wake from the off state works
+on this hardware.
+
+That is now a standing guard: `rtc-wake-guard.timer` re-arms the alarm two hours ahead every
+hour (and 2 minutes after each boot). While the machine runs, the alarm passes unnoticed; if a
+cut outlasts the battery and leaves it off, it is back within two hours of the power returning.
+
+Two more things from the same test:
+
+- After a reboot the machine sat at the login screen, where the user's "never blank the screen"
+  settings do not apply. Auto-login for the user is now on (`/etc/gdm3/custom.conf`), so a
+  restart lands in the session with its settings, and nothing needs typing at the machine.
+- `loginctl list-sessions` shows a seat0 session even when nobody is logged in: it is the
+  login screen's own session, user `gdm`. Check the user column before concluding anyone is in.
+
