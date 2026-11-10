@@ -7,51 +7,61 @@ period, so the same three steps can run per month and reach two years further. T
 `monthly_baci.py`; `validate_monthly_baci.py` sums its months to years and compares them with
 BACI's own numbers where the two overlap, which is the test of the whole thing.
 
-## The three steps, as implemented
+## Version 2 (10 Nov 2026): CEPII's steps as written, plus the month-end problem
 
-1. **Freight.** Only the total line of a declaration is a flow (customs `C00`, transport `0`,
-   second partner `0`; flows `M` and `X`; partner "World" dropped). The importer's CIF value is
-   divided by a route coefficient: CEPII's own published gravity shape (2008, column 4) on
-   distance, contiguity, language, colonial tie, landlocked status and the product's world unit
-   value that month, anchored and capped as in `pipeline/reconcile.py`.
-2. **Reliability.** On the flows both sides declared, d = ln FOB_exporter - ln FOB_importer,
-   trimmed to a ratio band of 0.2-5. Level biases out by alternating robust median centering per
-   reporter and role; then E[d^2] = v_exporter + v_importer by Gauss-Seidel on winsorized
-   squares, shrunk toward the month's global variance. One variance per reporter, role and month.
-3. **Reconciliation.** Exporter weight w = v_importer / (v_exporter + v_importer); the value is
-   the weighted arithmetic mean of the two FOB values, as BACI publishes. One side only: that
-   side. Quantities with the same weights.
+Version 1 (same day, in the git history) used CEPII's published 2008 gravity coefficients with
+an anchor set on 54 products, and a reliability model of our own. The owner asked for the
+method to the letter; version 2 follows the paper (sections 2.3-2.4 and the appendix):
 
-## First validation: the 54-code slice against BACI, 2020-2024
+0. **Data.** Total lines only (customs `C00`, transport `0`, second partner `0`), flows `M`
+   and `X`, partner "World" dropped, codes mapped to ISO3 with BACI's own country table.
+   "Areas not elsewhere specified" are reallocated to identified partners by the appendix rule
+   (the exporter's NES value fills the shortfall between what it declared to named partners and
+   what those partners declared from it, in proportion to the shortfalls; the same mirrored for
+   importers). On the slice: 14.4 bn USD moved on the export side, 3.0 bn on the import side.
+1. **Freight.** The gravity equation is estimated on the data, model II of the paper:
+   ln(UVm/UVx) on ln distance, ln distance squared, contiguity, exporter and importer landlocked,
+   ln world median unit value of the product in the month, and month dummies; each observation
+   weighted by min(Qx,Qm)/max(Qx,Qm); population-weighted distances where CEPII has them. The
+   paper's Cook's-distance filter is approximated by a two-pass trim (ratio outside [0.2, 5],
+   then residuals beyond 3 sigma). Not applied to importers that declare FOB (Algeria, Georgia,
+   South Africa and the SACU, the paper's footnote 17); to Canada only where it narrows the gap.
+   On the 54 codes: mean CIF rate **5.8%** (the paper found 3.3% over all products; ores and
+   concentrates travel dearer), coefficients of the same sign and size as theirs (ln distance
+   -0.020, squared +0.0034, contiguity -0.010, unit value -0.016).
+2. **Timing** (ours; the owner chose the faithful treatment). A month declared by both sides is
+   left alone. An exporter's declaration with no counterpart that month is matched with an
+   unmatched importer's declaration on the same corridor one or two months later, nearest first,
+   each used once, and the importer's value moves to the exporter's month. On the slice 35,440
+   declarations (2.7%) were matched this way. A first attempt that smoothed the importer's
+   series with a per-route lag profile made every other category worse and was dropped.
+3. **Reliability.** Reporting distance RD = |ln(Vx / Vm_fob)|, regressed on exporter, importer,
+   month and product fixed effects by weighted alternating projections (the within estimator),
+   weights ln of the sum of the two reports; sigma_i = (pi/2)(LS_RD_i - min LS_RD - 2 stderr_i),
+   floored at 0.01; the exporter's weight from equation (3), w = Vj / (Vi + Vj) with
+   V = e^(s^2)(e^(s^2) - 1). Monthly reporting distances are larger than yearly ones (mean 0.47),
+   so the sigmas are large and the weights near 0 or 1: the better reporter is taken almost
+   whole. Mean exporter weight 0.14; importers are the more reliable side on these products.
+4. **Reconciliation.** Weighted arithmetic mean; one side alone as declared (FOB); quantities
+   (net weight) with the same weights.
 
-| year | flows in both | BACI value covered | median ours/BACI | within 10% | within 25% | corr of logs | total ours/BACI |
-|---|---|---|---|---|---|---|---|
-| 2020 | 34,648 | 98.2% | 1.000 | 62.6% | 74.3% | 0.984 | 1.034 |
-| 2021 | 36,798 | 98.5% | 1.000 | 64.5% | 75.2% | 0.987 | 1.065 |
-| 2022 | 38,180 | 98.5% | 1.000 | 62.7% | 75.0% | 0.987 | 1.061 |
-| 2023 | 37,423 | 98.4% | 1.000 | 64.1% | 74.9% | 0.987 | 1.019 |
-| 2024 | 35,780 | 99.1% | 1.000 | 65.7% | 75.0% | 0.978 | 1.029 |
+## Validation: the 54-code slice against BACI, 2020-2024
 
-2019 holds only Aug-Dec in the corpus and is not comparable. Where the two depart, and why:
+Yearly sums of our months against BACI's yearly flows, same codes, same country list.
 
-- **Timing across month ends is the real problem.** A flow declared by the exporter in some
-  months and by the importer in others comes out 30% above BACI in the year. A shipment the
-  exporter books in month t and the importer in t+1 is two flows to a per-month reconciliation
-  and one to a yearly one. Flows with both sides every month sit at 1.025, one-sided flows at
-  0.98-1.00; the excess is concentrated in flows with 4-11 months of data (1.13-1.20).
-- **Importer-only flows are 5.5% below BACI** (median 0.945): our freight coefficient is
-  higher than what BACI strips. The anchor was set on 54 products; the universe will say
-  whether it, or BACI's data-estimated rate, is the right level.
-- **Monthly reporting misses some exporters altogether** (Congo, Russia, Australia, Zambia,
-  Guinea...), 1-2% of BACI's value: countries that report yearly or not at all, for which BACI
-  works from partners' declarations only. The yearly series now being pulled closes part of it;
-  the rest is a question of which partners publish monthly.
+| version | yearly total, ours / BACI | median flow ratio | flows within 10% | within 25% | corr of logs |
+|---|---|---|---|---|---|
+| v1 (published coefficients, own reliability) | 1.02-1.07 | 1.000 | 63-66% | 75% | 0.98-0.99 |
+| v2, no timing step | 0.99-1.04 | 0.995-1.000 | 57-60% | 75-76% | 0.98-0.99 |
+| **v2 + orphan matching, 2 months** | **0.97-1.03** | **0.986-0.997** | **59-62%** | **79-80%** | 0.98-0.99 |
 
-## Open design decision (for the owner)
+By how the flow was built (v2 + matching, flows in both, 2020-2024): declared by one side only,
+median ratio 0.976 and 88% within 25%; both sides every month, 0.964 and 83%; a mix of months,
+1.106 and 56%. The mixed category is where the month-end problem lives; matching halved its
+excess (1.18 -> 1.11) without touching the rest. BACI's value is covered at 98-99%; the 1-2%
+we lack are reporters absent from the monthly series (Congo, Russia, Australia, Zambia,
+Guinea...), for which BACI works from partners alone and the yearly series will add.
 
-How to treat the month-end timing. The candidates: (a) reconcile on a rolling three-month
-window; (b) reconcile the year as BACI does and distribute it over months by the two sides'
-monthly profiles, with a trailing twelve months for the current year; (c) match each shipment
-across t-1..t+1 before reconciling. (b) is BACI-consistent by construction and the simplest to
-validate; (a) keeps the monthly engine but blurs turning points; (c) is the most faithful and
-the most work.
+Still ahead: the full universe (after the download), which is what the method is for and where
+the freight equation and the reliabilities get their proper sample; HS-revision harmonisation
+(needed for product comparisons across 2022); quantity-unit conversion to tons.
