@@ -149,13 +149,41 @@ def main():
     for r in q(con, "SELECT exporter, count(*), median(lam), avg(CASE WHEN lam BETWEEN 0.05 AND 0.95 THEN 1.0 ELSE 0.0 END) FROM c GROUP BY 1 ORDER BY 2 DESC LIMIT 12"):
         print('      %s n=%-6s median lambda %.2f   strictly in between: %.0f%%' % (r[0], format(r[1], ','), r[2], 100 * r[3]))
 
+    # E. CEPII published its own reliabilities with the 2019 and 2020 releases (v_unreliability_i as
+    # exporter, _j as importer). Which formula turns them into the weights BACI's output shows?
+    rel_path = os.path.join(ROOT, 'raw', 'baci', 'reporter_reliability_HS17_V202001.csv')
+    if os.path.exists(rel_path):
+        rel = pd.read_csv(rel_path)
+        rel = rel.merge(cm[['code', 'country_iso3']], left_on='c', right_on='code')
+        con.register('rel', rel[['country_iso3', 'v_unreliability_i', 'v_unreliability_j']])
+        con.execute("""CREATE TABLE e AS
+            SELECT c.*, re.v_unreliability_i AS si, ri.v_unreliability_j AS sj
+            FROM c JOIN rel re ON re.country_iso3 = c.exporter JOIN rel ri ON ri.country_iso3 = c.importer
+            WHERE abs(ln(vx / vm)) > 0.30 AND lam BETWEEN -0.3 AND 1.3""")
+        A = lambda s: "(exp(%s*%s) * (exp(%s*%s) - 1))" % (s, s, s, s)
+        forms = {'equation (3): A(sj) / (A(si) + A(sj)),  A(s) = e^(s^2) (e^(s^2) - 1)': "%s / (%s + %s)" % (A('sj'), A('si'), A('sj')),
+                 'inverse variance: sj^2 / (si^2 + sj^2)': "sj*sj / (si*si + sj*sj)",
+                 'inverse sigma: sj / (si + sj)': "sj / (si + sj)",
+                 'equal weights: 0.5': "0.5"}
+        print()
+        print('E. CEPII\'s published unreliabilities (2020 release, HS17) against the weights in BACI %d' % y)
+        s = q(con, "SELECT count(*), median(si), median(sj), quantile_cont(si, 0.05), quantile_cont(si, 0.95) FROM e")[0]
+        print('    %s two-sided flows; their sigma as exporter: median %.2f (5%%..95%%: %.2f..%.2f), as importer: median %.2f' % (
+            format(s[0], ','), s[1], s[3], s[4], s[2]))
+        for lab, ex in forms.items():
+            r = q(con, "SELECT avg(abs(lam - (%s))), corr(lam, %s) FROM e" % (ex, ex))[0]
+            print('    %-72s mean abs error %.3f   corr %s' % (lab, r[0], ('%.3f' % r[1]) if r[1] is not None else 'n/a'))
+        print('    BACI\'s lambda by the weight equation (3) predicts from their own sigmas:')
+        for r in q(con, "SELECT floor(LEAST(%s, 0.999) * 5) / 5 AS b, count(*), median(lam), avg(lam) FROM e GROUP BY 1 ORDER BY 1" % forms[list(forms)[0]]):
+            print('      predicted %.1f-%.1f   n=%-6s median lambda %.2f   mean %.2f' % (r[0], r[0] + 0.2, format(r[1], ','), r[2], r[3]))
+
     if a.slice:
         print()
         print('D. the months of %d summed against the same reporter\'s ANNUAL declaration (same partner, code, flow)' % y)
         sl = os.path.expanduser(a.slice).replace(chr(92), '/')
         con.execute("""CREATE TABLE mon AS SELECT reporterCode AS reporter, partnerCode AS partner, cmdCode AS k, flowCode AS flow,
                               sum(primaryValue) AS v, count(DISTINCT period) AS n_months
-                       FROM read_parquet('%s') WHERE period / 100 = %d AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
+                       FROM read_parquet('%s') WHERE period // 100 = %d AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
                          AND partnerCode <> 0 AND flowCode IN ('M', 'X') AND primaryValue > 0 GROUP BY 1, 2, 3, 4""" % (sl, y))
         con.execute("CREATE TABLE repm AS SELECT reporter, count(DISTINCT n_months) AS x, max(n_months) AS months FROM mon GROUP BY 1")
         r = q(con, """SELECT (SELECT count(DISTINCT reporter) FROM ann), (SELECT count(DISTINCT reporter) FROM mon),
