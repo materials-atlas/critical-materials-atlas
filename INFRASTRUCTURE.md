@@ -315,3 +315,24 @@ Against the disk: monthly ~232 GB + yearly ~65 GB on disk, out of 915 GB. The se
 `pull_all.sh`: monthly, then yearly HS, SITC1, SITC2, each resumable, each a no-op once complete,
 into `raw/comtrade_bulk_A_HS/`, `_A_S1/`, `_A_S2/`. Services trade and SITC3/4 are to be measured
 on a fresh quota, a few calls at a time, after the pulls are done.
+
+## Tuning pass (10 Nov 2026)
+
+Measured first: 60 s of full load on all four cores held 3.1 GHz at 76 C with no throttling, so
+the dust is not yet a problem; the desktop session costs 0.2 GB of the 7.3 GB; the disk writes
+at 425 MB/s. Then one root script, `server_tune.sh` in the kit folder:
+
+- the ext4 root reserve went from 5% to 0.5%, which handed **40 GB** back to data (774 GB free);
+- SMART on the new disk: PASSED, 24 power-on hours, zero reallocated or pending sectors;
+- Lenovo's battery conservation mode is on and survives restarts (`/etc/tmpfiles.d/`), so a
+  machine that lives on mains stops cooking its battery at 100% (it is already at 71% of its
+  design capacity);
+- Wi-Fi power saving is off (`/etc/NetworkManager/conf.d/`); the signal is -69 dBm, which is
+  why a cable is still the better answer;
+- SSH takes keys only; the local keyboard is unaffected.
+
+The Zenbook now administers the machine without a password, by the owner's decision: a sudoers
+drop-in on the Lenovo, and an allow rule for `ssh lenovo` on the Zenbook side, so root work no
+longer goes through a launcher window. Still open: a network cable, the BIOS setting for power
+on after a power cut, and the RAM on 15 Nov.
+
