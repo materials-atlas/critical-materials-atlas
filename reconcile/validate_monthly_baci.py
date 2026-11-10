@@ -34,7 +34,7 @@ def main():
     ap.add_argument('--monthly', required=True)
     ap.add_argument('--years', nargs=2, type=int, default=[2019, 2024])
     ap.add_argument('--codes', nargs='*', help='HS6 codes to restrict BACI to (default: the codes present in the monthly output)')
-    ap.add_argument('--hs-target', default='H4', help='the edition the monthly output is in; BACI (HS 2017) is converted to it')
+    ap.add_argument('--hs-target', default='H5', help='the edition the monthly output is in; BACI is HS 2017 (H5) and is converted only if this differs')
     a = ap.parse_args()
     conv = conversion(2017, 2012) if a.hs_target == 'H4' else None
     con = duckdb.connect()

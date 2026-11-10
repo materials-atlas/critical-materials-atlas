@@ -60,8 +60,9 @@ Estimation steps 1-3 pool every period in the run, as BACI pools its years; step
     python reconcile/monthly_baci.py --slice raw/crm_monthly.parquet --out raw/monthly_baci_slice
     python reconcile/monthly_baci.py --periods 201908 202609 --out raw/monthly_baci     # corpus
 
-Every declaration is first brought to one HS edition (hs_concordance.py: HS 2012 by default,
-the edition both HS 2017 and HS 2022 convert to uniquely). Quantities declared in other units get
+Every declaration is first brought to one HS edition (hs_concordance.py): HS 2017 by default,
+BACI's own edition for 2017 onwards, with BACI's product list (2710 merged into 271000, no
+chapter 99), so that the comparison converts nothing on BACI's side. Quantities declared in other units get
 a weight from mirror-implied rates (section 2.2). Weights are in kilograms throughout.
 """
 import argparse
@@ -84,6 +85,9 @@ COUNTRIES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
 GEO = os.path.join(ROOT, 'raw', 'geodist', 'dist_cepii.xls')
 
 NES = 899                                  # Comtrade partner "Areas, nes"
+BACI_PRODUCTS = os.path.join(ROOT, 'raw', 'baci', 'product_codes_HS17_V202601.csv')
+# BACI carries refined petroleum as ONE product: the five 2710 subheadings are merged into 271000
+BACI_CODE = "CASE WHEN left(COALESCE(h.code_to, t.hs6), 4) = '2710' THEN '271000' ELSE COALESCE(h.code_to, t.hs6) END"
 FOB_IMPORTERS = {'DZA', 'GEO', 'ZAF', 'BWA', 'LSO', 'NAM', 'SWZ'}   # report imports FOB: no freight strip
 FAS_IMPORTERS = {'CAN'}                                          # strip only where it narrows the gap
 TRIM_LO, TRIM_HI = 0.2, 5.0                # a two-sided pair outside this ratio is a misclassification
@@ -127,7 +131,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
+def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5'):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -151,7 +155,7 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
     con.register('hsmap', hm[['ver', 'code_from', 'code_to', 'share']])
     con.execute("""CREATE OR REPLACE TABLE tot AS
         SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
-               COALESCE(h.code_to, t.hs6) AS hs6, t.flow,
+               %s AS hs6, t.flow,
                SUM(t.v * COALESCE(h.share, 1.0)) AS v, SUM(t.q * COALESCE(h.share, 1.0)) AS q,
                COUNT(*) = COUNT(t.q) AS q_full,
                CASE WHEN MIN(t.unit) = MAX(t.unit) THEN MAX(t.unit) END AS unit,
@@ -159,8 +163,17 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H4'):
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
-        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND t.ver <> '%s' OR (t.ver = '%s' AND (t.par = %d OR p.iso3 IS NOT NULL))
-        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, tot, NES, hs_target, hs_target, NES))
+        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND left(COALESCE(h.code_to, t.hs6), 2) <> '99'
+        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, BACI_CODE, tot, NES))
+    # BACI's product list: the UN's HS 2017 with the 2710 subheadings merged into 271000 and no
+    # chapter 99. Anything else that is not on it after conversion is counted and dropped.
+    if hs_target == 'H5' and os.path.exists(BACI_PRODUCTS):
+        bp = pd.read_csv(BACI_PRODUCTS, dtype=str); bp.columns = [c.lower() for c in bp.columns]
+        con.register('bprod', pd.DataFrame({'code': bp.iloc[:, 0].str.zfill(6)}))
+        off = con.execute("SELECT count(*), COALESCE(sum(v), 0) / 1e9 FROM tot WHERE hs6 NOT IN (SELECT code FROM bprod)").fetchall()[0]
+        con.execute("DELETE FROM tot WHERE hs6 NOT IN (SELECT code FROM bprod)")
+        log('products: BACI\'s HS 2017 list (2710 merged into 271000, chapter 99 out); %s declarations (%.1f bn USD) on no BACI code dropped' % (
+            format(off[0], ','), off[1]))
     # BACI: "re-exportations for Hong Kong and USA are also dropped since there is no way to know the
     # final destination". Their X total includes re-exports; the RX line is taken out of it.
     con.execute("""CREATE OR REPLACE TABLE tot AS
@@ -696,7 +709,7 @@ def main():
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
-    ap.add_argument('--hs-target', default='H4', help='HS edition every declaration is brought to (H4 = HS 2012, the modern window)')
+    ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
     ap.add_argument('--reuse', action='store_true', help='restart from the saved work database at the reliability step (after a crash there)')
     ap.add_argument('--annual', action='store_true',
                     help='control run: the months summed to calendar years before anything else, the paper\'s own frequency')
