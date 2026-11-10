@@ -287,7 +287,7 @@ reporters that publish later will **not** be fetched until those cached listings
 (reporter 180, 2022) answered 404 and are left for a later run.
 
 **The quota.** The key has a **daily quota of API calls, and every bulk LISTING call counts**
-against it; file downloads do not (5,000 files came down in one day). A sizing pass of ~300
+against it; file downloads do not (5,000 files came down in one day), but once the quota is gone every endpoint refuses, downloads included. A sizing pass of ~300
 listing calls, made to measure the yearly series while the pull was running, spent the day's
 quota at 09:01, and the pull then skipped its remaining 264 periods in six minutes with
 `listing http 403` and ended. The server's answer carries the wait: `Out of call volume quota.
