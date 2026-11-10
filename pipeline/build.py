@@ -27,7 +27,10 @@ CREATE VIEW flows_best AS
 SELECT * EXCLUDE(rn, src_rank) FROM (
   SELECT c.*, ROW_NUMBER() OVER (
       PARTITION BY period, exporter, importer, native_code, code_level
-      ORDER BY src_rank, value_usd DESC NULLS LAST) AS rn
+      -- a TOTAL order: on (src_rank, value_usd) alone, equal values from two sources tied and
+      -- the pick changed between runs (measured 10 Nov 2026, 3,194 rows of flows_best)
+      ORDER BY src_rank, value_usd DESC NULLS LAST, source, flow, reporter,
+               qty_kg DESC NULLS LAST, material) AS rn
   FROM (
     SELECT *,
       CASE WHEN flow='export' THEN reporter ELSE partner END AS exporter,
@@ -149,7 +152,7 @@ def main():
 
     # coverage / quality scorecard per material — honest map of what's covered well vs thin
     con.execute("""CREATE OR REPLACE TABLE coverage AS
-      WITH b AS (SELECT hs6, any_value(material) AS material, COUNT(DISTINCT source) AS n_sources,
+      WITH b AS (SELECT hs6, MIN(material) AS material, COUNT(DISTINCT source) AS n_sources,
                         MAX(code_level) AS finest_level, MAX(period) AS latest_period,
                         ROUND(SUM(value_usd)/1e9, 2) AS value_busd, COUNT(DISTINCT reporter) AS n_reporters,
                         ROUND(AVG(via_entrepot::INT)*100) AS pct_via_entrepot,
