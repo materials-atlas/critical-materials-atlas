@@ -134,7 +134,7 @@ def run_month(con, period, slice_path, out_dir, cmap, geo, landlocked):
                 "       primaryValue AS v, CASE WHEN netWgt > 0 THEN netWgt END AS q "
                 "FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0 "
                 "  AND partnerCode <> 0 AND flowCode IN ('M', 'X') AND primaryValue > 0" % src)
-    n_raw = con.execute("SELECT count(*) FROM raw").fetchone()[0]
+    n_raw = con.execute("SELECT count(*) FROM raw").fetchall()[0][0]
     if not n_raw:
         log('%s: no total lines - skipped' % period)
         return None
@@ -211,7 +211,7 @@ def run_month(con, period, slice_path, out_dir, cmap, geo, landlocked):
     os.replace(tmp, dest)
     rel.to_parquet(os.path.join(out_dir, 'rel_%s.parquet' % period), index=False)
     s = con.execute("""SELECT count(*), count(*) FILTER (WHERE basis = 'both'), round(sum(v) / 1e9, 2),
-                              count(DISTINCT exporter), count(DISTINCT importer) FROM recon""").fetchone()
+                              count(DISTINCT exporter), count(DISTINCT importer) FROM recon""").fetchall()[0]
     log('%s: %s total lines -> %s flows (%s two-sided, %d pairs fitted, global var %.4f), %s bn USD, '
         '%d exporters / %d importers, %.0fs' % (period, format(n_raw, ','), format(s[0], ','),
                                                   format(s[1], ','), n_both, g, s[2], s[3], s[4], time.time() - t0))

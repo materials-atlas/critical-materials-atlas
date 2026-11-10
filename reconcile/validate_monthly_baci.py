@@ -59,7 +59,7 @@ def main():
         SELECT t, e.country_iso3 AS exporter, i.country_iso3 AS importer, k AS hs6, v AS v_baci, q AS q_baci
         FROM baci_raw JOIN cm e ON baci_raw.i = e.code JOIN cm i ON baci_raw.j = i.code""")
     print('BACI rows in scope: %s   ours: %s   codes: %d   years %d-%d' % (
-        format(len(b), ','), format(con.execute("SELECT count(*) FROM ours").fetchone()[0], ','), len(codes), *a.years))
+        format(len(b), ','), format(con.execute("SELECT count(*) FROM ours").fetchall()[0][0], ','), len(codes), *a.years))
     print()
     print('year   both   ours_only  baci_only  value_cov  median_ratio  within10%%  within25%%  corr_ln  val_ours/baci')
     for (t, both, oo, bo, cov, med, w10, w25, corr, ratio) in con.execute("""
