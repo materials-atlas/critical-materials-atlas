@@ -143,3 +143,69 @@ the runner that will drive the full-corpus job; the full-corpus run itself, afte
 and the memory the reliability regression needs on the universe (the two-sided pairs are loaded
 whole), which waits for the RAM or a sampling rule.
 
+## Why we did not match BACI, and what BACI actually does (10 Nov 2026, night)
+
+The owner asked for the explanation, not another tuning round. It came from two places: CEPII's
+own site, and BACI's own numbers set against the raw declarations they were built from.
+
+**What CEPII publishes beyond the 2010 paper** (cepii.fr/DATA_DOWNLOAD/baci/doc/): the release
+notes say "we regularly introduce minor methodological improvements"; January 2024, "we switched
+to the CEPII Gravity dataset to obtain distances in the fobization step. This implied giving up
+on the dummy variable for landlocked countries"; January 2026, "Fobization process was
+simplified, with little effects on final outcome". The paper is still the only reference cited.
+With the 2019 and 2020 releases CEPII also published its **reporter reliabilities** per country
+(`reporter_reliability_*.csv`, kept in `raw/baci/`): medians of 0.34 as exporter and 0.29 as
+importer. Ours at the time had medians of 1.4 and 2.1.
+
+**What BACI's output shows** (`diagnose_vs_baci.py`, `recover_baci_weights.py`; BACI V202601
+against the atlas's annual Comtrade pulls for 2022 and 2024, 31 codes, 16,241 two-sided flows):
+
+1. *Nothing is removed from import values.* A flow only the importer declared is in BACI at its
+   declared value: China's imports from the DRC, 13.7 bn USD, to the dollar; 75-82% of all such
+   flows exactly, the rest moved by the data vintage (EU reporters' values differ by about 3%
+   between our pull and CEPII's). On two-sided flows, BACI = a x export + b x import fits 235
+   country pairs to within 1%, and there a + b = 1.0000 (p10 0.9945, p90 1.0027): the weights
+   sum to one on the RAW import value. Flow by flow the implied freight factor is centred on
+   1.0006. The paper strips 3.3% on average; our estimate of its equation stripped 5-6%.
+2. *The weight is a ratio of two country constants.* Within a pair the weight does not move
+   (France to Germany 0.60, China to the Netherlands 0.22: interquartile range 0.00-0.01), and
+   logit(a_ij) = ln V_j - ln V_i fits with R2 0.998. That is the paper's equation (3),
+   a = V_j / (V_i + V_j), confirmed on the output. The exporter's weight has a median of 0.39.
+3. *Monthly declarations are the same data.* For the 95 reporters with twelve months of 2024,
+   the months summed equal the annual declaration within 5% on 95% of lines (490.0 against
+   488.8 bn USD). 34 countries report yearly only; they hold 4% of declared value.
+
+**So the distance had three causes, in this order:**
+
+| cause | what we did | what BACI does | effect on flows within 10% of BACI |
+|---|---|---|---|
+| freight | removed 5-6% from every import (the paper's step) | removes nothing detectable | about -10 points, and a median 3% low |
+| weights | sigmas inflated by micro-reporters setting the baseline of footnote 22 (a country with 18 pairs), so every weight was 0 or 1; then our own estimates from 54 products | interior weights from country constants estimated on all products | about -10 points |
+| timing | reconciled each month alone, so a shipment booked in two different months counted twice (+17% on such flows) | weights the two sides' year totals | totals 5-8% high |
+
+**What the engine does now (v2.4).** `--fob-rule none`; `--timing window`: v_t = w x_t +
+(1-w) m_t over every month, a month one side left empty counting as its zero when it filed the
+month and declares the corridor that year, which adds up to BACI's annual arithmetic exactly;
+reliabilities with the baseline taken among well-estimated reporters; and `--baci-weights`, the
+country constants recovered from BACI itself, for the pairs they cover (47 exporters and 87
+importers so far).
+
+| slice, 2020-2024, against BACI | within 10% | within 25% | yearly total / BACI | median |
+|---|---|---|---|---|
+| the paper to the letter (v2.1, this evening) | 57-61% | 76-77% | 1.00-1.06 | 0.99 |
+| v2.4, paper's freight rule, own weights | 62-66% | 82-83% | 0.96-1.00 | 0.97 |
+| v2.4, no freight, own weights | 72-74% | 82-83% | 1.02-1.06 | 1.000 |
+| **v2.4, no freight, BACI's recovered weights** | **82-84%** | **88-89%** | **1.01-1.05** | **1.000** |
+
+**What is left, and is not method:** flows we hold from one side where BACI has both (the
+yearly-only reporters, and declarations that arrived after our pull): 9% of one-sided flows are
+more than 25% off; weights not yet recovered for a fifth of two-sided flows, because the annual
+raw data in hand covers 31 codes; the 3% vintage gap on EU reporters. All three shrink with the
+annual bulk series (queued behind the monthly pull): same vintage, every product, every
+reporter, which will also say whether "nothing removed" holds beyond these 31 codes.
+
+Two cautions. The recovered constants are CEPII's, read off their release; using them is the
+way to splice a monthly series onto BACI, not an independent estimate, and both runs are kept.
+And equation (3) with the 2020 published sigmas does not reproduce the 2026 weights well
+(correlation 0.6): the reliabilities are re-estimated at each release.
+
