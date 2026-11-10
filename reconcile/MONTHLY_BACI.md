@@ -209,3 +209,36 @@ way to splice a monthly series onto BACI, not an independent estimate, and both 
 And equation (3) with the 2020 published sigmas does not reproduce the 2026 weights well
 (correlation 0.6): the reliabilities are re-estimated at each release.
 
+## First run on ALL products: the twelve months of 2023 (10 Nov 2026, 21:22-21:51)
+
+The 54 codes were a test bench, never the scope. The corpus already held 2019-2026 complete,
+so the engine ran on every six-digit product for 2023 on the server (21 minutes for the year;
+8 GB of memory, after three fixes: an on-disk work database, the reliability regression fed
+integer codes instead of text, and no per-group distinct sets in an 85-million-group
+aggregation).
+
+| | |
+|---|---|
+| declarations (total lines, six-digit, M and X) | 85.6 million, 99% of value in HS 2022 |
+| flows after pairing | 61.9 million; 23.2 million declared by both sides in the same month, 37.7 million within the year window |
+| freight, CEPII's equation on 17.3 million pairs | mean CIF rate **0.9%** (5-6% on the 54 ore codes): small across all products, in line with BACI removing none |
+| reconciled world trade, 2023 | 23.3-23.6 trillion USD |
+
+Against BACI 2023, all 5,204 products, 10.6 million flows in both:
+
+| weights | within 10% | within 25% | median | total / BACI | corr of logs |
+|---|---|---|---|---|---|
+| our own estimates | 70.2% | 80.1% | 1.000 | 1.017 | 0.980 |
+| **BACI's recovered constants** (72% of two-sided flows covered) | **80.5%** | **86.6%** | 1.000 | **1.010** | 0.985 |
+
+The test bench had said 82-84% and 88-89%; the universe says 80.5% and 86.6%, with the weights
+of only 47 exporters and 87 importers recovered so far. One-sided flows: 89.5% within 25%.
+Two-sided flows: 82.3% with BACI's constants, 66.0% with ours. 1.07 million BACI flows have no
+counterpart in the monthly data (1.6% of BACI's value): the yearly-only reporters.
+
+**What this run says is still wrong with our own weights:** on the universe their sigmas came
+out large again (medians 1.6 and 1.5 against CEPII's 0.3): a threshold of 1,000 pairs for the
+baseline, right for the test bench, lets micro-reporters set it when the sample is 21.7 million
+pairs. The threshold has to scale with the sample. Until then the reference run uses BACI's
+recovered constants, and the own-estimate run is the one to repair.
+
