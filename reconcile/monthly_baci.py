@@ -258,7 +258,7 @@ def fit_freight(con, geo, work):
         FROM fobs f JOIN per USING (period) JOIN tfe0 t USING (period)""" % (
         cc, ' + '.join('per.tc%d*%s' % (i, cols[i]) for i in range(7)), bexpr))
     con.execute("""CREATE OR REPLACE TABLE fobs AS
-        SELECT * EXCLUDE (h, r), (r*r*h / (%d * %r * (1 - h) * (1 - h))) <= %r AS keep FROM fobs2""" % (K, float(s2), float(4.0 / n)))
+        SELECT * EXCLUDE (h, r), (r*r*h / (CAST(%d AS DOUBLE) * CAST(%r AS DOUBLE) * (1 - h) * (1 - h))) <= CAST(%r AS DOUBLE) AS keep FROM fobs2""" % (K, float(s2), float(4.0 / n)))
     con.execute("DROP TABLE fobs2")
     beta, XtWX, s2, n2 = solve(moments())
     names = ['intercept', 'ln_dist', 'ln_dist2', 'contig', 'landlocked_exp', 'landlocked_imp', 'ln_uv']
