@@ -18,8 +18,8 @@ different reliability model, and is in the git history):
    ESTIMATED ON THE DATA: ln(UVm/UVx) on ln distance, ln distance squared, contiguity, exporter
    landlocked, importer landlocked, ln world median unit value of the product, and time dummies
    - their model II: unit-value ratio, each observation weighted by min(Qx,Qm)/max(Qx,Qm).
-   Cook's-distance outlier removal is approximated by a two-pass trim (ratio outside [0.2, 5],
-   then residuals beyond 3 sigma). The importer's value divided by the predicted rate is its FOB
+   on every usable pair (the normal equations are accumulated in the database), with their
+   Cook's distance filter (D > 4/n) applied exactly before a second solve. The importer's value divided by the predicted rate is its FOB
    value; not applied to countries that report imports FOB (their footnote 17: Algeria, Georgia,
    South Africa and the SACU), and to Canada only where it narrows the gap.
 2. TIMING (ours, the owner's choice (c)). The two sides book one shipment in different months,
@@ -245,11 +245,11 @@ def fit_freight(con, geo, work):
     beta, XtWX, s2, n = solve(moments())
     # Cook's distance: D = r^2 h / (K s2 (1-h)^2), h = w x'(X'WX)^-1 x, per observation in SQL
     A = np.linalg.inv(XtWX)
-    cc = ' + '.join('%r*%s*%s' % (A[i, j] * (1 if i == j else 2), cols[i], cols[j]) for i in range(7) for j in range(i, 7))
+    cc = ' + '.join('%r*%s*%s' % (float(A[i, j]) * (1 if i == j else 2), cols[i], cols[j]) for i in range(7) for j in range(i, 7))
     per = pd.DataFrame({'period': periods, 'tdiag': [0.0] + [A[7 + t - 1, 7 + t - 1] for t in range(1, T)],
                         **{'tc%d' % i: [0.0] + [2 * A[i, 7 + t - 1] for t in range(1, T)] for i in range(7)}})
     con.register('per', per)
-    bexpr = ' + '.join('%r*%s' % (beta[i], cols[i]) for i in range(7))
+    bexpr = ' + '.join('%r*%s' % (float(beta[i]), cols[i]) for i in range(7))
     tfe = pd.DataFrame({'period': periods, 'tfe': [0.0] + beta[7:].tolist()}); con.register('tfe0', tfe)
     con.execute("""CREATE OR REPLACE TABLE fobs2 AS
         SELECT f.* EXCLUDE (keep),
@@ -258,7 +258,7 @@ def fit_freight(con, geo, work):
         FROM fobs f JOIN per USING (period) JOIN tfe0 t USING (period)""" % (
         cc, ' + '.join('per.tc%d*%s' % (i, cols[i]) for i in range(7)), bexpr))
     con.execute("""CREATE OR REPLACE TABLE fobs AS
-        SELECT * EXCLUDE (h, r), (r*r*h / (%d * %r * (1 - h) * (1 - h))) <= %r AS keep FROM fobs2""" % (K, s2, 4.0 / n))
+        SELECT * EXCLUDE (h, r), (r*r*h / (%d * %r * (1 - h) * (1 - h))) <= %r AS keep FROM fobs2""" % (K, float(s2), float(4.0 / n)))
     con.execute("DROP TABLE fobs2")
     beta, XtWX, s2, n2 = solve(moments())
     names = ['intercept', 'ln_dist', 'ln_dist2', 'contig', 'landlocked_exp', 'landlocked_imp', 'ln_uv']
@@ -266,7 +266,7 @@ def fit_freight(con, geo, work):
     tfe = dict(zip(periods, [0.0] + beta[7:].tolist()))
     tfe_df = pd.DataFrame({'period': periods, 'tfe': [0.0] + beta[7:].tolist()}); con.register('tfe1', tfe_df)
     mean_rate = con.execute("""SELECT avg(exp((%s) + t.tfe)) - 1 FROM fobs f JOIN tfe1 t USING (period) WHERE keep""" % (
-        ' + '.join('%r*%s' % (beta[i], cols[i]) for i in range(7)))).fetchall()[0][0]
+        ' + '.join('%r*%s' % (float(beta[i]), cols[i]) for i in range(7)))).fetchall()[0][0]
     out = {'coef': coef, 'time_fe': {str(k): v for k, v in tfe.items()}, 'n': int(n2), 'dropped': int(n - n2),
            'mean_cif_rate': float(mean_rate), 'resid_sd': float(np.sqrt(s2))}
     json.dump(out, open(os.path.join(work, 'freight_fit.json'), 'w'), indent=1)
