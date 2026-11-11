@@ -42,16 +42,15 @@ different reliability model, and is in the git history):
    never declares the corridor that year, is missing, and the flow is the other declaration, as
    in BACI. --timing match is the earlier treatment (pair orphan declarations one or two months
    apart); it left flows with alternating sides 17% above BACI and is kept for comparison.
-3. RELIABILITY (paper section 2.4). Reporting distance RD = |ln(Vx/Vm_fob)| on two-sided flows,
-   regressed on exporter, importer, time and product fixed effects by weighted backfitting that
-   keeps the effects, each observation weighted by ln of the sum of the two reports; the exporter
-   and importer least-square means give sigma_i = (pi/2)(LS_RD_i - min LS_RD - 2 stderr_i), their
-   footnote 22. Equation (3) turns the two sigmas into the weight of the exporter's report.
-   The same regression is run on the two reported quantities, and quantities are reconciled with
-   their own weights (the paper assesses values and quantities separately). The paper trims
-   nothing here; --rd-trim is an explicit adaptation for monthly data.
-   --annual runs the whole procedure on the months summed to calendar years: the paper's own
-   frequency on our own raw data, which separates what is method from what is monthly.
+3. RELIABILITY (paper section 2.4), exactly. Reporting distance RD = |ln(Vx/Vm)| on two-sided
+   flows; equation (5), RD on exporter, importer, period and product effects with sum-to-zero
+   constraints, least squares weighted by ln of the sum of the two reports, solved through the
+   normal equations with the regression's own standard errors; footnote 22,
+   sigma_i = (pi/2)(LS_RD_i - min LS_RD - 2 stderr_i); equation (3) for the weight. The same on
+   the two reported quantities. Nothing added: an earlier version carried a threshold on the
+   number of pairs and a median for small reporters, which were ours, not the paper's, and are
+   gone. Where the paper is silent (a negative sigma for the best reporter) the choice is a
+   visible parameter, --sigma-floor.
 4. RECONCILIATION. Weighted arithmetic mean of the two FOB values; a flow declared once is that
    declaration; quantities (net weight) with the same weights.
 
@@ -515,104 +514,101 @@ def align_timing(con, lags, work, rule='none'):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def _fe_backfit(y, w, factors, tol=1e-9, max_iter=400):
-    """Weighted additive fixed-effects fit y = sum_f effect_f[level] + r by backfitting, KEEPING the
-    effects (the previous version kept only the residual and then read each country's raw mean
-    as its effect, which is exactly the composition the regression is meant to remove). Each
-    factor's effects are centred to a weighted mean of zero; the grand mean is returned apart.
-    Returns (effects dict, grand mean, residual)."""
-    sw = w.sum()
-    mu = float((w * y).sum() / sw)
-    eff = {k: np.zeros(n) for k, (codes, n) in factors.items()}
-    r = y - mu
-    for it in range(max_iter):
-        delta = 0.0
-        for k, (codes, n) in factors.items():
-            partial = r + eff[k][codes]                      # y minus everything but this factor
-            num = np.bincount(codes, weights=w * partial, minlength=n)
-            den = np.maximum(np.bincount(codes, weights=w, minlength=n), 1e-12)
-            new = num / den
-            new -= float((w * new[codes]).sum() / sw)        # centre
-            delta = max(delta, float(np.max(np.abs(new - eff[k]))))
-            r = partial - new[codes]
-            eff[k] = new
-        mu_shift = float((w * r).sum() / sw)
-        mu += mu_shift; r -= mu_shift
-        if delta < tol:
-            break
-    return eff, mu, r, it + 1
+def fit_reliability(con, work, kind='value', trim=None, floor=0.0):
+    """Paper section 2.4, exactly, for values (kind='value') and, separately, for quantities.
 
+    Reporting distance RD = |ln(V_exporter / V_importer)| on every flow both sides declared.
+    Equation (5): RD = alpha_i + beta_j + lambda_t + gamma_k + e, with the sums of each set of
+    effects equal to zero, estimated by least squares with each observation weighted by the
+    natural log of the sum of the two reports (thousand USD; tons for quantities). The
+    least-square means LS_RD_i (exporters) and LS_RD_j (importers) are the effect plus the
+    intercept, the other effects being at their zero mean; stderr is the standard error of that
+    least-square mean from the regression's covariance matrix s2 (X'WX)^-. Footnote 22:
+        sigma_i = (pi / 2) (LS_RD_i - min LS_RD - 2 stderr_i).
+    Nothing else: no threshold on the number of observations, no substitution for small
+    reporters, no trimming unless `trim` is passed explicitly.
 
-def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000, min_share=0.001):
-    """Paper section 2.4 for values (kind='value') and, separately, for quantities. RD is the
-    absolute log ratio of the two reports; the regression has exporter, importer, period and
-    product effects, each observation weighted by ln of the sum of the two reports (thousand USD,
-    or tons); LS_RD_i is the exporter's (importer's) effect at a common reference, i.e. the
-    effect plus the grand mean; sigma_i = (pi/2)(LS_RD_i - min_h LS_RD_h - 2 stderr_i), footnote
-    22 exactly, floored at 0.01. stderr_i is the WLS standard error of a level effect with the
-    other effects held fixed, s / sqrt(sum of its weights): an approximation of the paper's
-    regression standard error, and said so. `trim` = None follows the paper (no trimming); a
-    (lo, hi) ratio band is an explicit adaptation for monthly data and is reported as such.
+    Two points the paper does not settle, left visible rather than filled in silently:
+    (1) the formula gives the best reporter a NEGATIVE sigma (-pi * stderr); `floor` is what such
+        values are raised to (0 by default, i.e. the weight formula sees sigma^2 of 0);
+    (2) "min" is read as the minimum over the same role (exporters among exporters).
 
-    The baseline min LS_RD is taken over reporters with at least `min_pairs` two-sided pairs. In
-    CEPII's sample every reporter has millions; in a monthly or partial one a reporter with
-    eighteen pairs and a mean distance of 0.01 would set the floor and push everyone else's sigma
-    up by one - which is what made every weight 0 or 1 here until CEPII's published
-    reliabilities (median 0.3) were set beside ours (median 1.4). Reporters below the threshold
-    are not trusted with a sigma of their own: they get the median of the estimated ones."""
+    Solved through the normal equations: the only things read from the data are the weighted
+    cross-tables of the four factors, so the sample size does not matter for memory."""
     vx_, vm_ = ('vx', 'vm_al') if kind == 'value' else ('qx', 'qm_al')
     cond = "%s > 0 AND %s > 0 AND ln((%s + %s) / 1000.0) > 0" % (vx_, vm_, vx_, vm_)
     if trim:
         cond += " AND %s / %s BETWEEN %f AND %f" % (vx_, vm_, trim[0], trim[1])
-    cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma', 'well_estimated', 'kind']
-    n = con.execute("SELECT count(*) FROM adj2 WHERE %s" % cond).fetchall()[0][0]
-    if n < 500:
-        log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n))
-        return pd.DataFrame(columns=cols)
-    # the four factors as dense integer codes, built in the database: 23 million pairs of all
-    # products as text columns in pandas is what ran an 8 GB machine out of memory
-    factors = {}; uniq = {}
-    for k in ('exporter', 'importer', 'period', 'hs6'):
+    cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma_raw', 'sigma', 'kind']
+    names = ('exporter', 'importer', 'period', 'hs6')
+    uniq = {}
+    for k in names:
         con.execute("CREATE OR REPLACE TEMP TABLE dim_%s AS SELECT %s AS v, (row_number() OVER (ORDER BY %s) - 1)::INTEGER AS id "
                     "FROM (SELECT DISTINCT %s FROM adj2 WHERE %s)" % (k, k, k, k, cond))
         uniq[k] = np.array([r_[0] for r_ in con.execute("SELECT v FROM dim_%s ORDER BY id" % k).fetchall()], dtype=object)
-    arr = con.execute("""SELECT de.id AS e, di.id AS i, dp.id AS p, dh.id AS h,
-                                abs(ln(%s) - ln(%s)) AS rd, ln((%s + %s) / 1000.0) AS w
-                         FROM adj2 a JOIN dim_exporter de ON de.v = a.exporter JOIN dim_importer di ON di.v = a.importer
-                              JOIN dim_period dp ON dp.v = a.period JOIN dim_hs6 dh ON dh.v = a.hs6
-                         WHERE %s ORDER BY 1, 2, 3, 4""" % (vx_, vm_, vx_, vm_, cond)).fetchnumpy()
-    y = np.asarray(arr['rd'], dtype=np.float64); w = np.asarray(arr['w'], dtype=np.float64)
-    for k, c in (('exporter', 'e'), ('importer', 'i'), ('period', 'p'), ('hs6', 'h')):
-        factors[k] = (np.asarray(arr[c], dtype=np.int32), len(uniq[k]))
-    del arr
-    eff, mu, r, iters = _fe_backfit(y, w, factors)
-    s2 = float(np.average(r ** 2, weights=w))
+    con.execute("""CREATE OR REPLACE TEMP TABLE rdt AS
+        SELECT de.id AS f0, di.id AS f1, dp.id AS f2, dh.id AS f3,
+               abs(ln(%s) - ln(%s)) AS y, ln((%s + %s) / 1000.0) AS w
+        FROM adj2 a JOIN dim_exporter de ON de.v = a.exporter JOIN dim_importer di ON di.v = a.importer
+             JOIN dim_period dp ON dp.v = a.period JOIN dim_hs6 dh ON dh.v = a.hs6
+        WHERE %s""" % (vx_, vm_, vx_, vm_, cond))
+    n, sw, swy, swyy = con.execute("SELECT count(*), sum(w), sum(w * y), sum(w * y * y) FROM rdt").fetchall()[0]
+    if not n or n < 500:
+        log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n or 0))
+        return pd.DataFrame(columns=cols)
+    sizes = [len(uniq[k]) for k in names]
+    off = [1]
+    for z in sizes[:-1]:
+        off.append(off[-1] + z)
+    P = 1 + sum(sizes)
+    A = np.zeros((P + 4, P + 4)); rhs = np.zeros(P + 4)
+    A[0, 0] = sw; rhs[0] = swy
+    cnt = {}
+    for f in range(4):                                       # margins
+        r_ = con.execute("SELECT f%d AS f, sum(w) AS m, sum(w * y) AS my, count(*) AS c FROM rdt GROUP BY 1" % f).fetchnumpy()
+        idx = off[f] + np.asarray(r_['f'], dtype=np.int64)
+        m = np.asarray(r_['m'], dtype=float)
+        A[idx, idx] = m; A[0, idx] = m; A[idx, 0] = m
+        rhs[idx] = np.asarray(r_['my'], dtype=float)
+        c = np.zeros(sizes[f], dtype=np.int64); c[np.asarray(r_['f'], dtype=np.int64)] = np.asarray(r_['c'], dtype=np.int64)
+        cnt[f] = c
+        A[P + f, off[f]:off[f] + sizes[f]] = 1.0             # the paper's constraint: effects sum to zero
+        A[off[f]:off[f] + sizes[f], P + f] = 1.0
+    for f in range(4):                                       # cross-tables
+        for g in range(f + 1, 4):
+            r_ = con.execute("SELECT f%d AS a, f%d AS b, sum(w) AS m FROM rdt GROUP BY 1, 2" % (f, g)).fetchnumpy()
+            ia = off[f] + np.asarray(r_['a'], dtype=np.int64); ib = off[g] + np.asarray(r_['b'], dtype=np.int64)
+            m = np.asarray(r_['m'], dtype=float)
+            A[ia, ib] = m; A[ib, ia] = m
+    try:
+        Ainv = np.linalg.inv(A)
+    except np.linalg.LinAlgError:
+        Ainv = np.linalg.pinv(A)                             # a disconnected design: effects comparable only within components
+        log('reliability (%s): the design is not of full rank - generalised inverse used' % kind)
+    theta = (Ainv @ rhs)[:P]
+    rss = float(swyy - theta @ rhs[:P])
+    dof = n - (P - 4)
+    s2 = rss / max(dof, 1)
+    C = Ainv[:P, :P] * s2                                    # covariance of the constrained estimates
     out = []
-    for role in ('exporter', 'importer'):
-        codes, n_k = factors[role]
-        ls = mu + eff[role]                                   # LS mean at the common reference
-        sw_k = np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
-        stderr = np.sqrt(s2 / sw_k)
-        cnt = np.bincount(codes, minlength=n_k)
-        thr = max(min_pairs, int(min_share * n))            # scales with the sample: 0.1% of the pairs
-        well = cnt >= thr
-        if not well.any():
-            well = cnt >= np.quantile(cnt, 0.75)
-        base = ls[well].min()
-        sigma = (np.pi / 2) * (ls - base - 2 * stderr)        # footnote 22, baseline among the well-estimated
-        sigma = np.maximum(sigma, 0.01)
-        sigma = np.where(well, sigma, np.median(sigma[well]))
-        out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': cnt, 'ls_rd': ls, 'stderr': stderr,
-                                 'sigma': sigma, 'well_estimated': well, 'kind': kind}))
+    for f, role in ((0, 'exporter'), (1, 'importer')):
+        sl = slice(off[f], off[f] + sizes[f])
+        ls = theta[0] + theta[sl]                            # least-square mean: intercept + effect
+        var = C[0, 0] + np.diag(C)[sl] + 2 * C[0, sl]
+        stderr = np.sqrt(np.maximum(var, 0))
+        raw = (np.pi / 2) * (ls - ls.min() - 2 * stderr)     # footnote 22, as written
+        out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': cnt[f], 'ls_rd': ls, 'stderr': stderr,
+                                 'sigma_raw': raw, 'sigma': np.maximum(raw, floor), 'kind': kind}))
     rel = pd.concat(out, ignore_index=True)
+    rel['well_estimated'] = True
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
-    e = rel[rel.role == 'exporter'].sigma; i = rel[rel.role == 'importer'].sigma
-    nw = int(rel[rel.role == 'exporter'].well_estimated.sum()), int(rel[rel.role == 'importer'].well_estimated.sum())
-    log('reliability (%s) on %s pairs%s, %d backfit iterations: mean RD %.3f, residual sd %.3f; reporters with a sigma of '
-        'their own (>= %s pairs): %d exporters, %d importers; sigma exporter median %.3f [%.2f..%.2f], importer median %.3f [%.2f..%.2f]' % (
-            kind, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else ' (untrimmed, as the paper)', iters,
-            mu, np.sqrt(s2), format(max(min_pairs, int(min_share * n)), ','), nw[0], nw[1],
-            e.median(), e.min(), e.max(), i.median(), i.min(), i.max()))
+    e = rel[rel.role == 'exporter']; i = rel[rel.role == 'importer']
+    log('reliability (%s), the paper\'s regression solved exactly on %s pairs%s: intercept %.3f, residual sd %.3f; '
+        'exporters %d: sigma median %.3f, max %.2f, %d at or below zero; importers %d: sigma median %.3f, max %.2f, %d at or below zero' % (
+            kind, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else '', theta[0], np.sqrt(s2),
+            len(e), e.sigma.median(), e.sigma.max(), int((e.sigma_raw <= 0).sum()),
+            len(i), i.sigma.median(), i.sigma.max(), int((i.sigma_raw <= 0).sum())))
+    con.execute("DROP TABLE IF EXISTS rdt")
     return rel
 
 
@@ -632,11 +628,12 @@ def cepii_reliability(path, kind):
 
 
 def weight_expr(se2='se2', si2='si2'):
-    """The paper's equation (3): w = Vi / (Ve + Vi), V(s) = e^(s^2) (e^(s^2) - 1), the variance of a
-    log-normal report error; written as 1 / (1 + exp(ln Ve - ln Vi)) with ln V = s^2 + ln(e^(s^2)-1)
-    so that large sigmas neither overflow nor cancel."""
-    lnv = lambda x: "(%s + ln(exp(%s) - 1))" % (x, x)
-    return "1.0 / (1.0 + exp(LEAST(GREATEST(%s - %s, -700), 700)))" % (lnv(se2), lnv(si2))
+    """The paper's equation (3): the exporter's weight is Vi / (Ve + Vi), V(s) = e^(s^2) (e^(s^2) - 1),
+    the variance of a log-normal report error. A sigma of zero is a variance of zero: that report
+    is taken whole; two zeros are an even split."""
+    V = lambda x: "(exp(LEAST(%s, 300)) * (exp(LEAST(%s, 300)) - 1))" % (x, x)
+    ve, vi = V(se2), V(si2)
+    return "CASE WHEN %s + %s <= 0 THEN 0.5 ELSE %s / (%s + %s) END" % (ve, vi, vi, ve, vi)
 
 
 # ----------------------------------------------------------------------------------------------
@@ -711,8 +708,7 @@ def main():
                     help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
-    ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own (floor)')
-    ap.add_argument('--rel-min-share', type=float, default=0.001, help='... and at least this share of all pairs')
+    ap.add_argument('--sigma-floor', type=float, default=0.0, help='what a sigma below zero is raised to (footnote 22 gives the best reporter a negative one; the paper does not say)')
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
     ap.add_argument('--reuse', action='store_true', help='restart from the saved work database at the reliability step (after a crash there)')
     ap.add_argument('--annual', action='store_true',
@@ -765,13 +761,13 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs, a.rel_min_share)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs, a.rel_min_share)
+    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
         bw = pd.read_csv(bwf)
-        lnv = lambda sg: sg ** 2 + np.log(np.expm1(np.maximum(sg, 1e-6) ** 2))
+        lnv = lambda sg: np.maximum(sg, 1e-3) ** 2 + np.log(np.expm1(np.maximum(sg, 1e-3) ** 2))
         for role, col in (('exporter', 'lnV_exporter'), ('importer', 'lnV_importer')):
             m = rel_v[(rel_v.role == role) & rel_v.well_estimated].merge(bw.dropna(subset=[col]), left_on='reporter', right_on='country')
             if len(m) >= 8:
