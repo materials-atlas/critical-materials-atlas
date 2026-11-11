@@ -580,11 +580,16 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0):
             ia = off[f] + np.asarray(r_['a'], dtype=np.int64); ib = off[g] + np.asarray(r_['b'], dtype=np.int64)
             m = np.asarray(r_['m'], dtype=float)
             A[ia, ib] = m; A[ib, ia] = m
-    try:
-        Ainv = np.linalg.inv(A)
-    except np.linalg.LinAlgError:
-        Ainv = np.linalg.pinv(A)                             # a disconnected design: effects comparable only within components
-        log('reliability (%s): the design is not of full rank - generalised inverse used' % kind)
+    # A symmetric generalised inverse by eigen-decomposition. A plain inverse returns garbage, without
+    # complaint, when two effects cannot be told apart (a country whose only partner trades only
+    # with it); the generalised inverse gives such a pair the minimum-norm split and leaves the
+    # identified effects exact.
+    lam, Q = np.linalg.eigh(A)
+    tol = np.abs(lam).max() * 1e-11
+    keep = np.abs(lam) > tol
+    Ainv = (Q[:, keep] / lam[keep]) @ Q[:, keep].T
+    if (~keep).any():
+        log('reliability (%s): %d combination(s) of effects are not identified by the data (minimum-norm solution for those)' % (kind, int((~keep).sum())))
     theta = (Ainv @ rhs)[:P]
     rss = float(swyy - theta @ rhs[:P])
     dof = n - (P - 4)
