@@ -543,7 +543,7 @@ def _fe_backfit(y, w, factors, tol=1e-9, max_iter=400):
     return eff, mu, r, it + 1
 
 
-def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
+def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000, min_share=0.001):
     """Paper section 2.4 for values (kind='value') and, separately, for quantities. RD is the
     absolute log ratio of the two reports; the regression has exporter, importer, period and
     product effects, each observation weighted by ln of the sum of the two reports (thousand USD,
@@ -594,7 +594,8 @@ def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
         sw_k = np.maximum(np.bincount(codes, weights=w, minlength=n_k), 1e-12)
         stderr = np.sqrt(s2 / sw_k)
         cnt = np.bincount(codes, minlength=n_k)
-        well = cnt >= min_pairs
+        thr = max(min_pairs, int(min_share * n))            # scales with the sample: 0.1% of the pairs
+        well = cnt >= thr
         if not well.any():
             well = cnt >= np.quantile(cnt, 0.75)
         base = ls[well].min()
@@ -606,10 +607,12 @@ def fit_reliability(con, work, kind='value', trim=None, min_pairs=1000):
     rel = pd.concat(out, ignore_index=True)
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
     e = rel[rel.role == 'exporter'].sigma; i = rel[rel.role == 'importer'].sigma
-    log('reliability (%s) on %s pairs%s, %d backfit iterations: mean RD %.3f, residual sd %.3f; sigma exporter '
-        'median %.3f [%.2f..%.2f], importer median %.3f [%.2f..%.2f]' % (
+    nw = int(rel[rel.role == 'exporter'].well_estimated.sum()), int(rel[rel.role == 'importer'].well_estimated.sum())
+    log('reliability (%s) on %s pairs%s, %d backfit iterations: mean RD %.3f, residual sd %.3f; reporters with a sigma of '
+        'their own (>= %s pairs): %d exporters, %d importers; sigma exporter median %.3f [%.2f..%.2f], importer median %.3f [%.2f..%.2f]' % (
             kind, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else ' (untrimmed, as the paper)', iters,
-            mu, np.sqrt(s2), e.median(), e.min(), e.max(), i.median(), i.min(), i.max()))
+            mu, np.sqrt(s2), format(max(min_pairs, int(min_share * n)), ','), nw[0], nw[1],
+            e.median(), e.min(), e.max(), i.median(), i.min(), i.max()))
     return rel
 
 
@@ -708,7 +711,8 @@ def main():
                     help="which import declarations the freight strip applies to: 'observed' = two-sided flows where it narrows the gap (what BACI's output shows); 'paper' = every CIF import (the 2010 text)")
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
-    ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own')
+    ap.add_argument('--rel-min-pairs', type=int, default=1000, help='two-sided pairs a reporter needs for a reliability of its own (floor)')
+    ap.add_argument('--rel-min-share', type=float, default=0.001, help='... and at least this share of all pairs')
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
     ap.add_argument('--reuse', action='store_true', help='restart from the saved work database at the reliability step (after a crash there)')
     ap.add_argument('--annual', action='store_true',
@@ -761,8 +765,19 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs)
+    rel_v = fit_reliability(con, work, 'value', trim, a.rel_min_pairs, a.rel_min_share)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.rel_min_pairs, a.rel_min_share)
+    # our own weights against the constants read off BACI: the test that the METHOD is reproduced
+    bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
+    if len(rel_v) and os.path.exists(bwf):
+        bw = pd.read_csv(bwf)
+        lnv = lambda sg: sg ** 2 + np.log(np.expm1(np.maximum(sg, 1e-6) ** 2))
+        for role, col in (('exporter', 'lnV_exporter'), ('importer', 'lnV_importer')):
+            m = rel_v[(rel_v.role == role) & rel_v.well_estimated].merge(bw.dropna(subset=[col]), left_on='reporter', right_on='country')
+            if len(m) >= 8:
+                ours = lnv(m.sigma.to_numpy(dtype=float)); theirs = m[col].to_numpy(dtype=float)
+                log('own weights vs BACI\'s recovered constants, %ss: %d countries, rank correlation %.2f; spread of ln V (sd): ours %.2f, BACI %.2f' % (
+                    role, len(m), pd.Series(ours).corr(pd.Series(theirs), method='spearman'), ours.std(), theirs.std()))
     if a.cepii_reliability:
         ours = rel_v
         rel_v = cepii_reliability(a.cepii_reliability, 'value'); rel_q = cepii_reliability(a.cepii_reliability, 'quantity')
