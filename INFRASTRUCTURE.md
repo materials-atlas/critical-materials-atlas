@@ -389,3 +389,20 @@ API step is dropped (the bulk corpus is what it was slowly rebuilding) and the C
 reads the corpus instead of `comtrade_cache.jsonl`. Then a systemd timer on the server runs the
 six-source refresh and the build nightly, and the laptop pulls the outputs it needs.
 
+## The quota, corrected (11 Nov 2026)
+
+What was written on 10 Nov - that file downloads do not count against the key's daily quota -
+is **wrong**. Counted from the file times, per quota day (01:00 to 01:00 Paris): 4,794 files on
+10 Nov and 4,960 on 11 Nov, each day ending in `Out of call volume quota`. The key allows about
+**5,000 calls a day and every file download is one**. The sizing pass of 10 Nov cost 300 of
+them; the pull would have stopped half an hour later without it.
+
+So the corpus is a matter of days, not hours: the monthly series had 14,521 files down
+(Sep 2026 back to Jul 2016, 178.8 GB, 9.8 billion rows) with 200 periods to go, and the yearly
+series are another 17,000 files. At 5,000 a day that is eight to nine days.
+
+The order was therefore changed (`pull_all.sh`): the yearly HS series for 2017-2025 first,
+about 1,700 files, because the test of the monthly BACI against CEPII's own yearly exercise
+needs it; then the rest of yearly HS, the monthly series back to 2000, and SITC. The service
+was restarted on that order at 08:15 and sleeps until the quota returns at about 01:00.
+
