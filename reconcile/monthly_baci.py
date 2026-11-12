@@ -130,7 +130,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5'):
+def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', min_decl=0.0):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -145,7 +145,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5'):
                                CASE WHEN qty > 0 THEN qty END AS qty, qtyUnitCode AS unit
                         FROM %s AND customsCode = 'C00' AND motCode = 0 AND partner2Code = 0
                           AND partnerCode <> 0 AND flowCode IN ('M', 'X', 'RX') AND primaryValue > 0
-                          AND length(cmdCode) = 6""" % src)   # the corpus also carries the 2- and 4-digit aggregates
+                          AND primaryValue >= %f
+                          AND length(cmdCode) = 6""" % (src, min_decl))   # the corpus also carries the 2- and 4-digit aggregates
     tot = os.path.join(work, 'totals.parquet').replace(chr(92), '/')
     con.execute("COPY (%s) TO '%s' (FORMAT PARQUET, COMPRESSION ZSTD)" % (' UNION ALL '.join(parts), tot))
     # one HS edition: the target's own codes pass through, newer editions convert uniquely,
@@ -717,6 +718,8 @@ def main():
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--sigma-floor', type=float, default=0.0, help='what a sigma below zero is raised to (footnote 22 gives the best reporter a negative one; the paper does not say)')
+    ap.add_argument('--min-decl', type=float, default=0.0,
+                    help="drop declarations below this value in USD before anything else (the paper, p. 10: 'Data do not include flows below 1,000 dollars')")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
                     help="footnote22: sigma = pi/2 (LS_RD - min LS_RD - 2 stderr), as written; ls: the least-square means used directly (the paper: the transformation 'can be ignored')")
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
@@ -760,7 +763,7 @@ def main():
         if a.annual:
             pers = sorted({p[:4] for p in pers})
     else:
-        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target)
+        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target, min_decl=a.min_decl)
         if a.annual:
             pers = sorted({p[:4] for p in pers})
         if not a.no_nes:
