@@ -514,7 +514,7 @@ def align_timing(con, lags, work, rule='none'):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def fit_reliability(con, work, kind='value', trim=None, floor=0.0):
+def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22'):
     """Paper section 2.4, exactly, for values (kind='value') and, separately, for quantities.
 
     Reporting distance RD = |ln(V_exporter / V_importer)| on every flow both sides declared.
@@ -601,16 +601,19 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0):
         ls = theta[0] + theta[sl]                            # least-square mean: intercept + effect
         var = C[0, 0] + np.diag(C)[sl] + 2 * C[0, sl]
         stderr = np.sqrt(np.maximum(var, 0))
-        raw = (np.pi / 2) * (ls - ls.min() - 2 * stderr)     # footnote 22, as written
+        if rule == 'ls':                                     # footnote 22: "can be ignored" - the least-square means used directly
+            raw = ls.copy()
+        else:
+            raw = (np.pi / 2) * (ls - ls.min() - 2 * stderr) # footnote 22, as written
         out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': cnt[f], 'ls_rd': ls, 'stderr': stderr,
                                  'sigma_raw': raw, 'sigma': np.maximum(raw, floor), 'kind': kind}))
     rel = pd.concat(out, ignore_index=True)
     rel['well_estimated'] = True
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
     e = rel[rel.role == 'exporter']; i = rel[rel.role == 'importer']
-    log('reliability (%s), the paper\'s regression solved exactly on %s pairs%s: intercept %.3f, residual sd %.3f; '
+    log('reliability (%s, sigma by %s), the paper\'s regression solved exactly on %s pairs%s: intercept %.3f, residual sd %.3f; '
         'exporters %d: sigma median %.3f, max %.2f, %d at or below zero; importers %d: sigma median %.3f, max %.2f, %d at or below zero' % (
-            kind, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else '', theta[0], np.sqrt(s2),
+            kind, rule, format(n, ','), ' (trimmed to [%g, %g])' % trim if trim else '', theta[0], np.sqrt(s2),
             len(e), e.sigma.median(), e.sigma.max(), int((e.sigma_raw <= 0).sum()),
             len(i), i.sigma.median(), i.sigma.max(), int((i.sigma_raw <= 0).sum())))
     con.execute("DROP TABLE IF EXISTS rdt")
@@ -714,6 +717,8 @@ def main():
     ap.add_argument('--baci-weights', help='country constants recovered from BACI itself (recover_baci_weights.py); used for the pairs they cover')
     ap.add_argument('--cepii-reliability', help='diagnostic: use the reliabilities CEPII published (a reporter_reliability_*.csv) instead of estimating them')
     ap.add_argument('--sigma-floor', type=float, default=0.0, help='what a sigma below zero is raised to (footnote 22 gives the best reporter a negative one; the paper does not say)')
+    ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
+                    help="footnote22: sigma = pi/2 (LS_RD - min LS_RD - 2 stderr), as written; ls: the least-square means used directly (the paper: the transformation 'can be ignored')")
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
     ap.add_argument('--reuse', action='store_true', help='restart from the saved work database at the reliability step (after a crash there)')
     ap.add_argument('--annual', action='store_true',
@@ -767,8 +772,8 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor)
+    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
