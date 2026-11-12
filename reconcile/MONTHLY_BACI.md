@@ -307,3 +307,32 @@ Cayman Islands (221 pairs). The paper itself says the transformation "can be ign
 equation (5) pools all years (a year effect), while we estimate year by year. Under the
 "a la lettre" rule no repair is made: the two readings the paper allows - pool the years;
 skip footnote 22 and use the least-square means directly - are for the owner to choose.
+
+### The two readings the paper allows, and the council (12 Nov 2026, evening)
+
+Own weights, within 10% of BACI, 2017-2024 (all products, yearly declarations):
+
+| reading | within 10% | within 25% |
+|---|---|---|
+| footnote 22 as written, year by year | 71-76% | 80-84% |
+| footnote 22 skipped (`--sigma-rule ls`: sigma = LS_RD) | 72-74% | 81-84% |
+| eight years pooled in one regression (eq. 5), footnote 22 | 71.5-73.1% | 80.5-81.8% |
+
+None closes the gap; BACI's recovered constants give 82-87%. The pooled run (`~/comtrade/ya_pool`,
+94 M flows, 40 M two-sided pairs, sigma medians 1.9/2.0) needs `CMA_DUCK_MEM=5500MB
+CMA_DUCK_THREADS=2` (4 GB ran out in the unit conversion) and its validation must be run one
+year at a time (all eight at once was killed).
+
+Two independent reviews of the whole story: (1) "to the letter" is overstated - the paper's RD is on
+FOB-adjusted imports (2.4: "mirror flows, now cleaned from CIF rates"), ours on raw ones; small
+here (CIF rate ~1%) but a departure; (2) BACI's country-constant weights are what the paper
+PREDICTS, so they do not show CEPII changed method - France->Germany (BACI 0.60, ours 0.01) shows
+OUR weights are degenerate, not why; (3) "nothing removed from imports" was measured on pairs
+pre-selected as fitting within 1% (`recover_baci_weights.py`): true for those, not proven in
+general; (4) leads for sigmas 3-6x CEPII's: RD level inflated by small noisy flows (mean |ln| 1.8),
+the published "unreliability" possibly a different object, the Cayman Islands (221 pairs) as
+baseline; (5) 2017's 1.7 M extra flows: the equal split in the HS conversion; (6) no known source
+for UN reporter metadata in the weights. The paper itself (p. 11) DROPS HK and US re-exports; the
+2024 CEPII slides say they are kept - a conflict between sources, the owner's call. The UN
+information the paper does use is on import valuation (CIF/FOB/FAS, fn 10 and 17), for the
+freight step only.
