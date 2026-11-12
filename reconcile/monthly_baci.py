@@ -735,7 +735,8 @@ def main():
         pers = [str(r[0]) for r in con.execute("SELECT DISTINCT period FROM read_parquet('%s') ORDER BY 1"
                                                % a.slice.replace(chr(92), '/')).fetchall()]
     else:
-        pers = sorted({os.path.basename(f)[:6] for y in os.listdir(BULK) if y.isdigit()
+        # monthly files are YYYYMM_rep.parquet, the UN's yearly ones YYYY_rep.parquet
+        pers = sorted({os.path.basename(f).split('_')[0] for y in os.listdir(BULK) if y.isdigit()
                        for f in os.listdir(os.path.join(BULK, y)) if f.endswith('.parquet')})
     if a.periods:
         if len(a.periods) == 2 and a.periods[0] < a.periods[1]:
