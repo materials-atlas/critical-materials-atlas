@@ -265,3 +265,45 @@ same; then, and only if that holds, the monthly series with the same recipe. No 
 partial experiments before the data is complete. One repair is owed before that test: the
 baseline of the reliability calculation must scale with the sample.
 
+
+## Step 1: CEPII's yearly exercise on the UN's yearly declarations, all products (12 Nov 2026)
+
+The order of work decided on 10 Nov: before any monthly series, redo BACI's own yearly
+calculation on the UN's **yearly** declarations (bulk pull `comtrade_bulk_A_HS`, complete for
+1997-2025 on 12 Nov), all products, BACI's HS 2017 product list, our own weights, and compare
+with BACI V202601 flow by flow. Runner `~/comtrade/run_annual.sh` on the Lenovo, outputs
+`~/comtrade/ya_all_YYYY`, log `~/comtrade/run_annual.log`; about 5 minutes a year. The engine
+needed one change: it now reads the yearly file names (`YYYY_rep.parquet`).
+
+| year | flows in both | ours only | BACI only | own weights: within 10% / 25% / total | BACI's recovered constants: within 10% / 25% / total |
+|---|---|---|---|---|---|
+| 2017 | 9,944,498 | 1,713,818 | 4,347 | 73.9% / 83.2% / 0.985 | 82.2% / 87.5% / 0.989 |
+| 2018 | 10,797,683 | 895,758 | 4,817 | 71.3% / 79.5% / 1.009 | 83.3% / 88.0% / 0.993 |
+| 2019 | 11,205,528 | 552,518 | 4,603 | 71.8% / 80.6% / 0.969 | 85.1% / 89.8% / 0.988 |
+| 2020 | 10,974,400 | 370,996 | 10,758 | 75.6% / 84.4% / 1.006 | 86.3% / 91.0% / 0.996 |
+| 2021 | 11,576,480 | 320,684 | 22,205 | 75.1% / 83.8% / 1.016 | 86.1% / 90.7% / 1.003 |
+| 2022 | 11,691,916 | 236,594 | 11,201 | 74.9% / 83.5% / 1.029 | 86.8% / 91.3% / 1.010 |
+| 2023 | 11,741,627 | 225,748 | 39,588 | 73.6% / 82.4% / 1.024 | 85.6% / 90.3% / 1.007 |
+| 2024 | 11,161,576 | 417,289 | 15,994 | 73.0% / 80.9% / 1.030 | 86.3% / 90.3% / 1.013 |
+
+Median ratio 1.000 every year. The value of BACI's flows found on our side is 100.0% every year.
+
+**What it says.** (1) The ingredients match: BACI's flows are on our side almost all of them
+(BACI-only 4,000-40,000 of 10-12 million). (2) The step-1 test ("almost flow for flow") is NOT
+passed: with our own weights 71-76% of flows are within 10%. (3) The weights cost 11-14 points
+every year: BACI's recovered constants (47 exporters, 86 importers; the rest still ours) give
+82-87%. (4) Even with those constants 13-18% of flows stay more than 10% off - partly the
+countries whose constant is not recovered, the rest not yet explained. (5) "Ours only" is large
+in 2017-2019 (1.7 million in 2017): likely the equal split of HS 2012 declarations over several
+HS 2017 candidates; to check.
+
+**Why our weights are off: the letter of footnote 22.** The transcription is exact (checked
+against the paper, WP 2010-23 p. 18: sigma_i = pi/2 (LS_RD_i - min LS_RD_i - 2 stderr_i)).
+On these data it gives sigma medians 1.5-3.0; CEPII's published unreliabilities (HS17 V202001)
+have medians 0.34 (exporters) and 0.29 (importers). On the 97 countries in both (our 2023 run):
+rank correlation 0.73 / 0.64, but CEPII's value is about 0.26 (exporters) and 0.48 (importers)
+of our LS_RD - min, against the letter's 1.57. The exporter baseline (the min) is set by the
+Cayman Islands (221 pairs). The paper itself says the transformation "can be ignored", and its
+equation (5) pools all years (a year effect), while we estimate year by year. Under the
+"a la lettre" rule no repair is made: the two readings the paper allows - pool the years;
+skip footnote 22 and use the least-square means directly - are for the owner to choose.
