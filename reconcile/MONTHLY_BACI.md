@@ -336,3 +336,39 @@ for UN reporter metadata in the weights. The paper itself (p. 11) DROPS HK and U
 2024 CEPII slides say they are kept - a conflict between sources, the owner's call. The UN
 information the paper does use is on import valuation (CIF/FOB/FAS, fn 10 and 17), for the
 freight step only.
+
+## The trust scores on clean declarations (13 Nov 2026)
+
+Reading pages 17-19 of the paper as images: equation (3) is misprinted (its denominator repeats
+the exporter's term; the code uses the intended symmetric form, which is also BACI's measured
+shape); Figures 3-4 put the paper's own footnote-22 scores at 0.2-0.8 for most countries, the
+scale of CEPII's published files, against ours at ~1.9. Same formula, so the difference is in
+what enters the regression. Two departures from the letter were left: the paper measures the
+distance on imports "now cleaned from CIF rates" (2.4), and its data held no declaration under
+1,000 USD (p. 10). With both restored (2023), footnote-22 scores stayed large (1.75/0.86; the
+Cayman Islands, 181 pairs, set the minimum at 0.16 against a mean of 1.36) but the ranking moved
+toward BACI's (rank correlation 0.88/0.79). Fitting BACI's recovered ln V against our
+least-square means, sigma = LS_RD directly (footnote 22 skipped, which it allows) fits best
+(R2 0.68; footnote 22: negative). Caveat from the review: the recovered constants fix V only up
+to a common factor; the fit is evidence, not proof. Choosing "sigma = LS_RD" is OUR reading,
+chosen because it matches BACI; it is labelled as such.
+
+Engine switches: `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls` - the reliability
+regression on freight-stripped declarations of at least 1,000 USD, sigma = least-square means;
+the output on all declarations, no freight removed. France->Germany exporter weight: 0.60 (BACI
+0.60; before 0.01). Runner `~/comtrade/run_clean.sh`, outputs `~/comtrade/yb_YYYY`.
+
+| year | within 10% (before -> now) | within 25% (before -> now) | total / BACI |
+|---|---|---|---|
+| 2017 | 73.9% -> 73.9% | 83.2% -> 84.9% | 0.984 |
+| 2018 | 71.3% -> 76.2% | 79.5% -> 86.6% | 0.984 |
+| 2019 | 71.8% -> 77.4% | 80.6% -> 87.6% | 0.986 |
+| 2020 | 75.6% -> 77.6% | 84.4% -> 87.8% | 0.989 |
+| 2021 | 75.1% -> 77.5% | 83.8% -> 87.4% | 0.994 |
+| 2022 | 74.9% -> 77.8% | 83.5% -> 87.7% | 1.004 |
+| 2023 | 73.6% -> 75.5% | 82.4% -> 85.6% | 0.998 |
+| 2024 | 73.0% -> 77.3% | 80.9% -> 87.2% | 1.007 |
+
+Where the rest is (2024): flows one side declared, 99.0% within 25% of BACI; flows both sides
+declared, 72.7%. On the yearly data the one-sided flows match: what is left is the weighting
+of two-sided flows.
