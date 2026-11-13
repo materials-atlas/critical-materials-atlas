@@ -515,7 +515,7 @@ def align_timing(con, lags, work, rule='none'):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22', rel_fob='same', rel_min=0.0):
+def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22', rel_fob='same', rel_min=0.0, role_align=0):
     """Paper section 2.4, exactly, for values (kind='value') and, separately, for quantities.
 
     Reporting distance RD = |ln(V_exporter / V_importer)| on every flow both sides declared.
@@ -616,6 +616,18 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnot
         out.append(pd.DataFrame({'role': role, 'reporter': uniq[role], 'n': cnt[f], 'ls_rd': ls, 'stderr': stderr,
                                  'sigma_raw': raw, 'sigma': np.maximum(raw, floor), 'kind': kind}))
     rel = pd.concat(out, ignore_index=True)
+    if role_align > 0:
+        # Mirror data identify only the SUM of the two sides' errors: whether exporters as a group
+        # report worse than importers is not in the regression (sum-to-zero sets it by convention).
+        # The paper's footnote 22 settles it by treating the best exporter and the best importer as
+        # equally good; here "best" is taken among reporters with at least `role_align` pairs.
+        ex, im = rel.role == 'exporter', rel.role == 'importer'
+        be = rel.loc[ex & (rel.n >= role_align), 'ls_rd'].min(); bi = rel.loc[im & (rel.n >= role_align), 'ls_rd'].min()
+        if np.isfinite(be) and np.isfinite(bi):
+            rel.loc[ex, 'sigma_raw'] = rel.loc[ex, 'sigma_raw'] + (bi - be)
+            rel['sigma'] = np.maximum(rel['sigma_raw'], floor)
+            log('reliability (%s): roles aligned on their best reporter with >= %d pairs (exporters %.3f, importers %.3f): exporters shifted %+.3f'
+                % (kind, role_align, be, bi, bi - be))
     rel['well_estimated'] = True
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
     e = rel[rel.role == 'exporter']; i = rel[rel.role == 'importer']
@@ -731,6 +743,8 @@ def main():
                     help="freight rule for the reliability sample only (default: the output's --fob-rule)")
     ap.add_argument('--rel-min-decl', type=float, default=0.0,
                     help="leave declarations below this value in USD out of the reliability regression only (they stay in the output)")
+    ap.add_argument('--role-align', type=int, default=0,
+                    help="treat the best exporter and the best importer as equally good (footnote 22's assumption), 'best' among reporters with at least this many pairs; 0 = off")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
                     help="footnote22: sigma = pi/2 (LS_RD - min LS_RD - 2 stderr), as written; ls: the least-square means used directly (the paper: the transformation 'can be ignored')")
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
@@ -786,8 +800,8 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl)
+    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
