@@ -515,7 +515,7 @@ def align_timing(con, lags, work, rule='none'):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22'):
+def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22', rel_fob='same', rel_min=0.0):
     """Paper section 2.4, exactly, for values (kind='value') and, separately, for quantities.
 
     Reporting distance RD = |ln(V_exporter / V_importer)| on every flow both sides declared.
@@ -537,7 +537,14 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnot
     Solved through the normal equations: the only things read from the data are the weighted
     cross-tables of the four factors, so the sample size does not matter for memory."""
     vx_, vm_ = ('vx', 'vm_al') if kind == 'value' else ('qx', 'qm_al')
+    if kind == 'value' and rel_fob != 'same':
+        # the reliability sample may strip freight by its own rule (the paper: the reporting distance
+        # is measured on imports "now cleaned from CIF rates") while the output keeps another
+        vm_ = "(vm_al * rate / (%s))" % _applied_rate(rel_fob)
     cond = "%s > 0 AND %s > 0 AND ln((%s + %s) / 1000.0) > 0" % (vx_, vm_, vx_, vm_)
+    if rel_min > 0:
+        # the paper's data held no declaration below 1,000 USD (p. 10): the regression sees none
+        cond += " AND vx >= %f AND vm >= %f" % (rel_min, rel_min)
     if trim:
         cond += " AND %s / %s BETWEEN %f AND %f" % (vx_, vm_, trim[0], trim[1])
     cols = ['role', 'reporter', 'n', 'ls_rd', 'stderr', 'sigma_raw', 'sigma', 'kind']
@@ -720,6 +727,10 @@ def main():
     ap.add_argument('--sigma-floor', type=float, default=0.0, help='what a sigma below zero is raised to (footnote 22 gives the best reporter a negative one; the paper does not say)')
     ap.add_argument('--min-decl', type=float, default=0.0,
                     help="drop declarations below this value in USD before anything else (the paper, p. 10: 'Data do not include flows below 1,000 dollars')")
+    ap.add_argument('--rel-fob-rule', choices=['same', 'none', 'observed', 'paper'], default='same',
+                    help="freight rule for the reliability sample only (default: the output's --fob-rule)")
+    ap.add_argument('--rel-min-decl', type=float, default=0.0,
+                    help="leave declarations below this value in USD out of the reliability regression only (they stay in the output)")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
                     help="footnote22: sigma = pi/2 (LS_RD - min LS_RD - 2 stderr), as written; ls: the least-square means used directly (the paper: the transformation 'can be ignored')")
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
@@ -775,8 +786,8 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule)
+    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
