@@ -387,3 +387,32 @@ that by convention (both roles centred on one intercept). BACI evidently rates e
 One offset on the exporters' sigma (+0.1) takes pairs within 0.10 from 41% to 50%. Equation (4),
 not additive, does identify the two roles' levels: fitting it directly is the paper's own route
 to that split. Table `~/comtrade/pair_weights_2023.parquet`.
+
+### Which side is worse as a group: the one number mirror data cannot give (13 Nov 2026)
+
+Correction to the note above: equation (4) depends on sigma_i^2 + sigma_j^2 only, so it does
+not identify the two roles' levels either. No method on mirror data can: every flow shows the two
+errors summed. Something must be assumed. Footnote 22 assumes the best exporter and the best
+importer are equally good (each role's minimum set to zero). We keep that assumption, with
+"best" taken among reporters with at least 100,000 pairs (`--role-align 100000`): with the single
+best of all (the Cayman Islands) it gives absurd weights; the cut-off was chosen on 2023 and then
+held unchanged on the seven other years as the test.
+
+Recipe: `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls --role-align 100000`, runner
+`~/comtrade/run_align.sh` (pauses the UN download during the run; restarts it on exit), outputs
+`~/comtrade/yc_YYYY`. The exporters' shift came out +0.09 to +0.12 every year; mean exporter
+weight 0.36-0.38 (BACI's median pair weight 0.34).
+
+| year | within 10% (paper as written -> clean sample -> aligned) | within 25% aligned | total / BACI |
+|---|---|---|---|
+| 2017 | 73.9 -> 73.9 -> 74.9% | 85.2% | 0.990 |
+| 2018 | 71.3 -> 76.2 -> 78.0% | 87.8% | 0.991 |
+| 2019 | 71.8 -> 77.4 -> 79.2% | 88.8% | 0.992 |
+| 2020 | 75.6 -> 77.6 -> 79.7% | 89.1% | 0.995 |
+| 2021 | 75.1 -> 77.5 -> 79.9% | 89.0% | 1.001 |
+| 2022 | 74.9 -> 77.8 -> 80.2% | 89.5% | 1.011 |
+| 2023 | 73.6 -> 75.5 -> 78.6% | 88.1% | 1.005 |
+| 2024 | 73.0 -> 77.3 -> 79.0% | 88.3% | 1.012 |
+
+The rule holds out of sample: every one of the seven years not used to choose it improves.
+With BACI's own recovered constants the 2023 figure was 85.6% / 90.3%.
