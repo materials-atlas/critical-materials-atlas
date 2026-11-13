@@ -372,3 +372,18 @@ the output on all declarations, no freight removed. France->Germany exporter wei
 Where the rest is (2024): flows one side declared, 99.0% within 25% of BACI; flows both sides
 declared, 72.7%. On the yearly data the one-sided flows match: what is left is the weighting
 of two-sided flows.
+
+### Pair by pair: our weights against BACI's (2023)
+
+BACI's weight read flow by flow on all products (two-sided flows where the two reports differ by
+more than 30%, a = (BACI - M)/(X - M), median per country pair, >= 20 flows): stable within a pair
+(interquartile range < 0.1) for 8,016 of 8,431 pairs, 90% of the value - one weight per country
+pair, on the whole universe. Ours against it: correlation 0.80, 41% of pairs within 0.10.
+**We trust exporters too much**: median exporter weight ours 0.50, BACI 0.34; China as exporter
+0.56 vs 0.14, the USA 0.66 vs 0.27, Germany 0.83 vs 0.56. Equation (5) is additive, so it cannot
+tell whether exporters as a group report worse than importers: the sum-to-zero constraints set
+that by convention (both roles centred on one intercept). BACI evidently rates exporters worse
+(the paper's own p. 11: customs watch the origin of imports more than the destination of exports).
+One offset on the exporters' sigma (+0.1) takes pairs within 0.10 from 41% to 50%. Equation (4),
+not additive, does identify the two roles' levels: fitting it directly is the paper's own route
+to that split. Table `~/comtrade/pair_weights_2023.parquet`.
