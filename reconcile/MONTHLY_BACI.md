@@ -501,3 +501,37 @@ from the share of declarations the UN re-published after BACI V202601 was built:
 39% for 2024. It is not a defect of the method; it disappears when CEPII's next release uses the
 same files. "Published" is the date of the version we hold, so it covers both revisions and late
 first releases.
+
+### One set of trust scores for all years, as BACI does (14 Nov 2026)
+
+BACI's weight on the exporter, read pair by pair as above, is the same every year: BACI 2018 vs
+2023 98.2% of pairs within 0.02 (5,483 pairs), 2021 vs 2023 98.6% (2024: 91%, its declarations
+being the most revised since). Ours, estimated year by year, moved: 2018 vs 2023 27% within 0.02.
+So CEPII estimates the trust scores once, on all years together - equation (5) with its year term.
+No transformation of our least-square means reproduces BACI's constants (best free fit R2 0.65 on
+the pair logits, ours 0.60), so the remaining difference is in the regression, not in the formula
+that turns scores into weights. CEPII's own published scores (2019 and 2020 releases) reproduce
+the 2023 weights no better (R2 0.52-0.57).
+
+Run: the eight years 2017-2024 pooled in one regression, recipe unchanged, the alignment cut-off
+scaled to the pooled sample (best among reporters with >= 800,000 pairs = the 100,000 of one year
+times eight; left at 100,000 it picks other countries and loses 7 points of pair agreement). Runner
+`~/comtrade/run_pool3.sh`, output `~/comtrade/yg_pool`. Pairs within 0.10 of BACI's weight: 53-54%
+(per-year scores 50%).
+
+| year | within 10%: per-year scores -> pooled | within 25% | total / BACI |
+|---|---|---|---|
+| 2017 | 82.6 -> 83.6% | 91.5% | 0.990 |
+| 2018 | 81.8 -> 82.3% | 90.9% | 0.991 |
+| 2019 | 81.7 -> 81.8% | 90.7% | 0.992 |
+| 2020 | 81.2 -> 81.2% | 90.1% | 0.995 |
+| 2021 | 80.5 -> 80.8% | 89.7% | 1.002 |
+| 2022 | 80.6 -> 80.7% | 89.7% | 1.010 |
+| 2023 | 78.8 -> 79.4% | 88.7% | 1.006 |
+| 2024 | 79.3 -> 80.1% | 89.2% | 1.013 |
+
+Small gain, but it is CEPII's way, so it is the recipe from now on: `--periods 2017 2024` (one
+run), `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls --role-align 800000
+--older-editions drop`. Still open on the weights: our scores trust the biggest reporters (China,
+USA, Germany) more, relative to small ones, than BACI does (rank correlation of the gap with the
+number of pairs -0.39).
