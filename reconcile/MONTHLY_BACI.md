@@ -436,3 +436,15 @@ part (and 2017's lag). The 14% where we equal today's UN figure and BACI does no
 revisions after CEPII's January download: not reproducible without their snapshot.
 Lesson: an analysis on the Lenovo next to the download got the download killed (oomd, 08:49,
 5.6 GB peak for the pull alone): pause `comtrade-bulk.service` for ANY heavy query, not only for runs.
+
+### The UN's own HS 2017 version of the data (14 Nov 2026)
+
+The UN bulk service serves every year already converted to older editions (`--cl H5`): 2023 in HS
+2017, 158 reporters, 205 M rows, in `~/comtrade/raw/comtrade_bulk_A_H5` (19.5 min, 158 calls). Run
+yd_2023 on it (same recipe): within 10% 78.8% (78.6% on our own conversion), ours-only flows 82,121
+(225,748), one-sided exact 77.1% (76.9%), one-sided on converted codes still 8.2% off. Code totals
+match ours to 0.1%: the UN's conversion IS ours (same tables). CEPII converts its own way,
+unpublished. A first reading blamed the UN row sending HS 2022 e-waste (8549) to processors
+(854231): wrong - e-waste is a few bn USD in 2023, the 77 bn gap on 854231 is two-sided weighting
+on a large product. Decision proposed: take the UN's H5 data as the yearly input (fewer phantom
+flows, same accuracy); leave CEPII's own conversion (8% of one-sided flows, 3% of value) for later.
