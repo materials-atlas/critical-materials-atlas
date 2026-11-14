@@ -477,3 +477,27 @@ Runner `~/comtrade/run_cepii_old.sh`, outputs `~/comtrade/yf_YYYY` (2017: `ye_20
 
 Current recipe: `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls --role-align 100000
 --older-editions drop`, input = declarations as reported (`comtrade_bulk_A_HS`), like CEPII.
+
+### Why the match falls in recent years: files re-published after CEPII's copy (14 Nov 2026)
+
+The UN bulk listing gives the publication date of each reporter-year file we hold. Each matched flow
+was scored by the latest date among the reporters whose declarations it uses (current recipe, same
+outputs as above).
+
+| year | flows on files unchanged since before Nov 2025 | their within 10% | flows on files re-published after Jan 2026 | their within 10% |
+|---|---|---|---|---|
+| 2017 | 98.9% | 82.6% | 1.0% | 82.0% |
+| 2018 | 94.9% | 82.3% | 4.1% | 72.1% |
+| 2019 | 98.2% | 82.0% | 1.5% | 67.3% |
+| 2020 | 91.5% | 82.4% | 8.2% | 67.6% |
+| 2021 | 89.8% | 81.5% | 8.7% | 70.4% |
+| 2022 | 77.4% | 83.3% | 22.4% | 71.4% |
+| 2023 | 62.8% | 84.2% | 33.4% | 69.4% |
+| 2024 | 48.5% | 85.5% | 39.1% | 71.1% |
+
+(The rest, Nov 2025-Jan 2026, straddles CEPII's unknown download date.) On the data CEPII and we
+both saw, the match is 82-85.5% every year and slightly better for recent years. The fall comes
+from the share of declarations the UN re-published after BACI V202601 was built: 1% for 2017,
+39% for 2024. It is not a defect of the method; it disappears when CEPII's next release uses the
+same files. "Published" is the date of the version we hold, so it covers both revisions and late
+first releases.
