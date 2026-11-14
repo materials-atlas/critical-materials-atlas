@@ -578,3 +578,26 @@ declarations revised after January 2026 (rank 0.88/0.90 -> no change).
 **Each BACI edition has its own scores:** BACI HS 1992 (1995-2024) gives other weights for the same
 2023 pairs (8% within 0.02, corr 0.83, trusts exporters less, median -0.20), on 3,179 codes unchanged
 1992 -> 2017. So the HS 2017 scores come from the HS 2017 data - what we pool - not a long history.
+
+**Re-exports are kept (14 Nov 2026, 22:09).** The paper (p. 11) drops Hong Kong's and the USA's
+re-exports; CEPII's 2024 slides say they are kept. BACI settles it: on 2023 US exports only the US
+declared, BACI equals the export figure INCLUDING re-exports on 9,463 of 9,765 flows (97%), and
+X minus re-exports on 40. Engine `--reexports keep`; pooled rerun `~/comtrade/yj_pool`:
+
+| year | within 10% | within 25% | BACI-only flows (was) | total / BACI |
+|---|---|---|---|---|
+| 2017 | 85.4% | 92.8% | 487 (7,218) | 0.997 |
+| 2018 | 84.2% | 92.3% | 673 (6,534) | 0.997 |
+| 2019 | 83.9% | 92.2% | 545 (5,747) | 0.998 |
+| 2020 | 83.4% | 91.7% | 6,652 (11,695) | 1.001 |
+| 2021 | 82.9% | 91.2% | 17,924 (23,023) | 1.006 |
+| 2022 | 82.8% | 91.3% | 6,643 (11,724) | 1.014 |
+| 2023 | 81.6% | 90.2% | 34,918 (40,161) | 1.010 |
+| 2024 | 82.0% | 90.5% | 10,473 (16,390) | 1.018 |
+
+Recipe now: `--periods 2017 2024 --rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls
+--role-align 800000 --older-editions drop --rel-weight-unit usd --reexports keep`. Also tested
+tonight without gain (2023 refits): ten council hypotheses - pair-balanced weights, ratio of sums
+per pair or pair x HS2, size bins as an effect, ln(min) or ln x + ln m weights, RMS of signed
+residuals, values rounded to thousands, the footnote 22 stderr term (median 0.008: negligible),
+old-edition declarations in the regression, codes renumbered in HS 2022 left out.
