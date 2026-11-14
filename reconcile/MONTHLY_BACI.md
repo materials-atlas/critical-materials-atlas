@@ -448,3 +448,32 @@ unpublished. A first reading blamed the UN row sending HS 2022 e-waste (8549) to
 (854231): wrong - e-waste is a few bn USD in 2023, the 77 bn gap on 854231 is two-sided weighting
 on a large product. Decision proposed: take the UN's H5 data as the yearly input (fewer phantom
 flows, same accuracy); leave CEPII's own conversion (8% of one-sided flows, 3% of value) for later.
+
+## Declarations filed in an older HS edition are not converted up (14 Nov 2026)
+
+A web search (CEPII's own pages) found, on https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/DescriptionBACI.html:
+"Conversions from newer to older revisions are possible, but not the reverse (conversions from
+older to newer revisions)." We had been converting declarations filed in HS 2012 and earlier UP to
+HS 2017 (equal split over candidates). Also found: release notes Feb 2021 ("flows with a value below
+1000USD were removed. This is not the case anymore"); a 2022 CEPII blog post confirming a one-sided
+flow takes the declared value. Nothing published on changes to the weights or on how a newer code
+that maps to several older ones is handled.
+
+Engine switch `--older-editions drop` (also `unchanged`: keep codes identical one to one; `split`:
+the old behaviour). 2017: drop 82.6% within 10% / 90.5% within 25%, ours-only flows 6,327 (was
+1,713,818); unchanged 75.8%; split 74.9%. So BACI HS 2017 leaves older-edition declarations out.
+Runner `~/comtrade/run_cepii_old.sh`, outputs `~/comtrade/yf_YYYY` (2017: `ye_2017_drop`).
+
+| year | within 10% (aligned -> + older editions left out) | within 25% | ours-only flows | total / BACI |
+|---|---|---|---|---|
+| 2017 | 74.9 -> 82.6% | 90.5% | 6,327 | 0.993 |
+| 2018 | 78.0 -> 81.8% | 90.5% | 7,466 | 0.992 |
+| 2019 | 79.2 -> 81.7% | 90.5% | 7,447 | 0.992 |
+| 2020 | 79.7 -> 81.2% | 90.1% | 25,049 | 0.995 |
+| 2021 | 79.9 -> 80.5% | 89.4% | 50,824 | 1.001 |
+| 2022 | 80.2 -> 80.6% | 89.7% | 54,935 | 1.011 |
+| 2023 | 78.6 -> 78.8% | 88.3% | 81,839 | 1.005 |
+| 2024 | 79.0 -> 79.3% | 88.5% | 321,327 | 1.012 |
+
+Current recipe: `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls --role-align 100000
+--older-editions drop`, input = declarations as reported (`comtrade_bulk_A_HS`), like CEPII.
