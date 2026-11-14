@@ -534,7 +534,7 @@ def align_timing(con, lags, work, rule='none'):
 # ----------------------------------------------------------------------------------------------
 # 3. reliability: the paper's reporting-distance regression and sigma transformation
 # ----------------------------------------------------------------------------------------------
-def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22', rel_fob='same', rel_min=0.0, role_align=0):
+def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnote22', rel_fob='same', rel_min=0.0, role_align=0, rel_unit='thousand'):
     """Paper section 2.4, exactly, for values (kind='value') and, separately, for quantities.
 
     Reporting distance RD = |ln(V_exporter / V_importer)| on every flow both sides declared.
@@ -560,7 +560,10 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnot
         # the reliability sample may strip freight by its own rule (the paper: the reporting distance
         # is measured on imports "now cleaned from CIF rates") while the output keeps another
         vm_ = "(vm_al * rate / (%s))" % _applied_rate(rel_fob)
-    cond = "%s > 0 AND %s > 0 AND ln((%s + %s) / 1000.0) > 0" % (vx_, vm_, vx_, vm_)
+    # footnote 21: "the natural log of the sum of the two reports" - the unit is not stated. 'thousand'
+    # reads it in the paper's data unit (thousand USD, p. 11); 'usd' in the unit Comtrade serves.
+    scale = 1.0 if (kind == 'value' and rel_unit == 'usd') else 1000.0
+    cond = "%s > 0 AND %s > 0 AND ln((%s + %s) / %s) > 0" % (vx_, vm_, vx_, vm_, scale)
     if rel_min > 0:
         # the paper's data held no declaration below 1,000 USD (p. 10): the regression sees none
         cond += " AND vx >= %f AND vm >= %f" % (rel_min, rel_min)
@@ -575,10 +578,10 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnot
         uniq[k] = np.array([r_[0] for r_ in con.execute("SELECT v FROM dim_%s ORDER BY id" % k).fetchall()], dtype=object)
     con.execute("""CREATE OR REPLACE TEMP TABLE rdt AS
         SELECT de.id AS f0, di.id AS f1, dp.id AS f2, dh.id AS f3,
-               abs(ln(%s) - ln(%s)) AS y, ln((%s + %s) / 1000.0) AS w
+               abs(ln(%s) - ln(%s)) AS y, ln((%s + %s) / %s) AS w
         FROM adj2 a JOIN dim_exporter de ON de.v = a.exporter JOIN dim_importer di ON di.v = a.importer
              JOIN dim_period dp ON dp.v = a.period JOIN dim_hs6 dh ON dh.v = a.hs6
-        WHERE %s""" % (vx_, vm_, vx_, vm_, cond))
+        WHERE %s""" % (vx_, vm_, vx_, vm_, scale, cond))
     n, sw, swy, swyy = con.execute("SELECT count(*), sum(w), sum(w * y), sum(w * y * y) FROM rdt").fetchall()[0]
     if not n or n < 500:
         log('reliability (%s): only %d two-sided pairs - equal weights' % (kind, n or 0))
@@ -764,6 +767,8 @@ def main():
                     help="leave declarations below this value in USD out of the reliability regression only (they stay in the output)")
     ap.add_argument('--role-align', type=int, default=0,
                     help="treat the best exporter and the best importer as equally good (footnote 22's assumption), 'best' among reporters with at least this many pairs; 0 = off")
+    ap.add_argument('--rel-weight-unit', choices=['thousand', 'usd'], default='thousand',
+                    help="unit of the sum whose natural log weighs each flow in the reliability regression (footnote 21 states none): thousand USD or USD")
     ap.add_argument('--older-editions', choices=['split', 'drop', 'unchanged'], default='split',
                     help="declarations filed in an edition OLDER than the target: split (convert up, equal split), drop, or keep only codes unchanged one to one (CEPII: older -> newer is not possible)")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
@@ -821,8 +826,8 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align)
+    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
+    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
