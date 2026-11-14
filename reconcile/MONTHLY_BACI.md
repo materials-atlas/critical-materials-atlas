@@ -535,3 +535,30 @@ run), `--rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls --role-align 800
 --older-editions drop`. Still open on the weights: our scores trust the biggest reporters (China,
 USA, Germany) more, relative to small ones, than BACI does (rank correlation of the gap with the
 number of pairs -0.39).
+
+### The log weight in dollars (14 Nov 2026, evening)
+
+Footnote 21: "Each observation is weighted with the natural log of the sum of the two reports" -
+no unit. We had read it in thousand USD (the paper's data unit, p. 11). The regression was refitted
+on 2023 in ten variants and each scored against BACI's 2023 pair weights (pairs within 0.10 /
+R2 on the pair logits): thousand USD 50% / 0.600 (= the engine, so the refit is exact); **USD 60% /
+0.698**; unweighted 58% / 0.703; weight = value 18%; sqrt(value) 30%; ln(1 + sum/1000) 51%; no
+$1,000 floor 32%; both sides >= $100 47%; >= $10,000 22%; squared ln ratio 43%; |ln| capped 38%.
+Only the unit helps; the $1,000 floor on each side stays. Engine switch `--rel-weight-unit usd`.
+2023 alone: 78.8 -> 81.2% within 10%.
+
+Pooled 2017-2024 with dollar weights (`~/comtrade/run_pool4.sh`, output `~/comtrade/yi_pool`):
+
+| year | within 10% (pooled, thousand -> USD) | within 25% | within 10% on files unchanged since before Nov 2025 |
+|---|---|---|---|
+| 2017 | 83.6 -> 85.1% | 92.6% | 85.2% |
+| 2018 | 82.3 -> 84.0% | 92.2% | 84.4% |
+| 2019 | 81.8 -> 83.8% | 92.1% | 84.0% |
+| 2020 | 81.2 -> 83.2% | 91.6% | 84.3% |
+| 2021 | 80.8 -> 82.7% | 91.1% | 83.7% |
+| 2022 | 80.7 -> 82.6% | 91.2% | 84.9% |
+| 2023 | 79.4 -> 81.4% | 90.1% | 86.2% |
+| 2024 | 80.1 -> 81.8% | 90.4% | 87.6% |
+
+Recipe now: one run `--periods 2017 2024 --rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls
+--role-align 800000 --older-editions drop --rel-weight-unit usd`, input as reported.
