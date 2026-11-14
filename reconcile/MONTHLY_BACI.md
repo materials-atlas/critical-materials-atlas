@@ -416,3 +416,23 @@ weight 0.36-0.38 (BACI's median pair weight 0.34).
 
 The rule holds out of sample: every one of the seven years not used to choose it improves.
 With BACI's own recovered constants the 2023 figure was 85.6% / 90.3%.
+
+### One-sided flows are not "done" at 25%: the exact match (14 Nov 2026)
+
+BACI takes a flow declared by one side as declared, so the target is the dollar, not 25%. 2023,
+run yc_2023, 6.34 million one-sided flows found in BACI (3,376 bn USD), each set against the raw UN
+declaration (`~/comtrade/onesided_causes.py`):
+
+| | flows | value |
+|---|---|---|
+| equal to BACI within 0.1% | 76.9% | 91.6% |
+| product code renumbered or split between HS editions (2,208 HS 2017 codes affected) | 8.2% | 2.9% |
+| ours = the raw declaration exactly, BACI differs (median ratio 0.999, as often above as below) | 14.4% | 5.2% |
+| re-export cases (ours, raw and BACI all differ) | 0.4% | 0.1% |
+| raw = BACI but ours differs (our processing) | 3 flows | 0 |
+
+Our processing changes nothing it should not. The conversion between HS editions is the fixable
+part (and 2017's lag). The 14% where we equal today's UN figure and BACI does not look like
+revisions after CEPII's January download: not reproducible without their snapshot.
+Lesson: an analysis on the Lenovo next to the download got the download killed (oomd, 08:49,
+5.6 GB peak for the pull alone): pause `comtrade-bulk.service` for ANY heavy query, not only for runs.
