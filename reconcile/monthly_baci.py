@@ -24,8 +24,9 @@ different reliability model, and is in the git history):
    when the exporter's declared total to named partners falls short of what those partners
    declare, the NES value fills that gap in proportion to the shortfalls; what is left is set
    against the partners the exporter never named and reported (nothing identified changes
-   there). Hong Kong's and the United States' re-exports are taken out of their exports, as BACI
-   does, because their destination is not known.
+   there). Hong Kong's and the United States' re-exports: the paper (p. 11) takes them out of
+   their exports; BACI V202601 keeps them (`--reexports keep`, read off BACI: on US exports only
+   the US declared, BACI = X including re-exports on 97% of flows, 2023).
 1. FREIGHT (paper section 2.3). The CIF rate of a flow is predicted from a gravity equation
    ESTIMATED ON THE DATA: ln(UVm/UVx) on ln distance, ln distance squared, contiguity, exporter
    landlocked, importer landlocked, ln world median unit value of the product, and time dummies
@@ -130,7 +131,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', min_decl=0.0, older='split'):
+def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', min_decl=0.0, older='split', reexports='drop'):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -195,14 +196,15 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
             format(off[0], ','), off[1]))
     # BACI: "re-exportations for Hong Kong and USA are also dropped since there is no way to know the
     # final destination". Their X total includes re-exports; the RX line is taken out of it.
+    rx_rep = "('HKG', 'USA')" if reexports == 'drop' else "('')"     # keep: nothing is taken out
     con.execute("""CREATE OR REPLACE TABLE tot AS
-        WITH rx AS (SELECT period, reporter, partner, hs6, v AS v_rx, q AS q_rx FROM tot WHERE flow = 'RX' AND reporter IN ('HKG', 'USA'))
+        WITH rx AS (SELECT period, reporter, partner, hs6, v AS v_rx, q AS q_rx FROM tot WHERE flow = 'RX' AND reporter IN %s)
         SELECT t.period, t.reporter, t.partner, t.hs6, t.flow,
                CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL THEN GREATEST(t.v - rx.v_rx, 0) ELSE t.v END AS v,
                CASE WHEN t.flow = 'X' AND rx.v_rx IS NOT NULL AND t.q IS NOT NULL AND rx.q_rx IS NOT NULL THEN GREATEST(t.q - rx.q_rx, 0) ELSE t.q END AS q,
                t.q_full, t.unit, t.qty
         FROM tot t LEFT JOIN rx ON rx.period = t.period AND rx.reporter = t.reporter AND rx.partner = t.partner AND rx.hs6 = t.hs6
-        WHERE t.flow IN ('M', 'X')""")
+        WHERE t.flow IN ('M', 'X')""" % rx_rep)
     con.execute("DELETE FROM tot WHERE v <= 0")
     hs = con.execute("""SELECT t.ver, count(*) AS lines, round(100.0 * sum(t.v) / (SELECT sum(v) FROM read_parquet('%s')), 2) AS pct_value,
                                count(*) FILTER (WHERE t.ver <> '%s' AND h.code_to IS NULL) AS unmapped
@@ -769,6 +771,8 @@ def main():
                     help="treat the best exporter and the best importer as equally good (footnote 22's assumption), 'best' among reporters with at least this many pairs; 0 = off")
     ap.add_argument('--rel-weight-unit', choices=['thousand', 'usd'], default='thousand',
                     help="unit of the sum whose natural log weighs each flow in the reliability regression (footnote 21 states none): thousand USD or USD")
+    ap.add_argument('--reexports', choices=['drop', 'keep'], default='drop',
+                    help="Hong Kong's and the USA's re-exports: drop = taken out of their exports (the paper, p. 11); keep = left in (BACI V202601)")
     ap.add_argument('--older-editions', choices=['split', 'drop', 'unchanged'], default='split',
                     help="declarations filed in an edition OLDER than the target: split (convert up, equal split), drop, or keep only codes unchanged one to one (CEPII: older -> newer is not possible)")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
@@ -814,7 +818,7 @@ def main():
         if a.annual:
             pers = sorted({p[:4] for p in pers})
     else:
-        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target, min_decl=a.min_decl, older=a.older_editions)
+        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target, min_decl=a.min_decl, older=a.older_editions, reexports=a.reexports)
         if a.annual:
             pers = sorted({p[:4] for p in pers})
         if not a.no_nes:
