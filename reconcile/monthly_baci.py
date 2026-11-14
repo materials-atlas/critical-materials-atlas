@@ -75,7 +75,7 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from hs_concordance import mapping_table   # one HS edition for every declaration
+from hs_concordance import mapping_table, YEAR as HS_YEAR   # one HS edition for every declaration
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -130,7 +130,7 @@ def _has_calamine():
 # ----------------------------------------------------------------------------------------------
 # 0. data: total lines of every period in the run, as one on-disk table
 # ----------------------------------------------------------------------------------------------
-def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', min_decl=0.0):
+def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', min_decl=0.0, older='split'):
     cmap = country_map()
     con.register('cmap', cmap)
     parts = []
@@ -153,6 +153,25 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
     # older ones go up (split equally where the UN table lists several candidates)
     hm = mapping_table(hs_target)
     con.register('hsmap', hm[['ver', 'code_from', 'code_to', 'share']])
+    # Declarations filed in an OLDER edition than the target. CEPII: "Conversions from newer to older
+    # revisions are possible, but not the reverse" (DescriptionBACI.html). older='split' converts them
+    # up anyway (equal split over candidates); 'drop' leaves them out; 'unchanged' keeps only the codes
+    # that are the same code, one to one, in the target edition.
+    old_vers = [v for v, y in HS_YEAR.items() if y < HS_YEAR.get(hs_target, 0)]
+    old_filter = ''
+    if older != 'split' and old_vers:
+        vl = ','.join("'%s'" % v for v in old_vers)
+        if older == 'drop':
+            old_filter = " AND t.ver NOT IN (%s)" % vl
+        else:
+            ho = hm[hm.ver.isin(old_vers)]
+            n = ho.groupby(['ver', 'code_from']).code_to.transform('size')
+            moved = ho[(n > 1) | (ho.code_from != ho.code_to) | (ho.share < 1)][['ver', 'code_from']].drop_duplicates()
+            con.register('old_moved', moved)
+            old_filter = (" AND NOT (t.ver IN (%s) AND EXISTS (SELECT 1 FROM old_moved o WHERE o.ver = t.ver AND o.code_from = t.hs6))" % vl)
+        nold = con.execute("SELECT count(*), sum(v) / 1e9 FROM read_parquet('%s') t WHERE t.ver IN (%s)" % (
+            os.path.join(work, 'totals.parquet').replace(chr(92), '/'), vl)).fetchall()[0]
+        log('older editions (%s): %s declarations, %.1f bn USD; rule: %s' % (','.join(old_vers), format(nold[0] or 0, ','), nold[1] or 0, older))
     con.execute("""CREATE OR REPLACE TABLE tot AS
         SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
                %s AS hs6, t.flow,
@@ -163,8 +182,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
-        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND left(COALESCE(h.code_to, t.hs6), 2) <> '99'
-        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, BACI_CODE, tot, NES))
+        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND left(COALESCE(h.code_to, t.hs6), 2) <> '99'%s
+        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, BACI_CODE, tot, NES, old_filter))
     # BACI's product list: the UN's HS 2017 with the 2710 subheadings merged into 271000 and no
     # chapter 99. Anything else that is not on it after conversion is counted and dropped.
     if hs_target == 'H5' and os.path.exists(BACI_PRODUCTS):
@@ -745,6 +764,8 @@ def main():
                     help="leave declarations below this value in USD out of the reliability regression only (they stay in the output)")
     ap.add_argument('--role-align', type=int, default=0,
                     help="treat the best exporter and the best importer as equally good (footnote 22's assumption), 'best' among reporters with at least this many pairs; 0 = off")
+    ap.add_argument('--older-editions', choices=['split', 'drop', 'unchanged'], default='split',
+                    help="declarations filed in an edition OLDER than the target: split (convert up, equal split), drop, or keep only codes unchanged one to one (CEPII: older -> newer is not possible)")
     ap.add_argument('--sigma-rule', choices=['footnote22', 'ls'], default='footnote22',
                     help="footnote22: sigma = pi/2 (LS_RD - min LS_RD - 2 stderr), as written; ls: the least-square means used directly (the paper: the transformation 'can be ignored')")
     ap.add_argument('--hs-target', default='H5', help="HS edition every declaration is brought to (H5 = HS 2017, BACI's own for 2017 onwards)")
@@ -788,7 +809,7 @@ def main():
         if a.annual:
             pers = sorted({p[:4] for p in pers})
     else:
-        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target, min_decl=a.min_decl)
+        load_totals(con, pers, a.slice, work, annual=a.annual, hs_target=a.hs_target, min_decl=a.min_decl, older=a.older_editions)
         if a.annual:
             pers = sorted({p[:4] for p in pers})
         if not a.no_nes:
