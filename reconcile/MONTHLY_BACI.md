@@ -562,3 +562,19 @@ Pooled 2017-2024 with dollar weights (`~/comtrade/run_pool4.sh`, output `~/comtr
 
 Recipe now: one run `--periods 2017 2024 --rel-fob-rule paper --rel-min-decl 1000 --sigma-rule ls
 --role-align 800000 --older-editions drop --rel-weight-unit usd`, input as reported.
+
+### Hunting the rest of the weight gap (14 Nov 2026, night)
+
+Refits of equation (5) on 2023, scored by rank correlation with BACI's constants (one per country
+and role, read off BACI's pair weights) and by pairs within 0.10. Our ranking: exporters 0.88,
+importers 0.89 on 2023 alone; **0.92 / 0.93 with 2017-2024 pooled and dollar weights**. Our rule
+for the exporter/importer level already gives the best possible shift: the gap is in the ranking.
+Pattern: BACI trusts big traders (DEU, CHN, USA, NLD, GBR, MEX) less than we do, and small-flow
+reporters (UKR, MKD, MDA, GEO, HRV, LSO, SWZ) more; residual vs log median flow +0.45.
+Tested without closing it: flatter weights (unweighted, ln^0.5, ln^-1, sum^-0.05..-0.2: rank up to
+~0.92 but the level rule then misfits), product effects at HS4/HS2/none, quantities on both sides
+only, no chapters 27/71/97, squared or capped ln ratio, unweighted product demeaning, dropping
+declarations revised after January 2026 (rank 0.88/0.90 -> no change).
+**Each BACI edition has its own scores:** BACI HS 1992 (1995-2024) gives other weights for the same
+2023 pairs (8% within 0.02, corr 0.83, trusts exporters less, median -0.20), on 3,179 codes unchanged
+1992 -> 2017. So the HS 2017 scores come from the HS 2017 data - what we pool - not a long history.
