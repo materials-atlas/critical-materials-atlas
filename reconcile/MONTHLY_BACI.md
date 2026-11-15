@@ -601,3 +601,54 @@ tonight without gain (2023 refits): ten council hypotheses - pair-balanced weigh
 per pair or pair x HS2, size bins as an effect, ln(min) or ln x + ln m weights, RMS of signed
 residuals, values rounded to thousands, the footnote 22 stderr term (median 0.008: negligible),
 old-edition declarations in the regression, codes renumbered in HS 2022 left out.
+
+## The flows furthest from BACI (15 Nov 2026)
+
+2023 pooled yearly run (`yj_pool`) against BACI V202601, flows matched on both sides. 413,935
+flows (3.5%) are off by more than a factor of 2, and they carry 35% of the total absolute gap
+($1,975 bn). 343,368 of them are flows both countries declared. In 255,000 of those, **BACI equals
+one declaration exactly** (to 0.1%: 84% of the "exporter" cases, 67% of the "importer" cases)
+instead of the pair's usual mix. Largest cases: S19 -> CHN 854231 (CHN declares $76.9 bn, S19
+$1.5 bn, BACI $1.5 bn); USA -> GBR 841112; CHE -> USA 711590; GBR -> CHE 710813.
+
+What it is not (all tested on the far flows against the flows BACI mixes):
+- not UN files re-published after CEPII's copy (47% of these flows use two files unchanged
+  since before Nov 2025, the same share as for mixed flows);
+- not the larger or smaller declaration (51-54% the larger);
+- not a country pair, a reporter-product, a product or a reporter: within every grouping
+  BACI mixes some flows and uses one side on others (impurity 15-17% for every grouping,
+  baseline 17.5%);
+- not the UN flags on the raw rows (classification, isOriginalClassification, isQtyEstimated,
+  isNetWgtEstimated, legacyEstimationFlag, isReported/isAggregate, net weight present): same
+  distribution for the declaration BACI ignored as for mixed flows;
+- not the flow's own numbers: a decision tree on value gap, quantity gap, sizes, unit values
+  against the product median and our weights predicts nothing (79.2% vs 78.5% always-mix).
+
+Reading: for those flows CEPII's input most likely lacked the other declaration. That cannot be
+reproduced from the files we hold. Scripts: `far.py` .. `far6.py`, `flags.py` (not kept in the repo).
+
+## Step 2: the monthly BACI, 2017-01 to 2026-09 (15 Nov 2026)
+
+`~/comtrade/run_monthly.sh`: one run per year on the UN's monthly declarations, same recipe,
+trust scores taken from the yearly pooled run (`--reliability-from ~/comtrade/yj_pool/_fit`, one
+set per edition as BACI), `--older-editions drop --reexports keep`. Output `~/comtrade/mm_<year>/`,
+one parquet per month (~2 GB a year). 25-35 min a year on the Lenovo; started 13:30, done 18:34
+(the first start at 09:29 died with the power cut).
+
+Twelve months summed and compared with BACI's year:
+
+| year | flows in both | within 10% | within 25% | total / BACI |
+|---|---|---|---|---|
+| 2017 | 9,253,039 | 76.4% | 85.6% | 0.999 |
+| 2018 | 10,043,889 | 78.6% | 87.8% | 0.999 |
+| 2019 | 10,295,704 | 78.5% | 87.5% | 0.999 |
+| 2020 | 9,916,832 | 75.6% | 85.4% | 1.003 |
+| 2021 | 10,468,242 | 76.6% | 86.1% | 1.009 |
+| 2022 | 10,791,262 | 76.2% | 86.5% | 1.016 |
+| 2023 | 10,708,982 | 76.5% | 86.2% | 1.013 |
+| 2024 | 10,301,089 | 76.9% | 85.9% | 1.025 |
+
+About 6 points below the yearly run: BACI reconciles the year, we reconcile each month and add.
+2025 and 2026 have no BACI to compare. Months stay complete (4.8-5.0 m flows, ~$1.9-2.1 trn)
+through 2026-04, then thin as reporters are still to file: 2026-07 3.9 m, 2026-08 2.8 m,
+2026-09 0.4 m flows. Treat 2026-05 onward as provisional and 2026-08/09 as partial.
