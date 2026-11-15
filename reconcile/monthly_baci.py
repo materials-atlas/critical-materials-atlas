@@ -771,6 +771,7 @@ def main():
                     help="treat the best exporter and the best importer as equally good (footnote 22's assumption), 'best' among reporters with at least this many pairs; 0 = off")
     ap.add_argument('--rel-weight-unit', choices=['thousand', 'usd'], default='thousand',
                     help="unit of the sum whose natural log weighs each flow in the reliability regression (footnote 21 states none): thousand USD or USD")
+    ap.add_argument('--reliability-from', help="a previous run's _fit folder: take its trust scores instead of estimating them (BACI: one set per edition, all years)")
     ap.add_argument('--reexports', choices=['drop', 'keep'], default='drop',
                     help="Hong Kong's and the USA's re-exports: drop = taken out of their exports (the paper, p. 11); keep = left in (BACI V202601)")
     ap.add_argument('--older-editions', choices=['split', 'drop', 'unchanged'], default='split',
@@ -830,8 +831,17 @@ def main():
         apply_freight(con, geo, fit, a.fob_rule)
         align_timing(con, a.lags, work, a.fob_rule)
     trim = tuple(a.rd_trim) if a.rd_trim else None
-    rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
-    rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
+    if a.reliability_from:
+        # BACI estimates one set of trust scores per edition, on all its years together (its pair
+        # weights are the same every year): a monthly run reuses the scores of the yearly run
+        rel_v = pd.read_parquet(os.path.join(a.reliability_from, 'reliability_value.parquet'))
+        rel_q = pd.read_parquet(os.path.join(a.reliability_from, 'reliability_quantity.parquet'))
+        rel_v.to_parquet(os.path.join(work, 'reliability_value.parquet')); rel_q.to_parquet(os.path.join(work, 'reliability_quantity.parquet'))
+        log('reliability: taken from %s (%d exporters, %d importers)' % (
+            a.reliability_from, (rel_v.role == 'exporter').sum(), (rel_v.role == 'importer').sum()))
+    else:
+        rel_v = fit_reliability(con, work, 'value', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
+        rel_q = fit_reliability(con, work, 'quantity', trim, a.sigma_floor, a.sigma_rule, a.rel_fob_rule, a.rel_min_decl, a.role_align, a.rel_weight_unit)
     # our own weights against the constants read off BACI: the test that the METHOD is reproduced
     bwf = a.baci_weights or os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
     if len(rel_v) and os.path.exists(bwf):
