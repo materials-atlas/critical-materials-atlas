@@ -174,7 +174,12 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
         nold = con.execute("SELECT count(*), sum(v) / 1e9 FROM read_parquet('%s') t WHERE t.ver IN (%s)" % (
             os.path.join(work, 'totals.parquet').replace(chr(92), '/'), vl)).fetchall()[0]
         log('older editions (%s): %s declarations, %.1f bn USD; rule: %s' % (','.join(old_vers), format(nold[0] or 0, ','), nold[1] or 0, older))
-    con.execute("""CREATE OR REPLACE TABLE tot AS
+    # grouped one output period at a time (the period is a grouping key, so the result is the same);
+    # all periods in one aggregate ran out of memory on 30 pooled years
+    pexpr = 't.period // 100' if annual else 't.period'
+    out_periods = [r_[0] for r_ in con.execute("SELECT DISTINCT %s FROM read_parquet('%s') t ORDER BY 1" % (pexpr, tot)).fetchall()]
+    for i, op in enumerate(out_periods):
+        con.execute(("""CREATE OR REPLACE TABLE tot AS """ if i == 0 else """INSERT INTO tot """) + """
         SELECT %s AS period, r.iso3 AS reporter, CASE WHEN t.par = %d THEN 'NES' ELSE p.iso3 END AS partner,
                %s AS hs6, t.flow,
                SUM(t.v * COALESCE(h.share, 1.0)) AS v, SUM(t.q * COALESCE(h.share, 1.0)) AS q,
@@ -184,8 +189,8 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
         FROM read_parquet('%s') t JOIN cmap r ON t.rep = r.code
              LEFT JOIN cmap p ON t.par = p.code
              LEFT JOIN hsmap h ON h.ver = t.ver AND h.code_from = t.hs6
-        WHERE (t.par = %d OR p.iso3 IS NOT NULL) AND left(COALESCE(h.code_to, t.hs6), 2) <> '99'%s
-        GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, BACI_CODE, tot, NES, old_filter))
+        WHERE %s = %d AND (t.par = %d OR p.iso3 IS NOT NULL) AND left(COALESCE(h.code_to, t.hs6), 2) <> '99'%s
+        GROUP BY 1, 2, 3, 4, 5""" % (pexpr, NES, BACI_CODE, tot, pexpr, op, NES, old_filter))
     # BACI's product list: the UN's HS 2017 with the 2710 subheadings merged into 271000 and no
     # chapter 99. Anything else that is not on it after conversion is counted and dropped.
     if os.path.exists(BACI_PRODUCTS.get(hs_target, '')):
