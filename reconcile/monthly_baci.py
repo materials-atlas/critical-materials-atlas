@@ -85,7 +85,8 @@ COUNTRIES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
 GEO = os.path.join(ROOT, 'raw', 'geodist', 'dist_cepii.xls')
 
 NES = 899                                  # Comtrade partner "Areas, nes"
-BACI_PRODUCTS = os.path.join(ROOT, 'raw', 'baci', 'product_codes_HS17_V202601.csv')
+BACI_PRODUCTS = {'H5': os.path.join(ROOT, 'raw', 'baci', 'product_codes_HS17_V202601.csv'),    # BACI's product list per edition
+                 'H0': os.path.join(ROOT, 'raw', 'baci', 'product_codes_HS92_V202601.csv')}
 # BACI carries refined petroleum as ONE product: the five 2710 subheadings are merged into 271000
 BACI_CODE = "CASE WHEN left(COALESCE(h.code_to, t.hs6), 4) = '2710' THEN '271000' ELSE COALESCE(h.code_to, t.hs6) END"
 FOB_IMPORTERS = {'DZA', 'GEO', 'ZAF', 'BWA', 'LSO', 'NAM', 'SWZ'}   # report imports FOB: no freight strip
@@ -187,13 +188,13 @@ def load_totals(con, periods, slice_path, work, annual=False, hs_target='H5', mi
         GROUP BY 1, 2, 3, 4, 5""" % ('t.period // 100' if annual else 't.period', NES, BACI_CODE, tot, NES, old_filter))
     # BACI's product list: the UN's HS 2017 with the 2710 subheadings merged into 271000 and no
     # chapter 99. Anything else that is not on it after conversion is counted and dropped.
-    if hs_target == 'H5' and os.path.exists(BACI_PRODUCTS):
-        bp = pd.read_csv(BACI_PRODUCTS, dtype=str); bp.columns = [c.lower() for c in bp.columns]
+    if os.path.exists(BACI_PRODUCTS.get(hs_target, '')):
+        bp = pd.read_csv(BACI_PRODUCTS[hs_target], dtype=str); bp.columns = [c.lower() for c in bp.columns]
         con.register('bprod', pd.DataFrame({'code': bp.iloc[:, 0].str.zfill(6)}))
         off = con.execute("SELECT count(*), COALESCE(sum(v), 0) / 1e9 FROM tot WHERE hs6 NOT IN (SELECT code FROM bprod)").fetchall()[0]
         con.execute("DELETE FROM tot WHERE hs6 NOT IN (SELECT code FROM bprod)")
-        log('products: BACI\'s HS 2017 list (2710 merged into 271000, chapter 99 out); %s declarations (%.1f bn USD) on no BACI code dropped' % (
-            format(off[0], ','), off[1]))
+        log('products: BACI\'s %s list (2710 merged into 271000, chapter 99 out); %s declarations (%.1f bn USD) on no BACI code dropped' % (
+            os.path.basename(BACI_PRODUCTS[hs_target]), format(off[0], ','), off[1]))
     # BACI: "re-exportations for Hong Kong and USA are also dropped since there is no way to know the
     # final destination". Their X total includes re-exports; the RX line is taken out of it.
     rx_rep = "('HKG', 'USA')" if reexports == 'drop' else "('')"     # keep: nothing is taken out
