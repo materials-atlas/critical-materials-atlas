@@ -713,3 +713,12 @@ The HS92 edition follows the paper's footnote 22 to the letter. The HS17 edition
   BACI makes no re-export correction. No code published.
 - Neither says anything about BACI's undocumented steps (the HS17 exporter/importer level, the flows where
   BACI uses one declaration). Both face the same level problem and fix it by their own convention.
+- Second-opinion review of the above (two independent readers, 17 Nov 2026): neither source reveals
+  CEPII's implementation. Qualify three of our claims: (1) the flow headline is helped by one-sided flows;
+  the test of the mixing is the two-sided figure (84% within 25% on HS92), so report it first;
+  (2) "the HS17 edition uses another level rule" is a hypothesis - a different transformation, sample or
+  preprocessing would look the same; (3) "CEPII's input lacked the declaration" is not established.
+  Still to test for (3): declarations filed in an older HS edition and converted vs original, absolute value
+  floors on the dropped side, data vintage. Already excluded: rounding (gaps > x1.3), UN flags incl.
+  isOriginalClassification, sizes and quantity presence (tree). Also noted: Harvard's claim that its
+  normal matrix is always singular is wrong (a signless Laplacian with an odd cycle has full rank).
