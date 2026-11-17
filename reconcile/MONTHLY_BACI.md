@@ -678,3 +678,19 @@ Why the two-sided flows miss:
   BACI-92 pairs within 0.10, but 30.8% of BACI-17's. With one min over both roles: 26.4% / 56.6%.
   Reading: the HS92 edition follows the paper's footnote closely; the HS17 edition does not.
   The exporter/importer level is not identified by equation (5) and CEPII's rule for it is undocumented.
+
+### HS 1992 edition with footnote 22 as written (17 Nov 2026, 13:15-16:20)
+
+Same run, `--sigma-rule footnote22` and no `--role-align` (`~/comtrade/run_hs92_fn22.sh`, output
+`~/comtrade/h92_fn22`): sigma = pi/2 (LS - min LS of the role - 2 stderr), the paper's own rule.
+
+| years | within 10% (was, LS + no alignment) | within 25% | total / BACI |
+|---|---|---|---|
+| 1995-1999 | 88.7-90.0% (69.7-72.8%) | 94.0-94.7% | 0.991-0.995 |
+| 2000-2009 | 87.5-88.6% (68.5-70.7%) | 92.9-93.7% | 0.984-1.004 |
+| 2010-2019 | 86.4-87.3% (66.7-68.4%) | 92.4-92.8% | 1.002-1.016 |
+| 2020-2024 | 84.8-86.2% (65.9-67.1%) | 91.1-92.4% | 1.014-1.026 |
+
+Two-sided flows: 52-55% -> **84% within 25%**; one-sided stay 99.9%. Best match on either edition.
+The HS92 edition follows the paper's footnote 22 to the letter. The HS17 edition does not (footnote
+22 per role reproduces only 31% of its pair weights): its recipe stays LS + alignment, an open question.
