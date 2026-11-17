@@ -652,3 +652,29 @@ About 6 points below the yearly run: BACI reconciles the year, we reconcile each
 2025 and 2026 have no BACI to compare. Months stay complete (4.8-5.0 m flows, ~$1.9-2.1 trn)
 through 2026-04, then thin as reporters are still to file: 2026-07 3.9 m, 2026-08 2.8 m,
 2026-09 0.4 m flows. Treat 2026-05 onward as provisional and 2026-08/09 as partial.
+
+## The second edition: BACI HS 1992, 1995-2024 (17 Nov 2026)
+
+Engine targets HS 1992 (`--hs-target H0`; UNSD tables HS1996/2002/2007 -> HS1992 added to
+`raw/concordance/`, BACI's HS92 product list), 30 years pooled in one regression, same recipe
+(`~/comtrade/run_hs92.sh`, output `~/comtrade/h92_pool`, 3 h on the Lenovo; grouping now one period
+at a time - the 30-year aggregate ran out of memory; `ulimit -n` raised for the ~5,000 files).
+
+Against BACI_HS92_V202601, flow by flow: 66-73% within 10%, 77-83% within 25% every year (1995
+72.8%, 2005 69.1%, 2015 66.7%, 2024 67.0%); totals within 0.2-2.7%. Flows only one side declared:
+**99.9% within 25%** (our input and HS conversion match CEPII's); two-sided flows: 52-55% within 25%.
+1995-1999 hold exactly CEPII's flow set (ours-only 0, BACI-only 0.02-0.1%).
+
+Why the two-sided flows miss:
+- BACI-92's pair weights are **constant over 1998-2023** (98% of pairs within 0.02), as in BACI-17:
+  one set of scores per edition.
+- `--role-align 3000000` (the 8-year 800,000 scaled by 30/8) **found no importer with that many
+  pairs (max 2.85 m) and silently switched off**; the engine now warns. Without it our exporter
+  weight is +0.32 above BACI-92's on the median pair (pairs within 0.10: 10-11%; corr 0.80).
+- Scanning the exporter shift on our saved LS: best +0.36 -> **83.9% of pairs within 0.10** (BACI-17's
+  best: +0.06-0.08 -> 64-66%). No "best reporter" cut-off gives +0.36 (cut-offs 0.1-2.5 m give -0.08
+  to +0.26), and no role statistic (means, medians, n-weighted, same-country) gives 0.08 and 0.36.
+- **Footnote 22 as written, per role** (sigma = pi/2 (LS - min LS of the role - 2 stderr)): 76.1% of
+  BACI-92 pairs within 0.10, but 30.8% of BACI-17's. With one min over both roles: 26.4% / 56.6%.
+  Reading: the HS92 edition follows the paper's footnote closely; the HS17 edition does not.
+  The exporter/importer level is not identified by equation (5) and CEPII's rule for it is undocumented.

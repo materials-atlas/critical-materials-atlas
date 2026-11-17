@@ -658,6 +658,9 @@ def fit_reliability(con, work, kind='value', trim=None, floor=0.0, rule='footnot
             rel['sigma'] = np.maximum(rel['sigma_raw'], floor)
             log('reliability (%s): roles aligned on their best reporter with >= %d pairs (exporters %.3f, importers %.3f): exporters shifted %+.3f'
                 % (kind, role_align, be, bi, bi - be))
+        else:
+            log('reliability (%s): WARNING --role-align %d: no exporter or no importer has that many pairs (max %d / %d) - roles NOT aligned'
+                % (kind, role_align, rel.loc[ex, 'n'].max(), rel.loc[im, 'n'].max()))
     rel['well_estimated'] = True
     rel.to_parquet(os.path.join(work, 'reliability_%s.parquet' % kind), index=False)
     e = rel[rel.role == 'exporter']; i = rel[rel.role == 'importer']
