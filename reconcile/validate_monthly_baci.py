@@ -46,7 +46,7 @@ def main():
     con.execute("""CREATE TABLE ours AS
         SELECT CASE WHEN period > 9999 THEN period // 100 ELSE period END AS t, exporter, importer, hs6, SUM(v) / 1000.0 AS v_ours, SUM(q) / 1000.0 AS q_ours,
                COUNT(*) AS n_months, SUM(CASE WHEN basis = 'both' THEN 1 ELSE 0 END) AS months_both
-        FROM read_parquet('%s/2*.parquet') WHERE (CASE WHEN period > 9999 THEN period // 100 ELSE period END) BETWEEN %d AND %d
+        FROM read_parquet('%s/[12][0-9][0-9][0-9]*.parquet') WHERE (CASE WHEN period > 9999 THEN period // 100 ELSE period END) BETWEEN %d AND %d
         GROUP BY 1, 2, 3, 4""" % (mon, a.years[0], a.years[1]))
     codes = a.codes or [r[0] for r in con.execute("SELECT DISTINCT hs6 FROM ours").fetchall()]
     cm = pd.read_csv(COUNTRIES, dtype=str); cm.columns = [c.lower() for c in cm.columns]
