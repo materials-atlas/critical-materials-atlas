@@ -694,3 +694,22 @@ Same run, `--sigma-rule footnote22` and no `--role-align` (`~/comtrade/run_hs92_
 Two-sided flows: 52-55% -> **84% within 25%**; one-sided stay 99.9%. Best match on either edition.
 The HS92 edition follows the paper's footnote 22 to the letter. The HS17 edition does not (footnote
 22 per role reproduces only 31% of its pair weights): its recipe stays LS + alignment, an open question.
+
+## Other reconciliations read (17 Nov 2026): Harvard Growth Lab, OECD BIMTS
+
+- **Harvard Growth Lab** (WP 251, 2025; Scientific Data 2026; code github.com/harvard-growth-lab/
+  comtrade-mirroring, Apache-2.0). Paper: one score per country from OLS of the pair discrepancy on
+  exporter + importer dummies, at country-pair TOTALS (not products), year by year; the level is fixed by
+  setting one "base" country to zero, chosen for the best R2; negatives set to 0; softmax weights; the
+  bottom 10% of reporters per role are ignored (the partner's figure is used alone); CIF/FOB regression at
+  aggregate level capped at 20%; HS conversion by data-driven weights (Lukaszuk-Torun). The CODE does
+  something else: an iterative fixed point (25 rounds) of inverse partner-weighted discrepancies, with a
+  likely exporter/importer transposition and several filters that are no-ops. Cites BACI only for CIF/FOB.
+- **OECD BIMTS** (Cassimon, Gutierrez, Liberatore, Sarrazin, 2025, 57 pp.). Weight = "symmetry index"
+  per reporter x PRODUCT x year: 1 - trade-weighted mean of |X - M| / (X + M), 3-year moving average;
+  balanced value = (SI_x X + SI_m M) / (SI_x + SI_m); unreported flows enter as zero. Before that:
+  product-code correction, confidential/4-digit trade dispatched to HS6, unspecified partners mapped,
+  CIF->FOB from the OECD ITIC margins, re-exports identified and reallocated to producer countries. Says
+  BACI makes no re-export correction. No code published.
+- Neither says anything about BACI's undocumented steps (the HS17 exporter/importer level, the flows where
+  BACI uses one declaration). Both face the same level problem and fix it by their own convention.
