@@ -722,3 +722,28 @@ The HS92 edition follows the paper's footnote 22 to the letter. The HS17 edition
   floors on the dropped side, data vintage. Already excluded: rounding (gaps > x1.3), UN flags incl.
   isOriginalClassification, sizes and quantity presence (tree). Also noted: Harvard's claim that its
   normal matrix is always singular is wrong (a signless Laplacian with an odd cycle has full rank).
+
+### The one-declaration flows: three more tests, all negative (17 Nov 2026)
+
+`~/comtrade/onefig_tests.py`. Two-sided flows whose declarations differ by more than x2; BACI equal to
+one declaration within 0.1%. Share of such flows (exporter's figure / importer's figure / mix):
+
+| edition, year | n | = exporter | = importer | mix |
+|---|---|---|---|---|
+| HS92 1996 | 1,138,166 | 9.0% | 15.2% | 60.0% |
+| HS92 2005 | 2,115,622 | 7.8% | 16.3% | 60.1% |
+| HS92 2015 | 2,722,895 | 7.5% | 15.3% | 61.2% |
+| HS92 2023 | 2,870,798 | 6.8% | 11.9% | 60.9% |
+| HS17 2017 | 2,171,169 | 7.3% | 16.4% | 71.7% |
+| HS17 2023 | 2,974,468 | 6.7% | 13.2% | 72.1% |
+
+1. **Vintage: refuted.** The share is as high in 1996, whose UN files have not changed for decades,
+   as in 2023. So it is not CEPII's copy missing recently revised declarations: our earlier reading
+   ("CEPII's input lacked that declaration") is withdrawn.
+2. **Value floor: none.** By the size of the ignored declaration (<$1k to >$10m) the share moves
+   smoothly (HS17 2023: importer side 4.5% -> 10.1%, exporter side 10.8% -> 15.8%), with no step.
+3. **HS conversion: no effect.** Codes moved by the edition change vs unmoved: same shares (7.0 vs
+   6.5%, 13.5 vs 13.0% in HS17 2023; 9.3 vs 8.9%, 15.1 vs 15.3% in HS92 1996).
+
+So it is a stable step of BACI's method, about one big-gap two-sided flow in five in every year and
+both editions, flow by flow, and not described in the paper. Only CEPII can say what it is.
