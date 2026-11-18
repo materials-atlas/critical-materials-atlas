@@ -109,6 +109,8 @@ except ImportError:
 # ── 3. ON DISK, partially used: BACI trade vintages ────────────────────────────────────────────
 for nom, yrs in _baci.NOMENCLATURE.items():
     z = os.path.join(ROOT, 'raw', 'baci', 'BACI_%s_%s.zip' % (nom, _baci.VINTAGE))
+    if not os.path.exists(z):
+        continue                      # 'on_disk' is a claim about THIS disk (HS92 is server-only)
     try:
         yrs = sorted(yrs)
         vint = '%s_%s' % (nom, _baci.VINTAGE)

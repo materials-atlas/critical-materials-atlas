@@ -49,7 +49,11 @@ VINTAGE = 'V202601'
 # of this file mapped year -> nomenclature and served HS17 to a reader that had always read HS02;
 # the acceptance harness caught it as a 37% change in build_avalidate. Which nomenclature to read
 # is the READER'S choice, and year() takes it as `nom`.
-NOMENCLATURE = {'HS02': range(2002, 2025), 'HS17': range(2017, 2025)}
+NOMENCLATURE = {'HS02': range(2002, 2025), 'HS17': range(2017, 2025),
+                # HS92 (added 18 Nov 2026): the edition the monthly-BACI replication was checked
+                # against for 1995-2024 (reconcile/MONTHLY_BACI.md). Held on the server only; on a
+                # machine without the archive nothing is extracted and available() says so.
+                'HS92': range(1995, 2025)}
 
 # QUANTITY REPAIRS. CEPII's published file carries a few flows whose tonnage breaks from the flow's
 # own history while its value does not - the unit value jumps several-fold for one year. Found by

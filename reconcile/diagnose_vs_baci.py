@@ -19,7 +19,6 @@ and, apart from the method, the question the monthly series raises:
 import argparse
 import os
 import sys
-import zipfile
 
 import duckdb
 import numpy as np
@@ -28,10 +27,10 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+sys.path.insert(0, ROOT)
+import baci   # the one door to raw/baci
 from hs_concordance import conversion
 
-BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
-COUNTRIES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
 GEO = os.path.join(ROOT, 'raw', 'geodist', 'dist_cepii.xls')
 
 
@@ -53,7 +52,7 @@ def main():
     y = a.year
     con = duckdb.connect(); con.execute("SET memory_limit = '3GB'")
     raw = os.path.join(ROOT, 'raw', 'comtrade', 'comtrade_%d.csv' % y).replace(chr(92), '/')
-    cm = pd.read_csv(COUNTRIES, dtype=str); cm.columns = [c.lower() for c in cm.columns]
+    cm = pd.read_csv(baci.country_file(), dtype=str); cm.columns = [c.lower() for c in cm.columns]
     cm = cm.dropna(subset=['country_iso3']); cm['code'] = cm.country_code.astype(int)
     con.register('cm', cm[['code', 'country_iso3']])
     conv = conversion(2022, 2017)
@@ -79,11 +78,7 @@ def main():
         FROM x FULL JOIN m ON x.exporter = m.exporter AND x.importer = m.importer AND x.k = m.k
         WHERE COALESCE(x.exporter, m.exporter) <> COALESCE(x.importer, m.importer)""")
     codes = [r[0] for r in q(con, "SELECT DISTINCT k FROM pairs")]
-    z = zipfile.ZipFile(BACI_ZIP); fr = []
-    with z.open('BACI_HS17_Y%d_V202601.csv' % y) as fh:
-        for ch in pd.read_csv(fh, dtype={'k': str}, chunksize=2_000_000):
-            fr.append(ch[ch.k.isin(codes)])
-    con.register('braw', pd.concat(fr))
+    con.register('braw', baci.year(y, nom='HS17', codes=codes, keep_misclassified=True))
     con.execute("""CREATE TABLE baci AS SELECT e.country_iso3 AS exporter, i.country_iso3 AS importer, k, sum(v) * 1000.0 AS vb, sum(q) * 1000.0 AS qb
                    FROM braw JOIN cm e ON braw.i = e.code JOIN cm i ON braw.j = i.code GROUP BY 1, 2, 3""")
     con.execute("""CREATE TABLE j AS SELECT COALESCE(p.exporter, b.exporter) AS exporter, COALESCE(p.importer, b.importer) AS importer,

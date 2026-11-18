@@ -3,7 +3,7 @@
 (converted via ECB GBP crosses). HMRC splits flows EU/non-EU (1/3 = imports, 2/4 = exports); we merge.
 The API restricts $orderby/$select/in and rate-limits, so we use only eq/or/and filters + $expand and
 back off on rejection."""
-import time, json, urllib.request, urllib.error, urllib.parse
+import os, time, json, urllib.request, urllib.error, urllib.parse
 import schema, concordance, fx
 from adapter_base import Adapter, num
 
@@ -36,7 +36,7 @@ class HMRCAdapter(Adapter):
 
     def _codes(self):
         return [int(c['code']) for c in
-                json.load(open(schema.ROOT + r'\pipeline\critical_codes.json', encoding='utf8'))['codes']
+                json.load(open(os.path.join(schema.ROOT, 'pipeline', 'critical_codes.json'), encoding='utf8'))['codes']
                 if len(c['code']) == 8 and c['code'].isdigit()]
 
     def _query(self, filt):

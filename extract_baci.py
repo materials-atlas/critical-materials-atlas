@@ -24,6 +24,7 @@ A member that fails verification is deleted, not kept - a partial extract is a s
 Run:  python extract_baci.py              # all 23 members (~15-25 min)
       python extract_baci.py --only 2024  # one year, for testing or a refresh
       python extract_baci.py --force      # redo members that already exist
+      python extract_baci.py --nom HS92   # one nomenclature (an archive not on disk is skipped)
 """
 import os
 import sys
@@ -36,7 +37,7 @@ import duckdb
 import baci
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-ARCHIVE = {'HS02': 'BACI_HS02_%s.zip' % baci.VINTAGE, 'HS17': 'BACI_HS17_%s.zip' % baci.VINTAGE}
+ARCHIVE = {n: 'BACI_%s_%s.zip' % (n, baci.VINTAGE) for n in baci.NOMENCLATURE}
 MEMBER = 'BACI_%s_Y%d_%s.csv'
 COLS = "{'t':'INTEGER','i':'INTEGER','j':'INTEGER','k':'VARCHAR','v':'DOUBLE','q':'DOUBLE'}"
 
@@ -123,6 +124,7 @@ def extract_one(con, zf, nom, year):
 def main():
     a = sys.argv[1:]
     only = int(a[a.index('--only') + 1]) if '--only' in a else None
+    noms = a[a.index('--nom') + 1].split(',') if '--nom' in a else list(baci.NOMENCLATURE)
     force = '--force' in a
     con = duckdb.connect()
     con.execute("SET threads TO 4")
@@ -130,9 +132,13 @@ def main():
     t0 = time.time()
     for nom, years in baci.NOMENCLATURE.items():
         want = [y for y in years if only is None or y == only]
-        if not want:
+        if not want or nom not in noms:
             continue
         zpath = os.path.join(baci.RAW, ARCHIVE[nom])
+        if not os.path.exists(zpath):
+            # not every machine holds every edition (HS92 lives on the server, HS02 on the laptop)
+            print('  %s: archive %s not on this machine - skipped' % (nom, ARCHIVE[nom]))
+            continue
         with zipfile.ZipFile(zpath) as zf:
             for y in want:
                 if os.path.exists(baci.path(y, nom)) and not force:

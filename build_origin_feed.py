@@ -17,11 +17,12 @@ Basket codes (HS 2530.90, which holds spodumene, celestite and rare-earth ores a
 
 Writes out/origin_feed.json.  Public data; deterministic.
 """
-import json, os, zipfile
+import json, os
 import pandas as pd
 
+import baci   # the one door to raw/baci (ARCHITECTURE.md phase 2)
+
 ROOT = os.path.dirname(os.path.abspath(__file__))
-BACI = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
 CACHE = os.path.join(ROOT, 'raw', 'comtrade', 'china_feed_imports.json')   # written by fetch_origin_feed.py
 YEARS = list(range(2017, 2025))
 CHINA = 156
@@ -59,8 +60,7 @@ data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
 CN_MINE = {m['label']: next((x['v'] for x in (m.get('mined') or []) if x['c'] == 'CN'), 0) for m in data['materials']}
 
-z = zipfile.ZipFile(BACI)
-cc = pd.read_csv(z.open(next(n for n in z.namelist() if 'country_codes' in n)), keep_default_na=False)   # Namibia's ISO2 is 'NA'
+cc = pd.read_csv(baci.country_file(), keep_default_na=False)   # verbatim table; Namibia's ISO2 is 'NA'
 ISO2 = dict(zip(cc.country_code, cc.country_iso2))
 I3_2 = dict(zip(cc.country_iso3, cc.country_iso2))
 ATLAS_NAMES = json.load(open(os.path.join(ROOT, 'out', 'flows_2024.json'), encoding='utf8')).get('names', {})
@@ -80,11 +80,11 @@ cn['c'] = cn['c'].fillna(cn['partnerCode'].astype(str))
 # CROSS-CHECK: CEPII BACI (reconciled exporter/importer declarations)
 frames = []
 for y in YEARS:
-    name = next(n for n in z.namelist() if f'_Y{y}_' in n)
-    for ch in pd.read_csv(z.open(name), dtype={'k': str}, chunksize=2_000_000):
-        ch = ch[(ch.j == CHINA) & (ch.k.isin(codes))]
-        if len(ch):
-            frames.append(ch[['t', 'i', 'k', 'v', 'q']])
+    # keep_misclassified: the archive this read before carried every row, and so does this
+    ch = baci.year(y, nom='HS17', codes=codes, keep_misclassified=True)
+    ch = ch[ch.j == CHINA]
+    if len(ch):
+        frames.append(ch[['t', 'i', 'k', 'v', 'q']])
 bc = pd.concat(frames)
 bc['q'] = pd.to_numeric(bc['q'], errors='coerce')
 bc['c'] = bc['i'].map(ISO2)

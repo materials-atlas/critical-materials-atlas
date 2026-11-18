@@ -17,7 +17,6 @@ lnV_exporter, lnV_importer) and prints the freight evidence flow by flow.
 import argparse
 import os
 import sys
-import zipfile
 
 import duckdb
 import numpy as np
@@ -26,10 +25,10 @@ import pandas as pd
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
+sys.path.insert(0, ROOT)
+import baci   # the one door to raw/baci
 from hs_concordance import conversion
 
-BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
-COUNTRIES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
 OUT = os.path.join(ROOT, 'raw', 'baci', 'recovered_weights_V202601.csv')
 
 
@@ -46,11 +45,7 @@ def load_year(con, y, cm, conv):
                    FROM ann a JOIN cm i ON a.reporter = i.code JOIN cm e ON a.partner = e.code LEFT JOIN conv c ON c.k22 = a.k WHERE flow = 'M' GROUP BY 1, 2, 3)
         SELECT exporter, importer, k, vx, vm FROM x JOIN m USING (exporter, importer, k) WHERE exporter <> importer""")
     codes = [r[0] for r in con.execute("SELECT DISTINCT k FROM pairs").fetchall()]
-    z = zipfile.ZipFile(BACI_ZIP); fr = []
-    with z.open('BACI_HS17_Y%d_V202601.csv' % y) as fh:
-        for ch in pd.read_csv(fh, dtype={'k': str}, chunksize=2_000_000):
-            fr.append(ch[ch.k.isin(codes)])
-    con.register('braw', pd.concat(fr))
+    con.register('braw', baci.year(y, nom='HS17', codes=codes, keep_misclassified=True))
     return con.execute("""SELECT %d AS t, p.exporter, p.importer, p.k, p.vx, p.vm, b.vb FROM pairs p
         JOIN (SELECT e.country_iso3 AS exporter, i.country_iso3 AS importer, k, sum(v) * 1000.0 AS vb
               FROM braw JOIN cm e ON braw.i = e.code JOIN cm i ON braw.j = i.code GROUP BY 1, 2, 3) b USING (exporter, importer, k)
@@ -64,7 +59,7 @@ def main():
     a = ap.parse_args()
     years = a.years or [y for y in range(2017, 2025) if os.path.exists(os.path.join(ROOT, 'raw', 'comtrade', 'comtrade_%d.csv' % y))]
     con = duckdb.connect(); con.execute("SET memory_limit = '3GB'")
-    cm = pd.read_csv(COUNTRIES, dtype=str); cm.columns = [c.lower() for c in cm.columns]
+    cm = pd.read_csv(baci.country_file(), dtype=str); cm.columns = [c.lower() for c in cm.columns]
     cm = cm.dropna(subset=['country_iso3']); cm['code'] = cm.country_code.astype(int)
     con.register('cm', cm[['code', 'country_iso3']])
     conv = conversion(2022, 2017); con.register('conv', pd.DataFrame({'k22': list(conv.keys()), 'k17': list(conv.values())}))

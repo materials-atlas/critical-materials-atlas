@@ -233,6 +233,40 @@ NOTES = {
                 'lithium.'),
  'comtrade':   ('UN Comtrade extracts', 'UN, free', 'in use',
                 'Mirror side of the trade reconciliation.'),
+ 'comtrade_bulk': ('UN Comtrade BULK files, monthly HS, atlas codes only (laptop test pull)',
+                'UN Comtrade terms - re-dissemination limited; see licences.py', 'superseded',
+                'A few hundred reporter-months pulled here with reconcile/pull_comtrade_bulk.py '
+                'before the full corpus moved to the server (Nov 2026). The server holds every '
+                'product, every reporter, 2000 onwards; this copy is kept only as the first '
+                'test of the bulk route.'),
+ 'comtrade_bulk_crm': ('UN Comtrade bulk corpus, cut to the atlas codes, one parquet a year',
+                'UN Comtrade terms - re-dissemination limited; see licences.py', 'in use',
+                'Written on the server each night by reconcile/extract_comtrade_crm.py and copied '
+                'here by pipeline/sync_from_server.py. What adapter_comtrade reads since 18 Nov '
+                '2026, replacing the API cache: same database, every reporter and month from 2000.'),
+ 'usgs':       ('USGS Mineral Commodity Summaries 2026, single chapters (PDF)',
+                'US government work, public domain', 'reference',
+                'Six chapters (aluminum, manganese, nickel, rare earths, silver, tungsten) fetched '
+                'one by one to check a figure for a post or a page. The full chapter set lives in '
+                'the usgs_mcs folder; these are the loose copies.'),
+ 'sec':        ('SEC filings (MP Materials 10-K/10-Q) and one S&P Global NdPr market report',
+                'SEC filings: public. S&P Global report: ALL RIGHTS RESERVED - never quote '
+                'beyond a figure, never redistribute', 'reference',
+                'Company-reported rare-earth output and prices, used to check rare-earth figures '
+                'in social posts (out/social). The S&P text is a held copy for reading only.'),
+ 'census':     ('US Census Bureau international trade API, monthly imports by HS10',
+                'US government work, public domain', 'reference',
+                'Monthly US imports with quantities at HS10 (aluminium, NdFeB and SmCo magnets, '
+                'rare earths, titanium, transformers) fetched for posts and checks. HS10 carries '
+                'quantities HS6 lacks.'),
+ 'cochilco':   ('Cochilco (Chilean Copper Commission) statistical yearbook tables',
+                'Cochilco public statistics - reuse terms NOT checked; do not redistribute until they are', 'reference',
+                "Chile's copper output by mine and company, used for Chile copper posts."),
+ 'naturalearth': ('Natural Earth 1:10m admin-0 country boundaries', 'public domain', 'reference',
+                'Country shapes for the maps drawn for posts.'),
+ 'wb_cmo':     ('World Bank Commodity Markets annual prices (Pink Sheet, annual)',
+                'World Bank, CC BY 4.0', 'reference',
+                'Annual nickel and other metal prices, used for an Indonesia nickel post.'),
  'eucrm':      ('EU Critical Raw Materials assessment', 'EU, reuse permitted', 'reference',
                 'Criticality scores and end-use shares - indicators ABOUT materials, so a '
                 'dimension rather than cube rows. Also the list vintages used for the ex-ante '

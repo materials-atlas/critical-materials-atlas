@@ -41,7 +41,9 @@ GROUPS = [('capacity', re.compile(r'(\w+ )?capacity\s*\d*\s*$', re.I)),
           ('refinery', re.compile(r'refinery production\s*\d*\s*$', re.I)),
           ('smelter', re.compile(r'smelter production\s*\d*\s*$', re.I)),
           ('reserve_base', re.compile(r'reserve base\s*\d*\s*$', re.I)),
-          ('reserves', re.compile(r'reserves\s*\d*\s*$', re.I)),
+          # "PGM reserves" (platinum-group, MCS 2026): one qualifier word before the stage. Without it
+          # the reserves column had no header, and every reserve value was dropped
+          ('reserves', re.compile(r'(\w+ )?reserves\s*\d*\s*$', re.I)),
           # a chapter with no stage in its header ("World Production and Reserves", gallium's older
           # tables) still names a production column; it is kept as plain production, not as mine
           ('production', re.compile(r'(low-purity |refinery |primary )?production\s*\d*\s*$', re.I))]

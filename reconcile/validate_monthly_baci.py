@@ -15,7 +15,6 @@ to the same codes or "BACI only" is meaningless.
 import argparse
 import os
 import sys
-import zipfile
 
 import duckdb
 import pandas as pd
@@ -25,8 +24,8 @@ from hs_concordance import conversion
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
-BACI_ZIP = os.path.join(ROOT, 'raw', 'baci', 'BACI_HS17_V202601.zip')
-COUNTRIES = os.path.join(ROOT, 'raw', 'baci', 'country_codes_V202601.csv')
+sys.path.insert(0, ROOT)
+import baci   # the one door to raw/baci; the edition must be extracted (python extract_baci.py --nom HS92)
 
 
 def main():
@@ -39,7 +38,6 @@ def main():
                     help="which BACI to compare with: HS17 (2017 onwards) or HS92 (1995 onwards, compare an --hs-target H0 run)")
     a = ap.parse_args()
     conv = conversion(2017, 2012) if (a.hs_target == 'H4' and a.baci_edition == 'HS17') else None
-    baci_zip = BACI_ZIP.replace('HS17', a.baci_edition)
     con = duckdb.connect()
     con.execute("SET memory_limit = '3GB'")
     mon = a.monthly.replace(chr(92), '/')
@@ -49,20 +47,20 @@ def main():
         FROM read_parquet('%s/[12][0-9][0-9][0-9]*.parquet') WHERE (CASE WHEN period > 9999 THEN period // 100 ELSE period END) BETWEEN %d AND %d
         GROUP BY 1, 2, 3, 4""" % (mon, a.years[0], a.years[1]))
     codes = a.codes or [r[0] for r in con.execute("SELECT DISTINCT hs6 FROM ours").fetchall()]
-    cm = pd.read_csv(COUNTRIES, dtype=str); cm.columns = [c.lower() for c in cm.columns]
+    cm = pd.read_csv(baci.country_file(), dtype=str); cm.columns = [c.lower() for c in cm.columns]
     cm = cm.dropna(subset=['country_iso3']); cm['code'] = cm.country_code.astype(int)
     con.register('cm', cm[['code', 'country_iso3']])
-    z = zipfile.ZipFile(baci_zip)
+    # the codes to read in BACI's own edition: the wanted ones, plus every code that converts into one
+    src_codes = set(codes) | ({k for k, t in conv.items() if t in set(codes)} if conv else set())
     frames = []
     for y in range(a.years[0], a.years[1] + 1):
-        name = 'BACI_%s_Y%d_V202601.csv' % (a.baci_edition, y)
-        if name not in z.namelist():
-            continue
-        with z.open(name) as fh:
-            for chunk in pd.read_csv(fh, dtype={'k': str}, chunksize=2_000_000):
-                if conv:
-                    chunk['k'] = chunk.k.map(conv).fillna(chunk.k)      # BACI's HS 2017 code -> the target edition
-                frames.append(chunk[chunk.k.isin(codes)])
+        if y not in baci.NOMENCLATURE[a.baci_edition]:
+            continue                                     # a year that edition does not cover
+        # keep_misclassified: compare with BACI as CEPII published it, every row
+        chunk = baci.year(y, nom=a.baci_edition, codes=src_codes, keep_misclassified=True)
+        if conv:
+            chunk['k'] = chunk.k.map(conv).fillna(chunk.k)      # BACI's HS 2017 code -> the target edition
+        frames.append(chunk[chunk.k.isin(codes)])
     b = pd.concat(frames, ignore_index=True)
     b = b.groupby(['t', 'i', 'j', 'k'], as_index=False)[['v', 'q']].sum()   # merged codes add up
     con.register('baci_raw', b)

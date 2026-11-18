@@ -2,17 +2,14 @@
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
  "derived": "read_by and reaches_cube come from out/graph.json, the OBSERVED dependency graph - never typed here. status is a human claim; where the two disagree the folder is listed under contested, because that disagreement is the point.",
- "total_gb": 5.02,
- "folders": 73,
- "undocumented": [
-  "raw/usgs",
-  "raw/sec",
-  "raw/census"
- ],
+ "total_gb": 5.33,
+ "folders": 77,
+ "undocumented": [],
  "unread": [
   "raw/iea_bulk/gender-and-energy",
   "raw/iea_bulk/weather-for-energy-tracker",
   "raw/iea_drivers",
+  "raw/naturalearth",
   "raw/mrds",
   "raw/iea_bulk/monthly-electricity-statistics",
   "raw/iea_bulk/world-energy-balances-highlights",
@@ -21,6 +18,7 @@
   "raw/iea_bulk/solid-biofuels-consumption-estimation-model",
   "raw/iea_bulk/net-zero-by-2050-scenario",
   "raw/surveys",
+  "raw/wb_cmo",
   "raw/iea_bulk/global-ev-outlook-2026",
   "raw/iea_bulk/iea-electricity-access-data-collection-template",
   "raw/iea_bulk/greenhouse-gas-emissions-from-energy-highlights",
@@ -43,11 +41,12 @@
   "raw/iea_bulk/sdg7-database",
   "raw/iea_bulk/gas-trade-flows",
   "raw/iea_bulk/world-energy-investment-2021-datafile",
+  "raw/wikidata",
   "raw/bottomup",
   "raw/iea_energy_econ",
   "raw/ipis",
-  "raw/wikidata",
   "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
+  "raw/cochilco",
   "raw/usgs_critmin",
   "raw/iea_bulk/global-energy-review-co2-emissions-in-2021",
   "raw/iea_bulk/monthly-gas-statistics",
@@ -66,22 +65,24 @@
   "raw/usgs_myb",
   "raw/oecd_itic",
   "raw/_sources",
+  "raw/comtrade_bulk",
+  "raw/census",
   "raw/osm",
   "raw/usgs",
-  "raw/sec",
-  "raw/census"
+  "raw/sec"
  ],
  "scope_limit": "The recorder does not run pipeline/, so a folder only the pipeline opens would read as unread. Those are found by searching the pipeline source for the folder name - grep, weaker evidence - and listed separately.",
  "library": [
   {
    "folder": "raw/baci",
-   "n_files": 7,
-   "size_mb": 2848.9,
+   "n_files": 22,
+   "size_mb": 2849.9,
    "formats": [
     ".csv",
+    ".pdf",
     ".zip"
    ],
-   "newest": "2026-08-16",
+   "newest": "2026-11-10",
    "dataset": "CEPII BACI bilateral trade, HS02 and HS17 vintages",
    "licence": "Etalab Open Licence 2.0 (redistribution permitted, attribution required)",
    "status": "in cube (partly)",
@@ -148,24 +149,29 @@
     "pipeline/reconcile.py",
     "pipeline/schema.py",
     "reconcile/build_recon_flows.py",
+    "reconcile/diagnose_vs_baci.py",
     "reconcile/extract_baci.py",
+    "reconcile/monthly_baci.py",
     "reconcile/operator_test.py",
+    "reconcile/pull_comtrade_bulk.py",
     "reconcile/pull_comtrade_full.py",
     "reconcile/reconcile.py",
-    "reconcile/validate.py"
+    "reconcile/recover_baci_weights.py",
+    "reconcile/validate.py",
+    "reconcile/validate_monthly_baci.py"
    ]
   },
   {
    "folder": "raw/comtrade_full",
-   "n_files": 1249,
-   "size_mb": 987.4,
+   "n_files": 1828,
+   "size_mb": 1249.3,
    "formats": [
     ".json",
     ".parquet",
     ".tsv",
     ".txt"
    ],
-   "newest": "2026-10-12",
+   "newest": "2026-11-18",
    "dataset": "UN Comtrade, FULL product universe, monthly, all reporters",
    "licence": "UN Comtrade terms - re-dissemination limited; see licences.py",
    "status": "crawl in progress, not yet in the cube",
@@ -202,13 +208,13 @@
   },
   {
    "folder": "raw/usgs_mcs",
-   "n_files": 802,
-   "size_mb": 135.7,
+   "n_files": 834,
+   "size_mb": 143.4,
    "formats": [
     ".json",
     ".pdf"
    ],
-   "newest": "2026-09-24",
+   "newest": "2026-10-28",
    "dataset": "USGS Mineral Commodity Summaries PDFs",
    "licence": "US public domain",
    "status": "partly extracted",
@@ -342,14 +348,14 @@
   },
   {
    "folder": "raw/comtrade",
-   "n_files": 79,
-   "size_mb": 32.8,
+   "n_files": 105,
+   "size_mb": 42.0,
    "formats": [
     ".csv",
     ".json",
     ".xlsx"
    ],
-   "newest": "2026-10-11",
+   "newest": "2026-11-03",
    "dataset": "UN Comtrade extracts",
    "licence": "UN, free",
    "status": "in use",
@@ -374,13 +380,19 @@
     "pipeline/pull_comtrade.py",
     "pipeline/reconcile.py",
     "pipeline/scheduled_run.py",
+    "pipeline/sync_from_server.py",
     "reconcile/build_2026_nowcast.py",
     "reconcile/crawl_scheduled.py",
     "reconcile/crawl_watch.py",
+    "reconcile/diagnose_vs_baci.py",
+    "reconcile/extract_comtrade_crm.py",
+    "reconcile/monthly_baci.py",
     "reconcile/operator_test.py",
     "reconcile/pull_comtrade.py",
+    "reconcile/pull_comtrade_bulk.py",
     "reconcile/pull_comtrade_full.py",
     "reconcile/reconcile.py",
+    "reconcile/recover_baci_weights.py",
     "reconcile/un_watch.py",
     "reconcile/validate_fixtures.py"
    ]
@@ -419,6 +431,24 @@
     "build_satellite.py"
    ],
    "n_readers": 1,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/naturalearth",
+   "n_files": 4,
+   "size_mb": 19.8,
+   "formats": [
+    ".txt",
+    ".zip"
+   ],
+   "newest": "2026-11-02",
+   "dataset": "Natural Earth 1:10m admin-0 country boundaries",
+   "licence": "public domain",
+   "status": "reference",
+   "why_we_might_need_it": "Country shapes for the maps drawn for posts.",
+   "read_by": [],
+   "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
   },
@@ -499,7 +529,35 @@
    "reaches_cube": false,
    "named_in_pipeline_source": [
     "pipeline/reconcile.py",
+    "reconcile/diagnose_vs_baci.py",
+    "reconcile/monthly_baci.py",
     "reconcile/reconcile.py"
+   ]
+  },
+  {
+   "folder": "raw/comtrade_bulk",
+   "n_files": 275,
+   "size_mb": 9.4,
+   "formats": [
+    ".json",
+    ".parquet",
+    ".tsv"
+   ],
+   "newest": "2026-10-13",
+   "dataset": "UN Comtrade BULK files, monthly HS, atlas codes only (laptop test pull)",
+   "licence": "UN Comtrade terms - re-dissemination limited; see licences.py",
+   "status": "superseded",
+   "why_we_might_need_it": "A few hundred reporter-months pulled here with reconcile/pull_comtrade_bulk.py before the full corpus moved to the server (Nov 2026). The server holds every product, every reporter, 2000 onwards; this copy is kept only as the first test of the bulk route.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "pipeline/scheduled_run.py",
+    "pipeline/sync_from_server.py",
+    "reconcile/extract_comtrade_crm.py",
+    "reconcile/monthly_baci.py",
+    "reconcile/pull_comtrade_bulk.py"
    ]
   },
   {
@@ -648,6 +706,23 @@
    "named_in_pipeline_source": []
   },
   {
+   "folder": "raw/wb_cmo",
+   "n_files": 1,
+   "size_mb": 3.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-10-12",
+   "dataset": "World Bank Commodity Markets annual prices (Pink Sheet, annual)",
+   "licence": "World Bank, CC BY 4.0",
+   "status": "reference",
+   "why_we_might_need_it": "Annual nickel and other metal prices, used for an Indonesia nickel post.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
    "folder": "raw/iea_bulk/global-ev-outlook-2026",
    "n_files": 1,
    "size_mb": 2.5,
@@ -717,6 +792,27 @@
    "n_readers": 2,
    "reaches_cube": false,
    "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/census",
+   "n_files": 220,
+   "size_mb": 1.7,
+   "formats": [
+    ".json"
+   ],
+   "newest": "2026-10-23",
+   "dataset": "US Census Bureau international trade API, monthly imports by HS10",
+   "licence": "US government work, public domain",
+   "status": "reference",
+   "why_we_might_need_it": "Monthly US imports with quantities at HS10 (aluminium, NdFeB and SmCo magnets, rare earths, titanium, transformers) fetched for posts and checks. HS10 carries quantities HS6 lacks.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_uscensus.py",
+    "pipeline/build.py",
+    "pipeline/reconcile.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/monthly-oil-price-statistics-2",
@@ -805,6 +901,27 @@
    "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/usgs",
+   "n_files": 6,
+   "size_mb": 1.4,
+   "formats": [
+    ".pdf"
+   ],
+   "newest": "2026-11-02",
+   "dataset": "USGS Mineral Commodity Summaries 2026, single chapters (PDF)",
+   "licence": "US government work, public domain",
+   "status": "reference",
+   "why_we_might_need_it": "Six chapters (aluminum, manganese, nickel, rare earths, silver, tungsten) fetched one by one to check a figure for a post or a page. The full chapter set lives in the usgs_mcs folder; these are the loose copies.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/fetch_usgs_mcs.py",
+    "pipeline/parse_usgs_mcs.py",
+    "pipeline/parse_usgs_myb.py"
+   ]
   },
   {
    "folder": "raw/iea_bulk/world-energy-investment-2024-datafile",
@@ -914,27 +1031,6 @@
    "named_in_pipeline_source": []
   },
   {
-   "folder": "raw/usgs",
-   "n_files": 3,
-   "size_mb": 0.9,
-   "formats": [
-    ".pdf"
-   ],
-   "newest": "2026-10-10",
-   "dataset": null,
-   "licence": null,
-   "status": "UNDOCUMENTED",
-   "why_we_might_need_it": null,
-   "read_by": [],
-   "n_readers": 0,
-   "reaches_cube": false,
-   "named_in_pipeline_source": [
-    "pipeline/fetch_usgs_mcs.py",
-    "pipeline/parse_usgs_mcs.py",
-    "pipeline/parse_usgs_myb.py"
-   ]
-  },
-  {
    "folder": "raw/iea_bulk/global-ev-outlook-2025",
    "n_files": 1,
    "size_mb": 0.9,
@@ -959,10 +1055,10 @@
     ".txt"
    ],
    "newest": "2026-10-07",
-   "dataset": null,
-   "licence": null,
-   "status": "UNDOCUMENTED",
-   "why_we_might_need_it": null,
+   "dataset": "SEC filings (MP Materials 10-K/10-Q) and one S&P Global NdPr market report",
+   "licence": "SEC filings: public. S&P Global report: ALL RIGHTS RESERVED - never quote beyond a figure, never redistribute",
+   "status": "reference",
+   "why_we_might_need_it": "Company-reported rare-earth output and prices, used to check rare-earth figures in social posts (out/social). The S&P text is a held copy for reading only.",
    "read_by": [],
    "n_readers": 0,
    "reaches_cube": false,
@@ -982,6 +1078,9 @@
     "reconcile/build_2026_nowcast.py",
     "reconcile/crawl_scheduled.py",
     "reconcile/crawl_watch.py",
+    "reconcile/extract_comtrade_crm.py",
+    "reconcile/monthly_baci.py",
+    "reconcile/pull_comtrade_bulk.py",
     "reconcile/pull_comtrade_full.py"
    ]
   },
@@ -1128,27 +1227,6 @@
    "named_in_pipeline_source": []
   },
   {
-   "folder": "raw/census",
-   "n_files": 4,
-   "size_mb": 0.4,
-   "formats": [
-    ".json"
-   ],
-   "newest": "2026-10-11",
-   "dataset": null,
-   "licence": null,
-   "status": "UNDOCUMENTED",
-   "why_we_might_need_it": null,
-   "read_by": [],
-   "n_readers": 0,
-   "reaches_cube": false,
-   "named_in_pipeline_source": [
-    "pipeline/adapter_uscensus.py",
-    "pipeline/build.py",
-    "pipeline/reconcile.py"
-   ]
-  },
-  {
    "folder": "raw/icmm",
    "n_files": 2,
    "size_mb": 0.4,
@@ -1196,6 +1274,23 @@
    "licence": "CC BY 4.0",
    "status": "reference",
    "why_we_might_need_it": "Investment by sector and region.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/wikidata",
+   "n_files": 2,
+   "size_mb": 0.3,
+   "formats": [
+    ".csv"
+   ],
+   "newest": "2026-11-02",
+   "dataset": "Wikidata entity extracts",
+   "licence": "CC0",
+   "status": "reference",
+   "why_we_might_need_it": "Entity reconciliation helper.",
    "read_by": [],
    "n_readers": 0,
    "reaches_cube": false,
@@ -1315,23 +1410,6 @@
    "named_in_pipeline_source": []
   },
   {
-   "folder": "raw/wikidata",
-   "n_files": 1,
-   "size_mb": 0.2,
-   "formats": [
-    ".csv"
-   ],
-   "newest": "2026-07-12",
-   "dataset": "Wikidata entity extracts",
-   "licence": "CC0",
-   "status": "reference",
-   "why_we_might_need_it": "Entity reconciliation helper.",
-   "read_by": [],
-   "n_readers": 0,
-   "reaches_cube": false,
-   "named_in_pipeline_source": []
-  },
-  {
    "folder": "raw/iea_bulk/global-energy-and-climate-model-key-input-data",
    "n_files": 2,
    "size_mb": 0.2,
@@ -1344,6 +1422,23 @@
    "licence": "NOT CC - Terms of Use for Non-CC Material",
    "status": "driver (high value)",
    "why_we_might_need_it": "GDP, population, industry value added, steel and cement output: the IEA own driver set, and the closest published match to what our consumption model needs. If any single download here changes the consumption layer, it is this one.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/cochilco",
+   "n_files": 1,
+   "size_mb": 0.1,
+   "formats": [
+    ".xlsx"
+   ],
+   "newest": "2026-11-02",
+   "dataset": "Cochilco (Chilean Copper Commission) statistical yearbook tables",
+   "licence": "Cochilco public statistics - reuse terms NOT checked; do not redistribute until they are",
+   "status": "reference",
+   "why_we_might_need_it": "Chile's copper output by mine and company, used for Chile copper posts.",
    "read_by": [],
    "n_readers": 0,
    "reaches_cube": false,
