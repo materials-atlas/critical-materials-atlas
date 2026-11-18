@@ -72,9 +72,26 @@ def toast(title, body):
         return False
 
 
+def sync():
+    """From 18 Nov 2026 the run happens on the server: fetch its log (and caches) first, so the
+    check reads tonight's run and not this PC's last one. Returns a warning, or None."""
+    try:
+        r = subprocess.run([sys.executable, os.path.join(HERE, 'sync_from_server.py')], cwd=REPO,
+                           capture_output=True, text=True, timeout=900)
+    except Exception as e:
+        return 'could not reach the server to read its log: %s' % e
+    if r.returncode != 0:
+        return 'could not copy the server log (%s) - the status below is from an OLD copy' % (
+            (r.stdout or r.stderr or '').strip().splitlines()[-1:] or ['?'])[0][:160]
+    return None
+
+
 def main():
     quiet = '--quiet' in sys.argv
+    unreachable = sync() if '--no-sync' not in sys.argv else None
     warns, raw = ask_check()
+    if unreachable:
+        warns = [unreachable] + warns
     stamp = datetime.datetime.now().isoformat(timespec='seconds')
     if warns:
         head = 'NOT HEALTHY - %d warning(s)' % len(warns)

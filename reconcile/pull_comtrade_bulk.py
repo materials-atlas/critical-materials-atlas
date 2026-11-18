@@ -69,7 +69,8 @@ LOG = os.path.join(OUTDIR, '_bulk.log')
 KEYFILE = os.path.join(ROOT, 'pipeline', '.comtrade_key')
 
 LIST = 'https://comtradeapi.un.org/bulk/v1/get/C/%s/%s'      # freq, classification
-YEAR_MAX, YEAR_MIN = 2026, 2000
+YEAR_MAX, YEAR_MIN = time.gmtime().tm_year, 2000   # the current year, not a constant that goes stale
+QUOTA_EXIT = False           # --quota-exit: stop on an exhausted quota instead of sleeping it out
 QUOTA = re.compile(r'replenished in (\d+):(\d+):(\d+)')
 
 # The 34 columns of a bulk file as the whole-file reader infers them, so that the batch reader
@@ -126,6 +127,11 @@ def quota_wait(r):
     """403 'Out of call volume quota. Quota will be replenished in HH:MM:SS.' Sleep it out and
     say so, instead of skipping every remaining period in six minutes."""
     m = QUOTA.search(getattr(r, 'text', '') or '')
+    if r.status_code == 403 and m and QUOTA_EXIT:
+        # The nightly keep-fresh pass must not sleep 22 hours and hold up the atlas build behind
+        # it: it stops, saves what it has, and the next night carries on.
+        log('   daily call quota exhausted - --quota-exit: stopping here, the next run resumes')
+        raise KeyboardInterrupt
     if r.status_code == 403 and m:
         secs = int(m.group(1)) * 3600 + int(m.group(2)) * 60 + int(m.group(3)) + 120
         log('   daily call quota exhausted - sleeping %.1f h until it is replenished' % (secs / 3600.0))
@@ -164,15 +170,16 @@ def periods(years, freq='M'):
     return out
 
 
-def listing(session, headers, period, st, url=LIST % ('M', 'HS')):
+def listing(session, headers, period, st, url=LIST % ('M', 'HS'), fresh=False):
     """Every reporter's file for one period, in ONE call. Cached: the listing rarely changes,
-    and re-listing 324 periods on each resume would be the only expensive part of a restart."""
+    and re-listing 324 periods on each resume would be the only expensive part of a restart.
+    fresh=True asks the server again (the --recheck pass: new filers, corrected files)."""
     hit = st.setdefault('listings', {}).get(period)
-    if hit:
+    if hit and not fresh:
         return hit
     # An EMPTY listing is cached too, for a week: the listing calls are what the daily quota
     # counts, and an hourly restart re-listing every empty period would burn it on nothing.
-    if hit == [] and time.time() - st.setdefault('listed_at', {}).get(period, 0) < 7 * 86400:
+    if not fresh and hit == [] and time.time() - st.setdefault('listed_at', {}).get(period, 0) < 7 * 86400:
         return hit
     attempt = 0
     while attempt < 4:
@@ -304,10 +311,16 @@ def main():
     ap.add_argument('--freq', choices=['M', 'A'], default='M', help='M monthly (default), A yearly')
     ap.add_argument('--cl', default='HS', help='classification: HS (default), S1, S2, S3, S4 ...')
     ap.add_argument('--year-min', type=int, default=YEAR_MIN, help='oldest year (default 2000)')
+    ap.add_argument('--recheck', type=int, default=0, metavar='N',
+                    help='KEEP-FRESH PASS: re-list only the N newest periods and fetch every file '
+                         'that is new or whose publicationDate changed since we took it')
+    ap.add_argument('--quota-exit', action='store_true',
+                    help='stop (state saved) when the daily call quota runs out, instead of sleeping')
     ap.add_argument('--stream-above-mb', type=float, default=150.0,
                     help='decode archives above this size in batches (constant memory)')
     a = ap.parse_args()
-    global OUTDIR, STATE, MANIFEST, LOG
+    global OUTDIR, STATE, MANIFEST, LOG, QUOTA_EXIT
+    QUOTA_EXIT = a.quota_exit
     url = LIST % (a.freq, a.cl)
     if (a.freq, a.cl) != ('M', 'HS') and 'CMA_BULK_DIR' not in os.environ:
         OUTDIR = os.path.join(ROOT, 'raw', 'comtrade_bulk_%s_%s' % (a.freq, a.cl))
@@ -322,7 +335,28 @@ def main():
 
     years = a.years or list(range(YEAR_MAX, a.year_min - 1, -1))
     pers = periods(years, a.freq)
+    # THE KEEP-FRESH PASS. Countries file late and revise: a month keeps changing for a year or
+    # two after it first appears. Once the corpus is complete, the nightly job runs this instead
+    # of the full walk: one listing call per recent period (24 monthly + 3 yearly = 27 calls of the
+    # 5,000 a day), and a download only where the UN published something new. Every file's
+    # publicationDate is stored in the state at download, so "corrected" is a plain comparison.
+    if a.recheck:
+        pers = pers[:a.recheck]
     st = load_state()
+    # A FILE MARKED DONE MUST EXIST AND HOLD DATA. The power cut of 14 Nov 2026 01:02 left seven
+    # January-2014 files at 0 bytes - written, renamed into place, recorded as done, never reaching
+    # the disk - and nothing would ever have fetched them again. So every start checks the record
+    # against the disk, and a done entry with no real file behind it is done no longer.
+    lost = [k for k in st.get('done', {})
+            if (lambda f: not os.path.exists(f) or os.path.getsize(f) < 100)(
+                os.path.join(OUTDIR, k.split('|')[0][:4], '%s_%s.parquet' % tuple(k.split('|'))))]
+    for k in lost:
+        del st['done'][k]
+    if lost:
+        log('%d file(s) recorded as done but empty or missing on disk - will fetch again: %s'
+            % (len(lost), ', '.join(sorted(lost)[:10])))
+        if a.recheck:     # the keep-fresh pass walks only recent periods; add the damaged ones
+            pers = sorted(set(pers) | {k.split('|')[0] for k in lost}, reverse=True)
     headers = {'Ocp-Apim-Subscription-Key': _key()}
     s = requests.Session()
 
@@ -362,15 +396,21 @@ def main():
     bytes_in = 0
     try:
         for period in pers:
-            reps = listing(s, headers, period, st, url)
+            reps = listing(s, headers, period, st, url, fresh=bool(a.recheck))
             if not reps:
                 continue
-            todo = [r for r in reps
-                    if '%s|%s' % (period, r['reporterCode']) not in st['done']]
+
+            def stale(r):
+                k = '%s|%s' % (period, r['reporterCode'])
+                if k not in st['done']:
+                    return True
+                return bool(a.recheck) and st['done'][k].get('published') != r.get('publicationDate')
+            todo = [r for r in reps if stale(r)]
             if not todo:
                 continue
-            log('%s: %d reporter(s), %d to fetch, %.2f GB listed'
-                % (period, len(reps), len(todo),
+            new = sum('%s|%s' % (period, r['reporterCode']) not in st['done'] for r in todo)
+            log('%s: %d reporter(s), %d to fetch (%d new, %d corrected), %.2f GB listed'
+                % (period, len(reps), len(todo), new, len(todo) - new,
                    sum(mb(r['fileSize']) for r in reps) / 1000.0))
             for rep in todo:
                 if a.max_files and files >= a.max_files:

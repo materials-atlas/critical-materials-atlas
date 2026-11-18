@@ -1434,7 +1434,8 @@ def check_refresh():
     # the task is daily, so a gap over two days means it is not running, not that it ran late
     if age_h > 48:
         warn('refresh', 'the nightly refresh last STARTED %s (%.0f days ago) - the scheduled task '
-                        'is not running: check `Get-ScheduledTaskInfo -TaskName CMA-trade-refresh`'
+                        'is not running: it runs on the server since 18 Nov 2026 - `ssh lenovo systemctl --user '
+                        'status atlas-nightly.timer`, and `python pipeline/sync_from_server.py` here'
                         % (starts[-1], age_h / 24))
 
     # a run that started a step and never ended it was killed - shut down, slept, or hit the limit

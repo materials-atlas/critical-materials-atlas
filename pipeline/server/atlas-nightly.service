@@ -1,0 +1,17 @@
+# The atlas's nightly refresh, on the server (from 18 Nov 2026). See pipeline/scheduled_run.py.
+# Install (as the user that owns the corpus; lingering must be on so it runs with nobody logged in):
+#   mkdir -p ~/.config/systemd/user && cp pipeline/server/atlas-nightly.* ~/.config/systemd/user/
+#   systemctl --user daemon-reload && systemctl --user enable --now atlas-nightly.timer
+#   loginctl enable-linger $USER
+# Run now:  systemctl --user start atlas-nightly.service
+# Health:   tail pipeline/data/scheduled.log   (the PC reads it through pipeline/sync_from_server.py)
+[Unit]
+Description=Critical Materials Atlas nightly refresh (UN corpus keep-fresh, extract, refresh, build)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/critical-materials-atlas
+Environment=CMA_CORPUS=%h/comtrade
+ExecStart=%h/critical-materials-atlas/.venv/bin/python pipeline/scheduled_run.py
+TimeoutStartSec=5h
+Nice=10

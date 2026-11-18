@@ -116,6 +116,21 @@ def _chunks(lst, n):
 
 HISTORY = os.path.join(schema.ROOT, 'pipeline', 'data', 'comtrade_history')
 
+# THE BULK EXTRACT (from 18 Nov 2026): the atlas's codes cut out of the UN bulk corpus by
+# reconcile/extract_comtrade_crm.py, one parquet per year, in the API's field names. Same UN
+# database as the API store, but every reporter and month from 2000, kept current by the bulk
+# downloader's --recheck pass. When it is present it REPLACES the two API stores below (the
+# JSONL and the history parts): reading both would let a superseded API value outrank a revised
+# bulk one in normalize's max rule. The API stores stay on disk, frozen, as the record of what
+# the API served.
+BULK_CRM = os.environ.get('CMA_BULK_CRM_DIR', os.path.join(schema.ROOT, 'raw', 'comtrade_bulk_crm'))
+
+
+def bulk_parts():
+    import glob
+    return (sorted(glob.glob(os.path.join(BULK_CRM, '[12][0-9][0-9][0-9].parquet')))
+            if os.path.isdir(BULK_CRM) else [])
+
 
 def source_fingerprint():
     """What the two stores hold, by CONTENT not by clock: part count, part rows from parquet
@@ -135,8 +150,19 @@ def source_fingerprint():
             rows += pq.read_metadata(f).num_rows
     except ImportError:
         rows = -1
-    return {'history_parts': len(parts), 'history_rows': rows,
-            'jsonl_bytes': os.path.getsize(CACHE) if os.path.exists(CACHE) else 0}
+    out = {'history_parts': len(parts), 'history_rows': rows,
+           'jsonl_bytes': os.path.getsize(CACHE) if os.path.exists(CACHE) else 0}
+    bulk = bulk_parts()
+    if bulk:
+        # The bulk extract replaces the API stores, so ITS content is what the cache must match.
+        try:
+            import pyarrow.parquet as pq
+            brows = sum(pq.read_metadata(f).num_rows for f in bulk)
+        except ImportError:
+            brows = -1
+        out = {'bulk_parts': len(bulk), 'bulk_rows': brows,
+               'bulk_newest': round(max(os.path.getmtime(f) for f in bulk))}
+    return out
 
 
 def read_cache():
@@ -151,6 +177,10 @@ def read_cache():
     Both are read here so the transition needs no migration and no flag day. Duplicates across the
     two stores are harmless: normalize() keys every cell and keeps one row per key.
     """
+    bulk = bulk_parts()
+    if bulk:
+        import pandas as pd
+        return pd.concat([pd.read_parquet(f) for f in bulk], ignore_index=True)
     rows = []
     if os.path.exists(CACHE):
         for line in open(CACHE, encoding='utf8'):
@@ -360,6 +390,9 @@ class ComtradeAdapter(Adapter):
         equals the sum of the others to the cent. Where a cell genuinely arrives only once, max is
         that row, so the rule is safe everywhere.
         """
+        if hasattr(raw, 'columns'):          # the bulk extract, as one DataFrame
+            yield from self._normalize_frame(raw)
+            return
         best = {}
         for r in raw:
             # Prefer the all-modes total explicitly where the field is present: motCode=0 IS
@@ -409,3 +442,36 @@ class ComtradeAdapter(Adapter):
                 # None, which the reconciliation treats as "unknown, use the convention".
                 value_basis=('cif' if r.get('cifvalue') is not None
                              else 'fob' if r.get('fobvalue') is not None else None))
+
+    def _normalize_frame(self, df):
+        """normalize() for the bulk extract, vectorised: the same rules, row for row, without
+        building a dict per raw record (several million of them would not fit the server's 8 GB).
+        The extract is already the total cell (motCode 0, partner2Code 0, customsCode C00), so
+        the dedup below finds nothing to do on it; it stays so the rule cannot drift."""
+        import pandas as pd
+        d = df[df['motCode'].fillna(0).astype('int64').eq(0)]
+        p2 = d['partner2Code']
+        d = d[p2.isna() | p2.eq(0) | p2.eq(d['partnerCode'])]
+        rep = d['reporterCode'].astype('int64').astype(str).map(schema.NUM2ISO3)
+        par = d['partnerCode'].astype('int64').astype(str).map(schema.NUM2ISO3)
+        tracked = concordance.tracked_hs6_set()
+        keep = rep.notna() & par.notna() & d['cmdCode'].isin(tracked)
+        d = d[keep].assign(rep=rep[keep], par=par[keep])
+        d = d.assign(_v=pd.to_numeric(d['primaryValue'], errors='coerce').fillna(0),
+                     _i=(d['fobvalue'].notna() | d['cifvalue'].notna()).astype(int))
+        key = ['period', 'rep', 'par', 'cmdCode', 'flowCode']
+        d = d.sort_values(key + ['_v', '_i'], ascending=[True] * 5 + [False, False])
+        d = d.drop_duplicates(key, keep='first')
+        for r in d.itertuples(index=False):
+            v = None if pd.isna(r.primaryValue) else float(r.primaryValue)
+            q = None if pd.isna(r.netWgt) else float(r.netWgt)
+            yield schema.row(
+                source=self.key, freq=self.freq, period=int(r.period),
+                reporter=r.rep, reporter_name=schema.ISO3_NAME.get(r.rep, r.rep),
+                partner=r.par, partner_name=schema.ISO3_NAME.get(r.par, r.par),
+                flow='import' if r.flowCode == 'M' else 'export',
+                hs6=r.cmdCode, native_code=r.cmdCode, code_level=6,
+                material=concordance.material_for(r.cmdCode, 6),
+                value_usd=v, qty_kg=q, is_mirror=False,
+                value_basis=('cif' if not pd.isna(r.cifvalue)
+                             else 'fob' if not pd.isna(r.fobvalue) else None))

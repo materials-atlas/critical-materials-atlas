@@ -17,6 +17,18 @@ dies and writes pipeline/data/refresh_status.txt. check.py's `refresh` check rea
 Remove:  schtasks /delete /tn "CMA-trade-refresh" /f
 Run now: schtasks /run /tn "CMA-trade-refresh"
 Health:  the last lines of pipeline/data/scheduled.log should be a recent "run finished, exits".
+
+ON THE SERVER (from 18 Nov 2026; the Windows task above is disabled). The Lenovo holds the whole
+UN bulk corpus, so the API step - pull_comtrade.py, one month a night through the same key and
+the same daily quota - is gone: it was a second download of the same database. Server mode is
+switched on by CMA_CORPUS, the folder of the bulk downloader (~/comtrade), and runs:
+  1. the corpus keep-fresh pass, monthly then yearly (pull_comtrade_bulk.py --recheck): one
+     listing call per recent period, a download only where the UN published something new or
+     corrected. Skipped while the full download (comtrade-bulk.service) still runs - they share
+     the quota - and stopped, not slept, if the quota is spent (--quota-exit).
+  2. reconcile/extract_comtrade_crm.py: re-cuts the atlas's codes for the years that changed.
+  3. refresh.py, build.py as before; adapter_comtrade now reads the extract.
+Systemd user units: atlas-nightly.service + atlas-nightly.timer (02:00), see pipeline/server/.
 """
 import ctypes, os, sys, subprocess, datetime
 
@@ -83,12 +95,54 @@ def _run(args):
     return r.returncode
 
 
+def _run_in(args, cwd, py, env=None):
+    """_run for a program outside the repo (the corpus downloader) - same log format."""
+    t0 = datetime.datetime.now()
+    _log('--- %s  START %s' % (t0.isoformat(timespec='seconds'), ' '.join(args)))
+    e = dict(os.environ, **(env or {}))
+    r = subprocess.run([py] + args, cwd=cwd, capture_output=True, text=True, env=e)
+    out = (r.stdout or '') + (r.stderr or '')
+    # The downloader's per-file lines are already in its own log; keep the tail here.
+    lines = out.rstrip().splitlines()
+    _log('\n'.join(lines[-40:]))
+    _log('--- END %s  exit %d  %.0fs' % (' '.join(args), r.returncode,
+                                        (datetime.datetime.now() - t0).total_seconds()))
+    return r.returncode
+
+
+def _server_steps(corpus):
+    cpy = os.path.join(corpus, '.venv', 'bin', 'python')
+    if not os.path.exists(cpy):
+        cpy = PY
+    codes = []
+    busy = subprocess.run(['systemctl', '--user', 'is-active', 'comtrade-bulk.service'],
+                          capture_output=True, text=True).stdout.strip() == 'active'
+    if busy:
+        _log('--- the full bulk download is still running: keep-fresh pass skipped tonight')
+    else:
+        dl = 'reconcile/pull_comtrade_bulk.py'
+        codes.append(_run_in([dl, '--all-codes', '--recheck', '24', '--quota-exit'], corpus, cpy))
+        codes.append(_run_in([dl, '--all-codes', '--freq', 'A', '--cl', 'HS', '--recheck', '3',
+                              '--quota-exit'], corpus, cpy))
+    codes.append(_run_in(['reconcile/extract_comtrade_crm.py'], REPO, PY,
+                         {'CMA_BULK_DIR': os.path.join(corpus, 'raw', 'comtrade_bulk')}))
+    codes.append(_run(['pipeline/refresh.py', 'all', '--periods', '3']))
+    codes.append(_run(['pipeline/build.py']))
+    return codes
+
+
 def main():
     stamp = datetime.datetime.now().isoformat(timespec='seconds')
     _log(f"\n===== scheduled run {stamp} =====")
     note = _stay_awake(True)
     if note:
         _log('--- sleep block: %s' % note)
+    corpus = os.environ.get('CMA_CORPUS')
+    if corpus:
+        codes = _server_steps(corpus)
+        _stay_awake(False)
+        _log('===== scheduled run finished, exits %s =====' % (codes,))
+        return
     codes = [
         # ALL reporters, one month per run. The goal is maximum country coverage, and with
         # the measured pause that is ~19 minutes at 3am rather than 3 minutes - which buys
