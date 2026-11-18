@@ -1452,13 +1452,18 @@ def check_refresh():
                         % ', '.join('%s -> %d' % (nm, c) for nm, c in bad))
 
     # how many of the last seven nights completed, which is the number that shows a slow bleed
-    cutoff = datetime.datetime.now() - datetime.timedelta(days=7)
+    # The window starts no earlier than the move to the server (18 Nov 2026): the nights before it
+    # were deliberately not run (the laptop task was paused for the bulk download), and counting
+    # them would raise a daily alarm about a week that is over. Expected nights shrink to match.
+    moved = datetime.datetime(2026, 11, 18)
+    cutoff = max(datetime.datetime.now() - datetime.timedelta(days=7), moved)
+    nights = max(1, min(7, (datetime.datetime.now() - cutoff).days))
     recent = [i for i, t in enumerate(starts) if datetime.datetime.fromisoformat(t) >= cutoff]
     done = [i for i in recent if i in ends]
-    if recent and len(done) < 6:
-        warn('refresh', 'only %d of the last 7 nights completed a refresh (%d started) - a run that '
+    if recent and len(done) < nights - 1:
+        warn('refresh', 'only %d of the last %d nights completed a refresh (%d started) - a run that '
                         'dies leaves the caches a day older with no other symptom'
-                        % (len(done), len(recent)))
+                        % (len(done), nights, len(recent)))
 
 
 

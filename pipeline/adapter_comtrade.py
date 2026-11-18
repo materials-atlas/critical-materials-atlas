@@ -160,8 +160,15 @@ def source_fingerprint():
             brows = sum(pq.read_metadata(f).num_rows for f in bulk)
         except ImportError:
             brows = -1
-        out = {'bulk_parts': len(bulk), 'bulk_rows': brows,
-               'bulk_newest': round(max(os.path.getmtime(f) for f in bulk))}
+        # CONTENT, never mtime: a copy (sync_from_server.py) resets every timestamp, and a
+        # revised value can leave the row count unchanged. 27 small files hash in well under a second.
+        import hashlib
+        h = hashlib.md5()
+        for f in bulk:
+            h.update(os.path.basename(f).encode())
+            with open(f, 'rb') as fh:
+                h.update(hashlib.md5(fh.read()).digest())
+        out = {'bulk_parts': len(bulk), 'bulk_rows': brows, 'bulk_md5': h.hexdigest()}
     return out
 
 
