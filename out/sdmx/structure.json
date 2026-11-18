@@ -1,6 +1,6 @@
 {
  "meta": {
-  "prepared": "2026-10-04",
+  "prepared": "2026-11-18",
   "sender": {
    "id": "CMA",
    "name": "Critical Materials Atlas"
@@ -549,6 +549,10 @@
       "name": "processed"
      },
      {
+      "id": "smelter",
+      "name": "smelter"
+     },
+     {
       "id": "unspecified",
       "name": "unspecified"
      }
@@ -589,6 +593,10 @@
       "name": "CEPII BACI (HS02)"
      },
      {
+      "id": "CMA monthly BACI (two-sided)",
+      "name": "CMA monthly BACI (two-sided)"
+     },
+     {
       "id": "CMA two-sided reconciliation",
       "name": "CMA two-sided reconciliation"
      },
@@ -603,6 +611,10 @@
      {
       "id": "USGS Historical Statistics (DS 140)",
       "name": "USGS Historical Statistics (DS 140)"
+     },
+     {
+      "id": "USGS Minerals Yearbook",
+      "name": "USGS Minerals Yearbook"
      },
      {
       "id": "World Mining Data",
@@ -631,8 +643,104 @@
       "name": "EUR"
      },
      {
+      "id": "Kilograms",
+      "name": "Kilograms"
+     },
+     {
+      "id": "Kilograms, contained tellurium",
+      "name": "Kilograms, contained tellurium"
+     },
+     {
+      "id": "Kilograms, niobium content",
+      "name": "Kilograms, niobium content"
+     },
+     {
+      "id": "Kilograms, selenium content",
+      "name": "Kilograms, selenium content"
+     },
+     {
+      "id": "Kilograms, tantalum content",
+      "name": "Kilograms, tantalum content"
+     },
+     {
+      "id": "Kilograms, tellurium content",
+      "name": "Kilograms, tellurium content"
+     },
+     {
+      "id": "Metric tons",
+      "name": "Metric tons"
+     },
+     {
+      "id": "Metric tons, antimony content, unless otherwise",
+      "name": "Metric tons, antimony content, unless otherwise"
+     },
+     {
+      "id": "Metric tons, antimony content, unless otherwise specified",
+      "name": "Metric tons, antimony content, unless otherwise specified"
+     },
+     {
+      "id": "Metric tons, cobalt content",
+      "name": "Metric tons, cobalt content"
+     },
+     {
+      "id": "Metric tons, copper content",
+      "name": "Metric tons, copper content"
+     },
+     {
+      "id": "Metric tons, gross weight",
+      "name": "Metric tons, gross weight"
+     },
+     {
+      "id": "Metric tons, lead content",
+      "name": "Metric tons, lead content"
+     },
+     {
+      "id": "Metric tons, molybdenum content",
+      "name": "Metric tons, molybdenum content"
+     },
+     {
+      "id": "Metric tons, nickel content",
+      "name": "Metric tons, nickel content"
+     },
+     {
+      "id": "Metric tons, niobium content",
+      "name": "Metric tons, niobium content"
+     },
+     {
+      "id": "Metric tons, rare-earth-oxide equivalent",
+      "name": "Metric tons, rare-earth-oxide equivalent"
+     },
+     {
+      "id": "Metric tons, tantalum content",
+      "name": "Metric tons, tantalum content"
+     },
+     {
+      "id": "Metric tons, tin content",
+      "name": "Metric tons, tin content"
+     },
+     {
+      "id": "Metric tons, zinc content",
+      "name": "Metric tons, zinc content"
+     },
+     {
       "id": "Mio m3",
       "name": "Mio m3"
+     },
+     {
+      "id": "Thousand metric tons",
+      "name": "Thousand metric tons"
+     },
+     {
+      "id": "Thousand metric tons, gross weight",
+      "name": "Thousand metric tons, gross weight"
+     },
+     {
+      "id": "Thousand metric tons, zinc content of concentrate and direct shipping ore, unless otherwise specified",
+      "name": "Thousand metric tons, zinc content of concentrate and direct shipping ore, unless otherwise specified"
+     },
+     {
+      "id": "Thousands metric tons, gross weight",
+      "name": "Thousands metric tons, gross weight"
      },
      {
       "id": "USD",
@@ -2023,13 +2131,15 @@
     "sources_and_licences": {
      "BGS World Mineral Statistics": "Open Government Licence v3.0 (attribution required)",
      "USGS Historical Statistics (DS 140)": "US Government public domain",
+     "USGS Minerals Yearbook": "US Government public domain",
      "CEPII BACI (HS02)": "Etalab Open Licence 2.0 (attribution: Gaulier & Zignago 2010)",
      "World Mining Data": "Free with attribution (BMK Austria / WMD)",
      "IEA Critical Minerals Dataset": "CC BY 4.0",
      "Eurostat Comext (CN8)": "CC BY 4.0 (© European Union, Eurostat). Re-use permitted including commercially, with source acknowledgement and an indication of changes made.",
-     "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces."
+     "CMA two-sided reconciliation": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: computed from two independent national declarations, neither of which it reproduces.",
+     "CMA monthly BACI (two-sided)": "CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: two independent national declarations combined with reliability weights estimated by us following Gaulier & Zignago (2010), neither declaration reproduced."
     },
-    "observations": 2114843,
+    "observations": 3664577,
     "series_key": [
      "FREQ",
      "SOURCE",

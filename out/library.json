@@ -2,8 +2,8 @@
  "note": "Every external dataset held under raw/. The FILES are gitignored (3.4 GB, and all re-downloadable from the documented sources); THIS RECORD is committed, so the repository always knows what was collected, under what licence, and why it was kept - even on a machine where the files are absent.",
  "rule": "A dataset that is not in the cube is not thereby useless. Three intakes: cube (mineral quantity per country-year), driver (activity series per country-year), reference (everything a question might need later). A non-CC licence permits use but never redistribution in out/.",
  "derived": "read_by and reaches_cube come from out/graph.json, the OBSERVED dependency graph - never typed here. status is a human claim; where the two disagree the folder is listed under contested, because that disagreement is the point.",
- "total_gb": 5.33,
- "folders": 77,
+ "total_gb": 5.39,
+ "folders": 78,
  "undocumented": [],
  "unread": [
   "raw/iea_bulk/gender-and-energy",
@@ -63,6 +63,7 @@
  "only_named_in_pipeline_source": [
   "raw/comtrade_full",
   "raw/usgs_myb",
+  "raw/comtrade_bulk_crm",
   "raw/oecd_itic",
   "raw/_sources",
   "raw/comtrade_bulk",
@@ -286,6 +287,27 @@
    "n_readers": 0,
    "reaches_cube": false,
    "named_in_pipeline_source": []
+  },
+  {
+   "folder": "raw/comtrade_bulk_crm",
+   "n_files": 27,
+   "size_mb": 56.0,
+   "formats": [
+    ".parquet"
+   ],
+   "newest": "2026-11-18",
+   "dataset": "UN Comtrade bulk corpus, cut to the atlas codes, one parquet a year",
+   "licence": "UN Comtrade terms - re-dissemination limited; see licences.py",
+   "status": "in use",
+   "why_we_might_need_it": "Written on the server each night by reconcile/extract_comtrade_crm.py and copied here by pipeline/sync_from_server.py. What adapter_comtrade reads since 18 Nov 2026, replacing the API cache: same database, every reporter and month from 2000.",
+   "read_by": [],
+   "n_readers": 0,
+   "reaches_cube": false,
+   "named_in_pipeline_source": [
+    "pipeline/adapter_comtrade.py",
+    "pipeline/sync_from_server.py",
+    "reconcile/extract_comtrade_crm.py"
+   ]
   },
   {
    "folder": "raw/oecd_itic",

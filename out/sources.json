@@ -23,7 +23,7 @@
   {
    "source": "CMA single-declaration passthrough",
    "coverage": {
-    "rows": 6725100,
+    "rows": 6897730,
     "materials": 33,
     "geographies": 232,
     "years": [
@@ -44,15 +44,15 @@
      "USD",
      "tonnes (metric)"
     ],
-    "series": 316800,
-    "pct_convertible_to_tonnes": 49.4
+    "series": 319728,
+    "pct_convertible_to_tonnes": 49.6
    }
   },
   {
    "source": "CMA two-sided reconciliation",
    "coverage": {
-    "rows": 1408130,
-    "materials": 33,
+    "rows": 1477374,
+    "materials": 32,
     "geographies": 155,
     "years": [
      2000,
@@ -72,8 +72,60 @@
      "USD",
      "tonnes (metric)"
     ],
-    "series": 74772,
+    "series": 75684,
     "pct_convertible_to_tonnes": 45.1
+   }
+  },
+  {
+   "source": "CMA monthly BACI (two-sided)",
+   "coverage": {
+    "rows": 1473577,
+    "materials": 30,
+    "geographies": 122,
+    "years": [
+     2017,
+     2026
+    ],
+    "measures": [
+     "exports",
+     "exports_value"
+    ],
+    "stages": [
+     "compound",
+     "unspecified"
+    ],
+    "units": [
+     "USD",
+     "tonnes (metric)"
+    ],
+    "series": 45578,
+    "pct_convertible_to_tonnes": 49.8
+   }
+  },
+  {
+   "source": "CMA monthly BACI (single declaration)",
+   "coverage": {
+    "rows": 1137927,
+    "materials": 30,
+    "geographies": 221,
+    "years": [
+     2017,
+     2026
+    ],
+    "measures": [
+     "exports",
+     "exports_value"
+    ],
+    "stages": [
+     "compound",
+     "unspecified"
+    ],
+    "units": [
+     "USD",
+     "tonnes (metric)"
+    ],
+    "series": 116591,
+    "pct_convertible_to_tonnes": 49.4
    }
   },
   {
@@ -331,6 +383,36 @@
     ],
     "series": 65,
     "pct_convertible_to_tonnes": 93.0
+   }
+  },
+  {
+   "source": "USGS Minerals Yearbook",
+   "coverage": {
+    "rows": 6913,
+    "materials": 26,
+    "geographies": 142,
+    "years": [
+     2013,
+     2023
+    ],
+    "measures": [
+     "production"
+    ],
+    "stages": [
+     "mine",
+     "processed",
+     "smelter"
+    ],
+    "units": [
+     "Kilograms",
+     "Kilograms, contained tellurium",
+     "Kilograms, niobium content",
+     "Kilograms, selenium content",
+     "Kilograms, tantalum content",
+     "Kilograms, tellurium content"
+    ],
+    "series": 907,
+    "pct_convertible_to_tonnes": 100.0
    }
   },
   {
