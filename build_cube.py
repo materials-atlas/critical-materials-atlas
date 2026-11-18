@@ -363,6 +363,22 @@ def build():
     except Exception as e:
         print(f'  annual flows ingest skipped: {e}')
 
+    # ── the monthly BACI replication (CEPII's method, month by month, 2017 onwards) ─────────────
+    # A second compilation of the monthly flows beside build_cube_trade's: every two-sided flow
+    # gets CEPII's reliability-weighted number instead of "no number when the sides disagree".
+    # Two observations, not a conflict - `source` keeps them apart. See build_cube_mbaci.py.
+    try:
+        import build_cube_mbaci
+        mb = build_cube_mbaci.build()
+        if len(mb):
+            mb['in_atlas'] = mb['material'].isin(ATLAS)
+            mb['retrieved_at'] = None
+            df = pd.concat([df, mb], ignore_index=True, sort=False)
+            print(f'  monthly BACI replication: {len(mb):,} rows, '
+                  f'{mb.period.min()}-{mb.period.max()}')
+    except Exception as e:
+        print(f'  monthly BACI ingest skipped: {e}')
+
     # FREQUENCY - and it must sit HERE, after every ingest, not after the first one.
     # It was placed above the second ingest and the result was 14,268 collided series keys: the
     # five later sources appended rows with no freq/period column at all, pandas filled NaN, and
@@ -482,14 +498,17 @@ def build():
 # read it as "the uncertainty of this total", which is not what it measures. An interval belongs at
 # the grain where it was computed, so it stays in pipeline/data/cube.parquet on the 8.1M bilateral
 # rows and is dropped here. It also happens to be 8.0 MB of the 21.4 MB file, every rebuild.
-_MONTHLY_GROUP = 'CMA monthly reconciliation'
+# Every monthly bilateral layer, not just the first one: the monthly BACI replication (18 Nov
+# 2026) went out bilateral on its first build because this named one group, and the published
+# file went from 14.1 MB to 48.6 MB. A rule that names its first case is a rule about that case.
+_MONTHLY_GROUPS = ('CMA monthly reconciliation', 'CMA monthly BACI replication')
 _INTERVAL = ('value_lo', 'value_hi')
 
 
 def _publish_monthly_as_totals(pub):
     if 'source_group' not in pub.columns or not len(pub):
         return pub
-    m = pub['source_group'] == _MONTHLY_GROUP
+    m = pub['source_group'].isin(_MONTHLY_GROUPS)
     if not m.any():
         return pub
     rest, mon = pub[~m], pub[m]

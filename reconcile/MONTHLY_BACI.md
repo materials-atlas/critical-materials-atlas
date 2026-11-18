@@ -747,3 +747,36 @@ one declaration within 0.1%. Share of such flows (exporter's figure / importer's
 
 So it is a stable step of BACI's method, about one big-gap two-sided flow in five in every year and
 both editions, flow by flow, and not described in the paper. Only CEPII can say what it is.
+
+## Into the atlas: the cube's eighth trade layer (18 Nov 2026)
+
+`build_cube_mbaci.py` (called by `build_cube.py`) reads `out/monthly_baci_crm.parquet`: the atlas's 38
+HS6 codes cut out of `~/comtrade/mm_<year>/` on the Lenovo, 1,315,735 flows 2017-01..2026-09 (hafnium
+811231 absent by construction: HS 2022 only). Sources `CMA monthly BACI (two-sided)` (published, ours)
+and `CMA monthly BACI (single declaration)` (withheld, recipe in licences.py). One row per flow from
+the exporter's side, `exports_value` (USD) and `exports` (t); intervals = the two declarations; rows
+whose declarations are >= 2x apart say so in `precision`. Published extract: monthly layers as
+exporter-month totals (rule now covers every monthly group; the first build leaked 1.47m bilateral
+rows and took out/cube.parquet from 14.1 to 48.6 MB).
+
+To refresh after a new monthly run (Lenovo, ~1 min each, then copy to `out/`):
+1. the cut: `COPY (SELECT period, exporter, importer, hs6, v, q, vx, vm, qx, qm, basis FROM
+   read_parquet('~/comtrade/mm_20*/2*.parquet') WHERE hs6 IN (<the 38 codes of
+   pipeline/concordance.tracked_hs6_set()>)) TO '~/comtrade/mbaci_crm.parquet'`;
+2. `~/comtrade/est_flags.py` (UN-estimated net weights per period x reporter x partner x flow x
+   code, ~15 min), joined as `est_x` (reporter = exporter, flow X) and `est_m` (reporter = importer,
+   flow M). Without `est_x`/`est_m` the ingest enters no tonnes at all.
+
+Checked against BACI 2023 per code: values within +-6% on 33 of 37 codes (nickel oxides 282540 +40%:
+one flow, CHN->KOR, declarations $340m vs $1m; tungsten 810194 -20%). Tonnes: bauxite 2.4x BACI
+because BACI's tonnes are wrong there (China declares 99 Mt from Guinea in 2023, BACI 13.8 Mt).
+Where the two declared weights are 50-200x apart (helium MEX<-USA, antimony oxide NLD<-BEL) the
+BACI mix is meaningless - flagged by the interval and the precision note.
+
+Two traps found on the way:
+- **UN monthly net weights are often UN estimates** (isNetWgtEstimated): 10-15% of the atlas's
+  monthly cells. China 2017 bauxite from Guinea: monthly 4.8 Mt estimated vs yearly 27.6 Mt reported,
+  same $1,453m. Tonnes built on one enter the cube with obs_status E.
+- **China filed NO monthly data for 2025-2026** (zero files in the bulk corpus). Flows with China in
+  those months exist only from partners' declarations: $92.8bn (2024) -> $35.3bn (2025) to China for
+  the atlas codes. A reporting gap, not trade.

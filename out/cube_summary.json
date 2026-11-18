@@ -1,16 +1,16 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
- "rows": 9222606,
+ "rows": 11848792,
  "materials": 98,
  "materials_in_atlas": 32,
  "countries": 248,
  "year_min": 1900,
  "year_max": 2050,
  "by_measure": {
-  "exports_value": 2449923,
-  "imports": 2289076,
-  "imports_value": 2166548,
-  "exports": 2142275,
+  "exports_value": 3769538,
+  "exports": 3441505,
+  "imports": 2292537,
+  "imports_value": 2170428,
   "production": 137885,
   "unit_value_nominal": 8874,
   "unit_value_real98": 8794,
@@ -36,16 +36,18 @@
   "stocks_lme": 31
  },
  "by_stage": {
-  "unspecified": 6411465,
-  "compound": 1920003,
+  "unspecified": 8418318,
+  "compound": 2539336,
   "processed": 219402,
   "mine": 155392,
   "smelter": 782
  },
  "tonnage_convertible_pct": 49.7,
  "sources": {
-  "CMA single-declaration passthrough": 6731346,
-  "CMA two-sided reconciliation": 1408796,
+  "CMA single-declaration passthrough": 6745096,
+  "CMA monthly BACI (two-sided)": 1473577,
+  "CMA two-sided reconciliation": 1409728,
+  "CMA monthly BACI (single declaration)": 1137927,
   "CMA annual world reconciliation": 368838,
   "BGS World Mineral Statistics": 275297,
   "CEPII BACI (HS02)": 207366,
@@ -67,6 +69,14 @@
   "CMA annual world reconciliation": [
    2002,
    2025
+  ],
+  "CMA monthly BACI (single declaration)": [
+   2017,
+   2026
+  ],
+  "CMA monthly BACI (two-sided)": [
+   2017,
+   2026
   ],
   "CMA single-declaration passthrough": [
    2000,
@@ -100,7 +110,7 @@
  "geographies": 248,
  "world_rows": 7956,
  "by_measure_family": {
-  "trade": 9050432,
+  "trade": 11676618,
   "production": 139847,
   "price": 17777,
   "derived_by_source": 8448,
@@ -109,7 +119,7 @@
   "demand": 902,
   "labour": 58
  },
- "series": 325717,
+ "series": 448820,
  "value_flags": {
   "nil": 4452,
   "estimated_by_source": 3489,

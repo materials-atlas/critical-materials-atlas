@@ -70,6 +70,13 @@ LICENCES = {
     'CMA two-sided reconciliation':
         'CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: '
         'computed from two independent national declarations, neither of which it reproduces.',
+    # OUR OWN derived statistic on the same footing: two declarations of one flow combined with
+    # CEPII's reliability weights (BACI's published method, re-run by us on the monthly data).
+    # Neither declaration is reproduced. Added 18 Nov 2026 with build_cube_mbaci.py.
+    'CMA monthly BACI (two-sided)':
+        'CC BY 4.0 (Critical Materials Atlas). Derived statistic, not a redistribution: '
+        'two independent national declarations combined with reliability weights estimated by '
+        'us following Gaulier & Zignago (2010), neither declaration reproduced.',
 }
 
 # Held back from every public artefact ON PURPOSE - not an oversight, not a missing licence.
@@ -92,6 +99,10 @@ WITHHELD = {
         'only one customs service declared these shipments, so the figure is that service - '
         'mostly UN Comtrade - at most deflated by our freight markup. Calling it our derivation '
         'would be a fiction, and publishing it would be republishing Comtrade under our name.',
+    'CMA monthly BACI (single declaration)':
+        'only one customs service declared these shipments, so the figure is that service’s own '
+        'UN Comtrade record, passed through by the BACI method unchanged. Publishing it would be '
+        'republishing Comtrade under our name.',
 }
 
 # WHAT WE OWE A CUSTOMER WE SAY NO TO.
@@ -137,6 +148,32 @@ RETRIEVAL = {
                      'pipeline/reconcile.py turns them into these rows. Both are public.',
         'gotcha': 'The keyless preview endpoint silently truncates every response at 500 rows. '
                   'If a call returns exactly 500 records, it is truncated, not complete.',
+    },
+    # Same records, same door: a single-declaration flow IS the declaring country's own monthly
+    # Comtrade record, so the recipe is the one above with the reporter set to the declarer.
+    'CMA monthly BACI (single declaration)': {
+        'holder': 'United Nations Statistics Division - UN Comtrade',
+        'why_not': 'Comtrade free-tier terms permit use and analysis but not bulk '
+                   'redistribution of the underlying records.',
+        'cost': 'Free. A registered account gives an API key: 100,000 records per call, '
+                '500 calls per day. The monthly bulk files need a premium subscription.',
+        'register': 'https://comtradeplus.un.org/  ->  sign in  ->  API Management',
+        'endpoint': 'https://comtradeapi.un.org/data/v1/get/C/M/HS',
+        'parameters': {
+            'reporterCode': 'the country that declared the flow (the exporter for an export-only '
+                            'flow, the importer for an import-only one), UN M49 numeric',
+            'period': 'YYYYMM, comma-separated, up to 12 per call',
+            'cmdCode': 'the HS6 codes in out/materials_hs6.json (HS 2017 codes)',
+            'flowCode': 'X for an export-only flow, M for an import-only one',
+            'partnerCode': 'the other country, UN M49 numeric',
+            'motCode': '0 - the all-modes total',
+            'customsCode': 'C00 - all procedures',
+            'partner2Code': '0',
+        },
+        'reproduce': 'reconcile/monthly_baci.py turns these records into these rows; it is public, '
+                     'and reconcile/MONTHLY_BACI.md gives the command.',
+        'gotcha': 'A single-declaration import is the importer’s CIF figure as declared: BACI '
+                  'removes no freight in its final values, and neither do we.',
     },
 }
 
