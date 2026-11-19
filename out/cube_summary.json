@@ -1,6 +1,8 @@
 {
  "note": "Harmonized long fact table. One row = one (material, country, year, measure, form). Analyses are queries against this, not separate pipelines. v1 spine = BGS World Mineral Statistics; BACI trade and USGS/WMD are the next ingests.",
  "rows": 12069072,
+ "published_rows": 1529353,
+ "published_note": "out/cube.parquet and out/cube.csv.gz hold published_rows; rows counts the full store, which keeps monthly trade partner by partner and the sources whose licence does not allow redistribution (see licences.py).",
  "materials": 98,
  "materials_in_atlas": 32,
  "countries": 248,

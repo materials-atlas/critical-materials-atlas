@@ -56,7 +56,10 @@ BLOCS = ['China', 'EU', 'US', 'Japan', 'Korea', 'India', 'Other']
 
 # refined production by bloc (kt). IEA 2024 refining-by-country -> blocs; EU copper from Eurostat.
 PROD = {
-    'copper':  {'China': 11860, 'Japan': 1578, 'India': 655, 'EU': 1980, 'Other': 26944 - 11860 - 1578 - 655 - 1980},
+    # US and Korea from USGS MCS 2025 refinery table, 2023 (raw/apparent/usgs_copper_refinery.json; BGS 881.9 / 604.1
+    # agrees). Until 19 Nov 2026 they were missing here, so the US showed 0 refined production and its 882 kt sat in Other.
+    'copper':  {'China': 11860, 'Japan': 1578, 'India': 655, 'EU': 1980, 'US': 882, 'Korea': 604,
+                'Other': 26944 - 11860 - 1578 - 655 - 1980 - 882 - 604},
     'lithium': {'China': 169.7, 'EU': 0, 'Other': 241.6 - 169.7},
     'cobalt':  {'China': 196.1, 'Japan': 5.6, 'EU': 20.1, 'Other': 269.6 - 196.1 - 5.6 - 20.1},
     'nickel':  {'China': 1091.1, 'EU': 62.0, 'Other': 3596.8 - 1091.1 - 62.0},
@@ -78,7 +81,7 @@ REG = {
  'lithium': {'title': 'Lithium', 'hs': ['283691','282520'], 'world': 242,
              'stage_match': True, 'hs_purity': 'clean', 'content': 'ok', 'china_known': 65,
              'anchor2': None,
-             'hs_note': 'Li carbonate + hydroxide (HS 2836.91 / 2825.20) — matches lithium-chemical output; no free 2nd country anchor'},
+             'hs_note': 'Li carbonate + hydroxide (HS 2836.91 / 2825.20), converted to lithium content (carbonate 18.8% Li, hydroxide monohydrate 16.5% Li) to match IEA refined output in tonnes of Li; no free 2nd country anchor'},
  'cobalt':  {'title': 'Cobalt', 'hs': ['810520'], 'world': 270,
              'stage_match': False, 'hs_purity': 'bundled', 'content': 'ok', 'china_known': 55,
              'anchor2': None,
@@ -118,10 +121,16 @@ def scorecard(m, china_share):
         tier = 'C'
     return tier, checks
 
+# Contained-metal factor per traded HS code, applied to BACI's gross product tonnes so trade is on the same basis as
+# production. Lithium production (IEA) is in tonnes of Li; BACI carries tonnes of chemical. Li2CO3 = 2x6.941/73.89 =
+# 0.1879 Li; LiOH.H2O (the traded form of 282520) = 6.941/41.96 = 0.1654 Li. Without this (until 19 Nov 2026) the
+# gross tonnes were added to Li tonnes and Korea came out at 67% of world lithium use, "Other" at -64%.
+CONTENT = {'283691': 0.1879, '282520': 0.1654}
+
 def ac_for(m):
     codes, world = REG[m]['hs'], REG[m]['world']
-    imp = {b: sum(IMP.get(c, {}).get(b, 0) for c in codes) for b in BLOCS}
-    exp = {b: sum(EXP.get(c, {}).get(b, 0) for c in codes) for b in BLOCS}
+    imp = {b: sum(IMP.get(c, {}).get(b, 0) * CONTENT.get(c, 1.0) for c in codes) for b in BLOCS}
+    exp = {b: sum(EXP.get(c, {}).get(b, 0) * CONTENT.get(c, 1.0) for c in codes) for b in BLOCS}
     prod = dict(PROD[m]); prod.setdefault('Other', 0)
     ac = {b: prod.get(b, 0) + imp[b] - exp[b] for b in BLOCS}
     tot = sum(ac.values())
@@ -153,12 +162,12 @@ if os.path.exists(CIN):
         HUBS = {'NLD', 'BEL', 'SGP', 'HKG', 'ARE', 'CHE', 'GBR', 'MYS', 'LUX', 'PAN'}
         row = lambda c: {'iso': c, 'prod': prod.get(c, 0), 'net': round(imp.get(c, 0) - exp.get(c, 0), 1),
                          'ac': ac[c], 'share': round(ac[c] / world_ac * 100, 1), 'hub': c in HUBS}
-        consumers = sorted((row(c) for c in ac if ac[c] > 0), key=lambda r: -r['ac'])
+        consumers = sorted((row(c) for c in ac if ac[c] > 0), key=lambda r: (-r['ac'], r['iso']))   # iso breaks ties: set order is hash-seed dependent
         # SPLIT the net-supplier flags (X-mgr): a PRODUCER netting negative is a finding (Norway/Elkem);
         # a ZERO-production country netting negative is a re-export artefact (noise). Do NOT collapse.
         neg = [row(c) for c in ac if ac[c] <= 0]
-        review = sorted((r for r in neg if r['prod'] > 0), key=lambda r: r['ac'])     # informative
-        transit = [r for r in neg if r['prod'] == 0]                                  # noise
+        review = sorted((r for r in neg if r['prod'] > 0), key=lambda r: (r['ac'], r['iso']))     # informative
+        transit = sorted((r for r in neg if r['prod'] == 0), key=lambda r: r['iso'])                                  # noise
         china = round(ac.get('CHN', 0) / world_ac * 100)
         gap = abs(china - d['china_known'])
         a2 = d.get('anchor2') or {}

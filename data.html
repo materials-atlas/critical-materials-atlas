@@ -42,9 +42,9 @@
   <table>
     <thead><tr><th>URL</th><th>What</th></tr></thead>
     <tbody>
-      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The whole cube, 16.2&nbsp;MB &mdash; for pandas, DuckDB, R, Polars</td></tr>
-      <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 5.8&nbsp;MB &mdash; opens anywhere</td></tr>
-      <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules</td></tr>
+      <tr><td><span class="endpoint">/out/cube.parquet</span></td><td>The published cube, 1.53 million rows, 17.2&nbsp;MB &mdash; for pandas, DuckDB, R, Polars. Monthly trade comes as reporter-month totals against the world, not partner by partner</td></tr>
+      <tr><td><span class="endpoint">/out/cube.csv.gz</span></td><td>The same table as gzipped CSV, 24.0&nbsp;MB &mdash; opens anywhere</td></tr>
+      <tr><td><span class="endpoint">/out/cube_summary.json</span></td><td>What is in it: coverage per source, per measure, and the join rules. <code>published_rows</code> is the download; <code>rows</code> counts the full store behind it</td></tr>
       <tr><td><span class="endpoint">/out/catalog.json</span></td><td>Coverage catalog &mdash; every series we hold or could reach, and whether it is ingested</td></tr>
       <tr><td><span class="endpoint">/out/pairing.json</span></td><td>Cross-source comparison: which figures a second compilation agrees with, and why the rest differ</td></tr>
       <tr><td><span class="endpoint">/out/sources.json</span></td><td><b>Source metadata</b> &mdash; what each compilation measures, on what basis, and why two of them can report different numbers for the same thing without either being wrong</td></tr>

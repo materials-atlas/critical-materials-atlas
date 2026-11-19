@@ -567,13 +567,28 @@ def check_series_key():
     figures in cadmium.xlsx and nickel.xlsx; and West Germany shared a code with unified Germany
     for four overlapping years. 144 rows, one of them wrong by a factor of 6,000.
     """
-    path = 'pipeline/data/cube.parquet'
-    if not os.path.exists(path):
-        return
     try:
         import pandas as pd
     except ImportError:
         return
+    # BOTH cubes, since 19 Nov 2026. The published out/cube.parquet is derived (monthly layers summed
+    # to W1 totals) and the derivation itself broke the key: obs_status sat in its group-by, so
+    # 28,959 reporter-months were published with two different world totals. Checking only the
+    # private cube missed it, because the parts there were unique.
+    for path in ('pipeline/data/cube.parquet', 'out/cube.parquet'):
+        if os.path.exists(path):
+            _series_key(pd, path)
+    # A USD row has no tonnage. 0 t is a claim ("nothing moved"); null is the absence of one.
+    p = 'out/cube.parquet'
+    if os.path.exists(p):
+        u = pd.read_parquet(p, columns=['unit', 'value_t'])
+        z = int(((u['unit'] == 'USD') & (u['value_t'] == 0)).sum())
+        if z:
+            fail('key', f'{z} USD rows in the published cube carry value_t = 0 t; tonnage that was '
+                        f'never reported must be null, not zero')
+
+
+def _series_key(pd, path):
     # freq and period joined the key when monthly trade arrived: Chile copper exports in 2025 and
     # in March 2025 are different observations, and without freq they collide on `year` and look
     # like a duplicate. period carries YYYY for annual rows and YYYYMM for monthly ones.
@@ -590,7 +605,7 @@ def check_series_key():
     if len(bad):
         ex = '; '.join('%s %s %s->%s %s' % (i[1], i[0].split()[0], i[5], i[6], i[8])
                        for i in list(bad.index)[:4])
-        fail('key', f'{len(bad)} observations in the cube share a series key, so a query will '
+        fail('key', f'{len(bad)} observations in {path} share a series key, so a query will '
                     f'either sum two different things or pick one at random: {ex}')
 
 

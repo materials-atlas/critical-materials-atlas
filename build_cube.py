@@ -515,14 +515,34 @@ def _publish_monthly_as_totals(pub):
     keys = ['material', 'source_group', 'country_iso3', 'year', 'measure_family', 'measure',
             'flow_direction', 'stage', 'code_system', 'native_code', 'native_label',
             'sub_commodity', 'unit', 'conversion_factor', 'basis', 'source', 'freq', 'period',
-            'currency_denom', 'flow_stock', 'valuation', 'obs_status', 'in_atlas', 'retrieved_at']
+            'currency_denom', 'flow_stock', 'valuation', 'in_atlas', 'retrieved_at']
+    # obs_status is NOT a key (until 19 Nov 2026 it was): grouping by it split one reporter-month
+    # into a "reported" and an "estimated" subtotal, both labelled W1, so 28,959 keys carried two
+    # different world totals. One total per key now; it is E when any part is estimated, and
+    # `precision` says how many parts were.
+    # Sums keep "no tonnage" as null (until 19 Nov 2026 pandas' sum turned an all-null group into
+    # 0, so every monthly USD row was published with value_t = 0 t instead of null).
     keys = [k for k in keys if k in mon.columns]
-    sums = {c: 'sum' for c in ('value', 'value_t') if c in mon.columns}
+    mon = mon.assign(_est=mon['obs_status'].eq('E')) if 'obs_status' in mon.columns else mon
+    sums = [c for c in ('value', 'value_t') if c in mon.columns]
+    extra = {}
+    if 'obs_status' in mon.columns:
+        extra = dict(_est=('_est', 'sum'), _nstat=('obs_status', 'nunique'),
+                     _stat=('obs_status', 'first'))
     g = mon.groupby(keys, as_index=False, dropna=False).agg(
-        **{c: (c, f) for c, f in sums.items()},
-        _partners=('counterpart_area', 'nunique'))
+        **{c: (c, 'sum') for c in sums},
+        **{'_n_' + c: (c, 'count') for c in sums},
+        _partners=('counterpart_area', 'nunique'), **extra)
+    for c in sums:
+        g[c] = g[c].where(g.pop('_n_' + c) > 0)
     g['counterpart_area'] = 'W1'
-    g['precision'] = g.pop('_partners').map(lambda n: '%d partners reconciled' % n)
+    if extra:
+        est, nstat, stat = g.pop('_est'), g.pop('_nstat'), g.pop('_stat')
+        g['obs_status'] = stat.where(nstat <= 1, 'E').where(est == 0, 'E')
+    else:
+        est = pd.Series(0, index=g.index)
+    g['precision'] = [('%d partners reconciled' % n) + (', %d estimated' % e if e else '')
+                      for n, e in zip(g.pop('_partners'), est)]
     for c in pub.columns:
         if c not in g.columns:
             g[c] = pd.NA
@@ -564,6 +584,13 @@ if __name__ == '__main__':
                 'Analyses are queries against this, not separate pipelines. v1 spine = BGS World '
                 'Mineral Statistics; BACI trade and USGS/WMD are the next ingests.',
         'rows': int(len(df)),
+        # The download is not the store: monthly layers are published as reporter-month totals and
+        # withheld sources are dropped, so the file a reader gets has far fewer rows than `rows`.
+        # Stated since 19 Nov 2026, when the data page was found quoting the store's count.
+        'published_rows': int(len(pub)),
+        'published_note': 'out/cube.parquet and out/cube.csv.gz hold published_rows; rows counts the '
+                          'full store, which keeps monthly trade partner by partner and the sources '
+                          'whose licence does not allow redistribution (see licences.py).',
         'materials': int(df['material'].nunique()),
         'materials_in_atlas': int(df.loc[df['in_atlas'], 'material'].nunique()),
         'countries': int(df['country_iso3'].nunique()),
