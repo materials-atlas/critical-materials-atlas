@@ -41,6 +41,7 @@ for m in MATS:
     gaps.append((tes - te_mine, strip(m['title']), te, mi['c']))
 gaps.sort(reverse=True)
 mismatch = len(gaps)
+GAP_ALL = json.load(open(os.path.join(ROOT, "out", "origin_gap_all.json"), encoding="utf8"))["n_gap_value"]   # every material with mine + trade data
 
 # no-way-out
 nwo = []
@@ -109,7 +110,7 @@ out = f'''<!doctype html>
 <main id="main">
   <div class="f"><div class="k">Finding 1 · the origin gap</div>
     <h2>The country that exports a critical material usually isn't the one that mines it</h2>
-    <p>In <span class="big">{mismatch} of {len(MATS)}</span> materials the top exporter is not the top miner — customs records the refiner or shipping hub, not the source, so import-origin statistics overstate how diversified supply really is. {ex}.</p></div>
+    <p>In <span class="big">{GAP_ALL}</span> materials the top exporter is not the top miner — customs records the refiner or shipping hub, not the source, so import-origin statistics overstate how diversified supply really is. {ex}.</p></div>
 
   <div class="f"><div class="k">Finding 2 · two decades</div>
     <h2>Concentration is intensifying — and it's testable</h2>

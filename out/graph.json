@@ -1,6 +1,6 @@
 {
  "note": "Observed, not declared. See ARCHITECTURE.md section 3.",
- "recorded_at": "2026-09-16",
+ "recorded_at": "2026-11-21",
  "builders": {
   "add_canonicals.py": {
    "reads": [
@@ -4121,6 +4121,7 @@
     "out/data.json",
     "out/flows_2024.json",
     "out/network.json",
+    "out/origin_gap_all.json",
     "out/risk.json",
     "out/trends.json"
    ],
@@ -4128,8 +4129,9 @@
     "brief.html"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "d5e3ce795eabe513"
+   "secs": 0.1,
+   "code_sha": "ae506e826f46bb11",
+   "restored": 1
   },
   "build_capability_physical.py": {
    "reads": [
@@ -5229,6 +5231,7 @@
     "out/data.json",
     "out/flows_2024.json",
     "out/network.json",
+    "out/origin_gap_all.json",
     "out/risk.json",
     "out/trends.json"
    ],
@@ -5236,8 +5239,9 @@
     "insights.html"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "0f447bcb6a614540"
+   "secs": 0.3,
+   "code_sha": "29c3bd315975f70d",
+   "restored": 1
   },
   "build_level_bias_audit.py": {
    "reads": [
@@ -15539,6 +15543,27 @@
    "exit": 0,
    "secs": 0.1,
    "code_sha": "3b208041f2aa5b71",
+   "restored": 1
+  },
+  "build_origin_gap_all.py": {
+   "reads": [
+    "__pycache__/baci.cpython-311.pyc",
+    "__pycache__/usgs_mcs_cube.cpython-311.pyc",
+    "extract/baci/HS17/Y2024.parquet",
+    "origin-gap-all/codes.json",
+    "out/cube.parquet",
+    "out/data.json",
+    "out/flows_2024.json",
+    "pipeline/data/usgs_mcs_history.parquet",
+    "raw/baci/country_codes_V202601.csv"
+   ],
+   "writes": [
+    "origin-gap-all.html",
+    "out/origin_gap_all.json"
+   ],
+   "exit": 0,
+   "secs": 2.5,
+   "code_sha": "d80f9f1cb5a51162",
    "restored": 1
   }
  }

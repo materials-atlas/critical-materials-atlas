@@ -53,6 +53,8 @@ for m in MATS:
     gaps.append((tes - te_mine, strip(m['title']), te, mi['c'], m['label']))
 gaps.sort(reverse=True)
 mismatch = len(gaps)
+# the headline count runs on every material with mine and trade data (build_origin_gap_all.py)
+GAP_ALL = json.load(open(os.path.join(ROOT, 'out', 'origin_gap_all.json'), encoding='utf8'))['n_gap_value']
 
 # --- risk ---
 ranked = sorted(MATS, key=lambda m: risk.get(m['label'], {}).get('score', 0), reverse=True)
@@ -174,7 +176,7 @@ def main():
 </div></section>
 <section class="stats"><div class="wrap">
   <div class="stat"><div class="n">{len(MATS)}</div><div class="l">critical materials</div></div>
-  <div class="stat"><div class="n">{mismatch}<span style="color:var(--faint);font-weight:600">/{len(MATS)}</span></div><div class="l">top exporter ≠ top miner</div></div>
+  <div class="stat"><div class="n">{GAP_ALL}</div><div class="l"><a href="origin-gap-all.html" style="color:inherit">materials whose top exporter ≠ top miner</a></div></div>
   <div class="stat"><div class="n">{cn_exp}</div><div class="l">China is the top exporter</div></div>
   <div class="stat"><div class="n">{len(full_chain)}</div><div class="l">China leads mine + refine + export</div></div>
 </div></section>
