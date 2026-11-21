@@ -1,0 +1,41 @@
+{
+ "frozen": "2026-11-21, before any result was computed",
+ "rule": "one HS6 code per material: its main traded form (refined/unwrought metal or ferro-alloy for metals, crude mineral for industrial minerals), the same rule as the original 32",
+ "trade": "CEPII BACI HS17 V202601, year 2024, top exporter by US$ value",
+ "mine": "top producer, 2024: USGS Mineral Commodity Summaries (latest edition) where held, else World Mining Data, else BGS World Mineral Statistics",
+ "materials": {
+  "zinc":        {"hs": "790111", "form": "refined zinc, >=99.99%"},
+  "lead":        {"hs": "780110", "form": "refined lead, unwrought"},
+  "tin":         {"hs": "800110", "form": "tin, unwrought, not alloyed"},
+  "silver":      {"hs": "710691", "form": "silver, unwrought"},
+  "gold":        {"hs": "710812", "form": "gold, non-monetary, unwrought"},
+  "rhodium":     {"hs": "711031", "form": "rhodium, unwrought or powder"},
+  "cadmium":     {"hs": "810720", "form": "cadmium, unwrought"},
+  "bismuth":     {"hs": "810600", "form": "bismuth (single heading, includes articles and scrap)"},
+  "selenium":    {"hs": "280490", "form": "selenium"},
+  "mercury":     {"hs": "280540", "form": "mercury"},
+  "chromium":    {"hs": "720241", "form": "ferro-chromium, >4% C"},
+  "molybdenum":  {"hs": "261310", "form": "molybdenum concentrate, roasted"},
+  "zirconium":   {"hs": "261510", "form": "zircon (zirconium ores and concentrates)"},
+  "iron":        {"hs": "260111", "form": "iron ore, non-agglomerated"},
+  "rare_earths": {"hs": "284690", "form": "rare-earth compounds (excluding cerium)"},
+  "salt":        {"hs": "250100", "form": "salt"},
+  "gypsum":      {"hs": "252010", "form": "gypsum, anhydrite"},
+  "kaolin":      {"hs": "250700", "form": "kaolin"},
+  "bentonite":   {"hs": "250810", "form": "bentonite"},
+  "talc":        {"hs": "252610", "form": "talc/steatite, not crushed"},
+  "diatomite":   {"hs": "251200", "form": "diatomite"},
+  "perlite_vermiculite": {"hs": "253010", "form": "vermiculite, perlite, chlorites, unexpanded (one code, one material)", "mine": ["perlite", "vermiculite"]},
+  "potash":      {"hs": "310420", "form": "potassium chloride"},
+  "sulphur":     {"hs": "250300", "form": "sulphur, crude"},
+  "diamond":     {"hs": "710231", "form": "rough gem diamonds"},
+  "bromine":     {"hs": "280130", "form": "bromine (shares the code with fluorine, whose trade is negligible)"},
+  "sillimanite": {"hs": "250850", "form": "andalusite, kyanite, sillimanite"},
+  "asbestos":    {"hs": "252490", "form": "asbestos other than crocidolite"}
+ },
+ "excluded": {
+  "tellurium": "shares HS 280450 with boron; cannot be separated",
+  "uranium": "46 trade records in 2024; most uranium trade is confidential",
+  "fuels": "crude oil, natural gas, steam coal, lignite: out of this pass by decision, may be added as their own section"
+ }
+}
