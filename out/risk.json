@@ -10,12 +10,12 @@
   {
    "label": "beryllium",
    "title": "Beryllium, unwrought",
-   "score": 76,
-   "gross": 76,
+   "score": 74,
+   "gross": 74,
    "recycling": 0,
    "substitutability": "high",
    "components": {
-    "production": 65,
+    "production": 59,
     "refining": 65,
     "trade": 79.9,
     "opacity": 100.0
@@ -25,15 +25,30 @@
   {
    "label": "niobium",
    "title": "Ferro-niobium",
+   "score": 64,
+   "gross": 64,
+   "recycling": 0,
+   "substitutability": "medium",
+   "components": {
+    "production": 92,
+    "refining": 88,
+    "trade": 59.1,
+    "opacity": 0.0
+   },
+   "shared": false
+  },
+  {
+   "label": "strontium",
+   "title": "Strontium carbonate",
    "score": 63,
    "gross": 63,
    "recycling": 0,
    "substitutability": "medium",
    "components": {
-    "production": 88,
-    "refining": 88,
-    "trade": 59.1,
-    "opacity": 0.0
+    "production": 58,
+    "refining": 60,
+    "trade": 43.6,
+    "opacity": 100.0
    },
    "shared": false
   },
@@ -48,7 +63,7 @@
     "production": 37,
     "refining": 74,
     "trade": 58.8,
-    "opacity": 90.9
+    "opacity": 87.6
    },
    "shared": false
   },
@@ -68,21 +83,6 @@
    "shared": false
   },
   {
-   "label": "magnesium",
-   "title": "Magnesium, unwrought",
-   "score": 61,
-   "gross": 64,
-   "recycling": 13,
-   "substitutability": "medium",
-   "components": {
-    "production": 90,
-    "refining": 94,
-    "trade": 53.8,
-    "opacity": 0.0
-   },
-   "shared": false
-  },
-  {
    "label": "gallium",
    "title": "Gallium",
    "score": 57,
@@ -98,29 +98,29 @@
    "shared": true
   },
   {
-   "label": "strontium",
-   "title": "Strontium carbonate",
-   "score": 55,
-   "gross": 55,
-   "recycling": 0,
+   "label": "magnesium",
+   "title": "Magnesium, unwrought",
+   "score": 56,
+   "gross": 59,
+   "recycling": 13,
    "substitutability": "medium",
    "components": {
-    "production": 30,
-    "refining": 60,
-    "trade": 43.6,
-    "opacity": 100.0
+    "production": 67,
+    "refining": 94,
+    "trade": 53.8,
+    "opacity": 7.6
    },
    "shared": false
   },
   {
    "label": "magnets",
    "title": "Rare-earth permanent magnets",
-   "score": 52,
-   "gross": 52,
+   "score": 53,
+   "gross": 53,
    "recycling": 1,
    "substitutability": "high",
    "components": {
-    "production": 69,
+    "production": 71,
     "refining": 84,
     "trade": 42.5,
     "opacity": 0.0
@@ -130,12 +130,12 @@
   {
    "label": "graphite",
    "title": "Natural graphite",
-   "score": 52,
-   "gross": 53,
+   "score": 53,
+   "gross": 54,
    "recycling": 3,
    "substitutability": "high",
    "components": {
-    "production": 78,
+    "production": 82,
     "refining": 95,
     "trade": 21.6,
     "opacity": 0.0
@@ -143,32 +143,32 @@
    "shared": false
   },
   {
-   "label": "fluorspar",
-   "title": "Fluorspar, >97% CaF2",
+   "label": "vanadium",
+   "title": "Ferro-vanadium",
    "score": 48,
-   "gross": 48,
-   "recycling": 1,
-   "substitutability": "high",
+   "gross": 49,
+   "recycling": 2,
+   "substitutability": "medium",
    "components": {
-    "production": 60,
-    "refining": 65,
-    "trade": 25.1,
-    "opacity": 38.0
+    "production": 71,
+    "refining": 70,
+    "trade": 12.8,
+    "opacity": 33.6
    },
    "shared": false
   },
   {
-   "label": "vanadium",
-   "title": "Ferro-vanadium",
+   "label": "fluorspar",
+   "title": "Fluorspar, >97% CaF2",
    "score": 47,
    "gross": 48,
-   "recycling": 2,
-   "substitutability": "medium",
+   "recycling": 1,
+   "substitutability": "high",
    "components": {
-    "production": 68,
-    "refining": 70,
-    "trade": 12.8,
-    "opacity": 33.6
+    "production": 58,
+    "refining": 65,
+    "trade": 25.1,
+    "opacity": 38.0
    },
    "shared": false
   },
@@ -180,7 +180,7 @@
    "recycling": 42,
    "substitutability": "high",
    "components": {
-    "production": 80,
+    "production": 82,
     "refining": 83,
     "trade": 40.1,
     "opacity": 0.0
@@ -205,30 +205,30 @@
   {
    "label": "manganese",
    "title": "Manganese ore",
-   "score": 46,
+   "score": 45,
    "gross": 47,
    "recycling": 9,
    "substitutability": "high",
    "components": {
-    "production": 36,
+    "production": 40,
     "refining": 95,
     "trade": 32.9,
-    "opacity": 22.4
+    "opacity": 15.7
    },
    "shared": false
   },
   {
    "label": "bauxite",
    "title": "Aluminium ores / bauxite",
-   "score": 46,
+   "score": 45,
    "gross": 52,
    "recycling": 32,
    "substitutability": "high",
    "components": {
-    "production": 27,
+    "production": 34,
     "refining": 60,
     "trade": 54.8,
-    "opacity": 78.5
+    "opacity": 63.5
    },
    "shared": false
   },
@@ -261,11 +261,11 @@
    "label": "cobalt",
    "title": "Cobalt oxides & hydroxides",
    "score": 43,
-   "gross": 48,
+   "gross": 47,
    "recycling": 22,
    "substitutability": "high",
    "components": {
-    "production": 76,
+    "production": 75,
     "refining": 82,
     "trade": 17.1,
     "opacity": 0.0
@@ -280,10 +280,10 @@
    "recycling": 1,
    "substitutability": "medium",
    "components": {
-    "production": 47,
+    "production": 45,
     "refining": 60,
     "trade": 38.4,
-    "opacity": 16.8
+    "opacity": 20.2
    },
    "shared": false
   },
@@ -305,12 +305,12 @@
   {
    "label": "titanium",
    "title": "Titanium, unwrought",
-   "score": 39,
-   "gross": 42,
+   "score": 40,
+   "gross": 44,
    "recycling": 19,
    "substitutability": "medium",
    "components": {
-    "production": 32,
+    "production": 36,
     "refining": 67,
     "trade": 18.4,
     "opacity": 56.9
@@ -318,17 +318,17 @@
    "shared": false
   },
   {
-   "label": "antimony",
-   "title": "Antimony, unwrought",
-   "score": 38,
-   "gross": 42,
-   "recycling": 28,
-   "substitutability": "medium",
+   "label": "cokingcoal",
+   "title": "Coking coal",
+   "score": 35,
+   "gross": 35,
+   "recycling": 0,
+   "substitutability": "high",
    "components": {
-    "production": 48,
-    "refining": 75,
-    "trade": 17.0,
-    "opacity": 25.5
+    "production": 49,
+    "refining": 21.9,
+    "trade": 21.9,
+    "opacity": 48.7
    },
    "shared": false
   },
@@ -336,29 +336,14 @@
    "label": "nickel",
    "title": "Nickel, unwrought",
    "score": 35,
-   "gross": 37,
+   "gross": 38,
    "recycling": 16,
    "substitutability": "medium",
    "components": {
-    "production": 60,
+    "production": 62,
     "refining": 45,
     "trade": 9.2,
     "opacity": 27.6
-   },
-   "shared": false
-  },
-  {
-   "label": "phosphate",
-   "title": "Phosphate rock",
-   "score": 34,
-   "gross": 36,
-   "recycling": 17,
-   "substitutability": "high",
-   "components": {
-    "production": 44,
-    "refining": 44,
-    "trade": 15.4,
-    "opacity": 40.3
    },
    "shared": false
   },
@@ -378,6 +363,21 @@
    "shared": false
   },
   {
+   "label": "antimony",
+   "title": "Antimony, unwrought",
+   "score": 33,
+   "gross": 38,
+   "recycling": 28,
+   "substitutability": "medium",
+   "components": {
+    "production": 34,
+    "refining": 75,
+    "trade": 17.0,
+    "opacity": 22.1
+   },
+   "shared": false
+  },
+  {
    "label": "tantalum",
    "title": "Tantalum, unwrought",
    "score": 33,
@@ -385,7 +385,7 @@
    "recycling": 1,
    "substitutability": "high",
    "components": {
-    "production": 40,
+    "production": 41,
     "refining": 40,
     "trade": 16.1,
     "opacity": 35.3
@@ -393,32 +393,47 @@
    "shared": false
   },
   {
+   "label": "phosphate",
+   "title": "Phosphate rock",
+   "score": 32,
+   "gross": 34,
+   "recycling": 17,
+   "substitutability": "high",
+   "components": {
+    "production": 44,
+    "refining": 44,
+    "trade": 15.4,
+    "opacity": 32.0
+   },
+   "shared": false
+  },
+  {
    "label": "arsenic",
    "title": "Arsenic",
-   "score": 28,
-   "gross": 28,
+   "score": 32,
+   "gross": 32,
    "recycling": 0,
    "substitutability": "medium",
    "components": {
-    "production": 28,
+    "production": 51,
     "refining": 50,
     "trade": 18.1,
-    "opacity": 13.8
+    "opacity": 0.0
    },
    "shared": false
   },
   {
    "label": "feldspar",
    "title": "Feldspar",
-   "score": 25,
-   "gross": 25,
+   "score": 26,
+   "gross": 26,
    "recycling": 0,
    "substitutability": "low",
    "components": {
-    "production": 28,
+    "production": 19,
     "refining": 26,
     "trade": 21.3,
-    "opacity": 22.6
+    "opacity": 40.9
    },
    "shared": false
   },
@@ -430,7 +445,7 @@
    "recycling": 14,
    "substitutability": "medium",
    "components": {
-    "production": 40,
+    "production": 41,
     "refining": 40,
     "trade": 14.2,
     "opacity": 0.0
@@ -438,29 +453,14 @@
    "shared": false
   },
   {
-   "label": "cokingcoal",
-   "title": "Coking coal",
-   "score": 24,
-   "gross": 24,
-   "recycling": 0,
-   "substitutability": "high",
-   "components": {
-    "production": 30,
-    "refining": 21.9,
-    "trade": 21.9,
-    "opacity": 18.7
-   },
-   "shared": false
-  },
-  {
    "label": "copper",
    "title": "Refined copper cathodes",
    "score": 23,
-   "gross": 24,
+   "gross": 25,
    "recycling": 17,
    "substitutability": "medium",
    "components": {
-    "production": 23,
+    "production": 24,
     "refining": 47,
     "trade": 10.7,
     "opacity": 15.5
@@ -485,15 +485,15 @@
   {
    "label": "baryte",
    "title": "Baryte",
-   "score": 16,
-   "gross": 16,
+   "score": 15,
+   "gross": 15,
    "recycling": 1,
    "substitutability": "medium",
    "components": {
-    "production": 30,
+    "production": 32,
     "refining": 11.1,
     "trade": 11.1,
-    "opacity": 6.6
+    "opacity": 0.0
    },
    "shared": false
   }

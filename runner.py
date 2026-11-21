@@ -499,8 +499,11 @@ def main():
     ok = 0
     for n, b in enumerate(stale, 1):
         t0 = time.time()
+        # stdin is closed on purpose. add_tonnes.py reads sys.stdin; under a terminal that is
+        # an immediate end-of-file, but in a background shell the pipe stays open and the build
+        # hangs there for ever (21 Nov 2026: 16 minutes on step 20 of 117, no error, no output).
         p = subprocess.run([sys.executable, b], cwd=ROOT, capture_output=True, text=True,
-                           env=_ENV)
+                           env=_ENV, stdin=subprocess.DEVNULL)
         secs = time.time() - t0
         if p.returncode != 0:
             print(' ! [%2d/%2d] %-44s FAILED in %.1fs' % (n, len(stale), b, secs))

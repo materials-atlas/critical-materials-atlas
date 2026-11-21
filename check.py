@@ -837,6 +837,26 @@ def check_engine():
         fail('engine', (r.stdout + r.stderr).strip().splitlines()[-1])
 
 
+def check_mined():
+    """out/data.json's mine shares must equal out/mined_shares.json (build_mined_shares.py).
+
+    On 3 Oct 2026 a rebuild of data.json from build_static.R put a hand-typed list back over every
+    material's audited mine shares, and the site ran on it for seven weeks. Every file was valid;
+    only a comparison of the copy with its source could see it. This is that comparison."""
+    p = os.path.join(ROOT, 'out', 'mined_shares.json')
+    if not os.path.exists(p):
+        fail('mined', 'out/mined_shares.json is missing - run build_mined_shares.py')
+        return
+    ms = json.load(open(p, encoding='utf8'))['materials']
+    d = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
+    bad = [m['label'] for m in d['materials']
+           if m['label'] in ms and (m.get('mined') != ms[m['label']]['mined']
+                                    or m.get('mined_source') != ms[m['label']]['mined_source'])]
+    if bad:
+        fail('mined', "data.json's mine shares differ from out/mined_shares.json for %s - something "
+             "rewrote them (build_static.R?). Copy them back from mined_shares.json." % ', '.join(bad))
+
+
 def check_baci_door():
     """I1 for BACI: only the one door opens raw/baci/. ARCHITECTURE.md phase 2.
 
@@ -1680,7 +1700,7 @@ def check_aggregation():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('mined', check_mined), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

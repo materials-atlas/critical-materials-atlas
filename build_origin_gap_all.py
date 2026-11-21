@@ -15,7 +15,7 @@ import html, json, os
 import pandas as pd
 
 import baci
-import usgs_mcs_cube as U
+import mine_shares as MS
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = 2024
@@ -58,6 +58,23 @@ def top(pairs):
 
 rows = []
 
+
+def own_share(c, listed, src, full, full_src):
+    """What country c itself mines -> (percent or None, source).
+    USGS names the larger producers and lumps the rest as 'Other countries', so a country a USGS
+    table does not name is not zero: ask a source that names every country (World Mining Data,
+    else BGS). With none, the answer is unknown (None), never 0."""
+    if c in listed:
+        return float(listed[c]), src
+    if not src.startswith('USGS'):
+        return 0.0, src
+    if full:
+        return float(full.get(c, 0)), full_src
+    return None, None
+
+
+MINED = json.load(open(os.path.join(ROOT, 'out', 'mined_shares.json'), encoding='utf8'))
+
 # ---- the atlas's own materials: the original test, unchanged ----
 for m in data['materials']:
     a = flows.get('materials', {}).get(m['label']) or []
@@ -67,40 +84,32 @@ for m in data['materials']:
     tev, tevs = top((f['from'], f['value']) for f in a)
     teq, _ = top((f['from'], f.get('qty')) for f in a)
     t = m['title']
+    # What the top exporter itself mines. From the full country list where a source gives one;
+    # for the few materials kept by hand only the listed producers are known, so a country not
+    # listed is None (unknown), never 0.
+    ms_rec = MINED['materials'].get(m['label'])
+    if ms_rec:
+        msrc = ms_rec['source']
+        own, own_src = own_share(tev, ms_rec['shares'], msrc, ms_rec.get('shares_all_countries'),
+                                 ms_rec.get('shares_all_countries_source'))
+    else:
+        own = next((float(x['v']) for x in m['mined'] if x['c'] == tev), None)
+        msrc = own_src = 'atlas mined list, kept by hand (no mine-production source covers it)'
     rows.append({'material': m['label'], 'title': t.split(' (')[0], 'form': t[t.find('(') + 1:-1] if '(' in t else '',
-                 'set': 'atlas', 'mine_source': 'USGS / IEA (atlas mined list)',
+                 'set': 'atlas', 'mine_source': msrc,
                  'top_miner': mi['c'], 'top_miner_share': float(mi['v']),
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),
-                 'top_exporter_mine_share': float(next((x['v'] for x in m['mined'] if x['c'] == tev), 0)),
+                 'top_exporter_mine_share': own, 'top_exporter_mine_share_source': own_src,
                  'gap_value': tev != mi['c'], 'gap_tonnes': teq is not None and teq != mi['c']})
 
 # ---- every other material with mine and trade data: codes frozen in codes.json ----
 MATS = spec['materials']
 want = {v['hs'] for v in MATS.values()}
 b = baci.year(YEAR, codes=sorted(want), iso='iso2', nom='HS17').rename(columns={'i_iso': 'exp'})
-cube = pd.read_parquet(os.path.join(ROOT, 'out', 'cube.parquet'),
-                       columns=['material', 'measure', 'stage', 'source', 'country_iso3', 'year',
-                                'value', 'value_t', 'native_label'])
-cube = cube[(cube.measure == 'production') & (cube.stage == 'mine') & (cube.year == YEAR)
-            & (cube.country_iso3.str.len() == 3)]
-
-
-def mine_shares(mat):
-    if mat in USGS:
-        s = U.shares(mat, 'mine', YEAR)
-        if s is not None and len(s):
-            s = s.dropna(subset=['iso3'])
-            return 'USGS Mineral Commodity Summaries', dict(zip(s.iso3, s.share * 100))
-    names = MATS[mat].get('mine', [mat])
-    for src in ('World Mining Data', 'BGS World Mineral Statistics'):
-        c = cube[cube.material.isin(names) & (cube.source == src)]
-        if mat == 'diamond':        # HS 710231 is gem diamonds; World Mining Data counts them in carats
-            c = c[c.native_label == 'Diamonds (Gem)']
-        if len(c):
-            col = 'value_t' if c.value_t.notna().any() else 'value'
-            g = c.groupby('country_iso3')[col].sum()
-            return src, (g / g.sum() * 100).to_dict()
-    return None, {}
+def mine_shares(mat):     # the one rule, mine_shares.py (also used for the atlas's own materials)
+    src, sh, _ = MS.shares(usgs=mat if mat in USGS else None, cube=MATS[mat].get('mine', [mat]), year=YEAR,
+                           native_label='Diamonds (Gem)' if mat == 'diamond' else None)  # HS 710231 = gem
+    return src, sh
 
 
 for mat, d in MATS.items():
@@ -112,17 +121,29 @@ for mat, d in MATS.items():
         continue
     tm3 = max(ms, key=ms.get)
     tm = I3TO2.get(tm3, tm3)
+    listed = {}
+    for k, v in ms.items():
+        listed[I3TO2.get(k, k)] = listed.get(I3TO2.get(k, k), 0.0) + v
+    full, full_src = None, None
+    if src.startswith('USGS') and tev not in listed:
+        full_src, f3, _ = MS.shares(usgs=None, cube=d.get('mine', [mat]), year=YEAR,
+                                    native_label='Diamonds (Gem)' if mat == 'diamond' else None)
+        full = {}
+        for k, v in f3.items():
+            full[I3TO2.get(k, k)] = full.get(I3TO2.get(k, k), 0.0) + v
+    own, own_src = own_share(tev, listed, src, full, full_src)
     rows.append({'material': mat, 'title': TITLE.get(mat, mat), 'form': f"{d['form']}, HS {d['hs']}",
                  'set': 'widened', 'mine_source': src,
                  'top_miner': tm, 'top_miner_share': round(ms[tm3], 1),
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),
-                 'top_exporter_mine_share': round(sum(v for k, v in ms.items() if I3TO2.get(k) == tev), 1),
+                 'top_exporter_mine_share': None if own is None else round(own, 1),
+                 'top_exporter_mine_share_source': own_src,
                  'gap_value': tev != tm, 'gap_tonnes': teq is not None and teq != tm})
 
 n_gap = sum(r['gap_value'] for r in rows)
 n_gap_t = sum(r['gap_tonnes'] for r in rows)
 def is_hub(r):   # a re-export hub that mines (almost) none of the material itself
-    return r['gap_value'] and r['top_exporter'] in HUBS and r.get('top_exporter_mine_share', 0) < 5
+    return r['gap_value'] and r['top_exporter'] in HUBS and (r.get('top_exporter_mine_share') or 0) < 5
 hub_rows = [r for r in rows if is_hub(r)]
 n_gap_hub = len(hub_rows)
 # The site says "most materials" in words, on this page AND on hand-written pages (index, explorer, analysis,
@@ -156,6 +177,8 @@ for r in sorted(rows, key=lambda r: (not r['gap_value'], r['title'].lower())):
                f'<td>{flag(r["top_exporter"])} {cn(r["top_exporter"])} <span style="color:#9aa6ad">{r["top_exporter_share"]:.0f}%</span>{hub}</td>'
                f'<td class="n">{mark}</td></tr>')
 
+kept = [r['title'].lower() for r in rows if r['mine_source'].startswith('atlas mined list')]
+kept_sentence = ('No such source covers ' + ', '.join(e(x) for x in kept) + '; their mine shares are compiled by hand from the literature.') if kept else ''
 hub_sentence = ('Only for ' + ', '.join(e(r['title'].lower()) for r in hub_rows) + ' is the top exporter a re-export hub that mines almost none of it.') if hub_rows else ''
 excl = '; '.join(f'{e(k)}: {e(v)}' for k, v in spec['excluded'].items())
 page = f'''<!doctype html>
@@ -188,7 +211,7 @@ page = f'''<!doctype html>
 
   <details class="howto"><summary>How it is measured, and what it cannot show</summary>
   <p><b>One traded form per material.</b> Each material is measured on its main traded form: refined or unwrought metal, or a ferro-alloy, for metals; the crude mineral for industrial minerals. A material traded at several stages would show a different exporter at each one. The customs code for every material added beyond the atlas&rsquo;s own was fixed in <a href="origin-gap-all/codes.json">codes.json</a> before any result was computed.</p>
-  <p><b>Mine and trade come from different sources.</b> Trade: CEPII BACI (HS 2017), {YEAR}, by value. Mine output, {YEAR}: for the atlas&rsquo;s own materials its mined list (USGS, IEA); for the others the USGS Mineral Commodity Summaries where held, otherwise World Mining Data, otherwise BGS World Mineral Statistics. For by-products such as cadmium, selenium and bismuth, &ldquo;mine&rdquo; output is the refinery production these sources report, and for sulphur it is mostly sulphur recovered from oil and gas.</p>
+  <p><b>Mine and trade come from different sources.</b> Trade: CEPII BACI (HS 2017), {YEAR}, by value. Mine output, {YEAR}, by one rule for every material: the USGS Mineral Commodity Summaries where held, otherwise World Mining Data, otherwise BGS World Mineral Statistics. {kept_sentence} For by-products such as cadmium, selenium and bismuth, &ldquo;mine&rdquo; output is the refinery production these sources report, and for sulphur it is mostly sulphur recovered from oil and gas.</p>
   <p><b>Left out.</b> {excl}.</p>
   <p class="howto-src">Computed by <code>build_origin_gap_all.py</code> &rarr; <a href="out/origin_gap_all.json">origin_gap_all.json</a>. Shares rounded to whole percents.</p>
   </details>

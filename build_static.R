@@ -113,6 +113,7 @@ products <- list(
 # Approximate world mine-production shares, USGS Mineral Commodity Summaries 2024/2025.
 # ISO2 codes so the front-end can reuse its flag/map/globe lookups.
 o <- function(c, v) list(c = c, v = v)
+MINED_SHARES <- jsonlite::fromJSON(file.path(out_dir, "mined_shares.json"))   # see build_mined_shares.py
 mine <- list(
   magnets   = list(o("CN",69),o("US",12),o("MM",11),o("AU",5)),  # rare earths
   magnesium = list(o("CN",90),o("RU",3),o("KZ",2)),
@@ -238,13 +239,18 @@ render_product <- function(p) {
     format(suppressWarnings(max(as.Date(substr(ud, 1, 8), "%d/%m/%y"), na.rm = TRUE)), "%Y-%m-%d")
 
   # Rich per-material record consumed by the interactive front-end (out/data.json).
+  # Mine shares come from out/mined_shares.json (build_mined_shares.py, one documented source rule),
+  # never from the typed `mine` list above, which now only serves the materials no source covers.
+  # On 3 Oct 2026 this script put the typed list back over every audited share and nothing noticed.
+  ms <- MINED_SHARES$materials[[p$label]]
+  mined_p <- if (!is.null(ms)) lapply(seq_len(nrow(ms$mined)), function(i) o(ms$mined$c[i], ms$mined$v[i])) else mine[[p$label]]
   list(
     label = p$label, title = p$title, note = p$note, year = yL,
     hhi = sL$hhi_val, total_eur = round(sL$total_eur), china_val = sL$china_val,
     china_qty = if (is.na(sL$china_qty)) NULL else sL$china_qty,
     top_partner = oc$partner[1], top_share = oc$value_share[1],
     china = identical(oc$partner[1], "CN"), updated = updated,
-    mined = mine[[p$label]], refined = refined[[p$label]], reserves = reserves[[p$label]],
+    mined = mined_p, refined = refined[[p$label]], reserves = reserves[[p$label]],
     origins = lapply(seq_len(nrow(oc)), function(i)
       list(c = oc$partner[i], v = oc$value_share[i], q = oc$qty_share[i], eur = round(oc$value_eur[i]))),
     naive = lapply(seq_len(nrow(mc)), function(i)

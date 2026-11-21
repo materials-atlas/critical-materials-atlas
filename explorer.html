@@ -239,13 +239,6 @@
   .hero .byline{font-size:.8rem;color:#84a09c;margin-top:1.25rem;letter-spacing:.01em}
 
   /* key-figures strip */
-  .stats{background:#fff;border-bottom:1px solid var(--line)}
-  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
-  .stat{padding:1.55rem 1.5rem;border-left:1px solid var(--line)}
-  .stat:first-child{border-left:none;padding-left:0}
-  .stat .n{font-size:1.95rem;font-weight:800;color:var(--navy);letter-spacing:-.025em;line-height:1}
-  .stat .l{font-size:.79rem;color:var(--mut);margin-top:.45rem;line-height:1.35;max-width:24ch}
-  @media(max-width:760px){ .stats .wrap{grid-template-columns:repeat(2,1fr);gap:.4rem 0} .stat{border-left:none;padding:1rem 0} .stat:nth-child(2){padding-left:0} }
 
   #app{padding-top:1.7rem}
   #app .intro{margin-top:0}
@@ -281,13 +274,6 @@
   <p class="deck">For any material — or any country — see where it is <b>mined</b>, where it is <b>refined</b>, and the <b>real global bilateral trade</b>, both directions. The chokepoint a customs ledger shows is usually the refiner, not the source.</p>
   <p class="meta-links"><a href="methodology">Methods &amp; validation</a> · reconciliation engine: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
   <p class="byline">Independent public-data research (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
-</div></section>
-
-<section class="stats"><div class="wrap">
-  <div class="stat"><div class="n">32</div><div class="l"><a href="profiles">critical raw materials tracked</a></div></div>
-  <div class="stat"><div class="n">Most</div><div class="l"><a href="origin-gap-all">materials: the top exporter is <i>not</i> the top miner</a></div></div>
-  <div class="stat"><div class="n">84%</div><div class="l"><a href="nowcast-backtest">year-over-year nowcast persistence, out-of-sample</a></div></div>
-  <div class="stat"><div class="n">2002–26</div><div class="l"><a href="trends">reconciled trade, measured to nowcast</a></div></div>
 </div></section>
 
 <div class="wrap" id="app">
@@ -403,7 +389,7 @@
     <h4>Sources</h4>
     USGS Mineral Commodity Summaries<br>IEA Critical Minerals Outlook<br>UN Comtrade · CEPII BACI<br>Eurostat Comext · World Bank
   </div>
-  <div class="fineprint">Reconciled bilateral trade via CEPII BACI (Gaulier &amp; Zignago 2010); validated against official BACI — top-1 exporter 25/30, share error 3.5%. Mine production: USGS &amp; BGS World Mineral Statistics (1970–2024 series); refining: best per material — BGS / IEA 2026 / EU CRM 2023 / USGS; BGS refined shares are shares of the countries that report to BGS (the reporter count is shown with each BGS-sourced figure — 3 for germanium, 40 for copper). Figures are approximate and rounded; read each row as an overlay of distinct measures, not one observed pipeline. <span id="foot-stamp"></span></div>
+  <div class="fineprint">Reconciled bilateral trade via CEPII BACI (Gaulier &amp; Zignago 2010); validated against official BACI — top-1 exporter 25/30, share error 3.5%. Mine production: USGS &amp; BGS World Mineral Statistics (1970–2024 series); refining: best per material — BGS / IEA 2026 / EU CRM 2023 / USGS; BGS refined shares are shares of the countries that report to BGS (the reporter count is shown with each BGS-sourced figure — 3 for germanium, 40 for copper). Figures are approximate and rounded; read each row as an overlay of distinct measures, not one observed pipeline. <span id="foot-stamp"></span><br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
 </div></footer>
 
 
@@ -532,7 +518,7 @@ fetch('out/country_pages.json').then(r=>r.json()).then(a=>{ COUNTRY_PAGES=new Se
 fetch('out/risk.json').then(r=>r.json()).then(d=>{ (d.materials||[]).forEach(m=>RISK[m.label]=m); if(VIEW==='table'&&MATS.length) renderTable(); }).catch(()=>{});
 fetch('out/data.json').then(r=>r.json()).then(d=>{
   DATA=d; MATS=d.materials;
-  $('#stamp').textContent="Trade: reconciled BACI 2002–"+d.headlineYear+" + 2025 nowcast (updated "+d.dataUpdated+") · mine/refine: USGS · BGS · "+MATS.length+" materials";
+  $('#stamp').textContent="Trade: reconciled BACI 2002–"+d.headlineYear+" + 2025 nowcast (updated "+d.dataUpdated+") · mine/refine: USGS · BGS";
   $('#foot-stamp').textContent="Trade data through "+d.headlineYear+"; mine-production shares are approximate USGS estimates.";
   restoreURL();
   // reflect any restored deep-link state in the chrome before first paint

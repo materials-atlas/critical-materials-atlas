@@ -37,9 +37,14 @@ WHAT IT DOES, AND WHAT IT DELIBERATELY DOES NOT
                left alone: guessing where a page's main content begins is how a machine silently
                restructures a document.
 
-It does not touch navigation, footers or headlines. Those also drift from what builders emit, but
+It does not touch navigation or headlines. Those also drift from what builders emit, but
 they are CONTENT: which links belong in the nav is an editorial decision, and a script that guesses
 at it would be inventing rather than restoring.
+
+  contact      ONE exception in the footer, decided by the owner on 21 Nov 2026: every page with a
+               site footer carries the project's contact address, so the standing invitation to
+               break a claim has somewhere to go. ~100 builders each emit their own footer; typing
+               the line into each would be 100 chances to drift, so it is added here, once.
 
 Run it as a post-pass, after the page builders and beside add_canonicals.py:
     python add_head.py            # writes, like add_canonicals.py does
@@ -87,6 +92,30 @@ SKIP_CSS = ('<style>.skip{position:absolute;left:-9999px;top:0;background:#0e7c7
             'padding:.6rem 1rem;border-radius:0 0 8px 0;z-index:200;font-weight:700;text-decoration:none}'
             '.skip:focus{left:0}</style>')
 HAS_SKIP_RULE = re.compile(r'\.skip\s*\{|assets/site\.css', re.I)
+# The contact line. Goes inside the footer's closing fineprint where there is one (so the footer
+# keeps a single ruled line), else as a fineprint of its own before the footer closes.
+CONTACT_ADDR = 'contact@criticalmaterialsatlas.org'
+CONTACT = ('Found an error, or want to challenge a figure? Write to '
+           '<a href="mailto:%s">%s</a>.' % (CONTACT_ADDR, CONTACT_ADDR))
+FTR_TAIL = re.compile(r'</div>\s*</footer>', re.I)
+FINE_LAST = re.compile(r'(<div class="fineprint">(?:(?!</?div).)*?)(</div>\s*)$', re.I | re.S)
+
+
+def add_contact(text):
+    """-> text with the contact line in its site footer, or text unchanged."""
+    i = text.find(FTR_OPEN)
+    if i < 0:
+        return text
+    m = FTR_TAIL.search(text, i)
+    if not m or CONTACT_ADDR in text[i:m.end()]:
+        return text
+    body = text[i:m.start()]
+    f = FINE_LAST.search(body)
+    if f:
+        body = body[:f.end(1)] + '<br>' + CONTACT + body[f.start(2):]
+    else:
+        body += '<div class="fineprint">' + CONTACT + '</div>' + chr(10)
+    return text[:i] + body + text[m.start():]
 
 
 def pages():
@@ -103,7 +132,7 @@ def pages():
 
 def main():
     apply = '--dry-run' not in sys.argv
-    added_fav = added_skip = added_main = added_skip_css = 0
+    added_fav = added_skip = added_main = added_skip_css = added_contact = 0
     no_target = []
     no_anchor = []
     touched = []
@@ -145,6 +174,10 @@ def main():
             i = text.index('</head>')
             text = text[:i] + SKIP_CSS + text[i:]
             added_skip_css += 1
+        with_contact = add_contact(text)
+        if with_contact != text:
+            text = with_contact
+            added_contact += 1
         if text != before:
             touched.append(rel)
             if apply:
@@ -159,6 +192,7 @@ def main():
     print('  landmarks added  : %d' % added_main)
     print('  skip-link css    : %d' % added_skip_css)
     print('  skip-links added : %d' % added_skip)
+    print('  contact lines    : %d' % added_contact)
     print('  pages changed    : %d' % len(touched))
     if no_target:
         print('  NO SKIP TARGET - no id="main" and no unambiguous place to put one: %d' % len(no_target))

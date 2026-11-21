@@ -123,7 +123,10 @@ def main():
     overall['most_predictable'] = [{'material': k, 'mean_share_mae_pp': v} for v, k in stable[:6]]
     overall['least_predictable'] = [{'material': k, 'mean_share_mae_pp': v} for v, k in stable[-6:][::-1]]
 
-    out = {'flows_dir': os.path.abspath(fd), 'measured_years': measured,
+    # the folder relative to the repo root: an absolute path would publish the machine's own layout
+    root = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+    out = {'flows_dir': os.path.relpath(os.path.abspath(fd), root).replace(os.sep, '/'),
+           'measured_years': measured,
            'method': 'persistence: shares_T_hat = shares_{T-1}',
            'overall': overall, 'per_pair': per_pair}
     os.makedirs('results', exist_ok=True)
