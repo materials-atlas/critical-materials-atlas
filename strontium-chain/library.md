@@ -11,7 +11,7 @@ The cheap magnet's metal and the red in every firework: strontium (mined as cele
 ## Government & agency reports
 - [USGS National Minerals Information Center — Strontium Statistics and Information](https://www.usgs.gov/centers/national-minerals-information-center/strontium-statistics-and-information) — USGS. Hub page indexing every Mineral Commodity Summary and Minerals Yearbook chapter on strontium back to the 1990s.
 - [USGS, Historical Statistics for Mineral and Material Commodities in the United States (Data Series 140)](https://www.usgs.gov/centers/nmic/historical-statistics-mineral-and-material-commodities-united-states) — USGS. Long-run US production/consumption/price series, including strontium.
-- [USGS, U.S. Geological Survey Releases 2022 List of Critical Minerals (news release)](https://www.usgs.gov/news/national-news-release/us-geological-survey-releases-2022-list-critical-minerals) — USGS (2022). Confirms strontium was actually *removed* from the US critical-minerals list in 2022 (with helium, potash and rhenium) — a useful counterpoint to the atlas's "diffuse, not a lever" framing.
+- [USGS, U.S. Geological Survey Releases 2022 List of Critical Minerals (news release)](https://www.usgs.gov/news/national-news-release/us-geological-survey-releases-2022-list-critical-minerals) — USGS (2022). Confirms strontium was actually *removed* from the US critical-minerals list in 2022 (with helium, potash and rhenium) — a useful counterpoint to the atlas's "concentrated, low leverage" framing.
 
 ## Academic papers & reviews
 - (none found with a verifiable URL this pass; suggested search: "celestite Iran production Resources Policy", "strontium ferrite magnet material flow analysis", "SrFe12O19 magnet supply chain review")

@@ -5,7 +5,7 @@ The lithium mine diversified to Australia's hard-rock spodumene, but turning spo
 ## Core references (already cited in the chain)
 - [USGS Mineral Commodity Summaries 2026 — Lithium](https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-lithium.pdf) — USGS (2026). Mine production, reserves, world output by country.
 - [IEA, Global Critical Minerals Outlook 2025 — Executive summary](https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary) — IEA (2025). Refining concentration, China's conversion share.
-- [BGS, World Mineral Statistics — lithium mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country.
+- [BGS, World Mineral Statistics — lithium mine production](https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/) — BGS (2024). Long-run mine-production series by country, in gross tonnes of ore and concentrate. No longer used for the shares on the chain page, which come from USGS by lithium content.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the atlas's own flows.
 
 ## Government & agency reports

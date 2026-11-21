@@ -188,7 +188,8 @@ CHAINS = {
     }),
     "strontium": ("strontium-chain", "strontium", {
         "281640": {"title": "Oxides/hydroxides/peroxides of strontium or barium", "boundary": "Strontium is lumped with barium here and cannot be isolated; a small market."},
-        "253090": {"title": "Mineral substances, n.e.s. (incl. celestite)", "boundary": "A catch-all mineral basket; the Iran-led mine map (history chart) is the clearer signal."},
+        # 253090 (other mineral substances) was drawn here as a celestite series until 21 Nov 2026.
+        # It is a catch-all: nothing in it identifies strontium, so it is not drawn.
     }),
     "arsenic": ("arsenic-chain", "arsenic", {
         "280480": {"title": "Arsenic", "boundary": "Semiconductor-grade high-purity arsenic and the GaAs it makes are not separable from the bulk toxic material."},

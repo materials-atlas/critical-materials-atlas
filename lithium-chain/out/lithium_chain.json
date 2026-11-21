@@ -33,8 +33,8 @@
   "correction": "The lithium mine is not the chokepoint — the refinery is. Australia mines the most lithium (hard-rock spodumene), the 'Lithium Triangle' of Chile, Argentina and Bolivia holds vast brine reserves, and Zimbabwe and Brazil are scaling fast, so ore supply is genuinely multi-country. But most spodumene is shipped to China to be converted into battery-grade lithium carbonate and hydroxide — the same mine-versus-refine split the atlas finds for cobalt, nickel and graphite.",
   "stats": [
     {
-      "v": "~62%",
-      "l": "Australia's share of lithium mine output (hard-rock spodumene)",
+      "v": "37%",
+      "l": "Australia's share of lithium mined in 2024, by lithium content (USGS)",
       "conf": "measured"
     },
     {
@@ -54,48 +54,112 @@
     }
   ],
   "history": {
-    "title": "The mine diversified toward hard rock, 2000 → 2024",
+    "title": "Who mines lithium, 2000 to 2024, by lithium content",
     "conf": "measured",
-    "note": "BGS/USGS mine production, from the atlas's own data. Australia's fast-scaling hard-rock spodumene took the lead (to ~62%), while Chile's slower brine fell in relative MINE share (though it still holds vast reserves) and Zimbabwe rose. The raw-material map is genuinely multi-country — which is exactly why the chokepoint is the conversion step in China, not the mine, and no country mine-share chart shows it.",
+    "note": "USGS Mineral Commodity Summaries: mine production in tonnes of lithium content, as a share of the world total USGS prints, which leaves out United States output (withheld). Chile's brine led for most of the 2000s. Australia's hard-rock mines pulled clear in 2017 and peaked at 62% in 2018. By 2024 Australia was at 37%, Chile 22%, China 19% and Zimbabwe 9%. A count in gross tonnes of ore and concentrate would show Australia much higher, because spodumene concentrate is only a few percent lithium. Mining is spread over several countries. Conversion into battery chemicals is more concentrated, and a mine-share chart cannot show it.",
     "series": [
       {
         "label": "Australia",
         "points": [
           {
             "y": 2000,
-            "v": 24
+            "v": 17.1
+          },
+          {
+            "y": 2001,
+            "v": 13.2
+          },
+          {
+            "y": 2002,
+            "v": 22.1
+          },
+          {
+            "y": 2003,
+            "v": 22.9
+          },
+          {
+            "y": 2004,
+            "v": 19.5
           },
           {
             "y": 2005,
-            "v": 40
+            "v": 18.3
+          },
+          {
+            "y": 2006,
+            "v": 23.4
+          },
+          {
+            "y": 2007,
+            "v": 26.8
+          },
+          {
+            "y": 2008,
+            "v": 24.7
+          },
+          {
+            "y": 2009,
+            "v": 33.4
           },
           {
             "y": 2010,
-            "v": 56
+            "v": 33.0
+          },
+          {
+            "y": 2011,
+            "v": 36.7
+          },
+          {
+            "y": 2012,
+            "v": 36.6
+          },
+          {
+            "y": 2013,
+            "v": 37.4
+          },
+          {
+            "y": 2014,
+            "v": 42.0
           },
           {
             "y": 2015,
-            "v": 73
+            "v": 44.8
+          },
+          {
+            "y": 2016,
+            "v": 36.8
+          },
+          {
+            "y": 2017,
+            "v": 58.0
+          },
+          {
+            "y": 2018,
+            "v": 61.9
+          },
+          {
+            "y": 2019,
+            "v": 52.3
           },
           {
             "y": 2020,
-            "v": 82
+            "v": 48.1
           },
           {
             "y": 2021,
-            "v": 82
+            "v": 51.7
           },
           {
             "y": 2022,
-            "v": 80
+            "v": 51.2
           },
           {
             "y": 2023,
-            "v": 70
+            "v": 45.0
           },
           {
             "y": 2024,
-            "v": 62
+            "v": 37.2
           }
         ]
       },
@@ -104,39 +168,208 @@
         "points": [
           {
             "y": 2000,
-            "v": 26
+            "v": 37.9
+          },
+          {
+            "y": 2001,
+            "v": 45.0
+          },
+          {
+            "y": 2002,
+            "v": 41.7
+          },
+          {
+            "y": 2003,
+            "v": 43.6
+          },
+          {
+            "y": 2004,
+            "v": 39.6
           },
           {
             "y": 2005,
-            "v": 20
+            "v": 40.2
+          },
+          {
+            "y": 2006,
+            "v": 34.9
+          },
+          {
+            "y": 2007,
+            "v": 43.0
+          },
+          {
+            "y": 2008,
+            "v": 41.7
+          },
+          {
+            "y": 2009,
+            "v": 29.9
           },
           {
             "y": 2010,
-            "v": 9
+            "v": 37.4
+          },
+          {
+            "y": 2011,
+            "v": 37.8
+          },
+          {
+            "y": 2012,
+            "v": 37.7
+          },
+          {
+            "y": 2013,
+            "v": 32.9
+          },
+          {
+            "y": 2014,
+            "v": 36.3
           },
           {
             "y": 2015,
-            "v": 11
+            "v": 33.3
+          },
+          {
+            "y": 2016,
+            "v": 37.6
+          },
+          {
+            "y": 2017,
+            "v": 20.6
+          },
+          {
+            "y": 2018,
+            "v": 17.9
+          },
+          {
+            "y": 2019,
+            "v": 22.4
           },
           {
             "y": 2020,
-            "v": 8
+            "v": 26.1
           },
           {
             "y": 2021,
-            "v": 8
+            "v": 26.5
           },
           {
             "y": 2022,
-            "v": 7
+            "v": 26.0
           },
           {
             "y": 2023,
-            "v": 6
+            "v": 20.3
           },
           {
             "y": 2024,
-            "v": 5
+            "v": 22.0
+          }
+        ]
+      },
+      {
+        "label": "China",
+        "points": [
+          {
+            "y": 2000,
+            "v": 17.1
+          },
+          {
+            "y": 2001,
+            "v": 15.9
+          },
+          {
+            "y": 2002,
+            "v": 16.9
+          },
+          {
+            "y": 2003,
+            "v": 16.6
+          },
+          {
+            "y": 2004,
+            "v": 13.0
+          },
+          {
+            "y": 2005,
+            "v": 13.7
+          },
+          {
+            "y": 2006,
+            "v": 12.0
+          },
+          {
+            "y": 2007,
+            "v": 11.7
+          },
+          {
+            "y": 2008,
+            "v": 13.0
+          },
+          {
+            "y": 2009,
+            "v": 20.0
+          },
+          {
+            "y": 2010,
+            "v": 14.1
+          },
+          {
+            "y": 2011,
+            "v": 12.1
+          },
+          {
+            "y": 2012,
+            "v": 12.9
+          },
+          {
+            "y": 2013,
+            "v": 13.8
+          },
+          {
+            "y": 2014,
+            "v": 7.3
+          },
+          {
+            "y": 2015,
+            "v": 6.3
+          },
+          {
+            "y": 2016,
+            "v": 6.0
+          },
+          {
+            "y": 2017,
+            "v": 9.9
+          },
+          {
+            "y": 2018,
+            "v": 7.5
+          },
+          {
+            "y": 2019,
+            "v": 12.6
+          },
+          {
+            "y": 2020,
+            "v": 16.1
+          },
+          {
+            "y": 2021,
+            "v": 13.1
+          },
+          {
+            "y": 2022,
+            "v": 15.5
+          },
+          {
+            "y": 2023,
+            "v": 17.5
+          },
+          {
+            "y": 2024,
+            "v": 18.6
           }
         ]
       },
@@ -145,39 +378,103 @@
         "points": [
           {
             "y": 2000,
-            "v": 14
+            "v": 5.3
+          },
+          {
+            "y": 2001,
+            "v": 4.6
+          },
+          {
+            "y": 2002,
+            "v": 4.5
+          },
+          {
+            "y": 2003,
+            "v": 3.2
+          },
+          {
+            "y": 2004,
+            "v": 1.2
           },
           {
             "y": 2005,
-            "v": 9
+            "v": 1.3
+          },
+          {
+            "y": 2006,
+            "v": 2.5
+          },
+          {
+            "y": 2007,
+            "v": 1.2
+          },
+          {
+            "y": 2008,
+            "v": 2.0
+          },
+          {
+            "y": 2009,
+            "v": 2.1
           },
           {
             "y": 2010,
-            "v": 7
+            "v": 1.7
+          },
+          {
+            "y": 2011,
+            "v": 1.4
+          },
+          {
+            "y": 2012,
+            "v": 3.0
+          },
+          {
+            "y": 2013,
+            "v": 2.9
+          },
+          {
+            "y": 2014,
+            "v": 2.8
           },
           {
             "y": 2015,
-            "v": 7
+            "v": 2.9
+          },
+          {
+            "y": 2016,
+            "v": 2.6
+          },
+          {
+            "y": 2017,
+            "v": 1.2
+          },
+          {
+            "y": 2018,
+            "v": 1.7
+          },
+          {
+            "y": 2019,
+            "v": 1.4
           },
           {
             "y": 2020,
-            "v": 1
+            "v": 0.5
           },
           {
             "y": 2021,
-            "v": 2
+            "v": 0.7
           },
           {
             "y": 2022,
-            "v": 2
+            "v": 0.7
           },
           {
             "y": 2023,
-            "v": 16
+            "v": 7.3
           },
           {
             "y": 2024,
-            "v": 14
+            "v": 9.0
           }
         ]
       }
@@ -208,10 +505,10 @@
         {
           "kind": "big",
           "h3": "Where lithium is mined",
-          "big": "~62% Australia",
+          "big": "37% Australia",
           "conf": "measured",
           "text": "Australia leads because hard-rock spodumene mines can be built and expanded quickly, and it ships the concentrate to converters. Brine operations in Chile and Argentina hold far larger reserves but evaporate slowly over months, so their share of annual output is smaller than their share of the ground. Two very different clocks feed the same battery.",
-          "note": "USGS MCS 2026."
+          "note": "USGS MCS 2026, 2024 mine production by lithium content. Chile 22%, China 19%."
         },
         {
           "kind": "text",
@@ -250,7 +547,7 @@
   "method": [
     {
       "stage": "Mine",
-      "lens": "USGS/BGS mine share + history",
+      "lens": "USGS mine share and history, by lithium content",
       "why": "multi-country (Australia hard-rock leads) — not the chokepoint"
     },
     {
@@ -279,11 +576,6 @@
       "title": "IEA, Global Critical Minerals Outlook 2025",
       "year": 2025,
       "url": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary"
-    },
-    "bgs_wms": {
-      "title": "BGS, World Mineral Statistics — lithium mine production",
-      "year": 2024,
-      "url": "https://www.bgs.ac.uk/mineralsuk/statistics/world-mineral-statistics/world-mineral-statistics-data-download/"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",

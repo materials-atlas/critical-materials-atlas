@@ -4,9 +4,9 @@
     "product": "Ferrite magnets · pyrotechnics",
     "stage": "Mine (celestite)",
     "mechanism": "geological",
-    "physics": "Iran mines ~56% of world celestite from its own mineral deposits — a geological concentration in the ground, not a diffuse market",
+    "physics": "Iran mines 58% of world celestite from its own deposits (2024). The mine is the most concentrated stage, though the lead has changed hands since 2000",
     "holder": "Iran",
-    "share": "~56%",
+    "share": "58%",
     "control": "—",
     "conf": "measured"
   },
@@ -30,7 +30,7 @@
   "h1": "The cheap magnet's metal — and the red in every firework",
   "deck": "Strontium, mined as the mineral celestite, does two very different jobs. It makes ferrite (ceramic) magnets — the cheap, rare-earth-free magnets in fridge doors, small motors and loudspeakers — and it burns bright crimson, which is why it colours fireworks, flares and signal rockets. A small mineral market, now led by Iran.",
   "byline": "celestite (SrSO4) ≠ strontium carbonate ≠ ferrite magnets · pyrotechnics · specialty glass",
-  "correction": "Strontium is a minor mineral with one strategically interesting use: it is the basis of ferrite permanent magnets, the non-rare-earth alternative that fills the vast low-performance magnet market NdFeB is too expensive for. Mined as celestite, its supply is small and moderately concentrated — Iran now accounts for roughly 56% of production, up from a market once led by Mexico and Spain — but it is not a severe chokepoint. Its quiet importance is as the everyday magnet material and the crimson in pyrotechnics.",
+  "correction": "Strontium is a minor mineral with one strategically interesting use: it is the basis of ferrite permanent magnets, the non-rare-earth alternative that fills the vast low-performance magnet market NdFeB is too expensive for. Mined as celestite, its supply is small and concentrated at the mine: Iran accounted for 58% of 2024 production, in a market led by Mexico and Spain around 2000. The leverage that gives is low, because the market is small and most uses have substitutes. Its quiet importance is as the everyday magnet material and the crimson in pyrotechnics.",
   "stats": [
     {
       "v": "ferrite magnets",
@@ -38,8 +38,8 @@
       "conf": "measured"
     },
     {
-      "v": "~56% Iran",
-      "l": "Iran leads celestite mining (Spain ~22%, China ~18%)",
+      "v": "58% Iran",
+      "l": "Iran leads celestite mining in 2024 (China 16%, Spain 15%, Mexico 10%), BGS",
       "conf": "measured"
     },
     {
@@ -56,7 +56,7 @@
   "history": {
     "title": "The mine moved to Iran, 2000 → 2024",
     "conf": "measured",
-    "note": "BGS/USGS mine production, from the atlas's own data. Celestite mining shifted from a market led by Mexico around 2000 to one led by Iran (~56%) today, with Spain and China smaller. It is a small, moderately-concentrated mineral market — enough of a shift to notice, not enough to be a chokepoint.",
+    "note": "BGS World Mineral Statistics: tonnes of strontium minerals, as a share of the countries that report. Mexico and Spain led around 2000 and China around 2010. Spain and Iran traded the lead between 2015 and 2022, and Iran has led since 2023 (58% in 2024). The lead has changed hands several times in a small market.",
     "series": [
       {
         "label": "Iran",
@@ -180,13 +180,54 @@
             "v": 15
           }
         ]
+      },
+      {
+        "label": "Mexico",
+        "points": [
+          {
+            "y": 2000,
+            "v": 39
+          },
+          {
+            "y": 2005,
+            "v": 17
+          },
+          {
+            "y": 2010,
+            "v": 10
+          },
+          {
+            "y": 2015,
+            "v": 27
+          },
+          {
+            "y": 2020,
+            "v": 13
+          },
+          {
+            "y": 2021,
+            "v": 5
+          },
+          {
+            "y": 2022,
+            "v": 9
+          },
+          {
+            "y": 2023,
+            "v": 12
+          },
+          {
+            "y": 2024,
+            "v": 10
+          }
+        ]
       }
     ]
   },
   "hops": [
     {
       "n": "1 · Celestite",
-      "t": "strontium sulfate ore — Iran ~56% (the clear leader), plus Spain, China, Mexico"
+      "t": "strontium sulfate ore: Iran 58%, then China, Spain and Mexico"
     },
     {
       "n": "2 · Carbonate",
@@ -239,19 +280,19 @@
       "panels": [
         {
           "kind": "text",
-          "h3": "Moderately concentrated, not weaponised",
-          "text": "Strontium's market is small and its concentration modest — Iran's rise is notable but the mineral is not a lever, and substitutes exist for most uses. It sits in the atlas as a 'diffuse' chain: worth mapping because ferrite magnets are a genuine rare-earth hedge, but not a supply emergency in waiting.",
+          "h3": "Concentrated at the mine, low leverage",
+          "text": "The mine is the most concentrated stage: Iran produced 58% of the world's celestite in 2024. The leverage that gives is low. The market is small, the lead has passed between Mexico, Spain, China and Iran since 2000, and most uses have substitutes. The chain is worth mapping because ferrite magnets are a real hedge against rare-earth magnet supply, not because a supply emergency is waiting.",
           "flag": "worth knowing, not worrying"
         }
       ]
     }
   ],
-  "trade_intro": "BACI carries strontium/barium oxides (281640) and celestite within broad mineral lines (253090), so strontium cannot be cleanly isolated — the market is small and the compounds lumped. Read the shares below as coarse context; the mine map (Iran-led) is the clearer signal, shown in the history above.",
+  "trade_intro": "The customs line shown here, 281640, lumps strontium oxides with barium oxides, so it does not measure strontium alone. Celestite has no line of its own: it travels inside a catch-all for other minerals, which is not shown because it says nothing about strontium. Read the shares below as coarse context. The mine history above is the clearer signal.",
   "method": [
     {
       "stage": "Mine",
-      "lens": "USGS/BGS celestite share + history",
-      "why": "Iran ~56%; small, moderately concentrated"
+      "lens": "BGS celestite share and history",
+      "why": "Iran 58% in 2024; the most concentrated stage"
     },
     {
       "stage": "Use",
@@ -260,13 +301,13 @@
     },
     {
       "stage": "Character",
-      "lens": "diffuse, not a lever",
-      "why": "small market, substitutes exist — not a chokepoint"
+      "lens": "concentrated, low leverage",
+      "why": "small market, the lead has changed hands, most uses have substitutes"
     },
     {
       "stage": "Trade",
-      "lens": "BACI 281640 oxides + 253090 minerals",
-      "why": "strontium lumped/not separable — flagged proxy"
+      "lens": "BACI 281640 oxides",
+      "why": "strontium lumped with barium, a flagged proxy"
     }
   ],
   "sources": {

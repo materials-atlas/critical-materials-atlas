@@ -68,7 +68,7 @@ CHAIN = {
                 {"label": "Electric cars", "value": 0.70},
             ]},
             {"kind": "text", "h3": "Refining is the quiet chokepoint",
-             "text": "Australia mines most of the world's lithium, but ships spodumene concentrate to China to be turned "
+             "text": "Australia mines more lithium than any other country, but ships spodumene concentrate to China to be turned "
                      "into battery-grade lithium chemical — China refines roughly two-thirds of it. The same pattern "
                      "holds for cobalt and for graphite. Owning the mine and owning the refinery are two different "
                      "things, and the second is the one that gates a cell line.",

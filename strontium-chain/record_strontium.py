@@ -6,12 +6,27 @@ import json, os
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "strontium_chain.json")
-MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
+ROOT = os.path.dirname(HERE)
+MINED = os.path.join(ROOT, "out", "mined_years.json")
 
 
 def hist_points(material, country):
     node = json.load(open(MINED, encoding="utf-8")).get(material, {})
     return [{"y": int(y), "v": next((x["v"] for x in node[y] if x["c"] == country), 0)} for y in sorted(node, key=int)]
+
+
+# 2024 mine shares: the atlas's one table (out/mined_shares.json), never typed here. For strontium
+# it is BGS World Mineral Statistics, tonnes of strontium minerals, share of reporting countries -
+# the same source and unit as the history series, and the build stops if the two disagree.
+_CORE = json.load(open(os.path.join(ROOT, "out", "mined_shares.json"), encoding="utf-8"))["materials"]["strontium"]
+if not _CORE["source"].startswith("BGS"):
+    raise SystemExit("strontium: the core table changed source; the history series (BGS) no longer matches it")
+M = {x["c"]: x["v"] for x in _CORE["mined"]}
+IR, CN, ES, MX = M["IR"], M["CN"], M["ES"], M["MX"]
+for _c in ("IR", "CN", "ES", "MX"):
+    _h = hist_points("strontium", _c)[-1]
+    if _h["y"] != 2024 or _h["v"] != M[_c]:
+        raise SystemExit(f"strontium {_c}: history says {_h}, out/mined_shares.json says {M[_c]}% for 2024")
 
 
 SRC = {
@@ -23,7 +38,7 @@ SRC = {
 
 CHAIN = {
     "title": "Strontium chain",
-    "chokepoint": {"product": "Ferrite magnets · pyrotechnics", "stage": "Mine (celestite)", "mechanism": "geological", "physics": "Iran mines ~56% of world celestite from its own mineral deposits — a geological concentration in the ground, not a diffuse market", "holder": "Iran", "share": "~56%", "control": "—", "conf": "measured"},
+    "chokepoint": {"product": "Ferrite magnets · pyrotechnics", "stage": "Mine (celestite)", "mechanism": "geological", "physics": f"Iran mines {IR}% of world celestite from its own deposits (2024). The mine is the most concentrated stage, though the lead has changed hands since 2000", "holder": "Iran", "share": f"{IR}%", "control": "—", "conf": "measured"},
     "published": True,
     "related": [{"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}, {"href": "../boron-chain/boron-chain", "label": "Boron chain"}, {"href": "../rare-earths-chain/rare-earths-chain", "label": "Rare earths (full basket)"}],
     "accent": "#8a5a5a",
@@ -36,31 +51,32 @@ CHAIN = {
     "byline": "celestite (SrSO4) ≠ strontium carbonate ≠ ferrite magnets · pyrotechnics · specialty glass",
     "correction": "Strontium is a minor mineral with one strategically interesting use: it is the basis of ferrite "
                   "permanent magnets, the non-rare-earth alternative that fills the vast low-performance magnet market "
-                  "NdFeB is too expensive for. Mined as celestite, its supply is small and moderately concentrated — "
-                  "Iran now accounts for roughly 56% of production, up from a market once led by Mexico and Spain — but "
-                  "it is not a severe chokepoint. Its quiet importance is as the everyday magnet material and the "
-                  "crimson in pyrotechnics.",
+                  "NdFeB is too expensive for. Mined as celestite, its supply is small and concentrated at the mine: "
+                  f"Iran accounted for {IR}% of 2024 production, in a market led by Mexico and Spain around 2000. "
+                  "The leverage that gives is low, because the market is small and most uses have substitutes. Its "
+                  "quiet importance is as the everyday magnet material and the crimson in pyrotechnics.",
     "stats": [
         {"v": "ferrite magnets", "l": "strontium makes the cheap, rare-earth-free ceramic magnets", "conf": "measured"},
-        {"v": "~56% Iran", "l": "Iran leads celestite mining (Spain ~22%, China ~18%)", "conf": "measured"},
+        {"v": f"{IR}% Iran", "l": f"Iran leads celestite mining in 2024 (China {CN}%, Spain {ES}%, Mexico {MX}%), BGS", "conf": "measured"},
         {"v": "crimson flame", "l": "the red in fireworks, flares and signal rockets — plus specialty glass", "conf": "measured"},
         {"v": "the magnet hedge", "l": "ferrite is the fallback where rare-earth magnets are too costly", "conf": "estimate"},
     ],
     "history": {
         "title": "The mine moved to Iran, 2000 → 2024",
         "conf": "measured",
-        "note": "BGS/USGS mine production, from the atlas's own data. Celestite mining shifted from a market led by "
-                "Mexico around 2000 to one led by Iran (~56%) today, with Spain and China smaller. It is "
-                "a small, moderately-concentrated mineral market — enough of a shift to notice, not enough to be a "
-                "chokepoint.",
+        "note": "BGS World Mineral Statistics: tonnes of strontium minerals, as a share of the countries that "
+                "report. Mexico and Spain led around 2000 and China around 2010. Spain and Iran traded the lead "
+                f"between 2015 and 2022, and Iran has led since 2023 ({IR}% in 2024). The lead has changed hands "
+                "several times in a small market.",
         "series": [
             {"label": "Iran", "points": hist_points("strontium", "IR")},
             {"label": "China", "points": hist_points("strontium", "CN")},
             {"label": "Spain", "points": hist_points("strontium", "ES")},
+            {"label": "Mexico", "points": hist_points("strontium", "MX")},
         ],
     },
     "hops": [
-        {"n": "1 · Celestite", "t": "strontium sulfate ore — Iran ~56% (the clear leader), plus Spain, China, Mexico"},
+        {"n": "1 · Celestite", "t": f"strontium sulfate ore: Iran {IR}%, then China, Spain and Mexico"},
         {"n": "2 · Carbonate", "t": "converted to strontium carbonate, the main traded compound"},
         {"n": "3 · Ferrite / compounds", "t": "strontium ferrite for magnets; strontium salts for flame and glass"},
         {"n": "4 · End use", "t": "ceramic magnets, pyrotechnics, specialty glass and ceramics"},
@@ -90,23 +106,24 @@ CHAIN = {
              "note": "USGS.", "flag": "no equal for red"},
         ]},
         {"h2": "3 · A small, quiet market", "panels": [
-            {"kind": "text", "h3": "Moderately concentrated, not weaponised",
-             "text": "Strontium's market is small and its concentration modest — Iran's rise is notable but the mineral "
-                     "is not a lever, and substitutes exist for most uses. It sits in the atlas as a 'diffuse' chain: "
-                     "worth mapping because ferrite magnets are a genuine rare-earth hedge, but not a supply "
-                     "emergency in waiting.",
+            {"kind": "text", "h3": "Concentrated at the mine, low leverage",
+             "text": f"The mine is the most concentrated stage: Iran produced {IR}% of the world's celestite in 2024. "
+                     "The leverage that gives is low. The market is small, the lead has passed between Mexico, Spain, "
+                     "China and Iran since 2000, and most uses have substitutes. The chain is worth mapping because "
+                     "ferrite magnets are a real hedge against rare-earth magnet supply, not because a supply "
+                     "emergency is waiting.",
              "flag": "worth knowing, not worrying"},
         ]},
     ],
-    "trade_intro": "BACI carries strontium/barium oxides (281640) and celestite within broad mineral lines (253090), so "
-                   "strontium cannot be cleanly isolated — the market is small and the compounds lumped. Read the "
-                   "shares below as coarse context; the mine map (Iran-led) is the clearer signal, shown in the history "
-                   "above.",
+    "trade_intro": "The customs line shown here, 281640, lumps strontium oxides with barium oxides, so it does not "
+                   "measure strontium alone. Celestite has no line of its own: it travels inside a catch-all for "
+                   "other minerals, which is not shown because it says nothing about strontium. Read the shares "
+                   "below as coarse context. The mine history above is the clearer signal.",
     "method": [
-        {"stage": "Mine", "lens": "USGS/BGS celestite share + history", "why": "Iran ~56%; small, moderately concentrated"},
+        {"stage": "Mine", "lens": "BGS celestite share and history", "why": f"Iran {IR}% in 2024; the most concentrated stage"},
         {"stage": "Use", "lens": "ferrite magnets vs pyrotechnics", "why": "the rare-earth-free magnet hedge + red flame"},
-        {"stage": "Character", "lens": "diffuse, not a lever", "why": "small market, substitutes exist — not a chokepoint"},
-        {"stage": "Trade", "lens": "BACI 281640 oxides + 253090 minerals", "why": "strontium lumped/not separable — flagged proxy"},
+        {"stage": "Character", "lens": "concentrated, low leverage", "why": "small market, the lead has changed hands, most uses have substitutes"},
+        {"stage": "Trade", "lens": "BACI 281640 oxides", "why": "strontium lumped with barium, a flagged proxy"},
     ],
     "sources": SRC,
 }
@@ -114,4 +131,4 @@ CHAIN = {
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 with open(OUT, "w", encoding="utf-8") as fh:
     json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- strontium, ferrite magnets + red flame; Iran ~56pct celestite (diffuse)")
+print("wrote", os.path.relpath(OUT, HERE), f"- strontium, ferrite magnets + red flame; Iran {IR}pct of 2024 celestite (BGS)")

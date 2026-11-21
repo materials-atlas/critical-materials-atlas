@@ -6954,14 +6954,17 @@
   },
   "lithium-chain/record_lithium.py": {
    "reads": [
-    "out/mined_years.json"
+    "__pycache__/usgs_mcs_cube.cpython-311.pyc",
+    "out/mined_shares.json",
+    "pipeline/data/usgs_mcs_history.parquet"
    ],
    "writes": [
     "lithium-chain/out/lithium_chain.json"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "62048851c296c268"
+   "secs": 1.3,
+   "code_sha": "c8803922b30482ab",
+   "restored": 1
   },
   "magnesium-chain/record_magnesium.py": {
    "reads": [
@@ -7935,6 +7938,7 @@
   },
   "strontium-chain/record_strontium.py": {
    "reads": [
+    "out/mined_shares.json",
     "out/mined_years.json"
    ],
    "writes": [
@@ -7942,7 +7946,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "c01132578ebc7c88"
+   "code_sha": "07ae28935ab80ddb",
+   "restored": 1
   },
   "sulfur-chain/record_sulfur.py": {
    "reads": [],

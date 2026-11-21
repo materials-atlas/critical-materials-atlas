@@ -56,6 +56,19 @@ def top(pairs):
     return c, o[c] / tot * 100
 
 
+def share_of(pairs, c):
+    """Country c's percent of the total, or None if there is no total."""
+    mine, tot = 0.0, 0.0
+    for k, v in pairs:
+        v = float(v or 0)
+        if v != v:
+            continue
+        tot += v
+        if k == c:
+            mine += v
+    return round(mine / tot * 100, 1) if tot else None
+
+
 rows = []
 
 
@@ -83,6 +96,7 @@ for m in data['materials']:
         continue
     tev, tevs = top((f['from'], f['value']) for f in a)
     teq, _ = top((f['from'], f.get('qty')) for f in a)
+    tev_q = share_of(((f['from'], f.get('qty')) for f in a), tev)
     t = m['title']
     # What the top exporter itself mines. From the full country list where a source gives one;
     # for the few materials kept by hand only the listed producers are known, so a country not
@@ -99,6 +113,7 @@ for m in data['materials']:
                  'set': 'atlas', 'mine_source': msrc,
                  'top_miner': mi['c'], 'top_miner_share': float(mi['v']),
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),
+                 'top_exporter_tonnes': teq, 'top_exporter_share_tonnes': tev_q,
                  'top_exporter_mine_share': own, 'top_exporter_mine_share_source': own_src,
                  'gap_value': tev != mi['c'], 'gap_tonnes': teq is not None and teq != mi['c']})
 
@@ -117,6 +132,7 @@ for mat, d in MATS.items():
     t = b[b.k == d['hs']]
     tev, tevs = top(zip(t.exp, t.v))
     teq, _ = top(zip(t.exp, t.q))
+    tev_q = share_of(zip(t.exp, t.q), tev)
     if not ms or tev is None:
         continue
     tm3 = max(ms, key=ms.get)
@@ -136,6 +152,7 @@ for mat, d in MATS.items():
                  'set': 'widened', 'mine_source': src,
                  'top_miner': tm, 'top_miner_share': round(ms[tm3], 1),
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),
+                 'top_exporter_tonnes': teq, 'top_exporter_share_tonnes': tev_q,
                  'top_exporter_mine_share': None if own is None else round(own, 1),
                  'top_exporter_mine_share_source': own_src,
                  'gap_value': tev != tm, 'gap_tonnes': teq is not None and teq != tm})
