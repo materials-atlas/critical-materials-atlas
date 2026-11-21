@@ -125,6 +125,11 @@ def is_hub(r):   # a re-export hub that mines (almost) none of the material itse
     return r['gap_value'] and r['top_exporter'] in HUBS and r.get('top_exporter_mine_share', 0) < 5
 hub_rows = [r for r in rows if is_hub(r)]
 n_gap_hub = len(hub_rows)
+# The site says "most materials" in words, on this page AND on hand-written pages (index, explorer, analysis,
+# confidence, findings, three dated update notes). If that stops being true, stop the build loudly.
+if not (2 * n_gap > len(rows) and 2 * n_gap_t > len(rows)):
+    raise SystemExit('origin gap is no longer a majority (%d value, %d tonnes, of %d measured): the "most materials" '
+                     'wording on the site is now false - rewrite it on every page that carries it' % (n_gap, n_gap_t, len(rows)))
 out = {'year': YEAR, 'spec': 'origin-gap-all/codes.json', 'excluded': spec['excluded'],
        'n_gap_value': n_gap, 'n_gap_tonnes': n_gap_t, 'n_gap_value_hub_exporter': n_gap_hub,
        'n_atlas_gap': sum(r['gap_value'] for r in rows if r['set'] == 'atlas'),
@@ -157,7 +162,7 @@ page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The origin gap, every material — Critical Materials Atlas</title>
-<meta name="description" content="For every material with world mine and trade data: is the country that exports it the country that mines it? In {n_gap} materials it is not.">
+<meta name="description" content="For every material with world mine and trade data: is the country that exports it the country that mines it? For most materials it is not.">
 <meta property="og:title" content="The origin gap, every material">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -171,10 +176,10 @@ page = f'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Finding · every material</div>
   <h1>The origin gap, every material</h1>
-  <p class="deck">Is the country that sells a material to the world the country that digs it up? In <b>{n_gap}</b> materials it is not: a refinery, a smelter or a trading hub stands between the mine and the buyer.</p>
+  <p class="deck">Is the country that sells a material to the world the country that digs it up? For <b>most</b> materials it is not: a refinery, a smelter or a trading hub stands between the mine and the buyer.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">The test is run on every material for which the atlas holds both world mine output and world customs trade, and it grows as the atlas does. Counted in tonnes instead of dollars the gap appears in <b>{n_gap_t}</b> materials, so it is not an artifact of prices. {hub_sentence} In the others the top exporter is a country that refines, smelts or processes the material.</div>
+  <div class="callout">The test is run on every material for which the atlas holds both world mine output and world customs trade, and it grows as the atlas does. Counted in tonnes instead of dollars the gap holds just as widely, so it is not an artifact of prices. {hub_sentence} In the others the top exporter is a country that refines, smelts or processes the material.</div>
 
   <table>
     <thead><tr><th>Material and traded form</th><th>Top miner, share of world output</th><th>Top exporter, share of world exports (US$)</th><th class="n">Gap</th></tr></thead>
