@@ -270,24 +270,16 @@ PAGE = r'''<!doctype html>
 
   <div style="margin:1.4rem 0">
   <h2 style="font-size:1.3rem;color:#15323a;margin:0 0 .3rem;letter-spacing:-.01em">Under real capacity plans, not just an assumption</h2>
-  <p style="color:#42514f;font-size:.95rem;line-height:1.55;max-width:74ch;margin:.2rem 0 .8rem">The coverage above rests on an explicit assumption &mdash; that survivors could scale to <b>κ×</b> current output. For the 8 commodities where the <b>USGS World Minerals Outlook</b> publishes actual forward capacity (to 2029), we ground it in the real number, on a consistent <b>production</b> basis: the dominant producer&rsquo;s share of world capacity, and the capacity actually projected to be built. The &ldquo;real coverage&rdquo; column is a <b>generous upper bound</b> &mdash; it assumes every projected new tonne of capacity is spare, exportable and outside the cut country, ignoring baseline demand growth &mdash; so the true figure is lower still. Even so, two failure modes fall out, and only lithium escapes both.</p>
+  <p style="color:#42514f;font-size:.95rem;line-height:1.55;max-width:74ch;margin:.2rem 0 .8rem">The coverage above rests on an explicit assumption &mdash; that survivors could scale to <b>κ×</b> current output. For the __CAPN__ commodities where the <b>USGS World Minerals Outlook</b> publishes actual forward capacity (to 2029), we ground it in the real number, on a consistent <b>production</b> basis: the share of world capacity held by the country with the most of it, and the capacity actually projected to be built. The &ldquo;real coverage&rdquo; column is a <b>generous upper bound</b> &mdash; it assumes every projected new tonne of capacity is spare, exportable and outside the cut country, ignoring baseline demand growth &mdash; so the true figure is lower still. Even so, two failure modes fall out, and only lithium escapes both.</p>
   <div style="overflow-x:auto"><table style="border-collapse:collapse;width:100%;font-size:.88rem;min-width:520px">
   <thead><tr style="border-bottom:2px solid #15323a;text-align:left">
-    <th style="padding:.4rem .5rem">Material (dominant producer)</th>
+    <th style="padding:.4rem .5rem">Material (country with the most capacity, its share of world capacity in 2024)</th>
     <th style="padding:.4rem .5rem;text-align:right">USGS capacity growth to 2029</th>
     <th style="padding:.4rem .5rem;text-align:right">Real coverage of a producer cut</th>
     <th style="padding:.4rem .5rem;text-align:right">If everyone else doubled</th>
   </tr></thead><tbody>
-<tr><td><b>Magnesium</b> <span style="color:#9aa6ad;font-size:.85em">(China 89%)</span></td><td class="n">-3% <span style="color:#c0392b">▼</span></td><td class="n"><b style="color:#c0392b">0%</b></td><td class="n" style="color:#9aa6ad">13%</td></tr>
-<tr><td><b>Platinum</b> <span style="color:#9aa6ad;font-size:.85em">(South Africa 72%)</span></td><td class="n">+0%</td><td class="n"><b style="color:#c0392b">0%</b></td><td class="n" style="color:#9aa6ad">39%</td></tr>
-<tr><td><b>Palladium</b> <span style="color:#9aa6ad;font-size:.85em">(South Africa 41%)</span></td><td class="n">+1%</td><td class="n"><b style="color:#c0392b">2%</b></td><td class="n" style="color:#9aa6ad">100%</td></tr>
-<tr><td><b>Gallium</b> <span style="color:#9aa6ad;font-size:.85em">(China 87%)</span></td><td class="n">+12%</td><td class="n"><b style="color:#c0392b">14%</b></td><td class="n" style="color:#9aa6ad">14%</td></tr>
-<tr><td><b>Cobalt</b> <span style="color:#9aa6ad;font-size:.85em">(DR Congo 75%)</span></td><td class="n">+27%</td><td class="n"><b style="color:#b8860b">36%</b></td><td class="n" style="color:#9aa6ad">33%</td></tr>
-<tr><td><b>Helium</b> <span style="color:#9aa6ad;font-size:.85em">(United States 55%)</span></td><td class="n">+23%</td><td class="n"><b style="color:#b8860b">42%</b></td><td class="n" style="color:#9aa6ad">80%</td></tr>
-<tr><td><b>Titanium</b> <span style="color:#9aa6ad;font-size:.85em">(China 66%)</span></td><td class="n">+34%</td><td class="n"><b style="color:#b8860b">52%</b></td><td class="n" style="color:#9aa6ad">52%</td></tr>
-<tr><td><b>Lithium</b> <span style="color:#9aa6ad;font-size:.85em">(Australia 41%)</span></td><td class="n">+111%</td><td class="n"><b style="color:#1f7a4d">100%</b></td><td class="n" style="color:#9aa6ad">100%</td></tr>
-  </tbody></table></div>
-  <p style="color:#42514f;font-size:.9rem;line-height:1.55;max-width:74ch;margin:.6rem 0 0">Two ways a cut stays uncovered. <b>(1) Concentration too high:</b> gallium (87%), magnesium (89%) and cobalt (75%) are so dominated that even if <i>everyone else doubled</i> it would barely dent the gap (14&ndash;33%) &mdash; and reality (12&ndash;27% growth) matches. <b>(2) The capacity isn&rsquo;t being built:</b> palladium and platinum have leaders under 75%, so doubling <i>would</i> cover a cut (39&ndash;100%) &mdash; but USGS projects their capacity <b>flat or shrinking</b>, so real coverage is <b style="color:#c0392b">0&ndash;2%</b>. Only <b>lithium</b> (+111% capacity) genuinely escapes. True <i>per-country</i> ceilings don&rsquo;t exist in public data for the rest, so the κ sweep stays for them &mdash; but where USGS data does exist, real plans are far bleaker than any &ldquo;survivors could scale&rdquo; hope. real coverage = min(1, capacity-growth ÷ producer-share); reproducible: <code>build_ot_capacity.py</code>.</p>
+__CAPROWS__  </tbody></table></div>
+__CAPPARA__
   </div>
 
   <div class="mappanel">
@@ -414,6 +406,97 @@ drawMap();
   <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
 </div></footer>
 </body></html>'''
+# ---- capacity table: generated from out/ot_capacity.json -------------------------------------------
+# Until November 2026 these rows were typed by hand under a column called "dominant producer". The
+# figure is a share of world CAPACITY (USGS World Minerals Outlook), not of output, and the two can name
+# different countries (palladium). So the rows, the ranges and the capacity-versus-output line all come
+# from the files.
+CAP = json.load(open(os.path.join(ROOT, 'out', 'ot_capacity.json'), encoding='utf-8'))['materials']
+OUTLOOK = json.load(open(os.path.join(ROOT, 'out', 'usgs_outlook.json'), encoding='utf-8'))['materials']
+MINED = {m['label']: sorted(m.get('mined') or [], key=lambda x: -x['v'])
+         for m in json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf-8'))['materials']}
+
+
+def _cn(iso):
+    return {'CD': 'DR Congo'}.get(iso, NAMES.get(iso, iso))
+
+
+def _pc(v):
+    return '%d%%' % round(v * 100)
+
+
+def _gr(g):
+    return '%+d%%' % g
+
+
+def _colour(v):
+    return '#c0392b' if v < 0.25 else ('#1f7a4d' if v >= 0.995 else '#b8860b')
+
+
+def _and(xs):
+    return xs[0] if len(xs) == 1 else ', '.join(xs[:-1]) + ' and ' + xs[-1]
+
+
+def _span(vals, fmt):
+    lo, hi = min(vals), max(vals)
+    return fmt(lo) if lo == hi else '%s to %s' % (fmt(lo), fmt(hi))
+
+
+CAPROWS = ''.join(
+    '<tr><td><b>%s</b> <span style="color:#9aa6ad;font-size:.85em">(%s %d%%)</span></td>'
+    '<td class="n">%s%s</td><td class="n"><b style="color:%s">%s</b></td>'
+    '<td class="n" style="color:#9aa6ad">%s</td></tr>\n'
+    % (r['name'], r['producer'], r['producer_share'], _gr(r['capacity_growth_pct']),
+       ' <span style="color:#c0392b">▼</span>' if r['capacity_shrinking'] else '',
+       _colour(r['real_coverage']), _pc(r['real_coverage']), _pc(r['double_coverage']))
+    for r in CAP)
+
+G1 = sorted((r for r in CAP if r['producer_share'] >= 75), key=lambda r: -r['producer_share'])
+G2 = sorted((r for r in CAP if r['producer_share'] < 75 and r['capacity_growth_pct'] <= 5), key=lambda r: r['name'])
+ESC = [r for r in CAP if r['real_coverage'] >= 0.995]
+# The paragraph is written around these three groups, so it must fail loudly the day they change.
+if ({r['label'] for r in G1}, {r['label'] for r in G2}, {r['label'] for r in ESC}) != (
+        {'magnesium', 'gallium', 'cobalt'}, {'palladium', 'platinum'}, {'lithium'}):
+    raise SystemExit('build_ot: the capacity groups changed (%s / %s / %s); rewrite the paragraph under the '
+                     'capacity table before building' % ([r['label'] for r in G1], [r['label'] for r in G2],
+                                                         [r['label'] for r in ESC]))
+
+# Where the country with the most capacity is not the country that mines the most, say so.
+_diff = []
+for r in CAP:
+    u, mined = OUTLOOK[r['label']], MINED.get(r['label'])
+    if u['stage'] != 'mine' or not mined or mined[0]['c'] == u['top']:
+        continue
+    cap_first = u['by'].get(mined[0]['c'])
+    out_top = next((x['v'] for x in mined if x['c'] == u['top']), None)
+    if cap_first is None or out_top is None:
+        continue
+    _diff.append('For %s, %s mines the most (%d%% of world output, %s %d%%), while %s holds the most capacity '
+                 '(%d%%, %s %d%%).' % (r['name'].lower(), _cn(mined[0]['c']), mined[0]['v'], _cn(u['top']),
+                                       out_top, _cn(u['top']), round(u['top_share']),
+                                       _cn(mined[0]['c']), round(cap_first)))
+_P = '<p style="color:#42514f;font-size:.9rem;line-height:1.55;max-width:74ch;margin:.6rem 0 0">'
+CAPPARA = (
+    _P + '<b>Capacity is not output.</b> The country in brackets holds the most capacity, which is not always '
+    'the country that produces the most. ' + ' '.join(_diff) + '</p>\n'
+    + _P + 'Two ways a cut stays uncovered. <b>(1) Concentration too high:</b> '
+    + _and(['%s (%d%%)' % (r['name'].lower(), r['producer_share']) for r in G1])
+    + ' are so dominated that even if <i>everyone else doubled</i> it would cover only '
+    + _span([r['double_coverage'] for r in G1], _pc) + ' of a cut, and the capacity planned is no better ('
+    + _span([r['capacity_growth_pct'] for r in G1], _gr) + '). '
+    '<b>(2) The capacity isn&rsquo;t being built:</b> ' + _and([r['name'].lower() for r in G2])
+    + ' have leaders under 75%, so doubling <i>would</i> cover ' + _span([r['double_coverage'] for r in G2], _pc)
+    + ' of a cut, but USGS projects their capacity <b>'
+    + ('flat or shrinking' if min(r['capacity_growth_pct'] for r in G2) < 0 else 'flat') + '</b> ('
+    + _span([r['capacity_growth_pct'] for r in G2], _gr) + '), so real coverage is <b style="color:#c0392b">'
+    + _span([r['real_coverage'] for r in G2], _pc) + '</b>. Only <b>' + _and([r['name'].lower() for r in ESC])
+    + '</b> (' + _span([r['capacity_growth_pct'] for r in ESC], _gr) + ' capacity) genuinely escapes. '
+    'True <i>per-country</i> ceilings don&rsquo;t exist in public data for the rest, so the κ sweep stays for them. '
+    'Where USGS data does exist, real plans are far bleaker than any &ldquo;survivors could scale&rdquo; hope. '
+    'real coverage = min(1, capacity growth ÷ the leader&rsquo;s share of capacity); reproducible: '
+    '<code>build_ot_capacity.py</code>.</p>')
+PAGE = (PAGE.replace('__CAPROWS__', CAPROWS).replace('__CAPPARA__', CAPPARA)
+            .replace('__CAPN__', str(len(CAP))))
 PAGE = PAGE.replace('__DATA__', json.dumps(payload, ensure_ascii=False))
 open(os.path.join(ROOT, 'ot.html'), 'w', encoding='utf-8').write(PAGE)
 print('WROTE ot.html (self-contained)')
