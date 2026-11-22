@@ -9,7 +9,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/explorer">
-<meta property="og:title" content="Critical raw materials — where do they really come from?">
+<meta property="og:title" content="Every material, from mine to export market">
 <meta property="og:description" content="critical materials mined ▸ refined ▸ traded — complete global bilateral trade, for any country. Public USGS · IEA · UN Comtrade (CEPII BACI) data.">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -270,7 +270,7 @@
 
 <section class="hero"><svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".15" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/><line x1="280" y1="48" x2="280" y2="512"/><line x1="48" y1="280" x2="512" y2="280"/></g><g stroke="#9be3da" stroke-opacity=".26" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".55"><circle cx="120" cy="360" r="4.2"/><circle cx="472" cy="248" r="4.2"/><circle cx="158" cy="196" r="4.2"/><circle cx="442" cy="422" r="4.2"/></g></svg><div class="wrap">
   <div class="eyebrow">Research · Critical-mineral supply chains</div>
-  <h1>Where do critical raw materials really come from?</h1>
+  <h1>Every material, from mine to export market</h1>
   <p class="deck">For any material — or any country — see where it is <b>mined</b>, where it is <b>refined</b>, and the <b>real global bilateral trade</b>, both directions. The chokepoint a customs ledger shows is usually the refiner, not the source.</p>
   <p class="meta-links"><a href="methodology">Methods &amp; validation</a> · reconciliation engine: <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">comtrade-reconcile</a> · validated vs official BACI: top-1 exporter 25/30, share error 3.5%.</p>
   <p class="byline">Independent public-data research (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · <span id="stamp">loading…</span></p>
@@ -321,10 +321,10 @@
         <span>each country keeps its <b>own colour</b> across a row</span>
       </div>
       <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
-        <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most — the last being the most exposed. Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
+        <p style="margin:.5rem 0 .3rem">The chain runs <b>reserves&nbsp;→ mined&nbsp;→ refined&nbsp;→ top&nbsp;exporter&nbsp;→ top&nbsp;importer</b>: what&rsquo;s left in the ground (USGS, economically recoverable), who digs it up, who processes it, who sells the most, and who buys the most (the largest importer). Trade figures are world bilateral trade from CEPII&nbsp;BACI. Every country keeps its <b>own colour</b>, so a colour that recurs across a row is one of that supply chain&rsquo;s main players.</p>
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
         <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
-          <li><b>⚠ processing chokepoint</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader stands in between.</li>
+          <li><b>⚠ top seller is not the top miner</b> — the country that exports the most is not the country that mines the most.</li>
           <li><b>⛓ shared trade code</b> — gallium, germanium and hafnium are read from one customs code (811292), so their seller, buyer and concentration columns show the same basket, not three results.</li>
           <li><b>—</b> no distinct refining stage, or no data.</li>
         </ul>
@@ -612,7 +612,7 @@ function renderTable(){
   const sb='<small style="opacity:.55;font-weight:400;text-transform:none;letter-spacing:0"> ';
   const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
   const yy=String(FLOWS_YEAR).slice(2);
-  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span class="carr">▸</span><span data-s="mine" title="Where it comes out of the ground (USGS mine production)">Mined <i class="hd" style="background:#de8c28"></i>${sb}USGS</small>${ar('mine')}</span><span class="carr">▸</span><span data-s="ref" title="Where the ore is turned into usable metal — often a different country">Refined <i class="hd" style="background:#8e44ad"></i>${sb}IEA</small>${ar('ref')}</span><span class="carr">▸</span><span data-s="exp" title="Who sells the most on the world market">Top seller${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp" title="Who buys the most — the most exposed">Top buyer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
+  const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span class="carr">▸</span><span data-s="mine" title="Where it comes out of the ground (USGS mine production)">Mined <i class="hd" style="background:#de8c28"></i>${sb}USGS</small>${ar('mine')}</span><span class="carr">▸</span><span data-s="ref" title="Where the ore is turned into usable metal — often a different country">Refined <i class="hd" style="background:#8e44ad"></i>${sb}IEA</small>${ar('ref')}</span><span class="carr">▸</span><span data-s="exp" title="Who sells the most on the world market">Top seller${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp" title="The largest importer">Top buyer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
   const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), sh=SHARED_HS6.has(m.label), warn=!sh&&mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -629,7 +629,7 @@ function renderTable(){
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}${hhiCell}`+
-      `<span class="warn" title="${sh?SHARED_TXT:(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
+      `<span class="warn" title="${sh?SHARED_TXT:(warn?'top seller is not the top miner':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
