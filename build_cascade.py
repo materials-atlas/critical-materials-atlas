@@ -146,7 +146,7 @@ robustness = {
 out = {
     'generated': data.get('generated'), 'blocs': BLOCS,
     'n_countries': len(countries),
-    'ranking': [{'iso': r['iso'], 'name': r['name'], 'score': r['score'],
+    'ranking': [{'rank': r['rank'], 'iso': r['iso'], 'name': r['name'], 'score': r['score'],
                  'n_direct': len(r['direct']), 'n_echo': len(r['echo'])} for r in ranking],
     'countries': countries,
     'host_companions': HOST_COMPANIONS,

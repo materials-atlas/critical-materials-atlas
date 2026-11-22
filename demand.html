@@ -126,6 +126,8 @@ Promise.all([fetch('out/demand.json').then(r=>r.json()),
       'Other low emissions power generation':'#2f8f6b','Low emissions power generation':'#2f8f6b'};
     const col=t=>COL[t]||'#9aa6ad';
     const tt=document.querySelector('#techtab tbody');
+    const NAME={}; S.rows.forEach(r=>{NAME[r.label]=r.title;});
+    const TITLE=m=>NAME[m]||(m.charAt(0).toUpperCase()+m.slice(1));
     TB.forEach(d=>{
       const bars=d.techs.filter(t=>t.pct_2040>0.5).map(t=>'<span title="'+t.tech+': '+t.pct_2040+'% of 2040 demand" style="display:inline-block;height:15px;width:'+t.pct_2040+'%;background:'+col(t.tech)+'"></span>').join('');
       const tr=document.createElement('tr');

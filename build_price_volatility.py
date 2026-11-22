@@ -365,16 +365,15 @@ survives = c2['p'] < 0.05
 shrink = round((1 - c2['coef'] / c1['coef']) * 100, 0) if c1['coef'] else None
 
 # cross-check: is the OLD BACI unit-value volatility a decent proxy for the real USGS one?
-baci = {}
-try:
-    ps = json.load(open(os.path.join(ROOT, 'out', 'price_squeeze.json'), encoding='utf8'))
-    B = {r['label']: r['volatility'] for r in ps['rows'] if r.get('volatility') is not None}
-    pairs = [(B[r['label']], r['volatility']) for r in rows if r['label'] in B]
-    if len(pairs) >= 5:
-        rr, pp = stats.pearsonr([a for a, _ in pairs], [b for _, b in pairs])
-        baci = {'n': len(pairs), 'r': round(float(rr), 2), 'p': round(float(pp), 4)}
-except FileNotFoundError:
-    pass
+# A DATED RECORD, NOT A LIVE COMPUTATION. This used to be computed here from rows[].volatility in
+# out/price_squeeze.json. That field was removed on purpose on 15 Jul 2026, together with the withdrawn
+# claim it served, and from then on this block silently returned {} and the page printed "undefined"
+# three times (found 22 Nov 2026). The figure below is the result as computed on 15 Jul 2026, the day
+# of the retraction; every other page that tells the story quotes the same one.
+# Re-run by hand on 22 Nov 2026 with the same formula (st.dev. of yearly log-returns of the trade
+# unit value, last ten years, out/volume.json) against today's rows: r=0.17, p=0.40, n=28. Same
+# conclusion: no relationship.
+baci = {'n': 27, 'r': 0.13, 'p': 0.5183, 'as_of': '15 Jul 2026'}
 
 out = {
     'generated': comp.get('generated'),

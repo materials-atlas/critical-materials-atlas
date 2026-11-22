@@ -43,6 +43,7 @@ python build_insights.py                       # -> insights.html (the synthesis
 python reconcile\reconcile.py 2024             # raw\comtrade\comtrade_2024.csv -> reconcile\recon_2024.csv
 python reconcile\extract_baci.py 2024          # raw\baci BACI HS17 zip        -> reconcile\baci_2024.csv (ground truth)
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)
+python check_rendered.py                       # opens every page in a browser; fails on "undefined", script errors, missing files, empty tables
 ```
 
 Both inputs are derived (gitignored); `reconcile.py` reads `raw\comtrade\comtrade_<year>.csv` (present
