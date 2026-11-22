@@ -62,6 +62,26 @@ def pointer():
             % (n, lov, lo, hiv, hi))
 
 
+def first_estimate(commodity):
+    """For a chain page's production-history chart: how far the USGS has moved that commodity's world
+    total after first printing it. The chain recorders used to carry this sentence typed, with the
+    median in it, and it stayed at the old value when the study was corrected on 22 Nov 2026."""
+    if not os.path.exists(RESULT):
+        return ''
+    with io.open(RESULT, encoding='utf-8') as f:
+        d = json.load(f)
+    allc = dict(d.get('by_commodity', {}), **d.get('amendment_a', {}))
+    b = allc.get(commodity)
+    if not b:
+        return ''
+    return ('The most recent year on this chart is a first estimate. Measured across the USGS editions '
+            '%d-%d, the world %s total ends up a median %.1f%% from its first printing (%.1f%% over the '
+            'last ten years; the largest move was %.1f%%), with %s.'
+            % (min(d['editions']), max(d['editions']), NAME.get(commodity, commodity),
+               100 * b['world_median_abs_revision'], 100 * b['world_median_abs_revision_recent'],
+               100 * b['world_max_abs_revision'], b['direction_of_revisions']))
+
+
 def note(materials=None, mine_only=True, lead=None):
     """One paragraph: how far the USGS world total sits from the BGS one, per commodity.
 

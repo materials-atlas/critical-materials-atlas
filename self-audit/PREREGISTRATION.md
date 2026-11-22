@@ -295,3 +295,31 @@ platinum-group value, so the six-material test could not stress the published nu
 weakest point in the result as published. Testing 7 of 7 resolves it. Whatever it does to the claim is
 published: if including the platinum-group row turns the ex-ante result fragile, that is the finding,
 and this paragraph is on the record before the number exists.
+
+**2026-11-22 — deviation 8: the revision pools identified a country by its printed name.**
+Filed after the result, as a correction.
+
+The pools were built by grouping a country's printings of a year on the printed name of the row. A
+country respelled between two editions (Kazakstan and Kazakhstan, Czech Republic and Czechia, Cote
+d'Ivoire with and without its accent) became two series of one printing each and the pair was not
+measured. Three revisions were missing for that reason, one each in the tungsten, feldspar and
+manganese pools (now 246, 430 and 194). A country is now identified by its code where the row has
+one. The same fault in the revision study itself, where it mattered more, is logged in
+`usgs-revisions/PREREGISTRATION.md` (deviation 16) and `usgs-revisions/AMENDMENT_A.md` (deviation 13).
+
+The audit was rerun with the filed seed and draws. **No verdict changes.** The same three changes
+are fragile (tungsten, molybdenum, titanium) and the same seventeen robust; both filed claims and
+the full-set median are robust as before. Every share and band moves in the third decimal, and not
+only in the three pools that gained a revision: the draws for all materials come from one random
+stream, so a pool that changes size shifts the draws of the materials after it. In the stratified
+run tungsten keeps its sign in 94.5% of draws (was 94.3%) and molybdenum in 90.0% (was 91.1%). With
+2,000 draws the sampling error of such a share near the 95% line is about half a point, so
+tungsten's distance from the line was never something the draws alone could settle, and the page
+should not be read as if it were.
+
+The size gradient given under deviation 4 (9.1% for the smallest quartile of producers, 5.5% for the
+largest tenth) was measured on the panel as it stood in September, and the page went on quoting it
+typed. On today's panel the five classes are 8.3%, 7.0%, 6.3%, 6.2% and 5.0%; within tungsten 13.5%
+against 5.6%, within antimony 20.8% against 14.3%, within copper 4.8% against 1.6%. The gradient is
+still there and of the same order. The output now carries it (`size_gradient`) and the page reads it
+from there.

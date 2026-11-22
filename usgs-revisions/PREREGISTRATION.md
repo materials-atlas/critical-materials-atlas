@@ -64,17 +64,17 @@ chapter has been published once and cannot be measured yet.
 
 | Commodity | world, median abs revision | same, last 10 years | largest | China, median | up / down / unchanged | direction | band: filed / last 10 |
 |---|---|---|---|---|---|---|---|
-| antimony | 11.6% | 11.3% | 42.5% | 11.0% | 41% / 40% / 18% | no consistent direction | **weak** / **weak** |
-| graphite | 6.9% | 8.3% | 29.9% | 5.7% | 26% / 36% / 39% | no consistent direction | **weak** / **weak** |
+| antimony | 10.1% | 11.3% | 42.5% | 11.0% | 42% / 40% / 18% | no consistent direction | **weak** / **weak** |
+| graphite | 6.8% | 8.3% | 29.9% | 5.7% | 26% / 35% / 39% | no consistent direction | **weak** / **weak** |
 | cobalt | 5.7% | 3.6% | 29.0% | 4.7% | 49% / 38% / 13% | no consistent direction | **weak** / **soft** |
-| tungsten | 5.3% | 2.4% | 55.0% | 5.6% | 42% / 43% / 15% | no consistent direction | **weak** / **soft** |
+| tungsten | 5.2% | 2.4% | 55.0% | 5.6% | 41% / 44% / 15% | no consistent direction | **weak** / **soft** |
 | rare earths | 2.8% | 3.1% | 17.1% | 0.4% | 38% / 26% / 37% | no consistent direction | **soft** / **soft** |
 | copper | 1.5% | 2.1% | 3.8% | 5.0% | 53% / 42% / 5% | no consistent direction | **firm** / **soft** |
 
 **A current-year figure is worth about what its commodity's band says.** Copper's world total is the
 firmest: 1.5% between its first and its latest printing over the whole period, 2.1% over the last ten
-years, which straddles the filed "firm" and "soft" bands. Antimony's moves 11.6%, and has moved 42.5%.
-Graphite's 6.9% gets worse in the recent decade, not better (8.3%). The direction is not systematic:
+years, which straddles the filed "firm" and "soft" bands. Antimony's moves 10.1%, and has moved 42.5%.
+Graphite's 6.8% gets worse in the recent decade, not better (8.3%). The direction is not systematic:
 under the filed rule - which licenses only an upward reading, at 60% - no commodity has one, on either denominator: the filing says "the share of revisions that are upward", and whether unchanged reprints sit in that share or are excluded from it, the highest of the six is rare earths at 59% (Amendment A, deviation 5).
 Separating unchanged reprints from downward ones (deviation 11) shows why an earlier draft was wrong to
 call graphite and rare earths "revised down more often than up": graphite's mine series are 26% up,
@@ -259,3 +259,36 @@ Every change made after this filing goes here, dated, with its reason.
    measurable, 746 dropped), and the wider panel's counts are reported separately in the output file.
    The chapter and country-series counts in the same paragraph were mixed the same way and are now the
    six as well.
+16. **2026-11-22 - a series was identified by its printed label, and eight measurable figures fell
+   out of the six.** The code grouped the printings of a year by the label of the row. That label is
+   not stable. The world-total row carries a rounding note that changes from one edition to the next
+   ("World total", "World total (rounded)", "World total (may be rounded)"), and a country can be
+   respelled: the 1998 edition prints "Kazakstan", the 1999 one "Kazakhstan". Where the two printings
+   of a year carried different labels, the year became two series of one printing each, and both were
+   dropped as "printed in one edition only". In the six commodities of this filing that removed seven
+   world-total years (antimony 2002; cobalt 1999, 2000 and 2003; copper 2002; graphite 2002; tungsten
+   1998) and one country year (Kazakhstan's tungsten for 1997). A series is now identified by the
+   country code where the row has one, and for a world total by its label without the rounding note.
+
+   With those years back, antimony's median is **10.1% over 26 measurable years, not 11.6% over 25**.
+   One added year moves it by a point and a half because the middle of antimony's distribution is
+   wide: over 26 years the median is the midpoint of 8.7% and 11.6%. Tungsten is 5.2% over 30 years
+   (was 5.3% over 29), cobalt 5.7% over 26 (5.68%, was 5.71% over 23), graphite 6.8% over 26 (6.79%,
+   was 6.85% over 25), copper 1.5% over 26 (1.51%, was 1.52% over 25), and rare earths are unchanged
+   at 2.8% over 26. No band changes, the order of the six does not change, no largest revision
+   changes, and no commodity gains a direction. The counts become 1,771 measurable and 730 not (491
+   printed in one edition only, 239 lost to a flag), from 1,763 and 746. They add up to the 2,501
+   series the six have at the stage the study reads: 2,254 country series with a country code, 58
+   country series without one and 189 world totals. The output now carries that breakdown
+   (`series_tested`), which it did not before. The median over tungsten's
+   country figures moves from 8.3% to 8.4%. The comparison with the BGS is not affected. The result
+   table above now carries these figures.
+
+   Found by an outside reader of the write-up, who noticed that the series counts did not add up.
+   The seven restored world totals were read back against the store: in each of the two editions the
+   country rows and the "other countries" row sum to the printed total within half a percent, so
+   they are real printings and not a misread row. The same fault across the wider panel is Amendment
+   A, deviation 13. **Still open:** a country row that carries no
+   country code (a regional aggregate, or a row printed with a qualifier such as "Russia
+   (recoverable)") is still identified by its label, and where that label varies between two editions
+   the pair is still lost.

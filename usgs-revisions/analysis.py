@@ -74,10 +74,15 @@ def store():
     return d
 
 
+# one definition, shared with the panel reader: usgs_mcs_cube.series_id
+series_id = U.series_id
+
+
 def revisions(d):
     """One row per commodity, series and year with at least two editions reporting it."""
     rows, dropped, one_edition, flagged = [], 0, 0, 0
-    keys = ['commodity', 'measure', 'row_kind', 'iso3', 'country_name_raw', 'year']
+    d = d.assign(series=series_id(d))
+    keys = ['commodity', 'measure', 'row_kind', 'iso3', 'series', 'year']
     for k, g in d.groupby(keys, dropna=False):
         if k[2] not in ('country', 'world_printed'):
             continue
@@ -97,7 +102,7 @@ def revisions(d):
         first, latest = float(g.v.iloc[0]), float(g.v.iloc[-1])
         second = float(g.v.iloc[1])
         rows.append({'commodity': k[0], 'measure': k[1], 'row_kind': k[2], 'iso3': k[3],
-                     'country': k[4], 'year': k[5], 'editions': int(len(g)),
+                     'country': g.country_name_raw.iloc[-1], 'year': k[5], 'editions': int(len(g)),
                      'first_edition': int(g.edition_year.iloc[0]), 'latest_edition': int(g.edition_year.iloc[-1]),
                      'first': first, 'latest': latest,
                      'revision': (latest - first) / first,
@@ -331,6 +336,28 @@ def bgs_compare(d):
     return out
 
 
+def series_counts(d, r):
+    """What the measurable and the not-measurable series add up to.
+
+    The output used to carry a count of country series taken over the coded rows only, beside a
+    measurable-and-dropped pair taken over every series, world totals and uncoded rows included. The
+    two could not be added up, and an outside reader said so (22 Nov 2026). This is the population
+    revisions() actually walks, split the way a reader needs to close the sum.
+    """
+    d = d[d.row_kind.isin(['country', 'world_printed'])]
+    d = d.assign(series=series_id(d))
+    keys = ['commodity', 'measure', 'row_kind', 'iso3', 'series', 'year']
+
+    def n(x):
+        return int(x.groupby(keys, dropna=False).ngroups)
+    c = d[d.row_kind == 'country']
+    return {'series': n(d), 'country': n(c), 'country_without_a_code': n(c[c.iso3.isna()]),
+            'world_total': n(d[d.row_kind == 'world_printed']),
+            'measurable': int(len(r)),
+            'measurable_country': int((r.row_kind == 'country').sum()),
+            'measurable_world_total': int((r.row_kind == 'world_printed').sum())}
+
+
 def main():
     d = store()
     r_all, dropped_all = revisions(d)
@@ -358,11 +385,14 @@ def main():
            'commodities_measured': sorted(d.commodity.unique().tolist()),
            'store_commodities': sorted(full.commodity.unique().tolist()),
            'store': 'pipeline/data/usgs_mcs_history.parquet',
+           'store_stamp': U.store_stamp(),
            'renamed_tables_merged': MERGED,
            'renamed_join_years': join_sensitivity(r_amend),
            'editions': U.editions(), 'series_dropped': dropped,
            'series_dropped_all_commodities': dropped_all,
            'measurable_series': int(len(r)),
+           'series_tested': series_counts(d[d.commodity.isin(FILED)], r),
+           'series_tested_all_commodities': series_counts(d, r_all),
            'latest_year_excluded': {c: int(g.year.max()) + 1 for c, g in r.groupby('commodity')},
            'by_commodity': summarise(r),
            # Amendment A, kept separate so the filed six stay identifiable

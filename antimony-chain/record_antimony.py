@@ -2,9 +2,11 @@
 Shared chainview renderer, per-figure confidence tags. Run: python record_antimony.py
 """
 from __future__ import annotations
-import json, os
+import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+import revision_note  # noqa: E402  (the revision sentence, from the study's output)
 OUT = os.path.join(HERE, "out", "antimony_chain.json")
 MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
 
@@ -54,7 +56,7 @@ CHAIN = {
                 "~43% as Tajikistan (now ~26%) and Russia (~14%) grew. But mine share is the misleading number here: "
                 "China still dominates antimony refining and trioxide production, and its September 2024 export "
                 "controls showed the lever sits downstream of the mine, not at it.",
-        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world antimony total ends up a median 11.6% from its first printing (11.3% over the last ten years; the largest move was 42.5%), with no consistent direction.",
+        "revision": revision_note.first_estimate("antimony"),
         "series": [
             {"label": "China", "points": hist_points("antimony", "CN")},
             {"label": "Tajikistan", "points": hist_points("antimony", "TJ")},

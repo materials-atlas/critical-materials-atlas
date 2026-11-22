@@ -2,9 +2,11 @@
 Shared chainview renderer, per-figure confidence tags. Run: python record_tungsten.py
 """
 from __future__ import annotations
-import json, os
+import json, os, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+import revision_note  # noqa: E402  (the revision sentence, from the study's output)
 OUT = os.path.join(HERE, "out", "tungsten_chain.json")
 MINED = os.path.join(os.path.dirname(HERE), "out", "mined_years.json")
 
@@ -52,7 +54,7 @@ CHAIN = {
                 "moved, China's tungsten share has simply sat near 80% for the whole period, with Vietnam a distant "
                 "second. This is a stable, structural chokepoint — which is exactly what makes its addition to the "
                 "export-control list in 2025 consequential.",
-        "revision": "The most recent year on this chart is a first estimate. Measured across the USGS editions 1996-2026, the world tungsten total ends up a median 5.3% from its first printing (2.4% over the last ten years; the largest move was 55.0%), with no consistent direction.",
+        "revision": revision_note.first_estimate("tungsten"),
         "series": [
             {"label": "China", "points": hist_points("tungsten", "CN")},
             {"label": "Vietnam", "points": hist_points("tungsten", "VN")},

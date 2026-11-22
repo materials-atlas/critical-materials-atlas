@@ -37,16 +37,70 @@ def editions(commodity=None):
     return sorted(c.edition_year.unique().tolist())
 
 
+def series_id(d):
+    """What identifies one series across editions. Needs row_kind, iso3 and country_name_raw.
+
+    The printed label is not it. The world-total row is labelled with a rounding note that changes
+    from one edition to the next ("World total (may be rounded)" / "World total (rounded)" / "World
+    total"), and a country can be renamed between two editions (Czech Republic / Czechia). Keyed on
+    the label, such a year split into two series of one printing each. In the revisions study that
+    dropped 27 world-total years and 3 country years as "printed in one edition only"; in panel()
+    below it returned the same country twice for one year. Found on 22 Nov 2026 from a count that
+    did not add up. A country is its code where it has one; a world total is its label without the
+    rounding note, which keeps titanium's ilmenite total apart from its combined one. A country row
+    that carries no code is still its printed label.
+    """
+    s = d.country_name_raw.astype(object).copy()
+    w = d.row_kind == 'world_printed'
+    s[w] = (d.loc[w, 'country_name_raw']
+            .str.replace(r'\s*\((may be )?rounded\)', '', regex=True)
+            .str.replace(r',\s*(may be )?rounded\)', ')', regex=True).str.strip())
+    c = (d.row_kind == 'country') & d.iso3.notna()
+    s[c] = d.loc[c, 'iso3']
+    return s
+
+
+def store_stamp():
+    """What the store held when a study read it, so check.py can tell that it has changed since.
+
+    The revisions study and the self-audit are run by hand and are not in the runner's graph. Twice
+    the store grew under them and the published numbers stayed as they were, with no symptom. Each
+    study now writes this stamp into its output and check.py compares it with the store as it is.
+    Integers only, so the stamp does not depend on the order or the precision of a float sum.
+    """
+    c = _store()
+    return {'rows': int(len(c)),
+            'chapters': int(c.groupby(['commodity', 'edition_year']).ngroups),
+            'value_sum_thousandths': int((c.value.fillna(0) * 1000).round().astype('int64').sum())}
+
+
+def built_from(*relpaths):
+    """A short hash of the files a page was built from.
+
+    The builder of a hand-run study page writes it into the page; check.py recomputes it. A page that
+    was not rebuilt after its result or its filing changed (or whose builder stopped on an error and
+    left the old page in place) then fails the check instead of staying published. Line endings are
+    normalised so that a checkout on another system gives the same hash.
+    """
+    import hashlib
+    import io
+    h = hashlib.sha256()
+    for p in relpaths:
+        with io.open(os.path.join(ROOT, p), encoding='utf-8', newline='') as f:
+            h.update(f.read().replace('\r\n', '\n').encode('utf-8'))
+    return h.hexdigest()[:16]
+
+
 def panel(commodity, measure='mine', countries_only=True):
     """One row per country-year: the value as the latest edition that reports that year gives it."""
     c = _store()
     c = c[(c.commodity == commodity) & (c.measure == measure) & c.year.notna()]
     if countries_only:
         c = c[c.row_kind == 'country']
-    c = c.sort_values('edition_year')
-    keys = ['commodity', 'country_name_raw', 'iso3', 'year'] if countries_only else \
-           ['commodity', 'country_name_raw', 'row_kind', 'year']
-    last = c.groupby(keys, dropna=False).tail(1).copy()
+    # keyed on what the series is, not on its printed label: see series_id()
+    c = c.assign(_series=series_id(c)).sort_values('edition_year')
+    last = (c.groupby(['commodity', 'row_kind', '_series', 'year'], dropna=False).tail(1)
+            .drop(columns='_series').copy())
     last['year'] = last['year'].astype(int)
     return last.sort_values(['year', 'country_name_raw']).reset_index(drop=True)
 

@@ -17,10 +17,12 @@ from collections import Counter, defaultdict
 
 import numpy as np
 import pandas as pd
+from collections import OrderedDict
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 sys.path.insert(0, ROOT)
+import usgs_mcs_cube as U                                     # noqa: E402
 
 # Why a material the USGS does publish is still not tested. Left vague ("no counterpart"), these read
 # as gaps in the source; they are limits of our own reading, and the council was right that the
@@ -122,7 +124,10 @@ def revision_pools():
     d = pd.concat(keep) if keep else d
 
     pools, sized = {}, []
-    keys = ['commodity', 'measure', 'iso3', 'country_name_raw', 'year']
+    # a country is its code where it has one, not its printed name: a country renamed between two
+    # editions (Czech Republic / Czechia) otherwise splits into two series of one printing each
+    d = d.assign(series=U.series_id(d))
+    keys = ['commodity', 'measure', 'iso3', 'series', 'year']
     for k, g in d.groupby(keys, dropna=False):
         g = g.sort_values('edition_year')
         g = g[g.v.notna() & g.flag.isna()]
@@ -295,6 +300,23 @@ def agency_gaps():
             for k, v in d.get('usgs_vs_bgs', {}).items()}
 
 
+def size_gradient(by_size):
+    """Median absolute revision by producer size, every commodity and stage of the panel pooled.
+
+    The audit page and its filing quoted this gradient typed (9.1% for the smallest quartile, 5.5% for
+    the largest tenth, measured in September). The panel has grown and been corrected since, and the
+    typed figures stayed. The output now carries the gradient and the page reads it.
+    """
+    names = ['smallest_quartile', 'q25_50', 'q50_75', 'q75_90', 'largest_decile']
+    out = OrderedDict()
+    for b, name in enumerate(names):
+        v = [np.abs(x) for (c, m, bb), x in sorted(by_size.items()) if bb == b]
+        v = np.concatenate(v) if v else np.array([])
+        out[name] = {'n': int(len(v)),
+                     'median_abs': round(float(np.median(v)), 4) if len(v) else None}
+    return out
+
+
 def main():
     global AGENCY_GAP
     AGENCY_GAP = agency_gaps()
@@ -436,6 +458,8 @@ def main():
                 'verdict': verdict(both)}
 
     res = {'filing': 'self-audit/PREREGISTRATION.md', 'draws': DRAWS, 'seed': SEED,
+           'store_stamp': U.store_stamp(),
+           'size_gradient': size_gradient(by_size),
            'claims': claims,
            'windows': {'early': list(EARLY), 'late': list(LATE)},
            'proxy': 'BGS production tested against USGS-measured revisions; every row is a proxy row',

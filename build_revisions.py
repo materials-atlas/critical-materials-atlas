@@ -11,10 +11,13 @@ import io
 import json
 import os
 
+import usgs_mcs_cube as U
+
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 OUT_HTML = os.path.join(ROOT, 'revisions.html')
 REPO = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/'
 RESULT = 'out/usgs_revisions.json'
+FILING = 'usgs-revisions/PREREGISTRATION.md'
 
 NAV = ('<header class="topbar"><div class="wrap">'
        '<a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>'
@@ -305,6 +308,9 @@ def page():
         'REVFIG': rev_chart(chart_rows), 'MRFIG': pair_chart(
             [(r['country'], r['mine_share'] or 0, r['refinery_share'] or 0) for r in top]),
         'NSERIES': '{:,}'.format(d['measurable_series']),
+        'NTEST': '{:,}'.format(d['series_tested']['series']),
+        'NWORLD': '{:,}'.format(d['series_tested']['world_total']),
+        'NNOCODE': '{:,}'.format(d['series_tested']['country_without_a_code']),
         'NDROP': '{:,}'.format(d['series_dropped']['total']),
         'NDROP1': '{:,}'.format(d['series_dropped']['only_one_edition']),
         'NDROPF': '{:,}'.format(d['series_dropped']['lost_to_a_flag']),
@@ -349,6 +355,7 @@ def page():
         'NFILEDTOP': WORDS[sum(1 for c in rank[:5] if c in B)],
         'THIN': thin_txt, 'AMDMIN': str(d['amendment_a_min_years']),
         'TWY': str(B['tungsten']['world_years']), 'GAY': str(A['gallium']['world_years']),
+        'CUYW': WORDS[B['copper']['world_years']],
         'GEEND': str(A['germanium']['recent_years'][1]),
         'MINETXT': mine_txt, 'NMINE': WORDS[len(mine_only)],
         'MINE2': label(mine_only[1]).lower(), 'MINE2V': '%.1f' % (100 * allc[mine_only[1]]['world_median_abs_revision']),
@@ -424,7 +431,9 @@ TEMPLATE = """<!doctype html>
   series in this store is printed three times</b> &mdash; not one of the @@NCSER@@ country series, and none
   of the world totals &mdash; so where a year is measurable, the revision is that estimate against its
   single revision, as a percentage of the estimate, and every measurable year carries the same one
-  chance to move. @@NSERIES@@ series (commodity, country or world total, measure, year) are measurable;
+  chance to move. Of the @@NTEST@@ series of the six filed commodities (commodity, country or world total,
+  measure, year; @@NWORLD@@ are world totals and @@NNOCODE@@ are country rows printed without a country we
+  could code), @@NSERIES@@ are measurable;
   @@NDROP@@ are not: @@NDROP1@@ appear in only one edition (the newest data year, and years either side
   of a gap in the editions we hold) and @@NDROPF@@ lost a printing to a dash, a "W" for withheld or an
   "NA". Those do not enter any median. The measure, the thresholds and the direction rule were
@@ -547,14 +556,29 @@ TEMPLATE = """<!doctype html>
   <code>_0</code>; eleven indium chapters and the 2004 rare-earth chapter are linked from their pages
   with a duplicated path segment that returns 403, and were never retried under the path the USGS
   actually serves; and the germanium, tellurium and indium chapters for 2003 sit in the yearly volume and
-  had not been cut out of it. All are now in the panel: germanium moves from 16 measurable years to
-  @@GEY@@, indium from 12 to @@INY@@, tellurium to @@TEY@@ &mdash; and <b>rare earths, one of the six filed
-  commodities, moves from a published 2.5% over 24 years to @@REE@@% over @@REEY@@, with its China median
-  going from 0.0% to @@REEC@@%.</b> Its band does not change. That correction is logged in the filing, and
+  had not been cut out of it. All are now in the panel: germanium moved from 16 measurable years to
+  19, indium from 12 to 24, tellurium to 14 &mdash; and <b>rare earths, one of the six filed
+  commodities, moved from a published 2.5% over 24 years to @@REE@@% over @@REEY@@, with its China median
+  going from 0.0% to @@REEC@@%.</b> Its band did not change. That correction is logged in the filing, and
   it is the third time in this study that a number was wrong because of what had not been fetched rather
   than what had been computed.</p>
+  <p class="dim"><b>A correction, 22 November 2026, because it changed published figures.</b> Until that
+  date this study identified a series by the printed label of its row, and the label is not stable: the
+  world-total row carries a rounding note that changes from one edition to the next, and a country can
+  be respelled. Where the two printings of a year were labelled differently, the year was counted as
+  printed once and dropped. That left out 27 world-total years and 3 country years. With them back,
+  <b>antimony's median became 10.1%, where this page had shown 11.6%; germanium's became 5.4%, where it
+  had shown 3.0%, and its label weak where it had been soft;</b> and barite's largest single revision
+  became 50.9%, where the page had shown 13.8%. No other label changed, and the order of the six filed
+  commodities did not change. Germanium's median now sits midway between two years that are far apart
+  (3.0% and 7.7%), so one more year could move it again. Platinum and palladium had been in the panel
+  since September and were missing here because the study had not been recomputed; they are in the
+  table now, on editions that stop at 2019, because their later chapters have not been read yet. The
+  fault was found by an outside reader, from counts that did not add up. It is logged in the filing and
+  in the amendment, and the build now fails when the panel changes and this page has not been
+  recomputed from it.</p>
   <p class="dim">Thin coverage, stated rather than smoothed over: @@THIN@@ measurable years, against
-  twenty-five for copper. A median over seven years and a median over twenty-five are not the same
+  @@CUYW@@ for copper. A median over seven years and a median over @@CUYW@@ are not the same
   quantity, and every rank here should be read with the year count beside it. The up / down / unchanged
   shares are over every series in the commodity at its primary stage, countries and world total together
   &mdash; a wider denominator than the medians, which are the world total alone &mdash; and they are
@@ -681,6 +705,10 @@ TEMPLATE = """<!doctype html>
 def main():
     html = page()
     assert '@@' not in html, 'unfilled token'
+    # what this page was built from, so check.py can tell a page that was not rebuilt
+    assert html.count('</body></html>') == 1
+    html = html.replace('</body></html>', '<!-- built-from %s -->\n</body></html>'
+                        % U.built_from(RESULT, FILING))
     with io.open(OUT_HTML, 'w', encoding='utf-8', newline='\n') as f:
         f.write(html)
     print('wrote', OUT_HTML)

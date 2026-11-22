@@ -202,3 +202,65 @@ published page carried them until today:
 The table and the figure on the page are computed and were right throughout; only the prose was wrong.
 Found by checking each sentence against the output file while writing the study up. The three
 sentences are now generated from the panel. No number in `out/usgs_revisions.json` changed.
+
+**2026-11-22 - deviation 13: a series was identified by its printed label, and the output had not been rerun since the panel grew to twenty-seven.**
+Two faults, found together.
+
+**The label.** The first filing's deviation 16 gives the cause: the printings of a year were grouped
+by the label of the row, the world-total row's label carries a rounding note that changes between
+editions, and a year whose two printings were labelled differently was dropped as "printed in one
+edition only". Across the whole panel that removed 27 world-total years and 3 country years
+(Kazakhstan's tungsten for 1997, Czechia's feldspar for 2016, Cote d'Ivoire's manganese for 2019,
+each respelled between two editions). Seven of the world-total years belong to the six filed
+commodities and are in that deviation. The other twenty are restored here. A series is now
+identified by the country code where the row has one, and for a world total by its label without
+the rounding note.
+
+What the restored years change among the added commodities, median of the world total over all
+measurable years:
+
+- germanium **5.4% over 22 years, not 3.0% over 19, and weak where it was soft**, on both windows.
+  Its median is the midpoint of 3.0% and 7.7%, so one more year could move it again.
+- fluorspar 5.95% (was 6.57%), feldspar 5.95% over 26 years (was 6.53% over 24), vanadium 6.51%
+  (was 6.03%), tin 4.84% (was 4.52%), lithium 7.15% (was 7.30%), molybdenum 3.75% (was 3.60%), zinc
+  3.10% (was 2.97%), lead 2.72% (was 2.55%), magnesium 4.54% (was 4.53%). No band changes among
+  these.
+- barite's median is unchanged at 4.9%, but its largest single revision is now **50.9%, not 13.8%**:
+  the world total for 1999 went from 3.75 to 5.66 million tonnes between the 2000 and 2001
+  editions, and that pair was one of the dropped ones.
+- tellurium and indium gain two years each (16 and 26) with no change in the median. Indium's share
+  of upward revisions is 65.7%, from 66.2%.
+
+The twenty-seven restored world totals were read back against the store. In twenty-four, the country
+rows and the "other countries" row of each edition sum to its printed total within one percent, and
+in two more (germanium 2018, tellurium 2002) within four. The exception is tin for 2002: in the 2003
+edition the rows sum to 264,400 t against a printed total of 231,000 t, and the gap sits in Peru's
+cell. The study reads the printed total (231,000 t, then 249,000 t a year later), so tin's world
+figure does not depend on that cell; whether the cell is the edition's or a misread is not settled
+and is left open here.
+
+**The stale output.** On 25 September the parser was taught to split the platinum-group chapter into
+platinum and palladium (self-audit filing, deviation 7), and the store has held both since. This
+amendment covers every commodity in the panel with at least five measurable world-total years, so
+both belong in its table. They were not, because `usgs-revisions/analysis.py` was not rerun after
+the split: the published study said twenty-five commodities for two months while the store held
+twenty-seven. Both are in now. Platinum: 4.9% over 19 years, soft. Palladium: 1.7% over 19 years,
+firm, and soft on its last ten (2.1%); its world total for 1999 went from 125,000 to 174,000 kg
+between the 2000 and 2001 editions (39.2%). The store holds their chapters only up to the 2019
+edition, plus 2026, because the 2020-2025 chapters have not been parsed yet (the same gap as
+phosphate rock). Their last measurable year is therefore 2017 and their last-ten window 2008-2017.
+
+**The filed question, on twenty-seven.** The endpoints hold: antimony still moves most (10.1%) and
+copper least (1.5%), with palladium next to copper. The six filed commodities rank 1, 5, 10, 12, 22
+and 27. Four of the six largest medians are still added commodities: gallium, lithium, chromium and
+now vanadium in place of fluorspar. Among the twenty-two mine chapters lithium is still second, at
+7.15% over 26 years. The direction rule is reached by the same three (gallium 86%, indium 66%,
+chromium 60.5%). Sixteen of the twenty-seven have had a world total revised by more than 20% at
+least once (it was fourteen of twenty-five: barite and palladium are the additions).
+
+**So that neither fault can recur silently.** The definition of a series now lives in one place,
+`usgs_mcs_cube.series_id`, used by this study, by the self-audit and by the panel reader, which had
+the same fault in a smaller form (it returned a respelled country twice for one year: three
+country-years, none in a year a published page reads). Each study writes into its output a stamp of
+the store it read, and `check.py` fails when the store no longer matches the stamp or when a page
+was not rebuilt from the current output.

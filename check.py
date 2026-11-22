@@ -989,6 +989,69 @@ def check_self_audit():
                            % (n, len(published)))
 
 
+def check_study_fresh():
+    """The two hand-run studies (USGS revisions, self-audit) against the store and their pages.
+
+    Neither study is in the runner's graph: its analysis is run by hand, and so is its page builder.
+    Twice the store grew under them and nothing said so. The second time the revisions page said
+    twenty-five commodities for two months while the store held twenty-seven. Two comparisons close
+    that, neither of which is a timestamp:
+      1. each output carries a stamp of the store it read (usgs_mcs_cube.store_stamp); it must equal
+         the store as it is now, or the analysis has to be rerun;
+      2. each page carries a hash of the output and the filing it was built from
+         (usgs_mcs_cube.built_from); it must equal the files as they are now, or the page has to be
+         rebuilt. That also catches a builder that stopped on an error and left the old page.
+    """
+    if not os.path.exists(os.path.join(ROOT, 'pipeline', 'data', 'usgs_mcs_history.parquet')):
+        return
+    sys.path.insert(0, ROOT)
+    import usgs_mcs_cube as U
+    now = U.store_stamp()
+    for result, filing, page, analysis, builder, also in (
+            ('out/usgs_revisions.json', 'usgs-revisions/PREREGISTRATION.md', 'revisions.html',
+             'usgs-revisions/analysis.py', 'build_revisions.py', ()),
+            ('out/self_audit.json', 'self-audit/PREREGISTRATION.md', 'self-audit.html',
+             'self-audit/analysis.py', 'build_self_audit.py', ('out/usgs_revisions.json',))):
+        if not os.path.exists(os.path.join(ROOT, result)):
+            continue
+        with open(os.path.join(ROOT, result), encoding='utf-8') as f:
+            stamp = json.load(f).get('store_stamp')
+        if stamp != now:
+            fail('study_fresh', '%s was computed from a store that is not the one on disk (it read %s, '
+                                'the store is now %s) - rerun %s, then %s'
+                                % (result, stamp, now, analysis, builder))
+        with open(os.path.join(ROOT, page), encoding='utf-8') as f:
+            m = re.findall(r'<!-- built-from ([0-9a-f]{16}) -->', f.read())
+        want = U.built_from(result, filing, *also)
+        if m != [want]:
+            fail('study_fresh', '%s was not built from the current %s and %s (page says %s, files say '
+                                '%s) - run %s' % (page, result, filing, m or 'nothing', want, builder))
+    # 3. the copies of the revision medians on other pages. On 22 Nov 2026 the study was corrected
+    #    and five chain pages and the refiners page went on quoting the old antimony median.
+    import revision_note
+    for path in sorted(glob.glob(os.path.join(ROOT, '*-chain', 'out', '*_chain.json'))):
+        with open(path, encoding='utf-8') as f:
+            txt = f.read()
+        for m in re.finditer(r'"revision": ("The most recent year on this chart is a first estimate[^"]*")', txt):
+            got = json.loads(m.group(1))
+            com = re.search(r'the world (.+?) total ends up', got)
+            com = com.group(1).replace(' ', '_') if com else '?'
+            if got != revision_note.first_estimate(com):
+                fail('study_fresh', '%s quotes a revision median for %s that is not the one in '
+                                    'out/usgs_revisions.json - rerun its recorder'
+                                    % (os.path.relpath(path, ROOT).replace(os.sep, '/'), com))
+    b = revision_note.band_range()
+    ref = os.path.join(ROOT, 'refiners.html')
+    if b and os.path.exists(ref):
+        with open(ref, encoding='utf-8') as f:
+            txt = f.read()
+        want = ('Measured across %d commodities and thirty years of editions, the world total ends up a '
+                'median %.1f%% from its first estimate for %s and %.1f%% for %s.' % (b[4], b[1], b[0], b[3], b[2]))
+        if 'What a current-year share rests on' in txt and want not in ' '.join(txt.split()):
+            fail('study_fresh', 'refiners.html quotes revision medians that are not the ones in '
+                                'out/usgs_revisions.json - run build_refiners.py')
+
+
 def check_usgs_mcs():
     """The stitched USGS Mineral Commodity Summaries panel (pipeline/data/usgs_mcs_history.parquet).
 
@@ -1700,7 +1763,7 @@ def check_aggregation():
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('mined', check_mined), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('mined', check_mined), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('study_fresh', check_study_fresh), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

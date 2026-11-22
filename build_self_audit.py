@@ -11,10 +11,14 @@ import json
 import os
 import re
 
+import usgs_mcs_cube as U
+
 ROOT = os.environ.get('ATLAS_ROOT', os.path.dirname(os.path.abspath(__file__)))
 OUT_HTML = os.path.join(ROOT, 'self-audit.html')
 REPO = 'https://github.com/materials-atlas/critical-materials-atlas/blob/main/'
 RESULT = 'out/self_audit.json'
+FILING = 'self-audit/PREREGISTRATION.md'
+REVISIONS = 'out/usgs_revisions.json'
 
 NAV = ('<header class="topbar"><div class="wrap">'
        '<a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>'
@@ -117,12 +121,14 @@ def deviation_count():
 
 
 WORDS = {1: 'one', 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven',
-         17: 'seventeen', 20: 'twenty'}
+         8: 'eight', 9: 'nine', 10: 'ten', 17: 'seventeen', 20: 'twenty'}
 
 
 def page():
     d = json.load(io.open(os.path.join(ROOT, RESULT), encoding='utf-8'))
     conc = json.load(io.open(os.path.join(ROOT, 'out', 'concentration.json'), encoding='utf-8'))
+    # the revision study this page opens by quoting: read, not typed
+    REV = json.load(io.open(os.path.join(ROOT, REVISIONS), encoding='utf-8'))['by_commodity']
     rows = sorted(d['materials'], key=lambda r: -r['published_change'])
     head = d['headline']
     fragile = [r for r in rows if r['verdict'] != 'robust']
@@ -181,6 +187,11 @@ def page():
         'HEADP05': '%+.3f' % head['p05'], 'HEADP95': '%+.3f' % head['p95'],
         'HEADVERDICT': head['verdict'],
         'DRAWS': '{:,}'.format(d['draws']), 'SEED': str(d['seed']),
+        'SZLO': '%.1f' % (100 * d['size_gradient']['smallest_quartile']['median_abs']),
+        'SZHI': '%.1f' % (100 * d['size_gradient']['largest_decile']['median_abs']),
+        'CUREV': '%.1f' % (100 * REV['copper']['world_median_abs_revision']),
+        'SBREV': '%.1f' % (100 * REV['antimony']['world_median_abs_revision']),
+        'SBMAX': '%.1f' % (100 * REV['antimony']['world_max_abs_revision']),
         'NDEV': WORDS.get(deviation_count(), str(deviation_count())),
         'TUNGV': '%+.3f' % next(r['published_change'] for r in rows if r['material'] == 'tungsten'),
         'TUNGS': pct(next(r['share_same_sign'] for r in rows if r['material'] == 'tungsten')).rstrip('%'),
@@ -251,8 +262,8 @@ TEMPLATE = """<!doctype html>
   <div class="eyebrow">Method &middot; testing our own work</div>
   <h1>Auditing our own claims</h1>
   <p class="deck">The atlas measured how far the US Geological Survey moves its own production figures
-  between the first printing and the revision: a median 1.5% for copper's world total, 11.6% for
-  antimony's, and once 42.5%. That measurement was about other people's numbers. <b>This page pushes
+  between the first printing and the revision: a median @@CUREV@@% for copper's world total, @@SBREV@@% for
+  antimony's, and once @@SBMAX@@%. That measurement was about other people's numbers. <b>This page pushes
   those revisions back through our own concentration study and asks which of its claims they can
   erase.</b> Three claims, tested on the same draws: that the materials already called critical before
   the window mostly <i>diversified</i>; that cobalt concentrated while those older materials came off
@@ -333,7 +344,7 @@ TEMPLATE = """<!doctype html>
   function of shares, so a revision common to every country in a year cancels <i>exactly</i>, and the
   structure named as widening the band in fact annihilates it. Meanwhile the pool is unweighted, so
   small producers' revision magnitudes get applied to the dominant producers who actually move an HHI
-  &mdash; the smallest quartile of producers revises around 9% against about 5.5% for the largest tenth.
+  &mdash; the smallest quartile of producers revises a median @@SZLO@@% against @@SZHI@@% for the largest tenth.
   Those two biases run in opposite directions and their net is unknown, so <b>neither a pass nor a
   failure here is a bound</b>. Both are diagnostics.</p>
   <p class="dim">The size objection was tested rather than argued. Drawing each country's revision only
@@ -397,6 +408,16 @@ TEMPLATE = """<!doctype html>
   &mdash; from @@POOLMIN@@ revisions to @@POOLMAX@@, printed beside every row &mdash; and a median drawn
   from the smaller pools is a thinner instrument than one drawn from the larger.</p>
 
+  <p class="dim"><b>A correction, 22 November 2026, because it changed published figures.</b> Until that
+  date the revision pools identified a country by its printed name, so a country respelled between two
+  editions lost that pair of printings. Three revisions were missing for that reason, one each in the
+  tungsten, feldspar and manganese pools. With them back and the test rerun on the filed seed and
+  draws, <b>no verdict changed</b>: the same changes are fragile and the same are robust, and the
+  claims hold as before. The shares moved a little. Tungsten's became 87.8%, where this page had shown
+  87.1%; molybdenum's 72.5%, where it had shown 71.2%; titanium's 73.7%, where it had shown 73.3%. The
+  revision study this page opens by quoting was corrected the same day: antimony's median there became
+  10.1%, where this page had quoted 11.6%. Both corrections are logged in the filings.</p>
+
   <h3>Method and filing</h3>
   <ol class="refs">
   <li><b>The filing.</b> Measure, population, bands and pre-commitments, committed before any
@@ -423,6 +444,10 @@ TEMPLATE = """<!doctype html>
 def main():
     html = page()
     assert '@@' not in html, 'unfilled token'
+    # what this page was built from, so check.py can tell a page that was not rebuilt
+    assert html.count('</body></html>') == 1
+    html = html.replace('</body></html>', '<!-- built-from %s -->\n</body></html>'
+                        % U.built_from(RESULT, FILING, REVISIONS))
     with io.open(OUT_HTML, 'w', encoding='utf-8', newline='\n') as f:
         f.write(html)
     print('wrote', OUT_HTML)
