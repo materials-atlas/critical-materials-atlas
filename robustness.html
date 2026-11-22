@@ -27,14 +27,14 @@
   <details class="howto"><summary>The two harder tests</summary>
   <p><b>1 &middot; Autocorrelation-robust (Hamed-Rao, 1998).</b> A plain trend test assumes each year is independent; concentration series aren&rsquo;t, which flatters significance. This correction demands a <i>stronger</i> signal before a trend counts.</p>
   <p><b>2 &middot; Across the data-vintage splice.</b> Each trend is re-estimated separately on 2002&ndash;2016 and on 2017&ndash;2024; one that keeps the same sign in both halves isn&rsquo;t an artifact of the 2017 join.</p>
-  <p class="howto-src">Both screens control the false-discovery rate (Benjamini-Hochberg) across all 32 materials. Computed by <code>build_robustness.py</code>.</p>
+  <p class="howto-src">Both screens control the false-discovery rate (Benjamini-Hochberg) across all the materials. Computed by <code>build_trend_autocorr.py</code>.</p>
   </details></div>
   <div id="verdict" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <h2 style="margin:1.4rem 0 .4rem">The rising-concentration materials, under the harder tests</h2>
   <p class="muted" style="margin-top:0">Materials flagged with a significant rising export-HHI by the standard test, then re-checked. &ldquo;Var ×&rdquo; is the Hamed-Rao variance inflation from positive autocorrelation (&ge;1; this is a deliberately conservative <i>one-sided</i> correction &mdash; serial correlation may only make the test <i>harder</i>, never easier). A value of 1.00 means the series had no significant positive autocorrelation to penalise.</p>
   <table id="tab"><thead><tr><th>Material</th><th class="n">Sen slope/yr</th><th class="n">MK FDR</th><th class="n">Hamed-Rao FDR</th><th class="n">var ×</th><th>survives?</th><th>splice-consistent?</th></tr></thead><tbody></tbody></table>
   <p id="rest" class="muted" style="margin-top:.8rem"></p>
-  <p class="note">Hamed &amp; Rao (1998), <i>A modified Mann-Kendall trend test for autocorrelated data</i>, J. Hydrology. Series from <a href="out/trends.json">trends.json</a> (export-HHI, 2002&ndash;2024) &rarr; <a href="out/robustness.json">robustness.json</a>. This is an exploratory screen on 23 annual points, not a confirmatory test.</p>
+  <p class="note">Hamed &amp; Rao (1998), <i>A modified Mann-Kendall trend test for autocorrelated data</i>, J. Hydrology. Series from <a href="out/trends.json">trends.json</a> (export-HHI, 2002&ndash;2024) &rarr; <a href="out/trend_autocorr.json">trend_autocorr.json</a>. This is an exploratory screen on 23 annual points, not a confirmatory test.</p>
 </article>
 </main>
 <footer class="siteftr"><div class="wrap">
@@ -44,7 +44,7 @@
   <div class="fineprint">Exploratory robustness screen on 23 annual observations. Significance is a screen, not proof.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
 </div></footer>
 <script>
-fetch('out/robustness.json').then(r=>r.json()).then(R=>{
+fetch('out/trend_autocorr.json').then(r=>r.json()).then(R=>{
   document.getElementById('verdict').innerHTML =
     '<b>Verdict.</b> Of the <b>'+R.n_std+'</b> materials the standard test calls a significant rising export-HHI, '+
     '<b>'+R.n_hr_of_std+'</b> survive the Hamed-Rao autocorrelation correction, and <b>'+R.n_splice_ok+'</b> keep the same trend sign in '+
@@ -52,7 +52,7 @@ fetch('out/robustness.json').then(r=>r.json()).then(R=>{
     (R.n_hr_of_std>=Math.ceil(R.n_std*0.6)
       ? 'The core rising-concentration finding is robust &mdash; it is not an artifact of serial correlation or the vintage splice.'
       : 'A meaningful share of the rising-concentration flags weaken once serial correlation is accounted for &mdash; read them as exploratory.')+
-    ' (Autocorrelation-corrected total across all 32: '+R.n_hr+' significant rising.)';
+    ' (Autocorrelation-corrected total across all '+R.n_all+': '+R.n_hr+' significant rising.)';
   const tb=document.querySelector('#tab tbody');
   const sig=R.rows.filter(r=>r.sig_std);
   sig.forEach(r=>{const tr=document.createElement('tr');
@@ -66,7 +66,7 @@ fetch('out/robustness.json').then(r=>r.json()).then(R=>{
     tb.appendChild(tr);});
   const extra=R.n_hr-sig.filter(r=>r.sig_hr).length;
   document.getElementById('rest').innerHTML =
-    'The remaining '+(32-sig.length)+' materials are not flagged as significantly rising by the standard test'+
+    'The remaining '+(R.n_all-sig.length)+' materials are not flagged as significantly rising by the standard test'+
     (extra>0?('; '+extra+' material'+(extra>1?'s become':' becomes')+' significant only under the corrected test (negative autocorrelation can also sharpen a signal).'):'.');
 });
 </script>

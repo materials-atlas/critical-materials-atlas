@@ -50,7 +50,7 @@
   <div class="lim">
     <h3>The 2017 HS-vintage splice <span class="bias over">overstates</span></h3>
     <p>The long series joins HS-2002 codes (2002&ndash;2016) to HS-2017 codes (2017&ndash;2024). The origin-gap index <i>steps</i> at that join, so part of the &ldquo;gap widened 15&rarr;18pp&rdquo; is a splice artifact, not real drift.</p>
-    <p class="fix">&#10003; The step is caveated everywhere and marked on the Trends chart; the <a href="robustness">robustness page</a> re-tests each trend separately on the two windows &mdash; <span class="dyn" data-k="splice">6 of 9</span> rising-concentration findings keep their sign in both halves.</p>
+    <p class="fix">&#10003; The step is caveated everywhere and marked on the Trends chart; the <a href="robustness">robustness page</a> re-tests each trend separately on the two windows &mdash; <span class="dyn" data-k="splice">6 of 10</span> rising-concentration findings keep their sign in both halves.</p>
   </div>
 
   <div class="lim">
@@ -68,7 +68,7 @@
   <div class="lim">
     <h3>Trend significance rests on 23 annual points <span class="bias over">overstates</span></h3>
     <p>Mann-Kendall on a short, serially-correlated annual series overstates significance. &ldquo;9 of 32 materials are significantly concentrating&rdquo; is an exploratory screen, not a confirmatory test.</p>
-    <p class="fix">&#10003; Re-run with an autocorrelation-robust correction on the <a href="robustness">robustness page</a>: <span class="dyn" data-k="surv">7 of 9</span> survive. The rest are labelled exploratory.</p>
+    <p class="fix">&#10003; Re-run with an autocorrelation-robust correction on the <a href="robustness">robustness page</a>: <span class="dyn" data-k="surv">8 of 10</span> survive. The rest are labelled exploratory.</p>
   </div>
 
   <div class="lim">
@@ -100,7 +100,7 @@
   <p class="muted" style="margin-top:0">Concrete falsifiers for the headline claims. If these came back the other way, the finding is wrong.</p>
 
   <div class="kill"><b>&ldquo;The origin gap is real, not a measurement quirk.&rdquo;</b> &mdash; Wrong if, when 2025 BACI lands, the reconciled bilateral flows no longer reproduce the top-partner shares within the <a href="reconcile/PREREGISTRATION.md">pre-registered</a> thresholds. That test is locked in advance, pass or fail.</div>
-  <div class="kill"><b>&ldquo;Concentration is intensifying.&rdquo;</b> &mdash; Wrong if the rising-HHI trends vanish under the autocorrelation-robust test (they don&rsquo;t &mdash; <span class="dyn" data-k="surv">7 of 9</span> survive) or flip sign across the vintage splice (most don&rsquo;t). A material whose trend fails both is explicitly <i>not</i> claimed.</div>
+  <div class="kill"><b>&ldquo;Concentration is intensifying.&rdquo;</b> &mdash; Wrong if the rising-HHI trends vanish under the autocorrelation-robust test (they don&rsquo;t &mdash; <span class="dyn" data-k="surv">8 of 10</span> survive) or flip sign across the vintage splice (most don&rsquo;t). A material whose trend fails both is explicitly <i>not</i> claimed.</div>
   <div class="kill"><b>&ldquo;China is the trade-network broker.&rdquo;</b> &mdash; Wrong if its centrality were an artifact of the top-6 cap. Uncapped, its throughput share moves only <span class="dyn" data-k="share6">21%</span>&rarr;<span class="dyn" data-k="sharefull">18%</span> and it stays the top broker in <span class="dyn" data-k="brokerfull">9</span>/32 materials &mdash; so this holds.</div>
   <div class="kill"><b>&ldquo;China&rsquo;s dominance is partly processing, not tonnage.&rdquo;</b> &mdash; Wrong if its export <i>unit values</i> sat at or below the rest of the world&rsquo;s for the materials where its value-share exceeds its volume-share. They sit well above (tungsten +107%), so the processing-premium reading holds.</div>
   <div class="kill"><b>&ldquo;The reconciliation engine reproduces.&rdquo;</b> &mdash; Wrong if the CI run stops matching BACI on the committed fixture. It runs on every push and monthly; the badge is the live proof.</div>
@@ -116,7 +116,7 @@
 </div></footer>
 <script>
 Promise.all([
-  fetch('out/robustness.json').then(r=>r.json()).catch(()=>null),
+  fetch('out/trend_autocorr.json').then(r=>r.json()).catch(()=>null),
   fetch('out/network_sensitivity.json').then(r=>r.json()).catch(()=>null)
 ]).then(([R,N])=>{
   const set=(k,v)=>document.querySelectorAll('.dyn[data-k="'+k+'"]').forEach(e=>e.textContent=v);

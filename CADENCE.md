@@ -33,7 +33,8 @@ python build_mining_expansion.py               # -> out/mining_expansion.json + 
 python build_origin.py                         # -> out/origin_trace.json + origin.html (hybrid origin trace)
 python build_casestudies.py                    # -> out/casestudies.json + casestudies.html (known-chain audit)
 python build_trends.py                         # -> out/trends.json + trends.html (22-year evolution charts)
-python build_robustness.py                     # -> out/robustness.json + robustness.html (Hamed-Rao autocorr-robust MK + splice sub-period check; reads trends.json)
+python build_trend_autocorr.py                 # -> out/trend_autocorr.json (Hamed-Rao autocorr-robust MK + splice sub-period check; reads trends.json; read by robustness.html, limitations.html)
+python build_robustness.py                     # -> out/robustness.json (trade cross-check: raw Comtrade vs BACI vs Harvard; read by build_refiners.py)
 python build_profiles.py                       # -> profile-*.html (material+country) + profiles.html + countries.html
 python build_insights.py                       # -> insights.html (the synthesis / state-of-supply page)
 

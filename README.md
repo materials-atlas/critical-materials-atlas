@@ -85,6 +85,7 @@ nav does:
 - **Demand & scenarios** — `build_demand.py`, `build_net_demand.py`, `build_scenarios.py`,
   `build_mining_expansion.py`, `build_recycling.py`, `build_trends.py`
 - **Rigor & cross-checks** — `build_satellite.py` (mine-footprint), `build_robustness.py`,
+  `build_trend_autocorr.py`,
   `build_uncertainty.py`, `build_host_shock.py`, `build_synthesis.py`
 
 The scripts are **order-dependent** (e.g. `fetch_wgi.py` → `build_risk.py` → `build_criticality.py`;
