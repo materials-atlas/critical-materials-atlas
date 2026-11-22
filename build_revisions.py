@@ -62,7 +62,7 @@ STAGE = {'mine': 'mine', 'refinery': 'refinery', 'smelter': 'smelter',
 
 
 def label(c):
-    return NAME.get(c, c.capitalize())
+    return NAME.get(c, c.replace('_', ' ').capitalize())
 
 
 def src(note=''):
@@ -211,6 +211,59 @@ def page():
                         % (label(c).lower(), 100 * allc[c]['share_up_of_revisions'], allc[c]['world_years'])
                         for c in sorted(dir_hit, key=lambda c: -allc[c]['share_up_of_revisions']))
     top_filed = max((c for c in B), key=lambda c: B[c]['share_up_of_revisions'])
+    # the sentence around the direction rule is written from the panel, not typed: it named two
+    # commodities and a year count long after the panel held three and a different count
+    def dir_note(c):
+        kind = {'refinery': 'a refinery series', 'smelter': 'a smelter series',
+                'production': 'a single production line'}.get(allc[c]['measure'])
+        if kind:
+            return "%s's is %s over %d measurable years" % (label(c).lower(), kind, allc[c]['world_years'])
+        return "%s's is a mine series %.1f points over the line" % (
+            label(c).lower(), 100 * allc[c]['share_up_of_revisions'] - 60)
+    dir_sorted = sorted(dir_hit, key=lambda c: -allc[c]['share_up_of_revisions'])
+    if dir_hit:
+        notes = [dir_note(c) for c in dir_sorted]
+        dir_sent = ('%s %s it%s: %s. %s to build an argument on &mdash; %s &mdash; but the reading is '
+                    'licensed by the filing and is reported.' % (
+                        WORDS.get(len(dir_hit), str(len(dir_hit))),
+                        'commodity clears' if len(dir_hit) == 1 else 'commodities clear',
+                        (', and it was added' if len(dir_hit) == 1 else ', all of them added')
+                        if all(c in A for c in dir_hit) else '',
+                        dir_txt,
+                        'It is not a result' if len(dir_hit) == 1 else 'None is a result',
+                        notes[0] if len(notes) == 1 else '%s, and %s' % (', '.join(notes[:-1]), notes[-1])))
+    else:
+        dir_sent = 'no commodity clears it.'
+    # copper on the recent window: its label and its place are both read from the panel
+    cu_rec = 100 * B['copper']['world_median_abs_revision_recent']
+    cu_pos = by_recent.index('copper')
+    cu_band = B['copper']['band_recent']
+    if cu_pos == 0:
+        cu_para = (
+            '<p><b>Second, copper keeps its place on the recent window%s.</b> Copper is still the lowest '
+            'of the %s over the last ten printed years, at %.2f%%%s, with %s next at %.2f%%. The amendment '
+            'said that if copper stopped being the firmest the page would say so. Both bands are printed '
+            'for every commodity so that the difference is visible rather than argued.</p>' % (
+                '' if cu_band == 'firm' else ' but loses its label',
+                WORDS.get(len(allc), str(len(allc))), cu_rec,
+                '' if cu_band == 'firm' else ' &mdash; above the 2%% cut, so on that window it is %s, not firm'
+                % cu_band,
+                label(by_recent[1]).lower(),
+                100 * allc[by_recent[1]]['world_median_abs_revision_recent']))
+    else:
+        cu_para = (
+            '<p><b>Second, on the recent window copper loses its place%s.</b> Over the last ten printed '
+            'years copper is at %.2f%%%s. It is no longer the lowest of the %s either: %s is, at %.2f%%, '
+            'and copper is %s. The amendment said that if copper stopped being the firmest the page '
+            'would say so: it has stopped. Both bands are printed for every commodity so that the '
+            'difference is visible rather than argued.</p>' % (
+                '' if cu_band == 'firm' else ' and its label',
+                cu_rec,
+                '' if cu_band == 'firm' else ', above the 2%% cut, so on that window it is %s, not firm'
+                % cu_band,
+                WORDS.get(len(allc), str(len(allc))), label(by_recent[0]).lower(),
+                100 * allc[by_recent[0]]['world_median_abs_revision_recent'],
+                {1: 'second', 2: 'third', 3: 'fourth', 4: 'fifth'}.get(cu_pos, 'number %d' % (cu_pos + 1))))
     J = d['renamed_join_years']['magnesium']
     gamax = A['gallium']['world_max']   # named on the page: it is also gallium's newest measurable year
     big = [r for r in d['largest_revisions']][:6]
@@ -300,14 +353,14 @@ def page():
         'MINETXT': mine_txt, 'NMINE': WORDS[len(mine_only)],
         'MINE2': label(mine_only[1]).lower(), 'MINE2V': '%.1f' % (100 * allc[mine_only[1]]['world_median_abs_revision']),
         'MINE2N': str(allc[mine_only[1]]['world_years']),
-        'NWIN': WORDS[15 - len(odd_win)], 'ODDWIN': odd_txt, 'NODD': WORDS[len(odd_win)],
+        'NWIN': WORDS.get(len(allc) - len(odd_win), str(len(allc) - len(odd_win))), 'ODDWIN': odd_txt, 'NODD': WORDS[len(odd_win)],
         'RECLOW': label(by_recent[0]).lower(),
         'RECLOWV': '%.1f' % (100 * allc[by_recent[0]]['world_median_abs_revision_recent']),
         'RECLOW2': label(by_recent[1]).lower(),
         'RECLOW2V': '%.1f' % (100 * allc[by_recent[1]]['world_median_abs_revision_recent']),
         'CURECV': '%.1f' % (100 * B['copper']['world_median_abs_revision_recent']),
         'CURECBAND': B['copper']['band_recent'],
-        'DIRTXT': dir_txt, 'NDIR': WORDS[len(dir_hit)],
+        'DIRSENT': dir_sent, 'CURECPARA': cu_para,
         'FILEDDIR': label(top_filed).lower(),
         'FILEDDIRV': '%.0f' % (100 * B[top_filed]['share_up_of_revisions']),
         'MGJOIN': '%.1f' % (100 * J['join_revisions']['2019']),
@@ -462,18 +515,11 @@ TEMPLATE = """<!doctype html>
   @@MINE2V@@% on @@MINE2N@@ measurable years</b> &mdash; the same window as copper, and above three of the
   six that were filed. @@NONMINETOP@@ are not in that list at all &mdash; they are refinery or
   single-production-line chapters, and none of them belongs in an order with mine figures.</p>
-  <p><b>Second, copper keeps its place on the recent window but loses its label.</b> Copper is still the
-  lowest of the @@NALL@@ over the last ten printed years, at @@CURECV@@% &mdash; but that is above the 2%
-  cut, so on that window it is @@CURECBAND@@, not firm, and the next commodity, @@RECLOW2@@ at
-  @@RECLOW2V@@%, is a tenth of a point behind it. The amendment said that if copper stopped being the
-  firmest the page would say so: it has not stopped being the lowest, and it has stopped being firm.
-  Both bands are printed for every commodity so that the difference is visible rather than argued.</p>
+  @@CURECPARA@@
   <p><b>And the direction rule bites once the set is widened, on the filing's own wording.</b> The filing
   reads the direction as "the share of <i>revisions</i> that are upward", at 60%. The code had been
   dividing by every printing instead, unchanged reprints included, which is a looser test; on the
-  filing's denominator @@NDIR@@ commodities clear it, both of them added: @@DIRTXT@@. Neither is a
-  commodity to build an argument on &mdash; gallium's is seven years of a production line, and indium's
-  twelve of a refinery series &mdash; but the reading is licensed by the filing and is reported. <b>None of
+  filing's denominator @@DIRSENT@@ <b>None of
   the six filed commodities reaches 60% on either denominator</b> (the highest is @@FILEDDIR@@ at
   @@FILEDDIRV@@% of its revisions), so section 1 stands as published.</p>
   <p class="dim">The &ldquo;last 10&rdquo; window is the ten years to each commodity's own last

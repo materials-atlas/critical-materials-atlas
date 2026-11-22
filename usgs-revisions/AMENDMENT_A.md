@@ -182,3 +182,23 @@ Fixed at the root rather than by editing the sentence: every rank, count and "of
 is now computed from the panel, so the same drift cannot recur silently. **The endpoints and the filed
 six are unchanged by the widening** - antimony still moves most and copper least, and the six now rank
 1, 5, 10, 11, 21 and 25 of twenty-five, with four of the six largest movers being added commodities.
+
+**2026-11-22 - deviation 12: three sentences on the page were still typed, and the widening had made them wrong.**
+Deviation 11 said that every rank and count on the page was computed from the panel. Three sentences
+were not. They stayed as written for fifteen commodities after the panel grew to twenty-five, and the
+published page carried them until today:
+
+- It said copper was still the lowest on the last-ten-years window. Among twenty-five it is not:
+  molybdenum is, at 1.98%, and copper is second at 2.07%. So the clause "if copper stops being the
+  firmest, the page says so" has fired in full on the wider panel: on that window copper loses its
+  label (soft, not firm) and its place. Over all measurable years copper is still the lowest, at 1.5%,
+  and that is the filed reading.
+- It said two commodities clear the direction rule, and gave indium twelve years. Three clear it:
+  gallium at 86% of its revisions upward, indium at 66% (24 measurable years) and chromium at 60.5%,
+  a mine series half a point over the line.
+- It said the last-ten window is 2015-2024 for eleven of the twenty-five. It is twenty-one, with the
+  same four exceptions.
+
+The table and the figure on the page are computed and were right throughout; only the prose was wrong.
+Found by checking each sentence against the output file while writing the study up. The three
+sentences are now generated from the panel. No number in `out/usgs_revisions.json` changed.

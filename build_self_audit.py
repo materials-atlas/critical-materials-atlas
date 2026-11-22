@@ -167,6 +167,11 @@ def page():
         'NALLMAT': str(d['n_tested'] + d['n_excluded']),
         'NROBUST': WORDS.get(len(robust), str(len(robust))),
         'NFRAGILE': WORDS.get(len(fragile), str(len(fragile))),
+        'NROBUSTC': WORDS.get(len(robust), str(len(robust))).capitalize(),
+        'NFRAGILEC': WORDS.get(len(fragile), str(len(fragile))).capitalize(),
+        # read off the result, so the sentence cannot drift from the table beside it
+        'COP05': ('%+.3f' % next(r['p05'] for r in rows if r['material'] == 'cobalt')).replace('-', '&minus;'),
+        'SBP95': ('%+.3f' % next(r['p95'] for r in rows if r['material'] == 'antimony')).replace('-', '&minus;'),
         'FRAGILELIST': ', '.join('%s (%.1f%%)' % (label(r['material']).lower(), 100 * r['share_same_sign'])
                                  for r in sorted(fragile, key=lambda r: r['share_same_sign'])),
         'HEADMED': '%+.3f' % head['published_median_change'],
@@ -298,7 +303,7 @@ TEMPLATE = """<!doctype html>
   off monopoly highs. This is the claim furthest from its sign boundary.</b> Requiring all three of
   @@DVDOWN@@ to stay negative <i>and</i> cobalt to stay positive in the same draw, the pattern holds in
   <b>@@DVSTRICT@@%</b> of draws. That is not because the test is demanding &mdash; it is because the
-  margins are wide: cobalt's band starts at +0.269 and antimony's ends at &minus;0.185, so these bands
+  margins are wide: cobalt's band starts at @@COP05@@ and antimony's ends at @@SBP95@@, so these bands
   never come close to meeting. An earlier version of this page reported the weaker version of this test
   (the <i>median</i> of the three, which holds unless two of them turn) and called it joint. It was not.
   <span class="dim">Caveat this one carries: graphite is inside it, and graphite is where the two
@@ -346,12 +351,12 @@ TEMPLATE = """<!doctype html>
   in which the change keeps its sign. Amber marks the materials whose sign does not survive at the filed
   95% threshold.</figcaption></figure>
   <div class="tbl"><table><thead><tr><th>Material</th><th class="n">published change</th>
-  <th class="n">5&ndash;95 band under noise</th><th class="n">sign survives</th>
-  <th>stage read</th><th class="n">pool median absolute revision</th>
+  <th class="n">5&ndash;95 band under noise</th><th>stage read</th>
+  <th class="n">sign survives</th><th class="n">pool median absolute revision</th>
   <th class="n">revisions in the pool</th><th class="n">USGS&ndash;BGS world gap</th>
   <th>verdict</th></tr></thead><tbody>@@TROWS@@</tbody></table></div>
   @@SRC@@
-  <p><b>@@NROBUST@@ of @@NTEST@@ materials are robust. @@NFRAGILE@@ are not: @@FRAGILELIST@@.</b> Those
+  <p><b>@@NROBUSTC@@ of @@NTEST@@ materials are robust. @@NFRAGILEC@@ are not: @@FRAGILELIST@@.</b> Those
   three state changes that the revision record alone could erase, and this page is the reason to stop
   quoting them without that caveat. Tungsten is the instructive one: its published change is
   @@TUNGV@@, the same rounded size as the full-set median, and its sign survives only @@TUNGS@@% of
