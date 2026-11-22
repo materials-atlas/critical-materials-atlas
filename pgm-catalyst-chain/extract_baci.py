@@ -22,7 +22,9 @@ CODES = {
     "711510": {"title": "Catalysts of platinum (wire cloth / grill)", "boundary": "One catalyst form; most autocatalyst value is in coated ceramic, not this heading."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

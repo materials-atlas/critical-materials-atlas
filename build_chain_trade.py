@@ -17,7 +17,11 @@ BATCHES = [
     ("HS17", range(2017, 2025), "BACI_HS17_V202601.zip", "BACI_HS17_Y{year}_V202601.csv"),
 ]
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+# The country file lists a former entity beside its successor under the same ISO code (Germany and
+# "Fed. Rep. of Germany (...1990)", Belgium and "Belgium-Luxembourg (...1998)", Sudan and "Sudan (...2011)"),
+# and the last row read used to win, so 2024 trade was labelled with a state that ended in 1990.
+# The series here start in 2002, so the current name is the right one for Germany and Belgium.
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia", "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 # chain -> (out_dir, out_base, CODES{hs6: {title, boundary}})
 CHAINS = {
@@ -187,6 +191,9 @@ CHAINS = {
         "251120": {"title": "Natural barium carbonate (witherite)", "boundary": "A minor barium mineral; the diversified mine map is the point - no chokepoint to find."},
     }),
     "strontium": ("strontium-chain", "strontium", {
+        # 283692 added 22 Nov 2026 with the owner's go: the one customs line that is strontium alone.
+        # It is the line the origin-gap table already uses for strontium (origin-gap-all/codes.json).
+        "283692": {"title": "Strontium carbonate", "boundary": "The main traded strontium chemical, made from celestite. The exporter is the processor, not necessarily the miner."},
         "281640": {"title": "Oxides/hydroxides/peroxides of strontium or barium", "boundary": "Strontium is lumped with barium here and cannot be isolated; a small market."},
         # 253090 (other mineral substances) was drawn here as a celestite series until 21 Nov 2026.
         # It is a catch-all: nothing in it identifies strontium, so it is not drawn.

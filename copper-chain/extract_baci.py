@@ -22,7 +22,9 @@ CODES = {
     "740400": {"title": "Copper waste and scrap", "boundary": "The recycling stream; routes through hubs, and much scrap is used domestically."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

@@ -287,7 +287,7 @@
       ]
     }
   ],
-  "trade_intro": "The customs line shown here, 281640, lumps strontium oxides with barium oxides, so it does not measure strontium alone. Celestite has no line of its own: it travels inside a catch-all for other minerals, which is not shown because it says nothing about strontium. Read the shares below as coarse context. The mine history above is the clearer signal.",
+  "trade_intro": "Two customs lines are shown. Strontium carbonate (283692) is the main traded strontium chemical and has a line of its own. It shows who processes and sells strontium, which is not who mines it. The second line, 281640, lumps strontium oxides with barium oxides, so it does not measure strontium alone. Celestite, the ore, has no line of its own: it travels inside a catch-all for other minerals, which is not shown because it says nothing about strontium. For who mines the ore, read the mine history above.",
   "method": [
     {
       "stage": "Mine",
@@ -306,8 +306,8 @@
     },
     {
       "stage": "Trade",
-      "lens": "BACI 281640 oxides",
-      "why": "strontium lumped with barium, a flagged proxy"
+      "lens": "BACI 283692 carbonate, 281640 oxides",
+      "why": "the carbonate is strontium alone; the oxides line is lumped with barium"
     }
   ],
   "sources": {

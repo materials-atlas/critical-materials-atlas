@@ -21,7 +21,9 @@ CODES = {
     "811292": {"title": "Germanium/gallium etc. (unwrought basket)", "boundary": "Shared 811292 basket — germanium (the fibre dopant) not separable; upstream context only."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

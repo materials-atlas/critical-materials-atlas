@@ -23,7 +23,9 @@ CODES = {
     "810320": {"title": "Tantalum, unwrought; powders", "boundary": "Metal/powder; capacitor and defence end-use invisible."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

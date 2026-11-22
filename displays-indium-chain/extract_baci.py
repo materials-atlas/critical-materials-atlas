@@ -20,7 +20,9 @@ CODES = {
     "901380": {"title": "Liquid crystal devices (LCD panels), n.e.s.", "boundary": "The display device, not the indium in it; a broad optical-devices heading."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

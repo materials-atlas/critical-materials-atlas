@@ -23,7 +23,9 @@ CODES = {
     "280470": {"title": "Phosphorus (elemental)", "boundary": "Industrial white/yellow P4, not fertilizer; small, China-dominated."},
 }
 FORCE_ISO = {"490": "TW", "516": "NA"}
-FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia"}
+FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia",
+              # the country file lists a former entity under the same ISO code and the last row won
+              "DE": "Germany", "BE": "Belgium", "SD": "Sudan"}
 
 
 def country_maps():

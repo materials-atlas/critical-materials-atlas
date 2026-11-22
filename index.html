@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Critical Materials Atlas</title>
-<meta name="description" content="A public-data atlas of the critical raw-materials value chain: where critical materials are mined, who refines them, how they really trade, who controls each chokepoint — and what to do about it. Built from USGS, BGS, IEA and reconciled UN Comtrade / CEPII BACI data.">
+<meta name="description" content="Who mines critical raw materials, who refines them and who sells them. Each material is followed from reserves to mine, refinery and export market, using public statistics only: USGS, BGS, World Mining Data, the IEA and UN customs records as reconciled by CEPII.">
 <meta property="og:title" content="Critical Materials Atlas">
-<meta property="og:description" content="From the rock in the ground to the geopolitics of the refined metal — the full value chain of the critical raw materials, and what to do when one country holds the chokepoint. Public data.">
+<meta property="og:description" content="Who mines critical raw materials, who refines them and who sells them. Public statistics only, from reserves to mine, refinery and export market.">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/share/card-home.png">
 <meta property="og:image:width" content="1600"><meta property="og:image:height" content="900">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/">
@@ -12,97 +12,78 @@
 <meta property="og:site_name" content="Critical Materials Atlas">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/site.css"><script src="assets/nav.js" defer></script>
 <style>
- body{background:var(--bg)}
- .wrap{max-width:1180px;margin:0 auto;padding:0 22px}
- /* hero */
- .lhero{background:linear-gradient(158deg,#0f272c 0%,#164049 60%,#1d5059 100%);color:#fff;border-bottom:3px solid var(--accent);position:relative;overflow:hidden}
- .lhero .wrap{padding:4rem 22px 3.2rem;position:relative;z-index:1}
- .lhero .motif{position:absolute;top:50%;right:-90px;transform:translateY(-50%);width:600px;height:600px;pointer-events:none;z-index:0}
- @media(max-width:900px){.lhero .motif{right:-260px;opacity:.55}}@media(max-width:640px){.lhero .motif{display:none}}
- .lhero .eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5cbcb1;margin-bottom:1rem}
- .lhero h1{font-size:3rem;line-height:1.03;letter-spacing:-.028em;font-weight:800;margin:0;max-width:18ch}
- @media(max-width:640px){.lhero h1{font-size:2.1rem}}
- .lhero .deck{font-size:1.14rem;line-height:1.55;color:#c6dad7;max-width:60ch;margin:1.2rem 0 0}
- .lhero .deck b{color:#fff;font-weight:600}
- .lhero .cta{display:flex;flex-wrap:wrap;gap:12px;margin:1.7rem 0 0}
- .lhero .cta a{font-size:.92rem;font-weight:700;text-decoration:none;border-radius:9px;padding:11px 20px}
- .lhero .cta .primary{background:#2bb3a3;color:#08201f}.lhero .cta .primary:hover{background:#43c8b8}
- .lhero .cta .ghost{border:1px solid rgba(255,255,255,.32);color:#fff}.lhero .cta .ghost:hover{background:rgba(255,255,255,.08)}
- .lhero .byline{font-size:.8rem;color:#8fabab;margin:1.5rem 0 0}
- /* stat strip */
- .lstats{background:var(--navy);color:#fff}
- .lstats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0}
- .lstat{padding:1.15rem 22px;border-left:1px solid rgba(255,255,255,.12)}
- .lstat:first-child{border-left:0;padding-left:0}.lstats .wrap{padding-left:22px}
- .lstat .n{font-size:1.7rem;font-weight:800;letter-spacing:-.02em;line-height:1}
- .lstat .n .u{font-size:.9rem;color:#7fa8a4;font-weight:600}
- .lstat .l{font-size:.78rem;color:#a9c6c2;margin-top:.35rem;line-height:1.3}
- @media(max-width:720px){.lstats .wrap{grid-template-columns:repeat(2,1fr)}.lstat{border-left:0;padding-left:0}}
- /* section shell */
- section.band{padding:3.4rem 0}
- .band h2{font-size:1.75rem;font-weight:800;letter-spacing:-.02em;color:var(--navy);margin:0 0 .5rem}
- .band .lead{font-size:1.04rem;color:var(--mut);max-width:66ch;margin:0 0 2rem;line-height:1.55}
- .kicker{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:.6rem}
- /* value chain */
- .chain{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
- @media(max-width:900px){.chain{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.chain{grid-template-columns:1fr}}
- .stage{position:relative;border:1px solid var(--line);border-radius:13px;padding:16px 16px 18px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
- .stage:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,50,58,.09)}
- .stage .step{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
- .stage h3{font-size:1.06rem;color:var(--navy);margin:.35rem 0 .15rem;font-weight:700}
- .stage .dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-left:6px;vertical-align:middle}
- .stage p{font-size:.85rem;color:var(--mut);line-height:1.45;margin:.3rem 0 0;flex:1}
- .stage p b{color:var(--ink-soft)}
- .stage .go{font-size:.8rem;font-weight:700;color:var(--accent);margin-top:.8rem}
- .stage.hot{border-color:#e7cdbf;background:linear-gradient(180deg,#fdf6f1,var(--bg) 60%)}
- /* featured findings */
- .findgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
- @media(max-width:940px){.findgrid{grid-template-columns:repeat(2,1fr)}}
- @media(max-width:520px){.findgrid{grid-template-columns:1fr}}
- .findcard{border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:12px;padding:16px 17px 18px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
- .findcard:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(20,50,58,.09)}
- .findcard .fk{font-size:.64rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}
- .findcard h3{font-size:1.06rem;color:var(--navy);margin:.45rem 0 .35rem;font-weight:800;letter-spacing:-.01em;line-height:1.15}
- .findcard p{font-size:.84rem;color:var(--mut);line-height:1.45;margin:0;flex:1}
- .findcard .go{font-size:.78rem;font-weight:700;color:var(--accent);margin-top:.8rem}
- /* decision layer */
- .decision{background:var(--bg-soft)}
- .dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
- @media(max-width:820px){.dgrid{grid-template-columns:1fr}}
- .dcard{border:1px solid var(--line);border-radius:14px;padding:20px 20px 22px;background:var(--bg);text-decoration:none;display:flex;flex-direction:column;transition:border-color .15s,transform .15s,box-shadow .15s}
- .dcard:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 12px 30px rgba(20,50,58,.1)}
- .dcard .tag{font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
- .dcard h3{font-size:1.24rem;color:var(--navy);margin:.5rem 0 .4rem;font-weight:800;letter-spacing:-.01em}
- .dcard p{font-size:.88rem;color:var(--mut);line-height:1.5;margin:0;flex:1}
- .dcard .big{font-size:2.1rem;font-weight:900;color:var(--navy);letter-spacing:-.02em;margin:.6rem 0 .1rem;line-height:1}
- .dcard .big .u{font-size:.86rem;font-weight:600;color:var(--faint)}
- .dcard .go{font-size:.82rem;font-weight:700;color:var(--accent);margin-top:.9rem}
- /* rigor */
- .rigor .rgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
- @media(max-width:820px){.rigor .rgrid{grid-template-columns:1fr}}
- .rig{border-left:3px solid var(--accent);padding:.2rem 0 .2rem 16px}
- .rig h4{font-size:.98rem;color:var(--navy);margin:0 0 .3rem;font-weight:700}
- .rig p{font-size:.85rem;color:var(--mut);line-height:1.5;margin:0}.rig a{font-weight:600}
- /* explore CTA */
- .explore{background:linear-gradient(158deg,#12272c,#1a4750);color:#fff;border-radius:16px;padding:2.2rem 2.2rem;display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap}
- .explore h2{color:#fff;margin:0 0 .4rem}.explore p{color:#bcd4d1;font-size:.98rem;margin:0;max-width:52ch;line-height:1.5}
- .explore a{white-space:nowrap;background:#2bb3a3;color:#08201f;font-weight:700;font-size:.98rem;padding:13px 24px;border-radius:10px;text-decoration:none}
- .explore a:hover{background:#43c8b8}
- /* footer */
- .lftr{background:#12272c;color:#a4b9b6;margin-top:2.8rem;padding:2.6rem 0 2.2rem;font-size:.86rem;line-height:1.6}
+ :root{--paper:#fbfaf7;--teal:#0e7c74;--teal-soft:#a9d3ce;--rule:#e4e2dc}
+ body{background:var(--paper)}
+ .topbar{background:rgba(251,250,247,.95)}
+ .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+ h1,h2{font-family:'Source Serif 4',Georgia,serif;color:var(--navy);font-weight:600;letter-spacing:-.01em}
+ .top{padding:3.2rem 0 1.4rem}
+ .top h1{font-size:2.55rem;line-height:1.12;margin:0;max-width:21ch}
+ .top .deck{font-size:1.08rem;line-height:1.6;color:var(--ink-soft);max-width:62ch;margin:1.1rem 0 0}
+ .top .go{margin:1.5rem 0 0;display:flex;flex-wrap:wrap;align-items:center;gap:1.2rem;font-size:.95rem}
+ .top .go .btn{background:var(--navy);color:#fff;font-weight:600;padding:.62rem 1.15rem;border-radius:4px}
+ .top .go .btn:hover{background:#1d4a52;text-decoration:none}
+ .top .meta{font-size:.82rem;color:var(--mut);margin:1.4rem 0 0}
+ @media(max-width:640px){.top h1{font-size:1.9rem}}
+ section{padding:2.2rem 0;border-top:1px solid var(--rule)}
+ section h2{font-size:1.6rem;line-height:1.2;margin:0 0 .5rem;padding:0;border:0;max-width:34ch}
+ section>.wrap>p{max-width:68ch;color:var(--ink-soft);margin:.4rem 0 0}
+ /* the figure */
+ .fig{margin:1.5rem 0 0;position:relative}
+ .fig .legend{display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;font-size:.84rem;color:var(--ink-soft);margin:0 0 .9rem}
+ .fig .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.45rem;vertical-align:-1px}
+ .fig .legend .exp{background:var(--teal)} .fig .legend .mine{background:var(--paper);box-shadow:inset 0 0 0 2px var(--teal)}
+ .axis,.row{display:grid;grid-template-columns:150px minmax(0,1fr) 300px;column-gap:18px;align-items:center}
+ .axis{font-size:.74rem;color:var(--mut);font-variant-numeric:tabular-nums;margin-bottom:.2rem}
+ .axis .ticks{position:relative;height:1.1rem}
+ .axis .ticks span{position:absolute;transform:translateX(-50%)}
+ .axis .ticks span:first-child{transform:none}.axis .ticks span:last-child{transform:translateX(-100%)}
+ .row{padding:.42rem 0;border-top:1px solid var(--rule);font-size:.9rem;outline:0}
+ .row:hover,.row:focus-visible{background:#f3f1ea}
+ .row .mat{color:var(--ink);font-weight:600}
+ .row .who{color:var(--mut);font-size:.84rem}.row .who b{color:var(--ink);font-weight:600}
+ .track{position:relative;height:22px;background:
+   linear-gradient(to right,var(--rule) 1px,transparent 1px) 0 0/25% 100%,
+   linear-gradient(to left,var(--rule) 1px,transparent 1px) 100% 0/1px 100% no-repeat}
+ .track .ln{position:absolute;top:10px;height:2px;background:var(--teal-soft)}
+ .track .d{position:absolute;top:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;box-shadow:0 0 0 2px var(--paper)}
+ .track .exp{background:var(--teal)}
+ .track .mine{background:var(--paper);box-shadow:inset 0 0 0 2px var(--teal),0 0 0 2px var(--paper)}
+ .row:hover .d,.row:focus-visible .d{box-shadow:0 0 0 2px #f3f1ea}
+ .row:hover .mine,.row:focus-visible .mine{background:#f3f1ea;box-shadow:inset 0 0 0 2px var(--teal),0 0 0 2px #f3f1ea}
+ .fig .note{font-size:.82rem;color:var(--mut);max-width:78ch;margin:1rem 0 0;line-height:1.55}
+ #tip{position:absolute;z-index:5;max-width:330px;background:var(--navy);color:#fff;font-size:.8rem;line-height:1.45;padding:.55rem .7rem;border-radius:4px;pointer-events:none;display:none}
+ @media(max-width:760px){
+   .axis{display:none}
+   .row{grid-template-columns:1fr;row-gap:.25rem}
+ }
+ /* plain lists and tables */
+ ol.find{margin:1.1rem 0 0;padding:0;list-style:none;counter-reset:f;max-width:74ch}
+ ol.find li{counter-increment:f;position:relative;padding:.85rem 0 .85rem 2.4rem;border-top:1px solid var(--rule);color:var(--ink-soft)}
+ ol.find li::before{content:counter(f);position:absolute;left:0;top:.85rem;font-family:'Source Serif 4',Georgia,serif;font-size:1.25rem;color:var(--teal);line-height:1.2}
+ ol.find b{color:var(--ink);font-weight:600}
+ table.cov{border-collapse:collapse;width:100%;margin:1.1rem 0 0;font-size:.9rem}
+ table.cov th{font-size:.74rem;font-weight:600;color:var(--mut);text-align:left;padding:.4rem .9rem .4rem 0;border-bottom:1px solid var(--line-strong)}
+ table.cov td{padding:.6rem .9rem .6rem 0;border-bottom:1px solid var(--rule);vertical-align:top;color:var(--ink-soft)}
+ table.cov td:first-child{color:var(--ink);font-weight:600;white-space:nowrap}
+ @media(max-width:700px){table.cov th:nth-child(3),table.cov td:nth-child(3){display:none}}
+ ul.plain{margin:1rem 0 0;padding:0;list-style:none;max-width:74ch}
+ ul.plain li{padding:.6rem 0;border-top:1px solid var(--rule);color:var(--ink-soft)}
+ ul.plain li a{font-weight:600}
+ .lftr{background:#12272c;color:#a4b9b6;margin-top:1.6rem;padding:2.4rem 0 2rem;font-size:.86rem;line-height:1.6}
  .lftr .cols{display:grid;grid-template-columns:2fr 1fr 1fr;gap:2rem;margin-bottom:1.2rem}
  @media(max-width:720px){.lftr .cols{grid-template-columns:1fr;gap:1.3rem}}
- .lftr h4{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:#fff;margin:0 0 .6rem;font-weight:700}
+ .lftr h4{font-size:.78rem;color:#fff;margin:0 0 .6rem;font-weight:600}
  .lftr a{color:#c1d6d2;text-decoration:none;display:block;padding:.15rem 0}.lftr a:hover{color:#fff}
- .lftr .fine{font-size:.76rem;color:#7c918d;border-top:1px solid rgba(255,255,255,.13);padding-top:1.2rem;line-height:1.5;max-width:none}
+ .lftr .fine{font-size:.76rem;color:#7c918d;border-top:1px solid rgba(255,255,255,.13);padding-top:1.2rem;line-height:1.5}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
-{"@type":"Organization","@id":"https://criticalmaterialsatlas.org/#org","name":"Critical Materials Atlas","url":"https://criticalmaterialsatlas.org/","logo":"https://criticalmaterialsatlas.org/apple-touch-icon.png","description":"Independent public-data research on critical-materials supply chains: where materials are mined, refined, traded and held in reserve, and who holds each chokepoint."},
-{"@type":"WebSite","@id":"https://criticalmaterialsatlas.org/#site","url":"https://criticalmaterialsatlas.org/","name":"Critical Materials Atlas","publisher":{"@id":"https://criticalmaterialsatlas.org/#org"},"inLanguage":"en","description":"Critical raw materials and their value chains, from the rock in the ground to the geopolitics of the refined metal — built entirely from public data."}
+{"@type":"Organization","@id":"https://criticalmaterialsatlas.org/#org","name":"Critical Materials Atlas","url":"https://criticalmaterialsatlas.org/","logo":"https://criticalmaterialsatlas.org/apple-touch-icon.png","description":"Independent public-data research on critical raw materials: where they are mined, refined, traded and held in reserve, and how concentrated each stage is."},
+{"@type":"WebSite","@id":"https://criticalmaterialsatlas.org/#site","url":"https://criticalmaterialsatlas.org/","name":"Critical Materials Atlas","publisher":{"@id":"https://criticalmaterialsatlas.org/#org"},"inLanguage":"en","description":"Who mines critical raw materials, who refines them and who sells them, from public statistics only."}
 ]}
 </script>
 </head><body>
@@ -113,202 +94,93 @@
 </div></header>
 <main id="main">
 
-<section class="lhero">
-  <svg class="motif" viewBox="0 0 560 560" fill="none" aria-hidden="true"><g stroke="#7fd2c8" stroke-opacity=".14" stroke-width="1.1"><circle cx="280" cy="280" r="232"/><ellipse cx="280" cy="280" rx="232" ry="62"/><ellipse cx="280" cy="280" rx="232" ry="132"/><ellipse cx="280" cy="280" rx="232" ry="196"/><ellipse cx="280" cy="280" rx="62" ry="232"/><ellipse cx="280" cy="280" rx="132" ry="232"/><ellipse cx="280" cy="280" rx="196" ry="232"/></g><g stroke="#9be3da" stroke-opacity=".24" stroke-width="1.4" fill="none"><path d="M120 360 Q 300 110 472 248"/><path d="M158 196 Q 322 300 442 422"/><path d="M120 360 Q 268 430 442 422"/></g><g fill="#bff0e8" fill-opacity=".5"><circle cx="120" cy="360" r="4.5"/><circle cx="472" cy="248" r="4.5"/><circle cx="158" cy="196" r="4.5"/><circle cx="442" cy="422" r="4.5"/></g></svg>
-  <div class="wrap">
-    <div class="eyebrow">Public-data research</div>
-    <h1>The value chain of the materials the modern world is built on.</h1>
-    <p class="deck">Critical raw materials, from the rock in the ground to the geopolitics of the refined metal. Where they&rsquo;re <b>mined</b>, who turns them into usable <b>metal</b>, how they <b>really move</b> across borders, who holds each <b>chokepoint</b> — and, when one country does, <b>what you can actually do about it</b>. Built entirely from public data, and extended into <a href="value-chains">end-use value chains</a> from raw material to finished technology.</p>
-    <div class="cta">
-      <a class="primary" href="explorer">Explore the materials →</a>
-      <a class="ghost" href="#decide">What do you do about a chokepoint?</a>
-    </div>
-    <p class="byline">Independent research · public data only (USGS · BGS World Mineral Statistics · IEA · EU CRM 2023 · UN Comtrade / CEPII BACI · Eurostat) · reconciled trade 2002–2024 + nowcast · not affiliated with any institution.</p>
-  </div>
-</section>
+<div class="top"><div class="wrap">
+  <h1>Who mines critical raw materials, who refines them and who sells them</h1>
+  <p class="deck">The atlas follows each material from reserves to mine, refinery and export market. It uses public statistics only: the US Geological Survey, the British Geological Survey, World Mining Data, the International Energy Agency and UN customs records as reconciled by CEPII. Trade is covered from 2002 to 2024.</p>
+  <div class="go"><a class="btn" href="explorer">Open the explorer</a><a href="findings">Read the findings</a><a href="data">Download the data</a></div>
+  <p class="meta">Independent research, not affiliated with any institution. Updated 22 November 2026.</p>
+</div></div>
 
-<section class="lstats"><div class="wrap">
-  <div class="lstat"><div class="n">mine &rarr; refine &rarr; trade</div><div class="l">the whole chain for every material tracked here</div></div>
-  <div class="lstat"><div class="n">Most</div><div class="l"><a href="origin-gap-all" style="color:inherit">materials are not exported mainly by the country that mines them</a></div></div>
-  <div class="lstat"><div class="n">2002–26</div><div class="l">reconciled bilateral trade, measured to nowcast</div></div>
-  <div class="lstat"><div class="n">Value chains</div><div class="l"><a href="value-chains" style="color:inherit">from raw material to finished technology</a></div></div>
-</div></section>
-
-<section class="band"><div class="wrap">
-  <div class="kicker">What the atlas has found</div>
-  <h2>Two findings — and two checks that the method holds</h2>
-  <p class="lead">Independent, public-data research: every number traces to an open source, and the method is built to be broken. Two substantive findings &mdash; and, kept separate, two checks that the tooling behind them holds up:</p>
-  <div class="findgrid">
-    <a class="findcard" href="chokepoint-map">
-      <span class="fk">The big idea</span>
-      <h3>The chokepoint is rarely the mine</h3>
-      <p>Only a few of the supply chains traced here bind at the mine, on geology. The rest bind at a stage that was <b>built</b> — refining, by-product recovery, qualification, know-how — and each needs a different fix.</p>
-      <span class="go">The Chokepoint Map →</span>
-    </a>
-    <a class="findcard" href="origin-gap-all">
-      <span class="fk">The flagship</span>
-      <h3>The refiner is not the source</h3>
-      <p>For <b>most</b> materials the top exporter is not the top miner — and the gap <b>holds in tonnes</b>, not just dollars. Not a unit artifact.</p>
-      <span class="go">The origin gap →</span>
-    </a>
-    <a class="findcard" href="nowcast-backtest">
-      <span class="fk">Method check</span>
-      <h3>The forecast is tested, and honest about it</h3>
-      <p>Out-of-sample, last year names this year's top exporter <b>84%</b> of the time — but that's the naive benchmark, not proof of skill, and we say where it fails (turning points).</p>
-      <span class="go">The nowcast backtest →</span>
-    </a>
-    <a class="findcard" href="iea-risk-check">
-      <span class="fk">Method check</span>
-      <h3>Public data recovers the IEA&rsquo;s risk list</h3>
-      <p>The atlas's public-data risk index independently reproduces <b>4 of the IEA's 6</b> discrete high-risk minerals in its top third.</p>
-      <span class="go">The cross-check →</span>
-    </a>
+<section><div class="wrap">
+  <h2>In 2024 Switzerland was the largest exporter of gold and mined none of it.</h2>
+  <p>It is not an exception. For most materials measured, the country that exports the most is not the country that mines the most. Often the seller is another mining country. In the cases below it is a refinery, a smelter or a trading hub in a country that mines almost none of the material.</p>
+  <div class="fig" id="fig">
+    <div class="legend"><span><i class="exp"></i>Largest exporter&rsquo;s share of world exports</span><span><i class="mine"></i>The same country&rsquo;s share of world mine production</span></div>
+    <div class="axis"><span></span><span class="ticks"><span style="left:0">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%">100%</span></span><span></span></div>
+    <div class="row" tabindex="0" data-tip="Germany: 63% of world exports of strontium carbonate by value, 0% of world mine production. Largest miner: Iran, 58%." aria-label="Germany: 63% of world exports of strontium carbonate by value, 0% of world mine production. Largest miner: Iran, 58%."><span class="mat">Strontium carbonate</span><span class="track"><i class="ln" style="left:0.0%;width:63.0%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:63.0%"></i></span><span class="who"><b>Germany</b> sells it. Largest miner: Iran.</span></div>
+    <div class="row" tabindex="0" data-tip="Japan: 34% of world exports of titanium metal by value, 0% of world mine production. Largest miner: China, 36%." aria-label="Japan: 34% of world exports of titanium metal by value, 0% of world mine production. Largest miner: China, 36%."><span class="mat">Titanium metal</span><span class="track"><i class="ln" style="left:0.0%;width:34.1%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:34.1%"></i></span><span class="who"><b>Japan</b> sells it. Largest miner: China.</span></div>
+    <div class="row" tabindex="0" data-tip="United Arab Emirates: 25% of world exports of rough diamonds by value, 0% of world mine production. Largest miner: Russia, 30%." aria-label="United Arab Emirates: 25% of world exports of rough diamonds by value, 0% of world mine production. Largest miner: Russia, 30%."><span class="mat">Rough diamonds</span><span class="track"><i class="ln" style="left:0.0%;width:25.4%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:25.4%"></i></span><span class="who"><b>United Arab Emirates</b> sells it. Largest miner: Russia.</span></div>
+    <div class="row" tabindex="0" data-tip="Switzerland: 22% of world exports of gold by value, 0% of world mine production. Largest miner: China, 11%." aria-label="Switzerland: 22% of world exports of gold by value, 0% of world mine production. Largest miner: China, 11%."><span class="mat">Gold</span><span class="track"><i class="ln" style="left:0.0%;width:21.7%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:21.7%"></i></span><span class="who"><b>Switzerland</b> sells it. Largest miner: China.</span></div>
+    <div class="row" tabindex="0" data-tip="Austria: 20% of world exports of ferro-vanadium by value, 0% of world mine production. Largest miner: China, 71%." aria-label="Austria: 20% of world exports of ferro-vanadium by value, 0% of world mine production. Largest miner: China, 71%."><span class="mat">Ferro-vanadium</span><span class="track"><i class="ln" style="left:0.0%;width:20.2%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:20.2%"></i></span><span class="who"><b>Austria</b> sells it. Largest miner: China.</span></div>
+    <div class="row" tabindex="0" data-tip="Norway: 16% of world exports of nickel metal by value, 0% of world mine production. Largest miner: Indonesia, 62%." aria-label="Norway: 16% of world exports of nickel metal by value, 0% of world mine production. Largest miner: Indonesia, 62%."><span class="mat">Nickel metal</span><span class="track"><i class="ln" style="left:0.0%;width:16.5%"></i><i class="d mine" style="left:0.0%"></i><i class="d exp" style="left:16.5%"></i></span><span class="who"><b>Norway</b> sells it. Largest miner: Indonesia.</span></div>
+    <div id="tip" role="status"></div>
+    <p class="note">Shown: the materials whose largest exporter mined less than 1% of world output in 2024, where the same country leads by value and by tonnes. Each material is measured on its main traded form, and trade inside finished goods is not counted. Exports: CEPII BACI, 2024, by value. Mine production: USGS, World Mining Data or BGS. <a href="origin-gap-all">Full table, every material measured</a>.</p>
   </div>
 </div></section>
 
-<section class="band decision" id="start"><div class="wrap">
-  <div class="kicker">New here? Start with one of these</div>
-  <h2>Three ways in</h2>
-  <div class="dgrid">
-    <a class="dcard" href="explorer">
-      <span class="tag">Explore</span>
-      <div class="big">The explorer</div>
-      <h3>See it for yourself</h3>
-      <p>The interactive workbench — table, trade-flow map and 3-D globe. Pick any material or any country and trace it from mine to refinery to buyer, or follow a value chain to a finished technology.</p>
-      <span class="go">Open the explorer →</span>
-    </a>
-    <a class="dcard" href="analysis">
-      <span class="tag">Read the findings</span>
-      <div class="big">The analysis</div>
-      <h3>Every lens, and the reports</h3>
-      <p>Demand, trade, supply-risk, the refining wedge, chokepoints in motion — every analytical page in one place, plus <b>six citable reports</b> with Zenodo DOIs.</p>
-      <span class="go">Go to the analysis →</span>
-    </a>
-    <a class="dcard" href="data">
-      <span class="tag">Use the data</span>
-      <div class="big">Open data</div>
-      <h3>Download and reproduce</h3>
-      <p>The reconciled trade matrix, production and risk tables — all public, all downloadable, all reproducible from the open engine. Built entirely from USGS, BGS, IEA, UN Comtrade and Eurostat.</p>
-      <span class="go">Get the data →</span>
-    </a>
-  </div>
+<section><div class="wrap">
+  <h2>Findings</h2>
+  <ol class="find">
+    <li><b>The largest exporter is usually not the largest miner.</b> The result holds whether trade is counted in dollars or in tonnes. <a href="origin-gap-all">The origin gap</a></li>
+    <li><b>In most value chains the most concentrated stage comes after the mine.</b> It is usually refining, by-product recovery or product qualification. In a few chains it is the mine itself. <a href="chokepoint-map">The chokepoint map</a></li>
+    <li><b>The nowcast is tested against a naive benchmark.</b> Out of sample, last year&rsquo;s largest exporter is still the largest exporter 84% of the time. None of the forecasting models tested beats that benchmark reliably, and the page says so. <a href="nowcast-backtest">Nowcast backtest</a></li>
+    <li><b>The risk index is checked against the IEA.</b> Built from public data alone, it places most of the minerals the IEA rates as high-risk in its own top third. <a href="iea-risk-check">IEA cross-check</a></li>
+  </ol>
 </div></section>
 
-<section class="band"><div class="wrap">
-  <div class="kicker">Follow a critical material through its life</div>
-  <h2>Reserves → mine → refine → trade → the grip</h2>
-  <p class="lead">Most maps of critical minerals stop at &ldquo;who exports it.&rdquo; That&rsquo;s the wrong end of the chain. Follow a material the whole way — and the real chokepoint appears where the customs ledger can&rsquo;t see it.</p>
-  <div class="chain">
-    <a class="stage" href="explorer">
-      <span class="step">Stage 1 · in the ground</span>
-      <h3>Reserves</h3>
-      <p>What&rsquo;s economically recoverable, and where the rock actually sits — often nothing like where it&rsquo;s sold. USGS reserves for every material tracked here.</p>
-      <span class="go">See the map →</span>
-    </a>
-    <a class="stage" href="trends">
-      <span class="step">Stage 2 · out of the ground</span>
-      <h3>Mining <span class="dot" style="background:#de8c28"></span></h3>
-      <p>Who digs it up. USGS &amp; BGS production, <b>1970–2024</b> — the part everyone already counts.</p>
-      <span class="go">22-year trends →</span>
-    </a>
-    <a class="stage hot" href="refiners">
-      <span class="step">Stage 3 · into metal · the twist</span>
-      <h3>Refining <span class="dot" style="background:#8e44ad"></span></h3>
-      <p>Here the chain bends. For <b>most</b> materials the top seller is not the top miner: a refinery or a hub stands in front of the mine. Switzerland is the top gold exporter and mines none; the UAE leads in rough diamonds and mines none. Gallium is the extreme &mdash; never mined for itself, it is recovered mostly while refining alumina, and China produces <b>~98%</b> of it.</p>
-      <span class="go">Who actually refines →</span>
-    </a>
-    <a class="stage" href="explorer">
-      <span class="step">Stage 4 · across borders</span>
-      <h3>Trade</h3>
-      <p>The real bilateral flows, both directions — reconciled from UN Comtrade, <b>2002–2024 + nowcast</b>. Follow any material to any country.</p>
-      <span class="go">Open the explorer →</span>
-    </a>
-    <a class="stage" href="network">
-      <span class="step">Stage 5 · the grip</span>
-      <h3>Chokepoints</h3>
-      <p>How concentrated each stage is, and where a single country&rsquo;s decision — a ban, an accident — squeezes the whole world.</p>
-      <span class="go">Trade-network chokepoints →</span>
-    </a>
-  </div>
+<section><div class="wrap">
+  <h2>What the atlas covers</h2>
+  <table class="cov">
+    <thead><tr><th>Stage</th><th>What is measured</th><th>Sources</th><th>Open</th></tr></thead>
+    <tbody>
+      <tr><td>Reserves</td><td>Economically recoverable reserves by country</td><td>USGS</td><td><a href="explorer">Explorer</a></td></tr>
+      <tr><td>Mine production</td><td>Annual output by country, 1970 to 2024</td><td>USGS, World Mining Data, BGS</td><td><a href="trends">Trends</a></td></tr>
+      <tr><td>Refining</td><td>Refined output and capacity by country</td><td>IEA, USGS, BGS</td><td><a href="refiners">Refiners</a></td></tr>
+      <tr><td>Trade</td><td>Bilateral flows in value and tonnes, 2002 to 2024, with a nowcast</td><td>UN Comtrade, CEPII BACI</td><td><a href="explorer">Explorer</a></td></tr>
+      <tr><td>Concentration</td><td>How much of each stage one country holds</td><td>Computed from the above</td><td><a href="network">Trade network</a></td></tr>
+      <tr><td>Value chains</td><td>End-use chains from raw material to finished product</td><td>IEA, OECD, IRENA, industry bodies</td><td><a href="value-chains">Value chains</a></td></tr>
+    </tbody>
+  </table>
 </div></section>
 
-<section class="band decision" id="decide"><div class="wrap">
-  <div class="kicker">So what do you do about it?</div>
-  <h2>The data shows the problem. These show what to do.</h2>
-  <p class="lead">A finding isn&rsquo;t a decision. Knowing China holds a chokepoint is only half an answer — the other half is who could break it, whether the world could absorb a cut, and how exposed you are. Three tools, built on the same public trade matrix.</p>
-  <div class="dgrid">
-    <a class="dcard" href="breakout">
-      <span class="tag">Break the chokepoint</span>
-      <div class="big">Alternatives</div>
-      <h3>Who could break it — and who&rsquo;s building it</h3>
-      <p>Chokepoints that are a <b>capability</b>, not an ore endowment — no export ban touches them. For each, who could realistically stand up an alternative, and who actually is (Perpetua, Almonty, Lynas, Euro Manganese…).</p>
-      <span class="go">Open the decision layer →</span>
-    </a>
-    <a class="dcard" href="ot">
-      <span class="tag">Reallocation stress test</span>
-      <div class="big">Stress test</div>
-      <h3>Can the rest of the world cover a cut?</h3>
-      <p>Cut a chokepoint and reallocate its exports optimally. A few materials can&rsquo;t be covered even if every other exporter doubles, and for some, removing the leader makes concentration worse. With a before/after map.</p>
-      <span class="go">Run the stress test →</span>
-    </a>
-    <a class="dcard" href="leverage">
-      <span class="tag">Leverage map</span>
-      <div class="big">Your country</div>
-      <h3>How exposed are you, material by material</h3>
-      <p>An importer × material heatmap: how much of each country&rsquo;s supply runs through a single source, and how single-sourced it is. The East-Asian manufacturing belt is the most locked-in.</p>
-      <span class="go">Find your exposure →</span>
-    </a>
-  </div>
+<section><div class="wrap">
+  <h2>Tools</h2>
+  <ul class="plain">
+    <li><a href="breakout">Alternatives to a concentrated supplier.</a> For each chokepoint, which countries and companies could supply an alternative, and which are building one.</li>
+    <li><a href="ot">Reallocation stress test.</a> Removes the largest exporter of a material and reallocates the remaining exports, with a map before and after.</li>
+    <li><a href="leverage">Importer exposure.</a> For each importing country and material, the share of supply that comes from a single source.</li>
+  </ul>
 </div></section>
 
-<section class="band"><div class="wrap">
-  <div class="explore">
-    <div>
-      <h2>Explore the materials</h2>
-      <p>The interactive workbench: table, flow map and 3-D globe. Pick any material or any country and trace it from mine to refinery to buyer, with the real trade in both directions.</p>
-    </div>
-    <a href="explorer">Open the explorer →</a>
-  </div>
-</div></section>
-
-<section class="band rigor"><div class="wrap">
-  <div class="kicker">How we know</div>
-  <h2>Public data, reconciled, and falsifiable</h2>
-  <p class="lead">No paid databases, no black boxes. Every number traces to an open source, the reconciliation is validated against the official series, and the whole thing is built to be broken &mdash; through <b>three rounds of adversarial review that caught and published three real errors</b>. <a href="confidence"><b>What you can trust, and how we know →</b></a></p>
-  <div class="rgrid">
-    <div class="rig"><h4>Graded, not asserted</h4><p>Each commodity carries a reliability grade. Most are robust; the weaker ones are flagged on their own pages, so you can see which figures to lean on. <a href="confidence">What you can trust →</a></p></div>
-    <div class="rig"><h4>Robustness-tested</h4><p>Findings re-run against alternative sources, truncations and vintages to see which survive. <a href="robustness">Robustness →</a></p></div>
-    <div class="rig"><h4>Open challenge</h4><p>Limitations stated, errors published, and a standing invitation to falsify any claim. <a href="challenge">Break this atlas →</a></p></div>
-  </div>
+<section><div class="wrap">
+  <h2>Method and data</h2>
+  <p>Every figure traces to a public source. The trade reconciliation is validated against the official CEPII series, each commodity carries a reliability grade, and errors found in review are published with their corrections. The code and the data are open.</p>
+  <ul class="plain">
+    <li><a href="methodology">Methodology and validation</a></li>
+    <li><a href="confidence">Reliability of each commodity</a></li>
+    <li><a href="robustness">Robustness tests</a></li>
+    <li><a href="data">Open data and API</a></li>
+    <li><a href="mailto:contact@criticalmaterialsatlas.org">Report an error: contact@criticalmaterialsatlas.org</a></li>
+  </ul>
 </div></section>
 
 </main>
 <footer class="lftr"><div class="wrap">
   <div class="cols">
-    <div>
-      <h4>Critical Materials Atlas</h4>
-      <p style="margin:0 0 .8rem;max-width:46ch">An independent, public-data demonstration of the critical raw-materials value chain — where critical materials are mined, refined, traded and held in reserve, and what to do when supply concentrates. Not affiliated with, nor representing, any institution.</p>
-      <a href="explorer"><b>Explore the data →</b></a>
-    </div>
-    <div>
-      <h4>Navigate</h4>
-      <a href="explorer">Explore</a>
-      <a href="value-chains">Value Chains</a>
-      <a href="analysis">Analysis</a>
-      <a href="reports">Reports</a>
-      <a href="method">Method &amp; rigor</a>
-    </div>
-    <div>
-      <h4>More</h4>
-      <a href="about">About the atlas</a>
-      <a href="updates">Updates / changelog</a>
-      <a href="data">Open data / API</a>
-      <a href="brief">One-page brief (PDF)</a>
-      <a href="methodology">Methodology &amp; validation</a>
-      <a href="https://github.com/materials-atlas/critical-materials-atlas" target="_blank" rel="noopener">Reconciliation engine ↗</a>
-      <a href="mailto:contact@criticalmaterialsatlas.org">Contact / report an error</a>
-    </div>
+    <div><h4>Critical Materials Atlas</h4><p style="margin:0;max-width:46ch">Independent public-data research on critical raw materials. Not affiliated with, nor representing, any institution.</p></div>
+    <div><h4>Navigate</h4><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></div>
+    <div><h4>More</h4><a href="about">About</a><a href="updates">Updates</a><a href="data">Open data</a><a href="brief">One-page brief (PDF)</a><a href="https://github.com/materials-atlas/critical-materials-atlas">Source code</a><a href="mailto:contact@criticalmaterialsatlas.org">Contact</a></div>
   </div>
-  <div class="fine">Sources: USGS Mineral Commodity Summaries · BGS World Mineral Statistics · IEA Critical Minerals Outlook · EU CRM 2023 · UN Comtrade / CEPII BACI (Gaulier &amp; Zignago 2010) · Eurostat · World Bank. Trade reconciled and validated against official BACI (top-1 exporter 25/30, 3.5% share error). Figures are approximate and rounded; read each material as an overlay of distinct measures — reserves, mine, refine, trade — not one observed pipeline.</div>
+  <div class="fine">Sources: USGS Mineral Commodity Summaries, BGS World Mineral Statistics, World Mining Data, IEA Critical Minerals Outlook, UN Comtrade and CEPII BACI (Gaulier and Zignago 2010), Eurostat, World Bank. Figures are rounded.</div>
 </div></footer>
+<script>
+(function(){var f=document.getElementById('fig'),t=document.getElementById('tip');if(!f||!t)return;
+ function show(r,x,y){t.textContent=r.getAttribute('data-tip');t.style.display='block';var b=f.getBoundingClientRect();
+  var l=Math.min(Math.max(0,x-b.left+14),b.width-t.offsetWidth);t.style.left=l+'px';t.style.top=(y-b.top+16)+'px';}
+ f.querySelectorAll('.row').forEach(function(r){
+  r.addEventListener('mousemove',function(ev){show(r,ev.clientX,ev.clientY);});
+  r.addEventListener('mouseleave',function(){t.style.display='none';});
+  r.addEventListener('focus',function(){var b=r.getBoundingClientRect();show(r,b.left+160,b.bottom-16);});
+  r.addEventListener('blur',function(){t.style.display='none';});});})();
+</script>
 </body></html>

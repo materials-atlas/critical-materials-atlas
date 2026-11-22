@@ -115,15 +115,17 @@ CHAIN = {
              "flag": "worth knowing, not worrying"},
         ]},
     ],
-    "trade_intro": "The customs line shown here, 281640, lumps strontium oxides with barium oxides, so it does not "
-                   "measure strontium alone. Celestite has no line of its own: it travels inside a catch-all for "
-                   "other minerals, which is not shown because it says nothing about strontium. Read the shares "
-                   "below as coarse context. The mine history above is the clearer signal.",
+    "trade_intro": "Two customs lines are shown. Strontium carbonate (283692) is the main traded strontium "
+                   "chemical and has a line of its own. It shows who processes and sells strontium, which is not "
+                   "who mines it. The second line, 281640, lumps strontium oxides with barium oxides, so it does "
+                   "not measure strontium alone. Celestite, the ore, has no line of its own: it travels inside a "
+                   "catch-all for other minerals, which is not shown because it says nothing about strontium. "
+                   "For who mines the ore, read the mine history above.",
     "method": [
         {"stage": "Mine", "lens": "BGS celestite share and history", "why": f"Iran {IR}% in 2024; the most concentrated stage"},
         {"stage": "Use", "lens": "ferrite magnets vs pyrotechnics", "why": "the rare-earth-free magnet hedge + red flame"},
         {"stage": "Character", "lens": "concentrated, low leverage", "why": "small market, the lead has changed hands, most uses have substitutes"},
-        {"stage": "Trade", "lens": "BACI 281640 oxides", "why": "strontium lumped with barium, a flagged proxy"},
+        {"stage": "Trade", "lens": "BACI 283692 carbonate, 281640 oxides", "why": "the carbonate is strontium alone; the oxides line is lumped with barium"},
     ],
     "sources": SRC,
 }
