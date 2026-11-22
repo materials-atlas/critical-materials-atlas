@@ -101,7 +101,7 @@ payload = {'year': YEAR, 'materials': mats,
                     'imports of a material that comes from that material’s dominant global exporter (systemic). '
                     'LOCK-IN = the country’s own import-source concentration / top-source share (idiosyncratic). '
                     'Import shares understate a country that refines for itself (it simply imports less); a low '
-                    'exposure can mean self-sufficiency, not resilience. Shared HS codes (Ga/Ge 811292) are a basket.'),
+                    'exposure can mean self-sufficiency, not resilience. Gallium, germanium and hafnium are read from one shared code (811292): a basket.'),
            'importers': profiles}
 json.dump(payload, open(os.path.join(ROOT, 'out', 'leverage.json'), 'w', encoding='utf-8'),
           separators=(',', ':'), ensure_ascii=False)
@@ -172,7 +172,7 @@ PAGE = r'''<!doctype html>
   <div class="callout"><b>How to read it.</b> Rows are importing countries (most China-captured at the top), columns are materials (most globally-concentrated at the left). A cell&rsquo;s darkness is how much of that country&rsquo;s imports of that material comes from the chokepoint leader — toggle between the <b>material&rsquo;s global leader</b> and <b>China specifically</b>. A pale cell is diversified supply; a dark cell is a country that has handed one supplier its whole book for that material.
   <details class="howto"><summary>Method &amp; caveats</summary>
   <p><b>Capture</b> = share of country i&rsquo;s imports of material m that comes from m&rsquo;s dominant global exporter. <b>China</b> mode shows the share from China specifically. <b>Lock-in</b> = the country&rsquo;s own import-source HHI and top-source share (≥70% from one source flags a single-source dependency). The per-country <b>score</b> = capture × √(import HHI): high when you buy heavily from the global chokepoint AND have few alternatives.</p>
-  <p class="howto-src"><b>Caveats.</b> This is <b>import-based</b>: a country that refines for itself simply imports less, so a <i>low</i> exposure can mean self-sufficiency, not resilience (China&rsquo;s own row is small because it feeds itself). It captures refined-goods dependence via trade, not stockpiles, long-term contracts, or domestic mines. <b>Shared HS codes</b> (gallium/germanium 811292) are a basket. Top 40 importers by critical-material import value are shown; the open dataset covers all. Built by <code>build_leverage.py</code> on CEPII BACI. <b>See also</b> <a href="breakout.html">Break the chokepoint</a> and the <a href="ot.html">reallocation stress test</a>.</p>
+  <p class="howto-src"><b>Caveats.</b> This is <b>import-based</b>: a country that refines for itself simply imports less, so a <i>low</i> exposure can mean self-sufficiency, not resilience (China&rsquo;s own row is small because it feeds itself). It captures refined-goods dependence via trade, not stockpiles, long-term contracts, or domestic mines. <b>Shared HS codes.</b> Gallium, germanium and hafnium are read from one code (811292): a basket, not three results. Top 40 importers by critical-material import value are shown; the open dataset covers all. Built by <code>build_leverage.py</code> on CEPII BACI. <b>See also</b> <a href="breakout.html">Break the chokepoint</a> and the <a href="ot.html">reallocation stress test</a>.</p>
   </details></div>
   <div class="sumstrip" id="sum"></div>
   <div class="ctrls">

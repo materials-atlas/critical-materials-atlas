@@ -146,7 +146,7 @@ HTML = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · risk · supply elasticity</div>
-  <h1>Account for supply that can&rsquo;t respond, and hafnium climbs most</h1>
+  <h1>Supply risk when supply cannot respond to price</h1>
   <p class="deck">Every supply-risk score quietly assumes the market can answer a shortage by producing more. For the <a href="companionality" style="color:#fff;text-decoration:underline">by-product metals</a> that assumption breaks &mdash; you can&rsquo;t open a gallium mine. This layer re-weights the <a href="risk" style="color:#fff;text-decoration:underline">risk index</a> by how elastic each material&rsquo;s supply actually is, and asks: which materials does &ldquo;just mine more&rdquo; most under-rate?</p>
 </div></section>
 <article style="max-width:1000px">

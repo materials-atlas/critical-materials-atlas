@@ -77,7 +77,7 @@ countries = sorted({c for (c, _) in exp.index} | {c for (c, _) in xpo.index})
 exposure = {}
 for lab, info in MATS.items():
     codes, shares, flags = info['codes'], info['shares'], info['flags']
-    shared = 'shared_refined' in flags                    # Ga/Ge 811292: trade fallbacks degenerate
+    shared = 'shared_refined' in flags                    # Ga/Ge/Hf 811292: trade fallbacks degenerate
     s = sorted(shares.items(), key=lambda kv: -kv[1])
     listed = sum(v for _, v in s)                          # coverage of the physical breakdown
     hhi = sum((v / 100.0) ** 2 for _, v in s)

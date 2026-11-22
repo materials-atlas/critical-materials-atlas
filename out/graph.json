@@ -4540,6 +4540,8 @@
   },
   "build_complexity.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2024.json"
    ],
@@ -4548,8 +4550,9 @@
     "out/complexity.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "09bd5a218adb7a5a"
+   "secs": 0.2,
+   "code_sha": "2077759f1049009b",
+   "restored": 2
   },
   "build_consumption.py": {
    "reads": [
@@ -4595,6 +4598,8 @@
   },
   "build_criticality.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2024.json",
     "out/risk.json",
@@ -4606,7 +4611,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "501e9535f6597367"
+   "code_sha": "5a35123066459e60",
+   "restored": 2
   },
   "build_crosswalk.py": {
    "reads": [
@@ -4617,7 +4623,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "94543ac4ae5e49ab"
+   "code_sha": "8b1334c4f79e3b22",
+   "restored": 1
   },
   "build_cube.py": {
    "reads": [
@@ -5398,7 +5405,9 @@
   "build_network.py": {
    "reads": [
     "./",
+    "__pycache__/shared_code.cpython-311.pyc",
     "out/",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2002.json",
     "out/flows_2003.json",
@@ -5431,8 +5440,9 @@
     "out/network.json"
    ],
    "exit": 0,
-   "secs": 33.0,
-   "code_sha": "365516037f305bb0"
+   "secs": 19.0,
+   "code_sha": "962e45de9bdb93ab",
+   "restored": 2
   },
   "build_network_sensitivity.py": {
    "reads": [
@@ -5539,16 +5549,20 @@
   },
   "build_origin.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
+    "out/crosswalk.json",
     "out/data.json",
-    "out/flows_2024.json"
+    "out/flows_2024.json",
+    "out/origin_feed.json"
    ],
    "writes": [
     "origin.html",
     "out/origin_trace.json"
    ],
    "exit": 0,
-   "secs": 0.4,
-   "code_sha": "a3a6298e8df7b92b"
+   "secs": 0.1,
+   "code_sha": "6e20ac00f54b4e55",
+   "restored": 2
   },
   "build_origin_gap_null.py": {
    "reads": [
@@ -5666,7 +5680,9 @@
   },
   "build_price_squeeze.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
     "out/companionality.json",
+    "out/crosswalk.json",
     "out/demand.json",
     "out/volume.json"
    ],
@@ -5675,8 +5691,9 @@
     "price-squeeze.html"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "e1386b692d30ef59"
+   "secs": 0.1,
+   "code_sha": "9ce7c64d7516aada",
+   "restored": 2
   },
   "build_price_volatility.py": {
    "reads": [
@@ -5735,7 +5752,9 @@
   },
   "build_profiles.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
     "out/",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2002.json",
     "out/flows_2003.json",
@@ -5833,8 +5852,9 @@
     "profiles.html"
    ],
    "exit": 0,
-   "secs": 4.9,
-   "code_sha": "31e01ae2a23ee9d7"
+   "secs": 1.2,
+   "code_sha": "2c1bfcd6bba743cf",
+   "restored": 62
   },
   "build_provenance.py": {
    "reads": [
@@ -5955,6 +5975,8 @@
   },
   "build_risk.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2024.json"
    ],
@@ -5963,8 +5985,9 @@
     "risk.html"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "c47924c95b6c042c"
+   "secs": 0.1,
+   "code_sha": "186bfab791eaf418",
+   "restored": 2
   },
   "build_risk_adjusted.py": {
    "reads": [
@@ -5994,6 +6017,8 @@
   },
   "build_riskmethods.py": {
    "reads": [
+    "__pycache__/shared_code.cpython-311.pyc",
+    "out/crosswalk.json",
     "out/data.json",
     "out/flows_2024.json",
     "out/risk.json",
@@ -6004,8 +6029,9 @@
     "riskmethods.html"
    ],
    "exit": 0,
-   "secs": 1.5,
-   "code_sha": "8aa004a95bbb46c3"
+   "secs": 0.4,
+   "code_sha": "dd6f2dfd7c626e39",
+   "restored": 2
   },
   "build_robustness.py": {
    "reads": [
@@ -15552,9 +15578,11 @@
    "reads": [
     "__pycache__/baci.cpython-311.pyc",
     "__pycache__/mine_shares.cpython-311.pyc",
+    "__pycache__/shared_code.cpython-311.pyc",
     "__pycache__/usgs_mcs_cube.cpython-311.pyc",
     "extract/baci/HS17/Y2024.parquet",
     "origin-gap-all/codes.json",
+    "out/crosswalk.json",
     "out/cube.parquet",
     "out/data.json",
     "out/flows_2024.json",
@@ -15567,8 +15595,8 @@
     "out/origin_gap_all.json"
    ],
    "exit": 0,
-   "secs": 4.3,
-   "code_sha": "2f1e8228f3314d45",
+   "secs": 2.6,
+   "code_sha": "b0ab20da2b00ddee",
    "restored": 2
   },
   "build_mined_shares.py": {

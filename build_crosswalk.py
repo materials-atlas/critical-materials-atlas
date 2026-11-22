@@ -6,7 +6,8 @@ rather than parse HS codes from data.json titles.
 For each material: ore_hs[] (upstream), refined_hs[] (the traded refined basket), and flags:
   clean_pair       distinct ore + distinct refined -> full trade feedstock fingerprint
   shared_ore       ore HS6 shared with another material (Ta/Nb 261590) -> feed side unreliable
-  shared_refined   refined HS6 shared (Ga/Ge 811292) -> trade signal degenerate
+  shared_refined   no HS6 of its own in the world trade file (Ga/Ge/Hf all read from 811292)
+                   -> trade signal degenerate
   byproduct        recovered from other ores, no ore trade line
   mine_only        no distinct refined stage
   refined_only     a refined form with no clean ore pair (typed from physical)
@@ -27,9 +28,14 @@ CLEAN = {'copper': (['260300'], ['740311']), 'nickel': (['260400'], ['750210', '
          'bauxite': (['260600'], ['281820']),                                   # refined = ALUMINA, not the ore
          'manganese': (['260200'], ['811100', '720211', '720219', '720230'])}   # refined = Mn metal + ferro/silico-Mn
 SHARED_ORE = {'tantalum': (['261590'], ['810320']), 'niobium': (['261590'], ['720293'])}  # share the Nb-Ta ore
-SHARED_REFINED = {'gallium', 'germanium'}          # both HS6 811292
+# Hafnium belongs here too. CEPII's HS 2017 product table has no 811231; its 811292 reads "Gallium,
+# germanium, hafnium, indium, niobium (columbium), rhenium and vanadium: articles thereof, unwrought,
+# including waste and scrap, powders", and build_flows_fix.py folds hafnium into it. Hafnium's
+# refined_hs stays 811231 (its title code): the atlas's own reconciliation carries that code from
+# 2022, so the cube keeps a hafnium-only series there. shared_code.py reads this flag.
+SHARED_REFINED = {'gallium', 'germanium', 'hafnium'}   # one basket in the world trade file
 MINE_ONLY = {'baryte', 'cokingcoal', 'helium'}
-BYPRODUCT = {'arsenic', 'hafnium'}                 # + gallium/germanium (flagged shared_refined instead)
+BYPRODUCT = {'arsenic'}                            # + gallium/germanium/hafnium (shared_refined + byproduct)
 MAGNET_ORE = ['280530', '284690']
 
 # COMPOUND stage, added 9 Sep 2026 after a reader found there was no 2825xx anywhere in the cube.
@@ -40,7 +46,7 @@ MAGNET_ORE = ['280530', '284690']
 # vanadium oxides $0.45bn. Descriptions checked against CEPII's product table, not assumed.
 # 283329 is "Sulphates n.e.c." - a BASKET, because cobalt sulphate has no dedicated HS6. It is
 # included so the gap is visible and flagged so it is never read as a clean cobalt signal, exactly
-# as 811292 is for gallium/germanium.
+# as 811292 is for gallium/germanium/hafnium.
 COMPOUND = {'antimony': ['282580'],            # antimony oxides
             'lithium':  ['282520'],            # lithium oxide and hydroxide
             'nickel':   ['283324', '282540'],  # nickel sulphates; nickel oxides and hydroxides

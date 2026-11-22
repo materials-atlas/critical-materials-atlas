@@ -4,12 +4,13 @@
  "excluded": {
   "tellurium": "shares HS 280450 with boron; cannot be separated",
   "uranium": "46 trade records in 2024; most uranium trade is confidential",
-  "fuels": "crude oil, natural gas, steam coal, lignite: out of this pass by decision, may be added as their own section"
+  "fuels": "crude oil, natural gas, steam coal, lignite: out of this pass by decision, may be added as their own section",
+  "gallium, germanium, hafnium": "read from one customs code in the world trade file (HS 811292), so they cannot be tested one by one"
  },
- "n_gap_value": 37,
- "n_gap_tonnes": 39,
+ "n_gap_value": 36,
+ "n_gap_tonnes": 38,
  "n_gap_value_hub_exporter": 1,
- "n_atlas_gap": 18,
+ "n_atlas_gap": 17,
  "n_widened_gap": 19,
  "rows": [
   {
@@ -47,23 +48,6 @@
    "gap_tonnes": false
   },
   {
-   "material": "germanium",
-   "title": "Germanium",
-   "form": "CN 8112 92 95",
-   "set": "atlas",
-   "mine_source": "atlas mined list, kept by hand (no mine-production source covers it)",
-   "top_miner": "CN",
-   "top_miner_share": 68.0,
-   "top_exporter": "CN",
-   "top_exporter_share": 29.0,
-   "top_exporter_tonnes": "CN",
-   "top_exporter_share_tonnes": 21.6,
-   "top_exporter_mine_share": 68.0,
-   "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
-   "gap_value": false,
-   "gap_tonnes": false
-  },
-  {
    "material": "graphite",
    "title": "Natural graphite",
    "form": "CN 2504 90 00",
@@ -77,23 +61,6 @@
    "top_exporter_share_tonnes": 42.2,
    "top_exporter_mine_share": 81.9,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
-   "gap_value": false,
-   "gap_tonnes": false
-  },
-  {
-   "material": "gallium",
-   "title": "Gallium",
-   "form": "CN 8112 92 89",
-   "set": "atlas",
-   "mine_source": "atlas mined list, kept by hand (no mine-production source covers it)",
-   "top_miner": "CN",
-   "top_miner_share": 98.0,
-   "top_exporter": "CN",
-   "top_exporter_share": 29.0,
-   "top_exporter_tonnes": "CN",
-   "top_exporter_share_tonnes": 21.6,
-   "top_exporter_mine_share": 98.0,
-   "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
    "gap_value": false,
    "gap_tonnes": false
   },
@@ -417,23 +384,6 @@
    "top_exporter_share_tonnes": 3.6,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
-   "gap_value": true,
-   "gap_tonnes": true
-  },
-  {
-   "material": "hafnium",
-   "title": "Hafnium, unwrought",
-   "form": "CN 8112 31 00",
-   "set": "atlas",
-   "mine_source": "atlas mined list, kept by hand (no mine-production source covers it)",
-   "top_miner": "AU",
-   "top_miner_share": 40.0,
-   "top_exporter": "CN",
-   "top_exporter_share": 29.0,
-   "top_exporter_tonnes": "CN",
-   "top_exporter_share_tonnes": 21.6,
-   "top_exporter_mine_share": 10.0,
-   "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
    "gap_value": true,
    "gap_tonnes": true
   },

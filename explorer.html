@@ -317,7 +317,7 @@
         <span><i style="background:#8e44ad"></i> refined</span>
         <span><b>▸</b> next stage of the chain</span>
         <span><b>⚠</b> seller isn&rsquo;t the miner</span>
-        <span><b>⛓</b> shared trade code (Ga/Ge)</span>
+        <span><b>⛓</b> shared trade code (Ga/Ge/Hf)</span>
         <span>each country keeps its <b>own colour</b> across a row</span>
       </div>
       <details class="howto"><summary style="cursor:pointer;list-style:none">Read each row left to right — from where a material comes out of the ground to who ends up selling and buying it. Open any row for its full profile. <span style="color:#0e7c74;font-weight:600;white-space:nowrap">▸ how to read</span></summary>
@@ -325,7 +325,7 @@
         <p style="margin:.3rem 0 .2rem">Three marks worth knowing:</p>
         <ul style="margin:.2rem 0 .3rem;padding-left:1.1rem">
           <li><b>⚠ processing chokepoint</b> — the top exporter isn&rsquo;t the top miner, so a refiner or trader stands in between.</li>
-          <li><b>⛓ shared trade code</b> — gallium and germanium report under one code (811292) and can&rsquo;t be separated; hafnium is kept separate.</li>
+          <li><b>⛓ shared trade code</b> — gallium, germanium and hafnium are read from one customs code (811292), so their seller, buyer and concentration columns show the same basket, not three results.</li>
           <li><b>—</b> no distinct refining stage, or no data.</li>
         </ul>
         <p class="howto-src">Sources: USGS · IEA · UN Comtrade / CEPII&nbsp;BACI (reconciled). Sort by any column; open a row for the full profile.</p>
@@ -412,7 +412,11 @@ const COUNTRY = {
   IR:{n:"Iran",lat:32,lng:53}, ES:{n:"Spain",lat:40,lng:-4}, IT:{n:"Italy",lat:42.8,lng:12.6}, PE:{n:"Peru",lat:-9.2,lng:-75},
   NC:{n:"New Caledonia",lat:-21,lng:165}, ID:{n:"Indonesia",lat:-2,lng:118}, EU:{n:"European Union",lat:50.85,lng:4.35}
 };
-const cname = c => (COUNTRY[c] && COUNTRY[c].n) || c;
+// ONE name list for the whole page: the hand list first, then the trade file's own names for the
+// countries the hand list lacks (it had no France: the table printed "FR 49%"). Before, trade cells
+// used the trade file's names and the other cells this list, so one country had two names on a row.
+function tradeName(c){ try{ return (FLOWS&&FLOWS.names&&FLOWS.names[c])||''; }catch(e){ return ''; } }
+const cname = c => (COUNTRY[c] && COUNTRY[c].n) || tradeName(c) || c;
 const flag  = c => /^[A-Z]{2}$/.test(c) ? String.fromCodePoint(...[...c].map(x=>0x1F1E6+x.charCodeAt(0)-65)) : "";
 const strip = t => t.replace(/\s*\(.*\)/,'');
 const refTop  = m => ({c:m.top_partner, v:m.top_share, china:m.china});
@@ -440,9 +444,15 @@ function matHasDest(label,dest){ return ((FLOWS&&FLOWS.materials&&FLOWS.material
 // Explicit raw-ore set (HS chapters 25/26/27 = mined mineral/ore, traded in raw form), pinned for
 // auditability; the chapter heuristic stays as a fallback for any future material.
 const RAW_MATS=new Set(['graphite','boron','fluorspar','feldspar','manganese','bauxite','phosphate','baryte','cokingcoal']);
-// gallium & germanium share one HS6 code (811292) — their TRADE columns are identical and
-// cannot be separated (their mined/refined/reserves layers still differ). Flagged with ⛓ in the table.
-const SHARED_HS6=new Set(['gallium','germanium']);
+// gallium, germanium & hafnium are read from one HS6 code (811292) in the world trade file: their
+// TRADE columns are the same basket (their mined/refined/reserves layers still differ). Flagged with
+// ⛓ in the table. Hafnium was missing from this set until Nov 2026 and showed the basket as its own.
+const SHARED_HS6=new Set(['gallium','germanium','hafnium']);
+const SHARED_TXT='These trade figures are for a customs code shared by gallium, germanium and hafnium (HS 811292), not for one metal.';
+const SHARED_NAME='Gallium, germanium and hafnium (one shared customs code)';
+// country views: the basket is ONE import line, not three identical ones
+function rowMats(){ return MATS.filter(m=>!SHARED_HS6.has(m.label)||m.label==='gallium'); }
+function rowTitle(m){ return SHARED_HS6.has(m.label)?SHARED_NAME:strip(m.title); }
 // Pure re-export entrepôts: negligible domestic mining/refining of these materials, so when they appear
 // as exporters it's trans-shipment, not production. Curated (a re-export RATIO mislabels real refiners
 // like Belgium/Germany and misses hubs like HK) — these are unambiguous logistics hubs.
@@ -603,7 +613,7 @@ function renderTable(){
   const ar=s=>colSort===s?(colDir<0?' ▾':' ▴'):'';
   const yy=String(FLOWS_YEAR).slice(2);
   const head=`<div class="crow head"><span data-s="name">Material${ar('name')}</span><span data-s="res">Reserves${sb}USGS</small>${ar('res')}</span><span class="carr">▸</span><span data-s="mine" title="Where it comes out of the ground (USGS mine production)">Mined <i class="hd" style="background:#de8c28"></i>${sb}USGS</small>${ar('mine')}</span><span class="carr">▸</span><span data-s="ref" title="Where the ore is turned into usable metal — often a different country">Refined <i class="hd" style="background:#8e44ad"></i>${sb}IEA</small>${ar('ref')}</span><span class="carr">▸</span><span data-s="exp" title="Who sells the most on the world market">Top seller${sb}${srcN()} '${yy}</small>${ar('exp')}</span><span data-s="imp" title="Who buys the most — the most exposed">Top buyer${sb}${srcN()} '${yy}</small>${ar('imp')}</span><span data-s="hhi" title="Exporter concentration — Herfindahl index 0–1, higher = more concentrated supply">HHI${sb}exp</small>${ar('hhi')}</span><span></span></div>`;
-  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), warn=mi&&te&&mi.c!==te.c, sh=SHARED_HS6.has(m.label);
+  const body=list.map(m=>{ const rv=reserveTop(m), mi=mineTop(m), re=(m.refined&&m.refined[0])?m.refined[0]:null, te=topExporter(m.label), ti=topImporter(m.label), sh=SHARED_HS6.has(m.label), warn=!sh&&mi&&te&&mi.c!==te.c;
     const htc=(c,inner)=>`<span class="cc htc" style="color:${ctyColor(c)};background:${hexA(ctyColor(c),0.10)}">${inner}</span>`;
     const resCell=rv?htc(rv.c,`${cname(rv.c)} <small>${rv.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
     const mineCell=mi?htc(mi.c,`${cname(mi.c)} <small>${mi.v.toFixed(0)}%</small>`):`<span class="cc dim">—</span>`;
@@ -619,7 +629,7 @@ function renderTable(){
       `<span class="cc" title="${strip(m.title)}">${strip(m.title)}</span>`+
       `${resCell}<span class="carr">▸</span>${mineCell}<span class="carr">▸</span>${refCell}<span class="carr">▸</span>`+
       `${expCell}${impCell}${hhiCell}`+
-      `<span class="warn" title="${sh?'Trade is shared at HS6 (code 811292) with germanium — gallium &amp; germanium cannot be separated in trade data':(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
+      `<span class="warn" title="${sh?SHARED_TXT:(warn?'mined in one country, exported mainly by another':'')}">${warn?'⚠':''}${sh?'<span style="color:#999">⛓</span>':''}</span></div>`;
   }).join('');
   $('#rows').innerHTML=head+(body||'<div style="padding:1.4rem;color:#888">no match</div>');
   document.querySelectorAll('.crow:not(.head)').forEach(rw=>rw.onclick=()=>showDetail(rw.dataset.k));
@@ -665,7 +675,8 @@ function showDetail(key){
   const ex={}; let tot=0; ((FLOWS&&FLOWS.materials&&FLOWS.materials[m.label])||[]).forEach(f=>{ ex[f.from]=(ex[f.from]||0)+f.value; tot+=f.value; });
   let ghhi=0; if(tot) for(const c in ex){ const s=ex[c]/tot; ghhi+=s*s; }
   let contrast='';
-  if(mt && te && mt!==te.c) contrast=`<p class="contrast">⚠ ${strip(m.title)} is exported mainly by <b>${fname(te.c)}</b> (${te.share.toFixed(0)}% of world trade) — but mined mainly in <b>${cname(mt)}</b>.${te.c==='CN'?' China is the refinery / chokepoint, not the mine.':''}</p>`;
+  if(SHARED_HS6.has(m.label)) contrast=`<p class="contrast">⛓ ${SHARED_TXT}</p>`;
+  else if(mt && te && mt!==te.c) contrast=`<p class="contrast">⚠ ${strip(m.title)} is exported mainly by <b>${fname(te.c)}</b> (${te.share.toFixed(0)}% of world trade) — but mined mainly in <b>${cname(mt)}</b>.${te.c==='CN'?' China is the refinery / chokepoint, not the mine.':''}</p>`;
   else if(mt && te) contrast=`<p class="contrast ok">✓ ${fname(te.c)} is both the top exporter and a leading producer of the raw material.</p>`;
   $('#detail-body').innerHTML=`
     <h2 style="margin:.2rem 2rem .2rem 0">${m.title}</h2>
@@ -709,10 +720,10 @@ function countryImportProfile(iso,label){ const a=(FLOWS&&FLOWS.materials&&FLOWS
   return {top,topShare:tv/tot*100,hhi:h,cn:(o['CN']||0)/tot*100,total:tot,n:Object.keys(o).length}; }
 function showCountryReport(iso){ if(!iso) return;
   if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'report/'+iso,event:true});
-  const rows=MATS.map(m=>{ const p=countryImportProfile(iso,m.label); return p?{m,p}:null; }).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare);
+  const rows=rowMats().map(m=>{ const p=countryImportProfile(iso,m.label); return p?{m,p}:null; }).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare);
   const hcol=h=>h>0.45?'#c0392b':h>0.25?'#b35e16':'#3f9b46';
-  const tr=rows.map(({m,p})=>{ const lead=(m.mined&&m.mined[0])?m.mined[0].c:''; const isMine=p.top===lead;
-    return `<tr style="border-bottom:1px solid var(--line)"><td style="padding:.3rem .5rem">${strip(m.title)}</td>`+
+  const tr=rows.map(({m,p})=>{ const lead=(!SHARED_HS6.has(m.label)&&m.mined&&m.mined[0])?m.mined[0].c:''; const isMine=p.top===lead;
+    return `<tr style="border-bottom:1px solid var(--line)"><td style="padding:.3rem .5rem">${rowTitle(m)}</td>`+
     `<td style="padding:.3rem .5rem">${flag(p.top)} ${fname(p.top)}${isMine?' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>':''}</td>`+
     `<td style="padding:.3rem .5rem;text-align:right;font-variant-numeric:tabular-nums">${p.topShare.toFixed(0)}%</td>`+
     `<td style="padding:.3rem .5rem;text-align:right;color:${hcol(p.hhi)};font-weight:600;font-variant-numeric:tabular-nums">${p.hhi.toFixed(2)}</td>`+
@@ -757,33 +768,40 @@ function askCompose(r){
   const yr=FLOWS_YEAR, src=srcN(), {mat,iso,intent}=r;
   if(!mat && !iso) return askCard('<b>Name a material and/or a country.</b> e.g. <i>“who exports cobalt?”</i>, <i>“where does Japan get its titanium?”</i>, <i>“how concentrated is gallium?”</i>');
   if(intent==='country' && iso){
-    const rows=MATS.map(m=>{const p=countryImportProfile(iso,m.label); return p?{m,p}:null;}).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare).slice(0,6);
+    const rows=rowMats().map(m=>{const p=countryImportProfile(iso,m.label); return p?{m,p}:null;}).filter(Boolean).sort((a,b)=>b.p.topShare-a.p.topShare).slice(0,6);
     if(!rows.length) return askCard('No recorded imports for <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
-    const li=rows.map(({m,p})=>'<li><b>'+strip(m.title)+'</b>: '+Math.round(p.topShare)+'% from '+fname(p.top)+(p.cn>15&&p.top!=='CN'?' · China '+Math.round(p.cn)+'%':'')+' (HHI '+p.hhi.toFixed(2)+')</li>').join('');
+    const li=rows.map(({m,p})=>'<li><b>'+rowTitle(m)+'</b>: '+Math.round(p.topShare)+'% from '+fname(p.top)+(p.cn>15&&p.top!=='CN'?' · China '+Math.round(p.cn)+'%':'')+' (HHI '+p.hhi.toFixed(2)+')</li>').join('');
     return askCard('<b>'+fname(iso)+'</b> — its most single-supplier-concentrated critical-material imports ('+src+' '+yr+'):<ul style="margin:.5rem 0 0;padding-left:1.1rem">'+li+'</ul>'+askLinks(null,iso));
   }
   if(!mat) return askCard('Add a material — e.g. “'+(intent==='export'?'who exports lithium?':'where is cobalt mined?')+'”');
   const te=topExporter(mat.label), ti=topImporter(mat.label), mi=mineTop(mat), hh=hhiTrade(mat.label,'from'), t3=topNshare(mat.label,'from',3), g=originGap(mat), title=strip(mat.title);
+  const shB=SHARED_HS6.has(mat.label), shN=shB?' <i>'+SHARED_TXT+'</i>':'';
   if(intent==='import' && iso){
     const p=countryImportProfile(iso,mat.label);
     if(!p) return askCard('No recorded <b>'+title+'</b> imports into <b>'+fname(iso)+'</b> in '+src+' '+yr+'.');
     const ml=(mat.mined&&mat.mined[0])?mat.mined[0]:null;
-    const up=(ml&&p.top!==ml.c)?(' The immediate origin is '+fname(p.top)+', but '+title.toLowerCase()+' is mined mainly in '+cname(ml.c)+' ('+ml.v.toFixed(0)+'%) — customs records the shipper, not the mine.'):'';
-    return askCard('<b>'+fname(iso)+'</b> sources its <b>'+title+'</b> mainly from <b>'+fname(p.top)+'</b> ('+Math.round(p.topShare)+'% of its imports'+(p.cn>10?'; China '+Math.round(p.cn)+'%':'')+'), across '+p.n+' suppliers — import HHI '+p.hhi.toFixed(2)+' ('+src+' '+yr+').'+up+askLinks(mat,iso));
+    // "customs records the shipper, not the mine" only when the supplier mines almost none of it (under 8% of
+    // world output, the rule the material profiles use). Before, it was said of any supplier that was not the
+    // largest miner, so Chile was called a mere shipper of lithium.
+    const ms=((mat.mined||[]).find(x=>x.c===p.top)||{}).v||0;
+    const up=(shB||!ml||p.top===ml.c)?'':(ms<8
+      ?(' The immediate origin is '+fname(p.top)+', but '+title.toLowerCase()+' is mined mainly in '+cname(ml.c)+' ('+ml.v.toFixed(0)+'%) — customs records the shipper, not the mine.')
+      :(' '+fname(p.top)+' is itself a miner ('+ms.toFixed(0)+'% of world output); the largest miner is '+cname(ml.c)+' ('+ml.v.toFixed(0)+'%).'));
+    return askCard('<b>'+fname(iso)+'</b> sources its <b>'+title+'</b> mainly from <b>'+fname(p.top)+'</b> ('+Math.round(p.topShare)+'% of its imports'+(p.cn>10?'; China '+Math.round(p.cn)+'%':'')+'), across '+p.n+' suppliers — import HHI '+p.hhi.toFixed(2)+' ('+src+' '+yr+').'+up+shN+askLinks(mat,iso));
   }
   if(intent==='mine'){
-    const gp=(g!=null&&te)?(' Its top exporter is '+fname(te.c)+' ('+te.share.toFixed(0)+'% of trade) — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
+    const gp=(!shB&&g!=null&&te)?(' Its top exporter is '+fname(te.c)+' ('+te.share.toFixed(0)+'% of trade) — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
     return askCard('<b>'+title+'</b> is mined mainly in <b>'+(mi?cname(mi.c)+' ('+mi.v.toFixed(0)+'% of world output)':'— (no USGS figure)')+'</b>.'+gp+askLinks(mat,iso));
   }
   if(intent==='conc'){
     const lvl=hh>0.45?'highly concentrated':hh>0.25?'moderately concentrated':'relatively diversified';
-    return askCard('<b>'+title+'</b> exports are <b>'+lvl+'</b> — Herfindahl '+(hh!=null?hh.toFixed(2):'—')+', top-3 exporters ≈ '+(t3||0).toFixed(0)+'% of world trade'+(te?'; led by '+fname(te.c)+' ('+te.share.toFixed(0)+'%)':'')+'.'+askLinks(mat,iso));
+    return askCard('<b>'+title+'</b> exports are <b>'+lvl+'</b> — Herfindahl '+(hh!=null?hh.toFixed(2):'—')+', top-3 exporters ≈ '+(t3||0).toFixed(0)+'% of world trade'+(te?'; led by '+fname(te.c)+' ('+te.share.toFixed(0)+'%)':'')+'.'+shN+askLinks(mat,iso));
   }
   if(intent==='export'){
-    return askCard('<b>'+title+'</b> is exported mainly by <b>'+(te?fname(te.c)+' ('+te.share.toFixed(0)+'% of world trade, '+fmtV(te.v)+')':'—')+'</b>; top-3 ≈ '+(t3||0).toFixed(0)+'%, export HHI '+(hh!=null?hh.toFixed(2):'—')+' ('+src+' '+yr+').'+askLinks(mat,iso));
+    return askCard('<b>'+title+'</b> is exported mainly by <b>'+(te?fname(te.c)+' ('+te.share.toFixed(0)+'% of world trade, '+fmtV(te.v)+')':'—')+'</b>; top-3 ≈ '+(t3||0).toFixed(0)+'%, export HHI '+(hh!=null?hh.toFixed(2):'—')+' ('+src+' '+yr+').'+shN+askLinks(mat,iso));
   }
-  const gt=(g!=null&&mi&&te&&mi.c!==te.c)?(' Exported by '+fname(te.c)+' but mined in '+cname(mi.c)+' — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
-  return askCard('<b>'+title+'</b> ('+src+' '+yr+'): mined mainly in <b>'+(mi?cname(mi.c)+' '+mi.v.toFixed(0)+'%':'—')+'</b>, top exporter <b>'+(te?fname(te.c)+' '+te.share.toFixed(0)+'%':'—')+'</b>, top importer <b>'+(ti?fname(ti.c)+' '+ti.share.toFixed(0)+'%':'—')+'</b>; export HHI '+(hh!=null?hh.toFixed(2):'—')+'.'+gt+askLinks(mat,iso));
+  const gt=(!shB&&g!=null&&mi&&te&&mi.c!==te.c)?(' Exported by '+fname(te.c)+' but mined in '+cname(mi.c)+' — origin gap '+(g>=0?'+':'')+g.toFixed(0)+'pp.'):'';
+  return askCard('<b>'+title+'</b> ('+src+' '+yr+'): mined mainly in <b>'+(mi?cname(mi.c)+' '+mi.v.toFixed(0)+'%':'—')+'</b>, top exporter <b>'+(te?fname(te.c)+' '+te.share.toFixed(0)+'%':'—')+'</b>, top importer <b>'+(ti?fname(ti.c)+' '+ti.share.toFixed(0)+'%':'—')+'</b>; export HHI '+(hh!=null?hh.toFixed(2):'—')+'.'+gt+shN+askLinks(mat,iso));
 }
 function askRun(){ const q=($('#ask-q')&&$('#ask-q').value)||''; ensureFlows(()=>{ $('#ask-out').innerHTML=askCompose(askResolve(q)); if(window.goatcounter&&goatcounter.count) goatcounter.count({path:'ask',event:true}); }); }
 let askInit=false;
@@ -840,7 +858,7 @@ function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textCon
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
 { ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
 { const b=$('#show2026'); if(b) b.onclick=()=>{ const yr=$('#yr'); yr.max='2026'; yr.value='2026'; setYear('2026'); b.textContent='2026** added — slide to compare'; b.disabled=true; }; }
-function fname(iso){ return (FLOWS&&FLOWS.names&&FLOWS.names[iso]) || (COUNTRY[iso]&&COUNTRY[iso].n) || iso; }
+function fname(iso){ return cname(iso); }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }
 // A country is a MINER of a material if it actually EXPORTS the raw ore (raw materials) — derived

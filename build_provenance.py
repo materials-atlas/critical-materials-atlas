@@ -25,7 +25,7 @@ def stage(code):
     return 'other'
 
 # flag -> human text + sort priority (most-limiting first)
-FLAG = {'shared_refined': ('shared refined HS6 (gallium/germanium 811292) — trade signal degenerate', 0),
+FLAG = {'shared_refined': ('shared refined HS6 (gallium/germanium/hafnium 811292) — trade signal degenerate', 0),
         'shared_ore':     ('shared ore HS6 (Nb-Ta 261590) — feedstock side unreliable', 1),
         'byproduct':      ('by-product — no ore trade line (feedstock signature undefined)', 3),
         'mine_only':      ('mine / mineral only — no distinct refined stage', 4),

@@ -26,6 +26,7 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
+import shared_code
 NAMES = flows.get('names', {})
 TITLES = {m['label']: m['title'].split(' (')[0] for m in data['materials']}
 MINE = {m['label']: (m.get('mined') or []) for m in data['materials']}
@@ -121,7 +122,7 @@ for r in sorted(mat_rows, key=lambda x: x['emb_hhi'] - x['app_hhi'], reverse=Tru
     if not r['disguised']:
         continue
     drows.append(
-        f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a></td>'
+        f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{shared_code.MARK if r["label"] in shared_code.SHARED else ""}</td>'
         f'<td>{flag(r["top_apparent"])} {e(cname(r["top_apparent"]))} <span style="color:#9aa6ad">HHI {r["app_hhi"]:.2f}</span></td>'
         f'<td>{flag(r["top_origin"])} {e(cname(r["top_origin"]))} <span style="color:#9aa6ad">HHI {r["emb_hhi"]:.2f}</span></td>'
         f'<td class="n" style="color:#c0392b">+{(r["emb_hhi"]-r["app_hhi"]):.2f}</td></tr>')
@@ -226,7 +227,7 @@ out = f'''<!doctype html>
   </table>
 
   <h2 style="margin:2rem 0 .5rem">Where the mine stage is more concentrated than the trade stage</h2>
-  <p class="note" style="margin-top:0">{n_disguised} of {len(mat_rows)} materials are <i>more</i> concentrated at the mine (production) than in trade — apparent-supplier diversity can overstate how diversified the underlying production is. Trade and mine concentration are different objects (multi-stage chains naturally disperse trade), so read this as a flag, not proof of disguise.</p>
+  <p class="note" style="margin-top:0">{n_disguised} of {len(mat_rows)} materials are <i>more</i> concentrated at the mine (production) than in trade — apparent-supplier diversity can overstate how diversified the underlying production is. Trade and mine concentration are different objects (multi-stage chains naturally disperse trade), so read this as a flag, not proof of disguise. {shared_code.NOTE}</p>
   <table>
     <thead><tr><th>Material</th><th>Apparent #1 supplier (trade HHI)</th><th>Traced #1 origin (mine HHI)</th><th class="n" title="how much more concentrated the true origin is">HHI gap</th></tr></thead>
     <tbody>{''.join(drows)}</tbody>

@@ -23,6 +23,7 @@ import numpy as np
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
+import shared_code
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 WGI = json.load(open(os.path.join(ROOT, 'out', 'wgi.json'), encoding='utf8'))['wgi']
 try:
@@ -152,7 +153,7 @@ motif = ('<svg class="hero-motif" viewBox="0 0 560 560" fill="none" aria-hidden=
 wbar = ''.join(f'<span style="display:inline-block;margin:.15rem .5rem .15rem 0"><b style="color:#0e7c74">{e(w["crit"])}</b> <span style="color:#9aa6ad">{w["w"]:.2f}</span></span>' for w in sorted(weights, key=lambda x: -x['w']))
 mc_sorted = sorted(rows, key=lambda r: r['cvar95'], reverse=True)
 trows = ''.join(
-    f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a></td>'
+    f'<tr><td><a href="profile-{e(r["label"])}.html">{e(r["title"])}</a>{shared_code.MARK if r["label"] in shared_code.SHARED else ""}</td>'
     f'<td class="n" style="font-weight:700;color:{col(r["topsis"])}">{r["topsis"]:.0f}</td>'
     f'<td class="n" style="color:#9aa6ad">{r["fixed"] if r["fixed"] is not None else "—"}</td>'
     f'<td class="n">{r["gpr_mine"]:.0f}</td><td class="n">{r["gpr_trade"]:.0f}</td>'
@@ -197,7 +198,7 @@ out = f'''<!doctype html>
       <th class="n" title="CVaR95: average loss in the worst 5% of simulations (tail risk)">CVaR95</th></tr></thead>
     <tbody>{trows}</tbody>
   </table>
-  <p class="note">Computed by <code>build_riskmethods.py</code> from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/riskmethods.json">riskmethods.json</a>. Tail risk highest: {', '.join(e(r['title']) for r in mc_sorted[:4])}. A screening panel — the Monte-Carlo probabilities are transparent governance-based assumptions, not predictions.</p>
+  <p class="note">Computed by <code>build_riskmethods.py</code> from <a href="out/data.json">data.json</a> + <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> + <a href="out/wgi.json">wgi.json</a> → <a href="out/riskmethods.json">riskmethods.json</a>. Tail risk highest: {', '.join(e(r['title']) for r in mc_sorted[:4])}. A screening panel — the Monte-Carlo probabilities are transparent governance-based assumptions, not predictions. {shared_code.NOTE}</p>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>

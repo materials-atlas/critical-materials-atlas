@@ -23,6 +23,15 @@ spec = json.load(open(os.path.join(ROOT, 'origin-gap-all', 'codes.json'), encodi
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 
+import shared_code
+# Left out, on top of the frozen list in codes.json (not edited: it is the filed spec): the materials
+# the world trade file reads from ONE shared code. Their "top exporter" is the top exporter of a
+# basket of several metals, so setting it against one metal's mine shares tests nothing. Until
+# Nov 2026 hafnium sat in the table with the basket's exporter against hafnium's own miners.
+EXCLUDED = dict(spec['excluded'])
+EXCLUDED[', '.join(sorted(shared_code.SHARED))] = ('read from one customs code in the world trade file '
+                                                    '(HS 811292), so they cannot be tested one by one')
+
 cc = baci.countries()   # the one door: Taiwan and Namibia ("NA") overrides applied there
 I3TO2 = {r.iso3: r.iso2 for r in cc.itertuples() if r.iso3 and r.iso2}
 NAMES = {r.iso2: r.name for r in cc.itertuples() if r.iso2 and r.name}
@@ -90,6 +99,8 @@ MINED = json.load(open(os.path.join(ROOT, 'out', 'mined_shares.json'), encoding=
 
 # ---- the atlas's own materials: the original test, unchanged ----
 for m in data['materials']:
+    if m['label'] in shared_code.SHARED:
+        continue
     a = flows.get('materials', {}).get(m['label']) or []
     mi = (m.get('mined') or [None])[0]
     if not a or not mi:
@@ -168,7 +179,7 @@ n_gap_hub = len(hub_rows)
 if not (2 * n_gap > len(rows) and 2 * n_gap_t > len(rows)):
     raise SystemExit('origin gap is no longer a majority (%d value, %d tonnes, of %d measured): the "most materials" '
                      'wording on the site is now false - rewrite it on every page that carries it' % (n_gap, n_gap_t, len(rows)))
-out = {'year': YEAR, 'spec': 'origin-gap-all/codes.json', 'excluded': spec['excluded'],
+out = {'year': YEAR, 'spec': 'origin-gap-all/codes.json', 'excluded': EXCLUDED,
        'n_gap_value': n_gap, 'n_gap_tonnes': n_gap_t, 'n_gap_value_hub_exporter': n_gap_hub,
        'n_atlas_gap': sum(r['gap_value'] for r in rows if r['set'] == 'atlas'),
        'n_widened_gap': sum(r['gap_value'] for r in rows if r['set'] == 'widened'),
@@ -197,7 +208,7 @@ for r in sorted(rows, key=lambda r: (not r['gap_value'], r['title'].lower())):
 kept = [r['title'].lower() for r in rows if r['mine_source'].startswith('atlas mined list')]
 kept_sentence = ('No such source covers ' + ', '.join(e(x) for x in kept) + '; their mine shares are compiled by hand from the literature.') if kept else ''
 hub_sentence = ('Only for ' + ', '.join(e(r['title'].lower()) for r in hub_rows) + ' is the top exporter a re-export hub that mines almost none of it.') if hub_rows else ''
-excl = '; '.join(f'{e(k)}: {e(v)}' for k, v in spec['excluded'].items())
+excl = '; '.join(f'{e(k)}: {e(v)}' for k, v in EXCLUDED.items())
 page = f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">

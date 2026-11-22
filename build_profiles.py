@@ -11,7 +11,9 @@ import json, os, html, glob
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
-SHARED_HS6 = {'gallium', 'germanium'}
+import shared_code
+SHARED_HS6 = shared_code.SHARED     # gallium, germanium, hafnium: one basket in the world trade file
+BASKET_TITLE = 'Gallium, germanium and hafnium (one shared customs code)'
 
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
@@ -394,6 +396,8 @@ def page(m):
     (texp, texp_ranked, ehhi, etot) = (side(label, 'from')[0], side(label, 'from')[1], side(label, 'from')[2], side(label, 'from')[3])
     (timp, timp_ranked, ihhi, itot) = (side(label, 'to')[0], side(label, 'to')[1], side(label, 'to')[2], side(label, 'to')[3])
     og = origin_gap(m, label)
+    if shared:
+        og = None      # the trade side is a basket of several metals: it says nothing about this one
 
     # data-derived hook (the deck) — gated FIRST on whether the top exporter is also the top miner,
     # then on its own mine share, so we never claim "leads both" for a country that isn't the lead miner.
@@ -411,6 +415,9 @@ def page(m):
                     f'({te_mine:.0f}% of output); the largest miner, {e(cname(tm))} ({mi["v"]:.0f}%), exports far less.')
         else:
             deck = f'Exported mainly by {e(cname(te))} ({tes:.0f}% of world trade).'
+    elif shared:
+        deck = (f'Where {e(title.lower())} is mined and refined. Its world trade is recorded under a customs code shared '
+                f'with other minor metals, so the trade figures on this page are for that basket, not for this material.')
     else:
         deck = f'Where {e(title.lower())} is mined, refined, and traded — from public data.'
 
@@ -430,8 +437,9 @@ def page(m):
                          share_stat('lead refiner', re['v'], m.get('refined_source'),
                                     m.get('refined_basis'), m.get('refined_range')),
                          m.get('refined_source')))
-    if texp: stats.append((f'{flag(texp[0])} {cname(texp[0])}', f'top exporter · {texp[1]/etot*100:.0f}%'))
-    if texp: stats.append((f'{ehhi:.2f}', 'export concentration (HHI)'))
+    _sc = ' of the shared code' if shared else ''
+    if texp: stats.append((f'{flag(texp[0])} {cname(texp[0])}', f'top exporter{_sc} · {texp[1]/etot*100:.0f}%'))
+    if texp: stats.append((f'{ehhi:.2f}', f'export concentration{_sc} (HHI)'))
     def _stat(s):
         # s = (value, label, [provenance tooltip]); label may carry safe markup from share_stat
         tip = f' title="{e(s[2])}"' if len(s) > 2 and s[2] else ''
@@ -474,11 +482,11 @@ def page(m):
                 f'{MEAS_YEARS[0]}–{MEAS_YEARS[-1]}: <b>{series[0]:.0f}% {arrow} {series[-1]:.0f}%</b>{sparkline(series)}</div>')
 
     shared_flag = ('<div class="callout" style="border-color:#c08a2b66"><b>⛓ Trade shown under HS 811292 — a shared code.</b> '
-                   'Gallium and germanium both clear customs under this one 6-digit line, so their trade columns are '
-                   '<b>identical and cannot be separated</b> (the code is a catch-all that also nominally covers hafnium, indium, '
-                   'niobium, rhenium and vanadium; here only gallium and germanium are drawn from it). Any trade-based '
-                   'concentration figure for this material is really measuring <b>two supply chains at once</b> — it can only be '
-                   'split at 8-digit national tariff lines. The mine, refine and reserve layers above <i>are</i> material-specific.</div>') if shared else ''
+                   'In the world trade file, gallium, germanium and hafnium are all read from this one 6-digit line, which '
+                   'also holds unwrought indium, niobium, rhenium and vanadium. The trade tables on this page are therefore '
+                   '<b>the same on all three profiles and cannot be separated</b>: every seller, buyer and concentration '
+                   'figure below describes the basket, not this material. The mine, refine and reserve layers above '
+                   '<i>are</i> material-specific.</div>') if shared else ''
 
     note = e(m.get('note') or '').strip()
     note_block = f'<h2>Context</h2><p>{note}</p>' if note else ''
@@ -568,7 +576,9 @@ def index_page():
         mi = (m.get('mined') or [None])[0]
         gaptxt = ''
         gv = -1
-        if og and mi and og[0] != mi['c']:
+        if label in SHARED_HS6:
+            gaptxt = 'trade read from a customs code shared by several minor metals ⛓'
+        elif og and mi and og[0] != mi['c']:
             te, tes, gap, mined = og
             gv = gap
             gaptxt = f'exporter {flag(te)} {cname(te)} · miner {flag(mi["c"])} {cname(mi["c"])} · gap <b>+{gap:.0f}pp</b>'
@@ -605,9 +615,19 @@ def index_page():
 
 HUBS = {'HK', 'SG', 'AE', 'PA', 'MO', 'GI'}   # re-export entrepots — exclude (import = trans-shipment)
 
+BASKET_LINKS = ('<a href="profile-gallium.html">Gallium</a>, <a href="profile-germanium.html">germanium</a>, '
+                '<a href="profile-hafnium.html">hafnium</a>' + shared_code.MARK)
+
 def country_imports(iso):
+    # Gallium, germanium and hafnium carry the SAME flows (one shared code). Until Nov 2026 they were
+    # three identical rows, and the basket's value was counted three times in every country total.
     rows = []
+    basket_done = False
     for m in MATS:
+        basket = m['label'] in SHARED_HS6
+        if basket and basket_done:
+            continue
+        basket_done = basket_done or basket
         a = (flows.get('materials', {}).get(m['label'])) or []
         o, tot = {}, 0.0
         for fl in a:
@@ -620,13 +640,14 @@ def country_imports(iso):
         ml = (m.get('mined') or [None])[0]
         rows.append({'m': m, 'top': top, 'topshare': o[top] / tot * 100,
                      'hhi': sum((v / tot) ** 2 for v in o.values()),
-                     'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': ml,
-                     'risk': RISK.get(m['label'], {}).get('score', 0)})
+                     'cn': o.get('CN', 0.0) / tot * 100, 'n': len(o), 'tot': tot, 'ml': None if basket else ml,
+                     'risk': None if basket else RISK.get(m['label'], {}).get('score', 0), 'basket': basket})
     rows.sort(key=lambda r: (-r['topshare'], r['m']['label']))   # material breaks a tied share
     return rows
 
 def country_vuln(rows):
     # value-weighted average of (material supply-risk x this country's single-supplier reliance), 0-100
+    rows = [r for r in rows if not r['basket']]      # a basket of several metals has no risk score of its own
     den = sum(r['tot'] for r in rows)
     if not den:
         return 0
@@ -637,7 +658,12 @@ def country_china_series(iso):
     for y in MEAS_YEARS:
         d = FLOW_BY_YEAR[y]
         cn = tot = 0.0
+        basket_done = False
         for m in MATS:
+            if m['label'] in SHARED_HS6:
+                if basket_done:
+                    continue          # same flows as the first one: count the basket once
+                basket_done = True
             for f in (d.get('materials', {}).get(m['label']) or []):
                 if f['to'] == iso and f['from'] != iso:
                     tot += f['value']
@@ -653,15 +679,17 @@ def country_page(iso, rows):
     gap_exposed = sum(1 for r in rows if r['ml'] and r['top'] != r['ml']['c'])
     mean_hhi = sum(r['hhi'] for r in rows) / len(rows) if rows else 0
     worst = rows[0] if rows else None
-    deck = (f'{e(name)} imports {len(rows)} of the {len(MATS)} critical materials this atlas tracks '
-            f'({fmtV(total)}). Its most supplier-concentrated dependence is {e(strip(worst["m"]["title"]).lower())} '
+    def rtitle(r):
+        return BASKET_TITLE if r['basket'] else strip(r['m']['title'])
+    deck = (f'{e(name)} imported {fmtV(total)} of the critical materials this atlas tracks in {YEAR}. '
+            f'Its most supplier-concentrated dependence is {e(rtitle(worst).lower())} '
             f'({worst["topshare"]:.0f}% from {e(cname(worst["top"]))})' if worst else f'{e(name)} import profile')
     if china_dom:
-        deck += f'; {china_dom} of those imports come mainly from China.'
+        deck += f'; {china_dom} of its import lines come mainly from China.'
     vuln = country_vuln(rows)
     stats = [
         (f'{vuln}/100', 'import-vulnerability index'),
-        (str(len(rows)), 'critical materials imported'),
+        (str(len(rows)), 'import lines (a shared customs code counts once)'),
         (fmtV(total), f'total imports ({YEAR})'),
         (f'{china_dom}', 'mainly-from-China dependencies'),
         (f'{gap_exposed}', 'supplier ≠ the lead miner'),
@@ -672,12 +700,14 @@ def country_page(iso, rows):
         m = r['m']; ismine = r['ml'] and r['top'] == r['ml']['c']
         hcol = '#c0392b' if r['hhi'] > 0.45 else '#b35e16' if r['hhi'] > 0.25 else '#3f9b46'
         body.append(
-            f'<tr><td><a href="profile-{e(m["label"])}.html">{e(strip(m["title"]))}</a></td>'
+            (f'<tr><td>{BASKET_LINKS}</td>' if r['basket'] else
+             f'<tr><td><a href="profile-{e(m["label"])}.html">{e(strip(m["title"]))}</a></td>') +
             f'<td>{flag(r["top"])} {e(cname(r["top"]))}'
             + (' <span title="this source is also the lead miner — a genuine origin" style="color:#3f9b46">⛏</span>' if ismine else '')
             + f'</td><td class="n">{r["topshare"]:.0f}%</td>'
             f'<td class="n" style="color:{hcol};font-weight:600">{r["hhi"]:.2f}</td>'
-            + f'<td class="n" style="color:{"#c0392b" if r["risk"]>=60 else "#b35e16" if r["risk"]>=40 else "#888"};font-weight:600">{r["risk"]}</td>'
+            + ('<td class="n" style="color:#888">–</td>' if r['basket'] else
+               f'<td class="n" style="color:{"#c0392b" if r["risk"]>=60 else "#b35e16" if r["risk"]>=40 else "#888"};font-weight:600">{r["risk"]}</td>')
             + f'<td class="n">{r["cn"]:.0f}%</td><td class="n">{r["n"]}</td>'
             f'<td class="n">{fmtV(r["tot"])}</td></tr>')
     ctrend = ''
@@ -727,7 +757,7 @@ def country_page(iso, rows):
     <a class="btn ghost" href="countries.html">All countries</a>
     <a class="btn ghost" href="findings.html">The origin gap</a>
   </div>
-  <p class="note">Computed from <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> + <a href="out/data.json">out/data.json</a> by build_profiles.py. Customs records the immediate shipper, not the mine — see <a href="methodology.html">methodology</a>.</p>
+  <p class="note">Computed from <a href="out/flows_{YEAR}.json">out/flows_{YEAR}.json</a> + <a href="out/data.json">out/data.json</a> by build_profiles.py. Customs records the immediate shipper, not the mine — see <a href="methodology.html">methodology</a>. {shared_code.NOTE} They are one row here and are left out of the vulnerability index.</p>
 </article>
 {FOOTER}
 </body></html>'''

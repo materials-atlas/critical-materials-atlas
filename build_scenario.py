@@ -90,9 +90,9 @@ def trade_shares(codes):
 rows = []
 for lab, info in MATS.items():
     phys = info['phys']; leader, lead_share = phys[0]
-    # Ga/Ge sit in the shared "other minor metals" basket 811292 (indium etc. too); their individual
-    # export series is not separable, so trade fallbacks are degenerate -> suppress. (Hafnium=811231 is
-    # its own code and not affected.)
+    # Ga/Ge/Hf sit in the shared "other minor metals" basket 811292 (indium etc. too); their individual
+    # export series is not separable, so trade fallbacks are degenerate -> suppress. Hafnium's own code,
+    # 811231, is not in the HS 2017 table this file is read in, so it has no export series here either.
     shared = 'shared_refined' in info['flags']
     trade = [] if shared else trade_shares(info['codes'])
     lead_exp = next((v for c, v in trade if c == leader), 0.0)
@@ -129,7 +129,9 @@ for lab, info in MATS.items():
         row['prod'] = {'usgs_bgs_share': round(lead_share, 0),
                        'share_source': info.get('phys_source'),   # e.g. 'BGS ... share of 3 reporting countries'
                        'eucrm_share': (EUCRM.get(lab) or {}).get('pct'),
-                       'verdict': ctx.get('verdict', 'chokepoint'),
+                       # No curated context = no verdict. The default used to be 'chokepoint', which
+                       # would have handed hafnium a claim nobody had checked.
+                       'verdict': ctx.get('verdict', 'unassessed'),
                        'alt': ctx.get('alt', []), 'note': ctx.get('note', '')}
     rows.append(row)
 
