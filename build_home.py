@@ -12,7 +12,9 @@ THE RULES THE PAGE FOLLOWS (decided by the owner, November 2026)
               grows, so any "of N" is wrong the week after it is written. The page says "most" or
               "a few" and names examples. Exact numbers live in the full tables.
   plain       Statements, not slogans. No long dashes, no arrows in the text.
-  one figure  A single chart, and its selection rule is printed under it.
+  one figure  A single chart, and its selection rule is printed under it. Three marks a row: the
+              largest exporter's share of exports, the same country's share of mining (near zero
+              by the rule, which is the point), and the largest miner's share of mining.
 
 WHAT IS CHECKED BEFORE THE PAGE IS WRITTEN
   "for most materials the largest exporter is not the largest miner"   out/origin_gap_all.json
@@ -124,16 +126,17 @@ for r in sel:
         f'<div class="row" tabindex="0" data-tip="{e(tip)}" aria-label="{e(tip)}">'
         f'<span class="mat">{e(t)}</span>'
         f'<span class="track"><i class="ln" style="left:{m:.1f}%;width:{x - m:.1f}%"></i>'
+        f'<i class="big" style="left:{r["top_miner_share"]:.1f}%"></i>'
         f'<i class="d mine" style="left:{m:.1f}%"></i><i class="d exp" style="left:{x:.1f}%"></i></span>'
-        f'<span class="who"><b>{e(cn(r["top_exporter"]))}</b> sells it. '
-        f'Largest miner: {e(cn(r["top_miner"]))}.</span></div>')
+        f'<span class="who"><b>{e(cn(r["top_exporter"]))}</b> {pct(x)}% of exports. '
+        f'Largest miner: {e(cn(r["top_miner"]))}, {pct(r["top_miner_share"])}%.</span></div>')
 
 PAGE = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Critical Materials Atlas</title>
-<meta name="description" content="Who mines critical raw materials, who refines them and who sells them. Each material is followed from reserves to mine, refinery and export market, using public statistics only: USGS, BGS, World Mining Data, the IEA and UN customs records as reconciled by CEPII.">
-<meta property="og:title" content="Critical Materials Atlas">
+<title>Critical Materials Atlas: who mines, refines and sells critical raw materials</title>
+<meta name="description" content="Who mines critical raw materials, who refines them and who sells them. Public statistics only, from reserves to mine, refinery and export market.">
+<meta property="og:title" content="Critical Materials Atlas: who mines, refines and sells critical raw materials">
 <meta property="og:description" content="Who mines critical raw materials, who refines them and who sells them. Public statistics only, from reserves to mine, refinery and export market.">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/share/card-home.png">
 <meta property="og:image:width" content="1600"><meta property="og:image:height" content="900">
@@ -148,6 +151,8 @@ PAGE = r'''<!doctype html>
  :root{--paper:#fbfaf7;--teal:#0e7c74;--teal-soft:#a9d3ce;--rule:#e4e2dc}
  body{background:var(--paper)}
  .topbar{background:rgba(251,250,247,.95)}
+ .topbar .wrap{max-width:1280px}
+ .topnav a{white-space:nowrap}
  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
  h1,h2{font-family:'Source Serif 4',Georgia,serif;color:var(--navy);font-weight:600;letter-spacing:-.01em}
  .top{padding:3.2rem 0 1.4rem}
@@ -166,6 +171,7 @@ PAGE = r'''<!doctype html>
  .fig .legend{display:flex;flex-wrap:wrap;gap:.3rem 1.6rem;font-size:.84rem;color:var(--ink-soft);margin:0 0 .9rem}
  .fig .legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:.45rem;vertical-align:-1px}
  .fig .legend .exp{background:var(--teal)} .fig .legend .mine{background:var(--paper);box-shadow:inset 0 0 0 2px var(--teal)}
+ .fig .legend .big{width:3px;height:13px;border-radius:0;background:var(--navy);margin:0 .6rem 0 .25rem;vertical-align:-2px}
  .axis,.row{display:grid;grid-template-columns:150px minmax(0,1fr) 300px;column-gap:18px;align-items:center}
  .axis{font-size:.74rem;color:var(--mut);font-variant-numeric:tabular-nums;margin-bottom:.2rem}
  .axis .ticks{position:relative;height:1.1rem}
@@ -181,6 +187,7 @@ PAGE = r'''<!doctype html>
  .track .ln{position:absolute;top:10px;height:2px;background:var(--teal-soft)}
  .track .d{position:absolute;top:6px;width:10px;height:10px;margin-left:-5px;border-radius:50%;box-shadow:0 0 0 2px var(--paper)}
  .track .exp{background:var(--teal)}
+ .track .big{position:absolute;top:2px;width:3px;height:18px;margin-left:-1.5px;background:var(--navy);box-shadow:0 0 0 1px var(--paper)}
  .track .mine{background:var(--paper);box-shadow:inset 0 0 0 2px var(--teal),0 0 0 2px var(--paper)}
  .row:hover .d,.row:focus-visible .d{box-shadow:0 0 0 2px #f3f1ea}
  .row:hover .mine,.row:focus-visible .mine{background:#f3f1ea;box-shadow:inset 0 0 0 2px var(--teal),0 0 0 2px #f3f1ea}
@@ -235,7 +242,7 @@ PAGE = r'''<!doctype html>
   <h2>In @@YEAR@@ Switzerland was the largest exporter of gold and mined none of it.</h2>
   <p>It is not an exception. For most materials measured, the country that exports the most is not the country that mines the most. Often the seller is another mining country. In the cases below it is a refinery, a smelter or a trading hub in a country that mines almost none of the material.</p>
   <div class="fig" id="fig">
-    <div class="legend"><span><i class="exp"></i>Largest exporter&rsquo;s share of world exports</span><span><i class="mine"></i>The same country&rsquo;s share of world mine production</span></div>
+    <div class="legend"><span><i class="exp"></i>Largest exporter&rsquo;s share of world exports</span><span><i class="mine"></i>The same country&rsquo;s share of world mine production</span><span><i class="big"></i>Largest miner&rsquo;s share of world mine production</span></div>
     <div class="axis"><span></span><span class="ticks"><span style="left:0">0%</span><span style="left:25%">25%</span><span style="left:50%">50%</span><span style="left:75%">75%</span><span style="left:100%">100%</span></span><span></span></div>
     @@CHART@@
     <div id="tip" role="status"></div>
@@ -248,6 +255,12 @@ PAGE = r'''<!doctype html>
   <ol class="find">
     <li><b>The largest exporter is usually not the largest miner.</b> The result holds whether trade is counted in dollars or in tonnes. <a href="origin-gap-all">The origin gap</a></li>
     <li><b>In most value chains the most concentrated stage comes after the mine.</b> It is usually refining, by-product recovery or product qualification. In a few chains it is the mine itself. <a href="chokepoint-map">The chokepoint map</a></li>
+  </ol>
+</div></section>
+
+<section><div class="wrap">
+  <h2>Checks on the method</h2>
+  <ol class="find">
     <li><b>The nowcast is tested against a naive benchmark.</b> Out of sample, last year&rsquo;s largest exporter is still the largest exporter @@HIT@@% of the time. None of the forecasting models tested beats that benchmark reliably, and the page says so. <a href="nowcast-backtest">Nowcast backtest</a></li>
     <li><b>The risk index is checked against the IEA.</b> Built from public data alone, it places most of the minerals the IEA rates as high-risk in its own top third. <a href="iea-risk-check">IEA cross-check</a></li>
   </ol>
