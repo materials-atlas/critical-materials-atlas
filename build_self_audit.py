@@ -418,6 +418,9 @@ TEMPLATE = """<!doctype html>
   revision study this page opens by quoting was corrected the same day: antimony's median there became
   10.1%, where this page had quoted 11.6%. Both corrections are logged in the filings.</p>
 
+  <p><b>The working paper.</b> This audit and the revision study behind it are written up as a
+  working paper: <a href="https://doi.org/10.5281/zenodo.24445173"><i>How far a first-printed mineral production figure moves</i></a> (doi:10.5281/zenodo.24445173).</p>
+
   <h3>Method and filing</h3>
   <ol class="refs">
   <li><b>The filing.</b> Measure, population, bands and pre-commitments, committed before any

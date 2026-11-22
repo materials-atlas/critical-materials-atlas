@@ -674,6 +674,9 @@ TEMPLATE = """<!doctype html>
   behind them, and one of them turns out to sit close to the noise. <a href="self-audit">Auditing our
   own claims</a>.</p>
 
+  <p><b>The working paper.</b> This study is written up as a working paper:
+  <a href="https://doi.org/10.5281/zenodo.24445173"><i>How far a first-printed mineral production figure moves</i></a> (doi:10.5281/zenodo.24445173).</p>
+
   <h3>Method and data</h3>
   <ol class="refs">
   <li><b>The figures.</b> US Geological Survey, <i>Mineral Commodity Summaries</i>, editions
