@@ -19,7 +19,10 @@ data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 NAMES = flows.get('names', {})
 MATS = data['materials']
-STAMP = data.get('dataUpdated', '')
+# The footer used to end 'Data updated <dataUpdated>'. That stamp is the day Eurostat last revised the
+# EU import series, as seen at the last static build - not the day these figures changed - and it sat
+# under a sentence about world trade and mine shares. It read as 'this site is five months stale'.
+# Removed 22 Nov 2026: the sentence already names the trade year, and the dated trail is updates.html.
 
 # all MEASURED years (skip provisional/nowcast) for the time-series sparklines
 FLOW_BY_YEAR = {}
@@ -160,8 +163,8 @@ FOOTER = ('<footer class="siteftr"><div class="wrap">'
  '<div><h4>Sources</h4>USGS · BGS World Mineral Statistics<br>IEA · EU CRM 2023<br>'
  'UN Comtrade · CEPII BACI · Eurostat</div>'
  f'<div class="fineprint">Figures computed from public data (trade year {YEAR}, reconciled CEPII BACI; '
- 'mine/refine/reserves USGS &amp; IEA, approximate). An overlay of distinct measures, not one observed pipeline. '
- f'Data updated {e(STAMP)}.</div></div></footer>')
+ 'mine/refine/reserves USGS &amp; IEA, approximate). An overlay of distinct measures, not one observed pipeline.'
+ '</div></div></footer>')
 
 def bars(items, cls, n=12, source=None):
     if not items:

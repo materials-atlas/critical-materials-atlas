@@ -44,6 +44,7 @@ python reconcile\reconcile.py 2024             # raw\comtrade\comtrade_2024.csv 
 python reconcile\extract_baci.py 2024          # raw\baci BACI HS17 zip        -> reconcile\baci_2024.csv (ground truth)
 python reconcile\validate.py 2024              # must stay green (top-1 ~25/30)
 python check_rendered.py                       # opens every page in a browser; fails on "undefined", script errors, missing files, empty tables
+python update_sitemap_dates.py                 # sitemap.xml <lastmod> = the day each page last changed (from the commit history)
 ```
 
 Both inputs are derived (gitignored); `reconcile.py` reads `raw\comtrade\comtrade_<year>.csv` (present
