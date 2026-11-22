@@ -34,7 +34,10 @@ not a finding). An unknown mine share is not "under 1%": the row is left out.
 
 UPDATED is the day this page's text or layout last changed. Change it with the page.
 
-Reads out/origin_gap_all.json, chokepoint_map.json, out/nowcast_bootstrap.json. Writes index.html.
+The welcome text names no institution (the owner's rule, 22 Nov 2026): sources belong with the
+data, in the figure's source line and in the coverage table, not in the introduction.
+
+Reads out/origin_gap_all.json, chokepoint_map.json, out/nowcast_bootstrap.json, out/cube.parquet. Writes index.html.
 Deterministic. Run: python build_home.py
 """
 import html
@@ -43,6 +46,7 @@ import json
 import os
 
 import baci
+import duckdb
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 UPDATED = '22 November 2026'
@@ -61,6 +65,24 @@ def pct(v):
 
 
 G = load('out', 'origin_gap_all.json')
+
+# The years on the page are read from the store, not typed. On 22 Nov 2026 the page said "trade is
+# covered from 2002", which is where the CEPII series starts; the atlas's own series, reconciled
+# from UN Comtrade, starts earlier. The owner caught it.
+_CUBE = os.path.join(ROOT, 'out', 'cube.parquet').replace(os.sep, '/')
+
+
+def span(where):
+    lo, hi = duckdb.connect().execute(
+        f"select min(year), max(year) from '{_CUBE}' where {where}").fetchone()
+    if lo is None:
+        raise SystemExit('home: no rows in the store for ' + where)
+    return int(lo), int(hi)
+
+
+BACI0, BACI1 = span("source = 'CEPII BACI (HS02)'")
+CMA0, CMA1 = span("source = 'CMA two-sided reconciliation'")
+PROD0, PROD1 = span("source = 'BGS World Mineral Statistics' and measure = 'production'")
 YEAR = G['year']
 rows = G['rows']
 
@@ -233,7 +255,7 @@ PAGE = r'''<!doctype html>
 
 <div class="top"><div class="wrap">
   <h1>Who mines critical raw materials, who refines them and who sells them</h1>
-  <p class="deck">The atlas follows each material from reserves to mine, refinery and export market. It uses public statistics only: the US Geological Survey, the British Geological Survey, World Mining Data, the International Energy Agency and UN customs records as reconciled by CEPII. Trade is covered from 2002 to @@YEAR@@.</p>
+  <p class="deck">The atlas follows each material from reserves to mine, refinery and export market. Every figure comes from public statistics, and the sources are listed with the data.</p>
   <div class="go"><a class="btn" href="explorer">Open the explorer</a><a href="findings">Read the findings</a><a href="data">Download the data</a></div>
   <p class="meta">Independent research, not affiliated with any institution. Updated @@UPDATED@@.</p>
 </div></div>
@@ -272,9 +294,9 @@ PAGE = r'''<!doctype html>
     <thead><tr><th>Stage</th><th>What is measured</th><th>Sources</th><th>Open</th></tr></thead>
     <tbody>
       <tr><td>Reserves</td><td>Economically recoverable reserves by country</td><td>USGS</td><td><a href="explorer">Explorer</a></td></tr>
-      <tr><td>Mine production</td><td>Annual output by country, 1970 to 2024</td><td>USGS, World Mining Data, BGS</td><td><a href="trends">Trends</a></td></tr>
+      <tr><td>Mine production</td><td>Annual output by country, @@PROD0@@ to @@PROD1@@</td><td>USGS, World Mining Data, BGS</td><td><a href="trends">Trends</a></td></tr>
       <tr><td>Refining</td><td>Refined output and capacity by country</td><td>IEA, USGS, BGS</td><td><a href="refiners">Refiners</a></td></tr>
-      <tr><td>Trade</td><td>Bilateral flows in value and tonnes, 2002 to @@YEAR@@, with a nowcast</td><td>UN Comtrade, CEPII BACI</td><td><a href="explorer">Explorer</a></td></tr>
+      <tr><td>Trade</td><td>Bilateral flows in value and tonnes. The CEPII series runs from @@BACI0@@ to @@BACI1@@. The atlas&rsquo;s own reconciliation of UN Comtrade runs from @@CMA0@@ to @@CMA1@@, the last year being incomplete.</td><td>UN Comtrade, CEPII BACI</td><td><a href="explorer">Explorer</a></td></tr>
       <tr><td>Concentration</td><td>How much of each stage one country holds</td><td>Computed from the above</td><td><a href="network">Trade network</a></td></tr>
       <tr><td>Value chains</td><td>End-use chains from raw material to finished product</td><td>IEA, OECD, IRENA, industry bodies</td><td><a href="value-chains">Value chains</a></td></tr>
     </tbody>
@@ -324,6 +346,8 @@ PAGE = r'''<!doctype html>
 </body></html>
 '''
 
+for _k, _v in (('BACI0', BACI0), ('BACI1', BACI1), ('CMA0', CMA0), ('CMA1', CMA1), ('PROD0', PROD0), ('PROD1', PROD1)):
+    PAGE = PAGE.replace('@@%s@@' % _k, str(_v))
 page = (PAGE.replace('@@YEAR@@', str(YEAR)).replace('@@UPDATED@@', UPDATED).replace('@@HIT@@', HIT)
         .replace('@@CHART@@', '\n    '.join(chart)))
 if '@@' in page:
