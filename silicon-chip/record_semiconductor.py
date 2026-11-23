@@ -1,8 +1,8 @@
-"""Build the public-source evidence layer for the semiconductor pilot.
+"""Build the public-source evidence layer for the semiconductor chain.
 
 The output deliberately keeps unlike measures separate:
   * physical semiconductor-wafer shipments (SEMI, global time series),
-  * fab capacity shares (SEMI/BCG, regional time series and forecast),
+  * fab capacity shares (SIA/BCG, regional time series and forecast),
   * fab capacity by chip type (OECD, current snapshot), and
   * electronic-grade polysilicon / blank-wafer concentration (dated snapshots).
 
@@ -48,7 +48,7 @@ SOURCES = {
     "sia_bcg_2024": {
         "title": "SIA/BCG, Emerging Resilience in the Semiconductor Supply Chain",
         "year": 2024,
-        "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf",
+        "url": "https://web-assets.bcg.com/25/6e/7a123efd40199020ed1b4114be84/emerging-resilience-in-the-semiconductor-supply-chain-r.pdf#page=15",
     },
     "semi_wafers_2016": {
         "title": "SEMI, Another Record Year for Silicon Wafer Shipment Volumes in 2015",
@@ -133,21 +133,22 @@ FAB_BY_TYPE_2025 = {
 def build():
     data = {
         "title": "Semiconductor chain evidence",
-        "status": "unpublished pilot",
-        "updated": "2026-08-17",
+        "status": "evidence review",
+        "updated": "2026-11-24",
         "principle": "Production, ownership and trade are separate measures. Mixed customs codes are never allocated to chips by price.",
         "coverage": {
-            "fab_capacity": "1990-2032F (eleven reported/forecast snapshots)",
+            "fab_capacity": "1990–2022 reported; 2025, 2030 and 2032 forecast by SIA/BCG in 2024",
             "semiconductor_wafer_shipments": "2007-2025 annual",
-            "electronic_grade_polysilicon": "2023 volume and 2025 concentration snapshots",
-            "blank_wafer_geography": "2025 concentration snapshot",
+            "electronic_grade_polysilicon": "2023 reported production, 2025 forecast demand and dated market estimates",
+            "blank_wafer_geography": "dated market estimates by economy and supplier",
             "baci_trade_context": "2002-2024 annual; mixed-code context only",
         },
         "silicon_metal": {
             "snapshot": {
+                "year": 2024,
                 "source_vintage": 2026,
                 "china_production_share": 0.85,
-                "measure": "approximate current share of global silicon-metal production reported by OECD",
+                "measure": "estimated share of global silicon-metal production by weight",
                 "source": "oecd_silicates_2026",
             },
             "trade_series": "See silicon_stages.json; HS 280469, 2002-2024.",
@@ -156,13 +157,16 @@ def build():
             "purity": ">=11N",
             "global_volume": [
                 {"year": 2023, "tonnes": 38800, "measure": "semiconductor-use volume reported within total polysilicon production", "source": "iea_pvps_2024"},
-                {"year": 2025, "tonnes": 33500, "measure": "forecast demand", "source": "sia_poly_2025"},
+                {"year": 2025, "tonnes": 33500, "measure": "global semiconductor-grade polysilicon demand forecast", "source": "sia_poly_2025"},
             ],
             "snapshot_2025": {
                 "semiconductor_share_of_all_polysilicon_demand": 0.024,
+                "demand_share_basis": "share by weight of 2025 global demand forecast by SIA in 2025",
                 "germany_us_combined_share": 0.65,
                 "china_share_upper_bound": 0.10,
+                "economy_share_basis": "OECD estimates citing a 2025 industry report; exact reference period unspecified",
                 "wacker_hemlock_combined_share": 0.75,
+                "supplier_share_basis": "SIA industry estimate; individual supplier shares and measurement basis unspecified",
                 "major_suppliers": [
                     {"company": "Wacker Chemie", "home": "Germany"},
                     {"company": "Hemlock Semiconductor", "home": "United States"},
@@ -181,7 +185,7 @@ def build():
                 "top_six_supplier_share": 0.92,
                 "leading_suppliers": ["Shin-Etsu Handotai", "SUMCO", "GlobalWafers", "SK Siltron", "Siltronic"],
                 "leading_production_economies": ["Japan", "Germany", "Korea", "United States", "Taiwan"],
-                "leading_economies_combined_share_lower_bound": 0.85,
+                "leading_economies_combined_share_estimate": 0.85,
                 "sources": ["sia_poly_2025", "oecd_mapping_2025", "oecd_silicates_2026"],
             },
             "trade_warning": "HS 381800 also contains other doped elements and compounds and does not isolate semiconductor silicon wafers globally.",
@@ -189,6 +193,8 @@ def build():
         "fab_capacity_share": {
             "unit": "percent of global 300 mm-equivalent capacity",
             "scope": "commercial fabs >=200 mm; facilities below 5,000 WSPM excluded",
+            "forecast_vintage": 2024,
+            "rounding": "Source shares are rounded and can sum to more or less than 100%.",
             "source": "sia_bcg_2024",
             "series": FAB_CAPACITY_SHARE,
         },
@@ -196,6 +202,8 @@ def build():
         "current_concentration": {
             "year": 2025,
             "top_five_economies_share": 0.87,
+            "as_of": "September 2025",
+            "measure": "share of OECD global in-production wafer fabrication capacity",
             "economies": ["China", "Taiwan", "Korea", "Japan", "United States"],
             "source": "oecd_fabs_2025",
         },

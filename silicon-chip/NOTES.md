@@ -18,7 +18,7 @@ codes by price. They remain useful only as clearly labelled trade context.
 
 ## Replacement design
 
-The pilot follows four physically distinct stages:
+The study follows four physically distinct stages:
 
 1. silicon metal;
 2. electronic-grade polysilicon (at least 11N purity);
@@ -40,10 +40,12 @@ The chain does not have one permanent geographic centre.
 - Worldwide blank-wafer shipment area grew over 2007–2025 but moved through the
   2009 contraction, the 2019 slowdown, the 2022 peak, and a 2023–2024 correction.
 - Upstream snapshots tell a different story again: China dominates ordinary
-  silicon metal, the United States and Germany dominate electronic-grade
+  silicon metal, the United States and Germany lead in electronic-grade
   polysilicon, and Japanese firms lead blank semiconductor wafers.
 
-The point is a moving sequence of chokepoints, not a single country ranking.
+Concentration varies by stage, by company and by chip type. Assessing whether
+a supplier can be replaced requires customer qualification, available capacity
+and lead-time evidence.
 
 ## Evidence gaps kept visible
 
