@@ -7,7 +7,9 @@ always shown next to the score so a reader can audit (or reweight) it.
   production  (30%)  top miner's share of world output            — USGS
   refining    (25%)  top refiner's share (else export HHI proxy)  — IEA / trade
   trade       (25%)  export Herfindahl (chokepoint in the flow)   — reconciled trade
-  opacity     (20%)  origin gap = exporter share - its mine share — how misleading the trade ledger is
+  opacity     (20%)  origin gap = exporter share - its mine share, counted ONLY when the top exporter
+                     mines under 5% of world output (24 Nov 2026: a seller that is itself a real miner is a
+                     product or home-use difference, not a hidden origin) — how misleading the ledger is
 
 Writes out/risk.json (consumed by the atlas + profiles) and risk.html (the league table).
 """
@@ -17,6 +19,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
 data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
+# the exporter's own mine share from the full country lists (build_origin_gap_all.py); data.json's
+# mined list is short, and a seller missing from it must not count as mining none
+OG = {r['material']: r for r in json.load(open(os.path.join(ROOT, 'out', 'origin_gap_all.json'), encoding='utf8'))['rows']
+      if r['set'] == 'atlas'}
+HIDDEN_BELOW = 5.0      # % of world mine output: below it, the seller 'mines almost none' (origin-gap page)
 NAMES = flows.get('names', {})
 import shared_code
 from evidence import headline
@@ -48,8 +55,12 @@ def components(m):
     gap = 0.0
     if tot:
         te = max(o, key=o.get); te_sh = o[te] / tot * 100
-        te_mine = next((x['v'] for x in mined if x['c'] == te), 0.0)
-        gap = max(0.0, te_sh - te_mine)
+        og = OG.get(label)
+        if og and og['top_exporter'] == te and og.get('top_exporter_mine_share') is not None:
+            te_mine = og['top_exporter_mine_share']
+        else:
+            te_mine = next((x['v'] for x in mined if x['c'] == te), 0.0)
+        gap = max(0.0, te_sh - te_mine) if te_mine < HIDDEN_BELOW else 0.0
     opacity = min(gap, 60.0) / 60.0 * 100
     c = {'production': round(prod, 1), 'refining': round(ref, 1),
          'trade': round(ehhi, 1), 'opacity': round(opacity, 1)}
@@ -161,8 +172,9 @@ def main():
 </div></section>
 <article style="max-width:960px">
   <div class="callout">One 0&ndash;100 score per material, built from four visible components &mdash; never a black box.
+  <p style="margin:.5rem 0 0"><b>Changed 24 Nov 2026.</b> The opacity part now counts an origin gap only where the top exporter mines almost none of the material (under 5% of world output). Where the seller is itself a sizeable miner, the gap is usually a different traded form or the top miner keeping its output at home, not a hidden origin. Scores moved for twelve materials; lithium fell from fourth to thirteenth.</p>
   <details class="howto"><summary>How the score is built</summary>
-  <p>{legend}. Each component is 0–100, from public data (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin gap). Their weighted sum is the <i>gross</i> score, then <b>discounted for recyclability</b> — gross risk is cut by 0.4 &times; the end-of-life recycling rate (EU CRM 2023), so a highly recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw concentration implies. <b>Substitutability</b> is shown alongside but <i>not</i> folded into the score &mdash; a high-risk material that is also hard to substitute is the more strategic.</p>
+  <p>{legend}. Each component is 0–100, from public data (production &amp; refining: USGS/IEA shares; trade: reconciled-trade export Herfindahl; opacity: the origin gap, counted only where the top exporter mines almost none of the material). Their weighted sum is the <i>gross</i> score, then <b>discounted for recyclability</b> — gross risk is cut by 0.4 &times; the end-of-life recycling rate (EU CRM 2023), so a highly recycled material (tungsten 42%, aluminium 32%, antimony 28%, cobalt 22%) scores lower than its raw concentration implies. <b>Substitutability</b> is shown alongside but <i>not</i> folded into the score &mdash; a high-risk material that is also hard to substitute is the more strategic.</p>
   <p class="howto-src">A transparent heuristic, <i>not</i> an official criticality assessment; it ignores price and stockpiles.</p>
   </details></div>
   <table>
