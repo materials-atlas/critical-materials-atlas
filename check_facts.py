@@ -22,8 +22,8 @@ browser, but compares nothing). A fact stated in words no phrase here matches. A
 registered: when a number drifts between pages, add the fact here in the same commit as the fix.
 
 DATED RECORDS keep their numbers by rule (a published document is not rewritten; it gets a dated
-note): the reports, the technical note, the review, the updates log, the share cards and the social
-posts. They are listed in DATED and not checked. Anything else that legitimately differs goes in ALLOW
+note): the reports, the technical note, the review, the updates log and the social posts. The
+share cards are checked: they are the link previews of live pages. They are listed in DATED and not checked. Anything else that legitimately differs goes in ALLOW
 with its reason.
 """
 import html
@@ -43,7 +43,8 @@ def _j(p):
 
 def DATED(p):
     b = os.path.basename(p)
-    return (b.startswith('report-') or p.startswith(('share/', 'out/social/'))
+    # share/ cards are NOT dated: they are the link previews of live pages (fixed 23 Nov 2026)
+    return (b.startswith('report-') or p.startswith('out/social/')
             or b in {'technical-note.html', 'review.html', 'updates.html'})
 
 
