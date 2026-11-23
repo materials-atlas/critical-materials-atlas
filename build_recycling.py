@@ -156,7 +156,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · secondary supply</div>
   <h1>Six metals have no way out</h1>
-  <p class="deck">Six metals — gallium, arsenic, hafnium, helium, germanium, vanadium — have <b>near-zero recycling and no substitute</b>; and by-product metals recycle at barely half the rate of primary ones (3.9% vs 8.8%). A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
+  <p class="deck">__TRAPPED__ are mined mostly or wholly as by-products and <b>barely recycled</b>; __HARD__ are also hard to substitute. By-product metals recycle at about half the rate of primary ones (__BY__% vs __PR__%). A by-product metal has exactly one supply lever it controls: <b>recycling</b>. New mines can&rsquo;t answer (it&rsquo;s a <a href="companionality" style="color:#fff;text-decoration:underline">by-product</a>), and host output isn&rsquo;t its to command (<a href="host-shock" style="color:#fff;text-decoration:underline">host shock</a>). So the sharpest question in the whole atlas: which materials are by-product-locked <i>and</i> barely recycled &mdash; no new mine, no scrap, no way out?</p>
 </div></section>
 <article style="max-width:1000px">
   <div class="callout"><span id="lead"></span>
@@ -244,5 +244,14 @@ Promise.all([fetch('out/recycling.json').then(r=>r.json()),
 });
 </script>
 </body></html>'''
+# the deck, from the data (23 Nov 2026: it used to say all six have 'no substitute'; vanadium and arsenic are medium)
+def _and(xs):
+    xs = [x.lower() for x in xs]
+    return xs[0] if len(xs) == 1 else ', '.join(xs[:-1]) + ' and ' + xs[-1]
+_tr = [r for r in rows if r['title'] in out['trapped_names']]
+_hard = [r['title'] for r in _tr if r['substitutability'] == 'high']
+HTML = (HTML.replace('__TRAPPED__', _and(out['trapped_names'])[:1].upper() + _and(out['trapped_names'])[1:])
+        .replace('__HARD__', _and(_hard) if _hard else 'none of them')
+        .replace('__BY__', str(out['mean_recycling_byproduct'])).replace('__PR__', str(out['mean_recycling_primary'])))
 open(os.path.join(ROOT, 'recycling.html'), 'w', encoding='utf8', newline='\n').write(HTML)
 print('wrote recycling.html')

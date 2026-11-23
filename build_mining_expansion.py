@@ -74,6 +74,9 @@ json.dump(out, open(os.path.join(ROOT, 'out', 'mining_expansion.json'), 'w', enc
 
 print(f'Global tropical mapped mine area: {g16:,} km2 (2016) -> {g23:,} (2023) -> {g24:,} (2024)')
 print(f'  growth 2016->2023 {out["global_grow_pct23"]}%   2016->2024 {out["global_grow_pct"]}% (2024 likely under-mapped)')
+# the page says "almost half" (2016->2023, 23 Nov 2026); refuse to publish the words if the data stop saying it
+if not 40 <= out['global_grow_pct23'] < 50:
+    raise SystemExit('mining-expansion: "almost half" is no longer true (2016->2023 = %s%%) - reword the deck' % out['global_grow_pct23'])
 print('\nFastest-expanding critical-material hubs (abs km2 growth 2016->2024):')
 top = sorted([c for c in countries.values() if c['a16'] >= 100], key=lambda c: -c['grow_abs'])[:12]
 for c in top:
@@ -85,7 +88,7 @@ HTML = r'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Where new mining is appearing — tropical expansion 2016-2024 · Critical Materials Atlas</title>
-<meta name="description" content="A forward-looking physical signal: satellite-mapped mine-area expansion across the tropics 2016-2024 (Sepin et al. 2025), mapped onto critical-material hubs — Indonesia nickel, the lithium triangle, the Copperbelt.">
+<meta name="description" content="A forward-looking physical signal: satellite-mapped mine-area expansion across the tropics, 2016-2023 (Sepin et al. 2025; tropics only), mapped onto critical-material hubs — Indonesia nickel, the lithium triangle, the Copperbelt.">
 <meta property="og:title" content="Where new mine footprint is physically appearing (2016-2024)">
 <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,7 +104,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · expansion from orbit</div>
   <h1>The mine footprint is growing 33% — and it&rsquo;s tropical</h1>
-  <p class="deck">Seen from orbit, the world&rsquo;s mapped mine footprint expanded about <b>33%</b> over 2016&ndash;2024, and the growth is concentrated across the <b>tropics</b> — landing on exactly the critical-material geographies. The trade and production layers tell you where supply <i>is</i>. This one points to where it&rsquo;s <i>going</i> &mdash; satellite-mapped mine footprint expanding across the tropics, 2016&ndash;2024. The growth lands squarely on the critical-material frontier: Indonesia&rsquo;s nickel, the lithium triangle, the Copperbelt.</p>
+  <p class="deck">Seen from orbit, the mapped mine area across the tropics grew by <b>almost half</b> from 2016 to 2023 (2024 is under-mapped in the source and is not used as the endpoint). The data cover the tropics only, so this says where tropical mining is spreading, not that mining as a whole is moving to the tropics. The trade and production layers tell you where supply <i>is</i>. This one points to where it&rsquo;s <i>going</i> &mdash; satellite-mapped mine footprint expanding across the tropics, 2016&ndash;2024. The growth lands squarely on the critical-material frontier: Indonesia&rsquo;s nickel, the lithium triangle, the Copperbelt.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout">Where mining is physically <i>growing</i>, 2016&ndash;2024 &mdash; a forward-looking new-supply signal the trade and USGS layers can&rsquo;t see.
