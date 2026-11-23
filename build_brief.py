@@ -113,11 +113,11 @@ out = f'''<!doctype html>
 
   <div class="f"><div class="k">Finding 2 · two decades</div>
     <h2>Concentration is intensifying — and it's testable</h2>
-    <p>With the reconciled series back to 2002, <span class="big">{len(sig)} of {len(MATS)}</span> materials show a rising export-concentration trend that is significant on an FDR-corrected Mann–Kendall <i>screen</i> (23 annual points — exploratory, not confirmatory), and <b>{brk} of those {len(sig)}</b> break in <b>2012–2016</b>. The trade-side origin gap also runs wide (~{g0:.0f}–{g1:.0f}pp), though part of the level steps at the 2017 HS-vintage join — read it as drift, not a clean trend.</p></div>
+    <p>With the reconciled series back to 2002, <span class="big">{len(sig)}</span> materials show a rising export-concentration trend that is significant on an FDR-corrected Mann–Kendall <i>screen</i> (23 annual points — exploratory, not confirmatory), and <b>{brk} of those {len(sig)}</b> break in <b>2012–2016</b>. The trade-side origin gap also runs wide (~{g0:.0f}–{g1:.0f}pp), though part of the level steps at the 2017 HS-vintage join — read it as drift, not a clean trend.</p></div>
 
   <div class="f"><div class="k">Finding 3 · the hub</div>
     <h2>China became the processing hub, not just an exporter</h2>
-    <p>China's average network throughput — its centrality as importer <i>and</i> broker — rose from <span class="big">{c0:.0f}% to {c1:.0f}%</span> ({yrs[0]}–{yrs[-1]}). Its export share of rare-earth magnets climbed {mg0}→{mg1}%, of tungsten {tu0}→{tu1}%. For bauxite, China's throughput rose {bx[0]:.0f}→{bx[-1]:.0f}% <i>while its exports fell</i> — it became the place the ore flows <i>into</i>. China is now the top refiner in {cn_ref} of {len(MATS)} materials.</p></div>
+    <p>China's average network throughput — its centrality as importer <i>and</i> broker — rose from <span class="big">{c0:.0f}% to {c1:.0f}%</span> ({yrs[0]}–{yrs[-1]}). Its export share of rare-earth magnets climbed {mg0}→{mg1}%, of tungsten {tu0}→{tu1}%. For bauxite, China's throughput rose {bx[0]:.0f}→{bx[-1]:.0f}% <i>while its exports fell</i> — it became the place the ore flows <i>into</i>. China is now the top refiner in {cn_ref} materials.</p></div>
 
   <div class="f"><div class="k">Finding 4 · the chokepoints that matter</div>
     <h2>The materials with no way out</h2>

@@ -1760,10 +1760,23 @@ def check_aggregation():
                             % (100 * FAIL_AT, FAIL_EUR / 1e6, len(bad), tested, ', '.join(bad[:5])))
 
 
+def check_facts():
+    """One fact, one number, on every page (list item A7, 23 Nov 2026): each registered fact is
+    computed from the store that owns it and every page that states it must agree. See check_facts.py."""
+    try:
+        import check_facts as cf
+        bad = cf.run()
+    except Exception as e:
+        fail('facts', f'could not run check_facts.py: {e}'); return
+    for p, name, got, want, _ in bad:
+        fail('facts', f'{p} prints {got:g} for "{name}"; the store says {want:g} - fix the page, '
+                      f'or if it is right to differ, add it to ALLOW in check_facts.py with the reason')
+
+
 CHECKS = [('drift', check_drift), ('datasets', check_datasets), ('links', check_links), ('js', check_js),
           ('scrub', check_scrub), ('etapes', check_etapes), ('withdrawn', check_withdrawn),
           ('builders', check_builders), ('chokepoint', check_chokepoint_sync), ('ledger', check_ledger),
-          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('mined', check_mined), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('study_fresh', check_study_fresh), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation)]
+          ('basis', check_basis), ('anchor', check_anchor_sync), ('dim', check_dim), ('key', check_series_key), ('sdmx', check_sdmx), ('mirror', check_mirror_independence), ('withheld', check_withheld), ('engine', check_engine), ('baci_door', check_baci_door), ('mined', check_mined), ('stale', check_stale), ('register', check_register), ('usgs_mcs', check_usgs_mcs), ('study_fresh', check_study_fresh), ('self_audit', check_self_audit), ('head', check_head), ('weights', check_reliability_weights), ('refresh', check_refresh), ('search', check_search), ('counterpart', check_counterpart), ('aggregation', check_aggregation), ('facts', check_facts)]
 
 HOOK = ('#!/bin/sh\n'
         '# Auto-installed by check.py --install-hook. Blocks a commit that would leak an anonymity term\n'

@@ -165,12 +165,12 @@ HTML = r'''<!doctype html>
 <article style="max-width:1040px">
   <div class="callout">The Network page draws each graph from only the top-6 trade partners per side. Does China&rsquo;s central position hold when I stop cropping the network? I rebuild every 2024 graph with more and more of it and re-measure.
   <details class="howto"><summary>How it&rsquo;s tested</summary>
-  <p>For all 32 materials I rebuild the 2024 trade graph at four cuts &mdash; top-6, top-10, top-20, and the <b>full uncapped graph</b> (every reporting country) &mdash; and recompute China&rsquo;s share of total trade flow, its rank as a broker (betweenness), and how much of the network fragments if it is removed. If China&rsquo;s centrality barely moves from top-6 to full, the finding is real, not an artifact of the crop.</p>
+  <p>For every material I rebuild the 2024 trade graph at four cuts &mdash; top-6, top-10, top-20, and the <b>full uncapped graph</b> (every reporting country) &mdash; and recompute China&rsquo;s share of total trade flow, its rank as a broker (betweenness), and how much of the network fragments if it is removed. If China&rsquo;s centrality barely moves from top-6 to full, the finding is real, not an artifact of the crop.</p>
   <p class="howto-src">Computed by <code>build_network_sensitivity.py</code>.</p>
   </details></div>
   <div id="verdict" class="callout" style="border-left-color:#0e7c74;background:#f0f7f5"></div>
   <h2 style="margin:1.4rem 0 .4rem">China&rsquo;s throughput share as the graph stops being truncated</h2>
-  <p class="muted" style="margin-top:0">Average across 32 materials. If the line is roughly flat, truncation isn&rsquo;t manufacturing China&rsquo;s centrality.</p>
+  <p class="muted" style="margin-top:0">Average across all materials. If the line is roughly flat, truncation isn&rsquo;t manufacturing China&rsquo;s centrality.</p>
   <div id="c1"></div>
   <h2 style="margin:1.6rem 0 .4rem">Per material — top-6 vs full uncapped graph (2024)</h2>
   <p class="muted" style="margin-top:0">China&rsquo;s throughput share and betweenness rank at the truncated and full graphs; &ldquo;frag&rdquo; is the share of trade routes that break if China is removed.</p>
@@ -188,7 +188,7 @@ fetch('out/network_sensitivity.json').then(r=>r.json()).then(S=>{
   const a=S.agg, caps=['top6','top10','top20','full'], lab={top6:'top-6',top10:'top-10',top20:'top-20',full:'full'};
   const flat=Math.abs(a.full.cn_share-a.top6.cn_share);
   document.getElementById('verdict').innerHTML='<b>Verdict.</b> China is the single top broker (by betweenness) in <b>'+
-    a.full.cn_top_broker+'</b> of 32 materials on the <b>full uncapped</b> graph, vs '+a.top6.cn_top_broker+' at top-6; its average throughput share moves only from '+
+    a.full.cn_top_broker+'</b> materials on the <b>full uncapped</b> graph, vs '+a.top6.cn_top_broker+' at top-6; its average throughput share moves only from '+
     a.top6.cn_share+'% (top-6) to <b>'+a.full.cn_share+'% (full)</b>. '+
     (flat<=6?'China&rsquo;s centrality is <b>not</b> a truncation artifact &mdash; it barely moves as the whole network is added.':'China&rsquo;s centrality shifts somewhat once the full network is included &mdash; read the capped figures with that in mind.')+
     ' Fragility, by contrast, falls from '+a.top6.frag+'% to '+a.full.frag+'% &mdash; the capped graph overstates how easily routes break, because it hides real alternative paths.';

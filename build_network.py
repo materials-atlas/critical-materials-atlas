@@ -245,10 +245,10 @@ def main():
     <thead><tr><th>Material</th><th>Top exporter</th><th>Network chokepoint</th><th>type</th><th class="n" title="% of supply→demand routes lost if the chokepoint node is removed">fragility</th></tr></thead>
     <tbody>{''.join(matrows)}</tbody>
   </table>
-  <p class="note">{n_proc} of {len(rows)} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. {shared_code.NOTE} Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
+  <p class="note">{n_proc} materials have a <b>processing chokepoint</b> — a network broker that is also the dominant refiner. {shared_code.NOTE} Computed from <a href="out/flows_{YEAR}.json">flows_{YEAR}.json</a> → <a href="out/network.json">network.json</a>.</p>
 
   <h2 style="margin:2rem 0 .5rem">China's network centrality over time</h2>
-  <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all 32 materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
+  <p class="note" style="margin-top:0">Network centrality captures China as the processing/redistribution <i>hub</i> — importer <i>and</i> broker, not just exporter — so it rises even where China barely exports (it imports the ore). Bold = China's average throughput share across all materials; thin lines = materials where China is the processing hub. Throughput = share of a material's trade value touching China. Measured 2002–2024; same trade-routing-centrality caveat as above.</p>
   <div style="background:#fff;border:1px solid #e3e9e8;border-radius:10px;padding:1rem .8rem .4rem;margin:.6rem 0"><div id="cnchart" style="width:100%;height:400px"></div></div>
 </article>
 <footer class="siteftr"><div class="wrap">
@@ -271,7 +271,7 @@ fetch('out/network.json').then(r=>r.json()).then(N=>{
     grid:{left:48,right:20,top:34,bottom:30},
     xAxis:{type:'category',data:T.years,boundaryGap:false},
     yAxis:{type:'value',name:'China throughput %',min:0,axisLabel:{formatter:'{value}%'}},
-    series:[{name:'avg (all 32)',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.cn_through_index,itemStyle:{color:'#15323a'}}].concat(
+    series:[{name:'average, all materials',type:'line',smooth:true,showSymbol:false,lineWidth:3.4,data:T.cn_through_index,itemStyle:{color:'#15323a'}}].concat(
       KEY.map((k,i)=>({name:NM[k],type:'line',smooth:true,showSymbol:false,lineWidth:1.8,data:T.materials[k].through,itemStyle:{color:COL[(i+1)%6]}})))
   });
   window.addEventListener('resize',()=>c.resize());

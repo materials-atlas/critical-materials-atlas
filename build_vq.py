@@ -144,7 +144,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · value vs volume</div>
   <h1>The concentration is real, not a price mirage</h1>
-  <p class="deck">Trade value is price &times; quantity, so a concentration measured in dollars <i>could</i> be a price story. It mostly isn&rsquo;t. Measured in physical <b>tonnes</b>, the export concentration <b>holds for 28 of 32 materials</b> — only 4 (beryllium, tungsten, helium, niobium) are meaningfully inflated by high prices, and 6 are actually <i>more</i> concentrated in tonnes than in dollars. The chokepoints are real quantity concentration, not a dollar illusion — the same robustness the <a href="findings">origin gap</a> shows.</p>
+  <p class="deck">Trade value is price &times; quantity, so a concentration measured in dollars <i>could</i> be a price story. It mostly isn&rsquo;t. Measured in physical <b>tonnes</b>, the export concentration <b>holds for __HOLD__ materials</b> — only __NINF__ (__INF__) are meaningfully inflated by high prices, and __NMORE__ are actually <i>more</i> concentrated in tonnes than in dollars. The chokepoints are real quantity concentration, not a dollar illusion — the same robustness the <a href="findings">origin gap</a> shows.</p>
 </div></section>
 <article style="max-width:1040px">
   <div class="callout">Where a material&rsquo;s value-share sits above its volume-share, the apparent concentration is partly <b>price</b>, not tonnage &mdash; lithium is the textbook case: its value exploded in the 2021&ndash;22 price spike while tonnage barely moved.
@@ -214,5 +214,13 @@ fetch('out/volume.json').then(r=>r.json()).then(V=>{
 });
 </script>
 </body></html>'''
+# The deck's counts, from the store (they were typed by hand until 23 Nov 2026). "Meaningfully" =
+# value-HHI and volume-HHI more than 0.05 apart in the latest year.
+_g = {k: s['price_gap'] for k, s in mats.items() if s['price_gap'] is not None}
+_inf = sorted((k for k, g in _g.items() if g > 0.05), key=lambda k: -_g[k])
+_more = [k for k, g in _g.items() if g < -0.05]
+HTML = (HTML.replace('__HOLD__', str(len(_g) - len(_inf))).replace('__NINF__', str(len(_inf)))
+        .replace('__INF__', ', '.join(mats[k]['title'].split(' (')[0].split(',')[0].lower() for k in _inf))
+        .replace('__NMORE__', str(len(_more))))
 open(os.path.join(ROOT, 'volume.html'), 'w', encoding='utf8', newline='\n').write(HTML)
 print('wrote volume.html')

@@ -227,7 +227,7 @@ out = f'''<!doctype html>
   </table>
 
   <h2 style="margin:2rem 0 .5rem">Where the mine stage is more concentrated than the trade stage</h2>
-  <p class="note" style="margin-top:0">{n_disguised} of {len(mat_rows)} materials are <i>more</i> concentrated at the mine (production) than in trade — apparent-supplier diversity can overstate how diversified the underlying production is. Trade and mine concentration are different objects (multi-stage chains naturally disperse trade), so read this as a flag, not proof of disguise. {shared_code.NOTE}</p>
+  <p class="note" style="margin-top:0">{n_disguised} materials are <i>more</i> concentrated at the mine (production) than in trade — apparent-supplier diversity can overstate how diversified the underlying production is. Trade and mine concentration are different objects (multi-stage chains naturally disperse trade), so read this as a flag, not proof of disguise. {shared_code.NOTE}</p>
   <table>
     <thead><tr><th>Material</th><th>Apparent #1 supplier (trade HHI)</th><th>Traced #1 origin (mine HHI)</th><th class="n" title="how much more concentrated the true origin is">HHI gap</th></tr></thead>
     <tbody>{''.join(drows)}</tbody>
