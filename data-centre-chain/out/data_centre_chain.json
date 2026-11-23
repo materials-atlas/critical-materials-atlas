@@ -1,201 +1,937 @@
 {
   "title": "Data-centre / AI chain",
+  "h1": "What delays AI data-centre deployment?",
+  "deck": "An operating data centre needs compatible servers, electrical equipment, firm power and a completed facility. Which dependency sets the commissioning date varies by project.",
+  "published": true,
+  "evidence_review": "2026-11-24",
   "chokepoint": {
     "product": "AI compute",
-    "stage": "Grid connection",
+    "stage": "Project commissioning",
     "mechanism": "diffuse",
-    "physics": "Power + grid connection are local and switchable — the limit is megawatts, not one country",
+    "physics": "Firm power, compatible hardware and the finished facility set different local limits",
     "holder": "—",
     "share": "—",
     "control": "—",
-    "conf": "measured"
+    "conf": "assessment",
+    "research": true
   },
-  "published": true,
-  "related": [
-    {
-      "href": "../silicon-chip/silicon-chain",
-      "label": "Silicon-chip chain"
-    },
-    {
-      "href": "../grid-chain/grid-chain",
-      "label": "Electricity-grid chain"
-    },
-    {
-      "href": "../copper-chain/copper-chain",
-      "label": "Copper chain"
-    }
-  ],
-  "accent": "#5a5a9c",
-  "eyebrow": "Product-chain pilot · the compute behind AI",
-  "h1": "The chip is ready — the power isn't",
-  "deck": "The story of AI infrastructure is told as a chip story, and the chip is a real chokepoint (see the silicon-chip chain). But the constraint that now bites is electricity: data-centre power demand is set to roughly double by 2030, and connecting that load to the grid — transformers, substations, capacity — is the binding limit.",
-  "byline": "chips (a chokepoint of their own) ≠ servers ≠ power & cooling ≠ grid connection ≠ operating electricity",
-  "correction": "Once the accelerators are secured, the next wall is not another material — it is megawatts. US data-centre electricity roughly tripled from 2014 to 2023, and global demand is projected to roughly double to ~950 TWh by 2030. The bottleneck moves to the same place the grid chain flags: transformers, substations and grid-connection queues, not the chip.",
-  "stats": [
-    {
-      "v": "485→950 TWh",
-      "l": "world data-centre electricity, 2025 → 2030 (projection)",
-      "conf": "estimate"
-    },
-    {
-      "v": "~3×",
-      "l": "US data-centre electricity growth, 2014 → 2023 (58 → 176 TWh)",
-      "conf": "measured"
-    },
-    {
-      "v": "the grid",
-      "l": "the binding constraint is power and connection, not the semiconductors",
-      "conf": "estimate"
-    },
-    {
-      "v": "~3%",
-      "l": "of world electricity used by data centres by 2030",
-      "conf": "estimate"
-    }
-  ],
-  "history": {
-    "title": "The load that tripled: US data-centre electricity, 2014 → 2023",
-    "conf": "measured",
-    "unit": "TWh per year (US)",
-    "note": "US DOE / LBNL. US data-centre electricity rose from about 58 TWh in 2014 to about 176 TWh in 2023 — roughly a tripling, and accelerating with AI. These are two measured national endpoints, not an annual series; the DOE's own 2028 forecast (325–580 TWh) sits well above the line. The observed history alone already shows why grid connection, not the chip, is the emerging wall.",
-    "series": [
-      {
-        "label": "US data-centre electricity",
-        "points": [
-          {
-            "y": 2014,
-            "v": 58
-          },
-          {
-            "y": 2023,
-            "v": 176
-          }
-        ]
-      }
-    ]
-  },
-  "hops": [
-    {
-      "n": "1 · Chips",
-      "t": "accelerators, CPUs, memory and substrates — a chokepoint of their own (silicon-chip chain)"
-    },
-    {
-      "n": "2 · Servers & network",
-      "t": "chips integrated into boards, servers, storage and switches"
-    },
-    {
-      "n": "3 · Facility & power",
-      "t": "UPS, batteries, switchgear, transformers, cooling and water systems"
-    },
-    {
-      "n": "4 · Grid & site",
-      "t": "land, fibre, substations and transmission capacity — the binding connection"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The demand curve that changed the problem",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "US data centres",
-          "big": "58 → 176 TWh",
-          "conf": "measured",
-          "text": "US data-centre electricity roughly tripled between 2014 and 2023, and AI is bending the curve further up — DOE's forecast has US data centres at 325–580 TWh by 2028, or up to ~12% of national electricity. Globally the IEA projects a rough doubling to ~950 TWh by 2030. The compute exists; the question is where the power comes from.",
-          "note": "US DOE / LBNL; IEA Energy and AI."
-        },
-        {
-          "kind": "text",
-          "h3": "The bottleneck moved downstream to the grid",
-          "text": "Chips remain a genuine chokepoint upstream (advanced logic, HBM memory, packaging). But for the operators building now, the gating item is a grid connection: transformers with multi-year lead times, substation capacity and interconnection queues — exactly the constraints the grid chain documents. AI's physical limit is increasingly the power system.",
-          "flag": "see the grid and silicon-chip chains"
-        }
-      ]
-    },
-    {
-      "h2": "2 · How wide the uncertainty really is",
-      "panels": [
-        {
-          "kind": "cards",
-          "h3": "2035 is a set of scenarios, not a number",
-          "cards": [
-            {
-              "t": "Headwinds ~700 TWh",
-              "d": "Slower AI uptake, strong efficiency gains and supply-chain friction hold data-centre electricity down."
-            },
-            {
-              "t": "Base ~1,200 TWh",
-              "d": "The IEA's central case for data-centre electricity in 2035 — a large but not explosive rise."
-            },
-            {
-              "t": "Lift-off ~1,700 TWh",
-              "d": "Rapid AI adoption with weaker efficiency pushes demand far higher. These are scenarios, not a confidence interval."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "h2": "3 · The material layer, kept in proportion",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Copper, and the chip chain behind it",
-          "text": "A data centre is copper busbars and cabling, steel, aluminium, batteries for backup, and a great deal of water for cooling — plus the semiconductors themselves. None of the bulk materials is a unique chokepoint; the concentrated risk lives in the chip chain it sits on and in the power it draws. The honest framing is energy-and-chips, not a new critical mineral.",
-          "note": "IEA Energy and AI.",
-          "flag": "energy + chips, not a new mineral"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries servers, networking gear and processors under broad electronics headings, but a data centre is built and operated in place — its defining input, electricity, and its binding constraint, grid connection, are not traded goods. Read any hardware trade below as context; the chain's real limits are power and the chip chain, not customs flows.",
-  "method": [
-    {
-      "stage": "Chips",
-      "lens": "silicon-chip chain",
-      "why": "a real upstream chokepoint — analysed separately"
-    },
-    {
-      "stage": "Electricity",
-      "lens": "DOE/IEA demand history & outlook",
-      "why": "roughly doubling by 2030 — the emerging wall"
-    },
-    {
-      "stage": "Grid",
-      "lens": "connection & transformer constraints",
-      "why": "the binding limit; shared with the grid chain"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI electronics headings",
-      "why": "hardware only; power isn't a traded good — flagged context"
-    }
-  ],
   "sources": {
-    "iea_demand": {
-      "title": "IEA, Energy and AI — Energy demand from AI",
-      "year": 2025,
-      "url": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai"
-    },
-    "iea_summary": {
-      "title": "IEA, Energy and AI — Executive summary",
-      "year": 2025,
-      "url": "https://www.iea.org/reports/energy-and-ai/executive-summary"
-    },
     "iea_update": {
-      "title": "IEA, Key Questions on Energy and AI — Executive summary",
+      "title": "IEA, Key Questions on Energy and AI",
       "year": 2026,
       "url": "https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary"
     },
+    "iea_demand": {
+      "title": "IEA, Energy and AI, energy demand",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai"
+    },
+    "iea_grid": {
+      "title": "IEA, Energy and AI, grid connection risks",
+      "year": 2025,
+      "url": "https://www.iea.org/reports/energy-and-ai/ai-and-energy-security"
+    },
     "doe_lbnl": {
-      "title": "US DOE / LBNL, 2024 Report on U.S. Data Center Energy Use",
+      "title": "Berkeley Lab, US Data Center Energy Usage Report",
       "year": 2024,
-      "url": "https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers"
+      "url": "https://eta-publications.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report"
+    },
+    "doe_transformers": {
+      "title": "US DOE, Large Power Transformer Resilience",
+      "year": 2024,
+      "url": "https://www.energy.gov/sites/default/files/2024-10/EXEC-2022-001242%20-%20Large%20Power%20Transformer%20Resilience%20Report%207-10-24.pdf"
+    },
+    "grid_trade": {
+      "title": "Atlas research note on transformers and electrical steel",
+      "year": 2026,
+      "url": "../grid-trade"
+    },
+    "buildout": {
+      "title": "Atlas AI build-out in customs data",
+      "year": 2026,
+      "url": "../ai-buildout"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
       "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html"
+    },
+    "tva": {
+      "title": "TVA board minutes, additional firm power for a Memphis load",
+      "year": 2026,
+      "url": "https://tva-azr-eastus-cdn-ep-tvawcm-prd.azureedge.net/cdn-tvawcma/docs/default-source/about-tva/board-of-directors/february-11--2026/february-11-2026-board-meeting-minutes.pdf?sfvrsn=1658d52d_1#page=8"
+    },
+    "planning": {
+      "title": "Woodlands Park appeal decision and inspector report",
+      "year": 2025,
+      "url": "https://acp.planninginspectorate.gov.uk/ViewDocument.aspx?fileid=63029892"
     }
+  },
+  "energy": {
+    "unit": "TWh per year",
+    "grade": "B",
+    "rows": [
+      {
+        "scope": "United States",
+        "period": "2014",
+        "twh": 58,
+        "kind": "Historical estimate",
+        "source": "doe_lbnl"
+      },
+      {
+        "scope": "United States",
+        "period": "2023",
+        "twh": 176,
+        "kind": "Historical estimate",
+        "source": "doe_lbnl"
+      },
+      {
+        "scope": "United States",
+        "period": "2028",
+        "twh": [
+          325,
+          580
+        ],
+        "kind": "Scenario range",
+        "source": "doe_lbnl"
+      },
+      {
+        "scope": "World",
+        "period": "2025",
+        "twh": 485,
+        "kind": "Estimated base year",
+        "source": "iea_update"
+      },
+      {
+        "scope": "World",
+        "period": "2030",
+        "twh": 950,
+        "kind": "Central projection",
+        "source": "iea_update"
+      }
+    ],
+    "global_share_2030_projection": 0.03,
+    "global_scenarios_2035": {
+      "source": "iea_demand",
+      "cases": [
+        {
+          "case": "Headwinds",
+          "twh": 700,
+          "qualifier": "About"
+        },
+        {
+          "case": "High Efficiency",
+          "twh": 970,
+          "qualifier": "About"
+        },
+        {
+          "case": "Base",
+          "twh": 1200,
+          "qualifier": "About"
+        },
+        {
+          "case": "Lift-Off",
+          "twh": 1700,
+          "qualifier": "Above"
+        }
+      ]
+    }
+  },
+  "grid_connection_risk": {
+    "source": "iea_grid",
+    "grade": "B",
+    "planned_capacity_at_risk_share": 0.2,
+    "horizon": 2030,
+    "measure": "share of global capacity planned for construction"
+  },
+  "transformers": {
+    "source": "grid_trade",
+    "baseline": "2012–2020",
+    "comparison_period": "2023–2024",
+    "world_data_end": 2024,
+    "eu_us_data_end": "2026-07",
+    "flow_years": 283029,
+    "filed_pretrend_passed": false,
+    "comparisons": [
+      {
+        "comparison": "Filed comparison: heavy machinery",
+        "measure": "Unit value",
+        "gap_percent": 19.46,
+        "interval_log_points": [
+          0.0254,
+          0.3302
+        ],
+        "p": 0.0112
+      },
+      {
+        "comparison": "Filed comparison: heavy machinery",
+        "measure": "Tonnes",
+        "gap_percent": 17.37,
+        "interval_log_points": [
+          0.0194,
+          0.3009
+        ],
+        "p": 0.0114
+      },
+      {
+        "comparison": "Electrical equipment: motors, pumps and compressors",
+        "measure": "Unit value",
+        "gap_percent": 10.0,
+        "interval_log_points": [
+          -0.0018,
+          0.1924
+        ],
+        "p": 0.0549
+      },
+      {
+        "comparison": "Electrical equipment: motors, pumps and compressors",
+        "measure": "Tonnes",
+        "gap_percent": 9.14,
+        "interval_log_points": [
+          -0.0143,
+          0.1892
+        ],
+        "p": 0.1438
+      }
+    ],
+    "goes_export_share_china": {
+      "2019": 0.1213,
+      "2024": 0.3181
+    }
+  },
+  "trade": {
+    "source": "baci",
+    "years": [
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024
+    ],
+    "nomenclature": {
+      "2002": "HS02",
+      "2003": "HS02",
+      "2004": "HS02",
+      "2005": "HS02",
+      "2006": "HS02",
+      "2007": "HS02",
+      "2008": "HS02",
+      "2009": "HS02",
+      "2010": "HS02",
+      "2011": "HS02",
+      "2012": "HS02",
+      "2013": "HS02",
+      "2014": "HS02",
+      "2015": "HS02",
+      "2016": "HS02",
+      "2017": "HS17",
+      "2018": "HS17",
+      "2019": "HS17",
+      "2020": "HS17",
+      "2021": "HS17",
+      "2022": "HS17",
+      "2023": "HS17",
+      "2024": "HS17"
+    },
+    "codes": {
+      "847150": {
+        "title": "Automatic data-processing units",
+        "boundary": "Includes servers and other processing units. Customs data do not identify data-centre buyers."
+      },
+      "854231": {
+        "title": "Integrated circuit processors and controllers",
+        "boundary": "Broad chip category. Coverage starts in 2017 in this extract, and the line cannot isolate AI accelerators."
+      }
+    }
+  },
+  "readiness": {
+    "version": "2026-11-24",
+    "evidence_type": "illustrative assumptions",
+    "required_facility_mw": 125.0,
+    "scenarios": {
+      "baseline": {
+        "label": "Baseline",
+        "commissioning_month": 33,
+        "calendar_month": "2029-10",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "utility_design",
+          "utility_upgrades",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 20
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 21,
+            "finish": 26
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 30,
+            "finish": 31
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 31,
+            "finish": 33
+          }
+        }
+      },
+      "faster_grid": {
+        "label": "Faster utility works",
+        "commissioning_month": 29,
+        "calendar_month": "2029-06",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "permitting",
+          "shell",
+          "electrical_install",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 22
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 20
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 21,
+            "finish": 26
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 26,
+            "finish": 27
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 27,
+            "finish": 29
+          }
+        },
+        "compare_to": "baseline",
+        "months_earlier": 4
+      },
+      "faster_transformer": {
+        "label": "Faster transformer",
+        "commissioning_month": 33,
+        "calendar_month": "2029-10",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "utility_design",
+          "utility_upgrades",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 14
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 21,
+            "finish": 26
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 30,
+            "finish": 31
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 31,
+            "finish": 33
+          }
+        },
+        "compare_to": "baseline",
+        "months_earlier": 0
+      },
+      "late_transformer": {
+        "label": "Late transformer",
+        "commissioning_month": 38,
+        "calendar_month": "2030-03",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "site_design",
+          "transformer",
+          "electrical_install",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 30
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 30,
+            "finish": 35
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 35,
+            "finish": 36
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 36,
+            "finish": 38
+          }
+        }
+      },
+      "recover_transformer": {
+        "label": "Accelerate the late transformer",
+        "commissioning_month": 33,
+        "calendar_month": "2029-10",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "utility_design",
+          "utility_upgrades",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 24
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 24,
+            "finish": 29
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 30,
+            "finish": 31
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 31,
+            "finish": 33
+          }
+        },
+        "compare_to": "late_transformer",
+        "months_earlier": 5
+      },
+      "late_memory": {
+        "label": "Late memory",
+        "commissioning_month": 42,
+        "calendar_month": "2030-07",
+        "usable_it_mw": 100,
+        "critical_activities": [
+          "hbm",
+          "packaging",
+          "servers",
+          "rack_install",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 20
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 21,
+            "finish": 26
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 30,
+            "finish": 31
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 30
+          },
+          "packaging": {
+            "start": 30,
+            "finish": 33
+          },
+          "servers": {
+            "start": 33,
+            "finish": 36
+          },
+          "rack_install": {
+            "start": 36,
+            "finish": 40
+          },
+          "commissioning": {
+            "start": 40,
+            "finish": 42
+          }
+        },
+        "compare_to": "baseline",
+        "months_earlier": -9
+      },
+      "limited_power": {
+        "label": "Reduced firm power",
+        "commissioning_month": 33,
+        "calendar_month": "2029-10",
+        "usable_it_mw": 88.0,
+        "critical_activities": [
+          "utility_design",
+          "utility_upgrades",
+          "energization",
+          "commissioning"
+        ],
+        "timeline": {
+          "permitting": {
+            "start": 0,
+            "finish": 6
+          },
+          "utility_design": {
+            "start": 0,
+            "finish": 6
+          },
+          "site_design": {
+            "start": 0,
+            "finish": 4
+          },
+          "utility_upgrades": {
+            "start": 6,
+            "finish": 30
+          },
+          "firm_supply": {
+            "start": 6,
+            "finish": 21
+          },
+          "transformer": {
+            "start": 4,
+            "finish": 20
+          },
+          "distribution": {
+            "start": 4,
+            "finish": 16
+          },
+          "backup": {
+            "start": 4,
+            "finish": 14
+          },
+          "shell": {
+            "start": 6,
+            "finish": 21
+          },
+          "electrical_install": {
+            "start": 21,
+            "finish": 26
+          },
+          "cooling_equipment": {
+            "start": 4,
+            "finish": 16
+          },
+          "cooling_install": {
+            "start": 21,
+            "finish": 25
+          },
+          "energization": {
+            "start": 30,
+            "finish": 31
+          },
+          "logic": {
+            "start": 0,
+            "finish": 14
+          },
+          "hbm": {
+            "start": 0,
+            "finish": 16
+          },
+          "packaging": {
+            "start": 16,
+            "finish": 19
+          },
+          "servers": {
+            "start": 19,
+            "finish": 22
+          },
+          "rack_install": {
+            "start": 22,
+            "finish": 26
+          },
+          "commissioning": {
+            "start": 31,
+            "finish": 33
+          }
+        },
+        "compare_to": "baseline",
+        "months_earlier": 0
+      }
+    },
+    "sensitivity": {
+      "combinations": 27,
+      "earliest_month": 29,
+      "latest_month": 42
+    },
+    "pue_sensitivity": [
+      {
+        "pue": 1.15,
+        "facility_mw": 115.0,
+        "usable_it_mw": 100
+      },
+      {
+        "pue": 1.25,
+        "facility_mw": 125.0,
+        "usable_it_mw": 100
+      },
+      {
+        "pue": 1.4,
+        "facility_mw": 140.0,
+        "usable_it_mw": 89.29
+      }
+    ]
   }
 }

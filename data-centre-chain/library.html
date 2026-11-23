@@ -72,7 +72,7 @@
     <div class="by">A curated reference library of public sources for deeper study — gathered August 2026. Each entry links to a real source and carries an abstract (or factual summary) plus the data it rests on. A research-support layer of the Critical Materials Atlas.</div>
   </div>
 
-  <p class="lead">The story of AI infrastructure is told as a chip story, and the chip is a genuine chokepoint. But the constraint that now bites is electricity: data-centre power demand is set to roughly double by 2030, and connecting that load to the grid — transformers, substations, interconnection queues — is the binding limit. <b>The wall is megawatts, not a mineral.</b></p>
+  <p class="lead">Public sources for the data-centre deployment study, covering hardware, electricity, utility connections and site infrastructure. The <a href="PRODUCTION.md">claim register</a> records what the evidence can establish.</p>
 
   <p class="flow"><b>Ordered to follow the chain:</b> ① chips &amp; hardware (the upstream chokepoint) → ② electricity demand → ③ grid connection: transformers &amp; substations → ④ cooling, copper &amp; the material build-out → ⑤ operators — then the cross-cutting frameworks and trade data that sit across every stage.</p>
 
@@ -90,17 +90,17 @@
       <tr><td colspan="4" class="stg">① Chips &amp; AI hardware — the upstream chokepoint</td></tr>
       <tr><td class="n">1</td><td>SEMI — Manufacturing Monitor</td><td class="took">Quarterly fab-utilisation / capacity / equipment-spend series → frames the chip layer upstream; the real chip chokepoint is analysed in the silicon-chip chain, not here.</td><td><span class="pill ref">Reference</span></td></tr>
       <tr><td class="n">2</td><td>SEMI — Market Intelligence</td><td class="took">Semiconductor market-research hub → provenance for the chip-supply framing.</td><td><span class="pill ref">Reference</span></td></tr>
-      <tr><td class="n">3</td><td>USGS — Key Minerals in Data Centers</td><td class="took">Data-centre bill of materials by component → the §3 "material layer kept in proportion" panel — no bulk material is a unique chokepoint.</td><td><span class="pill ref">Reference</span></td></tr>
-      <tr><td class="n">4</td><td>Life-Cycle Emissions of AI Hardware</td><td class="took">Cradle-to-grave split (operation ≫ embodied) → supports the finding that the concentrated risk lives in the chip chain and the power, not the bulk materials.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">3</td><td>USGS — Key Minerals in Data Centers</td><td class="took">Examples of materials used in data-centre equipment. The infographic gives no project-level procurement or commissioning data.</td><td><span class="pill ref">Reference</span></td></tr>
+      <tr><td class="n">4</td><td>Life-Cycle Emissions of AI Hardware</td><td class="took">The study examines operational and embodied emissions from computing hardware. Its scope is life-cycle emissions.</td><td><span class="pill ref">Reference</span></td></tr>
       <tr><td class="n">5</td><td>Energy Cost of the A.I. Lifecycle</td><td class="took">Per-stage energy across the machine-learning lifecycle → context that inference and transmission, not just training, drive the load.</td><td><span class="pill ref">Reference</span></td></tr>
       <tr><td colspan="4" class="stg">② Electricity demand — the curve that changed the problem</td></tr>
-      <tr><td class="n">6</td><td>IEA — Energy demand from AI</td><td class="took">The 485→950 TWh 2025→2030 projection + ~3% of world electricity → the headline stats and §1 demand panel.</td><td><span class="pill applied">Applied</span></td></tr>
-      <tr><td class="n">7</td><td>IEA — Energy and AI, Executive summary</td><td class="took">Top-line energy-and-AI framing → the deck and the "power, not the chip" correction.</td><td><span class="pill applied">Applied</span></td></tr>
-      <tr><td class="n">8</td><td>IEA — Key Questions on Energy and AI</td><td class="took">Scenario spread + capex context → reinforces the §2 uncertainty cards.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">6</td><td>IEA — Energy demand from AI</td><td class="took">The 2025 report supplies the global electricity scenarios for 2035.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">7</td><td>IEA — Energy and AI, Executive summary</td><td class="took">The 2025 report sets out its original demand outlook and the estimated risk from grid connections.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">8</td><td>IEA — Key Questions on Energy and AI</td><td class="took">The 2026 report estimates 485 TWh in 2025 and projects 950 TWh in 2030. It also discusses hardware supply.</td><td><span class="pill applied">Applied</span></td></tr>
       <tr><td class="n">9</td><td>IEA — surging electricity demand (news)</td><td class="took">700–1,700 TWh 2035 scenario range → the §2 "scenarios, not a number" cards.</td><td><span class="pill ref">Reference</span></td></tr>
       <tr><td class="n">10</td><td>IEA — Energy supply for AI</td><td class="took">Fuel-mix of the load (renewables/gas/nuclear) → context for the supply side of the wall.</td><td><span class="pill ref">Reference</span></td></tr>
-      <tr><td class="n">11</td><td>US DOE / LBNL announcement</td><td class="took">US 58→176 TWh (2014→2023) → the history chart's two measured endpoints + the ~3× stat.</td><td><span class="pill applied">Applied</span></td></tr>
-      <tr><td class="n">12</td><td>2024 US Data Center Energy Usage Report (full PDF)</td><td class="took">Full 2014–2028 US series + 325–580 TWh (2028) band + 74–132 GW → <b>next enrichment:</b> replace the two-endpoint history with the full curve and add the power-demand read.</td><td><span class="pill planned">Planned</span></td></tr>
+      <tr><td class="n">11</td><td>US DOE / LBNL announcement</td><td class="took">The energy table uses Berkeley Lab's 2014 and 2023 historical estimates, as summarized by DOE.</td><td><span class="pill applied">Applied</span></td></tr>
+      <tr><td class="n">12</td><td>2024 US Data Center Energy Usage Report (full PDF)</td><td class="took">The full report documents the historical energy model and gives a scenario range of 325–580 TWh for 2028.</td><td><span class="pill planned">Planned</span></td></tr>
       <tr><td class="n">13</td><td>Electricity Demand &amp; Grid Impacts of AI Data Centers</td><td class="took">Training/inference demand patterns across three grid timescales → <b>next enrichment:</b> a demand-pattern / grid-impact panel.</td><td><span class="pill planned">Planned</span></td></tr>
       <tr><td class="n">14</td><td>Power for AI Data Centers (MDPI)</td><td class="took">Peer-reviewed demand + grid-integration review → corroborates the grid-connection wall. <span class="miss">Full text paywalled (403); noted from title/listing.</span></td><td><span class="pill ref">Reference</span></td></tr>
       <tr><td colspan="4" class="stg">③ The grid connection — transformers &amp; substations</td></tr>
@@ -154,10 +154,10 @@
   </ul>
 
   <h2 class="sec">② Electricity demand — the curve that changed the problem <span class="ct">9</span></h2>
-  <div class="stagesub">Roughly a doubling of data-centre electricity by 2030 — the demand that moved the chokepoint downstream.</div>
+  <div class="stagesub">Annual electricity estimates and projections describe demand growth. Project timelines provide a separate measure of readiness.</div>
   <ul class="refs">
     <li><a href="https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai">IEA, Energy and AI — Energy demand from AI</a><span class="src"> · IEA (2025)</span>
-      <span class="desc">The central IEA analysis of AI-driven data-centre electricity demand; source of the 485→950 TWh projection.</span>
+      <span class="desc">IEA’s 2025 demand analysis and 2035 scenarios. See the 2026 summary below for the updated 485 to 950 TWh figures.</span>
       <span class="abs"><b>Abstract.</b> IEA analysis: data-centre electricity was about 415 TWh in 2024 (~1.5% of world electricity), growing ~12% a year. In the base case it doubles to around 945 TWh by 2030 (just under 3% of world electricity), with the United States and China accounting for nearly 80% of the growth.</span>
       <span class="dat"><b>Data.</b> Scenario-based approach (Lift-Off, High Efficiency, Headwinds cases) built on near-term industry projections for server shipments.</span></li>
     <li><a href="https://www.iea.org/reports/energy-and-ai/executive-summary">IEA, Energy and AI — Executive summary</a><span class="src"> · IEA (2025)</span>
@@ -195,7 +195,7 @@
   </ul>
 
   <h2 class="sec">③ The grid connection — transformers &amp; substations <span class="ct">4</span></h2>
-  <div class="stagesub">The binding limit: transformers with multi-year lead times, substation capacity and interconnection queues — the same wall the grid chain documents.</div>
+  <div class="stagesub">Sources on transformer lead times, substation capacity and connection processes. See the <a href="../grid-trade">Atlas transformer analysis</a> for the comparison with other electrical equipment.</div>
   <ul class="refs">
     <li><a href="https://www.chinatalk.media/p/gridlocked-transformer-shortage-choking">ChinaTalk, Gridlocked: Transformer Shortage Choking U.S. Supply Chains</a><span class="src"> · ChinaTalk</span>
       <span class="desc">Deep dive on the grain-oriented electrical steel (GOES) bottleneck behind the transformer shortage.</span>

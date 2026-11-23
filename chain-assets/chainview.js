@@ -79,10 +79,33 @@
   function tradeRow(T, i) {
     var y = T.years[i], d = T.years_data[String(y)];
     document.getElementById('trade-year').textContent = y;
+    document.getElementById('trade-slider').setAttribute('aria-valuetext', y);
     document.getElementById('trade-body').innerHTML = Object.keys(T.codes).map(function (k) {
       var c = d[k], lead = c.exporters && c.exporters[0];
       return '<tr><td><b>' + esc(T.codes[k].title) + '</b><br><span class="note">HS ' + k + '</span></td><td>' + (c.world_usd ? money(c.world_usd) : '—') + '</td><td>' + (lead ? esc(lead.name) + ' · ' + Math.round(lead.share * 100) + '%' : '—') + '</td><td><span class="flag">' + esc(T.codes[k].boundary) + '</span></td></tr>';
     }).join('');
+  }
+  function hasTrade(T) {
+    return T && T.years && T.years.length && T.codes;
+  }
+  function enableTrade(T) {
+    var slider = document.getElementById('trade-slider');
+    slider.max = T.years.length - 1;
+    slider.value = slider.max;
+    slider.setAttribute('aria-valuetext', T.years[+slider.value]);
+    slider.oninput = function () { tradeRow(T, +slider.value); };
+    return slider;
+  }
+  // A pre-rendered study already contains its latest trade snapshot.
+  var staticTrade = document.getElementById('static-trade');
+  if (staticTrade) {
+    fetch(TRADE).then(function (r) { return r.ok ? r.json() : null; }).then(function (T) {
+      if (hasTrade(T)) {
+        enableTrade(T);
+        staticTrade.hidden = false;
+      }
+    }).catch(function () { }); // The static snapshot remains available.
+    return;
   }
   Promise.all([
     fetch(DATA).then(function (r) { return r.json(); }),
@@ -138,7 +161,7 @@
     document.querySelector('article').insertAdjacentHTML('beforeend', strip);
     var cl = document.getElementById('conflegend');
     if (cl) cl.innerHTML = 'Confidence: <span class="conf measured">measured</span> reported figure · <span class="conf estimate">estimate</span> published estimate · <span class="conf snapshot">snapshot</span> single-year, no long series · <span class="conf proxy">proxy</span> mixed/indirect.';
-    if (T && T.years && T.years.length && T.codes) { var ts = document.getElementById('trade-slider'); ts.max = T.years.length - 1; ts.value = T.years.length - 1; ts.oninput = function () { tradeRow(T, +ts.value); }; tradeRow(T, +ts.value); }
+    if (hasTrade(T)) { var ts = enableTrade(T); tradeRow(T, +ts.value); }
     else { document.getElementById('trade-body').innerHTML = '<tr><td colspan="4" class="note">Trade JSON not built yet — run the chain’s extract_baci.py.</td></tr>'; }
     // Clickable estimate: if this chain's chokepoint is an estimate, load its basis and make every
     // 'estimate' tag on the page open how it was derived + its limits.

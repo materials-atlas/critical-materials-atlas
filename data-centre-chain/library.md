@@ -1,11 +1,11 @@
 # Data-centre / AI chain — research library
 
-The chip is ready — the power isn't: data-centre electricity is set to roughly double by 2030, and the binding constraint has moved downstream to grid connection, transformers and substations, not the semiconductor. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+Public references for the data-centre deployment study. They cover hardware, electrical equipment, utility service and the conditions for operating a completed facility.
 
 ## Core references (already cited in the chain)
-- [IEA, Energy and AI — Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai) — IEA (2025). Central IEA analysis of AI-driven data-centre electricity demand; source of the 485→950 TWh 2025→2030 projection.
+- [IEA, Energy and AI — Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai) — IEA (2025). IEA's 2025 demand analysis and 2035 scenarios. The 485 to 950 TWh figures come from the 2026 report below.
 - [IEA, Energy and AI — Executive summary](https://www.iea.org/reports/energy-and-ai/executive-summary) — IEA (2025). Top-line findings of the flagship IEA Energy and AI report.
-- [IEA, Key Questions on Energy and AI — Executive summary](https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary) — IEA (2026). Follow-up IEA report addressing open questions on AI's energy footprint.
+- [IEA, Key Questions on Energy and AI — Executive summary](https://www.iea.org/reports/key-questions-on-energy-and-ai/executive-summary) — IEA (2026). Updated baseline of 485 TWh for 2025 and central projection of 950 TWh in 2030. The report also discusses ongoing semiconductor supply constraints.
 - [US DOE / LBNL, 2024 Report on U.S. Data Center Energy Use](https://www.energy.gov/articles/doe-releases-new-report-evaluating-increase-electricity-demand-data-centers) — US DOE (2024). DOE announcement of the LBNL report; source of the US 58→176 TWh (2014→2023) history.
 - [CEPII BACI V202601, based on UN Comtrade](https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37) — CEPII. Harmonised bilateral trade database used for the chain's hardware trade table.
 

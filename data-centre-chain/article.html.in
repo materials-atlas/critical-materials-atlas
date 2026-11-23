@@ -1,0 +1,147 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/data-centre-chain/data-centre-chain">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>$title — Critical Materials Atlas</title><meta property="og:title" content="$title"><meta name="description" content="$deck"><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"><style>
+  :root { --acc: #5a5a9c; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 34rem; }
+  .table-wrap th[scope="row"] { font-weight: 600; }
+  .table-wrap caption { text-align: left; font-size: .8rem; color: var(--mut); padding: .3rem .5rem; }
+  .case-grid h3 { margin-bottom: .45rem; }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style></head><body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">AI infrastructure · Deployment</div>
+  <h1>$title</h1>
+  <p class="deck">$deck</p>
+  <p class="byline">Evidence review · <time datetime="$version">24 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
+<article>
+  <p><strong>Research question.</strong> When do hardware, electrical equipment, utility service or construction determine when computing capacity can go into operation?</p>
+  <p>Electricity use is growing, and the IEA identifies grid access and semiconductor supply as risks. The Atlas found that transformers gained relative to heavy machinery. Against motors, pumps and compressors, the uncertainty was wide enough to include no difference. Public project records show individual gates, including firm power approval and planning permission.</p>
+
+  <h2>What must be ready for compute to operate</h2>
+  <div class="chain">
+    <div class="hop"><div class="n">Computing hardware</div><div class="t">Accelerators, memory and advanced packaging feed into integrated servers, storage and networks.</div></div>
+    <div class="hop"><div class="n">Utility service</div><div class="t">The project needs a connection, any required network works, and deliverable firm power.</div></div>
+    <div class="hop"><div class="n">Electrical equipment</div><div class="t">Transformers, switchgear, uninterruptible power and backup must be installed and tested.</div></div>
+    <div class="hop"><div class="n">Facility and acceptance</div><div class="t">Permits, construction, cooling, hardware installation and integrated commissioning complete the phase.</div></div>
+  </div>
+  <p>Manufacturing concentration describes where capability sits. Scarcity concerns whether equipment can be delivered on time. A project constraint is a dependency that delays commissioning or limits usable IT capacity at a particular site. Cooling designs can require different amounts of water and equipment.</p>
+
+  <h2>Electricity demand and connection risk</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Electricity estimates and projections">
+    <table>
+      <caption>Annual electricity use by all data centres, in terawatt-hours</caption>
+      <thead><tr><th scope="col">Coverage</th><th scope="col">Year</th><th scope="col">TWh</th><th scope="col">Evidence</th><th scope="col">Source</th></tr></thead>
+      <tbody>
+$energy_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Berkeley Lab estimated the US historical values from equipment and shipment data. The IEA’s April 2026 projection puts global data centres at about 3% of world electricity use in 2030. In a separate 2025 analysis, the IEA estimated that grid constraints could delay around one-fifth of the global data-centre capacity planned for construction by 2030. The result refers to capacity at risk. $iea_grid.</p>
+  <p>The IEA’s April 2026 report also identified shortages of high-bandwidth memory, which it expected to persist through at least the end of 2027. It identified constraints in advanced chip manufacturing alongside pressure on electricity infrastructure. $iea_hardware.</p>
+  <details>
+    <summary>Global demand scenarios for 2035</summary>
+    <table>
+      <caption>IEA 2025 report, annual global data-centre electricity in TWh</caption>
+      <thead><tr><th scope="col">Scenario</th><th scope="col">TWh</th></tr></thead>
+      <tbody>
+$iea_scenarios
+      </tbody>
+    </table>
+    <p class="note">These cases vary adoption, efficiency and supply constraints. They show conditional outcomes. $iea_demand.</p>
+  </details>
+
+  <h2>What the transformer evidence shows</h2>
+  <p>The US Department of Energy reported that 36-month delivery quotes were common in 2024 for large power transformers, defined in the report as units rated at 100 MVA or more. Orders, delivery, installation and electrical acceptance are separate milestones. $doe_transformers.</p>
+  <p>The Atlas compares liquid-dielectric transformer trade across three rating bands, split at 650 and 10,000 kVA. It compares 2023–2024 against 2012–2020. The transformer gaps against motors, pumps and compressors are smaller than those against heavy machinery, and both electrical-equipment intervals include zero. The filed pre-trend rule also failed, so the comparison is descriptive. $grid_study.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Transformer trade comparisons">
+    <table>
+      <caption>Transformer trade estimates. Gaps are percentages. Intervals are in log points.</caption>
+      <thead><tr><th scope="col">Comparison</th><th scope="col">Measure</th><th scope="col">Gap</th><th scope="col">95% interval</th><th scope="col">p-value</th></tr></thead>
+      <tbody>
+$estimate_rows
+      </tbody>
+    </table>
+  </div>
+  <p>Wider electrification may be pulling on shared manufacturing and installation capacity. The trade evidence alone leaves this hypothesis open. Testing it would require order books, capacity and delivery times by equipment class and buyer sector. The same Atlas study reports China’s share of world export value for grain-oriented electrical steel rising from 12% in 2019 to 32% in 2024. This tracks sourcing of traded steel, while manufacturing capacity and access to qualified grades need other evidence. $buildout.</p>
+  <p class="note">The transformer study’s worldwide BACI data run through 2024. Its separate EU and US monthly evidence runs through July 2026. Those later records are importer data with different geographic coverage.</p>
+
+  <h2>Documented project gates</h2>
+  <div class="split case-grid">
+    <section class="panel">
+      <h3>Firm power in Memphis</h3>
+      <p>On 11 February 2026, the Tennessee Valley Authority board authorized 150 MW of additional firm power for a Memphis data-centre load, subject to contractual, financial and operating requirements. The approval identifies a utility milestone. The minutes give no commissioning date. $tva.</p>
+    </section>
+    <section class="panel">
+      <h3>Planning permission at Woodlands Park</h3>
+      <p>In Iver, England, the inspector recorded that the proposed operator had secured a grid connection. The council had refused permission, and the Secretary of State granted it on appeal on 9 July 2025. This identifies a separate permission gate. The decision gives no operational date. $planning.</p>
+    </section>
+  </div>
+
+  <h2>How the limiting activity can change</h2>
+  <p><strong>Illustrative schedule.</strong> The model starts one hypothetical phase in <time datetime="$assumed_start">$assumed_start</time>, with $target_mw MW of planned IT load. At an assumed design power usage effectiveness (PUE) of $design_pue, that requires $required_mw MW of facility power. The baseline assumes $firm_mw MW of firm power. The project uses accelerator-heavy computing with uninterruptible and backup power, and the calculation treats the phase as available after integrated tests.</p>
+  <p>Each task starts when its prerequisites finish. Procurement, utility work and construction can run in parallel. Commissioning follows electrical acceptance, installation of computing hardware and installation of cooling. The model gives the same date when a faster delivery leaves another task controlling the schedule.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Illustrative commissioning schedules">
+    <table>
+      <caption>Assumed schedules. Changes use the baseline except for accelerating a late transformer, which uses the late-transformer case.</caption>
+      <thead><tr><th scope="col">Scenario</th><th scope="col">Earliest month</th><th scope="col">Elapsed months</th><th scope="col">Activities on the critical path</th><th scope="col">Usable IT MW</th><th scope="col">Change</th></tr></thead>
+      <tbody>
+$scenario_rows
+      </tbody>
+    </table>
+  </div>
+  <p>$model_finding</p>
+  <p>Across $sensitivity_count combinations of assumed utility, transformer and memory durations, commissioning ranges from month $first_month to month $last_month. These combinations have no assigned probabilities. The cases describe what happens under different assumptions and use no surveyed project durations.</p>
+  <details>
+    <summary>How facility overhead changes usable power</summary>
+    <table>
+      <caption>Baseline firm power, varying the assumed design PUE</caption>
+      <thead><tr><th scope="col">Design PUE</th><th scope="col">Facility MW for target</th><th scope="col">Usable IT MW</th></tr></thead>
+      <tbody>
+$power_rows
+      </tbody>
+    </table>
+    <p class="note">Usable IT power is capped by installed equipment, cooling and firm service after facility overhead. MW measures power. Annual TWh would also require operating hours and utilization. Useful computing output depends on the hardware and workload.</p>
+  </details>
+  <p>See the <a href="README.md">methods and reproduction instructions</a>, <a href="deployment_assumptions.json">model inputs</a>, and <a href="out/data_centre_chain.json">scenario results and evidence</a>.</p>
+
+  <h2>Electronics in customs records</h2>
+  <p>The table shows nominal world export values and leading exporters. The worldwide series ends in 2024 in this release. The categories include multiple end uses, and exporting economies can re-export goods. The older nomenclature used for 2002–2016 lacks the selected processor line, so its historical value is unavailable there.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden>
+      <label for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0">
+    </div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="World electronics exports">
+      <table>
+        <caption>CEPII BACI V202601 world exports, <span id="trade-year" aria-live="polite">$trade_year</span></caption>
+        <thead><tr><th scope="col">Traded good</th><th scope="col">Nominal export value</th><th scope="col">Leading exporter</th><th scope="col">Scope</th></tr></thead>
+        <tbody id="trade-body">
+$trade_rows
+        </tbody>
+      </table>
+    </div>
+    <a href="out/data_centre_trade.json">Download yearly trade data</a>
+  </div>
+
+  <h2>Sources and interpretation</h2>
+  <p>The <a href="PRODUCTION.md">dated claim register</a> grades direct evidence and auditable calculations A, reported estimates B, indirect indicators C, and hypotheses or assumptions D. The public cases give examples of project gates. A representative estimate of delays would need matched project records with permit, equipment, utility and commissioning dates.</p>
+  <ul class="source-list">
+$source_items
+  </ul>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div>
+  <div><h4>Related research</h4><a href="../value-chains">All value chains</a><br><a href="../grid-chain/grid-chain">Electricity grid</a><br><a href="../silicon-chip/silicon-chain">Silicon to chips</a></div>
+  <div><h4>Evidence</h4><a href="out/data_centre_chain.json">Evidence JSON</a><br><a href="out/data_centre_trade.json">Trade JSON</a><br><a href="PRODUCTION.md">Claim register</a></div>
+  <div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
+</div></footer>
+<script>window.CHAIN_TRADE='out/data_centre_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body></html>

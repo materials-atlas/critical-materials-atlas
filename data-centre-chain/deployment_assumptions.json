@@ -1,0 +1,244 @@
+{
+  "version": "2026-11-24",
+  "evidence_type": "illustrative assumptions",
+  "project": {
+    "start_month": "2027-01",
+    "it_load_mw": 100,
+    "design_pue": 1.25,
+    "firm_power_mw": 125,
+    "cooling_it_limit_mw": 100,
+    "installed_it_mw": 100,
+    "workload": "Accelerator-heavy training and inference with required networking and storage. No throughput or utilization assumed.",
+    "reliability": "One commissioned phase with tested uninterruptible power and backup. Firm power is deliverable at the site under the assumed service agreement. No uptime or redundancy class is inferred."
+  },
+  "activities": [
+    {
+      "id": "permitting",
+      "label": "Permits and site approvals",
+      "months": 6,
+      "predecessors": []
+    },
+    {
+      "id": "utility_design",
+      "label": "Connection study and utility design",
+      "months": 6,
+      "predecessors": []
+    },
+    {
+      "id": "site_design",
+      "label": "Equipment and site engineering",
+      "months": 4,
+      "predecessors": []
+    },
+    {
+      "id": "utility_upgrades",
+      "label": "Utility connection works",
+      "months": 24,
+      "predecessors": [
+        "utility_design"
+      ]
+    },
+    {
+      "id": "firm_supply",
+      "label": "Firm power arrangement",
+      "months": 15,
+      "predecessors": [
+        "utility_design"
+      ]
+    },
+    {
+      "id": "transformer",
+      "label": "Transformer procurement",
+      "months": 16,
+      "predecessors": [
+        "site_design"
+      ]
+    },
+    {
+      "id": "distribution",
+      "label": "Switchgear and uninterruptible power",
+      "months": 12,
+      "predecessors": [
+        "site_design"
+      ]
+    },
+    {
+      "id": "backup",
+      "label": "Backup power procurement",
+      "months": 10,
+      "predecessors": [
+        "site_design"
+      ]
+    },
+    {
+      "id": "shell",
+      "label": "Shell and site construction",
+      "months": 15,
+      "predecessors": [
+        "permitting",
+        "site_design"
+      ]
+    },
+    {
+      "id": "electrical_install",
+      "label": "Electrical and backup installation",
+      "months": 5,
+      "predecessors": [
+        "shell",
+        "transformer",
+        "distribution",
+        "backup"
+      ]
+    },
+    {
+      "id": "cooling_equipment",
+      "label": "Cooling equipment procurement",
+      "months": 12,
+      "predecessors": [
+        "site_design"
+      ]
+    },
+    {
+      "id": "cooling_install",
+      "label": "Cooling installation",
+      "months": 4,
+      "predecessors": [
+        "shell",
+        "cooling_equipment"
+      ]
+    },
+    {
+      "id": "energization",
+      "label": "Connection and electrical acceptance",
+      "months": 1,
+      "predecessors": [
+        "utility_upgrades",
+        "firm_supply",
+        "electrical_install"
+      ]
+    },
+    {
+      "id": "logic",
+      "label": "Accelerator logic supply",
+      "months": 14,
+      "predecessors": []
+    },
+    {
+      "id": "hbm",
+      "label": "High-bandwidth memory supply",
+      "months": 16,
+      "predecessors": []
+    },
+    {
+      "id": "packaging",
+      "label": "Advanced packaging",
+      "months": 3,
+      "predecessors": [
+        "logic",
+        "hbm"
+      ]
+    },
+    {
+      "id": "servers",
+      "label": "Server integration and delivery",
+      "months": 3,
+      "predecessors": [
+        "packaging"
+      ]
+    },
+    {
+      "id": "rack_install",
+      "label": "Server and network installation",
+      "months": 4,
+      "predecessors": [
+        "servers",
+        "shell"
+      ]
+    },
+    {
+      "id": "commissioning",
+      "label": "Integrated commissioning",
+      "months": 2,
+      "predecessors": [
+        "energization",
+        "cooling_install",
+        "rack_install"
+      ]
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "baseline",
+      "label": "Baseline",
+      "durations": {}
+    },
+    {
+      "id": "faster_grid",
+      "label": "Faster utility works",
+      "durations": {
+        "utility_upgrades": 16
+      },
+      "compare_to": "baseline"
+    },
+    {
+      "id": "faster_transformer",
+      "label": "Faster transformer",
+      "durations": {
+        "transformer": 10
+      },
+      "compare_to": "baseline"
+    },
+    {
+      "id": "late_transformer",
+      "label": "Late transformer",
+      "durations": {
+        "transformer": 26
+      }
+    },
+    {
+      "id": "recover_transformer",
+      "label": "Accelerate the late transformer",
+      "durations": {
+        "transformer": 20
+      },
+      "compare_to": "late_transformer"
+    },
+    {
+      "id": "late_memory",
+      "label": "Late memory",
+      "durations": {
+        "hbm": 30
+      },
+      "compare_to": "baseline"
+    },
+    {
+      "id": "limited_power",
+      "label": "Reduced firm power",
+      "durations": {},
+      "firm_power_mw": 110,
+      "compare_to": "baseline"
+    }
+  ],
+  "sensitivity": {
+    "utility_upgrades": [
+      16,
+      24,
+      32
+    ],
+    "transformer": [
+      10,
+      16,
+      26
+    ],
+    "hbm": [
+      16,
+      24,
+      30
+    ]
+  },
+  "pue_sensitivity": [
+    1.15,
+    1.25,
+    1.4
+  ]
+}

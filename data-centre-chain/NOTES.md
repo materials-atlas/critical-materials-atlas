@@ -6,7 +6,7 @@ The main finding is that connected compute is a physical system. Accelerator sup
 - The 2035 values are scenarios, not a confidence interval or observed trend.
 - Server, storage, network and cooling electricity shares are illustrative. Cooling varies from roughly 7% to more than 30%; the listed values do not form a universal 100% balance.
 - IT MW excludes facility overhead; facility MW is not annual TWh; none of these directly measures tokens, queries or useful compute.
-- The US series uses DOE/LBNL endpoints for 2014 and 2023 and a 2028 range. Intermediate values are not interpolated.
+- The US values use modelled Berkeley Lab estimates for 2014 and 2023 and a 2028 scenario range.
 - Global physical electricity supply differs from contractual procurement claims.
-- HS 847150 does not isolate servers or GPUs. HS 850440 and 841950 are broad mixed-use converter and heat-exchange headings.
+- HS 847150 does not isolate servers. HS 854231 does not isolate AI accelerators, and the selected extract only provides this code from 2017.
 - Copper, aluminium, tin and rare-earth histories are economy-wide upstream context, not a data-centre bill of materials.

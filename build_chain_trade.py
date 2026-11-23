@@ -60,8 +60,8 @@ CHAINS = {
         "711049": {"title": "Platinum-group metals, semi-manufactured", "boundary": "A PGM basket that includes iridium; the specific iridium line cannot be isolated."},
     }),
     "data_centre": ("data-centre-chain", "data_centre", {
-        "847150": {"title": "Automatic data-processing units (servers)", "boundary": "Server hardware only; the binding inputs (electricity, grid connection) are not traded goods."},
-        "854231": {"title": "Electronic integrated circuits, processors", "boundary": "Processors; a chip chokepoint of their own (see the silicon-chip chain), shown as context."},
+        "847150": {"title": "Automatic data-processing units", "boundary": "Includes servers and other processing units. Customs data do not identify data-centre buyers."},
+        "854231": {"title": "Integrated circuit processors and controllers", "boundary": "Broad chip category. Coverage starts in 2017 in this extract, and the line cannot isolate AI accelerators."},
     }),
     "graphite": ("graphite-chain", "graphite", {
         "250410": {"title": "Natural graphite, powder or flakes", "boundary": "Raw flake; battery-anode-grade spherical graphite is not a separate customs line."},
