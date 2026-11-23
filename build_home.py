@@ -18,7 +18,7 @@ THE RULES THE PAGE FOLLOWS (decided by the owner, November 2026)
 
 WHAT IS CHECKED BEFORE THE PAGE IS WRITTEN
   "for most materials the largest exporter is not the largest miner"   out/origin_gap_all.json
-  "Switzerland was the largest exporter of gold and mined none"        out/origin_gap_all.json
+  "Germany was the largest exporter of strontium carbonate and mined none"   out/origin_gap_all.json
   "in most chains the most concentrated stage comes after the mine",
   "in a few it is the mine itself"                                     chokepoint_map.json
   the naive benchmark's hit rate, and "no model beats it reliably"     out/nowcast_bootstrap.json
@@ -105,9 +105,11 @@ if not 2 * n_gap > len(rows):
 n_gap_t = sum(bool(r['gap_tonnes']) for r in rows)
 if not 2 * n_gap_t > len(rows):
     raise SystemExit('home: "the result holds in tonnes" is no longer true')
-gold = next(r for r in rows if r['material'] == 'gold')
-if not (gold['top_exporter'] == 'CH' and gold['top_exporter_mine_share'] == 0):
-    raise SystemExit('home: the gold headline (Switzerland sells the most and mines none) is no longer true')
+# The opening example (23 Nov 2026: strontium carbonate replaced gold - a reviewer: gold is well known
+# and on few critical-materials lists). Refuse to publish the sentence if the store stops supporting it.
+lead = next(r for r in rows if r['material'] == 'strontium')
+if not (lead['top_exporter'] == 'DE' and lead['top_exporter_mine_share'] == 0):
+    raise SystemExit('home: the opening example (Germany sells the most strontium carbonate and mines none) is no longer true')
 
 chains = load('chokepoint_map.json')['rows']
 after_mine = sum(r['mechanism'] in ('thermodynamic', 'byproduct', 'capability') for r in chains)
@@ -135,8 +137,8 @@ sel = [r for r in rows if r['gap_value'] and r['gap_tonnes'] and steady(r)
 sel.sort(key=lambda r: (-r['top_exporter_share'], r['material']))
 if not 3 <= len(sel) <= 12:
     raise SystemExit('home: the chart rule keeps %d rows; the figure was designed for a handful' % len(sel))
-if gold not in sel:
-    raise SystemExit('home: gold is the headline but the chart rule no longer keeps it')
+if lead not in sel:
+    raise SystemExit('home: strontium carbonate is the opening example but the chart rule no longer keeps it')
 
 chart = []
 for r in sel:
@@ -249,7 +251,7 @@ PAGE = r'''<!doctype html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method" class="hideable">Method</a></nav>
+  <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method" class="hideable">Method</a></nav>
 </div></header>
 <main id="main">
 
@@ -261,7 +263,7 @@ PAGE = r'''<!doctype html>
 </div></div>
 
 <section><div class="wrap">
-  <h2>In @@YEAR@@ Switzerland was the largest exporter of gold and mined none of it.</h2>
+  <h2>In @@YEAR@@ Germany was the largest exporter of strontium carbonate and mined none of it.</h2>
   <p>It is not an exception. For most materials measured, the country that exports the most is not the country that mines the most. Often the seller is another mining country. In the cases below it is a refinery, a smelter or a trading hub in a country that mines almost none of the material.</p>
   <div class="fig" id="fig">
     <div class="legend"><span><i class="exp"></i>Largest exporter&rsquo;s share of world exports</span><span><i class="mine"></i>The same country&rsquo;s share of world mine production</span><span><i class="big"></i>Largest miner&rsquo;s share of world mine production</span></div>
@@ -314,7 +316,7 @@ PAGE = r'''<!doctype html>
 
 <section><div class="wrap">
   <h2>Method and data</h2>
-  <p>Every figure traces to a public source. The trade reconciliation is validated against the official CEPII series, each commodity carries a reliability grade, and errors found in review are published with their corrections. The code and the data are open.</p>
+  <p>Every figure traces to a public source. The trade reconciliation is checked against the official CEPII series, which starts from the same customs records; each commodity carries a reliability grade, and errors found in review are published with their corrections. The code and the data are open.</p>
   <ul class="plain">
     <li><a href="methodology">Methodology and validation</a></li>
     <li><a href="confidence">Reliability of each commodity</a></li>
@@ -328,7 +330,7 @@ PAGE = r'''<!doctype html>
 <footer class="lftr"><div class="wrap">
   <div class="cols">
     <div><h4>Critical Materials Atlas</h4><p style="margin:0;max-width:46ch">Independent public-data research on critical raw materials. Not affiliated with, nor representing, any institution.</p></div>
-    <div><h4>Navigate</h4><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></div>
+    <div><h4>Navigate</h4><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="reports">Reports</a><a href="method">Method</a></div>
     <div><h4>More</h4><a href="about">About</a><a href="updates">Updates</a><a href="data">Open data</a><a href="brief">One-page brief (PDF)</a><a href="https://github.com/materials-atlas/critical-materials-atlas">Source code</a><a href="mailto:contact@criticalmaterialsatlas.org">Contact</a></div>
   </div>
   <div class="fine">Sources: USGS Mineral Commodity Summaries, BGS World Mineral Statistics, World Mining Data, IEA Critical Minerals Outlook, UN Comtrade and CEPII BACI (Gaulier and Zignago 2010), Eurostat, World Bank. Figures are rounded.</div>

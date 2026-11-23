@@ -1,5 +1,5 @@
 /* Shared top navigation for the Critical Materials Atlas.
-   Phase-1 IA: five clear top-level destinations, each a real hub page (no hover mega-menus).
+   Phase-1 IA: four clear top-level destinations (23 Nov 2026: Atlas dropped, Analysis + Reports = Research), each a real hub page (no hover mega-menus).
    Phase-2 IA: a persistent header SEARCH box over an index of ~168 pages — the true replacement
    for a 58-link menu. The former dropdown links live as curated cards inside the Analysis/Method hubs.
    Rebuilds any <nav class="topnav"> and marks the active page.
@@ -8,9 +8,8 @@
 (function () {
   var LINKS = [
     ['explorer', 'Explore', false],
-    ['value-chains', 'Value Chains', false],
-    ['analysis', 'Analysis', false],
-    ['reports', 'Reports', false],
+    ['value-chains', 'Value chains', false],
+    ['analysis', 'Research', false],      // the analyses, with the reports listed at the top (23 Nov 2026)
     ['method', 'Method', true]
   ];
   var INDEX_URL = '/out/search-index.json';
@@ -37,7 +36,7 @@
   function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
 
   function build() {
-    var html = '<a href="./">Atlas</a>';
+    var html = '';                       // no "Atlas" item: the wordmark already leads home
     LINKS.forEach(function (l) {
       html += '<a href="' + l[0] + '"' + (l[2] ? ' class="hideable"' : '') + '>' + esc(l[1]) + '</a>';
     });
@@ -104,7 +103,8 @@
     nav.innerHTML = build();
     var here = (location.pathname.split('/').pop() || '').replace(/\.html$/, '');
     nav.querySelectorAll('a[href]').forEach(function (a) {
-      if (a.getAttribute('href') === here) a.classList.add('active');
+      var h = a.getAttribute('href');
+      if (h === here || (h === 'analysis' && (here === 'reports' || here.indexOf('report-') === 0))) a.classList.add('active');
     });
     wireSearch();
     scrollTables();

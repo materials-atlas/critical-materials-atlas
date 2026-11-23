@@ -254,7 +254,7 @@ PAGE = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+  <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · optimal transport on real trade flows</div>
@@ -401,7 +401,7 @@ drawMap();
 </main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="explorer.html">Explore</a><br><a href="value-chains.html">Value Chains</a><br><a href="analysis.html">Analysis</a><br><a href="reports.html">Reports</a><br><a href="method.html">Method</a></div>
+  <div><h4>Navigate</h4><a href="explorer.html">Explore</a><br><a href="value-chains.html">Value chains</a><br><a href="analysis.html">Research</a><br><a href="reports.html">Reports</a><br><a href="method.html">Method</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
   <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
 </div></footer>

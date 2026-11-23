@@ -155,7 +155,7 @@ HTML = r'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+  <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Time · 2002&ndash;2024</div>
@@ -198,7 +198,7 @@ HTML = r'''<!doctype html>
 </article>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>An independent demonstration from public data. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value chains</a><br><a href="analysis">Research</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI (HS02 + HS17)</div>
   <div class="fineprint">Pre-2017 is the HS02 BACI vintage spliced to the HS17 recent end. Shares over captured flows.</div>
 </div></footer>

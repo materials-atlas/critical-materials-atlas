@@ -183,7 +183,7 @@ out = f'''<!doctype html>
 </head><body>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+  <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav>
 </div></header>
 <section class="hero">{motif}<div class="wrap">
   <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="risk">Risk</a><a href="network">Network</a></nav>

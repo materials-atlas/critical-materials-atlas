@@ -122,7 +122,7 @@ HTML = f'''<!doctype html>
 <a class="skip" href="#main">Skip to content</a>
 <header class="topbar"><div class="wrap">
   <a class="wordmark" href="./"><span class="mark"></span>Critical Materials Atlas</a>
-  <nav class="topnav"><a href="./">Atlas</a><a href="explorer">Explore</a><a href="value-chains">Value Chains</a><a href="analysis">Analysis</a><a href="reports">Reports</a><a href="method">Method</a></nav>
+  <nav class="topnav"><a href="explorer">Explore</a><a href="value-chains">Value chains</a><a href="analysis">Research</a><a href="method">Method</a><a href="data">Download data</a></nav>
 </div></header>
 <main id="main">
 <section class="hero"><div class="wrap">
@@ -180,7 +180,7 @@ HTML = f'''<!doctype html>
 </main>
 <footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div>
-  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value chains</a><br><a href="analysis">Research</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>UN Comtrade · CEPII BACI</div>
   <div class="fineprint">Out-of-sample backtest of the nowcast premise; no model sees the year it predicts.</div>
 </div></footer>

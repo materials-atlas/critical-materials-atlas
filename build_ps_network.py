@@ -561,7 +561,7 @@ function syncURL(){ const p=new URLSearchParams(); const m=msel.property("value"
   else if(p.get("c")){ csel.property("value",p.get("c")); if(p.get("v"))vsel.property("value",p.get("v")); routeCountry(); } })();
 </script><footer class="siteftr"><div class="wrap">
   <div><h4>Critical Materials Atlas</h4>Public-data value-chain research. Not affiliated with, nor representing, any institution.</div>
-  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value Chains</a><br><a href="analysis">Analysis</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
+  <div><h4>Navigate</h4><a href="explorer">Explore</a><br><a href="value-chains">Value chains</a><br><a href="analysis">Research</a><br><a href="reports">Reports</a><br><a href="method">Method</a></div>
   <div><h4>Sources</h4>USGS · BGS · IEA<br>UN Comtrade · CEPII BACI · Eurostat · World Bank</div>
   <div class="fineprint">Independent public-data research; figures approximate and rounded.</div>
 </div></footer></body></html>'''
