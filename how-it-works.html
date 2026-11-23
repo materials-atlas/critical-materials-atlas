@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/how-it-works">
 <title>How the atlas works — Critical Materials Atlas</title>
-<meta name="description" content="The mechanism, not the summary: how two conflicting trade reports become one number, how a physical limit repairs a false origin, what each analysis takes in and puts out, and the five checks every figure passes before publication.">
+<meta name="description" content="The mechanism, not the summary: how two conflicting trade reports become one number, how a production rule repairs a false origin, what each analysis takes in and puts out, and the five checks every figure passes before publication.">
 <meta property="og:title" content="How the atlas works">
 <meta property="og:description" content="The actual mechanism behind each number: inputs, method, outputs, and the checks a figure must survive to be published.">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/how-it-works">
@@ -46,7 +46,7 @@
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · the mechanism</div>
   <h1>How the atlas works</h1>
-  <p class="deck">Not a summary of what each page shows &mdash; the actual machinery. How two countries reporting the same shipment differently become one number. How a physical limit catches a false origin. What every analysis takes in and puts out. And the five checks a figure must survive before it is published.</p>
+  <p class="deck">Not a summary of what each page shows &mdash; the actual machinery. How two countries reporting the same shipment differently become one number. How a production rule catches a false origin. What every analysis takes in and puts out. And the five checks a figure must survive before it is published.</p>
 </div></section>
 
 <article>
@@ -73,15 +73,16 @@
   </div></div>
 
   <div class="step"><div class="num">3</div><div>
-    <h3>Apply the physical limit</h3>
-    <p>Trade data says where a shipment came <i>from</i>, which is not the same as where the material was <i>produced</i> &mdash; a hub can export what it never mined. So the atlas imposes a physical constraint: a country cannot ship out more than it produced and did not itself consume.</p>
+    <h3>Apply the attribution rule</h3>
+    <p>Trade data says where a shipment came <i>from</i>, not where the material was <i>mined</i> &mdash; a refiner or a hub can export what it never mined. So the atlas applies an attribution rule: a country is credited as the mine origin of no more than it produced, minus what it used at home.</p>
+    <p>This is a rule of thumb, not a law of physics. It assumes a country serves its own use from its own mines first, so it can under-credit a country that both mines and imports. Only under-crediting of producers is corrected; anything else is flagged, not changed. Full method and results: <a href="anchor">the production-constrained anchor</a>.</p>
     <div class="formula">exportable(c)       = max(0, production(c) − consumption(c))
-exportable_share(c) = exportable(c) / Σ exportable        · the physical prior
-guardrailed(c)      = min(observed_share(c), exportable_share(c))   · HARD limit
+exportable_share(c) = exportable(c) / Σ exportable        · the production prior
+guardrailed(c)      = min(observed_share(c), exportable_share(c))   · attribution cap
 corrected(c)        ≈ w·guardrailed(c) + (1−w)·exportable_share(c)  · w = 0.5</div>
-    <p style="margin-top:.5rem">The weight <b>w</b> is how much we trust the trade record against the physical prior. It is set at 0.5 and documented as a knob, not a discovery &mdash; which means <b>a corrected share is the midpoint of a range, never a point finding</b>, and the pages say so.</p>
+    <p style="margin-top:.5rem">The weight <b>w</b> is how much we trust the trade record against the production prior. It is set at 0.5 and documented as a knob, not a discovery &mdash; which means <b>a corrected share is the midpoint of a range, never a point finding</b>, and the pages say so.</p>
     <div class="io"><div><div class="k">Input</div><div class="v">Reconciled flows + production + the consumption estimate from step 4</div></div>
-      <div><div class="k">Method</div><div class="v">Hard cap at what is physically exportable, then a documented blend</div></div>
+      <div><div class="k">Method</div><div class="v">Mine-origin credit capped at production minus home use, then a documented blend</div></div>
       <div><div class="k">Output</div><div class="v">Corrected origin shares with the size of each correction shown</div></div></div>
   </div></div>
 
@@ -128,7 +129,7 @@ demand(c, m)         = Σ over drivers  activity(c, driver) × intensity(m, driv
   <div class="layer"><h3>4 · Trade engine + anchor</h3>
     <div class="q">Which trade numbers do we actually believe?</div>
     <div class="io"><div><div class="k">In</div><div class="v">Both sides of every flow, from seven overlapping sources</div></div>
-      <div><div class="k">Method</div><div class="v">Steps 1&ndash;3 above: reconcile, de-duplicate, then constrain origin by what is physically exportable</div></div>
+      <div><div class="k">Method</div><div class="v">Steps 1&ndash;3 above: reconcile, de-duplicate, then cap mine-origin credit at production minus home use</div></div>
       <div><div class="k">Out</div><div class="v"><a href="anchor">The anchor</a> &mdash; corrected origin shares, each with the size of its correction</div></div></div></div>
 
   <div class="layer"><h3>5 · Concentration</h3>
