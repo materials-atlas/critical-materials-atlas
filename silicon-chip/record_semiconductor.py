@@ -48,7 +48,7 @@ SOURCES = {
     "sia_bcg_2024": {
         "title": "SIA/BCG, Emerging Resilience in the Semiconductor Supply Chain",
         "year": 2024,
-        "url": "https://web-assets.bcg.com/25/6e/7a123efd40199020ed1b4114be84/emerging-resilience-in-the-semiconductor-supply-chain-r.pdf#page=15",
+        "url": "https://www.semiconductors.org/wp-content/uploads/2024/05/Report_Emerging-Resilience-in-the-Semiconductor-Supply-Chain.pdf#page=15",
     },
     "semi_wafers_2016": {
         "title": "SEMI, Another Record Year for Silicon Wafer Shipment Volumes in 2015",
@@ -101,7 +101,7 @@ WAFER_SHIPMENTS = [
 # Share of global commercial fab capacity, 200 mm and above, expressed in
 # 300 mm-equivalent wafer starts per month. 2025 onward is a forecast.
 FAB_CAPACITY_SHARE = [
-    {"year": 1990, "US": 37, "Europe": 44, "Japan": 17, "Korea": 0, "Taiwan": 0, "China": 0, "Other": 2},
+    {"year": 1990, "US": 37, "Europe": 44, "Japan": 17, "Korea": 0, "Taiwan": 2, "China": 0, "Other": 0},  # Exhibit 7: the 1990 "2%" label is orange = Taiwan (was transcribed as Other)
     {"year": 1995, "US": 27, "Europe": 24, "Japan": 19, "Korea": 12, "Taiwan": 15, "China": 0, "Other": 3},
     {"year": 2000, "US": 19, "Europe": 25, "Japan": 16, "Korea": 13, "Taiwan": 22, "China": 0, "Other": 4},
     {"year": 2005, "US": 14, "Europe": 17, "Japan": 21, "Korea": 14, "Taiwan": 21, "China": 7, "Other": 7},
