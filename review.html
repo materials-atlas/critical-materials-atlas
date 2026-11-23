@@ -43,11 +43,11 @@
   <h2 class="sec">The three claims most worth attacking</h2>
 
   <div class="claim">
-    <h3>1 · The origin gap: &ldquo;the top exporter is not the top miner&rdquo; (17 of 32)</h3>
-    <p class="ev"><b>Where:</b> <a href="findings">findings</a>. <b>Data:</b> reconciled CEPII BACI trade vs USGS mine shares. <b>Reproduce:</b> <code>python build_origin_gap_units.py</code>. <b>Robustness already run:</b> the gap holds measured tonnes-vs-tonnes (17/17 survive), and in every case the top exporter is a genuine refiner, not a re-export hub (0/17). <b>Best attack:</b> we bound the transshipment artefact but do not fully <i>trace</i> ore-to-refined product-form differences; quantify how much of a given gap is refining vs. a customs product-code change.</p>
+    <h3>1 · The origin gap: &ldquo;the top exporter is not the top miner&rdquo;, in most materials</h3>
+    <p class="ev"><b>Where:</b> <a href="findings">findings</a>. <b>Data:</b> reconciled CEPII BACI trade vs world mine shares, one source per material. <b>Reproduce:</b> <code>python build_origin_gap_all.py</code>. <b>Robustness already run:</b> the gap holds measured tonnes-vs-tonnes (every material survives, and platinum is added), and counted in dollars the top exporter is a genuine refiner, not a re-export hub, in every case; counted in tonnes, platinum&rsquo;s top shipper is a Gulf entrepôt. <b>Best attack:</b> we bound the transshipment artefact but do not fully <i>trace</i> ore-to-refined product-form differences; quantify how much of a given gap is refining vs. a customs product-code change.</p>
   </div>
   <div class="claim">
-    <h3>2 · The mechanism taxonomy: &ldquo;only 4 of 58 chokepoints are geological&rdquo;</h3>
+    <h3>2 · The mechanism taxonomy: &ldquo;only a few chokepoints are geological&rdquo;</h3>
     <p class="ev"><b>Where:</b> <a href="chokepoint-map">Chokepoint Map</a> + <a href="report-mechanism-taxonomy">Report 04</a>. <b>What it is:</b> a classification of each chain&rsquo;s binding stage into seven mechanisms from process physics. <b>Best attack:</b> these are <i>assigned judgments</i>, not statistical inferences, and carry no uncertainty. Challenge specific assignments, or propose a mechanism the taxonomy misses; the classifier is a single JSON field per chain, so a re-classification is a one-line change to test.</p>
   </div>
   <div class="claim">
