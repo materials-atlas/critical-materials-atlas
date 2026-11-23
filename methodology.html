@@ -207,7 +207,7 @@ shows it is ~81% coal and construction minerals, not hidden criticals. This is w
 </ul>
 
 <h2 id="nowcast">Provisional 2025 — a self-built nowcast</h2>
-<p>BACI lags ~1.5 years, so for <b>2025</b> (flagged <b>2025*</b> on the slider) the atlas does not wait
+<p>BACI lags ~1.5 years, so for <b>2025</b> (labelled &ldquo;nowcast&rdquo; on the slider) the atlas does not wait
 for CEPII — it uses a nowcast built here from raw UN Comtrade. A small Python pipeline
 (<code>reconcile/</code>) replicates BACI's method: it pulls both mirror reports of every flow (exporter
 FOB, importer CIF), estimates CIF/FOB markups, weights each reporter by a <b>variance-components
@@ -226,7 +226,7 @@ run ~1.8× higher (current Comtrade has absorbed revisions and late filers since
 country which has not yet reported (e.g. bauxite, whose dominant Guinea→China flow China has not filed)
 is distorted. Treat 2025 as indicative, not measured. Every earlier year (2018–2024) is reconciled CEPII
 BACI, untouched by this.</p>
-<p><b>2026 (flagged 2026**) goes one step further — a directional scenario.</b> The year is barely
+<p><b>2026 (labelled &ldquo;scenario&rdquo;) goes one step further — a directional scenario.</b> The year is barely
 underway, so there is no annual data at all; only ~one quarter of monthly trade exists. Rather than
 invent a structure, it carries 2025's reconciled bilateral structure forward and scales each material by
 its <b>Q1-2026 vs Q1-2025 export momentum</b> (reporter-matched, from monthly Comtrade) blended with the
@@ -378,8 +378,8 @@ Sankey widths are <em>relative</em>, not dollar-precise. The earlier claim that 
 <i>uniform</i> multiplicative factor that &ldquo;cancels in shares by construction&rdquo; was <b>too strong and
 is retracted</b>: the two-year measurement above shows the offset falls unevenly on the leader, which is
 precisely why concentration needed correcting (reproducible: <code>build_level_bias_audit.py</code>,
-<code>build_hhi_correction.py</code>). <b>2025*</b> is provisional (partial reporting,
-level-calibrated to BACI; not independently validated until BACI 2025 is released). <b>2026**</b> is a
+<code>build_hhi_correction.py</code>). <b>2025</b> is provisional (partial reporting,
+level-calibrated to BACI; not independently validated until BACI 2025 is released). <b>2026</b> is a
 directional scenario (Q1 momentum, shares held at 2025) — a trend signal, not a measurement.</p>
 
 <h2>Analytical layers &amp; trend analysis</h2>

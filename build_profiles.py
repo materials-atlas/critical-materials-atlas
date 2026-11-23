@@ -532,7 +532,7 @@ def page(m):
         year_blocks[y] = tb or '<p class="note">No reconciled trade recorded for this year.</p>'
     flows = _saved_flows
 
-    def _ylab(y): return f'{y}*' if y == 2025 else f'{y}**' if y == 2026 else str(y)
+    def _ylab(y): return f'{y} nowcast' if y == 2025 else f'{y} scenario' if y == 2026 else str(y)
     if sw_years:
         items = [(_ylab(y), year_blocks[y]) for y in sw_years]
         trade_block = year_slider(f'tr-{label}', items, sw_years.index(default_y))
@@ -577,7 +577,7 @@ def page(m):
   <p>{(f'<b>{m.get("recycling")}%</b> of supply comes from recycling end-of-life products' + (' — a meaningful secondary source that lowers the supply-risk score.' if (m.get("recycling") or 0) >= 15 else ('.' if (m.get("recycling") or 0) > 0 else ' — there is essentially no end-of-life recycling, so a disruption has no secondary cushion.'))) if m.get('recycling') is not None else 'No reliable recycling figure.'} {('Substitutability is <b>' + str(m.get('substitutability')) + '</b>' + (' — few or no alternatives, so a disruption bites hard.' if m.get('substitutability')=='high' else (' — good alternatives exist.' if m.get('substitutability')=='low' else ' — partial substitutes exist.')) ) if m.get('substitutability') else ''}</p>
   <h2>● Traded — who ships it</h2>
   {shared_flag}
-  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. Pick a year below — <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025* nowcast, 2026** directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
+  <p class="note" style="margin:.15rem 0 .5rem">Actual bilateral trade of the traded form, reconciled from UN Comtrade / CEPII BACI. Pick a year below — <span style="color:var(--faint);font-weight:600">2018–2024 measured, 2025 a nowcast, 2026 a directional scenario</span>. The full 2002–2026 range is on the <a href="./#view=flow&amp;mat={e(label)}">interactive atlas</a>.</p>
   {trade_block}
   {note_block}
   <div class="btnrow">

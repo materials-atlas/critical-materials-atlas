@@ -294,20 +294,20 @@
     <option value="diff">sort: mined ≠ exporter ↓</option>
     <option value="name">sort: name A–Z</option>
   </select>
-  <select id="cmpyr" title="Compare the current year against an earlier year — shows each top exporter's share change (Δpp)">
-    <option value="">Δ compare: off</option>
-    <option value="2002">Δ vs 2002</option>
-    <option value="2010">Δ vs 2010</option>
-    <option value="2018">Δ vs 2018</option>
-    <option value="2020">Δ vs 2020</option>
-    <option value="2022">Δ vs 2022</option>
-    <option value="2023">Δ vs 2023</option>
-    <option value="2024">Δ vs 2024</option>
+  <select id="cmpyr" title="Compare the current year against an earlier year — shows each top exporter's share change, in percentage points">
+    <option value="">Compare with: off</option>
+    <option value="2002">Change since 2002</option>
+    <option value="2010">Change since 2010</option>
+    <option value="2018">Change since 2018</option>
+    <option value="2020">Change since 2020</option>
+    <option value="2022">Change since 2022</option>
+    <option value="2023">Change since 2023</option>
+    <option value="2024">Change since 2024</option>
   </select>
   <button id="permalink" type="button" class="toolbtn" title="Copy a link to this exact view (material, year, country)">🔗 Link</button>
   <button id="csv" type="button" class="toolbtn" title="Download the table (all metrics) as CSV">⬇ CSV</button>
 </nav>
-<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut" title="2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024). Mine / refine / reserves are undated reference.">— <b>2024</b> newest complete · <b>2025*</b> <a href="methodology#nowcast">nowcast</a> · <b>2026**</b> <a href="methodology#nowcast">scenario</a></span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025* provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026** directional scenario ▶</button></div></div>
+<div id="yearbar">trade year <input type="range" id="yr" min="2002" max="2025" step="1" value="2024" title="Trade year" aria-label="Trade year"><b id="yr-val">2024</b><span class="ymut" title="2002–2024 = reconciled CEPII BACI (HS02 vintage through 2016, HS17 for 2017–2024). Mine / refine / reserves are undated reference.">— <b>2024</b> newest complete · <b>2025</b> <a href="methodology#nowcast">nowcast</a> · <b>2026</b> <a href="methodology#nowcast">scenario</a></span><span id="yr-prov" style="display:block;color:#b35e16;font-weight:600;font-size:.8rem;margin-top:.25rem"></span><span id="yr-event" style="display:block;color:#5b6bb0;font-size:.78rem;margin-top:.2rem"></span><div id="yr-tiers"><span class="t-meas">◀ 2002–2024 · measured (reconciled BACI)</span><span class="t-prov">2025 provisional</span><button id="show2026" type="button" class="t-dir" title="2026 is a directional scenario (Q1 momentum), not measured trade — click to add it to the slider">+ 2026 directional scenario ▶</button></div></div>
 
 <main id="main">
   <div id="view-table" class="view">
@@ -535,7 +535,7 @@ fetch('out/data.json').then(r=>r.json()).then(d=>{
   document.querySelectorAll('.tabs button[data-view]').forEach(x=>{var a=x.dataset.view===VIEW;x.classList.toggle('active',a);x.setAttribute('aria-pressed',a);});
   ['table','map','globe','sankey','ask'].forEach(k=>{ const el=$('#view-'+k); if(el) el.classList.toggle('hidden',k!==VIEW); });
   ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.value=FILL_MODE; });
-  if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026** added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
+  if(String(FLOWS_YEAR)!=='2024'){ const yr=$('#yr'); if(yr){ if(String(FLOWS_YEAR)==='2026'){ yr.max='2026'; const b=$('#show2026'); if(b){ b.disabled=true; b.textContent='2026 scenario added — slide to compare'; } } yr.value=FLOWS_YEAR; } }
   populateMatSelectors();
   renderTable();
   if(VIEW==='map') initMap(); else if(VIEW==='globe') initGlobe(); else if(VIEW==='sankey') initSankey(); else if(VIEW==='ask') initAsk();
@@ -846,7 +846,7 @@ function ensureFlows(cb){ if(FLOWS && FLOWS._year===FLOWS_YEAR){cb();return;}
   if(FLOWS_CACHE[FLOWS_YEAR]){ FLOWS=FLOWS_CACHE[FLOWS_YEAR]; populateDestSelectors(); cb(); return; }
   fetch('out/flows_'+FLOWS_YEAR+'.json').then(r=>r.json()).then(d=>{ d._year=FLOWS_YEAR; FLOWS_CACHE[FLOWS_YEAR]=d; FLOWS=d; populateDestSelectors(); cb(); })
     .catch(()=>{ FLOWS={year:FLOWS_YEAR,_year:FLOWS_YEAR,centroids:{},names:{},iso:{},materials:{}}; cb(); }); }
-function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026**':String(y)==='2025'?'2025*':y); if(typeof syncURL==='function') syncURL();
+function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textContent=(String(y)==='2026'?'2026 scenario':String(y)==='2025'?'2025 nowcast':y); if(typeof syncURL==='function') syncURL();
   const ev=$('#yr-event'); if(ev) ev.innerHTML=POLICY_EVENTS[String(y)]?('▸ <b>'+y+'</b> — '+POLICY_EVENTS[String(y)]):'';
   ensureFlows(()=>{ const pv=$('#yr-prov'); if(pv) pv.innerHTML=
       (FLOWS&&FLOWS.nowcast_kind==='directional-q1')
@@ -857,7 +857,7 @@ function setYear(y){ FLOWS_YEAR=String(y); const v=$('#yr-val'); if(v) v.textCon
     renderTable(); if(VIEW==='map') renderMap(); else if(VIEW==='globe') renderGlobe(); else if(VIEW==='sankey') buildSankey(); }); }
 { const _yr=$('#yr'); if(_yr) _yr.addEventListener('input', e=>setYear(e.target.value)); }
 { ['#map-fill','#globe-fill'].forEach(id=>{ const s=$(id); if(s) s.onchange=()=>setFill(s.value); }); }
-{ const b=$('#show2026'); if(b) b.onclick=()=>{ const yr=$('#yr'); yr.max='2026'; yr.value='2026'; setYear('2026'); b.textContent='2026** added — slide to compare'; b.disabled=true; }; }
+{ const b=$('#show2026'); if(b) b.onclick=()=>{ const yr=$('#yr'); yr.max='2026'; yr.value='2026'; setYear('2026'); b.textContent='2026 scenario added — slide to compare'; b.disabled=true; }; }
 function fname(iso){ return cname(iso); }
 function fcoord(iso){ if(COUNTRY[iso]) return [COUNTRY[iso].lat,COUNTRY[iso].lng];
   if(FLOWS&&FLOWS.centroids&&FLOWS.centroids[iso]) return FLOWS.centroids[iso]; return null; }

@@ -155,6 +155,7 @@ def main():
   <div class="eyebrow">Index · supply risk</div>
   <h1>Supply-risk index</h1>
   {headline('modelled')}
+  <p style="margin:.55rem 0 0;font-size:.85rem;opacity:.92">A fixed ranking, kept because the material profiles quote its score. <a href="risk-index" style="color:inherit;text-decoration:underline">The adjustable risk index</a> lets you choose the weights.</p>
   <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>
   <p class="deck">Concentration is not vulnerability. The index measures how concentrated supply is and how exposed buyers are. It does not see stocks, substitutes, or how long a new supplier takes to qualify, because no public data covers them.</p>
 </div></section>

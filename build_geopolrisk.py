@@ -232,6 +232,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · concentration · GeoPolRisk</div>
   <h1>In tonnes, the sharpest concentration is gallium and germanium</h1>
+  <p style="margin:.55rem 0 0;font-size:.85rem;opacity:.92">Kept as a method reference. <a href="risk-index" style="color:inherit;text-decoration:underline">The adjustable risk index</a> now has the tonnes basis and governance weighting as switches.</p>
   <p class="deck">Measured the field&rsquo;s way &mdash; physical production tonnes, weighted by governance &mdash; the most dangerously concentrated supply is <b>gallium, germanium, niobium, cobalt and tungsten</b>. And the unit matters: scoring in dollars would overstate boron, feldspar and beryllium, whose value-concentration far exceeds their tonnage. Most of this atlas scores concentration from <i>trade dollars</i> — the number the engine itself calls its most attackable choice. The field&rsquo;s standard (EU Critical Raw Materials, the GeoPolRisk indicator) instead uses <b>physical production tonnes, weighted by governance</b>. This page computes that from the World Mining Data tonnages, and lays value, volume and production side by side to show exactly where the dollar view misleads.</p>
 </div></section>
 <article style="max-width:1040px">
