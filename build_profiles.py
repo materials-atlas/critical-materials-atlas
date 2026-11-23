@@ -434,7 +434,7 @@ def page(m):
     stats = []
     if RISK.get(label): stats.append((f'{RISK[label]["score"]}<span style="color:var(--faint);font-weight:600">/100</span>', 'supply-risk index'))
     if m.get('reserve_life'): stats.append((f'{m["reserve_life"]}<span style="color:var(--faint);font-weight:600"> yr</span>', 'reserve life (reserves ÷ mining)'))
-    if m.get('host'): stats.append(('<span style="color:#7a5cff">⚗ by-product</span>', f'of {e(m["host"])}'))
+    if m.get('host'): stats.append(('<span style="color:#7a5cff">⚗ by-product</span>', f'of {m["host"]}'))      # _stat escapes it once
     if m.get('export_control'): stats.append(('<span style="color:#e0703c">⚠ controlled</span>', e(m['export_control'])))
     if m.get('net_import_reliance'): stats.append((e(m['net_import_reliance']), 'US import reliance'))
     if rv: stats.append((f'{flag(rv["c"])} {cname(rv["c"])}', f'lead reserves · {rv["v"]:.0f}%'))

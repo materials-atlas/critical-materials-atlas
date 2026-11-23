@@ -15,6 +15,7 @@
   var INDEX_URL = '/out/search-index.json';
 
   var CSS = [
+    '.topnav a.cta{display:inline;background:none;border:0;border-radius:0;padding:0;margin:0}',   // a page's own .cta box must not catch the menu link
     '.topnav .navsearch{position:relative;margin-left:.6rem}',
     '.topnav .navsearch input{font:inherit;font-size:.82rem;width:9.5rem;max-width:38vw;padding:.32rem .6rem .32rem 1.7rem;border:1px solid var(--line,#e3e9e8);border-radius:8px;background:var(--bg-soft,#eef3f2) url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'14\' height=\'14\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'%237a8a87\' stroke-width=\'2\'%3E%3Ccircle cx=\'11\' cy=\'11\' r=\'7\'/%3E%3Cpath d=\'M21 21l-4.3-4.3\'/%3E%3C/svg%3E") .5rem center/14px no-repeat;color:var(--ink,#1f2d2b);outline:none;transition:width .15s,border-color .15s}',
     '.topnav .navsearch input:focus{width:15rem;border-color:var(--accent,#0e7c74)}',

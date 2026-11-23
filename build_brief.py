@@ -130,6 +130,8 @@ out = f'''<!doctype html>
   <a href="./">Interactive atlas</a> · <a href="findings.html">The origin gap</a> · <a href="trends.html">Trends</a> · <a href="technical-note.html">Technical note</a> · <a href="https://github.com/materials-atlas/critical-materials-atlas">Reconciliation engine</a>
 </footer>
 </body></html>'''
+from site_style import add as _calm      # the site-wide calm banner (screen only)
+out = _calm(out)
 open(os.path.join(ROOT, 'brief.html'), 'w', encoding='utf8', newline='\n').write(out)
 print(f'wrote brief.html — origin-gap {mismatch}/{len(MATS)}, sig-rising {len(sig)} ({brk} break 2012-16), '
       f'China throughput {c0:.0f}->{c1:.0f}%, no-way-out {len(nwo)} ({nwo_cn} China)')
