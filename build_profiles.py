@@ -12,6 +12,7 @@ import json, os, html, glob
 ROOT = os.path.dirname(os.path.abspath(__file__))
 YEAR = os.environ.get('PROFILE_YEAR', '2024')
 import shared_code
+from evidence import badge, tagify, plain
 SHARED_HS6 = shared_code.SHARED     # gallium, germanium, hafnium: one basket in the world trade file
 BASKET_TITLE = 'Gallium, germanium and hafnium (one shared customs code)'
 
@@ -221,7 +222,7 @@ def layer_para(m, layer, nm):
                  if m.get('label') in MINED_SRC else 'USGS 2024 · 2023 production')
     src = {'reserves': 'USGS 2024 · reserves as of 2023',
            'mined': mined_src,
-           'refined': (e(m['refined_source']) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
+           'refined': (tagify(e(m['refined_source'])) if m.get('refined_source') else 'leading refiner only — fuller breakdown not publicly reported')}[layer]
 
     if layer == 'reserves':
         b = ("<b>Reserves</b> are the deposits known to exist and economically worth mining — the long-run ceiling on "
@@ -371,7 +372,7 @@ def share_stat(kind, pt, src, basis, rng):
                 f'(unsourced)</span>')
     if basis == 'estimate':
         core = f'{rng[0]}–{rng[1]}%' if rng else f'~{pt:.0f}%'
-        label, note = f'{kind} · {core}', 'estimate'
+        label, note = f'{kind} · {core}', ''
     else:
         rep = _re.search(r'share of (\d+) reporting', src or '')
         label = f'{kind} · {pt:.0f}%'
@@ -385,6 +386,11 @@ def share_stat(kind, pt, src, basis, rng):
             note = ''
     if note:
         label += f' <span style="color:var(--faint);font-weight:600">({note})</span>'
+    # the kind of figure (evidence.py): only where the store says it - never guessed
+    ev = ('estimated' if basis == 'estimate' or '[estimate]' in (src or '')
+          else 'observed' if basis in ('cited', 'reporters') or '[measured]' in (src or '') else None)
+    if ev:
+        label += ' ' + badge(ev)
     return label
 
 
@@ -445,9 +451,9 @@ def page(m):
     if texp: stats.append((f'{ehhi:.2f}', f'export concentration{_sc} (HHI)'))
     def _stat(s):
         # s = (value, label, [provenance tooltip]); label may carry safe markup from share_stat
-        tip = f' title="{e(s[2])}"' if len(s) > 2 and s[2] else ''
+        tip = f' title="{e(plain(s[2]))}"' if len(s) > 2 and s[2] else ''
         cue = '<span style="color:var(--faint);cursor:help"> ⓘ</span>' if len(s) > 2 and s[2] else ''
-        lab = s[1] if '<span' in str(s[1]) else e(s[1])
+        lab = s[1] if ('<span' in str(s[1]) or 'how-it-works#evidence' in str(s[1])) else e(s[1])
         return f'<div class="stat"{tip}><div class="n">{s[0]}</div><div class="l">{lab}{cue}</div></div>'
     stat_html = ''.join(_stat(s) for s in stats)
 

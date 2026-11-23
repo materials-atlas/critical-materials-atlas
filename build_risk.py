@@ -19,6 +19,7 @@ data = json.load(open(os.path.join(ROOT, 'out', 'data.json'), encoding='utf8'))
 flows = json.load(open(os.path.join(ROOT, 'out', f'flows_{YEAR}.json'), encoding='utf8'))
 NAMES = flows.get('names', {})
 import shared_code
+from evidence import headline
 SHARED = shared_code.SHARED
 W = {'production': 0.30, 'refining': 0.25, 'trade': 0.25, 'opacity': 0.20}
 
@@ -153,6 +154,7 @@ def main():
   <nav class="related" aria-label="Related pages"><span>Related</span><a href="methodology">Methodology</a><a href="findings">Findings</a><a href="profiles">Profiles</a><a href="scenarios">Scenarios</a></nav>
   <div class="eyebrow">Index · supply risk</div>
   <h1>Supply-risk index</h1>
+  {headline('modelled')}
   <p class="deck">One 0–100 score per material — but never a black box. It is an explicit weighted blend of four visible components, shown as a bar on every row. Reweight them yourself; the raw numbers are in the open data.</p>
   <p class="deck">Concentration is not vulnerability. The index measures how concentrated supply is and how exposed buyers are. It does not see stocks, substitutes, or how long a new supplier takes to qualify, because no public data covers them.</p>
 </div></section>

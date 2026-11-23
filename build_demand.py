@@ -29,6 +29,7 @@ TITLE = {m['label']: CO.get(m['label'], {}).get('title', m['title'].split(' (')[
 # the minerals it covers we COMPUTE g = total demand 2040 / 2024 in each scenario and carry the whole band
 # (STEPS = low, APS = central, NZE = high) instead of a curated point. Only 6 minerals have a total-demand
 # series; sheet 3.2 covers ~37 but clean-tech demand only (a different metric), so it is not used for g.
+from evidence import headline
 import iea_cube   # IEA demand from the published cube (replaces the hand-derived iea_demand_*.csv)
 IEA_G = {}
 for _r in iea_cube.demand_scenarios():
@@ -189,6 +190,7 @@ HTML = r'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · demand · the squeeze</div>
   <h1>The squeeze falls on gallium, germanium, vanadium</h1>
+  __EVLINE__
   <p class="deck">Lithium demand could rise <b>5.9&times;</b> by 2040 &mdash; the biggest multiple here &mdash; but demand growth alone is not the squeeze. Cross it with supply that <i>cannot respond</i>, and the structural squeeze lands on <b>gallium, germanium and vanadium</b>: high pull, and no way to add supply quickly. Every other page here measures <i>supply</i>. This one turns around: which technologies &mdash; batteries, magnets, chips, solar, the grid &mdash; pull hardest on each material, and how fast that pull is growing. Then the synthesis that makes it bite: cross demand growth with <a href="companionality" style="color:#fff;text-decoration:underline">supply elasticity</a>, and the materials in real trouble separate from the ones that just need more mines.</p>
 </div></section>
 <article style="max-width:1040px">
@@ -303,5 +305,6 @@ Promise.all([fetch('out/demand.json').then(r=>r.json()),
 });
 </script>
 </body></html>'''
+HTML = HTML.replace('__EVLINE__', headline('modelled'))
 open(os.path.join(ROOT, 'demand.html'), 'w', encoding='utf8', newline='\n').write(HTML)
 print('wrote demand.html')
