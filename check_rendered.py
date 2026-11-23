@@ -39,7 +39,9 @@ import threading
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SKIP_DIRS = ('raw', 'node_modules', 'pipeline')
-BAD = re.compile(r'\b(undefined|NaN)\b|\[object Object\]')
+# A word right after an opening quotation mark is prose ABOUT the fault (the Updates page reports
+# pages that printed "undefined"), not the fault itself: a page script never prints the quote mark.
+BAD = re.compile(r'(?<![“"\'])\b(undefined|NaN)\b|\[object Object\]')
 
 # A page may legitimately print one of the words (prose about an "undefined" quantity). List it here
 # with the reason, as  'page.html': 'reason'.  Empty on purpose: nothing needs it today.
