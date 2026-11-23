@@ -97,11 +97,33 @@ def own_share(c, listed, src, full, full_src):
 
 MINED = json.load(open(os.path.join(ROOT, 'out', 'mined_shares.json'), encoding='utf8'))
 
-# ---- the atlas's own materials: the original test, unchanged ----
+# Two atlas materials whose code does not measure, on the WORLD side, what the mine side measures.
+# Both checked 23 Nov 2026 against the CEPII product list (raw/baci/product_codes_HS17_V202601.csv)
+# and the Eurostat CN labels, after an outside review doubted them; the change was approved by the owner.
+# - Natural graphite: the atlas's code, HS 250490, is "in other forms, excluding powder or flakes" -
+#   the small line (world 2024 $52M). Powder and flakes, HS 250410, is about nine times larger. Here the
+#   world test reads BOTH lines from BACI, i.e. all natural graphite, against natural-graphite mining.
+#   The rest of the atlas still reads 250490: the trade engine's codes feed the pre-registered 2025
+#   test (reconcile/PREREGISTRATION.md), so they change only after that test is scored.
+# - Coking coal: the world file has one code, HS 270112, for ALL bituminous coal (coking and steam coal
+#   together); only the EU's 8-digit CN separates coking coal (27011210). Set against coking-coal mining
+#   it compares two different things, so it is left out of the world test; the EU series is unaffected.
+WORLD_CODES = {'graphite': ('250410', '250490')}
+WORLD_FORM = {'graphite': 'HS 2504 10 + 2504 90, all natural graphite'}
+EXCLUDED['coking coal'] = ('the world trade file has one code (HS 270112) for all bituminous coal, coking '
+                           'and steam coal together, so it cannot be set against coking-coal mining')
+bw = baci.year(YEAR, codes=sorted({c for v in WORLD_CODES.values() for c in v}), iso='iso2',
+               nom='HS17').rename(columns={'i_iso': 'exp'})
+
+# ---- the atlas's own materials: the original test ----
 for m in data['materials']:
-    if m['label'] in shared_code.SHARED:
+    if m['label'] in shared_code.SHARED or m['label'] == 'cokingcoal':
         continue
-    a = flows.get('materials', {}).get(m['label']) or []
+    if m['label'] in WORLD_CODES:
+        t = bw[bw.k.isin(WORLD_CODES[m['label']])]
+        a = [{'from': e, 'value': v, 'qty': q} for e, v, q in zip(t.exp, t.v, t.q)]
+    else:
+        a = flows.get('materials', {}).get(m['label']) or []
     mi = (m.get('mined') or [None])[0]
     if not a or not mi:
         continue
@@ -120,7 +142,8 @@ for m in data['materials']:
     else:
         own = next((float(x['v']) for x in m['mined'] if x['c'] == tev), None)
         msrc = own_src = 'atlas mined list, kept by hand (no mine-production source covers it)'
-    rows.append({'material': m['label'], 'title': t.split(' (')[0], 'form': t[t.find('(') + 1:-1] if '(' in t else '',
+    rows.append({'material': m['label'], 'title': t.split(' (')[0],
+                 'form': WORLD_FORM.get(m['label']) or (t[t.find('(') + 1:-1] if '(' in t else ''),
                  'set': 'atlas', 'mine_source': msrc,
                  'top_miner': mi['c'], 'top_miner_share': float(mi['v']),
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),

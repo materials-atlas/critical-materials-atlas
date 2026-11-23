@@ -490,6 +490,21 @@ def page(m):
                    '<b>the same on all three profiles and cannot be separated</b>: every seller, buyer and concentration '
                    'figure below describes the basket, not this material. The mine, refine and reserve layers above '
                    '<i>are</i> material-specific.</div>') if shared else ''
+    # Two codes that cover less, or more, than the material (checked 23 Nov 2026 against the CEPII product
+    # list and the Eurostat CN labels). The trade engine keeps them until the pre-registered 2025 test
+    # is scored, because its codes feed that test; the page says what the figures cover meanwhile.
+    CODE_FLAG = {
+        'graphite': ('<b>The trade figures below cover the smaller of the two natural-graphite lines.</b> '
+                     'They are HS 2504 90, natural graphite &ldquo;in other forms&rdquo; (about $50 million of world '
+                     'trade in 2024). Graphite in powder or flakes, the battery form, is HS 2504 10 and about nine '
+                     'times larger; it is not in these tables. China leads both lines. The atlas will count both '
+                     'once its pre-registered 2025 test is scored.'),
+        'cokingcoal': ('<b>The world trade figures below include steam coal.</b> The world trade file has one '
+                       'code, HS 2701 12, for all bituminous coal, coking and steam coal together; only the EU&rsquo;s '
+                       '8-digit code (CN 2701 12 10) separates coking coal. The EU import figures are coking coal only.'),
+    }
+    if m['label'] in CODE_FLAG:
+        shared_flag += ('<div class="callout" style="border-color:#c08a2b66">' + CODE_FLAG[m['label']] + '</div>')
 
     note = e(m.get('note') or '').strip()
     note_block = f'<h2>Context</h2><p>{note}</p>' if note else ''
