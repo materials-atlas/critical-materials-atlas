@@ -45,7 +45,7 @@ SOURCES = {
 }
 
 ENERGY = [
-    {"scope": "United States", "period": "2014", "twh": 58, "kind": "Historical estimate",
+    {"scope": "United States", "period": "2014", "twh": 60, "kind": "Historical estimate",  # report text: "about 60 TWh" for 2014-2016 (58 was read off Figure ES-1)
      "source": "doe_lbnl"},
     {"scope": "United States", "period": "2023", "twh": 176, "kind": "Historical estimate",
      "source": "doe_lbnl"},
