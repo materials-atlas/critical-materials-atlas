@@ -149,6 +149,7 @@ for m in data['materials']:
                  'top_exporter': tev, 'top_exporter_share': round(tevs, 1),
                  'top_exporter_tonnes': teq, 'top_exporter_share_tonnes': tev_q,
                  'top_exporter_mine_share': own, 'top_exporter_mine_share_source': own_src,
+                 'top_miner_export_share': share_of(((f['from'], f['value']) for f in a), mi['c']),
                  'gap_value': tev != mi['c'], 'gap_tonnes': teq is not None and teq != mi['c']})
 
 # ---- every other material with mine and trade data: codes frozen in codes.json ----
@@ -189,8 +190,19 @@ for mat, d in MATS.items():
                  'top_exporter_tonnes': teq, 'top_exporter_share_tonnes': tev_q,
                  'top_exporter_mine_share': None if own is None else round(own, 1),
                  'top_exporter_mine_share_source': own_src,
+                 'top_miner_export_share': share_of(zip(t.exp, t.v), tm),
                  'gap_value': tev != tm, 'gap_tonnes': teq is not None and teq != tm})
 
+# Two kinds of gap, described, not explained (list item 4, 24 Nov 2026). An outside review: "the top
+# exporter is not the top miner" was being read as "a refiner sells it", but often the seller is itself
+# a sizeable miner. 5% of world mine output is the line, as in the reviewer's count.
+for r in rows:
+    own = r.get('top_exporter_mine_share')
+    r['gap_kind'] = (None if not r['gap_value'] else 'unknown' if own is None
+                     else 'seller mines almost none' if own < 5 else 'seller is another miner')
+n_kind = {k: sum(1 for r in rows if r['gap_kind'] == k) for k in ('seller mines almost none', 'seller is another miner', 'unknown')}
+if not (n_kind['seller mines almost none'] and n_kind['seller is another miner']):
+    raise SystemExit('origin gap: the page describes TWO kinds of gap and one is now empty (%s) - reword it' % n_kind)
 n_gap = sum(r['gap_value'] for r in rows)
 n_gap_t = sum(r['gap_tonnes'] for r in rows)
 def is_hub(r):   # a re-export hub that mines (almost) none of the material itself
@@ -203,7 +215,7 @@ if not (2 * n_gap > len(rows) and 2 * n_gap_t > len(rows)):
     raise SystemExit('origin gap is no longer a majority (%d value, %d tonnes, of %d measured): the "most materials" '
                      'wording on the site is now false - rewrite it on every page that carries it' % (n_gap, n_gap_t, len(rows)))
 out = {'year': YEAR, 'spec': 'origin-gap-all/codes.json', 'excluded': EXCLUDED,
-       'n_gap_value': n_gap, 'n_gap_tonnes': n_gap_t, 'n_gap_value_hub_exporter': n_gap_hub,
+       'n_gap_value': n_gap, 'n_gap_tonnes': n_gap_t, 'n_gap_value_hub_exporter': n_gap_hub, 'n_gap_kind': n_kind,
        'n_atlas_gap': sum(r['gap_value'] for r in rows if r['set'] == 'atlas'),
        'n_widened_gap': sum(r['gap_value'] for r in rows if r['set'] == 'widened'),
        'rows': rows}
@@ -222,11 +234,16 @@ for r in sorted(rows, key=lambda r: (not r['gap_value'], r['title'].lower())):
     name = (f'<a href="profile-{e(r["material"])}.html">{e(r["title"])}</a>' if r['set'] == 'atlas'
             else e(r['title']))
     hub = ' <span style="color:#9aa6ad;font-size:.85em">(re-export hub)</span>' if is_hub(r) else ''
-    mark = ('<b style="color:#0e7c74">yes</b>' if r['gap_value'] else '<span style="color:#9aa6ad">no</span>')
+    mark = ('<b style="color:#0e7c74">yes</b><br><span style="color:#5a6b68;font-size:.82em">' + e(r['gap_kind']) + '</span>'
+            if r['gap_value'] else '<span style="color:#9aa6ad">no</span>')
+    def pct(v): return '&ndash;' if v is None else f'{v:.0f}%'
+    own_cell = pct(r.get('top_exporter_mine_share')) if r['gap_value'] else '<span style="color:#9aa6ad">same country</span>'
+    mx_cell = pct(r.get('top_miner_export_share')) if r['gap_value'] else ''
     trs.append(f'<tr><td>{name}<br><span style="color:#9aa6ad;font-size:.85em">{e(r["form"])}</span></td>'
                f'<td>{flag(r["top_miner"])} {cn(r["top_miner"])} <span style="color:#9aa6ad">{r["top_miner_share"]:.0f}%</span></td>'
                f'<td>{flag(r["top_exporter"])} {cn(r["top_exporter"])} <span style="color:#9aa6ad">{r["top_exporter_share"]:.0f}%</span>{hub}</td>'
-               f'<td class="n">{mark}</td></tr>')
+               f'<td class="n">{own_cell}</td><td class="n">{mx_cell}</td>'
+               f'<td>{mark}</td></tr>')
 
 kept = [r['title'].lower() for r in rows if r['mine_source'].startswith('atlas mined list')]
 kept_sentence = ('No such source covers ' + ', '.join(e(x) for x in kept) + '; their mine shares are compiled by hand from the literature.') if kept else ''
@@ -250,13 +267,14 @@ page = f'''<!doctype html>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Finding · every material</div>
   <h1>The origin gap, every material</h1>
-  <p class="deck">Is the country that sells a material to the world the country that digs it up? For <b>most</b> materials it is not: a refinery, a smelter or a trading hub stands between the mine and the buyer.</p>
+  <p class="deck">Is the country that sells a material to the world the country that digs it up? For <b>most</b> materials it is not. Sometimes the seller mines almost none of it: a refinery, a smelter or a trading hub stands between the mine and the buyer. Sometimes the seller is another mining country, and the largest miner sells a much smaller share abroad.</p>
 </div></section>
 <article style="max-width:1000px">
-  <div class="callout">The test is run on every material for which the atlas holds both world mine output and world customs trade, and it grows as the atlas does. Counted in tonnes instead of dollars the gap holds just as widely, so it is not an artifact of prices. {hub_sentence} In the others the top exporter is a country that refines, smelts or processes the material.</div>
+  <div class="callout">The test is run on every material for which the atlas holds both world mine output and world customs trade, and it grows as the atlas does. Counted in tonnes instead of dollars the gap holds just as widely, so it is not an artifact of prices. {hub_sentence}</div>
+  <p class="note">Two kinds of gap, told apart in the last column. <b>Seller mines almost none</b>: the top exporter mines under 5% of world output, so what it ships was mined elsewhere. <b>Seller is another miner</b>: the top exporter mines a real share itself, and the top miner exports less of this form, for reasons the table cannot see (it may process the material, use it at home, or sell it in another form). The two share columns let you judge each row. Neither kind says where a given shipment was mined.</p>
 
   <table>
-    <thead><tr><th>Material and traded form</th><th>Top miner, share of world output</th><th>Top exporter, share of world exports (US$)</th><th class="n">Gap</th></tr></thead>
+    <thead><tr><th>Material and traded form</th><th>Top miner, share of world output</th><th>Top exporter, share of world exports (US$)</th><th class="n" title="The top exporter's own share of world mine output">Top exporter mines</th><th class="n" title="The top miner's share of world exports of this form">Top miner exports</th><th>Gap</th></tr></thead>
     <tbody>{''.join(trs)}</tbody>
   </table>
 

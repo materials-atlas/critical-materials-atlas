@@ -11,6 +11,11 @@
  "n_gap_value": 35,
  "n_gap_tonnes": 37,
  "n_gap_value_hub_exporter": 1,
+ "n_gap_kind": {
+  "seller mines almost none": 14,
+  "seller is another miner": 21,
+  "unknown": 0
+ },
  "n_atlas_gap": 16,
  "n_widened_gap": 19,
  "rows": [
@@ -28,8 +33,10 @@
    "top_exporter_share_tonnes": 74.9,
    "top_exporter_mine_share": 71.0,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 63.9,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "magnesium",
@@ -45,8 +52,10 @@
    "top_exporter_share_tonnes": 76.3,
    "top_exporter_mine_share": 66.5,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 71.5,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "graphite",
@@ -62,8 +71,10 @@
    "top_exporter_share_tonnes": 36.0,
    "top_exporter_mine_share": 81.9,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 42.7,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "tungsten",
@@ -79,8 +90,10 @@
    "top_exporter_share_tonnes": 41.2,
    "top_exporter_mine_share": 81.7,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 61.9,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "cobalt",
@@ -96,8 +109,10 @@
    "top_exporter_share_tonnes": 33.2,
    "top_exporter_mine_share": 74.8,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 28.7,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "niobium",
@@ -113,8 +128,10 @@
    "top_exporter_share_tonnes": 71.8,
    "top_exporter_mine_share": 92.4,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 75.9,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "boron",
@@ -130,8 +147,10 @@
    "top_exporter_share_tonnes": 54.9,
    "top_exporter_mine_share": 44.9,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 57.1,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "lithium",
@@ -147,8 +166,10 @@
    "top_exporter_share_tonnes": 73.8,
    "top_exporter_mine_share": 22.0,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 0.0,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "antimony",
@@ -164,8 +185,10 @@
    "top_exporter_share_tonnes": 29.5,
    "top_exporter_mine_share": 18.5,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 11.5,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "platinum",
@@ -181,8 +204,10 @@
    "top_exporter_share_tonnes": 29.5,
    "top_exporter_mine_share": 70.4,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 36.8,
    "gap_value": false,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": null
   },
   {
    "material": "palladium",
@@ -198,8 +223,10 @@
    "top_exporter_share_tonnes": 24.9,
    "top_exporter_mine_share": 38.1,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 21.8,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "fluorspar",
@@ -215,8 +242,10 @@
    "top_exporter_share_tonnes": 37.4,
    "top_exporter_mine_share": 14.7,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 8.9,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "titanium",
@@ -232,8 +261,10 @@
    "top_exporter_share_tonnes": 36.9,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 6.1,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "silicon",
@@ -249,8 +280,10 @@
    "top_exporter_share_tonnes": 47.1,
    "top_exporter_mine_share": 70.0,
    "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
+   "top_miner_export_share": 40.4,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "feldspar",
@@ -266,8 +299,10 @@
    "top_exporter_share_tonnes": 51.2,
    "top_exporter_mine_share": 17.0,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 10.4,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "vanadium",
@@ -283,8 +318,10 @@
    "top_exporter_share_tonnes": 20.8,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 19.0,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "manganese",
@@ -300,8 +337,10 @@
    "top_exporter_share_tonnes": 56.2,
    "top_exporter_mine_share": 40.1,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 49.4,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "bauxite",
@@ -317,8 +356,10 @@
    "top_exporter_share_tonnes": 67.0,
    "top_exporter_mine_share": 34.2,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 72.1,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "phosphate",
@@ -334,8 +375,10 @@
    "top_exporter_share_tonnes": 22.7,
    "top_exporter_mine_share": 4.8,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.6,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "baryte",
@@ -351,8 +394,10 @@
    "top_exporter_share_tonnes": 25.4,
    "top_exporter_mine_share": 32.5,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 17.9,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "arsenic",
@@ -368,8 +413,10 @@
    "top_exporter_share_tonnes": 81.1,
    "top_exporter_mine_share": 38.2,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.0,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "beryllium",
@@ -385,8 +432,10 @@
    "top_exporter_share_tonnes": 3.6,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 1.3,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "strontium",
@@ -402,8 +451,10 @@
    "top_exporter_share_tonnes": 62.1,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "BGS World Mineral Statistics",
+   "top_miner_export_share": 0.5,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "phosphorus",
@@ -419,8 +470,10 @@
    "top_exporter_share_tonnes": 44.7,
    "top_exporter_mine_share": 12.0,
    "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
+   "top_miner_export_share": 1.6,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "tantalum",
@@ -436,8 +489,10 @@
    "top_exporter_share_tonnes": 18.7,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.0,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "helium",
@@ -453,8 +508,10 @@
    "top_exporter_share_tonnes": 21.7,
    "top_exporter_mine_share": 38.0,
    "top_exporter_mine_share_source": "atlas mined list, kept by hand (no mine-production source covers it)",
+   "top_miner_export_share": 15.8,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "copper",
@@ -470,8 +527,10 @@
    "top_exporter_share_tonnes": 21.9,
    "top_exporter_mine_share": 13.0,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 19.7,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "nickel",
@@ -487,8 +546,10 @@
    "top_exporter_share_tonnes": 15.5,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 7.4,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "zinc",
@@ -504,8 +565,10 @@
    "top_exporter_share_tonnes": 65.7,
    "top_exporter_mine_share": 0.7,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.4,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "lead",
@@ -521,8 +584,10 @@
    "top_exporter_share_tonnes": 13.1,
    "top_exporter_mine_share": 4.9,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 2.2,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "tin",
@@ -538,8 +603,10 @@
    "top_exporter_share_tonnes": 25.7,
    "top_exporter_mine_share": 18.7,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 8.2,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "silver",
@@ -555,8 +622,10 @@
    "top_exporter_share_tonnes": 16.3,
    "top_exporter_mine_share": 12.6,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 11.5,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "gold",
@@ -572,8 +641,10 @@
    "top_exporter_share_tonnes": 18.5,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 2.7,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "rhodium",
@@ -589,8 +660,10 @@
    "top_exporter_share_tonnes": 41.9,
    "top_exporter_mine_share": 83.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 37.5,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "cadmium",
@@ -606,8 +679,10 @@
    "top_exporter_share_tonnes": 23.8,
    "top_exporter_mine_share": 18.6,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 10.6,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "bismuth",
@@ -623,8 +698,10 @@
    "top_exporter_share_tonnes": 52.3,
    "top_exporter_mine_share": 81.6,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 43.8,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "selenium",
@@ -640,8 +717,10 @@
    "top_exporter_share_tonnes": 13.3,
    "top_exporter_mine_share": 18.4,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 8.6,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "mercury",
@@ -657,8 +736,10 @@
    "top_exporter_share_tonnes": 7.9,
    "top_exporter_mine_share": 0.5,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.9,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "chromium",
@@ -674,8 +755,10 @@
    "top_exporter_share_tonnes": 55.3,
    "top_exporter_mine_share": 46.2,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 50.3,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "molybdenum",
@@ -691,8 +774,10 @@
    "top_exporter_share_tonnes": 30.6,
    "top_exporter_mine_share": 15.0,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 9.2,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "zirconium",
@@ -708,8 +793,10 @@
    "top_exporter_share_tonnes": 36.4,
    "top_exporter_mine_share": 24.1,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 15.6,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "iron",
@@ -725,8 +812,10 @@
    "top_exporter_share_tonnes": 56.6,
    "top_exporter_mine_share": 37.3,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 59.8,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "rare_earths",
@@ -742,8 +831,10 @@
    "top_exporter_share_tonnes": 34.3,
    "top_exporter_mine_share": 7.1,
    "top_exporter_mine_share_source": "USGS Mineral Commodity Summaries",
+   "top_miner_export_share": 16.1,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "salt",
@@ -759,8 +850,10 @@
    "top_exporter_share_tonnes": 25.2,
    "top_exporter_mine_share": 12.9,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 3.5,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "gypsum",
@@ -776,8 +869,10 @@
    "top_exporter_share_tonnes": 24.4,
    "top_exporter_mine_share": 6.5,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 1.1,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "kaolin",
@@ -793,8 +888,10 @@
    "top_exporter_share_tonnes": 17.8,
    "top_exporter_mine_share": 9.5,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 11.2,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "bentonite",
@@ -810,8 +907,10 @@
    "top_exporter_share_tonnes": 11.1,
    "top_exporter_mine_share": 21.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 17.0,
    "gap_value": false,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": null
   },
   {
    "material": "talc",
@@ -827,8 +926,10 @@
    "top_exporter_share_tonnes": 38.8,
    "top_exporter_mine_share": 3.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 13.9,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "diatomite",
@@ -844,8 +945,10 @@
    "top_exporter_share_tonnes": 17.8,
    "top_exporter_mine_share": 32.7,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 25.7,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "perlite_vermiculite",
@@ -861,8 +964,10 @@
    "top_exporter_share_tonnes": 9.2,
    "top_exporter_mine_share": 3.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 10.7,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "potash",
@@ -878,8 +983,10 @@
    "top_exporter_share_tonnes": 43.0,
    "top_exporter_mine_share": 31.7,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 36.8,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "sulphur",
@@ -895,8 +1002,10 @@
    "top_exporter_share_tonnes": 22.0,
    "top_exporter_mine_share": 8.1,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 0.3,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "diamond",
@@ -912,8 +1021,10 @@
    "top_exporter_share_tonnes": 26.3,
    "top_exporter_mine_share": 0.0,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 7.1,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller mines almost none"
   },
   {
    "material": "bromine",
@@ -929,8 +1040,10 @@
    "top_exporter_share_tonnes": 46.5,
    "top_exporter_mine_share": 28.6,
    "top_exporter_mine_share_source": "BGS World Mineral Statistics",
+   "top_miner_export_share": 5.9,
    "gap_value": true,
-   "gap_tonnes": true
+   "gap_tonnes": true,
+   "gap_kind": "seller is another miner"
   },
   {
    "material": "sillimanite",
@@ -946,8 +1059,10 @@
    "top_exporter_share_tonnes": 40.8,
    "top_exporter_mine_share": 40.2,
    "top_exporter_mine_share_source": "BGS World Mineral Statistics",
+   "top_miner_export_share": 37.1,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   },
   {
    "material": "asbestos",
@@ -963,8 +1078,10 @@
    "top_exporter_share_tonnes": 49.8,
    "top_exporter_mine_share": 51.1,
    "top_exporter_mine_share_source": "World Mining Data",
+   "top_miner_export_share": 55.0,
    "gap_value": false,
-   "gap_tonnes": false
+   "gap_tonnes": false,
+   "gap_kind": null
   }
  ]
 }
