@@ -258,7 +258,7 @@ PAGE = r'''<!doctype html>
 </div></header>
 <section class="hero"><div class="wrap">
   <div class="eyebrow">Method · optimal transport on real trade flows</div>
-  <h1>For 4 materials, no reallocation covers the loss — and 8 get worse</h1>
+  <h1>For some materials no reallocation covers the loss, and for more it makes things worse</h1>
   <p class="deck">The fallback test asks <i>is there another exporter?</i> This asks the harder question: if a refining chokepoint is <b>cut</b>, can the world&rsquo;s <b>remaining export capacity actually cover it</b> — or does removing the leader just hand the chokepoint to the next player, and who is left stranded? We model the shock as the loss of the leader&rsquo;s <b>exports</b> (the only supply that was ever redirectable) and reallocate its freed demand across every surviving exporter by <b>optimal transport</b> — minimum geographic cost on the real bilateral trade matrix. Three numbers fall out: how hard the rest must scale, whether removal actually de-concentrates, and how much demand is <i>structurally uncoverable</i>.</p>
 </div></section>
 <article style="max-width:1180px">
@@ -497,6 +497,10 @@ CAPPARA = (
     '<code>build_ot_capacity.py</code>.</p>')
 PAGE = (PAGE.replace('__CAPROWS__', CAPROWS).replace('__CAPPARA__', CAPPARA)
             .replace('__CAPN__', str(len(CAP))))
+# the h1 says it in words (24 Nov 2026): some cannot be covered, MORE get worse - refuse if the data stop saying so
+_k = payload['summary']['by_kind']
+if not (0 < _k['uncoverable'] < _k['backfire']):
+    raise SystemExit('ot: the heading ("some ... and for more it makes things worse") no longer fits %s - reword it' % _k)
 PAGE = PAGE.replace('__DATA__', json.dumps(payload, ensure_ascii=False))
 open(os.path.join(ROOT, 'ot.html'), 'w', encoding='utf-8').write(PAGE)
 print('WROTE ot.html (self-contained)')
