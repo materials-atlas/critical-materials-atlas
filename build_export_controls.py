@@ -89,6 +89,10 @@ REFS = [
     ('M70', 'Ministry of Commerce and General Administration of Customs of China (2025). Announcement '
      '2025 No. 70, suspending Announcements 2025 Nos. 55-58, 61 and 62 until 10 November 2026 (in Chinese).',
      'https://www.mofcom.gov.cn/zwgk/zcfb/art/2025/art_b1ec77dd3f0d4762952904df7cdaadec.html'),
+    ('M2658', 'Ministry of Commerce and General Administration of Customs of China (2026). Announcement '
+     '2026 No. 58, continuing the suspension of Announcements 2025 Nos. 55-58, 61 and 62 from 11 November '
+     '2026 to 10 January 2027 (in Chinese). Opened and read 23 Nov 2026.',
+     'https://www.mofcom.gov.cn/zwgk/zcfb/art/2026/art_91466027f465467985942a639a9485f4.html'),
     ('M57', 'Ministry of Commerce and General Administration of Customs of China (2025). Announcement '
      '2025 No. 57 on export controls on certain further medium and heavy rare-earth items (in Chinese).',
      'https://www.mofcom.gov.cn/zcfb/blgg/gg/2025/art/2025/art_9510f263c3c246d8936fbfa684a58ca8.html'),
@@ -720,16 +724,17 @@ TEMPLATE = """<!doctype html>
 
 <section class="wrap xp">
   <h2>What to watch</h2>
-  <p>Two suspensions end in November 2026. China's October 2025 announcements &mdash; among them five more
+  <p>Two suspensions are running. China's October 2025 announcements &mdash; among them five more
   medium and heavy rare earths (holmium, erbium, thulium, europium, ytterbium)@@C_M57@@ and lithium
-  batteries and artificial-graphite anode material@@C_M58@@ &mdash; are suspended until <b>10 November
-  2026</b>@@C_M70@@, and the ban in principle on gallium, germanium and antimony to the United States until
-  <b>27 November 2026</b>@@C_M72@@. They cover goods this page does not follow: other rare earths, battery
+  batteries and artificial-graphite anode material@@C_M58@@ &mdash; were suspended until 10 November
+  2026@@C_M70@@; on 9 November 2026 the suspension was extended to <b>10 January 2027</b>@@C_M2658@@. The ban in
+  principle on gallium, germanium and antimony to the United States is suspended until
+  <b>27 November 2026</b>@@C_M72@@; on 23 November 2026 the Ministry had published no extension of it. They cover goods this page does not follow: other rare earths, battery
   anodes, and a ban on shipments to the United States that EU records do not see. What carries over is
   the method: in the customs lines those goods fall under, a fall in tonnes from China, a rise in the
   unit value of all imports, and new origins whose own records should be checked. Eurostat's monthly
-  figures run about two months behind (July 2026 was the latest on 21 September), so a change in November
-  2026 would show in early 2027.</p>
+  figures run about two months behind (July 2026 was the latest on 21 September), so a change at either date
+  would show about two months later.</p>
   <p><b>What the record can and cannot tell a buyer.</b> In the two cases where something moved, the unit
   value of all EU imports rose (four-fold for antimony, 2.6-fold for bismuth) more clearly than total
   tonnes fell: antimony tonnes held, bismuth tonnes fell by about a third. These are customs averages, not

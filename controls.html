@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/controls">
 <title>Export-control tracker — Critical Materials Atlas</title>
-<meta name="description" content="Every 2023-2026 critical-mineral export control, by material, controlling country, market share and status — including the wave suspended until November 2026. Controls cluster on by-product and built-capability chokepoints, exactly where the map says concentration sits.">
+<meta name="description" content="Every 2023-2026 critical-mineral export control, by material, controlling country, market share and status — including the wave suspended until 10 January 2027. Controls cluster on by-product and built-capability chokepoints, exactly where the map says concentration sits.">
 <meta property="og:title" content="Export-control tracker — the November 2026 cliff">
 <meta property="og:description" content="China-controlled tariff codes tripled since 2023. See every critical-mineral export control by material, share and status — and why they land on by-product and capability chokepoints.">
 <meta property="og:url" content="https://criticalmaterialsatlas.org/controls">
@@ -63,7 +63,7 @@
 </div></section>
 
 <article>
-  <p class="thesis">Since 2023 the number of tariff codes China requires a licence to export has <b>tripled</b>, and the value of controlled exports passed <b>USD 11 billion</b> in 2025. A large wave announced in October 2025 — expanded rare-earth controls and the whole battery supply chain — was <b>suspended for one year, until November 2026</b>. The suspension is a cliff, not a resolution: the underlying concentration is unchanged.</p>
+  <p class="thesis">Since 2023 the number of tariff codes China requires a licence to export has <b>tripled</b>, and the value of controlled exports passed <b>USD 11 billion</b> in 2025. A large wave announced in October 2025 — expanded rare-earth controls and the whole battery supply chain — was <b>suspended for one year, until November 2026</b>, and on 9 November 2026 <b>extended to 10 January 2027</b> (<a href="https://www.mofcom.gov.cn/zwgk/zcfb/art/2026/art_91466027f465467985942a639a9485f4.html" target="_blank" rel="noopener">Announcement 2026 No. 58</a>, in Chinese). The suspension is a cliff, not a resolution: the underlying concentration is unchanged.</p>
 
   <div class="headline" id="tallies"></div>
 
@@ -124,7 +124,7 @@ var DATA=[
  {material:"Nickel",href:"nickel-chain/nickel-chain.html",by:"Philippines",share:11,stage:"Mine",mechanism:"policy",action:"Proposed ban on raw exports (from 2030)",date:"proposed",status:"proposed"}
 ];
 function esc(x){return String(x==null?'':x).replace(/[<>]/g,function(c){return{'<':'&lt;','>':'&gt;'}[c];});}
-var STLAB={inforce:"In force",suspended:"Suspended → Nov 2026",proposed:"Proposed"};
+var STLAB={inforce:"In force",suspended:"Suspended → 10 Jan 2027",proposed:"Proposed"};
 var activeStatus=null, activeBy=null, sortK='date', sortDir=1;
 var KEYORDER={date:0,inforce:0}; // date sorts by original order roughly
 function render(){
@@ -155,7 +155,7 @@ function tallies(){
   var cap=DATA.filter(function(r){return r.mechanism==='capability';}).length;
   document.getElementById('tallies').innerHTML=
     '<div class="hcard"><div class="big">'+inforce+'</div><div class="lbl">controls <b>in force</b> today</div></div>'+
-    '<div class="hcard cliff"><div class="big">'+susp+'</div><div class="lbl">suspended until <b>Nov 2026</b> — the cliff, not a resolution</div></div>'+
+    '<div class="hcard cliff"><div class="big">'+susp+'</div><div class="lbl">suspended until <b>10 Jan 2027</b> (extended on 9 Nov 2026) — a cliff, not a resolution</div></div>'+
     '<div class="hcard"><div class="big">'+(bp+cap)+' / '+DATA.length+'</div><div class="lbl">land on a <b>by-product</b> ('+bp+') or <b>built-capability</b> ('+cap+') chokepoint — where the map says concentration sits</div></div>';
 }
 function buildFilters(){
