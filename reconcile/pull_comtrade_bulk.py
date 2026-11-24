@@ -34,6 +34,7 @@ Usage:
   python reconcile/pull_comtrade_bulk.py [--years 2026 2025] [--all-codes] [--max-files N]
   python reconcile/pull_comtrade_bulk.py --freq A --cl HS --year-min 1988 --all-codes   # yearly series
   python reconcile/pull_comtrade_bulk.py --freq A --cl S1 --year-min 1962 --all-codes   # SITC rev.1
+  python reconcile/pull_comtrade_bulk.py --tariffline --freq A --year-min 2000 --all-codes   # national tariff lines
 
 Two things learned on the server (10 Nov 2026):
 
@@ -69,6 +70,9 @@ LOG = os.path.join(OUTDIR, '_bulk.log')
 KEYFILE = os.path.join(ROOT, 'pipeline', '.comtrade_key')
 
 LIST = 'https://comtradeapi.un.org/bulk/v1/get/C/%s/%s'      # freq, classification
+# Tariff-line files (--tariffline, added 24 Nov 2026): the reporter's NATIONAL codes (8-10 digits), with
+# mode of transport (motCode) and customs procedure (customsCode). Same key, same premium grant.
+TL_LIST = 'https://comtradeapi.un.org/bulk/v1/getTariffline/C/%s/%s'
 YEAR_MAX, YEAR_MIN = time.gmtime().tm_year, 2000   # the current year, not a constant that goes stale
 QUOTA_EXIT = False           # --quota-exit: stop on an exhausted quota instead of sleeping it out
 QUOTA = re.compile(r'replenished in (\d+):(\d+):(\d+)')
@@ -88,6 +92,18 @@ SCHEMA = [('datasetCode', 'int64'), ('typeCode', 'string'), ('freqCode', 'string
           ('isGrossWgtEstimated', 'int64'), ('CIFValue', 'double'), ('FOBValue', 'double'),
           ('primaryValue', 'double'), ('legacyEstimationFlag', 'int64'), ('isReported', 'int64'),
           ('isAggregate', 'int64')]
+# The 24 columns of a tariff-line file (read from Bulgaria 202501, 24 Nov 2026). Different names from
+# SCHEMA (cifValue, not CIFValue) and no estimation flags.
+TL_SCHEMA = [('datasetCode', 'int64'), ('typeCode', 'string'), ('freqCode', 'string'),
+             ('refPeriodId', 'int64'), ('period', 'int64'), ('reporterCode', 'int64'),
+             ('flowCategory', 'string'), ('flowCode', 'string'), ('partnerCode', 'int64'),
+             ('partner2Code', 'int64'), ('classificationCode', 'string'), ('cmdCode', 'string'),
+             ('customsCode', 'string'), ('mosCode', 'int64'), ('motCode', 'int64'),
+             ('qtyUnitCode', 'int64'), ('qty', 'double'), ('altQtyUnitCode', 'int64'), ('altQty', 'double'),
+             ('netWgt', 'double'), ('grossWgt', 'double'), ('cifValue', 'double'), ('fobValue', 'double'),
+             ('primaryValue', 'double')]
+ACTIVE = SCHEMA             # main() switches this to TL_SCHEMA for --tariffline
+PREFIX6 = False             # tariff-line codes are national: filter on their first six digits
 MIN_FREE_GB = 5.0            # refuse to start below this: an archive is deleted after each file,
                              # but a 1 GB reporter-month still has to land somewhere first
 SIZE = re.compile(r'([\d.]+)\s*(KB|MB|GB)', re.I)
@@ -239,7 +255,7 @@ def fetch_one(session, headers, period, rep, keep, outdir, stream_above_mb=150.0
         dest = os.path.join(d, '%s_%s.parquet' % (period, rep['reporterCode']))
         tmp_p = dest + '.part'
         keep_arr = pa.array(sorted(keep)) if keep is not None else None
-        types = {k: (pa.float64() if v == 'double' else getattr(pa, v)()) for k, v in SCHEMA}
+        types = {k: (pa.float64() if v == 'double' else getattr(pa, v)()) for k, v in ACTIVE}
         if got / 1e6 >= stream_above_mb:
             # Batch decoding, constant memory, explicit schema. A 275 MB archive read whole
             # peaked at 6.5 GB on the 8 GB server; yearly files of the big reporters are larger.
@@ -257,7 +273,8 @@ def fetch_one(session, headers, period, rep, keep, outdir, stream_above_mb=150.0
                     return None, got
                 for batch in reader:
                     if keep_arr is not None:
-                        batch = batch.filter(pc.is_in(batch['cmdCode'], value_set=keep_arr))
+                        col = pc.utf8_slice_codeunits(batch['cmdCode'], 0, 6) if PREFIX6 else batch['cmdCode']
+                        batch = batch.filter(pc.is_in(col, value_set=keep_arr))
                     if batch.num_rows == 0:
                         continue
                     if writer is None:
@@ -280,13 +297,14 @@ def fetch_one(session, headers, period, rep, keep, outdir, stream_above_mb=150.0
                 # schema. Code and flag columns stay inferred; they are always integral.
                 convert_options=pv.ConvertOptions(
                     strings_can_be_null=False,
-                    column_types=dict({k: pa.float64() for k, v in SCHEMA if v == 'double'},
+                    column_types=dict({k: pa.float64() for k, v in ACTIVE if v == 'double'},
                                       cmdCode=pa.string())))
         if 'cmdCode' not in tbl.column_names:
             log('   %s %-5s no cmdCode column - skipped' % (period, rep['reporterCode']))
             return None, got
         if keep is not None:
-            tbl = tbl.filter(pc.is_in(tbl['cmdCode'], value_set=keep_arr))
+            col = pc.utf8_slice_codeunits(tbl['cmdCode'], 0, 6) if PREFIX6 else tbl['cmdCode']
+            tbl = tbl.filter(pc.is_in(col, value_set=keep_arr))
         n = tbl.num_rows
         if n:
             pq.write_table(tbl, tmp_p, compression='zstd')
@@ -316,14 +334,18 @@ def main():
                          'that is new or whose publicationDate changed since we took it')
     ap.add_argument('--quota-exit', action='store_true',
                     help='stop (state saved) when the daily call quota runs out, instead of sleeping')
+    ap.add_argument('--tariffline', action='store_true',
+                    help='tariff-line files (national codes, transport mode, customs procedure)')
     ap.add_argument('--stream-above-mb', type=float, default=150.0,
                     help='decode archives above this size in batches (constant memory)')
     a = ap.parse_args()
-    global OUTDIR, STATE, MANIFEST, LOG, QUOTA_EXIT
+    global OUTDIR, STATE, MANIFEST, LOG, QUOTA_EXIT, ACTIVE, PREFIX6
     QUOTA_EXIT = a.quota_exit
-    url = LIST % (a.freq, a.cl)
-    if (a.freq, a.cl) != ('M', 'HS') and 'CMA_BULK_DIR' not in os.environ:
-        OUTDIR = os.path.join(ROOT, 'raw', 'comtrade_bulk_%s_%s' % (a.freq, a.cl))
+    url = (TL_LIST if a.tariffline else LIST) % (a.freq, a.cl)
+    if a.tariffline:
+        ACTIVE, PREFIX6 = TL_SCHEMA, True
+    if (a.tariffline or (a.freq, a.cl) != ('M', 'HS')) and 'CMA_BULK_DIR' not in os.environ:
+        OUTDIR = os.path.join(ROOT, 'raw', ('comtrade_tl_%s_%s' if a.tariffline else 'comtrade_bulk_%s_%s') % (a.freq, a.cl))
         STATE = os.path.join(OUTDIR, '_state.json')
         MANIFEST = os.path.join(OUTDIR, '_manifest.tsv')
         LOG = os.path.join(OUTDIR, '_bulk.log')
