@@ -1,26 +1,143 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png"><link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png"><link rel="icon" href="/favicon.ico" sizes="any"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="canonical" href="https://criticalmaterialsatlas.org/solar-chain/solar-chain">
-<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>The panel is a China product — Critical Materials Atlas</title><meta name="description" content="China makes ~90%+ of polysilicon, wafers, cells and modules, while using ~8x less silicon per watt than twenty years ago."><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"></head><body>
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png"><meta name="robots" content="index,follow"><title>What limits solar module manufacturing? — Critical Materials Atlas</title><meta property="og:title" content="What limits solar module manufacturing?"><meta name="description" content="Factories that assemble modules need compatible upstream inputs. Europe’s capacity estimates and a wafer supply stress test show where those limits can arise."><link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../chain-assets/chainview.css"><style>
+  :root { --acc: #95601d; }
+  .table-wrap { overflow-x: auto; margin: 1rem 0; }
+  .table-wrap table { min-width: 32rem; }
+  .table-wrap caption { text-align: left; font-size: .82rem; color: var(--mut); padding: .35rem .5rem; }
+  th[scope="row"] { font-weight: 600; }
+  meter { display: block; inline-size: 100%; min-inline-size: 8rem; accent-color: var(--acc); }
+  #trade-slider { min-width: 0; }
+  #static-trade[hidden] { display: none; }
+</style></head><body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="draftbar" id="draftbar">Value Chains — a research layer of the Critical Materials Atlas</div>
 <header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
 <main id="main">
-<section class="hero"><div class="wrap"><div class="eyebrow" id="eyebrow"></div><h1 id="h1"></h1><p class="deck" id="deck"></p><p class="byline" id="byline"></p></div></section>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Solar photovoltaics · Manufacturing</div>
+  <h1>What limits solar module manufacturing?</h1>
+  <p class="deck">Factories that assemble modules need compatible upstream inputs. Europe’s capacity estimates and a wafer supply stress test show where those limits can arise.</p>
+  <p class="byline">Evidence review · <time datetime="2026-11-24">24 November 2026</time> · <a href="PRODUCTION.md">Claim register</a></p>
+</div></section>
 <article>
-<div class="callout hot" id="correction"></div>
-<div class="stats" id="stats"></div>
-<h2>The chain in one glance</h2><div id="chain" class="chain"></div>
-<div id="history-wrap"></div>
-<div id="sections"></div>
-<h2>Customs records are context, not capability</h2>
-<p id="trade-intro"></p>
-<div class="panel"><div class="control"><span class="note">trade year</span><input id="trade-slider" type="range" min="0" max="0" value="0" aria-label="trade year"><b id="trade-year">—</b></div><table><thead><tr><th>Traded good</th><th>World trade</th><th>Leading exporter</th><th>Boundary</th></tr></thead><tbody id="trade-body"></tbody></table></div>
-<h2>What is measured, and how</h2><table><thead><tr><th>Stage</th><th>Lens</th><th>Why</th></tr></thead><tbody id="method-body"></tbody></table>
-<p id="conflegend" class="conflegend"></p>
-<h2>Sources and boundaries</h2><ul id="source-list" class="source-list"></ul>
+  <p>Europe had about 33 GW per year of solar module manufacturing capacity in the IEA’s 2025 estimates. It had much less wafer capacity. With compatible equipment, full availability and a route with no imports or stocks at those manufacturing stages, the reported stages could support at most 1.5 GW per year of module-equivalent output, or about 4.5% of module nameplate capacity. The IEA figures omit ingots, so enforcing that additional step could lower the ceiling.</p>
+  <p>Capacity measures what factories are rated to make. Production measures what they actually make. The effect of a disruption also depends on qualified suppliers, inventories, utilization and how quickly alternative inputs can reach factories.</p>
+
+  <h2>Europe’s upstream capacity is smaller</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="European solar manufacturing capacity">
+    <table>
+      <caption>Approximate 2025 manufacturing capacity in Europe as reported by the IEA. The comparison treats upstream GW as module-equivalent annual rates.</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">GW-equivalent per year</th><th scope="col">Capacity on a common scale</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Polysilicon</th><td>27</td><td><meter min="0" max="33" value="27" aria-label="Polysilicon capacity on a common scale"></meter></td></tr>
+<tr><th scope="row">Ingots</th><td colspan="2">Unreported</td></tr>
+<tr><th scope="row">Wafers</th><td>1.5</td><td><meter min="0" max="33" value="1.5" aria-label="Wafers capacity on a common scale"></meter></td></tr>
+<tr><th scope="row">Cells</th><td>10</td><td><meter min="0" max="33" value="10" aria-label="Cells capacity on a common scale"></meter></td></tr>
+<tr><th scope="row">Modules</th><td>33</td><td><meter min="0" max="33" value="33" aria-label="Modules capacity on a common scale"></meter></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/">IEA, 29 July 2026</a>. The commentary gives rounded figures for Europe. Its public materials do not specify country membership, conversion factors for the upstream rates, the share of operating lines, or technical compatibility.</p>
+  <p><b>A separate EU-27 inventory.</b> In its August 2025 inventory, Fraunhofer lists no active ingot or wafer production in the EU-27 and identifies 0.4 GWp per year of ingot capacity closed in 2024–25. Its operating estimates for cells and modules were 2.9 and 6.7 GWp per year. Under that inventory, a route using only active EU-27 lines would need another source of ingots and wafers before it could operate. The narrower inventory cannot supply an ingot rate for the IEA’s wider Europe series. <a href="https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=14">Fraunhofer ISE, p. 14</a>.</p>
+  <p><b>Inverters.</b> The IEA puts Europe’s inverter manufacturing capacity at about 95 GW per year in 2025 across solar PV and battery applications. An inverter converts electricity after installation. It sits outside the serial module manufacturing calculation. <a href="https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/">IEA, 29 July 2026</a>.</p>
+
+  <h2>China’s share depends on the measure</h2>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="China production and capacity shares">
+    <table>
+      <caption>China’s reported shares of global output and manufacturing capacity from separate sources</caption>
+      <thead><tr><th scope="col">Stage</th><th scope="col">2023 output · IEA PVPS 2024</th><th scope="col">2024 capacity · IEA policy report 2026</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Polysilicon</th><td>92%</td><td>87%</td></tr>
+<tr><th scope="row">Ingots</th><td>—</td><td>—</td></tr>
+<tr><th scope="row">Wafers</th><td>98%</td><td>87%</td></tr>
+<tr><th scope="row">Cells</th><td>91.8%</td><td>82%</td></tr>
+<tr><th scope="row">Modules</th><td>84.6%</td><td>75%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The former 85–98% headline came from the four rounded 2023 output readings. The polysilicon output figure includes semiconductor grades. The 2023 module share includes thin film, and the adjacent reported volumes do not reproduce the chart’s 84.6%. The 2024 policy chart reports capacity shares on its own basis. <a href="https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=53">IEA PVPS, Figures 4.2–4.5</a> and <a href="https://www.iea.org/files/b3912b14-b276-4729-8f94-3d6f17b84226/StateofEnergyPolicy2026.pdf#page=53">IEA, State of Energy Policy 2026, p. 52</a>.</p>
+  <p>The IEA’s <em>Energy Technology Perspectives 2026</em> cites about 95% for wafers in its own 2024 capacity discussion. The July 2026 commentary repeats about 95% in its 2025 discussion and calls the wafer figure production, with no wafer-specific denominator. Differences in definitions and source vintages prevent a like-for-like trend. <a href="https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness">IEA, Energy Technology Perspectives 2026</a> and <a href="https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/">IEA, 29 July 2026</a>.</p>
+
+  <h2>Silicon use fell per watt of cell output</h2>
+  <table>
+    <caption>Rounded figures from the July 2026 Fraunhofer report</caption>
+    <thead><tr><th scope="col">Year</th><th scope="col">Grams of polysilicon input per watt-peak of cell output</th><th scope="col">Wafer thickness, µm</th></tr></thead>
+    <tbody>
+<tr><th scope="row">2004</th><td>16</td><td>300</td></tr>
+<tr><th scope="row">2024</th><td>2</td><td>140</td></tr>
+    </tbody>
+  </table>
+  <p>The earlier intensity was about 8 times the later one. This compares manufacturing input with rated cell output. The estimate reflects thinner wafers, improved cell efficiency, reduced sawing losses and changes in recycling. The chart changes sources and includes recycling from 2017, so it cannot isolate how much each mechanism contributed. Grams per panel would also depend on the panel’s rated output and construction. <a href="https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=8">Fraunhofer ISE, pp. 8 and 36</a>.</p>
+
+  <h2>A wafer supply stress test</h2>
+  <p><strong>Illustrative scenarios.</strong> The model follows one compatible crystalline-silicon route through polysilicon, ingots, wafers, cells and modules. The six-month open case assumes wafer deliveries sufficient to fill cell capacity at the stated point assumptions. The shocks remove half or all of the assumed China-origin wafer lane. The model varies that lane’s exposure from zero to all imports and usable ingot capacity from zero to the rate needed to support the published wafer capacity. No observed sourcing or inventory data set these values.</p>
+  <div class="table-wrap" tabindex="0" role="region" aria-label="Solar wafer supply scenario results">
+    <table>
+      <caption>Module output in GW-equivalent over 6 months. Ranges are from assumed inputs.</caption>
+      <thead><tr><th scope="col">Scenario</th><th scope="col">Point output</th><th scope="col">Output range</th><th scope="col">Loss range versus matched open case</th><th scope="col">Active capacity limits at the point</th></tr></thead>
+      <tbody>
+<tr><th scope="row">Open wafer sourcing</th><td>5</td><td>4.25–5</td><td>0</td><td>ingots, wafers, cells</td></tr>
+<tr><th scope="row">Half of exposed wafer supply lost</th><td>2.875</td><td>2.125–5</td><td>0–2.125</td><td>ingots, wafers</td></tr>
+<tr><th scope="row">All exposed wafer supply lost</th><td>0.75</td><td>0–5</td><td>0–4.25</td><td>ingots, wafers</td></tr>
+<tr><th scope="row">Severe case with replacement supply and stock</th><td>3.375</td><td>2.625–5</td><td>0–1.625</td><td>ingots, wafers</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>At the severe case’s point assumptions, adding capacity at either the ingot or wafer stage alone leaves the other stage limiting supply. Adding one GW per year at both raises output by 0.5 GW over the six-month shock. Imports of qualified cells could bypass the wafer and cell stages. This stress test holds that route outside the calculation so it isolates exposure to the wafer lane.</p>
+
+  <h2>Comparing ways to preserve output</h2>
+  <p>In the severe case, preserving 80% of the open point output means producing 4 GW over the shock. The model requires 3.25 GW-equivalent of additional compatible wafers. This puts manufacturing, qualified imports and inventories on the same physical target.</p>
+  <ul>
+    <li><b>Integrated production.</b> Add 6.5 GW-equivalent per year of wafer throughput and the ingot supply to support it before the shock.</li>
+    <li><b>Diversified sourcing.</b> Arrange for suppliers outside the affected lane to deliver 3.25 GW-equivalent of qualified wafers during the shock.</li>
+    <li><b>Stocks.</b> Hold 3.25 GW-equivalent of compatible wafers available at the start. The reserve is used once and must be replenished.</li>
+  </ul>
+  <p>The IEA estimates that EU production with North African wafers could cost almost 20% less than fully EU-made modules under its same-size facility assumptions. A cost ranking at equal resilience would also need qualified capacity, delivery terms, inventory carrying costs and the length and frequency of interruptions. <a href="https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary">IEA, Energy Technology Perspectives 2026, executive summary</a>.</p>
+  <p>See the <a href="README.md">methods and reproduction instructions</a>, <a href="evidence_inputs.json">source data and scenario inputs</a>, and <a href="out/solar_chain.json">calculated evidence</a>.</p>
+
+  <h2>What the customs data cover</h2>
+  <p>The table shows nominal export values and leading exporters from BACI. HS 280461 includes multiple grades of high-purity silicon. HS 854140 in the historical nomenclatures includes cells, modules and other photosensitive devices. These categories cannot establish direct wafer sourcing or trace wafers embedded in traded modules.</p>
+  <div class="panel">
+    <div class="control" id="static-trade" hidden>
+      <label for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0">
+    </div>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="World exports in broad solar-related categories">
+      <table>
+        <caption>CEPII BACI V202601, <span id="trade-year" aria-live="polite">2024</span></caption>
+        <thead><tr><th scope="col">Traded category</th><th scope="col">Nominal export value</th><th scope="col">Leading exporter</th><th scope="col">Scope</th></tr></thead>
+        <tbody id="trade-body">
+<tr><th scope="row">Silicon, &gt;= 99.99% pure (280461)</th><td>$3.6 billion</td><td>Germany · 32%</td><td>Combines solar and semiconductor silicon. Customs totals cannot identify PV-grade inputs.</td></tr>
+<tr><th scope="row">Photosensitive semiconductor devices (854140)</th><td>$78.0 billion</td><td>China · 47%</td><td>Includes PV cells, modules and LEDs in the HS02 and HS17 versions used here.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <a href="out/solar_trade.json">Download the yearly trade data</a>
+  </div>
+
+  <h2>Sources and evidence gaps</h2>
+  <p>The <a href="PRODUCTION.md">claim register</a> records source dates and definitions. Estimating actual disruption losses would require matched plant data, qualified import flows, inventories and yields by wafer and cell technology. The wafer figures, cost comparison and hypothetical shocks answer different questions.</p>
+  <ul class="source-list">
+<li><a href="https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=53">IEA PVPS, Trends in Photovoltaic Applications 2024, Figures 4.2–4.5</a> · October 2024</li>
+<li><a href="https://www.iea.org/files/b3912b14-b276-4729-8f94-3d6f17b84226/StateofEnergyPolicy2026.pdf#page=53">IEA, State of Energy Policy 2026, p. 52</a> · 2026</li>
+<li><a href="https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness">IEA, Energy Technology Perspectives 2026, supply chain risks</a> · 26 March 2026</li>
+<li><a href="https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/">IEA, Inverter supply chains and cybersecurity</a> · 29 July 2026</li>
+<li><a href="https://www.iea.org/data-and-statistics/charts/geographic-distribution-of-global-manufacturing-capacity-and-demand-for-inverters-solar-pv-modules-and-battery-energy-storage-system-cells-2025">IEA, 2025 geographic distribution chart and notes</a> · July 2026</li>
+<li><a href="https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=8">Fraunhofer ISE, Photovoltaics Report, pp. 8 and 36</a> · 14 July 2026</li>
+<li><a href="https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=14">Fraunhofer ISE, EU-27 manufacturing status, p. 14</a> · 14 July 2026, inventory updated August 2025</li>
+<li><a href="https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary">IEA, Energy Technology Perspectives 2026, executive summary</a> · 26 March 2026</li>
+<li><a href="https://www.iea.org/reports/renewables-2026/executive-summary">IEA, Renewables 2026, executive summary</a> · 2026</li>
+<li><a href="https://www.iea.org/reports/solar-pv-global-supply-chains/executive-summary">IEA, Solar PV Global Supply Chains, executive summary</a> · 2022</li>
+<li><a href="https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html">CEPII BACI V202601, based on UN Comtrade</a> · January 2026</li>
+  </ul>
 </article>
 </main>
-<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>A research layer of the Critical Materials Atlas, built from public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a id="ev-json" href="#">Evidence JSON</a><br><a id="tr-json" href="#">Trade JSON</a></div><div><h4>Principle</h4>Capabilities and units must follow the actual chain.</div><div class="fineprint">A research layer of the Critical Materials Atlas — each chain shows its own sources and confidence tags.<br>Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
-<script>window.CHAIN_DATA='out/solar_chain.json';window.CHAIN_TRADE='out/solar_trade.json';</script>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data research on manufacturing and materials.</div>
+  <div><h4>Related research</h4><a href="../value-chains">All value chains</a><br><a href="../silicon-chip/silicon-chain">Silicon to chips</a><br><a href="../aluminium-chain/aluminium-chain">Aluminium chain</a></div>
+  <div><h4>Evidence</h4><a href="out/solar_chain.json">Evidence JSON</a><br><a href="out/solar_trade.json">Trade JSON</a><br><a href="PRODUCTION.md">Claim register</a></div>
+  <div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
+</div></footer>
+<script>window.CHAIN_TRADE='out/solar_trade.json';</script>
 <script src="../chain-assets/chainview.js"></script>
 </body></html>

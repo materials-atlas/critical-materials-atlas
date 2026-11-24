@@ -26,8 +26,8 @@ FORCE_NAME = {"TW": "Taiwan", "NA": "Namibia", "DE": "Germany", "BE": "Belgium",
 # chain -> (out_dir, out_base, CODES{hs6: {title, boundary}})
 CHAINS = {
     "solar": ("solar-chain", "solar", {
-        "280461": {"title": "Silicon, >= 99.99% pure", "boundary": "Polysilicon feedstock (PV + semiconductor); the pure-silicon input, not the panel."},
-        "854140": {"title": "Photosensitive / PV semiconductor devices", "boundary": "Cells and modules; the PV heading was reclassified in 2022, so later years shift codes."},
+        "280461": {"title": "Silicon, >= 99.99% pure", "boundary": "Combines solar and semiconductor silicon. Customs totals cannot identify PV-grade inputs."},
+        "854140": {"title": "Photosensitive semiconductor devices", "boundary": "Includes PV cells, modules and LEDs in the HS02 and HS17 versions used here."},
     }),
     "wind": ("wind-chain", "wind", {
         "850231": {"title": "Wind-powered generating sets", "boundary": "Complete turbines only; blades, nacelles and towers trade under generic parts and are mostly built locally."},

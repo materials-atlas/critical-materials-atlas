@@ -1,6 +1,6 @@
 # Solar-PV chain — research library
 
-China makes 85-98% of every stage of the panel, from polysilicon to lamination, even as silicon-per-watt fell about eight-fold in twenty years. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+Public references for the solar manufacturing study. The claim register separates historical output, factory capacity, silicon input per rated watt and scenario calculations.
 
 ## Core references (already cited in the chain)
 - [Trends in Photovoltaic Applications 2024](https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf) — IEA-PVPS (2024). Annual global PV deployment and market-trend report.
@@ -34,5 +34,5 @@ China makes 85-98% of every stage of the panel, from polysilicon to lamination, 
 ## Gaps & good next searches
 - SEIA (Solar Energy Industries Association) and CSIS's Critical Minerals Security Program pages returned access errors this session — worth a direct follow-up fetch or search for US-specific PV supply-chain policy analysis.
 - Independent market-intelligence firms (BloombergNEF, Wood Mackenzie, Bernreuter Research on polysilicon) are the standard sources for granular stage-by-stage China market-share numbers and were not reachable this session.
-- A dedicated paper quantifying the "eight-fold" silicon-per-watt decline (g/W over time) would strengthen the chain's central dematerialisation claim — search Fraunhofer ISE or ITRPV (International Technology Roadmap for Photovoltaic) reports directly.
+- The Fraunhofer report documents the rounded intensity endpoints. A harmonized process inventory would help separate the effects of efficiency, wafer thickness, sawing loss and recycled silicon.
 - EU Net-Zero Industry Act analysis of European PV manufacturing capacity (the counter-move to China concentration) is a natural next search.

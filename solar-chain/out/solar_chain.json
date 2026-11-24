@@ -1,210 +1,316 @@
 {
-  "title": "Solar-PV chain",
-  "chokepoint": {
-    "product": "Solar modules",
-    "stage": "Polysilicon + wafer",
-    "mechanism": "thermodynamic",
-    "physics": "Polysilicon + wafer pulling are power- and capital-hungry, sited at cheap Chinese power",
-    "holder": "China",
-    "share": "~95%",
-    "control": "—",
-    "conf": "estimate"
-  },
-  "published": true,
-  "related": [
-    {
-      "href": "../silicon-chip/silicon-chain",
-      "label": "Silicon-chip chain"
-    },
-    {
-      "href": "../aluminium-chain/aluminium-chain",
-      "label": "Aluminium chain"
-    }
-  ],
-  "accent": "#c08a2e",
-  "eyebrow": "Product-chain pilot · the panel on the roof",
-  "h1": "The whole panel is a China product — and the physics got cheaper anyway",
-  "deck": "A solar module is silicon, refined into polysilicon, grown into wafers, turned into cells and laminated into panels. China makes roughly 85–98% of every one of those stages — even as the silicon needed per watt fell about eight-fold in twenty years. The chain both concentrated and dematerialised at once.",
-  "byline": "silicon ≠ polysilicon (~92% CN) ≠ wafer (~98% CN) ≠ cell (~92% CN) ≠ module (~85% CN)",
-  "correction": "The solar chokepoint is not a scarce element — silicon is the second-most-abundant element in the crust, and a panel uses ever less of it. The chokepoint is the factory: China holds ~92% of polysilicon, ~98% of wafers, ~92% of cells and ~85% of modules. Diversifying solar means rebuilding a manufacturing stack, not finding a deposit.",
-  "stats": [
-    {
-      "v": "92–98%",
-      "l": "China's share of polysilicon, wafers and cells (2023)",
-      "conf": "measured"
-    },
-    {
-      "v": "~85%",
-      "l": "China's share of finished PV modules (2023)",
-      "conf": "measured"
-    },
-    {
-      "v": "16→2 g/W",
-      "l": "silicon used per watt of cell output, 2004 → 2024",
-      "conf": "measured"
-    },
-    {
-      "v": "~8×",
-      "l": "less silicon per watt than twenty years ago — the panel dematerialised",
-      "conf": "measured"
-    }
-  ],
-  "history": {
-    "title": "The panel dematerialised: silicon per watt, 2004 → 2024",
-    "conf": "measured",
-    "unit": "g/W (silicon per watt-peak)",
-    "note": "Fraunhofer ISE. Silicon consumed per watt of cell output fell from about 16 g/W to about 2 g/W — thinner wafers, higher efficiency, diamond-wire sawing and larger ingots. Two published anchors, not an annual series. The lesson cuts against intuition: the material got radically cheaper to use, yet the chokepoint hardened — because it was never the silicon, it was the factory.",
-    "series": [
-      {
-        "label": "silicon per watt",
-        "points": [
-          {
-            "y": 2004,
-            "v": 16
-          },
-          {
-            "y": 2024,
-            "v": 2
-          }
-        ]
-      }
-    ]
-  },
-  "hops": [
-    {
-      "n": "1 · Polysilicon",
-      "t": "metallurgical silicon purified to PV-grade polysilicon — ~92% China"
-    },
-    {
-      "n": "2 · Wafer",
-      "t": "polysilicon grown into ingots and sliced into wafers — ~98% China"
-    },
-    {
-      "n": "3 · Cell",
-      "t": "wafers processed into photovoltaic cells — ~92% China"
-    },
-    {
-      "n": "4 · Module",
-      "t": "cells laminated with glass, EVA and a frame into panels — ~85% China"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · China at every stage of the chain",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "China's production share by stage (2023)",
-          "conf": "measured",
-          "max": 1.0,
-          "note": "IEA-PVPS. This is what total concentration looks like: not one chokepoint but a continuous one, from the purified silicon all the way to the finished panel. The module share is 'only' ~85% because final assembly is the easiest stage to move — the wafer, at ~98%, is the hard one.",
-          "bars": [
-            {
-              "label": "Polysilicon",
-              "value": 0.92
-            },
-            {
-              "label": "Wafers",
-              "value": 0.98
-            },
-            {
-              "label": "Cells",
-              "value": 0.918
-            },
-            {
-              "label": "Modules",
-              "value": 0.846
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "The wafer is the real lock",
-          "text": "Module assembly is spreading — India, the US and Southeast Asia are building it. But wafers, at ~98% China, are the stage nobody has replicated at scale: it is capital-heavy, power-hungry and know-how-dense. A panel 'made in' another country is very often built on a Chinese wafer, so assembly shares overstate how diversified the chain really is.",
-          "flag": "assembly moves; the wafer doesn't"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The panel got radically more efficient",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Silicon per watt",
-          "big": "16 → 2 g/W",
-          "conf": "measured",
-          "text": "Two decades of thinner wafers, higher cell efficiency and better sawing cut the silicon in a watt of solar roughly eight-fold. That is why panel prices collapsed and why 'silicon supply' is not the constraint — the industry keeps doing more with less of the raw material. The scarce thing is the industrial capacity to convert it, which is what concentrated.",
-          "note": "Fraunhofer ISE Photovoltaics Report."
-        },
-        {
-          "kind": "text",
-          "h3": "Why it concentrated in China",
-          "text": "Polysilicon and wafer production are electricity-intensive and scale-sensitive, and China combined cheap power, a decade of coordinated investment and a full upstream-to-downstream cluster. The result is the lowest-cost solar in history — and a supply chain whose every rung sits in one country. Cheap and concentrated are, here, the same fact.",
-          "flag": "cheapest ever, and single-sourced"
-        }
-      ]
-    },
-    {
-      "h2": "3 · The exposure that remains",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Silver and the small inputs",
-          "text": "The panel is not entirely China-proof of scarcity: each cell uses a little silver paste for its contacts, and PV is a meaningful slice of world silver demand — an input the industry is actively thinning (copper metallisation) but has not eliminated. It is the one genuinely material-side constraint in a chain whose main chokepoint is industrial, not geological.",
-          "note": "IEA / industry: silver paste in cell metallisation.",
-          "flag": "the one material input to watch"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries polysilicon, wafers, cells and modules, but a module's customs origin is its final assembly point — which increasingly hides an upstream Chinese wafer. Read the export shares below as trading positions; the true concentration is at the wafer stage, which trade data does not cleanly isolate.",
-  "method": [
-    {
-      "stage": "Polysilicon–wafer–cell",
-      "lens": "IEA-PVPS production share",
-      "why": "~92–98% China — a continuous chokepoint"
-    },
-    {
-      "stage": "Module",
-      "lens": "IEA-PVPS assembly share",
-      "why": "~85% China; assembly is the movable stage"
-    },
-    {
-      "stage": "Intensity",
-      "lens": "Fraunhofer g/W history",
-      "why": "the panel dematerialised — silicon is not the constraint"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI poly/wafer/cell/module",
-      "why": "assembly-point origin hides the wafer — flagged context"
-    }
-  ],
+  "version": "2026-11-24",
   "sources": {
-    "iea_pvps_2024": {
-      "title": "IEA-PVPS, Trends in Photovoltaic Applications 2024",
-      "year": 2024,
-      "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf"
+    "pvps": {
+      "title": "IEA PVPS, Trends in Photovoltaic Applications 2024, Figures 4.2–4.5",
+      "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=53",
+      "vintage": "October 2024"
     },
-    "iea_supply_chains_2022": {
-      "title": "IEA, Solar PV Global Supply Chains",
-      "year": 2022,
-      "url": "https://www.iea.org/reports/solar-pv-global-supply-chains"
+    "policy": {
+      "title": "IEA, State of Energy Policy 2026, p. 52",
+      "url": "https://www.iea.org/files/b3912b14-b276-4729-8f94-3d6f17b84226/StateofEnergyPolicy2026.pdf#page=53",
+      "vintage": "2026"
     },
-    "iea_etp_2026": {
-      "title": "IEA, Energy Technology Perspectives 2026 — supply-chain risks",
-      "year": 2026,
-      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness"
+    "etp": {
+      "title": "IEA, Energy Technology Perspectives 2026, supply chain risks",
+      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness",
+      "vintage": "26 March 2026"
     },
-    "fraunhofer_2026": {
-      "title": "Fraunhofer ISE, Photovoltaics Report",
-      "year": 2026,
-      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf"
+    "europe": {
+      "title": "IEA, Inverter supply chains and cybersecurity",
+      "url": "https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/",
+      "vintage": "29 July 2026"
+    },
+    "europe_chart": {
+      "title": "IEA, 2025 geographic distribution chart and notes",
+      "url": "https://www.iea.org/data-and-statistics/charts/geographic-distribution-of-global-manufacturing-capacity-and-demand-for-inverters-solar-pv-modules-and-battery-energy-storage-system-cells-2025",
+      "vintage": "July 2026"
+    },
+    "fraunhofer": {
+      "title": "Fraunhofer ISE, Photovoltaics Report, pp. 8 and 36",
+      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=8",
+      "vintage": "14 July 2026"
+    },
+    "fraunhofer_eu": {
+      "title": "Fraunhofer ISE, EU-27 manufacturing status, p. 14",
+      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=14",
+      "vintage": "14 July 2026, inventory updated August 2025"
+    },
+    "etp_cost": {
+      "title": "IEA, Energy Technology Perspectives 2026, executive summary",
+      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary",
+      "vintage": "26 March 2026"
+    },
+    "renewables": {
+      "title": "IEA, Renewables 2026, executive summary",
+      "url": "https://www.iea.org/reports/renewables-2026/executive-summary",
+      "vintage": "2026"
+    },
+    "supply": {
+      "title": "IEA, Solar PV Global Supply Chains, executive summary",
+      "url": "https://www.iea.org/reports/solar-pv-global-supply-chains/executive-summary",
+      "vintage": "2022"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
-      "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html",
+      "vintage": "January 2026"
+    }
+  },
+  "concentration": {
+    "production_2023": {
+      "observation_year": 2023,
+      "metric": "Reported share of world output",
+      "geography": "China",
+      "source": "pvps",
+      "stage_shares_pct": {
+        "polysilicon": 92,
+        "wafers": 98,
+        "cells": 91.8,
+        "modules": 84.6
+      },
+      "stage_notes": {
+        "polysilicon": "Figure 4.2 includes semiconductor polysilicon.",
+        "wafers": "Figure 4.3 reports approximately 98%.",
+        "cells": "Figure 4.4 reports 91.8%.",
+        "modules": "Figure 4.5 includes thin film. The total and China volumes in the text do not reproduce its 84.6% share."
+      }
+    },
+    "capacity_2024": {
+      "observation_year": 2024,
+      "metric": "Share of world manufacturing capacity",
+      "underlying_source": "IEA, World Energy Outlook 2025, as credited on the chart",
+      "geography": "China",
+      "source": "policy",
+      "stage_shares_pct": {
+        "polysilicon": 87,
+        "wafers": 87,
+        "cells": 82,
+        "modules": 75
+      }
+    },
+    "different_vintage_wafers": [
+      {
+        "observation_year": 2024,
+        "metric": "Manufacturing capacity context",
+        "share_pct": 95,
+        "source": "etp"
+      },
+      {
+        "observation_year": 2025,
+        "metric": "Wafer production in manufacturing-capacity discussion, wafer denominator unspecified",
+        "share_pct": 95,
+        "source": "europe"
+      }
+    ]
+  },
+  "silicon_intensity": {
+    "source": "fraunhofer",
+    "metric": "Polysilicon input in grams per watt-peak of crystalline-silicon cell output",
+    "values": [
+      {
+        "year": 2004,
+        "grams_per_wp": 16,
+        "wafer_thickness_um": 300
+      },
+      {
+        "year": 2024,
+        "grams_per_wp": 2,
+        "wafer_thickness_um": 140
+      }
+    ],
+    "limitations": "Rounded endpoints. The chart includes silicon recycling from 2017. Sources and accounting change across the series. Process-loss and efficiency contributions are not separately quantified."
+  },
+  "europe_capacity": {
+    "source": "europe",
+    "observation_year": 2025,
+    "region": "Europe as published by IEA",
+    "annual_gw_equivalent": {
+      "polysilicon": 27,
+      "ingots": null,
+      "wafers": 1.5,
+      "cells": 10,
+      "modules": 33
+    },
+    "inverter_gw_per_year": 95,
+    "limitations": "The commentary gives rounded stage capacities in GW. It does not define country membership, upstream conversions, factory availability or compatibility. Its companion chart has no upstream rows or download."
+  },
+  "eu27_inventory": {
+    "source": "fraunhofer_eu",
+    "reference_month": "2025-08",
+    "scope": "EU-27",
+    "operating_gwp_per_year": {
+      "polysilicon": 9,
+      "ingots": 0,
+      "wafers": 0,
+      "cells": 2.9,
+      "modules": 6.7
+    },
+    "ingot_capacity_closed_2024_25_gwp_per_year": 0.4,
+    "limitations": "Source reports no active ingot or wafer production. This inventory is separate from the wider IEA Europe estimates."
+  },
+  "cost_case": {
+    "source": "etp_cost",
+    "region": "EU",
+    "partner": "North Africa",
+    "modeled_saving_pct": "almost 20",
+    "measure": "levelised cost of producing modules in same-size facilities, compared with a fully EU-made module"
+  },
+  "illustration": {
+    "status": "Hypothetical six-month wafer procurement stress test. All procurement, compatibility, yields, utilization and inventory quantities are assumptions; neither exposure nor import volume is measured.",
+    "months": 6,
+    "normal_wafer_import_rate_gw_per_year": 8.5,
+    "point": {
+      "exposed_import_share": 1,
+      "operable_ingots_gw_per_year": 1.5
+    },
+    "exposed_share_range": [
+      0,
+      1
+    ],
+    "operable_ingots_range_gw_per_year": [
+      0,
+      1.5
+    ],
+    "yields": {
+      "ingots": 1,
+      "wafers": 1,
+      "cells": 1,
+      "modules": 1
+    },
+    "scenarios": {
+      "open": {
+        "label": "Open wafer sourcing",
+        "loss_fraction": 0,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "partial": {
+        "label": "Half of exposed wafer supply lost",
+        "loss_fraction": 0.5,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "severe": {
+        "label": "All exposed wafer supply lost",
+        "loss_fraction": 1,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "buffered": {
+        "label": "Severe case with replacement supply and stock",
+        "loss_fraction": 1,
+        "replace_fraction_of_lost": 0.5,
+        "opening_wafer_stock_gw": 0.5
+      }
+    },
+    "policy_target_fraction": 0.8
+  },
+  "title": "Solar-PV chain",
+  "h1": "What limits solar module manufacturing?",
+  "deck": "Factories that assemble modules need compatible upstream inputs. Europe’s capacity estimates and a wafer supply stress test show where those limits can arise.",
+  "published": true,
+  "chokepoint": {
+    "product": "Solar modules",
+    "stage": "Ingot and wafer supply",
+    "mechanism": "thermodynamic",
+    "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
+    "holder": "China",
+    "share": "—",
+    "control": "—",
+    "conf": "assessment",
+    "research": true
+  },
+  "flow_results": {
+    "closed_route": {
+      "upper_bound_gw_per_year": 1.5,
+      "share_of_module_nameplate": 0.045454545454545456
+    },
+    "scenario_months": 6,
+    "scenarios": {
+      "open": {
+        "label": "Open wafer sourcing",
+        "point_output_gw": 5.0,
+        "point_change_from_open_gw": 0.0,
+        "point_limiting_stage_capacities": [
+          "ingots",
+          "wafers",
+          "cells"
+        ],
+        "output_range_gw": [
+          4.25,
+          5.0
+        ],
+        "loss_range_gw": [
+          0.0,
+          0.0
+        ]
+      },
+      "partial": {
+        "label": "Half of exposed wafer supply lost",
+        "point_output_gw": 2.875,
+        "point_change_from_open_gw": 2.125,
+        "point_limiting_stage_capacities": [
+          "ingots",
+          "wafers"
+        ],
+        "output_range_gw": [
+          2.125,
+          5.0
+        ],
+        "loss_range_gw": [
+          0.0,
+          2.125
+        ]
+      },
+      "severe": {
+        "label": "All exposed wafer supply lost",
+        "point_output_gw": 0.75,
+        "point_change_from_open_gw": 4.25,
+        "point_limiting_stage_capacities": [
+          "ingots",
+          "wafers"
+        ],
+        "output_range_gw": [
+          0.0,
+          5.0
+        ],
+        "loss_range_gw": [
+          0.0,
+          4.25
+        ]
+      },
+      "buffered": {
+        "label": "Severe case with replacement supply and stock",
+        "point_output_gw": 3.375,
+        "point_change_from_open_gw": 1.625,
+        "point_limiting_stage_capacities": [
+          "ingots",
+          "wafers"
+        ],
+        "output_range_gw": [
+          2.625,
+          5.0
+        ],
+        "loss_range_gw": [
+          0.0,
+          1.625
+        ]
+      }
+    },
+    "marginal_one_gw_annual_severe": {
+      "polysilicon": 0.0,
+      "ingots": 0.0,
+      "wafers": 0.0,
+      "cells": 0.0,
+      "modules": 0.0
+    },
+    "paired_ingot_wafer_one_gw_annual_gain": 0.5,
+    "policy_comparison": {
+      "target_fraction_of_open": 0.8,
+      "target_module_output_gw": 4.0,
+      "additional_qualified_wafer_supply_gw": 3.25,
+      "additional_annual_compatible_capacity_gw": 6.5
     }
   }
 }

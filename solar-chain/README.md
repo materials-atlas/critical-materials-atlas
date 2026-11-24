@@ -1,47 +1,84 @@
-# Solar manufacturing chain pilot (unpublished)
+# Solar manufacturing study
 
-This workspace applies the product-chain method to solar photovoltaics:
+Evidence and model release dated 24 November 2026. The [claim register](PRODUCTION.md)
+records the original claims, source vintages and old file checksums. The
+[study](solar-chain.html) contains the findings and core tables in its
+initial HTML. Its trade year control can explore the checked-in customs series.
 
-`silicon metal → PV polysilicon → ingots/wafers → cells → modules → systems`
-
-It is not linked from the live Atlas and does not alter the 32 material
-profiles. The semiconductor pilot remains separate in `silicon-chip/`.
-
-## Evidence design
-
-The page does not force unlike data into one line:
-
-| Layer | Coverage | Measure |
-|---|---|---|
-| Module-production geography | 1990–2025 | Regional production shares |
-| Broad customs context | 2002–2024 | Annual trade value and exporters |
-| Silicon intensity | 2004 / 2024 | Grams per watt-peak |
-| Manufacturing capacity | 2010 / 2021 / 2024 | Nameplate capacity shares |
-| Physical stage production | 2023 | Actual output by stage |
-
-The long module series is the historical backbone. The 2010 and 2021 IEA
-matrices provide the cleanest like-for-like view of how concentration moved
-upstream. The 2023 IEA-PVPS table supplies physical production. Each remains a
-separate measure.
-
-## Files
-
-- `record_solar.py` builds `out/solar_chain.json`.
-- `solar-chain.html` is the unpublished interactive page.
-- `PRODUCTION.md` records sources, measures, and exact claims.
-- `NOTES.md` records the interpretation and exclusions.
-- `../silicon-chip/extract_baci.py` builds the shared BACI context, including
-  broad code 854140.
-
-## Rebuild and view
+## Reproduce the article and model
 
 From the repository root:
 
 ```text
 python solar-chain/record_solar.py
-python silicon-chip/extract_baci.py
+python solar-chain/solar_flow.py
 python -m http.server 8765
 ```
 
-Open `http://localhost:8765/solar-chain/solar-chain.html`.
+Open [the local study](http://localhost:8765/solar-chain/solar-chain.html).
+The builder reads the [evidence and scenario inputs](evidence_inputs.json),
+the [article template](article.html.in) and the checked-in
+[trade extract](out/solar_trade.json). It writes the static article and the
+[calculated evidence JSON](out/solar_chain.json). The main Atlas copy can
+rebuild the original trade values from raw BACI using `build_chain_trade.py`.
+The same HS02 and HS17 categories are used in this release.
 
+## Scope and units
+
+The model follows a single compatible crystalline-silicon route. The IEA
+gives approximate annual stage ratings for Europe in 2025. The illustration
+normalizes the rates to GW-equivalent of module output. This comparison assumes
+compatible facilities and full available nameplate capacity at each listed
+stage. The IEA note omits an ingot rate and does not publish a region-to-country
+bridge or upstream conversion factors. The Fraunhofer EU-27 inventory is
+kept separate. Raw feedstock, non-cell module components, energy, labor and
+finished-module demand are assumed available.
+
+## Throughput and interruptions
+
+1. Multiply each annual nameplate rate and each available annual import rate
+   by elapsed months divided by twelve. Opening inventory is a one-time
+   quantity. Each step can make at most its time-scaled capacity or the
+   prior step’s available output multiplied by its assumed yield, whichever
+   is smaller. Qualified inbound supply and a stock draw at that stage are
+   available for the next step. This forward calculation gives the maximum
+   feasible module output for a serial route with no competing uses.
+2. For the annual closed-route ceiling, use zero trade and zero stocks and
+   unit yields. Relax only the unknown ingot constraint. The remaining
+   minimum is 1.5 GW-equivalent per year. Division by 33 gives about 4.5%
+   of nominal module capacity. Enforcing an ingot or other omitted limit
+   can only lower this ceiling for the same route.
+3. The six-month open example assumes an annual wafer import rate of 8.5
+   GW-equivalent. This is the rate that fills 10 GW/year of cell capacity
+   alongside 1.5 GW/year of domestic wafers at the point assumptions.
+   Point cases assume that the entire imported wafer lane is exposed and
+   1.5 GW/year of operable ingot capacity feeds domestic wafers. All
+   conversions use unit yields. Other kinds of imports, including qualified
+   cells, are excluded from the wafer experiment.
+4. The shocks remove half or all of the exposed China-origin wafer supply
+   for the horizon. Replacement shipments restore the stated fraction of
+   the lost input. Opening stocks cover up to the remaining shortfall.
+   The buffered illustration replaces half the lost input and makes 0.5
+   GW-equivalent of stock available. Stocks are not annualized.
+5. Scenario ranges vary the route’s China-origin share from 0 to 100% and
+   the available ingot rate from zero to 1.5 GW/year. The paired differences
+   use the open case with the same ingot rate and origin share. These
+   endpoints are sensitivity assumptions. They carry no statistical
+   probabilities and describe no observed sourcing mix.
+
+The reported stage limits are capacity constraints active at the illustrative
+point. More than one may be active at the same time. A small increase to one
+stage can therefore have zero marginal gain. The policy calculation uses
+80% of the open point output as a common physical target. Integrated capacity,
+replacement shipments and stocks achieve that target only if the assumed
+compatible wafer quantities are available on time.
+
+## Evidence needed for a real disruption estimate
+
+The public inputs do not establish how much of IEA’s Europe capacity can
+operate, how it converts across factories, or which companies can replace
+which wafer supplies. Estimating actual losses or the cost of achieving
+resilience needs same-region ingot and wafer capacity, plant utilization and
+yields, qualified input flows and contracts, inventory, costs and replacement
+lead times. The assessment ends at factory output. It does not estimate
+installed capacity, electricity generation or disruption probabilities.

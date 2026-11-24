@@ -1,115 +1,136 @@
-"""Evidence JSON for the solar-PV chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_solar.py
-"""
+"""Build the static solar study and its downloadable evidence."""
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "solar_chain.json")
+from html import escape
+import json
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "iea_pvps_2024": {"title": "IEA-PVPS, Trends in Photovoltaic Applications 2024", "year": 2024, "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf"},
-    "iea_supply_chains_2022": {"title": "IEA, Solar PV Global Supply Chains", "year": 2022, "url": "https://www.iea.org/reports/solar-pv-global-supply-chains"},
-    "iea_etp_2026": {"title": "IEA, Energy Technology Perspectives 2026 — supply-chain risks", "year": 2026, "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness"},
-    "fraunhofer_2026": {"title": "Fraunhofer ISE, Photovoltaics Report", "year": 2026, "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
-}
+from solar_flow import INPUTS, STAGES, evaluate
 
-CHAIN = {
-    "title": "Solar-PV chain",
-    "chokepoint": {"product": "Solar modules", "stage": "Polysilicon + wafer", "mechanism": "thermodynamic", "physics": "Polysilicon + wafer pulling are power- and capital-hungry, sited at cheap Chinese power", "holder": "China", "share": "~95%", "control": "—", "conf": "estimate"},
-    "published": True,
-    "related": [{"href": "../silicon-chip/silicon-chain", "label": "Silicon-chip chain"}, {"href": "../aluminium-chain/aluminium-chain", "label": "Aluminium chain"}],
-    "accent": "#c08a2e",
-    "eyebrow": "Product-chain pilot · the panel on the roof",
-    "h1": "The whole panel is a China product — and the physics got cheaper anyway",
-    "deck": "A solar module is silicon, refined into polysilicon, grown into wafers, turned into cells and laminated "
-            "into panels. China makes roughly 85–98% of every one of those stages — even as the silicon needed per "
-            "watt fell about eight-fold in twenty years. The chain both concentrated and dematerialised at once.",
-    "byline": "silicon ≠ polysilicon (~92% CN) ≠ wafer (~98% CN) ≠ cell (~92% CN) ≠ module (~85% CN)",
-    "correction": "The solar chokepoint is not a scarce element — silicon is the second-most-abundant element in the "
-                  "crust, and a panel uses ever less of it. The chokepoint is the factory: China holds ~92% of "
-                  "polysilicon, ~98% of wafers, ~92% of cells and ~85% of modules. Diversifying solar means rebuilding "
-                  "a manufacturing stack, not finding a deposit.",
-    "stats": [
-        {"v": "92–98%", "l": "China's share of polysilicon, wafers and cells (2023)", "conf": "measured"},
-        {"v": "~85%", "l": "China's share of finished PV modules (2023)", "conf": "measured"},
-        {"v": "16→2 g/W", "l": "silicon used per watt of cell output, 2004 → 2024", "conf": "measured"},
-        {"v": "~8×", "l": "less silicon per watt than twenty years ago — the panel dematerialised", "conf": "measured"},
-    ],
-    "history": {
-        "title": "The panel dematerialised: silicon per watt, 2004 → 2024",
-        "conf": "measured",
-        "unit": "g/W (silicon per watt-peak)",
-        "note": "Fraunhofer ISE. Silicon consumed per watt of cell output fell from about 16 g/W to about 2 g/W — "
-                "thinner wafers, higher efficiency, diamond-wire sawing and larger ingots. Two published anchors, not "
-                "an annual series. The lesson cuts against intuition: the material got radically cheaper to use, yet "
-                "the chokepoint hardened — because it was never the silicon, it was the factory.",
-        "series": [
-            {"label": "silicon per watt", "points": [{"y": 2004, "v": 16}, {"y": 2024, "v": 2}]},
-        ],
-    },
-    "hops": [
-        {"n": "1 · Polysilicon", "t": "metallurgical silicon purified to PV-grade polysilicon — ~92% China"},
-        {"n": "2 · Wafer", "t": "polysilicon grown into ingots and sliced into wafers — ~98% China"},
-        {"n": "3 · Cell", "t": "wafers processed into photovoltaic cells — ~92% China"},
-        {"n": "4 · Module", "t": "cells laminated with glass, EVA and a frame into panels — ~85% China"},
-    ],
-    "sections": [
-        {"h2": "1 · China at every stage of the chain", "panels": [
-            {"kind": "bars", "h3": "China's production share by stage (2023)", "conf": "measured", "max": 1.0, "note":
-                "IEA-PVPS. This is what total concentration looks like: not one chokepoint but a continuous one, from "
-                "the purified silicon all the way to the finished panel. The module share is 'only' ~85% because final "
-                "assembly is the easiest stage to move — the wafer, at ~98%, is the hard one.", "bars": [
-                {"label": "Polysilicon", "value": 0.92},
-                {"label": "Wafers", "value": 0.98},
-                {"label": "Cells", "value": 0.918},
-                {"label": "Modules", "value": 0.846},
-            ]},
-            {"kind": "text", "h3": "The wafer is the real lock",
-             "text": "Module assembly is spreading — India, the US and Southeast Asia are building it. But wafers, at "
-                     "~98% China, are the stage nobody has replicated at scale: it is capital-heavy, power-hungry and "
-                     "know-how-dense. A panel 'made in' another country is very often built on a Chinese wafer, so "
-                     "assembly shares overstate how diversified the chain really is.",
-             "flag": "assembly moves; the wafer doesn't"},
-        ]},
-        {"h2": "2 · The panel got radically more efficient", "panels": [
-            {"kind": "big", "h3": "Silicon per watt", "big": "16 → 2 g/W", "conf": "measured",
-             "text": "Two decades of thinner wafers, higher cell efficiency and better sawing cut the silicon in a watt "
-                     "of solar roughly eight-fold. That is why panel prices collapsed and why 'silicon supply' is not "
-                     "the constraint — the industry keeps doing more with less of the raw material. The scarce thing is "
-                     "the industrial capacity to convert it, which is what concentrated.",
-             "note": "Fraunhofer ISE Photovoltaics Report."},
-            {"kind": "text", "h3": "Why it concentrated in China",
-             "text": "Polysilicon and wafer production are electricity-intensive and scale-sensitive, and China combined "
-                     "cheap power, a decade of coordinated investment and a full upstream-to-downstream cluster. The "
-                     "result is the lowest-cost solar in history — and a supply chain whose every rung sits in one "
-                     "country. Cheap and concentrated are, here, the same fact.",
-             "flag": "cheapest ever, and single-sourced"},
-        ]},
-        {"h2": "3 · The exposure that remains", "panels": [
-            {"kind": "text", "h3": "Silver and the small inputs",
-             "text": "The panel is not entirely China-proof of scarcity: each cell uses a little silver paste for its "
-                     "contacts, and PV is a meaningful slice of world silver demand — an input the industry is actively "
-                     "thinning (copper metallisation) but has not eliminated. It is the one genuinely material-side "
-                     "constraint in a chain whose main chokepoint is industrial, not geological.",
-             "note": "IEA / industry: silver paste in cell metallisation.", "flag": "the one material input to watch"},
-        ]},
-    ],
-    "trade_intro": "BACI carries polysilicon, wafers, cells and modules, but a module's customs origin is its final "
-                   "assembly point — which increasingly hides an upstream Chinese wafer. Read the export shares below "
-                   "as trading positions; the true concentration is at the wafer stage, which trade data does not "
-                   "cleanly isolate.",
-    "method": [
-        {"stage": "Polysilicon–wafer–cell", "lens": "IEA-PVPS production share", "why": "~92–98% China — a continuous chokepoint"},
-        {"stage": "Module", "lens": "IEA-PVPS assembly share", "why": "~85% China; assembly is the movable stage"},
-        {"stage": "Intensity", "lens": "Fraunhofer g/W history", "why": "the panel dematerialised — silicon is not the constraint"},
-        {"stage": "Trade", "lens": "BACI poly/wafer/cell/module", "why": "assembly-point origin hides the wafer — flagged context"},
-    ],
-    "sources": SRC,
-}
+HERE = Path(__file__).resolve().parent
+OUT = HERE / "out" / "solar_chain.json"
+TRADE = HERE / "out" / "solar_trade.json"
+ARTICLE = HERE / "solar-chain.html"
+TEMPLATE = HERE / "article.html.in"
+TITLE = "What limits solar module manufacturing?"
+DECK = ("Factories that assemble modules need compatible upstream inputs. "
+        "Europe’s capacity estimates and a wafer supply stress test show where those limits can arise.")
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- solar, China 85-98pct every stage; silicon 16->2 g/W")
+
+def value(number):
+    return f"{number:,.3f}".rstrip("0").rstrip(".")
+
+
+def rows(data):
+    return "\n".join(
+        "<tr><th scope=\"row\">" + escape(str(label)) + "</th>"
+        + "".join(f"<td>{escape(str(item))}</td>" for item in cells) + "</tr>"
+        for label, *cells in data
+    )
+
+
+def source_link(sources, key, label=None):
+    source = sources[key]
+    return f'<a href="{escape(source["url"], quote=True)}">{escape(label or source["title"])}</a>'
+
+
+def share(stage, snapshot):
+    percentage = snapshot["stage_shares_pct"].get(stage)
+    return f"{percentage:g}%" if percentage is not None else "—"
+
+
+def interval(bounds):
+    low, high = bounds
+    return value(low) if low == high else f"{value(low)}–{value(high)}"
+
+
+def render(data, trade):
+    sources = data["sources"]
+    production = data["concentration"]["production_2023"]
+    capacity = data["concentration"]["capacity_2024"]
+    annual = data["europe_capacity"]["annual_gw_equivalent"]
+    result = data["flow_results"]
+    policy = result["policy_comparison"]
+    upper = result["closed_route"]
+    intensity = data["silicon_intensity"]["values"]
+    year = trade["years"][-1]
+
+    max_capacity = max(rate for rate in annual.values() if rate is not None)
+    stage_rows = []
+    for stage, rate in annual.items():
+        label = stage.capitalize()
+        if rate is None:
+            cells = "<td colspan=\"2\">Unreported</td>"
+        else:
+            cells = (f'<td>{value(rate)}</td><td><meter min="0" max="{max_capacity}" '
+                     f'value="{rate}" aria-label="{label} capacity on a common scale"></meter></td>')
+        stage_rows.append(f'<tr><th scope="row">{label}</th>{cells}</tr>')
+
+    trade_rows = []
+    for code, info in trade["codes"].items():
+        item = trade["years_data"][str(year)][code]
+        top = next(iter(item["exporters"]), None)
+        lead = f'{top["name"]} · {top["share"]:.0%}' if top else "—"
+        amount = f'${item["world_usd"] / 1e9:,.1f} billion' if item["world_usd"] else "—"
+        trade_rows.append((f'{info["title"]} ({code})', amount, lead, info["boundary"]))
+
+    scenario_rows = [
+        (scenario["label"], value(scenario["point_output_gw"]),
+         interval(scenario["output_range_gw"]), interval(scenario["loss_range_gw"]),
+         ", ".join(scenario["point_limiting_stage_capacities"]))
+        for scenario in result["scenarios"].values()
+    ]
+    sensitivity = result["paired_ingot_wafer_one_gw_annual_gain"]
+    replacements = {
+        "title": escape(TITLE), "deck": escape(DECK), "version": data["version"],
+        "capacity_rows": "\n".join(stage_rows),
+        "module_capacity": value(annual["modules"]),
+        "closed_ceiling": value(upper["upper_bound_gw_per_year"]),
+        "ratio": f'{upper["share_of_module_nameplate"]:.1%}',
+        "inverter": value(data["europe_capacity"]["inverter_gw_per_year"]),
+        "share_rows": rows((stage.capitalize(), share(stage, production), share(stage, capacity))
+                           for stage in STAGES),
+        "intensity_rows": rows((point["year"], value(point["grams_per_wp"]), point["wafer_thickness_um"])
+                               for point in intensity),
+        "intensity_ratio": value(intensity[0]["grams_per_wp"] / intensity[-1]["grams_per_wp"]),
+        "months": result["scenario_months"],
+        "scenario_rows": rows(scenario_rows),
+        "paired_gain": value(sensitivity),
+        "target_fraction": f'{policy["target_fraction_of_open"]:.0%}',
+        "target_gw": value(policy["target_module_output_gw"]),
+        "wafer_needed": value(policy["additional_qualified_wafer_supply_gw"]),
+        "wafer_rate": value(policy["additional_annual_compatible_capacity_gw"]),
+        "trade_rows": rows(trade_rows), "trade_year": year,
+        "europe": source_link(sources, "europe", "IEA, 29 July 2026"),
+        "eu": source_link(sources, "fraunhofer_eu", "Fraunhofer ISE, p. 14"),
+        "pvps": source_link(sources, "pvps", "IEA PVPS, Figures 4.2–4.5"),
+        "cap_share": source_link(sources, "policy", "IEA, State of Energy Policy 2026, p. 52"),
+        "etp": source_link(sources, "etp", "IEA, Energy Technology Perspectives 2026"),
+        "fraun": source_link(sources, "fraunhofer", "Fraunhofer ISE, pp. 8 and 36"),
+        "cost": source_link(sources, "etp_cost", "IEA, Energy Technology Perspectives 2026, executive summary"),
+        "references": "\n".join(f"<li>{source_link(sources, key)} · {escape(source['vintage'])}</li>"
+                                for key, source in sources.items()),
+    }
+    return Template(TEMPLATE.read_text(encoding="utf-8")).substitute(replacements)
+
+
+def build():
+    data = json.loads(INPUTS.read_text(encoding="utf-8"))
+    trade = json.loads(TRADE.read_text(encoding="utf-8"))
+    data.update({
+        "title": "Solar-PV chain", "h1": TITLE, "deck": DECK, "published": True,
+        "chokepoint": {
+            "product": "Solar modules", "stage": "Ingot and wafer supply", "mechanism": "thermodynamic",
+            "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
+            "holder": "China", "share": "—", "control": "—", "conf": "assessment", "research": True,
+        },
+        "flow_results": evaluate(data),
+    })
+    article = render(data, trade)
+    OUT.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
+    ARTICLE.write_text(article, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    build()

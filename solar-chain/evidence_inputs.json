@@ -1,0 +1,209 @@
+{
+  "version": "2026-11-24",
+  "sources": {
+    "pvps": {
+      "title": "IEA PVPS, Trends in Photovoltaic Applications 2024, Figures 4.2–4.5",
+      "url": "https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=53",
+      "vintage": "October 2024"
+    },
+    "policy": {
+      "title": "IEA, State of Energy Policy 2026, p. 52",
+      "url": "https://www.iea.org/files/b3912b14-b276-4729-8f94-3d6f17b84226/StateofEnergyPolicy2026.pdf#page=53",
+      "vintage": "2026"
+    },
+    "etp": {
+      "title": "IEA, Energy Technology Perspectives 2026, supply chain risks",
+      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/supply-chain-risks-and-industrial-competitiveness",
+      "vintage": "26 March 2026"
+    },
+    "europe": {
+      "title": "IEA, Inverter supply chains and cybersecurity",
+      "url": "https://www.iea.org/commentaries/inverter-supply-chains-and-cybersecurity/",
+      "vintage": "29 July 2026"
+    },
+    "europe_chart": {
+      "title": "IEA, 2025 geographic distribution chart and notes",
+      "url": "https://www.iea.org/data-and-statistics/charts/geographic-distribution-of-global-manufacturing-capacity-and-demand-for-inverters-solar-pv-modules-and-battery-energy-storage-system-cells-2025",
+      "vintage": "July 2026"
+    },
+    "fraunhofer": {
+      "title": "Fraunhofer ISE, Photovoltaics Report, pp. 8 and 36",
+      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=8",
+      "vintage": "14 July 2026"
+    },
+    "fraunhofer_eu": {
+      "title": "Fraunhofer ISE, EU-27 manufacturing status, p. 14",
+      "url": "https://www.ise.fraunhofer.de/content/dam/ise/de/documents/publications/studies/Photovoltaics-Report.pdf#page=14",
+      "vintage": "14 July 2026, inventory updated August 2025"
+    },
+    "etp_cost": {
+      "title": "IEA, Energy Technology Perspectives 2026, executive summary",
+      "url": "https://www.iea.org/reports/energy-technology-perspectives-2026/executive-summary",
+      "vintage": "26 March 2026"
+    },
+    "renewables": {
+      "title": "IEA, Renewables 2026, executive summary",
+      "url": "https://www.iea.org/reports/renewables-2026/executive-summary",
+      "vintage": "2026"
+    },
+    "supply": {
+      "title": "IEA, Solar PV Global Supply Chains, executive summary",
+      "url": "https://www.iea.org/reports/solar-pv-global-supply-chains/executive-summary",
+      "vintage": "2022"
+    },
+    "baci": {
+      "title": "CEPII BACI V202601, based on UN Comtrade",
+      "url": "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html",
+      "vintage": "January 2026"
+    }
+  },
+  "concentration": {
+    "production_2023": {
+      "observation_year": 2023,
+      "metric": "Reported share of world output",
+      "geography": "China",
+      "source": "pvps",
+      "stage_shares_pct": {
+        "polysilicon": 92,
+        "wafers": 98,
+        "cells": 91.8,
+        "modules": 84.6
+      },
+      "stage_notes": {
+        "polysilicon": "Figure 4.2 includes semiconductor polysilicon.",
+        "wafers": "Figure 4.3 reports approximately 98%.",
+        "cells": "Figure 4.4 reports 91.8%.",
+        "modules": "Figure 4.5 includes thin film. The total and China volumes in the text do not reproduce its 84.6% share."
+      }
+    },
+    "capacity_2024": {
+      "observation_year": 2024,
+      "metric": "Share of world manufacturing capacity",
+      "underlying_source": "IEA, World Energy Outlook 2025, as credited on the chart",
+      "geography": "China",
+      "source": "policy",
+      "stage_shares_pct": {
+        "polysilicon": 87,
+        "wafers": 87,
+        "cells": 82,
+        "modules": 75
+      }
+    },
+    "different_vintage_wafers": [
+      {
+        "observation_year": 2024,
+        "metric": "Manufacturing capacity context",
+        "share_pct": 95,
+        "source": "etp"
+      },
+      {
+        "observation_year": 2025,
+        "metric": "Wafer production in manufacturing-capacity discussion, wafer denominator unspecified",
+        "share_pct": 95,
+        "source": "europe"
+      }
+    ]
+  },
+  "silicon_intensity": {
+    "source": "fraunhofer",
+    "metric": "Polysilicon input in grams per watt-peak of crystalline-silicon cell output",
+    "values": [
+      {
+        "year": 2004,
+        "grams_per_wp": 16,
+        "wafer_thickness_um": 300
+      },
+      {
+        "year": 2024,
+        "grams_per_wp": 2,
+        "wafer_thickness_um": 140
+      }
+    ],
+    "limitations": "Rounded endpoints. The chart includes silicon recycling from 2017. Sources and accounting change across the series. Process-loss and efficiency contributions are not separately quantified."
+  },
+  "europe_capacity": {
+    "source": "europe",
+    "observation_year": 2025,
+    "region": "Europe as published by IEA",
+    "annual_gw_equivalent": {
+      "polysilicon": 27,
+      "ingots": null,
+      "wafers": 1.5,
+      "cells": 10,
+      "modules": 33
+    },
+    "inverter_gw_per_year": 95,
+    "limitations": "The commentary gives rounded stage capacities in GW. It does not define country membership, upstream conversions, factory availability or compatibility. Its companion chart has no upstream rows or download."
+  },
+  "eu27_inventory": {
+    "source": "fraunhofer_eu",
+    "reference_month": "2025-08",
+    "scope": "EU-27",
+    "operating_gwp_per_year": {
+      "polysilicon": 9,
+      "ingots": 0,
+      "wafers": 0,
+      "cells": 2.9,
+      "modules": 6.7
+    },
+    "ingot_capacity_closed_2024_25_gwp_per_year": 0.4,
+    "limitations": "Source reports no active ingot or wafer production. This inventory is separate from the wider IEA Europe estimates."
+  },
+  "cost_case": {
+    "source": "etp_cost",
+    "region": "EU",
+    "partner": "North Africa",
+    "modeled_saving_pct": "almost 20",
+    "measure": "levelised cost of producing modules in same-size facilities, compared with a fully EU-made module"
+  },
+  "illustration": {
+    "status": "Hypothetical six-month wafer procurement stress test. All procurement, compatibility, yields, utilization and inventory quantities are assumptions; neither exposure nor import volume is measured.",
+    "months": 6,
+    "normal_wafer_import_rate_gw_per_year": 8.5,
+    "point": {
+      "exposed_import_share": 1,
+      "operable_ingots_gw_per_year": 1.5
+    },
+    "exposed_share_range": [
+      0,
+      1
+    ],
+    "operable_ingots_range_gw_per_year": [
+      0,
+      1.5
+    ],
+    "yields": {
+      "ingots": 1,
+      "wafers": 1,
+      "cells": 1,
+      "modules": 1
+    },
+    "scenarios": {
+      "open": {
+        "label": "Open wafer sourcing",
+        "loss_fraction": 0,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "partial": {
+        "label": "Half of exposed wafer supply lost",
+        "loss_fraction": 0.5,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "severe": {
+        "label": "All exposed wafer supply lost",
+        "loss_fraction": 1,
+        "replace_fraction_of_lost": 0,
+        "opening_wafer_stock_gw": 0
+      },
+      "buffered": {
+        "label": "Severe case with replacement supply and stock",
+        "loss_fraction": 1,
+        "replace_fraction_of_lost": 0.5,
+        "opening_wafer_stock_gw": 0.5
+      }
+    },
+    "policy_target_fraction": 0.8
+  }
+}
