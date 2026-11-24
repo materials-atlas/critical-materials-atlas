@@ -2497,5 +2497,1184 @@
   "trade_display_boundaries": {
     "850760": "Lithium-ion accumulators can include cells, modules and packs across applications. The archive reports values from 2017.",
     "283691": "Lithium carbonate, all grades and uses. The export record gives no battery-grade split or mine origin."
+  },
+  "review_addendum": {
+    "date": "2026-11-24",
+    "scope": "Selected cathode active material and graphite flows on two hypothetical cell lines",
+    "assumptions": {
+      "date": "2026-11-24",
+      "graphite_milestones": {
+        "offtake_announced": "2024-02-09",
+        "equipment_commissioned": "2025-10",
+        "mass_production_sample": "2026-06-11",
+        "customer_feedback": "2026-09-09",
+        "quarterly_update": "2026-10-30",
+        "first_month_of_sales_guidance": "2027-07"
+      },
+      "sources": {
+        "panasonic_offtake": {
+          "title": "Panasonic Energy, NOVONIX offtake announcement, 9 February 2024",
+          "url": "https://news.panasonic.com/uploads/tmg_block_page_image/file/22011/en240209-6-1.pdf"
+        },
+        "novonix_commissioning": {
+          "title": "NOVONIX, Panasonic Energy offtake update, 16 January 2026",
+          "url": "https://ir.novonixgroup.com/static-files/66471fda-c635-4312-9ffc-102338ae8e56"
+        },
+        "novonix_sample": {
+          "title": "NOVONIX, mass production qualification sample, 11 June 2026",
+          "url": "https://ir.novonixgroup.com/news-releases/news-release-details/novonix-delivers-mass-production-aam-sample-panasonic-0"
+        },
+        "novonix_feedback": {
+          "title": "NOVONIX, customer qualification feedback, 9 September 2026",
+          "url": "https://ir.novonixgroup.com/news-releases/news-release-details/lead-customer-feedback-marks-progress-qualification-0"
+        },
+        "novonix_q3": {
+          "title": "NOVONIX, 30 October 2026 quarterly report, Commercial Operations and Customer Qualification",
+          "url": "https://ir.novonixgroup.com/static-files/1a8f8ac8-1660-4a76-b13a-54262191331c"
+        }
+      },
+      "ramp_fractions": [
+        0.25,
+        0.5,
+        1
+      ],
+      "one_at_a_time": {
+        "stock_scale": [
+          0.5,
+          1,
+          2
+        ],
+        "extra_lag": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "replacement_scale": [
+          0.5,
+          0.75,
+          1
+        ]
+      },
+      "provenance": {
+        "observed": {
+          "panasonic_offtake": [
+            "graphite_milestones.offtake_announced"
+          ],
+          "novonix_commissioning": [
+            "graphite_milestones.equipment_commissioned"
+          ],
+          "novonix_sample": [
+            "graphite_milestones.mass_production_sample"
+          ],
+          "novonix_feedback": [
+            "graphite_milestones.customer_feedback"
+          ],
+          "novonix_q3": [
+            "graphite_milestones.quarterly_update"
+          ]
+        },
+        "externally_estimated": {
+          "recipe": [
+            "lines.*.recipe.design_energy_kwh",
+            "lines.*.recipe.mass_kg"
+          ],
+          "novonix_q3": [
+            "graphite_milestones.first_month_of_sales_guidance"
+          ]
+        },
+        "hypothetical": [
+          "scenario_months",
+          "lines.*.monthly_cell_limit_gwh",
+          "lines.*.lanes.*.direct_exposure_fraction",
+          "lines.*.lanes.*.upstream_exposure_within_other_fraction",
+          "lines.*.lanes.*.opening_stock_months_at_full_output",
+          "lines.*.lanes.*.alternative.*",
+          "sensitivity.*",
+          "ramp_fractions",
+          "one_at_a_time.*",
+          "interactions.*",
+          "Transfer of the disclosed North American calendar limit to a hypothetical graphite lane"
+        ],
+        "calculated": [
+          "Recipe intensity in tonnes/GWh",
+          "Traced exposure and eligible replacement after caps",
+          "Calendar months before first guided sales month",
+          "Monthly material balances and output",
+          "Cumulative losses and sensitivity differences"
+        ]
+      },
+      "interactions": {
+        "opening_stock_and_delay": {
+          "stock_scale": [
+            0.5,
+            2
+          ],
+          "extra_lag": [
+            0,
+            3
+          ]
+        },
+        "replacement_volume_and_delay": {
+          "replacement_scale": [
+            0.5,
+            1
+          ],
+          "extra_lag": [
+            0,
+            3
+          ]
+        }
+      }
+    },
+    "graphite_no_sales_before_month": 14,
+    "traced_baseline_loss_fraction": {
+      "NMC811": 0.23249999999999982,
+      "LFP": 0.3799999999999999
+    },
+    "one_at_a_time": {
+      "stock_scale": [
+        {
+          "value": 0.5,
+          "loss_fraction": {
+            "NMC811": 0.2637499999999998,
+            "LFP": 0.5049999999999999
+          }
+        },
+        {
+          "value": 1,
+          "loss_fraction": {
+            "NMC811": 0.23249999999999982,
+            "LFP": 0.3799999999999999
+          }
+        },
+        {
+          "value": 2,
+          "loss_fraction": {
+            "NMC811": 0.16999999999999982,
+            "LFP": 0.1299999999999999
+          }
+        }
+      ],
+      "extra_lag": [
+        {
+          "value": 0,
+          "loss_fraction": {
+            "NMC811": 0.23249999999999982,
+            "LFP": 0.3799999999999999
+          }
+        },
+        {
+          "value": 1,
+          "loss_fraction": {
+            "NMC811": 0.3134999999999998,
+            "LFP": 0.47
+          }
+        },
+        {
+          "value": 2,
+          "loss_fraction": {
+            "NMC811": 0.39449999999999985,
+            "LFP": 0.5599999999999999
+          }
+        },
+        {
+          "value": 3,
+          "loss_fraction": {
+            "NMC811": 0.4754999999999999,
+            "LFP": 0.6499999999999999
+          }
+        }
+      ],
+      "replacement_scale": [
+        {
+          "value": 0.5,
+          "loss_fraction": {
+            "NMC811": 0.43499999999999994,
+            "LFP": 0.515
+          }
+        },
+        {
+          "value": 0.75,
+          "loss_fraction": {
+            "NMC811": 0.3337499999999999,
+            "LFP": 0.4475
+          }
+        },
+        {
+          "value": 1,
+          "loss_fraction": {
+            "NMC811": 0.23249999999999982,
+            "LFP": 0.3799999999999999
+          }
+        }
+      ]
+    },
+    "tested_loss_spans": {
+      "NMC811": {
+        "stock_scale": 0.09375,
+        "extra_lag": 0.2430000000000001,
+        "replacement_scale": 0.20250000000000012
+      },
+      "LFP": {
+        "stock_scale": 0.375,
+        "extra_lag": 0.27,
+        "replacement_scale": 0.13500000000000012
+      }
+    },
+    "interactions": {
+      "opening_stock_and_delay": [
+        {
+          "options": {
+            "stock_scale": 0.5,
+            "extra_lag": 0
+          },
+          "loss_fraction": {
+            "NMC811": 0.2637499999999998,
+            "LFP": 0.5049999999999999
+          }
+        },
+        {
+          "options": {
+            "stock_scale": 0.5,
+            "extra_lag": 3
+          },
+          "loss_fraction": {
+            "NMC811": 0.5067499999999999,
+            "LFP": 0.7749999999999999
+          }
+        },
+        {
+          "options": {
+            "stock_scale": 2,
+            "extra_lag": 0
+          },
+          "loss_fraction": {
+            "NMC811": 0.16999999999999982,
+            "LFP": 0.1299999999999999
+          }
+        },
+        {
+          "options": {
+            "stock_scale": 2,
+            "extra_lag": 3
+          },
+          "loss_fraction": {
+            "NMC811": 0.4129999999999999,
+            "LFP": 0.40000000000000013
+          }
+        }
+      ],
+      "replacement_volume_and_delay": [
+        {
+          "options": {
+            "replacement_scale": 0.5,
+            "extra_lag": 0
+          },
+          "loss_fraction": {
+            "NMC811": 0.43499999999999994,
+            "LFP": 0.515
+          }
+        },
+        {
+          "options": {
+            "replacement_scale": 0.5,
+            "extra_lag": 3
+          },
+          "loss_fraction": {
+            "NMC811": 0.5565,
+            "LFP": 0.6499999999999999
+          }
+        },
+        {
+          "options": {
+            "replacement_scale": 1,
+            "extra_lag": 0
+          },
+          "loss_fraction": {
+            "NMC811": 0.23249999999999982,
+            "LFP": 0.3799999999999999
+          }
+        },
+        {
+          "options": {
+            "replacement_scale": 1,
+            "extra_lag": 3
+          },
+          "loss_fraction": {
+            "NMC811": 0.4754999999999999,
+            "LFP": 0.6499999999999999
+          }
+        }
+      ]
+    },
+    "scenarios": {
+      "gradual_ramp": {
+        "NMC811": {
+          "tonnes_per_gwh": {
+            "cathode": 1272.0963172804534,
+            "graphite": 915.014164305949
+          },
+          "supply_schedule": {
+            "cathode": {
+              "normal_need_tonnes": 1272.0963172804534,
+              "unaffected_tonnes_per_month": 636.0481586402267,
+              "qualified_increment_tonnes_per_month": 636.0481586402267,
+              "first_replacement_month": 5,
+              "exposed_fraction": 0.5,
+              "stock_to_bridge_to_qualification_tonnes": 2544.1926345609068,
+              "minimum_sustained_replacement_tonnes_per_month": 636.0481586402267,
+              "residual_shortfall_tonnes_per_month_after_qualification": 0.0
+            },
+            "graphite": {
+              "normal_need_tonnes": 915.014164305949,
+              "unaffected_tonnes_per_month": 274.50424929178473,
+              "qualified_increment_tonnes_per_month": 592.929178470255,
+              "first_replacement_month": 4,
+              "exposed_fraction": 0.7,
+              "stock_to_bridge_to_qualification_tonnes": 1921.5297450424926,
+              "minimum_sustained_replacement_tonnes_per_month": 640.5099150141642,
+              "residual_shortfall_tonnes_per_month_after_qualification": 47.58073654390918
+            }
+          },
+          "months": [
+            {
+              "month": 1,
+              "output_gwh": 0.8,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1272.0963172804534,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1017.6770538243627,
+                  "closing_stock_tonnes": 890.4674220963175
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 457.5070821529745,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 732.0113314447592,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 2,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 890.4674220963175,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 1144.886685552408
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 3,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1144.886685552408,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 1399.3059490084984
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 4,
+              "output_gwh": 0.4620000000000001,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1399.3059490084984,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 587.7084985835695,
+                  "closing_stock_tonnes": 1447.6456090651554
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 148.23229461756375,
+                  "consumed_tonnes": 422.7365439093485,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 5,
+              "output_gwh": 0.6240000000000001,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1447.6456090651554,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 159.01203966005667,
+                  "consumed_tonnes": 793.788101983003,
+                  "closing_stock_tonnes": 1448.917705382436
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 296.4645892351275,
+                  "consumed_tonnes": 570.9688385269122,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 6,
+              "output_gwh": 0.9480000000000002,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1448.917705382436,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 318.02407932011334,
+                  "consumed_tonnes": 1205.94730878187,
+                  "closing_stock_tonnes": 1197.0426345609058
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 592.929178470255,
+                  "consumed_tonnes": 867.4334277620397,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 7,
+              "output_gwh": 0.9480000000000002,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1197.0426345609058,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 1205.94730878187,
+                  "closing_stock_tonnes": 1263.1916430594888
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 592.929178470255,
+                  "consumed_tonnes": 867.4334277620397,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 8,
+              "output_gwh": 0.9480000000000002,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1263.1916430594888,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 1205.94730878187,
+                  "closing_stock_tonnes": 1329.3406515580718
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 592.929178470255,
+                  "consumed_tonnes": 867.4334277620397,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            }
+          ],
+          "total_gwh": 5.330000000000001,
+          "horizon_loss_fraction": 0.3337499999999999
+        },
+        "LFP": {
+          "tonnes_per_gwh": {
+            "cathode": 2064.872521246459,
+            "graphite": 1054.3909348441928
+          },
+          "supply_schedule": {
+            "cathode": {
+              "normal_need_tonnes": 2064.872521246459,
+              "unaffected_tonnes_per_month": 206.48725212464586,
+              "qualified_increment_tonnes_per_month": 1486.7082152974508,
+              "first_replacement_month": 6,
+              "exposed_fraction": 0.9,
+              "stock_to_bridge_to_qualification_tonnes": 9291.926345609067,
+              "minimum_sustained_replacement_tonnes_per_month": 1858.3852691218133,
+              "residual_shortfall_tonnes_per_month_after_qualification": 371.67705382436253
+            },
+            "graphite": {
+              "normal_need_tonnes": 1054.3909348441928,
+              "unaffected_tonnes_per_month": 316.31728045325787,
+              "qualified_increment_tonnes_per_month": 683.2453257790371,
+              "first_replacement_month": 4,
+              "exposed_fraction": 0.7,
+              "stock_to_bridge_to_qualification_tonnes": 2214.2209631728047,
+              "minimum_sustained_replacement_tonnes_per_month": 738.0736543909348,
+              "residual_shortfall_tonnes_per_month_after_qualification": 54.82832861189784
+            }
+          },
+          "months": [
+            {
+              "month": 1,
+              "output_gwh": 1,
+              "binding_inputs": [],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 4129.745042492918,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 2064.872521246459,
+                  "closing_stock_tonnes": 2271.3597733711053
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 1476.1473087818697,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1054.3909348441928,
+                  "closing_stock_tonnes": 738.0736543909347
+                }
+              }
+            },
+            {
+              "month": 2,
+              "output_gwh": 0.9999999999999998,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 2271.3597733711053,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 2064.8725212464587,
+                  "closing_stock_tonnes": 412.9745042492923
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 738.0736543909347,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1054.3909348441925,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 3,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "cathode",
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 412.9745042492923,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 619.4617563739379,
+                  "closing_stock_tonnes": 3.410605131648481e-13
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 316.31728045325787,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 4,
+              "output_gwh": 0.10000000000000014,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 3.410605131648481e-13,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 206.4872521246462,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 170.81133144475928,
+                  "consumed_tonnes": 105.43909348441943,
+                  "closing_stock_tonnes": 381.68951841359774
+                }
+              }
+            },
+            {
+              "month": 5,
+              "output_gwh": 0.09999999999999998,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 206.48725212464586,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 381.68951841359774,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 341.62266288951855,
+                  "consumed_tonnes": 105.43909348441926,
+                  "closing_stock_tonnes": 934.190368271955
+                }
+              }
+            },
+            {
+              "month": 6,
+              "output_gwh": 0.28,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 371.6770538243627,
+                  "consumed_tonnes": 578.1643059490086,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 934.190368271955,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 683.2453257790371,
+                  "consumed_tonnes": 295.229461756374,
+                  "closing_stock_tonnes": 1638.5235127478759
+                }
+              }
+            },
+            {
+              "month": 7,
+              "output_gwh": 0.46,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 743.3541076487254,
+                  "consumed_tonnes": 949.8413597733713,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 1638.5235127478759,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 683.2453257790371,
+                  "consumed_tonnes": 485.01983002832867,
+                  "closing_stock_tonnes": 2153.066288951842
+                }
+              }
+            },
+            {
+              "month": 8,
+              "output_gwh": 0.8200000000000001,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 1486.7082152974508,
+                  "consumed_tonnes": 1693.1954674220967,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 2153.066288951842,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 683.2453257790371,
+                  "consumed_tonnes": 864.6005665722381,
+                  "closing_stock_tonnes": 2288.028328611899
+                }
+              }
+            }
+          ],
+          "total_gwh": 4.0600000000000005,
+          "horizon_loss_fraction": 0.49249999999999994
+        }
+      },
+      "public_graphite_timing": {
+        "NMC811": {
+          "tonnes_per_gwh": {
+            "cathode": 1272.0963172804534,
+            "graphite": 915.014164305949
+          },
+          "supply_schedule": {
+            "cathode": {
+              "normal_need_tonnes": 1272.0963172804534,
+              "unaffected_tonnes_per_month": 636.0481586402267,
+              "qualified_increment_tonnes_per_month": 636.0481586402267,
+              "first_replacement_month": 5,
+              "exposed_fraction": 0.5,
+              "stock_to_bridge_to_qualification_tonnes": 2544.1926345609068,
+              "minimum_sustained_replacement_tonnes_per_month": 636.0481586402267,
+              "residual_shortfall_tonnes_per_month_after_qualification": 0.0
+            },
+            "graphite": {
+              "normal_need_tonnes": 915.014164305949,
+              "unaffected_tonnes_per_month": 274.50424929178473,
+              "qualified_increment_tonnes_per_month": 592.929178470255,
+              "first_replacement_month": 14,
+              "exposed_fraction": 0.7,
+              "stock_to_bridge_to_qualification_tonnes": 8326.628895184134,
+              "minimum_sustained_replacement_tonnes_per_month": 640.5099150141642,
+              "residual_shortfall_tonnes_per_month_after_qualification": 47.58073654390918
+            }
+          },
+          "months": [
+            {
+              "month": 1,
+              "output_gwh": 0.8,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1272.0963172804534,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1017.6770538243627,
+                  "closing_stock_tonnes": 890.4674220963175
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 457.5070821529745,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 732.0113314447592,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 2,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 890.4674220963175,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 1144.886685552408
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 3,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1144.886685552408,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 1399.3059490084984
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 4,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1399.3059490084984,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 1653.7252124645888
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 5,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1653.7252124645888,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 2544.192634560906
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 6,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 2544.192634560906,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 3434.660056657223
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 7,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 3434.660056657223,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 4325.12747875354
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 8,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 4325.12747875354,
+                  "unaffected_tonnes": 636.0481586402267,
+                  "replacement_tonnes": 636.0481586402267,
+                  "consumed_tonnes": 381.62889518413607,
+                  "closing_stock_tonnes": 5215.594900849857
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 274.50424929178473,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 274.50424929178473,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            }
+          ],
+          "total_gwh": 2.8999999999999995,
+          "horizon_loss_fraction": 0.6375000000000001
+        },
+        "LFP": {
+          "tonnes_per_gwh": {
+            "cathode": 2064.872521246459,
+            "graphite": 1054.3909348441928
+          },
+          "supply_schedule": {
+            "cathode": {
+              "normal_need_tonnes": 2064.872521246459,
+              "unaffected_tonnes_per_month": 206.48725212464586,
+              "qualified_increment_tonnes_per_month": 1486.7082152974508,
+              "first_replacement_month": 6,
+              "exposed_fraction": 0.9,
+              "stock_to_bridge_to_qualification_tonnes": 9291.926345609067,
+              "minimum_sustained_replacement_tonnes_per_month": 1858.3852691218133,
+              "residual_shortfall_tonnes_per_month_after_qualification": 371.67705382436253
+            },
+            "graphite": {
+              "normal_need_tonnes": 1054.3909348441928,
+              "unaffected_tonnes_per_month": 316.31728045325787,
+              "qualified_increment_tonnes_per_month": 683.2453257790371,
+              "first_replacement_month": 14,
+              "exposed_fraction": 0.7,
+              "stock_to_bridge_to_qualification_tonnes": 9594.957507082154,
+              "minimum_sustained_replacement_tonnes_per_month": 738.0736543909348,
+              "residual_shortfall_tonnes_per_month_after_qualification": 54.82832861189784
+            }
+          },
+          "months": [
+            {
+              "month": 1,
+              "output_gwh": 1,
+              "binding_inputs": [],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 4129.745042492918,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 2064.872521246459,
+                  "closing_stock_tonnes": 2271.3597733711053
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 1476.1473087818697,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1054.3909348441928,
+                  "closing_stock_tonnes": 738.0736543909347
+                }
+              }
+            },
+            {
+              "month": 2,
+              "output_gwh": 0.9999999999999998,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 2271.3597733711053,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 2064.8725212464587,
+                  "closing_stock_tonnes": 412.9745042492923
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 738.0736543909347,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 1054.3909348441925,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 3,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "cathode",
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 412.9745042492923,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 619.4617563739379,
+                  "closing_stock_tonnes": 3.410605131648481e-13
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 316.31728045325787,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 4,
+              "output_gwh": 0.10000000000000014,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 3.410605131648481e-13,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 206.4872521246462,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 105.43909348441943,
+                  "closing_stock_tonnes": 210.87818696883843
+                }
+              }
+            },
+            {
+              "month": 5,
+              "output_gwh": 0.09999999999999998,
+              "binding_inputs": [
+                "cathode"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 206.48725212464586,
+                  "closing_stock_tonnes": 0.0
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 210.87818696883843,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 105.43909348441926,
+                  "closing_stock_tonnes": 421.75637393767704
+                }
+              }
+            },
+            {
+              "month": 6,
+              "output_gwh": 0.7000000000000001,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 1486.7082152974508,
+                  "consumed_tonnes": 1445.4107648725217,
+                  "closing_stock_tonnes": 247.78470254957506
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 421.75637393767704,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 738.073654390935,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 7,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 247.78470254957506,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 1486.7082152974508,
+                  "consumed_tonnes": 619.4617563739379,
+                  "closing_stock_tonnes": 1321.5184135977338
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 316.31728045325787,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            },
+            {
+              "month": 8,
+              "output_gwh": 0.30000000000000004,
+              "binding_inputs": [
+                "graphite"
+              ],
+              "materials": {
+                "cathode": {
+                  "opening_stock_tonnes": 1321.5184135977338,
+                  "unaffected_tonnes": 206.48725212464586,
+                  "replacement_tonnes": 1486.7082152974508,
+                  "consumed_tonnes": 619.4617563739379,
+                  "closing_stock_tonnes": 2395.2521246458923
+                },
+                "graphite": {
+                  "opening_stock_tonnes": 0.0,
+                  "unaffected_tonnes": 316.31728045325787,
+                  "replacement_tonnes": 0,
+                  "consumed_tonnes": 316.31728045325787,
+                  "closing_stock_tonnes": 0.0
+                }
+              }
+            }
+          ],
+          "total_gwh": 3.8,
+          "horizon_loss_fraction": 0.525
+        }
+      }
+    }
   }
 }

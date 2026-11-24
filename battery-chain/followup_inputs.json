@@ -1,0 +1,126 @@
+{
+  "date": "2026-11-24",
+  "graphite_milestones": {
+    "offtake_announced": "2024-02-09",
+    "equipment_commissioned": "2025-10",
+    "mass_production_sample": "2026-06-11",
+    "customer_feedback": "2026-09-09",
+    "quarterly_update": "2026-10-30",
+    "first_month_of_sales_guidance": "2027-07"
+  },
+  "sources": {
+    "panasonic_offtake": {
+      "title": "Panasonic Energy, NOVONIX offtake announcement, 9 February 2024",
+      "url": "https://news.panasonic.com/uploads/tmg_block_page_image/file/22011/en240209-6-1.pdf"
+    },
+    "novonix_commissioning": {
+      "title": "NOVONIX, Panasonic Energy offtake update, 16 January 2026",
+      "url": "https://ir.novonixgroup.com/static-files/66471fda-c635-4312-9ffc-102338ae8e56"
+    },
+    "novonix_sample": {
+      "title": "NOVONIX, mass production qualification sample, 11 June 2026",
+      "url": "https://ir.novonixgroup.com/news-releases/news-release-details/novonix-delivers-mass-production-aam-sample-panasonic-0"
+    },
+    "novonix_feedback": {
+      "title": "NOVONIX, customer qualification feedback, 9 September 2026",
+      "url": "https://ir.novonixgroup.com/news-releases/news-release-details/lead-customer-feedback-marks-progress-qualification-0"
+    },
+    "novonix_q3": {
+      "title": "NOVONIX, 30 October 2026 quarterly report, Commercial Operations and Customer Qualification",
+      "url": "https://ir.novonixgroup.com/static-files/1a8f8ac8-1660-4a76-b13a-54262191331c"
+    }
+  },
+  "ramp_fractions": [
+    0.25,
+    0.5,
+    1
+  ],
+  "one_at_a_time": {
+    "stock_scale": [
+      0.5,
+      1,
+      2
+    ],
+    "extra_lag": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "replacement_scale": [
+      0.5,
+      0.75,
+      1
+    ]
+  },
+  "provenance": {
+    "observed": {
+      "panasonic_offtake": [
+        "graphite_milestones.offtake_announced"
+      ],
+      "novonix_commissioning": [
+        "graphite_milestones.equipment_commissioned"
+      ],
+      "novonix_sample": [
+        "graphite_milestones.mass_production_sample"
+      ],
+      "novonix_feedback": [
+        "graphite_milestones.customer_feedback"
+      ],
+      "novonix_q3": [
+        "graphite_milestones.quarterly_update"
+      ]
+    },
+    "externally_estimated": {
+      "recipe": [
+        "lines.*.recipe.design_energy_kwh",
+        "lines.*.recipe.mass_kg"
+      ],
+      "novonix_q3": [
+        "graphite_milestones.first_month_of_sales_guidance"
+      ]
+    },
+    "hypothetical": [
+      "scenario_months",
+      "lines.*.monthly_cell_limit_gwh",
+      "lines.*.lanes.*.direct_exposure_fraction",
+      "lines.*.lanes.*.upstream_exposure_within_other_fraction",
+      "lines.*.lanes.*.opening_stock_months_at_full_output",
+      "lines.*.lanes.*.alternative.*",
+      "sensitivity.*",
+      "ramp_fractions",
+      "one_at_a_time.*",
+      "interactions.*",
+      "Transfer of the disclosed North American calendar limit to a hypothetical graphite lane"
+    ],
+    "calculated": [
+      "Recipe intensity in tonnes/GWh",
+      "Traced exposure and eligible replacement after caps",
+      "Calendar months before first guided sales month",
+      "Monthly material balances and output",
+      "Cumulative losses and sensitivity differences"
+    ]
+  },
+  "interactions": {
+    "opening_stock_and_delay": {
+      "stock_scale": [
+        0.5,
+        2
+      ],
+      "extra_lag": [
+        0,
+        3
+      ]
+    },
+    "replacement_volume_and_delay": {
+      "replacement_scale": [
+        0.5,
+        1
+      ],
+      "extra_lag": [
+        0,
+        3
+      ]
+    }
+  }
+}

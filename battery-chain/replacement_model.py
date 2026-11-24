@@ -38,7 +38,13 @@ def replacement_share(lane):
 
 
 def simulate(line, months, *, disruption=True, trace_upstream=True,
-             stock_scale=1, extra_lag=0, replacement_scale=1, prequalified=False):
+             stock_scale=1, extra_lag=0, replacement_scale=1, prequalified=False,
+             replacement_ramp=(1.0,)):
+    if (not replacement_ramp
+            or any(not 0 <= share <= 1 for share in replacement_ramp)
+            or any(later < earlier for earlier, later in zip(replacement_ramp, replacement_ramp[1:]))
+            or replacement_ramp[-1] != 1):
+        raise ValueError("Replacement ramp must be nondecreasing and end at full eligible supply")
     unit_mass = intensity(line["recipe"])
     capacity = line["monthly_cell_limit_gwh"]
     needs = {material: amount * capacity for material, amount in unit_mass.items()}
@@ -68,7 +74,10 @@ def simulate(line, months, *, disruption=True, trace_upstream=True,
         material_flow = {}
         for material, supply in scheduled.items():
             first = supply["first_replacement_month"]
-            replacement = supply["qualified_increment_tonnes_per_month"] if first and month >= first else 0
+            replacement = 0
+            if first and month >= first:
+                ramp_index = min(month - first, len(replacement_ramp) - 1)
+                replacement = supply["qualified_increment_tonnes_per_month"] * replacement_ramp[ramp_index]
             material_flow[material] = {
                 "opening_stock_tonnes": stock[material],
                 "unaffected_tonnes": supply["unaffected_tonnes_per_month"],

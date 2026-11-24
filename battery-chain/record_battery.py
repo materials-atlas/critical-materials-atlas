@@ -7,6 +7,7 @@ from html import escape
 from pathlib import Path
 from string import Template
 
+from replacement_followup import calculate_followup
 from replacement_model import calculate
 
 HERE = Path(__file__).resolve().parent
@@ -112,8 +113,57 @@ def model_tables(data):
     }
 
 
+def followup_tables(addendum):
+    labels = {
+        "stock_scale": "Opening stock",
+        "extra_lag": "Additional qualification delay",
+        "replacement_scale": "Eligible replacement volume",
+    }
+    def describe(field, value):
+        if field == "extra_lag":
+            return f"+{value} months"
+        return f"{value:g}× baseline"
+
+    def losses(result):
+        return (pct(round(result[chemistry], 10), 2) for chemistry in ("NMC811", "LFP"))
+
+    one_at_a_time = [
+        row(labels[field], describe(field, case["value"]), *losses(case["loss_fraction"]))
+        for field, cases in addendum["one_at_a_time"].items() for case in cases
+    ]
+    interactions = [
+        row(" · ".join(f"{labels[field]} {describe(field, value)}" for field, value in case["options"].items()),
+            *losses(case["loss_fraction"]))
+        for cases in addendum["interactions"].values() for case in cases
+    ]
+    cases = addendum["scenarios"]
+    comparisons = [row("Published traced case", *losses(addendum["traced_baseline_loss_fraction"]))]
+    for key, label in (
+        ("gradual_ramp", "Gradual replacement ramp"),
+        ("public_graphite_timing", "Graphite timing based on supplier guidance"),
+    ):
+        comparisons.append(row(
+            label, *losses({chemistry: result["horizon_loss_fraction"]
+                            for chemistry, result in cases[key].items()}),
+        ))
+    spans = addendum["tested_loss_spans"]
+    sources = addendum["assumptions"]["sources"]
+    replacements = {
+        "followup_one_at_a_time": "\n".join(one_at_a_time),
+        "followup_interactions": "\n".join(interactions),
+        "followup_cases": "\n".join(comparisons),
+        "followup_graphite_first_month": addendum["graphite_no_sales_before_month"],
+        "followup_nmc_delay_span": num(100 * spans["NMC811"]["extra_lag"], 1),
+        "followup_lfp_stock_span": num(100 * spans["LFP"]["stock_scale"], 1),
+    }
+    replacements.update({f"followup_{key}_url": escape(source["url"], quote=True)
+                         for key, source in sources.items()})
+    return replacements
+
+
 def render(data, trade):
     replacements = model_tables(data)
+    replacements.update(followup_tables(data["review_addendum"]))
     sources = data["sources"]
     replacements.update({
         "version": data["version"], "months": data["scenario_months"],
@@ -156,6 +206,7 @@ def main():
         "model": calculate(data),
         "trade_display_boundaries": TRADE_NOTES,
     })
+    data["review_addendum"] = calculate_followup(data, data["model"], load("followup_inputs.json"))
     html = render(data, trade)
     (HERE / "out/battery_chain.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"

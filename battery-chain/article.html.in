@@ -131,6 +131,44 @@
 <h3>What it takes to estimate a real disruption</h3>
 <p>For a plant-specific result, each material needs a supplier and upstream origin, usable inventory, dated commitments, compatible specifications and a firm qualification schedule. Equipment, power and the other cell inputs are assumed available here. The model holds the chemistry and cell rating fixed, allocates stocks and contracts separately to the lines, and leaves prices and downstream demand outside the calculation. The reviewed public evidence provides no validated EU-wide schedule of qualified alternatives, orders and inventories. The reported thresholds apply to the specified lines and sourcing assumptions.</p>
 
+
+<section id="replacement-followup" aria-labelledby="replacement-followup-heading">
+<h2 id="replacement-followup-heading">Qualification and replacement timing · 24 November 2026</h2>
+<p>This addendum tests two selected input constraints on hypothetical NMC811 and LFP lines. The model varies cathode active material and graphite flows. Separators, electrolyte, current collectors, electricity and the other requirements for producing cells are assumed available.</p>
+
+<h3>What a graphite qualification case says about timing</h3>
+<p>Panasonic Energy and NOVONIX announced a binding graphite offtake in February 2024. NOVONIX reported commissioning the equipment for mass-production qualification in October 2025 and delivering a qualification sample in June 2026. In September the supplier reported that two specification items remained open after customer testing. Its October update still put expected mass-production sales in the second half of 2027, subject to customer qualification. The published milestones distinguish a supply contract, equipment readiness, a customer sample, approval and commercial deliveries. <a href="${followup_panasonic_offtake_url}">Panasonic, February 2024</a> · <a href="${followup_novonix_commissioning_url}">NOVONIX, January 2026</a> · <a href="${followup_novonix_sample_url}">June sample announcement</a> · <a href="${followup_novonix_feedback_url}">September customer feedback</a> · <a href="${followup_novonix_q3_url}">October quarterly report</a>.</p>
+<p>As a timing check, set month one to the calendar month of the June sample. The earliest month in the reported sales window, July 2027, corresponds to model month ${followup_graphite_first_month}. A hypothetical graphite alternative on that timetable provides zero new graphite over the eight months shown here. The original cathode lanes and all other assumptions carry over. This uses one North American supplier’s commercial timetable for a conditional scenario. Customer approval dates, uncommitted volumes and inventories for European buyers remain unknown.</p>
+
+<h3>What changes when first deliveries are small?</h3>
+<p><span class="conf estimate">Modelled</span> The gradual case holds the original first qualified month and full eligible quantity fixed. Deliveries arrive at 25% of that quantity in the first eligible month, 50% in the second and 100% from the third. The profile is hypothetical. Each month uses that month’s deliveries and carries any remaining stock forward.</p>
+<div class="table-wrap" role="region" aria-label="Cumulative losses with gradual or later replacement" tabindex="0">
+<table><caption>Eight-month loss under the published and follow-up assumptions</caption>
+<thead><tr><th scope="col">Case</th><th scope="col">NMC811 loss</th><th scope="col">LFP loss</th></tr></thead>
+<tbody>${followup_cases}</tbody></table>
+</div>
+<p>The gradual ramp raises the modelled loss for both lines. Applying the published graphite calendar reverses their eight-month ranking because the traced NMC811 example relies on qualified graphite arriving early.</p>
+
+<h3>Which assumption matters most in these cases?</h3>
+<p>Change one input at a time from the traced case. Opening stock and eligible volume multipliers apply to both active-material lanes, and extra delay is added to their own dates. Among the ranges tested, qualification delay produces the largest loss swing for NMC811 at ${followup_nmc_delay_span} percentage points. Opening stock produces the largest swing for LFP at ${followup_lfp_stock_span} points. These comparisons depend on the chosen changes and contain no intervention costs.</p>
+<div class="table-wrap" role="region" aria-label="One-at-a-time sensitivity estimates" tabindex="0">
+<table><caption>Eight-month loss with each change made independently</caption>
+<thead><tr><th scope="col">Changed assumption</th><th scope="col">Setting</th><th scope="col">NMC811 loss</th><th scope="col">LFP loss</th></tr></thead>
+<tbody>${followup_one_at_a_time}</tbody></table>
+</div>
+<details class="panel"><summary>Combined changes to qualification and supply</summary>
+<div class="table-wrap" role="region" aria-label="Combined effect of timing and inventory or volume" tabindex="0">
+<table><caption>Eight-month loss as qualification timing changes with stock or eligible volume</caption>
+<thead><tr><th scope="col">Settings</th><th scope="col">NMC811 loss</th><th scope="col">LFP loss</th></tr></thead>
+<tbody>${followup_interactions}</tbody></table>
+</div>
+<p>At the stock settings shown here, three extra months of delay add the same loss at either stock level for each chemistry. The penalty from delaying qualification changes if eligible replacement volume changes. The tested settings can illuminate mechanisms within the model. Choosing an investment would also require its cost, implementation date and effect on procurement.</p>
+</details>
+
+<h3>Evidence and reproduction</h3>
+<p>The supplier milestones are observed as reported in public disclosures. Argonne’s pack masses are external design estimates and the first commercial sales window is company guidance. Stocks, exposures, eligibility and replacement ramps remain hypothetical. The evidence download links these input classes to their sources and identifies calculated outputs. <a href="followup_inputs.json">Follow-up inputs and provenance</a> · <a href="replacement_model.py">Replacement model</a> · <a href="test_replacement_model.py">Reproduction tests</a> · <a href="README.md#qualification-follow-up">Build instructions</a>.</p>
+</section>
+
 <h2 id="trade">Trade records show goods crossing borders</h2>
 <p>The frozen extract covers lithium-ion accumulators and lithium carbonate. An accumulator can include cells, modules or packs and can be used outside vehicles. Values here are reported cross-border goods in nominal US dollars. Product-level export data give no direct measure of factory output, qualified capacity, embedded origin or battery grade.</p>
 <div class="panel">
