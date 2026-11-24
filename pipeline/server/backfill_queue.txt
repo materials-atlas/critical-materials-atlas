@@ -1,0 +1,8 @@
+# Download jobs for the nightly run on the server (pipeline/scheduled_run.py, _backfill), worked
+# through in this order after the atlas is built, within CMA_BACKFILL_MIN minutes a night.
+# Each line = arguments to reconcile/pull_comtrade_bulk.py (--quota-exit and --max-minutes are added).
+# A finished job stays harmless: its UN listings are cached, so it costs no quota and fetches nothing.
+# Added 24 Nov 2026.
+--tariffline --freq A --year-min 2000 --all-codes          # yearly tariff lines (national codes, transport mode, customs procedure)
+--type S --freq A --cl EB --year-min 2000 --all-codes      # services trade by partner (EBOPS), yearly
+--tariffline --freq M --year-min 2000 --all-codes          # monthly tariff lines

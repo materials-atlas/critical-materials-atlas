@@ -30,12 +30,18 @@ switched on by CMA_CORPUS, the folder of the bulk downloader (~/comtrade), and r
   3. refresh.py, build.py as before; adapter_comtrade now reads the extract.
 Systemd user units: atlas-nightly.service + atlas-nightly.timer (02:00), see pipeline/server/.
 """
-import ctypes, os, sys, subprocess, datetime
+import ctypes, os, sys, subprocess, datetime, time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
 PY = sys.executable
 LOG = os.path.join(HERE, 'data', 'scheduled.log')
+# The downloader is run from the REPOSITORY with ATLAS_ROOT pointing at the corpus (24 Nov 2026).
+# Before, the corpus held its own copy (~/comtrade/reconcile/), which silently missed every change.
+DL = os.path.join(REPO, 'reconcile', 'pull_comtrade_bulk.py')
+# Download jobs the nightly works through after the build, one line each (see the file).
+QUEUE = os.path.join(HERE, 'server', 'backfill_queue.txt')
+BACKFILL_MIN = float(os.environ.get('CMA_BACKFILL_MIN', '200'))   # the unit's limit is 5 h; a run takes ~1 h
 
 
 
@@ -120,14 +126,38 @@ def _server_steps(corpus):
     if busy:
         _log('--- the full bulk download is still running: keep-fresh pass skipped tonight')
     else:
-        dl = 'reconcile/pull_comtrade_bulk.py'
-        codes.append(_run_in([dl, '--all-codes', '--recheck', '24', '--quota-exit'], corpus, cpy))
-        codes.append(_run_in([dl, '--all-codes', '--freq', 'A', '--cl', 'HS', '--recheck', '3',
-                              '--quota-exit'], corpus, cpy))
+        root = {'ATLAS_ROOT': corpus}
+        codes.append(_run_in([DL, '--all-codes', '--recheck', '24', '--quota-exit'], corpus, cpy, root))
+        codes.append(_run_in([DL, '--all-codes', '--freq', 'A', '--cl', 'HS', '--recheck', '3',
+                              '--quota-exit'], corpus, cpy, root))
     codes.append(_run_in(['reconcile/extract_comtrade_crm.py'], REPO, PY,
                          {'CMA_BULK_DIR': os.path.join(corpus, 'raw', 'comtrade_bulk')}))
     codes.append(_run(['pipeline/refresh.py', 'all', '--periods', '3']))
     codes.append(_run(['pipeline/build.py']))
+    return codes
+
+
+def _backfill(corpus, minutes=BACKFILL_MIN):
+    """The download queue: each job resumes where it stopped (the downloader keeps its own state and
+    caches the UN listings, so a finished job costs no quota), stops between files when the night's
+    budget is spent, and stops - not sleeps - on an exhausted quota. Runs AFTER the build, so it can
+    never delay the atlas. Its exits are logged apart: a stalled download is not a failed refresh."""
+    if not os.path.exists(QUEUE):
+        return []
+    cpy = os.path.join(corpus, '.venv', 'bin', 'python')
+    if not os.path.exists(cpy):
+        cpy = PY
+    t0, codes = time.time(), []
+    for line in open(QUEUE, encoding='utf-8'):
+        job = line.split('#')[0].split()
+        if not job:
+            continue
+        left = minutes - (time.time() - t0) / 60
+        if left < 5:
+            _log('--- backfill: %g minutes spent tonight; the rest waits for tomorrow' % minutes)
+            break
+        codes.append(_run_in([DL] + job + ['--quota-exit', '--max-minutes', '%d' % left], corpus, cpy,
+                             {'ATLAS_ROOT': corpus}))
     return codes
 
 
@@ -138,10 +168,15 @@ def main():
     if note:
         _log('--- sleep block: %s' % note)
     corpus = os.environ.get('CMA_CORPUS')
+    if corpus and '--backfill-only' in sys.argv:       # by hand: python pipeline/scheduled_run.py --backfill-only [MIN]
+        mins = [float(x) for x in sys.argv[1:] if x.replace('.', '', 1).isdigit()]
+        _log('--- backfill exits %s' % (_backfill(corpus, *mins),))
+        return
     if corpus:
         codes = _server_steps(corpus)
         _stay_awake(False)
         _log('===== scheduled run finished, exits %s =====' % (codes,))
+        _log('--- backfill exits %s' % (_backfill(corpus),))
         return
     codes = [
         # ALL reporters, one month per run. The goal is maximum country coverage, and with

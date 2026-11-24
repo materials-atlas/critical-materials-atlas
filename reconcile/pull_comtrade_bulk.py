@@ -344,6 +344,8 @@ def main():
                          'that is new or whose publicationDate changed since we took it')
     ap.add_argument('--quota-exit', action='store_true',
                     help='stop (state saved) when the daily call quota runs out, instead of sleeping')
+    ap.add_argument('--max-minutes', type=float, default=0,
+                    help='stop cleanly between files after N minutes (the nightly backfill queue)')
     ap.add_argument('--type', choices=['C', 'S'], default='C',
                     help='C goods (default), S services (EBOPS, yearly from 2000; same 34 columns as goods)')
     ap.add_argument('--tariffline', action='store_true',
@@ -427,6 +429,18 @@ def main():
     if free < MIN_FREE_GB:
         raise SystemExit('only %.1f GB free, need %.1f - refusing to start' % (free, MIN_FREE_GB))
 
+    # One run per folder (24 Nov 2026): the nightly backfill queue and a run started by hand must
+    # never write the same _state.json. The lock dies with the process; no stale-lock cleanup.
+    try:
+        import fcntl
+        _lockfh = io.open(os.path.join(OUTDIR, '_lock'), 'w')
+        try:
+            fcntl.flock(_lockfh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except OSError:
+            log('another run holds %s - skipped' % OUTDIR)
+            return 0
+    except ImportError:
+        pass                        # Windows: no fcntl, and no unattended runs here
     log('START  periods=%d  filter=%s  free=%.1f GB'
         % (len(pers), 'all' if keep is None else '%d codes' % len(keep), free))
     t0 = time.time()
@@ -453,6 +467,9 @@ def main():
             for rep in todo:
                 if a.max_files and files >= a.max_files:
                     log('stopping: --max-files %d reached' % a.max_files)
+                    raise KeyboardInterrupt
+                if a.max_minutes and time.time() - t0 > a.max_minutes * 60:
+                    log('stopping: --max-minutes %g reached, the next run resumes' % a.max_minutes)
                     raise KeyboardInterrupt
                 # Check the disk on EVERY file, not only at startup. This runs unattended for
                 # the better part of a day on a machine nobody is watching, and the archives it
