@@ -1,6 +1,6 @@
 # Nuclear fuel chain — research library
 
-The uranium mine is the easy part — the chokepoint is a service (conversion, enrichment, licensed fabrication), not a rock; enrichment is Russia-led. A curated reference library for deeper study — public sources, gathered August 2026. Each entry links to a real source.
+This August 2026 library records the sources behind the earlier study. The [updated nuclear fuel study](nuclear-chain.html) gives the dated corrections, new capacity and procurement evidence, and the interruption scenarios.
 
 ## Core references (already cited in the chain)
 - [Uranium 2024: Resources, Production and Demand](https://cms.oecd-nea.org/jcms/pl_103179/uranium-2024-resources-production-and-demand) — OECD NEA & IAEA (2025). The "Red Book" — the definitive biennial survey of global uranium resources, production and demand.

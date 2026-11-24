@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>${title} — Critical Materials Atlas</title>
+  <meta name="description" content="${deck}">
+  <meta name="robots" content="index,follow">
+  <meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+  <link rel="canonical" href="https://criticalmaterialsatlas.org/nuclear-chain/nuclear-chain">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../chain-assets/chainview.css">
+  <style>
+    :root{--acc:#5a7d4a}
+    .study-nav{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;margin:1rem 0}
+    .table-wrap{overflow-x:auto}
+    #static-trade[hidden]{display:none}
+    details.panel summary{cursor:pointer;font-weight:700;color:var(--navy)}
+    details.panel table{margin-top:.7rem}
+    figure.panel{margin-inline:0}
+    figure.panel figcaption{margin-top:.8rem}
+    .barrow{grid-template-columns:minmax(8rem,16rem) minmax(2rem,1fr) 4.4rem}
+    .barrow .num{font-variant-numeric:tabular-nums}
+    @media(max-width:420px){.barrow{grid-template-columns:7.2rem 1fr 3.4rem;gap:.4rem}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value Chains <span>— a research layer of the Critical Materials Atlas · Nuclear fuel</span></div>
+<header class="topbar"><div class="wrap"><a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a><nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Nuclear fuel supply</div>
+  <h1>${title}</h1>
+  <p class="deck">${deck}</p>
+  <p class="byline">Evidence release · <time datetime="${version}">24 November 2026</time></p>
+</div></section>
+<article>
+<nav class="study-nav" aria-label="On this page">
+  <a href="#stages">Fuel-cycle stages</a>
+  <a href="#exposure">EU and US exposure</a>
+  <a href="#scenarios">Supply disruptions</a>
+  <a href="#methods">Methods</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<h2 id="summary">Executive summary</h2>
+<p>Global enrichment capacity is more concentrated by operator than conversion capacity in the public tables used here. Russia’s share of enrichment capacity worldwide is considerably larger than its share of enrichment services purchased by US utilities or delivered to EU utilities. The two disruption scenarios calculate how much qualified replacement supply would have to arrive, and how much stock would have to cover the wait. Aggregate public data leave actual shortages and reactor impacts unresolved.</p>
+
+<h2 id="stages">The fuel cycle has different measures at each stage</h2>
+<div class="chain">
+  <div class="hop"><div class="n">Mine and mill</div><div class="t">Uranium recovered in concentrate, measured in tonnes of uranium (tU).</div></div>
+  <div class="hop"><div class="n">Conversion</div><div class="t">Primary conversion capacity for enrichment feed, measured in tU per year.</div></div>
+  <div class="hop"><div class="n">Enrichment</div><div class="t">Annual service capacity in separative work units (SWU).</div></div>
+  <div class="hop"><div class="n">Fabrication</div><div class="t">Fuel production capacity in tonnes of heavy metal per year. The assembly must be qualified for the reactor.</div></div>
+</div>
+<div class="table-wrap"><table>
+  <thead><tr><th scope="col">Stage</th><th scope="col">Published benchmark</th><th scope="col">What affects replacement</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Mine and mill</th><td>60,213 tU of 2024 mine output in the World Nuclear Association (WNA) series, including country estimates. Kazakhstan supplied about 39%.</td><td>Route access, purchase commitments and stocks. The 2026 Red Book gives 61,924 tU worldwide for the same year. Each series keeps its own denominator.</td></tr>
+    <tr><th scope="row">Conversion</th><td>62,000 tU/year of reported 2024 primary conversion capacity, with estimates for CNNC and Rosatom. WNA and Euratom Supply Agency (ESA) Table 7 agree on the rows and use overlapping sources.</td><td>Usable output, eligible converters, accessible contracts and feed stocks at the right stage.</td></tr>
+    <tr><th scope="row">Enrichment</th><td>68.076 million SWU/year published by WNA for 2025. ESA reports 62.200 million SWU/year of operational capacity for 2025.</td><td>Uncommitted services, import eligibility, delivery timing and the fuel specification.</td></tr>
+    <tr><th scope="row">Fabrication</th><td>WNA 2025 edition tables list 14,912 tonnes of heavy metal per year for rods and assemblies in the light-water reactor (LWR) table, including some other reactor types. The heavy-water table lists 4,946 separately.</td><td>Reactor-specific design, fuel licensing and delivery slots. The public table gives no common observation year or qualified capacity by design.</td></tr>
+  </tbody>
+</table></div>
+<p class="note">Sources are the <a href="#source-mining">WNA mine series</a>, the <a href="#source-red_book">2026 Red Book</a>, the <a href="#source-conversion">WNA conversion table</a>, the <a href="#source-enrichment">WNA enrichment table</a>, the <a href="#source-esa">ESA annual report</a> and the <a href="#source-fabrication">WNA fabrication tables</a>.</p>
+
+<figure class="panel" aria-labelledby="capacity-figure">
+  <h3 id="capacity-figure">Global operator concentration in conversion and enrichment</h3>
+  <div class="bars">${hhi_bars}</div>
+  <figcaption class="note">Herfindahl–Hirschman Index (HHI), from zero to 10,000. Bars use the full scale. Calculated from reported operator capacity rows. The NEA comparison uses its published installed-capacity shares. The later comparison uses licensed conversion capacity and WNA or ESA enrichment capacity. These measures describe industrial concentration.</figcaption>
+</figure>
+<p>The largest operators account for ${conversion_top_three} of WNA’s 2024 conversion capacity and ${enrichment_top_three} of its 2025 enrichment capacity when the three largest rows in each table are added. ESA’s lower operational enrichment total still gives a higher HHI than WNA’s conversion table. In a sensitivity check at 75%, 100% and 125% of WNA’s CNNC entries, conversion HHI spans ${conversion_hhi_low} to ${conversion_hhi_high} and enrichment spans ${enrichment_hhi_low} to ${enrichment_hhi_high}. The range tests those assumptions only. A same-year check using both 2022 distributions from the OECD Nuclear Energy Agency (NEA) gives the same ordering. The HHI normalizes the agency’s rounded shares to sum to 100%. <a href="#source-nea_2022">NEA, 2024, Figures 5.2–5.3.</a></p>
+<p>The IEA groups capacity by geography or project ownership and reports that its leading three countries account for about 70% in each stage. Urenco spans several countries and is one row in the operator calculation. Treat the two concentration results on their stated bases. The IEA identifies conversion as a tight near-term market, an example of why the largest HHI alone cannot rank near-term constraints. <a href="#source-iea">IEA, Global Critical Minerals Outlook 2026, pp. 224–227 and executive summary.</a></p>
+
+<p class="note"><b>Correction, 24 November 2026.</b> The previous Atlas chart listed Orano at 11.0% of global conversion capacity in 2022. The cited NEA chart gives 21.2%. The 2022 comparison above uses the source value. The original page also dated Kazakhstan’s 43% share of mine output to 2023. The cited Red Book reports about 39% for 2023 and shows 43% for 2022. <a href="#source-nea_2022">NEA, Figure 5.2</a> and <a href="#source-red_book_previous">Red Book, Table 1.18 and Figure 1.5.</a></p>
+
+<details class="panel"><summary>Mine production by country</summary>
+<div class="table-wrap"><table><thead><tr><th scope="col">Country</th><th scope="col">2024 output (tU)</th><th scope="col">Share of WNA world output</th></tr></thead>
+<tbody>${mine_rows}</tbody></table></div></details>
+<details class="panel"><summary>Conversion capacity by operator</summary>
+<div class="table-wrap"><table><thead><tr><th scope="col">Operator</th><th scope="col">2024 capacity (tU/year)</th><th scope="col">Share</th></tr></thead>
+<tbody>${conversion_rows}</tbody></table></div>
+<p class="note">Cameco confirms its licensed rate of 12,500 tU/year. It calls its 2025 output of 11,200 tU a facility record, below WNA’s reported 2024 production figure for the company of 11,375 tU. The sources differ on realised output. The study uses the licensed rate for concentration and leaves the output discrepancy open. <a href="#source-cameco">Cameco, 2025 Annual Report, pp. 97–98.</a></p></details>
+<details class="panel"><summary>Enrichment capacity by operator</summary>
+<div class="table-wrap"><table><thead><tr><th scope="col">Operator</th><th scope="col">WNA capacity (thousand SWU/year)</th><th scope="col">WNA share</th><th scope="col">ESA operational capacity (thousand SWU/year)</th><th scope="col">ESA share</th></tr></thead>
+<tbody>${enrichment_rows}</tbody></table></div>
+<p class="note">Both columns refer to 2025. The WNA rows total 68,077 thousand SWU/year, one thousand SWU above the printed total. Calculated shares use the row sum. WNA estimates CNNC capacity using domestic fleet requirements. ESA’s Urenco entry of 17.2 million SWU/year matches the group’s year-end disclosure. The remaining differences lack a public facility-by-facility reconciliation. <a href="#source-urenco">Urenco, audited 2025 results.</a></p></details>
+<details class="panel"><summary>Fabrication capacity by plant country</summary>
+<div class="table-wrap"><table><thead><tr><th scope="col">Country</th><th scope="col">Listed rods and assemblies (tonnes of heavy metal/year)</th></tr></thead>
+<tbody>${fabrication_rows}</tbody></table></div>
+<p class="note">Sums of plant rows in WNA Table 1. The Russian and UK entries include about 220 tonnes for RBMK reactors and 200 tonnes for AGRs respectively. Heavy-water fabrication is available separately in the evidence download. Aggregating for a global fabrication HHI would hide the design constraints this study examines.</p></details>
+
+<h2 id="exposure">EU and US exposure follows procurement</h2>
+<figure class="panel" aria-labelledby="exposure-figure">
+  <h3 id="exposure-figure">Russian enrichment share across different reporting bases</h3>
+  <div class="bars">${exposure_bars}</div>
+  <figcaption class="note">All reference years are 2025. The global bar uses WNA capacity by operator. The buyer bars use all EU utility enrichment service deliveries (ESA Table 5) and all US civilian utility enrichment service purchases by delivery year (EIA Table 16). The bars share a percentage scale. Their denominators measure different things.</figcaption>
+</figure>
+
+<h3>European Union</h3>
+<p>Canada supplied 36.68% of the natural uranium delivered to EU utilities in 2025, Kazakhstan 20.31% and Russia 15.98%. Russian conversion services accounted for 24.40% of conversion deliveries. EU enrichers supplied 72.91% of enrichment services. ESA reports 42,522 tU of natural uranium equivalent in utility inventories at year end, including several forms of material and fresh fuel. Stage-specific stocks available to each affected utility depend on form, ownership and the reload schedule. <a href="#source-esa">ESA, 2025 Annual Report, Tables 3–5 and section 1.5.</a></p>
+<p>By the end of 2025 all EU operators of Russian-designed VVER reactors had contracted an alternative fuel supplier. ESA still identified dependence on one fuel design and supplier at some utilities. Finland offers an observed substitution case. ESA reports that alternative fuel was loaded at Loviisa in 2025. The realised switch at that plant and the continuing qualification work elsewhere show why fleet-wide fabrication capacity gives an incomplete picture. <a href="#source-esa">ESA, 2025 Annual Report, section 2.1.3 and Finland country profile.</a></p>
+
+<h3>United States</h3>
+<p>Canada and Kazakhstan accounted for about 32% and 28% of all uranium purchased by US utilities for 2025 delivery, measured in pounds of uranium oxide equivalent. EIA withholds the 2025 Russia-origin amount in that table. EIA’s feed series identifies the destination enrichers and the uranium origin. A comparable volume by converter remains unavailable in this evidence. US-origin enrichment services made up 23.05% of purchases, with Russia at 25.84%. The EIA’s preliminary year-end utility inventory was 118.256 million pounds of uranium oxide equivalent across material types. The mass figure cannot establish what enrichment services utilities can replace. <a href="#source-eia_uranium">EIA Table 3</a>, <a href="#source-eia_feed">Table 13</a>, <a href="#source-eia_enrichment">Table 16</a> and <a href="#source-eia_inventory">Table 22.</a></p>
+<p>US law restricts imports of covered Russian low-enriched uranium, with time-limited waivers ending no later than 1 January 2028. The 2025 purchase figures describe an observed delivery year within that transition. They give a historical basis for the scenario. <a href="#source-law">Public Law 118–62, section 2.</a></p>
+
+<h2 id="scenarios">What would it take to replace disrupted supply?</h2>
+<p>Each scenario holds other deliveries fixed and uses observed 2025 procurements as an annual service baseline. A repeat using 2024 gives a historical sensitivity check. The model spreads supplies across each year and counts replacements only when they are eligible, incremental to existing commitments and able to arrive on time. Stock means a compatible opening reserve measured against the lost flow. The tables show assumptions for times and quantities with no probability attached. The modeled interruptions end at their stated horizons. If the disruption lasts longer and the stock has been used, maintaining service requires a continuing replacement rate equal to the lost flow.</p>
+<div class="table-wrap"><table><caption>Historical procurement used for the scenarios</caption>
+<thead><tr><th scope="col">Market and stage</th><th scope="col">Year</th><th scope="col">Unit</th><th scope="col">Baseline</th><th scope="col">Exposed supplier or origin</th><th scope="col">Exposed flow</th><th scope="col">Share of baseline</th></tr></thead>
+<tbody>${historical_rows}</tbody></table></div>
+<p class="note">EU figures are delivered services. US figures are purchases by delivery year. Sources are <a href="#source-esa">ESA Tables 4–5</a> and <a href="#source-eia_enrichment">EIA Table 16</a>.</p>
+
+<h3>Russian enrichment unavailable to the EU and US</h3>
+<p>The scenario removes Russian-origin enrichment services for 12 months. With no available stock, the two markets would jointly need ${joint_enrichment} million SWU/year from immediate new deliveries on the 2025 baseline, compared with ${joint_enrichment_previous} million on the 2024 baseline. The joint hurdle counts each replacement delivery once. Shared suppliers such as Urenco and Orano would have to allocate incremental services across buyers. Their global rated capacity includes existing commitments. The analysis assigns no spare rate from any supplier, including suppliers focused on domestic markets.</p>
+<figure class="panel" aria-labelledby="enrichment-figure">
+  <h4 id="enrichment-figure">Replacement threshold for the enrichment disruption</h4>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Timing and usable opening stock</th><th scope="col">EU</th><th scope="col">US</th></tr></thead>
+    <tbody>${enrichment_threshold_rows}</tbody>
+  </table></div>
+  <figcaption class="note">Minimum qualified supply in thousand SWU/year once replacements begin. Early gaps show thousand SWU already missing before new deliveries can start. Calculated on 2025 procurement.</figcaption>
+</figure>
+
+<h3>A Western conversion facility is offline</h3>
+<p>The scenario assumes the EU loses the equivalent of its reported ConverDyn deliveries for 18 months, with the US facility serving those deliveries unavailable throughout. The gross EU loss is ${conversion_loss_recent} tU on the 2025 baseline and ${conversion_loss_previous} tU on 2024. The scenario covers the EU delivery lane. Other customers draw on the same pool of alternative converters. Any replacement from eligible suppliers requires available conversion slots and compatible input. A usable stock draw could bridge some demand if affected buyers can access material at the right stage. The model does not assign observed levels to either option. <a href="#source-esa">ESA Table 4</a> and <a href="#source-converdyn">ConverDyn’s facility relationship.</a></p>
+<figure class="panel" aria-labelledby="conversion-figure">
+  <h4 id="conversion-figure">Replacement threshold for the conversion disruption</h4>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Timing and usable opening stock</th><th scope="col">EU</th></tr></thead>
+    <tbody>${conversion_threshold_rows}</tbody>
+  </table></div>
+  <figcaption class="note">Minimum qualified supply in tU/year once replacements begin. Early gaps are quantities in tU. Calculated on 2025 procurement.</figcaption>
+</figure>
+
+<h3>When does a simple ranking work?</h3>
+<p>Under zero replacement and equally absent stocks, the EU loses a larger fraction of its baseline enrichment services in the first example than of its conversion services in the second. In that comparison, the ranking agrees with the HHI ordering. The order reverses if enrichment losses can all be replaced immediately and conversion has no replacements and three months of usable opening stock. The EU would then have no enrichment service gap and a conversion service gap of ${reversal_share} of baseline conversion deliveries over the scenario period. This is a conditional counterexample to the ranking. Public capacity and procurement tables are insufficient to determine which case maps to real contracts.</p>
+
+<h2 id="methods">Methods and uncertainty</h2>
+<ul>
+  <li>HHI sums the squares of percentage shares. Each row is an operator or the source’s small grouped residual. The top-three share uses the largest rows. Mining is reported as output by country and fabrication as listed capacity by plant location.</li>
+  <li>If an exposed annual flow is <var>L</var> and the scenario lasts <var>T</var> months, gross loss is <var>L</var> × <var>T</var> ÷ 12. If qualified new deliveries take <var>d</var> months to start, opening stock must first cover the loss through the earlier of arrival and scenario end. After that, the minimum annual rate is the remaining loss divided by the time left in the scenario expressed in years. If stock already covers the horizon, the rate is zero.</li>
+  <li>The calculation assumes steady service flows, fully fungible eligible replacements within each market and stock that is available when needed. It cannot resolve timing of individual refuelling cycles, price responses, shared transport, competing load schedules or qualification status by buyer. The scenarios stop at the supply of conversion or enrichment services. Reactor shutdown, generation and risk probability require further evidence.</li>
+</ul>
+<p class="note">The <a href="../n1">Atlas supplier-removal comparison</a> uses the IEA’s 2025 screen. It removes Russia and China from both capacity and demand and puts remaining enrichment capacity at 91% of remaining requirements. The IEA estimates about 80% coverage for conversion on its corresponding basis. Here demand stays in the affected buyer markets and replacement is incremental to their remaining supply. <a href="#source-iea">IEA, p. 226.</a></p>
+
+<h2 id="trade">Customs trade in ores and natural uranium compounds</h2>
+<p>BACI reports cross-border goods values, including ores and concentrates and natural uranium compounds. With these product codes, trade values cannot identify conversion or enrichment services, spare capacity or compatible fabrication slots.</p>
+<div class="panel">
+  <div class="control" id="static-trade" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">${trade_year}</b></div>
+  <div class="table-wrap"><table>
+    <caption>Reported world goods trade. Latest static snapshot is ${trade_year}.</caption>
+    <thead><tr><th scope="col">Traded good</th><th scope="col">World trade</th><th scope="col">Leading exporter</th><th scope="col">Boundary</th></tr></thead>
+    <tbody id="trade-body">${trade_rows}</tbody>
+  </table></div>
+  <p class="note">Trade source is <a href="#source-baci">CEPII BACI V202601</a>. HS02 through 2016 and HS17 from 2017.</p>
+</div>
+
+<h2 id="sources">Sources and downloads</h2>
+<ul class="source-list">${sources}</ul>
+<p><a href="out/nuclear_chain.json">Evidence and results JSON</a> · <a href="out/nuclear_trade.json">Trade JSON</a> · <a href="library">Research library</a></p>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap"><div><h4>Critical Materials Atlas</h4>Research based on public aggregate evidence.</div><div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../chokepoint-map">Chokepoint Map</a></div><div class="fineprint">Send corrections to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div></div></footer>
+<script>window.CHAIN_TRADE='out/nuclear_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

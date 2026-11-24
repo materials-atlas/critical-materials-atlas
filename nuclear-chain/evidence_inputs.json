@@ -1,0 +1,349 @@
+{
+  "version": "2026-11-24",
+  "sources": {
+    "mining": [
+      "World Nuclear Association, World Uranium Mining Production, 2024 country column",
+      "https://world-nuclear.org/information-library/nuclear-fuel-cycle/mining-of-uranium/world-uranium-mining-production"
+    ],
+    "red_book": [
+      "OECD NEA and IAEA, Uranium 2026, world mine production",
+      "https://tdb.oecd-nea.org/jcms/pl_121582/adequate-uranium-resources-available-but-sustained-investment-essential-to-support-global-nuclear-capacity-growth"
+    ],
+    "conversion": [
+      "World Nuclear Association, Conversion and Deconversion, 2024 table, updated 23 October 2026",
+      "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/conversion-and-deconversion"
+    ],
+    "enrichment": [
+      "World Nuclear Association, Uranium Enrichment, World enrichment capacity table, 2025 column",
+      "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/uranium-enrichment"
+    ],
+    "fabrication": [
+      "World Nuclear Association, Nuclear Fuel and its Fabrication, Tables 1–2, 2025 edition inputs",
+      "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/fuel-fabrication"
+    ],
+    "esa": [
+      "Euratom Supply Agency, 2025 Annual Report, Tables 3–5 and 7–8, sections 1.5, 2.1.3 and Finland country profile",
+      "https://euratom-supply.ec.europa.eu/document/download/f5fd9141-e7ae-4074-8c83-9a57f55446a7_en?filename=ESA_Annual_Report_2025.pdf"
+    ],
+    "eia_uranium": [
+      "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 3",
+      "https://www.eia.gov/uranium/marketing/table3.php"
+    ],
+    "eia_feed": [
+      "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 13",
+      "https://www.eia.gov/uranium/marketing/table13.php"
+    ],
+    "eia_enrichment": [
+      "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 16",
+      "https://www.eia.gov/uranium/marketing/table16.php"
+    ],
+    "eia_inventory": [
+      "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 22",
+      "https://www.eia.gov/uranium/marketing/table22.php"
+    ],
+    "cameco": [
+      "Cameco, 2025 Annual Report, licensed capacity and output, pp. 97–98",
+      "https://www.cameco.com/sites/default/files/documents/cameco-2025-annual-report.pdf"
+    ],
+    "urenco": [
+      "Urenco, 2025 audited results, global capacity and contract book",
+      "https://www.urenco.com/news/global/2026/full-year-2025-audited-results"
+    ],
+    "iea": [
+      "International Energy Agency, Global Critical Minerals Outlook 2026, nuclear supply chains, pp. 222–225",
+      "https://iea.blob.core.windows.net/assets/19c60aa0-ee07-4a20-a138-33c967ac5008/GlobalCriticalMineralsOutlook2026.pdf#page=224"
+    ],
+    "law": [
+      "United States, Prohibiting Russian Uranium Imports Act, Public Law 118–62, section 2",
+      "https://www.govinfo.gov/content/pkg/PLAW-118publ62/pdf/PLAW-118publ62.pdf"
+    ],
+    "converdyn": [
+      "ConverDyn, commercial supply from its partner’s US conversion facility",
+      "https://converdyn.com/"
+    ],
+    "baci": [
+      "CEPII BACI V202601, based on UN Comtrade",
+      "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    ],
+    "nea_2022": [
+      "OECD Nuclear Energy Agency, High-Assay Low-Enriched Uranium, 2024, Figures 5.2–5.3, pp. 44–45",
+      "https://www.oecd-nea.org/upload/docs/application/pdf/2024-09/nea_publication_2_2_2024-09-18_16-53-42_174.pdf#page=45"
+    ],
+    "red_book_previous": [
+      "OECD NEA and IAEA, Uranium 2024, Table 1.18 and Figure 1.5, pp. 84–85",
+      "https://cms.oecd-nea.org/upload/docs/application/pdf/2025-04/7683_uranium_2024_-_resources_production_and_demand.pdf"
+    ]
+  },
+  "world_mining": {
+    "year": 2024,
+    "unit": "tU",
+    "wna_reported_total": 60213,
+    "red_book_total": 61924,
+    "rows": {
+      "Kazakhstan": 23270,
+      "Canada": 14309,
+      "Namibia": 7333,
+      "Australia": 4598,
+      "Uzbekistan (estimated)": 4000,
+      "Russia": 2738,
+      "China (estimated)": 1600,
+      "Niger": 962,
+      "India (estimated)": 500,
+      "Ukraine (estimated)": 288,
+      "United States": 260,
+      "South Africa (estimated)": 200,
+      "Others": 155
+    },
+    "red_book_previous": {
+      "year_2023": {
+        "kazakhstan": 21112,
+        "world": 54345
+      },
+      "year_2022": {
+        "kazakhstan": 21279,
+        "world": 49490
+      }
+    }
+  },
+  "world_conversion": {
+    "year": 2024,
+    "unit": "tU/year",
+    "published_total": 62000,
+    "rows": {
+      "Orano": 15000,
+      "CNNC (estimated)": 15000,
+      "Cameco": 12500,
+      "Rosatom (estimated)": 12500,
+      "ConverDyn": 7000
+    },
+    "wna_reported_output_total": 56259,
+    "cameco_wna_2024_output": 11375,
+    "cameco_company_2025_output_record": 11200
+  },
+  "world_enrichment": {
+    "wna_2025": {
+      "label": "Enrichment · WNA 2025",
+      "year": 2025,
+      "unit": "thousand SWU/year",
+      "published_total": 68076,
+      "rows": {
+        "CNNC": 13789,
+        "Orano": 7500,
+        "Rosatom": 29133,
+        "Urenco": 17300,
+        "Other (INB, JNFL)": 355
+      }
+    },
+    "esa_2025": {
+      "label": "Enrichment · ESA 2025",
+      "year": 2025,
+      "unit": "thousand SWU/year",
+      "published_total": 62200,
+      "rows": {
+        "CNNC": 10000,
+        "Orano": 7500,
+        "Rosatom": 27100,
+        "Urenco": 17200,
+        "Other (INB, JNFL)": 400
+      }
+    }
+  },
+  "world_fabrication": {
+    "source_edition": 2025,
+    "observation_year": null,
+    "unit": "tonnes of heavy metal/year",
+    "lwr_published_total": 14912,
+    "phwr_published_total": 4946,
+    "included_non_lwr_approx": {
+      "RBMK": 220,
+      "AGR": 200
+    },
+    "lwr_listed_by_plant_country": {
+      "United States": 3800,
+      "Russia": 2760,
+      "China": 1400,
+      "France": 1400,
+      "Japan": 1604,
+      "South Korea": 900,
+      "Sweden": 800,
+      "Germany": 650,
+      "United Kingdom": 600,
+      "Spain": 500,
+      "Brazil": 240,
+      "Kazakhstan": 200,
+      "India": 48,
+      "Argentina": 10
+    },
+    "phwr_listed_by_plant_country": {
+      "Canada": 2850,
+      "India": 1000,
+      "South Korea": 400,
+      "Romania": 250,
+      "China": 246,
+      "Argentina": 200
+    }
+  },
+  "procurement": {
+    "eu_uranium_2025": {
+      "unit": "tU delivered",
+      "total": 14678,
+      "rows": {
+        "Canada": 5384,
+        "Kazakhstan": 2981,
+        "Russia": 2346,
+        "Uzbekistan": 1522,
+        "Australia": 1379,
+        "Namibia": 842
+      }
+    },
+    "us_uranium_2025": {
+      "unit": "thousand lb U₃O₈ equivalent purchased by delivery year",
+      "total": 46871,
+      "rows": {
+        "Canada": 15207,
+        "Kazakhstan": 13331,
+        "United States": 3376,
+        "Uzbekistan": 3258,
+        "Namibia": 1652,
+        "Russia": null
+      }
+    },
+    "eu_conversion_2025": {
+      "unit": "tU delivered",
+      "total": 13248,
+      "rows": {
+        "Orano": 3292,
+        "Rosatom": 3233,
+        "ConverDyn": 2825,
+        "Cameco": 2791,
+        "Unspecified": 1107
+      }
+    },
+    "eu_enrichment_2025": {
+      "unit": "thousand SWU delivered",
+      "total": 12130,
+      "rows": {
+        "EU": 8844,
+        "Russia": 2735,
+        "Other": 551
+      }
+    },
+    "us_enrichment_2025": {
+      "unit": "thousand SWU purchased by delivery year",
+      "total": 12710,
+      "rows": {
+        "Russia": 3284,
+        "United States": 2930,
+        "France": 2234,
+        "United Kingdom": 1828,
+        "Netherlands": 1056,
+        "Germany": null
+      }
+    }
+  },
+  "inventories_2025": {
+    "eu": {
+      "unit": "tU natural uranium equivalent",
+      "utility_total": 42522
+    },
+    "us": {
+      "unit": "thousand lb U₃O₈ equivalent",
+      "utility_total": 118256,
+      "status": "preliminary"
+    }
+  },
+  "scenarios": {
+    "russian_enrichment": {
+      "months": 12,
+      "unit": "thousand SWU",
+      "markets": [
+        {
+          "label": "EU",
+          "delivery_baseline": {
+            "2024": 10405,
+            "2025": 12130
+          },
+          "exposed": {
+            "2024": 2450,
+            "2025": 2735
+          }
+        },
+        {
+          "label": "US",
+          "delivery_baseline": {
+            "2024": 15159,
+            "2025": 12710
+          },
+          "exposed": {
+            "2024": 3043,
+            "2025": 3284
+          }
+        }
+      ]
+    },
+    "western_conversion": {
+      "months": 18,
+      "unit": "tU",
+      "markets": [
+        {
+          "label": "EU",
+          "delivery_baseline": {
+            "2024": 13306,
+            "2025": 13248
+          },
+          "exposed": {
+            "2024": 2898,
+            "2025": 2825
+          }
+        }
+      ]
+    }
+  },
+  "sensitivity": {
+    "cnnc_capacity_factors": [
+      0.75,
+      1,
+      1.25
+    ],
+    "cases": [
+      {
+        "label": "Immediate supply, no stock",
+        "lag_months": 0,
+        "usable_stock_months": 0
+      },
+      {
+        "label": "Three-month wait, three months of stock",
+        "lag_months": 3,
+        "usable_stock_months": 3
+      },
+      {
+        "label": "Six-month wait, three months of stock",
+        "lag_months": 6,
+        "usable_stock_months": 3
+      },
+      {
+        "label": "Six-month wait, nine months of stock",
+        "lag_months": 6,
+        "usable_stock_months": 9
+      }
+    ]
+  },
+  "world_capacity_shares_2022": {
+    "unit": "percent of stage capacity",
+    "source": "nea_2022",
+    "conversion": {
+      "Rosatom": 28.6,
+      "Cameco": 25.2,
+      "CNNC": 25,
+      "Orano": 21.2,
+      "ConverDyn": 0
+    },
+    "enrichment": {
+      "Rosatom": 44.1,
+      "Urenco": 29.1,
+      "CNNC": 14.5,
+      "Orano": 12.2,
+      "Other (INB, JNFL)": 0.2
+    }
+  }
+}

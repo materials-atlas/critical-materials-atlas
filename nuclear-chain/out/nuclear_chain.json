@@ -1,185 +1,663 @@
 {
-  "title": "Nuclear fuel chain",
-  "chokepoint": {
-    "product": "Reactor fuel",
-    "stage": "Enrichment",
-    "mechanism": "capability", "secondary": "policy", "research": true,
-    "physics": "Centrifuge enrichment — a licensed service; Russia the largest",
-    "holder": "Russia",
-    "share": "largest",
-    "control": "—",
-    "conf": "estimate"
-  },
-  "published": true,
-  "related": [
-    {
-      "href": "../defence-chain/defence-chain",
-      "label": "Defence chain"
-    }
-  ],
-  "accent": "#5a7d4a",
-  "eyebrow": "Product-chain pilot · the fuel behind the reactor",
-  "h1": "The uranium mine is the easy part — the chokepoint is a service, not a rock",
-  "deck": "Nuclear fuel is not just uranium ore. Between the mine and the reactor sit conversion, enrichment and fabrication — industrial services, not commodities. The mine is diversified and buffered by stockpiles; the concentration is downstream, and at enrichment Russia is the single largest supplier.",
-  "byline": "mine (diversified) ≠ conversion (few plants) ≠ enrichment (Russia-led) ≠ fabrication (reactor-locked)",
-  "correction": "Worrying about 'who has the uranium' misreads the chain. Uranium is mined across Kazakhstan, Canada, Namibia, Australia and Niger, and utilities hold years of stock. The binding steps are the services: conversion sits with four suppliers, enrichment is led by Russia's Rosatom, and fuel fabrication must be licensed to a specific reactor. The rock is fungible; the service is not.",
-  "stats": [
-    {
-      "v": "~43%",
-      "l": "Kazakhstan's share of world uranium mine output (2023)",
-      "conf": "measured"
-    },
-    {
-      "v": "4 suppliers",
-      "l": "Rosatom, Cameco, CNNC and Orano hold nearly all conversion capacity",
-      "conf": "measured"
-    },
-    {
-      "v": "Russia",
-      "l": "the single largest enricher — roughly 40–45% of world capacity",
-      "conf": "estimate"
-    },
-    {
-      "v": "reactor-locked",
-      "l": "fabricated fuel must match one licensed reactor design — not interchangeable",
-      "conf": "measured"
-    }
-  ],
-  "hops": [
-    {
-      "n": "1 · Mine & mill",
-      "t": "ore becomes uranium concentrate (U3O8, 'yellowcake') — diversified, buffered by stock"
-    },
-    {
-      "n": "2 · Convert",
-      "t": "concentrate purified and converted to UF6 — four suppliers hold nearly all capacity"
-    },
-    {
-      "n": "3 · Enrich",
-      "t": "U-235 concentration raised; a service measured in separative work — Russia-led"
-    },
-    {
-      "n": "4 · Fabricate & operate",
-      "t": "pellets, rods and assemblies licensed to a specific reactor design"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The mine is diversified — and cushioned",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Many producers, plus a stockpile buffer",
-          "conf": "measured",
-          "text": "Kazakhstan leads at ~43% of mine output, but Canada, Namibia, Australia and Niger supply the rest, and known resources are widely spread. Crucially, uranium is cheap to store and utilities and governments hold multi-year inventories, so a mine disruption does not stop a reactor the way a cut-off in an industrial service would. The mine is the least fragile link.",
-          "note": "OECD NEA / IAEA, Uranium 2024 (Red Book).",
-          "flag": "storable and diversified"
-        },
-        {
-          "kind": "text",
-          "h3": "The reactor locks in the fuel",
-          "text": "A fuel assembly is engineered and licensed to a particular reactor design, so a utility cannot freely switch fabricators or, historically, enrichers. That is why Russian-designed VVER reactors across Europe were hard to de-Russify quickly — the dependence is embedded in the machine, not just the fuel market.",
-          "flag": "the machine embeds the supplier"
-        }
-      ]
-    },
-    {
-      "h2": "2 · Conversion and enrichment are the chokepoints",
-      "panels": [
-        {
-          "kind": "bars",
-          "h3": "World conversion capacity by supplier (2022)",
-          "conf": "measured",
-          "max": 1.0,
-          "note": "OECD NEA. Turning yellowcake into UF6 gas for enrichment is done at a handful of plants: Rosatom, Cameco, CNNC and Orano together hold nearly all of it. This is a services oligopoly, not a commodity market — and it is a deliberately narrow neck between a diversified mine and a Russia-led enrichment stage.",
-          "bars": [
-            {
-              "label": "Rosatom (Russia)",
-              "value": 0.286
-            },
-            {
-              "label": "Cameco (Canada)",
-              "value": 0.252
-            },
-            {
-              "label": "CNNC (China)",
-              "value": 0.25
-            },
-            {
-              "label": "Orano (France)",
-              "value": 0.11
-            }
-          ]
-        },
-        {
-          "kind": "text",
-          "h3": "Enrichment — and the HALEU sub-chokepoint",
-          "text": "Enrichment, a service measured in separative-work units, is even more concentrated, with Russia the single largest supplier. The next-generation twist is HALEU (high-assay low-enriched uranium) that many advanced and small modular reactors need — and today Russia is essentially the only commercial source, so a new reactor class is being designed around a supply that barely exists outside one country.",
-          "note": "OECD NEA, HALEU; US DOE.",
-          "flag": "the new reactors need a fuel almost only Russia makes"
-        }
-      ]
-    },
-    {
-      "h2": "3 · Why this chain reads differently",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Concentration in capability, not geology",
-          "text": "Most chains in this atlas concentrate at a mine or a refinery. Nuclear concentrates at engineered services — conversion plants, enrichment centrifuges, licensed fabrication — that take a decade and heavy capital to build. The West is now rebuilding exactly this capacity (new enrichment in the US, UK, France) precisely because the rock was never the problem.",
-          "flag": "rebuilding a service, not opening a mine"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries uranium ore and compounds, but enrichment and conversion are traded as services and under long confidential contracts that customs data does not capture. Read any uranium trade below as ore movement only — the real chokepoints (enrichment SWU, licensed fabrication) are invisible in trade statistics.",
-  "method": [
-    {
-      "stage": "Mine",
-      "lens": "NEA/IAEA mine share + stockpiles",
-      "why": "diversified and buffered — the least fragile link"
-    },
-    {
-      "stage": "Convert",
-      "lens": "NEA conversion-capacity shares",
-      "why": "four-supplier oligopoly — a deliberate narrow neck"
-    },
-    {
-      "stage": "Enrich",
-      "lens": "SWU capacity (Russia-led)",
-      "why": "the real chokepoint; HALEU a new sub-chokepoint"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI uranium ore/compounds",
-      "why": "ore only; enrichment is a service — flagged context"
-    }
-  ],
+  "version": "2026-11-24",
   "sources": {
-    "nea_redbook": {
-      "title": "OECD NEA & IAEA, Uranium 2024: Resources, Production and Demand",
-      "year": 2025,
-      "url": "https://cms.oecd-nea.org/jcms/pl_103179/uranium-2024-resources-production-and-demand"
+    "mining": {
+      "title": "World Nuclear Association, World Uranium Mining Production, 2024 country column",
+      "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/mining-of-uranium/world-uranium-mining-production"
     },
-    "nea_haleu": {
-      "title": "OECD NEA, High-Assay Low-Enriched Uranium: Drivers, Implications and Security of Supply",
-      "year": 2024,
-      "url": "https://oecd-nea.org/jcms/pl_96126/high-assay-low-enriched-uranium-drivers-implications-and-security-of-supply"
+    "red_book": {
+      "title": "OECD NEA and IAEA, Uranium 2026, world mine production",
+      "url": "https://tdb.oecd-nea.org/jcms/pl_121582/adequate-uranium-resources-available-but-sustained-investment-essential-to-support-global-nuclear-capacity-growth"
     },
-    "doe_enrichment": {
-      "title": "US DOE, Uranium Enrichment Explained",
-      "year": 2024,
-      "url": "https://www.energy.gov/ne/articles/uranium-enrichment-explained"
+    "conversion": {
+      "title": "World Nuclear Association, Conversion and Deconversion, 2024 table, updated 23 October 2026",
+      "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/conversion-and-deconversion"
     },
-    "iaea_pris": {
-      "title": "IAEA PRIS, World trend in electrical production",
-      "year": 2026,
-      "url": "https://pris.iaea.org/PRIS/WorldStatistics/WorldTrendinElectricalProduction.aspx"
+    "enrichment": {
+      "title": "World Nuclear Association, Uranium Enrichment, World enrichment capacity table, 2025 column",
+      "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/uranium-enrichment"
+    },
+    "fabrication": {
+      "title": "World Nuclear Association, Nuclear Fuel and its Fabrication, Tables 1–2, 2025 edition inputs",
+      "url": "https://world-nuclear.org/information-library/nuclear-fuel-cycle/conversion-enrichment-and-fabrication/fuel-fabrication"
+    },
+    "esa": {
+      "title": "Euratom Supply Agency, 2025 Annual Report, Tables 3–5 and 7–8, sections 1.5, 2.1.3 and Finland country profile",
+      "url": "https://euratom-supply.ec.europa.eu/document/download/f5fd9141-e7ae-4074-8c83-9a57f55446a7_en?filename=ESA_Annual_Report_2025.pdf"
+    },
+    "eia_uranium": {
+      "title": "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 3",
+      "url": "https://www.eia.gov/uranium/marketing/table3.php"
+    },
+    "eia_feed": {
+      "title": "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 13",
+      "url": "https://www.eia.gov/uranium/marketing/table13.php"
+    },
+    "eia_enrichment": {
+      "title": "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 16",
+      "url": "https://www.eia.gov/uranium/marketing/table16.php"
+    },
+    "eia_inventory": {
+      "title": "US Energy Information Administration, 2025 Uranium Marketing Annual Report, Table 22",
+      "url": "https://www.eia.gov/uranium/marketing/table22.php"
+    },
+    "cameco": {
+      "title": "Cameco, 2025 Annual Report, licensed capacity and output, pp. 97–98",
+      "url": "https://www.cameco.com/sites/default/files/documents/cameco-2025-annual-report.pdf"
+    },
+    "urenco": {
+      "title": "Urenco, 2025 audited results, global capacity and contract book",
+      "url": "https://www.urenco.com/news/global/2026/full-year-2025-audited-results"
+    },
+    "iea": {
+      "title": "International Energy Agency, Global Critical Minerals Outlook 2026, nuclear supply chains, pp. 222–225",
+      "url": "https://iea.blob.core.windows.net/assets/19c60aa0-ee07-4a20-a138-33c967ac5008/GlobalCriticalMineralsOutlook2026.pdf#page=224"
+    },
+    "law": {
+      "title": "United States, Prohibiting Russian Uranium Imports Act, Public Law 118–62, section 2",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-118publ62/pdf/PLAW-118publ62.pdf"
+    },
+    "converdyn": {
+      "title": "ConverDyn, commercial supply from its partner’s US conversion facility",
+      "url": "https://converdyn.com/"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    },
+    "nea_2022": {
+      "title": "OECD Nuclear Energy Agency, High-Assay Low-Enriched Uranium, 2024, Figures 5.2–5.3, pp. 44–45",
+      "url": "https://www.oecd-nea.org/upload/docs/application/pdf/2024-09/nea_publication_2_2_2024-09-18_16-53-42_174.pdf#page=45"
+    },
+    "red_book_previous": {
+      "title": "OECD NEA and IAEA, Uranium 2024, Table 1.18 and Figure 1.5, pp. 84–85",
+      "url": "https://cms.oecd-nea.org/upload/docs/application/pdf/2025-04/7683_uranium_2024_-_resources_production_and_demand.pdf"
+    }
+  },
+  "world_mining": {
+    "year": 2024,
+    "unit": "tU",
+    "wna_reported_total": 60213,
+    "red_book_total": 61924,
+    "rows": {
+      "Kazakhstan": 23270,
+      "Canada": 14309,
+      "Namibia": 7333,
+      "Australia": 4598,
+      "Uzbekistan (estimated)": 4000,
+      "Russia": 2738,
+      "China (estimated)": 1600,
+      "Niger": 962,
+      "India (estimated)": 500,
+      "Ukraine (estimated)": 288,
+      "United States": 260,
+      "South Africa (estimated)": 200,
+      "Others": 155
+    },
+    "red_book_previous": {
+      "year_2023": {
+        "kazakhstan": 21112,
+        "world": 54345
+      },
+      "year_2022": {
+        "kazakhstan": 21279,
+        "world": 49490
+      }
+    }
+  },
+  "world_conversion": {
+    "year": 2024,
+    "unit": "tU/year",
+    "published_total": 62000,
+    "rows": {
+      "Orano": 15000,
+      "CNNC (estimated)": 15000,
+      "Cameco": 12500,
+      "Rosatom (estimated)": 12500,
+      "ConverDyn": 7000
+    },
+    "wna_reported_output_total": 56259,
+    "cameco_wna_2024_output": 11375,
+    "cameco_company_2025_output_record": 11200
+  },
+  "world_enrichment": {
+    "wna_2025": {
+      "label": "Enrichment · WNA 2025",
+      "year": 2025,
+      "unit": "thousand SWU/year",
+      "published_total": 68076,
+      "rows": {
+        "CNNC": 13789,
+        "Orano": 7500,
+        "Rosatom": 29133,
+        "Urenco": 17300,
+        "Other (INB, JNFL)": 355
+      }
+    },
+    "esa_2025": {
+      "label": "Enrichment · ESA 2025",
+      "year": 2025,
+      "unit": "thousand SWU/year",
+      "published_total": 62200,
+      "rows": {
+        "CNNC": 10000,
+        "Orano": 7500,
+        "Rosatom": 27100,
+        "Urenco": 17200,
+        "Other (INB, JNFL)": 400
+      }
+    }
+  },
+  "world_fabrication": {
+    "source_edition": 2025,
+    "observation_year": null,
+    "unit": "tonnes of heavy metal/year",
+    "lwr_published_total": 14912,
+    "phwr_published_total": 4946,
+    "included_non_lwr_approx": {
+      "RBMK": 220,
+      "AGR": 200
+    },
+    "lwr_listed_by_plant_country": {
+      "United States": 3800,
+      "Russia": 2760,
+      "China": 1400,
+      "France": 1400,
+      "Japan": 1604,
+      "South Korea": 900,
+      "Sweden": 800,
+      "Germany": 650,
+      "United Kingdom": 600,
+      "Spain": 500,
+      "Brazil": 240,
+      "Kazakhstan": 200,
+      "India": 48,
+      "Argentina": 10
+    },
+    "phwr_listed_by_plant_country": {
+      "Canada": 2850,
+      "India": 1000,
+      "South Korea": 400,
+      "Romania": 250,
+      "China": 246,
+      "Argentina": 200
+    }
+  },
+  "procurement": {
+    "eu_uranium_2025": {
+      "unit": "tU delivered",
+      "total": 14678,
+      "rows": {
+        "Canada": 5384,
+        "Kazakhstan": 2981,
+        "Russia": 2346,
+        "Uzbekistan": 1522,
+        "Australia": 1379,
+        "Namibia": 842
+      }
+    },
+    "us_uranium_2025": {
+      "unit": "thousand lb U₃O₈ equivalent purchased by delivery year",
+      "total": 46871,
+      "rows": {
+        "Canada": 15207,
+        "Kazakhstan": 13331,
+        "United States": 3376,
+        "Uzbekistan": 3258,
+        "Namibia": 1652,
+        "Russia": null
+      }
+    },
+    "eu_conversion_2025": {
+      "unit": "tU delivered",
+      "total": 13248,
+      "rows": {
+        "Orano": 3292,
+        "Rosatom": 3233,
+        "ConverDyn": 2825,
+        "Cameco": 2791,
+        "Unspecified": 1107
+      }
+    },
+    "eu_enrichment_2025": {
+      "unit": "thousand SWU delivered",
+      "total": 12130,
+      "rows": {
+        "EU": 8844,
+        "Russia": 2735,
+        "Other": 551
+      }
+    },
+    "us_enrichment_2025": {
+      "unit": "thousand SWU purchased by delivery year",
+      "total": 12710,
+      "rows": {
+        "Russia": 3284,
+        "United States": 2930,
+        "France": 2234,
+        "United Kingdom": 1828,
+        "Netherlands": 1056,
+        "Germany": null
+      }
+    }
+  },
+  "inventories_2025": {
+    "eu": {
+      "unit": "tU natural uranium equivalent",
+      "utility_total": 42522
+    },
+    "us": {
+      "unit": "thousand lb U₃O₈ equivalent",
+      "utility_total": 118256,
+      "status": "preliminary"
+    }
+  },
+  "scenarios": {
+    "russian_enrichment": {
+      "months": 12,
+      "unit": "thousand SWU",
+      "markets": [
+        {
+          "label": "EU",
+          "delivery_baseline": {
+            "2024": 10405,
+            "2025": 12130
+          },
+          "exposed": {
+            "2024": 2450,
+            "2025": 2735
+          }
+        },
+        {
+          "label": "US",
+          "delivery_baseline": {
+            "2024": 15159,
+            "2025": 12710
+          },
+          "exposed": {
+            "2024": 3043,
+            "2025": 3284
+          }
+        }
+      ]
+    },
+    "western_conversion": {
+      "months": 18,
+      "unit": "tU",
+      "markets": [
+        {
+          "label": "EU",
+          "delivery_baseline": {
+            "2024": 13306,
+            "2025": 13248
+          },
+          "exposed": {
+            "2024": 2898,
+            "2025": 2825
+          }
+        }
+      ]
+    }
+  },
+  "sensitivity": {
+    "cnnc_capacity_factors": [
+      0.75,
+      1,
+      1.25
+    ],
+    "cases": [
+      {
+        "label": "Immediate supply, no stock",
+        "lag_months": 0,
+        "usable_stock_months": 0
+      },
+      {
+        "label": "Three-month wait, three months of stock",
+        "lag_months": 3,
+        "usable_stock_months": 3
+      },
+      {
+        "label": "Six-month wait, three months of stock",
+        "lag_months": 6,
+        "usable_stock_months": 3
+      },
+      {
+        "label": "Six-month wait, nine months of stock",
+        "lag_months": 6,
+        "usable_stock_months": 9
+      }
+    ]
+  },
+  "world_capacity_shares_2022": {
+    "unit": "percent of stage capacity",
+    "source": "nea_2022",
+    "conversion": {
+      "Rosatom": 28.6,
+      "Cameco": 25.2,
+      "CNNC": 25,
+      "Orano": 21.2,
+      "ConverDyn": 0
+    },
+    "enrichment": {
+      "Rosatom": 44.1,
+      "Urenco": 29.1,
+      "CNNC": 14.5,
+      "Orano": 12.2,
+      "Other (INB, JNFL)": 0.2
+    }
+  },
+  "title": "Nuclear fuel chain",
+  "published": true,
+  "h1": "What makes nuclear fuel supply hard to replace?",
+  "deck": "Enrichment capacity is concentrated among a few operators. What utilities can replace after a supply interruption also depends on contracts, usable stocks and fuel qualification.",
+  "chokepoint": {
+    "product": "Reactor fuel",
+    "stage": "Conversion / enrichment / fabrication",
+    "mechanism": "capability",
+    "secondary": "policy",
+    "research": true,
+    "physics": "Concentrated fuel services and design-specific fabrication. Replacement depends on the market and disruption.",
+    "holder": "Rosatom leads enrichment",
+    "share": "43–44% of global enrichment capacity",
+    "control": "—",
+    "conf": "estimate"
+  },
+  "calculated": {
+    "conversion": {
+      "row_sum": 62000,
+      "shares": {
+        "Orano": 0.24193548387096775,
+        "CNNC (estimated)": 0.24193548387096775,
+        "Cameco": 0.20161290322580644,
+        "Rosatom (estimated)": 0.20161290322580644,
+        "ConverDyn": 0.11290322580645161
+      },
+      "hhi": 2111.08220603538,
+      "top_three_share": 0.685483870967742
+    },
+    "nea_capacity_concentration_2022": {
+      "conversion": {
+        "row_sum": 100.0,
+        "shares": {
+          "Rosatom": 0.28600000000000003,
+          "Cameco": 0.252,
+          "CNNC": 0.25,
+          "Orano": 0.212,
+          "ConverDyn": 0.0
+        },
+        "hhi": 2527.44,
+        "top_three_share": 0.788
+      },
+      "enrichment": {
+        "row_sum": 100.10000000000001,
+        "shares": {
+          "Rosatom": 0.4405594405594405,
+          "Urenco": 0.2907092907092907,
+          "CNNC": 0.14485514485514484,
+          "Orano": 0.12187812187812186,
+          "Other (INB, JNFL)": 0.001998001998001998
+        },
+        "hhi": 3144.4579396627346,
+        "top_three_share": 0.876123876123876
+      }
+    },
+    "enrichment": {
+      "wna_2025": {
+        "row_sum": 68077,
+        "shares": {
+          "CNNC": 0.20255005361575862,
+          "Orano": 0.11016936704026323,
+          "Rosatom": 0.4279418893311985,
+          "Urenco": 0.25412400663954055,
+          "Other (INB, JNFL)": 0.005214683373239127
+        },
+        "hhi": 3009.0427797137104,
+        "top_three_share": 0.8846159495864977
+      },
+      "esa_2025": {
+        "row_sum": 62200,
+        "shares": {
+          "CNNC": 0.1607717041800643,
+          "Orano": 0.12057877813504823,
+          "Rosatom": 0.43569131832797425,
+          "Urenco": 0.2765273311897106,
+          "Other (INB, JNFL)": 0.006430868167202572
+        },
+        "hhi": 3067.224284281593,
+        "top_three_share": 0.8729903536977492
+      }
+    },
+    "wna_2025_enrichment_row_difference": 1,
+    "cnnc_capacity_sensitivity": {
+      "0.75": {
+        "conversion_hhi": 2101.5306968262444,
+        "enrichment_hhi": 3139.4495274246347
+      },
+      "1": {
+        "conversion_hhi": 2111.08220603538,
+        "enrichment_hhi": 3009.0427797137104
+      },
+      "1.25": {
+        "conversion_hhi": 2169.90270207752,
+        "enrichment_hhi": 2935.044364915456
+      }
+    },
+    "scenarios": {
+      "russian_enrichment": {
+        "unit": "thousand SWU",
+        "horizon_months": 12,
+        "markets": [
+          {
+            "label": "EU",
+            "by_baseline_year": {
+              "2024": [
+                {
+                  "gross_loss": 2450.0,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2450.0
+                },
+                {
+                  "gross_loss": 2450.0,
+                  "usable_opening_stock": 612.5,
+                  "stock_required_before_replacements": 612.5,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2450.0
+                },
+                {
+                  "gross_loss": 2450.0,
+                  "usable_opening_stock": 612.5,
+                  "stock_required_before_replacements": 1225.0,
+                  "uncovered_before_replacements": 612.5,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 2450.0,
+                  "usable_opening_stock": 1837.5,
+                  "stock_required_before_replacements": 1225.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 1225.0
+                }
+              ],
+              "2025": [
+                {
+                  "gross_loss": 2735.0,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2735.0
+                },
+                {
+                  "gross_loss": 2735.0,
+                  "usable_opening_stock": 683.75,
+                  "stock_required_before_replacements": 683.75,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2735.0
+                },
+                {
+                  "gross_loss": 2735.0,
+                  "usable_opening_stock": 683.75,
+                  "stock_required_before_replacements": 1367.5,
+                  "uncovered_before_replacements": 683.75,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 2735.0,
+                  "usable_opening_stock": 2051.25,
+                  "stock_required_before_replacements": 1367.5,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 1367.5
+                }
+              ]
+            }
+          },
+          {
+            "label": "US",
+            "by_baseline_year": {
+              "2024": [
+                {
+                  "gross_loss": 3043.0,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 3043.0
+                },
+                {
+                  "gross_loss": 3043.0,
+                  "usable_opening_stock": 760.75,
+                  "stock_required_before_replacements": 760.75,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 3043.0
+                },
+                {
+                  "gross_loss": 3043.0,
+                  "usable_opening_stock": 760.75,
+                  "stock_required_before_replacements": 1521.5,
+                  "uncovered_before_replacements": 760.75,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 3043.0,
+                  "usable_opening_stock": 2282.25,
+                  "stock_required_before_replacements": 1521.5,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 1521.5
+                }
+              ],
+              "2025": [
+                {
+                  "gross_loss": 3284.0,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 3284.0
+                },
+                {
+                  "gross_loss": 3284.0,
+                  "usable_opening_stock": 821.0,
+                  "stock_required_before_replacements": 821.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 3284.0
+                },
+                {
+                  "gross_loss": 3284.0,
+                  "usable_opening_stock": 821.0,
+                  "stock_required_before_replacements": 1642.0,
+                  "uncovered_before_replacements": 821.0,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 3284.0,
+                  "usable_opening_stock": 2463.0,
+                  "stock_required_before_replacements": 1642.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 1642.0
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "western_conversion": {
+        "unit": "tU",
+        "horizon_months": 18,
+        "markets": [
+          {
+            "label": "EU",
+            "by_baseline_year": {
+              "2024": [
+                {
+                  "gross_loss": 4347.0,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2898.0
+                },
+                {
+                  "gross_loss": 4347.0,
+                  "usable_opening_stock": 724.5,
+                  "stock_required_before_replacements": 724.5,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2898.0
+                },
+                {
+                  "gross_loss": 4347.0,
+                  "usable_opening_stock": 724.5,
+                  "stock_required_before_replacements": 1449.0,
+                  "uncovered_before_replacements": 724.5,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 4347.0,
+                  "usable_opening_stock": 2173.5,
+                  "stock_required_before_replacements": 1449.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2173.5
+                }
+              ],
+              "2025": [
+                {
+                  "gross_loss": 4237.5,
+                  "usable_opening_stock": 0.0,
+                  "stock_required_before_replacements": 0.0,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2825.0
+                },
+                {
+                  "gross_loss": 4237.5,
+                  "usable_opening_stock": 706.25,
+                  "stock_required_before_replacements": 706.25,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2825.0
+                },
+                {
+                  "gross_loss": 4237.5,
+                  "usable_opening_stock": 706.25,
+                  "stock_required_before_replacements": 1412.5,
+                  "uncovered_before_replacements": 706.25,
+                  "minimum_annual_replacement": null
+                },
+                {
+                  "gross_loss": 4237.5,
+                  "usable_opening_stock": 2118.75,
+                  "stock_required_before_replacements": 1412.5,
+                  "uncovered_before_replacements": 0,
+                  "minimum_annual_replacement": 2118.75
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "joint_enrichment_threshold": {
+      "2024": 5493,
+      "2025": 6019
+    },
+    "reversal_example": {
+      "eu_conversion_uncovered_share_at_zero_replacement": 0.17769977858293076,
+      "eu_enrichment_uncovered_share_at_full_immediate_replacement": 0
     }
   }
 }

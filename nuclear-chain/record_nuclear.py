@@ -1,105 +1,297 @@
-"""Evidence JSON for the nuclear fuel-chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_nuclear.py
-"""
+"""Build the dated civilian nuclear-fuel study and its evidence JSON."""
+
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "nuclear_chain.json")
+import json
+from html import escape
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "nea_redbook": {"title": "OECD NEA & IAEA, Uranium 2024: Resources, Production and Demand", "year": 2025, "url": "https://cms.oecd-nea.org/jcms/pl_103179/uranium-2024-resources-production-and-demand"},
-    "nea_haleu": {"title": "OECD NEA, High-Assay Low-Enriched Uranium: Drivers, Implications and Security of Supply", "year": 2024, "url": "https://oecd-nea.org/jcms/pl_96126/high-assay-low-enriched-uranium-drivers-implications-and-security-of-supply"},
-    "doe_enrichment": {"title": "US DOE, Uranium Enrichment Explained", "year": 2024, "url": "https://www.energy.gov/ne/articles/uranium-enrichment-explained"},
-    "iaea_pris": {"title": "IAEA PRIS, World trend in electrical production", "year": 2026, "url": "https://pris.iaea.org/PRIS/WorldStatistics/WorldTrendinElectricalProduction.aspx"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
-}
+HERE = Path(__file__).resolve().parent
+TITLE = "What makes nuclear fuel supply hard to replace?"
+DECK = (
+    "Enrichment capacity is concentrated among a few operators. What utilities can replace "
+    "after a supply interruption also depends on contracts, usable stocks and fuel qualification."
+)
 
-CHAIN = {
-    "title": "Nuclear fuel chain",
-    "chokepoint": {"product": "Reactor fuel", "stage": "Enrichment", "mechanism": "capability", "secondary": "policy", "research": True, "physics": "Centrifuge enrichment — a licensed service; Russia the largest", "holder": "Russia", "share": "largest", "control": "—", "conf": "estimate"},
-    "published": True,
-    "related": [{"href": "../defence-chain/defence-chain", "label": "Defence chain"}],
-    "accent": "#5a7d4a",
-    "eyebrow": "Product-chain pilot · the fuel behind the reactor",
-    "h1": "The uranium mine is the easy part — the chokepoint is a service, not a rock",
-    "deck": "Nuclear fuel is not just uranium ore. Between the mine and the reactor sit conversion, enrichment and "
-            "fabrication — industrial services, not commodities. The mine is diversified and buffered by stockpiles; "
-            "the concentration is downstream, and at enrichment Russia is the single largest supplier.",
-    "byline": "mine (diversified) ≠ conversion (few plants) ≠ enrichment (Russia-led) ≠ fabrication (reactor-locked)",
-    "correction": "Worrying about 'who has the uranium' misreads the chain. Uranium is mined across Kazakhstan, "
-                  "Canada, Namibia, Australia and Niger, and utilities hold years of stock. The binding steps are the "
-                  "services: conversion sits with four suppliers, enrichment is led by Russia's Rosatom, and fuel "
-                  "fabrication must be licensed to a specific reactor. The rock is fungible; the service is not.",
-    "stats": [
-        {"v": "~43%", "l": "Kazakhstan's share of world uranium mine output (2023)", "conf": "measured"},
-        {"v": "4 suppliers", "l": "Rosatom, Cameco, CNNC and Orano hold nearly all conversion capacity", "conf": "measured"},
-        {"v": "Russia", "l": "the single largest enricher — roughly 40–45% of world capacity", "conf": "estimate"},
-        {"v": "reactor-locked", "l": "fabricated fuel must match one licensed reactor design — not interchangeable", "conf": "measured"},
-    ],
-    "hops": [
-        {"n": "1 · Mine & mill", "t": "ore becomes uranium concentrate (U3O8, 'yellowcake') — diversified, buffered by stock"},
-        {"n": "2 · Convert", "t": "concentrate purified and converted to UF6 — four suppliers hold nearly all capacity"},
-        {"n": "3 · Enrich", "t": "U-235 concentration raised; a service measured in separative work — Russia-led"},
-        {"n": "4 · Fabricate & operate", "t": "pellets, rods and assemblies licensed to a specific reactor design"},
-    ],
-    "sections": [
-        {"h2": "1 · The mine is diversified — and cushioned", "panels": [
-            {"kind": "text", "h3": "Many producers, plus a stockpile buffer", "conf": "measured",
-             "text": "Kazakhstan leads at ~43% of mine output, but Canada, Namibia, Australia and Niger supply the rest, "
-                     "and known resources are widely spread. Crucially, uranium is cheap to store and utilities and "
-                     "governments hold multi-year inventories, so a mine disruption does not stop a reactor the way a "
-                     "cut-off in an industrial service would. The mine is the least fragile link.",
-             "note": "OECD NEA / IAEA, Uranium 2024 (Red Book).", "flag": "storable and diversified"},
-            {"kind": "text", "h3": "The reactor locks in the fuel",
-             "text": "A fuel assembly is engineered and licensed to a particular reactor design, so a utility cannot "
-                     "freely switch fabricators or, historically, enrichers. That is why Russian-designed VVER reactors "
-                     "across Europe were hard to de-Russify quickly — the dependence is embedded in the machine, not "
-                     "just the fuel market.",
-             "flag": "the machine embeds the supplier"},
-        ]},
-        {"h2": "2 · Conversion and enrichment are the chokepoints", "panels": [
-            {"kind": "bars", "h3": "World conversion capacity by supplier (2022)", "conf": "measured", "max": 1.0, "note":
-                "OECD NEA. Turning yellowcake into UF6 gas for enrichment is done at a handful of plants: Rosatom, "
-                "Cameco, CNNC and Orano together hold nearly all of it. This is a services oligopoly, not a commodity "
-                "market — and it is a deliberately narrow neck between a diversified mine and a Russia-led enrichment "
-                "stage.", "bars": [
-                {"label": "Rosatom (Russia)", "value": 0.286},
-                {"label": "Cameco (Canada)", "value": 0.252},
-                {"label": "CNNC (China)", "value": 0.25},
-                {"label": "Orano (France)", "value": 0.11},
-            ]},
-            {"kind": "text", "h3": "Enrichment — and the HALEU sub-chokepoint",
-             "text": "Enrichment, a service measured in separative-work units, is even more concentrated, with Russia "
-                     "the single largest supplier. The next-generation twist is HALEU (high-assay low-enriched uranium) "
-                     "that many advanced and small modular reactors need — and today Russia is essentially the only "
-                     "commercial source, so a new reactor class is being designed around a supply that barely exists "
-                     "outside one country.",
-             "note": "OECD NEA, HALEU; US DOE.", "flag": "the new reactors need a fuel almost only Russia makes"},
-        ]},
-        {"h2": "3 · Why this chain reads differently", "panels": [
-            {"kind": "text", "h3": "Concentration in capability, not geology",
-             "text": "Most chains in this atlas concentrate at a mine or a refinery. Nuclear concentrates at "
-                     "engineered services — conversion plants, enrichment centrifuges, licensed fabrication — that take "
-                     "a decade and heavy capital to build. The West is now rebuilding exactly this capacity (new "
-                     "enrichment in the US, UK, France) precisely because the rock was never the problem.",
-             "flag": "rebuilding a service, not opening a mine"},
-        ]},
-    ],
-    "trade_intro": "BACI carries uranium ore and compounds, but enrichment and conversion are traded as services and "
-                   "under long confidential contracts that customs data does not capture. Read any uranium trade below "
-                   "as ore movement only — the real chokepoints (enrichment SWU, licensed fabrication) are invisible "
-                   "in trade statistics.",
-    "method": [
-        {"stage": "Mine", "lens": "NEA/IAEA mine share + stockpiles", "why": "diversified and buffered — the least fragile link"},
-        {"stage": "Convert", "lens": "NEA conversion-capacity shares", "why": "four-supplier oligopoly — a deliberate narrow neck"},
-        {"stage": "Enrich", "lens": "SWU capacity (Russia-led)", "why": "the real chokepoint; HALEU a new sub-chokepoint"},
-        {"stage": "Trade", "lens": "BACI uranium ore/compounds", "why": "ore only; enrichment is a service — flagged context"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- nuclear, mine diversified; chokepoint = conversion/enrichment (Russia-led)")
+def concentration(capacity):
+    total = sum(capacity.values())
+    shares = {name: amount / total for name, amount in capacity.items()}
+    return {
+        "row_sum": total,
+        "shares": shares,
+        "hhi": 10_000 * sum(share**2 for share in shares.values()),
+        "top_three_share": sum(sorted(shares.values(), reverse=True)[:3]),
+    }
+
+
+def replacement_threshold(annual_loss, months, lag_months, usable_stock_months):
+    """Minimum constant qualified supply after the lag that prevents any service shortfall."""
+    horizon_loss = annual_loss * months / 12
+    bridge = annual_loss * min(months, lag_months) / 12
+    stock = annual_loss * usable_stock_months / 12
+    remaining_months = max(0, months - lag_months)
+
+    # Deliveries arriving after the lag cannot retrospectively serve the earlier months.
+    annual_rate = None
+    if stock >= horizon_loss:
+        annual_rate = 0.0
+    elif stock >= bridge:
+        annual_rate = (horizon_loss - stock) * 12 / remaining_months
+
+    return {
+        "gross_loss": horizon_loss,
+        "usable_opening_stock": stock,
+        "stock_required_before_replacements": bridge,
+        "uncovered_before_replacements": max(0, bridge - stock),
+        "minimum_annual_replacement": annual_rate,
+    }
+
+
+def calculate(data):
+    conversion = concentration(data["world_conversion"]["rows"])
+    enrichment = {
+        key: concentration(series["rows"])
+        for key, series in data["world_enrichment"].items()
+    }
+    historical = {
+        stage: concentration(data["world_capacity_shares_2022"][stage])
+        for stage in ("conversion", "enrichment")
+    }
+    wna = data["world_enrichment"]["wna_2025"]["rows"]
+    conversion_rows = data["world_conversion"]["rows"]
+    factors = data["sensitivity"]["cnnc_capacity_factors"]
+    cn_sensitivity = {}
+    for factor in factors:
+        cn_sensitivity[str(factor)] = {
+            "conversion_hhi": concentration({
+                **conversion_rows,
+                "CNNC (estimated)": conversion_rows["CNNC (estimated)"] * factor,
+            })["hhi"],
+            "enrichment_hhi": concentration({**wna, "CNNC": wna["CNNC"] * factor})["hhi"],
+        }
+
+    scenarios = {}
+    for key, scenario in data["scenarios"].items():
+        markets = []
+        for market in scenario["markets"]:
+            by_year = {}
+            for year, exposed in market["exposed"].items():
+                by_year[year] = [
+                    replacement_threshold(
+                        exposed, scenario["months"], case["lag_months"], case["usable_stock_months"]
+                    )
+                    for case in data["sensitivity"]["cases"]
+                ]
+            markets.append({"label": market["label"], "by_baseline_year": by_year})
+        scenarios[key] = {"unit": scenario["unit"], "horizon_months": scenario["months"], "markets": markets}
+
+    annual_loss = data["scenarios"]
+    eu_enrichment, us_enrichment = annual_loss["russian_enrichment"]["markets"]
+    eu_conversion = annual_loss["western_conversion"]["markets"][0]
+    conversion_months = annual_loss["western_conversion"]["months"]
+    residual = replacement_threshold(eu_conversion["exposed"]["2025"], conversion_months, 0, 3)
+    return {
+        "conversion": conversion,
+        "nea_capacity_concentration_2022": historical,
+        "enrichment": enrichment,
+        "wna_2025_enrichment_row_difference": enrichment["wna_2025"]["row_sum"]
+        - data["world_enrichment"]["wna_2025"]["published_total"],
+        "cnnc_capacity_sensitivity": cn_sensitivity,
+        "scenarios": scenarios,
+        "joint_enrichment_threshold": {
+            year: eu_enrichment["exposed"][year] + us_enrichment["exposed"][year]
+            for year in eu_enrichment["exposed"]
+        },
+        "reversal_example": {
+            "eu_conversion_uncovered_share_at_zero_replacement": (
+                (residual["gross_loss"] - residual["usable_opening_stock"])
+                / (eu_conversion["delivery_baseline"]["2025"] * conversion_months / 12)
+            ),
+            "eu_enrichment_uncovered_share_at_full_immediate_replacement": 0,
+        },
+    }
+
+
+def display_number(value, places=0):
+    return f"{value:,.{places}f}"
+
+
+def pct(value):
+    return f"{value:.2%}"
+
+
+def table_rows(values):
+    cells = []
+    for title, *row in values:
+        cells.append(
+            f'<tr><th scope="row">{escape(str(title))}</th>'
+            + "".join(f"<td>{escape(str(value))}</td>" for value in row)
+            + "</tr>"
+        )
+    return "\n".join(cells)
+
+
+def bars(values, max_value, format_value):
+    lines = []
+    for label, value in values:
+        lines.append(
+            f'<div class="barrow"><span>{escape(label)}</span>'
+            f'<span class="track" aria-hidden="true"><span class="fill" '
+            f'style="width:{value / max_value:.3%}"></span></span>'
+            f'<span class="num">{format_value(value)}</span></div>'
+        )
+    return "\n".join(lines)
+
+
+def source_links(sources):
+    return {
+        key: f'<a id="source-{key}" href="{escape(url, quote=True)}">{escape(label)}</a>'
+        for key, (label, url) in sources.items()
+    }
+
+
+def trade_rows(trade):
+    year = trade["years"][-1]
+    for code, item in trade["codes"].items():
+        annual = trade["years_data"][str(year)][code]
+        top = next(iter(annual["exporters"]), None)
+        yield (
+            f'{item["title"]} ({code})',
+            f'${annual["world_usd"] / 1e9:,.1f} billion' if annual["world_usd"] else "—",
+            f'{top["name"]} · {top["share"]:.0%}' if top else "—",
+            item["boundary"],
+        )
+
+
+def historical_rows(data):
+    for scenario, item in data["scenarios"].items():
+        stage = "Enrichment" if scenario == "russian_enrichment" else "Conversion"
+        provider = "Russia" if stage == "Enrichment" else "ConverDyn"
+        for market in item["markets"]:
+            for year, annual in market["delivery_baseline"].items():
+                exposed = market["exposed"][year]
+                yield (
+                    f'{market["label"]} · {stage}', year, f'{item["unit"]}/year',
+                    display_number(annual), provider, display_number(exposed), pct(exposed / annual),
+                )
+
+
+def sensitivity_rows(data, results, key):
+    markets = results["scenarios"][key]["markets"]
+    for index, case in enumerate(data["sensitivity"]["cases"]):
+        cells = []
+        for market in markets:
+            result = market["by_baseline_year"]["2025"][index]
+            rate = result["minimum_annual_replacement"]
+            if rate is None:
+                cells.append(f'Early gap of {display_number(result["uncovered_before_replacements"], 1)}')
+            else:
+                cells.append(display_number(rate, 1))
+        yield case["label"], *cells
+
+
+def render(data, trade):
+    result = data["calculated"]
+    wna_enrichment = result["enrichment"]["wna_2025"]
+    esa_enrichment = result["enrichment"]["esa_2025"]
+    historical = result["nea_capacity_concentration_2022"]
+    conversion = result["conversion"]
+    world_mining = data["world_mining"]
+    world_fabrication = data["world_fabrication"]
+    eu_enrichment = data["procurement"]["eu_enrichment_2025"]
+    us_enrichment = data["procurement"]["us_enrichment_2025"]
+    conversion_rows = data["world_conversion"]["rows"]
+    wna_rows = data["world_enrichment"]["wna_2025"]["rows"]
+    esa_rows = data["world_enrichment"]["esa_2025"]["rows"]
+    cn_sensitivity = result["cnnc_capacity_sensitivity"].values()
+    markets = result["scenarios"]
+    west = markets["western_conversion"]["markets"][0]["by_baseline_year"]
+
+    replacements = {
+        "title": escape(TITLE),
+        "deck": escape(DECK),
+        "version": data["version"],
+        "sources": "\n".join(f"<li>{link}</li>" for link in source_links(data["sources"]).values()),
+        "hhi_bars": bars([
+            ("Conversion · WNA 2024", conversion["hhi"]),
+            ("Conversion · NEA 2022", historical["conversion"]["hhi"]),
+            ("Enrichment · NEA 2022", historical["enrichment"]["hhi"]),
+            ("Enrichment · WNA 2025", wna_enrichment["hhi"]),
+            ("Enrichment · ESA 2025", esa_enrichment["hhi"]),
+        ], 10_000, display_number),
+        "conversion_top_three": pct(conversion["top_three_share"]),
+        "enrichment_top_three": pct(wna_enrichment["top_three_share"]),
+        "conversion_hhi_low": display_number(min(s["conversion_hhi"] for s in cn_sensitivity)),
+        "conversion_hhi_high": display_number(max(s["conversion_hhi"] for s in cn_sensitivity)),
+        "enrichment_hhi_low": display_number(min(s["enrichment_hhi"] for s in cn_sensitivity)),
+        "enrichment_hhi_high": display_number(max(s["enrichment_hhi"] for s in cn_sensitivity)),
+        "mine_rows": table_rows(
+            (country, display_number(amount), pct(amount / world_mining["wna_reported_total"]))
+            for country, amount in world_mining["rows"].items()
+        ),
+        "conversion_rows": table_rows(
+            (name, display_number(amount), pct(conversion["shares"][name]))
+            for name, amount in conversion_rows.items()
+        ),
+        "enrichment_rows": table_rows(
+            (name, display_number(amount), pct(wna_enrichment["shares"][name]),
+             display_number(esa_rows[name]), pct(esa_enrichment["shares"][name]))
+            for name, amount in wna_rows.items()
+        ),
+        "fabrication_rows": table_rows(
+            (country, display_number(amount))
+            for country, amount in world_fabrication["lwr_listed_by_plant_country"].items()
+        ),
+        "exposure_bars": bars([
+            ("Rosatom · world capacity", wna_enrichment["shares"]["Rosatom"]),
+            ("Russia · EU deliveries", eu_enrichment["rows"]["Russia"] / eu_enrichment["total"]),
+            ("Russia · US purchases", us_enrichment["rows"]["Russia"] / us_enrichment["total"]),
+        ], 1, pct),
+        "historical_rows": table_rows(historical_rows(data)),
+        "enrichment_threshold_rows": table_rows(sensitivity_rows(data, result, "russian_enrichment")),
+        "conversion_threshold_rows": table_rows(sensitivity_rows(data, result, "western_conversion")),
+        "joint_enrichment": display_number(result["joint_enrichment_threshold"]["2025"] / 1_000, 3),
+        "joint_enrichment_previous": display_number(result["joint_enrichment_threshold"]["2024"] / 1_000, 3),
+        "conversion_loss_recent": display_number(west["2025"][0]["gross_loss"], 1),
+        "conversion_loss_previous": display_number(west["2024"][0]["gross_loss"], 1),
+        "reversal_share": pct(result["reversal_example"]["eu_conversion_uncovered_share_at_zero_replacement"]),
+        "trade_year": trade["years"][-1],
+        "trade_rows": table_rows(trade_rows(trade)),
+    }
+    return Template((HERE / "article.html.in").read_text(encoding="utf-8")).substitute(replacements)
+
+
+def main():
+    data = json.loads((HERE / "evidence_inputs.json").read_text(encoding="utf-8"))
+    trade = json.loads((HERE / "out" / "nuclear_trade.json").read_text(encoding="utf-8"))
+    data.update({
+        "title": "Nuclear fuel chain",
+        "published": True,
+        "h1": TITLE,
+        "deck": DECK,
+        "chokepoint": {
+            "product": "Reactor fuel",
+            "stage": "Conversion / enrichment / fabrication",
+            "mechanism": "capability",
+            "secondary": "policy",
+            "research": True,
+            "physics": "Concentrated fuel services and design-specific fabrication. Replacement depends on the market and disruption.",
+            "holder": "Rosatom leads enrichment",
+            "share": "43–44% of global enrichment capacity",
+            "control": "—",
+            "conf": "estimate",
+        },
+        "calculated": calculate(data),
+    })
+    html = render(data, trade)
+    data["sources"] = {key: {"title": label, "url": url} for key, (label, url) in data["sources"].items()}
+    (HERE / "out" / "nuclear_chain.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
+    (HERE / "nuclear-chain.html").write_text(html, encoding="utf-8", newline="\n")
+
+
+if __name__ == "__main__":
+    main()

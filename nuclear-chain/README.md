@@ -1,22 +1,26 @@
-# Nuclear fuel-chain pilot
+# Nuclear fuel supply study
 
-Unpublished research page separating uranium mining, conversion, enrichment, fuel fabrication, reactor operation and the back end. It is deliberately isolated from the live Atlas and carries `noindex,nofollow`.
+Evidence release dated 24 November 2026. The [article](nuclear-chain.html)
+contains the findings and figures in its initial HTML. Its customs table can
+also explore older years when the trade data load.
 
-## Build
+## Reproduce the study
 
 From the repository root:
 
-```powershell
+```text
 python nuclear-chain/record_nuclear.py
-python nuclear-chain/extract_baci.py
 python -m http.server 8765
 ```
 
-Then open `http://localhost:8765/nuclear-chain/nuclear-chain.html`.
+Open [the local article](http://localhost:8765/nuclear-chain/nuclear-chain.html).
+The builder reads [the source and scenario inputs](evidence_inputs.json),
+the [article template](article.html.in) and the checked-in
+[customs data](out/nuclear_trade.json). It writes the [article](nuclear-chain.html)
+and [evidence and results JSON](out/nuclear_chain.json). The main Atlas copy
+can regenerate the original trade extract from BACI with
+`python build_chain_trade.py`.
 
-## Outputs
-
-- `out/nuclear_chain.json`: sourced fleet, uranium, fuel-cycle and material evidence.
-- `out/nuclear_trade.json`: BACI 2002–2024 customs context.
-
-The page does not alter existing material profiles or site navigation. See [NOTES.md](NOTES.md) for interpretive limits and [PRODUCTION.md](PRODUCTION.md) for publication requirements.
+The [methods annex](NOTES.md) describes the calculation and its limits. The
+[claim register](PRODUCTION.md) records the original narrative, source
+reconciliation and publication status.
