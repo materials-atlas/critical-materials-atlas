@@ -6802,13 +6802,20 @@
    "code_sha": "d4216637e8a87d7d"
   },
   "ev-chain/record_ev.py": {
-   "reads": [],
+   "reads": [
+    "ev-chain/",
+    "ev-chain/out/comext_audit.json",
+    "ev-chain/out/ev_trade.json",
+    "ev-chain/study.template"
+   ],
    "writes": [
+    "ev-chain/ev-chain.html",
     "ev-chain/out/ev_chain.json"
    ],
    "exit": 0,
-   "secs": 0.1,
-   "code_sha": "d5de487d31e08417"
+   "secs": 0.3,
+   "code_sha": "a76c2a8eeb3ccf52",
+   "restored": 2
   },
   "extract12.py": {
    "reads": [

@@ -38,7 +38,7 @@ python check.py chokepoint
 python -m http.server 8765
 ```
 
-The first command generates `ev-chain.html` and `out/ev_chain.json` from the committed snapshots and `study.template`. Open `http://localhost:8765/ev-chain/ev-chain.html`. To fetch a new Comext revision, run `python ev-chain/audit_comext.py` first. Compare the returned flags and values with the pinned snapshot. Confirm that the four quarterly counts sum to the annual count for each new-car basket. A data revision that changes a finding needs a dated note.
+The first command generates `ev-chain.html` and `out/ev_chain.json` from the committed snapshots and `study.template`. Open `http://localhost:8765/ev-chain/ev-chain.html`. To fetch a new Comext revision, run `python ev-chain/fetch_comext_audit.py` first. Compare the returned flags and values with the pinned snapshot. Confirm that the four quarterly counts sum to the annual count for each new-car basket. A data revision that changes a finding needs a dated note.
 
 ## Research needed for a production-loss paper
 
@@ -46,3 +46,16 @@ The first command generates `ev-chain.html` and `out/ev_chain.json` from the com
 2. **Build a small linked sample.** Start with the highest-volume EU platforms with public production, registration or homologation records. For each model and plant, record powertrain, cell chemistry and form factor, kWh per car, qualified pack and motor suppliers, country of each production stage, committed quantities, available inventories and the earliest interchangeable supply. Record evidence dates, source coverage by vehicle volume and unknowns. Company headquarters and plant location require separate fields. Use OEM disclosures and independent regulatory or plant-level records where available. Represent unknown supplier allocations and inventory with explicit ranges.
 3. **Run comparable shocks.** Compare a time-limited interruption to finished imports with a cut to qualified cell or motor supply, using the same date, geography and time window. Allocate the same stock or substitute capacity only once across models. Compare estimated deliveries with and without each constraint relaxed. Test which ranking survives low and high inventory, compatibility, qualification time and spare-capacity assumptions. Credit reserves, supplier diversification or local capacity only when the affected platform can receive usable supply in time.
 4. **Validate before claiming industrial effects.** Freeze the baseline and scenario rules, compare against a documented supply interruption, and compare with a simple import-share-only benchmark. Report coverage, ranges and out-of-sample errors. Treat an effect of policy as a separate question requiring a comparison design, evidence on concurrent demand and supply changes, and pre-trend checks. Publish the dataset, calculations and major amendments together.
+
+## Review corrections, 24 November 2026
+
+A second reading of every cited source before publication supported the IEA, Eurostat and Renault claims (the Eurostat
+snapshot was re-downloaded and matched byte for byte). Fixes:
+
+- The IEA's 40% is China's share of global electric-car trade between major production and demand centres, not of "exports".
+- The Volkswagen specification page now returns 404; the link points to its Wayback copy of 28 March 2025 ("Asynchronous motor
+  on the front axle, permanent-excitation synchronous motor on the rear axle").
+- The US Department of Energy motors page supports the traction-motor row only; it says nothing on power electronics or
+  inverters, so the inverter row no longer cites it.
+- `audit_comext.py` downloads from Eurostat, so it is renamed `fetch_comext_audit.py`: the build skips network scripts by name.
+- Chokepoint map: China's share restored as "Roughly 70% of electric-car output (2025)"; basis text rewritten to match.

@@ -21,7 +21,7 @@ SOURCES = {
     "comext": {"title": "Eurostat Comext, DS-045409", "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"},
     "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
     "renault": {"title": "Renault, Mégane E-Tech production motor", "url": "https://www.renaultgroup.com/en/magazine/energy-and-motorization/all-about-electric-motors-with-no-rare-earths/"},
-    "volkswagen": {"title": "Volkswagen, ID.4 Pro 4MOTION specifications", "url": "https://www.volkswagen-newsroom.com/en/volkswagen-id4-pro-4motion-15130/specifications-of-the-id4-pro-4motion-15140"},
+    "volkswagen": {"title": "Volkswagen, ID.4 Pro 4MOTION specifications (archived 28 March 2025)", "url": "https://web.archive.org/web/20250328031332/https://www.volkswagen-newsroom.com/en/volkswagen-id4-pro-4motion-15130/specifications-of-the-id4-pro-4motion-15140"},
     "doe": {"title": "US Department of Energy, Advanced Motors and Electric Drives", "url": "https://www.energy.gov/cmei/vehicles/research-and-development-advanced-motors-and-electric-drives"},
 }
 TRADE_BOUNDARIES = {
@@ -124,7 +124,7 @@ def main():
             "mechanism": "capability",
             "physics": "Assembly and key components are concentrated. A binding stage depends on usable capacity, the vehicle design and the disruption.",
             "holder": "China (output)",
-            "share": "—",
+            "share": "Roughly 70% of electric-car output (2025)",
             "control": "—",
             "conf": "estimate",
             "research": True,
