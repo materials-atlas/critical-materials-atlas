@@ -123,7 +123,7 @@ def build():
         "chokepoint": {
             "product": "Solar modules", "stage": "Ingot and wafer supply", "mechanism": "thermodynamic",
             "physics": "Ingot and wafer capacity depends on energy, equipment and compatible inputs",
-            "holder": "China", "share": "—", "control": "—", "conf": "assessment", "research": True,
+            "holder": "China", "share": "87–98% (wafers)", "control": "—", "conf": "estimate", "research": True,
         },
         "flow_results": evaluate(data),
     })
