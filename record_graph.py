@@ -213,6 +213,9 @@ def hook(event, args):
 sys.addaudithook(hook)
 os.chdir(ROOT)
 sys.argv = [%(script)r]
+# `python x/b.py` puts x/ first on sys.path; runpy does not. Without this a builder that imports a
+# module beside it (solar-chain/solar_flow.py) fails here and nowhere else. Fixed 24 Nov 2026.
+sys.path.insert(0, os.path.dirname(os.path.join(ROOT, %(script)r)))
 code = 0
 try:
     runpy.run_path(os.path.join(ROOT, %(script)r), run_name='__main__')

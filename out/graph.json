@@ -1,6 +1,6 @@
 {
  "note": "Observed, not declared. See ARCHITECTURE.md section 3.",
- "recorded_at": "2026-11-22",
+ "recorded_at": "2026-11-24",
  "builders": {
   "add_canonicals.py": {
    "reads": [
@@ -6673,13 +6673,22 @@
    "code_sha": "bf72efc41586e1cd"
   },
   "data-centre-chain/record_data_centre.py": {
-   "reads": [],
+   "reads": [
+    "data-centre-chain/",
+    "data-centre-chain/__pycache__/project_readiness.cpython-311.pyc",
+    "data-centre-chain/article.html.in",
+    "data-centre-chain/deployment_assumptions.json",
+    "data-centre-chain/out/data_centre_trade.json",
+    "out/buildout_study.json"
+   ],
    "writes": [
+    "data-centre-chain/data-centre-chain.html",
     "data-centre-chain/out/data_centre_chain.json"
    ],
    "exit": 0,
-   "secs": 0.3,
-   "code_sha": "cddd0f7903369546"
+   "secs": 0.1,
+   "code_sha": "3db0ede1ed58efd5",
+   "restored": 2
   },
   "defence-chain/extract_baci.py": {
    "reads": [
@@ -7888,7 +7897,8 @@
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "e533b72f7a0c98f8"
+   "code_sha": "d7907e960ce8c442",
+   "restored": 1
   },
   "silver-chain/record_silver.py": {
    "reads": [],
@@ -7900,13 +7910,21 @@
    "code_sha": "cbf76129efee8c3f"
   },
   "solar-chain/record_solar.py": {
-   "reads": [],
+   "reads": [
+    "solar-chain/",
+    "solar-chain/__pycache__/solar_flow.cpython-311.pyc",
+    "solar-chain/article.html.in",
+    "solar-chain/evidence_inputs.json",
+    "solar-chain/out/solar_trade.json"
+   ],
    "writes": [
-    "solar-chain/out/solar_chain.json"
+    "solar-chain/out/solar_chain.json",
+    "solar-chain/solar-chain.html"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "e0388bffff2907d2"
+   "code_sha": "84425eb256fc8234",
+   "restored": 2
   },
   "steel-alloys-chain/extract_baci.py": {
    "reads": [
