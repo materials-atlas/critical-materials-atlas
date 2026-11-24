@@ -23,8 +23,8 @@ CHAIN = {
     "accent": "#4a8090",
     "eyebrow": "Product-chain pilot · the machine in the wind",
     "h1": "The wind-turbine bottleneck is scale, not scarcity",
-    "deck": "A turbine is mostly steel and concrete, with copper windings and composite blades. No rare mineral gates "
-            "it — magnet rare earths appear only in some drivetrain designs. The binding constraints are physical "
+    "deck": "A turbine is mostly steel and concrete, with copper windings and composite blades. Designs with "
+            "permanent-magnet generators also need rare-earth magnets, made mostly in China; other designs avoid them. The binding constraints are physical "
             "size, logistics and a manufacturing base that is now dominated by a handful of, increasingly Chinese, OEMs.",
     "byline": "steel & concrete (bulk) ≠ copper ≠ magnets (some designs only) ≠ the OEM ≠ installed on site",
     "correction": "Unlike magnets or solar wafers, a wind turbine has no single scarce input — it is ~85–90% "
@@ -35,7 +35,7 @@ CHAIN = {
         {"v": "~67%", "l": "of new turbine units supplied by China-HQ OEMs (2025)", "conf": "measured"},
         {"v": "178 GW", "l": "wind capacity mechanically installed worldwide (2025)", "conf": "measured"},
         {"v": "steel + concrete", "l": "the bulk of a turbine — commodity materials, not critical minerals", "conf": "measured"},
-        {"v": "some only", "l": "magnet rare earths are used only in direct-drive (PMSG) designs", "conf": "measured"},
+        {"v": "some only", "l": "magnet rare earths are used only in permanent-magnet generator designs (direct-drive and some geared)", "conf": "measured"},
     ],
     "hops": [
         {"n": "1 · Materials", "t": "steel, concrete, copper, composites — and, in some designs, magnet rare earths"},
@@ -52,7 +52,7 @@ CHAIN = {
                      "this atlas: its supply risk is industrial and logistical, not geological.",
              "note": "JRC material requirements for wind.", "flag": "a steel-and-concrete machine"},
             {"kind": "text", "h3": "The one critical-mineral hedge: drivetrain choice",
-             "text": "Some turbines use direct-drive permanent-magnet generators, which need neodymium and dysprosium "
+             "text": "Some turbines use permanent-magnet generators (direct-drive, and some geared designs), which need neodymium and dysprosium "
                      "— linking them to the magnet chain. But geared drivetrains, which use little or no magnet rare "
                      "earth, remain widespread, so the rare-earth exposure is a design choice, not an inescapable "
                      "feature of wind. The chokepoint can be engineered around.",
