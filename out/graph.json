@@ -7087,13 +7087,20 @@
    "code_sha": "79d61774ee496207"
   },
   "nuclear-chain/record_nuclear.py": {
-   "reads": [],
+   "reads": [
+    "nuclear-chain/",
+    "nuclear-chain/article.html.in",
+    "nuclear-chain/evidence_inputs.json",
+    "nuclear-chain/out/nuclear_trade.json"
+   ],
    "writes": [
+    "nuclear-chain/nuclear-chain.html",
     "nuclear-chain/out/nuclear_chain.json"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "1fd0fa6757412bdd"
+   "code_sha": "12f8b9e501b2f706",
+   "restored": 2
   },
   "out/social/_post/_back.py": {
    "reads": [],

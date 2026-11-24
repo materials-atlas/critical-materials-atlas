@@ -28,3 +28,16 @@ the EIA's preliminary US inventory. Replacement rates and reversal are
 conditional calculations. Usable capacity, commercial access, stock
 availability, design qualification and actual supply impacts still need
 independent specialist review before publishing any stronger claim.
+
+## Review corrections, 24 November 2026
+
+Every outside figure was re-read in its source. Six changes followed:
+
+- Cameco 2024 conversion output: Cameco's 2024 Annual Report gives 10,781 tU. WNA's production column shows 11,375 tU, the same as its Rosatom row, so it is read as an estimate. Page reference for the 2025 report corrected to pp. 98–99.
+- IEA supplier-removal screen: the text says enrichment covers "around 90%" of remaining requirements; 91% is the chart label. Page range now pp. 222–227.
+- EIA Table 22: 118.256 million lb is the reactor owners' and operators' inventory; total commercial inventories are 169.986 million lb.
+- Red Book 2023 Kazakhstan share: derived from Table 1.18 (21,112 of 54,345 tU, about 39%), not printed.
+- Urenco's 17.2 million SWU is in its 2025 Annual Report (p. 7), not the results release; link changed.
+- Two OECD NEA links used hosts that do not resolve; replaced with working oecd-nea.org addresses.
+
+The disruption scenarios now carry the "modelled" evidence label.
