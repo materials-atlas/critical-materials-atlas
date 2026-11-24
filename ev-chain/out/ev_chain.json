@@ -142,5 +142,323 @@
       "850760": "Lithium-ion accumulators across end uses. Includes cells, modules and packs. EV end use and the origin of upstream inputs cannot be isolated."
     },
     "snapshot": "ev_trade.json"
+  },
+  "trade_followup": {
+    "date": "2026-11-24",
+    "source_snapshot": "ev_import_context.json",
+    "product_labels": {
+      "87038010": "New BEVs",
+      "87036010": "New petrol PHEVs"
+    },
+    "import_history": {
+      "2017": {
+        "87038010": {
+          "china_origin_units": 17809,
+          "extra_eu_units": 38585,
+          "other_origin_units": 20776,
+          "china_import_share": 0.46155241674225733
+        },
+        "87036010": {
+          "china_origin_units": 630,
+          "extra_eu_units": 22658,
+          "other_origin_units": 22028,
+          "china_import_share": 0.027804748874569688
+        }
+      },
+      "2018": {
+        "87038010": {
+          "china_origin_units": 33693,
+          "extra_eu_units": 84777,
+          "other_origin_units": 51084,
+          "china_import_share": 0.39743090696769173
+        },
+        "87036010": {
+          "china_origin_units": 882,
+          "extra_eu_units": 37308,
+          "other_origin_units": 36426,
+          "china_import_share": 0.023641042135734962
+        }
+      },
+      "2019": {
+        "87038010": {
+          "china_origin_units": 37414,
+          "extra_eu_units": 199538,
+          "other_origin_units": 162124,
+          "china_import_share": 0.18750313223546392
+        },
+        "87036010": {
+          "china_origin_units": 7099,
+          "extra_eu_units": 74223,
+          "other_origin_units": 67124,
+          "china_import_share": 0.09564420732118077
+        }
+      },
+      "2020": {
+        "87038010": {
+          "china_origin_units": 57225,
+          "extra_eu_units": 224980,
+          "other_origin_units": 167755,
+          "china_import_share": 0.2543559427504667
+        },
+        "87036010": {
+          "china_origin_units": 16804,
+          "extra_eu_units": 129188,
+          "other_origin_units": 112384,
+          "china_import_share": 0.13007400068117783
+        }
+      },
+      "2021": {
+        "87038010": {
+          "china_origin_units": 208894,
+          "extra_eu_units": 400285,
+          "other_origin_units": 191391,
+          "china_import_share": 0.5218631724896011
+        },
+        "87036010": {
+          "china_origin_units": 23355,
+          "extra_eu_units": 155112,
+          "other_origin_units": 131757,
+          "china_import_share": 0.15056862138325855
+        }
+      },
+      "2022": {
+        "87038010": {
+          "china_origin_units": 343855,
+          "extra_eu_units": 535532,
+          "other_origin_units": 191677,
+          "china_import_share": 0.642081145477768
+        },
+        "87036010": {
+          "china_origin_units": 56705,
+          "extra_eu_units": 208904,
+          "other_origin_units": 152199,
+          "china_import_share": 0.27144047026385326
+        }
+      },
+      "2023": {
+        "87038010": {
+          "china_origin_units": 491165,
+          "extra_eu_units": 840610,
+          "other_origin_units": 349445,
+          "china_import_share": 0.5842959279570787
+        },
+        "87036010": {
+          "china_origin_units": 38931,
+          "extra_eu_units": 212883,
+          "other_origin_units": 173952,
+          "china_import_share": 0.18287510040726596
+        }
+      },
+      "2024": {
+        "87038010": {
+          "china_origin_units": 439419,
+          "extra_eu_units": 657732,
+          "other_origin_units": 218313,
+          "china_import_share": 0.6680821367973582
+        },
+        "87036010": {
+          "china_origin_units": 42587,
+          "extra_eu_units": 199602,
+          "other_origin_units": 157015,
+          "china_import_share": 0.21335958557529483
+        }
+      },
+      "2025": {
+        "87038010": {
+          "china_origin_units": 437190,
+          "extra_eu_units": 738789,
+          "other_origin_units": 301599,
+          "china_import_share": 0.5917657138912463
+        },
+        "87036010": {
+          "china_origin_units": 171431,
+          "extra_eu_units": 378244,
+          "other_origin_units": 206813,
+          "china_import_share": 0.4532286037584205
+        }
+      }
+    },
+    "import_changes_2024_2025": {
+      "87038010": {
+        "china_origin_units": {
+          "2024": 439419,
+          "2025": 437190,
+          "unit_change": -2229,
+          "growth_fraction": -0.00507260723819407
+        },
+        "other_origin_units": {
+          "2024": 218313,
+          "2025": 301599,
+          "unit_change": 83286,
+          "growth_fraction": 0.381498124252793
+        }
+      },
+      "87036010": {
+        "china_origin_units": {
+          "2024": 42587,
+          "2025": 171431,
+          "unit_change": 128844,
+          "growth_fraction": 3.025430295630122
+        },
+        "other_origin_units": {
+          "2024": 157015,
+          "2025": 206813,
+          "unit_change": 49798,
+          "growth_fraction": 0.31715441199885364
+        }
+      }
+    },
+    "registration_scale": {
+      "2024": {
+        "87038010": {
+          "china_origin_customs_arrivals": 439419,
+          "reported_new_registrations": 1455122,
+          "arrivals_per_100_registrations": 30.198086483470114
+        },
+        "87036010": {
+          "china_origin_customs_arrivals": 42587,
+          "reported_new_registrations": 712359,
+          "arrivals_per_100_registrations": 5.978305882286881
+        }
+      },
+      "2025": {
+        "87038010": {
+          "china_origin_customs_arrivals": 437190,
+          "reported_new_registrations": 1888016,
+          "arrivals_per_100_registrations": 23.156053762256253
+        },
+        "87036010": {
+          "china_origin_customs_arrivals": 171431,
+          "reported_new_registrations": 965501,
+          "arrivals_per_100_registrations": 17.75565224686458
+        }
+      }
+    },
+    "gross_interruption_sensitivity": [
+      {
+        "code": "87038010",
+        "shock_percent": 10,
+        "quarterly_gross_gaps": [
+          8899,
+          10236,
+          12277,
+          12308
+        ],
+        "sum_of_separately_rounded_quarters": 43720,
+        "largest_quarter": 12308
+      },
+      {
+        "code": "87038010",
+        "shock_percent": 25,
+        "quarterly_gross_gaps": [
+          22248,
+          25590,
+          30692,
+          30769
+        ],
+        "sum_of_separately_rounded_quarters": 109299,
+        "largest_quarter": 30769
+      },
+      {
+        "code": "87038010",
+        "shock_percent": 50,
+        "quarterly_gross_gaps": [
+          44495,
+          51180,
+          61383,
+          61538
+        ],
+        "sum_of_separately_rounded_quarters": 218596,
+        "largest_quarter": 61538
+      },
+      {
+        "code": "87038010",
+        "shock_percent": 75,
+        "quarterly_gross_gaps": [
+          66743,
+          76769,
+          92075,
+          92306
+        ],
+        "sum_of_separately_rounded_quarters": 327893,
+        "largest_quarter": 92306
+      },
+      {
+        "code": "87038010",
+        "shock_percent": 100,
+        "quarterly_gross_gaps": [
+          88990,
+          102359,
+          122766,
+          123075
+        ],
+        "sum_of_separately_rounded_quarters": 437190,
+        "largest_quarter": 123075
+      },
+      {
+        "code": "87036010",
+        "shock_percent": 10,
+        "quarterly_gross_gaps": [
+          2995,
+          3326,
+          5885,
+          4936
+        ],
+        "sum_of_separately_rounded_quarters": 17142,
+        "largest_quarter": 5885
+      },
+      {
+        "code": "87036010",
+        "shock_percent": 25,
+        "quarterly_gross_gaps": [
+          7489,
+          8315,
+          14714,
+          12341
+        ],
+        "sum_of_separately_rounded_quarters": 42859,
+        "largest_quarter": 14714
+      },
+      {
+        "code": "87036010",
+        "shock_percent": 50,
+        "quarterly_gross_gaps": [
+          14977,
+          16631,
+          29427,
+          24681
+        ],
+        "sum_of_separately_rounded_quarters": 85716,
+        "largest_quarter": 29427
+      },
+      {
+        "code": "87036010",
+        "shock_percent": 75,
+        "quarterly_gross_gaps": [
+          22466,
+          24946,
+          44141,
+          37022
+        ],
+        "sum_of_separately_rounded_quarters": 128575,
+        "largest_quarter": 44141
+      },
+      {
+        "code": "87036010",
+        "shock_percent": 100,
+        "quarterly_gross_gaps": [
+          29954,
+          33261,
+          58854,
+          49362
+        ],
+        "sum_of_separately_rounded_quarters": 171431,
+        "largest_quarter": 58854
+      }
+    ],
+    "interruption_basis": "Independent quarterly baselines for 2025",
+    "compatible_inventory": null,
+    "qualified_incremental_replacement": null,
+    "residual_gap": null
   }
 }

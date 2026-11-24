@@ -77,7 +77,114 @@ def percent(part, total):
     return f"{part / total:.1%}"
 
 
-def render_study(snapshot, annual, quarters, trade):
+def trade_followup(context, annual, quarters):
+    """Add historical, market-scale and gross interruption comparisons."""
+    labels = {BEV: "New BEVs", PHEV: "New petrol PHEVs"}
+    customs = context["customs"]
+    history = {}
+    for year, products in customs["annual"]["rows"].items():
+        history[year] = {}
+        for code, partners in products.items():
+            china = partners["CN"]["value"]
+            total = partners["EXT_EU27_2020"]["value"]
+            if not 0 <= china <= total or total <= 0:
+                raise ValueError(f"Invalid import count in {year}, {code}")
+            history[year][code] = {
+                "china_origin_units": china, "extra_eu_units": total,
+                "other_origin_units": total - china, "china_import_share": china / total,
+            }
+    for row in annual:
+        year, code = str(row["year"]), row["code"]
+        check = history[year][code]
+        for partner, field in (("CN", "china_origin_units"), ("EXT_EU27_2020", "extra_eu_units")):
+            total = sum(month[code][partner]["value"] for period, month in customs["monthly"]["rows"].items()
+                        if period.startswith(year + "-"))
+            expected = row["from_china"] if partner == "CN" else row["extra_eu"]
+            if total != expected or check[field] != expected:
+                raise ValueError(f"Original, monthly and historical counts disagree in {year}, {code}, {partner}")
+
+    changes = {}
+    for code in labels:
+        first, last = history["2024"][code], history["2025"][code]
+        changes[code] = {}
+        for origin in ("china_origin_units", "other_origin_units"):
+            initial, final = first[origin], last[origin]
+            changes[code][origin] = {
+                "2024": initial, "2025": final, "unit_change": final - initial,
+                "growth_fraction": (final - initial) / initial,
+            }
+
+    registrations = {}
+    for year, products in context["registrations"]["rows"].items():
+        registrations[year] = {}
+        for code, cell in products.items():
+            arrivals = history[year][code]["china_origin_units"]
+            registrations[year][code] = {
+                "china_origin_customs_arrivals": arrivals, "reported_new_registrations": cell["value"],
+                "arrivals_per_100_registrations": 100 * arrivals / cell["value"],
+            }
+
+    grid = []
+    for code in labels:
+        for shock in (10, 25, 50, 75, 100):
+            gaps = [(q["observed_from_china"][code] * shock + 50) // 100 for q in quarters]
+            if shock == 50 and gaps != [q["gross_gap"][code] for q in quarters]:
+                raise ValueError(f"Original 50% case differs for {code}")
+            grid.append({
+                "code": code, "shock_percent": shock, "quarterly_gross_gaps": gaps,
+                "sum_of_separately_rounded_quarters": sum(gaps), "largest_quarter": max(gaps),
+            })
+    return {
+        "date": "2026-11-24",
+        "source_snapshot": "ev_import_context.json",
+        "product_labels": labels,
+        "import_history": history,
+        "import_changes_2024_2025": changes,
+        "registration_scale": registrations,
+        "gross_interruption_sensitivity": grid,
+        "interruption_basis": "Independent quarterly baselines for 2025",
+        "compatible_inventory": None,
+        "qualified_incremental_replacement": None,
+        "residual_gap": None,
+    }
+
+
+def followup_tables(followup):
+    labels = followup["product_labels"]
+    changes, registrations, history, sensitivity = [], [], [], []
+    for code, origins in followup["import_changes_2024_2025"].items():
+        for key, description in (("china_origin_units", "China origin"), ("other_origin_units", "Other origins")):
+            row = origins[key]
+            changes.append(table_row(
+                f"{labels[code]} · {description}", f'{row["2024"]:,}', f'{row["2025"]:,}',
+                f'{row["unit_change"]:+,}', f'{row["growth_fraction"]:+.2%}',
+            ))
+    for year, products in followup["registration_scale"].items():
+        for code, row in products.items():
+            registrations.append(table_row(
+                labels[code], year, f'{row["china_origin_customs_arrivals"]:,}',
+                f'{row["reported_new_registrations"]:,}', f'{row["arrivals_per_100_registrations"]:.1f}',
+            ))
+    for year, products in followup["import_history"].items():
+        fields = []
+        for code in labels:
+            row = products[code]
+            fields.extend((f'{row["china_origin_units"]:,}', f'{row["extra_eu_units"]:,}',
+                           f'{row["china_import_share"]:.1%}'))
+        history.append(table_row(year, *fields))
+    for row in followup["gross_interruption_sensitivity"]:
+        sensitivity.append(table_row(
+            f'{labels[row["code"]]} · {row["shock_percent"]}%',
+            *(f"{gap:,}" for gap in row["quarterly_gross_gaps"]),
+            f'{row["sum_of_separately_rounded_quarters"]:,}', f'{row["largest_quarter"]:,}',
+        ))
+    return {
+        "followup_changes": "\n".join(changes), "followup_history": "\n".join(history),
+        "followup_registrations": "\n".join(registrations), "followup_sensitivity": "\n".join(sensitivity),
+    }
+
+
+def render_study(snapshot, annual, quarters, trade, followup):
     annual_rows = [
         table_row(snapshot["products"][r["code"]], r["year"], f"{r['from_china']:,}",
                   f"{r['extra_eu']:,}", percent(r["from_china"], r["extra_eu"]),
@@ -100,6 +207,7 @@ def render_study(snapshot, annual, quarters, trade):
                                     TRADE_BOUNDARIES[code], attrs=f' data-trade-code="{code}"'))
     template = Template((HERE / "study.template").read_text(encoding="utf-8"))
     page = template.substitute(
+        **followup_tables(followup),
         annual_rows="\n".join(annual_rows),
         scenario_rows="\n".join(scenario_rows),
         trade_rows="\n".join(trade_rows),
@@ -147,7 +255,9 @@ def main():
         },
         "baci_trade": {"boundary": TRADE_BOUNDARIES, "snapshot": "ev_trade.json"},
     }
-    page = render_study(snapshot, annual, quarters, trade)
+    followup = trade_followup(read_json("ev_import_context.json"), annual, quarters)
+    record["trade_followup"] = followup
+    page = render_study(snapshot, annual, quarters, trade, followup)
     (OUT / "ev_chain.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     (HERE / "ev-chain.html").write_text(page, encoding="utf-8")
     print("Wrote EV study and evidence")

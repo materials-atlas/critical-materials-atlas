@@ -59,3 +59,30 @@ snapshot was re-downloaded and matched byte for byte). Fixes:
   inverters, so the inverter row no longer cites it.
 - `audit_comext.py` downloads from Eurostat, so it is renamed `fetch_comext_audit.py`: the build skips network scripts by name.
 - Chokepoint map: China's share restored as "Roughly 70% of electric-car output (2025)"; basis text rewritten to match.
+
+## Trade follow-up
+
+Added 24 November 2026. The [source snapshot](out/ev_import_context.json)
+contains annual Comext vehicle counts for both codes from 2017 to 2025,
+monthly counts for 2024 and 2025, and the corresponding 2024 and 2025 reported
+registration categories from Eurostat `road_eqr_carpda`. The builder checks
+the monthly sums, the historical extract and the original released values
+against one another for each product and partner.
+
+Origin changes use the difference between the two annual counts. The
+other-origin count is the official extra-EU aggregate less the China-origin
+count. Growth divides the change by the 2024 count. Registration comparisons
+divide gross customs arrivals by the reported registration count and
+multiply by 100. The databases have different reporting boundaries,
+especially for national plug-in hybrid fuel classification.
+
+The sensitivity grid applies each interruption fraction to separate 2025
+quarters, rounds to the nearest vehicle with ties up, and then sums the
+rounded results. The published 50% case is checked against the same rule.
+Compatible inventory and timely additional supply are unmeasured and the
+residual supply gap is undetermined.
+
+Run `python ev-chain/record_ev.py` to rebuild from the pinned files. To
+refresh the extended evidence, run `python ev-chain/fetch_ev_context.py`
+and compare the new customs totals with the original dated audit before
+publishing any new release.

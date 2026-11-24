@@ -1,0 +1,789 @@
+{
+  "customs": {
+    "dataset": "Eurostat Comext DS-045409",
+    "reporter": "EU27_2020",
+    "flow": "imports",
+    "unit": "vehicles",
+    "requested_annual_years": [
+      1988,
+      2025
+    ],
+    "annual": {
+      "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=A&reporter=EU27_2020&flow=1&product=87038010&product=87036010&partner=CN&partner=EXT_EU27_2020&indicators=SUPPLEMENTARY_QUANTITY&time=1988&time=1989&time=1990&time=1991&time=1992&time=1993&time=1994&time=1995&time=1996&time=1997&time=1998&time=1999&time=2000&time=2001&time=2002&time=2003&time=2004&time=2005&time=2006&time=2007&time=2008&time=2009&time=2010&time=2011&time=2012&time=2013&time=2014&time=2015&time=2016&time=2017&time=2018&time=2019&time=2020&time=2021&time=2022&time=2023&time=2024&time=2025",
+      "updated": "2026-11-13T11:00:00+0100",
+      "rows": {
+        "2017": {
+          "87038010": {
+            "CN": {
+              "value": 17809,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 38585,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 630,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 22658,
+              "status": null
+            }
+          }
+        },
+        "2018": {
+          "87038010": {
+            "CN": {
+              "value": 33693,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 84777,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 882,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 37308,
+              "status": null
+            }
+          }
+        },
+        "2019": {
+          "87038010": {
+            "CN": {
+              "value": 37414,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 199538,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 7099,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 74223,
+              "status": null
+            }
+          }
+        },
+        "2020": {
+          "87038010": {
+            "CN": {
+              "value": 57225,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 224980,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 16804,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 129188,
+              "status": null
+            }
+          }
+        },
+        "2021": {
+          "87038010": {
+            "CN": {
+              "value": 208894,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 400285,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 23355,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 155112,
+              "status": null
+            }
+          }
+        },
+        "2022": {
+          "87038010": {
+            "CN": {
+              "value": 343855,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 535532,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 56705,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 208904,
+              "status": null
+            }
+          }
+        },
+        "2023": {
+          "87038010": {
+            "CN": {
+              "value": 491165,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 840610,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 38931,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 212883,
+              "status": null
+            }
+          }
+        },
+        "2024": {
+          "87038010": {
+            "CN": {
+              "value": 439419,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 657732,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 42587,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 199602,
+              "status": null
+            }
+          }
+        },
+        "2025": {
+          "87038010": {
+            "CN": {
+              "value": 437190,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 738789,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 171431,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 378244,
+              "status": null
+            }
+          }
+        }
+      },
+      "labels": {
+        "87036010": "Motor cars and other motor vehicles principally designed for the transport of <10 persons, incl. station wagons and racing cars, with both spark-ignition internal combustion reciprocating piston engine and electric motor as motors for propulsion, capable of being charged by plugging to external source of electric power, new (excl. vehicles for travelling on snow and other specially designed vehicles of subheading 8703.10)",
+        "87038010": "Motor cars and other motor vehicles principally designed for the transport of <10 persons, incl. station wagons and racing cars, with only electric motor for propulsion, new (excl. vehicles for travelling on snow and other specially designed vehicles of subheading 8703.10)"
+      }
+    },
+    "monthly": {
+      "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=M&reporter=EU27_2020&flow=1&product=87038010&product=87036010&partner=CN&partner=EXT_EU27_2020&indicators=SUPPLEMENTARY_QUANTITY&time=2024-01&time=2024-02&time=2024-03&time=2024-04&time=2024-05&time=2024-06&time=2024-07&time=2024-08&time=2024-09&time=2024-10&time=2024-11&time=2024-12&time=2025-01&time=2025-02&time=2025-03&time=2025-04&time=2025-05&time=2025-06&time=2025-07&time=2025-08&time=2025-09&time=2025-10&time=2025-11&time=2025-12",
+      "updated": "2026-11-13T11:00:00+0100",
+      "rows": {
+        "2024-01": {
+          "87038010": {
+            "CN": {
+              "value": 31875,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 53396,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 2003,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 14623,
+              "status": null
+            }
+          }
+        },
+        "2024-02": {
+          "87038010": {
+            "CN": {
+              "value": 35860,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 56007,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 855,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 11388,
+              "status": null
+            }
+          }
+        },
+        "2024-03": {
+          "87038010": {
+            "CN": {
+              "value": 43751,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 64389,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 2816,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 17711,
+              "status": null
+            }
+          }
+        },
+        "2024-04": {
+          "87038010": {
+            "CN": {
+              "value": 36740,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 52605,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 1063,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 13158,
+              "status": null
+            }
+          }
+        },
+        "2024-05": {
+          "87038010": {
+            "CN": {
+              "value": 50546,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 66707,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 2426,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 15478,
+              "status": null
+            }
+          }
+        },
+        "2024-06": {
+          "87038010": {
+            "CN": {
+              "value": 30600,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 50826,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 2819,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 15831,
+              "status": null
+            }
+          }
+        },
+        "2024-07": {
+          "87038010": {
+            "CN": {
+              "value": 32376,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 52286,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 3884,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 18720,
+              "status": null
+            }
+          }
+        },
+        "2024-08": {
+          "87038010": {
+            "CN": {
+              "value": 30578,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 45470,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 3378,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 17980,
+              "status": null
+            }
+          }
+        },
+        "2024-09": {
+          "87038010": {
+            "CN": {
+              "value": 28773,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 41676,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 5222,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 16745,
+              "status": null
+            }
+          }
+        },
+        "2024-10": {
+          "87038010": {
+            "CN": {
+              "value": 71390,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 85492,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 3768,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 17342,
+              "status": null
+            }
+          }
+        },
+        "2024-11": {
+          "87038010": {
+            "CN": {
+              "value": 23256,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 44533,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 8004,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 21015,
+              "status": null
+            }
+          }
+        },
+        "2024-12": {
+          "87038010": {
+            "CN": {
+              "value": 23674,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 44345,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 6349,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 19611,
+              "status": null
+            }
+          }
+        },
+        "2025-01": {
+          "87038010": {
+            "CN": {
+              "value": 25523,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 54418,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 8692,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 25243,
+              "status": null
+            }
+          }
+        },
+        "2025-02": {
+          "87038010": {
+            "CN": {
+              "value": 33642,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 53066,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 10640,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 23840,
+              "status": null
+            }
+          }
+        },
+        "2025-03": {
+          "87038010": {
+            "CN": {
+              "value": 29825,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 56862,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 10622,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 28110,
+              "status": null
+            }
+          }
+        },
+        "2025-04": {
+          "87038010": {
+            "CN": {
+              "value": 24980,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 50097,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 12401,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 29481,
+              "status": null
+            }
+          }
+        },
+        "2025-05": {
+          "87038010": {
+            "CN": {
+              "value": 37023,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 64618,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 9405,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 25773,
+              "status": null
+            }
+          }
+        },
+        "2025-06": {
+          "87038010": {
+            "CN": {
+              "value": 40356,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 66136,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 11455,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 29093,
+              "status": null
+            }
+          }
+        },
+        "2025-07": {
+          "87038010": {
+            "CN": {
+              "value": 41479,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 66272,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 19140,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 39013,
+              "status": null
+            }
+          }
+        },
+        "2025-08": {
+          "87038010": {
+            "CN": {
+              "value": 41452,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 59483,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 19907,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 38309,
+              "status": null
+            }
+          }
+        },
+        "2025-09": {
+          "87038010": {
+            "CN": {
+              "value": 39835,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 62488,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 19807,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 38406,
+              "status": null
+            }
+          }
+        },
+        "2025-10": {
+          "87038010": {
+            "CN": {
+              "value": 33081,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 58190,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 17151,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 34293,
+              "status": null
+            }
+          }
+        },
+        "2025-11": {
+          "87038010": {
+            "CN": {
+              "value": 57329,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 83839,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 15791,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 31640,
+              "status": null
+            }
+          }
+        },
+        "2025-12": {
+          "87038010": {
+            "CN": {
+              "value": 32665,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 63320,
+              "status": null
+            }
+          },
+          "87036010": {
+            "CN": {
+              "value": 16420,
+              "status": null
+            },
+            "EXT_EU27_2020": {
+              "value": 35043,
+              "status": null
+            }
+          }
+        }
+      },
+      "labels": {
+        "87036010": "Motor cars and other motor vehicles principally designed for the transport of <10 persons, incl. station wagons and racing cars, with both spark-ignition internal combustion reciprocating piston engine and electric motor as motors for propulsion, capable of being charged by plugging to external source of electric power, new (excl. vehicles for travelling on snow and other specially designed vehicles of subheading 8703.10)",
+        "87038010": "Motor cars and other motor vehicles principally designed for the transport of <10 persons, incl. station wagons and racing cars, with only electric motor for propulsion, new (excl. vehicles for travelling on snow and other specially designed vehicles of subheading 8703.10)"
+      }
+    }
+  },
+  "registrations": {
+    "dataset": "Eurostat road_eqr_carpda, new passenger cars by type of motor energy",
+    "query": "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/road_eqr_carpda?format=JSON&lang=EN&freq=A&unit=NR&geo=EU27_2020&mot_nrg=ELC&mot_nrg=ELC_PET_PI&time=2024&time=2025",
+    "updated": "2026-10-06T23:00:00+0200",
+    "energy_labels": {
+      "ELC_PET_PI": "Plug-in hybrid petrol-electric  ",
+      "ELC": "Electricity"
+    },
+    "rows": {
+      "2024": {
+        "87038010": {
+          "value": 1455122,
+          "status": null
+        },
+        "87036010": {
+          "value": 712359,
+          "status": null
+        }
+      },
+      "2025": {
+        "87038010": {
+          "value": 1888016,
+          "status": null
+        },
+        "87036010": {
+          "value": 965501,
+          "status": null
+        }
+      }
+    }
+  }
+}

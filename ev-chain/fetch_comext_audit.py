@@ -34,8 +34,8 @@ def fetch(freq, products, partners, indicators, periods):
     return url, dataset
 
 
-def observations(dataset):
-    """Return the published cells, preserving any Eurostat observation flags."""
+def decode_cells(dataset, dimensions_to_keep):
+    """Decode sparse Eurostat observations on the requested dimensions."""
     sizes = dataset["size"]
     dimensions = [
         {index: code for code, index in dataset["dimension"][dim]["category"]["index"].items()}
@@ -50,9 +50,14 @@ def observations(dataset):
             index, offset = divmod(index, size)
             coordinates.append(labels[offset])
         row = dict(zip(dataset["id"], reversed(coordinates)))
-        key = tuple(row[dim] for dim in ("time", "product", "partner", "indicators"))
+        key = tuple(row[dim] for dim in dimensions_to_keep)
         cells[key] = {"value": value, "status": flags.get(position) or None}
     return cells
+
+
+def observations(dataset):
+    """Return the published Comext cells and observation flags."""
+    return decode_cells(dataset, ("time", "product", "partner", "indicators"))
 
 
 def snapshot():

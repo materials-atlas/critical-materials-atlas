@@ -49,6 +49,65 @@
 </div></section>
 <article>
 
+
+<section id="trade-followup" aria-labelledby="trade-followup-heading">
+<h2 id="trade-followup-heading">EU import exposure moved in opposite directions</h2>
+<p class="byline">Findings addendum · 24 November 2026</p>
+<p>How did China-origin EV import exposure change by powertrain, and what can the customs records say about replacement needs? From 2024 to 2025 China’s share of extra-EU imports of new battery-electric vehicles (BEVs) fell from 66.8% to 59.2%. Its share of extra-EU new petrol plug-in hybrids (PHEVs) rose from 21.3% to 45.3%. The denominators are total extra-EU units in each of the two selected product codes. <a href="$comext">Eurostat Comext</a>.</p>
+
+<div class="table-wrap" role="region" aria-label="Changes in EU imports by vehicle class and origin" tabindex="0">
+<table><caption>Change in extra-EU imports by powertrain and declared origin</caption>
+<thead><tr><th scope="col">Product and origin</th><th scope="col">2024 vehicles</th><th scope="col">2025 vehicles</th><th scope="col">Change in vehicles</th><th scope="col">Growth</th></tr></thead>
+<tbody>
+$followup_changes
+</tbody></table>
+</div>
+<p>China-origin BEV arrivals fell by 2,229 vehicles while the other-origin count rose by 83,286. The declining share mostly reflects growth in the other-origin denominator. For new petrol PHEVs, China-origin arrivals rose by 128,844 and other origins rose by 49,798. These changes describe trade volumes. Establishing why they diverged requires model-level sales, pricing and sourcing evidence.</p>
+
+<details class="panel"><summary>Annual import history</summary>
+<div class="table-wrap" role="region" aria-label="Comparable annual customs counts and China-origin shares" tabindex="0">
+<table><caption>EU-27 extra-EU import counts and China-origin shares using the same product codes</caption>
+<thead><tr><th scope="col">Year</th><th scope="col">BEVs from China</th><th scope="col">All extra-EU BEVs</th><th scope="col">China BEV share</th><th scope="col">Petrol PHEVs from China</th><th scope="col">All extra-EU petrol PHEVs</th><th scope="col">China petrol PHEV share</th></tr></thead>
+<tbody>
+$followup_history
+</tbody></table>
+</div>
+<p>The annual series starts in 2017, the first year with counts for both selected codes and partners in this extract. It uses a fixed EU-27 reporter and extra-EU grouping. Earlier missing cells are omitted. China-origin BEV arrivals peaked at 491,165 in 2023 within the observed series. The monthly series reconciles to the annual count for both origins and product codes in 2024 and 2025. <a href="out/ev_import_context.json">Eurostat extraction and monthly checks</a>.</p>
+</details>
+
+<h3>Registrations give a wider comparison</h3>
+<p>These ratios compare gross customs arrivals with all new passenger-car registrations reported in the corresponding fuel category. The records track different events. Arrivals can be held in inventory, exported later or registered in another year. Registrations include EU-made cars and have no origin link to the customs data. Some national returns pool diesel plug-ins with petrol plug-ins or report plug-ins under other hybrid categories, so the petrol-PHEV comparison is approximate. <a href="https://ec.europa.eu/eurostat/databrowser/view/road_eqr_carpda/default/table?lang=en">Eurostat new passenger-car registrations</a> · <a href="https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Passenger_cars_in_the_EU">Eurostat coverage notes</a>.</p>
+<div class="table-wrap" role="region" aria-label="Customs arrivals compared with annual registrations" tabindex="0">
+<table><caption>China-origin imports alongside registration counts</caption>
+<thead><tr><th scope="col">Category</th><th scope="col">Year</th><th scope="col">China-origin arrivals</th><th scope="col">Reported EU registrations</th><th scope="col">Arrivals per 100 registrations</th></tr></thead>
+<tbody>
+$followup_registrations
+</tbody></table>
+</div>
+
+<h3>How the gross gap scales with the assumed interruption</h3>
+<p><span class="conf estimate">Modelled</span> For each 2025 reference quarter, multiply observed China-origin imports by the assumed interrupted fraction. Count the resulting missing imports before offsets. The rows sum separately rounded quarterly counterfactuals, with half-vehicle ties rounded up. They carry no probability, and each quarter uses its own baseline.</p>
+<div class="table-wrap" role="region" aria-label="Gross import gaps under alternative interruptions" tabindex="0">
+<table><caption>Modelled gross gap in vehicles, before inventory and alternative supply</caption>
+<thead><tr><th scope="col">Product and assumed interruption</th><th scope="col">Q1</th><th scope="col">Q2</th><th scope="col">Q3</th><th scope="col">Q4</th><th scope="col">Sum of quarterly gaps</th><th scope="col">Largest quarterly gap</th></tr></thead>
+<tbody>
+$followup_sensitivity
+</tbody></table>
+</div>
+<p>Replacing the disrupted arrivals requires compatible stocks or additional deliveries that can reach the same vehicle segment in time. Given those amounts, the residual gap equals the gross gap minus usable inventory and qualified additional supply, floored at zero. The public series leaves both offsets and the resulting shortage unestimated.</p>
+<div class="table-wrap" role="region" aria-label="What the evidence establishes" tabindex="0">
+<table><caption>Evidence and interpretation</caption>
+<thead><tr><th scope="col">Question</th><th scope="col">What the evidence establishes</th></tr></thead>
+<tbody>
+<tr><th scope="row">Finished-vehicle exposure</th><td>Observed gross customs imports show declared origin. Registrations give the scale of each reported vehicle category.</td></tr>
+<tr><th scope="row">Vehicle and component production</th><td>IEA output estimates describe manufacturing geography. Platform and supplier records are needed to trace actual component origin and exposure.</td></tr>
+<tr><th scope="row">Available substitutes</th><td>Series-production motor examples establish design feasibility. Timely substitutions require qualified supply, matching vehicle segments and manufacturing or delivery slots.</td></tr>
+<tr><th scope="row">Remaining supply gap</th><td>The model gives gross exposure under specified interruptions. A shortage or factory-output effect requires compatible inventory and verified incremental supply.</td></tr>
+</tbody></table>
+</div>
+<p><a href="out/ev_import_context.json">Source cells and queries</a> · <a href="out/ev_chain.json">Reproducible calculations</a> · <a href="README.md#trade-follow-up">Methods and rebuild instructions</a>.</p>
+</section>
+
 <h2>Assembly and component production</h2>
 <p>How differently does supply exposure look when measured at the assembly plant, in EU imports or in the components fitted to a vehicle? In 2025, the International Energy Agency (IEA) estimated that China made around 16 million of the nearly 22 million electric cars produced worldwide, counting battery-electric and plug-in hybrid cars. About a quarter of global production was traded between major production and demand centres. The IEA estimated that China accounted for 40% of that global electric-car trade. The output and export shares have different denominators. <a href="$iea_trade">IEA, Manufacturing and trade</a>.</p>
 <div class="table-wrap" tabindex="0" role="region" aria-label="Manufacturing evidence">
