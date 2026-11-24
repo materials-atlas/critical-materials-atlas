@@ -11,12 +11,25 @@ Run from the repository root: python silicon-chip/record_semiconductor.py
 """
 from __future__ import annotations
 
+import csv
+from html import escape
+from io import BytesIO, StringIO
 import json
 import os
+import re
+from zipfile import ZipFile, ZipInfo
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "out", "semiconductor_chain.json")
+TRADE = os.path.join(HERE, "out", "silicon_stages.json")
+TABLES = os.path.join(HERE, "out", "semiconductor_tables.zip")
+ARTICLE = os.path.join(HERE, "silicon-chain.html")
+TRADE_CATEGORIES = {
+    "280469": ("Silicon under 99.99%", "Usable silicon-metal context", "okflag"),
+    "280461": ("Silicon at least 99.99%", "Solar and semiconductor grades", "flag"),
+    "381800": ("Doped elements / compounds", "Mixed materials and end uses", "flag"),
+}
 
 
 SOURCES = {
@@ -130,6 +143,126 @@ FAB_BY_TYPE_2025 = {
 }
 
 
+def write_csv(bundle, name, columns, rows):
+    text = StringIO(newline="")
+    writer = csv.writer(text)
+    writer.writerow(columns)
+    writer.writerows(rows)
+    # Use fixed metadata so the archive can be reproduced across rebuilds.
+    entry = ZipInfo(name)
+    entry.create_system = 0
+    bundle.writestr(entry, text.getvalue().encode("utf-8"))
+
+
+def tables_zip(data, trade):
+    fab = data["fab_capacity_share"]
+    regions = ("US", "Europe", "Japan", "Korea", "Taiwan", "China", "Other")
+    by_type = data["fab_capacity_by_type_2025"]
+    suppliers = data["electronic_grade_polysilicon"]["snapshot_2025"]["major_suppliers"]
+    baci = ("baci_v202601", trade["source"], 2026,
+            "https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html")
+
+    archive = BytesIO()
+    with ZipFile(archive, "w") as bundle:
+        write_csv(bundle, "fab_capacity_shares.csv",
+                  ("year", "status", "source", *(f"{region}_pct" for region in regions)),
+                  ((row["year"], "forecast" if row.get("forecast") else "reported",
+                    fab["source"], *(row[region] for region in regions)) for row in fab["series"]))
+        write_csv(bundle, "fab_capacity_by_chip_type.csv",
+                  ("as_of", "chip_type", "rank", "economy", "million_8in_eq_starts_per_month", "source"),
+                  ((by_type["as_of"], row["type"], rank, leader["economy"], leader["value"], by_type["source"])
+                   for row in by_type["types"] for rank, leader in enumerate(row["leaders"], start=1)))
+        write_csv(bundle, "wafer_shipments.csv",
+                  ("year", "million_square_inches", "nominal_revenue_usd_billions", "source"),
+                  ((row["year"], row["msi"], row["revenue_usd_bn"], row["source"])
+                   for row in data["semiconductor_wafers"]["shipments"]))
+        write_csv(bundle, "polysilicon_suppliers.csv", ("company", "home_economy", "source"),
+                  ((supplier["company"], supplier["home"], "sia_poly_2025") for supplier in suppliers))
+        trade_rows = []
+        for year in trade["years"]:
+            for code in TRADE_CATEGORIES:
+                row = trade["years_data"][str(year)][code]
+                trade_rows.append(
+                    (year, row["hs"], code, row["title"], row["world_usd"], row["world_tonnes"],
+                     row["china_export_share"], row["flag"], baci[0])
+                )
+        write_csv(bundle, "silicon_trade.csv",
+                  ("year", "hs_revision", "hs6", "category", "world_nominal_usd", "world_reported_tonnes",
+                   "china_export_share_of_value", "scope", "source"), trade_rows)
+        sources = [(key, source["title"], source["year"], source["url"])
+                   for key, source in data["sources"].items()]
+        write_csv(bundle, "sources.csv", ("source", "title", "publication_year", "url"), [*sources, baci])
+        readme = """Silicon-to-chip study evidence tables
+Critical Materials Atlas, 24 November 2026
+
+The CSV files use UTF-8 and retain the values from the public evidence files.
+Join the source column to sources.csv for titles and links.
+
+fab_capacity_shares.csv: SIA/BCG Exhibit 7. Shares are percentages of
+global capacity in 300 mm-equivalent wafer starts per month. Commercial
+fabs below 200 mm or 5,000 monthly starts are excluded. The shares are
+rounded. The 2025, 2030 and 2032 values are forecasts published in 2024.
+
+fab_capacity_by_chip_type.csv: OECD operating capacity in September 2025.
+Each chip type has its own ranking. Some fabs cover several types.
+
+wafer_shipments.csv: SEMI global semiconductor-wafer shipments and nominal
+revenues at published precision. SEMI excludes wafers for solar applications.
+
+polysilicon_suppliers.csv: SIA identifies the companies and their home
+economies. The table gives no facility geography or individual share.
+
+silicon_trade.csv: CEPII BACI, V202601. China export shares are fractions
+of world value, so 0.5 means 50%. The customs categories cover mixed products.
+The table reports the article’s codes and does not allocate trade to chips.
+"""
+        entry = ZipInfo("README.txt")
+        entry.create_system = 0
+        bundle.writestr(entry, readme.encode("utf-8"))
+    return archive.getvalue()
+
+
+def replace_content(article, tag, element_id, content):
+    pattern = rf'(<{tag} id="{element_id}"[^>]*>).*?(</{tag}>)'
+    article, matches = re.subn(pattern, lambda m: m[1] + content + m[2], article, flags=re.DOTALL)
+    if matches != 1:
+        raise ValueError(f"Expected one {tag} with id {element_id}, found {matches}")
+    return article
+
+
+def render_static_tables(article, data, trade):
+    by_type = data["fab_capacity_by_type_2025"]["types"]
+    capacity_rows = []
+    for chip in by_type:
+        leaders = "".join(
+            f'<td>{escape(leader["economy"])} · {leader["value"]:.2f}</td>'
+            for leader in chip["leaders"]
+        )
+        capacity_rows.append(f'<tr><th scope="row">{escape(chip["type"])}</th>{leaders}</tr>')
+
+    suppliers = data["electronic_grade_polysilicon"]["snapshot_2025"]["major_suppliers"]
+    supplier_rows = [
+        f'<tr><th scope="row">{escape(row["company"])}</th><td>{escape(row["home"])}</td></tr>'
+        for row in suppliers
+    ]
+    year = trade["years"][-1]
+    trade_rows = []
+    for code, (name, scope, flag) in TRADE_CATEGORIES.items():
+        row = trade["years_data"][str(year)][code]
+        usd = row["world_usd"]
+        money = f"${usd / 1e9:.1f}B" if usd >= 1e9 else f"${int(usd / 1e6 + 0.5)}M"
+        share = int(row["china_export_share"] * 100 + 0.5)
+        trade_rows.append(
+            f'<tr data-hs-code="{code}"><th scope="row" class="tradecell"><b>{code}</b><span>{escape(name)}</span></th>'
+            f'<td data-trade-value>{money}</td><td data-china-share>{share}%</td>'
+            f'<td><span class="{flag}">{escape(scope)}</span></td></tr>'
+        )
+
+    for element_id, rows in (("type-body", capacity_rows), ("poly-body", supplier_rows), ("trade-body", trade_rows)):
+        article = replace_content(article, "tbody", element_id, "\n" + "\n".join(rows) + "\n")
+    return replace_content(article, "span", "trade-year", str(year))
+
+
 def build():
     data = {
         "title": "Semiconductor chain evidence",
@@ -209,11 +342,20 @@ def build():
         },
         "sources": SOURCES,
     }
+    with open(TRADE, encoding="utf-8") as f:
+        trade = json.load(f)
+    bundle = tables_zip(data, trade)
+    with open(ARTICLE, encoding="utf-8") as f:
+        article = render_static_tables(f.read(), data, trade)
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
-    print("WROTE", OUT)
+    with open(TABLES, "wb") as f:
+        f.write(bundle)
+    with open(ARTICLE, "w", encoding="utf-8", newline="\n") as f:
+        f.write(article)
+    print("WROTE", OUT, TABLES, "and", ARTICLE)
     return data
 
 

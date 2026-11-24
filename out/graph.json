@@ -7940,14 +7940,19 @@
    "code_sha": "a58715b86a06ee01"
   },
   "silicon-chip/record_semiconductor.py": {
-   "reads": [],
+   "reads": [
+    "silicon-chip/",
+    "silicon-chip/out/silicon_stages.json",
+    "silicon-chip/silicon-chain.html"
+   ],
    "writes": [
-    "silicon-chip/out/semiconductor_chain.json"
+    "silicon-chip/out/semiconductor_chain.json",
+    "silicon-chip/out/semiconductor_tables.zip",
+    "silicon-chip/silicon-chain.html"
    ],
    "exit": 0,
    "secs": 0.1,
-   "code_sha": "d7907e960ce8c442",
-   "restored": 1
+   "code_sha": "b55f7c8006b4ecf4"
   },
   "silver-chain/record_silver.py": {
    "reads": [],

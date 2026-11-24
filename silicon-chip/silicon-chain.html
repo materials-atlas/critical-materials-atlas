@@ -21,6 +21,7 @@
   .measure{display:inline-block;margin-top:.4rem;padding:.12rem .38rem;border-radius:4px;background:#e7f2f0;color:#0b6862;font-size:.65rem;font-weight:700;text-transform:uppercase}.measure.snapshot{background:#f7ede8;color:#99472d}
   .panel{border:1px solid var(--line);border-radius:10px;padding:1rem;margin:1rem 0;background:#fff}.panel h3{margin-top:0}.chart{display:block;width:100%;height:230px;margin:.4rem 0}.chart.small{height:180px}
   .legend{display:flex;gap:.8rem;flex-wrap:wrap;font-size:.7rem;color:var(--mut);margin:.35rem 0}.dot{display:inline-block;width:.65rem;height:.65rem;border-radius:50%;margin-right:.25rem;vertical-align:-.03rem}
+  #trade-control[hidden]{display:none}
   .control{display:flex;align-items:center;gap:.65rem;margin:.7rem 0}.control input{flex:1;accent-color:var(--accent)}.control b{min-width:4.1rem;text-align:right;color:var(--navy);font-variant-numeric:tabular-nums}
   .barlist{display:grid;grid-template-columns:1fr 1fr;gap:.15rem 1rem}@media(max-width:620px){.barlist{grid-template-columns:1fr}}
   .compactbar{display:grid;grid-template-columns:6.5rem 1fr 2.7rem;gap:.45rem;align-items:center;font-size:.76rem}.compactbar .track{height:10px;background:#edf1f0;border-radius:6px;overflow:hidden}.compactbar .fill{height:100%;border-radius:6px}.compactbar .num{text-align:right;font-variant-numeric:tabular-nums;color:var(--mut)}
@@ -39,7 +40,7 @@
   <div class="eyebrow">Semiconductor value chain</div>
   <h1>How concentration and control change from silicon to chips</h1>
   <p class="deck">China leads silicon-metal production. Germany and the United States lead in electronic-grade polysilicon, Japanese firms are among the largest blank-wafer suppliers, and the geography of chipmaking depends on the type of chip.</p>
-  <p class="byline">Evidence review · <time datetime="2026-11-24">24 November 2026</time> · <a href="PRODUCTION.md">Claim and source register</a></p>
+  <p class="byline">Evidence review · <time datetime="2026-11-24">24 November 2026</time> · <a href="PRODUCTION.md">Claim and source register</a> · <a href="out/semiconductor_tables.zip" download>Download evidence tables</a></p>
 </div></section>
 
 <article>
@@ -74,7 +75,14 @@
   </div>
 
   <h3>Operating fab capacity by chip type</h3>
-  <table class="leaders"><caption>Top three operating locations, September 2025 · million 8-inch-equivalent wafer starts/month</caption><thead><tr><th>Chip type</th><th>First</th><th>Second</th><th>Third</th></tr></thead><tbody id="type-body"></tbody></table>
+  <table class="leaders"><caption>Top three operating locations, September 2025 · million 8-inch-equivalent wafer starts/month</caption><thead><tr><th scope="col">Chip type</th><th scope="col">First</th><th scope="col">Second</th><th scope="col">Third</th></tr></thead><tbody id="type-body">
+<tr><th scope="row">Power &amp; discrete</th><td>China · 6.28</td><td>Taiwan · 2.42</td><td>Japan · 1.60</td></tr>
+<tr><th scope="row">Analog</th><td>China · 3.64</td><td>Taiwan · 2.09</td><td>United States · 1.90</td></tr>
+<tr><th scope="row">Mature logic (&gt;=20 nm)</th><td>China · 4.23</td><td>Taiwan · 2.48</td><td>Japan · 1.24</td></tr>
+<tr><th scope="row">Advanced logic (&lt;20 nm)</th><td>Taiwan · 1.55</td><td>United States · 0.84</td><td>China · 0.39</td></tr>
+<tr><th scope="row">Commodity memory</th><td>Korea · 4.58</td><td>China · 2.37</td><td>Japan · 2.21</td></tr>
+<tr><th scope="row">Specialty memory</th><td>Taiwan · 1.18</td><td>China · 0.92</td><td>United States · 0.67</td></tr>
+</tbody></table>
   <p>OECD’s September 2025 snapshot puts 87% of global in-production wafer capacity in China, Taiwan, Korea, Japan and the United States. The same economies sum to 86% in SIA/BCG’s rounded forecast for 2025. The OECD snapshot covers fabs operating in September 2025. The older SIA/BCG forecast covers commercial fabs within the wafer-size and capacity limits above.</p>
   <p class="note">The table uses million 8-inch-equivalent wafer starts per month, a capacity measure by fab location. Actual output depends on utilization and yield. A fab can cover several chip types, so the categories overlap. OECD defines advanced logic as below 20 nm and mature logic as 20 nm and above. <a href="https://www.oecd.org/en/publications/the-chip-landscape_02dbd028-en/full-report/component-6.html">OECD (2025), Section 3, Figures 1 and 4</a>.</p>
 
@@ -95,18 +103,46 @@
     <div class="callout"><b>Demand and production.</b> Electronic-grade polysilicon requires at least 11N purity. <a href="https://iea-pvps.org/wp-content/uploads/2024/10/IEA-PVPS-Task-1-Trends-Report-2024.pdf#page=52">IEA-PVPS (2024), p. 50</a> reports 38,800 tonnes produced for semiconductors in 2023. <a href="https://www.semiconductors.org/wp-content/uploads/2025/08/Semiconductor-Industry-Association-SIA-Comments-Polysilicon-Section-232-Investigation.pdf#page=4">SIA (2025), pp. 3–5 and Figure 1</a> forecast 33,500 tonnes of semiconductor demand and 1,379,400 tonnes of solar demand for 2025. Semiconductor demand was about 2.4% of that forecast total by weight.</div>
     <div class="callout"><b>Country and company estimates.</b> <a href="https://www.oecd.org/en/publications/due-diligence-for-responsible-sand-and-silicate-supply-chains_7be0093e-en/full-report/component-5.html">OECD (2026), Chapter 2</a> reports about 65% of the global semiconductor-grade market for Germany and the United States combined and less than 10% for China, citing a 2025 industry report. <a href="https://www.semiconductors.org/wp-content/uploads/2025/08/Semiconductor-Industry-Association-SIA-Comments-Polysilicon-Section-232-Investigation.pdf#page=4">SIA (2025), p. 4</a> estimates Wacker and Hemlock together at about three-quarters of the supplier market.</div>
   </div>
-  <table><caption>Major electronic-grade polysilicon suppliers named by SIA, 2025</caption><thead><tr><th>Company</th><th>Home economy of supplier</th></tr></thead><tbody id="poly-body"></tbody></table>
+  <table><caption>Major electronic-grade polysilicon suppliers named by SIA, 2025</caption><thead><tr><th scope="col">Company</th><th scope="col">Home economy of supplier</th></tr></thead><tbody id="poly-body">
+<tr><th scope="row">Wacker Chemie</th><td>Germany</td></tr>
+<tr><th scope="row">Hemlock Semiconductor</th><td>United States</td></tr>
+<tr><th scope="row">Tokuyama</th><td>Japan</td></tr>
+<tr><th scope="row">SUMCO</th><td>Japan</td></tr>
+<tr><th scope="row">OCI</th><td>Korea</td></tr>
+</tbody></table>
   <p class="note">The country and company figures are dated estimates. The home economy identifies the supplier’s base. A comparable annual series would require data by plant and production year.</p>
 
   <h2>What the customs data cover</h2>
   <p><a href="https://www.cepii.fr/DATA_DOWNLOAD/baci/doc/baci_webpage.html">CEPII BACI</a> records bilateral shipments for broad customs categories. HS 280469 gives silicon-metal trade context. HS 280461 combines solar- and semiconductor-grade polysilicon. HS 381800 also covers other doped elements and compounds. Export values describe what crosses borders and can include re-exports.</p>
-  <div class="panel"><div class="control"><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"><b id="trade-year">—</b></div><table><thead><tr><th>Customs category</th><th>World trade</th><th>China export share</th><th>Interpretation</th></tr></thead><tbody id="trade-body"></tbody></table></div>
+  <div class="panel">
+    <div class="control" id="trade-control" hidden><label class="note" for="trade-slider">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
+    <table>
+      <caption>Reported customs values · <span id="trade-year" aria-live="polite">2024</span></caption>
+      <thead><tr><th scope="col">Customs category</th><th scope="col">World trade</th><th scope="col">China export share</th><th scope="col">Interpretation</th></tr></thead>
+      <tbody id="trade-body">
+<tr data-hs-code="280469"><th scope="row" class="tradecell"><b>280469</b><span>Silicon under 99.99%</span></th><td data-trade-value>$3.9B</td><td data-china-share>40%</td><td><span class="okflag">Usable silicon-metal context</span></td></tr>
+<tr data-hs-code="280461"><th scope="row" class="tradecell"><b>280461</b><span>Silicon at least 99.99%</span></th><td data-trade-value>$3.6B</td><td data-china-share>13%</td><td><span class="flag">Solar and semiconductor grades</span></td></tr>
+<tr data-hs-code="381800"><th scope="row" class="tradecell"><b>381800</b><span>Doped elements / compounds</span></th><td data-trade-value>$17.8B</td><td data-china-share>22%</td><td><span class="flag">Mixed materials and end uses</span></td></tr>
+</tbody>
+    </table>
+  </div>
   <h2>Why supplier qualification matters</h2>
   <p>Siltronic’s new 300 mm wafer plant in Singapore produced its first test wafers in late 2023. Early customer qualifications followed in 2024, and the company reported key customer qualifications in 2025. The milestones show that a plant can produce test wafers before it is ready to supply particular customers. <a href="https://www.siltronic.com/fileadmin/investorrelations/Archiv/2024/Q4/20250306_FY_conference_call_presentation_web.pdf#page=6">Siltronic’s 2024 results presentation, slide 6</a> and <a href="https://www.siltronic.com/fileadmin/investorrelations/Archiv/2025/Q4/260312_Siltronic_Annual_Report_2025_safe.pdf#page=6">2025 annual report, p. 6</a>.</p>
   <p class="note">These dates describe the ramp-up of one new plant. Estimating how quickly buyers could replace interrupted supply would require customer-specific approvals, available capacity, inventories and delivery dates.</p>
 
   <h2>What is measured over time</h2>
   <table><thead><tr><th>Layer</th><th>Period</th><th>What moves through time</th></tr></thead><tbody><tr><td>Silicon customs trade</td><td>2002–2024</td><td>Value, tonnes, exporters, importers and concentration</td></tr><tr><td>Blank semiconductor wafers</td><td>2007–2025</td><td>Worldwide shipment area and nominal revenue</td></tr><tr><td>Commercial fab geography</td><td>1990–2032F</td><td>Regional capacity share. The 2024 report forecast 2025, 2030 and 2032.</td></tr><tr><td>Electronic-grade polysilicon</td><td>2023/2025</td><td>Reported 2023 production, forecast 2025 demand and dated market estimates</td></tr><tr><td>Fab capacity by chip type</td><td>2025</td><td>September snapshot of in-production capacity by physical location</td></tr></tbody></table>
+
+  <section aria-labelledby="supported-findings">
+    <h2 id="supported-findings">What this research establishes</h2>
+    <p class="note">Addendum · <time datetime="2026-11-24">24 November 2026</time></p>
+    <ul>
+      <li><strong>Production geography varies by stage and chip type.</strong> China leads silicon-metal output. OECD identifies Germany and the United States as leading producers of electronic-grade polysilicon. In September 2025, Taiwan led operating advanced-logic fab capacity and Korea led commodity memory. <a href="https://www.oecd.org/en/publications/due-diligence-for-responsible-sand-and-silicate-supply-chains_7be0093e-en/full-report/component-5.html">OECD silicon supply chains</a> and <a href="https://www.oecd.org/en/publications/the-chip-landscape_02dbd028-en/full-report/component-6.html">OECD fab capacity, Figure 4</a>.</li>
+      <li><strong>A few companies supply most blank silicon wafers.</strong> SIA estimates that six companies account for about 92% of the global market. It lists US production capacity for Shin-Etsu and SUMCO, two firms headquartered in Japan. This share groups suppliers by company across their plant locations. <a href="https://www.semiconductors.org/wp-content/uploads/2025/08/Semiconductor-Industry-Association-SIA-Comments-Polysilicon-Section-232-Investigation.pdf#page=4">SIA filing, pp. 4 and 6</a>.</li>
+      <li><strong>Capacity and customer qualification are separate milestones.</strong> Siltronic’s Singapore plant produced test wafers in 2023 and reported early customer qualifications for 2024. Estimating how quickly a buyer could switch suppliers would also require customer-specific approvals, compatible spare capacity, inventories and delivery times. <a href="https://www.siltronic.com/fileadmin/investorrelations/Archiv/2024/Q4/20250306_FY_conference_call_presentation_web.pdf#page=6">Siltronic’s 2024 results, slide 6</a>.</li>
+    </ul>
+    <p><a href="out/semiconductor_tables.zip" download>Download the evidence tables (CSV ZIP)</a>. Includes the data behind the charts and tables, source links and units.</p>
+  </section>
 
   <h2>Sources and methods</h2>
   <p class="note">The <a href="PRODUCTION.md">claim and source register</a> gives dates, denominators, figure and page references, and calculations. See the <a href="README.md">rebuild instructions</a> and <a href="out/semiconductor_chain.json">evidence data</a> to reproduce the comparisons.</p>
@@ -134,8 +170,18 @@ function showFab(rows,i){
 }
 function drawWafers(rows){const svg=document.getElementById('wafer-chart'),w=760,h=180,p=28,max=16000,min=6000;let g='';for(let i=0;i<=5;i++){const v=min+(max-min)*i/5,y=h-p-((v-min)/(max-min))*(h-2*p);g+='<line x1="'+p+'" y1="'+y+'" x2="'+(w-p)+'" y2="'+y+'" stroke="#e6e9e8"/><text x="0" y="'+(y+3)+'" font-size="9" fill="#7a858b">'+Math.round(v/1000)+'k</text>'}const pts=rows.map((r,i)=>({x:p+(i/(rows.length-1))*(w-2*p),y:h-p-((r.msi-min)/(max-min))*(h-2*p)}));g+='<path d="'+pts.map((q,i)=>(i?'L':'M')+q.x.toFixed(1)+','+q.y.toFixed(1)).join(' ')+'" fill="none" stroke="#0e7c74" stroke-width="2.5"/>';pts.forEach((q,i)=>{if(i%2===0||i===pts.length-1)g+='<text x="'+q.x+'" y="176" text-anchor="middle" font-size="9" fill="#68737a">'+rows[i].year+'</text>'});svg.innerHTML=g}
 function showWafer(rows,i){const r=rows[i];document.getElementById('wafer-year').textContent=r.year;document.getElementById('wafer-slider').setAttribute('aria-valuetext',r.year);document.getElementById('wafer-head').textContent=r.msi.toLocaleString('en-US')+' million sq in shipped';document.getElementById('wafer-note').textContent='$'+r.revenue_usd_bn.toFixed(1)+'B nominal revenue · semiconductor applications only · '+r.year}
-function showTrade(T,i){const year=T.years[i],d=T.years_data[String(year)],defs=[['280469','Silicon under 99.99%','Usable silicon-metal context'],['280461','Silicon at least 99.99%','Solar and semiconductor grades'],['381800','Doped elements / compounds','Mixed materials and end uses']];document.getElementById('trade-year').textContent=year;document.getElementById('trade-slider').setAttribute('aria-valuetext',year);document.getElementById('trade-body').innerHTML=defs.map(([c,note,meaning])=>{const r=d[c];return '<tr><td class="tradecell"><b>'+c+'</b><span>'+note+'</span></td><td>'+money(r.world_usd)+'</td><td>'+Math.round(100*r.china_export_share)+'%</td><td><span class="'+(c==='280469'?'okflag':'flag')+'">'+meaning+'</span></td></tr>'}).join('')}
+function showTrade(trade,i){
+  const year=trade.years[i];
+  const values=trade.years_data[String(year)];
+  document.getElementById('trade-year').textContent=year;
+  document.getElementById('trade-slider').setAttribute('aria-valuetext',year);
+  document.querySelectorAll('#trade-body tr[data-hs-code]').forEach(row=>{
+    const value=values[row.dataset.hsCode];
+    row.querySelector('[data-trade-value]').textContent=money(value.world_usd);
+    row.querySelector('[data-china-share]').textContent=Math.round(100*value.china_export_share)+'%';
+  });
+}
 function sourceList(D){document.getElementById('source-list').innerHTML=Object.values(D.sources).map(s=>'<li><a href="'+esc(s.url)+'">'+esc(s.title)+'</a> ('+s.year+')</li>').join('')}
-Promise.all([fetch('out/semiconductor_chain.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch('out/silicon_stages.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]).then(([D,T])=>{const fabs=D.fab_capacity_share.series;drawFab(fabs);const fs=document.getElementById('fab-slider');fs.max=fabs.length-1;fs.value=fabs.findIndex(r=>r.year===2022);fs.oninput=()=>showFab(fabs,+fs.value);showFab(fabs,+fs.value);document.getElementById('type-body').innerHTML=D.fab_capacity_by_type_2025.types.map(r=>'<tr><td>'+esc(r.type)+'</td>'+r.leaders.map(x=>'<td>'+esc(x.economy)+' · '+x.value.toFixed(2)+'</td>').join('')+'</tr>').join('');const waf=D.semiconductor_wafers.shipments;drawWafers(waf);const ws=document.getElementById('wafer-slider');ws.max=waf.length-1;ws.value=waf.length-1;ws.oninput=()=>showWafer(waf,+ws.value);showWafer(waf,+ws.value);document.getElementById('poly-body').innerHTML=D.electronic_grade_polysilicon.snapshot_2025.major_suppliers.map(r=>'<tr><td>'+esc(r.company)+'</td><td>'+esc(r.home)+'</td></tr>').join('');const ts=document.getElementById('trade-slider');ts.max=T.years.length-1;ts.value=T.years.length-1;ts.oninput=()=>showTrade(T,+ts.value);showTrade(T,+ts.value);sourceList(D)}).catch(err=>{document.querySelector('article').insertAdjacentHTML('afterbegin','<div class="callout hot"><b>Evidence JSON did not load.</b> Serve the repository over HTTP and run <code>python silicon-chip/record_semiconductor.py</code>.</div>');console.error(err)});
+Promise.all([fetch('out/semiconductor_chain.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch('out/silicon_stages.json').then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]).then(([D,T])=>{const fabs=D.fab_capacity_share.series;drawFab(fabs);const fs=document.getElementById('fab-slider');fs.max=fabs.length-1;fs.value=fabs.findIndex(r=>r.year===2022);fs.oninput=()=>showFab(fabs,+fs.value);showFab(fabs,+fs.value);const waf=D.semiconductor_wafers.shipments;drawWafers(waf);const ws=document.getElementById('wafer-slider');ws.max=waf.length-1;ws.value=waf.length-1;ws.oninput=()=>showWafer(waf,+ws.value);showWafer(waf,+ws.value);const ts=document.getElementById('trade-slider');ts.max=T.years.length-1;ts.value=T.years.length-1;ts.oninput=()=>showTrade(T,+ts.value);showTrade(T,+ts.value);document.getElementById('trade-control').hidden=false;sourceList(D)}).catch(err=>{document.querySelector('article').insertAdjacentHTML('afterbegin','<div class="callout hot"><b>Evidence JSON did not load.</b> Serve the repository over HTTP and run <code>python silicon-chip/record_semiconductor.py</code>.</div>');console.error(err)});
 </script>
 </body></html>

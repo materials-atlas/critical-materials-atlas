@@ -37,3 +37,14 @@ and [BACI trade extract](out/silicon_stages.json). With the original BACI
 archives available, `python silicon-chip/extract_baci.py` rebuilds the trade
 context. `record_iea_pv.py` maintains the separate solar evidence.
 [Interpretation notes](NOTES.md) document the discarded trade proxies.
+
+## Download the evidence tables, 24 November 2026
+
+The [CSV bundle](out/semiconductor_tables.zip) contains commercial fab
+capacity shares, operating fab capacity by chip type, global wafer
+shipments, the polysilicon supplier list and the three customs categories
+used in the article. A source index and a readme give dates, units and
+scope. The same rebuild command generates the bundle and populates the
+article’s operating-capacity, supplier and latest-year trade tables from
+the evidence and the checked-in BACI extract. The initial HTML contains
+those rows. JavaScript enables the trade year control and the charts.
