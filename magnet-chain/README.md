@@ -48,7 +48,7 @@ python check.py links
 python check.py chokepoint
 ```
 
-Use `python magnet-chain/audit_comext.py` to retrieve a new Comext vintage. Review revisions, missing cells or changed flags before updating the dated interpretation. A source change must preserve annual and monthly mass reconciliation. The original BACI baskets belong to the frozen Atlas pipeline.
+Use `python magnet-chain/fetch_comext_audit.py` to retrieve a new Comext vintage. Review revisions, missing cells or changed flags before updating the dated interpretation. A source change must preserve annual and monthly mass reconciliation. The original BACI baskets belong to the frozen Atlas pipeline.
 
 ## Reviewer memo
 
@@ -59,3 +59,19 @@ Use `python magnet-chain/audit_comext.py` to retrieve a new Comext vintage. Revi
 **Historical validation.** The article compares matched calendar months and checks observed recovery and other-origin flows. The prior filed Atlas test ruled out its prespecified 30% fall relative to ferrite in its early event window. It used a narrower partner filter that excluded Great Britain and Northern Ireland. The two results use different windows, comparators and import coverage. Keep the earlier result intact. [Atlas export-controls study](https://criticalmaterialsatlas.org/export-controls). Seek date-stamped customer deliveries, stock drawdowns and license or receipt dates to distinguish border timing, grade-specific shortages, anticipation and changes in demand. Compare the model against actual qualified orders filled and documented shutdowns, using a predeclared validation window and an import-share-only benchmark.
 
 **Next evidence.** Select a defined set of EU traction-motor platforms and request six-month grade-specific demand, qualified suppliers, forward allocations, stock usable by customer, conversion yield at every stage and lead times for qualification. Native units should distinguish REO, contained Nd/Pr/Dy/Tb, alloy, blocks, finished parts and embedded magnets. Add sources from regulators and buyers alongside operator disclosures. For a simultaneous disruption to Chinese intermediates and finished magnets, trace upstream dependency for non-China suppliers before granting those routes full credit. Test material balances, supply monotonicity and alternative stock and demand ranges. Have a magnet-process specialist and a trade-data reviewer verify the resulting estimates before claiming a specific binding stage.
+
+## Review corrections, 24 November 2026
+
+A second reading of all 15 cited sources before publication found nothing wrong; the Eurostat snapshot was re-downloaded
+and matched byte for byte. Fixes:
+
+- IEA 85% (July 2026): it is the press announcement of the outlook, for the "top supplier" of ALL rare-earth refining in
+  2025. The April report's 91% is magnet rare earths in 2024; the text now says the two are not a trend.
+- Neo, 19 October 2026: the release announces an EU Innovation Fund grant selection, "adding up to 3,000 metric tonnes of
+  permanent magnets per year"; "block capacity" comes from the 10 November call. Wording now "up to".
+- US DOE deep-dive assessment is dated 24 February 2022; Table 2 sits in section 2.2.
+- `audit_comext.py` downloads from Eurostat, so it is renamed `fetch_comext_audit.py`: the build skips network scripts by name.
+- The branch's edit of `source_ledger.json` (magnet row -> IEA April 2026, 91% refining / 94% sintered) was NOT applied:
+  the ledger is an input of the BGS builders, which download and would rebuild 122 pages. Apply it with the next deliberate
+  BGS refresh.
+- Chokepoint map: China's share restored as "91% of magnet rare-earth refining, 94% of sintered magnets (2024)".

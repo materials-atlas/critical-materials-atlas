@@ -252,7 +252,7 @@ def main():
             "stage": "Separation, metals and sintered magnets",
             "mechanism": "capability",
             "physics": "Separated products, metals, alloys and magnets each need industrial capability. The binding stage depends on the grade, available routes and the shock.",
-            "holder": "China (output)", "share": "—", "control": "Apr 2025",
+            "holder": "China (output)", "share": "91% of magnet rare-earth refining, 94% of sintered magnets (2024)", "control": "Apr 2025",
             "conf": "estimate", "research": True,
         },
         "sources": {key: {"title": label, "url": url} for key, (label, url) in SOURCES.items()},

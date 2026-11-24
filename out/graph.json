@@ -4181,8 +4181,9 @@
     "out/casestudies.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "1caed3f7386e8ff8"
+   "secs": 0.3,
+   "code_sha": "9919d3f3abbfe765",
+   "restored": 2
   },
   "build_catalog.py": {
    "reads": [
@@ -7048,6 +7049,7 @@
   },
   "magnet-chain/record_magnet.py": {
    "reads": [
+    "magnet-chain/",
     "magnet-chain/out/comext_audit.json",
     "magnet-chain/out/magnet_pilot_evidence.json",
     "magnet-chain/out/magnet_trade.json",
@@ -7058,11 +7060,13 @@
     "magnet-chain/out/magnet_chain.json"
    ],
    "exit": 0,
-   "secs": 0.2,
-   "code_sha": "9d6da0b01e79a1c9"
+   "secs": 0.4,
+   "code_sha": "89776403935520d9",
+   "restored": 2
   },
   "magnet-chain/record_magnets.py": {
    "reads": [
+    "magnet-chain/",
     "out/cube.parquet",
     "raw/magnets_85051110_qty.csv",
     "raw/magnets_85051110_value.csv"
@@ -7071,7 +7075,7 @@
     "magnet-chain/out/magnet_pilot_evidence.json"
    ],
    "exit": 0,
-   "secs": 1.5,
+   "secs": 6.1,
    "code_sha": "fbcffc75214f62d0",
    "restored": 1
   },
