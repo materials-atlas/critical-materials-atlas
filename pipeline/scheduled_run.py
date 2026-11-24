@@ -177,7 +177,9 @@ def main():
         _stay_awake(False)
         _log('===== scheduled run finished, exits %s =====' % (codes,))
         _log('--- backfill exits %s' % (_backfill(corpus),))
-        return
+        # A failed step now fails the run (24 Nov 2026), so `systemctl --user status` shows it.
+        # The backfill's exits do not count: a stalled download is not a failed refresh.
+        return 1 if any(codes) else 0
     codes = [
         # ALL reporters, one month per run. The goal is maximum country coverage, and with
         # the measured pause that is ~19 minutes at 3am rather than 3 minutes - which buys
@@ -192,7 +194,8 @@ def main():
     _stay_awake(False)
     _log('===== scheduled run finished, exits %s =====' % (codes,))
     print(f"scheduled run complete {stamp}  ->  {LOG}")
+    return 1 if any(codes) else 0
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
