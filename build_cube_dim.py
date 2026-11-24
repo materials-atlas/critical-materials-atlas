@@ -55,6 +55,25 @@ DATA = os.path.join(ROOT, 'pipeline', 'data')
 TODAY = datetime.date.today().isoformat()
 
 
+def _stamp_kept(df, path, col='retrieved_at'):
+    """Reuse the file's old stamp when nothing but the stamp would change. The stamp is the run day,
+    so without this every rebuild rewrote both parquet files (and dim_material.json) with no change
+    in content - a reproducibility leak (fixed 24 Nov 2026). Returns the stamp to write."""
+    try:
+        old = pd.read_parquet(path)
+    except Exception:
+        return TODAY
+    if col not in old or old[col].nunique() != 1:
+        return TODAY
+    new = df.drop(columns=[col]).reset_index(drop=True)
+    prev = old.drop(columns=[col]).reset_index(drop=True)
+    try:
+        same = list(new.columns) == list(prev.columns) and new.equals(prev.astype(new.dtypes.to_dict()))
+    except Exception:
+        same = False
+    return old[col].iloc[0] if same else TODAY
+
+
 def load(name):
     with open(os.path.join(OUT, name), encoding='utf-8') as f:
         return json.load(f)
@@ -172,7 +191,9 @@ if orphan:
     raise SystemExit('attributes for materials absent from the cube: ' + ', '.join(orphan))
 
 os.makedirs(DATA, exist_ok=True)
-dim.to_parquet(os.path.join(DATA, 'dim_material.parquet'), index=False)
+DIM_PATH = os.path.join(DATA, 'dim_material.parquet')
+dim['retrieved_at'] = _stamp_kept(dim, DIM_PATH)
+dim.to_parquet(DIM_PATH, index=False)
 
 # -- second grain: a published share, material x country, no year -------------
 eu = load('eucrm.json')
@@ -183,10 +204,12 @@ arows = [{'material': lab, 'country_iso2': v.get('iso'), 'country_name': v.get('
           'retrieved_at': TODAY}
          for lab, v in eu['materials'].items()]
 assess = pd.DataFrame(arows)
-assess.to_parquet(os.path.join(DATA, 'assessment_material_country.parquet'), index=False)
+ASSESS_PATH = os.path.join(DATA, 'assessment_material_country.parquet')
+assess['retrieved_at'] = _stamp_kept(assess, ASSESS_PATH)
+assess.to_parquet(ASSESS_PATH, index=False)
 
 summary = {
-    'generated': TODAY,
+    'generated': max(dim['retrieved_at'].iloc[0], assess['retrieved_at'].iloc[0]),
     'rule': ('A figure that describes a material is a dimension of the material - and so are the '
              'source that published it and the vintage it belongs to. The key is (material, '
              'attribute, source, vintage), so one material may hold several values of one '
