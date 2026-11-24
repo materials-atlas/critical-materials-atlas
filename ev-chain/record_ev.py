@@ -1,94 +1,157 @@
-"""Evidence JSON for the electric-vehicle chain pilot. Uniform schema. Public sources.
-Ported onto the shared chainview renderer with per-figure confidence tags. Run: python record_ev.py
-"""
+"""Build the installed EV study and its evidence from pinned public inputs."""
+
 from __future__ import annotations
-import json, os
 
-HERE = os.path.dirname(os.path.abspath(__file__))
-OUT = os.path.join(HERE, "out", "ev_chain.json")
+import json
+from html import escape
+from pathlib import Path
+from string import Template
 
-SRC = {
-    "iea_ev_2026": {"title": "IEA, Global EV Outlook 2026 — Trends in electric cars", "year": 2026, "url": "https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars"},
-    "iea_trade_2026": {"title": "IEA, Global EV Outlook 2026 — Manufacturing and trade", "year": 2026, "url": "https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade"},
-    "iea_batteries_2026": {"title": "IEA, Global EV Outlook 2026 — Electric vehicle batteries", "year": 2026, "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"},
-    "doe_motors": {"title": "US DOE, Electric Motors Research and Development", "year": 2026, "url": "https://www.energy.gov/cmei/vehicles/electric-motors-research-and-development"},
-    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "year": 2026, "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+
+HERE = Path(__file__).resolve().parent
+OUT = HERE / "out"
+BEV = "87038010"
+PHEV = "87036010"
+NEW = (BEV, PHEV)
+
+IEA = "https://www.iea.org/reports/global-ev-outlook-2026"
+SOURCES = {
+    "iea_trade": {"title": "IEA, Global EV Outlook 2026 — Manufacturing and trade", "url": f"{IEA}/manufacturing-and-trade"},
+    "iea_batteries": {"title": "IEA, Global EV Outlook 2026 — Electric vehicle batteries", "url": f"{IEA}/electric-vehicle-batteries"},
+    "comext": {"title": "Eurostat Comext, DS-045409", "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"},
+    "baci": {"title": "CEPII BACI V202601, based on UN Comtrade", "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"},
+    "renault": {"title": "Renault, Mégane E-Tech production motor", "url": "https://www.renaultgroup.com/en/magazine/energy-and-motorization/all-about-electric-motors-with-no-rare-earths/"},
+    "volkswagen": {"title": "Volkswagen, ID.4 Pro 4MOTION specifications", "url": "https://www.volkswagen-newsroom.com/en/volkswagen-id4-pro-4motion-15130/specifications-of-the-id4-pro-4motion-15140"},
+    "doe": {"title": "US Department of Energy, Advanced Motors and Electric Drives", "url": "https://www.energy.gov/cmei/vehicles/research-and-development-advanced-motors-and-electric-drives"},
+}
+TRADE_BOUNDARIES = {
+    "870380": "Finished cars powered solely by an electric motor. Excludes plug-in hybrids. No origin for the parts inside the car is recorded here.",
+    "850760": "Lithium-ion accumulators across end uses. Includes cells, modules and packs. EV end use and the origin of upstream inputs cannot be isolated.",
 }
 
-CHAIN = {
-    "title": "Electric-vehicle chain",
-    "chokepoint": {"product": "Electric vehicles", "stage": "Assembly", "mechanism": "diffuse", "physics": "Assembly is switchable and localises near demand; the real chokepoint is upstream (battery/magnet)", "holder": "China", "share": "~70%", "control": "—", "conf": "estimate"},
-    "published": True,
-    "related": [{"href": "../battery-chain/battery-chain", "label": "Battery chain"}, {"href": "../magnet-chain/magnet-chain", "label": "Rare-earth magnet chain"}],
-    "accent": "#3f6ea5",
-    "eyebrow": "Product-chain pilot · the car that plugs in",
-    "h1": "An EV is a battery with a car around it",
-    "deck": "The electric car's supply story is mostly two chains it contains: the battery pack (its costliest part "
-            "and its real chokepoint) and the magnet motor. On top of those, assembly itself has concentrated — China "
-            "builds about 70% of the world's electric cars — while most EVs are sold near where they are made.",
-    "byline": "battery (its own chokepoint) ≠ magnet motor (substitutable) ≠ assembly (~70% CN) ≠ sold near home",
-    "correction": "Chasing 'EV minerals' misses where the dependence sits. The battery is ~40% of the value and carries "
-                  "the lithium/nickel/cobalt/graphite chokepoint (see the battery chain); the traction motor uses "
-                  "magnet rare earths (see the magnet chain) — but that one is substitutable with induction or "
-                  "wound-rotor designs. The newest concentration is plain assembly: China makes ~70% of the cars.",
-    "stats": [
-        {"v": "~70%", "l": "of the world's electric cars are produced in China (2025)", "conf": "measured"},
-        {"v": "~16M", "l": "electric cars China built in 2025, of ~22M worldwide", "conf": "measured"},
-        {"v": "~25%", "l": "only a quarter of EVs are traded between major regions — production localises", "conf": "measured"},
-        {"v": "substitutable", "l": "the magnet motor can be swapped for induction / wound-rotor; the battery can't", "conf": "estimate"},
-    ],
-    "hops": [
-        {"n": "1 · Battery pack", "t": "the costliest part — its own mine-to-cell chokepoint (see the battery chain)"},
-        {"n": "2 · Traction motor", "t": "magnet (NdFeB) or magnet-free induction / wound-rotor design"},
-        {"n": "3 · Power electronics", "t": "inverter and controls — increasingly silicon-carbide semiconductors"},
-        {"n": "4 · Vehicle", "t": "body, chassis, software and powertrain assembled — ~70% in China"},
-    ],
-    "sections": [
-        {"h2": "1 · The chokepoint the EV inherits", "panels": [
-            {"kind": "big", "h3": "Assembly concentrated", "big": "~70% China", "conf": "measured",
-             "text": "Of roughly 22 million electric cars made in 2025, about 16 million were built in China, which "
-                     "also exported more than 2.5 million — around 40% of world EV exports. So beyond the battery and "
-                     "magnet chains it contains, the EV has a concentration of its own at the point of final assembly, "
-                     "backed by the deepest local supplier base.",
-             "note": "IEA Global EV Outlook 2026."},
-            {"kind": "text", "h3": "The battery is the real dependency",
-             "text": "The pack is the single most expensive part of an EV and the one with the deepest supply chain — "
-                     "lithium, nickel, cobalt and graphite, refined and assembled ~80–90% in China. Securing 'EV supply' "
-                     "mostly means securing that battery chain; the rest of the car is conventional automotive "
-                     "manufacturing that many countries already do.",
-             "flag": "see the battery chain"},
-        ]},
-        {"h2": "2 · The motor: a chokepoint you can design around", "panels": [
-            {"kind": "text", "h3": "Magnet motor vs magnet-free", "conf": "measured",
-             "text": "Most EVs use permanent-magnet synchronous motors, tying them to neodymium and dysprosium (the "
-                     "magnet chain). But Tesla, Renault and others ship induction or externally-excited wound-rotor "
-                     "motors that use no magnet rare earths at all. The rare-earth exposure in an EV is therefore a "
-                     "design choice — unlike the battery, it can be engineered out.",
-             "note": "US DOE, Electric Motors R&D.", "flag": "substitutable, unlike the battery"},
-        ]},
-        {"h2": "3 · Why trade understates the dependence", "panels": [
-            {"kind": "text", "h3": "Cars are made near where they're sold",
-             "text": "Only about a quarter of electric cars cross between major regions — automakers localise assembly "
-                     "behind tariffs and to be near customers. So EV trade flows look diversified even though the "
-                     "upstream (batteries, cells, magnets) is highly concentrated. The finished-car map is the "
-                     "least informative layer of this chain; the battery and magnet maps are the real ones.",
-             "flag": "the finished-car map hides the upstream"},
-        ]},
-    ],
-    "trade_intro": "BACI carries electric passenger cars (HS 870380) and lithium-ion batteries (850760), but a "
-                   "finished EV's origin is its assembly plant, which sits atop battery and magnet chains that customs "
-                   "data does not decompose. Read the shares below as assembly/trade positions, not the upstream "
-                   "concentration that actually constrains the car.",
-    "method": [
-        {"stage": "Battery", "lens": "battery-chain analysis", "why": "~40% of value; the inherited mine-to-cell chokepoint"},
-        {"stage": "Motor", "lens": "magnet vs magnet-free design", "why": "rare-earth exposure is substitutable"},
-        {"stage": "Assembly", "lens": "IEA EV production share", "why": "~70% China — the EV's own concentration"},
-        {"stage": "Trade", "lens": "BACI 870380 cars + 850760 cells", "why": "assembly-point origin; ~25% traded — flagged context"},
-    ],
-    "sources": SRC,
-}
 
-os.makedirs(os.path.dirname(OUT), exist_ok=True)
-with open(OUT, "w", encoding="utf-8") as fh:
-    json.dump(CHAIN, fh, ensure_ascii=False, indent=2)
-print("wrote", os.path.relpath(OUT, HERE), "- ev, inherits battery+magnet chokepoints; assembly ~70% China")
+def read_json(name):
+    return json.loads((OUT / name).read_text(encoding="utf-8"))
+
+
+def calculate(snapshot):
+    annual = []
+    for year, products in snapshot["annual"]["rows"].items():
+        for code in NEW:
+            china = products[code]["CN"]
+            extra = products[code]["EXT_EU27_2020"]
+            cn_units = china["SUPPLEMENTARY_QUANTITY"]["value"]
+            all_units = extra["SUPPLEMENTARY_QUANTITY"]["value"]
+            cn_eur = china["VALUE_IN_EUROS"]["value"]
+            all_eur = extra["VALUE_IN_EUROS"]["value"]
+            annual.append({
+                "year": int(year), "code": code, "from_china": cn_units, "extra_eu": all_units,
+                "from_china_eur": cn_eur, "extra_eu_eur": all_eur,
+            })
+    quarters = []
+    months = snapshot["monthly"]["rows"]
+    for quarter in range(1, 5):
+        base = {
+            code: sum(months[f"2025-{month:02d}"][code]["value"]
+                      for month in range(3 * quarter - 2, 3 * quarter + 1))
+            for code in NEW
+        }
+        quarters.append({
+            "quarter": quarter, "observed_from_china": base,
+            "gross_gap": {code: (base[code] + 1) // 2 for code in NEW},
+        })
+    for record in annual:
+        total = sum(q["observed_from_china"][record["code"]] for q in quarters)
+        if record["year"] == 2025 and total != record["from_china"]:
+            raise ValueError(f"Monthly and annual counts differ for {record['code']}")
+    return annual, quarters
+
+
+def table_row(label, *cols, attrs=""):
+    heading = f'<th scope="row">{escape(str(label))}</th>'
+    values = "".join(f"<td>{escape(str(value))}</td>" for value in cols)
+    return f"<tr{attrs}>{heading}{values}</tr>"
+
+
+def percent(part, total):
+    return f"{part / total:.1%}"
+
+
+def render_study(snapshot, annual, quarters, trade):
+    annual_rows = [
+        table_row(snapshot["products"][r["code"]], r["year"], f"{r['from_china']:,}",
+                  f"{r['extra_eu']:,}", percent(r["from_china"], r["extra_eu"]),
+                  percent(r["from_china_eur"], r["extra_eu_eur"]))
+        for r in annual
+    ]
+    scenario_rows = [
+        table_row(f"Q{q['quarter']}", *(f"{q[key][code]:,}" for code in NEW
+                                        for key in ("observed_from_china", "gross_gap")))
+        for q in quarters
+    ]
+    trade_year = str(trade["years"][-1])
+    trade_rows = []
+    for code, item in trade["codes"].items():
+        metrics = trade["years_data"][trade_year][code]
+        leader = metrics["exporters"][0]
+        trade_rows.append(table_row(f"{item['title']} (HS {code})",
+                                    f"${metrics['world_usd'] / 1e9:.1f}B",
+                                    f"{leader['name']} · {leader['share']:.0%}",
+                                    TRADE_BOUNDARIES[code], attrs=f' data-trade-code="{code}"'))
+    template = Template((HERE / "study.template").read_text(encoding="utf-8"))
+    page = template.substitute(
+        annual_rows="\n".join(annual_rows),
+        scenario_rows="\n".join(scenario_rows),
+        trade_rows="\n".join(trade_rows),
+        trade_year=trade_year,
+        comext_vintage=snapshot["annual"]["updated"][:10],
+        **{key: escape(value["url"], quote=True) for key, value in SOURCES.items()},
+    )
+    return page
+
+
+def main():
+    snapshot = read_json("comext_audit.json")
+    annual, quarters = calculate(snapshot)
+    trade = read_json("ev_trade.json")
+    record = {
+        "title": "Electric-vehicle supply depends on where cars and parts are made",
+        "revision": "2026-11-24",
+        "published": True,
+        "chokepoint": {
+            "product": "Electric vehicles",
+            "stage": "Potential assembly and component constraints",
+            "mechanism": "capability",
+            "physics": "Assembly and key components are concentrated. A binding stage depends on usable capacity, the vehicle design and the disruption.",
+            "holder": "China (output)",
+            "share": "—",
+            "control": "—",
+            "conf": "estimate",
+            "research": True,
+        },
+        "sources": SOURCES,
+        "annual_customs": {
+            "evidence": "calculated from reported Eurostat imports",
+            "scope": "EU-27 extra-EU imports of new BEVs and new petrol PHEVs by declared origin",
+            "snapshot": "comext_audit.json",
+            "rows": annual,
+        },
+        "disruption": {
+            "evidence": "modelled",
+            "baseline": "Each calendar quarter of 2025 replayed separately",
+            "scope": "New cars of matching product code entering the EU from China",
+            "shock_share": 0.5,
+            "stock_or_replacement_credited": 0,
+            "rounding": "half a vehicle rounds up",
+            "rows": quarters,
+        },
+        "baci_trade": {"boundary": TRADE_BOUNDARIES, "snapshot": "ev_trade.json"},
+    }
+    page = render_study(snapshot, annual, quarters, trade)
+    (OUT / "ev_chain.json").write_text(json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    (HERE / "ev-chain.html").write_text(page, encoding="utf-8")
+    print("Wrote EV study and evidence")
+
+
+if __name__ == "__main__":
+    main()

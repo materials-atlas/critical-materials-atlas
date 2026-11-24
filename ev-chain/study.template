@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="canonical" href="https://criticalmaterialsatlas.org/ev-chain/ev-chain">
+<meta property="og:image" content="https://criticalmaterialsatlas.org/out/share.png">
+<meta name="robots" content="index,follow">
+<title>Electric-vehicle supply depends on where cars and parts are made — Critical Materials Atlas</title>
+<meta name="description" content="Where electric cars and key components are made, how EU import exposure differs by powertrain, and what a disruption would require buyers to replace.">
+<link rel="stylesheet" href="../assets/site.css">
+<link rel="stylesheet" href="../chain-assets/chainview.css">
+<style>
+  :root{--acc:#3f6ea5}
+  .table-wrap{overflow-x:auto;margin-bottom:1rem}
+  .table-wrap table{min-width:35rem}
+  #static-trade[hidden]{display:none}
+  @media print{
+    .topbar,.draftbar,.siteftr,.skip,#static-trade{display:none}
+    .hero{background:#fff;color:#000}
+    .hero h1,.hero .deck,.hero .byline,.hero .eyebrow{color:#000}
+    h2,h3{break-after:avoid}
+    tr{break-inside:avoid}
+    .table-wrap{overflow:visible}
+    .table-wrap table{min-width:0}
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="draftbar">Value chains — a research layer of the Critical Materials Atlas</div>
+<header class="topbar"><div class="wrap">
+  <a class="wordmark" href="../"><span class="mark"></span>Critical Materials Atlas</a>
+  <nav class="topnav"><a href="../explorer">Explore</a><a href="../value-chains">Value chains</a><a href="../analysis">Research</a><a href="../method">Method</a><a href="../data">Download data</a></nav>
+</div></header>
+<main id="main">
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Value chains · electric vehicles</div>
+  <h1>Electric-vehicle supply depends on where cars and parts are made</h1>
+  <p class="deck">China leads global electric-car assembly and has even larger shares of several battery production stages. Its share of EU imports fell for new battery-electric cars and rose for new petrol plug-in hybrids. This study measures those exposures separately and models how many imported vehicles would need to be replaced during a specified interruption.</p>
+  <p class="byline">Research briefing · revised 24 November 2026</p>
+</div></section>
+<article>
+
+<h2>Assembly and component production</h2>
+<p>How differently does supply exposure look when measured at the assembly plant, in EU imports or in the components fitted to a vehicle? In 2025, the International Energy Agency (IEA) estimated that China made around 16 million of the nearly 22 million electric cars produced worldwide, counting battery-electric and plug-in hybrid cars. About a quarter of global production was traded between major production and demand centres. The IEA estimated that China supplied about 40% of electric-car exports. The output and export shares have different denominators. <a href="$iea_trade">IEA, Manufacturing and trade</a>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Manufacturing evidence">
+<table>
+<thead><tr><th scope="col">Stage</th><th scope="col">China’s share of world output, 2025</th><th scope="col">What the estimate measures</th></tr></thead>
+<tbody>
+<tr><th scope="row">Car assembly</th><td>Roughly seven in ten</td><td>Electric cars by location of production. The IEA describes the same year as 70% in its outlook discussion and nearly 75% in the manufacturing overview.</td></tr>
+<tr><th scope="row">Battery cells</th><td>Over 80%</td><td>Physical battery cell production.</td></tr>
+<tr><th scope="row">Cathode active materials</th><td>About 85%</td><td>Production of cathode active material used in electric-car batteries.</td></tr>
+<tr><th scope="row">Anode active materials</th><td>Over 90%</td><td>Production of anode active material used in electric-car batteries.</td></tr>
+</tbody></table>
+</div>
+<p>The table uses published world output estimates from the IEA. The shares use separate global totals for each stage. Plant location, manufacturer headquarters, brand ownership and component origin are separate fields. For example, most 2025 EU electric-car output came from EU-based manufacturers, and finished cars imported from China included brands headquartered elsewhere. <a href="$iea_trade">IEA, Manufacturing and trade</a>.</p>
+
+<h2>EU import exposure changed differently by powertrain</h2>
+<p>The EU recorded about the same number of China-origin new battery-electric cars (BEVs) in both years as imports from other countries grew. China-origin imports of new petrol plug-in hybrids (PHEVs) roughly quadrupled and made up a larger fraction of those imports. The customs-value share gives a second view of the same trade. For both vehicle classes it was below the unit share in 2025. Customs value reflects the mix of vehicles and declared values. <a href="$comext">Eurostat Comext</a>.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="EU import counts and shares">
+<table>
+<caption>EU-27 gross imports from outside the EU, calculated from reported customs records</caption>
+<thead><tr><th scope="col">Product</th><th scope="col">Year</th><th scope="col">China-origin vehicles</th><th scope="col">All extra-EU vehicles</th><th scope="col">China share of units</th><th scope="col">China share of value</th></tr></thead>
+<tbody>
+$annual_rows
+</tbody></table>
+</div>
+<p>The comparison uses CN 87038010 and 87036010, with the EU-27 as reporter and declared country of origin for the numerator. It excludes used cars, diesel plug-in hybrids and trade within the EU. Share equals China-origin imports divided by all extra-EU imports in the matching year, code and unit. Values are nominal euros. The denominator excludes EU-built cars sold within the EU, and imports can include vehicles held in stock or later exported. The IEA’s separately defined estimate was over 900,000 electric-car imports in 2025 from all origins outside the EU, of which almost 60% came from China. The selected Eurostat product baskets and the IEA series have different coverage. <a href="out/comext_audit.json">Eurostat snapshot, updated $comext_vintage</a> · <a href="$iea_trade">IEA, Manufacturing and trade</a>.</p>
+
+<h2>Exposure depends on which parts fit the vehicle</h2>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Design and substitution evidence">
+<table>
+<thead><tr><th scope="col">Part</th><th scope="col">What the evidence establishes</th><th scope="col">What determines a replacement</th></tr></thead>
+<tbody>
+<tr><th scope="row">Battery pack</th><td>Material requirements vary by pack size and chemistry. A lithium iron phosphate cathode avoids the nickel and cobalt used in a nickel manganese cobalt cathode. Both designs require lithium.</td><td>Suitable cells and packs must meet the platform’s energy, space, thermal, safety and qualification requirements. Aggregate battery capacity does not identify available supply for that platform. <a href="$iea_batteries">IEA</a> · <a href="../battery-chain/battery-chain">Battery chain</a>.</td></tr>
+<tr><th scope="row">Traction motor</th><td>Renault's Mégane E-Tech uses a wound-rotor traction motor with no rare-earth magnets. The ID.4 Pro 4MOTION pairs a front induction motor with a rear permanent-magnet motor. Exposure depends on the complete motor configuration.</td><td>Existing magnet-free designs demonstrate an engineering option. Changing a production platform can require redesign, testing and qualified motor and inverter supply. <a href="$renault">Renault</a> · <a href="$volkswagen">Volkswagen</a> · <a href="$doe">US Department of Energy</a> · <a href="../magnet-chain/magnet-chain">Magnet chain</a>.</td></tr>
+<tr><th scope="row">Inverter and controls</th><td>Power electronics constitute a separate part of the drivetrain. The public series used here do not resolve supply by device technology or vehicle platform.</td><td>A disruption estimate would need qualified device and inverter suppliers, their allocations, and the time required to validate alternatives. <a href="$doe">US Department of Energy</a>.</td></tr>
+</tbody></table>
+</div>
+
+<h2>What an import interruption would require buyers to replace</h2>
+<p><span class="conf estimate">Modelled</span> Take each 2025 calendar quarter in turn and cut China-origin imports of each new-car category by half. Hold all other baseline flows fixed. The gross gap is half the recorded China-origin arrivals in that quarter, rounded to the nearest vehicle with ties rounded up. It is the number of equivalent cars needed to restore baseline availability before crediting stocks or substitutes.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Modelled gaps across baseline quarters">
+<table>
+<caption>Independent quarterly scenarios using observed 2025 arrivals as the baseline</caption>
+<thead><tr><th scope="col">Baseline quarter</th><th scope="col">BEVs observed</th><th scope="col">BEV gap</th><th scope="col">Petrol PHEVs observed</th><th scope="col">Petrol PHEV gap</th></tr></thead>
+<tbody>
+$scenario_rows
+</tbody></table>
+</div>
+<p>The remaining gap would be the gross gap minus compatible finished-car stocks and incremental deliveries available within the quarter, floored at zero. These offsets require separate evidence on inventory, matching price and vehicle segments, and the ability to deliver within the window. The quarter-to-quarter range shows sensitivity to the baseline. It is a scenario range, with no probability attached. Vehicle export diversion, buyer switching and interruptions to upstream inputs are outside this exercise. <a href="out/comext_audit.json">Monthly Eurostat inputs</a> · <a href="out/ev_chain.json">Scenario calculations</a>.</p>
+
+<h2>Global customs context</h2>
+<p>The trade explorer uses reconciled gross export values in US dollars. The global BEV and accumulator series have observations from 2017 in this extract. An em dash indicates that the extract has no value to display. Customs origin for the traded product does not resolve the origins of its parts. <a href="$baci">CEPII BACI V202601</a>.</p>
+<div id="static-trade" class="control" hidden><label for="trade-slider" class="note">Trade year</label><input id="trade-slider" type="range" min="0" max="0" value="0"></div>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Global customs trade">
+<table>
+<caption>World trade by product in <b id="trade-year" aria-live="polite">$trade_year</b></caption>
+<thead><tr><th scope="col">Traded good</th><th scope="col">World export value</th><th scope="col">Leading exporter</th><th scope="col">Product boundary</th></tr></thead>
+<tbody id="trade-body">
+$trade_rows
+</tbody></table>
+</div>
+
+<h2>What would establish a binding production constraint?</h2>
+<p>A component is binding within a disruption window if getting more of it would restore feasible deliveries, with other constraints held fixed. The test needs plant and platform data on planned output, parts per vehicle, current inventories, contracted allocations, compatible suppliers and the earliest time an alternative can ship. Track assembly loss and finished-vehicle import loss separately so a vehicle missing for both reasons is counted once. Compare the model with a documented disruption before reporting effects on real output or claiming that a given policy reduces them.</p>
+<aside class="panel" aria-labelledby="revision">
+  <h2 id="revision">Revision note · 24 November 2026</h2>
+  <p>The previous overview used a single battery-value percentage without a matched cost or price denominator, and treated concentrated upstream stages as binding constraints. This revision uses separate output and import measures and documents the limits on replacing a part or a finished vehicle.</p>
+</aside>
+</article>
+</main>
+<footer class="siteftr"><div class="wrap">
+  <div><h4>Critical Materials Atlas</h4>Public-data value-chain research.</div>
+  <div><h4>Study data</h4><a href="out/ev_chain.json">Evidence JSON</a><br><a href="out/comext_audit.json">Eurostat data</a><br><a href="out/ev_trade.json">Global trade JSON</a></div>
+  <div><h4>Related</h4><a href="../value-chains">All value chains</a><br><a href="../battery-chain/battery-chain">Battery chain</a><br><a href="../magnet-chain/magnet-chain">Magnet chain</a></div>
+  <div class="fineprint">Found an error, or want to challenge a figure? Write to <a href="mailto:contact@criticalmaterialsatlas.org">contact@criticalmaterialsatlas.org</a>.</div>
+</div></footer>
+<script>window.CHAIN_TRADE='out/ev_trade.json';</script>
+<script src="../chain-assets/chainview.js"></script>
+</body>
+</html>

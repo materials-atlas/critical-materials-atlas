@@ -1,0 +1,327 @@
+{
+  "dataset": "Eurostat Comext DS-045409",
+  "reporter": "EU27_2020",
+  "flow": "1 (imports)",
+  "unit": {
+    "SUPPLEMENTARY_QUANTITY": "vehicles",
+    "VALUE_IN_EUROS": "nominal euros"
+  },
+  "products": {
+    "87038010": "New battery-electric cars",
+    "87038090": "Used battery-electric cars",
+    "87036010": "New petrol plug-in hybrid cars",
+    "87036090": "Used petrol plug-in hybrid cars"
+  },
+  "annual": {
+    "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=A&reporter=EU27_2020&flow=1&product=87038010&product=87038090&product=87036010&product=87036090&partner=CN&partner=EXT_EU27_2020&indicators=SUPPLEMENTARY_QUANTITY&indicators=VALUE_IN_EUROS&time=2024&time=2025",
+    "updated": "2026-11-13T11:00:00+0100",
+    "rows": {
+      "2024": {
+        "87038010": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 439419,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 8878076161,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 657732,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 15788758934,
+              "status": null
+            }
+          }
+        },
+        "87038090": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 403,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 5730712,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 9759,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 91312444,
+              "status": null
+            }
+          }
+        },
+        "87036010": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 42587,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 1084010702,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 199602,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 7919311714,
+              "status": null
+            }
+          }
+        },
+        "87036090": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 59,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 1526708,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 44131,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 178310323,
+              "status": null
+            }
+          }
+        }
+      },
+      "2025": {
+        "87038010": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 437190,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 6396214023,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 738789,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 14915670980,
+              "status": null
+            }
+          }
+        },
+        "87038090": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 445,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 5997100,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 58829,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 140532176,
+              "status": null
+            }
+          }
+        },
+        "87036010": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 171431,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 3583296099,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 378244,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 12158110835,
+              "status": null
+            }
+          }
+        },
+        "87036090": {
+          "CN": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 587,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 13127154,
+              "status": null
+            }
+          },
+          "EXT_EU27_2020": {
+            "SUPPLEMENTARY_QUANTITY": {
+              "value": 266985,
+              "status": null
+            },
+            "VALUE_IN_EUROS": {
+              "value": 199825877,
+              "status": null
+            }
+          }
+        }
+      }
+    }
+  },
+  "monthly": {
+    "query": "https://ec.europa.eu/eurostat/api/comext/dissemination/statistics/1.0/data/DS-045409?format=JSON&lang=EN&freq=M&reporter=EU27_2020&flow=1&product=87038010&product=87036010&partner=CN&indicators=SUPPLEMENTARY_QUANTITY&time=2025-01&time=2025-02&time=2025-03&time=2025-04&time=2025-05&time=2025-06&time=2025-07&time=2025-08&time=2025-09&time=2025-10&time=2025-11&time=2025-12",
+    "updated": "2026-11-13T11:00:00+0100",
+    "rows": {
+      "2025-01": {
+        "87038010": {
+          "value": 25523,
+          "status": null
+        },
+        "87036010": {
+          "value": 8692,
+          "status": null
+        }
+      },
+      "2025-02": {
+        "87038010": {
+          "value": 33642,
+          "status": null
+        },
+        "87036010": {
+          "value": 10640,
+          "status": null
+        }
+      },
+      "2025-03": {
+        "87038010": {
+          "value": 29825,
+          "status": null
+        },
+        "87036010": {
+          "value": 10622,
+          "status": null
+        }
+      },
+      "2025-04": {
+        "87038010": {
+          "value": 24980,
+          "status": null
+        },
+        "87036010": {
+          "value": 12401,
+          "status": null
+        }
+      },
+      "2025-05": {
+        "87038010": {
+          "value": 37023,
+          "status": null
+        },
+        "87036010": {
+          "value": 9405,
+          "status": null
+        }
+      },
+      "2025-06": {
+        "87038010": {
+          "value": 40356,
+          "status": null
+        },
+        "87036010": {
+          "value": 11455,
+          "status": null
+        }
+      },
+      "2025-07": {
+        "87038010": {
+          "value": 41479,
+          "status": null
+        },
+        "87036010": {
+          "value": 19140,
+          "status": null
+        }
+      },
+      "2025-08": {
+        "87038010": {
+          "value": 41452,
+          "status": null
+        },
+        "87036010": {
+          "value": 19907,
+          "status": null
+        }
+      },
+      "2025-09": {
+        "87038010": {
+          "value": 39835,
+          "status": null
+        },
+        "87036010": {
+          "value": 19807,
+          "status": null
+        }
+      },
+      "2025-10": {
+        "87038010": {
+          "value": 33081,
+          "status": null
+        },
+        "87036010": {
+          "value": 17151,
+          "status": null
+        }
+      },
+      "2025-11": {
+        "87038010": {
+          "value": 57329,
+          "status": null
+        },
+        "87036010": {
+          "value": 15791,
+          "status": null
+        }
+      },
+      "2025-12": {
+        "87038010": {
+          "value": 32665,
+          "status": null
+        },
+        "87036010": {
+          "value": 16420,
+          "status": null
+        }
+      }
+    }
+  }
+}

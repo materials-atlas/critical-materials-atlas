@@ -1,165 +1,146 @@
 {
-  "title": "Electric-vehicle chain",
+  "title": "Electric-vehicle supply depends on where cars and parts are made",
+  "revision": "2026-11-24",
+  "published": true,
   "chokepoint": {
     "product": "Electric vehicles",
-    "stage": "Assembly",
-    "mechanism": "diffuse",
-    "physics": "Assembly is switchable and localises near demand; the real chokepoint is upstream (battery/magnet)",
-    "holder": "China",
-    "share": "~70%",
+    "stage": "Potential assembly and component constraints",
+    "mechanism": "capability",
+    "physics": "Assembly and key components are concentrated. A binding stage depends on usable capacity, the vehicle design and the disruption.",
+    "holder": "China (output)",
+    "share": "—",
     "control": "—",
-    "conf": "estimate"
+    "conf": "estimate",
+    "research": true
   },
-  "published": true,
-  "related": [
-    {
-      "href": "../battery-chain/battery-chain",
-      "label": "Battery chain"
-    },
-    {
-      "href": "../magnet-chain/magnet-chain",
-      "label": "Rare-earth magnet chain"
-    }
-  ],
-  "accent": "#3f6ea5",
-  "eyebrow": "Product-chain pilot · the car that plugs in",
-  "h1": "An EV is a battery with a car around it",
-  "deck": "The electric car's supply story is mostly two chains it contains: the battery pack (its costliest part and its real chokepoint) and the magnet motor. On top of those, assembly itself has concentrated — China builds about 70% of the world's electric cars — while most EVs are sold near where they are made.",
-  "byline": "battery (its own chokepoint) ≠ magnet motor (substitutable) ≠ assembly (~70% CN) ≠ sold near home",
-  "correction": "Chasing 'EV minerals' misses where the dependence sits. The battery is ~40% of the value and carries the lithium/nickel/cobalt/graphite chokepoint (see the battery chain); the traction motor uses magnet rare earths (see the magnet chain) — but that one is substitutable with induction or wound-rotor designs. The newest concentration is plain assembly: China makes ~70% of the cars.",
-  "stats": [
-    {
-      "v": "~70%",
-      "l": "of the world's electric cars are produced in China (2025)",
-      "conf": "measured"
-    },
-    {
-      "v": "~16M",
-      "l": "electric cars China built in 2025, of ~22M worldwide",
-      "conf": "measured"
-    },
-    {
-      "v": "~25%",
-      "l": "only a quarter of EVs are traded between major regions — production localises",
-      "conf": "measured"
-    },
-    {
-      "v": "substitutable",
-      "l": "the magnet motor can be swapped for induction / wound-rotor; the battery can't",
-      "conf": "estimate"
-    }
-  ],
-  "hops": [
-    {
-      "n": "1 · Battery pack",
-      "t": "the costliest part — its own mine-to-cell chokepoint (see the battery chain)"
-    },
-    {
-      "n": "2 · Traction motor",
-      "t": "magnet (NdFeB) or magnet-free induction / wound-rotor design"
-    },
-    {
-      "n": "3 · Power electronics",
-      "t": "inverter and controls — increasingly silicon-carbide semiconductors"
-    },
-    {
-      "n": "4 · Vehicle",
-      "t": "body, chassis, software and powertrain assembled — ~70% in China"
-    }
-  ],
-  "sections": [
-    {
-      "h2": "1 · The chokepoint the EV inherits",
-      "panels": [
-        {
-          "kind": "big",
-          "h3": "Assembly concentrated",
-          "big": "~70% China",
-          "conf": "measured",
-          "text": "Of roughly 22 million electric cars made in 2025, about 16 million were built in China, which also exported more than 2.5 million — around 40% of world EV exports. So beyond the battery and magnet chains it contains, the EV has a concentration of its own at the point of final assembly, backed by the deepest local supplier base.",
-          "note": "IEA Global EV Outlook 2026."
-        },
-        {
-          "kind": "text",
-          "h3": "The battery is the real dependency",
-          "text": "The pack is the single most expensive part of an EV and the one with the deepest supply chain — lithium, nickel, cobalt and graphite, refined and assembled ~80–90% in China. Securing 'EV supply' mostly means securing that battery chain; the rest of the car is conventional automotive manufacturing that many countries already do.",
-          "flag": "see the battery chain"
-        }
-      ]
-    },
-    {
-      "h2": "2 · The motor: a chokepoint you can design around",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Magnet motor vs magnet-free",
-          "conf": "measured",
-          "text": "Most EVs use permanent-magnet synchronous motors, tying them to neodymium and dysprosium (the magnet chain). But Tesla, Renault and others ship induction or externally-excited wound-rotor motors that use no magnet rare earths at all. The rare-earth exposure in an EV is therefore a design choice — unlike the battery, it can be engineered out.",
-          "note": "US DOE, Electric Motors R&D.",
-          "flag": "substitutable, unlike the battery"
-        }
-      ]
-    },
-    {
-      "h2": "3 · Why trade understates the dependence",
-      "panels": [
-        {
-          "kind": "text",
-          "h3": "Cars are made near where they're sold",
-          "text": "Only about a quarter of electric cars cross between major regions — automakers localise assembly behind tariffs and to be near customers. So EV trade flows look diversified even though the upstream (batteries, cells, magnets) is highly concentrated. The finished-car map is the least informative layer of this chain; the battery and magnet maps are the real ones.",
-          "flag": "the finished-car map hides the upstream"
-        }
-      ]
-    }
-  ],
-  "trade_intro": "BACI carries electric passenger cars (HS 870380) and lithium-ion batteries (850760), but a finished EV's origin is its assembly plant, which sits atop battery and magnet chains that customs data does not decompose. Read the shares below as assembly/trade positions, not the upstream concentration that actually constrains the car.",
-  "method": [
-    {
-      "stage": "Battery",
-      "lens": "battery-chain analysis",
-      "why": "~40% of value; the inherited mine-to-cell chokepoint"
-    },
-    {
-      "stage": "Motor",
-      "lens": "magnet vs magnet-free design",
-      "why": "rare-earth exposure is substitutable"
-    },
-    {
-      "stage": "Assembly",
-      "lens": "IEA EV production share",
-      "why": "~70% China — the EV's own concentration"
-    },
-    {
-      "stage": "Trade",
-      "lens": "BACI 870380 cars + 850760 cells",
-      "why": "assembly-point origin; ~25% traded — flagged context"
-    }
-  ],
   "sources": {
-    "iea_ev_2026": {
-      "title": "IEA, Global EV Outlook 2026 — Trends in electric cars",
-      "year": 2026,
-      "url": "https://www.iea.org/reports/global-ev-outlook-2026/trends-in-electric-cars"
-    },
-    "iea_trade_2026": {
+    "iea_trade": {
       "title": "IEA, Global EV Outlook 2026 — Manufacturing and trade",
-      "year": 2026,
       "url": "https://www.iea.org/reports/global-ev-outlook-2026/manufacturing-and-trade"
     },
-    "iea_batteries_2026": {
+    "iea_batteries": {
       "title": "IEA, Global EV Outlook 2026 — Electric vehicle batteries",
-      "year": 2026,
       "url": "https://www.iea.org/reports/global-ev-outlook-2026/electric-vehicle-batteries"
     },
-    "doe_motors": {
-      "title": "US DOE, Electric Motors Research and Development",
-      "year": 2026,
-      "url": "https://www.energy.gov/cmei/vehicles/electric-motors-research-and-development"
+    "comext": {
+      "title": "Eurostat Comext, DS-045409",
+      "url": "https://ec.europa.eu/eurostat/databrowser/view/ds-045409/default/table?lang=en"
     },
     "baci": {
       "title": "CEPII BACI V202601, based on UN Comtrade",
-      "year": 2026,
       "url": "https://www.cepii.fr/CEPII/en/bdd_modele/bdd_modele_item.asp?id=37"
+    },
+    "renault": {
+      "title": "Renault, Mégane E-Tech production motor",
+      "url": "https://www.renaultgroup.com/en/magazine/energy-and-motorization/all-about-electric-motors-with-no-rare-earths/"
+    },
+    "volkswagen": {
+      "title": "Volkswagen, ID.4 Pro 4MOTION specifications",
+      "url": "https://www.volkswagen-newsroom.com/en/volkswagen-id4-pro-4motion-15130/specifications-of-the-id4-pro-4motion-15140"
+    },
+    "doe": {
+      "title": "US Department of Energy, Advanced Motors and Electric Drives",
+      "url": "https://www.energy.gov/cmei/vehicles/research-and-development-advanced-motors-and-electric-drives"
     }
+  },
+  "annual_customs": {
+    "evidence": "calculated from reported Eurostat imports",
+    "scope": "EU-27 extra-EU imports of new BEVs and new petrol PHEVs by declared origin",
+    "snapshot": "comext_audit.json",
+    "rows": [
+      {
+        "year": 2024,
+        "code": "87038010",
+        "from_china": 439419,
+        "extra_eu": 657732,
+        "from_china_eur": 8878076161,
+        "extra_eu_eur": 15788758934
+      },
+      {
+        "year": 2024,
+        "code": "87036010",
+        "from_china": 42587,
+        "extra_eu": 199602,
+        "from_china_eur": 1084010702,
+        "extra_eu_eur": 7919311714
+      },
+      {
+        "year": 2025,
+        "code": "87038010",
+        "from_china": 437190,
+        "extra_eu": 738789,
+        "from_china_eur": 6396214023,
+        "extra_eu_eur": 14915670980
+      },
+      {
+        "year": 2025,
+        "code": "87036010",
+        "from_china": 171431,
+        "extra_eu": 378244,
+        "from_china_eur": 3583296099,
+        "extra_eu_eur": 12158110835
+      }
+    ]
+  },
+  "disruption": {
+    "evidence": "modelled",
+    "baseline": "Each calendar quarter of 2025 replayed separately",
+    "scope": "New cars of matching product code entering the EU from China",
+    "shock_share": 0.5,
+    "stock_or_replacement_credited": 0,
+    "rounding": "half a vehicle rounds up",
+    "rows": [
+      {
+        "quarter": 1,
+        "observed_from_china": {
+          "87038010": 88990,
+          "87036010": 29954
+        },
+        "gross_gap": {
+          "87038010": 44495,
+          "87036010": 14977
+        }
+      },
+      {
+        "quarter": 2,
+        "observed_from_china": {
+          "87038010": 102359,
+          "87036010": 33261
+        },
+        "gross_gap": {
+          "87038010": 51180,
+          "87036010": 16631
+        }
+      },
+      {
+        "quarter": 3,
+        "observed_from_china": {
+          "87038010": 122766,
+          "87036010": 58854
+        },
+        "gross_gap": {
+          "87038010": 61383,
+          "87036010": 29427
+        }
+      },
+      {
+        "quarter": 4,
+        "observed_from_china": {
+          "87038010": 123075,
+          "87036010": 49362
+        },
+        "gross_gap": {
+          "87038010": 61538,
+          "87036010": 24681
+        }
+      }
+    ]
+  },
+  "baci_trade": {
+    "boundary": {
+      "870380": "Finished cars powered solely by an electric motor. Excludes plug-in hybrids. No origin for the parts inside the car is recorded here.",
+      "850760": "Lithium-ion accumulators across end uses. Includes cells, modules and packs. EV end use and the origin of upstream inputs cannot be isolated."
+    },
+    "snapshot": "ev_trade.json"
   }
 }
